@@ -37,8 +37,21 @@ class AiAnalysisRepositoryImpl @Inject constructor(
 
     companion object {
         private const val TAG = "AiAnalysis"
-        private const val MAX_TOKENS = 1024
+        private const val MAX_TOKENS = 50
         private const val TEMPERATURE = 0.0f
+
+        /**
+         * Maximum character length for commands sent to AI analysis.
+         *
+         * The context window is 512 tokens. Budget:
+         * - System prompt: ~80-100 tokens
+         * - ChatML wrapping: ~30 tokens
+         * - Generation (MAX_TOKENS): 150 tokens
+         * - Available for user command: ~200 tokens ≈ 1000 chars
+         *
+         * Commands exceeding this are truncated with a notice to the model.
+         */
+        const val MAX_COMMAND_LENGTH = 2000
     }
 
     private val json = Json {
@@ -83,7 +96,13 @@ class AiAnalysisRepositoryImpl @Inject constructor(
             Log.d(TAG, "Cache MISS for command hash=$commandHash, model=$modelId")
         }
 
-        // 2. Ensure model is loaded
+        // 2. Check if engine is busy (previous inference still running)
+        if (inferenceEngine.isBusy()) {
+            Log.w(TAG, "Inference engine is busy, cannot start new analysis")
+            return AnalysisResult.error("Analysis is already in progress. Please wait and try again.")
+        }
+
+        // 3. Ensure model is loaded
         val model = ModelRegistry.findById(modelId)
             ?: return AnalysisResult.error("Selected model not found").also {
                 Log.e(TAG, "Model not found for id=$modelId")
@@ -130,7 +149,7 @@ class AiAnalysisRepositoryImpl @Inject constructor(
         val result = AiResponseParser.parse(rawResponse)
         Log.d(
             TAG,
-            "Parsed result: status=${result.status}, description=${result.description.take(100)}, dangerLevel=${result.dangerLevel}"
+            "Parsed result: status=${result.status}, description=${result.description.take(100)}"
         )
 
         // 5. Cache result

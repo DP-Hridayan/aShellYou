@@ -180,6 +180,14 @@ class SettingsViewModel @Inject constructor(
                     SettingsUiEvent.Navigate(NavRoutes.DarkThemeScreen())
                 )
 
+                SettingsKeys.UI_SCALE -> _uiEvent.emit(
+                    SettingsUiEvent.Navigate(NavRoutes.UiScaleScreen)
+                )
+
+                SettingsKeys.FONT_FAMILY -> _uiEvent.emit(
+                    SettingsUiEvent.ShowFontStylesBottomSheet
+                )
+
                 SettingsKeys.RESET_APP_SETTINGS -> _uiEvent.emit(
                     SettingsUiEvent.ShowDialog(DialogKey.Settings.ResetSettings)
                 )
@@ -256,6 +264,10 @@ class SettingsViewModel @Inject constructor(
 
                 SettingsKeys.AI_CACHE_DAYS -> _uiEvent.emit(
                     SettingsUiEvent.ShowDialog(DialogKey.Settings.AiCacheDays)
+                )
+
+                SettingsKeys.AI_CACHE_CLEAR -> _uiEvent.emit(
+                    SettingsUiEvent.ShowDialog(DialogKey.Settings.AiCacheClearConfirmation)
                 )
 
                 else -> {}

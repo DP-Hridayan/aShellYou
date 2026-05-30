@@ -67,9 +67,11 @@ fun AshellYouTheme(
         else -> lightColorSchemeFromSeed()
     }
 
+    val fontFamily = LocalSettings.current.fontFamily
+
     MaterialExpressiveTheme(
         colorScheme = colorScheme,
-        typography = appTypography(),
+        typography = appTypography(fontFamily),
         content = content
     )
 }

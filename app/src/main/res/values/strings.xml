@@ -31,6 +31,7 @@
     <string name="app_crashed">App has crashed</string>
     <string name="app_name" translatable="false">aShell You</string>
     <string name="app_tagline">ADB at your fingertips</string>
+    <string name="apply">Apply</string>
     <string name="apply_to_all">Apply to all (%1$d remaining)</string>
     <string name="artifact_id">Artifact ID</string>
     <string name="auto_update">Auto update</string>
@@ -67,6 +68,7 @@
     <string name="clear">Clear</string>
     <string name="clear_all_message">Are you sure you want to clear everything on this screen?</string>
     <string name="clear_analysis_cache">Clear analysis cache</string>
+    <string name="clear_cache">Clear cache</string>
     <string name="clear_everything">Clear everything</string>
     <string name="clear_output_confirmation">Clear output confirmation</string>
     <string name="clipboard_empty">Clipboard doesn\'t contain text</string>
@@ -79,6 +81,7 @@
     <string name="code_pair_instruction">Open \"Wireless debugging\" on the target device and tap \"Pair device with pairing code\"</string>
     <string name="collapse">Collapse</string>
     <string name="command">Command</string>
+    <string name="command_analysis">Command analysis</string>
     <string name="command_not_found">Command not found!</string>
     <string name="command_title">Input ADB Command</string>
     <string name="commands">Commands</string>
@@ -87,6 +90,7 @@
     <string name="confirm_bookmark_delete_message">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
     <string name="confirm_delete">Confirm delete</string>
     <string name="confirm_tile_delete_message">Are you sure you want to delete this tile?</string>
+    <string name="confirmation_clear_cache">Caching helps to retrieve analysis results instantly.\nDo you still want to clear all AI analysis cache data?</string>
     <string name="conflict_message">\"%1$s\" already exists in this location.</string>
     <string name="conflict_title">Item already exists</string>
     <string name="connect">Connect</string>
@@ -152,6 +156,8 @@
     <string name="des_enable_direct_download">When turned on, updates will be downloaded directly from GitHub inside the app. Turn off to visit the Github releases page for manual download instead.</string>
     <string name="des_examples">Collection of some command templates</string>
     <string name="des_feature_request">If you have any ideas or suggestions for the app, let us know</string>
+    <string name="des_font_family">Change the font style of the application</string>
+    <string name="des_font_size">Adjust font size to make text in the app appear larger or smaller</string>
     <string name="des_haptics_and_vibration">Interactive haptics for touch feedback</string>
     <string name="des_high_contrast_dark_mode">Pitch black dark theme for devices with OLED display</string>
     <string name="des_hridayan">Just a guy who loves apps and design</string>
@@ -168,10 +174,12 @@
     <string name="des_reset_app_settings">Reset app settings to default values</string>
     <string name="des_restore_app_data">Restore app data from the saved backup file.\nThe saved database will overwrite the current database</string>
     <string name="des_save_whole_output">Enable this option to save output of the whole shell session.\nIf disabled only the last command output will be saved.</string>
+    <string name="des_screen_density">Adjust screen density to make UI elements appear larger or smaller</string>
     <string name="des_sign_in_with_google">Optionally link your Google account for cloud backups</string>
     <string name="des_smooth_scroll">Enables smooth scrolling in the shell output when top or bottom arrow is clicked</string>
     <string name="des_toggleable">When enabled, the tile switches between ON and OFF states on each tap, running a different command for each state</string>
     <string name="des_translators">People who helped translate aShellYou</string>
+    <string name="des_ui_scale">Adjust the scale of UI elements and font size</string>
     <string name="description">Description</string>
     <string name="deselect_all">Deselect all</string>
     <string name="developer">Developer</string>
@@ -270,6 +278,43 @@
     <string name="folder_info">Folder Info</string>
     <string name="folder_name">Folder name</string>
     <string name="folder_picker">Folder picker</string>
+    <string name="font_amatic_sc">Amatic SC</string>
+    <string name="font_cabin">Cabin</string>
+    <string name="font_caveat">Caveat</string>
+    <string name="font_comfortaa">Comfortaa</string>
+    <string name="font_crimson_pro">Crimson Pro</string>
+    <string name="font_dancing_script">Dancing Script</string>
+    <string name="font_display_text">The quick brown fox jumps over the lazy dog</string>
+    <string name="font_eb_garamond">EB Garamond</string>
+    <string name="font_exo_2">Exo 2</string>
+    <string name="font_family">Font family</string>
+    <string name="font_heebo">Heebo</string>
+    <string name="font_inter">Inter</string>
+    <string name="font_josefin_sans">Josefin Sans</string>
+    <string name="font_karla">Karla</string>
+    <string name="font_lexend">Lexend</string>
+    <string name="font_lora">Lora</string>
+    <string name="font_manrope">Manrope</string>
+    <string name="font_montserrat">Montserrat</string>
+    <string name="font_noto_sans">Noto Sans</string>
+    <string name="font_nunito">Nunito</string>
+    <string name="font_open_sans">Open Sans</string>
+    <string name="font_oswald">Oswald</string>
+    <string name="font_outfit">Outfit</string>
+    <string name="font_pacifico">Pacifico</string>
+    <string name="font_playfair_display">Playfair Display</string>
+    <string name="font_playpen_sans">Playpen Sans</string>
+    <string name="font_plus_jakarta_sans">Plus Jakarta Sans</string>
+    <string name="font_public_sans">Public Sans</string>
+    <string name="font_quicksand">Quicksand</string>
+    <string name="font_raleway">Raleway</string>
+    <string name="font_roboto_flex">Roboto Flex</string>
+    <string name="font_rubik">Rubik</string>
+    <string name="font_shadows_into_light">Shadows Into Light</string>
+    <string name="font_size_multiplier">Font size multiplier</string>
+    <string name="font_source_sans_3">Source Sans 3</string>
+    <string name="font_source_serif_4">Source Serif 4</string>
+    <string name="font_work_sans">Work Sans</string>
     <string name="forget">Forget</string>
     <string name="forget_device">Forget device</string>
     <string name="forget_device_confirmation">Are you sure you want to forget %1$s? You will need to pair again to connect.</string>
@@ -289,6 +334,7 @@
     <string name="great_news">Great news!</string>
     <string name="haptics_and_vibration">Haptics &amp; Vibration</string>
     <string name="have_a_nice_day">Have a nice day!</string>
+    <string name="high">High</string>
     <string name="high_contrast_dark_mode">High contrast dark mode</string>
     <string name="hint">Hint</string>
     <string name="history">History</string>
@@ -326,17 +372,19 @@
     <string name="local_file">Local file</string>
     <string name="logs">Logs</string>
     <string name="look_and_feel">Look &amp; Feel</string>
+    <string name="low">Low</string>
     <string name="manual_pair">Manual Pair</string>
+    <string name="medium">Medium</string>
     <string name="merge">Merge</string>
     <string name="minimize">Minimize</string>
     <string name="mode">Mode</string>
     <string name="mode_one_desc">Use root access to run commands. Rooted commands can be executed.</string>
     <string name="mode_two_desc">Use shizuku to run commands. Commands that require root won\'t execute.</string>
-    <string name="models">Models</string>
-    <string name="model_category_tiny">Tiny (under 300 MB)</string>
-    <string name="model_category_small">Small (300–500 MB)</string>
-    <string name="model_category_medium">Medium (800 MB–1.1 GB)</string>
     <string name="model_category_large">Large (1.5–2.5 GB)</string>
+    <string name="model_category_medium">Medium (800 MB–1.1 GB)</string>
+    <string name="model_category_small">Small (300–500 MB)</string>
+    <string name="model_category_tiny">Tiny (under 300 MB)</string>
+    <string name="models">Models</string>
     <string name="modified">Modified</string>
     <string name="monospace">Monospace</string>
     <string name="more">More</string>
@@ -466,13 +514,16 @@
     <string name="retry">Retry</string>
     <string name="root" translatable="false">Root</string>
     <string name="root_access_granted">Root access granted!</string>
+    <string name="sans_serif">Sans Serif</string>
     <string name="save">Save</string>
     <string name="save_whole_output">Save whole output</string>
     <string name="saved_devices">Saved devices</string>
     <string name="saving">Saving…</string>
     <string name="saving_output">Exporting output to file…</string>
+    <string name="screen_density_multiplier">Screen density multiplier</string>
     <string name="search">Search</string>
     <string name="search_commands_here">Search commands here</string>
+    <string name="search_fonts">Search fonts…</string>
     <string name="search_icons_here">Search icons here</string>
     <string name="search_labels_here">Search labels here</string>
     <string name="search_libraries">Search libraries, authors, licenses…</string>
@@ -500,6 +551,7 @@
     <string name="self_pair_success_hint">Local ADB shell is now available</string>
     <string name="self_pair_timeout">Timeout - open pairing dialog in Wireless Debugging</string>
     <string name="self_pair_wrong_code">Wrong code - open pairing dialog again</string>
+    <string name="serif">Serif</string>
     <string name="settings">Settings</string>
     <string name="settings_only">Settings only</string>
     <string name="shell_output_saved_message">The output of last command is exported to \'%s\'</string>
@@ -560,6 +612,7 @@
     <string name="turn_off_mobile_data">Turn off Mobile Data if the Wifi connection has NO INTERNET</string>
     <string name="tweak_your_experience">Tweak your experience</string>
     <string name="type">Type</string>
+    <string name="ui_scale">UI scale</string>
     <string name="undo">Undo</string>
     <string name="unknown">Unknown</string>
     <string name="unknown_error">Unknown error occurred</string>
@@ -594,10 +647,6 @@
     <string name="wireless_debugging_guide_3">Come back to the app and click on the \"Start\" button in the home screen.</string>
     <string name="wireless_debugging_important_notice">Please note that the left part of the Wireless Debugging option is clickable. Tapping on it will open the Wireless Debugging Pairing menu.</string>
     <string name="Z_A" translatable="false">Z → A</string>
-    <string name="command_analysis">Command analysis</string>
-    <string name="high">High</string>
-    <string name="medium">Medium</string>
-    <string name="low">Low</string>
 
     /**
     * Changelogs

@@ -321,7 +321,7 @@ fun PaletteStylePickerDialog(
                         },
                         content = {
                             AutoResizeableText(
-                                text = stringResource(R.string.confirm)
+                                text = stringResource(R.string.apply)
                             )
                         }
                     )

@@ -75,13 +75,10 @@ object AiModule {
     @Provides
     fun provideAnalyzeCommandUseCase(
         analysisRepository: AiAnalysisRepository,
-        modelRepository: AiModelRepository,
-        detectDangerLevelUseCase: DetectDangerLevelUseCase,
-        generateCorrectionsUseCase: GenerateCorrectionsUseCase
+        modelRepository: AiModelRepository
     ): AnalyzeCommandUseCase {
         return AnalyzeCommandUseCase(
-            analysisRepository, modelRepository,
-            detectDangerLevelUseCase, generateCorrectionsUseCase
+            analysisRepository, modelRepository
         )
     }
 

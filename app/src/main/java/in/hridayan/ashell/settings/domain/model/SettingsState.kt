@@ -33,5 +33,8 @@ data class SettingsState(
     val lastCloudBackupType: String,
     val selectedModelId: String,
     val aiCacheEnabled: Boolean,
-    val aiCacheDays: Int
+    val aiCacheDays: Int,
+    val screenDensityMultiplier: Float,
+    val fontSizeMultiplier: Float,
+    val fontFamily: Int
 )

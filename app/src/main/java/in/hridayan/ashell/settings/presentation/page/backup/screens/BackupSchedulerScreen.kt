@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
-import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.state.rememberController
@@ -33,6 +33,7 @@ fun BackupSchedulerScreen(
 ) {
     val dialogManager = LocalDialogManager.current
     val controller = settingsViewModel.rememberController()
+    val hapticsEnabled = LocalSettings.current.isHapticEnabled
 
     val listState = rememberLazyListState()
 
@@ -54,15 +55,20 @@ fun BackupSchedulerScreen(
         topBarTitle = stringResource(R.string.backup_scheduler),
         content = { innerPadding, topBarScrollBehavior ->
             LazyColumn(
-                modifier = Modifier.fillMaxWidth().nestedScroll(topBarScrollBehavior.nestedScrollConnection),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
                 contentPadding = innerPadding,
             ) {
                 settingsContent(
                     groups = resolvedGroups,
                     controller = controller,
+                    hapticsEnabled = hapticsEnabled
                 )
 
-                item { Spacer(modifier = Modifier.fillMaxWidth().height(25.dp)) }
+                item { Spacer(modifier = Modifier
+                    .fillMaxWidth()
+                    .height(25.dp)) }
             }
         },
     )

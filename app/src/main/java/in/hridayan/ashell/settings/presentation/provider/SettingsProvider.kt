@@ -5,6 +5,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material.icons.rounded.AutoAwesome
 import androidx.compose.material.icons.rounded.Cached
+import androidx.compose.material.icons.rounded.TextFields
 import androidx.compose.material.icons.rounded.Downloading
 import androidx.compose.material.icons.rounded.Memory
 import androidx.compose.material.icons.rounded.UnfoldMoreDouble
@@ -95,15 +96,33 @@ object SettingsProvider {
                 description = R.string.palette_tonal_spot,
                 icon = R.drawable.ic_pallete
             ),
-        ),
-        category(
-            title = R.string.additional_settings,
             clickableItem(
                 key = SettingsKeys.DARK_THEME,
                 title = R.string.dark_theme,
                 description = R.string.system,
                 iconVector = Icons.Outlined.DarkMode
             ),
+        ),
+        category(
+            title = R.string.font_family,
+            clickableItem(
+                key = SettingsKeys.FONT_FAMILY,
+                title = R.string.font_family,
+                description = R.string.des_font_family,
+                iconVector = Icons.Rounded.TextFields
+            )
+        ),
+        category(
+            title = R.string.ui_scale,
+            clickableItem(
+                key = SettingsKeys.UI_SCALE,
+                title = R.string.ui_scale,
+                description = R.string.des_ui_scale,
+                icon = R.drawable.ic_high_density
+            )
+        ),
+        category(
+            title = R.string.additional_settings,
             switchItem(
                 key = SettingsKeys.HAPTICS_AND_VIBRATION,
                 title = R.string.haptics_and_vibration,
@@ -283,7 +302,7 @@ object SettingsProvider {
     val backupPage = settingsPage(
         screenTitle = R.string.backup_and_restore,
         screenId = "backup_restore",
-        customSlot(BackupSlots.GoogleSignIn),
+        customSlot(BackupScreenCustomSlots.GoogleSignIn),
         category(
             title = R.string.backup,
             clickableItem(
@@ -305,7 +324,7 @@ object SettingsProvider {
                 icon = R.drawable.ic_upload_file
             ),
         ),
-        customSlot(BackupSlots.LastBackupTime),
+        customSlot(BackupScreenCustomSlots.LastBackupTime),
         category(
             title = R.string.restore,
             clickableItem(
@@ -352,6 +371,12 @@ object SettingsProvider {
                 description = R.string.des_ai_cache_days,
                 icon = R.drawable.ic_schedule
             ),
+            clickableItem(
+                key = SettingsKeys.AI_CACHE_CLEAR,
+                title = R.string.clear_analysis_cache,
+                description = R.string.cache_size,
+                icon = R.drawable.ic_delete_sweep
+            )
         ),
     )
 

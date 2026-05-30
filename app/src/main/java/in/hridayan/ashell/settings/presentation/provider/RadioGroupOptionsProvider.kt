@@ -5,6 +5,7 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.domain.model.GithubReleaseType
 import `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.domain.model.SortType
+import `in`.hridayan.ashell.settings.domain.model.AppFont
 import `in`.hridayan.settingsdsl.model.RadioButtonOption
 
 class RadioGroupOptionsProvider {
@@ -89,5 +90,12 @@ class RadioGroupOptionsProvider {
                 labelResId = R.string.least_used
             )
         )
+
+        val fontStyleOptions: List<RadioButtonOption> = AppFont.entries.map {
+            RadioButtonOption(
+                value = it.id,
+                labelResId = it.labelResId
+            )
+        }
     }
 }

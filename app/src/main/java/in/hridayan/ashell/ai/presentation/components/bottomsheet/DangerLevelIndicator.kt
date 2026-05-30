@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.ai.presentation.ui.bottomsheet
+package `in`.hridayan.ashell.ai.presentation.components.bottomsheet
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,6 +17,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -65,7 +66,7 @@ fun DangerLevelIndicator(
         )
     }
 
-    androidx.compose.material3.Surface(
+    Surface(
         modifier = modifier,
         shape = MaterialTheme.shapes.small,
         color = containerColor,

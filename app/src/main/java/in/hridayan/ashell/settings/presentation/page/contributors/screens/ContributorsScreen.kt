@@ -37,6 +37,7 @@ import coil3.compose.SubcomposeAsyncImage
 import coil3.request.ImageRequest
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
@@ -125,7 +126,7 @@ private fun GitHubContributorCard(
     CustomCard(
         modifier = modifier,
         shape = shape,
-        onClick = onClick
+        onClick = withHaptic { onClick() }
     ) {
         Row(
             modifier = Modifier

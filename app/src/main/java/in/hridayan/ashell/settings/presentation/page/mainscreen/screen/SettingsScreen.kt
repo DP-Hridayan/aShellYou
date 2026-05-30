@@ -27,7 +27,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
@@ -46,24 +45,25 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
 import `in`.hridayan.ashell.core.presentation.components.floaters.FloatingIconsBackground
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
-import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.provider.getAllSettingsIcons
-import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.ashell.settings.presentation.state.rememberController
+import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 import `in`.hridayan.settingsdsl.ui.item.settingsContent
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun SettingsScreen(modifier: Modifier = Modifier, viewModel: SettingsViewModel = hiltViewModel()) {
+fun SettingsScreen(viewModel: SettingsViewModel = hiltViewModel()) {
     val navController = LocalNavController.current
+    val hapticsEnabled = LocalSettings.current.isHapticEnabled
     val controller = viewModel.rememberController()
     val floatingIconsResIds = getAllSettingsIcons()
 
@@ -132,7 +132,9 @@ fun SettingsScreen(modifier: Modifier = Modifier, viewModel: SettingsViewModel =
                                 .align(Alignment.CenterHorizontally),
                             text = stringResource(R.string.settings),
                             fontWeight = FontWeight.Black,
-                            style = MaterialTheme.typography.displayLargeEmphasized.copy(letterSpacing = 0.025.em),
+                            style = MaterialTheme.typography.displayLargeEmphasized.copy(
+                                letterSpacing = 0.025.em
+                            ),
                         )
 
                         AutoResizeableText(
@@ -150,10 +152,13 @@ fun SettingsScreen(modifier: Modifier = Modifier, viewModel: SettingsViewModel =
             settingsContent(
                 groups = resolvedGroups,
                 controller = controller,
+                hapticsEnabled = hapticsEnabled
             )
 
             item {
-                Spacer(modifier = Modifier.fillMaxWidth().height(25.dp))
+                Spacer(modifier = Modifier
+                    .fillMaxWidth()
+                    .height(25.dp))
             }
         }
     }
@@ -165,25 +170,60 @@ private fun SpinningGears(modifier: Modifier = Modifier) {
 
     val bigGearRotation by infiniteTransition.animateFloat(
         initialValue = 0f, targetValue = 360f,
-        animationSpec = infiniteRepeatable(animation = tween(10000, easing = LinearEasing), repeatMode = RepeatMode.Restart),
+        animationSpec = infiniteRepeatable(
+            animation = tween(10000, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
+        ),
         label = "bigGear",
     )
     val mediumGearRotation by infiniteTransition.animateFloat(
         initialValue = 0f, targetValue = 360f,
-        animationSpec = infiniteRepeatable(animation = tween(5000, easing = LinearEasing), repeatMode = RepeatMode.Restart),
+        animationSpec = infiniteRepeatable(
+            animation = tween(5000, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
+        ),
         label = "mediumGear",
     )
     val smallGearRotation by infiniteTransition.animateFloat(
         initialValue = 0f, targetValue = 360f,
-        animationSpec = infiniteRepeatable(animation = tween(3500, easing = LinearEasing), repeatMode = RepeatMode.Restart),
+        animationSpec = infiniteRepeatable(
+            animation = tween(3500, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
+        ),
         label = "smallGear",
     )
 
     BoxWithConstraints(modifier = modifier.aspectRatio(0.9f)) {
         val base = minOf(maxWidth, maxHeight)
 
-        Icon(modifier = Modifier.size(base * 0.7f).align(Alignment.BottomStart).graphicsLayer { rotationZ = bigGearRotation }, tint = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.9f), painter = painterResource(R.drawable.ic_settings_filled), contentDescription = null)
-        Icon(modifier = Modifier.size(base * 0.35f).align(Alignment.TopEnd).offset(x = -base * 0.1f, y = base * 0.1f).graphicsLayer { rotationZ = mediumGearRotation }, tint = MaterialTheme.colorScheme.primary.copy(alpha = 0.75f), painter = painterResource(R.drawable.ic_settings_filled), contentDescription = null)
-        Icon(modifier = Modifier.size(base * 0.18f).align(Alignment.CenterEnd).offset(y = base * 0.03f).graphicsLayer { rotationZ = smallGearRotation }, tint = MaterialTheme.colorScheme.secondary.copy(alpha = 0.6f), painter = painterResource(R.drawable.ic_settings_filled), contentDescription = null)
+        Icon(
+            modifier = Modifier
+                .size(base * 0.7f)
+                .align(Alignment.BottomStart)
+                .graphicsLayer { rotationZ = bigGearRotation },
+            tint = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.9f),
+            painter = painterResource(R.drawable.ic_settings_filled),
+            contentDescription = null
+        )
+        Icon(
+            modifier = Modifier
+                .size(base * 0.35f)
+                .align(Alignment.TopEnd)
+                .offset(x = -base * 0.1f, y = base * 0.1f)
+                .graphicsLayer { rotationZ = mediumGearRotation },
+            tint = MaterialTheme.colorScheme.primary.copy(alpha = 0.75f),
+            painter = painterResource(R.drawable.ic_settings_filled),
+            contentDescription = null
+        )
+        Icon(
+            modifier = Modifier
+                .size(base * 0.18f)
+                .align(Alignment.CenterEnd)
+                .offset(y = base * 0.03f)
+                .graphicsLayer { rotationZ = smallGearRotation },
+            tint = MaterialTheme.colorScheme.secondary.copy(alpha = 0.6f),
+            painter = painterResource(R.drawable.ic_settings_filled),
+            contentDescription = null
+        )
     }
 }

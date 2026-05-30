@@ -20,8 +20,13 @@ import javax.inject.Singleton
  * Features:
  * - Lazy model loading (loads on first inference)
  * - Mutex-guarded inference (only one concurrent request)
+ * - Non-blocking busy checks to prevent ANR when inference is in progress
  * - Automatic model unloading after idle timeout (5 minutes)
  * - Memory-aware loading
+ *
+ * **Important**: All JNI calls to [LlamaCppBridge] acquire a native C++ mutex (`g_mutex`).
+ * To prevent ANR, callers MUST check [isBusy] before calling any method that touches JNI.
+ * Methods in this class are designed to fail-fast when the engine is busy.
  */
 @Singleton
 class LlamaInferenceEngine @Inject constructor() {
@@ -38,16 +43,28 @@ class LlamaInferenceEngine @Inject constructor() {
     }
 
     /**
+     * Whether the engine is currently busy (inference or model loading in progress).
+     *
+     * When true, ALL JNI calls will block on the native mutex, so callers
+     * must check this and bail early to avoid ANR.
+     */
+    fun isBusy(): Boolean = mutex.isLocked
+
+    /**
      * Load a GGUF model from the given path.
      * If a different model is already loaded, it will be unloaded first.
      *
      * @param modelPath Absolute path to the .gguf model file
      * @param contextSize Context window size (default: 2048)
      * @return true if the model was loaded successfully
+     * @throws IllegalStateException if the engine is busy with another operation
      */
-    suspend fun loadModel(modelPath: String, contextSize: Int = 2048): Boolean =
+    suspend fun loadModel(modelPath: String, contextSize: Int = 512): Boolean =
         withContext(Dispatchers.Default) {
-            mutex.withLock {
+            if (!mutex.tryLock()) {
+                throw IllegalStateException("Engine is busy. Please wait and try again.")
+            }
+            try {
                 cancelIdleTimeout()
 
                 // If same model is already loaded, skip
@@ -77,27 +94,36 @@ class LlamaInferenceEngine @Inject constructor() {
                     Log.e(TAG, "Model loading FAILED after ${elapsed}ms")
                 }
                 success
+            } finally {
+                mutex.unlock()
             }
         }
 
     /**
      * Run inference with the currently loaded model.
-     * Blocks until inference completes.
+     *
+     * If a previous inference is still running (mutex held), this throws
+     * immediately instead of blocking, preventing ANR.
      *
      * @param systemPrompt System prompt for the model
      * @param userPrompt User prompt (the command to analyze)
      * @param maxTokens Maximum tokens to generate
      * @param temperature Sampling temperature
      * @return Generated text response
-     * @throws IllegalStateException if no model is loaded
+     * @throws IllegalStateException if no model is loaded or inference is already running
      */
     suspend fun runInference(
         systemPrompt: String,
         userPrompt: String,
-        maxTokens: Int = 512,
+        maxTokens: Int = 150,
         temperature: Float = 0.1f
     ): String = withContext(Dispatchers.Default) {
-        mutex.withLock {
+        // Use tryLock instead of withLock to avoid blocking indefinitely
+        // when a previous JNI inference call is still in progress.
+        if (!mutex.tryLock()) {
+            throw IllegalStateException("Another inference is already running. Please wait and try again.")
+        }
+        try {
             cancelIdleTimeout()
 
             if (!LlamaCppBridge.isModelLoaded()) {
@@ -121,13 +147,20 @@ class LlamaInferenceEngine @Inject constructor() {
 
             resetIdleTimeout()
             result
+        } finally {
+            mutex.unlock()
         }
     }
 
     /**
      * Unload the current model and free native resources.
+     * No-op if the engine is busy (to avoid blocking on native mutex).
      */
     fun unloadModel() {
+        if (isBusy()) {
+            Log.w(TAG, "Cannot unload model while engine is busy")
+            return
+        }
         cancelIdleTimeout()
         if (LlamaCppBridge.isModelLoaded()) {
             LlamaCppBridge.unloadModel()
@@ -137,8 +170,12 @@ class LlamaInferenceEngine @Inject constructor() {
 
     /**
      * Check if a model is currently loaded and ready for inference.
+     *
+     * Uses Kotlin-level state ([currentModelPath]) instead of calling JNI,
+     * so this method is safe to call even while the engine is busy.
+     * The [currentModelPath] is always kept in sync with native state.
      */
-    fun isModelLoaded(): Boolean = LlamaCppBridge.isModelLoaded()
+    fun isModelLoaded(): Boolean = currentModelPath != null
 
     /**
      * Get the path of the currently loaded model, if any.
@@ -154,10 +191,15 @@ class LlamaInferenceEngine @Inject constructor() {
         cancelIdleTimeout()
         idleTimeoutJob = scope.launch {
             delay(IDLE_TIMEOUT_MS)
-            mutex.withLock {
-                if (LlamaCppBridge.isModelLoaded()) {
-                    LlamaCppBridge.unloadModel()
-                    currentModelPath = null
+            // Use tryLock to avoid blocking if inference started during the delay
+            if (mutex.tryLock()) {
+                try {
+                    if (LlamaCppBridge.isModelLoaded()) {
+                        LlamaCppBridge.unloadModel()
+                        currentModelPath = null
+                    }
+                } finally {
+                    mutex.unlock()
                 }
             }
         }

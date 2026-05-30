@@ -4,6 +4,7 @@
 #include <mutex>
 #include <thread>
 #include <algorithm>
+#include <stdexcept>
 #include <android/log.h>
 #include "llama.h"
 
@@ -16,6 +17,9 @@ static std::mutex g_mutex;
 static llama_model *g_model = nullptr;
 static llama_context *g_ctx = nullptr;
 static int g_n_ctx = 2048;
+static std::vector<llama_token> g_system_tokens;
+static bool g_system_prompt_evaluated = false;
+static std::string g_cached_system_prompt;
 
 /**
  * RAII wrapper to safely release GetStringUTFChars strings on destruction.
@@ -81,22 +85,7 @@ static jstring make_json_error(JNIEnv *env, const char *status, const char *desc
     return env->NewStringUTF(json.c_str());
 }
 
-/**
- * Builds a ChatML-formatted prompt from the system and user prompts.
- */
-static std::string build_chatml_prompt(const std::string &system_prompt,
-                                       const std::string &user_prompt) {
-    std::string prompt;
-    prompt.reserve(system_prompt.size() + user_prompt.size() + 128);
-    prompt += "<|im_start|>system\n";
-    prompt += system_prompt;
-    prompt += "\n<|im_end|>\n";
-    prompt += "<|im_start|>user\n";
-    prompt += user_prompt;
-    prompt += "\n<|im_end|>\n";
-    prompt += "<|im_start|>assistant\n";
-    return prompt;
-}
+
 
 /**
  * Recreates the llama context to clear the KV cache.
@@ -111,7 +100,7 @@ static bool recreate_context() {
 
     auto ctx_params = llama_context_default_params();
     ctx_params.n_ctx = static_cast<uint32_t>(g_n_ctx);
-    ctx_params.n_batch = 512;
+    ctx_params.n_batch = 2048;
 
     // Use 4 threads to target high-performance cores and avoid little-core bottlenecks
     unsigned int hardware_threads = std::thread::hardware_concurrency();
@@ -169,6 +158,9 @@ Java_in_hridayan_ashell_ai_native_LlamaCppBridge_loadModel(
     }
 
     g_n_ctx = static_cast<int>(context_size);
+    g_system_tokens.clear();
+    g_system_prompt_evaluated = false;
+    g_cached_system_prompt.clear();
     if (!recreate_context()) {
         LOGE("Failed to create context");
         llama_model_free(g_model);
@@ -178,6 +170,205 @@ Java_in_hridayan_ashell_ai_native_LlamaCppBridge_loadModel(
 
     LOGI("Model loaded successfully. Context size: %d", g_n_ctx);
     return JNI_TRUE;
+}
+
+/**
+ * Internal inference implementation.
+ * Separated from the JNI entry point so the caller can wrap it in try-catch.
+ * Implements chunked batch decoding to respect n_batch limits.
+ */
+/**
+ * Internal inference implementation.
+ * Separated from the JNI entry point so the caller can wrap it in try-catch.
+ * Implements KV Cache prompt caching using standard llama_batch_get_one.
+ */
+static jstring run_inference_internal(JNIEnv *env,
+                                      const JniString &sys_str,
+                                      const JniString &user_str,
+                                      jint max_tokens,
+                                      jfloat temperature) {
+
+    const llama_vocab *vocab = llama_model_get_vocab(g_model);
+    if (!vocab) {
+        LOGE("Failed to retrieve model vocabulary");
+        return make_json_error(env, "INVALID", "Failed to retrieve model vocabulary");
+    }
+
+    // Build the system-part and user-part ChatML prompts
+    std::string sys_prompt = "<|im_start|>system\n" + sys_str.to_std_string() + "\n<|im_end|>\n";
+    std::string user_prompt = "<|im_start|>user\n" + user_str.to_std_string() + "\n<|im_end|>\n<|im_start|>assistant\n";
+    std::string combined_prompt = sys_prompt + user_prompt;
+
+    llama_memory_t mem = llama_get_memory(g_ctx);
+
+    // 1. Tokenize system prompt to determine the boundary N
+    // Invalidate cache if the system prompt text has changed
+    if (sys_prompt != g_cached_system_prompt) {
+        if (!g_cached_system_prompt.empty()) {
+            LOGI("System prompt changed, invalidating cache");
+        }
+        g_system_tokens.clear();
+        g_system_prompt_evaluated = false;
+        g_cached_system_prompt = sys_prompt;
+    }
+    if (g_system_tokens.empty()) {
+        const size_t sys_max_tokens = sys_prompt.size() + 128;
+        std::vector<llama_token> sys_temp_tokens(sys_max_tokens);
+        int sys_n_tokens = llama_tokenize(
+                vocab,
+                sys_prompt.c_str(),
+                static_cast<int32_t>(sys_prompt.size()),
+                sys_temp_tokens.data(),
+                static_cast<int32_t>(sys_max_tokens),
+                true, // Add special (BOS)
+                true  // parse_special
+        );
+        if (sys_n_tokens < 0) {
+            LOGE("Failed to tokenize system prompt (sys_n_tokens=%d)", sys_n_tokens);
+            return make_json_error(env, "INVALID", "System prompt tokenization failed");
+        }
+        g_system_tokens.resize(static_cast<size_t>(sys_n_tokens));
+        std::copy(sys_temp_tokens.begin(), sys_temp_tokens.begin() + sys_n_tokens, g_system_tokens.begin());
+    }
+
+    const size_t N = g_system_tokens.size();
+
+    // 2. Tokenize the combined prompt (exactly as in the working version)
+    const size_t combined_max_tokens = combined_prompt.size() + 128;
+    std::vector<llama_token> combined_tokens(combined_max_tokens);
+    int combined_n_tokens = llama_tokenize(
+            vocab,
+            combined_prompt.c_str(),
+            static_cast<int32_t>(combined_prompt.size()),
+            combined_tokens.data(),
+            static_cast<int32_t>(combined_max_tokens),
+            true, // Add special (BOS)
+            true  // parse_special
+    );
+
+    if (combined_n_tokens < 0) {
+        LOGE("Failed to tokenize combined prompt (combined_n_tokens=%d)", combined_n_tokens);
+        return make_json_error(env, "INVALID", "Combined prompt tokenization failed");
+    }
+    combined_tokens.resize(static_cast<size_t>(combined_n_tokens));
+
+    // Verify that combined prompt tokens start with system prompt tokens
+    if (combined_tokens.size() < N) {
+        LOGE("Combined tokens size is smaller than system prompt tokens (%zu < %zu)", combined_tokens.size(), N);
+        return make_json_error(env, "INVALID", "Tokenization alignment error");
+    }
+
+    // Extract user tokens
+    std::vector<llama_token> user_tokens(combined_tokens.begin() + N, combined_tokens.end());
+    int user_n_tokens = static_cast<int>(user_tokens.size());
+
+    LOGI("System tokens: %zu, User tokens: %d, max generation tokens: %d", N, user_n_tokens, max_tokens);
+
+    const int total_context_tokens = static_cast<int>(N) + user_n_tokens + max_tokens;
+    if (total_context_tokens > g_n_ctx) {
+        LOGE("Total tokens exceed context size (%d > %d)", total_context_tokens, g_n_ctx);
+        return make_json_error(env, "INVALID", "Input too long for context window");
+    }
+
+    // 3. Handle system prompt evaluation (caching)
+    if (!g_system_prompt_evaluated) {
+        LOGI("System prompt not cached. Evaluating now...");
+        
+        // WIPE KV Cache completely using llama_memory_seq_rm
+        llama_memory_seq_rm(mem, -1, 0, -1);
+
+        // Evaluate system prompt in one batch (n_batch=2048 handles full prompt)
+        const int n_batch = 2048;
+        for (int i = 0; i < static_cast<int>(N); i += n_batch) {
+            int chunk_size = std::min(n_batch, static_cast<int>(N) - i);
+            llama_batch batch = llama_batch_get_one(g_system_tokens.data() + i, chunk_size);
+            int32_t decode_res = llama_decode(g_ctx, batch);
+            if (decode_res != 0) {
+                LOGE("Failed to decode system prompt at chunk %d (res=%d)", i, decode_res);
+                g_system_tokens.clear();
+                g_system_prompt_evaluated = false;
+                return make_json_error(env, "INVALID", "System prompt decode failed");
+            }
+        }
+
+        g_system_prompt_evaluated = true;
+        LOGI("System prompt cached successfully (%zu tokens)", N);
+    } else {
+        LOGI("System prompt already cached (%zu tokens). Reusing cache...", N);
+        
+        // Remove only previous user/assistant tokens from KV Cache, keeping system prompt intact!
+        llama_memory_seq_rm(mem, -1, static_cast<llama_pos>(N), -1);
+    }
+
+    // Use greedy sampler for deterministic, fastest-possible token selection
+    auto *smpl = llama_sampler_init_greedy();
+    if (!smpl) {
+        LOGE("Failed to initialize greedy sampler");
+        return make_json_error(env, "INVALID", "Sampler initialization failed");
+    }
+
+    // Decode the user prompt in one batch (n_batch=2048 handles full prompt)
+    const int n_batch = 2048;
+    for (int i = 0; i < user_n_tokens; i += n_batch) {
+        int chunk_size = std::min(n_batch, user_n_tokens - i);
+        llama_batch batch = llama_batch_get_one(user_tokens.data() + i, chunk_size);
+        int32_t decode_res = llama_decode(g_ctx, batch);
+        if (decode_res != 0) {
+            LOGE("Failed to decode user prompt chunk at offset %d (res=%d)", i, decode_res);
+            llama_sampler_free(smpl);
+            return make_json_error(env, "INVALID", "User prompt decode failed");
+        }
+    }
+
+    // 4. Generate response tokens
+    std::string output;
+    output.reserve(static_cast<size_t>(max_tokens) * 8);
+
+    for (int i = 0; i < max_tokens; i++) {
+        llama_token new_token = llama_sampler_sample(smpl, g_ctx, -1);
+
+        if (llama_vocab_is_eog(vocab, new_token)) {
+            break;
+        }
+
+        char buf[256];
+        int n = llama_token_to_piece(vocab, new_token, buf, sizeof(buf), 0, true);
+        if (n > 0) {
+            output.append(buf, static_cast<size_t>(n));
+        }
+
+        // Stop early if the model tries to generate the next few-shot example or a new line
+        if (output.find("\n") != std::string::npos ||
+            output.find("Command:") != std::string::npos ||
+            output.find("Description:") != std::string::npos) {
+            size_t pos = output.find("\n");
+            if (pos != std::string::npos) {
+                output = output.substr(0, pos);
+            }
+            break;
+        }
+
+        // Check for ChatML closing tag
+        if (output.size() >= 10 &&
+            output.rfind("<|im_end|>", output.size() - 10) != std::string::npos) {
+            size_t pos = output.rfind("<|im_end|>");
+            output = output.substr(0, pos);
+            break;
+        }
+
+        // Decode the generated token
+        llama_batch next_batch = llama_batch_get_one(&new_token, 1);
+        int32_t decode_res = llama_decode(g_ctx, next_batch);
+        if (decode_res != 0) {
+            LOGE("Decode failed at generated token %d (res=%d)", i, decode_res);
+            break;
+        }
+    }
+
+    llama_sampler_free(smpl);
+
+    LOGI("Generated %zu chars", output.size());
+    return env->NewStringUTF(output.c_str());
 }
 
 /**
@@ -209,115 +400,20 @@ Java_in_hridayan_ashell_ai_native_LlamaCppBridge_runInference(
         return make_json_error(env, "INVALID", "Failed to extract prompt strings");
     }
 
-    std::string prompt = build_chatml_prompt(sys_str.to_std_string(), user_str.to_std_string());
-
-    const llama_vocab *vocab = llama_model_get_vocab(g_model);
-    if (!vocab) {
-        LOGE("Failed to retrieve model vocabulary");
-        return make_json_error(env, "INVALID", "Failed to retrieve model vocabulary");
+    // Wrap the entire inference pipeline in try-catch to prevent native crashes
+    // from killing the app process (e.g., OOM in llama_decode, bad alloc, etc.)
+    try {
+        return run_inference_internal(env, sys_str, user_str, max_tokens, temperature);
+    } catch (const std::bad_alloc &e) {
+        LOGE("Out of memory during inference: %s", e.what());
+        return make_json_error(env, "INVALID", "Out of memory during inference");
+    } catch (const std::exception &e) {
+        LOGE("Native exception during inference: %s", e.what());
+        return make_json_error(env, "INVALID", "Native inference error");
+    } catch (...) {
+        LOGE("Unknown native exception during inference");
+        return make_json_error(env, "INVALID", "Unknown native error during inference");
     }
-
-    const size_t n_prompt_max_sz = prompt.size() + 128;
-
-    if (n_prompt_max_sz > INT32_MAX) {
-        LOGE("Prompt too large");
-        return make_json_error(env, "INVALID", "Prompt too large");
-    }
-
-    const auto n_prompt_max =
-            static_cast<int32_t>(n_prompt_max_sz);
-
-    std::vector<llama_token> tokens(static_cast<size_t>(n_prompt_max));
-
-    if (prompt.size() > INT32_MAX) {
-        LOGE("Prompt length exceeds INT32_MAX");
-        return make_json_error(env, "INVALID", "Prompt too large");
-    }
-
-    const auto prompt_len =
-            static_cast<int32_t>(prompt.size());
-
-    const int n_tokens = llama_tokenize(
-            vocab,
-            prompt.c_str(),
-            prompt_len,
-            tokens.data(),
-            n_prompt_max,
-            true,
-            true
-    );
-
-    if (n_tokens < 0) {
-        LOGE("Tokenization failed (n_tokens=%d)", n_tokens);
-        return make_json_error(env, "INVALID", "Tokenization failed");
-    }
-    tokens.resize(static_cast<size_t>(n_tokens));
-
-    LOGI("Prompt tokens: %d, max generation tokens: %d", n_tokens, max_tokens);
-
-    if (n_tokens + max_tokens > g_n_ctx) {
-        LOGE("Prompt + generation exceeds context size (%d + %d > %d)",
-             n_tokens, max_tokens, g_n_ctx);
-        return make_json_error(env, "INVALID", "Input too long for context window");
-    }
-
-    if (!recreate_context()) {
-        LOGE("Failed to recreate context");
-        return make_json_error(env, "INVALID", "Context recreation failed");
-    }
-
-    auto *smpl = llama_sampler_chain_init(llama_sampler_chain_default_params());
-    if (!smpl) {
-        LOGE("Failed to initialize sampler chain");
-        return make_json_error(env, "INVALID", "Sampler initialization failed");
-    }
-
-    llama_sampler_chain_add(smpl, llama_sampler_init_temp(temperature));
-    llama_sampler_chain_add(smpl, llama_sampler_init_top_p(0.9f, 1));
-    llama_sampler_chain_add(smpl, llama_sampler_init_dist(42));
-
-    llama_batch batch = llama_batch_get_one(tokens.data(), n_tokens);
-    if (llama_decode(g_ctx, batch) != 0) {
-        LOGE("Prompt decode failed");
-        llama_sampler_free(smpl);
-        return make_json_error(env, "INVALID", "Inference failed to decode prompt");
-    }
-
-    std::string output;
-    output.reserve(static_cast<size_t>(max_tokens) * 8);
-
-    for (int i = 0; i < max_tokens; i++) {
-        llama_token new_token = llama_sampler_sample(smpl, g_ctx, -1);
-
-        if (llama_vocab_is_eog(vocab, new_token)) {
-            break;
-        }
-
-        char buf[256];
-        int n = llama_token_to_piece(vocab, new_token, buf, sizeof(buf), 0, true);
-        if (n > 0) {
-            output.append(buf, static_cast<size_t>(n));
-        }
-
-        // Search only the suffix for im_end to achieve O(1) string scanning complexity
-        if (output.size() >= 10 &&
-            output.rfind("<|im_end|>", output.size() - 10) != std::string::npos) {
-            size_t pos = output.rfind("<|im_end|>");
-            output = output.substr(0, pos);
-            break;
-        }
-
-        llama_batch next_batch = llama_batch_get_one(&new_token, 1);
-        if (llama_decode(g_ctx, next_batch) != 0) {
-            LOGE("Decode failed at token %d", i);
-            break;
-        }
-    }
-
-    llama_sampler_free(smpl);
-
-    LOGI("Generated %zu chars", output.size());
-    return env->NewStringUTF(output.c_str());
 }
 
 /**
@@ -329,6 +425,10 @@ Java_in_hridayan_ashell_ai_native_LlamaCppBridge_unloadModel(
 
     std::lock_guard<std::mutex> lock(g_mutex);
     LOGI("Unloading model");
+
+    g_system_tokens.clear();
+    g_system_prompt_evaluated = false;
+    g_cached_system_prompt.clear();
 
     if (g_ctx) {
         llama_free(g_ctx);

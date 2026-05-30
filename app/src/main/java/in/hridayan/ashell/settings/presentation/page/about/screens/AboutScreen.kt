@@ -47,6 +47,7 @@ import androidx.compose.ui.unit.em
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -57,15 +58,15 @@ import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.presentation.utils.syncedRotationAndScale
 import `in`.hridayan.ashell.core.utils.openUrl
 import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.components.card.SupportMeCard
 import `in`.hridayan.ashell.settings.presentation.components.image.ProfilePic
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
-import `in`.hridayan.ashell.settings.data.SettingsKeys
-import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
 import `in`.hridayan.ashell.settings.presentation.state.rememberController
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
+import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
 import `in`.hridayan.settingsdsl.ui.item.settingsContent
 
 @Composable
@@ -76,6 +77,7 @@ fun AboutScreen(
 ) {
     val navController = LocalNavController.current
     val context = LocalContext.current
+    val hapticsEnabled = LocalSettings.current.isHapticEnabled
     val controller = settingsViewModel.rememberController()
     val (angle, scale) = syncedRotationAndScale()
 
@@ -245,15 +247,19 @@ fun AboutScreen(
                     }
                 }
 
-                // DSL-rendered settings items (contributors, app section)
                 settingsContent(
                     groups = resolvedGroups,
                     controller = controller,
+                    hapticsEnabled = hapticsEnabled
                 )
 
-                item { Spacer(modifier = Modifier
-                    .fillMaxWidth()
-                    .height(25.dp)) }
+                item {
+                    Spacer(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(25.dp)
+                    )
+                }
             }
         },
     )

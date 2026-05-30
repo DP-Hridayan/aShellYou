@@ -3,28 +3,17 @@
 package `in`.hridayan.ashell.settings.presentation.page.aimodels.screens
 
 import android.text.format.Formatter
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.DeleteSweep
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
@@ -36,11 +25,11 @@ import `in`.hridayan.ashell.ai.data.local.model.ModelRegistry
 import `in`.hridayan.ashell.ai.presentation.viewmodel.AiModelManagerViewModel
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSettings
-import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.settings.presentation.components.dialog.DeleteAiAnalysisCacheDialog
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.page.aimodels.components.CacheDurationDialog
@@ -57,15 +46,21 @@ fun AiModelsScreen(
     settingsViewModel: SettingsViewModel = hiltViewModel(),
     aiViewModel: AiModelManagerViewModel = hiltViewModel(),
 ) {
+    val context = LocalContext.current
     val navController = LocalNavController.current
     val dialogManager = LocalDialogManager.current
     val controller = settingsViewModel.rememberController()
     val settings = LocalSettings.current
+    val hapticsEnabled = settings.isHapticEnabled
 
     val selectedModelName = ModelRegistry.findById(settings.selectedModelId)?.name
     val cacheDays = settings.aiCacheDays
 
     val cacheSizeBytes by aiViewModel.cacheSizeBytes.collectAsState()
+
+    val formattedSize = remember(cacheSizeBytes) {
+        Formatter.formatShortFileSize(context, cacheSizeBytes)
+    }
 
     LaunchedEffect(Unit) {
         aiViewModel.refreshCacheSize()
@@ -79,18 +74,6 @@ fun AiModelsScreen(
                 else -> {}
             }
         }
-    }
-
-    // Cache duration dialog
-    DialogKey.Settings.AiCacheDays.createDialog { dm ->
-        CacheDurationDialog(
-            currentDays = cacheDays,
-            onDismiss = { dm.dismiss() },
-            onConfirm = { days ->
-                settingsViewModel.setInt(SettingsKeys.AI_CACHE_DAYS, days)
-                dm.dismiss()
-            }
-        )
     }
 
     val listState = rememberLazyListState()
@@ -113,6 +96,9 @@ fun AiModelsScreen(
             SettingsKeys.AI_CACHE_DAYS to {
                 stringResource(R.string.n_days, cacheDays)
             },
+            SettingsKeys.AI_CACHE_CLEAR to {
+                stringResource(R.string.cache_size, formattedSize)
+            }
         ),
     )
 
@@ -131,18 +117,8 @@ fun AiModelsScreen(
                 settingsContent(
                     groups = resolvedGroups,
                     controller = controller,
+                    hapticsEnabled = hapticsEnabled
                 )
-
-                // Cache info card
-                item {
-                    CacheInfoCard(
-                        cacheSizeBytes = cacheSizeBytes,
-                        onClearCache = {
-                            aiViewModel.clearCache()
-                        },
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-                    )
-                }
 
                 item {
                     Spacer(
@@ -154,47 +130,25 @@ fun AiModelsScreen(
             }
         },
     )
-}
 
-@Composable
-private fun CacheInfoCard(
-    cacheSizeBytes: Long,
-    onClearCache: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    val context = LocalContext.current
-    val formattedSize = remember(cacheSizeBytes) {
-        Formatter.formatShortFileSize(context, cacheSizeBytes)
+    // Cache duration dialog
+    DialogKey.Settings.AiCacheDays.createDialog { dm ->
+        CacheDurationDialog(
+            currentDays = cacheDays,
+            onDismiss = { dm.dismiss() },
+            onConfirm = { days ->
+                settingsViewModel.setInt(SettingsKeys.AI_CACHE_DAYS, days)
+                dm.dismiss()
+            }
+        )
     }
 
-    CustomCard(modifier = modifier.fillMaxWidth()) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = stringResource(R.string.clear_analysis_cache),
-                    style = MaterialTheme.typography.titleMediumEmphasized
-                )
-                Text(
-                    text = stringResource(R.string.cache_size, formattedSize),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
-
-            TextButton(onClick = onClearCache) {
-                Icon(
-                    Icons.Rounded.DeleteSweep,
-                    contentDescription = null,
-                    modifier = Modifier.padding(end = 4.dp)
-                )
-                Text(text = stringResource(R.string.clear))
-            }
-        }
+    DialogKey.Settings.AiCacheClearConfirmation.createDialog {
+        DeleteAiAnalysisCacheDialog(
+            onDismiss = { it.dismiss() },
+            onDelete = {
+                aiViewModel.clearCache()
+                it.dismiss()
+            })
     }
 }

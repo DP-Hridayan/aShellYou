@@ -46,14 +46,14 @@
     </issue>
 
     <issue
-        id="AndroidGradlePluginVersion"
-        message="A newer version of Gradle than 9.5.0 is available: 9.5.1"
-        errorLine1="distributionUrl=https\://services.gradle.org/distributions/gradle-9.5.0-bin.zip"
-        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        id="GradleDependency"
+        message="A newer version of com.google.android.gms:play-services-auth than 21.5.1 is available: 21.6.0"
+        errorLine1="playServicesAuth = &quot;21.5.1&quot;"
+        errorLine2="                   ~~~~~~~~">
         <location
-            file="$HOME/StudioProjects/aShellYou/gradle/wrapper/gradle-wrapper.properties"
-            line="4"
-            column="17"/>
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="35"
+            column="20"/>
     </issue>
 
     <issue
@@ -79,13 +79,35 @@
     </issue>
 
     <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.mikepenz.aboutlibraries.plugin than 14.2.0 is available: 14.2.1"
+        errorLine1="aboutlibraries = &quot;14.2.0&quot;"
+        errorLine2="                 ~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="47"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.mikepenz:aboutlibraries-core than 14.2.0 is available: 14.2.1"
+        errorLine1="aboutlibraries = &quot;14.2.0&quot;"
+        errorLine2="                 ~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="47"
+            column="18"/>
+    </issue>
+
+    <issue
         id="ComposableNaming"
         message="Composable functions that return Unit should start with an uppercase letter"
         errorLine1="fun DialogKey.createDialog(content: @Composable (DialogViewModel) -> Unit) {"
         errorLine2="              ~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/core/presentation/components/dialog/DialogKey.kt"
-            line="57"
+            line="58"
             column="15"/>
     </issue>
 
@@ -95,7 +117,7 @@
         errorLine1="    modifier: Modifier = Modifier"
         errorLine2="    ~~~~~~~~">
         <location
-            file="src/main/java/in/hridayan/ashell/ai/presentation/ui/components/AnalyzeButton.kt"
+            file="src/main/java/in/hridayan/ashell/ai/presentation/components/button/AnalyzeButton.kt"
             line="22"
             column="5"/>
     </issue>
@@ -107,7 +129,7 @@
         errorLine2="                                                                               ~~~~~">
         <location
             file="src/main/res/values-es-rES/strings.xml"
-            line="602"
+            line="627"
             column="80"/>
     </issue>
 
@@ -854,14 +876,102 @@
     </issue>
 
     <issue
-        id="UseOfNonLambdaOffsetOverload"
-        message="State backed values should use the lambda overload of Modifier.offset"
-        errorLine1="                    .offset(x = offsetX)"
-        errorLine2="                     ~~~~~~">
+        id="TypographyDashes"
+        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
+        errorLine1="    &lt;string name=&quot;model_category_small&quot;>Petit (300-500 MB)&lt;/string>"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~">
         <location
-            file="src/main/java/in/hridayan/ashell/core/presentation/components/navigation/FloatingNavPill.kt"
-            line="67"
-            column="22"/>
+            file="src/main/res/values-fr-rFR/strings.xml"
+            line="333"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="TypographyDashes"
+        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
+        errorLine1="    &lt;string name=&quot;model_category_small&quot;>Pequeno (300-500 MB)&lt;/string>"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-pt-rBR/strings.xml"
+            line="333"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="TypographyDashes"
+        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
+        errorLine1="    &lt;string name=&quot;model_category_small&quot;>Pequeno (300-500 MB)&lt;/string>"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-pt-rPT/strings.xml"
+            line="333"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="TypographyDashes"
+        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
+        errorLine1="    &lt;string name=&quot;model_category_small&quot;>Невеликий (300-500 МБ)&lt;/string>"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-uk-rUA/strings.xml"
+            line="333"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="TypographyDashes"
+        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
+        errorLine1="    &lt;string name=&quot;model_category_small&quot;>小(300-500 MB)&lt;/string>"
+        errorLine2="                                        ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-zh-rCN/strings.xml"
+            line="333"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="TypographyDashes"
+        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
+        errorLine1="    &lt;string name=&quot;model_category_small&quot;>صغير (300-500 ميغابايت)&lt;/string>"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ar-rSA/strings.xml"
+            line="334"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="TypographyDashes"
+        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
+        errorLine1="    &lt;string name=&quot;model_category_large&quot;>大 (1.5-2.5 GB)&lt;/string>"
+        errorLine2="                                        ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ja-rJP/strings.xml"
+            line="335"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="TypographyDashes"
+        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
+        errorLine1="    &lt;string name=&quot;model_category_large&quot;>大(1.5-2.5GB)&lt;/string>"
+        errorLine2="                                        ~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-zh-rCN/strings.xml"
+            line="335"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="TypographyDashes"
+        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
+        errorLine1="    &lt;string name=&quot;model_category_large&quot;>كبير (1.5-2.5 جنيه استرليني)&lt;/string>"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ar-rSA/strings.xml"
+            line="336"
+            column="41"/>
     </issue>
 
     <issue
@@ -871,7 +981,7 @@
         errorLine2="                              ~~~~~~~~~~">
         <location
             file="src/main/res/values-ja-rJP/strings.xml"
-            line="89"
+            line="96"
             column="31"/>
     </issue>
 
@@ -881,8 +991,19 @@
         errorLine1="    &lt;string name=&quot;loading&quot;>Carregando...&lt;/string>"
         errorLine2="                           ~~~~~~~~~~~~~">
         <location
+            file="src/main/res/values-pt-rBR/strings.xml"
+            line="317"
+            column="28"/>
+    </issue>
+
+    <issue
+        id="TypographyEllipsis"
+        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
+        errorLine1="    &lt;string name=&quot;loading&quot;>Carregando...&lt;/string>"
+        errorLine2="                           ~~~~~~~~~~~~~">
+        <location
             file="src/main/res/values-pt-rPT/strings.xml"
-            line="305"
+            line="317"
             column="28"/>
     </issue>
 
