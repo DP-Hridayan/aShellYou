@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
+    <!-- Sorting options: A_Z and Z_A are sort order labels -->
     <string name="abort_command">Önce komutu iptal et</string>
     <string name="about">Hakkında</string>
     <string name="active">Active</string>
     <string name="adb_command">ADB Komutu</string>
-    <string name="adb_command_hint">adb reboot</string>
+    <string name="adb_command_hint" comment="Example ADB command shown as placeholder hint in input field">adb reboot</string>
     <string name="adb_command_off_state">ADB command (OFF state)</string>
     <string name="adb_command_on_state"></string>
     <string name="adb_connection_active">ADB Bağlantısı Etkin</string>
@@ -31,7 +32,7 @@
     <string name="app_crashed">Uygulama çöktü</string>
     <string name="app_tagline">ADB parmaklarınızın ucunda</string>
     <string name="apply">Apply</string>
-    <string name="apply_to_all">Tümüne uygula (Kalan: %1$d)</string>
+    <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">Tümüne uygula (Kalan: %1$d)</string>
     <string name="artifact_id">Artifact ID</string>
     <string name="auto_update">Otomatik güncelle</string>
     <string name="back">Geri</string>
@@ -56,7 +57,7 @@
     <string name="bootloader">Bootloader</string>
     <string name="btn_continue">Devam et</string>
     <string name="cache_settings">Cache</string>
-    <string name="cache_size">Cache size: %s</string>
+    <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Cache size: %s</string>
     <string name="cancel">İptal</string>
     <string name="cancel_all">Tümünü iptal et</string>
     <string name="changelog">Changelog</string>
@@ -90,7 +91,7 @@
     <string name="confirm_delete">Silmeyi onayla</string>
     <string name="confirm_tile_delete_message">Are you sure you want to delete this tile?</string>
     <string name="confirmation_clear_cache">Caching helps to retrieve analysis results instantly.\nDo you still want to clear all AI analysis cache data?</string>
-    <string name="conflict_message">\"%1$s\" bu konumda zaten var.</string>
+    <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" bu konumda zaten var.</string>
     <string name="conflict_title">Öge zaten var</string>
     <string name="connect">Bağlan</string>
     <string name="connect_device_via_otg">Cihazı OTG üzerinden bağla</string>
@@ -103,11 +104,11 @@
     <string name="connection_lost">Bağlantı Kesildi</string>
     <string name="connection_lost_back_message">Kablosuz hata ayıklama bağlantısı kesildi. Ne yapmak istersiniz?</string>
     <string name="contributors">Katkıda Bulunanlar</string>
-    <string name="copied_items">%1$d öge kopyalandı</string>
+    <string name="copied_items" comment="%1$d = number of items copied to clipboard">%1$d öge kopyalandı</string>
     <string name="copied_to_clipboard">Panoya kopyalandı!</string>
     <string name="copy">Kopyala</string>
     <string name="copying">Kopyalanıyor…</string>
-    <string name="copying_items">%1$d öge kopyalanıyor</string>
+    <string name="copying_items" comment="%1$d = number of items being copied">%1$d öge kopyalanıyor</string>
     <string name="crash_details">Çökme ayrıntıları</string>
     <string name="crash_history">Çökme geçmişi</string>
     <string name="create">Oluştur</string>
@@ -115,7 +116,7 @@
     <string name="create_new_tile">Create new tile</string>
     <string name="crowdin_contribution_msg">Visit our crowdin translation platform to contribute</string>
     <string name="current_version">Mevcut sürüm</string>
-    <string name="cut_items">%1$d öge kesildi</string>
+    <string name="cut_items" comment="%1$d = number of items cut to clipboard">%1$d öge kesildi</string>
     <string name="cut_to_clipboard">Kes ve panoya al</string>
     <string name="dark_theme">Karanlık tema</string>
     <string name="databases_only">Databases only</string>
@@ -125,10 +126,10 @@
     <string name="delete_all">Tümünü sil</string>
     <string name="delete_file">Dosyayı sil</string>
     <string name="delete_folder">Klasörü sil</string>
-    <string name="delete_items_message">Seçili %1$d ögeyi silmek istediğinize emin misiniz?</string>
-    <string name="delete_items_title">%1$d öge silinsin mi?</string>
-    <string name="delete_message">\"%1$s\" adlı ögeyi silmek istediğinize emin misiniz?</string>
-    <string name="delete_title">%1$s silinsin mi?</string>
+    <string name="delete_items_message" comment="%1$d = number of selected items">Seçili %1$d ögeyi silmek istediğinize emin misiniz?</string>
+    <string name="delete_items_title" comment="%1$d = number of items">%1$d öge silinsin mi?</string>
+    <string name="delete_message" comment="%1$s = file or folder name">\"%1$s\" adlı ögeyi silmek istediğinize emin misiniz?</string>
+    <string name="delete_title" comment="%1$s = file or folder name">%1$s silinsin mi?</string>
     <string name="des_about">Katkıda bulunanlar ve destek</string>
     <string name="des_ai_cache_days">Number of days to keep cached results</string>
     <string name="des_ai_cache_enabled">Cache analysis results per model</string>
@@ -187,7 +188,7 @@
     <string name="device_connected">Cihaz bağlandı!</string>
     <string name="device_disconnected">Cihaz Bağlantısı Kesildi</string>
     <string name="device_disconnected_message">WiFi ADB bağlantısı kesildi.</string>
-    <string name="device_disconnected_message_with_name">\"%s\" bağlantısı kesildi.</string>
+    <string name="device_disconnected_message_with_name" comment="%s = device name">\"%s\" bağlantısı kesildi.</string>
     <string name="device_found">Cihaz bulundu!</string>
     <string name="device_info">Cihaz bilgisi</string>
     <string name="disable_softkey">Sanal klavyeyi devre dışı bırak</string>
@@ -234,28 +235,28 @@
     <string name="fastboot">Fastboot</string>
     <string name="fb_all_operations_cancelled">Tüm işlemler iptal edildi</string>
     <string name="fb_cannot_paste_into_selected">Seçilen klasöre yapıştırılamıyor</string>
-    <string name="fb_create_folder_failed">Klasör oluşturulamadı: %1$s</string>
-    <string name="fb_delete_failed">Silme başarısız: %1$s</string>
-    <string name="fb_deleted_items">%1$d öge silindi</string>
-    <string name="fb_download_failed">İndirme başarısız: %1$s</string>
-    <string name="fb_downloaded_to">%1$s konumuna indirildi</string>
-    <string name="fb_downloading">%1$s indiriliyor</string>
+    <string name="fb_create_folder_failed" comment="%1$s = error message. fb_ prefix = file browser">Klasör oluşturulamadı: %1$s</string>
+    <string name="fb_delete_failed" comment="%1$s = error message">Silme başarısız: %1$s</string>
+    <string name="fb_deleted_items" comment="%1$d = number of deleted items">%1$d öge silindi</string>
+    <string name="fb_download_failed" comment="%1$s = error message">İndirme başarısız: %1$s</string>
+    <string name="fb_downloaded_to" comment="%1$s = file path">%1$s konumuna indirildi</string>
+    <string name="fb_downloading" comment="%1$s = file name">%1$s indiriliyor</string>
     <string name="fb_empty_folder_skipped">Boş klasör atlandı</string>
-    <string name="fb_error">Hata: %1$s</string>
+    <string name="fb_error" comment="%1$s = error message">Hata: %1$s</string>
     <string name="fb_file_deleted">Dosya silindi</string>
     <string name="fb_folder_created">Klasör oluşturuldu</string>
     <string name="fb_nothing_to_paste">Yapıştırılacak bir şey yok</string>
     <string name="fb_operation_cancelled">İşlem iptal edildi</string>
-    <string name="fb_otg_transfers_not_supported">Dosya aktarımları OTG modunda desteklenmiyor</string>
-    <string name="fb_paste_completed">Tamamlandı: %1$d öge</string>
-    <string name="fb_paste_completed_with_failed">Tamamlandı: %1$d öge, %2$d atlandı, %3$d başarısız oldu</string>
-    <string name="fb_paste_completed_with_skipped">Tamamlandı: %1$d öge, %2$d atlandı</string>
+    <string name="fb_otg_transfers_not_supported" comment="OTG = USB On-The-Go">Dosya aktarımları OTG modunda desteklenmiyor</string>
+    <string name="fb_paste_completed" comment="%1$d = number of items pasted">Tamamlandı: %1$d öge</string>
+    <string name="fb_paste_completed_with_failed" comment="%1$d = completed, %2$d = skipped, %3$d = failed">Tamamlandı: %1$d öge, %2$d atlandı, %3$d başarısız oldu</string>
+    <string name="fb_paste_completed_with_skipped" comment="%1$d = completed, %2$d = skipped">Tamamlandı: %1$d öge, %2$d atlandı</string>
     <string name="fb_reconnected_successfully">Yeniden başarıyla bağlanıldı</string>
-    <string name="fb_rename_failed">Yeniden adlandırma başarısız: %1$s</string>
+    <string name="fb_rename_failed" comment="%1$s = error message">Yeniden adlandırma başarısız: %1$s</string>
     <string name="fb_renamed_successfully">Başarıyla yeniden adlandırıldı</string>
-    <string name="fb_upload_failed">Yükleme başarısız: %1$s</string>
+    <string name="fb_upload_failed" comment="%1$s = error message">Yükleme başarısız: %1$s</string>
     <string name="fb_uploaded_successfully">Dosya başarıyla yüklendi</string>
-    <string name="fb_uploading">%1$s yükleniyor</string>
+    <string name="fb_uploading" comment="%1$s = file name">%1$s yükleniyor</string>
     <string name="feature_request">Özellik isteği</string>
     <string name="fetching_backup_time">Fetching backup time …</string>
     <string name="fetching_backup_type">Fetching backup type…</string>
@@ -265,7 +266,7 @@
     <string name="file_already_exists">Dosya Zaten Var</string>
     <string name="file_browser">Dosya Tarayıcı</string>
     <string name="file_conflict_title">Dosya Zaten Var</string>
-    <string name="file_exists_message">\"%1$s\" bu konumda zaten mevcut.</string>
+    <string name="file_exists_message" comment="%1$s = file name">\"%1$s\" bu konumda zaten mevcut.</string>
     <string name="file_info">Dosya Bilgisi</string>
     <string name="file_not_found">Dosya bulunamadı</string>
     <string name="filter">Filtrele</string>
@@ -276,46 +277,46 @@
     <string name="folder_info">Klasör Bilgisi</string>
     <string name="folder_name">Klasör adı</string>
     <string name="folder_picker">Klasör seçici</string>
-    <string name="font_amatic_sc">Amatic SC</string>
-    <string name="font_cabin">Cabin</string>
-    <string name="font_caveat">Caveat</string>
-    <string name="font_comfortaa">Comfortaa</string>
-    <string name="font_crimson_pro">Crimson Pro</string>
-    <string name="font_dancing_script">Dancing Script</string>
-    <string name="font_display_text">Pijamalı hasta yağız şoföre çabucak güvendi.</string>
-    <string name="font_eb_garamond">EB Garamond</string>
-    <string name="font_exo_2">Exo 2</string>
+    <string name="font_amatic_sc" comment="Font style name">Amatic SC</string>
+    <string name="font_cabin" comment="Font style name">Cabin</string>
+    <string name="font_caveat" comment="Font style name">Caveat</string>
+    <string name="font_comfortaa" comment="Font style name">Comfortaa</string>
+    <string name="font_crimson_pro" comment="Font style name">Crimson Pro</string>
+    <string name="font_dancing_script" comment="Font style name">Dancing Script</string>
+    <string name="font_display_text" comment="Sample text used to preview font styles">Pijamalı hasta yağız şoföre çabucak güvendi.</string>
+    <string name="font_eb_garamond" comment="Font style name">EB Garamond</string>
+    <string name="font_exo_2" comment="Font style name">Exo 2</string>
     <string name="font_family">Yazı tipi ailesi</string>
-    <string name="font_heebo">Heebo</string>
-    <string name="font_inter">Inter</string>
-    <string name="font_josefin_sans">Josefin Sans</string>
-    <string name="font_karla">Karla</string>
-    <string name="font_lexend">Lexend</string>
-    <string name="font_lora">Lora</string>
-    <string name="font_manrope">Manrope</string>
-    <string name="font_montserrat">Montserrat</string>
-    <string name="font_noto_sans">Noto Sans</string>
-    <string name="font_nunito">Nunito</string>
-    <string name="font_open_sans">Open Sans</string>
-    <string name="font_oswald">Oswald</string>
-    <string name="font_outfit">Outfit</string>
-    <string name="font_pacifico">Pacifico</string>
-    <string name="font_playfair_display">Playfair Display</string>
-    <string name="font_playpen_sans">Playpen Sans</string>
-    <string name="font_plus_jakarta_sans">Plus Jakarta Sans</string>
-    <string name="font_public_sans">Public Sans</string>
-    <string name="font_quicksand">Quicksand</string>
-    <string name="font_raleway">Raleway</string>
-    <string name="font_roboto_flex">Roboto Flex</string>
-    <string name="font_rubik">Rubik</string>
-    <string name="font_shadows_into_light">Shadows Into Light</string>
+    <string name="font_heebo" comment="Font style name">Heebo</string>
+    <string name="font_inter" comment="Font style name">Inter</string>
+    <string name="font_josefin_sans" comment="Font style name">Josefin Sans</string>
+    <string name="font_karla" comment="Font style name">Karla</string>
+    <string name="font_lexend" comment="Font style name">Lexend</string>
+    <string name="font_lora" comment="Font style name">Lora</string>
+    <string name="font_manrope" comment="Font style name">Manrope</string>
+    <string name="font_montserrat" comment="Font style name">Montserrat</string>
+    <string name="font_noto_sans" comment="Font style name">Noto Sans</string>
+    <string name="font_nunito" comment="Font style name">Nunito</string>
+    <string name="font_open_sans" comment="Font style name">Open Sans</string>
+    <string name="font_oswald" comment="Font style name">Oswald</string>
+    <string name="font_outfit" comment="Font style name">Outfit</string>
+    <string name="font_pacifico" comment="Font style name">Pacifico</string>
+    <string name="font_playfair_display" comment="Font style name">Playfair Display</string>
+    <string name="font_playpen_sans" comment="Font style name">Playpen Sans</string>
+    <string name="font_plus_jakarta_sans" comment="Font style name">Plus Jakarta Sans</string>
+    <string name="font_public_sans" comment="Font style name">Public Sans</string>
+    <string name="font_quicksand" comment="Font style name">Quicksand</string>
+    <string name="font_raleway" comment="Font style name">Raleway</string>
+    <string name="font_roboto_flex" comment="Font style name">Roboto Flex</string>
+    <string name="font_rubik" comment="Font style name">Rubik</string>
+    <string name="font_shadows_into_light" comment="Font style name">Shadows Into Light</string>
     <string name="font_size_multiplier">Font size multiplier</string>
-    <string name="font_source_sans_3">Source Sans 3</string>
-    <string name="font_source_serif_4">Source Serif 4</string>
-    <string name="font_work_sans">Work Sans</string>
+    <string name="font_source_sans_3" comment="Font style name">Source Sans 3</string>
+    <string name="font_source_serif_4" comment="Font style name">Source Serif 4</string>
+    <string name="font_work_sans" comment="Font style name">Work Sans</string>
     <string name="forget">Unut</string>
     <string name="forget_device">Cihazı unut</string>
-    <string name="forget_device_confirmation">%1$s adlı cihazı unutmak istediğinize emin misiniz? Bağlanmak için tekrar eşleştirmeniz gerekecek.</string>
+    <string name="forget_device_confirmation" comment="%1$s = device name">%1$s adlı cihazı unutmak istediğinize emin misiniz? Bağlanmak için tekrar eşleştirmeniz gerekecek.</string>
     <string name="forks">Fork\'lar (Çatallar)</string>
     <string name="found_connect_service">Bağlantı servisi bulundu</string>
     <string name="full_license_text">Full license text</string>
@@ -354,7 +355,7 @@
     <string name="latest_version">En son sürüm</string>
     <string name="lead_developer">Lider Geliştirici</string>
     <string name="least_used">En az kullanılan</string>
-    <string name="library_count">%1$d libraries detected</string>
+    <string name="library_count" comment="%1$d = number of third-party libraries">%1$d libraries detected</string>
     <string name="license">Lisans</string>
     <string name="license_label">License</string>
     <string name="licenses">Licenses</string>
@@ -376,19 +377,19 @@
     <string name="mode">Mod</string>
     <string name="mode_one_desc">Komutları çalıştırmak için root erişimini kullanır. Root gerektiren komutlar çalıştırılabilir.</string>
     <string name="mode_two_desc">Komutları çalıştırmak için Shizuku kullanır. Root gerektiren komutlar çalıştırılamaz.</string>
-    <string name="model_category_large">Large (1.5–2.5 GB)</string>
-    <string name="model_category_medium">Medium (800 MB–1.1 GB)</string>
-    <string name="model_category_small">Small (300–500 MB)</string>
-    <string name="model_category_tiny">Tiny (under 300 MB)</string>
-    <string name="models">Models</string>
-    <string name="modified">Değiştirilme tarihi</string>
-    <string name="monospace">Eşaralıklı (Monospace)</string>
+    <string name="model_category_large" comment="AI model size category label">Large (1.5–2.5 GB)</string>
+    <string name="model_category_medium" comment="AI model size category label">Medium (800 MB–1.1 GB)</string>
+    <string name="model_category_small" comment="AI model size category label">Small (300–500 MB)</string>
+    <string name="model_category_tiny" comment="AI model size category label">Tiny (under 300 MB)</string>
+    <string name="models" comment="Refers to AI/ML models used for command analysis">Models</string>
+    <string name="modified" comment="File property: last modified date">Değiştirilme tarihi</string>
+    <string name="monospace" comment="Font style category name">Eşaralıklı (Monospace)</string>
     <string name="more">Daha Fazla</string>
     <string name="most_used">En çok kullanılan</string>
     <string name="move">Taşı</string>
     <string name="moving">Taşınıyor…</string>
-    <string name="moving_items">%1$d öge taşınıyor</string>
-    <string name="n_days">%d days</string>
+    <string name="moving_items" comment="%1$d = number of items being moved">%1$d öge taşınıyor</string>
+    <string name="n_days" comment="%d = number of days for cache duration setting">%d days</string>
     <string name="name">Ad</string>
     <string name="network_error">Ağ hatası</string>
     <string name="new_commands_available_msg">New command examples are added!\nClick on the button below to load the new commands.</string>
@@ -423,17 +424,17 @@
     <string name="notification_style_error">Bildirimden Eşleştirme Kodunu giremiyorsanız Bildirim Panelini Android olarak değiştirmeniz gerekebilir. Bildirim Stilini değiştirmek için Ayarlar ~ Bildirimler ~ Bildirim Stili bölümüne gidin. Aksi takdirde bildirimden eşleştirme kodunu giremeyebilirsiniz.</string>
     <string name="notification_styles">Notification styles</string>
     <string name="off">Kapalı</string>
-    <string name="off_state">Off</string>
-    <string name="oldest">En eski</string>
+    <string name="off_state" comment="Quick Settings tile toggle state label">Off</string>
+    <string name="oldest" comment="Sorting option">En eski</string>
     <string name="on">Açık</string>
-    <string name="on_state">Aç</string>
+    <string name="on_state" comment="Quick Settings tile toggle state label">Aç</string>
     <string name="open">Aç</string>
     <string name="open_app_language_settings">Open app language settings</string>
-    <string name="open_issues">Açık sorunlar (Issues)</string>
+    <string name="open_issues" comment="GitHub repository open issues count">Açık sorunlar (Issues)</string>
     <string name="open_url">Open URL</string>
     <string name="operations">İşlemler</string>
     <string name="or">VEYA</string>
-    <string name="otg">OTG</string>
+    <string name="otg" comment="USB On-The-Go. Technical term, keep as OTG">OTG</string>
     <string name="output">Çıktı</string>
     <string name="override_bookmarks_limit">Maksimum yer imi sınırını geçersiz kıl</string>
     <string name="pair">Eşleştir</string>
@@ -450,16 +451,16 @@
     <string name="pairing_code">Eşleştirme kodu</string>
     <string name="pairing_notification_hint">Eşleştirmeye yardımcı olması için aShell You uygulamasından bir bildirim alacaksınız</string>
     <string name="pairing_process_notification_access_message">To complete the pairing process you will need to interact with a notification from aShell You. Please allow notification access to aShell You.</string>
-    <string name="palette_content">Content</string>
-    <string name="palette_expressive">Expressive</string>
-    <string name="palette_fidelity">Fidelity</string>
-    <string name="palette_fruit_salad">Fruit Salad</string>
-    <string name="palette_monochrome">Monochrome</string>
-    <string name="palette_neutral">Neutral</string>
-    <string name="palette_rainbow">Rainbow</string>
-    <string name="palette_style">Palette style</string>
-    <string name="palette_tonal_spot">Tonal Spot</string>
-    <string name="palette_vibrant">Vibrant</string>
+    <string name="palette_content" comment="Material Design color scheme style name">Content</string>
+    <string name="palette_expressive" comment="Material Design color scheme style name">Expressive</string>
+    <string name="palette_fidelity" comment="Material Design color scheme style name">Fidelity</string>
+    <string name="palette_fruit_salad" comment="Material Design color scheme style name">Fruit Salad</string>
+    <string name="palette_monochrome" comment="Material Design color scheme style name">Monochrome</string>
+    <string name="palette_neutral" comment="Material Design color scheme style name">Neutral</string>
+    <string name="palette_rainbow" comment="Material Design color scheme style name">Rainbow</string>
+    <string name="palette_style" comment="Settings label for choosing Material Design color palette">Palette style</string>
+    <string name="palette_tonal_spot" comment="Material Design color scheme style name">Tonal Spot</string>
+    <string name="palette_vibrant" comment="Material Design color scheme style name">Vibrant</string>
     <string name="paste">Yapıştır</string>
     <string name="path">Yol</string>
     <string name="permission_denied">İzin reddedildi</string>
@@ -490,7 +491,7 @@
     <string name="recovery">Recovery (Kurtarma)</string>
     <string name="refresh">Yenile</string>
     <string name="rename">Yeniden adlandır</string>
-    <string name="rename_title">%1$s ögesini yeniden adlandır</string>
+    <string name="rename_title" comment="%1$s = file or folder name">%1$s ögesini yeniden adlandır</string>
     <string name="replace">Değiştir</string>
     <string name="report">Bildir</string>
     <string name="report_issue">Sorun bildir</string>
@@ -509,7 +510,7 @@
     <string name="restoring_backup">Restoring backup…</string>
     <string name="retry">Yeniden dene</string>
     <string name="root_access_granted">Root erişimi verildi!</string>
-    <string name="sans_serif">Sans Serif</string>
+    <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Kaydet</string>
     <string name="save_whole_output">Tüm çıktıyı kaydet</string>
     <string name="saved_devices">Kayıtlı cihazlar</string>
@@ -529,7 +530,7 @@
     <string name="searching_for_devices">Cihazlar aranıyor…</string>
     <string name="select">Seç</string>
     <string name="select_all">Tümünü seç</string>
-    <string name="self">Kendi Cihazı</string>
+    <string name="self" comment="Refers to pairing this device with itself for local ADB">Kendi Cihazı</string>
     <string name="self_pair_connection_failed">Bağlantı başarısız - manuel bağlanmayı deneyin</string>
     <string name="self_pair_enter_code">Eşleştirme iletişim kutusundan 6 haneli kodu girin</string>
     <string name="self_pair_enter_code_hint">6 haneli eşleştirme kodunu girin</string>
@@ -546,11 +547,11 @@
     <string name="self_pair_success_hint">Yerel ADB shell artık kullanılabilir</string>
     <string name="self_pair_timeout">Zaman aşımı - Kablosuz Hata Ayıklama\'da eşleştirme iletişim kutusunu açın</string>
     <string name="self_pair_wrong_code">Yanlış kod - eşleştirme iletişim kutusunu tekrar açın</string>
-    <string name="serif">Serif</string>
+    <string name="serif" comment="Font style category name">Serif</string>
     <string name="settings">Ayarlar</string>
     <string name="settings_only">Settings only</string>
-    <string name="shell_output_saved_message">Son komutun çıktısı \'%s\' konumuna aktarıldı</string>
-    <string name="shell_output_saved_whole_message">Shell çıktısı \'%s\' konumuna aktarıldı</string>
+    <string name="shell_output_saved_message" comment="%s = file path where output was saved">Son komutun çıktısı \'%s\' konumuna aktarıldı</string>
+    <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">Shell çıktısı \'%s\' konumuna aktarıldı</string>
     <string name="shizuku_not_installed">Shizuku yüklü değil</string>
     <string name="shizuku_unavailable">Shizuku kullanılamıyor</string>
     <string name="shizuku_unavailable_message">Shizuku yüklü değil veya cihazınızda düzgün yapılandırılmamış</string>
@@ -558,7 +559,7 @@
     <string name="sign_in_with_google">Sign in with Google</string>
     <string name="sign_out">Sign out</string>
     <string name="sign_out_confirmation_msg">Signing out will pause all automatic cloud backups!\nDo you still want to sign out?</string>
-    <string name="signed_in_as">Signed in as %1$s</string>
+    <string name="signed_in_as" comment="%1$s = user email or name">Signed in as %1$s</string>
     <string name="signed_out">Signed out</string>
     <string name="size">Boyut</string>
     <string name="skip">Atla</string>
@@ -569,7 +570,7 @@
     <string name="stack_trace">Yığın İzleme (Stack trace)</string>
     <string name="stargazers">Yıldız Verenler (Stargazers)</string>
     <string name="start">Başlat</string>
-    <string name="storage_used_by_ai_models">%.1f MB used by AI models</string>
+    <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">%.1f MB used by AI models</string>
     <string name="subtitle">Subtitle</string>
     <string name="subtitle_off_state">Subtitle (OFF state)</string>
     <string name="subtitle_on_state">Subtitle (ON state)</string>
@@ -581,11 +582,11 @@
     <string name="switch_mode">Mod değiştir</string>
     <string name="system">Sistem</string>
     <string name="system_default">System default</string>
-    <string name="system_font">Sistem yazı tipi</string>
+    <string name="system_font" comment="Option to use the device default font">Sistem yazı tipi</string>
     <string name="system_settings">Sistem ayarları</string>
     <string name="telegram">Telegram</string>
     <string name="terminal">Terminal</string>
-    <string name="terminal_font_style">Terminal yazı tipi stili</string>
+    <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Terminal yazı tipi stili</string>
     <string name="third_party_libraries">Third-party libraries</string>
     <string name="this_application">This application</string>
     <string name="this_device">Bu Cihaz</string>
@@ -593,7 +594,7 @@
     <string name="tile_behavior">Tile behavior</string>
     <string name="tile_dashboard_notification_access_message">Turn on notifications to get notified whenever a tile execution fails</string>
     <string name="tile_logs">Tile logs</string>
-    <string name="tile_n">Tile %1$d</string>
+    <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">Tile %1$d</string>
     <string name="tile_name">Tile name</string>
     <string name="tiles">Tiles</string>
     <string name="toggleable">Toggleable</string>
@@ -630,7 +631,7 @@
     <string name="waiting_for_device">Cihaz bekleniyor</string>
     <string name="waiting_for_devices">Cihazlar bekleniyor…</string>
     <string name="want_to_contribute_too">Want to contribute too?</string>
-    <string name="what_to_do">%1$s işlemi yapılırken ne yapmak istersiniz?</string>
+    <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">%1$s işlemi yapılırken ne yapmak istersiniz?</string>
     <string name="whats_new">Neler yeni!</string>
     <string name="which_device_to_pair">Hangi cihazı eşleştirmek istersiniz?</string>
     <string name="wifi_adb">WiFi ADB</string>

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
+    <!-- Sorting options: A_Z and Z_A are sort order labels -->
     <string name="abort_command">Abortar el comando primero</string>
     <string name="about">Acerca de</string>
     <string name="active">Activo</string>
     <string name="adb_command">Comando ADB</string>
-    <string name="adb_command_hint">adb reboot</string>
+    <string name="adb_command_hint" comment="Example ADB command shown as placeholder hint in input field">adb reboot</string>
     <string name="adb_command_off_state">Comando ADB (Estado: DESACTIVADO)</string>
     <string name="adb_command_on_state">Comando ADB (Estado: ACTIVADO)</string>
     <string name="adb_connection_active">Conexión ADB activa</string>
@@ -31,7 +32,7 @@
     <string name="app_crashed">La aplicación se ha bloqueado</string>
     <string name="app_tagline">ADB al alcance de tu mano</string>
     <string name="apply">Aplicar</string>
-    <string name="apply_to_all">Aplicar a todo (quedan %1$d)</string>
+    <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">Aplicar a todo (quedan %1$d)</string>
     <string name="artifact_id">ID del artefacto</string>
     <string name="auto_update">Actualización automática</string>
     <string name="back">Atrás</string>
@@ -56,7 +57,7 @@
     <string name="bootloader">Gestor de arranque</string>
     <string name="btn_continue">Continuar</string>
     <string name="cache_settings">Caché</string>
-    <string name="cache_size">Tamaño de caché: %s</string>
+    <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Tamaño de caché: %s</string>
     <string name="cancel">Cancelar</string>
     <string name="cancel_all">Cancelar todo</string>
     <string name="changelog">Registro de cambios</string>
@@ -90,7 +91,7 @@
     <string name="confirm_delete">Confirmar eliminación</string>
     <string name="confirm_tile_delete_message">¿Está seguro de que desea eliminar este mosaico?</string>
     <string name="confirmation_clear_cache">El caché ayuda a recuperar los resultados de análisis al instante.\n¿Desea borrar todos los datos de caché de análisis de IA?</string>
-    <string name="conflict_message">\"%1$s\" ya existe en esta ubicación.</string>
+    <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" ya existe en esta ubicación.</string>
     <string name="conflict_title">El elemento ya existe</string>
     <string name="connect">Conectar</string>
     <string name="connect_device_via_otg">Conectar un dispositivo mediante OTG</string>
@@ -103,11 +104,11 @@
     <string name="connection_lost">Conexión perdida</string>
     <string name="connection_lost_back_message">Se perdió la conexión de depuración inalámbrica. ¿Qué deseas hacer?</string>
     <string name="contributors">Colaboradores</string>
-    <string name="copied_items">%1$d elementos copiados</string>
+    <string name="copied_items" comment="%1$d = number of items copied to clipboard">%1$d elementos copiados</string>
     <string name="copied_to_clipboard">¡Copiado al portapapeles!</string>
     <string name="copy">Copiar</string>
     <string name="copying">Copiando…</string>
-    <string name="copying_items">Copiando %1$d elemento(s)</string>
+    <string name="copying_items" comment="%1$d = number of items being copied">Copiando %1$d elemento(s)</string>
     <string name="crash_details">Detalles del fallo</string>
     <string name="crash_history">Historial de fallos</string>
     <string name="create">Crear</string>
@@ -115,7 +116,7 @@
     <string name="create_new_tile">Crear nuevo mosaico</string>
     <string name="crowdin_contribution_msg">Visita nuestra plataforma de traducción de Crowdin para colaborar</string>
     <string name="current_version">Versión actual</string>
-    <string name="cut_items">Cortar %1$d elementos</string>
+    <string name="cut_items" comment="%1$d = number of items cut to clipboard">Cortar %1$d elementos</string>
     <string name="cut_to_clipboard">Cortar al portapapeles</string>
     <string name="dark_theme">Tema oscuro</string>
     <string name="databases_only">Solamente bases de datos</string>
@@ -125,10 +126,10 @@
     <string name="delete_all">Eliminar todo</string>
     <string name="delete_file">Eliminar archivo</string>
     <string name="delete_folder">Eliminar carpeta</string>
-    <string name="delete_items_message">¿Seguro que quieres eliminar los %1$d elementos seleccionados?</string>
-    <string name="delete_items_title">¿Eliminar %1$d elementos?</string>
-    <string name="delete_message">¿Seguro que quieres eliminar \"%1$s\"?</string>
-    <string name="delete_title">¿Eliminar %1$s?</string>
+    <string name="delete_items_message" comment="%1$d = number of selected items">¿Seguro que quieres eliminar los %1$d elementos seleccionados?</string>
+    <string name="delete_items_title" comment="%1$d = number of items">¿Eliminar %1$d elementos?</string>
+    <string name="delete_message" comment="%1$s = file or folder name">¿Seguro que quieres eliminar \"%1$s\"?</string>
+    <string name="delete_title" comment="%1$s = file or folder name">¿Eliminar %1$s?</string>
     <string name="des_about">Colaboradores y soporte</string>
     <string name="des_ai_cache_days">Número de días para mantener los resultados en caché</string>
     <string name="des_ai_cache_enabled">Resultados de análisis de caché por modelo</string>
@@ -187,7 +188,7 @@
     <string name="device_connected">¡Dispositivo conectado!</string>
     <string name="device_disconnected">Dispositivo desconectado</string>
     <string name="device_disconnected_message">Se perdió la conexión ADB por Wifi.</string>
-    <string name="device_disconnected_message_with_name">\"%s\" se ha desconectado.</string>
+    <string name="device_disconnected_message_with_name" comment="%s = device name">\"%s\" se ha desconectado.</string>
     <string name="device_found">¡Dispositivo encontrado!</string>
     <string name="device_info">Información del dispositivo</string>
     <string name="disable_softkey">Desactivar el teclado virtual</string>
@@ -234,28 +235,28 @@
     <string name="fastboot">Arranque rápido (Fastboot)</string>
     <string name="fb_all_operations_cancelled">Todas las operaciones fueron canceladas</string>
     <string name="fb_cannot_paste_into_selected">No se puede pegar en la carpeta seleccionada</string>
-    <string name="fb_create_folder_failed">Error al crear la carpeta: %1$s</string>
-    <string name="fb_delete_failed">Error al eliminar: %1$s</string>
-    <string name="fb_deleted_items">Se eliminaron %1$d elementos</string>
-    <string name="fb_download_failed">Error al descargar: %1$s</string>
-    <string name="fb_downloaded_to">Descargado en %1$s</string>
-    <string name="fb_downloading">Descargando %1$s</string>
+    <string name="fb_create_folder_failed" comment="%1$s = error message. fb_ prefix = file browser">Error al crear la carpeta: %1$s</string>
+    <string name="fb_delete_failed" comment="%1$s = error message">Error al eliminar: %1$s</string>
+    <string name="fb_deleted_items" comment="%1$d = number of deleted items">Se eliminaron %1$d elementos</string>
+    <string name="fb_download_failed" comment="%1$s = error message">Error al descargar: %1$s</string>
+    <string name="fb_downloaded_to" comment="%1$s = file path">Descargado en %1$s</string>
+    <string name="fb_downloading" comment="%1$s = file name">Descargando %1$s</string>
     <string name="fb_empty_folder_skipped">Carpeta vacía omitida</string>
-    <string name="fb_error">Error: %1$s</string>
+    <string name="fb_error" comment="%1$s = error message">Error: %1$s</string>
     <string name="fb_file_deleted">Archivo eliminado</string>
     <string name="fb_folder_created">Carpeta creada</string>
     <string name="fb_nothing_to_paste">No hay nada para pegar</string>
     <string name="fb_operation_cancelled">Operación cancelada</string>
-    <string name="fb_otg_transfers_not_supported">Las transferencias de archivos no son compatibles en modo OTG</string>
-    <string name="fb_paste_completed">Completado: %1$d elementos</string>
-    <string name="fb_paste_completed_with_failed">Completado: %1$d elementos, %2$d omitidos, %3$d fallidos</string>
-    <string name="fb_paste_completed_with_skipped">Completado: %1$d elementos, %2$d omitidos</string>
+    <string name="fb_otg_transfers_not_supported" comment="OTG = USB On-The-Go">Las transferencias de archivos no son compatibles en modo OTG</string>
+    <string name="fb_paste_completed" comment="%1$d = number of items pasted">Completado: %1$d elementos</string>
+    <string name="fb_paste_completed_with_failed" comment="%1$d = completed, %2$d = skipped, %3$d = failed">Completado: %1$d elementos, %2$d omitidos, %3$d fallidos</string>
+    <string name="fb_paste_completed_with_skipped" comment="%1$d = completed, %2$d = skipped">Completado: %1$d elementos, %2$d omitidos</string>
     <string name="fb_reconnected_successfully">Se reconectó correctamente</string>
-    <string name="fb_rename_failed">Error al renombrar: %1$s</string>
+    <string name="fb_rename_failed" comment="%1$s = error message">Error al renombrar: %1$s</string>
     <string name="fb_renamed_successfully">Renombrado correctamente</string>
-    <string name="fb_upload_failed">Error al subir: %1$s</string>
+    <string name="fb_upload_failed" comment="%1$s = error message">Error al subir: %1$s</string>
     <string name="fb_uploaded_successfully">Archivo subido correctamente</string>
-    <string name="fb_uploading">Subiendo %1$s</string>
+    <string name="fb_uploading" comment="%1$s = file name">Subiendo %1$s</string>
     <string name="feature_request">Solicitud de función</string>
     <string name="fetching_backup_time">Obteniendo la hora de la copia de seguridad…</string>
     <string name="fetching_backup_type">Obteniendo el tipo de copia de seguridad…</string>
@@ -265,7 +266,7 @@
     <string name="file_already_exists">El archivo ya existe</string>
     <string name="file_browser">Explorador de archivos</string>
     <string name="file_conflict_title">El archivo ya existe</string>
-    <string name="file_exists_message">“%1$s” ya existe en esta ubicación.</string>
+    <string name="file_exists_message" comment="%1$s = file name">“%1$s” ya existe en esta ubicación.</string>
     <string name="file_info">Información del archivo</string>
     <string name="file_not_found">Archivo no encontrado</string>
     <string name="filter">Filtro</string>
@@ -276,46 +277,46 @@
     <string name="folder_info">Información de la carpeta</string>
     <string name="folder_name">Nombre de la carpeta</string>
     <string name="folder_picker">Selector de carpetas</string>
-    <string name="font_amatic_sc">SC Amático</string>
-    <string name="font_cabin">Cabaña</string>
-    <string name="font_caveat">Cabaña</string>
-    <string name="font_comfortaa">Comfortaa</string>
-    <string name="font_crimson_pro">Crimson Pro</string>
-    <string name="font_dancing_script">Guión de baile</string>
-    <string name="font_display_text">El rápido zorro marrón salta sobre el perro perezoso</string>
-    <string name="font_eb_garamond">Garamante EB</string>
-    <string name="font_exo_2">Exo 2</string>
+    <string name="font_amatic_sc" comment="Font style name">SC Amático</string>
+    <string name="font_cabin" comment="Font style name">Cabaña</string>
+    <string name="font_caveat" comment="Font style name">Cabaña</string>
+    <string name="font_comfortaa" comment="Font style name">Comfortaa</string>
+    <string name="font_crimson_pro" comment="Font style name">Crimson Pro</string>
+    <string name="font_dancing_script" comment="Font style name">Guión de baile</string>
+    <string name="font_display_text" comment="Sample text used to preview font styles">El rápido zorro marrón salta sobre el perro perezoso</string>
+    <string name="font_eb_garamond" comment="Font style name">Garamante EB</string>
+    <string name="font_exo_2" comment="Font style name">Exo 2</string>
     <string name="font_family">Familia de fuente</string>
-    <string name="font_heebo">Heebo</string>
-    <string name="font_inter">Inter</string>
-    <string name="font_josefin_sans">Josefin Sans</string>
-    <string name="font_karla">Karla</string>
-    <string name="font_lexend">Lexend</string>
-    <string name="font_lora">Lora</string>
-    <string name="font_manrope">Manrope</string>
-    <string name="font_montserrat">Montserrat</string>
-    <string name="font_noto_sans">Noto Sans</string>
-    <string name="font_nunito">Nunito</string>
-    <string name="font_open_sans">Abrir Sans</string>
-    <string name="font_oswald">Oswald</string>
-    <string name="font_outfit">Salida</string>
-    <string name="font_pacifico">Fico</string>
-    <string name="font_playfair_display">Pantalla de Jayfair</string>
-    <string name="font_playpen_sans">Jugador Sans</string>
-    <string name="font_plus_jakarta_sans">Plus Jakarta Sans</string>
-    <string name="font_public_sans">Sans públicos</string>
-    <string name="font_quicksand">Arenas rápidas</string>
-    <string name="font_raleway">Raleway</string>
-    <string name="font_roboto_flex">Roboto Flex</string>
-    <string name="font_rubik">Rubik</string>
-    <string name="font_shadows_into_light">Sombras en la luz</string>
+    <string name="font_heebo" comment="Font style name">Heebo</string>
+    <string name="font_inter" comment="Font style name">Inter</string>
+    <string name="font_josefin_sans" comment="Font style name">Josefin Sans</string>
+    <string name="font_karla" comment="Font style name">Karla</string>
+    <string name="font_lexend" comment="Font style name">Lexend</string>
+    <string name="font_lora" comment="Font style name">Lora</string>
+    <string name="font_manrope" comment="Font style name">Manrope</string>
+    <string name="font_montserrat" comment="Font style name">Montserrat</string>
+    <string name="font_noto_sans" comment="Font style name">Noto Sans</string>
+    <string name="font_nunito" comment="Font style name">Nunito</string>
+    <string name="font_open_sans" comment="Font style name">Abrir Sans</string>
+    <string name="font_oswald" comment="Font style name">Oswald</string>
+    <string name="font_outfit" comment="Font style name">Salida</string>
+    <string name="font_pacifico" comment="Font style name">Fico</string>
+    <string name="font_playfair_display" comment="Font style name">Pantalla de Jayfair</string>
+    <string name="font_playpen_sans" comment="Font style name">Jugador Sans</string>
+    <string name="font_plus_jakarta_sans" comment="Font style name">Plus Jakarta Sans</string>
+    <string name="font_public_sans" comment="Font style name">Sans públicos</string>
+    <string name="font_quicksand" comment="Font style name">Arenas rápidas</string>
+    <string name="font_raleway" comment="Font style name">Raleway</string>
+    <string name="font_roboto_flex" comment="Font style name">Roboto Flex</string>
+    <string name="font_rubik" comment="Font style name">Rubik</string>
+    <string name="font_shadows_into_light" comment="Font style name">Sombras en la luz</string>
     <string name="font_size_multiplier">Multiplicador de tamaño de fuente</string>
-    <string name="font_source_sans_3">Origen Sans 3</string>
-    <string name="font_source_serif_4">Serif fuente 4</string>
-    <string name="font_work_sans">Sans de trabajo</string>
+    <string name="font_source_sans_3" comment="Font style name">Origen Sans 3</string>
+    <string name="font_source_serif_4" comment="Font style name">Serif fuente 4</string>
+    <string name="font_work_sans" comment="Font style name">Sans de trabajo</string>
     <string name="forget">Olvidar</string>
     <string name="forget_device">Olvidar dispositivo</string>
-    <string name="forget_device_confirmation">¿Seguro que quieres olvidar %1$s? Tendrás que emparejarlo de nuevo para conectarte.</string>
+    <string name="forget_device_confirmation" comment="%1$s = device name">¿Seguro que quieres olvidar %1$s? Tendrás que emparejarlo de nuevo para conectarte.</string>
     <string name="forks">Bifurcaciones</string>
     <string name="found_connect_service">Servicio de conexión encontrado</string>
     <string name="full_license_text">Texto completo de la licencia</string>
@@ -354,7 +355,7 @@
     <string name="latest_version">Última versión</string>
     <string name="lead_developer">Desarrollador principal</string>
     <string name="least_used">Menos usado</string>
-    <string name="library_count">%1$d librerías detectadas</string>
+    <string name="library_count" comment="%1$d = number of third-party libraries">%1$d librerías detectadas</string>
     <string name="license">Licencia</string>
     <string name="license_label">Licencia</string>
     <string name="licenses">Licencias</string>
@@ -376,19 +377,19 @@
     <string name="mode">Modo</string>
     <string name="mode_one_desc">Usa el acceso root para ejecutar comandos. Los comandos que requieren root pueden ejecutarse.</string>
     <string name="mode_two_desc">Usa Shizuku para ejecutar comandos. Los comandos que requieren root no se ejecutarán.</string>
-    <string name="model_category_large">Grande (1,5–2,5 GB)</string>
-    <string name="model_category_medium">Media (800 MB–1,1 GB)</string>
-    <string name="model_category_small">Pequeño (300–500 MB)</string>
-    <string name="model_category_tiny">Pequeño (menos de 300 MB)</string>
-    <string name="models">Modelos</string>
-    <string name="modified">Modificado</string>
-    <string name="monospace">Monoespaciado</string>
+    <string name="model_category_large" comment="AI model size category label">Grande (1,5–2,5 GB)</string>
+    <string name="model_category_medium" comment="AI model size category label">Media (800 MB–1,1 GB)</string>
+    <string name="model_category_small" comment="AI model size category label">Pequeño (300–500 MB)</string>
+    <string name="model_category_tiny" comment="AI model size category label">Pequeño (menos de 300 MB)</string>
+    <string name="models" comment="Refers to AI/ML models used for command analysis">Modelos</string>
+    <string name="modified" comment="File property: last modified date">Modificado</string>
+    <string name="monospace" comment="Font style category name">Monoespaciado</string>
     <string name="more">Más</string>
     <string name="most_used">Más usado</string>
     <string name="move">Mover</string>
     <string name="moving">Moviendo…</string>
-    <string name="moving_items">Moviendo %1$d elemento(s)</string>
-    <string name="n_days">%d días</string>
+    <string name="moving_items" comment="%1$d = number of items being moved">Moviendo %1$d elemento(s)</string>
+    <string name="n_days" comment="%d = number of days for cache duration setting">%d días</string>
     <string name="name">Nombre</string>
     <string name="network_error">Error de red</string>
     <string name="new_commands_available_msg">¡Se han añadido nuevos ejemplos de comandos!\nHaz clic en el botón de abajo para cargar los nuevos comandos.</string>
@@ -423,17 +424,17 @@
     <string name="notification_style_error">Si no puedes introducir el código de emparejamiento desde la notificación, es posible que necesites cambiar el Panel de notificaciones a Android. Ve a Ajustes de notificaciones ~ Estilos de notificación para cambiar el estilo. De lo contrario, puede que no puedas introducir el código de emparejamiento desde la notificación.</string>
     <string name="notification_styles">Estilos de notificación</string>
     <string name="off">Apagado</string>
-    <string name="off_state">Apagado</string>
-    <string name="oldest">El más antiguo</string>
+    <string name="off_state" comment="Quick Settings tile toggle state label">Apagado</string>
+    <string name="oldest" comment="Sorting option">El más antiguo</string>
     <string name="on">Encendido</string>
-    <string name="on_state">Encendido</string>
+    <string name="on_state" comment="Quick Settings tile toggle state label">Encendido</string>
     <string name="open">Abrir</string>
     <string name="open_app_language_settings">Abrir los ajustes de idioma de la aplicación</string>
-    <string name="open_issues">Abrir incidencias</string>
+    <string name="open_issues" comment="GitHub repository open issues count">Abrir incidencias</string>
     <string name="open_url">Abrir URL</string>
     <string name="operations">Operaciones</string>
     <string name="or">OR</string>
-    <string name="otg">OTG</string>
+    <string name="otg" comment="USB On-The-Go. Technical term, keep as OTG">OTG</string>
     <string name="output">Salida</string>
     <string name="override_bookmarks_limit">Anular el límite máximo de marcadores</string>
     <string name="pair">Emparejar</string>
@@ -450,16 +451,16 @@
     <string name="pairing_code">Código de emparejamiento</string>
     <string name="pairing_notification_hint">Recibirás una notificación de aShell You para ayudarte con el emparejamiento</string>
     <string name="pairing_process_notification_access_message">Para completar el proceso de emparejamiento, tendrás que interactuar con una notificación de aShell You. Por favor, concede acceso a las notificaciones para aShell You.</string>
-    <string name="palette_content">Contenido</string>
-    <string name="palette_expressive">Expresivo</string>
-    <string name="palette_fidelity">Fidelidad</string>
-    <string name="palette_fruit_salad">Ensalada de frutas</string>
-    <string name="palette_monochrome">Monocromo</string>
-    <string name="palette_neutral">Neutro</string>
-    <string name="palette_rainbow">Arcoíris</string>
-    <string name="palette_style">Estilo de paleta</string>
-    <string name="palette_tonal_spot">Mancha tonal</string>
-    <string name="palette_vibrant">Vibrante</string>
+    <string name="palette_content" comment="Material Design color scheme style name">Contenido</string>
+    <string name="palette_expressive" comment="Material Design color scheme style name">Expresivo</string>
+    <string name="palette_fidelity" comment="Material Design color scheme style name">Fidelidad</string>
+    <string name="palette_fruit_salad" comment="Material Design color scheme style name">Ensalada de frutas</string>
+    <string name="palette_monochrome" comment="Material Design color scheme style name">Monocromo</string>
+    <string name="palette_neutral" comment="Material Design color scheme style name">Neutro</string>
+    <string name="palette_rainbow" comment="Material Design color scheme style name">Arcoíris</string>
+    <string name="palette_style" comment="Settings label for choosing Material Design color palette">Estilo de paleta</string>
+    <string name="palette_tonal_spot" comment="Material Design color scheme style name">Mancha tonal</string>
+    <string name="palette_vibrant" comment="Material Design color scheme style name">Vibrante</string>
     <string name="paste">Pegar</string>
     <string name="path">Ruta</string>
     <string name="permission_denied">Permiso denegado</string>
@@ -490,7 +491,7 @@
     <string name="recovery">Recuperación</string>
     <string name="refresh">Actualizar</string>
     <string name="rename">Renombrar</string>
-    <string name="rename_title">Renombrar %1$s</string>
+    <string name="rename_title" comment="%1$s = file or folder name">Renombrar %1$s</string>
     <string name="replace">Reemplazar</string>
     <string name="report">Informe</string>
     <string name="report_issue">Informar de un problema</string>
@@ -509,7 +510,7 @@
     <string name="restoring_backup">Restaurando copia de seguridad…</string>
     <string name="retry">Reintentar</string>
     <string name="root_access_granted">¡Acceso root concedido!</string>
-    <string name="sans_serif">Sans Serif</string>
+    <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Guardar</string>
     <string name="save_whole_output">Guardar la salida completa</string>
     <string name="saved_devices">Dispositivos guardados</string>
@@ -529,7 +530,7 @@
     <string name="searching_for_devices">Buscando dispositivos…</string>
     <string name="select">Seleccionar</string>
     <string name="select_all">Seleccionar todo</string>
-    <string name="self">Propio</string>
+    <string name="self" comment="Refers to pairing this device with itself for local ADB">Propio</string>
     <string name="self_pair_connection_failed">La conexión falló - intenta la conexión manual</string>
     <string name="self_pair_enter_code">Introduce el código de 6 dígitos del cuadro de emparejamiento</string>
     <string name="self_pair_enter_code_hint">Introduce el código de emparejamiento de 6 dígitos</string>
@@ -546,11 +547,11 @@
     <string name="self_pair_success_hint">La shell ADB local ya está disponible</string>
     <string name="self_pair_timeout">Tiempo de espera agotado - abre el diálogo de emparejamiento en Depuración inalámbrica</string>
     <string name="self_pair_wrong_code">Código incorrecto - abre de nuevo el diálogo de emparejamiento</string>
-    <string name="serif">Serif</string>
+    <string name="serif" comment="Font style category name">Serif</string>
     <string name="settings">Ajustes</string>
     <string name="settings_only">Solo ajustes</string>
-    <string name="shell_output_saved_message">La salida del último comando se ha exportado a ‘%s’</string>
-    <string name="shell_output_saved_whole_message">La salida de la consola se ha exportado a ‘%s’</string>
+    <string name="shell_output_saved_message" comment="%s = file path where output was saved">La salida del último comando se ha exportado a ‘%s’</string>
+    <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">La salida de la consola se ha exportado a ‘%s’</string>
     <string name="shizuku_not_installed">Shizuku no está instalado</string>
     <string name="shizuku_unavailable">Shizuku no está disponible</string>
     <string name="shizuku_unavailable_message">Shizuku no está instalado o no está configurado correctamente en tu dispositivo</string>
@@ -558,7 +559,7 @@
     <string name="sign_in_with_google">Iniciar sesión con Google</string>
     <string name="sign_out">Cerrar sesión</string>
     <string name="sign_out_confirmation_msg">¡Cerrar sesión pausará todas las copias de seguridad automáticas en la nube!\n¿Aún deseas cerrar sesión?</string>
-    <string name="signed_in_as">Has iniciado sesión como %1$s</string>
+    <string name="signed_in_as" comment="%1$s = user email or name">Has iniciado sesión como %1$s</string>
     <string name="signed_out">Sesión cerrada</string>
     <string name="size">Tamaño</string>
     <string name="skip">Omitir</string>
@@ -569,7 +570,7 @@
     <string name="stack_trace">Traza de pila</string>
     <string name="stargazers">Usuarios que dieron estrella</string>
     <string name="start">Iniciar</string>
-    <string name="storage_used_by_ai_models">%.1f MB usados por modelos IA</string>
+    <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">%.1f MB usados por modelos IA</string>
     <string name="subtitle">Subtítulo</string>
     <string name="subtitle_off_state">Subtítulos (Estado: DESACTIVADOS)</string>
     <string name="subtitle_on_state">Subtítulos (Estado: ACTIVADOS)</string>
@@ -581,11 +582,11 @@
     <string name="switch_mode">Cambiar de modo</string>
     <string name="system">Sistema</string>
     <string name="system_default">Predeterminado del sistema</string>
-    <string name="system_font">Fuente del sistema</string>
+    <string name="system_font" comment="Option to use the device default font">Fuente del sistema</string>
     <string name="system_settings">Ajustes del sistema</string>
     <string name="telegram">Telegram</string>
     <string name="terminal">Terminal</string>
-    <string name="terminal_font_style">Estilo de fuente del Terminal</string>
+    <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Estilo de fuente del Terminal</string>
     <string name="third_party_libraries">Librerías de terceros</string>
     <string name="this_application">Esta aplicación</string>
     <string name="this_device">Este dispositivo</string>
@@ -593,7 +594,7 @@
     <string name="tile_behavior">Comportamiento del mosaico</string>
     <string name="tile_dashboard_notification_access_message">Activa las notificaciones para recibir avisos cuando falle la ejecución de un mosaico</string>
     <string name="tile_logs">Registros del mosaico</string>
-    <string name="tile_n">Mosaico %1$d</string>
+    <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">Mosaico %1$d</string>
     <string name="tile_name">Nombre del mosaico</string>
     <string name="tiles">Mosaicos</string>
     <string name="toggleable">Conmutable</string>
@@ -630,7 +631,7 @@
     <string name="waiting_for_device">Esperando al dispositivo</string>
     <string name="waiting_for_devices">Esperando a los dispositivos…</string>
     <string name="want_to_contribute_too">¿Quieres contribuir tú también?</string>
-    <string name="what_to_do">¿Qué te gustaría hacer mientras %1$s?</string>
+    <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">¿Qué te gustaría hacer mientras %1$s?</string>
     <string name="whats_new">¡Novedades!</string>
     <string name="which_device_to_pair">¿Qué dispositivo te gustaría emparejar?</string>
     <string name="wifi_adb">ADB por Wifi</string>

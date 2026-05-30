@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
+    <!-- Sorting options: A_Z and Z_A are sort order labels -->
     <string name="abort_command">Спочатку скасуйте команду</string>
     <string name="about">Про додаток</string>
     <string name="active">Активний</string>
     <string name="adb_command">Команда ADB</string>
-    <string name="adb_command_hint">Приклад: adb reboot</string>
+    <string name="adb_command_hint" comment="Example ADB command shown as placeholder hint in input field">Приклад: adb reboot</string>
     <string name="adb_command_off_state">Команда ADB (стан ВИМК.)</string>
     <string name="adb_command_on_state">Команда ADB (стан УВІМК.)</string>
     <string name="adb_connection_active">Підключення ADB активне</string>
@@ -31,7 +32,7 @@
     <string name="app_crashed">Збій у додатку</string>
     <string name="app_tagline">ADB у вас під рукою</string>
     <string name="apply">Прийняти</string>
-    <string name="apply_to_all">Застосувати до усієї (%1$d решти)</string>
+    <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">Застосувати до усієї (%1$d решти)</string>
     <string name="artifact_id">Артефакт ID</string>
     <string name="auto_update">Автооновлення</string>
     <string name="back">Назад</string>
@@ -56,7 +57,7 @@
     <string name="bootloader">Завантажувач</string>
     <string name="btn_continue">Продовжити</string>
     <string name="cache_settings">Кеш</string>
-    <string name="cache_size">Розмір кешу: %s</string>
+    <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Розмір кешу: %s</string>
     <string name="cancel">Скасувати</string>
     <string name="cancel_all">Скасувати все</string>
     <string name="changelog">Список змін</string>
@@ -90,7 +91,7 @@
     <string name="confirm_delete">Підтвердити видалення</string>
     <string name="confirm_tile_delete_message">Ви впевнені, що хочете видалити цю плитку?</string>
     <string name="confirmation_clear_cache">Caching helps to retrieve analysis results instantly.\nDo you still want to clear all AI analysis cache data?</string>
-    <string name="conflict_message">\"%1$s\" вже існує в цьому місці.</string>
+    <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" вже існує в цьому місці.</string>
     <string name="conflict_title">Елемент вже існує</string>
     <string name="connect">Під\'єднатися</string>
     <string name="connect_device_via_otg">Під\'єднати пристрій через OTG</string>
@@ -103,11 +104,11 @@
     <string name="connection_lost">З’єднання втрачено</string>
     <string name="connection_lost_back_message">Бездротове з’єднання для налагодження втрачено. Що ви хочете зробити?</string>
     <string name="contributors">Учасники проєкту</string>
-    <string name="copied_items">Скопійовано %1$d елементів</string>
+    <string name="copied_items" comment="%1$d = number of items copied to clipboard">Скопійовано %1$d елементів</string>
     <string name="copied_to_clipboard">Скопійовано в буфер обміну!</string>
     <string name="copy">Копіювати</string>
     <string name="copying">Копіювання…</string>
-    <string name="copying_items">Копіювання %1$d елементів</string>
+    <string name="copying_items" comment="%1$d = number of items being copied">Копіювання %1$d елементів</string>
     <string name="crash_details">Деталі збою</string>
     <string name="crash_history">Історія збоїв</string>
     <string name="create">Створити</string>
@@ -115,7 +116,7 @@
     <string name="create_new_tile">Створити нову плитку</string>
     <string name="crowdin_contribution_msg">Відвідайте нашу платформу перекладів crowdin, щоб зробити свій внесок</string>
     <string name="current_version">Поточна версія</string>
-    <string name="cut_items">Вирізати %1$d елементів</string>
+    <string name="cut_items" comment="%1$d = number of items cut to clipboard">Вирізати %1$d елементів</string>
     <string name="cut_to_clipboard">Вирізати в буфер обміну</string>
     <string name="dark_theme">Темна тема</string>
     <string name="databases_only">Тільки бази даних</string>
@@ -125,10 +126,10 @@
     <string name="delete_all">Видалити все</string>
     <string name="delete_file">Видалити файл</string>
     <string name="delete_folder">Видалити теку</string>
-    <string name="delete_items_message">Ви впевнені, що хочете видалити %1$d вибраних елементів?</string>
-    <string name="delete_items_title">Видалити %1$d елементів?</string>
-    <string name="delete_message">Ви впевнені, що хочете видалити \"%1$s\"?</string>
-    <string name="delete_title">Видалити %1$s?</string>
+    <string name="delete_items_message" comment="%1$d = number of selected items">Ви впевнені, що хочете видалити %1$d вибраних елементів?</string>
+    <string name="delete_items_title" comment="%1$d = number of items">Видалити %1$d елементів?</string>
+    <string name="delete_message" comment="%1$s = file or folder name">Ви впевнені, що хочете видалити \"%1$s\"?</string>
+    <string name="delete_title" comment="%1$s = file or folder name">Видалити %1$s?</string>
     <string name="des_about">Співробітники та підтримка</string>
     <string name="des_ai_cache_days">Кількість днів для зберігання кешованих результатів</string>
     <string name="des_ai_cache_enabled">Результати аналізу кешу по моделі</string>
@@ -187,7 +188,7 @@
     <string name="device_connected">Пристрій під\'єднано!</string>
     <string name="device_disconnected">Пристрій від\'єднано</string>
     <string name="device_disconnected_message">З’єднання Wi-Fi ADB було втрачено.</string>
-    <string name="device_disconnected_message_with_name">\"%s\" відключився.</string>
+    <string name="device_disconnected_message_with_name" comment="%s = device name">\"%s\" відключився.</string>
     <string name="device_found">Пристрій знайдено!</string>
     <string name="device_info">Інформація про пристрій</string>
     <string name="disable_softkey">Вимкнути програмну клавіатуру</string>
@@ -234,28 +235,28 @@
     <string name="fastboot">Fastboot</string>
     <string name="fb_all_operations_cancelled">Усі операції скасовано</string>
     <string name="fb_cannot_paste_into_selected">Не можу вставити у вибрану теку</string>
-    <string name="fb_create_folder_failed">Не вдалося створити теку: %1$s</string>
-    <string name="fb_delete_failed">Не вдалося видалити: %1$s</string>
-    <string name="fb_deleted_items">Видалено %1$d елементів</string>
-    <string name="fb_download_failed">Завантаження не вдалося: %1$s</string>
-    <string name="fb_downloaded_to">Завантажено в %1$s</string>
-    <string name="fb_downloading">Завантаження %1$s</string>
+    <string name="fb_create_folder_failed" comment="%1$s = error message. fb_ prefix = file browser">Не вдалося створити теку: %1$s</string>
+    <string name="fb_delete_failed" comment="%1$s = error message">Не вдалося видалити: %1$s</string>
+    <string name="fb_deleted_items" comment="%1$d = number of deleted items">Видалено %1$d елементів</string>
+    <string name="fb_download_failed" comment="%1$s = error message">Завантаження не вдалося: %1$s</string>
+    <string name="fb_downloaded_to" comment="%1$s = file path">Завантажено в %1$s</string>
+    <string name="fb_downloading" comment="%1$s = file name">Завантаження %1$s</string>
     <string name="fb_empty_folder_skipped">Порожню теку пропущено</string>
-    <string name="fb_error">Помилка: %1$s</string>
+    <string name="fb_error" comment="%1$s = error message">Помилка: %1$s</string>
     <string name="fb_file_deleted">Файл видалено</string>
     <string name="fb_folder_created">Тека створена</string>
     <string name="fb_nothing_to_paste">Нічого вставити</string>
     <string name="fb_operation_cancelled">Операцію скасовано</string>
-    <string name="fb_otg_transfers_not_supported">Передача файлів не підтримується в режимі OTG</string>
-    <string name="fb_paste_completed">Виконано: %1$d елементів</string>
-    <string name="fb_paste_completed_with_failed">Виконано: %1$d елементів, %2$d пропущено, %3$d не вдалося</string>
-    <string name="fb_paste_completed_with_skipped">Виконано: %1$d елементів, %2$d пропущено</string>
+    <string name="fb_otg_transfers_not_supported" comment="OTG = USB On-The-Go">Передача файлів не підтримується в режимі OTG</string>
+    <string name="fb_paste_completed" comment="%1$d = number of items pasted">Виконано: %1$d елементів</string>
+    <string name="fb_paste_completed_with_failed" comment="%1$d = completed, %2$d = skipped, %3$d = failed">Виконано: %1$d елементів, %2$d пропущено, %3$d не вдалося</string>
+    <string name="fb_paste_completed_with_skipped" comment="%1$d = completed, %2$d = skipped">Виконано: %1$d елементів, %2$d пропущено</string>
     <string name="fb_reconnected_successfully">Підключення успішно відновлено</string>
-    <string name="fb_rename_failed">Перейменування не вдалося: %1$s</string>
+    <string name="fb_rename_failed" comment="%1$s = error message">Перейменування не вдалося: %1$s</string>
     <string name="fb_renamed_successfully">Успішно перейменовано</string>
-    <string name="fb_upload_failed">Завантаження не вдалося: %1$s</string>
+    <string name="fb_upload_failed" comment="%1$s = error message">Завантаження не вдалося: %1$s</string>
     <string name="fb_uploaded_successfully">Файл успішно завантажено</string>
-    <string name="fb_uploading">Завантаження %1$s</string>
+    <string name="fb_uploading" comment="%1$s = file name">Завантаження %1$s</string>
     <string name="feature_request">Запит функції</string>
     <string name="fetching_backup_time">Отримання часу резервного копіювання …</string>
     <string name="fetching_backup_type">Отримання типу резервної копії…</string>
@@ -265,7 +266,7 @@
     <string name="file_already_exists">Файл вже існує</string>
     <string name="file_browser">Файловий менеджер</string>
     <string name="file_conflict_title">Файл вже існує</string>
-    <string name="file_exists_message">\"%1$s\" вже існує в цьому місці.</string>
+    <string name="file_exists_message" comment="%1$s = file name">\"%1$s\" вже існує в цьому місці.</string>
     <string name="file_info">Інформація про файл</string>
     <string name="file_not_found">Файл не знайдено</string>
     <string name="filter">Фільтр</string>
@@ -276,46 +277,46 @@
     <string name="folder_info">Інформація про теку</string>
     <string name="folder_name">Ім\'я теки</string>
     <string name="folder_picker">Вибір теки</string>
-    <string name="font_amatic_sc">Аматік</string>
-    <string name="font_cabin">Кабіна</string>
-    <string name="font_caveat">Кавейт</string>
-    <string name="font_comfortaa">Comfortaa</string>
-    <string name="font_crimson_pro">Crimson Pro</string>
-    <string name="font_dancing_script">Рукописний</string>
-    <string name="font_display_text">Щурячий бугай із їжаком-харцизом в\'ючись у собаку</string>
-    <string name="font_eb_garamond">Еб Гарамон</string>
-    <string name="font_exo_2">Екзо 2</string>
+    <string name="font_amatic_sc" comment="Font style name">Аматік</string>
+    <string name="font_cabin" comment="Font style name">Кабіна</string>
+    <string name="font_caveat" comment="Font style name">Кавейт</string>
+    <string name="font_comfortaa" comment="Font style name">Comfortaa</string>
+    <string name="font_crimson_pro" comment="Font style name">Crimson Pro</string>
+    <string name="font_dancing_script" comment="Font style name">Рукописний</string>
+    <string name="font_display_text" comment="Sample text used to preview font styles">Щурячий бугай із їжаком-харцизом в\'ючись у собаку</string>
+    <string name="font_eb_garamond" comment="Font style name">Еб Гарамон</string>
+    <string name="font_exo_2" comment="Font style name">Екзо 2</string>
     <string name="font_family">Сімейство шрифтів</string>
-    <string name="font_heebo">Heebo</string>
-    <string name="font_inter">Інтер</string>
-    <string name="font_josefin_sans">Josefin Sans</string>
-    <string name="font_karla">Karla</string>
-    <string name="font_lexend">Lexend</string>
-    <string name="font_lora">Lora</string>
-    <string name="font_manrope">Manrope</string>
-    <string name="font_montserrat">Montserrat</string>
-    <string name="font_noto_sans">Noto Sans</string>
-    <string name="font_nunito">Нуніто</string>
-    <string name="font_open_sans">Відкриті сайти</string>
-    <string name="font_oswald">Освальд</string>
-    <string name="font_outfit">Одяг</string>
-    <string name="font_pacifico">Пачіфіко</string>
-    <string name="font_playfair_display">Відображення Плейномерів</string>
-    <string name="font_playpen_sans">Грати Санс</string>
-    <string name="font_plus_jakarta_sans">Plus Jakarta Sans</string>
-    <string name="font_public_sans">Громадські бани</string>
-    <string name="font_quicksand">Сипучі піски</string>
-    <string name="font_raleway">Raleway</string>
-    <string name="font_roboto_flex">Roboto Flex</string>
-    <string name="font_rubik">Rubik</string>
-    <string name="font_shadows_into_light">Тіні у світло</string>
+    <string name="font_heebo" comment="Font style name">Heebo</string>
+    <string name="font_inter" comment="Font style name">Інтер</string>
+    <string name="font_josefin_sans" comment="Font style name">Josefin Sans</string>
+    <string name="font_karla" comment="Font style name">Karla</string>
+    <string name="font_lexend" comment="Font style name">Lexend</string>
+    <string name="font_lora" comment="Font style name">Lora</string>
+    <string name="font_manrope" comment="Font style name">Manrope</string>
+    <string name="font_montserrat" comment="Font style name">Montserrat</string>
+    <string name="font_noto_sans" comment="Font style name">Noto Sans</string>
+    <string name="font_nunito" comment="Font style name">Нуніто</string>
+    <string name="font_open_sans" comment="Font style name">Відкриті сайти</string>
+    <string name="font_oswald" comment="Font style name">Освальд</string>
+    <string name="font_outfit" comment="Font style name">Одяг</string>
+    <string name="font_pacifico" comment="Font style name">Пачіфіко</string>
+    <string name="font_playfair_display" comment="Font style name">Відображення Плейномерів</string>
+    <string name="font_playpen_sans" comment="Font style name">Грати Санс</string>
+    <string name="font_plus_jakarta_sans" comment="Font style name">Plus Jakarta Sans</string>
+    <string name="font_public_sans" comment="Font style name">Громадські бани</string>
+    <string name="font_quicksand" comment="Font style name">Сипучі піски</string>
+    <string name="font_raleway" comment="Font style name">Raleway</string>
+    <string name="font_roboto_flex" comment="Font style name">Roboto Flex</string>
+    <string name="font_rubik" comment="Font style name">Rubik</string>
+    <string name="font_shadows_into_light" comment="Font style name">Тіні у світло</string>
     <string name="font_size_multiplier">Множник розміру шрифту</string>
-    <string name="font_source_sans_3">Присутні тексти 3</string>
-    <string name="font_source_serif_4">Початковий код з засічками 4</string>
-    <string name="font_work_sans">Робочі шанувальники</string>
+    <string name="font_source_sans_3" comment="Font style name">Присутні тексти 3</string>
+    <string name="font_source_serif_4" comment="Font style name">Початковий код з засічками 4</string>
+    <string name="font_work_sans" comment="Font style name">Робочі шанувальники</string>
     <string name="forget">Забути</string>
     <string name="forget_device">Забути пристрій</string>
-    <string name="forget_device_confirmation">Ви впевнені, що хочете забути? %1$s? Вам потрібно буде повторно виконати сполучення для підключення.</string>
+    <string name="forget_device_confirmation" comment="%1$s = device name">Ви впевнені, що хочете забути? %1$s? Вам потрібно буде повторно виконати сполучення для підключення.</string>
     <string name="forks">Forks</string>
     <string name="found_connect_service">Знайдено сервіс підключення</string>
     <string name="full_license_text">Повний текст ліцензії</string>
@@ -354,7 +355,7 @@
     <string name="latest_version">Остання версія</string>
     <string name="lead_developer">Провідний розробник</string>
     <string name="least_used">Рідко використовувані</string>
-    <string name="library_count">Виявлено бібліотек %1$d</string>
+    <string name="library_count" comment="%1$d = number of third-party libraries">Виявлено бібліотек %1$d</string>
     <string name="license">Ліцензія</string>
     <string name="license_label">Ліцензія</string>
     <string name="licenses">Ліцензії</string>
@@ -376,19 +377,19 @@
     <string name="mode">Режим</string>
     <string name="mode_one_desc">Використовуйте root доступ для запуску команд. Rooted команди можуть бути виконані.</string>
     <string name="mode_two_desc">Використовуйте shizuku для виконання команд. Команди, що потребують root-прав, не виконаються.</string>
-    <string name="model_category_large">Великий (1,5–2,5 ГБ)</string>
-    <string name="model_category_medium">Середній (800 Мбайт–1,1 ГБ)</string>
-    <string name="model_category_small">Невеликий (300-500 МБ)</string>
-    <string name="model_category_tiny">Крихітний (менше ніж 300 МБ)</string>
-    <string name="models">Моделі</string>
-    <string name="modified">Змінено</string>
-    <string name="monospace">Моноширинний</string>
+    <string name="model_category_large" comment="AI model size category label">Великий (1,5–2,5 ГБ)</string>
+    <string name="model_category_medium" comment="AI model size category label">Середній (800 Мбайт–1,1 ГБ)</string>
+    <string name="model_category_small" comment="AI model size category label">Невеликий (300-500 МБ)</string>
+    <string name="model_category_tiny" comment="AI model size category label">Крихітний (менше ніж 300 МБ)</string>
+    <string name="models" comment="Refers to AI/ML models used for command analysis">Моделі</string>
+    <string name="modified" comment="File property: last modified date">Змінено</string>
+    <string name="monospace" comment="Font style category name">Моноширинний</string>
     <string name="more">Ще</string>
     <string name="most_used">Часто використовуються</string>
     <string name="move">Перемістити</string>
     <string name="moving">Переміщення…</string>
-    <string name="moving_items">Переміщення %1$d елементів</string>
-    <string name="n_days">%d днів</string>
+    <string name="moving_items" comment="%1$d = number of items being moved">Переміщення %1$d елементів</string>
+    <string name="n_days" comment="%d = number of days for cache duration setting">%d днів</string>
     <string name="name">Ім\'я</string>
     <string name="network_error">Помилка мережі</string>
     <string name="new_commands_available_msg">Додано нові приклади команд!\nНатисніть кнопку нижче, щоб завантажити нові команди.</string>
@@ -423,17 +424,17 @@
     <string name="notification_style_error">Якщо ви не можете ввести код сполучення зі сповіщення, можливо, вам потрібно буде змінити панель сповіщень на Android. Щоб змінити стиль сповіщень, перейдіть до Налаштувань сповіщень ~ Стиль сповіщень. В іншому випадку ви можете не ввести код сполучення з повідомлення.</string>
     <string name="notification_styles">Стилі сповіщень</string>
     <string name="off">Вимкнено</string>
-    <string name="off_state">\"Вимк\"</string>
-    <string name="oldest">Найстаріший</string>
+    <string name="off_state" comment="Quick Settings tile toggle state label">\"Вимк\"</string>
+    <string name="oldest" comment="Sorting option">Найстаріший</string>
     <string name="on">Увімкнено</string>
-    <string name="on_state">\"Увім\"</string>
+    <string name="on_state" comment="Quick Settings tile toggle state label">\"Увім\"</string>
     <string name="open">Відкрити</string>
     <string name="open_app_language_settings">Відкрити налаштування мови додатку</string>
-    <string name="open_issues">Відкриті питання</string>
+    <string name="open_issues" comment="GitHub repository open issues count">Відкриті питання</string>
     <string name="open_url">Відкрити URL</string>
     <string name="operations">Операції</string>
     <string name="or">OR</string>
-    <string name="otg">OTG</string>
+    <string name="otg" comment="USB On-The-Go. Technical term, keep as OTG">OTG</string>
     <string name="output">Вивід</string>
     <string name="override_bookmarks_limit">Перевизначити максимальну кількість закладок</string>
     <string name="pair">Сполучення</string>
@@ -450,16 +451,16 @@
     <string name="pairing_code">Код сполучення</string>
     <string name="pairing_notification_hint">Ви отримаєте сповіщення від aShell You, яке допоможе вам зі сполученням</string>
     <string name="pairing_process_notification_access_message">Щоб завершити процес сполучення, вам потрібно взаємодіяти з повідомленнями від aShell You. Будь ласка, дозвольте доступ до сповіщень aShell You.</string>
-    <string name="palette_content">Зміст</string>
-    <string name="palette_expressive">Виразний</string>
-    <string name="palette_fidelity">Вірність</string>
-    <string name="palette_fruit_salad">Фруктовий салат</string>
-    <string name="palette_monochrome">Монохромний</string>
-    <string name="palette_neutral">Нейтральний</string>
-    <string name="palette_rainbow">Веселка</string>
-    <string name="palette_style">Стиль палітри</string>
-    <string name="palette_tonal_spot">Тональна цятка</string>
-    <string name="palette_vibrant">Вібрація</string>
+    <string name="palette_content" comment="Material Design color scheme style name">Зміст</string>
+    <string name="palette_expressive" comment="Material Design color scheme style name">Виразний</string>
+    <string name="palette_fidelity" comment="Material Design color scheme style name">Вірність</string>
+    <string name="palette_fruit_salad" comment="Material Design color scheme style name">Фруктовий салат</string>
+    <string name="palette_monochrome" comment="Material Design color scheme style name">Монохромний</string>
+    <string name="palette_neutral" comment="Material Design color scheme style name">Нейтральний</string>
+    <string name="palette_rainbow" comment="Material Design color scheme style name">Веселка</string>
+    <string name="palette_style" comment="Settings label for choosing Material Design color palette">Стиль палітри</string>
+    <string name="palette_tonal_spot" comment="Material Design color scheme style name">Тональна цятка</string>
+    <string name="palette_vibrant" comment="Material Design color scheme style name">Вібрація</string>
     <string name="paste">Вставити</string>
     <string name="path">Шлях</string>
     <string name="permission_denied">Дозвіл відхилено</string>
@@ -490,7 +491,7 @@
     <string name="recovery">Recovery</string>
     <string name="refresh">Оновити</string>
     <string name="rename">Перейменувати</string>
-    <string name="rename_title">Перейменувати %1$s</string>
+    <string name="rename_title" comment="%1$s = file or folder name">Перейменувати %1$s</string>
     <string name="replace">Замінити</string>
     <string name="report">Звіт</string>
     <string name="report_issue">Звіт про проблему</string>
@@ -509,7 +510,7 @@
     <string name="restoring_backup">Відновлення резервування…</string>
     <string name="retry">Повторити</string>
     <string name="root_access_granted">Root доступ надано!</string>
-    <string name="sans_serif">Без зарубок</string>
+    <string name="sans_serif" comment="Font style category name">Без зарубок</string>
     <string name="save">Зберегти</string>
     <string name="save_whole_output">Зберегти весь вивід</string>
     <string name="saved_devices">Збережені пристрої</string>
@@ -529,7 +530,7 @@
     <string name="searching_for_devices">Пошук пристроїв…</string>
     <string name="select">Вибрати</string>
     <string name="select_all">Вибрати все</string>
-    <string name="self">Своє</string>
+    <string name="self" comment="Refers to pairing this device with itself for local ADB">Своє</string>
     <string name="self_pair_connection_failed">Помилка підключення - спробуйте ручне підключення</string>
     <string name="self_pair_enter_code">Введіть 6-значний код із діалогового вікна сполучення</string>
     <string name="self_pair_enter_code_hint">Введіть 6-значний код сполучення</string>
@@ -546,11 +547,11 @@
     <string name="self_pair_success_hint">Локальна оболонка ADB тепер доступна</string>
     <string name="self_pair_timeout">Тайм-аут - відкрити діалог сполучення в бездротовому налагодженні</string>
     <string name="self_pair_wrong_code">Неправильний код - знову відкрийте діалогове вікно сполучення</string>
-    <string name="serif">З зарубками</string>
+    <string name="serif" comment="Font style category name">З зарубками</string>
     <string name="settings">Налаштування</string>
     <string name="settings_only">Тільки параметри</string>
-    <string name="shell_output_saved_message">Вивід останньої команди експортується до \'%s\'</string>
-    <string name="shell_output_saved_whole_message">Вивід оболонки експортується до \'%s\'</string>
+    <string name="shell_output_saved_message" comment="%s = file path where output was saved">Вивід останньої команди експортується до \'%s\'</string>
+    <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">Вивід оболонки експортується до \'%s\'</string>
     <string name="shizuku_not_installed">Shizuku не встановлено</string>
     <string name="shizuku_unavailable">Shizuku недоступний</string>
     <string name="shizuku_unavailable_message">Shizuku не встановлено або не налаштовано належним чином на вашому пристрої</string>
@@ -558,7 +559,7 @@
     <string name="sign_in_with_google">Увійти через Google</string>
     <string name="sign_out">Вийти</string>
     <string name="sign_out_confirmation_msg">Вихід з облікового запису призупинить усі автоматичні резервні копії в хмару!\nВи все ще хочете вийти?</string>
-    <string name="signed_in_as">Ви увійшли як %1$s</string>
+    <string name="signed_in_as" comment="%1$s = user email or name">Ви увійшли як %1$s</string>
     <string name="signed_out">Виконано вихід</string>
     <string name="size">Розмір</string>
     <string name="skip">Пропустити</string>
@@ -569,7 +570,7 @@
     <string name="stack_trace">Трасування стеку</string>
     <string name="stargazers">Зірки</string>
     <string name="start">Запустити</string>
-    <string name="storage_used_by_ai_models">%.1f МБ використовується AI моделями</string>
+    <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">%.1f МБ використовується AI моделями</string>
     <string name="subtitle">Субтитри</string>
     <string name="subtitle_off_state">Субтитри (стан ВИМК.)</string>
     <string name="subtitle_on_state">Субтитри (стан УВІМК.)</string>
@@ -581,11 +582,11 @@
     <string name="switch_mode">Перемикнути режим</string>
     <string name="system">Системна</string>
     <string name="system_default">Системні за замовчуванням</string>
-    <string name="system_font">Системний шрифт</string>
+    <string name="system_font" comment="Option to use the device default font">Системний шрифт</string>
     <string name="system_settings">Системні налаштування</string>
     <string name="telegram">Telegram</string>
     <string name="terminal">Термінал</string>
-    <string name="terminal_font_style">Стиль шрифту терміналу</string>
+    <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Стиль шрифту терміналу</string>
     <string name="third_party_libraries">Сторонні бібліотеки</string>
     <string name="this_application">Цей додаток</string>
     <string name="this_device">Цей пристрій</string>
@@ -593,7 +594,7 @@
     <string name="tile_behavior">Поведінка плитки</string>
     <string name="tile_dashboard_notification_access_message">Увімкніть сповіщення, щоб отримати повідомлення про несправність виконання плиток</string>
     <string name="tile_logs">Журнали плиток</string>
-    <string name="tile_n">Плитка %1$d</string>
+    <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">Плитка %1$d</string>
     <string name="tile_name">Назва плитки</string>
     <string name="tiles">Плитки</string>
     <string name="toggleable">Перемикальний</string>
@@ -630,7 +631,7 @@
     <string name="waiting_for_device">Очікування пристрою</string>
     <string name="waiting_for_devices">Очікування пристроїв…</string>
     <string name="want_to_contribute_too">Хочете також зробити свій внесок?</string>
-    <string name="what_to_do">Що б ви хотіли зробити поки %1$s?</string>
+    <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">Що б ви хотіли зробити поки %1$s?</string>
     <string name="whats_new">Що нового!</string>
     <string name="which_device_to_pair">Який пристрій ви хочете сполучити?</string>
     <string name="wifi_adb">WiFi ADB</string>
