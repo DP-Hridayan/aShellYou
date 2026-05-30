@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
+    <!-- Sorting options: A_Z and Z_A are sort order labels -->
     <string name="abort_command">ابتدا دستور را لغو کنید</string>
     <string name="about">درباره</string>
     <string name="active">Active</string>
     <string name="adb_command">ADB command</string>
-    <string name="adb_command_hint">adb reboot</string>
+    <string name="adb_command_hint" comment="Example ADB command shown as placeholder hint in input field">adb reboot</string>
     <string name="adb_command_off_state">ADB command (OFF state)</string>
     <string name="adb_command_on_state">ADB command (ON state)</string>
     <string name="adb_connection_active">اتصال ADB فعال است</string>
@@ -31,7 +32,7 @@
     <string name="app_crashed">برنامه از کار افتاد</string>
     <string name="app_tagline">ADB در نوک انگشتان شما</string>
     <string name="apply">Apply</string>
-    <string name="apply_to_all">اعمال به همه (%1$d باقیمانده)</string>
+    <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">اعمال به همه (%1$d باقیمانده)</string>
     <string name="artifact_id">Artifact ID</string>
     <string name="auto_update">بروزرسانی خودکار</string>
     <string name="back">بازگشت</string>
@@ -56,7 +57,7 @@
     <string name="bootloader">بوت‌لودر</string>
     <string name="btn_continue">ادامه</string>
     <string name="cache_settings">Cache</string>
-    <string name="cache_size">Cache size: %s</string>
+    <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Cache size: %s</string>
     <string name="cancel">لغو</string>
     <string name="cancel_all">لغو همه</string>
     <string name="changelog">Changelog</string>
@@ -90,7 +91,7 @@
     <string name="confirm_delete">تأیید حذف</string>
     <string name="confirm_tile_delete_message">Are you sure you want to delete this tile?</string>
     <string name="confirmation_clear_cache">Caching helps to retrieve analysis results instantly.\nDo you still want to clear all AI analysis cache data?</string>
-    <string name="conflict_message">\"%1$s\" از قبل در این مکان وجود دارد.</string>
+    <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" از قبل در این مکان وجود دارد.</string>
     <string name="conflict_title">مورد از قبل وجود دارد</string>
     <string name="connect">اتصال</string>
     <string name="connect_device_via_otg">اتصال دستگاه از طریق OTG</string>
@@ -103,11 +104,11 @@
     <string name="connection_lost">اتصال قطع شد</string>
     <string name="connection_lost_back_message">اتصال اشکال‌زدایی بی‌سیم قطع شد. می‌خواهید چه کاری انجام دهید؟</string>
     <string name="contributors">Contributors</string>
-    <string name="copied_items">%1$d مورد کپی شد</string>
+    <string name="copied_items" comment="%1$d = number of items copied to clipboard">%1$d مورد کپی شد</string>
     <string name="copied_to_clipboard">به کلیپ‌بورد کپی شد!</string>
     <string name="copy">کپی</string>
     <string name="copying">در حال کپی…</string>
-    <string name="copying_items">در حال کپی %1$d مورد</string>
+    <string name="copying_items" comment="%1$d = number of items being copied">در حال کپی %1$d مورد</string>
     <string name="crash_details">جزئیات خرابی</string>
     <string name="crash_history">تاریخچه خرابی‌ها</string>
     <string name="create">ایجاد</string>
@@ -115,7 +116,7 @@
     <string name="create_new_tile">Create new tile</string>
     <string name="crowdin_contribution_msg">Visit our crowdin translation platform to contribute</string>
     <string name="current_version">نسخه فعلی</string>
-    <string name="cut_items">%1$d مورد برش داده شد</string>
+    <string name="cut_items" comment="%1$d = number of items cut to clipboard">%1$d مورد برش داده شد</string>
     <string name="cut_to_clipboard">برش به کلیپ‌بورد</string>
     <string name="dark_theme">تم تاریک</string>
     <string name="databases_only">Databases only</string>
@@ -125,10 +126,10 @@
     <string name="delete_all">حذف همه</string>
     <string name="delete_file">حذف فایل</string>
     <string name="delete_folder">حذف پوشه</string>
-    <string name="delete_items_message">آیا مطمئن هستید که می‌خواهید %1$d مورد انتخاب شده را حذف کنید؟</string>
-    <string name="delete_items_title">حذف %1$d مورد؟</string>
-    <string name="delete_message">آیا مطمئن هستید که می‌خواهید \"%1$s\" را حذف کنید؟</string>
-    <string name="delete_title">حذف %1$s؟</string>
+    <string name="delete_items_message" comment="%1$d = number of selected items">آیا مطمئن هستید که می‌خواهید %1$d مورد انتخاب شده را حذف کنید؟</string>
+    <string name="delete_items_title" comment="%1$d = number of items">حذف %1$d مورد؟</string>
+    <string name="delete_message" comment="%1$s = file or folder name">آیا مطمئن هستید که می‌خواهید \"%1$s\" را حذف کنید؟</string>
+    <string name="delete_title" comment="%1$s = file or folder name">حذف %1$s؟</string>
     <string name="des_about">همکاران و پشتیبانی</string>
     <string name="des_ai_cache_days">Number of days to keep cached results</string>
     <string name="des_ai_cache_enabled">Cache analysis results per model</string>
@@ -187,7 +188,7 @@
     <string name="device_connected">دستگاه متصل شد!</string>
     <string name="device_disconnected">دستگاه قطع شد</string>
     <string name="device_disconnected_message">اتصال WiFi ADB قطع شد.</string>
-    <string name="device_disconnected_message_with_name">\"%s\" قطع شد.</string>
+    <string name="device_disconnected_message_with_name" comment="%s = device name">\"%s\" قطع شد.</string>
     <string name="device_found">دستگاه یافت شد!</string>
     <string name="device_info">اطلاعات دستگاه</string>
     <string name="disable_softkey">غیرفعال کردن کیبورد مجازی</string>
@@ -234,28 +235,28 @@
     <string name="fastboot">فست‌بوت</string>
     <string name="fb_all_operations_cancelled">همه عملیات لغو شد</string>
     <string name="fb_cannot_paste_into_selected">نمی‌توان در پوشه انتخاب شده چسباند</string>
-    <string name="fb_create_folder_failed">ایجاد پوشه ناموفق: %1$s</string>
-    <string name="fb_delete_failed">حذف ناموفق: %1$s</string>
-    <string name="fb_deleted_items">%1$d مورد حذف شد</string>
-    <string name="fb_download_failed">دانلود ناموفق: %1$s</string>
-    <string name="fb_downloaded_to">دانلود شد در %1$s</string>
-    <string name="fb_downloading">در حال دانلود %1$s</string>
+    <string name="fb_create_folder_failed" comment="%1$s = error message. fb_ prefix = file browser">ایجاد پوشه ناموفق: %1$s</string>
+    <string name="fb_delete_failed" comment="%1$s = error message">حذف ناموفق: %1$s</string>
+    <string name="fb_deleted_items" comment="%1$d = number of deleted items">%1$d مورد حذف شد</string>
+    <string name="fb_download_failed" comment="%1$s = error message">دانلود ناموفق: %1$s</string>
+    <string name="fb_downloaded_to" comment="%1$s = file path">دانلود شد در %1$s</string>
+    <string name="fb_downloading" comment="%1$s = file name">در حال دانلود %1$s</string>
     <string name="fb_empty_folder_skipped">پوشه خالی رد شد</string>
-    <string name="fb_error">خطا: %1$s</string>
+    <string name="fb_error" comment="%1$s = error message">خطا: %1$s</string>
     <string name="fb_file_deleted">فایل حذف شد</string>
     <string name="fb_folder_created">پوشه ایجاد شد</string>
     <string name="fb_nothing_to_paste">چیزی برای چسباندن نیست</string>
     <string name="fb_operation_cancelled">عملیات لغو شد</string>
-    <string name="fb_otg_transfers_not_supported">انتقال فایل در حالت OTG پشتیبانی نمی‌شود</string>
-    <string name="fb_paste_completed">تکمیل شد: %1$d مورد</string>
-    <string name="fb_paste_completed_with_failed">تکمیل شد: %1$d مورد، %2$d رد شد، %3$d ناموفق</string>
-    <string name="fb_paste_completed_with_skipped">تکمیل شد: %1$d مورد، %2$d رد شد</string>
+    <string name="fb_otg_transfers_not_supported" comment="OTG = USB On-The-Go">انتقال فایل در حالت OTG پشتیبانی نمی‌شود</string>
+    <string name="fb_paste_completed" comment="%1$d = number of items pasted">تکمیل شد: %1$d مورد</string>
+    <string name="fb_paste_completed_with_failed" comment="%1$d = completed, %2$d = skipped, %3$d = failed">تکمیل شد: %1$d مورد، %2$d رد شد، %3$d ناموفق</string>
+    <string name="fb_paste_completed_with_skipped" comment="%1$d = completed, %2$d = skipped">تکمیل شد: %1$d مورد، %2$d رد شد</string>
     <string name="fb_reconnected_successfully">اتصال مجدد موفق</string>
-    <string name="fb_rename_failed">تغییر نام ناموفق: %1$s</string>
+    <string name="fb_rename_failed" comment="%1$s = error message">تغییر نام ناموفق: %1$s</string>
     <string name="fb_renamed_successfully">با موفقیت تغییر نام داده شد</string>
-    <string name="fb_upload_failed">آپلود ناموفق: %1$s</string>
+    <string name="fb_upload_failed" comment="%1$s = error message">آپلود ناموفق: %1$s</string>
     <string name="fb_uploaded_successfully">فایل با موفقیت آپلود شد</string>
-    <string name="fb_uploading">در حال آپلود %1$s</string>
+    <string name="fb_uploading" comment="%1$s = file name">در حال آپلود %1$s</string>
     <string name="feature_request">درخواست ویژگی</string>
     <string name="fetching_backup_time">Fetching backup time …</string>
     <string name="fetching_backup_type">Fetching backup type…</string>
@@ -265,7 +266,7 @@
     <string name="file_already_exists">فایل از قبل وجود دارد</string>
     <string name="file_browser">مرورگر فایل</string>
     <string name="file_conflict_title">فایل از قبل وجود دارد</string>
-    <string name="file_exists_message">\"%1$s\" از قبل در این مکان وجود دارد.</string>
+    <string name="file_exists_message" comment="%1$s = file name">\"%1$s\" از قبل در این مکان وجود دارد.</string>
     <string name="file_info">اطلاعات فایل</string>
     <string name="file_not_found">فایل یافت نشد</string>
     <string name="filter">فیلتر</string>
@@ -276,46 +277,46 @@
     <string name="folder_info">اطلاعات پوشه</string>
     <string name="folder_name">نام پوشه</string>
     <string name="folder_picker">انتخابگر پوشه</string>
-    <string name="font_amatic_sc">Amatic SC</string>
-    <string name="font_cabin">Cabin</string>
-    <string name="font_caveat">Caveat</string>
-    <string name="font_comfortaa">Comfortaa</string>
-    <string name="font_crimson_pro">Crimson Pro</string>
-    <string name="font_dancing_script">Dancing Script</string>
-    <string name="font_display_text">The quick brown fox jumps over the lazy dog</string>
-    <string name="font_eb_garamond">EB Garamond</string>
-    <string name="font_exo_2">Exo 2</string>
+    <string name="font_amatic_sc" comment="Font style name">Amatic SC</string>
+    <string name="font_cabin" comment="Font style name">Cabin</string>
+    <string name="font_caveat" comment="Font style name">Caveat</string>
+    <string name="font_comfortaa" comment="Font style name">Comfortaa</string>
+    <string name="font_crimson_pro" comment="Font style name">Crimson Pro</string>
+    <string name="font_dancing_script" comment="Font style name">Dancing Script</string>
+    <string name="font_display_text" comment="Sample text used to preview font styles">The quick brown fox jumps over the lazy dog</string>
+    <string name="font_eb_garamond" comment="Font style name">EB Garamond</string>
+    <string name="font_exo_2" comment="Font style name">Exo 2</string>
     <string name="font_family">Font family</string>
-    <string name="font_heebo">Heebo</string>
-    <string name="font_inter">Inter</string>
-    <string name="font_josefin_sans">Josefin Sans</string>
-    <string name="font_karla">Karla</string>
-    <string name="font_lexend">Lexend</string>
-    <string name="font_lora">Lora</string>
-    <string name="font_manrope">Manrope</string>
-    <string name="font_montserrat">Montserrat</string>
-    <string name="font_noto_sans">Noto Sans</string>
-    <string name="font_nunito">Nunito</string>
-    <string name="font_open_sans">Open Sans</string>
-    <string name="font_oswald">Oswald</string>
-    <string name="font_outfit">Outfit</string>
-    <string name="font_pacifico">Pacifico</string>
-    <string name="font_playfair_display">Playfair Display</string>
-    <string name="font_playpen_sans">Playpen Sans</string>
-    <string name="font_plus_jakarta_sans">Plus Jakarta Sans</string>
-    <string name="font_public_sans">Public Sans</string>
-    <string name="font_quicksand">Quicksand</string>
-    <string name="font_raleway">Raleway</string>
-    <string name="font_roboto_flex">Roboto Flex</string>
-    <string name="font_rubik">Rubik</string>
-    <string name="font_shadows_into_light">Shadows Into Light</string>
+    <string name="font_heebo" comment="Font style name">Heebo</string>
+    <string name="font_inter" comment="Font style name">Inter</string>
+    <string name="font_josefin_sans" comment="Font style name">Josefin Sans</string>
+    <string name="font_karla" comment="Font style name">Karla</string>
+    <string name="font_lexend" comment="Font style name">Lexend</string>
+    <string name="font_lora" comment="Font style name">Lora</string>
+    <string name="font_manrope" comment="Font style name">Manrope</string>
+    <string name="font_montserrat" comment="Font style name">Montserrat</string>
+    <string name="font_noto_sans" comment="Font style name">Noto Sans</string>
+    <string name="font_nunito" comment="Font style name">Nunito</string>
+    <string name="font_open_sans" comment="Font style name">Open Sans</string>
+    <string name="font_oswald" comment="Font style name">Oswald</string>
+    <string name="font_outfit" comment="Font style name">Outfit</string>
+    <string name="font_pacifico" comment="Font style name">Pacifico</string>
+    <string name="font_playfair_display" comment="Font style name">Playfair Display</string>
+    <string name="font_playpen_sans" comment="Font style name">Playpen Sans</string>
+    <string name="font_plus_jakarta_sans" comment="Font style name">Plus Jakarta Sans</string>
+    <string name="font_public_sans" comment="Font style name">Public Sans</string>
+    <string name="font_quicksand" comment="Font style name">Quicksand</string>
+    <string name="font_raleway" comment="Font style name">Raleway</string>
+    <string name="font_roboto_flex" comment="Font style name">Roboto Flex</string>
+    <string name="font_rubik" comment="Font style name">Rubik</string>
+    <string name="font_shadows_into_light" comment="Font style name">Shadows Into Light</string>
     <string name="font_size_multiplier">Font size multiplier</string>
-    <string name="font_source_sans_3">Source Sans 3</string>
-    <string name="font_source_serif_4">Source Serif 4</string>
-    <string name="font_work_sans">Work Sans</string>
+    <string name="font_source_sans_3" comment="Font style name">Source Sans 3</string>
+    <string name="font_source_serif_4" comment="Font style name">Source Serif 4</string>
+    <string name="font_work_sans" comment="Font style name">Work Sans</string>
     <string name="forget">فراموش کردن</string>
     <string name="forget_device">فراموش کردن دستگاه</string>
-    <string name="forget_device_confirmation">آیا مطمئن هستید که می‌خواهید %1$s را فراموش کنید؟ برای اتصال مجدد باید دوباره جفت کنید.</string>
+    <string name="forget_device_confirmation" comment="%1$s = device name">آیا مطمئن هستید که می‌خواهید %1$s را فراموش کنید؟ برای اتصال مجدد باید دوباره جفت کنید.</string>
     <string name="forks">فورک‌ها</string>
     <string name="found_connect_service">سرویس اتصال یافت شد</string>
     <string name="full_license_text">Full license text</string>
@@ -354,7 +355,7 @@
     <string name="latest_version">آخرین نسخه</string>
     <string name="lead_developer">توسعه‌دهنده اصلی</string>
     <string name="least_used">کمترین استفاده</string>
-    <string name="library_count">%1$d libraries detected</string>
+    <string name="library_count" comment="%1$d = number of third-party libraries">%1$d libraries detected</string>
     <string name="license">مجوز</string>
     <string name="license_label">License</string>
     <string name="licenses">Licenses</string>
@@ -376,19 +377,19 @@
     <string name="mode">حالت</string>
     <string name="mode_one_desc">از دسترسی روت برای اجرای دستورات استفاده کنید. دستورات روت شده قابل اجرا هستند.</string>
     <string name="mode_two_desc">از Shizuku برای اجرای دستورات استفاده کنید. دستوراتی که نیاز به روت دارند اجرا نمی‌شوند.</string>
-    <string name="model_category_large">Large (1.5–2.5 GB)</string>
-    <string name="model_category_medium">Medium (800 MB–1.1 GB)</string>
-    <string name="model_category_small">Small (300–500 MB)</string>
-    <string name="model_category_tiny">Tiny (under 300 MB)</string>
-    <string name="models">Models</string>
-    <string name="modified">تغییر یافته</string>
-    <string name="monospace">تک‌فاصله</string>
+    <string name="model_category_large" comment="AI model size category label">Large (1.5–2.5 GB)</string>
+    <string name="model_category_medium" comment="AI model size category label">Medium (800 MB–1.1 GB)</string>
+    <string name="model_category_small" comment="AI model size category label">Small (300–500 MB)</string>
+    <string name="model_category_tiny" comment="AI model size category label">Tiny (under 300 MB)</string>
+    <string name="models" comment="Refers to AI/ML models used for command analysis">Models</string>
+    <string name="modified" comment="File property: last modified date">تغییر یافته</string>
+    <string name="monospace" comment="Font style category name">تک‌فاصله</string>
     <string name="more">بیشتر</string>
     <string name="most_used">پراستفاده‌ترین</string>
     <string name="move">انتقال</string>
     <string name="moving">در حال انتقال…</string>
-    <string name="moving_items">در حال انتقال %1$d مورد</string>
-    <string name="n_days">%d days</string>
+    <string name="moving_items" comment="%1$d = number of items being moved">در حال انتقال %1$d مورد</string>
+    <string name="n_days" comment="%d = number of days for cache duration setting">%d days</string>
     <string name="name">نام</string>
     <string name="network_error">خطای شبکه</string>
     <string name="new_commands_available_msg">New command examples are added!\nClick on the button below to load the new commands.</string>
@@ -423,17 +424,17 @@
     <string name="notification_style_error">اگر نمی‌توانید کد جفت‌سازی را از اعلان وارد کنید، ممکن است نیاز باشد سبک اعلان را به اندروید تغییر دهید. به تنظیمات اعلان ~ سبک اعلان بروید. در غیر این صورت ممکن است نتوانید کد جفت‌سازی را از اعلان وارد کنید.</string>
     <string name="notification_styles">Notification styles</string>
     <string name="off">خاموش</string>
-    <string name="off_state">Off</string>
-    <string name="oldest">قدیمی‌ترین</string>
+    <string name="off_state" comment="Quick Settings tile toggle state label">Off</string>
+    <string name="oldest" comment="Sorting option">قدیمی‌ترین</string>
     <string name="on">روشن</string>
-    <string name="on_state">On</string>
+    <string name="on_state" comment="Quick Settings tile toggle state label">On</string>
     <string name="open">باز کردن</string>
     <string name="open_app_language_settings">Open app language settings</string>
-    <string name="open_issues">مسائل باز</string>
+    <string name="open_issues" comment="GitHub repository open issues count">مسائل باز</string>
     <string name="open_url">Open URL</string>
     <string name="operations">عملیات</string>
     <string name="or">یا</string>
-    <string name="otg">OTG</string>
+    <string name="otg" comment="USB On-The-Go. Technical term, keep as OTG">OTG</string>
     <string name="output">خروجی</string>
     <string name="override_bookmarks_limit">نادیده گرفتن محدودیت نشانک‌ها</string>
     <string name="pair">جفت کردن</string>
@@ -450,16 +451,16 @@
     <string name="pairing_code">کد جفت‌سازی</string>
     <string name="pairing_notification_hint">یک اعلان از aShell You دریافت خواهید کرد تا در جفت‌سازی کمک کند</string>
     <string name="pairing_process_notification_access_message">To complete the pairing process you will need to interact with a notification from aShell You. Please allow notification access to aShell You.</string>
-    <string name="palette_content">Content</string>
-    <string name="palette_expressive">Expressive</string>
-    <string name="palette_fidelity">Fidelity</string>
-    <string name="palette_fruit_salad">Fruit Salad</string>
-    <string name="palette_monochrome">Monochrome</string>
-    <string name="palette_neutral">Neutral</string>
-    <string name="palette_rainbow">Rainbow</string>
-    <string name="palette_style">Palette style</string>
-    <string name="palette_tonal_spot">Tonal Spot</string>
-    <string name="palette_vibrant">Vibrant</string>
+    <string name="palette_content" comment="Material Design color scheme style name">Content</string>
+    <string name="palette_expressive" comment="Material Design color scheme style name">Expressive</string>
+    <string name="palette_fidelity" comment="Material Design color scheme style name">Fidelity</string>
+    <string name="palette_fruit_salad" comment="Material Design color scheme style name">Fruit Salad</string>
+    <string name="palette_monochrome" comment="Material Design color scheme style name">Monochrome</string>
+    <string name="palette_neutral" comment="Material Design color scheme style name">Neutral</string>
+    <string name="palette_rainbow" comment="Material Design color scheme style name">Rainbow</string>
+    <string name="palette_style" comment="Settings label for choosing Material Design color palette">Palette style</string>
+    <string name="palette_tonal_spot" comment="Material Design color scheme style name">Tonal Spot</string>
+    <string name="palette_vibrant" comment="Material Design color scheme style name">Vibrant</string>
     <string name="paste">چسباندن</string>
     <string name="path">مسیر</string>
     <string name="permission_denied">مجوز رد شد</string>
@@ -490,7 +491,7 @@
     <string name="recovery">ریکاوری</string>
     <string name="refresh">بازخوانی</string>
     <string name="rename">تغییر نام</string>
-    <string name="rename_title">تغییر نام %1$s</string>
+    <string name="rename_title" comment="%1$s = file or folder name">تغییر نام %1$s</string>
     <string name="replace">جایگزین</string>
     <string name="report">گزارش</string>
     <string name="report_issue">گزارش مشکل</string>
@@ -509,7 +510,7 @@
     <string name="restoring_backup">Restoring backup…</string>
     <string name="retry">تلاش مجدد</string>
     <string name="root_access_granted">دسترسی روت اعطا شد!</string>
-    <string name="sans_serif">Sans Serif</string>
+    <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">ذخیره</string>
     <string name="save_whole_output">ذخیره کل خروجی</string>
     <string name="saved_devices">دستگاه‌های ذخیره شده</string>
@@ -529,7 +530,7 @@
     <string name="searching_for_devices">جستجوی دستگاه‌ها…</string>
     <string name="select">Select</string>
     <string name="select_all">انتخاب همه</string>
-    <string name="self">خود</string>
+    <string name="self" comment="Refers to pairing this device with itself for local ADB">خود</string>
     <string name="self_pair_connection_failed">اتصال ناموفق - اتصال دستی را امتحان کنید</string>
     <string name="self_pair_enter_code">کد ۶ رقمی را از پنجره جفت‌سازی وارد کنید</string>
     <string name="self_pair_enter_code_hint">کد جفت‌سازی ۶ رقمی را وارد کنید</string>
@@ -546,11 +547,11 @@
     <string name="self_pair_success_hint">شل ADB محلی اکنون در دسترس است</string>
     <string name="self_pair_timeout">انقضا - پنجره جفت‌سازی را در اشکال‌زدایی بی‌سیم باز کنید</string>
     <string name="self_pair_wrong_code">کد اشتباه - پنجره جفت‌سازی را دوباره باز کنید</string>
-    <string name="serif">Serif</string>
+    <string name="serif" comment="Font style category name">Serif</string>
     <string name="settings">تنظیمات</string>
     <string name="settings_only">Settings only</string>
-    <string name="shell_output_saved_message">خروجی آخرین دستور به \'%s\' صادر شد</string>
-    <string name="shell_output_saved_whole_message">خروجی شل به \'%s\' صادر شد</string>
+    <string name="shell_output_saved_message" comment="%s = file path where output was saved">خروجی آخرین دستور به \'%s\' صادر شد</string>
+    <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">خروجی شل به \'%s\' صادر شد</string>
     <string name="shizuku_not_installed">Shizuku نصب نیست</string>
     <string name="shizuku_unavailable">Shizuku در دسترس نیست</string>
     <string name="shizuku_unavailable_message">Shizuku روی دستگاه شما نصب یا پیکربندی نشده است</string>
@@ -558,7 +559,7 @@
     <string name="sign_in_with_google">Sign in with Google</string>
     <string name="sign_out">Sign out</string>
     <string name="sign_out_confirmation_msg">Signing out will pause all automatic cloud backups!\nDo you still want to sign out?</string>
-    <string name="signed_in_as">Signed in as %1$s</string>
+    <string name="signed_in_as" comment="%1$s = user email or name">Signed in as %1$s</string>
     <string name="signed_out">Signed out</string>
     <string name="size">اندازه</string>
     <string name="skip">رد شدن</string>
@@ -569,7 +570,7 @@
     <string name="stack_trace">ردیابی پشته</string>
     <string name="stargazers">ستاره‌دهندگان</string>
     <string name="start">شروع</string>
-    <string name="storage_used_by_ai_models">%.1f MB used by AI models</string>
+    <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">%.1f MB used by AI models</string>
     <string name="subtitle">Subtitle</string>
     <string name="subtitle_off_state">Subtitle (OFF state)</string>
     <string name="subtitle_on_state">Subtitle (ON state)</string>
@@ -581,11 +582,11 @@
     <string name="switch_mode">تغییر حالت</string>
     <string name="system">سیستم</string>
     <string name="system_default">System default</string>
-    <string name="system_font">فونت سیستم</string>
+    <string name="system_font" comment="Option to use the device default font">فونت سیستم</string>
     <string name="system_settings">تنظیمات سیستم</string>
     <string name="telegram">تلگرام</string>
     <string name="terminal">ترمینال</string>
-    <string name="terminal_font_style">سبک فونت ترمینال</string>
+    <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">سبک فونت ترمینال</string>
     <string name="third_party_libraries">Third-party libraries</string>
     <string name="this_application">This application</string>
     <string name="this_device">این دستگاه</string>
@@ -593,7 +594,7 @@
     <string name="tile_behavior">Tile behavior</string>
     <string name="tile_dashboard_notification_access_message">Turn on notifications to get notified whenever a tile execution fails</string>
     <string name="tile_logs">Tile logs</string>
-    <string name="tile_n">Tile %1$d</string>
+    <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">Tile %1$d</string>
     <string name="tile_name">Tile name</string>
     <string name="tiles">Tiles</string>
     <string name="toggleable">Toggleable</string>
@@ -630,7 +631,7 @@
     <string name="waiting_for_device">در انتظار دستگاه</string>
     <string name="waiting_for_devices">در انتظار دستگاه‌ها…</string>
     <string name="want_to_contribute_too">Want to contribute too?</string>
-    <string name="what_to_do">در حین %1$s چه می‌خواهید انجام دهید؟</string>
+    <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">در حین %1$s چه می‌خواهید انجام دهید؟</string>
     <string name="whats_new">تازه‌ها!</string>
     <string name="which_device_to_pair">کدام دستگاه را می‌خواهید جفت کنید؟</string>
     <string name="wifi_adb">وای‌فای ADB</string>
