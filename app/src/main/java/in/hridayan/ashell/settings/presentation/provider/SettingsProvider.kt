@@ -5,9 +5,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material.icons.rounded.AutoAwesome
 import androidx.compose.material.icons.rounded.Cached
-import androidx.compose.material.icons.rounded.TextFields
 import androidx.compose.material.icons.rounded.Downloading
 import androidx.compose.material.icons.rounded.Memory
+import androidx.compose.material.icons.rounded.TextFields
 import androidx.compose.material.icons.rounded.UnfoldMoreDouble
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
@@ -326,6 +326,15 @@ object SettingsProvider {
         ),
         customSlot(BackupScreenCustomSlots.LastBackupTime),
         category(
+            title = R.string.auto_backup,
+            clickableItem(
+                key = SettingsKeys.BACKUP_SCHEDULER,
+                title = R.string.backup_scheduler,
+                description = R.string.des_backup_scheduler,
+                icon = R.drawable.ic_schedule
+            ),
+        ),
+        category(
             title = R.string.restore,
             clickableItem(
                 key = SettingsKeys.RESTORE_APP_DATA,
@@ -343,6 +352,57 @@ object SettingsProvider {
                 icon = R.drawable.ic_reset_settings
             ),
         ),
+    )
+
+    val backupSchedulerPage = settingsPage(
+        screenTitle = R.string.backup_scheduler,
+        screenId = "backup_scheduler",
+        group(
+            switchBannerItem(
+                key = SettingsKeys.AUTO_BACKUP_ENABLED,
+                title = R.string.enable_auto_backup
+            ),
+        ),
+        customSlot(BackupScreenCustomSlots.SchedulerStatus),
+        category(
+            title = R.string.schedule,
+            clickableItem(
+                key = SettingsKeys.AUTO_BACKUP_TIME,
+                title = R.string.backup_time,
+                description = R.string.des_auto_backup_time,
+                icon = R.drawable.ic_schedule
+            )
+        ),
+        category(
+            title = R.string.frequency,
+            radioGroupItem(
+                key = SettingsKeys.AUTO_BACKUP_FREQUENCY,
+                options = RadioGroupOptionsProvider.backupFrequencyOptions,
+            ),
+        ),
+        category(
+            title = R.string.auto_backup_content_type,
+            radioGroupItem(
+                key = SettingsKeys.AUTO_BACKUP_TYPE,
+                options = RadioGroupOptionsProvider.autoBackupTypeOptions,
+            ),
+        ),
+        category(
+            title = R.string.local_backup,
+            clickableItem(
+                key = SettingsKeys.AUTO_BACKUP_FOLDER,
+                title = R.string.auto_backup_folder,
+                description = R.string.des_auto_backup_folder,
+                icon = R.drawable.ic_directory
+            ),
+            switchItem(
+                key = SettingsKeys.AUTO_BACKUP_DELETE_EXISTING,
+                title = R.string.auto_delete_existing_backups,
+                description = R.string.des_auto_delete_existing_backups,
+                icon = R.drawable.ic_delete_sweep
+            ),
+        ),
+        customSlot(BackupScreenCustomSlots.GoogleDriveSection),
     )
 
     val aiModelsPage = settingsPage(
@@ -384,7 +444,7 @@ object SettingsProvider {
     val allSearchablePages: List<SettingsPage> = listOf(
         settingsPage, lookAndFeelPage, darkThemePage,
         behaviorPage, autoUpdatePage, aboutPage, backupPage,
-        aiModelsPage,
+        aiModelsPage, backupSchedulerPage,
     )
 
     /**
@@ -400,6 +460,7 @@ object SettingsProvider {
         aboutPage.screenId!! to { NavRoutes.AboutScreen(it) },
         backupPage.screenId!! to { NavRoutes.BackupAndRestoreScreen(it) },
         aiModelsPage.screenId!! to { NavRoutes.AiModelManagerScreen(it) },
+        backupSchedulerPage.screenId!! to { NavRoutes.BackupSchedulerScreen },
     )
 
     /** Resolves a [screenId] to the correct [NavRoutes] destination. */

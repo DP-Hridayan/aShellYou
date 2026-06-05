@@ -26,9 +26,12 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import `in`.hridayan.ashell.settings.data.worker.BackupScheduler
 import javax.inject.Inject
 
 @HiltViewModel
@@ -62,9 +65,13 @@ class SettingsViewModel @Inject constructor(
     val aboutPage = SettingsProvider.aboutPage
     val backupPage = SettingsProvider.backupPage
     val aiModelsPage = SettingsProvider.aiModelsPage
+    val backupSchedulerPage = SettingsProvider.backupSchedulerPage
 
     private val _uiEvent = MutableSharedFlow<SettingsUiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
+
+    private val _isBackingUp = MutableStateFlow(false)
+    val isBackingUp = _isBackingUp.asStateFlow()
 
 
     fun onToggle(key: SettingsKeys<Boolean>) {
@@ -270,8 +277,49 @@ class SettingsViewModel @Inject constructor(
                     SettingsUiEvent.ShowDialog(DialogKey.Settings.AiCacheClearConfirmation)
                 )
 
+                SettingsKeys.AUTO_BACKUP_TIME -> _uiEvent.emit(
+                    SettingsUiEvent.ShowDialog(DialogKey.Settings.AutoBackupTimePicker)
+                )
+
+                SettingsKeys.AUTO_BACKUP_FOLDER -> _uiEvent.emit(
+                    SettingsUiEvent.RequestAutoBackupFolderPicker
+                )
+
                 else -> {}
             }
+        }
+    }
+
+    /**
+     * Reschedules or cancels the auto-backup WorkManager job based on current settings.
+     * Called after toggling enable, changing time, or changing frequency.
+     */
+    fun rescheduleAutoBackup() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val enabled = settingsRepository.getBoolean(SettingsKeys.AUTO_BACKUP_ENABLED)
+                .firstOrNull() ?: false
+            if (!enabled) {
+                BackupScheduler.cancel(context)
+                return@launch
+            }
+            val hour = settingsRepository.getInt(SettingsKeys.AUTO_BACKUP_TIME_HOUR)
+                .firstOrNull() ?: 2
+            val minute = settingsRepository.getInt(SettingsKeys.AUTO_BACKUP_TIME_MINUTE)
+                .firstOrNull() ?: 0
+            val frequency = settingsRepository.getInt(SettingsKeys.AUTO_BACKUP_FREQUENCY)
+                .firstOrNull() ?: 0
+            BackupScheduler.schedule(context, hour, minute, frequency)
+        }
+    }
+
+    /** Triggers an immediate one-shot backup using the same AutoBackupWorker. */
+    fun backupNow() {
+        _isBackingUp.value = true
+        BackupScheduler.runNow(context)
+        // Reset after a delay — WorkManager doesn't give instant completion callbacks easily
+        viewModelScope.launch {
+            kotlinx.coroutines.delay(3000)
+            _isBackingUp.value = false
         }
     }
 }

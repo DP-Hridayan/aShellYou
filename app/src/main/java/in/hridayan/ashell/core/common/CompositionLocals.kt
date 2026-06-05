@@ -133,6 +133,16 @@ fun CompositionLocals(
 
     val fontFamily by settingsViewModel.intState(SettingsKeys.FONT_FAMILY)
 
+    val autoBackupEnabled by settingsViewModel.booleanState(SettingsKeys.AUTO_BACKUP_ENABLED)
+    val autoBackupFolderName by settingsViewModel.stringState(SettingsKeys.AUTO_BACKUP_FOLDER_NAME)
+    val autoBackupTimeHour by settingsViewModel.intState(SettingsKeys.AUTO_BACKUP_TIME_HOUR)
+    val autoBackupTimeMinute by settingsViewModel.intState(SettingsKeys.AUTO_BACKUP_TIME_MINUTE)
+    val autoBackupFrequency by settingsViewModel.intState(SettingsKeys.AUTO_BACKUP_FREQUENCY)
+    val lastAutoBackupLocalSuccessTime by settingsViewModel.stringState(SettingsKeys.LAST_AUTO_BACKUP_LOCAL_SUCCESS_TIME)
+    val lastAutoBackupLocalError by settingsViewModel.stringState(SettingsKeys.LAST_AUTO_BACKUP_LOCAL_ERROR)
+    val lastAutoBackupCloudSuccessTime by settingsViewModel.stringState(SettingsKeys.LAST_AUTO_BACKUP_CLOUD_SUCCESS_TIME)
+    val lastAutoBackupCloudError by settingsViewModel.stringState(SettingsKeys.LAST_AUTO_BACKUP_CLOUD_ERROR)
+
     val scaledDensity = remember(screenDensityMultiplier, fontSizeMultiplier, baseDensity) {
         Density(
             density = baseDensity.density * screenDensityMultiplier,
@@ -174,7 +184,16 @@ fun CompositionLocals(
             aiCacheDays,
             screenDensityMultiplier,
             fontSizeMultiplier,
-            fontFamily
+            fontFamily,
+            autoBackupEnabled,
+            autoBackupFolderName,
+            autoBackupTimeHour,
+            autoBackupTimeMinute,
+            autoBackupFrequency,
+            lastAutoBackupLocalSuccessTime,
+            lastAutoBackupLocalError,
+            lastAutoBackupCloudSuccessTime,
+            lastAutoBackupCloudError
         ) {
             SettingsState(
                 isAutoUpdate = autoUpdate,
@@ -209,7 +228,16 @@ fun CompositionLocals(
                 aiCacheDays = aiCacheDays,
                 screenDensityMultiplier = screenDensityMultiplier,
                 fontSizeMultiplier = fontSizeMultiplier,
-                fontFamily = fontFamily
+                fontFamily = fontFamily,
+                autoBackupEnabled = autoBackupEnabled,
+                autoBackupFolderName = autoBackupFolderName,
+                autoBackupTimeHour = autoBackupTimeHour,
+                autoBackupTimeMinute = autoBackupTimeMinute,
+                autoBackupFrequency = autoBackupFrequency,
+                lastAutoBackupLocalSuccessTime = lastAutoBackupLocalSuccessTime,
+                lastAutoBackupLocalError = lastAutoBackupLocalError,
+                lastAutoBackupCloudSuccessTime = lastAutoBackupCloudSuccessTime,
+                lastAutoBackupCloudError = lastAutoBackupCloudError
             )
         }
 

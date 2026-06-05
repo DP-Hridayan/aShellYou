@@ -43,6 +43,7 @@ sealed class DialogKey {
         object PaletteStyle : DialogKey()
         object AiCacheDays : DialogKey()
         object AiCacheClearConfirmation : DialogKey()
+        object AutoBackupTimePicker : DialogKey()
     }
 
     sealed class Pair {

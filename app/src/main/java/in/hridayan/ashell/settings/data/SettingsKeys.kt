@@ -55,6 +55,8 @@ sealed class SettingsKeys<out T>(
     data object RESTORE_APP_DATA : SettingsKeys<Nothing?>("RESTORE_APP_DATA", null)
     data object RESET_APP_SETTINGS : SettingsKeys<Nothing?>("RESET_APP_SETTINGS", null)
     data object BACKUP_SCHEDULER : SettingsKeys<Nothing?>("BACKUP_SCHEDULER", null)
+    data object AUTO_BACKUP_TIME : SettingsKeys<Nothing?>("AUTO_BACKUP_TIME", null)
+    data object AUTO_BACKUP_FOLDER : SettingsKeys<Nothing?>("AUTO_BACKUP_FOLDER", null)
     data object QUICK_SETTINGS_TILES : SettingsKeys<Nothing?>("QUICK_SETTINGS_TILES", null)
     data object TRANSLATORS : SettingsKeys<Nothing?>("TRANSLATORS", null)
     data object CONTRIBUTORS : SettingsKeys<Nothing?>("CONTRIBUTORS", null)
@@ -79,6 +81,10 @@ sealed class SettingsKeys<out T>(
     data object FIRST_LAUNCH : SettingsKeys<Boolean>("FIRST_LAUNCH", true)
     data object NEW_COMMANDS_AVAILABLE : SettingsKeys<Boolean>("NEW_COMMANDS_AVAILABLE", true)
     data object AI_CACHE_ENABLED : SettingsKeys<Boolean>("AI_CACHE_ENABLED", true)
+    data object AUTO_BACKUP_ENABLED : SettingsKeys<Boolean>("AUTO_BACKUP_ENABLED", false)
+    data object AUTO_BACKUP_DELETE_EXISTING : SettingsKeys<Boolean>("AUTO_BACKUP_DELETE_EXISTING", true)
+    data object AUTO_BACKUP_LOCAL_ENABLED : SettingsKeys<Boolean>("AUTO_BACKUP_LOCAL_ENABLED", true)
+    data object AUTO_BACKUP_CLOUD_ENABLED : SettingsKeys<Boolean>("AUTO_BACKUP_CLOUD_ENABLED", true)
 
 
     // Float keys
@@ -107,6 +113,10 @@ sealed class SettingsKeys<out T>(
     data object BOOKMARK_SORT_TYPE : SettingsKeys<Int>("BOOKMARK_SORT_TYPE", SortType.AZ)
     data object COMMAND_SORT_TYPE : SettingsKeys<Int>("COMMAND_SORT_TYPE", SortType.AZ)
     data object AI_CACHE_DAYS : SettingsKeys<Int>("AI_CACHE_DAYS", 30)
+    data object AUTO_BACKUP_TIME_HOUR : SettingsKeys<Int>("AUTO_BACKUP_TIME_HOUR", 2)
+    data object AUTO_BACKUP_TIME_MINUTE : SettingsKeys<Int>("AUTO_BACKUP_TIME_MINUTE", 0)
+    data object AUTO_BACKUP_FREQUENCY : SettingsKeys<Int>("AUTO_BACKUP_FREQUENCY", 0)
+    data object AUTO_BACKUP_TYPE : SettingsKeys<Int>("AUTO_BACKUP_TYPE", 2)
     data object FONT_FAMILY : SettingsKeys<Int>("FONT_FAMILY", 0)
 
     // String Keys
@@ -124,6 +134,12 @@ sealed class SettingsKeys<out T>(
     data object LAST_CLOUD_BACKUP_TYPE : SettingsKeys<String>("LAST_CLOUD_BACKUP_TYPE", "None")
     data object LAST_LOCAL_BACKUP_TYPE : SettingsKeys<String>("LAST_LOCAL_BACKUP_TYPE", "None")
     data object RECENT_SEARCH_KEYS : SettingsKeys<String>("RECENT_SEARCH_KEYS", "")
+    data object AUTO_BACKUP_FOLDER_URI : SettingsKeys<String>("AUTO_BACKUP_FOLDER_URI", "")
+    data object AUTO_BACKUP_FOLDER_NAME : SettingsKeys<String>("AUTO_BACKUP_FOLDER_NAME", "")
+    data object LAST_AUTO_BACKUP_LOCAL_SUCCESS_TIME : SettingsKeys<String>("LAST_AUTO_BACKUP_LOCAL_SUCCESS_TIME", "")
+    data object LAST_AUTO_BACKUP_LOCAL_ERROR : SettingsKeys<String>("LAST_AUTO_BACKUP_LOCAL_ERROR", "")
+    data object LAST_AUTO_BACKUP_CLOUD_SUCCESS_TIME : SettingsKeys<String>("LAST_AUTO_BACKUP_CLOUD_SUCCESS_TIME", "")
+    data object LAST_AUTO_BACKUP_CLOUD_ERROR : SettingsKeys<String>("LAST_AUTO_BACKUP_CLOUD_ERROR", "")
     data object SELECTED_MODEL_ID :
         SettingsKeys<String>("SELECTED_MODEL_ID", ModelRegistry.defaultModel.id)
 

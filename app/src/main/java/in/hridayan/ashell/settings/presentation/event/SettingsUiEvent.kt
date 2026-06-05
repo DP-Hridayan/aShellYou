@@ -20,4 +20,5 @@ sealed class SettingsUiEvent {
     data class RequestGoogleDriveBackup(val backupType: BackupType) : SettingsUiEvent()
     object RequestGoogleDriveRestore : SettingsUiEvent()
     object ShowFontStylesBottomSheet : SettingsUiEvent()
+    object RequestAutoBackupFolderPicker : SettingsUiEvent()
 }

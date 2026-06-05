@@ -6,6 +6,8 @@ import android.content.Intent
 import android.os.Build
 import android.os.Process.killProcess
 import android.os.Process.myPid
+import androidx.hilt.work.HiltWorkerFactory
+import androidx.work.Configuration
 import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.android.HiltAndroidApp
 import `in`.hridayan.ashell.activities.CrashReportActivity
@@ -17,10 +19,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.lsposed.hiddenapibypass.HiddenApiBypass
 import java.lang.ref.WeakReference
+import javax.inject.Inject
 import kotlin.system.exitProcess
 
 @HiltAndroidApp
-class App : Application() {
+class App : Application(), Configuration.Provider {
+
+    @Inject
+    lateinit var workerFactory: HiltWorkerFactory
+
+    override val workManagerConfiguration: Configuration
+        get() = Configuration.Builder()
+            .setWorkerFactory(workerFactory)
+            .build()
 
     override fun onCreate() {
         super.onCreate()

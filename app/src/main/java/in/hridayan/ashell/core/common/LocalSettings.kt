@@ -46,6 +46,15 @@ val LocalSettings = compositionLocalOf {
         aiCacheDays = SettingsKeys.AI_CACHE_DAYS.default,
         screenDensityMultiplier = SettingsKeys.SCREEN_DENSITY_MULTIPLIER.default,
         fontSizeMultiplier = SettingsKeys.FONT_SIZE_MULTIPLIER.default,
-        fontFamily = SettingsKeys.FONT_FAMILY.default
+        fontFamily = SettingsKeys.FONT_FAMILY.default,
+        autoBackupEnabled = SettingsKeys.AUTO_BACKUP_ENABLED.default,
+        autoBackupFolderName = SettingsKeys.AUTO_BACKUP_FOLDER_NAME.default,
+        autoBackupTimeHour = SettingsKeys.AUTO_BACKUP_TIME_HOUR.default,
+        autoBackupTimeMinute = SettingsKeys.AUTO_BACKUP_TIME_MINUTE.default,
+        autoBackupFrequency = SettingsKeys.AUTO_BACKUP_FREQUENCY.default,
+        lastAutoBackupLocalSuccessTime = SettingsKeys.LAST_AUTO_BACKUP_LOCAL_SUCCESS_TIME.default,
+        lastAutoBackupLocalError = SettingsKeys.LAST_AUTO_BACKUP_LOCAL_ERROR.default,
+        lastAutoBackupCloudSuccessTime = SettingsKeys.LAST_AUTO_BACKUP_CLOUD_SUCCESS_TIME.default,
+        lastAutoBackupCloudError = SettingsKeys.LAST_AUTO_BACKUP_CLOUD_ERROR.default
     )
 }

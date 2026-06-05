@@ -36,5 +36,14 @@ data class SettingsState(
     val aiCacheDays: Int,
     val screenDensityMultiplier: Float,
     val fontSizeMultiplier: Float,
-    val fontFamily: Int
+    val fontFamily: Int,
+    val autoBackupEnabled: Boolean,
+    val autoBackupFolderName: String,
+    val autoBackupTimeHour: Int,
+    val autoBackupTimeMinute: Int,
+    val autoBackupFrequency: Int,
+    val lastAutoBackupLocalSuccessTime: String,
+    val lastAutoBackupLocalError: String,
+    val lastAutoBackupCloudSuccessTime: String,
+    val lastAutoBackupCloudError: String
 )

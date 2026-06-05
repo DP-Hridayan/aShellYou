@@ -2,6 +2,17 @@
 <issues format="6" by="lint 9.2.1" type="baseline" client="gradle" dependencies="false" name="AGP (9.2.1)" variant="all" version="9.2.1">
 
     <issue
+        id="EmptySuperCall"
+        message="No need to call `super.onCleared`; the super method is defined to be empty"
+        errorLine1="        super.onCleared()"
+        errorLine2="              ~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/otg_adb_shell/presentation/viewmodel/OtgViewModel.kt"
+            line="38"
+            column="15"/>
+    </issue>
+
+    <issue
         id="OldTargetApi"
         message="Not targeting the latest versions of Android; compatibility modes apply. Consider testing and updating this version. Consult the `android.os.Build.VERSION_CODES` javadoc for details."
         errorLine1="        targetSdk = 36"
@@ -19,7 +30,7 @@
         errorLine2="        ^">
         <location
             file="src/main/java/in/hridayan/ashell/App.kt"
-            line="41"
+            line="52"
             column="9"/>
     </issue>
 
@@ -46,14 +57,14 @@
     </issue>
 
     <issue
-        id="GradleDependency"
-        message="A newer version of com.google.android.gms:play-services-auth than 21.5.1 is available: 21.6.0"
-        errorLine1="playServicesAuth = &quot;21.5.1&quot;"
-        errorLine2="                   ~~~~~~~~">
+        id="AndroidGradlePluginVersion"
+        message="A newer version of Gradle than 9.5.0 is available: 9.5.1"
+        errorLine1="distributionUrl=https\://services.gradle.org/distributions/gradle-9.5.0-bin.zip"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="35"
-            column="20"/>
+            file="$HOME/StudioProjects/aShellYou/gradle/wrapper/gradle-wrapper.properties"
+            line="4"
+            column="17"/>
     </issue>
 
     <issue
@@ -79,35 +90,13 @@
     </issue>
 
     <issue
-        id="NewerVersionAvailable"
-        message="A newer version of com.mikepenz.aboutlibraries.plugin than 14.2.0 is available: 14.2.1"
-        errorLine1="aboutlibraries = &quot;14.2.0&quot;"
-        errorLine2="                 ~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="47"
-            column="18"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of com.mikepenz:aboutlibraries-core than 14.2.0 is available: 14.2.1"
-        errorLine1="aboutlibraries = &quot;14.2.0&quot;"
-        errorLine2="                 ~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="47"
-            column="18"/>
-    </issue>
-
-    <issue
         id="ComposableNaming"
         message="Composable functions that return Unit should start with an uppercase letter"
         errorLine1="fun DialogKey.createDialog(content: @Composable (DialogViewModel) -> Unit) {"
         errorLine2="              ~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/core/presentation/components/dialog/DialogKey.kt"
-            line="58"
+            line="59"
             column="15"/>
     </issue>
 
@@ -124,155 +113,166 @@
 
     <issue
         id="Typos"
+        message="&quot;Guión&quot; is a common misspelling; did you mean &quot;Guion&quot;?"
+        errorLine1="    &lt;string name=&quot;font_dancing_script&quot; comment=&quot;Font style name&quot;>Guión de baile&lt;/string>"
+        errorLine2="                                                                 ~~~~~">
+        <location
+            file="src/main/res/values-es-rES/strings.xml"
+            line="285"
+            column="66"/>
+    </issue>
+
+    <issue
+        id="Typos"
         message="Repeated word &quot;de&quot; in message: possible typo"
         errorLine1="    &lt;string name=&quot;changelog_v3_5_0&quot;>\nSe renovó por completo la sección Acerca de de la aplicación.\nSe añadieron accesos directos desde el lanzador.\nSe corrigió que el menú de navegación no apareciera con la navegación por botones.\nSe mejoró la visibilidad del menú de navegación inferior al desplazarse.\nSe añadió compatibilidad con idioma por aplicación para aShell You (las traducciones aún no están completas).\nMuchas optimizaciones de código.&lt;/string>"
         errorLine2="                                                                               ~~~~~">
         <location
             file="src/main/res/values-es-rES/strings.xml"
-            line="627"
+            line="677"
             column="80"/>
     </issue>
 
     <issue
         id="PluralsCandidate"
         message="Formatting %d followed by words (&quot;remaining&quot;): This should probably be a plural rather than a string"
-        errorLine1="    &lt;string name=&quot;apply_to_all&quot;>Apply to all (%1$d remaining)&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="    &lt;string name=&quot;apply_to_all&quot; comment=&quot;%1$d = number of remaining items. Used in file conflict resolution&quot;>Apply to all (%1$d remaining)&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="34"
+            line="35"
             column="5"/>
     </issue>
 
     <issue
         id="PluralsCandidate"
         message="Formatting %d followed by words (&quot;items&quot;): This should probably be a plural rather than a string"
-        errorLine1="    &lt;string name=&quot;copied_items&quot;>Copied %1$d items&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="    &lt;string name=&quot;copied_items&quot; comment=&quot;%1$d = number of items copied to clipboard&quot;>Copied %1$d items&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="103"
+            line="115"
             column="5"/>
     </issue>
 
     <issue
         id="PluralsCandidate"
         message="Formatting %d followed by words (&quot;item&quot;): This should probably be a plural rather than a string"
-        errorLine1="    &lt;string name=&quot;copying_items&quot;>Copying %1$d item(s)&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="    &lt;string name=&quot;copying_items&quot; comment=&quot;%1$d = number of items being copied&quot;>Copying %1$d item(s)&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="107"
+            line="119"
             column="5"/>
     </issue>
 
     <issue
         id="PluralsCandidate"
         message="Formatting %d followed by words (&quot;items&quot;): This should probably be a plural rather than a string"
-        errorLine1="    &lt;string name=&quot;cut_items&quot;>Cut %1$d items&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="    &lt;string name=&quot;cut_items&quot; comment=&quot;%1$d = number of items cut to clipboard&quot;>Cut %1$d items&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="116"
+            line="128"
             column="5"/>
     </issue>
 
     <issue
         id="PluralsCandidate"
         message="Formatting %d followed by words (&quot;selected&quot;): This should probably be a plural rather than a string"
-        errorLine1="    &lt;string name=&quot;delete_items_message&quot;>Are you sure you want to delete %1$d selected items?&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="    &lt;string name=&quot;delete_items_message&quot; comment=&quot;%1$d = number of selected items&quot;>Are you sure you want to delete %1$d selected items?&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="126"
+            line="139"
             column="5"/>
     </issue>
 
     <issue
         id="PluralsCandidate"
         message="Formatting %d followed by words (&quot;items&quot;): This should probably be a plural rather than a string"
-        errorLine1="    &lt;string name=&quot;delete_items_title&quot;>Delete %1$d items?&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="    &lt;string name=&quot;delete_items_title&quot; comment=&quot;%1$d = number of items&quot;>Delete %1$d items?&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="127"
+            line="140"
             column="5"/>
     </issue>
 
     <issue
         id="PluralsCandidate"
         message="Formatting %d followed by words (&quot;items&quot;): This should probably be a plural rather than a string"
-        errorLine1="    &lt;string name=&quot;fb_deleted_items&quot;>Deleted %1$d items&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="    &lt;string name=&quot;fb_deleted_items&quot; comment=&quot;%1$d = number of deleted items&quot;>Deleted %1$d items&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="233"
+            line="260"
             column="5"/>
     </issue>
 
     <issue
         id="PluralsCandidate"
         message="Formatting %d followed by words (&quot;items&quot;): This should probably be a plural rather than a string"
-        errorLine1="    &lt;string name=&quot;fb_paste_completed&quot;>Completed: %1$d items&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="    &lt;string name=&quot;fb_paste_completed&quot; comment=&quot;%1$d = number of items pasted&quot;>Completed: %1$d items&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="244"
+            line="271"
             column="5"/>
     </issue>
 
     <issue
         id="PluralsCandidate"
         message="Formatting %d followed by words (&quot;items&quot;): This should probably be a plural rather than a string"
-        errorLine1="    &lt;string name=&quot;fb_paste_completed_with_failed&quot;>Completed: %1$d items, %2$d skipped, %3$d failed&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="    &lt;string name=&quot;fb_paste_completed_with_failed&quot; comment=&quot;%1$d = completed, %2$d = skipped, %3$d = failed&quot;>Completed: %1$d items, %2$d skipped, %3$d failed&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="245"
+            line="272"
             column="5"/>
     </issue>
 
     <issue
         id="PluralsCandidate"
         message="Formatting %d followed by words (&quot;items&quot;): This should probably be a plural rather than a string"
-        errorLine1="    &lt;string name=&quot;fb_paste_completed_with_skipped&quot;>Completed: %1$d items, %2$d skipped&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="    &lt;string name=&quot;fb_paste_completed_with_skipped&quot; comment=&quot;%1$d = completed, %2$d = skipped&quot;>Completed: %1$d items, %2$d skipped&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="246"
+            line="273"
             column="5"/>
     </issue>
 
     <issue
         id="PluralsCandidate"
         message="Formatting %d followed by words (&quot;libraries&quot;): This should probably be a plural rather than a string"
-        errorLine1="    &lt;string name=&quot;library_count&quot;>%1$d libraries detected&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="    &lt;string name=&quot;library_count&quot; comment=&quot;%1$d = number of third-party libraries&quot;>%1$d libraries detected&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="315"
+            line="384"
             column="5"/>
     </issue>
 
     <issue
         id="PluralsCandidate"
         message="Formatting %d followed by words (&quot;item&quot;): This should probably be a plural rather than a string"
-        errorLine1="    &lt;string name=&quot;moving_items&quot;>Moving %1$d item(s)&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="    &lt;string name=&quot;moving_items&quot; comment=&quot;%1$d = number of items being moved&quot;>Moving %1$d item(s)&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="346"
+            line="419"
             column="5"/>
     </issue>
 
     <issue
         id="PluralsCandidate"
         message="Formatting %d followed by words (&quot;days&quot;): This should probably be a plural rather than a string"
-        errorLine1="    &lt;string name=&quot;n_days&quot;>%d days&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="    &lt;string name=&quot;n_days&quot; comment=&quot;%d = number of days for cache duration setting&quot;>%d days&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="347"
+            line="420"
             column="5"/>
     </issue>
 
@@ -280,28 +280,14 @@
         id="TrustAllX509TrustManager"
         message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.5.0/transforms/a36a2908daccc9867cfb425e6eff2cbd/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.5.0/transforms/848cff263093dffee057edbe21d730c4/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
         id="TrustAllX509TrustManager"
         message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.5.0/transforms/a36a2908daccc9867cfb425e6eff2cbd/transformed/out/jars/classes.jar"/>
-    </issue>
-
-    <issue
-        id="TrustAllX509TrustManager"
-        message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
-        <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/com.google.http-client/google-http-client/2.1.0/f4c08fa160a5199af19f81080fbaa921ae2193c7/google-http-client-2.1.0.jar"/>
-    </issue>
-
-    <issue
-        id="TrustAllX509TrustManager"
-        message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
-        <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/com.google.http-client/google-http-client/2.1.0/f4c08fa160a5199af19f81080fbaa921ae2193c7/google-http-client-2.1.0.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.5.0/transforms/848cff263093dffee057edbe21d730c4/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
@@ -323,6 +309,17 @@
         <location
             file="src/main/java/in/hridayan/ashell/ai/service/AiModelDownloadService.kt"
             line="205"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; `SDK_INT` is always >= 28"
+        errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/settings/data/worker/AutoBackupWorker.kt"
+            line="216"
             column="13"/>
     </issue>
 
@@ -878,100 +875,100 @@
     <issue
         id="TypographyDashes"
         message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
-        errorLine1="    &lt;string name=&quot;model_category_small&quot;>Petit (300-500 MB)&lt;/string>"
-        errorLine2="                                        ~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-fr-rFR/strings.xml"
-            line="333"
-            column="41"/>
-    </issue>
-
-    <issue
-        id="TypographyDashes"
-        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
-        errorLine1="    &lt;string name=&quot;model_category_small&quot;>Pequeno (300-500 MB)&lt;/string>"
-        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-pt-rBR/strings.xml"
-            line="333"
-            column="41"/>
-    </issue>
-
-    <issue
-        id="TypographyDashes"
-        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
-        errorLine1="    &lt;string name=&quot;model_category_small&quot;>Pequeno (300-500 MB)&lt;/string>"
-        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-pt-rPT/strings.xml"
-            line="333"
-            column="41"/>
-    </issue>
-
-    <issue
-        id="TypographyDashes"
-        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
-        errorLine1="    &lt;string name=&quot;model_category_small&quot;>Невеликий (300-500 МБ)&lt;/string>"
-        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-uk-rUA/strings.xml"
-            line="333"
-            column="41"/>
-    </issue>
-
-    <issue
-        id="TypographyDashes"
-        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
-        errorLine1="    &lt;string name=&quot;model_category_small&quot;>小(300-500 MB)&lt;/string>"
-        errorLine2="                                        ~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-zh-rCN/strings.xml"
-            line="333"
-            column="41"/>
-    </issue>
-
-    <issue
-        id="TypographyDashes"
-        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
-        errorLine1="    &lt;string name=&quot;model_category_small&quot;>صغير (300-500 ميغابايت)&lt;/string>"
-        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-ar-rSA/strings.xml"
-            line="334"
-            column="41"/>
-    </issue>
-
-    <issue
-        id="TypographyDashes"
-        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
-        errorLine1="    &lt;string name=&quot;model_category_large&quot;>大 (1.5-2.5 GB)&lt;/string>"
-        errorLine2="                                        ~~~~~~~~~~~~~~">
+        errorLine1="    &lt;string name=&quot;model_category_large&quot; comment=&quot;AI model size category label&quot;>大 (1.5-2.5 GB)&lt;/string>"
+        errorLine2="                                                                               ~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-ja-rJP/strings.xml"
-            line="335"
-            column="41"/>
+            line="380"
+            column="80"/>
     </issue>
 
     <issue
         id="TypographyDashes"
         message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
-        errorLine1="    &lt;string name=&quot;model_category_large&quot;>大(1.5-2.5GB)&lt;/string>"
-        errorLine2="                                        ~~~~~~~~~~~~">
+        errorLine1="    &lt;string name=&quot;model_category_large&quot; comment=&quot;AI model size category label&quot;>大(1.5-2.5GB)&lt;/string>"
+        errorLine2="                                                                               ~~~~~~~~~~~~">
         <location
             file="src/main/res/values-zh-rCN/strings.xml"
-            line="335"
-            column="41"/>
+            line="380"
+            column="80"/>
     </issue>
 
     <issue
         id="TypographyDashes"
         message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
-        errorLine1="    &lt;string name=&quot;model_category_large&quot;>كبير (1.5-2.5 جنيه استرليني)&lt;/string>"
-        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="    &lt;string name=&quot;model_category_large&quot; comment=&quot;AI model size category label&quot;>كبير (1.5-2.5 جنيه استرليني)&lt;/string>"
+        errorLine2="                                                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-ar-rSA/strings.xml"
-            line="336"
-            column="41"/>
+            line="381"
+            column="80"/>
+    </issue>
+
+    <issue
+        id="TypographyDashes"
+        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
+        errorLine1="    &lt;string name=&quot;model_category_small&quot; comment=&quot;AI model size category label&quot;>Petit (300-500 MB)&lt;/string>"
+        errorLine2="                                                                               ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-fr-rFR/strings.xml"
+            line="382"
+            column="80"/>
+    </issue>
+
+    <issue
+        id="TypographyDashes"
+        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
+        errorLine1="    &lt;string name=&quot;model_category_small&quot; comment=&quot;AI model size category label&quot;>Pequeno (300-500 MB)&lt;/string>"
+        errorLine2="                                                                               ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-pt-rBR/strings.xml"
+            line="382"
+            column="80"/>
+    </issue>
+
+    <issue
+        id="TypographyDashes"
+        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
+        errorLine1="    &lt;string name=&quot;model_category_small&quot; comment=&quot;AI model size category label&quot;>Pequeno (300-500 MB)&lt;/string>"
+        errorLine2="                                                                               ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-pt-rPT/strings.xml"
+            line="382"
+            column="80"/>
+    </issue>
+
+    <issue
+        id="TypographyDashes"
+        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
+        errorLine1="    &lt;string name=&quot;model_category_small&quot; comment=&quot;AI model size category label&quot;>Невеликий (300-500 МБ)&lt;/string>"
+        errorLine2="                                                                               ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-uk-rUA/strings.xml"
+            line="382"
+            column="80"/>
+    </issue>
+
+    <issue
+        id="TypographyDashes"
+        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
+        errorLine1="    &lt;string name=&quot;model_category_small&quot; comment=&quot;AI model size category label&quot;>小(300-500 MB)&lt;/string>"
+        errorLine2="                                                                               ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-zh-rCN/strings.xml"
+            line="382"
+            column="80"/>
+    </issue>
+
+    <issue
+        id="TypographyDashes"
+        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
+        errorLine1="    &lt;string name=&quot;model_category_small&quot; comment=&quot;AI model size category label&quot;>صغير (300-500 ميغابايت)&lt;/string>"
+        errorLine2="                                                                               ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ar-rSA/strings.xml"
+            line="383"
+            column="80"/>
     </issue>
 
     <issue
@@ -981,30 +978,8 @@
         errorLine2="                              ~~~~~~~~~~">
         <location
             file="src/main/res/values-ja-rJP/strings.xml"
-            line="96"
+            line="101"
             column="31"/>
-    </issue>
-
-    <issue
-        id="TypographyEllipsis"
-        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
-        errorLine1="    &lt;string name=&quot;loading&quot;>Carregando...&lt;/string>"
-        errorLine2="                           ~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-pt-rBR/strings.xml"
-            line="317"
-            column="28"/>
-    </issue>
-
-    <issue
-        id="TypographyEllipsis"
-        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
-        errorLine1="    &lt;string name=&quot;loading&quot;>Carregando...&lt;/string>"
-        errorLine2="                           ~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-pt-rPT/strings.xml"
-            line="317"
-            column="28"/>
     </issue>
 
     <issue

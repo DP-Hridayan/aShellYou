@@ -128,9 +128,13 @@ fun AutoUpdateScreen(
                 state = listState,
                 contentPadding = innerPadding,
             ) {
-                item { Spacer(modifier = Modifier
-                    .fillMaxWidth()
-                    .height(15.dp)) }
+                item {
+                    Spacer(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(15.dp)
+                    )
+                }
 
                 settingsContent(
                     groups = resolvedGroups,
@@ -179,9 +183,11 @@ fun AutoUpdateScreen(
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.error.copy(alpha = 0.7f)
                             )
-                            Spacer(modifier = Modifier
-                                .fillMaxWidth()
-                                .height(25.dp))
+                            Spacer(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(25.dp)
+                            )
                         }
                     }
                 }

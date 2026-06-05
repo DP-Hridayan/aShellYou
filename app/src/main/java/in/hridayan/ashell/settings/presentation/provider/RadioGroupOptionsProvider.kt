@@ -6,6 +6,8 @@ import `in`.hridayan.ashell.core.domain.model.GithubReleaseType
 import `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.domain.model.SortType
 import `in`.hridayan.ashell.settings.domain.model.AppFont
+import `in`.hridayan.ashell.settings.domain.model.BackupFrequency
+import `in`.hridayan.ashell.settings.domain.model.BackupType
 import `in`.hridayan.settingsdsl.model.RadioButtonOption
 
 class RadioGroupOptionsProvider {
@@ -97,5 +99,35 @@ class RadioGroupOptionsProvider {
                 labelResId = it.labelResId
             )
         }
+
+        val backupFrequencyOptions: List<RadioButtonOption> = listOf(
+            RadioButtonOption(
+                value = BackupFrequency.DAILY,
+                labelResId = R.string.daily
+            ),
+            RadioButtonOption(
+                value = BackupFrequency.WEEKLY,
+                labelResId = R.string.weekly
+            ),
+            RadioButtonOption(
+                value = BackupFrequency.MONTHLY,
+                labelResId = R.string.monthly
+            ),
+        )
+
+        val autoBackupTypeOptions: List<RadioButtonOption> = listOf(
+            RadioButtonOption(
+                value = BackupType.SETTINGS_AND_DATABASE.ordinal,
+                labelResId = R.string.all_data
+            ),
+            RadioButtonOption(
+                value = BackupType.SETTINGS_ONLY.ordinal,
+                labelResId = R.string.settings_only
+            ),
+            RadioButtonOption(
+                value = BackupType.DATABASE_ONLY.ordinal,
+                labelResId = R.string.databases_only
+            ),
+        )
     }
 }

@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalFoundationStyleApi::class)
+@file:OptIn(ExperimentalFoundationStyleApi::class, androidx.compose.material3.ExperimentalMaterial3Api::class)
 
 package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens
 

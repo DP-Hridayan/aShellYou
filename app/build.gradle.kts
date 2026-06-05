@@ -195,6 +195,10 @@ tasks.withType<Zip>().configureEach {
     isReproducibleFileOrder = true
 }
 
+configurations.all {
+    resolutionStrategy.force("org.jetbrains.kotlin:kotlin-metadata-jvm:${libs.versions.kotlin.get()}")
+}
+
 dependencies {
     implementation(project(":libadb"))
     implementation(project(":adblib"))
@@ -235,7 +239,6 @@ dependencies {
     implementation(libs.hilt.navigation.compose)
     ksp(libs.hilt.android.compiler)
     implementation(libs.hilt.work)
-
     implementation(libs.jmdns)
 
     implementation(libs.ktor.client.core)
