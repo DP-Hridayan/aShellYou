@@ -62,8 +62,8 @@
     "id": "15085871",
     "username": "AY_Translator",
     "name": "Aleksandr (AY_Translator)",
-    "translated": 6559,
-    "approved": 7892,
+    "translated": 6953,
+    "approved": 8364,
     "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/15085871/medium/3a254014b133e0fc2d376c776aba8dbd.jpg",
     "languages": [
       {
@@ -111,9 +111,9 @@
     "id": "18094",
     "username": "marciozomb13",
     "name": "Marcio Andrade (marciozomb13)",
-    "translated": 1948,
+    "translated": 2061,
     "approved": 3909,
-    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/18094/medium/0b04f911b3f2747703a948db9985995a.jpg",
+    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/18094/medium/b31d380c3d0bcfe7b1b27099eaa8a89c.jpg",
     "languages": [
       {
         "id": "pt-PT",
@@ -320,6 +320,21 @@
       }
     ],
     "avatar": "crowdin/contributors_pfp/contributor_15525979.webp"
+  },
+  {
+    "id": "17748551",
+    "username": "MersyleS",
+    "name": "MersyleS",
+    "translated": 95,
+    "approved": 0,
+    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/17748551/medium/dd39303d9d8c98b01b37ca5ee305df33.jpeg",
+    "languages": [
+      {
+        "id": "pt-BR",
+        "name": "Portuguese, Brazilian"
+      }
+    ],
+    "avatar": "crowdin/contributors_pfp/contributor_17748551.webp"
   },
   {
     "id": "17101716",
