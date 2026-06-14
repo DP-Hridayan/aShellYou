@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
-    <!-- Sorting options: A_Z and Z_A are sort order labels -->
     <string name="abort_command">実行中のコマンドを終了してください</string>
     <string name="about">このアプリについて</string>
     <string name="active">アクティブ</string>
@@ -34,9 +33,14 @@
     <string name="apply">適用</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">すべてに適用する (残り%1$d)</string>
     <string name="artifact_id">アーティファクトID</string>
+    <string name="auto_backup">自動バックアップ</string>
+    <string name="auto_backup_content_type">コンテンツをバックアップ</string>
+    <string name="auto_backup_folder">バックアップフォルダ</string>
+    <string name="auto_delete_existing_backups">古いバックアップを自動的に削除</string>
     <string name="auto_update">自動アップデート</string>
     <string name="back">戻る</string>
     <string name="back_button">戻る</string>
+    <string name="backing_up">Backing up…</string>
     <string name="backup">バックアップ</string>
     <string name="backup_all_data">すべてのデータをバックアップ</string>
     <string name="backup_and_restore">バックアップ&amp;復元</string>
@@ -45,6 +49,9 @@
     <string name="backup_destination">バックアップ先</string>
     <string name="backup_failed">バックアップに失敗しました</string>
     <string name="backup_found">バックアップが見つかりました</string>
+    <string name="backup_now">今すぐバックアップ</string>
+    <string name="backup_status">バックアップの状態</string>
+    <string name="backup_frequency">バックアップ頻度</string>
     <string name="backup_scheduler">バックアップスケジューラ</string>
     <string name="backup_settings">アプリの設定をバックアップ</string>
     <string name="backup_successful">バックアップに成功しました</string>
@@ -118,6 +125,7 @@
     <string name="current_version">最近のバージョン</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">%1$d 項目を切り取り</string>
     <string name="cut_to_clipboard">クリップボードに切り取り</string>
+    <string name="daily">毎日</string>
     <string name="dark_theme">ダークテーマ</string>
     <string name="databases_only">データベースのみ</string>
     <string name="default_folder">デフォルトのフォルダ</string>
@@ -134,6 +142,10 @@
     <string name="des_ai_cache_days">キャッシュされた結果を保持する日数</string>
     <string name="des_ai_cache_enabled">モデルごとのキャッシュ解析結果</string>
     <string name="des_ai_models">コマンド解析のためのオフラインAIモデルの管理</string>
+    <string name="des_auto_backup_content_type">自動バックアップに含める内容を選択します</string>
+    <string name="des_auto_backup_folder">自動バックアップを保存するフォルダを選択します</string>
+    <string name="des_auto_backup_time">自動バックアップの時間を設定します</string>
+    <string name="des_auto_delete_existing_backups">新しいバックアップを保存したときに古い自動バックアップを削除する</string>
     <string name="des_auto_update">自動でアップデートを確認する</string>
     <string name="des_backup_all_data">アプリのすべてのデータをバックアップ</string>
     <string name="des_backup_and_restore">アプリの設定やその他のデータのバックアップと復元</string>
@@ -152,6 +164,9 @@
     <string name="des_drive_backup">Google ドライブに暗号化されたバックアップをアップロードします。\n既存のクラウドバックアップを上書きします。</string>
     <string name="des_drive_restore">Google ドライブから最新のバックアップをダウンロードする</string>
     <string name="des_dynamic_colors">端末の壁紙に応じてアプリのテーマを自動的に設定します</string>
+    <string name="des_enable_auto_backup">アプリのデータをスケジュールされた時間に自動的にバックアップする</string>
+    <string name="des_enable_cloud_auto_backup">Google ドライブアカウントに自動的にバックアップ</string>
+    <string name="des_enable_local_auto_backup">デバイス上の選択したフォルダに自動的にバックアップする</string>
     <string name="des_enable_direct_download">オンにすると、アプリ内のGitHubから直接アップデートがダウンロードされます。オフにすると代わりに手動でダウンロードするためにGithubのリリースページにアクセスできます。</string>
     <string name="des_examples">よく使われるコマンドの例</string>
     <string name="des_feature_request">もしこのアプリについてアイデアや提案があれば教えてください</string>
@@ -218,8 +233,11 @@
     <string name="edit_command">コマンドを編集</string>
     <string name="edit_tile">タイルを編集</string>
     <string name="empty_folder">このフォルダは空です</string>
+    <string name="enable_auto_backup">自動バックアップを有効にする</string>
     <string name="enable_auto_update">自動更新を有効にする</string>
+    <string name="enable_cloud_auto_backup">Google ドライブに自動バックアップ</string>
     <string name="enable_direct_download">APKの直接ダウンロードを有効にする</string>
+    <string name="enable_local_auto_backup">ローカルストレージへの自動バックアップ</string>
     <string name="enable_wifi">Wi-Fiを有効にする</string>
     <string name="enable_wireless_debugging">開発者向けオプションでワイヤレスデバッグを有効にしてください</string>
     <string name="enable_wireless_debugging_button">有効にする</string>
@@ -319,11 +337,13 @@
     <string name="forget_device_confirmation" comment="%1$s = device name">%1$sを忘れてもよろしいですか？接続するには再度ペアリングする必要があります。</string>
     <string name="forks">フォーク</string>
     <string name="found_connect_service">接続サービスが見つかりました</string>
+    <string name="frequency">利息支払回数</string>
     <string name="full_license_text">フルライセンステキスト</string>
     <string name="generate_tile">タイルを生成</string>
     <string name="go_home">帰還する</string>
     <string name="go_to_terminal">端末へ移動</string>
     <string name="google_drive">Google ドライブ</string>
+    <string name="google_drive_backup">Google ドライブのバックアップ</string>
     <string name="gpl_3_0_description">aShell フリーソフトウェア: フリーソフトウェア財団が公開している GNU General Public License の条件の下で再配布および/または変更することができます。 バージョン3のライセンス、または(任意で)それ以降のバージョンのいずれか。</string>
     <string name="grant">許可</string>
     <string name="grant_permission">権限の付与</string>
@@ -349,6 +369,8 @@
     <string name="keep_both">両方を保持</string>
     <string name="label">ラベル</string>
     <string name="languages">言語</string>
+    <string name="last_auto_backup_cloud">最後のクラウドの自動バックアップ</string>
+    <string name="last_auto_backup_local">最後のローカル自動バックアップ</string>
     <string name="last_backup_date">最終バックアップ日</string>
     <string name="last_backup_details">最後のバックアップの詳細</string>
     <string name="last_backup_time">前回のバックアップ時間</string>
@@ -366,6 +388,7 @@
     <string name="local_adb">ローカルADB</string>
     <string name="local_adb_shell">ローカル ADB シェル</string>
     <string name="local_adb_summary">Shizukuまたはrootを使用して、デバイス上で直接ADBコマンドを実行します。</string>
+    <string name="local_backup">ローカルバックアップ</string>
     <string name="local_file">ローカルファイル</string>
     <string name="logs">ログ</string>
     <string name="look_and_feel">見た目&amp;触覚</string>
@@ -384,6 +407,7 @@
     <string name="models" comment="Refers to AI/ML models used for command analysis">モデル</string>
     <string name="modified" comment="File property: last modified date">修正されました</string>
     <string name="monospace" comment="Font style category name">Monospace</string>
+    <string name="monthly">月ごと</string>
     <string name="more">もっと見る</string>
     <string name="most_used">最大使用</string>
     <string name="move">移動</string>
@@ -398,11 +422,13 @@
     <string name="newest">最新</string>
     <string name="no_adb_device_error">ADB 互換デバイスが見つかりませんでした。ターゲットの USB デバッグを有効にしてください。</string>
     <string name="no_adb_interface_found">adb インターフェイスが見つかりません</string>
+    <string name="no_auto_backup_yet">自動バックアップはまだ実行されていません</string>
     <string name="no_bookmarks">ブックマークが見つかりません</string>
     <string name="no_changelog_found">このバージョンの変更履歴が見つかりませんでした</string>
     <string name="no_cloud_backup_found">Google ドライブにバックアップが見つかりません</string>
     <string name="no_crashes">クラッシュは報告されていません。aShell スムーズに実行されています。</string>
     <string name="no_files_download">ファイルが選択されていません（フォルダをダウンロードできません）</string>
+    <string name="no_folder_selected">フォルダが選択されていません</string>
     <string name="no_google_account_message">このデバイスにGoogleアカウントが見つかりませんでした。クラウドバックアップを使用するアカウントを追加しますか？</string>
     <string name="no_google_account_title">Google アカウントがありません</string>
     <string name="no_history">コマンド履歴はありません</string>
@@ -516,6 +542,7 @@
     <string name="saved_devices">保存されたデバイス</string>
     <string name="saving">保存中…</string>
     <string name="saving_output">出力をファイルにエクスポート中…</string>
+    <string name="schedule">スケジュール</string>
     <string name="screen_density_multiplier">画面密度倍率</string>
     <string name="search">検索</string>
     <string name="search_commands_here">ここでコマンドを検索</string>
@@ -530,6 +557,10 @@
     <string name="searching_for_devices">デバイスを検索中…</string>
     <string name="select">選択</string>
     <string name="select_all">すべて選択</string>
+    <string name="select_time">時間を選択</string>
+    <string name="select_backup_folder_title">バックアップフォルダがありません</string>
+    <string name="select_backup_folder_message">バックアップを保存するフォルダを選択してください。アプリはこのフォルダへの読み取りと書き込みアクセスを必要とします。</string>
+    <string name="select_folder">フォルダを選択</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">自己|自分format@@0</string>
     <string name="self_pair_connection_failed">接続に失敗しました - 手動で接続してみてください</string>
     <string name="self_pair_enter_code">ペアリングダイアログから6桁のコードを入力してください</string>
@@ -597,6 +628,7 @@
     <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">タイル %1$d</string>
     <string name="tile_name">タイル名</string>
     <string name="tiles">タイル</string>
+    <string name="time">時刻</string>
     <string name="toggleable">切り替え可能</string>
     <string name="total_executions">合計実行数</string>
     <string name="translations">翻訳</string>
@@ -631,6 +663,7 @@
     <string name="waiting_for_device">デバイスを待っています</string>
     <string name="waiting_for_devices">デバイスを待っています…</string>
     <string name="want_to_contribute_too">貢献したいですか?</string>
+    <string name="weekly">Weekly</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">%1$sの間、何をしますか？</string>
     <string name="whats_new">更新内容！</string>
     <string name="which_device_to_pair">どのデバイスをペアリングしますか？</string>

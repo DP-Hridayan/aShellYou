@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
-    <!-- Sorting options: A_Z and Z_A are sort order labels -->
     <string name="abort_command">先中止命令</string>
     <string name="about">关于</string>
     <string name="active">已启用</string>
@@ -34,9 +33,14 @@
     <string name="apply">应用</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">应用于所有 (%1$d 剩余)</string>
     <string name="artifact_id">构件 ID</string>
+    <string name="auto_backup">自动备份</string>
+    <string name="auto_backup_content_type">备份内容</string>
+    <string name="auto_backup_folder">备份文件夹</string>
+    <string name="auto_delete_existing_backups">自动删除旧备份</string>
     <string name="auto_update">自动更新</string>
     <string name="back">返回</string>
     <string name="back_button">返回键</string>
+    <string name="backing_up">备份…</string>
     <string name="backup">备份</string>
     <string name="backup_all_data">备份全部数据</string>
     <string name="backup_and_restore">备份 &amp; 恢复</string>
@@ -45,6 +49,9 @@
     <string name="backup_destination">备份目标</string>
     <string name="backup_failed">备份失败</string>
     <string name="backup_found">找到备份</string>
+    <string name="backup_now">立即备份</string>
+    <string name="backup_status">备份状态</string>
+    <string name="backup_frequency">备份频率</string>
     <string name="backup_scheduler">备份调度器</string>
     <string name="backup_settings">备份应用设置</string>
     <string name="backup_successful">备份成功</string>
@@ -118,6 +125,7 @@
     <string name="current_version">当前版本</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">剪切 %1$d 项目</string>
     <string name="cut_to_clipboard">剪切到剪贴板</string>
+    <string name="daily">每天</string>
     <string name="dark_theme">暗色主题</string>
     <string name="databases_only">仅数据库</string>
     <string name="default_folder">重置目录</string>
@@ -134,6 +142,10 @@
     <string name="des_ai_cache_days">保存缓存结果的天数</string>
     <string name="des_ai_cache_enabled">每个模型缓存分析结果</string>
     <string name="des_ai_models">管理离线的 AI 模型用于命令分析</string>
+    <string name="des_auto_backup_content_type">选择自动备份中包含的内容</string>
+    <string name="des_auto_backup_folder">选择要保存自动备份的文件夹</string>
+    <string name="des_auto_backup_time">设置自动备份时间</string>
+    <string name="des_auto_delete_existing_backups">保存新备份时删除旧的自动备份</string>
     <string name="des_auto_update">自动检测更新</string>
     <string name="des_backup_all_data">备份应用全部数据</string>
     <string name="des_backup_and_restore">备份和恢复应用设置和其他数据</string>
@@ -152,6 +164,9 @@
     <string name="des_drive_backup">上传加密备份到您的Google Drive。\n此操作将覆盖任何现有的云备份。</string>
     <string name="des_drive_restore">从 Google Drive 下载您的最新备份</string>
     <string name="des_dynamic_colors">根据壁纸自动取主题色</string>
+    <string name="des_enable_auto_backup">在预定时间自动备份应用数据</string>
+    <string name="des_enable_cloud_auto_backup">自动备份到您的 Google Drive 帐户</string>
+    <string name="des_enable_local_auto_backup">自动备份到您设备上选定的文件夹</string>
     <string name="des_enable_direct_download">开启后，将直接从 GitHub 应用程序内下载更新。关闭以访问Github 发布页面进行手动下载。</string>
     <string name="des_examples">一些常用命令示例</string>
     <string name="des_feature_request">如果您对应用有任何想法或建议，请告知我们</string>
@@ -218,8 +233,11 @@
     <string name="edit_command">编辑命令</string>
     <string name="edit_tile">编辑瓷块</string>
     <string name="empty_folder">此文件夹为空</string>
+    <string name="enable_auto_backup">启用自动备份</string>
     <string name="enable_auto_update">启用自动更新</string>
+    <string name="enable_cloud_auto_backup">自动备份到 Google Drive</string>
     <string name="enable_direct_download">启用直接下载安装包</string>
+    <string name="enable_local_auto_backup">自动备份到本地存储</string>
     <string name="enable_wifi">启用WiFi</string>
     <string name="enable_wireless_debugging">请在开发者选项中启用无线调试</string>
     <string name="enable_wireless_debugging_button">启用</string>
@@ -319,11 +337,13 @@
     <string name="forget_device_confirmation" comment="%1$s = device name">您确定要忘记 %1$s？您需要再次配对才能连接。</string>
     <string name="forks">分叉</string>
     <string name="found_connect_service">找到连接服务</string>
+    <string name="frequency">频率</string>
     <string name="full_license_text">完整许可文本</string>
     <string name="generate_tile">生成瓷块</string>
     <string name="go_home">返回首页</string>
     <string name="go_to_terminal">转到终端</string>
     <string name="google_drive">Google Drive</string>
+    <string name="google_drive_backup">Google Drive 备份</string>
     <string name="gpl_3_0_description">aShell 您是免费软件：您可以根据自由软件基金会发布的 GNU 通用公共许可证的条款重新发布和/或修改它。 或许可协议第三版，或(在您的选择下) 任何其后版本。</string>
     <string name="grant">授权</string>
     <string name="grant_permission">获取权限</string>
@@ -349,6 +369,8 @@
     <string name="keep_both">同时保留</string>
     <string name="label">标签</string>
     <string name="languages">语文</string>
+    <string name="last_auto_backup_cloud">最后一个云自动备份</string>
+    <string name="last_auto_backup_local">上次本地自动备份</string>
     <string name="last_backup_date">上次备份日期</string>
     <string name="last_backup_details">最后备份详情</string>
     <string name="last_backup_time">上次备份时间</string>
@@ -366,6 +388,7 @@
     <string name="local_adb">本地ADB</string>
     <string name="local_adb_shell">本地ADB shell</string>
     <string name="local_adb_summary">使用 Shizuku 或 root 直接在您的设备上执行 ADB 命令。</string>
+    <string name="local_backup">本地备份</string>
     <string name="local_file">本地文件</string>
     <string name="logs">日志</string>
     <string name="look_and_feel">外观 &amp; 体验</string>
@@ -384,6 +407,7 @@
     <string name="models" comment="Refers to AI/ML models used for command analysis">模型</string>
     <string name="modified" comment="File property: last modified date">已修改</string>
     <string name="monospace" comment="Font style category name">等宽字体</string>
+    <string name="monthly">每月的</string>
     <string name="more">更多</string>
     <string name="most_used">最多使用</string>
     <string name="move">移动</string>
@@ -398,11 +422,13 @@
     <string name="newest">最新的</string>
     <string name="no_adb_device_error">没有找到 ADB 兼容的设备。请在目标上启用 USB 调试。</string>
     <string name="no_adb_interface_found">没有找到 adb 接口</string>
+    <string name="no_auto_backup_yet">尚未执行自动备份</string>
     <string name="no_bookmarks">无书签</string>
     <string name="no_changelog_found">未找到此版本的更新日志</string>
     <string name="no_cloud_backup_found">未在Google Drive上找到备份</string>
     <string name="no_crashes">没有报告崩溃。你正在顺利运行。</string>
     <string name="no_files_download">未选择文件(文件夹无法下载)</string>
+    <string name="no_folder_selected">未选择文件夹</string>
     <string name="no_google_account_message">在此设备上找不到谷歌帐户。您想要添加一个帐户来使用云备份吗？</string>
     <string name="no_google_account_title">无Google账户</string>
     <string name="no_history">无历史命令</string>
@@ -516,6 +542,7 @@
     <string name="saved_devices">已保存的设备</string>
     <string name="saving">保存中…</string>
     <string name="saving_output">导出输出到文件…</string>
+    <string name="schedule">日程安排</string>
     <string name="screen_density_multiplier">屏幕密度乘数</string>
     <string name="search">搜索</string>
     <string name="search_commands_here">在这里搜索命令</string>
@@ -530,6 +557,10 @@
     <string name="searching_for_devices">正在搜索设备…</string>
     <string name="select">选择</string>
     <string name="select_all">全选</string>
+    <string name="select_time">选择时间</string>
+    <string name="select_backup_folder_title">没有备份文件夹</string>
+    <string name="select_backup_folder_message">请选择要保存备份的文件夹。应用程序需要读取并写入此文件夹的权限。</string>
+    <string name="select_folder">选择文件夹</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">自己的</string>
     <string name="self_pair_connection_failed">连接失败 - 尝试手动连接</string>
     <string name="self_pair_enter_code">从配对对话框中输入6位数字</string>
@@ -597,6 +628,7 @@
     <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">平铺 %1$d</string>
     <string name="tile_name">磁盘名称</string>
     <string name="tiles">瓷块</string>
+    <string name="time">时间</string>
     <string name="toggleable">可切换的</string>
     <string name="total_executions">执行总数</string>
     <string name="translations">翻译</string>
@@ -631,6 +663,7 @@
     <string name="waiting_for_device">等待设备</string>
     <string name="waiting_for_devices">等待设备…</string>
     <string name="want_to_contribute_too">想要也做贡献吗？</string>
+    <string name="weekly">每周的</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">当 %1$s时你想做什么？</string>
     <string name="whats_new">更新内容！</string>
     <string name="which_device_to_pair">您想配对哪个设备？</string>

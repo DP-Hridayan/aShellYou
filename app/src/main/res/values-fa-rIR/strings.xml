@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
-    <!-- Sorting options: A_Z and Z_A are sort order labels -->
     <string name="abort_command">ابتدا دستور را لغو کنید</string>
     <string name="about">درباره</string>
     <string name="active">Active</string>
@@ -34,9 +33,14 @@
     <string name="apply">Apply</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">اعمال به همه (%1$d باقیمانده)</string>
     <string name="artifact_id">Artifact ID</string>
+    <string name="auto_backup">Automatic backup</string>
+    <string name="auto_backup_content_type">Backup content</string>
+    <string name="auto_backup_folder">Backup folder</string>
+    <string name="auto_delete_existing_backups">Auto-delete old backups</string>
     <string name="auto_update">بروزرسانی خودکار</string>
     <string name="back">بازگشت</string>
     <string name="back_button">دکمه بازگشت</string>
+    <string name="backing_up">Backing up…</string>
     <string name="backup">پشتیبان‌گیری</string>
     <string name="backup_all_data">پشتیبان‌گیری از همه داده‌ها</string>
     <string name="backup_and_restore">پشتیبان‌گیری و بازیابی</string>
@@ -45,6 +49,9 @@
     <string name="backup_destination">Backup destination</string>
     <string name="backup_failed">پشتیبان‌گیری ناموفق بود</string>
     <string name="backup_found">پشتیبان یافت شد</string>
+    <string name="backup_now">Backup now</string>
+    <string name="backup_status">Backup status</string>
+    <string name="backup_frequency">Backup frequency</string>
     <string name="backup_scheduler">Backup scheduler</string>
     <string name="backup_settings">پشتیبان‌گیری از تنظیمات برنامه</string>
     <string name="backup_successful">پشتیبان‌گیری موفق</string>
@@ -118,6 +125,7 @@
     <string name="current_version">نسخه فعلی</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">%1$d مورد برش داده شد</string>
     <string name="cut_to_clipboard">برش به کلیپ‌بورد</string>
+    <string name="daily">Daily</string>
     <string name="dark_theme">تم تاریک</string>
     <string name="databases_only">Databases only</string>
     <string name="default_folder">پوشه پیش‌فرض</string>
@@ -134,6 +142,10 @@
     <string name="des_ai_cache_days">Number of days to keep cached results</string>
     <string name="des_ai_cache_enabled">Cache analysis results per model</string>
     <string name="des_ai_models">Manage offline AI models for command analysis</string>
+    <string name="des_auto_backup_content_type">Choose what to include in automatic backups</string>
+    <string name="des_auto_backup_folder">Select a folder to save automatic backups</string>
+    <string name="des_auto_backup_time">Set the time for automatic backups</string>
+    <string name="des_auto_delete_existing_backups">Delete older automatic backups when a new one is saved</string>
     <string name="des_auto_update">بررسی خودکار بروزرسانی‌ها</string>
     <string name="des_backup_all_data">پشتیبان‌گیری از همه داده‌های برنامه</string>
     <string name="des_backup_and_restore">پشتیبان‌گیری و بازیابی تنظیمات برنامه و سایر داده‌ها</string>
@@ -152,6 +164,9 @@
     <string name="des_drive_backup">Upload encrypted backup to your Google Drive.\nThis action will overwrite any existing cloud backups.</string>
     <string name="des_drive_restore">Download your latest backup from Google Drive</string>
     <string name="des_dynamic_colors">تنظیم خودکار تم برنامه بر اساس تصویر پس‌زمینه</string>
+    <string name="des_enable_auto_backup">Automatically backup app data at the scheduled time</string>
+    <string name="des_enable_cloud_auto_backup">Automatically backup to your Google Drive account</string>
+    <string name="des_enable_local_auto_backup">Automatically backup to the selected folder on your device</string>
     <string name="des_enable_direct_download">When turned on, updates will be downloaded directly from GitHub inside the app. Turn off to visit the Github releases page for manual download instead.</string>
     <string name="des_examples">مجموعه‌ای از نمونه دستورات</string>
     <string name="des_feature_request">اگر ایده یا پیشنهادی دارید، به ما اطلاع دهید</string>
@@ -218,8 +233,11 @@
     <string name="edit_command">ویرایش دستور</string>
     <string name="edit_tile">Edit tile</string>
     <string name="empty_folder">این پوشه خالی است</string>
+    <string name="enable_auto_backup">Enable automatic backup</string>
     <string name="enable_auto_update">فعال کردن بروزرسانی خودکار</string>
+    <string name="enable_cloud_auto_backup">Auto backup to Google Drive</string>
     <string name="enable_direct_download">فعال کردن دانلود مستقیم APK</string>
+    <string name="enable_local_auto_backup">Auto backup to local storage</string>
     <string name="enable_wifi">فعال کردن وای‌فای</string>
     <string name="enable_wireless_debugging">لطفاً اشکال‌زدایی بی‌سیم را در گزینه‌های توسعه‌دهنده فعال کنید</string>
     <string name="enable_wireless_debugging_button">Enable</string>
@@ -319,11 +337,13 @@
     <string name="forget_device_confirmation" comment="%1$s = device name">آیا مطمئن هستید که می‌خواهید %1$s را فراموش کنید؟ برای اتصال مجدد باید دوباره جفت کنید.</string>
     <string name="forks">فورک‌ها</string>
     <string name="found_connect_service">سرویس اتصال یافت شد</string>
+    <string name="frequency">Frequency</string>
     <string name="full_license_text">Full license text</string>
     <string name="generate_tile">Generate tile</string>
     <string name="go_home">برو به خانه</string>
     <string name="go_to_terminal">برو به ترمینال</string>
     <string name="google_drive">Google Drive</string>
+    <string name="google_drive_backup">Google Drive backup</string>
     <string name="gpl_3_0_description">aShell You is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</string>
     <string name="grant">اعطا</string>
     <string name="grant_permission">اعطای مجوز</string>
@@ -349,6 +369,8 @@
     <string name="keep_both">هر دو را نگه دار</string>
     <string name="label">برچسب</string>
     <string name="languages">Languages</string>
+    <string name="last_auto_backup_cloud">Last cloud auto backup</string>
+    <string name="last_auto_backup_local">Last local auto backup</string>
     <string name="last_backup_date">تاریخ آخرین پشتیبان</string>
     <string name="last_backup_details">Last backup details</string>
     <string name="last_backup_time">زمان آخرین پشتیبان</string>
@@ -366,6 +388,7 @@
     <string name="local_adb">ADB محلی</string>
     <string name="local_adb_shell">شل ADB محلی</string>
     <string name="local_adb_summary">دستورات ADB را مستقیماً روی دستگاه خود با Shizuku یا root اجرا کنید.</string>
+    <string name="local_backup">Local backup</string>
     <string name="local_file">Local file</string>
     <string name="logs">Logs</string>
     <string name="look_and_feel">ظاهر و احساس</string>
@@ -384,6 +407,7 @@
     <string name="models" comment="Refers to AI/ML models used for command analysis">Models</string>
     <string name="modified" comment="File property: last modified date">تغییر یافته</string>
     <string name="monospace" comment="Font style category name">تک‌فاصله</string>
+    <string name="monthly">Monthly</string>
     <string name="more">بیشتر</string>
     <string name="most_used">پراستفاده‌ترین</string>
     <string name="move">انتقال</string>
@@ -398,11 +422,13 @@
     <string name="newest">جدیدترین</string>
     <string name="no_adb_device_error">دستگاه سازگار با ADB یافت نشد. اشکال‌زدایی USB را روی هدف فعال کنید.</string>
     <string name="no_adb_interface_found">رابط ADB یافت نشد</string>
+    <string name="no_auto_backup_yet">No automatic backup performed yet</string>
     <string name="no_bookmarks">نشانکی یافت نشد</string>
     <string name="no_changelog_found">تغییرات برای این نسخه یافت نشد</string>
     <string name="no_cloud_backup_found">No backup found on Google Drive</string>
     <string name="no_crashes">هیچ خرابی گزارش نشده است. aShell You به خوبی کار می‌کند.</string>
     <string name="no_files_download">فایلی انتخاب نشده (پوشه‌ها قابل دانلود نیستند)</string>
+    <string name="no_folder_selected">No folder selected</string>
     <string name="no_google_account_message">No Google account was found on this device. Would you like to add one to use cloud backups?</string>
     <string name="no_google_account_title">No Google Account</string>
     <string name="no_history">تاریخچه دستوری وجود ندارد</string>
@@ -516,6 +542,7 @@
     <string name="saved_devices">دستگاه‌های ذخیره شده</string>
     <string name="saving">در حال ذخیره…</string>
     <string name="saving_output">در حال صادر کردن خروجی به فایل…</string>
+    <string name="schedule">Schedule</string>
     <string name="screen_density_multiplier">Screen density multiplier</string>
     <string name="search">جستجو</string>
     <string name="search_commands_here">جستجوی دستورات</string>
@@ -530,6 +557,10 @@
     <string name="searching_for_devices">جستجوی دستگاه‌ها…</string>
     <string name="select">Select</string>
     <string name="select_all">انتخاب همه</string>
+    <string name="select_time">Select time</string>
+    <string name="select_backup_folder_title">No backup folder</string>
+    <string name="select_backup_folder_message">Please select a folder where backups will be saved. The app needs read and write access to this folder.</string>
+    <string name="select_folder">Select folder</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">خود</string>
     <string name="self_pair_connection_failed">اتصال ناموفق - اتصال دستی را امتحان کنید</string>
     <string name="self_pair_enter_code">کد ۶ رقمی را از پنجره جفت‌سازی وارد کنید</string>
@@ -597,6 +628,7 @@
     <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">Tile %1$d</string>
     <string name="tile_name">Tile name</string>
     <string name="tiles">Tiles</string>
+    <string name="time">Time</string>
     <string name="toggleable">Toggleable</string>
     <string name="total_executions">Total executions</string>
     <string name="translations">ترجمه‌ها</string>
@@ -631,6 +663,7 @@
     <string name="waiting_for_device">در انتظار دستگاه</string>
     <string name="waiting_for_devices">در انتظار دستگاه‌ها…</string>
     <string name="want_to_contribute_too">Want to contribute too?</string>
+    <string name="weekly">Weekly</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">در حین %1$s چه می‌خواهید انجام دهید؟</string>
     <string name="whats_new">تازه‌ها!</string>
     <string name="which_device_to_pair">کدام دستگاه را می‌خواهید جفت کنید؟</string>

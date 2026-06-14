@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
-    <!-- Sorting options: A_Z and Z_A are sort order labels -->
     <string name="abort_command">أولاً أوقف الأمر</string>
     <string name="about">حول</string>
     <string name="active">نشط</string>
@@ -34,9 +33,14 @@
     <string name="apply">تطبيق</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">تطبيق على الجميع ( متبقي%1$d)</string>
     <string name="artifact_id">معرف الأداة</string>
+    <string name="auto_backup">النسخ الاحتياطي التلقائي</string>
+    <string name="auto_backup_content_type">محتوى النسخ الاحتياطي</string>
+    <string name="auto_backup_folder">مجلد النسخ الاحتياطي</string>
+    <string name="auto_delete_existing_backups">حذف النسخ الاحتياطية القديمة تلقائياً</string>
     <string name="auto_update">تحديث تلقائي</string>
     <string name="back">رجوع</string>
     <string name="back_button">عودة</string>
+    <string name="backing_up">جارٍ النسخ الاحتياطي…</string>
     <string name="backup">نسخ احتياطي</string>
     <string name="backup_all_data">نسخ احتياطي لجميع البيانات</string>
     <string name="backup_and_restore">النسخ الاحتياطي والاستعادة</string>
@@ -45,6 +49,9 @@
     <string name="backup_destination">وجهة النسخ الاحتياطي</string>
     <string name="backup_failed">فشلت عملية النسخ الاحتياطي!</string>
     <string name="backup_found">تم العثور على نسخة احتياطية</string>
+    <string name="backup_now">النسخ الاحتياطي الآن</string>
+    <string name="backup_status">حالة النسخ الاحتياطي</string>
+    <string name="backup_frequency">تكرار النسخ الاحتياطي</string>
     <string name="backup_scheduler">جدولة النسخ الاحتياطي</string>
     <string name="backup_settings">النسخ الاحتياطي لإعدادات التطبيق</string>
     <string name="backup_successful">تم النسخ الاحتياطي بنجاح</string>
@@ -118,6 +125,7 @@
     <string name="current_version">الإصدار الحالي</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">قطع العناصر %1$d</string>
     <string name="cut_to_clipboard">قطع إلى الحافظة</string>
+    <string name="daily">يومياً</string>
     <string name="dark_theme">سمة داكنة</string>
     <string name="databases_only">قواعد البيانات فقط</string>
     <string name="default_folder">المجلد الافتراضي</string>
@@ -134,6 +142,10 @@
     <string name="des_ai_cache_days">عدد الأيام للحفاظ على نتائج التخزين المؤقت</string>
     <string name="des_ai_cache_enabled">نتائج تحليل ذاكرة التخزين المؤقت لكل نموذج</string>
     <string name="des_ai_models">إدارة نماذج الذكاء الاصطناعي دون اتصال لتحليل الأوامر</string>
+    <string name="des_auto_backup_content_type">اختر ما يجب إدراجه في النسخ الاحتياطي التلقائي</string>
+    <string name="des_auto_backup_folder">حدد مجلد لحفظ النسخ الاحتياطي التلقائي</string>
+    <string name="des_auto_backup_time">تعيين وقت النسخ الاحتياطي التلقائي</string>
+    <string name="des_auto_delete_existing_backups">حذف النسخ الاحتياطي التلقائي القديم عند حفظ واحد جديد</string>
     <string name="des_auto_update">التحقق من التحديثات تلقائيًا</string>
     <string name="des_backup_all_data">النسخ الاحتياطي لجميع بيانات التطبيق</string>
     <string name="des_backup_and_restore">النسخ الاحتياطي واستعادة إعدادات التطبيق وغيرها من البيانات</string>
@@ -152,6 +164,9 @@
     <string name="des_drive_backup">قم بتحميل نسخة احتياطية مشفرة إلى Google Drive الخاص بك.\nسيؤدي هذا الإجراء إلى استبدال أي نسخ احتياطية موجودة على السحابة. </string>
     <string name="des_drive_restore">تحميل أحدث نسخة احتياطية من Google Drive</string>
     <string name="des_dynamic_colors">اضبط سمة التطبيق تلقائيًا وفقًا لخلفية الجهاز</string>
+    <string name="des_enable_auto_backup">النسخ الاحتياطي التلقائي لبيانات التطبيق في الوقت المحدد</string>
+    <string name="des_enable_cloud_auto_backup">النسخ الاحتياطي تلقائياً لحسابك في Google Drive</string>
+    <string name="des_enable_local_auto_backup">النسخ الاحتياطي تلقائياً للمجلد المحدد على جهازك</string>
     <string name="des_enable_direct_download">عند التشغيل، سيتم تنزيل التحديثات مباشرة من GitHub داخل التطبيق. قم بإيقاف التشغيل لزيارة صفحة إصدارات Github للتنزيل اليدوي بدلاً من ذلك.</string>
     <string name="des_examples">مجموعة من بعض قوالب الأوامر</string>
     <string name="des_feature_request">إذا كان لديك أفكار أو اقتراحات، أخبرنا بها</string>
@@ -219,8 +234,11 @@
     <string name="edit_command">تعديل الأمر</string>
     <string name="edit_tile">تعديل البلاط</string>
     <string name="empty_folder">هذا المجلد فارغ</string>
+    <string name="enable_auto_backup">تمكين النسخ الاحتياطي التلقائي</string>
     <string name="enable_auto_update">تمكين التحديث التلقائي</string>
+    <string name="enable_cloud_auto_backup">النسخ الاحتياطي التلقائي إلى Google Drive</string>
     <string name="enable_direct_download">تمكين التنزيل المباشر</string>
+    <string name="enable_local_auto_backup">النسخ الاحتياطي التلقائي للتخزين المحلي</string>
     <string name="enable_wifi">تفعيل Wi-Fi</string>
     <string name="enable_wireless_debugging">الرجاء تمكين تصحيح الأخطاء اللاسلكية في خيارات المطور</string>
     <string name="enable_wireless_debugging_button">تمكين</string>
@@ -320,11 +338,13 @@
     <string name="forget_device_confirmation" comment="%1$s = device name">هل أنت متأكد من أنك تريد أن تنسى %1$s؟ سوف تحتاج إلى الإقران مرة أخرى للاتصال.</string>
     <string name="forks">Forks</string>
     <string name="found_connect_service">تم العثور على خدمة اتصال</string>
+    <string name="frequency">التردد</string>
     <string name="full_license_text">نص الترخيص الكامل</string>
     <string name="generate_tile">توليد البلاط</string>
     <string name="go_home">الذهاب إلى المنزل</string>
     <string name="go_to_terminal">الذهاب إلى المحطة الطرفية</string>
     <string name="google_drive">محرك جوجل</string>
+    <string name="google_drive_backup">نسخة Google Drive الاحتياطية</string>
     <string name="gpl_3_0_description">AShell أنت برنامج مجاني: يمكنك إعادة توزيعه و/أو تعديله وفقا لشروط رخصة GNU العامة كما نشرتها مؤسسة البرمجيات الحرة، إما الإصدار 3 من الترخيص، أو (في الخيار الخاص بك) أي إصدار لاحق.</string>
     <string name="grant">منح</string>
     <string name="grant_permission">منح الإذن</string>
@@ -350,6 +370,8 @@
     <string name="keep_both">الحفاظ على كليهما</string>
     <string name="label">تسمية</string>
     <string name="languages">اللغات</string>
+    <string name="last_auto_backup_cloud">النسخ الاحتياطي التلقائي للسحابة الأخيرة</string>
+    <string name="last_auto_backup_local">آخر نسخة احتياطية تلقائية محلية</string>
     <string name="last_backup_date">تاريخ النسخ الاحتياطي الأخير</string>
     <string name="last_backup_details">آخر تفاصيل النسخ الاحتياطي</string>
     <string name="last_backup_time">وقت النسخ الاحتياطي الأخير</string>
@@ -367,6 +389,7 @@
     <string name="local_adb">ADB المحلي</string>
     <string name="local_adb_shell">قذيفة ADB المحلية</string>
     <string name="local_adb_summary">تنفيذ أوامر ADB مباشرة على جهازك باستخدام Shizuku أو الجذر.</string>
+    <string name="local_backup">النسخ الاحتياطي المحلي</string>
     <string name="local_file">ملف محلي</string>
     <string name="logs">السجلات</string>
     <string name="look_and_feel">المظهر والشعور</string>
@@ -385,6 +408,7 @@
     <string name="models" comment="Refers to AI/ML models used for command analysis">النماذج</string>
     <string name="modified" comment="File property: last modified date">معدّل</string>
     <string name="monospace" comment="Font style category name">أحادي المسافة</string>
+    <string name="monthly">شهريا</string>
     <string name="more">المزيد</string>
     <string name="most_used">الأكثر استخدامًا</string>
     <string name="move">نقل</string>
@@ -399,11 +423,13 @@
     <string name="newest">الأحدث</string>
     <string name="no_adb_device_error">لم يتم العثور على أجهزة متوافقة مع ADB. تمكين تصحيح USB على الهدف.</string>
     <string name="no_adb_interface_found">لم يتم العثور على واجهة adb</string>
+    <string name="no_auto_backup_yet">لم يتم إجراء نسخة احتياطية تلقائية بعد</string>
     <string name="no_bookmarks">لم يتم العثور على إشارات مرجعية</string>
     <string name="no_changelog_found">لا يوجد سجل تغييرات لهذا الإصدار</string>
     <string name="no_cloud_backup_found">لم يتم العثور على نسخة احتياطية في Google Drive</string>
     <string name="no_crashes">لم يتم الإبلاغ عن أي تحطم. AShell أنت تعمل بسلاسة.</string>
     <string name="no_files_download">لا توجد ملفات محددة (المجلدات لا يمكن تحميلها)</string>
+    <string name="no_folder_selected">لم يتم تحديد مجلد</string>
     <string name="no_google_account_message">لم يتم العثور على حساب جوجل على هذا الجهاز. هل ترغب في إضافة حساب لاستخدام النسخ الاحتياطية السحابية؟</string>
     <string name="no_google_account_title">لا يوجد حساب جوجل</string>
     <string name="no_history">لا يوجد تاريخ للأوامر</string>
@@ -517,6 +543,7 @@
     <string name="saved_devices">الأجهزة المحفوظة</string>
     <string name="saving">حفظ…</string>
     <string name="saving_output">تصدير الإخراج إلى الملف…</string>
+    <string name="schedule">الجدول</string>
     <string name="screen_density_multiplier">مضاعف كثافة الشاشة</string>
     <string name="search">بحث</string>
     <string name="search_commands_here">ابحث عن أوامر هنا</string>
@@ -531,6 +558,10 @@
     <string name="searching_for_devices">البحث عن الأجهزة…</string>
     <string name="select">اختيار</string>
     <string name="select_all">تحديد الكل</string>
+    <string name="select_time">حدد الوقت</string>
+    <string name="select_backup_folder_title">لا يوجد مجلد نسخة احتياطية</string>
+    <string name="select_backup_folder_message">الرجاء تحديد مجلد حيث سيتم حفظ النسخ الاحتياطي. التطبيق يحتاج إلى الوصول إلى هذا المجلد للقراءة والكتابة.</string>
+    <string name="select_folder">حدد مجلد</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">الذات</string>
     <string name="self_pair_connection_failed">فشل الاتصال - جرب الاتصال اليدوي</string>
     <string name="self_pair_enter_code">أدخل الرمز المكون من 6 أرقام من مربع حوار الاقتران</string>
@@ -598,6 +629,7 @@
     <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">المربع %1$d</string>
     <string name="tile_name">اسم البلاط</string>
     <string name="tiles">البلاط</string>
+    <string name="time">الوقت</string>
     <string name="toggleable">تبديل</string>
     <string name="total_executions">مجموع حالات الإعدام</string>
     <string name="translations">الترجمات</string>
@@ -632,6 +664,7 @@
     <string name="waiting_for_device">في انتظار الجهاز</string>
     <string name="waiting_for_devices">في انتظار الأجهزة…</string>
     <string name="want_to_contribute_too">هل ترغب في المساهمة أيضا؟</string>
+    <string name="weekly">أسبوعيا</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">ماذا تريد أن تفعل أثناء %1$s؟</string>
     <string name="whats_new">ما الجديد!</string>
     <string name="which_device_to_pair">ما هو الجهاز الذي ترغب في الإقران؟</string>
