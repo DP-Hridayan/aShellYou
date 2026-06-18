@@ -34,6 +34,7 @@ data class SettingsState(
     val selectedModelId: String,
     val aiCacheEnabled: Boolean,
     val aiCacheDays: Int,
+    val autoUiScale: Boolean,
     val screenDensityMultiplier: Float,
     val fontSizeMultiplier: Float,
     val fontFamily: Int,

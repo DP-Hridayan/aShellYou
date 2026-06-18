@@ -65,6 +65,7 @@ fun LookAndFeelScreen(
     val isDarkMode = LocalDarkMode.current
     val hapticsEnabled = LocalSettings.current.isHapticEnabled
     val isDynamicColorEnabled = LocalSettings.current.isDynamicColor
+    val autoScaleUI = LocalSettings.current.autoUiScale
 
     var showFontStyleBottomSheet by remember { mutableStateOf(false) }
 
@@ -109,6 +110,9 @@ fun LookAndFeelScreen(
 
     val resolvedGroups = page.resolveAll(
         highlightedKey = highlightedKey,
+        enabledOverrides = mapOf(
+            SettingsKeys.CUSTOM_UI_SCALE to { !autoScaleUI }
+        ),
         descriptionOverrides = mapOf(
             SettingsKeys.PALETTE_STYLE to { stringResource(currentPaletteStyle.displayNameResId) },
             SettingsKeys.DARK_THEME to {

@@ -187,7 +187,7 @@ class SettingsViewModel @Inject constructor(
                     SettingsUiEvent.Navigate(NavRoutes.DarkThemeScreen())
                 )
 
-                SettingsKeys.UI_SCALE -> _uiEvent.emit(
+                SettingsKeys.CUSTOM_UI_SCALE -> _uiEvent.emit(
                     SettingsUiEvent.Navigate(NavRoutes.UiScaleScreen)
                 )
 

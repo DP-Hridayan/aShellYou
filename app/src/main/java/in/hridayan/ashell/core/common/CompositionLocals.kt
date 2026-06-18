@@ -127,6 +127,8 @@ fun CompositionLocals(
 
     val aiCacheDays by settingsViewModel.intState(SettingsKeys.AI_CACHE_DAYS)
 
+    val autoScaleUI by settingsViewModel.booleanState(SettingsKeys.AUTO_SCALE_UI)
+
     val screenDensityMultiplier by settingsViewModel.floatState(SettingsKeys.SCREEN_DENSITY_MULTIPLIER)
 
     val fontSizeMultiplier by settingsViewModel.floatState(SettingsKeys.FONT_SIZE_MULTIPLIER)
@@ -226,6 +228,7 @@ fun CompositionLocals(
                 selectedModelId = selectedModelId,
                 aiCacheEnabled = aiCacheEnabled,
                 aiCacheDays = aiCacheDays,
+                autoUiScale = autoScaleUI,
                 screenDensityMultiplier = screenDensityMultiplier,
                 fontSizeMultiplier = fontSizeMultiplier,
                 fontFamily = fontFamily,

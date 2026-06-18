@@ -30,10 +30,12 @@ fun switchItem(
     @DrawableRes icon: Int? = null,
     iconVector: ImageVector? = null,
     visible: Boolean = true,
+    enabled: Boolean = true
 ): SettingsItemSpec = SettingsItemSpec(
     ItemSpec.SwitchSpec(
         key = key,
         isVisible = visible,
+        enabled = enabled,
         titleResId = title,
         titleString = "",
         descriptionResId = description,
@@ -50,10 +52,12 @@ fun switchBannerItem(
     key: SettingsKey<*>,
     @StringRes title: Int,
     visible: Boolean = true,
+    enabled: Boolean = true
 ): SettingsItemSpec = SettingsItemSpec(
     ItemSpec.SwitchBannerSpec(
         key = key,
         isVisible = visible,
+        enabled = enabled,
         titleResId = title,
         titleString = ""
     )
@@ -69,10 +73,12 @@ fun clickableItem(
     @DrawableRes icon: Int? = null,
     iconVector: ImageVector? = null,
     visible: Boolean = true,
+    enabled: Boolean = true
 ): SettingsItemSpec = SettingsItemSpec(
     ItemSpec.ClickableSpec(
         key = key,
         isVisible = visible,
+        enabled = enabled,
         titleResId = title,
         titleString = "",
         descriptionResId = description,
@@ -89,10 +95,12 @@ fun radioGroupItem(
     key: SettingsKey<*>,
     options: List<RadioButtonOption>,
     visible: Boolean = true,
+    enabled: Boolean = true
 ): SettingsItemSpec = SettingsItemSpec(
     ItemSpec.RadioGroupSpec(
         key = key,
         isVisible = visible,
+        enabled = enabled,
         options = options
     )
 )
@@ -104,10 +112,12 @@ fun buttonGroupItem(
     key: SettingsKey<*>,
     options: List<ButtonGroupOption>,
     visible: Boolean = true,
+    enabled: Boolean = true
 ): SettingsItemSpec = SettingsItemSpec(
     ItemSpec.ButtonGroupSpec(
         key = key,
         isVisible = visible,
+        enabled = enabled,
         options = options
     )
 )
