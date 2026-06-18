@@ -38,7 +38,7 @@ sealed class SettingsKeys<out T>(
     data object BEHAVIOR : SettingsKeys<Nothing?>("BEHAVIOR", null)
     data object LANGUAGE : SettingsKeys<Nothing?>("LANGUAGE", null)
     data object DARK_THEME : SettingsKeys<Nothing?>("DARK_THEME", null)
-    data object UI_SCALE : SettingsKeys<Nothing?>("UI_SCALE", null)
+    data object CUSTOM_UI_SCALE : SettingsKeys<Nothing?>("CUSTOM_UI_SCALE", null)
     data object VERSION : SettingsKeys<Nothing?>("VERSION", null)
     data object CHANGELOGS : SettingsKeys<Nothing?>("CHANGELOGS", null)
     data object CRASH_HISTORY : SettingsKeys<Nothing?>("CRASH_HISTORY", null)
@@ -67,6 +67,7 @@ sealed class SettingsKeys<out T>(
     // Boolean Keys
 
     data object AUTO_UPDATE : SettingsKeys<Boolean>("AUTO_UPDATE", false)
+    data object AUTO_SCALE_UI : SettingsKeys<Boolean>("AUTO_SCALE_UI", false)
     data object HIGH_CONTRAST_DARK_MODE : SettingsKeys<Boolean>("HIGH_CONTRAST_DARK_MODE", false)
     data object DYNAMIC_COLORS : SettingsKeys<Boolean>("DYNAMIC_COLORS", true)
     data object HAPTICS_AND_VIBRATION : SettingsKeys<Boolean>("HAPTICS_AND_VIBRATION", true)

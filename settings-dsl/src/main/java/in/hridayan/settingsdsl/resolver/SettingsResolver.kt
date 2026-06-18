@@ -43,6 +43,7 @@ fun SettingsPage.resolveAll(
     descriptionOverrides: Map<SettingsKey<*>, @Composable () -> String> = emptyMap(),
     iconOverrides: Map<SettingsKey<*>, @Composable () -> ImageVector?> = emptyMap(),
     visibilityOverrides: Map<SettingsKey<*>, @Composable () -> Boolean> = emptyMap(),
+    enabledOverrides: Map<SettingsKey<*>, @Composable () -> Boolean> = emptyMap(),
     highlightedKey: SettingsKey<*>? = null,
 ): List<ResolvedGroup> {
     return groups.map { group ->
@@ -51,6 +52,7 @@ fun SettingsPage.resolveAll(
             descriptionOverrides = descriptionOverrides,
             iconOverrides = iconOverrides,
             visibilityOverrides = visibilityOverrides,
+            enabledOverrides = enabledOverrides,
             highlightedKey = highlightedKey,
         )
     }
@@ -71,6 +73,7 @@ fun SettingsPage.resolveAll(
 @Composable
 fun SettingsPage.resolveItem(
     key: SettingsKey<*>,
+    enabledOverride: Boolean = true,
     titleOverride: String? = null,
     descriptionOverride: String? = null,
     iconOverride: ImageVector? = null,
@@ -82,6 +85,7 @@ fun SettingsPage.resolveItem(
 
     return spec.toSettingsItem(
         shape = CustomCardShape(all = 24.dp),
+        enabledOverride = enabledOverride,
         titleOverride = titleOverride,
         descriptionOverride = descriptionOverride,
         iconOverride = iconOverride,
@@ -95,6 +99,7 @@ private fun GroupSpec.resolve(
     descriptionOverrides: Map<SettingsKey<*>, @Composable () -> String>,
     iconOverrides: Map<SettingsKey<*>, @Composable () -> ImageVector?>,
     visibilityOverrides: Map<SettingsKey<*>, @Composable () -> Boolean>,
+    enabledOverrides: Map<SettingsKey<*>, @Composable () -> Boolean>,
     highlightedKey: SettingsKey<*>?,
 ): ResolvedGroup {
     return when (this) {
@@ -107,6 +112,7 @@ private fun GroupSpec.resolve(
                 items = visibleSpecs.mapIndexed { i, spec ->
                     spec.toSettingsItem(
                         shape = cardShapeForPosition(i, visibleSpecs.size),
+                        enabledOverride = enabledOverrides[spec.key]?.invoke() ?: spec.enabled,
                         titleOverride = titleOverrides[spec.key]?.invoke(),
                         descriptionOverride = descriptionOverrides[spec.key]?.invoke(),
                         iconOverride = iconOverrides[spec.key]?.invoke(),
@@ -125,6 +131,7 @@ private fun GroupSpec.resolve(
                 items = visibleSpecs.mapIndexed { i, spec ->
                     spec.toSettingsItem(
                         shape = cardShapeForPosition(i, visibleSpecs.size),
+                        enabledOverride = enabledOverrides[spec.key]?.invoke() ?: spec.enabled,
                         titleOverride = titleOverrides[spec.key]?.invoke(),
                         descriptionOverride = descriptionOverrides[spec.key]?.invoke(),
                         iconOverride = iconOverrides[spec.key]?.invoke(),
@@ -145,6 +152,7 @@ private fun ItemSpec.toSettingsItem(
     titleOverride: String?,
     descriptionOverride: String?,
     iconOverride: ImageVector?,
+    enabledOverride: Boolean,
     highlightedKey: SettingsKey<*>?,
 ): SettingsItem {
     val resolvedTitle = titleOverride
@@ -167,6 +175,7 @@ private fun ItemSpec.toSettingsItem(
 
     return SettingsItem(
         key = key,
+        enabled = enabledOverride,
         title = resolvedTitle,
         description = resolvedDescription,
         icon = resolvedIcon,

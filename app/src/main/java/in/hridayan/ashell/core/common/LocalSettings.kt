@@ -44,6 +44,7 @@ val LocalSettings = compositionLocalOf {
         selectedModelId = SettingsKeys.SELECTED_MODEL_ID.default,
         aiCacheEnabled = SettingsKeys.AI_CACHE_ENABLED.default,
         aiCacheDays = SettingsKeys.AI_CACHE_DAYS.default,
+        autoUiScale = SettingsKeys.AUTO_SCALE_UI.default,
         screenDensityMultiplier = SettingsKeys.SCREEN_DENSITY_MULTIPLIER.default,
         fontSizeMultiplier = SettingsKeys.FONT_SIZE_MULTIPLIER.default,
         fontFamily = SettingsKeys.FONT_FAMILY.default,

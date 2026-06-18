@@ -1,9 +1,8 @@
 package `in`.hridayan.settingsdsl.ui.item
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -132,8 +131,12 @@ fun LazyListScope.settingsContent(
                         item = item,
                         modifier = modifier
                             .fillParentMaxWidth()
-                            .padding(horizontal = itemPaddingHorizontal, vertical = itemPaddingVertical)
+                            .padding(
+                                horizontal = itemPaddingHorizontal,
+                                vertical = itemPaddingVertical
+                            )
                             .animateItem(),
+                        enabled = item.enabled,
                         hapticsEnabled = hapticsEnabled,
                         isChecked = isChecked(item.key),
                         selectedValue = selectedValue(item.key),

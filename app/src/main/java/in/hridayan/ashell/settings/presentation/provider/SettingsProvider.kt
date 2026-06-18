@@ -114,9 +114,15 @@ object SettingsProvider {
         ),
         category(
             title = R.string.ui_scale,
+            switchItem(
+                key = SettingsKeys.AUTO_SCALE_UI,
+                title = R.string.auto_scale_ui,
+                description = R.string.des_auto_scale_ui,
+                icon = R.drawable.ic_transform
+            ),
             clickableItem(
-                key = SettingsKeys.UI_SCALE,
-                title = R.string.ui_scale,
+                key = SettingsKeys.CUSTOM_UI_SCALE,
+                title = R.string.custom_ui_scale,
                 description = R.string.des_ui_scale,
                 icon = R.drawable.ic_high_density
             )

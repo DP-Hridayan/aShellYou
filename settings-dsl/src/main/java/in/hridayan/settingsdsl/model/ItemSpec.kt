@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 internal sealed class ItemSpec(
     val key: SettingsKey<*>,
     val isVisible: Boolean,
+    val enabled: Boolean,
     @param:StringRes val titleResId: Int?,
     val titleString: String,
     @param:StringRes val descriptionResId: Int?,
@@ -22,43 +23,68 @@ internal sealed class ItemSpec(
     class SwitchSpec(
         key: SettingsKey<*>,
         isVisible: Boolean,
+        enabled: Boolean,
         @StringRes titleResId: Int?,
         titleString: String,
         @StringRes descriptionResId: Int?,
         descriptionString: String,
         @DrawableRes iconResId: Int?,
         iconVector: ImageVector?,
-    ) : ItemSpec(key, isVisible, titleResId, titleString, descriptionResId, descriptionString, iconResId, iconVector)
+    ) : ItemSpec(
+        key,
+        isVisible,
+        enabled,
+        titleResId,
+        titleString,
+        descriptionResId,
+        descriptionString,
+        iconResId,
+        iconVector
+    )
 
     class SwitchBannerSpec(
         key: SettingsKey<*>,
         isVisible: Boolean,
+        enabled: Boolean,
         @StringRes titleResId: Int?,
         titleString: String,
-    ) : ItemSpec(key, isVisible, titleResId, titleString, null, "", null, null)
+    ) : ItemSpec(key, isVisible, enabled, titleResId, titleString, null, "", null, null)
 
     class ClickableSpec(
         key: SettingsKey<*>,
         isVisible: Boolean,
+        enabled: Boolean,
         @StringRes titleResId: Int?,
         titleString: String,
         @StringRes descriptionResId: Int?,
         descriptionString: String,
         @DrawableRes iconResId: Int?,
         iconVector: ImageVector?,
-    ) : ItemSpec(key, isVisible, titleResId, titleString, descriptionResId, descriptionString, iconResId, iconVector)
+    ) : ItemSpec(
+        key,
+        isVisible,
+        enabled,
+        titleResId,
+        titleString,
+        descriptionResId,
+        descriptionString,
+        iconResId,
+        iconVector
+    )
 
     class RadioGroupSpec(
         key: SettingsKey<*>,
         isVisible: Boolean,
+        enabled: Boolean,
         val options: List<RadioButtonOption>,
-    ) : ItemSpec(key, isVisible, null, "", null, "", null, null)
+    ) : ItemSpec(key, isVisible, enabled, null, "", null, "", null, null)
 
     class ButtonGroupSpec(
         key: SettingsKey<*>,
         isVisible: Boolean,
+        enabled: Boolean,
         val options: List<ButtonGroupOption>,
-    ) : ItemSpec(key, isVisible, null, "", null, "", null, null)
+    ) : ItemSpec(key, isVisible, enabled, null, "", null, "", null, null)
 }
 
 /**

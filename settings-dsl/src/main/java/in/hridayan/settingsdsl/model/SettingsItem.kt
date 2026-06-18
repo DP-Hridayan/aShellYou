@@ -17,6 +17,8 @@ data class SettingsItem(
     /** The key identifying this item. */
     val key: SettingsKey<*>,
 
+    val enabled: Boolean,
+
     /** Resolved display title. */
     val title: String,
 

@@ -65,6 +65,7 @@ import `in`.hridayan.settingsdsl.ui.card.cardShapeForPosition
 fun SettingsItemView(
     item: SettingsItem,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     hapticsEnabled: Boolean = true,
     isChecked: Boolean = false,
     selectedValue: Int = -1,
@@ -73,28 +74,45 @@ fun SettingsItemView(
     onValueChange: (Int) -> Unit = {},
 ) {
     val haptic = LocalHapticFeedback.current
-    fun hapticClick() { if (hapticsEnabled) haptic.performHapticFeedback(HapticFeedbackType.Companion.ContextClick) }
-    fun hapticToggle() { if (hapticsEnabled) haptic.performHapticFeedback(HapticFeedbackType.Companion.ToggleOn) }
+    fun hapticClick() {
+        if (hapticsEnabled) haptic.performHapticFeedback(HapticFeedbackType.Companion.ContextClick)
+    }
+
+    fun hapticToggle() {
+        if (hapticsEnabled) haptic.performHapticFeedback(HapticFeedbackType.Companion.ToggleOn)
+    }
 
     when (item.behavior) {
         is ItemBehavior.Switch -> SwitchItemView(
-            item = item, modifier = modifier, isChecked = isChecked,
+            modifier = modifier,
+            item = item,
+            enabled = enabled,
+            isChecked = isChecked,
             onToggle = { hapticToggle(); onToggle() },
         )
+
         is ItemBehavior.SwitchBanner -> SwitchBannerItemView(
-            item = item, modifier = modifier, isChecked = isChecked,
+            modifier = modifier,
+            item = item,
+            enabled = enabled,
+            isChecked = isChecked,
             onToggle = { hapticToggle(); onToggle() },
         )
+
         is ItemBehavior.Clickable -> ClickableItemView(
-            item = item, modifier = modifier,
+            modifier = modifier,
+            item = item,
+            enabled = enabled,
             onClick = { hapticClick(); onClick() },
         )
+
         is ItemBehavior.RadioGroup -> RadioGroupItemView(
             modifier = modifier,
             options = item.behavior.options,
             selectedValue = selectedValue,
             onSelect = { v -> hapticToggle(); onValueChange(v) },
         )
+
         is ItemBehavior.ButtonGroup -> ButtonGroupItemView(
             modifier = modifier,
             options = item.behavior.options,
@@ -103,8 +121,6 @@ fun SettingsItemView(
         )
     }
 }
-
-// ─── Highlight ────────────────────────────────────────────────────────────────
 
 @Composable
 private fun highlightCardColors(isHighlighted: Boolean): CardColors {
@@ -134,8 +150,6 @@ private fun highlightCardColors(isHighlighted: Boolean): CardColors {
     )
 }
 
-// ─── Switch thumb ─────────────────────────────────────────────────────────────
-
 @Composable
 private fun SettingsSwitch(
     checked: Boolean,
@@ -157,95 +171,175 @@ private fun SettingsSwitch(
     )
 }
 
-// ─── Shared icon ──────────────────────────────────────────────────────────────
-
 @Composable
 private fun ItemLeadingIcon(item: SettingsItem) {
     when {
-        item.icon != null -> Icon(imageVector = item.icon, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-        item.iconResId != null -> Icon(painter = painterResource(item.iconResId), contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+        item.icon != null -> Icon(
+            imageVector = item.icon,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.primary
+        )
+
+        item.iconResId != null -> Icon(
+            painter = painterResource(item.iconResId),
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.primary
+        )
     }
 }
 
 private fun SettingsItem.hasIcon() = icon != null || iconResId != null
 
-// ─── Clickable ────────────────────────────────────────────────────────────────
-
 @Composable
-private fun ClickableItemView(item: SettingsItem, modifier: Modifier, onClick: () -> Unit) {
-    CustomCard(modifier = modifier, shape = item.shape, colors = highlightCardColors(item.isHighlighted), onClick = onClick) {
+private fun ClickableItemView(
+    modifier: Modifier,
+    item: SettingsItem,
+    enabled: Boolean,
+    onClick: () -> Unit
+) {
+    CustomCard(
+        modifier = modifier.alpha(if (enabled) 1f else 0.5f),
+        shape = item.shape,
+        colors = highlightCardColors(item.isHighlighted),
+        clickable = enabled,
+        onClick = onClick
+    ) {
         Row(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 17.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp, vertical = 17.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(15.dp),
         ) {
             if (item.hasIcon()) ItemLeadingIcon(item)
-            Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(7.dp)) {
-                if (item.title.isNotEmpty()) Text(text = item.title, fontWeight = FontWeight.SemiBold, style = MaterialTheme.typography.titleMediumEmphasized)
-                if (item.description.isNotEmpty()) Text(text = item.description, style = MaterialTheme.typography.bodySmall, modifier = Modifier.alpha(0.7f))
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(7.dp)
+            ) {
+                if (item.title.isNotEmpty()) Text(
+                    text = item.title,
+                    fontWeight = FontWeight.SemiBold,
+                    style = MaterialTheme.typography.titleMediumEmphasized
+                )
+                if (item.description.isNotEmpty()) Text(
+                    text = item.description,
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.alpha(0.7f)
+                )
             }
         }
     }
 }
 
-// ─── Switch ───────────────────────────────────────────────────────────────────
-
 @Composable
-private fun SwitchItemView(item: SettingsItem, modifier: Modifier, isChecked: Boolean, onToggle: () -> Unit) {
-    CustomCard(modifier = modifier, shape = item.shape, colors = highlightCardColors(item.isHighlighted), onClick = onToggle) {
+private fun SwitchItemView(
+    modifier: Modifier,
+    item: SettingsItem,
+    enabled: Boolean,
+    isChecked: Boolean,
+    onToggle: () -> Unit
+) {
+    CustomCard(
+        modifier = modifier.alpha(if (enabled) 1f else 0.5f),
+        shape = item.shape,
+        colors = highlightCardColors(item.isHighlighted),
+        clickable = enabled,
+        onClick = onToggle
+    ) {
         Row(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 17.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp, vertical = 17.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(15.dp),
         ) {
             if (item.hasIcon()) ItemLeadingIcon(item)
-            Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(7.dp)) {
-                if (item.title.isNotEmpty()) Text(text = item.title, fontWeight = FontWeight.SemiBold, style = MaterialTheme.typography.titleMediumEmphasized)
-                if (item.description.isNotEmpty()) Text(text = item.description, style = MaterialTheme.typography.bodySmall, modifier = Modifier.alpha(0.7f))
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(7.dp)
+            ) {
+                if (item.title.isNotEmpty()) Text(
+                    text = item.title,
+                    fontWeight = FontWeight.SemiBold,
+                    style = MaterialTheme.typography.titleMediumEmphasized
+                )
+                if (item.description.isNotEmpty()) Text(
+                    text = item.description,
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.alpha(0.7f)
+                )
             }
             // Switch also fires haptic via onToggle which already wraps the haptic call
-            SettingsSwitch(checked = isChecked, onCheckedChange = { onToggle() })
+            SettingsSwitch(
+                checked = isChecked,
+                enabled = enabled,
+                onCheckedChange = { onToggle() })
         }
     }
 }
 
-// ─── SwitchBanner ─────────────────────────────────────────────────────────────
-
 @Composable
-private fun SwitchBannerItemView(item: SettingsItem, modifier: Modifier, isChecked: Boolean, onToggle: () -> Unit) {
+private fun SwitchBannerItemView(
+    modifier: Modifier,
+    item: SettingsItem,
+    enabled: Boolean,
+    isChecked: Boolean,
+    onToggle: () -> Unit
+) {
     CustomCard(
-        modifier = modifier,
+        modifier = modifier.alpha(if (enabled) 1f else 0.5f),
         shape = CustomCardShape(all = 50.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            containerColor = MaterialTheme.colorScheme.run {
+                if (enabled) primaryContainer else surfaceContainer
+            },
+            contentColor = MaterialTheme.colorScheme.run {
+                if (enabled) onPrimaryContainer else onSurfaceVariant
+            },
         ),
+        clickable = enabled,
         onClick = onToggle,
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 25.dp, vertical = 15.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 25.dp, vertical = 15.dp),
             horizontalArrangement = Arrangement.spacedBy(25.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(text = item.title, style = MaterialTheme.typography.headlineSmall, modifier = Modifier.weight(1f))
-            SettingsSwitch(checked = isChecked, onCheckedChange = { onToggle() })
+            Text(
+                text = item.title,
+                style = MaterialTheme.typography.headlineSmall,
+                modifier = Modifier.weight(1f)
+            )
+            SettingsSwitch(
+                checked = isChecked,
+                enabled = enabled,
+                onCheckedChange = { onToggle() })
         }
     }
 }
 
-// ─── RadioGroup ───────────────────────────────────────────────────────────────
-
 @Composable
-private fun RadioGroupItemView(modifier: Modifier, options: List<RadioButtonOption>, selectedValue: Int, onSelect: (Int) -> Unit) {
+private fun RadioGroupItemView(
+    modifier: Modifier,
+    options: List<RadioButtonOption>,
+    selectedValue: Int,
+    onSelect: (Int) -> Unit
+) {
     Column(modifier = modifier) {
         options.forEachIndexed { i, option ->
             CustomCard(
-                modifier = Modifier.fillMaxWidth().padding(vertical = 1.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 1.dp),
                 shape = cardShapeForPosition(i, options.size),
                 onClick = { onSelect(option.value) },
             ) {
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp, horizontal = 20.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp, horizontal = 20.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
@@ -254,18 +348,26 @@ private fun RadioGroupItemView(modifier: Modifier, options: List<RadioButtonOpti
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier.weight(1f),
                     )
-                    RadioButton(selected = option.value == selectedValue, onClick = { onSelect(option.value) })
+                    RadioButton(
+                        selected = option.value == selectedValue,
+                        onClick = { onSelect(option.value) })
                 }
             }
         }
     }
 }
 
-// ─── ButtonGroup ──────────────────────────────────────────────────────────────
-
 @Composable
-private fun ButtonGroupItemView(modifier: Modifier, options: List<ButtonGroupOption>, selectedValue: Int, onSelect: (Int) -> Unit) {
-    Row(modifier = modifier, horizontalArrangement = Arrangement.spacedBy(ButtonGroupDefaults.ConnectedSpaceBetween)) {
+private fun ButtonGroupItemView(
+    modifier: Modifier,
+    options: List<ButtonGroupOption>,
+    selectedValue: Int,
+    onSelect: (Int) -> Unit
+) {
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(ButtonGroupDefaults.ConnectedSpaceBetween)
+    ) {
         options.forEachIndexed { index, option ->
             ToggleButton(
                 checked = option.value == selectedValue,
@@ -277,7 +379,12 @@ private fun ButtonGroupItemView(modifier: Modifier, options: List<ButtonGroupOpt
                     else -> ButtonGroupDefaults.connectedMiddleButtonShapes()
                 },
             ) {
-                option.iconResId?.let { Icon(painter = painterResource(it), contentDescription = null) }
+                option.iconResId?.let {
+                    Icon(
+                        painter = painterResource(it),
+                        contentDescription = null
+                    )
+                }
                 Spacer(Modifier.size(ToggleButtonDefaults.IconSpacing))
                 Text(text = stringResource(option.labelResId))
             }
