@@ -14,6 +14,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.Density
@@ -27,6 +28,7 @@ import `in`.hridayan.ashell.core.presentation.viewmodel.DialogViewModel
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.model.SettingsState
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
+import kotlin.math.abs
 
 val LocalWeakHaptic = staticCompositionLocalOf { {} }
 val LocalStrongHaptic = staticCompositionLocalOf { {} }
@@ -61,6 +63,7 @@ fun CompositionLocals(
 ) {
     val view = LocalView.current
     val baseDensity = LocalDensity.current
+    val configuration = LocalConfiguration.current
 
     val autoUpdate by settingsViewModel.booleanState(SettingsKeys.AUTO_UPDATE)
 
@@ -145,10 +148,38 @@ fun CompositionLocals(
     val lastAutoBackupCloudSuccessTime by settingsViewModel.stringState(SettingsKeys.LAST_AUTO_BACKUP_CLOUD_SUCCESS_TIME)
     val lastAutoBackupCloudError by settingsViewModel.stringState(SettingsKeys.LAST_AUTO_BACKUP_CLOUD_ERROR)
 
-    val scaledDensity = remember(screenDensityMultiplier, fontSizeMultiplier, baseDensity) {
+    val scaledDensity = remember(
+        autoScaleUI,
+        screenDensityMultiplier,
+        fontSizeMultiplier,
+        baseDensity,
+        configuration.smallestScreenWidthDp
+    ) {
+        val densityMultiplier = if (autoScaleUI) {
+            val developmentScreenWidth = 406f
+            val targetScreenWidth = configuration.smallestScreenWidthDp.toFloat()
+
+            val differenceRatio =
+                (developmentScreenWidth - targetScreenWidth) / developmentScreenWidth
+
+            val normalizedDifference = abs(differenceRatio)
+                .coerceIn(0f, 1f)
+
+            val compensationFactor = 0.4f + 0.25f * normalizedDifference
+
+            val compensation =
+                differenceRatio * normalizedDifference * compensationFactor
+
+            (targetScreenWidth / developmentScreenWidth) + compensation
+        } else {
+            screenDensityMultiplier
+        }
+
+        val fontMultiplier = if (autoScaleUI) 1.0f else fontSizeMultiplier
+
         Density(
-            density = baseDensity.density * screenDensityMultiplier,
-            fontScale = baseDensity.fontScale * screenDensityMultiplier * fontSizeMultiplier
+            density = baseDensity.density * densityMultiplier,
+            fontScale = baseDensity.fontScale * densityMultiplier * fontMultiplier
         )
     }
 
@@ -184,6 +215,7 @@ fun CompositionLocals(
             selectedModelId,
             aiCacheEnabled,
             aiCacheDays,
+            autoScaleUI,
             screenDensityMultiplier,
             fontSizeMultiplier,
             fontFamily,
