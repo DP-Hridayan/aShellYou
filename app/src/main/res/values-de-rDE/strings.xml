@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
-    <!-- Sorting options: A_Z and Z_A are sort order labels -->
     <string name="abort_command">Befehl zuerst abbrechen</string>
     <string name="about">Über</string>
     <string name="active">Aktiv</string>
@@ -17,6 +16,9 @@
     <string name="adb_via_wireless_debugging">ADB über WLAN-Debugging</string>
     <string name="adb_via_wireless_debugging_summary">Verbinde Geräte (Android 11+) über WLAN mithilfe von WLAN-Debugging und führe ADB-Befehle drahtlos aus.</string>
     <string name="add">Hinzufügen</string>
+    <string name="auto_scale_ui">UI automatisch skalieren</string>
+    <string name="custom_ui_scale">Eigene UI-Skala</string>
+    <string name="des_auto_scale_ui">Skaliert die Benutzeroberfläche automatisch nach der kleinsten Breite des Geräts</string>
     <string name="add_account">Konto hinzufügen</string>
     <string name="add_command">Befehl hinzufügen</string>
     <string name="add_new_item">Neues Element hinzufügen</string>
@@ -34,9 +36,14 @@
     <string name="apply">Anwenden</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">Auf alle anwenden (%1$d verbleibend)</string>
     <string name="artifact_id">Artefakt-ID</string>
+    <string name="auto_backup">Automatische Sicherung</string>
+    <string name="auto_backup_content_type">Inhalt sichern</string>
+    <string name="auto_backup_folder">Backup-Ordner</string>
+    <string name="auto_delete_existing_backups">Alte Sicherungen automatisch löschen</string>
     <string name="auto_update">Auto-Update</string>
     <string name="back">Zurück</string>
     <string name="back_button">Zurück-Button</string>
+    <string name="backing_up">Sichern…</string>
     <string name="backup">Sichern</string>
     <string name="backup_all_data">Alle Daten sichern</string>
     <string name="backup_and_restore">Sichern &amp; Wiederherstellen</string>
@@ -45,6 +52,9 @@
     <string name="backup_destination">Sicherungsziel</string>
     <string name="backup_failed">Sicherung fehlgeschlagen</string>
     <string name="backup_found">Sicherung gefunden</string>
+    <string name="backup_now">Jetzt sichern</string>
+    <string name="backup_status">Sicherungsstatus</string>
+    <string name="backup_frequency">Sicherungsfrequenz</string>
     <string name="backup_scheduler">Sicherungsplaner</string>
     <string name="backup_settings">App-Einstellungen sichern</string>
     <string name="backup_successful">Sicherung erfolgreich</string>
@@ -118,6 +128,7 @@
     <string name="current_version">Aktuelle Version</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">%1$d Elemente schneiden</string>
     <string name="cut_to_clipboard">In Zwischenablage schneiden</string>
+    <string name="daily">Täglich</string>
     <string name="dark_theme">Dunkles Thema</string>
     <string name="databases_only">Nur Datenbanken</string>
     <string name="default_folder">Standardordner</string>
@@ -134,6 +145,10 @@
     <string name="des_ai_cache_days">Anzahl der Tage die zwischengespeicherten Ergebnisse zu behalten</string>
     <string name="des_ai_cache_enabled">Cache-Analyseergebnisse pro Modell</string>
     <string name="des_ai_models">Offline-KI-Modelle für die Befehlsanalyse verwalten</string>
+    <string name="des_auto_backup_content_type">Wählen Sie, was in automatische Sicherungen aufgenommen werden soll</string>
+    <string name="des_auto_backup_folder">Wählen Sie einen Ordner um automatische Sicherungen zu speichern</string>
+    <string name="des_auto_backup_time">Zeit für automatische Sicherungen festlegen</string>
+    <string name="des_auto_delete_existing_backups">Ältere automatische Sicherungen löschen, wenn ein neues gespeichert wird</string>
     <string name="des_auto_update">Automatisch nach verfügbaren Updates suchen</string>
     <string name="des_backup_all_data">Alle Daten der App sichern</string>
     <string name="des_backup_and_restore">Einstellungen und andere Daten sichern und wiederherstellen</string>
@@ -152,6 +167,9 @@
     <string name="des_drive_backup">Laden Sie verschlüsselte Sicherungen auf Ihr Google Drive hoch.\nDiese Aktion wird alle vorhandenen Cloud-Backups überschreiben.</string>
     <string name="des_drive_restore">Laden Sie Ihre neueste Sicherung von Google Drive herunter</string>
     <string name="des_dynamic_colors">App-Thema automatisch anhand des Geräte-Hintergrundbilds festlegen</string>
+    <string name="des_enable_auto_backup">Automatische Sicherung der App-Daten zur geplanten Zeit</string>
+    <string name="des_enable_cloud_auto_backup">Automatisches Backup auf Ihr Google Drive-Konto</string>
+    <string name="des_enable_local_auto_backup">Automatisches Backup in den ausgewählten Ordner auf Ihrem Gerät</string>
     <string name="des_enable_direct_download">Wenn aktiviert, werden Updates direkt von GitHub innerhalb der App heruntergeladen. Deaktivieren Sie dies, um stattdessen die Github Release-Seite zum manuellen Download zu besuchen.</string>
     <string name="des_examples">Sammlung von Befehlsbeispielen</string>
     <string name="des_feature_request">Wenn du Ideen oder Vorschläge für die App hast, lass es uns wissen</string>
@@ -218,8 +236,11 @@
     <string name="edit_command">Befehl bearbeiten</string>
     <string name="edit_tile">Kachel bearbeiten</string>
     <string name="empty_folder">Dieser Ordner ist leer</string>
+    <string name="enable_auto_backup">Automatische Sicherung aktivieren</string>
     <string name="enable_auto_update">Auto-Update aktivieren</string>
+    <string name="enable_cloud_auto_backup">Auto-Sicherung auf Google Drive</string>
     <string name="enable_direct_download">Direkten apk-Download aktivieren</string>
+    <string name="enable_local_auto_backup">Automatische Sicherung auf lokalen Speicher</string>
     <string name="enable_wifi">WLAN aktivieren</string>
     <string name="enable_wireless_debugging">Bitte aktivieren Sie drahtlose Debugging in Entwickleroptionen</string>
     <string name="enable_wireless_debugging_button">Aktivieren</string>
@@ -319,11 +340,13 @@
     <string name="forget_device_confirmation" comment="%1$s = device name">Bist du sicher, dass du %1$svergessen möchtest? Du musst erneut paaren, um dich zu verbinden.</string>
     <string name="forks">Forks</string>
     <string name="found_connect_service">Verbindungsdienst gefunden</string>
+    <string name="frequency">Frequenz</string>
     <string name="full_license_text">Volllizenztext</string>
     <string name="generate_tile">Kachel generieren</string>
     <string name="go_home">Nach Hause</string>
     <string name="go_to_terminal">Gehe zum Terminal</string>
     <string name="google_drive">Google Drive</string>
+    <string name="google_drive_backup">Google Drive Sicherung</string>
     <string name="gpl_3_0_description">aShell Sie sind freie Software: Sie können sie unter den Bedingungen der GNU General Public License, wie von der Free Software Foundation veröffentlicht, weiterverteilen und/oder modifizieren. entweder Version 3 der Lizenz oder (nach Ihrer Wahl) jede spätere Version.</string>
     <string name="grant">Zuschuss</string>
     <string name="grant_permission">Berechtigung gewähren</string>
@@ -349,6 +372,8 @@
     <string name="keep_both">Beides behalten</string>
     <string name="label">Label</string>
     <string name="languages">Sprachen</string>
+    <string name="last_auto_backup_cloud">Letzte Cloud-Auto-Sicherung</string>
+    <string name="last_auto_backup_local">Letztes lokales Backup</string>
     <string name="last_backup_date">Datum der letzten Sicherung</string>
     <string name="last_backup_details">Letzte Sicherungsdetails</string>
     <string name="last_backup_time">Zeitpunkt der letzten Sicherung</string>
@@ -366,6 +391,7 @@
     <string name="local_adb">Lokal ADB</string>
     <string name="local_adb_shell">Lokale ADB Shell</string>
     <string name="local_adb_summary">Führen Sie ADB-Befehle direkt auf Ihrem Gerät mit Shizuku oder root aus.</string>
+    <string name="local_backup">Lokale Sicherung</string>
     <string name="local_file">Lokale Datei</string>
     <string name="logs">Logs</string>
     <string name="look_and_feel">Aussehen &amp; Bedienung</string>
@@ -384,6 +410,7 @@
     <string name="models" comment="Refers to AI/ML models used for command analysis">Modelle</string>
     <string name="modified" comment="File property: last modified date">Geändert</string>
     <string name="monospace" comment="Font style category name">Monospace</string>
+    <string name="monthly">Monatlich</string>
     <string name="more">Mehr</string>
     <string name="most_used">Am häufigsten verwendet</string>
     <string name="move">Bewegen</string>
@@ -398,11 +425,13 @@
     <string name="newest">Neueste</string>
     <string name="no_adb_device_error">Keine ADB-kompatiblen Geräte gefunden. USB-Debugging auf dem Ziel aktivieren.</string>
     <string name="no_adb_interface_found">Keine Adb Schnittstelle gefunden</string>
+    <string name="no_auto_backup_yet">Keine automatische Sicherung durchgeführt</string>
     <string name="no_bookmarks">Keine Lesezeichen gefunden</string>
     <string name="no_changelog_found">Kein Änderungsprotokoll für diese Version gefunden</string>
     <string name="no_cloud_backup_found">Keine Sicherung auf Google Drive gefunden</string>
     <string name="no_crashes">Es wurden keine Abstürze gemeldet. aShell Du läuft reibungslos.</string>
     <string name="no_files_download">Keine Dateien ausgewählt (Ordner können nicht heruntergeladen werden)</string>
+    <string name="no_folder_selected">Kein Ordner ausgewählt</string>
     <string name="no_google_account_message">Es wurde kein Google-Konto auf diesem Gerät gefunden. Möchten Sie eines hinzufügen, um Cloud-Backups zu verwenden?</string>
     <string name="no_google_account_title">Kein Google-Konto</string>
     <string name="no_history">Kein Befehlsverlauf vorhanden</string>
@@ -516,6 +545,7 @@
     <string name="saved_devices">Gespeicherte Geräte</string>
     <string name="saving">Speichern…</string>
     <string name="saving_output">Ausgabe wird in Datei… exportiert</string>
+    <string name="schedule">Zeitplan</string>
     <string name="screen_density_multiplier">Bildschirmdichte Multiplikator</string>
     <string name="search">Suchen</string>
     <string name="search_commands_here">Suche Befehle hier</string>
@@ -530,6 +560,10 @@
     <string name="searching_for_devices">Suche nach Geräten…</string>
     <string name="select">Wähle</string>
     <string name="select_all">Alles auswählen</string>
+    <string name="select_time">Zeit auswählen</string>
+    <string name="select_backup_folder_title">Kein Sicherungsordner</string>
+    <string name="select_backup_folder_message">Bitte wählen Sie einen Ordner, in dem Backups gespeichert werden. Die App benötigt Schreib- und Leserechte in diesem Ordner.</string>
+    <string name="select_folder">Ordner auswählen</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">Selbst</string>
     <string name="self_pair_connection_failed">Verbindung fehlgeschlagen - manuelle Verbindung versuchen</string>
     <string name="self_pair_enter_code">Geben Sie den 6-stelligen Code aus dem Paarungsdialog ein</string>
@@ -597,6 +631,7 @@
     <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">%1$d kacheln</string>
     <string name="tile_name">Kachelname</string>
     <string name="tiles">Kacheln</string>
+    <string name="time">Zeit</string>
     <string name="toggleable">Umschaltbar</string>
     <string name="total_executions">Gesamte Ausführung</string>
     <string name="translations">Übersetzungen</string>
@@ -631,6 +666,7 @@
     <string name="waiting_for_device">Warte auf Gerät</string>
     <string name="waiting_for_devices">Warte auf Geräte…</string>
     <string name="want_to_contribute_too">Möchtest du auch mitmachen?</string>
+    <string name="weekly">Wöchentlich</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">Was möchtest du während %1$s tun?</string>
     <string name="whats_new">Was ist neu!</string>
     <string name="which_device_to_pair">Welches Gerät möchten Sie paaren?</string>
