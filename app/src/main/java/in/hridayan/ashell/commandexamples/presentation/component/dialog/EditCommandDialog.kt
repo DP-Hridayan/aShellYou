@@ -1,31 +1,21 @@
-@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
-
 package `in`.hridayan.ashell.commandexamples.presentation.component.dialog
 
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ButtonGroup
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -34,9 +24,13 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.presentation.component.row.Labels
 import `in`.hridayan.ashell.commandexamples.presentation.model.CmdScreenInputFieldState
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
+import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.DialogTitle
+import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
+import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
+import `in`.hridayan.ashell.core.presentation.model.ButtonType
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
 
 @Composable
@@ -45,9 +39,7 @@ fun EditCommandDialog(
     id: Int,
     viewModel: CommandExamplesViewModel = hiltViewModel()
 ) {
-    val interactionSources = remember { List(2) { MutableInteractionSource() } }
     val states by viewModel.states.collectAsState()
-
 
     DialogContainer(
         onDismiss = onDismiss,
@@ -76,29 +68,22 @@ fun EditCommandDialog(
 
         LabelInputField()
 
-        @Suppress("DEPRECATION")
-        ButtonGroup(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = Dimens.paddingLarge)
-        ) {
-            CancelButton(
-                onClick = onDismiss,
-                modifier = Modifier
-                    .weight(1f)
-                    .animateWidth(interactionSources[0]),
-                interactionSource = interactionSources[0]
+        val buttonGroupItems = listOf(
+            ButtonGroupItem(
+                buttonConfig = ButtonConfigDefaults.defaultConfig(type = ButtonType.OutlinedButton),
+                text = stringResource(R.string.cancel),
+                onClick = { onDismiss() }
+            ),
+            ButtonGroupItem(
+                text = stringResource(R.string.update),
+                onClick = { viewModel.editCommand(id = id) { onDismiss() } }
             )
+        )
 
-            UpdateButton(
-                id = id,
-                onSuccess = onDismiss,
-                modifier = Modifier
-                    .weight(1f)
-                    .animateWidth(interactionSources[1]),
-                interactionSource = interactionSources[1]
-            )
-        }
+        OverflowButtonGroup(
+            items = buttonGroupItems,
+            modifier = Modifier.padding(top = Dimens.paddingLarge)
+        )
     }
 }
 
@@ -177,45 +162,4 @@ private fun LabelInputField(
     )
 }
 
-@Composable
-private fun UpdateButton(
-    modifier: Modifier = Modifier,
-    id: Int,
-    onSuccess: () -> Unit,
-    interactionSource: MutableInteractionSource? = null,
-    viewModel: CommandExamplesViewModel = hiltViewModel()
-) {
-    Button(
-        modifier = modifier,
-        onClick = withHaptic(HapticFeedbackType.Confirm) {
-            viewModel.editCommand(id = id) { onSuccess() }
-        },
-        shapes = ButtonDefaults.shapes(),
-        interactionSource = interactionSource
-    ) {
-        Text(
-            text = stringResource(R.string.update), style = MaterialTheme.typography.labelLarge
-        )
-    }
-}
-
-@Composable
-private fun CancelButton(
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit,
-    interactionSource: MutableInteractionSource? = null,
-) {
-    OutlinedButton(
-        modifier = modifier,
-        onClick = withHaptic(HapticFeedbackType.Reject) {
-            onClick()
-        },
-        shapes = ButtonDefaults.shapes(),
-        interactionSource = interactionSource
-    ) {
-        Text(
-            text = stringResource(R.string.cancel), style = MaterialTheme.typography.labelLarge
-        )
-    }
-}
 

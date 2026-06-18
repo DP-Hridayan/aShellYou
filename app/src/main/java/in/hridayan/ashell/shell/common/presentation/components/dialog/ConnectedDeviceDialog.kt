@@ -23,13 +23,11 @@ import androidx.compose.material.icons.rounded.Sync
 import androidx.compose.material.icons.rounded.Terminal
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ButtonGroup
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -56,8 +54,12 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
+import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
+import `in`.hridayan.ashell.core.presentation.model.ButtonType
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.provider.RadioGroupOptionsProvider
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
@@ -198,7 +200,6 @@ private fun ExpandedLayoutView(
 
     val items = RadioGroupOptionsProvider.localAdbShellModeOptions
 
-    val interactionSources = remember { List(2) { MutableInteractionSource() } }
 
     Column(
         modifier = modifier,
@@ -234,43 +235,27 @@ private fun ExpandedLayoutView(
             }
         }
 
-        @Suppress("DEPRECATION")
-        ButtonGroup(modifier = Modifier.fillMaxWidth()) {
-            OutlinedButton(
-                onClick = withHaptic(HapticFeedbackType.Reject) {
-                    onDismiss()
-                },
-                shapes = ButtonDefaults.shapes(),
-                modifier = Modifier
-                    .weight(1f)
-                    .animateWidth(interactionSources[0]),
-                interactionSource = interactionSources[0],
-            ) {
-                AutoResizeableText(
-                    text = stringResource(R.string.cancel),
-                    style = MaterialTheme.typography.labelLarge
-                )
-            }
-
-            Button(
-                onClick = withHaptic(HapticFeedbackType.Confirm) {
+        val buttonGroupItems = listOf(
+            ButtonGroupItem(
+                buttonConfig = ButtonConfigDefaults.defaultConfig(type = ButtonType.OutlinedButton),
+                text = stringResource(R.string.cancel),
+                onClick = { onDismiss() }
+            ),
+            ButtonGroupItem(
+                buttonConfig = ButtonConfigDefaults.defaultConfig(
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.error,
+                        contentColor = MaterialTheme.colorScheme.onError
+                    )
+                ),
+                text = stringResource(R.string.confirm),
+                onClick = {
                     onDismiss()
                     settingsViewModel.setInt(key = key, value = selected)
-                },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.error,
-                    contentColor = MaterialTheme.colorScheme.onError
-                ),
-                modifier = Modifier
-                    .weight(1f)
-                    .animateWidth(interactionSources[1]),
-                interactionSource = interactionSources[1],
-                shapes = ButtonDefaults.shapes(),
-            ) {
-                AutoResizeableText(
-                    text = stringResource(R.string.confirm),
-                )
-            }
-        }
+                }
+            )
+        )
+
+        OverflowButtonGroup(items = buttonGroupItems)
     }
 }

@@ -21,6 +21,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalSeedColor
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalTonalPalette
+import `in`.hridayan.ashell.core.data.local.provider.SeedColor
 import `in`.hridayan.ashell.settings.presentation.components.palette.PaletteWheel
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel.LookAndFeelViewModel
 import `in`.hridayan.shapeindicators.ShapeIndicatorRow
@@ -28,7 +29,7 @@ import `in`.hridayan.shapeindicators.ShapeIndicatorRow
 @Composable
 fun ColorTabs(
     modifier: Modifier = Modifier,
-    lookAndFeelViewModel: LookAndFeelViewModel = hiltViewModel()
+    onClickTab: (SeedColor) -> Unit = {}
 ) {
     val tonalPalettes = LocalTonalPalette.current
     val groupedPalettes = tonalPalettes.chunked(4)
@@ -50,10 +51,7 @@ fun ColorTabs(
                     PaletteWheel(
                         modifier = Modifier.size(70.dp),
                         seedColor = palette.colors,
-                        onClick = {
-                            lookAndFeelViewModel.setSeedColor(palette.colors)
-                            lookAndFeelViewModel.disableDynamicColors()
-                        },
+                        onClick = { onClickTab(palette.colors) },
                         isChecked = isChecked && !isDynamicColor,
                     )
                 }

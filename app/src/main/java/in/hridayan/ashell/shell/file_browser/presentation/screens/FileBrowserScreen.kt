@@ -48,9 +48,7 @@ import androidx.compose.material.icons.rounded.Download
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.Upload
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ButtonGroup
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -62,7 +60,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Text
@@ -106,6 +103,10 @@ import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.undrawDreamer
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
+import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
+import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
+import `in`.hridayan.ashell.core.presentation.model.ButtonType
 import `in`.hridayan.ashell.core.utils.isConnectedToWifi
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.LocalNavController
@@ -579,45 +580,31 @@ fun FileBrowserScreen(
 
                                     Spacer(modifier = Modifier.height(8.dp))
 
-                                    @Suppress("DEPRECATION")
-                                    ButtonGroup(
-                                        modifier = Modifier.fillMaxWidth()
-                                    ) {
-                                        OutlinedButton(
-                                            onClick = withHaptic(HapticFeedbackType.Reject) {
+                                    val buttonGroupItems = listOf(
+                                        ButtonGroupItem(
+                                            buttonConfig = ButtonConfigDefaults.defaultConfig(
+                                                type = ButtonType.OutlinedButton
+                                            ),
+                                            text = stringResource(R.string.minimize),
+                                            onClick = {
                                                 isProgressMinimized = true
-                                            },
-                                            shapes = ButtonDefaults.shapes(),
-                                            modifier = Modifier
-                                                .weight(1f)
-                                                .animateWidth(interactionSources[0]),
-                                            interactionSource = interactionSources[0],
-                                        ) {
-                                            AutoResizeableText(
-                                                text = stringResource(R.string.minimize),
-                                                style = MaterialTheme.typography.labelLarge
-                                            )
-                                        }
-
-                                        Button(
-                                            onClick = withHaptic(HapticFeedbackType.Confirm) {
+                                            }
+                                        ),
+                                        ButtonGroupItem(
+                                            buttonConfig = ButtonConfigDefaults.defaultConfig(
+                                                colors = ButtonDefaults.buttonColors(
+                                                    containerColor = MaterialTheme.colorScheme.error,
+                                                    contentColor = MaterialTheme.colorScheme.onError
+                                                )
+                                            ),
+                                            text = stringResource(R.string.cancel_all),
+                                            onClick = {
                                                 viewModel.cancelAllOperations()
-                                            },
-                                            modifier = Modifier
-                                                .weight(1f)
-                                                .animateWidth(interactionSources[1]),
-                                            interactionSource = interactionSources[1],
-                                            shapes = ButtonDefaults.shapes(),
-                                            colors = ButtonDefaults.buttonColors(
-                                                containerColor = MaterialTheme.colorScheme.error,
-                                                contentColor = MaterialTheme.colorScheme.onError
-                                            )
-                                        ) {
-                                            AutoResizeableText(
-                                                text = stringResource(R.string.cancel_all),
-                                            )
-                                        }
-                                    }
+                                            }
+                                        ),
+                                    )
+
+                                    OverflowButtonGroup(items = buttonGroupItems)
                                 }
                             }
                         }

@@ -29,6 +29,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ButtonGroup
+import androidx.compose.material3.ButtonGroupDefaults
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -337,31 +339,63 @@ fun CommandExampleCard(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        @Suppress("DEPRECATION")
                         ButtonGroup(
                             modifier = Modifier.weight(1f),
-                            horizontalArrangement = Arrangement.spacedBy(15.dp)
+                            horizontalArrangement = Arrangement.spacedBy(15.dp),
+                            overflowIndicator = { menuState ->
+                                ButtonGroupDefaults.OverflowIndicator(menuState = menuState)
+                            }
                         ) {
-                            EditButton(
-                                onEdit = onEdit,
-                                interactionSource = interactionSources[0],
-                                modifier = Modifier
-                                    .size(40.dp)
-                                    .animateWidth(interactionSources[0])
+                            customItem(
+                                buttonGroupContent = {
+                                    EditButton(
+                                        onEdit = onEdit,
+                                        interactionSource = interactionSources[0],
+                                        modifier = Modifier
+                                            .size(40.dp)
+                                            .animateWidth(interactionSources[0])
+                                    )
+                                },
+                                menuContent = {
+                                    DropdownMenuItem(
+                                        text = { Text(text = stringResource(R.string.edit_command)) },
+                                        onClick = { onEdit() }
+                                    )
+                                }
                             )
-                            DeleteButton(
-                                interactionSource = interactionSources[1],
-                                modifier = Modifier
-                                    .size(40.dp)
-                                    .animateWidth(interactionSources[1]),
-                                onClick = onDelete
+                            customItem(
+                                buttonGroupContent = {
+                                    DeleteButton(
+                                        interactionSource = interactionSources[1],
+                                        modifier = Modifier
+                                            .size(40.dp)
+                                            .animateWidth(interactionSources[1]),
+                                        onClick = onDelete
+                                    )
+                                },
+                                menuContent = {
+                                    DropdownMenuItem(
+                                        text = { Text(text = stringResource(R.string.delete)) },
+                                        onClick = { onDelete() }
+                                    )
+                                }
                             )
-                            CopyButton(
-                                id = id,
-                                interactionSource = interactionSources[2],
-                                modifier = Modifier
-                                    .size(40.dp)
-                                    .animateWidth(interactionSources[2])
+                            customItem(
+                                buttonGroupContent = {
+                                    CopyButton(
+                                        id = id,
+                                        interactionSource = interactionSources[2],
+                                        modifier = Modifier
+                                            .size(40.dp)
+                                            .animateWidth(interactionSources[2])
+                                    )
+                                },
+                                menuContent = {
+                                    DropdownMenuItem(
+                                        text = { Text(text = stringResource(R.string.copy)) },
+                                        onClick = { /* copy handled via CopyButton */ }
+                                    )
+                                }
                             )
                         }
 

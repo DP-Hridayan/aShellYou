@@ -37,16 +37,16 @@ import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVe
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.themePicker
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.FontStyleBottomSheet
 import `in`.hridayan.ashell.settings.presentation.components.dialog.PaletteStylePickerDialog
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.components.tab.ColorTabs
-import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.FontStyleBottomSheet
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel.LookAndFeelViewModel
-import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
 import `in`.hridayan.ashell.settings.presentation.state.rememberController
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
+import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
 import `in`.hridayan.settingsdsl.ui.item.settingsContent
 
 @Composable
@@ -151,7 +151,15 @@ fun LookAndFeelScreen(
                     )
                 }
 
-                item { ColorTabs(modifier = Modifier.padding(20.dp)) }
+                item {
+                    ColorTabs(
+                        modifier = Modifier.padding(20.dp),
+                        onClickTab = { seedColor ->
+                            lookAndFeelViewModel.setSeedColor(seedColor)
+                            lookAndFeelViewModel.disableDynamicColors()
+                        }
+                    )
+                }
 
                 settingsContent(
                     groups = resolvedGroups,

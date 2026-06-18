@@ -3,6 +3,7 @@
     ExperimentalMaterial3ExpressiveApi::class
 )
 
+
 package `in`.hridayan.ashell.settings.presentation.components.bottomsheet
 
 import androidx.compose.animation.AnimatedVisibility
@@ -13,6 +14,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -28,9 +30,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.BottomSheetDefaults
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ButtonGroup
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -38,7 +38,6 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.SheetValue
@@ -69,7 +68,11 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
+import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
+import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
+import `in`.hridayan.ashell.core.presentation.model.ButtonType
 import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
@@ -93,7 +96,7 @@ fun FontStyleBottomSheet(
         enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded)
     )
     val scrollState = rememberScrollState()
-    val interactionSources = remember { List(2) { MutableInteractionSource() } }
+
     val fontStyles = RadioGroupOptionsProvider.fontStyleOptions
     val selected = LocalSettings.current.fontFamily
     var tempSelected by remember { mutableIntStateOf(selected) }
@@ -290,47 +293,36 @@ fun FontStyleBottomSheet(
                 }
             }
 
-            @Suppress("DEPRECATION")
             AnimatedVisibility(
                 visible = !isKeyboardVisible,
                 enter = expandVertically(),
                 exit = shrinkVertically()
             ) {
-                ButtonGroup(
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    OutlinedButton(
-                        modifier = Modifier
-                            .weight(1f)
-                            .animateWidth(interactionSources[0]),
-                        shapes = ButtonDefaults.shapes(),
-                        interactionSource = interactionSources[0],
-                        onClick = withHaptic(HapticFeedbackType.Reject) {
-                            onDismiss()
-                        },
-                        content = { Text(text = stringResource(R.string.cancel)) }
-                    )
-
-                    Button(
-                        modifier = Modifier
-                            .weight(1f)
-                            .animateWidth(interactionSources[1]),
-                        shapes = ButtonDefaults.shapes(),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.primaryContainer,
-                            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                OverflowButtonGroup(
+                    items = listOf(
+                        ButtonGroupItem(
+                            buttonConfig = ButtonConfigDefaults.defaultConfig(type = ButtonType.OutlinedButton),
+                            text = stringResource(R.string.cancel),
+                            onClick = { onDismiss() }
                         ),
-                        interactionSource = interactionSources[1],
-                        onClick = withHaptic(HapticFeedbackType.Confirm) {
-                            settingsViewModel.setInt(
-                                key = SettingsKeys.FONT_FAMILY,
-                                value = tempSelected
-                            )
-                            onDismiss()
-                        },
-                        content = { Text(text = stringResource(R.string.apply)) }
+                        ButtonGroupItem(
+                            buttonConfig = ButtonConfigDefaults.defaultConfig(
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                                )
+                            ),
+                            text = stringResource(R.string.apply),
+                            onClick = {
+                                settingsViewModel.setInt(
+                                    key = SettingsKeys.FONT_FAMILY,
+                                    value = tempSelected
+                                )
+                                onDismiss()
+                            }
+                        )
                     )
-                }
+                )
             }
         }
     }

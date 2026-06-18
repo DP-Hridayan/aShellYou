@@ -1,22 +1,14 @@
-@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
-
 package `in`.hridayan.ashell.shell.common.presentation.components.dialog
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ButtonGroup
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Surface
@@ -39,9 +31,13 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
+import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
+import `in`.hridayan.ashell.core.presentation.model.ButtonType
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.settings.data.SettingsKeys
@@ -54,7 +50,6 @@ fun BookmarksSortDialog(
     onDismiss: () -> Unit,
     settingsViewModel: SettingsViewModel = hiltViewModel(),
 ) {
-    val interactionSources = remember { List(2) { MutableInteractionSource() } }
     val sortOptions = RadioGroupOptionsProvider.bookmarkSortOptions
     val selected =
         settingsViewModel.getInt(key = SettingsKeys.BOOKMARK_SORT_TYPE)
@@ -147,40 +142,28 @@ fun BookmarksSortDialog(
                     }
                 }
 
-                @Suppress("DEPRECATION")
-                ButtonGroup(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 24.dp)
-                ) {
-                    OutlinedButton(
-                        modifier = Modifier
-                            .weight(1f)
-                            .animateWidth(interactionSources[0]),
-                        shapes = ButtonDefaults.shapes(),
-                        interactionSource = interactionSources[0],
-                        onClick = withHaptic(HapticFeedbackType.Reject) {
-                            onDismiss()
-                        },
-                        content = { AutoResizeableText(text = stringResource(R.string.cancel)) }
-                    )
-
-                    Button(
-                        modifier = Modifier
-                            .weight(1f)
-                            .animateWidth(interactionSources[1]),
-                        shapes = ButtonDefaults.shapes(),
-                        interactionSource = interactionSources[1],
-                        onClick = withHaptic(HapticFeedbackType.Confirm) {
+                val buttonGroupItems = listOf(
+                    ButtonGroupItem(
+                        buttonConfig = ButtonConfigDefaults.defaultConfig(type = ButtonType.OutlinedButton),
+                        text = stringResource(R.string.cancel),
+                        onClick = { onDismiss() }
+                    ),
+                    ButtonGroupItem(
+                        text = stringResource(R.string.sort),
+                        onClick = {
                             settingsViewModel.setInt(
                                 key = SettingsKeys.BOOKMARK_SORT_TYPE,
                                 value = tempSelected
                             )
                             onDismiss()
-                        },
-                        content = { AutoResizeableText(text = stringResource(R.string.sort)) }
+                        }
                     )
-                }
+                )
+
+                OverflowButtonGroup(
+                    items = buttonGroupItems,
+                    modifier = Modifier.padding(top = 24.dp)
+                )
             }
         }
     }

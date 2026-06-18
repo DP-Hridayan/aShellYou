@@ -15,10 +15,12 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ButtonGroup
+import androidx.compose.material3.ButtonGroupDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -50,7 +52,7 @@ fun DeviceDisconnectedDialog(
 ) {
     val context = LocalContext.current
     val res = LocalResources.current
-    val interactionSources = remember { List(3) { MutableInteractionSource() } }
+    val interactionSources = remember { List(2) { MutableInteractionSource() } }
     val lastConnectedDevice by viewModel.lastConnectedDevice.collectAsState()
     val deviceName = lastConnectedDevice?.deviceName ?: "unknown_device"
     val isOwnDevice = lastConnectedDevice?.isOwnDevice == true
@@ -90,99 +92,123 @@ fun DeviceDisconnectedDialog(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                @Suppress("DEPRECATION")
                 ButtonGroup(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = Dimens.paddingLarge)
-                ) {
-                    OutlinedButton(
-                        onClick = withHaptic(HapticFeedbackType.Reject) {
-                            onDismiss()
-                        },
-                        shapes = ButtonDefaults.shapes(),
-                        modifier = Modifier
-                            .weight(1f)
-                            .animateWidth(interactionSources[0]),
-                        interactionSource = interactionSources[0],
-                        enabled = !isReconnecting
-                    ) {
-                        AutoResizeableText(
-                            text = stringResource(R.string.dismiss),
-                            style = MaterialTheme.typography.labelLarge
-                        )
+                        .padding(top = Dimens.paddingLarge),
+                    overflowIndicator = { menuState ->
+                        ButtonGroupDefaults.OverflowIndicator(menuState = menuState)
                     }
-
-                    Button(
-                        onClick = withHaptic(HapticFeedbackType.Confirm) {
-                            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-                                return@withHaptic
-                            }
-                            // Check WiFi connectivity first
-                            if (!context.isConnectedToWifi()) {
-                                Toast.makeText(
-                                    context,
-                                    res.getString(R.string.no_wifi_connection),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                return@withHaptic
-                            }
-
-                            /* ---will do later----
-
-                             if (!WirelessDebuggingUtils.isWirelessDebuggingEnabled(context) && isOwnDevice) {
-                                  WirelessDebuggingUtils.ensureWirelessDebuggingAndReconnect(
-                                      context = context,
-                                      onSuccess = { viewModel.reconnectToDevice(lastConnectedDevice as WifiAdbDevice) },
-                                      onFailed = {}
-                                  )
-                                  return@withHaptic
-                              }*/
-
-                            lastConnectedDevice?.let { device ->
-                                isReconnecting = true
-                                viewModel.reconnectToDeviceWithCallback(
-                                    device = device,
-                                    onSuccess = {
-                                        isReconnecting = false
-                                        Toast.makeText(
-                                            context,
-                                            res.getString(R.string.reconnect_success),
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        onDismiss()
-                                    },
-                                    onFailure = { requiresPairing ->
-                                        isReconnecting = false
-                                        val message = if (requiresPairing) {
-                                            res.getString(R.string.reconnect_failed_requires_pairing)
-                                        } else {
-                                            res.getString(R.string.reconnect_failed)
-                                        }
-                                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-                                    }
+                ) {
+                    customItem(
+                        buttonGroupContent = {
+                            OutlinedButton(
+                                onClick = withHaptic(HapticFeedbackType.Reject) {
+                                    onDismiss()
+                                },
+                                shapes = ButtonDefaults.shapes(),
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .animateWidth(interactionSources[0]),
+                                interactionSource = interactionSources[0],
+                                enabled = !isReconnecting
+                            ) {
+                                AutoResizeableText(
+                                    text = stringResource(R.string.dismiss),
+                                    style = MaterialTheme.typography.labelLarge
                                 )
                             }
                         },
-                        modifier = Modifier
-                            .weight(1f)
-                            .animateWidth(interactionSources[1]),
-                        interactionSource = interactionSources[1],
-                        shapes = ButtonDefaults.shapes(),
-                        enabled = !isReconnecting
-                    ) {
-                        if (isReconnecting) {
-                            CircularProgressIndicator(
-                                modifier = Modifier.size(18.dp),
-                                strokeWidth = 2.dp,
-                                color = MaterialTheme.colorScheme.onPrimary
-                            )
-                        } else {
-                            AutoResizeableText(
-                                text = stringResource(R.string.reconnect),
+                        menuContent = {
+                            DropdownMenuItem(
+                                enabled = !isReconnecting,
+                                text = { AutoResizeableText(text = stringResource(R.string.dismiss)) },
+                                onClick = { onDismiss() }
                             )
                         }
-                    }
+                    )
+
+                    customItem(
+                        buttonGroupContent = {
+                            Button(
+                                onClick = withHaptic(HapticFeedbackType.Confirm) {
+                                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                                        return@withHaptic
+                                    }
+                                    // Check WiFi connectivity first
+                                    if (!context.isConnectedToWifi()) {
+                                        Toast.makeText(
+                                            context,
+                                            res.getString(R.string.no_wifi_connection),
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        return@withHaptic
+                                    }
+
+                                    /* ---will do later----
+
+                                     if (!WirelessDebuggingUtils.isWirelessDebuggingEnabled(context) && isOwnDevice) {
+                                          WirelessDebuggingUtils.ensureWirelessDebuggingAndReconnect(
+                                              context = context,
+                                              onSuccess = { viewModel.reconnectToDevice(lastConnectedDevice as WifiAdbDevice) },
+                                              onFailed = {}
+                                          )
+                                          return@withHaptic
+                                      }*/
+
+                                    lastConnectedDevice?.let { device ->
+                                        isReconnecting = true
+                                        viewModel.reconnectToDeviceWithCallback(
+                                            device = device,
+                                            onSuccess = {
+                                                isReconnecting = false
+                                                Toast.makeText(
+                                                    context,
+                                                    res.getString(R.string.reconnect_success),
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                                onDismiss()
+                                            },
+                                            onFailure = { requiresPairing ->
+                                                isReconnecting = false
+                                                val message = if (requiresPairing) {
+                                                    res.getString(R.string.reconnect_failed_requires_pairing)
+                                                } else {
+                                                    res.getString(R.string.reconnect_failed)
+                                                }
+                                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                                            }
+                                        )
+                                    }
+                                },
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .animateWidth(interactionSources[1]),
+                                interactionSource = interactionSources[1],
+                                shapes = ButtonDefaults.shapes(),
+                                enabled = !isReconnecting
+                            ) {
+                                if (isReconnecting) {
+                                    CircularProgressIndicator(
+                                        modifier = Modifier.size(18.dp),
+                                        strokeWidth = 2.dp,
+                                        color = MaterialTheme.colorScheme.onPrimary
+                                    )
+                                } else {
+                                    AutoResizeableText(
+                                        text = stringResource(R.string.reconnect),
+                                    )
+                                }
+                            }
+                        },
+                        menuContent = {
+                            DropdownMenuItem(
+                                enabled = !isReconnecting,
+                                text = { AutoResizeableText(text = stringResource(R.string.reconnect)) },
+                                onClick = {}
+                            )
+                        }
+                    )
                 }
             }
         }

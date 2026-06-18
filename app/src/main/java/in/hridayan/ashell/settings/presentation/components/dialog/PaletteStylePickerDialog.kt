@@ -4,7 +4,6 @@ package `in`.hridayan.ashell.settings.presentation.components.dialog
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,13 +19,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ButtonGroup
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Surface
@@ -57,9 +52,13 @@ import `in`.hridayan.ashell.core.common.LocalPaletteStyle
 import `in`.hridayan.ashell.core.common.LocalSeedColor
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.domain.model.PaletteStyle
+import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
+import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
+import `in`.hridayan.ashell.core.presentation.model.ButtonType
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.presentation.theme.color.createDynamicScheme
@@ -72,9 +71,6 @@ fun PaletteStylePickerDialog(
     onDismiss: () -> Unit,
     onConfirm: (PaletteStyle) -> Unit,
 ) {
-    val interactionSources = remember {
-        List(2) { MutableInteractionSource() }
-    }
 
     val isHapticAllowed = LocalSettings.current.isHapticEnabled
     val isDarkMode = LocalDarkMode.current
@@ -287,45 +283,25 @@ fun PaletteStylePickerDialog(
                     }
                 }
 
-                @Suppress("DEPRECATION")
-                ButtonGroup(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 24.dp)
-                ) {
-                    OutlinedButton(
-                        modifier = Modifier
-                            .weight(1f)
-                            .animateWidth(interactionSources[0]),
-                        shapes = ButtonDefaults.shapes(),
-                        interactionSource = interactionSources[0],
-                        onClick = withHaptic(HapticFeedbackType.Reject) {
-                            onDismiss()
-                        },
-                        content = {
-                            AutoResizeableText(
-                                text = stringResource(R.string.cancel)
-                            )
-                        }
+                OverflowButtonGroup(
+                    modifier = Modifier.padding(top = 24.dp),
+                    items = listOf(
+                        ButtonGroupItem(
+                            buttonConfig = ButtonConfigDefaults.defaultConfig(
+                                type = ButtonType.OutlinedButton
+                            ),
+                            text = stringResource(R.string.cancel),
+                            onClick = { onDismiss() }
+                        ),
+                        ButtonGroupItem(
+                            text = stringResource(R.string.apply),
+                            onClick = {
+                                onConfirm(tempSelected)
+                                onDismiss()
+                            }
+                        ),
                     )
-
-                    Button(
-                        modifier = Modifier
-                            .weight(1f)
-                            .animateWidth(interactionSources[1]),
-                        shapes = ButtonDefaults.shapes(),
-                        interactionSource = interactionSources[1],
-                        onClick = withHaptic(HapticFeedbackType.Confirm) {
-                            onConfirm(tempSelected)
-                            onDismiss()
-                        },
-                        content = {
-                            AutoResizeableText(
-                                text = stringResource(R.string.apply)
-                            )
-                        }
-                    )
-                }
+                )
             }
         }
     }

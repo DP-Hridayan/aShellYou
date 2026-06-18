@@ -10,16 +10,13 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.History
 import androidx.compose.material.icons.rounded.Search
-import androidx.compose.material3.ButtonGroup
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -41,9 +38,13 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalSettings
+import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
-import `in`.hridayan.ashell.core.presentation.components.tooltip.TooltipContent
+import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
+import `in`.hridayan.ashell.core.presentation.model.ButtonGroupIconButtonDefaults
+import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
+import `in`.hridayan.ashell.core.presentation.model.ButtonType
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
@@ -64,7 +65,6 @@ fun UtilityButtonGroup(
     val focusManager = LocalFocusManager.current
     val navController = LocalNavController.current
     val screenDensity = LocalDensity.current
-    val interactionSources = remember { List(5) { MutableInteractionSource() } }
     val askToClean = LocalSettings.current.clearOutputConfirmation
     val states by shellViewModel.states.collectAsState()
     val utilityRowPadding = PaddingValues(top = 30.dp, bottom = 25.dp, start = 20.dp, end = 20.dp)
@@ -118,9 +118,78 @@ fun UtilityButtonGroup(
                 }
             )
         }
-    } else
-        @Suppress("DEPRECATION")
-        ButtonGroup(
+    } else {
+        val iconButtonConfig = ButtonGroupIconButtonDefaults.defaultConfig(
+            colors = IconButtonDefaults.iconButtonColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+            )
+        )
+
+        val buttonGroupItems = listOf(
+            ButtonGroupItem(
+                buttonConfig = ButtonConfigDefaults.defaultConfig(
+                    type = ButtonType.IconButton,
+                    iconButtonConfig = iconButtonConfig
+                ),
+                icon = Icons.Rounded.Search,
+                onClick = {
+                    if (states.output.isEmpty()) {
+                        showToast(context, res.getString(R.string.nothing_to_search))
+                    } else {
+                        shellViewModel.toggleSearchBar()
+                    }
+                }
+            ),
+            ButtonGroupItem(
+                buttonConfig = ButtonConfigDefaults.defaultConfig(
+                    type = ButtonType.IconButton,
+                    iconButtonConfig = iconButtonConfig
+                ),
+                iconResId = R.drawable.ic_bookmarks,
+                onClick = { showBookmarkDialog() }
+            ),
+            ButtonGroupItem(
+                buttonConfig = ButtonConfigDefaults.defaultConfig(
+                    type = ButtonType.IconButton,
+                    iconButtonConfig = iconButtonConfig
+                ),
+                icon = Icons.Rounded.History,
+                onClick = { showHistoryMenu() }
+            ),
+            ButtonGroupItem(
+                buttonConfig = ButtonConfigDefaults.defaultConfig(
+                    type = ButtonType.IconButton,
+                    iconButtonConfig = iconButtonConfig
+                ),
+                iconResId = R.drawable.ic_clear,
+                onClick = {
+                    if (states.output.isEmpty()) {
+                        showToast(context, res.getString(R.string.nothing_to_clear))
+                        return@ButtonGroupItem
+                    }
+
+                    if (states.shellState == ShellState.Busy) {
+                        showToast(context, res.getString(R.string.abort_command))
+                        return@ButtonGroupItem
+                    }
+
+                    if (askToClean) showClearOutputDialog()
+                    else handleClearOutput()
+                }
+            ),
+            ButtonGroupItem(
+                buttonConfig = ButtonConfigDefaults.defaultConfig(
+                    type = ButtonType.IconButton,
+                    iconButtonConfig = iconButtonConfig
+                ),
+                iconResId = R.drawable.ic_settings,
+                onClick = { navController.navigate(NavRoutes.SettingsScreen) }
+            ),
+        )
+
+        OverflowButtonGroup(
+            items = buttonGroupItems,
             modifier = modifier
                 .fillMaxWidth()
                 .padding(utilityRowPadding)
@@ -131,135 +200,6 @@ fun UtilityButtonGroup(
                     shellViewModel.updateButtonGroupHeight(height)
                 },
             horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            IconButton(
-                onClick = withHaptic {
-                    if (states.output.isEmpty()) {
-                        showToast(context, res.getString(R.string.nothing_to_search))
-                    } else {
-                        shellViewModel.toggleSearchBar()
-                    }
-                },
-                shapes = IconButtonDefaults.shapes(),
-                colors = IconButtonDefaults.iconButtonColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                ),
-                modifier = Modifier
-                    .size(40.dp)
-                    .animateWidth(interactionSources[0]),
-                interactionSource = interactionSources[0],
-            ) {
-                TooltipContent(text = stringResource(R.string.search)) {
-                    Icon(
-                        imageVector = Icons.Rounded.Search,
-                        contentDescription = null,
-                        modifier = Modifier.size(20.dp)
-                    )
-                }
-            }
-
-            IconButton(
-                onClick = withHaptic {
-                    showBookmarkDialog()
-                },
-                shapes = IconButtonDefaults.shapes(),
-                colors = IconButtonDefaults.iconButtonColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                ),
-                modifier = Modifier
-                    .size(40.dp)
-                    .animateWidth(interactionSources[1]),
-                interactionSource = interactionSources[1],
-            ) {
-                TooltipContent(text = stringResource(R.string.bookmarks)) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_bookmarks),
-                        contentDescription = null,
-                        modifier = Modifier.size(20.dp)
-                    )
-                }
-            }
-
-            IconButton(
-                onClick = withHaptic {
-                    showHistoryMenu()
-                },
-                shapes = IconButtonDefaults.shapes(),
-                colors = IconButtonDefaults.iconButtonColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                ),
-                modifier = Modifier
-                    .size(40.dp)
-                    .animateWidth(interactionSources[2]),
-                interactionSource = interactionSources[2],
-            ) {
-                TooltipContent(text = stringResource(R.string.history)) {
-                    Icon(
-                        imageVector = Icons.Rounded.History,
-                        contentDescription = null,
-                        modifier = Modifier.size(20.dp)
-                    )
-                }
-            }
-
-            IconButton(
-                onClick = withHaptic {
-                    if (states.output.isEmpty()) {
-                        showToast(context, res.getString(R.string.nothing_to_clear))
-                        return@withHaptic
-                    }
-
-                    if (states.shellState == ShellState.Busy) {
-                        showToast(context, res.getString(R.string.abort_command))
-                        return@withHaptic
-                    }
-
-                    if (askToClean) showClearOutputDialog()
-                    else handleClearOutput()
-                },
-                shapes = IconButtonDefaults.shapes(),
-                colors = IconButtonDefaults.iconButtonColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                ),
-                modifier = Modifier
-                    .size(40.dp)
-                    .animateWidth(interactionSources[3]),
-                interactionSource = interactionSources[3],
-            ) {
-                TooltipContent(text = stringResource(R.string.clear)) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_clear),
-                        contentDescription = null,
-                        modifier = Modifier.size(20.dp)
-                    )
-                }
-            }
-
-            IconButton(
-                onClick = withHaptic {
-                    navController.navigate(NavRoutes.SettingsScreen)
-                },
-                shapes = IconButtonDefaults.shapes(),
-                colors = IconButtonDefaults.iconButtonColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                ),
-                modifier = Modifier
-                    .size(40.dp)
-                    .animateWidth(interactionSources[4]),
-                interactionSource = interactionSources[4],
-            ) {
-                TooltipContent(text = stringResource(R.string.settings)) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_settings),
-                        contentDescription = null,
-                        modifier = Modifier.size(20.dp)
-                    )
-                }
-            }
-        }
+        )
+    }
 }

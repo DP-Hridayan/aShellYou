@@ -1,31 +1,21 @@
-@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
-
 package `in`.hridayan.ashell.shell.common.presentation.components.dialog
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ButtonGroup
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -35,8 +25,11 @@ import androidx.core.net.toUri
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.domain.model.SaveProgress
-import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
+import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
+import `in`.hridayan.ashell.core.presentation.model.ButtonType
 import `in`.hridayan.ashell.core.utils.getFullPathFromTreeUri
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 
@@ -48,7 +41,6 @@ fun FileSavedDialog(
     onDismiss: () -> Unit,
 ) {
     val context = LocalContext.current
-    val interactionSources = remember { List(2) { MutableInteractionSource() } }
 
     val uriString = LocalSettings.current.outputSaveDirectory
     val saveWholeOutput = LocalSettings.current.saveWholeOutput
@@ -146,44 +138,25 @@ fun FileSavedDialog(
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                @Suppress("DEPRECATION")
-                ButtonGroup(modifier = Modifier.fillMaxWidth()) {
-                    OutlinedButton(
-                        onClick = withHaptic(HapticFeedbackType.Reject) {
-                            onDismiss()
-                        },
-                        shapes = ButtonDefaults.shapes(),
-                        modifier = Modifier
-                            .weight(1f)
-                            .animateWidth(interactionSources[0]),
-                        interactionSource = interactionSources[0],
-                        enabled = !isSaving,
-                    ) {
-                        AutoResizeableText(
-                            text = if (isSaving) stringResource(R.string.cancel)
-                            else if (isError) stringResource(R.string.close)
-                            else stringResource(R.string.cancel),
-                            style = MaterialTheme.typography.labelLarge
-                        )
-                    }
-
-                    Button(
-                        onClick = withHaptic(HapticFeedbackType.Confirm) {
+                val buttonGroupItems = listOf(
+                    ButtonGroupItem(
+                        buttonConfig = ButtonConfigDefaults.defaultConfig(type = ButtonType.OutlinedButton),
+                        text = if (isError) stringResource(R.string.close)
+                        else stringResource(R.string.cancel),
+                        onClick = { onDismiss() },
+                        enabled = !isSaving
+                    ),
+                    ButtonGroupItem(
+                        text = stringResource(R.string.open),
+                        onClick = {
                             onOpenFile()
                             onDismiss()
                         },
-                        modifier = Modifier
-                            .weight(1f)
-                            .animateWidth(interactionSources[1]),
-                        interactionSource = interactionSources[1],
-                        shapes = ButtonDefaults.shapes(),
-                        enabled = isSuccess,
-                    ) {
-                        AutoResizeableText(
-                            text = stringResource(R.string.open),
-                        )
-                    }
-                }
+                        enabled = isSuccess
+                    )
+                )
+
+                OverflowButtonGroup(items = buttonGroupItems)
             }
         }
     }

@@ -9,7 +9,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
-import androidx.compose.foundation.interaction.MutableInteractionSource
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,9 +20,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ButtonGroup
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -31,7 +29,7 @@ import androidx.compose.material3.LinearWavyProgressIndicator
 import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.OutlinedButton
+
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberBottomSheetState
@@ -67,7 +65,11 @@ import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.domain.model.DownloadState
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
+import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
+import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
+import `in`.hridayan.ashell.core.presentation.model.ButtonType
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.components.text.BulletPointsTextLayout
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape
@@ -92,7 +94,7 @@ fun UpdateBottomSheet(
     val res = LocalResources.current
     val activity = context as? Activity
     val isDirectDownloadEnabled = LocalSettings.current.enableDirectDownload
-    val interactionSources = remember { List(2) { MutableInteractionSource() } }
+
     val downloadState by viewModel.downloadState.collectAsState()
     val apkName = "update.apk"
     val apkFile = remember { File(context.getExternalFilesDir(null), apkName) }
@@ -378,34 +380,25 @@ fun UpdateBottomSheet(
             }
         }
 
-        @Suppress("DEPRECATION")
-        ButtonGroup(
+        OverflowButtonGroup(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 20.dp, end = 20.dp, bottom = 20.dp)
-        ) {
-            OutlinedButton(
-                onClick = withHaptic(HapticFeedbackType.Reject) {
-                    permissionPromptShown = false
-
-                    if (showDownloadButton) {
-                        onDismiss()
-                    } else {
-                        viewModel.cancelDownload()
+                .padding(start = 20.dp, end = 20.dp, bottom = 20.dp),
+            items = listOfNotNull(
+                ButtonGroupItem(
+                    buttonConfig = ButtonConfigDefaults.defaultConfig(type = ButtonType.OutlinedButton),
+                    text = stringResource(R.string.cancel),
+                    onClick = {
+                        permissionPromptShown = false
+                        if (showDownloadButton) {
+                            onDismiss()
+                        } else {
+                            viewModel.cancelDownload()
+                        }
                     }
-                },
-                shapes = ButtonDefaults.shapes(),
-                modifier = Modifier
-                    .weight(1f)
-                    .animateWidth(interactionSources[0]),
-                interactionSource = interactionSources[0],
-            ) {
-                Text(text = stringResource(R.string.cancel))
-            }
-
-            if (showDownloadButton)
-                Button(
-                    onClick = withHaptic(HapticFeedbackType.Confirm) {
+                ),
+                if (showDownloadButton) ButtonGroupItem(
+                    text = stringResource(R.string.download),
+                    onClick = {
                         if (isDirectDownloadEnabled) {
                             permissionPromptShown = false
                             viewModel.downloadApk(apkUrl, apkName)
@@ -415,16 +408,10 @@ fun UpdateBottomSheet(
                                 url = UrlConst.URL_GITHUB_REPO + "/releases/tag/$latestVersion"
                             )
                         }
-                    },
-                    shapes = ButtonDefaults.shapes(),
-                    modifier = Modifier
-                        .weight(1f)
-                        .animateWidth(interactionSources[1]),
-                    interactionSource = interactionSources[1],
-                ) {
-                    Text(text = stringResource(R.string.download))
-                }
-        }
+                    }
+                ) else null
+            )
+        )
     }
 }
 

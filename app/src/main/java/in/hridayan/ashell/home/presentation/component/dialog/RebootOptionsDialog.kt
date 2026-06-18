@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.RestartAlt
 import androidx.compose.material3.ButtonGroup
+import androidx.compose.material3.ButtonGroupDefaults
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -52,58 +54,82 @@ fun RebootOptionsDialog(
             verticalArrangement = Arrangement.spacedBy(15.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            @Suppress("DEPRECATION")
             ButtonGroup(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceAround,
+                overflowIndicator = { menuState ->
+                    ButtonGroupDefaults.OverflowIndicator(menuState = menuState)
+                }
             ) {
-                IconButton(
-                    onClick = withHaptic {
-                        shellViewModel.executeSimpleCommand(arrayOf("su", "-c", "reboot"))
-                    },
-                    modifier = Modifier
-                        .size(buttonSize)
-                        .animateWidth(interactionSources1[0]),
-                    interactionSource = interactionSources1[0],
-                    colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                    )
-                ) {
-                    Icon(
-                        imageVector = Icons.Rounded.RestartAlt,
-                        contentDescription = null,
-                        modifier = Modifier.size(iconSize),
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer
-                    )
-                }
-
-                IconButton(
-                    onClick = withHaptic {
-                        shellViewModel.executeSimpleCommand(
-                            arrayOf(
-                                "su",
-                                "-c",
-                                "reboot recovery"
+                customItem(
+                    buttonGroupContent = {
+                        IconButton(
+                            onClick = withHaptic {
+                                shellViewModel.executeSimpleCommand(arrayOf("su", "-c", "reboot"))
+                            },
+                            modifier = Modifier
+                                .size(buttonSize)
+                                .animateWidth(interactionSources1[0]),
+                            interactionSource = interactionSources1[0],
+                            colors = IconButtonDefaults.iconButtonColors(
+                                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                             )
-                        )
+                        ) {
+                            Icon(
+                                imageVector = Icons.Rounded.RestartAlt,
+                                contentDescription = null,
+                                modifier = Modifier.size(iconSize),
+                                tint = MaterialTheme.colorScheme.onPrimaryContainer
+                            )
+                        }
                     },
-                    modifier = Modifier
-                        .size(buttonSize)
-                        .animateWidth(interactionSources1[1]),
-                    interactionSource = interactionSources1[1],
-                    colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-                    )
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_restart_recovery),
-                        contentDescription = null,
-                        modifier = Modifier.size(iconSize),
-                        tint = MaterialTheme.colorScheme.onTertiaryContainer
-                    )
-                }
+                    menuContent = {
+                        DropdownMenuItem(
+                            text = { AutoResizeableText(text = stringResource(R.string.system)) },
+                            onClick = withHaptic {
+                                shellViewModel.executeSimpleCommand(arrayOf("su", "-c", "reboot"))
+                            }
+                        )
+                    }
+                )
+
+                customItem(
+                    buttonGroupContent = {
+                        IconButton(
+                            onClick = withHaptic {
+                                shellViewModel.executeSimpleCommand(
+                                    arrayOf("su", "-c", "reboot recovery")
+                                )
+                            },
+                            modifier = Modifier
+                                .size(buttonSize)
+                                .animateWidth(interactionSources1[1]),
+                            interactionSource = interactionSources1[1],
+                            colors = IconButtonDefaults.iconButtonColors(
+                                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                                contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                            )
+                        ) {
+                            Icon(
+                                painter = painterResource(R.drawable.ic_restart_recovery),
+                                contentDescription = null,
+                                modifier = Modifier.size(iconSize),
+                                tint = MaterialTheme.colorScheme.onTertiaryContainer
+                            )
+                        }
+                    },
+                    menuContent = {
+                        DropdownMenuItem(
+                            text = { AutoResizeableText(text = stringResource(R.string.recovery)) },
+                            onClick = withHaptic {
+                                shellViewModel.executeSimpleCommand(
+                                    arrayOf("su", "-c", "reboot recovery")
+                                )
+                            }
+                        )
+                    }
+                )
             }
 
             Row(
@@ -125,64 +151,86 @@ fun RebootOptionsDialog(
                 )
             }
 
-            @Suppress("DEPRECATION")
             ButtonGroup(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceAround,
+                overflowIndicator = { menuState ->
+                    ButtonGroupDefaults.OverflowIndicator(menuState = menuState)
+                }
             ) {
-                IconButton(
-                    onClick = withHaptic {
-                        shellViewModel.executeSimpleCommand(
-                            arrayOf(
-                                "su",
-                                "-c",
-                                "reboot bootloader"
+                customItem(
+                    buttonGroupContent = {
+                        IconButton(
+                            onClick = withHaptic {
+                                shellViewModel.executeSimpleCommand(
+                                    arrayOf("su", "-c", "reboot bootloader")
+                                )
+                            },
+                            modifier = Modifier
+                                .size(buttonSize)
+                                .animateWidth(interactionSources2[0]),
+                            interactionSource = interactionSources2[0],
+                            colors = IconButtonDefaults.iconButtonColors(
+                                containerColor = MaterialTheme.colorScheme.errorContainer,
+                                contentColor = MaterialTheme.colorScheme.onErrorContainer
                             )
-                        )
+                        ) {
+                            Icon(
+                                painter = painterResource(R.drawable.ic_restart_bootloader),
+                                contentDescription = null,
+                                modifier = Modifier.size(iconSize),
+                                tint = MaterialTheme.colorScheme.onErrorContainer
+                            )
+                        }
                     },
-                    modifier = Modifier
-                        .size(buttonSize)
-                        .animateWidth(interactionSources2[0]),
-                    interactionSource = interactionSources2[0],
-                    colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.errorContainer,
-                        contentColor = MaterialTheme.colorScheme.onErrorContainer
-                    )
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_restart_bootloader),
-                        contentDescription = null,
-                        modifier = Modifier.size(iconSize),
-                        tint = MaterialTheme.colorScheme.onErrorContainer
-                    )
-                }
+                    menuContent = {
+                        DropdownMenuItem(
+                            text = { AutoResizeableText(text = stringResource(R.string.bootloader)) },
+                            onClick = withHaptic {
+                                shellViewModel.executeSimpleCommand(
+                                    arrayOf("su", "-c", "reboot bootloader")
+                                )
+                            }
+                        )
+                    }
+                )
 
-                IconButton(
-                    onClick = withHaptic {
-                        shellViewModel.executeSimpleCommand(
-                            arrayOf(
-                                "su",
-                                "-c",
-                                "reboot fastboot"
+                customItem(
+                    buttonGroupContent = {
+                        IconButton(
+                            onClick = withHaptic {
+                                shellViewModel.executeSimpleCommand(
+                                    arrayOf("su", "-c", "reboot fastboot")
+                                )
+                            },
+                            modifier = Modifier
+                                .size(buttonSize)
+                                .animateWidth(interactionSources2[1]),
+                            interactionSource = interactionSources2[1],
+                            colors = IconButtonDefaults.iconButtonColors(
+                                containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                                contentColor = MaterialTheme.colorScheme.onSecondaryContainer
                             )
-                        )
+                        ) {
+                            Icon(
+                                painter = painterResource(R.drawable.ic_restart_fastboot),
+                                contentDescription = null,
+                                modifier = Modifier.size(iconSize),
+                                tint = MaterialTheme.colorScheme.onSecondaryContainer
+                            )
+                        }
                     },
-                    modifier = Modifier
-                        .size(buttonSize)
-                        .animateWidth(interactionSources2[1]),
-                    interactionSource = interactionSources2[1],
-                    colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-                    )
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_restart_fastboot),
-                        contentDescription = null,
-                        modifier = Modifier.size(iconSize),
-                        tint = MaterialTheme.colorScheme.onSecondaryContainer
-                    )
-                }
+                    menuContent = {
+                        DropdownMenuItem(
+                            text = { AutoResizeableText(text = stringResource(R.string.fastboot)) },
+                            onClick = withHaptic {
+                                shellViewModel.executeSimpleCommand(
+                                    arrayOf("su", "-c", "reboot fastboot")
+                                )
+                            }
+                        )
+                    }
+                )
             }
 
             Row(
