@@ -56,6 +56,7 @@ import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVe
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.navigateBack
 import `in`.hridayan.ashell.settings.presentation.page.search.viewmodel.SettingsSearchViewModel
 import `in`.hridayan.ashell.settings.presentation.provider.SettingsProvider
 import `in`.hridayan.settingsdsl.search.SearchEntry
@@ -116,7 +117,7 @@ fun SettingsSearchScreen(
                                 indication = null,
                                 interactionSource = remember { MutableInteractionSource() },
                                 onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                                    navController.popBackStack()
+                                    navController.navigateBack()
                                 }),
                             imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
                             contentDescription = null,

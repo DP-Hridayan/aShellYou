@@ -86,6 +86,7 @@ import `in`.hridayan.ashell.core.presentation.utils.SnackBarUtils
 import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.navigateBack
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
 import kotlinx.coroutines.launch
 import kotlin.math.abs
@@ -404,7 +405,7 @@ fun CommandExampleCard(
                                 TextFieldValue(text = command)
                             )
                             shellViewModel.updateTextFieldSelection()
-                            navController.popBackStack()
+                            navController.navigateBack()
                             commandExamplesViewModel.incrementUseCount(id)
                         })
                     }
