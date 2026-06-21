@@ -16,9 +16,9 @@
     <string name="adb_via_wireless_debugging">ADB через \"Беспроводную отладку\"</string>
     <string name="adb_via_wireless_debugging_summary">Подключайте устройства (Android 11+) по Wi-Fi с помощью беспроводной отладки и выполняйте команды ADB удалённо.</string>
     <string name="add">Добавить</string>
-    <string name="auto_scale_ui">Автомасштабирование интерфейса</string>
-    <string name="custom_ui_scale">Пользовательский масштаб интерфейса</string>
-    <string name="des_auto_scale_ui">Автоматически масштабирует интерфейс в соответствии с наименьшей шириной устройства</string>
+    <string name="auto_scale_ui">Авто масштабирование UI</string>
+    <string name="custom_ui_scale">Свой масштаб UI</string>
+    <string name="des_auto_scale_ui">Авто масштабирует UI в соответствии с минимальной шириной экрана устройства</string>
     <string name="add_account">Добавить аккаунт</string>
     <string name="add_command">Добавить команду</string>
     <string name="add_new_item">Добавить новый элемент</string>
