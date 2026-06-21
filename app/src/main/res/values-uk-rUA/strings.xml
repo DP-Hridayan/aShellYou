@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
-    <!-- Sorting options: A_Z and Z_A are sort order labels -->
     <string name="abort_command">Спочатку скасуйте команду</string>
     <string name="about">Про додаток</string>
     <string name="active">Активний</string>
@@ -17,6 +16,9 @@
     <string name="adb_via_wireless_debugging">ADB через \"Бездротове налагодження\"</string>
     <string name="adb_via_wireless_debugging_summary">Підключайте пристрої (Android 11+) Wi-Fi за допомогою бездротового налагодження і виконуйте команди ADB віддалено.</string>
     <string name="add">Додати</string>
+    <string name="auto_scale_ui">Автомасштабування UI</string>
+    <string name="custom_ui_scale">Свій масштаб UI</string>
+    <string name="des_auto_scale_ui">Авто масштабує UI відповідно до мінімальної ширини екрана пристрою</string>
     <string name="add_account">Додати обліковий запис</string>
     <string name="add_command">Додати команду</string>
     <string name="add_new_item">Додати новий елемент</string>
@@ -31,12 +33,17 @@
     <string name="app">Додаток</string>
     <string name="app_crashed">Збій у додатку</string>
     <string name="app_tagline">ADB у вас під рукою</string>
-    <string name="apply">Прийняти</string>
+    <string name="apply">Застосувати</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">Застосувати до усієї (%1$d решти)</string>
     <string name="artifact_id">Артефакт ID</string>
+    <string name="auto_backup">Авторезервування</string>
+    <string name="auto_backup_content_type">Резервування вмісту</string>
+    <string name="auto_backup_folder">Тека резервування</string>
+    <string name="auto_delete_existing_backups">Автовидалення старих резервувань</string>
     <string name="auto_update">Автооновлення</string>
     <string name="back">Назад</string>
     <string name="back_button">Кнопка \"Назад\"</string>
+    <string name="backing_up">Резервування…</string>
     <string name="backup">Резервування</string>
     <string name="backup_all_data">Резервування всіх даних</string>
     <string name="backup_and_restore">Резервування та відновлення</string>
@@ -45,6 +52,9 @@
     <string name="backup_destination">Місце призначення резервування</string>
     <string name="backup_failed">Резервування не вдалося</string>
     <string name="backup_found">Знайдено резервування</string>
+    <string name="backup_now">Резервувати зараз</string>
+    <string name="backup_status">Стан резервування</string>
+    <string name="backup_frequency">Частота резервування</string>
     <string name="backup_scheduler">Планувальник резервування</string>
     <string name="backup_settings">Резервування налаштувань додатка</string>
     <string name="backup_successful">Резервування виконано успішно</string>
@@ -90,7 +100,7 @@
     <string name="confirm_bookmark_delete_message">Увага! Цю дію неможливо скасувати.\nВи впевнені, що хочете видалити всі закладки?</string>
     <string name="confirm_delete">Підтвердити видалення</string>
     <string name="confirm_tile_delete_message">Ви впевнені, що хочете видалити цю плитку?</string>
-    <string name="confirmation_clear_cache">Caching helps to retrieve analysis results instantly.\nDo you still want to clear all AI analysis cache data?</string>
+    <string name="confirmation_clear_cache">Кешування допомагає миттєво отримувати результати аналізу.\nВи все ще хочете очистити всі дані кешу аналізу AI?</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" вже існує в цьому місці.</string>
     <string name="conflict_title">Елемент вже існує</string>
     <string name="connect">Під\'єднатися</string>
@@ -118,6 +128,7 @@
     <string name="current_version">Поточна версія</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Вирізати %1$d елементів</string>
     <string name="cut_to_clipboard">Вирізати в буфер обміну</string>
+    <string name="daily">Щоденно</string>
     <string name="dark_theme">Темна тема</string>
     <string name="databases_only">Тільки бази даних</string>
     <string name="default_folder">Тека за замовчуванням</string>
@@ -134,6 +145,10 @@
     <string name="des_ai_cache_days">Кількість днів для зберігання кешованих результатів</string>
     <string name="des_ai_cache_enabled">Результати аналізу кешу по моделі</string>
     <string name="des_ai_models">Управління офлайн AI моделями для аналізу команд</string>
+    <string name="des_auto_backup_content_type">Виберіть, що включити до авторезервувань</string>
+    <string name="des_auto_backup_folder">Виберіть теку для збереження авторезервувань</string>
+    <string name="des_auto_backup_time">Встановіть час для авторезервувань</string>
+    <string name="des_auto_delete_existing_backups">Видаляти старі авторезервування, коли зберігається нова</string>
     <string name="des_auto_update">Автоперевірка оновлень</string>
     <string name="des_backup_all_data">Резервування всіх даних додатка</string>
     <string name="des_backup_and_restore">Резервування та відновлення налаштувань додатку та інших даних</string>
@@ -152,10 +167,13 @@
     <string name="des_drive_backup">Завантажте зашифроване резервування на Google Диск.\nЦя дія перезапише будь-які що існують хмарні резервні копії.</string>
     <string name="des_drive_restore">Завантажити останнє резервування з Google Диску</string>
     <string name="des_dynamic_colors">Автоматичне встановлення теми додатка відповідно до шпалер пристрою</string>
+    <string name="des_enable_auto_backup">Авторезервування даних програми у запланований час</string>
+    <string name="des_enable_cloud_auto_backup">Авторезервування на ваш обліковий запис Google Диска</string>
+    <string name="des_enable_local_auto_backup">Авторезервування у вибрану теку на вашому пристрої</string>
     <string name="des_enable_direct_download">При включенні оновлення завантажуватиметься безпосередньо з GitHub всередині додатка. Вимкніть, щоб відвідати сторінку випусків Github для завантаження вручну.</string>
     <string name="des_examples">Колекція деяких шаблонів команд</string>
     <string name="des_feature_request">Якщо у вас є якісь ідеї чи пропозиції щодо програми, повідомте нам</string>
-    <string name="des_font_family">Змінити стиль шрифту програми</string>
+    <string name="des_font_family">Змінити стиль шрифту додатка</string>
     <string name="des_font_size">Регулювання розміру шрифту, щоб текст у додатку показувався більшим або меншим</string>
     <string name="des_haptics_and_vibration">Інтерактивно тактильний відгук для сенсорного зворотного зв\'язку</string>
     <string name="des_high_contrast_dark_mode">Чорно темна тема для пристроїв з дисплеєм OLED</string>
@@ -218,8 +236,11 @@
     <string name="edit_command">Редагувати команду</string>
     <string name="edit_tile">Редагувати плитку</string>
     <string name="empty_folder">Ця тека порожня</string>
+    <string name="enable_auto_backup">Увімкнути авторезервування</string>
     <string name="enable_auto_update">Увімкнути автооновлення</string>
+    <string name="enable_cloud_auto_backup">Авторезервування на Google Диск</string>
     <string name="enable_direct_download">Увімкнути пряме завантаження apk</string>
+    <string name="enable_local_auto_backup">Авторезервування в локальне сховище</string>
     <string name="enable_wifi">Увімкнути Wi-Fi</string>
     <string name="enable_wireless_debugging">Будь ласка, увімкніть \"Бездротове налагодження\" у параметрах \"Розробника\"</string>
     <string name="enable_wireless_debugging_button">Увімкнути</string>
@@ -277,18 +298,18 @@
     <string name="folder_info">Інформація про теку</string>
     <string name="folder_name">Ім\'я теки</string>
     <string name="folder_picker">Вибір теки</string>
-    <string name="font_amatic_sc" comment="Font style name">Аматік</string>
-    <string name="font_cabin" comment="Font style name">Кабіна</string>
-    <string name="font_caveat" comment="Font style name">Кавейт</string>
+    <string name="font_amatic_sc" comment="Font style name">Amatic SC</string>
+    <string name="font_cabin" comment="Font style name">Cabin</string>
+    <string name="font_caveat" comment="Font style name">Caveat</string>
     <string name="font_comfortaa" comment="Font style name">Comfortaa</string>
     <string name="font_crimson_pro" comment="Font style name">Crimson Pro</string>
-    <string name="font_dancing_script" comment="Font style name">Рукописний</string>
-    <string name="font_display_text" comment="Sample text used to preview font styles">Щурячий бугай із їжаком-харцизом в\'ючись у собаку</string>
-    <string name="font_eb_garamond" comment="Font style name">Еб Гарамон</string>
-    <string name="font_exo_2" comment="Font style name">Екзо 2</string>
+    <string name="font_dancing_script" comment="Font style name">Dancing Script</string>
+    <string name="font_display_text" comment="Sample text used to preview font styles">Швидка бура лисиця перестрибує через лінивого собаку</string>
+    <string name="font_eb_garamond" comment="Font style name">EB Garamond</string>
+    <string name="font_exo_2" comment="Font style name">Exo 2</string>
     <string name="font_family">Сімейство шрифтів</string>
     <string name="font_heebo" comment="Font style name">Heebo</string>
-    <string name="font_inter" comment="Font style name">Інтер</string>
+    <string name="font_inter" comment="Font style name">Inter</string>
     <string name="font_josefin_sans" comment="Font style name">Josefin Sans</string>
     <string name="font_karla" comment="Font style name">Karla</string>
     <string name="font_lexend" comment="Font style name">Lexend</string>
@@ -296,34 +317,36 @@
     <string name="font_manrope" comment="Font style name">Manrope</string>
     <string name="font_montserrat" comment="Font style name">Montserrat</string>
     <string name="font_noto_sans" comment="Font style name">Noto Sans</string>
-    <string name="font_nunito" comment="Font style name">Нуніто</string>
-    <string name="font_open_sans" comment="Font style name">Відкриті сайти</string>
-    <string name="font_oswald" comment="Font style name">Освальд</string>
-    <string name="font_outfit" comment="Font style name">Одяг</string>
-    <string name="font_pacifico" comment="Font style name">Пачіфіко</string>
-    <string name="font_playfair_display" comment="Font style name">Відображення Плейномерів</string>
-    <string name="font_playpen_sans" comment="Font style name">Грати Санс</string>
+    <string name="font_nunito" comment="Font style name">Nunito</string>
+    <string name="font_open_sans" comment="Font style name">Open Sans</string>
+    <string name="font_oswald" comment="Font style name">Oswald</string>
+    <string name="font_outfit" comment="Font style name">Outfit</string>
+    <string name="font_pacifico" comment="Font style name">Pacifico</string>
+    <string name="font_playfair_display" comment="Font style name">Playfair Display</string>
+    <string name="font_playpen_sans" comment="Font style name">Playpen Sans</string>
     <string name="font_plus_jakarta_sans" comment="Font style name">Plus Jakarta Sans</string>
-    <string name="font_public_sans" comment="Font style name">Громадські бани</string>
-    <string name="font_quicksand" comment="Font style name">Сипучі піски</string>
+    <string name="font_public_sans" comment="Font style name">Public Sans</string>
+    <string name="font_quicksand" comment="Font style name">Quicksand</string>
     <string name="font_raleway" comment="Font style name">Raleway</string>
     <string name="font_roboto_flex" comment="Font style name">Roboto Flex</string>
     <string name="font_rubik" comment="Font style name">Rubik</string>
-    <string name="font_shadows_into_light" comment="Font style name">Тіні у світло</string>
+    <string name="font_shadows_into_light" comment="Font style name">Shadows Into Light</string>
     <string name="font_size_multiplier">Множник розміру шрифту</string>
-    <string name="font_source_sans_3" comment="Font style name">Присутні тексти 3</string>
-    <string name="font_source_serif_4" comment="Font style name">Початковий код з засічками 4</string>
-    <string name="font_work_sans" comment="Font style name">Робочі шанувальники</string>
+    <string name="font_source_sans_3" comment="Font style name">Source Sans 3</string>
+    <string name="font_source_serif_4" comment="Font style name">Source Serif 4</string>
+    <string name="font_work_sans" comment="Font style name">Work Sans</string>
     <string name="forget">Забути</string>
     <string name="forget_device">Забути пристрій</string>
     <string name="forget_device_confirmation" comment="%1$s = device name">Ви впевнені, що хочете забути? %1$s? Вам потрібно буде повторно виконати сполучення для підключення.</string>
     <string name="forks">Forks</string>
     <string name="found_connect_service">Знайдено сервіс підключення</string>
+    <string name="frequency">Частота</string>
     <string name="full_license_text">Повний текст ліцензії</string>
     <string name="generate_tile">Створити плитку</string>
     <string name="go_home">На головну</string>
     <string name="go_to_terminal">Перейти до термінала</string>
     <string name="google_drive">Google Диск</string>
+    <string name="google_drive_backup">Google Диск резервування</string>
     <string name="gpl_3_0_description">aShell You це вільне програмне забезпечення: ви можете розповсюджувати його/або змінювати відповідно до умов Загальної публічної ліцензії GNU, опублікованої Фондом вільного програмного забезпечення, або версії 3 Ліцензії, або (на ваш вибір) будь-якої пізнішої версії.</string>
     <string name="grant">Надати</string>
     <string name="grant_permission">Надати дозвіл</string>
@@ -349,6 +372,8 @@
     <string name="keep_both">Залишити обидва</string>
     <string name="label">Мітка</string>
     <string name="languages">Мови</string>
+    <string name="last_auto_backup_cloud">Останнє авторезервування у хмарі</string>
+    <string name="last_auto_backup_local">Останнє локальне авторезервування</string>
     <string name="last_backup_date">Дата останнього резервування</string>
     <string name="last_backup_details">Деталі останньої резервної копії</string>
     <string name="last_backup_time">Час останнього резервування</string>
@@ -366,9 +391,10 @@
     <string name="local_adb">Локальний ADB</string>
     <string name="local_adb_shell">Локальна оболонка ADB</string>
     <string name="local_adb_summary">Виконуйте команди ADB безпосередньо на вашому пристрої за допомогою Shizuku або root.</string>
+    <string name="local_backup">Локальне резервування</string>
     <string name="local_file">Локальний файл</string>
     <string name="logs">Журнали</string>
-    <string name="look_and_feel">Зовнішній вигляд</string>
+    <string name="look_and_feel">Оформлення</string>
     <string name="low">Низький</string>
     <string name="manual_pair">Ручне сполучення</string>
     <string name="medium">Середній</string>
@@ -384,6 +410,7 @@
     <string name="models" comment="Refers to AI/ML models used for command analysis">Моделі</string>
     <string name="modified" comment="File property: last modified date">Змінено</string>
     <string name="monospace" comment="Font style category name">Моноширинний</string>
+    <string name="monthly">Щомісяця</string>
     <string name="more">Ще</string>
     <string name="most_used">Часто використовуються</string>
     <string name="move">Перемістити</string>
@@ -398,11 +425,13 @@
     <string name="newest">Найновіший</string>
     <string name="no_adb_device_error">Пристрої, сумісні з ADB, не виявлені. Увімкніть налагодження USB на цільовому пристрої.</string>
     <string name="no_adb_interface_found">Інтерфейс adb не знайдено</string>
+    <string name="no_auto_backup_yet">Авторезервування ще не виконано</string>
     <string name="no_bookmarks">Закладок не знайдено</string>
     <string name="no_changelog_found">Журнал змін для цієї версії не знайдено</string>
     <string name="no_cloud_backup_found">Резервування не знайдено на Google Диску</string>
     <string name="no_crashes">Повідомлень про збої не надходило. aShell You працює гладко.</string>
     <string name="no_files_download">Файли не вибрані (теки неможливо завантажити)</string>
+    <string name="no_folder_selected">Теку не вибрано</string>
     <string name="no_google_account_message">На цьому пристрої не знайдено облікового запису Google. Ви хочете додати один для використання хмарного резервного копіювання?</string>
     <string name="no_google_account_title">Немає облікового запису Google</string>
     <string name="no_history">Немає історії команд</string>
@@ -510,16 +539,17 @@
     <string name="restoring_backup">Відновлення резервування…</string>
     <string name="retry">Повторити</string>
     <string name="root_access_granted">Root доступ надано!</string>
-    <string name="sans_serif" comment="Font style category name">Без зарубок</string>
+    <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Зберегти</string>
     <string name="save_whole_output">Зберегти весь вивід</string>
     <string name="saved_devices">Збережені пристрої</string>
     <string name="saving">Збереження…</string>
     <string name="saving_output">Експорт виводу у файл…</string>
+    <string name="schedule">Розклад</string>
     <string name="screen_density_multiplier">Множник щільності екрану</string>
     <string name="search">Пошук</string>
     <string name="search_commands_here">Пошук команд тут</string>
-    <string name="search_fonts">Search fonts…</string>
+    <string name="search_fonts">Пошук шрифтів…</string>
     <string name="search_icons_here">Пошук іконок тут</string>
     <string name="search_labels_here">Пошук мітки тут</string>
     <string name="search_libraries">Пошук бібліотек, авторів, ліцензій…</string>
@@ -530,6 +560,10 @@
     <string name="searching_for_devices">Пошук пристроїв…</string>
     <string name="select">Вибрати</string>
     <string name="select_all">Вибрати все</string>
+    <string name="select_time">Виберіть час</string>
+    <string name="select_backup_folder_title">Немає теки резервування</string>
+    <string name="select_backup_folder_message">Будь ласка, виберіть теку, де будуть збережені резервування. Додатку потрібен доступ для читання та запису до цієї теки.</string>
+    <string name="select_folder">Виберіть теку</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">Своє</string>
     <string name="self_pair_connection_failed">Помилка підключення - спробуйте ручне підключення</string>
     <string name="self_pair_enter_code">Введіть 6-значний код із діалогового вікна сполучення</string>
@@ -547,7 +581,7 @@
     <string name="self_pair_success_hint">Локальна оболонка ADB тепер доступна</string>
     <string name="self_pair_timeout">Тайм-аут - відкрити діалог сполучення в бездротовому налагодженні</string>
     <string name="self_pair_wrong_code">Неправильний код - знову відкрийте діалогове вікно сполучення</string>
-    <string name="serif" comment="Font style category name">З зарубками</string>
+    <string name="serif" comment="Font style category name">Serif</string>
     <string name="settings">Налаштування</string>
     <string name="settings_only">Тільки параметри</string>
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">Вивід останньої команди експортується до \'%s\'</string>
@@ -597,6 +631,7 @@
     <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">Плитка %1$d</string>
     <string name="tile_name">Назва плитки</string>
     <string name="tiles">Плитки</string>
+    <string name="time">Час</string>
     <string name="toggleable">Перемикальний</string>
     <string name="total_executions">Всього запусків</string>
     <string name="translations">Переклади</string>
@@ -631,6 +666,7 @@
     <string name="waiting_for_device">Очікування пристрою</string>
     <string name="waiting_for_devices">Очікування пристроїв…</string>
     <string name="want_to_contribute_too">Хочете також зробити свій внесок?</string>
+    <string name="weekly">Щотижня</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">Що б ви хотіли зробити поки %1$s?</string>
     <string name="whats_new">Що нового!</string>
     <string name="which_device_to_pair">Який пристрій ви хочете сполучити?</string>

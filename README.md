@@ -2,7 +2,7 @@
   <img src="https://capsule-render.vercel.app/api?type=waving&height=300&color=gradient&text=aShell%20You&animation=fadeIn&desc=ADB%20at%20your%20fingertips&descAlign=50&descAlignY=55&fontAlignY=35" />
 </p>
 
-> **aShell You** is a fully-featured Android shell utility app with **Material Design 3 UI**, letting you run **ADB**, **root** and **shell** commands on your  device or others via OTG/wireless, packed in a beautiful and smart interface
+> **aShell You** is a fully-featured Android shell utility app with **Material Design 3 UI**, letting you run **ADB**, **root** and **shell** commands on your device or others via OTG/wireless, packed in a beautiful and smart interface
 
 </br>
 
@@ -114,7 +114,7 @@
 </br>
 
 🔃 **Backup and restore app settings and database locally**
-> aShellYou lets you have the option to backup app settings and database for restore later.
+> aShell You lets you have the option to backup app settings and database for restore later.
 </br>
 
 🌑 **AMOLED-Friendly Dark Theme**
@@ -129,7 +129,7 @@
 ## Requirements
 
 > * A working **[Shizuku](https://shizuku.rikka.app/)** environment or **root access**
-> * Shizuku/Root is **not required** when executing ADB commands on **other devices** using **OTG** or **Wireless Debugging**
+> * Shizuku/Root access is **not required** when executing ADB commands on **other devices** using **OTG** or **Wireless Debugging**
 
 <br/>
 
@@ -196,11 +196,11 @@
     <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Status</th>
   </tr>
   <tr>
-    <td style="padding: 8px; border: 1px solid #ddd;">Wifi ADB Feature</td>
+    <td style="padding: 8px; border: 1px solid #ddd;">Wi-Fi ADB Feature</td>
     <td style="padding: 8px; border: 1px solid #ddd; color: green;">✅ Done</td>
   </tr>
   <tr>
-    <td style="padding: 8px; border: 1px solid #ddd;">Migrate to kotlin</td>
+    <td style="padding: 8px; border: 1px solid #ddd;">Migrate to Kotlin</td>
     <td style="padding: 8px; border: 1px solid #ddd; color: green;">✅ Done</td>
   </tr>
   <tr>

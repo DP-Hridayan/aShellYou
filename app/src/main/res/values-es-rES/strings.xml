@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
-    <!-- Sorting options: A_Z and Z_A are sort order labels -->
     <string name="abort_command">Abortar el comando primero</string>
     <string name="about">Acerca de</string>
     <string name="active">Activo</string>
@@ -17,6 +16,9 @@
     <string name="adb_via_wireless_debugging">ADB vía Depuración inalámbrica</string>
     <string name="adb_via_wireless_debugging_summary">Conecta dispositivos (Android 11+) por Wifi usando la depuración inalámbrica y ejecuta comandos ADB de forma remota.</string>
     <string name="add">Añadir</string>
+    <string name="auto_scale_ui">Autoescalar UI</string>
+    <string name="custom_ui_scale">Escala de IU personalizada</string>
+    <string name="des_auto_scale_ui">Escala automáticamente la interfaz de usuario de acuerdo al ancho más pequeño del dispositivo</string>
     <string name="add_account">Añadir cuenta</string>
     <string name="add_command">Añadir comando</string>
     <string name="add_new_item">Añadir nuevo elemento</string>
@@ -34,9 +36,14 @@
     <string name="apply">Aplicar</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">Aplicar a todo (quedan %1$d)</string>
     <string name="artifact_id">ID del artefacto</string>
+    <string name="auto_backup">Copia automática</string>
+    <string name="auto_backup_content_type">Copia de seguridad</string>
+    <string name="auto_backup_folder">Carpeta de respaldo</string>
+    <string name="auto_delete_existing_backups">Auto-borrar copias de seguridad antiguas</string>
     <string name="auto_update">Actualización automática</string>
     <string name="back">Atrás</string>
     <string name="back_button">Botón Atrás</string>
+    <string name="backing_up">Respaldando…</string>
     <string name="backup">Copia de seguridad</string>
     <string name="backup_all_data">Hacer copia de seguridad de todos los datos</string>
     <string name="backup_and_restore">Copia de seguridad y restauración</string>
@@ -45,6 +52,9 @@
     <string name="backup_destination">Destino de la copia de seguridad</string>
     <string name="backup_failed">La copia de seguridad falló</string>
     <string name="backup_found">Copia de seguridad encontrada</string>
+    <string name="backup_now">Copia de seguridad</string>
+    <string name="backup_status">Estado de copia de seguridad</string>
+    <string name="backup_frequency">Frecuencia de copia de seguridad</string>
     <string name="backup_scheduler">Programador de copias de seguridad</string>
     <string name="backup_settings">Hacer copia de seguridad de los ajustes de la aplicación</string>
     <string name="backup_successful">Copia de seguridad realizada con éxito</string>
@@ -118,6 +128,7 @@
     <string name="current_version">Versión actual</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Cortar %1$d elementos</string>
     <string name="cut_to_clipboard">Cortar al portapapeles</string>
+    <string name="daily">Diario</string>
     <string name="dark_theme">Tema oscuro</string>
     <string name="databases_only">Solamente bases de datos</string>
     <string name="default_folder">Carpeta predeterminada</string>
@@ -134,6 +145,10 @@
     <string name="des_ai_cache_days">Número de días para mantener los resultados en caché</string>
     <string name="des_ai_cache_enabled">Resultados de análisis de caché por modelo</string>
     <string name="des_ai_models">Administrar modelos de IA sin conexión para el análisis de comandos</string>
+    <string name="des_auto_backup_content_type">Elija qué incluir en las copias de seguridad automáticas</string>
+    <string name="des_auto_backup_folder">Seleccione una carpeta para guardar las copias de seguridad automáticas</string>
+    <string name="des_auto_backup_time">Establecer el tiempo para las copias de seguridad automáticas</string>
+    <string name="des_auto_delete_existing_backups">Eliminar copias de seguridad automáticas antiguas cuando se guarda una nueva</string>
     <string name="des_auto_update">Buscar actualizaciones automáticamente</string>
     <string name="des_backup_all_data">Hacer copia de seguridad de todos los datos de la aplicación</string>
     <string name="des_backup_and_restore">Hacer copia de seguridad y restaurar los ajustes de la aplicación y otros datos</string>
@@ -152,6 +167,9 @@
     <string name="des_drive_backup">Subir la copia de seguridad cifrada a tu Google Drive.\nEsta acción sobrescribirá cualquier copia de seguridad en la nube existente.</string>
     <string name="des_drive_restore">Descargar tu copia de seguridad más reciente desde Google Drive</string>
     <string name="des_dynamic_colors">Establecer automáticamente el tema de la aplicación según el fondo de pantalla del dispositivo</string>
+    <string name="des_enable_auto_backup">Copiar automáticamente los datos de la aplicación a la hora programada</string>
+    <string name="des_enable_cloud_auto_backup">Copia de seguridad automática en tu cuenta de Google Drive</string>
+    <string name="des_enable_local_auto_backup">Copia de seguridad automática en la carpeta seleccionada en su dispositivo</string>
     <string name="des_enable_direct_download">Cuando está activado, las actualizaciones se descargarán directamente desde GitHub dentro de la aplicación. Desactívalo para visitar la página de lanzamientos de GitHub y descargar las actualizaciones manualmente.</string>
     <string name="des_examples">Colección de algunas plantillas de comandos</string>
     <string name="des_feature_request">Si tienes alguna idea o sugerencia para la aplicación, háznoslo saber</string>
@@ -218,8 +236,11 @@
     <string name="edit_command">Editar comando</string>
     <string name="edit_tile">Editar mosaico</string>
     <string name="empty_folder">Esta carpeta está vacía</string>
+    <string name="enable_auto_backup">Activar copia de seguridad automática</string>
     <string name="enable_auto_update">Activar la actualización automática</string>
+    <string name="enable_cloud_auto_backup">Auto copia de seguridad en Google Drive</string>
     <string name="enable_direct_download">Activar la descarga directa de APKs</string>
+    <string name="enable_local_auto_backup">Auto copia de seguridad al almacenamiento local</string>
     <string name="enable_wifi">Activar el wifi</string>
     <string name="enable_wireless_debugging">Por favor, activa la Depuración inalámbrica en las Opciones de desarrollador</string>
     <string name="enable_wireless_debugging_button">Activar</string>
@@ -319,11 +340,13 @@
     <string name="forget_device_confirmation" comment="%1$s = device name">¿Seguro que quieres olvidar %1$s? Tendrás que emparejarlo de nuevo para conectarte.</string>
     <string name="forks">Bifurcaciones</string>
     <string name="found_connect_service">Servicio de conexión encontrado</string>
+    <string name="frequency">Frecuencia</string>
     <string name="full_license_text">Texto completo de la licencia</string>
     <string name="generate_tile">Generar mosaico</string>
     <string name="go_home">Ir a inicio</string>
     <string name="go_to_terminal">Ir al terminal</string>
     <string name="google_drive">Google Drive</string>
+    <string name="google_drive_backup">Copia de seguridad de Google Drive</string>
     <string name="gpl_3_0_description">aShell You es software libre: puedes redistribuirlo y/o modificarlo bajo los términos de la Licencia Pública General de GNU publicada por la Free Software Foundation, ya sea la versión 3 de la Licencia o (a tu elección) cualquier versión posterior.</string>
     <string name="grant">Conceder</string>
     <string name="grant_permission">Conceder permiso</string>
@@ -349,6 +372,8 @@
     <string name="keep_both">Conservar ambos</string>
     <string name="label">Etiqueta</string>
     <string name="languages">Idiomas</string>
+    <string name="last_auto_backup_cloud">Última copia de seguridad automática en la nube</string>
+    <string name="last_auto_backup_local">Última copia de seguridad local</string>
     <string name="last_backup_date">Fecha de la última copia de seguridad</string>
     <string name="last_backup_details">Detalles de la última copia de seguridad</string>
     <string name="last_backup_time">Hora de la última copia de seguridad</string>
@@ -366,6 +391,7 @@
     <string name="local_adb">ADB local</string>
     <string name="local_adb_shell">Shell ADB local</string>
     <string name="local_adb_summary">Ejecuta comandos ADB directamente en tu dispositivo usando Shizuku o acceso root.</string>
+    <string name="local_backup">Copia local</string>
     <string name="local_file">Archivo local</string>
     <string name="logs">Registros</string>
     <string name="look_and_feel">Apariencia y comportamiento</string>
@@ -384,6 +410,7 @@
     <string name="models" comment="Refers to AI/ML models used for command analysis">Modelos</string>
     <string name="modified" comment="File property: last modified date">Modificado</string>
     <string name="monospace" comment="Font style category name">Monoespaciado</string>
+    <string name="monthly">Mensual</string>
     <string name="more">Más</string>
     <string name="most_used">Más usado</string>
     <string name="move">Mover</string>
@@ -398,11 +425,13 @@
     <string name="newest">Más reciente</string>
     <string name="no_adb_device_error">No se encontraron dispositivos compatibles con ADB. Activa la depuración USB en el dispositivo de destino.</string>
     <string name="no_adb_interface_found">No se encontró ninguna interfaz ADB</string>
+    <string name="no_auto_backup_yet">Aún no se ha realizado una copia de seguridad automática</string>
     <string name="no_bookmarks">No se encontraron marcadores</string>
     <string name="no_changelog_found">No se ha encontrado ningún registro de cambios para esta versión</string>
     <string name="no_cloud_backup_found">No se encontró ninguna copia de seguridad en Google Drive</string>
     <string name="no_crashes">No se han reportado fallos. aShell You está funcionando correctamente.</string>
     <string name="no_files_download">No se ha seleccionado ningún archivo (las carpetas no se pueden descargar)</string>
+    <string name="no_folder_selected">Ninguna carpeta seleccionada</string>
     <string name="no_google_account_message">No se encontró ninguna cuenta de Google en este dispositivo. ¿Te gustaría añadir una para usar las copias de seguridad en la nube?</string>
     <string name="no_google_account_title">Sin cuenta de Google</string>
     <string name="no_history">Sin historial de comandos</string>
@@ -516,6 +545,7 @@
     <string name="saved_devices">Dispositivos guardados</string>
     <string name="saving">Guardando…</string>
     <string name="saving_output">Exportando la salida al archivo…</string>
+    <string name="schedule">Programar</string>
     <string name="screen_density_multiplier">Multiplicador de densidad de pantalla</string>
     <string name="search">Buscar</string>
     <string name="search_commands_here">Buscar comandos aquí</string>
@@ -530,6 +560,10 @@
     <string name="searching_for_devices">Buscando dispositivos…</string>
     <string name="select">Seleccionar</string>
     <string name="select_all">Seleccionar todo</string>
+    <string name="select_time">Seleccionar hora</string>
+    <string name="select_backup_folder_title">No hay carpeta de respaldo</string>
+    <string name="select_backup_folder_message">Por favor, seleccione una carpeta donde se guardarán las copias de seguridad. La aplicación necesita acceso de lectura y escritura a esta carpeta.</string>
+    <string name="select_folder">Seleccionar carpeta</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">Propio</string>
     <string name="self_pair_connection_failed">La conexión falló - intenta la conexión manual</string>
     <string name="self_pair_enter_code">Introduce el código de 6 dígitos del cuadro de emparejamiento</string>
@@ -597,6 +631,7 @@
     <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">Mosaico %1$d</string>
     <string name="tile_name">Nombre del mosaico</string>
     <string name="tiles">Mosaicos</string>
+    <string name="time">Hora</string>
     <string name="toggleable">Conmutable</string>
     <string name="total_executions">Ejecuciones totales</string>
     <string name="translations">Traducciones</string>
@@ -631,6 +666,7 @@
     <string name="waiting_for_device">Esperando al dispositivo</string>
     <string name="waiting_for_devices">Esperando a los dispositivos…</string>
     <string name="want_to_contribute_too">¿Quieres contribuir tú también?</string>
+    <string name="weekly">Semanal</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">¿Qué te gustaría hacer mientras %1$s?</string>
     <string name="whats_new">¡Novedades!</string>
     <string name="which_device_to_pair">¿Qué dispositivo te gustaría emparejar?</string>
