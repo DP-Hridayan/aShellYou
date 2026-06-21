@@ -6,8 +6,8 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,6 +27,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
@@ -45,18 +46,9 @@ fun PageTwo(modifier: Modifier = Modifier, pagerState: PagerState) {
 
     val scale = remember { Animatable(0f) }
     val scaleMainShape = remember { Animatable(0.75f) }
-    val clanShellShape = MaterialShapes.ClamShell.toShape()
 
-    val disclaimerList = listOf(
-        stringResource(R.string.disclaimer_1_title) to stringResource(R.string.disclaimer_1_description),
-        stringResource(R.string.disclaimer_2_title) to stringResource(R.string.disclaimer_2_description),
-        stringResource(R.string.disclaimer_3_title) to stringResource(R.string.disclaimer_3_description),
-        stringResource(R.string.disclaimer_4_title) to stringResource(R.string.disclaimer_4_description),
-        stringResource(R.string.disclaimer_5_title) to stringResource(R.string.disclaimer_5_description),
-    )
-
-    LaunchedEffect(pagerState.currentPage) {
-        if (pagerState.currentPage == 1) {
+    LaunchedEffect(pagerState.settledPage) {
+        if (pagerState.settledPage == 1) {
             launch {
                 scale.animateTo(
                     1f,
@@ -72,6 +64,14 @@ fun PageTwo(modifier: Modifier = Modifier, pagerState: PagerState) {
         }
     }
 
+    val disclaimerList = listOf(
+        stringResource(R.string.disclaimer_1_title) to stringResource(R.string.disclaimer_1_description),
+        stringResource(R.string.disclaimer_2_title) to stringResource(R.string.disclaimer_2_description),
+        stringResource(R.string.disclaimer_3_title) to stringResource(R.string.disclaimer_3_description),
+        stringResource(R.string.disclaimer_4_title) to stringResource(R.string.disclaimer_4_description),
+        stringResource(R.string.disclaimer_5_title) to stringResource(R.string.disclaimer_5_description),
+    )
+
     Box(
         modifier = modifier.fillMaxSize()
     ) {
@@ -79,7 +79,7 @@ fun PageTwo(modifier: Modifier = Modifier, pagerState: PagerState) {
             size = 250,
             shape = MaterialShapes.Cookie12Sided.toShape(),
             color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.25f),
-            scale = scale.value,
+            scale = { scale.value },
             modifier = Modifier.align(Alignment.Center)
         )
 
@@ -87,7 +87,7 @@ fun PageTwo(modifier: Modifier = Modifier, pagerState: PagerState) {
             size = 65,
             shape = MaterialShapes.SoftBoom.toShape(),
             color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.3f),
-            scale = scale.value,
+            scale = { scale.value },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .offset(y = (-120).dp, x = 30.dp)
@@ -97,7 +97,7 @@ fun PageTwo(modifier: Modifier = Modifier, pagerState: PagerState) {
             size = 70,
             shape = MaterialShapes.PuffyDiamond.toShape(),
             color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.3f),
-            scale = scale.value,
+            scale = { scale.value },
             modifier = Modifier
                 .align(Alignment.BottomStart)
                 .offset(y = (-100).dp, x = 10.dp)
@@ -107,7 +107,7 @@ fun PageTwo(modifier: Modifier = Modifier, pagerState: PagerState) {
             size = 80,
             shape = MaterialShapes.Pentagon.toShape(),
             color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.2f),
-            scale = scale.value,
+            scale = { scale.value },
             modifier = Modifier
                 .align(Alignment.CenterStart)
                 .offset(y = (-180).dp, x = (-20).dp)
@@ -117,7 +117,7 @@ fun PageTwo(modifier: Modifier = Modifier, pagerState: PagerState) {
             size = 120,
             shape = MaterialShapes.Bun.toShape(),
             color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.2f),
-            scale = scale.value,
+            scale = { scale.value },
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .offset(y = (-10).dp, x = (-20).dp)
@@ -127,7 +127,7 @@ fun PageTwo(modifier: Modifier = Modifier, pagerState: PagerState) {
             size = 100,
             shape = MaterialShapes.SemiCircle.toShape(),
             color = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f),
-            scale = scale.value,
+            scale = { scale.value },
             modifier = Modifier
                 .align(Alignment.CenterEnd)
                 .offset(y = (-160).dp, x = (-50).dp)
@@ -135,10 +135,11 @@ fun PageTwo(modifier: Modifier = Modifier, pagerState: PagerState) {
 
         LazyColumn(
             state = lazyListState,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 20.dp, end = 20.dp, bottom = 80.dp),
-            verticalArrangement = Arrangement.spacedBy(20.dp)
+            modifier = modifier
+                .fillMaxSize()
+                .padding(bottom = 80.dp),
+            contentPadding = PaddingValues(horizontal = 25.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             item {
                 Box(
@@ -151,9 +152,8 @@ fun PageTwo(modifier: Modifier = Modifier, pagerState: PagerState) {
                             .graphicsLayer {
                                 scaleX = scaleMainShape.value
                                 scaleY = scaleMainShape.value
-                                shape = clanShellShape
-                                clip = true
                             }
+                            .clip(MaterialShapes.ClamShell.toShape())
                             .background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.95f)),
                         contentAlignment = Alignment.Center
                     ) {

@@ -1,4 +1,4 @@
-﻿@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
 package `in`.hridayan.ashell.onboarding.presentation.screens
 
@@ -44,7 +44,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
@@ -69,6 +68,7 @@ import `in`.hridayan.ashell.core.utils.UrlUtils
 import `in`.hridayan.ashell.core.utils.isAppInstalled
 import `in`.hridayan.ashell.core.utils.launchApp
 import `in`.hridayan.ashell.onboarding.presentation.component.shape.DecorativeShape
+import `in`.hridayan.ashell.onboarding.presentation.component.shape.MainCard
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
@@ -90,21 +90,16 @@ fun PageThree(
     val scope = rememberCoroutineScope()
     val scale = remember { Animatable(0f) }
     val scaleMainShape = remember { Animatable(0.75f) }
-    val semiCircleShape = MaterialShapes.SemiCircle.toShape()
 
     var rootCardChecked by rememberSaveable { mutableStateOf(false) }
     val hasShizukuPermission by shellViewModel.shizukuPermissionState.collectAsState()
     var showShizukuUnavailableDialog by rememberSaveable { mutableStateOf(false) }
     var isShizukuInstalled by rememberSaveable {
-        mutableStateOf(
-            context.isAppInstalled(
-                SHIZUKU_PACKAGE_NAME
-            )
-        )
+        mutableStateOf(context.isAppInstalled(SHIZUKU_PACKAGE_NAME))
     }
 
-    LaunchedEffect(pagerState.currentPage) {
-        if (pagerState.currentPage == 2) {
+    LaunchedEffect(pagerState.settledPage) {
+        if (pagerState.settledPage == 2) {
             launch {
                 scale.animateTo(
                     1f,
@@ -160,7 +155,7 @@ fun PageThree(
             size = 250,
             shape = MaterialShapes.Clover8Leaf.toShape(),
             color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.25f),
-            scale = scale.value,
+            scale = { scale.value },
             modifier = Modifier.align(Alignment.Center)
         )
 
@@ -168,7 +163,7 @@ fun PageThree(
             size = 65,
             shape = MaterialShapes.Puffy.toShape(),
             color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.3f),
-            scale = scale.value,
+            scale = { scale.value },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .offset(y = (-120).dp, x = 30.dp)
@@ -178,7 +173,7 @@ fun PageThree(
             size = 70,
             shape = MaterialShapes.Fan.toShape(),
             color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.3f),
-            scale = scale.value,
+            scale = { scale.value },
             modifier = Modifier
                 .align(Alignment.BottomStart)
                 .offset(y = (-100).dp, x = 10.dp)
@@ -188,7 +183,7 @@ fun PageThree(
             size = 80,
             shape = MaterialShapes.Flower.toShape(),
             color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.2f),
-            scale = scale.value,
+            scale = { scale.value },
             modifier = Modifier
                 .align(Alignment.CenterStart)
                 .offset(y = (-180).dp, x = (-20).dp)
@@ -198,7 +193,7 @@ fun PageThree(
             size = 120,
             shape = MaterialShapes.Arch.toShape(),
             color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.2f),
-            scale = scale.value,
+            scale = { scale.value },
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .offset(y = (-10).dp, x = (-20).dp)
@@ -208,7 +203,7 @@ fun PageThree(
             size = 100,
             shape = MaterialShapes.Ghostish.toShape(),
             color = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f),
-            scale = scale.value,
+            scale = { scale.value },
             modifier = Modifier
                 .align(Alignment.CenterEnd)
                 .offset(y = (-160).dp, x = (-50).dp)
@@ -222,17 +217,13 @@ fun PageThree(
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(25.dp)
         ) {
-            Box(
+            MainCard(
                 modifier = Modifier
                     .padding(top = 65.dp, start = 20.dp, end = 20.dp)
-                    .align(Alignment.CenterHorizontally)
-                    .graphicsLayer {
-                        scaleX = scaleMainShape.value
-                        scaleY = scaleMainShape.value
-                        shape = semiCircleShape
-                        clip = true
-                    }
-                    .background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.95f)),
+                    .align(Alignment.CenterHorizontally),
+                scaleX = { scaleMainShape.value },
+                scaleY = { scaleMainShape.value },
+                shape = MaterialShapes.SemiCircle.toShape() ,
                 contentAlignment = Alignment.BottomCenter
             ) {
                 AutoResizeableText(

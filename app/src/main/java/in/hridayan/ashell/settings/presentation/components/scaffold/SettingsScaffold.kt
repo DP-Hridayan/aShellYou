@@ -19,10 +19,9 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.em
+import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.util.lerp
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
 
 @Composable
@@ -88,20 +87,16 @@ private fun SettingsScaffoldImpl(
         topBar = {
             LargeTopAppBar(
                 title = {
-                    val collapsedFraction by remember {
-                        derivedStateOf { scrollBehavior.state.collapsedFraction }
-                    }
-                    val scale = lerp(1f, 0.6f, collapsedFraction)
+                    val collapsedFraction = scrollBehavior.state.collapsedFraction
+                    val expandedFontSize = 33.sp
+                    val collapsedFontSize = 20.sp
+
+                    val fontSize = lerp(expandedFontSize, collapsedFontSize, collapsedFraction)
                     Text(
-                        modifier = Modifier
-                            .basicMarquee()
-                            .graphicsLayer {
-                                scaleX = scale
-                                scaleY = scale
-                            },
+                        modifier = Modifier.basicMarquee(),
                         text = topBarTitle,
                         maxLines = 1,
-                        fontSize = 33.sp,
+                        fontSize = fontSize,
                         letterSpacing = 0.05.em
                     )
                 },
@@ -112,6 +107,7 @@ private fun SettingsScaffoldImpl(
         floatingActionButton = {
             fabContent(expanded)
         }) { innerPadding ->
+
         // Pass the SAME scrollBehavior used in LargeTopAppBar to the content
         content(innerPadding, scrollBehavior)
     }
