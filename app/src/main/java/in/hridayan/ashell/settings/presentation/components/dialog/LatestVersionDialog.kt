@@ -61,9 +61,10 @@ fun LatestVersionDialog(onDismiss: () -> Unit) {
                 modifier = Modifier
                     .requiredSize(96.dp)
                     .graphicsLayer {
-                        rotationZ = angle
+                        rotationZ = angle()
+                        scaleX = scale()
+                        scaleY = scale()
                     }
-                    .scale(scale)
                     .clip(MaterialShapes.Cookie9Sided.toShape())
                     .clickable(onClick = withHaptic {})
                     .background(MaterialTheme.colorScheme.primaryContainer)

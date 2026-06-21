@@ -130,12 +130,12 @@ android {
     }
 
     packaging {
-        resources {
-            excludes += setOf(
-                "/META-INF/*",
-                "/META-INF/versions/**"
-            )
-        }
+//        resources {
+//            excludes += setOf(
+//                "/META-INF/*",
+//                "/META-INF/versions/**"
+//            )
+//        }
 
         jniLibs {
             useLegacyPackaging = false

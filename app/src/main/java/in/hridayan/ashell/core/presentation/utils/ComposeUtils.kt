@@ -9,7 +9,7 @@ import androidx.compose.runtime.remember
 import kotlinx.coroutines.launch
 
 @Composable
-fun syncedRotationAndScale(): Pair<Float, Float> {
+fun syncedRotationAndScale(): Pair<() -> Float, () -> Float> {
     val rotation = remember { Animatable(0f) }
     val scale = remember { Animatable(1f) }
     val durationMillis = 3000
@@ -42,5 +42,7 @@ fun syncedRotationAndScale(): Pair<Float, Float> {
         }
     }
 
-    return rotation.value to scale.value
+    return remember {
+        { rotation.value } to { scale.value }
+    }
 }

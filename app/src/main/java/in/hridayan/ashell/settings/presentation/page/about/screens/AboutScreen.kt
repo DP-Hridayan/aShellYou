@@ -132,8 +132,11 @@ fun AboutScreen(
                             Spacer(
                                 modifier = Modifier
                                     .requiredSize(120.dp)
-                                    .graphicsLayer { rotationZ = angle }
-                                    .scale(scale)
+                                    .graphicsLayer {
+                                        rotationZ = angle()
+                                        scaleX = scale()
+                                        scaleY = scale()
+                                    }
                                     .clip(MaterialShapes.Cookie9Sided.toShape())
                                     .clickable(onClick = withHaptic {})
                                     .background(MaterialTheme.colorScheme.primaryContainer)
