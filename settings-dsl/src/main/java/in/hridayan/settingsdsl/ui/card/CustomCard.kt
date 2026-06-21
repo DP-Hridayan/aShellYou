@@ -29,10 +29,47 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.RoundRect
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Outline
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+
+private class AnimatedCornerShape(
+    private val topStart: () -> Dp,
+    private val topEnd: () -> Dp,
+    private val bottomStart: () -> Dp,
+    private val bottomEnd: () -> Dp,
+) : Shape {
+    override fun createOutline(
+        size: Size,
+        layoutDirection: LayoutDirection,
+        density: Density
+    ): Outline {
+        val ts = with(density) { topStart().coerceIn(0.dp, 100.dp).toPx() }
+        val te = with(density) { topEnd().coerceIn(0.dp, 100.dp).toPx() }
+        val bs = with(density) { bottomStart().coerceIn(0.dp, 100.dp).toPx() }
+        val be = with(density) { bottomEnd().coerceIn(0.dp, 100.dp).toPx() }
+        return Outline.Rounded(
+            RoundRect(
+                rect = Rect(Offset.Zero, size),
+                topLeft = CornerRadius(ts, ts),
+                topRight = CornerRadius(te, te),
+                bottomRight = CornerRadius(be, be),
+                bottomLeft = CornerRadius(bs, bs)
+            )
+        )
+    }
+}
 
 /**
  * Internal animated card composable used by all settings item views.
@@ -90,17 +127,22 @@ internal fun CustomCard(
         animationSpec = springFloat, label = "scale",
     )
 
-    val animatedShape = RoundedCornerShape(
-        topStart = topStart.coerceIn(0.dp, 100.dp),
-        topEnd = topEnd.coerceIn(0.dp, 100.dp),
-        bottomStart = bottomStart.coerceIn(0.dp, 100.dp),
-        bottomEnd = bottomEnd.coerceIn(0.dp, 100.dp),
-    )
+    val animatedShape = remember {
+        AnimatedCornerShape(
+            topStart = { topStart },
+            topEnd = { topEnd },
+            bottomStart = { bottomStart },
+            bottomEnd = { bottomEnd }
+        )
+    }
 
     Card(
         modifier = modifier
             .hoverable(interactionSource)
-            .scale(animatedScale)
+            .graphicsLayer {
+                scaleX = animatedScale
+                scaleY = animatedScale
+            }
             .onGloballyPositioned { heightPx = it.size.height.toFloat() },
         colors = colors,
         elevation = elevation,
