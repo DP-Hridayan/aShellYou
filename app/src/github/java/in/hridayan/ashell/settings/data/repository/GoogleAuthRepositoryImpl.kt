@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.settings.data.repository
+﻿package `in`.hridayan.ashell.settings.data.repository
 
 import android.content.Context
 import android.util.Log
@@ -58,11 +58,11 @@ class GoogleAuthRepositoryImpl @Inject constructor(
         scope.launch {
             try {
                 val savedEmail = settingsRepository
-                    .getString(SettingsKeys.GOOGLE_ACCOUNT_EMAIL)
+                    .getString(SettingsKeys.GoogleAccountEmail)
                     .first()
 
                 val savedPhotoUrl = settingsRepository
-                    .getString(SettingsKeys.GOOGLE_ACCOUNT_PHOTO_URL)
+                    .getString(SettingsKeys.GoogleAccountPhotoUrl)
                     .first()
 
                 if (savedEmail.isNotEmpty()) {
@@ -118,9 +118,9 @@ class GoogleAuthRepositoryImpl @Inject constructor(
                     photoUrl = photo
                 )
 
-                settingsRepository.setString(SettingsKeys.GOOGLE_ACCOUNT_EMAIL, email)
+                settingsRepository.setString(SettingsKeys.GoogleAccountEmail, email)
                 settingsRepository.setString(
-                    SettingsKeys.GOOGLE_ACCOUNT_PHOTO_URL,
+                    SettingsKeys.GoogleAccountPhotoUrl,
                     photo?.toString() ?: ""
                 )
 
@@ -148,8 +148,8 @@ class GoogleAuthRepositoryImpl @Inject constructor(
     override suspend fun signOut() {
         _googleUserState.value = GoogleUserState()
 
-        settingsRepository.setString(SettingsKeys.GOOGLE_ACCOUNT_EMAIL, "")
-        settingsRepository.setString(SettingsKeys.GOOGLE_ACCOUNT_PHOTO_URL, "")
+        settingsRepository.setString(SettingsKeys.GoogleAccountEmail, "")
+        settingsRepository.setString(SettingsKeys.GoogleAccountPhotoUrl, "")
 
         val cachedFile = File(context.filesDir, "google_profile.jpg")
         if (cachedFile.exists()) cachedFile.delete()

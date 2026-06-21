@@ -51,10 +51,10 @@ fun AiModelsScreen(
     val dialogManager = LocalDialogManager.current
     val controller = settingsViewModel.rememberController()
     val settings = LocalSettings.current
-    val hapticsEnabled = settings.isHapticEnabled
+    val hapticsEnabled = settings[SettingsKeys.HapticsAndVibration]
 
-    val selectedModelName = ModelRegistry.findById(settings.selectedModelId)?.name
-    val cacheDays = settings.aiCacheDays
+    val selectedModelName = ModelRegistry.findById(settings[SettingsKeys.SelectedModelId])?.name
+    val cacheDays = settings[SettingsKeys.AiCacheDays]
 
     val cacheSizeBytes by aiViewModel.cacheSizeBytes.collectAsState()
 
@@ -90,13 +90,13 @@ fun AiModelsScreen(
     val resolvedGroups = page.resolveAll(
         highlightedKey = highlightedKey,
         descriptionOverrides = mapOf(
-            SettingsKeys.AI_MODELS to {
+            SettingsKeys.AiModels to {
                 selectedModelName ?: stringResource(R.string.no_model_selected)
             },
-            SettingsKeys.AI_CACHE_DAYS to {
+            SettingsKeys.AiCacheDays to {
                 stringResource(R.string.n_days, cacheDays)
             },
-            SettingsKeys.AI_CACHE_CLEAR to {
+            SettingsKeys.AiCacheClear to {
                 stringResource(R.string.cache_size, formattedSize)
             }
         ),
@@ -137,7 +137,7 @@ fun AiModelsScreen(
             currentDays = cacheDays,
             onDismiss = { dm.dismiss() },
             onConfirm = { days ->
-                settingsViewModel.setInt(SettingsKeys.AI_CACHE_DAYS, days)
+                settingsViewModel.setInt(SettingsKeys.AiCacheDays, days)
                 dm.dismiss()
             }
         )

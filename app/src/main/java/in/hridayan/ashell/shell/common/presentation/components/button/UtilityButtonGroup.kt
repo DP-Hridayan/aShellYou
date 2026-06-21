@@ -50,6 +50,7 @@ import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.shell.common.presentation.model.ShellState
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
+import `in`.hridayan.ashell.settings.data.SettingsKeys
 
 @Composable
 fun UtilityButtonGroup(
@@ -65,7 +66,7 @@ fun UtilityButtonGroup(
     val focusManager = LocalFocusManager.current
     val navController = LocalNavController.current
     val screenDensity = LocalDensity.current
-    val askToClean = LocalSettings.current.clearOutputConfirmation
+    val askToClean = LocalSettings.current[SettingsKeys.ClearOutputConfirmation]
     val states by shellViewModel.states.collectAsState()
     val utilityRowPadding = PaddingValues(top = 30.dp, bottom = 25.dp, start = 20.dp, end = 20.dp)
 

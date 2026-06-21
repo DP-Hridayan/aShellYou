@@ -61,11 +61,12 @@ fun LookAndFeelScreen(
     val context = LocalContext.current
     val controller = settingsViewModel.rememberController()
     val currentPaletteStyle = LocalPaletteStyle.current
-    val themeMode = LocalSettings.current.themeMode
+    val settings = LocalSettings.current
+    val themeMode = settings[SettingsKeys.ThemeMode]
     val isDarkMode = LocalDarkMode.current
-    val hapticsEnabled = LocalSettings.current.isHapticEnabled
-    val isDynamicColorEnabled = LocalSettings.current.isDynamicColor
-    val autoScaleUI = LocalSettings.current.autoUiScale
+    val hapticsEnabled = settings[SettingsKeys.HapticsAndVibration]
+    val isDynamicColorEnabled = settings[SettingsKeys.DynamicColors]
+    val autoScaleUI = settings[SettingsKeys.AutoScaleUi]
 
     var showFontStyleBottomSheet by remember { mutableStateOf(false) }
 
@@ -111,11 +112,11 @@ fun LookAndFeelScreen(
     val resolvedGroups = page.resolveAll(
         highlightedKey = highlightedKey,
         enabledOverrides = mapOf(
-            SettingsKeys.CUSTOM_UI_SCALE to { !autoScaleUI }
+            SettingsKeys.CustomUiScale to { !autoScaleUI }
         ),
         descriptionOverrides = mapOf(
-            SettingsKeys.PALETTE_STYLE to { stringResource(currentPaletteStyle.displayNameResId) },
-            SettingsKeys.DARK_THEME to {
+            SettingsKeys.PaletteStyle to { stringResource(currentPaletteStyle.displayNameResId) },
+            SettingsKeys.DarkTheme to {
                 when (themeMode) {
                     AppCompatDelegate.MODE_NIGHT_YES -> stringResource(R.string.on)
                     AppCompatDelegate.MODE_NIGHT_NO -> stringResource(R.string.off)
@@ -125,12 +126,12 @@ fun LookAndFeelScreen(
             }
         ),
         iconOverrides = mapOf(
-            SettingsKeys.DARK_THEME to {
+            SettingsKeys.DarkTheme to {
                 if (isDarkMode) Icons.TwoTone.DarkMode else Icons.Rounded.LightMode
             }
         ),
         visibilityOverrides = mapOf(
-            SettingsKeys.PALETTE_STYLE to { !isDynamicColorEnabled }
+            SettingsKeys.PaletteStyle to { !isDynamicColorEnabled }
         ))
 
     SettingsScaffold(

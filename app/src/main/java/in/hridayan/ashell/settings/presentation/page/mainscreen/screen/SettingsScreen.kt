@@ -46,6 +46,7 @@ import androidx.compose.ui.unit.em
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalSettings
+import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
 import `in`.hridayan.ashell.core.presentation.components.floaters.FloatingIconsBackground
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -63,7 +64,8 @@ import `in`.hridayan.settingsdsl.ui.item.settingsContent
 @Composable
 fun SettingsScreen(viewModel: SettingsViewModel = hiltViewModel()) {
     val navController = LocalNavController.current
-    val hapticsEnabled = LocalSettings.current.isHapticEnabled
+    val settings = LocalSettings.current
+    val hapticsEnabled = settings[SettingsKeys.HapticsAndVibration]
     val controller = viewModel.rememberController()
     val floatingIconsResIds = getAllSettingsIcons()
 

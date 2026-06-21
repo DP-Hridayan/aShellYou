@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.activities
+﻿package `in`.hridayan.ashell.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         handleSharedText(intent)
 
         lifecycleScope.launch {
-            val autoUpdateEnabled = settingsViewModel.getBoolean(SettingsKeys.AUTO_UPDATE).first()
+            val autoUpdateEnabled = settingsViewModel.getBoolean(SettingsKeys.AutoUpdate).first()
 
             if (autoUpdateEnabled) {
                 autoUpdateViewModel.checkForUpdates()

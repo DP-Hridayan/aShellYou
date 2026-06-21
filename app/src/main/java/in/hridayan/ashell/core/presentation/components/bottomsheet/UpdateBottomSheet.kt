@@ -78,6 +78,7 @@ import `in`.hridayan.ashell.core.utils.installApk
 import `in`.hridayan.ashell.core.utils.openUrl
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.utils.splitStringToLines
+import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import java.io.File
 
@@ -93,7 +94,7 @@ fun UpdateBottomSheet(
     val context = LocalContext.current
     val res = LocalResources.current
     val activity = context as? Activity
-    val isDirectDownloadEnabled = LocalSettings.current.enableDirectDownload
+    val isDirectDownloadEnabled = LocalSettings.current[SettingsKeys.EnableDirectDownload]
 
     val downloadState by viewModel.downloadState.collectAsState()
     val apkName = "update.apk"

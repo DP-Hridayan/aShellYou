@@ -17,6 +17,7 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalSettings
+import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.theme.color.darkColorSchemeFromSeed
 import `in`.hridayan.ashell.core.presentation.theme.color.highContrastDarkColorSchemeFromSeed
 import `in`.hridayan.ashell.core.presentation.theme.color.highContrastDynamicDarkColorScheme
@@ -29,8 +30,9 @@ fun AshellYouTheme(
     val view = LocalView.current
     val context = LocalContext.current
     val darkTheme = LocalDarkMode.current
-    val dynamicColor = LocalSettings.current.isDynamicColor
-    val isHighContrastDarkTheme = LocalSettings.current.isHighContrastDarkMode
+    val settings = LocalSettings.current
+    val dynamicColor = settings[SettingsKeys.DynamicColors]
+    val isHighContrastDarkTheme = settings[SettingsKeys.HighContrastDarkMode]
 
     LaunchedEffect(darkTheme) {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.R) {
@@ -67,7 +69,7 @@ fun AshellYouTheme(
         else -> lightColorSchemeFromSeed()
     }
 
-    val fontFamily = LocalSettings.current.fontFamily
+    val fontFamily = settings[SettingsKeys.FontFamily]
 
     MaterialExpressiveTheme(
         colorScheme = colorScheme,

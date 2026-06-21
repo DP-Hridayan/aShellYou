@@ -32,7 +32,7 @@ fun DarkThemeScreen(
     settingsViewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val controller = settingsViewModel.rememberController()
-    val hapticsEnabled = LocalSettings.current.isHapticEnabled
+    val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
 
     val listState = rememberLazyListState()
     val highlightedKey = rememberHighlightState(

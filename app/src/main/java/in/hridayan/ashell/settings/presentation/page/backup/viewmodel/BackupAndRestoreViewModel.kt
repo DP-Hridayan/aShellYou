@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.settings.presentation.page.backup.viewmodel
+﻿package `in`.hridayan.ashell.settings.presentation.page.backup.viewmodel
 
 import android.content.Context
 import android.content.IntentSender
@@ -53,10 +53,10 @@ class BackupAndRestoreViewModel @Inject constructor(
 
     private var currentBackupType: BackupType = BackupType.SETTINGS_AND_DATABASE
 
-    val lastLocalBackupTime = settingsRepository.getString(SettingsKeys.LAST_LOCAL_BACKUP_TIME)
-    val lastLocalBackupType = settingsRepository.getString(SettingsKeys.LAST_LOCAL_BACKUP_TYPE)
-    val lastCloudBackupTime = settingsRepository.getString(SettingsKeys.LAST_CLOUD_BACKUP_TIME)
-    val lastCloudBackupType = settingsRepository.getString(SettingsKeys.LAST_CLOUD_BACKUP_TYPE)
+    val lastLocalBackupTime = settingsRepository.getString(SettingsKeys.LastLocalBackupTime)
+    val lastLocalBackupType = settingsRepository.getString(SettingsKeys.LastLocalBackupType)
+    val lastCloudBackupTime = settingsRepository.getString(SettingsKeys.LastCloudBackupTime)
+    val lastCloudBackupType = settingsRepository.getString(SettingsKeys.LastCloudBackupType)
 
     private val _localBackupTime = MutableStateFlow<String?>(null)
     val localBackupTime: StateFlow<String?> = _localBackupTime
@@ -259,7 +259,7 @@ class BackupAndRestoreViewModel @Inject constructor(
         viewModelScope.launch {
             googleAuthRepository.signOut()
             _uiEvent.emit(SettingsUiEvent.ShowToast(context.getString(R.string.signed_out)))
-            settingsRepository.setString(SettingsKeys.LAST_CLOUD_BACKUP_TIME, "")
+            settingsRepository.setString(SettingsKeys.LastCloudBackupTime, "")
         }
     }
 
@@ -327,8 +327,8 @@ class BackupAndRestoreViewModel @Inject constructor(
                 Log.d(TAG, "backupToGoogleDrive: upload SUCCESS")
                 val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")
                 val backupTime = LocalDateTime.now().format(formatter)
-                settingsRepository.setString(SettingsKeys.LAST_CLOUD_BACKUP_TIME, backupTime)
-                settingsRepository.setString(SettingsKeys.LAST_CLOUD_BACKUP_TYPE, type.name)
+                settingsRepository.setString(SettingsKeys.LastCloudBackupTime, backupTime)
+                settingsRepository.setString(SettingsKeys.LastCloudBackupType, type.name)
                 _uiEvent.emit(SettingsUiEvent.ShowToast(context.getString(R.string.cloud_backup_successful)))
             } else {
                 Log.e(TAG, "backupToGoogleDrive: upload FAILED")
@@ -394,8 +394,8 @@ class BackupAndRestoreViewModel @Inject constructor(
                 }
 
                 Log.d(TAG, "syncCloudBackupTimeSilently: no backup found")
-                settingsRepository.setString(SettingsKeys.LAST_CLOUD_BACKUP_TIME, "")
-                settingsRepository.setString(SettingsKeys.LAST_CLOUD_BACKUP_TYPE, "")
+                settingsRepository.setString(SettingsKeys.LastCloudBackupTime, "")
+                settingsRepository.setString(SettingsKeys.LastCloudBackupType, "")
                 _isFetchingCloudBackup.value = false
                 return@launch
             }
@@ -408,7 +408,7 @@ class BackupAndRestoreViewModel @Inject constructor(
                 Log.d(TAG, "syncCloudBackupTimeSilently: extracted time=$time")
 
                 settingsRepository.setString(
-                    SettingsKeys.LAST_CLOUD_BACKUP_TIME,
+                    SettingsKeys.LastCloudBackupTime,
                     time
                 )
             } else {
@@ -421,7 +421,7 @@ class BackupAndRestoreViewModel @Inject constructor(
                 Log.d(TAG, "syncCloudBackupTypeSilently: extracted type=$type")
 
                 settingsRepository.setString(
-                    SettingsKeys.LAST_CLOUD_BACKUP_TYPE,
+                    SettingsKeys.LastCloudBackupType,
                     type
                 )
             } else {

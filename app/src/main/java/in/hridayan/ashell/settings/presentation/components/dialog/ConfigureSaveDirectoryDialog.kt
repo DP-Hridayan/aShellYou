@@ -63,10 +63,10 @@ fun ConfigureSaveDirectoryDialog(
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
-    val uriString = LocalSettings.current.outputSaveDirectory
+    val uriString = LocalSettings.current[SettingsKeys.OutputSaveDirectory]
 
     val pathToDisplay =
-        if (uriString != SettingsKeys.OUTPUT_SAVE_DIRECTORY.default) {
+        if (uriString != SettingsKeys.OutputSaveDirectory.default) {
             getFullPathFromTreeUri(
                 uriString.toUri(),
                 context
@@ -93,14 +93,14 @@ fun ConfigureSaveDirectoryDialog(
                 Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
             )
 
-            settingsViewModel.setString(SettingsKeys.OUTPUT_SAVE_DIRECTORY, it.toString())
+            settingsViewModel.setString(SettingsKeys.OutputSaveDirectory, it.toString())
         }
     }
 
     val onResetDirectory: () -> Unit = withHaptic {
         settingsViewModel.setString(
-            SettingsKeys.OUTPUT_SAVE_DIRECTORY,
-            SettingsKeys.OUTPUT_SAVE_DIRECTORY.default
+            SettingsKeys.OutputSaveDirectory,
+            SettingsKeys.OutputSaveDirectory.default
         )
         rotationAngle -= 360f
     }

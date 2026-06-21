@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.ai.data.repository
+﻿package `in`.hridayan.ashell.ai.data.repository
 
 import android.content.Context
 import android.util.Log
@@ -67,17 +67,17 @@ class AiAnalysisRepositoryImpl @Inject constructor(
 
         Log.d(TAG, "analyzeCommand() called for: '$normalizedCommand'")
         val commandHash = computeHash(normalizedCommand)
-        val modelId = settingsRepository.getString(SettingsKeys.SELECTED_MODEL_ID).firstOrNull()
-            ?: SettingsKeys.SELECTED_MODEL_ID.default
+        val modelId = settingsRepository.getString(SettingsKeys.SelectedModelId).firstOrNull()
+            ?: SettingsKeys.SelectedModelId.default
         val cacheEnabled =
-            settingsRepository.getBoolean(SettingsKeys.AI_CACHE_ENABLED).firstOrNull()
-                ?: SettingsKeys.AI_CACHE_ENABLED.default
+            settingsRepository.getBoolean(SettingsKeys.AiCacheEnabled).firstOrNull()
+                ?: SettingsKeys.AiCacheEnabled.default
 
         // Clean up expired cache entries
         if (cacheEnabled) {
             val maxCacheAgeDays =
-                settingsRepository.getInt(SettingsKeys.AI_CACHE_DAYS).firstOrNull()
-                    ?: SettingsKeys.AI_CACHE_DAYS.default
+                settingsRepository.getInt(SettingsKeys.AiCacheDays).firstOrNull()
+                    ?: SettingsKeys.AiCacheDays.default
             val cutoff =
                 System.currentTimeMillis() - (maxCacheAgeDays.toLong() * 24 * 60 * 60 * 1000)
             try {
@@ -176,12 +176,12 @@ class AiAnalysisRepositoryImpl @Inject constructor(
 
     override suspend fun getCachedAnalysis(command: String): AnalysisResult? {
         val cacheEnabled =
-            settingsRepository.getBoolean(SettingsKeys.AI_CACHE_ENABLED).firstOrNull()
-                ?: SettingsKeys.AI_CACHE_ENABLED.default
+            settingsRepository.getBoolean(SettingsKeys.AiCacheEnabled).firstOrNull()
+                ?: SettingsKeys.AiCacheEnabled.default
         if (!cacheEnabled) return null
         val hash = computeHash(command.trim())
-        val modelId = settingsRepository.getString(SettingsKeys.SELECTED_MODEL_ID).firstOrNull()
-            ?: SettingsKeys.SELECTED_MODEL_ID.default
+        val modelId = settingsRepository.getString(SettingsKeys.SelectedModelId).firstOrNull()
+            ?: SettingsKeys.SelectedModelId.default
         return getCachedResult(hash, modelId)
     }
 

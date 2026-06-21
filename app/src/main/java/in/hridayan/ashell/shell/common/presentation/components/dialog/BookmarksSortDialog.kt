@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.shell.common.presentation.components.dialog
+﻿package `in`.hridayan.ashell.shell.common.presentation.components.dialog
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -52,8 +52,8 @@ fun BookmarksSortDialog(
 ) {
     val sortOptions = RadioGroupOptionsProvider.bookmarkSortOptions
     val selected =
-        settingsViewModel.getInt(key = SettingsKeys.BOOKMARK_SORT_TYPE)
-            .collectAsState(initial = SettingsKeys.BOOKMARK_SORT_TYPE.default)
+        settingsViewModel.getInt(key = SettingsKeys.BookmarkSortType)
+            .collectAsState(initial = SettingsKeys.BookmarkSortType.default)
     var tempSelected by remember { mutableIntStateOf(selected.value) }
 
     LaunchedEffect(selected.value) {
@@ -152,7 +152,7 @@ fun BookmarksSortDialog(
                         text = stringResource(R.string.sort),
                         onClick = {
                             settingsViewModel.setInt(
-                                key = SettingsKeys.BOOKMARK_SORT_TYPE,
+                                key = SettingsKeys.BookmarkSortType,
                                 value = tempSelected
                             )
                             onDismiss()

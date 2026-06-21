@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+﻿@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
 package `in`.hridayan.ashell.onboarding.presentation.screens
 
@@ -135,7 +135,7 @@ fun PageThree(
         onDispose {
             if (rootCardChecked) {
                 settingsViewModel.setInt(
-                    SettingsKeys.LOCAL_ADB_WORKING_MODE,
+                    SettingsKeys.LocalAdbWorkingMode,
                     LocalAdbWorkingMode.ROOT
                 )
 
@@ -144,7 +144,7 @@ fun PageThree(
 
             if (hasShizukuPermission) {
                 settingsViewModel.setInt(
-                    SettingsKeys.LOCAL_ADB_WORKING_MODE,
+                    SettingsKeys.LocalAdbWorkingMode,
                     LocalAdbWorkingMode.SHIZUKU
                 )
 

@@ -47,8 +47,8 @@ fun AppUiEntry(
     var tagName by rememberSaveable { mutableStateOf(BuildConfig.VERSION_NAME) }
     var apkUrl by rememberSaveable { mutableStateOf("") }
     var changelog by rememberSaveable { mutableStateOf("") }
-    val savedVersionCode = LocalSettings.current.savedVersionCode
-    val firstLaunchFlow = LocalSettings.current.isFirstLaunch
+    val savedVersionCode = LocalSettings.current[SettingsKeys.SavedVersionCode]
+    val firstLaunchFlow = LocalSettings.current[SettingsKeys.FirstLaunch]
 
     LaunchedEffect(Unit, isNetworkAvailable(context)) {
         autoUpdateViewModel.updateEvents.collectLatest { result ->
@@ -68,7 +68,7 @@ fun AppUiEntry(
 
     LaunchedEffect(savedVersionCode, firstLaunchFlow) {
         if (savedVersionCode < BuildConfig.VERSION_CODE && !firstLaunchFlow) {
-            settingsViewModel.setBoolean(SettingsKeys.NEW_COMMANDS_AVAILABLE, true)
+            settingsViewModel.setBoolean(SettingsKeys.NewCommandsAvailable, true)
         }
     }
 
@@ -106,7 +106,7 @@ fun AppUiEntry(
                 onDismiss = {
                     showChangelogSheet = false
                     settingsViewModel.setInt(
-                        SettingsKeys.SAVED_VERSION_CODE,
+                        SettingsKeys.SavedVersionCode,
                         BuildConfig.VERSION_CODE
                     )
                 }

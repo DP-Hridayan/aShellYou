@@ -89,7 +89,7 @@ fun BackupAndRestoreScreen(
     val navController = LocalNavController.current
     val dialogManager = LocalDialogManager.current
     val controller = settingsViewModel.rememberController()
-    val hapticsEnabled = LocalSettings.current.isHapticEnabled
+    val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
     val localBackupTime by backupAndRestoreViewModel.localBackupTime.collectAsState()
     val localBackupType by backupAndRestoreViewModel.localBackupType.collectAsState()
     val cloudBackupTime by backupAndRestoreViewModel.cloudBackupTime.collectAsState()

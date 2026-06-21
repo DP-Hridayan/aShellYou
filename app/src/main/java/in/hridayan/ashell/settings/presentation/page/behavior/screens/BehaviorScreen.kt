@@ -38,7 +38,7 @@ fun BehaviorScreen(
     settingsViewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val dialogManager = LocalDialogManager.current
-    val hapticsEnabled = LocalSettings.current.isHapticEnabled
+    val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
     val controller = settingsViewModel.rememberController()
 
     LaunchedEffect(Unit) {

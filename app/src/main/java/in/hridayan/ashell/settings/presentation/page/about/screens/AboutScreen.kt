@@ -77,7 +77,7 @@ fun AboutScreen(
 ) {
     val navController = LocalNavController.current
     val context = LocalContext.current
-    val hapticsEnabled = LocalSettings.current.isHapticEnabled
+    val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
     val controller = settingsViewModel.rememberController()
     val (angle, scale) = syncedRotationAndScale()
 

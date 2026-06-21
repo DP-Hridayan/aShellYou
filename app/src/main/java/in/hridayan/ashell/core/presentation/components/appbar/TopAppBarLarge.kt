@@ -43,7 +43,7 @@ fun TopAppBarLarge(
             )
         },
         navigationIcon = { BackButton() },
-        actions = { actions },
+        actions = { actions() },
         scrollBehavior = scrollBehavior
     )
 }

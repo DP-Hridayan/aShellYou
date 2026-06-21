@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel
+﻿package `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -31,7 +31,7 @@ class AutoUpdateViewModel @Inject constructor(
 
     fun checkForUpdates() {
         viewModelScope.launch {
-            val releaseType = settingsRepository.getInt(SettingsKeys.GITHUB_RELEASE_TYPE).first()
+            val releaseType = settingsRepository.getInt(SettingsKeys.GithubReleaseType).first()
             val includePrerelease = releaseType == GithubReleaseType.PRE_RELEASE_GITHUB
             val result = checkUpdateUseCase(BuildConfig.VERSION_NAME, includePrerelease, releaseType)
             _updateEvents.emit(result)
@@ -40,7 +40,7 @@ class AutoUpdateViewModel @Inject constructor(
 
     fun select(option: Int) {
         viewModelScope.launch {
-            settingsRepository.setInt(SettingsKeys.GITHUB_RELEASE_TYPE, option)
+            settingsRepository.setInt(SettingsKeys.GithubReleaseType, option)
         }
     }
 

@@ -189,9 +189,10 @@ fun BaseShellScreen(
     val states by shellViewModel.states.collectAsState()
     val isKeyboardVisible = isKeyboardVisible().value
     val searchOutputResult by shellViewModel.filteredOutput.collectAsState()
-    val disableSoftKeyboard = LocalSettings.current.disableSoftKeyboard
+    val settings = LocalSettings.current
+    val disableSoftKeyboard = settings[SettingsKeys.DisableSoftKeyboard]
     val bookmarkCount = bookmarkViewModel.getBookmarkCount.collectAsState(initial = 0)
-    val lastSavedFileUri = LocalSettings.current.lastSavedFileUri
+    val lastSavedFileUri = settings[SettingsKeys.LastSavedFileUri]
     val textFieldFocusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
     var historyMenuExpanded by rememberSaveable { mutableStateOf(false) }
@@ -482,7 +483,7 @@ fun BaseShellScreen(
                                         R.drawable.ic_add_bookmark
                                     )
                                 val overrideBookmarksLimit =
-                                    LocalSettings.current.overrideBookmarksLimit
+                                    settings[SettingsKeys.OverrideMaximumBookmarksLimit]
 
                                 ExposedDropdownMenuBox(
                                     modifier = Modifier.weight(1f),
@@ -776,7 +777,7 @@ private fun OutputCard(
     shellViewModel: ShellViewModel = hiltViewModel()
 ) {
     val isDarkMode = LocalDarkMode.current
-    val terminalFontStyle = LocalSettings.current.terminalFontStyle
+    val terminalFontStyle = LocalSettings.current[SettingsKeys.TerminalFontStyle]
 
     val commandTextStyle =
         if (terminalFontStyle == TerminalFontStyle.MONOSPACE) MaterialTheme.typography.titleSmallEmphasized.copy(
@@ -1068,7 +1069,7 @@ private fun FullscreenOutputOverlay(
     sharedTransitionScope: SharedTransitionScope,
     animatedContentScope: AnimatedContentScope
 ) {
-    val terminalFontStyle = LocalSettings.current.terminalFontStyle
+    val terminalFontStyle = LocalSettings.current[SettingsKeys.TerminalFontStyle]
     val fullscreenListState =
         rememberLazyListState(initialFirstVisibleItemIndex = initialScrollIndex)
 
@@ -1198,7 +1199,7 @@ private fun FullscreenOutputOverlay(
                 containerColor = containerColor,
                 topBar = {
                     val coroutineScope = rememberCoroutineScope()
-                    val smoothScroll = LocalSettings.current.smoothScrolling
+                    val smoothScroll = LocalSettings.current[SettingsKeys.SmoothScrolling]
 
                     TopAppBar(
                         title = {
@@ -1369,7 +1370,7 @@ private fun ScrollFAB(
     scrollDirection: ScrollDirection,
 ) {
     val coroutineScope = rememberCoroutineScope()
-    val smoothScroll = LocalSettings.current.smoothScrolling
+    val smoothScroll = LocalSettings.current[SettingsKeys.SmoothScrolling]
 
     val icon = when (scrollDirection) {
         ScrollDirection.UP -> Icons.Rounded.KeyboardDoubleArrowUp
@@ -1481,8 +1482,8 @@ private fun BottomExtendedFAB(
     val res = LocalResources.current
     val activity = context.findActivity()
     val states by shellViewModel.states.collectAsState()
-    val savePath = LocalSettings.current.outputSaveDirectory.toUri()
-    val saveWholeOutput = LocalSettings.current.saveWholeOutput
+    val savePath = LocalSettings.current[SettingsKeys.OutputSaveDirectory].toUri()
+    val saveWholeOutput = LocalSettings.current[SettingsKeys.SaveWholeOutput]
 
     var lastScrollOffset by remember { mutableIntStateOf(0) }
 
@@ -1512,7 +1513,7 @@ private fun BottomExtendedFAB(
                 onComplete = { success, uri ->
                     if (success && uri != null) {
                         settingsViewModel.setString(
-                            key = SettingsKeys.LAST_SAVED_FILE_URI,
+                            key = SettingsKeys.LastSavedFileUri,
                             value = uri.toString()
                         )
                     }

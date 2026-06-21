@@ -71,7 +71,7 @@ fun AutoUpdateScreen(
 ) {
     val context = LocalContext.current
     val dialogManager = LocalDialogManager.current
-    val hapticsEnabled = LocalSettings.current.isHapticEnabled
+    val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
     val controller = settingsViewModel.rememberController()
     var showLoading by rememberSaveable { mutableStateOf(false) }
     var showUpdateSheet by rememberSaveable { mutableStateOf(false) }

@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.settings.data.worker
+﻿package `in`.hridayan.ashell.settings.data.worker
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -41,13 +41,13 @@ class AutoBackupWorker @AssistedInject constructor(
 
             if (!isManualTrigger) {
                 val enabled = settingsRepository
-                    .getBoolean(SettingsKeys.AUTO_BACKUP_ENABLED)
+                    .getBoolean(SettingsKeys.AutoBackupEnabled)
                     .firstOrNull() ?: false
                 if (!enabled) return Result.success()
             }
 
             val backupTypeOrdinal = settingsRepository
-                .getInt(SettingsKeys.AUTO_BACKUP_TYPE)
+                .getInt(SettingsKeys.AutoBackupType)
                 .firstOrNull() ?: BackupType.SETTINGS_AND_DATABASE.ordinal
 
             val backupType = BackupType.entries.getOrElse(backupTypeOrdinal) {
@@ -55,19 +55,19 @@ class AutoBackupWorker @AssistedInject constructor(
             }
 
             val folderUri = settingsRepository
-                .getString(SettingsKeys.AUTO_BACKUP_FOLDER_URI)
+                .getString(SettingsKeys.AutoBackupFolderUri)
                 .firstOrNull() ?: ""
 
             val deleteExisting = settingsRepository
-                .getBoolean(SettingsKeys.AUTO_BACKUP_DELETE_EXISTING)
+                .getBoolean(SettingsKeys.AutoBackupDeleteExisting)
                 .firstOrNull() ?: true
 
             val localEnabled = settingsRepository
-                .getBoolean(SettingsKeys.AUTO_BACKUP_LOCAL_ENABLED)
+                .getBoolean(SettingsKeys.AutoBackupLocalEnabled)
                 .firstOrNull() ?: true
 
             val cloudEnabled = settingsRepository
-                .getBoolean(SettingsKeys.AUTO_BACKUP_CLOUD_ENABLED)
+                .getBoolean(SettingsKeys.AutoBackupCloudEnabled)
                 .firstOrNull() ?: true
 
             // ── Local backup ──────────────────────────────────────────
@@ -100,7 +100,7 @@ class AutoBackupWorker @AssistedInject constructor(
         try {
             if (folderUri.isEmpty()) {
                 settingsRepository.setString(
-                    SettingsKeys.LAST_AUTO_BACKUP_LOCAL_ERROR,
+                    SettingsKeys.LastAutoBackupLocalError,
                     "No backup folder selected. Please select a folder in Backup Scheduler settings.",
                 )
                 return
@@ -111,7 +111,7 @@ class AutoBackupWorker @AssistedInject constructor(
 
             if (dir == null || !dir.canWrite()) {
                 settingsRepository.setString(
-                    SettingsKeys.LAST_AUTO_BACKUP_LOCAL_ERROR,
+                    SettingsKeys.LastAutoBackupLocalError,
                     "Cannot write to backup folder. The folder may have been deleted or permissions revoked. Please re-select the folder.",
                 )
                 return
@@ -143,10 +143,10 @@ class AutoBackupWorker @AssistedInject constructor(
                 .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))
 
             settingsRepository.setString(
-                SettingsKeys.LAST_AUTO_BACKUP_LOCAL_SUCCESS_TIME,
+                SettingsKeys.LastAutoBackupLocalSuccessTime,
                 formattedTime,
             )
-            settingsRepository.setString(SettingsKeys.LAST_AUTO_BACKUP_LOCAL_ERROR, "")
+            settingsRepository.setString(SettingsKeys.LastAutoBackupLocalError, "")
         } catch (e: Exception) {
             Log.e(TAG, "Local auto-backup failed", e)
             val reason = when {
@@ -156,7 +156,7 @@ class AutoBackupWorker @AssistedInject constructor(
                 else -> "Unknown error: ${e::class.simpleName}"
             }
             settingsRepository.setString(
-                SettingsKeys.LAST_AUTO_BACKUP_LOCAL_ERROR,
+                SettingsKeys.LastAutoBackupLocalError,
                 reason,
             )
         }
@@ -169,7 +169,7 @@ class AutoBackupWorker @AssistedInject constructor(
             val authorized = googleDriveRepository.ensureAuthorized()
             if (!authorized) {
                 settingsRepository.setString(
-                    SettingsKeys.LAST_AUTO_BACKUP_CLOUD_ERROR,
+                    SettingsKeys.LastAutoBackupCloudError,
                     "Google Drive authorization failed. Please sign in again from Backup & Restore settings.",
                 )
                 return
@@ -181,7 +181,7 @@ class AutoBackupWorker @AssistedInject constructor(
             val uploaded = googleDriveRepository.uploadBackup(bytes, "backup_auto.ashellyou")
             if (!uploaded) {
                 settingsRepository.setString(
-                    SettingsKeys.LAST_AUTO_BACKUP_CLOUD_ERROR,
+                    SettingsKeys.LastAutoBackupCloudError,
                     "Upload to Google Drive failed. Check your internet connection and try again.",
                 )
                 return
@@ -192,10 +192,10 @@ class AutoBackupWorker @AssistedInject constructor(
                 .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))
 
             settingsRepository.setString(
-                SettingsKeys.LAST_AUTO_BACKUP_CLOUD_SUCCESS_TIME,
+                SettingsKeys.LastAutoBackupCloudSuccessTime,
                 formattedTime,
             )
-            settingsRepository.setString(SettingsKeys.LAST_AUTO_BACKUP_CLOUD_ERROR, "")
+            settingsRepository.setString(SettingsKeys.LastAutoBackupCloudError, "")
         } catch (e: Exception) {
             Log.e(TAG, "Cloud auto-backup failed", e)
             val reason = when {
@@ -205,7 +205,7 @@ class AutoBackupWorker @AssistedInject constructor(
                 else -> "Unknown error: ${e::class.simpleName}"
             }
             settingsRepository.setString(
-                SettingsKeys.LAST_AUTO_BACKUP_CLOUD_ERROR,
+                SettingsKeys.LastAutoBackupCloudError,
                 reason,
             )
         }
