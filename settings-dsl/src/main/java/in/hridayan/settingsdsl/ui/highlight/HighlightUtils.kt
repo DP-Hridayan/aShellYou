@@ -12,6 +12,7 @@ import androidx.compose.runtime.setValue
 import `in`.hridayan.settingsdsl.model.SettingsKey
 import `in`.hridayan.settingsdsl.model.SettingsPage
 import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * Manages scroll-to-item + blink-highlight state for a DSL-based settings sub-screen.
@@ -43,13 +44,22 @@ fun rememberHighlightState(
 ): SettingsKey<*>? {
     var highlightedKey by rememberSaveable { mutableStateOf(highlightKeyName) }
 
+    // Guards against re-scrolling when Compose Navigation restores this screen after
+    // a forward navigation (e.g. user goes to a sub-screen and comes back).
+    // rememberSaveable persists this for the lifetime of the BackStackEntry, so it
+    // resets naturally when the entry is popped and the user navigates here via
+    // search again (a fresh BackStackEntry with hasScrolled = false).
+    var hasScrolled by rememberSaveable { mutableStateOf(false) }
+
     LaunchedEffect(highlightKeyName) {
         if (highlightKeyName == null) return@LaunchedEffect
+        if (hasScrolled) return@LaunchedEffect  // already scrolled for this nav entry
+
         val targetKey = keyResolver(highlightKeyName) ?: return@LaunchedEffect
 
         val lazyIndex = page.lazyListIndexOf(targetKey, headerItemCount)
         if (lazyIndex >= 0) {
-            delay(400) // let the screen enter-transition finish
+            delay(400.milliseconds) // let the screen enter-transition finish
 
             // Snap the LargeTopAppBar to fully collapsed BEFORE the list scroll.
             // animateScrollToItem bypasses the nested scroll connection, so the bar
@@ -61,9 +71,11 @@ fun rememberHighlightState(
             listState.animateScrollToItem(index = lazyIndex)
         }
 
+        hasScrolled = true  // mark done — survives forward nav + back via rememberSaveable
+
         // Clear highlight after the blink animation completes (~2s).
         // Runs in the same LaunchedEffect so it never restarts independently.
-        delay(2400)
+        delay(2400.milliseconds)
         highlightedKey = null
     }
 
