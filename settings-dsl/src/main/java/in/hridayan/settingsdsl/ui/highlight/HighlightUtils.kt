@@ -44,38 +44,41 @@ fun rememberHighlightState(
 ): SettingsKey<*>? {
     var highlightedKey by rememberSaveable { mutableStateOf(highlightKeyName) }
 
-    // Guards against re-scrolling when Compose Navigation restores this screen after
-    // a forward navigation (e.g. user goes to a sub-screen and comes back).
-    // rememberSaveable persists this for the lifetime of the BackStackEntry, so it
-    // resets naturally when the entry is popped and the user navigates here via
-    // search again (a fresh BackStackEntry with hasScrolled = false).
+    // Persists for the lifetime of this BackStackEntry (resets when the entry is popped).
+    // Prevents a second scroll when Compose Navigation restores this screen after a
+    // forward navigation (e.g. user navigates to a sub-screen and comes back).
     var hasScrolled by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(highlightKeyName) {
         if (highlightKeyName == null) return@LaunchedEffect
-        if (hasScrolled) return@LaunchedEffect  // already scrolled for this nav entry
-
         val targetKey = keyResolver(highlightKeyName) ?: return@LaunchedEffect
 
-        val lazyIndex = page.lazyListIndexOf(targetKey, headerItemCount)
-        if (lazyIndex >= 0) {
-            delay(400.milliseconds) // let the screen enter-transition finish
+        if (!hasScrolled) {
+            // First time on this BackStackEntry — scroll to the item and start the blink.
+            val lazyIndex = page.lazyListIndexOf(targetKey, headerItemCount)
+            if (lazyIndex >= 0) {
+                delay(400.milliseconds) // let the screen enter-transition finish
 
-            // Snap the LargeTopAppBar to fully collapsed BEFORE the list scroll.
-            // animateScrollToItem bypasses the nested scroll connection, so the bar
-            // would stay expanded and later cause a correction scroll on recomposition.
-            topAppBarState?.let { state ->
-                state.heightOffset = state.heightOffsetLimit
+                // Snap the LargeTopAppBar to fully collapsed BEFORE the list scroll.
+                // animateScrollToItem bypasses the nested scroll connection, so the bar
+                // would stay expanded and later cause a correction scroll on recomposition.
+                topAppBarState?.let { state ->
+                    state.heightOffset = state.heightOffsetLimit
+                }
+
+                listState.animateScrollToItem(index = lazyIndex)
             }
+            hasScrolled = true
 
-            listState.animateScrollToItem(index = lazyIndex)
+            // Let the blink animation play out before clearing the highlight.
+            delay(2400.milliseconds)
         }
-
-        hasScrolled = true  // mark done — survives forward nav + back via rememberSaveable
-
-        // Clear highlight after the blink animation completes (~2s).
-        // Runs in the same LaunchedEffect so it never restarts independently.
-        delay(2400.milliseconds)
+        // Two cases reach here:
+        //  (a) Fresh run — delay(2400) just finished, clear normally.
+        //  (b) Restoration with hasScrolled=true and highlightedKey still non-null
+        //      (composable was recreated/restored mid-blink, e.g. via config change or
+        //      Compose disposing the back-stack entry under memory pressure) — clear
+        //      immediately so the blink doesn't continue indefinitely.
         highlightedKey = null
     }
 
