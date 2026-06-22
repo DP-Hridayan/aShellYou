@@ -64,6 +64,7 @@ fun LookAndFeelScreen(
     val settings = LocalSettings.current
     val themeMode = settings[SettingsKeys.ThemeMode]
     val isDarkMode = LocalDarkMode.current
+    val autoDarkModeOnBatterySaver = settings[SettingsKeys.AutoDarkModeOnBatterySaver]
     val hapticsEnabled = settings[SettingsKeys.HapticsAndVibration]
     val isDynamicColorEnabled = settings[SettingsKeys.DynamicColors]
     val autoScaleUI = settings[SettingsKeys.AutoScaleUi]
@@ -117,10 +118,11 @@ fun LookAndFeelScreen(
         descriptionOverrides = mapOf(
             SettingsKeys.PaletteStyle to { stringResource(currentPaletteStyle.displayNameResId) },
             SettingsKeys.DarkTheme to {
-                when (themeMode) {
-                    AppCompatDelegate.MODE_NIGHT_YES -> stringResource(R.string.on)
-                    AppCompatDelegate.MODE_NIGHT_NO -> stringResource(R.string.off)
-                    AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> stringResource(R.string.system)
+                when {
+                    autoDarkModeOnBatterySaver && isDarkMode -> stringResource(R.string.on)
+                    themeMode == AppCompatDelegate.MODE_NIGHT_YES -> stringResource(R.string.on)
+                    themeMode == AppCompatDelegate.MODE_NIGHT_NO -> stringResource(R.string.off)
+                    themeMode == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> stringResource(R.string.system)
                     else -> ""
                 }
             }

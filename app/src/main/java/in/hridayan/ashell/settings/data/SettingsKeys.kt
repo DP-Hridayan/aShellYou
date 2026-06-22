@@ -65,6 +65,9 @@ sealed class SettingsKeys<out T>(
     data object AutoUpdate : SettingsKeys<Boolean>("AUTO_UPDATE", false)
     data object AutoScaleUi : SettingsKeys<Boolean>("AUTO_SCALE_UI", false)
     data object HighContrastDarkMode : SettingsKeys<Boolean>("HIGH_CONTRAST_DARK_MODE", false)
+    data object AutoDarkModeOnBatterySaver :
+        SettingsKeys<Boolean>("AutoDarkModeOnBatterySaver", false)
+
     data object DynamicColors : SettingsKeys<Boolean>("DYNAMIC_COLORS", true)
     data object HapticsAndVibration : SettingsKeys<Boolean>("HAPTICS_AND_VIBRATION", true)
     data object EnableDirectDownload : SettingsKeys<Boolean>("ENABLE_DIRECT_DOWNLOAD", true)
@@ -79,7 +82,9 @@ sealed class SettingsKeys<out T>(
     data object NewCommandsAvailable : SettingsKeys<Boolean>("NEW_COMMANDS_AVAILABLE", true)
     data object AiCacheEnabled : SettingsKeys<Boolean>("AI_CACHE_ENABLED", true)
     data object AutoBackupEnabled : SettingsKeys<Boolean>("AUTO_BACKUP_ENABLED", false)
-    data object AutoBackupDeleteExisting : SettingsKeys<Boolean>("AUTO_BACKUP_DELETE_EXISTING", true)
+    data object AutoBackupDeleteExisting :
+        SettingsKeys<Boolean>("AUTO_BACKUP_DELETE_EXISTING", true)
+
     data object AutoBackupLocalEnabled : SettingsKeys<Boolean>("AUTO_BACKUP_LOCAL_ENABLED", true)
     data object AutoBackupCloudEnabled : SettingsKeys<Boolean>("AUTO_BACKUP_CLOUD_ENABLED", true)
 
@@ -96,16 +101,29 @@ sealed class SettingsKeys<out T>(
         SettingsKeys<Int>("THEME_MODE", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
 
     data object PrimarySeed : SettingsKeys<Int>("PRIMARY_SEED", SeedColorProvider.primary)
-    data object PaletteStyle : SettingsKeys<Int>("PALETTE_STYLE", `in`.hridayan.ashell.core.domain.model.PaletteStyle.TONAL_SPOT.ordinal)
+    data object PaletteStyle : SettingsKeys<Int>(
+        "PALETTE_STYLE",
+        `in`.hridayan.ashell.core.domain.model.PaletteStyle.TONAL_SPOT.ordinal
+    )
+
     data object GithubReleaseType :
-        SettingsKeys<Int>("GITHUB_RELEASE_TYPE", `in`.hridayan.ashell.core.domain.model.GithubReleaseType.STABLE_GITHUB)
+        SettingsKeys<Int>(
+            "GITHUB_RELEASE_TYPE",
+            `in`.hridayan.ashell.core.domain.model.GithubReleaseType.STABLE_GITHUB
+        )
 
     data object SavedVersionCode : SettingsKeys<Int>("SAVED_VERSION_CODE", 0)
     data object LocalAdbWorkingMode :
-        SettingsKeys<Int>("LOCAL_ADB_WORKING_MODE", `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode.BASIC)
+        SettingsKeys<Int>(
+            "LOCAL_ADB_WORKING_MODE",
+            `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode.BASIC
+        )
 
     data object TerminalFontStyle :
-        SettingsKeys<Int>("TERMINAL_FONT_STYLE", `in`.hridayan.ashell.core.domain.model.TerminalFontStyle.MONOSPACE)
+        SettingsKeys<Int>(
+            "TERMINAL_FONT_STYLE",
+            `in`.hridayan.ashell.core.domain.model.TerminalFontStyle.MONOSPACE
+        )
 
     data object BookmarkSortType : SettingsKeys<Int>("BOOKMARK_SORT_TYPE", SortType.AZ)
     data object CommandSortType : SettingsKeys<Int>("COMMAND_SORT_TYPE", SortType.AZ)
@@ -133,9 +151,13 @@ sealed class SettingsKeys<out T>(
     data object RecentSearchKeys : SettingsKeys<String>("RECENT_SEARCH_KEYS", "")
     data object AutoBackupFolderUri : SettingsKeys<String>("AUTO_BACKUP_FOLDER_URI", "")
     data object AutoBackupFolderName : SettingsKeys<String>("AUTO_BACKUP_FOLDER_NAME", "")
-    data object LastAutoBackupLocalSuccessTime : SettingsKeys<String>("LAST_AUTO_BACKUP_LOCAL_SUCCESS_TIME", "")
+    data object LastAutoBackupLocalSuccessTime :
+        SettingsKeys<String>("LAST_AUTO_BACKUP_LOCAL_SUCCESS_TIME", "")
+
     data object LastAutoBackupLocalError : SettingsKeys<String>("LAST_AUTO_BACKUP_LOCAL_ERROR", "")
-    data object LastAutoBackupCloudSuccessTime : SettingsKeys<String>("LAST_AUTO_BACKUP_CLOUD_SUCCESS_TIME", "")
+    data object LastAutoBackupCloudSuccessTime :
+        SettingsKeys<String>("LAST_AUTO_BACKUP_CLOUD_SUCCESS_TIME", "")
+
     data object LastAutoBackupCloudError : SettingsKeys<String>("LAST_AUTO_BACKUP_CLOUD_ERROR", "")
     data object SelectedModelId :
         SettingsKeys<String>("SELECTED_MODEL_ID", ModelRegistry.defaultModel.id)

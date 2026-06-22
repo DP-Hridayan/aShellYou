@@ -2,6 +2,11 @@
 
 package `in`.hridayan.ashell.core.common
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.os.PowerManager
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
@@ -9,12 +14,16 @@ import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.Density
@@ -61,6 +70,7 @@ fun CompositionLocals(
     content: @Composable () -> Unit
 ) {
     val view = LocalView.current
+    val context = LocalContext.current
     val baseDensity = LocalDensity.current
     val configuration = LocalConfiguration.current
 
@@ -116,11 +126,34 @@ fun CompositionLocals(
         )
     }
 
+    // Battery saver
+    val autoDarkModeOnBatterySaver by settingsViewModel.booleanState(SettingsKeys.AutoDarkModeOnBatterySaver)
+
+    var isBatterySaverOn by remember {
+        val pm = context.getSystemService(Context.POWER_SERVICE) as PowerManager
+        mutableStateOf(pm.isPowerSaveMode)
+    }
+
+    DisposableEffect(context) {
+        val receiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                val pm = context.getSystemService(Context.POWER_SERVICE) as PowerManager
+                isBatterySaverOn = pm.isPowerSaveMode
+            }
+        }
+        val filter = IntentFilter(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED)
+        context.registerReceiver(receiver, filter)
+        onDispose { context.unregisterReceiver(receiver) }
+    }
+
     // ── Derived values ──
-    val isDarkTheme = when (themeMode) {
-        AppCompatDelegate.MODE_NIGHT_YES -> true
-        AppCompatDelegate.MODE_NIGHT_NO -> false
-        else -> isSystemInDarkTheme()
+    val isDarkTheme = when {
+        autoDarkModeOnBatterySaver && isBatterySaverOn -> true
+        else -> when (themeMode) {
+            AppCompatDelegate.MODE_NIGHT_YES -> true
+            AppCompatDelegate.MODE_NIGHT_NO -> false
+            else -> isSystemInDarkTheme()
+        }
     }
 
     val tonalPalette = listOf(

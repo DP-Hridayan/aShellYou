@@ -16,9 +16,6 @@
     <string name="adb_via_wireless_debugging">ADB via Wireless Debugging</string>
     <string name="adb_via_wireless_debugging_summary">Connect devices (Android 11+) over Wi-Fi using wireless debugging and execute ADB commands remotely.</string>
     <string name="add">Add</string>
-    <string name="auto_scale_ui">Auto scale UI</string>
-    <string name="custom_ui_scale">Custom UI scale</string>
-    <string name="des_auto_scale_ui">Automatically scales the UI according to device smallest width</string>
     <string name="add_account">Add account</string>
     <string name="add_command">Add command</string>
     <string name="add_new_item">Add new item</string>
@@ -40,7 +37,9 @@
     <string name="auto_backup">Automatic backup</string>
     <string name="auto_backup_content_type">Backup content</string>
     <string name="auto_backup_folder">Backup folder</string>
+    <string name="auto_dark_mode">Auto dark mode</string>
     <string name="auto_delete_existing_backups">Auto-delete old backups</string>
+    <string name="auto_scale_ui">Auto scale UI</string>
     <string name="auto_update">Auto update</string>
     <string name="back">Back</string>
     <string name="back_button">Back button</string>
@@ -53,15 +52,16 @@
     <string name="backup_destination">Backup destination</string>
     <string name="backup_failed">Backup failed</string>
     <string name="backup_found">Backup found</string>
-    <string name="backup_now">Backup now</string>
-    <string name="backup_status">Backup status</string>
     <string name="backup_frequency">Backup frequency</string>
+    <string name="backup_now">Backup now</string>
     <string name="backup_scheduler">Backup scheduler</string>
     <string name="backup_settings">Backup app settings</string>
+    <string name="backup_status">Backup status</string>
     <string name="backup_successful">Backup successful</string>
     <string name="backup_time">Backup time</string>
     <string name="backup_type">Backup type</string>
     <string name="basic_shell">Basic shell</string>
+    <string name="battery_saver">Battery saver</string>
     <string name="behavior">Behavior</string>
     <string name="bookmark_limit_reached">Maximum bookmark limit reached! Delete some bookmarks to add new ones</string>
     <string name="bookmarks">Bookmarks</string>
@@ -128,6 +128,7 @@
     <string name="crowdin" translatable="false">Crowdin</string>
     <string name="crowdin_contribution_msg">Visit our crowdin translation platform to contribute</string>
     <string name="current_version">Current version</string>
+    <string name="custom_ui_scale">Custom UI scale</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Cut %1$d items</string>
     <string name="cut_to_clipboard">Cut to clipboard</string>
     <string name="daily">Daily</string>
@@ -150,7 +151,9 @@
     <string name="des_auto_backup_content_type">Choose what to include in automatic backups</string>
     <string name="des_auto_backup_folder">Select a folder to save automatic backups</string>
     <string name="des_auto_backup_time">Set the time for automatic backups</string>
+    <string name="des_auto_dark_mode">Automatically switch to dark mode when battery saver is enabled</string>
     <string name="des_auto_delete_existing_backups">Delete older automatic backups when a new one is saved</string>
+    <string name="des_auto_scale_ui">Automatically scales the UI according to device smallest width</string>
     <string name="des_auto_update">Check for updates automatically</string>
     <string name="des_backup_all_data">Backup all data of the app</string>
     <string name="des_backup_and_restore">Backup and restore app settings and other data</string>
@@ -171,8 +174,8 @@
     <string name="des_dynamic_colors">Automatically set the app theme according to the device wallpaper</string>
     <string name="des_enable_auto_backup">Automatically backup app data at the scheduled time</string>
     <string name="des_enable_cloud_auto_backup">Automatically backup to your Google Drive account</string>
-    <string name="des_enable_local_auto_backup">Automatically backup to the selected folder on your device</string>
     <string name="des_enable_direct_download">When turned on, updates will be downloaded directly from GitHub inside the app. Turn off to visit the Github releases page for manual download instead.</string>
+    <string name="des_enable_local_auto_backup">Automatically backup to the selected folder on your device</string>
     <string name="des_examples">Collection of some command templates</string>
     <string name="des_feature_request">If you have any ideas or suggestions for the app, let us know</string>
     <string name="des_font_family">Change the font style of the application</string>
@@ -504,6 +507,7 @@
     <string name="pre_release_github">Pre-release (GitHub)</string>
     <string name="pre_release_warning">Pre-release builds may be unstable</string>
     <string name="pre_release_warning_description">These versions are still in testing and may contain unfinished features or unexpected bugs. If you choose to update to a pre-release, please be aware that things might break or behave strangely.\nIf you encounter any issues, crashes, or weird behavior, please report them so we can fix and improve aShellYou before the stable release.\nThanks for helping us build better!</string>
+    <string name="preference">Preference</string>
     <string name="preview">Preview</string>
     <string name="qr_pair">QR Pair</string>
     <string name="qr_pair_hint">To pair an Android 11+ device, scan this QR from the target device</string>
@@ -565,10 +569,10 @@
     <string name="searching_for_devices">Searching for devices…</string>
     <string name="select">Select</string>
     <string name="select_all">Select all</string>
-    <string name="select_time">Select time</string>
-    <string name="select_backup_folder_title">No backup folder</string>
     <string name="select_backup_folder_message">Please select a folder where backups will be saved. The app needs read and write access to this folder.</string>
+    <string name="select_backup_folder_title">No backup folder</string>
     <string name="select_folder">Select folder</string>
+    <string name="select_time">Select time</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">Self</string>
     <string name="self_pair_connection_failed">Connection failed - try manual connect</string>
     <string name="self_pair_enter_code">Enter the 6-digit code from the pairing dialog</string>

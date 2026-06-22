@@ -147,10 +147,20 @@ object SettingsProvider {
     val darkThemePage = settingsPage(
         screenTitle = R.string.dark_theme,
         screenId = "dark_theme",
-        group(
+        category(
+            title = R.string.preference,
             radioGroupItem(
                 key = SettingsKeys.ThemeMode,
                 options = RadioGroupOptionsProvider.darkModeOptions
+            )
+        ),
+        category(
+            title = R.string.battery_saver,
+            switchItem(
+                key = SettingsKeys.AutoDarkModeOnBatterySaver,
+                title = R.string.auto_dark_mode,
+                description = R.string.des_auto_dark_mode,
+                icon = R.drawable.ic_night_sight_auto
             )
         ),
         category(
