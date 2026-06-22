@@ -2,6 +2,14 @@
 
 package `in`.hridayan.ashell.core.presentation.components.snackbar
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,32 +24,87 @@ import androidx.compose.material3.Snackbar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
-import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.milliseconds
 
+private val SlideSpec = spring<Float>(
+    dampingRatio = Spring.DampingRatioMediumBouncy,
+    stiffness = Spring.StiffnessMedium
+)
+
+/**
+ * Renders the currently active [SnackbarEvent] with a slide-up/down animation.
+ * The animation replays cleanly whenever [event] changes identity (via [key]).
+ *
+ * @param event The event to render, or null when nothing should be shown.
+ * @param onActionClicked Called when the action button is clicked.
+ * @param onDismiss Called when the snackbar auto-dismisses or is cleared.
+ * @param modifier Optional modifier for the host container.
+ */
 @Composable
 fun AnimatedSnackBar(
-    message: String,
-    actionText: String,
-    durationMillis: Int = 3000,
+    event: SnackbarEvent?,
     onActionClicked: () -> Unit,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    LaunchedEffect(message, durationMillis) {
-        delay(durationMillis.toLong())
+    var visible by remember { mutableStateOf(false) }
+
+    LaunchedEffect(event) {
+        visible = event != null
+    }
+
+    AnimatedVisibility(
+        visible = visible && event != null,
+        modifier = modifier,
+        enter = slideInVertically(
+            animationSpec = spring(
+                dampingRatio = Spring.DampingRatioMediumBouncy,
+                stiffness = Spring.StiffnessMediumLow,
+            ),
+            initialOffsetY = { it }
+        ) + fadeIn(tween(200)),
+        exit = slideOutVertically(
+            animationSpec = tween(200),
+            targetOffsetY = { it }
+        ) + fadeOut(tween(150)),
+    ) {
+        key(event) {
+            event?.let { e ->
+                SnackBarContent(
+                    event = e,
+                    onActionClicked = onActionClicked,
+                    onDismiss = onDismiss,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun SnackBarContent(
+    event: SnackbarEvent,
+    onActionClicked: () -> Unit,
+    onDismiss: () -> Unit,
+) {
+    LaunchedEffect(event) {
+        delay(event.durationMillis.milliseconds)
         onDismiss()
     }
 
-    val buttonHeight = ButtonDefaults.ExtraSmallContainerHeight
-
     Snackbar(
         modifier = Modifier
-            .padding(16.dp)
+            .padding(horizontal = 16.dp, vertical = 12.dp)
             .fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
         containerColor = MaterialTheme.colorScheme.inverseSurface,
@@ -50,26 +113,28 @@ fun AnimatedSnackBar(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 15.dp, vertical = 10.dp),
-            horizontalArrangement = Arrangement.spacedBy(15.dp),
-            verticalAlignment = Alignment.CenterVertically
+                .padding(horizontal = 4.dp, vertical = 6.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
-
             Text(
-                text = message,
+                text = event.message,
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier
                     .weight(1f)
-                    .fillMaxWidth()
+                    .fillMaxWidth(),
             )
 
-            Button(
-                onClick = withHaptic(HapticFeedbackType.Confirm) {
-                    onActionClicked()
-                },
-                modifier = Modifier.heightIn(buttonHeight)
-            ) {
-                AutoResizeableText(actionText)
+            if (event is SnackbarEvent.WithAction) {
+                Button(
+                    onClick = withHaptic(HapticFeedbackType.Confirm) { onActionClicked() },
+                    modifier = Modifier.heightIn(min = ButtonDefaults.ExtraSmallContainerHeight),
+                ) {
+                    Text(
+                        text = event.actionText,
+                        style = MaterialTheme.typography.labelMedium,
+                    )
+                }
             }
         }
     }

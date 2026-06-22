@@ -82,7 +82,7 @@ import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.card.CollapsibleCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
-import `in`.hridayan.ashell.core.presentation.utils.SnackBarUtils
+import `in`.hridayan.ashell.core.common.LocalSnackBarController
 import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.LocalNavController
@@ -135,9 +135,11 @@ fun CommandExampleCard(
         isPlaying = swipeOffset.value > 0.25f * cardWidth.floatValue
     )
 
+    val snackbarController = LocalSnackBarController.current
+
     val onDelete: () -> Unit = {
         isDeleted = true
-        SnackBarUtils.showSnackBarWithAction(
+        snackbarController.show(
             message = res.getString(R.string.item_deleted),
             actionText = res.getString(R.string.undo),
             durationMillis = 2500,

@@ -72,9 +72,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SmallFloatingActionButton
-import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -124,6 +121,7 @@ import `in`.hridayan.ashell.ai.presentation.viewmodel.AiAnalysisViewModel
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSettings
+import `in`.hridayan.ashell.core.common.LocalSnackBarController
 import `in`.hridayan.ashell.core.domain.model.SaveProgress
 import `in`.hridayan.ashell.core.domain.model.ScrollDirection
 import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
@@ -184,7 +182,7 @@ fun BaseShellScreen(
     val res = LocalResources.current
     val navController = LocalNavController.current
     val coroutineScope = rememberCoroutineScope()
-    val snackBarHostState = remember { SnackbarHostState() }
+    val snackBarController = LocalSnackBarController.current
     val listState = rememberLazyListState()
     val scrollDirection = rememberScrollDirection(listState)
     val states by shellViewModel.states.collectAsState()
@@ -201,7 +199,6 @@ fun BaseShellScreen(
     var restoredScrollIndex by rememberSaveable { mutableIntStateOf(-1) }
     val dialogManager = LocalDialogManager.current
 
-    // ── AI Analysis ─────────────────────────────────────────────────────
     val aiViewModel: AiAnalysisViewModel = hiltViewModel()
     val aiUiState by aiViewModel.uiState.collectAsState()
     val showAiSheet by aiViewModel.showBottomSheet.collectAsState()
@@ -307,7 +304,6 @@ fun BaseShellScreen(
 
     Scaffold(
         modifier = modifier,
-        snackbarHost = { SnackbarHost(hostState = snackBarHostState) },
         floatingActionButton = {
             // Hide FABs in fullscreen mode
             AnimatedVisibility(
@@ -538,12 +534,9 @@ fun BaseShellScreen(
                                                             )
                                                             else if (bookmarkCount.value >= 25 && !overrideBookmarksLimit) {
                                                                 hideKeyboard(context)
-                                                                coroutineScope.launch {
-                                                                    snackBarHostState.showSnackbar(
-                                                                        message = res.getString(R.string.bookmark_limit_reached),
-                                                                        duration = SnackbarDuration.Short
-                                                                    )
-                                                                }
+                                                                snackBarController.show(
+                                                                    message = res.getString(R.string.bookmark_limit_reached)
+                                                                )
                                                             } else bookmarkViewModel.addBookmark(
                                                                 states.commandField.fieldValue.text
                                                             )
@@ -679,7 +672,6 @@ fun BaseShellScreen(
         else -> dialogManager.dismiss()
     }
 
-    // ── AI Analysis Bottom Sheet ─────────────────────────────────────────
     if (showAiSheet) {
         AiAnalysisBottomSheet(
             uiState = aiUiState,
