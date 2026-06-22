@@ -1,12 +1,19 @@
 package `in`.hridayan.ashell.core.presentation.components.snackbar
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.runtime.*
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import `in`.hridayan.ashell.core.presentation.utils.SnackBarUtils
 import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
 fun SnackBarHost() {
@@ -16,7 +23,7 @@ fun SnackBarHost() {
     LaunchedEffect(data) {
         if (data != null) {
             visible = false
-            delay(30)
+            delay(30.milliseconds)
             visible = true
         }
     }

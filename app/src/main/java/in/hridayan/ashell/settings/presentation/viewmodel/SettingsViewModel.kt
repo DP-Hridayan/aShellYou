@@ -14,6 +14,7 @@ import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.settings.data.worker.BackupScheduler
 import `in`.hridayan.ashell.settings.domain.model.BackupType
 import `in`.hridayan.ashell.settings.domain.repository.GoogleAuthRepository
 import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
@@ -21,18 +22,19 @@ import `in`.hridayan.ashell.settings.domain.usecase.ToggleSettingUseCase
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.provider.SettingsProvider
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import `in`.hridayan.ashell.settings.data.worker.BackupScheduler
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.milliseconds
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
@@ -318,7 +320,7 @@ class SettingsViewModel @Inject constructor(
         BackupScheduler.runNow(context)
         // Reset after a delay — WorkManager doesn't give instant completion callbacks easily
         viewModelScope.launch {
-            kotlinx.coroutines.delay(3000)
+            delay(3000.milliseconds)
             _isBackingUp.value = false
         }
     }

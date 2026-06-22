@@ -167,6 +167,7 @@ import kotlinx.coroutines.android.awaitFrame
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
+import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
 fun BaseShellScreen(
@@ -331,7 +332,7 @@ fun BaseShellScreen(
                 // Hide after 3 seconds of no scrolling
                 LaunchedEffect(listState.isScrollInProgress) {
                     if (!listState.isScrollInProgress && showScrollButton) {
-                        delay(3000)
+                        delay(3000.milliseconds)
                         if (!listState.isScrollInProgress) {
                             showScrollButton = false
                         }
@@ -858,7 +859,7 @@ private fun OutputCard(
                     // Cancel any existing resume job and start new 3s timer
                     autoScrollResumeJob?.cancel()
                     autoScrollResumeJob = outputCardScope.launch {
-                        delay(3000)
+                        delay(3000.milliseconds)
                         userScrolledAway = false
                     }
                 }
@@ -885,7 +886,7 @@ private fun OutputCard(
             autoScrollResumeJob?.cancel()
             try {
                 // Delay slightly to let UI settle, then scroll to bottom
-                delay(50)
+                delay(50.milliseconds)
                 listState.animateScrollToItem(combinedOutput.value.lastIndex)
             } catch (_: Exception) {
                 // Ignore scroll cancellation
@@ -1150,7 +1151,7 @@ private fun FullscreenOutputOverlay(
                     // Cancel any existing resume job and start new 3s timer
                     autoScrollJob?.cancel()
                     autoScrollJob = coroutineScope.launch {
-                        delay(3000)
+                        delay(3000.milliseconds)
                         userScrolledAway = false
                     }
                 }
