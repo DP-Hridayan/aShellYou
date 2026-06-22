@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
-
 package `in`.hridayan.ashell.core.presentation.components.snackbar
 
 import androidx.compose.animation.AnimatedVisibility
@@ -19,9 +17,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Snackbar
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -81,7 +78,7 @@ fun AnimatedSnackBar(
                     modifier = Modifier
                         .fillMaxWidth()
                         .navigationBarsPadding()
-                        .padding(horizontal = 16.dp, vertical = 12.dp),
+                        .padding(start = 16.dp, end = 16.dp, top = 12.dp, bottom = 20.dp),
                     event = e,
                     onActionClicked = onActionClicked,
                     onDismiss = onDismiss,
@@ -103,31 +100,33 @@ private fun SnackBarContent(
         onDismiss()
     }
 
-    Snackbar(
+    Surface(
         modifier = modifier,
         shape = RoundedCornerShape(24.dp),
-        containerColor = MaterialTheme.colorScheme.inverseSurface,
-        contentColor = MaterialTheme.colorScheme.inverseOnSurface,
+        color = MaterialTheme.colorScheme.inverseSurface,
+        tonalElevation = 4.dp,
+        shadowElevation = 4.dp,
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(10.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
+                .padding(horizontal = 16.dp, vertical = 12.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
                 text = event.message,
                 style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth(),
+                color = MaterialTheme.colorScheme.inverseOnSurface,
+                modifier = Modifier.weight(1f),
             )
 
             if (event is SnackBarEvent.WithAction) {
                 Button(
                     onClick = withHaptic(HapticFeedbackType.Confirm) { onActionClicked() },
-                    modifier = Modifier.heightIn(min = ButtonDefaults.ExtraSmallContainerHeight),
+                    modifier = Modifier
+                        .padding(start = 8.dp)
+                        .heightIn(min = ButtonDefaults.ExtraSmallContainerHeight),
                 ) {
                     Text(
                         text = event.actionText,
