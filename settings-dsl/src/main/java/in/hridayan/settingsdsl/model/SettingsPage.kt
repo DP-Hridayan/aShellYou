@@ -11,7 +11,7 @@ import androidx.annotation.StringRes
  * @param groups           Internal group specs (populated by DSL).
  * @param screenId         App-defined string identifying this screen for search.
  *                         Null if this page should not appear in search results.
- * @param screenTitleResId String resource ID for the screen's display title (used in search headers).\
+ * @param screenTitleResId String resource ID for the screen's display title (used in search headers).
  *                         Null if [screenId] is null.
  */
 class SettingsPage internal constructor(
@@ -23,7 +23,7 @@ class SettingsPage internal constructor(
      * Returns the index of the first group that contains an item with [key], or -1 if not found.
      *
      * This is the *group* index in [groups], not the LazyColumn item index.
-     * Use [lazyListIndexOf] for the accurate scroll target.
+     * Use [lazyListIndexOf] for an accurate scroll target.
      */
     fun indexOfGroupContaining(key: SettingsKey<*>): Int =
         groups.indexOfFirst { group ->
@@ -36,35 +36,37 @@ class SettingsPage internal constructor(
         }
 
     /**
-     * Returns the actual LazyColumn item index for the group that contains [key],
-     * accounting for the real lazy item count each group contributes:
+     * Returns the exact LazyColumn item index for [key], accounting for how many lazy items
+     * each group contributes:
      *
-     * - [GroupSpec.Items]    → items.size lazy items (no header)
-     * - [GroupSpec.Category] → 1 (category header) + items.size lazy items
+     * - [GroupSpec.Items]    → item[0], item[1], … (no header row)
+     * - [GroupSpec.Category] → header row, item[0], item[1], …
      * - [GroupSpec.Custom]   → 1 lazy item
      * - [GroupSpec.Divider]  → 1 lazy item
      *
      * @param key             The settings key to locate.
-     * @param headerItemCount Extra items placed before [groups] in the LazyColumn
-     *                        (e.g. a hero header). Added to the returned index.
-     * @return The 0-based LazyColumn index of the first item of the matching group,
+     * @param headerItemCount Extra items placed before [groups] in the LazyColumn (e.g. a hero
+     *                        header). Added to the returned index.
+     * @return The 0-based LazyColumn index of the matching item,
      *         or -1 if [key] is not found.
      */
     fun lazyListIndexOf(key: SettingsKey<*>, headerItemCount: Int = 0): Int {
         var lazyIndex = headerItemCount
         for (group in groups) {
-            val containsKey = when (group) {
-                is GroupSpec.Items -> group.items.any { it.key == key }
-                is GroupSpec.Category -> group.items.any { it.key == key }
-                else -> false
-            }
-            if (containsKey) return lazyIndex
-            // Advance by however many lazy items this group contributes
-            lazyIndex += when (group) {
-                is GroupSpec.Items -> group.items.size
-                is GroupSpec.Category -> 1 + group.items.size  // header + items
-                is GroupSpec.Custom -> 1
-                GroupSpec.Divider -> 1
+            when (group) {
+                is GroupSpec.Items -> {
+                    val itemIndex = group.items.indexOfFirst { it.key == key }
+                    if (itemIndex >= 0) return lazyIndex + itemIndex
+                    lazyIndex += group.items.size
+                }
+                is GroupSpec.Category -> {
+                    val itemIndex = group.items.indexOfFirst { it.key == key }
+                    // +1 because the category header row occupies lazyIndex
+                    if (itemIndex >= 0) return lazyIndex + 1 + itemIndex
+                    lazyIndex += 1 + group.items.size
+                }
+                is GroupSpec.Custom -> lazyIndex += 1
+                GroupSpec.Divider -> lazyIndex += 1
             }
         }
         return -1

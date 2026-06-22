@@ -1,6 +1,8 @@
 package `in`.hridayan.settingsdsl.ui.highlight
 
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -24,7 +26,12 @@ import kotlinx.coroutines.delay
  * @param headerItemCount  Number of non-group items before the first group in the LazyColumn.
  * @param keyResolver      Resolves a key name string to a [SettingsKey]. Apps should pass
  *                         their own lookup function (e.g. `SettingsKeys::valueOfOrNull`).
+ * @param topAppBarState   Optional [TopAppBarState] from the screen's [SettingsScaffold].
+ *                         When provided, the top bar is instantly collapsed before the
+ *                         animated scroll so the bar and the list scroll position stay
+ *                         in sync and no secondary correction scroll occurs.
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun rememberHighlightState(
     highlightKeyName: String?,
@@ -32,29 +39,31 @@ fun rememberHighlightState(
     listState: LazyListState,
     headerItemCount: Int = 0,
     keyResolver: (String) -> SettingsKey<*>? = { null },
+    topAppBarState: TopAppBarState? = null,
 ): SettingsKey<*>? {
-    // Tracks whether we are still showing the highlight (visual blink)
     var highlightedKey by rememberSaveable { mutableStateOf(highlightKeyName) }
 
-    // One-shot scroll: fires only when highlightKeyName arrives, never again.
-    // Kept separate from the highlight-clear timer so clearing the highlight
-    // does NOT cause a second recomposition-driven scroll.
     LaunchedEffect(highlightKeyName) {
         if (highlightKeyName == null) return@LaunchedEffect
         val targetKey = keyResolver(highlightKeyName) ?: return@LaunchedEffect
 
-        // Use lazyListIndexOf for an accurate item index (counts headers, category labels, etc.)
         val lazyIndex = page.lazyListIndexOf(targetKey, headerItemCount)
         if (lazyIndex >= 0) {
             delay(400) // let the screen enter-transition finish
+
+            // Snap the LargeTopAppBar to fully collapsed BEFORE the list scroll.
+            // animateScrollToItem bypasses the nested scroll connection, so the bar
+            // would stay expanded and later cause a correction scroll on recomposition.
+            topAppBarState?.let { state ->
+                state.heightOffset = state.heightOffsetLimit
+            }
+
             listState.animateScrollToItem(index = lazyIndex)
         }
-    }
 
-    // Auto-clear highlight after 2 seconds — isolated effect so it never triggers a scroll.
-    LaunchedEffect(highlightKeyName) {
-        if (highlightKeyName == null) return@LaunchedEffect
-        delay(2000)
+        // Clear highlight after the blink animation completes (~2s).
+        // Runs in the same LaunchedEffect so it never restarts independently.
+        delay(2400)
         highlightedKey = null
     }
 
