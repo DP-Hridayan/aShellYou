@@ -58,11 +58,15 @@ import `in`.hridayan.ashell.settings.presentation.provider.getAllSettingsIcons
 import `in`.hridayan.ashell.settings.presentation.state.rememberController
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
+import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
 import `in`.hridayan.settingsdsl.ui.item.settingsContent
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun SettingsScreen(viewModel: SettingsViewModel = hiltViewModel()) {
+fun SettingsScreen(
+    highlightKey: String? = null,
+    viewModel: SettingsViewModel = hiltViewModel(),
+) {
     val navController = LocalNavController.current
     val settings = LocalSettings.current
     val hapticsEnabled = settings[SettingsKeys.HapticsAndVibration]
@@ -81,8 +85,16 @@ fun SettingsScreen(viewModel: SettingsViewModel = hiltViewModel()) {
     val listState = rememberLazyListState()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
+    val highlightedKey = rememberHighlightState(
+        highlightKeyName = highlightKey,
+        page = viewModel.settingsPage,
+        listState = listState,
+        headerItemCount = 1,
+        keyResolver = { SettingsKeys.valueOfOrNull(it) },
+    )
+
     // Resolve DSL page — memoized, only re-runs when composition re-enters
-    val resolvedGroups = remember { viewModel.settingsPage }.resolveAll()
+    val resolvedGroups = remember { viewModel.settingsPage }.resolveAll(highlightedKey = highlightedKey)
 
     Scaffold(topBar = {
         TopAppBar(

@@ -185,7 +185,7 @@ fun UtilityButtonGroup(
                     iconButtonConfig = iconButtonConfig
                 ),
                 iconResId = R.drawable.ic_settings,
-                onClick = { navController.navigate(NavRoutes.SettingsScreen) }
+                onClick = { navController.navigate(NavRoutes.SettingsScreen()) }
             ),
         )
 

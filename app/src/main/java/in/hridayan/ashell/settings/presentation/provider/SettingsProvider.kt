@@ -1,4 +1,4 @@
-﻿package `in`.hridayan.ashell.settings.presentation.provider
+package `in`.hridayan.ashell.settings.presentation.provider
 
 import android.os.Build
 import androidx.compose.material.icons.Icons
@@ -469,6 +469,7 @@ object SettingsProvider {
      * wires up search navigation. No hardcoded strings elsewhere.
      */
     private val navRouteMapping: Map<String, (String?) -> NavRoutes> = mapOf(
+        settingsPage.screenId!! to { NavRoutes.SettingsScreen(it) },
         lookAndFeelPage.screenId!! to { NavRoutes.LookAndFeelScreen(it) },
         darkThemePage.screenId!! to { NavRoutes.DarkThemeScreen(it) },
         behaviorPage.screenId!! to { NavRoutes.BehaviorScreen(it) },
@@ -481,7 +482,7 @@ object SettingsProvider {
 
     /** Resolves a [screenId] to the correct [NavRoutes] destination. */
     fun resolveNavRoute(screenId: String, highlightKey: String? = null): NavRoutes =
-        navRouteMapping[screenId]?.invoke(highlightKey) ?: NavRoutes.SettingsScreen
+        navRouteMapping[screenId]?.invoke(highlightKey) ?: NavRoutes.SettingsScreen()
 }
 
 /**
