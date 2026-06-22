@@ -56,6 +56,7 @@ import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVe
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.navigation.navigateBack
 import `in`.hridayan.ashell.settings.presentation.page.search.viewmodel.SettingsSearchViewModel
 import `in`.hridayan.ashell.settings.presentation.provider.SettingsProvider
@@ -183,9 +184,17 @@ fun SettingsSearchScreen(
                             isRecent = false,
                             onClick = {
                                 viewModel.onResultClicked(entry)
-                                navController.navigate(
+                                val route =
                                     SettingsProvider.resolveNavRoute(entry.screenId, entry.key.name)
-                                )
+                                navController.navigate(route) {
+                                    if (route is NavRoutes.SettingsScreen) {
+                                        popUpTo<NavRoutes.SettingsScreen> { inclusive = true }
+                                    } else {
+                                        popUpTo<NavRoutes.SettingsSearchScreen> { inclusive = true }
+                                    }
+
+                                    launchSingleTop = true
+                                }
                             },
                         )
                     }
@@ -236,9 +245,16 @@ fun SettingsSearchScreen(
                             isRecent = true,
                             onClick = {
                                 viewModel.onResultClicked(entry)
-                                navController.navigate(
+                                val route =
                                     SettingsProvider.resolveNavRoute(entry.screenId, entry.key.name)
-                                )
+                                navController.navigate(route) {
+                                    if (route is NavRoutes.SettingsScreen) {
+                                        popUpTo<NavRoutes.SettingsScreen> { inclusive = true }
+                                    } else {
+                                        popUpTo<NavRoutes.SettingsSearchScreen> { inclusive = true }
+                                    }
+                                    launchSingleTop = true
+                                }
                             },
                         )
                     }
