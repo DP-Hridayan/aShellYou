@@ -33,26 +33,29 @@ fun rememberHighlightState(
     headerItemCount: Int = 0,
     keyResolver: (String) -> SettingsKey<*>? = { null },
 ): SettingsKey<*>? {
+    // Tracks whether we are still showing the highlight (visual blink)
     var highlightedKey by rememberSaveable { mutableStateOf(highlightKeyName) }
 
+    // One-shot scroll: fires only when highlightKeyName arrives, never again.
+    // Kept separate from the highlight-clear timer so clearing the highlight
+    // does NOT cause a second recomposition-driven scroll.
     LaunchedEffect(highlightKeyName) {
         if (highlightKeyName == null) return@LaunchedEffect
         val targetKey = keyResolver(highlightKeyName) ?: return@LaunchedEffect
 
-        // Uses the public DSL API — does NOT touch internal GroupSpec/ItemSpec
-        val groupIndex = page.indexOfGroupContaining(targetKey)
-        if (groupIndex >= 0) {
-            delay(600) // let screen transition finish so scroll animation is visible
-            listState.animateScrollToItem(headerItemCount + groupIndex)
+        // Use lazyListIndexOf for an accurate item index (counts headers, category labels, etc.)
+        val lazyIndex = page.lazyListIndexOf(targetKey, headerItemCount)
+        if (lazyIndex >= 0) {
+            delay(400) // let the screen enter-transition finish
+            listState.animateScrollToItem(index = lazyIndex)
         }
     }
 
-    // Auto-clear highlight after 2.5 seconds
-    LaunchedEffect(highlightedKey) {
-        if (highlightedKey != null) {
-            delay(2500)
-            highlightedKey = null
-        }
+    // Auto-clear highlight after 2 seconds — isolated effect so it never triggers a scroll.
+    LaunchedEffect(highlightKeyName) {
+        if (highlightKeyName == null) return@LaunchedEffect
+        delay(2000)
+        highlightedKey = null
     }
 
     return highlightedKey?.let { keyResolver(it) }
