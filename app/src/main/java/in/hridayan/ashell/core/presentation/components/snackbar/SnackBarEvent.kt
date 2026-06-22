@@ -6,7 +6,7 @@ package `in`.hridayan.ashell.core.presentation.components.snackbar
  * - [Simple]: message only, auto-dismisses after [durationMillis].
  * - [WithAction]: message + action button with optional dismiss callback.
  */
-sealed class SnackbarEvent {
+sealed class SnackBarEvent {
 
     abstract val message: String
     abstract val durationMillis: Int
@@ -14,7 +14,7 @@ sealed class SnackbarEvent {
     data class Simple(
         override val message: String,
         override val durationMillis: Int = 3000,
-    ) : SnackbarEvent()
+    ) : SnackBarEvent()
 
     data class WithAction(
         override val message: String,
@@ -22,5 +22,5 @@ sealed class SnackbarEvent {
         val actionText: String,
         val onActionClicked: () -> Unit,
         val onDismiss: (() -> Unit)? = null,
-    ) : SnackbarEvent()
+    ) : SnackBarEvent()
 }

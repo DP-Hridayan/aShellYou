@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -37,13 +38,8 @@ import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
-private val SlideSpec = spring<Float>(
-    dampingRatio = Spring.DampingRatioMediumBouncy,
-    stiffness = Spring.StiffnessMedium
-)
-
 /**
- * Renders the currently active [SnackbarEvent] with a slide-up/down animation.
+ * Renders the currently active [SnackBarEvent] with a slide-up/down animation.
  * The animation replays cleanly whenever [event] changes identity (via [key]).
  *
  * @param event The event to render, or null when nothing should be shown.
@@ -53,10 +49,10 @@ private val SlideSpec = spring<Float>(
  */
 @Composable
 fun AnimatedSnackBar(
-    event: SnackbarEvent?,
+    modifier: Modifier = Modifier,
+    event: SnackBarEvent?,
     onActionClicked: () -> Unit,
     onDismiss: () -> Unit,
-    modifier: Modifier = Modifier,
 ) {
     var visible by remember { mutableStateOf(false) }
 
@@ -82,6 +78,10 @@ fun AnimatedSnackBar(
         key(event) {
             event?.let { e ->
                 SnackBarContent(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .navigationBarsPadding()
+                        .padding(horizontal = 16.dp, vertical = 12.dp),
                     event = e,
                     onActionClicked = onActionClicked,
                     onDismiss = onDismiss,
@@ -93,7 +93,8 @@ fun AnimatedSnackBar(
 
 @Composable
 private fun SnackBarContent(
-    event: SnackbarEvent,
+    modifier: Modifier = Modifier,
+    event: SnackBarEvent,
     onActionClicked: () -> Unit,
     onDismiss: () -> Unit,
 ) {
@@ -103,9 +104,7 @@ private fun SnackBarContent(
     }
 
     Snackbar(
-        modifier = Modifier
-            .padding(horizontal = 16.dp, vertical = 12.dp)
-            .fillMaxWidth(),
+        modifier = modifier,
         shape = RoundedCornerShape(24.dp),
         containerColor = MaterialTheme.colorScheme.inverseSurface,
         contentColor = MaterialTheme.colorScheme.inverseOnSurface,
@@ -113,7 +112,7 @@ private fun SnackBarContent(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 4.dp, vertical = 6.dp),
+                .padding(10.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -125,7 +124,7 @@ private fun SnackBarContent(
                     .fillMaxWidth(),
             )
 
-            if (event is SnackbarEvent.WithAction) {
+            if (event is SnackBarEvent.WithAction) {
                 Button(
                     onClick = withHaptic(HapticFeedbackType.Confirm) { onActionClicked() },
                     modifier = Modifier.heightIn(min = ButtonDefaults.ExtraSmallContainerHeight),

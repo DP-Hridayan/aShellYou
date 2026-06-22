@@ -107,6 +107,7 @@ fun CommandExampleCard(
     val weakHaptic = LocalWeakHaptic.current
     val screenDensity = LocalDensity.current
     val dialogManager = LocalDialogManager.current
+    val snackBarController = LocalSnackBarController.current
     val coroutineScope = rememberCoroutineScope()
     val prevScreen = navController.previousBackStackEntry
     val shellViewModel: ShellViewModel =
@@ -135,11 +136,9 @@ fun CommandExampleCard(
         isPlaying = swipeOffset.value > 0.25f * cardWidth.floatValue
     )
 
-    val snackbarController = LocalSnackBarController.current
-
     val onDelete: () -> Unit = {
         isDeleted = true
-        snackbarController.show(
+        snackBarController.show(
             message = res.getString(R.string.item_deleted),
             actionText = res.getString(R.string.undo),
             durationMillis = 2500,

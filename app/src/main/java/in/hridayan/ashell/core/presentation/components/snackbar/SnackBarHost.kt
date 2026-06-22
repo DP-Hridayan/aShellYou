@@ -16,10 +16,10 @@ fun SnackBarHost(modifier: Modifier = Modifier) {
     val event = controller.currentEvent
 
     AnimatedSnackBar(
-        event = event,
         modifier = modifier,
+        event = event,
         onActionClicked = {
-            (event as? SnackbarEvent.WithAction)?.onActionClicked?.invoke()
+            (event as? SnackBarEvent.WithAction)?.onActionClicked?.invoke()
             controller.clearSilently()
         },
         onDismiss = {

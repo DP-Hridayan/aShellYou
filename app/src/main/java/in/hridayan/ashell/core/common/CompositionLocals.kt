@@ -31,7 +31,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.data.local.provider.AppSeedColors
 import `in`.hridayan.ashell.core.data.local.provider.SeedColor
 import `in`.hridayan.ashell.core.domain.model.PaletteStyle
-import `in`.hridayan.ashell.core.presentation.components.snackbar.SnackbarController
+import `in`.hridayan.ashell.core.presentation.components.snackbar.SnackBarController
 import `in`.hridayan.ashell.core.presentation.utils.HapticUtils.strongHaptic
 import `in`.hridayan.ashell.core.presentation.utils.HapticUtils.weakHaptic
 import `in`.hridayan.ashell.core.presentation.viewmodel.DialogViewModel
@@ -64,7 +64,7 @@ val LocalDialogManager = staticCompositionLocalOf<DialogViewModel> {
     error { "No DialogViewModel provided" }
 }
 
-val LocalSnackBarController = staticCompositionLocalOf<SnackbarController> {
+val LocalSnackBarController = staticCompositionLocalOf<SnackBarController> {
     error("No SnackBarController provided")
 }
 
@@ -201,7 +201,7 @@ fun CompositionLocals(
     }
 
     val settingsState = remember(settingsViewModel) { SettingsState(settingsViewModel) }
-    val snackbarController = remember { SnackbarController() }
+    val snackbarController = remember { SnackBarController() }
 
     CompositionLocalProvider(
         LocalSettings provides settingsState,
