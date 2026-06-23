@@ -57,8 +57,9 @@ fun UiScaleScreen(
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
     val listState = rememberLazyListState()
-    val screenDensityMultiplier = LocalSettings.current.screenDensityMultiplier
-    val fontSizeMultiplier = LocalSettings.current.fontSizeMultiplier
+    val settings = LocalSettings.current
+    val screenDensityMultiplier = settings[SettingsKeys.ScreenDensityMultiplier]
+    val fontSizeMultiplier = settings[SettingsKeys.FontSizeMultiplier]
 
     SettingsScaffold(
         modifier = modifier,
@@ -90,10 +91,10 @@ fun UiScaleScreen(
                         description = stringResource(R.string.des_screen_density),
                         icon = painterResource(R.drawable.ic_high_density),
                         value = screenDensityMultiplier,
-                        defaultValue = SettingsKeys.SCREEN_DENSITY_MULTIPLIER.defaultValue,
+                        defaultValue = SettingsKeys.ScreenDensityMultiplier.defaultValue,
                         onValueChange = { newValue ->
                             settingsViewModel.setFloat(
-                                key = SettingsKeys.SCREEN_DENSITY_MULTIPLIER,
+                                key = SettingsKeys.ScreenDensityMultiplier,
                                 value = newValue
                             )
                         }
@@ -117,12 +118,12 @@ fun UiScaleScreen(
                         description = stringResource(R.string.des_font_size),
                         icon = painterResource(R.drawable.ic_format_size),
                         value = fontSizeMultiplier,
-                        defaultValue = SettingsKeys.FONT_SIZE_MULTIPLIER.defaultValue,
+                        defaultValue = SettingsKeys.FontSizeMultiplier.defaultValue,
                         valueRange = 0.5f..2f,
                         steps = 14,
                         onValueChange = { newValue ->
                             settingsViewModel.setFloat(
-                                key = SettingsKeys.FONT_SIZE_MULTIPLIER,
+                                key = SettingsKeys.FontSizeMultiplier,
                                 value = newValue
                             )
                         }
@@ -156,7 +157,7 @@ private fun ScaleModifyCard(
     val locale = LocalLocale.current
     val weakHaptic = LocalWeakHaptic.current
     val haptic = LocalHapticFeedback.current
-    val isHapticEnabled = LocalSettings.current.isHapticEnabled
+    val isHapticEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
 
     var sliderValue by remember(value) { mutableFloatStateOf(value) }
 

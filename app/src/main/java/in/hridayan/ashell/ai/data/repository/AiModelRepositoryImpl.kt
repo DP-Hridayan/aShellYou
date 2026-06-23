@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.ai.data.repository
+﻿package `in`.hridayan.ashell.ai.data.repository
 
 import android.content.Context
 import android.util.Log
@@ -91,12 +91,12 @@ class AiModelRepositoryImpl @Inject constructor(
     }.flowOn(Dispatchers.IO)
 
     override fun getSelectedModel(): Flow<AiModel?> =
-        settingsRepository.getString(SettingsKeys.SELECTED_MODEL_ID).map { id ->
+        settingsRepository.getString(SettingsKeys.SelectedModelId).map { id ->
             ModelRegistry.findById(id)
         }
 
     override suspend fun selectModel(modelId: String) {
-        settingsRepository.setString(SettingsKeys.SELECTED_MODEL_ID, modelId)
+        settingsRepository.setString(SettingsKeys.SelectedModelId, modelId)
     }
 
     override fun observeDownloadProgress(): StateFlow<Map<String, DownloadProgress>> =

@@ -15,6 +15,7 @@ import `in`.hridayan.settingsdsl.model.CustomSlot
 import `in`.hridayan.settingsdsl.model.ItemBehavior
 import `in`.hridayan.settingsdsl.model.ResolvedGroup
 import `in`.hridayan.settingsdsl.model.SettingsKey
+import `in`.hridayan.settingsdsl.resolver.resolveAll
 
 /**
  * Renders a list of [ResolvedGroup]s into a [LazyListScope] using a [SettingsController]
@@ -60,7 +61,7 @@ fun LazyListScope.settingsContent(
 /**
  * Renders a list of [ResolvedGroup]s into a [LazyListScope].
  *
- * Call this inside a `LazyColumn` block after obtaining groups from [SettingsPage.resolveAll].
+ * Call this inside a `LazyColumn` block after obtaining groups from [resolveAll].
  *
  * @param groups                The resolved groups to render.
  * @param modifier              Modifier applied to each item card.
@@ -111,12 +112,14 @@ fun LazyListScope.settingsContent(
                                 text = title,
                                 style = MaterialTheme.typography.labelLarge,
                                 color = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier.padding(
-                                    start = 20.dp,
-                                    end = 20.dp,
-                                    top = 30.dp,
-                                    bottom = 10.dp,
-                                ),
+                                modifier = Modifier
+                                    .padding(
+                                        start = 20.dp,
+                                        end = 20.dp,
+                                        top = 30.dp,
+                                        bottom = 10.dp,
+                                    )
+                                    .animateItem(),
                             )
                         }
                     }

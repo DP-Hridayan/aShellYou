@@ -42,11 +42,11 @@ fun FileSavedDialog(
 ) {
     val context = LocalContext.current
 
-    val uriString = LocalSettings.current.outputSaveDirectory
-    val saveWholeOutput = LocalSettings.current.saveWholeOutput
+    val uriString = LocalSettings.current[SettingsKeys.OutputSaveDirectory]
+    val saveWholeOutput = LocalSettings.current[SettingsKeys.SaveWholeOutput]
 
     val pathToDisplay =
-        if (uriString != SettingsKeys.OUTPUT_SAVE_DIRECTORY.default) {
+        if (uriString != SettingsKeys.OutputSaveDirectory.default) {
             getFullPathFromTreeUri(
                 uriString.toUri(),
                 context

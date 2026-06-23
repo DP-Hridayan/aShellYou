@@ -35,43 +35,43 @@ object SettingsProvider {
         screenId = "settings",
         group(
             clickableItem(
-                key = SettingsKeys.LOOK_AND_FEEL,
+                key = SettingsKeys.LookAndFeel,
                 title = R.string.look_and_feel,
                 description = R.string.des_look_and_feel,
                 icon = R.drawable.ic_pallete
             ),
             clickableItem(
-                key = SettingsKeys.BEHAVIOR,
+                key = SettingsKeys.Behavior,
                 title = R.string.behavior,
                 description = R.string.des_behavior,
                 icon = R.drawable.ic_sentiment_neutral
             ),
             clickableItem(
-                key = SettingsKeys.QUICK_SETTINGS_TILES,
+                key = SettingsKeys.QuickSettingsTiles,
                 title = R.string.qs_tiles,
                 description = R.string.des_qs_tiles,
                 icon = R.drawable.ic_dashboard
             ),
             clickableItem(
-                key = SettingsKeys.AI_MODEL_MANAGER,
+                key = SettingsKeys.AiModelManager,
                 title = R.string.ai_models,
                 description = R.string.des_ai_models,
                 iconVector = Icons.Rounded.AutoAwesome
             ),
             clickableItem(
-                key = SettingsKeys.AUTO_UPDATE,
+                key = SettingsKeys.AutoUpdate,
                 title = R.string.auto_update,
                 description = R.string.des_auto_update,
                 icon = R.drawable.ic_auto_update
             ),
             clickableItem(
-                key = SettingsKeys.BACKUP_AND_RESTORE,
+                key = SettingsKeys.BackupAndRestore,
                 title = R.string.backup_and_restore,
                 description = R.string.des_backup_and_restore,
                 icon = R.drawable.ic_settings_backup_restore
             ),
             clickableItem(
-                key = SettingsKeys.ABOUT,
+                key = SettingsKeys.About,
                 title = R.string.about,
                 description = R.string.des_about,
                 icon = R.drawable.ic_info
@@ -84,20 +84,20 @@ object SettingsProvider {
         screenId = "look_and_feel",
         group(
             switchItem(
-                key = SettingsKeys.DYNAMIC_COLORS,
+                key = SettingsKeys.DynamicColors,
                 title = R.string.dynamic_colors,
                 description = R.string.des_dynamic_colors,
                 icon = R.drawable.ic_dynamic_color,
                 visible = !isSdkLowerThan31
             ),
             clickableItem(
-                key = SettingsKeys.PALETTE_STYLE,
+                key = SettingsKeys.PaletteStyle,
                 title = R.string.palette_style,
                 description = R.string.palette_tonal_spot,
-                icon = R.drawable.ic_pallete
+                icon = R.drawable.ic_styles
             ),
             clickableItem(
-                key = SettingsKeys.DARK_THEME,
+                key = SettingsKeys.DarkTheme,
                 title = R.string.dark_theme,
                 description = R.string.system,
                 iconVector = Icons.Outlined.DarkMode
@@ -106,7 +106,7 @@ object SettingsProvider {
         category(
             title = R.string.font_family,
             clickableItem(
-                key = SettingsKeys.FONT_FAMILY,
+                key = SettingsKeys.FontFamily,
                 title = R.string.font_family,
                 description = R.string.des_font_family,
                 iconVector = Icons.Rounded.TextFields
@@ -115,13 +115,13 @@ object SettingsProvider {
         category(
             title = R.string.ui_scale,
             switchItem(
-                key = SettingsKeys.AUTO_SCALE_UI,
+                key = SettingsKeys.AutoScaleUi,
                 title = R.string.auto_scale_ui,
                 description = R.string.des_auto_scale_ui,
                 icon = R.drawable.ic_transform
             ),
             clickableItem(
-                key = SettingsKeys.CUSTOM_UI_SCALE,
+                key = SettingsKeys.CustomUiScale,
                 title = R.string.custom_ui_scale,
                 description = R.string.des_ui_scale,
                 icon = R.drawable.ic_high_density
@@ -130,13 +130,13 @@ object SettingsProvider {
         category(
             title = R.string.additional_settings,
             switchItem(
-                key = SettingsKeys.HAPTICS_AND_VIBRATION,
+                key = SettingsKeys.HapticsAndVibration,
                 title = R.string.haptics_and_vibration,
                 description = R.string.des_haptics_and_vibration,
                 icon = R.drawable.ic_vibration
             ),
             clickableItem(
-                key = SettingsKeys.LANGUAGE,
+                key = SettingsKeys.Language,
                 title = R.string.default_language,
                 description = R.string.des_default_language,
                 icon = R.drawable.ic_language
@@ -147,16 +147,26 @@ object SettingsProvider {
     val darkThemePage = settingsPage(
         screenTitle = R.string.dark_theme,
         screenId = "dark_theme",
-        group(
+        category(
+            title = R.string.preference,
             radioGroupItem(
-                key = SettingsKeys.THEME_MODE,
+                key = SettingsKeys.ThemeMode,
                 options = RadioGroupOptionsProvider.darkModeOptions
+            )
+        ),
+        category(
+            title = R.string.battery_saver,
+            switchItem(
+                key = SettingsKeys.AutoDarkModeOnBatterySaver,
+                title = R.string.auto_dark_mode,
+                description = R.string.des_auto_dark_mode,
+                icon = R.drawable.ic_night_sight_auto
             )
         ),
         category(
             title = R.string.additional_settings,
             switchItem(
-                key = SettingsKeys.HIGH_CONTRAST_DARK_MODE,
+                key = SettingsKeys.HighContrastDarkMode,
                 title = R.string.high_contrast_dark_mode,
                 description = R.string.des_high_contrast_dark_mode,
                 icon = R.drawable.ic_amoled_theme
@@ -168,19 +178,19 @@ object SettingsProvider {
         screenTitle = R.string.auto_update,
         screenId = "auto_update",
         group(
-            switchBannerItem(key = SettingsKeys.AUTO_UPDATE, title = R.string.enable_auto_update),
+            switchBannerItem(key = SettingsKeys.AutoUpdate, title = R.string.enable_auto_update),
         ),
         category(
             title = R.string.update_channel,
             radioGroupItem(
-                key = SettingsKeys.GITHUB_RELEASE_TYPE,
+                key = SettingsKeys.GithubReleaseType,
                 options = RadioGroupOptionsProvider.updateChannelOptions
             ),
         ),
         category(
             title = R.string.additional_settings,
             switchItem(
-                key = SettingsKeys.ENABLE_DIRECT_DOWNLOAD,
+                key = SettingsKeys.EnableDirectDownload,
                 title = R.string.enable_direct_download,
                 description = R.string.des_enable_direct_download,
                 iconVector = Icons.Rounded.Downloading
@@ -194,32 +204,32 @@ object SettingsProvider {
         category(
             title = R.string.local_adb_shell,
             radioGroupItem(
-                key = SettingsKeys.LOCAL_ADB_WORKING_MODE,
+                key = SettingsKeys.LocalAdbWorkingMode,
                 options = RadioGroupOptionsProvider.localAdbShellModeOptions
             ),
         ),
         category(
             title = R.string.terminal,
             switchItem(
-                key = SettingsKeys.SMOOTH_SCROLLING,
+                key = SettingsKeys.SmoothScrolling,
                 title = R.string.smooth_scrolling,
                 description = R.string.des_smooth_scroll,
                 iconVector = Icons.Rounded.UnfoldMoreDouble
             ),
             switchItem(
-                key = SettingsKeys.CLEAR_OUTPUT_CONFIRMATION,
+                key = SettingsKeys.ClearOutputConfirmation,
                 title = R.string.clear_output_confirmation,
                 description = R.string.des_clear_output_confirmation,
                 icon = R.drawable.ic_clear
             ),
             switchItem(
-                key = SettingsKeys.OVERRIDE_MAXIMUM_BOOKMARKS_LIMIT,
+                key = SettingsKeys.OverrideMaximumBookmarksLimit,
                 title = R.string.override_bookmarks_limit,
                 description = R.string.des_override_bookmarks,
                 icon = R.drawable.ic_bookmarks
             ),
             switchItem(
-                key = SettingsKeys.DISABLE_SOFT_KEYBOARD,
+                key = SettingsKeys.DisableSoftKeyboard,
                 title = R.string.disable_softkey,
                 description = R.string.des_disable_softkey,
                 icon = R.drawable.ic_disable_keyboard
@@ -228,7 +238,7 @@ object SettingsProvider {
         category(
             title = R.string.terminal_font_style,
             buttonGroupItem(
-                key = SettingsKeys.TERMINAL_FONT_STYLE,
+                key = SettingsKeys.TerminalFontStyle,
                 options = listOf(
                     ButtonGroupOption(TerminalFontStyle.MONOSPACE, R.string.monospace),
                     ButtonGroupOption(TerminalFontStyle.SYSTEM_FONT, R.string.system_font),
@@ -238,13 +248,13 @@ object SettingsProvider {
         category(
             title = R.string.file_actions,
             clickableItem(
-                key = SettingsKeys.OUTPUT_SAVE_DIRECTORY,
+                key = SettingsKeys.OutputSaveDirectory,
                 title = R.string.configure_save_directory,
                 description = R.string.des_configure_save_directory,
                 icon = R.drawable.ic_directory
             ),
             switchItem(
-                key = SettingsKeys.SAVE_WHOLE_OUTPUT,
+                key = SettingsKeys.SaveWholeOutput,
                 title = R.string.save_whole_output,
                 description = R.string.des_save_whole_output,
                 icon = R.drawable.ic_save_as
@@ -258,13 +268,13 @@ object SettingsProvider {
         category(
             title = R.string.contributors,
             clickableItem(
-                key = SettingsKeys.CONTRIBUTORS,
+                key = SettingsKeys.Contributors,
                 title = R.string.contributors,
                 description = R.string.des_contributors,
                 icon = R.drawable.ic_crowdsource
             ),
             clickableItem(
-                key = SettingsKeys.TRANSLATORS,
+                key = SettingsKeys.Translators,
                 title = R.string.translators,
                 description = R.string.des_translators,
                 icon = R.drawable.ic_translate
@@ -273,31 +283,31 @@ object SettingsProvider {
         category(
             title = R.string.app,
             clickableItem(
-                key = SettingsKeys.CHANGELOGS,
+                key = SettingsKeys.Changelogs,
                 title = R.string.changelogs,
                 description = R.string.des_changelogs,
                 icon = R.drawable.ic_changelog
             ),
             clickableItem(
-                key = SettingsKeys.LICENSES,
+                key = SettingsKeys.Licenses,
                 title = R.string.licenses,
                 description = R.string.des_licenses,
                 icon = R.drawable.ic_license
             ),
             clickableItem(
-                key = SettingsKeys.CRASH_HISTORY,
+                key = SettingsKeys.CrashHistory,
                 title = R.string.crash_history,
                 description = R.string.des_crash_history,
                 icon = R.drawable.ic_bug
             ),
             clickableItem(
-                key = SettingsKeys.REPORT,
+                key = SettingsKeys.Report,
                 title = R.string.report_issue,
                 description = R.string.des_report_issue,
                 icon = R.drawable.ic_report
             ),
             clickableItem(
-                key = SettingsKeys.FEATURE_REQUEST,
+                key = SettingsKeys.FeatureRequest,
                 title = R.string.feature_request,
                 description = R.string.des_feature_request,
                 icon = R.drawable.ic_add_comment
@@ -312,19 +322,19 @@ object SettingsProvider {
         category(
             title = R.string.backup,
             clickableItem(
-                key = SettingsKeys.BACKUP_APP_SETTINGS,
+                key = SettingsKeys.BackupAppSettings,
                 title = R.string.backup_settings,
                 description = R.string.des_backup_settings,
                 icon = R.drawable.ic_handyman
             ),
             clickableItem(
-                key = SettingsKeys.BACKUP_APP_DATABASE,
+                key = SettingsKeys.BackupAppDatabase,
                 title = R.string.backup_app_database,
                 description = R.string.des_backup_app_database,
                 icon = R.drawable.ic_database
             ),
             clickableItem(
-                key = SettingsKeys.BACKUP_APP_DATA,
+                key = SettingsKeys.BackupAppData,
                 title = R.string.backup_all_data,
                 description = R.string.des_backup_all_data,
                 icon = R.drawable.ic_upload_file
@@ -334,7 +344,7 @@ object SettingsProvider {
         category(
             title = R.string.auto_backup,
             clickableItem(
-                key = SettingsKeys.BACKUP_SCHEDULER,
+                key = SettingsKeys.BackupScheduler,
                 title = R.string.backup_scheduler,
                 description = R.string.des_backup_scheduler,
                 icon = R.drawable.ic_schedule
@@ -343,7 +353,7 @@ object SettingsProvider {
         category(
             title = R.string.restore,
             clickableItem(
-                key = SettingsKeys.RESTORE_APP_DATA,
+                key = SettingsKeys.RestoreAppData,
                 title = R.string.restore_app_data,
                 description = R.string.des_restore_app_data,
                 icon = R.drawable.ic_restore_page
@@ -352,7 +362,7 @@ object SettingsProvider {
         category(
             title = R.string.reset,
             clickableItem(
-                key = SettingsKeys.RESET_APP_SETTINGS,
+                key = SettingsKeys.ResetAppSettings,
                 title = R.string.reset_app_settings,
                 description = R.string.des_reset_app_settings,
                 icon = R.drawable.ic_reset_settings
@@ -365,7 +375,7 @@ object SettingsProvider {
         screenId = "backup_scheduler",
         group(
             switchBannerItem(
-                key = SettingsKeys.AUTO_BACKUP_ENABLED,
+                key = SettingsKeys.AutoBackupEnabled,
                 title = R.string.enable_auto_backup
             ),
         ),
@@ -373,7 +383,7 @@ object SettingsProvider {
         category(
             title = R.string.schedule,
             clickableItem(
-                key = SettingsKeys.AUTO_BACKUP_TIME,
+                key = SettingsKeys.AutoBackupTime,
                 title = R.string.backup_time,
                 description = R.string.des_auto_backup_time,
                 icon = R.drawable.ic_schedule
@@ -382,27 +392,27 @@ object SettingsProvider {
         category(
             title = R.string.frequency,
             radioGroupItem(
-                key = SettingsKeys.AUTO_BACKUP_FREQUENCY,
+                key = SettingsKeys.AutoBackupFrequency,
                 options = RadioGroupOptionsProvider.backupFrequencyOptions,
             ),
         ),
         category(
             title = R.string.auto_backup_content_type,
             radioGroupItem(
-                key = SettingsKeys.AUTO_BACKUP_TYPE,
+                key = SettingsKeys.AutoBackupType,
                 options = RadioGroupOptionsProvider.autoBackupTypeOptions,
             ),
         ),
         category(
             title = R.string.local_backup,
             clickableItem(
-                key = SettingsKeys.AUTO_BACKUP_FOLDER,
+                key = SettingsKeys.AutoBackupFolder,
                 title = R.string.auto_backup_folder,
                 description = R.string.des_auto_backup_folder,
                 icon = R.drawable.ic_directory
             ),
             switchItem(
-                key = SettingsKeys.AUTO_BACKUP_DELETE_EXISTING,
+                key = SettingsKeys.AutoBackupDeleteExisting,
                 title = R.string.auto_delete_existing_backups,
                 description = R.string.des_auto_delete_existing_backups,
                 icon = R.drawable.ic_delete_sweep
@@ -417,7 +427,7 @@ object SettingsProvider {
         category(
             title = R.string.models,
             clickableItem(
-                key = SettingsKeys.AI_MODELS,
+                key = SettingsKeys.AiModels,
                 title = R.string.models,
                 description = R.string.des_models,
                 iconVector = Icons.Rounded.Memory
@@ -426,19 +436,19 @@ object SettingsProvider {
         category(
             title = R.string.cache_settings,
             switchItem(
-                key = SettingsKeys.AI_CACHE_ENABLED,
+                key = SettingsKeys.AiCacheEnabled,
                 title = R.string.ai_cache_enabled,
                 description = R.string.des_ai_cache_enabled,
                 iconVector = Icons.Rounded.Cached
             ),
             clickableItem(
-                key = SettingsKeys.AI_CACHE_DAYS,
+                key = SettingsKeys.AiCacheDays,
                 title = R.string.ai_cache_days,
                 description = R.string.des_ai_cache_days,
                 icon = R.drawable.ic_schedule
             ),
             clickableItem(
-                key = SettingsKeys.AI_CACHE_CLEAR,
+                key = SettingsKeys.AiCacheClear,
                 title = R.string.clear_analysis_cache,
                 description = R.string.cache_size,
                 icon = R.drawable.ic_delete_sweep
@@ -459,6 +469,7 @@ object SettingsProvider {
      * wires up search navigation. No hardcoded strings elsewhere.
      */
     private val navRouteMapping: Map<String, (String?) -> NavRoutes> = mapOf(
+        settingsPage.screenId!! to { NavRoutes.SettingsScreen(it) },
         lookAndFeelPage.screenId!! to { NavRoutes.LookAndFeelScreen(it) },
         darkThemePage.screenId!! to { NavRoutes.DarkThemeScreen(it) },
         behaviorPage.screenId!! to { NavRoutes.BehaviorScreen(it) },
@@ -471,7 +482,7 @@ object SettingsProvider {
 
     /** Resolves a [screenId] to the correct [NavRoutes] destination. */
     fun resolveNavRoute(screenId: String, highlightKey: String? = null): NavRoutes =
-        navRouteMapping[screenId]?.invoke(highlightKey) ?: NavRoutes.SettingsScreen
+        navRouteMapping[screenId]?.invoke(highlightKey) ?: NavRoutes.SettingsScreen()
 }
 
 /**
@@ -506,4 +517,6 @@ fun getAllSettingsIcons(): List<Int> = listOf(
     R.drawable.ic_upload_file,
     R.drawable.ic_restore_page,
     R.drawable.ic_reset_settings,
+    R.drawable.ic_styles,
+    R.drawable.ic_format_size
 )

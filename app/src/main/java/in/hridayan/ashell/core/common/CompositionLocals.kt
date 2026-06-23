@@ -2,6 +2,11 @@
 
 package `in`.hridayan.ashell.core.common
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.os.PowerManager
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
@@ -9,12 +14,16 @@ import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.Density
@@ -22,11 +31,11 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.data.local.provider.AppSeedColors
 import `in`.hridayan.ashell.core.data.local.provider.SeedColor
 import `in`.hridayan.ashell.core.domain.model.PaletteStyle
+import `in`.hridayan.ashell.core.presentation.components.snackbar.SnackBarController
 import `in`.hridayan.ashell.core.presentation.utils.HapticUtils.strongHaptic
 import `in`.hridayan.ashell.core.presentation.utils.HapticUtils.weakHaptic
 import `in`.hridayan.ashell.core.presentation.viewmodel.DialogViewModel
 import `in`.hridayan.ashell.settings.data.SettingsKeys
-import `in`.hridayan.ashell.settings.domain.model.SettingsState
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import kotlin.math.abs
 
@@ -55,6 +64,10 @@ val LocalDialogManager = staticCompositionLocalOf<DialogViewModel> {
     error { "No DialogViewModel provided" }
 }
 
+val LocalSnackBarController = staticCompositionLocalOf<SnackBarController> {
+    error("No SnackBarController provided")
+}
+
 @Composable
 fun CompositionLocals(
     settingsViewModel: SettingsViewModel = hiltViewModel(),
@@ -62,91 +75,26 @@ fun CompositionLocals(
     content: @Composable () -> Unit
 ) {
     val view = LocalView.current
+    val context = LocalContext.current
     val baseDensity = LocalDensity.current
     val configuration = LocalConfiguration.current
 
-    val autoUpdate by settingsViewModel.booleanState(SettingsKeys.AUTO_UPDATE)
-
-    val themeMode by settingsViewModel.intState(SettingsKeys.THEME_MODE)
-
-    val primarySeed by settingsViewModel.intState(SettingsKeys.PRIMARY_SEED)
-
+    // Theme
+    val themeMode by settingsViewModel.intState(SettingsKeys.ThemeMode)
+    val primarySeed by settingsViewModel.intState(SettingsKeys.PrimarySeed)
     val seedColor = SeedColor(primarySeed)
-
-    val paletteStyleOrdinal by settingsViewModel.intState(SettingsKeys.PALETTE_STYLE)
+    val paletteStyleOrdinal by settingsViewModel.intState(SettingsKeys.PaletteStyle)
     val paletteStyle = remember(paletteStyleOrdinal) {
         PaletteStyle.entries.getOrElse(paletteStyleOrdinal) { PaletteStyle.TONAL_SPOT }
     }
 
-    val isDynamicColor by settingsViewModel.booleanState(SettingsKeys.DYNAMIC_COLORS)
+    // Haptics
+    val isHapticEnabled by settingsViewModel.booleanState(SettingsKeys.HapticsAndVibration)
 
-    val isHighContrastDarkMode by settingsViewModel.booleanState(SettingsKeys.HIGH_CONTRAST_DARK_MODE)
-
-    val isHapticEnabled by settingsViewModel.booleanState(SettingsKeys.HAPTICS_AND_VIBRATION)
-
-    val githubReleaseType by settingsViewModel.intState(SettingsKeys.GITHUB_RELEASE_TYPE)
-
-    val savedVersionCode by settingsViewModel.intState(SettingsKeys.SAVED_VERSION_CODE)
-
-    val enableDirectDownload by settingsViewModel.booleanState(SettingsKeys.ENABLE_DIRECT_DOWNLOAD)
-
-    val smoothScrolling by settingsViewModel.booleanState(SettingsKeys.SMOOTH_SCROLLING)
-
-    val clearOutputConfirmation by settingsViewModel.booleanState(SettingsKeys.CLEAR_OUTPUT_CONFIRMATION)
-
-    val overrideBookmarksLimit by settingsViewModel.booleanState(SettingsKeys.OVERRIDE_MAXIMUM_BOOKMARKS_LIMIT)
-
-    val disableSoftKeyboard by settingsViewModel.booleanState(SettingsKeys.DISABLE_SOFT_KEYBOARD)
-
-    val localAdbMode by settingsViewModel.intState(SettingsKeys.LOCAL_ADB_WORKING_MODE)
-
-    val outputSaveDirectory by settingsViewModel.stringState(SettingsKeys.OUTPUT_SAVE_DIRECTORY)
-
-    val saveWholeOutput by settingsViewModel.booleanState(SettingsKeys.SAVE_WHOLE_OUTPUT)
-
-    val lastSavedFileUri by settingsViewModel.stringState(SettingsKeys.LAST_SAVED_FILE_URI)
-
-    val isFirstLaunch by settingsViewModel.booleanState(SettingsKeys.FIRST_LAUNCH)
-
-    val bookmarkSortType by settingsViewModel.intState(SettingsKeys.BOOKMARK_SORT_TYPE)
-
-    val commandSortType by settingsViewModel.intState(SettingsKeys.COMMAND_SORT_TYPE)
-
-    val terminalFontStyle by settingsViewModel.intState(SettingsKeys.TERMINAL_FONT_STYLE)
-
-    val isNewCommandsAvailable by settingsViewModel.booleanState(SettingsKeys.NEW_COMMANDS_AVAILABLE)
-
-    val lastLocalBackupTime by settingsViewModel.stringState(SettingsKeys.LAST_LOCAL_BACKUP_TIME)
-
-    val lastCloudBackupTime by settingsViewModel.stringState(SettingsKeys.LAST_CLOUD_BACKUP_TIME)
-
-    val lastLocalBackupType by settingsViewModel.stringState(SettingsKeys.LAST_LOCAL_BACKUP_TYPE)
-
-    val lastCloudBackupType by settingsViewModel.stringState(SettingsKeys.LAST_CLOUD_BACKUP_TYPE)
-
-    val selectedModelId by settingsViewModel.stringState(SettingsKeys.SELECTED_MODEL_ID)
-
-    val aiCacheEnabled by settingsViewModel.booleanState(SettingsKeys.AI_CACHE_ENABLED)
-
-    val aiCacheDays by settingsViewModel.intState(SettingsKeys.AI_CACHE_DAYS)
-
-    val autoScaleUI by settingsViewModel.booleanState(SettingsKeys.AUTO_SCALE_UI)
-
-    val screenDensityMultiplier by settingsViewModel.floatState(SettingsKeys.SCREEN_DENSITY_MULTIPLIER)
-
-    val fontSizeMultiplier by settingsViewModel.floatState(SettingsKeys.FONT_SIZE_MULTIPLIER)
-
-    val fontFamily by settingsViewModel.intState(SettingsKeys.FONT_FAMILY)
-
-    val autoBackupEnabled by settingsViewModel.booleanState(SettingsKeys.AUTO_BACKUP_ENABLED)
-    val autoBackupFolderName by settingsViewModel.stringState(SettingsKeys.AUTO_BACKUP_FOLDER_NAME)
-    val autoBackupTimeHour by settingsViewModel.intState(SettingsKeys.AUTO_BACKUP_TIME_HOUR)
-    val autoBackupTimeMinute by settingsViewModel.intState(SettingsKeys.AUTO_BACKUP_TIME_MINUTE)
-    val autoBackupFrequency by settingsViewModel.intState(SettingsKeys.AUTO_BACKUP_FREQUENCY)
-    val lastAutoBackupLocalSuccessTime by settingsViewModel.stringState(SettingsKeys.LAST_AUTO_BACKUP_LOCAL_SUCCESS_TIME)
-    val lastAutoBackupLocalError by settingsViewModel.stringState(SettingsKeys.LAST_AUTO_BACKUP_LOCAL_ERROR)
-    val lastAutoBackupCloudSuccessTime by settingsViewModel.stringState(SettingsKeys.LAST_AUTO_BACKUP_CLOUD_SUCCESS_TIME)
-    val lastAutoBackupCloudError by settingsViewModel.stringState(SettingsKeys.LAST_AUTO_BACKUP_CLOUD_ERROR)
+    // Density
+    val autoScaleUI by settingsViewModel.booleanState(SettingsKeys.AutoScaleUi)
+    val screenDensityMultiplier by settingsViewModel.floatState(SettingsKeys.ScreenDensityMultiplier)
+    val fontSizeMultiplier by settingsViewModel.floatState(SettingsKeys.FontSizeMultiplier)
 
     val scaledDensity = remember(
         autoScaleUI,
@@ -183,103 +131,34 @@ fun CompositionLocals(
         )
     }
 
-    val state =
-        remember(
-            autoUpdate,
-            themeMode,
-            seedColor,
-            paletteStyle,
-            isDynamicColor,
-            isHighContrastDarkMode,
-            isHapticEnabled,
-            githubReleaseType,
-            savedVersionCode,
-            enableDirectDownload,
-            localAdbMode,
-            smoothScrolling,
-            clearOutputConfirmation,
-            overrideBookmarksLimit,
-            disableSoftKeyboard,
-            outputSaveDirectory,
-            saveWholeOutput,
-            lastSavedFileUri,
-            isFirstLaunch,
-            bookmarkSortType,
-            commandSortType,
-            terminalFontStyle,
-            isNewCommandsAvailable,
-            lastLocalBackupTime,
-            lastCloudBackupTime,
-            lastLocalBackupType,
-            lastCloudBackupType,
-            selectedModelId,
-            aiCacheEnabled,
-            aiCacheDays,
-            autoScaleUI,
-            screenDensityMultiplier,
-            fontSizeMultiplier,
-            fontFamily,
-            autoBackupEnabled,
-            autoBackupFolderName,
-            autoBackupTimeHour,
-            autoBackupTimeMinute,
-            autoBackupFrequency,
-            lastAutoBackupLocalSuccessTime,
-            lastAutoBackupLocalError,
-            lastAutoBackupCloudSuccessTime,
-            lastAutoBackupCloudError
-        ) {
-            SettingsState(
-                isAutoUpdate = autoUpdate,
-                themeMode = themeMode,
-                isHighContrastDarkMode = isHighContrastDarkMode,
-                seedColor = seedColor,
-                paletteStyle = paletteStyle,
-                isDynamicColor = isDynamicColor,
-                isHapticEnabled = isHapticEnabled,
-                githubReleaseType = githubReleaseType,
-                savedVersionCode = savedVersionCode,
-                enableDirectDownload = enableDirectDownload,
-                localAdbMode = localAdbMode,
-                smoothScrolling = smoothScrolling,
-                clearOutputConfirmation = clearOutputConfirmation,
-                overrideBookmarksLimit = overrideBookmarksLimit,
-                disableSoftKeyboard = disableSoftKeyboard,
-                outputSaveDirectory = outputSaveDirectory,
-                saveWholeOutput = saveWholeOutput,
-                lastSavedFileUri = lastSavedFileUri,
-                isFirstLaunch = isFirstLaunch,
-                bookmarkSortType = bookmarkSortType,
-                commandsSortType = commandSortType,
-                terminalFontStyle = terminalFontStyle,
-                isNewCommandsAvailable = isNewCommandsAvailable,
-                lastLocalBackupTime = lastLocalBackupTime,
-                lastCloudBackupTime = lastCloudBackupTime,
-                lastLocalBackupType = lastLocalBackupType,
-                lastCloudBackupType = lastCloudBackupType,
-                selectedModelId = selectedModelId,
-                aiCacheEnabled = aiCacheEnabled,
-                aiCacheDays = aiCacheDays,
-                autoUiScale = autoScaleUI,
-                screenDensityMultiplier = screenDensityMultiplier,
-                fontSizeMultiplier = fontSizeMultiplier,
-                fontFamily = fontFamily,
-                autoBackupEnabled = autoBackupEnabled,
-                autoBackupFolderName = autoBackupFolderName,
-                autoBackupTimeHour = autoBackupTimeHour,
-                autoBackupTimeMinute = autoBackupTimeMinute,
-                autoBackupFrequency = autoBackupFrequency,
-                lastAutoBackupLocalSuccessTime = lastAutoBackupLocalSuccessTime,
-                lastAutoBackupLocalError = lastAutoBackupLocalError,
-                lastAutoBackupCloudSuccessTime = lastAutoBackupCloudSuccessTime,
-                lastAutoBackupCloudError = lastAutoBackupCloudError
-            )
-        }
+    // Battery saver
+    val autoDarkModeOnBatterySaver by settingsViewModel.booleanState(SettingsKeys.AutoDarkModeOnBatterySaver)
 
-    val isDarkTheme = when (themeMode) {
-        AppCompatDelegate.MODE_NIGHT_YES -> true
-        AppCompatDelegate.MODE_NIGHT_NO -> false
-        else -> isSystemInDarkTheme()
+    var isBatterySaverOn by remember {
+        val pm = context.getSystemService(Context.POWER_SERVICE) as PowerManager
+        mutableStateOf(pm.isPowerSaveMode)
+    }
+
+    DisposableEffect(context) {
+        val receiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                val pm = context.getSystemService(Context.POWER_SERVICE) as PowerManager
+                isBatterySaverOn = pm.isPowerSaveMode
+            }
+        }
+        val filter = IntentFilter(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED)
+        context.registerReceiver(receiver, filter)
+        onDispose { context.unregisterReceiver(receiver) }
+    }
+
+    // ── Derived values ──
+    val isDarkTheme = when {
+        autoDarkModeOnBatterySaver && isBatterySaverOn -> true
+        else -> when (themeMode) {
+            AppCompatDelegate.MODE_NIGHT_YES -> true
+            AppCompatDelegate.MODE_NIGHT_NO -> false
+            else -> isSystemInDarkTheme()
+        }
     }
 
     val tonalPalette = listOf(
@@ -321,8 +200,11 @@ fun CompositionLocals(
         }
     }
 
+    val settingsState = remember(settingsViewModel) { SettingsState(settingsViewModel) }
+    val snackbarController = remember { SnackBarController() }
+
     CompositionLocalProvider(
-        LocalSettings provides state,
+        LocalSettings provides settingsState,
         LocalDensity provides scaledDensity,
         LocalWeakHaptic provides weakHaptic,
         LocalStrongHaptic provides strongHaptic,
@@ -330,7 +212,8 @@ fun CompositionLocals(
         LocalDarkMode provides isDarkTheme,
         LocalTonalPalette provides tonalPalette,
         LocalPaletteStyle provides paletteStyle,
-        LocalDialogManager provides dialogViewModel
+        LocalDialogManager provides dialogViewModel,
+        LocalSnackBarController provides snackbarController
     ) {
         content()
     }
@@ -349,9 +232,4 @@ private fun SettingsViewModel.intState(key: SettingsKeys<Int>): State<Int> {
 @Composable
 private fun SettingsViewModel.floatState(key: SettingsKeys<Float>): State<Float> {
     return getFloat(key).collectAsState(initial = key.default)
-}
-
-@Composable
-private fun SettingsViewModel.stringState(key: SettingsKeys<String>): State<String> {
-    return getString(key).collectAsState(initial = key.default)
 }

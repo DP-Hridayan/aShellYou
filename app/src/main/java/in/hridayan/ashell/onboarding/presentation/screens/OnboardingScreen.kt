@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+﻿@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
 package `in`.hridayan.ashell.onboarding.presentation.screens
 
@@ -130,7 +130,7 @@ fun OnboardingScreen(settingsViewModel: SettingsViewModel = hiltViewModel()) {
                                 navController.navigate(NavRoutes.HomeScreen) {
                                     popUpTo(NavRoutes.OnboardingScreen) { inclusive = true }
                                 }
-                                settingsViewModel.setBoolean(SettingsKeys.FIRST_LAUNCH, false)
+                                settingsViewModel.setBoolean(SettingsKeys.FirstLaunch, false)
                             }
                         }
                     },

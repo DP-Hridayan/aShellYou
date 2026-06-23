@@ -115,12 +115,12 @@ fun CommandExamplesScreen(
     var fabMenuExpanded by rememberSaveable { mutableStateOf(false) }
     val dialogManager = LocalDialogManager.current
     val focusRequester = FocusRequester()
-    val sortType = LocalSettings.current.commandsSortType
+    val sortType = LocalSettings.current[SettingsKeys.CommandSortType]
     val commands by viewModel.searchedCommands.collectAsState()
     val filteredLabels by viewModel.filteredLabels.collectAsState()
     val states by viewModel.states.collectAsState()
     val isKeyboardVisible = isKeyboardVisible()
-    val isNewCommandsAvailable = LocalSettings.current.isNewCommandsAvailable
+    val isNewCommandsAvailable = LocalSettings.current[SettingsKeys.NewCommandsAvailable]
 
     var showFilterCommandBottomSheet by rememberSaveable { mutableStateOf(false) }
     val showNoResultsUi =
@@ -185,7 +185,7 @@ fun CommandExamplesScreen(
                                     dialogManager.show(DialogKey.CommandExamples.LoadDefaultCommands)
                                     viewModel.loadDefaultCommands()
                                     settingsViewModel.setBoolean(
-                                        SettingsKeys.NEW_COMMANDS_AVAILABLE,
+                                        SettingsKeys.NewCommandsAvailable,
                                         false
                                     )
                                 }

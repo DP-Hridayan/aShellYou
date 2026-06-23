@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.settings.presentation.viewmodel
+﻿package `in`.hridayan.ashell.settings.presentation.viewmodel
 
 import android.content.Context
 import androidx.compose.runtime.getValue
@@ -14,6 +14,7 @@ import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.settings.data.worker.BackupScheduler
 import `in`.hridayan.ashell.settings.domain.model.BackupType
 import `in`.hridayan.ashell.settings.domain.repository.GoogleAuthRepository
 import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
@@ -21,18 +22,19 @@ import `in`.hridayan.ashell.settings.domain.usecase.ToggleSettingUseCase
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.provider.SettingsProvider
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import `in`.hridayan.ashell.settings.data.worker.BackupScheduler
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.milliseconds
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
@@ -53,7 +55,7 @@ class SettingsViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            isFirstLaunch = getBoolean(SettingsKeys.FIRST_LAUNCH).firstOrNull()
+            isFirstLaunch = getBoolean(SettingsKeys.FirstLaunch).firstOrNull()
         }
     }
 
@@ -115,92 +117,92 @@ class SettingsViewModel @Inject constructor(
     fun onItemClicked(key: SettingsKeys<*>) {
         viewModelScope.launch {
             when (key) {
-                SettingsKeys.LOOK_AND_FEEL -> _uiEvent.emit(
+                SettingsKeys.LookAndFeel -> _uiEvent.emit(
                     SettingsUiEvent.Navigate(NavRoutes.LookAndFeelScreen())
                 )
 
-                SettingsKeys.AUTO_UPDATE -> _uiEvent.emit(
+                SettingsKeys.AutoUpdate -> _uiEvent.emit(
                     SettingsUiEvent.Navigate(NavRoutes.AutoUpdateScreen())
                 )
 
-                SettingsKeys.BEHAVIOR -> _uiEvent.emit(
+                SettingsKeys.Behavior -> _uiEvent.emit(
                     SettingsUiEvent.Navigate(NavRoutes.BehaviorScreen())
                 )
 
-                SettingsKeys.QUICK_SETTINGS_TILES -> _uiEvent.emit(
+                SettingsKeys.QuickSettingsTiles -> _uiEvent.emit(
                     SettingsUiEvent.Navigate(NavRoutes.TileDashboardScreen)
                 )
 
-                SettingsKeys.BACKUP_AND_RESTORE -> _uiEvent.emit(
+                SettingsKeys.BackupAndRestore -> _uiEvent.emit(
                     SettingsUiEvent.Navigate(NavRoutes.BackupAndRestoreScreen())
                 )
 
-                SettingsKeys.ABOUT -> _uiEvent.emit(
+                SettingsKeys.About -> _uiEvent.emit(
                     SettingsUiEvent.Navigate(NavRoutes.AboutScreen())
                 )
 
-                SettingsKeys.CHANGELOGS -> _uiEvent.emit(
+                SettingsKeys.Changelogs -> _uiEvent.emit(
                     SettingsUiEvent.Navigate(NavRoutes.ChangelogScreen)
                 )
 
-                SettingsKeys.TRANSLATORS -> _uiEvent.emit(
+                SettingsKeys.Translators -> _uiEvent.emit(
                     SettingsUiEvent.Navigate(NavRoutes.TranslatorsScreen)
                 )
 
-                SettingsKeys.CONTRIBUTORS -> _uiEvent.emit(
+                SettingsKeys.Contributors -> _uiEvent.emit(
                     SettingsUiEvent.Navigate(NavRoutes.ContributorsScreen)
                 )
 
-                SettingsKeys.CRASH_HISTORY -> _uiEvent.emit(
+                SettingsKeys.CrashHistory -> _uiEvent.emit(
                     SettingsUiEvent.Navigate(NavRoutes.CrashHistoryScreen)
                 )
 
-                SettingsKeys.REPORT -> _uiEvent.emit(
+                SettingsKeys.Report -> _uiEvent.emit(
                     SettingsUiEvent.OpenUrl(UrlConst.URL_GITHUB_ISSUE_REPORT)
                 )
 
-                SettingsKeys.FEATURE_REQUEST -> _uiEvent.emit(
+                SettingsKeys.FeatureRequest -> _uiEvent.emit(
                     SettingsUiEvent.OpenUrl(UrlConst.URL_GITHUB_ISSUE_FEATURE_REQUEST)
                 )
 
-                SettingsKeys.LICENSES -> _uiEvent.emit(
+                SettingsKeys.Licenses -> _uiEvent.emit(
                     SettingsUiEvent.Navigate(NavRoutes.LicensesScreen)
                 )
 
-                SettingsKeys.GITHUB -> _uiEvent.emit(
+                SettingsKeys.Github -> _uiEvent.emit(
                     SettingsUiEvent.OpenUrl(UrlConst.URL_GITHUB_REPO)
                 )
 
-                SettingsKeys.TELEGRAM -> _uiEvent.emit(
+                SettingsKeys.Telegram -> _uiEvent.emit(
                     SettingsUiEvent.OpenUrl(UrlConst.URL_TELEGRAM_CHANNEL)
                 )
 
-                SettingsKeys.LANGUAGE -> _uiEvent.emit(
+                SettingsKeys.Language -> _uiEvent.emit(
                     SettingsUiEvent.Navigate(NavRoutes.LanguagesScreen)
                 )
 
-                SettingsKeys.PALETTE_STYLE -> _uiEvent.emit(
+                SettingsKeys.PaletteStyle -> _uiEvent.emit(
                     SettingsUiEvent.ShowDialog(DialogKey.Settings.PaletteStyle)
                 )
 
-                SettingsKeys.DARK_THEME -> _uiEvent.emit(
+                SettingsKeys.DarkTheme -> _uiEvent.emit(
                     SettingsUiEvent.Navigate(NavRoutes.DarkThemeScreen())
                 )
 
-                SettingsKeys.CUSTOM_UI_SCALE -> _uiEvent.emit(
+                SettingsKeys.CustomUiScale -> _uiEvent.emit(
                     SettingsUiEvent.Navigate(NavRoutes.UiScaleScreen)
                 )
 
-                SettingsKeys.FONT_FAMILY -> _uiEvent.emit(
+                SettingsKeys.FontFamily -> _uiEvent.emit(
                     SettingsUiEvent.ShowFontStylesBottomSheet
                 )
 
-                SettingsKeys.RESET_APP_SETTINGS -> _uiEvent.emit(
+                SettingsKeys.ResetAppSettings -> _uiEvent.emit(
                     SettingsUiEvent.ShowDialog(DialogKey.Settings.ResetSettings)
                 )
 
                 // Backup options: show destination dialog if signed-in AND cloud is available
-                SettingsKeys.BACKUP_APP_SETTINGS -> {
+                SettingsKeys.BackupAppSettings -> {
                     if (googleAuthRepository.isAvailable && googleAuthRepository.googleUserState.value.isSignedIn) {
                         _uiEvent.emit(
                             SettingsUiEvent.ShowDialog(
@@ -214,7 +216,7 @@ class SettingsViewModel @Inject constructor(
                     }
                 }
 
-                SettingsKeys.BACKUP_APP_DATABASE -> {
+                SettingsKeys.BackupAppDatabase -> {
                     if (googleAuthRepository.isAvailable && googleAuthRepository.googleUserState.value.isSignedIn) {
                         _uiEvent.emit(
                             SettingsUiEvent.ShowDialog(
@@ -228,7 +230,7 @@ class SettingsViewModel @Inject constructor(
                     }
                 }
 
-                SettingsKeys.BACKUP_APP_DATA -> {
+                SettingsKeys.BackupAppData -> {
                     if (googleAuthRepository.isAvailable && googleAuthRepository.googleUserState.value.isSignedIn) {
                         _uiEvent.emit(
                             SettingsUiEvent.ShowDialog(
@@ -242,12 +244,12 @@ class SettingsViewModel @Inject constructor(
                     }
                 }
 
-                SettingsKeys.BACKUP_SCHEDULER -> _uiEvent.emit(
+                SettingsKeys.BackupScheduler -> _uiEvent.emit(
                     SettingsUiEvent.Navigate(NavRoutes.BackupSchedulerScreen)
                 )
 
                 // Restore: show source dialog if signed in AND cloud is available
-                SettingsKeys.RESTORE_APP_DATA -> {
+                SettingsKeys.RestoreAppData -> {
                     if (googleAuthRepository.isAvailable && googleAuthRepository.googleUserState.value.isSignedIn) {
                         _uiEvent.emit(
                             SettingsUiEvent.ShowDialog(DialogKey.Settings.RestoreSource)
@@ -257,31 +259,31 @@ class SettingsViewModel @Inject constructor(
                     }
                 }
 
-                SettingsKeys.OUTPUT_SAVE_DIRECTORY -> _uiEvent.emit(
+                SettingsKeys.OutputSaveDirectory -> _uiEvent.emit(
                     SettingsUiEvent.ShowDialog(DialogKey.Settings.ConfigureSaveDir)
                 )
 
-                SettingsKeys.AI_MODEL_MANAGER -> _uiEvent.emit(
+                SettingsKeys.AiModelManager -> _uiEvent.emit(
                     SettingsUiEvent.Navigate(NavRoutes.AiModelManagerScreen())
                 )
 
-                SettingsKeys.AI_MODELS -> _uiEvent.emit(
+                SettingsKeys.AiModels -> _uiEvent.emit(
                     SettingsUiEvent.Navigate(NavRoutes.ModelsScreen)
                 )
 
-                SettingsKeys.AI_CACHE_DAYS -> _uiEvent.emit(
+                SettingsKeys.AiCacheDays -> _uiEvent.emit(
                     SettingsUiEvent.ShowDialog(DialogKey.Settings.AiCacheDays)
                 )
 
-                SettingsKeys.AI_CACHE_CLEAR -> _uiEvent.emit(
+                SettingsKeys.AiCacheClear -> _uiEvent.emit(
                     SettingsUiEvent.ShowDialog(DialogKey.Settings.AiCacheClearConfirmation)
                 )
 
-                SettingsKeys.AUTO_BACKUP_TIME -> _uiEvent.emit(
+                SettingsKeys.AutoBackupTime -> _uiEvent.emit(
                     SettingsUiEvent.ShowDialog(DialogKey.Settings.AutoBackupTimePicker)
                 )
 
-                SettingsKeys.AUTO_BACKUP_FOLDER -> _uiEvent.emit(
+                SettingsKeys.AutoBackupFolder -> _uiEvent.emit(
                     SettingsUiEvent.RequestAutoBackupFolderPicker
                 )
 
@@ -296,17 +298,17 @@ class SettingsViewModel @Inject constructor(
      */
     fun rescheduleAutoBackup() {
         viewModelScope.launch(Dispatchers.IO) {
-            val enabled = settingsRepository.getBoolean(SettingsKeys.AUTO_BACKUP_ENABLED)
+            val enabled = settingsRepository.getBoolean(SettingsKeys.AutoBackupEnabled)
                 .firstOrNull() ?: false
             if (!enabled) {
                 BackupScheduler.cancel(context)
                 return@launch
             }
-            val hour = settingsRepository.getInt(SettingsKeys.AUTO_BACKUP_TIME_HOUR)
+            val hour = settingsRepository.getInt(SettingsKeys.AutoBackupTimeHour)
                 .firstOrNull() ?: 2
-            val minute = settingsRepository.getInt(SettingsKeys.AUTO_BACKUP_TIME_MINUTE)
+            val minute = settingsRepository.getInt(SettingsKeys.AutoBackupTimeMinute)
                 .firstOrNull() ?: 0
-            val frequency = settingsRepository.getInt(SettingsKeys.AUTO_BACKUP_FREQUENCY)
+            val frequency = settingsRepository.getInt(SettingsKeys.AutoBackupFrequency)
                 .firstOrNull() ?: 0
             BackupScheduler.schedule(context, hour, minute, frequency)
         }
@@ -318,7 +320,7 @@ class SettingsViewModel @Inject constructor(
         BackupScheduler.runNow(context)
         // Reset after a delay — WorkManager doesn't give instant completion callbacks easily
         viewModelScope.launch {
-            kotlinx.coroutines.delay(3000)
+            delay(3000.milliseconds)
             _isBackingUp.value = false
         }
     }

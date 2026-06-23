@@ -1,6 +1,9 @@
 package `in`.hridayan.settingsdsl.resolver
 
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocal
+import androidx.compose.runtime.State
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -13,6 +16,7 @@ import `in`.hridayan.settingsdsl.model.SettingsKey
 import `in`.hridayan.settingsdsl.model.SettingsPage
 import `in`.hridayan.settingsdsl.ui.card.CustomCardShape
 import `in`.hridayan.settingsdsl.ui.card.cardShapeForPosition
+import `in`.hridayan.settingsdsl.ui.item.settingsContent
 
 /**
  * Resolves all groups in this [SettingsPage] into display-ready [ResolvedGroup]s.
@@ -21,8 +25,8 @@ import `in`.hridayan.settingsdsl.ui.card.cardShapeForPosition
  * All dynamic overrides are applied here. Visibility filtering and card shape computation
  * happen automatically.
  *
- * This function is `@Composable` — it reads any [androidx.compose.runtime.State] or
- * [androidx.compose.runtime.CompositionLocal] you reference in your override lambdas.
+ * This function is `@Composable` — it reads any [State] or
+ * [CompositionLocal] you reference in your override lambdas.
  * Recomposition is triggered automatically when those states change.
  *
  * @param titleOverrides Map from [SettingsKey<*>] to a `@Composable` lambda that returns a

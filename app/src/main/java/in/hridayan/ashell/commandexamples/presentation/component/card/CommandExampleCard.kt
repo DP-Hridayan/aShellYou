@@ -82,10 +82,11 @@ import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.card.CollapsibleCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
-import `in`.hridayan.ashell.core.presentation.utils.SnackBarUtils
+import `in`.hridayan.ashell.core.common.LocalSnackBarController
 import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.navigateBack
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
 import kotlinx.coroutines.launch
 import kotlin.math.abs
@@ -106,6 +107,7 @@ fun CommandExampleCard(
     val weakHaptic = LocalWeakHaptic.current
     val screenDensity = LocalDensity.current
     val dialogManager = LocalDialogManager.current
+    val snackBarController = LocalSnackBarController.current
     val coroutineScope = rememberCoroutineScope()
     val prevScreen = navController.previousBackStackEntry
     val shellViewModel: ShellViewModel =
@@ -136,7 +138,7 @@ fun CommandExampleCard(
 
     val onDelete: () -> Unit = {
         isDeleted = true
-        SnackBarUtils.showSnackBarWithAction(
+        snackBarController.show(
             message = res.getString(R.string.item_deleted),
             actionText = res.getString(R.string.undo),
             durationMillis = 2500,
@@ -404,7 +406,7 @@ fun CommandExampleCard(
                                 TextFieldValue(text = command)
                             )
                             shellViewModel.updateTextFieldSelection()
-                            navController.popBackStack()
+                            navController.navigateBack()
                             commandExamplesViewModel.incrementUseCount(id)
                         })
                     }

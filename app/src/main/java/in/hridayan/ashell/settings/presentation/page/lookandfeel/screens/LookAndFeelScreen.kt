@@ -15,6 +15,7 @@ import androidx.compose.material.icons.rounded.LightMode
 import androidx.compose.material.icons.twotone.DarkMode
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -61,11 +62,13 @@ fun LookAndFeelScreen(
     val context = LocalContext.current
     val controller = settingsViewModel.rememberController()
     val currentPaletteStyle = LocalPaletteStyle.current
-    val themeMode = LocalSettings.current.themeMode
+    val settings = LocalSettings.current
+    val themeMode = settings[SettingsKeys.ThemeMode]
     val isDarkMode = LocalDarkMode.current
-    val hapticsEnabled = LocalSettings.current.isHapticEnabled
-    val isDynamicColorEnabled = LocalSettings.current.isDynamicColor
-    val autoScaleUI = LocalSettings.current.autoUiScale
+    val autoDarkModeOnBatterySaver = settings[SettingsKeys.AutoDarkModeOnBatterySaver]
+    val hapticsEnabled = settings[SettingsKeys.HapticsAndVibration]
+    val isDynamicColorEnabled = settings[SettingsKeys.DynamicColors]
+    val autoScaleUI = settings[SettingsKeys.AutoScaleUi]
 
     var showFontStyleBottomSheet by remember { mutableStateOf(false) }
 
@@ -98,12 +101,14 @@ fun LookAndFeelScreen(
     }
 
     val listState = rememberLazyListState()
+    val topAppBarState = rememberTopAppBarState()
     val highlightedKey = rememberHighlightState(
         highlightKeyName = highlightKey,
         page = settingsViewModel.lookAndFeelPage,
         listState = listState,
         headerItemCount = 2,
         keyResolver = { SettingsKeys.valueOfOrNull(it) },
+        topAppBarState = topAppBarState,
     )
 
     val page = remember { settingsViewModel.lookAndFeelPage }
@@ -111,31 +116,33 @@ fun LookAndFeelScreen(
     val resolvedGroups = page.resolveAll(
         highlightedKey = highlightedKey,
         enabledOverrides = mapOf(
-            SettingsKeys.CUSTOM_UI_SCALE to { !autoScaleUI }
+            SettingsKeys.CustomUiScale to { !autoScaleUI }
         ),
         descriptionOverrides = mapOf(
-            SettingsKeys.PALETTE_STYLE to { stringResource(currentPaletteStyle.displayNameResId) },
-            SettingsKeys.DARK_THEME to {
-                when (themeMode) {
-                    AppCompatDelegate.MODE_NIGHT_YES -> stringResource(R.string.on)
-                    AppCompatDelegate.MODE_NIGHT_NO -> stringResource(R.string.off)
-                    AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> stringResource(R.string.system)
+            SettingsKeys.PaletteStyle to { stringResource(currentPaletteStyle.displayNameResId) },
+            SettingsKeys.DarkTheme to {
+                when {
+                    autoDarkModeOnBatterySaver && isDarkMode -> stringResource(R.string.on)
+                    themeMode == AppCompatDelegate.MODE_NIGHT_YES -> stringResource(R.string.on)
+                    themeMode == AppCompatDelegate.MODE_NIGHT_NO -> stringResource(R.string.off)
+                    themeMode == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> stringResource(R.string.system)
                     else -> ""
                 }
             }
         ),
         iconOverrides = mapOf(
-            SettingsKeys.DARK_THEME to {
+            SettingsKeys.DarkTheme to {
                 if (isDarkMode) Icons.TwoTone.DarkMode else Icons.Rounded.LightMode
             }
         ),
         visibilityOverrides = mapOf(
-            SettingsKeys.PALETTE_STYLE to { !isDynamicColorEnabled }
+            SettingsKeys.PaletteStyle to { !isDynamicColorEnabled }
         ))
 
     SettingsScaffold(
         modifier = modifier,
         listState = listState,
+        topAppBarState = topAppBarState,
         topBarTitle = stringResource(R.string.look_and_feel),
         content = { innerPadding, topBarScrollBehavior ->
             LazyColumn(

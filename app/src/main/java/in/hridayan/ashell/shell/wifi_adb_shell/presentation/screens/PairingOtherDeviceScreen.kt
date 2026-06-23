@@ -79,6 +79,7 @@ import `in`.hridayan.ashell.core.utils.registerNetworkCallback
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
 import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.navigateBack
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
@@ -210,7 +211,7 @@ fun PairingOtherDeviceScreen(
 
     BackHandler {
         coroutineScope.launch(Dispatchers.Default) { viewModel.stopQrPairDiscovery() }
-        navController.popBackStack()
+        navController.navigateBack()
     }
 
     LaunchedEffect(lifecycleOwner) {

@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.commandexamples.presentation.component.dialog
+﻿package `in`.hridayan.ashell.commandexamples.presentation.component.dialog
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -48,8 +48,8 @@ fun CommandsSortDialog(
 
     val sortOptions = RadioGroupOptionsProvider.commandSortOptions
     val selected =
-        settingsViewModel.getInt(key = SettingsKeys.COMMAND_SORT_TYPE)
-            .collectAsState(initial = SettingsKeys.COMMAND_SORT_TYPE.default)
+        settingsViewModel.getInt(key = SettingsKeys.CommandSortType)
+            .collectAsState(initial = SettingsKeys.CommandSortType.default)
     var tempSelected by remember { mutableIntStateOf(selected.value) }
 
     LaunchedEffect(selected.value) {
@@ -137,7 +137,7 @@ fun CommandsSortDialog(
                 text = stringResource(R.string.sort),
                 onClick = {
                     settingsViewModel.setInt(
-                        key = SettingsKeys.COMMAND_SORT_TYPE,
+                        key = SettingsKeys.CommandSortType,
                         value = tempSelected
                     )
                     onDismiss()

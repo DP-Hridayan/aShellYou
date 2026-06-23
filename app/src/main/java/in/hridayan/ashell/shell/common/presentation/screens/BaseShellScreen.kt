@@ -72,9 +72,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SmallFloatingActionButton
-import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -124,6 +121,7 @@ import `in`.hridayan.ashell.ai.presentation.viewmodel.AiAnalysisViewModel
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSettings
+import `in`.hridayan.ashell.core.common.LocalSnackBarController
 import `in`.hridayan.ashell.core.domain.model.SaveProgress
 import `in`.hridayan.ashell.core.domain.model.ScrollDirection
 import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
@@ -167,6 +165,7 @@ import kotlinx.coroutines.android.awaitFrame
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
+import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
 fun BaseShellScreen(
@@ -183,15 +182,16 @@ fun BaseShellScreen(
     val res = LocalResources.current
     val navController = LocalNavController.current
     val coroutineScope = rememberCoroutineScope()
-    val snackBarHostState = remember { SnackbarHostState() }
+    val snackBarController = LocalSnackBarController.current
     val listState = rememberLazyListState()
     val scrollDirection = rememberScrollDirection(listState)
     val states by shellViewModel.states.collectAsState()
     val isKeyboardVisible = isKeyboardVisible().value
     val searchOutputResult by shellViewModel.filteredOutput.collectAsState()
-    val disableSoftKeyboard = LocalSettings.current.disableSoftKeyboard
+    val settings = LocalSettings.current
+    val disableSoftKeyboard = settings[SettingsKeys.DisableSoftKeyboard]
     val bookmarkCount = bookmarkViewModel.getBookmarkCount.collectAsState(initial = 0)
-    val lastSavedFileUri = LocalSettings.current.lastSavedFileUri
+    val lastSavedFileUri = settings[SettingsKeys.LastSavedFileUri]
     val textFieldFocusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
     var historyMenuExpanded by rememberSaveable { mutableStateOf(false) }
@@ -199,7 +199,6 @@ fun BaseShellScreen(
     var restoredScrollIndex by rememberSaveable { mutableIntStateOf(-1) }
     val dialogManager = LocalDialogManager.current
 
-    // ── AI Analysis ─────────────────────────────────────────────────────
     val aiViewModel: AiAnalysisViewModel = hiltViewModel()
     val aiUiState by aiViewModel.uiState.collectAsState()
     val showAiSheet by aiViewModel.showBottomSheet.collectAsState()
@@ -305,7 +304,6 @@ fun BaseShellScreen(
 
     Scaffold(
         modifier = modifier,
-        snackbarHost = { SnackbarHost(hostState = snackBarHostState) },
         floatingActionButton = {
             // Hide FABs in fullscreen mode
             AnimatedVisibility(
@@ -330,7 +328,7 @@ fun BaseShellScreen(
                 // Hide after 3 seconds of no scrolling
                 LaunchedEffect(listState.isScrollInProgress) {
                     if (!listState.isScrollInProgress && showScrollButton) {
-                        delay(3000)
+                        delay(3000.milliseconds)
                         if (!listState.isScrollInProgress) {
                             showScrollButton = false
                         }
@@ -482,7 +480,7 @@ fun BaseShellScreen(
                                         R.drawable.ic_add_bookmark
                                     )
                                 val overrideBookmarksLimit =
-                                    LocalSettings.current.overrideBookmarksLimit
+                                    settings[SettingsKeys.OverrideMaximumBookmarksLimit]
 
                                 ExposedDropdownMenuBox(
                                     modifier = Modifier.weight(1f),
@@ -536,12 +534,9 @@ fun BaseShellScreen(
                                                             )
                                                             else if (bookmarkCount.value >= 25 && !overrideBookmarksLimit) {
                                                                 hideKeyboard(context)
-                                                                coroutineScope.launch {
-                                                                    snackBarHostState.showSnackbar(
-                                                                        message = res.getString(R.string.bookmark_limit_reached),
-                                                                        duration = SnackbarDuration.Short
-                                                                    )
-                                                                }
+                                                                snackBarController.show(
+                                                                    message = res.getString(R.string.bookmark_limit_reached)
+                                                                )
                                                             } else bookmarkViewModel.addBookmark(
                                                                 states.commandField.fieldValue.text
                                                             )
@@ -677,7 +672,6 @@ fun BaseShellScreen(
         else -> dialogManager.dismiss()
     }
 
-    // ── AI Analysis Bottom Sheet ─────────────────────────────────────────
     if (showAiSheet) {
         AiAnalysisBottomSheet(
             uiState = aiUiState,
@@ -776,7 +770,7 @@ private fun OutputCard(
     shellViewModel: ShellViewModel = hiltViewModel()
 ) {
     val isDarkMode = LocalDarkMode.current
-    val terminalFontStyle = LocalSettings.current.terminalFontStyle
+    val terminalFontStyle = LocalSettings.current[SettingsKeys.TerminalFontStyle]
 
     val commandTextStyle =
         if (terminalFontStyle == TerminalFontStyle.MONOSPACE) MaterialTheme.typography.titleSmallEmphasized.copy(
@@ -857,7 +851,7 @@ private fun OutputCard(
                     // Cancel any existing resume job and start new 3s timer
                     autoScrollResumeJob?.cancel()
                     autoScrollResumeJob = outputCardScope.launch {
-                        delay(3000)
+                        delay(3000.milliseconds)
                         userScrolledAway = false
                     }
                 }
@@ -884,7 +878,7 @@ private fun OutputCard(
             autoScrollResumeJob?.cancel()
             try {
                 // Delay slightly to let UI settle, then scroll to bottom
-                delay(50)
+                delay(50.milliseconds)
                 listState.animateScrollToItem(combinedOutput.value.lastIndex)
             } catch (_: Exception) {
                 // Ignore scroll cancellation
@@ -1068,7 +1062,7 @@ private fun FullscreenOutputOverlay(
     sharedTransitionScope: SharedTransitionScope,
     animatedContentScope: AnimatedContentScope
 ) {
-    val terminalFontStyle = LocalSettings.current.terminalFontStyle
+    val terminalFontStyle = LocalSettings.current[SettingsKeys.TerminalFontStyle]
     val fullscreenListState =
         rememberLazyListState(initialFirstVisibleItemIndex = initialScrollIndex)
 
@@ -1149,7 +1143,7 @@ private fun FullscreenOutputOverlay(
                     // Cancel any existing resume job and start new 3s timer
                     autoScrollJob?.cancel()
                     autoScrollJob = coroutineScope.launch {
-                        delay(3000)
+                        delay(3000.milliseconds)
                         userScrolledAway = false
                     }
                 }
@@ -1198,7 +1192,7 @@ private fun FullscreenOutputOverlay(
                 containerColor = containerColor,
                 topBar = {
                     val coroutineScope = rememberCoroutineScope()
-                    val smoothScroll = LocalSettings.current.smoothScrolling
+                    val smoothScroll = LocalSettings.current[SettingsKeys.SmoothScrolling]
 
                     TopAppBar(
                         title = {
@@ -1369,7 +1363,7 @@ private fun ScrollFAB(
     scrollDirection: ScrollDirection,
 ) {
     val coroutineScope = rememberCoroutineScope()
-    val smoothScroll = LocalSettings.current.smoothScrolling
+    val smoothScroll = LocalSettings.current[SettingsKeys.SmoothScrolling]
 
     val icon = when (scrollDirection) {
         ScrollDirection.UP -> Icons.Rounded.KeyboardDoubleArrowUp
@@ -1481,8 +1475,8 @@ private fun BottomExtendedFAB(
     val res = LocalResources.current
     val activity = context.findActivity()
     val states by shellViewModel.states.collectAsState()
-    val savePath = LocalSettings.current.outputSaveDirectory.toUri()
-    val saveWholeOutput = LocalSettings.current.saveWholeOutput
+    val savePath = LocalSettings.current[SettingsKeys.OutputSaveDirectory].toUri()
+    val saveWholeOutput = LocalSettings.current[SettingsKeys.SaveWholeOutput]
 
     var lastScrollOffset by remember { mutableIntStateOf(0) }
 
@@ -1512,7 +1506,7 @@ private fun BottomExtendedFAB(
                 onComplete = { success, uri ->
                     if (success && uri != null) {
                         settingsViewModel.setString(
-                            key = SettingsKeys.LAST_SAVED_FILE_URI,
+                            key = SettingsKeys.LastSavedFileUri,
                             value = uri.toString()
                         )
                     }

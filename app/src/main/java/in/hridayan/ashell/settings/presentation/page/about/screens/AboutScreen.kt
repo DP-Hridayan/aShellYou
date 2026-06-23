@@ -24,6 +24,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -77,7 +78,7 @@ fun AboutScreen(
 ) {
     val navController = LocalNavController.current
     val context = LocalContext.current
-    val hapticsEnabled = LocalSettings.current.isHapticEnabled
+    val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
     val controller = settingsViewModel.rememberController()
     val (angle, scale) = syncedRotationAndScale()
 
@@ -92,12 +93,14 @@ fun AboutScreen(
     }
 
     val listState = rememberLazyListState()
+    val topAppBarState = rememberTopAppBarState()
     val highlightedKey = rememberHighlightState(
         highlightKeyName = highlightKey,
         page = settingsViewModel.aboutPage,
         listState = listState,
         headerItemCount = 2,
         keyResolver = { SettingsKeys.valueOfOrNull(it) },
+        topAppBarState = topAppBarState,
     )
 
     val page = remember { settingsViewModel.aboutPage }
@@ -106,6 +109,7 @@ fun AboutScreen(
     SettingsScaffold(
         modifier = modifier,
         listState = listState,
+        topAppBarState = topAppBarState,
         topBarTitle = stringResource(R.string.about),
         content = { innerPadding, topBarScrollBehavior ->
             LazyColumn(
@@ -132,8 +136,11 @@ fun AboutScreen(
                             Spacer(
                                 modifier = Modifier
                                     .requiredSize(120.dp)
-                                    .graphicsLayer { rotationZ = angle }
-                                    .scale(scale)
+                                    .graphicsLayer {
+                                        rotationZ = angle()
+                                        scaleX = scale()
+                                        scaleY = scale()
+                                    }
                                     .clip(MaterialShapes.Cookie9Sided.toShape())
                                     .clickable(onClick = withHaptic {})
                                     .background(MaterialTheme.colorScheme.primaryContainer)

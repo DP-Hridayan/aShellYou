@@ -17,11 +17,8 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.net.ConnectException
 import javax.inject.Inject
-import kotlin.apply
-import kotlin.collections.forEach
 import kotlin.coroutines.cancellation.CancellationException
-import kotlin.io.use
-import kotlin.text.endsWith
+import kotlin.time.Duration.Companion.milliseconds
 
 class DownloadRepositoryImpl @Inject constructor(
     private val context: Context
@@ -129,7 +126,7 @@ class DownloadRepositoryImpl @Inject constructor(
                     }
                 }
             }
-            delay(100L)
+            delay(100L.milliseconds)
         }
     }
 }

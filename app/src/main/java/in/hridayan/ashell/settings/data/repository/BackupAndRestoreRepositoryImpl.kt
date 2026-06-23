@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.settings.data.repository
+﻿package `in`.hridayan.ashell.settings.data.repository
 
 import android.content.Context
 import android.net.Uri
@@ -47,12 +47,12 @@ class BackupAndRestoreRepositoryImpl @Inject constructor(
                 }
 
                 settingsRepository.setString(
-                    SettingsKeys.LAST_LOCAL_BACKUP_TIME,
+                    SettingsKeys.LastLocalBackupTime,
                     backupData.backupTime
                 )
 
                 settingsRepository.setString(
-                    SettingsKeys.LAST_LOCAL_BACKUP_TYPE,
+                    SettingsKeys.LastLocalBackupType,
                     backupData.backupType
                 )
 
@@ -180,7 +180,7 @@ class BackupAndRestoreRepositoryImpl @Inject constructor(
         settingsRepository.resetAndRestoreDefaults()
 
         settings.forEach { (key, value) ->
-            if (key == SettingsKeys.SAVED_VERSION_CODE.name) return@forEach
+            if (key == SettingsKeys.SavedVersionCode.name) return@forEach
 
             val settingKey = SettingsKeys.entries.find { it.name == key } ?: return@forEach
 

@@ -35,6 +35,7 @@ import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
+import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.BookmarkViewModel
 
 @Composable
@@ -46,7 +47,7 @@ fun BookmarkDialog(
     onDismiss: () -> Unit,
     bookmarkViewModel: BookmarkViewModel = hiltViewModel(),
 ) {
-    val sortType = LocalSettings.current.bookmarkSortType
+    val sortType = LocalSettings.current[SettingsKeys.BookmarkSortType]
     val bookmarks = bookmarkViewModel.getAllBookmarks(sortType).value
     val bookmarkCount by bookmarkViewModel.getBookmarkCount.collectAsState(initial = 0)
 

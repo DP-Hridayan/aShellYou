@@ -8,8 +8,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
@@ -17,7 +19,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import `in`.hridayan.ashell.core.common.CompositionLocals
 import `in`.hridayan.ashell.core.common.LocalSeedColor
 import `in`.hridayan.ashell.core.domain.provider.SeedColorProvider
-import `in`.hridayan.ashell.core.domain.model.GithubReleaseType
 import `in`.hridayan.ashell.core.presentation.AppUiEntry
 import `in`.hridayan.ashell.core.presentation.components.snackbar.SnackBarHost
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouTheme
@@ -43,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         handleSharedText(intent)
 
         lifecycleScope.launch {
-            val autoUpdateEnabled = settingsViewModel.getBoolean(SettingsKeys.AUTO_UPDATE).first()
+            val autoUpdateEnabled = settingsViewModel.getBoolean(SettingsKeys.AutoUpdate).first()
 
             if (autoUpdateEnabled) {
                 autoUpdateViewModel.checkForUpdates()
@@ -62,7 +63,11 @@ class MainActivity : AppCompatActivity() {
                     ) {
                         Box(modifier = Modifier.fillMaxSize()) {
                             AppUiEntry()
-                            SnackBarHost()
+                            SnackBarHost(
+                                modifier = Modifier
+                                    .align(Alignment.BottomCenter)
+                                    .fillMaxWidth()
+                            )
                         }
                     }
                 }

@@ -1,8 +1,8 @@
-package `in`.hridayan.ashell.settings.domain.model
+﻿package `in`.hridayan.ashell.settings.domain.model
 
 /**
  * Predefined backup frequency options for automatic scheduled backups.
- * Int values are stored via [SettingsKeys.AUTO_BACKUP_FREQUENCY].
+ * Int values are stored via [SettingsKeys.AutoBackupFrequency].
  * String labels are mapped for WorkManager interval calculation.
  */
 object BackupFrequency {

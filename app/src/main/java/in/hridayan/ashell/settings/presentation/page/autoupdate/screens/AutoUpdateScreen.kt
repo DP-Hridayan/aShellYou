@@ -22,6 +22,7 @@ import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -71,7 +72,7 @@ fun AutoUpdateScreen(
 ) {
     val context = LocalContext.current
     val dialogManager = LocalDialogManager.current
-    val hapticsEnabled = LocalSettings.current.isHapticEnabled
+    val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
     val controller = settingsViewModel.rememberController()
     var showLoading by rememberSaveable { mutableStateOf(false) }
     var showUpdateSheet by rememberSaveable { mutableStateOf(false) }
@@ -105,12 +106,14 @@ fun AutoUpdateScreen(
     }
 
     val listState = rememberLazyListState()
+    val topAppBarState = rememberTopAppBarState()
     val highlightedKey = rememberHighlightState(
         highlightKeyName = highlightKey,
         page = settingsViewModel.autoUpdatePage,
         listState = listState,
         headerItemCount = 1,
         keyResolver = { SettingsKeys.valueOfOrNull(it) },
+        topAppBarState = topAppBarState,
     )
 
     val page = remember { settingsViewModel.autoUpdatePage }
@@ -119,6 +122,7 @@ fun AutoUpdateScreen(
     SettingsScaffold(
         modifier = modifier,
         listState = listState,
+        topAppBarState = topAppBarState,
         topBarTitle = stringResource(R.string.auto_update),
         content = { innerPadding, topBarScrollBehavior ->
             LazyColumn(

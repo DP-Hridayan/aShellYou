@@ -134,7 +134,7 @@ fun HomeScreen(
             ) {
                 AppNameText(modifier = Modifier.weight(1f))
                 SettingsButton(onClick = withHaptic {
-                    navController.navigate(NavRoutes.SettingsScreen)
+                    navController.navigate(NavRoutes.SettingsScreen())
                 })
             }
 

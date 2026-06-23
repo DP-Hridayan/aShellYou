@@ -63,6 +63,7 @@ import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedSh
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.presentation.theme.color.createDynamicScheme
 import `in`.hridayan.ashell.core.presentation.theme.color.getPaletteKeyColors
+import `in`.hridayan.ashell.settings.data.SettingsKeys
 import kotlinx.coroutines.flow.distinctUntilChanged
 
 @Composable
@@ -71,8 +72,7 @@ fun PaletteStylePickerDialog(
     onDismiss: () -> Unit,
     onConfirm: (PaletteStyle) -> Unit,
 ) {
-
-    val isHapticAllowed = LocalSettings.current.isHapticEnabled
+    val isHapticAllowed = LocalSettings.current[SettingsKeys.HapticsAndVibration]
     val isDarkMode = LocalDarkMode.current
     val haptic = LocalHapticFeedback.current
     val currentStyle = LocalPaletteStyle.current

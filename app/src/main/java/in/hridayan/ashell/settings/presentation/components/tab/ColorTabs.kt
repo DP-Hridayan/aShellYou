@@ -23,6 +23,7 @@ import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalTonalPalette
 import `in`.hridayan.ashell.core.data.local.provider.SeedColor
 import `in`.hridayan.ashell.settings.presentation.components.palette.PaletteWheel
+import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel.LookAndFeelViewModel
 import `in`.hridayan.shapeindicators.ShapeIndicatorRow
 
@@ -46,7 +47,7 @@ fun ColorTabs(
             ) {
                 groupedPalettes[page].forEach { palette ->
                     val isChecked = LocalSeedColor.current.primary == palette.colors.primary
-                    val isDynamicColor = LocalSettings.current.isDynamicColor
+                    val isDynamicColor = LocalSettings.current[SettingsKeys.DynamicColors]
 
                     PaletteWheel(
                         modifier = Modifier.size(70.dp),

@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
+﻿@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 
 package `in`.hridayan.ashell.settings.presentation.page.backup.screens
 
@@ -54,7 +54,7 @@ import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.settings.data.SettingsKeys
-import `in`.hridayan.ashell.settings.domain.model.SettingsState
+
 import `in`.hridayan.ashell.settings.presentation.components.dialog.AutoBackupTimePickerDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.SelectBackupFolderDialog
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
@@ -76,8 +76,9 @@ fun BackupSchedulerScreen(
     val dialogManager = LocalDialogManager.current
     val controller = settingsViewModel.rememberController()
     val settings = LocalSettings.current
-    val hapticsEnabled = settings.isHapticEnabled
-
+    val hapticsEnabled = settings[SettingsKeys.HapticsAndVibration]
+    val autoBackupEnabled = settings[SettingsKeys.AutoBackupEnabled]
+    val autoBackupFolderName = settings[SettingsKeys.AutoBackupFolderName]
     val googleUserState by backupViewModel.googleUserState.collectAsState()
     val isBackingUp by settingsViewModel.isBackingUp.collectAsState()
     var showFolderDialog by remember { mutableStateOf(false) }
@@ -93,9 +94,9 @@ fun BackupSchedulerScreen(
             context.contentResolver.takePersistableUriPermission(it, flags)
 
             // Save the URI and derive a human-readable folder name
-            settingsViewModel.setString(SettingsKeys.AUTO_BACKUP_FOLDER_URI, it.toString())
+            settingsViewModel.setString(SettingsKeys.AutoBackupFolderUri, it.toString())
             val folderName = DocumentFile.fromTreeUri(context, it)?.name ?: it.lastPathSegment ?: ""
-            settingsViewModel.setString(SettingsKeys.AUTO_BACKUP_FOLDER_NAME, folderName)
+            settingsViewModel.setString(SettingsKeys.AutoBackupFolderName, folderName)
         }
     }
 
@@ -143,15 +144,15 @@ fun BackupSchedulerScreen(
                         controller.onItemClick(key)
                     },
                     onBooleanToggle = { key ->
-                        if (key == SettingsKeys.AUTO_BACKUP_ENABLED &&
-                            !settings.autoBackupEnabled &&
-                            settings.autoBackupFolderName.isEmpty()
+                        if (key == SettingsKeys.AutoBackupEnabled &&
+                            !autoBackupEnabled &&
+                            autoBackupFolderName.isEmpty()
                         ) {
                             // Trying to enable auto backup without a folder — prompt first
                             showFolderDialog = true
                         } else {
                             controller.onBooleanToggle(key)
-                            if (key == SettingsKeys.AUTO_BACKUP_ENABLED) {
+                            if (key == SettingsKeys.AutoBackupEnabled) {
                                 settingsViewModel.rescheduleAutoBackup()
                             }
                         }
@@ -159,7 +160,7 @@ fun BackupSchedulerScreen(
                     onIntChanged = { key, value ->
                         controller.onIntChanged(key, value)
                         // Reschedule when frequency changes
-                        if (key == SettingsKeys.AUTO_BACKUP_FREQUENCY) {
+                        if (key == SettingsKeys.AutoBackupFrequency) {
                             settingsViewModel.rescheduleAutoBackup()
                         }
                     },
@@ -167,15 +168,18 @@ fun BackupSchedulerScreen(
                     customSlotContent = { slot ->
                         when (slot) {
                             is BackupScreenCustomSlots.SchedulerStatus -> {
-                                if (settings.autoBackupEnabled) {
+                                if (settings[SettingsKeys.AutoBackupEnabled]) {
                                     LastBackupStatusCard(
                                         modifier = Modifier
                                             .fillMaxWidth()
                                             .padding(horizontal = 15.dp, vertical = 10.dp),
-                                        settings = settings,
+                                        lastAutoBackupLocalSuccessTime = settings[SettingsKeys.LastAutoBackupLocalSuccessTime],
+                                        lastAutoBackupLocalError = settings[SettingsKeys.LastAutoBackupLocalError],
+                                        lastAutoBackupCloudSuccessTime = settings[SettingsKeys.LastAutoBackupCloudSuccessTime],
+                                        lastAutoBackupCloudError = settings[SettingsKeys.LastAutoBackupCloudError],
                                         isBackingUp = isBackingUp,
                                         onBackupNow = {
-                                            if (settings.autoBackupFolderName.isEmpty()) {
+                                            if (autoBackupFolderName.isEmpty()) {
                                                 showFolderDialog = true
                                             } else {
                                                 settingsViewModel.backupNow()
@@ -217,13 +221,13 @@ fun BackupSchedulerScreen(
 
     DialogKey.Settings.AutoBackupTimePicker.createDialog {
         AutoBackupTimePickerDialog(
-            initialHour = settings.autoBackupTimeHour,
-            initialMinute = settings.autoBackupTimeMinute,
+            initialHour = settings[SettingsKeys.AutoBackupTimeHour],
+            initialMinute = settings[SettingsKeys.AutoBackupTimeMinute],
             onDismiss = { dialogManager.dismiss() },
             onConfirm = { hour, minute ->
                 dialogManager.dismiss()
-                settingsViewModel.setInt(SettingsKeys.AUTO_BACKUP_TIME_HOUR, hour)
-                settingsViewModel.setInt(SettingsKeys.AUTO_BACKUP_TIME_MINUTE, minute)
+                settingsViewModel.setInt(SettingsKeys.AutoBackupTimeHour, hour)
+                settingsViewModel.setInt(SettingsKeys.AutoBackupTimeMinute, minute)
                 settingsViewModel.rescheduleAutoBackup()
             }
         )
@@ -243,7 +247,10 @@ fun BackupSchedulerScreen(
 @Composable
 private fun LastBackupStatusCard(
     modifier: Modifier = Modifier,
-    settings: SettingsState,
+    lastAutoBackupLocalSuccessTime: String,
+    lastAutoBackupLocalError: String,
+    lastAutoBackupCloudSuccessTime: String,
+    lastAutoBackupCloudError: String,
     isBackingUp: Boolean,
     onBackupNow: () -> Unit,
 ) {
@@ -270,17 +277,17 @@ private fun LastBackupStatusCard(
 
             BackupStatusRow(
                 label = stringResource(R.string.last_auto_backup_local),
-                successTime = settings.lastAutoBackupLocalSuccessTime,
-                error = settings.lastAutoBackupLocalError,
+                successTime = lastAutoBackupLocalSuccessTime,
+                error = lastAutoBackupLocalError,
             )
 
-            if (settings.lastAutoBackupCloudSuccessTime.isNotEmpty() ||
-                settings.lastAutoBackupCloudError.isNotEmpty()
+            if (lastAutoBackupCloudSuccessTime.isNotEmpty() ||
+                lastAutoBackupCloudError.isNotEmpty()
             ) {
                 BackupStatusRow(
                     label = stringResource(R.string.last_auto_backup_cloud),
-                    successTime = settings.lastAutoBackupCloudSuccessTime,
-                    error = settings.lastAutoBackupCloudError,
+                    successTime = lastAutoBackupCloudSuccessTime,
+                    error = lastAutoBackupCloudError,
                 )
             }
 
@@ -401,7 +408,7 @@ private fun GoogleDriveSectionContent(
 
         // Cloud backup status when signed in
         if (isSignedIn) {
-            val settings = LocalSettings.current
+            val cloudSettings = LocalSettings.current
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -409,7 +416,7 @@ private fun GoogleDriveSectionContent(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                if (settings.lastAutoBackupCloudSuccessTime.isNotEmpty()) {
+                if (cloudSettings[SettingsKeys.LastAutoBackupCloudSuccessTime].isNotEmpty()) {
                     Icon(
                         imageVector = Icons.Outlined.CloudDone,
                         contentDescription = null,
@@ -418,11 +425,11 @@ private fun GoogleDriveSectionContent(
                     )
                     Text(
                         text = stringResource(R.string.last_auto_backup_cloud) +
-                                ": " + settings.lastAutoBackupCloudSuccessTime,
+                                ": " + cloudSettings[SettingsKeys.LastAutoBackupCloudSuccessTime],
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
-                } else if (settings.lastAutoBackupCloudError.isNotEmpty()) {
+                } else if (cloudSettings[SettingsKeys.LastAutoBackupCloudError].isNotEmpty()) {
                     Icon(
                         imageVector = Icons.Outlined.CloudOff,
                         contentDescription = null,
@@ -430,7 +437,7 @@ private fun GoogleDriveSectionContent(
                         modifier = Modifier.size(16.dp),
                     )
                     Text(
-                        text = settings.lastAutoBackupCloudError,
+                        text = cloudSettings[SettingsKeys.LastAutoBackupCloudError],
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.error,
                     )

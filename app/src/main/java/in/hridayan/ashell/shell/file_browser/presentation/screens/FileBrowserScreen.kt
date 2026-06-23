@@ -110,6 +110,7 @@ import `in`.hridayan.ashell.core.presentation.model.ButtonType
 import `in`.hridayan.ashell.core.utils.isConnectedToWifi
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.navigateBack
 import `in`.hridayan.ashell.shell.file_browser.domain.model.ClipboardOperation
 import `in`.hridayan.ashell.shell.file_browser.domain.model.ConnectionMode
 import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
@@ -208,7 +209,7 @@ fun FileBrowserScreen(
         when {
             state.isSelectionMode -> viewModel.exitSelectionMode()
             fabMenuExpanded -> fabMenuExpanded = false
-            isAtHome -> navController.popBackStack()
+            isAtHome -> navController.navigateBack()
             else -> viewModel.navigateUp()
         }
     }
@@ -333,7 +334,7 @@ fun FileBrowserScreen(
                         navigationIcon = {
                             IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                                 if (isAtHome) {
-                                    navController.popBackStack()
+                                    navController.navigateBack()
                                 } else {
                                     viewModel.navigateUp()
                                 }
@@ -346,7 +347,7 @@ fun FileBrowserScreen(
                         },
                         actions = {
                             IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                                navController.popBackStack()
+                                navController.navigateBack()
                             }) {
                                 Icon(Icons.Rounded.Home, contentDescription = "Home")
                             }

@@ -1,44 +1,29 @@
 package `in`.hridayan.ashell.core.presentation.components.snackbar
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.runtime.*
-import androidx.compose.foundation.layout.*
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import `in`.hridayan.ashell.core.presentation.utils.SnackBarUtils
-import kotlinx.coroutines.delay
+import `in`.hridayan.ashell.core.common.LocalSnackBarController
 
+/**
+ * Renders the app-wide snackbar driven by [LocalSnackBarController].
+ *
+ * Place this composable once at the root of the app (in MainActivity), overlaid
+ * on top of all content. Positioning is left to the caller via [modifier].
+ */
 @Composable
-fun SnackBarHost() {
-    val data = SnackBarUtils.snackbarData
-    var visible by remember { mutableStateOf(false) }
+fun SnackBarHost(modifier: Modifier = Modifier) {
+    val controller = LocalSnackBarController.current
+    val event = controller.currentEvent
 
-    LaunchedEffect(data) {
-        if (data != null) {
-            visible = false
-            delay(30)
-            visible = true
-        }
-    }
-
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
-        AnimatedVisibility(visible = visible && data != null) {
-            data?.let { d ->
-                AnimatedSnackBar(
-                    message = d.message,
-                    actionText = d.actionText,
-                    durationMillis = d.durationMillis,
-                    onActionClicked = {
-                        d.onActionClicked()
-                        visible = false
-                        SnackBarUtils.clear()
-                    },
-                    onDismiss = {
-                        visible = false
-                        SnackBarUtils.clear()
-                    }
-                )
-            }
-        }
-    }
+    AnimatedSnackBar(
+        modifier = modifier,
+        event = event,
+        onActionClicked = {
+            (event as? SnackBarEvent.WithAction)?.onActionClicked?.invoke()
+            controller.clearSilently()
+        },
+        onDismiss = {
+            controller.dismiss()
+        },
+    )
 }

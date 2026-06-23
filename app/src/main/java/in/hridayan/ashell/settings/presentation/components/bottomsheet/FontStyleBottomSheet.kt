@@ -98,7 +98,7 @@ fun FontStyleBottomSheet(
     val scrollState = rememberScrollState()
 
     val fontStyles = RadioGroupOptionsProvider.fontStyleOptions
-    val selected = LocalSettings.current.fontFamily
+    val selected = LocalSettings.current[SettingsKeys.FontFamily]
     var tempSelected by remember { mutableIntStateOf(selected) }
 
     val isCheckedMatchCase by viewModel.isCheckedMatchCase.collectAsState()
@@ -315,7 +315,7 @@ fun FontStyleBottomSheet(
                             text = stringResource(R.string.apply),
                             onClick = {
                                 settingsViewModel.setInt(
-                                    key = SettingsKeys.FONT_FAMILY,
+                                    key = SettingsKeys.FontFamily,
                                     value = tempSelected
                                 )
                                 onDismiss()

@@ -84,6 +84,7 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.navigateBack
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
 import `in`.hridayan.ashell.qstiles.presentation.components.dialog.DeleteTileConfirmationDialog
 import `in`.hridayan.ashell.qstiles.presentation.components.dialog.IconChooserDialog
@@ -156,7 +157,7 @@ fun CreateTileScreen(
                                     indication = null,
                                     onClick = withHaptic {
                                         createTileViewModel.createTile()
-                                        navController.popBackStack()
+                                        navController.navigateBack()
                                     })
                                 .padding(horizontal = 20.dp),
                             horizontalArrangement = Arrangement.spacedBy(10.dp),
@@ -545,7 +546,7 @@ fun CreateTileScreen(
                             enabled = isValid,
                             onClick = withHaptic {
                                 createTileViewModel.createTile()
-                                navController.popBackStack()
+                                navController.navigateBack()
                             },
                         ) {
                             AutoResizeableText(
@@ -582,7 +583,7 @@ fun CreateTileScreen(
             onDismiss = { showDeleteTileConfirmationDialog = false },
             onConfirm = {
                 createTileViewModel.deleteTile()
-                navController.popBackStack()
+                navController.navigateBack()
             })
     }
 }

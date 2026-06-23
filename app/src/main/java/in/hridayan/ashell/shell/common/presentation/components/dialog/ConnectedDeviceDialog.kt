@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+﻿@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
 package `in`.hridayan.ashell.shell.common.presentation.components.dialog
 
@@ -188,7 +188,7 @@ private fun ExpandedLayoutView(
     settingsViewModel: SettingsViewModel = hiltViewModel(),
     onDismiss: () -> Unit = {},
 ) {
-    val key = SettingsKeys.LOCAL_ADB_WORKING_MODE
+    val key = SettingsKeys.LocalAdbWorkingMode
 
     val initialSelected =
         settingsViewModel.getInt(key = key).collectAsState(initial = key.default)

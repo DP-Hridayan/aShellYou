@@ -2,6 +2,7 @@
 .gradle
 /.kotlin
 .vscode
+.junie
 /local.properties
 /.idea
 .DS_Store

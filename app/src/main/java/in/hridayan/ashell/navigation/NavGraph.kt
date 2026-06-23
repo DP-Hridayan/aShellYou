@@ -82,8 +82,9 @@ fun Navigation(isFirstLaunch: Boolean = false) {
                 HomeScreen()
             }
 
-            composable<NavRoutes.SettingsScreen> {
-                SettingsScreen()
+            composable<NavRoutes.SettingsScreen> { backStackEntry ->
+                val route = backStackEntry.toRoute<NavRoutes.SettingsScreen>()
+                SettingsScreen(highlightKey = route.highlightKey)
             }
 
             composable<NavRoutes.LookAndFeelScreen> { backStackEntry ->

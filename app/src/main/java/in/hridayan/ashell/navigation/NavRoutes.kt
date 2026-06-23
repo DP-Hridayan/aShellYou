@@ -76,7 +76,7 @@ NavRoutes {
     object PairingOwnDeviceScreen : NavRoutes()
 
     @Serializable
-    object SettingsScreen : NavRoutes()
+    data class SettingsScreen(val highlightKey: String? = null) : NavRoutes()
 
     @Serializable
     data class WifiAdbScreen(val deviceName: String? = null) : NavRoutes()

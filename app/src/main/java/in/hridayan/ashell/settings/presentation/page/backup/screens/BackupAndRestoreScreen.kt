@@ -22,6 +22,7 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -89,7 +90,7 @@ fun BackupAndRestoreScreen(
     val navController = LocalNavController.current
     val dialogManager = LocalDialogManager.current
     val controller = settingsViewModel.rememberController()
-    val hapticsEnabled = LocalSettings.current.isHapticEnabled
+    val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
     val localBackupTime by backupAndRestoreViewModel.localBackupTime.collectAsState()
     val localBackupType by backupAndRestoreViewModel.localBackupType.collectAsState()
     val cloudBackupTime by backupAndRestoreViewModel.cloudBackupTime.collectAsState()
@@ -173,12 +174,14 @@ fun BackupAndRestoreScreen(
     }
 
     val listState = rememberLazyListState()
+    val topAppBarState = rememberTopAppBarState()
     val highlightedKey = rememberHighlightState(
         highlightKeyName = highlightKey,
         page = settingsViewModel.backupPage,
         listState = listState,
         headerItemCount = 0,
         keyResolver = { SettingsKeys.valueOfOrNull(it) },
+        topAppBarState = topAppBarState,
     )
 
     val page = remember { settingsViewModel.backupPage }
@@ -187,6 +190,7 @@ fun BackupAndRestoreScreen(
     SettingsScaffold(
         modifier = modifier,
         listState = listState,
+        topAppBarState = topAppBarState,
         topBarTitle = stringResource(R.string.backup_and_restore),
         content = { innerPadding, topBarScrollBehavior ->
             LazyColumn(

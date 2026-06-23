@@ -20,6 +20,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalSettings
+import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.common.constants.SHIZUKU_PACKAGE_NAME
 import `in`.hridayan.ashell.core.common.constants.UrlConst
@@ -59,7 +60,7 @@ fun LocalAdbScreen(
         )
     }
     var hasRootAccess by rememberSaveable { mutableStateOf(false) }
-    val localAdbMode = LocalSettings.current.localAdbMode
+    val localAdbMode = LocalSettings.current[SettingsKeys.LocalAdbWorkingMode]
     var showConnectedDeviceDialog by rememberSaveable { mutableStateOf(false) }
     var showShizukuUnavailableDialog by rememberSaveable { mutableStateOf(false) }
     val states by shellViewModel.states.collectAsState()

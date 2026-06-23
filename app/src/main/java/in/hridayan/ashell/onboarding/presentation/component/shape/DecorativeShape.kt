@@ -15,7 +15,7 @@ fun DecorativeShape(
     size: Int,
     shape: Shape,
     color: Color,
-    scale: Float,
+    scale: () -> Float,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -23,8 +23,9 @@ fun DecorativeShape(
             .size(size.dp)
             .graphicsLayer {
                 rotationZ = 15f
-                scaleX = scale
-                scaleY = scale
+                val s = scale()
+                scaleX = s
+                scaleY = s
                 this.shape = shape
                 clip = true
             }

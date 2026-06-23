@@ -3,11 +3,7 @@ package `in`.hridayan.ashell.settings.data
 import android.os.Environment
 import androidx.appcompat.app.AppCompatDelegate
 import `in`.hridayan.ashell.ai.data.local.model.ModelRegistry
-import `in`.hridayan.ashell.core.domain.model.GithubReleaseType
-import `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode
-import `in`.hridayan.ashell.core.domain.model.PaletteStyle
 import `in`.hridayan.ashell.core.domain.model.SortType
-import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
 import `in`.hridayan.ashell.core.domain.provider.SeedColorProvider
 import `in`.hridayan.ashell.settings.data.SettingsKeys.Companion.entries
 import `in`.hridayan.ashell.settings.data.SettingsKeys.Companion.valueOf
@@ -33,115 +29,137 @@ sealed class SettingsKeys<out T>(
 
     // Action only keys
 
-    data object LOOK_AND_FEEL : SettingsKeys<Nothing?>("LOOK_AND_FEEL", null)
-    data object ABOUT : SettingsKeys<Nothing?>("ABOUT", null)
-    data object BEHAVIOR : SettingsKeys<Nothing?>("BEHAVIOR", null)
-    data object LANGUAGE : SettingsKeys<Nothing?>("LANGUAGE", null)
-    data object DARK_THEME : SettingsKeys<Nothing?>("DARK_THEME", null)
-    data object CUSTOM_UI_SCALE : SettingsKeys<Nothing?>("CUSTOM_UI_SCALE", null)
-    data object VERSION : SettingsKeys<Nothing?>("VERSION", null)
-    data object CHANGELOGS : SettingsKeys<Nothing?>("CHANGELOGS", null)
-    data object CRASH_HISTORY : SettingsKeys<Nothing?>("CRASH_HISTORY", null)
-    data object REPORT : SettingsKeys<Nothing?>("REPORT", null)
-    data object FEATURE_REQUEST : SettingsKeys<Nothing?>("FEATURE_REQUEST", null)
-    data object GITHUB : SettingsKeys<Nothing?>("GITHUB", null)
-    data object LICENSES : SettingsKeys<Nothing?>("LICENSES", null)
-    data object COMMANDS : SettingsKeys<Nothing?>("COMMANDS", null)
-    data object TELEGRAM : SettingsKeys<Nothing?>("TELEGRAM", null)
-    data object BACKUP_AND_RESTORE : SettingsKeys<Nothing?>("BACKUP_AND_RESTORE", null)
-    data object BACKUP_APP_SETTINGS : SettingsKeys<Nothing?>("BACKUP_APP_SETTINGS", null)
-    data object BACKUP_APP_DATABASE : SettingsKeys<Nothing?>("BACKUP_APP_DATABASE", null)
-    data object BACKUP_APP_DATA : SettingsKeys<Nothing?>("BACKUP_APP_DATA", null)
-    data object RESTORE_APP_DATA : SettingsKeys<Nothing?>("RESTORE_APP_DATA", null)
-    data object RESET_APP_SETTINGS : SettingsKeys<Nothing?>("RESET_APP_SETTINGS", null)
-    data object BACKUP_SCHEDULER : SettingsKeys<Nothing?>("BACKUP_SCHEDULER", null)
-    data object AUTO_BACKUP_TIME : SettingsKeys<Nothing?>("AUTO_BACKUP_TIME", null)
-    data object AUTO_BACKUP_FOLDER : SettingsKeys<Nothing?>("AUTO_BACKUP_FOLDER", null)
-    data object QUICK_SETTINGS_TILES : SettingsKeys<Nothing?>("QUICK_SETTINGS_TILES", null)
-    data object TRANSLATORS : SettingsKeys<Nothing?>("TRANSLATORS", null)
-    data object CONTRIBUTORS : SettingsKeys<Nothing?>("CONTRIBUTORS", null)
-    data object AI_MODEL_MANAGER : SettingsKeys<Nothing?>("AI_MODEL_MANAGER", null)
-    data object AI_MODELS : SettingsKeys<Nothing?>("AI_MODELS", null)
-    data object AI_CACHE_CLEAR : SettingsKeys<Nothing?>("AI_CACHE_CLEAR", null)
+    data object LookAndFeel : SettingsKeys<Nothing?>("LOOK_AND_FEEL", null)
+    data object About : SettingsKeys<Nothing?>("ABOUT", null)
+    data object Behavior : SettingsKeys<Nothing?>("BEHAVIOR", null)
+    data object Language : SettingsKeys<Nothing?>("LANGUAGE", null)
+    data object DarkTheme : SettingsKeys<Nothing?>("DARK_THEME", null)
+    data object CustomUiScale : SettingsKeys<Nothing?>("CUSTOM_UI_SCALE", null)
+    data object Version : SettingsKeys<Nothing?>("VERSION", null)
+    data object Changelogs : SettingsKeys<Nothing?>("CHANGELOGS", null)
+    data object CrashHistory : SettingsKeys<Nothing?>("CRASH_HISTORY", null)
+    data object Report : SettingsKeys<Nothing?>("REPORT", null)
+    data object FeatureRequest : SettingsKeys<Nothing?>("FEATURE_REQUEST", null)
+    data object Github : SettingsKeys<Nothing?>("GITHUB", null)
+    data object Licenses : SettingsKeys<Nothing?>("LICENSES", null)
+    data object Commands : SettingsKeys<Nothing?>("COMMANDS", null)
+    data object Telegram : SettingsKeys<Nothing?>("TELEGRAM", null)
+    data object BackupAndRestore : SettingsKeys<Nothing?>("BACKUP_AND_RESTORE", null)
+    data object BackupAppSettings : SettingsKeys<Nothing?>("BACKUP_APP_SETTINGS", null)
+    data object BackupAppDatabase : SettingsKeys<Nothing?>("BACKUP_APP_DATABASE", null)
+    data object BackupAppData : SettingsKeys<Nothing?>("BACKUP_APP_DATA", null)
+    data object RestoreAppData : SettingsKeys<Nothing?>("RESTORE_APP_DATA", null)
+    data object ResetAppSettings : SettingsKeys<Nothing?>("RESET_APP_SETTINGS", null)
+    data object BackupScheduler : SettingsKeys<Nothing?>("BACKUP_SCHEDULER", null)
+    data object AutoBackupTime : SettingsKeys<Nothing?>("AUTO_BACKUP_TIME", null)
+    data object AutoBackupFolder : SettingsKeys<Nothing?>("AUTO_BACKUP_FOLDER", null)
+    data object QuickSettingsTiles : SettingsKeys<Nothing?>("QUICK_SETTINGS_TILES", null)
+    data object Translators : SettingsKeys<Nothing?>("TRANSLATORS", null)
+    data object Contributors : SettingsKeys<Nothing?>("CONTRIBUTORS", null)
+    data object AiModelManager : SettingsKeys<Nothing?>("AI_MODEL_MANAGER", null)
+    data object AiModels : SettingsKeys<Nothing?>("AI_MODELS", null)
+    data object AiCacheClear : SettingsKeys<Nothing?>("AI_CACHE_CLEAR", null)
 
     // Boolean Keys
 
-    data object AUTO_UPDATE : SettingsKeys<Boolean>("AUTO_UPDATE", false)
-    data object AUTO_SCALE_UI : SettingsKeys<Boolean>("AUTO_SCALE_UI", false)
-    data object HIGH_CONTRAST_DARK_MODE : SettingsKeys<Boolean>("HIGH_CONTRAST_DARK_MODE", false)
-    data object DYNAMIC_COLORS : SettingsKeys<Boolean>("DYNAMIC_COLORS", true)
-    data object HAPTICS_AND_VIBRATION : SettingsKeys<Boolean>("HAPTICS_AND_VIBRATION", true)
-    data object ENABLE_DIRECT_DOWNLOAD : SettingsKeys<Boolean>("ENABLE_DIRECT_DOWNLOAD", true)
-    data object CLEAR_OUTPUT_CONFIRMATION : SettingsKeys<Boolean>("CLEAR_OUTPUT_CONFIRMATION", true)
-    data object DISABLE_SOFT_KEYBOARD : SettingsKeys<Boolean>("DISABLE_SOFT_KEYBOARD", false)
-    data object OVERRIDE_MAXIMUM_BOOKMARKS_LIMIT :
+    data object AutoUpdate : SettingsKeys<Boolean>("AUTO_UPDATE", false)
+    data object AutoScaleUi : SettingsKeys<Boolean>("AUTO_SCALE_UI", false)
+    data object HighContrastDarkMode : SettingsKeys<Boolean>("HIGH_CONTRAST_DARK_MODE", false)
+    data object AutoDarkModeOnBatterySaver :
+        SettingsKeys<Boolean>("AutoDarkModeOnBatterySaver", false)
+
+    data object DynamicColors : SettingsKeys<Boolean>("DYNAMIC_COLORS", true)
+    data object HapticsAndVibration : SettingsKeys<Boolean>("HAPTICS_AND_VIBRATION", true)
+    data object EnableDirectDownload : SettingsKeys<Boolean>("ENABLE_DIRECT_DOWNLOAD", true)
+    data object ClearOutputConfirmation : SettingsKeys<Boolean>("CLEAR_OUTPUT_CONFIRMATION", true)
+    data object DisableSoftKeyboard : SettingsKeys<Boolean>("DISABLE_SOFT_KEYBOARD", false)
+    data object OverrideMaximumBookmarksLimit :
         SettingsKeys<Boolean>("OVERRIDE_MAXIMUM_BOOKMARKS_LIMIT", false)
 
-    data object SAVE_WHOLE_OUTPUT : SettingsKeys<Boolean>("SAVE_WHOLE_OUTPUT", true)
-    data object SMOOTH_SCROLLING : SettingsKeys<Boolean>("SMOOTH_SCROLLING", true)
-    data object FIRST_LAUNCH : SettingsKeys<Boolean>("FIRST_LAUNCH", true)
-    data object NEW_COMMANDS_AVAILABLE : SettingsKeys<Boolean>("NEW_COMMANDS_AVAILABLE", true)
-    data object AI_CACHE_ENABLED : SettingsKeys<Boolean>("AI_CACHE_ENABLED", true)
-    data object AUTO_BACKUP_ENABLED : SettingsKeys<Boolean>("AUTO_BACKUP_ENABLED", false)
-    data object AUTO_BACKUP_DELETE_EXISTING : SettingsKeys<Boolean>("AUTO_BACKUP_DELETE_EXISTING", true)
-    data object AUTO_BACKUP_LOCAL_ENABLED : SettingsKeys<Boolean>("AUTO_BACKUP_LOCAL_ENABLED", true)
-    data object AUTO_BACKUP_CLOUD_ENABLED : SettingsKeys<Boolean>("AUTO_BACKUP_CLOUD_ENABLED", true)
+    data object SaveWholeOutput : SettingsKeys<Boolean>("SAVE_WHOLE_OUTPUT", true)
+    data object SmoothScrolling : SettingsKeys<Boolean>("SMOOTH_SCROLLING", true)
+    data object FirstLaunch : SettingsKeys<Boolean>("FIRST_LAUNCH", true)
+    data object NewCommandsAvailable : SettingsKeys<Boolean>("NEW_COMMANDS_AVAILABLE", true)
+    data object AiCacheEnabled : SettingsKeys<Boolean>("AI_CACHE_ENABLED", true)
+    data object AutoBackupEnabled : SettingsKeys<Boolean>("AUTO_BACKUP_ENABLED", false)
+    data object AutoBackupDeleteExisting :
+        SettingsKeys<Boolean>("AUTO_BACKUP_DELETE_EXISTING", true)
+
+    data object AutoBackupLocalEnabled : SettingsKeys<Boolean>("AUTO_BACKUP_LOCAL_ENABLED", true)
+    data object AutoBackupCloudEnabled : SettingsKeys<Boolean>("AUTO_BACKUP_CLOUD_ENABLED", true)
 
 
     // Float keys
 
-    data object SCREEN_DENSITY_MULTIPLIER : SettingsKeys<Float>("SCREEN_DENSITY_MULTIPLIER", 1f)
-    data object FONT_SIZE_MULTIPLIER : SettingsKeys<Float>("FONT_SIZE_MULTIPLIER", 1f)
+    data object ScreenDensityMultiplier : SettingsKeys<Float>("SCREEN_DENSITY_MULTIPLIER", 1f)
+    data object FontSizeMultiplier : SettingsKeys<Float>("FONT_SIZE_MULTIPLIER", 1f)
 
 
     // Int Keys
 
-    data object THEME_MODE :
+    data object ThemeMode :
         SettingsKeys<Int>("THEME_MODE", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
 
-    data object PRIMARY_SEED : SettingsKeys<Int>("PRIMARY_SEED", SeedColorProvider.primary)
-    data object PALETTE_STYLE : SettingsKeys<Int>("PALETTE_STYLE", PaletteStyle.TONAL_SPOT.ordinal)
-    data object GITHUB_RELEASE_TYPE :
-        SettingsKeys<Int>("GITHUB_RELEASE_TYPE", GithubReleaseType.STABLE_GITHUB)
+    data object PrimarySeed : SettingsKeys<Int>("PRIMARY_SEED", SeedColorProvider.primary)
+    data object PaletteStyle : SettingsKeys<Int>(
+        "PALETTE_STYLE",
+        `in`.hridayan.ashell.core.domain.model.PaletteStyle.TONAL_SPOT.ordinal
+    )
 
-    data object SAVED_VERSION_CODE : SettingsKeys<Int>("SAVED_VERSION_CODE", 0)
-    data object LOCAL_ADB_WORKING_MODE :
-        SettingsKeys<Int>("LOCAL_ADB_WORKING_MODE", LocalAdbWorkingMode.BASIC)
+    data object GithubReleaseType :
+        SettingsKeys<Int>(
+            "GITHUB_RELEASE_TYPE",
+            `in`.hridayan.ashell.core.domain.model.GithubReleaseType.STABLE_GITHUB
+        )
 
-    data object TERMINAL_FONT_STYLE :
-        SettingsKeys<Int>("TERMINAL_FONT_STYLE", TerminalFontStyle.MONOSPACE)
+    data object SavedVersionCode : SettingsKeys<Int>("SAVED_VERSION_CODE", 0)
+    data object LocalAdbWorkingMode :
+        SettingsKeys<Int>(
+            "LOCAL_ADB_WORKING_MODE",
+            `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode.BASIC
+        )
 
-    data object BOOKMARK_SORT_TYPE : SettingsKeys<Int>("BOOKMARK_SORT_TYPE", SortType.AZ)
-    data object COMMAND_SORT_TYPE : SettingsKeys<Int>("COMMAND_SORT_TYPE", SortType.AZ)
-    data object AI_CACHE_DAYS : SettingsKeys<Int>("AI_CACHE_DAYS", 30)
-    data object AUTO_BACKUP_TIME_HOUR : SettingsKeys<Int>("AUTO_BACKUP_TIME_HOUR", 2)
-    data object AUTO_BACKUP_TIME_MINUTE : SettingsKeys<Int>("AUTO_BACKUP_TIME_MINUTE", 0)
-    data object AUTO_BACKUP_FREQUENCY : SettingsKeys<Int>("AUTO_BACKUP_FREQUENCY", 0)
-    data object AUTO_BACKUP_TYPE : SettingsKeys<Int>("AUTO_BACKUP_TYPE", 2)
-    data object FONT_FAMILY : SettingsKeys<Int>("FONT_FAMILY", 0)
+    data object TerminalFontStyle :
+        SettingsKeys<Int>(
+            "TERMINAL_FONT_STYLE",
+            `in`.hridayan.ashell.core.domain.model.TerminalFontStyle.MONOSPACE
+        )
+
+    data object BookmarkSortType : SettingsKeys<Int>("BOOKMARK_SORT_TYPE", SortType.AZ)
+    data object CommandSortType : SettingsKeys<Int>("COMMAND_SORT_TYPE", SortType.AZ)
+    data object AiCacheDays : SettingsKeys<Int>("AI_CACHE_DAYS", 30)
+    data object AutoBackupTimeHour : SettingsKeys<Int>("AUTO_BACKUP_TIME_HOUR", 2)
+    data object AutoBackupTimeMinute : SettingsKeys<Int>("AUTO_BACKUP_TIME_MINUTE", 0)
+    data object AutoBackupFrequency : SettingsKeys<Int>("AUTO_BACKUP_FREQUENCY", 0)
+    data object AutoBackupType : SettingsKeys<Int>("AUTO_BACKUP_TYPE", 2)
+    data object FontFamily : SettingsKeys<Int>("FONT_FAMILY", 0)
 
     // String Keys
 
-    data object LAST_LOCAL_BACKUP_TIME : SettingsKeys<String>("LAST_LOCAL_BACKUP_TIME", "")
-    data object OUTPUT_SAVE_DIRECTORY : SettingsKeys<String>(
+    data object LastLocalBackupTime : SettingsKeys<String>("LAST_LOCAL_BACKUP_TIME", "")
+    data object OutputSaveDirectory : SettingsKeys<String>(
         "OUTPUT_SAVE_DIRECTORY",
         Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
     )
 
-    data object LAST_SAVED_FILE_URI : SettingsKeys<String>("LAST_SAVED_FILE_URI", "")
-    data object GOOGLE_ACCOUNT_EMAIL : SettingsKeys<String>("GOOGLE_ACCOUNT_EMAIL", "")
-    data object GOOGLE_ACCOUNT_PHOTO_URL : SettingsKeys<String>("GOOGLE_ACCOUNT_PHOTO_URL", "")
-    data object LAST_CLOUD_BACKUP_TIME : SettingsKeys<String>("LAST_CLOUD_BACKUP_TIME", "")
-    data object LAST_CLOUD_BACKUP_TYPE : SettingsKeys<String>("LAST_CLOUD_BACKUP_TYPE", "None")
-    data object LAST_LOCAL_BACKUP_TYPE : SettingsKeys<String>("LAST_LOCAL_BACKUP_TYPE", "None")
-    data object RECENT_SEARCH_KEYS : SettingsKeys<String>("RECENT_SEARCH_KEYS", "")
-    data object AUTO_BACKUP_FOLDER_URI : SettingsKeys<String>("AUTO_BACKUP_FOLDER_URI", "")
-    data object AUTO_BACKUP_FOLDER_NAME : SettingsKeys<String>("AUTO_BACKUP_FOLDER_NAME", "")
-    data object LAST_AUTO_BACKUP_LOCAL_SUCCESS_TIME : SettingsKeys<String>("LAST_AUTO_BACKUP_LOCAL_SUCCESS_TIME", "")
-    data object LAST_AUTO_BACKUP_LOCAL_ERROR : SettingsKeys<String>("LAST_AUTO_BACKUP_LOCAL_ERROR", "")
-    data object LAST_AUTO_BACKUP_CLOUD_SUCCESS_TIME : SettingsKeys<String>("LAST_AUTO_BACKUP_CLOUD_SUCCESS_TIME", "")
-    data object LAST_AUTO_BACKUP_CLOUD_ERROR : SettingsKeys<String>("LAST_AUTO_BACKUP_CLOUD_ERROR", "")
-    data object SELECTED_MODEL_ID :
+    data object LastSavedFileUri : SettingsKeys<String>("LAST_SAVED_FILE_URI", "")
+    data object GoogleAccountEmail : SettingsKeys<String>("GOOGLE_ACCOUNT_EMAIL", "")
+    data object GoogleAccountPhotoUrl : SettingsKeys<String>("GOOGLE_ACCOUNT_PHOTO_URL", "")
+    data object LastCloudBackupTime : SettingsKeys<String>("LAST_CLOUD_BACKUP_TIME", "")
+    data object LastCloudBackupType : SettingsKeys<String>("LAST_CLOUD_BACKUP_TYPE", "None")
+    data object LastLocalBackupType : SettingsKeys<String>("LAST_LOCAL_BACKUP_TYPE", "None")
+    data object RecentSearchKeys : SettingsKeys<String>("RECENT_SEARCH_KEYS", "")
+    data object AutoBackupFolderUri : SettingsKeys<String>("AUTO_BACKUP_FOLDER_URI", "")
+    data object AutoBackupFolderName : SettingsKeys<String>("AUTO_BACKUP_FOLDER_NAME", "")
+    data object LastAutoBackupLocalSuccessTime :
+        SettingsKeys<String>("LAST_AUTO_BACKUP_LOCAL_SUCCESS_TIME", "")
+
+    data object LastAutoBackupLocalError : SettingsKeys<String>("LAST_AUTO_BACKUP_LOCAL_ERROR", "")
+    data object LastAutoBackupCloudSuccessTime :
+        SettingsKeys<String>("LAST_AUTO_BACKUP_CLOUD_SUCCESS_TIME", "")
+
+    data object LastAutoBackupCloudError : SettingsKeys<String>("LAST_AUTO_BACKUP_CLOUD_ERROR", "")
+    data object SelectedModelId :
         SettingsKeys<String>("SELECTED_MODEL_ID", ModelRegistry.defaultModel.id)
 
     companion object {

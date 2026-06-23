@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.settings.presentation.page.search.viewmodel
+﻿package `in`.hridayan.ashell.settings.presentation.page.search.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
@@ -69,7 +69,7 @@ class SettingsSearchViewModel @Inject constructor(
             current.add(0, entry.key.name)
             val trimmed = current.take(MAX_RECENT)
             settingsRepository.setString(
-                SettingsKeys.RECENT_SEARCH_KEYS,
+                SettingsKeys.RecentSearchKeys,
                 trimmed.joinToString(SEPARATOR),
             )
             _recentEntries.value = resolveEntries(trimmed)
@@ -78,7 +78,7 @@ class SettingsSearchViewModel @Inject constructor(
 
     fun clearRecentSearches() {
         viewModelScope.launch(Dispatchers.IO) {
-            settingsRepository.setString(SettingsKeys.RECENT_SEARCH_KEYS, "")
+            settingsRepository.setString(SettingsKeys.RecentSearchKeys, "")
             _recentEntries.value = emptyList()
         }
     }
@@ -91,7 +91,7 @@ class SettingsSearchViewModel @Inject constructor(
     }
 
     private suspend fun loadRecentKeyNames(): List<String> {
-        val raw = settingsRepository.getString(SettingsKeys.RECENT_SEARCH_KEYS)
+        val raw = settingsRepository.getString(SettingsKeys.RecentSearchKeys)
             .firstOrNull() ?: ""
         return raw.split(SEPARATOR).filter { it.isNotBlank() }
     }

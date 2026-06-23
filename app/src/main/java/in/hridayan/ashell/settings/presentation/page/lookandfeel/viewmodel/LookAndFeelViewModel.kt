@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel
+﻿package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -59,19 +59,19 @@ class LookAndFeelViewModel @Inject constructor(
         lastSeed = seed
 
         viewModelScope.launch(Dispatchers.IO) {
-            settingsRepository.setInt(SettingsKeys.PRIMARY_SEED, seed.primary)
+            settingsRepository.setInt(SettingsKeys.PrimarySeed, seed.primary)
         }
     }
 
     fun setPaletteStyle(style: PaletteStyle) {
         viewModelScope.launch(Dispatchers.IO) {
-            settingsRepository.setInt(SettingsKeys.PALETTE_STYLE, style.ordinal)
+            settingsRepository.setInt(SettingsKeys.PaletteStyle, style.ordinal)
         }
     }
 
     fun disableDynamicColors() {
         viewModelScope.launch(Dispatchers.IO) {
-            settingsRepository.setBoolean(SettingsKeys.DYNAMIC_COLORS, false)
+            settingsRepository.setBoolean(SettingsKeys.DynamicColors, false)
         }
     }
 }
