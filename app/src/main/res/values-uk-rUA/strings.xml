@@ -16,9 +16,6 @@
     <string name="adb_via_wireless_debugging">ADB через \"Бездротове налагодження\"</string>
     <string name="adb_via_wireless_debugging_summary">Підключайте пристрої (Android 11+) Wi-Fi за допомогою бездротового налагодження і виконуйте команди ADB віддалено.</string>
     <string name="add">Додати</string>
-    <string name="auto_scale_ui">Автомасштабування UI</string>
-    <string name="custom_ui_scale">Свій масштаб UI</string>
-    <string name="des_auto_scale_ui">Авто масштабує UI відповідно до мінімальної ширини екрана пристрою</string>
     <string name="add_account">Додати обліковий запис</string>
     <string name="add_command">Додати команду</string>
     <string name="add_new_item">Додати новий елемент</string>
@@ -39,7 +36,9 @@
     <string name="auto_backup">Авторезервування</string>
     <string name="auto_backup_content_type">Резервування вмісту</string>
     <string name="auto_backup_folder">Тека резервування</string>
+    <string name="auto_dark_mode">Авто темний режим</string>
     <string name="auto_delete_existing_backups">Автовидалення старих резервувань</string>
+    <string name="auto_scale_ui">Автомасштабування UI</string>
     <string name="auto_update">Автооновлення</string>
     <string name="back">Назад</string>
     <string name="back_button">Кнопка \"Назад\"</string>
@@ -52,15 +51,16 @@
     <string name="backup_destination">Місце призначення резервування</string>
     <string name="backup_failed">Резервування не вдалося</string>
     <string name="backup_found">Знайдено резервування</string>
-    <string name="backup_now">Резервувати зараз</string>
-    <string name="backup_status">Стан резервування</string>
     <string name="backup_frequency">Частота резервування</string>
+    <string name="backup_now">Резервувати зараз</string>
     <string name="backup_scheduler">Планувальник резервування</string>
     <string name="backup_settings">Резервування налаштувань додатка</string>
+    <string name="backup_status">Стан резервування</string>
     <string name="backup_successful">Резервування виконано успішно</string>
     <string name="backup_time">Час резервування</string>
     <string name="backup_type">Тип резервування</string>
     <string name="basic_shell">Базова оболонка</string>
+    <string name="battery_saver">Економія батареї</string>
     <string name="behavior">Поведінка</string>
     <string name="bookmark_limit_reached">Досягнуто максимальної кількості закладок! Видаліть деякі закладки, щоб додати нові</string>
     <string name="bookmarks">Закладки</string>
@@ -126,6 +126,7 @@
     <string name="create_new_tile">Створити нову плитку</string>
     <string name="crowdin_contribution_msg">Відвідайте нашу платформу перекладів crowdin, щоб зробити свій внесок</string>
     <string name="current_version">Поточна версія</string>
+    <string name="custom_ui_scale">Свій масштаб UI</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Вирізати %1$d елементів</string>
     <string name="cut_to_clipboard">Вирізати в буфер обміну</string>
     <string name="daily">Щоденно</string>
@@ -148,7 +149,9 @@
     <string name="des_auto_backup_content_type">Виберіть, що включити до авторезервувань</string>
     <string name="des_auto_backup_folder">Виберіть теку для збереження авторезервувань</string>
     <string name="des_auto_backup_time">Встановіть час для авторезервувань</string>
+    <string name="des_auto_dark_mode">Автоперемикання в темний режим, коли ввімкнено режим економії батареї</string>
     <string name="des_auto_delete_existing_backups">Видаляти старі авторезервування, коли зберігається нова</string>
+    <string name="des_auto_scale_ui">Авто масштабує UI відповідно до мінімальної ширини екрана пристрою</string>
     <string name="des_auto_update">Автоперевірка оновлень</string>
     <string name="des_backup_all_data">Резервування всіх даних додатка</string>
     <string name="des_backup_and_restore">Резервування та відновлення налаштувань додатку та інших даних</string>
@@ -169,8 +172,8 @@
     <string name="des_dynamic_colors">Автоматичне встановлення теми додатка відповідно до шпалер пристрою</string>
     <string name="des_enable_auto_backup">Авторезервування даних програми у запланований час</string>
     <string name="des_enable_cloud_auto_backup">Авторезервування на ваш обліковий запис Google Диска</string>
-    <string name="des_enable_local_auto_backup">Авторезервування у вибрану теку на вашому пристрої</string>
     <string name="des_enable_direct_download">При включенні оновлення завантажуватиметься безпосередньо з GitHub всередині додатка. Вимкніть, щоб відвідати сторінку випусків Github для завантаження вручну.</string>
+    <string name="des_enable_local_auto_backup">Авторезервування у вибрану теку на вашому пристрої</string>
     <string name="des_examples">Колекція деяких шаблонів команд</string>
     <string name="des_feature_request">Якщо у вас є якісь ідеї чи пропозиції щодо програми, повідомте нам</string>
     <string name="des_font_family">Змінити стиль шрифту додатка</string>
@@ -500,6 +503,7 @@
     <string name="pre_release_github">Перед реліз (GitHub)</string>
     <string name="pre_release_warning">Перед реліз збірки можуть бути нестабільними</string>
     <string name="pre_release_warning_description">Ці версії все ще знаходяться на стадії тестування та можуть містити незавершені функції або несподівані помилки. Якщо ви вирішите оновитись до передрелізної версії, майте на увазі, що можуть виникнути збої або дивна поведінка.\nЯкщо ви зіткнетеся з будь-якими проблемами, збоями або дивною поведінкою, будь ласка, повідомте нам про це, щоб ми могли виправити та покращити aShellYou до стабільного релізу.\nДякую, що допомагаєте нам будувати краще!</string>
+    <string name="preference">Переважно</string>
     <string name="preview">Перед огляд</string>
     <string name="qr_pair">Сполучення QR</string>
     <string name="qr_pair_hint">Для сполучення пристрою Android 11+ скануйте цей QR із цільового пристрою</string>
@@ -560,10 +564,10 @@
     <string name="searching_for_devices">Пошук пристроїв…</string>
     <string name="select">Вибрати</string>
     <string name="select_all">Вибрати все</string>
-    <string name="select_time">Виберіть час</string>
-    <string name="select_backup_folder_title">Немає теки резервування</string>
     <string name="select_backup_folder_message">Будь ласка, виберіть теку, де будуть збережені резервування. Додатку потрібен доступ для читання та запису до цієї теки.</string>
+    <string name="select_backup_folder_title">Немає теки резервування</string>
     <string name="select_folder">Виберіть теку</string>
+    <string name="select_time">Виберіть час</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">Своє</string>
     <string name="self_pair_connection_failed">Помилка підключення - спробуйте ручне підключення</string>
     <string name="self_pair_enter_code">Введіть 6-значний код із діалогового вікна сполучення</string>

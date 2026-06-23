@@ -16,9 +16,6 @@
     <string name="adb_via_wireless_debugging">ADB via Wi-Fi</string>
     <string name="adb_via_wireless_debugging_summary">Conecte dispositivos (Android 11+) por Wi-Fi usando a Depuração por Wi-Fi e execute comandos ADB remotamente.</string>
     <string name="add">Adicionar</string>
-    <string name="auto_scale_ui">Auto escala da interface</string>
-    <string name="custom_ui_scale">Escala de interface personalizada</string>
-    <string name="des_auto_scale_ui">Divide automaticamente a interface do usuário de acordo com o dispositivo de menor largura</string>
     <string name="add_account">Adicionar conta</string>
     <string name="add_command">Adicionar comando</string>
     <string name="add_new_item">Adicionar novo item</string>
@@ -39,7 +36,9 @@
     <string name="auto_backup">Backup automático</string>
     <string name="auto_backup_content_type">Conteúdo do backup</string>
     <string name="auto_backup_folder">Pasta de backup</string>
+    <string name="auto_dark_mode">Modo escuro automaticamente</string>
     <string name="auto_delete_existing_backups">Excluir backups antigos automaticamente</string>
+    <string name="auto_scale_ui">Auto escala da interface</string>
     <string name="auto_update">Atualização automática</string>
     <string name="back">Voltar</string>
     <string name="back_button">Botão Voltar</string>
@@ -52,15 +51,16 @@
     <string name="backup_destination">Destino do backup</string>
     <string name="backup_failed">O backup falhou</string>
     <string name="backup_found">Backup encontrado</string>
-    <string name="backup_now">Fazer backup agora</string>
-    <string name="backup_status">Estado do backup</string>
     <string name="backup_frequency">Frequência de backup</string>
+    <string name="backup_now">Fazer backup agora</string>
     <string name="backup_scheduler">Agendamento de backup</string>
     <string name="backup_settings">Backup de configurações do app</string>
+    <string name="backup_status">Estado do backup</string>
     <string name="backup_successful">Backup bem-sucedido</string>
     <string name="backup_time">Hora do backup</string>
     <string name="backup_type">Tipo de backup</string>
     <string name="basic_shell">Shell básico</string>
+    <string name="battery_saver">Economizador de bateria</string>
     <string name="behavior">Comportamento</string>
     <string name="bookmark_limit_reached">Limite máximo de favoritos atingido! Exclua alguns favoritos para adicionar novos</string>
     <string name="bookmarks">Favoritos</string>
@@ -126,6 +126,7 @@
     <string name="create_new_tile">Criar bloco</string>
     <string name="crowdin_contribution_msg">Visite a nossa plataforma de tradução do Crowdin para contribuir</string>
     <string name="current_version">Versão atual</string>
+    <string name="custom_ui_scale">Escala de interface personalizada</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Recortar %1$d itens</string>
     <string name="cut_to_clipboard">Recortar para a área de transferência</string>
     <string name="daily">Diariamente</string>
@@ -148,7 +149,9 @@
     <string name="des_auto_backup_content_type">Escolha o que incluir em backups automáticos</string>
     <string name="des_auto_backup_folder">Selecione uma pasta para salvar os backups automáticos</string>
     <string name="des_auto_backup_time">Defina a hora dos backups automáticos</string>
+    <string name="des_auto_dark_mode">Mudar automaticamente para o modo escuro quando a economia de bateria estiver ativada</string>
     <string name="des_auto_delete_existing_backups">Apagar backups automáticos antigos quando um novo for salvo</string>
+    <string name="des_auto_scale_ui">Divide automaticamente a interface do usuário de acordo com o dispositivo de menor largura</string>
     <string name="des_auto_update">Verificar automaticamente por atualizações</string>
     <string name="des_backup_all_data">Fazer backup de todos os dados do app</string>
     <string name="des_backup_and_restore">Fazer backup e restaurar configurações de apps e outros dados</string>
@@ -169,8 +172,8 @@
     <string name="des_dynamic_colors">Defina automaticamente o tema do app de acordo com o papel de parede do dispositivo</string>
     <string name="des_enable_auto_backup">Fazer backup dos dados do app automaticamente no horário programado</string>
     <string name="des_enable_cloud_auto_backup">Fazer backup automático para a sua conta do Google Drive</string>
-    <string name="des_enable_local_auto_backup">Fazer backup automático para a pasta selecionada no seu dispositivo</string>
     <string name="des_enable_direct_download">Quando ativado, as atualizações serão transferidas diretamente do GitHub dentro do app. Desative para visitar a página de lançamentos do Github para baixar manualmente.</string>
+    <string name="des_enable_local_auto_backup">Fazer backup automático para a pasta selecionada no seu dispositivo</string>
     <string name="des_examples">Coleção de alguns modelos de comando</string>
     <string name="des_feature_request">Se você tem alguma ideia ou sugestão para o app, conte-nos</string>
     <string name="des_font_family">Alterar o estilo da fonte do app</string>
@@ -500,6 +503,7 @@
     <string name="pre_release_github">Pré-lançamento (GitHub)</string>
     <string name="pre_release_warning">As compilações de pré-lançamento podem ser instáveis</string>
     <string name="pre_release_warning_description">Essas versões ainda estão em fase de testes e podem conter recursos incompletos ou erros inesperados. Se você decidir atualizar para uma versão de pré-lançamento, esteja ciente de que podem ocorrer falhas ou comportamentos anormais.\nSe você encontrar algum problema, travamento ou comportamento estranho, por favor, relate-os para que possamos corrigir e melhorar o aShellYou antes do lançamento da versão estável.\nObrigado por nos ajudar a melhorar!</string>
+    <string name="preference">Preferência</string>
     <string name="preview">Prévia</string>
     <string name="qr_pair">Parear por QR</string>
     <string name="qr_pair_hint">Para parear um dispositivo com Android 11 +, escaneie este QR pelo dispositivo de destino</string>
@@ -560,10 +564,10 @@
     <string name="searching_for_devices">Procurando dispositivos…</string>
     <string name="select">Selecionar</string>
     <string name="select_all">Selecionar todos</string>
-    <string name="select_time">Selecionar horário</string>
-    <string name="select_backup_folder_title">Nenhuma pasta de backup</string>
     <string name="select_backup_folder_message">Por favor, selecione uma pasta onde os backups serão salvos. O app precisa de acesso de leitura e gravação para esta pasta.</string>
+    <string name="select_backup_folder_title">Nenhuma pasta de backup</string>
     <string name="select_folder">Selecionar pasta</string>
+    <string name="select_time">Selecionar horário</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">Auto</string>
     <string name="self_pair_connection_failed">Falha na conexão - tente uma conexão manual</string>
     <string name="self_pair_enter_code">Insira o código de 6 dígitos do diálogo de pareamento</string>

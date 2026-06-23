@@ -16,9 +16,6 @@
     <string name="adb_via_wireless_debugging">ADB عن طريق تصحيح الأخطاء اللاسلكي</string>
     <string name="adb_via_wireless_debugging_summary">توصيل الأجهزة (Android 11+) عبر Wi-Fi باستخدام التصحيح اللاسلكي وتنفيذ أوامر ADB عن بُعد.</string>
     <string name="add">إضافة</string>
-    <string name="auto_scale_ui">واجهة المقياس التلقائي</string>
-    <string name="custom_ui_scale">مقياس واجهة المستخدم المخصص</string>
-    <string name="des_auto_scale_ui">يقوم تلقائياً بضبط واجهة المستخدم وفقاً لأصغر عرض للجهاز</string>
     <string name="add_account">إضافة حساب</string>
     <string name="add_command">إضافة أمر</string>
     <string name="add_new_item">إضافة عنصر جديد</string>
@@ -39,7 +36,9 @@
     <string name="auto_backup">النسخ الاحتياطي التلقائي</string>
     <string name="auto_backup_content_type">محتوى النسخ الاحتياطي</string>
     <string name="auto_backup_folder">مجلد النسخ الاحتياطي</string>
+    <string name="auto_dark_mode">الوضع المظلم تلقائياً</string>
     <string name="auto_delete_existing_backups">حذف النسخ الاحتياطية القديمة تلقائياً</string>
+    <string name="auto_scale_ui">واجهة المقياس التلقائي</string>
     <string name="auto_update">تحديث تلقائي</string>
     <string name="back">رجوع</string>
     <string name="back_button">عودة</string>
@@ -52,15 +51,16 @@
     <string name="backup_destination">وجهة النسخ الاحتياطي</string>
     <string name="backup_failed">فشلت عملية النسخ الاحتياطي!</string>
     <string name="backup_found">تم العثور على نسخة احتياطية</string>
-    <string name="backup_now">النسخ الاحتياطي الآن</string>
-    <string name="backup_status">حالة النسخ الاحتياطي</string>
     <string name="backup_frequency">تكرار النسخ الاحتياطي</string>
+    <string name="backup_now">النسخ الاحتياطي الآن</string>
     <string name="backup_scheduler">جدولة النسخ الاحتياطي</string>
     <string name="backup_settings">النسخ الاحتياطي لإعدادات التطبيق</string>
+    <string name="backup_status">حالة النسخ الاحتياطي</string>
     <string name="backup_successful">تم النسخ الاحتياطي بنجاح</string>
     <string name="backup_time">وقت النسخة الاحتياطية</string>
     <string name="backup_type">نوع النسخ الاحتياطي</string>
     <string name="basic_shell">واجهة سطر الأوامر الأساسية</string>
+    <string name="battery_saver">موفر البطارية</string>
     <string name="behavior">سلوك</string>
     <string name="bookmark_limit_reached">تم الوصول إلى الحد الأقصى للإشارات المرجعية! احذف بعض الإشارات المرجعية لإضافة إشارات جديدة</string>
     <string name="bookmarks">الإشارات المرجعية</string>
@@ -126,6 +126,7 @@
     <string name="create_new_tile">إنشاء بلاط جديد</string>
     <string name="crowdin_contribution_msg">قم بزيارة منصة ترجمة crowdin الخاصة بنا للمساهمة</string>
     <string name="current_version">الإصدار الحالي</string>
+    <string name="custom_ui_scale">مقياس واجهة المستخدم المخصص</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">قطع العناصر %1$d</string>
     <string name="cut_to_clipboard">قطع إلى الحافظة</string>
     <string name="daily">يومياً</string>
@@ -148,7 +149,9 @@
     <string name="des_auto_backup_content_type">اختر ما يجب إدراجه في النسخ الاحتياطي التلقائي</string>
     <string name="des_auto_backup_folder">حدد مجلد لحفظ النسخ الاحتياطي التلقائي</string>
     <string name="des_auto_backup_time">تعيين وقت النسخ الاحتياطي التلقائي</string>
+    <string name="des_auto_dark_mode">التبديل تلقائياً إلى الوضع المظلم عند تمكين موفر البطارية</string>
     <string name="des_auto_delete_existing_backups">حذف النسخ الاحتياطي التلقائي القديم عند حفظ واحد جديد</string>
+    <string name="des_auto_scale_ui">يقوم تلقائياً بضبط واجهة المستخدم وفقاً لأصغر عرض للجهاز</string>
     <string name="des_auto_update">التحقق من التحديثات تلقائيًا</string>
     <string name="des_backup_all_data">النسخ الاحتياطي لجميع بيانات التطبيق</string>
     <string name="des_backup_and_restore">النسخ الاحتياطي واستعادة إعدادات التطبيق وغيرها من البيانات</string>
@@ -169,8 +172,8 @@
     <string name="des_dynamic_colors">اضبط سمة التطبيق تلقائيًا وفقًا لخلفية الجهاز</string>
     <string name="des_enable_auto_backup">النسخ الاحتياطي التلقائي لبيانات التطبيق في الوقت المحدد</string>
     <string name="des_enable_cloud_auto_backup">النسخ الاحتياطي تلقائياً لحسابك في Google Drive</string>
-    <string name="des_enable_local_auto_backup">النسخ الاحتياطي تلقائياً للمجلد المحدد على جهازك</string>
     <string name="des_enable_direct_download">عند التشغيل، سيتم تنزيل التحديثات مباشرة من GitHub داخل التطبيق. قم بإيقاف التشغيل لزيارة صفحة إصدارات Github للتنزيل اليدوي بدلاً من ذلك.</string>
+    <string name="des_enable_local_auto_backup">النسخ الاحتياطي تلقائياً للمجلد المحدد على جهازك</string>
     <string name="des_examples">مجموعة من بعض قوالب الأوامر</string>
     <string name="des_feature_request">إذا كان لديك أفكار أو اقتراحات، أخبرنا بها</string>
     <string name="des_font_family">تغيير نمط خط التطبيق</string>
@@ -501,6 +504,7 @@
     <string name="pre_release_github">الإفراج المسبق (GitHub)</string>
     <string name="pre_release_warning">الإصدارات التجريبية قد تكون غير مستقرة</string>
     <string name="pre_release_warning_description">لا تزال هذه الإصدارات قيد الاختبار، وقد تحتوي على ميزات غير مكتملة أو أخطاء غير متوقعة. إذا اخترت التحديث إلى إصدار تجريبي، يُرجى العلم بأن بعض الأمور قد تتعطل أو تتصرف بشكل غير طبيعي.\nإذا واجهت أي مشاكل أو أعطال أو سلوك غير معتاد، يُرجى الإبلاغ عنها حتى نتمكن من إصلاحها وتحسين تطبيق aShellYou قبل الإصدار المستقر.\nشكرًا لمساعدتكم لنا في تطوير التطبيق بشكل أفضل! </string>
+    <string name="preference">تفضيل</string>
     <string name="preview">معاينة</string>
     <string name="qr_pair">QR Pair</string>
     <string name="qr_pair_hint">لإقران جهاز أندرويد 11+ ، امسح هذا QR من الجهاز المستهدف</string>
@@ -561,10 +565,10 @@
     <string name="searching_for_devices">البحث عن الأجهزة…</string>
     <string name="select">اختيار</string>
     <string name="select_all">تحديد الكل</string>
-    <string name="select_time">حدد الوقت</string>
-    <string name="select_backup_folder_title">لا يوجد مجلد نسخة احتياطية</string>
     <string name="select_backup_folder_message">الرجاء تحديد مجلد حيث سيتم حفظ النسخ الاحتياطي. التطبيق يحتاج إلى الوصول إلى هذا المجلد للقراءة والكتابة.</string>
+    <string name="select_backup_folder_title">لا يوجد مجلد نسخة احتياطية</string>
     <string name="select_folder">حدد مجلد</string>
+    <string name="select_time">حدد الوقت</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">الذات</string>
     <string name="self_pair_connection_failed">فشل الاتصال - جرب الاتصال اليدوي</string>
     <string name="self_pair_enter_code">أدخل الرمز المكون من 6 أرقام من مربع حوار الاقتران</string>

@@ -16,9 +16,6 @@
     <string name="adb_via_wireless_debugging">ADB از طریق اشکال‌زدایی بی‌سیم</string>
     <string name="adb_via_wireless_debugging_summary">دستگاه‌ها (اندروید ۱۱+) را از طریق Wi-Fi با استفاده از اشکال‌زدایی بی‌سیم متصل کرده و دستورات ADB را از راه دور اجرا کنید.</string>
     <string name="add">افزودن</string>
-    <string name="auto_scale_ui">Auto scale UI</string>
-    <string name="custom_ui_scale">Custom UI scale</string>
-    <string name="des_auto_scale_ui">Automatically scales the UI according to device smallest width</string>
     <string name="add_account">Add account</string>
     <string name="add_command">افزودن دستور</string>
     <string name="add_new_item">افزودن مورد جدید</string>
@@ -39,7 +36,9 @@
     <string name="auto_backup">Automatic backup</string>
     <string name="auto_backup_content_type">Backup content</string>
     <string name="auto_backup_folder">Backup folder</string>
+    <string name="auto_dark_mode">Auto dark mode</string>
     <string name="auto_delete_existing_backups">Auto-delete old backups</string>
+    <string name="auto_scale_ui">Auto scale UI</string>
     <string name="auto_update">بروزرسانی خودکار</string>
     <string name="back">بازگشت</string>
     <string name="back_button">دکمه بازگشت</string>
@@ -52,15 +51,16 @@
     <string name="backup_destination">Backup destination</string>
     <string name="backup_failed">پشتیبان‌گیری ناموفق بود</string>
     <string name="backup_found">پشتیبان یافت شد</string>
-    <string name="backup_now">Backup now</string>
-    <string name="backup_status">Backup status</string>
     <string name="backup_frequency">Backup frequency</string>
+    <string name="backup_now">Backup now</string>
     <string name="backup_scheduler">Backup scheduler</string>
     <string name="backup_settings">پشتیبان‌گیری از تنظیمات برنامه</string>
+    <string name="backup_status">Backup status</string>
     <string name="backup_successful">پشتیبان‌گیری موفق</string>
     <string name="backup_time">زمان پشتیبان‌گیری</string>
     <string name="backup_type">Backup type</string>
     <string name="basic_shell">شل پایه</string>
+    <string name="battery_saver">Battery saver</string>
     <string name="behavior">رفتار</string>
     <string name="bookmark_limit_reached">به حداکثر تعداد نشانک‌ها رسیده‌اید! برای افزودن نشانک جدید، تعدادی را حذف کنید</string>
     <string name="bookmarks">نشانک‌ها</string>
@@ -126,6 +126,7 @@
     <string name="create_new_tile">Create new tile</string>
     <string name="crowdin_contribution_msg">Visit our crowdin translation platform to contribute</string>
     <string name="current_version">نسخه فعلی</string>
+    <string name="custom_ui_scale">Custom UI scale</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">%1$d مورد برش داده شد</string>
     <string name="cut_to_clipboard">برش به کلیپ‌بورد</string>
     <string name="daily">Daily</string>
@@ -148,7 +149,9 @@
     <string name="des_auto_backup_content_type">Choose what to include in automatic backups</string>
     <string name="des_auto_backup_folder">Select a folder to save automatic backups</string>
     <string name="des_auto_backup_time">Set the time for automatic backups</string>
+    <string name="des_auto_dark_mode">Automatically switch to dark mode when battery saver is enabled</string>
     <string name="des_auto_delete_existing_backups">Delete older automatic backups when a new one is saved</string>
+    <string name="des_auto_scale_ui">Automatically scales the UI according to device smallest width</string>
     <string name="des_auto_update">بررسی خودکار بروزرسانی‌ها</string>
     <string name="des_backup_all_data">پشتیبان‌گیری از همه داده‌های برنامه</string>
     <string name="des_backup_and_restore">پشتیبان‌گیری و بازیابی تنظیمات برنامه و سایر داده‌ها</string>
@@ -169,8 +172,8 @@
     <string name="des_dynamic_colors">تنظیم خودکار تم برنامه بر اساس تصویر پس‌زمینه</string>
     <string name="des_enable_auto_backup">Automatically backup app data at the scheduled time</string>
     <string name="des_enable_cloud_auto_backup">Automatically backup to your Google Drive account</string>
-    <string name="des_enable_local_auto_backup">Automatically backup to the selected folder on your device</string>
     <string name="des_enable_direct_download">When turned on, updates will be downloaded directly from GitHub inside the app. Turn off to visit the Github releases page for manual download instead.</string>
+    <string name="des_enable_local_auto_backup">Automatically backup to the selected folder on your device</string>
     <string name="des_examples">مجموعه‌ای از نمونه دستورات</string>
     <string name="des_feature_request">اگر ایده یا پیشنهادی دارید، به ما اطلاع دهید</string>
     <string name="des_font_family">Change the font style of the application</string>
@@ -500,6 +503,7 @@
     <string name="pre_release_github">Pre-release (GitHub)</string>
     <string name="pre_release_warning">نسخه‌های پیش‌انتشار ممکن است ناپایدار باشند</string>
     <string name="pre_release_warning_description">این نسخه‌ها هنوز در حال آزمایش هستند و ممکن است شامل ویژگی‌های ناتمام یا باگ‌های غیرمنتظره باشند. اگر به پیش‌انتشار بروزرسانی کنید، توجه داشته باشید که ممکن است مشکلاتی پیش بیاید.\nاگر با مشکل، خرابی یا رفتار عجیبی مواجه شدید، لطفاً گزارش دهید تا قبل از انتشار پایدار بتوانیم آن را رفع کنیم.\nممنون که کمک می‌کنید!</string>
+    <string name="preference">Preference</string>
     <string name="preview">Preview</string>
     <string name="qr_pair">جفت‌سازی QR</string>
     <string name="qr_pair_hint">برای جفت کردن دستگاه اندروید ۱۱+، این QR را از دستگاه مقصد اسکن کنید</string>
@@ -560,10 +564,10 @@
     <string name="searching_for_devices">جستجوی دستگاه‌ها…</string>
     <string name="select">Select</string>
     <string name="select_all">انتخاب همه</string>
-    <string name="select_time">Select time</string>
-    <string name="select_backup_folder_title">No backup folder</string>
     <string name="select_backup_folder_message">Please select a folder where backups will be saved. The app needs read and write access to this folder.</string>
+    <string name="select_backup_folder_title">No backup folder</string>
     <string name="select_folder">Select folder</string>
+    <string name="select_time">Select time</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">خود</string>
     <string name="self_pair_connection_failed">اتصال ناموفق - اتصال دستی را امتحان کنید</string>
     <string name="self_pair_enter_code">کد ۶ رقمی را از پنجره جفت‌سازی وارد کنید</string>

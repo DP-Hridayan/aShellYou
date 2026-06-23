@@ -16,9 +16,6 @@
     <string name="adb_via_wireless_debugging">ADB vía Depuración inalámbrica</string>
     <string name="adb_via_wireless_debugging_summary">Conecta dispositivos (Android 11+) por Wifi usando la depuración inalámbrica y ejecuta comandos ADB de forma remota.</string>
     <string name="add">Añadir</string>
-    <string name="auto_scale_ui">Autoescalar UI</string>
-    <string name="custom_ui_scale">Escala de IU personalizada</string>
-    <string name="des_auto_scale_ui">Escala automáticamente la interfaz de usuario de acuerdo al ancho más pequeño del dispositivo</string>
     <string name="add_account">Añadir cuenta</string>
     <string name="add_command">Añadir comando</string>
     <string name="add_new_item">Añadir nuevo elemento</string>
@@ -39,7 +36,9 @@
     <string name="auto_backup">Copia automática</string>
     <string name="auto_backup_content_type">Copia de seguridad</string>
     <string name="auto_backup_folder">Carpeta de respaldo</string>
+    <string name="auto_dark_mode">Modo automático oscuro</string>
     <string name="auto_delete_existing_backups">Auto-borrar copias de seguridad antiguas</string>
+    <string name="auto_scale_ui">Autoescalar UI</string>
     <string name="auto_update">Actualización automática</string>
     <string name="back">Atrás</string>
     <string name="back_button">Botón Atrás</string>
@@ -52,15 +51,16 @@
     <string name="backup_destination">Destino de la copia de seguridad</string>
     <string name="backup_failed">La copia de seguridad falló</string>
     <string name="backup_found">Copia de seguridad encontrada</string>
-    <string name="backup_now">Copia de seguridad</string>
-    <string name="backup_status">Estado de copia de seguridad</string>
     <string name="backup_frequency">Frecuencia de copia de seguridad</string>
+    <string name="backup_now">Copia de seguridad</string>
     <string name="backup_scheduler">Programador de copias de seguridad</string>
     <string name="backup_settings">Hacer copia de seguridad de los ajustes de la aplicación</string>
+    <string name="backup_status">Estado de copia de seguridad</string>
     <string name="backup_successful">Copia de seguridad realizada con éxito</string>
     <string name="backup_time">Hora de la copia de seguridad</string>
     <string name="backup_type">Tipo de copia de seguridad</string>
     <string name="basic_shell">Shell básico</string>
+    <string name="battery_saver">Ahorro de batería</string>
     <string name="behavior">Comportamiento</string>
     <string name="bookmark_limit_reached">¡Se alcanzó el límite máximo de marcadores! Elimina algunos para añadir otros nuevos</string>
     <string name="bookmarks">Marcadores</string>
@@ -126,6 +126,7 @@
     <string name="create_new_tile">Crear nuevo mosaico</string>
     <string name="crowdin_contribution_msg">Visita nuestra plataforma de traducción de Crowdin para colaborar</string>
     <string name="current_version">Versión actual</string>
+    <string name="custom_ui_scale">Escala de IU personalizada</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Cortar %1$d elementos</string>
     <string name="cut_to_clipboard">Cortar al portapapeles</string>
     <string name="daily">Diario</string>
@@ -148,7 +149,9 @@
     <string name="des_auto_backup_content_type">Elija qué incluir en las copias de seguridad automáticas</string>
     <string name="des_auto_backup_folder">Seleccione una carpeta para guardar las copias de seguridad automáticas</string>
     <string name="des_auto_backup_time">Establecer el tiempo para las copias de seguridad automáticas</string>
+    <string name="des_auto_dark_mode">Cambiar automáticamente al modo oscuro cuando el ahorro de batería está activado</string>
     <string name="des_auto_delete_existing_backups">Eliminar copias de seguridad automáticas antiguas cuando se guarda una nueva</string>
+    <string name="des_auto_scale_ui">Escala automáticamente la interfaz de usuario de acuerdo al ancho más pequeño del dispositivo</string>
     <string name="des_auto_update">Buscar actualizaciones automáticamente</string>
     <string name="des_backup_all_data">Hacer copia de seguridad de todos los datos de la aplicación</string>
     <string name="des_backup_and_restore">Hacer copia de seguridad y restaurar los ajustes de la aplicación y otros datos</string>
@@ -169,8 +172,8 @@
     <string name="des_dynamic_colors">Establecer automáticamente el tema de la aplicación según el fondo de pantalla del dispositivo</string>
     <string name="des_enable_auto_backup">Copiar automáticamente los datos de la aplicación a la hora programada</string>
     <string name="des_enable_cloud_auto_backup">Copia de seguridad automática en tu cuenta de Google Drive</string>
-    <string name="des_enable_local_auto_backup">Copia de seguridad automática en la carpeta seleccionada en su dispositivo</string>
     <string name="des_enable_direct_download">Cuando está activado, las actualizaciones se descargarán directamente desde GitHub dentro de la aplicación. Desactívalo para visitar la página de lanzamientos de GitHub y descargar las actualizaciones manualmente.</string>
+    <string name="des_enable_local_auto_backup">Copia de seguridad automática en la carpeta seleccionada en su dispositivo</string>
     <string name="des_examples">Colección de algunas plantillas de comandos</string>
     <string name="des_feature_request">Si tienes alguna idea o sugerencia para la aplicación, háznoslo saber</string>
     <string name="des_font_family">Cambiar el estilo de fuente de la aplicación</string>
@@ -500,6 +503,7 @@
     <string name="pre_release_github">Prelanzamiento (GitHub)</string>
     <string name="pre_release_warning">Las compilaciones preliminares pueden ser inestables</string>
     <string name="pre_release_warning_description">Estas versiones aún están en fase de pruebas y pueden contener funciones sin terminar o errores inesperados. Si decides actualizar a una versión preliminar, ten en cuenta que algunas cosas podrían fallar o comportarse de manera extraña.\nSi encuentras problemas, fallos o comportamientos extraños, repórtalos para que podamos corregirlos y mejorar aShell You antes del lanzamiento estable.\n¡Gracias por ayudarnos a construir algo mejor!</string>
+    <string name="preference">Preferencia</string>
     <string name="preview">Vista previa</string>
     <string name="qr_pair">Emparejar por QR</string>
     <string name="qr_pair_hint">Para emparejar un dispositivo con Android 11 o superior, escanea este código QR desde el dispositivo de destino</string>
@@ -560,10 +564,10 @@
     <string name="searching_for_devices">Buscando dispositivos…</string>
     <string name="select">Seleccionar</string>
     <string name="select_all">Seleccionar todo</string>
-    <string name="select_time">Seleccionar hora</string>
-    <string name="select_backup_folder_title">No hay carpeta de respaldo</string>
     <string name="select_backup_folder_message">Por favor, seleccione una carpeta donde se guardarán las copias de seguridad. La aplicación necesita acceso de lectura y escritura a esta carpeta.</string>
+    <string name="select_backup_folder_title">No hay carpeta de respaldo</string>
     <string name="select_folder">Seleccionar carpeta</string>
+    <string name="select_time">Seleccionar hora</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">Propio</string>
     <string name="self_pair_connection_failed">La conexión falló - intenta la conexión manual</string>
     <string name="self_pair_enter_code">Introduce el código de 6 dígitos del cuadro de emparejamiento</string>
