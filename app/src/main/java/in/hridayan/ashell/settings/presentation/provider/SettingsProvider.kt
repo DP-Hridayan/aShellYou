@@ -94,7 +94,7 @@ object SettingsProvider {
                 key = SettingsKeys.PaletteStyle,
                 title = R.string.palette_style,
                 description = R.string.palette_tonal_spot,
-                icon = R.drawable.ic_pallete
+                icon = R.drawable.ic_styles
             ),
             clickableItem(
                 key = SettingsKeys.DarkTheme,
@@ -517,4 +517,6 @@ fun getAllSettingsIcons(): List<Int> = listOf(
     R.drawable.ic_upload_file,
     R.drawable.ic_restore_page,
     R.drawable.ic_reset_settings,
+    R.drawable.ic_styles,
+    R.drawable.ic_format_size
 )

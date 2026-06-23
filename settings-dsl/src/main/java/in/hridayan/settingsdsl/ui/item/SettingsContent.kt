@@ -111,12 +111,14 @@ fun LazyListScope.settingsContent(
                                 text = title,
                                 style = MaterialTheme.typography.labelLarge,
                                 color = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier.padding(
-                                    start = 20.dp,
-                                    end = 20.dp,
-                                    top = 30.dp,
-                                    bottom = 10.dp,
-                                ),
+                                modifier = Modifier
+                                    .padding(
+                                        start = 20.dp,
+                                        end = 20.dp,
+                                        top = 30.dp,
+                                        bottom = 10.dp,
+                                    )
+                                    .animateItem(),
                             )
                         }
                     }

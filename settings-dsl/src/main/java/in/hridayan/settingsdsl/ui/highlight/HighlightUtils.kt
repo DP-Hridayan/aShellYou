@@ -12,7 +12,6 @@ import androidx.compose.runtime.setValue
 import `in`.hridayan.settingsdsl.model.SettingsKey
 import `in`.hridayan.settingsdsl.model.SettingsPage
 import kotlinx.coroutines.delay
-import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * Manages scroll-to-item + blink-highlight state for a DSL-based settings sub-screen.
@@ -20,6 +19,18 @@ import kotlin.time.Duration.Companion.milliseconds
  * Call this once in each sub-screen that supports deep-link highlighting.
  * Returns the currently highlighted [SettingsKey] (or null) — pass the returned value
  * as `highlightedKey` to [resolveAll] / [settingsContent] to drive the card color blink.
+ *
+ * **Design note — why the blink does not need a state-clearing timer:**
+ * The card-level blink animation ([highlightCardColors]) is finite: it plays 3 pulses
+ * (~2.4 s) via [Animatable] and then returns to the normal color on its own WITHOUT
+ * ever changing [isHighlighted] or [resolvedGroups]. Keeping the state immutable after
+ * the initial scroll means the [LazyColumn] never recomposes solely due to the blink
+ * ending, so `animateItem()` placement animations are never triggered for items near
+ * the top of the list.
+ *
+ * [highlightedKey] IS cleared immediately when [hasScrolled] is already true on entry
+ * (composable was recreated mid-blink, e.g. via config change or Compose disposing the
+ * back-stack entry under memory pressure), so orphaned indefinite blinks are impossible.
  *
  * @param highlightKeyName The raw key name string passed in via nav args (nullable).
  * @param page             The [SettingsPage] to search for the target key index.
@@ -45,8 +56,8 @@ fun rememberHighlightState(
     var highlightedKey by rememberSaveable { mutableStateOf(highlightKeyName) }
 
     // Persists for the lifetime of this BackStackEntry (resets when the entry is popped).
-    // Prevents a second scroll when Compose Navigation restores this screen after a
-    // forward navigation (e.g. user navigates to a sub-screen and comes back).
+    // Prevents a second scroll when Compose Navigation restores this screen after
+    // a forward navigation (e.g. user navigates to a sub-screen and comes back).
     var hasScrolled by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(highlightKeyName) {
@@ -54,10 +65,12 @@ fun rememberHighlightState(
         val targetKey = keyResolver(highlightKeyName) ?: return@LaunchedEffect
 
         if (!hasScrolled) {
-            // First time on this BackStackEntry — scroll to the item and start the blink.
+            // Fresh entry — scroll to the item and let the card's finite Animatable
+            // handle the blink visually. No timer needed to clear highlightedKey
+            // because the blink ends on its own without changing resolvedGroups.
             val lazyIndex = page.lazyListIndexOf(targetKey, headerItemCount)
             if (lazyIndex >= 0) {
-                delay(400.milliseconds) // let the screen enter-transition finish
+                delay(400) // let the screen enter-transition finish
 
                 // Snap the LargeTopAppBar to fully collapsed BEFORE the list scroll.
                 // animateScrollToItem bypasses the nested scroll connection, so the bar
@@ -69,17 +82,12 @@ fun rememberHighlightState(
                 listState.animateScrollToItem(index = lazyIndex)
             }
             hasScrolled = true
-
-            // Let the blink animation play out before clearing the highlight.
-            delay(2400.milliseconds)
+        } else {
+            // Restoration case: composable was recreated while highlight was still active
+            // (e.g. config change or Compose disposing the back-stack entry mid-blink).
+            // Clear immediately so the blink doesn't restart indefinitely on a fresh card.
+            highlightedKey = null
         }
-        // Two cases reach here:
-        //  (a) Fresh run — delay(2400) just finished, clear normally.
-        //  (b) Restoration with hasScrolled=true and highlightedKey still non-null
-        //      (composable was recreated/restored mid-blink, e.g. via config change or
-        //      Compose disposing the back-stack entry under memory pressure) — clear
-        //      immediately so the blink doesn't continue indefinitely.
-        highlightedKey = null
     }
 
     return highlightedKey?.let { keyResolver(it) }
