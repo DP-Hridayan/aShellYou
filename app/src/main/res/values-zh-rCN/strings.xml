@@ -16,9 +16,6 @@
     <string name="adb_via_wireless_debugging">无线ADB</string>
     <string name="adb_via_wireless_debugging_summary">通过“无线调试”功能（安卓11及以上）实现远程执行ADB命令。</string>
     <string name="add">添加</string>
-    <string name="auto_scale_ui">自动缩放界面</string>
-    <string name="custom_ui_scale">自定义界面缩放</string>
-    <string name="des_auto_scale_ui">根据设备最小宽度自动缩放界面</string>
     <string name="add_account">添加帐户</string>
     <string name="add_command">添加命令</string>
     <string name="add_new_item">添加新项目</string>
@@ -39,7 +36,9 @@
     <string name="auto_backup">自动备份</string>
     <string name="auto_backup_content_type">备份内容</string>
     <string name="auto_backup_folder">备份文件夹</string>
+    <string name="auto_dark_mode">自动暗色模式</string>
     <string name="auto_delete_existing_backups">自动删除旧备份</string>
+    <string name="auto_scale_ui">自动缩放界面</string>
     <string name="auto_update">自动更新</string>
     <string name="back">返回</string>
     <string name="back_button">返回键</string>
@@ -52,15 +51,16 @@
     <string name="backup_destination">备份目标</string>
     <string name="backup_failed">备份失败</string>
     <string name="backup_found">找到备份</string>
-    <string name="backup_now">立即备份</string>
-    <string name="backup_status">备份状态</string>
     <string name="backup_frequency">备份频率</string>
+    <string name="backup_now">立即备份</string>
     <string name="backup_scheduler">备份调度器</string>
     <string name="backup_settings">备份应用设置</string>
+    <string name="backup_status">备份状态</string>
     <string name="backup_successful">备份成功</string>
     <string name="backup_time">备份时间</string>
     <string name="backup_type">备份类型</string>
     <string name="basic_shell">普通终端</string>
+    <string name="battery_saver">省电模式</string>
     <string name="behavior">行为</string>
     <string name="bookmark_limit_reached">书签达到设定数量，移除部分书签后再尝试添加</string>
     <string name="bookmarks">书签</string>
@@ -126,6 +126,7 @@
     <string name="create_new_tile">创建新瓷块</string>
     <string name="crowdin_contribution_msg">访问我们的crowdin 翻译平台来贡献</string>
     <string name="current_version">当前版本</string>
+    <string name="custom_ui_scale">自定义界面缩放</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">剪切 %1$d 项目</string>
     <string name="cut_to_clipboard">剪切到剪贴板</string>
     <string name="daily">每天</string>
@@ -148,7 +149,9 @@
     <string name="des_auto_backup_content_type">选择自动备份中包含的内容</string>
     <string name="des_auto_backup_folder">选择要保存自动备份的文件夹</string>
     <string name="des_auto_backup_time">设置自动备份时间</string>
+    <string name="des_auto_dark_mode">省电模式启用时自动切换到暗色模式</string>
     <string name="des_auto_delete_existing_backups">保存新备份时删除旧的自动备份</string>
+    <string name="des_auto_scale_ui">根据设备最小宽度自动缩放界面</string>
     <string name="des_auto_update">自动检测更新</string>
     <string name="des_backup_all_data">备份应用全部数据</string>
     <string name="des_backup_and_restore">备份和恢复应用设置和其他数据</string>
@@ -169,8 +172,8 @@
     <string name="des_dynamic_colors">根据壁纸自动取主题色</string>
     <string name="des_enable_auto_backup">在预定时间自动备份应用数据</string>
     <string name="des_enable_cloud_auto_backup">自动备份到您的 Google Drive 帐户</string>
-    <string name="des_enable_local_auto_backup">自动备份到您设备上选定的文件夹</string>
     <string name="des_enable_direct_download">开启后，将直接从 GitHub 应用程序内下载更新。关闭以访问Github 发布页面进行手动下载。</string>
+    <string name="des_enable_local_auto_backup">自动备份到您设备上选定的文件夹</string>
     <string name="des_examples">一些常用命令示例</string>
     <string name="des_feature_request">如果您对应用有任何想法或建议，请告知我们</string>
     <string name="des_font_family">更改应用程序的字体样式</string>
@@ -500,6 +503,7 @@
     <string name="pre_release_github">预释放(GitHub)</string>
     <string name="pre_release_warning">预发布版本可能不稳定</string>
     <string name="pre_release_warning_description">这些版本仍在测试中，可能包含未完成的功能或未预料的故障。如果选择更新到预发行版本，请意识到应用可能出问题或表现怪异。\n如遇任何问题、崩溃或奇怪行为，请报告它们。以便我们在稳定版发布前修复和改进 sShellYou。\n感谢帮助我们让 aShell 变得更好！</string>
+    <string name="preference">首选项</string>
     <string name="preview">预览</string>
     <string name="qr_pair">二维码对</string>
     <string name="qr_pair_hint">要配对 Android 11+ 设备，请从目标设备扫描此 QR</string>
@@ -560,10 +564,10 @@
     <string name="searching_for_devices">正在搜索设备…</string>
     <string name="select">选择</string>
     <string name="select_all">全选</string>
-    <string name="select_time">选择时间</string>
-    <string name="select_backup_folder_title">没有备份文件夹</string>
     <string name="select_backup_folder_message">请选择要保存备份的文件夹。应用程序需要读取并写入此文件夹的权限。</string>
+    <string name="select_backup_folder_title">没有备份文件夹</string>
     <string name="select_folder">选择文件夹</string>
+    <string name="select_time">选择时间</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">自己的</string>
     <string name="self_pair_connection_failed">连接失败 - 尝试手动连接</string>
     <string name="self_pair_enter_code">从配对对话框中输入6位数字</string>
