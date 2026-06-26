@@ -1,4 +1,4 @@
-﻿@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 
 package `in`.hridayan.ashell.settings.presentation.page.backup.screens
 
@@ -148,20 +148,21 @@ fun BackupSchedulerScreen(
                             !autoBackupEnabled &&
                             autoBackupFolderName.isEmpty()
                         ) {
-                            // Trying to enable auto backup without a folder — prompt first
                             showFolderDialog = true
                         } else {
                             controller.onBooleanToggle(key)
                             if (key == SettingsKeys.AutoBackupEnabled) {
-                                settingsViewModel.rescheduleAutoBackup()
+                                settingsViewModel.rescheduleAutoBackup(enabled = !autoBackupEnabled)
                             }
                         }
                     },
                     onIntChanged = { key, value ->
                         controller.onIntChanged(key, value)
-                        // Reschedule when frequency changes
                         if (key == SettingsKeys.AutoBackupFrequency) {
-                            settingsViewModel.rescheduleAutoBackup()
+                            settingsViewModel.rescheduleAutoBackup(
+                                enabled = autoBackupEnabled,
+                                frequency = value,
+                            )
                         }
                     },
                     hapticsEnabled = hapticsEnabled,
@@ -225,10 +226,14 @@ fun BackupSchedulerScreen(
             initialMinute = settings[SettingsKeys.AutoBackupTimeMinute],
             onDismiss = { dialogManager.dismiss() },
             onConfirm = { hour, minute ->
-                dialogManager.dismiss()
                 settingsViewModel.setInt(SettingsKeys.AutoBackupTimeHour, hour)
                 settingsViewModel.setInt(SettingsKeys.AutoBackupTimeMinute, minute)
-                settingsViewModel.rescheduleAutoBackup()
+                settingsViewModel.rescheduleAutoBackup(
+                    enabled = autoBackupEnabled,
+                    hour = hour,
+                    minute = minute,
+                )
+                dialogManager.dismiss()
             }
         )
     }

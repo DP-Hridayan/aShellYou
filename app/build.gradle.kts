@@ -248,6 +248,7 @@ dependencies {
     implementation(libs.hilt.navigation.compose)
     ksp(libs.hilt.android.compiler)
     implementation(libs.hilt.work)
+    ksp(libs.hilt.compiler)
     implementation(libs.jmdns)
 
     implementation(libs.ktor.client.core)

@@ -5,6 +5,7 @@ package `in`.hridayan.settingsdsl.ui.item
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,7 +31,6 @@ import androidx.compose.material3.ToggleButton
 import androidx.compose.material3.ToggleButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -313,7 +313,10 @@ private fun SwitchBannerItemView(
             Text(
                 text = item.title,
                 style = MaterialTheme.typography.headlineSmall,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .basicMarquee(initialDelayMillis = 2500, repeatDelayMillis = 3000)
             )
             SettingsSwitch(
                 checked = isChecked,

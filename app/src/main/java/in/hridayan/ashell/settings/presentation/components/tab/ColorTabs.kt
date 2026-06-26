@@ -17,14 +17,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import `in`.hridayan.ashell.core.common.LocalPaletteStyle
 import `in`.hridayan.ashell.core.common.LocalSeedColor
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalTonalPalette
 import `in`.hridayan.ashell.core.data.local.provider.SeedColor
-import `in`.hridayan.ashell.settings.presentation.components.palette.PaletteWheel
+import `in`.hridayan.ashell.core.domain.model.PaletteStyle
 import `in`.hridayan.ashell.settings.data.SettingsKeys
-import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel.LookAndFeelViewModel
+import `in`.hridayan.ashell.settings.presentation.components.palette.PaletteWheel
 import `in`.hridayan.shapeindicators.ShapeIndicatorRow
 
 @Composable
@@ -35,6 +35,9 @@ fun ColorTabs(
     val tonalPalettes = LocalTonalPalette.current
     val groupedPalettes = tonalPalettes.chunked(4)
     val pagerState = rememberPagerState(initialPage = 0) { groupedPalettes.size }
+    val paletteStyle = LocalPaletteStyle.current
+    val isMonochromePalette = paletteStyle == PaletteStyle.MONOCHROME
+    val isDynamicColor = LocalSettings.current[SettingsKeys.DynamicColors]
 
     Column(modifier = modifier) {
         HorizontalPager(
@@ -45,17 +48,25 @@ fun ColorTabs(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                groupedPalettes[page].forEach { palette ->
-                    val isChecked = LocalSeedColor.current.primary == palette.colors.primary
-                    val isDynamicColor = LocalSettings.current[SettingsKeys.DynamicColors]
-
+                if (isMonochromePalette)
                     PaletteWheel(
                         modifier = Modifier.size(70.dp),
-                        seedColor = palette.colors,
-                        onClick = { onClickTab(palette.colors) },
-                        isChecked = isChecked && !isDynamicColor,
+                        seedColor = tonalPalettes.first().colors,
+                        onClick = { },
+                        isChecked = !isDynamicColor,
                     )
-                }
+                else
+                    groupedPalettes[page].forEach { palette ->
+                        val isChecked = LocalSeedColor.current.primary == palette.colors.primary
+
+                        PaletteWheel(
+                            modifier = Modifier.size(70.dp),
+                            seedColor = palette.colors,
+                            onClick = { onClickTab(palette.colors) },
+                            isChecked = isChecked && !isDynamicColor,
+                        )
+                    }
+
             }
         }
 

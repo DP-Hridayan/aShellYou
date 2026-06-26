@@ -90,6 +90,7 @@ hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref
 hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltExt" }
 hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hiltExt" }
+hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltExt" }
 jmdns = { module = "org.jmdns:jmdns", version.ref = "jmdns" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
