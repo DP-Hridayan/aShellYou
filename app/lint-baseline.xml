@@ -129,7 +129,7 @@
         errorLine2="                                                                 ~~~~~">
         <location
             file="src/main/res/values-es-rES/strings.xml"
-            line="306"
+            line="309"
             column="66"/>
     </issue>
 
@@ -140,7 +140,7 @@
         errorLine2="                                                                               ~~~~~">
         <location
             file="src/main/res/values-es-rES/strings.xml"
-            line="713"
+            line="717"
             column="80"/>
     </issue>
 
@@ -291,14 +291,14 @@
         id="TrustAllX509TrustManager"
         message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.6.0/transforms/c99152381085f026d792c175c4d7ca59/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.6.0/transforms/5c66bd6ba8d34aacf71f051d1c94d70a/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
         id="TrustAllX509TrustManager"
         message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.6.0/transforms/c99152381085f026d792c175c4d7ca59/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.6.0/transforms/5c66bd6ba8d34aacf71f051d1c94d70a/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
@@ -745,17 +745,6 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.drawable.ic_styles` appears to be unused"
-        errorLine1="&lt;vector"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_styles.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.drawable.ic_terminal` appears to be unused"
         errorLine1="&lt;vector"
         errorLine2="^">
@@ -904,7 +893,7 @@
         errorLine2="                                                                               ~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-ja-rJP/strings.xml"
-            line="406"
+            line="409"
             column="80"/>
     </issue>
 
@@ -915,7 +904,7 @@
         errorLine2="                                                                               ~~~~~~~~~~~~">
         <location
             file="src/main/res/values-zh-rCN/strings.xml"
-            line="406"
+            line="409"
             column="80"/>
     </issue>
 
@@ -926,7 +915,7 @@
         errorLine2="                                                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-ar-rSA/strings.xml"
-            line="407"
+            line="410"
             column="80"/>
     </issue>
 
@@ -937,7 +926,7 @@
         errorLine2="                                                                               ~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-fr-rFR/strings.xml"
-            line="408"
+            line="411"
             column="80"/>
     </issue>
 
@@ -948,7 +937,7 @@
         errorLine2="                                                                               ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-pt-rBR/strings.xml"
-            line="408"
+            line="411"
             column="80"/>
     </issue>
 
@@ -959,7 +948,7 @@
         errorLine2="                                                                               ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-pt-rPT/strings.xml"
-            line="408"
+            line="411"
             column="80"/>
     </issue>
 
@@ -970,7 +959,7 @@
         errorLine2="                                                                               ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-uk-rUA/strings.xml"
-            line="408"
+            line="411"
             column="80"/>
     </issue>
 
@@ -981,7 +970,7 @@
         errorLine2="                                                                               ~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-zh-rCN/strings.xml"
-            line="408"
+            line="411"
             column="80"/>
     </issue>
 
@@ -992,7 +981,7 @@
         errorLine2="                                                                               ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-ar-rSA/strings.xml"
-            line="409"
+            line="412"
             column="80"/>
     </issue>
 
