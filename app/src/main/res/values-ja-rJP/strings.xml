@@ -16,9 +16,6 @@
     <string name="adb_via_wireless_debugging">ワイヤレスデバッグ経由のADB</string>
     <string name="adb_via_wireless_debugging_summary">ワイヤレスデバッグを使用してWi-Fi経由でデバイス(Android 11 以降)を接続し、ADBコマンドをリモートで実行します。</string>
     <string name="add">追加</string>
-    <string name="auto_scale_ui">自動スケールUI</string>
-    <string name="custom_ui_scale">カスタムUIスケール</string>
-    <string name="des_auto_scale_ui">端末の最小幅に応じてUIを自動的に拡大縮小します</string>
     <string name="add_account">アカウントを追加</string>
     <string name="add_command">コマンドを追加</string>
     <string name="add_new_item">新しいアイテムを追加</string>
@@ -39,7 +36,9 @@
     <string name="auto_backup">自動バックアップ</string>
     <string name="auto_backup_content_type">コンテンツをバックアップ</string>
     <string name="auto_backup_folder">バックアップフォルダ</string>
+    <string name="auto_dark_mode">自動ダークモード</string>
     <string name="auto_delete_existing_backups">古いバックアップを自動的に削除</string>
+    <string name="auto_scale_ui">自動スケールUI</string>
     <string name="auto_update">自動アップデート</string>
     <string name="back">戻る</string>
     <string name="back_button">戻る</string>
@@ -52,15 +51,16 @@
     <string name="backup_destination">バックアップ先</string>
     <string name="backup_failed">バックアップに失敗しました</string>
     <string name="backup_found">バックアップが見つかりました</string>
-    <string name="backup_now">今すぐバックアップ</string>
-    <string name="backup_status">バックアップの状態</string>
     <string name="backup_frequency">バックアップ頻度</string>
+    <string name="backup_now">今すぐバックアップ</string>
     <string name="backup_scheduler">バックアップスケジューラ</string>
     <string name="backup_settings">アプリの設定をバックアップ</string>
+    <string name="backup_status">バックアップの状態</string>
     <string name="backup_successful">バックアップに成功しました</string>
     <string name="backup_time">バックアップ時間</string>
     <string name="backup_type">バックアップの種類</string>
     <string name="basic_shell">基本シェル</string>
+    <string name="battery_saver">バッテリーセーバー</string>
     <string name="behavior">動作</string>
     <string name="bookmark_limit_reached">ブックマークの上限に達しました！ブックマークを削除して新しいブックマークを追加しましょう</string>
     <string name="bookmarks">ブックマーク</string>
@@ -126,6 +126,7 @@
     <string name="create_new_tile">新しいタイルを作成</string>
     <string name="crowdin_contribution_msg">クラウドイン翻訳プラットフォームにアクセスして貢献してください</string>
     <string name="current_version">最近のバージョン</string>
+    <string name="custom_ui_scale">カスタムUIスケール</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">%1$d 項目を切り取り</string>
     <string name="cut_to_clipboard">クリップボードに切り取り</string>
     <string name="daily">毎日</string>
@@ -148,7 +149,9 @@
     <string name="des_auto_backup_content_type">自動バックアップに含める内容を選択します</string>
     <string name="des_auto_backup_folder">自動バックアップを保存するフォルダを選択します</string>
     <string name="des_auto_backup_time">自動バックアップの時間を設定します</string>
+    <string name="des_auto_dark_mode">バッテリーセーバー有効時に自動的にダークモードに切り替えます</string>
     <string name="des_auto_delete_existing_backups">新しいバックアップを保存したときに古い自動バックアップを削除する</string>
+    <string name="des_auto_scale_ui">端末の最小幅に応じてUIを自動的に拡大縮小します</string>
     <string name="des_auto_update">自動でアップデートを確認する</string>
     <string name="des_backup_all_data">アプリのすべてのデータをバックアップ</string>
     <string name="des_backup_and_restore">アプリの設定やその他のデータのバックアップと復元</string>
@@ -169,8 +172,8 @@
     <string name="des_dynamic_colors">端末の壁紙に応じてアプリのテーマを自動的に設定します</string>
     <string name="des_enable_auto_backup">アプリのデータをスケジュールされた時間に自動的にバックアップする</string>
     <string name="des_enable_cloud_auto_backup">Google ドライブアカウントに自動的にバックアップ</string>
-    <string name="des_enable_local_auto_backup">デバイス上の選択したフォルダに自動的にバックアップする</string>
     <string name="des_enable_direct_download">オンにすると、アプリ内のGitHubから直接アップデートがダウンロードされます。オフにすると代わりに手動でダウンロードするためにGithubのリリースページにアクセスできます。</string>
+    <string name="des_enable_local_auto_backup">デバイス上の選択したフォルダに自動的にバックアップする</string>
     <string name="des_examples">よく使われるコマンドの例</string>
     <string name="des_feature_request">もしこのアプリについてアイデアや提案があれば教えてください</string>
     <string name="des_font_family">アプリケーションのフォントスタイルを変更する</string>
@@ -500,6 +503,7 @@
     <string name="pre_release_github">プレリリース(GitHub)</string>
     <string name="pre_release_warning">プレリリースビルドは不安定になる可能性があります</string>
     <string name="pre_release_warning_description">これらのバージョンはまだテスト段階であり、未完成の機能や予期せぬバグが含まれている可能性があります。プレリリース版にアップデートすると、不具合が発生したり、動作が不安定になったりする可能性があることにご注意ください。\n問題、クラッシュ、または奇妙な動作に遭遇した場合は、安定版リリース前にaShellYouを修正して改善できるように報告してください。\nアプリをより良くするために協力してくれてありがとうございます！</string>
+    <string name="preference">設定</string>
     <string name="preview">プレビュー</string>
     <string name="qr_pair">QRコードペアリング</string>
     <string name="qr_pair_hint">Android 11以上のデバイスをペアリングするには、対象デバイスからこのQRをスキャンしてください</string>
@@ -560,10 +564,10 @@
     <string name="searching_for_devices">デバイスを検索中…</string>
     <string name="select">選択</string>
     <string name="select_all">すべて選択</string>
-    <string name="select_time">時間を選択</string>
-    <string name="select_backup_folder_title">バックアップフォルダがありません</string>
     <string name="select_backup_folder_message">バックアップを保存するフォルダを選択してください。アプリはこのフォルダへの読み取りと書き込みアクセスを必要とします。</string>
+    <string name="select_backup_folder_title">バックアップフォルダがありません</string>
     <string name="select_folder">フォルダを選択</string>
+    <string name="select_time">時間を選択</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">自己|自分format@@0</string>
     <string name="self_pair_connection_failed">接続に失敗しました - 手動で接続してみてください</string>
     <string name="self_pair_enter_code">ペアリングダイアログから6桁のコードを入力してください</string>

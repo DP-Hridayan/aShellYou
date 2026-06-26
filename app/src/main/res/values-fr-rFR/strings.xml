@@ -16,9 +16,6 @@
     <string name="adb_via_wireless_debugging">ADB via débogage sans fil</string>
     <string name="adb_via_wireless_debugging_summary">Connectez les appareils (Android 11+) via Wi-Fi en utilisant le débogage sans fil et exécutez des commandes ADB à distance.</string>
     <string name="add">Ajouter</string>
-    <string name="auto_scale_ui">Interface de mise à l\'échelle automatique</string>
-    <string name="custom_ui_scale">Échelle de l\'interface utilisateur personnalisée</string>
-    <string name="des_auto_scale_ui">Mettre à l\'échelle automatiquement l\'interface utilisateur en fonction de la plus petite largeur de l\'appareil</string>
     <string name="add_account">Ajouter un compte</string>
     <string name="add_command">Ajouter une commande</string>
     <string name="add_new_item">Ajouter un nouvel élément</string>
@@ -39,7 +36,9 @@
     <string name="auto_backup">Sauvegarde automatique</string>
     <string name="auto_backup_content_type">Contenu de la sauvegarde</string>
     <string name="auto_backup_folder">Dossier de sauvegarde</string>
+    <string name="auto_dark_mode">Mode Automatique sombre</string>
     <string name="auto_delete_existing_backups">Supprimer automatiquement les anciennes sauvegardes</string>
+    <string name="auto_scale_ui">Interface de mise à l\'échelle automatique</string>
     <string name="auto_update">Mise à jour automatique</string>
     <string name="back">Retour</string>
     <string name="back_button">Bouton retour</string>
@@ -52,15 +51,16 @@
     <string name="backup_destination">Destination de la sauvegarde</string>
     <string name="backup_failed">Échec de la sauvegarde</string>
     <string name="backup_found">Sauvegarde trouvée</string>
-    <string name="backup_now">Sauvegarder maintenant</string>
-    <string name="backup_status">Statut de la sauvegarde</string>
     <string name="backup_frequency">Fréquence de sauvegarde</string>
+    <string name="backup_now">Sauvegarder maintenant</string>
     <string name="backup_scheduler">Planificateur de sauvegarde</string>
     <string name="backup_settings">Sauvegarder les paramètres de l\'application</string>
+    <string name="backup_status">Statut de la sauvegarde</string>
     <string name="backup_successful">Sauvegarde réussie</string>
     <string name="backup_time">Heure de sauvegarde</string>
     <string name="backup_type">Type de sauvegarde</string>
     <string name="basic_shell">Shell de base</string>
+    <string name="battery_saver">Économiseur de batterie</string>
     <string name="behavior">Comportement</string>
     <string name="bookmark_limit_reached">Limite maximale de favoris atteinte ! Supprimez certains favoris pour en ajouter de nouveaux</string>
     <string name="bookmarks">Favoris</string>
@@ -126,6 +126,7 @@
     <string name="create_new_tile">Créer une nouvelle tuile</string>
     <string name="crowdin_contribution_msg">Visitez notre plateforme de traduction crowdin pour contribuer</string>
     <string name="current_version">Version actuelle</string>
+    <string name="custom_ui_scale">Échelle de l\'interface utilisateur personnalisée</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Couper %1$d éléments</string>
     <string name="cut_to_clipboard">Couper dans le presse-papiers</string>
     <string name="daily">Tous les jours</string>
@@ -148,7 +149,9 @@
     <string name="des_auto_backup_content_type">Choisir ce qu\'il faut inclure dans les sauvegardes automatiques</string>
     <string name="des_auto_backup_folder">Sélectionnez un dossier pour enregistrer les sauvegardes automatiques</string>
     <string name="des_auto_backup_time">Définir l\'heure des sauvegardes automatiques</string>
+    <string name="des_auto_dark_mode">Basculer automatiquement en mode sombre lorsque l\'économiseur de batterie est activé</string>
     <string name="des_auto_delete_existing_backups">Supprimer les anciennes sauvegardes automatiques lorsqu\'une nouvelle sauvegarde est enregistrée</string>
+    <string name="des_auto_scale_ui">Mettre à l\'échelle automatiquement l\'interface utilisateur en fonction de la plus petite largeur de l\'appareil</string>
     <string name="des_auto_update">Vérifier automatiquement les mises à jour</string>
     <string name="des_backup_all_data">Sauvegarder toutes les données de l\'application</string>
     <string name="des_backup_and_restore">Sauvegarder et restaurer les paramètres de l\'application et d\'autres données</string>
@@ -169,8 +172,8 @@
     <string name="des_dynamic_colors">Définir automatiquement le thème de l\'application en fonction du fond d\'écran de l\'appareil</string>
     <string name="des_enable_auto_backup">Sauvegarder automatiquement les données de l\'application à l\'heure prévue</string>
     <string name="des_enable_cloud_auto_backup">Sauvegarde automatique vers votre compte Google Drive</string>
-    <string name="des_enable_local_auto_backup">Sauvegarde automatique vers le dossier sélectionné sur votre appareil</string>
     <string name="des_enable_direct_download">Lorsque cette option est activée, les mises à jour seront téléchargées directement depuis GitHub dans l\'application. Désactivez pour visiter la page des versions de Github pour le téléchargement manuel à la place.</string>
+    <string name="des_enable_local_auto_backup">Sauvegarde automatique vers le dossier sélectionné sur votre appareil</string>
     <string name="des_examples">Collection de quelques modèles de commandes</string>
     <string name="des_feature_request">Si vous avez des idées ou des suggestions pour l\'application, faites-le nous savoir</string>
     <string name="des_font_family">Changer le style de police de l\'application</string>
@@ -500,6 +503,7 @@
     <string name="pre_release_github">Pré-version (GitHub)</string>
     <string name="pre_release_warning">Les pré-versions peuvent être instables</string>
     <string name="pre_release_warning_description">These versions are still in testing and may contain unfinished features or unexpected bugs. If you choose to update to a pre-release, please be aware that things might break or behave strangely.\nIf you encounter any issues, crashes, or weird behavior, please report them so we can fix and improve aShellYou before the stable release.\nThanks for helping us build better!</string>
+    <string name="preference">Préférence</string>
     <string name="preview">Aperçu</string>
     <string name="qr_pair">QR Pair</string>
     <string name="qr_pair_hint">Pour appairer un appareil Android 11+, scannez ce QR depuis l\'appareil cible</string>
@@ -560,10 +564,10 @@
     <string name="searching_for_devices">Recherche d\'appareils…</string>
     <string name="select">Sélectionner</string>
     <string name="select_all">Tout sélectionner</string>
-    <string name="select_time">Sélectionnez l\'heure</string>
-    <string name="select_backup_folder_title">Aucun dossier de sauvegarde</string>
     <string name="select_backup_folder_message">Veuillez sélectionner un dossier où les sauvegardes seront enregistrées. L\'application a besoin d\'un accès en lecture et en écriture à ce dossier.</string>
+    <string name="select_backup_folder_title">Aucun dossier de sauvegarde</string>
     <string name="select_folder">Sélectionner un dossier</string>
+    <string name="select_time">Sélectionnez l\'heure</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">Soi-même</string>
     <string name="self_pair_connection_failed">Échec de la connexion - tentative de connexion manuelle</string>
     <string name="self_pair_enter_code">Entrez le code à 6 chiffres de la boîte de dialogue d\'appairage</string>

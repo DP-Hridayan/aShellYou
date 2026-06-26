@@ -16,9 +16,6 @@
     <string name="adb_via_wireless_debugging">ADB через \"Беспроводную отладку\"</string>
     <string name="adb_via_wireless_debugging_summary">Подключайте устройства (Android 11+) по Wi-Fi с помощью беспроводной отладки и выполняйте команды ADB удалённо.</string>
     <string name="add">Добавить</string>
-    <string name="auto_scale_ui">Авто масштабирование UI</string>
-    <string name="custom_ui_scale">Свой масштаб UI</string>
-    <string name="des_auto_scale_ui">Авто масштабирует UI в соответствии с минимальной шириной экрана устройства</string>
     <string name="add_account">Добавить аккаунт</string>
     <string name="add_command">Добавить команду</string>
     <string name="add_new_item">Добавить новый элемент</string>
@@ -39,7 +36,9 @@
     <string name="auto_backup">Авто резервирование</string>
     <string name="auto_backup_content_type">Резервирование содержимого</string>
     <string name="auto_backup_folder">Папка резервирования</string>
+    <string name="auto_dark_mode">Авто тёмный режим</string>
     <string name="auto_delete_existing_backups">Авто удаление старых резервных копий</string>
+    <string name="auto_scale_ui">Авто масштабирование UI</string>
     <string name="auto_update">Авто обновление</string>
     <string name="back">Назад</string>
     <string name="back_button">Кнопка \"Назад\"</string>
@@ -52,15 +51,16 @@
     <string name="backup_destination">Место назначения резервирования</string>
     <string name="backup_failed">Резервирование не удалось</string>
     <string name="backup_found">Найдено резервирование</string>
-    <string name="backup_now">Резервировать сейчас</string>
-    <string name="backup_status">Состояние резервирования</string>
     <string name="backup_frequency">Частота резервирования</string>
+    <string name="backup_now">Резервировать сейчас</string>
     <string name="backup_scheduler">Планировщик резервирования</string>
     <string name="backup_settings">Резервирование настроек приложения</string>
+    <string name="backup_status">Состояние резервирования</string>
     <string name="backup_successful">Резервирование выполнено успешно</string>
     <string name="backup_time">Время резервирования</string>
     <string name="backup_type">Тип резервирования</string>
     <string name="basic_shell">Базовая оболочка</string>
+    <string name="battery_saver">Экономия батареи</string>
     <string name="behavior">Поведение</string>
     <string name="bookmark_limit_reached">Достигнуто максимальное количество закладок! Удалите некоторые закладки для добавления новых</string>
     <string name="bookmarks">Закладки</string>
@@ -126,6 +126,7 @@
     <string name="create_new_tile">Создать новую плитку</string>
     <string name="crowdin_contribution_msg">Посетите нашу платформу переводов crowdin, чтобы внести свой вклад</string>
     <string name="current_version">Текущая версия</string>
+    <string name="custom_ui_scale">Свой масштаб UI</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Вырезать %1$d элементов</string>
     <string name="cut_to_clipboard">Вырезать в буфер обмена</string>
     <string name="daily">Ежедневно</string>
@@ -148,7 +149,9 @@
     <string name="des_auto_backup_content_type">Выберите, что включить в авто резервирования</string>
     <string name="des_auto_backup_folder">Выберите папку для сохранения авто резервирования</string>
     <string name="des_auto_backup_time">Установите время для авто резервирования</string>
+    <string name="des_auto_dark_mode">Авто переключение в темный режим, когда включён режим экономии батареи</string>
     <string name="des_auto_delete_existing_backups">Удалять старые авто резервирования, когда сохраняется новая</string>
+    <string name="des_auto_scale_ui">Авто масштабирует UI в соответствии с минимальной шириной экрана устройства</string>
     <string name="des_auto_update">Авто проверка обновлений</string>
     <string name="des_backup_all_data">Резервирование всех данных приложения</string>
     <string name="des_backup_and_restore">Резервирование и восстановление настроек приложения и других данных</string>
@@ -169,8 +172,8 @@
     <string name="des_dynamic_colors">Автоматическая установка темы приложения в соответствии с обоями устройства</string>
     <string name="des_enable_auto_backup">Авто резервирование данных программы в запланированное время</string>
     <string name="des_enable_cloud_auto_backup">Авто резервирование в ваш аккаунт Google Диска</string>
-    <string name="des_enable_local_auto_backup">Авто резервирование в выбранную папку на вашем устройстве</string>
     <string name="des_enable_direct_download">При включении обновления будут загружаться непосредственно из GitHub внутри приложения. Отключите, чтобы посетить страницу выпусков Github для загрузки вручную.</string>
+    <string name="des_enable_local_auto_backup">Авто резервирование в выбранную папку на вашем устройстве</string>
     <string name="des_examples">Коллекция некоторых шаблонов команд</string>
     <string name="des_feature_request">Если у вас есть какие-либо идеи или предложения по программе, сообщите нам</string>
     <string name="des_font_family">Изменить стиль шрифта приложения</string>
@@ -500,6 +503,7 @@
     <string name="pre_release_github">Пред релиз (GitHub)</string>
     <string name="pre_release_warning">Предварительные сборки могут быть нестабильными</string>
     <string name="pre_release_warning_description">Эти версии всё ещё находятся на стадии тестирования и могут содержать незавершённые функции или неожиданные ошибки. Если вы решите обновиться до предрелизной версии, имейте в виду, что могут возникнуть сбои или странное поведение.\nЕсли вы столкнетесь с какими-либо проблемами, сбоями или странным поведением, пожалуйста, сообщите нам об этом, чтобы мы могли исправить и улучшить aShellYou до стабильного релиза.\nСпасибо, что помогаете нам строить лучше!</string>
+    <string name="preference">Предпочтение</string>
     <string name="preview">Предпросмотр</string>
     <string name="qr_pair">Сопряжение QR</string>
     <string name="qr_pair_hint">Для сопряжения устройства Android 11+ сканируйте этот QR с целевого устройства</string>
@@ -560,10 +564,10 @@
     <string name="searching_for_devices">Поиск устройств…</string>
     <string name="select">Выбрать</string>
     <string name="select_all">Выбрать все</string>
-    <string name="select_time">Выберите время</string>
-    <string name="select_backup_folder_title">Нет папки резервирования</string>
     <string name="select_backup_folder_message">Пожалуйста, выберите папку, где будут сохранены резервирования. Приложению требуется доступ для чтения и записи в эту папку.</string>
+    <string name="select_backup_folder_title">Нет папки резервирования</string>
     <string name="select_folder">Выберите папку</string>
+    <string name="select_time">Выберите время</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">Своё</string>
     <string name="self_pair_connection_failed">Ошибка подключения - попробуйте ручное подключение</string>
     <string name="self_pair_enter_code">Введите 6-значный код из диалогового окна сопряжения</string>
