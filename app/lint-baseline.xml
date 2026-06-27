@@ -79,28 +79,6 @@
     </issue>
 
     <issue
-        id="NewerVersionAvailable"
-        message="A newer version of com.mikepenz.aboutlibraries.plugin than 14.2.1 is available: 15.0.0"
-        errorLine1="aboutlibraries = &quot;14.2.1&quot;"
-        errorLine2="                 ~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="47"
-            column="18"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of com.mikepenz:aboutlibraries-core than 14.2.1 is available: 15.0.0"
-        errorLine1="aboutlibraries = &quot;14.2.1&quot;"
-        errorLine2="                 ~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="47"
-            column="18"/>
-    </issue>
-
-    <issue
         id="ComposableNaming"
         message="Composable functions that return Unit should start with an uppercase letter"
         errorLine1="fun DialogKey.createDialog(content: @Composable (DialogViewModel) -> Unit) {"
@@ -291,28 +269,14 @@
         id="TrustAllX509TrustManager"
         message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.6.0/transforms/5c66bd6ba8d34aacf71f051d1c94d70a/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.6.0/transforms/ab512bf8a2c08903bd498c615c42261f/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
         id="TrustAllX509TrustManager"
         message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.6.0/transforms/5c66bd6ba8d34aacf71f051d1c94d70a/transformed/out/jars/classes.jar"/>
-    </issue>
-
-    <issue
-        id="TrustAllX509TrustManager"
-        message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
-        <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/com.google.http-client/google-http-client/2.1.0/f4c08fa160a5199af19f81080fbaa921ae2193c7/google-http-client-2.1.0.jar"/>
-    </issue>
-
-    <issue
-        id="TrustAllX509TrustManager"
-        message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
-        <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/com.google.http-client/google-http-client/2.1.0/f4c08fa160a5199af19f81080fbaa921ae2193c7/google-http-client-2.1.0.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.6.0/transforms/ab512bf8a2c08903bd498c615c42261f/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue

@@ -262,7 +262,7 @@ private fun LicensesLoadedState(
                 shape = shape,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 15.dp, vertical = 1.dp)
+                    .padding(horizontal = 15.dp)
                     .animateItem(),
                 onShowDetail = onLibrarySelected,
             )
