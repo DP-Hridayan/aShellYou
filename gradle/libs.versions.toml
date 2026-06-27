@@ -17,13 +17,13 @@ googleHttpClientGson = "2.1.0"
 googleId = "1.2.0"
 gson = "2.14.0"
 hiddenapibypassVersion = "6.1"
-hilt = "2.59.2"
+hilt = "2.60"
 hiltExt = "1.4.0-rc01"
 jmdns = "3.6.3"
 junit = "4.13.2"
 kotlin = "2.4.0"
 ksp = "2.3.6"
-ktor = "3.5.0"
+ktor = "3.5.1"
 libsu = "6.0.0"
 lifecycle = "2.11.0"
 lottie = "6.7.1"
@@ -42,9 +42,9 @@ spake2Android = "-SNAPSHOT"
 splashscreen = "1.2.0"
 sunSecurityAndroid = "1.1"
 work = "2.11.2"
-shapeindicators = "2.1.0"
+shapeindicators = "2.1.1"
 coil = "3.5.0"
-aboutlibraries = "14.2.1"
+aboutlibraries = "15.0.2"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -77,13 +77,16 @@ compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen" }
+#noinspection LoginCredentials
 credentials = { group = "androidx.credentials", name = "credentials", version.ref = "credentials" }
+#noinspection LoginCredentials
 credentials-play-services-auth = { group = "androidx.credentials", name = "credentials-play-services-auth", version.ref = "credentials" }
 datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso" }
 google-api-client-android = { module = "com.google.api-client:google-api-client-android", version.ref = "googleApiClient" }
 google-api-services-drive = { module = "com.google.apis:google-api-services-drive", version.ref = "googleApiServicesDrive" }
 google-http-client-gson = { module = "com.google.http-client:google-http-client-gson", version.ref = "googleHttpClientGson" }
+#noinspection LoginCredentials
 google-id = { module = "com.google.android.libraries.identity.googleid:googleid", version.ref = "googleId" }
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
@@ -109,6 +112,7 @@ material-icons-extended = { group = "androidx.compose.material", name = "materia
 material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 nayuki-qrcode = { group = "io.nayuki", name = "qrcodegen", version.ref = "nayukiQR" }
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
+#noinspection LoginCredentials
 play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
