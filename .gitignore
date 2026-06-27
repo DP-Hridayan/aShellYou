@@ -14,3 +14,4 @@ keystore.properties
 local.properties
 .androidide/
 signing-foss.properties
+.stability/

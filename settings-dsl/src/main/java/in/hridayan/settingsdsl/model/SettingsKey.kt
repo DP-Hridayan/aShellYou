@@ -1,5 +1,7 @@
 package `in`.hridayan.settingsdsl.model
 
+import androidx.compose.runtime.Stable
+
 /**
  * A type-safe identifier for a settings entry.
  *
@@ -19,6 +21,7 @@ package `in`.hridayan.settingsdsl.model
  *
  * @param T the type of the default value this key carries.
  */
+@Stable
 interface SettingsKey<out T> {
     val name: String
     val defaultValue: T

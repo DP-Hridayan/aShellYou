@@ -9,7 +9,7 @@ import androidx.annotation.StringRes
  * resolved [SettingsItem]s (with card shapes already computed), a custom slot marker,
  * or a divider marker.
  */
-sealed interface ResolvedGroup {
+sealed class ResolvedGroup {
 
     /**
      * A group of resolved items, optionally with a category header.
@@ -20,11 +20,11 @@ sealed interface ResolvedGroup {
     data class ItemGroup(
         val categoryTitle: String?,
         val items: List<SettingsItem>,
-    ) : ResolvedGroup
+    ) : ResolvedGroup()
 
     /** A custom composable placeholder identified by its [CustomSlot]. */
-    data class Custom(val slot: CustomSlot) : ResolvedGroup
+    data class Custom(val slot: CustomSlot) : ResolvedGroup()
 
     /** A horizontal visual divider between groups. */
-    data object Divider : ResolvedGroup
+    data object Divider : ResolvedGroup()
 }

@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.release.lint.baseline)
     alias(libs.plugins.aboutlibraries)
+    alias(libs.plugins.compose.stability.analyzer)
 }
 
 android {
