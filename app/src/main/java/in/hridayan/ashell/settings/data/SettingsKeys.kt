@@ -2,6 +2,7 @@ package `in`.hridayan.ashell.settings.data
 
 import android.os.Environment
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.runtime.Stable
 import `in`.hridayan.ashell.ai.data.local.model.ModelRegistry
 import `in`.hridayan.ashell.core.domain.model.SortType
 import `in`.hridayan.ashell.core.domain.provider.SeedColorProvider
@@ -19,6 +20,7 @@ import kotlin.reflect.KClass
  * **Adding a new key**: just add a `data object` here — [entries] and the
  * typed sub-lists are auto-discovered via sealed-class reflection.
  */
+@Stable
 sealed class SettingsKeys<out T>(
     override val name: String,
     override val defaultValue: T,
