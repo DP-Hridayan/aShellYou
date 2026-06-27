@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.settings.presentation.page.languages.viewmodel
 
 import android.annotation.SuppressLint
+import androidx.compose.runtime.Stable
 import android.app.Application
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
@@ -17,6 +18,7 @@ import org.xmlpull.v1.XmlPullParser
 import java.util.Locale
 import javax.inject.Inject
 
+@Stable
 @HiltViewModel
 class LanguagesViewModel @Inject constructor(
     application: Application,

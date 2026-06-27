@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.qstiles.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.qstiles.domain.executor.TileExecutionManager
@@ -21,6 +22,7 @@ import kotlinx.coroutines.launch
 import java.util.Locale
 import javax.inject.Inject
 
+@Stable
 @HiltViewModel
 class TileDashboardViewModel @Inject constructor(
     private val repository: TileRepository,

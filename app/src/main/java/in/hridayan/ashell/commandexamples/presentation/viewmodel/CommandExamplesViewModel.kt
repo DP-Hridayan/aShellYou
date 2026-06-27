@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.commandexamples.presentation.viewmodel
 
 import android.content.Context
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -26,6 +27,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+@Stable
 @HiltViewModel
 class CommandExamplesViewModel @Inject constructor(
     private val commandRepository: CommandRepository,

@@ -1,6 +1,7 @@
 ﻿package `in`.hridayan.ashell.settings.presentation.page.search.viewmodel
 
 import android.content.Context
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,6 +22,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@Stable
 @HiltViewModel
 class SettingsSearchViewModel @Inject constructor(
     @param:ApplicationContext private val context: Context,

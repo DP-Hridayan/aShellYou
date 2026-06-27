@@ -1,8 +1,4 @@
-@file:OptIn(
-    ExperimentalMaterial3Api::class,
-    ExperimentalMaterial3ExpressiveApi::class
-)
-
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 
 package `in`.hridayan.ashell.settings.presentation.components.bottomsheet
 
@@ -14,7 +10,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -67,14 +62,14 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalSettings
-import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
+import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
+import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
 import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
 import `in`.hridayan.ashell.core.presentation.model.ButtonType
-import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
-import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
@@ -190,7 +185,23 @@ fun FontStyleBottomSheet(
                     .padding(bottom = 16.dp),
                 value = searchQuery,
                 onValueChange = { searchQuery = it },
-                hint = stringResource(R.string.search_fonts)
+                hint = stringResource(R.string.search_fonts),
+                trailingIcon = {
+                    if (searchQuery.text.isNotEmpty()) {
+                        Icon(
+                            modifier = Modifier.clickable(
+                                enabled = true,
+                                indication = null,
+                                interactionSource = remember { MutableInteractionSource() },
+                                onClick = withHaptic {
+                                    searchQuery = TextFieldValue("")
+                                }
+                            ),
+                            painter = painterResource(R.drawable.ic_cross),
+                            contentDescription = null
+                        )
+                    }
+                }
             )
 
             AnimatedVisibility(

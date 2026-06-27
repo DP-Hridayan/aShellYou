@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.ai.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.ai.domain.model.AiModel
@@ -24,6 +25,7 @@ import javax.inject.Inject
  * Download state is owned by the Singleton repository and survives ViewModel
  * recreation, so downloads persist when navigating away from the screen.
  */
+@Stable
 @HiltViewModel
 class AiModelManagerViewModel @Inject constructor(
     private val modelRepository: AiModelRepository,

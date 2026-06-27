@@ -1,5 +1,8 @@
 package `in`.hridayan.ashell.settings.domain.model
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 data class LicensesUiState(
     val isLoading: Boolean = true,
     val libraries: List<LibraryItem> = emptyList(),

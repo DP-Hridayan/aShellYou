@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.crashreporter.presentation.viewmodel
 
 import androidx.compose.runtime.State
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,6 +11,7 @@ import `in`.hridayan.ashell.crashreporter.domain.repository.CrashRepository
 import jakarta.inject.Inject
 import kotlinx.coroutines.launch
 
+@Stable
 @HiltViewModel
 class CrashViewModel @Inject constructor(
     private val crashRepository: CrashRepository
