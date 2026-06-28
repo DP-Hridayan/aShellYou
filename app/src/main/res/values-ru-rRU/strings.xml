@@ -412,7 +412,7 @@
     <string name="model_category_tiny" comment="AI model size category label">Крошечный (менее 300 МБ)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">Модели</string>
     <string name="modified" comment="File property: last modified date">Изменено</string>
-    <string name="monospace" comment="Font style category name">Моноширинный</string>
+    <string name="monospace" comment="Font style category name">Monospace</string>
     <string name="monthly">Ежемесячно</string>
     <string name="more">Ещё</string>
     <string name="most_used">Часто используемые</string>
