@@ -36,9 +36,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
+        val splashStartTime = System.currentTimeMillis()
 
         splashScreen.setKeepOnScreenCondition {
-            settingsViewModel.isFirstLaunch == null
+            settingsViewModel.isFirstLaunch == null ||
+                    System.currentTimeMillis() - splashStartTime < 750L
         }
 
         super.onCreate(savedInstanceState)

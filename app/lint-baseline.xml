@@ -8,7 +8,7 @@
         errorLine2="              ~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/shell/otg_adb_shell/presentation/viewmodel/OtgViewModel.kt"
-            line="38"
+            line="40"
             column="15"/>
     </issue>
 
@@ -19,7 +19,7 @@
         errorLine2="        ~~~~~~~~~~~~~~">
         <location
             file="build.gradle.kts"
-            line="28"
+            line="29"
             column="9"/>
     </issue>
 
@@ -269,14 +269,14 @@
         id="TrustAllX509TrustManager"
         message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.6.0/transforms/ab512bf8a2c08903bd498c615c42261f/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.6.0/transforms/c1e9ac27dd6117252f983497df96c473/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
         id="TrustAllX509TrustManager"
         message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.6.0/transforms/ab512bf8a2c08903bd498c615c42261f/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.6.0/transforms/c1e9ac27dd6117252f983497df96c473/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
@@ -397,6 +397,17 @@
             file="src/main/res/drawable/circular_bg.xml"
             line="1"
             column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.ic_launcher_background` appears to be unused"
+        errorLine1="&lt;/resources>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="6"
+            column="12"/>
     </issue>
 
     <issue
@@ -580,6 +591,27 @@
 
     <issue
         id="UnusedResources"
+        message="The resource `R.mipmap.ic_launcher_background` appears to be unused">
+        <location
+            file="src/main/res/mipmap-hdpi/ic_launcher_background.png"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.mipmap.ic_launcher_foreground` appears to be unused">
+        <location
+            file="src/main/res/mipmap-hdpi/ic_launcher_foreground.png"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.mipmap.ic_launcher_monochrome` appears to be unused">
+        <location
+            file="src/main/res/mipmap-hdpi/ic_launcher_monochrome.png"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
         message="The resource `R.drawable.ic_mode` appears to be unused"
         errorLine1="&lt;vector"
         errorLine2="^">
@@ -647,7 +679,35 @@
     <issue
         id="UnusedResources"
         message="The resource `R.drawable.ic_release_alert` appears to be unused"
-        er   </issue>
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_release_alert.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_reset` appears to be unused"
+        errorLine1="&lt;vector"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_reset.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_scroll` appears to be unused"
+        errorLine1="&lt;vector"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_scroll.xml"
+            line="1"
+            column="1"/>
+    </issue>
 
     <issue
         id="UnusedResources"
@@ -970,29 +1030,6 @@
         <location
             file="src/main/res/mipmap-xhdpi/ic_launcher_monochrome.png"/>
         <location
-            file="src/main/res/mipmap-xhdpi/ic_launcher_foreground.png"/>
-    </issue>
-
-    <issue
-        id="IconDuplicates"
-        message="The following unrelated icon files have identical contents: ic_launcher_foreground.png, ic_launcher_monochrome.png">
-        <location
-            file="src/main/res/mipmap-xxhdpi/ic_launcher_monochrome.png"/>
-        <location
-            file="src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png"/>
-    </issue>
-
-    <issue
-        id="IconDuplicates"
-        message="The following unrelated icon files have identical contents: ic_launcher_foreground.png, ic_launcher_monochrome.png">
-        <location
-            file="src/main/res/mipmap-xxxhdpi/ic_launcher_monochrome.png"/>
-        <location
-            file="src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png"/>
-    </issue>
-
-</issues>
-n
             file="src/main/res/mipmap-xhdpi/ic_launcher_foreground.png"/>
     </issue>
 
