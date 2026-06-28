@@ -11,11 +11,14 @@
             android:viewportWidth="320"
             android:viewportHeight="320">
 
-            <!--
-                scaleme: root group for the scale-pop at impact.
-                Everything lives inside here so the pop affects both
-                the background circle and the icon content.
-            -->
+            <group android:name="bg">
+                <path
+                    android:name="circle"
+                    android:fillColor="@color/splash_icon_background"
+                    android:pathData="M 160 60 C 133.489 60 108.036 70.543 89.289 89.289 C 70.543 108.036 60 133.489 60 160 C 60 186.511 70.543 211.964 89.289 230.711 C 108.036 249.457 133.489 260 160 260 C 186.511 260 211.964 249.457 230.711 230.711 C 249.457 211.964 260 186.511 260 160 C 260 133.489 249.457 108.036 230.711 89.289 C 211.964 70.543 186.511 60 160 60 Z"
+                    android:strokeWidth="1" />
+            </group>
+
             <group
                 android:name="scaleme"
                 android:pivotX="160"
@@ -23,42 +26,21 @@
                 android:scaleX="1"
                 android:scaleY="1">
 
-                <!-- Static background circle (primaryContainer color) -->
-                <group android:name="bg">
-                    <path
-                        android:name="circle"
-                        android:fillColor="@color/splash_icon_background"
-                        android:pathData="M 160 60 C 133.489 60 108.036 70.543 89.289 89.289 C 70.543 108.036 60 133.489 60 160 C 60 186.511 70.543 211.964 89.289 230.711 C 108.036 249.457 133.489 260 160 260 C 186.511 260 211.964 249.457 230.711 230.711 C 249.457 211.964 260 186.511 260 160 C 260 133.489 249.457 108.036 230.711 89.289 C 211.964 70.543 186.511 60 160 60 Z"
-                        android:strokeWidth="1" />
-                </group>
-
-                <!-- Foreground content, clipped to the circle -->
                 <group
                     android:name="fg"
                     android:pivotX="160"
                     android:pivotY="160">
 
-                    <!-- Circle clip-path: sliding head/body are masked outside this -->
                     <clip-path
                         android:name="mask"
                         android:pathData="M 160 60 C 133.489 60 108.036 70.543 89.289 89.289 C 70.543 108.036 60 133.489 60 160 C 60 186.511 70.543 211.964 89.289 230.711 C 108.036 249.457 133.489 260 160 260 C 186.511 260 211.964 249.457 230.711 230.711 C 249.457 211.964 260 186.511 260 160 C 260 133.489 249.457 108.036 230.711 89.289 C 211.964 70.543 186.511 60 160 60 Z" />
 
-                    <!--
-                        Anonymous positioning group: maps the ADB icon's native 48x48
-                        coordinate space into the 320x320 viewport, centered at (160,160).
-                        scale=3.26, translate=(81.76, 80.13) places the icon center at (160,160)
-                        and scales it so the icon fits within the 100-unit radius clip circle.
-                    -->
                     <group
                         android:scaleX="3.26"
                         android:scaleY="3.26"
                         android:translateX="81.76"
                         android:translateY="80.13">
 
-                        <!--
-                            head_group: starts at translateY=-50 (163 visual units above
-                            its rest position — fully off the top of the canvas).
-                        -->
                         <group
                             android:name="head_group"
                             android:pivotX="24"
@@ -91,10 +73,6 @@
                             </group>
                         </group>
 
-                        <!--
-                            body_group: starts at translateY=+50 (163 visual units below
-                            its rest position — fully off the bottom of the canvas).
-                        -->
                         <group
                             android:name="body_group"
                             android:pivotX="24"
@@ -112,30 +90,18 @@
         </vector>
     </aapt:attr>
 
-    <!-- ═══════════════════════════════════════════════
-         ANIMATION TARGETS — all inline via aapt:attr
-         Total timeline: ~1100ms
-         ═══════════════════════════════════════════════ -->
-
-    <!-- scaleme: scale pop at collision (350ms), settle with overshoot (950ms) -->
     <target android:name="scaleme">
         <aapt:attr name="android:animation">
-            <set xmlns:android="http://schemas.android.com/apk/res/android">
+            <set >
                 <objectAnimator
                     android:propertyName="scaleX"
                     android:startOffset="350"
                     android:duration="600">
                     <propertyValuesHolder android:propertyName="scaleX">
                         <keyframe android:fraction="0" android:value="1.0" android:valueType="floatType" />
-                        <keyframe
-                            android:fraction="0.25"
-                            android:value="1.15"
-                            android:valueType="floatType"
+                        <keyframe android:fraction="0.25" android:value="1.15" android:valueType="floatType"
                             android:interpolator="@android:interpolator/accelerate_cubic" />
-                        <keyframe
-                            android:fraction="1.0"
-                            android:value="1.0"
-                            android:valueType="floatType"
+                        <keyframe android:fraction="1.0" android:value="1.0" android:valueType="floatType"
                             android:interpolator="@android:interpolator/overshoot" />
                     </propertyValuesHolder>
                 </objectAnimator>
@@ -145,15 +111,9 @@
                     android:duration="600">
                     <propertyValuesHolder android:propertyName="scaleY">
                         <keyframe android:fraction="0" android:value="1.0" android:valueType="floatType" />
-                        <keyframe
-                            android:fraction="0.25"
-                            android:value="1.15"
-                            android:valueType="floatType"
+                        <keyframe android:fraction="0.25" android:value="1.15" android:valueType="floatType"
                             android:interpolator="@android:interpolator/accelerate_cubic" />
-                        <keyframe
-                            android:fraction="1.0"
-                            android:value="1.0"
-                            android:valueType="floatType"
+                        <keyframe android:fraction="1.0" android:value="1.0" android:valueType="floatType"
                             android:interpolator="@android:interpolator/overshoot" />
                     </propertyValuesHolder>
                 </objectAnimator>
@@ -161,10 +121,9 @@
         </aapt:attr>
     </target>
 
-    <!-- head_group: slide from top (0–400ms) → impact twist +12° → spring to 0° (400–900ms) -->
     <target android:name="head_group">
         <aapt:attr name="android:animation">
-            <set xmlns:android="http://schemas.android.com/apk/res/android">
+            <set >
                 <objectAnimator
                     android:propertyName="translateY"
                     android:valueFrom="-50"
@@ -178,15 +137,9 @@
                     android:duration="500">
                     <propertyValuesHolder android:propertyName="rotation">
                         <keyframe android:fraction="0" android:value="0" android:valueType="floatType" />
-                        <keyframe
-                            android:fraction="0.3"
-                            android:value="12"
-                            android:valueType="floatType"
+                        <keyframe android:fraction="0.3" android:value="12" android:valueType="floatType"
                             android:interpolator="@android:interpolator/accelerate_cubic" />
-                        <keyframe
-                            android:fraction="1.0"
-                            android:value="0"
-                            android:valueType="floatType"
+                        <keyframe android:fraction="1.0" android:value="0" android:valueType="floatType"
                             android:interpolator="@android:interpolator/overshoot" />
                     </propertyValuesHolder>
                 </objectAnimator>
@@ -194,10 +147,9 @@
         </aapt:attr>
     </target>
 
-    <!-- body_group: slide from bottom (0–400ms) → opposing twist −8° → spring to 0° (400–900ms) -->
     <target android:name="body_group">
         <aapt:attr name="android:animation">
-            <set xmlns:android="http://schemas.android.com/apk/res/android">
+            <set >
                 <objectAnimator
                     android:propertyName="translateY"
                     android:valueFrom="50"
@@ -211,15 +163,9 @@
                     android:duration="500">
                     <propertyValuesHolder android:propertyName="rotation">
                         <keyframe android:fraction="0" android:value="0" android:valueType="floatType" />
-                        <keyframe
-                            android:fraction="0.3"
-                            android:value="-8"
-                            android:valueType="floatType"
+                        <keyframe android:fraction="0.3" android:value="-8" android:valueType="floatType"
                             android:interpolator="@android:interpolator/accelerate_cubic" />
-                        <keyframe
-                            android:fraction="1.0"
-                            android:value="0"
-                            android:valueType="floatType"
+                        <keyframe android:fraction="1.0" android:value="0" android:valueType="floatType"
                             android:interpolator="@android:interpolator/overshoot" />
                     </propertyValuesHolder>
                 </objectAnimator>
@@ -227,25 +173,18 @@
         </aapt:attr>
     </target>
 
-    <!-- right eye blink: scaleY 1→0→1 (900–1100ms) -->
     <target android:name="right_eye_group">
         <aapt:attr name="android:animation">
-            <set xmlns:android="http://schemas.android.com/apk/res/android">
+            <set >
                 <objectAnimator
                     android:propertyName="scaleY"
                     android:startOffset="900"
                     android:duration="200">
                     <propertyValuesHolder android:propertyName="scaleY">
                         <keyframe android:fraction="0" android:value="1.0" android:valueType="floatType" />
-                        <keyframe
-                            android:fraction="0.5"
-                            android:value="0.0"
-                            android:valueType="floatType"
+                        <keyframe android:fraction="0.5" android:value="0.0" android:valueType="floatType"
                             android:interpolator="@android:interpolator/accelerate_quad" />
-                        <keyframe
-                            android:fraction="1.0"
-                            android:value="1.0"
-                            android:valueType="floatType"
+                        <keyframe android:fraction="1.0" android:value="1.0" android:valueType="floatType"
                             android:interpolator="@android:interpolator/decelerate_quad" />
                     </propertyValuesHolder>
                 </objectAnimator>
@@ -253,25 +192,18 @@
         </aapt:attr>
     </target>
 
-    <!-- left eye blink: same timing as right -->
     <target android:name="left_eye_group">
         <aapt:attr name="android:animation">
-            <set xmlns:android="http://schemas.android.com/apk/res/android">
+            <set >
                 <objectAnimator
                     android:propertyName="scaleY"
                     android:startOffset="900"
                     android:duration="200">
                     <propertyValuesHolder android:propertyName="scaleY">
                         <keyframe android:fraction="0" android:value="1.0" android:valueType="floatType" />
-                        <keyframe
-                            android:fraction="0.5"
-                            android:value="0.0"
-                            android:valueType="floatType"
+                        <keyframe android:fraction="0.5" android:value="0.0" android:valueType="floatType"
                             android:interpolator="@android:interpolator/accelerate_quad" />
-                        <keyframe
-                            android:fraction="1.0"
-                            android:value="1.0"
-                            android:valueType="floatType"
+                        <keyframe android:fraction="1.0" android:value="1.0" android:valueType="floatType"
                             android:interpolator="@android:interpolator/decelerate_quad" />
                     </propertyValuesHolder>
                 </objectAnimator>
