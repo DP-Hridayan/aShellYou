@@ -87,31 +87,31 @@ fun AnimatedAdbIcon(
 
     val idle = rememberInfiniteTransition(label = "idle")
 
-    val iHeadY by idle.animateFloat(
+    val iHeadY = idle.animateFloat(
         initialValue = 0f, targetValue = -1f,
         animationSpec = infiniteRepeatable(
             tween(idleHeadBobDuration, easing = FastOutSlowInEasing),
-            RepeatMode.Reverse
+            RepeatMode.Reverse,
         ),
         label = "headBob",
     )
-    val iHeadSway by idle.animateFloat(
+    val iHeadSway = idle.animateFloat(
         initialValue = -1.5f, targetValue = 1.5f,
         animationSpec = infiniteRepeatable(
             tween(idleHeadSwayDuration, easing = LinearEasing),
-            RepeatMode.Reverse
+            RepeatMode.Reverse,
         ),
         label = "headSway",
     )
-    val iAntenna by idle.animateFloat(
+    val iAntenna = idle.animateFloat(
         initialValue = -5f, targetValue = 5f,
         animationSpec = infiniteRepeatable(
             tween(idleAntennaDuration, easing = FastOutSlowInEasing),
-            RepeatMode.Reverse
+            RepeatMode.Reverse,
         ),
         label = "antennaSway",
     )
-    val iEyeBlink by idle.animateFloat(
+    val iEyeBlink = idle.animateFloat(
         initialValue = 1f, targetValue = 1f,
         animationSpec = infiniteRepeatable(
             animation = keyframes {
@@ -126,28 +126,21 @@ fun AnimatedAdbIcon(
         ),
         label = "eyeBlink",
     )
-    val iBodyScale by idle.animateFloat(
+    val iBodyScale = idle.animateFloat(
         initialValue = 1f, targetValue = 1.025f,
         animationSpec = infiniteRepeatable(
-            tween(
-                idleBodyBreatheDuration,
-                easing = FastOutSlowInEasing
-            ), RepeatMode.Reverse
+            tween(idleBodyBreatheDuration, easing = FastOutSlowInEasing),
+            RepeatMode.Reverse,
         ),
         label = "bodyBreathe",
     )
 
-    val blend by animateFloatAsState(
+    // Also kept as State<Float> — target only changes when isStartled flips (twice per sequence).
+    val blend = animateFloatAsState(
         targetValue = if (isStartled) 0f else 1f,
         animationSpec = tween(200),
         label = "blend",
     )
-
-    val effHeadY = iHeadY * blend + sHeadY.value
-    val effHeadRot = iHeadSway * blend + sHeadRot.value
-    val effAntennaExtra = iAntenna * blend + sAntennaExtra.value
-    val effEyeScale = iEyeBlink * blend + sEyeScale.value * (1f - blend)
-    val effBodyScaleY = iBodyScale * blend + sBodyScaleY.value * (1f - blend)
 
     fun playStartled() {
         if (isStartled) return
@@ -222,13 +215,15 @@ fun AnimatedAdbIcon(
             ),
     ) {
         val vpToPx = with(LocalDensity.current) { maxWidth.toPx() / 48f }
+
         Image(
             imageVector = bodyVector,
             contentDescription = null,
             modifier = Modifier
                 .fillMaxSize()
                 .graphicsLayer {
-                    scaleY = effBodyScaleY
+                    val b = blend.value
+                    scaleY = iBodyScale.value * b + sBodyScaleY.value * (1f - b)
                     transformOrigin = TransformOrigin(0.5f, 0.5f)
                 },
         )
@@ -237,8 +232,9 @@ fun AnimatedAdbIcon(
             modifier = Modifier
                 .fillMaxSize()
                 .graphicsLayer {
-                    translationY = effHeadY * vpToPx
-                    rotationZ = effHeadRot
+                    val b = blend.value
+                    translationY = (iHeadY.value * b + sHeadY.value) * vpToPx
+                    rotationZ = iHeadSway.value * b + sHeadRot.value
                     transformOrigin = TransformOrigin(0.5f, 0.458f)
                 },
         ) {
@@ -248,7 +244,8 @@ fun AnimatedAdbIcon(
                 modifier = Modifier
                     .fillMaxSize()
                     .graphicsLayer {
-                        rotationZ = effAntennaExtra
+                        val b = blend.value
+                        rotationZ = iAntenna.value * b + sAntennaExtra.value
                         transformOrigin = TransformOrigin(0.5f, 0.178f)
                     },
             )
@@ -259,8 +256,10 @@ fun AnimatedAdbIcon(
                 modifier = Modifier
                     .fillMaxSize()
                     .graphicsLayer {
-                        scaleX = effEyeScale
-                        scaleY = effEyeScale
+                        val b = blend.value
+                        val s = iEyeBlink.value * b + sEyeScale.value * (1f - b)
+                        scaleX = s
+                        scaleY = s
                         transformOrigin = TransformOrigin(0.625f, 0.332f)
                     },
             )
@@ -271,8 +270,10 @@ fun AnimatedAdbIcon(
                 modifier = Modifier
                     .fillMaxSize()
                     .graphicsLayer {
-                        scaleX = effEyeScale
-                        scaleY = effEyeScale
+                        val b = blend.value
+                        val s = iEyeBlink.value * b + sEyeScale.value * (1f - b)
+                        scaleX = s
+                        scaleY = s
                         transformOrigin = TransformOrigin(0.375f, 0.332f)
                     },
             )
