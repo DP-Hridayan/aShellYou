@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel
 
 import android.content.Context
+import androidx.compose.runtime.Stable
 import android.graphics.Bitmap
 import android.os.Build
 import android.util.Log
@@ -21,6 +22,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@Stable
 @HiltViewModel
 class WifiAdbViewModel @Inject constructor(
     private val wifiAdbRepository: WifiAdbRepository

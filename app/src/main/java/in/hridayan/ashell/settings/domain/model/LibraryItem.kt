@@ -1,11 +1,14 @@
 package `in`.hridayan.ashell.settings.domain.model
 
+import androidx.compose.runtime.Immutable
+
 /**
  * Immutable domain model representing a single open-source dependency.
  *
  * Fields are nullable because not every library provides all metadata fields
  * (e.g., some libraries have no website or SCM URL in their POM).
  */
+@Immutable
 data class LibraryItem(
     val uniqueId: String,
     val name: String,

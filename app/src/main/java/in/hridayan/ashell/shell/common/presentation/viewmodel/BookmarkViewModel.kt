@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.shell.common.presentation.viewmodel
 
 import androidx.compose.runtime.State
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@Stable
 @HiltViewModel
 class BookmarkViewModel @Inject constructor(
     private val repository: BookmarkRepository

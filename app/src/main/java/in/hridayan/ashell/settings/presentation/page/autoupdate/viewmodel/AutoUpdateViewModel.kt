@@ -1,6 +1,7 @@
 ﻿package `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.BuildConfig
@@ -20,6 +21,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@Stable
 @HiltViewModel
 class AutoUpdateViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,

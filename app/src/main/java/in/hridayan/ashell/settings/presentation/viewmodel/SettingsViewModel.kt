@@ -1,6 +1,7 @@
-﻿package `in`.hridayan.ashell.settings.presentation.viewmodel
+package `in`.hridayan.ashell.settings.presentation.viewmodel
 
 import android.content.Context
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -21,6 +22,7 @@ import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.settings.domain.usecase.ToggleSettingUseCase
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.provider.SettingsProvider
+import `in`.hridayan.ashell.settings.presentation.state.rememberController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -36,6 +38,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 
+@Stable
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     @param:ApplicationContext private val context: Context,
@@ -292,25 +295,24 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    /**
-     * Reschedules or cancels the auto-backup WorkManager job based on current settings.
-     * Called after toggling enable, changing time, or changing frequency.
-     */
-    fun rescheduleAutoBackup() {
+    fun rescheduleAutoBackup(
+        enabled: Boolean? = null,
+        hour: Int? = null,
+        minute: Int? = null,
+        frequency: Int? = null,
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
-            val enabled = settingsRepository.getBoolean(SettingsKeys.AutoBackupEnabled)
-                .firstOrNull() ?: false
-            if (!enabled) {
+            val isEnabled = enabled
+                ?: settingsRepository.getBoolean(SettingsKeys.AutoBackupEnabled).firstOrNull()
+                ?: false
+            if (!isEnabled) {
                 BackupScheduler.cancel(context)
                 return@launch
             }
-            val hour = settingsRepository.getInt(SettingsKeys.AutoBackupTimeHour)
-                .firstOrNull() ?: 2
-            val minute = settingsRepository.getInt(SettingsKeys.AutoBackupTimeMinute)
-                .firstOrNull() ?: 0
-            val frequency = settingsRepository.getInt(SettingsKeys.AutoBackupFrequency)
-                .firstOrNull() ?: 0
-            BackupScheduler.schedule(context, hour, minute, frequency)
+            val h = hour ?: settingsRepository.getInt(SettingsKeys.AutoBackupTimeHour).firstOrNull() ?: 2
+            val m = minute ?: settingsRepository.getInt(SettingsKeys.AutoBackupTimeMinute).firstOrNull() ?: 0
+            val f = frequency ?: settingsRepository.getInt(SettingsKeys.AutoBackupFrequency).firstOrNull() ?: 0
+            BackupScheduler.schedule(context, h, m, f)
         }
     }
 

@@ -1,5 +1,6 @@
 package `in`.hridayan.ashell.core.presentation.theme
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -18,6 +19,7 @@ object Dimens {
     val iconSizeExtraLarge = 36.dp
 }
 
+@Immutable
 sealed interface CornerSize {
     data class Absolute(val dp: Dp) : CornerSize
     data class Percentage(val percent: Float) : CornerSize

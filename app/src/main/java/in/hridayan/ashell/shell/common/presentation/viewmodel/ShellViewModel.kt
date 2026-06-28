@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.shell.common.presentation.viewmodel
 
 import android.app.Activity
+import androidx.compose.runtime.Stable
 import android.content.Context
 import android.net.Uri
 import androidx.compose.ui.text.TextRange
@@ -47,6 +48,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+@Stable
 @HiltViewModel
 class ShellViewModel @Inject constructor(
     private val shellRepository: ShellRepository,

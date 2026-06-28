@@ -1,6 +1,7 @@
 package `in`.hridayan.settingsdsl.model
 
 import androidx.annotation.StringRes
+import androidx.compose.runtime.Stable
 
 /**
  * The top-level container for a settings screen's content.
@@ -14,6 +15,7 @@ import androidx.annotation.StringRes
  * @param screenTitleResId String resource ID for the screen's display title (used in search headers).
  *                         Null if [screenId] is null.
  */
+@Stable
 class SettingsPage internal constructor(
     internal val groups: List<GroupSpec>,
     val screenId: String? = null,

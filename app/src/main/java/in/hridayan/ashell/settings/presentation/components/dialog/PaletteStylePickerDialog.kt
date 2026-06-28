@@ -194,9 +194,7 @@ fun PaletteStylePickerDialog(
                             }
 
                             CustomCard(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(1.dp),
+                                modifier = Modifier.fillMaxWidth(),
                                 shape = finalShape,
                                 colors = cardColors,
                                 onClick = withHaptic(HapticFeedbackType.ToggleOn) {

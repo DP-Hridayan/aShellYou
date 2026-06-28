@@ -14,8 +14,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.LightMode
 import androidx.compose.material.icons.twotone.DarkMode
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.runtime.Composable
 import androidx.compose.material3.rememberTopAppBarState
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -167,6 +167,9 @@ fun LookAndFeelScreen(
                         modifier = Modifier.padding(20.dp),
                         onClickTab = { seedColor ->
                             lookAndFeelViewModel.setSeedColor(seedColor)
+                            lookAndFeelViewModel.disableDynamicColors()
+                        },
+                        onClickMonochromeTab = {
                             lookAndFeelViewModel.disableDynamicColors()
                         }
                     )

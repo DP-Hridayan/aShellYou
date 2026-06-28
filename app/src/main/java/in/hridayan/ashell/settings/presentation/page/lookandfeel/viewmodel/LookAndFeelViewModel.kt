@@ -1,6 +1,7 @@
-﻿package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel
+package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.core.data.local.provider.SeedColor
@@ -13,6 +14,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@Stable
 @HiltViewModel
 class LookAndFeelViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,

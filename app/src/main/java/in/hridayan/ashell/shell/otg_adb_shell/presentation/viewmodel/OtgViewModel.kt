@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.shell.otg_adb_shell.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.shell.otg_adb_shell.data.repository.OtgRepositoryImpl
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@Stable
 @HiltViewModel
 class OtgViewModel @Inject constructor(
     private val repository: OtgRepository

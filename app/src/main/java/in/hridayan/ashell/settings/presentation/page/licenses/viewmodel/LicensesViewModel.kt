@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.settings.presentation.page.licenses.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.settings.domain.model.LibraryItem
@@ -13,6 +14,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@Stable
 @HiltViewModel
 class LicensesViewModel @Inject constructor(
     private val getLicensesUseCase: GetLicensesUseCase,

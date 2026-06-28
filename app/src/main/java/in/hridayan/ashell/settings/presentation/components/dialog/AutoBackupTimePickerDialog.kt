@@ -23,19 +23,24 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TimeInput
 import androidx.compose.material3.TimePicker
+import androidx.compose.material3.TimePickerState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 
 @Composable
 fun AutoBackupTimePickerDialog(
@@ -44,10 +49,14 @@ fun AutoBackupTimePickerDialog(
     initialHour: Int = 2,
     initialMinute: Int = 0,
 ) {
-    val timePickerState = rememberTimePickerState(
-        initialHour = initialHour,
-        initialMinute = initialMinute,
-    )
+    val timePickerState = remember(initialHour, initialMinute) {
+        TimePickerState(
+            initialHour = initialHour,
+            initialMinute = initialMinute,
+            is24Hour = false,
+        )
+    }
+
     var showDial by rememberSaveable { mutableStateOf(true) }
 
     Dialog(
@@ -85,7 +94,9 @@ fun AutoBackupTimePickerDialog(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    IconButton(onClick = { showDial = !showDial }) {
+                    IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                        showDial = !showDial
+                    }) {
                         Icon(
                             imageVector = if (showDial) {
                                 Icons.Outlined.Keyboard
@@ -97,11 +108,11 @@ fun AutoBackupTimePickerDialog(
                     }
 
                     Row {
-                        TextButton(onClick = onDismiss) {
+                        TextButton(onClick = withHaptic(HapticFeedbackType.Reject) { onDismiss() }) {
                             Text(text = stringResource(R.string.cancel))
                         }
                         TextButton(
-                            onClick = {
+                            onClick = withHaptic(HapticFeedbackType.Confirm) {
                                 onConfirm(timePickerState.hour, timePickerState.minute)
                             },
                         ) {

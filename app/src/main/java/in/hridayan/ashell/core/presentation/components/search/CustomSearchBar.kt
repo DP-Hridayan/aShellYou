@@ -71,9 +71,7 @@ fun CustomSearchBar(
     trailingIcon: @Composable RowScope.() -> Unit = {},
     hint: String = "Search...",
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    shape: CustomCardShape = CustomCardShape(
-        50
-    ),
+    shape: CustomCardShape = CustomCardShape(50),
     colors: CardColors = CardDefaults.cardColors(
         containerColor = MaterialTheme.colorScheme.secondaryContainer,
         contentColor = MaterialTheme.colorScheme.onSecondaryContainer

@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.release.lint.baseline)
     alias(libs.plugins.aboutlibraries)
+    alias(libs.plugins.compose.stability.analyzer)
 }
 
 android {
@@ -248,6 +249,7 @@ dependencies {
     implementation(libs.hilt.navigation.compose)
     ksp(libs.hilt.android.compiler)
     implementation(libs.hilt.work)
+    ksp(libs.hilt.compiler)
     implementation(libs.jmdns)
 
     implementation(libs.ktor.client.core)
