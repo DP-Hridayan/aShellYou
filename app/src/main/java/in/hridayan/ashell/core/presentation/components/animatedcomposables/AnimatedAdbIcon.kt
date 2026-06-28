@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.core.presentation.components.svg.vectors
+package `in`.hridayan.ashell.core.presentation.components.animatedcomposables
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -16,8 +16,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -36,7 +36,6 @@ import androidx.compose.ui.graphics.vector.PathParser
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalHapticFeedback
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -50,8 +49,6 @@ import kotlin.time.Duration.Companion.milliseconds
  *
  * **Startled (on click)** – head snaps up and tilts, antennas whip from inertia, eyes go wide,
  * body squishes; head then looks left then right before everything springs back. Ignored if already playing.
- *
- * @param iconSize Display size of the icon.
  * @param headColor Color of the head shape and antennas.
  * @param eyeColor Color of both eyes.
  * @param bodyColor Color of the body shape.
@@ -66,7 +63,6 @@ import kotlin.time.Duration.Companion.milliseconds
 @Composable
 fun AnimatedAdbIcon(
     modifier: Modifier = Modifier,
-    iconSize: Dp = 96.dp,
     headColor: Color = MaterialTheme.colorScheme.primary,
     eyeColor: Color = MaterialTheme.colorScheme.onPrimary,
     bodyColor: Color = MaterialTheme.colorScheme.primary,
@@ -82,7 +78,6 @@ fun AnimatedAdbIcon(
     val haptic = LocalHapticFeedback.current
     val scope = rememberCoroutineScope()
     var isStartled by remember { mutableStateOf(false) }
-    val vpToPx = with(LocalDensity.current) { iconSize.toPx() / 48f }
 
     val sHeadY = remember { Animatable(0f) }
     val sHeadRot = remember { Animatable(0f) }
@@ -215,18 +210,18 @@ fun AnimatedAdbIcon(
     val rightEyeVector = rememberAdbRightEyeVector(eyeColor)
     val leftEyeVector = rememberAdbLeftEyeVector(eyeColor)
 
-    Box(
+    BoxWithConstraints(
         modifier = modifier
-            .size(iconSize)
             .clickable(
                 indication = null,
                 interactionSource = remember { MutableInteractionSource() },
                 onClick = {
                     playStartled()
-                    haptic.performHapticFeedback(HapticFeedbackType.VirtualKey)
+                    if (enableClickHaptics) haptic.performHapticFeedback(HapticFeedbackType.VirtualKey)
                 },
             ),
     ) {
+        val vpToPx = with(LocalDensity.current) { maxWidth.toPx() / 48f }
         Image(
             imageVector = bodyVector,
             contentDescription = null,

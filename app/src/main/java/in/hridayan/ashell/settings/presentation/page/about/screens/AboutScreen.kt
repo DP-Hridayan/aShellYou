@@ -49,11 +49,11 @@ import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.constants.UrlConst
+import `in`.hridayan.ashell.core.presentation.components.animatedcomposables.AnimatedAdbIcon
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.shape.SineWaveShape
 import `in`.hridayan.ashell.core.presentation.components.shape.WaveEdge
-import `in`.hridayan.ashell.core.presentation.components.svg.vectors.AnimatedAdbIcon
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.presentation.utils.syncedRotationAndScale
@@ -147,8 +147,7 @@ fun AboutScreen(
                             )
 
                             AnimatedAdbIcon(
-                                modifier = Modifier.size(120.dp),
-                                iconSize = 80.dp,
+                                modifier = Modifier.size(75.dp),
                                 headColor = MaterialTheme.colorScheme.tertiary,
                                 eyeColor = MaterialTheme.colorScheme.onTertiary
                             )
