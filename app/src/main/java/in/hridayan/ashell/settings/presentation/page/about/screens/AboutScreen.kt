@@ -146,7 +146,12 @@ fun AboutScreen(
                                     .background(MaterialTheme.colorScheme.primaryContainer)
                             )
 
-                            AnimatedAdbIcon(modifier = Modifier.size(60.dp))
+                            AnimatedAdbIcon(
+                                modifier = Modifier.size(120.dp),
+                                iconSize = 80.dp,
+                                headColor = MaterialTheme.colorScheme.tertiary,
+                                eyeColor = MaterialTheme.colorScheme.onTertiary
+                            )
                         }
 
                         AutoResizeableText(
