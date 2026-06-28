@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.AShellYou.SplashScreen" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenAnimatedIcon">@drawable/avd_adb_splash</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/animated_adb_splash_icon</item>
         <item name="windowSplashScreenAnimationDuration">1200</item>
         <item name="windowSplashScreenBackground">@color/splash_background</item>
         <item name="postSplashScreenTheme">@style/Theme.AShellYou</item>
