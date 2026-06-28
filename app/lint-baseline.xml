@@ -401,17 +401,6 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.color.ic_launcher_background` appears to be unused"
-        errorLine1="&lt;/resources>"
-        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/colors.xml"
-            line="6"
-            column="12"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.xml.data_extraction_rules` appears to be unused"
         errorLine1="&lt;data-extraction-rules>"
         errorLine2="^">

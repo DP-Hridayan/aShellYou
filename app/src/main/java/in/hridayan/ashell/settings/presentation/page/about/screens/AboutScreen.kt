@@ -3,7 +3,6 @@
 package `in`.hridayan.ashell.settings.presentation.page.about.screens
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -142,7 +141,6 @@ fun AboutScreen(
                                         scaleY = scale()
                                     }
                                     .clip(MaterialShapes.Cookie9Sided.toShape())
-                                    .clickable(onClick = withHaptic {})
                                     .background(MaterialTheme.colorScheme.primaryContainer)
                             )
 
