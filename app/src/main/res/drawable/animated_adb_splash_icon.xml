@@ -143,7 +143,7 @@
         <aapt:attr name="android:animation">
             <set>
                 <objectAnimator
-                    android:duration="400"
+                    android:duration="300"
                     android:interpolator="@android:interpolator/accelerate_cubic"
                     android:propertyName="translateY"
                     android:valueFrom="-50"
@@ -178,7 +178,7 @@
         <aapt:attr name="android:animation">
             <set>
                 <objectAnimator
-                    android:duration="400"
+                    android:duration="300"
                     android:interpolator="@android:interpolator/accelerate_cubic"
                     android:propertyName="translateY"
                     android:valueFrom="50"
