@@ -7,6 +7,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -14,6 +15,7 @@ import `in`.hridayan.settingsdsl.controller.SettingsController
 import `in`.hridayan.settingsdsl.model.CustomSlot
 import `in`.hridayan.settingsdsl.model.ItemBehavior
 import `in`.hridayan.settingsdsl.model.ResolvedGroup
+import `in`.hridayan.settingsdsl.model.SettingsItem
 import `in`.hridayan.settingsdsl.model.SettingsKey
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 
@@ -130,25 +132,63 @@ fun LazyListScope.settingsContent(
                     items = group.items,
                     key = { _, item -> item.key.name },
                 ) { _, item ->
-                    SettingsItemView(
+                    SettingsItemEntry(
                         item = item,
-                        modifier = modifier
+                        modifier = Modifier
                             .fillParentMaxWidth()
                             .padding(
                                 horizontal = itemPaddingHorizontal,
                                 vertical = itemPaddingVertical
                             )
-                            .animateItem(),
-                        enabled = item.enabled,
+                            .animateItem()
+                            .then(modifier),
                         hapticsEnabled = hapticsEnabled,
                         isChecked = isChecked(item.key),
                         selectedValue = selectedValue(item.key),
-                        onClick = { onItemClick(item.key) },
-                        onToggle = { onBooleanToggle(item.key) },
-                        onValueChange = { value -> onIntChanged(item.key, value) },
+                        onItemClick = onItemClick,
+                        onBooleanToggle = onBooleanToggle,
+                        onIntChanged = onIntChanged,
                     )
                 }
             }
         }
     }
+}
+
+// Separate composable so remember() is available to stabilize lambdas.
+// Without this, lambdas created inside itemsIndexed{} get a new instance
+// every recomposition, causing every item to recompose unnecessarily.
+@Composable
+private fun SettingsItemEntry(
+    item: SettingsItem,
+    modifier: Modifier,
+    hapticsEnabled: Boolean,
+    isChecked: Boolean,
+    selectedValue: Int,
+    onItemClick: (SettingsKey<*>) -> Unit,
+    onBooleanToggle: (SettingsKey<*>) -> Unit,
+    onIntChanged: (SettingsKey<*>, Int) -> Unit,
+) {
+    val key = item.key
+    val onClick = remember(key) { { onItemClick(key) } }
+    val onToggle = remember(key) { { onBooleanToggle(key) } }
+    val onValueChange = remember(key) { { v: Int -> onIntChanged(key, v) } }
+
+    SettingsItemView(
+        modifier = modifier,
+        title = item.title,
+        description = item.description,
+        icon = item.icon,
+        iconResId = item.iconResId,
+        shape = item.shape,
+        isHighlighted = item.isHighlighted,
+        behavior = item.behavior,
+        enabled = item.enabled,
+        hapticsEnabled = hapticsEnabled,
+        isChecked = isChecked,
+        selectedValue = selectedValue,
+        onClick = onClick,
+        onToggle = onToggle,
+        onValueChange = onValueChange,
+    )
 }
