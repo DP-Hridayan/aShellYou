@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 
         splashScreen.setKeepOnScreenCondition {
             settingsViewModel.isFirstLaunch == null ||
-                    System.currentTimeMillis() - splashStartTime < 750L
+                    System.currentTimeMillis() - splashStartTime < 650L
         }
 
         super.onCreate(savedInstanceState)
