@@ -20,8 +20,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CheckCircle
-import androidx.compose.material.icons.outlined.CloudDone
-import androidx.compose.material.icons.outlined.CloudOff
 import androidx.compose.material.icons.outlined.Error
 import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material3.CardDefaults
@@ -54,12 +52,10 @@ import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.settings.data.SettingsKeys
-
 import `in`.hridayan.ashell.settings.presentation.components.dialog.AutoBackupTimePickerDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.SelectBackupFolderDialog
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
-import `in`.hridayan.ashell.settings.presentation.page.backup.viewmodel.BackupAndRestoreViewModel
 import `in`.hridayan.ashell.settings.presentation.provider.BackupScreenCustomSlots
 import `in`.hridayan.ashell.settings.presentation.state.rememberController
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
@@ -70,7 +66,6 @@ import `in`.hridayan.settingsdsl.ui.item.settingsContent
 fun BackupSchedulerScreen(
     modifier: Modifier = Modifier,
     settingsViewModel: SettingsViewModel = hiltViewModel(),
-    backupViewModel: BackupAndRestoreViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
     val dialogManager = LocalDialogManager.current
@@ -79,7 +74,6 @@ fun BackupSchedulerScreen(
     val hapticsEnabled = settings[SettingsKeys.HapticsAndVibration]
     val autoBackupEnabled = settings[SettingsKeys.AutoBackupEnabled]
     val autoBackupFolderName = settings[SettingsKeys.AutoBackupFolderName]
-    val googleUserState by backupViewModel.googleUserState.collectAsState()
     val isBackingUp by settingsViewModel.isBackingUp.collectAsState()
     var showFolderDialog by remember { mutableStateOf(false) }
 
@@ -102,7 +96,6 @@ fun BackupSchedulerScreen(
 
     val listState = rememberLazyListState()
 
-    // Collect UI events from the SettingsViewModel
     LaunchedEffect(Unit) {
         settingsViewModel.uiEvent.collect { event ->
             when (event) {
@@ -186,20 +179,6 @@ fun BackupSchedulerScreen(
                                                 settingsViewModel.backupNow()
                                             }
                                         },
-                                    )
-                                }
-                            }
-
-                            is BackupScreenCustomSlots.GoogleDriveSection -> {
-                                if (backupViewModel.isCloudBackupAvailable) {
-                                    GoogleDriveSectionContent(
-                                        modifier = Modifier.fillMaxWidth(),
-                                        isSignedIn = googleUserState.isSignedIn,
-                                        userEmail = googleUserState.email,
-                                        userName = googleUserState.name,
-                                        userPhotoUrl = googleUserState.photoUrl,
-                                        onSignInClick = { backupViewModel.signInWithGoogle(context) },
-                                        onSignOutClick = { backupViewModel.signOut() },
                                     )
                                 }
                             }
@@ -376,75 +355,6 @@ private fun BackupStatusRow(
                         text = stringResource(R.string.no_auto_backup_yet),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun GoogleDriveSectionContent(
-    modifier: Modifier = Modifier,
-    isSignedIn: Boolean,
-    userEmail: String?,
-    userName: String?,
-    userPhotoUrl: Uri?,
-    onSignInClick: () -> Unit,
-    onSignOutClick: () -> Unit,
-) {
-    Column(modifier = modifier) {
-        // Category header
-        Text(
-            text = stringResource(R.string.google_drive_backup),
-            style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.padding(start = 15.dp, top = 18.dp, bottom = 4.dp),
-        )
-
-        GoogleSignInCard(
-            isSignedIn = isSignedIn,
-            userEmail = userEmail,
-            userName = userName,
-            userPhotoUrl = userPhotoUrl,
-            onSignInClick = onSignInClick,
-            onSignOutClick = onSignOutClick,
-        )
-
-        // Cloud backup status when signed in
-        if (isSignedIn) {
-            val cloudSettings = LocalSettings.current
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp, vertical = 8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                if (cloudSettings[SettingsKeys.LastAutoBackupCloudSuccessTime].isNotEmpty()) {
-                    Icon(
-                        imageVector = Icons.Outlined.CloudDone,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.size(16.dp),
-                    )
-                    Text(
-                        text = stringResource(R.string.last_auto_backup_cloud) +
-                                ": " + cloudSettings[SettingsKeys.LastAutoBackupCloudSuccessTime],
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                } else if (cloudSettings[SettingsKeys.LastAutoBackupCloudError].isNotEmpty()) {
-                    Icon(
-                        imageVector = Icons.Outlined.CloudOff,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.error,
-                        modifier = Modifier.size(16.dp),
-                    )
-                    Text(
-                        text = cloudSettings[SettingsKeys.LastAutoBackupCloudError],
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.error,
                     )
                 }
             }
