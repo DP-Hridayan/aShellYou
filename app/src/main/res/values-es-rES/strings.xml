@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
-    <string name="abort_command">Abortar el comando primero</string>
+    <string name="abort_command"></string>
     <string name="about">Acerca de</string>
     <string name="active">Activo</string>
     <string name="adb_command">Comando ADB</string>

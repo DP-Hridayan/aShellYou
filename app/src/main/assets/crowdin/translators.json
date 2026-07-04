@@ -352,6 +352,21 @@
     "avatar": "crowdin/contributors_pfp/contributor_17101716.webp"
   },
   {
+    "id": "16121896",
+    "username": "Quaff03",
+    "name": "Quaff03",
+    "translated": 46,
+    "approved": 0,
+    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/16121896/medium/a5f8985e48142cbf6c5e30cfa0bafb5a.png",
+    "languages": [
+      {
+        "id": "zh-CN",
+        "name": "Chinese Simplified"
+      }
+    ],
+    "avatar": "crowdin/contributors_pfp/contributor_16121896.webp"
+  },
+  {
     "id": "15472922",
     "username": "Jactoken",
     "name": "Jactoken",
@@ -384,21 +399,6 @@
       }
     ],
     "avatar": "crowdin/contributors_pfp/contributor_17149392.webp"
-  },
-  {
-    "id": "16121896",
-    "username": "Quaff03",
-    "name": "Quaff03",
-    "translated": 21,
-    "approved": 0,
-    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/16121896/medium/a5f8985e48142cbf6c5e30cfa0bafb5a.png",
-    "languages": [
-      {
-        "id": "zh-CN",
-        "name": "Chinese Simplified"
-      }
-    ],
-    "avatar": "crowdin/contributors_pfp/contributor_16121896.webp"
   },
   {
     "id": "17661168",
@@ -474,6 +474,21 @@
       }
     ],
     "avatar": "crowdin/contributors_pfp/contributor_17607862.webp"
+  },
+  {
+    "id": "17777221",
+    "username": "kitreaksa78",
+    "name": "Kit Reaksa (kitreaksa78)",
+    "translated": 3,
+    "approved": 0,
+    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/17777221/medium/c9384c35c55bbaa77003cc2c26c83f64.png",
+    "languages": [
+      {
+        "id": "es-ES",
+        "name": "Spanish"
+      }
+    ],
+    "avatar": "crowdin/contributors_pfp/contributor_17777221.webp"
   },
   {
     "id": "17303784",

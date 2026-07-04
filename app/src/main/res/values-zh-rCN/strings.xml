@@ -99,7 +99,7 @@
     <string name="confirm">确认</string>
     <string name="confirm_bookmark_delete_message">警告！此操作是不可逆的\n您确定要删除所有书签吗？</string>
     <string name="confirm_delete">确认删除</string>
-    <string name="confirm_tile_delete_message">您确定要删除此节点吗？</string>
+    <string name="confirm_tile_delete_message">您确定要删除此磁贴吗？</string>
     <string name="confirmation_clear_cache">Caching helps to retrieve analysis results instantly.\nDo you still want to clear all AI analysis cache data?</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" 已经存在于这个位置。</string>
     <string name="conflict_title">项目已存在</string>
@@ -123,7 +123,7 @@
     <string name="crash_history">崩溃历史</string>
     <string name="create">创建</string>
     <string name="create_folder">创建文件夹</string>
-    <string name="create_new_tile">创建新瓷块</string>
+    <string name="create_new_tile">创建新瓷贴</string>
     <string name="crowdin_contribution_msg">访问我们的crowdin 翻译平台来贡献</string>
     <string name="current_version">当前版本</string>
     <string name="custom_ui_scale">自定义界面缩放</string>
@@ -163,7 +163,7 @@
     <string name="des_choose_icon">点击此处从图标集合中选择一个图标</string>
     <string name="des_clear_output_confirmation">清除终端输出前询问确认</string>
     <string name="des_configure_save_directory">配置目录保存终端输出</string>
-    <string name="des_contributors">帮助开发你的 aShell 贡献者列表</string>
+    <string name="des_contributors">帮助开发 aShell You 的贡献者列表</string>
     <string name="des_crash_history">查看应用程序中发生的所有崩溃问题</string>
     <string name="des_default_language">为本软件更改默认语言</string>
     <string name="des_disable_softkey">在使用实体键盘时会有帮助</string>
@@ -633,7 +633,7 @@
     <string name="tile_dashboard_notification_access_message">打开通知栏以在平铺执行失败时获得通知</string>
     <string name="tile_logs">平铺日志</string>
     <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">平铺 %1$d</string>
-    <string name="tile_name">磁盘名称</string>
+    <string name="tile_name">瓷贴名称</string>
     <string name="tiles">瓷块</string>
     <string name="time">时间</string>
     <string name="toggleable">可切换的</string>
