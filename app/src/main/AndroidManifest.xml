@@ -60,7 +60,7 @@
             android:name=".activities.MainActivity"
             android:enableOnBackInvokedCallback="true"
             android:exported="true"
-            android:theme="@style/Theme.AShellYou"
+            android:theme="@style/Theme.AShellYou.SplashScreen"
             tools:targetApi="33">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

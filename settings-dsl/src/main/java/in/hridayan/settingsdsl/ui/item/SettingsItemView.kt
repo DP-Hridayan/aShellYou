@@ -2,6 +2,7 @@
 
 package `in`.hridayan.settingsdsl.ui.item
 
+import androidx.annotation.DrawableRes
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
@@ -36,34 +37,44 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.lerp
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.skydoves.compose.stability.runtime.TraceRecomposition
 import `in`.hridayan.settingsdsl.model.ButtonGroupOption
 import `in`.hridayan.settingsdsl.model.ItemBehavior
 import `in`.hridayan.settingsdsl.model.RadioButtonOption
-import `in`.hridayan.settingsdsl.model.SettingsItem
 import `in`.hridayan.settingsdsl.ui.card.CustomCard
 import `in`.hridayan.settingsdsl.ui.card.CustomCardShape
 import `in`.hridayan.settingsdsl.ui.card.cardShapeForPosition
 
 /**
- * Renders a single [SettingsItem] matching the existing app item UI exactly:
+ * Renders a single settings item matching the app item UI:
  * - Switches: check/close thumb icon
  * - SwitchBanner: always primaryContainer, rounded pill, headlineSmall
  * - RadioGroup: surfaceContainer cards with RadioButton
  * - ButtonGroup: Material3 connected ToggleButtons
- * - Clickable: surfaceContainer card, highlighted when [SettingsItem.isHighlighted]
+ * - Clickable: surfaceContainer card, highlighted when [isHighlighted]
+ *
+ * All parameters are stable primitives so Compose can skip recomposition
+ * correctly — e.g. toggling [isChecked] won't re-draw the title or icon.
  *
  * @param hapticsEnabled Whether haptic feedback fires on all interactions.
  */
 @Composable
 fun SettingsItemView(
-    item: SettingsItem,
     modifier: Modifier = Modifier,
+    title: String = "",
+    description: String = "",
+    icon: ImageVector? = null,
+    @DrawableRes iconResId: Int? = null,
+    shape: CustomCardShape = CustomCardShape(),
+    isHighlighted: Boolean = false,
+    behavior: ItemBehavior,
     enabled: Boolean = true,
     hapticsEnabled: Boolean = true,
     isChecked: Boolean = false,
@@ -73,50 +84,72 @@ fun SettingsItemView(
     onValueChange: (Int) -> Unit = {},
 ) {
     val haptic = LocalHapticFeedback.current
-    fun hapticClick() {
-        if (hapticsEnabled) haptic.performHapticFeedback(HapticFeedbackType.Companion.ContextClick)
+
+    val wrappedOnToggle = remember(onToggle, hapticsEnabled) {
+        {
+            if (hapticsEnabled) haptic.performHapticFeedback(HapticFeedbackType.Companion.ToggleOn)
+            onToggle()
+        }
+    }
+    val wrappedOnClick = remember(onClick, hapticsEnabled) {
+        {
+            if (hapticsEnabled) haptic.performHapticFeedback(HapticFeedbackType.Companion.ContextClick)
+            onClick()
+        }
+    }
+    val wrappedOnValueChange = remember(onValueChange, hapticsEnabled) {
+        { v: Int ->
+            if (hapticsEnabled) haptic.performHapticFeedback(HapticFeedbackType.Companion.ToggleOn)
+            onValueChange(v)
+        }
     }
 
-    fun hapticToggle() {
-        if (hapticsEnabled) haptic.performHapticFeedback(HapticFeedbackType.Companion.ToggleOn)
-    }
-
-    when (item.behavior) {
+    when (behavior) {
         is ItemBehavior.Switch -> SwitchItemView(
             modifier = modifier,
-            item = item,
+            title = title,
+            description = description,
+            icon = icon,
+            iconResId = iconResId,
+            shape = shape,
+            isHighlighted = isHighlighted,
             enabled = enabled,
             isChecked = isChecked,
-            onToggle = { hapticToggle(); onToggle() },
+            onToggle = wrappedOnToggle,
         )
 
         is ItemBehavior.SwitchBanner -> SwitchBannerItemView(
             modifier = modifier,
-            item = item,
+            title = title,
             enabled = enabled,
             isChecked = isChecked,
-            onToggle = { hapticToggle(); onToggle() },
+            onToggle = wrappedOnToggle,
         )
 
         is ItemBehavior.Clickable -> ClickableItemView(
             modifier = modifier,
-            item = item,
+            title = title,
+            description = description,
+            icon = icon,
+            iconResId = iconResId,
+            shape = shape,
+            isHighlighted = isHighlighted,
             enabled = enabled,
-            onClick = { hapticClick(); onClick() },
+            onClick = wrappedOnClick,
         )
 
         is ItemBehavior.RadioGroup -> RadioGroupItemView(
             modifier = modifier,
-            options = item.behavior.options,
+            options = behavior.options,
             selectedValue = selectedValue,
-            onSelect = { v -> hapticToggle(); onValueChange(v) },
+            onSelect = wrappedOnValueChange,
         )
 
         is ItemBehavior.ButtonGroup -> ButtonGroupItemView(
             modifier = modifier,
-            options = item.behavior.options,
+            options = behavior.options,
             selectedValue = selectedValue,
-            onSelect = { v -> hapticClick(); onValueChange(v) },
+            onSelect = wrappedOnValueChange,
         )
     }
 }
@@ -175,35 +208,38 @@ private fun SettingsSwitch(
 }
 
 @Composable
-private fun ItemLeadingIcon(item: SettingsItem) {
+private fun ItemLeadingIcon(icon: ImageVector?, @DrawableRes iconResId: Int?) {
     when {
-        item.icon != null -> Icon(
-            imageVector = item.icon,
+        icon != null -> Icon(
+            imageVector = icon,
             contentDescription = null,
             tint = MaterialTheme.colorScheme.primary
         )
 
-        item.iconResId != null -> Icon(
-            painter = painterResource(item.iconResId),
+        iconResId != null -> Icon(
+            painter = painterResource(iconResId),
             contentDescription = null,
             tint = MaterialTheme.colorScheme.primary
         )
     }
 }
 
-private fun SettingsItem.hasIcon() = icon != null || iconResId != null
-
 @Composable
 private fun ClickableItemView(
     modifier: Modifier,
-    item: SettingsItem,
+    title: String,
+    description: String,
+    icon: ImageVector?,
+    @DrawableRes iconResId: Int?,
+    shape: CustomCardShape,
+    isHighlighted: Boolean,
     enabled: Boolean,
     onClick: () -> Unit
 ) {
     CustomCard(
         modifier = modifier.alpha(if (enabled) 1f else 0.5f),
-        shape = item.shape,
-        colors = highlightCardColors(item.isHighlighted),
+        shape = shape,
+        colors = highlightCardColors(isHighlighted),
         clickable = enabled,
         onClick = onClick
     ) {
@@ -214,18 +250,18 @@ private fun ClickableItemView(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(15.dp),
         ) {
-            if (item.hasIcon()) ItemLeadingIcon(item)
+            ItemLeadingIcon(icon = icon, iconResId = iconResId)
             Column(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(7.dp)
             ) {
-                if (item.title.isNotEmpty()) Text(
-                    text = item.title,
+                if (title.isNotEmpty()) Text(
+                    text = title,
                     fontWeight = FontWeight.SemiBold,
                     style = MaterialTheme.typography.titleMediumEmphasized
                 )
-                if (item.description.isNotEmpty()) Text(
-                    text = item.description,
+                if (description.isNotEmpty()) Text(
+                    text = description,
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.alpha(0.7f)
                 )
@@ -237,15 +273,20 @@ private fun ClickableItemView(
 @Composable
 private fun SwitchItemView(
     modifier: Modifier,
-    item: SettingsItem,
+    title: String,
+    description: String,
+    icon: ImageVector?,
+    @DrawableRes iconResId: Int?,
+    shape: CustomCardShape,
+    isHighlighted: Boolean,
     enabled: Boolean,
     isChecked: Boolean,
     onToggle: () -> Unit
 ) {
     CustomCard(
         modifier = modifier.alpha(if (enabled) 1f else 0.5f),
-        shape = item.shape,
-        colors = highlightCardColors(item.isHighlighted),
+        shape = shape,
+        colors = highlightCardColors(isHighlighted),
         clickable = enabled,
         onClick = onToggle
     ) {
@@ -256,18 +297,18 @@ private fun SwitchItemView(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(15.dp),
         ) {
-            if (item.hasIcon()) ItemLeadingIcon(item)
+            ItemLeadingIcon(icon = icon, iconResId = iconResId)
             Column(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(7.dp)
             ) {
-                if (item.title.isNotEmpty()) Text(
-                    text = item.title,
+                if (title.isNotEmpty()) Text(
+                    text = title,
                     fontWeight = FontWeight.SemiBold,
                     style = MaterialTheme.typography.titleMediumEmphasized
                 )
-                if (item.description.isNotEmpty()) Text(
-                    text = item.description,
+                if (description.isNotEmpty()) Text(
+                    text = description,
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.alpha(0.7f)
                 )
@@ -284,7 +325,7 @@ private fun SwitchItemView(
 @Composable
 private fun SwitchBannerItemView(
     modifier: Modifier,
-    item: SettingsItem,
+    title: String,
     enabled: Boolean,
     isChecked: Boolean,
     onToggle: () -> Unit
@@ -311,7 +352,7 @@ private fun SwitchBannerItemView(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = item.title,
+                text = title,
                 style = MaterialTheme.typography.headlineSmall,
                 modifier = Modifier
                     .weight(1f)

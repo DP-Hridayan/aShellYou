@@ -51,7 +51,7 @@ class BackupAndRestoreViewModel @Inject constructor(
     private val _uiEvent = MutableSharedFlow<SettingsUiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
 
-    private var currentBackupType: BackupType = BackupType.SETTINGS_AND_DATABASE
+    private val _currentBackupType = MutableStateFlow(BackupType.SETTINGS_AND_DATABASE)
 
     val lastLocalBackupTime = settingsRepository.getString(SettingsKeys.LastLocalBackupTime)
     val lastLocalBackupType = settingsRepository.getString(SettingsKeys.LastLocalBackupType)
@@ -77,7 +77,7 @@ class BackupAndRestoreViewModel @Inject constructor(
     val isSigningIn: StateFlow<Boolean> = _isSigningIn.asStateFlow()
 
     // Pending cloud restore data (downloaded but not yet applied)
-    private var pendingCloudRestoreBytes: ByteArray? = null
+    private val _pendingCloudRestoreBytes = MutableStateFlow<ByteArray?>(null)
 
     private val _cloudBackupTime = MutableStateFlow<String?>(null)
     val cloudBackupTime: StateFlow<String?> = _cloudBackupTime.asStateFlow()
@@ -144,7 +144,7 @@ class BackupAndRestoreViewModel @Inject constructor(
         data object Restore : PendingOperation()
     }
 
-    private var pendingOperation: PendingOperation? = null
+    private val _pendingOperation = MutableStateFlow<PendingOperation?>(null)
 
     init {
         // Forward consent requests from Drive repo to UI
@@ -161,12 +161,12 @@ class BackupAndRestoreViewModel @Inject constructor(
     }
 
     fun initiateBackup(type: BackupType) {
-        currentBackupType = type
+        _currentBackupType.value = type
     }
 
     fun performLocalBackup(uri: Uri) {
         viewModelScope.launch {
-            val success = backupAndRestoreRepository.backupToDevice(uri, currentBackupType)
+            val success = backupAndRestoreRepository.backupToDevice(uri, _currentBackupType.value)
 
             val message =
                 if (success) context.getString(R.string.backup_successful) else context.getString(R.string.backup_failed)
@@ -242,7 +242,8 @@ class BackupAndRestoreViewModel @Inject constructor(
                         }
                     } else {
                         viewModelScope.launch {
-                            val errorMessage = error.message ?: context.getString(R.string.unknown_error)
+                            val errorMessage =
+                                error.message ?: context.getString(R.string.unknown_error)
                             _uiEvent.emit(
                                 SettingsUiEvent.ShowToast(
                                     context.getString(R.string.sign_in_failed) + ": $errorMessage"
@@ -265,17 +266,17 @@ class BackupAndRestoreViewModel @Inject constructor(
 
     /** Called by the Screen after user grants Drive scope consent. Retries pending operation. */
     fun onConsentGranted() {
-        Log.d(TAG, "onConsentGranted: retrying pending operation=$pendingOperation")
+        Log.d(TAG, "onConsentGranted: retrying pending operation=${_pendingOperation.value}")
         googleDriveRepository.onConsentGranted()
 
-        when (val op = pendingOperation) {
+        when (val op = _pendingOperation.value) {
             is PendingOperation.Backup -> {
-                pendingOperation = null
+                _pendingOperation.value = null
                 backupToGoogleDrive(op.type)
             }
 
             is PendingOperation.Restore -> {
-                pendingOperation = null
+                _pendingOperation.value = null
                 downloadFromGoogleDrive()
             }
 
@@ -288,7 +289,7 @@ class BackupAndRestoreViewModel @Inject constructor(
 
     fun onConsentDenied() {
         Log.d(TAG, "onConsentDenied")
-        pendingOperation = null
+        _pendingOperation.value = null
         _cloudOperationMessage.value = null
         viewModelScope.launch {
             _uiEvent.emit(SettingsUiEvent.ShowToast(context.getString(R.string.sign_in_failed)))
@@ -298,14 +299,14 @@ class BackupAndRestoreViewModel @Inject constructor(
     fun backupToGoogleDrive(type: BackupType) {
         viewModelScope.launch {
             Log.d(TAG, "backupToGoogleDrive: option=$type")
-            pendingOperation = PendingOperation.Backup(type)
+            _pendingOperation.value = PendingOperation.Backup(type)
             _cloudOperationMessage.value = context.getString(R.string.uploading_backup)
 
             val bytes = backupAndRestoreRepository.generateCloudBackupBytes(type)
             if (bytes == null) {
                 Log.e(TAG, "backupToGoogleDrive: generateBackupBytes returned null")
                 _cloudOperationMessage.value = null
-                pendingOperation = null
+                _pendingOperation.value = null
                 _uiEvent.emit(SettingsUiEvent.ShowToast(context.getString(R.string.cloud_backup_failed)))
                 return@launch
             }
@@ -321,7 +322,7 @@ class BackupAndRestoreViewModel @Inject constructor(
             }
 
             _cloudOperationMessage.value = null
-            pendingOperation = null
+            _pendingOperation.value = null
 
             if (success) {
                 Log.d(TAG, "backupToGoogleDrive: upload SUCCESS")
@@ -341,7 +342,7 @@ class BackupAndRestoreViewModel @Inject constructor(
     fun downloadFromGoogleDrive() {
         viewModelScope.launch {
             Log.d(TAG, "downloadFromGoogleDrive: starting...")
-            pendingOperation = PendingOperation.Restore
+            _pendingOperation.value = PendingOperation.Restore
             _cloudOperationMessage.value = context.getString(R.string.downloading_backup)
 
             val result = googleDriveRepository.downloadBackup()
@@ -354,7 +355,7 @@ class BackupAndRestoreViewModel @Inject constructor(
             }
 
             _cloudOperationMessage.value = null
-            pendingOperation = null
+            _pendingOperation.value = null
 
             if (result == null) {
                 Log.e(TAG, "downloadFromGoogleDrive: no backup found on Drive")
@@ -366,7 +367,7 @@ class BackupAndRestoreViewModel @Inject constructor(
             Log.d(TAG, "downloadFromGoogleDrive: downloaded ${bytes.size} bytes (file=$fileName)")
 
             // Store pending bytes and extract backup time
-            pendingCloudRestoreBytes = bytes
+            _pendingCloudRestoreBytes.value = bytes
 
             val time = backupAndRestoreRepository.getBackupTimeFromBytes(bytes)
             _cloudBackupTime.value = time
@@ -436,7 +437,7 @@ class BackupAndRestoreViewModel @Inject constructor(
     fun confirmCloudRestore() {
         viewModelScope.launch {
             _showCloudRestoreConfirm.value = false
-            val bytes = pendingCloudRestoreBytes
+            val bytes = _pendingCloudRestoreBytes.value
             if (bytes == null) {
                 Log.e(TAG, "confirmCloudRestore: no pending bytes!")
                 _uiEvent.emit(SettingsUiEvent.ShowToast(context.getString(R.string.cloud_restore_failed)))
@@ -448,7 +449,7 @@ class BackupAndRestoreViewModel @Inject constructor(
             val success = backupAndRestoreRepository.restoreFromBytes(bytes)
 
             _cloudOperationMessage.value = null
-            pendingCloudRestoreBytes = null
+            _pendingCloudRestoreBytes.value = null
 
             val message = if (success) {
                 Log.d(TAG, "confirmCloudRestore: SUCCESS")
@@ -464,7 +465,7 @@ class BackupAndRestoreViewModel @Inject constructor(
     /** User cancelled cloud restore */
     fun cancelCloudRestore() {
         _showCloudRestoreConfirm.value = false
-        pendingCloudRestoreBytes = null
+        _pendingCloudRestoreBytes.value = null
         _cloudBackupTime.value = null
         _cloudBackupType.value = null
     }

@@ -35,8 +35,12 @@ class MainActivity : AppCompatActivity() {
     private val autoUpdateViewModel: AutoUpdateViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen().setKeepOnScreenCondition {
-            settingsViewModel.isFirstLaunch == null
+        val splashScreen = installSplashScreen()
+        val splashStartTime = System.currentTimeMillis()
+
+        splashScreen.setKeepOnScreenCondition {
+            settingsViewModel.isFirstLaunch == null ||
+                    System.currentTimeMillis() - splashStartTime < 650L
         }
 
         super.onCreate(savedInstanceState)
@@ -80,4 +84,3 @@ class MainActivity : AppCompatActivity() {
         handleSharedText(intent)
     }
 }
-

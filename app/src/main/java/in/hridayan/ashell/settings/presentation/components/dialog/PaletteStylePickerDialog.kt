@@ -3,6 +3,8 @@
 package `in`.hridayan.ashell.settings.presentation.components.dialog
 
 import android.annotation.SuppressLint
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -240,8 +242,8 @@ fun PaletteStylePickerDialog(
 
                     androidx.compose.animation.AnimatedVisibility(
                         visible = listState.canScrollBackward,
-                        enter = androidx.compose.animation.fadeIn(),
-                        exit = androidx.compose.animation.fadeOut(),
+                        enter = fadeIn(),
+                        exit = fadeOut(),
                         modifier = Modifier.align(Alignment.TopCenter)
                     ) {
                         Box(
@@ -261,8 +263,8 @@ fun PaletteStylePickerDialog(
 
                     androidx.compose.animation.AnimatedVisibility(
                         visible = listState.canScrollForward,
-                        enter = androidx.compose.animation.fadeIn(),
-                        exit = androidx.compose.animation.fadeOut(),
+                        enter = fadeIn(),
+                        exit = fadeOut(),
                         modifier = Modifier.align(Alignment.BottomCenter)
                     ) {
                         Box(

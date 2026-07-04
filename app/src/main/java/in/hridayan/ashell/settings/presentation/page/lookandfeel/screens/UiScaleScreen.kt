@@ -1,4 +1,7 @@
-@file:OptIn(ExperimentalFoundationStyleApi::class, androidx.compose.material3.ExperimentalMaterial3Api::class)
+@file:OptIn(
+    ExperimentalFoundationStyleApi::class,
+    ExperimentalMaterial3Api::class
+)
 
 package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens
 
@@ -16,7 +19,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.style.ExperimentalFoundationStyleApi
-import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -41,12 +44,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.skydoves.compose.stability.runtime.TraceRecomposition
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalSettings
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
-import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape
+import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
@@ -58,8 +62,6 @@ fun UiScaleScreen(
 ) {
     val listState = rememberLazyListState()
     val settings = LocalSettings.current
-    val screenDensityMultiplier = settings[SettingsKeys.ScreenDensityMultiplier]
-    val fontSizeMultiplier = settings[SettingsKeys.FontSizeMultiplier]
 
     SettingsScaffold(
         modifier = modifier,
@@ -90,12 +92,18 @@ fun UiScaleScreen(
                         title = stringResource(R.string.screen_density_multiplier),
                         description = stringResource(R.string.des_screen_density),
                         icon = painterResource(R.drawable.ic_high_density),
-                        value = screenDensityMultiplier,
-                        defaultValue = SettingsKeys.ScreenDensityMultiplier.defaultValue,
-                        onValueChange = { newValue ->
+                        shape = CardCornerShape.FIRST_CARD,
+                        value = settings[SettingsKeys.ScreenDensityMultiplier],
+                        onValueChangeFinished = { newValue ->
                             settingsViewModel.setFloat(
                                 key = SettingsKeys.ScreenDensityMultiplier,
                                 value = newValue
+                            )
+                        },
+                        onValueReset = {
+                            settingsViewModel.setFloat(
+                                key = SettingsKeys.ScreenDensityMultiplier,
+                                value = SettingsKeys.ScreenDensityMultiplier.defaultValue
                             )
                         }
                     )
@@ -105,7 +113,7 @@ fun UiScaleScreen(
                     Spacer(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(20.dp)
+                            .height(2.dp)
                     )
                 }
 
@@ -117,14 +125,20 @@ fun UiScaleScreen(
                         title = stringResource(R.string.font_size_multiplier),
                         description = stringResource(R.string.des_font_size),
                         icon = painterResource(R.drawable.ic_format_size),
-                        value = fontSizeMultiplier,
-                        defaultValue = SettingsKeys.FontSizeMultiplier.defaultValue,
+                        shape = CardCornerShape.LAST_CARD,
+                        value = settings[SettingsKeys.FontSizeMultiplier],
                         valueRange = 0.5f..2f,
                         steps = 14,
-                        onValueChange = { newValue ->
+                        onValueChangeFinished = { newValue ->
                             settingsViewModel.setFloat(
                                 key = SettingsKeys.FontSizeMultiplier,
                                 value = newValue
+                            )
+                        },
+                        onValueReset = {
+                            settingsViewModel.setFloat(
+                                key = SettingsKeys.FontSizeMultiplier,
+                                value = SettingsKeys.FontSizeMultiplier.defaultValue
                             )
                         }
                     )
@@ -142,33 +156,30 @@ fun UiScaleScreen(
     )
 }
 
+@TraceRecomposition
 @Composable
 private fun ScaleModifyCard(
     modifier: Modifier = Modifier,
+    value: Float,
+    onValueChange: (Float) -> Unit = {},
+    onValueChangeFinished: (Float) -> Unit = {},
+    onValueReset: () -> Unit,
+    valueRange: ClosedFloatingPointRange<Float> = 0.5f..1.5f,
+    steps: Int = 9,
     title: String,
     description: String,
     icon: Painter,
-    value: Float,
-    defaultValue: Float = 1f,
-    onValueChange: (Float) -> Unit = {},
-    valueRange: ClosedFloatingPointRange<Float> = 0.5f..1.5f,
-    steps : Int = 9
+    shape: CustomCardShape = CustomCardShape(24),
+    enableHaptics: Boolean = true,
 ) {
     val locale = LocalLocale.current
-    val weakHaptic = LocalWeakHaptic.current
     val haptic = LocalHapticFeedback.current
-    val isHapticEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
 
     var sliderValue by remember(value) { mutableFloatStateOf(value) }
 
     CustomCard(
         modifier = modifier,
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface,
-            contentColor = MaterialTheme.colorScheme.onSurface
-        ),
-        border = CardDefaults.outlinedCardBorder(),
-        clickable = false
+        shape = shape
     ) {
         Column(
             modifier = Modifier
@@ -239,13 +250,16 @@ private fun ScaleModifyCard(
                     value = sliderValue,
                     onValueChange = {
                         sliderValue = it
-                        if (isHapticEnabled) haptic.performHapticFeedback(
+                        if (enableHaptics) haptic.performHapticFeedback(
                             HapticFeedbackType.VirtualKey
                         )
+                        onValueChange(it)
                     },
                     onValueChangeFinished = {
-                        weakHaptic()
-                        onValueChange(sliderValue)
+                        if (enableHaptics) haptic.performHapticFeedback(
+                            HapticFeedbackType.VirtualKey
+                        )
+                        onValueChangeFinished(sliderValue)
                     },
                     valueRange = valueRange,
                     steps = steps
@@ -256,9 +270,11 @@ private fun ScaleModifyCard(
                     colors = IconButtonDefaults.iconButtonColors(
                         containerColor = MaterialTheme.colorScheme.surfaceContainerLow
                     ),
-                    onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                        onValueChange(defaultValue)
-                        sliderValue = defaultValue
+                    onClick = {
+                        if (enableHaptics) haptic.performHapticFeedback(
+                            HapticFeedbackType.VirtualKey
+                        )
+                        onValueReset()
                     }) {
                     Icon(
                         painter = painterResource(R.drawable.ic_reset_settings),

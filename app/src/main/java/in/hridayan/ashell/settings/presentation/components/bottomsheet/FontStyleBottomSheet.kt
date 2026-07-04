@@ -130,6 +130,8 @@ fun FontStyleBottomSheet(
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = sheetState,
+        sheetGesturesEnabled = false,
+        dragHandle = null
     ) {
         Column(
             modifier = Modifier

@@ -417,8 +417,7 @@ object SettingsProvider {
                 description = R.string.des_auto_delete_existing_backups,
                 icon = R.drawable.ic_delete_sweep
             ),
-        ),
-        customSlot(BackupScreenCustomSlots.GoogleDriveSection),
+        )
     )
 
     val aiModelsPage = settingsPage(

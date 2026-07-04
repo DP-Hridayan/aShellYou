@@ -3,7 +3,6 @@
 package `in`.hridayan.ashell.settings.presentation.page.about.screens
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,7 +31,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
@@ -50,6 +48,7 @@ import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.constants.UrlConst
+import `in`.hridayan.ashell.core.presentation.components.animatedcomposables.AnimatedAdbIcon
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.shape.SineWaveShape
@@ -142,14 +141,13 @@ fun AboutScreen(
                                         scaleY = scale()
                                     }
                                     .clip(MaterialShapes.Cookie9Sided.toShape())
-                                    .clickable(onClick = withHaptic {})
                                     .background(MaterialTheme.colorScheme.primaryContainer)
                             )
-                            Icon(
-                                painter = painterResource(R.drawable.ic_adb2),
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                                modifier = Modifier.size(60.dp)
+
+                            AnimatedAdbIcon(
+                                modifier = Modifier.size(75.dp),
+                                headColor = MaterialTheme.colorScheme.tertiary,
+                                eyeColor = MaterialTheme.colorScheme.onTertiary
                             )
                         }
 
