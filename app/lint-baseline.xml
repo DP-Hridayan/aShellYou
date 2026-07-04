@@ -57,6 +57,72 @@
     </issue>
 
     <issue
+        id="GradleDependency"
+        message="A newer version of androidx.compose.animation:animation than 1.11.3 is available: 1.11.4"
+        errorLine1="composeAnimation = &quot;1.11.3&quot;"
+        errorLine2="                   ~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="7"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.compose:compose-bom than 2026.06.00 is available: 2026.06.01"
+        errorLine1="composeBom = &quot;2026.06.00&quot;"
+        errorLine2="             ~~~~~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="8"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.hilt:hilt-compiler than 1.4.0-rc01 is available: 1.4.0"
+        errorLine1="hiltExt = &quot;1.4.0-rc01&quot;"
+        errorLine2="          ~~~~~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="21"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.hilt:hilt-navigation-compose than 1.4.0-rc01 is available: 1.4.0"
+        errorLine1="hiltExt = &quot;1.4.0-rc01&quot;"
+        errorLine2="          ~~~~~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="21"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.hilt:hilt-work than 1.4.0-rc01 is available: 1.4.0"
+        errorLine1="hiltExt = &quot;1.4.0-rc01&quot;"
+        errorLine2="          ~~~~~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="21"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.compose.material3:material3 than 1.5.0-alpha22 is available: 1.5.0-alpha23"
+        errorLine1="material3 = &quot;1.5.0-alpha22&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="31"
+            column="13"/>
+    </issue>
+
+    <issue
         id="NewerVersionAvailable"
         message="A newer version of dev.rikka.shizuku:api than 13.1.0 is available: 13.1.5"
         errorLine1="shizuku = &quot;13.1.0&quot;"
@@ -277,6 +343,20 @@
         message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
             file="$GRADLE_USER_HOME/caches/9.6.0/transforms/c1e9ac27dd6117252f983497df96c473/transformed/out/jars/classes.jar"/>
+    </issue>
+
+    <issue
+        id="TrustAllX509TrustManager"
+        message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
+        <location
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/com.google.http-client/google-http-client/2.1.0/f4c08fa160a5199af19f81080fbaa921ae2193c7/google-http-client-2.1.0.jar"/>
+    </issue>
+
+    <issue
+        id="TrustAllX509TrustManager"
+        message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
+        <location
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/com.google.http-client/google-http-client/2.1.0/f4c08fa160a5199af19f81080fbaa921ae2193c7/google-http-client-2.1.0.jar"/>
     </issue>
 
     <issue
@@ -1005,29 +1085,6 @@
         <location
             file="src/main/res/mipmap-xhdpi/ic_launcher_monochrome.png"/>
         <location
-            file="src/main/res/mipmap-xhdpi/ic_launcher_foreground.png"/>
-    </issue>
-
-    <issue
-        id="IconDuplicates"
-        message="The following unrelated icon files have identical contents: ic_launcher_foreground.png, ic_launcher_monochrome.png">
-        <location
-            file="src/main/res/mipmap-xxhdpi/ic_launcher_monochrome.png"/>
-        <location
-            file="src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png"/>
-    </issue>
-
-    <issue
-        id="IconDuplicates"
-        message="The following unrelated icon files have identical contents: ic_launcher_foreground.png, ic_launcher_monochrome.png">
-        <location
-            file="src/main/res/mipmap-xxxhdpi/ic_launcher_monochrome.png"/>
-        <location
-            file="src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png"/>
-    </issue>
-
-</issues>
-n
             file="src/main/res/mipmap-xhdpi/ic_launcher_foreground.png"/>
     </issue>
 
