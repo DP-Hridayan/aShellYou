@@ -24,7 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -112,7 +111,7 @@ fun CacheDurationDialog(
                     label = { Text(stringResource(R.string.ai_cache_days)) },
                     supportingText = {
                         if (isError) {
-                            Text("$MIN_CACHE_DAYS – $MAX_CACHE_DAYS days")
+                            Text(text = "$MIN_CACHE_DAYS – $MAX_CACHE_DAYS " + stringResource(R.string.n_days))
                         }
                     },
                     isError = isError,
