@@ -30,7 +30,10 @@ fun switchItem(
     @DrawableRes icon: Int? = null,
     iconVector: ImageVector? = null,
     visible: Boolean = true,
-    enabled: Boolean = true
+    enabled: Boolean = true,
+    enableExperimentalFlag: Boolean = false,
+    @StringRes experimentalFlagTextResId: Int? = null,
+    experimentalFlagText: String = "Experimental"
 ): SettingsItemSpec = SettingsItemSpec(
     ItemSpec.SwitchSpec(
         key = key,
@@ -42,6 +45,9 @@ fun switchItem(
         descriptionString = "",
         iconResId = icon,
         iconVector = iconVector,
+        enableExperimentalFlag = enableExperimentalFlag,
+        experimentalFlagTextResId = experimentalFlagTextResId,
+        experimentalFlagText = experimentalFlagText
     )
 )
 
@@ -73,7 +79,10 @@ fun clickableItem(
     @DrawableRes icon: Int? = null,
     iconVector: ImageVector? = null,
     visible: Boolean = true,
-    enabled: Boolean = true
+    enabled: Boolean = true,
+    enableExperimentalFlag: Boolean = false,
+    @StringRes experimentalFlagTextResId: Int? = null,
+    experimentalFlagText: String = "Experimental"
 ): SettingsItemSpec = SettingsItemSpec(
     ItemSpec.ClickableSpec(
         key = key,
@@ -85,6 +94,9 @@ fun clickableItem(
         descriptionString = "",
         iconResId = icon,
         iconVector = iconVector,
+        enableExperimentalFlag = enableExperimentalFlag,
+        experimentalFlagTextResId = experimentalFlagTextResId,
+        experimentalFlagText = experimentalFlagText
     )
 )
 

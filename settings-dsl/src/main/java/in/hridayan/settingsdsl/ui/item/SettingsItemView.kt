@@ -6,14 +6,17 @@ import androidx.annotation.DrawableRes
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.Close
@@ -36,6 +39,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
@@ -44,7 +48,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.skydoves.compose.stability.runtime.TraceRecomposition
 import `in`.hridayan.settingsdsl.model.ButtonGroupOption
 import `in`.hridayan.settingsdsl.model.ItemBehavior
 import `in`.hridayan.settingsdsl.model.RadioButtonOption
@@ -74,6 +77,8 @@ fun SettingsItemView(
     @DrawableRes iconResId: Int? = null,
     shape: CustomCardShape = CustomCardShape(),
     isHighlighted: Boolean = false,
+    enableExperimentalFlag: Boolean = false,
+    experimentalFlagText: String = "Experimental",
     behavior: ItemBehavior,
     enabled: Boolean = true,
     hapticsEnabled: Boolean = true,
@@ -87,19 +92,19 @@ fun SettingsItemView(
 
     val wrappedOnToggle = remember(onToggle, hapticsEnabled) {
         {
-            if (hapticsEnabled) haptic.performHapticFeedback(HapticFeedbackType.Companion.ToggleOn)
+            if (hapticsEnabled) haptic.performHapticFeedback(HapticFeedbackType.ToggleOn)
             onToggle()
         }
     }
     val wrappedOnClick = remember(onClick, hapticsEnabled) {
         {
-            if (hapticsEnabled) haptic.performHapticFeedback(HapticFeedbackType.Companion.ContextClick)
+            if (hapticsEnabled) haptic.performHapticFeedback(HapticFeedbackType.ContextClick)
             onClick()
         }
     }
     val wrappedOnValueChange = remember(onValueChange, hapticsEnabled) {
         { v: Int ->
-            if (hapticsEnabled) haptic.performHapticFeedback(HapticFeedbackType.Companion.ToggleOn)
+            if (hapticsEnabled) haptic.performHapticFeedback(HapticFeedbackType.ToggleOn)
             onValueChange(v)
         }
     }
@@ -113,6 +118,8 @@ fun SettingsItemView(
             iconResId = iconResId,
             shape = shape,
             isHighlighted = isHighlighted,
+            enableExperimentalFlag = enableExperimentalFlag,
+            experimentalFlagText = experimentalFlagText,
             enabled = enabled,
             isChecked = isChecked,
             onToggle = wrappedOnToggle,
@@ -225,6 +232,27 @@ private fun ItemLeadingIcon(icon: ImageVector?, @DrawableRes iconResId: Int?) {
 }
 
 @Composable
+private fun ExperimentalBadge(
+    modifier: Modifier = Modifier,
+    label: String
+) {
+    Box(
+        modifier = modifier
+            .clip(RoundedCornerShape(50))
+            .background(MaterialTheme.colorScheme.error)
+            .padding(horizontal = 8.dp, vertical = 2.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onError,
+            fontWeight = FontWeight.Medium
+        )
+    }
+}
+
+@Composable
 private fun ClickableItemView(
     modifier: Modifier,
     title: String,
@@ -279,6 +307,8 @@ private fun SwitchItemView(
     @DrawableRes iconResId: Int?,
     shape: CustomCardShape,
     isHighlighted: Boolean,
+    enableExperimentalFlag: Boolean,
+    experimentalFlagText: String,
     enabled: Boolean,
     isChecked: Boolean,
     onToggle: () -> Unit
@@ -302,11 +332,20 @@ private fun SwitchItemView(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(7.dp)
             ) {
-                if (title.isNotEmpty()) Text(
-                    text = title,
-                    fontWeight = FontWeight.SemiBold,
-                    style = MaterialTheme.typography.titleMediumEmphasized
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(15.dp)
+                ) {
+                    if (title.isNotEmpty()) Text(
+                        modifier = Modifier.weight(weight = 1f, fill = false),
+                        text = title,
+                        fontWeight = FontWeight.SemiBold,
+                        style = MaterialTheme.typography.titleMediumEmphasized
+                    )
+
+                    if (enableExperimentalFlag) ExperimentalBadge(label = experimentalFlagText)
+                }
                 if (description.isNotEmpty()) Text(
                     text = description,
                     style = MaterialTheme.typography.bodySmall,

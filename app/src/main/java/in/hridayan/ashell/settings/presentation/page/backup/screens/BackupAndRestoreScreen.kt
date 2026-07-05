@@ -452,7 +452,7 @@ private fun TimeCard(
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Text(
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier.weight(weight = 1f, fill = false),
                         text = title,
                         fontWeight = FontWeight.SemiBold,
                         style = MaterialTheme.typography.titleMediumEmphasized

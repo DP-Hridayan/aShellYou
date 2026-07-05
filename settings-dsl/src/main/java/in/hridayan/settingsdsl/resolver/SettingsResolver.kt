@@ -169,6 +169,9 @@ private fun ItemSpec.toSettingsItem(
 
     val resolvedIcon: ImageVector? = iconOverride ?: iconVector
 
+    val resolvedExperimentalFlagText = experimentalFlagTextResId?.let { stringResource(it) }
+        ?: experimentalFlagText
+
     val behavior: ItemBehavior = when (this) {
         is ItemSpec.SwitchSpec -> ItemBehavior.Switch
         is ItemSpec.SwitchBannerSpec -> ItemBehavior.SwitchBanner
@@ -187,6 +190,8 @@ private fun ItemSpec.toSettingsItem(
         shape = shape,
         behavior = behavior,
         isHighlighted = key == highlightedKey,
+        enableExperimentalFlag = enableExperimentalFlag,
+        experimentalFlagText = resolvedExperimentalFlagText
     )
 }
 

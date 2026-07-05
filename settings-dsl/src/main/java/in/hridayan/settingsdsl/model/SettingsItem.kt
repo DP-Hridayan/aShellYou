@@ -49,7 +49,13 @@ data class SettingsItem(
     val behavior: ItemBehavior,
 
     /** True if this item should be visually highlighted (e.g. from a search result). */
-    val isHighlighted: Boolean = false,
+    val isHighlighted: Boolean,
+
+    /** True if this item should show an experimental feature tag */
+    val enableExperimentalFlag: Boolean,
+
+    /** Text to show as a badge when [enableExperimentalFlag] is set to true */
+    val experimentalFlagText: String
 )
 
 /**

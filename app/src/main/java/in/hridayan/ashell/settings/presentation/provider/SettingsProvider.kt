@@ -118,7 +118,9 @@ object SettingsProvider {
                 key = SettingsKeys.AutoScaleUi,
                 title = R.string.auto_scale_ui,
                 description = R.string.des_auto_scale_ui,
-                icon = R.drawable.ic_transform
+                icon = R.drawable.ic_transform,
+                enableExperimentalFlag = true,
+                experimentalFlagText = "Experimental"
             ),
             clickableItem(
                 key = SettingsKeys.CustomUiScale,

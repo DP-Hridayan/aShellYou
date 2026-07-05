@@ -19,6 +19,9 @@ internal sealed class ItemSpec(
     val descriptionString: String,
     @param:DrawableRes val iconResId: Int?,
     val iconVector: ImageVector?,
+    val enableExperimentalFlag: Boolean,
+    @param:StringRes val experimentalFlagTextResId: Int?,
+    val experimentalFlagText: String
 ) {
     class SwitchSpec(
         key: SettingsKey<*>,
@@ -30,16 +33,22 @@ internal sealed class ItemSpec(
         descriptionString: String,
         @DrawableRes iconResId: Int?,
         iconVector: ImageVector?,
+        enableExperimentalFlag: Boolean,
+        @StringRes experimentalFlagTextResId: Int?,
+        experimentalFlagText: String
     ) : ItemSpec(
-        key,
-        isVisible,
-        enabled,
-        titleResId,
-        titleString,
-        descriptionResId,
-        descriptionString,
-        iconResId,
-        iconVector
+        key = key,
+        isVisible = isVisible,
+        enabled = enabled,
+        titleResId = titleResId,
+        titleString = titleString,
+        descriptionResId = descriptionResId,
+        descriptionString = descriptionString,
+        iconResId = iconResId,
+        iconVector = iconVector,
+        enableExperimentalFlag = enableExperimentalFlag,
+        experimentalFlagTextResId = experimentalFlagTextResId,
+        experimentalFlagText = experimentalFlagText
     )
 
     class SwitchBannerSpec(
@@ -48,7 +57,20 @@ internal sealed class ItemSpec(
         enabled: Boolean,
         @StringRes titleResId: Int?,
         titleString: String,
-    ) : ItemSpec(key, isVisible, enabled, titleResId, titleString, null, "", null, null)
+    ) : ItemSpec(
+        key = key,
+        isVisible = isVisible,
+        enabled = enabled,
+        titleResId = titleResId,
+        titleString = titleString,
+        descriptionResId = null,
+        descriptionString = "",
+        iconResId = null,
+        iconVector = null,
+        enableExperimentalFlag = false,
+        experimentalFlagTextResId = null,
+        experimentalFlagText = ""
+    )
 
     class ClickableSpec(
         key: SettingsKey<*>,
@@ -60,16 +82,22 @@ internal sealed class ItemSpec(
         descriptionString: String,
         @DrawableRes iconResId: Int?,
         iconVector: ImageVector?,
+        enableExperimentalFlag: Boolean,
+        @StringRes experimentalFlagTextResId: Int?,
+        experimentalFlagText: String
     ) : ItemSpec(
-        key,
-        isVisible,
-        enabled,
-        titleResId,
-        titleString,
-        descriptionResId,
-        descriptionString,
-        iconResId,
-        iconVector
+        key = key,
+        isVisible = isVisible,
+        enabled = enabled,
+        titleResId = titleResId,
+        titleString = titleString,
+        descriptionResId = descriptionResId,
+        descriptionString = descriptionString,
+        iconResId = iconResId,
+        iconVector = iconVector,
+        enableExperimentalFlag = enableExperimentalFlag,
+        experimentalFlagTextResId = experimentalFlagTextResId,
+        experimentalFlagText = experimentalFlagText
     )
 
     class RadioGroupSpec(
@@ -77,14 +105,38 @@ internal sealed class ItemSpec(
         isVisible: Boolean,
         enabled: Boolean,
         val options: List<RadioButtonOption>,
-    ) : ItemSpec(key, isVisible, enabled, null, "", null, "", null, null)
+    ) : ItemSpec(
+        key = key,
+        isVisible = isVisible,
+        enabled = enabled,
+        titleResId = null,
+        titleString = "",
+        descriptionResId = null,
+        descriptionString = "",
+        iconResId = null,
+        iconVector = null,
+        enableExperimentalFlag = false,
+        experimentalFlagTextResId = null,
+        experimentalFlagText = ""
+    )
 
     class ButtonGroupSpec(
         key: SettingsKey<*>,
         isVisible: Boolean,
         enabled: Boolean,
         val options: List<ButtonGroupOption>,
-    ) : ItemSpec(key, isVisible, enabled, null, "", null, "", null, null)
+    ) : ItemSpec(   key = key,
+        isVisible = isVisible,
+        enabled = enabled,
+        titleResId = null,
+        titleString = "",
+        descriptionResId = null,
+        descriptionString = "",
+        iconResId = null,
+        iconVector = null,
+        enableExperimentalFlag = false,
+        experimentalFlagTextResId = null,
+        experimentalFlagText = "")
 }
 
 /**
