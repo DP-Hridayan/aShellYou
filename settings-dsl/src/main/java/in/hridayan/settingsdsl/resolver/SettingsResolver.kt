@@ -130,8 +130,11 @@ private fun GroupSpec.resolve(
             val visibleSpecs = items.filter { spec ->
                 visibilityOverrides[spec.key]?.invoke() ?: spec.isVisible
             }
+            val resolvedCategoryTitle = titleResId?.let { stringResource(it) }
+                ?: title
+
             ResolvedGroup.ItemGroup(
-                categoryTitle = stringResource(titleResId),
+                categoryTitle = resolvedCategoryTitle,
                 items = visibleSpecs.mapIndexed { i, spec ->
                     spec.toSettingsItem(
                         shape = cardShapeForPosition(i, visibleSpecs.size),

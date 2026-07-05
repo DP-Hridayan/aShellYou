@@ -9,7 +9,8 @@ import androidx.annotation.StringRes
 internal sealed class GroupSpec {
     data class Items(val items: List<ItemSpec>) : GroupSpec()
     data class Category(
-        @param:StringRes val titleResId: Int,
+        @param:StringRes val titleResId: Int?,
+        val title: String,
         val items: List<ItemSpec>
     ) : GroupSpec()
 

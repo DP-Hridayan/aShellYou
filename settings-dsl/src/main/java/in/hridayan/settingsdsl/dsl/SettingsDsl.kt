@@ -17,16 +17,18 @@ import `in`.hridayan.settingsdsl.model.SettingsPage
  * Creates a settings item with a toggle switch.
  *
  * @param key Unique identifier for this setting.
- * @param title String resource for the display title.
- * @param description Optional string resource for the subtitle/description.
+ * @param titleResId String resource for the display title.
+ * @param descriptionResId Optional string resource for the subtitle/description.
  * @param icon Optional drawable resource for the leading icon.
  * @param iconVector Optional [ImageVector] for the leading icon.
  * @param visible Whether this item appears in the list. Defaults to `true`.
  */
 fun switchItem(
     key: SettingsKey<*>,
-    @StringRes title: Int,
-    @StringRes description: Int? = null,
+    @StringRes titleResId: Int? = null,
+    title: String = "",
+    @StringRes descriptionResId: Int? = null,
+    description: String = "",
     @DrawableRes icon: Int? = null,
     iconVector: ImageVector? = null,
     visible: Boolean = true,
@@ -39,10 +41,10 @@ fun switchItem(
         key = key,
         isVisible = visible,
         enabled = enabled,
-        titleResId = title,
-        titleString = "",
-        descriptionResId = description,
-        descriptionString = "",
+        titleResId = titleResId,
+        titleString = title,
+        descriptionResId = descriptionResId,
+        descriptionString = description,
         iconResId = icon,
         iconVector = iconVector,
         enableExperimentalFlag = enableExperimentalFlag,
@@ -56,7 +58,7 @@ fun switchItem(
  */
 fun switchBannerItem(
     key: SettingsKey<*>,
-    @StringRes title: Int,
+    @StringRes titleResId: Int? = null,
     visible: Boolean = true,
     enabled: Boolean = true
 ): SettingsItemSpec = SettingsItemSpec(
@@ -64,8 +66,23 @@ fun switchBannerItem(
         key = key,
         isVisible = visible,
         enabled = enabled,
-        titleResId = title,
+        titleResId = titleResId,
         titleString = ""
+    )
+)
+
+fun switchBannerItem(
+    key: SettingsKey<*>,
+    title: String = "",
+    visible: Boolean = true,
+    enabled: Boolean = true
+): SettingsItemSpec = SettingsItemSpec(
+    ItemSpec.SwitchBannerSpec(
+        key = key,
+        isVisible = visible,
+        enabled = enabled,
+        titleResId = null,
+        titleString = title
     )
 )
 
@@ -74,8 +91,10 @@ fun switchBannerItem(
  */
 fun clickableItem(
     key: SettingsKey<*>,
-    @StringRes title: Int,
-    @StringRes description: Int? = null,
+    @StringRes titleResId: Int? = null,
+    title: String = "",
+    @StringRes descriptionResId: Int? = null,
+    description: String = "",
     @DrawableRes icon: Int? = null,
     iconVector: ImageVector? = null,
     visible: Boolean = true,
@@ -88,10 +107,10 @@ fun clickableItem(
         key = key,
         isVisible = visible,
         enabled = enabled,
-        titleResId = title,
-        titleString = "",
-        descriptionResId = description,
-        descriptionString = "",
+        titleResId = titleResId,
+        titleString = title,
+        descriptionResId = descriptionResId,
+        descriptionString = description,
         iconResId = icon,
         iconVector = iconVector,
         enableExperimentalFlag = enableExperimentalFlag,
@@ -148,15 +167,49 @@ fun group(items: List<SettingsItemSpec>): SettingsGroup =
  * Creates a categorized group of items with a string-resource header label.
  */
 fun category(
-    @StringRes title: Int,
+    @StringRes titleResId: Int,
     vararg items: SettingsItemSpec,
-): SettingsGroup = SettingsGroup(GroupSpec.Category(title, items.map { it.spec }))
+): SettingsGroup = SettingsGroup(
+    GroupSpec.Category(
+        titleResId = titleResId,
+        title = "",
+        items = items.map { it.spec })
+)
+
+/**
+ * Creates a categorized group of items with a plain string header label.
+ */
+fun category(
+    title: String,
+    vararg items: SettingsItemSpec,
+): SettingsGroup = SettingsGroup(
+    GroupSpec.Category(
+        titleResId = null,
+        title = title,
+        items = items.map { it.spec })
+)
 
 /** @see category */
 fun category(
-    @StringRes title: Int,
+    @StringRes titleResId: Int,
     items: List<SettingsItemSpec>,
-): SettingsGroup = SettingsGroup(GroupSpec.Category(title, items.map { it.spec }))
+): SettingsGroup = SettingsGroup(
+    GroupSpec.Category(
+        titleResId = titleResId,
+        title = "",
+        items = items.map { it.spec })
+)
+
+/** @see category */
+fun category(
+    title: String,
+    items: List<SettingsItemSpec>,
+): SettingsGroup = SettingsGroup(
+    GroupSpec.Category(
+        titleResId = null,
+        title = title,
+        items = items.map { it.spec })
+)
 
 /**
  * Inserts a custom composable slot identified by the given [CustomSlot].

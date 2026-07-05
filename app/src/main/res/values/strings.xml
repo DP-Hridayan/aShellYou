@@ -255,6 +255,7 @@
     <string name="error_labels_limit_reached">Maximum labels limit reached</string>
     <string name="execution_method">Execution method</string>
     <string name="expand">Expand</string>
+    <string name="experimental">Experimental</string>
     <string name="failed">Failed</string>
     <string name="failed_to_claim_interface">Failed to claim interface</string>
     <string name="failed_to_open_usb_connection">Failed to open USB connection. Is USB debugging enabled?</string>
