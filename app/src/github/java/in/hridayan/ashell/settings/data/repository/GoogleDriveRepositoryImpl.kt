@@ -3,6 +3,7 @@ package `in`.hridayan.ashell.settings.data.repository
 import android.accounts.Account
 import android.content.Context
 import android.util.Log
+import com.google.android.gms.auth.GoogleAuthUtil
 import com.google.android.gms.auth.api.identity.AuthorizationRequest
 import com.google.android.gms.auth.api.identity.AuthorizationResult
 import com.google.android.gms.auth.api.identity.Identity
@@ -181,6 +182,48 @@ class GoogleDriveRepositoryImpl @Inject constructor(
 
             is DriveOperationResult.ConsentRequired -> auth
             is DriveOperationResult.Error -> auth
+        }
+    }
+
+    /**
+     * Obtains a Drive service using [GoogleAuthUtil.getToken] — a fully headless token fetch
+     * that works in background Workers without any UI interaction.
+     *
+     * Also warms the internal Drive service cache so that subsequent [uploadBackup] /
+     * [downloadBackup] calls in the same Worker session reuse the same service.
+     *
+     * Returns null if the account is not signed in, the token cannot be refreshed silently,
+     * or the user has not previously granted the Drive scope.
+     */
+    override suspend fun getHeadlessDriveService(): Drive? = withContext(Dispatchers.IO) {
+        try {
+            val email = googleAuthRepository.getAccountEmail() ?: run {
+                Log.w(TAG, "getHeadlessDriveService: no account email")
+                return@withContext null
+            }
+
+            // GoogleAuthUtil.getToken blocks — must run on IO dispatcher.
+            // It silently refreshes the token if expired. Throws UserRecoverableAuthException
+            // if the user needs to grant consent interactively (can't do in background).
+            val scope = "oauth2:${DriveScopes.DRIVE_APPDATA}"
+            val account = Account(email, "com.google")
+            val token = GoogleAuthUtil.getToken(context, account, scope)
+
+            Log.d(TAG, "getHeadlessDriveService: got token for $email")
+            val service = createDriveService(token)
+
+            // Warm the cache so uploadBackup / downloadBackup reuse this service
+            cachedDriveService = service
+            cachedEmail = email
+
+            service
+        } catch (e: com.google.android.gms.auth.UserRecoverableAuthException) {
+            // User needs to re-grant consent interactively — cannot do in background
+            Log.w(TAG, "getHeadlessDriveService: user recoverable auth error (consent needed)", e)
+            null
+        } catch (e: Exception) {
+            Log.e(TAG, "getHeadlessDriveService: FAILED", e)
+            null
         }
     }
 

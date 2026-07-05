@@ -27,4 +27,11 @@ interface GoogleDriveRepository {
 
     /** Called after the user grants consent. Caches the authorized result for retry. */
     fun onConsentGranted()
+
+    /**
+     * Headless token retrieval suitable for background Workers (no UI interaction).
+     * Returns a ready-to-use Drive service, or null if the account is not signed in
+     * or the token cannot be refreshed silently (e.g. consent required).
+     */
+    suspend fun getHeadlessDriveService(): Any?
 }

@@ -28,4 +28,6 @@ class FdroidGoogleDriveRepositoryImpl @Inject constructor() : GoogleDriveReposit
     override suspend fun downloadBackup(): Pair<ByteArray, String>? = null
 
     override suspend fun deleteAllBackups(): Boolean = false
+
+    override suspend fun getHeadlessDriveService(): Any? = null
 }

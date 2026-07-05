@@ -8,7 +8,9 @@ import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,6 +19,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
@@ -71,11 +74,11 @@ import `in`.hridayan.ashell.settings.presentation.components.dialog.RestoreSourc
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.page.backup.viewmodel.BackupAndRestoreViewModel
-import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
 import `in`.hridayan.ashell.settings.presentation.provider.BackupScreenCustomSlots
+import `in`.hridayan.ashell.settings.presentation.state.rememberController
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
-import `in`.hridayan.ashell.settings.presentation.state.rememberController
+import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
 import `in`.hridayan.settingsdsl.ui.item.settingsContent
 
 @Composable
@@ -383,7 +386,8 @@ private fun LastBackupTimeCard(
                 icon = painterResource(R.drawable.ic_mobile),
                 title = stringResource(R.string.device_backup_local),
                 backupType = lastBackupData.localType,
-                dateTime = lastBackupData.localTime
+                dateTime = lastBackupData.localTime,
+                isAuto = lastBackupData.localIsAuto,
             )
             if (isCloudBackupAvailable) {
                 Spacer(
@@ -397,7 +401,8 @@ private fun LastBackupTimeCard(
                     icon = cloudCardIcon,
                     title = stringResource(R.string.cloud_backup_google_drive),
                     backupType = lastBackupData.cloudType,
-                    dateTime = lastBackupData.cloudTime
+                    dateTime = lastBackupData.cloudTime,
+                    isAuto = lastBackupData.cloudIsAuto,
                 )
             }
         }
@@ -411,7 +416,8 @@ private fun TimeCard(
     icon: Painter,
     title: String,
     backupType: String,
-    dateTime: String
+    dateTime: String,
+    isAuto: Boolean = false,
 ) {
     val context = LocalContext.current
     val res = LocalResources.current
@@ -441,11 +447,34 @@ private fun TimeCard(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(7.dp)
             ) {
-                Text(
-                    text = title,
-                    fontWeight = FontWeight.SemiBold,
-                    style = MaterialTheme.typography.titleMediumEmphasized
-                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Text(
+                        modifier = Modifier.weight(1f),
+                        text = title,
+                        fontWeight = FontWeight.SemiBold,
+                        style = MaterialTheme.typography.titleMediumEmphasized
+                    )
+                    if (isAuto) {
+                        Box(
+                            modifier = Modifier
+                                .background(
+                                    color = MaterialTheme.colorScheme.secondaryContainer,
+                                    shape = RoundedCornerShape(50)
+                                )
+                                .padding(horizontal = 8.dp, vertical = 2.dp)
+                        ) {
+                            Text(
+                                text = stringResource(R.string.auto),
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                                fontWeight = FontWeight.Medium,
+                            )
+                        }
+                    }
+                }
                 Text(
                     text = stringResource(R.string.backup_type) + " : " + backupTypeText,
                     style = MaterialTheme.typography.bodySmall,

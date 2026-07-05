@@ -384,6 +384,7 @@
     <string name="last_backup_date">Last backup date</string>
     <string name="last_backup_details">Last backup details</string>
     <string name="last_backup_time">Last backup time</string>
+    <string name="auto">Auto</string>
     <string name="latest_version">Latest version</string>
     <string name="lead_developer">Lead developer</string>
     <string name="least_used">Least used</string>

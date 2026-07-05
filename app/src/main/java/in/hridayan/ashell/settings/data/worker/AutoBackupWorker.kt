@@ -1,9 +1,8 @@
-﻿package `in`.hridayan.ashell.settings.data.worker
+package `in`.hridayan.ashell.settings.data.worker
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
-import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.net.toUri
@@ -70,12 +69,10 @@ class AutoBackupWorker @AssistedInject constructor(
                 .getBoolean(SettingsKeys.AutoBackupCloudEnabled)
                 .firstOrNull() ?: true
 
-            // ── Local backup ──────────────────────────────────────────
             if (localEnabled) {
                 performLocalBackup(folderUri, deleteExisting, backupType)
             }
 
-            // ── Cloud backup (Google Drive, github flavor only) ──────
             if (cloudEnabled &&
                 googleAuthRepository.isAvailable &&
                 googleAuthRepository.googleUserState.value.isSignedIn
@@ -89,8 +86,6 @@ class AutoBackupWorker @AssistedInject constructor(
             Result.success()
         }
     }
-
-    // ── Local backup ─────────────────────────────────────────────────
 
     private suspend fun performLocalBackup(
         folderUri: String,
@@ -136,7 +131,8 @@ class AutoBackupWorker @AssistedInject constructor(
             val fileUri = newFile.uri
             applicationContext.contentResolver.openOutputStream(fileUri)?.use { outputStream ->
                 outputStream.write(bytes)
-            } ?: throw IllegalStateException("Failed to write to backup file. Storage may be full or permissions revoked.")
+            }
+                ?: throw IllegalStateException("Failed to write to backup file. Storage may be full or permissions revoked.")
 
             // Record success
             val formattedTime = LocalDateTime.now()
@@ -162,15 +158,18 @@ class AutoBackupWorker @AssistedInject constructor(
         }
     }
 
-    // ── Cloud backup ─────────────────────────────────────────────────
-
     private suspend fun performCloudBackup(backupType: BackupType) {
         try {
-            val authorized = googleDriveRepository.ensureAuthorized()
-            if (!authorized) {
+            // Use headless token retrieval — works in background without any UI or consent dialog.
+            // Falls back gracefully if the account needs interactive re-authorization.
+            @Suppress("UNCHECKED_CAST")
+            val drive = googleDriveRepository.getHeadlessDriveService()
+                    as? com.google.api.services.drive.Drive
+
+            if (drive == null) {
                 settingsRepository.setString(
                     SettingsKeys.LastAutoBackupCloudError,
-                    "Google Drive authorization failed. Please sign in again from Backup & Restore settings.",
+                    "Google Drive authorization failed. Please open the app and sign in again from Backup & Restore settings.",
                 )
                 return
             }
@@ -213,15 +212,13 @@ class AutoBackupWorker @AssistedInject constructor(
 
     override suspend fun getForegroundInfo(): ForegroundInfo {
         val channelId = "auto_backup_channel"
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                channelId,
-                "Auto Backup",
-                NotificationManager.IMPORTANCE_LOW,
-            )
-            val manager = applicationContext.getSystemService(NotificationManager::class.java)
-            manager?.createNotificationChannel(channel)
-        }
+        val channel = NotificationChannel(
+            channelId,
+            "Auto Backup",
+            NotificationManager.IMPORTANCE_LOW,
+        )
+        val manager = applicationContext.getSystemService(NotificationManager::class.java)
+        manager?.createNotificationChannel(channel)
         val notification = NotificationCompat.Builder(applicationContext, channelId)
             .setSmallIcon(R.drawable.ic_adb)
             .setContentTitle("Backing up…")

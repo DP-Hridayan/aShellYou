@@ -93,6 +93,7 @@ fun ModelCard(
                 Column(modifier = Modifier.weight(1f)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
+                            modifier = Modifier.weight(1f),
                             text = state.model.name,
                             style = MaterialTheme.typography.titleMediumEmphasized,
                         )
