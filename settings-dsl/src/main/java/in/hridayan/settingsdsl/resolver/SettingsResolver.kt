@@ -130,8 +130,11 @@ private fun GroupSpec.resolve(
             val visibleSpecs = items.filter { spec ->
                 visibilityOverrides[spec.key]?.invoke() ?: spec.isVisible
             }
+            val resolvedCategoryTitle = titleResId?.let { stringResource(it) }
+                ?: title
+
             ResolvedGroup.ItemGroup(
-                categoryTitle = stringResource(titleResId),
+                categoryTitle = resolvedCategoryTitle,
                 items = visibleSpecs.mapIndexed { i, spec ->
                     spec.toSettingsItem(
                         shape = cardShapeForPosition(i, visibleSpecs.size),
@@ -169,6 +172,9 @@ private fun ItemSpec.toSettingsItem(
 
     val resolvedIcon: ImageVector? = iconOverride ?: iconVector
 
+    val resolvedExperimentalFlagText = experimentalFlagTextResId?.let { stringResource(it) }
+        ?: experimentalFlagText
+
     val behavior: ItemBehavior = when (this) {
         is ItemSpec.SwitchSpec -> ItemBehavior.Switch
         is ItemSpec.SwitchBannerSpec -> ItemBehavior.SwitchBanner
@@ -187,6 +193,8 @@ private fun ItemSpec.toSettingsItem(
         shape = shape,
         behavior = behavior,
         isHighlighted = key == highlightedKey,
+        enableExperimentalFlag = enableExperimentalFlag,
+        experimentalFlagText = resolvedExperimentalFlagText
     )
 }
 

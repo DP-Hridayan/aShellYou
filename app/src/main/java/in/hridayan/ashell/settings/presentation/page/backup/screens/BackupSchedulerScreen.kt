@@ -76,6 +76,9 @@ fun BackupSchedulerScreen(
     val autoBackupFolderName = settings[SettingsKeys.AutoBackupFolderName]
     val isBackingUp by settingsViewModel.isBackingUp.collectAsState()
     var showFolderDialog by remember { mutableStateOf(false) }
+    // True when folder picker was opened because user toggled "Enable auto backup"
+    // with no folder set yet — we should enable the toggle after they pick a folder.
+    var pendingEnableAfterFolderPick by remember { mutableStateOf(false) }
 
     // SAF folder picker launcher — requests persistable read+write access
     val folderPickerLauncher = rememberLauncherForActivityResult(
@@ -91,7 +94,17 @@ fun BackupSchedulerScreen(
             settingsViewModel.setString(SettingsKeys.AutoBackupFolderUri, it.toString())
             val folderName = DocumentFile.fromTreeUri(context, it)?.name ?: it.lastPathSegment ?: ""
             settingsViewModel.setString(SettingsKeys.AutoBackupFolderName, folderName)
+
+            // If this pick was triggered by the "Enable auto backup" toggle, also
+            // enable the toggle and schedule the first backup now that a folder exists.
+            if (pendingEnableAfterFolderPick) {
+                pendingEnableAfterFolderPick = false
+                settingsViewModel.onToggle(SettingsKeys.AutoBackupEnabled)
+                settingsViewModel.rescheduleAutoBackup(enabled = true)
+            }
         }
+        // Reset the flag even if the user cancelled the picker
+        if (uri == null) pendingEnableAfterFolderPick = false
     }
 
     val listState = rememberLazyListState()
@@ -141,6 +154,9 @@ fun BackupSchedulerScreen(
                             !autoBackupEnabled &&
                             autoBackupFolderName.isEmpty()
                         ) {
+                            // No folder set yet — ask the user to pick one first.
+                            // The launcher callback will enable the toggle once a folder is selected.
+                            pendingEnableAfterFolderPick = true
                             showFolderDialog = true
                         } else {
                             controller.onBooleanToggle(key)
@@ -219,7 +235,10 @@ fun BackupSchedulerScreen(
 
     if (showFolderDialog) {
         SelectBackupFolderDialog(
-            onDismiss = { showFolderDialog = false },
+            onDismiss = {
+                showFolderDialog = false
+                pendingEnableAfterFolderPick = false
+            },
             onSelectFolder = {
                 showFolderDialog = false
                 folderPickerLauncher.launch(null)

@@ -1,4 +1,4 @@
-﻿package `in`.hridayan.ashell.settings.presentation.page.backup.viewmodel
+package `in`.hridayan.ashell.settings.presentation.page.backup.viewmodel
 
 import android.content.Context
 import android.content.IntentSender
@@ -57,6 +57,8 @@ class BackupAndRestoreViewModel @Inject constructor(
     val lastLocalBackupType = settingsRepository.getString(SettingsKeys.LastLocalBackupType)
     val lastCloudBackupTime = settingsRepository.getString(SettingsKeys.LastCloudBackupTime)
     val lastCloudBackupType = settingsRepository.getString(SettingsKeys.LastCloudBackupType)
+    val lastAutoLocalSuccessTime = settingsRepository.getString(SettingsKeys.LastAutoBackupLocalSuccessTime)
+    val lastAutoCloudSuccessTime = settingsRepository.getString(SettingsKeys.LastAutoBackupCloudSuccessTime)
 
     private val _localBackupTime = MutableStateFlow<String?>(null)
     val localBackupTime: StateFlow<String?> = _localBackupTime
@@ -103,28 +105,39 @@ class BackupAndRestoreViewModel @Inject constructor(
                 lastCloudBackupTime,
                 lastCloudBackupType,
                 googleUserState,
-                isFetchingCloudBackup
+                isFetchingCloudBackup,
+                lastAutoLocalSuccessTime,
+                lastAutoCloudSuccessTime,
             )
         ) { values ->
 
-            val localTimeRaw = values[0] as String
+            val manualLocalTimeRaw = values[0] as String
             val localTypeRaw = values[1] as String
-            val cloudTimeRaw = values[2] as String
+            val manualCloudTimeRaw = values[2] as String
             val cloudTypeRaw = values[3] as String
             val userState = values[4] as GoogleUserState
             val isFetching = values[5] as Boolean
+            val autoLocalTimeRaw = values[6] as String
+            val autoCloudTimeRaw = values[7] as String
+
+            // Pick the latest local backup between manual and auto
+            val (localTimeRaw, localIsAuto) = pickLatest(manualLocalTimeRaw, autoLocalTimeRaw)
+            // Pick the latest cloud backup between manual and auto
+            val (cloudTimeRaw, cloudIsAuto) = pickLatest(manualCloudTimeRaw, autoCloudTimeRaw)
 
             LastBackupData(
                 localTime = formatLocalBackupTime(localTimeRaw),
                 localType = localTypeRaw.ifEmpty {
                     context.getString(R.string.none)
                 },
+                localIsAuto = localIsAuto,
                 cloudTime = formatCloudBackupTime(cloudTimeRaw, isFetching),
                 cloudType = formatCloudBackupType(
                     cloudTypeRaw,
                     userState.isSignedIn,
                     isFetching
-                )
+                ),
+                cloudIsAuto = cloudIsAuto,
             )
         }
             .stateIn(
@@ -530,6 +543,28 @@ class BackupAndRestoreViewModel @Inject constructor(
             isFetching -> context.getString(R.string.fetching_backup_type)
             !rawType.isNullOrEmpty() -> rawType
             else -> context.getString(R.string.none)
+        }
+    }
+
+    /**
+     * Compares a manual backup timestamp ([manual]) against an automatic one ([auto]),
+     * both expected in "dd-MM-yyyy HH:mm" format.
+     *
+     * Returns a [Pair] of:
+     * - The raw timestamp string of whichever is more recent (or non-empty if only one exists)
+     * - A boolean `true` if the auto timestamp won (i.e. the latest backup was automatic)
+     */
+    private fun pickLatest(manual: String, auto: String): Pair<String, Boolean> {
+        val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")
+        val manualDt = runCatching { LocalDateTime.parse(manual.trim(), formatter) }.getOrNull()
+        val autoDt = runCatching { LocalDateTime.parse(auto.trim(), formatter) }.getOrNull()
+
+        return when {
+            manualDt == null && autoDt == null -> Pair("", false)
+            manualDt == null -> Pair(auto, true)
+            autoDt == null -> Pair(manual, false)
+            autoDt.isAfter(manualDt) -> Pair(auto, true)
+            else -> Pair(manual, false)
         }
     }
 }
