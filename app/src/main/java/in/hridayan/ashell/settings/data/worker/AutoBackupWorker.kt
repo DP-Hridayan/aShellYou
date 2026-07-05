@@ -162,11 +162,10 @@ class AutoBackupWorker @AssistedInject constructor(
         try {
             // Use headless token retrieval — works in background without any UI or consent dialog.
             // Falls back gracefully if the account needs interactive re-authorization.
-            @Suppress("UNCHECKED_CAST")
-            val drive = googleDriveRepository.getHeadlessDriveService()
-                    as? com.google.api.services.drive.Drive
+            // We only need to know auth succeeded (non-null); uploadBackup() reuses the cached service.
+            val authSucceeded = googleDriveRepository.getHeadlessDriveService() != null
 
-            if (drive == null) {
+            if (!authSucceeded) {
                 settingsRepository.setString(
                     SettingsKeys.LastAutoBackupCloudError,
                     "Google Drive authorization failed. Please open the app and sign in again from Backup & Restore settings.",
