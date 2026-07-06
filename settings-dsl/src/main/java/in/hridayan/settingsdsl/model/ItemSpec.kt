@@ -3,6 +3,12 @@ package `in`.hridayan.settingsdsl.model
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.vector.ImageVector
+import `in`.hridayan.settingsdsl.dsl.buttonGroupItem
+import `in`.hridayan.settingsdsl.dsl.category
+import `in`.hridayan.settingsdsl.dsl.clickableItem
+import `in`.hridayan.settingsdsl.dsl.group
+import `in`.hridayan.settingsdsl.dsl.radioGroupItem
+import `in`.hridayan.settingsdsl.dsl.switchItem
 
 /**
  * Internal blueprint for a single settings item.
@@ -125,7 +131,8 @@ internal sealed class ItemSpec(
         isVisible: Boolean,
         enabled: Boolean,
         val options: List<ButtonGroupOption>,
-    ) : ItemSpec(   key = key,
+    ) : ItemSpec(
+        key = key,
         isVisible = isVisible,
         enabled = enabled,
         titleResId = null,
@@ -136,7 +143,8 @@ internal sealed class ItemSpec(
         iconVector = null,
         enableExperimentalFlag = false,
         experimentalFlagTextResId = null,
-        experimentalFlagText = "")
+        experimentalFlagText = ""
+    )
 }
 
 /**

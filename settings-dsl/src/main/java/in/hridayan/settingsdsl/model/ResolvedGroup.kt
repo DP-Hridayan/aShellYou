@@ -1,6 +1,6 @@
 package `in`.hridayan.settingsdsl.model
 
-import androidx.annotation.StringRes
+import `in`.hridayan.settingsdsl.resolver.resolveAll
 
 /**
  * A resolved group ready for rendering.

@@ -2,6 +2,8 @@ package `in`.hridayan.settingsdsl.model
 
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Stable
+import `in`.hridayan.settingsdsl.dsl.settingsPage
+import `in`.hridayan.settingsdsl.resolver.resolveAll
 
 /**
  * The top-level container for a settings screen's content.
@@ -61,12 +63,14 @@ class SettingsPage internal constructor(
                     if (itemIndex >= 0) return lazyIndex + itemIndex
                     lazyIndex += group.items.size
                 }
+
                 is GroupSpec.Category -> {
                     val itemIndex = group.items.indexOfFirst { it.key == key }
                     // +1 because the category header row occupies lazyIndex
                     if (itemIndex >= 0) return lazyIndex + 1 + itemIndex
                     lazyIndex += 1 + group.items.size
                 }
+
                 is GroupSpec.Custom -> lazyIndex += 1
                 GroupSpec.Divider -> lazyIndex += 1
             }

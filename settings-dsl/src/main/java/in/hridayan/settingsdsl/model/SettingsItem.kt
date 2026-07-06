@@ -3,6 +3,7 @@ package `in`.hridayan.settingsdsl.model
 import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.vector.ImageVector
+import `in`.hridayan.settingsdsl.resolver.resolveItem
 import `in`.hridayan.settingsdsl.ui.card.CustomCardShape
 
 /**

@@ -13,26 +13,25 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.settingsdsl.controller.SettingsController
 import `in`.hridayan.settingsdsl.model.CustomSlot
-import `in`.hridayan.settingsdsl.model.ItemBehavior
 import `in`.hridayan.settingsdsl.model.ResolvedGroup
 import `in`.hridayan.settingsdsl.model.SettingsItem
 import `in`.hridayan.settingsdsl.model.SettingsKey
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 
 /**
- * Renders a list of [ResolvedGroup]s into a [LazyListScope] using a [SettingsController]
- * for all state reading and event handling.
+ * Renders a list of [ResolvedGroup]s into a [LazyListScope] using a [SettingsController].
  *
- * This is the **recommended** API — it eliminates per-screen callback boilerplate.
+ * This is the recommended API as it leverages the controller for state and event handling,
+ * reducing boilerplate in the UI layer.
  *
- * @param groups                The resolved groups to render.
- * @param controller            Provides checked/selected state and handles click/toggle/change events.
- * @param modifier              Modifier applied to each item card.
- * @param itemPaddingHorizontal Horizontal padding applied to each item.
- * @param itemPaddingVertical   Vertical padding applied to each item.
- * @param hapticsEnabled        Whether haptic feedback fires on taps, toggles, and value changes.
- * @param customSlotContent     Composable content to render for each [ResolvedGroup.Custom] slot.
- * @param categoryHeader        Optional override for rendering category header text.
+ * @param groups The resolved groups to render.
+ * @param controller The controller providing state and event handling.
+ * @param modifier Modifier applied to each item container.
+ * @param itemPaddingHorizontal Horizontal padding for each item.
+ * @param itemPaddingVertical Vertical padding for each item.
+ * @param hapticsEnabled Whether haptic feedback is enabled for interactions.
+ * @param customSlotContent Content to render for custom slots.
+ * @param categoryHeader Optional override for the category header UI.
  */
 fun LazyListScope.settingsContent(
     groups: List<ResolvedGroup>,
@@ -63,21 +62,20 @@ fun LazyListScope.settingsContent(
 /**
  * Renders a list of [ResolvedGroup]s into a [LazyListScope].
  *
- * Call this inside a `LazyColumn` block after obtaining groups from [resolveAll].
+ * Use this overload when manual control over state and events is required.
  *
- * @param groups                The resolved groups to render.
- * @param modifier              Modifier applied to each item card.
- * @param itemPaddingHorizontal Horizontal padding applied to each item.
- * @param itemPaddingVertical   Vertical padding applied to each item.
- * @param hapticsEnabled        Whether haptic feedback fires on taps, toggles, and value changes.
- *                              Defaults to `true`. Pass `false` to suppress all haptics.
- * @param isChecked             Provides the checked state for [ItemBehavior.Switch] and [ItemBehavior.SwitchBanner].
- * @param selectedValue         Provides the selected int value for [ItemBehavior.RadioGroup] and [ItemBehavior.ButtonGroup].
- * @param onItemClick           Called when a [ItemBehavior.Clickable] item is tapped.
- * @param onBooleanToggle       Called when a [ItemBehavior.Switch] or [ItemBehavior.SwitchBanner] is toggled.
- * @param onIntChanged          Called when a [ItemBehavior.RadioGroup] or [ItemBehavior.ButtonGroup] selection changes.
- * @param customSlotContent     Composable content to render for each [ResolvedGroup.Custom] slot.
- * @param categoryHeader        Optional override for rendering category header text.
+ * @param groups The resolved groups to render.
+ * @param modifier Modifier applied to each item container.
+ * @param itemPaddingHorizontal Horizontal padding for each item.
+ * @param itemPaddingVertical Vertical padding for each item.
+ * @param hapticsEnabled Whether haptic feedback is enabled for interactions.
+ * @param isChecked Provider for the checked state of switch items.
+ * @param selectedValue Provider for the selected value of group items.
+ * @param onItemClick Callback for item clicks.
+ * @param onBooleanToggle Callback for boolean state toggles.
+ * @param onIntChanged Callback for integer value changes.
+ * @param customSlotContent Content to render for custom slots.
+ * @param categoryHeader Optional override for the category header UI.
  */
 fun LazyListScope.settingsContent(
     groups: List<ResolvedGroup>,
@@ -155,9 +153,9 @@ fun LazyListScope.settingsContent(
     }
 }
 
-// Separate composable so remember() is available to stabilize lambdas.
-// Without this, lambdas created inside itemsIndexed{} get a new instance
-// every recomposition, causing every item to recompose unnecessarily.
+/**
+ * Internal entry point for a single settings item, handling memoization of event callbacks.
+ */
 @Composable
 private fun SettingsItemEntry(
     item: SettingsItem,

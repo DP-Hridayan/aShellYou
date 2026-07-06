@@ -175,16 +175,12 @@ private fun highlightCardColors(isHighlighted: Boolean): CardColors {
     }
 
     // Finite blink: 3 pulses (~2.4 s total), then stays at normal color.
-    // Using Animatable instead of rememberInfiniteTransition means the animation
-    // ends without mutating any external state (isHighlighted stays true, resolveAll
-    // never recomposes, and animateItem() on the LazyColumn is never triggered).
     val animatable = remember { Animatable(0f) }
     LaunchedEffect(Unit) {
         repeat(3) {
             animatable.animateTo(1f, animationSpec = tween(400, easing = LinearEasing))
             animatable.animateTo(0f, animationSpec = tween(400, easing = LinearEasing))
         }
-        // stays at 0f (normal color) — no more recomposition needed
     }
 
     return CardDefaults.cardColors(

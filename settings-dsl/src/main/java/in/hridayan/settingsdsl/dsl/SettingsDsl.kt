@@ -18,10 +18,16 @@ import `in`.hridayan.settingsdsl.model.SettingsPage
  *
  * @param key Unique identifier for this setting.
  * @param titleResId String resource for the display title.
+ * @param title Plain string for the display title (used if [titleResId] is null).
  * @param descriptionResId Optional string resource for the subtitle/description.
+ * @param description Optional plain string for the subtitle/description.
  * @param icon Optional drawable resource for the leading icon.
  * @param iconVector Optional [ImageVector] for the leading icon.
- * @param visible Whether this item appears in the list. Defaults to `true`.
+ * @param visible Whether this item appears in the list.
+ * @param enabled Whether the user can interact with this item.
+ * @param enableExperimentalFlag Whether to show an experimental badge.
+ * @param experimentalFlagTextResId String resource for the experimental badge text.
+ * @param experimentalFlagText Plain string for the experimental badge text.
  */
 fun switchItem(
     key: SettingsKey<*>,
@@ -54,7 +60,12 @@ fun switchItem(
 )
 
 /**
- * Creates a full-width switch banner item (e.g. a prominent enable/disable toggle at the top of a page).
+ * Creates a full-width switch banner item.
+ *
+ * @param key Unique identifier for this setting.
+ * @param titleResId String resource for the banner title.
+ * @param visible Whether this banner appears in the list.
+ * @param enabled Whether the user can interact with this banner.
  */
 fun switchBannerItem(
     key: SettingsKey<*>,
@@ -71,6 +82,14 @@ fun switchBannerItem(
     )
 )
 
+/**
+ * Creates a full-width switch banner item.
+ *
+ * @param key Unique identifier for this setting.
+ * @param title Plain string for the banner title.
+ * @param visible Whether this banner appears in the list.
+ * @param enabled Whether the user can interact with this banner.
+ */
 fun switchBannerItem(
     key: SettingsKey<*>,
     title: String = "",
@@ -88,6 +107,19 @@ fun switchBannerItem(
 
 /**
  * Creates a tappable settings item that navigates or opens a dialog.
+ *
+ * @param key Unique identifier for this setting.
+ * @param titleResId String resource for the display title.
+ * @param title Plain string for the display title.
+ * @param descriptionResId Optional string resource for the subtitle/description.
+ * @param description Optional plain string for the subtitle/description.
+ * @param icon Optional drawable resource for the leading icon.
+ * @param iconVector Optional [ImageVector] for the leading icon.
+ * @param visible Whether this item appears in the list.
+ * @param enabled Whether the user can interact with this item.
+ * @param enableExperimentalFlag Whether to show an experimental badge.
+ * @param experimentalFlagTextResId String resource for the experimental badge text.
+ * @param experimentalFlagText Plain string for the experimental badge text.
  */
 fun clickableItem(
     key: SettingsKey<*>,
@@ -121,6 +153,11 @@ fun clickableItem(
 
 /**
  * Creates a settings item that renders a group of mutually exclusive radio options.
+ *
+ * @param key Unique identifier for this setting.
+ * @param options List of [RadioButtonOption] to display.
+ * @param visible Whether this item appears in the list.
+ * @param enabled Whether the user can interact with this item.
  */
 fun radioGroupItem(
     key: SettingsKey<*>,
@@ -138,6 +175,11 @@ fun radioGroupItem(
 
 /**
  * Creates a settings item that renders a segmented/button group selector.
+ *
+ * @param key Unique identifier for this setting.
+ * @param options List of [ButtonGroupOption] to display.
+ * @param visible Whether this item appears in the list.
+ * @param enabled Whether the user can interact with this item.
  */
 fun buttonGroupItem(
     key: SettingsKey<*>,
@@ -154,7 +196,9 @@ fun buttonGroupItem(
 )
 
 /**
- * Creates an uncategorized group of items (no header label).
+ * Creates an uncategorized group of items.
+ *
+ * @param items The items to include in this group.
  */
 fun group(vararg items: SettingsItemSpec): SettingsGroup =
     SettingsGroup(GroupSpec.Items(items.map { it.spec }))
@@ -164,7 +208,10 @@ fun group(items: List<SettingsItemSpec>): SettingsGroup =
     SettingsGroup(GroupSpec.Items(items.map { it.spec }))
 
 /**
- * Creates a categorized group of items with a string-resource header label.
+ * Creates a categorized group of items with a header label.
+ *
+ * @param titleResId String resource for the category title.
+ * @param items The items to include in this category.
  */
 fun category(
     @StringRes titleResId: Int,
@@ -177,7 +224,10 @@ fun category(
 )
 
 /**
- * Creates a categorized group of items with a plain string header label.
+ * Creates a categorized group of items with a header label.
+ *
+ * @param title Plain string for the category title.
+ * @param items The items to include in this category.
  */
 fun category(
     title: String,
@@ -223,7 +273,9 @@ fun customSlot(slot: CustomSlot): SettingsGroup =
 fun divider(): SettingsGroup = SettingsGroup(GroupSpec.Divider)
 
 /**
- * Creates a [SettingsPage] — the top-level container for a single settings screen.
+ * Creates a [SettingsPage] — the top-level container for a settings screen.
+ *
+ * @param groups The groups that make up this page.
  */
 fun settingsPage(vararg groups: SettingsGroup): SettingsPage =
     SettingsPage(groups.map { it.spec })
