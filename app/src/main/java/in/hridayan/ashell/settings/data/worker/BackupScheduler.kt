@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.settings.data.worker
 
 import android.content.Context
+import android.util.Log
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.OutOfQuotaPolicy
@@ -31,19 +32,23 @@ object BackupScheduler {
         val initialDelay = Duration.between(now, scheduledTime).toMillis()
         val repeatIntervalDays = BackupFrequency.intervalDays(frequency)
 
+        Log.i(TAG, "schedule() → target=$scheduledTime initialDelayMs=$initialDelay repeatDays=$repeatIntervalDays")
+
         val request = PeriodicWorkRequestBuilder<AutoBackupWorker>(repeatIntervalDays, TimeUnit.DAYS)
             .setInitialDelay(initialDelay, TimeUnit.MILLISECONDS)
             .build()
 
         WorkManager.getInstance(context).enqueueUniquePeriodicWork(
             WORK_NAME,
-            ExistingPeriodicWorkPolicy.UPDATE,
+            ExistingPeriodicWorkPolicy.CANCEL_AND_REENQUEUE,
             request,
         )
+        Log.i(TAG, "schedule() → enqueued with CANCEL_AND_REENQUEUE policy")
     }
 
     /** Enqueues a one-time immediate backup using the same [AutoBackupWorker]. */
     fun runNow(context: Context) {
+        Log.i(TAG, "runNow() → enqueueing one-shot backup")
         val request = OneTimeWorkRequestBuilder<AutoBackupWorker>()
             .setInputData(workDataOf(AutoBackupWorker.KEY_MANUAL_TRIGGER to true))
             .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
@@ -52,6 +57,9 @@ object BackupScheduler {
     }
 
     fun cancel(context: Context) {
+        Log.w(TAG, "cancel() → cancelling scheduled backup work")
         WorkManager.getInstance(context).cancelUniqueWork(WORK_NAME)
     }
+
+    private const val TAG = "ABScheduler"
 }

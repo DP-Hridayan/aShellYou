@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.settings.presentation.viewmodel
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -305,6 +306,7 @@ class SettingsViewModel @Inject constructor(
             val isEnabled = enabled
                 ?: settingsRepository.getBoolean(SettingsKeys.AutoBackupEnabled).firstOrNull()
                 ?: false
+            Log.i("ABScheduler", "rescheduleAutoBackup() — isEnabled=$isEnabled (explicit=${enabled != null})")
             if (!isEnabled) {
                 BackupScheduler.cancel(context)
                 return@launch
@@ -312,6 +314,7 @@ class SettingsViewModel @Inject constructor(
             val h = hour ?: settingsRepository.getInt(SettingsKeys.AutoBackupTimeHour).firstOrNull() ?: 2
             val m = minute ?: settingsRepository.getInt(SettingsKeys.AutoBackupTimeMinute).firstOrNull() ?: 0
             val f = frequency ?: settingsRepository.getInt(SettingsKeys.AutoBackupFrequency).firstOrNull() ?: 0
+            Log.i("ABScheduler", "rescheduleAutoBackup() — h=$h m=$m f=$f")
             BackupScheduler.schedule(context, h, m, f)
         }
     }

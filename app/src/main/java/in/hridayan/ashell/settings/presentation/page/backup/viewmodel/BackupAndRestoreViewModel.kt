@@ -120,9 +120,7 @@ class BackupAndRestoreViewModel @Inject constructor(
             val autoLocalTimeRaw = values[6] as String
             val autoCloudTimeRaw = values[7] as String
 
-            // Pick the latest local backup between manual and auto
             val (localTimeRaw, localIsAuto) = pickLatest(manualLocalTimeRaw, autoLocalTimeRaw)
-            // Pick the latest cloud backup between manual and auto
             val (cloudTimeRaw, cloudIsAuto) = pickLatest(manualCloudTimeRaw, autoCloudTimeRaw)
 
             LastBackupData(
@@ -546,14 +544,7 @@ class BackupAndRestoreViewModel @Inject constructor(
         }
     }
 
-    /**
-     * Compares a manual backup timestamp ([manual]) against an automatic one ([auto]),
-     * both expected in "dd-MM-yyyy HH:mm" format.
-     *
-     * Returns a [Pair] of:
-     * - The raw timestamp string of whichever is more recent (or non-empty if only one exists)
-     * - A boolean `true` if the auto timestamp won (i.e. the latest backup was automatic)
-     */
+    /** Returns the more recent of two "dd-MM-yyyy HH:mm" timestamps and whether the auto one won. */
     private fun pickLatest(manual: String, auto: String): Pair<String, Boolean> {
         val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")
         val manualDt = runCatching { LocalDateTime.parse(manual.trim(), formatter) }.getOrNull()

@@ -186,14 +186,9 @@ class GoogleDriveRepositoryImpl @Inject constructor(
     }
 
     /**
-     * Obtains a Drive service using [GoogleAuthUtil.getToken] — a fully headless token fetch
-     * that works in background Workers without any UI interaction.
-     *
-     * Also warms the internal Drive service cache so that subsequent [uploadBackup] /
-     * [downloadBackup] calls in the same Worker session reuse the same service.
-     *
-     * Returns null if the account is not signed in, the token cannot be refreshed silently,
-     * or the user has not previously granted the Drive scope.
+     * Fetches a Drive service headlessly via [GoogleAuthUtil.getToken] (no UI / consent dialogs).
+     * Also warms the internal cache so [uploadBackup] / [downloadBackup] reuse the service.
+     * Returns null if the account is not signed in or the token cannot be refreshed silently.
      */
     override suspend fun getHeadlessDriveService(): Drive? = withContext(Dispatchers.IO) {
         try {
@@ -202,9 +197,6 @@ class GoogleDriveRepositoryImpl @Inject constructor(
                 return@withContext null
             }
 
-            // GoogleAuthUtil.getToken blocks — must run on IO dispatcher.
-            // It silently refreshes the token if expired. Throws UserRecoverableAuthException
-            // if the user needs to grant consent interactively (can't do in background).
             val scope = "oauth2:${DriveScopes.DRIVE_APPDATA}"
             val account = Account(email, "com.google")
             val token = GoogleAuthUtil.getToken(context, account, scope)
@@ -212,14 +204,12 @@ class GoogleDriveRepositoryImpl @Inject constructor(
             Log.d(TAG, "getHeadlessDriveService: got token for $email")
             val service = createDriveService(token)
 
-            // Warm the cache so uploadBackup / downloadBackup reuse this service
             cachedDriveService = service
             cachedEmail = email
 
             service
         } catch (e: com.google.android.gms.auth.UserRecoverableAuthException) {
-            // User needs to re-grant consent interactively — cannot do in background
-            Log.w(TAG, "getHeadlessDriveService: user recoverable auth error (consent needed)", e)
+            Log.w(TAG, "getHeadlessDriveService: consent required, cannot proceed in background", e)
             null
         } catch (e: Exception) {
             Log.e(TAG, "getHeadlessDriveService: FAILED", e)

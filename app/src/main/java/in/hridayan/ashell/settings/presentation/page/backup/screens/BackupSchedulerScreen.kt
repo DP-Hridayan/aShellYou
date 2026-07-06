@@ -74,36 +74,41 @@ fun BackupSchedulerScreen(
     val hapticsEnabled = settings[SettingsKeys.HapticsAndVibration]
     val autoBackupEnabled = settings[SettingsKeys.AutoBackupEnabled]
     val autoBackupFolderName = settings[SettingsKeys.AutoBackupFolderName]
+    val autoBackupFolderUri = settings[SettingsKeys.AutoBackupFolderUri]
     val isBackingUp by settingsViewModel.isBackingUp.collectAsState()
     var showFolderDialog by remember { mutableStateOf(false) }
-    // True when folder picker was opened because user toggled "Enable auto backup"
-    // with no folder set yet — we should enable the toggle after they pick a folder.
+    // Set to true when the folder picker is opened from the "Enable auto backup" toggle
+    // so the callback knows to also enable the toggle once a folder is chosen.
     var pendingEnableAfterFolderPick by remember { mutableStateOf(false) }
 
-    // SAF folder picker launcher — requests persistable read+write access
     val folderPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocumentTree()
     ) { uri: Uri? ->
-        uri?.let {
-            // Take persistable permissions so the Worker can access the folder later
+        uri?.let { newUri ->
             val flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or
                     Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-            context.contentResolver.takePersistableUriPermission(it, flags)
 
-            // Save the URI and derive a human-readable folder name
-            settingsViewModel.setString(SettingsKeys.AutoBackupFolderUri, it.toString())
-            val folderName = DocumentFile.fromTreeUri(context, it)?.name ?: it.lastPathSegment ?: ""
+            // Release the old grant before taking the new one (Android caps persisted grants per app)
+            if (autoBackupFolderUri.isNotEmpty()) {
+                runCatching {
+                    context.contentResolver.releasePersistableUriPermission(
+                        android.net.Uri.parse(autoBackupFolderUri), flags
+                    )
+                }
+            }
+
+            context.contentResolver.takePersistableUriPermission(newUri, flags)
+
+            settingsViewModel.setString(SettingsKeys.AutoBackupFolderUri, newUri.toString())
+            val folderName = DocumentFile.fromTreeUri(context, newUri)?.name ?: newUri.lastPathSegment ?: ""
             settingsViewModel.setString(SettingsKeys.AutoBackupFolderName, folderName)
 
-            // If this pick was triggered by the "Enable auto backup" toggle, also
-            // enable the toggle and schedule the first backup now that a folder exists.
             if (pendingEnableAfterFolderPick) {
                 pendingEnableAfterFolderPick = false
                 settingsViewModel.onToggle(SettingsKeys.AutoBackupEnabled)
                 settingsViewModel.rescheduleAutoBackup(enabled = true)
             }
         }
-        // Reset the flag even if the user cancelled the picker
         if (uri == null) pendingEnableAfterFolderPick = false
     }
 
@@ -154,8 +159,8 @@ fun BackupSchedulerScreen(
                             !autoBackupEnabled &&
                             autoBackupFolderName.isEmpty()
                         ) {
-                            // No folder set yet — ask the user to pick one first.
-                            // The launcher callback will enable the toggle once a folder is selected.
+                            // No folder yet — prompt the user to pick one first;
+                            // the picker callback will enable the toggle after selection.
                             pendingEnableAfterFolderPick = true
                             showFolderDialog = true
                         } else {

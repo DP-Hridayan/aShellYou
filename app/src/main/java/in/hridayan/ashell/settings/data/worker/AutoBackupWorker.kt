@@ -37,12 +37,17 @@ class AutoBackupWorker @AssistedInject constructor(
     override suspend fun doWork(): Result {
         return try {
             val isManualTrigger = inputData.getBoolean(KEY_MANUAL_TRIGGER, false)
+            Log.i(TAG, "doWork() started — isManualTrigger=$isManualTrigger")
 
             if (!isManualTrigger) {
                 val enabled = settingsRepository
                     .getBoolean(SettingsKeys.AutoBackupEnabled)
                     .firstOrNull() ?: false
-                if (!enabled) return Result.success()
+                Log.i(TAG, "AutoBackupEnabled=$enabled")
+                if (!enabled) {
+                    Log.i(TAG, "Auto backup disabled — skipping")
+                    return Result.success()
+                }
             }
 
             val backupTypeOrdinal = settingsRepository
@@ -69,6 +74,8 @@ class AutoBackupWorker @AssistedInject constructor(
                 .getBoolean(SettingsKeys.AutoBackupCloudEnabled)
                 .firstOrNull() ?: true
 
+            Log.i(TAG, "localEnabled=$localEnabled cloudEnabled=$cloudEnabled folderUri=$folderUri backupType=$backupType deleteExisting=$deleteExisting")
+
             if (localEnabled) {
                 performLocalBackup(folderUri, deleteExisting, backupType)
             }
@@ -80,9 +87,10 @@ class AutoBackupWorker @AssistedInject constructor(
                 performCloudBackup(backupType)
             }
 
+            Log.i(TAG, "doWork() finished successfully")
             Result.success()
         } catch (e: Exception) {
-            Log.e(TAG, "AutoBackupWorker failed", e)
+            Log.e(TAG, "doWork() uncaught exception", e)
             Result.success()
         }
     }
@@ -93,7 +101,10 @@ class AutoBackupWorker @AssistedInject constructor(
         backupType: BackupType,
     ) {
         try {
+            Log.i(TAG, "performLocalBackup() — folderUri=$folderUri")
+
             if (folderUri.isEmpty()) {
+                Log.w(TAG, "performLocalBackup() — no folder URI set")
                 settingsRepository.setString(
                     SettingsKeys.LastAutoBackupLocalError,
                     "No backup folder selected. Please select a folder in Backup Scheduler settings.",
@@ -103,8 +114,10 @@ class AutoBackupWorker @AssistedInject constructor(
 
             val uri = folderUri.toUri()
             val dir = DocumentFile.fromTreeUri(applicationContext, uri)
+            Log.i(TAG, "performLocalBackup() — dir=$dir canWrite=${dir?.canWrite()}")
 
             if (dir == null || !dir.canWrite()) {
+                Log.w(TAG, "performLocalBackup() — cannot write to folder")
                 settingsRepository.setString(
                     SettingsKeys.LastAutoBackupLocalError,
                     "Cannot write to backup folder. The folder may have been deleted or permissions revoked. Please re-select the folder.",
@@ -112,7 +125,6 @@ class AutoBackupWorker @AssistedInject constructor(
                 return
             }
 
-            // Optionally remove previous auto-backups
             if (deleteExisting) {
                 dir.listFiles().filter { file ->
                     val name = file.name ?: return@filter false
@@ -120,7 +132,6 @@ class AutoBackupWorker @AssistedInject constructor(
                 }.forEach { it.delete() }
             }
 
-            // Generate backup bytes
             val bytes = backupAndRestoreRepository.generateCloudBackupBytes(backupType)
                 ?: throw IllegalStateException("Failed to generate backup data. The app data may be corrupted.")
 
@@ -134,7 +145,6 @@ class AutoBackupWorker @AssistedInject constructor(
             }
                 ?: throw IllegalStateException("Failed to write to backup file. Storage may be full or permissions revoked.")
 
-            // Record success
             val formattedTime = LocalDateTime.now()
                 .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))
 
@@ -160,9 +170,8 @@ class AutoBackupWorker @AssistedInject constructor(
 
     private suspend fun performCloudBackup(backupType: BackupType) {
         try {
-            // Use headless token retrieval — works in background without any UI or consent dialog.
-            // Falls back gracefully if the account needs interactive re-authorization.
-            // We only need to know auth succeeded (non-null); uploadBackup() reuses the cached service.
+            // getHeadlessDriveService() fetches a token silently (no UI) and warms the
+            // internal cache so uploadBackup() reuses the same Drive service.
             val authSucceeded = googleDriveRepository.getHeadlessDriveService() != null
 
             if (!authSucceeded) {
@@ -185,7 +194,6 @@ class AutoBackupWorker @AssistedInject constructor(
                 return
             }
 
-            // Record success
             val formattedTime = LocalDateTime.now()
                 .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))
 
