@@ -62,8 +62,8 @@
     "id": "15085871",
     "username": "AY_Translator",
     "name": "Aleksandr (AY_Translator)",
-    "translated": 7015,
-    "approved": 8426,
+    "translated": 7017,
+    "approved": 8430,
     "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/15085871/medium/3a254014b133e0fc2d376c776aba8dbd.jpg",
     "languages": [
       {
@@ -91,6 +91,21 @@
       }
     ],
     "avatar": "crowdin/contributors_pfp/contributor_15972315.webp"
+  },
+  {
+    "id": "17776929",
+    "username": "flagman4634",
+    "name": "flagman4634",
+    "translated": 4203,
+    "approved": 0,
+    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/17776929/medium/2653304d654949cae989f95bbd434f36_default.png",
+    "languages": [
+      {
+        "id": "it",
+        "name": "Italian"
+      }
+    ],
+    "avatar": "crowdin/contributors_pfp/contributor_17776929.webp"
   },
   {
     "id": "17661502",

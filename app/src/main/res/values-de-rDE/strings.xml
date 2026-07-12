@@ -33,6 +33,7 @@
     <string name="apply">Anwenden</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">Auf alle anwenden (%1$d verbleibend)</string>
     <string name="artifact_id">Artefakt-ID</string>
+    <string name="auto">Auto</string>
     <string name="auto_backup">Automatische Sicherung</string>
     <string name="auto_backup_content_type">Inhalt sichern</string>
     <string name="auto_backup_folder">Backup-Ordner</string>
@@ -253,6 +254,7 @@
     <string name="error_labels_limit_reached">Maximale Beschriftungsgrenze erreicht</string>
     <string name="execution_method">Ausführungsmethode</string>
     <string name="expand">Erweitern</string>
+    <string name="experimental">Experimentell</string>
     <string name="failed">Fehlgeschlagen</string>
     <string name="failed_to_claim_interface">Konnte Schnittstelle nicht beanspruchen</string>
     <string name="failed_to_open_usb_connection">USB-Verbindung konnte nicht geöffnet werden. Ist USB-Debugging aktiviert?</string>
@@ -552,6 +554,7 @@
     <string name="schedule">Zeitplan</string>
     <string name="screen_density_multiplier">Bildschirmdichte Multiplikator</string>
     <string name="search">Suchen</string>
+    <string name="search_bookmarks_here">Lesezeichen hier suchen</string>
     <string name="search_commands_here">Suche Befehle hier</string>
     <string name="search_fonts">Suche Schriften…</string>
     <string name="search_icons_here">Icons hier suchen</string>

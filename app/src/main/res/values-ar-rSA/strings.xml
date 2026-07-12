@@ -33,6 +33,7 @@
     <string name="apply">تطبيق</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">تطبيق على الجميع ( متبقي%1$d)</string>
     <string name="artifact_id">معرف الأداة</string>
+    <string name="auto">تلقائي</string>
     <string name="auto_backup">النسخ الاحتياطي التلقائي</string>
     <string name="auto_backup_content_type">محتوى النسخ الاحتياطي</string>
     <string name="auto_backup_folder">مجلد النسخ الاحتياطي</string>
@@ -254,6 +255,7 @@
     <string name="error_labels_limit_reached">تم بلوغ الحد الأقصى للمسميات</string>
     <string name="execution_method">طريقة التنفيذ</string>
     <string name="expand">توسيع</string>
+    <string name="experimental">تجريبي</string>
     <string name="failed">فشل</string>
     <string name="failed_to_claim_interface">فشل في المطالبة بالواجهة</string>
     <string name="failed_to_open_usb_connection">فشل في فتح اتصال USB. هل تم تمكين تصحيح أخطاء USB؟</string>
@@ -553,6 +555,7 @@
     <string name="schedule">الجدول</string>
     <string name="screen_density_multiplier">مضاعف كثافة الشاشة</string>
     <string name="search">بحث</string>
+    <string name="search_bookmarks_here">البحث عن الإشارات المرجعية هنا</string>
     <string name="search_commands_here">ابحث عن أوامر هنا</string>
     <string name="search_fonts">البحث عن الخطوط…</string>
     <string name="search_icons_here">ابحث في الأيقونات هنا</string>

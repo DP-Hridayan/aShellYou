@@ -33,6 +33,7 @@
     <string name="apply">应用</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">应用于所有 (%1$d 剩余)</string>
     <string name="artifact_id">构件 ID</string>
+    <string name="auto">自动操作</string>
     <string name="auto_backup">自动备份</string>
     <string name="auto_backup_content_type">备份内容</string>
     <string name="auto_backup_folder">备份文件夹</string>
@@ -253,6 +254,7 @@
     <string name="error_labels_limit_reached">已达到最大标签限制</string>
     <string name="execution_method">执行方法</string>
     <string name="expand">展开</string>
+    <string name="experimental">实验性</string>
     <string name="failed">失败</string>
     <string name="failed_to_claim_interface">无法认领接口</string>
     <string name="failed_to_open_usb_connection">无法打开 USB 连接。是否启用 USB 调试？</string>
@@ -552,6 +554,7 @@
     <string name="schedule">日程安排</string>
     <string name="screen_density_multiplier">屏幕密度乘数</string>
     <string name="search">搜索</string>
+    <string name="search_bookmarks_here">在此搜索书签</string>
     <string name="search_commands_here">在这里搜索命令</string>
     <string name="search_fonts">搜索字体…</string>
     <string name="search_icons_here">在这里搜索图标</string>
