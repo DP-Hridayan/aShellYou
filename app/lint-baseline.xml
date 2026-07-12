@@ -107,7 +107,7 @@
         errorLine2="                                                                 ~~~~~">
         <location
             file="src/main/res/values-es-rES/strings.xml"
-            line="309"
+            line="311"
             column="66"/>
     </issue>
 
@@ -118,7 +118,7 @@
         errorLine2="                                                                               ~~~~~">
         <location
             file="src/main/res/values-es-rES/strings.xml"
-            line="717"
+            line="720"
             column="80"/>
     </issue>
 
@@ -277,6 +277,20 @@
         message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
             file="$GRADLE_USER_HOME/caches/9.6.1/transforms/7950e27bf319c3e6e6d108a3ec97b993/transformed/out/jars/classes.jar"/>
+    </issue>
+
+    <issue
+        id="TrustAllX509TrustManager"
+        message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
+        <location
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/com.google.http-client/google-http-client/2.1.1/edb33f4f362a6bd66012039363cd362d13979ab9/google-http-client-2.1.1.jar"/>
+    </issue>
+
+    <issue
+        id="TrustAllX509TrustManager"
+        message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
+        <location
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/com.google.http-client/google-http-client/2.1.1/edb33f4f362a6bd66012039363cd362d13979ab9/google-http-client-2.1.1.jar"/>
     </issue>
 
     <issue
@@ -867,7 +881,7 @@
         errorLine2="                                                                               ~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-ja-rJP/strings.xml"
-            line="409"
+            line="411"
             column="80"/>
     </issue>
 
@@ -878,7 +892,7 @@
         errorLine2="                                                                               ~~~~~~~~~~~~">
         <location
             file="src/main/res/values-zh-rCN/strings.xml"
-            line="409"
+            line="411"
             column="80"/>
     </issue>
 
@@ -889,7 +903,7 @@
         errorLine2="                                                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-ar-rSA/strings.xml"
-            line="410"
+            line="412"
             column="80"/>
     </issue>
 
@@ -900,7 +914,7 @@
         errorLine2="                                                                               ~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-fr-rFR/strings.xml"
-            line="411"
+            line="413"
             column="80"/>
     </issue>
 
@@ -911,7 +925,7 @@
         errorLine2="                                                                               ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-pt-rBR/strings.xml"
-            line="411"
+            line="413"
             column="80"/>
     </issue>
 
@@ -922,7 +936,7 @@
         errorLine2="                                                                               ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-pt-rPT/strings.xml"
-            line="411"
+            line="413"
             column="80"/>
     </issue>
 
@@ -933,7 +947,7 @@
         errorLine2="                                                                               ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-uk-rUA/strings.xml"
-            line="411"
+            line="413"
             column="80"/>
     </issue>
 
@@ -944,7 +958,7 @@
         errorLine2="                                                                               ~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-zh-rCN/strings.xml"
-            line="411"
+            line="413"
             column="80"/>
     </issue>
 
@@ -955,7 +969,7 @@
         errorLine2="                                                                               ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-ar-rSA/strings.xml"
-            line="412"
+            line="414"
             column="80"/>
     </issue>
 
@@ -966,7 +980,7 @@
         errorLine2="                              ~~~~~~~~~~">
         <location
             file="src/main/res/values-ja-rJP/strings.xml"
-            line="111"
+            line="112"
             column="31"/>
     </issue>
 
@@ -1024,6 +1038,17 @@
             file="src/main/java/in/hridayan/ashell/settings/presentation/page/backup/screens/BackupSchedulerScreen.kt"
             line="95"
             column="25"/>
+    </issue>
+
+    <issue
+        id="ByteOrderMark"
+        message="Found byte-order-mark in the middle of a file"
+        errorLine1="    &lt;string name=&quot;filter&quot;>﻿Filtra&lt;/string>"
+        errorLine2="                          ~">
+        <location
+            file="src/main/res/values-it-rIT/strings.xml"
+            line="298"
+            column="27"/>
     </issue>
 
 </issues>

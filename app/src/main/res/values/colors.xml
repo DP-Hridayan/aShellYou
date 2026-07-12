@@ -5,4 +5,5 @@
     <color name="splash_icon_background">#FFFFFF</color>
     <color name="launcher_foreground">#000000</color>
     <color name="launcher_background">#FFFFFF</color>
+    <color name="branding_text">#1C1B1F</color>
 </resources>

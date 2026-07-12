@@ -47,6 +47,7 @@ import `in`.hridayan.ashell.settings.presentation.page.mainscreen.screen.Setting
 import `in`.hridayan.ashell.settings.presentation.page.search.screens.SettingsSearchScreen
 import `in`.hridayan.ashell.shell.file_browser.presentation.screens.FileBrowserScreen
 import `in`.hridayan.ashell.shell.local_adb_shell.presentation.screens.LocalAdbScreen
+import `in`.hridayan.ashell.shell.fastboot.presentation.screens.FastbootScreen
 import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.screens.OtgAdbScreen
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.PairingOtherDeviceScreen
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.PairingOwnDeviceScreen
@@ -167,6 +168,10 @@ fun Navigation(isFirstLaunch: Boolean = false) {
 
             composable<NavRoutes.OtgAdbScreen> {
                 OtgAdbScreen()
+            }
+
+            composable<NavRoutes.FastbootScreen> {
+                FastbootScreen()
             }
 
             composable<NavRoutes.PairingOwnDeviceScreen> {

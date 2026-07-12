@@ -66,6 +66,9 @@ import `in`.hridayan.ashell.home.presentation.component.dialog.RebootOptionsDial
 import `in`.hridayan.ashell.home.presentation.viewmodel.HomeViewModel
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
+import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootState
+import `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog.FastbootDeviceWaitingDialog
+import `in`.hridayan.ashell.shell.fastboot.presentation.viewmodel.FastbootViewModel
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgState
 import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.components.dialog.OtgDeviceWaitingDialog
 import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.viewmodel.OtgViewModel
@@ -81,7 +84,8 @@ import kotlinx.coroutines.withContext
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
     otgViewModel: OtgViewModel = hiltViewModel(),
-    wifiAdbViewModel: WifiAdbViewModel = hiltViewModel()
+    wifiAdbViewModel: WifiAdbViewModel = hiltViewModel(),
+    fastbootViewModel: FastbootViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val res = LocalResources.current
@@ -89,6 +93,7 @@ fun HomeScreen(
     val navController = LocalNavController.current
     val dialogManager = LocalDialogManager.current
     val otgState by otgViewModel.state.collectAsState()
+    val fastbootState by fastbootViewModel.state.collectAsState()
     val savedDevices by wifiAdbViewModel.savedDevices.collectAsState()
     var showSavedDevicesBottomSheet by rememberSaveable { mutableStateOf(false) }
 
@@ -98,6 +103,15 @@ fun HomeScreen(
         } else {
             otgViewModel.startScan()
             dialogManager.show(DialogKey.Home.OtgDeviceWaiting)
+        }
+    }
+
+    val onClickFastbootCard: () -> Unit = {
+        if (fastbootState is FastbootState.Connected) {
+            navController.navigate(NavRoutes.FastbootScreen)
+        } else {
+            fastbootViewModel.startScan()
+            dialogManager.show(DialogKey.Home.FastbootDeviceWaiting)
         }
     }
 
@@ -166,6 +180,12 @@ fun HomeScreen(
                 onClickOtgAdbCard = onClickOtgAdbCard,
                 otgState = otgState
             )
+
+            FastbootCard(
+                modifier = Modifier.fillMaxWidth(),
+                onClickFastbootCard = onClickFastbootCard,
+                fastbootState = fastbootState
+            )
             //  QuickToolsCard(onClickRebootOptions = onClickRebootOptions)
         }
     }
@@ -190,6 +210,15 @@ fun HomeScreen(
                 dialogManager.dismiss()
                 navController.navigate(NavRoutes.OtgAdbScreen)
                 otgViewModel.startScan()
+            }
+        )
+
+        DialogKey.Home.FastbootDeviceWaiting -> FastbootDeviceWaitingDialog(
+            onDismiss = { dialogManager.dismiss() },
+            onConfirm = {
+                dialogManager.dismiss()
+                navController.navigate(NavRoutes.FastbootScreen)
+                fastbootViewModel.startScan()
             }
         )
 
@@ -354,6 +383,48 @@ fun OtgInstructionButton(modifier: Modifier = Modifier) {
                 url = URL_OTG_INSTRUCTIONS,
                 context = context
             )
+        })
+}
+
+@Composable
+fun FastbootCard(
+    modifier: Modifier = Modifier,
+    fastbootState: FastbootState,
+    onClickFastbootCard: () -> Unit = {}
+) {
+    NavigationCard(
+        title = stringResource(R.string.fastboot),
+        description = stringResource(R.string.fastboot_summary),
+        icon = painterResource(R.drawable.ic_fastboot),
+        modifier = modifier,
+        onClick = withHaptic {
+            onClickFastbootCard()
+        },
+        content = {
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(35.dp)
+            )
+
+            if (fastbootState is FastbootState.Connected) {
+                TextButton(
+                    modifier = Modifier.padding(bottom = 10.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                    ),
+                    shapes = ButtonDefaults.shapes(),
+                    onClick = withHaptic {
+                        onClickFastbootCard()
+                    }
+                ) {
+                    Text(
+                        text = fastbootState.deviceName,
+                        style = MaterialTheme.typography.bodyMediumEmphasized
+                    )
+                }
+            }
         })
 }
 

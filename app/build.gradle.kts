@@ -213,6 +213,7 @@ dependencies {
     implementation(project(":libadb"))
     implementation(project(":adblib"))
     implementation(project(":settings-dsl"))
+    implementation(project(":fastbootlib"))
 
     implementation(libs.kotlin.reflect)
 

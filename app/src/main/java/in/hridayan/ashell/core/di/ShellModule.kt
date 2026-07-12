@@ -12,6 +12,8 @@ import `in`.hridayan.ashell.shell.local_adb_shell.data.shell.ShellCommandExecuto
 import `in`.hridayan.ashell.shell.local_adb_shell.data.shizuku.ShizukuPermissionHandler
 import `in`.hridayan.ashell.shell.otg_adb_shell.data.repository.OtgRepositoryImpl
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.repository.OtgRepository
+import `in`.hridayan.ashell.shell.fastboot.data.repository.FastbootRepositoryImpl
+import `in`.hridayan.ashell.shell.fastboot.domain.repository.FastbootRepository
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.database.WifiAdbDeviceDao
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
@@ -41,5 +43,11 @@ object ShellModule {
         deviceDao: WifiAdbDeviceDao
     ): WifiAdbRepository {
         return WifiAdbRepositoryImpl(context, deviceDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFastbootRepository(@ApplicationContext context: Context): FastbootRepository {
+        return FastbootRepositoryImpl(context)
     }
 }

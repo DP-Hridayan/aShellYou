@@ -73,6 +73,9 @@ NavRoutes {
     object PairingOtherDeviceScreen : NavRoutes()
 
     @Serializable
+    object FastbootScreen : NavRoutes()
+
+    @Serializable
     object PairingOwnDeviceScreen : NavRoutes()
 
     @Serializable
