@@ -1,6 +1,8 @@
 @file:OptIn(
-    ExperimentalMaterial3ExpressiveApi::class, ExperimentalMaterial3Api::class,
-    ExperimentalAnimationApi::class, ExperimentalSharedTransitionApi::class
+    ExperimentalMaterial3ExpressiveApi::class,
+    ExperimentalMaterial3Api::class,
+    ExperimentalAnimationApi::class,
+    ExperimentalSharedTransitionApi::class
 )
 
 package `in`.hridayan.ashell.shell.common.presentation.screens
@@ -145,9 +147,9 @@ import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.ashell.shell.common.domain.model.OutputLine
+import `in`.hridayan.ashell.shell.common.presentation.components.bottomsheet.BookmarksBottomSheet
 import `in`.hridayan.ashell.shell.common.presentation.components.button.UtilityButtonGroup
 import `in`.hridayan.ashell.shell.common.presentation.components.card.SuggestionCard
-import `in`.hridayan.ashell.shell.common.presentation.components.dialog.BookmarkDialog
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.BookmarksSortDialog
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ClearOutputConfirmationDialog
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.DeleteBookmarksDialog
@@ -181,6 +183,8 @@ fun BaseShellScreen(
     val context = LocalContext.current
     val res = LocalResources.current
     val navController = LocalNavController.current
+    val dialogManager = LocalDialogManager.current
+    val settings = LocalSettings.current
     val coroutineScope = rememberCoroutineScope()
     val snackBarController = LocalSnackBarController.current
     val listState = rememberLazyListState()
@@ -188,7 +192,6 @@ fun BaseShellScreen(
     val states by shellViewModel.states.collectAsState()
     val isKeyboardVisible = isKeyboardVisible().value
     val searchOutputResult by shellViewModel.filteredOutput.collectAsState()
-    val settings = LocalSettings.current
     val disableSoftKeyboard = settings[SettingsKeys.DisableSoftKeyboard]
     val bookmarkCount = bookmarkViewModel.getBookmarkCount.collectAsState(initial = 0)
     val lastSavedFileUri = settings[SettingsKeys.LastSavedFileUri]
@@ -197,11 +200,12 @@ fun BaseShellScreen(
     var historyMenuExpanded by rememberSaveable { mutableStateOf(false) }
     var isOutputFullscreen by rememberSaveable { mutableStateOf(false) }
     var restoredScrollIndex by rememberSaveable { mutableIntStateOf(-1) }
-    val dialogManager = LocalDialogManager.current
+
 
     val aiViewModel: AiAnalysisViewModel = hiltViewModel()
     val aiUiState by aiViewModel.uiState.collectAsState()
     val showAiSheet by aiViewModel.showBottomSheet.collectAsState()
+    var showBookmarksBottomSheet by rememberSaveable { mutableStateOf(false) }
 
     // Connect correction-apply callback to shell text field
     LaunchedEffect(Unit) {
@@ -254,17 +258,19 @@ fun BaseShellScreen(
     }
 
     val handleBookmarkButtonClick: () -> Unit = {
-        if (bookmarkCount.value == 0) showToast(
-            context,
-            res.getString(R.string.no_bookmarks)
-        ) else dialogManager.show(DialogKey.Shell.Bookmark)
+        if (bookmarkCount.value == 0) {
+            showToast(context, res.getString(R.string.no_bookmarks))
+        } else {
+            showBookmarksBottomSheet = true
+        }
     }
 
     val handleHistoryButtonClick: () -> Unit = {
-        if (states.cmdHistory.isEmpty()) showToast(
-            context,
-            res.getString(R.string.no_history)
-        ) else historyMenuExpanded = true
+        if (states.cmdHistory.isEmpty()) {
+            showToast(context, res.getString(R.string.no_history))
+        } else {
+            historyMenuExpanded = true
+        }
     }
 
     val handleClearOutput: () -> Unit = {
@@ -634,30 +640,20 @@ fun BaseShellScreen(
     when (dialogManager.activeDialog) {
         DialogKey.Shell.ClearOutput -> ClearOutputConfirmationDialog(
             onDismiss = { dialogManager.dismiss() },
-            onConfirm = { handleClearOutput() })
-
-        DialogKey.Shell.Bookmark -> BookmarkDialog(
-            onBookmarkClicked = { command ->
-                shellViewModel.onCommandTextFieldChange(TextFieldValue(command))
-                shellViewModel.updateTextFieldSelection()
-                dialogManager.dismiss()
-                textFieldFocusRequester.requestFocus()
-            },
-            onDelete = { dialogManager.show(DialogKey.Shell.DeleteBookmarks) },
-            onSort = { dialogManager.show(DialogKey.Shell.BookmarkSort) },
-            onDismiss = { dialogManager.dismiss() }
+            onConfirm = { handleClearOutput() }
         )
 
         DialogKey.Shell.DeleteBookmarks -> DeleteBookmarksDialog(
-            onDismiss = { dialogManager.show(DialogKey.Shell.Bookmark) },
+            onDismiss = { dialogManager.dismiss() },
             onDelete = {
                 dialogManager.dismiss()
+                showBookmarksBottomSheet = false
                 bookmarkViewModel.deleteAllBookmark()
             }
         )
 
         DialogKey.Shell.BookmarkSort -> BookmarksSortDialog(
-            onDismiss = { dialogManager.show(DialogKey.Shell.Bookmark) }
+            onDismiss = { dialogManager.dismiss() }
         )
 
         DialogKey.Shell.FileSaved -> FileSavedDialog(
@@ -688,6 +684,23 @@ fun BaseShellScreen(
                 aiViewModel.dismiss()
                 navController.navigate(NavRoutes.AiModelManagerScreen())
             }
+        )
+    }
+
+    if (showBookmarksBottomSheet) {
+        BookmarksBottomSheet(
+            onDismiss = { showBookmarksBottomSheet = false },
+            onBookmarkClicked = { command ->
+                shellViewModel.onCommandTextFieldChange(TextFieldValue(command))
+                shellViewModel.updateTextFieldSelection()
+                dialogManager.dismiss()
+                showBookmarksBottomSheet = false
+                textFieldFocusRequester.requestFocus()
+            },
+            onDelete = {
+                dialogManager.show(DialogKey.Shell.DeleteBookmarks)
+            },
+            onSort = { dialogManager.show(DialogKey.Shell.BookmarkSort) },
         )
     }
 

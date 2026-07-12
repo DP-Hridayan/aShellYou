@@ -44,4 +44,14 @@ class BookmarkRepositoryImpl @Inject constructor(
             else -> dao.getBookmarksSortedAZ()
         }
     }
+
+    override fun getSortedBookmarksFlow(sortType: Int): Flow<List<BookmarkEntity>> {
+        return when (sortType) {
+            SortType.AZ -> dao.getFlowBookmarksSortedAZ()
+            SortType.ZA -> dao.getFlowBookmarksSortedZA()
+            SortType.NEWEST -> dao.getFlowBookmarksSortedNewest()
+            SortType.OLDEST -> dao.getFlowBookmarksSortedOldest()
+            else -> dao.getFlowBookmarksSortedAZ()
+        }
+    }
 }
