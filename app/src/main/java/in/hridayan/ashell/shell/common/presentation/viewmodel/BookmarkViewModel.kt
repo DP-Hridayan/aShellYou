@@ -15,6 +15,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
@@ -35,6 +36,7 @@ class BookmarkViewModel @Inject constructor(
     private val _sortType = MutableStateFlow(SortType.AZ)
 
     private val _bookmarksSearchQuery = MutableStateFlow(TextFieldValue(""))
+    val bookmarksSearchQuery: StateFlow<TextFieldValue> = _bookmarksSearchQuery
 
     @OptIn(ExperimentalCoroutinesApi::class)
     private val _sortedBookmarks = _sortType

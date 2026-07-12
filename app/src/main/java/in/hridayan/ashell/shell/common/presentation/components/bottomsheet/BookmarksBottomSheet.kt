@@ -24,7 +24,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -64,7 +63,7 @@ fun BookmarksBottomSheet(
     val sortType = LocalSettings.current[SettingsKeys.BookmarkSortType]
     val bookmarks by bookmarkViewModel.searchedBookmarks.collectAsStateWithLifecycle()
     val bookmarkCount by bookmarkViewModel.getBookmarkCount.collectAsState(initial = 0)
-    val searchQuery by remember { mutableStateOf(TextFieldValue("")) }
+    val searchQuery by bookmarkViewModel.bookmarksSearchQuery.collectAsStateWithLifecycle()
 
     val sheetState = rememberBottomSheetState(
         initialValue = SheetValue.Hidden,
@@ -79,7 +78,10 @@ fun BookmarksBottomSheet(
 
     ModalBottomSheet(
         modifier = modifier,
-        onDismissRequest = onDismiss,
+        onDismissRequest = {
+            bookmarkViewModel.onSearchQueryChange(TextFieldValue(""))
+            onDismiss()
+        },
         sheetState = sheetState,
         sheetGesturesEnabled = false,
         dragHandle = null
