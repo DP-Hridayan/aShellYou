@@ -33,6 +33,7 @@
     <string name="apply">Apply</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">सभी पर लागू करें (%1$d शेष)</string>
     <string name="artifact_id">Artifact ID</string>
+    <string name="auto">Auto</string>
     <string name="auto_backup">Automatic backup</string>
     <string name="auto_backup_content_type">Backup content</string>
     <string name="auto_backup_folder">Backup folder</string>
@@ -253,6 +254,7 @@
     <string name="error_labels_limit_reached">लेबल की अधिकतम सीमा पहुंच गई</string>
     <string name="execution_method">Execution method</string>
     <string name="expand">Expand</string>
+    <string name="experimental">Experimental</string>
     <string name="failed">विफल</string>
     <string name="failed_to_claim_interface">इंटरफ़ेस क्लेम करने में विफल</string>
     <string name="failed_to_open_usb_connection">USB कनेक्शन खोलने में विफल। क्या USB डिबगिंग सक्षम है?</string>
@@ -552,6 +554,7 @@
     <string name="schedule">Schedule</string>
     <string name="screen_density_multiplier">Screen density multiplier</string>
     <string name="search">खोजें</string>
+    <string name="search_bookmarks_here">Search bookmarks here</string>
     <string name="search_commands_here">यहां कमांड खोजें</string>
     <string name="search_fonts">Search fonts…</string>
     <string name="search_icons_here">Search icons here</string>

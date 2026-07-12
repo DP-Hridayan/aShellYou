@@ -33,6 +33,7 @@
     <string name="apply">Appliquer</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">Appliquer à tous (%1$d restants)</string>
     <string name="artifact_id">ID de l\'artefact</string>
+    <string name="auto">Automatique</string>
     <string name="auto_backup">Sauvegarde automatique</string>
     <string name="auto_backup_content_type">Contenu de la sauvegarde</string>
     <string name="auto_backup_folder">Dossier de sauvegarde</string>
@@ -253,6 +254,7 @@
     <string name="error_labels_limit_reached">Nombre maximum d\'étiquettes atteint</string>
     <string name="execution_method">Méthode d\'exécution</string>
     <string name="expand">Agrandir</string>
+    <string name="experimental">Expérimental</string>
     <string name="failed">Échec</string>
     <string name="failed_to_claim_interface">Impossible de réclamer l\'interface</string>
     <string name="failed_to_open_usb_connection">Impossible d\'ouvrir la connexion USB. Le débogage USB est-il activé ?</string>
@@ -552,6 +554,7 @@
     <string name="schedule">Planifier</string>
     <string name="screen_density_multiplier">Multiplicateur de densité d\'écran</string>
     <string name="search">Rechercher</string>
+    <string name="search_bookmarks_here">Rechercher dans les signets ici</string>
     <string name="search_commands_here">Rechercher des commandes ici</string>
     <string name="search_fonts">Rechercher les polices…</string>
     <string name="search_icons_here">Rechercher des icônes ici</string>

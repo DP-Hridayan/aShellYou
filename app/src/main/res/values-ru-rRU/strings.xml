@@ -33,6 +33,7 @@
     <string name="apply">Применить</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">Применить ко всем (%1$d оставшимся)</string>
     <string name="artifact_id">Артефакт ID</string>
+    <string name="auto">Авто</string>
     <string name="auto_backup">Авто резервирование</string>
     <string name="auto_backup_content_type">Резервирование содержимого</string>
     <string name="auto_backup_folder">Папка резервирования</string>
@@ -253,6 +254,7 @@
     <string name="error_labels_limit_reached">Достигнут максимальный лимит этикеток</string>
     <string name="execution_method">Метод выполнения</string>
     <string name="expand">Развернуть</string>
+    <string name="experimental">Экспериментальный</string>
     <string name="failed">Не удалось</string>
     <string name="failed_to_claim_interface">Не удалось получить доступ к интерфейсу</string>
     <string name="failed_to_open_usb_connection">Не удалось открыть USB соединение. Включена ли отладка по USB?</string>
@@ -552,6 +554,7 @@
     <string name="schedule">График</string>
     <string name="screen_density_multiplier">Множитель плотности экрана</string>
     <string name="search">Поиск</string>
+    <string name="search_bookmarks_here">Искать закладки здесь</string>
     <string name="search_commands_here">Поиск команд здесь</string>
     <string name="search_fonts">Поиск шрифтов…</string>
     <string name="search_icons_here">Поиск иконок здесь</string>

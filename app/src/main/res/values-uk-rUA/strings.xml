@@ -33,6 +33,7 @@
     <string name="apply">Застосувати</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">Застосувати до усієї (%1$d решти)</string>
     <string name="artifact_id">Артефакт ID</string>
+    <string name="auto">Авто</string>
     <string name="auto_backup">Авторезервування</string>
     <string name="auto_backup_content_type">Резервування вмісту</string>
     <string name="auto_backup_folder">Тека резервування</string>
@@ -253,6 +254,7 @@
     <string name="error_labels_limit_reached">Досягнуто максимального ліміту етикеток</string>
     <string name="execution_method">Метод виконання</string>
     <string name="expand">Розгорнути</string>
+    <string name="experimental">Експериментальний</string>
     <string name="failed">Не вдалося</string>
     <string name="failed_to_claim_interface">Не вдалося отримати доступ до інтерфейсу</string>
     <string name="failed_to_open_usb_connection">Не вдалося відкрити USB з\'єднання. Чи увімкнено налагодження USB?</string>
@@ -552,6 +554,7 @@
     <string name="schedule">Розклад</string>
     <string name="screen_density_multiplier">Множник щільності екрану</string>
     <string name="search">Пошук</string>
+    <string name="search_bookmarks_here">Шукайте тут закладки</string>
     <string name="search_commands_here">Пошук команд тут</string>
     <string name="search_fonts">Пошук шрифтів…</string>
     <string name="search_icons_here">Пошук іконок тут</string>

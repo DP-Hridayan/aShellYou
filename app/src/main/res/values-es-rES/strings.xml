@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
-    <string name="abort_command"></string>
+    <string name="abort_command">Aborta el comando primero</string>
     <string name="about">Acerca de</string>
     <string name="active">Activo</string>
     <string name="adb_command">Comando ADB</string>
@@ -33,6 +33,7 @@
     <string name="apply">Aplicar</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">Aplicar a todo (quedan %1$d)</string>
     <string name="artifact_id">ID del artefacto</string>
+    <string name="auto">Auto</string>
     <string name="auto_backup">Copia automática</string>
     <string name="auto_backup_content_type">Copia de seguridad</string>
     <string name="auto_backup_folder">Carpeta de respaldo</string>
@@ -253,6 +254,7 @@
     <string name="error_labels_limit_reached">Se alcanzó el límite máximo de etiquetas</string>
     <string name="execution_method">Método de ejecución</string>
     <string name="expand">Expandir</string>
+    <string name="experimental">Experimental</string>
     <string name="failed">Falló</string>
     <string name="failed_to_claim_interface">No se pudo reclamar la interfaz</string>
     <string name="failed_to_open_usb_connection">No se pudo abrir la conexión USB. ¿La depuración USB está activada?</string>
@@ -552,6 +554,7 @@
     <string name="schedule">Programar</string>
     <string name="screen_density_multiplier">Multiplicador de densidad de pantalla</string>
     <string name="search">Buscar</string>
+    <string name="search_bookmarks_here">Buscar marcadores aquí</string>
     <string name="search_commands_here">Buscar comandos aquí</string>
     <string name="search_fonts">Buscar fuentes…</string>
     <string name="search_icons_here">Buscar iconos aquí</string>
