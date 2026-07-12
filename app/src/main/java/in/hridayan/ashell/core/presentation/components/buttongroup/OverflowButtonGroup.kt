@@ -33,8 +33,8 @@ import `in`.hridayan.ashell.core.presentation.model.ButtonType
  */
 @Composable
 fun OverflowButtonGroup(
-    items: List<ButtonGroupItem>,
     modifier: Modifier = Modifier,
+    items: List<ButtonGroupItem>,
     horizontalArrangement: Arrangement.Horizontal = Arrangement.spacedBy(15.dp),
 ) {
     val interactionSources = remember(items.size) {
@@ -42,7 +42,7 @@ fun OverflowButtonGroup(
     }
 
     ButtonGroup(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
         overflowIndicator = { menuState ->
             ButtonGroupDefaults.OverflowIndicator(menuState = menuState)
         },

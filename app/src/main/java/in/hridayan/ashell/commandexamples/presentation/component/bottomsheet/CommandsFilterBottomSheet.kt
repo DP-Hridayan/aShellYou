@@ -67,7 +67,7 @@ fun CommandsFilterBottomSheet(
         onDismissRequest = onDismiss
     ) {
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .padding(24.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp)
