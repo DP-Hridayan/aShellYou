@@ -46,13 +46,13 @@ import androidx.compose.ui.unit.em
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalSettings
-import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
 import `in`.hridayan.ashell.core.presentation.components.floaters.FloatingIconsBackground
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
+import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.provider.getAllSettingsIcons
 import `in`.hridayan.ashell.settings.presentation.state.rememberController
@@ -94,7 +94,8 @@ fun SettingsScreen(
     )
 
     // Resolve DSL page — memoized, only re-runs when composition re-enters
-    val resolvedGroups = remember { viewModel.settingsPage }.resolveAll(highlightedKey = highlightedKey)
+    val resolvedGroups =
+        remember { viewModel.settingsPage }.resolveAll(highlightedKey = highlightedKey)
 
     Scaffold(topBar = {
         TopAppBar(
@@ -142,7 +143,7 @@ fun SettingsScreen(
 
                         AutoResizeableText(
                             modifier = Modifier
-                                .padding(top = 20.dp)
+                                .padding(top = 20.dp, start = 15.dp, end = 15.dp)
                                 .align(Alignment.CenterHorizontally),
                             text = stringResource(R.string.settings),
                             fontWeight = FontWeight.Black,
@@ -170,9 +171,11 @@ fun SettingsScreen(
             )
 
             item {
-                Spacer(modifier = Modifier
-                    .fillMaxWidth()
-                    .height(25.dp))
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(25.dp)
+                )
             }
         }
     }
