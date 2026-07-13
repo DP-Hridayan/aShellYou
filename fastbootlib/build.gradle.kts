@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.google.android.fastbootmobile"
+    namespace = "in.hridayan.fastboot"
     compileSdk = 37
 
     defaultConfig {

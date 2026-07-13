@@ -38,7 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
 import `in`.hridayan.ashell.navigation.LocalNavController
@@ -64,6 +64,7 @@ fun FastbootScreen(
     val commandHistory by viewModel.commandHistory.collectAsState()
     val isLoadingDeviceInfo by viewModel.isLoadingDeviceInfo.collectAsState()
     val isLoadingVariables by viewModel.isLoadingVariables.collectAsState()
+    val flashOperation by viewModel.flashOperation.collectAsState()
 
     val isConnected = fastbootState is FastbootState.Connected
     var showDeviceWaitingDialog by rememberSaveable { mutableStateOf(false) }
@@ -165,7 +166,14 @@ fun FastbootScreen(
                 }
             )
 
-            PartitionOperationsSection()
+            PartitionOperationsSection(
+                isConnected = isConnected,
+                flashOperation = flashOperation,
+                onFlash = { partition, uri -> viewModel.flashPartition(partition, uri) },
+                onErase = { partition -> viewModel.erasePartition(partition) },
+                onBootImage = { uri -> viewModel.bootImage(uri) },
+                onResetOperation = { viewModel.resetFlashOperation() }
+            )
 
             VariableExplorerSection(
                 variables = variables,

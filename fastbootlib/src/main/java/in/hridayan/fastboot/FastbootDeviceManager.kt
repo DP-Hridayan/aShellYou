@@ -1,4 +1,4 @@
-package com.google.android.fastbootmobile
+package `in`.hridayan.fastboot
 
 import android.app.PendingIntent
 import android.content.BroadcastReceiver

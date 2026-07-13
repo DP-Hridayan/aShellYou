@@ -219,6 +219,15 @@ fun HomeScreen(
                 dialogManager.dismiss()
                 navController.navigate(NavRoutes.FastbootScreen)
                 fastbootViewModel.startScan()
+            },
+            isAdbDeviceConnected = otgState is OtgState.Connected,
+            adbDeviceName = (otgState as? OtgState.Connected)?.deviceName,
+            onBootIntoFastboot = {
+                otgViewModel.rebootToBootloader()
+                dialogManager.dismiss()
+                // Re-open the dialog so it scans for the device after reboot
+                fastbootViewModel.startScan()
+                dialogManager.show(DialogKey.Home.FastbootDeviceWaiting)
             }
         )
 

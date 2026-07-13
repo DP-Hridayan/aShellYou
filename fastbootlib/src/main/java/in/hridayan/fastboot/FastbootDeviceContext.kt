@@ -1,4 +1,4 @@
-package com.google.android.fastbootmobile
+package `in`.hridayan.fastboot
 
 import android.hardware.usb.UsbDeviceConnection
 import android.hardware.usb.UsbEndpoint
@@ -62,6 +62,17 @@ class FastbootDeviceContext constructor(
      *         then send actual command (e.g., "flash:boot") -> wait for OKAY
      */
     private fun sendCommandWithData(command: FastbootCommand): FastbootResponse {
+        return sendCommandWithData(command, null)
+    }
+
+    /**
+     * Send a command with data payload and optional progress reporting.
+     * @param onProgress Called with (bytesSent, totalBytes) during data transfer
+     */
+    private fun sendCommandWithData(
+        command: FastbootCommand,
+        onProgress: ((Long, Long) -> Unit)?
+    ): FastbootResponse {
         val data = command.data!!
         val hexSize = String.format("%08x", data.size)
 
@@ -78,9 +89,10 @@ class FastbootDeviceContext constructor(
             return dataResponse // Error - device rejected download
         }
 
-        // Step 3: Send the actual data in chunks
+        // Step 3: Send the actual data in chunks with progress
         val chunkSize = outEndpoint.maxPacketSize
         var offset = 0
+        val totalSize = data.size.toLong()
         while (offset < data.size) {
             val remaining = data.size - offset
             val transferSize = minOf(remaining, chunkSize)
@@ -90,6 +102,7 @@ class FastbootDeviceContext constructor(
                 throw FastbootException("Failed to send data at offset $offset")
             }
             offset += transferred
+            onProgress?.invoke(offset.toLong(), totalSize)
         }
 
         // Step 4: Wait for download confirmation
@@ -107,6 +120,25 @@ class FastbootDeviceContext constructor(
 
         // Step 6: Wait for final response
         return readResponse()
+    }
+
+    /**
+     * Send a fastboot command with progress reporting.
+     * Use this for flash/boot commands that transfer large data payloads.
+     *
+     * @param command The FastbootCommand to send
+     * @param onProgress Called with (bytesSent, totalBytes) during data transfer. May be null.
+     * @return FastbootResponse containing the status and data
+     * @throws FastbootException if communication fails
+     */
+    fun sendCommand(
+        command: FastbootCommand,
+        onProgress: ((Long, Long) -> Unit)?
+    ): FastbootResponse {
+        if (command.data != null && onProgress != null) {
+            return sendCommandWithData(command, onProgress)
+        }
+        return sendCommand(command)
     }
 
     /**

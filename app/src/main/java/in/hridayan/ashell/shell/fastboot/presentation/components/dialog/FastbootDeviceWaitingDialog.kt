@@ -6,14 +6,18 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.PhonelinkSetup
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
@@ -47,6 +51,9 @@ fun FastbootDeviceWaitingDialog(
     modifier: Modifier = Modifier,
     onDismiss: () -> Unit = {},
     onConfirm: () -> Unit = {},
+    isAdbDeviceConnected: Boolean = false,
+    adbDeviceName: String? = null,
+    onBootIntoFastboot: () -> Unit = {},
     fastbootViewModel: FastbootViewModel = hiltViewModel()
 ) {
     val fastbootState by fastbootViewModel.state.collectAsState()
@@ -105,6 +112,7 @@ fun FastbootDeviceWaitingDialog(
                 )
 
                 if (device != null) {
+                    // Fastboot device found — show connect button
                     IconWithTextCard(
                         icon = painterResource(R.drawable.ic_otg),
                         text = device,
@@ -130,6 +138,7 @@ fun FastbootDeviceWaitingDialog(
                         AutoResizeableText(text = stringResource(R.string.start))
                     }
                 } else {
+                    // No fastboot device yet — show waiting state
                     Text(
                         text = waitingStatusText,
                         style = MaterialTheme.typography.bodySmall,
@@ -137,6 +146,34 @@ fun FastbootDeviceWaitingDialog(
                     )
 
                     LoadingIndicator(modifier = Modifier.size(72.dp))
+
+                    // If an ADB device is connected via OTG, offer to reboot it into fastboot
+                    if (isAdbDeviceConnected) {
+                        FilledTonalButton(
+                            modifier = Modifier.fillMaxWidth(),
+                            shapes = ButtonDefaults.shapes(),
+                            onClick = withHaptic(HapticFeedbackType.Confirm) {
+                                onBootIntoFastboot()
+                            },
+                            colors = ButtonDefaults.filledTonalButtonColors(
+                                containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                                contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                            )
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.PhonelinkSetup,
+                                contentDescription = null,
+                                modifier = Modifier.size(18.dp)
+                            )
+                            Spacer(modifier = Modifier.widthIn(ButtonDefaults.IconSpacing))
+                            AutoResizeableText(
+                                text = stringResource(R.string.boot_into_fastboot) +
+                                        if (adbDeviceName != null) " ($adbDeviceName)" else ""
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(0.dp))
+                    }
 
                     OutlinedButton(
                         modifier = Modifier.fillMaxWidth(),

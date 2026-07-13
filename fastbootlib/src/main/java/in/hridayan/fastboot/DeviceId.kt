@@ -1,4 +1,4 @@
-package com.google.android.fastbootmobile
+package `in`.hridayan.fastboot
 
 /**
  * Represents a unique identifier for a USB-connected fastboot device.

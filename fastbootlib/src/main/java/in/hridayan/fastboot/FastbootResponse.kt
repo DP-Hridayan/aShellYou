@@ -1,4 +1,4 @@
-package com.google.android.fastbootmobile
+package `in`.hridayan.fastboot
 
 /**
  * Represents a response from a fastboot device.

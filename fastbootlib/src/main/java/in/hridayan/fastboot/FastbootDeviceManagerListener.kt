@@ -1,4 +1,4 @@
-package com.google.android.fastbootmobile
+package `in`.hridayan.fastboot
 
 /**
  * Listener for fastboot device lifecycle events.

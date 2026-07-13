@@ -8,6 +8,7 @@ import `in`.hridayan.ashell.shell.otg_adb_shell.data.repository.OtgRepositoryImp
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgConnection
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgState
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.repository.OtgRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -32,6 +33,16 @@ class OtgViewModel @Inject constructor(
         repository.unRegister()
     }
 
+    /**
+     * Reboot the connected OTG ADB device into bootloader/fastboot mode.
+     * Uses ADB protocol's native "reboot:bootloader" service.
+     */
+    fun rebootToBootloader() = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val connection = repository.getAdbConnection() ?: return@launch
+            connection.open("reboot:bootloader")
+        } catch (_: Exception) {}
+    }
 
     override fun onCleared() {
         if (repository is OtgRepositoryImpl) {

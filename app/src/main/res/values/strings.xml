@@ -284,6 +284,7 @@
     <string name="security_patch">Security Patch</string>
     <string name="max_download_size">Max Download</string>
     <string name="boot_device_into_fastboot">Boot your device into fastboot mode and connect via OTG cable</string>
+    <string name="boot_into_fastboot">Boot into Fastboot</string>
     <string name="no_fastboot_device_error">Connected device is not in fastboot mode</string>
     <string name="locked">Locked</string>
     <string name="unlocked">Unlocked</string>

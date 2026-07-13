@@ -2,6 +2,7 @@
 
 package `in`.hridayan.ashell.shell.fastboot.presentation.viewmodel
 
+import android.net.Uri
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
@@ -11,6 +12,8 @@ import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootCommandResult
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootConnection
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootDeviceInfo
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootState
+import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashOperation
+import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashStatus
 import `in`.hridayan.ashell.shell.fastboot.domain.model.RebootMode
 import `in`.hridayan.ashell.shell.fastboot.domain.repository.FastbootRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -41,6 +44,9 @@ class FastbootViewModel @Inject constructor(
 
     private val _isLoadingVariables = MutableStateFlow(false)
     val isLoadingVariables: StateFlow<Boolean> = _isLoadingVariables.asStateFlow()
+
+    private val _flashOperation = MutableStateFlow(FlashOperation())
+    val flashOperation: StateFlow<FlashOperation> = _flashOperation.asStateFlow()
 
     fun startScan() = viewModelScope.launch {
         repository.searchDevices()
@@ -84,6 +90,34 @@ class FastbootViewModel @Inject constructor(
 
     fun clearHistory() {
         _commandHistory.value = emptyList()
+    }
+
+    fun flashPartition(partition: String, imageUri: Uri) = viewModelScope.launch {
+        repository.flashPartition(partition, imageUri) { operation ->
+            _flashOperation.value = operation
+        }.collect { result ->
+            _commandHistory.value = _commandHistory.value + result
+        }
+    }
+
+    fun erasePartition(partition: String) = viewModelScope.launch {
+        repository.erasePartition(partition) { operation ->
+            _flashOperation.value = operation
+        }.collect { result ->
+            _commandHistory.value = _commandHistory.value + result
+        }
+    }
+
+    fun bootImage(imageUri: Uri) = viewModelScope.launch {
+        repository.bootImage(imageUri) { operation ->
+            _flashOperation.value = operation
+        }.collect { result ->
+            _commandHistory.value = _commandHistory.value + result
+        }
+    }
+
+    fun resetFlashOperation() {
+        _flashOperation.value = FlashOperation()
     }
 
     override fun onCleared() {

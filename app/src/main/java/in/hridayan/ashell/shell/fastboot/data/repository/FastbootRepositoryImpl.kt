@@ -8,18 +8,21 @@ import android.content.IntentFilter
 import android.hardware.usb.UsbDevice
 import android.hardware.usb.UsbInterface
 import android.hardware.usb.UsbManager
+import android.net.Uri
 import android.os.Build
 import android.util.Log
 import androidx.core.content.ContextCompat
-import com.google.android.fastbootmobile.FastbootCommand
-import com.google.android.fastbootmobile.FastbootDeviceContext
-import com.google.android.fastbootmobile.FastbootException
-import com.google.android.fastbootmobile.ResponseStatus
+import `in`.hridayan.fastboot.FastbootCommand
+import `in`.hridayan.fastboot.FastbootDeviceContext
+import `in`.hridayan.fastboot.FastbootException
+import `in`.hridayan.fastboot.ResponseStatus
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootCommandResult
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootConnection
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootDeviceInfo
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootState
+import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashOperation
+import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashStatus
 import `in`.hridayan.ashell.shell.fastboot.domain.model.RebootMode
 import `in`.hridayan.ashell.shell.fastboot.domain.repository.FastbootRepository
 import kotlinx.coroutines.CoroutineScope
@@ -411,4 +414,136 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
             context.unregisterReceiver(usbReceiver)
         } catch (_: Exception) {}
     }
+
+    override fun flashPartition(
+        partition: String,
+        imageUri: Uri,
+        onProgress: (FlashOperation) -> Unit
+    ): Flow<FastbootCommandResult> = flow {
+        val ctx = deviceContext ?: run {
+            onProgress(FlashOperation(partition = partition, status = FlashStatus.ERROR, message = "No device connected"))
+            emit(FastbootCommandResult(command = "flash:$partition", status = ResponseStatus.FAIL, data = "No device connected"))
+            return@flow
+        }
+
+        try {
+            // Step 1: Read the image file
+            onProgress(FlashOperation(partition = partition, status = FlashStatus.READING_FILE, message = "Reading image file..."))
+            val imageData = context.contentResolver.openInputStream(imageUri)?.use { it.readBytes() }
+                ?: throw FastbootException("Cannot open file")
+
+            val fileSizeMB = String.format("%.1f", imageData.size / (1024.0 * 1024.0))
+            onProgress(FlashOperation(
+                partition = partition,
+                status = FlashStatus.DOWNLOADING,
+                progress = 0f,
+                message = "Downloading ${fileSizeMB}MB to device..."
+            ))
+
+            // Step 2: Flash with progress
+            val command = FastbootCommand.flash(partition, imageData)
+            val response = ctx.sendCommand(command) { bytesSent, totalBytes ->
+                val progress = bytesSent.toFloat() / totalBytes.toFloat()
+                onProgress(FlashOperation(
+                    partition = partition,
+                    status = if (progress < 1f) FlashStatus.DOWNLOADING else FlashStatus.FLASHING,
+                    progress = progress,
+                    message = if (progress < 1f) "Sending ${(progress * 100).toInt()}% ($fileSizeMB MB)"
+                             else "Writing to $partition..."
+                ))
+            }
+
+            if (response.isOkay) {
+                onProgress(FlashOperation(partition = partition, status = FlashStatus.COMPLETE, progress = 1f, message = "Flash complete"))
+            } else {
+                onProgress(FlashOperation(partition = partition, status = FlashStatus.ERROR, message = "Flash failed: ${response.data}"))
+            }
+
+            emit(FastbootCommandResult(command = "flash:$partition", status = response.status, data = response.data))
+        } catch (e: Exception) {
+            val msg = e.message ?: "Unknown error"
+            onProgress(FlashOperation(partition = partition, status = FlashStatus.ERROR, message = msg))
+            emit(FastbootCommandResult(command = "flash:$partition", status = ResponseStatus.FAIL, data = msg))
+            Log.e(TAG, "Flash $partition failed", e)
+        }
+    }.flowOn(Dispatchers.IO)
+
+    override fun erasePartition(
+        partition: String,
+        onProgress: (FlashOperation) -> Unit
+    ): Flow<FastbootCommandResult> = flow {
+        val ctx = deviceContext ?: run {
+            onProgress(FlashOperation(partition = partition, status = FlashStatus.ERROR, message = "No device connected"))
+            emit(FastbootCommandResult(command = "erase:$partition", status = ResponseStatus.FAIL, data = "No device connected"))
+            return@flow
+        }
+
+        try {
+            onProgress(FlashOperation(partition = partition, status = FlashStatus.ERASING, message = "Erasing $partition..."))
+
+            val response = ctx.sendCommand(FastbootCommand.erase(partition))
+
+            if (response.isOkay) {
+                onProgress(FlashOperation(partition = partition, status = FlashStatus.COMPLETE, progress = 1f, message = "Erase complete"))
+            } else {
+                onProgress(FlashOperation(partition = partition, status = FlashStatus.ERROR, message = "Erase failed: ${response.data}"))
+            }
+
+            emit(FastbootCommandResult(command = "erase:$partition", status = response.status, data = response.data))
+        } catch (e: Exception) {
+            val msg = e.message ?: "Unknown error"
+            onProgress(FlashOperation(partition = partition, status = FlashStatus.ERROR, message = msg))
+            emit(FastbootCommandResult(command = "erase:$partition", status = ResponseStatus.FAIL, data = msg))
+            Log.e(TAG, "Erase $partition failed", e)
+        }
+    }.flowOn(Dispatchers.IO)
+
+    override fun bootImage(
+        imageUri: Uri,
+        onProgress: (FlashOperation) -> Unit
+    ): Flow<FastbootCommandResult> = flow {
+        val ctx = deviceContext ?: run {
+            onProgress(FlashOperation(partition = "boot", status = FlashStatus.ERROR, message = "No device connected"))
+            emit(FastbootCommandResult(command = "boot", status = ResponseStatus.FAIL, data = "No device connected"))
+            return@flow
+        }
+
+        try {
+            onProgress(FlashOperation(partition = "boot", status = FlashStatus.READING_FILE, message = "Reading boot image..."))
+            val imageData = context.contentResolver.openInputStream(imageUri)?.use { it.readBytes() }
+                ?: throw FastbootException("Cannot open file")
+
+            val fileSizeMB = String.format("%.1f", imageData.size / (1024.0 * 1024.0))
+            onProgress(FlashOperation(
+                partition = "boot",
+                status = FlashStatus.DOWNLOADING,
+                progress = 0f,
+                message = "Sending ${fileSizeMB}MB..."
+            ))
+
+            val command = FastbootCommand.boot(imageData)
+            val response = ctx.sendCommand(command) { bytesSent, totalBytes ->
+                val progress = bytesSent.toFloat() / totalBytes.toFloat()
+                onProgress(FlashOperation(
+                    partition = "boot",
+                    status = FlashStatus.DOWNLOADING,
+                    progress = progress,
+                    message = "Sending ${(progress * 100).toInt()}%"
+                ))
+            }
+
+            if (response.isOkay) {
+                onProgress(FlashOperation(partition = "boot", status = FlashStatus.COMPLETE, progress = 1f, message = "Boot image sent"))
+            } else {
+                onProgress(FlashOperation(partition = "boot", status = FlashStatus.ERROR, message = "Boot failed: ${response.data}"))
+            }
+
+            emit(FastbootCommandResult(command = "boot", status = response.status, data = response.data))
+        } catch (e: Exception) {
+            val msg = e.message ?: "Unknown error"
+            onProgress(FlashOperation(partition = "boot", status = FlashStatus.ERROR, message = msg))
+            emit(FastbootCommandResult(command = "boot", status = ResponseStatus.FAIL, data = msg))
+            Log.e(TAG, "Boot image failed", e)
+        }
+    }.flowOn(Dispatchers.IO)
 }
