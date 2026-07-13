@@ -13,7 +13,6 @@ import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootConnection
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootDeviceInfo
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootState
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashOperation
-import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashStatus
 import `in`.hridayan.ashell.shell.fastboot.domain.model.RebootMode
 import `in`.hridayan.ashell.shell.fastboot.domain.repository.FastbootRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -80,7 +79,7 @@ class FastbootViewModel @Inject constructor(
 
     fun sendCommand(command: String) = viewModelScope.launch {
         repository.sendCommand(command).collect { result ->
-            _commandHistory.value = _commandHistory.value + result
+            _commandHistory.value += result
         }
     }
 
@@ -96,7 +95,7 @@ class FastbootViewModel @Inject constructor(
         repository.flashPartition(partition, imageUri) { operation ->
             _flashOperation.value = operation
         }.collect { result ->
-            _commandHistory.value = _commandHistory.value + result
+            _commandHistory.value += result
         }
     }
 
@@ -104,7 +103,7 @@ class FastbootViewModel @Inject constructor(
         repository.erasePartition(partition) { operation ->
             _flashOperation.value = operation
         }.collect { result ->
-            _commandHistory.value = _commandHistory.value + result
+            _commandHistory.value += result
         }
     }
 
@@ -112,7 +111,7 @@ class FastbootViewModel @Inject constructor(
         repository.bootImage(imageUri) { operation ->
             _flashOperation.value = operation
         }.collect { result ->
-            _commandHistory.value = _commandHistory.value + result
+            _commandHistory.value += result
         }
     }
 
