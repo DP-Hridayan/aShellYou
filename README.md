@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&height=300&color=gradient&text=aShell%20You&animation=fadeIn&desc=ADB%20at%20your%20fingertips&descAlign=50&descAlignY=55&fontAlignY=35" />
+  <img src="assets/github_social_banner.jpg" />
 </p>
 
 > **aShell You** is a fully-featured Android shell utility app with **Material Design 3 UI**, letting you run **ADB**, **root** and **shell** commands on your device or others via OTG/wireless, packed in a beautiful and smart interface
@@ -213,7 +213,7 @@
   </tr>
   <tr>
     <td style="padding: 8px; border: 1px solid #ddd;">Add Fastboot</td>
-    <td style="padding: 8px; border: 1px solid #ddd; color: gray;">⬜ To Do</td>
+    <td style="padding: 8px; border: 1px solid #ddd; color: gray;">⏺️ In progress</td>
   </tr>
     <tr>
     <td style="padding: 8px; border: 1px solid #ddd;">Add Interactive shell</td>
