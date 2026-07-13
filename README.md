@@ -213,7 +213,7 @@
   </tr>
   <tr>
     <td style="padding: 8px; border: 1px solid #ddd;">Add Fastboot</td>
-    <td style="padding: 8px; border: 1px solid #ddd; color: gray;">⬜ To Do</td>
+    <td style="padding: 8px; border: 1px solid #ddd; color: gray;">⏺️ In progress</td>
   </tr>
     <tr>
     <td style="padding: 8px; border: 1px solid #ddd;">Add Interactive shell</td>
