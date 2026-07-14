@@ -42,8 +42,10 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootState
+import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashStatus
 import `in`.hridayan.ashell.shell.fastboot.domain.model.RebootMode
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog.FastbootDeviceWaitingDialog
+import `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog.FastbootFlashProgressDialog
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog.FastbootRebootConfirmDialog
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.CommandConsoleSection
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.DeviceInfoSection
@@ -237,6 +239,15 @@ fun FastbootScreen(
                 viewModel.reboot(pendingRebootMode!!)
                 pendingRebootMode = null
             }
+        )
+    }
+
+    // Flash progress dialog — shown during any flash/erase/boot operation
+    if (flashOperation.status != FlashStatus.IDLE) {
+        FastbootFlashProgressDialog(
+            operation = flashOperation,
+            onCancel = { viewModel.cancelFlashOperation() },
+            onDismiss = { viewModel.resetFlashOperation() }
         )
     }
 }

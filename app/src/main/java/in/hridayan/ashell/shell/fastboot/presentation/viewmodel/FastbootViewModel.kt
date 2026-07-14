@@ -13,6 +13,7 @@ import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootConnection
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootDeviceInfo
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootState
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashOperation
+import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashStatus
 import `in`.hridayan.ashell.shell.fastboot.domain.model.RebootMode
 import `in`.hridayan.ashell.shell.fastboot.domain.repository.FastbootRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -46,6 +47,8 @@ class FastbootViewModel @Inject constructor(
 
     private val _flashOperation = MutableStateFlow(FlashOperation())
     val flashOperation: StateFlow<FlashOperation> = _flashOperation.asStateFlow()
+
+    private var flashJob: kotlinx.coroutines.Job? = null
 
     fun startScan() = viewModelScope.launch {
         repository.searchDevices()
@@ -91,31 +94,51 @@ class FastbootViewModel @Inject constructor(
         _commandHistory.value = emptyList()
     }
 
-    fun flashPartition(partition: String, imageUri: Uri) = viewModelScope.launch {
-        repository.flashPartition(partition, imageUri) { operation ->
-            _flashOperation.value = operation
-        }.collect { result ->
-            _commandHistory.value += result
+    fun flashPartition(partition: String, imageUri: Uri) {
+        flashJob?.cancel()
+        flashJob = viewModelScope.launch {
+            repository.flashPartition(partition, imageUri) { operation ->
+                _flashOperation.value = operation
+            }.collect { result ->
+                _commandHistory.value += result
+            }
         }
     }
 
-    fun erasePartition(partition: String) = viewModelScope.launch {
-        repository.erasePartition(partition) { operation ->
-            _flashOperation.value = operation
-        }.collect { result ->
-            _commandHistory.value += result
+    fun erasePartition(partition: String) {
+        flashJob?.cancel()
+        flashJob = viewModelScope.launch {
+            repository.erasePartition(partition) { operation ->
+                _flashOperation.value = operation
+            }.collect { result ->
+                _commandHistory.value += result
+            }
         }
     }
 
-    fun bootImage(imageUri: Uri) = viewModelScope.launch {
-        repository.bootImage(imageUri) { operation ->
-            _flashOperation.value = operation
-        }.collect { result ->
-            _commandHistory.value += result
+    fun bootImage(imageUri: Uri) {
+        flashJob?.cancel()
+        flashJob = viewModelScope.launch {
+            repository.bootImage(imageUri) { operation ->
+                _flashOperation.value = operation
+            }.collect { result ->
+                _commandHistory.value += result
+            }
         }
+    }
+
+    fun cancelFlashOperation() {
+        flashJob?.cancel()
+        flashJob = null
+        _flashOperation.value = FlashOperation(
+            status = FlashStatus.ERROR,
+            message = "Operation cancelled"
+        )
     }
 
     fun resetFlashOperation() {
+        flashJob?.cancel()
+        flashJob = null
         _flashOperation.value = FlashOperation()
     }
 

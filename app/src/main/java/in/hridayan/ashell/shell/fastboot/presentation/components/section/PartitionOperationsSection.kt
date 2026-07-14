@@ -74,6 +74,8 @@ import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashOperation
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashStatus
+import android.provider.OpenableColumns
+import androidx.compose.ui.platform.LocalContext
 
 private val COMMON_PARTITIONS = listOf(
     "boot", "recovery", "system", "vendor", "dtbo",
@@ -98,19 +100,26 @@ fun PartitionOperationsSection(
     var selectedFileUri by rememberSaveable { mutableStateOf<Uri?>(null) }
     var selectedFileName by rememberSaveable { mutableStateOf<String?>(null) }
 
+    val context = LocalContext.current
+
     val isOperationRunning = flashOperation.status in listOf(
         FlashStatus.READING_FILE, FlashStatus.DOWNLOADING, FlashStatus.FLASHING, FlashStatus.ERASING
     )
 
     val targetPartition = customPartition.ifBlank { selectedPartition }
 
-    // File picker
+    // File picker — resolve real file name via ContentResolver
     val filePickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocument()
     ) { uri: Uri? ->
         uri?.let {
             selectedFileUri = it
-            selectedFileName = it.lastPathSegment?.substringAfterLast('/') ?: "selected file"
+            selectedFileName = try {
+                context.contentResolver.query(it, arrayOf(OpenableColumns.DISPLAY_NAME), null, null, null)
+                    ?.use { cursor ->
+                        if (cursor.moveToFirst()) cursor.getString(0) else null
+                    }
+            } catch (_: Exception) { null } ?: it.lastPathSegment ?: "selected file"
         }
     }
 
@@ -305,18 +314,6 @@ fun PartitionOperationsSection(
                     Text(stringResource(R.string.boot_image))
                 }
             }
-
-            // Progress section
-            AnimatedVisibility(
-                visible = flashOperation.status != FlashStatus.IDLE,
-                enter = expandVertically() + fadeIn(),
-                exit = shrinkVertically() + fadeOut()
-            ) {
-                FlashProgressCard(
-                    operation = flashOperation,
-                    onDismiss = onResetOperation
-                )
-            }
         }
     }
 
@@ -359,111 +356,3 @@ fun PartitionOperationsSection(
     }
 }
 
-@Composable
-private fun FlashProgressCard(
-    operation: FlashOperation,
-    onDismiss: () -> Unit
-) {
-    val animatedProgress by animateFloatAsState(
-        targetValue = operation.progress,
-        animationSpec = tween(300),
-        label = "progress"
-    )
-
-    val progressColor by animateColorAsState(
-        targetValue = when (operation.status) {
-            FlashStatus.ERROR -> MaterialTheme.colorScheme.error
-            FlashStatus.COMPLETE -> MaterialTheme.colorScheme.tertiary
-            else -> MaterialTheme.colorScheme.primary
-        },
-        label = "progressColor"
-    )
-
-    val isDismissable = operation.status in listOf(FlashStatus.COMPLETE, FlashStatus.ERROR)
-
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 16.dp)
-    ) {
-        // Status row
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.weight(1f)
-            ) {
-                Icon(
-                    imageVector = when (operation.status) {
-                        FlashStatus.COMPLETE -> Icons.Default.CheckCircle
-                        FlashStatus.ERROR -> Icons.Default.Error
-                        else -> Icons.Default.FlashOn
-                    },
-                    contentDescription = null,
-                    tint = progressColor,
-                    modifier = Modifier.size(20.dp)
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = operation.message,
-                    style = MaterialTheme.typography.bodySmall.copy(fontFamily = FontFamily.Monospace),
-                    color = progressColor
-                )
-            }
-
-            if (isDismissable) {
-                IconButton(
-                    onClick = onDismiss,
-                    modifier = Modifier.size(28.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Close,
-                        contentDescription = null,
-                        modifier = Modifier.size(16.dp)
-                    )
-                }
-            }
-        }
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        // Progress bar
-        if (!isDismissable) {
-            if (operation.progress > 0f) {
-                LinearProgressIndicator(
-                    progress = { animatedProgress },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(6.dp)
-                        .clip(RoundedCornerShape(3.dp)),
-                    color = progressColor,
-                    trackColor = progressColor.copy(alpha = 0.15f),
-                )
-            } else {
-                LinearProgressIndicator(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(6.dp)
-                        .clip(RoundedCornerShape(3.dp)),
-                    color = progressColor,
-                    trackColor = progressColor.copy(alpha = 0.15f),
-                )
-            }
-        }
-
-        // Percentage text for downloads
-        if (operation.status == FlashStatus.DOWNLOADING && operation.progress > 0f) {
-            Text(
-                text = "${(operation.progress * 100).toInt()}%",
-                style = MaterialTheme.typography.labelSmall,
-                modifier = Modifier
-                    .padding(top = 4.dp)
-                    .alpha(0.7f),
-                fontFamily = FontFamily.Monospace
-            )
-        }
-    }
-}

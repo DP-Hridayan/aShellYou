@@ -17,6 +17,7 @@ enum class FlashStatus {
     DOWNLOADING,
     FLASHING,
     ERASING,
+    CANCELLING,
     COMPLETE,
     ERROR
 }

@@ -291,6 +291,11 @@
     <string name="flash_partition">Flash</string>
     <string name="erase_partition">Erase</string>
     <string name="boot_image">Boot Image</string>
+    <string name="reading_file">Reading file…</string>
+    <string name="flashing">Flashing…</string>
+    <string name="erasing">Erasing…</string>
+    <string name="cancelling">Cancelling…</string>
+    <string name="operation_complete">Operation complete</string>
     <string name="loading_device_info">Loading device info…</string>
     <string name="no_variables_loaded">No variables loaded</string>
     <string name="no_device_connected">No device connected</string>
