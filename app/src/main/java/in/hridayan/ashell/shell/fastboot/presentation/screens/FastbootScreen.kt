@@ -69,18 +69,41 @@ fun FastbootScreen(
     var showDeviceWaitingDialog by rememberSaveable { mutableStateOf(false) }
     var showRebootConfirmDialog by rememberSaveable { mutableStateOf(false) }
     var pendingRebootMode by rememberSaveable { mutableStateOf<RebootMode?>(null) }
-    var hasShownInitialDialog by rememberSaveable { mutableStateOf(false) }
+
+    /**
+     * Similar to OTG screen's dirty hack for properly syncing states after reconnection.
+     * Tracks whether a disconnection happened so we can auto-show the waiting dialog
+     * and re-scan when reconnecting (e.g. after device reboots between modes).
+     */
+    var disconnected by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(fastbootState) {
-        if (!isConnected && !hasShownInitialDialog) {
-            showDeviceWaitingDialog = true
-            hasShownInitialDialog = true
-        }
+        android.util.Log.d("FastbootScreen", "LaunchedEffect: state=$fastbootState, disconnected=$disconnected, showDialog=$showDeviceWaitingDialog")
 
-        if (isConnected) {
-            showDeviceWaitingDialog = false
-            viewModel.loadDeviceInfo()
-            viewModel.loadAllVariables()
+        when (fastbootState) {
+            is FastbootState.Connected -> {
+                android.util.Log.d("FastbootScreen", "  → Connected: hiding dialog, loading info")
+                showDeviceWaitingDialog = false
+                disconnected = false
+                viewModel.loadDeviceInfo()
+                viewModel.loadAllVariables()
+            }
+            is FastbootState.Idle,
+            is FastbootState.Disconnected -> {
+                if (!disconnected) {
+                    android.util.Log.d("FastbootScreen", "  → Idle/Disconnected + !disconnected: showing dialog")
+                    showDeviceWaitingDialog = true
+                    disconnected = true
+                    viewModel.startScan()
+                } else {
+                    android.util.Log.d("FastbootScreen", "  → Idle/Disconnected but already disconnected, skipping")
+                }
+            }
+            // DeviceFound, Searching, Connecting, Error — show dialog so user can see status
+            else -> {
+                android.util.Log.d("FastbootScreen", "  → State $fastbootState: ensuring dialog is shown")
+                showDeviceWaitingDialog = true
+            }
         }
     }
 
@@ -195,7 +218,9 @@ fun FastbootScreen(
             onDismiss = { showDeviceWaitingDialog = false },
             onConfirm = {
                 showDeviceWaitingDialog = false
-                viewModel.startScan()
+                if (disconnected) {
+                    viewModel.startScan()
+                }
             }
         )
     }

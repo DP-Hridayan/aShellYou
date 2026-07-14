@@ -24,6 +24,7 @@ import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgState
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.repository.OtgRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -32,6 +33,7 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.IOException
 import javax.inject.Singleton
+import kotlin.time.Duration.Companion.milliseconds
 
 @Singleton
 class OtgRepositoryImpl(private val context: Context) : OtgRepository {
@@ -151,7 +153,7 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
         if (device == currentDevice) {
             CoroutineScope(Dispatchers.IO).launch {
                 disconnect()
-                kotlinx.coroutines.delay(500)
+                delay(500.milliseconds)
                 OtgConnection.updateState(OtgState.Idle)
             }
         }
@@ -265,44 +267,48 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
      */
     private fun handleCdCommand(commandText: String): String? {
         val trimmedCommand = commandText.trim()
-        
+
         if (trimmedCommand.startsWith("cd ") || trimmedCommand == "cd") {
             // Check for compound command separators (&& or ;)
             val andAndIndex = trimmedCommand.indexOf(" && ")
             val semicolonIndex = trimmedCommand.indexOf("; ")
-            
+
             val separatorIndex = when {
                 andAndIndex >= 0 && semicolonIndex >= 0 -> minOf(andAndIndex, semicolonIndex)
                 andAndIndex >= 0 -> andAndIndex
                 semicolonIndex >= 0 -> semicolonIndex
                 else -> -1
             }
-            
+
             val cdPart: String
             val remainingCommand: String?
-            
+
             if (separatorIndex > 0) {
                 cdPart = trimmedCommand.substring(0, separatorIndex).trim()
                 remainingCommand = trimmedCommand.substring(
-                    separatorIndex + if (trimmedCommand.substring(separatorIndex).startsWith(" && ")) 4 else 2
+                    separatorIndex + if (trimmedCommand.substring(separatorIndex)
+                            .startsWith(" && ")
+                    ) 4 else 2
                 ).trim()
             } else {
                 cdPart = trimmedCommand
                 remainingCommand = null
             }
-            
+
             val parts = cdPart.split("\\s+".toRegex(), limit = 2)
             val targetDir = if (parts.size > 1) parts[1] else "/"
-            
+
             currentDir = when {
                 targetDir == "/" || targetDir == "~" -> "/"
                 targetDir == ".." -> {
                     val parent = currentDir.removeSuffix("/").substringBeforeLast("/", "")
                     if (parent.isEmpty()) "/" else "$parent/"
                 }
+
                 targetDir.startsWith("/") -> {
                     if (targetDir.endsWith("/")) targetDir else "$targetDir/"
                 }
+
                 else -> {
                     val newPath = currentDir + targetDir
                     if (newPath.endsWith("/")) newPath else "$newPath/"
@@ -310,7 +316,7 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
             }
             return remainingCommand
         }
-        
+
         return trimmedCommand
     }
 
@@ -328,12 +334,12 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
     override fun runOtgCommand(command: String): Flow<OutputLine> = flow {
         val sanitized = sanitizeCommand(command)
         val actualCommand = handleCdCommand(sanitized)
-        
+
         if (actualCommand == null) {
             emit(OutputLine("Changed directory to: $currentDir", isError = false))
             return@flow
         }
-        
+
         val fullCommand = buildOtgCommand(actualCommand)
 
         val connection = adbConnection ?: run {
@@ -418,9 +424,9 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
         }
         return false
     }
-    
+
     // File browser support methods
     override fun isConnected(): Boolean = adbConnection != null
-    
+
     override fun getAdbConnection(): AdbConnection? = adbConnection
 }
