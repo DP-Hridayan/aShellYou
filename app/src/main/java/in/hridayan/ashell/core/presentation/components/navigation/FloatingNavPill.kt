@@ -9,6 +9,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,11 +22,11 @@ import androidx.compose.material3.CardElevation
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -44,7 +45,8 @@ fun FloatingNavPill(
     colors: FloatingNavPillColors = FloatingNavPillDefaults.colors(),
     items: List<FloatingNavPillItem> = FloatingNavPillDefaults.items(),
     elevation: CardElevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-    animationSpec: AnimationSpec<Dp> = MaterialTheme.motionScheme.fastSpatialSpec()
+    animationSpec: AnimationSpec<Dp> = MaterialTheme.motionScheme.fastSpatialSpec(),
+    innerPillPadding: PaddingValues = PaddingValues(horizontal = 6.dp, vertical = 6.dp)
 ) {
     CustomCard(
         modifier = modifier,
@@ -73,7 +75,7 @@ fun FloatingNavPill(
                     }
                     .width(itemWidth)
                     .fillMaxHeight()
-                    .padding(6.dp)
+                    .padding(innerPillPadding)
                     .clip(RoundedCornerShape(50))
                     .background(colors.selectedContainerColor)
             )
@@ -113,8 +115,8 @@ fun FloatingNavPill(
 object FloatingNavPillDefaults {
     @Composable
     fun colors(
-        selectedContainerColor: Color = MaterialTheme.colorScheme.primaryContainer,
-        selectedContentColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
+        selectedContainerColor: Color = MaterialTheme.colorScheme.primary,
+        selectedContentColor: Color = MaterialTheme.colorScheme.onPrimary,
         floatingContainerColor: Color = MaterialTheme.colorScheme.surfaceContainerLowest,
         floatingContentColor: Color = MaterialTheme.colorScheme.onSurface
     ) = FloatingNavPillColors(

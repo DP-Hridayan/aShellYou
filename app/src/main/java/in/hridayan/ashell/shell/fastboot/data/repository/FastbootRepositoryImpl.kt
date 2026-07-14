@@ -33,6 +33,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Locale
 import javax.inject.Singleton
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -119,7 +120,12 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
     }
 
     private fun handleDeviceAttach(device: UsbDevice) {
-        Log.d(TAG, "handleDeviceAttach: device=${device.deviceName}, product=${device.productName}, isFastboot=${isFastbootDevice(device)}")
+        Log.d(
+            TAG,
+            "handleDeviceAttach: device=${device.deviceName}, product=${device.productName}, isFastboot=${
+                isFastbootDevice(device)
+            }"
+        )
         currentDevice = device
         val manager = usbManager ?: run {
             FastbootConnection.updateState(FastbootState.UsbManagerUnavailable)
@@ -128,7 +134,10 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
         if (isFastbootDevice(device)) {
             val friendlyName = device.productName ?: device.manufacturerName ?: device.deviceName
             val hasPermission = manager.hasPermission(device)
-            Log.d(TAG, "handleDeviceAttach: fastboot device, hasPermission=$hasPermission, name=$friendlyName")
+            Log.d(
+                TAG,
+                "handleDeviceAttach: fastboot device, hasPermission=$hasPermission, name=$friendlyName"
+            )
             if (hasPermission) {
                 connectToDevice(device)
             } else {
@@ -146,7 +155,10 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
 
     private fun handleDeviceDetach(device: UsbDevice) {
         val current = currentDevice
-        Log.d(TAG, "handleDeviceDetach: detached=${device.deviceName}, current=${current?.deviceName}")
+        Log.d(
+            TAG,
+            "handleDeviceDetach: detached=${device.deviceName}, current=${current?.deviceName}"
+        )
         if (current == null) {
             Log.d(TAG, "handleDeviceDetach: no current device, ignoring")
             return
@@ -156,7 +168,7 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
             cleanupConnection()
             FastbootConnection.updateState(FastbootState.Disconnected)
             CoroutineScope(Dispatchers.Main).launch {
-                kotlinx.coroutines.delay(300)
+                delay(300.milliseconds)
                 val state = FastbootConnection.state.value
                 if (state is FastbootState.Disconnected) {
                     Log.d(TAG, "handleDeviceDetach: transitioning to Idle")
@@ -172,7 +184,10 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
      * Clean up stale device context and connection without updating state.
      */
     private fun cleanupConnection() {
-        Log.d(TAG, "cleanupConnection: deviceContext=${deviceContext != null}, currentDevice=${currentDevice?.deviceName}")
+        Log.d(
+            TAG,
+            "cleanupConnection: deviceContext=${deviceContext != null}, currentDevice=${currentDevice?.deviceName}"
+        )
         try {
             deviceContext?.close()
         } catch (_: Exception) {
@@ -189,11 +204,15 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
 
         val currentState = FastbootConnection.state.value
         val manager = usbManager
-        Log.d(TAG, "searchDevices: currentState=$currentState, currentDevice=${currentDevice?.deviceName}, deviceContext=${deviceContext != null}")
+        Log.d(
+            TAG,
+            "searchDevices: currentState=$currentState, currentDevice=${currentDevice?.deviceName}, deviceContext=${deviceContext != null}"
+        )
 
         // Don't interfere with active connection establishment or permission flow
         if (currentState is FastbootState.Connecting ||
-            currentState is FastbootState.DeviceFound) {
+            currentState is FastbootState.DeviceFound
+        ) {
             Log.d(TAG, "searchDevices: SKIPPING — state is $currentState")
             return
         }
@@ -210,7 +229,10 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
                     return
                 }
             } else {
-                Log.d(TAG, "searchDevices: Connected but currentDev=${currentDev?.deviceName}, context=${deviceContext != null} — stale")
+                Log.d(
+                    TAG,
+                    "searchDevices: Connected but currentDev=${currentDev?.deviceName}, context=${deviceContext != null} — stale"
+                )
             }
             cleanupConnection()
         }
@@ -227,7 +249,12 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
         }
         val devices = manager.deviceList.values
         Log.d(TAG, "checkConnectedDevices: ${devices.size} USB devices found")
-        devices.forEach { Log.d(TAG, "  device: ${it.deviceName} product=${it.productName} class=${it.deviceClass}") }
+        devices.forEach {
+            Log.d(
+                TAG,
+                "  device: ${it.deviceName} product=${it.productName} class=${it.deviceClass}"
+            )
+        }
         if (devices.isEmpty()) {
             FastbootConnection.updateState(FastbootState.Idle)
             return
@@ -259,7 +286,10 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
     }
 
     private fun connectToDevice(device: UsbDevice) {
-        Log.d(TAG, "connectToDevice: START device=${device.deviceName}, product=${device.productName}")
+        Log.d(
+            TAG,
+            "connectToDevice: START device=${device.deviceName}, product=${device.productName}"
+        )
         FastbootConnection.updateState(FastbootState.Connecting)
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -307,7 +337,10 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
                 }
 
                 if (inEndpoint == null || outEndpoint == null) {
-                    Log.e(TAG, "connectToDevice: Could not find bulk endpoints (in=$inEndpoint, out=$outEndpoint)")
+                    Log.e(
+                        TAG,
+                        "connectToDevice: Could not find bulk endpoints (in=$inEndpoint, out=$outEndpoint)"
+                    )
                     FastbootConnection.updateState(FastbootState.Error("Could not find bulk endpoints"))
                     connection.releaseInterface(intf)
                     connection.close()
@@ -316,15 +349,24 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
                 Log.d(TAG, "connectToDevice: endpoints found, creating FastbootDeviceContext")
 
                 deviceContext = FastbootDeviceContext(connection, intf, inEndpoint, outEndpoint)
-                Log.d(TAG, "connectToDevice: deviceContext created, switching to Main for state update")
+                Log.d(
+                    TAG,
+                    "connectToDevice: deviceContext created, switching to Main for state update"
+                )
 
                 withContext(Dispatchers.Main) {
                     val name = device.productName ?: device.manufacturerName ?: device.deviceName
-                    Log.d(TAG, "connectToDevice: setting Connected state, name=$name, stateBeforeUpdate=${FastbootConnection.state.value}")
+                    Log.d(
+                        TAG,
+                        "connectToDevice: setting Connected state, name=$name, stateBeforeUpdate=${FastbootConnection.state.value}"
+                    )
                     FastbootConnection.updateState(
                         FastbootState.Connected(name, device.deviceName)
                     )
-                    Log.d(TAG, "connectToDevice: DONE — state is now ${FastbootConnection.state.value}")
+                    Log.d(
+                        TAG,
+                        "connectToDevice: DONE — state is now ${FastbootConnection.state.value}"
+                    )
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "connectToDevice: EXCEPTION", e)
@@ -612,7 +654,9 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
                 context.contentResolver.openInputStream(imageUri)?.use { it.readBytes() }
                     ?: throw FastbootException("Cannot open file")
 
-            val fileSizeMB = String.format("%.1f", imageData.size / (1024.0 * 1024.0))
+            val fileSizeMB =
+                String.format(Locale.getDefault(), "%.1f", imageData.size / (1024.0 * 1024.0))
+
             onProgress(
                 FlashOperation(
                     partition = partition,
@@ -796,7 +840,9 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
                 context.contentResolver.openInputStream(imageUri)?.use { it.readBytes() }
                     ?: throw FastbootException("Cannot open file")
 
-            val fileSizeMB = String.format("%.1f", imageData.size / (1024.0 * 1024.0))
+            val fileSizeMB =
+                String.format(Locale.getDefault(), "%.1f", imageData.size / (1024.0 * 1024.0))
+
             onProgress(
                 FlashOperation(
                     partition = "boot",
