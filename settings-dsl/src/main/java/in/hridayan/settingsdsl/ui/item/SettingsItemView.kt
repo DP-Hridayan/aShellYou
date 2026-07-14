@@ -328,20 +328,14 @@ private fun SwitchItemView(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(7.dp)
             ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(15.dp)
-                ) {
-                    if (title.isNotEmpty()) Text(
-                        modifier = Modifier.weight(weight = 1f, fill = false),
-                        text = title,
-                        fontWeight = FontWeight.SemiBold,
-                        style = MaterialTheme.typography.titleMediumEmphasized
-                    )
+                if (enableExperimentalFlag) ExperimentalBadge(label = experimentalFlagText)
 
-                    if (enableExperimentalFlag) ExperimentalBadge(label = experimentalFlagText)
-                }
+                if (title.isNotEmpty()) Text(
+                    text = title,
+                    fontWeight = FontWeight.SemiBold,
+                    style = MaterialTheme.typography.titleMediumEmphasized
+                )
+
                 if (description.isNotEmpty()) Text(
                     text = description,
                     style = MaterialTheme.typography.bodySmall,

@@ -25,7 +25,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.R
@@ -49,6 +49,7 @@ fun CollapsibleCard(
     border: BorderStroke? = CardDefaults.outlinedCardBorder(),
 ) {
     var expanded by rememberSaveable { mutableStateOf(false) }
+    val rotateAngle by animateFloatAsState(if (expanded) 180f else 0f)
 
     CustomCard(
         modifier = modifier,
@@ -82,14 +83,14 @@ fun CollapsibleCard(
                     collapsedContent()
                 }
 
-                val rotateAngle by animateFloatAsState(if (expanded) 180f else 0f)
-
                 Icon(
                     painter = painterResource(R.drawable.ic_expand),
                     contentDescription = "Expand",
                     modifier = Modifier
                         .align(Alignment.CenterVertically)
-                        .rotate(rotateAngle)
+                        .graphicsLayer {
+                            rotationZ = rotateAngle
+                        }
                 )
             }
 

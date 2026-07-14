@@ -1,14 +1,18 @@
-@file:OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalMaterial3Api::class)
+@file:OptIn(
+    ExperimentalMaterial3ExpressiveApi::class, ExperimentalMaterial3Api::class,
+    ExperimentalFlexBoxApi::class
+)
 
 package `in`.hridayan.ashell.shell.fastboot.presentation.screens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalFlexBoxApi
+import androidx.compose.foundation.layout.FlexAlignItems
+import androidx.compose.foundation.layout.FlexBox
+import androidx.compose.foundation.layout.FlexDirection
+import androidx.compose.foundation.layout.FlexWrap
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,8 +21,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Usb
@@ -43,15 +45,9 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.lerp
@@ -60,7 +56,6 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
-import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.navigation.FloatingNavPill
 import `in`.hridayan.ashell.core.presentation.components.navigation.FloatingNavPillDefaults
 import `in`.hridayan.ashell.core.presentation.components.navigation.FloatingNavPillItem
@@ -72,10 +67,13 @@ import `in`.hridayan.ashell.shell.fastboot.domain.model.RebootMode
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog.FastbootDeviceWaitingDialog
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog.FastbootFlashProgressDialog
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog.FastbootRebootConfirmDialog
+import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.ActiveSlotsCard
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.CommandConsoleSection
+import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.ConnectedDeviceCard
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.DeviceInfoSection
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.PartitionOperationsSection
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.QuickActionsSection
+import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.UnlockStatusCard
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.VariableExplorerSection
 import `in`.hridayan.ashell.shell.fastboot.presentation.viewmodel.FastbootViewModel
 
@@ -239,14 +237,42 @@ fun FastbootScreen(
                     .fillMaxWidth()
                     .padding(bottom = 10.dp),
                 isConnected = isConnected,
-                deviceName = deviceInfo?.product
+                deviceName = deviceInfo?.product,
+                serialNumber = deviceInfo?.serialNo,
+                variant = deviceInfo?.variant,
+                bootloaderVersion = deviceInfo?.bootloaderVersion,
+                basebandVersion = deviceInfo?.basebandVersion,
+                securityPatch = deviceInfo?.securityPatchLevel
             )
 
-            ActiveSlotsCard(
-                modifier = Modifier.padding(bottom = 10.dp),
-                activeSlotIsA = deviceInfo?.currentSlot?.contains("A", ignoreCase = true) == true,
-                activeSlotIsB = deviceInfo?.currentSlot?.contains("B", ignoreCase = true) == true
-            )
+            FlexBox(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 10.dp),
+                config = {
+                    direction(FlexDirection.Row)
+                    wrap(FlexWrap.Wrap)
+                    gap(10.dp)
+                    alignItems(FlexAlignItems.Stretch)
+                }
+            ) {
+                ActiveSlotsCard(
+                    modifier = Modifier.flex { grow(1f) },
+                    activeSlotIsA = deviceInfo?.currentSlot?.contains(
+                        other = "A",
+                        ignoreCase = true
+                    ) == true,
+                    activeSlotIsB = deviceInfo?.currentSlot?.contains(
+                        other = "B",
+                        ignoreCase = true
+                    ) == true
+                )
+
+                UnlockStatusCard(
+                    modifier = Modifier.flex { grow(1f) },
+                    isUnlocked = deviceInfo?.isUnlocked
+                )
+            }
 
             DeviceInfoSection(
                 deviceInfo = deviceInfo,
@@ -322,142 +348,6 @@ fun FastbootScreen(
             onCancel = { viewModel.cancelFlashOperation() },
             onDismiss = { viewModel.resetFlashOperation() }
         )
-    }
-}
-
-@Composable
-private fun ConnectedDeviceCard(
-    modifier: Modifier = Modifier,
-    isConnected: Boolean,
-    deviceName: String?
-) {
-    CustomCard(
-        modifier = modifier,
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.run {
-                if (isConnected) primaryContainer else errorContainer
-            },
-            contentColor = MaterialTheme.colorScheme.run {
-                if (isConnected) onPrimaryContainer else onErrorContainer
-            },
-        )
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(15.dp),
-            horizontalArrangement = Arrangement.spacedBy(15.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                modifier = Modifier
-                    .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.run {
-                        if (isConnected) primary else error
-                    }),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    modifier = Modifier.padding(15.dp),
-                    painter = if (isConnected) painterResource(R.drawable.ic_check_circle)
-                    else painterResource(R.drawable.ic_cancel),
-                    tint = MaterialTheme.colorScheme.run {
-                        if (isConnected) onPrimary else onError
-                    },
-                    contentDescription = null
-                )
-            }
-
-            Column(
-                modifier = Modifier
-                    .weight(1f, fill = false)
-                    .fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(7.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.connected_device),
-                    style = MaterialTheme.typography.titleMediumEmphasized
-                )
-
-                Text(
-                    text = if (isConnected && deviceName != null) deviceName else stringResource(R.string.no_device_connected),
-                    style = MaterialTheme.typography.bodySmall
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun ActiveSlotsCard(
-    modifier: Modifier = Modifier,
-    activeSlotIsA: Boolean = false,
-    activeSlotIsB: Boolean = false
-) {
-    val activeSlotContainerColor = MaterialTheme.colorScheme.primary
-    val activeSlotContentColor = MaterialTheme.colorScheme.onPrimary
-    val inActiveSlotContainerColor = MaterialTheme.colorScheme.surfaceContainerHighest
-    val inActiveSlotContentColor = MaterialTheme.colorScheme.onSurfaceVariant
-
-    CustomCard(
-        modifier = modifier,
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer)
-    ) {
-        Column(
-            modifier = Modifier.padding(20.dp),
-            verticalArrangement = Arrangement.spacedBy(15.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            AutoResizeableText(
-                modifier = Modifier.alpha(0.9f),
-                text = stringResource(R.string.active_slot),
-                style = MaterialTheme.typography.titleMediumEmphasized
-            )
-
-            if (activeSlotIsA || activeSlotIsB) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(15.dp)
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(16.dp))
-                            .background(if (activeSlotIsA) activeSlotContainerColor else inActiveSlotContainerColor),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            modifier = Modifier.padding(horizontal = 20.dp, vertical = 15.dp),
-                            text = "A",
-                            style = MaterialTheme.typography.displaySmallEmphasized,
-                            fontWeight = FontWeight.Bold,
-                            color = if (activeSlotIsA) activeSlotContentColor else inActiveSlotContentColor
-                        )
-                    }
-
-                    Box(
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(16.dp))
-                            .background(if (activeSlotIsB) activeSlotContainerColor else inActiveSlotContainerColor),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            modifier = Modifier.padding(horizontal = 20.dp, vertical = 15.dp),
-                            text = "B",
-                            style = MaterialTheme.typography.displaySmallEmphasized,
-                            fontWeight = FontWeight.Bold,
-                            color = if (activeSlotIsB) activeSlotContentColor else inActiveSlotContentColor
-                        )
-                    }
-                }
-            } else {
-                Text(
-                    text = stringResource(R.string.slot_data_unknown),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.error,
-                    textAlign = TextAlign.Center
-                )
-            }
-        }
     }
 }
 
