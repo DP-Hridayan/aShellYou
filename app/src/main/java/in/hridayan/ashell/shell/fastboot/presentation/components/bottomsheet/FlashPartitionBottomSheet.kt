@@ -205,9 +205,9 @@ fun FlashPartitionBottomSheet(
                     .padding(vertical = 25.dp),
                 onClick = withHaptic { filePickerLauncher.launch(arrayOf("*/*")) },
                 onFileRemoved = withHaptic {
+                    isFlashSliderGestureConfirmed = false
                     selectedFileUri = null
                     selectedFileName = null
-                    isFlashSliderGestureConfirmed = false
                 },
                 isFileAdded = selectedFileUri != null,
                 selectedFileName = selectedFileName

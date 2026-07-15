@@ -23,6 +23,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -106,6 +107,30 @@ fun SlideToConfirm(
 
     val maxOffset = (trackWidth - thumbSizePx - (thumbPaddingPx * 2)).coerceAtLeast(0f)
     val progress = if (maxOffset > 0f) (thumbOffset / maxOffset).coerceIn(0f, 1f) else 0f
+
+    LaunchedEffect(confirmed, maxOffset) {
+        if (confirmed) thumbOffset = maxOffset
+    }
+
+    LaunchedEffect(confirmed) {
+        if (!confirmed && thumbOffset > 0f) {
+            animate(
+                initialValue = thumbOffset,
+                targetValue = 0f,
+                animationSpec = tween(durationMillis = 250)
+            ) { value, _ -> thumbOffset = value }
+        }
+    }
+
+    LaunchedEffect(enabled) {
+        if (!enabled && !confirmed && thumbOffset > 0f) {
+            animate(
+                initialValue = thumbOffset,
+                targetValue = 0f,
+                animationSpec = tween(durationMillis = 250)
+            ) { value, _ -> thumbOffset = value }
+        }
+    }
 
     val finalContainerColor = if (enabled) containerColor else disabledContainerColor
     val finalContentColor = if (enabled) contentColor else disabledContentColor
@@ -196,6 +221,8 @@ fun SlideToConfirm(
 @Composable
 private fun SlideToConfirmPreview() {
     var statusText by remember { mutableStateOf("Waiting for user...") }
+    var isConfirmed by remember { mutableStateOf(false) }
+    var isEnabled by remember { mutableStateOf(true) }
 
     Column(
         modifier = Modifier.padding(32.dp),
@@ -205,9 +232,33 @@ private fun SlideToConfirmPreview() {
         Text(text = statusText)
 
         SlideToConfirm(
+            confirmed = isConfirmed,
+            enabled = isEnabled,
             onConfirm = {
                 statusText = "Action triggered"
+                isConfirmed = true
             }
         )
+
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            androidx.compose.material3.Button(
+                onClick = {
+                    isConfirmed = false
+                    statusText = "Reset requested"
+                }
+            ) {
+                Text("Reset Slider")
+            }
+
+            androidx.compose.material3.Button(
+                onClick = { isEnabled = !isEnabled }
+            ) {
+                Text(if (isEnabled) "Disable Slider" else "Enable Slider")
+            }
+        }
     }
 }
