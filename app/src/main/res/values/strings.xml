@@ -296,6 +296,7 @@
     <string name="flash">Flash</string>
     <string name="flash_partition">Flash partition</string>
     <string name="partition">Partition</string>
+    <string name="slide_to_flash">Slide to flash</string>
     <string name="des_select_file_for_flashing">Select a boot image file to flash to the selected partition</string>
     <string name="des_warning_incorrect_file_bootloop">Proceed with caution as an incorrect image may cause a bootloop</string>
     <string name="select_partition">Select partition</string>

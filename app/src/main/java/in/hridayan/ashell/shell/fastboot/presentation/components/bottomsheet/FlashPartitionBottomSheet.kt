@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DropdownMenuItem
@@ -38,6 +37,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -48,7 +48,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.modifier.dashedBorder
+import `in`.hridayan.ashell.core.presentation.components.slidetoconfirm.SlideToConfirm
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashOperation
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashStatus
@@ -70,6 +72,8 @@ fun FlashPartitionBottomSheet(
     var showEraseConfirm by rememberSaveable { mutableStateOf(false) }
     var selectedFileUri by rememberSaveable { mutableStateOf<Uri?>(null) }
     var selectedFileName by rememberSaveable { mutableStateOf<String?>(null) }
+
+    var isFlashSliderGestureConfirmed by rememberSaveable { mutableStateOf(false) }
 
     val context = LocalContext.current
 
@@ -115,8 +119,6 @@ fun FlashPartitionBottomSheet(
         enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded)
     )
 
-    val scrollState = rememberScrollState()
-
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = sheetState,
@@ -141,7 +143,6 @@ fun FlashPartitionBottomSheet(
                 modifier = Modifier.padding(bottom = 10.dp)
             )
 
-            // Partition selector
             ExposedDropdownMenuBox(
                 expanded = dropdownExpanded,
                 onExpandedChange = { if (!isOperationRunning) dropdownExpanded = it }
@@ -201,8 +202,29 @@ fun FlashPartitionBottomSheet(
                 modifier = Modifier
                     .fillMaxWidth()
                     .heightIn(min = 200.dp)
-                    .padding(vertical = 10.dp),
-                onClick = {}
+                    .padding(vertical = 25.dp),
+                onClick = withHaptic { filePickerLauncher.launch(arrayOf("*/*")) },
+                onFileRemoved = withHaptic {
+                    selectedFileUri = null
+                    selectedFileName = null
+                },
+                isFileAdded = selectedFileUri != null,
+                selectedFileName = selectedFileName
+            )
+
+            SlideToConfirm(
+                modifier = Modifier.fillMaxWidth(),
+                onConfirm = withHaptic(HapticFeedbackType.GestureThresholdActivate) {
+                    isFlashSliderGestureConfirmed = true
+                },
+                enabled = selectedFileUri != null,
+                confirmed = isFlashSliderGestureConfirmed,
+                initialText = stringResource(R.string.slide_to_flash),
+                finalText = stringResource(R.string.flashing),
+                containerColor = MaterialTheme.colorScheme.errorContainer,
+                contentColor = MaterialTheme.colorScheme.onErrorContainer,
+                thumbContainerColor = MaterialTheme.colorScheme.error,
+                thumbContentColor = MaterialTheme.colorScheme.onError,
             )
         }
     }
@@ -221,6 +243,7 @@ private fun ChooseFileHintBox(
     isFileAdded: Boolean = false,
     cornerRadius: Dp = 24.dp,
     onClick: () -> Unit = {},
+    onFileRemoved: () -> Unit = {}
 ) {
     Column(
         modifier = modifier
@@ -231,7 +254,7 @@ private fun ChooseFileHintBox(
                 strokeWidth = 2.dp,
                 cornerRadius = cornerRadius
             )
-            .clickable(enabled = true, onClick = onClick),
+            .clickable(enabled = !isFileAdded, onClick = onClick),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
@@ -250,13 +273,31 @@ private fun ChooseFileHintBox(
                 tint = MaterialTheme.colorScheme.onSurface,
                 contentDescription = null
             )
+
+            if (isFileAdded)
+                Box(
+                    modifier = Modifier
+                        .padding(5.dp)
+                        .size(24.dp)
+                        .clip(CircleShape)
+                        .align(Alignment.TopEnd)
+                        .background(MaterialTheme.colorScheme.error)
+                        .clickable(enabled = true, onClick = onFileRemoved)
+                ) {
+                    Icon(
+                        modifier = Modifier.padding(3.dp),
+                        painter = painterResource(R.drawable.ic_cross),
+                        tint = MaterialTheme.colorScheme.onError,
+                        contentDescription = null
+                    )
+                }
         }
 
         if (isFileAdded && selectedFileName != null) {
             Text(
                 modifier = Modifier.padding(horizontal = 20.dp),
                 text = selectedFileName,
-                style = MaterialTheme.typography.titleLargeEmphasized,
+                style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Center
             )

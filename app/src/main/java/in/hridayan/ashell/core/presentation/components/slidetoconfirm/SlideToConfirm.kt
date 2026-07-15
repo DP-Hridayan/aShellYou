@@ -21,6 +21,7 @@ import androidx.compose.material.icons.rounded.DoubleArrow
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -34,6 +35,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
@@ -54,33 +56,47 @@ fun SlideToConfirm(
     finalText: String = "Confirmed",
     trackHeight: Dp = 64.dp,
     thumbPadding: Dp = 6.dp,
+    confirmed: Boolean = false,
+    enabled: Boolean = true,
     containerColor: Color = MaterialTheme.colorScheme.primaryContainer,
     contentColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
     thumbContainerColor: Color = MaterialTheme.colorScheme.primary,
-    thumbContentColor: Color = MaterialTheme.colorScheme.onPrimary
+    thumbContentColor: Color = MaterialTheme.colorScheme.onPrimary,
+    disabledAlpha: Float = 0.38f,
+    disabledContainerColor: Color = MaterialTheme.colorScheme.surfaceVariant
+        .copy(alpha = disabledAlpha)
+        .compositeOver(containerColor),
+    disabledContentColor: Color = contentColorFor(disabledContainerColor).copy(alpha = disabledAlpha),
+    disabledThumbContainerColor: Color = MaterialTheme.colorScheme.inverseSurface
+        .copy(alpha = disabledAlpha)
+        .compositeOver(containerColor),
+    disabledThumbContentColor: Color = contentColorFor(disabledThumbContainerColor).copy(alpha = disabledAlpha)
 ) {
-    val coroutineScope = rememberCoroutineScope()
-    var trackWidth by remember { mutableFloatStateOf(0f) }
-    var thumbOffset by remember { mutableFloatStateOf(0f) }
-    var isConfirmed by remember { mutableStateOf(false) }
-
     val density = LocalDensity.current
 
-    val trackHeightPx = with(density) { trackHeight.toPx() }
-    val thumbPaddingPx = with(density) { thumbPadding.toPx() }
+    val coroutineScope = rememberCoroutineScope()
 
+    var trackWidth by remember { mutableFloatStateOf(0f) }
+    var thumbOffset by remember { mutableFloatStateOf(0f) }
+
+    val thumbPaddingPx = with(density) { thumbPadding.toPx() }
     val thumbSize = trackHeight - (thumbPadding * 2)
     val thumbSizePx = with(density) { thumbSize.toPx() }
 
     val maxOffset = (trackWidth - thumbSizePx - (thumbPaddingPx * 2)).coerceAtLeast(0f)
     val progress = if (maxOffset > 0f) (thumbOffset / maxOffset).coerceIn(0f, 1f) else 0f
 
+    val finalContainerColor = if (enabled) containerColor else disabledContainerColor
+    val finalContentColor = if (enabled) contentColor else disabledContentColor
+    val finalThumbContainerColor = if (enabled) thumbContainerColor else disabledThumbContainerColor
+    val finalThumbContentColor = if (enabled) thumbContentColor else disabledThumbContentColor
+
     Box(
         modifier = modifier
             .fillMaxWidth()
             .height(trackHeight)
             .clip(RoundedCornerShape(50))
-            .background(containerColor)
+            .background(finalContainerColor)
             .onSizeChanged { trackWidth = it.width.toFloat() }
     ) {
         if (progress > 0f) {
@@ -104,13 +120,13 @@ fun SlideToConfirm(
         }
 
         Text(
-            text = if (isConfirmed) finalText else initialText,
+            text = if (confirmed) finalText else initialText,
             fontSize = 14.sp,
             fontWeight = FontWeight.Bold,
-            color = contentColor,
+            color = finalContentColor,
             modifier = Modifier
                 .align(Alignment.Center)
-                .alpha(if (isConfirmed) 1f else 1f - progress)
+                .alpha(if (confirmed) 1f else 1f - progress)
         )
 
         Box(
@@ -118,14 +134,13 @@ fun SlideToConfirm(
                 .align(Alignment.CenterStart)
                 .offset { IntOffset((thumbOffset + thumbPaddingPx).roundToInt(), 0) }
                 .size(thumbSize)
-                .background(thumbContainerColor, CircleShape)
-                .pointerInput(isConfirmed) {
-                    if (isConfirmed) return@pointerInput
+                .background(finalThumbContainerColor, CircleShape)
+                .pointerInput(confirmed, enabled) {
+                    if (confirmed || !enabled) return@pointerInput
 
                     detectHorizontalDragGestures(
                         onDragEnd = {
-                            if (thumbOffset >= maxOffset * 0.85f) {
-                                isConfirmed = true
+                            if (enabled && thumbOffset >= maxOffset * 0.85f) {
                                 thumbOffset = maxOffset
                                 onConfirm()
                             } else {
@@ -147,9 +162,9 @@ fun SlideToConfirm(
             contentAlignment = Alignment.Center
         ) {
             Icon(
-                imageVector = if (isConfirmed) Icons.Rounded.Check else Icons.Rounded.DoubleArrow,
+                imageVector = if (confirmed) Icons.Rounded.Check else Icons.Rounded.DoubleArrow,
                 contentDescription = "Slide to confirm",
-                tint = thumbContentColor
+                tint = finalThumbContentColor
             )
         }
     }
@@ -158,7 +173,7 @@ fun SlideToConfirm(
 
 @Preview(showBackground = true)
 @Composable
-fun SlideToConfirmPreview() {
+private fun SlideToConfirmPreview() {
     var statusText by remember { mutableStateOf("Waiting for user...") }
 
     Column(
