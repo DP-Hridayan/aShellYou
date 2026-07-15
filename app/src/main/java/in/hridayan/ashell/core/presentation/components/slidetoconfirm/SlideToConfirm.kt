@@ -48,6 +48,27 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
+/**
+ * A "slide to unlock" style button for high-stakes user confirmations.
+ *
+ * @param modifier The modifier to be applied to the layout.
+ * @param onConfirm Callback triggered when the slider reaches the end.
+ * @param initialText Text displayed in the track before confirmation.
+ * @param finalText Text displayed in the track once [confirmed] is true.
+ * @param trackHeight The total height of the slider track.
+ * @param thumbPadding Spacing between the track edge and the sliding thumb.
+ * @param confirmed Whether the action has been completed. Locks the slider and changes the icon.
+ * @param enabled Whether the component is interactive.
+ * @param containerColor Background color of the slider track.
+ * @param contentColor Color of the track text.
+ * @param thumbContainerColor Background color of the sliding thumb.
+ * @param thumbContentColor Color of the icon inside the thumb.
+ * @param disabledAlpha Alpha value applied to colors when [enabled] is false.
+ * @param disabledContainerColor Track color when disabled.
+ * @param disabledContentColor Text color when disabled.
+ * @param disabledThumbContainerColor Thumb color when disabled.
+ * @param disabledThumbContentColor Thumb icon color when disabled.
+ */
 @Composable
 fun SlideToConfirm(
     modifier: Modifier = Modifier,
