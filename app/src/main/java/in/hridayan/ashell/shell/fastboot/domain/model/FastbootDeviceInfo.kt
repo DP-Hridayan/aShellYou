@@ -8,7 +8,9 @@ data class FastbootDeviceInfo(
     val basebandVersion: String? = null,
     val isUnlocked: Boolean? = null,
     val currentSlot: String? = null,
-    val batteryLevel: String? = null,
+    val batteryLevel: Int? = null,
+    val batteryVoltage: String? = null,
+    val batterySocOk: String? = null,
     val maxDownloadSize: String? = null,
     val securityPatchLevel: String? = null
 )

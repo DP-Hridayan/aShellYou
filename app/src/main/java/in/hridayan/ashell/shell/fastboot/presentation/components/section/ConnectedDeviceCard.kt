@@ -7,11 +7,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -31,6 +30,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.presentation.battery.BatteryIndicator
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.divider.WavyHorizontalDivider
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -45,7 +45,8 @@ fun ConnectedDeviceCard(
     variant: String?,
     bootloaderVersion: String?,
     basebandVersion: String?,
-    securityPatch: String?
+    securityPatch: String?,
+    batteryLevel: Int?
 ) {
     var isExpanded by rememberSaveable { mutableStateOf(false) }
     val rotateAngle by animateFloatAsState(if (isExpanded) 180f else 0f)
@@ -62,7 +63,8 @@ fun ConnectedDeviceCard(
         ),
         onClick = withHaptic(HapticFeedbackType.VirtualKey) {
             isExpanded = !isExpanded
-        }
+        },
+        pressedScale = 1f
     ) {
         Column(
             modifier = Modifier
@@ -120,6 +122,10 @@ fun ConnectedDeviceCard(
                     painter = painterResource(R.drawable.ic_expand),
                     contentDescription = null
                 )
+
+                batteryLevel?.let {
+                    BatteryIndicator(level = it)
+                }
             }
         }
 
@@ -184,9 +190,20 @@ private fun SpecificationText(
     spec: String,
     value: String?
 ) {
-    Text(
+    Row(
         modifier = modifier,
-        text = "$spec : $value",
-        style = MaterialTheme.typography.bodySmall
-    )
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = "$spec : ",
+            style = MaterialTheme.typography.bodySmall
+        )
+
+        SelectionContainer {
+            Text(
+                text = "$value",
+                style = MaterialTheme.typography.bodySmall
+            )
+        }
+    }
 }

@@ -47,6 +47,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
@@ -64,15 +65,15 @@ import `in`.hridayan.ashell.core.presentation.theme.Dimens
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootState
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashStatus
 import `in`.hridayan.ashell.shell.fastboot.domain.model.RebootMode
+import `in`.hridayan.ashell.shell.fastboot.presentation.components.bottomsheet.FlashPartitionBottomSheet
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog.FastbootDeviceWaitingDialog
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog.FastbootFlashProgressDialog
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog.FastbootRebootConfirmDialog
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.ActiveSlotsCard
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.CommandConsoleSection
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.ConnectedDeviceCard
-import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.DeviceInfoSection
+import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.FastbootQuickToolsCard
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.PartitionOperationsSection
-import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.QuickActionsSection
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.UnlockStatusCard
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.VariableExplorerSection
 import `in`.hridayan.ashell.shell.fastboot.presentation.viewmodel.FastbootViewModel
@@ -94,6 +95,7 @@ fun FastbootScreen(
     var showDeviceWaitingDialog by rememberSaveable { mutableStateOf(false) }
     var showRebootConfirmDialog by rememberSaveable { mutableStateOf(false) }
     var pendingRebootMode by rememberSaveable { mutableStateOf<RebootMode?>(null) }
+    var showFlashPartitionBottomSheet by rememberSaveable { mutableStateOf(false) }
 
     /**
      * Similar to OTG screen's dirty hack for properly syncing states after reconnection.
@@ -242,13 +244,14 @@ fun FastbootScreen(
                 variant = deviceInfo?.variant,
                 bootloaderVersion = deviceInfo?.bootloaderVersion,
                 basebandVersion = deviceInfo?.basebandVersion,
-                securityPatch = deviceInfo?.securityPatchLevel
+                securityPatch = deviceInfo?.securityPatchLevel,
+                batteryLevel = deviceInfo?.batteryLevel
             )
 
             FlexBox(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 10.dp),
+                    .padding(bottom = 25.dp),
                 config = {
                     direction(FlexDirection.Row)
                     wrap(FlexWrap.Wrap)
@@ -274,20 +277,77 @@ fun FastbootScreen(
                 )
             }
 
-            DeviceInfoSection(
-                deviceInfo = deviceInfo,
-                isLoading = isLoadingDeviceInfo,
-                onRefresh = { viewModel.loadDeviceInfo() },
-                isConnected = isConnected
+            AutoResizeableText(
+                modifier = Modifier.padding(bottom = 10.dp, start = 5.dp, end = 5.dp),
+                text = stringResource(R.string.quick_tools),
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.primary
             )
 
-            QuickActionsSection(
-                isConnected = isConnected,
-                onReboot = { mode ->
-                    pendingRebootMode = mode
-                    showRebootConfirmDialog = true
+            FlexBox(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 10.dp),
+                config = {
+                    direction(FlexDirection.Row)
+                    wrap(FlexWrap.Wrap)
+                    gap(10.dp)
+                    alignItems(FlexAlignItems.Stretch)
                 }
-            )
+            ) {
+                FastbootQuickToolsCard(
+                    modifier = Modifier.flex { grow(1f) },
+                    title = stringResource(R.string.flash),
+                    painter = painterResource(R.drawable.ic_bolt),
+                    enabled = isConnected,
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.errorContainer,
+                        contentColor = MaterialTheme.colorScheme.onErrorContainer
+                    ),
+                    onClick = { showFlashPartitionBottomSheet = true }
+                )
+
+                FastbootQuickToolsCard(
+                    modifier = Modifier.flex { grow(1f) },
+                    title = stringResource(R.string.get_variables),
+                    painter = painterResource(R.drawable.ic_list_alt),
+                    enabled = isConnected,
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceContainer,
+                        contentColor = MaterialTheme.colorScheme.onSurface
+                    )
+                )
+
+                FastbootQuickToolsCard(
+                    modifier = Modifier.flex { grow(1f) },
+                    title = stringResource(R.string.wipe_data),
+                    painter = painterResource(R.drawable.ic_delete_sweep),
+                    enabled = isConnected,
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.errorContainer,
+                        contentColor = MaterialTheme.colorScheme.onErrorContainer
+                    )
+                )
+
+                FastbootQuickToolsCard(
+                    modifier = Modifier.flex { grow(1f) },
+                    title = stringResource(R.string.reboot_options),
+                    painter = painterResource(R.drawable.ic_settings_backup_restore),
+                    enabled = isConnected,
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                )
+            }
+
+            /* QuickActionsSection(
+                 isConnected = isConnected,
+                 onReboot = { mode ->
+                     pendingRebootMode = mode
+                     showRebootConfirmDialog = true
+                 }
+             )*/
 
             PartitionOperationsSection(
                 isConnected = isConnected,
@@ -347,6 +407,18 @@ fun FastbootScreen(
             operation = flashOperation,
             onCancel = { viewModel.cancelFlashOperation() },
             onDismiss = { viewModel.resetFlashOperation() }
+        )
+    }
+
+    if (showFlashPartitionBottomSheet) {
+        FlashPartitionBottomSheet(
+            onDismiss = { showFlashPartitionBottomSheet = false },
+            isConnected = isConnected,
+            flashOperation = flashOperation,
+            onFlash = { partition, uri -> viewModel.flashPartition(partition, uri) },
+            onErase = { partition -> viewModel.erasePartition(partition) },
+            onBootImage = { uri -> viewModel.bootImage(uri) },
+            onResetOperation = { viewModel.resetFlashOperation() }
         )
     }
 }

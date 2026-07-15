@@ -539,7 +539,9 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
                     basebandVersion = queryVar("version-baseband"),
                     isUnlocked = queryVar("unlocked")?.let { it == "yes" || it == "true" },
                     currentSlot = queryVar("current-slot"),
-                    batteryLevel = queryVar("battery-voltage") ?: queryVar("battery-soc-ok"),
+                    batteryLevel = queryVar("battery-level")?.toIntOrNull(),
+                    batteryVoltage = queryVar("battery-voltage"),
+                    batterySocOk = queryVar("battery-soc-ok"),
                     maxDownloadSize = queryVar("max-download-size"),
                     securityPatchLevel = queryVar("security-patch-level")
                 )
