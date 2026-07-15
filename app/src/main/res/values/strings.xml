@@ -284,6 +284,16 @@
     <string name="fastboot_summary">Connect to a device in fastboot mode via OTG</string>
     <string name="fastboot_variable_explorer">Variable Explorer</string>
     <string name="fb_all_operations_cancelled">All operations cancelled</string>
+    <string name="wipe_data_description">Erase partitions on your device. Select which partition to wipe.</string>
+    <string name="wipe_warning">These operations are irreversible. Proceed with caution.</string>
+    <string name="wipe_userdata_title">Erase Userdata</string>
+    <string name="wipe_userdata_desc">fastboot erase userdata</string>
+    <string name="wipe_cache_title">Erase Cache</string>
+    <string name="wipe_cache_desc">fastboot erase cache</string>
+    <string name="wipe_metadata_title">Erase Metadata</string>
+    <string name="wipe_metadata_desc">fastboot erase metadata</string>
+    <string name="erase_confirm_title">Erase %1$s?</string>
+    <string name="erase_confirm_message">This will permanently erase the %1$s partition. This action cannot be undone.</string>
     <string name="fb_cannot_paste_into_selected">Cannot paste into selected folder</string>
     <string name="fb_create_folder_failed" comment="%1$s = error message. fb_ prefix = file browser">Failed to create folder: %1$s</string>
     <string name="fb_delete_failed" comment="%1$s = error message">Delete failed: %1$s</string>

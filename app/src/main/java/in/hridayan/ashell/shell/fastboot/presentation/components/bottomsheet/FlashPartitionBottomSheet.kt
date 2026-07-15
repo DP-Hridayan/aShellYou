@@ -8,24 +8,40 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Error
+import androidx.compose.material.icons.filled.FlashOn
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalBottomSheetProperties
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
@@ -46,6 +62,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.R
@@ -65,6 +82,7 @@ fun FlashPartitionBottomSheet(
     onErase: (partition: String) -> Unit,
     onBootImage: (uri: Uri) -> Unit,
     onResetOperation: () -> Unit,
+    onCancel: () -> Unit
 ) {
 
     var selectedPartition by rememberSaveable { mutableStateOf("boot") }
@@ -81,8 +99,20 @@ fun FlashPartitionBottomSheet(
     val isOperationRunning = flashOperation.status in listOf(
         FlashStatus.READING_FILE, FlashStatus.DOWNLOADING, FlashStatus.FLASHING, FlashStatus.ERASING
     )
+    val isOperationFinished = flashOperation.status in listOf(
+        FlashStatus.COMPLETE, FlashStatus.ERROR
+    )
 
     val targetPartition = customPartition.ifBlank { selectedPartition }
+
+    // Trigger flash when slider is confirmed
+    androidx.compose.runtime.LaunchedEffect(isFlashSliderGestureConfirmed) {
+        if (isFlashSliderGestureConfirmed) {
+            selectedFileUri?.let { uri ->
+                onFlash(targetPartition, uri)
+            }
+        }
+    }
 
     // File picker — resolve real file name via ContentResolver
     val filePickerLauncher = rememberLauncherForActivityResult(
@@ -121,11 +151,13 @@ fun FlashPartitionBottomSheet(
     )
 
     ModalBottomSheet(
-        onDismissRequest = onDismiss,
+        onDismissRequest = {
+            if (!isOperationRunning) onDismiss()
+        },
         sheetState = sheetState,
-        sheetGesturesEnabled = false,
+        sheetGesturesEnabled = !isOperationRunning,
         dragHandle = null,
-        properties = ModalBottomSheetProperties(shouldDismissOnClickOutside = false)
+        properties = ModalBottomSheetProperties(shouldDismissOnClickOutside = !isOperationRunning)
     ) {
         Column(
             modifier = Modifier
@@ -138,6 +170,7 @@ fun FlashPartitionBottomSheet(
                 modifier = Modifier.padding(bottom = 24.dp)
             )
 
+            // Partition selector — always visible
             AutoResizeableText(
                 stringResource(R.string.partition),
                 style = MaterialTheme.typography.labelLarge,
@@ -147,14 +180,14 @@ fun FlashPartitionBottomSheet(
 
             ExposedDropdownMenuBox(
                 expanded = dropdownExpanded,
-                onExpandedChange = { if (!isOperationRunning) dropdownExpanded = it }
+                onExpandedChange = { if (!isOperationRunning && !isOperationFinished) dropdownExpanded = it }
             ) {
                 OutlinedTextField(
                     value = customPartition.ifBlank { selectedPartition },
                     onValueChange = { customPartition = it },
                     label = { Text("Partition") },
                     readOnly = customPartition.isBlank(),
-                    enabled = !isOperationRunning,
+                    enabled = !isOperationRunning && !isOperationFinished,
                     singleLine = true,
                     trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = dropdownExpanded) },
                     modifier = Modifier
@@ -200,35 +233,49 @@ fun FlashPartitionBottomSheet(
                 }
             }
 
-            ChooseFileHintBox(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .heightIn(min = 200.dp)
-                    .padding(vertical = 25.dp),
-                onClick = withHaptic { filePickerLauncher.launch(arrayOf("*/*")) },
-                onFileRemoved = withHaptic {
-                    isFlashSliderGestureConfirmed = false
-                    selectedFileUri = null
-                    selectedFileName = null
-                },
-                isFileAdded = selectedFileUri != null,
-                selectedFileName = selectedFileName
-            )
+            // Conditional content: file picker + slide OR flashing progress
+            if (isOperationRunning || isOperationFinished) {
+                // Flashing progress UI
+                FlashingProgressContent(
+                    operation = flashOperation,
+                    onCancel = onCancel,
+                    onDismiss = {
+                        onResetOperation()
+                        isFlashSliderGestureConfirmed = false
+                    }
+                )
+            } else {
+                // File picker + slide to flash
+                ChooseFileHintBox(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(min = 200.dp)
+                        .padding(vertical = 25.dp),
+                    onClick = withHaptic { filePickerLauncher.launch(arrayOf("*/*")) },
+                    onFileRemoved = withHaptic {
+                        isFlashSliderGestureConfirmed = false
+                        selectedFileUri = null
+                        selectedFileName = null
+                    },
+                    isFileAdded = selectedFileUri != null,
+                    selectedFileName = selectedFileName
+                )
 
-            SlideToConfirm(
-                modifier = Modifier.fillMaxWidth(),
-                onConfirm = withHaptic(HapticFeedbackType.GestureThresholdActivate) {
-                    isFlashSliderGestureConfirmed = true
-                },
-                enabled = selectedFileUri != null,
-                confirmed = isFlashSliderGestureConfirmed,
-                initialText = stringResource(R.string.slide_to_flash),
-                finalText = stringResource(R.string.flashing),
-                containerColor = MaterialTheme.colorScheme.errorContainer,
-                contentColor = MaterialTheme.colorScheme.onErrorContainer,
-                thumbContainerColor = MaterialTheme.colorScheme.error,
-                thumbContentColor = MaterialTheme.colorScheme.onError,
-            )
+                SlideToConfirm(
+                    modifier = Modifier.fillMaxWidth(),
+                    onConfirm = withHaptic(HapticFeedbackType.GestureThresholdActivate) {
+                        isFlashSliderGestureConfirmed = true
+                    },
+                    enabled = selectedFileUri != null,
+                    confirmed = isFlashSliderGestureConfirmed,
+                    initialText = stringResource(R.string.slide_to_flash),
+                    finalText = stringResource(R.string.flashing),
+                    containerColor = MaterialTheme.colorScheme.errorContainer,
+                    contentColor = MaterialTheme.colorScheme.onErrorContainer,
+                    thumbContainerColor = MaterialTheme.colorScheme.error,
+                    thumbContentColor = MaterialTheme.colorScheme.onError,
+                )
+            }
         }
     }
 }
@@ -312,6 +359,158 @@ private fun ChooseFileHintBox(
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.75f),
                 textAlign = TextAlign.Center
             )
+        }
+    }
+}
+
+@Composable
+private fun FlashingProgressContent(
+    operation: FlashOperation,
+    onCancel: () -> Unit,
+    onDismiss: () -> Unit
+) {
+    val isActive = operation.status in listOf(
+        FlashStatus.READING_FILE, FlashStatus.DOWNLOADING,
+        FlashStatus.FLASHING, FlashStatus.ERASING, FlashStatus.CANCELLING
+    )
+    val isFinished = operation.status in listOf(FlashStatus.COMPLETE, FlashStatus.ERROR)
+
+    val animatedProgress by animateFloatAsState(
+        targetValue = operation.progress,
+        animationSpec = tween(300),
+        label = "progress"
+    )
+
+    val statusColor by animateColorAsState(
+        targetValue = when (operation.status) {
+            FlashStatus.ERROR -> MaterialTheme.colorScheme.error
+            FlashStatus.COMPLETE -> MaterialTheme.colorScheme.tertiary
+            else -> MaterialTheme.colorScheme.primary
+        },
+        label = "statusColor"
+    )
+
+    val statusIcon = when (operation.status) {
+        FlashStatus.COMPLETE -> Icons.Default.CheckCircle
+        FlashStatus.ERROR -> Icons.Default.Error
+        else -> Icons.Default.FlashOn
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 32.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        // Status icon
+        Icon(
+            imageVector = statusIcon,
+            contentDescription = null,
+            tint = statusColor,
+            modifier = Modifier.size(48.dp)
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // File name
+        if (operation.fileName.isNotBlank()) {
+            Text(
+                text = operation.fileName,
+                style = MaterialTheme.typography.titleMedium.copy(
+                    fontWeight = FontWeight.SemiBold
+                ),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+        }
+
+        // Status message
+        if (operation.message.isNotBlank()) {
+            Text(
+                text = operation.message,
+                style = MaterialTheme.typography.bodySmall.copy(
+                    fontFamily = FontFamily.Monospace
+                ),
+                color = statusColor,
+                textAlign = TextAlign.Center
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+
+        // Progress bar
+        if (isActive) {
+            if (operation.progress > 0f) {
+                LinearProgressIndicator(
+                    progress = { animatedProgress },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(8.dp)
+                        .clip(RoundedCornerShape(4.dp)),
+                    color = statusColor,
+                    trackColor = statusColor.copy(alpha = 0.15f),
+                )
+
+                Text(
+                    text = "${(operation.progress * 100).toInt()}%",
+                    style = MaterialTheme.typography.labelMedium,
+                    fontFamily = FontFamily.Monospace,
+                    color = statusColor,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+            } else {
+                LinearProgressIndicator(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(8.dp)
+                        .clip(RoundedCornerShape(4.dp)),
+                    color = statusColor,
+                    trackColor = statusColor.copy(alpha = 0.15f),
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        // Buttons
+        if (isActive) {
+            OutlinedButton(
+                onClick = onCancel,
+                colors = ButtonDefaults.outlinedButtonColors(
+                    contentColor = MaterialTheme.colorScheme.error
+                ),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Icon(
+                    Icons.Default.Close,
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp)
+                )
+                Spacer(modifier = Modifier.width(6.dp))
+                Text(stringResource(R.string.cancel))
+            }
+        }
+
+        if (isFinished) {
+            Button(
+                onClick = onDismiss,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (operation.status == FlashStatus.COMPLETE)
+                        MaterialTheme.colorScheme.tertiary
+                    else
+                        MaterialTheme.colorScheme.error
+                ),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    if (operation.status == FlashStatus.COMPLETE)
+                        stringResource(R.string.done)
+                    else
+                        stringResource(R.string.close)
+                )
+            }
         }
     }
 }

@@ -63,19 +63,15 @@ import `in`.hridayan.ashell.core.presentation.components.navigation.FloatingNavP
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootState
-import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashStatus
-import `in`.hridayan.ashell.shell.fastboot.domain.model.RebootMode
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.bottomsheet.FlashPartitionBottomSheet
+import `in`.hridayan.ashell.shell.fastboot.presentation.components.bottomsheet.GetVariablesBottomSheet
+import `in`.hridayan.ashell.shell.fastboot.presentation.components.bottomsheet.WipeDataBottomSheet
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog.FastbootDeviceWaitingDialog
-import `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog.FastbootFlashProgressDialog
-import `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog.FastbootRebootConfirmDialog
+import `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog.FastbootRebootOptionsDialog
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.ActiveSlotsCard
-import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.CommandConsoleSection
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.ConnectedDeviceCard
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.FastbootQuickToolsCard
-import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.PartitionOperationsSection
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.UnlockStatusCard
-import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.VariableExplorerSection
 import `in`.hridayan.ashell.shell.fastboot.presentation.viewmodel.FastbootViewModel
 
 @Composable
@@ -93,9 +89,10 @@ fun FastbootScreen(
 
     val isConnected = fastbootState is FastbootState.Connected
     var showDeviceWaitingDialog by rememberSaveable { mutableStateOf(false) }
-    var showRebootConfirmDialog by rememberSaveable { mutableStateOf(false) }
-    var pendingRebootMode by rememberSaveable { mutableStateOf<RebootMode?>(null) }
     var showFlashPartitionBottomSheet by rememberSaveable { mutableStateOf(false) }
+    var showGetVariablesBottomSheet by rememberSaveable { mutableStateOf(false) }
+    var showWipeDataBottomSheet by rememberSaveable { mutableStateOf(false) }
+    var showRebootOptionsDialog by rememberSaveable { mutableStateOf(false) }
 
     /**
      * Similar to OTG screen's dirty hack for properly syncing states after reconnection.
@@ -315,7 +312,8 @@ fun FastbootScreen(
                     colors = CardDefaults.cardColors(
                         containerColor = MaterialTheme.colorScheme.surfaceContainer,
                         contentColor = MaterialTheme.colorScheme.onSurface
-                    )
+                    ),
+                    onClick = { showGetVariablesBottomSheet = true }
                 )
 
                 FastbootQuickToolsCard(
@@ -326,7 +324,8 @@ fun FastbootScreen(
                     colors = CardDefaults.cardColors(
                         containerColor = MaterialTheme.colorScheme.errorContainer,
                         contentColor = MaterialTheme.colorScheme.onErrorContainer
-                    )
+                    ),
+                    onClick = { showWipeDataBottomSheet = true }
                 )
 
                 FastbootQuickToolsCard(
@@ -337,7 +336,8 @@ fun FastbootScreen(
                     colors = CardDefaults.cardColors(
                         containerColor = MaterialTheme.colorScheme.primaryContainer,
                         contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                    )
+                    ),
+                    onClick = { showRebootOptionsDialog = true }
                 )
             }
 
@@ -348,29 +348,6 @@ fun FastbootScreen(
                      showRebootConfirmDialog = true
                  }
              )*/
-
-            PartitionOperationsSection(
-                isConnected = isConnected,
-                flashOperation = flashOperation,
-                onFlash = { partition, uri -> viewModel.flashPartition(partition, uri) },
-                onErase = { partition -> viewModel.erasePartition(partition) },
-                onBootImage = { uri -> viewModel.bootImage(uri) },
-                onResetOperation = { viewModel.resetFlashOperation() }
-            )
-
-            VariableExplorerSection(
-                variables = variables,
-                isLoading = isLoadingVariables,
-                onRefresh = { viewModel.loadAllVariables() },
-                isConnected = isConnected
-            )
-
-            CommandConsoleSection(
-                commandHistory = commandHistory,
-                onSendCommand = { viewModel.sendCommand(it) },
-                onClearHistory = { viewModel.clearHistory() },
-                isConnected = isConnected
-            )
         }
     }
 
@@ -386,27 +363,10 @@ fun FastbootScreen(
         )
     }
 
-    if (showRebootConfirmDialog && pendingRebootMode != null) {
-        FastbootRebootConfirmDialog(
-            rebootMode = pendingRebootMode!!,
-            onDismiss = {
-                showRebootConfirmDialog = false
-                pendingRebootMode = null
-            },
-            onConfirm = {
-                showRebootConfirmDialog = false
-                viewModel.reboot(pendingRebootMode!!)
-                pendingRebootMode = null
-            }
-        )
-    }
-
-    // Flash progress dialog — shown during any flash/erase/boot operation
-    if (flashOperation.status != FlashStatus.IDLE) {
-        FastbootFlashProgressDialog(
-            operation = flashOperation,
-            onCancel = { viewModel.cancelFlashOperation() },
-            onDismiss = { viewModel.resetFlashOperation() }
+    if (showRebootOptionsDialog) {
+        FastbootRebootOptionsDialog(
+            onDismiss = { showRebootOptionsDialog = false },
+            onReboot = { mode -> viewModel.reboot(mode) }
         )
     }
 
@@ -418,7 +378,24 @@ fun FastbootScreen(
             onFlash = { partition, uri -> viewModel.flashPartition(partition, uri) },
             onErase = { partition -> viewModel.erasePartition(partition) },
             onBootImage = { uri -> viewModel.bootImage(uri) },
-            onResetOperation = { viewModel.resetFlashOperation() }
+            onResetOperation = { viewModel.resetFlashOperation() },
+            onCancel = { viewModel.cancelFlashOperation() }
+        )
+    }
+
+    if (showGetVariablesBottomSheet) {
+        GetVariablesBottomSheet(
+            onDismiss = { showGetVariablesBottomSheet = false },
+            variables = variables,
+            isLoading = isLoadingVariables,
+            onRefresh = { viewModel.loadAllVariables() }
+        )
+    }
+
+    if (showWipeDataBottomSheet) {
+        WipeDataBottomSheet(
+            onDismiss = { showWipeDataBottomSheet = false },
+            onErase = { partition -> viewModel.erasePartition(partition) }
         )
     }
 }
