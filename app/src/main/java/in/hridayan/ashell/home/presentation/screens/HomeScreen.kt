@@ -22,16 +22,15 @@ import androidx.compose.foundation.layout.FlexDirection
 import androidx.compose.foundation.layout.FlexWrap
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
@@ -41,6 +40,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -56,12 +58,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -73,6 +76,8 @@ import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButt
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
+import `in`.hridayan.ashell.core.presentation.components.svg.vectors.appBranding
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
 import `in`.hridayan.ashell.core.utils.showToast
@@ -130,28 +135,51 @@ fun HomeScreen(
         }
     }
 
-    Scaffold(contentWindowInsets = WindowInsets.safeDrawing) {
+    val scrollBehavior =
+        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
+
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize(),
+        contentWindowInsets = WindowInsets.safeDrawing,
+        topBar = {
+            TopAppBar(
+                scrollBehavior = scrollBehavior,
+                title = {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(end = 15.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(20.dp)
+                    ) {
+                        Image(
+                            imageVector = DynamicColorImageVectors.appBranding(),
+                            contentDescription = null,
+                            contentScale = ContentScale.Fit
+                        )
+
+                        Spacer(
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxWidth()
+                        )
+
+                        SettingsButton(onClick = withHaptic {
+                            navController.navigate(NavRoutes.SettingsScreen())
+                        })
+                    }
+                },
+            )
+        }
+    ) {
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
+                .fillMaxWidth()
                 .padding(it)
                 .padding(Dimens.paddingExtraLarge),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 25.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(25.dp)
-            ) {
-                AppNameText(modifier = Modifier.weight(1f))
-                SettingsButton(onClick = withHaptic {
-                    navController.navigate(NavRoutes.SettingsScreen())
-                })
-            }
-
             AutoResizeableText(
                 modifier = Modifier.padding(bottom = 5.dp, start = 5.dp, end = 5.dp),
                 text = stringResource(R.string.adb),
@@ -383,8 +411,8 @@ private fun WirelessDebuggingCard(
                     icon = painterResource(R.drawable.ic_pair),
                     text = stringResource(R.string.pair),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                        containerColor = MaterialTheme.colorScheme.tertiary,
+                        contentColor = MaterialTheme.colorScheme.onTertiary
                     ),
                     contentDescription = null,
                     onClick = withHaptic {
@@ -480,7 +508,6 @@ private fun NavItemCompactCard(
                     text = title,
                     style = MaterialTheme.typography.titleMediumEmphasized,
                     fontWeight = FontWeight.SemiBold,
-                    textAlign = TextAlign.Center,
                     color = cardColors.contentColor
                 )
 
@@ -577,7 +604,6 @@ private fun NavItemCard(
                     text = title,
                     style = MaterialTheme.typography.titleMediumEmphasized,
                     fontWeight = FontWeight.SemiBold,
-                    textAlign = TextAlign.Center,
                     color = cardColors.contentColor
                 )
 
