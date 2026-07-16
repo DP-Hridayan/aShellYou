@@ -2,6 +2,7 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.about.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -36,13 +38,13 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.em
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.R
@@ -53,6 +55,8 @@ import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.shape.SineWaveShape
 import `in`.hridayan.ashell.core.presentation.components.shape.WaveEdge
+import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
+import `in`.hridayan.ashell.core.presentation.components.svg.vectors.appBranding
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.presentation.utils.syncedRotationAndScale
@@ -151,12 +155,12 @@ fun AboutScreen(
                             )
                         }
 
-                        AutoResizeableText(
-                            text = stringResource(R.string.app_name),
-                            fontWeight = FontWeight.Black,
-                            style = MaterialTheme.typography.displayLargeEmphasized.copy(
-                                letterSpacing = 0.025.em
-                            )
+                        Image(
+                            imageVector = DynamicColorImageVectors.appBranding(),
+                            modifier = Modifier
+                                .align(Alignment.CenterHorizontally),
+                            contentScale = ContentScale.Fit,
+                            contentDescription = null,
                         )
 
                         FlowRow(
