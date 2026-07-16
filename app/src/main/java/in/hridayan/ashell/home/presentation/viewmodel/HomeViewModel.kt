@@ -8,8 +8,5 @@ import javax.inject.Inject
 
 @Stable
 @HiltViewModel
-class HomeViewModel @Inject constructor(
-    private val shellRepository: ShellRepository
-) : ViewModel() {
-    fun requestRootAccess(): Boolean = shellRepository.hasRootAccess()
+class HomeViewModel @Inject constructor() : ViewModel() {
 }

@@ -110,6 +110,7 @@ fun SettingsScreen(
                 }
             },
             scrollBehavior = scrollBehavior,
+            colors = TopAppBarDefaults.topAppBarColors(scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh)
         )
     }) { innerPadding ->
         LazyColumn(

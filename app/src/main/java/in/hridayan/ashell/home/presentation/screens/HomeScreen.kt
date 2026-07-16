@@ -31,7 +31,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
@@ -51,12 +50,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
@@ -84,7 +81,6 @@ import `in`.hridayan.ashell.core.presentation.components.svg.vectors.appBranding
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.home.presentation.component.dialog.RebootOptionsDialog
-import `in`.hridayan.ashell.home.presentation.viewmodel.HomeViewModel
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.settings.data.SettingsKeys
@@ -101,7 +97,6 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbV
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel = hiltViewModel(),
     otgViewModel: OtgViewModel = hiltViewModel(),
     wifiAdbViewModel: WifiAdbViewModel = hiltViewModel(),
     fastbootViewModel: FastbootViewModel = hiltViewModel()
@@ -109,7 +104,6 @@ fun HomeScreen(
     val context = LocalContext.current
     val res = LocalResources.current
     val settings = LocalSettings.current
-    val scope = rememberCoroutineScope()
     val navController = LocalNavController.current
     val dialogManager = LocalDialogManager.current
     val otgState by otgViewModel.state.collectAsState()
@@ -140,17 +134,14 @@ fun HomeScreen(
     val scrollBehavior =
         TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
-    val scrollState = rememberScrollState()
-
     Scaffold(
-        modifier = Modifier
-            .fillMaxSize()
-            .nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = Modifier.fillMaxSize(),
         contentWindowInsets = WindowInsets.safeDrawing,
         topBar = {
             TopAppBar(
                 scrollBehavior = scrollBehavior,
                 expandedHeight = 125.dp,
+                colors = TopAppBarDefaults.topAppBarColors(scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh),
                 title = {
                     Row(
                         modifier = Modifier
@@ -244,18 +235,52 @@ fun HomeScreen(
                         start = 5.dp,
                         end = 5.dp
                     ),
-                    text = stringResource(R.string.fastboot),
+                    text = stringResource(R.string.fastboot_and_recovery),
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.primary
                 )
             }
 
             item {
-                FastbootCard(
+                FlexBox(
                     modifier = Modifier.fillMaxWidth(),
-                    onClickFastbootCard = onClickFastbootCard,
-                    fastbootState = fastbootState
+                    config = {
+                        direction(FlexDirection.Row)
+                        wrap(FlexWrap.Wrap)
+                        gap(10.dp)
+                        alignItems(FlexAlignItems.Stretch)
+                    }
+                ) {
+                    FastbootCard(
+                        modifier = Modifier.flex { grow(1f) },
+                        onClick = onClickFastbootCard,
+                        fastbootState = fastbootState
+                    )
+
+                    AdbSideloadCard(
+                        modifier = Modifier.flex { grow(1f) },
+                    )
+                }
+            }
+
+            item {
+                AutoResizeableText(
+                    modifier = Modifier.padding(
+                        top = 20.dp,
+                        bottom = 5.dp,
+                        start = 5.dp,
+                        end = 5.dp
+                    ),
+                    text = stringResource(R.string.utilities),
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.primary
                 )
+            }
+
+            item {
+                LogcatCard(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = {})
             }
 
             item {
@@ -340,16 +365,6 @@ private fun SettingsButton(
 }
 
 @Composable
-private fun AppNameText(modifier: Modifier = Modifier) {
-    Text(
-        text = stringResource(R.string.app_name),
-        style = MaterialTheme.typography.headlineLarge,
-        modifier = modifier
-            .alpha(0.9f)
-    )
-}
-
-@Composable
 private fun LocalAdbCard(
     modifier: Modifier = Modifier,
     enabledLocalAdbMode: Int = LocalAdbWorkingMode.BASIC,
@@ -386,8 +401,8 @@ private fun OtgAdbCard(
         leadingIcon = painterResource(R.drawable.ic_otg),
         badgeText = stringResource(R.string.other_device),
         onClick = onClick,
-        badgeContainerColor = MaterialTheme.colorScheme.tertiary,
-        badgeContentColor = MaterialTheme.colorScheme.onTertiary
+        iconContainerColor = MaterialTheme.colorScheme.tertiary,
+        iconContentColor = MaterialTheme.colorScheme.onTertiary
     )
 }
 
@@ -397,7 +412,6 @@ private fun WirelessDebuggingCard(
     modifier: Modifier = Modifier,
     onStartClick: () -> Unit
 ) {
-    val context = LocalContext.current
     val dialogManager = LocalDialogManager.current
 
     NavItemCard(
@@ -469,14 +483,44 @@ private fun WirelessDebuggingCard(
 private fun FastbootCard(
     modifier: Modifier = Modifier,
     fastbootState: FastbootState,
-    onClickFastbootCard: () -> Unit = {}
+    onClick: () -> Unit = {}
+) {
+    NavItemCompactCard(
+        modifier = modifier,
+        title = stringResource(R.string.fastboot),
+        leadingIcon = painterResource(R.drawable.ic_fastboot),
+        badgeText = stringResource(R.string.other_device),
+        onClick = withHaptic { onClick() }
+    )
+}
+
+@Composable
+fun AdbSideloadCard(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {}
+) {
+    NavItemCompactCard(
+        modifier = modifier,
+        title = stringResource(R.string.adb_sideload),
+        leadingIcon = painterResource(R.drawable.ic_mobile_arrow_down),
+        badgeText = stringResource(R.string.other_device),
+        iconContainerColor = MaterialTheme.colorScheme.tertiary,
+        iconContentColor = MaterialTheme.colorScheme.onTertiary,
+        onClick = withHaptic { onClick() }
+    )
+}
+
+@Composable
+fun LogcatCard(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
 ) {
     NavItemCard(
         modifier = modifier,
-        title = stringResource(R.string.fastboot),
-        description = stringResource(R.string.fastboot_summary),
-        leadingIcon = painterResource(R.drawable.ic_fastboot),
-        onClick = withHaptic { onClickFastbootCard() }
+        title = stringResource(R.string.logcat),
+        description = stringResource(R.string.des_logcat),
+        leadingIcon = painterResource(R.drawable.ic_bug),
+        onClick = withHaptic { onClick() }
     )
 }
 
@@ -493,8 +537,8 @@ private fun NavItemCompactCard(
         containerColor = MaterialTheme.colorScheme.surfaceContainer,
         contentColor = MaterialTheme.colorScheme.onSurface,
     ),
-    badgeContainerColor: Color = MaterialTheme.colorScheme.primary,
-    badgeContentColor: Color = MaterialTheme.colorScheme.onPrimary,
+    iconContainerColor: Color = MaterialTheme.colorScheme.primary,
+    iconContentColor: Color = MaterialTheme.colorScheme.onPrimary,
     badgeText: String = "",
 ) {
     CustomCard(
@@ -517,14 +561,14 @@ private fun NavItemCompactCard(
                 Box(
                     modifier = Modifier
                         .clip(CircleShape)
-                        .background(badgeContainerColor)
+                        .background(iconContainerColor)
                         .padding(5.dp),
                 ) {
                     Icon(
                         modifier = Modifier.size(20.dp),
                         painter = leadingIcon,
                         contentDescription = null,
-                        tint = badgeContentColor
+                        tint = iconContentColor
                     )
                 }
 
@@ -547,7 +591,7 @@ private fun NavItemCompactCard(
                     modifier = Modifier
                         .size(6.dp)
                         .clip(CircleShape)
-                        .background(badgeContainerColor)
+                        .background(iconContainerColor)
                 )
 
                 Text(
@@ -559,8 +603,8 @@ private fun NavItemCompactCard(
 
             Badge(
                 badgeText = badgeText,
-                badgeContainerColor = badgeContainerColor,
-                badgeContentColor = badgeContentColor
+                badgeContainerColor = iconContainerColor,
+                badgeContentColor = iconContentColor
             )
         }
     }
