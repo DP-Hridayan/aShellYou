@@ -26,9 +26,12 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
@@ -79,7 +82,6 @@ import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.appBranding
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import `in`.hridayan.ashell.core.presentation.theme.Dimens
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.home.presentation.component.dialog.RebootOptionsDialog
 import `in`.hridayan.ashell.home.presentation.viewmodel.HomeViewModel
@@ -136,15 +138,19 @@ fun HomeScreen(
     }
 
     val scrollBehavior =
-        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
+        TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+
+    val scrollState = rememberScrollState()
 
     Scaffold(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
         contentWindowInsets = WindowInsets.safeDrawing,
         topBar = {
             TopAppBar(
                 scrollBehavior = scrollBehavior,
+                expandedHeight = 125.dp,
                 title = {
                     Row(
                         modifier = Modifier
@@ -173,70 +179,88 @@ fun HomeScreen(
             )
         }
     ) {
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(it)
-                .padding(Dimens.paddingExtraLarge),
-            verticalArrangement = Arrangement.spacedBy(10.dp)
+                .padding(horizontal = 25.dp)
+                .nestedScroll(scrollBehavior.nestedScrollConnection),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+            contentPadding = it
         ) {
-            AutoResizeableText(
-                modifier = Modifier.padding(bottom = 5.dp, start = 5.dp, end = 5.dp),
-                text = stringResource(R.string.adb),
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.primary
-            )
+            item {
+                AutoResizeableText(
+                    modifier = Modifier.padding(bottom = 5.dp, start = 5.dp, end = 5.dp),
+                    text = stringResource(R.string.adb),
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
 
-            FlexBox(
-                modifier = Modifier.fillMaxWidth(),
-                config = {
-                    direction(FlexDirection.Row)
-                    wrap(FlexWrap.Wrap)
-                    gap(10.dp)
-                    alignItems(FlexAlignItems.Stretch)
-                }
-            ) {
-                LocalAdbCard(
-                    modifier = Modifier.flex { grow(1f) },
-                    enabledLocalAdbMode = localAdbWorkingMode,
-                    onClick = withHaptic {
-                        navController.navigate(NavRoutes.LocalAdbScreen)
+            item {
+                FlexBox(
+                    modifier = Modifier.fillMaxWidth(),
+                    config = {
+                        direction(FlexDirection.Row)
+                        wrap(FlexWrap.Wrap)
+                        gap(10.dp)
+                        alignItems(FlexAlignItems.Stretch)
                     }
-                )
-
-                OtgAdbCard(
-                    modifier = Modifier.flex { grow(1f) },
-                    onClick = withHaptic { onClickOtgAdbCard() },
-                    otgState = otgState
-                )
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    WirelessDebuggingCard(
-                        modifier = Modifier.fillMaxWidth(),
-                        onStartClick = withHaptic {
-                            if (savedDevices.count() == 0) {
-                                showToast(context, res.getString(R.string.pair_a_device_first))
-                                return@withHaptic
-                            }
-
-                            showSavedDevicesBottomSheet = true
+                ) {
+                    LocalAdbCard(
+                        modifier = Modifier.flex { grow(1f) },
+                        enabledLocalAdbMode = localAdbWorkingMode,
+                        onClick = withHaptic {
+                            navController.navigate(NavRoutes.LocalAdbScreen)
                         }
                     )
+
+                    OtgAdbCard(
+                        modifier = Modifier.flex { grow(1f) },
+                        onClick = withHaptic { onClickOtgAdbCard() },
+                        otgState = otgState
+                    )
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                        WirelessDebuggingCard(
+                            modifier = Modifier.fillMaxWidth(),
+                            onStartClick = withHaptic {
+                                if (savedDevices.count() == 0) {
+                                    showToast(context, res.getString(R.string.pair_a_device_first))
+                                    return@withHaptic
+                                }
+
+                                showSavedDevicesBottomSheet = true
+                            }
+                        )
+                    }
                 }
             }
 
-            AutoResizeableText(
-                modifier = Modifier.padding(top = 20.dp, bottom = 5.dp, start = 5.dp, end = 5.dp),
-                text = stringResource(R.string.fastboot),
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.primary
-            )
+            item {
+                AutoResizeableText(
+                    modifier = Modifier.padding(
+                        top = 20.dp,
+                        bottom = 5.dp,
+                        start = 5.dp,
+                        end = 5.dp
+                    ),
+                    text = stringResource(R.string.fastboot),
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
 
-            FastbootCard(
-                modifier = Modifier.fillMaxWidth(),
-                onClickFastbootCard = onClickFastbootCard,
-                fastbootState = fastbootState
-            )
+            item {
+                FastbootCard(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClickFastbootCard = onClickFastbootCard,
+                    fastbootState = fastbootState
+                )
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(30.dp))
+            }
         }
     }
 
