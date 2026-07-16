@@ -114,7 +114,7 @@ fun FastbootDeviceWaitingDialog(
                 verticalArrangement = Arrangement.spacedBy(20.dp)
             ) {
                 Icon(
-                    painter = painterResource(R.drawable.ic_fastboot),
+                    painter = painterResource(R.drawable.ic_mobile_loupe),
                     contentDescription = null,
                     modifier = Modifier.size(36.dp)
                 )

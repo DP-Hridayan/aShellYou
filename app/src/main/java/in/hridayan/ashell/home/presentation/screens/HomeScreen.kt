@@ -486,7 +486,7 @@ private fun FastbootCard(
     NavItemCompactCard(
         modifier = modifier,
         title = stringResource(R.string.fastboot),
-        leadingIcon = painterResource(R.drawable.ic_fastboot),
+        leadingIcon = painterResource(R.drawable.ic_flash_on),
         badgeText = stringResource(R.string.other_device),
         onClick = withHaptic { onClick() }
     )
