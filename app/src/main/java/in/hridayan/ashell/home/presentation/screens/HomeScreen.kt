@@ -10,6 +10,7 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -400,9 +401,9 @@ private fun OtgAdbCard(
         title = stringResource(R.string.adb_via_otg),
         leadingIcon = painterResource(R.drawable.ic_otg),
         badgeText = stringResource(R.string.other_device),
-        onClick = onClick,
         iconContainerColor = MaterialTheme.colorScheme.tertiary,
-        iconContentColor = MaterialTheme.colorScheme.onTertiary
+        iconContentColor = MaterialTheme.colorScheme.onTertiary,
+        onClick = onClick,
     )
 }
 
@@ -419,19 +420,16 @@ private fun WirelessDebuggingCard(
         title = stringResource(R.string.adb_via_wireless_debugging),
         description = stringResource(R.string.adb_via_wireless_debugging_summary),
         leadingIcon = painterResource(R.drawable.ic_wireless),
+        clickable = false,
         badges = {
             FlowRow(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(10.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                Badge(badgeText = stringResource(R.string.this_device))
+                Badge(badgeText = stringResource(R.string.this_device),)
 
-                Badge(
-                    badgeText = stringResource(R.string.other_device),
-                    badgeContainerColor = MaterialTheme.colorScheme.tertiary,
-                    badgeContentColor = MaterialTheme.colorScheme.onTertiary
-                )
+                Badge(badgeText = stringResource(R.string.other_device),)
             }
         },
         buttons = {
@@ -539,6 +537,8 @@ private fun NavItemCompactCard(
     ),
     iconContainerColor: Color = MaterialTheme.colorScheme.primary,
     iconContentColor: Color = MaterialTheme.colorScheme.onPrimary,
+    badgeContainerColor: Color = MaterialTheme.colorScheme.surfaceContainer,
+    badgeContentColor: Color = MaterialTheme.colorScheme.onSurface,
     badgeText: String = "",
 ) {
     CustomCard(
@@ -603,8 +603,8 @@ private fun NavItemCompactCard(
 
             Badge(
                 badgeText = badgeText,
-                badgeContainerColor = iconContainerColor,
-                badgeContentColor = iconContentColor
+                badgeContainerColor = badgeContainerColor,
+                badgeContentColor = badgeContentColor
             )
         }
     }
@@ -623,7 +623,7 @@ private fun NavItemCompactCardPreview() {
 private fun NavItemCard(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
-    enabled: Boolean = true,
+    clickable: Boolean = true,
     title: String,
     description: String = "Details",
     leadingIcon: Painter,
@@ -641,7 +641,7 @@ private fun NavItemCard(
         modifier = modifier,
         colors = cardColors,
         onClick = onClick,
-        clickable = enabled
+        clickable = clickable
     ) {
         Column(
             modifier = Modifier
@@ -694,13 +694,21 @@ private fun NavItemCard(
 private fun Badge(
     modifier: Modifier = Modifier,
     badgeText: String,
-    badgeContainerColor: Color = MaterialTheme.colorScheme.primary,
-    badgeContentColor: Color = MaterialTheme.colorScheme.onPrimary
+    badgeContainerColor: Color = MaterialTheme.colorScheme.surfaceContainer,
+    badgeContentColor: Color = MaterialTheme.colorScheme.onSurface,
+    borderEnabled: Boolean = true
 ) {
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(50))
             .background(badgeContainerColor)
+            .then(
+                if (borderEnabled) Modifier.border(
+                    width = 1.dp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
+                    shape = RoundedCornerShape(50)
+                ) else Modifier
+            )
             .padding(horizontal = 10.dp, vertical = 5.dp)
     ) {
         Text(
