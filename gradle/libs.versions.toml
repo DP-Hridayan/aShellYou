@@ -3,7 +3,7 @@ activityCompose = "1.13.0"
 agp = "9.2.1"
 androidxJunit = "1.3.0"
 annotation = "1.10.0"
-bcprovJdk15to18 = "1.84"
+bcprovJdk15to18 = "1.85"
 composeAnimation = "1.11.4"
 composeBom = "2026.06.01"
 credentials = "1.6.0"
@@ -17,18 +17,18 @@ googleHttpClientGson = "2.1.1"
 googleId = "1.2.0"
 gson = "2.14.0"
 hiddenapibypassVersion = "6.1"
-hilt = "2.60"
+hilt = "2.60.1"
 hiltExt = "1.4.0"
 jmdns = "3.6.3"
 junit = "4.13.2"
-kotlin = "2.4.0"
+kotlin = "2.4.10"
 ksp = "2.3.6"
 ktor = "3.5.1"
 libsu = "6.0.0"
 lifecycle = "2.11.0"
 lottie = "6.7.1"
 material = "1.14.0"
-material3 = "1.5.0-alpha23"
+material3 = "1.5.0-alpha24"
 materialIconsExtended = "1.7.8"
 navigation = "2.9.8"
 nayukiQR = "1.8.0"
@@ -46,6 +46,7 @@ shapeindicators = "2.1.1"
 coil = "3.5.0"
 aboutlibraries = "15.0.3"
 compose-stability-analyzer = "0.10.0"
+leakcanary = "1.0.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -128,3 +129,4 @@ shapeindicators = { group = "io.github.dp-hridayan", name = "shapeindicators", v
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
 coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
 aboutlibraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref = "aboutlibraries" }
+studio-leakcanary = { group = "com.android.tools.studio.leakcanary", name = "leakcanary", version.ref = "leakcanary" }

@@ -26,9 +26,9 @@ android {
     defaultConfig {
         applicationId = "in.hridayan.ashell"
         minSdk = 28
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 63
-        versionName = "v7.5.0-alpha04"
+        versionName = "v8.0.0-alpha01"
 
         buildConfigField("String", "DIST_FLAVOR_GITHUB", "\"$flavorGitHub\"")
         buildConfigField("String", "DIST_FLAVOR_FDROID", "\"$flavorFDroid\"")
@@ -289,7 +289,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)
-    androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.compose.ui.test.junit4)
     debugImplementation(libs.compose.ui.test.manifest)
+    debugImplementation(libs.studio.leakcanary)
 }
