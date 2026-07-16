@@ -106,7 +106,7 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
             addAction(UsbManager.ACTION_USB_DEVICE_DETACHED)
         }
         ContextCompat.registerReceiver(
-            context, usbReceiver, usbFilter, ContextCompat.RECEIVER_NOT_EXPORTED
+            context, usbReceiver, usbFilter, ContextCompat.RECEIVER_EXPORTED
         )
     }
 
@@ -176,7 +176,31 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
                 }
             }
         } else {
-            Log.d(TAG, "handleDeviceDetach: NO MATCH, ignoring")
+            // Even if device names don't match, check if our current device
+            // is still present in the USB device list. After mode switches
+            // (bootloader → fastbootd) the device re-enumerates with a new address.
+            val manager = usbManager
+            if (manager != null) {
+                val currentStillPresent = manager.deviceList.values.any {
+                    it.deviceName == current.deviceName
+                }
+                if (!currentStillPresent) {
+                    Log.d(TAG, "handleDeviceDetach: current device no longer in USB list — cleaning up")
+                    cleanupConnection()
+                    FastbootConnection.updateState(FastbootState.Disconnected)
+                    CoroutineScope(Dispatchers.Main).launch {
+                        delay(300.milliseconds)
+                        val state = FastbootConnection.state.value
+                        if (state is FastbootState.Disconnected) {
+                            FastbootConnection.updateState(FastbootState.Idle)
+                        }
+                    }
+                } else {
+                    Log.d(TAG, "handleDeviceDetach: NO MATCH but current still present, ignoring")
+                }
+            } else {
+                Log.d(TAG, "handleDeviceDetach: NO MATCH, ignoring")
+            }
         }
     }
 
@@ -565,6 +589,28 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
                 ctx.sendCommand(command)
             } catch (e: Exception) {
                 Log.e(TAG, "Reboot failed", e)
+            } finally {
+                // The device will disconnect after reboot — clean up immediately
+                // so the system can detect the re-enumerated device.
+                cleanupConnection()
+                withContext(Dispatchers.Main) {
+                    FastbootConnection.updateState(FastbootState.Disconnected)
+                }
+
+                // Poll for the device to reappear (Android doesn't reliably fire
+                // USB_DEVICE_ATTACHED when a device reboots between modes without
+                // a physical cable disconnect).
+                if (mode != RebootMode.NORMAL && mode != RebootMode.RECOVERY) {
+                    // Only poll for modes that stay in fastboot/bootloader
+                    for (i in 1..15) {
+                        delay(2000.milliseconds)
+                        val state = FastbootConnection.state.value
+                        if (state is FastbootState.Connected) break
+                        withContext(Dispatchers.Main) {
+                            searchDevices()
+                        }
+                    }
+                }
             }
         }
     }

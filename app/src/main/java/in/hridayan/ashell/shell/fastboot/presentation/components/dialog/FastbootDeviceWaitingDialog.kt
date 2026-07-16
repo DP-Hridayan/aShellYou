@@ -83,9 +83,18 @@ fun FastbootDeviceWaitingDialog(
     // Poll for devices while dialog is open and no device is connected.
     // Android doesn't reliably fire USB_DEVICE_ATTACHED when a device reboots
     // between modes (e.g. normal → bootloader, bootloader → fastbootd)
-    // without a physical cable disconnect.
-    LaunchedEffect(Unit) {
-        fastbootViewModel.startScan()
+    // without a physical cable disconnect. Also handles re-plug scenarios
+    // where permission is granted but state doesn't propagate.
+    LaunchedEffect(fastbootState) {
+        if (fastbootState !is FastbootState.Connected &&
+            fastbootState !is FastbootState.Connecting &&
+            fastbootState !is FastbootState.DeviceFound
+        ) {
+            while (true) {
+                fastbootViewModel.startScan()
+                kotlinx.coroutines.delay(2000)
+            }
+        }
     }
 
     Dialog(
