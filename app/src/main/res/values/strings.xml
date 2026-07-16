@@ -293,6 +293,9 @@
     <string name="wipe_metadata_title">Erase Metadata</string>
     <string name="wipe_metadata_desc">fastboot erase metadata</string>
     <string name="erase_confirm_title">Erase %1$s?</string>
+    <string name="adb_via_otg">ADB via OTG</string>
+    <string name="other_device">Other device</string>
+    <string name="adb">ADB</string>
     <string name="erase_confirm_message">This will permanently erase the %1$s partition. This action cannot be undone.</string>
     <string name="fb_cannot_paste_into_selected">Cannot paste into selected folder</string>
     <string name="fb_create_folder_failed" comment="%1$s = error message. fb_ prefix = file browser">Failed to create folder: %1$s</string>

@@ -20,8 +20,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.unit.dp
-import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
 
 @Composable
@@ -37,9 +35,7 @@ fun IconWithTextButton(
     onClick: () -> Unit = {}
 ) {
     Button(
-        onClick = withHaptic {
-            onClick()
-        },
+        onClick = onClick,
         enabled = enabled,
         elevation = elevation,
         border = border,
@@ -52,7 +48,7 @@ fun IconWithTextButton(
             painter = icon,
             contentDescription = contentDescription,
         )
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(ButtonDefaults.MediumIconSpacing))
         Text(
             text,
             style = MaterialTheme.typography.labelLarge,
