@@ -45,6 +45,8 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootState
 import `in`.hridayan.ashell.shell.fastboot.presentation.viewmodel.FastbootViewModel
+import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
 fun FastbootDeviceWaitingDialog(
@@ -92,7 +94,7 @@ fun FastbootDeviceWaitingDialog(
         ) {
             while (true) {
                 fastbootViewModel.startScan()
-                kotlinx.coroutines.delay(2000)
+                delay(2000.milliseconds)
             }
         }
     }
