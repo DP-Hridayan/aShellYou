@@ -1,5 +1,6 @@
 @file:OptIn(
-    ExperimentalMaterial3ExpressiveApi::class, ExperimentalMaterial3Api::class,
+    ExperimentalMaterial3ExpressiveApi::class,
+    ExperimentalMaterial3Api::class,
     ExperimentalFlexBoxApi::class
 )
 
@@ -11,8 +12,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -40,24 +39,24 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
@@ -133,41 +132,63 @@ fun HomeScreen(
     }
 
     val scrollBehavior =
-        TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         contentWindowInsets = WindowInsets.safeDrawing,
         topBar = {
-            TopAppBar(
+            val collapsedFraction = scrollBehavior.state.collapsedFraction
+            val expandedBrandingScale = 1f
+            val collapsedBrandingScale = 0.7f
+
+            val brandingScale =
+                lerp(expandedBrandingScale, collapsedBrandingScale, collapsedFraction)
+
+            MediumTopAppBar(
                 scrollBehavior = scrollBehavior,
-                expandedHeight = 125.dp,
+                expandedHeight = 96.dp,
                 colors = TopAppBarDefaults.topAppBarColors(scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh),
                 title = {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(end = 15.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(20.dp)
-                    ) {
-                        Image(
-                            imageVector = DynamicColorImageVectors.appBranding(),
-                            contentDescription = null,
-                            contentScale = ContentScale.Fit
-                        )
-
-                        Spacer(
-                            modifier = Modifier
-                                .weight(1f)
-                                .fillMaxWidth()
-                        )
-
-                        SettingsButton(onClick = withHaptic {
-                            navController.navigate(NavRoutes.SettingsScreen())
-                        })
-                    }
+                    Image(
+                        modifier = Modifier.graphicsLayer {
+                            scaleX = brandingScale
+                            scaleY = brandingScale
+                        },
+                        imageVector = DynamicColorImageVectors.appBranding(),
+                        contentDescription = null,
+                        contentScale = ContentScale.Fit
+                    )
                 },
+                actions = {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 10.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        IconButton(
+                            modifier = Modifier,
+                            onClick = withHaptic {
+
+                            }
+                        ) {
+                            Icon(
+                                painter = painterResource(R.drawable.ic_help2),
+                                contentDescription = null,
+                            )
+                        }
+
+                        IconButton(
+                            modifier = Modifier,
+                            onClick = withHaptic {
+                                navController.navigate(NavRoutes.SettingsScreen())
+                            }) {
+                            Icon(
+                                painter = painterResource(R.drawable.ic_settings),
+                                contentDescription = null,
+                            )
+                        }
+                    }
+                }
             )
         }
     ) {
@@ -181,7 +202,12 @@ fun HomeScreen(
         ) {
             item {
                 AutoResizeableText(
-                    modifier = Modifier.padding(bottom = 5.dp, start = 5.dp, end = 5.dp),
+                    modifier = Modifier.padding(
+                        top = 15.dp,
+                        bottom = 5.dp,
+                        start = 5.dp,
+                        end = 5.dp
+                    ),
                     text = stringResource(R.string.adb),
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.primary
@@ -346,26 +372,6 @@ fun HomeScreen(
 }
 
 @Composable
-private fun SettingsButton(
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit = {}
-) {
-    Image(
-        painter = painterResource(R.drawable.ic_settings),
-        contentDescription = null,
-        colorFilter = ColorFilter.tint(
-            MaterialTheme.colorScheme.onSurfaceVariant
-        ),
-        modifier = modifier
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = null,
-                onClick = onClick
-            )
-    )
-}
-
-@Composable
 private fun LocalAdbCard(
     modifier: Modifier = Modifier,
     enabledLocalAdbMode: Int = LocalAdbWorkingMode.BASIC,
@@ -427,9 +433,9 @@ private fun WirelessDebuggingCard(
                 horizontalArrangement = Arrangement.spacedBy(10.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                Badge(badgeText = stringResource(R.string.this_device),)
+                Badge(badgeText = stringResource(R.string.this_device))
 
-                Badge(badgeText = stringResource(R.string.other_device),)
+                Badge(badgeText = stringResource(R.string.other_device))
             }
         },
         buttons = {
@@ -717,4 +723,9 @@ private fun Badge(
             color = badgeContentColor
         )
     }
+}
+
+@Suppress("SameParameterValue")
+private fun lerp(startValue: Float, endValue: Float, fraction: Float): Float {
+    return startValue + fraction * (endValue - startValue)
 }
