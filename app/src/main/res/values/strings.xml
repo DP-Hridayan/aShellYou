@@ -69,7 +69,7 @@
     <string name="behavior">Behavior</string>
     <string name="bookmark_limit_reached">Maximum bookmark limit reached! Delete some bookmarks to add new ones</string>
     <string name="bookmarks">Bookmarks</string>
-    <string name="boot_device_into_fastboot">Boot your device into fastboot mode and connect via OTG cable</string>
+    <string name="boot_device_into_fastboot">Boot the target device into fastboot mode and connect via OTG cable</string>
     <string name="boot_image">Boot Image</string>
     <string name="boot_into_fastboot">Boot into Fastboot</string>
     <string name="bootloader">Bootloader</string>
