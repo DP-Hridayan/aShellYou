@@ -46,9 +46,10 @@ fun CacheDurationDialog(
     onDismiss: () -> Unit,
     onConfirm: (Int) -> Unit
 ) {
-    var selectedIndex by rememberSaveable { mutableIntStateOf(0) }
     var text by remember { mutableStateOf(currentDays.toString()) }
     val days = listOf(1, 7, 30)
+    val initialSelectedIndex = days.indexOfFirst { it == currentDays }
+    var selectedIndex by rememberSaveable { mutableIntStateOf(initialSelectedIndex) }
 
     val parsedValue = text.toIntOrNull()
     val isValid = parsedValue != null && parsedValue in MIN_CACHE_DAYS..MAX_CACHE_DAYS
@@ -107,6 +108,8 @@ fun CacheDurationDialog(
                         if (newValue.isEmpty() || newValue.all { it.isDigit() }) {
                             text = newValue
                         }
+
+                        selectedIndex = days.indexOfFirst { it.toString() == newValue }
                     },
                     label = { Text(stringResource(R.string.ai_cache_days)) },
                     supportingText = {
