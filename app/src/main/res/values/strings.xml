@@ -64,6 +64,7 @@
     <string name="backup_type">Backup type</string>
     <string name="baseband_version">Baseband</string>
     <string name="basic_shell">Basic shell</string>
+    <string name="failed_to_copy">Failed to copy</string>
     <string name="battery_level">Battery</string>
     <string name="battery_saver">Battery saver</string>
     <string name="behavior">Behavior</string>

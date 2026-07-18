@@ -130,6 +130,9 @@ import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scrollbar.VerticalScrollbar
+import `in`.hridayan.ashell.core.presentation.components.selectioncontainer.LazySelectionContainer
+import `in`.hridayan.ashell.core.presentation.components.selectioncontainer.allowTextSelection
+import `in`.hridayan.ashell.core.presentation.components.selectioncontainer.rememberSelectionState
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
@@ -782,6 +785,8 @@ private fun OutputCard(
     animatedContentScope: AnimatedContentScope,
     shellViewModel: ShellViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+    val res = LocalResources.current
     val isDarkMode = LocalDarkMode.current
     val terminalFontStyle = LocalSettings.current[SettingsKeys.TerminalFontStyle]
 
@@ -920,6 +925,8 @@ private fun OutputCard(
         if (isDarkMode) surfaceContainerLow else surfaceContainer
     }
 
+    val selectionState = rememberSelectionState()
+
     // Only render the card when not in fullscreen
     if (!isFullscreen) {
         with(sharedTransitionScope) {
@@ -974,19 +981,41 @@ private fun OutputCard(
                             .fillMaxWidth()
                             .wrapContentHeight()
                     ) {
-                        LazyColumn(
-                            state = listState,
+
+                        LazySelectionContainer(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(start = 16.dp, end = 16.dp, bottom = 20.dp),
+                            listState = listState,
+                            items = combinedOutput.value,
+                            textOf = { it.text },
+                            onCopy = { success ->
+                                val toastMessage =
+                                    if (success) res.getString(R.string.copied_to_clipboard)
+                                    else res.getString(R.string.failed_to_copy)
+
+                                showToast(context, toastMessage)
+                            },
                             verticalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
-                            itemsIndexed(combinedOutput.value) { _, line ->
+                        ) { selectionState ->
+
+                            itemsIndexed(combinedOutput.value) { index, line ->
+
+                                val isCommandLine = line.text.startsWith("$ ")
+
+                                val textStyle =
+                                    if (isCommandLine) commandTextStyle else bodyTextStyle
+
                                 OutputLineItem(
+                                    modifier = Modifier.allowTextSelection(
+                                        index = index,
+                                        text = line.text,
+                                        selectionState = selectionState,
+                                        style = textStyle
+                                    ),
                                     line = line,
                                     states = states,
-                                    commandTextStyle = commandTextStyle,
-                                    bodyTextStyle = bodyTextStyle
+                                    textStyle = textStyle
                                 )
                             }
                         }
@@ -1002,68 +1031,6 @@ private fun OutputCard(
                 }
             }
         }
-    }
-}
-
-@Composable
-private fun OutputLineItem(
-    line: OutputLine,
-    states: ShellScreenState,
-    commandTextStyle: TextStyle,
-    bodyTextStyle: TextStyle
-) {
-    val text = if (!states.search.isVisible) line.text else line.text.takeIf {
-        line.text.contains(
-            states.search.textFieldValue.text,
-            ignoreCase = true
-        )
-    }
-
-    val isCommandLine = text?.startsWith("$ ")
-
-    val lineColor = MaterialTheme.colorScheme.run {
-        if (isCommandLine == true) primary
-        else if (line.isError) error
-        else onSurface
-    }
-
-    val textStyle = if (isCommandLine == true) commandTextStyle else bodyTextStyle
-
-    text?.let {
-        val annotatedText =
-            if (states.search.isVisible && !states.search.textFieldValue.text.isBlank()) {
-
-                val highlightBgColor = MaterialTheme.colorScheme.run {
-                    if (line.isError) errorContainer else primaryContainer
-                }
-
-                val highlightTextColor = MaterialTheme.colorScheme.run {
-                    if (line.isError) onErrorContainer else onPrimaryContainer
-                }
-
-                highlightQueryText(
-                    text = text,
-                    query = states.search.textFieldValue.text,
-                    highlightBgColor = highlightBgColor,
-                    highlightTextColor = highlightTextColor
-                )
-            } else {
-                AnnotatedString(text)
-            }
-
-        Text(
-            text = annotatedText,
-            style = textStyle,
-            color = lineColor,
-            modifier = Modifier
-                .fillMaxWidth()
-                .then(
-                    if (isCommandLine == true) Modifier.padding(
-                        top = 20.dp,
-                        bottom = 10.dp
-                    ) else Modifier
-                )
-        )
     }
 }
 
@@ -1338,12 +1305,17 @@ private fun FullscreenOutputOverlay(
                                 items = lines,
                                 key = { index, _ -> "${sectionIndex}_$index" }
                             ) { _, line ->
+
+                                val isCommandLine = line.text.startsWith("$ ")
+
+                                val textStyle =
+                                    if (isCommandLine) commandTextStyle else bodyTextStyle
+
                                 Box(modifier = Modifier.padding(horizontal = 20.dp)) {
                                     OutputLineItem(
                                         line = line,
                                         states = states,
-                                        commandTextStyle = commandTextStyle,
-                                        bodyTextStyle = bodyTextStyle
+                                        textStyle = textStyle
                                     )
                                 }
                             }
@@ -1366,6 +1338,69 @@ private fun FullscreenOutputOverlay(
                 }
             }
         }
+    }
+}
+
+
+@Composable
+private fun OutputLineItem(
+    modifier: Modifier = Modifier,
+    line: OutputLine,
+    states: ShellScreenState,
+    textStyle: TextStyle
+) {
+    val text = if (!states.search.isVisible) line.text else line.text.takeIf {
+        line.text.contains(
+            states.search.textFieldValue.text,
+            ignoreCase = true
+        )
+    }
+
+    val isCommandLine = text?.startsWith("$ ")
+
+    val lineColor = MaterialTheme.colorScheme.run {
+        if (isCommandLine == true) primary
+        else if (line.isError) error
+        else onSurface
+    }
+
+
+
+    text?.let {
+        val annotatedText =
+            if (states.search.isVisible && !states.search.textFieldValue.text.isBlank()) {
+
+                val highlightBgColor = MaterialTheme.colorScheme.run {
+                    if (line.isError) errorContainer else primaryContainer
+                }
+
+                val highlightTextColor = MaterialTheme.colorScheme.run {
+                    if (line.isError) onErrorContainer else onPrimaryContainer
+                }
+
+                highlightQueryText(
+                    text = text,
+                    query = states.search.textFieldValue.text,
+                    highlightBgColor = highlightBgColor,
+                    highlightTextColor = highlightTextColor
+                )
+            } else {
+                AnnotatedString(text)
+            }
+
+        Text(
+            text = annotatedText,
+            style = textStyle,
+            color = lineColor,
+            modifier = modifier
+                .fillMaxWidth()
+                .then(
+                    if (isCommandLine == true) Modifier.padding(
+                        top = 20.dp,
+                        bottom = 10.dp
+                    ) else Modifier
+                )
+        )
     }
 }
 
@@ -1429,7 +1464,7 @@ private fun ShareFAB(
 
     val shareAction: () -> Unit = {
         val outputText = buildString {
-            states.output.forEachIndexed { index, commandResult ->
+            states.output.forEach { commandResult ->
                 appendLine("$ ${commandResult.command}")
                 val lines = commandResult.outputFlow.value
                 lines.forEach { line ->
