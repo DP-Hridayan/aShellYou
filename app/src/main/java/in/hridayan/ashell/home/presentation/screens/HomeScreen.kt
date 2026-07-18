@@ -147,7 +147,6 @@ fun HomeScreen(
 
             MediumTopAppBar(
                 scrollBehavior = scrollBehavior,
-                expandedHeight = 96.dp,
                 colors = TopAppBarDefaults.topAppBarColors(scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh),
                 title = {
                     Image(
@@ -161,32 +160,25 @@ fun HomeScreen(
                     )
                 },
                 actions = {
-                    Row(
-                        modifier = Modifier.padding(horizontal = 10.dp),
-                        verticalAlignment = Alignment.CenterVertically
+                    IconButton(
+                        modifier = Modifier.padding(start = 10.dp),
+                        onClick = withHaptic {}
                     ) {
-                        IconButton(
-                            modifier = Modifier,
-                            onClick = withHaptic {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_help2),
+                            contentDescription = null,
+                        )
+                    }
 
-                            }
-                        ) {
-                            Icon(
-                                painter = painterResource(R.drawable.ic_help2),
-                                contentDescription = null,
-                            )
-                        }
-
-                        IconButton(
-                            modifier = Modifier,
-                            onClick = withHaptic {
-                                navController.navigate(NavRoutes.SettingsScreen())
-                            }) {
-                            Icon(
-                                painter = painterResource(R.drawable.ic_settings),
-                                contentDescription = null,
-                            )
-                        }
+                    IconButton(
+                        modifier = Modifier.padding(end = 10.dp),
+                        onClick = withHaptic {
+                            navController.navigate(NavRoutes.SettingsScreen())
+                        }) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_settings),
+                            contentDescription = null,
+                        )
                     }
                 }
             )
