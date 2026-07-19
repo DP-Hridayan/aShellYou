@@ -49,6 +49,7 @@ import `in`.hridayan.ashell.shell.file_browser.presentation.screens.FileBrowserS
 import `in`.hridayan.ashell.shell.local_adb_shell.presentation.screens.LocalAdbScreen
 import `in`.hridayan.ashell.shell.fastboot.presentation.screens.FastbootScreen
 import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.screens.OtgAdbScreen
+import `in`.hridayan.ashell.logcat.presentation.screens.LogcatScreen
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.PairingOtherDeviceScreen
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.PairingOwnDeviceScreen
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.WifiAdbScreen
@@ -211,6 +212,10 @@ fun Navigation(isFirstLaunch: Boolean = false) {
 
             composable<NavRoutes.ModelsScreen> {
                 ModelsScreen()
+            }
+
+            composable<NavRoutes.LogcatScreen> {
+                LogcatScreen()
             }
 
         }

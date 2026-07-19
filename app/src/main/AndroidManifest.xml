@@ -126,6 +126,12 @@
             android:foregroundServiceType="dataSync" />
 
         <service
+            android:name=".logcat.service.LogcatService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+
+        <service
             android:name=".qstiles.service.tiles.Tile01Service"
             android:enabled="true"
             android:exported="true"

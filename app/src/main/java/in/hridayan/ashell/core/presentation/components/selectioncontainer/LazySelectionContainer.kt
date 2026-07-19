@@ -544,7 +544,7 @@ private fun SelectionHandle(
     // based on positionInContainer being null (e.g. its line briefly
     // scrolling out of the visible range during auto-scroll) -- doing that
     // tears down this pointerInput's coroutine mid-gesture, silently
-    // killing an in-progress drag. Instead we keep it alive at its last
+    // killing an in-progress drag. Instead, we keep it alive at its last
     // known position and collapse it to zero size, which naturally blocks
     // *new* touches without affecting a pointer id already being tracked --
     // once a drag has claimed a pointer, Compose keeps routing that pointer

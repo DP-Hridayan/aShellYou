@@ -820,4 +820,36 @@
     <string name="changelog_v1_0_0">\nAdded some more command examples.\nMinor UI changes.\nChanged package name to avoid version confusion with original app.</string>
     <string name="changelog_v0_9_1">\nAdded changelogs into the app.\nAdded highlighted shell output.\nMinor UI changes.</string>
     <string name="changelog_v0_9_0">\nAdded dynamic material theming.\nRevamped whole UI to give a fresh look.</string>
+
+    <!-- ─── Logcat feature ─────────────────────────────────────────────────── -->
+    <string name="logcat_running">Logcat is running</string>
+    <string name="logcat_running_description">aShellYou is collecting system logs in the background</string>
+    <string name="logcat_stop">Stop</string>
+    <string name="logcat_notification_channel_name">Logcat Session</string>
+    <string name="logcat_notification_channel_description">Shown while logcat is actively collecting logs</string>
+    <string name="logcat_paused">Paused</string>
+    <string name="logcat_resume">Resume</string>
+    <string name="logcat_no_logs">No logs yet</string>
+    <string name="logcat_cleared">Logs cleared</string>
+    <string name="logcat_permission_title">Log access permission</string>
+    <string name="logcat_permission_body">Without this permission, only logs from aShellYou itself will be visible. Grant full access by running this command from a computer:</string>
+    <string name="logcat_continue_anyway">Continue anyway</string>
+    <string name="logcat_ive_granted_it">I\'ve granted it</string>
+    <string name="logcat_filter_include">Include</string>
+    <string name="logcat_filter_exclude">Exclude</string>
+    <string name="logcat_filter_save_profile">Save as profile…</string>
+    <string name="logcat_filter_apply">Apply</string>
+    <string name="logcat_filter_clear_all">Clear all</string>
+    <string name="logcat_filter_pid">PID</string>
+    <string name="logcat_filter_tid">TID</string>
+    <string name="logcat_filter_uid">UID</string>
+    <string name="logcat_filter_package">Package name</string>
+    <string name="logcat_filter_tag">Tag</string>
+    <string name="logcat_filter_search_hint">Search in messages…</string>
+    <string name="logcat_detail_timestamp">Timestamp</string>
+    <string name="logcat_detail_package">Package</string>
+    <string name="logcat_detail_level">Level</string>
+    <string name="logcat_detail_message">Message</string>
+    <string name="logcat_card_running_badge">Running</string>
+
 </resources>

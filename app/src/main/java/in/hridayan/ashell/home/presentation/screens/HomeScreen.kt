@@ -93,13 +93,16 @@ import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.viewmodel.OtgViewMo
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.bottomsheet.SavedDevicesBottomSheet
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairModeChooseDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
+import `in`.hridayan.ashell.logcat.presentation.viewmodel.LogcatViewModel
+import `in`.hridayan.ashell.logcat.service.LogcatService
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
     otgViewModel: OtgViewModel = hiltViewModel(),
     wifiAdbViewModel: WifiAdbViewModel = hiltViewModel(),
-    fastbootViewModel: FastbootViewModel = hiltViewModel()
+    fastbootViewModel: FastbootViewModel = hiltViewModel(),
+    logcatViewModel: LogcatViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
     val res = LocalResources.current
@@ -110,6 +113,7 @@ fun HomeScreen(
     val fastbootState by fastbootViewModel.state.collectAsState()
     val savedDevices by wifiAdbViewModel.savedDevices.collectAsState()
     val localAdbWorkingMode = settings[SettingsKeys.LocalAdbWorkingMode]
+    val isLogcatRunning by logcatViewModel.isRunning.collectAsState()
 
     var showSavedDevicesBottomSheet by rememberSaveable { mutableStateOf(false) }
 
@@ -299,7 +303,10 @@ fun HomeScreen(
             item {
                 LogcatCard(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = {})
+                    isRunning = isLogcatRunning,
+                    onClick = withHaptic {
+                        navController.navigate(NavRoutes.LogcatScreen)
+                    })
             }
 
             item {
@@ -509,14 +516,38 @@ fun AdbSideloadCard(
 @Composable
 fun LogcatCard(
     modifier: Modifier = Modifier,
+    isRunning: Boolean = false,
     onClick: () -> Unit
 ) {
+    val cardColors = if (isRunning) {
+        CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+        )
+    } else {
+        CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceContainer,
+            contentColor = MaterialTheme.colorScheme.onSurface,
+        )
+    }
+
     NavItemCard(
         modifier = modifier,
         title = stringResource(R.string.logcat),
         description = stringResource(R.string.des_logcat),
         leadingIcon = painterResource(R.drawable.ic_bug),
-        onClick = withHaptic { onClick() }
+        cardColors = cardColors,
+        onClick = withHaptic { onClick() },
+        badges = {
+            if (isRunning) {
+                Badge(
+                    badgeText = stringResource(R.string.logcat_card_running_badge),
+                    badgeContainerColor = MaterialTheme.colorScheme.primary,
+                    badgeContentColor = MaterialTheme.colorScheme.onPrimary,
+                    borderEnabled = false,
+                )
+            }
+        }
     )
 }
 

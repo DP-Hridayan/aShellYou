@@ -102,4 +102,7 @@ NavRoutes {
 
     @Serializable
     object ModelsScreen : NavRoutes()
+
+    @Serializable
+    object LogcatScreen : NavRoutes()
 }
