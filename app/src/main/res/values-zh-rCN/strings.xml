@@ -3,6 +3,8 @@
     <string name="abort_command">先中止命令</string>
     <string name="about">关于</string>
     <string name="active">已启用</string>
+    <string name="active_slot">活动栏位</string>
+    <string name="adb">ADB</string>
     <string name="adb_command">ADB 命令</string>
     <string name="adb_command_hint" comment="Example ADB command shown as placeholder hint in input field">adb reboot</string>
     <string name="adb_command_off_state">ADB 命令(OFF 状态)</string>
@@ -11,8 +13,10 @@
     <string name="adb_connection_channel_description">ADB 连接激活时显示</string>
     <string name="adb_connection_channel_name">ADB 连接</string>
     <string name="adb_connection_description">WiFi ADB 连接正在维护中</string>
+    <string name="adb_sideload">ADB sideload</string>
     <string name="adb_through_otg">通过 OTG 使用 ADB</string>
     <string name="adb_through_otg_summary">使用OTG线为另一个安卓设备执行ADB命令。在此之前，你需要为目标设备启用USB调试。</string>
+    <string name="adb_via_otg">通过 OTG 进行ADB</string>
     <string name="adb_via_wireless_debugging">无线ADB</string>
     <string name="adb_via_wireless_debugging_summary">通过“无线调试”功能（安卓11及以上）实现远程执行ADB命令。</string>
     <string name="add">添加</string>
@@ -60,17 +64,24 @@
     <string name="backup_successful">备份成功</string>
     <string name="backup_time">备份时间</string>
     <string name="backup_type">备份类型</string>
+    <string name="baseband_version">巴斯巴兰</string>
     <string name="basic_shell">普通终端</string>
+    <string name="battery_level">电量：</string>
     <string name="battery_saver">省电模式</string>
     <string name="behavior">行为</string>
     <string name="bookmark_limit_reached">书签达到设定数量，移除部分书签后再尝试添加</string>
     <string name="bookmarks">书签</string>
+    <string name="boot_device_into_fastboot">启动目标设备进入快速启动模式并通过 OTG 电缆连接</string>
+    <string name="boot_image">启动图像</string>
+    <string name="boot_into_fastboot">启动到 Fastboot</string>
     <string name="bootloader">Bootloader</string>
+    <string name="bootloader_version">引导加载器</string>
     <string name="btn_continue">继续</string>
     <string name="cache_settings">缓存</string>
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">缓存大小: %s</string>
     <string name="cancel">取消</string>
     <string name="cancel_all">全部取消</string>
+    <string name="cancelling">Cancelling…</string>
     <string name="changelog">更新日志</string>
     <string name="changelogs">更新日志</string>
     <string name="check_updates">检查更新</string>
@@ -81,6 +92,7 @@
     <string name="clear_analysis_cache">清除分析缓存</string>
     <string name="clear_cache">清除缓存</string>
     <string name="clear_everything">全部清除</string>
+    <string name="clear_history">清除历史记录</string>
     <string name="clear_output_confirmation">清除输出确认</string>
     <string name="clipboard_empty">剪贴板中未找到文本</string>
     <string name="close">关闭</string>
@@ -132,6 +144,7 @@
     <string name="cut_to_clipboard">剪切到剪贴板</string>
     <string name="daily">每天</string>
     <string name="dark_theme">暗色主题</string>
+    <string name="dashboard">仪表板</string>
     <string name="databases_only">仅数据库</string>
     <string name="default_folder">重置目录</string>
     <string name="default_language">默认语言</string>
@@ -186,6 +199,7 @@
     <string name="des_licenses">查看应用和库正在使用的许可证</string>
     <string name="des_local_backup">保存加密备份到您的设备</string>
     <string name="des_local_restore">从您的设备中选择备份文件</string>
+    <string name="des_logcat">从已连接设备上输出实时日志</string>
     <string name="des_look_and_feel">莫奈取色，暗色主题以及语言设置</string>
     <string name="des_models">没有选择模型</string>
     <string name="des_override_bookmarks">如果添加了大量书签，可能会造成延迟！低端设备应保持关闭此选项</string>
@@ -196,11 +210,13 @@
     <string name="des_restore_app_data">从保存的备份文件中恢复应用数据。\n保存的数据库将覆盖当前数据库</string>
     <string name="des_save_whole_output">启用此选项以保存整个shell会话的输出。\n如果禁用只保存最后一个命令输出。</string>
     <string name="des_screen_density">调整屏幕密度以使界面元素显得更大或更小</string>
+    <string name="des_select_file_for_flashing">选择要刷入选定分区的引导镜像文件</string>
     <string name="des_sign_in_with_google">为云备份链接您的 Google 帐户</string>
     <string name="des_smooth_scroll">当点击回到 顶部 或 底部 方向的箭头时，使用平滑效果</string>
     <string name="des_toggleable">如果启用，每次点击打开和关闭状态之间的瓷块切换，为每个状态运行一个不同的命令</string>
     <string name="des_translators">帮助翻译 aShellYou 的人</string>
     <string name="des_ui_scale">调整界面元素和字体大小</string>
+    <string name="des_warning_incorrect_file_bootloop">谨慎行事，因为错误的图像可能会导致引导循环</string>
     <string name="description">描述</string>
     <string name="deselect_all">取消全选</string>
     <string name="developer">开发者</string>
@@ -250,6 +266,10 @@
     <string name="enable_wireless_debugging_button">启用</string>
     <string name="enter">输入</string>
     <string name="enter_pairing_code">输入6位数字配对代码</string>
+    <string name="erase_confirm_message">这将永久擦除 %1$s 分区。此操作无法撤消。</string>
+    <string name="erase_confirm_title">Erase %1$s?</string>
+    <string name="erase_partition">Erase</string>
+    <string name="erasing">正在擦除…</string>
     <string name="error">错误</string>
     <string name="error_labels_limit_reached">已达到最大标签限制</string>
     <string name="execution_method">执行方法</string>
@@ -257,8 +277,18 @@
     <string name="experimental">实验性</string>
     <string name="failed">失败</string>
     <string name="failed_to_claim_interface">无法认领接口</string>
+    <string name="failed_to_copy">复制失败</string>
     <string name="failed_to_open_usb_connection">无法打开 USB 连接。是否启用 USB 调试？</string>
     <string name="fastboot">快速启动</string>
+    <string name="fastboot_and_recovery">快速启动 &amp; 恢复</string>
+    <string name="fastboot_coming_soon">即将到来的</string>
+    <string name="fastboot_command_console">命令控制台</string>
+    <string name="fastboot_command_hint">输入fastboot 命令…</string>
+    <string name="fastboot_device_info">设备信息</string>
+    <string name="fastboot_partitions">分区</string>
+    <string name="fastboot_quick_actions">快速操作</string>
+    <string name="fastboot_summary">通过 OTG 连接到快速启动模式的设备</string>
+    <string name="fastboot_variable_explorer">变量浏览器</string>
     <string name="fb_all_operations_cancelled">所有操作已取消</string>
     <string name="fb_cannot_paste_into_selected">无法粘贴到所选文件夹</string>
     <string name="fb_create_folder_failed" comment="%1$s = error message. fb_ prefix = file browser">创建文件夹失败: %1$s</string>
@@ -297,6 +327,9 @@
     <string name="file_not_found">文件未找到</string>
     <string name="filter">筛选器</string>
     <string name="filter_by_labels">按标签过滤</string>
+    <string name="flash">闪光灯</string>
+    <string name="flash_partition">Flash 分区</string>
+    <string name="flashing">正在刷入…</string>
     <string name="folder">文件夹</string>
     <string name="folder_already_exists">具有此名称的文件夹已存在</string>
     <string name="folder_conflict_title">文件夹已存在</string>
@@ -348,6 +381,7 @@
     <string name="frequency">频率</string>
     <string name="full_license_text">完整许可文本</string>
     <string name="generate_tile">生成瓷块</string>
+    <string name="get_variables">获取变量</string>
     <string name="go_home">返回首页</string>
     <string name="go_to_terminal">转到终端</string>
     <string name="google_drive">Google Drive</string>
@@ -392,16 +426,20 @@
     <string name="load">负载</string>
     <string name="load_predefined_commands">加载预定义命令</string>
     <string name="loading">正在加载</string>
+    <string name="loading_device_info">正在加载设备信息…</string>
     <string name="loading_licenses">正在加载许可证信息…</string>
     <string name="local_adb">本地ADB</string>
     <string name="local_adb_shell">本地ADB shell</string>
     <string name="local_adb_summary">使用 Shizuku 或 root 直接在您的设备上执行 ADB 命令。</string>
     <string name="local_backup">本地备份</string>
     <string name="local_file">本地文件</string>
+    <string name="locked">已锁定</string>
+    <string name="logcat">Logcat</string>
     <string name="logs">日志</string>
     <string name="look_and_feel">外观 &amp; 体验</string>
     <string name="low">低</string>
     <string name="manual_pair">手动配对</string>
+    <string name="max_download_size">最大下载</string>
     <string name="medium">中</string>
     <string name="merge">合并</string>
     <string name="minimize">最小化</string>
@@ -435,6 +473,8 @@
     <string name="no_changelog_found">未找到此版本的更新日志</string>
     <string name="no_cloud_backup_found">未在Google Drive上找到备份</string>
     <string name="no_crashes">没有报告崩溃。你正在顺利运行。</string>
+    <string name="no_device_connected">未连接设备</string>
+    <string name="no_fastboot_device_error">已连接的设备不在快速启动模式</string>
     <string name="no_files_download">未选择文件(文件夹无法下载)</string>
     <string name="no_folder_selected">未选择文件夹</string>
     <string name="no_google_account_message">在此设备上找不到谷歌帐户。您想要添加一个帐户来使用云备份吗？</string>
@@ -449,6 +489,7 @@
     <string name="no_root_access">无root权限</string>
     <string name="no_saved_devices">没有保存的设备</string>
     <string name="no_search_results_found">未找到搜索结果</string>
+    <string name="no_variables_loaded">未加载变量</string>
     <string name="no_wifi_connection">没有WiFi连接</string>
     <string name="none">无</string>
     <string name="not_signed_in">未登录</string>
@@ -466,9 +507,12 @@
     <string name="open_app_language_settings">打开应用语言设置</string>
     <string name="open_issues" comment="GitHub repository open issues count">未决问题</string>
     <string name="open_url">打开 URL</string>
+    <string name="operation_complete">操作完成</string>
     <string name="operations">业务活动</string>
     <string name="or">或</string>
     <string name="otg" comment="USB On-The-Go. Technical term, keep as OTG">OTG</string>
+    <string name="other_details">其他详细信息</string>
+    <string name="other_device">其他设备</string>
     <string name="output">产出</string>
     <string name="override_bookmarks_limit">取消书签数量限制</string>
     <string name="pair">配对</string>
@@ -495,6 +539,7 @@
     <string name="palette_style" comment="Settings label for choosing Material Design color palette">Palette style</string>
     <string name="palette_tonal_spot" comment="Material Design color scheme style name">倾斜点</string>
     <string name="palette_vibrant" comment="Material Design color scheme style name">振动</string>
+    <string name="partition">分区</string>
     <string name="paste">粘贴</string>
     <string name="path">路径</string>
     <string name="permission_denied">权限被拒绝</string>
@@ -507,13 +552,21 @@
     <string name="pre_release_warning_description">这些版本仍在测试中，可能包含未完成的功能或未预料的故障。如果选择更新到预发行版本，请意识到应用可能出问题或表现怪异。\n如遇任何问题、崩溃或奇怪行为，请报告它们。以便我们在稳定版发布前修复和改进 sShellYou。\n感谢帮助我们让 aShell 变得更好！</string>
     <string name="preference">首选项</string>
     <string name="preview">预览</string>
+    <string name="product">产品</string>
     <string name="qr_pair">二维码对</string>
     <string name="qr_pair_hint">要配对 Android 11+ 设备，请从目标设备扫描此 QR</string>
     <string name="qr_scanner_location_hint">QR 扫描仪可用于：\n开发者选项 &gt; 无线调试 &gt; 配对 QR 代码</string>
     <string name="qs_tiles">快速设置瓷块</string>
     <string name="quick_tools">快速工具</string>
+    <string name="reading_file">正在读取文件…</string>
     <string name="ready_to_paste">准备粘贴</string>
+    <string name="reboot_bootloader">重启到 Bootloader</string>
+    <string name="reboot_confirm_message">这将重新启动连接设备到 %1$s。是否继续？</string>
+    <string name="reboot_confirm_title">确认重启</string>
+    <string name="reboot_fastbootd">重启到 Fastbootd</string>
+    <string name="reboot_normal">Reboot</string>
     <string name="reboot_options">重启选项</string>
+    <string name="reboot_recovery">重启到恢复</string>
     <string name="recent_activity">最近活动</string>
     <string name="recent_searches">最近搜索</string>
     <string name="recommended">推荐的</string>
@@ -563,13 +616,16 @@
     <string name="search_output">在此处搜索输出内容</string>
     <string name="search_settings">搜索设置</string>
     <string name="search_something">搜索内容</string>
+    <string name="search_variables">搜索变量…</string>
     <string name="searching_connect_service">搜索连接服务</string>
     <string name="searching_for_devices">正在搜索设备…</string>
+    <string name="security_patch">安全补丁</string>
     <string name="select">选择</string>
     <string name="select_all">全选</string>
     <string name="select_backup_folder_message">请选择要保存备份的文件夹。应用程序需要读取并写入此文件夹的权限。</string>
     <string name="select_backup_folder_title">没有备份文件夹</string>
     <string name="select_folder">选择文件夹</string>
+    <string name="select_partition">选择分区</string>
     <string name="select_time">选择时间</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">自己的</string>
     <string name="self_pair_connection_failed">连接失败 - 尝试手动连接</string>
@@ -588,6 +644,7 @@
     <string name="self_pair_success_hint">本地ADB终端现在可用</string>
     <string name="self_pair_timeout">超时-在无线调试中打开配对对话框</string>
     <string name="self_pair_wrong_code">错误的代码 - 再次打开配对对话框</string>
+    <string name="serial_number">序列号</string>
     <string name="serif" comment="Font style category name">序列号</string>
     <string name="settings">设置</string>
     <string name="settings_only">仅设置</string>
@@ -604,6 +661,8 @@
     <string name="signed_out">登出</string>
     <string name="size">大小</string>
     <string name="skip">跳过</string>
+    <string name="slide_to_flash">滑动刷入</string>
+    <string name="slot_data_unknown">未知插槽数据</string>
     <string name="smooth_scrolling">平滑滚动</string>
     <string name="sort">排序</string>
     <string name="stable_fdroid">稳定(Fdroid)</string>
@@ -654,6 +713,8 @@
     <string name="unknown">未知的</string>
     <string name="unknown_error">未知错误</string>
     <string name="unknown_sources_install_permission_not_granted">未授予权限。请允许从未知来源安装应用程序。</string>
+    <string name="unlock_status">解锁状态</string>
+    <string name="unlocked">已解锁</string>
     <string name="untitled">无标题</string>
     <string name="update">更新</string>
     <string name="update_available">更新可用！</string>
@@ -663,6 +724,7 @@
     <string name="uploading_backup">将备份上传到Google Drive…</string>
     <string name="usb_manager_unavailable">USB 管理器在此设备上不可用</string>
     <string name="use">使用</string>
+    <string name="utilities">实用工具</string>
     <string name="variant">变体</string>
     <string name="version">版本</string>
     <string name="version_code">版本代码</string>
@@ -679,6 +741,15 @@
     <string name="which_device_to_pair">您想配对哪个设备？</string>
     <string name="wifi_adb">WiFi ADB</string>
     <string name="wifi_connection_required">要使用无线调试功能，你必须连接WiFi。如果你连接的WiFi没有网络连接，则关闭数据流量避免整机流量绕过WiFi导致无法配对和连接</string>
+    <string name="wipe_cache_desc">fastboot erase cache</string>
+    <string name="wipe_cache_title">Erase Cache</string>
+    <string name="wipe_data">清除数据</string>
+    <string name="wipe_data_description">删除您设备上的分区。选择要擦除哪个分区。</string>
+    <string name="wipe_metadata_desc">fastboot 擦除元数据</string>
+    <string name="wipe_metadata_title">删除元数据</string>
+    <string name="wipe_userdata_desc">fastboot 擦除用户数据</string>
+    <string name="wipe_userdata_title">删除用户数据</string>
+    <string name="wipe_warning">这些行动是不可逆转的，谨慎行事。</string>
     <string name="wireless_debugging_guide_1">现在前往开发者选项 &gt; 无线调试。点击“使用配对码配对设备”</string>
     <string name="wireless_debugging_guide_2">在aShell You发送的通知中输入配对码</string>
     <string name="wireless_debugging_guide_3">返回aShell You的主页点击无线ADB板块的“开始”即可</string>

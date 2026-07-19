@@ -3,6 +3,8 @@
     <string name="abort_command">Спочатку скасуйте команду</string>
     <string name="about">Про додаток</string>
     <string name="active">Активний</string>
+    <string name="active_slot">Активний слот</string>
+    <string name="adb">ADB</string>
     <string name="adb_command">Команда ADB</string>
     <string name="adb_command_hint" comment="Example ADB command shown as placeholder hint in input field">Приклад: adb reboot</string>
     <string name="adb_command_off_state">Команда ADB (стан ВИМК.)</string>
@@ -11,8 +13,10 @@
     <string name="adb_connection_channel_description">Показує, коли з\'єднання ADB активно</string>
     <string name="adb_connection_channel_name">Підключення ADB</string>
     <string name="adb_connection_description">Підключення до Wi-Fi ADB підтримується</string>
+    <string name="adb_sideload">ADB Sideload</string>
     <string name="adb_through_otg">ADB через OTG</string>
     <string name="adb_through_otg_summary">Використовуйте OTG кабель та налагодження USB для виконання команд ADB на іншому пристрої Android. Необхідно увімкнути налагодження USB у налаштуваннях розробника цільового пристрою.</string>
+    <string name="adb_via_otg">ADB через OTG</string>
     <string name="adb_via_wireless_debugging">ADB через \"Бездротове налагодження\"</string>
     <string name="adb_via_wireless_debugging_summary">Підключайте пристрої (Android 11+) Wi-Fi за допомогою бездротового налагодження і виконуйте команди ADB віддалено.</string>
     <string name="add">Додати</string>
@@ -60,17 +64,24 @@
     <string name="backup_successful">Резервування виконано успішно</string>
     <string name="backup_time">Час резервування</string>
     <string name="backup_type">Тип резервування</string>
+    <string name="baseband_version">Baseband</string>
     <string name="basic_shell">Базова оболонка</string>
+    <string name="battery_level">Батарея</string>
     <string name="battery_saver">Економія батареї</string>
     <string name="behavior">Поведінка</string>
     <string name="bookmark_limit_reached">Досягнуто максимальної кількості закладок! Видаліть деякі закладки, щоб додати нові</string>
     <string name="bookmarks">Закладки</string>
+    <string name="boot_device_into_fastboot">Завантажте цільовий пристрій у режимі fastboot та під\'єднайте його через OTG кабель</string>
+    <string name="boot_image">Boot образ</string>
+    <string name="boot_into_fastboot">Завантаження у Fastboot</string>
     <string name="bootloader">Завантажувач</string>
+    <string name="bootloader_version">Bootloader</string>
     <string name="btn_continue">Продовжити</string>
     <string name="cache_settings">Кеш</string>
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Розмір кешу: %s</string>
     <string name="cancel">Скасувати</string>
     <string name="cancel_all">Скасувати все</string>
+    <string name="cancelling">Скасування…</string>
     <string name="changelog">Список змін</string>
     <string name="changelogs">Журнали змін</string>
     <string name="check_updates">Перевірити оновлення</string>
@@ -81,6 +92,7 @@
     <string name="clear_analysis_cache">Очистити кеш аналізу</string>
     <string name="clear_cache">Очистити кеш</string>
     <string name="clear_everything">Очистити все</string>
+    <string name="clear_history">Очистити історію</string>
     <string name="clear_output_confirmation">Очистити підтвердження виводу</string>
     <string name="clipboard_empty">Буфер обміну не містить текст</string>
     <string name="close">Закрити</string>
@@ -132,6 +144,7 @@
     <string name="cut_to_clipboard">Вирізати в буфер обміну</string>
     <string name="daily">Щоденно</string>
     <string name="dark_theme">Темна тема</string>
+    <string name="dashboard">Приладна дошка</string>
     <string name="databases_only">Тільки бази даних</string>
     <string name="default_folder">Тека за замовчуванням</string>
     <string name="default_language">Мова за замовчуванням</string>
@@ -186,6 +199,7 @@
     <string name="des_licenses">Перегляньте ліцензії, які використовуються додатком та бібліотеками</string>
     <string name="des_local_backup">Зберегти зашифровану резервну копію на своєму пристрої</string>
     <string name="des_local_restore">Виберіть файл резервування зі свого пристрою</string>
+    <string name="des_logcat">Вивід logcat в реальному часі з підключеного пристрою</string>
     <string name="des_look_and_feel">Динамічні кольори, Темна тема, Мова</string>
     <string name="des_models">Модель не вибрано</string>
     <string name="des_override_bookmarks">Можлива затримка, якщо додано велику кількість закладок! На недорогих пристроях цю опцію слід вимкнути</string>
@@ -196,11 +210,13 @@
     <string name="des_restore_app_data">Відновіть дані додатка зі збереженого файлу резервної копії.\nЗбережена база даних перезапише поточну базу даних</string>
     <string name="des_save_whole_output">Увімкніть цю опцію, щоб зберегти виведення всієї сесії оболонки.\nЯкщо вимкнено, буде збережено лише виведення останньої команди.</string>
     <string name="des_screen_density">Регулювання щільності екрана, щоб елементи UI показувалися більше або менше</string>
+    <string name="des_select_file_for_flashing">Виберіть файл завантажувального образу для прошивки на вибраний розділ</string>
     <string name="des_sign_in_with_google">За бажанням зв\'яжіть свій обліковий запис Google для резервування в хмару</string>
     <string name="des_smooth_scroll">Вмикає плавне прокручування у виводі оболонки, при натисканні на верхню або нижню стрілку</string>
     <string name="des_toggleable">Коли увімкнено, плитка перемикається між станами УВІМК та ВИМК при кожному натисканні, виконуючи різні команди для кожного стану</string>
     <string name="des_translators">Люди, які допомогли перекласти aShellYou</string>
     <string name="des_ui_scale">Регулювання масштабу елементів UI та розмір шрифту</string>
+    <string name="des_warning_incorrect_file_bootloop">Будьте обережні, тому що неправильний образ може викликати bootloop</string>
     <string name="description">Опис</string>
     <string name="deselect_all">Зняти вибір з усіх</string>
     <string name="developer">Розробник</string>
@@ -250,6 +266,10 @@
     <string name="enable_wireless_debugging_button">Увімкнути</string>
     <string name="enter">Ввести</string>
     <string name="enter_pairing_code">Введіть 6-значний код сполучення</string>
+    <string name="erase_confirm_message">Це призведе до остаточного очищення розділу %1$s. Цю дію не можна скасувати.</string>
+    <string name="erase_confirm_title">Очистити %1$s?</string>
+    <string name="erase_partition">Стерти</string>
+    <string name="erasing">Стирання…</string>
     <string name="error">Помилка</string>
     <string name="error_labels_limit_reached">Досягнуто максимального ліміту етикеток</string>
     <string name="execution_method">Метод виконання</string>
@@ -257,8 +277,18 @@
     <string name="experimental">Експериментальний</string>
     <string name="failed">Не вдалося</string>
     <string name="failed_to_claim_interface">Не вдалося отримати доступ до інтерфейсу</string>
+    <string name="failed_to_copy">Не вдалося скопіювати</string>
     <string name="failed_to_open_usb_connection">Не вдалося відкрити USB з\'єднання. Чи увімкнено налагодження USB?</string>
     <string name="fastboot">Fastboot</string>
+    <string name="fastboot_and_recovery">Fastboot &amp; Recovery</string>
+    <string name="fastboot_coming_soon">Скоро</string>
+    <string name="fastboot_command_console">Командна консоль</string>
+    <string name="fastboot_command_hint">Введіть команду fastboot…</string>
+    <string name="fastboot_device_info">Інформація пристрою</string>
+    <string name="fastboot_partitions">Розділи</string>
+    <string name="fastboot_quick_actions">Швидкі дії</string>
+    <string name="fastboot_summary">Підключення до пристрою в режимі fastboot через OTG</string>
+    <string name="fastboot_variable_explorer">Оглядач змінних</string>
     <string name="fb_all_operations_cancelled">Усі операції скасовано</string>
     <string name="fb_cannot_paste_into_selected">Не можу вставити у вибрану теку</string>
     <string name="fb_create_folder_failed" comment="%1$s = error message. fb_ prefix = file browser">Не вдалося створити теку: %1$s</string>
@@ -297,6 +327,9 @@
     <string name="file_not_found">Файл не знайдено</string>
     <string name="filter">Фільтр</string>
     <string name="filter_by_labels">Фільтрувати за мітками</string>
+    <string name="flash">Прошити</string>
+    <string name="flash_partition">Прошити розділ</string>
+    <string name="flashing">Прошивка…</string>
     <string name="folder">Тека</string>
     <string name="folder_already_exists">Тека з такою назвою вже існує</string>
     <string name="folder_conflict_title">Тека вже існує</string>
@@ -348,6 +381,7 @@
     <string name="frequency">Частота</string>
     <string name="full_license_text">Повний текст ліцензії</string>
     <string name="generate_tile">Створити плитку</string>
+    <string name="get_variables">Отримати змінні</string>
     <string name="go_home">На головну</string>
     <string name="go_to_terminal">Перейти до термінала</string>
     <string name="google_drive">Google Диск</string>
@@ -392,16 +426,20 @@
     <string name="load">Завантажити</string>
     <string name="load_predefined_commands">Завантаження передвизначених команд</string>
     <string name="loading">Завантаження</string>
+    <string name="loading_device_info">Завантаження інформації пристрою…</string>
     <string name="loading_licenses">Завантаження інформації про ліцензію…</string>
     <string name="local_adb">Локальний ADB</string>
     <string name="local_adb_shell">Локальна оболонка ADB</string>
     <string name="local_adb_summary">Виконуйте команди ADB безпосередньо на вашому пристрої за допомогою Shizuku або root.</string>
     <string name="local_backup">Локальне резервування</string>
     <string name="local_file">Локальний файл</string>
+    <string name="locked">Заблоковано</string>
+    <string name="logcat">Logcat</string>
     <string name="logs">Журнали</string>
     <string name="look_and_feel">Оформлення</string>
     <string name="low">Низький</string>
     <string name="manual_pair">Ручне сполучення</string>
+    <string name="max_download_size">Максимальне завантаження</string>
     <string name="medium">Середній</string>
     <string name="merge">Об’єднати</string>
     <string name="minimize">Мінімізувати</string>
@@ -435,6 +473,8 @@
     <string name="no_changelog_found">Журнал змін для цієї версії не знайдено</string>
     <string name="no_cloud_backup_found">Резервування не знайдено на Google Диску</string>
     <string name="no_crashes">Повідомлень про збої не надходило. aShell You працює гладко.</string>
+    <string name="no_device_connected">Немає під\'єднаного пристрою</string>
+    <string name="no_fastboot_device_error">Підключений пристрій не перебуває в режимі fastboot</string>
     <string name="no_files_download">Файли не вибрані (теки неможливо завантажити)</string>
     <string name="no_folder_selected">Теку не вибрано</string>
     <string name="no_google_account_message">На цьому пристрої не знайдено облікового запису Google. Ви хочете додати один для використання хмарного резервного копіювання?</string>
@@ -449,6 +489,7 @@
     <string name="no_root_access">Немає root доступу</string>
     <string name="no_saved_devices">Немає збережених пристроїв</string>
     <string name="no_search_results_found">Результатів пошуку не знайдено</string>
+    <string name="no_variables_loaded">Немає завантажених змінних</string>
     <string name="no_wifi_connection">Нема підключення Wi-Fi</string>
     <string name="none">Жодного</string>
     <string name="not_signed_in">Вхід не виконано</string>
@@ -466,9 +507,12 @@
     <string name="open_app_language_settings">Відкрити налаштування мови додатку</string>
     <string name="open_issues" comment="GitHub repository open issues count">Відкриті питання</string>
     <string name="open_url">Відкрити URL</string>
+    <string name="operation_complete">Операцію завершено</string>
     <string name="operations">Операції</string>
     <string name="or">OR</string>
     <string name="otg" comment="USB On-The-Go. Technical term, keep as OTG">OTG</string>
+    <string name="other_details">Інші деталі</string>
+    <string name="other_device">Інший пристрій</string>
     <string name="output">Вивід</string>
     <string name="override_bookmarks_limit">Перевизначити максимальну кількість закладок</string>
     <string name="pair">Сполучення</string>
@@ -495,6 +539,7 @@
     <string name="palette_style" comment="Settings label for choosing Material Design color palette">Стиль палітри</string>
     <string name="palette_tonal_spot" comment="Material Design color scheme style name">Тональна цятка</string>
     <string name="palette_vibrant" comment="Material Design color scheme style name">Вібрація</string>
+    <string name="partition">Розділ</string>
     <string name="paste">Вставити</string>
     <string name="path">Шлях</string>
     <string name="permission_denied">Дозвіл відхилено</string>
@@ -507,13 +552,21 @@
     <string name="pre_release_warning_description">Ці версії все ще знаходяться на стадії тестування та можуть містити незавершені функції або несподівані помилки. Якщо ви вирішите оновитись до передрелізної версії, майте на увазі, що можуть виникнути збої або дивна поведінка.\nЯкщо ви зіткнетеся з будь-якими проблемами, збоями або дивною поведінкою, будь ласка, повідомте нам про це, щоб ми могли виправити та покращити aShellYou до стабільного релізу.\nДякую, що допомагаєте нам будувати краще!</string>
     <string name="preference">Переважно</string>
     <string name="preview">Перед огляд</string>
+    <string name="product">Продукт</string>
     <string name="qr_pair">Сполучення QR</string>
     <string name="qr_pair_hint">Для сполучення пристрою Android 11+ скануйте цей QR із цільового пристрою</string>
     <string name="qr_scanner_location_hint">Сканер QR доступний в:\nПараметри розробника &gt; Бездротове налагодження &gt; Сполучення за допомогою QR коду</string>
     <string name="qs_tiles">Плитки швидких налаштувань</string>
     <string name="quick_tools">Швидкі інструменти</string>
+    <string name="reading_file">Читання файлу…</string>
     <string name="ready_to_paste">Готовий до вставки</string>
+    <string name="reboot_bootloader">Перезавантажити в Bootloader</string>
+    <string name="reboot_confirm_message">Це перезавантажить підключений пристрій %1$s. Продовжити?</string>
+    <string name="reboot_confirm_title">Підтвердити перезавантаження</string>
+    <string name="reboot_fastbootd">Перевантажити в Fastbootd</string>
+    <string name="reboot_normal">Перезавантажити</string>
     <string name="reboot_options">Параметри перезавантаження</string>
+    <string name="reboot_recovery">Перевантажити в Recovery</string>
     <string name="recent_activity">Нещодавня активність</string>
     <string name="recent_searches">Нещодавні пошуки</string>
     <string name="recommended">Рекомендовано</string>
@@ -554,7 +607,7 @@
     <string name="schedule">Розклад</string>
     <string name="screen_density_multiplier">Множник щільності екрану</string>
     <string name="search">Пошук</string>
-    <string name="search_bookmarks_here">Шукайте тут закладки</string>
+    <string name="search_bookmarks_here">Пошук закладок тут</string>
     <string name="search_commands_here">Пошук команд тут</string>
     <string name="search_fonts">Пошук шрифтів…</string>
     <string name="search_icons_here">Пошук іконок тут</string>
@@ -563,13 +616,16 @@
     <string name="search_output">Пошук виводу тут</string>
     <string name="search_settings">Налаштування пошуку</string>
     <string name="search_something">Знайти що-небудь</string>
+    <string name="search_variables">Пошук змінних…</string>
     <string name="searching_connect_service">Пошук служби підключення</string>
     <string name="searching_for_devices">Пошук пристроїв…</string>
+    <string name="security_patch">Патч безпеки</string>
     <string name="select">Вибрати</string>
     <string name="select_all">Вибрати все</string>
     <string name="select_backup_folder_message">Будь ласка, виберіть теку, де будуть збережені резервування. Додатку потрібен доступ для читання та запису до цієї теки.</string>
     <string name="select_backup_folder_title">Немає теки резервування</string>
     <string name="select_folder">Виберіть теку</string>
+    <string name="select_partition">Виберіть розділ</string>
     <string name="select_time">Виберіть час</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">Своє</string>
     <string name="self_pair_connection_failed">Помилка підключення - спробуйте ручне підключення</string>
@@ -588,6 +644,7 @@
     <string name="self_pair_success_hint">Локальна оболонка ADB тепер доступна</string>
     <string name="self_pair_timeout">Тайм-аут - відкрити діалог сполучення в бездротовому налагодженні</string>
     <string name="self_pair_wrong_code">Неправильний код - знову відкрийте діалогове вікно сполучення</string>
+    <string name="serial_number">Серійний номер</string>
     <string name="serif" comment="Font style category name">Serif</string>
     <string name="settings">Налаштування</string>
     <string name="settings_only">Тільки параметри</string>
@@ -604,6 +661,8 @@
     <string name="signed_out">Виконано вихід</string>
     <string name="size">Розмір</string>
     <string name="skip">Пропустити</string>
+    <string name="slide_to_flash">Слайд для прошивки</string>
+    <string name="slot_data_unknown">Дані слота невідомі</string>
     <string name="smooth_scrolling">Плавне прокручування</string>
     <string name="sort">Сортувати</string>
     <string name="stable_fdroid">Стабільний (F-Droid)</string>
@@ -654,6 +713,8 @@
     <string name="unknown">Невідомо</string>
     <string name="unknown_error">Сталася невідома помилка</string>
     <string name="unknown_sources_install_permission_not_granted">Дозвіл не надано. Дозвольте встановлення програми з невідомих джерел.</string>
+    <string name="unlock_status">Статус розблокування</string>
+    <string name="unlocked">Розблоковано</string>
     <string name="untitled">Без назви</string>
     <string name="update">Оновлення</string>
     <string name="update_available">Доступне оновлення!</string>
@@ -663,6 +724,7 @@
     <string name="uploading_backup">Завантаження резервування на Google Диск…</string>
     <string name="usb_manager_unavailable">Менеджер USB недоступний на цьому пристрої</string>
     <string name="use">Використати</string>
+    <string name="utilities">Утиліти</string>
     <string name="variant">Варіант</string>
     <string name="version">Версія</string>
     <string name="version_code">Код версії</string>
@@ -679,6 +741,15 @@
     <string name="which_device_to_pair">Який пристрій ви хочете сполучити?</string>
     <string name="wifi_adb">WiFi ADB</string>
     <string name="wifi_connection_required">Щоб використовувати функцію бездротового налагодження, ваш пристрій має бути підключення до мережі Wi-Fi. Якщо ваше з’єднання Wi-Fi не має доступу до Інтернету, вимкніть мобільні дані, щоб з’єднання Wi-Fi було надійним.</string>
+    <string name="wipe_cache_desc">fastboot очистити кеш</string>
+    <string name="wipe_cache_title">Очистити кеш</string>
+    <string name="wipe_data">Витерти дані</string>
+    <string name="wipe_data_description">Видаліть розділи на вашому пристрої. Виберіть який розділ, очистити.</string>
+    <string name="wipe_metadata_desc">fastboot очистити метадані</string>
+    <string name="wipe_metadata_title">Очистити метадані</string>
+    <string name="wipe_userdata_desc">fastboot очистити дані користувача</string>
+    <string name="wipe_userdata_title">Очистити дані користувача</string>
+    <string name="wipe_warning">Ці операції незворотні. Дійте з обережністю.</string>
     <string name="wireless_debugging_guide_1">Перейдіть до параметрів Розробника &gt; Бездротове налагодження. Торкніться \'Сполучити\' пристрій за допомогою коду сполучення.</string>
     <string name="wireless_debugging_guide_2">Введіть шестизначний код сполучення в повідомлення, надіслане aShell You.</string>
     <string name="wireless_debugging_guide_3">Поверніться до програми та натисніть кнопку \"Запустити\" на головному екрані.</string>
