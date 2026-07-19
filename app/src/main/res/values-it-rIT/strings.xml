@@ -325,7 +325,7 @@
     <string name="file_exists_message" comment="%1$s = file name">\"%1$s\" esiste già in questa posizione.</string>
     <string name="file_info">Info sul file</string>
     <string name="file_not_found">File non trovato</string>
-    <string name="filter">﻿Filtra</string>
+    <string name="filter">Filtra</string>
     <string name="filter_by_labels">Filtra per etichette</string>
     <string name="flash">Flash</string>
     <string name="flash_partition">Partizione flash</string>
