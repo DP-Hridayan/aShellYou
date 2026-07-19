@@ -1,0 +1,31 @@
+# UI & Compose changes
+ui:
+  - '**/ui/**'
+  - '**/theme/**'
+  - '**/components/**'
+  - '**/*Screen.kt'
+
+# Core architecture and logic
+core:
+  - '**/data/**'
+  - '**/domain/**'
+  - '**/service/**'
+  - '**/utils/**'
+
+# Build configurations and dependency updates
+build:
+  - '**/*.gradle'
+  - '**/*.gradle.kts'
+  - 'gradle/**'
+  - 'gradle.properties'
+  - 'gradle/libs.versions.toml'
+
+# Documentation updates
+docs:
+  - '**/*.md'
+  - 'docs/**'
+
+# GitHub Actions workflow modifications
+github-actions:
+  - '.github/workflows/**'
+  
