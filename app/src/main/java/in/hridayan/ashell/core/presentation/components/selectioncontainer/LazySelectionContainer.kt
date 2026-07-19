@@ -20,7 +20,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -43,9 +42,10 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.changedToUpIgnoreConsumed
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.input.pointer.positionChange
+import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.ClipEntry
@@ -60,13 +60,7 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
-import androidx.compose.ui.unit.IntRect
-import androidx.compose.ui.unit.IntSize
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Popup
-import androidx.compose.ui.window.PopupPositionProvider
-import androidx.compose.ui.window.PopupProperties
 import androidx.compose.ui.zIndex
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
@@ -101,25 +95,39 @@ internal data class LineInfo(val boundsInWindow: Rect, val layoutResult: TextLay
 /** Mutable holder for values read only outside Compose's observed scopes. */
 private class Ref<T>(var value: T)
 
-private enum class HandleRole { START, END }
-
-private val HandleSizeDp = 24.dp
+/** Which visual handle (post-normalization start or end) the toolbar is
+ *  currently pinned to. */
+enum class SelectionEnd { START, END }
 
 /** Holds the current selection and per-line layout bookkeeping. */
 @Stable
 class SelectionState {
     var selection by mutableStateOf<LineSelection?>(null)
 
-    /** Whether the drag handles + popup should be shown. */
+    /** Whether the drag handles should be shown. */
     var handlesVisible by mutableStateOf(false)
+
+    /** Whether the copy/select-all popup should be shown. Separate from
+     *  [handlesVisible] so the popup can auto-appear when a selection
+     *  gesture ends, and auto-hide while a handle is actively being
+     *  dragged, without affecting handle visibility itself. */
+    var toolbarVisible by mutableStateOf(false)
+
+    /** Which visual handle the popup is anchored to. Defaults to whichever
+     *  end the most recent gesture actually moved (so it naturally lands on
+     *  the "active" end even if a backward drag flipped start/end); a tap on
+     *  a handle pins it there explicitly until the next gesture changes it. */
+    var toolbarPinnedEnd by mutableStateOf(SelectionEnd.END)
 
     internal val lineInfos = mutableMapOf<Int, LineInfo>()
     internal var containerWindowOrigin: Offset = Offset.Zero
     internal var containerHeightPx: Float = 0f
+    internal var containerWidthPx: Float = 0f
 
     fun clear() {
         selection = null
         handlesVisible = false
+        toolbarVisible = false
     }
 }
 
@@ -157,6 +165,7 @@ fun <T> Modifier.textSelectionGestures(
         .onGloballyPositioned { coords ->
             selectionState.containerWindowOrigin = coords.boundsInWindow().topLeft
             selectionState.containerHeightPx = coords.size.height.toFloat()
+            selectionState.containerWidthPx = coords.size.width.toFloat()
         }
         .pointerInput(Unit) {
             val touchSlop = viewConfiguration.touchSlop
@@ -196,6 +205,7 @@ fun <T> Modifier.textSelectionGestures(
 
                 haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                 selectionState.handlesVisible = false
+                selectionState.toolbarVisible = false
 
                 val startGlobal = longPress.position + selectionState.containerWindowOrigin
                 val start = findLineOffset(selectionState, startGlobal) ?: return@awaitEachGesture
@@ -233,7 +243,23 @@ fun <T> Modifier.textSelectionGestures(
                 }
 
                 loopJob.cancel()
-                selectionState.handlesVisible = selectionState.selection != null
+                val finalSelection = selectionState.selection
+                val hasSelection = finalSelection != null
+                selectionState.handlesVisible = hasSelection
+                // Previously only set by a handle-drag/tap -- the initial
+                // long-press-drag selection never turned this on, so the
+                // popup silently never appeared the first time.
+                selectionState.toolbarVisible = hasSelection
+                if (finalSelection != null) {
+                    // endLine/endOffset is literally "wherever the drag last
+                    // was" -- if that's still in reading-order after the
+                    // anchor, normalizing leaves it as the end; if the user
+                    // dragged backwards past the anchor, normalizing swaps it
+                    // to become the start. Either way, pin to whichever role
+                    // it ended up as, so the popup follows the finger.
+                    selectionState.toolbarPinnedEnd =
+                        if (finalSelection == finalSelection.normalized()) SelectionEnd.END else SelectionEnd.START
+                }
             }
         }
 }
@@ -281,8 +307,10 @@ fun Modifier.allowTextSelection(
             val sel = selectionState.selection?.normalized() ?: return@drawBehind
             if (index < sel.startLine || index > sel.endLine) return@drawBehind
 
-            val lineStart = (if (index == sel.startLine) sel.startOffset else 0).coerceIn(0, text.length)
-            val lineEnd = (if (index == sel.endLine) sel.endOffset else text.length).coerceIn(0, text.length)
+            val lineStart =
+                (if (index == sel.startLine) sel.startOffset else 0).coerceIn(0, text.length)
+            val lineEnd =
+                (if (index == sel.endLine) sel.endOffset else text.length).coerceIn(0, text.length)
             if (lineStart == lineEnd) return@drawBehind
 
             val path = result.getPathForRange(minOf(lineStart, lineEnd), maxOf(lineStart, lineEnd))
@@ -291,13 +319,9 @@ fun Modifier.allowTextSelection(
 }
 
 /**
- * Draggable start/end selection handles with a drag-release-to-open
- * Copy/Select-all popup, positioned the way Android's native text-selection
- * toolbar is (flips above/below and stays clear of the screen edges).
- * Place as a sibling of the [LazyColumn] inside the same [Box].
+ * Draggable start/end selection handles with a tap-to-open Copy/Select-all
+ * popup. Place as a sibling of the [LazyColumn] inside the same [Box].
  *
- * @param toolbarGap space left between a handle and the toolbar that opens
- * next to it.
  * @param onCopy optional callback reporting whether the Copy action
  * succeeded, e.g. to show a toast.
  */
@@ -311,7 +335,6 @@ fun <T> SelectionHandlesOverlay(
     handleColor: Color = Color(0xFF3399FF),
     autoScrollEdgeThreshold: Dp = 48.dp,
     autoScrollSpeed: Dp = 2.dp,
-    toolbarGap: Dp = 8.dp,
     onCopy: ((success: Boolean) -> Unit)? = null,
 ) {
     // Reading these subscribes this composable to scroll changes, so handle
@@ -323,118 +346,154 @@ fun <T> SelectionHandlesOverlay(
 
     val sel = selectionState.selection
     if (sel == null || !selectionState.handlesVisible) return
+    val normalized = sel.normalized()
 
     val clipboard = LocalClipboard.current
     val scope = rememberCoroutineScope()
     val density = LocalDensity.current
     val edgeThresholdPx = with(density) { autoScrollEdgeThreshold.toPx() }
     val scrollSpeedPx = with(density) { autoScrollSpeed.toPx() }
-    val toolbarGapPx = with(density) { toolbarGap.toPx() }
-    val handleSizePx = with(density) { HandleSizeDp.toPx() }
 
-    var openMenuFor by remember { mutableStateOf<HandleRole?>(null) }
-
-    // Deliberately NOT normalized: updateSelectionForHandle always writes to
-    // sel.startLine/startOffset for the START handle and sel.endLine/endOffset
-    // for the END handle, regardless of which one is visually first (e.g. a
-    // backward selection has startLine > endLine). Positioning each handle
-    // from the same raw fields it edits keeps the rendered handle and the
-    // one you can actually drag the same object.
-    val liveStartPos = computeHandleOffset(selectionState, sel.startLine, sel.startOffset)
-    val liveEndPos = computeHandleOffset(selectionState, sel.endLine, sel.endOffset)
-
-    // Fall back to the last known position instead of unmounting the handle
-    // (and cancelling its in-progress drag gesture) whenever its line is
-    // momentarily missing from lineInfos -- e.g. torn down and recomposed a
-    // frame apart while auto-scroll swaps items in and out. Unmounting mid-
-    // drag is what made dragging feel like it randomly stopped.
-    val lastStartPos = remember { Ref<Offset?>(null) }
-    val lastEndPos = remember { Ref<Offset?>(null) }
-    liveStartPos?.let { lastStartPos.value = it }
-    liveEndPos?.let { lastEndPos.value = it }
-    val startPos = liveStartPos ?: lastStartPos.value
-    val endPos = liveEndPos ?: lastEndPos.value
+    val startPos =
+        computeHandleOffset(selectionState, listState, normalized.startLine, normalized.startOffset)
+    val endPos =
+        computeHandleOffset(selectionState, listState, normalized.endLine, normalized.endOffset)
 
     fun doCopy() {
         scope.launch {
-            val current = selectionState.selection?.normalized() ?: sel.normalized()
+            val current = selectionState.selection?.normalized() ?: normalized
             copySelection(clipboard, items, textOf, current, onCopy)
         }
-        openMenuFor = null
+        selectionState.toolbarVisible = false
     }
 
     fun doSelectAll() {
         selectAll(selectionState, items)
-        openMenuFor = null
+        selectionState.toolbarVisible = false
+        selectionState.toolbarPinnedEnd = SelectionEnd.START
+        // Select-all sets the selection to the true first/last line, but if
+        // the list is scrolled away from the top, line 0 isn't composed yet
+        // so its handle has nothing to position itself against. Scrolling to
+        // the top makes the start handle visibly land on the real selection
+        // start instead of appearing stuck where the old selection was, and
+        // also puts it where the pinned popup will actually be visible.
+        scope.launch { listState.scrollToItem(0) }
     }
 
-    Box(modifier = modifier.fillMaxSize().zIndex(10f)) {
-        startPos?.let { pos ->
-            SelectionHandle(
-                positionInContainer = pos,
-                color = handleColor,
-                selectionState = selectionState,
-                listState = listState,
-                edgeThresholdPx = edgeThresholdPx,
-                scrollSpeedPx = scrollSpeedPx,
-                onTap = { openMenuFor = HandleRole.START },
-                onDragStart = { openMenuFor = null },
-                onDragEnd = { openMenuFor = HandleRole.START },
-                onDragTo = { rawPos ->
-                    val global = rawPos + selectionState.containerWindowOrigin
-                    findLineOffsetOrNearestEdge(selectionState, global)?.let { (line, offset) ->
-                        updateSelectionForHandle(selectionState, isStart = true, line = line, offset = offset)
-                    }
-                },
+    // The popup stays pinned to whichever handle it was last set to -- if
+    // that specific handle's line scrolls off-screen, the popup hides with
+    // it rather than jumping onto the other, still-visible handle, and
+    // reappears on its own once that handle is back on screen.
+    val toolbarAnchor = when (selectionState.toolbarPinnedEnd) {
+        SelectionEnd.START -> startPos
+        SelectionEnd.END -> endPos
+    }
+
+    Box(modifier = modifier
+        .fillMaxSize()
+        .zIndex(10f)) {
+        // Both handles are ALWAYS composed here, even when their position is
+        // currently null (line off-screen) -- SelectionHandle itself decides
+        // whether to render/accept touches. Composing them conditionally
+        // (only when non-null) was what broke dragging: as soon as a line
+        // briefly left the visible range mid-drag, the composable holding
+        // that gesture's coroutine got disposed, silently killing the drag.
+        SelectionHandle(
+            positionInContainer = startPos,
+            isStartVisual = true,
+            color = handleColor,
+            selectionState = selectionState,
+            listState = listState,
+            edgeThresholdPx = edgeThresholdPx,
+            scrollSpeedPx = scrollSpeedPx,
+            onTap = {
+                selectionState.toolbarVisible =
+                    !(selectionState.toolbarVisible && selectionState.toolbarPinnedEnd == SelectionEnd.START)
+                selectionState.toolbarPinnedEnd = SelectionEnd.START
+            },
+            onDragStart = { selectionState.toolbarVisible = false },
+            onDragEnd = {
+                selectionState.toolbarPinnedEnd = SelectionEnd.START
+                selectionState.toolbarVisible = true
+            },
+            onDragTo = { rawPos ->
+                val global = rawPos + selectionState.containerWindowOrigin
+                findLineOffsetOrNearestEdge(selectionState, global)?.let { (line, offset) ->
+                    updateSelectionForVisualHandle(
+                        selectionState,
+                        isStartVisual = true,
+                        line = line,
+                        offset = offset
+                    )
+                }
+            },
+        )
+        SelectionHandle(
+            positionInContainer = endPos,
+            isStartVisual = false,
+            color = handleColor,
+            selectionState = selectionState,
+            listState = listState,
+            edgeThresholdPx = edgeThresholdPx,
+            scrollSpeedPx = scrollSpeedPx,
+            onTap = {
+                selectionState.toolbarVisible =
+                    !(selectionState.toolbarVisible && selectionState.toolbarPinnedEnd == SelectionEnd.END)
+                selectionState.toolbarPinnedEnd = SelectionEnd.END
+            },
+            onDragStart = { selectionState.toolbarVisible = false },
+            onDragEnd = {
+                selectionState.toolbarPinnedEnd = SelectionEnd.END
+                selectionState.toolbarVisible = true
+            },
+            onDragTo = { rawPos ->
+                val global = rawPos + selectionState.containerWindowOrigin
+                findLineOffsetOrNearestEdge(selectionState, global)?.let { (line, offset) ->
+                    updateSelectionForVisualHandle(
+                        selectionState,
+                        isStartVisual = false,
+                        line = line,
+                        offset = offset
+                    )
+                }
+            },
+        )
+        if (selectionState.toolbarVisible && toolbarAnchor != null) {
+            SelectionToolbar(
+                anchorInContainer = toolbarAnchor,
+                containerWidthPx = selectionState.containerWidthPx,
+                containerHeightPx = selectionState.containerHeightPx,
+                onCopy = ::doCopy,
+                onSelectAll = ::doSelectAll,
             )
-            if (openMenuFor == HandleRole.START) {
-                SelectionToolbar(
-                    handleTopInContainer = pos,
-                    handleSizePx = handleSizePx,
-                    containerWindowOrigin = selectionState.containerWindowOrigin,
-                    gapPx = toolbarGapPx,
-                    onDismissRequest = { openMenuFor = null },
-                    onCopy = ::doCopy,
-                    onSelectAll = ::doSelectAll,
-                )
-            }
-        }
-        endPos?.let { pos ->
-            SelectionHandle(
-                positionInContainer = pos,
-                color = handleColor,
-                selectionState = selectionState,
-                listState = listState,
-                edgeThresholdPx = edgeThresholdPx,
-                scrollSpeedPx = scrollSpeedPx,
-                onTap = { openMenuFor = HandleRole.END },
-                onDragStart = { openMenuFor = null },
-                onDragEnd = { openMenuFor = HandleRole.END },
-                onDragTo = { rawPos ->
-                    val global = rawPos + selectionState.containerWindowOrigin
-                    findLineOffsetOrNearestEdge(selectionState, global)?.let { (line, offset) ->
-                        updateSelectionForHandle(selectionState, isStart = false, line = line, offset = offset)
-                    }
-                },
-            )
-            if (openMenuFor == HandleRole.END) {
-                SelectionToolbar(
-                    handleTopInContainer = pos,
-                    handleSizePx = handleSizePx,
-                    containerWindowOrigin = selectionState.containerWindowOrigin,
-                    gapPx = toolbarGapPx,
-                    onDismissRequest = { openMenuFor = null },
-                    onCopy = ::doCopy,
-                    onSelectAll = ::doSelectAll,
-                )
-            }
         }
     }
 }
 
+/** Android-style handle shapes: a circle with one corner left sharp, which
+ *  is the tip that actually touches the selected character. The start
+ *  handle's tip is its top-right corner (the ball hangs down-left, staying
+ *  clear of the selected text to its right); the end handle mirrors it with
+ *  the tip at top-left. */
+private val startHandleShape =
+    RoundedCornerShape(
+        topStartPercent = 50,
+        topEndPercent = 0,
+        bottomEndPercent = 50,
+        bottomStartPercent = 50
+    )
+private val endHandleShape =
+    RoundedCornerShape(
+        topStartPercent = 0,
+        topEndPercent = 50,
+        bottomEndPercent = 50,
+        bottomStartPercent = 50
+    )
+
 @Composable
 private fun SelectionHandle(
-    positionInContainer: Offset,
+    positionInContainer: Offset?,
+    isStartVisual: Boolean,
     color: Color,
     selectionState: SelectionState,
     listState: LazyListState,
@@ -446,49 +505,73 @@ private fun SelectionHandle(
     onDragTo: (rawPositionInContainer: Offset) -> Unit,
 ) {
     val density = LocalDensity.current
+    // The visible dot stays small, but the touch target is much bigger --
+    // Material's own guidance calls for a 48dp minimum touch target, and
+    // with only the dot itself as the hit area, a finger landing a few px
+    // off it missed the handle entirely and fell through to the LazyColumn
+    // underneath, which started a brand new long-press word-selection right
+    // at that point -- which is what made "resuming" a selection by
+    // dragging a handle feel like the initial raw-finger-tracking drag
+    // instead of a real handle drag.
+    val handleVisualSizeDp = 28.dp
+    val handleTouchSizeDp = 48.dp
     val coroutineScope = rememberCoroutineScope()
-    val handleSizePx = with(density) { HandleSizeDp.toPx() }
+    val handleTouchPx = with(density) { handleTouchSizeDp.toPx() }
+
+    // This composable must never be conditionally removed from the tree
+    // based on positionInContainer being null (e.g. its line briefly
+    // scrolling out of the visible range during auto-scroll) -- doing that
+    // tears down this pointerInput's coroutine mid-gesture, silently
+    // killing an in-progress drag. Instead we keep it alive at its last
+    // known position and collapse it to zero size, which naturally blocks
+    // *new* touches without affecting a pointer id already being tracked --
+    // once a drag has claimed a pointer, Compose keeps routing that pointer
+    // to it regardless of the node's current size, the same way a drag
+    // already keeps working when your finger moves outside the handle's
+    // bounds.
+    val lastKnownPosRef = remember { Ref(positionInContainer ?: Offset.Zero) }
+    if (positionInContainer != null) lastKnownPosRef.value = positionInContainer
+    val effectivePos = lastKnownPosRef.value
+    val visible = positionInContainer != null
 
     // pointerInput(Unit) never restarts, so reads must go through
     // rememberUpdatedState to avoid capturing stale values/callbacks.
+    val currentPosition by rememberUpdatedState(effectivePos)
     val currentOnTap by rememberUpdatedState(onTap)
     val currentOnDragStart by rememberUpdatedState(onDragStart)
     val currentOnDragEnd by rememberUpdatedState(onDragEnd)
     val currentOnDragTo by rememberUpdatedState(onDragTo)
 
-    // The handle's own on-screen bounds, refreshed by onGloballyPositioned
-    // every time it moves (i.e. every time the selection endpoint changes).
-    // Reading this fresh on every pointer event -- instead of accumulating
-    // change.positionChange() deltas -- is what makes the handle track the
-    // finger exactly like the initial long-press-drag does, which reads
-    // change.position against a container that never moves. The handle DOES
-    // move every frame, so its own window origin has to be re-sampled every
-    // frame too, or the tracking drifts and periodically stalls.
-    val windowOriginRef = remember { Ref(Offset.Zero) }
-
     Box(
         modifier = Modifier
+            // The touch box shares its tip corner with the visual ball --
+            // top-right for the start handle, top-left for the end handle --
+            // so enlarging it for an easier grab doesn't shift where the tip
+            // actually is.
             .offset {
-                IntOffset((positionInContainer.x - handleSizePx / 2).toInt(), positionInContainer.y.toInt())
+                val x = if (isStartVisual) effectivePos.x - handleTouchPx else effectivePos.x
+                IntOffset(x.toInt(), effectivePos.y.toInt())
             }
-            .size(HandleSizeDp)
-            .onGloballyPositioned { coords -> windowOriginRef.value = coords.boundsInWindow().topLeft }
+            .size(if (visible) handleTouchSizeDp else 0.dp)
             .pointerInput(Unit) {
                 awaitEachGesture {
-                    // Claim this pointer on the Initial (top-down) pass --
-                    // every node gets its Initial-pass turn before any node
-                    // gets its Main-pass turn, so consuming here reliably
-                    // wins arbitration against LazyColumn's own internal
-                    // scroll gesture detector (which reacts on the Main
-                    // pass), regardless of z-order/sibling positioning
-                    // between the handle and the list.
-                    val down = awaitFirstDown(requireUnconsumed = false, pass = PointerEventPass.Initial)
+                    val down = awaitFirstDown(requireUnconsumed = false)
+                    // Claim this pointer immediately -- otherwise LazyColumn's
+                    // own scroll gesture (which sits underneath, covering the
+                    // same area) wins the arbitration and the handle never
+                    // receives drag movement at all.
                     down.consume()
 
                     var isDragging = false
-                    val pointerPosRef = Ref(
-                        windowOriginRef.value + down.position - selectionState.containerWindowOrigin
-                    )
+                    // Start exactly at the handle's current tip position, not
+                    // at the raw touch point -- every subsequent finger-delta
+                    // is added on top of this, so the tip tracks the finger's
+                    // *movement* 1:1 while preserving whatever offset existed
+                    // between the touch point and the tip at grab time. This
+                    // is what makes it feel like dragging the handle, rather
+                    // than teleporting the selection to under the finger.
+                    var raw = currentPosition
+                    val pointerPosRef = Ref(raw)
 
                     // Same as the main gesture: a timer-driven loop, not gated
                     // on new touch events, so auto-scroll and selection updates
@@ -510,79 +593,70 @@ private fun SelectionHandle(
                             isDragging = true
                             currentOnDragStart()
                         }
-                        // Re-sampled fresh each event (see windowOriginRef
-                        // comment above) rather than accumulated, so a frame
-                        // where the handle's own recomposition lags a beat
-                        // behind the finger can't leave tracking stuck.
-                        pointerPosRef.value =
-                            windowOriginRef.value + change.position - selectionState.containerWindowOrigin
+                        raw += change.positionChange()
+                        pointerPosRef.value = raw
                     }
 
                     loopJob.cancel()
                     if (isDragging) currentOnDragEnd() else currentOnTap()
                 }
             }
-            .clip(CircleShape)
-            .background(color)
-    )
+    ) {
+        if (visible) {
+            Box(
+                modifier = Modifier
+                    .align(if (isStartVisual) Alignment.TopEnd else Alignment.TopStart)
+                    .size(handleVisualSizeDp)
+                    .clip(if (isStartVisual) startHandleShape else endHandleShape)
+                    .background(color)
+            )
+        }
+    }
 }
 
 @Composable
 private fun SelectionToolbar(
-    handleTopInContainer: Offset,
-    handleSizePx: Float,
-    containerWindowOrigin: Offset,
-    gapPx: Float,
-    onDismissRequest: () -> Unit,
+    anchorInContainer: Offset,
+    containerWidthPx: Float,
+    containerHeightPx: Float,
     onCopy: () -> Unit,
     onSelectAll: () -> Unit,
 ) {
-    val handleTopInWindow = handleTopInContainer + containerWindowOrigin
-    val positionProvider = remember(handleTopInWindow, handleSizePx, gapPx) {
-        ToolbarPositionProvider(handleTopInWindow, handleSizePx, gapPx)
-    }
-    Popup(
-        popupPositionProvider = positionProvider,
-        onDismissRequest = onDismissRequest,
-        properties = PopupProperties(focusable = false, dismissOnClickOutside = true),
-    ) {
-        Surface(shape = RoundedCornerShape(8.dp), tonalElevation = 4.dp, shadowElevation = 4.dp) {
-            Row {
-                TextButton(onClick = onCopy) { Text("Copy") }
-                TextButton(onClick = onSelectAll) { Text("Select all") }
+    val density = LocalDensity.current
+    val gapPx = with(density) { 8.dp.toPx() }
+    Layout(
+        content = {
+            Surface(
+                shape = RoundedCornerShape(8.dp),
+                tonalElevation = 4.dp,
+                shadowElevation = 4.dp
+            ) {
+                Row {
+                    TextButton(onClick = onCopy) { Text("Copy") }
+                    TextButton(onClick = onSelectAll) { Text("Select all") }
+                }
             }
-        }
-    }
-}
+        },
+        modifier = Modifier.fillMaxSize(),
+    ) { measurables, constraints ->
+        // Measure the popup at its own natural size, not stretched to fill
+        // the container -- fillMaxSize above is only so this Layout's own
+        // bounds span the full container to place the popup anywhere in it.
+        val placeable = measurables.first().measure(Constraints())
 
-/**
- * Mirrors Android's own text-selection toolbar placement: centered over the
- * handle with a small gap, preferring just above it but flipping to below
- * when there isn't room, and clamped so it never runs off the screen edge --
- * unlike a plain offset Box, which just silently draws off-window.
- */
-private class ToolbarPositionProvider(
-    private val handleTopInWindow: Offset,
-    private val handleSizePx: Float,
-    private val gapPx: Float,
-) : PopupPositionProvider {
-    override fun calculatePosition(
-        anchorBounds: IntRect,
-        windowSize: IntSize,
-        layoutDirection: LayoutDirection,
-        popupContentSize: IntSize,
-    ): IntOffset {
-        val maxX = (windowSize.width - popupContentSize.width).coerceAtLeast(0)
-        val x = (handleTopInWindow.x - popupContentSize.width / 2f).toInt().coerceIn(0, maxX)
-
-        val spaceAbove = handleTopInWindow.y - gapPx
-        val y = if (spaceAbove >= popupContentSize.height) {
-            handleTopInWindow.y - gapPx - popupContentSize.height
+        val fitsAbove = anchorInContainer.y - gapPx - placeable.height >= 0f
+        val y = if (fitsAbove) {
+            anchorInContainer.y - gapPx - placeable.height
         } else {
-            handleTopInWindow.y + handleSizePx + gapPx
+            anchorInContainer.y + gapPx
         }
-        val maxY = (windowSize.height - popupContentSize.height).coerceAtLeast(0)
-        return IntOffset(x, y.toInt().coerceIn(0, maxY))
+        val clampedY = y.coerceIn(0f, (containerHeightPx - placeable.height).coerceAtLeast(0f))
+        val x = (anchorInContainer.x - placeable.width / 2f)
+            .coerceIn(0f, (containerWidthPx - placeable.width).coerceAtLeast(0f))
+
+        layout(constraints.maxWidth, constraints.maxHeight) {
+            placeable.placeRelative(x.toInt(), clampedY.toInt())
+        }
     }
 }
 
@@ -621,6 +695,7 @@ private suspend fun autoScrollIfNearEdge(
             val factor = 1f - (distanceFromTop / edgeThresholdPx).coerceIn(0f, 1f)
             listState.scrollBy(-scrollSpeedPx * factor)
         }
+
         distanceFromBottom < edgeThresholdPx -> {
             val factor = 1f - (distanceFromBottom / edgeThresholdPx).coerceIn(0f, 1f)
             listState.scrollBy(scrollSpeedPx * factor)
@@ -628,13 +703,45 @@ private suspend fun autoScrollIfNearEdge(
     }
 }
 
-private fun updateSelectionForHandle(selectionState: SelectionState, isStart: Boolean, line: Int, offset: Int) {
+/**
+ * [isStartVisual] identifies which handle the user is dragging (the one
+ * rendered at the normalized start, vs. the one at the normalized end) --
+ * not which raw field to write. Those are only the same field when the
+ * selection hasn't been flipped by a backward drag; when it has, the visual
+ * start handle is actually sitting on the raw *end* field (normalization
+ * swapped them for display without touching the underlying selection), so
+ * writing straight to raw startLine/startOffset would silently move the
+ * wrong endpoint.
+ */
+private fun updateSelectionForVisualHandle(
+    selectionState: SelectionState,
+    isStartVisual: Boolean,
+    line: Int,
+    offset: Int,
+) {
     val current = selectionState.selection ?: return
-    selectionState.selection = if (isStart) current.copy(startLine = line, startOffset = offset)
-    else current.copy(endLine = line, endOffset = offset)
+    val swapped = current != current.normalized()
+    val writeRawStart = if (isStartVisual) !swapped else swapped
+    selectionState.selection =
+        if (writeRawStart) current.copy(startLine = line, startOffset = offset)
+        else current.copy(endLine = line, endOffset = offset)
 }
 
-private fun computeHandleOffset(selectionState: SelectionState, line: Int, charOffset: Int): Offset? {
+private fun computeHandleOffset(
+    selectionState: SelectionState,
+    listState: LazyListState,
+    line: Int,
+    charOffset: Int,
+): Offset? {
+    // Authoritative check against LazyColumn's own visible-items list rather
+    // than just "is there an entry in lineInfos": an item that has just
+    // scrolled out keeps its last-known LineInfo around for a frame or more
+    // (removal happens on disposal, which lags behind), so relying on the
+    // map alone made the handle appear to freeze at its last on-screen spot
+    // instead of disappearing. Checking visibleItemsInfo makes the handle
+    // hide immediately once its line is truly off-screen.
+    val isVisible = listState.layoutInfo.visibleItemsInfo.any { it.index == line }
+    if (!isVisible) return null
     val info = selectionState.lineInfos[line] ?: return null
     val textLength = info.layoutResult.layoutInput.text.length
     val cursorRect = info.layoutResult.getCursorRect(charOffset.coerceIn(0, textLength))
@@ -694,18 +801,24 @@ private fun findLineOffsetOrNearestEdge(state: SelectionState, globalPos: Offset
     findLineOffset(state, globalPos)?.let { return it }
     if (state.lineInfos.isEmpty()) return null
     val top = state.lineInfos.entries.minByOrNull { it.value.boundsInWindow.top } ?: return null
-    val bottom = state.lineInfos.entries.maxByOrNull { it.value.boundsInWindow.bottom } ?: return null
+    val bottom =
+        state.lineInfos.entries.maxByOrNull { it.value.boundsInWindow.bottom } ?: return null
     return when {
         globalPos.y <= top.value.boundsInWindow.top -> top.key to 0
         globalPos.y >= bottom.value.boundsInWindow.bottom ->
             bottom.key to bottom.value.layoutResult.layoutInput.text.length
+
         else -> null
     }
 }
 
 /** Reads from the source list, not the composed-only cache, so lines that
  *  scrolled offscreen during the drag still copy correctly. */
-private fun <T> buildSelectedText(items: List<T>, textOf: (T) -> String, sel: LineSelection): String {
+private fun <T> buildSelectedText(
+    items: List<T>,
+    textOf: (T) -> String,
+    sel: LineSelection
+): String {
     val norm = sel.normalized()
     val sb = StringBuilder()
     for (i in norm.startLine..norm.endLine) {
@@ -716,6 +829,7 @@ private fun <T> buildSelectedText(items: List<T>, textOf: (T) -> String, sel: Li
                 val e = norm.endOffset.coerceIn(0, line.length)
                 line.substring(minOf(s, e), maxOf(s, e))
             }
+
             i == norm.startLine -> line.substring(norm.startOffset.coerceIn(0, line.length))
             i == norm.endLine -> line.substring(0, norm.endOffset.coerceIn(0, line.length))
             else -> line
@@ -767,7 +881,6 @@ fun <T> LazySelectionContainer(
     handleColor: Color = Color(0xFF3399FF),
     autoScrollEdgeThreshold: Dp = 48.dp,
     autoScrollSpeed: Dp = 2.dp,
-    toolbarGap: Dp = 8.dp,
     onCopy: ((success: Boolean) -> Unit)? = null,
     content: LazyListScope.(selectionState: SelectionState) -> Unit,
 ) {
@@ -798,7 +911,6 @@ fun <T> LazySelectionContainer(
             handleColor = handleColor,
             autoScrollEdgeThreshold = autoScrollEdgeThreshold,
             autoScrollSpeed = autoScrollSpeed,
-            toolbarGap = toolbarGap,
             onCopy = onCopy,
         )
     }
