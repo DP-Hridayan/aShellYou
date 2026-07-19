@@ -3,6 +3,8 @@
     <string name="abort_command">أولاً أوقف الأمر</string>
     <string name="about">حول</string>
     <string name="active">نشط</string>
+    <string name="active_slot">خانة نشطة</string>
+    <string name="adb">ADB</string>
     <string name="adb_command">أمر ADB</string>
     <string name="adb_command_hint" comment="Example ADB command shown as placeholder hint in input field">adb reboot</string>
     <string name="adb_command_off_state">أمر ADB (OFF state)</string>
@@ -11,8 +13,10 @@
     <string name="adb_connection_channel_description">يظهر عندما يكون اتصال ADB نشط</string>
     <string name="adb_connection_channel_name">اتصال ADB</string>
     <string name="adb_connection_description">يتم الحفاظ على اتصال WiFi ADB</string>
+    <string name="adb_sideload">تحميل ADB الجانبي</string>
     <string name="adb_through_otg">ADB عبر OTG</string>
     <string name="adb_through_otg_summary">استخدم كابل OTG وتصحيح USB لتنفيذ أوامر ADB على جهاز Android آخر. تحتاج إلى تشغيل تصحيح USB في إعدادات المطور على الجهاز المستهدف.</string>
+    <string name="adb_via_otg">ADB عبر OTG</string>
     <string name="adb_via_wireless_debugging">ADB عن طريق تصحيح الأخطاء اللاسلكي</string>
     <string name="adb_via_wireless_debugging_summary">توصيل الأجهزة (Android 11+) عبر Wi-Fi باستخدام التصحيح اللاسلكي وتنفيذ أوامر ADB عن بُعد.</string>
     <string name="add">إضافة</string>
@@ -60,17 +64,24 @@
     <string name="backup_successful">تم النسخ الاحتياطي بنجاح</string>
     <string name="backup_time">وقت النسخة الاحتياطية</string>
     <string name="backup_type">نوع النسخ الاحتياطي</string>
+    <string name="baseband_version">البيسباند</string>
     <string name="basic_shell">واجهة سطر الأوامر الأساسية</string>
+    <string name="battery_level">البطارية</string>
     <string name="battery_saver">موفر البطارية</string>
     <string name="behavior">سلوك</string>
     <string name="bookmark_limit_reached">تم الوصول إلى الحد الأقصى للإشارات المرجعية! احذف بعض الإشارات المرجعية لإضافة إشارات جديدة</string>
     <string name="bookmarks">الإشارات المرجعية</string>
+    <string name="boot_device_into_fastboot">قم بتشغيل الجهاز المستهدف في وضع cotboot وتوصيل عبر كابل OTG</string>
+    <string name="boot_image">صورة التمهيد</string>
+    <string name="boot_into_fastboot">تشغيل إلى Fastboot</string>
     <string name="bootloader"></string>
+    <string name="bootloader_version">Bootloader</string>
     <string name="btn_continue">متابعة</string>
     <string name="cache_settings">مخبئ</string>
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">حجم ذاكرة التخزين المؤقت: %s</string>
     <string name="cancel">إلغاء</string>
     <string name="cancel_all">إلغاء الكل</string>
+    <string name="cancelling">إلغاء…</string>
     <string name="changelog">تغيير</string>
     <string name="changelogs">سجلات التغيير</string>
     <string name="check_updates">تحقق من التحديثات</string>
@@ -81,6 +92,7 @@
     <string name="clear_analysis_cache">مسح ذاكرة التخزين المؤقت للتحليل</string>
     <string name="clear_cache">مسح ذاكرة التخزين المؤقت</string>
     <string name="clear_everything">مسح كل شيء</string>
+    <string name="clear_history">مسح المحفوظات</string>
     <string name="clear_output_confirmation">مسح تأكيد الإخراج</string>
     <string name="clipboard_empty">الحافظة لا تحتوي على نص</string>
     <string name="close">إغلاق</string>
@@ -132,6 +144,7 @@
     <string name="cut_to_clipboard">قطع إلى الحافظة</string>
     <string name="daily">يومياً</string>
     <string name="dark_theme">سمة داكنة</string>
+    <string name="dashboard">لوحة التحكم</string>
     <string name="databases_only">قواعد البيانات فقط</string>
     <string name="default_folder">المجلد الافتراضي</string>
     <string name="default_language">اللغة الافتراضية</string>
@@ -186,6 +199,7 @@
     <string name="des_licenses">عرض التراخيص التي يستخدمها التطبيق والمكتبات</string>
     <string name="des_local_backup">حفظ النسخ الاحتياطي المشفر إلى جهازك</string>
     <string name="des_local_restore">اختر ملف النسخ الاحتياطي من جهازك</string>
+    <string name="des_logcat">إخراج لقطة في الوقت الحقيقي من جهاز متصل</string>
     <string name="des_look_and_feel">الألوان الديناميكية، السمة الداكنة، اللغة</string>
     <string name="des_models">لم يتم تحديد نموذج</string>
     <string name="des_override_bookmarks">قد يتسبب في تأخر إذا تمت إضافة عدد كبير من الإشارات المرجعية! يجب أن تبقي الأجهزة المنخفضة على هذا الخيار متوقفة</string>
@@ -197,11 +211,13 @@
 ستقوم قاعدة البيانات المحفوظة باستبدال القاعدة الحالية</string>
     <string name="des_save_whole_output">تمكين هذا الخيار لحفظ إخراج جلسة القذيفة بأكملها.\nإذا تم تعطيله فقط سيتم حفظ إخراج الأمر الأخير.</string>
     <string name="des_screen_density">ضبط كثافة الشاشة لجعل عناصر واجهة المستخدم تبدو أكبر أو أصغر</string>
+    <string name="des_select_file_for_flashing">حدد ملف صورة التمهيد للفلاش إلى القسم المحدد</string>
     <string name="des_sign_in_with_google">اختياريا ربط حسابك في جوجل للنسخ الاحتياطية السحابية</string>
     <string name="des_smooth_scroll">يمكن التمرير السلس في ناتج واجهة سطر الأوامر عند النقر على السهم العلوي أو السفلي</string>
     <string name="des_toggleable">عند التمكين، تبديل البلاط بين تشغيل و إيقاف التشغيل على كل نقرة، تشغيل أمر مختلف لكل ولاية</string>
     <string name="des_translators">الأشخاص الذين ساعدوا في ترجمة AShellu</string>
     <string name="des_ui_scale">ضبط حجم عناصر واجهة المستخدم وحجم الخط</string>
+    <string name="des_warning_incorrect_file_bootloop">المضي قدما بحذر كصورة غير صحيحة قد يسبب حلقة أوراق</string>
     <string name="description">الوصف</string>
     <string name="deselect_all">إلغاء تحديد الكل</string>
     <string name="developer">المطور</string>
@@ -251,6 +267,10 @@
     <string name="enable_wireless_debugging_button">تمكين</string>
     <string name="enter">أدخل</string>
     <string name="enter_pairing_code">أدخل رمز الاقتران المكون من 6 أرقام</string>
+    <string name="erase_confirm_message">سيؤدي هذا إلى محو قسم %1$s بشكل دائم. لا يمكن التراجع عن هذا الإجراء.</string>
+    <string name="erase_confirm_title">Erase %1$s?</string>
+    <string name="erase_partition">Erase</string>
+    <string name="erasing">مسح…</string>
     <string name="error">خطأ</string>
     <string name="error_labels_limit_reached">تم بلوغ الحد الأقصى للمسميات</string>
     <string name="execution_method">طريقة التنفيذ</string>
@@ -258,8 +278,18 @@
     <string name="experimental">تجريبي</string>
     <string name="failed">فشل</string>
     <string name="failed_to_claim_interface">فشل في المطالبة بالواجهة</string>
+    <string name="failed_to_copy">فشل في النسخ</string>
     <string name="failed_to_open_usb_connection">فشل في فتح اتصال USB. هل تم تمكين تصحيح أخطاء USB؟</string>
     <string name="fastboot">Fastboot</string>
+    <string name="fastboot_and_recovery">Fastboot &amp; الاسترداد</string>
+    <string name="fastboot_coming_soon">قريباً</string>
+    <string name="fastboot_command_console">وحدة تحكم الأوامر</string>
+    <string name="fastboot_command_hint">أدخل الأمر السريع…</string>
+    <string name="fastboot_device_info">معلومات الجهاز</string>
+    <string name="fastboot_partitions">الأقسام</string>
+    <string name="fastboot_quick_actions">الإجراءات السريعة</string>
+    <string name="fastboot_summary">الاتصال بجهاز في وضع سريع عن طريق OTG</string>
+    <string name="fastboot_variable_explorer">مستكشف المتغير</string>
     <string name="fb_all_operations_cancelled">تم إلغاء جميع العمليات</string>
     <string name="fb_cannot_paste_into_selected">لا يمكن لصق المجلد المحدد</string>
     <string name="fb_create_folder_failed" comment="%1$s = error message. fb_ prefix = file browser">فشل إنشاء مجلد: %1$s</string>
@@ -298,6 +328,9 @@
     <string name="file_not_found">المِلَفّ غير موجود</string>
     <string name="filter">تصفية</string>
     <string name="filter_by_labels">تصفية حسب التسميات</string>
+    <string name="flash">فلاش</string>
+    <string name="flash_partition">قسم الفلاش</string>
+    <string name="flashing">الودم…</string>
     <string name="folder">مجلد</string>
     <string name="folder_already_exists">يوجد مجلد بهذا الاسم مسبقاً</string>
     <string name="folder_conflict_title">المجلد موجود بالفعل</string>
@@ -349,6 +382,7 @@
     <string name="frequency">التردد</string>
     <string name="full_license_text">نص الترخيص الكامل</string>
     <string name="generate_tile">توليد البلاط</string>
+    <string name="get_variables">احصل على متغيرات</string>
     <string name="go_home">الذهاب إلى المنزل</string>
     <string name="go_to_terminal">الذهاب إلى المحطة الطرفية</string>
     <string name="google_drive">محرك جوجل</string>
@@ -393,16 +427,20 @@
     <string name="load">تحميل</string>
     <string name="load_predefined_commands">تحميل أوامر محددة مسبقاً</string>
     <string name="loading">جاري التحميل</string>
+    <string name="loading_device_info">جارٍ تحميل معلومات الجهاز…</string>
     <string name="loading_licenses">تحميل معلومات الترخيص…</string>
     <string name="local_adb">ADB المحلي</string>
     <string name="local_adb_shell">قذيفة ADB المحلية</string>
     <string name="local_adb_summary">تنفيذ أوامر ADB مباشرة على جهازك باستخدام Shizuku أو الجذر.</string>
     <string name="local_backup">النسخ الاحتياطي المحلي</string>
     <string name="local_file">ملف محلي</string>
+    <string name="locked">مقفل</string>
+    <string name="logcat">Logcat</string>
     <string name="logs">السجلات</string>
     <string name="look_and_feel">المظهر والشعور</string>
     <string name="low">منخفض</string>
     <string name="manual_pair">اقتران يدوي</string>
+    <string name="max_download_size">الحد الأقصى للتحميل</string>
     <string name="medium">متوسط</string>
     <string name="merge">دمج</string>
     <string name="minimize">Minimize</string>
@@ -436,6 +474,8 @@
     <string name="no_changelog_found">لا يوجد سجل تغييرات لهذا الإصدار</string>
     <string name="no_cloud_backup_found">لم يتم العثور على نسخة احتياطية في Google Drive</string>
     <string name="no_crashes">لم يتم الإبلاغ عن أي تحطم. AShell أنت تعمل بسلاسة.</string>
+    <string name="no_device_connected">لا يوجد جهاز متصل</string>
+    <string name="no_fastboot_device_error">الجهاز المتصل ليس في وضع سريع</string>
     <string name="no_files_download">لا توجد ملفات محددة (المجلدات لا يمكن تحميلها)</string>
     <string name="no_folder_selected">لم يتم تحديد مجلد</string>
     <string name="no_google_account_message">لم يتم العثور على حساب جوجل على هذا الجهاز. هل ترغب في إضافة حساب لاستخدام النسخ الاحتياطية السحابية؟</string>
@@ -450,6 +490,7 @@
     <string name="no_root_access">لا يوجد وصول للجذر</string>
     <string name="no_saved_devices">لا توجد أجهزة محفوظة</string>
     <string name="no_search_results_found">لم يتم العثور على نتائج بحث</string>
+    <string name="no_variables_loaded">لا متغيرات تم تحميلها</string>
     <string name="no_wifi_connection">لا يوجد اتصال Wi-Fi</string>
     <string name="none">لا شيء</string>
     <string name="not_signed_in">لم يتم تسجيل الدخول</string>
@@ -467,9 +508,12 @@
     <string name="open_app_language_settings">فتح إعدادات لغة التطبيق</string>
     <string name="open_issues" comment="GitHub repository open issues count">مشاكل مفتوحة</string>
     <string name="open_url">فتح عنوان URL</string>
+    <string name="operation_complete">اكتملت العملية</string>
     <string name="operations">العمليات</string>
     <string name="or">أو</string>
     <string name="otg" comment="USB On-The-Go. Technical term, keep as OTG">OTG</string>
+    <string name="other_details">تفاصيل أخرى</string>
+    <string name="other_device">جهاز آخر</string>
     <string name="output">الناتج</string>
     <string name="override_bookmarks_limit">تجاوز الحد الأقصى للإشارات المرجعية</string>
     <string name="pair">اقتران</string>
@@ -496,6 +540,7 @@
     <string name="palette_style" comment="Settings label for choosing Material Design color palette">Palette style</string>
     <string name="palette_tonal_spot" comment="Material Design color scheme style name">بقعة الطون</string>
     <string name="palette_vibrant" comment="Material Design color scheme style name">حيوية</string>
+    <string name="partition">قسم</string>
     <string name="paste">لصق</string>
     <string name="path">المسار</string>
     <string name="permission_denied">تم رفض الإذن</string>
@@ -508,13 +553,21 @@
     <string name="pre_release_warning_description">لا تزال هذه الإصدارات قيد الاختبار، وقد تحتوي على ميزات غير مكتملة أو أخطاء غير متوقعة. إذا اخترت التحديث إلى إصدار تجريبي، يُرجى العلم بأن بعض الأمور قد تتعطل أو تتصرف بشكل غير طبيعي.\nإذا واجهت أي مشاكل أو أعطال أو سلوك غير معتاد، يُرجى الإبلاغ عنها حتى نتمكن من إصلاحها وتحسين تطبيق aShellYou قبل الإصدار المستقر.\nشكرًا لمساعدتكم لنا في تطوير التطبيق بشكل أفضل! </string>
     <string name="preference">تفضيل</string>
     <string name="preview">معاينة</string>
+    <string name="product">المنتج</string>
     <string name="qr_pair">QR Pair</string>
     <string name="qr_pair_hint">لإقران جهاز أندرويد 11+ ، امسح هذا QR من الجهاز المستهدف</string>
     <string name="qr_scanner_location_hint">ماسح QR متاح على:\nخيارات المطور &gt; التصحيح اللاسلكي &gt; بإستخدام رمز QR</string>
     <string name="qs_tiles">مربعات الإعدادات السريعة</string>
     <string name="quick_tools">أدوات سريعة</string>
+    <string name="reading_file">قراءة الملف…</string>
     <string name="ready_to_paste">مستعد للصق</string>
+    <string name="reboot_bootloader">إعادة التشغيل إلى Bootloader</string>
+    <string name="reboot_confirm_message">سيؤدي هذا إلى إعادة تشغيل الجهاز المتصل إلى %1$s. هل تريد المتابعة؟</string>
+    <string name="reboot_confirm_title">تأكيد إعادة التشغيل</string>
+    <string name="reboot_fastbootd">إعادة التشغيل إلى Fastbootd</string>
+    <string name="reboot_normal">Reboot</string>
     <string name="reboot_options">خيارات إعادة التشغيل</string>
+    <string name="reboot_recovery">إعادة التشغيل إلى الاسترداد</string>
     <string name="recent_activity">النشاط الأخير</string>
     <string name="recent_searches">عمليات البحث الأخيرة</string>
     <string name="recommended">موصى</string>
@@ -564,13 +617,16 @@
     <string name="search_output">ابحث في الناتج هنا</string>
     <string name="search_settings">إعدادات البحث</string>
     <string name="search_something">البحث عن شيء</string>
+    <string name="search_variables">البحث عن المتغيرات…</string>
     <string name="searching_connect_service">البحث عن خدمة الاتصال</string>
     <string name="searching_for_devices">البحث عن الأجهزة…</string>
+    <string name="security_patch">التصحيح الأمني</string>
     <string name="select">اختيار</string>
     <string name="select_all">تحديد الكل</string>
     <string name="select_backup_folder_message">الرجاء تحديد مجلد حيث سيتم حفظ النسخ الاحتياطي. التطبيق يحتاج إلى الوصول إلى هذا المجلد للقراءة والكتابة.</string>
     <string name="select_backup_folder_title">لا يوجد مجلد نسخة احتياطية</string>
     <string name="select_folder">حدد مجلد</string>
+    <string name="select_partition">حدد القسم</string>
     <string name="select_time">حدد الوقت</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">الذات</string>
     <string name="self_pair_connection_failed">فشل الاتصال - جرب الاتصال اليدوي</string>
@@ -589,6 +645,7 @@
     <string name="self_pair_success_hint">قذيفة ADB المحلية متوفرة الآن</string>
     <string name="self_pair_timeout">مهلة - فتح مربع حوار الاقتران في تصحيح الأخطاء اللاسلكية</string>
     <string name="self_pair_wrong_code">كود خاطئ - فتح مربع حوار الاقتران مرة أخرى</string>
+    <string name="serial_number">الرقم التسلسلي</string>
     <string name="serif" comment="Font style category name">سيرفر</string>
     <string name="settings">الإعدادات</string>
     <string name="settings_only">الإعدادات فقط</string>
@@ -605,6 +662,8 @@
     <string name="signed_out">تسجيل الخروج</string>
     <string name="size">الحجم</string>
     <string name="skip">تخطي</string>
+    <string name="slide_to_flash">انزلاق إلى فلاش</string>
+    <string name="slot_data_unknown">خانة البيانات غير معروفة</string>
     <string name="smooth_scrolling">تمرير سلس</string>
     <string name="sort">ترتيب</string>
     <string name="stable_fdroid">مستقر (Fdroid)</string>
@@ -655,6 +714,8 @@
     <string name="unknown">غير معروف</string>
     <string name="unknown_error">حدث خطأ غير معروف</string>
     <string name="unknown_sources_install_permission_not_granted">لم يتم منح الإذن. يرجى السماح بتثبيت التطبيقات من مصادر غير معروفة.</string>
+    <string name="unlock_status">حالة الفتح</string>
+    <string name="unlocked">فتح</string>
     <string name="untitled">بدون عنوان</string>
     <string name="update">تحديث</string>
     <string name="update_available">تحديث متاح!</string>
@@ -664,6 +725,7 @@
     <string name="uploading_backup">تحميل النسخ الاحتياطي إلى Google Drive…</string>
     <string name="usb_manager_unavailable">مدير USB غير متوفر على هذا الجهاز</string>
     <string name="use">استخدام</string>
+    <string name="utilities">المرافق</string>
     <string name="variant">المتغير</string>
     <string name="version">الإصدار</string>
     <string name="version_code">رمز الإصدار</string>
@@ -680,6 +742,15 @@
     <string name="which_device_to_pair">ما هو الجهاز الذي ترغب في الإقران؟</string>
     <string name="wifi_adb">واي فاي ADB</string>
     <string name="wifi_connection_required">لاستخدام ميزة التصحيح اللاسلكي، يجب أن يكون جهازك متصلًا بشبكة Wi-Fi. إذا كان اتصال Wi-Fi الخاص بك ليس لديه وصول إلى الإنترنت، فقم بإيقاف تشغيل بيانات الجوال للحصول على اتصال Wi-Fi ثابت.</string>
+    <string name="wipe_cache_desc">fastboot erase cache</string>
+    <string name="wipe_cache_title">Erase Cache</string>
+    <string name="wipe_data">مسح البيانات</string>
+    <string name="wipe_data_description">مسح الأقسام على جهازك. حدد القسم الذي تريد مسحه.</string>
+    <string name="wipe_metadata_desc">مسح السريع للبيانات الوصفية</string>
+    <string name="wipe_metadata_title">مسح بيانات التعريف</string>
+    <string name="wipe_userdata_desc">مسح سريع لبيانات المستخدم</string>
+    <string name="wipe_userdata_title">مسح بيانات المستخدم</string>
+    <string name="wipe_warning">وهذه العمليات لا رجعة فيها، والمضي قدما بحذر.</string>
     <string name="wireless_debugging_guide_1">انتقل إلى خيارات المطور &gt; التصحيح اللاسلكي. انقر على اقتران الجهاز برمز الاقتران.</string>
     <string name="wireless_debugging_guide_2">أدخل رمز الاقتران المكون من ست أرقام في الإشعار المرسل من aShell You.</string>
     <string name="wireless_debugging_guide_3">عد إلى التطبيق وانقر على زر \"ابدأ\" في الشاشة الرئيسية.</string>

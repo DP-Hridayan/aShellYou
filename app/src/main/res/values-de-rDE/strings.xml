@@ -3,6 +3,8 @@
     <string name="abort_command">Befehl zuerst abbrechen</string>
     <string name="about">Über</string>
     <string name="active">Aktiv</string>
+    <string name="active_slot">Aktiver Slot</string>
+    <string name="adb">ADB</string>
     <string name="adb_command">ADB-Befehl</string>
     <string name="adb_command_hint" comment="Example ADB command shown as placeholder hint in input field">adb reboot</string>
     <string name="adb_command_off_state">ADB-Befehl (OFF-Zustand)</string>
@@ -11,8 +13,10 @@
     <string name="adb_connection_channel_description">Zeigt an, wenn ADB-Verbindung aktiv ist</string>
     <string name="adb_connection_channel_name">ADB-Verbindung</string>
     <string name="adb_connection_description">WiFi ADB Verbindung wird gepflegt</string>
+    <string name="adb_sideload">ADB-Seitenlade</string>
     <string name="adb_through_otg">ADB durch OTG</string>
     <string name="adb_through_otg_summary">Verwende ein OTG-Kabel und USB-Debugging, um ADB-Befehle auf einem anderen Android-Gerät auszuführen. USB-Debugging muss in den Entwickleroptionen des Zielgeräts aktiviert sein.</string>
+    <string name="adb_via_otg">ADB via OTG</string>
     <string name="adb_via_wireless_debugging">ADB über WLAN-Debugging</string>
     <string name="adb_via_wireless_debugging_summary">Verbinde Geräte (Android 11+) über WLAN mithilfe von WLAN-Debugging und führe ADB-Befehle drahtlos aus.</string>
     <string name="add">Hinzufügen</string>
@@ -60,17 +64,24 @@
     <string name="backup_successful">Sicherung erfolgreich</string>
     <string name="backup_time">Sicherungszeitpunkt</string>
     <string name="backup_type">Sicherungstyp</string>
+    <string name="baseband_version">Baseband</string>
     <string name="basic_shell">Einfache Shell</string>
+    <string name="battery_level">Akku</string>
     <string name="battery_saver">Energiesparmodus</string>
     <string name="behavior">Verhalten</string>
     <string name="bookmark_limit_reached">Maximales Lesezeichen-Limit erreicht! Lösche ein paar Lesezeichen, um neue hinzuzufügen</string>
     <string name="bookmarks">Lesezeichen</string>
+    <string name="boot_device_into_fastboot">Starte das Zielgerät in den Schnellstart-Modus und verbinde es über OTG Kabel</string>
+    <string name="boot_image">Boot-Image</string>
+    <string name="boot_into_fastboot">Fastboot starten</string>
     <string name="bootloader">Bootloader</string>
+    <string name="bootloader_version">Bootloader</string>
     <string name="btn_continue">Fortfahren</string>
     <string name="cache_settings">Cache</string>
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Cache-Größe: %s</string>
     <string name="cancel">Abbrechen</string>
     <string name="cancel_all">Alle abbrechen</string>
+    <string name="cancelling">Abbrechen…</string>
     <string name="changelog">Changelog</string>
     <string name="changelogs">Änderungsprotokolle</string>
     <string name="check_updates">Nach Updates suchen</string>
@@ -81,6 +92,7 @@
     <string name="clear_analysis_cache">Analyse-Cache löschen</string>
     <string name="clear_cache">Cache leeren</string>
     <string name="clear_everything">Alles leeren</string>
+    <string name="clear_history">Verlauf löschen</string>
     <string name="clear_output_confirmation">Ausgabebestätigung löschen</string>
     <string name="clipboard_empty">Zwischenablage enthält keinen Text</string>
     <string name="close">Schließen</string>
@@ -132,6 +144,7 @@
     <string name="cut_to_clipboard">In Zwischenablage schneiden</string>
     <string name="daily">Täglich</string>
     <string name="dark_theme">Dunkles Thema</string>
+    <string name="dashboard">Dashboard</string>
     <string name="databases_only">Nur Datenbanken</string>
     <string name="default_folder">Standardordner</string>
     <string name="default_language">Standardsprache</string>
@@ -186,6 +199,7 @@
     <string name="des_licenses">Zeigt die Lizenzen, die die App und die Bibliotheken verwenden</string>
     <string name="des_local_backup">Verschlüsselte Sicherung auf Ihrem Gerät speichern</string>
     <string name="des_local_restore">Wähle eine Sicherungsdatei von deinem Gerät aus</string>
+    <string name="des_logcat">Echtzeit-Logcat Ausgabe von einem angeschlossenen Gerät</string>
     <string name="des_look_and_feel">Dynamische Farben, Dunkles Thema, Sprache</string>
     <string name="des_models">Kein Modell ausgewählt</string>
     <string name="des_override_bookmarks">Kann Verzögerungen verursachen, wenn eine große Anzahl von Lesezeichen hinzugefügt wird! Low-End-Geräte sollten diese Option nicht ausschalten</string>
@@ -196,11 +210,13 @@
     <string name="des_restore_app_data">App-Daten aus der gesicherten Sicherungsdatei wiederherstellen.\nDie gespeicherte Datenbank wird die aktuelle Datenbank überschreiben</string>
     <string name="des_save_whole_output">Aktivieren Sie diese Option, um die Ausgabe der gesamten Shell Sitzung zu speichern.\nWenn deaktiviert wird nur die letzte Befehlsausgabe gespeichert.</string>
     <string name="des_screen_density">Anpassen der Bildschirmdichte, um UI-Elemente größer oder kleiner erscheinen zu lassen</string>
+    <string name="des_select_file_for_flashing">Wählen Sie ein Boot-Image aus, um auf die ausgewählte Partition zu flashen</string>
     <string name="des_sign_in_with_google">Verbinden Sie Ihr Google-Konto optional mit Cloud-Backups</string>
     <string name="des_smooth_scroll">Aktiviert sanften Bildlauf in der Konsolen-Ausgabe, wenn der Pfeil nach oben oder unten geklickt wird</string>
     <string name="des_toggleable">Wenn aktiviert, schaltet die Kachel bei jedem Tippen zwischen AN und AUS und führt einen anderen Befehl für jeden Status aus</string>
     <string name="des_translators">Leute, die geholfen haben, aShellYou zu übersetzen</string>
     <string name="des_ui_scale">Anpassen der Skalierung von UI-Elementen und Schriftgröße</string>
+    <string name="des_warning_incorrect_file_bootloop">Mit Vorsicht fortfahren, da ein falsches Image eine Bootloop verursachen kann</string>
     <string name="description">Beschreibung</string>
     <string name="deselect_all">Alle abwählen</string>
     <string name="developer">Entwickler</string>
@@ -250,6 +266,10 @@
     <string name="enable_wireless_debugging_button">Aktivieren</string>
     <string name="enter">Eingeben</string>
     <string name="enter_pairing_code">Geben Sie den 6-stelligen Paarungscode ein</string>
+    <string name="erase_confirm_message">Dies wird die %1$s Partition dauerhaft löschen. Diese Aktion kann nicht rückgängig gemacht werden.</string>
+    <string name="erase_confirm_title">Erase %1$s?</string>
+    <string name="erase_partition">Erase</string>
+    <string name="erasing">Lösche…</string>
     <string name="error">Fehler</string>
     <string name="error_labels_limit_reached">Maximale Beschriftungsgrenze erreicht</string>
     <string name="execution_method">Ausführungsmethode</string>
@@ -257,8 +277,18 @@
     <string name="experimental">Experimentell</string>
     <string name="failed">Fehlgeschlagen</string>
     <string name="failed_to_claim_interface">Konnte Schnittstelle nicht beanspruchen</string>
+    <string name="failed_to_copy">Fehler beim Kopieren</string>
     <string name="failed_to_open_usb_connection">USB-Verbindung konnte nicht geöffnet werden. Ist USB-Debugging aktiviert?</string>
     <string name="fastboot">Fastboot</string>
+    <string name="fastboot_and_recovery">Schnellstart &amp; Wiederherstellung</string>
+    <string name="fastboot_coming_soon">Demnächst</string>
+    <string name="fastboot_command_console">Kommandokonsole</string>
+    <string name="fastboot_command_hint">Schnellstart-Befehl… eingeben</string>
+    <string name="fastboot_device_info">Geräteinformationen</string>
+    <string name="fastboot_partitions">Partitionen</string>
+    <string name="fastboot_quick_actions">Schnelle Aktionen</string>
+    <string name="fastboot_summary">Verbinde dich mit einem Gerät im Schnellstart-Modus über OTG</string>
+    <string name="fastboot_variable_explorer">Variabler Explorer</string>
     <string name="fb_all_operations_cancelled">Alle Operationen abgebrochen</string>
     <string name="fb_cannot_paste_into_selected">Kann nicht in den ausgewählten Ordner einfügen</string>
     <string name="fb_create_folder_failed" comment="%1$s = error message. fb_ prefix = file browser">Ordner konnte nicht erstellt werden: %1$s</string>
@@ -297,6 +327,9 @@
     <string name="file_not_found">Datei nicht gefunden</string>
     <string name="filter">Filtern</string>
     <string name="filter_by_labels">Nach Labels filtern</string>
+    <string name="flash">Blitz</string>
+    <string name="flash_partition">Flash-Partition</string>
+    <string name="flashing">Flashen…</string>
     <string name="folder">Ordner</string>
     <string name="folder_already_exists">Ein Ordner mit diesem Namen existiert bereits</string>
     <string name="folder_conflict_title">Ordner existiert bereits</string>
@@ -348,6 +381,7 @@
     <string name="frequency">Frequenz</string>
     <string name="full_license_text">Volllizenztext</string>
     <string name="generate_tile">Kachel generieren</string>
+    <string name="get_variables">Variablen abrufen</string>
     <string name="go_home">Nach Hause</string>
     <string name="go_to_terminal">Gehe zum Terminal</string>
     <string name="google_drive">Google Drive</string>
@@ -392,16 +426,20 @@
     <string name="load">Laden</string>
     <string name="load_predefined_commands">Vordefinierte Befehle laden</string>
     <string name="loading">Lädt</string>
+    <string name="loading_device_info">Geräteinformationen werden geladen…</string>
     <string name="loading_licenses">Lade Lizenzinformationen…</string>
     <string name="local_adb">Lokal ADB</string>
     <string name="local_adb_shell">Lokale ADB Shell</string>
     <string name="local_adb_summary">Führen Sie ADB-Befehle direkt auf Ihrem Gerät mit Shizuku oder root aus.</string>
     <string name="local_backup">Lokale Sicherung</string>
     <string name="local_file">Lokale Datei</string>
+    <string name="locked">Gesperrt</string>
+    <string name="logcat">Logcat</string>
     <string name="logs">Logs</string>
     <string name="look_and_feel">Aussehen &amp; Bedienung</string>
     <string name="low">Niedrig</string>
     <string name="manual_pair">Manuelles Paar</string>
+    <string name="max_download_size">Max. Download</string>
     <string name="medium">Mittel</string>
     <string name="merge">Zusammenführen</string>
     <string name="minimize">Minimize</string>
@@ -435,6 +473,8 @@
     <string name="no_changelog_found">Kein Änderungsprotokoll für diese Version gefunden</string>
     <string name="no_cloud_backup_found">Keine Sicherung auf Google Drive gefunden</string>
     <string name="no_crashes">Es wurden keine Abstürze gemeldet. aShell Du läuft reibungslos.</string>
+    <string name="no_device_connected">Kein Gerät verbunden</string>
+    <string name="no_fastboot_device_error">Verbundenes Gerät ist nicht im Schnellstart-Modus</string>
     <string name="no_files_download">Keine Dateien ausgewählt (Ordner können nicht heruntergeladen werden)</string>
     <string name="no_folder_selected">Kein Ordner ausgewählt</string>
     <string name="no_google_account_message">Es wurde kein Google-Konto auf diesem Gerät gefunden. Möchten Sie eines hinzufügen, um Cloud-Backups zu verwenden?</string>
@@ -449,6 +489,7 @@
     <string name="no_root_access">Kein Root-Zugriff</string>
     <string name="no_saved_devices">Keine gespeicherten Geräte</string>
     <string name="no_search_results_found">Keine Suchergebnisse gefunden</string>
+    <string name="no_variables_loaded">Keine Variablen geladen</string>
     <string name="no_wifi_connection">Keine WLAN-Verbindung</string>
     <string name="none">Keine</string>
     <string name="not_signed_in">Nicht angemeldet</string>
@@ -466,9 +507,12 @@
     <string name="open_app_language_settings">App-Spracheinstellungen öffnen</string>
     <string name="open_issues" comment="GitHub repository open issues count">Offene Tickets</string>
     <string name="open_url">URL öffnen</string>
+    <string name="operation_complete">Vorgang abgeschlossen</string>
     <string name="operations">Operationen</string>
     <string name="or">ODER</string>
     <string name="otg" comment="USB On-The-Go. Technical term, keep as OTG">OTG</string>
+    <string name="other_details">Sonstige Details</string>
+    <string name="other_device">Anderes Gerät</string>
     <string name="output">Ausgang</string>
     <string name="override_bookmarks_limit">Maximale Lesezeichenbegrenzung überschreiben</string>
     <string name="pair">Koppeln</string>
@@ -495,6 +539,7 @@
     <string name="palette_style" comment="Settings label for choosing Material Design color palette">Palette style</string>
     <string name="palette_tonal_spot" comment="Material Design color scheme style name">Tonaler Spot</string>
     <string name="palette_vibrant" comment="Material Design color scheme style name">Vibriert</string>
+    <string name="partition">Partition</string>
     <string name="paste">Einfügen</string>
     <string name="path">Pfad</string>
     <string name="permission_denied">Berechtigung verweigert</string>
@@ -507,13 +552,21 @@
     <string name="pre_release_warning_description">Diese Versionen befinden sich noch in Testing und können unfertige Funktionen oder unerwartete Fehler enthalten. Wenn Sie sich dafür entscheiden, auf eine Vorversion zu aktualisieren, beachten Sie bitte, dass die Dinge kaputt gehen oder sich seltsam verhalten.\nWenn du auf irgendwelche Probleme triffst, melde sie bitte an, damit wir aShellYou vor dem stabilen Release beheben und verbessern können.\nDanke, dass du uns geholfen hast, besser zu bauen!</string>
     <string name="preference">Präferenz</string>
     <string name="preview">Vorschau</string>
+    <string name="product">Produkt</string>
     <string name="qr_pair">QR Pair</string>
     <string name="qr_pair_hint">Um ein Android 11+ Gerät zu koppeln, scanne diesen QR vom Zielgerät aus</string>
     <string name="qr_scanner_location_hint">QR Scanner verfügbar auf:\nEntwickleroptionen &gt; Wireless Debugging &gt; Paar mit QR Code</string>
     <string name="qs_tiles">Schnelleinstellungen Kacheln</string>
     <string name="quick_tools">Schnellwerkzeuge</string>
+    <string name="reading_file">Lese Datei…</string>
     <string name="ready_to_paste">Bereit zum Einfügen</string>
+    <string name="reboot_bootloader">Neustart zum Bootloader</string>
+    <string name="reboot_confirm_message">Dies startet das verbundene Gerät auf %1$sneu. Fortfahren?</string>
+    <string name="reboot_confirm_title">Neustart bestätigen</string>
+    <string name="reboot_fastbootd">Neustart zu Fastbootd</string>
+    <string name="reboot_normal">Reboot</string>
     <string name="reboot_options">Neustart-Optionen</string>
+    <string name="reboot_recovery">Neustart zur Wiederherstellung</string>
     <string name="recent_activity">Letzte Aktivitäten</string>
     <string name="recent_searches">Letzte Suchen</string>
     <string name="recommended">Empfohlen</string>
@@ -563,13 +616,16 @@
     <string name="search_output">Suchausgabe hier</string>
     <string name="search_settings">Sucheinstellungen</string>
     <string name="search_something">Suche etwas</string>
+    <string name="search_variables">Variablen durchsuchen…</string>
     <string name="searching_connect_service">Verbindungsdienst durchsuchen</string>
     <string name="searching_for_devices">Suche nach Geräten…</string>
+    <string name="security_patch">Sicherheitspatch</string>
     <string name="select">Wähle</string>
     <string name="select_all">Alles auswählen</string>
     <string name="select_backup_folder_message">Bitte wählen Sie einen Ordner, in dem Backups gespeichert werden. Die App benötigt Schreib- und Leserechte in diesem Ordner.</string>
     <string name="select_backup_folder_title">Kein Sicherungsordner</string>
     <string name="select_folder">Ordner auswählen</string>
+    <string name="select_partition">Partition auswählen</string>
     <string name="select_time">Zeit auswählen</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">Selbst</string>
     <string name="self_pair_connection_failed">Verbindung fehlgeschlagen - manuelle Verbindung versuchen</string>
@@ -588,6 +644,7 @@
     <string name="self_pair_success_hint">Lokale ADB Shell ist jetzt verfügbar</string>
     <string name="self_pair_timeout">Timeout - Öffne Paarungsdialog im drahtlosen Debugging</string>
     <string name="self_pair_wrong_code">Falscher Code - Paarungsdialog erneut öffnen</string>
+    <string name="serial_number">Seriennummer</string>
     <string name="serif" comment="Font style category name">Serif</string>
     <string name="settings">Einstellungen</string>
     <string name="settings_only">Nur Einstellungen</string>
@@ -604,6 +661,8 @@
     <string name="signed_out">Abgemeldet</string>
     <string name="size">Größe</string>
     <string name="skip">Überspringen</string>
+    <string name="slide_to_flash">Wischen zum Blitz</string>
+    <string name="slot_data_unknown">Slot-Daten unbekannt</string>
     <string name="smooth_scrolling">Sanfter Bildlauf</string>
     <string name="sort">Sortieren</string>
     <string name="stable_fdroid">Stabil (Droid)</string>
@@ -654,6 +713,8 @@
     <string name="unknown">Unbekannt</string>
     <string name="unknown_error">Unbekannter Fehler aufgetreten</string>
     <string name="unknown_sources_install_permission_not_granted">Berechtigung nicht erteilt. Bitte erlauben Sie die App-Installation aus unbekannten Quellen.</string>
+    <string name="unlock_status">Status entsperren</string>
+    <string name="unlocked">Entsperrt</string>
     <string name="untitled">Ohne Titel</string>
     <string name="update">Aktualisieren</string>
     <string name="update_available">Aktualisierung verfügbar !</string>
@@ -663,6 +724,7 @@
     <string name="uploading_backup">Sicherung wird auf Google Drive… hochgeladen</string>
     <string name="usb_manager_unavailable">USB-Manager ist auf diesem Gerät nicht verfügbar</string>
     <string name="use">Verwenden</string>
+    <string name="utilities">Hilfsmittel</string>
     <string name="variant">Variante</string>
     <string name="version">Version</string>
     <string name="version_code">Versionscode</string>
@@ -679,6 +741,15 @@
     <string name="which_device_to_pair">Welches Gerät möchten Sie paaren?</string>
     <string name="wifi_adb">WiFi ADB</string>
     <string name="wifi_connection_required">Um die Funktion Drahtloses Debugging zu nutzen, muss dein Gerät mit einem WLAN-Netzwerk verbunden sein. Wenn deine WLAN-Verbindung keinen Internetzugang hat, schalte die mobilen Daten aus, um eine stabile WLAN-Verbindung zu gewährleisten.</string>
+    <string name="wipe_cache_desc">fastboot erase cache</string>
+    <string name="wipe_cache_title">Erase Cache</string>
+    <string name="wipe_data">Daten löschen</string>
+    <string name="wipe_data_description">Partitionen auf Ihrem Gerät löschen. Wählen Sie die zu löschende Partition.</string>
+    <string name="wipe_metadata_desc">fastboot lösche Metadaten</string>
+    <string name="wipe_metadata_title">Metadaten löschen</string>
+    <string name="wipe_userdata_desc">fastboot Lösche Benutzerdaten</string>
+    <string name="wipe_userdata_title">Benutzerdaten löschen</string>
+    <string name="wipe_warning">Diese Operationen sind unumkehrbar. Mit Vorsicht fortfahren.</string>
     <string name="wireless_debugging_guide_1">Gehe zu Entwickleroptionen &gt; Drahtlos-Debugging. Tippe auf Gerät mit Kopplungscode koppeln.</string>
     <string name="wireless_debugging_guide_2">Gib den sechsstelligen Kopplungscode in die von aShell You gesendete Benachrichtigung ein.</string>
     <string name="wireless_debugging_guide_3">Kehre zur App zurück und tippe auf den „Start“-Button auf dem Startbildschirm.</string>
