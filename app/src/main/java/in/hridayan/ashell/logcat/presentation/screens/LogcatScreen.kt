@@ -75,7 +75,6 @@ fun LogcatScreen(
     var detailEntry by remember { mutableStateOf<LogEntry?>(null) }
     var showPermissionDialog by rememberSaveable { mutableStateOf(false) }
 
-    // ── Detect upward scroll → pause auto-scroll ────────────────────────
     val isScrollingUp by remember {
         derivedStateOf {
             listState.firstVisibleItemIndex > 0 ||
@@ -92,14 +91,12 @@ fun LogcatScreen(
             }
     }
 
-    // ── Auto-scroll to bottom when new logs arrive ────────────────────────
     LaunchedEffect(logs.size, isAutoScrolling) {
         if (isAutoScrolling && logs.isNotEmpty()) {
             listState.animateScrollToItem(logs.lastIndex)
         }
     }
 
-    // ── Start logcat on first entry ────────────────────────────────────────
     LaunchedEffect(Unit) {
         if (!isRunning) {
             if (LogcatPermissionHelper.hasReadLogsPermission(context)) {
@@ -145,7 +142,6 @@ fun LogcatScreen(
                 .padding(innerPadding)
         ) {
             if (logs.isEmpty()) {
-                // Empty state
                 Text(
                     modifier = Modifier.align(Alignment.Center),
                     text = stringResource(R.string.logcat_no_logs),
@@ -173,7 +169,6 @@ fun LogcatScreen(
                 }
             }
 
-            // Resume FAB — shown when paused
             AnimatedVisibility(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
@@ -201,15 +196,12 @@ fun LogcatScreen(
         }
     }
 
-    // ── Detail bottom sheet ────────────────────────────────────────────────
     detailEntry?.let { entry ->
         LogEntryDetailBottomSheet(
             entry = entry,
             onDismiss = { detailEntry = null },
         )
     }
-
-    // ── Filter bottom sheet ────────────────────────────────────────────────
     if (showFilterSheet) {
         LogcatFilterBottomSheet(
             activeFilter = activeFilter,
@@ -221,7 +213,6 @@ fun LogcatScreen(
         )
     }
 
-    // ── Permission dialog ──────────────────────────────────────────────────
     if (showPermissionDialog) {
         LogcatPermissionDialog(
             onContinueAnyway = {
