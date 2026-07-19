@@ -4,6 +4,7 @@
     <string name="about">About</string>
     <string name="active">Active</string>
     <string name="active_slot">Active Slot</string>
+    <string name="adb">ADB</string>
     <string name="adb_command">ADB command</string>
     <string name="adb_command_hint" comment="Example ADB command shown as placeholder hint in input field">adb reboot</string>
     <string name="adb_command_off_state">ADB command (OFF state)</string>
@@ -12,8 +13,10 @@
     <string name="adb_connection_channel_description">Shows when ADB connection is active</string>
     <string name="adb_connection_channel_name">ADB Connection</string>
     <string name="adb_connection_description">WiFi ADB connection is being maintained</string>
+    <string name="adb_sideload">ADB sideload</string>
     <string name="adb_through_otg">ADB Through OTG</string>
     <string name="adb_through_otg_summary">Use an OTG cable and USB debugging to execute ADB commands on another Android device. You need to turn on USB Debugging in the developer settings of the target device.</string>
+    <string name="adb_via_otg">ADB via OTG</string>
     <string name="adb_via_wireless_debugging">ADB via Wireless Debugging</string>
     <string name="adb_via_wireless_debugging_summary">Connect devices (Android 11+) over Wi-Fi using wireless debugging and execute ADB commands remotely.</string>
     <string name="add">Add</string>
@@ -64,7 +67,6 @@
     <string name="backup_type">Backup type</string>
     <string name="baseband_version">Baseband</string>
     <string name="basic_shell">Basic shell</string>
-    <string name="failed_to_copy">Failed to copy</string>
     <string name="battery_level">Battery</string>
     <string name="battery_saver">Battery saver</string>
     <string name="behavior">Behavior</string>
@@ -199,6 +201,7 @@
     <string name="des_licenses">View the licenses that the app and libraries are using</string>
     <string name="des_local_backup">Save encrypted backup to your device</string>
     <string name="des_local_restore">Pick a backup file from your device</string>
+    <string name="des_logcat">Real-time logcat output from a connected device</string>
     <string name="des_look_and_feel">Dynamic colors, Dark theme, Language</string>
     <string name="des_models">No model selected</string>
     <string name="des_override_bookmarks">Might cause lag if a large number of bookmarks are added! Low-end devices should keep this option turned off</string>
@@ -265,6 +268,8 @@
     <string name="enable_wireless_debugging_button">Enable</string>
     <string name="enter">Enter</string>
     <string name="enter_pairing_code">Enter the 6-digit pairing code</string>
+    <string name="erase_confirm_message">This will permanently erase the %1$s partition. This action cannot be undone.</string>
+    <string name="erase_confirm_title">Erase %1$s?</string>
     <string name="erase_partition">Erase</string>
     <string name="erasing">Erasing…</string>
     <string name="error">Error</string>
@@ -274,8 +279,10 @@
     <string name="experimental">Experimental</string>
     <string name="failed">Failed</string>
     <string name="failed_to_claim_interface">Failed to claim interface</string>
+    <string name="failed_to_copy">Failed to copy</string>
     <string name="failed_to_open_usb_connection">Failed to open USB connection. Is USB debugging enabled?</string>
     <string name="fastboot">Fastboot</string>
+    <string name="fastboot_and_recovery">Fastboot &amp; Recovery</string>
     <string name="fastboot_coming_soon">Coming Soon</string>
     <string name="fastboot_command_console">Command Console</string>
     <string name="fastboot_command_hint">Enter fastboot command…</string>
@@ -285,24 +292,6 @@
     <string name="fastboot_summary">Connect to a device in fastboot mode via OTG</string>
     <string name="fastboot_variable_explorer">Variable Explorer</string>
     <string name="fb_all_operations_cancelled">All operations cancelled</string>
-    <string name="wipe_data_description">Erase partitions on your device. Select which partition to wipe.</string>
-    <string name="wipe_warning">These operations are irreversible. Proceed with caution.</string>
-    <string name="wipe_userdata_title">Erase Userdata</string>
-    <string name="wipe_userdata_desc">fastboot erase userdata</string>
-    <string name="wipe_cache_title">Erase Cache</string>
-    <string name="wipe_cache_desc">fastboot erase cache</string>
-    <string name="wipe_metadata_title">Erase Metadata</string>
-    <string name="wipe_metadata_desc">fastboot erase metadata</string>
-    <string name="erase_confirm_title">Erase %1$s?</string>
-    <string name="adb_via_otg">ADB via OTG</string>
-    <string name="other_device">Other device</string>
-    <string name="adb">ADB</string>
-    <string name="fastboot_and_recovery">Fastboot &amp; Recovery</string>
-    <string name="adb_sideload">ADB sideload</string>
-    <string name="logcat">Logcat</string>
-    <string name="des_logcat">Real-time logcat output from a connected device</string>
-    <string name="utilities">Utilities</string>
-    <string name="erase_confirm_message">This will permanently erase the %1$s partition. This action cannot be undone.</string>
     <string name="fb_cannot_paste_into_selected">Cannot paste into selected folder</string>
     <string name="fb_create_folder_failed" comment="%1$s = error message. fb_ prefix = file browser">Failed to create folder: %1$s</string>
     <string name="fb_delete_failed" comment="%1$s = error message">Delete failed: %1$s</string>
@@ -449,6 +438,7 @@
     <string name="local_backup">Local backup</string>
     <string name="local_file">Local file</string>
     <string name="locked">Locked</string>
+    <string name="logcat">Logcat</string>
     <string name="logs">Logs</string>
     <string name="look_and_feel">Look &amp; Feel</string>
     <string name="low">Low</string>
@@ -526,6 +516,7 @@
     <string name="or">OR</string>
     <string name="otg" comment="USB On-The-Go. Technical term, keep as OTG">OTG</string>
     <string name="other_details">Other details</string>
+    <string name="other_device">Other device</string>
     <string name="output">Output</string>
     <string name="override_bookmarks_limit">Override maximum bookmarks limit</string>
     <string name="pair">Pair</string>
@@ -739,6 +730,7 @@
     <string name="uploading_backup">Uploading backup to Google Drive…</string>
     <string name="usb_manager_unavailable">USB Manager is not available on this device</string>
     <string name="use">Use</string>
+    <string name="utilities">Utilities</string>
     <string name="variant">Variant</string>
     <string name="version">Version</string>
     <string name="version_code">Version code</string>
@@ -755,7 +747,15 @@
     <string name="which_device_to_pair">Which device would you like to pair?</string>
     <string name="wifi_adb">WiFi ADB</string>
     <string name="wifi_connection_required">To use the Wireless Debugging feature, your device must be connected to a Wi-Fi network. If your Wi-Fi connection has no Internet access then turn off mobile data for a solid Wi-Fi connection.</string>
+    <string name="wipe_cache_desc">fastboot erase cache</string>
+    <string name="wipe_cache_title">Erase Cache</string>
     <string name="wipe_data">Wipe data</string>
+    <string name="wipe_data_description">Erase partitions on your device. Select which partition to wipe.</string>
+    <string name="wipe_metadata_desc">fastboot erase metadata</string>
+    <string name="wipe_metadata_title">Erase Metadata</string>
+    <string name="wipe_userdata_desc">fastboot erase userdata</string>
+    <string name="wipe_userdata_title">Erase Userdata</string>
+    <string name="wipe_warning">These operations are irreversible. Proceed with caution.</string>
     <string name="wireless_debugging" translatable="false">Wireless debugging</string>
     <string name="wireless_debugging_guide_1">Go to Developer options &gt; Wireless Debugging. Tap on Pair device with Pairing Code.</string>
     <string name="wireless_debugging_guide_2">Enter the six digit Pairing Code into the notification sent by aShell You.</string>
