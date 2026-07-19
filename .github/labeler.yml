@@ -5,6 +5,10 @@ ui:
   - '**/components/**'
   - '**/*Screen.kt'
 
+# Resources
+resources:
+  - '**/res/**'
+
 # Core architecture and logic
 core:
   - '**/data/**'
