@@ -132,7 +132,6 @@ import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scrollbar.VerticalScrollbar
 import `in`.hridayan.ashell.core.presentation.components.selectioncontainer.LazySelectionContainer
 import `in`.hridayan.ashell.core.presentation.components.selectioncontainer.allowTextSelection
-import `in`.hridayan.ashell.core.presentation.components.selectioncontainer.rememberSelectionState
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
@@ -924,8 +923,6 @@ private fun OutputCard(
     val headerColor = MaterialTheme.colorScheme.run {
         if (isDarkMode) surfaceContainerLow else surfaceContainer
     }
-
-    val selectionState = rememberSelectionState()
 
     // Only render the card when not in fullscreen
     if (!isFullscreen) {

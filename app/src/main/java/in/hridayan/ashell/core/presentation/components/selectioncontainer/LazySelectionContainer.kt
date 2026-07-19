@@ -28,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -120,6 +121,16 @@ class SelectionState {
     var toolbarPinnedEnd by mutableStateOf(SelectionEnd.END)
 
     internal val lineInfos = mutableMapOf<Int, LineInfo>()
+    /** Bumped whenever a line's [LineInfo] is added, updated, or removed --
+     *  lineInfos itself is a plain, non-observable map by design (keying
+     *  Compose state per-line would be needless overhead), so this is the
+     *  actual signal the overlay reads to know it needs to recompute handle
+     *  positions. Deliberately not LazyListState's own firstVisibleItemIndex
+     *  / firstVisibleItemScrollOffset / layoutInfo: those change on every
+     *  scrolled pixel regardless of whether a *selection-relevant* line
+     *  moved, which is both wasteful and exactly what triggers Compose's
+     *  "frequently changing value" lint. */
+    internal var lineInfoVersion by mutableIntStateOf(0)
     internal var containerWindowOrigin: Offset = Offset.Zero
     internal var containerHeightPx: Float = 0f
     internal var containerWidthPx: Float = 0f
@@ -285,7 +296,10 @@ fun Modifier.allowTextSelection(
     var cachedLayout by remember(index) { mutableStateOf<TextLayoutResult?>(null) }
 
     DisposableEffect(index) {
-        onDispose { selectionState.lineInfos.remove(index) }
+        onDispose {
+            selectionState.lineInfos.remove(index)
+            selectionState.lineInfoVersion++
+        }
     }
 
     this
@@ -300,17 +314,18 @@ fun Modifier.allowTextSelection(
                 )
                 measuredWidth.value = width
             }
-            cachedLayout?.let { selectionState.lineInfos[index] = LineInfo(windowBounds.value, it) }
+            cachedLayout?.let {
+                selectionState.lineInfos[index] = LineInfo(windowBounds.value, it)
+                selectionState.lineInfoVersion++
+            }
         }
         .drawBehind {
             val result = cachedLayout ?: return@drawBehind
             val sel = selectionState.selection?.normalized() ?: return@drawBehind
             if (index < sel.startLine || index > sel.endLine) return@drawBehind
 
-            val lineStart =
-                (if (index == sel.startLine) sel.startOffset else 0).coerceIn(0, text.length)
-            val lineEnd =
-                (if (index == sel.endLine) sel.endOffset else text.length).coerceIn(0, text.length)
+            val lineStart = (if (index == sel.startLine) sel.startOffset else 0).coerceIn(0, text.length)
+            val lineEnd = (if (index == sel.endLine) sel.endOffset else text.length).coerceIn(0, text.length)
             if (lineStart == lineEnd) return@drawBehind
 
             val path = result.getPathForRange(minOf(lineStart, lineEnd), maxOf(lineStart, lineEnd))
@@ -337,12 +352,10 @@ fun <T> SelectionHandlesOverlay(
     autoScrollSpeed: Dp = 2.dp,
     onCopy: ((success: Boolean) -> Unit)? = null,
 ) {
-    // Reading these subscribes this composable to scroll changes, so handle
-    // positions (derived from selectionState.lineInfos, which is a plain,
-    // non-observable map by design) stay in sync as the list scrolls --
-    // otherwise a manual scroll leaves handles rendered at a stale spot.
-    listState.firstVisibleItemIndex
-    listState.firstVisibleItemScrollOffset
+    // Reading this subscribes the overlay to actual line-bounds changes
+    // (scroll, resize, content changes) so handle positions stay in sync --
+    // lineInfos itself is a plain, non-observable map by design.
+    selectionState.lineInfoVersion
 
     val sel = selectionState.selection
     if (sel == null || !selectionState.handlesVisible) return
@@ -354,10 +367,8 @@ fun <T> SelectionHandlesOverlay(
     val edgeThresholdPx = with(density) { autoScrollEdgeThreshold.toPx() }
     val scrollSpeedPx = with(density) { autoScrollSpeed.toPx() }
 
-    val startPos =
-        computeHandleOffset(selectionState, listState, normalized.startLine, normalized.startOffset)
-    val endPos =
-        computeHandleOffset(selectionState, listState, normalized.endLine, normalized.endOffset)
+    val startPos = computeHandleOffset(selectionState, normalized.startLine, normalized.startOffset)
+    val endPos = computeHandleOffset(selectionState, normalized.endLine, normalized.endOffset)
 
     fun doCopy() {
         scope.launch {
@@ -389,9 +400,7 @@ fun <T> SelectionHandlesOverlay(
         SelectionEnd.END -> endPos
     }
 
-    Box(modifier = modifier
-        .fillMaxSize()
-        .zIndex(10f)) {
+    Box(modifier = modifier.fillMaxSize().zIndex(10f)) {
         // Both handles are ALWAYS composed here, even when their position is
         // currently null (line off-screen) -- SelectionHandle itself decides
         // whether to render/accept touches. Composing them conditionally
@@ -419,12 +428,7 @@ fun <T> SelectionHandlesOverlay(
             onDragTo = { rawPos ->
                 val global = rawPos + selectionState.containerWindowOrigin
                 findLineOffsetOrNearestEdge(selectionState, global)?.let { (line, offset) ->
-                    updateSelectionForVisualHandle(
-                        selectionState,
-                        isStartVisual = true,
-                        line = line,
-                        offset = offset
-                    )
+                    updateSelectionForVisualHandle(selectionState, isStartVisual = true, line = line, offset = offset)
                 }
             },
         )
@@ -449,12 +453,7 @@ fun <T> SelectionHandlesOverlay(
             onDragTo = { rawPos ->
                 val global = rawPos + selectionState.containerWindowOrigin
                 findLineOffsetOrNearestEdge(selectionState, global)?.let { (line, offset) ->
-                    updateSelectionForVisualHandle(
-                        selectionState,
-                        isStartVisual = false,
-                        line = line,
-                        offset = offset
-                    )
+                    updateSelectionForVisualHandle(selectionState, isStartVisual = false, line = line, offset = offset)
                 }
             },
         )
@@ -476,19 +475,9 @@ fun <T> SelectionHandlesOverlay(
  *  clear of the selected text to its right); the end handle mirrors it with
  *  the tip at top-left. */
 private val startHandleShape =
-    RoundedCornerShape(
-        topStartPercent = 50,
-        topEndPercent = 0,
-        bottomEndPercent = 50,
-        bottomStartPercent = 50
-    )
+    RoundedCornerShape(topStartPercent = 50, topEndPercent = 0, bottomEndPercent = 50, bottomStartPercent = 50)
 private val endHandleShape =
-    RoundedCornerShape(
-        topStartPercent = 0,
-        topEndPercent = 50,
-        bottomEndPercent = 50,
-        bottomStartPercent = 50
-    )
+    RoundedCornerShape(topStartPercent = 0, topEndPercent = 50, bottomEndPercent = 50, bottomStartPercent = 50)
 
 @Composable
 private fun SelectionHandle(
@@ -626,11 +615,7 @@ private fun SelectionToolbar(
     val gapPx = with(density) { 8.dp.toPx() }
     Layout(
         content = {
-            Surface(
-                shape = RoundedCornerShape(8.dp),
-                tonalElevation = 4.dp,
-                shadowElevation = 4.dp
-            ) {
+            Surface(shape = RoundedCornerShape(8.dp), tonalElevation = 4.dp, shadowElevation = 4.dp) {
                 Row {
                     TextButton(onClick = onCopy) { Text("Copy") }
                     TextButton(onClick = onSelectAll) { Text("Select all") }
@@ -695,7 +680,6 @@ private suspend fun autoScrollIfNearEdge(
             val factor = 1f - (distanceFromTop / edgeThresholdPx).coerceIn(0f, 1f)
             listState.scrollBy(-scrollSpeedPx * factor)
         }
-
         distanceFromBottom < edgeThresholdPx -> {
             val factor = 1f - (distanceFromBottom / edgeThresholdPx).coerceIn(0f, 1f)
             listState.scrollBy(scrollSpeedPx * factor)
@@ -722,31 +706,32 @@ private fun updateSelectionForVisualHandle(
     val current = selectionState.selection ?: return
     val swapped = current != current.normalized()
     val writeRawStart = if (isStartVisual) !swapped else swapped
-    selectionState.selection =
-        if (writeRawStart) current.copy(startLine = line, startOffset = offset)
-        else current.copy(endLine = line, endOffset = offset)
+    selectionState.selection = if (writeRawStart) current.copy(startLine = line, startOffset = offset)
+    else current.copy(endLine = line, endOffset = offset)
 }
 
 private fun computeHandleOffset(
     selectionState: SelectionState,
-    listState: LazyListState,
     line: Int,
     charOffset: Int,
 ): Offset? {
-    // Authoritative check against LazyColumn's own visible-items list rather
-    // than just "is there an entry in lineInfos": an item that has just
-    // scrolled out keeps its last-known LineInfo around for a frame or more
-    // (removal happens on disposal, which lags behind), so relying on the
-    // map alone made the handle appear to freeze at its last on-screen spot
-    // instead of disappearing. Checking visibleItemsInfo makes the handle
-    // hide immediately once its line is truly off-screen.
-    val isVisible = listState.layoutInfo.visibleItemsInfo.any { it.index == line }
-    if (!isVisible) return null
     val info = selectionState.lineInfos[line] ?: return null
     val textLength = info.layoutResult.layoutInput.text.length
     val cursorRect = info.layoutResult.getCursorRect(charOffset.coerceIn(0, textLength))
     val windowPoint = info.boundsInWindow.topLeft + Offset(cursorRect.left, cursorRect.bottom)
-    return windowPoint - selectionState.containerWindowOrigin
+    val local = windowPoint - selectionState.containerWindowOrigin
+    // Hide (rather than render at a stale/frozen spot) once the anchor has
+    // actually scrolled outside the container's own bounds. This is a plain
+    // geometric check against coordinates we've already computed -- earlier
+    // this cross-referenced listState's visibleItemsInfo by index instead,
+    // which silently assumed `line` equals LazyListItemInfo.index. That only
+    // holds for a bare itemsIndexed with nothing else mixed into the list;
+    // if it doesn't hold, the check fails for every line, every handle
+    // permanently reads as "off-screen", and every touch on it falls
+    // through to the LazyColumn's own long-press gesture underneath instead
+    // of dragging the handle at all.
+    if (local.y < 0f || local.y > selectionState.containerHeightPx) return null
+    return local
 }
 
 private fun <T> selectAll(selectionState: SelectionState, items: List<T>) {
@@ -801,24 +786,18 @@ private fun findLineOffsetOrNearestEdge(state: SelectionState, globalPos: Offset
     findLineOffset(state, globalPos)?.let { return it }
     if (state.lineInfos.isEmpty()) return null
     val top = state.lineInfos.entries.minByOrNull { it.value.boundsInWindow.top } ?: return null
-    val bottom =
-        state.lineInfos.entries.maxByOrNull { it.value.boundsInWindow.bottom } ?: return null
+    val bottom = state.lineInfos.entries.maxByOrNull { it.value.boundsInWindow.bottom } ?: return null
     return when {
         globalPos.y <= top.value.boundsInWindow.top -> top.key to 0
         globalPos.y >= bottom.value.boundsInWindow.bottom ->
             bottom.key to bottom.value.layoutResult.layoutInput.text.length
-
         else -> null
     }
 }
 
 /** Reads from the source list, not the composed-only cache, so lines that
  *  scrolled offscreen during the drag still copy correctly. */
-private fun <T> buildSelectedText(
-    items: List<T>,
-    textOf: (T) -> String,
-    sel: LineSelection
-): String {
+private fun <T> buildSelectedText(items: List<T>, textOf: (T) -> String, sel: LineSelection): String {
     val norm = sel.normalized()
     val sb = StringBuilder()
     for (i in norm.startLine..norm.endLine) {
@@ -829,7 +808,6 @@ private fun <T> buildSelectedText(
                 val e = norm.endOffset.coerceIn(0, line.length)
                 line.substring(minOf(s, e), maxOf(s, e))
             }
-
             i == norm.startLine -> line.substring(norm.startOffset.coerceIn(0, line.length))
             i == norm.endLine -> line.substring(0, norm.endOffset.coerceIn(0, line.length))
             else -> line
