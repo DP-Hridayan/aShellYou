@@ -22,6 +22,9 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.SelectionContainer
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -66,6 +69,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -641,7 +645,9 @@ private fun SelectionToolbar(
     onSelectAll: () -> Unit,
 ) {
     val density = LocalDensity.current
-    val gapPx = with(density) { 8.dp.toPx() }
+    val textStyle = LocalTextStyle.current
+    val gapPx = with(density) { textStyle.lineHeight.toPx() }
+
     Layout(
         content = {
             Surface(
@@ -650,8 +656,15 @@ private fun SelectionToolbar(
                 shadowElevation = 4.dp
             ) {
                 Row {
-                    TextButton(onClick = onCopy) { Text(stringResource(R.string.copy)) }
-                    TextButton(onClick = onSelectAll) { Text(stringResource(R.string.select_all)) }
+                    SelectionToolbarActionButton(
+                        name = stringResource(R.string.copy),
+                        onClick = onCopy
+                    )
+
+                    SelectionToolbarActionButton(
+                        name = stringResource(R.string.select_all),
+                        onClick = onSelectAll
+                    )
                 }
             }
         },
@@ -675,6 +688,25 @@ private fun SelectionToolbar(
         layout(constraints.maxWidth, constraints.maxHeight) {
             placeable.placeRelative(x.toInt(), clampedY.toInt())
         }
+    }
+}
+
+@Composable
+private fun SelectionToolbarActionButton(
+    modifier: Modifier = Modifier,
+    name: String,
+    onClick: () -> Unit
+) {
+    TextButton(
+        modifier = modifier,
+        onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+            onClick()
+        },
+        colors = ButtonDefaults.textButtonColors(
+            contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+    ) {
+        Text(name)
     }
 }
 

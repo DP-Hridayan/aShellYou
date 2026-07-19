@@ -978,7 +978,6 @@ private fun OutputCard(
                             .fillMaxWidth()
                             .wrapContentHeight()
                     ) {
-
                         LazySelectionContainer(
                             modifier = Modifier
                                 .fillMaxWidth()
