@@ -21,6 +21,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -54,6 +55,7 @@ import androidx.compose.ui.platform.Clipboard
 import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
@@ -63,6 +65,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import `in`.hridayan.ashell.R
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -70,8 +73,7 @@ import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * Cross-line text selection for [LazyColumn] that avoids the crash caused by
- * [androidx.compose.foundation.text.selection.SelectionContainer] holding
- * references to layout nodes that LazyColumn disposes on scroll.
+ * [SelectionContainer] holding references to layout nodes that LazyColumn disposes on scroll.
  *
  * Use [LazySelectionContainer] for a drop-in replacement of [LazyColumn], or
  * compose [textSelectionGestures], [allowTextSelection] and
@@ -121,6 +123,7 @@ class SelectionState {
     var toolbarPinnedEnd by mutableStateOf(SelectionEnd.END)
 
     internal val lineInfos = mutableMapOf<Int, LineInfo>()
+
     /** Bumped whenever a line's [LineInfo] is added, updated, or removed --
      *  lineInfos itself is a plain, non-observable map by design (keying
      *  Compose state per-line would be needless overhead), so this is the
@@ -158,7 +161,7 @@ fun <T> Modifier.textSelectionGestures(
     textOf: (T) -> String,
     listState: LazyListState,
     autoScrollEdgeThreshold: Dp = 48.dp,
-    autoScrollSpeed: Dp = 2.dp,
+    autoScrollSpeed: Dp = 4.dp,
 ): Modifier = composed {
     val haptic = LocalHapticFeedback.current
     val density = LocalDensity.current
@@ -324,8 +327,10 @@ fun Modifier.allowTextSelection(
             val sel = selectionState.selection?.normalized() ?: return@drawBehind
             if (index < sel.startLine || index > sel.endLine) return@drawBehind
 
-            val lineStart = (if (index == sel.startLine) sel.startOffset else 0).coerceIn(0, text.length)
-            val lineEnd = (if (index == sel.endLine) sel.endOffset else text.length).coerceIn(0, text.length)
+            val lineStart =
+                (if (index == sel.startLine) sel.startOffset else 0).coerceIn(0, text.length)
+            val lineEnd =
+                (if (index == sel.endLine) sel.endOffset else text.length).coerceIn(0, text.length)
             if (lineStart == lineEnd) return@drawBehind
 
             val path = result.getPathForRange(minOf(lineStart, lineEnd), maxOf(lineStart, lineEnd))
@@ -400,7 +405,11 @@ fun <T> SelectionHandlesOverlay(
         SelectionEnd.END -> endPos
     }
 
-    Box(modifier = modifier.fillMaxSize().zIndex(10f)) {
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .zIndex(10f)
+    ) {
         // Both handles are ALWAYS composed here, even when their position is
         // currently null (line off-screen) -- SelectionHandle itself decides
         // whether to render/accept touches. Composing them conditionally
@@ -428,7 +437,12 @@ fun <T> SelectionHandlesOverlay(
             onDragTo = { rawPos ->
                 val global = rawPos + selectionState.containerWindowOrigin
                 findLineOffsetOrNearestEdge(selectionState, global)?.let { (line, offset) ->
-                    updateSelectionForVisualHandle(selectionState, isStartVisual = true, line = line, offset = offset)
+                    updateSelectionForVisualHandle(
+                        selectionState,
+                        isStartVisual = true,
+                        line = line,
+                        offset = offset
+                    )
                 }
             },
         )
@@ -453,7 +467,12 @@ fun <T> SelectionHandlesOverlay(
             onDragTo = { rawPos ->
                 val global = rawPos + selectionState.containerWindowOrigin
                 findLineOffsetOrNearestEdge(selectionState, global)?.let { (line, offset) ->
-                    updateSelectionForVisualHandle(selectionState, isStartVisual = false, line = line, offset = offset)
+                    updateSelectionForVisualHandle(
+                        selectionState,
+                        isStartVisual = false,
+                        line = line,
+                        offset = offset
+                    )
                 }
             },
         )
@@ -475,9 +494,19 @@ fun <T> SelectionHandlesOverlay(
  *  clear of the selected text to its right); the end handle mirrors it with
  *  the tip at top-left. */
 private val startHandleShape =
-    RoundedCornerShape(topStartPercent = 50, topEndPercent = 0, bottomEndPercent = 50, bottomStartPercent = 50)
+    RoundedCornerShape(
+        topStartPercent = 50,
+        topEndPercent = 0,
+        bottomEndPercent = 50,
+        bottomStartPercent = 50
+    )
 private val endHandleShape =
-    RoundedCornerShape(topStartPercent = 0, topEndPercent = 50, bottomEndPercent = 50, bottomStartPercent = 50)
+    RoundedCornerShape(
+        topStartPercent = 0,
+        topEndPercent = 50,
+        bottomEndPercent = 50,
+        bottomStartPercent = 50
+    )
 
 @Composable
 private fun SelectionHandle(
@@ -615,10 +644,14 @@ private fun SelectionToolbar(
     val gapPx = with(density) { 8.dp.toPx() }
     Layout(
         content = {
-            Surface(shape = RoundedCornerShape(8.dp), tonalElevation = 4.dp, shadowElevation = 4.dp) {
+            Surface(
+                shape = RoundedCornerShape(8.dp),
+                tonalElevation = 4.dp,
+                shadowElevation = 4.dp
+            ) {
                 Row {
-                    TextButton(onClick = onCopy) { Text("Copy") }
-                    TextButton(onClick = onSelectAll) { Text("Select all") }
+                    TextButton(onClick = onCopy) { Text(stringResource(R.string.copy)) }
+                    TextButton(onClick = onSelectAll) { Text(stringResource(R.string.select_all)) }
                 }
             }
         },
@@ -680,6 +713,7 @@ private suspend fun autoScrollIfNearEdge(
             val factor = 1f - (distanceFromTop / edgeThresholdPx).coerceIn(0f, 1f)
             listState.scrollBy(-scrollSpeedPx * factor)
         }
+
         distanceFromBottom < edgeThresholdPx -> {
             val factor = 1f - (distanceFromBottom / edgeThresholdPx).coerceIn(0f, 1f)
             listState.scrollBy(scrollSpeedPx * factor)
@@ -706,8 +740,9 @@ private fun updateSelectionForVisualHandle(
     val current = selectionState.selection ?: return
     val swapped = current != current.normalized()
     val writeRawStart = if (isStartVisual) !swapped else swapped
-    selectionState.selection = if (writeRawStart) current.copy(startLine = line, startOffset = offset)
-    else current.copy(endLine = line, endOffset = offset)
+    selectionState.selection =
+        if (writeRawStart) current.copy(startLine = line, startOffset = offset)
+        else current.copy(endLine = line, endOffset = offset)
 }
 
 private fun computeHandleOffset(
@@ -786,18 +821,24 @@ private fun findLineOffsetOrNearestEdge(state: SelectionState, globalPos: Offset
     findLineOffset(state, globalPos)?.let { return it }
     if (state.lineInfos.isEmpty()) return null
     val top = state.lineInfos.entries.minByOrNull { it.value.boundsInWindow.top } ?: return null
-    val bottom = state.lineInfos.entries.maxByOrNull { it.value.boundsInWindow.bottom } ?: return null
+    val bottom =
+        state.lineInfos.entries.maxByOrNull { it.value.boundsInWindow.bottom } ?: return null
     return when {
         globalPos.y <= top.value.boundsInWindow.top -> top.key to 0
         globalPos.y >= bottom.value.boundsInWindow.bottom ->
             bottom.key to bottom.value.layoutResult.layoutInput.text.length
+
         else -> null
     }
 }
 
 /** Reads from the source list, not the composed-only cache, so lines that
  *  scrolled offscreen during the drag still copy correctly. */
-private fun <T> buildSelectedText(items: List<T>, textOf: (T) -> String, sel: LineSelection): String {
+private fun <T> buildSelectedText(
+    items: List<T>,
+    textOf: (T) -> String,
+    sel: LineSelection
+): String {
     val norm = sel.normalized()
     val sb = StringBuilder()
     for (i in norm.startLine..norm.endLine) {
@@ -808,6 +849,7 @@ private fun <T> buildSelectedText(items: List<T>, textOf: (T) -> String, sel: Li
                 val e = norm.endOffset.coerceIn(0, line.length)
                 line.substring(minOf(s, e), maxOf(s, e))
             }
+
             i == norm.startLine -> line.substring(norm.startOffset.coerceIn(0, line.length))
             i == norm.endLine -> line.substring(0, norm.endOffset.coerceIn(0, line.length))
             else -> line
@@ -874,8 +916,12 @@ fun <T> LazySelectionContainer(
             modifier = Modifier
                 .fillMaxSize()
                 .textSelectionGestures(
-                    selectionState, items, textOf, listState,
-                    autoScrollEdgeThreshold, autoScrollSpeed
+                    selectionState = selectionState,
+                    items = items,
+                    textOf = textOf,
+                    listState = listState,
+                    autoScrollEdgeThreshold = autoScrollEdgeThreshold,
+                    autoScrollSpeed = autoScrollSpeed
                 ),
         ) {
             content(selectionState)
