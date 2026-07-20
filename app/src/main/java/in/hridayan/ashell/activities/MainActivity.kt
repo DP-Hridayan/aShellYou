@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity() {
         val shortcut = ShortcutInfoCompat.Builder(this, shortcutId)
             .setShortLabel(getString(R.string.logcat))
             .setLongLabel(getString(R.string.logcat_shortcut_long_label))
-            .setIcon(IconCompat.createWithResource(this, R.drawable.ic_bug))
+            .setIcon(IconCompat.createWithResource(this, R.drawable.shortcut_logcat))
             .setIntent(intent)
             .build()
         ShortcutManagerCompat.pushDynamicShortcut(this, shortcut)

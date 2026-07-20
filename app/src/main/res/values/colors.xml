@@ -8,4 +8,7 @@
     <color name="branding_text">#1C1B1F</color>
     <color name="branding_text_stroke">#1C1B1F</color>
     <color name="branding_adb_a_color">#1C1B1F</color>
+    <color name="shortcut_icon_fg_gradient_1">#FF0061E4</color>
+    <color name="shortcut_icon_fg_gradient_2">#AADF00C8</color>
+    <color name="shortcut_icon_bg">#FFFFFF</color>
 </resources>

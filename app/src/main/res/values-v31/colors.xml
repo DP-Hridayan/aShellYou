@@ -8,4 +8,7 @@
     <color name="branding_text">@android:color/system_accent1_800</color>
     <color name="branding_text_stroke">@android:color/system_accent1_800</color>
     <color name="branding_adb_a_color">@android:color/system_accent3_800</color>
+    <color name="shortcut_icon_fg_gradient_1">@android:color/system_accent1_800</color>
+    <color name="shortcut_icon_fg_gradient_2">@android:color/system_accent1_800</color>
+    <color name="shortcut_icon_bg">@android:color/system_accent1_100</color>
 </resources>
