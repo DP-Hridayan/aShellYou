@@ -22,6 +22,11 @@ import androidx.navigation.toRoute
 import `in`.hridayan.ashell.commandexamples.presentation.screens.CommandExamplesScreen
 import `in`.hridayan.ashell.core.common.LocalAnimatedContentScope
 import `in`.hridayan.ashell.core.domain.model.SharedTextHolder
+import `in`.hridayan.ashell.logcat.data.session.LogcatSessionHolder
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import `in`.hridayan.ashell.home.presentation.screens.HomeScreen
 import `in`.hridayan.ashell.onboarding.presentation.screens.OnboardingScreen
 import `in`.hridayan.ashell.qstiles.presentation.screen.CreateTileScreen
@@ -55,6 +60,12 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.PairingOwn
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.WifiAdbScreen
 import kotlin.reflect.KType
 
+/** Thin HiltViewModel used solely to expose [LogcatSessionHolder] to NavGraph composables. */
+@HiltViewModel
+class NavDeeplinkViewModel @Inject constructor(
+    val sessionHolder: LogcatSessionHolder,
+) : ViewModel()
+
 @Composable
 fun Navigation(isFirstLaunch: Boolean = false) {
     val navController = rememberNavController()
@@ -62,9 +73,19 @@ fun Navigation(isFirstLaunch: Boolean = false) {
     CompositionLocalProvider(
         LocalNavController provides navController,
     ) {
+        // One-shot shared text deeplink
         LaunchedEffect(Unit) {
             SharedTextHolder.text?.let {
                 navController.navigate(NavRoutes.LocalAdbScreen)
+            }
+        }
+        // Reactive logcat deeplink — works for cold start AND when app is already running
+        val navVM: NavDeeplinkViewModel = hiltViewModel()
+        LaunchedEffect(navController) {
+            navVM.sessionHolder.navigationEvents.collect {
+                navController.navigate(NavRoutes.LogcatScreen) {
+                    launchSingleTop = true
+                }
             }
         }
 

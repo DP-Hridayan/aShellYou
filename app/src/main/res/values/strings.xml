@@ -851,5 +851,8 @@
     <string name="logcat_detail_level">Level</string>
     <string name="logcat_detail_message">Message</string>
     <string name="logcat_card_running_badge">Running</string>
+    <string name="logcat_new_entries">%1$d new entries</string>
+    <string name="logcat_shortcut_long_label">Open Logcat Viewer</string>
+    <string name="logcat_filter_level">Log levels</string>
 
 </resources>

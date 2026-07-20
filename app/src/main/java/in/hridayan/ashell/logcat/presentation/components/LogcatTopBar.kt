@@ -37,7 +37,7 @@ import `in`.hridayan.ashell.logcat.domain.model.LogFilter
 @Composable
 fun LogcatTopBar(
     isRunning: Boolean,
-    isPaused: Boolean,
+    isAutoScrolling: Boolean,
     searchVisible: Boolean,
     activeFilter: LogFilter,
     onToggleSearch: () -> Unit,
@@ -45,7 +45,6 @@ fun LogcatTopBar(
     onTogglePlayPause: () -> Unit,
     onOpenFilter: () -> Unit,
     onClear: () -> Unit,
-    onStop: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val focusRequester = remember { FocusRequester() }
@@ -113,20 +112,21 @@ fun LogcatTopBar(
                 )
             }
 
-            // Play / Pause — highlighted when paused
+            // Play / Pause — controls the logcat service (start/stop logging)
+            // Red tint when running = tap to stop; green tint when stopped = tap to start
             IconButton(onClick = onTogglePlayPause) {
                 Icon(
                     painter = painterResource(
-                        if (isPaused) R.drawable.ic_play else R.drawable.ic_pause
+                        if (isRunning) R.drawable.ic_pause else R.drawable.ic_play
                     ),
-                    contentDescription = if (isPaused)
-                        stringResource(R.string.logcat_resume)
+                    contentDescription = if (isRunning)
+                        stringResource(R.string.logcat_stop)
                     else
-                        stringResource(R.string.logcat_paused),
-                    tint = if (isPaused)
-                        MaterialTheme.colorScheme.primary
+                        stringResource(R.string.logcat_resume),
+                    tint = if (isRunning)
+                        MaterialTheme.colorScheme.error
                     else
-                        LocalContentColor.current,
+                        MaterialTheme.colorScheme.primary,
                 )
             }
 
@@ -144,17 +144,6 @@ fun LogcatTopBar(
                     painter = painterResource(R.drawable.ic_delete),
                     contentDescription = stringResource(R.string.clear),
                 )
-            }
-
-            // Stop — only shown when running
-            if (isRunning) {
-                IconButton(onClick = onStop) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_cancel),
-                        contentDescription = stringResource(R.string.logcat_stop),
-                        tint = MaterialTheme.colorScheme.error,
-                    )
-                }
             }
         }
     )

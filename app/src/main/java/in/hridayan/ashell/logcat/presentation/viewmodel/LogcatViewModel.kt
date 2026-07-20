@@ -22,7 +22,6 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 private const val MAX_LOGS = 2000
-private const val MAX_PENDING = 500
 
 @Stable
 @HiltViewModel
@@ -32,110 +31,97 @@ class LogcatViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
 ) : ViewModel() {
 
-    // ── Running state ──────────────────────────────────────────────────────
+    // ── Service running state ──────────────────────────────────────────────
+    // Sourced from the singleton SessionHolder so HomeScreen and LogcatScreen
+    // both see the same value without any polling.
+    val isRunning: StateFlow<Boolean> = sessionHolder.isRunning
 
-    private val _isRunning = MutableStateFlow(LogcatService.isServiceRunning())
-    val isRunning: StateFlow<Boolean> = _isRunning.asStateFlow()
-
-    // ── Visible log buffer (max 2000) ──────────────────────────────────────
-
-    private val _logs = MutableStateFlow<List<LogEntry>>(emptyList())
-    val logs: StateFlow<List<LogEntry>> = _logs.asStateFlow()
-
-    // ── Background pending buffer (when auto-scroll is paused) ────────────
-
-    private val pendingBuffer = ArrayDeque<LogEntry>()
-
-    // ── Auto-scroll / play-pause ───────────────────────────────────────────
-
+    // ── Auto-scroll state (independent of service state) ──────────────────
+    // false → user has scrolled manually; only the FAB resets this to true.
     private val _isAutoScrolling = MutableStateFlow(true)
     val isAutoScrolling: StateFlow<Boolean> = _isAutoScrolling.asStateFlow()
 
-    // ── Active filter ──────────────────────────────────────────────────────
+    // ── Displayed log list (filtered view, max 2000) ───────────────────────
+    private val _logs = MutableStateFlow<List<LogEntry>>(emptyList())
+    val logs: StateFlow<List<LogEntry>> = _logs.asStateFlow()
 
+    // ── New-entry count while auto-scroll is paused ────────────────────────
+    private val _pendingCount = MutableStateFlow(0)
+    val pendingCount: StateFlow<Int> = _pendingCount.asStateFlow()
+
+    // ── Active filter ──────────────────────────────────────────────────────
     private val _activeFilter = MutableStateFlow(LogFilter())
     val activeFilter: StateFlow<LogFilter> = _activeFilter.asStateFlow()
 
     // ── Saved filter profiles ──────────────────────────────────────────────
-
     val savedFilters: StateFlow<List<LogFilter>> = filterRepository.getSavedFilters()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
-    // ── Expanded row IDs (tracked separately to prevent list-wide recomposition) ──
-
+    // ── Expanded row IDs ───────────────────────────────────────────────────
     private val _expandedIds = MutableStateFlow<Set<Long>>(emptySet())
     val expandedIds: StateFlow<Set<Long>> = _expandedIds.asStateFlow()
 
-    // ── Search visibility ──────────────────────────────────────────────────
-
+    // ── Search bar visibility ──────────────────────────────────────────────
     private val _searchVisible = MutableStateFlow(false)
     val searchVisible: StateFlow<Boolean> = _searchVisible.asStateFlow()
 
+    // ── Initialization ─────────────────────────────────────────────────────
     init {
-        // Subscribe to session holder — entries arrive from LogcatService
+        // Restore logs from the singleton buffer (survives ViewModel recreation)
+        restoreFromBuffer()
+        // Subscribe to live entries from LogcatService
         viewModelScope.launch {
-            sessionHolder.entries.collect { entry ->
-                onEntryReceived(entry)
-            }
-        }
-        // Sync isRunning with service
-        viewModelScope.launch {
-            while (true) {
-                _isRunning.value = LogcatService.isServiceRunning()
-                kotlinx.coroutines.delay(1_000)
-            }
+            sessionHolder.entries.collect { entry -> onLiveEntryReceived(entry) }
         }
     }
 
     // ── Public actions ─────────────────────────────────────────────────────
 
+    /** Start the logcat process. Does NOT affect auto-scroll. */
     fun startLogcat() {
         LogcatService.start(context)
-        _isRunning.value = true
-        _isAutoScrolling.value = true
     }
 
+    /** Stop the logcat process. Does NOT affect auto-scroll. */
     fun stopLogcat() {
         LogcatService.stop(context)
-        _isRunning.value = false
     }
 
     /**
-     * Called by the UI when the user scrolls up.
-     * Background buffering continues in [pendingBuffer].
+     * Called when user manually scrolls the list.
+     * Freezes the displayed list; new entries accumulate in rawBuffer silently.
      */
-    fun pauseFromScroll() {
+    fun pauseAutoScroll() {
         _isAutoScrolling.value = false
     }
 
     /**
-     * Called when the user taps the resume/play button.
-     * Flushes [pendingBuffer] into [_logs] and re-enables auto-scroll.
+     * Called ONLY by the "scroll to bottom" FAB.
+     * Rebuilds displayed list from rawBuffer (re-filtered), re-enables auto-scroll.
      */
-    fun resumeAndFlush() {
-        val filter = _activeFilter.value
-        val toFlush = pendingBuffer.toList().filter { filter.matches(it) }
-        pendingBuffer.clear()
-        _logs.update { current ->
-            (current + toFlush).takeLast(MAX_LOGS)
-        }
+    fun resumeAutoScroll() {
+        reapplyFilter(_activeFilter.value)
+        _pendingCount.value = 0
         _isAutoScrolling.value = true
     }
 
+    /**
+     * Update active filter and immediately re-filter the rawBuffer so the
+     * displayed list reflects the change without waiting for new entries.
+     */
+    fun updateFilter(filter: LogFilter) {
+        _activeFilter.value = filter
+        reapplyFilter(filter)
+    }
+
     fun clearLogs() {
+        sessionHolder.clearBuffer()
         _logs.value = emptyList()
-        pendingBuffer.clear()
+        _pendingCount.value = 0
     }
 
     fun toggleExpanded(id: Long) {
-        _expandedIds.update { ids ->
-            if (id in ids) ids - id else ids + id
-        }
-    }
-
-    fun updateFilter(filter: LogFilter) {
-        _activeFilter.value = filter
-        // Re-apply filter is handled by the UI observing activeFilter changes
+        _expandedIds.update { ids -> if (id in ids) ids - id else ids + id }
     }
 
     fun saveCurrentFilter(name: String) {
@@ -145,9 +131,7 @@ class LogcatViewModel @Inject constructor(
     }
 
     fun deleteFilter(id: String) {
-        viewModelScope.launch {
-            filterRepository.deleteFilter(id)
-        }
+        viewModelScope.launch { filterRepository.deleteFilter(id) }
     }
 
     fun toggleSearchVisible() {
@@ -156,20 +140,29 @@ class LogcatViewModel @Inject constructor(
 
     // ── Internal ───────────────────────────────────────────────────────────
 
-    private fun onEntryReceived(entry: LogEntry) {
+    private fun restoreFromBuffer() {
         val filter = _activeFilter.value
-        if (!filter.matches(entry)) return
+        _logs.value = sessionHolder.rawBuffer.filter { filter.matches(it) }.takeLast(MAX_LOGS)
+    }
 
+    private fun onLiveEntryReceived(entry: LogEntry) {
+        val filter = _activeFilter.value
+        val matches = filter.matches(entry)
         if (_isAutoScrolling.value) {
-            _logs.update { current ->
-                val updated = current.toMutableList()
-                if (updated.size >= MAX_LOGS) updated.removeFirst()
-                updated.add(entry)
-                updated
+            if (matches) {
+                _logs.update { current ->
+                    val updated = current.toMutableList()
+                    if (updated.size >= MAX_LOGS) updated.removeFirst()
+                    updated.add(entry)
+                    updated
+                }
             }
         } else {
-            if (pendingBuffer.size >= MAX_PENDING) pendingBuffer.removeFirst()
-            pendingBuffer.addLast(entry)
+            if (matches) _pendingCount.update { it + 1 }
         }
+    }
+
+    private fun reapplyFilter(filter: LogFilter) {
+        _logs.value = sessionHolder.rawBuffer.filter { filter.matches(it) }.takeLast(MAX_LOGS)
     }
 }

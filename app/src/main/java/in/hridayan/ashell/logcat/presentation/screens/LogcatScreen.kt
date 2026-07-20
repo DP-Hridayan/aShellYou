@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -50,8 +49,10 @@ import `in`.hridayan.ashell.logcat.presentation.components.LogcatPermissionDialo
 import `in`.hridayan.ashell.logcat.presentation.components.LogcatTopBar
 import `in`.hridayan.ashell.logcat.presentation.components.filter.LogcatFilterBottomSheet
 import `in`.hridayan.ashell.logcat.presentation.viewmodel.LogcatViewModel
+import `in`.hridayan.ashell.logcat.service.LogcatService
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.launch
 
 @Composable
@@ -64,6 +65,7 @@ fun LogcatScreen(
     val logs by viewModel.logs.collectAsStateWithLifecycle()
     val isRunning by viewModel.isRunning.collectAsStateWithLifecycle()
     val isAutoScrolling by viewModel.isAutoScrolling.collectAsStateWithLifecycle()
+    val pendingCount by viewModel.pendingCount.collectAsStateWithLifecycle()
     val activeFilter by viewModel.activeFilter.collectAsStateWithLifecycle()
     val savedFilters by viewModel.savedFilters.collectAsStateWithLifecycle()
     val expandedIds by viewModel.expandedIds.collectAsStateWithLifecycle()
@@ -75,30 +77,10 @@ fun LogcatScreen(
     var detailEntry by remember { mutableStateOf<LogEntry?>(null) }
     var showPermissionDialog by rememberSaveable { mutableStateOf(false) }
 
-    val isScrollingUp by remember {
-        derivedStateOf {
-            listState.firstVisibleItemIndex > 0 ||
-                    listState.firstVisibleItemScrollOffset > 0
-        }
-    }
-
-    LaunchedEffect(listState) {
-        snapshotFlow { listState.isScrollInProgress }
-            .filter { it }
-            .distinctUntilChanged()
-            .collect {
-                if (isScrollingUp) viewModel.pauseFromScroll()
-            }
-    }
-
-    LaunchedEffect(logs.size, isAutoScrolling) {
-        if (isAutoScrolling && logs.isNotEmpty()) {
-            listState.animateScrollToItem(logs.lastIndex)
-        }
-    }
-
+    // ── Permission + auto-start (only if service isn't already running) ───
+    // Use the static flag directly to avoid a 1-second delay from the StateFlow poll.
     LaunchedEffect(Unit) {
-        if (!isRunning) {
+        if (!LogcatService.isServiceRunning()) {
             if (LogcatPermissionHelper.hasReadLogsPermission(context)) {
                 viewModel.startLogcat()
             } else {
@@ -107,32 +89,56 @@ fun LogcatScreen(
         }
     }
 
+    // ── Auto-scroll to bottom when new logs arrive and auto-scroll is on ──
+    LaunchedEffect(listState) {
+        snapshotFlow { logs.size }
+            .drop(1) // skip initial emission
+            .distinctUntilChanged()
+            .collectLatest {
+                if (isAutoScrolling && logs.isNotEmpty()) {
+                    listState.animateScrollToItem(logs.lastIndex)
+                }
+            }
+    }
+
+    // ── Detect user scroll gesture → pause auto-scroll ────────────────────
+    // We watch for scroll events where the user is NOT at the bottom of the list.
+    // Scrolling down toward the bottom does NOT pause (only upward / away from bottom).
+    LaunchedEffect(listState) {
+        var lastFirstVisible = 0
+        snapshotFlow { listState.firstVisibleItemIndex to listState.firstVisibleItemScrollOffset }
+            .distinctUntilChanged()
+            .collect { (index, offset) ->
+                val movedUp = index < lastFirstVisible ||
+                        (index == lastFirstVisible && offset < 0)
+                // If user scrolled and we're not at the very end, pause auto-scroll
+                if (listState.isScrollInProgress && isAutoScrolling) {
+                    val atBottom = !listState.canScrollForward
+                    if (!atBottom) viewModel.pauseAutoScroll()
+                }
+                lastFirstVisible = index
+            }
+    }
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        contentWindowInsets = WindowInsets.safeDrawing,
+        contentWindowInsets = WindowInsets(0),
         topBar = {
             LogcatTopBar(
                 isRunning = isRunning,
-                isPaused = !isAutoScrolling,
+                isAutoScrolling = isAutoScrolling,
                 searchVisible = searchVisible,
                 activeFilter = activeFilter,
                 onToggleSearch = { viewModel.toggleSearchVisible() },
                 onSearchQueryChange = { query ->
                     viewModel.updateFilter(activeFilter.copy(searchQuery = query))
                 },
+                // Play/Pause button: controls only the logcat service, NOT auto-scroll
                 onTogglePlayPause = {
-                    if (!isAutoScrolling) {
-                        viewModel.resumeAndFlush()
-                        scope.launch {
-                            if (logs.isNotEmpty()) listState.animateScrollToItem(logs.lastIndex)
-                        }
-                    } else {
-                        viewModel.pauseFromScroll()
-                    }
+                    if (isRunning) viewModel.stopLogcat() else viewModel.startLogcat()
                 },
                 onOpenFilter = { showFilterSheet = true },
                 onClear = { viewModel.clearLogs() },
-                onStop = { viewModel.stopLogcat() },
             )
         },
     ) { innerPadding ->
@@ -169,6 +175,9 @@ fun LogcatScreen(
                 }
             }
 
+            // ── "Scroll to bottom" FAB ─────────────────────────────────────
+            // Shown whenever auto-scroll is paused (regardless of service state).
+            // Tapping it flushes pending entries and re-enables auto-scroll.
             AnimatedVisibility(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
@@ -179,29 +188,42 @@ fun LogcatScreen(
             ) {
                 ExtendedFloatingActionButton(
                     onClick = {
-                        viewModel.resumeAndFlush()
+                        viewModel.resumeAutoScroll()
                         scope.launch {
-                            if (logs.isNotEmpty()) listState.animateScrollToItem(logs.lastIndex)
+                            if (logs.isNotEmpty()) {
+                                // Scroll after state update completes
+                                kotlinx.coroutines.delay(50)
+                                listState.animateScrollToItem(logs.lastIndex)
+                            }
                         }
                     },
                     icon = {
                         Icon(
-                            painter = painterResource(R.drawable.ic_play),
+                            painter = painterResource(R.drawable.ic_mobile_arrow_down),
                             contentDescription = null,
                         )
                     },
-                    text = { Text(stringResource(R.string.logcat_resume)) },
+                    text = {
+                        val label = if (pendingCount > 0)
+                            stringResource(R.string.logcat_new_entries, pendingCount)
+                        else
+                            stringResource(R.string.logcat_resume)
+                        Text(label)
+                    },
                 )
             }
         }
     }
 
+    // ── Detail bottom sheet ────────────────────────────────────────────────
     detailEntry?.let { entry ->
         LogEntryDetailBottomSheet(
             entry = entry,
             onDismiss = { detailEntry = null },
         )
     }
+
+    // ── Filter bottom sheet ────────────────────────────────────────────────
     if (showFilterSheet) {
         LogcatFilterBottomSheet(
             activeFilter = activeFilter,
@@ -213,6 +235,7 @@ fun LogcatScreen(
         )
     }
 
+    // ── Permission dialog ──────────────────────────────────────────────────
     if (showPermissionDialog) {
         LogcatPermissionDialog(
             onContinueAnyway = {
@@ -221,7 +244,6 @@ fun LogcatScreen(
             },
             onGranted = {
                 showPermissionDialog = false
-                // Re-check and start — permission was granted via ADB externally
                 viewModel.startLogcat()
             },
             onDismiss = { showPermissionDialog = false },

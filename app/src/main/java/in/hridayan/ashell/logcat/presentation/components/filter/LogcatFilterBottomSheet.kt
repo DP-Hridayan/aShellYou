@@ -6,6 +6,7 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,42 +15,51 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.FilterChip
+import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.InputChip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SheetValue
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
-import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.material3.rememberBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.logcat.domain.model.DefaultIncludeLevels
 import `in`.hridayan.ashell.logcat.domain.model.FilterMode
 import `in`.hridayan.ashell.logcat.domain.model.LogFilter
 import `in`.hridayan.ashell.logcat.domain.model.LogLevel
+import `in`.hridayan.ashell.logcat.presentation.components.LogLevelColors
 
 /**
  * Rich filter bottom sheet.
  *
- * Fields: include/exclude mode toggle, min level, search query,
- * PID, TID, UID, package name, tag.
+ * Sections:
+ * 1. Saved profiles (horizontal chip row)
+ * 2. Include / Exclude mode toggle
+ * 3. Log-level multi-select chips (replaces the old min-level dropdown)
+ * 4. Field text fields: Tag, Package, PID, TID, UID
+ * 5. Action buttons: Clear all | Save profile | Apply
  *
- * Saved profiles: horizontally scrollable chip row, tap to load, ✕ to delete.
+ * Level chip semantics per mode:
+ * - INCLUDE: only selected levels are shown. Default = all except Verbose.
+ * - EXCLUDE: selected levels are hidden. Default = none selected (nothing hidden).
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -61,9 +71,12 @@ fun LogcatFilterBottomSheet(
     onDeleteProfile: (id: String) -> Unit,
     onDismiss: () -> Unit,
 ) {
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
+    val sheetState = rememberBottomSheetState(
+        initialValue = SheetValue.Hidden,
+        enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded)
+    )
+
     var draft by remember { mutableStateOf(activeFilter) }
-    var levelMenuExpanded by remember { mutableStateOf(false) }
     var showSaveDialog by remember { mutableStateOf(false) }
 
     ModalBottomSheet(
@@ -83,7 +96,6 @@ fun LogcatFilterBottomSheet(
                 style = MaterialTheme.typography.titleMedium,
             )
 
-            // ── Saved profiles ────────────────────────────────────────────
             if (savedFilters.isNotEmpty()) {
                 Row(
                     modifier = Modifier
@@ -106,14 +118,23 @@ fun LogcatFilterBottomSheet(
                 }
             }
 
-            // ── Include / Exclude mode toggle ─────────────────────────────
             val modes = FilterMode.entries
             SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
                 modes.forEachIndexed { index, mode ->
                     SegmentedButton(
-                        shape = SegmentedButtonDefaults.itemShape(index = index, count = modes.size),
+                        shape = SegmentedButtonDefaults.itemShape(
+                            index = index,
+                            count = modes.size
+                        ),
                         selected = draft.mode == mode,
-                        onClick = { draft = draft.copy(mode = mode) },
+                        onClick = {
+                            // When switching modes, reset levels to the sensible default for that mode
+                            val newLevels = when (mode) {
+                                FilterMode.INCLUDE -> DefaultIncludeLevels
+                                FilterMode.EXCLUDE -> emptySet()
+                            }
+                            draft = draft.copy(mode = mode, levels = newLevels)
+                        },
                         label = {
                             Text(
                                 text = when (mode) {
@@ -126,84 +147,106 @@ fun LogcatFilterBottomSheet(
                 }
             }
 
-            // ── Min level ─────────────────────────────────────────────────
-            ExposedDropdownMenuBox(
-                expanded = levelMenuExpanded,
-                onExpandedChange = { levelMenuExpanded = !levelMenuExpanded },
+            Text(
+                text = stringResource(R.string.logcat_filter_level),
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+
+            // All levels except SILENT/UNKNOWN which are rarely useful
+            val displayLevels = listOf(
+                LogLevel.VERBOSE,
+                LogLevel.DEBUG,
+                LogLevel.INFO,
+                LogLevel.WARNING,
+                LogLevel.ERROR,
+                LogLevel.FATAL,
+            )
+
+            FlowRow(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
-                OutlinedTextField(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .menuAnchor(),
-                    readOnly = true,
-                    value = draft.minLevel.name,
-                    onValueChange = {},
-                    label = { Text("Min level") },
-                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = levelMenuExpanded) },
-                )
-                ExposedDropdownMenu(
-                    expanded = levelMenuExpanded,
-                    onDismissRequest = { levelMenuExpanded = false },
-                ) {
-                    LogLevel.entries.forEach { level ->
-                        DropdownMenuItem(
-                            text = { Text(level.name) },
-                            onClick = {
-                                draft = draft.copy(minLevel = level)
-                                levelMenuExpanded = false
-                            }
-                        )
-                    }
+                displayLevels.forEach { level ->
+                    val selected = level in draft.levels
+                    val barColor = LogLevelColors.baseColor(level)
+                    // Chip color: full-alpha bar color when selected, faded when not
+                    val chipSelectedColor = barColor.copy(alpha = 0.25f)
+
+                    FilterChip(
+                        selected = selected,
+                        onClick = {
+                            draft = draft.copy(
+                                levels = if (selected) {
+                                    draft.levels - level
+                                } else {
+                                    draft.levels + level
+                                }
+                            )
+                        },
+                        label = { Text(level.name) },
+                        colors = FilterChipDefaults.filterChipColors(
+                            selectedContainerColor = chipSelectedColor,
+                            selectedLabelColor = lerp(barColor, Color.Black, 0.3f),
+                        ),
+                    )
                 }
             }
 
-            // ── Text fields ───────────────────────────────────────────────
             FilterTextField(
                 label = stringResource(R.string.logcat_filter_tag),
                 value = draft.tags.joinToString(","),
                 onValueChange = { raw ->
-                    draft = draft.copy(tags = raw.split(",").map { it.trim() }.filter { it.isNotBlank() }.toSet())
+                    draft = draft.copy(tags = raw.split(",").map { it.trim() }
+                        .filter { it.isNotBlank() }.toSet())
                 }
             )
             FilterTextField(
                 label = stringResource(R.string.logcat_filter_package),
                 value = draft.packages.joinToString(","),
                 onValueChange = { raw ->
-                    draft = draft.copy(packages = raw.split(",").map { it.trim() }.filter { it.isNotBlank() }.toSet())
+                    draft = draft.copy(packages = raw.split(",").map { it.trim() }
+                        .filter { it.isNotBlank() }.toSet())
                 }
             )
             FilterTextField(
                 label = stringResource(R.string.logcat_filter_pid),
                 value = draft.pids.joinToString(","),
                 onValueChange = { raw ->
-                    draft = draft.copy(pids = raw.split(",").map { it.trim() }.filter { it.isNotBlank() }.toSet())
+                    draft = draft.copy(pids = raw.split(",").map { it.trim() }
+                        .filter { it.isNotBlank() }.toSet())
                 }
             )
             FilterTextField(
                 label = stringResource(R.string.logcat_filter_tid),
                 value = draft.tids.joinToString(","),
                 onValueChange = { raw ->
-                    draft = draft.copy(tids = raw.split(",").map { it.trim() }.filter { it.isNotBlank() }.toSet())
+                    draft = draft.copy(tids = raw.split(",").map { it.trim() }
+                        .filter { it.isNotBlank() }.toSet())
                 }
             )
             FilterTextField(
                 label = stringResource(R.string.logcat_filter_uid),
                 value = draft.uids.joinToString(","),
                 onValueChange = { raw ->
-                    draft = draft.copy(uids = raw.split(",").map { it.trim() }.filter { it.isNotBlank() }.toSet())
+                    draft = draft.copy(uids = raw.split(",").map { it.trim() }
+                        .filter { it.isNotBlank() }.toSet())
                 }
             )
 
             Spacer(Modifier.height(8.dp))
 
-            // ── Action buttons ────────────────────────────────────────────
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 TextButton(
                     modifier = Modifier.weight(1f),
-                    onClick = { draft = LogFilter(); onApply(LogFilter()) }
+                    onClick = {
+                        draft = LogFilter()
+                        onApply(LogFilter())
+                    }
                 ) {
                     Text(stringResource(R.string.logcat_filter_clear_all))
                 }

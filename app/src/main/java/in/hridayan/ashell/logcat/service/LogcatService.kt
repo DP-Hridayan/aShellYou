@@ -63,6 +63,11 @@ class LogcatService : Service() {
         super.onCreate()
         isRunning = true
         notificationHelper = LogcatNotificationHelper(this)
+        // Update singleton state so all ViewModel instances see the change
+        val entryPointForRunning = EntryPointAccessors.fromApplication(
+            applicationContext, LogcatServiceEntryPoint::class.java
+        )
+        entryPointForRunning.logcatSessionHolder().setRunning(true)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -96,6 +101,11 @@ class LogcatService : Service() {
         isRunning = false
         serviceScope.cancel()
         notificationHelper.cancel()
+        // Update singleton state
+        val entryPointForRunning = EntryPointAccessors.fromApplication(
+            applicationContext, LogcatServiceEntryPoint::class.java
+        )
+        entryPointForRunning.logcatSessionHolder().setRunning(false)
         Log.d(TAG, "LogcatService destroyed")
     }
 

@@ -38,8 +38,11 @@ class LogcatNotificationHelper(private val context: Context) {
     }
 
     fun createNotification(): Notification {
+        // Tapping the notification opens MainActivity with ACTION_OPEN_LOGCAT,
+        // which MainActivity forwards to LogcatDeeplinkHolder → NavGraph navigates to LogcatScreen
         val openAppIntent = Intent(context, MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+            action = `in`.hridayan.ashell.logcat.data.session.LogcatDeeplinkHolder.ACTION_OPEN_LOGCAT
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
         val openAppPendingIntent = PendingIntent.getActivity(
             context, 0, openAppIntent,
