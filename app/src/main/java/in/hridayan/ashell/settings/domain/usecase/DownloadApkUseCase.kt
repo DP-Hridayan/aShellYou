@@ -1,7 +1,7 @@
-package `in`.hridayan.ashell.core.domain.usecase
+package `in`.hridayan.ashell.settings.domain.usecase
 
-import `in`.hridayan.ashell.core.domain.model.DownloadState
-import `in`.hridayan.ashell.core.domain.repository.DownloadRepository
+import `in`.hridayan.ashell.settings.domain.model.DownloadState
+import `in`.hridayan.ashell.settings.domain.repository.DownloadRepository
 import javax.inject.Inject
 
 class DownloadApkUseCase @Inject constructor(

@@ -63,7 +63,7 @@ import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.constants.UrlConst
-import `in`.hridayan.ashell.core.domain.model.DownloadState
+import `in`.hridayan.ashell.settings.domain.model.DownloadState
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic

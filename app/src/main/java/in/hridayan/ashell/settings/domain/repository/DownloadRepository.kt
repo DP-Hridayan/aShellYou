@@ -1,6 +1,6 @@
-package `in`.hridayan.ashell.core.domain.repository
+package `in`.hridayan.ashell.settings.domain.repository
 
-import `in`.hridayan.ashell.core.domain.model.DownloadState
+import `in`.hridayan.ashell.settings.domain.model.DownloadState
 
 interface DownloadRepository {
     suspend fun downloadApk(

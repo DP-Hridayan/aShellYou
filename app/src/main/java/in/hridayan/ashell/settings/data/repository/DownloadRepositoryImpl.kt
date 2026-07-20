@@ -1,12 +1,12 @@
-package `in`.hridayan.ashell.core.data.local.repository
+package `in`.hridayan.ashell.settings.data.repository
 
 import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
 import androidx.core.net.toUri
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.domain.model.DownloadState
-import `in`.hridayan.ashell.core.domain.repository.DownloadRepository
+import `in`.hridayan.ashell.settings.domain.model.DownloadState
+import `in`.hridayan.ashell.settings.domain.repository.DownloadRepository
 import `in`.hridayan.ashell.core.utils.isNetworkAvailable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

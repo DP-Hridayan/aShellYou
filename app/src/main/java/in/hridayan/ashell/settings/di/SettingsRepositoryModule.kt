@@ -10,7 +10,7 @@ import `in`.hridayan.ashell.settings.data.remote.api.GithubApi
 import `in`.hridayan.ashell.settings.data.local.database.GithubRepoStatsDao
 import `in`.hridayan.ashell.settings.data.repository.GithubDataRepositoryImpl
 import `in`.hridayan.ashell.settings.domain.repository.GithubDataRepository
-import `in`.hridayan.ashell.core.di.qualifiers.ApiHttpClient
+import `in`.hridayan.ashell.settings.di.qualifiers.ApiHttpClient
 import io.ktor.client.HttpClient
 import dagger.Provides
 import javax.inject.Singleton

@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.core.di.qualifiers
+package `in`.hridayan.ashell.settings.di.qualifiers
 
 import jakarta.inject.Qualifier
 

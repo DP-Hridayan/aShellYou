@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.core.domain.model
+package `in`.hridayan.ashell.settings.domain.model
 
 import java.io.File
 

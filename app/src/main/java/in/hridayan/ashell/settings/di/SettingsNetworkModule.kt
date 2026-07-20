@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.core.di
+package `in`.hridayan.ashell.settings.di
 
 import android.content.Context
 import dagger.Module
@@ -7,9 +7,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 
-import `in`.hridayan.ashell.core.data.local.repository.DownloadRepositoryImpl
-import `in`.hridayan.ashell.core.domain.repository.DownloadRepository
-import `in`.hridayan.ashell.core.di.qualifiers.ApiHttpClient
+import `in`.hridayan.ashell.settings.data.repository.DownloadRepositoryImpl
+import `in`.hridayan.ashell.settings.domain.repository.DownloadRepository
+import `in`.hridayan.ashell.settings.di.qualifiers.ApiHttpClient
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
@@ -21,7 +21,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object NetworkModule {
+object SettingsNetworkModule {
 
     @Provides
     @Singleton
