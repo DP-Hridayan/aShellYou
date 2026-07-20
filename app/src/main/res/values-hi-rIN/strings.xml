@@ -2,8 +2,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="abort_command">पहले आदेश निरस्त करें</string>
     <string name="about">इसके बारे में</string>
-    <string name="active">Active</string>
-    <string name="active_slot">Active Slot</string>
+    <string name="active">सक्रिय</string>
+    <string name="active_slot">सक्रिय स्लॉट</string>
     <string name="adb">ADB</string>
     <string name="adb_command">ADB command</string>
     <string name="adb_command_hint" comment="Example ADB command shown as placeholder hint in input field">adb reboot</string>
@@ -20,34 +20,34 @@
     <string name="adb_via_wireless_debugging">वायरलेस डिबगिंग के माध्यम से ADB</string>
     <string name="adb_via_wireless_debugging_summary">वायरलेस डिबगिंग का उपयोग करके वाई-फाई पर डिवाइस (एंड्रॉइड 11+) कनेक्ट करें और दूरस्थ रूप से ADB कमांड निष्पादित करें।</string>
     <string name="add">जोड़ें</string>
-    <string name="add_account">Add account</string>
+    <string name="add_account">खाता जोड़ें</string>
     <string name="add_command">कमांड जोड़ें</string>
     <string name="add_new_item">नया आइटम जोड़ें</string>
     <string name="additional_settings">अतिरिक्त सेटिंग्स</string>
     <string name="ai_cache_days">Cache duration</string>
     <string name="ai_cache_enabled">Enable cache</string>
     <string name="ai_models">AI &amp; Models</string>
-    <string name="all">All</string>
-    <string name="all_data">All data</string>
+    <string name="all">सभी</string>
+    <string name="all_data">सभी डेटा</string>
     <string name="already_connected">पहले से कनेक्ट है</string>
     <string name="already_latest_version">आप लेटेस्ट वर्ज़न का उपयोग कर रहे हैं</string>
     <string name="app">एप्लिकेशन</string>
     <string name="app_crashed">ऐप क्रैश हो गया है</string>
     <string name="app_tagline">ADB आपकी उंगलियों पर</string>
-    <string name="apply">Apply</string>
+    <string name="apply">लागू करें</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">सभी पर लागू करें (%1$d शेष)</string>
     <string name="artifact_id">Artifact ID</string>
-    <string name="auto">Auto</string>
-    <string name="auto_backup">Automatic backup</string>
+    <string name="auto">स्वतः</string>
+    <string name="auto_backup">स्वचालित संरक्षण</string>
     <string name="auto_backup_content_type">Backup content</string>
-    <string name="auto_backup_folder">Backup folder</string>
-    <string name="auto_dark_mode">Auto dark mode</string>
+    <string name="auto_backup_folder">बैकअप फ़ोल्डर</string>
+    <string name="auto_dark_mode">ऑटो डार्क मोड</string>
     <string name="auto_delete_existing_backups">Auto-delete old backups</string>
     <string name="auto_scale_ui">Auto scale UI</string>
     <string name="auto_update">ऑटो अपडेट</string>
     <string name="back">पीछे</string>
     <string name="back_button">बैक बटन</string>
-    <string name="backing_up">Backing up…</string>
+    <string name="backing_up">बैकअप जारी…</string>
     <string name="backup">बैकअप</string>
     <string name="backup_all_data">सभी डेटा बैकअप करें</string>
     <string name="backup_and_restore">बैकअप और रिस्टोर</string>
@@ -56,18 +56,18 @@
     <string name="backup_destination">Backup destination</string>
     <string name="backup_failed">बैकअप विफल</string>
     <string name="backup_found">बैकअप मिला</string>
-    <string name="backup_frequency">Backup frequency</string>
-    <string name="backup_now">Backup now</string>
+    <string name="backup_frequency">सरंक्षण आवृत्ति</string>
+    <string name="backup_now">अभ बैकअप करें</string>
     <string name="backup_scheduler">Backup scheduler</string>
     <string name="backup_settings">ऐप सेटिंग्स बैकअप करें</string>
-    <string name="backup_status">Backup status</string>
+    <string name="backup_status">बैकअप स्थिति</string>
     <string name="backup_successful">बैकअप सफल</string>
     <string name="backup_time">बैकअप समय</string>
     <string name="backup_type">Backup type</string>
     <string name="baseband_version">Baseband</string>
     <string name="basic_shell">साधारण shell</string>
-    <string name="battery_level">Battery</string>
-    <string name="battery_saver">Battery saver</string>
+    <string name="battery_level">बैटरी</string>
+    <string name="battery_saver">बैटरी सेवर</string>
     <string name="behavior">व्यवहार</string>
     <string name="bookmark_limit_reached">बुकमार्क की अधिकतम सीमा पहुंच गई है! नए जोड़ने के लिए कुछ पुराने बुकमार्क हटा दें</string>
     <string name="bookmarks">बुकमार्क्स</string>
@@ -81,18 +81,19 @@
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Cache size: %s</string>
     <string name="cancel">रद्द करें</string>
     <string name="cancel_all">सभी रद्द करें</string>
-    <string name="cancelling">Cancelling…</string>
-    <string name="changelog">Changelog</string>
+    <string name="cancelling">रद्द किया जा रहा है…</string>
+    <string name="changelog">परिवर्तन सूची</string>
     <string name="changelogs">नवीनतम बदलाव</string>
     <string name="check_updates">अपडेट देखें</string>
     <string name="choose_a_device">डिवाइस चुनें</string>
-    <string name="choose_icon">Choose icon</string>
+    <string name="choose_icon">आइकन चुनें</string>
     <string name="clear">साफ़ करें</string>
+    <string name="clear_all">Clear all</string>
     <string name="clear_all_message">क्या आप सभी को साफ़ करना चाहते हैं?</string>
     <string name="clear_analysis_cache">Clear analysis cache</string>
     <string name="clear_cache">Clear cache</string>
     <string name="clear_everything">सभी साफ़ करें</string>
-    <string name="clear_history">Clear History</string>
+    <string name="clear_history">इतिहास मिटाएं</string>
     <string name="clear_output_confirmation">आउटपुट साफ़ करने की पुष्टि</string>
     <string name="clipboard_empty">क्लिपबोर्ड में कोई पाठ नहीं है</string>
     <string name="close">बंद करे</string>
@@ -126,6 +127,7 @@
     <string name="connection_failed">कनेक्शन विफल रहा</string>
     <string name="connection_lost">कनेक्शन खो गया</string>
     <string name="connection_lost_back_message">वायरलेस डिबगिंग कनेक्शन खो गया। आप क्या करना चाहेंगे?</string>
+    <string name="continue_anyway">Continue anyway</string>
     <string name="contributors">योगदानकर्ता</string>
     <string name="copied_items" comment="%1$d = number of items copied to clipboard">%1$d आइटम कॉपी किए</string>
     <string name="copied_to_clipboard">क्लिपबोर्ड पर कॉपी किया!</string>
@@ -272,6 +274,7 @@
     <string name="erasing">Erasing…</string>
     <string name="error">त्रुटि</string>
     <string name="error_labels_limit_reached">लेबल की अधिकतम सीमा पहुंच गई</string>
+    <string name="exclude">Exclude</string>
     <string name="execution_method">Execution method</string>
     <string name="expand">Expand</string>
     <string name="experimental">Experimental</string>
@@ -399,6 +402,7 @@
     <string name="history">इतिहास</string>
     <string name="home">होम</string>
     <string name="icon_selected">Icon selected</string>
+    <string name="include">Include</string>
     <string name="info">जानकारी</string>
     <string name="initial_state">Initial state</string>
     <string name="instructions">निर्देश</string>
@@ -419,6 +423,7 @@
     <string name="latest_version">नवीनतम संस्करण</string>
     <string name="lead_developer">मुख्य डेवलपर</string>
     <string name="least_used">सबसे कम इस्तेमाल किया गया</string>
+    <string name="level">Level</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d libraries detected</string>
     <string name="license">लाइसेंस</string>
     <string name="license_label">License</string>
@@ -435,6 +440,19 @@
     <string name="local_file">Local file</string>
     <string name="locked">Locked</string>
     <string name="logcat">Logcat</string>
+    <string name="logcat_cleared">Logs cleared</string>
+    <string name="logcat_detail_package">Package</string>
+    <string name="logcat_filter_level">Log levels</string>
+    <string name="logcat_filter_search_hint">Search in messages…</string>
+    <string name="logcat_is_running">Logcat is running</string>
+    <string name="logcat_ive_granted_it">I\'ve granted it</string>
+    <string name="logcat_no_logs">No logs yet</string>
+    <string name="logcat_notification_channel_description">Shown while logcat is actively collecting logs</string>
+    <string name="logcat_notification_channel_name">Logcat Session</string>
+    <string name="logcat_permission_body">Without this permission, only logs from aShellYou itself will be visible. Grant full access by running this command from a computer:</string>
+    <string name="logcat_permission_title">Log access permission</string>
+    <string name="logcat_running_description">aShellYou is collecting system logs in the background</string>
+    <string name="logcat_shortcut_long_label">Open Logcat Viewer</string>
     <string name="logs">Logs</string>
     <string name="look_and_feel">देखें और अनुभव</string>
     <string name="low">Low</string>
@@ -442,6 +460,7 @@
     <string name="max_download_size">Max Download</string>
     <string name="medium">Medium</string>
     <string name="merge">मर्ज करें</string>
+    <string name="message">Message</string>
     <string name="minimize">छोटा करें</string>
     <string name="mode">मोड</string>
     <string name="mode_one_desc">कमांड चलाने के लिए root एक्सेस का उपयोग करें। root किए गए कमांड निष्पादित किए जा सकते हैं।</string>
@@ -515,6 +534,7 @@
     <string name="other_device">Other device</string>
     <string name="output">Output</string>
     <string name="override_bookmarks_limit">पसंदीदा की अधिकतम सीमा को अधिलेखित करें</string>
+    <string name="package_name">Package name</string>
     <string name="pair">जोड़ें</string>
     <string name="pair_a_device_first">Pair a device first</string>
     <string name="pair_another_device">Pair another device</string>
@@ -542,6 +562,7 @@
     <string name="partition">Partition</string>
     <string name="paste">पेस्ट</string>
     <string name="path">पथ</string>
+    <string name="paused">Paused</string>
     <string name="permission_denied">अनुमति अस्वीकृत</string>
     <string name="permission_optional">ये अनुमतियाँ देना वैकल्पिक है!</string>
     <string name="pick_ashellyou_extension">कृपया .ashellyou एक्सटेंशन वाली फ़ाइल चुनें</string>
@@ -596,10 +617,13 @@
     <string name="restore_from">Restore from</string>
     <string name="restore_successful">रिस्टोर सफल</string>
     <string name="restoring_backup">Restoring backup…</string>
+    <string name="resume">जारी रखें</string>
     <string name="retry">पुनः प्रयास करें</string>
     <string name="root_access_granted">रूट एक्सेस मिल गया!</string>
+    <string name="running">Running</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">सहेजें</string>
+    <string name="save_as_profile">Save as profile…</string>
     <string name="save_whole_output">पूरा आउटपुट सहेजें</string>
     <string name="saved_devices">सहेजे गए डिवाइस</string>
     <string name="saving">सहेजा जा रहा है…</string>
@@ -670,6 +694,7 @@
     <string name="stack_trace">स्टैक ट्रेस</string>
     <string name="stargazers">स्टारगेज़र्स</string>
     <string name="start">शुरू करें</string>
+    <string name="stop">Stop</string>
     <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">%.1f MB used by AI models</string>
     <string name="subtitle">Subtitle</string>
     <string name="subtitle_off_state">Subtitle (OFF state)</string>
@@ -684,6 +709,7 @@
     <string name="system_default">System default</string>
     <string name="system_font" comment="Option to use the device default font">सिस्टम फ़ॉन्ट</string>
     <string name="system_settings">सिस्टम सेटिंग्स</string>
+    <string name="tag">Tag</string>
     <string name="telegram">टेलीग्राम</string>
     <string name="terminal">टर्मिनल</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">टर्मिनल फ़ॉन्ट शैली</string>
@@ -698,6 +724,7 @@
     <string name="tile_name">Tile name</string>
     <string name="tiles">Tiles</string>
     <string name="time">Time</string>
+    <string name="timestamp">Timestamp</string>
     <string name="toggleable">Toggleable</string>
     <string name="total_executions">Total executions</string>
     <string name="translations">अनुवाद</string>
@@ -754,6 +781,10 @@
     <string name="wireless_debugging_guide_2">aShell द्वारा भेजी गई सूचना में छह अंकों का युग्मन कोड दर्ज करें।</string>
     <string name="wireless_debugging_guide_3">ऐप पर वापस आएं और होम स्क्रीन में \"स्टार्ट\" बटन पर क्लिक करें।</string>
     <string name="wireless_debugging_important_notice">कृपया ध्यान दें कि वायरलेस डिबगिंग विकल्प का बायाँ भाग क्लिक करने योग्य है। इस पर टैप करने से वायरलेस डिबगिंग पेयरिंग मेनू खुल जाएगा।</string>
+    <plurals name="logcat_new_entries">
+        <item quantity="one">%1$d new entry</item>
+        <item quantity="other">%1$d new entries</item>
+    </plurals>
     <string name="changelog_v7_4_0">\nYou can now search Sub-settings inside Settings screens\nAdded Palette Styles for color schemes\nAdded option to set app language directly in-app</string>
     <string name="changelog_v7_3_0">\nImproved UI in changelog screen\nAdded translation contributors in about section\nAdded Licenses screen that shows detailed license information about the app and other libraries used by the app</string>
     <string name="changelog_v7_2_1">\nMaintenance update!</string>

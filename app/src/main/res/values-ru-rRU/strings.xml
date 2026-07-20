@@ -88,6 +88,7 @@
     <string name="choose_a_device">Выберите устройство</string>
     <string name="choose_icon">Выберите иконку</string>
     <string name="clear">Очистить</string>
+    <string name="clear_all">Очистить все</string>
     <string name="clear_all_message">Вы уверены, что хотите очистить все на этом экране?</string>
     <string name="clear_analysis_cache">Очистить кэш анализа</string>
     <string name="clear_cache">Очистить кэш</string>
@@ -126,6 +127,7 @@
     <string name="connection_failed">Ошибка подключения</string>
     <string name="connection_lost">Соединение потеряно</string>
     <string name="connection_lost_back_message">Беспроводное соединение для отладки потеряно. Что вы хотите сделать?</string>
+    <string name="continue_anyway">Продолжить все равно</string>
     <string name="contributors">Участники проекта</string>
     <string name="copied_items" comment="%1$d = number of items copied to clipboard">Скопировано %1$d элементов</string>
     <string name="copied_to_clipboard">Скопировано в буфер обмена!</string>
@@ -272,6 +274,7 @@
     <string name="erasing">Стирание…</string>
     <string name="error">Ошибка</string>
     <string name="error_labels_limit_reached">Достигнут максимальный лимит этикеток</string>
+    <string name="exclude">Исключить</string>
     <string name="execution_method">Метод выполнения</string>
     <string name="expand">Развернуть</string>
     <string name="experimental">Экспериментальный</string>
@@ -399,6 +402,7 @@
     <string name="history">История</string>
     <string name="home">Главная</string>
     <string name="icon_selected">Иконка выбрана</string>
+    <string name="include">Включить</string>
     <string name="info">Информация</string>
     <string name="initial_state">Начальное состояние</string>
     <string name="instructions">Инструкции</string>
@@ -419,6 +423,7 @@
     <string name="latest_version">Последняя версия</string>
     <string name="lead_developer">Ведущий разработчик</string>
     <string name="least_used">Редко используемые</string>
+    <string name="level">Уровень</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">Обнаружено библиотек %1$d</string>
     <string name="license">Лицензия</string>
     <string name="license_label">Лицензия</string>
@@ -435,6 +440,19 @@
     <string name="local_file">Локальный файл</string>
     <string name="locked">Заблокировано</string>
     <string name="logcat">Logcat</string>
+    <string name="logcat_cleared">Журналы очищены</string>
+    <string name="logcat_detail_package">Пакет</string>
+    <string name="logcat_filter_level">Журнал уровней</string>
+    <string name="logcat_filter_search_hint">Поиск в сообщениях…</string>
+    <string name="logcat_is_running">Logcat запущен</string>
+    <string name="logcat_ive_granted_it">Я предоставил это</string>
+    <string name="logcat_no_logs">Журналов пока нет</string>
+    <string name="logcat_notification_channel_description">Показать, когда logcat активно собирает журналы</string>
+    <string name="logcat_notification_channel_name">Logcat Сессия</string>
+    <string name="logcat_permission_body">Без этого разрешения видны только журналы из aShellYou. Предоставьте полный доступ, запустив эту команду с компьютера:</string>
+    <string name="logcat_permission_title">Разрешение доступа к журналу</string>
+    <string name="logcat_running_description">aShellYou собирает системные журналы в фоне</string>
+    <string name="logcat_shortcut_long_label">Открыть просмотр Logcat</string>
     <string name="logs">Журналы</string>
     <string name="look_and_feel">Оформление</string>
     <string name="low">Низкий</string>
@@ -442,6 +460,7 @@
     <string name="max_download_size">Максимальная загрузка</string>
     <string name="medium">Средний</string>
     <string name="merge">Объединить</string>
+    <string name="message">Сообщение</string>
     <string name="minimize">Минимизировать</string>
     <string name="mode">Режим</string>
     <string name="mode_one_desc">Используйте root доступ для запуска команд. Rooted команды могут быть выполнены.</string>
@@ -515,6 +534,7 @@
     <string name="other_device">Другие устройства</string>
     <string name="output">Вывод</string>
     <string name="override_bookmarks_limit">Переопределить максимальное количество закладок</string>
+    <string name="package_name">Имя пакета</string>
     <string name="pair">Сопряжение</string>
     <string name="pair_a_device_first">Сначала сопряжение устройства</string>
     <string name="pair_another_device">Сопрячь другое устройство</string>
@@ -542,6 +562,7 @@
     <string name="partition">Раздел</string>
     <string name="paste">Вставить</string>
     <string name="path">Путь</string>
+    <string name="paused">Пауза</string>
     <string name="permission_denied">Разрешение отклонено</string>
     <string name="permission_optional">Предоставление этих разрешений необязательно!</string>
     <string name="pick_ashellyou_extension">Пожалуйста, выберите файл с расширением \".ashellyou\"</string>
@@ -596,10 +617,13 @@
     <string name="restore_from">Восстановить из</string>
     <string name="restore_successful">Успешно восстановлено</string>
     <string name="restoring_backup">Восстановление резервирования…</string>
+    <string name="resume">Продолжить</string>
     <string name="retry">Повторить</string>
     <string name="root_access_granted">Root доступ предоставлен!</string>
+    <string name="running">Выполняется</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Сохранить</string>
+    <string name="save_as_profile">Сохранить как профиль…</string>
     <string name="save_whole_output">Сохранить весь вывод</string>
     <string name="saved_devices">Сохранённые устройства</string>
     <string name="saving">Сохранение…</string>
@@ -670,6 +694,7 @@
     <string name="stack_trace">Трассировка стека</string>
     <string name="stargazers">Звёзды</string>
     <string name="start">Запустить</string>
+    <string name="stop">Остановить</string>
     <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">%.1f МБ используется AI моделями</string>
     <string name="subtitle">Субтитры</string>
     <string name="subtitle_off_state">Субтитры (состояние ВЫКЛ.)</string>
@@ -684,6 +709,7 @@
     <string name="system_default">Системные по умолчанию</string>
     <string name="system_font" comment="Option to use the device default font">Системный шрифт</string>
     <string name="system_settings">Системные настройки</string>
+    <string name="tag">Тег</string>
     <string name="telegram">Telegram</string>
     <string name="terminal">Терминал</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Стиль шрифта терминала</string>
@@ -698,6 +724,7 @@
     <string name="tile_name">Название плитки</string>
     <string name="tiles">Плитки</string>
     <string name="time">Время</string>
+    <string name="timestamp">Отметка времени</string>
     <string name="toggleable">Переключаемый</string>
     <string name="total_executions">Всего запусков</string>
     <string name="translations">Переводы</string>
@@ -754,6 +781,12 @@
     <string name="wireless_debugging_guide_2">Введите шестизначный код сопряжения в уведомление, отправленное aShell You.</string>
     <string name="wireless_debugging_guide_3">Вернитесь в приложение и нажмите кнопку \"Запустить\" на главном экране.</string>
     <string name="wireless_debugging_important_notice">Обратите внимание, что левая часть опции \"Беспроводная отладка\" является кликабельной. При нажатии на неё откроется меню \"Сопряжения\" для \"Беспроводной отладки\".</string>
+    <plurals name="logcat_new_entries">
+        <item quantity="one">%1$d новая запись</item>
+        <item quantity="few">%1$d новых записей</item>
+        <item quantity="many">%1$d новых записей</item>
+        <item quantity="other">%1$d новых записей</item>
+    </plurals>
     <string name="changelog_v7_4_0">\nТеперь вы можете искать под настройки на экранах настроек\nДобавлены стили палитры для цветовых схем\nДобавлена ​​опция установки языка приложения прямо в приложении</string>
     <string name="changelog_v7_3_0">\nУлучшен пользовательский интерфейс в журнале изменений\nДобавлены переводчики в раздел О программе.\nДобавлен экран лицензий, показывающий подробную информацию о лицензии приложения и других библиотек, использующих приложение</string>
     <string name="changelog_v7_2_1">\nОбновление технического обслуживания!</string>
