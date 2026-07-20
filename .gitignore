@@ -15,4 +15,4 @@ local.properties
 .androidide/
 signing-foss.properties
 .stability/
-.artifacts
+/.artifacts
