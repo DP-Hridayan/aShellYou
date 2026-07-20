@@ -120,9 +120,9 @@ fun LogcatTopBar(
                         if (isRunning) R.drawable.ic_pause else R.drawable.ic_play
                     ),
                     contentDescription = if (isRunning)
-                        stringResource(R.string.logcat_stop)
+                        stringResource(R.string.stop)
                     else
-                        stringResource(R.string.logcat_resume),
+                        stringResource(R.string.resume),
                     tint = if (isRunning)
                         MaterialTheme.colorScheme.error
                     else

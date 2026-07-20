@@ -78,7 +78,7 @@ fun LogEntryDetailBottomSheet(
 
             // Timestamp
             DetailRow(
-                label = stringResource(R.string.logcat_detail_timestamp),
+                label = stringResource(R.string.timestamp),
                 value = entry.timestamp,
             )
 
@@ -117,14 +117,14 @@ fun LogEntryDetailBottomSheet(
 
             // Tag
             DetailRow(
-                label = stringResource(R.string.logcat_filter_tag),
+                label = stringResource(R.string.tag),
                 value = entry.tag,
                 monospace = true,
             )
 
             // Message (selectable)
             Text(
-                text = stringResource(R.string.logcat_detail_message),
+                text = stringResource(R.string.message),
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )

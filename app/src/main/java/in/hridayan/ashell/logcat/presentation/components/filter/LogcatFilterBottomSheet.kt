@@ -138,8 +138,8 @@ fun LogcatFilterBottomSheet(
                         label = {
                             Text(
                                 text = when (mode) {
-                                    FilterMode.INCLUDE -> stringResource(R.string.logcat_filter_include)
-                                    FilterMode.EXCLUDE -> stringResource(R.string.logcat_filter_exclude)
+                                    FilterMode.INCLUDE -> stringResource(R.string.include)
+                                    FilterMode.EXCLUDE -> stringResource(R.string.exclude)
                                 }
                             )
                         }
@@ -195,7 +195,7 @@ fun LogcatFilterBottomSheet(
             }
 
             FilterTextField(
-                label = stringResource(R.string.logcat_filter_tag),
+                label = stringResource(R.string.tag),
                 value = draft.tags.joinToString(","),
                 onValueChange = { raw ->
                     draft = draft.copy(tags = raw.split(",").map { it.trim() }
@@ -203,7 +203,7 @@ fun LogcatFilterBottomSheet(
                 }
             )
             FilterTextField(
-                label = stringResource(R.string.logcat_filter_package),
+                label = stringResource(R.string.package_name),
                 value = draft.packages.joinToString(","),
                 onValueChange = { raw ->
                     draft = draft.copy(packages = raw.split(",").map { it.trim() }
@@ -248,19 +248,19 @@ fun LogcatFilterBottomSheet(
                         onApply(LogFilter())
                     }
                 ) {
-                    Text(stringResource(R.string.logcat_filter_clear_all))
+                    Text(stringResource(R.string.clear_all))
                 }
                 TextButton(
                     modifier = Modifier.weight(1f),
                     onClick = { showSaveDialog = true }
                 ) {
-                    Text(stringResource(R.string.logcat_filter_save_profile))
+                    Text(stringResource(R.string.save_as_profile))
                 }
                 Button(
                     modifier = Modifier.weight(1f),
                     onClick = { onApply(draft); onDismiss() }
                 ) {
-                    Text(stringResource(R.string.logcat_filter_apply))
+                    Text(stringResource(R.string.apply))
                 }
             }
         }
@@ -302,7 +302,7 @@ private fun SaveProfileDialog(
     var name by remember { mutableStateOf("") }
     androidx.compose.material3.AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(stringResource(R.string.logcat_filter_save_profile)) },
+        title = { Text(stringResource(R.string.save_as_profile)) },
         text = {
             TextField(
                 value = name,

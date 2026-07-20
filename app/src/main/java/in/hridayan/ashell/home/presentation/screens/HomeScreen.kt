@@ -541,7 +541,7 @@ fun LogcatCard(
         badges = {
             if (isRunning) {
                 Badge(
-                    badgeText = stringResource(R.string.logcat_card_running_badge),
+                    badgeText = stringResource(R.string.running),
                     badgeContainerColor = MaterialTheme.colorScheme.primary,
                     badgeContentColor = MaterialTheme.colorScheme.onPrimary,
                     borderEnabled = false,

@@ -64,7 +64,7 @@ fun LogcatPermissionDialog(
         confirmButton = {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 TextButton(onClick = onContinueAnyway) {
-                    Text(stringResource(R.string.logcat_continue_anyway))
+                    Text(stringResource(R.string.continue_anyway))
                 }
                 TextButton(onClick = onGranted) {
                     Text(stringResource(R.string.logcat_ive_granted_it))

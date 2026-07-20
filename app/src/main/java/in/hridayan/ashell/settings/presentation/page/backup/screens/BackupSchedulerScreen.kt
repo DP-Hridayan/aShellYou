@@ -43,6 +43,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import androidx.documentfile.provider.DocumentFile
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
@@ -92,7 +93,8 @@ fun BackupSchedulerScreen(
             if (autoBackupFolderUri.isNotEmpty()) {
                 runCatching {
                     context.contentResolver.releasePersistableUriPermission(
-                        android.net.Uri.parse(autoBackupFolderUri), flags
+                        autoBackupFolderUri.toUri(),
+                        flags
                     )
                 }
             }
@@ -100,7 +102,8 @@ fun BackupSchedulerScreen(
             context.contentResolver.takePersistableUriPermission(newUri, flags)
 
             settingsViewModel.setString(SettingsKeys.AutoBackupFolderUri, newUri.toString())
-            val folderName = DocumentFile.fromTreeUri(context, newUri)?.name ?: newUri.lastPathSegment ?: ""
+            val folderName =
+                DocumentFile.fromTreeUri(context, newUri)?.name ?: newUri.lastPathSegment ?: ""
             settingsViewModel.setString(SettingsKeys.AutoBackupFolderName, folderName)
 
             if (pendingEnableAfterFolderPick) {

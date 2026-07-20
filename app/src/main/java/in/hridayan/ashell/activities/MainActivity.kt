@@ -13,13 +13,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.core.content.pm.ShortcutInfoCompat
-import androidx.core.content.pm.ShortcutManagerCompat
-import androidx.core.graphics.drawable.IconCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.CompositionLocals
 import `in`.hridayan.ashell.core.common.LocalSeedColor
 import `in`.hridayan.ashell.core.domain.provider.SeedColorProvider
@@ -65,8 +61,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        registerLogcatShortcut()
-
         enableEdgeToEdge()
         setContent {
             CompositionLocals {
@@ -101,22 +95,5 @@ class MainActivity : AppCompatActivity() {
         if (intent?.action == LogcatDeeplinkHolder.ACTION_OPEN_LOGCAT) {
             logcatSessionHolder.triggerLogcatNavigation()
         }
-    }
-
-    private fun registerLogcatShortcut() {
-        val shortcutId = "logcat"
-        val intent = Intent(this, MainActivity::class.java).apply {
-            action = LogcatDeeplinkHolder.ACTION_OPEN_LOGCAT
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or
-                    Intent.FLAG_ACTIVITY_SINGLE_TOP or
-                    Intent.FLAG_ACTIVITY_CLEAR_TOP
-        }
-        val shortcut = ShortcutInfoCompat.Builder(this, shortcutId)
-            .setShortLabel(getString(R.string.logcat))
-            .setLongLabel(getString(R.string.logcat_shortcut_long_label))
-            .setIcon(IconCompat.createWithResource(this, R.drawable.shortcut_logcat))
-            .setIntent(intent)
-            .build()
-        ShortcutManagerCompat.pushDynamicShortcut(this, shortcut)
     }
 }

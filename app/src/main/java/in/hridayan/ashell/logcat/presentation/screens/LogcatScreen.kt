@@ -174,7 +174,7 @@ fun LogcatScreen(
                 ) {
                     Icon(
                         painter = painterResource(R.drawable.ic_mobile_arrow_down),
-                        contentDescription = stringResource(R.string.logcat_resume),
+                        contentDescription = stringResource(R.string.resume),
                     )
                 }
             }

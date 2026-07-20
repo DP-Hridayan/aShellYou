@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import java.util.concurrent.atomic.AtomicLong
 import javax.inject.Inject
 import javax.inject.Singleton
+import `in`.hridayan.ashell.logcat.service.LogcatService
 
 private const val MAX_RAW_BUFFER = 2000
 
@@ -33,12 +34,9 @@ private const val MAX_RAW_BUFFER = 2000
  */
 @Singleton
 class LogcatSessionHolder @Inject constructor() {
-
-    // ── Live event bus ─────────────────────────────────────────────────────
     private val _entries = MutableSharedFlow<LogEntry>(extraBufferCapacity = 512)
     val entries: SharedFlow<LogEntry> = _entries.asSharedFlow()
 
-    // ── Persistent circular buffer ─────────────────────────────────────────
     private val _rawBuffer = ArrayDeque<LogEntry>(MAX_RAW_BUFFER)
     val rawBuffer: List<LogEntry> get() = synchronized(this) { _rawBuffer.toList() }
 
@@ -51,7 +49,6 @@ class LogcatSessionHolder @Inject constructor() {
 
     fun clearBuffer() = synchronized(this) { _rawBuffer.clear() }
 
-    // ── Monotonic ID counter (never resets across service restarts) ────────
     private val idCounter = AtomicLong(0L)
     fun nextId(): Long = idCounter.incrementAndGet()
 
@@ -61,18 +58,11 @@ class LogcatSessionHolder @Inject constructor() {
 
     fun setRunning(running: Boolean) { _isRunning.value = running }
 
-    // ── Navigation trigger (reactive deeplink) ─────────────────────────────
-    // Channel (not SharedFlow) because Channel buffers events even when no
-    // collector exists yet. On cold start, triggerLogcatNavigation() fires
-    // in MainActivity.onCreate BEFORE NavGraph composes. A SharedFlow with
-    // replay=0 would silently drop the event; a Channel holds it until
-    // the first receiveAsFlow collector arrives.
     private val _navigationChannel = Channel<Unit>(capacity = Channel.BUFFERED)
     val navigationEvents: Flow<Unit> = _navigationChannel.receiveAsFlow()
 
     fun triggerLogcatNavigation() { _navigationChannel.trySend(Unit) }
 
-    // ── Service → ViewModel entry pipeline ────────────────────────────────
     suspend fun emit(entry: LogEntry) {
         appendToBuffer(entry)
         _entries.emit(entry)

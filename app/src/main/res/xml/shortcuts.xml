@@ -2,15 +2,15 @@
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
 
     <shortcut
-        android:shortcutId="logcat"
         android:enabled="true"
-        android:icon="@drawable/ic_bug"
-        android:shortcutShortLabel="@string/logcat"
-        android:shortcutLongLabel="@string/logcat_shortcut_long_label">
+        android:icon="@drawable/shortcut_logcat"
+        android:shortcutId="logcat"
+        android:shortcutLongLabel="@string/logcat_shortcut_long_label"
+        android:shortcutShortLabel="@string/logcat">
         <intent
             android:action="in.hridayan.ashell.ACTION_OPEN_LOGCAT"
-            android:targetPackage="in.hridayan.ashell"
-            android:targetClass="in.hridayan.ashell.activities.MainActivity" />
+            android:targetClass="in.hridayan.ashell.activities.MainActivity"
+            android:targetPackage="in.hridayan.ashell" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
 

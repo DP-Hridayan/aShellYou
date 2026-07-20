@@ -7,7 +7,6 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
@@ -42,11 +41,7 @@ class AiModelDownloadService : Service() {
         fun start(context: Context) {
             Log.d(TAG, "Starting download service")
             val intent = Intent(context, AiModelDownloadService::class.java)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                context.startForegroundService(intent)
-            } else {
-                context.startService(intent)
-            }
+            context.startForegroundService(intent)
         }
 
         fun stop(context: Context) {
@@ -119,14 +114,16 @@ class AiModelDownloadService : Service() {
                 }
 
                 val notification = buildProgressNotification(progressMap)
-                val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                val notificationManager =
+                    getSystemService(NOTIFICATION_SERVICE) as NotificationManager
                 notificationManager.notify(NOTIFICATION_ID, notification)
             }
         }
     }
 
     private fun buildProgressNotification(progressMap: Map<String, DownloadProgress>): Notification {
-        val activeDownloads = progressMap.entries.filter { it.value is DownloadProgress.Downloading }
+        val activeDownloads =
+            progressMap.entries.filter { it.value is DownloadProgress.Downloading }
 
         if (activeDownloads.isEmpty()) {
             // All completed or failed
@@ -141,7 +138,9 @@ class AiModelDownloadService : Service() {
         if (activeDownloads.size == 1) {
             val (modelId, progress) = activeDownloads.first()
             val downloading = progress as DownloadProgress.Downloading
-            val modelName = `in`.hridayan.ashell.ai.data.local.model.ModelRegistry.findById(modelId)?.name ?: modelId
+            val modelName =
+                `in`.hridayan.ashell.ai.data.local.model.ModelRegistry.findById(modelId)?.name
+                    ?: modelId
             val percent = downloading.progressPercent
             val downloadedMB = downloading.bytesDownloaded / (1024.0 * 1024.0)
             val totalMB = downloading.totalBytes / (1024.0 * 1024.0)
@@ -161,17 +160,22 @@ class AiModelDownloadService : Service() {
         }
 
         // Multiple concurrent downloads
-        val totalBytes = activeDownloads.sumOf { (it.value as DownloadProgress.Downloading).totalBytes }
-        val downloadedBytes = activeDownloads.sumOf { (it.value as DownloadProgress.Downloading).bytesDownloaded }
-        val overallPercent = if (totalBytes > 0) ((downloadedBytes.toFloat() / totalBytes) * 100).toInt() else 0
+        val totalBytes =
+            activeDownloads.sumOf { (it.value as DownloadProgress.Downloading).totalBytes }
+        val downloadedBytes =
+            activeDownloads.sumOf { (it.value as DownloadProgress.Downloading).bytesDownloaded }
+        val overallPercent =
+            if (totalBytes > 0) ((downloadedBytes.toFloat() / totalBytes) * 100).toInt() else 0
 
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_adb)
             .setContentTitle("Downloading ${activeDownloads.size} AI models")
-            .setContentText("%.1f / %.1f MB".format(
-                downloadedBytes / (1024.0 * 1024.0),
-                totalBytes / (1024.0 * 1024.0)
-            ))
+            .setContentText(
+                "%.1f / %.1f MB".format(
+                    downloadedBytes / (1024.0 * 1024.0),
+                    totalBytes / (1024.0 * 1024.0)
+                )
+            )
             .setProgress(100, overallPercent, false)
             .setOngoing(true)
             .setSilent(true)
@@ -202,17 +206,15 @@ class AiModelDownloadService : Service() {
     }
 
     private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                CHANNEL_ID,
-                "AI Model Downloads",
-                NotificationManager.IMPORTANCE_LOW
-            ).apply {
-                description = "Shows progress when downloading AI models"
-                setShowBadge(false)
-            }
-            val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            manager.createNotificationChannel(channel)
+        val channel = NotificationChannel(
+            CHANNEL_ID,
+            "AI Model Downloads",
+            NotificationManager.IMPORTANCE_LOW
+        ).apply {
+            description = "Shows progress when downloading AI models"
+            setShowBadge(false)
         }
+        val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        manager.createNotificationChannel(channel)
     }
 }
