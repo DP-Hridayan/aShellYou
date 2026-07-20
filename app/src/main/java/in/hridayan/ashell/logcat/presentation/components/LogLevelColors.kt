@@ -50,7 +50,6 @@ object LogLevelColors {
         return if (isDark) {
             base
         } else {
-            // lerp(start, stop, fraction): fraction=0 → start, fraction=1 → stop
             lerp(base, Color.Black, 0.45f)
         }
     }

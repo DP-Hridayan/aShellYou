@@ -17,18 +17,16 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
@@ -52,20 +50,16 @@ import `in`.hridayan.ashell.logcat.presentation.viewmodel.LogcatViewModel
 import `in`.hridayan.ashell.logcat.service.LogcatService
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.drop
-import kotlinx.coroutines.launch
 
 @Composable
 fun LogcatScreen(
     viewModel: LogcatViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
-    val scope = rememberCoroutineScope()
 
     val logs by viewModel.logs.collectAsStateWithLifecycle()
     val isRunning by viewModel.isRunning.collectAsStateWithLifecycle()
     val isAutoScrolling by viewModel.isAutoScrolling.collectAsStateWithLifecycle()
-    val pendingCount by viewModel.pendingCount.collectAsStateWithLifecycle()
     val activeFilter by viewModel.activeFilter.collectAsStateWithLifecycle()
     val savedFilters by viewModel.savedFilters.collectAsStateWithLifecycle()
     val expandedIds by viewModel.expandedIds.collectAsStateWithLifecycle()
@@ -77,8 +71,8 @@ fun LogcatScreen(
     var detailEntry by remember { mutableStateOf<LogEntry?>(null) }
     var showPermissionDialog by rememberSaveable { mutableStateOf(false) }
 
-    // ── Permission + auto-start (only if service isn't already running) ───
-    // Use the static flag directly to avoid a 1-second delay from the StateFlow poll.
+    var isProgrammaticScroll by remember { mutableStateOf(false) }
+
     LaunchedEffect(Unit) {
         if (!LogcatService.isServiceRunning()) {
             if (LogcatPermissionHelper.hasReadLogsPermission(context)) {
@@ -89,34 +83,25 @@ fun LogcatScreen(
         }
     }
 
-    // ── Auto-scroll to bottom when new logs arrive and auto-scroll is on ──
-    LaunchedEffect(listState) {
+    LaunchedEffect(Unit) {
         snapshotFlow { logs.size }
-            .drop(1) // skip initial emission
             .distinctUntilChanged()
-            .collectLatest {
-                if (isAutoScrolling && logs.isNotEmpty()) {
-                    listState.animateScrollToItem(logs.lastIndex)
+            .collectLatest { size ->
+                if (isAutoScrolling && size > 0) {
+                    isProgrammaticScroll = true
+                    listState.animateScrollToItem(size - 1)
+                    isProgrammaticScroll = false
                 }
             }
     }
 
-    // ── Detect user scroll gesture → pause auto-scroll ────────────────────
-    // We watch for scroll events where the user is NOT at the bottom of the list.
-    // Scrolling down toward the bottom does NOT pause (only upward / away from bottom).
-    LaunchedEffect(listState) {
-        var lastFirstVisible = 0
-        snapshotFlow { listState.firstVisibleItemIndex to listState.firstVisibleItemScrollOffset }
+    LaunchedEffect(Unit) {
+        snapshotFlow { listState.isScrollInProgress }
             .distinctUntilChanged()
-            .collect { (index, offset) ->
-                val movedUp = index < lastFirstVisible ||
-                        (index == lastFirstVisible && offset < 0)
-                // If user scrolled and we're not at the very end, pause auto-scroll
-                if (listState.isScrollInProgress && isAutoScrolling) {
-                    val atBottom = !listState.canScrollForward
-                    if (!atBottom) viewModel.pauseAutoScroll()
+            .collect { scrolling ->
+                if (scrolling && !isProgrammaticScroll && isAutoScrolling) {
+                    viewModel.pauseAutoScroll()
                 }
-                lastFirstVisible = index
             }
     }
 
@@ -133,7 +118,6 @@ fun LogcatScreen(
                 onSearchQueryChange = { query ->
                     viewModel.updateFilter(activeFilter.copy(searchQuery = query))
                 },
-                // Play/Pause button: controls only the logcat service, NOT auto-scroll
                 onTogglePlayPause = {
                     if (isRunning) viewModel.stopLogcat() else viewModel.startLogcat()
                 },
@@ -175,9 +159,6 @@ fun LogcatScreen(
                 }
             }
 
-            // ── "Scroll to bottom" FAB ─────────────────────────────────────
-            // Shown whenever auto-scroll is paused (regardless of service state).
-            // Tapping it flushes pending entries and re-enables auto-scroll.
             AnimatedVisibility(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
@@ -186,36 +167,20 @@ fun LogcatScreen(
                 enter = slideInVertically { it } + fadeIn(),
                 exit = slideOutVertically { it } + fadeOut(),
             ) {
-                ExtendedFloatingActionButton(
-                    onClick = {
-                        viewModel.resumeAutoScroll()
-                        scope.launch {
-                            if (logs.isNotEmpty()) {
-                                // Scroll after state update completes
-                                kotlinx.coroutines.delay(50)
-                                listState.animateScrollToItem(logs.lastIndex)
-                            }
-                        }
-                    },
-                    icon = {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_mobile_arrow_down),
-                            contentDescription = null,
-                        )
-                    },
-                    text = {
-                        val label = if (pendingCount > 0)
-                            stringResource(R.string.logcat_new_entries, pendingCount)
-                        else
-                            stringResource(R.string.logcat_resume)
-                        Text(label)
-                    },
-                )
+                FloatingActionButton(
+                    onClick = { viewModel.resumeAutoScroll() },
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_mobile_arrow_down),
+                        contentDescription = stringResource(R.string.logcat_resume),
+                    )
+                }
             }
         }
     }
 
-    // ── Detail bottom sheet ────────────────────────────────────────────────
     detailEntry?.let { entry ->
         LogEntryDetailBottomSheet(
             entry = entry,
@@ -223,7 +188,6 @@ fun LogcatScreen(
         )
     }
 
-    // ── Filter bottom sheet ────────────────────────────────────────────────
     if (showFilterSheet) {
         LogcatFilterBottomSheet(
             activeFilter = activeFilter,
@@ -235,7 +199,6 @@ fun LogcatScreen(
         )
     }
 
-    // ── Permission dialog ──────────────────────────────────────────────────
     if (showPermissionDialog) {
         LogcatPermissionDialog(
             onContinueAnyway = {

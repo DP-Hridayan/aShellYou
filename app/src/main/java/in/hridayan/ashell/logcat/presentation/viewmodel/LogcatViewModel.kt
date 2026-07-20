@@ -23,6 +23,29 @@ import javax.inject.Inject
 
 private const val MAX_LOGS = 2000
 
+/**
+ * Logcat viewer ViewModel.
+ *
+ * ## Key design principles
+ *
+ * 1. **Logs always appear in the list** regardless of auto-scroll state.
+ *    The user sees new lines pile up whether or not auto-scroll is on.
+ *    Only the PAUSE button (which stops the service) prevents new entries.
+ *
+ * 2. **Auto-scroll is purely a scroll-position concern.**
+ *    ON  → LazyColumn follows the bottom automatically.
+ *    OFF → list stays where the user left it; new entries appear below.
+ *    Only the FAB re-enables auto-scroll.
+ *
+ * 3. **No pending buffer.** Every matching entry goes into [_logs] immediately.
+ *    [rawBuffer] in the singleton [LogcatSessionHolder] is only used for
+ *    restoring state after ViewModel recreation (back-navigation).
+ *
+ * 4. **Duplicate-key prevention.** After restoring from [rawBuffer], we track
+ *    [lastRestoredId] and skip any SharedFlow entries with id ≤ that value.
+ *    Since IDs are monotonically increasing and [rawBuffer] is written before
+ *    the SharedFlow emit, this perfectly deduplicates.
+ */
 @Stable
 @HiltViewModel
 class LogcatViewModel @Inject constructor(
@@ -31,84 +54,67 @@ class LogcatViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
 ) : ViewModel() {
 
-    // ── Service running state ──────────────────────────────────────────────
-    // Sourced from the singleton SessionHolder so HomeScreen and LogcatScreen
-    // both see the same value without any polling.
+    // ── Service running state (from singleton — shared with HomeScreen) ────
     val isRunning: StateFlow<Boolean> = sessionHolder.isRunning
 
-    // ── Auto-scroll state (independent of service state) ──────────────────
-    // false → user has scrolled manually; only the FAB resets this to true.
+    // ── Auto-scroll ───────────────────────────────────────────────────────
+    // Only controls whether the UI scrolls to the bottom. Does NOT gate
+    // whether entries are added to the list.
     private val _isAutoScrolling = MutableStateFlow(true)
     val isAutoScrolling: StateFlow<Boolean> = _isAutoScrolling.asStateFlow()
 
-    // ── Displayed log list (filtered view, max 2000) ───────────────────────
+    // ── Displayed log list (always receives new entries, max 2000) ─────────
     private val _logs = MutableStateFlow<List<LogEntry>>(emptyList())
     val logs: StateFlow<List<LogEntry>> = _logs.asStateFlow()
 
-    // ── New-entry count while auto-scroll is paused ────────────────────────
-    private val _pendingCount = MutableStateFlow(0)
-    val pendingCount: StateFlow<Int> = _pendingCount.asStateFlow()
-
-    // ── Active filter ──────────────────────────────────────────────────────
+    // ── Active filter ─────────────────────────────────────────────────────
     private val _activeFilter = MutableStateFlow(LogFilter())
     val activeFilter: StateFlow<LogFilter> = _activeFilter.asStateFlow()
 
-    // ── Saved filter profiles ──────────────────────────────────────────────
+    // ── Saved filter profiles ─────────────────────────────────────────────
     val savedFilters: StateFlow<List<LogFilter>> = filterRepository.getSavedFilters()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
-    // ── Expanded row IDs ───────────────────────────────────────────────────
+    // ── Expanded row IDs ──────────────────────────────────────────────────
     private val _expandedIds = MutableStateFlow<Set<Long>>(emptySet())
     val expandedIds: StateFlow<Set<Long>> = _expandedIds.asStateFlow()
 
-    // ── Search bar visibility ──────────────────────────────────────────────
+    // ── Search bar visibility ─────────────────────────────────────────────
     private val _searchVisible = MutableStateFlow(false)
     val searchVisible: StateFlow<Boolean> = _searchVisible.asStateFlow()
 
-    // ── Initialization ─────────────────────────────────────────────────────
+    // ── Deduplication: highest ID loaded from rawBuffer ────────────────────
+    // SharedFlow entries with id ≤ this value are skipped because they're
+    // already in _logs from the rawBuffer restore/reapply.
+    @Volatile
+    private var lastRestoredId: Long = 0L
+
+    // ── Initialization ────────────────────────────────────────────────────
     init {
-        // Restore logs from the singleton buffer (survives ViewModel recreation)
-        restoreFromBuffer()
-        // Subscribe to live entries from LogcatService
+        lastRestoredId = restoreFromBuffer()
         viewModelScope.launch {
-            sessionHolder.entries.collect { entry -> onLiveEntryReceived(entry) }
+            sessionHolder.entries.collect { entry ->
+                // Skip entries already present from rawBuffer restore
+                if (entry.id > lastRestoredId) {
+                    onLiveEntryReceived(entry)
+                }
+            }
         }
     }
 
-    // ── Public actions ─────────────────────────────────────────────────────
+    // ── Public actions ────────────────────────────────────────────────────
 
-    /** Start the logcat process. Does NOT affect auto-scroll. */
-    fun startLogcat() {
-        LogcatService.start(context)
-    }
+    fun startLogcat() { LogcatService.start(context) }
 
-    /** Stop the logcat process. Does NOT affect auto-scroll. */
-    fun stopLogcat() {
-        LogcatService.stop(context)
-    }
+    fun stopLogcat() { LogcatService.stop(context) }
 
-    /**
-     * Called when user manually scrolls the list.
-     * Freezes the displayed list; new entries accumulate in rawBuffer silently.
-     */
-    fun pauseAutoScroll() {
-        _isAutoScrolling.value = false
-    }
+    /** Called when user touches / scrolls the list manually. */
+    fun pauseAutoScroll() { _isAutoScrolling.value = false }
 
-    /**
-     * Called ONLY by the "scroll to bottom" FAB.
-     * Rebuilds displayed list from rawBuffer (re-filtered), re-enables auto-scroll.
-     */
-    fun resumeAutoScroll() {
-        reapplyFilter(_activeFilter.value)
-        _pendingCount.value = 0
-        _isAutoScrolling.value = true
-    }
+    /** Called ONLY by the "scroll to bottom" FAB. */
+    fun resumeAutoScroll() { _isAutoScrolling.value = true }
 
-    /**
-     * Update active filter and immediately re-filter the rawBuffer so the
-     * displayed list reflects the change without waiting for new entries.
-     */
+    /** Update filter and immediately re-filter the raw buffer. */
     fun updateFilter(filter: LogFilter) {
         _activeFilter.value = filter
         reapplyFilter(filter)
@@ -117,7 +123,8 @@ class LogcatViewModel @Inject constructor(
     fun clearLogs() {
         sessionHolder.clearBuffer()
         _logs.value = emptyList()
-        _pendingCount.value = 0
+        // Don't reset lastRestoredId — new entries from SharedFlow will
+        // have higher IDs and will be added normally.
     }
 
     fun toggleExpanded(id: Long) {
@@ -134,35 +141,51 @@ class LogcatViewModel @Inject constructor(
         viewModelScope.launch { filterRepository.deleteFilter(id) }
     }
 
-    fun toggleSearchVisible() {
-        _searchVisible.update { !it }
-    }
+    fun toggleSearchVisible() { _searchVisible.update { !it } }
 
-    // ── Internal ───────────────────────────────────────────────────────────
+    // ── Internal ──────────────────────────────────────────────────────────
 
-    private fun restoreFromBuffer() {
+    /**
+     * Restore logs from the singleton rawBuffer (survives ViewModel recreation).
+     * @return the highest entry ID in the restored list (for deduplication).
+     */
+    private fun restoreFromBuffer(): Long {
         val filter = _activeFilter.value
-        _logs.value = sessionHolder.rawBuffer.filter { filter.matches(it) }.takeLast(MAX_LOGS)
+        val restored = sessionHolder.rawBuffer
+            .filter { filter.matches(it) }
+            .takeLast(MAX_LOGS)
+        _logs.value = restored
+        return restored.lastOrNull()?.id ?: 0L
     }
 
+    /**
+     * Called for every new live entry from the service.
+     * Entries are ALWAYS added to [_logs] regardless of auto-scroll state.
+     */
     private fun onLiveEntryReceived(entry: LogEntry) {
         val filter = _activeFilter.value
-        val matches = filter.matches(entry)
-        if (_isAutoScrolling.value) {
-            if (matches) {
-                _logs.update { current ->
-                    val updated = current.toMutableList()
-                    if (updated.size >= MAX_LOGS) updated.removeFirst()
-                    updated.add(entry)
-                    updated
-                }
-            }
-        } else {
-            if (matches) _pendingCount.update { it + 1 }
+        if (!filter.matches(entry)) return
+
+        _logs.update { current ->
+            val updated = current.toMutableList()
+            if (updated.size >= MAX_LOGS) updated.removeFirst()
+            updated.add(entry)
+            updated
         }
     }
 
+    /**
+     * Re-filter the entire rawBuffer when the filter changes.
+     * Also updates [lastRestoredId] to prevent SharedFlow duplicates.
+     */
     private fun reapplyFilter(filter: LogFilter) {
-        _logs.value = sessionHolder.rawBuffer.filter { filter.matches(it) }.takeLast(MAX_LOGS)
+        // Use the highest ID in the entire raw buffer for deduplication,
+        // not just the filtered subset, because unfiltered entries in
+        // the SharedFlow buffer would also be skipped by the filter check
+        // in onLiveEntryReceived anyway.
+        val allBuffer = sessionHolder.rawBuffer
+        val filtered = allBuffer.filter { filter.matches(it) }.takeLast(MAX_LOGS)
+        _logs.value = filtered
+        lastRestoredId = allBuffer.lastOrNull()?.id ?: lastRestoredId
     }
 }

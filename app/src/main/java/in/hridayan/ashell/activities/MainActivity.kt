@@ -99,8 +99,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleLogcatDeeplink(intent: Intent?) {
         if (intent?.action == LogcatDeeplinkHolder.ACTION_OPEN_LOGCAT) {
-            // Emit via SharedFlow — NavGraph collects this reactively even when
-            // the app is already running (onNewIntent path).
             logcatSessionHolder.triggerLogcatNavigation()
         }
     }
@@ -109,6 +107,9 @@ class MainActivity : AppCompatActivity() {
         val shortcutId = "logcat"
         val intent = Intent(this, MainActivity::class.java).apply {
             action = LogcatDeeplinkHolder.ACTION_OPEN_LOGCAT
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or
+                    Intent.FLAG_ACTIVITY_SINGLE_TOP or
+                    Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
         val shortcut = ShortcutInfoCompat.Builder(this, shortcutId)
             .setShortLabel(getString(R.string.logcat))

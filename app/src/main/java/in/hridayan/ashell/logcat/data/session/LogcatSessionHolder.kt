@@ -1,12 +1,15 @@
 package `in`.hridayan.ashell.logcat.data.session
 
 import `in`.hridayan.ashell.logcat.domain.model.LogEntry
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import java.util.concurrent.atomic.AtomicLong
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -59,12 +62,15 @@ class LogcatSessionHolder @Inject constructor() {
     fun setRunning(running: Boolean) { _isRunning.value = running }
 
     // ── Navigation trigger (reactive deeplink) ─────────────────────────────
-    // extraBufferCapacity = 1 so the event is buffered if NavGraph isn't
-    // subscribed yet (app cold-start from notification/shortcut).
-    private val _navigationEvents = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
-    val navigationEvents: SharedFlow<Unit> = _navigationEvents.asSharedFlow()
+    // Channel (not SharedFlow) because Channel buffers events even when no
+    // collector exists yet. On cold start, triggerLogcatNavigation() fires
+    // in MainActivity.onCreate BEFORE NavGraph composes. A SharedFlow with
+    // replay=0 would silently drop the event; a Channel holds it until
+    // the first receiveAsFlow collector arrives.
+    private val _navigationChannel = Channel<Unit>(capacity = Channel.BUFFERED)
+    val navigationEvents: Flow<Unit> = _navigationChannel.receiveAsFlow()
 
-    fun triggerLogcatNavigation() { _navigationEvents.tryEmit(Unit) }
+    fun triggerLogcatNavigation() { _navigationChannel.trySend(Unit) }
 
     // ── Service → ViewModel entry pipeline ────────────────────────────────
     suspend fun emit(entry: LogEntry) {
