@@ -94,6 +94,7 @@ import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.viewmodel.OtgViewMo
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.bottomsheet.SavedDevicesBottomSheet
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairModeChooseDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
+import `in`.hridayan.ashell.home.presentation.components.dialog.HomeDialogKey
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -121,7 +122,7 @@ fun HomeScreen(
             navController.navigate(NavRoutes.OtgAdbScreen)
         } else {
             otgViewModel.startScan()
-            dialogManager.show(DialogKey.Home.OtgDeviceWaiting)
+            dialogManager.show(HomeDialogKey.OtgDeviceWaiting)
         }
     }
 
@@ -130,7 +131,7 @@ fun HomeScreen(
             navController.navigate(NavRoutes.FastbootScreen)
         } else {
             fastbootViewModel.startScan()
-            dialogManager.show(DialogKey.Home.FastbootDeviceWaiting)
+            dialogManager.show(HomeDialogKey.FastbootDeviceWaiting)
         }
     }
 
@@ -315,9 +316,9 @@ fun HomeScreen(
     }
 
     when (dialogManager.activeDialog) {
-        DialogKey.Home.RebootOptions -> RebootOptionsDialog(onDismiss = { dialogManager.dismiss() })
+        HomeDialogKey.RebootOptions -> RebootOptionsDialog(onDismiss = { dialogManager.dismiss() })
 
-        DialogKey.Home.ChooseWifiAdbPairMode -> PairModeChooseDialog(
+        HomeDialogKey.ChooseWifiAdbPairMode -> PairModeChooseDialog(
             onDismiss = { dialogManager.dismiss() },
             onClickPairSelf = {
                 dialogManager.dismiss()
@@ -328,7 +329,7 @@ fun HomeScreen(
                 navController.navigate(NavRoutes.PairingOtherDeviceScreen)
             })
 
-        DialogKey.Home.OtgDeviceWaiting -> OtgDeviceWaitingDialog(
+        HomeDialogKey.OtgDeviceWaiting -> OtgDeviceWaitingDialog(
             onDismiss = { dialogManager.dismiss() },
             onConfirm = {
                 dialogManager.dismiss()
@@ -337,7 +338,7 @@ fun HomeScreen(
             }
         )
 
-        DialogKey.Home.FastbootDeviceWaiting -> FastbootDeviceWaitingDialog(
+        HomeDialogKey.FastbootDeviceWaiting -> FastbootDeviceWaitingDialog(
             onDismiss = { dialogManager.dismiss() },
             onConfirm = {
                 dialogManager.dismiss()
@@ -351,7 +352,7 @@ fun HomeScreen(
                 dialogManager.dismiss()
                 // Re-open the dialog so it scans for the device after reboot
                 fastbootViewModel.startScan()
-                dialogManager.show(DialogKey.Home.FastbootDeviceWaiting)
+                dialogManager.show(HomeDialogKey.FastbootDeviceWaiting)
             }
         )
 
@@ -456,7 +457,7 @@ private fun WirelessDebuggingCard(
                     ),
                     contentDescription = null,
                     onClick = withHaptic {
-                        dialogManager.show(DialogKey.Home.ChooseWifiAdbPairMode)
+                        dialogManager.show(HomeDialogKey.ChooseWifiAdbPairMode)
                     })
 
                 IconWithTextButton(

@@ -38,6 +38,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
+import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 
 @Stable
 @HiltViewModel
@@ -186,7 +187,7 @@ class SettingsViewModel @Inject constructor(
                 )
 
                 SettingsKeys.PaletteStyle -> _uiEvent.emit(
-                    SettingsUiEvent.ShowDialog(DialogKey.Settings.PaletteStyle)
+                    SettingsUiEvent.ShowDialog(SettingsDialogKey.PaletteStyle)
                 )
 
                 SettingsKeys.DarkTheme -> _uiEvent.emit(
@@ -202,7 +203,7 @@ class SettingsViewModel @Inject constructor(
                 )
 
                 SettingsKeys.ResetAppSettings -> _uiEvent.emit(
-                    SettingsUiEvent.ShowDialog(DialogKey.Settings.ResetSettings)
+                    SettingsUiEvent.ShowDialog(SettingsDialogKey.ResetSettings)
                 )
 
                 // Backup options: show destination dialog if signed-in AND cloud is available
@@ -210,7 +211,7 @@ class SettingsViewModel @Inject constructor(
                     if (googleAuthRepository.isAvailable && googleAuthRepository.googleUserState.value.isSignedIn) {
                         _uiEvent.emit(
                             SettingsUiEvent.ShowDialog(
-                                DialogKey.Settings.BackupDestination(BackupType.SETTINGS_ONLY)
+                                SettingsDialogKey.BackupDestination(BackupType.SETTINGS_ONLY)
                             )
                         )
                     } else {
@@ -224,7 +225,7 @@ class SettingsViewModel @Inject constructor(
                     if (googleAuthRepository.isAvailable && googleAuthRepository.googleUserState.value.isSignedIn) {
                         _uiEvent.emit(
                             SettingsUiEvent.ShowDialog(
-                                DialogKey.Settings.BackupDestination(BackupType.DATABASE_ONLY)
+                                SettingsDialogKey.BackupDestination(BackupType.DATABASE_ONLY)
                             )
                         )
                     } else {
@@ -238,7 +239,7 @@ class SettingsViewModel @Inject constructor(
                     if (googleAuthRepository.isAvailable && googleAuthRepository.googleUserState.value.isSignedIn) {
                         _uiEvent.emit(
                             SettingsUiEvent.ShowDialog(
-                                DialogKey.Settings.BackupDestination(BackupType.SETTINGS_AND_DATABASE)
+                                SettingsDialogKey.BackupDestination(BackupType.SETTINGS_AND_DATABASE)
                             )
                         )
                     } else {
@@ -256,7 +257,7 @@ class SettingsViewModel @Inject constructor(
                 SettingsKeys.RestoreAppData -> {
                     if (googleAuthRepository.isAvailable && googleAuthRepository.googleUserState.value.isSignedIn) {
                         _uiEvent.emit(
-                            SettingsUiEvent.ShowDialog(DialogKey.Settings.RestoreSource)
+                            SettingsUiEvent.ShowDialog(SettingsDialogKey.RestoreSource)
                         )
                     } else {
                         _uiEvent.emit(SettingsUiEvent.RequestDocumentUriForRestore)
@@ -264,7 +265,7 @@ class SettingsViewModel @Inject constructor(
                 }
 
                 SettingsKeys.OutputSaveDirectory -> _uiEvent.emit(
-                    SettingsUiEvent.ShowDialog(DialogKey.Settings.ConfigureSaveDir)
+                    SettingsUiEvent.ShowDialog(SettingsDialogKey.ConfigureSaveDir)
                 )
 
                 SettingsKeys.AiModelManager -> _uiEvent.emit(
@@ -276,15 +277,15 @@ class SettingsViewModel @Inject constructor(
                 )
 
                 SettingsKeys.AiCacheDays -> _uiEvent.emit(
-                    SettingsUiEvent.ShowDialog(DialogKey.Settings.AiCacheDays)
+                    SettingsUiEvent.ShowDialog(SettingsDialogKey.AiCacheDays)
                 )
 
                 SettingsKeys.AiCacheClear -> _uiEvent.emit(
-                    SettingsUiEvent.ShowDialog(DialogKey.Settings.AiCacheClearConfirmation)
+                    SettingsUiEvent.ShowDialog(SettingsDialogKey.AiCacheClearConfirmation)
                 )
 
                 SettingsKeys.AutoBackupTime -> _uiEvent.emit(
-                    SettingsUiEvent.ShowDialog(DialogKey.Settings.AutoBackupTimePicker)
+                    SettingsUiEvent.ShowDialog(SettingsDialogKey.AutoBackupTimePicker)
                 )
 
                 SettingsKeys.AutoBackupFolder -> _uiEvent.emit(

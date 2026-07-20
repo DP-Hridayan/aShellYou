@@ -38,7 +38,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import coil3.compose.SubcomposeAsyncImage
 import coil3.request.ImageRequest
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.presentation.components.card.CrowdinContributeCard
+import `in`.hridayan.ashell.settings.presentation.components.card.CrowdinContributeCard
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText

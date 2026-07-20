@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import `in`.hridayan.ashell.core.data.local.model.GithubRepoStatsEntity
+import `in`.hridayan.ashell.settings.data.local.entity.GithubRepoStatsEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

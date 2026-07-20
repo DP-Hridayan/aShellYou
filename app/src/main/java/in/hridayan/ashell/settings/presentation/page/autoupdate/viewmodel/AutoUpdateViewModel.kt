@@ -9,7 +9,7 @@ import `in`.hridayan.ashell.core.domain.model.DownloadState
 import `in`.hridayan.ashell.core.domain.usecase.DownloadApkUseCase
 import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.model.UpdateResult
-import `in`.hridayan.ashell.core.domain.model.GithubReleaseType
+import `in`.hridayan.ashell.settings.domain.model.GithubReleaseType
 import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.settings.domain.usecase.CheckUpdateUseCase
 import kotlinx.coroutines.Dispatchers

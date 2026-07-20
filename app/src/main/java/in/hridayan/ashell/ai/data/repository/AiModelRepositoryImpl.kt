@@ -4,8 +4,8 @@ import android.content.Context
 import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.domain.model.ModelRegistry
-import `in`.hridayan.ashell.core.domain.model.AiModel
+import `in`.hridayan.ashell.ai.domain.model.ModelRegistry
+import `in`.hridayan.ashell.ai.domain.model.AiModel
 import `in`.hridayan.ashell.ai.domain.repository.AiModelRepository
 import `in`.hridayan.ashell.ai.presentation.model.DownloadProgress
 import `in`.hridayan.ashell.ai.service.AiModelDownloadService

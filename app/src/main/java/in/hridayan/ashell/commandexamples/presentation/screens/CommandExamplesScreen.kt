@@ -4,6 +4,7 @@ package `in`.hridayan.ashell.commandexamples.presentation.screens
 
 import android.annotation.SuppressLint
 import android.util.Log
+import `in`.hridayan.ashell.navigation.navigateBack
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.LinearOutSlowInEasing
@@ -97,6 +98,7 @@ import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
 import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
+import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.CommandExamplesDialogKey
 
 @SuppressLint("RememberInComposition")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -111,6 +113,7 @@ fun CommandExamplesScreen(
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 
     val listState = rememberLazyListState()
+    val navController = `in`.hridayan.ashell.navigation.LocalNavController.current
 
     var fabMenuExpanded by rememberSaveable { mutableStateOf(false) }
     val dialogManager = LocalDialogManager.current
@@ -130,12 +133,12 @@ fun CommandExamplesScreen(
 
     val addOptions = listOf(
         stringResource(R.string.load_predefined_commands) to {
-            dialogManager.show(DialogKey.CommandExamples.LoadDefaultCommands)
+            dialogManager.show(CommandExamplesDialogKey.LoadDefaultCommands)
             viewModel.loadDefaultCommands()
         },
         stringResource(R.string.add_new_item) to {
             viewModel.clearInputFields()
-            dialogManager.show(DialogKey.CommandExamples.Add)
+            dialogManager.show(CommandExamplesDialogKey.Add)
         }
     )
 
@@ -160,7 +163,10 @@ fun CommandExamplesScreen(
             topBar = {
                 TopAppBarLarge(
                     topBarTitle = stringResource(id = R.string.commands),
-                    scrollBehavior = scrollBehavior
+                    scrollBehavior = scrollBehavior,
+                    onBackClick = {
+                        navController.navigateBack()
+                    }
                 )
             }
         ) { innerPadding ->
@@ -182,7 +188,7 @@ fun CommandExamplesScreen(
                                     .fillMaxWidth()
                                     .padding(start = 15.dp, end = 15.dp, bottom = 10.dp),
                                 onClickLoadButton = {
-                                    dialogManager.show(DialogKey.CommandExamples.LoadDefaultCommands)
+                                    dialogManager.show(CommandExamplesDialogKey.LoadDefaultCommands)
                                     viewModel.loadDefaultCommands()
                                     settingsViewModel.setBoolean(
                                         SettingsKeys.NewCommandsAvailable,
@@ -240,7 +246,7 @@ fun CommandExamplesScreen(
                                                 indication = null,
                                                 interactionSource = remember { MutableInteractionSource() },
                                                 onClick = withHaptic {
-                                                    dialogManager.show(DialogKey.CommandExamples.SortCommands)
+                                                    dialogManager.show(CommandExamplesDialogKey.SortCommands)
                                                 }
                                             )
                                     )
@@ -369,13 +375,13 @@ fun CommandExamplesScreen(
     }
 
     when (dialogManager.activeDialog) {
-        DialogKey.CommandExamples.LoadDefaultCommands -> LoadDefaultCommandsDialog(onDismiss = { dialogManager.dismiss() })
-        DialogKey.CommandExamples.SortCommands -> CommandsSortDialog(onDismiss = { dialogManager.dismiss() })
-        DialogKey.CommandExamples.Add -> AddCommandDialog(onDismiss = { dialogManager.dismiss() })
-        is DialogKey.CommandExamples.Edit ->
+        CommandExamplesDialogKey.LoadDefaultCommands -> LoadDefaultCommandsDialog(onDismiss = { dialogManager.dismiss() })
+        CommandExamplesDialogKey.SortCommands -> CommandsSortDialog(onDismiss = { dialogManager.dismiss() })
+        CommandExamplesDialogKey.Add -> AddCommandDialog(onDismiss = { dialogManager.dismiss() })
+        is CommandExamplesDialogKey.Edit ->
             EditCommandDialog(
                 onDismiss = { dialogManager.dismiss() },
-                id = (dialogManager.activeDialog as DialogKey.CommandExamples.Edit).commandId
+                id = (dialogManager.activeDialog as CommandExamplesDialogKey.Edit).commandId
             )
 
         else -> dialogManager.dismiss()

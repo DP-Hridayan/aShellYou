@@ -5,7 +5,7 @@ import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.ai.data.local.database.AiCacheDao
 import `in`.hridayan.ashell.ai.data.local.database.AiCacheEntity
-import `in`.hridayan.ashell.core.domain.model.ModelRegistry
+import `in`.hridayan.ashell.ai.domain.model.ModelRegistry
 import `in`.hridayan.ashell.ai.data.parser.AiResponseParser
 import `in`.hridayan.ashell.ai.data.parser.PromptBuilder
 import `in`.hridayan.ashell.ai.domain.model.AnalysisResult

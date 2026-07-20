@@ -23,7 +23,7 @@ import androidx.compose.ui.window.DialogProperties
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
-import `in`.hridayan.ashell.core.presentation.components.svg.vectors.undraw404Error
+import `in`.hridayan.ashell.shell.common.presentation.components.svg.vectors.undraw404Error
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
 import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem

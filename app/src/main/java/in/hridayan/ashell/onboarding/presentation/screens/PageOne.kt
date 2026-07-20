@@ -28,7 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
-import `in`.hridayan.ashell.core.presentation.components.svg.vectors.undrawPhoneLady
+import `in`.hridayan.ashell.onboarding.presentation.components.svg.vectors.undrawPhoneLady
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.onboarding.presentation.component.shape.DecorativeShape
 import `in`.hridayan.ashell.onboarding.presentation.component.shape.MainCard

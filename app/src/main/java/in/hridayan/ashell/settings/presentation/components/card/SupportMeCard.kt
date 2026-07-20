@@ -46,7 +46,7 @@ import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
-import `in`.hridayan.ashell.core.presentation.components.svg.vectors.bmcLogo
+import `in`.hridayan.ashell.settings.presentation.components.svg.vectors.bmcLogo
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape
 import `in`.hridayan.ashell.core.utils.openUrl
 

@@ -34,6 +34,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
+import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 
 @HiltViewModel
 class BackupAndRestoreViewModel @Inject constructor(
@@ -249,7 +250,7 @@ class BackupAndRestoreViewModel @Inject constructor(
                     Log.e(TAG, "signInWithGoogle: failed — ${error.message}")
                     if (error is NoGoogleAccountException) {
                         viewModelScope.launch {
-                            _uiEvent.emit(SettingsUiEvent.ShowDialog(DialogKey.Settings.NoGoogleAccount))
+                            _uiEvent.emit(SettingsUiEvent.ShowDialog(SettingsDialogKey.NoGoogleAccount))
                         }
                     } else {
                         viewModelScope.launch {

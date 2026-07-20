@@ -124,8 +124,8 @@ import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalSnackBarController
-import `in`.hridayan.ashell.core.domain.model.SaveProgress
-import `in`.hridayan.ashell.core.domain.model.ScrollDirection
+import `in`.hridayan.ashell.shell.domain.model.SaveProgress
+import `in`.hridayan.ashell.shell.domain.model.ScrollDirection
 import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -170,6 +170,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
 import kotlin.time.Duration.Companion.milliseconds
+import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ShellDialogKey
 
 @Composable
 fun BaseShellScreen(
@@ -426,7 +427,7 @@ fun BaseShellScreen(
                                 .padding(innerPadding)
                         ) {
                             UtilityButtonGroup(
-                                showClearOutputDialog = { dialogManager.show(DialogKey.Shell.ClearOutput) },
+                                showClearOutputDialog = { dialogManager.show(ShellDialogKey.ClearOutput) },
                                 handleClearOutput = { handleClearOutput() },
                                 showBookmarkDialog = {
                                     handleBookmarkButtonClick()
@@ -640,12 +641,12 @@ fun BaseShellScreen(
     }
 
     when (dialogManager.activeDialog) {
-        DialogKey.Shell.ClearOutput -> ClearOutputConfirmationDialog(
+        ShellDialogKey.ClearOutput -> ClearOutputConfirmationDialog(
             onDismiss = { dialogManager.dismiss() },
             onConfirm = { handleClearOutput() }
         )
 
-        DialogKey.Shell.DeleteBookmarks -> DeleteBookmarksDialog(
+        ShellDialogKey.DeleteBookmarks -> DeleteBookmarksDialog(
             onDismiss = { dialogManager.dismiss() },
             onDelete = {
                 dialogManager.dismiss()
@@ -654,11 +655,11 @@ fun BaseShellScreen(
             }
         )
 
-        DialogKey.Shell.BookmarkSort -> BookmarksSortDialog(
+        ShellDialogKey.BookmarkSort -> BookmarksSortDialog(
             onDismiss = { dialogManager.dismiss() }
         )
 
-        DialogKey.Shell.FileSaved -> FileSavedDialog(
+        ShellDialogKey.FileSaved -> FileSavedDialog(
             saveProgress = saveProgress,
             onDismiss = {
                 dialogManager.dismiss()
@@ -700,9 +701,9 @@ fun BaseShellScreen(
                 textFieldFocusRequester.requestFocus()
             },
             onDelete = {
-                dialogManager.show(DialogKey.Shell.DeleteBookmarks)
+                dialogManager.show(ShellDialogKey.DeleteBookmarks)
             },
-            onSort = { dialogManager.show(DialogKey.Shell.BookmarkSort) },
+            onSort = { dialogManager.show(ShellDialogKey.BookmarkSort) },
         )
     }
 
@@ -1540,7 +1541,7 @@ private fun BottomExtendedFAB(
 
     val saveAction: () -> Unit = {
         // Show dialog immediately in saving state
-        dialogManager.show(DialogKey.Shell.FileSaved)
+        dialogManager.show(ShellDialogKey.FileSaved)
 
         activity?.let {
             shellViewModel.startStreamingSave(

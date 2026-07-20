@@ -1,8 +1,8 @@
 package `in`.hridayan.ashell.settings.domain.usecase
 
 import `in`.hridayan.ashell.core.domain.model.GithubRepoStats
-import `in`.hridayan.ashell.core.domain.repository.GithubDataRepository
 import `in`.hridayan.ashell.settings.domain.model.UpdateResult
+import `in`.hridayan.ashell.settings.domain.repository.GithubDataRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 import org.junit.Assert.assertFalse

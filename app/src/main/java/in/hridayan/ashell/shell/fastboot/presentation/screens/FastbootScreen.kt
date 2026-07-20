@@ -4,6 +4,7 @@
 )
 
 package `in`.hridayan.ashell.shell.fastboot.presentation.screens
+import `in`.hridayan.ashell.navigation.navigateBack
 
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Column
@@ -79,6 +80,7 @@ fun FastbootScreen(
     viewModel: FastbootViewModel = hiltViewModel()
 ) {
     val weakHaptic = LocalWeakHaptic.current
+    val navController = `in`.hridayan.ashell.navigation.LocalNavController.current
     val fastbootState by viewModel.state.collectAsState()
     val deviceInfo by viewModel.deviceInfo.collectAsState()
     val variables by viewModel.variables.collectAsState()
@@ -156,7 +158,9 @@ fun FastbootScreen(
                         letterSpacing = 0.05.em
                     )
                 },
-                navigationIcon = { BackButton() },
+                navigationIcon = { 
+                    BackButton(onClick = { navController.navigateBack() }) 
+                },
                 actions = {
                     AssistChip(
                         onClick = {

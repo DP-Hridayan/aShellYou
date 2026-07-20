@@ -101,7 +101,7 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
-import `in`.hridayan.ashell.core.presentation.components.svg.vectors.undrawDreamer
+import `in`.hridayan.ashell.shell.common.presentation.components.svg.vectors.undrawDreamer
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
 import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults

@@ -20,6 +20,7 @@ import `in`.hridayan.ashell.core.presentation.components.button.BackButton
 fun TopAppBarLarge(
     topBarTitle: String,
     scrollBehavior: TopAppBarScrollBehavior,
+    onBackClick: () -> Unit,
     actions: @Composable () -> Unit = {},
 ) {
     LargeTopAppBar(
@@ -42,7 +43,7 @@ fun TopAppBarLarge(
                 letterSpacing = 0.05.em
             )
         },
-        navigationIcon = { BackButton() },
+        navigationIcon = { BackButton(onClick = onBackClick) },
         actions = { actions() },
         scrollBehavior = scrollBehavior
     )

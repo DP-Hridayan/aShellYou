@@ -22,7 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.domain.model.ModelRegistry
+import `in`.hridayan.ashell.ai.domain.model.ModelRegistry
 import `in`.hridayan.ashell.ai.presentation.viewmodel.AiModelManagerViewModel
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSettings
@@ -39,6 +39,7 @@ import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
 import `in`.hridayan.settingsdsl.ui.item.settingsContent
+import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 
 @Composable
 fun AiModelsScreen(
@@ -136,7 +137,7 @@ fun AiModelsScreen(
     )
 
     // Cache duration dialog
-    DialogKey.Settings.AiCacheDays.createDialog { dm ->
+    SettingsDialogKey.AiCacheDays.createDialog { dm ->
         CacheDurationDialog(
             currentDays = cacheDays,
             onDismiss = { dm.dismiss() },
@@ -147,7 +148,7 @@ fun AiModelsScreen(
         )
     }
 
-    DialogKey.Settings.AiCacheClearConfirmation.createDialog {
+    SettingsDialogKey.AiCacheClearConfirmation.createDialog {
         DeleteAiAnalysisCacheDialog(
             onDismiss = { it.dismiss() },
             onDelete = {

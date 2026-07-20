@@ -9,17 +9,17 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DialogViewModel @Inject constructor() : ViewModel() {
-    private val _activeDialog = mutableStateOf<DialogKey>(DialogKey.None)
-    val activeDialog by _activeDialog
+    private val _activeDialog = mutableStateOf<DialogKey?>(null)
+    val activeDialog: DialogKey? get() = _activeDialog.value
 
     fun show(dialog: DialogKey) {
         _activeDialog.value = dialog
     }
 
     fun dismiss() {
-        _activeDialog.value = DialogKey.None
+        _activeDialog.value = null
     }
 
     val isDialogActive: Boolean
-        get() = _activeDialog.value != DialogKey.None
+        get() = _activeDialog.value != null
 }

@@ -39,6 +39,7 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.F
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairDialogKey
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -63,7 +64,7 @@ fun SavedDeviceItem(
             onClick = withHaptic { onClick() },
             onLongClick = withHaptic(HapticFeedbackType.LongPress) {
                 dialogManager.show(
-                    DialogKey.Pair.ForgetDeviceConfirmation(device)
+                    PairDialogKey.ForgetDeviceConfirmation(device)
                 )
             },
             shape = CardCornerShape.FIRST_CARD,
@@ -138,7 +139,7 @@ fun SavedDeviceItem(
             onClick = withHaptic { onClick() },
             onLongClick = withHaptic(HapticFeedbackType.LongPress) {
                 dialogManager.show(
-                    DialogKey.Pair.ForgetDeviceConfirmation(device)
+                    PairDialogKey.ForgetDeviceConfirmation(device)
                 )
             },
             shape = CardCornerShape.LAST_CARD,
@@ -198,10 +199,10 @@ fun SavedDeviceItem(
         }
     }
 
-    if (dialogManager.activeDialog is DialogKey.Pair.ForgetDeviceConfirmation) {
+    if (dialogManager.activeDialog is PairDialogKey.ForgetDeviceConfirmation) {
         ForgetDeviceConfirmationDialog(
-            deviceName = (dialogManager.activeDialog as DialogKey.Pair.ForgetDeviceConfirmation).device.deviceName,
-            onConfirm = { onForget((dialogManager.activeDialog as DialogKey.Pair.ForgetDeviceConfirmation).device) },
+            deviceName = (dialogManager.activeDialog as PairDialogKey.ForgetDeviceConfirmation).device.deviceName,
+            onConfirm = { onForget((dialogManager.activeDialog as PairDialogKey.ForgetDeviceConfirmation).device) },
             onDismiss = { dialogManager.dismiss() })
     }
 }

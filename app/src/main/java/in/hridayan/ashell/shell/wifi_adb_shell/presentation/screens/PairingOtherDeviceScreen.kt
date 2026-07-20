@@ -1,6 +1,7 @@
 @file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens
+import `in`.hridayan.ashell.navigation.navigateBack
 
 import android.annotation.SuppressLint
 import android.os.Build
@@ -96,6 +97,7 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.utils.WirelessDebuggingUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.security.SecureRandom
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairDialogKey
 
 private enum class PairingTab(val titleRes: Int) {
     QrPair(R.string.pair_using_qr),
@@ -136,7 +138,7 @@ fun PairingOtherDeviceScreen(
             is WifiAdbState.Connected -> {
                 wasReconnectCancelled = false
                 if (pagerState.currentPage != PairingTab.SavedDevices.ordinal) {
-                    dialogManager.show(DialogKey.Pair.ConnectionSuccess)
+                    dialogManager.show(PairDialogKey.ConnectionSuccess)
                 }
             }
 
@@ -155,7 +157,7 @@ fun PairingOtherDeviceScreen(
                 is WifiAdbEvent.ConnectSuccess -> {
                     wasReconnectCancelled = false
                     if (pagerState.currentPage != PairingTab.SavedDevices.ordinal) {
-                        dialogManager.show(DialogKey.Pair.ConnectionSuccess)
+                        dialogManager.show(PairDialogKey.ConnectionSuccess)
                     }
                 }
 
@@ -164,20 +166,20 @@ fun PairingOtherDeviceScreen(
                         val failedDevice = savedDevices.find { it.id == event.deviceId }
                         val showDevOptions =
                             failedDevice?.isOwnDevice == true || event.requiresPairing
-                        dialogManager.show(DialogKey.Pair.ReconnectFailed(showDevOptionsButton = showDevOptions))
+                        dialogManager.show(PairDialogKey.ReconnectFailed(showDevOptionsButton = showDevOptions))
                     }
                     wasReconnectCancelled = false
                 }
 
                 is WifiAdbEvent.WirelessDebuggingOff -> {
                     if (!wasReconnectCancelled) {
-                        dialogManager.show(DialogKey.Pair.ReconnectFailed(showDevOptionsButton = true))
+                        dialogManager.show(PairDialogKey.ReconnectFailed(showDevOptionsButton = true))
                     }
                     wasReconnectCancelled = false
                 }
 
                 is WifiAdbEvent.PairConnectFailed -> {
-                    dialogManager.show(DialogKey.Pair.PairConnectFailed)
+                    dialogManager.show(PairDialogKey.PairConnectFailed)
                 }
 
                 is WifiAdbEvent.AlreadyConnected -> {
@@ -248,7 +250,9 @@ fun PairingOtherDeviceScreen(
                         letterSpacing = 0.05.em
                     )
                 },
-                navigationIcon = { BackButton() },
+                navigationIcon = { 
+                    BackButton(onClick = { navController.navigateBack() }) 
+                },
                 scrollBehavior = scrollBehavior,
             )
         }) { innerPadding ->
@@ -330,7 +334,7 @@ fun PairingOtherDeviceScreen(
         }
     }
 
-    DialogKey.Pair.ConnectionSuccess.createDialog {
+    PairDialogKey.ConnectionSuccess.createDialog {
         ConnectionSuccessDialog(
             device = currentDevice,
             onGoToTerminal = {
@@ -344,8 +348,8 @@ fun PairingOtherDeviceScreen(
         )
     }
 
-    DialogKey.Pair.ReconnectFailed(showDevOptionsButton = false).createDialog {
-        val dialogKey = (it.activeDialog as? DialogKey.Pair.ReconnectFailed)
+    PairDialogKey.ReconnectFailed(showDevOptionsButton = false).createDialog {
+        val dialogKey = (it.activeDialog as? PairDialogKey.ReconnectFailed)
         ReconnectFailedDialog(
             showDevOptionsButton = dialogKey?.showDevOptionsButton ?: false,
             onConfirm = {
@@ -365,7 +369,7 @@ fun PairingOtherDeviceScreen(
         )
     }
 
-    DialogKey.Pair.PairConnectFailed.createDialog {
+    PairDialogKey.PairConnectFailed.createDialog {
         PairConnectFailedDialog(
             onDismiss = {
                 it.dismiss()

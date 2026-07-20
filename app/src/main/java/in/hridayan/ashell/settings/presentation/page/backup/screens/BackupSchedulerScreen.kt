@@ -62,6 +62,7 @@ import `in`.hridayan.ashell.settings.presentation.state.rememberController
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 import `in`.hridayan.settingsdsl.ui.item.settingsContent
+import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 
 @Composable
 fun BackupSchedulerScreen(
@@ -223,7 +224,7 @@ fun BackupSchedulerScreen(
         },
     )
 
-    DialogKey.Settings.AutoBackupTimePicker.createDialog {
+    SettingsDialogKey.AutoBackupTimePicker.createDialog {
         AutoBackupTimePickerDialog(
             initialHour = settings[SettingsKeys.AutoBackupTimeHour],
             initialMinute = settings[SettingsKeys.AutoBackupTimeMinute],

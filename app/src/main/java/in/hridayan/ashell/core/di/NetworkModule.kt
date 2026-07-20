@@ -8,7 +8,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 
 import `in`.hridayan.ashell.core.data.local.repository.DownloadRepositoryImpl
-import `in`.hridayan.ashell.core.data.remote.api.GithubApi
 import `in`.hridayan.ashell.core.domain.repository.DownloadRepository
 import `in`.hridayan.ashell.core.di.qualifiers.ApiHttpClient
 
@@ -34,10 +33,6 @@ object NetworkModule {
             }
         }
     }
-
-    @Provides
-    @Singleton
-    fun provideGithubApi(@ApiHttpClient client: HttpClient): GithubApi = GithubApi(client)
 
     @Provides
     @Singleton

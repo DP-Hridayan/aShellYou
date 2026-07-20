@@ -91,6 +91,7 @@ import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 import kotlin.math.roundToInt
+import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.CommandExamplesDialogKey
 
 @Composable
 fun CommandExampleCard(
@@ -162,7 +163,7 @@ fun CommandExampleCard(
     val onEdit: () -> Unit = {
         coroutineScope.launch {
             commandExamplesViewModel.setFieldsForEdit(id = id)
-            dialogManager.show(DialogKey.CommandExamples.Edit(id))
+            dialogManager.show(CommandExamplesDialogKey.Edit(id))
         }
     }
 

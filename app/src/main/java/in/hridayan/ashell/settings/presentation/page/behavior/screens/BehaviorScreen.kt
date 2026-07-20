@@ -31,6 +31,7 @@ import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
 import `in`.hridayan.settingsdsl.ui.item.settingsContent
+import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 
 @Composable
 fun BehaviorScreen(
@@ -91,7 +92,7 @@ fun BehaviorScreen(
         },
     )
 
-    DialogKey.Settings.ConfigureSaveDir.createDialog {
+    SettingsDialogKey.ConfigureSaveDir.createDialog {
         ConfigureSaveDirectoryDialog(onDismiss = { it.dismiss() })
     }
 }

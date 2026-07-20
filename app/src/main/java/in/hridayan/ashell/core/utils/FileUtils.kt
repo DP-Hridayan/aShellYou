@@ -16,7 +16,7 @@ import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import androidx.documentfile.provider.DocumentFile
-import `in`.hridayan.ashell.core.domain.model.SaveProgress
+import `in`.hridayan.ashell.shell.domain.model.SaveProgress
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

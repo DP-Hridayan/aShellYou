@@ -3,7 +3,7 @@ package `in`.hridayan.ashell.core.common
 import android.os.Environment
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.runtime.Stable
-import `in`.hridayan.ashell.core.domain.model.ModelRegistry
+import `in`.hridayan.ashell.ai.domain.model.ModelRegistry
 import `in`.hridayan.ashell.core.domain.model.SortType
 import `in`.hridayan.ashell.core.domain.provider.SeedColorProvider
 import `in`.hridayan.ashell.core.common.SettingsKeys.Companion.entries
@@ -111,7 +111,7 @@ sealed class SettingsKeys<out T>(
     data object GithubReleaseType :
         SettingsKeys<Int>(
             "GITHUB_RELEASE_TYPE",
-            `in`.hridayan.ashell.core.domain.model.GithubReleaseType.STABLE_GITHUB
+            `in`.hridayan.ashell.settings.domain.model.GithubReleaseType.STABLE_GITHUB
         )
 
     data object SavedVersionCode : SettingsKeys<Int>("SAVED_VERSION_CODE", 0)

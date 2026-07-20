@@ -1,6 +1,6 @@
 package `in`.hridayan.ashell.settings.domain.model
 
-import `in`.hridayan.ashell.core.domain.model.GithubRelease
+import `in`.hridayan.ashell.settings.domain.model.GithubRelease
 
 sealed class UpdateResult {
     data class Success(val release: GithubRelease, val isUpdateAvailable: Boolean) : UpdateResult()

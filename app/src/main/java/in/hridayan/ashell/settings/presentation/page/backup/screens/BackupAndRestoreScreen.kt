@@ -80,6 +80,7 @@ import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
 import `in`.hridayan.settingsdsl.ui.item.settingsContent
+import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 
 @Composable
 fun BackupAndRestoreScreen(
@@ -119,7 +120,7 @@ fun BackupAndRestoreScreen(
                 if (fileName?.endsWith(".ashellyou") == true) {
                     restoreFileUri = it
                     backupAndRestoreViewModel.loadBackupTime(it)
-                    dialogManager.show(DialogKey.Settings.RestoreBackup)
+                    dialogManager.show(SettingsDialogKey.RestoreBackup)
                 } else {
                     showToast(context, res.getString(R.string.pick_ashellyou_extension))
                 }
@@ -222,7 +223,7 @@ fun BackupAndRestoreScreen(
                                                 context
                                             )
                                         },
-                                        onSignOutClick = { dialogManager.show(DialogKey.Settings.ConfirmGoogleSignOut) },
+                                        onSignOutClick = { dialogManager.show(SettingsDialogKey.ConfirmGoogleSignOut) },
                                     )
                                 }
                             }
@@ -259,13 +260,13 @@ fun BackupAndRestoreScreen(
         },
     )
 
-    DialogKey.Settings.ResetSettings.createDialog {
+    SettingsDialogKey.ResetSettings.createDialog {
         ResetSettingsDialog(
             onDismiss = { it.dismiss() },
             onConfirm = { backupAndRestoreViewModel.resetSettingsToDefault() })
     }
 
-    DialogKey.Settings.RestoreBackup.createDialog {
+    SettingsDialogKey.RestoreBackup.createDialog {
         RestoreBackupDialog(
             onDismiss = { it.dismiss() },
             onConfirm = { backupAndRestoreViewModel.performRestore(restoreFileUri) },
@@ -275,10 +276,10 @@ fun BackupAndRestoreScreen(
     }
 
     if (isCloudBackupAvailable) {
-        DialogKey.Settings.BackupDestination(backupType = BackupType.SETTINGS_AND_DATABASE)
+        SettingsDialogKey.BackupDestination(backupType = BackupType.SETTINGS_AND_DATABASE)
             .createDialog { dialogViewModel ->
                 val activeKey = dialogManager.activeDialog
-                val backupType = (activeKey as? DialogKey.Settings.BackupDestination)?.backupType
+                val backupType = (activeKey as? SettingsDialogKey.BackupDestination)?.backupType
                     ?: BackupType.SETTINGS_AND_DATABASE
                 BackupDestinationDialog(
                     onDismiss = { dialogViewModel.dismiss() },
@@ -291,7 +292,7 @@ fun BackupAndRestoreScreen(
                 )
             }
 
-        DialogKey.Settings.RestoreSource.createDialog { dialogViewModel ->
+        SettingsDialogKey.RestoreSource.createDialog { dialogViewModel ->
             RestoreSourceDialog(
                 onDismiss = { dialogViewModel.dismiss() },
                 onLocalRestore = { launcherRestore.launch(arrayOf("application/octet-stream")) },
@@ -299,7 +300,7 @@ fun BackupAndRestoreScreen(
             )
         }
 
-        DialogKey.Settings.ConfirmGoogleSignOut.createDialog { dialogViewModel ->
+        SettingsDialogKey.ConfirmGoogleSignOut.createDialog { dialogViewModel ->
             GoogleSignOutConfirmationDialog(
                 onDismiss = { dialogViewModel.dismiss() },
                 onConfirm = { backupAndRestoreViewModel.signOut() })
@@ -317,7 +318,7 @@ fun BackupAndRestoreScreen(
         }
     }
 
-    DialogKey.Settings.NoGoogleAccount.createDialog { dialogViewModel ->
+    SettingsDialogKey.NoGoogleAccount.createDialog { dialogViewModel ->
         NoGoogleAccountDialog(
             onDismiss = { dialogViewModel.dismiss() },
             onAddAccount = {

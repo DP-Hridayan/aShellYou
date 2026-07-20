@@ -1,6 +1,7 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
 package `in`.hridayan.ashell.settings.presentation.page.mainscreen.screen
+import `in`.hridayan.ashell.navigation.navigateBack
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
@@ -100,7 +101,9 @@ fun SettingsScreen(
     Scaffold(topBar = {
         TopAppBar(
             title = {},
-            navigationIcon = { BackButton() },
+            navigationIcon = { 
+                BackButton(onClick = { navController.navigateBack() }) 
+            },
             actions = {
                 IconButton(onClick = withHaptic { navController.navigate(NavRoutes.SettingsSearchScreen) }) {
                     Icon(

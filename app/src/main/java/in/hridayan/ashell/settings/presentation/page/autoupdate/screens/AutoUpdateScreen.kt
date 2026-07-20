@@ -62,6 +62,7 @@ import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
 import `in`.hridayan.settingsdsl.ui.item.settingsContent
+import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 
 @Composable
 fun AutoUpdateScreen(
@@ -94,7 +95,7 @@ fun AutoUpdateScreen(
                         changelog = result.release.body.toString()
                         showUpdateSheet = true
                     } else {
-                        dialogManager.show(DialogKey.Settings.LatestVersion)
+                        dialogManager.show(SettingsDialogKey.LatestVersion)
                     }
                 }
 
@@ -218,7 +219,7 @@ fun AutoUpdateScreen(
         )
     }
 
-    DialogKey.Settings.LatestVersion.createDialog {
+    SettingsDialogKey.LatestVersion.createDialog {
         LatestVersionDialog(onDismiss = { it.dismiss() })
     }
 }

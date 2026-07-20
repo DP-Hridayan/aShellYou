@@ -1,6 +1,7 @@
 @file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens
+import `in`.hridayan.ashell.navigation.navigateBack
 
 import android.os.Build
 import androidx.compose.foundation.basicMarquee
@@ -87,6 +88,7 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.item.Sav
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
 import `in`.hridayan.ashell.shell.wifi_adb_shell.service.SelfPairingService
 import `in`.hridayan.ashell.shell.wifi_adb_shell.utils.WirelessDebuggingUtils
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairDialogKey
 
 @Composable
 fun PairingOwnDeviceScreen(
@@ -137,11 +139,11 @@ fun PairingOwnDeviceScreen(
         WifiAdbConnection.events.collect { event ->
             when (event) {
                 is WifiAdbEvent.WirelessDebuggingOff -> {
-                    dialogManager.show(DialogKey.Pair.ReconnectFailed(showDevOptionsButton = true))
+                    dialogManager.show(PairDialogKey.ReconnectFailed(showDevOptionsButton = true))
                 }
 
                 is WifiAdbEvent.ReconnectFailed -> {
-                    dialogManager.show(DialogKey.Pair.ReconnectFailed(showDevOptionsButton = true))
+                    dialogManager.show(PairDialogKey.ReconnectFailed(showDevOptionsButton = true))
                 }
 
                 else -> {}
@@ -185,7 +187,7 @@ fun PairingOwnDeviceScreen(
 
     val onClickDevOptionsButton: () -> Unit = withHaptic {
         if (!hasNotificationAccess) {
-            dialogManager.show(DialogKey.Pair.GrantNotificationAccess)
+            dialogManager.show(PairDialogKey.GrantNotificationAccess)
             return@withHaptic
         }
 
@@ -226,7 +228,9 @@ fun PairingOwnDeviceScreen(
                         letterSpacing = 0.05.em
                     )
                 },
-                navigationIcon = { BackButton() },
+                navigationIcon = { 
+                    BackButton(onClick = { navController.navigateBack() }) 
+                },
                 scrollBehavior = scrollBehavior,
             )
         }) { innerPadding ->
@@ -372,14 +376,14 @@ fun PairingOwnDeviceScreen(
         }
     }
 
-    DialogKey.Pair.GrantNotificationAccess.createDialog {
+    PairDialogKey.GrantNotificationAccess.createDialog {
         GrantNotificationAccessDialog(
             onDismiss = { it.dismiss() },
             onConfirm = { onClickNotificationButton() })
     }
 
-    DialogKey.Pair.ReconnectFailed(showDevOptionsButton = true).createDialog {
-        val dialogKey = (it.activeDialog as? DialogKey.Pair.ReconnectFailed)
+    PairDialogKey.ReconnectFailed(showDevOptionsButton = true).createDialog {
+        val dialogKey = (it.activeDialog as? PairDialogKey.ReconnectFailed)
         ReconnectFailedDialog(
             showDevOptionsButton = dialogKey?.showDevOptionsButton ?: true,
             onDismiss = {

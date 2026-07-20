@@ -35,7 +35,7 @@ import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
-import `in`.hridayan.ashell.core.presentation.components.svg.vectors.themePicker
+import `in`.hridayan.ashell.settings.presentation.components.svg.vectors.themePicker
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.FontStyleBottomSheet
@@ -49,6 +49,7 @@ import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
 import `in`.hridayan.settingsdsl.ui.item.settingsContent
+import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 
 @Composable
 fun LookAndFeelScreen(
@@ -84,7 +85,7 @@ fun LookAndFeelScreen(
         }
     }
 
-    DialogKey.Settings.PaletteStyle.createDialog { dm ->
+    SettingsDialogKey.PaletteStyle.createDialog { dm ->
         PaletteStylePickerDialog(
             onDismiss = { dm.dismiss() },
             onConfirm = { style ->
