@@ -35,8 +35,7 @@ import `in`.hridayan.ashell.core.presentation.components.snackbar.SnackBarContro
 import `in`.hridayan.ashell.core.presentation.utils.HapticUtils.strongHaptic
 import `in`.hridayan.ashell.core.presentation.utils.HapticUtils.weakHaptic
 import `in`.hridayan.ashell.core.presentation.viewmodel.DialogViewModel
-import `in`.hridayan.ashell.settings.data.SettingsKeys
-import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import kotlin.math.abs
 
 val LocalWeakHaptic = staticCompositionLocalOf { {} }
@@ -70,7 +69,7 @@ val LocalSnackBarController = staticCompositionLocalOf<SnackBarController> {
 
 @Composable
 fun CompositionLocals(
-    settingsViewModel: SettingsViewModel = hiltViewModel(),
+    settingsState: SettingsState,
     dialogViewModel: DialogViewModel = hiltViewModel(),
     content: @Composable () -> Unit
 ) {
@@ -80,21 +79,21 @@ fun CompositionLocals(
     val configuration = LocalConfiguration.current
 
     // Theme
-    val themeMode by settingsViewModel.intState(SettingsKeys.ThemeMode)
-    val primarySeed by settingsViewModel.intState(SettingsKeys.PrimarySeed)
+    val themeMode = settingsState[SettingsKeys.ThemeMode]
+    val primarySeed = settingsState[SettingsKeys.PrimarySeed]
     val seedColor = SeedColor(primarySeed)
-    val paletteStyleOrdinal by settingsViewModel.intState(SettingsKeys.PaletteStyle)
+    val paletteStyleOrdinal = settingsState[SettingsKeys.PaletteStyle]
     val paletteStyle = remember(paletteStyleOrdinal) {
         PaletteStyle.entries.getOrElse(paletteStyleOrdinal) { PaletteStyle.TONAL_SPOT }
     }
 
     // Haptics
-    val isHapticEnabled by settingsViewModel.booleanState(SettingsKeys.HapticsAndVibration)
+    val isHapticEnabled = settingsState[SettingsKeys.HapticsAndVibration]
 
     // Density
-    val autoScaleUI by settingsViewModel.booleanState(SettingsKeys.AutoScaleUi)
-    val screenDensityMultiplier by settingsViewModel.floatState(SettingsKeys.ScreenDensityMultiplier)
-    val fontSizeMultiplier by settingsViewModel.floatState(SettingsKeys.FontSizeMultiplier)
+    val autoScaleUI = settingsState[SettingsKeys.AutoScaleUi]
+    val screenDensityMultiplier = settingsState[SettingsKeys.ScreenDensityMultiplier]
+    val fontSizeMultiplier = settingsState[SettingsKeys.FontSizeMultiplier]
 
     val scaledDensity = remember(
         autoScaleUI,
@@ -132,7 +131,7 @@ fun CompositionLocals(
     }
 
     // Battery saver
-    val autoDarkModeOnBatterySaver by settingsViewModel.booleanState(SettingsKeys.AutoDarkModeOnBatterySaver)
+    val autoDarkModeOnBatterySaver = settingsState[SettingsKeys.AutoDarkModeOnBatterySaver]
 
     var isBatterySaverOn by remember {
         val pm = context.getSystemService(Context.POWER_SERVICE) as PowerManager
@@ -200,7 +199,6 @@ fun CompositionLocals(
         }
     }
 
-    val settingsState = remember(settingsViewModel) { SettingsState(settingsViewModel) }
     val snackbarController = remember { SnackBarController() }
 
     CompositionLocalProvider(
@@ -219,17 +217,3 @@ fun CompositionLocals(
     }
 }
 
-@Composable
-private fun SettingsViewModel.booleanState(key: SettingsKeys<Boolean>): State<Boolean> {
-    return getBoolean(key).collectAsState(initial = key.default)
-}
-
-@Composable
-private fun SettingsViewModel.intState(key: SettingsKeys<Int>): State<Int> {
-    return getInt(key).collectAsState(initial = key.default)
-}
-
-@Composable
-private fun SettingsViewModel.floatState(key: SettingsKeys<Float>): State<Float> {
-    return getFloat(key).collectAsState(initial = key.default)
-}

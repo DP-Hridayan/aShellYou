@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.core.di
+package `in`.hridayan.ashell.shell.common.di
 
 import android.content.Context
 import dagger.Module

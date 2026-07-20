@@ -31,7 +31,7 @@ import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
 import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
 import `in`.hridayan.ashell.core.presentation.model.ButtonType
 import `in`.hridayan.ashell.core.utils.getFullPathFromTreeUri
-import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.core.common.SettingsKeys
 
 @Composable
 fun FileSavedDialog(

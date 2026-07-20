@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.core.data.local.database
+package `in`.hridayan.ashell.settings.data.local.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

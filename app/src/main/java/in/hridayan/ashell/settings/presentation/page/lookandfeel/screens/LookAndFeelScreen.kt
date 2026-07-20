@@ -37,7 +37,7 @@ import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.themePicker
 import `in`.hridayan.ashell.navigation.LocalNavController
-import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.FontStyleBottomSheet
 import `in`.hridayan.ashell.settings.presentation.components.dialog.PaletteStylePickerDialog
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold

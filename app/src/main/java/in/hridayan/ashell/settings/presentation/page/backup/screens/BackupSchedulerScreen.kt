@@ -52,7 +52,7 @@ import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
-import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.components.dialog.AutoBackupTimePickerDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.SelectBackupFolderDialog
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold

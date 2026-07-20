@@ -1,17 +1,17 @@
-ï»¿package `in`.hridayan.ashell.ai.data.repository
+package `in`.hridayan.ashell.ai.data.repository
 
 import android.content.Context
 import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.ai.data.local.model.ModelRegistry
-import `in`.hridayan.ashell.ai.domain.model.AiModel
+import `in`.hridayan.ashell.core.domain.model.ModelRegistry
+import `in`.hridayan.ashell.core.domain.model.AiModel
 import `in`.hridayan.ashell.ai.domain.repository.AiModelRepository
 import `in`.hridayan.ashell.ai.presentation.model.DownloadProgress
 import `in`.hridayan.ashell.ai.service.AiModelDownloadService
 import `in`.hridayan.ashell.core.utils.isNetworkAvailable
 import `in`.hridayan.ashell.core.utils.showToast
-import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -72,10 +72,10 @@ class AiModelRepositoryImpl @Inject constructor(
     /** Active download jobs keyed by modelId, for cancellation */
     private val activeDownloadJobs = ConcurrentHashMap<String, kotlinx.coroutines.Job>()
 
-    /** Shared download progress state â€” survives ViewModel recreation */
+    /** Shared download progress state — survives ViewModel recreation */
     private val _downloadProgress = MutableStateFlow<Map<String, DownloadProgress>>(emptyMap())
 
-    /** Shared error state â€” survives ViewModel recreation */
+    /** Shared error state — survives ViewModel recreation */
     private val _downloadErrors = MutableStateFlow<Map<String, String>>(emptyMap())
 
     override fun getAvailableModels(): List<AiModel> = ModelRegistry.allModels

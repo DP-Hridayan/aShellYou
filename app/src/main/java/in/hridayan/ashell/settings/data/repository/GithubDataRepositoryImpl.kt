@@ -1,14 +1,14 @@
-package `in`.hridayan.ashell.core.data.remote.repository
+package `in`.hridayan.ashell.settings.data.repository
 
 import android.util.Log
-import `in`.hridayan.ashell.core.data.local.database.GithubRepoStatsDao
+import `in`.hridayan.ashell.settings.data.local.database.GithubRepoStatsDao
 import `in`.hridayan.ashell.core.data.local.mapper.toDomain
 import `in`.hridayan.ashell.core.data.local.mapper.toEntity
 import `in`.hridayan.ashell.core.data.remote.api.GithubApi
 import `in`.hridayan.ashell.core.data.remote.mapper.mapToRepoStats
 import `in`.hridayan.ashell.core.data.remote.mapper.toDomain
 import `in`.hridayan.ashell.core.domain.model.GithubRepoStats
-import `in`.hridayan.ashell.core.domain.repository.GithubDataRepository
+import `in`.hridayan.ashell.settings.domain.repository.GithubDataRepository
 import `in`.hridayan.ashell.settings.domain.model.UpdateResult
 import io.ktor.client.network.sockets.SocketTimeoutException
 import kotlinx.coroutines.Dispatchers

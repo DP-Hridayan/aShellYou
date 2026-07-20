@@ -1,6 +1,6 @@
 package `in`.hridayan.ashell.ai.domain.repository
 
-import `in`.hridayan.ashell.ai.domain.model.AiModel
+import `in`.hridayan.ashell.core.domain.model.AiModel
 import `in`.hridayan.ashell.ai.presentation.model.DownloadProgress
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow

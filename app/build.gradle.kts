@@ -208,7 +208,7 @@ tasks.withType<Zip>().configureEach {
 configurations.all {
     resolutionStrategy {
         force("org.jetbrains.kotlin:kotlin-metadata-jvm:${libs.versions.kotlin.get()}")
-        force("androidx.concurrent:concurrent-futures-ktx:1.3.0")
+        force("androidx.concurrent:concurrent-futures-ktx:${libs.versions.concurrentFutures.get()}")
     }
 }
 

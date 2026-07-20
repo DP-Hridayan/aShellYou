@@ -6,7 +6,7 @@ import androidx.compose.runtime.retain.retain
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import `in`.hridayan.ashell.core.common.LocalSettings
-import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.core.common.SettingsKeys
 
 @Composable
 fun withHaptic(

@@ -1,4 +1,4 @@
-﻿package `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel
+package `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.compose.runtime.Stable
@@ -7,7 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.core.domain.model.DownloadState
 import `in`.hridayan.ashell.core.domain.usecase.DownloadApkUseCase
-import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.model.UpdateResult
 import `in`.hridayan.ashell.core.domain.model.GithubReleaseType
 import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository

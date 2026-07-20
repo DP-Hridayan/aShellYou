@@ -1,4 +1,4 @@
-﻿package `in`.hridayan.ashell.shell.common.presentation.components.dialog
+package `in`.hridayan.ashell.shell.common.presentation.components.dialog
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -40,7 +40,7 @@ import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
 import `in`.hridayan.ashell.core.presentation.model.ButtonType
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
-import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.provider.RadioGroupOptionsProvider
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 

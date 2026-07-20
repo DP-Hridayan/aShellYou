@@ -139,7 +139,7 @@ class AiModelDownloadService : Service() {
             val (modelId, progress) = activeDownloads.first()
             val downloading = progress as DownloadProgress.Downloading
             val modelName =
-                `in`.hridayan.ashell.ai.data.local.model.ModelRegistry.findById(modelId)?.name
+                `in`.hridayan.ashell.core.domain.model.ModelRegistry.findById(modelId)?.name
                     ?: modelId
             val percent = downloading.progressPercent
             val downloadedMB = downloading.bytesDownloaded / (1024.0 * 1024.0)

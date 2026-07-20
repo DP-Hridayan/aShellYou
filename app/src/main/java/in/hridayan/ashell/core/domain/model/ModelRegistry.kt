@@ -1,6 +1,4 @@
-package `in`.hridayan.ashell.ai.data.local.model
-
-import `in`.hridayan.ashell.ai.domain.model.AiModel
+package `in`.hridayan.ashell.core.domain.model
 
 /**
  * Registry of all supported AI models for command analysis.

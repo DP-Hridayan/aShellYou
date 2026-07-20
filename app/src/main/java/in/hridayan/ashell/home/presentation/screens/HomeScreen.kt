@@ -71,6 +71,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSettings
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButton
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
@@ -81,9 +82,9 @@ import `in`.hridayan.ashell.core.presentation.components.svg.vectors.appBranding
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.home.presentation.component.dialog.RebootOptionsDialog
+import `in`.hridayan.ashell.logcat.presentation.viewmodel.LogcatViewModel
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
-import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootState
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog.FastbootDeviceWaitingDialog
 import `in`.hridayan.ashell.shell.fastboot.presentation.viewmodel.FastbootViewModel
@@ -93,8 +94,6 @@ import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.viewmodel.OtgViewMo
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.bottomsheet.SavedDevicesBottomSheet
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairModeChooseDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
-import `in`.hridayan.ashell.logcat.presentation.viewmodel.LogcatViewModel
-import `in`.hridayan.ashell.logcat.service.LogcatService
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

@@ -17,7 +17,7 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalSettings
-import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.theme.color.darkColorSchemeFromSeed
 import `in`.hridayan.ashell.core.presentation.theme.color.highContrastDarkColorSchemeFromSeed
 import `in`.hridayan.ashell.core.presentation.theme.color.highContrastDynamicDarkColorScheme

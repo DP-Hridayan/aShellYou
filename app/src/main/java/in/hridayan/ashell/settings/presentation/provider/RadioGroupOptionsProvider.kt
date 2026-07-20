@@ -5,7 +5,7 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.domain.model.GithubReleaseType
 import `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.domain.model.SortType
-import `in`.hridayan.ashell.settings.domain.model.AppFont
+import `in`.hridayan.ashell.core.domain.model.AppFont
 import `in`.hridayan.ashell.settings.domain.model.BackupFrequency
 import `in`.hridayan.ashell.settings.domain.model.BackupType
 import `in`.hridayan.settingsdsl.model.RadioButtonOption

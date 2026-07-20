@@ -13,7 +13,7 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
 import `in`.hridayan.ashell.core.presentation.components.floaters.FloatingIconsBackground
 import `in`.hridayan.ashell.navigation.NavRoutes
-import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.settingsdsl.dsl.buttonGroupItem
 import `in`.hridayan.settingsdsl.dsl.category
 import `in`.hridayan.settingsdsl.dsl.clickableItem

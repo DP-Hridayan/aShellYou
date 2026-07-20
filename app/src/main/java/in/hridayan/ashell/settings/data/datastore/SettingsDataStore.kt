@@ -1,4 +1,4 @@
-ï»¿package `in`.hridayan.ashell.settings.data.datastore
+package `in`.hridayan.ashell.settings.data.datastore
 
 import android.content.Context
 import android.util.Log
@@ -10,7 +10,7 @@ import androidx.datastore.preferences.core.floatPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import dagger.hilt.android.qualifiers.ApplicationContext
-import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.settings.data.settingsDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -25,7 +25,7 @@ class SettingsDataStore @Inject constructor(
 ) {
     private val ds = context.settingsDataStore
 
-    /** Raw preferences snapshot â€” collect once for all key lookups. */
+    /** Raw preferences snapshot — collect once for all key lookups. */
     val preferences: Flow<Preferences> = ds.data
 
     private fun SettingsKeys<*>.toBooleanKey(): Preferences.Key<Boolean> =
@@ -57,7 +57,7 @@ class SettingsDataStore @Inject constructor(
 
     fun intFlow(key: SettingsKeys<Int>): Flow<Int> {
         val preferencesKey = key.toIntKey()
-        val default = key.default // Already Int â€” no cast needed!
+        val default = key.default // Already Int — no cast needed!
         return ds.data
             .map { prefs -> prefs[preferencesKey] ?: default }
     }
@@ -74,7 +74,7 @@ class SettingsDataStore @Inject constructor(
 
     fun floatFlow(key: SettingsKeys<Float>): Flow<Float> {
         val preferencesKey = key.toFloatKey()
-        val default = key.default // Already Float â€” no cast needed!
+        val default = key.default // Already Float — no cast needed!
         return ds.data
             .map { prefs -> prefs[preferencesKey] ?: default }
     }
@@ -91,7 +91,7 @@ class SettingsDataStore @Inject constructor(
 
     fun stringFlow(key: SettingsKeys<String>): Flow<String> {
         val preferencesKey = key.toStringKey()
-        val default = key.default // Already String â€” no cast needed!
+        val default = key.default // Already String — no cast needed!
         return ds.data
             .map { prefs -> prefs[preferencesKey] ?: default }
     }

@@ -69,7 +69,7 @@ import `in`.hridayan.ashell.core.utils.isAppInstalled
 import `in`.hridayan.ashell.core.utils.launchApp
 import `in`.hridayan.ashell.onboarding.presentation.component.shape.DecorativeShape
 import `in`.hridayan.ashell.onboarding.presentation.component.shape.MainCard
-import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
 import `in`.hridayan.ashell.shell.local_adb_shell.presentation.components.dialog.ShizukuUnavailableDialog

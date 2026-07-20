@@ -1,16 +1,16 @@
-﻿package `in`.hridayan.ashell.ai.data.repository
+package `in`.hridayan.ashell.ai.data.repository
 
 import android.content.Context
 import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.ai.data.local.database.AiCacheDao
 import `in`.hridayan.ashell.ai.data.local.database.AiCacheEntity
-import `in`.hridayan.ashell.ai.data.local.model.ModelRegistry
+import `in`.hridayan.ashell.core.domain.model.ModelRegistry
 import `in`.hridayan.ashell.ai.data.parser.AiResponseParser
 import `in`.hridayan.ashell.ai.data.parser.PromptBuilder
 import `in`.hridayan.ashell.ai.domain.model.AnalysisResult
 import `in`.hridayan.ashell.ai.domain.repository.AiAnalysisRepository
-import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.serialization.json.Json
@@ -22,7 +22,7 @@ import javax.inject.Singleton
 /**
  * Implementation of [AiAnalysisRepository] that orchestrates the hybrid analysis pipeline.
  *
- * Pipeline: Cache check → AI inference → Cache result → Return
+ * Pipeline: Cache check ? AI inference ? Cache result ? Return
  *
  * Cache is per-model: switching models produces separate cache entries for the
  * same command, so results from different models don't interfere.
@@ -47,7 +47,7 @@ class AiAnalysisRepositoryImpl @Inject constructor(
          * - System prompt: ~80-100 tokens
          * - ChatML wrapping: ~30 tokens
          * - Generation (MAX_TOKENS): 150 tokens
-         * - Available for user command: ~200 tokens ≈ 1000 chars
+         * - Available for user command: ~200 tokens � 1000 chars
          *
          * Commands exceeding this are truncated with a notice to the model.
          */

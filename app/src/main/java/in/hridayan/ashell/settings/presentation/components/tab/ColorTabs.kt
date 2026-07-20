@@ -28,7 +28,7 @@ import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalTonalPalette
 import `in`.hridayan.ashell.core.data.local.provider.SeedColor
 import `in`.hridayan.ashell.core.domain.model.PaletteStyle
-import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.components.palette.PaletteWheel
 import `in`.hridayan.shapeindicators.ShapeIndicatorRow
 

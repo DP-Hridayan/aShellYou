@@ -1,6 +1,6 @@
 package `in`.hridayan.ashell.settings.domain.usecase
 
-import `in`.hridayan.ashell.core.domain.repository.GithubDataRepository
+import `in`.hridayan.ashell.settings.domain.repository.GithubDataRepository
 import `in`.hridayan.ashell.settings.domain.model.UpdateResult
 import javax.inject.Inject
 

@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.core.presentation.components.bottomsheet
+package `in`.hridayan.ashell.ui.bottomsheet
 
 import android.app.Activity
 import android.content.Intent
@@ -78,7 +78,7 @@ import `in`.hridayan.ashell.core.utils.installApk
 import `in`.hridayan.ashell.core.utils.openUrl
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.utils.splitStringToLines
-import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import java.io.File
 

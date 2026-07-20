@@ -95,7 +95,7 @@ import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchRes
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
-import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
 @SuppressLint("RememberInComposition")

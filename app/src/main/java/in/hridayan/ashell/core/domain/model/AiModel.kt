@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.ai.domain.model
+package `in`.hridayan.ashell.core.domain.model
 
 /**
  * Represents an AI model available for command analysis.
