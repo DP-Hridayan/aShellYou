@@ -24,3 +24,6 @@ rootProject.name = "aShell You"
 
 include(":app", ":adblib", ":libadb", ":settings-dsl", ":fastbootlib")
 includeBuild("build-logic")
+include(":core:common")
+include(":core:ui")
+include(":core:navigation")

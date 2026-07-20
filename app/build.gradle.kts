@@ -206,7 +206,10 @@ tasks.withType<Zip>().configureEach {
 }
 
 configurations.all {
-    resolutionStrategy.force("org.jetbrains.kotlin:kotlin-metadata-jvm:${libs.versions.kotlin.get()}")
+    resolutionStrategy {
+        force("org.jetbrains.kotlin:kotlin-metadata-jvm:${libs.versions.kotlin.get()}")
+        force("androidx.concurrent:concurrent-futures-ktx:1.3.0")
+    }
 }
 
 dependencies {
@@ -214,6 +217,9 @@ dependencies {
     implementation(project(":adblib"))
     implementation(project(":settings-dsl"))
     implementation(project(":fastbootlib"))
+    implementation(project(":core:common"))
+    implementation(project(":core:ui"))
+    implementation(project(":core:navigation"))
 
     implementation(libs.kotlin.reflect)
 

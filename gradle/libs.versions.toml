@@ -3,8 +3,10 @@ activityCompose = "1.13.0"
 agp = "9.2.1"
 androidxJunit = "1.3.0"
 annotation = "1.10.0"
+concurrentFutures = "1.3.0"
 bcprovJdk15to18 = "1.85"
 composeAnimation = "1.11.4"
+composeUiTest = "1.11.4"
 composeBom = "2026.06.01"
 credentials = "1.6.0"
 coreKtx = "1.19.0"
@@ -47,6 +49,7 @@ coil = "3.5.0"
 aboutlibraries = "15.0.3"
 compose-stability-analyzer = "0.10.0"
 leakcanary = "1.0.0"
+appcompat = "1.7.1"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -74,8 +77,8 @@ bcprov-jdk15to18 = { module = "org.bouncycastle:bcprov-jdk15to18", version.ref =
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 compose-ui = { group = "androidx.compose.ui", name = "ui" }
 compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "composeUiTest" }
+compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "composeUiTest" }
 compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -130,3 +133,4 @@ coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref 
 coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
 aboutlibraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref = "aboutlibraries" }
 studio-leakcanary = { group = "com.android.tools.studio.leakcanary", name = "leakcanary", version.ref = "leakcanary" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
