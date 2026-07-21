@@ -31,18 +31,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
+
 
 @Composable
 fun RebootOptionsDialog(
     modifier: Modifier = Modifier,
     onDismiss: () -> Unit,
-    shellViewModel: ShellViewModel = hiltViewModel()
-) {
+    onReboot: (Array<String>) -> Unit) {
     val interactionSources1 = remember { List(2) { MutableInteractionSource() } }
     val interactionSources2 = remember { List(2) { MutableInteractionSource() } }
     val buttonSize = 110.dp
@@ -67,7 +66,7 @@ fun RebootOptionsDialog(
                     buttonGroupContent = {
                         IconButton(
                             onClick = withHaptic {
-                                shellViewModel.executeSimpleCommand(arrayOf("su", "-c", "reboot"))
+                                onReboot(arrayOf("su", "-c", "reboot"))
                             },
                             modifier = Modifier
                                 .size(buttonSize)
@@ -90,7 +89,7 @@ fun RebootOptionsDialog(
                         DropdownMenuItem(
                             text = { AutoResizeableText(text = stringResource(R.string.system)) },
                             onClick = withHaptic {
-                                shellViewModel.executeSimpleCommand(arrayOf("su", "-c", "reboot"))
+                                onReboot(arrayOf("su", "-c", "reboot"))
                             }
                         )
                     }
@@ -100,7 +99,7 @@ fun RebootOptionsDialog(
                     buttonGroupContent = {
                         IconButton(
                             onClick = withHaptic {
-                                shellViewModel.executeSimpleCommand(
+                                onReboot(
                                     arrayOf("su", "-c", "reboot recovery")
                                 )
                             },
@@ -125,7 +124,7 @@ fun RebootOptionsDialog(
                         DropdownMenuItem(
                             text = { AutoResizeableText(text = stringResource(R.string.recovery)) },
                             onClick = withHaptic {
-                                shellViewModel.executeSimpleCommand(
+                                onReboot(
                                     arrayOf("su", "-c", "reboot recovery")
                                 )
                             }
@@ -164,7 +163,7 @@ fun RebootOptionsDialog(
                     buttonGroupContent = {
                         IconButton(
                             onClick = withHaptic {
-                                shellViewModel.executeSimpleCommand(
+                                onReboot(
                                     arrayOf("su", "-c", "reboot bootloader")
                                 )
                             },
@@ -189,7 +188,7 @@ fun RebootOptionsDialog(
                         DropdownMenuItem(
                             text = { AutoResizeableText(text = stringResource(R.string.bootloader)) },
                             onClick = withHaptic {
-                                shellViewModel.executeSimpleCommand(
+                                onReboot(
                                     arrayOf("su", "-c", "reboot bootloader")
                                 )
                             }
@@ -201,7 +200,7 @@ fun RebootOptionsDialog(
                     buttonGroupContent = {
                         IconButton(
                             onClick = withHaptic {
-                                shellViewModel.executeSimpleCommand(
+                                onReboot(
                                     arrayOf("su", "-c", "reboot fastboot")
                                 )
                             },
@@ -226,7 +225,7 @@ fun RebootOptionsDialog(
                         DropdownMenuItem(
                             text = { AutoResizeableText(text = stringResource(R.string.fastboot)) },
                             onClick = withHaptic {
-                                shellViewModel.executeSimpleCommand(
+                                onReboot(
                                     arrayOf("su", "-c", "reboot fastboot")
                                 )
                             }
@@ -256,3 +255,4 @@ fun RebootOptionsDialog(
         }
     }
 }
+

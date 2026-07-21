@@ -86,54 +86,29 @@ import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.home.presentation.component.dialog.RebootOptionsDialog
 import `in`.hridayan.ashell.home.presentation.components.dialog.HomeDialogKey
-import `in`.hridayan.ashell.logcat.presentation.viewmodel.LogcatViewModel
-import `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog.FastbootDeviceWaitingDialog
-import `in`.hridayan.ashell.shell.fastboot.presentation.viewmodel.FastbootViewModel
-import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgState
-import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.components.dialog.OtgDeviceWaitingDialog
-import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.viewmodel.OtgViewModel
-import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.bottomsheet.SavedDevicesBottomSheet
-import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairModeChooseDialog
-import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
-    otgViewModel: OtgViewModel = hiltViewModel(),
-    wifiAdbViewModel: WifiAdbViewModel = hiltViewModel(),
-    fastbootViewModel: FastbootViewModel = hiltViewModel(),
-    logcatViewModel: LogcatViewModel = hiltViewModel(),
+    localAdbWorkingMode: Int = LocalAdbWorkingMode.BASIC,
+    savedDevicesCount: Int = 0,
+    isLogcatRunning: Boolean = false,
+    onOtgClick: () -> Unit = {},
+    onFastbootClick: () -> Unit = {},
+    onWifiAdbClick: () -> Unit = {},
+    onWifiAdbPairClick: () -> Unit = {},
+    onSettingsClick: () -> Unit = {},
+    onLocalAdbClick: () -> Unit = {},
+    onLogcatClick: () -> Unit = {},
+    onReboot: (Array<String>) -> Unit = {}
 ) {
     val context = LocalContext.current
     val res = LocalResources.current
     val settings = LocalSettings.current
-    val navController = LocalNavController.current
     val dialogManager = LocalDialogManager.current
-    val otgState by otgViewModel.state.collectAsState()
-    val fastbootState by fastbootViewModel.state.collectAsState()
-    val savedDevices by wifiAdbViewModel.savedDevices.collectAsState()
-    val localAdbWorkingMode = settings[SettingsKeys.LocalAdbWorkingMode]
-    val isLogcatRunning by logcatViewModel.isRunning.collectAsState()
 
-    var showSavedDevicesBottomSheet by rememberSaveable { mutableStateOf(false) }
-
-    val onClickOtgAdbCard: () -> Unit = {
-        if (otgState is OtgState.Connected) {
-            navController.navigate(NavRoutes.OtgAdbScreen)
-        } else {
-            otgViewModel.startScan()
-            dialogManager.show(HomeDialogKey.OtgDeviceWaiting)
-        }
-    }
-
-    val onClickFastbootCard: () -> Unit = {
-        if (fastbootState is FastbootState.Connected) {
-            navController.navigate(NavRoutes.FastbootScreen)
-        } else {
-            fastbootViewModel.startScan()
-            dialogManager.show(HomeDialogKey.FastbootDeviceWaiting)
-        }
-    }
+    val onClickOtgAdbCard: () -> Unit = onOtgClick
+    val onClickFastbootCard: () -> Unit = onFastbootClick
 
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
@@ -177,7 +152,7 @@ fun HomeScreen(
                     IconButton(
                         modifier = Modifier.padding(end = 10.dp),
                         onClick = withHaptic {
-                            navController.navigate(NavRoutes.SettingsScreen())
+                            onSettingsClick()
                         }) {
                         Icon(
                             painter = painterResource(R.drawable.ic_settings),
@@ -224,27 +199,27 @@ fun HomeScreen(
                         modifier = Modifier.flex { grow(1f) },
                         enabledLocalAdbMode = localAdbWorkingMode,
                         onClick = withHaptic {
-                            navController.navigate(NavRoutes.LocalAdbScreen)
+                            onLocalAdbClick()
                         }
                     )
 
                     OtgAdbCard(
                         modifier = Modifier.flex { grow(1f) },
-                        onClick = withHaptic { onClickOtgAdbCard() },
-                        otgState = otgState
+                        onClick = withHaptic { onClickOtgAdbCard() }
                     )
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                         WirelessDebuggingCard(
                             modifier = Modifier.fillMaxWidth(),
                             onStartClick = withHaptic {
-                                if (savedDevices.count() == 0) {
+                                if (savedDevicesCount == 0) {
                                     showToast(context, res.getString(R.string.pair_a_device_first))
                                     return@withHaptic
                                 }
 
-                                showSavedDevicesBottomSheet = true
-                            }
+                                onWifiAdbClick()
+                            },
+                            onPairClick = onWifiAdbPairClick
                         )
                     }
                 }
@@ -276,10 +251,8 @@ fun HomeScreen(
                 ) {
                     FastbootCard(
                         modifier = Modifier.flex { grow(1f) },
-                        onClick = onClickFastbootCard,
-                        fastbootState = fastbootState
+                        onClick = onClickFastbootCard
                     )
-
                     AdbSideloadCard(
                         modifier = Modifier.flex { grow(1f) },
                     )
@@ -305,7 +278,7 @@ fun HomeScreen(
                     modifier = Modifier.fillMaxWidth(),
                     isRunning = isLogcatRunning,
                     onClick = withHaptic {
-                        navController.navigate(NavRoutes.LogcatScreen)
+                        onLogcatClick()
                     })
             }
 
@@ -316,57 +289,9 @@ fun HomeScreen(
     }
 
     when (dialogManager.activeDialog) {
-        HomeDialogKey.RebootOptions -> RebootOptionsDialog(onDismiss = { dialogManager.dismiss() })
-
-        HomeDialogKey.ChooseWifiAdbPairMode -> PairModeChooseDialog(
-            onDismiss = { dialogManager.dismiss() },
-            onClickPairSelf = {
-                dialogManager.dismiss()
-                navController.navigate(NavRoutes.PairingOwnDeviceScreen)
-            },
-            onClickPairAnother = {
-                dialogManager.dismiss()
-                navController.navigate(NavRoutes.PairingOtherDeviceScreen)
-            })
-
-        HomeDialogKey.OtgDeviceWaiting -> OtgDeviceWaitingDialog(
-            onDismiss = { dialogManager.dismiss() },
-            onConfirm = {
-                dialogManager.dismiss()
-                navController.navigate(NavRoutes.OtgAdbScreen)
-                otgViewModel.startScan()
-            }
-        )
-
-        HomeDialogKey.FastbootDeviceWaiting -> FastbootDeviceWaitingDialog(
-            onDismiss = { dialogManager.dismiss() },
-            onConfirm = {
-                dialogManager.dismiss()
-                navController.navigate(NavRoutes.FastbootScreen)
-                fastbootViewModel.startScan()
-            },
-            isAdbDeviceConnected = otgState is OtgState.Connected,
-            adbDeviceName = (otgState as? OtgState.Connected)?.deviceName,
-            onBootIntoFastboot = {
-                otgViewModel.rebootToBootloader()
-                dialogManager.dismiss()
-                // Re-open the dialog so it scans for the device after reboot
-                fastbootViewModel.startScan()
-                dialogManager.show(HomeDialogKey.FastbootDeviceWaiting)
-            }
-        )
+        HomeDialogKey.RebootOptions -> RebootOptionsDialog(onDismiss = { dialogManager.dismiss() }, onReboot = onReboot)
 
         else -> dialogManager.dismiss()
-    }
-
-    if (showSavedDevicesBottomSheet) {
-        SavedDevicesBottomSheet(
-            onDismiss = { showSavedDevicesBottomSheet = false },
-            onGoToTerminal = {
-                showSavedDevicesBottomSheet = false
-                navController.navigate(NavRoutes.WifiAdbScreen())
-            }
-        )
     }
 }
 
@@ -398,7 +323,6 @@ private fun LocalAdbCard(
 @Composable
 private fun OtgAdbCard(
     modifier: Modifier = Modifier,
-    otgState: OtgState,
     onClick: () -> Unit = {}
 ) {
     NavItemCompactCard(
@@ -416,7 +340,8 @@ private fun OtgAdbCard(
 @Composable
 private fun WirelessDebuggingCard(
     modifier: Modifier = Modifier,
-    onStartClick: () -> Unit
+    onStartClick: () -> Unit,
+    onPairClick: () -> Unit
 ) {
     val dialogManager = LocalDialogManager.current
 
@@ -457,7 +382,7 @@ private fun WirelessDebuggingCard(
                     ),
                     contentDescription = null,
                     onClick = withHaptic {
-                        dialogManager.show(HomeDialogKey.ChooseWifiAdbPairMode)
+                        onPairClick()
                     })
 
                 IconWithTextButton(
@@ -485,7 +410,6 @@ private fun WirelessDebuggingCard(
 @Composable
 private fun FastbootCard(
     modifier: Modifier = Modifier,
-    fastbootState: FastbootState,
     onClick: () -> Unit = {}
 ) {
     NavItemCompactCard(

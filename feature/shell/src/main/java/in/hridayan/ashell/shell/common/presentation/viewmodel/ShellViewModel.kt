@@ -70,6 +70,12 @@ class ShellViewModel @Inject constructor(
     private val _states = MutableStateFlow(ShellScreenState())
     val states: StateFlow<ShellScreenState> = _states
 
+    fun setLastSavedFileUri(uri: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            settingsRepository.setString(SettingsKeys.LastSavedFileUri, uri)
+        }
+    }
+
     val localAdbWorkingMode = settingsRepository.getInt(SettingsKeys.LocalAdbWorkingMode).stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),
@@ -473,3 +479,4 @@ class ShellViewModel @Inject constructor(
         }
     }
 }
+

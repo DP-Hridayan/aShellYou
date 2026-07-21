@@ -30,8 +30,8 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:navigation"))
     implementation(project(":settings-dsl"))
-    implementation(project(":feature:ai"))
-    implementation(project(":feature:settings"))
+
+
     implementation(project(":adblib"))
     implementation(project(":fastbootlib"))
     implementation(project(":libadb"))

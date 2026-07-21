@@ -43,6 +43,7 @@ dependencies {
     implementation(libs.material.icons.extended)
     implementation(libs.datastore.preferences)
     implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
     implementation(libs.androidx.documentfile)
     implementation(libs.serialization.json)
     implementation(libs.gson)

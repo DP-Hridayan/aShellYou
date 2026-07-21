@@ -7,6 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.ai.domain.model.AiModel
 import `in`.hridayan.ashell.ai.domain.repository.AiAnalysisRepository
 import `in`.hridayan.ashell.ai.domain.repository.AiModelRepository
+import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.ai.presentation.model.DownloadProgress
 import `in`.hridayan.ashell.ai.presentation.model.ModelCardState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,8 +30,23 @@ import javax.inject.Inject
 @HiltViewModel
 class AiModelManagerViewModel @Inject constructor(
     private val modelRepository: AiModelRepository,
-    private val analysisRepository: AiAnalysisRepository
+    private val analysisRepository: AiAnalysisRepository,
+    private val settingsRepository: SettingsRepository
 ) : ViewModel() {
+
+    val preferences = settingsRepository.preferences
+
+    fun setInt(key: `in`.hridayan.ashell.core.common.SettingsKeys<Int>, value: Int) {
+        viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
+            settingsRepository.setInt(key, value)
+        }
+    }
+
+    fun toggleSetting(key: `in`.hridayan.ashell.core.common.SettingsKeys<Boolean>) {
+        viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
+            settingsRepository.toggleSetting(key)
+        }
+    }
 
     /** Data class representing a model's full UI state */
     data class ModelUiState(
@@ -154,3 +170,5 @@ class AiModelManagerViewModel @Inject constructor(
         }
     }
 }
+
+

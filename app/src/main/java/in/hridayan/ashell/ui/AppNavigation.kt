@@ -35,8 +35,8 @@ import `in`.hridayan.ashell.onboarding.presentation.screens.OnboardingScreen
 import `in`.hridayan.ashell.qstiles.presentation.screen.CreateTileScreen
 import `in`.hridayan.ashell.qstiles.presentation.screen.TileDashBoardScreen
 import `in`.hridayan.ashell.settings.presentation.page.about.screens.AboutScreen
-import `in`.hridayan.ashell.settings.presentation.page.aimodels.screens.AiModelsScreen
-import `in`.hridayan.ashell.settings.presentation.page.aimodels.screens.ModelsScreen
+import `in`.hridayan.ashell.ai.presentation.screens.screens.AiModelsScreen
+import `in`.hridayan.ashell.ai.presentation.screens.screens.ModelsScreen
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.screens.AutoUpdateScreen
 import `in`.hridayan.ashell.settings.presentation.page.backup.screens.BackupAndRestoreScreen
 import `in`.hridayan.ashell.settings.presentation.page.backup.screens.BackupSchedulerScreen
@@ -44,8 +44,8 @@ import `in`.hridayan.ashell.settings.presentation.page.behavior.screens.Behavior
 import `in`.hridayan.ashell.settings.presentation.page.changelog.screens.ChangelogScreen
 import `in`.hridayan.ashell.settings.presentation.page.contributors.screens.ContributorsScreen
 import `in`.hridayan.ashell.settings.presentation.page.contributors.screens.TranslatorsScreen
-import `in`.hridayan.ashell.settings.presentation.page.crashhistory.screens.CrashDetailsScreen
-import `in`.hridayan.ashell.settings.presentation.page.crashhistory.screens.CrashHistoryScreen
+import `in`.hridayan.ashell.crashreporter.presentation.screens.CrashDetailsScreen
+import `in`.hridayan.ashell.crashreporter.presentation.screens.CrashHistoryScreen
 import `in`.hridayan.ashell.settings.presentation.page.languages.screens.LanguagesScreen
 import `in`.hridayan.ashell.settings.presentation.page.licenses.screens.LicensesScreen
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.DarkThemeScreen

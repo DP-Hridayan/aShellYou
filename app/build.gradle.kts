@@ -302,6 +302,7 @@ dependencies {
     )
 
     testImplementation(libs.junit)
+    testImplementation(libs.konsist)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.compose.ui.test.junit4)

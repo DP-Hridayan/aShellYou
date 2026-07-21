@@ -119,9 +119,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.ai.presentation.components.bottomsheet.AiAnalysisBottomSheet
-import `in`.hridayan.ashell.ai.presentation.components.button.AnalyzeButton
-import `in`.hridayan.ashell.ai.presentation.viewmodel.AiAnalysisViewModel
+
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSettings
@@ -146,7 +144,7 @@ import `in`.hridayan.ashell.core.utils.findActivity
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
-import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
+
 import `in`.hridayan.ashell.core.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.common.presentation.components.bottomsheet.BookmarksBottomSheet
 import `in`.hridayan.ashell.shell.common.presentation.components.button.UtilityButtonGroup
@@ -181,6 +179,8 @@ fun BaseShellScreen(
     modeButtonText: String = stringResource(R.string.mode),
     shellViewModel: ShellViewModel = hiltViewModel(),
     bookmarkViewModel: BookmarkViewModel = hiltViewModel(),
+    aiAnalyzeButton: @Composable () -> Unit = {},
+    aiAnalysisBottomSheet: @Composable () -> Unit = {},
     extraButtonContent: @Composable (() -> Unit)? = null,
     extraContent: @Composable () -> Unit = {}
 ) {
@@ -220,18 +220,7 @@ fun BaseShellScreen(
     var restoredScrollIndex by rememberSaveable { mutableIntStateOf(-1) }
 
 
-    val aiViewModel: AiAnalysisViewModel = hiltViewModel()
-    val aiUiState by aiViewModel.uiState.collectAsState()
-    val showAiSheet by aiViewModel.showBottomSheet.collectAsState()
     var showBookmarksBottomSheet by rememberSaveable { mutableStateOf(false) }
-
-    // Connect correction-apply callback to shell text field
-    LaunchedEffect(Unit) {
-        aiViewModel.onApplyCorrection = { correctedCommand ->
-            shellViewModel.onCommandTextFieldChange(TextFieldValue(correctedCommand))
-            shellViewModel.updateTextFieldSelection()
-        }
-    }
 
     LaunchedEffect(disableSoftKeyboard) {
         disableKeyboard(context, disableSoftKeyboard)
@@ -538,14 +527,7 @@ fun BaseShellScreen(
                                             )
                                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                                     // AI Analyze button
-                                                    AnalyzeButton(
-                                                        onClick = {
-                                                            aiViewModel.analyzeCommand(
-                                                                states.commandField.fieldValue.text
-                                                            )
-                                                        },
-                                                        enabled = states.shellState !is ShellState.Busy
-                                                    )
+                                                    aiAnalyzeButton()
                                                     // Bookmark button
                                                     IconButton(
                                                         colors = IconButtonDefaults.iconButtonColors(
@@ -690,24 +672,7 @@ fun BaseShellScreen(
         else -> dialogManager.dismiss()
     }
 
-    if (showAiSheet) {
-        AiAnalysisBottomSheet(
-            uiState = aiUiState,
-            onDismiss = { aiViewModel.dismiss() },
-            onApplyCorrection = { aiViewModel.applyCorrection(it) },
-            onTryExample = {
-                aiViewModel.dismiss()
-                navController.navigate(NavRoutes.CommandExamplesScreen)
-            },
-            onRetry = {
-                aiViewModel.retry(states.commandField.fieldValue.text)
-            },
-            onDownloadModel = {
-                aiViewModel.dismiss()
-                navController.navigate(NavRoutes.AiModelManagerScreen())
-            }
-        )
-    }
+    aiAnalysisBottomSheet()
 
     if (showBookmarksBottomSheet) {
         BookmarksBottomSheet(
@@ -1538,8 +1503,7 @@ private fun BottomExtendedFAB(
     modifier: Modifier = Modifier,
     listState: LazyListState,
     dialogManager: DialogViewModel,
-    shellViewModel: ShellViewModel = hiltViewModel(),
-    settingsViewModel: SettingsViewModel = hiltViewModel()
+    shellViewModel: ShellViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val res = LocalResources.current
@@ -1575,10 +1539,7 @@ private fun BottomExtendedFAB(
                 savePathUri = savePath,
                 onComplete = { success, uri ->
                     if (success && uri != null) {
-                        settingsViewModel.setString(
-                            key = SettingsKeys.LastSavedFileUri,
-                            value = uri.toString()
-                        )
+                        shellViewModel.setLastSavedFileUri(uri.toString())
                     }
                 }
             )

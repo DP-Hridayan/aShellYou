@@ -30,8 +30,8 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":settings-dsl"))
     implementation(project(":core:navigation"))
-    implementation(project(":feature:crashreporter"))
-    implementation(project(":feature:ai"))
+
+
     implementation(libs.aboutlibraries.core)
 
     implementation(platform(libs.compose.bom))
