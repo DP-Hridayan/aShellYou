@@ -1,3 +1,0 @@
-- [x] Add Compose BOM to `androidTestImplementation` in `app/build.gradle.kts`
-- [x] Sync Gradle to verify resolution
-- [ ] Final verification of the project state

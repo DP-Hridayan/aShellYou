@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.core.presentation.viewmodel
+package `in`.hridayan.ashell.settings.presentation.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.ViewModel

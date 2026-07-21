@@ -211,4 +211,30 @@ class VersionComparisonTest {
     fun `version without patch segment is handled`() {
         assertTrue(isNewer("1.1", "1.0"))
     }
+
+    @Test
+    fun `uppercase V prefix is handled`() {
+        assertTrue(isNewer("V2.0.0", "V1.9.0"))
+    }
+
+    @Test
+    fun `capitalized stage name is handled`() {
+        assertTrue(isNewer("1.0.0-Alpha02", "1.0.0-Alpha01"))
+    }
+
+    @Test
+    fun `rc stage ordering is handled`() {
+        assertTrue(isNewer("1.0.0-rc01", "1.0.0-beta02"))
+        assertTrue(isNewer("1.0.0", "1.0.0-rc01"))
+    }
+
+    @Test
+    fun `dot separated stage number is handled`() {
+        assertTrue(isNewer("1.0.0-alpha.2", "1.0.0-alpha.1"))
+    }
+
+    @Test
+    fun `large version numbers do not crash`() {
+        assertTrue(isNewer("1.0.999999999999", "1.0.1"))
+    }
 }

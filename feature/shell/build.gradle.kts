@@ -1,4 +1,5 @@
 plugins {
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.android.library)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
@@ -49,6 +50,7 @@ dependencies {
     implementation(libs.material.icons.extended)
     implementation(libs.datastore.preferences)
     implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
     implementation(libs.androidx.documentfile)
     implementation(libs.serialization.json)
     implementation(libs.gson)
@@ -82,5 +84,4 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)
-} 
- dependencies { ksp(libs.room.compiler) }
+}

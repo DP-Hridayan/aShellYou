@@ -50,8 +50,7 @@ dependencies {
     implementation(libs.shizuku.provider)
     implementation(libs.libsu.core)
     implementation(libs.jmdns)
-    
-    // Missing dependencies for Font, DocumentFile, and coroutines
+
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)
     implementation(libs.androidx.documentfile)

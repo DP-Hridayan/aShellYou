@@ -25,7 +25,7 @@ class CheckUpdateUseCase @Inject constructor(
     }
 
     private data class ParsedVersion(
-        val numbers: List<Int>,
+        val numbers: List<Long>,
         val stage: Int,
         val stageNumber: Int
     )
@@ -35,8 +35,8 @@ class CheckUpdateUseCase @Inject constructor(
         val c = parseVersion(current)
 
         for (i in 0 until maxOf(l.numbers.size, c.numbers.size)) {
-            val lv = l.numbers.getOrElse(i) { 0 }
-            val cv = c.numbers.getOrElse(i) { 0 }
+            val lv = l.numbers.getOrElse(i) { 0L }
+            val cv = c.numbers.getOrElse(i) { 0L }
 
             if (lv > cv) return true
             if (lv < cv) return false
@@ -49,21 +49,22 @@ class CheckUpdateUseCase @Inject constructor(
     }
 
     private fun parseVersion(version: String): ParsedVersion {
-        val cleaned = version.trim().trimStart('v')
+        val cleaned = version.trim().trimStart('v', 'V')
 
-        val regex = Regex("""^(\d+(?:\.\d+)*)(?:-(alpha|beta|debug)(\d+)?)?$""")
+        val regex = Regex("""^(\d+(?:\.\d+)*)(?:-[.\-]?+(debug|alpha|beta|rc)[.\-]?+(\d+)?)?$""", RegexOption.IGNORE_CASE)
         val match = regex.matchEntire(cleaned)
             ?: return ParsedVersion(emptyList(), 0, 0)
 
         val numbers = match.groupValues[1]
             .split(".")
-            .map { it.toInt() }
+            .map { it.toLongOrNull() ?: 0L }
 
-        val stage = when (match.groupValues[2]) {
+        val stage = when (match.groupValues[2].lowercase()) {
             "debug" -> 0
             "alpha" -> 1
             "beta" -> 2
-            else -> 3 // stable
+            "rc" -> 3
+            else -> 4 // stable
         }
 
         val stageNumber = match.groupValues[3].toIntOrNull() ?: 0
