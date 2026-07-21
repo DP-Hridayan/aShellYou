@@ -163,12 +163,12 @@ fun AiModelsScreen(
                     isChecked = { key ->
                         val sk = key as? SettingsKeys<*> ?: return@settingsContent false
                         if (sk.default !is Boolean) return@settingsContent false
-                        prefs[androidx.datastore.preferences.core.booleanPreferencesKey(sk.name)] ?: (sk.default as Boolean)
+                        prefs[booleanPreferencesKey(sk.name)] ?: (sk.default as Boolean)
                     },
                     selectedValue = { key ->
                         val sk = key as? SettingsKeys<*> ?: return@settingsContent -1
                         if (sk.default !is Int) return@settingsContent -1
-                        prefs[androidx.datastore.preferences.core.intPreferencesKey(sk.name)] ?: (sk.default as Int)
+                        prefs[intPreferencesKey(sk.name)] ?: (sk.default as Int)
                     },
                     onItemClick = { key ->
                         when (key) {

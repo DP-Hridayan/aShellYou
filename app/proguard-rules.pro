@@ -38,11 +38,7 @@
     kotlinx.serialization.KSerializer serializer(...);
 }
 
-# Keep all enums used in serializable navigation routes
--keep enum in.hridayan.ashell.shell.file_browser.domain.model.ConnectionMode { *; }
--keep enum in.hridayan.ashell.shell.file_browser.domain.model.OperationType { *; }
--keep enum in.hridayan.ashell.shell.file_browser.domain.model.OperationStatus { *; }
--keep enum in.hridayan.ashell.shell.file_browser.domain.model.ConflictResolution { *; }
+
 
 # Keep all @Keep annotated classes (redundant but explicit)
 -keep @androidx.annotation.Keep class * { *; }
@@ -69,17 +65,4 @@
 -keep class com.mikepenz.aboutlibraries.LibsBuilder { *; }
 -dontwarn com.mikepenz.aboutlibraries.**
 
-# ─────────────────────────────────────────────────────────────────────────────
-# SettingsKeys – keep sealed subclasses for kotlin-reflect auto-discovery
-# ─────────────────────────────────────────────────────────────────────────────
--keep class in.hridayan.ashell.settings.data.SettingsKeys { *; }
--keep class in.hridayan.ashell.settings.data.SettingsKeys$* { *; }
 
-# ─────────────────────────────────────────────────────────────────────────────
-# AI Command Analysis – JNI bridge and serializable models
-# ─────────────────────────────────────────────────────────────────────────────
--keep class in.hridayan.ashell.ai.native.LlamaCppBridge { *; }
--keep enum in.hridayan.ashell.ai.domain.model.** { *; }
--keep class in.hridayan.ashell.ai.data.local.database.AiCacheEntity { *; }
--keep class in.hridayan.ashell.ai.domain.model.AnalysisResult { *; }
--keep class in.hridayan.ashell.ai.domain.model.CorrectionSuggestion { *; }
