@@ -2,28 +2,6 @@
 <issues format="6" by="lint 9.2.1" type="baseline" client="gradle" dependencies="false" name="AGP (9.2.1)" variant="all" version="9.2.1">
 
     <issue
-        id="MissingClass"
-        message="Class referenced in the manifest, `rikka.shizuku.ShizukuProvider`, was not found in the project or the libraries"
-        errorLine1="            android:name=&quot;rikka.shizuku.ShizukuProvider&quot;"
-        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/AndroidManifest.xml"
-            line="85"
-            column="27"/>
-    </issue>
-
-    <issue
-        id="DefaultUncaughtExceptionDelegation"
-        message="Must call `getDefaultUncaughtExceptionHandler()` to get the existing handler, and call `existingHandler.uncaughtException(thread, throwable)` from your new handler"
-        errorLine1="        Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->"
-        errorLine2="        ^">
-        <location
-            file="src/main/java/in/hridayan/ashell/App.kt"
-            line="52"
-            column="9"/>
-    </issue>
-
-    <issue
         id="AndroidGradlePluginVersion"
         message="A newer version of com.android.application than 9.2.1 is available: 9.3.0"
         errorLine1="agp = &quot;9.2.1&quot;"
