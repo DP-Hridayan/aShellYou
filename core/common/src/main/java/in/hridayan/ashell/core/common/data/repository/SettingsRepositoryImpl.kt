@@ -22,7 +22,8 @@ class SettingsRepositoryImpl(
     override suspend fun setInt(key: SettingsKeys<Int>, value: Int) = dataStore.setInt(key, value)
 
     override fun getFloat(key: SettingsKeys<Float>): Flow<Float> = dataStore.floatFlow(key)
-    override suspend fun setFloat(key: SettingsKeys<Float>, value: Float) = dataStore.setFloat(key, value)
+    override suspend fun setFloat(key: SettingsKeys<Float>, value: Float) =
+        dataStore.setFloat(key, value)
 
     override fun getString(key: SettingsKeys<String>): Flow<String> = dataStore.stringFlow(key)
     override suspend fun setString(key: SettingsKeys<String>, value: String) =

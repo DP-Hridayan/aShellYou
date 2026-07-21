@@ -19,6 +19,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
+import `in`.hridayan.ashell.ai.presentation.screens.screens.AiModelsScreen
+import `in`.hridayan.ashell.ai.presentation.screens.screens.ModelsScreen
 import `in`.hridayan.ashell.commandexamples.presentation.screens.CommandExamplesScreen
 import `in`.hridayan.ashell.core.common.LocalAnimatedContentScope
 import `in`.hridayan.ashell.core.domain.model.SharedTextHolder
@@ -28,16 +30,14 @@ import `in`.hridayan.ashell.core.navigation.slideFadeInFromLeft
 import `in`.hridayan.ashell.core.navigation.slideFadeInFromRight
 import `in`.hridayan.ashell.core.navigation.slideFadeOutToLeft
 import `in`.hridayan.ashell.core.navigation.slideFadeOutToRight
-import `in`.hridayan.ashell.home.presentation.screens.HomeScreen
-import `in`.hridayan.ashell.ui.home.HomeRoute
+import `in`.hridayan.ashell.crashreporter.presentation.screens.CrashDetailsScreen
+import `in`.hridayan.ashell.crashreporter.presentation.screens.CrashHistoryScreen
 import `in`.hridayan.ashell.logcat.data.session.LogcatSessionHolder
 import `in`.hridayan.ashell.logcat.presentation.screens.LogcatScreen
 import `in`.hridayan.ashell.onboarding.presentation.screens.OnboardingScreen
 import `in`.hridayan.ashell.qstiles.presentation.screen.CreateTileScreen
 import `in`.hridayan.ashell.qstiles.presentation.screen.TileDashBoardScreen
 import `in`.hridayan.ashell.settings.presentation.page.about.screens.AboutScreen
-import `in`.hridayan.ashell.ai.presentation.screens.screens.AiModelsScreen
-import `in`.hridayan.ashell.ai.presentation.screens.screens.ModelsScreen
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.screens.AutoUpdateScreen
 import `in`.hridayan.ashell.settings.presentation.page.backup.screens.BackupAndRestoreScreen
 import `in`.hridayan.ashell.settings.presentation.page.backup.screens.BackupSchedulerScreen
@@ -45,8 +45,6 @@ import `in`.hridayan.ashell.settings.presentation.page.behavior.screens.Behavior
 import `in`.hridayan.ashell.settings.presentation.page.changelog.screens.ChangelogScreen
 import `in`.hridayan.ashell.settings.presentation.page.contributors.screens.ContributorsScreen
 import `in`.hridayan.ashell.settings.presentation.page.contributors.screens.TranslatorsScreen
-import `in`.hridayan.ashell.crashreporter.presentation.screens.CrashDetailsScreen
-import `in`.hridayan.ashell.crashreporter.presentation.screens.CrashHistoryScreen
 import `in`.hridayan.ashell.settings.presentation.page.languages.screens.LanguagesScreen
 import `in`.hridayan.ashell.settings.presentation.page.licenses.screens.LicensesScreen
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.DarkThemeScreen
@@ -61,6 +59,7 @@ import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.screens.OtgAdbScree
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.PairingOtherDeviceScreen
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.PairingOwnDeviceScreen
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.WifiAdbScreen
+import `in`.hridayan.ashell.ui.home.HomeRoute
 import javax.inject.Inject
 import kotlin.reflect.KType
 
@@ -77,13 +76,12 @@ fun AppNavigation(isFirstLaunch: Boolean = false) {
     CompositionLocalProvider(
         LocalNavController provides navController,
     ) {
-        // One-shot shared text deeplink
         LaunchedEffect(Unit) {
             SharedTextHolder.text?.let {
                 navController.navigate(NavRoutes.LocalAdbScreen)
             }
         }
-        // Reactive logcat deeplink — works for cold start AND when app is already running
+
         val navVM: NavDeeplinkViewModel = hiltViewModel()
         LaunchedEffect(navController) {
             navVM.sessionHolder.navigationEvents.collect {
@@ -106,7 +104,7 @@ fun AppNavigation(isFirstLaunch: Boolean = false) {
             }
 
             composable<NavRoutes.HomeScreen> {
-                HomeRoute(navController = navController)
+                HomeRoute()
             }
 
             composable<NavRoutes.SettingsScreen> { backStackEntry ->
@@ -139,14 +137,7 @@ fun AppNavigation(isFirstLaunch: Boolean = false) {
             }
 
             composable<NavRoutes.CommandExamplesScreen> {
-                CommandExamplesScreen(
-                    onUseCommand = { command ->
-                        navController.previousBackStackEntry
-                            ?.savedStateHandle
-                            ?.set("suggestedCommand", command)
-                        navController.popBackStack()
-                    }
-                )
+                CommandExamplesScreen()
             }
 
             composable<NavRoutes.TranslatorsScreen> {

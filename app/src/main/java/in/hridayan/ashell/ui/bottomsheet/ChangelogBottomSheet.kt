@@ -1,8 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package `in`.hridayan.ashell.ui.bottomsheet
-
-import `in`.hridayan.ashell.core.resources.R
+package `in`.hridayan.ashell.ui.bottomsheet
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
@@ -37,6 +35,7 @@ import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.components.text.BulletPointsTextLayout
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.splitStringToLines
 import `in`.hridayan.ashell.settings.presentation.page.changelog.viewmodel.ChangelogViewModel
 
@@ -82,7 +81,7 @@ fun ChangelogBottomSheet(
                     )
                 }
 
-                itemsIndexed(items = recentChangelog) { index, item ->
+                itemsIndexed(items = recentChangelog) { _, item ->
                     val isLatestVersion =
                         item.versionName == BuildConfig.VERSION_NAME.removeSuffix("-debug")
 

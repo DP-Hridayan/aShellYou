@@ -2,16 +2,8 @@
 
 package `in`.hridayan.ashell.commandexamples.presentation.screens
 
-import `in`.hridayan.ashell.core.resources.R
-
-
-import androidx.compose.ui.focus.focusRequester
-
-import `in`.hridayan.ashell.core.common.LocalSettings
-
 import android.annotation.SuppressLint
 import android.util.Log
-import `in`.hridayan.ashell.core.navigation.navigateBack
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.LinearOutSlowInEasing
@@ -65,6 +57,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -84,12 +77,17 @@ import `in`.hridayan.ashell.commandexamples.data.local.source.preloadedCommands
 import `in`.hridayan.ashell.commandexamples.presentation.component.bottomsheet.CommandsFilterBottomSheet
 import `in`.hridayan.ashell.commandexamples.presentation.component.card.CommandExampleCard
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.AddCommandDialog
+import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.CommandExamplesDialogKey
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.CommandsSortDialog
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.EditCommandDialog
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.LoadDefaultCommandsDialog
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
 import `in`.hridayan.ashell.core.common.LocalDialogManager
+import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.common.SettingsKeys
+import `in`.hridayan.ashell.core.navigation.LocalNavController
+import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.core.presentation.components.appbar.TopAppBarLarge
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -99,16 +97,13 @@ import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchRes
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
-import `in`.hridayan.ashell.core.common.SettingsKeys
-import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.CommandExamplesDialogKey
-import `in`.hridayan.ashell.core.navigation.LocalNavController
+import `in`.hridayan.ashell.core.resources.R
 
 @SuppressLint("RememberInComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CommandExamplesScreen(
-    viewModel: CommandExamplesViewModel = hiltViewModel(),
-    onUseCommand: (String) -> Unit = {}
+    viewModel: CommandExamplesViewModel = hiltViewModel()
 ) {
     val weakHaptic = LocalWeakHaptic.current
     val focusManager = LocalFocusManager.current
@@ -263,7 +258,12 @@ fun CommandExamplesScreen(
                             description = commands[index].description,
                             isFavourite = commands[index].isFavourite,
                             labels = commands[index].labels,
-                            onUseCommand = onUseCommand
+                            onUseCommand = { command ->
+                                navController.previousBackStackEntry
+                                    ?.savedStateHandle
+                                    ?.set("suggestedCommand", command)
+                                navController.popBackStack()
+                            }
                         )
                     }
 

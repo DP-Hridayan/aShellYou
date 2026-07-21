@@ -8,10 +8,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import androidx.navigation.NavController
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.domain.model.FastbootState
+import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.home.presentation.screens.HomeScreen
 import `in`.hridayan.ashell.home.presentation.viewmodel.HomeViewModel
@@ -28,13 +28,13 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbV
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeRoute(
-    navController: NavController,
     homeViewModel: HomeViewModel = hiltViewModel(),
     otgViewModel: OtgViewModel = hiltViewModel(),
     wifiAdbViewModel: WifiAdbViewModel = hiltViewModel(),
     fastbootViewModel: FastbootViewModel = hiltViewModel(),
     logcatViewModel: LogcatViewModel = hiltViewModel(),
 ) {
+    val navController = LocalNavController.current
     val otgState by otgViewModel.state.collectAsState()
     val fastbootState by fastbootViewModel.state.collectAsState()
     val savedDevices by wifiAdbViewModel.savedDevices.collectAsState()

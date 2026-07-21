@@ -2,7 +2,6 @@ package `in`.hridayan.ashell.core.common.data
 
 import android.content.Context
 import android.util.Log
-
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
@@ -11,10 +10,8 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.core.common.SettingsKeys
-import `in`.hridayan.ashell.core.common.data.settingsDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -36,9 +33,10 @@ class SettingsDataStore @Inject constructor(
             SettingsKeys.NewCommandsAvailable.name,
         )
     }
+
     private val ds = context.settingsDataStore
 
-    /** Raw preferences snapshot — collect once for all key lookups. */
+    /** Raw preferences snapshot ï¿½ collect once for all key lookups. */
     val preferences: Flow<Preferences> = ds.data
 
     private fun SettingsKeys<*>.toBooleanKey(): Preferences.Key<Boolean> =
@@ -70,7 +68,7 @@ class SettingsDataStore @Inject constructor(
 
     fun intFlow(key: SettingsKeys<Int>): Flow<Int> {
         val preferencesKey = key.toIntKey()
-        val default = key.default // Already Int — no cast needed!
+        val default = key.default // Already Int ï¿½ no cast needed!
         return ds.data
             .map { prefs -> prefs[preferencesKey] ?: default }
     }
@@ -87,7 +85,7 @@ class SettingsDataStore @Inject constructor(
 
     fun floatFlow(key: SettingsKeys<Float>): Flow<Float> {
         val preferencesKey = key.toFloatKey()
-        val default = key.default // Already Float — no cast needed!
+        val default = key.default // Already Float ï¿½ no cast needed!
         return ds.data
             .map { prefs -> prefs[preferencesKey] ?: default }
     }
@@ -104,7 +102,7 @@ class SettingsDataStore @Inject constructor(
 
     fun stringFlow(key: SettingsKeys<String>): Flow<String> {
         val preferencesKey = key.toStringKey()
-        val default = key.default // Already String — no cast needed!
+        val default = key.default // Already String ï¿½ no cast needed!
         return ds.data
             .map { prefs -> prefs[preferencesKey] ?: default }
     }
