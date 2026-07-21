@@ -207,8 +207,8 @@ tasks.withType<Zip>().configureEach {
 
 configurations.all {
     resolutionStrategy {
-        force("org.jetbrains.kotlin:kotlin-metadata-jvm:${libs.versions.kotlin.get()}")
-        force("androidx.concurrent:concurrent-futures-ktx:${libs.versions.concurrentFutures.get()}")
+        force(libs.kotlin.metadata.jvm.get())
+        force(libs.concurrent.futures.ktx.get())
     }
 }
 
@@ -250,11 +250,6 @@ dependencies {
     implementation(libs.datastore.preferences)
     implementation(libs.navigation.compose)
 
-    implementation(libs.room.ktx)
-    implementation(libs.androidx.documentfile)
-    ksp(libs.room.compiler)
-
-    implementation(libs.serialization.json)
     implementation(libs.gson)
 
     implementation(libs.androidx.work.runtime.ktx)
@@ -266,30 +261,8 @@ dependencies {
     ksp(libs.hilt.android.compiler)
     implementation(libs.hilt.work)
     ksp(libs.hilt.compiler)
-    implementation(libs.jmdns)
 
-    implementation(libs.ktor.client.core)
-    implementation(libs.ktor.client.cio)
-    implementation(libs.ktor.client.content.negotiation)
-    implementation(libs.ktor.serialization.kotlinx.json)
-    implementation(libs.slf4j.android)
-
-    implementation(libs.androidx.security.crypto)
-
-    implementation(libs.shizuku.api)
-    implementation(libs.shizuku.provider)
-    implementation(libs.libsu.core)
-
-    implementation(libs.lottie.compose)
-    implementation(libs.nayuki.qrcode)
-    implementation(libs.sun.security.android)
     implementation(libs.lsposed.hiddenapibypass)
-
-    implementation(libs.shapeindicators)
-    implementation(libs.coil.compose)
-    implementation(libs.coil.network.okhttp)
-
-    implementation(libs.aboutlibraries.core)
 
     githubImplementations(
         libs.play.services.auth,

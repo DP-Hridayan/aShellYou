@@ -27,13 +27,10 @@ android {
 }
 
 dependencies {
-
     implementation(project(":core:common"))
     implementation(project(":core:ui"))
     implementation(project(":core:navigation"))
     implementation(project(":settings-dsl"))
-
-
     implementation(project(":adblib"))
     implementation(project(":fastbootlib"))
     implementation(project(":libadb"))

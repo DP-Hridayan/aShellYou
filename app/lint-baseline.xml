@@ -2,6 +2,17 @@
 <issues format="6" by="lint 9.2.1" type="baseline" client="gradle" dependencies="false" name="AGP (9.2.1)" variant="all" version="9.2.1">
 
     <issue
+        id="MissingClass"
+        message="Class referenced in the manifest, `rikka.shizuku.ShizukuProvider`, was not found in the project or the libraries"
+        errorLine1="            android:name=&quot;rikka.shizuku.ShizukuProvider&quot;"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="85"
+            column="27"/>
+    </issue>
+
+    <issue
         id="DefaultUncaughtExceptionDelegation"
         message="Must call `getDefaultUncaughtExceptionHandler()` to get the existing handler, and call `existingHandler.uncaughtException(thread, throwable)` from your new handler"
         errorLine1="        Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->"
@@ -126,28 +137,14 @@
         id="TrustAllX509TrustManager"
         message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.6.1/transforms/c38c69bdf7c6a409b5f537ee45f66fac/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.6.1/transforms/3318bad3d58e7af52802421516667e76/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
         id="TrustAllX509TrustManager"
         message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.6.1/transforms/c38c69bdf7c6a409b5f537ee45f66fac/transformed/out/jars/classes.jar"/>
-    </issue>
-
-    <issue
-        id="TrustAllX509TrustManager"
-        message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
-        <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/com.google.http-client/google-http-client/2.1.1/edb33f4f362a6bd66012039363cd362d13979ab9/google-http-client-2.1.1.jar"/>
-    </issue>
-
-    <issue
-        id="TrustAllX509TrustManager"
-        message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
-        <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/com.google.http-client/google-http-client/2.1.1/edb33f4f362a6bd66012039363cd362d13979ab9/google-http-client-2.1.1.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.6.1/transforms/3318bad3d58e7af52802421516667e76/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
@@ -245,6 +242,29 @@
         <location
             file="src/main/res/mipmap-xhdpi/ic_launcher_monochrome.png"/>
         <location
+            file="src/main/res/mipmap-xhdpi/ic_launcher_foreground.png"/>
+    </issue>
+
+    <issue
+        id="IconDuplicates"
+        message="The following unrelated icon files have identical contents: ic_launcher_foreground.png, ic_launcher_monochrome.png">
+        <location
+            file="src/main/res/mipmap-xxhdpi/ic_launcher_monochrome.png"/>
+        <location
+            file="src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png"/>
+    </issue>
+
+    <issue
+        id="IconDuplicates"
+        message="The following unrelated icon files have identical contents: ic_launcher_foreground.png, ic_launcher_monochrome.png">
+        <location
+            file="src/main/res/mipmap-xxxhdpi/ic_launcher_monochrome.png"/>
+        <location
+            file="src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png"/>
+    </issue>
+
+</issues>
+n
             file="src/main/res/mipmap-xhdpi/ic_launcher_foreground.png"/>
     </issue>
 
