@@ -166,7 +166,7 @@ fun FileListItem(
                         )
 
                         DropdownMenuItem(
-                            text = { Text(stringResource(R.string.copy)) },
+                            text = { Text(stringResource(`in`.hridayan.ashell.core.common.R.string.copy)) },
                             leadingIcon = { Icon(Icons.Rounded.ContentCopy, contentDescription = null) },
                             onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                                 onCopy()

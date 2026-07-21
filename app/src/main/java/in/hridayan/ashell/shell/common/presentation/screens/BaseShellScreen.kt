@@ -127,7 +127,6 @@ import `in`.hridayan.ashell.core.common.LocalSnackBarController
 import `in`.hridayan.ashell.shell.domain.model.SaveProgress
 import `in`.hridayan.ashell.shell.domain.model.ScrollDirection
 import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
-import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scrollbar.VerticalScrollbar
 import `in`.hridayan.ashell.core.presentation.components.selectioncontainer.LazySelectionContainer

@@ -115,7 +115,7 @@ fun FontStyleBottomSheet(
     }
 
     val displayFont = AppFont.fromId(tempSelected).fontFamily
-    val previewText = stringResource(R.string.font_display_text)
+    val previewText = stringResource(`in`.hridayan.ashell.core.common.R.string.font_display_text)
     val displayText = when {
         isCheckedMatchCase -> previewText.uppercase()
         else -> previewText.lowercase()
@@ -139,7 +139,7 @@ fun FontStyleBottomSheet(
                 .padding(24.dp),
         ) {
             AutoResizeableText(
-                stringResource(R.string.font_family),
+                stringResource(`in`.hridayan.ashell.core.common.R.string.font_family),
                 style = MaterialTheme.typography.headlineSmall,
                 modifier = Modifier.padding(bottom = 24.dp)
             )

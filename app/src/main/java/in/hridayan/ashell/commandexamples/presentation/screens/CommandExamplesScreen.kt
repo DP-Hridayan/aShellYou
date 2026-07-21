@@ -88,7 +88,6 @@ import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.appbar.TopAppBarLarge
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
-import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors

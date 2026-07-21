@@ -25,7 +25,7 @@ import `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.common.constants.SHIZUKU_PACKAGE_NAME
 import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.domain.model.SharedTextHolder
-import `in`.hridayan.ashell.core.presentation.utils.ToastUtils.makeToast
+import `in`.hridayan.ashell.core.utils.ToastUtils.makeToast
 import `in`.hridayan.ashell.core.utils.DeviceUtils
 import `in`.hridayan.ashell.core.utils.UrlUtils
 import `in`.hridayan.ashell.core.utils.isAppInstalled

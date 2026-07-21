@@ -52,7 +52,6 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
-import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape
@@ -366,7 +365,7 @@ private fun LastBackupTimeCard(
                 )
                 val rotateAngle by animateFloatAsState(if (isExpanded) 180f else 0f)
                 Icon(
-                    painter = painterResource(R.drawable.ic_expand),
+                    painter = painterResource(`in`.hridayan.ashell.core.ui.R.drawable.ic_expand),
                     contentDescription = "Expand",
                     modifier = Modifier
                         .align(Alignment.CenterVertically)

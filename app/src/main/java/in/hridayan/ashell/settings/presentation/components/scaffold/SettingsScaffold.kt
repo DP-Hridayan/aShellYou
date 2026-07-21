@@ -4,7 +4,6 @@ package `in`.hridayan.ashell.settings.presentation.components.scaffold
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.basicMarquee
-import `in`.hridayan.ashell.navigation.navigateBack
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyListState
@@ -26,6 +25,7 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
+import `in`.hridayan.ashell.navigation.navigateBack
 
 /**
  * @param topAppBarState Optional external [TopAppBarState] created by the caller.
@@ -115,9 +115,9 @@ private fun SettingsScaffoldImpl(
                         letterSpacing = 0.05.em
                     )
                 },
-                navigationIcon = { 
+                navigationIcon = {
                     val navController = `in`.hridayan.ashell.navigation.LocalNavController.current
-                    BackButton(onClick = { navController.navigateBack() }) 
+                    BackButton(onClick = { navController.navigateBack() })
                 },
                 scrollBehavior = scrollBehavior,
                 colors = TopAppBarDefaults.topAppBarColors(scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh)

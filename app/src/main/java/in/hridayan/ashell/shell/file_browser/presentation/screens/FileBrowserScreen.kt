@@ -489,7 +489,7 @@ fun FileBrowserScreen(
                                                     clipboardOperation = ClipboardOperation.COPY
                                                     showToast(
                                                         context,
-                                                        res.getString(R.string.copy) + ": " + file.name
+                                                        res.getString(`in`.hridayan.ashell.core.common.R.string.copy) + ": " + file.name
                                                     )
                                                 },
                                                 onMove = {

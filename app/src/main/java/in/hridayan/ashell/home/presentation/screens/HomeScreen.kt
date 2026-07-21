@@ -75,7 +75,6 @@ import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButton
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
-import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.appBranding

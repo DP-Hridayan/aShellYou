@@ -122,7 +122,7 @@ fun UiScaleScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 15.dp),
-                        title = stringResource(R.string.font_size_multiplier),
+                        title = stringResource(`in`.hridayan.ashell.core.common.R.string.font_size_multiplier),
                         description = stringResource(R.string.des_font_size),
                         icon = painterResource(R.drawable.ic_format_size),
                         shape = CardCornerShape.LAST_CARD,

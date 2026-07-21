@@ -80,7 +80,6 @@ import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExampl
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.card.CollapsibleCard
-import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.common.LocalSnackBarController
 import `in`.hridayan.ashell.core.utils.ClipboardUtils
@@ -395,7 +394,7 @@ fun CommandExampleCard(
                                 },
                                 menuContent = {
                                     DropdownMenuItem(
-                                        text = { Text(text = stringResource(R.string.copy)) },
+                                        text = { Text(text = stringResource(`in`.hridayan.ashell.core.common.R.string.copy)) },
                                         onClick = { /* copy handled via CopyButton */ }
                                     )
                                 }

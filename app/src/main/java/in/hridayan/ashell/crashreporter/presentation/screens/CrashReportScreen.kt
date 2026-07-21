@@ -44,7 +44,7 @@ import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
-import `in`.hridayan.ashell.core.presentation.utils.ToastUtils.makeToast
+import `in`.hridayan.ashell.core.utils.ToastUtils.makeToast
 import `in`.hridayan.ashell.crashreporter.presentation.viewmodel.CrashViewModel
 
 @Composable

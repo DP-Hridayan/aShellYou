@@ -30,7 +30,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.presentation.battery.BatteryIndicator
+import `in`.hridayan.ashell.core.presentation.components.battery.BatteryIndicator
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.divider.WavyHorizontalDivider
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -119,7 +119,7 @@ fun ConnectedDeviceCard(
                     modifier = Modifier.graphicsLayer {
                         rotationZ = rotateAngle
                     },
-                    painter = painterResource(R.drawable.ic_expand),
+                    painter = painterResource(`in`.hridayan.ashell.core.ui.R.drawable.ic_expand),
                     contentDescription = null
                 )
 

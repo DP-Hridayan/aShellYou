@@ -106,7 +106,7 @@ fun LogcatTopBar(
             IconButton(onClick = onToggleSearch) {
                 Icon(
                     painter = painterResource(
-                        if (searchVisible) R.drawable.ic_cancel else R.drawable.ic_search
+                        if (searchVisible) R.drawable.ic_cancel else `in`.hridayan.ashell.core.ui.R.drawable.ic_search
                     ),
                     contentDescription = stringResource(R.string.search),
                 )

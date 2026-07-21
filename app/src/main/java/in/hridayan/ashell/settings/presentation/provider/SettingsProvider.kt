@@ -92,8 +92,8 @@ object SettingsProvider {
             ),
             clickableItem(
                 key = SettingsKeys.PaletteStyle,
-                titleResId = R.string.palette_style,
-                descriptionResId = R.string.palette_tonal_spot,
+                titleResId = `in`.hridayan.ashell.core.common.R.string.palette_style,
+                descriptionResId = `in`.hridayan.ashell.core.common.R.string.palette_tonal_spot,
                 icon = R.drawable.ic_styles
             ),
             clickableItem(
@@ -104,10 +104,10 @@ object SettingsProvider {
             ),
         ),
         category(
-            titleResId = R.string.font_family,
+            titleResId = `in`.hridayan.ashell.core.common.R.string.font_family,
             clickableItem(
                 key = SettingsKeys.FontFamily,
-                titleResId = R.string.font_family,
+                titleResId = `in`.hridayan.ashell.core.common.R.string.font_family,
                 descriptionResId = R.string.des_font_family,
                 iconVector = Icons.Rounded.TextFields
             )
@@ -245,8 +245,8 @@ object SettingsProvider {
             buttonGroupItem(
                 key = SettingsKeys.TerminalFontStyle,
                 options = listOf(
-                    ButtonGroupOption(TerminalFontStyle.MONOSPACE, R.string.monospace),
-                    ButtonGroupOption(TerminalFontStyle.SYSTEM_FONT, R.string.system_font),
+                    ButtonGroupOption(TerminalFontStyle.MONOSPACE, `in`.hridayan.ashell.core.common.R.string.monospace),
+                    ButtonGroupOption(TerminalFontStyle.SYSTEM_FONT, `in`.hridayan.ashell.core.common.R.string.system_font),
                 )
             ),
         ),

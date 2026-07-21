@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
-import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText

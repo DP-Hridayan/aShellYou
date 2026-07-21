@@ -1,5 +1,9 @@
 plugins {
     alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -11,7 +15,6 @@ android {
 
     defaultConfig {
         minSdk = 28
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -20,12 +23,38 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
+    implementation(project(":settings-dsl"))
+    implementation(libs.kotlin.reflect)
     implementation(libs.androidx.appcompat)
     implementation(libs.core.ktx)
     implementation(libs.material)
+    
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
+    
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+    
+    implementation(libs.datastore.preferences)
+    implementation(libs.serialization.json)
+    implementation(libs.androidx.security.crypto)
+    
+    implementation(libs.shizuku.api)
+    implementation(libs.shizuku.provider)
+    implementation(libs.libsu.core)
+    implementation(libs.jmdns)
+    
+    // Missing dependencies for Font, DocumentFile, and coroutines
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.ui)
+    implementation(libs.androidx.documentfile)
+    
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)

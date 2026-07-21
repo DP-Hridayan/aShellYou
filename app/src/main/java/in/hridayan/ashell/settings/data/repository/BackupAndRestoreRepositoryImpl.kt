@@ -5,7 +5,7 @@ import android.net.Uri
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
 import `in`.hridayan.ashell.core.domain.model.SortType
-import `in`.hridayan.ashell.core.utils.EncryptionHelper
+import `in`.hridayan.ashell.settings.data.utils.EncryptionHelper
 import `in`.hridayan.ashell.qstiles.data.database.TileLogDatabase
 import `in`.hridayan.ashell.qstiles.data.datastore.TileDatastore
 import `in`.hridayan.ashell.core.common.SettingsKeys

@@ -16,7 +16,7 @@ import `in`.hridayan.ashell.commandexamples.data.local.model.CommandEntity
 import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
 import `in`.hridayan.ashell.shell.domain.model.SaveProgress
 import `in`.hridayan.ashell.core.domain.model.SortType
-import `in`.hridayan.ashell.core.utils.saveToFileStreamingFlow
+import `in`.hridayan.ashell.shell.domain.utils.saveToFileStreamingFlow
 import `in`.hridayan.ashell.shell.common.data.permission.PermissionProvider
 import `in`.hridayan.ashell.shell.common.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.common.domain.model.PackageInfo

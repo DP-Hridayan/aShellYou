@@ -26,7 +26,6 @@ import `in`.hridayan.ashell.ai.domain.model.ModelRegistry
 import `in`.hridayan.ashell.ai.presentation.viewmodel.AiModelManagerViewModel
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSettings
-import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.core.common.SettingsKeys

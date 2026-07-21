@@ -107,7 +107,7 @@ fun SettingsScreen(
             actions = {
                 IconButton(onClick = withHaptic { navController.navigate(NavRoutes.SettingsSearchScreen) }) {
                     Icon(
-                        painter = painterResource(R.drawable.ic_search),
+                        painter = painterResource(`in`.hridayan.ashell.core.ui.R.drawable.ic_search),
                         contentDescription = stringResource(R.string.search_settings),
                     )
                 }

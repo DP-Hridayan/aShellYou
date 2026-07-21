@@ -69,7 +69,6 @@ import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
-import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
@@ -80,7 +79,6 @@ import `in`.hridayan.ashell.core.utils.registerNetworkCallback
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
 import `in`.hridayan.ashell.navigation.LocalNavController
-import `in`.hridayan.ashell.navigation.navigateBack
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
@@ -562,7 +560,7 @@ fun QRPairTab(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
-                        painter = painterResource(R.drawable.ic_search),
+                        painter = painterResource(`in`.hridayan.ashell.core.ui.R.drawable.ic_search),
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onTertiaryContainer,
                     )

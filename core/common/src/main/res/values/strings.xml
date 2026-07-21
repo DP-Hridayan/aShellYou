@@ -1,0 +1,57 @@
+<resources>
+  <string name="back_button">Back button</string>
+  <string name="copy">Copy</string>
+  <string name="font_amatic_sc" comment="Font style name">Amatic SC</string>
+  <string name="font_cabin" comment="Font style name">Cabin</string>
+  <string name="font_caveat" comment="Font style name">Caveat</string>
+  <string name="font_comfortaa" comment="Font style name">Comfortaa</string>
+  <string name="font_crimson_pro" comment="Font style name">Crimson Pro</string>
+  <string name="font_dancing_script" comment="Font style name">Dancing Script</string>
+  <string name="font_display_text" comment="Sample text used to preview font styles">The quick brown fox jumps over the lazy dog</string>
+  <string name="font_eb_garamond" comment="Font style name">EB Garamond</string>
+  <string name="font_exo_2" comment="Font style name">Exo 2</string>
+  <string name="font_family">Font family</string>
+  <string name="font_heebo" comment="Font style name">Heebo</string>
+  <string name="font_inter" comment="Font style name">Inter</string>
+  <string name="font_josefin_sans" comment="Font style name">Josefin Sans</string>
+  <string name="font_karla" comment="Font style name">Karla</string>
+  <string name="font_lexend" comment="Font style name">Lexend</string>
+  <string name="font_lora" comment="Font style name">Lora</string>
+  <string name="font_manrope" comment="Font style name">Manrope</string>
+  <string name="font_montserrat" comment="Font style name">Montserrat</string>
+  <string name="font_noto_sans" comment="Font style name">Noto Sans</string>
+  <string name="font_nunito" comment="Font style name">Nunito</string>
+  <string name="font_open_sans" comment="Font style name">Open Sans</string>
+  <string name="font_oswald" comment="Font style name">Oswald</string>
+  <string name="font_outfit" comment="Font style name">Outfit</string>
+  <string name="font_pacifico" comment="Font style name">Pacifico</string>
+  <string name="font_playfair_display" comment="Font style name">Playfair Display</string>
+  <string name="font_playpen_sans" comment="Font style name">Playpen Sans</string>
+  <string name="font_plus_jakarta_sans" comment="Font style name">Plus Jakarta Sans</string>
+  <string name="font_public_sans" comment="Font style name">Public Sans</string>
+  <string name="font_quicksand" comment="Font style name">Quicksand</string>
+  <string name="font_raleway" comment="Font style name">Raleway</string>
+  <string name="font_roboto_flex" comment="Font style name">Roboto Flex</string>
+  <string name="font_rubik" comment="Font style name">Rubik</string>
+  <string name="font_shadows_into_light" comment="Font style name">Shadows Into Light</string>
+  <string name="font_size_multiplier">Font size multiplier</string>
+  <string name="font_source_sans_3" comment="Font style name">Source Sans 3</string>
+  <string name="font_source_serif_4" comment="Font style name">Source Serif 4</string>
+  <string name="font_work_sans" comment="Font style name">Work Sans</string>
+  <string name="monospace" comment="Font style category name">Monospace</string>
+  <string name="palette_content" comment="Material Design color scheme style name">Content</string>
+  <string name="palette_expressive" comment="Material Design color scheme style name">Expressive</string>
+  <string name="palette_fidelity" comment="Material Design color scheme style name">Fidelity</string>
+  <string name="palette_fruit_salad" comment="Material Design color scheme style name">Fruit Salad</string>
+  <string name="palette_monochrome" comment="Material Design color scheme style name">Monochrome</string>
+  <string name="palette_neutral" comment="Material Design color scheme style name">Neutral</string>
+  <string name="palette_rainbow" comment="Material Design color scheme style name">Rainbow</string>
+  <string name="palette_style" comment="Settings label for choosing Material Design color palette">Palette style</string>
+  <string name="palette_tonal_spot" comment="Material Design color scheme style name">Tonal Spot</string>
+  <string name="palette_vibrant" comment="Material Design color scheme style name">Vibrant</string>
+  <string name="sans_serif" comment="Font style category name">Sans Serif</string>
+  <string name="select_all">Select all</string>
+  <string name="serif" comment="Font style category name">Serif</string>
+  <string name="shizuku_not_installed">Shizuku is not installed</string>
+  <string name="system_font" comment="Option to use the device default font">System font</string>
+</resources>
