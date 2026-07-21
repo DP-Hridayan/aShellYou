@@ -41,7 +41,7 @@ import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.settingsdsl.controller.rememberController
+
 import `in`.hridayan.settingsdsl.dsl.category
 import `in`.hridayan.settingsdsl.dsl.clickableItem
 import `in`.hridayan.settingsdsl.dsl.settingsPage
@@ -104,32 +104,6 @@ fun AiModelsScreen(
     
     val prefs by aiViewModel.preferences.collectAsState(initial = emptyPreferences())
 
-    val controller = rememberController(
-        isChecked = { key ->
-            val typedKey = key as? SettingsKeys<Boolean> ?: return@rememberController false
-            prefs[androidx.datastore.preferences.core.booleanPreferencesKey(typedKey.name)] ?: typedKey.default
-        },
-        selectedValue = { key ->
-            val typedKey = key as? SettingsKeys<Int> ?: return@rememberController -1
-            prefs[androidx.datastore.preferences.core.intPreferencesKey(typedKey.name)] ?: typedKey.default
-        },
-        onBooleanToggle = { key ->
-            val typedKey = key as? SettingsKeys<Boolean> ?: return@rememberController
-            aiViewModel.toggleSetting(typedKey)
-        },
-        onIntChanged = { key, value ->
-            val typedKey = key as? SettingsKeys<Int> ?: return@rememberController
-            aiViewModel.setInt(typedKey, value)
-        },
-        onItemClick = { key ->
-            when (key) {
-                SettingsKeys.AiModels -> navController.navigate(NavRoutes.ModelsScreen)
-                SettingsKeys.AiCacheDays -> dialogManager.show(AiDialogKey.CacheDays)
-                SettingsKeys.AiCacheClear -> dialogManager.show(AiDialogKey.CacheClearConfirmation)
-            }
-        }
-    )
-
     val selectedModelName = ModelRegistry.findById(settings[SettingsKeys.SelectedModelId])?.name
     val cacheDays = settings[SettingsKeys.AiCacheDays]
 
@@ -185,8 +159,32 @@ fun AiModelsScreen(
             ) {
                 settingsContent(
                     groups = resolvedGroups,
-                    controller = controller,
-                    hapticsEnabled = hapticsEnabled
+                    hapticsEnabled = hapticsEnabled,
+                    isChecked = { key ->
+                        val sk = key as? SettingsKeys<*> ?: return@settingsContent false
+                        if (sk.default !is Boolean) return@settingsContent false
+                        prefs[androidx.datastore.preferences.core.booleanPreferencesKey(sk.name)] ?: (sk.default as Boolean)
+                    },
+                    selectedValue = { key ->
+                        val sk = key as? SettingsKeys<*> ?: return@settingsContent -1
+                        if (sk.default !is Int) return@settingsContent -1
+                        prefs[androidx.datastore.preferences.core.intPreferencesKey(sk.name)] ?: (sk.default as Int)
+                    },
+                    onItemClick = { key ->
+                        when (key) {
+                            SettingsKeys.AiModels -> navController.navigate(NavRoutes.ModelsScreen)
+                            SettingsKeys.AiCacheDays -> dialogManager.show(AiDialogKey.CacheDays)
+                            SettingsKeys.AiCacheClear -> dialogManager.show(AiDialogKey.CacheClearConfirmation)
+                        }
+                    },
+                    onBooleanToggle = { key ->
+                        val typedKey = key as? SettingsKeys<Boolean> ?: return@settingsContent
+                        aiViewModel.toggleSetting(typedKey)
+                    },
+                    onIntChanged = { key, value ->
+                        val typedKey = key as? SettingsKeys<Int> ?: return@settingsContent
+                        aiViewModel.setInt(typedKey, value)
+                    }
                 )
 
                 item {
@@ -221,4 +219,8 @@ fun AiModelsScreen(
             })
     }
 }
+
+
+
+
 

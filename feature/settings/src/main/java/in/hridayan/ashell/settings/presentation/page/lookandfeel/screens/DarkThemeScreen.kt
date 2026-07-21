@@ -14,6 +14,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberTopAppBarState
+import androidx.datastore.preferences.core.emptyPreferences
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -25,7 +28,8 @@ import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.navigateBack
-import `in`.hridayan.ashell.settings.presentation.state.rememberController
+
+import `in`.hridayan.ashell.settings.presentation.state.settingsContent
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
@@ -38,7 +42,7 @@ fun DarkThemeScreen(
     settingsViewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val navController = LocalNavController.current
-    val controller = settingsViewModel.rememberController()
+    val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())
     val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
 
     val listState = rememberLazyListState()
@@ -71,7 +75,7 @@ fun DarkThemeScreen(
             ) {
                 settingsContent(
                     groups = resolvedGroups,
-                    controller = controller,
+                    viewModel = settingsViewModel, prefs = prefs,
                     hapticsEnabled = hapticsEnabled
                 )
 
@@ -82,3 +86,9 @@ fun DarkThemeScreen(
         },
     )
 }
+
+
+
+
+
+

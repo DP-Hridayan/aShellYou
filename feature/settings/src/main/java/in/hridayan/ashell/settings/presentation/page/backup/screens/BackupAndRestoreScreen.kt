@@ -31,6 +31,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberTopAppBarState
+import androidx.datastore.preferences.core.emptyPreferences
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -79,7 +80,8 @@ import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDial
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.page.backup.viewmodel.BackupAndRestoreViewModel
 import `in`.hridayan.ashell.settings.presentation.provider.BackupScreenCustomSlots
-import `in`.hridayan.ashell.settings.presentation.state.rememberController
+
+import `in`.hridayan.ashell.settings.presentation.state.settingsContent
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
@@ -96,7 +98,7 @@ fun BackupAndRestoreScreen(
     val res = LocalResources.current
     val navController = LocalNavController.current
     val dialogManager = LocalDialogManager.current
-    val controller = settingsViewModel.rememberController()
+    val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())
     val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
     val localBackupTime by backupAndRestoreViewModel.localBackupTime.collectAsState()
     val localBackupType by backupAndRestoreViewModel.localBackupType.collectAsState()
@@ -210,7 +212,9 @@ fun BackupAndRestoreScreen(
             ) {
                 settingsContent(
                     groups = resolvedGroups,
-                    onItemClick = controller::onItemClick,
+                    viewModel = settingsViewModel,
+                    prefs = prefs,
+                    onItemClick = { key -> settingsViewModel.onItemClicked(key as SettingsKeys<*>) },
                     hapticsEnabled = hapticsEnabled,
                     customSlotContent = { slot ->
                         when (slot) {
@@ -494,3 +498,9 @@ private fun TimeCard(
         }
     }
 }
+
+
+
+
+
+

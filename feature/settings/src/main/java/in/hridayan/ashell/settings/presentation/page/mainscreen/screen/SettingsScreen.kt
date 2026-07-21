@@ -36,6 +36,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
+import androidx.datastore.preferences.core.emptyPreferences
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -59,7 +61,8 @@ import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.provider.getAllSettingsIcons
-import `in`.hridayan.ashell.settings.presentation.state.rememberController
+
+import `in`.hridayan.ashell.settings.presentation.state.settingsContent
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
@@ -74,7 +77,7 @@ fun SettingsScreen(
     val navController = LocalNavController.current
     val settings = LocalSettings.current
     val hapticsEnabled = settings[SettingsKeys.HapticsAndVibration]
-    val controller = viewModel.rememberController()
+    val prefs by viewModel.preferences.collectAsState(initial = emptyPreferences())
     val floatingIconsResIds = getAllSettingsIcons()
 
     LaunchedEffect(Unit) {
@@ -173,7 +176,7 @@ fun SettingsScreen(
 
             settingsContent(
                 groups = resolvedGroups,
-                controller = controller,
+                viewModel = viewModel, prefs = prefs,
                 hapticsEnabled = hapticsEnabled
             )
 
@@ -251,3 +254,10 @@ private fun SpinningGears(modifier: Modifier = Modifier) {
         )
     }
 }
+
+
+
+
+
+
+

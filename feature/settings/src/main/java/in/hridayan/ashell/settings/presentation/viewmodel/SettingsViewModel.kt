@@ -24,7 +24,7 @@ import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.settings.domain.usecase.ToggleSettingUseCase
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.provider.SettingsProvider
-import `in`.hridayan.ashell.settings.presentation.state.rememberController
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -332,3 +332,5 @@ class SettingsViewModel @Inject constructor(
         }
     }
 }
+
+

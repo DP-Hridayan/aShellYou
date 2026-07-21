@@ -14,6 +14,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberTopAppBarState
+import androidx.datastore.preferences.core.emptyPreferences
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -31,7 +34,8 @@ import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.settings.presentation.components.dialog.ConfigureSaveDirectoryDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
-import `in`.hridayan.ashell.settings.presentation.state.rememberController
+
+import `in`.hridayan.ashell.settings.presentation.state.settingsContent
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
@@ -46,7 +50,7 @@ fun BehaviorScreen(
     val navController = LocalNavController.current
     val dialogManager = LocalDialogManager.current
     val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
-    val controller = settingsViewModel.rememberController()
+    val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())
 
     LaunchedEffect(Unit) {
         settingsViewModel.uiEvent.collect { event ->
@@ -87,7 +91,7 @@ fun BehaviorScreen(
             ) {
                 settingsContent(
                     groups = resolvedGroups,
-                    controller = controller,
+                    viewModel = settingsViewModel, prefs = prefs,
                     hapticsEnabled = hapticsEnabled
                 )
 
@@ -106,3 +110,9 @@ fun BehaviorScreen(
         ConfigureSaveDirectoryDialog(onDismiss = { it.dismiss() })
     }
 }
+
+
+
+
+
+

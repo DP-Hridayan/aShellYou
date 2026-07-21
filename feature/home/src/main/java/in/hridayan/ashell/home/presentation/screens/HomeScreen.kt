@@ -104,7 +104,6 @@ fun HomeScreen(
 ) {
     val context = LocalContext.current
     val res = LocalResources.current
-    val settings = LocalSettings.current
     val dialogManager = LocalDialogManager.current
 
     val onClickOtgAdbCard: () -> Unit = onOtgClick

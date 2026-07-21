@@ -29,6 +29,7 @@ import `in`.hridayan.ashell.core.navigation.slideFadeInFromRight
 import `in`.hridayan.ashell.core.navigation.slideFadeOutToLeft
 import `in`.hridayan.ashell.core.navigation.slideFadeOutToRight
 import `in`.hridayan.ashell.home.presentation.screens.HomeScreen
+import `in`.hridayan.ashell.ui.home.HomeRoute
 import `in`.hridayan.ashell.logcat.data.session.LogcatSessionHolder
 import `in`.hridayan.ashell.logcat.presentation.screens.LogcatScreen
 import `in`.hridayan.ashell.onboarding.presentation.screens.OnboardingScreen
@@ -105,7 +106,7 @@ fun AppNavigation(isFirstLaunch: Boolean = false) {
             }
 
             composable<NavRoutes.HomeScreen> {
-                HomeScreen()
+                HomeRoute(navController = navController)
             }
 
             composable<NavRoutes.SettingsScreen> { backStackEntry ->

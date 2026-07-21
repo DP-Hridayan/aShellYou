@@ -31,6 +31,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.material3.toShape
+import androidx.datastore.preferences.core.emptyPreferences
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -69,7 +72,8 @@ import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.settings.presentation.components.card.SupportMeCard
 import `in`.hridayan.ashell.settings.presentation.components.image.ProfilePic
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
-import `in`.hridayan.ashell.settings.presentation.state.rememberController
+
+import `in`.hridayan.ashell.settings.presentation.state.settingsContent
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
@@ -84,7 +88,7 @@ fun AboutScreen(
     val navController = LocalNavController.current
     val context = LocalContext.current
     val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
-    val controller = settingsViewModel.rememberController()
+    val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())
     val (angle, scale) = syncedRotationAndScale()
 
     LaunchedEffect(Unit) {
@@ -261,7 +265,7 @@ fun AboutScreen(
 
                 settingsContent(
                     groups = resolvedGroups,
-                    controller = controller,
+                    viewModel = settingsViewModel, prefs = prefs,
                     hapticsEnabled = hapticsEnabled
                 )
 
@@ -313,3 +317,9 @@ private fun AppHandlesChip(
         }
     }
 }
+
+
+
+
+
+

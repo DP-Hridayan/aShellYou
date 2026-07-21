@@ -28,6 +28,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberTopAppBarState
+import androidx.datastore.preferences.core.emptyPreferences
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -60,7 +62,8 @@ import `in`.hridayan.ashell.settings.domain.model.UpdateResult
 import `in`.hridayan.ashell.settings.presentation.components.dialog.LatestVersionDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
-import `in`.hridayan.ashell.settings.presentation.state.rememberController
+
+import `in`.hridayan.ashell.settings.presentation.state.settingsContent
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.UpdateBottomSheet
 import `in`.hridayan.settingsdsl.resolver.resolveAll
@@ -78,7 +81,7 @@ fun AutoUpdateScreen(
     val context = LocalContext.current
     val dialogManager = LocalDialogManager.current
     val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
-    val controller = settingsViewModel.rememberController()
+    val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())
     var showLoading by rememberSaveable { mutableStateOf(false) }
     var showUpdateSheet by rememberSaveable { mutableStateOf(false) }
     var tagName by rememberSaveable { mutableStateOf(context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: "") }
@@ -148,7 +151,7 @@ fun AutoUpdateScreen(
 
                 settingsContent(
                     groups = resolvedGroups,
-                    controller = controller,
+                    viewModel = settingsViewModel, prefs = prefs,
                     hapticsEnabled = hapticsEnabled
                 )
 
@@ -252,3 +255,9 @@ private fun CheckUpdateButton(
         },
     )
 }
+
+
+
+
+
+

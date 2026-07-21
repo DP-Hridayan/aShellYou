@@ -1,6 +1,6 @@
 package `in`.hridayan.ashell.settings.domain.usecase
 
-import `in`.hridayan.ashell.core.domain.model.GithubRepoStats
+import `in`.hridayan.ashell.settings.domain.model.GithubRepoStats
 import `in`.hridayan.ashell.settings.domain.model.UpdateResult
 import `in`.hridayan.ashell.settings.domain.repository.GithubDataRepository
 import kotlinx.coroutines.flow.Flow
@@ -11,8 +11,6 @@ import org.junit.Before
 import org.junit.Test
 import java.lang.reflect.Method
 
-// Tests for the private isNewerVersion logic in CheckUpdateUseCase.
-// Stage order: debug(0) < alpha(1) < beta(2) < stable(3)
 class VersionComparisonTest {
 
     private lateinit var useCase: CheckUpdateUseCase

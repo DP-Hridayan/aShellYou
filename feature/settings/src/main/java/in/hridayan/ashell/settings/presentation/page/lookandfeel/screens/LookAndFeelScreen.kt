@@ -20,6 +20,8 @@ import androidx.compose.material.icons.rounded.LightMode
 import androidx.compose.material.icons.twotone.DarkMode
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberTopAppBarState
+import androidx.datastore.preferences.core.emptyPreferences
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -48,7 +50,8 @@ import `in`.hridayan.ashell.settings.presentation.components.svg.vectors.themePi
 import `in`.hridayan.ashell.settings.presentation.components.tab.ColorTabs
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel.LookAndFeelViewModel
-import `in`.hridayan.ashell.settings.presentation.state.rememberController
+
+import `in`.hridayan.ashell.settings.presentation.state.settingsContent
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
@@ -64,7 +67,7 @@ fun LookAndFeelScreen(
     val dialogManager = LocalDialogManager.current
     val navController = LocalNavController.current
     val context = LocalContext.current
-    val controller = settingsViewModel.rememberController()
+    val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())
     val currentPaletteStyle = LocalPaletteStyle.current
     val settings = LocalSettings.current
     val themeMode = settings[SettingsKeys.ThemeMode]
@@ -182,7 +185,7 @@ fun LookAndFeelScreen(
 
                 settingsContent(
                     groups = resolvedGroups,
-                    controller = controller,
+                    viewModel = settingsViewModel, prefs = prefs,
                     hapticsEnabled = hapticsEnabled
                 )
 
@@ -197,3 +200,9 @@ fun LookAndFeelScreen(
         },
     )
 }
+
+
+
+
+
+

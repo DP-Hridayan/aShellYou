@@ -36,6 +36,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.datastore.preferences.core.emptyPreferences
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -63,7 +64,8 @@ import `in`.hridayan.ashell.settings.presentation.components.dialog.SelectBackup
 import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.provider.BackupScreenCustomSlots
-import `in`.hridayan.ashell.settings.presentation.state.rememberController
+
+import `in`.hridayan.ashell.settings.presentation.state.settingsContent
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 import `in`.hridayan.settingsdsl.ui.item.settingsContent
@@ -76,7 +78,7 @@ fun BackupSchedulerScreen(
     val navController = LocalNavController.current
     val context = LocalContext.current
     val dialogManager = LocalDialogManager.current
-    val controller = settingsViewModel.rememberController()
+    val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())
     val settings = LocalSettings.current
     val hapticsEnabled = settings[SettingsKeys.HapticsAndVibration]
     val autoBackupEnabled = settings[SettingsKeys.AutoBackupEnabled]
@@ -159,10 +161,10 @@ fun BackupSchedulerScreen(
 
                 settingsContent(
                     groups = resolvedGroups,
-                    isChecked = controller::isChecked,
-                    selectedValue = controller::selectedValue,
+                    viewModel = settingsViewModel,
+                    prefs = prefs,
                     onItemClick = { key ->
-                        controller.onItemClick(key)
+                        settingsViewModel.onItemClicked(key as SettingsKeys<*>)
                     },
                     onBooleanToggle = { key ->
                         if (key == SettingsKeys.AutoBackupEnabled &&
@@ -174,14 +176,14 @@ fun BackupSchedulerScreen(
                             pendingEnableAfterFolderPick = true
                             showFolderDialog = true
                         } else {
-                            controller.onBooleanToggle(key)
+                            settingsViewModel.onToggle(key as SettingsKeys<Boolean>)
                             if (key == SettingsKeys.AutoBackupEnabled) {
                                 settingsViewModel.rescheduleAutoBackup(enabled = !autoBackupEnabled)
                             }
                         }
                     },
                     onIntChanged = { key, value ->
-                        controller.onIntChanged(key, value)
+                        settingsViewModel.setInt(key as SettingsKeys<Int>, value)
                         if (key == SettingsKeys.AutoBackupFrequency) {
                             settingsViewModel.rescheduleAutoBackup(
                                 enabled = autoBackupEnabled,
@@ -395,3 +397,8 @@ private fun BackupStatusRow(
         }
     }
 }
+
+
+
+
+

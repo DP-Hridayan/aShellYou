@@ -11,53 +11,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import `in`.hridayan.settingsdsl.controller.SettingsController
 import `in`.hridayan.settingsdsl.model.CustomSlot
 import `in`.hridayan.settingsdsl.model.ResolvedGroup
 import `in`.hridayan.settingsdsl.model.SettingsItem
 import `in`.hridayan.settingsdsl.model.SettingsKey
 import `in`.hridayan.settingsdsl.resolver.resolveAll
-
-/**
- * Renders a list of [ResolvedGroup]s into a [LazyListScope] using a [SettingsController].
- *
- * This is the recommended API as it leverages the controller for state and event handling,
- * reducing boilerplate in the UI layer.
- *
- * @param groups The resolved groups to render.
- * @param controller The controller providing state and event handling.
- * @param modifier Modifier applied to each item container.
- * @param itemPaddingHorizontal Horizontal padding for each item.
- * @param itemPaddingVertical Vertical padding for each item.
- * @param hapticsEnabled Whether haptic feedback is enabled for interactions.
- * @param customSlotContent Content to render for custom slots.
- * @param categoryHeader Optional override for the category header UI.
- */
-fun LazyListScope.settingsContent(
-    groups: List<ResolvedGroup>,
-    controller: SettingsController,
-    modifier: Modifier = Modifier,
-    itemPaddingHorizontal: Dp = 15.dp,
-    itemPaddingVertical: Dp = 1.dp,
-    hapticsEnabled: Boolean = true,
-    customSlotContent: @Composable (CustomSlot) -> Unit = {},
-    categoryHeader: (@Composable (String) -> Unit)? = null,
-) {
-    settingsContent(
-        groups = groups,
-        modifier = modifier,
-        itemPaddingHorizontal = itemPaddingHorizontal,
-        itemPaddingVertical = itemPaddingVertical,
-        hapticsEnabled = hapticsEnabled,
-        isChecked = controller::isChecked,
-        selectedValue = controller::selectedValue,
-        onItemClick = controller::onItemClick,
-        onBooleanToggle = controller::onBooleanToggle,
-        onIntChanged = controller::onIntChanged,
-        customSlotContent = customSlotContent,
-        categoryHeader = categoryHeader,
-    )
-}
 
 /**
  * Renders a list of [ResolvedGroup]s into a [LazyListScope].
@@ -192,3 +150,4 @@ private fun SettingsItemEntry(
         onValueChange = onValueChange,
     )
 }
+
