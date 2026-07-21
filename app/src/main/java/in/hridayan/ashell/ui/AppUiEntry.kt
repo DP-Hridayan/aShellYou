@@ -1,6 +1,7 @@
 @file:OptIn(ExperimentalSharedTransitionApi::class)
 
-package `in`.hridayan.ashell.ui
+package `in`.hridayan.ashell.ui
+
 
 import `in`.hridayan.ashell.core.common.LocalSettings
 
@@ -25,7 +26,7 @@ import `in`.hridayan.ashell.ui.bottomsheet.ChangelogBottomSheet
 import `in`.hridayan.ashell.ui.bottomsheet.UpdateBottomSheet
 import `in`.hridayan.ashell.core.utils.isNetworkAvailable
 import `in`.hridayan.ashell.core.utils.showToast
-import `in`.hridayan.ashell.navigation.Navigation
+import `in`.hridayan.ashell.core.navigation.Navigation
 import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.model.UpdateResult
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel

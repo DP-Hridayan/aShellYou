@@ -26,6 +26,8 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.core.ktx)
     implementation(libs.material)
+    implementation(libs.navigation.compose)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)

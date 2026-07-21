@@ -220,6 +220,15 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:ui"))
     implementation(project(":core:navigation"))
+    implementation(project(":feature:settings"))
+    implementation(project(":feature:shell"))
+    implementation(project(":feature:commandexamples"))
+    implementation(project(":feature:qstiles"))
+    implementation(project(":feature:home"))
+    implementation(project(":feature:onboarding"))
+    implementation(project(":feature:logcat"))
+    implementation(project(":feature:crashreporter"))
+    implementation(project(":feature:ai"))
 
     implementation(libs.kotlin.reflect)
 
