@@ -1,5 +1,8 @@
 package `in`.hridayan.ashell.commandexamples.presentation.component.dialog
 
+
+import `in`.hridayan.ashell.core.common.LocalSettings
+
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -36,23 +39,19 @@ import `in`.hridayan.ashell.core.presentation.model.ButtonType
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.common.SettingsKeys
-import `in`.hridayan.ashell.settings.presentation.provider.RadioGroupOptionsProvider
-import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
+import `in`.hridayan.ashell.core.ui.provider.RadioGroupOptionsProvider
 
 @Composable
 fun CommandsSortDialog(
     onDismiss: () -> Unit,
-    settingsViewModel: SettingsViewModel = hiltViewModel(),
 ) {
-
+    val settings = LocalSettings.current
     val sortOptions = RadioGroupOptionsProvider.commandSortOptions
-    val selected =
-        settingsViewModel.getInt(key = SettingsKeys.CommandSortType)
-            .collectAsState(initial = SettingsKeys.CommandSortType.default)
-    var tempSelected by remember { mutableIntStateOf(selected.value) }
+    val selected = settings[SettingsKeys.CommandSortType]
+    var tempSelected by remember { mutableIntStateOf(selected) }
 
-    LaunchedEffect(selected.value) {
-        tempSelected = selected.value
+    LaunchedEffect(selected) {
+        tempSelected = selected
     }
 
     DialogContainer(
@@ -135,7 +134,7 @@ fun CommandsSortDialog(
             ButtonGroupItem(
                 text = stringResource(R.string.sort),
                 onClick = {
-                    settingsViewModel.setInt(
+                    settings.set(
                         key = SettingsKeys.CommandSortType,
                         value = tempSelected
                     )

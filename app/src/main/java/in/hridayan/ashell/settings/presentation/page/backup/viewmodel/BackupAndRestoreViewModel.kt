@@ -1,5 +1,8 @@
 package `in`.hridayan.ashell.settings.presentation.page.backup.viewmodel
 
+
+import `in`.hridayan.ashell.core.common.SettingsKeys
+
 import android.content.Context
 import android.content.IntentSender
 import android.net.Uri
@@ -9,9 +12,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.exception.NoGoogleAccountException
-import `in`.hridayan.ashell.settings.domain.model.BackupType
+import `in`.hridayan.ashell.core.common.domain.model.BackupType
 import `in`.hridayan.ashell.settings.domain.model.DriveAuthEvent
 import `in`.hridayan.ashell.settings.domain.model.GoogleUserState
 import `in`.hridayan.ashell.settings.domain.model.LastBackupData

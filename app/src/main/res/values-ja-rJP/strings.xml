@@ -28,7 +28,7 @@
     <string name="ai_cache_enabled">キャッシュを有効にする</string>
     <string name="ai_models">AI &amp; Models</string>
     <string name="all">すべて</string>
-    <string name="all_data">すべてのデータ</string>
+
     <string name="already_connected">すでに接続しています</string>
     <string name="already_latest_version">バージョンは最新です</string>
     <string name="app">アプリ</string>
@@ -65,7 +65,7 @@
     <string name="backup_time">バックアップ時間</string>
     <string name="backup_type">バックアップの種類</string>
     <string name="baseband_version">ベースバンド</string>
-    <string name="basic_shell">基本シェル</string>
+
     <string name="battery_level">バッテリー</string>
     <string name="battery_saver">バッテリーセーバー</string>
     <string name="behavior">動作</string>
@@ -142,10 +142,10 @@
     <string name="custom_ui_scale">カスタムUIスケール</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">%1$d 項目を切り取り</string>
     <string name="cut_to_clipboard">クリップボードに切り取り</string>
-    <string name="daily">毎日</string>
+
     <string name="dark_theme">ダークテーマ</string>
     <string name="dashboard">ダッシュボード</string>
-    <string name="databases_only">データベースのみ</string>
+
     <string name="default_folder">デフォルトのフォルダ</string>
     <string name="default_language">デフォルトの言語</string>
     <string name="delete">削除</string>
@@ -418,7 +418,7 @@
     <string name="last_backup_time">前回のバックアップ時間</string>
     <string name="latest_version">最新バージョン</string>
     <string name="lead_developer">開発リーダー</string>
-    <string name="least_used">最小限使用</string>
+
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d ライブラリが検出されました</string>
     <string name="license">ライセンス</string>
     <string name="license_label">ライセンス</string>
@@ -453,9 +453,9 @@
     <string name="models" comment="Refers to AI/ML models used for command analysis">モデル</string>
     <string name="modified" comment="File property: last modified date">修正されました</string>
     <string name="monospace" comment="Font style category name">Monospace</string>
-    <string name="monthly">月ごと</string>
+
     <string name="more">もっと見る</string>
-    <string name="most_used">最大使用</string>
+
     <string name="move">移動</string>
     <string name="moving">移動中…</string>
     <string name="moving_items" comment="%1$d = number of items being moved">%1$d アイテムを移動中</string>
@@ -465,7 +465,7 @@
     <string name="new_commands_available_msg">新しいコマンド例が追加されました!\n下のボタンをクリックして新しいコマンドをロードします。</string>
     <string name="new_folder">新しいフォルダ</string>
     <string name="new_name">新しい名前</string>
-    <string name="newest">最新</string>
+
     <string name="no_adb_device_error">ADB 互換デバイスが見つかりませんでした。ターゲットの USB デバッグを有効にしてください。</string>
     <string name="no_adb_interface_found">adb インターフェイスが見つかりません</string>
     <string name="no_auto_backup_yet">自動バックアップはまだ実行されていません</string>
@@ -498,10 +498,9 @@
     <string name="notification_settings">通知設定</string>
     <string name="notification_style_error">通知からペアリングコードを入力できない場合は、通知シェードを Android に変更する必要がある場合があります。 通知設定~通知スタイルを変更するには、通知スタイルを選択します。 そうしないと、通知からペアリングコードを入力できない場合があります。</string>
     <string name="notification_styles">通知スタイル</string>
-    <string name="off">OFF</string>
+
     <string name="off_state" comment="Quick Settings tile toggle state label">オフ</string>
-    <string name="oldest" comment="Sorting option">古い</string>
-    <string name="on">ON</string>
+
     <string name="on_state" comment="Quick Settings tile toggle state label">オン</string>
     <string name="open">開く</string>
     <string name="open_app_language_settings">アプリの言語設定を開く</string>
@@ -547,7 +546,7 @@
     <string name="pick_ashellyou_extension">拡張子が .ashellyou のファイルを選択してください</string>
     <string name="port">ポート</string>
     <string name="possible_reasons">考えられる理由</string>
-    <string name="pre_release_github">プレリリース(GitHub)</string>
+
     <string name="pre_release_warning">プレリリースビルドは不安定になる可能性があります</string>
     <string name="pre_release_warning_description">これらのバージョンはまだテスト段階であり、未完成の機能や予期せぬバグが含まれている可能性があります。プレリリース版にアップデートすると、不具合が発生したり、動作が不安定になったりする可能性があることにご注意ください。\n問題、クラッシュ、または奇妙な動作に遭遇した場合は、安定版リリース前にaShellYouを修正して改善できるように報告してください。\nアプリをより良くするために協力してくれてありがとうございます！</string>
     <string name="preference">設定</string>
@@ -647,7 +646,7 @@
     <string name="serial_number">シリアル番号</string>
     <string name="serif" comment="Font style category name">Serif</string>
     <string name="settings">設定</string>
-    <string name="settings_only">設定のみ</string>
+
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">最後のコマンドの出力は \'%s\' にエクスポートされます</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">シェル出力は \'%s\' にエクスポートされます</string>
     <string name="shizuku_not_installed">しずくは設置されていません</string>
@@ -665,8 +664,7 @@
     <string name="slot_data_unknown">スロットデータが不明です</string>
     <string name="smooth_scrolling">スムーズなスクロール</string>
     <string name="sort">並び替え</string>
-    <string name="stable_fdroid">安定版 (フドロイド)</string>
-    <string name="stable_github">安定版 (GitHub)</string>
+
     <string name="stack_trace">スタックトレース</string>
     <string name="stargazers">Starを付けたユーザ</string>
     <string name="start">スタート</string>
@@ -680,7 +678,7 @@
     <string name="suggested_icons">おすすめのアイコン</string>
     <string name="support_bmc">気に入っていただけましたか？\nよろしければコーヒーをください</string>
     <string name="switch_mode">モードを切り替える</string>
-    <string name="system">システム</string>
+
     <string name="system_default">システムのデフォルト</string>
     <string name="system_font" comment="Option to use the device default font">システムフォント</string>
     <string name="system_settings">システム設定</string>
@@ -735,7 +733,7 @@
     <string name="waiting_for_device">デバイスを待っています</string>
     <string name="waiting_for_devices">デバイスを待っています…</string>
     <string name="want_to_contribute_too">貢献したいですか?</string>
-    <string name="weekly">Weekly</string>
+
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">%1$sの間、何をしますか？</string>
     <string name="whats_new">更新内容！</string>
     <string name="which_device_to_pair">どのデバイスをペアリングしますか？</string>

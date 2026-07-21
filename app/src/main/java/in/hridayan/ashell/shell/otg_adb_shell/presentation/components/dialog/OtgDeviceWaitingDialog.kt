@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.shell.otg_adb_shell.presentation.components.dialog
+package `in`.hridayan.ashell.shell.otg_adb_shell.presentation.components.dialog
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

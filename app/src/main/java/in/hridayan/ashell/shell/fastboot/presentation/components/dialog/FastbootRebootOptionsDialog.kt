@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog
+package `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -86,7 +86,7 @@ fun FastbootRebootOptionsDialog(
                     },
                     menuContent = {
                         DropdownMenuItem(
-                            text = { AutoResizeableText(text = stringResource(R.string.system)) },
+                            text = { AutoResizeableText(text = stringResource(`in`.hridayan.ashell.core.common.R.string.system)) },
                             onClick = withHaptic {
                                 onReboot(RebootMode.NORMAL)
                                 onDismiss()
@@ -137,7 +137,7 @@ fun FastbootRebootOptionsDialog(
                     .padding(bottom = 10.dp)
             ) {
                 AutoResizeableText(
-                    text = stringResource(R.string.system),
+                    text = stringResource(`in`.hridayan.ashell.core.common.R.string.system),
                     style = MaterialTheme.typography.labelLargeEmphasized,
                     modifier = Modifier.weight(1f),
                     textAlign = TextAlign.Center

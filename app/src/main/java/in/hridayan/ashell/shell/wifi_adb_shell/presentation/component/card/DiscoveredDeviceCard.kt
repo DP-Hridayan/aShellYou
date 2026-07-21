@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.card
+package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.card
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

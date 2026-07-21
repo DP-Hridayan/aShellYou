@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalSharedTransitionApi::class)
 
-package `in`.hridayan.ashell.navigation
+package `in`.hridayan.ashell.navigation
 
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.AnimatedContentTransitionScope
@@ -134,8 +134,15 @@ fun Navigation(isFirstLaunch: Boolean = false) {
                 AboutScreen(highlightKey = route.highlightKey)
             }
 
-            composable<NavRoutes.CommandExamplesScreen> {
-                CommandExamplesScreen()
+                        composable<NavRoutes.CommandExamplesScreen> {
+                CommandExamplesScreen(
+                    onUseCommand = { command ->
+                        navController.previousBackStackEntry
+                            ?.savedStateHandle
+                            ?.set("suggestedCommand", command)
+                        navController.popBackStack()
+                    }
+                )
             }
 
             composable<NavRoutes.TranslatorsScreen> {

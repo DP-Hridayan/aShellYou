@@ -28,7 +28,7 @@
     <string name="ai_cache_enabled">Включить кэширование</string>
     <string name="ai_models">AI &amp; Модели</string>
     <string name="all">Все</string>
-    <string name="all_data">Все данные</string>
+
     <string name="already_connected">Уже подключено</string>
     <string name="already_latest_version">Вы используете последнюю версию</string>
     <string name="app">Приложение</string>
@@ -65,7 +65,7 @@
     <string name="backup_time">Время резервирования</string>
     <string name="backup_type">Тип резервирования</string>
     <string name="baseband_version">Baseband</string>
-    <string name="basic_shell">Базовая оболочка</string>
+
     <string name="battery_level">Батарея</string>
     <string name="battery_saver">Экономия батареи</string>
     <string name="behavior">Поведение</string>
@@ -142,10 +142,10 @@
     <string name="custom_ui_scale">Свой масштаб UI</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Вырезать %1$d элементов</string>
     <string name="cut_to_clipboard">Вырезать в буфер обмена</string>
-    <string name="daily">Ежедневно</string>
+
     <string name="dark_theme">Тёмная тема</string>
     <string name="dashboard">Приборная доска</string>
-    <string name="databases_only">Только базы данных</string>
+
     <string name="default_folder">Папка по умолчанию</string>
     <string name="default_language">Язык по умолчанию</string>
     <string name="delete">Удалить</string>
@@ -418,7 +418,7 @@
     <string name="last_backup_time">Время последнего резервирования</string>
     <string name="latest_version">Последняя версия</string>
     <string name="lead_developer">Ведущий разработчик</string>
-    <string name="least_used">Редко используемые</string>
+
     <string name="library_count" comment="%1$d = number of third-party libraries">Обнаружено библиотек %1$d</string>
     <string name="license">Лицензия</string>
     <string name="license_label">Лицензия</string>
@@ -453,9 +453,9 @@
     <string name="models" comment="Refers to AI/ML models used for command analysis">Модели</string>
     <string name="modified" comment="File property: last modified date">Изменено</string>
     <string name="monospace" comment="Font style category name">Monospace</string>
-    <string name="monthly">Ежемесячно</string>
+
     <string name="more">Ещё</string>
-    <string name="most_used">Часто используемые</string>
+
     <string name="move">Переместить</string>
     <string name="moving">Перемещение…</string>
     <string name="moving_items" comment="%1$d = number of items being moved">Перемещение %1$d элемента(ов)</string>
@@ -465,7 +465,7 @@
     <string name="new_commands_available_msg">Добавлены новые примеры команд!\nНажмите на кнопку ниже, чтобы загрузить новые команды.</string>
     <string name="new_folder">Новая папка</string>
     <string name="new_name">Новое имя</string>
-    <string name="newest">Новейшие</string>
+
     <string name="no_adb_device_error">Устройства, совместимые с ADB, не обнаружены. Включите отладку по USB на целевом устройстве.</string>
     <string name="no_adb_interface_found">Интерфейс adb не найден</string>
     <string name="no_auto_backup_yet">Авто резервирование еще не выполнено</string>
@@ -498,10 +498,9 @@
     <string name="notification_settings">Настройки уведомлений</string>
     <string name="notification_style_error">Если вы не можете ввести код сопряжения из уведомления, возможно, вам нужно будет изменить панель уведомлений на Android. Чтобы изменить стиль уведомлений, перейдите к Настройка уведомлений ~ Стиль уведомлений. В противном случае вы можете не ввести код сопряжения из сообщения.</string>
     <string name="notification_styles">Стили уведомлений</string>
-    <string name="off">Выключить</string>
+
     <string name="off_state" comment="Quick Settings tile toggle state label">\"Выкл\"</string>
-    <string name="oldest" comment="Sorting option">Найстаріший</string>
-    <string name="on">Включить</string>
+
     <string name="on_state" comment="Quick Settings tile toggle state label">\"Вкл\"</string>
     <string name="open">Открыть</string>
     <string name="open_app_language_settings">Открыть настройки языка приложения</string>
@@ -547,7 +546,7 @@
     <string name="pick_ashellyou_extension">Пожалуйста, выберите файл с расширением \".ashellyou\"</string>
     <string name="port">Порт</string>
     <string name="possible_reasons">Возможные причины</string>
-    <string name="pre_release_github">Пред релиз (GitHub)</string>
+
     <string name="pre_release_warning">Предварительные сборки могут быть нестабильными</string>
     <string name="pre_release_warning_description">Эти версии всё ещё находятся на стадии тестирования и могут содержать незавершённые функции или неожиданные ошибки. Если вы решите обновиться до предрелизной версии, имейте в виду, что могут возникнуть сбои или странное поведение.\nЕсли вы столкнетесь с какими-либо проблемами, сбоями или странным поведением, пожалуйста, сообщите нам об этом, чтобы мы могли исправить и улучшить aShellYou до стабильного релиза.\nСпасибо, что помогаете нам строить лучше!</string>
     <string name="preference">Предпочтение</string>
@@ -647,7 +646,7 @@
     <string name="serial_number">Серийный номер</string>
     <string name="serif" comment="Font style category name">Serif</string>
     <string name="settings">Настройки</string>
-    <string name="settings_only">Только настройки</string>
+
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">Вывод последней команды экспортируется в \'%s\'</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">Вывод оболочки экспортируется в \'%s\'</string>
     <string name="shizuku_not_installed">Shizuku не установлен</string>
@@ -665,8 +664,7 @@
     <string name="slot_data_unknown">Данные слота неизвестны</string>
     <string name="smooth_scrolling">Плавная прокрутка</string>
     <string name="sort">Сортировать</string>
-    <string name="stable_fdroid">Стабильный (F-Droid)</string>
-    <string name="stable_github">Стабильный (GitHub)</string>
+
     <string name="stack_trace">Трассировка стека</string>
     <string name="stargazers">Звёзды</string>
     <string name="start">Запустить</string>
@@ -680,7 +678,7 @@
     <string name="suggested_icons">Предлагаемые иконки</string>
     <string name="support_bmc">Нравится то, что я делаю?\nУгостите меня кофе</string>
     <string name="switch_mode">Переключить режим</string>
-    <string name="system">Системная</string>
+
     <string name="system_default">Системные по умолчанию</string>
     <string name="system_font" comment="Option to use the device default font">Системный шрифт</string>
     <string name="system_settings">Системные настройки</string>
@@ -735,7 +733,7 @@
     <string name="waiting_for_device">Ожидание устройства</string>
     <string name="waiting_for_devices">Ожидание устройств…</string>
     <string name="want_to_contribute_too">Хотите тоже внести свой вклад?</string>
-    <string name="weekly">Еженедельно</string>
+
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">Что бы вы хотели сделать пока %1$s?</string>
     <string name="whats_new">Что нового!</string>
     <string name="which_device_to_pair">Какое устройство вы хотите сопрячь?</string>

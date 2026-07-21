@@ -3,7 +3,7 @@ package `in`.hridayan.ashell.settings.data.remote.mapper
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.settings.data.remote.dto.GithubReleaseDto
 import `in`.hridayan.ashell.settings.domain.model.GithubRelease
-import `in`.hridayan.ashell.settings.domain.model.GithubReleaseType
+import `in`.hridayan.ashell.core.common.domain.model.GithubReleaseType
 
 fun GithubReleaseDto.toDomain(releaseType: Int): GithubRelease {
     val flavor = if (releaseType == GithubReleaseType.STABLE_FDROID) {

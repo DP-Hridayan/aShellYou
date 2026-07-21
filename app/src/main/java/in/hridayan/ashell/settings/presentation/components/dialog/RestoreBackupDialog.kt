@@ -22,7 +22,7 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
 import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
 import `in`.hridayan.ashell.core.presentation.model.ButtonType
-import `in`.hridayan.ashell.settings.domain.model.BackupType
+import `in`.hridayan.ashell.core.common.domain.model.BackupType
 
 @Composable
 fun RestoreBackupDialog(
@@ -38,9 +38,9 @@ fun RestoreBackupDialog(
     }
 
     val backupTypeText = when (backupType) {
-        BackupType.SETTINGS_ONLY.name -> stringResource(R.string.settings_only)
-        BackupType.DATABASE_ONLY.name -> stringResource(R.string.databases_only)
-        BackupType.SETTINGS_AND_DATABASE.name -> stringResource(R.string.all_data)
+        BackupType.SETTINGS_ONLY.name -> stringResource(`in`.hridayan.ashell.core.common.R.string.settings_only)
+        BackupType.DATABASE_ONLY.name -> stringResource(`in`.hridayan.ashell.core.common.R.string.databases_only)
+        BackupType.SETTINGS_AND_DATABASE.name -> stringResource(`in`.hridayan.ashell.core.common.R.string.all_data)
         else -> stringResource(R.string.none)
     }
 

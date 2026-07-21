@@ -28,7 +28,7 @@
     <string name="ai_cache_enabled">Enable cache</string>
     <string name="ai_models">AI &amp; Models</string>
     <string name="all">All</string>
-    <string name="all_data">All data</string>
+
     <string name="already_connected">قبلاً متصل شده</string>
     <string name="already_latest_version">شما از آخرین نسخه استفاده می‌کنید</string>
     <string name="app">برنامه</string>
@@ -65,7 +65,7 @@
     <string name="backup_time">زمان پشتیبان‌گیری</string>
     <string name="backup_type">Backup type</string>
     <string name="baseband_version">Baseband</string>
-    <string name="basic_shell">شل پایه</string>
+
     <string name="battery_level">Battery</string>
     <string name="battery_saver">Battery saver</string>
     <string name="behavior">رفتار</string>
@@ -142,10 +142,10 @@
     <string name="custom_ui_scale">Custom UI scale</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">%1$d مورد برش داده شد</string>
     <string name="cut_to_clipboard">برش به کلیپ‌بورد</string>
-    <string name="daily">Daily</string>
+
     <string name="dark_theme">تم تاریک</string>
     <string name="dashboard">Dashboard</string>
-    <string name="databases_only">Databases only</string>
+
     <string name="default_folder">پوشه پیش‌فرض</string>
     <string name="default_language">زبان پیش‌فرض</string>
     <string name="delete">حذف</string>
@@ -418,7 +418,7 @@
     <string name="last_backup_time">زمان آخرین پشتیبان</string>
     <string name="latest_version">آخرین نسخه</string>
     <string name="lead_developer">توسعه‌دهنده اصلی</string>
-    <string name="least_used">کمترین استفاده</string>
+
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d libraries detected</string>
     <string name="license">مجوز</string>
     <string name="license_label">License</string>
@@ -453,9 +453,9 @@
     <string name="models" comment="Refers to AI/ML models used for command analysis">Models</string>
     <string name="modified" comment="File property: last modified date">تغییر یافته</string>
     <string name="monospace" comment="Font style category name">تک‌فاصله</string>
-    <string name="monthly">Monthly</string>
+
     <string name="more">بیشتر</string>
-    <string name="most_used">پراستفاده‌ترین</string>
+
     <string name="move">انتقال</string>
     <string name="moving">در حال انتقال…</string>
     <string name="moving_items" comment="%1$d = number of items being moved">در حال انتقال %1$d مورد</string>
@@ -465,7 +465,7 @@
     <string name="new_commands_available_msg">New command examples are added!\nClick on the button below to load the new commands.</string>
     <string name="new_folder">پوشه جدید</string>
     <string name="new_name">نام جدید</string>
-    <string name="newest">جدیدترین</string>
+
     <string name="no_adb_device_error">دستگاه سازگار با ADB یافت نشد. اشکال‌زدایی USB را روی هدف فعال کنید.</string>
     <string name="no_adb_interface_found">رابط ADB یافت نشد</string>
     <string name="no_auto_backup_yet">No automatic backup performed yet</string>
@@ -498,10 +498,9 @@
     <string name="notification_settings">تنظیمات اعلان</string>
     <string name="notification_style_error">اگر نمی‌توانید کد جفت‌سازی را از اعلان وارد کنید، ممکن است نیاز باشد سبک اعلان را به اندروید تغییر دهید. به تنظیمات اعلان ~ سبک اعلان بروید. در غیر این صورت ممکن است نتوانید کد جفت‌سازی را از اعلان وارد کنید.</string>
     <string name="notification_styles">Notification styles</string>
-    <string name="off">خاموش</string>
+
     <string name="off_state" comment="Quick Settings tile toggle state label">Off</string>
-    <string name="oldest" comment="Sorting option">قدیمی‌ترین</string>
-    <string name="on">روشن</string>
+
     <string name="on_state" comment="Quick Settings tile toggle state label">On</string>
     <string name="open">باز کردن</string>
     <string name="open_app_language_settings">Open app language settings</string>
@@ -547,7 +546,7 @@
     <string name="pick_ashellyou_extension">لطفاً فایلی با پسوند .ashellyou انتخاب کنید</string>
     <string name="port">پورت</string>
     <string name="possible_reasons">دلایل احتمالی</string>
-    <string name="pre_release_github">Pre-release (GitHub)</string>
+
     <string name="pre_release_warning">نسخه‌های پیش‌انتشار ممکن است ناپایدار باشند</string>
     <string name="pre_release_warning_description">این نسخه‌ها هنوز در حال آزمایش هستند و ممکن است شامل ویژگی‌های ناتمام یا باگ‌های غیرمنتظره باشند. اگر به پیش‌انتشار بروزرسانی کنید، توجه داشته باشید که ممکن است مشکلاتی پیش بیاید.\nاگر با مشکل، خرابی یا رفتار عجیبی مواجه شدید، لطفاً گزارش دهید تا قبل از انتشار پایدار بتوانیم آن را رفع کنیم.\nممنون که کمک می‌کنید!</string>
     <string name="preference">Preference</string>
@@ -647,7 +646,7 @@
     <string name="serial_number">Serial Number</string>
     <string name="serif" comment="Font style category name">Serif</string>
     <string name="settings">تنظیمات</string>
-    <string name="settings_only">Settings only</string>
+
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">خروجی آخرین دستور به \'%s\' صادر شد</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">خروجی شل به \'%s\' صادر شد</string>
     <string name="shizuku_not_installed">Shizuku نصب نیست</string>
@@ -665,8 +664,7 @@
     <string name="slot_data_unknown">Slot data unknown</string>
     <string name="smooth_scrolling">اسکرول نرم</string>
     <string name="sort">مرتب‌سازی</string>
-    <string name="stable_fdroid">Stable (Fdroid)</string>
-    <string name="stable_github">Stable (GitHub)</string>
+
     <string name="stack_trace">ردیابی پشته</string>
     <string name="stargazers">ستاره‌دهندگان</string>
     <string name="start">شروع</string>
@@ -680,7 +678,7 @@
     <string name="suggested_icons">Suggested icons</string>
     <string name="support_bmc">کار من را دوست دارید؟\nیک قهوه برایم بخرید</string>
     <string name="switch_mode">تغییر حالت</string>
-    <string name="system">سیستم</string>
+
     <string name="system_default">System default</string>
     <string name="system_font" comment="Option to use the device default font">فونت سیستم</string>
     <string name="system_settings">تنظیمات سیستم</string>
@@ -735,7 +733,7 @@
     <string name="waiting_for_device">در انتظار دستگاه</string>
     <string name="waiting_for_devices">در انتظار دستگاه‌ها…</string>
     <string name="want_to_contribute_too">Want to contribute too?</string>
-    <string name="weekly">Weekly</string>
+
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">در حین %1$s چه می‌خواهید انجام دهید؟</string>
     <string name="whats_new">تازه‌ها!</string>
     <string name="which_device_to_pair">کدام دستگاه را می‌خواهید جفت کنید؟</string>

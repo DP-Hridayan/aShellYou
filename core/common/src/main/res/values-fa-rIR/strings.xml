@@ -1,0 +1,21 @@
+<resources>
+
+
+  <string name="system">سیستم</string>
+  <string name="off">خاموش</string>
+  <string name="on">روشن</string>
+  <string name="stable_fdroid">Stable (Fdroid)</string>
+  <string name="stable_github">Stable (GitHub)</string>
+  <string name="pre_release_github">Pre-release (GitHub)</string>
+  <string name="basic_shell">شل پایه</string>
+  <string name="newest">جدیدترین</string>
+  <string name="oldest" comment="Sorting option">قدیمی‌ترین</string>
+  <string name="most_used">پراستفاده‌ترین</string>
+  <string name="least_used">کمترین استفاده</string>
+  <string name="daily">Daily</string>
+  <string name="weekly">Weekly</string>
+  <string name="monthly">Monthly</string>
+  <string name="all_data">All data</string>
+  <string name="settings_only">Settings only</string>
+  <string name="databases_only">Databases only</string>
+</resources>

@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package `in`.hridayan.ashell.settings.presentation.page.changelog.screens
+package `in`.hridayan.ashell.settings.presentation.page.changelog.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

@@ -1,6 +1,8 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.shell.common.presentation.components.dialog
+package `in`.hridayan.ashell.shell.common.presentation.components.dialog
+
+import `in`.hridayan.ashell.core.common.LocalSettings
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -52,7 +54,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import kotlinx.coroutines.launch
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -61,8 +63,7 @@ import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
 import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
 import `in`.hridayan.ashell.core.presentation.model.ButtonType
 import `in`.hridayan.ashell.core.common.SettingsKeys
-import `in`.hridayan.ashell.settings.presentation.provider.RadioGroupOptionsProvider
-import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
+import `in`.hridayan.ashell.core.ui.provider.RadioGroupOptionsProvider
 
 @Composable
 fun ConnectedDeviceDialog(
@@ -185,17 +186,15 @@ private fun ConnectedDeviceCard(modifier: Modifier = Modifier, connectedDevice: 
 @Composable
 private fun ExpandedLayoutView(
     modifier: Modifier = Modifier,
-    settingsViewModel: SettingsViewModel = hiltViewModel(),
     onDismiss: () -> Unit = {},
 ) {
-    val key = SettingsKeys.LocalAdbWorkingMode
+    val settings = LocalSettings.current
+    val coroutineScope = androidx.compose.runtime.rememberCoroutineScope()
+    val initialSelected = settings[SettingsKeys.LocalAdbWorkingMode]
+    var selected by rememberSaveable { mutableIntStateOf(initialSelected) }
 
-    val initialSelected =
-        settingsViewModel.getInt(key = key).collectAsState(initial = key.default)
-    var selected by rememberSaveable { mutableIntStateOf(initialSelected.value) }
-
-    LaunchedEffect(initialSelected.value) {
-        selected = initialSelected.value
+    LaunchedEffect(initialSelected) {
+        selected = initialSelected
     }
 
     val items = RadioGroupOptionsProvider.localAdbShellModeOptions
@@ -251,7 +250,12 @@ private fun ExpandedLayoutView(
                 text = stringResource(R.string.confirm),
                 onClick = {
                     onDismiss()
-                    settingsViewModel.setInt(key = key, value = selected)
+                    coroutineScope.launch {
+                        settings.set(
+                            key = SettingsKeys.LocalAdbWorkingMode,
+                            value = selected
+                        )
+                    }
                 }
             )
         )

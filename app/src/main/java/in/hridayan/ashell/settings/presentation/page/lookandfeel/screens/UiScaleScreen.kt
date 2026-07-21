@@ -5,6 +5,9 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens
 
+
+import `in`.hridayan.ashell.core.common.LocalSettings
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -46,7 +49,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.skydoves.compose.stability.runtime.TraceRecomposition
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold

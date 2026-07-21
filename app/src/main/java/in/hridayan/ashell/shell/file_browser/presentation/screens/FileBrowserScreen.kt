@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.shell.file_browser.presentation.screens
+package `in`.hridayan.ashell.shell.file_browser.presentation.screens
 
 import android.net.Uri
 import android.provider.OpenableColumns

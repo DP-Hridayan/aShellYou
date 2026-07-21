@@ -1,6 +1,8 @@
 @file:OptIn(ExperimentalSharedTransitionApi::class)
 
-package `in`.hridayan.ashell.ui
+package `in`.hridayan.ashell.ui
+
+import `in`.hridayan.ashell.core.common.LocalSettings
 
 import android.util.Log
 import androidx.compose.animation.ExperimentalSharedTransitionApi
@@ -18,7 +20,6 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalSharedTransitionScope
 import `in`.hridayan.ashell.ui.bottomsheet.ChangelogBottomSheet
 import `in`.hridayan.ashell.ui.bottomsheet.UpdateBottomSheet

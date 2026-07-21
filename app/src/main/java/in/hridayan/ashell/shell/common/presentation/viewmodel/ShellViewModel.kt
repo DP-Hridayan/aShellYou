@@ -1,5 +1,8 @@
 package `in`.hridayan.ashell.shell.common.presentation.viewmodel
 
+
+import `in`.hridayan.ashell.core.common.SettingsKeys
+
 import android.app.Activity
 import androidx.compose.runtime.Stable
 import android.content.Context
@@ -20,6 +23,7 @@ import `in`.hridayan.ashell.shell.domain.utils.saveToFileStreamingFlow
 import `in`.hridayan.ashell.shell.common.data.permission.PermissionProvider
 import `in`.hridayan.ashell.shell.common.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.common.domain.model.PackageInfo
+import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.shell.common.domain.model.Suggestion
 import `in`.hridayan.ashell.shell.common.domain.model.SuggestionLabel
 import `in`.hridayan.ashell.shell.common.domain.model.SuggestionType
@@ -59,10 +63,23 @@ class ShellViewModel @Inject constructor(
     private val getSaveOutputFileNameUseCase: GetSaveOutputFileNameUseCase,
     private val otgRepository: OtgRepository,
     private val wifiAdbRepository: WifiAdbRepository,
+    private val settingsRepository: SettingsRepository,
     @param:ApplicationContext private val appContext: Context
 ) : ViewModel() {
     private val _states = MutableStateFlow(ShellScreenState())
     val states: StateFlow<ShellScreenState> = _states
+
+    val localAdbWorkingMode = settingsRepository.getInt(SettingsKeys.LocalAdbWorkingMode).stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
+        SettingsKeys.LocalAdbWorkingMode.default
+    )
+
+    val bookmarkSortType = settingsRepository.getInt(SettingsKeys.BookmarkSortType).stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
+        SettingsKeys.BookmarkSortType.default
+    )
 
     private val _saveProgress = MutableStateFlow<SaveProgress>(SaveProgress.Idle)
     val saveProgress: StateFlow<SaveProgress> = _saveProgress
@@ -437,5 +454,21 @@ class ShellViewModel @Inject constructor(
      */
     fun resetSaveProgress() {
         _saveProgress.value = SaveProgress.Idle
+    }
+    fun saveLastSavedFileUri(uri: String) {
+        viewModelScope.launch {
+            settingsRepository.setString(SettingsKeys.LastSavedFileUri, uri)
+        }
+    }
+    fun setLocalAdbWorkingMode(value: Int) {
+        viewModelScope.launch {
+            settingsRepository.setInt(SettingsKeys.LocalAdbWorkingMode, value)
+        }
+    }
+
+    fun setBookmarkSortType(value: Int) {
+        viewModelScope.launch {
+            settingsRepository.setInt(SettingsKeys.BookmarkSortType, value)
+        }
     }
 }

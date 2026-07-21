@@ -1,5 +1,8 @@
 package `in`.hridayan.ashell.ai.data.repository
 
+
+import `in`.hridayan.ashell.core.common.SettingsKeys
+
 import android.content.Context
 import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -10,7 +13,6 @@ import `in`.hridayan.ashell.ai.data.parser.AiResponseParser
 import `in`.hridayan.ashell.ai.data.parser.PromptBuilder
 import `in`.hridayan.ashell.ai.domain.model.AnalysisResult
 import `in`.hridayan.ashell.ai.domain.repository.AiAnalysisRepository
-import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.serialization.json.Json

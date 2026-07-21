@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.settings.domain.model
+package `in`.hridayan.ashell.core.common.domain.model
 
 object GithubReleaseType {
     const val STABLE_FDROID = 0

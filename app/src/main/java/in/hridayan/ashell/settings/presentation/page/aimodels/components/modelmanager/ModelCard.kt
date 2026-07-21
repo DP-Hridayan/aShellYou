@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.settings.presentation.page.aimodels.components.modelmanager
+package `in`.hridayan.ashell.settings.presentation.page.aimodels.components.modelmanager
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke

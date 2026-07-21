@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.settings.presentation.page.licenses.screens
+package `in`.hridayan.ashell.settings.presentation.page.licenses.screens
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.tween

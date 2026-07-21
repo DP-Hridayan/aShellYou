@@ -6,6 +6,9 @@
 
 package `in`.hridayan.ashell.home.presentation.screens
 
+
+import `in`.hridayan.ashell.core.common.LocalSettings
+
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -70,7 +73,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
-import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButton
@@ -376,9 +378,9 @@ private fun LocalAdbCard(
     onClick: () -> Unit
 ) {
     val workingModeText = when (enabledLocalAdbMode) {
-        LocalAdbWorkingMode.BASIC -> stringResource(R.string.basic_shell)
-        LocalAdbWorkingMode.SHIZUKU -> stringResource(R.string.shizuku)
-        LocalAdbWorkingMode.ROOT -> stringResource(R.string.root)
+        LocalAdbWorkingMode.BASIC -> stringResource(`in`.hridayan.ashell.core.common.R.string.basic_shell)
+        LocalAdbWorkingMode.SHIZUKU -> stringResource(`in`.hridayan.ashell.core.common.R.string.shizuku)
+        LocalAdbWorkingMode.ROOT -> stringResource(`in`.hridayan.ashell.core.common.R.string.root)
         else -> stringResource(R.string.none)
     }
 

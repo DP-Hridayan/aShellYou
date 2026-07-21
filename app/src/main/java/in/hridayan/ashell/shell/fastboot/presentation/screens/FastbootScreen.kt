@@ -3,7 +3,8 @@
     ExperimentalFlexBoxApi::class
 )
 
-package `in`.hridayan.ashell.shell.fastboot.presentation.screens
+package `in`.hridayan.ashell.shell.fastboot.presentation.screens
+
 import `in`.hridayan.ashell.navigation.navigateBack
 
 import androidx.compose.foundation.basicMarquee

@@ -1,8 +1,9 @@
 package `in`.hridayan.ashell.shell.common.presentation.model
 
+import androidx.compose.ui.unit.dp
+
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 
 @Immutable
 data class ShellScreenState(

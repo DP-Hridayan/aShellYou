@@ -1,4 +1,4 @@
-﻿package `in`.hridayan.ashell.settings.domain.model
+package `in`.hridayan.ashell.core.common.domain.model
 
 /**
  * Predefined backup frequency options for automatic scheduled backups.

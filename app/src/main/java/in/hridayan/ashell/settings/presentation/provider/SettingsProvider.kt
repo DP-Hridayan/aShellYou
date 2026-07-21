@@ -1,5 +1,8 @@
 package `in`.hridayan.ashell.settings.presentation.provider
 
+
+import `in`.hridayan.ashell.core.common.SettingsKeys
+
 import android.os.Build
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DarkMode
@@ -13,7 +16,7 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
 import `in`.hridayan.ashell.core.presentation.components.floaters.FloatingIconsBackground
 import `in`.hridayan.ashell.navigation.NavRoutes
-import `in`.hridayan.ashell.core.common.SettingsKeys
+import `in`.hridayan.ashell.core.ui.provider.RadioGroupOptionsProvider
 import `in`.hridayan.settingsdsl.dsl.buttonGroupItem
 import `in`.hridayan.settingsdsl.dsl.category
 import `in`.hridayan.settingsdsl.dsl.clickableItem
@@ -99,7 +102,7 @@ object SettingsProvider {
             clickableItem(
                 key = SettingsKeys.DarkTheme,
                 titleResId = R.string.dark_theme,
-                descriptionResId = R.string.system,
+                descriptionResId = `in`.hridayan.ashell.core.common.R.string.system,
                 iconVector = Icons.Outlined.DarkMode
             ),
         ),

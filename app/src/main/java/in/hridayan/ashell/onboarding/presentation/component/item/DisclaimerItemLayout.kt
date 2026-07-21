@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.onboarding.presentation.component.item
+package `in`.hridayan.ashell.onboarding.presentation.component.item
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement

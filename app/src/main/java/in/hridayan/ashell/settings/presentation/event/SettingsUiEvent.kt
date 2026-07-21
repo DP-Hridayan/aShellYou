@@ -2,7 +2,7 @@ package `in`.hridayan.ashell.settings.presentation.event
 
 import android.content.Intent
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
-import `in`.hridayan.ashell.settings.domain.model.BackupType
+import `in`.hridayan.ashell.core.common.domain.model.BackupType
 
 sealed class SettingsUiEvent {
     data class ShowToast(val message: String) : SettingsUiEvent()

@@ -1,5 +1,8 @@
 package `in`.hridayan.ashell.commandexamples.presentation.viewmodel
 
+
+import `in`.hridayan.ashell.core.common.SettingsKeys
+
 import android.content.Context
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.text.input.TextFieldValue
@@ -12,6 +15,7 @@ import `in`.hridayan.ashell.commandexamples.data.local.model.CommandEntity
 import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
 import `in`.hridayan.ashell.commandexamples.presentation.model.CmdExamplesScreenState
 import `in`.hridayan.ashell.core.domain.model.SortType
+import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -31,10 +35,17 @@ import javax.inject.Inject
 @HiltViewModel
 class CommandExamplesViewModel @Inject constructor(
     private val commandRepository: CommandRepository,
+    private val settingsRepository: SettingsRepository,
     @param:ApplicationContext private val appContext: Context
 ) : ViewModel() {
     private val _states = MutableStateFlow(CmdExamplesScreenState())
     val states: StateFlow<CmdExamplesScreenState> = _states
+
+    val commandSortType = settingsRepository.getInt(SettingsKeys.CommandSortType).stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
+        SettingsKeys.CommandSortType.default
+    )
 
     private val _sortType = MutableStateFlow(SortType.AZ)
 
@@ -361,6 +372,16 @@ class CommandExamplesViewModel @Inject constructor(
                 _loadProgress.value = progress
             }
             _isLoading.value = false
+        }
+    }
+    fun dismissNewCommandsAvailable() {
+        viewModelScope.launch {
+            settingsRepository.setBoolean(SettingsKeys.NewCommandsAvailable, false)
+        }
+    }
+    fun setCommandSortType(value: Int) {
+        viewModelScope.launch {
+            settingsRepository.setInt(SettingsKeys.CommandSortType, value)
         }
     }
 }

@@ -1,13 +1,14 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.commandexamples.presentation.component.card
+package `in`.hridayan.ashell.commandexamples.presentation.component.card
+
+import androidx.compose.animation.core.spring
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -86,7 +87,6 @@ import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.navigateBack
-import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 import kotlin.math.roundToInt
@@ -100,7 +100,8 @@ fun CommandExampleCard(
     description: String,
     isFavourite: Boolean,
     labels: List<String>,
-    commandExamplesViewModel: CommandExamplesViewModel = hiltViewModel()
+    commandExamplesViewModel: CommandExamplesViewModel = hiltViewModel(),
+    onUseCommand: (String) -> Unit
 ) {
     val res = LocalResources.current
     val navController = LocalNavController.current
@@ -110,8 +111,7 @@ fun CommandExampleCard(
     val snackBarController = LocalSnackBarController.current
     val coroutineScope = rememberCoroutineScope()
     val prevScreen = navController.previousBackStackEntry
-    val shellViewModel: ShellViewModel =
-        if (prevScreen != null) hiltViewModel(prevScreen) else hiltViewModel()
+    
     val interactionSources = remember { List(3) { MutableInteractionSource() } }
     var isDeleted by rememberSaveable { mutableStateOf(false) }
     val animatedHeight = remember { Animatable(1f) }
@@ -402,11 +402,7 @@ fun CommandExampleCard(
                         }
 
                         UseCommandButton(onClick = {
-                            shellViewModel.onCommandTextFieldChange(
-                                TextFieldValue(text = command)
-                            )
-                            shellViewModel.updateTextFieldSelection()
-                            navController.navigateBack()
+                            onUseCommand(command)
                             commandExamplesViewModel.incrementUseCount(id)
                         })
                     }

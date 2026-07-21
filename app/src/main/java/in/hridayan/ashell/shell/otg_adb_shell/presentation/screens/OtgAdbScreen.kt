@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.shell.otg_adb_shell.presentation.screens
+package `in`.hridayan.ashell.shell.otg_adb_shell.presentation.screens
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -9,6 +9,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import `in`.hridayan.ashell.shell.common.presentation.screens.BaseShellScreen
+import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ConnectedDeviceDialog
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue

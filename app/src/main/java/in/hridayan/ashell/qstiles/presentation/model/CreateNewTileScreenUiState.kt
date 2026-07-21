@@ -2,7 +2,7 @@ package `in`.hridayan.ashell.qstiles.presentation.model
 
 import androidx.compose.ui.text.input.TextFieldValue
 import `in`.hridayan.ashell.qstiles.domain.model.TileActiveState
-import `in`.hridayan.ashell.qstiles.domain.model.TileExecutionMode
+import `in`.hridayan.ashell.core.common.domain.model.TileExecutionMode
 
 /**
  * UI state for the Create / Edit Tile screen.

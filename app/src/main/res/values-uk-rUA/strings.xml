@@ -28,7 +28,7 @@
     <string name="ai_cache_enabled">Увімкнути кешування</string>
     <string name="ai_models">AI &amp; Моделі</string>
     <string name="all">Всі</string>
-    <string name="all_data">Всі дані</string>
+
     <string name="already_connected">Вже під\'єднано</string>
     <string name="already_latest_version">Ви використовуєте останню версію</string>
     <string name="app">Додаток</string>
@@ -65,7 +65,7 @@
     <string name="backup_time">Час резервування</string>
     <string name="backup_type">Тип резервування</string>
     <string name="baseband_version">Baseband</string>
-    <string name="basic_shell">Базова оболонка</string>
+
     <string name="battery_level">Батарея</string>
     <string name="battery_saver">Економія батареї</string>
     <string name="behavior">Поведінка</string>
@@ -142,10 +142,10 @@
     <string name="custom_ui_scale">Свій масштаб UI</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Вирізати %1$d елементів</string>
     <string name="cut_to_clipboard">Вирізати в буфер обміну</string>
-    <string name="daily">Щоденно</string>
+
     <string name="dark_theme">Темна тема</string>
     <string name="dashboard">Приладна дошка</string>
-    <string name="databases_only">Тільки бази даних</string>
+
     <string name="default_folder">Тека за замовчуванням</string>
     <string name="default_language">Мова за замовчуванням</string>
     <string name="delete">Видалити</string>
@@ -418,7 +418,7 @@
     <string name="last_backup_time">Час останнього резервування</string>
     <string name="latest_version">Остання версія</string>
     <string name="lead_developer">Провідний розробник</string>
-    <string name="least_used">Рідко використовувані</string>
+
     <string name="library_count" comment="%1$d = number of third-party libraries">Виявлено бібліотек %1$d</string>
     <string name="license">Ліцензія</string>
     <string name="license_label">Ліцензія</string>
@@ -453,9 +453,9 @@
     <string name="models" comment="Refers to AI/ML models used for command analysis">Моделі</string>
     <string name="modified" comment="File property: last modified date">Змінено</string>
     <string name="monospace" comment="Font style category name">Monospace</string>
-    <string name="monthly">Щомісяця</string>
+
     <string name="more">Ще</string>
-    <string name="most_used">Часто використовуються</string>
+
     <string name="move">Перемістити</string>
     <string name="moving">Переміщення…</string>
     <string name="moving_items" comment="%1$d = number of items being moved">Переміщення %1$d елементів</string>
@@ -465,7 +465,7 @@
     <string name="new_commands_available_msg">Додано нові приклади команд!\nНатисніть кнопку нижче, щоб завантажити нові команди.</string>
     <string name="new_folder">Нова тека</string>
     <string name="new_name">Нове ім\'я</string>
-    <string name="newest">Найновіший</string>
+
     <string name="no_adb_device_error">Пристрої, сумісні з ADB, не виявлені. Увімкніть налагодження USB на цільовому пристрої.</string>
     <string name="no_adb_interface_found">Інтерфейс adb не знайдено</string>
     <string name="no_auto_backup_yet">Авторезервування ще не виконано</string>
@@ -498,10 +498,9 @@
     <string name="notification_settings">Налаштування сповіщень</string>
     <string name="notification_style_error">Якщо ви не можете ввести код сполучення зі сповіщення, можливо, вам потрібно буде змінити панель сповіщень на Android. Щоб змінити стиль сповіщень, перейдіть до Налаштувань сповіщень ~ Стиль сповіщень. В іншому випадку ви можете не ввести код сполучення з повідомлення.</string>
     <string name="notification_styles">Стилі сповіщень</string>
-    <string name="off">Вимкнено</string>
+
     <string name="off_state" comment="Quick Settings tile toggle state label">\"Вимк\"</string>
-    <string name="oldest" comment="Sorting option">Найстаріший</string>
-    <string name="on">Увімкнено</string>
+
     <string name="on_state" comment="Quick Settings tile toggle state label">\"Увім\"</string>
     <string name="open">Відкрити</string>
     <string name="open_app_language_settings">Відкрити налаштування мови додатку</string>
@@ -547,7 +546,7 @@
     <string name="pick_ashellyou_extension">Будь ласка, виберіть файл із розширенням \".ashellyou\"</string>
     <string name="port">Порт</string>
     <string name="possible_reasons">Можливі причини</string>
-    <string name="pre_release_github">Перед реліз (GitHub)</string>
+
     <string name="pre_release_warning">Перед реліз збірки можуть бути нестабільними</string>
     <string name="pre_release_warning_description">Ці версії все ще знаходяться на стадії тестування та можуть містити незавершені функції або несподівані помилки. Якщо ви вирішите оновитись до передрелізної версії, майте на увазі, що можуть виникнути збої або дивна поведінка.\nЯкщо ви зіткнетеся з будь-якими проблемами, збоями або дивною поведінкою, будь ласка, повідомте нам про це, щоб ми могли виправити та покращити aShellYou до стабільного релізу.\nДякую, що допомагаєте нам будувати краще!</string>
     <string name="preference">Переважно</string>
@@ -647,7 +646,7 @@
     <string name="serial_number">Серійний номер</string>
     <string name="serif" comment="Font style category name">Serif</string>
     <string name="settings">Налаштування</string>
-    <string name="settings_only">Тільки параметри</string>
+
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">Вивід останньої команди експортується до \'%s\'</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">Вивід оболонки експортується до \'%s\'</string>
     <string name="shizuku_not_installed">Shizuku не встановлено</string>
@@ -665,8 +664,7 @@
     <string name="slot_data_unknown">Дані слота невідомі</string>
     <string name="smooth_scrolling">Плавне прокручування</string>
     <string name="sort">Сортувати</string>
-    <string name="stable_fdroid">Стабільний (F-Droid)</string>
-    <string name="stable_github">Стабільний (GitHub)</string>
+
     <string name="stack_trace">Трасування стеку</string>
     <string name="stargazers">Зірки</string>
     <string name="start">Запустити</string>
@@ -680,7 +678,7 @@
     <string name="suggested_icons">Запропоновані іконки</string>
     <string name="support_bmc">Подобається те, що я роблю?\nПригостіть мене кавою</string>
     <string name="switch_mode">Перемикнути режим</string>
-    <string name="system">Системна</string>
+
     <string name="system_default">Системні за замовчуванням</string>
     <string name="system_font" comment="Option to use the device default font">Системний шрифт</string>
     <string name="system_settings">Системні налаштування</string>
@@ -735,7 +733,7 @@
     <string name="waiting_for_device">Очікування пристрою</string>
     <string name="waiting_for_devices">Очікування пристроїв…</string>
     <string name="want_to_contribute_too">Хочете також зробити свій внесок?</string>
-    <string name="weekly">Щотижня</string>
+
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">Що б ви хотіли зробити поки %1$s?</string>
     <string name="whats_new">Що нового!</string>
     <string name="which_device_to_pair">Який пристрій ви хочете сполучити?</string>

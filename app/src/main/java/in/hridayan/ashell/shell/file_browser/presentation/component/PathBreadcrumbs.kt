@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.shell.file_browser.presentation.component
+package `in`.hridayan.ashell.shell.file_browser.presentation.component
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.horizontalScroll

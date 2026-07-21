@@ -1,5 +1,6 @@
 package `in`.hridayan.ashell.activities
 
+
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -18,21 +20,20 @@ import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import `in`.hridayan.ashell.core.common.CompositionLocals
 import `in`.hridayan.ashell.core.common.LocalSeedColor
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.domain.provider.SeedColorProvider
-import `in`.hridayan.ashell.ui.AppUiEntry
-import `in`.hridayan.ashell.ui.SettingsStateImpl
 import `in`.hridayan.ashell.core.presentation.components.snackbar.SnackBarHost
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouTheme
 import `in`.hridayan.ashell.core.utils.handleSharedText
 import `in`.hridayan.ashell.logcat.data.session.LogcatDeeplinkHolder
 import `in`.hridayan.ashell.logcat.data.session.LogcatSessionHolder
-import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
+import `in`.hridayan.ashell.ui.AppUiEntry
+import `in`.hridayan.ashell.ui.SettingsStateImpl
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import androidx.compose.runtime.remember
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

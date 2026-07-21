@@ -1,14 +1,14 @@
-package `in`.hridayan.ashell.settings.presentation.provider
+package `in`.hridayan.ashell.core.ui.provider
 
 import androidx.appcompat.app.AppCompatDelegate
-import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.settings.domain.model.GithubReleaseType
+import `in`.hridayan.ashell.core.common.domain.model.GithubReleaseType
 import `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.domain.model.SortType
 import `in`.hridayan.ashell.core.domain.model.AppFont
-import `in`.hridayan.ashell.settings.domain.model.BackupFrequency
-import `in`.hridayan.ashell.settings.domain.model.BackupType
+import `in`.hridayan.ashell.core.common.domain.model.BackupFrequency
+import `in`.hridayan.ashell.core.common.R
 import `in`.hridayan.settingsdsl.model.RadioButtonOption
+import `in`.hridayan.ashell.core.common.domain.model.BackupType
 
 class RadioGroupOptionsProvider {
     companion object {

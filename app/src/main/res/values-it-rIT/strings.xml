@@ -28,7 +28,7 @@
     <string name="ai_cache_enabled">Abilita cache</string>
     <string name="ai_models">AI e Modelli</string>
     <string name="all">Tutto</string>
-    <string name="all_data">Tutti i dati</string>
+
     <string name="already_connected">Già connesso</string>
     <string name="already_latest_version">Stai usando l\'ultima versione</string>
     <string name="app">App</string>
@@ -65,7 +65,7 @@
     <string name="backup_time">Orario backup</string>
     <string name="backup_type">Tipo backup</string>
     <string name="baseband_version">Baseband</string>
-    <string name="basic_shell">Shell di base</string>
+
     <string name="battery_level">Batteria</string>
     <string name="battery_saver">Risparmio batteria</string>
     <string name="behavior">Comportamento</string>
@@ -142,10 +142,10 @@
     <string name="custom_ui_scale">Scala UI personalizzata</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Taglia %1$d oggetti</string>
     <string name="cut_to_clipboard">Taglia negli appunti</string>
-    <string name="daily">Giornaliero</string>
+
     <string name="dark_theme">Tema scuro</string>
     <string name="dashboard">Dashboard</string>
-    <string name="databases_only">Solo database</string>
+
     <string name="default_folder">Cartella predefinita</string>
     <string name="default_language">Lingua predefinita</string>
     <string name="delete">Elimina</string>
@@ -418,7 +418,7 @@
     <string name="last_backup_time">Ultima ora di backup</string>
     <string name="latest_version">Ultima versione</string>
     <string name="lead_developer">Sviluppatore principale</string>
-    <string name="least_used">Meno utilizzato</string>
+
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d librerie rilevate</string>
     <string name="license">Licenza</string>
     <string name="license_label">Licenza</string>
@@ -453,9 +453,9 @@
     <string name="models" comment="Refers to AI/ML models used for command analysis">Modelli</string>
     <string name="modified" comment="File property: last modified date">Modificato</string>
     <string name="monospace" comment="Font style category name">Spazio singolo</string>
-    <string name="monthly">Mensile</string>
+
     <string name="more">Altro</string>
-    <string name="most_used">Più utilizzati</string>
+
     <string name="move">Sposta</string>
     <string name="moving">Spostamento…</string>
     <string name="moving_items" comment="%1$d = number of items being moved">Spostamento di %1$d oggetto(i)</string>
@@ -465,7 +465,7 @@
     <string name="new_commands_available_msg">Sono stati aggiunti nuovi esempi di comandi!\nClicca sul pulsante qui sotto per caricare i nuovi comandi.</string>
     <string name="new_folder">Nuova cartella</string>
     <string name="new_name">Rinomina</string>
-    <string name="newest">Più recenti</string>
+
     <string name="no_adb_device_error">Nessun dispositivo compatibile con ADB trovato. Abilita il debug USB sul dispositivo di destinazione.</string>
     <string name="no_adb_interface_found">Nessuna interfaccia adb trovata</string>
     <string name="no_auto_backup_yet">Nessun backup automatico ancora eseguito</string>
@@ -498,10 +498,9 @@
     <string name="notification_settings">Impostazioni notifiche</string>
     <string name="notification_style_error">Se non è possibile inserire il codice di accoppiamento dalla notifica, allora potrebbe essere necessario modificare l\'ombra di notifica su Android. Vai su impostazioni notifiche ~ Stile di notifica per cambiare lo stile di notifica. Altrimenti potrebbe non essere possibile inserire il codice di accoppiamento dalla notifica.</string>
     <string name="notification_styles">Stile notifiche</string>
-    <string name="off">Disattiva</string>
+
     <string name="off_state" comment="Quick Settings tile toggle state label">Disattivato</string>
-    <string name="oldest" comment="Sorting option">Più vecchio</string>
-    <string name="on">Attiva</string>
+
     <string name="on_state" comment="Quick Settings tile toggle state label">Attivo</string>
     <string name="open">Apri</string>
     <string name="open_app_language_settings">Apri le impostazioni della lingua dell\'app</string>
@@ -547,7 +546,7 @@
     <string name="pick_ashellyou_extension">Scegliere un file con estensione .ashellyou</string>
     <string name="port">Porta</string>
     <string name="possible_reasons">Possibili cause</string>
-    <string name="pre_release_github">Pre-rilascio (GitHub)</string>
+
     <string name="pre_release_warning">Le build pre-rilascio possono essere instabili</string>
     <string name="pre_release_warning_description">Queste versioni sono ancora in fase di test e possono contenere funzionalità incomplete o bug inattesi. Se si sceglie di aggiornare a una pre-release, si prega di essere consapevoli che le cose potrebbero rompere o comportarsi stranamente.\nSe riscontri problemi, crash o comportamenti strani, per favore segnalali in modo da poter risolvere e migliorare aShellYou prima del rilascio stabile.\nGrazie per averci aiutato a migliorare!</string>
     <string name="preference">Preferenze</string>
@@ -647,7 +646,7 @@
     <string name="serial_number">Numero D\'Ordine</string>
     <string name="serif" comment="Font style category name">Serif</string>
     <string name="settings">Impostazioni</string>
-    <string name="settings_only">Solo impostazioni</string>
+
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">L\'output dell\'ultimo comando è esportato in \'%s\'</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">L\'output della shell è esportato in \'%s\'</string>
     <string name="shizuku_not_installed">Shizuku non è installato</string>
@@ -665,8 +664,7 @@
     <string name="slot_data_unknown">Dati dello slot sconosciuti</string>
     <string name="smooth_scrolling">Scorrimento fluido</string>
     <string name="sort">Ordina</string>
-    <string name="stable_fdroid">Stabile (Fdroid)</string>
-    <string name="stable_github">Stabile (GitHub)</string>
+
     <string name="stack_trace">Stack trace</string>
     <string name="stargazers">Stargazers</string>
     <string name="start">Iniziare</string>
@@ -680,7 +678,7 @@
     <string name="suggested_icons">Icone consigliate</string>
     <string name="support_bmc">Ti piace quello che faccio?\nConsidera di offrirmi un caffè</string>
     <string name="switch_mode">Cambia modalità</string>
-    <string name="system">Sistema</string>
+
     <string name="system_default">Predefinito di sistema</string>
     <string name="system_font" comment="Option to use the device default font">Font di sistema</string>
     <string name="system_settings">Impostazioni di sistema</string>
@@ -735,7 +733,7 @@
     <string name="waiting_for_device">In attesa del dispositivo</string>
     <string name="waiting_for_devices">In attesa del dispositivo…</string>
     <string name="want_to_contribute_too">Vuoi contribuire anche tu?</string>
-    <string name="weekly">Settimanale</string>
+
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">Cosa vorresti fare mentre %1$s?</string>
     <string name="whats_new">Novità!</string>
     <string name="which_device_to_pair">Quale dispositivo vorresti abbinare?</string>

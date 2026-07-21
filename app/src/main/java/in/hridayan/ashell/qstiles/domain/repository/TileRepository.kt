@@ -37,4 +37,4 @@ interface TileRepository {
      * Returns a one-shot snapshot of all currently active tiles.
      */
     suspend fun getActiveTiles(): List<TileConfig>
-}
+}

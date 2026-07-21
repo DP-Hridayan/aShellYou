@@ -1,0 +1,21 @@
+<resources>
+
+
+  <string name="system">System</string>
+  <string name="off">Aus</string>
+  <string name="on">An</string>
+  <string name="stable_fdroid">Stabil (Droid)</string>
+  <string name="stable_github">Stabil (GitHub)</string>
+  <string name="pre_release_github">Pre-Release (GitHub)</string>
+  <string name="basic_shell">Einfache Shell</string>
+  <string name="newest">Neueste</string>
+  <string name="oldest" comment="Sorting option">Älteste</string>
+  <string name="most_used">Am häufigsten verwendet</string>
+  <string name="least_used">Am wenigsten Benutzt</string>
+  <string name="daily">Täglich</string>
+  <string name="weekly">Wöchentlich</string>
+  <string name="monthly">Monatlich</string>
+  <string name="all_data">Alle Daten</string>
+  <string name="settings_only">Nur Einstellungen</string>
+  <string name="databases_only">Nur Datenbanken</string>
+</resources>

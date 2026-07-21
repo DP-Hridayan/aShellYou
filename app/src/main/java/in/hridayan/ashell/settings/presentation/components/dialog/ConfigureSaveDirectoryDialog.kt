@@ -1,6 +1,8 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.settings.presentation.components.dialog
+package `in`.hridayan.ashell.settings.presentation.components.dialog
+
+import `in`.hridayan.ashell.core.common.LocalSettings
 
 import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -49,7 +51,6 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.utils.getFullPathFromTreeUri

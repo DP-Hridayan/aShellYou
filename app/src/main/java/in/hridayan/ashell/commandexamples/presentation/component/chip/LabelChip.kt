@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.commandexamples.presentation.component.chip
+package `in`.hridayan.ashell.commandexamples.presentation.component.chip
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

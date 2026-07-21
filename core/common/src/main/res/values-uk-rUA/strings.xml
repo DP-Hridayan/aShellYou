@@ -1,0 +1,21 @@
+<resources>
+
+
+  <string name="system">Системна</string>
+  <string name="off">Вимкнено</string>
+  <string name="on">Увімкнено</string>
+  <string name="stable_fdroid">Стабільний (F-Droid)</string>
+  <string name="stable_github">Стабільний (GitHub)</string>
+  <string name="pre_release_github">Перед реліз (GitHub)</string>
+  <string name="basic_shell">Базова оболонка</string>
+  <string name="newest">Найновіший</string>
+  <string name="oldest" comment="Sorting option">Найстаріший</string>
+  <string name="most_used">Часто використовуються</string>
+  <string name="least_used">Рідко використовувані</string>
+  <string name="daily">Щоденно</string>
+  <string name="weekly">Щотижня</string>
+  <string name="monthly">Щомісяця</string>
+  <string name="all_data">Всі дані</string>
+  <string name="settings_only">Тільки параметри</string>
+  <string name="databases_only">Тільки бази даних</string>
+</resources>

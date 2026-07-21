@@ -1,6 +1,11 @@
 package `in`.hridayan.ashell.shell.local_adb_shell.presentation.screens
 
+
+import `in`.hridayan.ashell.core.common.LocalSettings
+
 import androidx.compose.runtime.Composable
+import `in`.hridayan.ashell.shell.common.presentation.screens.BaseShellScreen
+import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ConnectedDeviceDialog
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -19,7 +24,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.common.constants.SHIZUKU_PACKAGE_NAME
@@ -126,9 +130,9 @@ fun LocalAdbScreen(
     }
 
     val modeButtonText = when (localAdbMode) {
-        LocalAdbWorkingMode.BASIC -> stringResource(R.string.basic_shell)
-        LocalAdbWorkingMode.SHIZUKU -> stringResource(R.string.shizuku)
-        LocalAdbWorkingMode.ROOT -> stringResource(R.string.root)
+        LocalAdbWorkingMode.BASIC -> stringResource(`in`.hridayan.ashell.core.common.R.string.basic_shell)
+        LocalAdbWorkingMode.SHIZUKU -> stringResource(`in`.hridayan.ashell.core.common.R.string.shizuku)
+        LocalAdbWorkingMode.ROOT -> stringResource(`in`.hridayan.ashell.core.common.R.string.root)
         else -> {
             ""
         }

@@ -23,6 +23,19 @@ import javax.inject.Singleton
 class SettingsDataStore @Inject constructor(
     @param:ApplicationContext private val context: Context
 ) {
+    companion object {
+        val PRESERVE_KEYS = setOf(
+            SettingsKeys.FirstLaunch.name,
+            SettingsKeys.LastLocalBackupTime.name,
+            SettingsKeys.LastCloudBackupTime.name,
+            SettingsKeys.LastLocalBackupType.name,
+            SettingsKeys.LastCloudBackupType.name,
+            SettingsKeys.SavedVersionCode.name,
+            SettingsKeys.GoogleAccountEmail.name,
+            SettingsKeys.GoogleAccountPhotoUrl.name,
+            SettingsKeys.NewCommandsAvailable.name,
+        )
+    }
     private val ds = context.settingsDataStore
 
     /** Raw preferences snapshot — collect once for all key lookups. */
@@ -122,17 +135,7 @@ class SettingsDataStore @Inject constructor(
     }
 
     suspend fun resetAndRestoreDefaults(): Boolean {
-        val preserveKeys = setOf(
-            SettingsKeys.FirstLaunch.name,
-            SettingsKeys.LastLocalBackupTime.name,
-            SettingsKeys.LastCloudBackupTime.name,
-            SettingsKeys.LastLocalBackupType.name,
-            SettingsKeys.LastCloudBackupType.name,
-            SettingsKeys.SavedVersionCode.name,
-            SettingsKeys.GoogleAccountEmail.name,
-            SettingsKeys.GoogleAccountPhotoUrl.name,
-            SettingsKeys.NewCommandsAvailable.name,
-        )
+        val preserveKeys = PRESERVE_KEYS
 
         val currentPrefs = ds.data.first()
 

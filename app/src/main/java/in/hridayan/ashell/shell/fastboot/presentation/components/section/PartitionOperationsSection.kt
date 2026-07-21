@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 
-package `in`.hridayan.ashell.shell.fastboot.presentation.components.section
+package `in`.hridayan.ashell.shell.fastboot.presentation.components.section
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult

@@ -1,7 +1,7 @@
 package `in`.hridayan.ashell.settings.domain.repository
 
 import android.net.Uri
-import `in`.hridayan.ashell.settings.domain.model.BackupType
+import `in`.hridayan.ashell.core.common.domain.model.BackupType
 
 interface BackupAndRestoreRepository {
     suspend fun backupToDevice(uri: Uri, type: BackupType): Boolean

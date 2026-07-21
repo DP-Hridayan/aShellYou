@@ -1,9 +1,11 @@
 package `in`.hridayan.ashell.ui
 
+
+import `in`.hridayan.ashell.core.common.SettingsKeys
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
-import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.common.SettingsState
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -42,6 +44,16 @@ class SettingsStateImpl internal constructor(private val vm: SettingsViewModel) 
                 flow.collectAsState(initial = default).value as T
             }
 
+            else -> error("Unsupported settings key type: ${key.name}")
+        } }
+
+    @Suppress("UNCHECKED_CAST")
+    override fun <T> set(key: SettingsKeys<T>, value: T) {
+        when (key.defaultValue) {
+            is Boolean -> vm.setBoolean(key as SettingsKeys<Boolean>, value as Boolean)
+            is Int -> vm.setInt(key as SettingsKeys<Int>, value as Int)
+            is Float -> vm.setFloat(key as SettingsKeys<Float>, value as Float)
+            is String -> vm.setString(key as SettingsKeys<String>, value as String)
             else -> error("Unsupported settings key type: ${key.name}")
         }
     }

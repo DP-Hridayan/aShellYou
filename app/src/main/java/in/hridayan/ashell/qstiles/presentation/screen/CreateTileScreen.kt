@@ -1,6 +1,8 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalMaterial3Api::class)
 
-package `in`.hridayan.ashell.qstiles.presentation.screen
+package `in`.hridayan.ashell.qstiles.presentation.screen
+
+import androidx.compose.ui.unit.dp
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
@@ -71,7 +73,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
@@ -91,7 +92,7 @@ import `in`.hridayan.ashell.qstiles.presentation.components.dialog.IconChooserDi
 import `in`.hridayan.ashell.qstiles.presentation.viewmodel.CreateTileViewModel
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.components.switch.AppSwitch
-import `in`.hridayan.ashell.settings.presentation.provider.ButtonGroupOptionsProvider
+import `in`.hridayan.ashell.core.ui.provider.ButtonGroupOptionsProvider
 
 @Composable
 fun CreateTileScreen(

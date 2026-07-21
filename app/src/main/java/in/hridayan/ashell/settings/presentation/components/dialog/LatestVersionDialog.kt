@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.settings.presentation.components.dialog
+package `in`.hridayan.ashell.settings.presentation.components.dialog
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package `in`.hridayan.ashell.ui.bottomsheet
+package `in`.hridayan.ashell.ui.bottomsheet
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background

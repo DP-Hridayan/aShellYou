@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package `in`.hridayan.ashell.settings.presentation.page.aimodels.screens
+package `in`.hridayan.ashell.settings.presentation.page.aimodels.screens
 
 import android.os.StatFs
 import android.util.Log

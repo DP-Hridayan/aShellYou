@@ -28,6 +28,8 @@ class SettingsRepositoryImpl(
     override suspend fun setString(key: SettingsKeys<String>, value: String) =
         dataStore.setString(key, value)
 
+    override fun getPreserveKeys(): Set<String> = SettingsDataStore.PRESERVE_KEYS
+
     override fun getAllDefaultSettings(): Map<String, Any?> {
         return dataStore.getAllDefaultSettings()
     }

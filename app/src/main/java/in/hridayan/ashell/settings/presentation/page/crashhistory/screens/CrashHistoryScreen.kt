@@ -3,7 +3,7 @@
     ExperimentalSharedTransitionApi::class
 )
 
-package `in`.hridayan.ashell.settings.presentation.page.crashhistory.screens
+package `in`.hridayan.ashell.settings.presentation.page.crashhistory.screens
 
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi

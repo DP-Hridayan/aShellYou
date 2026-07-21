@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.shell.local_adb_shell.presentation.components.dialog
+package `in`.hridayan.ashell.shell.local_adb_shell.presentation.components.dialog
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -61,7 +61,7 @@ fun ShizukuUnavailableDialog(
 
                 AutoResizeableText(
                     modifier = Modifier.fillMaxWidth(),
-                    text = stringResource(R.string.shizuku_unavailable),
+                    text = stringResource(`in`.hridayan.ashell.R.string.shizuku_unavailable),
                     style = MaterialTheme.typography.titleLargeEmphasized,
                     color = MaterialTheme.colorScheme.onSurface,
                     textAlign = TextAlign.Center
@@ -71,7 +71,7 @@ fun ShizukuUnavailableDialog(
 
                 Text(
                     modifier = Modifier.fillMaxWidth(),
-                    text = stringResource(R.string.shizuku_unavailable_message),
+                    text = stringResource(`in`.hridayan.ashell.R.string.shizuku_unavailable_message),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurface,
                     textAlign = TextAlign.Center
@@ -87,7 +87,7 @@ fun ShizukuUnavailableDialog(
                             onClick = { onDismiss() }
                         ),
                         ButtonGroupItem(
-                            text = stringResource(R.string.shizuku),
+                            text = stringResource(`in`.hridayan.ashell.core.common.R.string.shizuku),
                             onClick = { onConfirm() }
                         )
                     )

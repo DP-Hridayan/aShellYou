@@ -1,34 +1,30 @@
 package `in`.hridayan.ashell.settings.data.repository
 
+
+import `in`.hridayan.ashell.core.common.SettingsKeys
+
 import android.content.Context
 import android.net.Uri
 import dagger.hilt.android.qualifiers.ApplicationContext
-import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
-import `in`.hridayan.ashell.core.domain.model.SortType
+import `in`.hridayan.ashell.core.common.domain.backup.BackupProvider
 import `in`.hridayan.ashell.settings.data.utils.EncryptionHelper
-import `in`.hridayan.ashell.qstiles.data.database.TileLogDatabase
-import `in`.hridayan.ashell.qstiles.data.datastore.TileDatastore
-import `in`.hridayan.ashell.core.common.SettingsKeys
-import `in`.hridayan.ashell.settings.domain.model.BackupData
-import `in`.hridayan.ashell.settings.domain.model.BackupMode
-import `in`.hridayan.ashell.settings.domain.model.BackupType
+import `in`.hridayan.ashell.core.common.domain.model.BackupData
+import `in`.hridayan.ashell.core.common.domain.model.BackupMode
+import `in`.hridayan.ashell.core.common.domain.model.BackupType
 import `in`.hridayan.ashell.settings.domain.repository.BackupAndRestoreRepository
 import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
-import `in`.hridayan.ashell.shell.common.domain.repository.BookmarkRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 class BackupAndRestoreRepositoryImpl @Inject constructor(
     private val json: Json,
-    private val commandRepository: CommandRepository,
-    private val bookmarkRepository: BookmarkRepository,
+    private val backupProviders: Set<@JvmSuppressWildcards BackupProvider>,
     private val settingsRepository: SettingsRepository,
-    private val tileDatastore: TileDatastore,
-    private val tileLogDatabase: TileLogDatabase,
     @param:ApplicationContext private val context: Context
 ) : BackupAndRestoreRepository {
 
@@ -84,36 +80,27 @@ class BackupAndRestoreRepositoryImpl @Inject constructor(
         type: BackupType,
         backupMode: BackupMode
     ): BackupData {
-        val settings =
-            if (type == BackupType.SETTINGS_ONLY || type == BackupType.SETTINGS_AND_DATABASE)
-                getSettingsMap() else null
+        val payloads = mutableMapOf<String, JsonElement>()
 
-        val commands =
-            if (type == BackupType.DATABASE_ONLY || type == BackupType.SETTINGS_AND_DATABASE)
-                commandRepository.getAllCommandsOnce() else null
+        for (provider in backupProviders) {
+            val shouldBackup = when (type) {
+                BackupType.SETTINGS_ONLY -> provider.featureId == "settings"
+                BackupType.DATABASE_ONLY -> provider.featureId != "settings"
+                BackupType.SETTINGS_AND_DATABASE -> true
+            }
 
-        val bookmarks =
-            if (type == BackupType.DATABASE_ONLY || type == BackupType.SETTINGS_AND_DATABASE)
-                bookmarkRepository.getBookmarksSorted(SortType.AZ) else null
-
-        val tiles =
-            if (type == BackupType.DATABASE_ONLY || type == BackupType.SETTINGS_AND_DATABASE)
-                tileDatastore.getAllTilesOnce() else null
-
-        val tileLogs =
-            if (type == BackupType.DATABASE_ONLY || type == BackupType.SETTINGS_AND_DATABASE)
-                tileLogDatabase.dao().getAllLogsOnce() else null
+            if (shouldBackup) {
+                provider.getBackupData()?.let { data ->
+                    payloads[provider.featureId] = data
+                }
+            }
+        }
 
         val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")
-
         val backupTime = LocalDateTime.now().format(formatter)
 
         return BackupData(
-            settings = settings,
-            commands = commands,
-            bookmarks = bookmarks,
-            tiles = tiles,
-            tileLogs = tileLogs,
+            payloads = payloads,
             backupTime = backupTime,
             backupType = type.name,
             backupMode = backupMode.name
@@ -150,57 +137,22 @@ class BackupAndRestoreRepositoryImpl @Inject constructor(
         }
     }
 
-
-    private suspend fun getSettingsMap(): Map<String, String?> {
-        val prefs = settingsRepository.getCurrentSettings()
-        return prefs.mapValues { it.value?.toString() }
-    }
-
     private suspend fun saveRestoredData(data: BackupData) {
-        data.commands?.let {
-            commandRepository.deleteAllCommands()
-            commandRepository.insertAllCommands(it)
-        }
-        data.bookmarks?.let {
-            bookmarkRepository.deleteAllBookmarks()
-            bookmarkRepository.insertAllBookmarks(it)
-        }
-        data.tiles?.let {
-            tileDatastore.deleteAllTiles()
-            tileDatastore.saveAllTiles(it)
-        }
-        data.tileLogs?.let {
-            tileLogDatabase.dao().deleteAllLogs()
-            tileLogDatabase.dao().insertAll(it)
-        }
-        data.settings?.let { restoreSettings(it) }
-    }
+        val legacyDataMap = mapOf(
+            "settings" to data.settings,
+            "commands" to data.commands,
+            "bookmarks" to data.bookmarks,
+            "tiles" to data.tiles,
+            "tileLogs" to data.tileLogs
+        )
 
-    private suspend fun restoreSettings(settings: Map<String, String?>) {
-        settingsRepository.resetAndRestoreDefaults()
-
-        settings.forEach { (key, value) ->
-            if (key == SettingsKeys.SavedVersionCode.name) return@forEach
-
-            val settingKey = SettingsKeys.entries.find { it.name == key } ?: return@forEach
-
-            value?.let {
-                @Suppress("UNCHECKED_CAST")
-                when (settingKey.default) {
-                    is Boolean -> settingsRepository.setBoolean(
-                        settingKey as SettingsKeys<Boolean>,
-                        it.toBooleanStrictOrNull() ?: return@forEach
-                    )
-
-                    is Int -> settingsRepository.setInt(
-                        settingKey as SettingsKeys<Int>,
-                        it.toIntOrNull() ?: return@forEach
-                    )
-
-                    is Float -> settingsRepository.setFloat(
-                        settingKey as SettingsKeys<Float>,
-                        it.toFloatOrNull() ?: return@forEach
-                    )
+        for (provider in backupProviders) {
+            val providerData = data.payloads?.get(provider.featureId)
+            
+            // Only restore if we have data for this provider, either new payload or legacy
+            if (providerData != null || legacyDataMap[provider.featureId] != null) {
+                provider.restoreData(providerData) { legacyKey ->
+                    legacyDataMap[legacyKey]
                 }
             }
         }

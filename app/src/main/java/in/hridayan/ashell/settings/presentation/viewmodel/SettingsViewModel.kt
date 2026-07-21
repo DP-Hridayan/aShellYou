@@ -1,5 +1,8 @@
 package `in`.hridayan.ashell.settings.presentation.viewmodel
 
+
+import `in`.hridayan.ashell.core.common.SettingsKeys
+
 import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.Stable
@@ -14,9 +17,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.navigation.NavRoutes
-import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.settings.data.worker.BackupScheduler
-import `in`.hridayan.ashell.settings.domain.model.BackupType
+import `in`.hridayan.ashell.core.common.domain.model.BackupType
 import `in`.hridayan.ashell.settings.domain.repository.GoogleAuthRepository
 import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.settings.domain.usecase.ToggleSettingUseCase

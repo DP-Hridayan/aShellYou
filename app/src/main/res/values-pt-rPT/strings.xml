@@ -28,7 +28,7 @@
     <string name="ai_cache_enabled">Habilitar cache</string>
     <string name="ai_models">AI &amp; Models</string>
     <string name="all">Todos</string>
-    <string name="all_data">Todos os dados</string>
+
     <string name="already_connected">Já conectado</string>
     <string name="already_latest_version">Você está usando a versão mais recente</string>
     <string name="app">App</string>
@@ -65,7 +65,7 @@
     <string name="backup_time">Tempo de Backup</string>
     <string name="backup_type">Tipo de backup</string>
     <string name="baseband_version">Banda</string>
-    <string name="basic_shell">Shell básico</string>
+
     <string name="battery_level">Bateria</string>
     <string name="battery_saver">Economizador de bateria</string>
     <string name="behavior">Comportamento</string>
@@ -142,10 +142,10 @@
     <string name="custom_ui_scale">Escala de interface personalizada</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Recortar %1$d itens</string>
     <string name="cut_to_clipboard">Recortar para a área de transferência</string>
-    <string name="daily">Diariamente</string>
+
     <string name="dark_theme">Tema escuro</string>
     <string name="dashboard">Painel</string>
-    <string name="databases_only">Somente bancos de dados</string>
+
     <string name="default_folder">Pasta padrão</string>
     <string name="default_language">Idioma padrão</string>
     <string name="delete">Excluir</string>
@@ -418,7 +418,7 @@
     <string name="last_backup_time">Hora do último backup</string>
     <string name="latest_version">Versão mais recente</string>
     <string name="lead_developer">Desenvolvedor chefe</string>
-    <string name="least_used">Menos utilizados</string>
+
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d libliotecas detectadas</string>
     <string name="license">Licença</string>
     <string name="license_label">Licença</string>
@@ -453,9 +453,9 @@
     <string name="models" comment="Refers to AI/ML models used for command analysis">Modelos</string>
     <string name="modified" comment="File property: last modified date">Modificado</string>
     <string name="monospace" comment="Font style category name">Monoespaçada</string>
-    <string name="monthly">Mensual</string>
+
     <string name="more">Mais</string>
-    <string name="most_used">Mais utilizados</string>
+
     <string name="move">Mover</string>
     <string name="moving">Movendo…</string>
     <string name="moving_items" comment="%1$d = number of items being moved">Movendo %1$d item(ns)</string>
@@ -465,7 +465,7 @@
     <string name="new_commands_available_msg">Novos exemplos de comandos são adicionados!\nclique no botão abaixo para carregar os novos comandos.</string>
     <string name="new_folder">Adicionar Pasta</string>
     <string name="new_name">Novo nome</string>
-    <string name="newest">Mais recentes</string>
+
     <string name="no_adb_device_error">Nenhum dispositivo ADB compatível. Ative a depuração USB no destino.</string>
     <string name="no_adb_interface_found">Nenhuma interface adb encontrada</string>
     <string name="no_auto_backup_yet">Nenhum backup automático realizado ainda</string>
@@ -498,10 +498,9 @@
     <string name="notification_settings">Configurações de notificação</string>
     <string name="notification_style_error">Se você não consegue inserir o Código de Emparelhamento a partir da notificação, então pode ser necessário alterar a Lista de Notificações para Android. Vá para Configurações de Notificação ~ Estilo de Notificação para alterar o estilo de notificação. Caso contrário, você não será capaz de inserir o código de pareamento da notificação.</string>
     <string name="notification_styles">Estilos de notificação</string>
-    <string name="off">Desligado</string>
+
     <string name="off_state" comment="Quick Settings tile toggle state label">Desligado</string>
-    <string name="oldest" comment="Sorting option">Mais antigos</string>
-    <string name="on">Ligado</string>
+
     <string name="on_state" comment="Quick Settings tile toggle state label">Ligado</string>
     <string name="open">Abrir</string>
     <string name="open_app_language_settings">Abrir configurações de idioma do app</string>
@@ -547,7 +546,7 @@
     <string name="pick_ashellyou_extension">Por favor, escolha um arquivo com a extensão .ashellyou</string>
     <string name="port">Porta</string>
     <string name="possible_reasons">Possíveis razões</string>
-    <string name="pre_release_github">Pré-lançamento (GitHub)</string>
+
     <string name="pre_release_warning">As compilações de pré-lançamento podem ser instáveis</string>
     <string name="pre_release_warning_description">Essas versões ainda estão em fase de testes e podem conter recursos incompletos ou erros inesperados. Se você decidir atualizar para uma versão de pré-lançamento, esteja ciente de que podem ocorrer falhas ou comportamentos anormais.\nSe você encontrar algum problema, travamento ou comportamento estranho, por favor, relate-os para que possamos corrigir e melhorar o aShellYou antes do lançamento da versão estável.\nObrigado por nos ajudar a melhorar!</string>
     <string name="preference">Preferência</string>
@@ -647,7 +646,7 @@
     <string name="serial_number">Número de Série</string>
     <string name="serif" comment="Font style category name">Serif</string>
     <string name="settings">Configurações</string>
-    <string name="settings_only">Apenas configurações</string>
+
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">A saída do último comando é exportada para \'%s\'</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">A saída do shell foi exportada para \'%s\'</string>
     <string name="shizuku_not_installed">Shizuku não instalado</string>
@@ -665,8 +664,7 @@
     <string name="slot_data_unknown">Dados do Slot desconhecidos</string>
     <string name="smooth_scrolling">Rolagem suave</string>
     <string name="sort">Ordenar</string>
-    <string name="stable_fdroid">Estável (Fdroid)</string>
-    <string name="stable_github">Estável (GitHub)</string>
+
     <string name="stack_trace">Rastreamento de pilha</string>
     <string name="stargazers">Stargazers</string>
     <string name="start">Iniciar</string>
@@ -680,7 +678,7 @@
     <string name="suggested_icons">Ícones sugeridos</string>
     <string name="support_bmc">Gosta do que eu faço?\nQue tal me pagar um café?</string>
     <string name="switch_mode">Trocar modo</string>
-    <string name="system">Sistema</string>
+
     <string name="system_default">Padrão do sistema</string>
     <string name="system_font" comment="Option to use the device default font">Fonte do sistema</string>
     <string name="system_settings">Configurações do sistema</string>
@@ -735,7 +733,7 @@
     <string name="waiting_for_device">Aguardando dispositivo</string>
     <string name="waiting_for_devices">Aguardando dispositivos…</string>
     <string name="want_to_contribute_too">Quer contribuir também?</string>
-    <string name="weekly">Semanalmente</string>
+
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">O que você gostaria de fazer enquanto %1$s?</string>
     <string name="whats_new">Quais as novidades!</string>
     <string name="which_device_to_pair">Qual dispositivo você gostaria de parear?</string>

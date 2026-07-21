@@ -1,6 +1,8 @@
 @file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.ui.bottomsheet
+package `in`.hridayan.ashell.ui.bottomsheet
+
+import `in`.hridayan.ashell.core.common.LocalSettings
 
 import android.app.Activity
 import android.content.Intent
@@ -59,7 +61,6 @@ import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.settings.domain.model.DownloadState
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard

@@ -9,4 +9,6 @@ import androidx.compose.runtime.Composable
 interface SettingsState {
     @Composable
     operator fun <T> get(key: SettingsKeys<T>): T
+
+    fun <T> set(key: SettingsKeys<T>, value: T)
 }

@@ -6,7 +6,7 @@ import `in`.hridayan.ashell.qstiles.domain.model.RunningTileState
 import `in`.hridayan.ashell.qstiles.domain.model.TileActiveState
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
 import `in`.hridayan.ashell.qstiles.domain.model.TileErrorType
-import `in`.hridayan.ashell.qstiles.domain.model.TileExecutionMode
+import `in`.hridayan.ashell.core.common.domain.model.TileExecutionMode
 import `in`.hridayan.ashell.qstiles.domain.model.TileLog
 import `in`.hridayan.ashell.qstiles.domain.repository.TileLogRepository
 import kotlinx.coroutines.CoroutineScope

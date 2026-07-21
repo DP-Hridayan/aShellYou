@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
-  <string name="A_Z" translatable="false">A â†’ Z</string>
+
   <string name="abort_command">Abort command first</string>
   <string name="about">About</string>
   <string name="active">Active</string>
@@ -28,7 +28,7 @@
   <string name="ai_cache_enabled">Enable cache</string>
   <string name="ai_models">AI &amp; Models</string>
   <string name="all">All</string>
-  <string name="all_data">All data</string>
+
   <string name="already_connected">Already connected</string>
   <string name="already_latest_version">You are using the latest version</string>
   <string name="app">App</string>
@@ -65,7 +65,7 @@
   <string name="backup_time">Backup time</string>
   <string name="backup_type">Backup type</string>
   <string name="baseband_version">Baseband</string>
-  <string name="basic_shell">Basic shell</string>
+
   <string name="battery_level">Battery</string>
   <string name="battery_saver">Battery saver</string>
   <string name="behavior">Behavior</string>
@@ -144,10 +144,10 @@
   <string name="custom_ui_scale">Custom UI scale</string>
   <string name="cut_items" comment="%1$d = number of items cut to clipboard">Cut %1$d items</string>
   <string name="cut_to_clipboard">Cut to clipboard</string>
-  <string name="daily">Daily</string>
+
   <string name="dark_theme">Dark theme</string>
   <string name="dashboard">Dashboard</string>
-  <string name="databases_only">Databases only</string>
+
   <string name="default_folder">Default folder</string>
   <string name="default_language">Default language</string>
   <string name="delete">Delete</string>
@@ -387,7 +387,7 @@
   <string name="last_backup_time">Last backup time</string>
   <string name="latest_version">Latest version</string>
   <string name="lead_developer">Lead developer</string>
-  <string name="least_used">Least used</string>
+
   <string name="level">Level</string>
   <string name="library_count" comment="%1$d = number of third-party libraries">%1$d libraries detected</string>
   <string name="license">License</string>
@@ -439,9 +439,9 @@
   <string name="model_category_tiny" comment="AI model size category label">Tiny (under 300 MB)</string>
   <string name="models" comment="Refers to AI/ML models used for command analysis">Models</string>
   <string name="modified" comment="File property: last modified date">Modified</string>
-  <string name="monthly">Monthly</string>
+
   <string name="more">More</string>
-  <string name="most_used">Most used</string>
+
   <string name="move">Move</string>
   <string name="moving">Movingâ€¦</string>
   <string name="moving_items" comment="%1$d = number of items being moved">Moving %1$d item(s)</string>
@@ -451,7 +451,7 @@
   <string name="new_commands_available_msg">New command examples are added!\nClick on the button below to load the new commands.</string>
   <string name="new_folder">New folder</string>
   <string name="new_name">New name</string>
-  <string name="newest">Newest</string>
+
   <string name="no_adb_device_error">No ADB-compatible devices found. Enable USB debugging on the target.</string>
   <string name="no_adb_interface_found">No adb interface found</string>
   <string name="no_auto_backup_yet">No automatic backup performed yet</string>
@@ -484,10 +484,9 @@
   <string name="notification_settings">Notification settings</string>
   <string name="notification_style_error">If you cannot enter the Pairing Code from the notification, then you might need to change the Notification Shade to Android. Go to Notification Settings ~ Notification Style to change the Notification Style.  Otherwise you might not be able to enter the pairing code from the notification.</string>
   <string name="notification_styles">Notification styles</string>
-  <string name="off">Off</string>
+
   <string name="off_state" comment="Quick Settings tile toggle state label">Off</string>
-  <string name="oldest" comment="Sorting option">Oldest</string>
-  <string name="on">On</string>
+
   <string name="on_state" comment="Quick Settings tile toggle state label">On</string>
   <string name="open">Open</string>
   <string name="open_app_language_settings">Open app language settings</string>
@@ -525,7 +524,7 @@
   <string name="pick_ashellyou_extension">Please pick a file with .ashellyou extension</string>
   <string name="port">Port</string>
   <string name="possible_reasons">Possible reasons</string>
-  <string name="pre_release_github">Pre-release (GitHub)</string>
+
   <string name="pre_release_warning">Pre-release builds may be unstable</string>
   <string name="pre_release_warning_description">These versions are still in testing and may contain unfinished features or unexpected bugs. If you choose to update to a pre-release, please be aware that things might break or behave strangely.\nIf you encounter any issues, crashes, or weird behavior, please report them so we can fix and improve aShellYou before the stable release.\nThanks for helping us build better!</string>
   <string name="preference">Preference</string>
@@ -576,7 +575,7 @@
   <string name="restoring_backup">Restoring backupâ€¦</string>
   <string name="resume">Resume</string>
   <string name="retry">Retry</string>
-  <string name="root" translatable="false">Root</string>
+
   <string name="root_access_granted">Root access granted!</string>
   <string name="running">Running</string>
   <string name="save">Save</string>
@@ -626,10 +625,10 @@
   <string name="self_pair_wrong_code">Wrong code - open pairing dialog again</string>
   <string name="serial_number">Serial Number</string>
   <string name="settings">Settings</string>
-  <string name="settings_only">Settings only</string>
+
   <string name="shell_output_saved_message" comment="%s = file path where output was saved">The output of last command is exported to \'%s\'</string>
   <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">The shell output is exported to \'%s\'</string>
-  <string name="shizuku" translatable="false">Shizuku</string>
+
   <string name="shizuku_unavailable">Shizuku is unavailable</string>
   <string name="shizuku_unavailable_message">Shizuku is not installed or properly configured on your device</string>
   <string name="sign_in_failed">Google sign-in failed</string>
@@ -644,8 +643,7 @@
   <string name="slot_data_unknown">Slot data unknown</string>
   <string name="smooth_scrolling">Smooth scrolling</string>
   <string name="sort">Sort</string>
-  <string name="stable_fdroid">Stable (Fdroid)</string>
-  <string name="stable_github">Stable (GitHub)</string>
+
   <string name="stack_trace">Stack trace</string>
   <string name="stargazers">Stargazers</string>
   <string name="start">Start</string>
@@ -660,7 +658,7 @@
   <string name="suggested_icons">Suggested icons</string>
   <string name="support_bmc">Like what I do?\nConsider buying me a coffee</string>
   <string name="switch_mode">Switch mode</string>
-  <string name="system">System</string>
+
   <string name="system_default">System default</string>
   <string name="system_settings">System settings</string>
   <string name="tag">Tag</string>
@@ -716,7 +714,7 @@
   <string name="waiting_for_device">Waiting for device</string>
   <string name="waiting_for_devices">Waiting for devicesâ€¦</string>
   <string name="want_to_contribute_too">Want to contribute too?</string>
-  <string name="weekly">Weekly</string>
+
   <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">What would you like to do while %1$s?</string>
   <string name="whats_new">What\'s new!</string>
   <string name="which_device_to_pair">Which device would you like to pair?</string>
@@ -736,7 +734,7 @@
   <string name="wireless_debugging_guide_2">Enter the six digit Pairing Code into the notification sent by aShell You.</string>
   <string name="wireless_debugging_guide_3">Come back to the app and click on the \"Start\" button in the home screen.</string>
   <string name="wireless_debugging_important_notice">Please note that the left part of the Wireless Debugging option is clickable. Tapping on it will open the Wireless Debugging Pairing menu.</string>
-  <string name="Z_A" translatable="false">Z â†’ A</string>
+
   <plurals name="logcat_new_entries">
     <item quantity="one">%1$d new entry</item>
     <item quantity="other">%1$d new entries</item>

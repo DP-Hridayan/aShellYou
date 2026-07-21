@@ -42,7 +42,7 @@ dependencies {
     ksp(libs.room.compiler)
     
     implementation(libs.datastore.preferences)
-    implementation(libs.serialization.json)
+    api(libs.serialization.json)
     implementation(libs.androidx.security.crypto)
     
     implementation(libs.shizuku.api)

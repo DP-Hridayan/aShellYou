@@ -4,7 +4,11 @@
     ExperimentalLayoutApi::class
 )
 
-package `in`.hridayan.ashell.qstiles.presentation.screen
+package `in`.hridayan.ashell.qstiles.presentation.screen
+
+import androidx.compose.ui.unit.dp
+
+import androidx.compose.ui.unit.dp
 
 import android.content.pm.PackageManager
 import androidx.compose.animation.AnimatedContent
@@ -76,7 +80,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -112,7 +115,7 @@ import `in`.hridayan.ashell.navigation.slideFadeOutToLeft
 import `in`.hridayan.ashell.navigation.slideFadeOutToRight
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
-import `in`.hridayan.ashell.qstiles.domain.model.TileExecutionMode
+import `in`.hridayan.ashell.core.common.domain.model.TileExecutionMode
 import `in`.hridayan.ashell.qstiles.domain.model.TileLog
 import `in`.hridayan.ashell.qstiles.presentation.model.TileDashBoardScreenUiState
 import `in`.hridayan.ashell.qstiles.presentation.viewmodel.TileDashboardViewModel
@@ -808,8 +811,8 @@ private fun TileLogCard(
                         fontWeight = FontWeight.Bold
                     )
                     val modeLabel =
-                        if (log.executionMode == TileExecutionMode.SHIZUKU) stringResource(R.string.shizuku)
-                        else stringResource(R.string.root)
+                        if (log.executionMode == TileExecutionMode.SHIZUKU) stringResource(`in`.hridayan.ashell.core.common.R.string.shizuku)
+                        else stringResource(`in`.hridayan.ashell.core.common.R.string.root)
                     Text(
                         text = "$modeLabel • ${DateTimeUtils.getRelativeTime(log.timestamp)}",
                         style = MaterialTheme.typography.labelSmall,
@@ -903,7 +906,7 @@ private fun ShizukuUnavailableCard(
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 AutoResizeableText(
-                    text = stringResource(R.string.shizuku),
+                    text = stringResource(`in`.hridayan.ashell.core.common.R.string.shizuku),
                     style = MaterialTheme.typography.labelLarge,
                 )
             }

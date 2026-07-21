@@ -23,6 +23,7 @@ interface SettingsRepository {
     suspend fun setString(key: SettingsKeys<String>, value: String)
 
     fun getAllDefaultSettings(): Map<String, Any?>
+    fun getPreserveKeys(): Set<String>
     suspend fun getCurrentSettings(): Map<String, Any?>
     suspend fun resetAndRestoreDefaults(): Boolean
 }

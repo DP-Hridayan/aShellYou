@@ -1,6 +1,6 @@
 @file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 
-package `in`.hridayan.ashell.settings.presentation.page.contributors.screens
+package `in`.hridayan.ashell.settings.presentation.page.contributors.screens
 
 import android.content.Context
 import androidx.compose.foundation.background

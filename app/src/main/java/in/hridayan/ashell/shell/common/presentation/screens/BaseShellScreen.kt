@@ -125,8 +125,7 @@ import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalSnackBarController
-import `in`.hridayan.ashell.shell.domain.model.SaveProgress
-import `in`.hridayan.ashell.shell.domain.model.ScrollDirection
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scrollbar.VerticalScrollbar
@@ -146,7 +145,6 @@ import `in`.hridayan.ashell.core.utils.findActivity
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
-import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.ashell.shell.common.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.common.presentation.components.bottomsheet.BookmarksBottomSheet
@@ -156,6 +154,7 @@ import `in`.hridayan.ashell.shell.common.presentation.components.dialog.Bookmark
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ClearOutputConfirmationDialog
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.DeleteBookmarksDialog
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.FileSavedDialog
+import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ShellDialogKey
 import `in`.hridayan.ashell.shell.common.presentation.components.icon.AnimatedStopIcon
 import `in`.hridayan.ashell.shell.common.presentation.model.CommandResult
 import `in`.hridayan.ashell.shell.common.presentation.model.ShellScreenState
@@ -164,13 +163,14 @@ import `in`.hridayan.ashell.shell.common.presentation.util.highlightQueryText
 import `in`.hridayan.ashell.shell.common.presentation.util.rememberScrollDirection
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.BookmarkViewModel
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
+import `in`.hridayan.ashell.shell.domain.model.SaveProgress
+import `in`.hridayan.ashell.shell.domain.model.ScrollDirection
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.android.awaitFrame
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
 import kotlin.time.Duration.Companion.milliseconds
-import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ShellDialogKey
 
 @Composable
 fun BaseShellScreen(
@@ -194,6 +194,20 @@ fun BaseShellScreen(
     val scrollDirection = rememberScrollDirection(listState)
     val states by shellViewModel.states.collectAsState()
     val isKeyboardVisible = isKeyboardVisible().value
+
+    val currentBackStackEntry = navController.currentBackStackEntry
+    val suggestedCommand = currentBackStackEntry?.savedStateHandle?.get<String>("suggestedCommand")
+    androidx.compose.runtime.LaunchedEffect(suggestedCommand) {
+        if (!suggestedCommand.isNullOrBlank()) {
+            shellViewModel.onCommandTextFieldChange(
+                androidx.compose.ui.text.input.TextFieldValue(
+                    suggestedCommand
+                )
+            )
+            shellViewModel.updateTextFieldSelection()
+            currentBackStackEntry.savedStateHandle.remove<String>("suggestedCommand")
+        }
+    }
     val searchOutputResult by shellViewModel.filteredOutput.collectAsState()
     val disableSoftKeyboard = settings[SettingsKeys.DisableSoftKeyboard]
     val bookmarkCount = bookmarkViewModel.getBookmarkCount.collectAsState(initial = 0)
@@ -656,6 +670,10 @@ fun BaseShellScreen(
         )
 
         ShellDialogKey.BookmarkSort -> BookmarksSortDialog(
+            initialSort = settings[SettingsKeys.BookmarkSortType],
+            onSortChange = { sort ->
+                coroutineScope.launch { settings.set(SettingsKeys.BookmarkSortType, sort) }
+            },
             onDismiss = { dialogManager.dismiss() }
         )
 
@@ -1010,7 +1028,7 @@ private fun OutputCard(
                                         index = index,
                                         text = line.text,
                                         selectionState = selectionState,
-                                        layoutResult = textLayoutResult
+                                        style = textStyle
                                     ),
                                     line = line,
                                     states = states,

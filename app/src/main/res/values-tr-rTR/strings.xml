@@ -28,7 +28,7 @@
     <string name="ai_cache_enabled">Enable cache</string>
     <string name="ai_models">AI &amp; Models</string>
     <string name="all">All</string>
-    <string name="all_data">All data</string>
+
     <string name="already_connected">Zaten bağlı</string>
     <string name="already_latest_version">En son sürümü kullanıyorsunuz</string>
     <string name="app">Uygulama</string>
@@ -65,7 +65,7 @@
     <string name="backup_time">Yedekleme saati</string>
     <string name="backup_type">Backup type</string>
     <string name="baseband_version">Baseband</string>
-    <string name="basic_shell">Temel Shell</string>
+
     <string name="battery_level">Battery</string>
     <string name="battery_saver">Battery saver</string>
     <string name="behavior">Davranış</string>
@@ -142,10 +142,10 @@
     <string name="custom_ui_scale">Custom UI scale</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">%1$d öge kesildi</string>
     <string name="cut_to_clipboard">Kes ve panoya al</string>
-    <string name="daily">Daily</string>
+
     <string name="dark_theme">Karanlık tema</string>
     <string name="dashboard">Dashboard</string>
-    <string name="databases_only">Databases only</string>
+
     <string name="default_folder">Varsayılan klasör</string>
     <string name="default_language">Varsayılan dil</string>
     <string name="delete">Sil</string>
@@ -418,7 +418,7 @@
     <string name="last_backup_time">Son yedekleme saati</string>
     <string name="latest_version">En son sürüm</string>
     <string name="lead_developer">Lider Geliştirici</string>
-    <string name="least_used">En az kullanılan</string>
+
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d libraries detected</string>
     <string name="license">Lisans</string>
     <string name="license_label">License</string>
@@ -453,9 +453,9 @@
     <string name="models" comment="Refers to AI/ML models used for command analysis">Models</string>
     <string name="modified" comment="File property: last modified date">Değiştirilme tarihi</string>
     <string name="monospace" comment="Font style category name">Eşaralıklı (Monospace)</string>
-    <string name="monthly">Monthly</string>
+
     <string name="more">Daha Fazla</string>
-    <string name="most_used">En çok kullanılan</string>
+
     <string name="move">Taşı</string>
     <string name="moving">Taşınıyor…</string>
     <string name="moving_items" comment="%1$d = number of items being moved">%1$d öge taşınıyor</string>
@@ -465,7 +465,7 @@
     <string name="new_commands_available_msg">New command examples are added!\nClick on the button below to load the new commands.</string>
     <string name="new_folder">Yeni klasör</string>
     <string name="new_name">Yeni ad</string>
-    <string name="newest">En yeni</string>
+
     <string name="no_adb_device_error">ADB uyumlu cihaz bulunamadı. Hedef cihazda USB hata ayıklamayı etkinleştirin.</string>
     <string name="no_adb_interface_found">Adb arayüzü bulunamadı</string>
     <string name="no_auto_backup_yet">No automatic backup performed yet</string>
@@ -498,10 +498,9 @@
     <string name="notification_settings">Bildirim ayarları</string>
     <string name="notification_style_error">Bildirimden Eşleştirme Kodunu giremiyorsanız Bildirim Panelini Android olarak değiştirmeniz gerekebilir. Bildirim Stilini değiştirmek için Ayarlar ~ Bildirimler ~ Bildirim Stili bölümüne gidin. Aksi takdirde bildirimden eşleştirme kodunu giremeyebilirsiniz.</string>
     <string name="notification_styles">Notification styles</string>
-    <string name="off">Kapalı</string>
+
     <string name="off_state" comment="Quick Settings tile toggle state label">Off</string>
-    <string name="oldest" comment="Sorting option">En eski</string>
-    <string name="on">Açık</string>
+
     <string name="on_state" comment="Quick Settings tile toggle state label">Aç</string>
     <string name="open">Aç</string>
     <string name="open_app_language_settings">Open app language settings</string>
@@ -547,7 +546,7 @@
     <string name="pick_ashellyou_extension">Lütfen .ashellyou uzantılı bir dosya seçin</string>
     <string name="port">Port</string>
     <string name="possible_reasons">Olası nedenler</string>
-    <string name="pre_release_github">Pre-release (GitHub)</string>
+
     <string name="pre_release_warning">Yayın öncesi sürümler kararsız olabilir</string>
     <string name="pre_release_warning_description">Bu sürümler hala test aşamasındadır ve tamamlanmamış özellikler veya beklenmeyen hatalar içerebilir. Yayın öncesi sürüme güncellemeyi seçerseniz, lütfen bazı şeylerin kırılabileceği veya tuhaf davranabileceği ihtimalinin farkında olun.\nHerhangi bir sorun, çökme veya garip bir davranışla karşılaşırsanız, lütfen bunları bildirin ki kararlı sürümden önce düzeltebilelim ve aShellYou\'yu geliştirebilelim.\nDaha iyisini inşa etmemize yardımcı olduğunuz için teşekkürler!</string>
     <string name="preference">Preference</string>
@@ -647,7 +646,7 @@
     <string name="serial_number">Serial Number</string>
     <string name="serif" comment="Font style category name">Serif</string>
     <string name="settings">Ayarlar</string>
-    <string name="settings_only">Settings only</string>
+
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">Son komutun çıktısı \'%s\' konumuna aktarıldı</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">Shell çıktısı \'%s\' konumuna aktarıldı</string>
     <string name="shizuku_not_installed">Shizuku yüklü değil</string>
@@ -665,8 +664,7 @@
     <string name="slot_data_unknown">Slot data unknown</string>
     <string name="smooth_scrolling">Yumuşak kaydırma</string>
     <string name="sort">Sırala</string>
-    <string name="stable_fdroid">Stable (Fdroid)</string>
-    <string name="stable_github">Stable (GitHub)</string>
+
     <string name="stack_trace">Yığın İzleme (Stack trace)</string>
     <string name="stargazers">Yıldız Verenler (Stargazers)</string>
     <string name="start">Başlat</string>
@@ -680,7 +678,7 @@
     <string name="suggested_icons">Suggested icons</string>
     <string name="support_bmc">Yaptığım işi beğendiniz mi?\nBana bir kahve ısmarlamayı düşünebilirsiniz</string>
     <string name="switch_mode">Mod değiştir</string>
-    <string name="system">Sistem</string>
+
     <string name="system_default">System default</string>
     <string name="system_font" comment="Option to use the device default font">Sistem yazı tipi</string>
     <string name="system_settings">Sistem ayarları</string>
@@ -735,7 +733,7 @@
     <string name="waiting_for_device">Cihaz bekleniyor</string>
     <string name="waiting_for_devices">Cihazlar bekleniyor…</string>
     <string name="want_to_contribute_too">Want to contribute too?</string>
-    <string name="weekly">Weekly</string>
+
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">%1$s işlemi yapılırken ne yapmak istersiniz?</string>
     <string name="whats_new">Neler yeni!</string>
     <string name="which_device_to_pair">Hangi cihazı eşleştirmek istersiniz?</string>

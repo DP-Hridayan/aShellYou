@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.shell.fastboot.presentation.components.section
+package `in`.hridayan.ashell.shell.fastboot.presentation.components.section
 
 import android.content.ClipData
 import android.content.ClipboardManager

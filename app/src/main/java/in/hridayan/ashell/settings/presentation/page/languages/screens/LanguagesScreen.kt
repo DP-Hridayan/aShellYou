@@ -1,6 +1,6 @@
 @file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 
-package `in`.hridayan.ashell.settings.presentation.page.languages.screens
+package `in`.hridayan.ashell.settings.presentation.page.languages.screens
 
 import android.content.Intent
 import android.os.Build

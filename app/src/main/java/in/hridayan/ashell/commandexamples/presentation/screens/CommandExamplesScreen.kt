@@ -1,6 +1,10 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.commandexamples.presentation.screens
+package `in`.hridayan.ashell.commandexamples.presentation.screens
+
+import androidx.compose.ui.focus.focusRequester
+
+import `in`.hridayan.ashell.core.common.LocalSettings
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -58,7 +62,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -84,7 +87,6 @@ import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.EditCo
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.LoadDefaultCommandsDialog
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
 import `in`.hridayan.ashell.core.common.LocalDialogManager
-import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.appbar.TopAppBarLarge
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
@@ -96,7 +98,6 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
 import `in`.hridayan.ashell.core.common.SettingsKeys
-import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.CommandExamplesDialogKey
 
 @SuppressLint("RememberInComposition")
@@ -104,7 +105,7 @@ import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.Comman
 @Composable
 fun CommandExamplesScreen(
     viewModel: CommandExamplesViewModel = hiltViewModel(),
-    settingsViewModel: SettingsViewModel = hiltViewModel()
+    onUseCommand: (String) -> Unit = {}
 ) {
     val weakHaptic = LocalWeakHaptic.current
     val focusManager = LocalFocusManager.current
@@ -189,10 +190,7 @@ fun CommandExamplesScreen(
                                 onClickLoadButton = {
                                     dialogManager.show(CommandExamplesDialogKey.LoadDefaultCommands)
                                     viewModel.loadDefaultCommands()
-                                    settingsViewModel.setBoolean(
-                                        SettingsKeys.NewCommandsAvailable,
-                                        false
-                                    )
+                                    viewModel.dismissNewCommandsAvailable()
                                 }
                             )
                         }
@@ -262,6 +260,7 @@ fun CommandExamplesScreen(
                             description = commands[index].description,
                             isFavourite = commands[index].isFavourite,
                             labels = commands[index].labels,
+                            onUseCommand = onUseCommand
                         )
                     }
 

@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.crashreporter.presentation.screens
+package `in`.hridayan.ashell.crashreporter.presentation.screens
 
 import android.content.Context
 import android.content.Intent

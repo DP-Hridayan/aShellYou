@@ -1,6 +1,8 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package `in`.hridayan.ashell.settings.presentation.page.aimodels.screens
+package `in`.hridayan.ashell.settings.presentation.page.aimodels.screens
+
+import `in`.hridayan.ashell.core.common.LocalSettings
 
 import android.text.format.Formatter
 import androidx.compose.foundation.layout.Spacer
@@ -25,7 +27,6 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.ai.domain.model.ModelRegistry
 import `in`.hridayan.ashell.ai.presentation.viewmodel.AiModelManagerViewModel
 import `in`.hridayan.ashell.core.common.LocalDialogManager
-import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold

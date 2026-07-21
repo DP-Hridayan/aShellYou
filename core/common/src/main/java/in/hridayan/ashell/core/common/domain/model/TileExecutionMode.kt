@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.qstiles.domain.model
+package `in`.hridayan.ashell.core.common.domain.model
 
 object TileExecutionMode {
     const val SHIZUKU = 0

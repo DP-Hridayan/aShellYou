@@ -54,4 +54,27 @@
   <string name="serif" comment="Font style category name">Serif</string>
   <string name="shizuku_not_installed">Shizuku is not installed</string>
   <string name="system_font" comment="Option to use the device default font">System font</string>
+
+
+  <string name="system">System</string>
+  <string name="off">Off</string>
+  <string name="on">On</string>
+  <string name="stable_fdroid">Stable (Fdroid)</string>
+  <string name="stable_github">Stable (GitHub)</string>
+  <string name="pre_release_github">Pre-release (GitHub)</string>
+  <string name="basic_shell">Basic shell</string>
+  <string name="shizuku" translatable="false">Shizuku</string>
+  <string name="root" translatable="false">Root</string>
+  <string name="A_Z" translatable="false">A â†’ Z</string>
+  <string name="Z_A" translatable="false">Z â†’ A</string>
+  <string name="newest">Newest</string>
+  <string name="oldest" comment="Sorting option">Oldest</string>
+  <string name="most_used">Most used</string>
+  <string name="least_used">Least used</string>
+  <string name="daily">Daily</string>
+  <string name="weekly">Weekly</string>
+  <string name="monthly">Monthly</string>
+  <string name="all_data">All data</string>
+  <string name="settings_only">Settings only</string>
+  <string name="databases_only">Databases only</string>
 </resources>

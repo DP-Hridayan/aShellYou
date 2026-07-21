@@ -29,6 +29,7 @@ android {
 
 dependencies {
     implementation(project(":core:common"))
+    implementation(project(":settings-dsl"))
 
     implementation(libs.androidx.appcompat)
     implementation(libs.core.ktx)

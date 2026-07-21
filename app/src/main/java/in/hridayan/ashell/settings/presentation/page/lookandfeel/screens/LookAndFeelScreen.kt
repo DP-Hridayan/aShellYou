@@ -1,6 +1,8 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens
+package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens
+
+import `in`.hridayan.ashell.core.common.LocalSettings
 
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.Image
@@ -31,7 +33,6 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalPaletteStyle
-import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
@@ -123,10 +124,10 @@ fun LookAndFeelScreen(
             SettingsKeys.PaletteStyle to { stringResource(currentPaletteStyle.displayNameResId) },
             SettingsKeys.DarkTheme to {
                 when {
-                    autoDarkModeOnBatterySaver && isDarkMode -> stringResource(R.string.on)
-                    themeMode == AppCompatDelegate.MODE_NIGHT_YES -> stringResource(R.string.on)
-                    themeMode == AppCompatDelegate.MODE_NIGHT_NO -> stringResource(R.string.off)
-                    themeMode == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> stringResource(R.string.system)
+                    autoDarkModeOnBatterySaver && isDarkMode -> stringResource(`in`.hridayan.ashell.core.common.R.string.on)
+                    themeMode == AppCompatDelegate.MODE_NIGHT_YES -> stringResource(`in`.hridayan.ashell.core.common.R.string.on)
+                    themeMode == AppCompatDelegate.MODE_NIGHT_NO -> stringResource(`in`.hridayan.ashell.core.common.R.string.off)
+                    themeMode == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> stringResource(`in`.hridayan.ashell.core.common.R.string.system)
                     else -> ""
                 }
             }

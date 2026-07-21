@@ -1,6 +1,8 @@
 @file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.settings.presentation.page.backup.screens
+package `in`.hridayan.ashell.settings.presentation.page.backup.screens
+
+import `in`.hridayan.ashell.core.common.LocalSettings
 
 import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -50,7 +52,6 @@ import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
-import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
@@ -62,7 +63,7 @@ import `in`.hridayan.ashell.core.utils.getFileNameFromUri
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.navigateBack
-import `in`.hridayan.ashell.settings.domain.model.BackupType
+import `in`.hridayan.ashell.core.common.domain.model.BackupType
 import `in`.hridayan.ashell.settings.domain.model.GoogleUserState
 import `in`.hridayan.ashell.settings.domain.model.LastBackupData
 import `in`.hridayan.ashell.settings.presentation.components.dialog.BackupDestinationDialog
@@ -424,9 +425,9 @@ private fun TimeCard(
     val context = LocalContext.current
     val res = LocalResources.current
     val backupTypeText = when (backupType) {
-        BackupType.SETTINGS_ONLY.name -> stringResource(R.string.settings_only)
-        BackupType.DATABASE_ONLY.name -> stringResource(R.string.databases_only)
-        BackupType.SETTINGS_AND_DATABASE.name -> stringResource(R.string.all_data)
+        BackupType.SETTINGS_ONLY.name -> stringResource(`in`.hridayan.ashell.core.common.R.string.settings_only)
+        BackupType.DATABASE_ONLY.name -> stringResource(`in`.hridayan.ashell.core.common.R.string.databases_only)
+        BackupType.SETTINGS_AND_DATABASE.name -> stringResource(`in`.hridayan.ashell.core.common.R.string.all_data)
         else -> backupType
     }
     CustomCard(

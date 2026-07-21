@@ -1,5 +1,8 @@
 package `in`.hridayan.ashell.shell.common.presentation.components.dialog
 
+
+import `in`.hridayan.ashell.core.common.SettingsKeys
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -28,7 +31,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import kotlinx.coroutines.launch
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
@@ -39,25 +42,17 @@ import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
 import `in`.hridayan.ashell.core.presentation.model.ButtonType
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
-import `in`.hridayan.ashell.core.common.SettingsKeys
-import `in`.hridayan.ashell.settings.presentation.provider.RadioGroupOptionsProvider
-import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
+import `in`.hridayan.ashell.core.ui.provider.RadioGroupOptionsProvider
 
 @Composable
 fun BookmarksSortDialog(
     modifier: Modifier = Modifier,
     onDismiss: () -> Unit,
-    settingsViewModel: SettingsViewModel = hiltViewModel(),
+    initialSort: Int,
+    onSortChange: (Int) -> Unit,
 ) {
     val sortOptions = RadioGroupOptionsProvider.bookmarkSortOptions
-    val selected =
-        settingsViewModel.getInt(key = SettingsKeys.BookmarkSortType)
-            .collectAsState(initial = SettingsKeys.BookmarkSortType.default)
-    var tempSelected by remember { mutableIntStateOf(selected.value) }
-
-    LaunchedEffect(selected.value) {
-        tempSelected = selected.value
-    }
+    var tempSelected by remember { mutableIntStateOf(initialSort) }
 
     Dialog(
         onDismissRequest = { onDismiss() },
@@ -150,10 +145,7 @@ fun BookmarksSortDialog(
                     ButtonGroupItem(
                         text = stringResource(R.string.sort),
                         onClick = {
-                            settingsViewModel.setInt(
-                                key = SettingsKeys.BookmarkSortType,
-                                value = tempSelected
-                            )
+                            onSortChange(tempSelected)
                             onDismiss()
                         }
                     )

@@ -28,7 +28,7 @@
     <string name="ai_cache_enabled">تمكين ذاكرة التخزين المؤقت</string>
     <string name="ai_models">AI &amp; Models</string>
     <string name="all">الكل</string>
-    <string name="all_data">جميع البيانات</string>
+
     <string name="already_connected">متصل بالفعل</string>
     <string name="already_latest_version">أنت تستخدم أحدث إصدار</string>
     <string name="app">تطبيق</string>
@@ -65,7 +65,7 @@
     <string name="backup_time">وقت النسخة الاحتياطية</string>
     <string name="backup_type">نوع النسخ الاحتياطي</string>
     <string name="baseband_version">البيسباند</string>
-    <string name="basic_shell">واجهة سطر الأوامر الأساسية</string>
+
     <string name="battery_level">البطارية</string>
     <string name="battery_saver">موفر البطارية</string>
     <string name="behavior">سلوك</string>
@@ -142,10 +142,10 @@
     <string name="custom_ui_scale">مقياس واجهة المستخدم المخصص</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">قطع العناصر %1$d</string>
     <string name="cut_to_clipboard">قطع إلى الحافظة</string>
-    <string name="daily">يومياً</string>
+
     <string name="dark_theme">سمة داكنة</string>
     <string name="dashboard">لوحة التحكم</string>
-    <string name="databases_only">قواعد البيانات فقط</string>
+
     <string name="default_folder">المجلد الافتراضي</string>
     <string name="default_language">اللغة الافتراضية</string>
     <string name="delete">حذف</string>
@@ -419,7 +419,7 @@
     <string name="last_backup_time">وقت النسخ الاحتياطي الأخير</string>
     <string name="latest_version">أحدث إصدار</string>
     <string name="lead_developer">المطور الرئيسي</string>
-    <string name="least_used">الأقل استخدامًا</string>
+
     <string name="library_count" comment="%1$d = number of third-party libraries">اكتشف %1$d مكتبات</string>
     <string name="license">رخصة</string>
     <string name="license_label">الترخيص</string>
@@ -454,9 +454,9 @@
     <string name="models" comment="Refers to AI/ML models used for command analysis">النماذج</string>
     <string name="modified" comment="File property: last modified date">معدّل</string>
     <string name="monospace" comment="Font style category name">أحادي المسافة</string>
-    <string name="monthly">شهريا</string>
+
     <string name="more">المزيد</string>
-    <string name="most_used">الأكثر استخدامًا</string>
+
     <string name="move">نقل</string>
     <string name="moving">جارٍ الانتقال…</string>
     <string name="moving_items" comment="%1$d = number of items being moved">نقل العنصر %1$d</string>
@@ -466,7 +466,7 @@
     <string name="new_commands_available_msg">تم إضافة أمثلة جديدة للأوامر!\nانقر على الزر أدناه لتحميل الأوامر الجديدة.</string>
     <string name="new_folder">مجلد جديد</string>
     <string name="new_name">اسم جديد</string>
-    <string name="newest">الأحدث</string>
+
     <string name="no_adb_device_error">لم يتم العثور على أجهزة متوافقة مع ADB. تمكين تصحيح USB على الهدف.</string>
     <string name="no_adb_interface_found">لم يتم العثور على واجهة adb</string>
     <string name="no_auto_backup_yet">لم يتم إجراء نسخة احتياطية تلقائية بعد</string>
@@ -499,10 +499,9 @@
     <string name="notification_settings">إعدادات الإشعارات</string>
     <string name="notification_style_error">إذا لم تتمكن من إدخال رمز الاقتران من الإشعار، فقد تحتاج إلى تغيير نمط الإشعار إلى Android. انتقل إلى إعدادات الإشعارات ~ نمط الإشعار لتغيير نمط الإشعار. خلاف ذلك، قد لا تتمكن من إدخال رمز الاقتران من الإشعار.</string>
     <string name="notification_styles">أنماط الإشعارات</string>
-    <string name="off">إيقاف</string>
+
     <string name="off_state" comment="Quick Settings tile toggle state label">متوقف</string>
-    <string name="oldest" comment="Sorting option">الأقدم</string>
-    <string name="on">تشغيل</string>
+
     <string name="on_state" comment="Quick Settings tile toggle state label">تشغيل</string>
     <string name="open">فتح</string>
     <string name="open_app_language_settings">فتح إعدادات لغة التطبيق</string>
@@ -548,7 +547,7 @@
     <string name="pick_ashellyou_extension">الرجاء اختيار ملف مع ملحق .ashellyou</string>
     <string name="port">المنفذ</string>
     <string name="possible_reasons">الأسباب المحتملة</string>
-    <string name="pre_release_github">الإفراج المسبق (GitHub)</string>
+
     <string name="pre_release_warning">الإصدارات التجريبية قد تكون غير مستقرة</string>
     <string name="pre_release_warning_description">لا تزال هذه الإصدارات قيد الاختبار، وقد تحتوي على ميزات غير مكتملة أو أخطاء غير متوقعة. إذا اخترت التحديث إلى إصدار تجريبي، يُرجى العلم بأن بعض الأمور قد تتعطل أو تتصرف بشكل غير طبيعي.\nإذا واجهت أي مشاكل أو أعطال أو سلوك غير معتاد، يُرجى الإبلاغ عنها حتى نتمكن من إصلاحها وتحسين تطبيق aShellYou قبل الإصدار المستقر.\nشكرًا لمساعدتكم لنا في تطوير التطبيق بشكل أفضل! </string>
     <string name="preference">تفضيل</string>
@@ -648,7 +647,7 @@
     <string name="serial_number">الرقم التسلسلي</string>
     <string name="serif" comment="Font style category name">سيرفر</string>
     <string name="settings">الإعدادات</string>
-    <string name="settings_only">الإعدادات فقط</string>
+
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">يتم تصدير إخراج الأمر الأخير إلى \'%s\'</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">يتم تصدير إخراج القذيفة إلى \'%s\'</string>
     <string name="shizuku_not_installed">لم يتم تثبيت Shizuku</string>
@@ -666,8 +665,7 @@
     <string name="slot_data_unknown">خانة البيانات غير معروفة</string>
     <string name="smooth_scrolling">تمرير سلس</string>
     <string name="sort">ترتيب</string>
-    <string name="stable_fdroid">مستقر (Fdroid)</string>
-    <string name="stable_github">مستقر (GitHub)</string>
+
     <string name="stack_trace">أثر المكدس</string>
     <string name="stargazers">Stargazers</string>
     <string name="start">ابدأ</string>
@@ -681,7 +679,7 @@
     <string name="suggested_icons">الأيقونات المقترحة</string>
     <string name="support_bmc">هل أعجبك ما أفعله؟\nيمكنك دعمي بشراء فنجان قهوة</string>
     <string name="switch_mode">تغيير الوضع</string>
-    <string name="system">النظام</string>
+
     <string name="system_default">النظام الافتراضي</string>
     <string name="system_font" comment="Option to use the device default font">خط النظام</string>
     <string name="system_settings">إعدادات النظام</string>
@@ -736,7 +734,7 @@
     <string name="waiting_for_device">في انتظار الجهاز</string>
     <string name="waiting_for_devices">في انتظار الأجهزة…</string>
     <string name="want_to_contribute_too">هل ترغب في المساهمة أيضا؟</string>
-    <string name="weekly">أسبوعيا</string>
+
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">ماذا تريد أن تفعل أثناء %1$s؟</string>
     <string name="whats_new">ما الجديد!</string>
     <string name="which_device_to_pair">ما هو الجهاز الذي ترغب في الإقران؟</string>

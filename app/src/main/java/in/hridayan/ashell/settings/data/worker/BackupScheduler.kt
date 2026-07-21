@@ -8,7 +8,7 @@ import androidx.work.OutOfQuotaPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.workDataOf
-import `in`.hridayan.ashell.settings.domain.model.BackupFrequency
+import `in`.hridayan.ashell.core.common.domain.model.BackupFrequency
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime

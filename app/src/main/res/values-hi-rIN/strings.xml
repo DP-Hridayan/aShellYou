@@ -28,7 +28,7 @@
     <string name="ai_cache_enabled">Enable cache</string>
     <string name="ai_models">AI &amp; Models</string>
     <string name="all">All</string>
-    <string name="all_data">All data</string>
+
     <string name="already_connected">पहले से कनेक्ट है</string>
     <string name="already_latest_version">आप लेटेस्ट वर्ज़न का उपयोग कर रहे हैं</string>
     <string name="app">एप्लिकेशन</string>
@@ -65,7 +65,7 @@
     <string name="backup_time">बैकअप समय</string>
     <string name="backup_type">Backup type</string>
     <string name="baseband_version">Baseband</string>
-    <string name="basic_shell">साधारण shell</string>
+
     <string name="battery_level">Battery</string>
     <string name="battery_saver">Battery saver</string>
     <string name="behavior">व्यवहार</string>
@@ -142,10 +142,10 @@
     <string name="custom_ui_scale">Custom UI scale</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">%1$d आइटम कट किए</string>
     <string name="cut_to_clipboard">क्लिपबोर्ड पर कट करें</string>
-    <string name="daily">Daily</string>
+
     <string name="dark_theme">डार्क थीम</string>
     <string name="dashboard">Dashboard</string>
-    <string name="databases_only">Databases only</string>
+
     <string name="default_folder">डिफ़ॉल्ट फ़ोल्डर</string>
     <string name="default_language">डिफ़ॉल्ट भाषा</string>
     <string name="delete">हटाएं</string>
@@ -418,7 +418,7 @@
     <string name="last_backup_time">अंतिम बैकअप समय</string>
     <string name="latest_version">नवीनतम संस्करण</string>
     <string name="lead_developer">मुख्य डेवलपर</string>
-    <string name="least_used">सबसे कम इस्तेमाल किया गया</string>
+
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d libraries detected</string>
     <string name="license">लाइसेंस</string>
     <string name="license_label">License</string>
@@ -453,9 +453,9 @@
     <string name="models" comment="Refers to AI/ML models used for command analysis">Models</string>
     <string name="modified" comment="File property: last modified date">संशोधित</string>
     <string name="monospace" comment="Font style category name">मोनोस्पेस</string>
-    <string name="monthly">Monthly</string>
+
     <string name="more">और</string>
-    <string name="most_used">सबसे अधिक इस्तेमाल किया गता</string>
+
     <string name="move">स्थानांतरित करें</string>
     <string name="moving">स्थानांतरित हो रहा है…</string>
     <string name="moving_items" comment="%1$d = number of items being moved">%1$d आइटम स्थानांतरित हो रहे हैं</string>
@@ -465,7 +465,7 @@
     <string name="new_commands_available_msg">New command examples are added!\nClick on the button below to load the new commands.</string>
     <string name="new_folder">नया फ़ोल्डर</string>
     <string name="new_name">नया नाम</string>
-    <string name="newest">नवीनतम</string>
+
     <string name="no_adb_device_error">ADB-संगत डिवाइस नहीं मिले। लक्ष्य पर USB डिबगिंग सक्षम करें।</string>
     <string name="no_adb_interface_found">ADB इंटरफ़ेस नहीं मिला</string>
     <string name="no_auto_backup_yet">No automatic backup performed yet</string>
@@ -498,10 +498,9 @@
     <string name="notification_settings">नोटिफिकेशन सेटिंग</string>
     <string name="notification_style_error">यदि आप नोटिफ़िकेशन से पेयरिंग कोड दर्ज नहीं कर सकते हैं, तो आपको नोटिफ़िकेशन शेड को Android में बदलने की आवश्यकता हो सकती है। नोटिफ़िकेशन स्टाइल बदलने के लिए नोटिफ़िकेशन सेटिंग ~ नोटिफ़िकेशन स्टाइल पर जाएँ। अन्यथा आप नोटिफ़िकेशन से पेयरिंग कोड दर्ज नहीं कर पाएँगे।</string>
     <string name="notification_styles">Notification styles</string>
-    <string name="off">बंद</string>
+
     <string name="off_state" comment="Quick Settings tile toggle state label">Off</string>
-    <string name="oldest" comment="Sorting option">Oldest</string>
-    <string name="on">चालू</string>
+
     <string name="on_state" comment="Quick Settings tile toggle state label">On</string>
     <string name="open">खोलें</string>
     <string name="open_app_language_settings">Open app language settings</string>
@@ -547,7 +546,7 @@
     <string name="pick_ashellyou_extension">कृपया .ashellyou एक्सटेंशन वाली फ़ाइल चुनें</string>
     <string name="port">पोर्ट</string>
     <string name="possible_reasons">संभावित कारण</string>
-    <string name="pre_release_github">Pre-release (GitHub)</string>
+
     <string name="pre_release_warning">प्री-रिलीज़ बिल्ड अस्थिर हो सकते हैं</string>
     <string name="pre_release_warning_description">ये संस्करण अभी परीक्षण में हैं और अधूरी सुविधाएं या अप्रत्याशित बग हो सकते हैं।</string>
     <string name="preference">Preference</string>
@@ -647,7 +646,7 @@
     <string name="serial_number">Serial Number</string>
     <string name="serif" comment="Font style category name">Serif</string>
     <string name="settings">सेटिंग्स</string>
-    <string name="settings_only">Settings only</string>
+
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">अंतिम कमांड का आउटपुट \'%s\' में निर्यात हुआ</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">शेल आउटपुट \'%s\' में निर्यात हुआ</string>
     <string name="shizuku_not_installed">Shizuku इंस्टॉल नहीं है</string>
@@ -665,8 +664,7 @@
     <string name="slot_data_unknown">Slot data unknown</string>
     <string name="smooth_scrolling">मुलायम स्क्रोलिंग</string>
     <string name="sort">क्रमबद्ध</string>
-    <string name="stable_fdroid">Stable (Fdroid)</string>
-    <string name="stable_github">Stable (GitHub)</string>
+
     <string name="stack_trace">स्टैक ट्रेस</string>
     <string name="stargazers">स्टारगेज़र्स</string>
     <string name="start">शुरू करें</string>
@@ -680,7 +678,7 @@
     <string name="suggested_icons">Suggested icons</string>
     <string name="support_bmc">जो मैं करता हूं पसंद है?\nमुझे एक कॉफी लेने पर विचार करें</string>
     <string name="switch_mode">मोड स्विच करें</string>
-    <string name="system">सिस्टम</string>
+
     <string name="system_default">System default</string>
     <string name="system_font" comment="Option to use the device default font">सिस्टम फ़ॉन्ट</string>
     <string name="system_settings">सिस्टम सेटिंग्स</string>
@@ -735,7 +733,7 @@
     <string name="waiting_for_device">डिवाइस की प्रतीक्षा हो रही है</string>
     <string name="waiting_for_devices">डिवाइस की प्रतीक्षा हो रही है…</string>
     <string name="want_to_contribute_too">Want to contribute too?</string>
-    <string name="weekly">Weekly</string>
+
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">%1$s के दौरान आप क्या करना चाहेंगे?</string>
     <string name="whats_new">नया क्या है!</string>
     <string name="which_device_to_pair">आप कौन सा डिवाइस पेयर करना चाहेंगे?</string>

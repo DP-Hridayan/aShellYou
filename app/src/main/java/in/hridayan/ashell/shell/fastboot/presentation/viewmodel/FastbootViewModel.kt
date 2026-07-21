@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.shell.fastboot.presentation.viewmodel
+package `in`.hridayan.ashell.shell.fastboot.presentation.viewmodel
 
 import android.net.Uri
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
