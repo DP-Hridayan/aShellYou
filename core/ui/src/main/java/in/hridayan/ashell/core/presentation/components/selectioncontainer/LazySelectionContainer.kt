@@ -946,7 +946,6 @@ fun <T> LazySelectionContainer(
             flingBehavior = flingBehavior,
             userScrollEnabled = userScrollEnabled,
             modifier = Modifier
-                .fillMaxWidth()
                 .textSelectionGestures(
                     selectionState = selectionState,
                     items = items,
