@@ -231,6 +231,7 @@ dependencies {
     implementation(project(":feature:ai"))
 
     implementation(libs.kotlin.reflect)
+    implementation(libs.shizuku.provider)
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)

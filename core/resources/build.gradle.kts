@@ -15,5 +15,8 @@ android {
 }
 
 dependencies {
+    api(libs.androidx.appcompat)
+    api(libs.core.splashscreen)
+    api(libs.material)
     testImplementation(libs.junit)
 }

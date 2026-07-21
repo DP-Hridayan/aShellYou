@@ -49,8 +49,10 @@ class App : Application(), Configuration.Provider {
         // Sync QS tile components
         tileComponentManager.ensureAllEnabled()
 
+        val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
         Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
-            handleUncaughtException( throwable, crashRepo)
+            handleUncaughtException(throwable, crashRepo)
+            defaultHandler?.uncaughtException(thread, throwable)
         }
     }
 
@@ -100,8 +102,6 @@ class App : Application(), Configuration.Provider {
         }
 
         Thread.sleep(500)
-        killProcess(myPid())
-        exitProcess(2)
     }
 
     override fun attachBaseContext(base: Context) {
