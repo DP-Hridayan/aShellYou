@@ -104,6 +104,7 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -924,6 +925,8 @@ private fun OutputCard(
         if (isDarkMode) surfaceContainerLow else surfaceContainer
     }
 
+    var textLayoutResult by remember { mutableStateOf<TextLayoutResult?>(null) }
+
     // Only render the card when not in fullscreen
     if (!isFullscreen) {
         with(sharedTransitionScope) {
@@ -1007,11 +1010,12 @@ private fun OutputCard(
                                         index = index,
                                         text = line.text,
                                         selectionState = selectionState,
-                                        style = textStyle
+                                        layoutResult = textLayoutResult
                                     ),
                                     line = line,
                                     states = states,
-                                    textStyle = textStyle
+                                    textStyle = textStyle,
+                                    onTextLayout = { textLayoutResult = it }
                                 )
                             }
                         }
@@ -1343,7 +1347,8 @@ private fun OutputLineItem(
     modifier: Modifier = Modifier,
     line: OutputLine,
     states: ShellScreenState,
-    textStyle: TextStyle
+    textStyle: TextStyle,
+    onTextLayout: (TextLayoutResult) -> Unit = {}
 ) {
     val text = if (!states.search.isVisible) line.text else line.text.takeIf {
         line.text.contains(
@@ -1388,7 +1393,8 @@ private fun OutputLineItem(
             text = annotatedText,
             style = textStyle,
             color = lineColor,
-            modifier = modifier
+            onTextLayout = { onTextLayout(it) },
+            modifier = Modifier
                 .fillMaxWidth()
                 .then(
                     if (isCommandLine == true) Modifier.padding(
@@ -1396,6 +1402,7 @@ private fun OutputLineItem(
                         bottom = 10.dp
                     ) else Modifier
                 )
+                .then(modifier)
         )
     }
 }
