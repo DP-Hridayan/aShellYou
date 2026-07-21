@@ -139,7 +139,14 @@ fun AppNavigation(isFirstLaunch: Boolean = false) {
             }
 
             composable<NavRoutes.CommandExamplesScreen> {
-                CommandExamplesScreen()
+                CommandExamplesScreen(
+                    onUseCommand = { command ->
+                        navController.previousBackStackEntry
+                            ?.savedStateHandle
+                            ?.set("suggestedCommand", command)
+                        navController.popBackStack()
+                    }
+                )
             }
 
             composable<NavRoutes.TranslatorsScreen> {
