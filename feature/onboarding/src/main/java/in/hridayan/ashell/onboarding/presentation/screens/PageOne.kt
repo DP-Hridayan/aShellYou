@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.onboarding.presentation.screens
 
+import `in`.hridayan.ashell.core.resources.R
+
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -27,7 +29,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.onboarding.presentation.components.svg.vectors.undrawPhoneLady
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
@@ -65,7 +66,7 @@ fun PageOne(modifier: Modifier = Modifier, pagerState: PagerState) {
             shape = MaterialShapes.Puffy.toShape(),
             color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.25f),
             scale = { scale.value },
-            modifier = Modifier.Companion.align(Alignment.Center)
+            modifier = Modifier.align(Alignment.Center)
         )
 
         DecorativeShape(
@@ -73,7 +74,7 @@ fun PageOne(modifier: Modifier = Modifier, pagerState: PagerState) {
             shape = MaterialShapes.Puffy.toShape(),
             color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.3f),
             scale = { scale.value },
-            modifier = Modifier.Companion
+            modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .offset(y = (-120).dp, x = 30.dp)
         )
@@ -83,7 +84,7 @@ fun PageOne(modifier: Modifier = Modifier, pagerState: PagerState) {
             shape = MaterialShapes.Arrow.toShape(),
             color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.3f),
             scale = { scale.value },
-            modifier = Modifier.Companion
+            modifier = Modifier
                 .align(Alignment.BottomStart)
                 .offset(y = (-40).dp, x = 10.dp)
         )
@@ -93,7 +94,7 @@ fun PageOne(modifier: Modifier = Modifier, pagerState: PagerState) {
             shape = MaterialShapes.Cookie7Sided.toShape(),
             color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.2f),
             scale = { scale.value },
-            modifier = Modifier.Companion
+            modifier = Modifier
                 .align(Alignment.CenterStart)
                 .offset(y = (-100).dp, x = (-100).dp)
         )
@@ -103,7 +104,7 @@ fun PageOne(modifier: Modifier = Modifier, pagerState: PagerState) {
             shape = MaterialShapes.Pill.toShape(),
             color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.2f),
             scale = { scale.value },
-            modifier = Modifier.Companion
+            modifier = Modifier
                 .align(Alignment.TopCenter)
                 .offset(y = (-20).dp, x = (-20).dp)
         )
@@ -113,7 +114,7 @@ fun PageOne(modifier: Modifier = Modifier, pagerState: PagerState) {
             shape = MaterialShapes.Cookie4Sided.toShape(),
             color = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f),
             scale = { scale.value },
-            modifier = Modifier.Companion
+            modifier = Modifier
                 .align(Alignment.CenterEnd)
                 .offset(y = (-145).dp, x = (-50).dp)
         )

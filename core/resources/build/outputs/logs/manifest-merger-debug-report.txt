@@ -1,0 +1,15 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\hrida\StudioProjects\aShellYou\core\resources\src\main\AndroidManifest.xml:2:1-57
+INJECTED from C:\Users\hrida\StudioProjects\aShellYou\core\resources\src\main\AndroidManifest.xml:2:1-57
+	package
+		ADDED from C:\Users\hrida\StudioProjects\aShellYou\core\resources\src\main\AndroidManifest.xml:2:11-54
+		INJECTED from C:\Users\hrida\StudioProjects\aShellYou\core\resources\src\main\AndroidManifest.xml
+uses-sdk
+INJECTED from C:\Users\hrida\StudioProjects\aShellYou\core\resources\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\hrida\StudioProjects\aShellYou\core\resources\src\main\AndroidManifest.xml
+INJECTED from C:\Users\hrida\StudioProjects\aShellYou\core\resources\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from C:\Users\hrida\StudioProjects\aShellYou\core\resources\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\hrida\StudioProjects\aShellYou\core\resources\src\main\AndroidManifest.xml

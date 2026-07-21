@@ -1,6 +1,8 @@
 @file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens
+
+import `in`.hridayan.ashell.core.resources.R
 import androidx.compose.foundation.lazy.items
 
 
@@ -66,7 +68,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
@@ -562,7 +563,7 @@ fun QRPairTab(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
-                        painter = painterResource(`in`.hridayan.ashell.core.ui.R.drawable.ic_search),
+                        painter = painterResource(R.drawable.ic_search),
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onTertiaryContainer,
                     )

@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.mainscreen.screen
 
+import `in`.hridayan.ashell.core.resources.R
+
 
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.navigation.navigateBack
@@ -48,7 +50,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
 import `in`.hridayan.ashell.core.presentation.components.floaters.FloatingIconsBackground
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -109,7 +110,7 @@ fun SettingsScreen(
             actions = {
                 IconButton(onClick = withHaptic { navController.navigate(NavRoutes.SettingsSearchScreen) }) {
                     Icon(
-                        painter = painterResource(`in`.hridayan.ashell.core.ui.R.drawable.ic_search),
+                        painter = painterResource(R.drawable.ic_search),
                         contentDescription = stringResource(R.string.search_settings),
                     )
                 }

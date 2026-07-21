@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog
 
+import `in`.hridayan.ashell.core.resources.R
+
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,7 +30,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
@@ -86,7 +87,7 @@ fun FastbootRebootOptionsDialog(
                     },
                     menuContent = {
                         DropdownMenuItem(
-                            text = { AutoResizeableText(text = stringResource(`in`.hridayan.ashell.core.common.R.string.system)) },
+                            text = { AutoResizeableText(text = stringResource(R.string.system)) },
                             onClick = withHaptic {
                                 onReboot(RebootMode.NORMAL)
                                 onDismiss()
@@ -137,7 +138,7 @@ fun FastbootRebootOptionsDialog(
                     .padding(bottom = 10.dp)
             ) {
                 AutoResizeableText(
-                    text = stringResource(`in`.hridayan.ashell.core.common.R.string.system),
+                    text = stringResource(R.string.system),
                     style = MaterialTheme.typography.labelLargeEmphasized,
                     modifier = Modifier.weight(1f),
                     textAlign = TextAlign.Center

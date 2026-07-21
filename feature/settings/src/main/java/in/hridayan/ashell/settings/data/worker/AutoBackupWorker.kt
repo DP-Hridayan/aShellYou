@@ -1,5 +1,7 @@
 package `in`.hridayan.ashell.settings.data.worker
 
+import `in`.hridayan.ashell.core.resources.R
+
 
 import `in`.hridayan.ashell.core.common.SettingsKeys
 
@@ -16,7 +18,6 @@ import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.common.domain.model.BackupType
 import `in`.hridayan.ashell.settings.domain.repository.BackupAndRestoreRepository
 import `in`.hridayan.ashell.settings.domain.repository.GoogleAuthRepository

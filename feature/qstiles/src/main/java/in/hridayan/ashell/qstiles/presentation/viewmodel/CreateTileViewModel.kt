@@ -1,5 +1,7 @@
 package `in`.hridayan.ashell.qstiles.presentation.viewmodel
 
+import `in`.hridayan.ashell.core.resources.R
+
 import android.content.Context
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.SavedStateHandle
@@ -8,7 +10,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.qstiles.data.model.TileIcon
 import `in`.hridayan.ashell.qstiles.data.provider.TileComponentManager

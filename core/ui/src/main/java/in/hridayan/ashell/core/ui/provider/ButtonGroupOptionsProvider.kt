@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.core.ui.provider
 
-import `in`.hridayan.ashell.core.common.R
+import `in`.hridayan.ashell.core.resources.R
+
 
 import `in`.hridayan.ashell.core.common.domain.model.TileExecutionMode
 import `in`.hridayan.ashell.core.ui.components.ButtonGroupOptions

@@ -1,5 +1,7 @@
 package `in`.hridayan.ashell.core.presentation.components.lottie
 
+import `in`.hridayan.ashell.core.resources.R
+
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -14,8 +16,6 @@ import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.airbnb.lottie.compose.rememberLottieDynamicProperties
 import com.airbnb.lottie.compose.rememberLottieDynamicProperty
-import `in`.hridayan.ashell.core.ui.R
-import `in`.hridayan.ashell.core.common.R as CommonR
 
 @Composable
 fun SpinningGearsLottie(modifier: Modifier = Modifier) {

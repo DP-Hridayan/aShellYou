@@ -1,5 +1,7 @@
 package `in`.hridayan.ashell.shell.common.presentation.components.icon
 
+import `in`.hridayan.ashell.core.resources.R
+
 import android.annotation.SuppressLint
 import android.graphics.PorterDuff
 import android.graphics.drawable.AnimatedVectorDrawable
@@ -12,7 +14,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import `in`.hridayan.ashell.core.ui.R
 
 @SuppressLint("UseCompatLoadingForDrawables")
 @Composable

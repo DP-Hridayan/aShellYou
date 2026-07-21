@@ -1,5 +1,7 @@
 package `in`.hridayan.ashell.settings.data.repository
 
+import `in`.hridayan.ashell.core.resources.R
+
 import android.content.Context
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.util.withJson

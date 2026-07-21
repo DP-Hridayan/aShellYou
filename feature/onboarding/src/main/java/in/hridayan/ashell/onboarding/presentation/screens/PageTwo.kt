@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.onboarding.presentation.screens
 
+import `in`.hridayan.ashell.core.resources.R
+
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -35,7 +37,6 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.onboarding.presentation.component.item.DisclaimerItemLayout
 import `in`.hridayan.ashell.onboarding.presentation.component.shape.DecorativeShape
@@ -81,7 +82,7 @@ fun PageTwo(modifier: Modifier = Modifier, pagerState: PagerState) {
             shape = MaterialShapes.Cookie12Sided.toShape(),
             color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.25f),
             scale = { scale.value },
-            modifier = Modifier.Companion.align(Alignment.Center)
+            modifier = Modifier.align(Alignment.Center)
         )
 
         DecorativeShape(
@@ -89,7 +90,7 @@ fun PageTwo(modifier: Modifier = Modifier, pagerState: PagerState) {
             shape = MaterialShapes.SoftBoom.toShape(),
             color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.3f),
             scale = { scale.value },
-            modifier = Modifier.Companion
+            modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .offset(y = (-120).dp, x = 30.dp)
         )
@@ -99,7 +100,7 @@ fun PageTwo(modifier: Modifier = Modifier, pagerState: PagerState) {
             shape = MaterialShapes.PuffyDiamond.toShape(),
             color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.3f),
             scale = { scale.value },
-            modifier = Modifier.Companion
+            modifier = Modifier
                 .align(Alignment.BottomStart)
                 .offset(y = (-100).dp, x = 10.dp)
         )
@@ -109,7 +110,7 @@ fun PageTwo(modifier: Modifier = Modifier, pagerState: PagerState) {
             shape = MaterialShapes.Pentagon.toShape(),
             color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.2f),
             scale = { scale.value },
-            modifier = Modifier.Companion
+            modifier = Modifier
                 .align(Alignment.CenterStart)
                 .offset(y = (-180).dp, x = (-20).dp)
         )
@@ -119,7 +120,7 @@ fun PageTwo(modifier: Modifier = Modifier, pagerState: PagerState) {
             shape = MaterialShapes.Bun.toShape(),
             color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.2f),
             scale = { scale.value },
-            modifier = Modifier.Companion
+            modifier = Modifier
                 .align(Alignment.TopCenter)
                 .offset(y = (-10).dp, x = (-20).dp)
         )
@@ -129,7 +130,7 @@ fun PageTwo(modifier: Modifier = Modifier, pagerState: PagerState) {
             shape = MaterialShapes.SemiCircle.toShape(),
             color = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f),
             scale = { scale.value },
-            modifier = Modifier.Companion
+            modifier = Modifier
                 .align(Alignment.CenterEnd)
                 .offset(y = (-160).dp, x = (-50).dp)
         )

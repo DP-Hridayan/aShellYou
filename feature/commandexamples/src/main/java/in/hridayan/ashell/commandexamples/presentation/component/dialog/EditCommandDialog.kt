@@ -1,5 +1,7 @@
 package `in`.hridayan.ashell.commandexamples.presentation.component.dialog
 
+import `in`.hridayan.ashell.core.resources.R
+
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
@@ -20,7 +22,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.commandexamples.presentation.component.row.Labels
 import `in`.hridayan.ashell.commandexamples.presentation.model.CmdScreenInputFieldState
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel

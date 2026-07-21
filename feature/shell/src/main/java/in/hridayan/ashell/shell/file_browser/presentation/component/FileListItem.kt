@@ -1,5 +1,7 @@
 package `in`.hridayan.ashell.shell.file_browser.presentation.component
 
+import `in`.hridayan.ashell.core.resources.R
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
@@ -40,7 +42,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
 import `in`.hridayan.ashell.shell.file_browser.presentation.util.FileIconMapper
@@ -166,7 +167,7 @@ fun FileListItem(
                         )
 
                         DropdownMenuItem(
-                            text = { Text(stringResource(`in`.hridayan.ashell.core.common.R.string.copy)) },
+                            text = { Text(stringResource(R.string.copy)) },
                             leadingIcon = { Icon(Icons.Rounded.ContentCopy, contentDescription = null) },
                             onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                                 onCopy()

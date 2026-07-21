@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.ui
 
+import `in`.hridayan.ashell.core.resources.R
+
 
 import `in`.hridayan.ashell.core.common.LocalSettings
 
@@ -20,13 +22,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.BuildConfig
-import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalSharedTransitionScope
 import `in`.hridayan.ashell.ui.bottomsheet.ChangelogBottomSheet
 import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.UpdateBottomSheet
 import `in`.hridayan.ashell.core.utils.isNetworkAvailable
 import `in`.hridayan.ashell.core.utils.showToast
-import `in`.hridayan.ashell.core.navigation.Navigation
 import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.model.UpdateResult
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
@@ -88,7 +88,7 @@ fun AppUiEntry(
     Surface {
         SharedTransitionLayout {
             CompositionLocalProvider(LocalSharedTransitionScope provides this) {
-                Navigation(
+                AppNavigation(
                     isFirstLaunch = isFirstLaunch
                 )
             }

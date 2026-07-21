@@ -1,5 +1,7 @@
 package `in`.hridayan.ashell.shell.wifi_adb_shell.utils
 
+import `in`.hridayan.ashell.core.resources.R
+
 import android.Manifest
 import android.content.ActivityNotFoundException
 import android.content.ComponentName
@@ -15,7 +17,6 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.shell.wifi_adb_shell.utils.WirelessDebuggingUtils.grantWriteSecureSettingsViaAdb
 import io.github.muntashirakon.adb.AbsAdbConnectionManager

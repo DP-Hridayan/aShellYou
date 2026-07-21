@@ -1,0 +1,807 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
+    <string name="abort_command">Спочатку скасуйте команду</string>
+    <string name="about">Про додаток</string>
+    <string name="active">Активний</string>
+    <string name="active_slot">Активний слот</string>
+    <string name="adb">ADB</string>
+    <string name="adb_command">Команда ADB</string>
+    <string name="adb_command_hint" comment="Example ADB command shown as placeholder hint in input field">Приклад: adb reboot</string>
+    <string name="adb_command_off_state">Команда ADB (стан ВИМК.)</string>
+    <string name="adb_command_on_state">Команда ADB (стан УВІМК.)</string>
+    <string name="adb_connection_active">Підключення ADB активне</string>
+    <string name="adb_connection_channel_description">Показує, коли з\'єднання ADB активно</string>
+    <string name="adb_connection_channel_name">Підключення ADB</string>
+    <string name="adb_connection_description">Підключення до Wi-Fi ADB підтримується</string>
+    <string name="adb_sideload">ADB Sideload</string>
+    <string name="adb_through_otg">ADB через OTG</string>
+    <string name="adb_through_otg_summary">Використовуйте OTG кабель та налагодження USB для виконання команд ADB на іншому пристрої Android. Необхідно увімкнути налагодження USB у налаштуваннях розробника цільового пристрою.</string>
+    <string name="adb_via_otg">ADB через OTG</string>
+    <string name="adb_via_wireless_debugging">ADB через \"Бездротове налагодження\"</string>
+    <string name="adb_via_wireless_debugging_summary">Підключайте пристрої (Android 11+) Wi-Fi за допомогою бездротового налагодження і виконуйте команди ADB віддалено.</string>
+    <string name="add">Додати</string>
+    <string name="add_account">Додати обліковий запис</string>
+    <string name="add_command">Додати команду</string>
+    <string name="add_new_item">Додати новий елемент</string>
+    <string name="additional_settings">Додаткові налаштування</string>
+    <string name="ai_cache_days">Тривалість кешу</string>
+    <string name="ai_cache_enabled">Увімкнути кешування</string>
+    <string name="ai_models">AI &amp; Моделі</string>
+    <string name="all">Всі</string>
+    <string name="all_data">Всі дані</string>
+    <string name="already_connected">Вже під\'єднано</string>
+    <string name="already_latest_version">Ви використовуєте останню версію</string>
+    <string name="app">Додаток</string>
+    <string name="app_crashed">Збій у додатку</string>
+    <string name="app_tagline">ADB у вас під рукою</string>
+    <string name="apply">Застосувати</string>
+    <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">Застосувати до усієї (%1$d решти)</string>
+    <string name="artifact_id">Артефакт ID</string>
+    <string name="auto">Авто</string>
+    <string name="auto_backup">Авторезервування</string>
+    <string name="auto_backup_content_type">Резервування вмісту</string>
+    <string name="auto_backup_folder">Тека резервування</string>
+    <string name="auto_dark_mode">Авто темний режим</string>
+    <string name="auto_delete_existing_backups">Автовидалення старих резервувань</string>
+    <string name="auto_scale_ui">Автомасштабування UI</string>
+    <string name="auto_update">Автооновлення</string>
+    <string name="back">Назад</string>
+    <string name="back_button">Кнопка \"Назад\"</string>
+    <string name="backing_up">Резервування…</string>
+    <string name="backup">Резервування</string>
+    <string name="backup_all_data">Резервування всіх даних</string>
+    <string name="backup_and_restore">Резервування та відновлення</string>
+    <string name="backup_app_database">Резервування бази даних додатка</string>
+    <string name="backup_date">Дата резервування</string>
+    <string name="backup_destination">Місце призначення резервування</string>
+    <string name="backup_failed">Резервування не вдалося</string>
+    <string name="backup_found">Знайдено резервування</string>
+    <string name="backup_frequency">Частота резервування</string>
+    <string name="backup_now">Резервувати зараз</string>
+    <string name="backup_scheduler">Планувальник резервування</string>
+    <string name="backup_settings">Резервування налаштувань додатка</string>
+    <string name="backup_status">Стан резервування</string>
+    <string name="backup_successful">Резервування виконано успішно</string>
+    <string name="backup_time">Час резервування</string>
+    <string name="backup_type">Тип резервування</string>
+    <string name="baseband_version">Baseband</string>
+    <string name="basic_shell">Базова оболонка</string>
+    <string name="battery_level">Батарея</string>
+    <string name="battery_saver">Економія батареї</string>
+    <string name="behavior">Поведінка</string>
+    <string name="bookmark_limit_reached">Досягнуто максимальної кількості закладок! Видаліть деякі закладки, щоб додати нові</string>
+    <string name="bookmarks">Закладки</string>
+    <string name="boot_device_into_fastboot">Завантажте цільовий пристрій у режимі fastboot та під\'єднайте його через OTG кабель</string>
+    <string name="boot_image">Boot образ</string>
+    <string name="boot_into_fastboot">Завантаження у Fastboot</string>
+    <string name="bootloader">Завантажувач</string>
+    <string name="bootloader_version">Bootloader</string>
+    <string name="btn_continue">Продовжити</string>
+    <string name="cache_settings">Кеш</string>
+    <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Розмір кешу: %s</string>
+    <string name="cancel">Скасувати</string>
+    <string name="cancel_all">Скасувати все</string>
+    <string name="cancelling">Скасування…</string>
+    <string name="changelog">Список змін</string>
+    <string name="changelogs">Журнали змін</string>
+    <string name="check_updates">Перевірити оновлення</string>
+    <string name="choose_a_device">Виберіть пристрій</string>
+    <string name="choose_icon">Виберіть іконку</string>
+    <string name="clear">Очистити</string>
+    <string name="clear_all_message">Ви впевнені, що хочете очистити все на цьому екрані?</string>
+    <string name="clear_analysis_cache">Очистити кеш аналізу</string>
+    <string name="clear_cache">Очистити кеш</string>
+    <string name="clear_everything">Очистити все</string>
+    <string name="clear_history">Очистити історію</string>
+    <string name="clear_output_confirmation">Очистити підтвердження виводу</string>
+    <string name="clipboard_empty">Буфер обміну не містить текст</string>
+    <string name="close">Закрити</string>
+    <string name="cloud_backup_failed">Не вдалося завантажити резервування на Google Диск</string>
+    <string name="cloud_backup_google_drive">Резервування в хмару (Google Диск)</string>
+    <string name="cloud_backup_successful">Резервування завантажено на Google Диск</string>
+    <string name="cloud_restore_failed">Не вдалося відновити з Google Диску</string>
+    <string name="cloud_restore_successful">Відновлено з Google Диску</string>
+    <string name="code_pair_instruction">Відкрийте \"Бездротове налагодження\" на цільовому пристрої та натисніть \"Сполучити пристрій за допомогою коду сполучення\"</string>
+    <string name="collapse">Згорнути</string>
+    <string name="command">Команда</string>
+    <string name="command_analysis">Аналіз команд</string>
+    <string name="command_not_found">Команда не знайдена!</string>
+    <string name="command_title">Введення команди ADB</string>
+    <string name="commands">Команди</string>
+    <string name="configure_save_directory">Налаштувати каталог збереження</string>
+    <string name="confirm">Підтвердити</string>
+    <string name="confirm_bookmark_delete_message">Увага! Цю дію неможливо скасувати.\nВи впевнені, що хочете видалити всі закладки?</string>
+    <string name="confirm_delete">Підтвердити видалення</string>
+    <string name="confirm_tile_delete_message">Ви впевнені, що хочете видалити цю плитку?</string>
+    <string name="confirmation_clear_cache">Кешування допомагає миттєво отримувати результати аналізу.\nВи все ще хочете очистити всі дані кешу аналізу AI?</string>
+    <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" вже існує в цьому місці.</string>
+    <string name="conflict_title">Елемент вже існує</string>
+    <string name="connect">Під\'єднатися</string>
+    <string name="connect_device_via_otg">Під\'єднати пристрій через OTG</string>
+    <string name="connect_to_wifi_network">Підключення до Wi-Fi мережі</string>
+    <string name="connected">Під\'єднано</string>
+    <string name="connected_device">Під\'єднаний пристрій</string>
+    <string name="connecting">Під’єднання…</string>
+    <string name="connection_error">Помилка під’єднання</string>
+    <string name="connection_failed">Помилка підключення</string>
+    <string name="connection_lost">З’єднання втрачено</string>
+    <string name="connection_lost_back_message">Бездротове з’єднання для налагодження втрачено. Що ви хочете зробити?</string>
+    <string name="contributors">Учасники проєкту</string>
+    <string name="copied_items" comment="%1$d = number of items copied to clipboard">Скопійовано %1$d елементів</string>
+    <string name="copied_to_clipboard">Скопійовано в буфер обміну!</string>
+    <string name="copy">Копіювати</string>
+    <string name="copying">Копіювання…</string>
+    <string name="copying_items" comment="%1$d = number of items being copied">Копіювання %1$d елементів</string>
+    <string name="crash_details">Деталі збою</string>
+    <string name="crash_history">Історія збоїв</string>
+    <string name="create">Створити</string>
+    <string name="create_folder">Створити теку</string>
+    <string name="create_new_tile">Створити нову плитку</string>
+    <string name="crowdin_contribution_msg">Відвідайте нашу платформу перекладів crowdin, щоб зробити свій внесок</string>
+    <string name="current_version">Поточна версія</string>
+    <string name="custom_ui_scale">Свій масштаб UI</string>
+    <string name="cut_items" comment="%1$d = number of items cut to clipboard">Вирізати %1$d елементів</string>
+    <string name="cut_to_clipboard">Вирізати в буфер обміну</string>
+    <string name="daily">Щоденно</string>
+    <string name="dark_theme">Темна тема</string>
+    <string name="dashboard">Приладна дошка</string>
+    <string name="databases_only">Тільки бази даних</string>
+    <string name="default_folder">Тека за замовчуванням</string>
+    <string name="default_language">Мова за замовчуванням</string>
+    <string name="delete">Видалити</string>
+    <string name="delete_all">Видалити все</string>
+    <string name="delete_file">Видалити файл</string>
+    <string name="delete_folder">Видалити теку</string>
+    <string name="delete_items_message" comment="%1$d = number of selected items">Ви впевнені, що хочете видалити %1$d вибраних елементів?</string>
+    <string name="delete_items_title" comment="%1$d = number of items">Видалити %1$d елементів?</string>
+    <string name="delete_message" comment="%1$s = file or folder name">Ви впевнені, що хочете видалити \"%1$s\"?</string>
+    <string name="delete_title" comment="%1$s = file or folder name">Видалити %1$s?</string>
+    <string name="des_about">Співробітники та підтримка</string>
+    <string name="des_ai_cache_days">Кількість днів для зберігання кешованих результатів</string>
+    <string name="des_ai_cache_enabled">Результати аналізу кешу по моделі</string>
+    <string name="des_ai_models">Управління офлайн AI моделями для аналізу команд</string>
+    <string name="des_auto_backup_content_type">Виберіть, що включити до авторезервувань</string>
+    <string name="des_auto_backup_folder">Виберіть теку для збереження авторезервувань</string>
+    <string name="des_auto_backup_time">Встановіть час для авторезервувань</string>
+    <string name="des_auto_dark_mode">Автоперемикання в темний режим, коли ввімкнено режим економії батареї</string>
+    <string name="des_auto_delete_existing_backups">Видаляти старі авторезервування, коли зберігається нова</string>
+    <string name="des_auto_scale_ui">Авто масштабує UI відповідно до мінімальної ширини екрана пристрою</string>
+    <string name="des_auto_update">Автоперевірка оновлень</string>
+    <string name="des_backup_all_data">Резервування всіх даних додатка</string>
+    <string name="des_backup_and_restore">Резервування та відновлення налаштувань додатку та інших даних</string>
+    <string name="des_backup_app_database">Резервування бази даних програми, що містить приклади команд &amp; закладки</string>
+    <string name="des_backup_scheduler">Автоматично планувати резервування на вибрані інтервали</string>
+    <string name="des_backup_settings">Резервування лише налаштувань додатку</string>
+    <string name="des_behavior">Змінити певну поведінку додатку</string>
+    <string name="des_changelogs">Історія всіх змін, внесених у додаток</string>
+    <string name="des_choose_icon">Натисніть тут, щоб вибрати іконку з колекції іконок</string>
+    <string name="des_clear_output_confirmation">Запитувати підтвердження перед очищенням виводу оболонки</string>
+    <string name="des_configure_save_directory">Виберіть каталог для збереження виводу оболонки</string>
+    <string name="des_contributors">Список учасників, які допомогли у розробці aShell You</string>
+    <string name="des_crash_history">Переглянути всі збої, що сталися в додатку</string>
+    <string name="des_default_language">Виберіть мову за замовчуванням для додатка</string>
+    <string name="des_disable_softkey">Корисно, коли потрібно використовувати зовнішню клавіатуру</string>
+    <string name="des_drive_backup">Завантажте зашифроване резервування на Google Диск.\nЦя дія перезапише будь-які що існують хмарні резервні копії.</string>
+    <string name="des_drive_restore">Завантажити останнє резервування з Google Диску</string>
+    <string name="des_dynamic_colors">Автоматичне встановлення теми додатка відповідно до шпалер пристрою</string>
+    <string name="des_enable_auto_backup">Авторезервування даних програми у запланований час</string>
+    <string name="des_enable_cloud_auto_backup">Авторезервування на ваш обліковий запис Google Диска</string>
+    <string name="des_enable_direct_download">При включенні оновлення завантажуватиметься безпосередньо з GitHub всередині додатка. Вимкніть, щоб відвідати сторінку випусків Github для завантаження вручну.</string>
+    <string name="des_enable_local_auto_backup">Авторезервування у вибрану теку на вашому пристрої</string>
+    <string name="des_examples">Колекція деяких шаблонів команд</string>
+    <string name="des_feature_request">Якщо у вас є якісь ідеї чи пропозиції щодо програми, повідомте нам</string>
+    <string name="des_font_family">Змінити стиль шрифту додатка</string>
+    <string name="des_font_size">Регулювання розміру шрифту, щоб текст у додатку показувався більшим або меншим</string>
+    <string name="des_haptics_and_vibration">Інтерактивно тактильний відгук для сенсорного зворотного зв\'язку</string>
+    <string name="des_high_contrast_dark_mode">Чорно темна тема для пристроїв з дисплеєм OLED</string>
+    <string name="des_hridayan">Просто хлопець, який любить додатки та дизайн</string>
+    <string name="des_initial_state">Фіксований візуальний стан плитки, коли вона зображена на панелі \"Швидких налаштувань\"</string>
+    <string name="des_licenses">Перегляньте ліцензії, які використовуються додатком та бібліотеками</string>
+    <string name="des_local_backup">Зберегти зашифровану резервну копію на своєму пристрої</string>
+    <string name="des_local_restore">Виберіть файл резервування зі свого пристрою</string>
+    <string name="des_logcat">Вивід logcat в реальному часі з підключеного пристрою</string>
+    <string name="des_look_and_feel">Динамічні кольори, Темна тема, Мова</string>
+    <string name="des_models">Модель не вибрано</string>
+    <string name="des_override_bookmarks">Можлива затримка, якщо додано велику кількість закладок! На недорогих пристроях цю опцію слід вимкнути</string>
+    <string name="des_pair_another_device">Сполучити інший цільовий пристрій</string>
+    <string name="des_qs_tiles">Створити плитки швидких налаштувань для виконання команд adb</string>
+    <string name="des_report_issue">Повідомте про будь-яку проблему, з якою ви зіткнулися під час використання додатку</string>
+    <string name="des_reset_app_settings">Скинути налаштування додатку до значень за замовчуванням</string>
+    <string name="des_restore_app_data">Відновіть дані додатка зі збереженого файлу резервної копії.\nЗбережена база даних перезапише поточну базу даних</string>
+    <string name="des_save_whole_output">Увімкніть цю опцію, щоб зберегти виведення всієї сесії оболонки.\nЯкщо вимкнено, буде збережено лише виведення останньої команди.</string>
+    <string name="des_screen_density">Регулювання щільності екрана, щоб елементи UI показувалися більше або менше</string>
+    <string name="des_select_file_for_flashing">Виберіть файл завантажувального образу для прошивки на вибраний розділ</string>
+    <string name="des_sign_in_with_google">За бажанням зв\'яжіть свій обліковий запис Google для резервування в хмару</string>
+    <string name="des_smooth_scroll">Вмикає плавне прокручування у виводі оболонки, при натисканні на верхню або нижню стрілку</string>
+    <string name="des_toggleable">Коли увімкнено, плитка перемикається між станами УВІМК та ВИМК при кожному натисканні, виконуючи різні команди для кожного стану</string>
+    <string name="des_translators">Люди, які допомогли перекласти aShellYou</string>
+    <string name="des_ui_scale">Регулювання масштабу елементів UI та розмір шрифту</string>
+    <string name="des_warning_incorrect_file_bootloop">Будьте обережні, тому що неправильний образ може викликати bootloop</string>
+    <string name="description">Опис</string>
+    <string name="deselect_all">Зняти вибір з усіх</string>
+    <string name="developer">Розробник</string>
+    <string name="developer_options">Параметри розробника</string>
+    <string name="developer_options_not_available">Параметри розробника недоступні!</string>
+    <string name="device_backup_local">Резервування пристрою (Локально)</string>
+    <string name="device_connected">Пристрій під\'єднано!</string>
+    <string name="device_disconnected">Пристрій від\'єднано</string>
+    <string name="device_disconnected_message">З’єднання Wi-Fi ADB було втрачено.</string>
+    <string name="device_disconnected_message_with_name" comment="%s = device name">\"%s\" відключився.</string>
+    <string name="device_found">Пристрій знайдено!</string>
+    <string name="device_info">Інформація про пристрій</string>
+    <string name="disable_softkey">Вимкнути програмну клавіатуру</string>
+    <string name="disclaimer">Відмова від відповідальності</string>
+    <string name="disclaimer_1_description">Виконання команд ADB може змінювати системні налаштування, керувати файлами та виконувати операції, які можуть вплинути на стабільність вашого пристрою.\nВи несете повну відповідальність за будь-які зміни, внесені за допомогою цього додатка.</string>
+    <string name="disclaimer_1_title">Використовуйте на свій страх та ризик</string>
+    <string name="disclaimer_2_description">Хоча root доступ не є обов\'язковим, деякі команди можуть вимагати підвищених прав.\nНеправильне використання команд ADB може призвести до втрати даних, збоїв програми або неочікуваної поведінки системи.</string>
+    <string name="disclaimer_2_title">Root доступ не є обов\'язковим, але потрібна обережність</string>
+    <string name="disclaimer_3_description">Розробники цього додатка не несуть відповідальності за будь-які пошкодження, втрату даних або непередбачені наслідки, що виникли в результаті використання цього додатку.\nДійте обережно і переконайтеся, що ви розумієте команди, що виконуються.</string>
+    <string name="disclaimer_3_title">Ми не несемо відповідальності</string>
+    <string name="disclaimer_4_description">Ця програма розроблена для користувачів, які мають базове розуміння ADB команд.\nЯкщо ви не впевнені щодо ефективності команди, дослідіть її, перш ніж виконувати.</string>
+    <string name="disclaimer_4_title">Призначений для просунутих користувачів</string>
+    <string name="disclaimer_5_description">Для належної роботи цієї програми можуть бути потрібні спеціальні дозволи.\nВони не збирають і не передають персональні дані, але користувачі повинні знати про наслідки надання дозволів, пов\'язаних з ADB.</string>
+    <string name="disclaimer_5_title">Дозволи та Безпека</string>
+    <string name="disconnect">Відключитися</string>
+    <string name="disconnected">Відключено!</string>
+    <string name="discussions">Обговорення</string>
+    <string name="dismiss">Відхилити</string>
+    <string name="done">Готово</string>
+    <string name="download">Завантажити</string>
+    <string name="download_failed">Завантаження не вдалося</string>
+    <string name="downloading">Завантаження…</string>
+    <string name="downloading_backup">Завантаження резервування з Google Диску…</string>
+    <string name="downloads">Завантаження</string>
+    <string name="duplicate_tile_name_error_msg">Плитка з таким ім\'ям вже існує</string>
+    <string name="dynamic_colors">Динамічні кольори</string>
+    <string name="edit_command">Редагувати команду</string>
+    <string name="edit_tile">Редагувати плитку</string>
+    <string name="empty_folder">Ця тека порожня</string>
+    <string name="enable_auto_backup">Увімкнути авторезервування</string>
+    <string name="enable_auto_update">Увімкнути автооновлення</string>
+    <string name="enable_cloud_auto_backup">Авторезервування на Google Диск</string>
+    <string name="enable_direct_download">Увімкнути пряме завантаження apk</string>
+    <string name="enable_local_auto_backup">Авторезервування в локальне сховище</string>
+    <string name="enable_wifi">Увімкнути Wi-Fi</string>
+    <string name="enable_wireless_debugging">Будь ласка, увімкніть \"Бездротове налагодження\" у параметрах \"Розробника\"</string>
+    <string name="enable_wireless_debugging_button">Увімкнути</string>
+    <string name="enter">Ввести</string>
+    <string name="enter_pairing_code">Введіть 6-значний код сполучення</string>
+    <string name="erase_confirm_message">Це призведе до остаточного очищення розділу %1$s. Цю дію не можна скасувати.</string>
+    <string name="erase_confirm_title">Очистити %1$s?</string>
+    <string name="erase_partition">Стерти</string>
+    <string name="erasing">Стирання…</string>
+    <string name="error">Помилка</string>
+    <string name="error_labels_limit_reached">Досягнуто максимального ліміту етикеток</string>
+    <string name="execution_method">Метод виконання</string>
+    <string name="expand">Розгорнути</string>
+    <string name="experimental">Експериментальний</string>
+    <string name="failed">Не вдалося</string>
+    <string name="failed_to_claim_interface">Не вдалося отримати доступ до інтерфейсу</string>
+    <string name="failed_to_copy">Не вдалося скопіювати</string>
+    <string name="failed_to_open_usb_connection">Не вдалося відкрити USB з\'єднання. Чи увімкнено налагодження USB?</string>
+    <string name="fastboot">Fastboot</string>
+    <string name="fastboot_and_recovery">Fastboot &amp; Recovery</string>
+    <string name="fastboot_coming_soon">Скоро</string>
+    <string name="fastboot_command_console">Командна консоль</string>
+    <string name="fastboot_command_hint">Введіть команду fastboot…</string>
+    <string name="fastboot_device_info">Інформація пристрою</string>
+    <string name="fastboot_partitions">Розділи</string>
+    <string name="fastboot_quick_actions">Швидкі дії</string>
+    <string name="fastboot_summary">Підключення до пристрою в режимі fastboot через OTG</string>
+    <string name="fastboot_variable_explorer">Оглядач змінних</string>
+    <string name="fb_all_operations_cancelled">Усі операції скасовано</string>
+    <string name="fb_cannot_paste_into_selected">Не можу вставити у вибрану теку</string>
+    <string name="fb_create_folder_failed" comment="%1$s = error message. fb_ prefix = file browser">Не вдалося створити теку: %1$s</string>
+    <string name="fb_delete_failed" comment="%1$s = error message">Не вдалося видалити: %1$s</string>
+    <string name="fb_deleted_items" comment="%1$d = number of deleted items">Видалено %1$d елементів</string>
+    <string name="fb_download_failed" comment="%1$s = error message">Завантаження не вдалося: %1$s</string>
+    <string name="fb_downloaded_to" comment="%1$s = file path">Завантажено в %1$s</string>
+    <string name="fb_downloading" comment="%1$s = file name">Завантаження %1$s</string>
+    <string name="fb_empty_folder_skipped">Порожню теку пропущено</string>
+    <string name="fb_error" comment="%1$s = error message">Помилка: %1$s</string>
+    <string name="fb_file_deleted">Файл видалено</string>
+    <string name="fb_folder_created">Тека створена</string>
+    <string name="fb_nothing_to_paste">Нічого вставити</string>
+    <string name="fb_operation_cancelled">Операцію скасовано</string>
+    <string name="fb_otg_transfers_not_supported" comment="OTG = USB On-The-Go">Передача файлів не підтримується в режимі OTG</string>
+    <string name="fb_paste_completed" comment="%1$d = number of items pasted">Виконано: %1$d елементів</string>
+    <string name="fb_paste_completed_with_failed" comment="%1$d = completed, %2$d = skipped, %3$d = failed">Виконано: %1$d елементів, %2$d пропущено, %3$d не вдалося</string>
+    <string name="fb_paste_completed_with_skipped" comment="%1$d = completed, %2$d = skipped">Виконано: %1$d елементів, %2$d пропущено</string>
+    <string name="fb_reconnected_successfully">Підключення успішно відновлено</string>
+    <string name="fb_rename_failed" comment="%1$s = error message">Перейменування не вдалося: %1$s</string>
+    <string name="fb_renamed_successfully">Успішно перейменовано</string>
+    <string name="fb_upload_failed" comment="%1$s = error message">Завантаження не вдалося: %1$s</string>
+    <string name="fb_uploaded_successfully">Файл успішно завантажено</string>
+    <string name="fb_uploading" comment="%1$s = file name">Завантаження %1$s</string>
+    <string name="feature_request">Запит функції</string>
+    <string name="fetching_backup_time">Отримання часу резервного копіювання …</string>
+    <string name="fetching_backup_type">Отримання типу резервної копії…</string>
+    <string name="field_cannot_be_blank">Поле не може бути порожнім</string>
+    <string name="file">Файл</string>
+    <string name="file_actions">Дії з файлом</string>
+    <string name="file_already_exists">Файл вже існує</string>
+    <string name="file_browser">Файловий менеджер</string>
+    <string name="file_conflict_title">Файл вже існує</string>
+    <string name="file_exists_message" comment="%1$s = file name">\"%1$s\" вже існує в цьому місці.</string>
+    <string name="file_info">Інформація про файл</string>
+    <string name="file_not_found">Файл не знайдено</string>
+    <string name="filter">Фільтр</string>
+    <string name="filter_by_labels">Фільтрувати за мітками</string>
+    <string name="flash">Прошити</string>
+    <string name="flash_partition">Прошити розділ</string>
+    <string name="flashing">Прошивка…</string>
+    <string name="folder">Тека</string>
+    <string name="folder_already_exists">Тека з такою назвою вже існує</string>
+    <string name="folder_conflict_title">Тека вже існує</string>
+    <string name="folder_info">Інформація про теку</string>
+    <string name="folder_name">Ім\'я теки</string>
+    <string name="folder_picker">Вибір теки</string>
+    <string name="font_amatic_sc" comment="Font style name">Amatic SC</string>
+    <string name="font_cabin" comment="Font style name">Cabin</string>
+    <string name="font_caveat" comment="Font style name">Caveat</string>
+    <string name="font_comfortaa" comment="Font style name">Comfortaa</string>
+    <string name="font_crimson_pro" comment="Font style name">Crimson Pro</string>
+    <string name="font_dancing_script" comment="Font style name">Dancing Script</string>
+    <string name="font_display_text" comment="Sample text used to preview font styles">Швидка бура лисиця перестрибує через лінивого собаку</string>
+    <string name="font_eb_garamond" comment="Font style name">EB Garamond</string>
+    <string name="font_exo_2" comment="Font style name">Exo 2</string>
+    <string name="font_family">Сімейство шрифтів</string>
+    <string name="font_heebo" comment="Font style name">Heebo</string>
+    <string name="font_inter" comment="Font style name">Inter</string>
+    <string name="font_josefin_sans" comment="Font style name">Josefin Sans</string>
+    <string name="font_karla" comment="Font style name">Karla</string>
+    <string name="font_lexend" comment="Font style name">Lexend</string>
+    <string name="font_lora" comment="Font style name">Lora</string>
+    <string name="font_manrope" comment="Font style name">Manrope</string>
+    <string name="font_montserrat" comment="Font style name">Montserrat</string>
+    <string name="font_noto_sans" comment="Font style name">Noto Sans</string>
+    <string name="font_nunito" comment="Font style name">Nunito</string>
+    <string name="font_open_sans" comment="Font style name">Open Sans</string>
+    <string name="font_oswald" comment="Font style name">Oswald</string>
+    <string name="font_outfit" comment="Font style name">Outfit</string>
+    <string name="font_pacifico" comment="Font style name">Pacifico</string>
+    <string name="font_playfair_display" comment="Font style name">Playfair Display</string>
+    <string name="font_playpen_sans" comment="Font style name">Playpen Sans</string>
+    <string name="font_plus_jakarta_sans" comment="Font style name">Plus Jakarta Sans</string>
+    <string name="font_public_sans" comment="Font style name">Public Sans</string>
+    <string name="font_quicksand" comment="Font style name">Quicksand</string>
+    <string name="font_raleway" comment="Font style name">Raleway</string>
+    <string name="font_roboto_flex" comment="Font style name">Roboto Flex</string>
+    <string name="font_rubik" comment="Font style name">Rubik</string>
+    <string name="font_shadows_into_light" comment="Font style name">Shadows Into Light</string>
+    <string name="font_size_multiplier">Множник розміру шрифту</string>
+    <string name="font_source_sans_3" comment="Font style name">Source Sans 3</string>
+    <string name="font_source_serif_4" comment="Font style name">Source Serif 4</string>
+    <string name="font_work_sans" comment="Font style name">Work Sans</string>
+    <string name="forget">Забути</string>
+    <string name="forget_device">Забути пристрій</string>
+    <string name="forget_device_confirmation" comment="%1$s = device name">Ви впевнені, що хочете забути? %1$s? Вам потрібно буде повторно виконати сполучення для підключення.</string>
+    <string name="forks">Forks</string>
+    <string name="found_connect_service">Знайдено сервіс підключення</string>
+    <string name="frequency">Частота</string>
+    <string name="full_license_text">Повний текст ліцензії</string>
+    <string name="generate_tile">Створити плитку</string>
+    <string name="get_variables">Отримати змінні</string>
+    <string name="go_home">На головну</string>
+    <string name="go_to_terminal">Перейти до термінала</string>
+    <string name="google_drive">Google Диск</string>
+    <string name="google_drive_backup">Google Диск резервування</string>
+    <string name="gpl_3_0_description">aShell You це вільне програмне забезпечення: ви можете розповсюджувати його/або змінювати відповідно до умов Загальної публічної ліцензії GNU, опублікованої Фондом вільного програмного забезпечення, або версії 3 Ліцензії, або (на ваш вибір) будь-якої пізнішої версії.</string>
+    <string name="grant">Надати</string>
+    <string name="grant_permission">Надати дозвіл</string>
+    <string name="grant_shizuku_permission_for_tiles">Дозвіл Shizuku не надано!\naShell You потрібен дозвіл Shizuku для виконання команд плиток.</string>
+    <string name="great_news">Чудова новина!</string>
+    <string name="haptics_and_vibration">Тактильна віддача &amp; Вібрація</string>
+    <string name="have_a_nice_day">Приємного дня!</string>
+    <string name="high">Високий</string>
+    <string name="high_contrast_dark_mode">Висококонтрастний темний режим</string>
+    <string name="hint">Підказка</string>
+    <string name="history">Історія</string>
+    <string name="home">Головна</string>
+    <string name="icon_selected">Іконка обрана</string>
+    <string name="info">Інформація</string>
+    <string name="initial_state">Початковий стан</string>
+    <string name="instructions">Інструкції</string>
+    <string name="intent_not_found">Намір не знайдено</string>
+    <string name="internal_storage">Внутрішнє сховище</string>
+    <string name="invalid_folder_name">Назва теки не може містити /</string>
+    <string name="ip_address">IP адреса</string>
+    <string name="irreversible_action_warning">Ця дія незворотна!</string>
+    <string name="item_deleted">Елемент був успішно видалений</string>
+    <string name="keep_both">Залишити обидва</string>
+    <string name="label">Мітка</string>
+    <string name="languages">Мови</string>
+    <string name="last_auto_backup_cloud">Останнє авторезервування у хмарі</string>
+    <string name="last_auto_backup_local">Останнє локальне авторезервування</string>
+    <string name="last_backup_date">Дата останнього резервування</string>
+    <string name="last_backup_details">Деталі останньої резервної копії</string>
+    <string name="last_backup_time">Час останнього резервування</string>
+    <string name="latest_version">Остання версія</string>
+    <string name="lead_developer">Провідний розробник</string>
+    <string name="least_used">Рідко використовувані</string>
+    <string name="library_count" comment="%1$d = number of third-party libraries">Виявлено бібліотек %1$d</string>
+    <string name="license">Ліцензія</string>
+    <string name="license_label">Ліцензія</string>
+    <string name="licenses">Ліцензії</string>
+    <string name="load">Завантажити</string>
+    <string name="load_predefined_commands">Завантаження передвизначених команд</string>
+    <string name="loading">Завантаження</string>
+    <string name="loading_device_info">Завантаження інформації пристрою…</string>
+    <string name="loading_licenses">Завантаження інформації про ліцензію…</string>
+    <string name="local_adb">Локальний ADB</string>
+    <string name="local_adb_shell">Локальна оболонка ADB</string>
+    <string name="local_adb_summary">Виконуйте команди ADB безпосередньо на вашому пристрої за допомогою Shizuku або root.</string>
+    <string name="local_backup">Локальне резервування</string>
+    <string name="local_file">Локальний файл</string>
+    <string name="locked">Заблоковано</string>
+    <string name="logcat">Logcat</string>
+    <string name="logs">Журнали</string>
+    <string name="look_and_feel">Оформлення</string>
+    <string name="low">Низький</string>
+    <string name="manual_pair">Ручне сполучення</string>
+    <string name="max_download_size">Максимальне завантаження</string>
+    <string name="medium">Середній</string>
+    <string name="merge">Об’єднати</string>
+    <string name="minimize">Мінімізувати</string>
+    <string name="mode">Режим</string>
+    <string name="mode_one_desc">Використовуйте root доступ для запуску команд. Rooted команди можуть бути виконані.</string>
+    <string name="mode_two_desc">Використовуйте shizuku для виконання команд. Команди, що потребують root-прав, не виконаються.</string>
+    <string name="model_category_large" comment="AI model size category label">Великий (1,5–2,5 ГБ)</string>
+    <string name="model_category_medium" comment="AI model size category label">Середній (800 Мбайт–1,1 ГБ)</string>
+    <string name="model_category_small" comment="AI model size category label">Невеликий (300-500 МБ)</string>
+    <string name="model_category_tiny" comment="AI model size category label">Крихітний (менше ніж 300 МБ)</string>
+    <string name="models" comment="Refers to AI/ML models used for command analysis">Моделі</string>
+    <string name="modified" comment="File property: last modified date">Змінено</string>
+    <string name="monospace" comment="Font style category name">Monospace</string>
+    <string name="monthly">Щомісяця</string>
+    <string name="more">Ще</string>
+    <string name="most_used">Часто використовуються</string>
+    <string name="move">Перемістити</string>
+    <string name="moving">Переміщення…</string>
+    <string name="moving_items" comment="%1$d = number of items being moved">Переміщення %1$d елементів</string>
+    <string name="n_days" comment="%d = number of days for cache duration setting">%d днів</string>
+    <string name="name">Ім\'я</string>
+    <string name="network_error">Помилка мережі</string>
+    <string name="new_commands_available_msg">Додано нові приклади команд!\nНатисніть кнопку нижче, щоб завантажити нові команди.</string>
+    <string name="new_folder">Нова тека</string>
+    <string name="new_name">Нове ім\'я</string>
+    <string name="newest">Найновіший</string>
+    <string name="no_adb_device_error">Пристрої, сумісні з ADB, не виявлені. Увімкніть налагодження USB на цільовому пристрої.</string>
+    <string name="no_adb_interface_found">Інтерфейс adb не знайдено</string>
+    <string name="no_auto_backup_yet">Авторезервування ще не виконано</string>
+    <string name="no_bookmarks">Закладок не знайдено</string>
+    <string name="no_changelog_found">Журнал змін для цієї версії не знайдено</string>
+    <string name="no_cloud_backup_found">Резервування не знайдено на Google Диску</string>
+    <string name="no_crashes">Повідомлень про збої не надходило. aShell You працює гладко.</string>
+    <string name="no_device_connected">Немає під\'єднаного пристрою</string>
+    <string name="no_fastboot_device_error">Підключений пристрій не перебуває в режимі fastboot</string>
+    <string name="no_files_download">Файли не вибрані (теки неможливо завантажити)</string>
+    <string name="no_folder_selected">Теку не вибрано</string>
+    <string name="no_google_account_message">На цьому пристрої не знайдено облікового запису Google. Ви хочете додати один для використання хмарного резервного копіювання?</string>
+    <string name="no_google_account_title">Немає облікового запису Google</string>
+    <string name="no_history">Немає історії команд</string>
+    <string name="no_libraries_found">Бібліотек не знайдено</string>
+    <string name="no_logs_yet">Журналів ще нема!</string>
+    <string name="no_logs_yet_msg">Жодних журналів ще не записано. Виконайте кілька дій, щоб показати журнали.</string>
+    <string name="no_model_selected">Модель не вибрано</string>
+    <string name="no_operations">Операції не виконуються</string>
+    <string name="no_results_found">Результатів не знайдено</string>
+    <string name="no_root_access">Немає root доступу</string>
+    <string name="no_saved_devices">Немає збережених пристроїв</string>
+    <string name="no_search_results_found">Результатів пошуку не знайдено</string>
+    <string name="no_variables_loaded">Немає завантажених змінних</string>
+    <string name="no_wifi_connection">Нема підключення Wi-Fi</string>
+    <string name="none">Жодного</string>
+    <string name="not_signed_in">Вхід не виконано</string>
+    <string name="nothing_to_clear">Нема чого очищати</string>
+    <string name="nothing_to_search">Немає чого шукати</string>
+    <string name="notification_settings">Налаштування сповіщень</string>
+    <string name="notification_style_error">Якщо ви не можете ввести код сполучення зі сповіщення, можливо, вам потрібно буде змінити панель сповіщень на Android. Щоб змінити стиль сповіщень, перейдіть до Налаштувань сповіщень ~ Стиль сповіщень. В іншому випадку ви можете не ввести код сполучення з повідомлення.</string>
+    <string name="notification_styles">Стилі сповіщень</string>
+    <string name="off">Вимкнено</string>
+    <string name="off_state" comment="Quick Settings tile toggle state label">\"Вимк\"</string>
+    <string name="oldest" comment="Sorting option">Найстаріший</string>
+    <string name="on">Увімкнено</string>
+    <string name="on_state" comment="Quick Settings tile toggle state label">\"Увім\"</string>
+    <string name="open">Відкрити</string>
+    <string name="open_app_language_settings">Відкрити налаштування мови додатку</string>
+    <string name="open_issues" comment="GitHub repository open issues count">Відкриті питання</string>
+    <string name="open_url">Відкрити URL</string>
+    <string name="operation_complete">Операцію завершено</string>
+    <string name="operations">Операції</string>
+    <string name="or">OR</string>
+    <string name="otg" comment="USB On-The-Go. Technical term, keep as OTG">OTG</string>
+    <string name="other_details">Інші деталі</string>
+    <string name="other_device">Інший пристрій</string>
+    <string name="output">Вивід</string>
+    <string name="override_bookmarks_limit">Перевизначити максимальну кількість закладок</string>
+    <string name="pair">Сполучення</string>
+    <string name="pair_a_device_first">Спочатку сполучення пристрою</string>
+    <string name="pair_another_device">Сполучити інший пристрій</string>
+    <string name="pair_connect_failed_message">\nНе вдалося під\'єднатися до сполученого пристрою\nПристрій може бути в іншій мережі\nСпробуйте створити сполучення знову</string>
+    <string name="pair_device_to_start">Сполучити пристрій за допомогою QR або коду сполучення, щоб побачити його тут</string>
+    <string name="pair_manually">Сполучити вручну</string>
+    <string name="pair_this_device">Сполучити цей пристрій</string>
+    <string name="pair_using_code">Сполучити за допомогою коду</string>
+    <string name="pair_using_qr">Сполучити за допомогою QR</string>
+    <string name="paired">Сполучено</string>
+    <string name="pairing">Сполучення</string>
+    <string name="pairing_code">Код сполучення</string>
+    <string name="pairing_notification_hint">Ви отримаєте сповіщення від aShell You, яке допоможе вам зі сполученням</string>
+    <string name="pairing_process_notification_access_message">Щоб завершити процес сполучення, вам потрібно взаємодіяти з повідомленнями від aShell You. Будь ласка, дозвольте доступ до сповіщень aShell You.</string>
+    <string name="palette_content" comment="Material Design color scheme style name">Зміст</string>
+    <string name="palette_expressive" comment="Material Design color scheme style name">Виразний</string>
+    <string name="palette_fidelity" comment="Material Design color scheme style name">Вірність</string>
+    <string name="palette_fruit_salad" comment="Material Design color scheme style name">Фруктовий салат</string>
+    <string name="palette_monochrome" comment="Material Design color scheme style name">Монохромний</string>
+    <string name="palette_neutral" comment="Material Design color scheme style name">Нейтральний</string>
+    <string name="palette_rainbow" comment="Material Design color scheme style name">Веселка</string>
+    <string name="palette_style" comment="Settings label for choosing Material Design color palette">Стиль палітри</string>
+    <string name="palette_tonal_spot" comment="Material Design color scheme style name">Тональна цятка</string>
+    <string name="palette_vibrant" comment="Material Design color scheme style name">Вібрація</string>
+    <string name="partition">Розділ</string>
+    <string name="paste">Вставити</string>
+    <string name="path">Шлях</string>
+    <string name="permission_denied">Дозвіл відхилено</string>
+    <string name="permission_optional">Надання цих дозволів необов\'язкове!</string>
+    <string name="pick_ashellyou_extension">Будь ласка, виберіть файл із розширенням \".ashellyou\"</string>
+    <string name="port">Порт</string>
+    <string name="possible_reasons">Можливі причини</string>
+    <string name="pre_release_github">Перед реліз (GitHub)</string>
+    <string name="pre_release_warning">Перед реліз збірки можуть бути нестабільними</string>
+    <string name="pre_release_warning_description">Ці версії все ще знаходяться на стадії тестування та можуть містити незавершені функції або несподівані помилки. Якщо ви вирішите оновитись до передрелізної версії, майте на увазі, що можуть виникнути збої або дивна поведінка.\nЯкщо ви зіткнетеся з будь-якими проблемами, збоями або дивною поведінкою, будь ласка, повідомте нам про це, щоб ми могли виправити та покращити aShellYou до стабільного релізу.\nДякую, що допомагаєте нам будувати краще!</string>
+    <string name="preference">Переважно</string>
+    <string name="preview">Перед огляд</string>
+    <string name="product">Продукт</string>
+    <string name="qr_pair">Сполучення QR</string>
+    <string name="qr_pair_hint">Для сполучення пристрою Android 11+ скануйте цей QR із цільового пристрою</string>
+    <string name="qr_scanner_location_hint">Сканер QR доступний в:\nПараметри розробника &gt; Бездротове налагодження &gt; Сполучення за допомогою QR коду</string>
+    <string name="qs_tiles">Плитки швидких налаштувань</string>
+    <string name="quick_tools">Швидкі інструменти</string>
+    <string name="reading_file">Читання файлу…</string>
+    <string name="ready_to_paste">Готовий до вставки</string>
+    <string name="reboot_bootloader">Перезавантажити в Bootloader</string>
+    <string name="reboot_confirm_message">Це перезавантажить підключений пристрій %1$s. Продовжити?</string>
+    <string name="reboot_confirm_title">Підтвердити перезавантаження</string>
+    <string name="reboot_fastbootd">Перевантажити в Fastbootd</string>
+    <string name="reboot_normal">Перезавантажити</string>
+    <string name="reboot_options">Параметри перезавантаження</string>
+    <string name="reboot_recovery">Перевантажити в Recovery</string>
+    <string name="recent_activity">Нещодавня активність</string>
+    <string name="recent_searches">Нещодавні пошуки</string>
+    <string name="recommended">Рекомендовано</string>
+    <string name="reconnect">Перепідключення</string>
+    <string name="reconnect_failed">Перепідключення не вдалося</string>
+    <string name="reconnect_failed_message">\nМожливо, бездротове налагодження не ввімкнено\nІнформація про сполучення може бути втрачена. Сполучити пристрій вручну ще раз!</string>
+    <string name="reconnect_failed_requires_pairing">Перепідключення не вдалося. Потрібне повторне сполучення.</string>
+    <string name="reconnect_success">Підключення успішно відновлено</string>
+    <string name="reconnect_the_device">Підключення пристрою знову</string>
+    <string name="recovery">Recovery</string>
+    <string name="refresh">Оновити</string>
+    <string name="rename">Перейменувати</string>
+    <string name="rename_title" comment="%1$s = file or folder name">Перейменувати %1$s</string>
+    <string name="replace">Замінити</string>
+    <string name="report">Звіт</string>
+    <string name="report_issue">Звіт про проблему</string>
+    <string name="repository">Репозиторій</string>
+    <string name="request_timeout">Тайм-аут запиту</string>
+    <string name="reset">Скинути</string>
+    <string name="reset_app_settings">Скинути налаштування додатка</string>
+    <string name="reset_settings_failed">Скидання налаштувань не вдалося</string>
+    <string name="reset_settings_successful">Налаштування скинуто успішно</string>
+    <string name="restore">Відновити</string>
+    <string name="restore_app_data">Відновити дані додатка</string>
+    <string name="restore_dialog_message">Дані у збереженому файлі замінять поточні дані.</string>
+    <string name="restore_failed">Відновлення не вдалося</string>
+    <string name="restore_from">Відновити з</string>
+    <string name="restore_successful">Успішно відновлено</string>
+    <string name="restoring_backup">Відновлення резервування…</string>
+    <string name="retry">Повторити</string>
+    <string name="root_access_granted">Root доступ надано!</string>
+    <string name="sans_serif" comment="Font style category name">Sans Serif</string>
+    <string name="save">Зберегти</string>
+    <string name="save_whole_output">Зберегти весь вивід</string>
+    <string name="saved_devices">Збережені пристрої</string>
+    <string name="saving">Збереження…</string>
+    <string name="saving_output">Експорт виводу у файл…</string>
+    <string name="schedule">Розклад</string>
+    <string name="screen_density_multiplier">Множник щільності екрану</string>
+    <string name="search">Пошук</string>
+    <string name="search_bookmarks_here">Пошук закладок тут</string>
+    <string name="search_commands_here">Пошук команд тут</string>
+    <string name="search_fonts">Пошук шрифтів…</string>
+    <string name="search_icons_here">Пошук іконок тут</string>
+    <string name="search_labels_here">Пошук мітки тут</string>
+    <string name="search_libraries">Пошук бібліотек, авторів, ліцензій…</string>
+    <string name="search_output">Пошук виводу тут</string>
+    <string name="search_settings">Налаштування пошуку</string>
+    <string name="search_something">Знайти що-небудь</string>
+    <string name="search_variables">Пошук змінних…</string>
+    <string name="searching_connect_service">Пошук служби підключення</string>
+    <string name="searching_for_devices">Пошук пристроїв…</string>
+    <string name="security_patch">Патч безпеки</string>
+    <string name="select">Вибрати</string>
+    <string name="select_all">Вибрати все</string>
+    <string name="select_backup_folder_message">Будь ласка, виберіть теку, де будуть збережені резервування. Додатку потрібен доступ для читання та запису до цієї теки.</string>
+    <string name="select_backup_folder_title">Немає теки резервування</string>
+    <string name="select_folder">Виберіть теку</string>
+    <string name="select_partition">Виберіть розділ</string>
+    <string name="select_time">Виберіть час</string>
+    <string name="self" comment="Refers to pairing this device with itself for local ADB">Своє</string>
+    <string name="self_pair_connection_failed">Помилка підключення - спробуйте ручне підключення</string>
+    <string name="self_pair_enter_code">Введіть 6-значний код із діалогового вікна сполучення</string>
+    <string name="self_pair_enter_code_hint">Введіть 6-значний код сполучення</string>
+    <string name="self_pair_error_no_ip">Не вдалося визначити IP адресу</string>
+    <string name="self_pair_error_saving">Помилка збереження пристрою</string>
+    <string name="self_pair_failed">Сполучення не вдалося</string>
+    <string name="self_pair_found">Сервіс сполучення знайдено!</string>
+    <string name="self_pair_in_progress">Сполучення в процесі…</string>
+    <string name="self_pair_in_progress_hint">Зачекайте підключення до цього пристрою</string>
+    <string name="self_pair_pairing_not_found">Сервіс сполучення не знайдено</string>
+    <string name="self_pair_searching">Пошук сервісу сполучення…</string>
+    <string name="self_pair_searching_hint">Відкрийте \"Бездротове налагодження\" та натисніть \'Сполучити пристрій за допомогою коду сполучення\'</string>
+    <string name="self_pair_success">Під\'єднано до цього пристрою!</string>
+    <string name="self_pair_success_hint">Локальна оболонка ADB тепер доступна</string>
+    <string name="self_pair_timeout">Тайм-аут - відкрити діалог сполучення в бездротовому налагодженні</string>
+    <string name="self_pair_wrong_code">Неправильний код - знову відкрийте діалогове вікно сполучення</string>
+    <string name="serial_number">Серійний номер</string>
+    <string name="serif" comment="Font style category name">Serif</string>
+    <string name="settings">Налаштування</string>
+    <string name="settings_only">Тільки параметри</string>
+    <string name="shell_output_saved_message" comment="%s = file path where output was saved">Вивід останньої команди експортується до \'%s\'</string>
+    <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">Вивід оболонки експортується до \'%s\'</string>
+    <string name="shizuku_not_installed">Shizuku не встановлено</string>
+    <string name="shizuku_unavailable">Shizuku недоступний</string>
+    <string name="shizuku_unavailable_message">Shizuku не встановлено або не налаштовано належним чином на вашому пристрої</string>
+    <string name="sign_in_failed">Не вдалося ввійти в Google</string>
+    <string name="sign_in_with_google">Увійти через Google</string>
+    <string name="sign_out">Вийти</string>
+    <string name="sign_out_confirmation_msg">Вихід з облікового запису призупинить усі автоматичні резервні копії в хмару!\nВи все ще хочете вийти?</string>
+    <string name="signed_in_as" comment="%1$s = user email or name">Ви увійшли як %1$s</string>
+    <string name="signed_out">Виконано вихід</string>
+    <string name="size">Розмір</string>
+    <string name="skip">Пропустити</string>
+    <string name="slide_to_flash">Слайд для прошивки</string>
+    <string name="slot_data_unknown">Дані слота невідомі</string>
+    <string name="smooth_scrolling">Плавне прокручування</string>
+    <string name="sort">Сортувати</string>
+    <string name="stable_fdroid">Стабільний (F-Droid)</string>
+    <string name="stable_github">Стабільний (GitHub)</string>
+    <string name="stack_trace">Трасування стеку</string>
+    <string name="stargazers">Зірки</string>
+    <string name="start">Запустити</string>
+    <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">%.1f МБ використовується AI моделями</string>
+    <string name="subtitle">Субтитри</string>
+    <string name="subtitle_off_state">Субтитри (стан ВИМК.)</string>
+    <string name="subtitle_on_state">Субтитри (стан УВІМК.)</string>
+    <string name="success">Успішно</string>
+    <string name="success_rate">Шанс успіху</string>
+    <string name="successful_connection_message">Пристрій успішно підключений. Тепер ви можете розпочати виконання команд на цільовому пристрої.</string>
+    <string name="suggested_icons">Запропоновані іконки</string>
+    <string name="support_bmc">Подобається те, що я роблю?\nПригостіть мене кавою</string>
+    <string name="switch_mode">Перемикнути режим</string>
+    <string name="system">Системна</string>
+    <string name="system_default">Системні за замовчуванням</string>
+    <string name="system_font" comment="Option to use the device default font">Системний шрифт</string>
+    <string name="system_settings">Системні налаштування</string>
+    <string name="telegram">Telegram</string>
+    <string name="terminal">Термінал</string>
+    <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Стиль шрифту терміналу</string>
+    <string name="third_party_libraries">Сторонні бібліотеки</string>
+    <string name="this_application">Цей додаток</string>
+    <string name="this_device">Цей пристрій</string>
+    <string name="tile">Плитка</string>
+    <string name="tile_behavior">Поведінка плитки</string>
+    <string name="tile_dashboard_notification_access_message">Увімкніть сповіщення, щоб отримати повідомлення про несправність виконання плиток</string>
+    <string name="tile_logs">Журнали плиток</string>
+    <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">Плитка %1$d</string>
+    <string name="tile_name">Назва плитки</string>
+    <string name="tiles">Плитки</string>
+    <string name="time">Час</string>
+    <string name="toggleable">Перемикальний</string>
+    <string name="total_executions">Всього запусків</string>
+    <string name="translations">Переклади</string>
+    <string name="translators">Перекладачі</string>
+    <string name="troubleshoot">Усунення несправностей</string>
+    <string name="troubleshoot_reconnect">Оновіть бездротове налагоджувальне з’єднання, увімкнувши його \'вимк./увімк\'</string>
+    <string name="try_different_search">Спробуйте інший пошуковий термін</string>
+    <string name="turn_off_mobile_data">Відключіть мобільну передачу даних, якщо Wi-Fi з\'єднання не під\'єднано до Інтернету</string>
+    <string name="tweak_your_experience">Поліпшить свій досвід використання</string>
+    <string name="type">Тип</string>
+    <string name="ui_scale">Масштаб UI</string>
+    <string name="undo">Скасувати</string>
+    <string name="unknown">Невідомо</string>
+    <string name="unknown_error">Сталася невідома помилка</string>
+    <string name="unknown_sources_install_permission_not_granted">Дозвіл не надано. Дозвольте встановлення програми з невідомих джерел.</string>
+    <string name="unlock_status">Статус розблокування</string>
+    <string name="unlocked">Розблоковано</string>
+    <string name="untitled">Без назви</string>
+    <string name="update">Оновлення</string>
+    <string name="update_available">Доступне оновлення!</string>
+    <string name="update_channel">Канал оновлень</string>
+    <string name="upload_file">Завантажити файл</string>
+    <string name="uploading">Завантаження…</string>
+    <string name="uploading_backup">Завантаження резервування на Google Диск…</string>
+    <string name="usb_manager_unavailable">Менеджер USB недоступний на цьому пристрої</string>
+    <string name="use">Використати</string>
+    <string name="utilities">Утиліти</string>
+    <string name="variant">Варіант</string>
+    <string name="version">Версія</string>
+    <string name="version_code">Код версії</string>
+    <string name="version_name">Назва версії</string>
+    <string name="view_license_online_msg">Натисніть \'Відкрити URL\', щоб переглянути ліцензію онлайн.</string>
+    <string name="view_on_github">Переглянути на GitHub</string>
+    <string name="visit_repo_to_download">Натисніть кнопку завантаження, щоб отримати останню версію aShellYou з репозиторію GitHub.</string>
+    <string name="waiting_for_device">Очікування пристрою</string>
+    <string name="waiting_for_devices">Очікування пристроїв…</string>
+    <string name="want_to_contribute_too">Хочете також зробити свій внесок?</string>
+    <string name="weekly">Щотижня</string>
+    <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">Що б ви хотіли зробити поки %1$s?</string>
+    <string name="whats_new">Що нового!</string>
+    <string name="which_device_to_pair">Який пристрій ви хочете сполучити?</string>
+    <string name="wifi_adb">WiFi ADB</string>
+    <string name="wifi_connection_required">Щоб використовувати функцію бездротового налагодження, ваш пристрій має бути підключення до мережі Wi-Fi. Якщо ваше з’єднання Wi-Fi не має доступу до Інтернету, вимкніть мобільні дані, щоб з’єднання Wi-Fi було надійним.</string>
+    <string name="wipe_cache_desc">fastboot очистити кеш</string>
+    <string name="wipe_cache_title">Очистити кеш</string>
+    <string name="wipe_data">Витерти дані</string>
+    <string name="wipe_data_description">Видаліть розділи на вашому пристрої. Виберіть який розділ, очистити.</string>
+    <string name="wipe_metadata_desc">fastboot очистити метадані</string>
+    <string name="wipe_metadata_title">Очистити метадані</string>
+    <string name="wipe_userdata_desc">fastboot очистити дані користувача</string>
+    <string name="wipe_userdata_title">Очистити дані користувача</string>
+    <string name="wipe_warning">Ці операції незворотні. Дійте з обережністю.</string>
+    <string name="wireless_debugging_guide_1">Перейдіть до параметрів Розробника &gt; Бездротове налагодження. Торкніться \'Сполучити\' пристрій за допомогою коду сполучення.</string>
+    <string name="wireless_debugging_guide_2">Введіть шестизначний код сполучення в повідомлення, надіслане aShell You.</string>
+    <string name="wireless_debugging_guide_3">Поверніться до програми та натисніть кнопку \"Запустити\" на головному екрані.</string>
+    <string name="wireless_debugging_important_notice">Зверніть увагу, що ліва частина опції \"Бездротового налагодження\" є активною. При натисканні на неї відкриється меню \"Сполучення\" для \"Бездротового налагодження\".</string>
+    <string name="changelog_v7_4_0">\nТепер ви можете шукати під налаштування на екранах налаштувань\nДодано стилі палітри для колірних схем\nДодано опцію встановлення мови додатка безпосередньо в додатку</string>
+    <string name="changelog_v7_3_0">\nПокращено інтерфейс користувача в екрані журналу змін\nДодано перекладачів у розділ Про програму.\nДодано екран ліцензій, який показує детальну інформацію про ліцензію програми та інших бібліотек, які використовує додаток</string>
+    <string name="changelog_v7_2_1">\nОновлення технічного обслуговування!</string>
+    <string name="changelog_v7_2_0">\nДодано опцію запуску команд adb з Плиток Швидких Налаштувань шляхом додавання власних плиток.\nДодано опцію резервного копіювання в хмару (Google Drive). Ця функція присутня лише у збірках GitHub.\nПокращено колірну схему, інтерфейс користувача та UX у багатьох областях.\nДодано набагато більше прикладів команд ADB.</string>
+    <string name="changelog_v7_1_0">\nВиправлена ​​проблема, коли англійська клавіатура могла не з\'являтися при введенні команд, якщо користувач встановив мову програми відмінну від англійської\nВиправлено проблему з неправильним відображенням іконки пошти\nВиправлено проблему, що викликала збій при збереженні великих файлів\nВидалено надлишкові дозволи\nПокращено UI в розділі \"Про додаток\"</string>
+    <string name="changelog_v7_0_1">\nВиправлено Fastlane</string>
+    <string name="changelog_v7_0_0">\nВесь інтерфейс користувача оновлено, використовуючи виразні компоненти\nВся кодова база переписана в Kotlin і Jetpack Compose як UI Framework\nДодано push &amp; Менеджер файлів на основі витягування\nДодано режим сполучення QR Wifi Adb\nДодано параметри програми та параметри резервного копіювання бази даних\nДодано спеціальні параметри оформлення тем\nДодано історію збоїв для перегляду журналів збоїв програми\nПокращена функція автоматичного оновлення\nПокращений інтерфейс користувача &amp; UX у виводі оболонки\nДодано пропозиції щодо дозволів Android\nОновлений макет прикладів команд для включення міток\nДодано опцію додавання, редагування або видалення команд за вашим бажанням\nБагато існуючих помилок тепер виправлено</string>
+    <string name="changelog_v6_1_0">\nТепер пошук команди може шукати команди, які містять слово, яке ви ввели, порівняно з попередніми версіями, де шукали лише команди, які починаються з введеного слова.\nМожливість відкривати програму Shizuku безпосередньо, коли Shizuku встановлено, але не запущено.\nВиправлено несправний звіт про збої програми.</string>
+    <string name="changelog_v6_0_3">\nВирішено проблему, яка спричиняла порушення перекладу програми для aShell You</string>
+    <string name="changelog_v6_0_2">\nАдаптовані дії Github для збірок випусків.\nЩо це означає для вас?\nУсі наступні збірки, включаючи цю, будуть більш безпечними!</string>
+    <string name="changelog_v6_0_1">\nОновлення технічного обслуговування</string>
+    <string name="changelog_v6_0_0">\nДодано режим БЕЗДРОТОВОГО НАЛАДЖЕННЯ для запуску команд ADB як на власному, так і на іншому пристрої\nПерероблена домашня сторінка для мінімальної навігації та менш захаращеного екрана поля введення\nДодано зворотний зв’язок із попередженням під час виконання команд, що стосуються критичних системних пакетів\nДодано оновлення в програмі. Тепер ви можете безпосередньо завантажити найновіший пакет, не відвідуючи сховище Github\nВиправлено багато помилок</string>
+    <string name="changelog_v5_2_1">\nОновлення технічного обслуговування</string>
+    <string name="changelog_v5_2_0">\nUI покращення\nВиправлено деякі помилки</string>
+    <string name="changelog_v5_1_0">\nНевеликі покращення UI</string>
+    <string name="changelog_v5_0_0">\nВеликі покращення інтерфейсу користувача та UX у всіх розділах програми\nДодано оболонку ROOT і BASIC на додаток до оболонки Shizuku для виконання команд\nДодано опцію для збереження виведених даних у спеціальному каталозі\nВиправлено багато помилок і проблем\nОптимізовано код програми для кращої продуктивності та стабільності</string>
+    <string name="changelog_v4_4_0">\nДодано вібрацію для тактильного зворотного зв’язку\nДодано можливість змінювати мову додатка з додатка (лише для пристроїв під керуванням Android 13 і вище, за винятком непідтримуваних пристроїв)\nВиправлено деякі збої та покращено звіти про збої\nНезначні покращення UI</string>
+    <string name="changelog_v4_3_1">\nТепер додаток виявляє будь-які збої та надає можливість повідомляти про них електронною поштою</string>
+    <string name="changelog_v4_3_0">\nДодана опція для безпосереднього відкриття збережених виводів\nДодана опція для збереження всього виводу або лише виводу останньої команди\nВиправлені збої</string>
+    <string name="changelog_v4_2_1">\nВирішено проблему з надсиланням тексту в aShell You, коли текст не з’являвся під час запуску програми заново\nВиправлено незначні проблеми інтерфейсу користувача</string>
+    <string name="changelog_v4_2_0">\nСтабільний випуск режиму OTG\nДодано такі функції, як збереження, спільний доступ, кнопки швидкого прокручування в режимі OTG\nДодано інформаційні картки для швидкої інформації\nДодано в засіб перевірки оновлень програми разом із опцією автоматичної перевірки оновлень\nНезначні покращення інтерфейсу користувача</string>
+    <string name="changelog_v4_1_0">\nВиправлено деякі проблеми з підтримкою OTG adb\nОновлені переклади</string>
+    <string name="changelog_v4_0_3">\nОновлені залежності\nДодано більше прикладів команд</string>
+    <string name="changelog_v4_0_2">\nВиправлено тему AMOLED, яка не працює на пристроях з Android 11 або старіших версій</string>
+    <string name="changelog_v4_0_1">\nТепер ви можете закріплювати команди для швидкого доступу\n\nВиправлення помилок і багато оптимізацій коду</string>
+    <string name="changelog_v4_0_0">\nТепер ви можете безпосередньо використовувати команди з розділу «Команди» замість того, щоб копіювати їх щоразу\n\nДодана опція для видалення всіх закладок\nУ пошуку: тепер ви можете здійснювати пошук у підсумку команд, клацнувши чіп підказки\nДодано параметри сортування в шаблонах команд\nДодана опція для прямого створення закладок для вибраних елементів у розділі «Команди»\nІндикатор мікросхеми показує підключений пристрій (наразі лише в локальному ADB режим)\nВиправлено помилки, що спричиняли збої на пристроях під керуванням Android 11 або старіших версій\nДодано турецьку переклад\nНезначні покращення інтерфейсу користувача\nБагато інших виправлень помилок</string>
+    <string name="changelog_v3_9_1">\nДодано загальну кількість закладок\nВиправлено деякі помилки</string>
+    <string name="changelog_v3_9_0">\nДодано пошук у розділі команд\nДодано опцію встановлення робочого режиму за замовчуванням\nПокращено анімацію\nПерероблений розділ закладок і додано параметри сортування\nЗбільшено ліміт закладок до 25\nВидалено ярлик панелі запуску оболонки ADB і додано ярлик панелі запуску команд\nВиправлено проблеми з відступом у навігації кнопками\nВиправлено форму деяких кнопок</string>
+    <string name="changelog_v3_8_2">\nПрограма використовує більш оновлену палітру кольорів для матеріалів, які ви тематизуєте\nВиправлено незначні помилки</string>
+    <string name="changelog_v3_8_1">\nВиправлено деякі збої, які були представлені у v3.8.0</string>
+    <string name="changelog_v3_8_0">\nДодано чорну (amoled) тему\nДодано кнопку скасування для скасування вставлення\nДодано опцію для вимкнення програмної клавіатури\nВиправлено розтягування кнопок на деяких розмірах екрану\nВиправлено кнопку закладок, яка не з’являлася після відкриття програми\nРозділ прикладів перейменовано на «Команди»\nВиправлено параметр копіювання команди, який не відображається для кожного шаблону команди\nПрограма тепер використовує системний шрифт скрізь\nПокращений інтерфейс користувача обробка\nоновлених перекладів</string>
+    <string name="changelog_v3_7_0">\nТепер ви можете ділитися текстами з будь-якого місця на своєму пристрої в aShell You і запускати команди напряму.\nТепер ви можете ділитися вихідними даними оболонки безпосередньо, не зберігаючи їх!\nБагато оптимізацій і обробки інтерфейсу користувача.\nДодано китайські переклади.\nОновлені переклади.</string>
+    <string name="changelog_v3_6_0">\nДодана опція для очищення поля введення команди після помилки\nВиправлено помилку, яка спричиняла аварійне завершення роботи програми після вставлення з буфера обміну за певних умов\nОптимізація коду</string>
+    <string name="changelog_v3_5_1">\nВиправлено деякі проблеми з нижньою навігацією.</string>
+    <string name="changelog_v3_5_0">\nОновлено розділ «Про програму».\nДодано ярлики панелі запуску.\nВиправлено навігаційне меню, яке не відображалося в навігації кнопками.\nПокращена видимість нижнього навігаційного меню під час прокручування.\nДодано підтримку мови для кожної програми для aShell You (переклади ще не завершено).\nБагато оптимізацій коду.</string>
+    <string name="changelog_v3_4_0">\nДодано кнопку «Вставити», щоб можна було швидко копіювати та вставляти команди.\nДодано індикатори помилок у полі введення тексту.\nПокращено логіку видимості навігаційної панелі.\nВирішено проблему, через яку перемикачі не працюють у певних ситуаціях.\nВиправлено додавання значка закладки для видимості на різних рівнях контрастності.\nБагато оптимізації коду. Тепер програма відкривається набагато швидше, ніж раніше.\nПрограма залишатиметься у фоновому режимі та не перезапускатиметься кожного разу, коли ви закриєте програму, просто натиснувши кнопку «Назад» або жест.</string>
+    <string name="changelog_v3_3_0">\nДодано закладки, історію та пропозиції команд до OTG\nДодано максимальний ліміт закладок.\nДодано опцію перевизначення максимального ліміту закладок.\nБагато виправлень помилок.\nПокращено обробку інтерфейсу користувача.\nБагато оптимізації коду.</string>
+    <string name="changelog_v3_2_0">\nБагато покращень, пов\'язаних з інтерфейсом користувача.\nДодано мікросхеми, які вказують на поточний режим роботи ADB.\nБагато оптимізації коду.</string>
+    <string name="changelog_v3_1_0">\nПокращення ADB OTG після початкового випуску.\nДеякі коригування UI та логіки для врахування нової функції otg.</string>
+    <string name="changelog_v3_0_0">\nДодано підтримку ADB ЧЕРЕЗ OTG.\n\n*** Ви зможете запускати команди ADB на інших пристроях за допомогою aShellYou, підключення іншого пристрою за допомогою кабелю OTG ***</string>
+    <string name="changelog_v2_0_2">\nВидалено непотрібний код і ресурси.\nНезначні зміни інтерфейсу користувача.</string>
+    <string name="changelog_v2_0_1">\nВидалено непотрібний код і ресурси.\nНезначні зміни інтерфейсу користувача.</string>
+    <string name="changelog_v2_0_0">\nНазву програми змінено на aShell You.\nДодано передбачувану зворотню анімацію для підтримуваних пристроїв.\nДодано спливаюче діалогове вікно підтвердження перед очищенням екрана.\nВиправлено елементи рядка стану, які не відображалися належним чином у світлому режимі.\nТепер програма працює набагато плавніше.\n~ Зменшено розмір програми та оптимізований код.\nДодано тематичний значок для панелей запуску, які підтримують тематичні значки.\nНезначні зміни інтерфейсу користувача.</string>
+    <string name="changelog_v1_3_0">\nОновлена ​​панель налаштувань.\nДодано подвійне торкання для миттєвого прокручування до верхньої та нижньої позицій у вікні виводу оболонки.\nНезначні UI зміни.</string>
+    <string name="changelog_v1_2_0">\nДодано панель налаштувань.\nДодано параметр для вимкнення плавного прокручування у виводі оболонки.\nВиправлено основні помилки:\n\n ~ Збій під час зміни теми пристрою.\n\n ~ Збій під час спроби зберегти великий вивід оболонки. наприклад: вихід команди \'pm\'.</string>
+    <string name="changelog_v1_1_1">\nЗамінено деякі застарілі API.\nНезначні UI зміни.</string>
+    <string name="changelog_v1_1_0">\nДодано кнопки \"Прокрутити вгору\" та \"Прокрутити донизу\".\nДодано клавішу Enter на клавіатурі \"Натиснути\", щоб надіслати команду.\nДодано деякі команди.\nОновлені залежності, щоб включити останні матеріали вашої бібліотеки.\nНезначні UI зміни.</string>
+    <string name="changelog_v1_0_0">\nДодано ще кілька прикладів команд.\nНезначні UI зміни.\nЗмінено назву пакета, щоб уникнути плутанини версії з оригінальною програмою.</string>
+    <string name="changelog_v0_9_1">\nДодано журнали змін у додаток.\nДодано виділений вихід оболонки.\nНезначні UI зміни.</string>
+    <string name="changelog_v0_9_0">\nДодано динамічне оформлення матеріалів.\nПовністю перероблений UI щоб надати свіжого вигляду.</string>
+</resources>

@@ -28,6 +28,7 @@ android {
 }
 
 dependencies {
+    api(project(":core:resources"))
     implementation(project(":core:common"))
     implementation(project(":settings-dsl"))
 

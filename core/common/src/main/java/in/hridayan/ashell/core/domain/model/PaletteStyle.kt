@@ -1,6 +1,8 @@
 package `in`.hridayan.ashell.core.domain.model
 
-import `in`.hridayan.ashell.core.common.R
+import `in`.hridayan.ashell.core.resources.R
+
+
 
 enum class PaletteStyle(val displayNameResId: Int) {
     TONAL_SPOT(R.string.palette_tonal_spot),

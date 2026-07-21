@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.settings.presentation.components.dialog
 
+import `in`.hridayan.ashell.core.resources.R
+
 import `in`.hridayan.ashell.core.common.LocalSettings
 
 import android.annotation.SuppressLint
@@ -50,7 +52,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalPaletteStyle
 import `in`.hridayan.ashell.core.common.LocalSeedColor
@@ -139,7 +140,7 @@ fun PaletteStylePickerDialog(
                     .widthIn(min = 280.dp)
             ) {
                 AutoResizeableText(
-                    text = stringResource(`in`.hridayan.ashell.core.common.R.string.palette_style),
+                    text = stringResource(R.string.palette_style),
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.onSurface,
                     textAlign = TextAlign.Center,

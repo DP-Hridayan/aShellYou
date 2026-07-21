@@ -1,5 +1,8 @@
 package `in`.hridayan.ashell.core.domain.model
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 sealed class FastbootState {
     data object Idle : FastbootState()
     data object Searching : FastbootState()

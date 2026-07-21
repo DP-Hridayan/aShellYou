@@ -54,7 +54,7 @@ fun DisclaimerItemLayout(
                     text = item,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.Companion.alignBy(FirstBaseline)
+                    modifier = Modifier.alignBy(FirstBaseline)
                 )
             }
 

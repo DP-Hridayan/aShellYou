@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.shell.common.presentation.components.dialog
 
+import `in`.hridayan.ashell.core.resources.R
+
 import `in`.hridayan.ashell.core.common.LocalSettings
 
 import androidx.compose.foundation.layout.Arrangement
@@ -31,7 +33,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText

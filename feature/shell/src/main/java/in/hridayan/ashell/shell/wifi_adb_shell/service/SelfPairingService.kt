@@ -1,5 +1,7 @@
 package `in`.hridayan.ashell.shell.wifi_adb_shell.service
 
+import `in`.hridayan.ashell.core.resources.R
+
 import android.annotation.SuppressLint
 import android.app.Service
 import android.content.Context
@@ -13,7 +15,6 @@ import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.components.SingletonComponent
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.shell.wifi_adb_shell.utils.WirelessDebuggingUtils
 import `in`.hridayan.ashell.shell.common.data.adb.AdbConnectionManager
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl

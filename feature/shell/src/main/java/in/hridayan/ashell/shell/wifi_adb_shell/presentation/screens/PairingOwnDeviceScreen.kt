@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens
 
+import `in`.hridayan.ashell.core.resources.R
+
 
 import `in`.hridayan.ashell.core.navigation.navigateBack
 
@@ -58,7 +60,6 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
 import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButton

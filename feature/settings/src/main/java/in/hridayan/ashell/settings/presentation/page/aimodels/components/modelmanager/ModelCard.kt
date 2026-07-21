@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.aimodels.components.modelmanager
 
+import `in`.hridayan.ashell.core.resources.R
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -43,7 +45,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.ai.presentation.model.DownloadProgress
 import `in`.hridayan.ashell.ai.presentation.model.ModelCardState
 import `in`.hridayan.ashell.ai.presentation.viewmodel.AiModelManagerViewModel.ModelUiState

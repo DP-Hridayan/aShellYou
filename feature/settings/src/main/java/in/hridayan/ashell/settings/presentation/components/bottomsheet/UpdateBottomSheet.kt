@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.settings.presentation.components.bottomsheet
 
+import `in`.hridayan.ashell.core.resources.R
+
 import `in`.hridayan.ashell.core.common.LocalSettings
 
 import android.app.Activity
@@ -59,8 +61,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.core.common.R as CommonR
-import `in`.hridayan.ashell.core.ui.R as UiR
 import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.settings.domain.model.DownloadState
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
@@ -143,7 +143,7 @@ fun UpdateBottomSheet(
                 } else {
                     showToast(
                         context,
-                        res.getString(CommonR.string.unknown_sources_install_permission_not_granted),
+                        res.getString(R.string.unknown_sources_install_permission_not_granted),
                     )
                 }
             }
@@ -195,14 +195,14 @@ fun UpdateBottomSheet(
     ) {
         Text(
             modifier = Modifier.padding(20.dp),
-            text = stringResource(CommonR.string.update_available),
+            text = stringResource(R.string.update_available),
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold
         )
 
         InfoChip(
             modifier = Modifier.padding(horizontal = 20.dp),
-            text = stringResource(CommonR.string.latest_version) + " : $latestVersion"
+            text = stringResource(R.string.latest_version) + " : $latestVersion"
         )
 
         Spacer(
@@ -213,7 +213,7 @@ fun UpdateBottomSheet(
 
         InfoChip(
             modifier = Modifier.padding(horizontal = 20.dp),
-            text = stringResource(CommonR.string.current_version) + " : ${context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: ""}",
+            text = stringResource(R.string.current_version) + " : ${context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: ""}",
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
                 contentColor = MaterialTheme.colorScheme.onSurface
@@ -242,7 +242,7 @@ fun UpdateBottomSheet(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(10.dp),
-                    text = stringResource(CommonR.string.changelog),
+                    text = stringResource(R.string.changelog),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
@@ -373,7 +373,7 @@ fun UpdateBottomSheet(
                             .padding(horizontal = 20.dp)
                             .align(Alignment.CenterStart),
                         maxLines = 3,
-                        text = stringResource(CommonR.string.visit_repo_to_download),
+                        text = stringResource(R.string.visit_repo_to_download),
                         style = MaterialTheme.typography.bodySmall,
                     )
                 }
@@ -386,7 +386,7 @@ fun UpdateBottomSheet(
             items = listOfNotNull(
                 ButtonGroupItem(
                     buttonConfig = ButtonConfigDefaults.defaultConfig(type = ButtonType.OutlinedButton),
-                    text = stringResource(CommonR.string.cancel),
+                    text = stringResource(R.string.cancel),
                     onClick = {
                         permissionPromptShown = false
                         if (showDownloadButton) {
@@ -397,7 +397,7 @@ fun UpdateBottomSheet(
                     }
                 ),
                 if (showDownloadButton) ButtonGroupItem(
-                    text = stringResource(CommonR.string.download),
+                    text = stringResource(R.string.download),
                     onClick = {
                         if (isDirectDownloadEnabled) {
                             permissionPromptShown = false

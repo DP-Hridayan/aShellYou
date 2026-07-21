@@ -1,5 +1,7 @@
 package `in`.hridayan.ashell.core.presentation.components.selectioncontainer
 
+import `in`.hridayan.ashell.core.resources.R
+
 import android.content.ClipData
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.FlingBehavior
@@ -69,7 +71,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import `in`.hridayan.ashell.core.common.R
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive

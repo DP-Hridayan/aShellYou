@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.licenses.screens
 
+import `in`.hridayan.ashell.core.resources.R
+
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.tween
@@ -45,7 +47,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape

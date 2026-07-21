@@ -1,5 +1,7 @@
 package `in`.hridayan.ashell.settings.presentation.provider
 
+import `in`.hridayan.ashell.core.resources.R
+
 
 import `in`.hridayan.ashell.core.common.SettingsKeys
 
@@ -12,7 +14,6 @@ import androidx.compose.material.icons.rounded.Downloading
 import androidx.compose.material.icons.rounded.Memory
 import androidx.compose.material.icons.rounded.TextFields
 import androidx.compose.material.icons.rounded.UnfoldMoreDouble
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
 import `in`.hridayan.ashell.core.presentation.components.floaters.FloatingIconsBackground
 import `in`.hridayan.ashell.core.navigation.NavRoutes
@@ -95,22 +96,22 @@ object SettingsProvider {
             ),
             clickableItem(
                 key = SettingsKeys.PaletteStyle,
-                titleResId = `in`.hridayan.ashell.core.common.R.string.palette_style,
-                descriptionResId = `in`.hridayan.ashell.core.common.R.string.palette_tonal_spot,
+                titleResId = R.string.palette_style,
+                descriptionResId = R.string.palette_tonal_spot,
                 icon = R.drawable.ic_styles
             ),
             clickableItem(
                 key = SettingsKeys.DarkTheme,
                 titleResId = R.string.dark_theme,
-                descriptionResId = `in`.hridayan.ashell.core.common.R.string.system,
+                descriptionResId = R.string.system,
                 iconVector = Icons.Outlined.DarkMode
             ),
         ),
         category(
-            titleResId = `in`.hridayan.ashell.core.common.R.string.font_family,
+            titleResId = R.string.font_family,
             clickableItem(
                 key = SettingsKeys.FontFamily,
-                titleResId = `in`.hridayan.ashell.core.common.R.string.font_family,
+                titleResId = R.string.font_family,
                 descriptionResId = R.string.des_font_family,
                 iconVector = Icons.Rounded.TextFields
             )
@@ -248,8 +249,8 @@ object SettingsProvider {
             buttonGroupItem(
                 key = SettingsKeys.TerminalFontStyle,
                 options = listOf(
-                    ButtonGroupOption(TerminalFontStyle.MONOSPACE, `in`.hridayan.ashell.core.common.R.string.monospace),
-                    ButtonGroupOption(TerminalFontStyle.SYSTEM_FONT, `in`.hridayan.ashell.core.common.R.string.system_font),
+                    ButtonGroupOption(TerminalFontStyle.MONOSPACE, R.string.monospace),
+                    ButtonGroupOption(TerminalFontStyle.SYSTEM_FONT, R.string.system_font),
                 )
             ),
         ),

@@ -6,6 +6,8 @@
 
 package `in`.hridayan.ashell.qstiles.presentation.screen
 
+import `in`.hridayan.ashell.core.resources.R
+
 
 import androidx.compose.ui.unit.dp
 
@@ -84,7 +86,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.NavController
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.presentation.components.chip.LabelChip
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
@@ -810,8 +811,8 @@ private fun TileLogCard(
                         fontWeight = FontWeight.Bold
                     )
                     val modeLabel =
-                        if (log.executionMode == TileExecutionMode.SHIZUKU) stringResource(`in`.hridayan.ashell.core.common.R.string.shizuku)
-                        else stringResource(`in`.hridayan.ashell.core.common.R.string.root)
+                        if (log.executionMode == TileExecutionMode.SHIZUKU) stringResource(R.string.shizuku)
+                        else stringResource(R.string.root)
                     Text(
                         text = "$modeLabel • ${DateTimeUtils.getRelativeTime(log.timestamp)}",
                         style = MaterialTheme.typography.labelSmall,
@@ -905,7 +906,7 @@ private fun ShizukuUnavailableCard(
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 AutoResizeableText(
-                    text = stringResource(`in`.hridayan.ashell.core.common.R.string.shizuku),
+                    text = stringResource(R.string.shizuku),
                     style = MaterialTheme.typography.labelLarge,
                 )
             }

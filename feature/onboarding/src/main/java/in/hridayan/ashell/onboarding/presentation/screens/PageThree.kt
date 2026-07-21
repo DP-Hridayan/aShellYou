@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.onboarding.presentation.screens
 
+import `in`.hridayan.ashell.core.resources.R
+
 
 import `in`.hridayan.ashell.core.common.SettingsKeys
 
@@ -57,8 +59,6 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
-import `in`.hridayan.ashell.core.common.R as CommonR
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.onboarding.presentation.viewmodel.OnboardingViewModel
 import `in`.hridayan.ashell.core.common.constants.SHIZUKU_PACKAGE_NAME
 import `in`.hridayan.ashell.core.common.constants.UrlConst
@@ -157,7 +157,7 @@ fun PageThree(
             shape = MaterialShapes.Clover8Leaf.toShape(),
             color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.25f),
             scale = { scale.value },
-            modifier = Modifier.Companion.align(Alignment.Center)
+            modifier = Modifier.align(Alignment.Center)
         )
 
         DecorativeShape(
@@ -165,7 +165,7 @@ fun PageThree(
             shape = MaterialShapes.Puffy.toShape(),
             color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.3f),
             scale = { scale.value },
-            modifier = Modifier.Companion
+            modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .offset(y = (-120).dp, x = 30.dp)
         )
@@ -175,7 +175,7 @@ fun PageThree(
             shape = MaterialShapes.Fan.toShape(),
             color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.3f),
             scale = { scale.value },
-            modifier = Modifier.Companion
+            modifier = Modifier
                 .align(Alignment.BottomStart)
                 .offset(y = (-100).dp, x = 10.dp)
         )
@@ -185,7 +185,7 @@ fun PageThree(
             shape = MaterialShapes.Flower.toShape(),
             color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.2f),
             scale = { scale.value },
-            modifier = Modifier.Companion
+            modifier = Modifier
                 .align(Alignment.CenterStart)
                 .offset(y = (-180).dp, x = (-20).dp)
         )
@@ -195,7 +195,7 @@ fun PageThree(
             shape = MaterialShapes.Arch.toShape(),
             color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.2f),
             scale = { scale.value },
-            modifier = Modifier.Companion
+            modifier = Modifier
                 .align(Alignment.TopCenter)
                 .offset(y = (-10).dp, x = (-20).dp)
         )
@@ -205,7 +205,7 @@ fun PageThree(
             shape = MaterialShapes.Ghostish.toShape(),
             color = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f),
             scale = { scale.value },
-            modifier = Modifier.Companion
+            modifier = Modifier
                 .align(Alignment.CenterEnd)
                 .offset(y = (-160).dp, x = (-50).dp)
         )
@@ -256,7 +256,7 @@ fun PageThree(
 
             PermissionCard(
                 isChecked = rootCardChecked,
-                title = stringResource(CommonR.string.root),
+                title = stringResource(R.string.root),
                 description = stringResource(R.string.mode_one_desc),
                 onClick = withHaptic {
                     scope.launch {
@@ -276,7 +276,7 @@ fun PageThree(
 
             PermissionCard(
                 isChecked = hasShizukuPermission,
-                title = stringResource(CommonR.string.shizuku),
+                title = stringResource(R.string.shizuku),
                 description = stringResource(R.string.mode_two_desc),
                 onClick = withHaptic {
                     if (!Shizuku.pingBinder()) {
@@ -357,7 +357,7 @@ private fun PermissionCard(
             )
 
             Column(
-                modifier = Modifier.Companion.weight(1f),
+                modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 Text(

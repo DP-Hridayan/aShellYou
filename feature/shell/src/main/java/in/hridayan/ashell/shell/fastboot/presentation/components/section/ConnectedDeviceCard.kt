@@ -1,5 +1,7 @@
 package `in`.hridayan.ashell.shell.fastboot.presentation.components.section
 
+import `in`.hridayan.ashell.core.resources.R
+
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
@@ -29,7 +31,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.presentation.components.battery.BatteryIndicator
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.divider.WavyHorizontalDivider
@@ -119,7 +120,7 @@ fun ConnectedDeviceCard(
                     modifier = Modifier.graphicsLayer {
                         rotationZ = rotateAngle
                     },
-                    painter = painterResource(`in`.hridayan.ashell.core.ui.R.drawable.ic_expand),
+                    painter = painterResource(R.drawable.ic_expand),
                     contentDescription = null
                 )
 

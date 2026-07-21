@@ -5,6 +5,8 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens
 
+import `in`.hridayan.ashell.core.resources.R
+
 
 import `in`.hridayan.ashell.core.common.LocalSettings
 
@@ -47,7 +49,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
@@ -127,7 +128,7 @@ fun UiScaleScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 15.dp),
-                        title = stringResource(`in`.hridayan.ashell.core.common.R.string.font_size_multiplier),
+                        title = stringResource(R.string.font_size_multiplier),
                         description = stringResource(R.string.des_font_size),
                         icon = painterResource(R.drawable.ic_format_size),
                         shape = CardCornerShape.LAST_CARD,

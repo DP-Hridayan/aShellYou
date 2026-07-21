@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.core.presentation.components.dialog
 
+import `in`.hridayan.ashell.core.resources.R
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -20,7 +22,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.undraw404Error
@@ -87,7 +88,7 @@ fun ShizukuUnavailableDialog(
                             onClick = { onDismiss() }
                         ),
                         ButtonGroupItem(
-                            text = stringResource(`in`.hridayan.ashell.core.common.R.string.shizuku),
+                            text = stringResource(R.string.shizuku),
                             onClick = { onConfirm() }
                         )
                     )

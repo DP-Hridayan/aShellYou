@@ -2,13 +2,14 @@
 
 package `in`.hridayan.ashell.core.utils
 
+import `in`.hridayan.ashell.core.resources.R
+
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
 import androidx.core.net.toUri
-import `in`.hridayan.ashell.core.common.R
 import `in`.hridayan.ashell.core.domain.model.SharedTextHolder
 
 fun openUrl(url: String, context: Context) {

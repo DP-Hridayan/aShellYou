@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.ai.presentation.components.bottomsheet
 
+import `in`.hridayan.ashell.core.resources.R
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,8 +25,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import `in`.hridayan.ashell.core.common.R as CommonR
-import `in`.hridayan.ashell.core.ui.R as UiR
 import `in`.hridayan.ashell.ai.domain.model.AnalysisStatus
 import `in`.hridayan.ashell.ai.domain.model.CorrectionSuggestion
 import `in`.hridayan.ashell.ai.presentation.model.AiAnalysisUiState
@@ -59,7 +59,7 @@ fun AiAnalysisBottomSheet(
     ) {
         Text(
             modifier = Modifier.padding(20.dp),
-            text = stringResource(CommonR.string.command_analysis),
+            text = stringResource(R.string.command_analysis),
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold
         )

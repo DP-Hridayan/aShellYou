@@ -1,5 +1,7 @@
 package `in`.hridayan.ashell.core.presentation.components.search
 
+import `in`.hridayan.ashell.core.resources.R
+
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
@@ -27,8 +29,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import `in`.hridayan.ashell.core.ui.R
-import `in`.hridayan.ashell.core.common.R as CommonR
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 

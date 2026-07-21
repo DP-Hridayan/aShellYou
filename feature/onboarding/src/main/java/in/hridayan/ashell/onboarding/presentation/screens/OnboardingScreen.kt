@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.onboarding.presentation.screens
 
+import `in`.hridayan.ashell.core.resources.R
+
 
 import androidx.compose.animation.core.spring
 
@@ -39,7 +41,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes

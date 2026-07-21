@@ -1,5 +1,7 @@
 package `in`.hridayan.ashell.shell.file_browser.presentation.viewmodel
 
+import `in`.hridayan.ashell.core.resources.R
+
 import android.os.Environment
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -18,7 +20,6 @@ import `in`.hridayan.ashell.shell.file_browser.domain.model.PendingPasteItem
 import `in`.hridayan.ashell.shell.file_browser.domain.model.PendingPasteOperation
 import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
 import `in`.hridayan.ashell.shell.file_browser.domain.repository.FileBrowserRepository
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.shell.file_browser.presentation.model.FileBrowserEvent
 import `in`.hridayan.ashell.shell.file_browser.presentation.model.FileBrowserState
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgConnection

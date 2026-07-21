@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.crashreporter.presentation.screens
 
+import `in`.hridayan.ashell.core.resources.R
+
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -38,8 +40,6 @@ import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.core.common.R as CommonR
-import `in`.hridayan.ashell.core.ui.R as UiR
 import `in`.hridayan.ashell.core.common.constants.DEV_EMAIL
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -86,7 +86,7 @@ fun CrashReportScreen(
 
                     AutoResizeableText(
                         modifier = modifier,
-                        text = stringResource(CommonR.string.app_crashed),
+                        text = stringResource(R.string.app_crashed),
                         fontSize = fontSize,
                         fontFamily = FontFamily.SansSerif,
                         letterSpacing = 0.05.em,
@@ -103,11 +103,11 @@ fun CrashReportScreen(
                 modifier = Modifier.padding(bottom = 10.dp)
             ) {
                 Icon(
-                    painter = painterResource(UiR.drawable.ic_report),
+                    painter = painterResource(R.drawable.ic_report),
                     contentDescription = null,
                     modifier = Modifier.padding(end = 10.dp)
                 )
-                AutoResizeableText(text = stringResource(CommonR.string.report))
+                AutoResizeableText(text = stringResource(R.string.report))
             }
         }) { innerPadding ->
         LazyColumn(
@@ -118,7 +118,7 @@ fun CrashReportScreen(
         ) {
             item {
                 AutoResizeableText(
-                    text = stringResource(CommonR.string.device_info),
+                    text = stringResource(R.string.device_info),
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.padding(15.dp)
@@ -141,7 +141,7 @@ fun CrashReportScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
-                            painter = painterResource(UiR.drawable.ic_mobile_info),
+                            painter = painterResource(R.drawable.ic_mobile_info),
                             contentDescription = null
                         )
 
@@ -176,7 +176,7 @@ fun CrashReportScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
-                            painter = painterResource(UiR.drawable.ic_adb2),
+                            painter = painterResource(R.drawable.ic_adb2),
                             contentDescription = null
                         )
 
@@ -195,7 +195,7 @@ fun CrashReportScreen(
                 }
 
                 AutoResizeableText(
-                    text = stringResource(CommonR.string.stack_trace),
+                    text = stringResource(R.string.stack_trace),
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.padding(

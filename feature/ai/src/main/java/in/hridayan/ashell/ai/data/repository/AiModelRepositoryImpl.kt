@@ -1,5 +1,7 @@
 package `in`.hridayan.ashell.ai.data.repository
 
+import `in`.hridayan.ashell.core.resources.R
+
 import kotlinx.coroutines.delay
 
 import kotlinx.coroutines.flow.Flow
@@ -11,8 +13,6 @@ import `in`.hridayan.ashell.core.common.SettingsKeys
 import android.content.Context
 import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
-import `in`.hridayan.ashell.core.common.R as CommonR
-import `in`.hridayan.ashell.core.ui.R as UiR
 import `in`.hridayan.ashell.ai.domain.model.ModelRegistry
 import `in`.hridayan.ashell.ai.domain.model.AiModel
 import `in`.hridayan.ashell.ai.domain.repository.AiModelRepository
@@ -132,7 +132,7 @@ class AiModelRepositoryImpl @Inject constructor(
 
         // Check network connection first
         if (!isNetworkAvailable(context)) {
-            val errorMessage = context.getString(CommonR.string.network_error)
+            val errorMessage = context.getString(R.string.network_error)
             _downloadErrors.value += (modelId to errorMessage)
             showToast(context, errorMessage)
             return
@@ -153,13 +153,13 @@ class AiModelRepositoryImpl @Inject constructor(
                     _downloadProgress.value -= model.id
 
                     val errorMessage = when (e) {
-                        is SocketTimeoutException -> context.getString(CommonR.string.request_timeout)
+                        is SocketTimeoutException -> context.getString(R.string.request_timeout)
                         is UnknownHostException,
                         is ConnectException,
-                        is UnresolvedAddressException -> context.getString(CommonR.string.network_error)
+                        is UnresolvedAddressException -> context.getString(R.string.network_error)
 
-                        is IOException -> e.message ?: context.getString(CommonR.string.network_error)
-                        else -> e.message ?: context.getString(CommonR.string.unknown_error)
+                        is IOException -> e.message ?: context.getString(R.string.network_error)
+                        else -> e.message ?: context.getString(R.string.unknown_error)
                     }
                     _downloadErrors.value += (model.id to errorMessage)
 

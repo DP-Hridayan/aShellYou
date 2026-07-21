@@ -7,10 +7,7 @@
 package `in`.hridayan.ashell.home.presentation.screens
 
 
-import `in`.hridayan.ashell.core.common.LocalSettings
-
 import android.os.Build
-import `in`.hridayan.ashell.core.ui.R as UiR
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
@@ -22,8 +19,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalFlexBoxApi
 import androidx.compose.foundation.layout.FlexAlignItems
 import androidx.compose.foundation.layout.FlexBox
-import androidx.compose.foundation.layout.FlexBoxScope.flex
-import androidx.compose.foundation.layout.FlexConfigScope
 import androidx.compose.foundation.layout.FlexDirection
 import androidx.compose.foundation.layout.FlexWrap
 import androidx.compose.foundation.layout.FlowRow
@@ -75,21 +70,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalDialogManager
-import `in`.hridayan.ashell.core.common.R as CommonR
+import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.SettingsKeys
+import `in`.hridayan.ashell.core.domain.model.FastbootState
 import `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode
+import `in`.hridayan.ashell.core.navigation.LocalNavController
+import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButton
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.appBranding
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.home.presentation.component.dialog.RebootOptionsDialog
+import `in`.hridayan.ashell.home.presentation.components.dialog.HomeDialogKey
 import `in`.hridayan.ashell.logcat.presentation.viewmodel.LogcatViewModel
-import `in`.hridayan.ashell.core.navigation.LocalNavController
-import `in`.hridayan.ashell.core.navigation.NavRoutes
-import `in`.hridayan.ashell.core.domain.model.FastbootState
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog.FastbootDeviceWaitingDialog
 import `in`.hridayan.ashell.shell.fastboot.presentation.viewmodel.FastbootViewModel
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgState
@@ -98,7 +95,6 @@ import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.viewmodel.OtgViewMo
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.bottomsheet.SavedDevicesBottomSheet
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairModeChooseDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
-import `in`.hridayan.ashell.home.presentation.components.dialog.HomeDialogKey
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -173,7 +169,7 @@ fun HomeScreen(
                         onClick = withHaptic {}
                     ) {
                         Icon(
-                            painter = painterResource(UiR.drawable.ic_help2),
+                            painter = painterResource(R.drawable.ic_help2),
                             contentDescription = null,
                         )
                     }
@@ -184,7 +180,7 @@ fun HomeScreen(
                             navController.navigate(NavRoutes.SettingsScreen())
                         }) {
                         Icon(
-                            painter = painterResource(UiR.drawable.ic_settings),
+                            painter = painterResource(R.drawable.ic_settings),
                             contentDescription = null,
                         )
                     }
@@ -208,7 +204,7 @@ fun HomeScreen(
                         start = 5.dp,
                         end = 5.dp
                     ),
-                    text = stringResource(UiR.string.adb),
+                    text = stringResource(R.string.adb),
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.primary
                 )
@@ -225,7 +221,7 @@ fun HomeScreen(
                     }
                 ) {
                     LocalAdbCard(
-                        modifier = Modifier.Companion.flex { FlexConfigScope.grow(1f) },
+                        modifier = Modifier.flex { grow(1f) },
                         enabledLocalAdbMode = localAdbWorkingMode,
                         onClick = withHaptic {
                             navController.navigate(NavRoutes.LocalAdbScreen)
@@ -233,7 +229,7 @@ fun HomeScreen(
                     )
 
                     OtgAdbCard(
-                        modifier = Modifier.Companion.flex { FlexConfigScope.grow(1f) },
+                        modifier = Modifier.flex { grow(1f) },
                         onClick = withHaptic { onClickOtgAdbCard() },
                         otgState = otgState
                     )
@@ -243,7 +239,7 @@ fun HomeScreen(
                             modifier = Modifier.fillMaxWidth(),
                             onStartClick = withHaptic {
                                 if (savedDevices.count() == 0) {
-                                    showToast(context, res.getString(UiR.string.pair_a_device_first))
+                                    showToast(context, res.getString(R.string.pair_a_device_first))
                                     return@withHaptic
                                 }
 
@@ -262,7 +258,7 @@ fun HomeScreen(
                         start = 5.dp,
                         end = 5.dp
                     ),
-                    text = stringResource(UiR.string.fastboot_and_recovery),
+                    text = stringResource(R.string.fastboot_and_recovery),
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.primary
                 )
@@ -279,13 +275,13 @@ fun HomeScreen(
                     }
                 ) {
                     FastbootCard(
-                        modifier = Modifier.Companion.flex { FlexConfigScope.grow(1f) },
+                        modifier = Modifier.flex { grow(1f) },
                         onClick = onClickFastbootCard,
                         fastbootState = fastbootState
                     )
 
                     AdbSideloadCard(
-                        modifier = Modifier.Companion.flex { FlexConfigScope.grow(1f) },
+                        modifier = Modifier.flex { grow(1f) },
                     )
                 }
             }
@@ -298,7 +294,7 @@ fun HomeScreen(
                         start = 5.dp,
                         end = 5.dp
                     ),
-                    text = stringResource(UiR.string.utilities),
+                    text = stringResource(R.string.utilities),
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.primary
                 )
@@ -381,20 +377,20 @@ private fun LocalAdbCard(
     onClick: () -> Unit
 ) {
     val workingModeText = when (enabledLocalAdbMode) {
-        LocalAdbWorkingMode.BASIC -> stringResource(UiR.string.basic_shell)
-        LocalAdbWorkingMode.SHIZUKU -> stringResource(UiR.string.shizuku)
-        LocalAdbWorkingMode.ROOT -> stringResource(UiR.string.root)
-        else -> stringResource(UiR.string.none)
+        LocalAdbWorkingMode.BASIC -> stringResource(R.string.basic_shell)
+        LocalAdbWorkingMode.SHIZUKU -> stringResource(R.string.shizuku)
+        LocalAdbWorkingMode.ROOT -> stringResource(R.string.root)
+        else -> stringResource(R.string.none)
     }
 
-    val detailsText = stringResource(UiR.string.active) + " ($workingModeText)"
+    val detailsText = stringResource(R.string.active) + " ($workingModeText)"
 
     NavItemCompactCard(
         modifier = modifier,
-        title = stringResource(UiR.string.local_adb),
+        title = stringResource(R.string.local_adb),
         description = detailsText,
-        leadingIcon = painterResource(UiR.drawable.ic_adb2),
-        badgeText = stringResource(UiR.string.this_device),
+        leadingIcon = painterResource(R.drawable.ic_adb2),
+        badgeText = stringResource(R.string.this_device),
         onClick = onClick,
     )
 }
@@ -407,9 +403,9 @@ private fun OtgAdbCard(
 ) {
     NavItemCompactCard(
         modifier = modifier,
-        title = stringResource(UiR.string.adb_via_otg),
-        leadingIcon = painterResource(UiR.drawable.ic_otg),
-        badgeText = stringResource(UiR.string.other_device),
+        title = stringResource(R.string.adb_via_otg),
+        leadingIcon = painterResource(R.drawable.ic_otg),
+        badgeText = stringResource(R.string.other_device),
         iconContainerColor = MaterialTheme.colorScheme.tertiary,
         iconContentColor = MaterialTheme.colorScheme.onTertiary,
         onClick = onClick,
@@ -426,9 +422,9 @@ private fun WirelessDebuggingCard(
 
     NavItemCard(
         modifier = modifier,
-        title = stringResource(UiR.string.adb_via_wireless_debugging),
-        description = stringResource(UiR.string.adb_via_wireless_debugging_summary),
-        leadingIcon = painterResource(UiR.drawable.ic_wireless),
+        title = stringResource(R.string.adb_via_wireless_debugging),
+        description = stringResource(R.string.adb_via_wireless_debugging_summary),
+        leadingIcon = painterResource(R.drawable.ic_wireless),
         clickable = false,
         badges = {
             FlowRow(
@@ -436,9 +432,9 @@ private fun WirelessDebuggingCard(
                 horizontalArrangement = Arrangement.spacedBy(10.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                Badge(badgeText = stringResource(UiR.string.this_device))
+                Badge(badgeText = stringResource(R.string.this_device))
 
-                Badge(badgeText = stringResource(UiR.string.other_device))
+                Badge(badgeText = stringResource(R.string.other_device))
             }
         },
         buttons = {
@@ -452,9 +448,9 @@ private fun WirelessDebuggingCard(
                 }
             ) {
                 IconWithTextButton(
-                    modifier = Modifier.Companion.flex { FlexConfigScope.grow(1f) },
-                    icon = painterResource(UiR.drawable.ic_pair),
-                    text = stringResource(UiR.string.pair),
+                    modifier = Modifier.flex { grow(1f) },
+                    icon = painterResource(R.drawable.ic_pair),
+                    text = stringResource(R.string.pair),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.tertiary,
                         contentColor = MaterialTheme.colorScheme.onTertiary
@@ -465,16 +461,16 @@ private fun WirelessDebuggingCard(
                     })
 
                 IconWithTextButton(
-                    modifier = Modifier.Companion.flex { FlexConfigScope.grow(1f) },
-                    icon = painterResource(UiR.drawable.ic_play),
-                    text = stringResource(UiR.string.start),
+                    modifier = Modifier.flex { grow(1f) },
+                    icon = painterResource(R.drawable.ic_play),
+                    text = stringResource(R.string.start),
                     contentDescription = null,
                     onClick = withHaptic { onStartClick() })
 
                 /* OutlinedIconButtonWithText(
                      modifier = Modifier.flex { grow(1f) },
-                     text = stringResource(UiR.string.instructions),
-                     painter = painterResource(UiR.drawable.ic_open_in_new),
+                     text = stringResource(R.string.instructions),
+                     painter = painterResource(R.drawable.ic_open_in_new),
                      onClick = withHaptic {
                          UrlUtils.openUrl(
                              url = URL_WIRELESS_DEBUGGING_INSTRUCTIONS,
@@ -494,9 +490,9 @@ private fun FastbootCard(
 ) {
     NavItemCompactCard(
         modifier = modifier,
-        title = stringResource(UiR.string.fastboot),
-        leadingIcon = painterResource(UiR.drawable.ic_flash_on),
-        badgeText = stringResource(UiR.string.other_device),
+        title = stringResource(R.string.fastboot),
+        leadingIcon = painterResource(R.drawable.ic_flash_on),
+        badgeText = stringResource(R.string.other_device),
         onClick = withHaptic { onClick() }
     )
 }
@@ -508,9 +504,9 @@ fun AdbSideloadCard(
 ) {
     NavItemCompactCard(
         modifier = modifier,
-        title = stringResource(UiR.string.adb_sideload),
-        leadingIcon = painterResource(UiR.drawable.ic_mobile_arrow_down),
-        badgeText = stringResource(UiR.string.other_device),
+        title = stringResource(R.string.adb_sideload),
+        leadingIcon = painterResource(R.drawable.ic_mobile_arrow_down),
+        badgeText = stringResource(R.string.other_device),
         iconContainerColor = MaterialTheme.colorScheme.tertiary,
         iconContentColor = MaterialTheme.colorScheme.onTertiary,
         onClick = withHaptic { onClick() }
@@ -537,15 +533,15 @@ fun LogcatCard(
 
     NavItemCard(
         modifier = modifier,
-        title = stringResource(UiR.string.logcat),
-        description = stringResource(UiR.string.des_logcat),
-        leadingIcon = painterResource(UiR.drawable.ic_bug),
+        title = stringResource(R.string.logcat),
+        description = stringResource(R.string.des_logcat),
+        leadingIcon = painterResource(R.drawable.ic_bug),
         cardColors = cardColors,
         onClick = withHaptic { onClick() },
         badges = {
             if (isRunning) {
                 Badge(
-                    badgeText = stringResource(UiR.string.running),
+                    badgeText = stringResource(R.string.running),
                     badgeContainerColor = MaterialTheme.colorScheme.primary,
                     badgeContentColor = MaterialTheme.colorScheme.onPrimary,
                     borderEnabled = false,
@@ -648,7 +644,7 @@ private fun NavItemCompactCard(
 private fun NavItemCompactCardPreview() {
     NavItemCompactCard(
         title = "Local ADB",
-        leadingIcon = painterResource(UiR.drawable.ic_adb)
+        leadingIcon = painterResource(R.drawable.ic_adb)
     )
 }
 

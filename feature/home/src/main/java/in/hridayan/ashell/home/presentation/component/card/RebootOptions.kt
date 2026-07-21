@@ -2,11 +2,9 @@
 
 package `in`.hridayan.ashell.home.presentation.component.card
 
-
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope.weight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -23,9 +21,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.resources.R
 
 @Composable
 fun RebootOptionsCard(modifier: Modifier = Modifier, onClick: () -> Unit = {}) {
@@ -60,7 +58,7 @@ fun RebootOptionsCard(modifier: Modifier = Modifier, onClick: () -> Unit = {}) {
                 style = MaterialTheme.typography.titleSmallEmphasized,
                 color = MaterialTheme.colorScheme.onErrorContainer,
                 maxLines = 2,
-                modifier = Modifier.Companion.weight(1f),
+                modifier = Modifier.weight(1f),
             )
         }
     }

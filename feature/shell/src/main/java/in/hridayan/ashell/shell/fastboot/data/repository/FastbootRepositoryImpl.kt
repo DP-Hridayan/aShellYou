@@ -1,5 +1,7 @@
 package `in`.hridayan.ashell.shell.fastboot.data.repository
 
+import `in`.hridayan.ashell.core.resources.R
+
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.emitAll
@@ -16,7 +18,6 @@ import android.net.Uri
 import android.os.Build
 import android.util.Log
 import androidx.core.content.ContextCompat
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootCommandResult
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootConnection
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootDeviceInfo

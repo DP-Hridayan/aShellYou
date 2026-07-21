@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.changelog.screens
 
+import `in`.hridayan.ashell.core.resources.R
+
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,8 +30,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.core.common.R as CommonR
-import `in`.hridayan.ashell.core.ui.R as UiR
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.components.scrollbar.DraggableScrollThumb
@@ -83,7 +83,7 @@ fun ChangelogScreen(
         onNavigateBack = { navController.navigateBack() },
         modifier = modifier,
         scrollState = scrollState,
-        topBarTitle = stringResource(CommonR.string.changelogs),
+        topBarTitle = stringResource(R.string.changelogs),
         content = { innerPadding, topBarScrollBehavior ->
             Box(modifier = Modifier.fillMaxSize()) {
                 Column(
@@ -118,7 +118,7 @@ fun ChangelogScreen(
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(15.dp),
-                                    text = stringResource(CommonR.string.version) + "\t\t${item.versionName}",
+                                    text = stringResource(R.string.version) + "\t\t${item.versionName}",
                                     style = if (isLatestVersion) MaterialTheme.typography.headlineMedium else MaterialTheme.typography.headlineSmall,
                                     color = if (isLatestVersion) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onSurface,
                                     fontWeight = FontWeight.Bold

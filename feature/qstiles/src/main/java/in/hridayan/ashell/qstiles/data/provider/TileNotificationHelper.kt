@@ -1,12 +1,13 @@
 package `in`.hridayan.ashell.qstiles.data.provider
 
+import `in`.hridayan.ashell.core.resources.R
+
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.qstiles.data.provider.TileNotificationHelper.Companion.GROUP_KEY
 import `in`.hridayan.ashell.qstiles.domain.model.TileErrorType
 import javax.inject.Inject

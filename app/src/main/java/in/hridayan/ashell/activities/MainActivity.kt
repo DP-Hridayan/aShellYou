@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.core.common.CompositionLocals
 import `in`.hridayan.ashell.core.common.LocalSeedColor
 import `in`.hridayan.ashell.core.common.SettingsKeys
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             val autoUpdateEnabled = settingsViewModel.getBoolean(SettingsKeys.AutoUpdate).first()
             if (autoUpdateEnabled) {
-                autoUpdateViewModel.checkForUpdates()
+                autoUpdateViewModel.checkForUpdates(BuildConfig.VERSION_NAME)
             }
         }
 

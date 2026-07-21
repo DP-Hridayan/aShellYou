@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.qstiles.data.provider
 
-import `in`.hridayan.ashell.core.ui.R
+import `in`.hridayan.ashell.core.resources.R
+
 import `in`.hridayan.ashell.qstiles.data.model.TileIcon
 
 object TileIconProvider {

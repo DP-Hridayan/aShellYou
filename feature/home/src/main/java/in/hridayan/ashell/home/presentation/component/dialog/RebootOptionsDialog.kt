@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.home.presentation.component.dialog
 
+import `in`.hridayan.ashell.core.resources.R
+
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -30,11 +32,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.core.common.R
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
 
 @Composable
@@ -142,13 +142,13 @@ fun RebootOptionsDialog(
                 AutoResizeableText(
                     text = stringResource(R.string.system),
                     style = MaterialTheme.typography.labelLargeEmphasized,
-                    modifier = Modifier.Companion.weight(1f),
+                    modifier = Modifier.weight(1f),
                     textAlign = TextAlign.Center
                 )
                 AutoResizeableText(
                     text = stringResource(R.string.recovery),
                     style = MaterialTheme.typography.labelLargeEmphasized,
-                    modifier = Modifier.Companion.weight(1f),
+                    modifier = Modifier.weight(1f),
                     textAlign = TextAlign.Center
                 )
             }
@@ -243,13 +243,13 @@ fun RebootOptionsDialog(
                 AutoResizeableText(
                     text = stringResource(R.string.bootloader),
                     style = MaterialTheme.typography.labelLargeEmphasized,
-                    modifier = Modifier.Companion.weight(1f),
+                    modifier = Modifier.weight(1f),
                     textAlign = TextAlign.Center
                 )
                 AutoResizeableText(
                     text = stringResource(R.string.fastboot),
                     style = MaterialTheme.typography.labelLargeEmphasized,
-                    modifier = Modifier.Companion.weight(1f),
+                    modifier = Modifier.weight(1f),
                     textAlign = TextAlign.Center
                 )
             }

@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.qstiles.presentation.screen
 
+import `in`.hridayan.ashell.core.resources.R
+
 
 import androidx.compose.ui.unit.dp
 
@@ -76,7 +78,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard

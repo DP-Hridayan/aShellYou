@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.backup.screens
 
+import `in`.hridayan.ashell.core.resources.R
+
 
 import `in`.hridayan.ashell.core.common.LocalSettings
 
@@ -51,7 +53,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
@@ -369,7 +370,7 @@ private fun LastBackupTimeCard(
                 )
                 val rotateAngle by animateFloatAsState(if (isExpanded) 180f else 0f)
                 Icon(
-                    painter = painterResource(`in`.hridayan.ashell.core.ui.R.drawable.ic_expand),
+                    painter = painterResource(R.drawable.ic_expand),
                     contentDescription = "Expand",
                     modifier = Modifier
                         .align(Alignment.CenterVertically)
@@ -426,9 +427,9 @@ private fun TimeCard(
     val context = LocalContext.current
     val res = LocalResources.current
     val backupTypeText = when (backupType) {
-        BackupType.SETTINGS_ONLY.name -> stringResource(`in`.hridayan.ashell.core.common.R.string.settings_only)
-        BackupType.DATABASE_ONLY.name -> stringResource(`in`.hridayan.ashell.core.common.R.string.databases_only)
-        BackupType.SETTINGS_AND_DATABASE.name -> stringResource(`in`.hridayan.ashell.core.common.R.string.all_data)
+        BackupType.SETTINGS_ONLY.name -> stringResource(R.string.settings_only)
+        BackupType.DATABASE_ONLY.name -> stringResource(R.string.databases_only)
+        BackupType.SETTINGS_AND_DATABASE.name -> stringResource(R.string.all_data)
         else -> backupType
     }
     CustomCard(

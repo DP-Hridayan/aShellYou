@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.languages.screens
 
+import `in`.hridayan.ashell.core.resources.R
+
 
 import android.content.Intent
 import android.os.Build
@@ -42,7 +44,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold

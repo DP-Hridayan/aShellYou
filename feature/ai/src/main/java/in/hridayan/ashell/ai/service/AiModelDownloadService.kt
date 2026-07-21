@@ -1,5 +1,7 @@
 package `in`.hridayan.ashell.ai.service
 
+import `in`.hridayan.ashell.core.resources.R
+
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -11,8 +13,6 @@ import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import dagger.hilt.android.AndroidEntryPoint
-import `in`.hridayan.ashell.core.common.R as CommonR
-import `in`.hridayan.ashell.core.ui.R as UiR
 import `in`.hridayan.ashell.ai.domain.repository.AiModelRepository
 import `in`.hridayan.ashell.ai.presentation.model.DownloadProgress
 import kotlinx.coroutines.CoroutineScope
@@ -147,7 +147,7 @@ class AiModelDownloadService : Service() {
             val totalMB = downloading.totalBytes / (1024.0 * 1024.0)
 
             return NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(UiR.drawable.ic_adb)
+                .setSmallIcon(R.drawable.ic_adb)
                 .setContentTitle("Downloading $modelName")
                 .setContentText("%.1f / %.1f MB".format(downloadedMB, totalMB))
                 .setProgress(100, percent, false)
@@ -156,7 +156,7 @@ class AiModelDownloadService : Service() {
                 .setOnlyAlertOnce(true)
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setForegroundServiceBehavior(NotificationCompat.FOREGROUND_SERVICE_IMMEDIATE)
-                .addAction(UiR.drawable.ic_adb, "Cancel", buildCancelPendingIntent())
+                .addAction(R.drawable.ic_adb, "Cancel", buildCancelPendingIntent())
                 .build()
         }
 
@@ -169,7 +169,7 @@ class AiModelDownloadService : Service() {
             if (totalBytes > 0) ((downloadedBytes.toFloat() / totalBytes) * 100).toInt() else 0
 
         return NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(UiR.drawable.ic_adb)
+            .setSmallIcon(R.drawable.ic_adb)
             .setContentTitle("Downloading ${activeDownloads.size} AI models")
             .setContentText(
                 "%.1f / %.1f MB".format(
@@ -183,13 +183,13 @@ class AiModelDownloadService : Service() {
             .setOnlyAlertOnce(true)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setForegroundServiceBehavior(NotificationCompat.FOREGROUND_SERVICE_IMMEDIATE)
-            .addAction(UiR.drawable.ic_adb, "Cancel All", buildCancelPendingIntent())
+            .addAction(R.drawable.ic_adb, "Cancel All", buildCancelPendingIntent())
             .build()
     }
 
     private fun buildNotification(text: String, progress: Int): Notification {
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(UiR.drawable.ic_adb)
+            .setSmallIcon(R.drawable.ic_adb)
             .setContentTitle("AI Model Download")
             .setContentText(text)
             .setOngoing(true)

@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.commandexamples.presentation.component.bottomsheet
 
+import `in`.hridayan.ashell.core.resources.R
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -36,7 +38,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.commandexamples.presentation.component.row.Labels
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard

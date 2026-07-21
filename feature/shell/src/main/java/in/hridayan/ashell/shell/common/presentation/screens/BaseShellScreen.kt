@@ -7,6 +7,8 @@
 
 package `in`.hridayan.ashell.shell.common.presentation.screens
 
+import `in`.hridayan.ashell.core.resources.R
+
 import android.content.Intent
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
@@ -117,7 +119,6 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.ai.presentation.components.bottomsheet.AiAnalysisBottomSheet
 import `in`.hridayan.ashell.ai.presentation.components.button.AnalyzeButton
 import `in`.hridayan.ashell.ai.presentation.viewmodel.AiAnalysisViewModel

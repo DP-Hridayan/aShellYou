@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.licenses.components
 
+import `in`.hridayan.ashell.core.resources.R
+
 import androidx.compose.animation.core.spring
 
 import androidx.compose.animation.AnimatedVisibility
@@ -54,7 +56,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCardDefaults

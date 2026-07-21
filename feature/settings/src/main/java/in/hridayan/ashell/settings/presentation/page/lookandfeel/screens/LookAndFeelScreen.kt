@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens
 
+import `in`.hridayan.ashell.core.resources.R
+
 
 import `in`.hridayan.ashell.core.common.LocalSettings
 
@@ -30,7 +32,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalPaletteStyle
@@ -125,10 +126,10 @@ fun LookAndFeelScreen(
             SettingsKeys.PaletteStyle to { stringResource(currentPaletteStyle.displayNameResId) },
             SettingsKeys.DarkTheme to {
                 when {
-                    autoDarkModeOnBatterySaver && isDarkMode -> stringResource(`in`.hridayan.ashell.core.common.R.string.on)
-                    themeMode == AppCompatDelegate.MODE_NIGHT_YES -> stringResource(`in`.hridayan.ashell.core.common.R.string.on)
-                    themeMode == AppCompatDelegate.MODE_NIGHT_NO -> stringResource(`in`.hridayan.ashell.core.common.R.string.off)
-                    themeMode == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> stringResource(`in`.hridayan.ashell.core.common.R.string.system)
+                    autoDarkModeOnBatterySaver && isDarkMode -> stringResource(R.string.on)
+                    themeMode == AppCompatDelegate.MODE_NIGHT_YES -> stringResource(R.string.on)
+                    themeMode == AppCompatDelegate.MODE_NIGHT_NO -> stringResource(R.string.off)
+                    themeMode == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> stringResource(R.string.system)
                     else -> ""
                 }
             }

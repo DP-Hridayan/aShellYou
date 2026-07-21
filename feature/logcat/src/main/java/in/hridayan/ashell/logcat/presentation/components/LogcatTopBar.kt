@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.logcat.presentation.components
 
+import `in`.hridayan.ashell.core.resources.R
+
 import androidx.compose.ui.focus.focusRequester
 
 import androidx.compose.animation.AnimatedContent
@@ -32,7 +34,6 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.logcat.domain.model.LogFilter
 
 @Composable
@@ -107,7 +108,7 @@ fun LogcatTopBar(
             IconButton(onClick = onToggleSearch) {
                 Icon(
                     painter = painterResource(
-                        if (searchVisible) R.drawable.ic_cancel else `in`.hridayan.ashell.core.ui.R.drawable.ic_search
+                        if (searchVisible) R.drawable.ic_cancel else R.drawable.ic_search
                     ),
                     contentDescription = stringResource(R.string.search),
                 )

@@ -5,6 +5,8 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.crashhistory.screens
 
+import `in`.hridayan.ashell.core.resources.R
+
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -39,7 +41,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.common.LocalAnimatedContentScope
 import `in`.hridayan.ashell.core.common.LocalSharedTransitionScope
 import `in`.hridayan.ashell.core.common.constants.DEV_EMAIL

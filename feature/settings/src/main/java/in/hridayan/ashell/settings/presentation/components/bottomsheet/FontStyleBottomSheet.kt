@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.settings.presentation.components.bottomsheet
 
+import `in`.hridayan.ashell.core.resources.R
+
 import `in`.hridayan.ashell.core.common.LocalSettings
 
 import androidx.compose.animation.AnimatedVisibility
@@ -62,7 +64,6 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -116,7 +117,7 @@ fun FontStyleBottomSheet(
     }
 
     val displayFont = AppFont.fromId(tempSelected).fontFamily
-    val previewText = stringResource(`in`.hridayan.ashell.core.common.R.string.font_display_text)
+    val previewText = stringResource(R.string.font_display_text)
     val displayText = when {
         isCheckedMatchCase -> previewText.uppercase()
         else -> previewText.lowercase()
@@ -140,7 +141,7 @@ fun FontStyleBottomSheet(
                 .padding(24.dp),
         ) {
             AutoResizeableText(
-                stringResource(`in`.hridayan.ashell.core.common.R.string.font_family),
+                stringResource(R.string.font_family),
                 style = MaterialTheme.typography.headlineSmall,
                 modifier = Modifier.padding(bottom = 24.dp)
             )
