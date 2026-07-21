@@ -42,15 +42,17 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.settings.presentation.components.card.CrowdinContributeCard
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.utils.MiUiCheck
+import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.navigateBack
 import `in`.hridayan.ashell.settings.domain.model.SupportedLocale
-import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
+import `in`.hridayan.ashell.settings.presentation.components.card.CrowdinContributeCard
 import `in`.hridayan.ashell.settings.presentation.page.languages.viewmodel.LanguagesViewModel
 
 @Composable
@@ -58,6 +60,7 @@ fun LanguagesScreen(
     modifier: Modifier = Modifier,
     viewModel: LanguagesViewModel = hiltViewModel(),
 ) {
+    val navController = LocalNavController.current
     val context = LocalContext.current
     val currentTag by viewModel.currentLocaleTag.collectAsStateWithLifecycle()
     val locales = viewModel.supportedLocales
@@ -85,7 +88,8 @@ fun LanguagesScreen(
     val showSystemSettingsButton =
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !MiUiCheck.isMiui
 
-    SettingsScaffold(
+    AppScaffold(
+        onNavigateBack = { navController.navigateBack() },
         modifier = modifier,
         listState = listState,
         topBarTitle = stringResource(R.string.languages),

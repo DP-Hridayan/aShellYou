@@ -11,7 +11,7 @@ import `in`.hridayan.ashell.ai.data.parser.PromptBuilder
 import `in`.hridayan.ashell.ai.domain.model.AnalysisResult
 import `in`.hridayan.ashell.ai.domain.repository.AiAnalysisRepository
 import `in`.hridayan.ashell.core.common.SettingsKeys
-import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.serialization.json.Json
 import java.io.File
@@ -47,7 +47,7 @@ class AiAnalysisRepositoryImpl @Inject constructor(
          * - System prompt: ~80-100 tokens
          * - ChatML wrapping: ~30 tokens
          * - Generation (MAX_TOKENS): 150 tokens
-         * - Available for user command: ~200 tokens ˜ 1000 chars
+         * - Available for user command: ~200 tokens ï¿½ 1000 chars
          *
          * Commands exceeding this are truncated with a notice to the model.
          */

@@ -32,14 +32,16 @@ import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalPaletteStyle
 import `in`.hridayan.ashell.core.common.LocalSettings
-import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
-import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
-import `in`.hridayan.ashell.settings.presentation.components.svg.vectors.themePicker
-import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.core.common.SettingsKeys
+import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
+import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
+import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
+import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.navigateBack
 import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.FontStyleBottomSheet
 import `in`.hridayan.ashell.settings.presentation.components.dialog.PaletteStylePickerDialog
-import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
+import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
+import `in`.hridayan.ashell.settings.presentation.components.svg.vectors.themePicker
 import `in`.hridayan.ashell.settings.presentation.components.tab.ColorTabs
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel.LookAndFeelViewModel
@@ -48,7 +50,6 @@ import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
 import `in`.hridayan.settingsdsl.ui.item.settingsContent
-import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 
 @Composable
 fun LookAndFeelScreen(
@@ -139,7 +140,8 @@ fun LookAndFeelScreen(
             SettingsKeys.PaletteStyle to { !isDynamicColorEnabled }
         ))
 
-    SettingsScaffold(
+    AppScaffold(
+        onNavigateBack = { navController.navigateBack() },
         modifier = modifier,
         listState = listState,
         topAppBarState = topAppBarState,

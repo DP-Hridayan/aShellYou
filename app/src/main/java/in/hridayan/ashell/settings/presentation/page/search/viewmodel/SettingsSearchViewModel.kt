@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.core.common.SettingsKeys
-import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.settings.presentation.provider.SettingsProvider
 import `in`.hridayan.settingsdsl.search.SearchEntry
 import `in`.hridayan.settingsdsl.search.SettingsSearchEngine
@@ -34,7 +34,7 @@ class SettingsSearchViewModel @Inject constructor(
         private const val SEPARATOR = ","
     }
 
-    /** Full search index — built once at init via the DSL's SettingsSearchEngine. */
+    /** Full search index ï¿½ built once at init via the DSL's SettingsSearchEngine. */
     private val engine: SettingsSearchEngine = SettingsSearchEngine.build(
         context = context,
         pages = SettingsProvider.allSearchablePages,
@@ -63,7 +63,7 @@ class SettingsSearchViewModel @Inject constructor(
         _query.value = newQuery
     }
 
-    /** Called when the user taps a search result — persists to recent searches. */
+    /** Called when the user taps a search result ï¿½ persists to recent searches. */
     fun onResultClicked(entry: SearchEntry) {
         viewModelScope.launch(Dispatchers.IO) {
             val current = loadRecentKeyNames().toMutableList()

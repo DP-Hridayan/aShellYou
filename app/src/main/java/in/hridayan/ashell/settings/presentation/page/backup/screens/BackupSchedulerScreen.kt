@@ -49,25 +49,28 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSettings
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
-import `in`.hridayan.ashell.core.common.SettingsKeys
+import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
+import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.navigateBack
 import `in`.hridayan.ashell.settings.presentation.components.dialog.AutoBackupTimePickerDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.SelectBackupFolderDialog
-import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
+import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.provider.BackupScreenCustomSlots
 import `in`.hridayan.ashell.settings.presentation.state.rememberController
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 import `in`.hridayan.settingsdsl.ui.item.settingsContent
-import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 
 @Composable
 fun BackupSchedulerScreen(
     modifier: Modifier = Modifier,
     settingsViewModel: SettingsViewModel = hiltViewModel(),
 ) {
+    val navController = LocalNavController.current
     val context = LocalContext.current
     val dialogManager = LocalDialogManager.current
     val controller = settingsViewModel.rememberController()
@@ -130,7 +133,8 @@ fun BackupSchedulerScreen(
     val page = remember { settingsViewModel.backupSchedulerPage }
     val resolvedGroups = page.resolveAll()
 
-    SettingsScaffold(
+    AppScaffold(
+        onNavigateBack = { navController.navigateBack() },
         modifier = modifier,
         listState = listState,
         topBarTitle = stringResource(R.string.backup_scheduler),

@@ -22,9 +22,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Gavel
 import androidx.compose.material.icons.rounded.Search
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.text.input.TextFieldValue
-import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
@@ -32,6 +29,7 @@ import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -41,18 +39,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
+import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
+import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.navigateBack
 import `in`.hridayan.ashell.settings.domain.model.LibraryItem
 import `in`.hridayan.ashell.settings.domain.model.LicensesUiState
 import `in`.hridayan.ashell.settings.presentation.components.dialog.AppLicenseDetailDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.LicenseDetailDialog
-import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.page.licenses.components.AppLicenseCard
 import `in`.hridayan.ashell.settings.presentation.page.licenses.components.LibraryListItem
 import `in`.hridayan.ashell.settings.presentation.page.licenses.viewmodel.LicensesViewModel
@@ -66,13 +68,15 @@ fun LicensesScreen(
     modifier: Modifier = Modifier,
     viewModel: LicensesViewModel = hiltViewModel(),
 ) {
+    val navController = LocalNavController.current
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val listState = rememberLazyListState()
 
     // Track whether the app-licenses dialog is open independently of the ViewModel
     var showAppLicenseDialog by rememberSaveable { mutableStateOf(false) }
 
-    SettingsScaffold(
+    AppScaffold(
+        onNavigateBack = { navController.navigateBack() },
         modifier = modifier,
         listState = listState,
         topBarTitle = stringResource(R.string.licenses),

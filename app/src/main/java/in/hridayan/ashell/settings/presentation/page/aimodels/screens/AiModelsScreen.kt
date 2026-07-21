@@ -9,8 +9,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.runtime.Composable
 import androidx.compose.material3.rememberTopAppBarState
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -26,19 +26,20 @@ import `in`.hridayan.ashell.ai.domain.model.ModelRegistry
 import `in`.hridayan.ashell.ai.presentation.viewmodel.AiModelManagerViewModel
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSettings
-import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
-import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.core.common.SettingsKeys
-import `in`.hridayan.ashell.settings.presentation.components.dialog.DeleteAiAnalysisCacheDialog
-import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
-import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
+import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
+import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
+import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.navigateBack
 import `in`.hridayan.ashell.settings.presentation.components.dialog.CacheDurationDialog
+import `in`.hridayan.ashell.settings.presentation.components.dialog.DeleteAiAnalysisCacheDialog
+import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
+import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.state.rememberController
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
 import `in`.hridayan.settingsdsl.ui.item.settingsContent
-import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 
 @Composable
 fun AiModelsScreen(
@@ -105,7 +106,8 @@ fun AiModelsScreen(
         ),
     )
 
-    SettingsScaffold(
+    AppScaffold(
+        onNavigateBack = { navController.navigateBack() },
         modifier = modifier,
         listState = listState,
         topAppBarState = topAppBarState,

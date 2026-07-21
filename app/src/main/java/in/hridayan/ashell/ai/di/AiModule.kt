@@ -19,7 +19,7 @@ import `in`.hridayan.ashell.ai.domain.usecase.DetectDangerLevelUseCase
 import `in`.hridayan.ashell.ai.domain.usecase.GenerateCorrectionsUseCase
 import `in`.hridayan.ashell.ai.domain.usecase.GetCachedAnalysisUseCase
 import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
-import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
 import javax.inject.Singleton
 
 /**

@@ -47,12 +47,14 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.skydoves.compose.stability.runtime.TraceRecomposition
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalSettings
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
+import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
-import `in`.hridayan.ashell.core.common.SettingsKeys
-import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
+import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.navigateBack
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
 @Composable
@@ -60,10 +62,12 @@ fun UiScaleScreen(
     modifier: Modifier = Modifier,
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
+    val navController = LocalNavController.current
     val listState = rememberLazyListState()
     val settings = LocalSettings.current
 
-    SettingsScaffold(
+    AppScaffold(
+        onNavigateBack = { navController.navigateBack() },
         modifier = modifier,
         listState = listState,
         topBarTitle = stringResource(R.string.ui_scale),

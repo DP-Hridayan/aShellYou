@@ -94,6 +94,7 @@ import `in`.hridayan.ashell.core.presentation.components.modifier.dashedBorder
 import `in`.hridayan.ashell.core.presentation.components.navigation.FloatingNavPill
 import `in`.hridayan.ashell.core.presentation.components.navigation.FloatingNavPillDefaults
 import `in`.hridayan.ashell.core.presentation.components.navigation.FloatingNavPillItem
+import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.color.blend
 import `in`.hridayan.ashell.core.utils.DateTimeUtils
@@ -104,6 +105,7 @@ import `in`.hridayan.ashell.core.utils.isNotificationPermissionGranted
 import `in`.hridayan.ashell.core.utils.launchApp
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
+import `in`.hridayan.ashell.navigation.navigateBack
 import `in`.hridayan.ashell.navigation.slideFadeInFromLeft
 import `in`.hridayan.ashell.navigation.slideFadeInFromRight
 import `in`.hridayan.ashell.navigation.slideFadeOutToLeft
@@ -114,7 +116,6 @@ import `in`.hridayan.ashell.qstiles.domain.model.TileExecutionMode
 import `in`.hridayan.ashell.qstiles.domain.model.TileLog
 import `in`.hridayan.ashell.qstiles.presentation.model.TileDashBoardScreenUiState
 import `in`.hridayan.ashell.qstiles.presentation.viewmodel.TileDashboardViewModel
-import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import rikka.shizuku.Shizuku
 
 data object TileScreenTabs {
@@ -160,7 +161,8 @@ fun TileDashBoardScreen(
         if (uiState.currentTab == TileScreenTabs.TILES) stringResource(R.string.qs_tiles)
         else stringResource(R.string.tile_logs)
 
-    SettingsScaffold(
+    AppScaffold(
+        onNavigateBack = { navController.navigateBack() },
         modifier = modifier,
         listState = listState,
         topBarTitle = title,

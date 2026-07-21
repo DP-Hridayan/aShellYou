@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.settings.presentation.components.switch
+package `in`.hridayan.ashell.core.presentation.components.switch
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun SettingsSwitch(
+fun AppSwitch(
     modifier: Modifier = Modifier,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,

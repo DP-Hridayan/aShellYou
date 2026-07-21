@@ -51,15 +51,17 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSettings
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.utils.getFileNameFromUri
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.LocalNavController
-import `in`.hridayan.ashell.core.common.SettingsKeys
+import `in`.hridayan.ashell.navigation.navigateBack
 import `in`.hridayan.ashell.settings.domain.model.BackupType
 import `in`.hridayan.ashell.settings.domain.model.GoogleUserState
 import `in`.hridayan.ashell.settings.domain.model.LastBackupData
@@ -70,7 +72,7 @@ import `in`.hridayan.ashell.settings.presentation.components.dialog.NoGoogleAcco
 import `in`.hridayan.ashell.settings.presentation.components.dialog.ResetSettingsDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.RestoreBackupDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.RestoreSourceDialog
-import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
+import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.page.backup.viewmodel.BackupAndRestoreViewModel
 import `in`.hridayan.ashell.settings.presentation.provider.BackupScreenCustomSlots
@@ -79,7 +81,6 @@ import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
 import `in`.hridayan.settingsdsl.ui.item.settingsContent
-import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 
 @Composable
 fun BackupAndRestoreScreen(
@@ -190,7 +191,8 @@ fun BackupAndRestoreScreen(
     val page = remember { settingsViewModel.backupPage }
     val resolvedGroups = page.resolveAll(highlightedKey = highlightedKey)
 
-    SettingsScaffold(
+    AppScaffold(
+        onNavigateBack = { navController.navigateBack() },
         modifier = modifier,
         listState = listState,
         topAppBarState = topAppBarState,

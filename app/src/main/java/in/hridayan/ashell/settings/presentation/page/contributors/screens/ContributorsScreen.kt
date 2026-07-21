@@ -40,12 +40,14 @@ import coil3.request.ImageRequest
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.utils.UrlUtils
+import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.navigateBack
 import `in`.hridayan.ashell.settings.domain.model.GitHubContributor
-import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.page.contributors.viewmodel.ContributorsViewModel
 
 @Composable
@@ -53,11 +55,13 @@ fun ContributorsScreen(
     modifier: Modifier = Modifier,
     contributorsViewModel: ContributorsViewModel = hiltViewModel()
 ) {
+    val navController = LocalNavController.current
     val contributors = contributorsViewModel.gitHubContributors
     val listState = rememberLazyListState()
     val context = LocalContext.current
 
-    SettingsScaffold(
+    AppScaffold(
+        onNavigateBack = { navController.navigateBack() },
         modifier = modifier,
         listState = listState,
         topBarTitle = stringResource(R.string.contributors),

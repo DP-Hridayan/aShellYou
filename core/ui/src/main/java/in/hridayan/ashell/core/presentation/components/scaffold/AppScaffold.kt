@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package `in`.hridayan.ashell.settings.presentation.components.scaffold
+package `in`.hridayan.ashell.core.presentation.components.scaffold
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.basicMarquee
@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
-import `in`.hridayan.ashell.navigation.navigateBack
 
 /**
  * @param topAppBarState Optional external [TopAppBarState] created by the caller.
@@ -34,11 +33,12 @@ import `in`.hridayan.ashell.navigation.navigateBack
  *   If null, an internal state is created (normal usage with no highlight scroll).
  */
 @Composable
-fun SettingsScaffold(
+fun AppScaffold(
     modifier: Modifier = Modifier,
     topBarTitle: String,
     listState: LazyListState,
     topAppBarState: TopAppBarState? = null,
+    onNavigateBack: () -> Unit = {},
     content: @Composable (innerPadding: PaddingValues, topBarScrollBehavior: TopAppBarScrollBehavior) -> Unit,
     fabContent: @Composable (expanded: Boolean) -> Unit = {}
 ) {
@@ -49,22 +49,24 @@ fun SettingsScaffold(
         }
     }
 
-    SettingsScaffoldImpl(
+    AppScaffoldImpl(
         modifier = modifier,
         topBarTitle = topBarTitle,
         expanded = expanded,
         topAppBarState = topAppBarState,
+        onNavigateBack = onNavigateBack,
         content = content,
         fabContent = fabContent
     )
 }
 
 @Composable
-fun SettingsScaffold(
+fun AppScaffold(
     modifier: Modifier = Modifier,
     topBarTitle: String,
     scrollState: ScrollState,
     topAppBarState: TopAppBarState? = null,
+    onNavigateBack: () -> Unit = {},
     content: @Composable (innerPadding: PaddingValues, topBarScrollBehavior: TopAppBarScrollBehavior) -> Unit,
     fabContent: @Composable (expanded: Boolean) -> Unit = {}
 ) {
@@ -74,22 +76,24 @@ fun SettingsScaffold(
         }
     }
 
-    SettingsScaffoldImpl(
+    AppScaffoldImpl(
         modifier = modifier,
         topBarTitle = topBarTitle,
         expanded = expanded,
         topAppBarState = topAppBarState,
+        onNavigateBack = onNavigateBack,
         content = content,
         fabContent = fabContent
     )
 }
 
 @Composable
-private fun SettingsScaffoldImpl(
+private fun AppScaffoldImpl(
     modifier: Modifier = Modifier,
     topBarTitle: String,
     expanded: Boolean,
     topAppBarState: TopAppBarState? = null,
+    onNavigateBack: () -> Unit,
     content: @Composable (innerPadding: PaddingValues, topBarScrollBehavior: TopAppBarScrollBehavior) -> Unit,
     fabContent: @Composable (expanded: Boolean) -> Unit = {}
 ) {
@@ -115,10 +119,7 @@ private fun SettingsScaffoldImpl(
                         letterSpacing = 0.05.em
                     )
                 },
-                navigationIcon = {
-                    val navController = `in`.hridayan.ashell.navigation.LocalNavController.current
-                    BackButton(onClick = { navController.navigateBack() })
-                },
+                navigationIcon = { BackButton(onClick = onNavigateBack) },
                 scrollBehavior = scrollBehavior,
                 colors = TopAppBarDefaults.topAppBarColors(scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh)
             )

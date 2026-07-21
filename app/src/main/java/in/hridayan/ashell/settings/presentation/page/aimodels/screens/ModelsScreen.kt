@@ -27,7 +27,9 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.ai.domain.model.AiModel
 import `in`.hridayan.ashell.ai.presentation.viewmodel.AiModelManagerViewModel
-import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
+import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
+import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.navigateBack
 import `in`.hridayan.ashell.settings.presentation.page.aimodels.components.modelmanager.ModelCard
 import `in`.hridayan.ashell.settings.presentation.page.aimodels.components.modelmanager.StorageUsageBar
 
@@ -55,6 +57,7 @@ fun ModelsScreen(
     modifier: Modifier = Modifier,
     viewModel: AiModelManagerViewModel = hiltViewModel(),
 ) {
+    val navController = LocalNavController.current
     val models by viewModel.models.collectAsState()
     val storageUsage by viewModel.storageUsage.collectAsState()
 
@@ -83,7 +86,8 @@ fun ModelsScreen(
         ModelCategory.LARGE
     )
 
-    SettingsScaffold(
+    AppScaffold(
+        onNavigateBack = { navController.navigateBack() },
         modifier = modifier,
         listState = listState,
         topBarTitle = stringResource(R.string.models),

@@ -19,11 +19,13 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.SettingsKeys
-import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
-import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
+import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
+import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.navigateBack
 import `in`.hridayan.ashell.settings.presentation.state.rememberController
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
+import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
 import `in`.hridayan.settingsdsl.ui.item.settingsContent
 
 @Composable
@@ -32,6 +34,7 @@ fun DarkThemeScreen(
     highlightKey: String? = null,
     settingsViewModel: SettingsViewModel = hiltViewModel(),
 ) {
+    val navController = LocalNavController.current
     val controller = settingsViewModel.rememberController()
     val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
 
@@ -49,14 +52,17 @@ fun DarkThemeScreen(
     val page = remember { settingsViewModel.darkThemePage }
     val resolvedGroups = page.resolveAll(highlightedKey = highlightedKey)
 
-    SettingsScaffold(
+    AppScaffold(
+        onNavigateBack = { navController.navigateBack() },
         modifier = modifier,
         listState = listState,
         topAppBarState = topAppBarState,
         topBarTitle = stringResource(R.string.dark_theme),
         content = { innerPadding, topBarScrollBehavior ->
             LazyColumn(
-                modifier = Modifier.fillMaxWidth().nestedScroll(topBarScrollBehavior.nestedScrollConnection),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
                 state = listState,
                 contentPadding = innerPadding,
             ) {
@@ -66,7 +72,9 @@ fun DarkThemeScreen(
                     hapticsEnabled = hapticsEnabled
                 )
 
-                item { Spacer(modifier = Modifier.fillMaxWidth().height(25.dp)) }
+                item { Spacer(modifier = Modifier
+                    .fillMaxWidth()
+                    .height(25.dp)) }
             }
         },
     )

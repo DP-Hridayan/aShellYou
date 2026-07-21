@@ -43,25 +43,27 @@ import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSettings
-import `in`.hridayan.ashell.ui.bottomsheet.UpdateBottomSheet
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.progress.LoadingSpinner
+import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.components.shape.SineWaveShape
 import `in`.hridayan.ashell.core.presentation.components.shape.WaveEdge
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.utils.showToast
-import `in`.hridayan.ashell.core.common.SettingsKeys
+import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.navigateBack
 import `in`.hridayan.ashell.settings.domain.model.UpdateResult
 import `in`.hridayan.ashell.settings.presentation.components.dialog.LatestVersionDialog
-import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
+import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import `in`.hridayan.ashell.settings.presentation.state.rememberController
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
+import `in`.hridayan.ashell.ui.bottomsheet.UpdateBottomSheet
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
 import `in`.hridayan.settingsdsl.ui.item.settingsContent
-import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 
 @Composable
 fun AutoUpdateScreen(
@@ -70,6 +72,7 @@ fun AutoUpdateScreen(
     settingsViewModel: SettingsViewModel = hiltViewModel(),
     autoUpdateViewModel: AutoUpdateViewModel = hiltViewModel(),
 ) {
+    val navController = LocalNavController.current
     val context = LocalContext.current
     val dialogManager = LocalDialogManager.current
     val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
@@ -119,7 +122,8 @@ fun AutoUpdateScreen(
     val page = remember { settingsViewModel.autoUpdatePage }
     val resolvedGroups = page.resolveAll(highlightedKey = highlightedKey)
 
-    SettingsScaffold(
+    AppScaffold(
+        onNavigateBack = { navController.navigateBack() },
         modifier = modifier,
         listState = listState,
         topAppBarState = topAppBarState,

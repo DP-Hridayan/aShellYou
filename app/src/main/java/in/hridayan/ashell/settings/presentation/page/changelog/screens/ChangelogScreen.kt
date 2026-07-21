@@ -30,20 +30,24 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
+import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.components.scrollbar.DraggableScrollThumb
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.components.text.BulletPointsTextLayout
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape
 import `in`.hridayan.ashell.core.utils.splitStringToLines
-import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
+import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.navigateBack
 import `in`.hridayan.ashell.settings.presentation.page.changelog.viewmodel.ChangelogViewModel
 import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
 fun ChangelogScreen(
     modifier: Modifier = Modifier,
     changelogViewModel: ChangelogViewModel = hiltViewModel()
 ) {
+    val navController = LocalNavController.current
     val changelogs = changelogViewModel.changelogs.value
 
     val processedChangelogs = remember(changelogs) {
@@ -62,18 +66,19 @@ fun ChangelogScreen(
 
     LaunchedEffect(processedChangelogs) {
         if (processedChangelogs.isNotEmpty()) {
-            delay(100) // Let the first 5 items render
+            delay(100.milliseconds) // Let the first 5 items render
             // Load the rest in small batches to keep the main thread smooth
             while (visibleItemsCount < processedChangelogs.size) {
                 visibleItemsCount = (visibleItemsCount + 10).coerceAtMost(processedChangelogs.size)
-                delay(16) // Wait for about one frame
+                delay(16.milliseconds) // Wait for about one frame
             }
         }
     }
 
     val scrollState = rememberScrollState()
 
-    SettingsScaffold(
+    AppScaffold(
+        onNavigateBack = { navController.navigateBack() },
         modifier = modifier,
         scrollState = scrollState,
         topBarTitle = stringResource(R.string.changelogs),

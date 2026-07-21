@@ -19,7 +19,7 @@ import `in`.hridayan.ashell.settings.domain.model.BackupType
 import `in`.hridayan.ashell.settings.domain.repository.BackupAndRestoreRepository
 import `in`.hridayan.ashell.settings.domain.repository.GoogleAuthRepository
 import `in`.hridayan.ashell.settings.domain.repository.GoogleDriveRepository
-import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
 import kotlinx.coroutines.flow.firstOrNull
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter

@@ -50,14 +50,15 @@ import `in`.hridayan.ashell.core.common.LocalAnimatedContentScope
 import `in`.hridayan.ashell.core.common.LocalSharedTransitionScope
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
-import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
+import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.crashreporter.domain.model.CrashReport
 import `in`.hridayan.ashell.crashreporter.presentation.viewmodel.CrashViewModel
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
-import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
+import `in`.hridayan.ashell.navigation.navigateBack
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -68,12 +69,14 @@ fun CrashHistoryScreen(
     modifier: Modifier = Modifier,
     crashViewModel: CrashViewModel = hiltViewModel()
 ) {
+    val navController = LocalNavController.current
     val listState = rememberLazyListState()
     val crashLogs by crashViewModel.crashLogs.collectAsState(initial = emptyList())
     val animatedContentScope = LocalAnimatedContentScope.current
     val sharedTransitionScope = LocalSharedTransitionScope.current
 
-    SettingsScaffold(
+    AppScaffold(
+        onNavigateBack = { navController.navigateBack() },
         modifier = modifier,
         listState = listState,
         topBarTitle = stringResource(R.string.crash_history),

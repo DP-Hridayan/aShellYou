@@ -12,7 +12,7 @@ import `in`.hridayan.ashell.ai.service.AiModelDownloadService
 import `in`.hridayan.ashell.core.utils.isNetworkAvailable
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.common.SettingsKeys
-import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -72,10 +72,10 @@ class AiModelRepositoryImpl @Inject constructor(
     /** Active download jobs keyed by modelId, for cancellation */
     private val activeDownloadJobs = ConcurrentHashMap<String, kotlinx.coroutines.Job>()
 
-    /** Shared download progress state — survives ViewModel recreation */
+    /** Shared download progress state ï¿½ survives ViewModel recreation */
     private val _downloadProgress = MutableStateFlow<Map<String, DownloadProgress>>(emptyMap())
 
-    /** Shared error state — survives ViewModel recreation */
+    /** Shared error state ï¿½ survives ViewModel recreation */
     private val _downloadErrors = MutableStateFlow<Map<String, String>>(emptyMap())
 
     override fun getAvailableModels(): List<AiModel> = ModelRegistry.allModels

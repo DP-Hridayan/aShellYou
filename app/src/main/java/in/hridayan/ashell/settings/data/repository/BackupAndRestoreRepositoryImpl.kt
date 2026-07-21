@@ -13,7 +13,7 @@ import `in`.hridayan.ashell.settings.domain.model.BackupData
 import `in`.hridayan.ashell.settings.domain.model.BackupMode
 import `in`.hridayan.ashell.settings.domain.model.BackupType
 import `in`.hridayan.ashell.settings.domain.repository.BackupAndRestoreRepository
-import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.shell.common.domain.repository.BookmarkRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

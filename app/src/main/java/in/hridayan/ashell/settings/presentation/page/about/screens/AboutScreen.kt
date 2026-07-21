@@ -48,10 +48,12 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalSettings
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.presentation.components.animatedcomposables.AnimatedAdbIcon
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.components.shape.SineWaveShape
 import `in`.hridayan.ashell.core.presentation.components.shape.WaveEdge
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
@@ -61,10 +63,9 @@ import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.presentation.utils.syncedRotationAndScale
 import `in`.hridayan.ashell.core.utils.openUrl
 import `in`.hridayan.ashell.navigation.LocalNavController
-import `in`.hridayan.ashell.core.common.SettingsKeys
+import `in`.hridayan.ashell.navigation.navigateBack
 import `in`.hridayan.ashell.settings.presentation.components.card.SupportMeCard
 import `in`.hridayan.ashell.settings.presentation.components.image.ProfilePic
-import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.state.rememberController
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
@@ -108,7 +109,8 @@ fun AboutScreen(
     val page = remember { settingsViewModel.aboutPage }
     val resolvedGroups = page.resolveAll(highlightedKey = highlightedKey)
 
-    SettingsScaffold(
+    AppScaffold(
+        onNavigateBack = { navController.navigateBack() },
         modifier = modifier,
         listState = listState,
         topAppBarState = topAppBarState,

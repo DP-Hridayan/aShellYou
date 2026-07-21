@@ -17,7 +17,7 @@ import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.exception.NoGoogleAccountException
 import `in`.hridayan.ashell.settings.domain.model.GoogleUserState
 import `in`.hridayan.ashell.settings.domain.repository.GoogleAuthRepository
-import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

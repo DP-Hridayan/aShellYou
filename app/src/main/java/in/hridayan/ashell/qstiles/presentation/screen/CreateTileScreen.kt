@@ -89,8 +89,8 @@ import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
 import `in`.hridayan.ashell.qstiles.presentation.components.dialog.DeleteTileConfirmationDialog
 import `in`.hridayan.ashell.qstiles.presentation.components.dialog.IconChooserDialog
 import `in`.hridayan.ashell.qstiles.presentation.viewmodel.CreateTileViewModel
-import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
-import `in`.hridayan.ashell.settings.presentation.components.switch.SettingsSwitch
+import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
+import `in`.hridayan.ashell.core.presentation.components.switch.AppSwitch
 import `in`.hridayan.ashell.settings.presentation.provider.ButtonGroupOptionsProvider
 
 @Composable
@@ -124,7 +124,8 @@ fun CreateTileScreen(
     val floatingToolbarContentColor =
         FloatingToolbarDefaults.vibrantFloatingToolbarColors().toolbarContentColor
 
-    SettingsScaffold(
+    AppScaffold(
+        onNavigateBack = { navController.navigateBack() },
         modifier = modifier,
         listState = listState,
         topBarTitle = if (uiState.isUpdateMode) stringResource(R.string.edit_tile)
@@ -735,7 +736,7 @@ private fun BehaviorSwitchRow(
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
                 )
             }
-            SettingsSwitch(
+            AppSwitch(
                 checked = checked,
                 onCheckedChange = onCheckedChange
             )

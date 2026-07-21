@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.settings.domain.repository
+package `in`.hridayan.ashell.core.domain.repository
 
 import androidx.datastore.preferences.core.Preferences
 import `in`.hridayan.ashell.core.common.SettingsKeys

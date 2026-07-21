@@ -44,13 +44,14 @@ import `in`.hridayan.ashell.core.common.LocalSharedTransitionScope
 import `in`.hridayan.ashell.core.common.constants.DEV_EMAIL
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.utils.ToastUtils.makeToast
 import `in`.hridayan.ashell.crashreporter.presentation.viewmodel.CrashViewModel
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
-import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
+import `in`.hridayan.ashell.navigation.navigateBack
 
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
@@ -84,7 +85,8 @@ fun CrashDetailsScreen(
 
     val appInfo = "Package: $packageName\nVersion name: $versionName\nVersion code: $versionCode"
 
-    SettingsScaffold(
+    AppScaffold(
+        onNavigateBack = { navController.navigateBack() },
         modifier = modifier,
         listState = listState,
         topBarTitle = stringResource(R.string.crash_details),
