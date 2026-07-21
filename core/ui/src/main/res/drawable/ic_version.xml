@@ -1,0 +1,11 @@
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="960"
+    android:viewportHeight="960"
+    android:autoMirrored="true">
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M807 526L666 726q-11 16-28.5 25t-37.5 9H200q-33 0-56.5-23.5T120 680V280q0-33 23.5-56.5T200 200h400q20 0 37.5 9t28.5 25l141 200q15 21 15 46t-15 46zM600 680l142-200-142-200H200v400h400zM200 280v400-400z" />
+</vector>

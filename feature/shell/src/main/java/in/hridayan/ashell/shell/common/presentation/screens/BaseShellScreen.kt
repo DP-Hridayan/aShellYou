@@ -117,7 +117,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.ai.presentation.components.bottomsheet.AiAnalysisBottomSheet
 import `in`.hridayan.ashell.ai.presentation.components.button.AnalyzeButton
 import `in`.hridayan.ashell.ai.presentation.viewmodel.AiAnalysisViewModel
@@ -146,7 +146,7 @@ import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
-import `in`.hridayan.ashell.shell.common.domain.model.OutputLine
+import `in`.hridayan.ashell.core.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.common.presentation.components.bottomsheet.BookmarksBottomSheet
 import `in`.hridayan.ashell.shell.common.presentation.components.button.UtilityButtonGroup
 import `in`.hridayan.ashell.shell.common.presentation.components.card.SuggestionCard

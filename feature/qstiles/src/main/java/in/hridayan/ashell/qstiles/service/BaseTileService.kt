@@ -5,7 +5,7 @@ import android.os.Build
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import dagger.hilt.android.AndroidEntryPoint
-import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
 import `in`.hridayan.ashell.qstiles.domain.executor.TileExecutionManager
 import `in`.hridayan.ashell.qstiles.domain.model.TileActiveState

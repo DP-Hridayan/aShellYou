@@ -32,7 +32,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
-import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.logcat.domain.model.LogFilter
 
 @Composable

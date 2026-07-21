@@ -1,5 +1,6 @@
 package `in`.hridayan.ashell.shell.fastboot.domain.model
 
+import `in`.hridayan.ashell.core.domain.model.FastbootState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 

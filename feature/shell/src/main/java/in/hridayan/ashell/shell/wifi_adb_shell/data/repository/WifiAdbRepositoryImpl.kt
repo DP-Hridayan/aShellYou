@@ -11,7 +11,7 @@ import android.util.Log
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.set
 import `in`.hridayan.ashell.shell.common.data.adb.AdbConnectionManager
-import `in`.hridayan.ashell.shell.common.domain.model.OutputLine
+import `in`.hridayan.ashell.core.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.database.WifiAdbDeviceDao
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.mapper.toDomainList
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.mapper.toEntity

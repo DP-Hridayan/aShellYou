@@ -38,12 +38,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
-import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootState
+import `in`.hridayan.ashell.core.domain.model.FastbootState
 import `in`.hridayan.ashell.shell.fastboot.presentation.viewmodel.FastbootViewModel
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds

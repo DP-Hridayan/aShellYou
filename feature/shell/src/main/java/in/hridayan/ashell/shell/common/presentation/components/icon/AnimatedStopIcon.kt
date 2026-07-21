@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.ui.R
 
 @SuppressLint("UseCompatLoadingForDrawables")
 @Composable

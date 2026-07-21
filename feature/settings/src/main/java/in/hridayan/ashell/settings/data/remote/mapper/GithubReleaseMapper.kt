@@ -1,15 +1,14 @@
 package `in`.hridayan.ashell.settings.data.remote.mapper
 
-import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.settings.data.remote.dto.GithubReleaseDto
 import `in`.hridayan.ashell.settings.domain.model.GithubRelease
 import `in`.hridayan.ashell.core.common.domain.model.GithubReleaseType
 
 fun GithubReleaseDto.toDomain(releaseType: Int): GithubRelease {
     val flavor = if (releaseType == GithubReleaseType.STABLE_FDROID) {
-        BuildConfig.DIST_FLAVOR_FDROID
+        "fdroid"
     } else {
-        BuildConfig.DIST_FLAVOR_GITHUB
+        "github"
     }
     val apkAsset = assets.firstOrNull {
         it.name.contains(flavor, ignoreCase = true) && it.name.endsWith(".apk")

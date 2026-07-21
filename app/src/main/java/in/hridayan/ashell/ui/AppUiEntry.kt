@@ -23,7 +23,7 @@ import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalSharedTransitionScope
 import `in`.hridayan.ashell.ui.bottomsheet.ChangelogBottomSheet
-import `in`.hridayan.ashell.ui.bottomsheet.UpdateBottomSheet
+import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.UpdateBottomSheet
 import `in`.hridayan.ashell.core.utils.isNetworkAvailable
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.navigation.Navigation

@@ -2,8 +2,8 @@ package `in`.hridayan.ashell.shell.common.data.repository
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
-import `in`.hridayan.ashell.shell.common.domain.model.OutputLine
-import `in`.hridayan.ashell.shell.common.domain.repository.ShellRepository
+import `in`.hridayan.ashell.core.domain.model.OutputLine
+import `in`.hridayan.ashell.core.domain.repository.ShellRepository
 import `in`.hridayan.ashell.shell.local_adb_shell.data.shell.ShellCommandExecutor
 import `in`.hridayan.ashell.shell.local_adb_shell.data.shizuku.ShizukuPermissionHandler
 import kotlinx.coroutines.flow.Flow

@@ -7,8 +7,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
-import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.activities.MainActivity
+import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.shell.wifi_adb_shell.service.AdbConnectionService
 
 /**
@@ -41,7 +40,7 @@ class AdbConnectionNotificationHelper(private val context: Context) {
     }
 
     fun createNotification(): Notification {
-        val openAppIntent = Intent(context, MainActivity::class.java)
+        val openAppIntent = Intent(context, Class.forName("in.hridayan.ashell.activities.MainActivity"))
         val openAppPendingIntent = PendingIntent.getActivity(
             context, 0, openAppIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE

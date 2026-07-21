@@ -28,8 +28,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.BuildConfig
-import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.common.R as CommonR
+import `in`.hridayan.ashell.core.ui.R as UiR
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.components.scrollbar.DraggableScrollThumb
@@ -49,13 +49,14 @@ fun ChangelogScreen(
     changelogViewModel: ChangelogViewModel = hiltViewModel()
 ) {
     val navController = LocalNavController.current
+    val context = androidx.compose.ui.platform.LocalContext.current
     val changelogs = changelogViewModel.changelogs.value
 
     val processedChangelogs = remember(changelogs) {
         changelogs.map { item ->
             Triple(
                 item,
-                item.versionName == BuildConfig.VERSION_NAME.removeSuffix("-debug"),
+                item.versionName == context.packageManager.getPackageInfo(context.packageName, 0).versionName?.removeSuffix("-debug"),
                 splitStringToLines(item.changelog)
             )
         }
@@ -82,7 +83,7 @@ fun ChangelogScreen(
         onNavigateBack = { navController.navigateBack() },
         modifier = modifier,
         scrollState = scrollState,
-        topBarTitle = stringResource(R.string.changelogs),
+        topBarTitle = stringResource(CommonR.string.changelogs),
         content = { innerPadding, topBarScrollBehavior ->
             Box(modifier = Modifier.fillMaxSize()) {
                 Column(
@@ -117,7 +118,7 @@ fun ChangelogScreen(
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(15.dp),
-                                    text = stringResource(R.string.version) + "\t\t${item.versionName}",
+                                    text = stringResource(CommonR.string.version) + "\t\t${item.versionName}",
                                     style = if (isLatestVersion) MaterialTheme.typography.headlineMedium else MaterialTheme.typography.headlineSmall,
                                     color = if (isLatestVersion) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onSurface,
                                     fontWeight = FontWeight.Bold

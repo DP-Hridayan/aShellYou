@@ -48,8 +48,8 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.BuildConfig
-import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.common.R as CommonR
+import `in`.hridayan.ashell.core.ui.R as UiR
 import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.presentation.components.animatedcomposables.AnimatedAdbIcon
@@ -116,7 +116,7 @@ fun AboutScreen(
         modifier = modifier,
         listState = listState,
         topAppBarState = topAppBarState,
-        topBarTitle = stringResource(R.string.about),
+        topBarTitle = stringResource(CommonR.string.about),
         content = { innerPadding, topBarScrollBehavior ->
             LazyColumn(
                 modifier = Modifier
@@ -175,35 +175,35 @@ fun AboutScreen(
                             verticalArrangement = Arrangement.spacedBy(15.dp),
                         ) {
                             AppHandlesChip(
-                                icon = painterResource(R.drawable.ic_telegram),
-                                title = stringResource(R.string.telegram),
-                                description = stringResource(R.string.discussions),
+                                icon = painterResource(UiR.drawable.ic_telegram),
+                                title = stringResource(CommonR.string.telegram),
+                                description = stringResource(CommonR.string.discussions),
                                 onClick = { openUrl(UrlConst.URL_TELEGRAM_CHANNEL, context) })
                             AppHandlesChip(
-                                icon = painterResource(R.drawable.ic_github),
-                                title = stringResource(R.string.github),
-                                description = stringResource(R.string.repository),
+                                icon = painterResource(UiR.drawable.ic_github),
+                                title = stringResource(CommonR.string.github),
+                                description = stringResource(CommonR.string.repository),
                                 containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                                 contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
                                 onClick = { openUrl(UrlConst.URL_GITHUB_REPO, context) })
                             AppHandlesChip(
-                                icon = painterResource(R.drawable.ic_version_tag),
-                                title = BuildConfig.VERSION_NAME,
-                                description = stringResource(R.string.current_version),
+                                icon = painterResource(UiR.drawable.ic_version_tag),
+                                title = context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: "",
+                                description = stringResource(CommonR.string.current_version),
                                 containerColor = MaterialTheme.colorScheme.secondaryContainer,
                                 contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
                                 onClick = { openUrl(UrlConst.URL_GITHUB_RELEASES, context) })
                             AppHandlesChip(
-                                icon = painterResource(R.drawable.ic_license),
-                                title = stringResource(R.string.gpl_3_0),
-                                description = stringResource(R.string.license),
+                                icon = painterResource(UiR.drawable.ic_license),
+                                title = stringResource(CommonR.string.gpl_3_0),
+                                description = stringResource(CommonR.string.license),
                                 containerColor = MaterialTheme.colorScheme.errorContainer,
                                 contentColor = MaterialTheme.colorScheme.onErrorContainer,
                                 onClick = { openUrl(UrlConst.URL_GITHUB_REPO_LICENSE, context) })
                             AppHandlesChip(
-                                icon = painterResource(R.drawable.ic_crowdin),
-                                title = stringResource(R.string.crowdin),
-                                description = stringResource(R.string.translations),
+                                icon = painterResource(UiR.drawable.ic_crowdin),
+                                title = stringResource(CommonR.string.crowdin),
+                                description = stringResource(CommonR.string.translations),
                                 containerColor = MaterialTheme.colorScheme.surfaceVariant,
                                 contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
                                 onClick = { openUrl(UrlConst.URL_CROWDIN_PROJECT, context) })
@@ -229,7 +229,7 @@ fun AboutScreen(
                         verticalArrangement = Arrangement.spacedBy(15.dp),
                     ) {
                         Text(
-                            text = stringResource(R.string.lead_developer),
+                            text = stringResource(CommonR.string.lead_developer),
                             style = MaterialTheme.typography.labelLarge,
                             color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier
@@ -237,7 +237,7 @@ fun AboutScreen(
                                 .align(Alignment.Start)
                                 .animateItem()
                         )
-                        ProfilePic(model = R.mipmap.dp_hridayan, size = 150.dp)
+                        ProfilePic(model = UiR.mipmap.dp_hridayan, size = 150.dp)
                         Text(
                             text = "Hridayan",
                             style = MaterialTheme.typography.bodyLarge,
@@ -245,7 +245,7 @@ fun AboutScreen(
                             color = MaterialTheme.colorScheme.primary
                         )
                         Text(
-                            text = stringResource(R.string.des_hridayan),
+                            text = stringResource(CommonR.string.des_hridayan),
                             style = MaterialTheme.typography.bodySmall,
                             fontStyle = FontStyle.Italic
                         )

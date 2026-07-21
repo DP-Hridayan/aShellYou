@@ -1,6 +1,6 @@
 package `in`.hridayan.ashell.commandexamples.data.local.source
 
-import `in`.hridayan.ashell.commandexamples.data.local.model.CommandEntity
+import `in`.hridayan.ashell.core.domain.model.CommandEntity
 
 /**
  *@param preloadedCommands This is a predefined list of commands with their description and labels

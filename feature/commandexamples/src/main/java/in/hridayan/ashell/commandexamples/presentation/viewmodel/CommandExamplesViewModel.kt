@@ -10,9 +10,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.commandexamples.data.local.model.CommandEntity
-import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
+import `in`.hridayan.ashell.core.ui.R
+import `in`.hridayan.ashell.core.domain.model.CommandEntity
+import `in`.hridayan.ashell.core.domain.repository.CommandRepository
 import `in`.hridayan.ashell.commandexamples.presentation.model.CmdExamplesScreenState
 import `in`.hridayan.ashell.core.domain.model.SortType
 import `in`.hridayan.ashell.core.domain.repository.SettingsRepository

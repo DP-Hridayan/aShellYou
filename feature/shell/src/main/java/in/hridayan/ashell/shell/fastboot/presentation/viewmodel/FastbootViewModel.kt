@@ -11,7 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootCommandResult
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootConnection
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootDeviceInfo
-import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootState
+import `in`.hridayan.ashell.core.domain.model.FastbootState
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashOperation
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashStatus
 import `in`.hridayan.ashell.shell.fastboot.domain.model.RebootMode

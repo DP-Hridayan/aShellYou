@@ -4,7 +4,7 @@ import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
 import androidx.core.net.toUri
-import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.settings.domain.model.DownloadState
 import `in`.hridayan.ashell.settings.domain.repository.DownloadRepository
 import `in`.hridayan.ashell.core.utils.isNetworkAvailable

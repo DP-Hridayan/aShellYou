@@ -77,4 +77,36 @@
   <string name="all_data">All data</string>
   <string name="settings_only">Settings only</string>
   <string name="databases_only">Databases only</string>
+      <string name="app_crashed">App has crashed</string>
+      <string name="report">Report</string>
+      <string name="device_info">Device info</string>
+      <string name="stack_trace">Stack trace</string>
+      <string name="network_error">Network error</string>
+      <string name="request_timeout">Request timeout</string>
+      <string name="unknown_error">Unknown error occurred</string>
+      <string name="command_analysis">Command analysis</string>
+      <string name="unknown_sources_install_permission_not_granted">Permission not granted. Please allow app installation from unknown sources.</string>
+      <string name="update_available">Update available !</string>
+      <string name="latest_version">Latest version</string>
+      <string name="current_version">Current version</string>
+      <string name="changelog">Changelog</string>
+      <string name="visit_repo_to_download">Click on the download button to get the latest version of aShellYou from the github repository.</string>
+      <string name="cancel">Cancel</string>
+      <string name="download">Download</string>
+      <string name="about">About</string>
+      <string name="telegram">Telegram</string>
+      <string name="discussions">Discussions</string>
+      <string name="repository">Repository</string>
+      <string name="license">License</string>
+      <string name="translations">Translations</string>
+      <string name="lead_developer">Lead developer</string>
+      <string name="des_hridayan">Just a guy who loves apps and design</string>
+      <string name="changelogs">Changelogs</string>
+      <string name="version">Version</string>
+    <string name="github" translatable="false">Github</string>
+    <string name="gpl_3_0" translatable="false">GPL-3.0</string>
+    <string name="crowdin" translatable="false">Crowdin</string>
+    <string name="version_name">Version name</string>
+    <string name="variant">Variant</string>
+    <string name="already_latest_version">You are using the latest version</string>
 </resources>

@@ -1,0 +1,56 @@
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100"
+    android:tint="?attr/colorControlNormal">
+    <group
+        android:name="spinning_group"
+        android:pivotX="50"
+        android:pivotY="50"
+        android:rotation="-30">
+
+        <path
+            android:strokeWidth="12"
+            android:strokeLineJoin="round"
+            android:fillType="nonZero"
+            android:strokeLineCap="round"
+            android:pathData="M50.00,90.00A40.00 40.00 -0.00 1 1 84.64,70.00">
+            <aapt:attr name="android:strokeColor">
+                <gradient
+                    android:centerX="49.699"
+                    android:centerY="89.567"
+                    android:gradientRadius="38.042"
+                    android:type="radial">
+                    <item
+                        android:color="#00000000"
+                        android:offset="0.000" />
+                    <item
+                        android:color="#FF000000"
+                        android:offset="1.000" />
+                </gradient>
+            </aapt:attr>
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:startX="10.000"
+                    android:startY="10.000"
+                    android:endX="90.000"
+                    android:endY="90.000"
+                    android:type="linear">
+                    <item
+                        android:color="#00FFFFFF"
+                        android:offset="0.000" />
+                    <item
+                        android:color="#00FFFFFF"
+                        android:offset="1.000" />
+                </gradient>
+            </aapt:attr>
+
+        </path>
+    </group>
+    <path
+        android:fillColor="#000000"
+        android:pathData="M 37 32 L 63 32 Q 68 32 68 37 L 68 63 Q 68 68 63 68 L 37 68 Q 32 68 32 63 L 32 37 Q 32 32 37 32 Z" />
+</vector>

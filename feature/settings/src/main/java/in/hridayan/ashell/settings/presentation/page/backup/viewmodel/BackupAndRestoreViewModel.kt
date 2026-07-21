@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.settings.domain.exception.NoGoogleAccountException
 import `in`.hridayan.ashell.core.common.domain.model.BackupType
 import `in`.hridayan.ashell.settings.domain.model.DriveAuthEvent

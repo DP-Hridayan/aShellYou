@@ -6,8 +6,8 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
-import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.activities.MainActivity
+import `in`.hridayan.ashell.core.ui.R
+import `in`.hridayan.ashell.qstiles.data.provider.TileNotificationHelper.Companion.GROUP_KEY
 import `in`.hridayan.ashell.qstiles.domain.model.TileErrorType
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -62,9 +62,10 @@ class TileNotificationHelper @Inject constructor(
             TileErrorType.NONE -> return
         }
 
-        val openIntent = Intent(context, MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-        }
+        val openIntent =
+            context.packageManager.getLaunchIntentForPackage(context.packageName)?.apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            } ?: Intent()
         val pendingIntent = PendingIntent.getActivity(
             context,
             notificationId,

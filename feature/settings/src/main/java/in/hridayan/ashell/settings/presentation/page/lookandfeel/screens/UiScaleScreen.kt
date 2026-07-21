@@ -47,8 +47,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.skydoves.compose.stability.runtime.TraceRecomposition
-import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
@@ -162,7 +161,6 @@ fun UiScaleScreen(
     )
 }
 
-@TraceRecomposition
 @Composable
 private fun ScaleModifyCard(
     modifier: Modifier = Modifier,

@@ -12,7 +12,7 @@ import androidx.compose.material.icons.rounded.Downloading
 import androidx.compose.material.icons.rounded.Memory
 import androidx.compose.material.icons.rounded.TextFields
 import androidx.compose.material.icons.rounded.UnfoldMoreDouble
-import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
 import `in`.hridayan.ashell.core.presentation.components.floaters.FloatingIconsBackground
 import `in`.hridayan.ashell.core.navigation.NavRoutes

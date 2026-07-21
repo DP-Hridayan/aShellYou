@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.settings.domain.model.DownloadState
 import `in`.hridayan.ashell.settings.domain.usecase.DownloadApkUseCase
 import `in`.hridayan.ashell.settings.domain.model.UpdateResult
@@ -33,11 +32,11 @@ class AutoUpdateViewModel @Inject constructor(
     private val _updateEvents = MutableSharedFlow<UpdateResult>()
     val updateEvents = _updateEvents.asSharedFlow()
 
-    fun checkForUpdates() {
+    fun checkForUpdates(currentVersionName: String) {
         viewModelScope.launch {
             val releaseType = settingsRepository.getInt(SettingsKeys.GithubReleaseType).first()
             val includePrerelease = releaseType == GithubReleaseType.PRE_RELEASE_GITHUB
-            val result = checkUpdateUseCase(BuildConfig.VERSION_NAME, includePrerelease, releaseType)
+            val result = checkUpdateUseCase(currentVersionName, includePrerelease, releaseType)
             _updateEvents.emit(result)
         }
     }

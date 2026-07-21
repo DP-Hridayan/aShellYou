@@ -17,8 +17,8 @@ import com.cgutman.adblib.AdbConnection
 import com.cgutman.adblib.AdbCrypto
 import com.cgutman.adblib.AdbStream
 import com.cgutman.adblib.UsbChannel
-import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.shell.common.domain.model.OutputLine
+import `in`.hridayan.ashell.core.ui.R
+import `in`.hridayan.ashell.core.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgConnection
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgState
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.repository.OtgRepository

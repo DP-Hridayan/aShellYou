@@ -8,8 +8,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import androidx.core.app.RemoteInput
-import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.activities.MainActivity
+import `in`.hridayan.ashell.core.ui.R
 
 /**
  * Helper class for managing notifications during own device pairing flow.
@@ -136,7 +135,7 @@ class SelfPairingNotificationHelper(private val context: Context) {
     }
 
     private fun createSuccessNotification(): Notification {
-        val openAppIntent = Intent(context, MainActivity::class.java)
+        val openAppIntent = Intent(context, Class.forName("in.hridayan.ashell.activities.MainActivity"))
         val openAppPendingIntent = PendingIntent.getActivity(
             context, 3, openAppIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE

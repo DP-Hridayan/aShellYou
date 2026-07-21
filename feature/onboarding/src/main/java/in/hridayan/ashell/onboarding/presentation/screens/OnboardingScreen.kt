@@ -18,9 +18,7 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope.align
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope.weight
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -41,15 +39,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
-import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
+import `in`.hridayan.ashell.onboarding.presentation.viewmodel.OnboardingViewModel
 import kotlinx.coroutines.launch
 
 @Composable
-fun OnboardingScreen(settingsViewModel: SettingsViewModel = hiltViewModel()) {
+fun OnboardingScreen(viewModel: OnboardingViewModel = hiltViewModel()) {
     val pageCount = 3
     val pagerState = rememberPagerState(pageCount = { 3 })
     val coroutineScope = rememberCoroutineScope()
@@ -124,7 +122,7 @@ fun OnboardingScreen(settingsViewModel: SettingsViewModel = hiltViewModel()) {
                     }
                 }
 
-                Spacer(modifier = Modifier.Companion.weight(1f))
+                Spacer(modifier = Modifier.weight(1f))
 
                 Button(
                     onClick = withHaptic {
@@ -135,7 +133,7 @@ fun OnboardingScreen(settingsViewModel: SettingsViewModel = hiltViewModel()) {
                                 navController.navigate(NavRoutes.HomeScreen) {
                                     popUpTo(NavRoutes.OnboardingScreen) { inclusive = true }
                                 }
-                                settingsViewModel.setBoolean(SettingsKeys.FirstLaunch, false)
+                                viewModel.completeOnboarding()
                             }
                         }
                     },

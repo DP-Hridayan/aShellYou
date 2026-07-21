@@ -15,7 +15,7 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
-import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.shell.wifi_adb_shell.utils.WirelessDebuggingUtils.grantWriteSecureSettingsViaAdb
 import io.github.muntashirakon.adb.AbsAdbConnectionManager

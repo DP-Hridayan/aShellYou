@@ -1,6 +1,6 @@
 package `in`.hridayan.ashell.settings.data.source
 
-import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.ui.R
 
 data class VersionToChangelogs(
     val version: String,

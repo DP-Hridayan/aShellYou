@@ -1,0 +1,805 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
+    <string name="abort_command">Interrompi comando prima</string>
+    <string name="about">Informazioni</string>
+    <string name="active">Attivo</string>
+    <string name="active_slot">Slot Attivo</string>
+    <string name="adb">ADB</string>
+    <string name="adb_command">Comando ADB</string>
+    <string name="adb_command_hint" comment="Example ADB command shown as placeholder hint in input field">adb reboot</string>
+    <string name="adb_command_off_state">Comando ADB (stato OFF)</string>
+    <string name="adb_command_on_state">Comando ADB (stato ON)</string>
+    <string name="adb_connection_active">Connessione ADB attiva</string>
+    <string name="adb_connection_channel_description">Mostra quando la connessione ADB è attiva</string>
+    <string name="adb_connection_channel_name">Connessione ADB</string>
+    <string name="adb_connection_description">La connessione WiFi ADB viene mantenuta attiva</string>
+    <string name="adb_sideload">ADB sideload</string>
+    <string name="adb_through_otg">ADB attraverso OTG</string>
+    <string name="adb_through_otg_summary">Usa un cavo OTG e il Debug USB per eseguire comandi ABD su un altro dispositivo Android. Hai bisogno di attivare Debug USB sulle opzioni sviluppatore del dispositivo controllato.</string>
+    <string name="adb_via_otg">ADB via OTG</string>
+    <string name="adb_via_wireless_debugging">ADB via Debug Wireless</string>
+    <string name="adb_via_wireless_debugging_summary">Connetti dispositivi (Android 11+) tramite Wi-Fi usando il Debug wireless ed esegui comandi ADB in remoto.</string>
+    <string name="add">Aggiungi</string>
+    <string name="add_account">Aggiunti account</string>
+    <string name="add_command">Aggiungi comando</string>
+    <string name="add_new_item">Aggiungi nuovo elemento</string>
+    <string name="additional_settings">Impostazioni aggiuntive</string>
+    <string name="ai_cache_days">Durata cache</string>
+    <string name="ai_cache_enabled">Abilita cache</string>
+    <string name="ai_models">AI e Modelli</string>
+    <string name="all">Tutto</string>
+
+    <string name="already_connected">Già connesso</string>
+    <string name="already_latest_version">Stai usando l\'ultima versione</string>
+    <string name="app">App</string>
+    <string name="app_crashed">L\'app si è bloccata</string>
+    <string name="app_tagline">ADB a portata di mano</string>
+    <string name="apply">Applica</string>
+    <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">Applica a tutti (%1$d rimanenti)</string>
+    <string name="artifact_id">ID Artefatto</string>
+    <string name="auto">Automatico</string>
+    <string name="auto_backup">Backup automatico</string>
+    <string name="auto_backup_content_type">Contenuto del backup</string>
+    <string name="auto_backup_folder">Cartella di backup</string>
+    <string name="auto_dark_mode">Modalità scura automatica</string>
+    <string name="auto_delete_existing_backups">Elimina automaticamente i vecchi backup</string>
+    <string name="auto_scale_ui">Scala automaticamente UI</string>
+    <string name="auto_update">Aggiornamento automatico</string>
+    <string name="back">Indietro</string>
+    <string name="back_button">Pulsante indietro</string>
+    <string name="backing_up">Backup in corso…</string>
+    <string name="backup">Backup</string>
+    <string name="backup_all_data">Backup tutti i dati</string>
+    <string name="backup_and_restore">Backup e ripristino</string>
+    <string name="backup_app_database">Backup database applicazione</string>
+    <string name="backup_date">Data del backup</string>
+    <string name="backup_destination">Destinazione del backup</string>
+    <string name="backup_failed">Backup non riuscito</string>
+    <string name="backup_found">Backup trovato</string>
+    <string name="backup_frequency">Frequenza del backup</string>
+    <string name="backup_now">Esegui backup ora</string>
+    <string name="backup_scheduler">Programma backup</string>
+    <string name="backup_settings">Backup delle impostazioni dell\'applicazione</string>
+    <string name="backup_status">Stato backup</string>
+    <string name="backup_successful">Backup completato</string>
+    <string name="backup_time">Orario backup</string>
+    <string name="backup_type">Tipo backup</string>
+    <string name="baseband_version">Baseband</string>
+
+    <string name="battery_level">Batteria</string>
+    <string name="battery_saver">Risparmio batteria</string>
+    <string name="behavior">Comportamento</string>
+    <string name="bookmark_limit_reached">Limite massimo di segnalibri raggiunto! Elimina alcuni segnalibri per aggiungerne di nuovi</string>
+    <string name="bookmarks">Segnalibri</string>
+    <string name="boot_device_into_fastboot">Avviare il dispositivo di destinazione in modalità fastboot e connettersi tramite cavo OTG</string>
+    <string name="boot_image">Immagine Di Avvio</string>
+    <string name="boot_into_fastboot">Avvia in Fastboot</string>
+    <string name="bootloader">Bootloader</string>
+    <string name="bootloader_version">Bootloader</string>
+    <string name="btn_continue">Continua</string>
+    <string name="cache_settings">Cache</string>
+    <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Dimensione cache: %s</string>
+    <string name="cancel">Annulla</string>
+    <string name="cancel_all">Annulla tutto</string>
+    <string name="cancelling">Annullamento…</string>
+    <string name="changelog">Registro modifiche</string>
+    <string name="changelogs">Registro modifiche</string>
+    <string name="check_updates">Controlla aggiornamenti</string>
+    <string name="choose_a_device">Scegli un dispositivo</string>
+    <string name="choose_icon">Scegli icona</string>
+    <string name="clear">Pulisci</string>
+    <string name="clear_all_message">Sei sicuro di voler pulire tutto su questo schermo?</string>
+    <string name="clear_analysis_cache">Svuota cache di analisi</string>
+    <string name="clear_cache">Svuota cache</string>
+    <string name="clear_everything">Pulisci tutto</string>
+    <string name="clear_history">Cancella Cronologia</string>
+    <string name="clear_output_confirmation">Cancella conferma output</string>
+    <string name="clipboard_empty">Gli appunti non contengono testo</string>
+    <string name="close">Chiudi</string>
+    <string name="cloud_backup_failed">Impossibile caricare il backup su Google Drive</string>
+    <string name="cloud_backup_google_drive">Backup su cloud (Google Drive)</string>
+    <string name="cloud_backup_successful">Backup caricato su Google Drive</string>
+    <string name="cloud_restore_failed">Impossibile ripristinare da Google Drive</string>
+    <string name="cloud_restore_successful">Ripristinato da Google Drive</string>
+    <string name="code_pair_instruction">Apri \"Debug wireless\" sul dispositivo di destinazione e tocca \"Accoppia dispositivo con codice di accoppiamento\"</string>
+    <string name="collapse">Comprimi</string>
+    <string name="command">Comando</string>
+    <string name="command_analysis">Analisi del comando</string>
+    <string name="command_not_found">Comando non trovato!</string>
+    <string name="command_title">Inserisci comando ABD</string>
+    <string name="commands">Comandi</string>
+    <string name="configure_save_directory">Configura la cartella di salvataggio</string>
+    <string name="confirm">Conferma</string>
+    <string name="confirm_bookmark_delete_message">Attenzione! Questa azione è irreversibile\nSei sicuro di voler eliminare tutti i segnalibri?</string>
+    <string name="confirm_delete">Conferma eliminazione</string>
+    <string name="confirm_tile_delete_message">Sei sicuro di voler eliminare questo riquadro?</string>
+    <string name="confirmation_clear_cache">La cache aiuta a recuperare immediatamente i risultati dell\'analisi.\nVuoi ancora cancellare tutti i dati della cache di analisi AI?</string>
+    <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" esiste già in questa posizione.</string>
+    <string name="conflict_title">Elemento già esistente</string>
+    <string name="connect">Connetti</string>
+    <string name="connect_device_via_otg">Connetti un dispositivo tramite OTG</string>
+    <string name="connect_to_wifi_network">Connettiti alla rete wifi</string>
+    <string name="connected">Connesso</string>
+    <string name="connected_device">Dispositivo connesso</string>
+    <string name="connecting">Connessione in corso…</string>
+    <string name="connection_error">Errore di connessione</string>
+    <string name="connection_failed">Connessione fallita</string>
+    <string name="connection_lost">Connessione persa</string>
+    <string name="connection_lost_back_message">La connessione di debug wireless è stata persa. Cosa vorresti fare?</string>
+    <string name="contributors">Collaboratori</string>
+    <string name="copied_items" comment="%1$d = number of items copied to clipboard">%1$d oggetti copiati</string>
+    <string name="copied_to_clipboard">Copiato negli appunti!</string>
+    <string name="copy">Copia</string>
+    <string name="copying">Copia in corso…</string>
+    <string name="copying_items" comment="%1$d = number of items being copied">Copiati %1$d oggetti</string>
+    <string name="crash_details">Dettagli crash</string>
+    <string name="crash_history">Cronologia crash</string>
+    <string name="create">Crea</string>
+    <string name="create_folder">Crea cartella</string>
+    <string name="create_new_tile">Crea un nuovo riquadro</string>
+    <string name="crowdin_contribution_msg">Visita la nostra piattaforma di traduzione Crowdin per contribuire</string>
+    <string name="current_version">Versione attuale</string>
+    <string name="custom_ui_scale">Scala UI personalizzata</string>
+    <string name="cut_items" comment="%1$d = number of items cut to clipboard">Taglia %1$d oggetti</string>
+    <string name="cut_to_clipboard">Taglia negli appunti</string>
+
+    <string name="dark_theme">Tema scuro</string>
+    <string name="dashboard">Dashboard</string>
+
+    <string name="default_folder">Cartella predefinita</string>
+    <string name="default_language">Lingua predefinita</string>
+    <string name="delete">Elimina</string>
+    <string name="delete_all">Elimina tutto</string>
+    <string name="delete_file">Elimina file</string>
+    <string name="delete_folder">Elimina cartella</string>
+    <string name="delete_items_message" comment="%1$d = number of selected items">Sei sicuro di voler eliminare %1$d elementi selezionati?</string>
+    <string name="delete_items_title" comment="%1$d = number of items">Eliminare %1$d elementi?</string>
+    <string name="delete_message" comment="%1$s = file or folder name">Sei sicuro di voler eliminare \"%1$s\"?</string>
+    <string name="delete_title" comment="%1$s = file or folder name">Eliminare %1$s?</string>
+    <string name="des_about">Collaboratori e supporto</string>
+    <string name="des_ai_cache_days">Numero di giorni in cui mantenere i risultati nella cache</string>
+    <string name="des_ai_cache_enabled">Risultati dell\'analisi della cache per modello</string>
+    <string name="des_ai_models">Gestisci modelli AI offline per l\'analisi dei comandi</string>
+    <string name="des_auto_backup_content_type">Scegli cosa includere nei backup automatici</string>
+    <string name="des_auto_backup_folder">Seleziona una cartella per salvare i backup automatici</string>
+    <string name="des_auto_backup_time">Imposta l\'ora per i backup automatici</string>
+    <string name="des_auto_dark_mode">Passa automaticamente alla modalità scura quando il risparmio energetico è abilitato</string>
+    <string name="des_auto_delete_existing_backups">Elimina i vecchi backup automatici quando viene salvato uno nuovo</string>
+    <string name="des_auto_scale_ui">Scala automaticamente la UI in base alla larghezza più piccola del dispositivo</string>
+    <string name="des_auto_update">Controlla aggiornamenti automaticamente</string>
+    <string name="des_backup_all_data">Backup di tutti i dati dell\'app</string>
+    <string name="des_backup_and_restore">Backup e ripristino delle impostazioni delle app e di altri dati</string>
+    <string name="des_backup_app_database">Backup del database delle app che include esempi di comandi e segnalibri</string>
+    <string name="des_backup_scheduler">Pianifica automaticamente i backup agli intervalli selezionati</string>
+    <string name="des_backup_settings">Backup solo delle impostazioni delle app</string>
+    <string name="des_behavior">Modifica un certo comportamento dell\'app</string>
+    <string name="des_changelogs">Cronologia di tutte le modifiche apportate all\'app</string>
+    <string name="des_choose_icon">Clicca qui per scegliere un\'icona dalla collezione di icone</string>
+    <string name="des_clear_output_confirmation">Chiedi conferma prima di cancellare l\'output della shell</string>
+    <string name="des_configure_save_directory">Scegli una cartella per salvare l\'output della shell</string>
+    <string name="des_contributors">Elenco dei collaboratori che hanno aiutato nello sviluppo di aShell You</string>
+    <string name="des_crash_history">Visualizza tutti i crash che si sono verificati nell\'app</string>
+    <string name="des_default_language">Scegli la lingua predefinita per l\'app</string>
+    <string name="des_disable_softkey">Utile quando si desidera utilizzare una tastiera esterna</string>
+    <string name="des_drive_backup">Carica backup crittografato sul tuo Google Drive.\nQuesta azione sovrascriverà qualsiasi backup cloud esistente.</string>
+    <string name="des_drive_restore">Scarica il tuo ultimo backup da Google Drive</string>
+    <string name="des_dynamic_colors">Imposta automaticamente il tema dell\'app in base allo sfondo del dispositivo</string>
+    <string name="des_enable_auto_backup">Backup automatico dei dati delle app all\'ora pianificata</string>
+    <string name="des_enable_cloud_auto_backup">Backup automatico sul tuo account Google Drive</string>
+    <string name="des_enable_direct_download">Quando attivato, gli aggiornamenti verranno scaricati direttamente da GitHub all\'interno dell\'app. Disattiva per visitare la pagina dei rilasci di Github per il download manuale.</string>
+    <string name="des_enable_local_auto_backup">Backup automatico nella cartella selezionata sul dispositivo</string>
+    <string name="des_examples">Raccolta di alcuni modelli di comandi</string>
+    <string name="des_feature_request">Se hai idee o suggerimenti per l\'applicazione, fateci sapere</string>
+    <string name="des_font_family">Cambia lo stile dei caratteri dell\'applicazione</string>
+    <string name="des_font_size">Regola la dimensione del carattere per rendere il testo nell\'app più grande o più piccolo</string>
+    <string name="des_haptics_and_vibration">Taptiche interattive per feedback touch</string>
+    <string name="des_high_contrast_dark_mode">Tema nero per i dispositivi con schermo OLED</string>
+    <string name="des_hridayan">Solo un ragazzo che ama le app e il design</string>
+    <string name="des_initial_state">Stato fissato del riquadro quando è mostrato nel pannello delle Impostazioni Rapide</string>
+    <string name="des_licenses">Visualizza le licenze che l\'app e le librerie stanno utilizzando</string>
+    <string name="des_local_backup">Salva backup crittografato sul tuo dispositivo</string>
+    <string name="des_local_restore">Scegli un file di backup dal tuo dispositivo</string>
+    <string name="des_logcat">Uscita logcat in tempo reale da un dispositivo connesso</string>
+    <string name="des_look_and_feel">Colori dinamici, Tema scuro, Lingua</string>
+    <string name="des_models">Nessun modello selezionato</string>
+    <string name="des_override_bookmarks">Potrebbe causare un ritardo se viene aggiunto un gran numero di segnalibri! I dispositivi di fascia bassa dovrebbero mantenere questa opzione disattivata</string>
+    <string name="des_pair_another_device">Accoppia un altro dispositivo di destinazione</string>
+    <string name="des_qs_tiles">Crea riquadri di impostazioni rapide per l\'esecuzione dei comandi adb</string>
+    <string name="des_report_issue">Segnala qualsiasi problema o bug che hai riscontrato durante l\'utilizzo dell\'app</string>
+    <string name="des_reset_app_settings">Reimposta le impostazioni delle app ai valori predefiniti</string>
+    <string name="des_restore_app_data">Ripristina i dati dell\'app dal file di backup salvato.\nIl database salvato sovrascriverà il database corrente</string>
+    <string name="des_save_whole_output">Abilita questa opzione per salvare l\'output dell\' intera sessione della shell.\nSe disabilitato, verrà salvato solo l\'ultimo output del comando.</string>
+    <string name="des_screen_density">Regola la densità dello schermo per rendere gli elementi della UI più grandi o più piccoli</string>
+    <string name="des_select_file_for_flashing">Selezionare un file immagine di avvio per lampeggiare alla partizione selezionata</string>
+    <string name="des_sign_in_with_google">Collega opzionalmente il tuo account Google per i backup cloud</string>
+    <string name="des_smooth_scroll">Abilita lo scorrimento fluido nell\'output della shell quando si fa clic sulla freccia superiore o inferiore</string>
+    <string name="des_toggleable">Se abilitata, il riquadro cambia tra gli stati ON e OFF a ogni tocco, eseguendo un comando diverso per ogni stato</string>
+    <string name="des_translators">Persone che hanno aiutato a tradurre aShellYou</string>
+    <string name="des_ui_scale">Regola la scala degli elementi dell\'UI e la dimensione del carattere</string>
+    <string name="des_warning_incorrect_file_bootloop">Procedere con cautela poiché un\'immagine errata può causare un bootloop</string>
+    <string name="description">Descrizione</string>
+    <string name="deselect_all">Deseleziona tutto</string>
+    <string name="developer">Sviluppatore</string>
+    <string name="developer_options">Opzioni sviluppatore</string>
+    <string name="developer_options_not_available">Opzioni sviluppatore non disponibili!</string>
+    <string name="device_backup_local">Backup del dispositivo (locale)</string>
+    <string name="device_connected">Dispositivo connesso!</string>
+    <string name="device_disconnected">Dispositivo disconnesso</string>
+    <string name="device_disconnected_message">La connessione WiFi ADB è stata persa.</string>
+    <string name="device_disconnected_message_with_name" comment="%s = device name">\"%s\" si è disconnesso.</string>
+    <string name="device_found">Dispositivo trovato!</string>
+    <string name="device_info">Info dispositivo</string>
+    <string name="disable_softkey">Disabilita la tastiera a schermo</string>
+    <string name="disclaimer">Disclaimer</string>
+    <string name="disclaimer_1_description">L\'esecuzione dei comandi ADB può modificare le impostazioni di sistema, gestire i file ed eseguire operazioni che possono influenzare la stabilità del dispositivo.\nSei l\'unico responsabile di tutte le modifiche apportate utilizzando questa app.</string>
+    <string name="disclaimer_1_title">Usa a tuo rischio</string>
+    <string name="disclaimer_2_description">Mentre l\'accesso root non è obbligatorio, alcuni comandi potrebbero richiedere permessi elevati.\nL\'uso improprio dei comandi ADB può portare alla perdita di dati, crash delle app o comportamento di sistema inatteso.</string>
+    <string name="disclaimer_2_title">Il root non è obbligatorio, ma occorre cautela</string>
+    <string name="disclaimer_3_description">Gli sviluppatori di questa app non sono responsabili di eventuali danni, perdita di dati o conseguenze indesiderate derivanti dall\'uso di questa app.\nProcedere con cautela e assicurarsi di comprendere i comandi eseguiti.</string>
+    <string name="disclaimer_3_title">Non Siamo Responsabili</string>
+    <string name="disclaimer_4_description">Questa applicazione è progettata per gli utenti che hanno una comprensione di base dei comandi ADB.\nSe non sei sicuro dell\'effetto di un comando, ricercalo prima di eseguirlo.</string>
+    <string name="disclaimer_4_title">Destinato a Utenti Avanzati</string>
+    <string name="disclaimer_5_description">Questa app potrebbe richiedere permessi speciali per funzionare correttamente.\nNon raccoglie né condivide dati personali, ma gli utenti dovrebbero essere consapevoli delle implicazioni della concessione dei permessi legati all\'ADB.</string>
+    <string name="disclaimer_5_title">Permessi e Sicurezza</string>
+    <string name="disconnect">Disconnetti</string>
+    <string name="disconnected">Disconnesso!</string>
+    <string name="discussions">Discussioni</string>
+    <string name="dismiss">Rifiuta</string>
+    <string name="done">Fatto</string>
+    <string name="download">Download</string>
+    <string name="download_failed">Download fallito</string>
+    <string name="downloading">Download in corso…</string>
+    <string name="downloading_backup">Download backup da Google Drive…</string>
+    <string name="downloads">Download</string>
+    <string name="duplicate_tile_name_error_msg">Esiste già un riquadro con questo nome</string>
+    <string name="dynamic_colors">Colori dinamici</string>
+    <string name="edit_command">Modifica comando</string>
+    <string name="edit_tile">Modifica riquadro</string>
+    <string name="empty_folder">La cartella è vuota</string>
+    <string name="enable_auto_backup">Abilita backup automatico</string>
+    <string name="enable_auto_update">Abilita aggiornamenti automatici</string>
+    <string name="enable_cloud_auto_backup">Backup automatico su Google Drive</string>
+    <string name="enable_direct_download">Abilita download diretto di apk</string>
+    <string name="enable_local_auto_backup">Backup automatico nella memoria locale</string>
+    <string name="enable_wifi">Abilita wifi</string>
+    <string name="enable_wireless_debugging">Si prega di abilitare il Debug wireless nelle opzioni sviluppatore</string>
+    <string name="enable_wireless_debugging_button">Abilita</string>
+    <string name="enter">Invia</string>
+    <string name="enter_pairing_code">Inserisci il codice di accoppiamento a 6 cifre</string>
+    <string name="erase_confirm_message">Questo cancellerà definitivamente la partizione %1$s . Questa azione non può essere annullata.</string>
+    <string name="erase_confirm_title">Erase %1$s?</string>
+    <string name="erase_partition">Erase</string>
+    <string name="erasing">Cancellazione…</string>
+    <string name="error">Errore</string>
+    <string name="error_labels_limit_reached">Limite massimo di etichette raggiunto</string>
+    <string name="execution_method">Metodo di esecuzione</string>
+    <string name="expand">Espandi</string>
+    <string name="experimental">Sperimentale</string>
+    <string name="failed">Non riuscito</string>
+    <string name="failed_to_claim_interface">Impossibile recuperare l\'interfaccia</string>
+    <string name="failed_to_copy">Impossibile copiare</string>
+    <string name="failed_to_open_usb_connection">Impossibile aprire la connessione USB. È abilitato il Debug USB?</string>
+    <string name="fastboot">Fastboot</string>
+    <string name="fastboot_and_recovery">Fastboot &amp; Recovery</string>
+    <string name="fastboot_coming_soon">In Arrivo</string>
+    <string name="fastboot_command_console">Console Di Comando</string>
+    <string name="fastboot_command_hint">Inserisci il comando fastboot…</string>
+    <string name="fastboot_device_info">Informazioni Sul Dispositivo</string>
+    <string name="fastboot_partitions">Partizioni</string>
+    <string name="fastboot_quick_actions">Azioni Rapide</string>
+    <string name="fastboot_summary">Connettiti a un dispositivo in modalità fastboot tramite OTG</string>
+    <string name="fastboot_variable_explorer">Esploratore Variabile</string>
+    <string name="fb_all_operations_cancelled">Tutte le operazioni annullate</string>
+    <string name="fb_cannot_paste_into_selected">Impossibile incollare nella cartella selezionata</string>
+    <string name="fb_create_folder_failed" comment="%1$s = error message. fb_ prefix = file browser">Creazione cartella non riuscita: %1$s</string>
+    <string name="fb_delete_failed" comment="%1$s = error message">Cancellazione non riuscita: %1$s</string>
+    <string name="fb_deleted_items" comment="%1$d = number of deleted items">Cancellati %1$d oggetti</string>
+    <string name="fb_download_failed" comment="%1$s = error message">Download fallito: %1$s</string>
+    <string name="fb_downloaded_to" comment="%1$s = file path">Scaricati su %1$s</string>
+    <string name="fb_downloading" comment="%1$s = file name">Download in corso %1$s</string>
+    <string name="fb_empty_folder_skipped">Cartella vuota ignorata</string>
+    <string name="fb_error" comment="%1$s = error message">Errore: %1$s</string>
+    <string name="fb_file_deleted">File eliminato</string>
+    <string name="fb_folder_created">Cartella creata</string>
+    <string name="fb_nothing_to_paste">Nulla da incollare</string>
+    <string name="fb_operation_cancelled">Operazione annullata</string>
+    <string name="fb_otg_transfers_not_supported" comment="OTG = USB On-The-Go">Trasferimenti di file non supportati in modalità OTG</string>
+    <string name="fb_paste_completed" comment="%1$d = number of items pasted">Completato: %1$d oggetti</string>
+    <string name="fb_paste_completed_with_failed" comment="%1$d = completed, %2$d = skipped, %3$d = failed">Completato: %1$d elementi, %2$d saltato, %3$d fallito</string>
+    <string name="fb_paste_completed_with_skipped" comment="%1$d = completed, %2$d = skipped">Completato: %1$d oggetti, %2$d saltato</string>
+    <string name="fb_reconnected_successfully">Riconnessione riuscita</string>
+    <string name="fb_rename_failed" comment="%1$s = error message">Rinomina non riuscita: %1$s</string>
+    <string name="fb_renamed_successfully">Rinominato con successo</string>
+    <string name="fb_upload_failed" comment="%1$s = error message">Caricamento fallito: %1$s</string>
+    <string name="fb_uploaded_successfully">File caricato con successo</string>
+    <string name="fb_uploading" comment="%1$s = file name">Caricamento %1$s</string>
+    <string name="feature_request">Richiesta di una funzionalità</string>
+    <string name="fetching_backup_time">Recupero tempo di backup …</string>
+    <string name="fetching_backup_type">Recupero tempo di backup…</string>
+    <string name="field_cannot_be_blank">Il campo non può essere vuoto</string>
+    <string name="file">File</string>
+    <string name="file_actions">Azioni sui file</string>
+    <string name="file_already_exists">File già esistente</string>
+    <string name="file_browser">Sfoglia file</string>
+    <string name="file_conflict_title">File già esistente</string>
+    <string name="file_exists_message" comment="%1$s = file name">\"%1$s\" esiste già in questa posizione.</string>
+    <string name="file_info">Info sul file</string>
+    <string name="file_not_found">File non trovato</string>
+    <string name="filter">Filtra</string>
+    <string name="filter_by_labels">Filtra per etichette</string>
+    <string name="flash">Flash</string>
+    <string name="flash_partition">Partizione flash</string>
+    <string name="flashing">Lampeggiante…</string>
+    <string name="folder">Cartella</string>
+    <string name="folder_already_exists">Esiste già una cartella con questo nome</string>
+    <string name="folder_conflict_title">Cartella già esistente</string>
+    <string name="folder_info">Info sulla cartella</string>
+    <string name="folder_name">Nome cartella</string>
+    <string name="folder_picker">Selettore cartella</string>
+    <string name="font_amatic_sc" comment="Font style name">Amatic SC</string>
+    <string name="font_cabin" comment="Font style name">Cabin</string>
+    <string name="font_caveat" comment="Font style name">Caveat</string>
+    <string name="font_comfortaa" comment="Font style name">Comfortaa</string>
+    <string name="font_crimson_pro" comment="Font style name">Crimson Pro</string>
+    <string name="font_dancing_script" comment="Font style name">Dancing Script</string>
+    <string name="font_display_text" comment="Sample text used to preview font styles">Cantami o Diva del pelide Achille l\'ira funesta</string>
+    <string name="font_eb_garamond" comment="Font style name">EB Garamond</string>
+    <string name="font_exo_2" comment="Font style name">Exo 2</string>
+    <string name="font_family">Font family</string>
+    <string name="font_heebo" comment="Font style name">Heebo</string>
+    <string name="font_inter" comment="Font style name">Inter</string>
+    <string name="font_josefin_sans" comment="Font style name">Josefin Sans</string>
+    <string name="font_karla" comment="Font style name">Karla</string>
+    <string name="font_lexend" comment="Font style name">Lexend</string>
+    <string name="font_lora" comment="Font style name">Lora</string>
+    <string name="font_manrope" comment="Font style name">Manrope</string>
+    <string name="font_montserrat" comment="Font style name">Montserrat</string>
+    <string name="font_noto_sans" comment="Font style name">Noto Sans</string>
+    <string name="font_nunito" comment="Font style name">Nunito</string>
+    <string name="font_open_sans" comment="Font style name">Open Sans</string>
+    <string name="font_oswald" comment="Font style name">Oswald</string>
+    <string name="font_outfit" comment="Font style name">Outfit</string>
+    <string name="font_pacifico" comment="Font style name">Pacifico</string>
+    <string name="font_playfair_display" comment="Font style name">Playfair Display</string>
+    <string name="font_playpen_sans" comment="Font style name">Playpen Sans</string>
+    <string name="font_plus_jakarta_sans" comment="Font style name">Plus Jakarta Sans</string>
+    <string name="font_public_sans" comment="Font style name">Public Sans</string>
+    <string name="font_quicksand" comment="Font style name">Quicksand</string>
+    <string name="font_raleway" comment="Font style name">Raleway</string>
+    <string name="font_roboto_flex" comment="Font style name">Roboto Flex</string>
+    <string name="font_rubik" comment="Font style name">Rubik</string>
+    <string name="font_shadows_into_light" comment="Font style name">Shadows Into Light</string>
+    <string name="font_size_multiplier">Moltiplicatore dimensione carattere</string>
+    <string name="font_source_sans_3" comment="Font style name">Source Sans 3</string>
+    <string name="font_source_serif_4" comment="Font style name">Source Serif 4</string>
+    <string name="font_work_sans" comment="Font style name">Work Sans</string>
+    <string name="forget">Dimentica</string>
+    <string name="forget_device">Dimentica dispositivo</string>
+    <string name="forget_device_confirmation" comment="%1$s = device name">Sei sicuro di voler dimenticare %1$s? Dovrai accoppiarti di nuovo per connetterti.</string>
+    <string name="forks">Suddivisioni</string>
+    <string name="found_connect_service">Trovato servizio di connessione</string>
+    <string name="frequency">Frequenza</string>
+    <string name="full_license_text">Testo completo della licenza</string>
+    <string name="generate_tile">Genera riquadro</string>
+    <string name="get_variables">Ottieni variabili</string>
+    <string name="go_home">Vai alla home</string>
+    <string name="go_to_terminal">Vai al terminale</string>
+    <string name="google_drive">Google Drive</string>
+    <string name="google_drive_backup">Backup Google Drive</string>
+    <string name="gpl_3_0_description">aShell You è un software libero: puoi redistribuirlo e/o modificarlo in base ai termini della GNU General Public License pubblicata dalla Free Software Foundation (versione 3 o successiva, a tua scelta).</string>
+    <string name="grant">Permetti</string>
+    <string name="grant_permission">Concedi il permesso</string>
+    <string name="grant_shizuku_permission_for_tiles">Il permesso di Shizuku non è concesso!\naShell Hai bisogno del permesso di Shizuku per eseguire i comandi dei riquadri.</string>
+    <string name="great_news">Ottime notizie!</string>
+    <string name="haptics_and_vibration">Haptic e Vibrazione</string>
+    <string name="have_a_nice_day">Buona giornata!</string>
+    <string name="high">Alto</string>
+    <string name="high_contrast_dark_mode">Modalità scura ad alto contrasto</string>
+    <string name="hint">Suggerimento</string>
+    <string name="history">Cronologia</string>
+    <string name="home">Home</string>
+    <string name="icon_selected">Icona selezionata</string>
+    <string name="info">Info</string>
+    <string name="initial_state">Stato iniziale</string>
+    <string name="instructions">Istruzioni</string>
+    <string name="intent_not_found">Intento non trovato</string>
+    <string name="internal_storage">Memoria Interna</string>
+    <string name="invalid_folder_name">Il nome della cartella non può contenere /</string>
+    <string name="ip_address">Indirizzo IP</string>
+    <string name="irreversible_action_warning">Questa azione è irreversibile!</string>
+    <string name="item_deleted">L\'elemento è stato eliminato con successo</string>
+    <string name="keep_both">Mantieni Entrambi</string>
+    <string name="label">Etichetta</string>
+    <string name="languages">Lingue</string>
+    <string name="last_auto_backup_cloud">Ultimo backup automatico cloud</string>
+    <string name="last_auto_backup_local">Ultimo backup automatico locale</string>
+    <string name="last_backup_date">Data ultimo backup</string>
+    <string name="last_backup_details">Dettagli ultimo backup</string>
+    <string name="last_backup_time">Ultima ora di backup</string>
+    <string name="latest_version">Ultima versione</string>
+    <string name="lead_developer">Sviluppatore principale</string>
+
+    <string name="library_count" comment="%1$d = number of third-party libraries">%1$d librerie rilevate</string>
+    <string name="license">Licenza</string>
+    <string name="license_label">Licenza</string>
+    <string name="licenses">Licenze</string>
+    <string name="load">Carica</string>
+    <string name="load_predefined_commands">Carica comandi predefiniti</string>
+    <string name="loading">Caricamento</string>
+    <string name="loading_device_info">Caricamento informazioni dispositivo…</string>
+    <string name="loading_licenses">Caricamento informazioni licenza…</string>
+    <string name="local_adb">ADB Locale</string>
+    <string name="local_adb_shell">Shell ADB locale</string>
+    <string name="local_adb_summary">Esegui i comandi ADB direttamente sul tuo dispositivo usando Shizuku o root.</string>
+    <string name="local_backup">Backup locale</string>
+    <string name="local_file">File locale</string>
+    <string name="locked">Bloccato</string>
+    <string name="logcat">Logcat</string>
+    <string name="logs">Log</string>
+    <string name="look_and_feel">Aspetto e Impressione</string>
+    <string name="low">Basso</string>
+    <string name="manual_pair">Accoppiamento manuale</string>
+    <string name="max_download_size">Download Massimo</string>
+    <string name="medium">Medio</string>
+    <string name="merge">Unisci</string>
+    <string name="minimize">Minimizza</string>
+    <string name="mode">Modalità</string>
+    <string name="mode_one_desc">Usa l\'accesso root per eseguire i comandi. I comandi root possono essere eseguiti.</string>
+    <string name="mode_two_desc">Usa shizuku per eseguire i comandi. I comandi che richiedono root non verranno eseguiti.</string>
+    <string name="model_category_large" comment="AI model size category label">Grande (1.5–2.5 GB)</string>
+    <string name="model_category_medium" comment="AI model size category label">Medio (800 MB–1.1 GB)</string>
+    <string name="model_category_small" comment="AI model size category label">Piccolo (300–500 MB)</string>
+    <string name="model_category_tiny" comment="AI model size category label">Minuscolo (sotto 300 MB)</string>
+    <string name="models" comment="Refers to AI/ML models used for command analysis">Modelli</string>
+    <string name="modified" comment="File property: last modified date">Modificato</string>
+    <string name="monospace" comment="Font style category name">Spazio singolo</string>
+
+    <string name="more">Altro</string>
+
+    <string name="move">Sposta</string>
+    <string name="moving">Spostamento…</string>
+    <string name="moving_items" comment="%1$d = number of items being moved">Spostamento di %1$d oggetto(i)</string>
+    <string name="n_days" comment="%d = number of days for cache duration setting">%d giorno(i)</string>
+    <string name="name">Nome</string>
+    <string name="network_error">Errore di rete</string>
+    <string name="new_commands_available_msg">Sono stati aggiunti nuovi esempi di comandi!\nClicca sul pulsante qui sotto per caricare i nuovi comandi.</string>
+    <string name="new_folder">Nuova cartella</string>
+    <string name="new_name">Rinomina</string>
+
+    <string name="no_adb_device_error">Nessun dispositivo compatibile con ADB trovato. Abilita il debug USB sul dispositivo di destinazione.</string>
+    <string name="no_adb_interface_found">Nessuna interfaccia adb trovata</string>
+    <string name="no_auto_backup_yet">Nessun backup automatico ancora eseguito</string>
+    <string name="no_bookmarks">Nessun segnalibro trovato</string>
+    <string name="no_changelog_found">Nessun changelog trovato per questa versione</string>
+    <string name="no_cloud_backup_found">Nessun backup trovato su Google Drive</string>
+    <string name="no_crashes">Nessun crash è stato segnalato. aShell You sta funzionando senza intoppi.</string>
+    <string name="no_device_connected">Nessun dispositivo connesso</string>
+    <string name="no_fastboot_device_error">Il dispositivo connesso non è in modalità fastboot</string>
+    <string name="no_files_download">Nessun file selezionato (le cartelle non possono essere scaricate)</string>
+    <string name="no_folder_selected">Nessuna cartella selezionata</string>
+    <string name="no_google_account_message">Non è stato trovato alcun account Google su questo dispositivo. Aggiungerne uno per utilizzare i backup cloud?</string>
+    <string name="no_google_account_title">Nessun Account Google</string>
+    <string name="no_history">Nessuna cronologia comandi</string>
+    <string name="no_libraries_found">Nessuna libreria trovata</string>
+    <string name="no_logs_yet">Ancora nessun log!</string>
+    <string name="no_logs_yet_msg">Nessun log è stato ancora registrato. Esegui alcuni riquadri per mostrare i log qui.</string>
+    <string name="no_model_selected">Nessun modello selezionato</string>
+    <string name="no_operations">Nessuna operazione in corso</string>
+    <string name="no_results_found">Nessun risultato trovato</string>
+    <string name="no_root_access">Nessun accesso root</string>
+    <string name="no_saved_devices">Nessun dispositivo salvato</string>
+    <string name="no_search_results_found">Nessun risultato trovato</string>
+    <string name="no_variables_loaded">Nessuna variabile caricata</string>
+    <string name="no_wifi_connection">Nessuna connessione WiFi</string>
+    <string name="none">Vuoto</string>
+    <string name="not_signed_in">Accesso non eseguito</string>
+    <string name="nothing_to_clear">Niente da pulire</string>
+    <string name="nothing_to_search">Niente da cercare</string>
+    <string name="notification_settings">Impostazioni notifiche</string>
+    <string name="notification_style_error">Se non è possibile inserire il codice di accoppiamento dalla notifica, allora potrebbe essere necessario modificare l\'ombra di notifica su Android. Vai su impostazioni notifiche ~ Stile di notifica per cambiare lo stile di notifica. Altrimenti potrebbe non essere possibile inserire il codice di accoppiamento dalla notifica.</string>
+    <string name="notification_styles">Stile notifiche</string>
+
+    <string name="off_state" comment="Quick Settings tile toggle state label">Disattivato</string>
+
+    <string name="on_state" comment="Quick Settings tile toggle state label">Attivo</string>
+    <string name="open">Apri</string>
+    <string name="open_app_language_settings">Apri le impostazioni della lingua dell\'app</string>
+    <string name="open_issues" comment="GitHub repository open issues count">Problemi aperti</string>
+    <string name="open_url">Apri URL</string>
+    <string name="operation_complete">Operazione completata</string>
+    <string name="operations">Operazioni</string>
+    <string name="or">O</string>
+    <string name="otg" comment="USB On-The-Go. Technical term, keep as OTG">OTG</string>
+    <string name="other_details">Altri dettagli</string>
+    <string name="other_device">Altro dispositivo</string>
+    <string name="output">Output</string>
+    <string name="override_bookmarks_limit">Ignora il limite massimo di segnalibri</string>
+    <string name="pair">Abbina</string>
+    <string name="pair_a_device_first">Abbina prima un dispositivo</string>
+    <string name="pair_another_device">Abbina un altro dispositivo</string>
+    <string name="pair_connect_failed_message">\nImpossibile connettersi al dispositivo associato\nIl dispositivo potrebbe non essere sulla stessa rete\nRiprova ad abbinare</string>
+    <string name="pair_device_to_start">Accoppia un dispositivo utilizzando QR o codice di accoppiamento per vederlo qui</string>
+    <string name="pair_manually">Accoppia manualmente</string>
+    <string name="pair_this_device">Accoppia questo dispositivo</string>
+    <string name="pair_using_code">Accoppia con codice</string>
+    <string name="pair_using_qr">Accoppia con QR</string>
+    <string name="paired">Accoppiato</string>
+    <string name="pairing">Accoppiamento</string>
+    <string name="pairing_code">Codice di accoppiamento</string>
+    <string name="pairing_notification_hint">Riceverai una notifica da aShell You per aiutarti con l\'accoppiamento</string>
+    <string name="pairing_process_notification_access_message">Per completare il processo di accoppiamento è necessario interagire con una notifica da aShell You. Si prega di consentire le notifiche ad aShell You.</string>
+    <string name="palette_content" comment="Material Design color scheme style name">Contenuto</string>
+    <string name="palette_expressive" comment="Material Design color scheme style name">Espressivo</string>
+    <string name="palette_fidelity" comment="Material Design color scheme style name">Fedele</string>
+    <string name="palette_fruit_salad" comment="Material Design color scheme style name">Macedonia di Frutta</string>
+    <string name="palette_monochrome" comment="Material Design color scheme style name">Monocromatico</string>
+    <string name="palette_neutral" comment="Material Design color scheme style name">Neutro</string>
+    <string name="palette_rainbow" comment="Material Design color scheme style name">Arcobaleno</string>
+    <string name="palette_style" comment="Settings label for choosing Material Design color palette">Stile palette</string>
+    <string name="palette_tonal_spot" comment="Material Design color scheme style name">Punto Tonale</string>
+    <string name="palette_vibrant" comment="Material Design color scheme style name">Vivace</string>
+    <string name="partition">Partizione</string>
+    <string name="paste">Incolla</string>
+    <string name="path">Percorso</string>
+    <string name="permission_denied">Permesso negato</string>
+    <string name="permission_optional">Concedere questi permessi è opzionale!</string>
+    <string name="pick_ashellyou_extension">Scegliere un file con estensione .ashellyou</string>
+    <string name="port">Porta</string>
+    <string name="possible_reasons">Possibili cause</string>
+
+    <string name="pre_release_warning">Le build pre-rilascio possono essere instabili</string>
+    <string name="pre_release_warning_description">Queste versioni sono ancora in fase di test e possono contenere funzionalità incomplete o bug inattesi. Se si sceglie di aggiornare a una pre-release, si prega di essere consapevoli che le cose potrebbero rompere o comportarsi stranamente.\nSe riscontri problemi, crash o comportamenti strani, per favore segnalali in modo da poter risolvere e migliorare aShellYou prima del rilascio stabile.\nGrazie per averci aiutato a migliorare!</string>
+    <string name="preference">Preferenze</string>
+    <string name="preview">Anteprima</string>
+    <string name="product">Prodotto</string>
+    <string name="qr_pair">Accoppiamento con QR</string>
+    <string name="qr_pair_hint">Per abbinare un dispositivo Android 11+, scansiona questo QR dal dispositivo di destinazione</string>
+    <string name="qr_scanner_location_hint">Scansione QR disponibile su:\nOpzioni sviluppatore &gt; Debug wireless &gt; Accoppia dispositivo con codice QR</string>
+    <string name="qs_tiles">Riquadri impostazioni rapide</string>
+    <string name="quick_tools">Strumenti rapidi</string>
+    <string name="reading_file">Lettura del file…</string>
+    <string name="ready_to_paste">Pronto per incollare</string>
+    <string name="reboot_bootloader">Riavvia in Bootloader</string>
+    <string name="reboot_confirm_message">Questo riavvierà il dispositivo connesso in %1$s. Continuare?</string>
+    <string name="reboot_confirm_title">Conferma Riavvio</string>
+    <string name="reboot_fastbootd">Riavvia a Fastbootd</string>
+    <string name="reboot_normal">Reboot</string>
+    <string name="reboot_options">Opzioni riavvio</string>
+    <string name="reboot_recovery">Riavvia in recovery</string>
+    <string name="recent_activity">Attività recenti</string>
+    <string name="recent_searches">Ricerche recenti</string>
+    <string name="recommended">Consigliato</string>
+    <string name="reconnect">Riconnetti</string>
+    <string name="reconnect_failed">Riconnessione fallita</string>
+    <string name="reconnect_failed_message">\nIl debug wireless potrebbe non essere abilitato\nLe informazioni di accoppiamento potrebbero essere perse. Accoppia di nuovo manualmente!</string>
+    <string name="reconnect_failed_requires_pairing">Riconnessione non riuscita. Riaccoppiamento richiesta.</string>
+    <string name="reconnect_success">Riconnessione riuscita</string>
+    <string name="reconnect_the_device">Riconnetti il dispositivo</string>
+    <string name="recovery">Recupero</string>
+    <string name="refresh">Aggiorna</string>
+    <string name="rename">Rinomina</string>
+    <string name="rename_title" comment="%1$s = file or folder name">Rinomina %1$s</string>
+    <string name="replace">Sostituisci</string>
+    <string name="report">Segnala</string>
+    <string name="report_issue">Segnala un problema</string>
+    <string name="repository">Repository</string>
+    <string name="request_timeout">Richiesta scaduta</string>
+    <string name="reset">Resetta</string>
+    <string name="reset_app_settings">Ripristina impostazioni app</string>
+    <string name="reset_settings_failed">Ripristino impostazioni fallito</string>
+    <string name="reset_settings_successful">Ripristino impostazioni riuscito</string>
+    <string name="restore">Ripristina</string>
+    <string name="restore_app_data">Ripristina dati app</string>
+    <string name="restore_dialog_message">I dati nel file salvato sovrascriveranno i dati correnti.</string>
+    <string name="restore_failed">Ripristino non riuscito</string>
+    <string name="restore_from">Ripristina da</string>
+    <string name="restore_successful">Ripristino riuscito</string>
+    <string name="restoring_backup">Ripristino del backup in corso…</string>
+    <string name="retry">Riprova</string>
+    <string name="root_access_granted">Accesso root concesso!</string>
+    <string name="sans_serif" comment="Font style category name">Sans Serif</string>
+    <string name="save">Salva</string>
+    <string name="save_whole_output">Salva tutto l\'output</string>
+    <string name="saved_devices">Dispositivi salvati</string>
+    <string name="saving">Salvataggio…</string>
+    <string name="saving_output">Esportazione dell\' output nel file…</string>
+    <string name="schedule">Pianifica</string>
+    <string name="screen_density_multiplier">Moltiplicatore densità schermo</string>
+    <string name="search">Cerca</string>
+    <string name="search_bookmarks_here">Cerca qui i segnalibri</string>
+    <string name="search_commands_here">Cerca comandi qui</string>
+    <string name="search_fonts">Cerca i font…</string>
+    <string name="search_icons_here">Cerca icone qui</string>
+    <string name="search_labels_here">Cerca etichette qui</string>
+    <string name="search_libraries">Cerca librerie, autori, licenze…</string>
+    <string name="search_output">Cerca l\'output qui</string>
+    <string name="search_settings">Cerca nelle impostazioni</string>
+    <string name="search_something">Cerca qualcosa</string>
+    <string name="search_variables">Cerca variabili…</string>
+    <string name="searching_connect_service">Ricerca servizio di connessione</string>
+    <string name="searching_for_devices">Ricerca dispositivi in corso…</string>
+    <string name="security_patch">Patch Di Sicurezza</string>
+    <string name="select">Seleziona</string>
+    <string name="select_all">Seleziona tutto</string>
+    <string name="select_backup_folder_message">Seleziona una cartella in cui verranno salvati i backup. L\'app necessita di accesso in lettura e scrittura a questa cartella.</string>
+    <string name="select_backup_folder_title">Nessuna cartella di backup</string>
+    <string name="select_folder">Seleziona cartella</string>
+    <string name="select_partition">Seleziona partizione</string>
+    <string name="select_time">Seleziona l\'ora</string>
+    <string name="self" comment="Refers to pairing this device with itself for local ADB">Sé</string>
+    <string name="self_pair_connection_failed">Connessione fallita - prova connessione manuale</string>
+    <string name="self_pair_enter_code">Inserire il codice a 6 cifre dalla finestra di dialogo di accoppiamento</string>
+    <string name="self_pair_enter_code_hint">Inserisci il codice di accoppiamento a 6 cifre</string>
+    <string name="self_pair_error_no_ip">Impossibile determinare l\'indirizzo IP</string>
+    <string name="self_pair_error_saving">Errore nel salvataggio del dispositivo</string>
+    <string name="self_pair_failed">Accoppiamento fallito</string>
+    <string name="self_pair_found">Servizio di accoppiamento trovato!</string>
+    <string name="self_pair_in_progress">Accoppiamento in corso…</string>
+    <string name="self_pair_in_progress_hint">Attendere durante la connessione a questo dispositivo</string>
+    <string name="self_pair_pairing_not_found">Servizio di accoppiamento non trovato</string>
+    <string name="self_pair_searching">Ricerca del servizio di accoppiamento…</string>
+    <string name="self_pair_searching_hint">Apri Debug wireless e tocca \'Abbina dispositivo con codice di accoppiamento\'</string>
+    <string name="self_pair_success">Connesso a questo dispositivo!</string>
+    <string name="self_pair_success_hint">La shell ADB locale è ora disponibile</string>
+    <string name="self_pair_timeout">Timeout - apri la finestra di dialogo di accoppiamento nel Debug wireless</string>
+    <string name="self_pair_wrong_code">Codice errato - riapri la finestra di dialogo di accoppiamento</string>
+    <string name="serial_number">Numero D\'Ordine</string>
+    <string name="serif" comment="Font style category name">Serif</string>
+    <string name="settings">Impostazioni</string>
+
+    <string name="shell_output_saved_message" comment="%s = file path where output was saved">L\'output dell\'ultimo comando è esportato in \'%s\'</string>
+    <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">L\'output della shell è esportato in \'%s\'</string>
+    <string name="shizuku_not_installed">Shizuku non è installato</string>
+    <string name="shizuku_unavailable">Shizuku non è disponibile</string>
+    <string name="shizuku_unavailable_message">Shizuku non è installato o configurato correttamente sul tuo dispositivo</string>
+    <string name="sign_in_failed">Accesso con Google non riuscito</string>
+    <string name="sign_in_with_google">Accedi con Google</string>
+    <string name="sign_out">Disconnetti</string>
+    <string name="sign_out_confirmation_msg">L\'uscita metterà in pausa tutti i backup automatici del cloud!\nVuoi ancora uscire?</string>
+    <string name="signed_in_as" comment="%1$s = user email or name">Accesso eseguito come %1$s</string>
+    <string name="signed_out">Disconnesso</string>
+    <string name="size">Dimensione</string>
+    <string name="skip">Salta</string>
+    <string name="slide_to_flash">Scorri per lampeggiare</string>
+    <string name="slot_data_unknown">Dati dello slot sconosciuti</string>
+    <string name="smooth_scrolling">Scorrimento fluido</string>
+    <string name="sort">Ordina</string>
+
+    <string name="stack_trace">Stack trace</string>
+    <string name="stargazers">Stargazers</string>
+    <string name="start">Iniziare</string>
+    <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">%.1f MB utilizzati dai modelli AI</string>
+    <string name="subtitle">Sottotitolo</string>
+    <string name="subtitle_off_state">Sottotitolo (stato OFF)</string>
+    <string name="subtitle_on_state">Sottotitolo (stato ON)</string>
+    <string name="success">Successo</string>
+    <string name="success_rate">Tasso di successo</string>
+    <string name="successful_connection_message">Dispositivo collegato con successo. Ora puoi avviare comandi in esecuzione sul dispositivo di destinazione.</string>
+    <string name="suggested_icons">Icone consigliate</string>
+    <string name="support_bmc">Ti piace quello che faccio?\nConsidera di offrirmi un caffè</string>
+    <string name="switch_mode">Cambia modalità</string>
+
+    <string name="system_default">Predefinito di sistema</string>
+    <string name="system_font" comment="Option to use the device default font">Font di sistema</string>
+    <string name="system_settings">Impostazioni di sistema</string>
+    <string name="telegram">Telegram</string>
+    <string name="terminal">Terminale</string>
+    <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Stile font del terminale</string>
+    <string name="third_party_libraries">Librerie di terze parti</string>
+    <string name="this_application">Questa applicazione</string>
+    <string name="this_device">Questo dispositivo</string>
+    <string name="tile">Riquadro</string>
+    <string name="tile_behavior">Comportamento riquadro</string>
+    <string name="tile_dashboard_notification_access_message">Attiva le notifiche per essere avvisato ogni volta che l\'esecuzione di un riquadro fallisce</string>
+    <string name="tile_logs">Log riquadro</string>
+    <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">Riquadro %1$d</string>
+    <string name="tile_name">Nome riquadro</string>
+    <string name="tiles">Riquadri</string>
+    <string name="time">Ora</string>
+    <string name="toggleable">Attivabile</string>
+    <string name="total_executions">Esecuzioni totali</string>
+    <string name="translations">Traduzioni</string>
+    <string name="translators">Traduttori</string>
+    <string name="troubleshoot">Risoluzione problemi</string>
+    <string name="troubleshoot_reconnect">Aggiorna la connessione di debug wireless disattivandola/attivandola</string>
+    <string name="try_different_search">Prova un termine di ricerca diverso</string>
+    <string name="turn_off_mobile_data">Disattiva i dati mobili se la connessione Wi-Fi non funziona</string>
+    <string name="tweak_your_experience">Modifica la tua esperienza</string>
+    <string name="type">Tipo</string>
+    <string name="ui_scale">Scala UI</string>
+    <string name="undo">Annulla</string>
+    <string name="unknown">Sconosciuto</string>
+    <string name="unknown_error">Si è verificato un errore sconosciuto</string>
+    <string name="unknown_sources_install_permission_not_granted">Permesso non concesso. Consenti l\'installazione di app da fonti sconosciute.</string>
+    <string name="unlock_status">Sblocca Stato</string>
+    <string name="unlocked">Sbloccato</string>
+    <string name="untitled">Senza Titolo</string>
+    <string name="update">Aggiorna</string>
+    <string name="update_available">Aggiornamento disponibile!</string>
+    <string name="update_channel">Canale aggiornamento</string>
+    <string name="upload_file">Carica file</string>
+    <string name="uploading">Caricamento…</string>
+    <string name="uploading_backup">Caricamento del backup su Google Drive…</string>
+    <string name="usb_manager_unavailable">Gestore USB non disponibile su questo dispositivo</string>
+    <string name="use">Usa</string>
+    <string name="utilities">Utilità</string>
+    <string name="variant">Variante</string>
+    <string name="version">Versione</string>
+    <string name="version_code">Codice versione</string>
+    <string name="version_name">Nome versione</string>
+    <string name="view_license_online_msg">Tocca \'Apri URL\' per visualizzare la licenza online.</string>
+    <string name="view_on_github">Visualizza su GitHub</string>
+    <string name="visit_repo_to_download">Fare clic sul pulsante download per ottenere l\'ultima versione di aShellYou dal repository github.</string>
+    <string name="waiting_for_device">In attesa del dispositivo</string>
+    <string name="waiting_for_devices">In attesa del dispositivo…</string>
+    <string name="want_to_contribute_too">Vuoi contribuire anche tu?</string>
+
+    <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">Cosa vorresti fare mentre %1$s?</string>
+    <string name="whats_new">Novità!</string>
+    <string name="which_device_to_pair">Quale dispositivo vorresti abbinare?</string>
+    <string name="wifi_adb">WiFi ADB</string>
+    <string name="wifi_connection_required">Per utilizzare la funzione di debug wireless, il dispositivo deve essere connesso a una rete Wi-Fi. Se la tua connessione Wi-Fi non ha accesso a Internet, disattiva i dati mobili per una connessione Wi-Fi stabile.</string>
+    <string name="wipe_cache_desc">fastboot erase cache</string>
+    <string name="wipe_cache_title">Erase Cache</string>
+    <string name="wipe_data">Cancella dati</string>
+    <string name="wipe_data_description">Cancella partizioni sul tuo dispositivo. Seleziona quale partizione cancellare.</string>
+    <string name="wipe_metadata_desc">fastboot cancella i metadati</string>
+    <string name="wipe_metadata_title">Cancella Metadati</string>
+    <string name="wipe_userdata_desc">fastboot cancella dati utente</string>
+    <string name="wipe_userdata_title">Cancella Dati Utente</string>
+    <string name="wipe_warning">Queste operazioni sono irreversibili. Procedere con cautela.</string>
+    <string name="wireless_debugging_guide_1">Vai alle opzioni Sviluppatore &gt; Debug wireless. Tocca su Abbina dispositivo con codice di accoppiamento.</string>
+    <string name="wireless_debugging_guide_2">Inserisci il codice di accoppiamento a sei cifre nella notifica inviata da aShell You.</string>
+    <string name="wireless_debugging_guide_3">Torna all\'app e clicca sul pulsante \"Start\" nella schermata home.</string>
+    <string name="wireless_debugging_important_notice">Si prega di notare che la parte sinistra dell\'opzione di debug wireless è cliccabile. Toccando su di essa aprirà il menu di accoppiamento debug wireless.</string>
+    <string name="changelog_v7_4_0">\nOra puoi cercare sotto-impostazioni nelle schermata delle impostazioni\nAggiunti stili di tavolozza per schemi di colori\nAggiunta l\'opzione per impostare la lingua delle app direttamente nell\'app</string>
+    <string name="changelog_v7_3_0">\nMigliorata l\'interfaccia utente nella schermata di changelog\nAggiunti i collaboratori di traduzione nella sezione\nAggiunta la schermata Licenze che mostra informazioni dettagliate sulla licenza dell\'app e altre librerie utilizzate dall\'app</string>
+    <string name="changelog_v7_2_1">\nAggiornamento di manutenzione!</string>
+    <string name="changelog_v7_2_0">\nAggiunta l\'opzione per eseguire i comandi adb da Quick Settings Tiles aggiungendo tile personalizzati.\nAggiunta l\'opzione per il backup su cloud (Google Drive). Questa funzione è presente solo nelle build di GitHub.\nSchema di colori migliorato e UI e UX in molte aree.\nAggiunto molto più esempi di comando ADB.</string>
+    <string name="changelog_v7_1_0">\nRisolto un problema in cui la tastiera inglese potrebbe non apparire in input di comando nel caso in cui l\'utente imposta un locale diverso dall\'inglese per l\'app\nRisolto un problema con l\'icona Mail che non mostra correttamente\nRisolto un problema che ha causato l\'arresto dell\'app durante il tentativo di salvare enormi uscite di file\nRimosso i permessi ridondanti\nMigliorata l\'interfaccia utente nella sezione Informazioni</string>
+    <string name="changelog_v7_0_1">\nFastlane fix</string>
+    <string name="changelog_v7_0_0">\nIntera UI revisionata, utilizzando i componenti espressivi materiali\nRicrascritto tutto il codebase in Kotlin e Jetpack Componi come interfaccia utente Framework\nAggiunto push &amp; pull basato sul gestore file\nAggiunto QR Wifi Adb Pairing mode\nAggiunta le impostazioni delle app e le opzioni di backup del database\nAggiunta le opzioni di tema personalizzato\nAggiunta la cronologia dei crash delle app per visualizzare i crash log\nMigliorata la funzione di aggiornamento automatico\nMigliorata l\'interfaccia utente &amp; UX in output di shell\nAggiunti i permessi Android suggerimenti\nRevamped esempi di comando layout per includere le etichette\nAggiunta l\'opzione di Add, Modifica o Elimina comandi come desideri\nMolti bug esistenti sono ora risolti</string>
+    <string name="changelog_v6_1_0">\nOra la ricerca dei comandi può cercare i comandi che contengono la parola che hai digitato rispetto alle versioni precedenti dove ha cercato solo i comandi che iniziano con la parola digitata.\nOpzione per aprire l\'app Shizuku direttamente quando Shizuku è installato ma non in esecuzione.\nCorretto il crash reporter.</string>
+    <string name="changelog_v6_0_3">\nRisolto il problema che ha causato la rottura delle traduzioni per ogni app per aShell You</string>
+    <string name="changelog_v6_0_2">\nAzioni Github adattate per le versioni di rilascio.\nChe cosa significa per te?\nTutte le versioni successive, incluso questo sarà più sicuro!</string>
+    <string name="changelog_v6_0_1">\nAggiornamento di manutenzione</string>
+    <string name="changelog_v6_0_0">\nAggiunta la modalità Debug Wireless per l\'esecuzione di comandi ADB su entrambi i dispositivi\nHomepage ridisegnata per una navigazione minima e meno ingombrante schermata di campo di input\nAggiunto il feedback di avviso quando si eseguono comandi che coinvolgono pacchetti di sistema critici\nAggiunto l\'aggiornamento in-app. Ora puoi scaricare direttamente l\'ultimo pacchetto senza visitare il repository Github\nCorretto molti bug</string>
+    <string name="changelog_v5_2_1">\nAggiornamento di manutenzione</string>
+    <string name="changelog_v5_2_0">\nMiglioramenti dell\'interfaccia utente\nRisolti alcuni bug</string>
+    <string name="changelog_v5_1_0">\nPiccoli miglioramenti della UI</string>
+    <string name="changelog_v5_0_0">\nEnormi miglioramenti UI e UX in tutte le sezioni dell\'app\nAggiunta la shell ROOT e BASIC in aggiunta alla shell Shizuku per l\'esecuzione dei comandi\nAggiunta l\'opzione per salvare l\'output nella directory\nRisolto molti bug e problemi\nIl codice dell\'app ottimizzato per migliorare le prestazioni e la stabilità</string>
+    <string name="changelog_v4_4_0">\nAggiunta la vibrazione per il feedback tattile\nAggiunta l\'opzione per cambiare la lingua dell\'app dall\'interno dell\'app (per i dispositivi che eseguono solo Android 13 e oltre ed escludendo i dispositivi non supportati)\nRisolto alcuni crash e migliorato il reporting dei crash\nMinori miglioramenti dell\'interfaccia utente</string>
+    <string name="changelog_v4_3_1">\nOra l\'app cattura qualsiasi crash e fornisce l\'opzione di segnalarl via email</string>
+    <string name="changelog_v4_3_0">\nAggiunta l\'opzione per aprire direttamente l\'output salvato\nAggiunta l\'opzione per salvare l\'intero output o l\'ultimo output del comando solo\nCorretti crash</string>
+    <string name="changelog_v4_2_1">\nRisolto un problema con la condivisione del testo su aShell You dove il testo non è apparso quando l\'app stava partendo da zero\nRisolti problemi minori di UI</string>
+    <string name="changelog_v4_2_0">\nRilascio stabile della modalità OTG\nAggiunte funzionalità come salvare, condividere, tasti di scorrimento rapido alla modalità OTG\nAggiunte schede informative per informazioni rapide\nAggiunto controllo aggiornamenti in-app insieme all\'opzione per controllare automaticamente gli aggiornamenti\nMiglioramenti minori alla UI</string>
+    <string name="changelog_v4_1_0">\nRisolti alcuni problemi nel supporto adb via OTG\nTraduzioni aggiornate</string>
+    <string name="changelog_v4_0_3">\nDipendenze aggiornate\nAggiunti altri esempi di comando</string>
+    <string name="changelog_v4_0_2">\nRisolto tema AMOLED non funzionante su dispositivi che eseguono Android 11 o inferiore</string>
+    <string name="changelog_v4_0_1">\nOra puoi fissare in alto i comandi per un rapido accesso\n\nCorrezioni di bug e molte ottimizzazioni del codice</string>
+    <string name="changelog_v4_0_0">\nOra è possibile utilizzare direttamente i comandi dalla sezione Comandi invece della necessità di copiarli ogni volta\n\nAggiunta l\'opzione per eliminare tutti i segnalibri\nRicerca: È ora possibile cercare nel sommario dei comandi facendo clic su un prompt\nAggiunta le opzioni di ordinamento nei modelli dei Comandi\nAggiunta l\'opzione per contrassegnare direttamente gli elementi selezionati nella sezione Comandi\nIndicatore Chip mostra il dispositivo connesso (attualmente solo in modalità ADB locale)\nCorretti bug che causano crash nei dispositivi che eseguono Android 11 o inferiore\nAggiunta traduzione turca\nMiglioramenti minori dell\'interfaccia\nMoltre altre correzioni di bug</string>
+    <string name="changelog_v3_9_1">\nAggiunto il conteggio totale dei segnalibri\nRisolti alcuni bug</string>
+    <string name="changelog_v3_9_0">\nAggiunta ricerca nella sezione comandi\nAggiunta l\'opzione per impostare la modalità di lavoro predefinita\nAnimazioni migliorate\nSezione di segnalibri rielaborata e aggiunte opzioni di ordinamento\nLimite di segnalibri aumentato a 25\nRimosso launcher per scorciatoia alla shell ADB e aggiunto launcher per la scorciatoia Comandi\nRisolti problemi di padding nella navigazione dei pulsanti\nRisolte forme di alcuni pulsanti</string>
+    <string name="changelog_v3_8_2">\nApp utilizza una tavolozza di colori più aggiornata per il tema material\nCorretti bug minori</string>
+    <string name="changelog_v3_8_1">\nRisolti alcuni crash che sono stati introdotti nella v3.8.0</string>
+    <string name="changelog_v3_8_0">\nAggiunto il tema nero (amoled)\nAggiunto il pulsante di annullamento per la funzione incolla\nAggiunta l\'opzione per disabilitare la tastiera a schermo\nCorretti pulsanti allungati in alcune dimensioni dello schermo\nCorretto pulsante per i segnalibri che non apparirà dopo l\'apertura dell\'app\nSezione Esempi rinominati ai comandi\nCorretta opzione di copia comando che non appare per ogni modello di comando\nL\'app ora utilizza il carattere di sistema ovunque\nGestione UI migliorata\nTraduzioni aggiornate</string>
+    <string name="changelog_v3_7_0">\nOra puoi condividere testi da qualsiasi parte del tuo dispositivo su aShell You ed eseguire comandi direttamente.\nOra puoi condividere direttamente l\'output della shell senza dover salvarlo!\nMolte ottimizzazioni e miglioramenti della UI.\nAggiunte traduzioni cinesi.\nTraduzioni aggiornate.</string>
+    <string name="changelog_v3_6_0">\nAggiunta l\'opzione per cancellare il campo di input del comando dopo un errore\nRisolto un bug che ha causato l\'arresto dell\'app quando si incolla dagli appunti in determinate condizioni\nOttimizzazioni del codice</string>
+    <string name="changelog_v3_5_1">\nRisolti alcuni problemi con la navigazione in basso.</string>
+    <string name="changelog_v3_5_0">\nSezione \"Informazioni\" dell\'app rinnovata.\nAggiunte scorciatoie del launcher.\nRisolto il problema di visualizzazione del menu di navigazione con la navigazione tramite pulsanti.\nMigliorata la visibilità del menu di navigazione inferiore durante lo scorrimento.\nAggiunto il supporto per la lingua specifica dell\'app per aShell You (le traduzioni non sono ancora complete).\nNumerose ottimizzazioni del codice.</string>
+    <string name="changelog_v3_4_0">\nAggiunto un pulsante \"Incolla\" per copiare e incollare rapidamente i comandi.\nAggiunti indicatori di errore nel campo di inserimento del testo.\nMigliorata la logica di visibilità della barra di navigazione.\nRisolto un problema di funzionamento anomalo degli interruttori in determinate situazioni.\nCorretta la visibilità dell\'icona per aggiungere segnalibri con diversi livelli di contrasto.\nNumerose ottimizzazioni del codice: l\'app ora si avvia molto più velocemente di prima.\nL\'app rimarrà in background e non si riavvierà ogni volta che la si chiude semplicemente premendo il tasto \"Indietro\" o utilizzando la relativa gesture.</string>
+    <string name="changelog_v3_3_0">\nAggiunti segnalibri, cronologia e suggerimenti di comando a OTG.\nAggiunto un limite massimo per i segnalibri.\nAggiunta un\'opzione per superare il limite massimo di segnalibri.\nNumerose correzioni di bug.\nMigliorata la gestione di alcuni elementi dell\'interfaccia utente.\nNotevole ottimizzazione del codice.</string>
+    <string name="changelog_v3_2_0">\nMolti miglioramenti relativi alla UI.\nAggiunti chip che indicano la modalità corrente di lavoro con ADB.\nMolte ottimizzazioni del codice.</string>
+    <string name="changelog_v3_1_0">\nMiglioramenti ad ADB OTG dopo il rilascio iniziale.\nAlcune modifiche UI e logiche per ospitare la nuova funzione OTG.</string>
+    <string name="changelog_v3_0_0">\nAggiunto il supporto ADB attraverso OTG.\n\n*** Sarai in grado di eseguire comandi ADB su altri dispositivi utilizzando aShellYou collegando l\'altro dispositivo con un cavo OTG ***</string>
+    <string name="changelog_v2_0_2">\nRimosso codice e risorse inutili.\nModifiche minori alla UI.</string>
+    <string name="changelog_v2_0_1">\nRimosso codice e risorse inutili.\nModifiche minori alla UI.</string>
+    <string name="changelog_v2_0_0">\nNome dell\'app cambiato in aShell You.\nAggiunte animazioni predittive per il gesto \"indietro\" sui dispositivi compatibili.\nInserita una finestra di conferma prima di cancellare lo schermo.\nRisolto il problema di visibilità degli elementi della barra di stato in modalità chiara.\nL\'app è ora molto più fluida.\n~ Ridotte le dimensioni dell\'app e ottimizzato il codice.\nAggiunta un\'icona a tema per i launcher che le supportano.\nPiccole modifiche all\'interfaccia utente.</string>
+    <string name="changelog_v1_3_0">\nPannello impostazioni revisionato.\nAggiunto Doppio Tocco per scorrere istantaneamente in posizioni in alto e in basso nella vista output shell.\nCorrezioni UI minori.</string>
+    <string name="changelog_v1_2_0">\nAggiunto pannello delle impostazioni.\nAggiunta l\'opzione per disabilitare lo scorrimento fluido nell\'output della shell.\nCorretti bug critici:\n\n ~ Arresto anomalo durante la modifica del tema del dispositivo.\n\n ~ Arresto anomalo durante il salvataggio di output della shell di grandi dimensioni. es : output del comando \'pm\'.</string>
+    <string name="changelog_v1_1_1">\nSostituite alcune API deprecate.\nModifiche minori della UI.</string>
+    <string name="changelog_v1_1_0">\nAggiunti i pulsanti per scorrere in cima e in fondo.\nAggiunta la possibilità di inviare il comando premendo il tasto Invio.\nAggiunti alcuni comandi.\nAggiornate le dipendenze per includere la versione più recente della libreria Material You.\nModifiche minori all\'interfaccia utente.</string>
+    <string name="changelog_v1_0_0">\nAggiunti ulteriori esempi di comandi.\nModifiche minori all\'interfaccia utente.\nModificato il nome del pacchetto per evitare confusione di versione con l\'app originale.</string>
+    <string name="changelog_v0_9_1">\nAggiunti i changelogs nell\'app.\nAggiunto output di shell evidenziato.\nModifiche minori della UI.</string>
+    <string name="changelog_v0_9_0">\nAggiunto tema material dinamico.\nRevisionata intera interfaccia utente per dare un aspetto fresco.</string>
+</resources>

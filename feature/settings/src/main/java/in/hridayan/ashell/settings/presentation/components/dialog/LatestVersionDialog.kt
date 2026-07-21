@@ -29,8 +29,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import `in`.hridayan.ashell.BuildConfig
-import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.common.R as CommonR
+import `in`.hridayan.ashell.core.ui.R as UiR
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -41,16 +41,12 @@ import `in`.hridayan.ashell.core.presentation.utils.syncedRotationAndScale
 @Composable
 fun LatestVersionDialog(onDismiss: () -> Unit) {
     val (angle, scale) = syncedRotationAndScale()
-    val appVersionName = stringResource(R.string.version_name) + ": " + BuildConfig.VERSION_NAME
+    val context = androidx.compose.ui.platform.LocalContext.current
+    val appVersionName = stringResource(CommonR.string.version_name) + ": " + (context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: "unknown")
 
-    @Suppress("KotlinConstantConditions")
-    val flavorDisplay = when (BuildConfig.FLAVOR) {
-        BuildConfig.DIST_FLAVOR_GITHUB -> "GitHub"
-        BuildConfig.DIST_FLAVOR_FDROID -> "F-Droid"
-        else -> stringResource(R.string.unknown)
-    }
+    val flavorDisplay = "GitHub"
 
-    val appVersionCode = stringResource(R.string.variant) + ": " + flavorDisplay
+    val appVersionCode = stringResource(CommonR.string.variant) + ": " + flavorDisplay
 
     DialogContainer(onDismiss = onDismiss) {
         Box(
@@ -70,7 +66,7 @@ fun LatestVersionDialog(onDismiss: () -> Unit) {
                     .background(MaterialTheme.colorScheme.primaryContainer)
             )
             Icon(
-                painter = painterResource(R.drawable.ic_verified),
+                painter = painterResource(UiR.drawable.ic_verified),
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onPrimaryContainer,
                 modifier = Modifier.size(48.dp)
@@ -78,7 +74,7 @@ fun LatestVersionDialog(onDismiss: () -> Unit) {
         }
 
         Text(
-            text = stringResource(R.string.already_latest_version),
+            text = stringResource(CommonR.string.already_latest_version),
             style = MaterialTheme.typography.titleSmallEmphasized,
             textAlign = TextAlign.Center,
             modifier = Modifier

@@ -75,7 +75,7 @@ import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.airbnb.lottie.compose.rememberLottieDynamicProperties
 import com.airbnb.lottie.compose.rememberLottieDynamicProperty
-import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.commandexamples.presentation.component.row.Labels
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
 import `in`.hridayan.ashell.core.common.LocalDialogManager

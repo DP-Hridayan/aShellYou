@@ -40,7 +40,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.logcat.domain.model.DefaultIncludeLevels
 import `in`.hridayan.ashell.logcat.domain.model.FilterMode
 import `in`.hridayan.ashell.logcat.domain.model.LogFilter

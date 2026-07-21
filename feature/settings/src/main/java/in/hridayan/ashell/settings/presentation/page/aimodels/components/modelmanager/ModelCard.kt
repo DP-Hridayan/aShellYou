@@ -43,7 +43,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.ai.presentation.model.DownloadProgress
 import `in`.hridayan.ashell.ai.presentation.model.ModelCardState
 import `in`.hridayan.ashell.ai.presentation.viewmodel.AiModelManagerViewModel.ModelUiState
@@ -214,9 +214,10 @@ fun ModelCard(
             }
 
             // Error message
-            if (state.cardState == ModelCardState.ERROR && state.errorMessage != null) {
+            val errorMessage = state.errorMessage
+            if (state.cardState == ModelCardState.ERROR && errorMessage != null) {
                 Text(
-                    text = state.errorMessage,
+                    text = errorMessage,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.error,
                     modifier = Modifier.padding(bottom = 8.dp)

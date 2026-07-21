@@ -42,8 +42,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.BuildConfig
-import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.ui.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
@@ -62,7 +61,7 @@ import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDial
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import `in`.hridayan.ashell.settings.presentation.state.rememberController
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
-import `in`.hridayan.ashell.ui.bottomsheet.UpdateBottomSheet
+import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.UpdateBottomSheet
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
 import `in`.hridayan.settingsdsl.ui.item.settingsContent
@@ -81,7 +80,7 @@ fun AutoUpdateScreen(
     val controller = settingsViewModel.rememberController()
     var showLoading by rememberSaveable { mutableStateOf(false) }
     var showUpdateSheet by rememberSaveable { mutableStateOf(false) }
-    var tagName by rememberSaveable { mutableStateOf(BuildConfig.VERSION_NAME) }
+    var tagName by rememberSaveable { mutableStateOf(context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: "") }
     var apkUrl by rememberSaveable { mutableStateOf("") }
     var changelog by rememberSaveable { mutableStateOf("") }
     val networkError = stringResource(R.string.network_error)
@@ -208,7 +207,7 @@ fun AutoUpdateScreen(
                 showLoading = showLoading,
                 expanded = expanded,
                 onClick = withHaptic {
-                    autoUpdateViewModel.checkForUpdates()
+                    autoUpdateViewModel.checkForUpdates(context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: " ")
                     showLoading = true
                 },
             )

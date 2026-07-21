@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import `in`.hridayan.ashell.commandexamples.presentation.component.chip.LabelChip
+import `in`.hridayan.ashell.core.presentation.components.chip.LabelChip
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
 import kotlin.math.max
 

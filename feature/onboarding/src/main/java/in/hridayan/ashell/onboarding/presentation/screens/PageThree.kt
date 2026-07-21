@@ -12,11 +12,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope.align
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope.align
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope.weight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -60,7 +57,9 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
-import `in`.hridayan.ashell.core.common.R
+import `in`.hridayan.ashell.core.common.R as CommonR
+import `in`.hridayan.ashell.core.ui.R
+import `in`.hridayan.ashell.onboarding.presentation.viewmodel.OnboardingViewModel
 import `in`.hridayan.ashell.core.common.constants.SHIZUKU_PACKAGE_NAME
 import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode
@@ -75,9 +74,7 @@ import `in`.hridayan.ashell.core.utils.isAppInstalled
 import `in`.hridayan.ashell.core.utils.launchApp
 import `in`.hridayan.ashell.onboarding.presentation.component.shape.DecorativeShape
 import `in`.hridayan.ashell.onboarding.presentation.component.shape.MainCard
-import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
-import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
-import `in`.hridayan.ashell.shell.local_adb_shell.presentation.components.dialog.ShizukuUnavailableDialog
+import `in`.hridayan.ashell.core.presentation.components.dialog.ShizukuUnavailableDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -86,8 +83,7 @@ import rikka.shizuku.Shizuku
 @Composable
 fun PageThree(
     modifier: Modifier = Modifier, pagerState: PagerState,
-    shellViewModel: ShellViewModel = hiltViewModel(),
-    settingsViewModel: SettingsViewModel = hiltViewModel()
+    viewModel: OnboardingViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val res = LocalResources.current
@@ -97,7 +93,7 @@ fun PageThree(
     val scaleMainShape = remember { Animatable(0.75f) }
 
     var rootCardChecked by rememberSaveable { mutableStateOf(false) }
-    val hasShizukuPermission by shellViewModel.shizukuPermissionState.collectAsState()
+    val hasShizukuPermission by viewModel.shizukuPermissionState().collectAsState()
     var showShizukuUnavailableDialog by rememberSaveable { mutableStateOf(false) }
     var isShizukuInstalled by rememberSaveable {
         mutableStateOf(context.isAppInstalled(SHIZUKU_PACKAGE_NAME))
@@ -134,7 +130,7 @@ fun PageThree(
     DisposableEffect(rootCardChecked, hasShizukuPermission) {
         onDispose {
             if (rootCardChecked) {
-                settingsViewModel.setInt(
+                viewModel.setInt(
                     SettingsKeys.LocalAdbWorkingMode,
                     LocalAdbWorkingMode.ROOT
                 )
@@ -143,7 +139,7 @@ fun PageThree(
             }
 
             if (hasShizukuPermission) {
-                settingsViewModel.setInt(
+                viewModel.setInt(
                     SettingsKeys.LocalAdbWorkingMode,
                     LocalAdbWorkingMode.SHIZUKU
                 )
@@ -260,19 +256,19 @@ fun PageThree(
 
             PermissionCard(
                 isChecked = rootCardChecked,
-                title = stringResource(R.string.root),
+                title = stringResource(CommonR.string.root),
                 description = stringResource(R.string.mode_one_desc),
                 onClick = withHaptic {
                     scope.launch {
                         val hasRoot = withContext(Dispatchers.IO) {
-                            shellViewModel.hasRootAccess()
+                            viewModel.hasRootAccess()
                         }
                         rootCardChecked = hasRoot
 
                         if (!rootCardChecked) {
                             makeToast(context, res.getString(R.string.no_root_access))
                         } else {
-                            shellViewModel.runRootCommand()
+                            viewModel.executeRootCommand("id")
                         }
                     }
                 }
@@ -280,7 +276,7 @@ fun PageThree(
 
             PermissionCard(
                 isChecked = hasShizukuPermission,
-                title = stringResource(R.string.shizuku),
+                title = stringResource(CommonR.string.shizuku),
                 description = stringResource(R.string.mode_two_desc),
                 onClick = withHaptic {
                     if (!Shizuku.pingBinder()) {
@@ -288,7 +284,7 @@ fun PageThree(
                         return@withHaptic
                     }
                     if (!hasShizukuPermission) {
-                        shellViewModel.requestShizukuPermission()
+                        viewModel.requestShizukuPermission()
                     }
                 }
             )
