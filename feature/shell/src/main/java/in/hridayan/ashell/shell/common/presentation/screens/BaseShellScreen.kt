@@ -360,6 +360,7 @@ fun BaseShellScreen(
 
                     BottomExtendedFAB(
                         listState = listState,
+                        scrollDirection = scrollDirection,
                         dialogManager = dialogManager,
                     )
                 }
@@ -1116,6 +1117,7 @@ private fun ShareFAB(
 private fun BottomExtendedFAB(
     modifier: Modifier = Modifier,
     listState: LazyListState,
+    scrollDirection: ScrollDirection,
     dialogManager: DialogViewModel,
     shellViewModel: ShellViewModel = hiltViewModel()
 ) {
@@ -1126,21 +1128,45 @@ private fun BottomExtendedFAB(
     val savePath = LocalSettings.current[SettingsKeys.OutputSaveDirectory].toUri()
     val saveWholeOutput = LocalSettings.current[SettingsKeys.SaveWholeOutput]
 
-    var lastScrollOffset by remember { mutableIntStateOf(0) }
+    val isOutputEmpty = states.output.isEmpty()
 
-    val expanded by remember {
+    val isFitsOnScreen by remember(isOutputEmpty) {
         derivedStateOf {
-            listState.shouldFabExpand(states.output, lastScrollOffset) {
-                lastScrollOffset = it
+            if (isOutputEmpty) return@derivedStateOf true
+            
+            val info = listState.layoutInfo
+            val visible = info.visibleItemsInfo
+            val lastVisible = visible.lastOrNull()
+            
+            if (info.totalItemsCount == 0 || lastVisible == null) {
+                true
+            } else {
+                val allItemsVisible = info.totalItemsCount == visible.size
+                val lastBottom = lastVisible.offset + lastVisible.size
+                allItemsVisible && lastBottom <= info.viewportEndOffset
+            }
+        }
+    }
+
+    var expanded by remember { mutableStateOf(true) }
+
+    LaunchedEffect(isFitsOnScreen, scrollDirection) {
+        if (isFitsOnScreen) {
+            expanded = true
+        } else {
+            when (scrollDirection) {
+                ScrollDirection.UP -> expanded = true
+                ScrollDirection.DOWN -> expanded = false
+                ScrollDirection.NONE -> {}
             }
         }
     }
 
     val icon =
-        if (states.output.isEmpty()) painterResource(R.drawable.ic_paste) else painterResource(R.drawable.ic_save)
+        if (isOutputEmpty) painterResource(R.drawable.ic_paste) else painterResource(R.drawable.ic_save)
 
     val buttonText =
-        if (states.output.isEmpty()) stringResource(R.string.paste) else stringResource(R.string.save)
+        if (isOutputEmpty) stringResource(R.string.paste) else stringResource(R.string.save)
 
     val saveAction: () -> Unit = {
         // Show dialog immediately in saving state
@@ -1188,34 +1214,4 @@ private fun BottomExtendedFAB(
         }
     )
 }
-
-private fun LazyListState.shouldFabExpand(
-    results: List<CommandResult>,
-    lastScrollOffset: Int,
-    onScrollOffsetChanged: (Int) -> Unit
-): Boolean {
-    val currentOffset = firstVisibleItemIndex * 1000 + firstVisibleItemScrollOffset
-    val isScrollingUp = currentOffset < lastScrollOffset
-    val isScrollingDown = currentOffset > lastScrollOffset
-    onScrollOffsetChanged(currentOffset)
-
-    val info = layoutInfo
-    val visible = info.visibleItemsInfo
-    val lastVisible = visible.lastOrNull()
-
-    val fitsOnScreen = if (info.totalItemsCount == 0 || lastVisible == null) {
-        true
-    } else {
-        val allItemsVisible = info.totalItemsCount == visible.size
-        val lastBottom = lastVisible.offset + lastVisible.size
-        allItemsVisible && lastBottom <= info.viewportEndOffset
-    }
-
-    return when {
-        results.isEmpty() -> true
-        fitsOnScreen -> true
-        isScrollingUp -> true
-        isScrollingDown -> false
-        else -> false
-    }
-}
+
