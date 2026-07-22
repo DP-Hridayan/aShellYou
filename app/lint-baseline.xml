@@ -2,127 +2,17 @@
 <issues format="6" by="lint 9.2.1" type="baseline" client="gradle" dependencies="false" name="AGP (9.2.1)" variant="all" version="9.2.1">
 
     <issue
-        id="AndroidGradlePluginVersion"
-        message="A newer version of com.android.application than 9.2.1 is available: 9.3.0"
-        errorLine1="agp = &quot;9.2.1&quot;"
-        errorLine2="      ~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="3"
-            column="7"/>
-    </issue>
-
-    <issue
-        id="AndroidGradlePluginVersion"
-        message="A newer version of com.android.library than 9.2.1 is available: 9.3.0"
-        errorLine1="agp = &quot;9.2.1&quot;"
-        errorLine2="      ~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="3"
-            column="7"/>
-    </issue>
-
-    <issue
-        id="AndroidGradlePluginVersion"
-        message="A newer version of com.android.tools.build:gradle than 9.2.1 is available: 9.3.0"
-        errorLine1="agp = &quot;9.2.1&quot;"
-        errorLine2="      ~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="3"
-            column="7"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of org.bouncycastle:bcprov-jdk15to18 than 1.85 is available: 1.85.1"
-        errorLine1="bcprovJdk15to18 = &quot;1.85&quot;"
-        errorLine2="                  ~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="7"
-            column="19"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of com.google.http-client:google-http-client-gson than 2.1.1 is available: 2.2.0"
-        errorLine1="googleHttpClientGson = &quot;2.1.1&quot;"
-        errorLine2="                       ~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="18"
-            column="24"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of dev.rikka.shizuku:api than 13.1.0 is available: 13.1.5"
-        errorLine1="shizuku = &quot;13.1.0&quot;"
-        errorLine2="          ~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="42"
-            column="11"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of dev.rikka.shizuku:provider than 13.1.0 is available: 13.1.5"
-        errorLine1="shizuku = &quot;13.1.0&quot;"
-        errorLine2="          ~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="42"
-            column="11"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of com.mikepenz.aboutlibraries.plugin than 15.0.3 is available: 15.0.4"
-        errorLine1="aboutlibraries = &quot;15.0.3&quot;"
-        errorLine2="                 ~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="50"
-            column="18"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of com.mikepenz:aboutlibraries-core than 15.0.3 is available: 15.0.4"
-        errorLine1="aboutlibraries = &quot;15.0.3&quot;"
-        errorLine2="                 ~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="50"
-            column="18"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of com.github.skydoves.compose.stability.analyzer than 0.10.0 is available: 0.11.0"
-        errorLine1="compose-stability-analyzer = &quot;0.10.0&quot;"
-        errorLine2="                             ~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="51"
-            column="30"/>
-    </issue>
-
-    <issue
         id="TrustAllX509TrustManager"
         message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.6.1/transforms/3318bad3d58e7af52802421516667e76/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.6.1/transforms/a8b2401a70029e0c03bad01ae5991867/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
         id="TrustAllX509TrustManager"
         message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.6.1/transforms/3318bad3d58e7af52802421516667e76/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.6.1/transforms/a8b2401a70029e0c03bad01ae5991867/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
