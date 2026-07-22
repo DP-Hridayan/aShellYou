@@ -366,6 +366,10 @@ fun <T> SelectionHandlesOverlay(
     val edgeThresholdPx = with(density) { autoScrollEdgeThreshold.toPx() }
     val scrollSpeedPx = with(density) { autoScrollSpeed.toPx() }
 
+    // The non-dragged handle's (line, offset) — captured on drag-start,
+    // read by onDragTo so the anchor stays fixed even when handles cross.
+    val dragAnchor = remember { Ref<Pair<Int, Int>?>(null) }
+
     val startPos = computeHandleOffset(selectionState, normalized.startLine, normalized.startOffset)
     val endPos = computeHandleOffset(selectionState, normalized.endLine, normalized.endOffset)
 
@@ -408,20 +412,42 @@ fun <T> SelectionHandlesOverlay(
                         !(selectionState.toolbarVisible && selectionState.toolbarPinnedEnd == SelectionEnd.START)
                     selectionState.toolbarPinnedEnd = SelectionEnd.START
                 },
-                onDragStart = { selectionState.toolbarVisible = false },
+                onDragStart = {
+                    val norm = selectionState.selection?.normalized()
+                    dragAnchor.value = norm?.let { it.endLine to it.endOffset }
+                    selectionState.toolbarVisible = false
+                },
                 onDragEnd = {
-                    selectionState.toolbarPinnedEnd = SelectionEnd.START
+                    val finalSel = selectionState.selection
+                    // After crossover the dragged position is the normalized
+                    // end, so pin the toolbar there; otherwise keep it at START.
+                    selectionState.toolbarPinnedEnd =
+                        if (finalSel != null && finalSel != finalSel.normalized()) SelectionEnd.END
+                        else SelectionEnd.START
                     selectionState.toolbarVisible = true
+                    dragAnchor.value = null
                 },
                 onDragTo = { rawPos ->
                     val global = rawPos + selectionState.containerWindowOrigin
                     val result = findLineOffsetOrNearestEdge(selectionState, global)
-                    result?.let { (line, offset) ->
+                    val anchor = dragAnchor.value
+                    if (result != null && anchor != null) {
+                        // Dragged position = start, anchor = end.
+                        // Normalization swaps them for display if they cross.
+                        selectionState.selection = LineSelection(
+                            startLine = result.first,
+                            startOffset = result.second,
+                            endLine = anchor.first,
+                            endOffset = anchor.second,
+                        )
+                    } else if (result != null) {
+                        // Fallback before anchor is captured (loopJob fires
+                        // before onDragStart on the very first frame).
                         updateSelectionForVisualHandle(
                             selectionState,
                             isStartVisual = true,
-                            line = line,
-                            offset = offset
+                            line = result.first,
+                            offset = result.second
                         )
                     }
                 },
@@ -441,20 +467,41 @@ fun <T> SelectionHandlesOverlay(
                         !(selectionState.toolbarVisible && selectionState.toolbarPinnedEnd == SelectionEnd.END)
                     selectionState.toolbarPinnedEnd = SelectionEnd.END
                 },
-                onDragStart = { selectionState.toolbarVisible = false },
+                onDragStart = {
+                    val norm = selectionState.selection?.normalized()
+                    dragAnchor.value = norm?.let { it.startLine to it.startOffset }
+                    selectionState.toolbarVisible = false
+                },
                 onDragEnd = {
-                    selectionState.toolbarPinnedEnd = SelectionEnd.END
+                    val finalSel = selectionState.selection
+                    // After crossover the dragged position is the normalized
+                    // start, so pin the toolbar there; otherwise keep it at END.
+                    selectionState.toolbarPinnedEnd =
+                        if (finalSel != null && finalSel != finalSel.normalized()) SelectionEnd.START
+                        else SelectionEnd.END
                     selectionState.toolbarVisible = true
+                    dragAnchor.value = null
                 },
                 onDragTo = { rawPos ->
                     val global = rawPos + selectionState.containerWindowOrigin
                     val result = findLineOffsetOrNearestEdge(selectionState, global)
-                    result?.let { (line, offset) ->
+                    val anchor = dragAnchor.value
+                    if (result != null && anchor != null) {
+                        // Anchor = start, dragged position = end.
+                        // Normalization swaps them for display if they cross.
+                        selectionState.selection = LineSelection(
+                            startLine = anchor.first,
+                            startOffset = anchor.second,
+                            endLine = result.first,
+                            endOffset = result.second,
+                        )
+                    } else if (result != null) {
+                        // Fallback before anchor is captured.
                         updateSelectionForVisualHandle(
                             selectionState,
                             isStartVisual = false,
-                            line = line,
-                            offset = offset
+                            line = result.first,
+                            offset = result.second
                         )
                     }
                 },
