@@ -11,5 +11,6 @@ plugins {
 }
 
 tasks.register<Delete>("clean") {
+    description = "Deletes the root build directory."
     delete(rootProject.layout.buildDirectory)
 }
