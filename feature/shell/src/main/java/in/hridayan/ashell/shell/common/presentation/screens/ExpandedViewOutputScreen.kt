@@ -278,25 +278,39 @@ fun ExpandedViewOutputScreen(
 
                 // Group output lines by command sections
                 val commandSections = remember(combinedOutput.value) {
-                    val sections = mutableListOf<Pair<String, List<OutputLine>>>()
+                    val sections = mutableListOf<CommandSection>()
                     var currentCommand: String? = null
-                    var currentLines = mutableListOf<OutputLine>()
+                    var currentCommandIndex = -1
+                    var currentLines = mutableListOf<Pair<Int, OutputLine>>()
 
-                    combinedOutput.value.forEach { line ->
+                    combinedOutput.value.forEachIndexed { globalIndex, line ->
                         if (line.text.startsWith("$ ")) {
                             // Save previous section if exists
-                            if (currentCommand != null && currentLines.isNotEmpty()) {
-                                sections.add(currentCommand to currentLines.toList())
+                            if (currentCommand != null) {
+                                sections.add(
+                                    CommandSection(
+                                        currentCommandIndex,
+                                        currentCommand,
+                                        currentLines.toList()
+                                    )
+                                )
                             }
                             currentCommand = line.text
+                            currentCommandIndex = globalIndex
                             currentLines = mutableListOf()
                         } else if (currentCommand != null) {
-                            currentLines.add(line)
+                            currentLines.add(globalIndex to line)
                         }
                     }
                     // Add last section
                     if (currentCommand != null) {
-                        sections.add(currentCommand to currentLines.toList())
+                        sections.add(
+                            CommandSection(
+                                currentCommandIndex,
+                                currentCommand,
+                                currentLines.toList()
+                            )
+                        )
                     }
                     sections
                 }
@@ -327,7 +341,7 @@ fun ExpandedViewOutputScreen(
                             modifier = Modifier.fillMaxSize(),
                             verticalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
-                            commandSections.forEachIndexed { sectionIndex, (command, lines) ->
+                            commandSections.forEachIndexed { sectionIndex, section ->
                                 stickyHeader(key = "header_$sectionIndex") {
                                     Column(
                                         modifier = Modifier
@@ -342,7 +356,13 @@ fun ExpandedViewOutputScreen(
                                             verticalAlignment = Alignment.CenterVertically
                                         ) {
                                             Text(
-                                                text = command,
+                                                modifier = Modifier.allowTextSelection(
+                                                    index = section.commandGlobalIndex,
+                                                    text = section.commandText,
+                                                    selectionState = selectionState,
+                                                    style = commandTextStyle
+                                                ),
+                                                text = section.commandText,
                                                 style = commandTextStyle,
                                                 color = MaterialTheme.colorScheme.primary,
                                                 maxLines = 1,
@@ -357,9 +377,11 @@ fun ExpandedViewOutputScreen(
                                 }
 
                                 itemsIndexed(
-                                    items = lines,
-                                    key = { index, _ -> "${sectionIndex}_$index" }
-                                ) { index, line ->
+                                    items = section.lines,
+                                    key = { _, pair -> "${sectionIndex}_${pair.first}" }
+                                ) { _, pair ->
+                                    val globalIndex = pair.first
+                                    val line = pair.second
 
                                     val isCommandLine = line.text.startsWith("$ ")
 
@@ -369,7 +391,7 @@ fun ExpandedViewOutputScreen(
                                     Box(modifier = Modifier.padding(horizontal = 20.dp)) {
                                         OutputLineText(
                                             modifier = Modifier.allowTextSelection(
-                                                index = index,
+                                                index = globalIndex,
                                                 text = line.text,
                                                 selectionState = selectionState,
                                                 style = textStyle
@@ -402,3 +424,9 @@ fun ExpandedViewOutputScreen(
         }
     }
 }
+
+private data class CommandSection(
+    val commandGlobalIndex: Int,
+    val commandText: String,
+    val lines: List<Pair<Int, OutputLine>>
+)

@@ -9,7 +9,7 @@ import androidx.compose.foundation.gestures.drag
 import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -245,10 +245,10 @@ fun <T> Modifier.textSelectionGestures(
                 selectionState.magnifierOffset = computeMagnifierOffset(
                     selectionState, start.first, start.second, longPress.position.x
                 )
-                
+
                 val initialLine = start.first
                 val initialWordRange = wordRange
-                
+
                 val loopJob = coroutineScope.launch {
                     while (isActive) {
                         autoScrollIfNearEdge(
@@ -257,29 +257,35 @@ fun <T> Modifier.textSelectionGestures(
                         )
                         val globalPos = pointerPosRef.value + selectionState.containerWindowOrigin
                         val end = findLineOffsetOrNearestEdge(selectionState, globalPos)
-                        
+
                         if (end != null) {
-                            val isInsideInitialWord = end.first == initialLine && end.second in initialWordRange
+                            val isInsideInitialWord =
+                                end.first == initialLine && end.second in initialWordRange
                             if (isInsideInitialWord) {
                                 selectionState.selection = LineSelection(
                                     startLine = initialLine, startOffset = initialWordRange.first,
                                     endLine = initialLine, endOffset = initialWordRange.last
                                 )
                             } else {
-                                val isBefore = end.first < initialLine || (end.first == initialLine && end.second < initialWordRange.first)
+                                val isBefore =
+                                    end.first < initialLine || (end.first == initialLine && end.second < initialWordRange.first)
                                 if (isBefore) {
                                     selectionState.selection = LineSelection(
-                                        startLine = initialLine, startOffset = initialWordRange.last,
-                                        endLine = end.first, endOffset = end.second
+                                        startLine = initialLine,
+                                        startOffset = initialWordRange.last,
+                                        endLine = end.first,
+                                        endOffset = end.second
                                     )
                                 } else {
                                     selectionState.selection = LineSelection(
-                                        startLine = initialLine, startOffset = initialWordRange.first,
-                                        endLine = end.first, endOffset = end.second
+                                        startLine = initialLine,
+                                        startOffset = initialWordRange.first,
+                                        endLine = end.first,
+                                        endOffset = end.second
                                     )
                                 }
                             }
-                            
+
                             selectionState.magnifierOffset = computeMagnifierOffset(
                                 selectionState, end.first, end.second, pointerPosRef.value.x
                             )
@@ -437,9 +443,7 @@ fun <T> SelectionHandlesOverlay(
     }
 
     Box(
-        modifier = modifier
-            .fillMaxSize()
-            .zIndex(10f)
+        modifier = modifier.zIndex(10f)
     ) {
         SelectionHandle(
             positionProvider = startPosProvider,
@@ -724,7 +728,7 @@ private fun SelectionToolbar(
                 }
             }
         },
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxWidth()
     ) { measurables, constraints ->
         val anchorInContainer =
             anchorProvider() ?: return@Layout layout(constraints.maxWidth, constraints.maxHeight) {}
