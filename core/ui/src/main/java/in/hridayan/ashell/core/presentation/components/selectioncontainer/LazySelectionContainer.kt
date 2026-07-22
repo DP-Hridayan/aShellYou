@@ -2,24 +2,19 @@ package `in`.hridayan.ashell.core.presentation.components.selectioncontainer
 
 import android.content.ClipData
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.FlingBehavior
-import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.awaitLongPressOrCancellation
 import androidx.compose.foundation.gestures.drag
 import androidx.compose.foundation.gestures.scrollBy
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.magnifier
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.SelectionContainer
@@ -661,7 +656,7 @@ private fun SelectionToolbar(
                 tonalElevation = 4.dp,
                 shadowElevation = 4.dp
             ) {
-                Row {
+                Row(modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp)) {
                     SelectionToolbarActionButton(
                         name = stringResource(R.string.copy),
                         onClick = onCopy
@@ -874,95 +869,89 @@ private fun <T> buildSelectedText(
 }
 
 /**
- * A drop-in replacement for [LazyColumn] that provides cross-line text selection support.
- * This component handles selection gestures, highlights, handles, and a toolbar
- * automatically, while avoiding crashes associated with standard [SelectionContainer]
- * inside lazy layouts.
+ * Wrapper composable that adds cross-line text selection to any [LazyColumn]
+ * placed inside [content], analogous to how [SelectionContainer] wraps
+ * ordinary composables.
+ *
+ * Place your own [LazyColumn] (or any scrollable list) inside [content],
+ * and apply [allowTextSelection] to each selectable item. The wrapper
+ * automatically provides gesture detection, selection handles, a magnifier
+ * loupe, and a copy/select-all toolbar.
  *
  * Example usage:
  * ```kotlin
+ * val listState = rememberLazyListState()
+ *
  * LazySelectionContainer(
  *     items = messages,
  *     textOf = { it.content },
+ *     listState = listState,
  * ) { selectionState ->
- *     itemsIndexed(messages) { index, message ->
- *         Text(
- *             text = message.content,
- *             modifier = Modifier.allowTextSelection(index, message.content, selectionState)
- *         )
+ *     LazyColumn(state = listState) {
+ *         itemsIndexed(messages) { index, message ->
+ *             Text(
+ *                 text = message.content,
+ *                 modifier = Modifier.allowTextSelection(
+ *                     index, message.content, selectionState
+ *                 )
+ *             )
+ *         }
  *     }
  * }
  * ```
  *
- * @param items The list of data items.
+ * @param items The list of data items backing the selectable content.
  * @param textOf A function to extract selectable text from an item.
- * @param modifier The modifier to be applied to the container.
- * @param listState The state of the underlying [LazyColumn].
+ * @param listState The [LazyListState] of the [LazyColumn] inside [content].
+ *   Must be the **same** instance passed to the inner [LazyColumn] so that
+ *   auto-scroll and handle positioning work correctly.
+ * @param modifier Modifier applied to the outer container.
  * @param selectionState The state holder for the selection.
- * @param contentPadding Padding to be applied around the [LazyColumn].
- * @param reverseLayout Whether to reverse the layout direction.
- * @param verticalArrangement Vertical arrangement for the items.
- * @param horizontalAlignment Horizontal alignment for the items.
- * @param flingBehavior Fling behavior for scrolling.
- * @param userScrollEnabled Whether user-initiated scrolling is enabled.
- * @param handleColor The color of selection handles.
- * @param autoScrollEdgeThreshold Threshold for triggering edge auto-scroll.
- * @param autoScrollSpeed Speed of auto-scrolling.
+ * @param handleColor The color of selection drag handles.
+ * @param autoScrollEdgeThreshold Distance from container edges at which
+ *   auto-scroll activates during a drag.
+ * @param autoScrollSpeed Speed of auto-scrolling near container edges.
+ * @param magnifierVerticalOffset How far above the drag point the magnifier
+ *   loupe is positioned.
  * @param onCopy Callback invoked after a copy operation completes.
- * @param content The DSL for defining list items, providing access to [SelectionState].
+ * @param content Your composable content — typically a [LazyColumn]. Receives
+ *   [SelectionState] so each item can apply [allowTextSelection].
  */
 @Composable
 fun <T> LazySelectionContainer(
+    modifier: Modifier = Modifier,
     items: List<T>,
     textOf: (T) -> String,
-    modifier: Modifier = Modifier,
-    listState: LazyListState = rememberLazyListState(),
+    listState: LazyListState,
     selectionState: SelectionState = rememberSelectionState(),
-    contentPadding: PaddingValues = PaddingValues(0.dp),
-    reverseLayout: Boolean = false,
-    verticalArrangement: Arrangement.Vertical =
-        if (!reverseLayout) Arrangement.Top else Arrangement.Bottom,
-    horizontalAlignment: Alignment.Horizontal = Alignment.Start,
-    flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
-    userScrollEnabled: Boolean = true,
     handleColor: Color = MaterialTheme.colorScheme.primary,
     autoScrollEdgeThreshold: Dp = 48.dp,
     autoScrollSpeed: Dp = 2.dp,
+    magnifierVerticalOffset: Dp = 64.dp,
     onCopy: ((success: Boolean) -> Unit)? = null,
-    content: LazyListScope.(selectionState: SelectionState) -> Unit,
+    content: @Composable (selectionState: SelectionState) -> Unit,
 ) {
-    Box(modifier = modifier) {
-        LazyColumn(
-            state = listState,
-            contentPadding = contentPadding,
-            reverseLayout = reverseLayout,
-            verticalArrangement = verticalArrangement,
-            horizontalAlignment = horizontalAlignment,
-            flingBehavior = flingBehavior,
-            userScrollEnabled = userScrollEnabled,
-            modifier = Modifier
-                .magnifier(
-                    sourceCenter = { selectionState.magnifierOffset ?: Offset.Unspecified },
-                    magnifierCenter = {
-                        val offset = selectionState.magnifierOffset
-                            ?: return@magnifier Offset.Unspecified
-                        // Clear the finger + handle — same idea as the toolbar's
-                        // gapPx + handleTouchPx vertical clearance.
-                        offset.copy(y = offset.y - 64.dp.toPx())
-                    },
-                    cornerRadius = 24.dp,
-                )
-                .textSelectionGestures(
-                    selectionState = selectionState,
-                    items = items,
-                    textOf = textOf,
-                    listState = listState,
-                    autoScrollEdgeThreshold = autoScrollEdgeThreshold,
-                    autoScrollSpeed = autoScrollSpeed
-                ),
-        ) {
-            content(selectionState)
-        }
+    Box(
+        modifier = modifier
+            .magnifier(
+                sourceCenter = { selectionState.magnifierOffset ?: Offset.Unspecified },
+                magnifierCenter = {
+                    val offset = selectionState.magnifierOffset
+                        ?: return@magnifier Offset.Unspecified
+                    offset.copy(y = offset.y - magnifierVerticalOffset.toPx())
+                },
+                cornerRadius = 24.dp
+            )
+            .textSelectionGestures(
+                selectionState = selectionState,
+                items = items,
+                textOf = textOf,
+                listState = listState,
+                autoScrollEdgeThreshold = autoScrollEdgeThreshold,
+                autoScrollSpeed = autoScrollSpeed,
+            )
+    ) {
+        content(selectionState)
 
         SelectionHandlesOverlay(
             selectionState = selectionState,
