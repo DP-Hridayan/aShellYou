@@ -88,6 +88,7 @@
     <string name="choose_a_device">デバイスを選択</string>
     <string name="choose_icon">アイコンを選択</string>
     <string name="clear">クリア</string>
+    <string name="clear_all">すべてクリア</string>
     <string name="clear_all_message">この画面のすべてを消去してもよろしいですか？</string>
     <string name="clear_analysis_cache">解析キャッシュをクリア</string>
     <string name="clear_cache">キャッシュをクリア</string>
@@ -126,6 +127,7 @@
     <string name="connection_failed">接続に失敗しました</string>
     <string name="connection_lost">接続が失われました</string>
     <string name="connection_lost_back_message">無線デバッグ接続が失われました。どうしますか？</string>
+    <string name="continue_anyway">それでも続ける</string>
     <string name="contributors">貢献者</string>
     <string name="copied_items" comment="%1$d = number of items copied to clipboard">%1$d 個のアイテムをコピーしました</string>
     <string name="copied_to_clipboard">クリップボードにコピーしました！</string>
@@ -272,6 +274,7 @@
     <string name="erasing">Erasing…</string>
     <string name="error">エラー</string>
     <string name="error_labels_limit_reached">ラベルの上限に達しました</string>
+    <string name="exclude">除外</string>
     <string name="execution_method">実行メソッド</string>
     <string name="expand">展開</string>
     <string name="experimental">実験</string>
@@ -399,6 +402,7 @@
     <string name="history">歴史</string>
     <string name="home">ホーム</string>
     <string name="icon_selected">アイコンを選択しました</string>
+    <string name="include">Include</string>
     <string name="info">情報</string>
     <string name="initial_state">初期状態</string>
     <string name="instructions">ご利用方法</string>
@@ -419,6 +423,7 @@
     <string name="latest_version">最新バージョン</string>
     <string name="lead_developer">開発リーダー</string>
     <string name="least_used">最小限使用</string>
+    <string name="level">レベル</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d ライブラリが検出されました</string>
     <string name="license">ライセンス</string>
     <string name="license_label">ライセンス</string>
@@ -435,6 +440,19 @@
     <string name="local_file">ローカルファイル</string>
     <string name="locked">ロック中</string>
     <string name="logcat">Logcat</string>
+    <string name="logcat_cleared">ログを消去しました</string>
+    <string name="logcat_detail_package">パッケージ</string>
+    <string name="logcat_filter_level">ログレベル</string>
+    <string name="logcat_filter_search_hint">Search in messages…</string>
+    <string name="logcat_is_running">Logcat が実行されています</string>
+    <string name="logcat_ive_granted_it">許可されました</string>
+    <string name="logcat_no_logs">ログはまだありません</string>
+    <string name="logcat_notification_channel_description">logcat がログを積極的に収集している間に表示されます</string>
+    <string name="logcat_notification_channel_name">Logcat セッション</string>
+    <string name="logcat_permission_body">この権限がなければ、aShellYou 自身からのログのみが表示されます。コンピュータからこのコマンドを実行してフルアクセスを許可してください:</string>
+    <string name="logcat_permission_title">ログアクセス許可</string>
+    <string name="logcat_running_description">aShellあなたはバックグラウンドでシステムログを収集しています</string>
+    <string name="logcat_shortcut_long_label">Logcat ビューアを開く</string>
     <string name="logs">ログ</string>
     <string name="look_and_feel">見た目&amp;触覚</string>
     <string name="low">低い</string>
@@ -442,6 +460,7 @@
     <string name="max_download_size">最大ダウンロード</string>
     <string name="medium">ミディアム</string>
     <string name="merge">結合</string>
+    <string name="message">メッセージ</string>
     <string name="minimize">最小化</string>
     <string name="mode">モード</string>
     <string name="mode_one_desc">Rootアクセスを使用してコマンドを実行します。</string>
@@ -515,6 +534,7 @@
     <string name="other_device">その他のデバイス</string>
     <string name="output">出力</string>
     <string name="override_bookmarks_limit">ブックマークの上限をオーバーライドする</string>
+    <string name="package_name">パッケージ名</string>
     <string name="pair">ペアリング</string>
     <string name="pair_a_device_first">デバイスを最初にペアリングする</string>
     <string name="pair_another_device">別のデバイスをペアリングする</string>
@@ -542,6 +562,7 @@
     <string name="partition">パーティション</string>
     <string name="paste">貼り付け</string>
     <string name="path">パス</string>
+    <string name="paused">一時停止</string>
     <string name="permission_denied">権限がありません</string>
     <string name="permission_optional">これらの権限を付与することは任意です！</string>
     <string name="pick_ashellyou_extension">拡張子が .ashellyou のファイルを選択してください</string>
@@ -596,10 +617,13 @@
     <string name="restore_from">復元元</string>
     <string name="restore_successful">正常に復元しました</string>
     <string name="restoring_backup">Restoring backup…</string>
+    <string name="resume">再開</string>
     <string name="retry">再試行する</string>
     <string name="root_access_granted">ルートアクセスを許可しました！</string>
+    <string name="running">実行中</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">保存</string>
+    <string name="save_as_profile">Save as profile…</string>
     <string name="save_whole_output">出力全体を保存</string>
     <string name="saved_devices">保存されたデバイス</string>
     <string name="saving">保存中…</string>
@@ -670,6 +694,7 @@
     <string name="stack_trace">スタックトレース</string>
     <string name="stargazers">Starを付けたユーザ</string>
     <string name="start">スタート</string>
+    <string name="stop">停止</string>
     <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">%.1f MB は AI モデルによって使用されています</string>
     <string name="subtitle">サブタイトル</string>
     <string name="subtitle_off_state">字幕（OFF状態）</string>
@@ -684,6 +709,7 @@
     <string name="system_default">システムのデフォルト</string>
     <string name="system_font" comment="Option to use the device default font">システムフォント</string>
     <string name="system_settings">システム設定</string>
+    <string name="tag">タグ</string>
     <string name="telegram">Telegram</string>
     <string name="terminal">ターミナル</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">端末のフォントスタイル</string>
@@ -698,6 +724,7 @@
     <string name="tile_name">タイル名</string>
     <string name="tiles">タイル</string>
     <string name="time">時刻</string>
+    <string name="timestamp">タイムスタンプ</string>
     <string name="toggleable">切り替え可能</string>
     <string name="total_executions">合計実行数</string>
     <string name="translations">翻訳</string>
@@ -754,6 +781,9 @@
     <string name="wireless_debugging_guide_2">aShell Youから送信された通知に6桁のペアリングコードを入力します。</string>
     <string name="wireless_debugging_guide_3">アプリに戻って、ホーム画面の「スタート」ボタンをクリックしてください。</string>
     <string name="wireless_debugging_important_notice">「ワイヤレスデバッグ」オプションの左側がクリック可能であることに注意してください。このオプションをタップすると、「ワイヤレスデバッグペアリング」メニューが開きます。</string>
+    <plurals name="logcat_new_entries">
+        <item quantity="other">%1$d 新規エントリ</item>
+    </plurals>
     <string name="changelog_v7_4_0">\nYou can now search Sub-settings inside Settings screens\nAdded Palette Styles for color schemes\nAdded option to set app language directly in-app</string>
     <string name="changelog_v7_3_0">\nImproved UI in changelog screen\nAdded translation contributors in about section\nAdded Licenses screen that shows detailed license information about the app and other libraries used by the app</string>
     <string name="changelog_v7_2_1">\nメンテナンスのアップデート！</string>

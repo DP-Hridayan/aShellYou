@@ -88,6 +88,7 @@
     <string name="choose_a_device">Escolha um dispositivo</string>
     <string name="choose_icon">Escolha um ícone</string>
     <string name="clear">Limpar</string>
+    <string name="clear_all">Limpar tudo</string>
     <string name="clear_all_message">Tem certeza de que deseja limpar tudo nesta tela?</string>
     <string name="clear_analysis_cache">Limpar cache de análise</string>
     <string name="clear_cache">Limpar cache</string>
@@ -126,6 +127,7 @@
     <string name="connection_failed">Falha na conexão</string>
     <string name="connection_lost">Conexão Perdida</string>
     <string name="connection_lost_back_message">A conexão de depuração sem fio foi perdida. O que você gostaria de fazer?</string>
+    <string name="continue_anyway">Continuar mesmo assim</string>
     <string name="contributors">Colaboradores</string>
     <string name="copied_items" comment="%1$d = number of items copied to clipboard">%1$d itens copiados</string>
     <string name="copied_to_clipboard">Copiado para a área de transferência!</string>
@@ -272,6 +274,7 @@
     <string name="erasing">Apagando…</string>
     <string name="error">ERRO</string>
     <string name="error_labels_limit_reached">Limite máximo de rótulos atingido</string>
+    <string name="exclude">Excluir</string>
     <string name="execution_method">Método de execução</string>
     <string name="expand">Expandir</string>
     <string name="experimental">Experimental</string>
@@ -399,6 +402,7 @@
     <string name="history">Histórico</string>
     <string name="home">Início</string>
     <string name="icon_selected">Ícone selecionado</string>
+    <string name="include">incluir</string>
     <string name="info">Informações</string>
     <string name="initial_state">Estado inicial</string>
     <string name="instructions">Instruções</string>
@@ -419,6 +423,7 @@
     <string name="latest_version">Versão mais recente</string>
     <string name="lead_developer">Desenvolvedor chefe</string>
     <string name="least_used">Menos utilizados</string>
+    <string name="level">Nível</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d libliotecas detectadas</string>
     <string name="license">Licença</string>
     <string name="license_label">Licença</string>
@@ -435,6 +440,19 @@
     <string name="local_file">Arquivo local</string>
     <string name="locked">Trancado</string>
     <string name="logcat">Logcat</string>
+    <string name="logcat_cleared">Registros apagados</string>
+    <string name="logcat_detail_package">Pacote</string>
+    <string name="logcat_filter_level">Níveis de registro</string>
+    <string name="logcat_filter_search_hint">Procurar em mensagens…</string>
+    <string name="logcat_is_running">Logcat está executando</string>
+    <string name="logcat_ive_granted_it">Eu concedi isso</string>
+    <string name="logcat_no_logs">Ainda não há registros</string>
+    <string name="logcat_notification_channel_description">Mostrado enquanto o logcat está ativamente coletando logs</string>
+    <string name="logcat_notification_channel_name">Sessão do Logcat</string>
+    <string name="logcat_permission_body">Sem essa permissão, apenas os logs da aShellYou ficarão visíveis. Conceda acesso total executando esse comando a partir de um computador:</string>
+    <string name="logcat_permission_title">Permissão de acesso ao log</string>
+    <string name="logcat_running_description">aShellVocê está coletando logs do sistema em segundo plano</string>
+    <string name="logcat_shortcut_long_label">Abrir o Visualizador Logcat</string>
     <string name="logs">Registros</string>
     <string name="look_and_feel">Aparência</string>
     <string name="low">Baixa</string>
@@ -442,6 +460,7 @@
     <string name="max_download_size">Download Máximo</string>
     <string name="medium">Média</string>
     <string name="merge">Mesclar</string>
+    <string name="message">mensagem</string>
     <string name="minimize">Minimize</string>
     <string name="mode">Modo</string>
     <string name="mode_one_desc">Usar acesso root para executar comandos. Comandos com root podem ser executados.</string>
@@ -515,6 +534,7 @@
     <string name="other_device">Outro dispositivo</string>
     <string name="output">Saída</string>
     <string name="override_bookmarks_limit">Substituir o limite máximo de favoritos</string>
+    <string name="package_name">Nome do pacote</string>
     <string name="pair">Parear</string>
     <string name="pair_a_device_first">Pareie um dispositivo primeiro</string>
     <string name="pair_another_device">Parear outro dispositivo</string>
@@ -542,6 +562,7 @@
     <string name="partition">Partição</string>
     <string name="paste">Colar</string>
     <string name="path">Caminho</string>
+    <string name="paused">Pausado</string>
     <string name="permission_denied">Permissão negada</string>
     <string name="permission_optional">Conceder estas permissões é opcional!</string>
     <string name="pick_ashellyou_extension">Por favor, escolha um arquivo com a extensão .ashellyou</string>
@@ -596,10 +617,13 @@
     <string name="restore_from">Restaurar de</string>
     <string name="restore_successful">Restaurado com sucesso</string>
     <string name="restoring_backup">Restaurando backup…</string>
+    <string name="resume">Resumo</string>
     <string name="retry">Repetir</string>
     <string name="root_access_granted">Acesso ao root concedido!</string>
+    <string name="running">Executando</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Salvar</string>
+    <string name="save_as_profile">Salvar como perfil…</string>
     <string name="save_whole_output">Salvar saída inteira</string>
     <string name="saved_devices">Dispositivos salvos</string>
     <string name="saving">Salvando…</string>
@@ -670,6 +694,7 @@
     <string name="stack_trace">Rastreamento de pilha</string>
     <string name="stargazers">Stargazers</string>
     <string name="start">Iniciar</string>
+    <string name="stop">Interromper</string>
     <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">%.1f MB usados pelos modelos de IA</string>
     <string name="subtitle">Subtítulo</string>
     <string name="subtitle_off_state">Subtítulo (estado DESATIVADO)</string>
@@ -684,6 +709,7 @@
     <string name="system_default">Padrão do sistema</string>
     <string name="system_font" comment="Option to use the device default font">Fonte do sistema</string>
     <string name="system_settings">Configurações do sistema</string>
+    <string name="tag">Etiqueta</string>
     <string name="telegram">Telegram</string>
     <string name="terminal">Terminal</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Estilo de fonte terminal</string>
@@ -698,6 +724,7 @@
     <string name="tile_name">Nome do bloco</string>
     <string name="tiles">Blocos</string>
     <string name="time">Horário</string>
+    <string name="timestamp">Timestamp</string>
     <string name="toggleable">Alternável</string>
     <string name="total_executions">Total de execuções</string>
     <string name="translations">Traduções</string>
@@ -754,6 +781,10 @@
     <string name="wireless_debugging_guide_2">Digite o código de 6 dígitos na notificação enviada pelo aShell You.</string>
     <string name="wireless_debugging_guide_3">Volte para o app e clique no botão \"Iniciar\" na tela inicial.</string>
     <string name="wireless_debugging_important_notice">Por favor, note que a parte esquerda da opção de depuração por Wi-Fi é clicável. Tocando nele abrirá o menu de depuração por Wi-Fi.</string>
+    <plurals name="logcat_new_entries">
+        <item quantity="one">%1$d new entry</item>
+        <item quantity="other">%1$d novas entradas</item>
+    </plurals>
     <string name="changelog_v7_4_0">\nAgora você pode pesquisar Sub-configurações dentro das telas de Configurações\nAdicionado Palette Styles para esquemas de cores\nAdicionada opção para configurar o idioma do aplicativo diretamente dentro do aplicativo</string>
     <string name="changelog_v7_3_0">\nInterface de usuário melhorada no ecrã de mudanças\nContribuidores adicionados na seção\nTela de Licenças Adicionadas que mostra informações detalhadas de licença sobre o aplicativo e outras bibliotecas usadas pelo aplicativo</string>
     <string name="changelog_v7_2_1">\nAtualização da manutenção!</string>

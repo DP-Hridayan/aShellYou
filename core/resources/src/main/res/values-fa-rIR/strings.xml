@@ -88,6 +88,7 @@
     <string name="choose_a_device">یک دستگاه انتخاب کنید</string>
     <string name="choose_icon">Choose icon</string>
     <string name="clear">پاک کردن</string>
+    <string name="clear_all">Clear all</string>
     <string name="clear_all_message">آیا مطمئن هستید که می‌خواهید همه چیز را در این صفحه پاک کنید؟</string>
     <string name="clear_analysis_cache">Clear analysis cache</string>
     <string name="clear_cache">Clear cache</string>
@@ -126,6 +127,7 @@
     <string name="connection_failed">اتصال ناموفق</string>
     <string name="connection_lost">اتصال قطع شد</string>
     <string name="connection_lost_back_message">اتصال اشکال‌زدایی بی‌سیم قطع شد. می‌خواهید چه کاری انجام دهید؟</string>
+    <string name="continue_anyway">Continue anyway</string>
     <string name="contributors">Contributors</string>
     <string name="copied_items" comment="%1$d = number of items copied to clipboard">%1$d مورد کپی شد</string>
     <string name="copied_to_clipboard">به کلیپ‌بورد کپی شد!</string>
@@ -272,6 +274,7 @@
     <string name="erasing">Erasing…</string>
     <string name="error">خطا</string>
     <string name="error_labels_limit_reached">به حداکثر تعداد برچسب‌ها رسیده‌اید</string>
+    <string name="exclude">Exclude</string>
     <string name="execution_method">Execution method</string>
     <string name="expand">Expand</string>
     <string name="experimental">Experimental</string>
@@ -399,6 +402,7 @@
     <string name="history">تاریخچه</string>
     <string name="home">خانه</string>
     <string name="icon_selected">Icon selected</string>
+    <string name="include">Include</string>
     <string name="info">اطلاعات</string>
     <string name="initial_state">Initial state</string>
     <string name="instructions">دستورالعمل‌ها</string>
@@ -419,6 +423,7 @@
     <string name="latest_version">آخرین نسخه</string>
     <string name="lead_developer">توسعه‌دهنده اصلی</string>
     <string name="least_used">کمترین استفاده</string>
+    <string name="level">Level</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d libraries detected</string>
     <string name="license">مجوز</string>
     <string name="license_label">License</string>
@@ -435,6 +440,19 @@
     <string name="local_file">Local file</string>
     <string name="locked">Locked</string>
     <string name="logcat">Logcat</string>
+    <string name="logcat_cleared">Logs cleared</string>
+    <string name="logcat_detail_package">Package</string>
+    <string name="logcat_filter_level">Log levels</string>
+    <string name="logcat_filter_search_hint">Search in messages…</string>
+    <string name="logcat_is_running">Logcat is running</string>
+    <string name="logcat_ive_granted_it">I\'ve granted it</string>
+    <string name="logcat_no_logs">No logs yet</string>
+    <string name="logcat_notification_channel_description">Shown while logcat is actively collecting logs</string>
+    <string name="logcat_notification_channel_name">Logcat Session</string>
+    <string name="logcat_permission_body">Without this permission, only logs from aShellYou itself will be visible. Grant full access by running this command from a computer:</string>
+    <string name="logcat_permission_title">Log access permission</string>
+    <string name="logcat_running_description">aShellYou is collecting system logs in the background</string>
+    <string name="logcat_shortcut_long_label">Open Logcat Viewer</string>
     <string name="logs">Logs</string>
     <string name="look_and_feel">ظاهر و احساس</string>
     <string name="low">Low</string>
@@ -442,6 +460,7 @@
     <string name="max_download_size">Max Download</string>
     <string name="medium">Medium</string>
     <string name="merge">ادغام</string>
+    <string name="message">Message</string>
     <string name="minimize">کمینه کردن</string>
     <string name="mode">حالت</string>
     <string name="mode_one_desc">از دسترسی روت برای اجرای دستورات استفاده کنید. دستورات روت شده قابل اجرا هستند.</string>
@@ -515,6 +534,7 @@
     <string name="other_device">Other device</string>
     <string name="output">خروجی</string>
     <string name="override_bookmarks_limit">نادیده گرفتن محدودیت نشانک‌ها</string>
+    <string name="package_name">Package name</string>
     <string name="pair">جفت کردن</string>
     <string name="pair_a_device_first">ابتدا یک دستگاه جفت کنید</string>
     <string name="pair_another_device">جفت کردن دستگاه دیگر</string>
@@ -542,6 +562,7 @@
     <string name="partition">Partition</string>
     <string name="paste">چسباندن</string>
     <string name="path">مسیر</string>
+    <string name="paused">Paused</string>
     <string name="permission_denied">مجوز رد شد</string>
     <string name="permission_optional">اعطای این مجوزها اختیاری است!</string>
     <string name="pick_ashellyou_extension">لطفاً فایلی با پسوند .ashellyou انتخاب کنید</string>
@@ -596,10 +617,13 @@
     <string name="restore_from">Restore from</string>
     <string name="restore_successful">بازیابی موفق</string>
     <string name="restoring_backup">Restoring backup…</string>
+    <string name="resume">Resume</string>
     <string name="retry">تلاش مجدد</string>
     <string name="root_access_granted">دسترسی روت اعطا شد!</string>
+    <string name="running">Running</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">ذخیره</string>
+    <string name="save_as_profile">Save as profile…</string>
     <string name="save_whole_output">ذخیره کل خروجی</string>
     <string name="saved_devices">دستگاه‌های ذخیره شده</string>
     <string name="saving">در حال ذخیره…</string>
@@ -670,6 +694,7 @@
     <string name="stack_trace">ردیابی پشته</string>
     <string name="stargazers">ستاره‌دهندگان</string>
     <string name="start">شروع</string>
+    <string name="stop">Stop</string>
     <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">%.1f MB used by AI models</string>
     <string name="subtitle">Subtitle</string>
     <string name="subtitle_off_state">Subtitle (OFF state)</string>
@@ -684,6 +709,7 @@
     <string name="system_default">System default</string>
     <string name="system_font" comment="Option to use the device default font">فونت سیستم</string>
     <string name="system_settings">تنظیمات سیستم</string>
+    <string name="tag">Tag</string>
     <string name="telegram">تلگرام</string>
     <string name="terminal">ترمینال</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">سبک فونت ترمینال</string>
@@ -698,6 +724,7 @@
     <string name="tile_name">Tile name</string>
     <string name="tiles">Tiles</string>
     <string name="time">Time</string>
+    <string name="timestamp">Timestamp</string>
     <string name="toggleable">Toggleable</string>
     <string name="total_executions">Total executions</string>
     <string name="translations">ترجمه‌ها</string>
@@ -754,6 +781,10 @@
     <string name="wireless_debugging_guide_2">کد شش رقمی را در اعلان ارسال شده توسط aShell You وارد کنید.</string>
     <string name="wireless_debugging_guide_3">به برنامه برگردید و روی دکمه \"شروع\" در صفحه اصلی کلیک کنید.</string>
     <string name="wireless_debugging_important_notice">توجه داشته باشید که قسمت چپ گزینه اشکال‌زدایی بی‌سیم قابل کلیک است. ضربه زدن روی آن منوی جفت‌سازی را باز می‌کند.</string>
+    <plurals name="logcat_new_entries">
+        <item quantity="one">%1$d new entry</item>
+        <item quantity="other">%1$d new entries</item>
+    </plurals>
     <string name="changelog_v7_4_0">\nYou can now search Sub-settings inside Settings screens\nAdded Palette Styles for color schemes\nAdded option to set app language directly in-app</string>
     <string name="changelog_v7_3_0">\nImproved UI in changelog screen\nAdded translation contributors in about section\nAdded Licenses screen that shows detailed license information about the app and other libraries used by the app</string>
     <string name="changelog_v7_2_1">\nMaintenance update!</string>

@@ -88,6 +88,7 @@
     <string name="choose_a_device">选择设备</string>
     <string name="choose_icon">选择图标</string>
     <string name="clear">清除</string>
+    <string name="clear_all">全部清除</string>
     <string name="clear_all_message">确定清除屏幕上的所有内容？</string>
     <string name="clear_analysis_cache">清除分析缓存</string>
     <string name="clear_cache">清除缓存</string>
@@ -126,6 +127,7 @@
     <string name="connection_failed">连接失败</string>
     <string name="connection_lost">连接丢失</string>
     <string name="connection_lost_back_message">无线调试连接已丢失。您想做什么？</string>
+    <string name="continue_anyway">仍然继续</string>
     <string name="contributors">贡献列表</string>
     <string name="copied_items" comment="%1$d = number of items copied to clipboard">已复制 %1$d 项目</string>
     <string name="copied_to_clipboard">已复制到剪贴板！</string>
@@ -272,6 +274,7 @@
     <string name="erasing">正在擦除…</string>
     <string name="error">错误</string>
     <string name="error_labels_limit_reached">已达到最大标签限制</string>
+    <string name="exclude">不包含</string>
     <string name="execution_method">执行方法</string>
     <string name="expand">展开</string>
     <string name="experimental">实验性</string>
@@ -399,6 +402,7 @@
     <string name="history">历史</string>
     <string name="home">首页</string>
     <string name="icon_selected">选择图标</string>
+    <string name="include">包含</string>
     <string name="info">信息</string>
     <string name="initial_state">初始状态</string>
     <string name="instructions">指南</string>
@@ -419,6 +423,7 @@
     <string name="latest_version">最新版本</string>
     <string name="lead_developer">Developer</string>
     <string name="least_used">最少使用</string>
+    <string name="level">关卡</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">检测到 %1$d 库</string>
     <string name="license">开源协议</string>
     <string name="license_label">许可证</string>
@@ -435,6 +440,19 @@
     <string name="local_file">本地文件</string>
     <string name="locked">已锁定</string>
     <string name="logcat">Logcat</string>
+    <string name="logcat_cleared">日志已清除</string>
+    <string name="logcat_detail_package">包</string>
+    <string name="logcat_filter_level">日志级别</string>
+    <string name="logcat_filter_search_hint">在信件中搜索…</string>
+    <string name="logcat_is_running">日志正在运行</string>
+    <string name="logcat_ive_granted_it">我已经给予它了</string>
+    <string name="logcat_no_logs">尚无日志</string>
+    <string name="logcat_notification_channel_description">当logcat 正在积极收集日志时显示</string>
+    <string name="logcat_notification_channel_name">日志会话</string>
+    <string name="logcat_permission_body">没有此权限，只有从 aShellYou 本身的日志才会可见。通过从计算机运行此命令授予完全访问权限：</string>
+    <string name="logcat_permission_title">日志访问权限</string>
+    <string name="logcat_running_description">aShellYou 正在后台收集系统日志</string>
+    <string name="logcat_shortcut_long_label">打开日志查看器</string>
     <string name="logs">日志</string>
     <string name="look_and_feel">外观 &amp; 体验</string>
     <string name="low">低</string>
@@ -442,6 +460,7 @@
     <string name="max_download_size">最大下载</string>
     <string name="medium">中</string>
     <string name="merge">合并</string>
+    <string name="message">留言</string>
     <string name="minimize">最小化</string>
     <string name="mode">模式</string>
     <string name="mode_one_desc">使用Root执行命令. 依赖Root权限的命令可以被执行</string>
@@ -515,6 +534,7 @@
     <string name="other_device">其他设备</string>
     <string name="output">产出</string>
     <string name="override_bookmarks_limit">取消书签数量限制</string>
+    <string name="package_name">包名</string>
     <string name="pair">配对</string>
     <string name="pair_a_device_first">先配对设备</string>
     <string name="pair_another_device">配对另一台设备</string>
@@ -542,6 +562,7 @@
     <string name="partition">分区</string>
     <string name="paste">粘贴</string>
     <string name="path">路径</string>
+    <string name="paused">已暂停</string>
     <string name="permission_denied">权限被拒绝</string>
     <string name="permission_optional">这些权限的授予是可选的！按需授权</string>
     <string name="pick_ashellyou_extension">请选择一个 .ashellyou 扩展名的文件</string>
@@ -596,10 +617,13 @@
     <string name="restore_from">还原自</string>
     <string name="restore_successful">恢复成功</string>
     <string name="restoring_backup">恢复备份…</string>
+    <string name="resume">继续</string>
     <string name="retry">重试</string>
     <string name="root_access_granted">Root 访问已授予！</string>
+    <string name="running">正在运行</string>
     <string name="sans_serif" comment="Font style category name">无衬线字体</string>
     <string name="save">保存</string>
+    <string name="save_as_profile">另存为…</string>
     <string name="save_whole_output">保存整个输出</string>
     <string name="saved_devices">已保存的设备</string>
     <string name="saving">保存中…</string>
@@ -670,6 +694,7 @@
     <string name="stack_trace">堆栈跟踪</string>
     <string name="stargazers">Stargazers</string>
     <string name="start">开始</string>
+    <string name="stop">停止</string>
     <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">%.1f MB 被AI 模型使用</string>
     <string name="subtitle">字幕</string>
     <string name="subtitle_off_state">字幕 (OFF 状态)</string>
@@ -684,6 +709,7 @@
     <string name="system_default">系统默认</string>
     <string name="system_font" comment="Option to use the device default font">系统字体</string>
     <string name="system_settings">系统设置</string>
+    <string name="tag">标签</string>
     <string name="telegram">Telegram</string>
     <string name="terminal">终端</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">终端字体样式</string>
@@ -698,6 +724,7 @@
     <string name="tile_name">瓷贴名称</string>
     <string name="tiles">瓷块</string>
     <string name="time">时间</string>
+    <string name="timestamp">时间戳</string>
     <string name="toggleable">可切换的</string>
     <string name="total_executions">执行总数</string>
     <string name="translations">翻译</string>
@@ -754,6 +781,9 @@
     <string name="wireless_debugging_guide_2">在aShell You发送的通知中输入配对码</string>
     <string name="wireless_debugging_guide_3">返回aShell You的主页点击无线ADB板块的“开始”即可</string>
     <string name="wireless_debugging_important_notice">注意无线调试选项左侧是可以点的。点击会打开无线调试配对菜单</string>
+    <plurals name="logcat_new_entries">
+        <item quantity="other">%1$d 新条目</item>
+    </plurals>
     <string name="changelog_v7_4_0">\n您现在可以在设置屏幕中搜索子设置\n添加色板样式用于配色方案\n添加选项以直接在应用中设置应用语言</string>
     <string name="changelog_v7_3_0">\n在更新日志屏幕上改进了UI。\n添加了翻译贡献者，在\n添加了许可证屏幕，显示有关应用程序和其他库的详细许可信息</string>
     <string name="changelog_v7_2_1">\n维护更新！</string>
