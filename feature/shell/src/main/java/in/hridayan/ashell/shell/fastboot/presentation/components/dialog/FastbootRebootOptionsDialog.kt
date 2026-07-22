@@ -1,8 +1,7 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog
+package `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog
 
-import `in`.hridayan.ashell.core.resources.R
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -33,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.fastboot.domain.model.RebootMode
 
 @Composable

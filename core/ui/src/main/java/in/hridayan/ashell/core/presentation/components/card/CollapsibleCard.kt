@@ -2,8 +2,6 @@
 
 package `in`.hridayan.ashell.core.presentation.components.card
 
-import `in`.hridayan.ashell.core.resources.R
-
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.BorderStroke
@@ -34,6 +32,7 @@ import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
+import `in`.hridayan.ashell.core.resources.R
 
 @Composable
 fun CollapsibleCard(

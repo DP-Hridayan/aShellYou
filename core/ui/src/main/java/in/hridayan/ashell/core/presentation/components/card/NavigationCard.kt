@@ -2,8 +2,6 @@
 
 package `in`.hridayan.ashell.core.presentation.components.card
 
-import `in`.hridayan.ashell.core.resources.R
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
+import `in`.hridayan.ashell.core.resources.R
 
 @Composable
 fun NavigationCard(

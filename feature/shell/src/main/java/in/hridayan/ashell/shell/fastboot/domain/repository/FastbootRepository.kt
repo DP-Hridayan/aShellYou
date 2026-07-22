@@ -15,7 +15,16 @@ interface FastbootRepository {
     fun getDeviceInfo(): Flow<FastbootDeviceInfo>
     fun reboot(mode: RebootMode)
     fun getAllVariables(): Flow<List<Pair<String, String>>>
-    fun flashPartition(partition: String, imageUri: Uri, onProgress: (FlashOperation) -> Unit): Flow<FastbootCommandResult>
-    fun erasePartition(partition: String, onProgress: (FlashOperation) -> Unit): Flow<FastbootCommandResult>
+    fun flashPartition(
+        partition: String,
+        imageUri: Uri,
+        onProgress: (FlashOperation) -> Unit
+    ): Flow<FastbootCommandResult>
+
+    fun erasePartition(
+        partition: String,
+        onProgress: (FlashOperation) -> Unit
+    ): Flow<FastbootCommandResult>
+
     fun bootImage(imageUri: Uri, onProgress: (FlashOperation) -> Unit): Flow<FastbootCommandResult>
 }

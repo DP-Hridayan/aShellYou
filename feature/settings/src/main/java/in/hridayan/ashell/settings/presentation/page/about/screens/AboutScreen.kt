@@ -2,10 +2,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.about.screens
 
-import `in`.hridayan.ashell.core.resources.R
-
-
-import `in`.hridayan.ashell.core.common.LocalSettings
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -31,11 +27,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.material3.toShape
-import androidx.datastore.preferences.core.emptyPreferences
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -52,9 +47,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.datastore.preferences.core.emptyPreferences
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.common.constants.UrlConst
+import `in`.hridayan.ashell.core.navigation.LocalNavController
+import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.core.presentation.components.animatedcomposables.AnimatedAdbIcon
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -66,18 +65,15 @@ import `in`.hridayan.ashell.core.presentation.components.svg.vectors.appBranding
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.presentation.utils.syncedRotationAndScale
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.openUrl
-import `in`.hridayan.ashell.core.navigation.LocalNavController
-import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.settings.presentation.components.card.SupportMeCard
 import `in`.hridayan.ashell.settings.presentation.components.image.ProfilePic
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
-
 import `in`.hridayan.ashell.settings.presentation.state.settingsContent
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
-import `in`.hridayan.settingsdsl.ui.item.settingsContent
 
 @Composable
 fun AboutScreen(
@@ -192,7 +188,10 @@ fun AboutScreen(
                                 onClick = { openUrl(UrlConst.URL_GITHUB_REPO, context) })
                             AppHandlesChip(
                                 icon = painterResource(R.drawable.ic_version_tag),
-                                title = context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: "",
+                                title = context.packageManager.getPackageInfo(
+                                    context.packageName,
+                                    0
+                                ).versionName ?: "",
                                 description = stringResource(R.string.current_version),
                                 containerColor = MaterialTheme.colorScheme.secondaryContainer,
                                 contentColor = MaterialTheme.colorScheme.onSecondaryContainer,

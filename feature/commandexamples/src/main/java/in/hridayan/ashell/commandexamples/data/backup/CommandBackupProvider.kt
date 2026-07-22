@@ -1,8 +1,8 @@
 package `in`.hridayan.ashell.commandexamples.data.backup
 
+import `in`.hridayan.ashell.core.common.domain.backup.BackupProvider
 import `in`.hridayan.ashell.core.domain.model.CommandEntity
 import `in`.hridayan.ashell.core.domain.repository.CommandRepository
-import `in`.hridayan.ashell.core.common.domain.backup.BackupProvider
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.decodeFromJsonElement
@@ -24,7 +24,7 @@ class CommandBackupProvider @Inject constructor(
 
     override suspend fun restoreData(data: JsonElement?, legacyData: (String) -> JsonElement?) {
         val jsonData = data ?: legacyData("commands") ?: return
-        
+
         try {
             val commands = json.decodeFromJsonElement<List<CommandEntity>>(jsonData)
             if (commands.isNotEmpty()) {

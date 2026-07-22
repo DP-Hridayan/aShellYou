@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.logcat.data.session
 
 import `in`.hridayan.ashell.logcat.domain.model.LogEntry
+import `in`.hridayan.ashell.logcat.service.LogcatService
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -13,7 +14,6 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import java.util.concurrent.atomic.AtomicLong
 import javax.inject.Inject
 import javax.inject.Singleton
-import `in`.hridayan.ashell.logcat.service.LogcatService
 
 private const val MAX_RAW_BUFFER = 2000
 
@@ -56,12 +56,16 @@ class LogcatSessionHolder @Inject constructor() {
     private val _isRunning = MutableStateFlow(false)
     val isRunning: StateFlow<Boolean> = _isRunning.asStateFlow()
 
-    fun setRunning(running: Boolean) { _isRunning.value = running }
+    fun setRunning(running: Boolean) {
+        _isRunning.value = running
+    }
 
     private val _navigationChannel = Channel<Unit>(capacity = Channel.BUFFERED)
     val navigationEvents: Flow<Unit> = _navigationChannel.receiveAsFlow()
 
-    fun triggerLogcatNavigation() { _navigationChannel.trySend(Unit) }
+    fun triggerLogcatNavigation() {
+        _navigationChannel.trySend(Unit)
+    }
 
     suspend fun emit(entry: LogEntry) {
         appendToBuffer(entry)

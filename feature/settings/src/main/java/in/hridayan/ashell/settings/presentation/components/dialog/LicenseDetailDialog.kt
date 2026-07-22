@@ -1,9 +1,5 @@
 package `in`.hridayan.ashell.settings.presentation.components.dialog
 
-import `in`.hridayan.ashell.core.resources.R
-
-import androidx.compose.ui.unit.dp
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -35,9 +31,11 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.openUrl
 import `in`.hridayan.ashell.settings.domain.model.LibraryItem
 

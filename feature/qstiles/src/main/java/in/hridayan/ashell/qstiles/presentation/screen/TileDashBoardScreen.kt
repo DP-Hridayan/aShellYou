@@ -6,10 +6,6 @@
 
 package `in`.hridayan.ashell.qstiles.presentation.screen
 
-import `in`.hridayan.ashell.core.resources.R
-
-
-import androidx.compose.ui.unit.dp
 
 import android.content.pm.PackageManager
 import androidx.compose.animation.AnimatedContent
@@ -38,8 +34,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -81,17 +77,26 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.NavController
-import `in`.hridayan.ashell.core.presentation.components.chip.LabelChip
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.common.constants.SHIZUKU_PACKAGE_NAME
 import `in`.hridayan.ashell.core.common.constants.UrlConst
+import `in`.hridayan.ashell.core.common.domain.model.TileExecutionMode
+import `in`.hridayan.ashell.core.navigation.LocalNavController
+import `in`.hridayan.ashell.core.navigation.NavRoutes
+import `in`.hridayan.ashell.core.navigation.navigateBack
+import `in`.hridayan.ashell.core.navigation.slideFadeInFromLeft
+import `in`.hridayan.ashell.core.navigation.slideFadeInFromRight
+import `in`.hridayan.ashell.core.navigation.slideFadeOutToLeft
+import `in`.hridayan.ashell.core.navigation.slideFadeOutToRight
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
+import `in`.hridayan.ashell.core.presentation.components.chip.LabelChip
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.modifier.dashedBorder
 import `in`.hridayan.ashell.core.presentation.components.navigation.FloatingNavPill
@@ -100,22 +105,15 @@ import `in`.hridayan.ashell.core.presentation.components.navigation.FloatingNavP
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.color.blend
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.DateTimeUtils
 import `in`.hridayan.ashell.core.utils.UrlUtils
 import `in`.hridayan.ashell.core.utils.createAppNotificationSettingsIntent
 import `in`.hridayan.ashell.core.utils.isAppInstalled
 import `in`.hridayan.ashell.core.utils.isNotificationPermissionGranted
 import `in`.hridayan.ashell.core.utils.launchApp
-import `in`.hridayan.ashell.core.navigation.LocalNavController
-import `in`.hridayan.ashell.core.navigation.NavRoutes
-import `in`.hridayan.ashell.core.navigation.navigateBack
-import `in`.hridayan.ashell.core.navigation.slideFadeInFromLeft
-import `in`.hridayan.ashell.core.navigation.slideFadeInFromRight
-import `in`.hridayan.ashell.core.navigation.slideFadeOutToLeft
-import `in`.hridayan.ashell.core.navigation.slideFadeOutToRight
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
-import `in`.hridayan.ashell.core.common.domain.model.TileExecutionMode
 import `in`.hridayan.ashell.qstiles.domain.model.TileLog
 import `in`.hridayan.ashell.qstiles.presentation.model.TileDashBoardScreenUiState
 import `in`.hridayan.ashell.qstiles.presentation.viewmodel.TileDashboardViewModel

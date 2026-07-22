@@ -1,7 +1,5 @@
 package `in`.hridayan.ashell.shell.fastboot.presentation.components.section
 
-import `in`.hridayan.ashell.core.resources.R
-
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
@@ -36,6 +34,7 @@ import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.divider.WavyHorizontalDivider
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
+import `in`.hridayan.ashell.core.resources.R
 
 @Composable
 fun ConnectedDeviceCard(

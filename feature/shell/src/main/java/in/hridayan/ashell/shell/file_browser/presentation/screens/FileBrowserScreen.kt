@@ -2,9 +2,6 @@
 
 package `in`.hridayan.ashell.shell.file_browser.presentation.screens
 
-import `in`.hridayan.ashell.core.resources.R
-import androidx.compose.foundation.lazy.items
-
 
 import android.net.Uri
 import android.provider.OpenableColumns
@@ -36,6 +33,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -101,20 +99,21 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.domain.model.AdbFileBrowserConnectionMode
+import `in`.hridayan.ashell.core.navigation.LocalNavController
+import `in`.hridayan.ashell.core.navigation.navigateBack
+import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
-import `in`.hridayan.ashell.shell.common.presentation.components.svg.vectors.undrawDreamer
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
 import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
 import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
 import `in`.hridayan.ashell.core.presentation.model.ButtonType
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.isConnectedToWifi
 import `in`.hridayan.ashell.core.utils.showToast
-import `in`.hridayan.ashell.core.navigation.LocalNavController
-import `in`.hridayan.ashell.core.navigation.navigateBack
+import `in`.hridayan.ashell.shell.common.presentation.components.svg.vectors.undrawDreamer
 import `in`.hridayan.ashell.shell.file_browser.domain.model.ClipboardOperation
-import `in`.hridayan.ashell.core.domain.model.AdbFileBrowserConnectionMode
 import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
 import `in`.hridayan.ashell.shell.file_browser.presentation.component.FileListItem
 import `in`.hridayan.ashell.shell.file_browser.presentation.component.OperationItem

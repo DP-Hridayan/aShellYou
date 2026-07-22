@@ -6,7 +6,6 @@
 
 package `in`.hridayan.ashell.home.presentation.screens
 
-
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -48,17 +47,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -68,14 +61,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalDialogManager
-import `in`.hridayan.ashell.core.common.LocalSettings
-import `in`.hridayan.ashell.core.common.SettingsKeys
-import `in`.hridayan.ashell.core.domain.model.FastbootState
 import `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode
-import `in`.hridayan.ashell.core.navigation.LocalNavController
-import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButton
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -84,8 +71,8 @@ import `in`.hridayan.ashell.core.presentation.components.svg.vectors.appBranding
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.showToast
+import `in`.hridayan.ashell.home.presentation.component.dialog.HomeDialogKey
 import `in`.hridayan.ashell.home.presentation.component.dialog.RebootOptionsDialog
-import `in`.hridayan.ashell.home.presentation.components.dialog.HomeDialogKey
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -288,7 +275,10 @@ fun HomeScreen(
     }
 
     when (dialogManager.activeDialog) {
-        HomeDialogKey.RebootOptions -> RebootOptionsDialog(onDismiss = { dialogManager.dismiss() }, onReboot = onReboot)
+        HomeDialogKey.RebootOptions -> RebootOptionsDialog(
+            onDismiss = { dialogManager.dismiss() },
+            onReboot = onReboot
+        )
 
         else -> dialogManager.dismiss()
     }
@@ -313,7 +303,14 @@ private fun LocalAdbCard(
         modifier = modifier,
         title = stringResource(R.string.local_adb),
         description = detailsText,
-        leadingIcon = painterResource(R.drawable.ic_adb2),
+        leadingIcon = {
+            Icon(
+                modifier = Modifier.size(20.dp),
+                painter = painterResource(R.drawable.ic_adb),
+                contentDescription = null,
+                tint = it
+            )
+        },
         badgeText = stringResource(R.string.this_device),
         onClick = onClick,
     )
@@ -327,7 +324,14 @@ private fun OtgAdbCard(
     NavItemCompactCard(
         modifier = modifier,
         title = stringResource(R.string.adb_via_otg),
-        leadingIcon = painterResource(R.drawable.ic_otg),
+        leadingIcon = {
+            Icon(
+                modifier = Modifier.size(20.dp),
+                painter = painterResource(R.drawable.ic_otg),
+                contentDescription = null,
+                tint = it
+            )
+        },
         badgeText = stringResource(R.string.other_device),
         iconContainerColor = MaterialTheme.colorScheme.tertiary,
         iconContentColor = MaterialTheme.colorScheme.onTertiary,
@@ -342,13 +346,18 @@ private fun WirelessDebuggingCard(
     onStartClick: () -> Unit,
     onPairClick: () -> Unit
 ) {
-    val dialogManager = LocalDialogManager.current
-
     NavItemCard(
         modifier = modifier,
         title = stringResource(R.string.adb_via_wireless_debugging),
         description = stringResource(R.string.adb_via_wireless_debugging_summary),
-        leadingIcon = painterResource(R.drawable.ic_wireless),
+        leadingIcon = { tint ->
+            Icon(
+                modifier = Modifier.size(20.dp),
+                painter = painterResource(R.drawable.ic_wireless),
+                contentDescription = null,
+                tint = tint
+            )
+        },
         clickable = false,
         badges = {
             FlowRow(
@@ -414,7 +423,14 @@ private fun FastbootCard(
     NavItemCompactCard(
         modifier = modifier,
         title = stringResource(R.string.fastboot),
-        leadingIcon = painterResource(R.drawable.ic_flash_on),
+        leadingIcon = {
+            Icon(
+                modifier = Modifier.size(20.dp),
+                painter = painterResource(R.drawable.ic_flash_on),
+                contentDescription = null,
+                tint = it
+            )
+        },
         badgeText = stringResource(R.string.other_device),
         onClick = withHaptic { onClick() }
     )
@@ -428,7 +444,14 @@ fun AdbSideloadCard(
     NavItemCompactCard(
         modifier = modifier,
         title = stringResource(R.string.adb_sideload),
-        leadingIcon = painterResource(R.drawable.ic_mobile_arrow_down),
+        leadingIcon = {
+            Icon(
+                modifier = Modifier.size(20.dp),
+                painter = painterResource(R.drawable.ic_mobile_arrow_down),
+                contentDescription = null,
+                tint = it
+            )
+        },
         badgeText = stringResource(R.string.other_device),
         iconContainerColor = MaterialTheme.colorScheme.tertiary,
         iconContentColor = MaterialTheme.colorScheme.onTertiary,
@@ -458,7 +481,14 @@ fun LogcatCard(
         modifier = modifier,
         title = stringResource(R.string.logcat),
         description = stringResource(R.string.des_logcat),
-        leadingIcon = painterResource(R.drawable.ic_bug),
+        leadingIcon = { tint ->
+            Icon(
+                modifier = Modifier.size(20.dp),
+                painter = painterResource(R.drawable.ic_bug),
+                contentDescription = null,
+                tint = tint
+            )
+        },
         cardColors = cardColors,
         onClick = withHaptic { onClick() },
         badges = {
@@ -481,7 +511,7 @@ private fun NavItemCompactCard(
     enabled: Boolean = true,
     title: String,
     description: String = "Details",
-    leadingIcon: Painter,
+    leadingIcon: @Composable (Color) -> Unit = {},
     trailingIcon: @Composable () -> Unit = {},
     cardColors: CardColors = CardDefaults.cardColors(
         containerColor = MaterialTheme.colorScheme.surfaceContainer,
@@ -516,12 +546,7 @@ private fun NavItemCompactCard(
                         .background(iconContainerColor)
                         .padding(5.dp),
                 ) {
-                    Icon(
-                        modifier = Modifier.size(20.dp),
-                        painter = leadingIcon,
-                        contentDescription = null,
-                        tint = iconContentColor
-                    )
+                    leadingIcon(iconContentColor)
                 }
 
                 Text(
@@ -567,7 +592,14 @@ private fun NavItemCompactCard(
 private fun NavItemCompactCardPreview() {
     NavItemCompactCard(
         title = "Local ADB",
-        leadingIcon = painterResource(R.drawable.ic_adb)
+        leadingIcon = {
+            Icon(
+                modifier = Modifier.size(20.dp),
+                painter = painterResource(R.drawable.ic_adb),
+                contentDescription = null,
+                tint = it
+            )
+        }
     )
 }
 
@@ -578,7 +610,7 @@ private fun NavItemCard(
     clickable: Boolean = true,
     title: String,
     description: String = "Details",
-    leadingIcon: Painter,
+    leadingIcon: @Composable (Color) -> Unit = {},
     trailingIcon: @Composable () -> Unit = {},
     cardColors: CardColors = CardDefaults.cardColors(
         containerColor = MaterialTheme.colorScheme.surfaceContainer,
@@ -612,12 +644,7 @@ private fun NavItemCard(
                         .background(iconContainerColor)
                         .padding(5.dp),
                 ) {
-                    Icon(
-                        modifier = Modifier.size(20.dp),
-                        painter = leadingIcon,
-                        contentDescription = null,
-                        tint = iconContentColor
-                    )
+                    leadingIcon(iconContentColor)
                 }
 
                 Text(

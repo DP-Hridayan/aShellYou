@@ -1,8 +1,7 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog
+package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog
 
-import `in`.hridayan.ashell.core.resources.R
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -30,6 +29,7 @@ import `in`.hridayan.ashell.core.presentation.components.card.BottomCornerRounde
 import `in`.hridayan.ashell.core.presentation.components.card.TopCornerRoundedCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.resources.R
 
 @Composable
 fun PairModeChooseDialog(

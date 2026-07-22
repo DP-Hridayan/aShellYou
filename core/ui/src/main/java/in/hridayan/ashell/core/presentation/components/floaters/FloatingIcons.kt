@@ -63,13 +63,13 @@ fun FloatingIconsBackground(
     val density = LocalDensity.current
     val tintColor = MaterialTheme.colorScheme.onSurface
 
-    val painters = List(iconCount) { 
-        painterResource(iconResIds[it % iconResIds.size]) 
+    val painters = List(iconCount) {
+        painterResource(iconResIds[it % iconResIds.size])
     }
-    
+
     var containerSize by remember { mutableStateOf(IntSize.Zero) }
     val icons = remember { mutableStateOf<List<FloatingIconState>>(emptyList()) }
-    
+
     var lastFrameTime by remember { mutableLongStateOf(0L) }
     var frameTrigger by remember { mutableLongStateOf(0L) }
     var touchPos by remember { mutableStateOf<Offset?>(null) }
@@ -85,14 +85,14 @@ fun FloatingIconsBackground(
                 val sizeDp = (16..36).random().dp
                 val sizePx = with(density) { sizeDp.toPx() }
                 val radius = sizePx / 2f
-                
+
                 // Ensure initial position is fully within bounds
                 val x = (radius..(width - radius)).random()
                 val y = (radius..(height - radius)).random()
-                
+
                 val angle = (0f..(2f * Math.PI.toFloat())).random()
                 val speed = (minSpeed..maxSpeed).random()
-                
+
                 FloatingIconState(
                     painter = painters[index],
                     size = sizePx,

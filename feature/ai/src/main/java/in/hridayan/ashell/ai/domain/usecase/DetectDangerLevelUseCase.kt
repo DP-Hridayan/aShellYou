@@ -18,7 +18,10 @@ class DetectDangerLevelUseCase {
 
     private val patterns: List<DangerPattern> = listOf(
         // ── CRITICAL ──
-        DangerPattern(Regex("rm\\s+-[^\\s]*r[^\\s]*f.*\\s+/\\s*$|rm\\s+-[^\\s]*f[^\\s]*r.*\\s+/\\s*$"), DangerLevel.CRITICAL),
+        DangerPattern(
+            Regex("rm\\s+-[^\\s]*r[^\\s]*f.*\\s+/\\s*$|rm\\s+-[^\\s]*f[^\\s]*r.*\\s+/\\s*$"),
+            DangerLevel.CRITICAL
+        ),
         DangerPattern(Regex("rm\\s+-rf\\s+/(?:\\s|$)"), DangerLevel.CRITICAL),
         DangerPattern(Regex("dd\\s+if="), DangerLevel.CRITICAL),
         DangerPattern(Regex("mkfs\\."), DangerLevel.CRITICAL),

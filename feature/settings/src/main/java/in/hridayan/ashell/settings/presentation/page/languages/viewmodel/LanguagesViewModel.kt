@@ -1,10 +1,10 @@
 package `in`.hridayan.ashell.settings.presentation.page.languages.viewmodel
 
 import android.annotation.SuppressLint
-import androidx.compose.runtime.Stable
 import android.app.Application
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.runtime.Stable
 import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.AndroidViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -159,7 +159,8 @@ class LanguagesViewModel @Inject constructor(
 
             // English at the top of the list (source language = 100%)
             val english = run {
-                val enLocale = if (englishTag != null) Locale.forLanguageTag(englishTag) else Locale.ENGLISH
+                val enLocale =
+                    if (englishTag != null) Locale.forLanguageTag(englishTag) else Locale.ENGLISH
                 SupportedLocale(
                     tag = englishTag ?: "en",
                     displayName = enLocale.getDisplayName(currentLocale)

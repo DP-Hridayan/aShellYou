@@ -63,6 +63,7 @@ fun LogFilter.matches(entry: LogEntry): Boolean {
                     (tags.isEmpty() || entry.tag in tags)
             levelOk && queryOk && fieldOk
         }
+
         FilterMode.EXCLUDE -> {
             // Level exclusion: hide if the level is in the selected set
             val levelExcluded = levels.isNotEmpty() && entry.level in levels

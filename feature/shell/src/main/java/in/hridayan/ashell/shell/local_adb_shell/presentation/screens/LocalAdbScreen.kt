@@ -1,13 +1,7 @@
 package `in`.hridayan.ashell.shell.local_adb_shell.presentation.screens
 
-import `in`.hridayan.ashell.core.resources.R
-
-
-import `in`.hridayan.ashell.core.common.LocalSettings
 
 import androidx.compose.runtime.Composable
-import `in`.hridayan.ashell.shell.common.presentation.screens.BaseShellScreen
-import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ConnectedDeviceDialog
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -25,18 +19,20 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.SettingsKeys
-import `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.common.constants.SHIZUKU_PACKAGE_NAME
 import `in`.hridayan.ashell.core.common.constants.UrlConst
+import `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.domain.model.SharedTextHolder
-import `in`.hridayan.ashell.core.utils.ToastUtils.makeToast
+import `in`.hridayan.ashell.core.presentation.components.dialog.ShizukuUnavailableDialog
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.DeviceUtils
+import `in`.hridayan.ashell.core.utils.ToastUtils.makeToast
 import `in`.hridayan.ashell.core.utils.UrlUtils
 import `in`.hridayan.ashell.core.utils.isAppInstalled
 import `in`.hridayan.ashell.core.utils.launchApp
 import `in`.hridayan.ashell.core.utils.showToast
-import `in`.hridayan.ashell.core.presentation.components.dialog.ShizukuUnavailableDialog
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ConnectedDeviceDialog
 import `in`.hridayan.ashell.shell.common.presentation.model.ShellState
 import `in`.hridayan.ashell.shell.common.presentation.screens.BaseShellScreen

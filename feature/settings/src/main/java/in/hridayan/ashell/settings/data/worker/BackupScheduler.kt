@@ -32,11 +32,15 @@ object BackupScheduler {
         val initialDelay = Duration.between(now, scheduledTime).toMillis()
         val repeatIntervalDays = BackupFrequency.intervalDays(frequency)
 
-        Log.i(TAG, "schedule() → target=$scheduledTime initialDelayMs=$initialDelay repeatDays=$repeatIntervalDays")
+        Log.i(
+            TAG,
+            "schedule() → target=$scheduledTime initialDelayMs=$initialDelay repeatDays=$repeatIntervalDays"
+        )
 
-        val request = PeriodicWorkRequestBuilder<AutoBackupWorker>(repeatIntervalDays, TimeUnit.DAYS)
-            .setInitialDelay(initialDelay, TimeUnit.MILLISECONDS)
-            .build()
+        val request =
+            PeriodicWorkRequestBuilder<AutoBackupWorker>(repeatIntervalDays, TimeUnit.DAYS)
+                .setInitialDelay(initialDelay, TimeUnit.MILLISECONDS)
+                .build()
 
         WorkManager.getInstance(context).enqueueUniquePeriodicWork(
             WORK_NAME,

@@ -3,8 +3,6 @@
 package `in`.hridayan.ashell.ai.presentation.screens.components.modelmanager
 
 
-import `in`.hridayan.ashell.core.resources.R
-
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -51,6 +49,7 @@ import `in`.hridayan.ashell.ai.presentation.model.ModelCardState
 import `in`.hridayan.ashell.ai.presentation.viewmodel.AiModelManagerViewModel.ModelUiState
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.resources.R
 
 /**
  * Material 3 card displaying a single AI model's info and actions.

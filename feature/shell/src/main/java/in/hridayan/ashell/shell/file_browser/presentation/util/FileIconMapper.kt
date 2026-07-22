@@ -31,12 +31,37 @@ object FileIconMapper {
             }
 
             // Video files
-            listOf("mp4", "mkv", "avi", "mov", "webm", "3gp", "wmv", "flv", "m4v", "mpeg", "mpg").forEach {
+            listOf(
+                "mp4",
+                "mkv",
+                "avi",
+                "mov",
+                "webm",
+                "3gp",
+                "wmv",
+                "flv",
+                "m4v",
+                "mpeg",
+                "mpg"
+            ).forEach {
                 put(it, Icons.Rounded.VideoFile)
             }
 
             // Image files
-            listOf("jpg", "jpeg", "png", "gif", "webp", "bmp", "svg", "ico", "tiff", "heic", "heif", "raw").forEach {
+            listOf(
+                "jpg",
+                "jpeg",
+                "png",
+                "gif",
+                "webp",
+                "bmp",
+                "svg",
+                "ico",
+                "tiff",
+                "heic",
+                "heif",
+                "raw"
+            ).forEach {
                 put(it, Icons.Rounded.Image)
             }
 
@@ -49,7 +74,19 @@ object FileIconMapper {
             }
 
             // Archive files
-            listOf("zip", "rar", "7z", "tar", "gz", "bz2", "xz", "tgz", "tbz2", "lz4", "zst").forEach {
+            listOf(
+                "zip",
+                "rar",
+                "7z",
+                "tar",
+                "gz",
+                "bz2",
+                "xz",
+                "tgz",
+                "tbz2",
+                "lz4",
+                "zst"
+            ).forEach {
                 put(it, Icons.Rounded.FolderZip)
             }
 
@@ -64,19 +101,77 @@ object FileIconMapper {
             }
 
             // Code/Markup files
-            listOf("xml", "html", "htm", "xhtml", "css", "scss", "less", "kt", "java", "c", "cpp", "h", "hpp",
-                "js", "ts", "jsx", "tsx", "vue", "svelte", "go", "rs", "rb", "php", "swift", "dart", "cs",
-                "gradle", "kts", "groovy", "scala", "r", "sql", "graphql", "proto").forEach {
+            listOf(
+                "xml",
+                "html",
+                "htm",
+                "xhtml",
+                "css",
+                "scss",
+                "less",
+                "kt",
+                "java",
+                "c",
+                "cpp",
+                "h",
+                "hpp",
+                "js",
+                "ts",
+                "jsx",
+                "tsx",
+                "vue",
+                "svelte",
+                "go",
+                "rs",
+                "rb",
+                "php",
+                "swift",
+                "dart",
+                "cs",
+                "gradle",
+                "kts",
+                "groovy",
+                "scala",
+                "r",
+                "sql",
+                "graphql",
+                "proto"
+            ).forEach {
                 put(it, Icons.Rounded.Code)
             }
 
             // Script files
-            listOf("sh", "bash", "zsh", "fish", "bat", "cmd", "ps1", "py", "pl", "awk", "sed").forEach {
+            listOf(
+                "sh",
+                "bash",
+                "zsh",
+                "fish",
+                "bat",
+                "cmd",
+                "ps1",
+                "py",
+                "pl",
+                "awk",
+                "sed"
+            ).forEach {
                 put(it, Icons.Rounded.Terminal)
             }
 
             // Binary/System files
-            listOf("so", "dll", "exe", "bin", "elf", "o", "a", "dylib", "dex", "odex", "vdex", "oat").forEach {
+            listOf(
+                "so",
+                "dll",
+                "exe",
+                "bin",
+                "elf",
+                "o",
+                "a",
+                "dylib",
+                "dex",
+                "odex",
+                "vdex",
+                "oat"
+            ).forEach {
                 put(it, Icons.Rounded.Settings)
             }
         }

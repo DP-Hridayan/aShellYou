@@ -3,7 +3,6 @@ package `in`.hridayan.ashell.settings.data.source
 import `in`.hridayan.ashell.core.resources.R
 
 
-
 data class VersionToChangelogs(
     val version: String,
     val resId: Int

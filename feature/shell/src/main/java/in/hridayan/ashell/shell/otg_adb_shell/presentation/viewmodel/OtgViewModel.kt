@@ -1,7 +1,7 @@
 package `in`.hridayan.ashell.shell.otg_adb_shell.presentation.viewmodel
 
-import androidx.lifecycle.ViewModel
 import androidx.compose.runtime.Stable
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.shell.otg_adb_shell.data.repository.OtgRepositoryImpl
@@ -41,7 +41,8 @@ class OtgViewModel @Inject constructor(
         try {
             val connection = repository.getAdbConnection() ?: return@launch
             connection.open("reboot:bootloader")
-        } catch (_: Exception) {}
+        } catch (_: Exception) {
+        }
     }
 
     override fun onCleared() {

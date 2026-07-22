@@ -101,7 +101,7 @@ fun AiModelsScreen(
     val dialogManager = LocalDialogManager.current
     val settings = LocalSettings.current
     val hapticsEnabled = settings[SettingsKeys.HapticsAndVibration]
-    
+
     val prefs by aiViewModel.preferences.collectAsState(initial = emptyPreferences())
 
     val selectedModelName = ModelRegistry.findById(settings[SettingsKeys.SelectedModelId])?.name

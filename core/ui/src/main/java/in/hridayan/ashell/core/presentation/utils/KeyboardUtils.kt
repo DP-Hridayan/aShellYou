@@ -53,7 +53,7 @@ fun hideKeyboard(context: Context) {
 /**
  * Disables soft keyboard input based on user preference.
  */
-fun disableKeyboard(context: Context, disableSoftKey: Boolean ) {
+fun disableKeyboard(context: Context, disableSoftKey: Boolean) {
     val activity = context as? Activity ?: return
     val view = activity.currentFocus ?: View(context)
 

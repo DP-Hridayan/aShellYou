@@ -2,17 +2,12 @@
 
 package `in`.hridayan.ashell.onboarding.presentation.screens
 
-import `in`.hridayan.ashell.core.resources.R
-
-
-import androidx.compose.animation.core.spring
-
-import `in`.hridayan.ashell.core.common.SettingsKeys
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -41,9 +36,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.onboarding.presentation.viewmodel.OnboardingViewModel
 import kotlinx.coroutines.launch
 

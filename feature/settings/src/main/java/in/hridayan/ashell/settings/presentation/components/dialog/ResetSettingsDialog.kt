@@ -1,7 +1,5 @@
 package `in`.hridayan.ashell.settings.presentation.components.dialog
 
-import `in`.hridayan.ashell.core.resources.R
-
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -22,6 +20,7 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
 import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
 import `in`.hridayan.ashell.core.presentation.model.ButtonType
+import `in`.hridayan.ashell.core.resources.R
 
 @Composable
 fun ResetSettingsDialog(

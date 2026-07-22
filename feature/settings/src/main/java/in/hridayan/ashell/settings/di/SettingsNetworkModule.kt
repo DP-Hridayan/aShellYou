@@ -6,11 +6,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-
 import `in`.hridayan.ashell.settings.data.repository.DownloadRepositoryImpl
-import `in`.hridayan.ashell.settings.domain.repository.DownloadRepository
 import `in`.hridayan.ashell.settings.di.qualifiers.ApiHttpClient
-
+import `in`.hridayan.ashell.settings.domain.repository.DownloadRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation

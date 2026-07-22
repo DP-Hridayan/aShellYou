@@ -8,8 +8,8 @@ import `in`.hridayan.ashell.settings.data.remote.api.GithubApi
 import `in`.hridayan.ashell.settings.data.remote.mapper.mapToRepoStats
 import `in`.hridayan.ashell.settings.data.remote.mapper.toDomain
 import `in`.hridayan.ashell.settings.domain.model.GithubRepoStats
-import `in`.hridayan.ashell.settings.domain.repository.GithubDataRepository
 import `in`.hridayan.ashell.settings.domain.model.UpdateResult
+import `in`.hridayan.ashell.settings.domain.repository.GithubDataRepository
 import io.ktor.client.network.sockets.SocketTimeoutException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -28,7 +28,10 @@ class GithubDataRepositoryImpl @Inject constructor(
 ) : GithubDataRepository {
     private val repoKey = "DP-Hridayan/aShellYou"
 
-    override suspend fun fetchLatestRelease(includePrerelease: Boolean, releaseType: Int): UpdateResult {
+    override suspend fun fetchLatestRelease(
+        includePrerelease: Boolean,
+        releaseType: Int
+    ): UpdateResult {
         return try {
             Log.d("GithubDataRepository", "Fetching latest release from Github")
             val response = api.fetchLatestRelease(includePrerelease).toDomain(releaseType)

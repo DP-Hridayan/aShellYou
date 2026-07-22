@@ -2,10 +2,6 @@
 
 package `in`.hridayan.ashell.qstiles.presentation.screen
 
-import `in`.hridayan.ashell.core.resources.R
-
-
-import androidx.compose.ui.unit.dp
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
@@ -76,25 +72,27 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.navigation.LocalNavController
+import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.modifier.dashedBorder
+import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
+import `in`.hridayan.ashell.core.presentation.components.switch.AppSwitch
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
+import `in`.hridayan.ashell.core.resources.R
+import `in`.hridayan.ashell.core.ui.provider.ButtonGroupOptionsProvider
 import `in`.hridayan.ashell.core.utils.showToast
-import `in`.hridayan.ashell.core.navigation.LocalNavController
-import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
 import `in`.hridayan.ashell.qstiles.presentation.components.dialog.DeleteTileConfirmationDialog
 import `in`.hridayan.ashell.qstiles.presentation.components.dialog.IconChooserDialog
 import `in`.hridayan.ashell.qstiles.presentation.viewmodel.CreateTileViewModel
-import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
-import `in`.hridayan.ashell.core.presentation.components.switch.AppSwitch
-import `in`.hridayan.ashell.core.ui.provider.ButtonGroupOptionsProvider
 
 @Composable
 fun CreateTileScreen(

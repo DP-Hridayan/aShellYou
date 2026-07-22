@@ -18,7 +18,7 @@ class TileRepositoryImpl @Inject constructor(
     override fun getTiles(): Flow<List<TileConfig>> =
         datastore.getAllTiles().distinctUntilChanged()
 
-    override suspend fun createTile(config: TileConfig): Int? {
+    override suspend fun createTile(config: TileConfig): Int {
         datastore.saveTile(config)
         return config.id
     }

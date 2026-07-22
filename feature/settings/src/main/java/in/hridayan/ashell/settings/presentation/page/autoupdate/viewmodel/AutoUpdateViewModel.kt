@@ -1,18 +1,17 @@
 package `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel
 
 
-import `in`.hridayan.ashell.core.common.SettingsKeys
-
-import androidx.lifecycle.ViewModel
 import androidx.compose.runtime.Stable
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import `in`.hridayan.ashell.settings.domain.model.DownloadState
-import `in`.hridayan.ashell.settings.domain.usecase.DownloadApkUseCase
-import `in`.hridayan.ashell.settings.domain.model.UpdateResult
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.common.domain.model.GithubReleaseType
 import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.settings.domain.model.DownloadState
+import `in`.hridayan.ashell.settings.domain.model.UpdateResult
 import `in`.hridayan.ashell.settings.domain.usecase.CheckUpdateUseCase
+import `in`.hridayan.ashell.settings.domain.usecase.DownloadApkUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow

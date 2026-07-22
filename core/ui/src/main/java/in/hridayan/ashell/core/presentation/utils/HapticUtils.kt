@@ -5,7 +5,7 @@ import android.view.View
 
 object HapticUtils {
 
-     fun View.weakHaptic() {
+    fun View.weakHaptic() {
         performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK)
     }
 

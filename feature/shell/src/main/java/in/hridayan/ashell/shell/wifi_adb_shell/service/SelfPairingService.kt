@@ -1,7 +1,5 @@
 package `in`.hridayan.ashell.shell.wifi_adb_shell.service
 
-import `in`.hridayan.ashell.core.resources.R
-
 import android.annotation.SuppressLint
 import android.app.Service
 import android.content.Context
@@ -15,7 +13,7 @@ import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.components.SingletonComponent
-import `in`.hridayan.ashell.shell.wifi_adb_shell.utils.WirelessDebuggingUtils
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.common.data.adb.AdbConnectionManager
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
@@ -86,14 +84,17 @@ class SelfPairingService : Service() {
     private var discoveredPairingIp: String? = null
     private var discoveredPairingPort: Int? = null
     private var discoveredConnectPort: Int? = null
-    @Volatile private var isProcessing = false
-    @Volatile private var isPairingDone = false
-    @Volatile private var isConnected = false
+    @Volatile
+    private var isProcessing = false
+    @Volatile
+    private var isPairingDone = false
+    @Volatile
+    private var isConnected = false
 
     override fun onCreate() {
         super.onCreate()
         notificationHelper = SelfPairingNotificationHelper(this)
-        
+
         // Get repository via Hilt EntryPoint
         val entryPoint = EntryPointAccessors.fromApplication(
             applicationContext,
@@ -215,7 +216,7 @@ class SelfPairingService : Service() {
                     Log.d(TAG, "Pairing service found but pairing already done, ignoring")
                     return
                 }
-                
+
                 if (isProcessing) {
                     Log.d(TAG, "Pairing service found but pairing in progress, ignoring")
                     return
@@ -230,13 +231,13 @@ class SelfPairingService : Service() {
                 // Show notification to enter pairing code
                 notificationHelper.showEnterCodeNotification(SelfPairingService::class.java)
             }
-            
+
             override fun onPairingServiceLost() {
                 if (isPairingDone || isProcessing) {
                     Log.d(TAG, "Pairing service lost but pairing done/in progress, ignoring")
                     return
                 }
-                
+
                 // Debounce: only clear state if service doesn't reappear in 3 seconds
                 // This handles cases where user briefly closes/reopens the pairing dialog
                 Log.d(TAG, "Pairing service lost - scheduling state clear after delay")
@@ -259,7 +260,10 @@ class SelfPairingService : Service() {
                 // ALWAYS store the connect port when found, even before pairing completes
                 // The connect service may be discovered before pairing and then disappear
                 if (discoveredPairingIp == null || discoveredPairingIp == ipAddress) {
-                    Log.d(TAG, "Connect service detected at $ipAddress:$port - storing for later use")
+                    Log.d(
+                        TAG,
+                        "Connect service detected at $ipAddress:$port - storing for later use"
+                    )
                     discoveredConnectPort = port
 
                     // If pairing is already done, connect immediately
@@ -268,7 +272,10 @@ class SelfPairingService : Service() {
                         connectAndSave(ipAddress, port)
                     }
                 } else {
-                    Log.d(TAG, "Ignoring connect service at $ipAddress:$port (different from pairing IP $discoveredPairingIp)")
+                    Log.d(
+                        TAG,
+                        "Ignoring connect service at $ipAddress:$port (different from pairing IP $discoveredPairingIp)"
+                    )
                 }
             }
         })
@@ -337,7 +344,10 @@ class SelfPairingService : Service() {
                                 Log.d(TAG, "Connect port discovered during wait: $port")
                                 connectAndSave(ip, port)
                             } else {
-                                Log.d(TAG, "Connect service not found via mDNS, trying direct connect...")
+                                Log.d(
+                                    TAG,
+                                    "Connect service not found via mDNS, trying direct connect..."
+                                )
                                 tryDirectConnect(ip)
                             }
                         }
@@ -418,7 +428,8 @@ class SelfPairingService : Service() {
             val serial = getDeviceProperty(adbManager, "ro.serialno")
 
             // Get device model name
-            val deviceName = getDeviceProperty(adbManager, "ro.product.model") ?: getString(R.string.this_device)
+            val deviceName =
+                getDeviceProperty(adbManager, "ro.product.model") ?: getString(R.string.this_device)
 
             val ownDevice = WifiAdbDevice(
                 ip = ip,
@@ -430,7 +441,7 @@ class SelfPairingService : Service() {
                 isOwnDevice = true
             )
 
-            CoroutineScope(Dispatchers.IO).launch { 
+            CoroutineScope(Dispatchers.IO).launch {
                 repository.saveDevice(ownDevice)
             }
             Log.d(TAG, "Saved self device: ${ownDevice.id}")
@@ -440,19 +451,24 @@ class SelfPairingService : Service() {
                 WifiAdbConnection.setCurrentDevice(ownDevice)
                 // Set Connected state and emit ConnectSuccess event
                 WifiAdbConnection.setDeviceConnected(ownDevice.id, "$ip:$port")
-                WifiAdbConnection.tryEmitEvent(WifiAdbEvent.ConnectSuccess(ownDevice.id, "$ip:$port"))
+                WifiAdbConnection.tryEmitEvent(
+                    WifiAdbEvent.ConnectSuccess(
+                        ownDevice.id,
+                        "$ip:$port"
+                    )
+                )
             }
 
-         /* ------WIll do it later-----
+            /* ------WIll do it later-----
 
-           // Grant WRITE_SECURE_SETTINGS permission for future wireless debugging control
-            // This allows the app to enable wireless debugging programmatically on reconnects
-            try {
-                val granted = WirelessDebuggingUtils.grantWriteSecureSettingsViaAdb(this, adbManager)
-                Log.d(TAG, "WRITE_SECURE_SETTINGS permission grant: $granted")
-            } catch (e: Exception) {
-                Log.w(TAG, "Failed to grant WRITE_SECURE_SETTINGS, will use fallback for reconnects", e)
-            }*/
+              // Grant WRITE_SECURE_SETTINGS permission for future wireless debugging control
+               // This allows the app to enable wireless debugging programmatically on reconnects
+               try {
+                   val granted = WirelessDebuggingUtils.grantWriteSecureSettingsViaAdb(this, adbManager)
+                   Log.d(TAG, "WRITE_SECURE_SETTINGS permission grant: $granted")
+               } catch (e: Exception) {
+                   Log.w(TAG, "Failed to grant WRITE_SECURE_SETTINGS, will use fallback for reconnects", e)
+               }*/
 
             notificationHelper.showSuccessNotification()
             stopSelfDelayed()

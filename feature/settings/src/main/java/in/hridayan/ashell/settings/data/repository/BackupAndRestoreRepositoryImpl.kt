@@ -1,18 +1,17 @@
 package `in`.hridayan.ashell.settings.data.repository
 
 
-import `in`.hridayan.ashell.core.common.SettingsKeys
-
 import android.content.Context
 import android.net.Uri
 import dagger.hilt.android.qualifiers.ApplicationContext
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.common.domain.backup.BackupProvider
-import `in`.hridayan.ashell.settings.data.utils.EncryptionHelper
 import `in`.hridayan.ashell.core.common.domain.model.BackupData
 import `in`.hridayan.ashell.core.common.domain.model.BackupMode
 import `in`.hridayan.ashell.core.common.domain.model.BackupType
-import `in`.hridayan.ashell.settings.domain.repository.BackupAndRestoreRepository
 import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.settings.data.utils.EncryptionHelper
+import `in`.hridayan.ashell.settings.domain.repository.BackupAndRestoreRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
@@ -148,7 +147,7 @@ class BackupAndRestoreRepositoryImpl @Inject constructor(
 
         for (provider in backupProviders) {
             val providerData = data.payloads?.get(provider.featureId)
-            
+
             // Only restore if we have data for this provider, either new payload or legacy
             if (providerData != null || legacyDataMap[provider.featureId] != null) {
                 provider.restoreData(providerData) { legacyKey ->

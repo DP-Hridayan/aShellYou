@@ -2,9 +2,6 @@
 
 package `in`.hridayan.ashell.onboarding.presentation.screens
 
-import `in`.hridayan.ashell.core.resources.R
-
-
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -30,10 +27,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
-import `in`.hridayan.ashell.onboarding.presentation.components.svg.vectors.undrawPhoneLady
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.onboarding.presentation.component.shape.DecorativeShape
 import `in`.hridayan.ashell.onboarding.presentation.component.shape.MainCard
+import `in`.hridayan.ashell.onboarding.presentation.components.svg.vectors.undrawPhoneLady
 import kotlinx.coroutines.launch
 
 @Composable

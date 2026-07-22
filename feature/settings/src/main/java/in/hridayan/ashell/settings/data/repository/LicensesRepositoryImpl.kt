@@ -1,10 +1,7 @@
 package `in`.hridayan.ashell.settings.data.repository
 
-import `in`.hridayan.ashell.core.resources.R
-
 import android.content.Context
 import com.mikepenz.aboutlibraries.Libs
-import com.mikepenz.aboutlibraries.util.withJson
 import `in`.hridayan.ashell.settings.domain.model.LibraryItem
 import `in`.hridayan.ashell.settings.domain.repository.LicensesRepository
 import kotlinx.coroutines.Dispatchers
@@ -26,7 +23,13 @@ class LicensesRepositoryImpl(
 
     override suspend fun getLibraries(): List<LibraryItem> = withContext(Dispatchers.IO) {
         val json = runCatching {
-            context.resources.openRawResource(context.resources.getIdentifier("aboutlibraries", "raw", context.packageName))
+            context.resources.openRawResource(
+                context.resources.getIdentifier(
+                    "aboutlibraries",
+                    "raw",
+                    context.packageName
+                )
+            )
                 .bufferedReader()
                 .use { it.readText() }
         }.getOrNull() ?: return@withContext emptyList()

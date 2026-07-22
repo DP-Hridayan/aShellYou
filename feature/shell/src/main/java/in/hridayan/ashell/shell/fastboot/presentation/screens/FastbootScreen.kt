@@ -5,10 +5,6 @@
 
 package `in`.hridayan.ashell.shell.fastboot.presentation.screens
 
-import `in`.hridayan.ashell.core.resources.R
-
-
-import `in`.hridayan.ashell.core.navigation.navigateBack
 
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Column
@@ -60,14 +56,16 @@ import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.domain.model.FastbootState
 import `in`.hridayan.ashell.core.navigation.LocalNavController
+import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
 import `in`.hridayan.ashell.core.presentation.components.navigation.FloatingNavPill
 import `in`.hridayan.ashell.core.presentation.components.navigation.FloatingNavPillDefaults
 import `in`.hridayan.ashell.core.presentation.components.navigation.FloatingNavPillItem
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
-import `in`.hridayan.ashell.core.domain.model.FastbootState
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.bottomsheet.FlashPartitionBottomSheet
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.bottomsheet.GetVariablesBottomSheet
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.bottomsheet.WipeDataBottomSheet
@@ -162,8 +160,8 @@ fun FastbootScreen(
                         letterSpacing = 0.05.em
                     )
                 },
-                navigationIcon = { 
-                    BackButton(onClick = { navController.navigateBack() }) 
+                navigationIcon = {
+                    BackButton(onClick = { navController.navigateBack() })
                 },
                 actions = {
                     AssistChip(

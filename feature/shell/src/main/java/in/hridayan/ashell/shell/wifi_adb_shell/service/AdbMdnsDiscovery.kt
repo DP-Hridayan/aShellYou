@@ -161,7 +161,7 @@ class AdbMdnsDiscovery(
             }
 
             Log.d(TAG, "Service lost: $serviceKey ($host:${info.port})")
-            
+
             // Notify callback about service loss
             if (info.serviceType.contains(TLS_PAIRING)) {
                 handler.post { callback.onPairingServiceLost() }
@@ -229,7 +229,7 @@ class AdbMdnsDiscovery(
             override fun onServiceLost() {
                 Log.d(TAG, "Service lost (A13+): $serviceKey")
                 resolvedServices.remove(serviceKey)
-                
+
                 // Notify callback about service loss
                 if (serviceKey.contains(TLS_PAIRING)) {
                     context.mainExecutor.execute { callback.onPairingServiceLost() }

@@ -15,17 +15,17 @@ object AshellYouAnimationSpecs {
         stiffness = Spring.StiffnessLow
     )
 
-    val springFloat : SpringSpec<Float> = spring(
+    val springFloat: SpringSpec<Float> = spring(
         dampingRatio = DampingRatioMediumHighBouncy,
         stiffness = Spring.StiffnessLow
     )
 
-    val springDp : SpringSpec<Dp> = spring(
+    val springDp: SpringSpec<Dp> = spring(
         dampingRatio = DampingRatioMediumHighBouncy,
         stiffness = Spring.StiffnessLow
     )
 
-    val springIntSize : SpringSpec<IntSize> = spring(
+    val springIntSize: SpringSpec<IntSize> = spring(
         dampingRatio = DampingRatioMediumBouncy,
         stiffness = Spring.StiffnessLow
     )

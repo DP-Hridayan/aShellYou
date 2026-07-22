@@ -1,17 +1,11 @@
 package `in`.hridayan.ashell.shell.local_adb_shell.data.shell
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.emitAll
-
 import android.content.Context
 import `in`.hridayan.ashell.core.domain.model.OutputLine
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.emitAll
-import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flowOn
 import rikka.shizuku.Shizuku
 import rikka.shizuku.ShizukuRemoteProcess
@@ -34,39 +28,41 @@ class ShellCommandExecutor {
      */
     private fun handleCdCommand(commandText: String): String? {
         val trimmedCommand = commandText.trim()
-        
+
         // Check if this is a cd command (standalone or at start of compound)
         if (trimmedCommand.startsWith("cd ") || trimmedCommand == "cd") {
             // Check for compound command separators (&& or ;)
             val andAndIndex = trimmedCommand.indexOf(" && ")
             val semicolonIndex = trimmedCommand.indexOf("; ")
-            
+
             val separatorIndex = when {
                 andAndIndex >= 0 && semicolonIndex >= 0 -> minOf(andAndIndex, semicolonIndex)
                 andAndIndex >= 0 -> andAndIndex
                 semicolonIndex >= 0 -> semicolonIndex
                 else -> -1
             }
-            
+
             val cdPart: String
             val remainingCommand: String?
-            
+
             if (separatorIndex > 0) {
                 // Compound command: extract cd part and remaining
                 cdPart = trimmedCommand.take(separatorIndex).trim()
                 remainingCommand = trimmedCommand.substring(
-                    separatorIndex + if (trimmedCommand.substring(separatorIndex).startsWith(" && ")) 4 else 2
+                    separatorIndex + if (trimmedCommand.substring(separatorIndex)
+                            .startsWith(" && ")
+                    ) 4 else 2
                 ).trim()
             } else {
                 // Pure cd command
                 cdPart = trimmedCommand
                 remainingCommand = null
             }
-            
+
             // Parse the cd part to get target directory
             val parts = cdPart.split("\\s+".toRegex(), limit = 2)
             val targetDir = if (parts.size > 1) parts[1] else "/"
-            
+
             // Update currentDir
             currentDir = when {
                 targetDir == "/" || targetDir == "~" -> "/"
@@ -74,19 +70,21 @@ class ShellCommandExecutor {
                     val parent = currentDir.removeSuffix("/").substringBeforeLast("/", "")
                     if (parent.isEmpty()) "/" else "$parent/"
                 }
+
                 targetDir.startsWith("/") -> {
                     if (targetDir.endsWith("/")) targetDir else "$targetDir/"
                 }
+
                 else -> {
                     val newPath = currentDir + targetDir
                     if (newPath.endsWith("/")) newPath else "$newPath/"
                 }
             }
-            
+
             // Return remaining command or null if pure cd
             return remainingCommand
         }
-        
+
         return trimmedCommand
     }
 
@@ -103,13 +101,13 @@ class ShellCommandExecutor {
 
     fun runBasic(commandText: String, context: Context): Flow<OutputLine> = flow {
         val actualCommand = handleCdCommand(commandText)
-        
+
         if (actualCommand == null) {
             // Was a cd command - emit success message
             emit(OutputLine("Changed directory to: $currentDir", isError = false))
             return@flow
         }
-        
+
         val fullCommand = buildCommand(actualCommand)
         val process = Runtime.getRuntime().exec(arrayOf("sh", "-c", fullCommand))
         emitAll(exec(process))
@@ -117,13 +115,13 @@ class ShellCommandExecutor {
 
     fun runRoot(commandText: String): Flow<OutputLine> = flow {
         val actualCommand = handleCdCommand(commandText)
-        
+
         if (actualCommand == null) {
             // Was a cd command - emit success message
             emit(OutputLine("Changed directory to: $currentDir", isError = false))
             return@flow
         }
-        
+
         val fullCommand = buildCommand(actualCommand)
         val process = Runtime.getRuntime().exec(arrayOf("su", "-c", fullCommand))
         emitAll(exec(process))
@@ -132,7 +130,7 @@ class ShellCommandExecutor {
     @Suppress("DEPRECATION")
     fun runShizuku(commandText: String): Flow<OutputLine> = flow {
         val actualCommand = handleCdCommand(commandText)
-        
+
         if (actualCommand == null) {
             // Was a cd command - emit success message
             emit(OutputLine("Changed directory to: $currentDir", isError = false))

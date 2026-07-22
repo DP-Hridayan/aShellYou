@@ -1,9 +1,6 @@
 package `in`.hridayan.ashell.shell.common.presentation.components.dialog
 
-import `in`.hridayan.ashell.core.resources.R
-
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.ButtonDefaults
@@ -21,6 +18,7 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
 import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
 import `in`.hridayan.ashell.core.presentation.model.ButtonType
+import `in`.hridayan.ashell.core.resources.R
 
 @Composable
 fun DeleteBookmarksDialog(

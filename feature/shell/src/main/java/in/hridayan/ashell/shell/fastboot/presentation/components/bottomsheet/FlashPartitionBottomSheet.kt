@@ -1,24 +1,20 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package `in`.hridayan.ashell.shell.fastboot.presentation.components.bottomsheet
+package `in`.hridayan.ashell.shell.fastboot.presentation.components.bottomsheet
 
-import `in`.hridayan.ashell.core.resources.R
-
-import androidx.compose.ui.unit.dp
 
 import android.net.Uri
 import android.provider.OpenableColumns
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -68,10 +64,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.modifier.dashedBorder
 import `in`.hridayan.ashell.core.presentation.components.slidetoconfirm.SlideToConfirm
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashOperation
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashStatus
 
@@ -182,7 +180,9 @@ fun FlashPartitionBottomSheet(
 
             ExposedDropdownMenuBox(
                 expanded = dropdownExpanded,
-                onExpandedChange = { if (!isOperationRunning && !isOperationFinished) dropdownExpanded = it }
+                onExpandedChange = {
+                    if (!isOperationRunning && !isOperationFinished) dropdownExpanded = it
+                }
             ) {
                 OutlinedTextField(
                     value = customPartition.ifBlank { selectedPartition },

@@ -1,8 +1,7 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.qstiles.presentation.components.dialog
+package `in`.hridayan.ashell.qstiles.presentation.components.dialog
 
-import `in`.hridayan.ashell.core.resources.R
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -44,6 +43,7 @@ import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVe
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.components.text.DialogTitle
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.qstiles.data.model.TileIcon
 
 @Composable

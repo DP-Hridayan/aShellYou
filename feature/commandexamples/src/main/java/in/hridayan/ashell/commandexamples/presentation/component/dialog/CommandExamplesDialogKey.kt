@@ -7,6 +7,7 @@ sealed interface CommandExamplesDialogKey : DialogKey {
     data class Edit(val commandId: Int) : CommandExamplesDialogKey {
         override fun matches(other: DialogKey?): Boolean = other is Edit
     }
+
     object SortCommands : CommandExamplesDialogKey
     object LoadDefaultCommands : CommandExamplesDialogKey
 }

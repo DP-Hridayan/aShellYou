@@ -2,8 +2,6 @@
 
 package `in`.hridayan.ashell.ai.presentation.screens.screens
 
-import `in`.hridayan.ashell.core.resources.R
-
 
 import android.os.StatFs
 import android.util.Log
@@ -28,12 +26,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.ai.domain.model.AiModel
-import `in`.hridayan.ashell.ai.presentation.viewmodel.AiModelManagerViewModel
-import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
-import `in`.hridayan.ashell.core.navigation.LocalNavController
-import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.ai.presentation.screens.components.modelmanager.ModelCard
 import `in`.hridayan.ashell.ai.presentation.screens.components.modelmanager.StorageUsageBar
+import `in`.hridayan.ashell.ai.presentation.viewmodel.AiModelManagerViewModel
+import `in`.hridayan.ashell.core.navigation.LocalNavController
+import `in`.hridayan.ashell.core.navigation.navigateBack
+import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
+import `in`.hridayan.ashell.core.resources.R
 
 enum class ModelCategory(val titleResId: Int) {
     TINY(R.string.model_category_tiny),

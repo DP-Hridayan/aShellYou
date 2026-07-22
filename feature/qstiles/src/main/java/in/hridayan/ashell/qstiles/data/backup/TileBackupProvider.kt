@@ -1,10 +1,10 @@
 package `in`.hridayan.ashell.qstiles.data.backup
 
+import `in`.hridayan.ashell.core.common.domain.backup.BackupProvider
 import `in`.hridayan.ashell.qstiles.data.database.TileLogDatabase
 import `in`.hridayan.ashell.qstiles.data.datastore.TileDatastore
 import `in`.hridayan.ashell.qstiles.data.model.TileLogEntity
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
-import `in`.hridayan.ashell.core.common.domain.backup.BackupProvider
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
@@ -29,9 +29,9 @@ class TileBackupProvider @Inject constructor(
     override suspend fun getBackupData(): JsonElement? {
         val tiles = tileDatastore.getAllTilesOnce()
         val tileLogs = tileLogDatabase.dao().getAllLogsOnce()
-        
+
         if (tiles.isEmpty() && tileLogs.isEmpty()) return null
-        
+
         val backupModel = TileBackupModel(tiles, tileLogs)
         return json.encodeToJsonElement(backupModel)
     }
@@ -40,12 +40,12 @@ class TileBackupProvider @Inject constructor(
         if (data != null) {
             try {
                 val backupModel = json.decodeFromJsonElement<TileBackupModel>(data)
-                
+
                 if (backupModel.tiles.isNotEmpty()) {
                     tileDatastore.deleteAllTiles()
                     tileDatastore.saveAllTiles(backupModel.tiles)
                 }
-                
+
                 if (backupModel.tileLogs.isNotEmpty()) {
                     tileLogDatabase.dao().deleteAllLogs()
                     tileLogDatabase.dao().insertAll(backupModel.tileLogs)
@@ -57,7 +57,7 @@ class TileBackupProvider @Inject constructor(
             // Restore legacy data
             val legacyTiles = legacyData("tiles")
             val legacyLogs = legacyData("tileLogs")
-            
+
             try {
                 if (legacyTiles != null) {
                     val tilesList = json.decodeFromJsonElement<List<TileConfig>>(legacyTiles)
@@ -66,7 +66,7 @@ class TileBackupProvider @Inject constructor(
                         tileDatastore.saveAllTiles(tilesList)
                     }
                 }
-                
+
                 if (legacyLogs != null) {
                     val logsList = json.decodeFromJsonElement<List<TileLogEntity>>(legacyLogs)
                     if (logsList.isNotEmpty()) {

@@ -16,12 +16,12 @@ data class RemoteFile(
     val group: String = ""
 ) {
     val isParentDirectory: Boolean get() = name == ".."
-    
+
     val extension: String
         get() = if (!isDirectory && name.contains(".")) {
             name.substringAfterLast(".")
         } else ""
-    
+
     val displaySize: String
         @SuppressLint("DefaultLocale")
         get() = when {

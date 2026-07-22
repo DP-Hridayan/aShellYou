@@ -1,8 +1,7 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog
+package `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog
 
-import `in`.hridayan.ashell.core.resources.R
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,6 +23,7 @@ import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.components.text.DialogTitle
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
 
 @Composable

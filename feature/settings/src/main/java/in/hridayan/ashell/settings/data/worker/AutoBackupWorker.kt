@@ -1,9 +1,5 @@
 package `in`.hridayan.ashell.settings.data.worker
 
-import `in`.hridayan.ashell.core.resources.R
-
-
-import `in`.hridayan.ashell.core.common.SettingsKeys
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -18,11 +14,13 @@ import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.common.domain.model.BackupType
+import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.settings.domain.repository.BackupAndRestoreRepository
 import `in`.hridayan.ashell.settings.domain.repository.GoogleAuthRepository
 import `in`.hridayan.ashell.settings.domain.repository.GoogleDriveRepository
-import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
 import kotlinx.coroutines.flow.firstOrNull
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -77,7 +75,10 @@ class AutoBackupWorker @AssistedInject constructor(
                 .getBoolean(SettingsKeys.AutoBackupCloudEnabled)
                 .firstOrNull() ?: true
 
-            Log.i(TAG, "localEnabled=$localEnabled cloudEnabled=$cloudEnabled folderUri=$folderUri backupType=$backupType deleteExisting=$deleteExisting")
+            Log.i(
+                TAG,
+                "localEnabled=$localEnabled cloudEnabled=$cloudEnabled folderUri=$folderUri backupType=$backupType deleteExisting=$deleteExisting"
+            )
 
             if (localEnabled) {
                 performLocalBackup(folderUri, deleteExisting, backupType)

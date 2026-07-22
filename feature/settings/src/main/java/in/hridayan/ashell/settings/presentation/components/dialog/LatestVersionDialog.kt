@@ -1,8 +1,7 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.settings.presentation.components.dialog
+package `in`.hridayan.ashell.settings.presentation.components.dialog
 
-import `in`.hridayan.ashell.core.resources.R
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -25,7 +24,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -37,12 +35,17 @@ import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.presentation.utils.syncedRotationAndScale
+import `in`.hridayan.ashell.core.resources.R
 
 @Composable
 fun LatestVersionDialog(onDismiss: () -> Unit) {
     val (angle, scale) = syncedRotationAndScale()
     val context = androidx.compose.ui.platform.LocalContext.current
-    val appVersionName = stringResource(R.string.version_name) + ": " + (context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: "unknown")
+    val appVersionName =
+        stringResource(R.string.version_name) + ": " + (context.packageManager.getPackageInfo(
+            context.packageName,
+            0
+        ).versionName ?: "unknown")
 
     val flavorDisplay = "GitHub"
 

@@ -1,7 +1,5 @@
 package `in`.hridayan.ashell.logcat.presentation.components
 
-import `in`.hridayan.ashell.core.resources.R
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.logcat.data.permission.LogcatPermissionHelper
 
 /**

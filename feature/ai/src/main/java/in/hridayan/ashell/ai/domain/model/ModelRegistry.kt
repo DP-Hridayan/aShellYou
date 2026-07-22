@@ -138,7 +138,7 @@ object ModelRegistry {
     )
 
     /** Default model ID */
-    val defaultModel= QWEN_05B_Q4
+    val defaultModel = QWEN_05B_Q4
 
     /** Find a model by its ID */
     fun findById(id: String): AiModel? = allModels.find { it.id == id }

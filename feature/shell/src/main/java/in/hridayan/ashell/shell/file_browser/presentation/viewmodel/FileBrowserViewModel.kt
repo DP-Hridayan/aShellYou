@@ -1,16 +1,15 @@
 package `in`.hridayan.ashell.shell.file_browser.presentation.viewmodel
 
-import `in`.hridayan.ashell.core.resources.R
-
 import android.os.Environment
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import `in`.hridayan.ashell.core.domain.model.AdbFileBrowserConnectionMode
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.file_browser.data.executor.OtgCommandExecutor
 import `in`.hridayan.ashell.shell.file_browser.data.repository.FileBrowserRepositoryImpl
 import `in`.hridayan.ashell.shell.file_browser.domain.model.ConflictResolution
-import `in`.hridayan.ashell.core.domain.model.AdbFileBrowserConnectionMode
 import `in`.hridayan.ashell.shell.file_browser.domain.model.FileConflict
 import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperation
 import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperationResult
@@ -63,7 +62,7 @@ class FileBrowserViewModel @Inject constructor(
     private var navigationJob: Job? = null
     private val operationJobs = mutableMapOf<String, Job>()
     private var lastConnectedDevice: WifiAdbDevice? = null
-    
+
     // Track connection mode for conditional logic
     private var connectionMode = AdbFileBrowserConnectionMode.WIFI_ADB
 
@@ -83,7 +82,7 @@ class FileBrowserViewModel @Inject constructor(
      */
     fun setConnectionMode(mode: AdbFileBrowserConnectionMode) {
         connectionMode = mode
-        
+
         // Cast to impl to access setExecutor (safe since we know the DI provides impl)
         val repoImpl = repository as? FileBrowserRepositoryImpl
 
@@ -92,6 +91,7 @@ class FileBrowserViewModel @Inject constructor(
                 Log.d(TAG, "Setting connection mode: OTG")
                 repoImpl?.setExecutor(otgExecutor)
             }
+
             AdbFileBrowserConnectionMode.WIFI_ADB -> {
                 Log.d(TAG, "Setting connection mode: WIFI")
                 repoImpl?.resetToWifiExecutor()
@@ -156,7 +156,12 @@ class FileBrowserViewModel @Inject constructor(
                 isLoading = false,
                 error = lastError?.message ?: "Failed to load files"
             )
-            _events.emit(FileBrowserEvent.ShowToast(R.string.fb_error, listOf(lastError?.message ?: "Unknown")))
+            _events.emit(
+                FileBrowserEvent.ShowToast(
+                    R.string.fb_error,
+                    listOf(lastError?.message ?: "Unknown")
+                )
+            )
         }
     }
 
@@ -217,15 +222,15 @@ class FileBrowserViewModel @Inject constructor(
     private fun performOtgReconnect() {
         viewModelScope.launch {
             Log.d(TAG, "OTG reconnect: starting scan with retry")
-            
+
             // Try up to 3 times for OTG reconnection
             repeat(3) { attempt ->
                 Log.d(TAG, "OTG reconnect attempt ${attempt + 1}")
                 otgRepository.searchDevices()
-                
+
                 // Wait a bit for connection to establish
                 delay(1000)
-                
+
                 // Check if connected
                 val currentState = OtgConnection.currentState
                 if (currentState is OtgState.Connected) {
@@ -234,12 +239,12 @@ class FileBrowserViewModel @Inject constructor(
                     refresh()
                     return@launch
                 }
-                
+
                 if (attempt < 2) {
                     delay(500) // Wait before retry
                 }
             }
-            
+
             // All attempts failed
             Log.e(TAG, "OTG Reconnect FAILED after 3 attempts")
             _state.value = _state.value.copy(
@@ -303,7 +308,12 @@ class FileBrowserViewModel @Inject constructor(
                             )
                         }
                         _events.emit(FileBrowserEvent.FileDownloaded(localPath))
-                        _events.emit(FileBrowserEvent.ShowToast(R.string.fb_downloaded_to, listOf(localPath)))
+                        _events.emit(
+                            FileBrowserEvent.ShowToast(
+                                R.string.fb_downloaded_to,
+                                listOf(localPath)
+                            )
+                        )
                         // Delay removal to let UI show completion
                         delay(2000)
                         removeOperation(operationId)
@@ -316,7 +326,12 @@ class FileBrowserViewModel @Inject constructor(
                                 message = "Failed: ${result.message}"
                             )
                         }
-                        _events.emit(FileBrowserEvent.ShowToast(R.string.fb_download_failed, listOf(result.message)))
+                        _events.emit(
+                            FileBrowserEvent.ShowToast(
+                                R.string.fb_download_failed,
+                                listOf(result.message)
+                            )
+                        )
                         delay(3000)
                         removeOperation(operationId)
                     }
@@ -373,7 +388,12 @@ class FileBrowserViewModel @Inject constructor(
                                 message = "Failed: ${result.message}"
                             )
                         }
-                        _events.emit(FileBrowserEvent.ShowToast(R.string.fb_upload_failed, listOf(result.message)))
+                        _events.emit(
+                            FileBrowserEvent.ShowToast(
+                                R.string.fb_upload_failed,
+                                listOf(result.message)
+                            )
+                        )
                         delay(3000)
                         removeOperation(operationId)
                     }
@@ -412,7 +432,12 @@ class FileBrowserViewModel @Inject constructor(
                     refresh()
                 },
                 onFailure = { error ->
-                    _events.emit(FileBrowserEvent.ShowToast(R.string.fb_delete_failed, listOf(error.message ?: "Unknown")))
+                    _events.emit(
+                        FileBrowserEvent.ShowToast(
+                            R.string.fb_delete_failed,
+                            listOf(error.message ?: "Unknown")
+                        )
+                    )
                 }
             )
         }
@@ -428,7 +453,12 @@ class FileBrowserViewModel @Inject constructor(
                     refresh()
                 },
                 onFailure = { error ->
-                    _events.emit(FileBrowserEvent.ShowToast(R.string.fb_create_folder_failed, listOf(error.message ?: "Unknown")))
+                    _events.emit(
+                        FileBrowserEvent.ShowToast(
+                            R.string.fb_create_folder_failed,
+                            listOf(error.message ?: "Unknown")
+                        )
+                    )
                 }
             )
         }
@@ -442,7 +472,12 @@ class FileBrowserViewModel @Inject constructor(
                     refresh()
                 },
                 onFailure = { error ->
-                    _events.emit(FileBrowserEvent.ShowToast(R.string.fb_rename_failed, listOf(error.message ?: "Unknown")))
+                    _events.emit(
+                        FileBrowserEvent.ShowToast(
+                            R.string.fb_rename_failed,
+                            listOf(error.message ?: "Unknown")
+                        )
+                    )
                 }
             )
         }
@@ -508,7 +543,12 @@ class FileBrowserViewModel @Inject constructor(
                 repository.deleteFile(path).fold(
                     onSuccess = {},
                     onFailure = { error ->
-                        _events.emit(FileBrowserEvent.ShowToast(R.string.fb_delete_failed, listOf(error.message ?: "Unknown")))
+                        _events.emit(
+                            FileBrowserEvent.ShowToast(
+                                R.string.fb_delete_failed,
+                                listOf(error.message ?: "Unknown")
+                            )
+                        )
                     }
                 )
             }
@@ -797,13 +837,24 @@ class FileBrowserViewModel @Inject constructor(
 
         val event = when {
             pendingOp.failedCount == 0 && pendingOp.skippedCount == 0 ->
-                FileBrowserEvent.ShowToast(R.string.fb_paste_completed, listOf(pendingOp.processedCount))
+                FileBrowserEvent.ShowToast(
+                    R.string.fb_paste_completed,
+                    listOf(pendingOp.processedCount)
+                )
+
             pendingOp.failedCount == 0 ->
-                FileBrowserEvent.ShowToast(R.string.fb_paste_completed_with_skipped, listOf(pendingOp.processedCount, pendingOp.skippedCount))
+                FileBrowserEvent.ShowToast(
+                    R.string.fb_paste_completed_with_skipped,
+                    listOf(pendingOp.processedCount, pendingOp.skippedCount)
+                )
+
             else ->
-                FileBrowserEvent.ShowToast(R.string.fb_paste_completed_with_failed, listOf(pendingOp.processedCount, pendingOp.skippedCount, pendingOp.failedCount))
+                FileBrowserEvent.ShowToast(
+                    R.string.fb_paste_completed_with_failed,
+                    listOf(pendingOp.processedCount, pendingOp.skippedCount, pendingOp.failedCount)
+                )
         }
-        
+
         _events.emit(event)
         refresh()
     }

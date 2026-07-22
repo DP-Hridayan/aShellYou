@@ -1,7 +1,5 @@
 package `in`.hridayan.ashell.core.presentation.components.search
 
-import `in`.hridayan.ashell.core.resources.R
-
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
@@ -31,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
+import `in`.hridayan.ashell.core.resources.R
 
 /**
  * A customizable search bar composable that allows users to input and filter text with optional

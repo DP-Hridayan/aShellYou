@@ -1,8 +1,8 @@
 package `in`.hridayan.ashell.qstiles.presentation.model
 
 import androidx.compose.ui.text.input.TextFieldValue
-import `in`.hridayan.ashell.qstiles.domain.model.TileActiveState
 import `in`.hridayan.ashell.core.common.domain.model.TileExecutionMode
+import `in`.hridayan.ashell.qstiles.domain.model.TileActiveState
 
 /**
  * UI state for the Create / Edit Tile screen.
@@ -30,7 +30,7 @@ data class CreateNewTileScreenUiState(
     /** Command executed when turning the tile OFF. Shown only when [isToggleable] = true. */
     val inactiveCommand: TextFieldValue = TextFieldValue(""),
     /** Subtitle shown when the tile is ON. */
-    val activeSubtitle:TextFieldValue = TextFieldValue("On"),
+    val activeSubtitle: TextFieldValue = TextFieldValue("On"),
     /** Subtitle shown when the tile is OFF. Shown only when [isToggleable] = true. */
-    val inactiveSubtitle:TextFieldValue = TextFieldValue("Off"),
+    val inactiveSubtitle: TextFieldValue = TextFieldValue("Off"),
 )

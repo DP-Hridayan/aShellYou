@@ -1,8 +1,6 @@
 package `in`.hridayan.ashell.settings.presentation.viewmodel
 
 
-import `in`.hridayan.ashell.core.common.SettingsKeys
-
 import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.Stable
@@ -15,16 +13,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.common.constants.UrlConst
+import `in`.hridayan.ashell.core.common.domain.model.BackupType
+import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.settings.data.worker.BackupScheduler
-import `in`.hridayan.ashell.core.common.domain.model.BackupType
 import `in`.hridayan.ashell.settings.domain.repository.GoogleAuthRepository
-import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.settings.domain.usecase.ToggleSettingUseCase
+import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.provider.SettingsProvider
-
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -39,7 +38,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
-import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 
 @Stable
 @HiltViewModel
@@ -308,14 +306,21 @@ class SettingsViewModel @Inject constructor(
             val isEnabled = enabled
                 ?: settingsRepository.getBoolean(SettingsKeys.AutoBackupEnabled).firstOrNull()
                 ?: false
-            Log.i("ABScheduler", "rescheduleAutoBackup() — isEnabled=$isEnabled (explicit=${enabled != null})")
+            Log.i(
+                "ABScheduler",
+                "rescheduleAutoBackup() — isEnabled=$isEnabled (explicit=${enabled != null})"
+            )
             if (!isEnabled) {
                 BackupScheduler.cancel(context)
                 return@launch
             }
-            val h = hour ?: settingsRepository.getInt(SettingsKeys.AutoBackupTimeHour).firstOrNull() ?: 2
-            val m = minute ?: settingsRepository.getInt(SettingsKeys.AutoBackupTimeMinute).firstOrNull() ?: 0
-            val f = frequency ?: settingsRepository.getInt(SettingsKeys.AutoBackupFrequency).firstOrNull() ?: 0
+            val h = hour ?: settingsRepository.getInt(SettingsKeys.AutoBackupTimeHour).firstOrNull()
+            ?: 2
+            val m =
+                minute ?: settingsRepository.getInt(SettingsKeys.AutoBackupTimeMinute).firstOrNull()
+                ?: 0
+            val f = frequency ?: settingsRepository.getInt(SettingsKeys.AutoBackupFrequency)
+                .firstOrNull() ?: 0
             Log.i("ABScheduler", "rescheduleAutoBackup() — h=$h m=$m f=$f")
             BackupScheduler.schedule(context, h, m, f)
         }

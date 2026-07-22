@@ -8,9 +8,11 @@ sealed interface PairDialogKey : DialogKey {
     data class ForgetDeviceConfirmation(val device: WifiAdbDevice) : PairDialogKey {
         override fun matches(other: DialogKey?): Boolean = other is ForgetDeviceConfirmation
     }
+
     data class ReconnectFailed(val showDevOptionsButton: Boolean) : PairDialogKey {
         override fun matches(other: DialogKey?): Boolean = other is ReconnectFailed
     }
+
     object ConnectionSuccess : PairDialogKey
     object PairConnectFailed : PairDialogKey
 }

@@ -54,6 +54,7 @@ fun isNetworkAvailable(context: Context): Boolean {
  */
 fun Context.isConnectedToWifi(): Boolean {
     val wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as? WifiManager
+
     @Suppress("DEPRECATION")
     val wifiInfo = wifiManager?.connectionInfo
 

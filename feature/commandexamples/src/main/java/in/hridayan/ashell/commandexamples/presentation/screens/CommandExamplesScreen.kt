@@ -200,7 +200,7 @@ fun CommandExamplesScreen(
                                 .fillMaxWidth()
                                 .padding(horizontal = 15.dp),
                             value = states.search.textFieldValue,
-                            onValueChange = { it -> viewModel.onSearchQueryChange(it) },
+                            onValueChange = { viewModel.onSearchQueryChange(it) },
                             hint = stringResource(R.string.search_commands_here),
                             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
                             trailingIcon = {

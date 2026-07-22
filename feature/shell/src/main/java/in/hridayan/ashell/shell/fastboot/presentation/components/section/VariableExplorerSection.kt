@@ -1,8 +1,7 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.shell.fastboot.presentation.components.section
+package `in`.hridayan.ashell.shell.fastboot.presentation.components.section
 
-import `in`.hridayan.ashell.core.resources.R
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -51,6 +50,7 @@ import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.showToast
 
 @Composable

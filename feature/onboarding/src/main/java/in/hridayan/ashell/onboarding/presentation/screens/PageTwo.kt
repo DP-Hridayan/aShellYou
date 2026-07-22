@@ -2,9 +2,6 @@
 
 package `in`.hridayan.ashell.onboarding.presentation.screens
 
-import `in`.hridayan.ashell.core.resources.R
-
-
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -38,6 +35,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.onboarding.presentation.component.item.DisclaimerItemLayout
 import `in`.hridayan.ashell.onboarding.presentation.component.shape.DecorativeShape
 import kotlinx.coroutines.launch
@@ -170,7 +168,7 @@ fun PageTwo(modifier: Modifier = Modifier, pagerState: PagerState) {
                 }
             }
 
-            itemsIndexed(disclaimerList) { i, item ->
+            itemsIndexed(disclaimerList) { _, item ->
                 DisclaimerItemLayout(
                     modifier = Modifier
                         .fillMaxWidth()

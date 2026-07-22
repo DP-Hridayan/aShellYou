@@ -1,7 +1,5 @@
 package `in`.hridayan.ashell.ai.presentation.screens.components.modelmanager
 
-import `in`.hridayan.ashell.core.resources.R
-
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
+import `in`.hridayan.ashell.core.resources.R
 
 /**
  * Visual storage bar showing AI model storage usage vs available device storage.

@@ -1,14 +1,10 @@
 package `in`.hridayan.ashell.shell.common.presentation.viewmodel
 
-import `in`.hridayan.ashell.core.resources.R
-
-
-import `in`.hridayan.ashell.core.common.SettingsKeys
 
 import android.app.Activity
-import androidx.compose.runtime.Stable
 import android.content.Context
 import android.net.Uri
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.Dp
@@ -16,26 +12,28 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.domain.model.CommandEntity
-import `in`.hridayan.ashell.core.domain.repository.CommandRepository
-import `in`.hridayan.ashell.shell.domain.model.SaveProgress
-import `in`.hridayan.ashell.core.domain.model.SortType
-import `in`.hridayan.ashell.shell.domain.utils.saveToFileStreamingFlow
-import `in`.hridayan.ashell.shell.common.data.permission.PermissionProvider
 import `in`.hridayan.ashell.core.domain.model.OutputLine
-import `in`.hridayan.ashell.shell.common.domain.model.PackageInfo
+import `in`.hridayan.ashell.core.domain.model.SortType
+import `in`.hridayan.ashell.core.domain.repository.CommandRepository
 import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.domain.repository.ShellRepository
+import `in`.hridayan.ashell.core.resources.R
+import `in`.hridayan.ashell.shell.common.data.permission.PermissionProvider
+import `in`.hridayan.ashell.shell.common.domain.model.PackageInfo
 import `in`.hridayan.ashell.shell.common.domain.model.Suggestion
 import `in`.hridayan.ashell.shell.common.domain.model.SuggestionLabel
 import `in`.hridayan.ashell.shell.common.domain.model.SuggestionType
 import `in`.hridayan.ashell.shell.common.domain.repository.PackageRepository
-import `in`.hridayan.ashell.core.domain.repository.ShellRepository
 import `in`.hridayan.ashell.shell.common.domain.usecase.DetectSuggestionTypeUseCase
 import `in`.hridayan.ashell.shell.common.domain.usecase.ExtractLastCommandOutputUseCase
 import `in`.hridayan.ashell.shell.common.domain.usecase.GetSaveOutputFileNameUseCase
 import `in`.hridayan.ashell.shell.common.presentation.model.CommandResult
 import `in`.hridayan.ashell.shell.common.presentation.model.ShellScreenState
 import `in`.hridayan.ashell.shell.common.presentation.model.ShellState
+import `in`.hridayan.ashell.shell.domain.model.SaveProgress
+import `in`.hridayan.ashell.shell.domain.utils.saveToFileStreamingFlow
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.repository.OtgRepository
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import kotlinx.coroutines.Dispatchers
@@ -462,11 +460,13 @@ class ShellViewModel @Inject constructor(
     fun resetSaveProgress() {
         _saveProgress.value = SaveProgress.Idle
     }
+
     fun saveLastSavedFileUri(uri: String) {
         viewModelScope.launch {
             settingsRepository.setString(SettingsKeys.LastSavedFileUri, uri)
         }
     }
+
     fun setLocalAdbWorkingMode(value: Int) {
         viewModelScope.launch {
             settingsRepository.setInt(SettingsKeys.LocalAdbWorkingMode, value)

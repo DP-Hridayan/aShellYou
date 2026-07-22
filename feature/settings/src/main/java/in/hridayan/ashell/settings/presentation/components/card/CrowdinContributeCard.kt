@@ -1,7 +1,5 @@
 package `in`.hridayan.ashell.settings.presentation.components.card
 
-import `in`.hridayan.ashell.core.resources.R
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,6 +23,7 @@ import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButton
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.UrlUtils
 
 @Composable

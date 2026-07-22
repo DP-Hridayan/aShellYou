@@ -1,12 +1,10 @@
 package `in`.hridayan.ashell.qstiles.presentation.viewmodel
 
-import androidx.lifecycle.ViewModel
 import androidx.compose.runtime.Stable
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.qstiles.domain.executor.TileExecutionManager
-import `in`.hridayan.ashell.qstiles.domain.model.RunningTileState
-import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
 import `in`.hridayan.ashell.qstiles.domain.model.TileLog
 import `in`.hridayan.ashell.qstiles.domain.repository.TileLogRepository
 import `in`.hridayan.ashell.qstiles.domain.repository.TileRepository
@@ -18,7 +16,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 import java.util.Locale
 import javax.inject.Inject
 
@@ -47,7 +44,7 @@ class TileDashboardViewModel @Inject constructor(
                 DataBundle(logs, total, success, tab, filterId)
             }
         ) { tiles, running, bundle ->
-            
+
             val logs = bundle.logs
             val total = bundle.total
             val success = bundle.success
@@ -63,7 +60,11 @@ class TileDashboardViewModel @Inject constructor(
             }
 
             val successRateStr = if (total > 0) {
-                String.format(Locale.getDefault(), "%.1f%%", (success.toFloat() / total.toFloat()) * 100)
+                String.format(
+                    Locale.getDefault(),
+                    "%.1f%%",
+                    (success.toFloat() / total.toFloat()) * 100
+                )
             } else {
                 "0.0%"
             }

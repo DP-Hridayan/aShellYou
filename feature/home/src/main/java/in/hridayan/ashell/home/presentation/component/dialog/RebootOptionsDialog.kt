@@ -2,8 +2,6 @@
 
 package `in`.hridayan.ashell.home.presentation.component.dialog
 
-import `in`.hridayan.ashell.core.resources.R
-
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -31,17 +29,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.resources.R
 
 
 @Composable
 fun RebootOptionsDialog(
     modifier: Modifier = Modifier,
     onDismiss: () -> Unit,
-    onReboot: (Array<String>) -> Unit) {
+    onReboot: (Array<String>) -> Unit
+) {
     val interactionSources1 = remember { List(2) { MutableInteractionSource() } }
     val interactionSources2 = remember { List(2) { MutableInteractionSource() } }
     val buttonSize = 110.dp

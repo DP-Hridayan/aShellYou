@@ -26,7 +26,7 @@ object CommandDatabaseModule {
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context): CommandDatabase {
         lateinit var database: CommandDatabase
-        
+
         database = Room.databaseBuilder(
             context,
             CommandDatabase::class.java,
@@ -43,7 +43,7 @@ object CommandDatabaseModule {
             })
             .fallbackToDestructiveMigration(false)
             .build()
-        
+
         return database
     }
 

@@ -1,9 +1,5 @@
 package `in`.hridayan.ashell.settings.presentation.page.backup.viewmodel
 
-import `in`.hridayan.ashell.core.resources.R
-
-
-import `in`.hridayan.ashell.core.common.SettingsKeys
 
 import android.content.Context
 import android.content.IntentSender
@@ -13,15 +9,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import `in`.hridayan.ashell.settings.domain.exception.NoGoogleAccountException
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.common.domain.model.BackupType
+import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.resources.R
+import `in`.hridayan.ashell.settings.domain.exception.NoGoogleAccountException
 import `in`.hridayan.ashell.settings.domain.model.DriveAuthEvent
 import `in`.hridayan.ashell.settings.domain.model.GoogleUserState
 import `in`.hridayan.ashell.settings.domain.model.LastBackupData
 import `in`.hridayan.ashell.settings.domain.repository.BackupAndRestoreRepository
 import `in`.hridayan.ashell.settings.domain.repository.GoogleAuthRepository
 import `in`.hridayan.ashell.settings.domain.repository.GoogleDriveRepository
-import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -36,7 +35,6 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
-import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 
 @HiltViewModel
 class BackupAndRestoreViewModel @Inject constructor(
@@ -60,8 +58,10 @@ class BackupAndRestoreViewModel @Inject constructor(
     val lastLocalBackupType = settingsRepository.getString(SettingsKeys.LastLocalBackupType)
     val lastCloudBackupTime = settingsRepository.getString(SettingsKeys.LastCloudBackupTime)
     val lastCloudBackupType = settingsRepository.getString(SettingsKeys.LastCloudBackupType)
-    val lastAutoLocalSuccessTime = settingsRepository.getString(SettingsKeys.LastAutoBackupLocalSuccessTime)
-    val lastAutoCloudSuccessTime = settingsRepository.getString(SettingsKeys.LastAutoBackupCloudSuccessTime)
+    val lastAutoLocalSuccessTime =
+        settingsRepository.getString(SettingsKeys.LastAutoBackupLocalSuccessTime)
+    val lastAutoCloudSuccessTime =
+        settingsRepository.getString(SettingsKeys.LastAutoBackupCloudSuccessTime)
 
     private val _localBackupTime = MutableStateFlow<String?>(null)
     val localBackupTime: StateFlow<String?> = _localBackupTime

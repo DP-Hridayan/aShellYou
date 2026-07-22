@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun DialogTitle(text : String,modifier: Modifier = Modifier) {
+fun DialogTitle(text: String, modifier: Modifier = Modifier) {
     AutoResizeableText(
         modifier = modifier,
         text = text,
@@ -16,7 +16,7 @@ fun DialogTitle(text : String,modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun DialogSubTitle(text : String,modifier: Modifier = Modifier) {
+fun DialogSubTitle(text: String, modifier: Modifier = Modifier) {
     Text(
         modifier = modifier,
         text = text,
@@ -26,7 +26,7 @@ fun DialogSubTitle(text : String,modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun DialogDescription(text: String,modifier: Modifier = Modifier) {
+fun DialogDescription(text: String, modifier: Modifier = Modifier) {
     Text(
         modifier = modifier,
         text = text,

@@ -1,6 +1,7 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.shell.file_browser.presentation.component
+package `in`.hridayan.ashell.shell.file_browser.presentation.component
+
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.horizontalScroll
@@ -33,7 +34,7 @@ fun PathBreadcrumbs(
 ) {
     val scrollState = rememberScrollState()
     val basePath = "/storage/emulated/0"
-    
+
     val relativePath = if (currentPath.startsWith(basePath)) {
         currentPath.removePrefix(basePath)
     } else {

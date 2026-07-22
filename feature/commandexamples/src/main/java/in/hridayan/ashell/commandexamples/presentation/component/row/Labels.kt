@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import `in`.hridayan.ashell.core.presentation.components.chip.LabelChip
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
-import kotlin.math.max
 
 /**
  * This composable shows a flow row of label chips

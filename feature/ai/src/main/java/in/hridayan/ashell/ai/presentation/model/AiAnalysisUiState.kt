@@ -1,10 +1,12 @@
 package `in`.hridayan.ashell.ai.presentation.model
 
+import androidx.compose.runtime.Immutable
 import `in`.hridayan.ashell.ai.domain.model.AnalysisResult
 
 /**
  * UI state for the AI analysis bottom sheet.
  */
+@Immutable
 sealed interface AiAnalysisUiState {
     /** No analysis in progress */
     data object Idle : AiAnalysisUiState

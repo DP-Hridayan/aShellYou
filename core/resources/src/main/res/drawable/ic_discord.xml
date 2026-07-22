@@ -1,6 +1,4 @@
-<vector
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:aapt="http://schemas.android.com/aapt"
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:viewportWidth="1600"
     android:viewportHeight="1600"
     android:tint="?attr/colorPrimary"

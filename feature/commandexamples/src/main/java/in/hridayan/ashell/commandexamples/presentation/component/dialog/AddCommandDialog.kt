@@ -1,7 +1,5 @@
 package `in`.hridayan.ashell.commandexamples.presentation.component.dialog
 
-import `in`.hridayan.ashell.core.resources.R
-
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
@@ -33,6 +31,7 @@ import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
 import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
 import `in`.hridayan.ashell.core.presentation.model.ButtonType
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
+import `in`.hridayan.ashell.core.resources.R
 
 @Composable
 fun AddCommandDialog(

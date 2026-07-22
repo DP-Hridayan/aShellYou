@@ -15,7 +15,7 @@ class WifiAdbCommandExecutor @Inject constructor(
     @param:ApplicationContext private val context: Context
 ) : AdbCommandExecutor {
 
-    companion object{
+    companion object {
         const val TAG = "WifiAdbExecutor"
     }
 
@@ -47,13 +47,22 @@ class WifiAdbCommandExecutor @Inject constructor(
                 if (output.contains("__END__")) break
             }
 
-            try { inputStream.close() } catch (_: Exception) {}
-            try { stream.close() } catch (_: Exception) {}
+            try {
+                inputStream.close()
+            } catch (_: Exception) {
+            }
+            try {
+                stream.close()
+            } catch (_: Exception) {
+            }
 
             output.toString()
         } catch (e: Exception) {
             Log.e(TAG, "executeCommand failed: $command - ${e.message}")
-            try { stream?.close() } catch (_: Exception) {}
+            try {
+                stream?.close()
+            } catch (_: Exception) {
+            }
             null
         }
     }
@@ -69,8 +78,14 @@ class WifiAdbCommandExecutor @Inject constructor(
             CommandStream(
                 inputStream = inputStream,
                 close = {
-                    try { inputStream.close() } catch (_: Exception) {}
-                    try { stream.close() } catch (_: Exception) {}
+                    try {
+                        inputStream.close()
+                    } catch (_: Exception) {
+                    }
+                    try {
+                        stream.close()
+                    } catch (_: Exception) {
+                    }
                 }
             )
         } catch (e: Exception) {
@@ -90,8 +105,14 @@ class WifiAdbCommandExecutor @Inject constructor(
             FileTransferStream(
                 inputStream = inputStream,
                 close = {
-                    try { inputStream.close() } catch (_: Exception) {}
-                    try { stream.close() } catch (_: Exception) {}
+                    try {
+                        inputStream.close()
+                    } catch (_: Exception) {
+                    }
+                    try {
+                        stream.close()
+                    } catch (_: Exception) {
+                    }
                 }
             )
         } catch (e: Exception) {
@@ -111,9 +132,18 @@ class WifiAdbCommandExecutor @Inject constructor(
             FileTransferStream(
                 outputStream = outputStream,
                 close = {
-                    try { outputStream.flush() } catch (_: Exception) {}
-                    try { outputStream.close() } catch (_: Exception) {}
-                    try { stream.close() } catch (_: Exception) {}
+                    try {
+                        outputStream.flush()
+                    } catch (_: Exception) {
+                    }
+                    try {
+                        outputStream.close()
+                    } catch (_: Exception) {
+                    }
+                    try {
+                        stream.close()
+                    } catch (_: Exception) {
+                    }
                 }
             )
         } catch (e: Exception) {

@@ -1,8 +1,7 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.settings.presentation.page.backup.screens
+package `in`.hridayan.ashell.settings.presentation.page.backup.screens
 
-import `in`.hridayan.ashell.core.resources.R
 
 import android.net.Uri
 import androidx.compose.animation.AnimatedContent
@@ -48,6 +47,7 @@ import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
+import `in`.hridayan.ashell.core.resources.R
 
 @Composable
 fun GoogleSignInCard(

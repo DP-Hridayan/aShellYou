@@ -1,8 +1,7 @@
 package `in`.hridayan.ashell.settings.domain.usecase
 
-import `in`.hridayan.ashell.core.resources.R
-
 import android.content.Context
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.settings.data.source.VersionToChangelogs
 import `in`.hridayan.ashell.settings.data.source.versionToChangelogsMap
 import `in`.hridayan.ashell.settings.domain.model.ChangelogItem

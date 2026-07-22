@@ -1,7 +1,5 @@
 package `in`.hridayan.ashell.shell.wifi_adb_shell.notification
 
-import `in`.hridayan.ashell.core.resources.R
-
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -9,6 +7,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.wifi_adb_shell.service.AdbConnectionService
 
 /**
@@ -41,7 +40,8 @@ class AdbConnectionNotificationHelper(private val context: Context) {
     }
 
     fun createNotification(): Notification {
-        val openAppIntent = Intent(context, Class.forName("in.hridayan.ashell.activities.MainActivity"))
+        val openAppIntent =
+            Intent(context, Class.forName("in.hridayan.ashell.activities.MainActivity"))
         val openAppPendingIntent = PendingIntent.getActivity(
             context, 0, openAppIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
@@ -62,7 +62,11 @@ class AdbConnectionNotificationHelper(private val context: Context) {
             .setOngoing(true)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setContentIntent(openAppPendingIntent)
-            .addAction(R.drawable.ic_cancel, context.getString(R.string.disconnect), disconnectPendingIntent)
+            .addAction(
+                R.drawable.ic_cancel,
+                context.getString(R.string.disconnect),
+                disconnectPendingIntent
+            )
             .build()
     }
 

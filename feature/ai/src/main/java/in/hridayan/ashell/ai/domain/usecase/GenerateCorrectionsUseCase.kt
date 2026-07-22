@@ -66,7 +66,9 @@ class GenerateCorrectionsUseCase @Inject constructor(
         }
 
         exactMatches
-            .filter { it.command.split("\\s+".toRegex()).first().equals(baseCommand, ignoreCase = true) }
+            .filter {
+                it.command.split("\\s+".toRegex()).first().equals(baseCommand, ignoreCase = true)
+            }
             .take(2)
             .forEach { cmd ->
                 results.add(
@@ -121,7 +123,12 @@ class GenerateCorrectionsUseCase @Inject constructor(
 
         // 4. AI-generated suggestions (with LOW confidence, AI source override)
         aiCorrections.forEach { correction ->
-            if (results.none { it.suggestedCommand.equals(correction.suggestedCommand, ignoreCase = true) }) {
+            if (results.none {
+                    it.suggestedCommand.equals(
+                        correction.suggestedCommand,
+                        ignoreCase = true
+                    )
+                }) {
                 results.add(
                     correction.copy(
                         confidence = CorrectionConfidence.LOW,

@@ -1,7 +1,5 @@
 package `in`.hridayan.ashell.shell.otg_adb_shell.data.repository
 
-import `in`.hridayan.ashell.core.resources.R
-
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -20,6 +18,7 @@ import com.cgutman.adblib.AdbCrypto
 import com.cgutman.adblib.AdbStream
 import com.cgutman.adblib.UsbChannel
 import `in`.hridayan.ashell.core.domain.model.OutputLine
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgConnection
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgState
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.repository.OtgRepository

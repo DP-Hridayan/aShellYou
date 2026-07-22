@@ -1,7 +1,5 @@
 package `in`.hridayan.ashell.shell.wifi_adb_shell.utils
 
-import `in`.hridayan.ashell.core.resources.R
-
 import android.Manifest
 import android.content.ActivityNotFoundException
 import android.content.ComponentName
@@ -17,6 +15,7 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.shell.wifi_adb_shell.utils.WirelessDebuggingUtils.grantWriteSecureSettingsViaAdb
 import io.github.muntashirakon.adb.AbsAdbConnectionManager
@@ -76,33 +75,33 @@ object WirelessDebuggingUtils {
         }
     }
 
-/*    @RequiresApi(Build.VERSION_CODES.R)
-    fun ensureWirelessDebuggingAndReconnect(
-        context: Context,
-        onSuccess: () -> Unit,
-        onFailed: () -> Unit
-    ) {
-        val requested = enableWirelessDebugging(context)
+    /*    @RequiresApi(Build.VERSION_CODES.R)
+        fun ensureWirelessDebuggingAndReconnect(
+            context: Context,
+            onSuccess: () -> Unit,
+            onFailed: () -> Unit
+        ) {
+            val requested = enableWirelessDebugging(context)
 
-        if (!requested) {
-            openWirelessDebuggingSettings(context)
-        }
-
-        waitForWirelessDebuggingState(context) { enabled ->
-            if (enabled) {
-                // Add delay to allow Android to:
-                // 1. Fully start the ADB daemon on the new port
-                // 2. Broadcast fresh mDNS records
-                // Without this delay, reconnect may use stale cached port info
-                Handler(Looper.getMainLooper()).postDelayed({
-                    onSuccess()
-                }, 1500)
-            } else {
-                Log.d("WirelessDebugging", "User did not enable wireless debugging")
-                onFailed()
+            if (!requested) {
+                openWirelessDebuggingSettings(context)
             }
-        }
-    }*/
+
+            waitForWirelessDebuggingState(context) { enabled ->
+                if (enabled) {
+                    // Add delay to allow Android to:
+                    // 1. Fully start the ADB daemon on the new port
+                    // 2. Broadcast fresh mDNS records
+                    // Without this delay, reconnect may use stale cached port info
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        onSuccess()
+                    }, 1500)
+                } else {
+                    Log.d("WirelessDebugging", "User did not enable wireless debugging")
+                    onFailed()
+                }
+            }
+        }*/
 
     /**
      * Enables wireless debugging programmatically using WRITE_SECURE_SETTINGS permission.

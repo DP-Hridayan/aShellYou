@@ -1,7 +1,5 @@
 package `in`.hridayan.ashell.shell.fastboot.presentation.components.section
 
-import `in`.hridayan.ashell.core.resources.R
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,6 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.resources.R
 
 @Composable
 fun ActiveSlotsCard(

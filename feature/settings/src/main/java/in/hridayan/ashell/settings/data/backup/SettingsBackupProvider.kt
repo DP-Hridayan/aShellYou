@@ -20,7 +20,8 @@ class SettingsBackupProvider @Inject constructor(
 
     override suspend fun getBackupData(): JsonElement? {
         val prefs = settingsRepository.getCurrentSettings()
-        val settingsMap = prefs.filterKeys { it !in settingsRepository.getPreserveKeys() }.mapValues { it.value?.toString() }
+        val settingsMap = prefs.filterKeys { it !in settingsRepository.getPreserveKeys() }
+            .mapValues { it.value?.toString() }
         if (settingsMap.isEmpty()) return null
         return json.encodeToJsonElement(settingsMap)
     }
@@ -30,7 +31,7 @@ class SettingsBackupProvider @Inject constructor(
 
         try {
             val settingsMap = json.decodeFromJsonElement<Map<String, String?>>(jsonData)
-            
+
             settingsRepository.resetAndRestoreDefaults()
 
             settingsMap.forEach { (key, value) ->

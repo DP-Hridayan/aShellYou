@@ -2,8 +2,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.changelog.screens
 
-import `in`.hridayan.ashell.core.resources.R
-
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,15 +28,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import `in`.hridayan.ashell.core.navigation.LocalNavController
+import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.components.scrollbar.DraggableScrollThumb
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.components.text.BulletPointsTextLayout
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.splitStringToLines
-import `in`.hridayan.ashell.core.navigation.LocalNavController
-import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.settings.presentation.page.changelog.viewmodel.ChangelogViewModel
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
@@ -56,7 +55,10 @@ fun ChangelogScreen(
         changelogs.map { item ->
             Triple(
                 item,
-                item.versionName == context.packageManager.getPackageInfo(context.packageName, 0).versionName?.removeSuffix("-debug"),
+                item.versionName == context.packageManager.getPackageInfo(
+                    context.packageName,
+                    0
+                ).versionName?.removeSuffix("-debug"),
                 splitStringToLines(item.changelog)
             )
         }

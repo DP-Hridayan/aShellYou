@@ -11,6 +11,7 @@ sealed interface DownloadProgress {
         val progressPercent: Int
             get() = (progressFraction * 100).toInt()
     }
+
     data object Completed : DownloadProgress
     data class Failed(val error: String) : DownloadProgress
 }

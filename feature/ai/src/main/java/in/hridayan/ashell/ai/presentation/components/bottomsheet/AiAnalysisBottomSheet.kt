@@ -1,8 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package `in`.hridayan.ashell.ai.presentation.components.bottomsheet
-
-import `in`.hridayan.ashell.core.resources.R
+package `in`.hridayan.ashell.ai.presentation.components.bottomsheet
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -28,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.ai.domain.model.AnalysisStatus
 import `in`.hridayan.ashell.ai.domain.model.CorrectionSuggestion
 import `in`.hridayan.ashell.ai.presentation.model.AiAnalysisUiState
+import `in`.hridayan.ashell.core.resources.R
 
 /**
  * Material 3 modal bottom sheet for AI command analysis results.

@@ -10,12 +10,11 @@ import `in`.hridayan.ashell.logcat.domain.model.LogFilter
 import `in`.hridayan.ashell.logcat.domain.repository.LogcatFilterRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
 private val Context.logcatFilterDataStore: DataStore<Preferences>
-    by preferencesDataStore(name = "logcat_filters")
+        by preferencesDataStore(name = "logcat_filters")
 
 class LogcatFilterRepositoryImpl @Inject constructor(
     private val context: Context,

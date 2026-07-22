@@ -1,7 +1,7 @@
 package `in`.hridayan.ashell.settings.domain.usecase
 
-import `in`.hridayan.ashell.settings.domain.repository.GithubDataRepository
 import `in`.hridayan.ashell.settings.domain.model.UpdateResult
+import `in`.hridayan.ashell.settings.domain.repository.GithubDataRepository
 import javax.inject.Inject
 
 class CheckUpdateUseCase @Inject constructor(
@@ -51,7 +51,10 @@ class CheckUpdateUseCase @Inject constructor(
     private fun parseVersion(version: String): ParsedVersion {
         val cleaned = version.trim().trimStart('v', 'V')
 
-        val regex = Regex("""^(\d+(?:\.\d+)*)(?:-[.\-]?+(debug|alpha|beta|rc)[.\-]?+(\d+)?)?$""", RegexOption.IGNORE_CASE)
+        val regex = Regex(
+            """^(\d+(?:\.\d+)*)(?:-[.\-]?+(debug|alpha|beta|rc)[.\-]?+(\d+)?)?$""",
+            RegexOption.IGNORE_CASE
+        )
         val match = regex.matchEntire(cleaned)
             ?: return ParsedVersion(emptyList(), 0, 0)
 

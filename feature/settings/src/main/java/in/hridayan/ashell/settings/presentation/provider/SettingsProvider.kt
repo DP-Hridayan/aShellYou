@@ -1,9 +1,5 @@
 package `in`.hridayan.ashell.settings.presentation.provider
 
-import `in`.hridayan.ashell.core.resources.R
-
-
-import `in`.hridayan.ashell.core.common.SettingsKeys
 
 import android.os.Build
 import androidx.compose.material.icons.Icons
@@ -14,9 +10,11 @@ import androidx.compose.material.icons.rounded.Downloading
 import androidx.compose.material.icons.rounded.Memory
 import androidx.compose.material.icons.rounded.TextFields
 import androidx.compose.material.icons.rounded.UnfoldMoreDouble
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
-import `in`.hridayan.ashell.core.presentation.components.floaters.FloatingIconsBackground
 import `in`.hridayan.ashell.core.navigation.NavRoutes
+import `in`.hridayan.ashell.core.presentation.components.floaters.FloatingIconsBackground
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.ui.provider.RadioGroupOptionsProvider
 import `in`.hridayan.settingsdsl.dsl.buttonGroupItem
 import `in`.hridayan.settingsdsl.dsl.category

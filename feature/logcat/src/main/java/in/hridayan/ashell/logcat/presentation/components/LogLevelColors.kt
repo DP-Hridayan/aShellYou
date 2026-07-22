@@ -4,6 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
 import `in`.hridayan.ashell.logcat.domain.model.LogLevel
+import `in`.hridayan.ashell.logcat.presentation.components.LogLevelColors.barColor
+import `in`.hridayan.ashell.logcat.presentation.components.LogLevelColors.rowBackground
+import `in`.hridayan.ashell.logcat.presentation.components.LogLevelColors.textColor
 
 /**
  * Semantic colors for each [LogLevel].
@@ -16,21 +19,21 @@ object LogLevelColors {
 
     // Base hues — intentionally distinct across the spectrum
     val Verbose = Color(0xFF9E9E9E)  // neutral grey
-    val Debug   = Color(0xFF4FC3F7)  // light blue
-    val Info    = Color(0xFF81C784)  // green
+    val Debug = Color(0xFF4FC3F7)  // light blue
+    val Info = Color(0xFF81C784)  // green
     val Warning = Color(0xFFFFB74D)  // amber
-    val Error   = Color(0xFFE57373)  // red
-    val Fatal   = Color(0xFFCE93D8)  // purple
+    val Error = Color(0xFFE57373)  // red
+    val Fatal = Color(0xFFCE93D8)  // purple
     val Unknown = Color(0xFF78909C)  // blue-grey
 
     fun baseColor(level: LogLevel): Color = when (level) {
         LogLevel.VERBOSE -> Verbose
-        LogLevel.DEBUG   -> Debug
-        LogLevel.INFO    -> Info
+        LogLevel.DEBUG -> Debug
+        LogLevel.INFO -> Info
         LogLevel.WARNING -> Warning
-        LogLevel.ERROR   -> Error
-        LogLevel.FATAL   -> Fatal
-        LogLevel.SILENT  -> Unknown
+        LogLevel.ERROR -> Error
+        LogLevel.FATAL -> Fatal
+        LogLevel.SILENT -> Unknown
         LogLevel.UNKNOWN -> Unknown
     }
 

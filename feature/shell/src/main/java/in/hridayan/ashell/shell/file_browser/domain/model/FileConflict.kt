@@ -22,13 +22,13 @@ data class FileConflict(
 enum class ConflictResolution {
     /** Skip this file/folder, continue with next */
     SKIP,
-    
+
     /** Delete existing item at destination, then copy/move source */
     REPLACE,
-    
+
     /** For directories: recursively merge contents */
     MERGE,
-    
+
     /** Keep both by renaming source with counter (e.g., file (1).txt) */
     KEEP_BOTH
 }
@@ -56,10 +56,10 @@ data class PendingPasteOperation(
 ) {
     val currentItem: PendingPasteItem?
         get() = items.getOrNull(currentIndex)
-    
+
     val isComplete: Boolean
         get() = currentIndex >= items.size
-    
+
     val remainingCount: Int
         get() = (items.size - currentIndex - 1).coerceAtLeast(0)
 }

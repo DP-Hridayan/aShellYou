@@ -1,11 +1,5 @@
 package `in`.hridayan.ashell.shell.fastboot.data.repository
 
-import `in`.hridayan.ashell.core.resources.R
-
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.emitAll
-
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -18,10 +12,11 @@ import android.net.Uri
 import android.os.Build
 import android.util.Log
 import androidx.core.content.ContextCompat
+import `in`.hridayan.ashell.core.domain.model.FastbootState
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootCommandResult
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootConnection
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootDeviceInfo
-import `in`.hridayan.ashell.core.domain.model.FastbootState
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashOperation
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashStatus
 import `in`.hridayan.ashell.shell.fastboot.domain.model.RebootMode
@@ -33,6 +28,8 @@ import `in`.hridayan.fastboot.ResponseStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -188,7 +185,10 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
                     it.deviceName == current.deviceName
                 }
                 if (!currentStillPresent) {
-                    Log.d(TAG, "handleDeviceDetach: current device no longer in USB list — cleaning up")
+                    Log.d(
+                        TAG,
+                        "handleDeviceDetach: current device no longer in USB list — cleaning up"
+                    )
                     cleanupConnection()
                     FastbootConnection.updateState(FastbootState.Disconnected)
                     CoroutineScope(Dispatchers.Main).launch {

@@ -1,7 +1,5 @@
 package `in`.hridayan.ashell.ai.presentation.components.dialog
 
-import `in`.hridayan.ashell.core.resources.R
-
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -35,6 +33,7 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
 import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
 import `in`.hridayan.ashell.core.presentation.model.ButtonType
+import `in`.hridayan.ashell.core.resources.R
 
 private const val MIN_CACHE_DAYS = 1
 private const val MAX_CACHE_DAYS = 365

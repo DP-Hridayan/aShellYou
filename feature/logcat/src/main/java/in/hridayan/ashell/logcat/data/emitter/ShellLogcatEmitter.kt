@@ -1,11 +1,9 @@
 package `in`.hridayan.ashell.logcat.data.emitter
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.emitAll
-
 import `in`.hridayan.ashell.logcat.domain.emitter.LogcatEmitter
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import java.io.BufferedReader
 import java.io.IOException
@@ -35,7 +33,10 @@ class ShellLogcatEmitter @Inject constructor() : LogcatEmitter {
         } catch (e: IOException) {
             // Process destroyed externally — treat as normal termination
         } finally {
-            try { reader.close() } catch (_: IOException) {}
+            try {
+                reader.close()
+            } catch (_: IOException) {
+            }
             process.destroy()
         }
     }.flowOn(Dispatchers.IO)

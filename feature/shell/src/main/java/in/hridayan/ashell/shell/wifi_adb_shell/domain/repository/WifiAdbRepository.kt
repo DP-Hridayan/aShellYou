@@ -16,7 +16,7 @@ interface WifiAdbRepository {
     fun execute(commandText: String): Flow<OutputLine>
     fun abortShell()
     fun stopMdnsDiscovery()
-    
+
     // Device storage - Flow-based reactive updates
     fun getSavedDevicesFlow(): Flow<List<WifiAdbDevice>>
     suspend fun saveDevice(device: WifiAdbDevice)
@@ -48,8 +48,9 @@ interface WifiAdbRepository {
         onPairingServiceFound: (DiscoveredPairingService) -> Unit,
         onPairingServiceLost: (serviceName: String) -> Unit
     )
+
     fun stopCodePairingDiscovery()
-    
+
     // Pair and connect using cached connect port
     fun pairAndConnect(
         ip: String,

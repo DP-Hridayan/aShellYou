@@ -45,7 +45,8 @@ fun DynamicColorImageVectors.undrawPhoneLady(): ImageVector {
         )
         addPath(
             pathData = PathParser().parsePathString(
-                "M184.05,608.68l15.14,-0.9v6.49l14.4,9.94a4.05,4.05 0,0 1,-2.3 7.39h-18.03l-3.11,-6.42 -1.21,6.42h-6.8Z")
+                "M184.05,608.68l15.14,-0.9v6.49l14.4,9.94a4.05,4.05 0,0 1,-2.3 7.39h-18.03l-3.11,-6.42 -1.21,6.42h-6.8Z"
+            )
                 .toNodes(),
             fill = SolidColor(MaterialTheme.colorScheme.onTertiaryContainer),
         )
@@ -505,6 +506,8 @@ fun DynamicColorImageVectors.undrawPhoneLady(): ImageVector {
 @Composable
 private fun Preview() {
     val painter = rememberVectorPainter(DynamicColorImageVectors.undrawPhoneLady())
-    Image(painter = painter,
-        contentDescription = null)
+    Image(
+        painter = painter,
+        contentDescription = null
+    )
 }

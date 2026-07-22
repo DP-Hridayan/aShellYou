@@ -1,9 +1,5 @@
 package `in`.hridayan.ashell.shell.file_browser.data.repository
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.emitAll
-
 import android.util.Log
 import `in`.hridayan.ashell.shell.file_browser.data.executor.AdbCommandExecutor
 import `in`.hridayan.ashell.shell.file_browser.data.executor.WifiAdbCommandExecutor
@@ -11,9 +7,10 @@ import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperationResult
 import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
 import `in`.hridayan.ashell.shell.file_browser.domain.repository.FileBrowserRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.buffer
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -185,7 +182,7 @@ class FileBrowserRepositoryImpl @Inject constructor(
         var expectedTotalSize = 0L
 
         try {
-            val escapedPath = remotePath.replace("'", "'\\''"  )
+            val escapedPath = remotePath.replace("'", "'\\''")
             val sizeResult = executeCommand("stat -c%s '$escapedPath'")
             expectedTotalSize = sizeResult?.trim()?.toLongOrNull() ?: 0L
 
@@ -194,7 +191,8 @@ class FileBrowserRepositoryImpl @Inject constructor(
             localFile.parentFile?.mkdirs()
 
             if (executor.supportsSyncTransfer()) {
-                val inputStream = executor.pullFileWithProgress(remotePath, expectedTotalSize) { _, _ -> }
+                val inputStream =
+                    executor.pullFileWithProgress(remotePath, expectedTotalSize) { _, _ -> }
                 if (inputStream == null) {
                     emit(FileOperationResult.Error("Failed to open stream for download"))
                     return@flow
@@ -209,7 +207,7 @@ class FileBrowserRepositoryImpl @Inject constructor(
                 while (inputStream.read(buffer).also { len = it } != -1) {
                     outputStream.write(buffer, 0, len)
                     bytesWritten += len
-                    
+
                     // Emit progress at most every 100ms for responsive UI without overhead
                     val now = System.currentTimeMillis()
                     if (now - lastEmitTime >= 100 || bytesWritten >= expectedTotalSize) {
@@ -264,16 +262,20 @@ class FileBrowserRepositoryImpl @Inject constructor(
 
             // Smart success detection: check if file was actually downloaded
             val actualSize = if (localFile.exists()) localFile.length() else 0L
-            
+
             if (actualSize > 0 && (expectedTotalSize == 0L || actualSize >= expectedTotalSize * 0.95)) {
-                Log.i(TAG, "Download completed despite exception. Expected: $expectedTotalSize, Got: $actualSize")
+                Log.i(
+                    TAG,
+                    "Download completed despite exception. Expected: $expectedTotalSize, Got: $actualSize"
+                )
                 emit(FileOperationResult.Progress(actualSize, expectedTotalSize))
                 emit(FileOperationResult.Success("File downloaded"))
             } else {
                 emit(FileOperationResult.Error(e.message ?: "Failed to download file"))
             }
         }
-    }.buffer(4, onBufferOverflow = kotlinx.coroutines.channels.BufferOverflow.DROP_OLDEST).flowOn(Dispatchers.IO)
+    }.buffer(4, onBufferOverflow = kotlinx.coroutines.channels.BufferOverflow.DROP_OLDEST)
+        .flowOn(Dispatchers.IO)
 
     override fun pushFile(localPath: String, remotePath: String): Flow<FileOperationResult> = flow {
         try {
@@ -314,7 +316,7 @@ class FileBrowserRepositoryImpl @Inject constructor(
                 while (inputStream.read(buffer).also { len = it } != -1) {
                     outputStream.write(buffer, 0, len)
                     bytesWritten += len
-                    
+
                     // Emit progress at most every 100ms for responsive UI without overhead
                     val now = System.currentTimeMillis()
                     if (now - lastEmitTime >= 100 || bytesWritten >= totalSize) {

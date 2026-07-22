@@ -2,21 +2,18 @@ package `in`.hridayan.ashell.settings.presentation.state
 
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import `in`.hridayan.ashell.core.common.SettingsKeys
-import `in`.hridayan.settingsdsl.model.SettingsKey
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.model.CustomSlot
 import `in`.hridayan.settingsdsl.model.ResolvedGroup
+import `in`.hridayan.settingsdsl.model.SettingsKey
 import `in`.hridayan.settingsdsl.ui.item.settingsContent
-
-import androidx.datastore.preferences.core.Preferences
 
 /**
  * App-specific convenience wrapper around the library's [settingsContent].
@@ -54,9 +51,12 @@ fun LazyListScope.settingsContent(
             if (sk.default !is Int) return@settingsContent -1
             prefs[intPreferencesKey(sk.name)] ?: (sk.default as Int)
         },
-        onItemClick = onItemClick ?: { key: SettingsKey<*> -> vm.onItemClicked(key as SettingsKeys<*>) },
-        onBooleanToggle = onBooleanToggle ?: { key: SettingsKey<*> -> vm.onToggle(key as SettingsKeys<Boolean>) },
-        onIntChanged = onIntChanged ?: { key: SettingsKey<*>, v: Int -> vm.setInt(key as SettingsKeys<Int>, v) },
+        onItemClick = onItemClick
+            ?: { key: SettingsKey<*> -> vm.onItemClicked(key as SettingsKeys<*>) },
+        onBooleanToggle = onBooleanToggle
+            ?: { key: SettingsKey<*> -> vm.onToggle(key as SettingsKeys<Boolean>) },
+        onIntChanged = onIntChanged
+            ?: { key: SettingsKey<*>, v: Int -> vm.setInt(key as SettingsKeys<Int>, v) },
         customSlotContent = customSlotContent,
         categoryHeader = categoryHeader,
     )

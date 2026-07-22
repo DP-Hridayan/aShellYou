@@ -2,8 +2,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.licenses.screens
 
-import `in`.hridayan.ashell.core.resources.R
-
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.tween
@@ -32,8 +30,6 @@ import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -49,12 +45,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import `in`.hridayan.ashell.core.navigation.LocalNavController
+import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
-import `in`.hridayan.ashell.core.navigation.LocalNavController
-import `in`.hridayan.ashell.core.navigation.navigateBack
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.settings.domain.model.LibraryItem
 import `in`.hridayan.ashell.settings.domain.model.LicensesUiState
 import `in`.hridayan.ashell.settings.presentation.components.dialog.AppLicenseDetailDialog

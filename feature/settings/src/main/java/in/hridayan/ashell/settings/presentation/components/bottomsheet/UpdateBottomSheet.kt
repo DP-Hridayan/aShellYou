@@ -1,10 +1,7 @@
 @file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.settings.presentation.components.bottomsheet
+package `in`.hridayan.ashell.settings.presentation.components.bottomsheet
 
-import `in`.hridayan.ashell.core.resources.R
-
-import `in`.hridayan.ashell.core.common.LocalSettings
 
 import android.app.Activity
 import android.content.Intent
@@ -13,7 +10,6 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,7 +28,6 @@ import androidx.compose.material3.LinearWavyProgressIndicator
 import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
-
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberBottomSheetState
@@ -61,23 +56,25 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import `in`.hridayan.ashell.core.common.LocalSettings
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.common.constants.UrlConst
-import `in`.hridayan.ashell.settings.domain.model.DownloadState
-import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
+import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.components.text.BulletPointsTextLayout
 import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
 import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
 import `in`.hridayan.ashell.core.presentation.model.ButtonType
-import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import `in`.hridayan.ashell.core.presentation.components.text.BulletPointsTextLayout
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.installApk
 import `in`.hridayan.ashell.core.utils.openUrl
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.utils.splitStringToLines
-import `in`.hridayan.ashell.core.common.SettingsKeys
+import `in`.hridayan.ashell.settings.domain.model.DownloadState
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import java.io.File
 
@@ -180,7 +177,8 @@ fun UpdateBottomSheet(
     )
 
     val latestChangelogText = remember(body) { parseChangelog(body) }
-    val versionRange = context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: "".removeSuffix("-debug") + "..." + latestVersion
+    val versionRange = context.packageManager.getPackageInfo(context.packageName, 0).versionName
+        ?: "".removeSuffix("-debug") + "..." + latestVersion
     val fullChangelogUrl = UrlConst.URL_GITHUB_REPO + "/compare/" + versionRange
 
     ModalBottomSheet(
@@ -213,7 +211,12 @@ fun UpdateBottomSheet(
 
         InfoChip(
             modifier = Modifier.padding(horizontal = 20.dp),
-            text = stringResource(R.string.current_version) + " : ${context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: ""}",
+            text = stringResource(R.string.current_version) + " : ${
+                context.packageManager.getPackageInfo(
+                    context.packageName,
+                    0
+                ).versionName ?: ""
+            }",
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
                 contentColor = MaterialTheme.colorScheme.onSurface

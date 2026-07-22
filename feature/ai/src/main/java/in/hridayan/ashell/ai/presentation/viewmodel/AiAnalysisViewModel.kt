@@ -3,7 +3,6 @@ package `in`.hridayan.ashell.ai.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import `in`.hridayan.ashell.ai.domain.model.AnalysisResult
 import `in`.hridayan.ashell.ai.domain.model.CorrectionSuggestion
 import `in`.hridayan.ashell.ai.domain.usecase.AnalyzeCommandUseCase
 import `in`.hridayan.ashell.ai.presentation.model.AiAnalysisUiState

@@ -5,6 +5,6 @@ data class GithubRepoStats(
     val forks: Int,
     val openIssues: Int,
     val totalDownloadCount: Long,
-    val license : String,
-    val latestVersion : String,
+    val license: String,
+    val latestVersion: String,
 )

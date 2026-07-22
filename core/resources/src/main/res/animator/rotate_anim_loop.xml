@@ -1,5 +1,4 @@
-<objectAnimator
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
     android:duration="1500"
     android:propertyName="rotation"
     android:repeatCount="infinite"

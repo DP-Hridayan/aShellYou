@@ -2,16 +2,13 @@
 
 package `in`.hridayan.ashell.commandexamples.presentation.component.card
 
-import `in`.hridayan.ashell.core.resources.R
-
-
-import androidx.compose.animation.core.spring
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -77,20 +74,21 @@ import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.airbnb.lottie.compose.rememberLottieDynamicProperties
 import com.airbnb.lottie.compose.rememberLottieDynamicProperty
+import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.CommandExamplesDialogKey
 import `in`.hridayan.ashell.commandexamples.presentation.component.row.Labels
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
 import `in`.hridayan.ashell.core.common.LocalDialogManager
+import `in`.hridayan.ashell.core.common.LocalSnackBarController
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.presentation.components.card.CollapsibleCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
-import `in`.hridayan.ashell.core.common.LocalSnackBarController
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import `in`.hridayan.ashell.core.utils.showToast
-import `in`.hridayan.ashell.core.navigation.LocalNavController
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 import kotlin.math.roundToInt
-import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.CommandExamplesDialogKey
 
 @Composable
 fun CommandExampleCard(
@@ -111,7 +109,7 @@ fun CommandExampleCard(
     val snackBarController = LocalSnackBarController.current
     val coroutineScope = rememberCoroutineScope()
     val prevScreen = navController.previousBackStackEntry
-    
+
     val interactionSources = remember { List(3) { MutableInteractionSource() } }
     var isDeleted by rememberSaveable { mutableStateOf(false) }
     val animatedHeight = remember { Animatable(1f) }

@@ -1,7 +1,5 @@
 package `in`.hridayan.ashell.shell.wifi_adb_shell.notification
 
-import `in`.hridayan.ashell.core.resources.R
-
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -10,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import androidx.core.app.RemoteInput
+import `in`.hridayan.ashell.core.resources.R
 
 /**
  * Helper class for managing notifications during own device pairing flow.
@@ -85,7 +84,11 @@ class SelfPairingNotificationHelper(private val context: Context) {
             .setSmallIcon(R.drawable.ic_wireless)
             .setOngoing(true)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .addAction(R.drawable.ic_cancel, context.getString(R.string.cancel), cancelPendingIntent)
+            .addAction(
+                R.drawable.ic_cancel,
+                context.getString(R.string.cancel),
+                cancelPendingIntent
+            )
             .build()
     }
 
@@ -121,7 +124,11 @@ class SelfPairingNotificationHelper(private val context: Context) {
             .setOngoing(true)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .addAction(submitAction)
-            .addAction(R.drawable.ic_cancel, context.getString(R.string.cancel), cancelPendingIntent)
+            .addAction(
+                R.drawable.ic_cancel,
+                context.getString(R.string.cancel),
+                cancelPendingIntent
+            )
             .build()
     }
 
@@ -136,7 +143,8 @@ class SelfPairingNotificationHelper(private val context: Context) {
     }
 
     private fun createSuccessNotification(): Notification {
-        val openAppIntent = Intent(context, Class.forName("in.hridayan.ashell.activities.MainActivity"))
+        val openAppIntent =
+            Intent(context, Class.forName("in.hridayan.ashell.activities.MainActivity"))
         val openAppPendingIntent = PendingIntent.getActivity(
             context, 3, openAppIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE

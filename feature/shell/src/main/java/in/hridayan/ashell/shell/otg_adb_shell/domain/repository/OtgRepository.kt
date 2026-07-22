@@ -10,7 +10,7 @@ interface OtgRepository {
     fun unRegister()
     fun runOtgCommand(command: String): Flow<OutputLine>
     fun stopCommand()
-    
+
     // Added for file browser support
     fun isConnected(): Boolean
     fun getAdbConnection(): AdbConnection?

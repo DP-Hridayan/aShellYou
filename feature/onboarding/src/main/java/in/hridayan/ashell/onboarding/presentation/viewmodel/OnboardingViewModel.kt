@@ -1,18 +1,17 @@
 package `in`.hridayan.ashell.onboarding.presentation.viewmodel
 
-
-import `in`.hridayan.ashell.core.common.SettingsKeys
-
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.domain.repository.ShellRepository
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-import `in`.hridayan.ashell.core.domain.repository.ShellRepository
-import kotlinx.coroutines.flow.StateFlow
-
+@Stable
 @HiltViewModel
 class OnboardingViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,

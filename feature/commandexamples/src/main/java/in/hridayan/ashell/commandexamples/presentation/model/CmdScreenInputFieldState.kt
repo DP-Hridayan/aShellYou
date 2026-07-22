@@ -2,7 +2,7 @@ package `in`.hridayan.ashell.commandexamples.presentation.model
 
 import androidx.compose.ui.text.input.TextFieldValue
 
-sealed class CmdScreenInputFieldState() {
+sealed class CmdScreenInputFieldState {
     /**
      * This input field is in the command examples screen AddCommandDialog and EditCommandDialog command input field
      */

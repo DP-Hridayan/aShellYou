@@ -104,15 +104,23 @@ class LogcatViewModel @Inject constructor(
 
     // ── Public actions ────────────────────────────────────────────────────
 
-    fun startLogcat() { LogcatService.start(context) }
+    fun startLogcat() {
+        LogcatService.start(context)
+    }
 
-    fun stopLogcat() { LogcatService.stop(context) }
+    fun stopLogcat() {
+        LogcatService.stop(context)
+    }
 
     /** Called when user touches / scrolls the list manually. */
-    fun pauseAutoScroll() { _isAutoScrolling.value = false }
+    fun pauseAutoScroll() {
+        _isAutoScrolling.value = false
+    }
 
     /** Called ONLY by the "scroll to bottom" FAB. */
-    fun resumeAutoScroll() { _isAutoScrolling.value = true }
+    fun resumeAutoScroll() {
+        _isAutoScrolling.value = true
+    }
 
     /** Update filter and immediately re-filter the raw buffer. */
     fun updateFilter(filter: LogFilter) {
@@ -141,7 +149,9 @@ class LogcatViewModel @Inject constructor(
         viewModelScope.launch { filterRepository.deleteFilter(id) }
     }
 
-    fun toggleSearchVisible() { _searchVisible.update { !it } }
+    fun toggleSearchVisible() {
+        _searchVisible.update { !it }
+    }
 
     // ── Internal ──────────────────────────────────────────────────────────
 
@@ -168,7 +178,7 @@ class LogcatViewModel @Inject constructor(
 
         _logs.update { current ->
             val updated = current.toMutableList()
-            if (updated.size >= MAX_LOGS) updated.removeFirst()
+            if (updated.size >= MAX_LOGS) updated.removeAt(0)
             updated.add(entry)
             updated
         }

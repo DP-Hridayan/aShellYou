@@ -1,9 +1,5 @@
 package `in`.hridayan.ashell.shell.common.presentation.components.dialog
 
-import `in`.hridayan.ashell.core.resources.R
-
-
-import `in`.hridayan.ashell.core.common.LocalSettings
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.fadeIn
@@ -27,14 +23,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.core.net.toUri
-import `in`.hridayan.ashell.shell.domain.model.SaveProgress
+import `in`.hridayan.ashell.core.common.LocalSettings
+import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
 import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
 import `in`.hridayan.ashell.core.presentation.model.ButtonType
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.getFullPathFromTreeUri
-import `in`.hridayan.ashell.core.common.SettingsKeys
+import `in`.hridayan.ashell.shell.domain.model.SaveProgress
 
 @Composable
 fun FileSavedDialog(

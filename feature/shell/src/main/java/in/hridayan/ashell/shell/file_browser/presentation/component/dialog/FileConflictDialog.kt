@@ -1,8 +1,7 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog
+package `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog
 
-import `in`.hridayan.ashell.core.resources.R
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -33,6 +32,7 @@ import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.DialogTitle
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.file_browser.domain.model.ConflictResolution
 import `in`.hridayan.ashell.shell.file_browser.domain.model.FileConflict
 import `in`.hridayan.ashell.shell.file_browser.domain.model.OperationType
@@ -49,7 +49,7 @@ fun FileConflictDialog(
     onDismiss: () -> Unit
 ) {
     var applyToAll by remember { mutableStateOf(false) }
-    
+
     val title = if (conflict.isDirectory || conflict.sourceIsDirectory) {
         stringResource(R.string.folder_conflict_title)
     } else {

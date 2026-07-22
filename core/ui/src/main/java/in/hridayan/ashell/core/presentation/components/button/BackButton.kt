@@ -1,7 +1,5 @@
 package `in`.hridayan.ashell.core.presentation.components.button
 
-import `in`.hridayan.ashell.core.resources.R
-
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material3.Icon
@@ -13,6 +11,7 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.res.stringResource
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.tooltip.TooltipContent
+import `in`.hridayan.ashell.core.resources.R
 
 @Composable
 fun BackButton(

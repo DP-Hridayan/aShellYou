@@ -1,14 +1,12 @@
 @file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.settings.presentation.page.licenses.components
+package `in`.hridayan.ashell.settings.presentation.page.licenses.components
 
-import `in`.hridayan.ashell.core.resources.R
-
-import androidx.compose.animation.core.spring
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -62,6 +60,7 @@ import `in`.hridayan.ashell.core.presentation.components.card.CustomCardDefaults
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.openUrl
 import `in`.hridayan.ashell.settings.domain.model.LibraryItem
 

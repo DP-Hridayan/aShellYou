@@ -1,8 +1,7 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog
+package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog
 
-import `in`.hridayan.ashell.core.resources.R
 
 import android.os.Build
 import android.widget.Toast
@@ -19,10 +18,10 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ButtonGroup
 import androidx.compose.material3.ButtonGroupDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -42,6 +41,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.isConnectedToWifi
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
 
@@ -177,7 +177,8 @@ fun DeviceDisconnectedDialog(
                                                 } else {
                                                     res.getString(R.string.reconnect_failed)
                                                 }
-                                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                                                Toast.makeText(context, message, Toast.LENGTH_SHORT)
+                                                    .show()
                                             }
                                         )
                                     }

@@ -1,6 +1,7 @@
 @file:OptIn(ExperimentalFoundationApi::class)
 
-package `in`.hridayan.ashell.logcat.presentation.components
+package `in`.hridayan.ashell.logcat.presentation.components
+
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
@@ -25,8 +26,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import `in`.hridayan.ashell.logcat.domain.model.LogEntry
 import `in`.hridayan.ashell.core.common.LocalDarkMode
+import `in`.hridayan.ashell.logcat.domain.model.LogEntry
 
 /**
  * A single logcat row in the LazyColumn.
