@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
+    alias(libs.plugins.dependencyAnalysis)
 }
 
 android {
@@ -19,4 +20,6 @@ dependencies {
     api(libs.core.splashscreen)
     api(libs.material)
     testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.espresso.core)
 }

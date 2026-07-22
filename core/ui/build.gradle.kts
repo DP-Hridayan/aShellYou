@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.compose.stability.analyzer)
+    alias(libs.plugins.dependencyAnalysis)
 }
 
 android {

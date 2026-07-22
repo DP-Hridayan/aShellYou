@@ -4,7 +4,10 @@ plugins {
 
 android {
     namespace = "com.cgutman.adblib"
-    compileSdk = 36
+
+    compileSdk {
+        version = release(37)
+    }
 
     defaultConfig {
         minSdk = 14

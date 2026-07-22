@@ -11,6 +11,7 @@ plugins {
     alias(libs.plugins.release.lint.baseline)
     alias(libs.plugins.aboutlibraries)
     alias(libs.plugins.compose.stability.analyzer)
+    alias(libs.plugins.dependencyAnalysis)
 }
 
 android {
@@ -242,10 +243,8 @@ dependencies {
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.graphics)
     implementation(libs.compose.ui.tooling.preview)
-    implementation(libs.material)
     implementation(libs.material3)
     implementation(libs.material.icons.extended)
-    implementation(libs.datastore.preferences)
     implementation(libs.navigation.compose)
     implementation(libs.gson)
     implementation(libs.androidx.work.runtime.ktx)

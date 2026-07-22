@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.compose.stability.analyzer)
+    alias(libs.plugins.dependencyAnalysis)
     id("kotlin-parcelize")
 }
 
@@ -37,9 +38,7 @@ dependencies {
     implementation(project(":settings-dsl"))
     implementation(project(":core:navigation"))
 
-
     implementation(libs.aboutlibraries.core)
-
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.graphics)
