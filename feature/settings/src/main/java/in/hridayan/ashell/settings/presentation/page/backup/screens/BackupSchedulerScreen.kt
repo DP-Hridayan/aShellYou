@@ -172,6 +172,7 @@ fun BackupSchedulerScreen(
                             pendingEnableAfterFolderPick = true
                             showFolderDialog = true
                         } else {
+                            @Suppress("UNCHECKED_CAST")
                             settingsViewModel.onToggle(key as SettingsKeys<Boolean>)
                             if (key == SettingsKeys.AutoBackupEnabled) {
                                 settingsViewModel.rescheduleAutoBackup(enabled = !autoBackupEnabled)
@@ -179,6 +180,7 @@ fun BackupSchedulerScreen(
                         }
                     },
                     onIntChanged = { key, value ->
+                        @Suppress("UNCHECKED_CAST")
                         settingsViewModel.setInt(key as SettingsKeys<Int>, value)
                         if (key == SettingsKeys.AutoBackupFrequency) {
                             settingsViewModel.rescheduleAutoBackup(

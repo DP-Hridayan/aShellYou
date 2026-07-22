@@ -232,38 +232,31 @@ dependencies {
 
     implementation(libs.kotlin.reflect)
     implementation(libs.shizuku.provider)
-
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.lifecycle.runtime.compose)
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.activity.compose)
-
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.graphics)
     implementation(libs.compose.ui.tooling.preview)
-    debugImplementation(libs.compose.ui.tooling)
     implementation(libs.material)
     implementation(libs.material3)
     implementation(libs.material.icons.extended)
     implementation(libs.datastore.preferences)
     implementation(libs.navigation.compose)
-
     implementation(libs.gson)
-
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.core.splashscreen)
     implementation(libs.androidx.compose.animation)
-
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
-    ksp(libs.hilt.android.compiler)
+    implementation(libs.lsposed.hiddenapibypass)
     implementation(libs.hilt.work)
     ksp(libs.hilt.compiler)
-
-    implementation(libs.lsposed.hiddenapibypass)
+    ksp(libs.hilt.android.compiler)
 
     githubImplementations(
         libs.play.services.auth,
@@ -282,4 +275,5 @@ dependencies {
     androidTestImplementation(libs.compose.ui.test.junit4)
     debugImplementation(libs.compose.ui.test.manifest)
     debugImplementation(libs.studio.leakcanary)
+    debugImplementation(libs.compose.ui.tooling)
 }

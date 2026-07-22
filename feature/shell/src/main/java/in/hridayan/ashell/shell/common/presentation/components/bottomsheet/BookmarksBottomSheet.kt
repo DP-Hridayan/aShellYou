@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.shell.common.presentation.components.bottomsheet
 
-
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -186,6 +185,7 @@ fun BookmarksBottomSheet(
                             .padding(vertical = 1.dp),
                         onClick = withHaptic {
                             onBookmarkClicked(bookmark.command)
+                            bookmarkViewModel.onSearchQueryChange(TextFieldValue(""))
                         },
                         shape = roundedShape,
                         colors = CardDefaults.cardColors(
