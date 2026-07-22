@@ -243,7 +243,9 @@ fun <T> Modifier.textSelectionGestures(
                     LineSelection(start.first, wordRange.first, start.first, wordRange.last)
 
                 val pointerPosRef = Ref(longPress.position)
-                selectionState.magnifierOffset = longPress.position
+                selectionState.magnifierOffset = computeMagnifierOffset(
+                    selectionState, start.first, start.second, longPress.position.x
+                )
                 val loopJob = coroutineScope.launch {
                     while (isActive) {
                         autoScrollIfNearEdge(
@@ -256,8 +258,10 @@ fun <T> Modifier.textSelectionGestures(
                             selectionState.selection = selectionState.selection?.copy(
                                 endLine = end.first, endOffset = end.second
                             )
+                            selectionState.magnifierOffset = computeMagnifierOffset(
+                                selectionState, end.first, end.second, pointerPosRef.value.x
+                            )
                         }
-                        selectionState.magnifierOffset = pointerPosRef.value
                         delay(16.milliseconds)
                     }
                 }
@@ -356,7 +360,7 @@ fun <T> SelectionHandlesOverlay(
     modifier: Modifier = Modifier,
     handleColor: Color = MaterialTheme.colorScheme.primary,
     autoScrollEdgeThreshold: Dp = 48.dp,
-    autoScrollSpeed: Dp = 2.dp,
+    autoScrollSpeed: Dp = 6.dp,
     onCopy: ((success: Boolean) -> Unit)? = null,
 ) {
     // Observe version to sync with layout changes
@@ -438,8 +442,10 @@ fun <T> SelectionHandlesOverlay(
                     val global = rawPos + selectionState.containerWindowOrigin
                     val result = findLineOffsetOrNearestEdge(selectionState, global)
                     val anchor = dragAnchor.value
-                    selectionState.magnifierOffset = rawPos
                     if (result != null && anchor != null) {
+                        selectionState.magnifierOffset = computeMagnifierOffset(
+                            selectionState, result.first, result.second, rawPos.x
+                        )
                         // Dragged position = start, anchor = end.
                         // Normalization swaps them for display if they cross.
                         selectionState.selection = LineSelection(
@@ -495,8 +501,10 @@ fun <T> SelectionHandlesOverlay(
                     val global = rawPos + selectionState.containerWindowOrigin
                     val result = findLineOffsetOrNearestEdge(selectionState, global)
                     val anchor = dragAnchor.value
-                    selectionState.magnifierOffset = rawPos
                     if (result != null && anchor != null) {
+                        selectionState.magnifierOffset = computeMagnifierOffset(
+                            selectionState, result.first, result.second, rawPos.x
+                        )
                         // Anchor = start, dragged position = end.
                         // Normalization swaps them for display if they cross.
                         selectionState.selection = LineSelection(
@@ -869,6 +877,29 @@ private fun <T> buildSelectedText(
 }
 
 /**
+ * Computes the magnifier source-centre for a resolved [lineIndex] + [charOffset].
+ * X is set to [fingerX] so the loupe tracks the finger horizontally, while
+ * Y is snapped to the vertical centre of the text line — the magnifier only
+ * jumps vertically when the selection moves to a different line, matching
+ * native Android behaviour.
+ */
+private fun computeMagnifierOffset(
+    selectionState: SelectionState,
+    lineIndex: Int,
+    charOffset: Int,
+    fingerX: Float,
+): Offset? {
+    val info = selectionState.lineInfos[lineIndex] ?: return null
+    val textLength = info.layoutResult.layoutInput.text.length
+    val safeOffset = charOffset.coerceIn(0, textLength)
+    val cursorRect = info.layoutResult.getCursorRect(safeOffset)
+    val lineCenterY = (cursorRect.top + cursorRect.bottom) / 2f
+    val yInContainer =
+        info.boundsInWindow.top + lineCenterY - selectionState.containerWindowOrigin.y
+    return Offset(fingerX, yInContainer)
+}
+
+/**
  * Wrapper composable that adds cross-line text selection to any [LazyColumn]
  * placed inside [content], analogous to how [SelectionContainer] wraps
  * ordinary composables.
@@ -926,7 +957,7 @@ fun <T> LazySelectionContainer(
     selectionState: SelectionState = rememberSelectionState(),
     handleColor: Color = MaterialTheme.colorScheme.primary,
     autoScrollEdgeThreshold: Dp = 48.dp,
-    autoScrollSpeed: Dp = 2.dp,
+    autoScrollSpeed: Dp = 6.dp,
     magnifierVerticalOffset: Dp = 64.dp,
     onCopy: ((success: Boolean) -> Unit)? = null,
     content: @Composable (selectionState: SelectionState) -> Unit,
