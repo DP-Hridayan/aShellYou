@@ -727,11 +727,10 @@ private fun SelectionToolbar(
                     )
                 }
             }
-        },
-        modifier = Modifier.fillMaxWidth()
-    ) { measurables, constraints ->
+        }
+    ) { measurables, _ ->
         val anchorInContainer =
-            anchorProvider() ?: return@Layout layout(constraints.maxWidth, constraints.maxHeight) {}
+            anchorProvider() ?: return@Layout layout(0, 0) {}
 
         val placeable = measurables.first().measure(Constraints())
 
@@ -745,7 +744,7 @@ private fun SelectionToolbar(
         val x = (anchorInContainer.x - placeable.width / 2f)
             .coerceIn(0f, (containerWidthPx - placeable.width).coerceAtLeast(0f))
 
-        layout(constraints.maxWidth, constraints.maxHeight) {
+        layout(0, 0) {
             placeable.placeRelative(x.toInt(), clampedY.toInt())
         }
     }
