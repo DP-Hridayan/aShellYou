@@ -76,72 +76,87 @@ import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.milliseconds
 
 /**
- * Cross-line text selection for [LazyColumn] that avoids the crash caused by
- * [SelectionContainer] holding references to layout nodes that LazyColumn disposes on scroll.
+ * A data class representing a selection across lines in a [LazyColumn].
  *
- * Use [LazySelectionContainer] for a drop-in replacement of [LazyColumn], or
- * compose [textSelectionGestures], [allowTextSelection] and
- * [SelectionHandlesOverlay] directly for custom layouts.
+ * @property startLine The index of the item where the selection begins.
+ * @property startOffset The character offset within the start item.
+ * @property endLine The index of the item where the selection ends.
+ * @property endOffset The character offset within the end item.
  */
-
-/** A selection anchored at (startLine, startOffset) through (endLine, endOffset). */
 data class LineSelection(
     val startLine: Int,
     val startOffset: Int,
     val endLine: Int,
     val endOffset: Int,
 ) {
-    /** Returns this selection with start/end ordered so start precedes end. */
+    /**
+     * Returns a normalized version of this selection where the start position
+     * is guaranteed to precede or equal the end position in reading order.
+     */
     fun normalized(): LineSelection =
         if (startLine < endLine || (startLine == endLine && startOffset <= endOffset)) this
         else LineSelection(endLine, endOffset, startLine, startOffset)
 }
 
+/**
+ * Internal representation of a line's layout information used for selection hit-testing
+ * and rendering highlights.
+ */
 internal data class LineInfo(val boundsInWindow: Rect, val layoutResult: TextLayoutResult)
 
-/** Mutable holder for values read only outside Compose's observed scopes. */
+/**
+ * A generic mutable reference holder for values that need to be accessed across scopes.
+ */
 private class Ref<T>(var value: T)
 
-/** Which visual handle (post-normalization start or end) the toolbar is
- *  currently pinned to. */
+/**
+ * Represents the end of the selection that the toolbar should be anchored to.
+ */
 enum class SelectionEnd { START, END }
 
-/** Holds the current selection and per-line layout bookkeeping. */
+/**
+ * State holder for text selection within a [LazySelectionContainer].
+ * Manages selection coordinates, visibility of handles, and the selection toolbar.
+ */
 @Stable
 class SelectionState {
+    /**
+     * The current selection range, or null if no text is selected.
+     */
     var selection by mutableStateOf<LineSelection?>(null)
 
-    /** Whether the drag handles should be shown. */
+    /**
+     * Controls the visibility of the selection handles.
+     */
     var handlesVisible by mutableStateOf(false)
 
-    /** Whether the copy/select-all popup should be shown. Separate from
-     *  [handlesVisible] so the popup can auto-appear when a selection
-     *  gesture ends, and auto-hide while a handle is actively being
-     *  dragged, without affecting handle visibility itself. */
+    /**
+     * Controls the visibility of the selection toolbar (Copy/Select All).
+     */
     var toolbarVisible by mutableStateOf(false)
 
-    /** Which visual handle the popup is anchored to. Defaults to whichever
-     *  end the most recent gesture actually moved (so it naturally lands on
-     *  the "active" end even if a backward drag flipped start/end); a tap on
-     *  a handle pins it there explicitly until the next gesture changes it. */
+    /**
+     * Specifies which end of the selection the toolbar is currently anchored to.
+     */
     var toolbarPinnedEnd by mutableStateOf(SelectionEnd.END)
 
+    /**
+     * Map of currently composed line indices to their layout information.
+     */
     internal val lineInfos = mutableMapOf<Int, LineInfo>()
 
-    /** Bumped whenever a line's [LineInfo] is added, updated, or removed --
-     *  lineInfos itself is a plain, non-observable map by design (keying
-     *  Compose state per-line would be needless overhead), so this is the
-     *  actual signal the overlay reads to know it needs to recompute handle
-     *  positions. Deliberately not LazyListState's own firstVisibleItemIndex
-     *  / firstVisibleItemScrollOffset / layoutInfo: those change on every
-     *  scrolled pixel regardless of whether a *selection-relevant* line
-     *  moved, which is both wasteful and exactly what triggers Compose's
-     *  "frequently changing value" lint. */
+    /**
+     * A version counter used to trigger recomposition of the selection overlay
+     * when line layout information changes.
+     */
     internal var lineInfoVersion by mutableIntStateOf(0)
     internal var containerWindowOrigin: Offset = Offset.Zero
     internal var containerHeightPx: Float = 0f
     internal var containerWidthPx: Float = 0f
 
+    /**
+     * Clears the current selection and hides all selection UI components.
+     */
     fun clear() {
         selection = null
         handlesVisible = false
@@ -149,15 +164,22 @@ class SelectionState {
     }
 }
 
+/**
+ * Creates and remembers a [SelectionState] instance.
+ */
 @Composable
 fun rememberSelectionState(): SelectionState = remember { SelectionState() }
 
 /**
- * Long-press to start a selection (haptic feedback + snap to the word under
- * the touch), drag to extend it with auto-scroll near the edges, tap
- * elsewhere to dismiss. Attach to a [LazyColumn]'s `modifier`.
+ * Adds text selection gesture support to a [Modifier].
+ * This includes long-press to initiate selection and drag to extend it with auto-scroll support.
  *
- * @param textOf extracts the selectable text from an item.
+ * @param selectionState The state holder for the selection.
+ * @param items The list of items in the container.
+ * @param textOf A function to extract selectable text from an item.
+ * @param listState The state of the [LazyColumn].
+ * @param autoScrollEdgeThreshold The distance from the edge that triggers auto-scrolling.
+ * @param autoScrollSpeed The speed of auto-scrolling.
  */
 fun <T> Modifier.textSelectionGestures(
     selectionState: SelectionState,
@@ -173,9 +195,6 @@ fun <T> Modifier.textSelectionGestures(
     val edgeThresholdPx = with(density) { autoScrollEdgeThreshold.toPx() }
     val scrollSpeedPx = with(density) { autoScrollSpeed.toPx() }
 
-    // rememberUpdatedState: pointerInput is keyed on Unit so the gesture
-    // coroutine never restarts (which would cancel an in-progress drag)
-    // when new items arrive, e.g. streaming output.
     val currentItems by rememberUpdatedState(items)
     val currentTextOf by rememberUpdatedState(textOf)
 
@@ -189,21 +208,11 @@ fun <T> Modifier.textSelectionGestures(
             val touchSlop = viewConfiguration.touchSlop
             awaitEachGesture {
                 val down = awaitFirstDown(requireUnconsumed = false)
-                if (down.isConsumed) {
-                    // Already claimed by something on top (e.g. a selection
-                    // handle) -- don't also start our own gesture for it.
-                    return@awaitEachGesture
-                }
+                if (down.isConsumed) return@awaitEachGesture
 
                 val longPress = awaitLongPressOrCancellation(down.id)
 
                 if (longPress == null) {
-                    // Either a quick tap or a swipe -- awaitLongPressOrCancellation
-                    // can't tell us which. Read raw pointer events ourselves rather
-                    // than using drag() here: drag() treats an already-consumed
-                    // change as cancellation, and LazyColumn legitimately consumes
-                    // the move to scroll, which would make a real swipe look like
-                    // "no movement" and wrongly dismiss the selection.
                     var moved = false
                     while (true) {
                         val event = awaitPointerEvent()
@@ -212,11 +221,9 @@ fun <T> Modifier.textSelectionGestures(
                         val dx = change.position.x - down.position.x
                         val dy = change.position.y - down.position.y
                         if (kotlin.math.hypot(dx, dy) > touchSlop) moved = true
-                        // Deliberately not consumed -- let LazyColumn scroll either way.
                     }
                     if (!moved && selectionState.selection != null) {
-                        selectionState.selection = null
-                        selectionState.handlesVisible = false
+                        selectionState.clear()
                     }
                     return@awaitEachGesture
                 }
@@ -232,11 +239,6 @@ fun <T> Modifier.textSelectionGestures(
                 selectionState.selection =
                     LineSelection(start.first, wordRange.first, start.first, wordRange.last)
 
-                // Single loop drives both auto-scroll and selection-endpoint
-                // updates from the LAST KNOWN pointer position, on a timer --
-                // not gated on new touch events, so the endpoint keeps tracking
-                // (and extends into newly auto-scrolled-in content) even while
-                // the finger itself is stationary.
                 val pointerPosRef = Ref(longPress.position)
                 val loopJob = coroutineScope.launch {
                     while (isActive) {
@@ -264,17 +266,8 @@ fun <T> Modifier.textSelectionGestures(
                 val finalSelection = selectionState.selection
                 val hasSelection = finalSelection != null
                 selectionState.handlesVisible = hasSelection
-                // Previously only set by a handle-drag/tap -- the initial
-                // long-press-drag selection never turned this on, so the
-                // popup silently never appeared the first time.
                 selectionState.toolbarVisible = hasSelection
                 if (finalSelection != null) {
-                    // endLine/endOffset is literally "wherever the drag last
-                    // was" -- if that's still in reading-order after the
-                    // anchor, normalizing leaves it as the end; if the user
-                    // dragged backwards past the anchor, normalizing swaps it
-                    // to become the start. Either way, pin to whichever role
-                    // it ended up as, so the popup follows the finger.
                     selectionState.toolbarPinnedEnd =
                         if (finalSelection == finalSelection.normalized()) SelectionEnd.END else SelectionEnd.START
                 }
@@ -283,12 +276,14 @@ fun <T> Modifier.textSelectionGestures(
 }
 
 /**
- * Registers a line's layout for selection and draws its highlight. Attach
- * to each line's `Text`/`BasicText` inside a [LazyColumn]'s items.
+ * Registers an item's layout for text selection and renders its selection highlight.
+ * Must be attached to each selectable [Text] component.
  *
- * @param style must match the style the text is actually rendered with —
- * this measures its own copy of [text] to compute hit-testing and highlight
- * paths, so a mismatch will visibly misalign both.
+ * @param index The index of the item in the list.
+ * @param text The text content of the item.
+ * @param selectionState The state holder for the selection.
+ * @param style The [TextStyle] used to render the text. Must match exactly for correct layout calculations.
+ * @param highlightColor The color used for the selection background.
  */
 @Composable
 fun Modifier.allowTextSelection(
@@ -344,11 +339,7 @@ fun Modifier.allowTextSelection(
 }
 
 /**
- * Draggable start/end selection handles with a tap-to-open Copy/Select-all
- * popup. Place as a sibling of the [LazyColumn] inside the same [Box].
- *
- * @param onCopy optional callback reporting whether the Copy action
- * succeeded, e.g. to show a toast.
+ * Overlay that renders selection handles and the selection toolbar.
  */
 @Composable
 fun <T> SelectionHandlesOverlay(
@@ -362,9 +353,7 @@ fun <T> SelectionHandlesOverlay(
     autoScrollSpeed: Dp = 2.dp,
     onCopy: ((success: Boolean) -> Unit)? = null,
 ) {
-    // Reading this subscribes the overlay to actual line-bounds changes
-    // (scroll, resize, content changes) so handle positions stay in sync --
-    // lineInfos itself is a plain, non-observable map by design.
+    // Observe version to sync with layout changes
     selectionState.lineInfoVersion
 
     val sel = selectionState.selection
@@ -392,19 +381,9 @@ fun <T> SelectionHandlesOverlay(
         selectAll(selectionState, items)
         selectionState.toolbarVisible = false
         selectionState.toolbarPinnedEnd = SelectionEnd.START
-        // Select-all sets the selection to the true first/last line, but if
-        // the list is scrolled away from the top, line 0 isn't composed yet
-        // so its handle has nothing to position itself against. Scrolling to
-        // the top makes the start handle visibly land on the real selection
-        // start instead of appearing stuck where the old selection was, and
-        // also puts it where the pinned popup will actually be visible.
         scope.launch { listState.scrollToItem(0) }
     }
 
-    // The popup stays pinned to whichever handle it was last set to -- if
-    // that specific handle's line scrolls off-screen, the popup hides with
-    // it rather than jumping onto the other, still-visible handle, and
-    // reappears on its own once that handle is back on screen.
     val toolbarAnchor = when (selectionState.toolbarPinnedEnd) {
         SelectionEnd.START -> startPos
         SelectionEnd.END -> endPos
@@ -415,16 +394,6 @@ fun <T> SelectionHandlesOverlay(
             .fillMaxSize()
             .zIndex(10f)
     ) {
-        // Each handle is only composed while its own line is on screen --
-        // computeHandleOffset returns null otherwise, so startPos/endPos is
-        // null and that handle's SelectionHandle simply isn't present. This
-        // mirrors the initial long-press-drag gesture, which also isn't
-        // tied to any one line staying composed: it's the pointerInput
-        // coroutine that owns an active drag, and Compose keeps routing a
-        // pointer to it once claimed, so a handle already being dragged
-        // keeps tracking the finger even as findLineOffsetOrNearestEdge and
-        // auto-scroll (below) carry the selection into lines that scroll
-        // in past the container edge.
         startPos?.let { pos ->
             SelectionHandle(
                 positionInContainer = pos,
@@ -503,11 +472,6 @@ fun <T> SelectionHandlesOverlay(
     }
 }
 
-/** Android-style handle shapes: a circle with one corner left sharp, which
- *  is the tip that actually touches the selected character. The start
- *  handle's tip is its top-right corner (the ball hangs down-left, staying
- *  clear of the selected text to its right); the end handle mirrors it with
- *  the tip at top-left. */
 private val startHandleShape =
     RoundedCornerShape(
         topStartPercent = 50,
@@ -523,6 +487,9 @@ private val endHandleShape =
         bottomStartPercent = 50
     )
 
+/**
+ * A draggable selection handle.
+ */
 @Composable
 private fun SelectionHandle(
     positionInContainer: Offset,
@@ -538,21 +505,11 @@ private fun SelectionHandle(
     onDragTo: (rawPositionInContainer: Offset) -> Unit,
 ) {
     val density = LocalDensity.current
-    // The visible dot stays small, but the touch target is much bigger --
-    // Material's own guidance calls for a 48dp minimum touch target, and
-    // with only the dot itself as the hit area, a finger landing a few px
-    // off it missed the handle entirely and fell through to the LazyColumn
-    // underneath, which started a brand new long-press word-selection right
-    // at that point -- which is what made "resuming" a selection by
-    // dragging a handle feel like the initial raw-finger-tracking drag
-    // instead of a real handle drag.
     val handleVisualSizeDp = 28.dp
     val handleTouchSizeDp = 48.dp
     val coroutineScope = rememberCoroutineScope()
     val handleTouchPx = with(density) { handleTouchSizeDp.toPx() }
 
-    // pointerInput(Unit) never restarts, so reads must go through
-    // rememberUpdatedState to avoid capturing stale values/callbacks.
     val currentPosition by rememberUpdatedState(positionInContainer)
     val currentOnTap by rememberUpdatedState(onTap)
     val currentOnDragStart by rememberUpdatedState(onDragStart)
@@ -561,10 +518,6 @@ private fun SelectionHandle(
 
     Box(
         modifier = Modifier
-            // The touch box shares its tip corner with the visual ball --
-            // top-right for the start handle, top-left for the end handle --
-            // so enlarging it for an easier grab doesn't shift where the tip
-            // actually is.
             .offset {
                 val x =
                     if (isStartVisual) positionInContainer.x - handleTouchPx else positionInContainer.x
@@ -574,26 +527,12 @@ private fun SelectionHandle(
             .pointerInput(Unit) {
                 awaitEachGesture {
                     val down = awaitFirstDown(requireUnconsumed = false)
-                    // Claim this pointer immediately -- otherwise LazyColumn's
-                    // own scroll gesture (which sits underneath, covering the
-                    // same area) wins the arbitration and the handle never
-                    // receives drag movement at all.
                     down.consume()
 
                     var isDragging = false
-                    // Start exactly at the handle's current tip position, not
-                    // at the raw touch point -- every subsequent finger-delta
-                    // is added on top of this, so the tip tracks the finger's
-                    // *movement* 1:1 while preserving whatever offset existed
-                    // between the touch point and the tip at grab time. This
-                    // is what makes it feel like dragging the handle, rather
-                    // than teleporting the selection to under the finger.
                     var raw = currentPosition
                     val pointerPosRef = Ref(raw)
 
-                    // Same as the main gesture: a timer-driven loop, not gated
-                    // on new touch events, so auto-scroll and selection updates
-                    // both keep tracking a stationary finger during auto-scroll.
                     val loopJob = coroutineScope.launch {
                         while (isActive) {
                             autoScrollIfNearEdge(
@@ -605,15 +544,9 @@ private fun SelectionHandle(
                         }
                     }
 
-                    // Manual pointer tracking instead of drag():
-                    var loopCount = 0
                     while (true) {
                         val event = awaitPointerEvent()
-                        val change = event.changes.firstOrNull { it.id == down.id }
-                        if (change == null) {
-                            break
-                        }
-                        loopCount++
+                        val change = event.changes.firstOrNull { it.id == down.id } ?: break
                         if (change.changedToUpIgnoreConsumed()) {
                             change.consume()
                             break
@@ -643,6 +576,9 @@ private fun SelectionHandle(
     }
 }
 
+/**
+ * A floating toolbar providing actions like Copy and Select All for the current selection.
+ */
 @Composable
 private fun SelectionToolbar(
     anchorInContainer: Offset,
@@ -654,13 +590,6 @@ private fun SelectionToolbar(
     val density = LocalDensity.current
     val textStyle = LocalTextStyle.current
     val gapPx = with(density) { textStyle.lineHeight.toPx() }
-    // Must clear SelectionHandle's own 48dp touch box, not just a
-    // line-height gap: the popup is anchored at the same point the handle's
-    // touch box starts from, so when there's no room above and it falls
-    // back to rendering below, a mere line-height offset lands the popup's
-    // buttons inside the handle's touch area -- they then steal every
-    // subsequent touch that was meant to drag the handle, which looks like
-    // "the handle hides the popup and won't drag."
     val handleTouchPx = with(density) { 48.dp.toPx() }
 
     Layout(
@@ -685,9 +614,6 @@ private fun SelectionToolbar(
         },
         modifier = Modifier.fillMaxSize(),
     ) { measurables, constraints ->
-        // Measure the popup at its own natural size, not stretched to fill
-        // the container -- fillMaxSize above is only so this Layout's own
-        // bounds span the full container to place the popup anywhere in it.
         val placeable = measurables.first().measure(Constraints())
 
         val fitsAbove = anchorInContainer.y - gapPx - placeable.height >= 0f
@@ -725,7 +651,7 @@ private fun SelectionToolbarActionButton(
     }
 }
 
-/** Word under [offset], or the single character there if it's not a word. */
+/** Returns the word bounds around the given character offset. */
 private fun wordBoundsAt(text: String, offset: Int): IntRange {
     if (text.isEmpty()) return 0..0
     val clamped = offset.coerceIn(0, text.length)
@@ -745,6 +671,7 @@ private fun wordBoundsAt(text: String, offset: Int): IntRange {
     return start..end
 }
 
+/** Triggers list scrolling when the pointer is near the top or bottom edges. */
 private suspend fun autoScrollIfNearEdge(
     listState: LazyListState,
     pointerYInContainer: Float,
@@ -768,16 +695,6 @@ private suspend fun autoScrollIfNearEdge(
     }
 }
 
-/**
- * [isStartVisual] identifies which handle the user is dragging (the one
- * rendered at the normalized start, vs. the one at the normalized end) --
- * not which raw field to write. Those are only the same field when the
- * selection hasn't been flipped by a backward drag; when it has, the visual
- * start handle is actually sitting on the raw *end* field (normalization
- * swapped them for display without touching the underlying selection), so
- * writing straight to raw startLine/startOffset would silently move the
- * wrong endpoint.
- */
 private fun updateSelectionForVisualHandle(
     selectionState: SelectionState,
     isStartVisual: Boolean,
@@ -802,16 +719,6 @@ private fun computeHandleOffset(
     val cursorRect = info.layoutResult.getCursorRect(charOffset.coerceIn(0, textLength))
     val windowPoint = info.boundsInWindow.topLeft + Offset(cursorRect.left, cursorRect.bottom)
     val local = windowPoint - selectionState.containerWindowOrigin
-    // Hide (rather than render at a stale/frozen spot) once the anchor has
-    // actually scrolled outside the container's own bounds. This is a plain
-    // geometric check against coordinates we've already computed -- earlier
-    // this cross-referenced listState's visibleItemsInfo by index instead,
-    // which silently assumed `line` equals LazyListItemInfo.index. That only
-    // holds for a bare itemsIndexed with nothing else mixed into the list;
-    // if it doesn't hold, the check fails for every line, every handle
-    // permanently reads as "off-screen", and every touch on it falls
-    // through to the LazyColumn's own long-press gesture underneath instead
-    // of dragging the handle at all.
     if (local.y < 0f || local.y > selectionState.containerHeightPx) {
         return null
     }
@@ -820,7 +727,6 @@ private fun computeHandleOffset(
 
 private fun <T> selectAll(selectionState: SelectionState, items: List<T>) {
     if (items.isEmpty()) return
-    // endOffset is clamped by allowTextSelection/buildSelectedText per-line.
     selectionState.selection = LineSelection(0, 0, items.lastIndex, Int.MAX_VALUE)
     selectionState.handlesVisible = true
 }
@@ -846,7 +752,6 @@ private suspend fun <T> copySelection(
     onResult?.invoke(success)
 }
 
-/** Scans only currently-composed lines — bounded to the visible item count. */
 private fun findLineOffset(state: SelectionState, globalPos: Offset): Pair<Int, Int>? {
     for ((index, info) in state.lineInfos) {
         val b = info.boundsInWindow
@@ -862,11 +767,6 @@ private fun findLineOffset(state: SelectionState, globalPos: Offset): Pair<Int, 
     return null
 }
 
-/** Like [findLineOffset], but if the position is beyond the currently
- *  composed content (e.g. the pointer sits outside the container during
- *  auto-scroll), snaps to the start of the topmost or the end of the
- *  bottommost composed line -- so a drag held past the edge keeps
- *  extending the selection into content as it scrolls in. */
 private fun findLineOffsetOrNearestEdge(state: SelectionState, globalPos: Offset): Pair<Int, Int>? {
     findLineOffset(state, globalPos)?.let { return it }
     if (state.lineInfos.isEmpty()) {
@@ -885,8 +785,6 @@ private fun findLineOffsetOrNearestEdge(state: SelectionState, globalPos: Offset
     return result
 }
 
-/** Reads from the source list, not the composed-only cache, so lines that
- *  scrolled offscreen during the drag still copy correctly. */
 private fun <T> buildSelectedText(
     items: List<T>,
     textOf: (T) -> String,
@@ -914,28 +812,42 @@ private fun <T> buildSelectedText(
 }
 
 /**
- * Drop-in replacement for [LazyColumn] with built-in text selection: gestures,
- * highlighting, drag handles and the copy/select-all popup are all wired up
- * automatically. [content] receives [SelectionState] so each item can apply
- * [allowTextSelection] — that one call per item can't be avoided, since each
- * item is its own layout node and a modifier can't reach into a sibling's scope.
+ * A drop-in replacement for [LazyColumn] that provides cross-line text selection support.
+ * This component handles selection gestures, highlights, handles, and a toolbar
+ * automatically, while avoiding crashes associated with standard [SelectionContainer]
+ * inside lazy layouts.
  *
- * ```
+ * Example usage:
+ * ```kotlin
  * LazySelectionContainer(
- *     items = lines,
- *     textOf = { it.text },
- *     modifier = Modifier.fillMaxSize(),
+ *     items = messages,
+ *     textOf = { it.content },
  * ) { selectionState ->
- *     itemsIndexed(lines, key = { i, _ -> i }) { index, line ->
+ *     itemsIndexed(messages) { index, message ->
  *         Text(
- *             text = line.text,
- *             modifier = Modifier.allowTextSelection(index, line.text, selectionState, style)
+ *             text = message.content,
+ *             modifier = Modifier.allowTextSelection(index, message.content, selectionState)
  *         )
  *     }
  * }
  * ```
  *
- * @param textOf extracts the selectable text from an item.
+ * @param items The list of data items.
+ * @param textOf A function to extract selectable text from an item.
+ * @param modifier The modifier to be applied to the container.
+ * @param listState The state of the underlying [LazyColumn].
+ * @param selectionState The state holder for the selection.
+ * @param contentPadding Padding to be applied around the [LazyColumn].
+ * @param reverseLayout Whether to reverse the layout direction.
+ * @param verticalArrangement Vertical arrangement for the items.
+ * @param horizontalAlignment Horizontal alignment for the items.
+ * @param flingBehavior Fling behavior for scrolling.
+ * @param userScrollEnabled Whether user-initiated scrolling is enabled.
+ * @param handleColor The color of selection handles.
+ * @param autoScrollEdgeThreshold Threshold for triggering edge auto-scroll.
+ * @param autoScrollSpeed Speed of auto-scrolling.
+ * @param onCopy Callback invoked after a copy operation completes.
+ * @param content The DSL for defining list items, providing access to [SelectionState].
  */
 @Composable
 fun <T> LazySelectionContainer(
