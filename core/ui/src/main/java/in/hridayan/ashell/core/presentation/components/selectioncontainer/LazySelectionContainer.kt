@@ -10,7 +10,6 @@ import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -48,6 +47,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.boundsInWindow
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.ClipEntry
 import androidx.compose.ui.platform.Clipboard
@@ -61,7 +61,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -363,12 +362,7 @@ fun <T> SelectionHandlesOverlay(
     autoScrollSpeed: Dp = 6.dp,
     onCopy: ((success: Boolean) -> Unit)? = null,
 ) {
-    // Observe version to sync with layout changes
-    selectionState.lineInfoVersion
-
-    val sel = selectionState.selection
-    if (sel == null || !selectionState.handlesVisible) return
-    val normalized = sel.normalized()
+    if (!selectionState.handlesVisible) return
 
     val clipboard = LocalClipboard.current
     val scope = rememberCoroutineScope()
@@ -380,13 +374,10 @@ fun <T> SelectionHandlesOverlay(
     // read by onDragTo so the anchor stays fixed even when handles cross.
     val dragAnchor = remember { Ref<Pair<Int, Int>?>(null) }
 
-    val startPos = computeHandleOffset(selectionState, normalized.startLine, normalized.startOffset)
-    val endPos = computeHandleOffset(selectionState, normalized.endLine, normalized.endOffset)
-
     fun doCopy() {
         scope.launch {
-            val current = selectionState.selection?.normalized() ?: normalized
-            copySelection(clipboard, items, textOf, current, onCopy)
+            val sel = selectionState.selection?.normalized() ?: return@launch
+            copySelection(clipboard, items, textOf, sel, onCopy)
         }
         selectionState.toolbarVisible = false
     }
@@ -398,9 +389,28 @@ fun <T> SelectionHandlesOverlay(
         scope.launch { listState.scrollToItem(0) }
     }
 
-    val toolbarAnchor = when (selectionState.toolbarPinnedEnd) {
-        SelectionEnd.START -> startPos
-        SelectionEnd.END -> endPos
+    val startPosProvider = remember(selectionState) {
+        {
+            selectionState.lineInfoVersion
+            val sel = selectionState.selection?.normalized()
+            if (sel != null) computeHandleOffset(
+                selectionState,
+                sel.startLine,
+                sel.startOffset
+            ) else null
+        }
+    }
+
+    val endPosProvider = remember(selectionState) {
+        {
+            selectionState.lineInfoVersion
+            val sel = selectionState.selection?.normalized()
+            if (sel != null) computeHandleOffset(
+                selectionState,
+                sel.endLine,
+                sel.endOffset
+            ) else null
+        }
     }
 
     Box(
@@ -408,126 +418,133 @@ fun <T> SelectionHandlesOverlay(
             .fillMaxSize()
             .zIndex(10f)
     ) {
-        startPos?.let { pos ->
-            SelectionHandle(
-                positionInContainer = pos,
-                isStartVisual = true,
-                color = handleColor,
-                selectionState = selectionState,
-                listState = listState,
-                edgeThresholdPx = edgeThresholdPx,
-                scrollSpeedPx = scrollSpeedPx,
-                onTap = {
-                    selectionState.toolbarVisible =
-                        !(selectionState.toolbarVisible && selectionState.toolbarPinnedEnd == SelectionEnd.START)
-                    selectionState.toolbarPinnedEnd = SelectionEnd.START
-                },
-                onDragStart = {
-                    val norm = selectionState.selection?.normalized()
-                    dragAnchor.value = norm?.let { it.endLine to it.endOffset }
-                    selectionState.toolbarVisible = false
-                },
-                onDragEnd = {
-                    val finalSel = selectionState.selection
-                    // After crossover the dragged position is the normalized
-                    // end, so pin the toolbar there; otherwise keep it at START.
-                    selectionState.toolbarPinnedEnd =
-                        if (finalSel != null && finalSel != finalSel.normalized()) SelectionEnd.END
-                        else SelectionEnd.START
-                    selectionState.toolbarVisible = true
-                    selectionState.magnifierOffset = null
-                    dragAnchor.value = null
-                },
-                onDragTo = { rawPos ->
-                    val global = rawPos + selectionState.containerWindowOrigin
-                    val result = findLineOffsetOrNearestEdge(selectionState, global)
-                    val anchor = dragAnchor.value
-                    if (result != null && anchor != null) {
-                        selectionState.magnifierOffset = computeMagnifierOffset(
-                            selectionState, result.first, result.second, rawPos.x
-                        )
-                        // Dragged position = start, anchor = end.
-                        // Normalization swaps them for display if they cross.
-                        selectionState.selection = LineSelection(
-                            startLine = result.first,
-                            startOffset = result.second,
-                            endLine = anchor.first,
-                            endOffset = anchor.second,
-                        )
-                    } else if (result != null) {
-                        // Fallback before anchor is captured (loopJob fires
-                        // before onDragStart on the very first frame).
-                        updateSelectionForVisualHandle(
-                            selectionState,
-                            isStartVisual = true,
-                            line = result.first,
-                            offset = result.second
-                        )
+        SelectionHandle(
+            positionProvider = startPosProvider,
+            isStartVisual = true,
+            color = handleColor,
+            selectionState = selectionState,
+            listState = listState,
+            edgeThresholdPx = edgeThresholdPx,
+            scrollSpeedPx = scrollSpeedPx,
+            onTap = {
+                selectionState.toolbarVisible =
+                    !(selectionState.toolbarVisible && selectionState.toolbarPinnedEnd == SelectionEnd.START)
+                selectionState.toolbarPinnedEnd = SelectionEnd.START
+            },
+            onDragStart = {
+                val norm = selectionState.selection?.normalized()
+                dragAnchor.value = norm?.let { it.endLine to it.endOffset }
+                selectionState.toolbarVisible = false
+            },
+            onDragEnd = {
+                val finalSel = selectionState.selection
+                // After crossover the dragged position is the normalized
+                // end, so pin the toolbar there; otherwise keep it at START.
+                selectionState.toolbarPinnedEnd =
+                    if (finalSel != null && finalSel != finalSel.normalized()) SelectionEnd.END
+                    else SelectionEnd.START
+                selectionState.toolbarVisible = true
+                selectionState.magnifierOffset = null
+                dragAnchor.value = null
+            },
+            onDragTo = { rawPos ->
+                val global = rawPos + selectionState.containerWindowOrigin
+                val result = findLineOffsetOrNearestEdge(selectionState, global)
+                val anchor = dragAnchor.value
+                if (result != null && anchor != null) {
+                    selectionState.magnifierOffset = computeMagnifierOffset(
+                        selectionState, result.first, result.second, rawPos.x
+                    )
+                    // Dragged position = start, anchor = end.
+                    // Normalization swaps them for display if they cross.
+                    selectionState.selection = LineSelection(
+                        startLine = result.first,
+                        startOffset = result.second,
+                        endLine = anchor.first,
+                        endOffset = anchor.second,
+                    )
+                } else if (result != null) {
+                    // Fallback before anchor is captured (loopJob fires
+                    // before onDragStart on the very first frame).
+                    updateSelectionForVisualHandle(
+                        selectionState,
+                        isStartVisual = true,
+                        line = result.first,
+                        offset = result.second
+                    )
+                }
+            },
+        )
+
+        SelectionHandle(
+            positionProvider = endPosProvider,
+            isStartVisual = false,
+            color = handleColor,
+            selectionState = selectionState,
+            listState = listState,
+            edgeThresholdPx = edgeThresholdPx,
+            scrollSpeedPx = scrollSpeedPx,
+            onTap = {
+                selectionState.toolbarVisible =
+                    !(selectionState.toolbarVisible && selectionState.toolbarPinnedEnd == SelectionEnd.END)
+                selectionState.toolbarPinnedEnd = SelectionEnd.END
+            },
+            onDragStart = {
+                val norm = selectionState.selection?.normalized()
+                dragAnchor.value = norm?.let { it.startLine to it.startOffset }
+                selectionState.toolbarVisible = false
+            },
+            onDragEnd = {
+                val finalSel = selectionState.selection
+                // After crossover the dragged position is the normalized
+                // start, so pin the toolbar there; otherwise keep it at END.
+                selectionState.toolbarPinnedEnd =
+                    if (finalSel != null && finalSel != finalSel.normalized()) SelectionEnd.START
+                    else SelectionEnd.END
+                selectionState.toolbarVisible = true
+                selectionState.magnifierOffset = null
+                dragAnchor.value = null
+            },
+            onDragTo = { rawPos ->
+                val global = rawPos + selectionState.containerWindowOrigin
+                val result = findLineOffsetOrNearestEdge(selectionState, global)
+                val anchor = dragAnchor.value
+                if (result != null && anchor != null) {
+                    selectionState.magnifierOffset = computeMagnifierOffset(
+                        selectionState, result.first, result.second, rawPos.x
+                    )
+                    // Anchor = start, dragged position = end.
+                    // Normalization swaps them for display if they cross.
+                    selectionState.selection = LineSelection(
+                        startLine = anchor.first,
+                        startOffset = anchor.second,
+                        endLine = result.first,
+                        endOffset = result.second,
+                    )
+                } else if (result != null) {
+                    // Fallback before anchor is captured.
+                    updateSelectionForVisualHandle(
+                        selectionState,
+                        isStartVisual = false,
+                        line = result.first,
+                        offset = result.second
+                    )
+                }
+            },
+        )
+
+        if (selectionState.toolbarVisible) {
+            val toolbarAnchorProvider = remember(selectionState) {
+                {
+                    when (selectionState.toolbarPinnedEnd) {
+                        SelectionEnd.START -> startPosProvider()
+                        SelectionEnd.END -> endPosProvider()
                     }
-                },
-            )
-        }
-        endPos?.let { pos ->
-            SelectionHandle(
-                positionInContainer = pos,
-                isStartVisual = false,
-                color = handleColor,
-                selectionState = selectionState,
-                listState = listState,
-                edgeThresholdPx = edgeThresholdPx,
-                scrollSpeedPx = scrollSpeedPx,
-                onTap = {
-                    selectionState.toolbarVisible =
-                        !(selectionState.toolbarVisible && selectionState.toolbarPinnedEnd == SelectionEnd.END)
-                    selectionState.toolbarPinnedEnd = SelectionEnd.END
-                },
-                onDragStart = {
-                    val norm = selectionState.selection?.normalized()
-                    dragAnchor.value = norm?.let { it.startLine to it.startOffset }
-                    selectionState.toolbarVisible = false
-                },
-                onDragEnd = {
-                    val finalSel = selectionState.selection
-                    // After crossover the dragged position is the normalized
-                    // start, so pin the toolbar there; otherwise keep it at END.
-                    selectionState.toolbarPinnedEnd =
-                        if (finalSel != null && finalSel != finalSel.normalized()) SelectionEnd.START
-                        else SelectionEnd.END
-                    selectionState.toolbarVisible = true
-                    selectionState.magnifierOffset = null
-                    dragAnchor.value = null
-                },
-                onDragTo = { rawPos ->
-                    val global = rawPos + selectionState.containerWindowOrigin
-                    val result = findLineOffsetOrNearestEdge(selectionState, global)
-                    val anchor = dragAnchor.value
-                    if (result != null && anchor != null) {
-                        selectionState.magnifierOffset = computeMagnifierOffset(
-                            selectionState, result.first, result.second, rawPos.x
-                        )
-                        // Anchor = start, dragged position = end.
-                        // Normalization swaps them for display if they cross.
-                        selectionState.selection = LineSelection(
-                            startLine = anchor.first,
-                            startOffset = anchor.second,
-                            endLine = result.first,
-                            endOffset = result.second,
-                        )
-                    } else if (result != null) {
-                        // Fallback before anchor is captured.
-                        updateSelectionForVisualHandle(
-                            selectionState,
-                            isStartVisual = false,
-                            line = result.first,
-                            offset = result.second
-                        )
-                    }
-                },
-            )
-        }
-        if (selectionState.toolbarVisible && toolbarAnchor != null) {
+                }
+            }
+
             SelectionToolbar(
-                anchorInContainer = toolbarAnchor,
+                anchorProvider = toolbarAnchorProvider,
                 containerWidthPx = selectionState.containerWidthPx,
                 containerHeightPx = selectionState.containerHeightPx,
                 onCopy = ::doCopy,
@@ -557,7 +574,7 @@ private val endHandleShape =
  */
 @Composable
 private fun SelectionHandle(
-    positionInContainer: Offset,
+    positionProvider: () -> Offset?,
     isStartVisual: Boolean,
     color: Color,
     selectionState: SelectionState,
@@ -575,7 +592,7 @@ private fun SelectionHandle(
     val coroutineScope = rememberCoroutineScope()
     val handleTouchPx = with(density) { handleTouchSizeDp.toPx() }
 
-    val currentPosition by rememberUpdatedState(positionInContainer)
+    val currentPositionProvider by rememberUpdatedState(positionProvider)
     val currentOnTap by rememberUpdatedState(onTap)
     val currentOnDragStart by rememberUpdatedState(onDragStart)
     val currentOnDragEnd by rememberUpdatedState(onDragEnd)
@@ -583,10 +600,17 @@ private fun SelectionHandle(
 
     Box(
         modifier = Modifier
-            .offset {
-                val x =
-                    if (isStartVisual) positionInContainer.x - handleTouchPx else positionInContainer.x
-                IntOffset(x.toInt(), positionInContainer.y.toInt())
+            .layout { measurable, constraints ->
+                val pos = currentPositionProvider()
+                if (pos == null) {
+                    layout(0, 0) {}
+                } else {
+                    val placeable = measurable.measure(constraints)
+                    layout(placeable.width, placeable.height) {
+                        val x = if (isStartVisual) pos.x - handleTouchPx else pos.x
+                        placeable.placeRelative(x.toInt(), pos.y.toInt())
+                    }
+                }
             }
             .size(handleTouchSizeDp)
             .pointerInput(Unit) {
@@ -595,7 +619,7 @@ private fun SelectionHandle(
                     down.consume()
 
                     var isDragging = false
-                    var raw = currentPosition
+                    var raw = currentPositionProvider() ?: Offset.Zero
                     val pointerPosRef = Ref(raw)
 
                     val loopJob = coroutineScope.launch {
@@ -646,7 +670,7 @@ private fun SelectionHandle(
  */
 @Composable
 private fun SelectionToolbar(
-    anchorInContainer: Offset,
+    anchorProvider: () -> Offset?,
     containerWidthPx: Float,
     containerHeightPx: Float,
     onCopy: () -> Unit,
@@ -679,6 +703,9 @@ private fun SelectionToolbar(
         },
         modifier = Modifier.fillMaxSize(),
     ) { measurables, constraints ->
+        val anchorInContainer =
+            anchorProvider() ?: return@Layout layout(constraints.maxWidth, constraints.maxHeight) {}
+
         val placeable = measurables.first().measure(Constraints())
 
         val fitsAbove = anchorInContainer.y - gapPx - placeable.height >= 0f
