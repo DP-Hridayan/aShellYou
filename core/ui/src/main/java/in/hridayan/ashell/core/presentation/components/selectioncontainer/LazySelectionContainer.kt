@@ -20,6 +20,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.magnifier
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.ButtonDefaults
@@ -141,6 +142,12 @@ class SelectionState {
     var toolbarPinnedEnd by mutableStateOf(SelectionEnd.END)
 
     /**
+     * Position for the magnifier loupe, in container-local coordinates.
+     * Non-null only while a drag is in progress (initial selection or handle drag).
+     */
+    var magnifierOffset by mutableStateOf<Offset?>(null)
+
+    /**
      * Map of currently composed line indices to their layout information.
      */
     internal val lineInfos = mutableMapOf<Int, LineInfo>()
@@ -161,6 +168,7 @@ class SelectionState {
         selection = null
         handlesVisible = false
         toolbarVisible = false
+        magnifierOffset = null
     }
 }
 
@@ -240,6 +248,7 @@ fun <T> Modifier.textSelectionGestures(
                     LineSelection(start.first, wordRange.first, start.first, wordRange.last)
 
                 val pointerPosRef = Ref(longPress.position)
+                selectionState.magnifierOffset = longPress.position
                 val loopJob = coroutineScope.launch {
                     while (isActive) {
                         autoScrollIfNearEdge(
@@ -253,6 +262,7 @@ fun <T> Modifier.textSelectionGestures(
                                 endLine = end.first, endOffset = end.second
                             )
                         }
+                        selectionState.magnifierOffset = pointerPosRef.value
                         delay(16.milliseconds)
                     }
                 }
@@ -263,6 +273,7 @@ fun <T> Modifier.textSelectionGestures(
                 }
 
                 loopJob.cancel()
+                selectionState.magnifierOffset = null
                 val finalSelection = selectionState.selection
                 val hasSelection = finalSelection != null
                 selectionState.handlesVisible = hasSelection
@@ -425,12 +436,14 @@ fun <T> SelectionHandlesOverlay(
                         if (finalSel != null && finalSel != finalSel.normalized()) SelectionEnd.END
                         else SelectionEnd.START
                     selectionState.toolbarVisible = true
+                    selectionState.magnifierOffset = null
                     dragAnchor.value = null
                 },
                 onDragTo = { rawPos ->
                     val global = rawPos + selectionState.containerWindowOrigin
                     val result = findLineOffsetOrNearestEdge(selectionState, global)
                     val anchor = dragAnchor.value
+                    selectionState.magnifierOffset = rawPos
                     if (result != null && anchor != null) {
                         // Dragged position = start, anchor = end.
                         // Normalization swaps them for display if they cross.
@@ -480,12 +493,14 @@ fun <T> SelectionHandlesOverlay(
                         if (finalSel != null && finalSel != finalSel.normalized()) SelectionEnd.START
                         else SelectionEnd.END
                     selectionState.toolbarVisible = true
+                    selectionState.magnifierOffset = null
                     dragAnchor.value = null
                 },
                 onDragTo = { rawPos ->
                     val global = rawPos + selectionState.containerWindowOrigin
                     val result = findLineOffsetOrNearestEdge(selectionState, global)
                     val anchor = dragAnchor.value
+                    selectionState.magnifierOffset = rawPos
                     if (result != null && anchor != null) {
                         // Anchor = start, dragged position = end.
                         // Normalization swaps them for display if they cross.
@@ -642,7 +657,7 @@ private fun SelectionToolbar(
     Layout(
         content = {
             Surface(
-                shape = RoundedCornerShape(8.dp),
+                shape = RoundedCornerShape(50),
                 tonalElevation = 4.dp,
                 shadowElevation = 4.dp
             ) {
@@ -926,6 +941,17 @@ fun <T> LazySelectionContainer(
             flingBehavior = flingBehavior,
             userScrollEnabled = userScrollEnabled,
             modifier = Modifier
+                .magnifier(
+                    sourceCenter = { selectionState.magnifierOffset ?: Offset.Unspecified },
+                    magnifierCenter = {
+                        val offset = selectionState.magnifierOffset
+                            ?: return@magnifier Offset.Unspecified
+                        // Clear the finger + handle — same idea as the toolbar's
+                        // gapPx + handleTouchPx vertical clearance.
+                        offset.copy(y = offset.y - 64.dp.toPx())
+                    },
+                    cornerRadius = 24.dp,
+                )
                 .textSelectionGestures(
                     selectionState = selectionState,
                     items = items,
