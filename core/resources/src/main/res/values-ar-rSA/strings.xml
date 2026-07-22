@@ -88,6 +88,7 @@
     <string name="choose_a_device">اختر جهازا</string>
     <string name="choose_icon">اختر أيقونة</string>
     <string name="clear">مسح</string>
+    <string name="clear_all">مسح الكل</string>
     <string name="clear_all_message">هل أنت متأكد أنك تريد مسح كل شيء على هذه الشاشة؟</string>
     <string name="clear_analysis_cache">مسح ذاكرة التخزين المؤقت للتحليل</string>
     <string name="clear_cache">مسح ذاكرة التخزين المؤقت</string>
@@ -126,6 +127,7 @@
     <string name="connection_failed">فشل الاتصال</string>
     <string name="connection_lost">فقدان الاتصال</string>
     <string name="connection_lost_back_message">تم فقدان اتصال التصحيح اللاسلكي. ماذا تريد أن تفعل؟</string>
+    <string name="continue_anyway">المتابعة على أي حال</string>
     <string name="contributors">المساهمون</string>
     <string name="copied_items" comment="%1$d = number of items copied to clipboard">تم نسخ العناصر %1$d</string>
     <string name="copied_to_clipboard">تم النسخ إلى الحافظة!</string>
@@ -273,6 +275,7 @@
     <string name="erasing">مسح…</string>
     <string name="error">خطأ</string>
     <string name="error_labels_limit_reached">تم بلوغ الحد الأقصى للمسميات</string>
+    <string name="exclude">استبعاد</string>
     <string name="execution_method">طريقة التنفيذ</string>
     <string name="expand">توسيع</string>
     <string name="experimental">تجريبي</string>
@@ -400,6 +403,7 @@
     <string name="history">تاريخ</string>
     <string name="home">المنزل</string>
     <string name="icon_selected">الرمز المحدد</string>
+    <string name="include">تضمين</string>
     <string name="info">معلومات</string>
     <string name="initial_state">الحالة الأولية</string>
     <string name="instructions">تعليمات</string>
@@ -420,6 +424,7 @@
     <string name="latest_version">أحدث إصدار</string>
     <string name="lead_developer">المطور الرئيسي</string>
     <string name="least_used">الأقل استخدامًا</string>
+    <string name="level">المستوى</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">اكتشف %1$d مكتبات</string>
     <string name="license">رخصة</string>
     <string name="license_label">الترخيص</string>
@@ -436,6 +441,19 @@
     <string name="local_file">ملف محلي</string>
     <string name="locked">مقفل</string>
     <string name="logcat">Logcat</string>
+    <string name="logcat_cleared">تم مسح السجلات</string>
+    <string name="logcat_detail_package">حزمة</string>
+    <string name="logcat_filter_level">مستويات السجل</string>
+    <string name="logcat_filter_search_hint">البحث في الرسائل…</string>
+    <string name="logcat_is_running">تم تشغيل Logcat</string>
+    <string name="logcat_ive_granted_it">لقد منحتها</string>
+    <string name="logcat_no_logs">لا توجد سجلات بعد</string>
+    <string name="logcat_notification_channel_description">يظهر أثناء لوغات جاري جمع السجلات بشكل نشط</string>
+    <string name="logcat_notification_channel_name">جلسة تسجيل الدخول</string>
+    <string name="logcat_permission_body">بدون هذا الإذن، فقط السجلات من AShellYou نفسها ستكون مرئية. منح حق الوصول الكامل عن طريق تشغيل هذا الأمر من جهاز الكمبيوتر:</string>
+    <string name="logcat_permission_title">إذن الدخول إلى السجل</string>
+    <string name="logcat_running_description">AShellYou يجمع سجلات النظام في الخلفية</string>
+    <string name="logcat_shortcut_long_label">فتح عارض تسجيل الدخول</string>
     <string name="logs">السجلات</string>
     <string name="look_and_feel">المظهر والشعور</string>
     <string name="low">منخفض</string>
@@ -443,6 +461,7 @@
     <string name="max_download_size">الحد الأقصى للتحميل</string>
     <string name="medium">متوسط</string>
     <string name="merge">دمج</string>
+    <string name="message">رسالة</string>
     <string name="minimize">Minimize</string>
     <string name="mode">الوضع</string>
     <string name="mode_one_desc">استخدام وصول الجذر لتشغيل الأوامر. يمكن تنفيذ الأوامر المجذرة.</string>
@@ -516,6 +535,7 @@
     <string name="other_device">جهاز آخر</string>
     <string name="output">الناتج</string>
     <string name="override_bookmarks_limit">تجاوز الحد الأقصى للإشارات المرجعية</string>
+    <string name="package_name">اسم الحزمة</string>
     <string name="pair">اقتران</string>
     <string name="pair_a_device_first">الاقتران بجهاز أولاً</string>
     <string name="pair_another_device">إقران جهاز آخر</string>
@@ -543,6 +563,7 @@
     <string name="partition">قسم</string>
     <string name="paste">لصق</string>
     <string name="path">المسار</string>
+    <string name="paused">متوقف</string>
     <string name="permission_denied">تم رفض الإذن</string>
     <string name="permission_optional">منح هذه الأذونات اختياري!</string>
     <string name="pick_ashellyou_extension">الرجاء اختيار ملف مع ملحق .ashellyou</string>
@@ -597,10 +618,13 @@
     <string name="restore_from">الاستعادة من</string>
     <string name="restore_successful">تمت الإستعادة بنجاح!</string>
     <string name="restoring_backup">استعادة النسخ الاحتياطي…</string>
+    <string name="resume">استئناف</string>
     <string name="retry">إعادة المحاولة</string>
     <string name="root_access_granted">تم منح صلاحيات الجذر!</string>
+    <string name="running">تشغيل</string>
     <string name="sans_serif" comment="Font style category name">بدون زوائد</string>
     <string name="save">حفظ</string>
+    <string name="save_as_profile">حفظ كملف شخصي…</string>
     <string name="save_whole_output">حفظ الإخراج بأكمله</string>
     <string name="saved_devices">الأجهزة المحفوظة</string>
     <string name="saving">حفظ…</string>
@@ -671,6 +695,7 @@
     <string name="stack_trace">أثر المكدس</string>
     <string name="stargazers">Stargazers</string>
     <string name="start">ابدأ</string>
+    <string name="stop">توقف</string>
     <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">%.1f MB مستخدمة من قبل نماذج AI</string>
     <string name="subtitle">الترجمة</string>
     <string name="subtitle_off_state">العنوان الفرعي (ولاية OFF)</string>
@@ -685,6 +710,7 @@
     <string name="system_default">النظام الافتراضي</string>
     <string name="system_font" comment="Option to use the device default font">خط النظام</string>
     <string name="system_settings">إعدادات النظام</string>
+    <string name="tag">وسم</string>
     <string name="telegram">تيليجرام</string>
     <string name="terminal">المحطة</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">نمط الخط الطرفي</string>
@@ -699,6 +725,7 @@
     <string name="tile_name">اسم البلاط</string>
     <string name="tiles">البلاط</string>
     <string name="time">الوقت</string>
+    <string name="timestamp">الطابع الزمني</string>
     <string name="toggleable">تبديل</string>
     <string name="total_executions">مجموع حالات الإعدام</string>
     <string name="translations">الترجمات</string>
@@ -755,6 +782,14 @@
     <string name="wireless_debugging_guide_2">أدخل رمز الاقتران المكون من ست أرقام في الإشعار المرسل من aShell You.</string>
     <string name="wireless_debugging_guide_3">عد إلى التطبيق وانقر على زر \"ابدأ\" في الشاشة الرئيسية.</string>
     <string name="wireless_debugging_important_notice">يرجى ملاحظة أن الجزء الأيسر من خيار التصحيح اللاسلكي قابل للنقر. النقر عليه سيفتح قائمة اقتران التصحيح اللاسلكي.</string>
+    <plurals name="logcat_new_entries">
+        <item quantity="zero">%1$d إدخالات جديدة</item>
+        <item quantity="one">%1$d new entry</item>
+        <item quantity="two">%1$d إدخالات جديدة</item>
+        <item quantity="few">%1$d إدخالات جديدة</item>
+        <item quantity="many">%1$d إدخالات جديدة</item>
+        <item quantity="other">%1$d إدخالات جديدة</item>
+    </plurals>
     <string name="changelog_v7_4_0">\nYou can now search Sub-settings inside Settings screens\nAdded Palette Styles for color schemes\nAdded option to set app language directly in-app</string>
     <string name="changelog_v7_3_0">\nتحسين واجهة المستخدم في شاشة سجل التغييرات\nأضاف المساهمين في الترجمة حول القسم\nشاشة التراخيص المضافة التي تظهر معلومات ترخيص مفصلة حول التطبيق والمكتبات الأخرى المستخدمة من قبل التطبيق</string>
     <string name="changelog_v7_2_1">\nتحديث الصيانة!</string>

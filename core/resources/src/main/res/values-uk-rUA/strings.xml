@@ -88,6 +88,7 @@
     <string name="choose_a_device">Виберіть пристрій</string>
     <string name="choose_icon">Виберіть іконку</string>
     <string name="clear">Очистити</string>
+    <string name="clear_all">Очистити все</string>
     <string name="clear_all_message">Ви впевнені, що хочете очистити все на цьому екрані?</string>
     <string name="clear_analysis_cache">Очистити кеш аналізу</string>
     <string name="clear_cache">Очистити кеш</string>
@@ -126,6 +127,7 @@
     <string name="connection_failed">Помилка підключення</string>
     <string name="connection_lost">З’єднання втрачено</string>
     <string name="connection_lost_back_message">Бездротове з’єднання для налагодження втрачено. Що ви хочете зробити?</string>
+    <string name="continue_anyway">Все одно продовжити</string>
     <string name="contributors">Учасники проєкту</string>
     <string name="copied_items" comment="%1$d = number of items copied to clipboard">Скопійовано %1$d елементів</string>
     <string name="copied_to_clipboard">Скопійовано в буфер обміну!</string>
@@ -272,6 +274,7 @@
     <string name="erasing">Стирання…</string>
     <string name="error">Помилка</string>
     <string name="error_labels_limit_reached">Досягнуто максимального ліміту етикеток</string>
+    <string name="exclude">Виключити</string>
     <string name="execution_method">Метод виконання</string>
     <string name="expand">Розгорнути</string>
     <string name="experimental">Експериментальний</string>
@@ -399,6 +402,7 @@
     <string name="history">Історія</string>
     <string name="home">Головна</string>
     <string name="icon_selected">Іконка обрана</string>
+    <string name="include">Включити</string>
     <string name="info">Інформація</string>
     <string name="initial_state">Початковий стан</string>
     <string name="instructions">Інструкції</string>
@@ -419,6 +423,7 @@
     <string name="latest_version">Остання версія</string>
     <string name="lead_developer">Провідний розробник</string>
     <string name="least_used">Рідко використовувані</string>
+    <string name="level">Рівень</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">Виявлено бібліотек %1$d</string>
     <string name="license">Ліцензія</string>
     <string name="license_label">Ліцензія</string>
@@ -435,6 +440,19 @@
     <string name="local_file">Локальний файл</string>
     <string name="locked">Заблоковано</string>
     <string name="logcat">Logcat</string>
+    <string name="logcat_cleared">Журнали очищено</string>
+    <string name="logcat_detail_package">Пакет</string>
+    <string name="logcat_filter_level">Рівні журналу</string>
+    <string name="logcat_filter_search_hint">Пошук в повідомленнях…</string>
+    <string name="logcat_is_running">Logcat працює</string>
+    <string name="logcat_ive_granted_it">Я дозволив це</string>
+    <string name="logcat_no_logs">Журналів ще немає</string>
+    <string name="logcat_notification_channel_description">Показати, коли logcat активно збирає журнали</string>
+    <string name="logcat_notification_channel_name">Logcat сесія</string>
+    <string name="logcat_permission_body">Без цього дозволу видно лише журнали з aShellYou. Надайте повний доступ, запустивши цю команду з комп\'ютера:</string>
+    <string name="logcat_permission_title">Дозвіл доступу до журналу</string>
+    <string name="logcat_running_description">aShellYou збирає системні журнали у фоні</string>
+    <string name="logcat_shortcut_long_label">Відкрити перегляд Logcat</string>
     <string name="logs">Журнали</string>
     <string name="look_and_feel">Оформлення</string>
     <string name="low">Низький</string>
@@ -442,6 +460,7 @@
     <string name="max_download_size">Максимальне завантаження</string>
     <string name="medium">Середній</string>
     <string name="merge">Об’єднати</string>
+    <string name="message">Повідомлення</string>
     <string name="minimize">Мінімізувати</string>
     <string name="mode">Режим</string>
     <string name="mode_one_desc">Використовуйте root доступ для запуску команд. Rooted команди можуть бути виконані.</string>
@@ -515,6 +534,7 @@
     <string name="other_device">Інший пристрій</string>
     <string name="output">Вивід</string>
     <string name="override_bookmarks_limit">Перевизначити максимальну кількість закладок</string>
+    <string name="package_name">Назва пакету</string>
     <string name="pair">Сполучення</string>
     <string name="pair_a_device_first">Спочатку сполучення пристрою</string>
     <string name="pair_another_device">Сполучити інший пристрій</string>
@@ -542,6 +562,7 @@
     <string name="partition">Розділ</string>
     <string name="paste">Вставити</string>
     <string name="path">Шлях</string>
+    <string name="paused">Призупинено</string>
     <string name="permission_denied">Дозвіл відхилено</string>
     <string name="permission_optional">Надання цих дозволів необов\'язкове!</string>
     <string name="pick_ashellyou_extension">Будь ласка, виберіть файл із розширенням \".ashellyou\"</string>
@@ -596,10 +617,13 @@
     <string name="restore_from">Відновити з</string>
     <string name="restore_successful">Успішно відновлено</string>
     <string name="restoring_backup">Відновлення резервування…</string>
+    <string name="resume">Продовжити</string>
     <string name="retry">Повторити</string>
     <string name="root_access_granted">Root доступ надано!</string>
+    <string name="running">Виконується</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Зберегти</string>
+    <string name="save_as_profile">Зберегти як профіль…</string>
     <string name="save_whole_output">Зберегти весь вивід</string>
     <string name="saved_devices">Збережені пристрої</string>
     <string name="saving">Збереження…</string>
@@ -670,6 +694,7 @@
     <string name="stack_trace">Трасування стеку</string>
     <string name="stargazers">Зірки</string>
     <string name="start">Запустити</string>
+    <string name="stop">Зупинити</string>
     <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">%.1f МБ використовується AI моделями</string>
     <string name="subtitle">Субтитри</string>
     <string name="subtitle_off_state">Субтитри (стан ВИМК.)</string>
@@ -684,6 +709,7 @@
     <string name="system_default">Системні за замовчуванням</string>
     <string name="system_font" comment="Option to use the device default font">Системний шрифт</string>
     <string name="system_settings">Системні налаштування</string>
+    <string name="tag">Тег</string>
     <string name="telegram">Telegram</string>
     <string name="terminal">Термінал</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Стиль шрифту терміналу</string>
@@ -698,6 +724,7 @@
     <string name="tile_name">Назва плитки</string>
     <string name="tiles">Плитки</string>
     <string name="time">Час</string>
+    <string name="timestamp">Позначка часу</string>
     <string name="toggleable">Перемикальний</string>
     <string name="total_executions">Всього запусків</string>
     <string name="translations">Переклади</string>
@@ -754,6 +781,12 @@
     <string name="wireless_debugging_guide_2">Введіть шестизначний код сполучення в повідомлення, надіслане aShell You.</string>
     <string name="wireless_debugging_guide_3">Поверніться до програми та натисніть кнопку \"Запустити\" на головному екрані.</string>
     <string name="wireless_debugging_important_notice">Зверніть увагу, що ліва частина опції \"Бездротового налагодження\" є активною. При натисканні на неї відкриється меню \"Сполучення\" для \"Бездротового налагодження\".</string>
+    <plurals name="logcat_new_entries">
+        <item quantity="one">%1$d новий запис</item>
+        <item quantity="few">%1$d нових записів</item>
+        <item quantity="many">%1$d нових записів</item>
+        <item quantity="other">%1$d нових записів</item>
+    </plurals>
     <string name="changelog_v7_4_0">\nТепер ви можете шукати під налаштування на екранах налаштувань\nДодано стилі палітри для колірних схем\nДодано опцію встановлення мови додатка безпосередньо в додатку</string>
     <string name="changelog_v7_3_0">\nПокращено інтерфейс користувача в екрані журналу змін\nДодано перекладачів у розділ Про програму.\nДодано екран ліцензій, який показує детальну інформацію про ліцензію програми та інших бібліотек, які використовує додаток</string>
     <string name="changelog_v7_2_1">\nОновлення технічного обслуговування!</string>

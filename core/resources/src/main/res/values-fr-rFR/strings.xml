@@ -88,6 +88,7 @@
     <string name="choose_a_device">Choisissez un appareil</string>
     <string name="choose_icon">Choisir une icône</string>
     <string name="clear">Effacer</string>
+    <string name="clear_all">Effacer tout</string>
     <string name="clear_all_message">Êtes-vous sûr de vouloir tout effacer sur cet écran ?</string>
     <string name="clear_analysis_cache">Vider le cache d\'analyse</string>
     <string name="clear_cache">Vider le cache</string>
@@ -126,6 +127,7 @@
     <string name="connection_failed">Échec de la connexion</string>
     <string name="connection_lost">Connexion perdue</string>
     <string name="connection_lost_back_message">La connexion de débogage sans fil a été perdue. Que voulez-vous faire ?</string>
+    <string name="continue_anyway">Continuer quand même</string>
     <string name="contributors">Contributeurs</string>
     <string name="copied_items" comment="%1$d = number of items copied to clipboard">%1$d éléments copiés</string>
     <string name="copied_to_clipboard">Copié dans le presse-papiers !</string>
@@ -272,6 +274,7 @@
     <string name="erasing">Effacement de…</string>
     <string name="error">Erreur</string>
     <string name="error_labels_limit_reached">Nombre maximum d\'étiquettes atteint</string>
+    <string name="exclude">Exclure</string>
     <string name="execution_method">Méthode d\'exécution</string>
     <string name="expand">Agrandir</string>
     <string name="experimental">Expérimental</string>
@@ -399,6 +402,7 @@
     <string name="history">Historique</string>
     <string name="home">Domicile</string>
     <string name="icon_selected">Icône sélectionnée</string>
+    <string name="include">Inclure</string>
     <string name="info">Infos</string>
     <string name="initial_state">État initial</string>
     <string name="instructions">Instructions</string>
@@ -419,6 +423,7 @@
     <string name="latest_version">Dernière version</string>
     <string name="lead_developer">Développeur principal</string>
     <string name="least_used">Le moins utilisé</string>
+    <string name="level">Niveau</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d libraries detected</string>
     <string name="license">Licence</string>
     <string name="license_label">Licence</string>
@@ -435,6 +440,19 @@
     <string name="local_file">Fichier local</string>
     <string name="locked">Verrouillé</string>
     <string name="logcat">Logcat</string>
+    <string name="logcat_cleared">Journaux effacés</string>
+    <string name="logcat_detail_package">Paquet</string>
+    <string name="logcat_filter_level">Niveaux de journalisation</string>
+    <string name="logcat_filter_search_hint">Rechercher dans les messages…</string>
+    <string name="logcat_is_running">Logcat est en cours d\'exécution</string>
+    <string name="logcat_ive_granted_it">Je l\'ai accordé</string>
+    <string name="logcat_no_logs">Pas encore de logs</string>
+    <string name="logcat_notification_channel_description">Affiché pendant que le logcat collecte activement les logs</string>
+    <string name="logcat_notification_channel_name">Session logcat</string>
+    <string name="logcat_permission_body">Sans cette autorisation, seuls les logs de aShellYou lui-même seront visibles. Accordez un accès complet en exécutant cette commande depuis un ordinateur :</string>
+    <string name="logcat_permission_title">Autorisation d\'accès au journal</string>
+    <string name="logcat_running_description">aShellYou collecte les logs du système en arrière-plan</string>
+    <string name="logcat_shortcut_long_label">Ouvrir la visionneuse Logcat</string>
     <string name="logs">Journaux</string>
     <string name="look_and_feel">Apparence</string>
     <string name="low">Bas</string>
@@ -442,6 +460,7 @@
     <string name="max_download_size">Téléchargement Max</string>
     <string name="medium">Moyenne</string>
     <string name="merge">Fusionner</string>
+    <string name="message">Message</string>
     <string name="minimize">Minimize</string>
     <string name="mode">Mode</string>
     <string name="mode_one_desc">Utilisez l\'accès root pour exécuter des commandes. Les commandes root peuvent être exécutées.</string>
@@ -515,6 +534,7 @@
     <string name="other_device">Autre appareil</string>
     <string name="output">Sortie</string>
     <string name="override_bookmarks_limit">Dépasser la limite maximale de favoris</string>
+    <string name="package_name">Nom du paquet</string>
     <string name="pair">Appairer</string>
     <string name="pair_a_device_first">Associer un appareil en premier</string>
     <string name="pair_another_device">Associer un autre appareil</string>
@@ -542,6 +562,7 @@
     <string name="partition">Partition</string>
     <string name="paste">Coller</string>
     <string name="path">Chemin d\'accès</string>
+    <string name="paused">En pause</string>
     <string name="permission_denied">Autorisation refusée</string>
     <string name="permission_optional">L\'octroi de ces autorisations est facultatif !</string>
     <string name="pick_ashellyou_extension">Veuillez choisir un fichier avec l\'extension .ashellyou</string>
@@ -596,10 +617,13 @@
     <string name="restore_from">Restaurer à partir de</string>
     <string name="restore_successful">Restauration réussie</string>
     <string name="restoring_backup">Restauration de la sauvegarde…</string>
+    <string name="resume">Reprendre</string>
     <string name="retry">Réessayer</string>
     <string name="root_access_granted">Accès root accordé !</string>
+    <string name="running">En cours d\'exécution</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Enregistrer</string>
+    <string name="save_as_profile">Enregistrer en tant que profil…</string>
     <string name="save_whole_output">Enregistrer la sortie entière</string>
     <string name="saved_devices">Périphériques enregistrés</string>
     <string name="saving">Enregistrement de…</string>
@@ -670,6 +694,7 @@
     <string name="stack_trace">Trace de pile</string>
     <string name="stargazers">Stargazers</string>
     <string name="start">Démarrer</string>
+    <string name="stop">Arrêter</string>
     <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">%.1f Mo utilisés par les modèles IA</string>
     <string name="subtitle">Sous-titre</string>
     <string name="subtitle_off_state">Sous-titre (état OFF)</string>
@@ -684,6 +709,7 @@
     <string name="system_default">Par défaut du système</string>
     <string name="system_font" comment="Option to use the device default font">Police du système</string>
     <string name="system_settings">Paramètres du système</string>
+    <string name="tag">Étiquette</string>
     <string name="telegram">Telegram</string>
     <string name="terminal">Terminal</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Style de police du terminal</string>
@@ -698,6 +724,7 @@
     <string name="tile_name">Nom de la tuile</string>
     <string name="tiles">Tuiles</string>
     <string name="time">Date et heure</string>
+    <string name="timestamp">Horodatage</string>
     <string name="toggleable">Basculable</string>
     <string name="total_executions">Total des exécutions</string>
     <string name="translations">Traductions</string>
@@ -754,6 +781,10 @@
     <string name="wireless_debugging_guide_2">Entrez le code de couplage à six chiffres dans la notification envoyée par aShell You.</string>
     <string name="wireless_debugging_guide_3">Revenez à l\'application et cliquez sur le bouton \"Démarrer\" dans l\'écran d\'accueil.</string>
     <string name="wireless_debugging_important_notice">Veuillez noter que la partie gauche de l\'option Débogage sans fil est cliquable. Appuyer dessus ouvrira le menu de couplage du débogage sans fil.</string>
+    <plurals name="logcat_new_entries">
+        <item quantity="one">%1$d new entry</item>
+        <item quantity="other">%1$d new entries</item>
+    </plurals>
     <string name="changelog_v7_4_0">\nYou can now search Sub-settings inside Settings screens\nAdded Palette Styles for color schemes\nAdded option to set app language directly in-app</string>
     <string name="changelog_v7_3_0">\nAmélioration de l\'interface utilisateur dans l\'écran de changelog\nAjout de contributeurs de traduction dans la section\nAjout d\'un écran de licences qui affiche des informations détaillées sur l\'application et les autres bibliothèques utilisées par l\'application</string>
     <string name="changelog_v7_2_1">\nMise à jour de la maintenance !</string>
