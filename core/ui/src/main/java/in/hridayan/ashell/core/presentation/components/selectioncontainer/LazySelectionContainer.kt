@@ -290,12 +290,13 @@ fun <T> Modifier.textSelectionGestures(
  * this measures its own copy of [text] to compute hit-testing and highlight
  * paths, so a mismatch will visibly misalign both.
  */
+@Composable
 fun Modifier.allowTextSelection(
     index: Int,
     text: String,
     selectionState: SelectionState,
     style: TextStyle = TextStyle.Default,
-    highlightColor: Color = Color(0x663399FF),
+    highlightColor: Color = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f),
 ): Modifier = composed {
     val textMeasurer = rememberTextMeasurer()
     val windowBounds = remember(index) { Ref(Rect.Zero) }
@@ -356,7 +357,7 @@ fun <T> SelectionHandlesOverlay(
     textOf: (T) -> String,
     listState: LazyListState,
     modifier: Modifier = Modifier,
-    handleColor: Color = Color(0xFF3399FF),
+    handleColor: Color = MaterialTheme.colorScheme.primary,
     autoScrollEdgeThreshold: Dp = 48.dp,
     autoScrollSpeed: Dp = 2.dp,
     onCopy: ((success: Boolean) -> Unit)? = null,
@@ -445,7 +446,8 @@ fun <T> SelectionHandlesOverlay(
                 },
                 onDragTo = { rawPos ->
                     val global = rawPos + selectionState.containerWindowOrigin
-                    findLineOffsetOrNearestEdge(selectionState, global)?.let { (line, offset) ->
+                    val result = findLineOffsetOrNearestEdge(selectionState, global)
+                    result?.let { (line, offset) ->
                         updateSelectionForVisualHandle(
                             selectionState,
                             isStartVisual = true,
@@ -477,7 +479,8 @@ fun <T> SelectionHandlesOverlay(
                 },
                 onDragTo = { rawPos ->
                     val global = rawPos + selectionState.containerWindowOrigin
-                    findLineOffsetOrNearestEdge(selectionState, global)?.let { (line, offset) ->
+                    val result = findLineOffsetOrNearestEdge(selectionState, global)
+                    result?.let { (line, offset) ->
                         updateSelectionForVisualHandle(
                             selectionState,
                             isStartVisual = false,
@@ -602,13 +605,26 @@ private fun SelectionHandle(
                         }
                     }
 
-                    drag(down.id) { change ->
+                    // Manual pointer tracking instead of drag():
+                    var loopCount = 0
+                    while (true) {
+                        val event = awaitPointerEvent()
+                        val change = event.changes.firstOrNull { it.id == down.id }
+                        if (change == null) {
+                            break
+                        }
+                        loopCount++
+                        if (change.changedToUpIgnoreConsumed()) {
+                            change.consume()
+                            break
+                        }
+                        val delta = change.positionChange()
                         change.consume()
                         if (!isDragging) {
                             isDragging = true
                             currentOnDragStart()
                         }
-                        raw += change.positionChange()
+                        raw += delta
                         pointerPosRef.value = raw
                     }
 
@@ -771,9 +787,9 @@ private fun updateSelectionForVisualHandle(
     val current = selectionState.selection ?: return
     val swapped = current != current.normalized()
     val writeRawStart = if (isStartVisual) !swapped else swapped
-    selectionState.selection =
-        if (writeRawStart) current.copy(startLine = line, startOffset = offset)
-        else current.copy(endLine = line, endOffset = offset)
+    val newSel = if (writeRawStart) current.copy(startLine = line, startOffset = offset)
+    else current.copy(endLine = line, endOffset = offset)
+    selectionState.selection = newSel
 }
 
 private fun computeHandleOffset(
@@ -796,7 +812,9 @@ private fun computeHandleOffset(
     // permanently reads as "off-screen", and every touch on it falls
     // through to the LazyColumn's own long-press gesture underneath instead
     // of dragging the handle at all.
-    if (local.y < 0f || local.y > selectionState.containerHeightPx) return null
+    if (local.y < 0f || local.y > selectionState.containerHeightPx) {
+        return null
+    }
     return local
 }
 
@@ -837,7 +855,8 @@ private fun findLineOffset(state: SelectionState, globalPos: Offset): Pair<Int, 
                 x = (globalPos.x - b.left).coerceIn(0f, b.width),
                 y = (globalPos.y - b.top).coerceIn(0f, b.height)
             )
-            return index to info.layoutResult.getOffsetForPosition(local)
+            val offset = info.layoutResult.getOffsetForPosition(local)
+            return index to offset
         }
     }
     return null
@@ -850,17 +869,20 @@ private fun findLineOffset(state: SelectionState, globalPos: Offset): Pair<Int, 
  *  extending the selection into content as it scrolls in. */
 private fun findLineOffsetOrNearestEdge(state: SelectionState, globalPos: Offset): Pair<Int, Int>? {
     findLineOffset(state, globalPos)?.let { return it }
-    if (state.lineInfos.isEmpty()) return null
+    if (state.lineInfos.isEmpty()) {
+        return null
+    }
     val top = state.lineInfos.entries.minByOrNull { it.value.boundsInWindow.top } ?: return null
     val bottom =
         state.lineInfos.entries.maxByOrNull { it.value.boundsInWindow.bottom } ?: return null
-    return when {
+    val result = when {
         globalPos.y <= top.value.boundsInWindow.top -> top.key to 0
         globalPos.y >= bottom.value.boundsInWindow.bottom ->
             bottom.key to bottom.value.layoutResult.layoutInput.text.length
 
         else -> null
     }
+    return result
 }
 
 /** Reads from the source list, not the composed-only cache, so lines that
@@ -929,7 +951,7 @@ fun <T> LazySelectionContainer(
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
     flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
     userScrollEnabled: Boolean = true,
-    handleColor: Color = Color(0xFF3399FF),
+    handleColor: Color = MaterialTheme.colorScheme.primary,
     autoScrollEdgeThreshold: Dp = 48.dp,
     autoScrollSpeed: Dp = 2.dp,
     onCopy: ((success: Boolean) -> Unit)? = null,
