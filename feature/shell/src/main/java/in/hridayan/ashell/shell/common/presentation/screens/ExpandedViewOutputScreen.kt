@@ -316,9 +316,7 @@ fun ExpandedViewOutputScreen(
                 }
 
                 Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(paddingValues)
+                    modifier = Modifier.fillMaxSize()
                 ) {
                     LazySelectionContainer(
                         modifier = Modifier.fillMaxWidth(),
@@ -337,7 +335,8 @@ fun ExpandedViewOutputScreen(
                         LazyColumn(
                             state = fullscreenListState,
                             modifier = Modifier.fillMaxSize(),
-                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                            verticalArrangement = Arrangement.spacedBy(8.dp),
+                            contentPadding = paddingValues
                         ) {
                             commandSections.forEachIndexed { sectionIndex, section ->
                                 stickyHeader(key = "header_$sectionIndex") {
