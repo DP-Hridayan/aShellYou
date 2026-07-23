@@ -321,9 +321,7 @@ fun ExpandedViewOutputScreen(
                         .padding(paddingValues)
                 ) {
                     LazySelectionContainer(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = 16.dp, end = 16.dp, bottom = 20.dp),
+                        modifier = Modifier.fillMaxWidth(),
                         listState = fullscreenListState,
                         items = combinedOutput.value,
                         textOf = { it.text },
