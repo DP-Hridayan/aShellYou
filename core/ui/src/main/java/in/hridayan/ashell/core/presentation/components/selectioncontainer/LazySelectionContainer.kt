@@ -9,7 +9,6 @@ import androidx.compose.foundation.gestures.drag
 import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -325,9 +324,9 @@ fun <T> Modifier.textSelectionGestures(
  */
 @Composable
 fun Modifier.allowTextSelection(
+    selectionState: SelectionState,
     index: Int,
     text: String,
-    selectionState: SelectionState,
     style: TextStyle = TextStyle.Default,
     highlightColor: Color = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f),
 ): Modifier = composed {
