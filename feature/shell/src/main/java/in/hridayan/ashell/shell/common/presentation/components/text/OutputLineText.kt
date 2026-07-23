@@ -63,7 +63,7 @@ fun OutputLineText(
             text = annotatedText,
             style = textStyle,
             color = lineColor,
-            onTextLayout = { onTextLayout(it) },
+            onTextLayout = onTextLayout,
             modifier = Modifier
                 .fillMaxWidth()
                 .then(

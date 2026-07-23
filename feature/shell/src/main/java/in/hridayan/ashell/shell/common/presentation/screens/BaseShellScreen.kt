@@ -97,7 +97,6 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -119,8 +118,6 @@ import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scrollbar.VerticalScrollbar
-import `in`.hridayan.ashell.core.presentation.components.selectioncontainer.LazySelectionContainer
-import `in`.hridayan.ashell.core.presentation.components.selectioncontainer.lazySelectionItem
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
@@ -150,6 +147,10 @@ import `in`.hridayan.ashell.shell.common.presentation.viewmodel.BookmarkViewMode
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
 import `in`.hridayan.ashell.shell.domain.model.SaveProgress
 import `in`.hridayan.ashell.shell.domain.model.ScrollDirection
+import `in`.hridayan.lazyselectioncontainer.LazySelectionContainer
+import `in`.hridayan.lazyselectioncontainer.lazySelectionItem
+import `in`.hridayan.lazyselectioncontainer.rememberLazySelectionTextLayout
+import `in`.hridayan.lazyselectioncontainer.rememberSelectionState
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.android.awaitFrame
 import kotlinx.coroutines.delay
@@ -893,8 +894,6 @@ private fun OutputCard(
         if (isDarkMode) surfaceContainerLow else surfaceContainer
     }
 
-    var textLayoutResult by remember { mutableStateOf<TextLayoutResult?>(null) }
-
     // Only render the card when not in fullscreen
     if (!isFullscreen) {
         with(sharedTransitionScope) {
@@ -949,10 +948,13 @@ private fun OutputCard(
                             .fillMaxWidth()
                             .wrapContentHeight()
                     ) {
+                        val selectionState = rememberSelectionState()
+
                         LazySelectionContainer(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(start = 16.dp, end = 16.dp, bottom = 20.dp),
+                            selectionState = selectionState,
                             listState = listState,
                             items = combinedOutput.value,
                             itemToText = { it.text },
@@ -963,12 +965,14 @@ private fun OutputCard(
 
                                 showToast(context, toastMessage)
                             },
-                        ) { selectionState ->
+                        ) {
                             LazyColumn(
                                 state = listState,
                                 verticalArrangement = Arrangement.spacedBy(8.dp),
                             ) {
                                 itemsIndexed(combinedOutput.value) { index, line ->
+
+                                    val textLayoutResult = rememberLazySelectionTextLayout(index)
 
                                     val isCommandLine = line.text.startsWith("$ ")
 
@@ -976,16 +980,11 @@ private fun OutputCard(
                                         if (isCommandLine) commandTextStyle else bodyTextStyle
 
                                     OutputLineText(
-                                        modifier = Modifier.lazySelectionItem(
-                                            index = index,
-                                            text = line.text,
-                                            selectionState = selectionState,
-                                            style = textStyle
-                                        ),
+                                        modifier = Modifier.lazySelectionItem(index = index),
                                         line = line,
                                         states = states,
                                         textStyle = textStyle,
-                                        onTextLayout = { textLayoutResult = it }
+                                        onTextLayout = textLayoutResult
                                     )
                                 }
                             }
@@ -1132,11 +1131,11 @@ private fun BottomExtendedFAB(
     val isFitsOnScreen by remember(isOutputEmpty) {
         derivedStateOf {
             if (isOutputEmpty) return@derivedStateOf true
-            
+
             val info = listState.layoutInfo
             val visible = info.visibleItemsInfo
             val lastVisible = visible.lastOrNull()
-            
+
             if (info.totalItemsCount == 0 || lastVisible == null) {
                 true
             } else {

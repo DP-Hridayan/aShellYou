@@ -59,13 +59,15 @@ import `in`.hridayan.ashell.core.domain.model.OutputLine
 import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scrollbar.VerticalScrollbar
-import `in`.hridayan.ashell.core.presentation.components.selectioncontainer.LazySelectionContainer
-import `in`.hridayan.ashell.core.presentation.components.selectioncontainer.lazySelectionItem
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.shell.common.presentation.components.text.OutputLineText
 import `in`.hridayan.ashell.shell.common.presentation.model.ShellState
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
+import `in`.hridayan.lazyselectioncontainer.LazySelectionContainer
+import `in`.hridayan.lazyselectioncontainer.lazySelectionItem
+import `in`.hridayan.lazyselectioncontainer.rememberLazySelectionTextLayout
+import `in`.hridayan.lazyselectioncontainer.rememberSelectionState
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -316,10 +318,15 @@ fun ExpandedViewOutputScreen(
                 }
 
                 Box(
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(top = paddingValues.calculateTopPadding())
                 ) {
+                    val selectionState = rememberSelectionState()
+
                     LazySelectionContainer(
                         modifier = Modifier.fillMaxWidth(),
+                        selectionState = selectionState,
                         listState = fullscreenListState,
                         items = combinedOutput.value,
                         itemToText = { it.text },
@@ -330,15 +337,14 @@ fun ExpandedViewOutputScreen(
 
                             showToast(context, toastMessage)
                         },
-                    ) { selectionState ->
-
+                    ) {
                         LazyColumn(
                             state = fullscreenListState,
-                            modifier = Modifier.fillMaxSize(),
+                            modifier = Modifier.fillMaxWidth(),
                             verticalArrangement = Arrangement.spacedBy(8.dp),
-                            contentPadding = paddingValues
                         ) {
                             commandSections.forEachIndexed { sectionIndex, section ->
+
                                 stickyHeader(key = "header_$sectionIndex") {
                                     Column(
                                         modifier = Modifier
@@ -353,11 +359,9 @@ fun ExpandedViewOutputScreen(
                                             verticalAlignment = Alignment.CenterVertically
                                         ) {
                                             Text(
-                                                modifier = Modifier.lazySelectionItem(
-                                                    index = section.commandGlobalIndex,
-                                                    text = section.commandText,
-                                                    selectionState = selectionState,
-                                                    style = commandTextStyle
+                                                modifier = Modifier.lazySelectionItem(section.commandGlobalIndex),
+                                                onTextLayout = rememberLazySelectionTextLayout(
+                                                    section.commandGlobalIndex
                                                 ),
                                                 text = section.commandText,
                                                 style = commandTextStyle,
@@ -385,19 +389,17 @@ fun ExpandedViewOutputScreen(
                                     val textStyle =
                                         if (isCommandLine) commandTextStyle else bodyTextStyle
 
-                                    Box(modifier = Modifier.padding(horizontal = 20.dp)) {
-                                        OutputLineText(
-                                            modifier = Modifier.lazySelectionItem(
-                                                index = globalIndex,
-                                                text = line.text,
-                                                selectionState = selectionState,
-                                                style = textStyle
-                                            ),
-                                            line = line,
-                                            states = states,
-                                            textStyle = textStyle
-                                        )
-                                    }
+                                    OutputLineText(
+                                        modifier = Modifier
+                                            .padding(horizontal = 20.dp)
+                                            .lazySelectionItem(globalIndex),
+                                        onTextLayout = rememberLazySelectionTextLayout(
+                                            globalIndex
+                                        ),
+                                        line = line,
+                                        states = states,
+                                        textStyle = textStyle
+                                    )
                                 }
                             }
 

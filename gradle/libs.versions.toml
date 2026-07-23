@@ -4,7 +4,7 @@ agp = "9.2.1"
 androidxJunit = "1.3.0"
 annotation = "1.10.0"
 concurrentFutures = "1.3.0"
-bcprovJdk15to18 = "1.85"
+bcprovJdk15to18 = "1.85.1"
 composeAnimation = "1.11.4"
 composeUiTest = "1.11.4"
 composeBom = "2026.06.01"
@@ -15,7 +15,7 @@ documentfile = "1.1.0"
 espresso = "3.7.0"
 googleApiClient = "2.9.0"
 googleApiServicesDrive = "v3-rev20260322-2.0.0"
-googleHttpClientGson = "2.1.1"
+googleHttpClientGson = "2.2.0"
 googleId = "1.2.0"
 gson = "2.14.0"
 hiddenapibypassVersion = "6.1"
@@ -47,11 +47,12 @@ sunSecurityAndroid = "1.1"
 work = "2.11.2"
 shapeindicators = "2.1.1"
 coil = "3.5.0"
-aboutlibraries = "15.0.3"
-compose-stability-analyzer = "0.10.0"
+aboutlibraries = "15.0.4"
+compose-stability-analyzer = "0.11.0"
 leakcanary = "1.0.0"
 appcompat = "1.7.1"
-dependencyAnalysis = "3.16.1"
+dependencyAnalysis = "3.17.0"
+lazyselectioncontainer = "1.0.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -133,6 +134,7 @@ slf4j-android = { group = "org.slf4j", name = "slf4j-android", version.ref = "sl
 spake2-android = { module = "com.github.Mahmud0808.spake2-java:spake2-android", version.ref = "spake2Android" }
 sun-security-android = { module = "com.github.MuntashirAkon:sun-security-android", version.ref = "sunSecurityAndroid" }
 shapeindicators = { group = "io.github.dp-hridayan", name = "shapeindicators", version.ref = "shapeindicators" }
+lazyselectioncontainer = { group = "io.github.dp-hridayan", name = "lazyselectioncontainer", version.ref = "lazyselectioncontainer" }
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
 coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
 aboutlibraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref = "aboutlibraries" }
