@@ -44,9 +44,7 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.changedToUpIgnoreConsumed
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
-import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.boundsInWindow
-import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.ClipEntry
 import androidx.compose.ui.platform.Clipboard
@@ -60,7 +58,14 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntRect
+import androidx.compose.ui.unit.IntSize
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Popup
+import androidx.compose.ui.window.PopupPositionProvider
+import androidx.compose.ui.window.PopupProperties
 import androidx.compose.ui.zIndex
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.resources.R
@@ -624,70 +629,85 @@ private fun SelectionHandle(
     val currentOnDragEnd by rememberUpdatedState(onDragEnd)
     val currentOnDragTo by rememberUpdatedState(onDragTo)
 
-    Box(
-        modifier = Modifier
-            .layout { measurable, constraints ->
-                val pos = currentPositionProvider()
-                if (pos == null) {
-                    layout(0, 0) {}
-                } else {
-                    val placeable = measurable.measure(constraints)
-                    layout(placeable.width, placeable.height) {
-                        val x = if (isStartVisual) pos.x - handleTouchPx else pos.x
-                        placeable.placeRelative(x.toInt(), pos.y.toInt())
-                    }
-                }
+    val popupPositionProvider = remember(isStartVisual, handleTouchPx) {
+        object : PopupPositionProvider {
+            override fun calculatePosition(
+                anchorBounds: IntRect,
+                windowSize: IntSize,
+                layoutDirection: LayoutDirection,
+                popupContentSize: IntSize
+            ): IntOffset {
+                val pos =
+                    positionProvider() ?: return IntOffset(-10000, -10000)
+                val x = if (isStartVisual) pos.x - handleTouchPx else pos.x
+                return IntOffset(
+                    x = anchorBounds.left + x.toInt(),
+                    y = anchorBounds.top + pos.y.toInt()
+                )
             }
-            .size(handleTouchSizeDp)
-            .pointerInput(Unit) {
-                awaitEachGesture {
-                    val down = awaitFirstDown(requireUnconsumed = false)
-                    down.consume()
+        }
+    }
 
-                    var isDragging = false
-                    var raw = currentPositionProvider() ?: Offset.Zero
-                    val pointerPosRef = Ref(raw)
-
-                    val loopJob = coroutineScope.launch {
-                        while (isActive) {
-                            autoScrollIfNearEdge(
-                                listState, pointerPosRef.value.y, selectionState.containerHeightPx,
-                                edgeThresholdPx, scrollSpeedPx
-                            )
-                            currentOnDragTo(pointerPosRef.value)
-                            delay(16.milliseconds)
-                        }
-                    }
-
-                    while (true) {
-                        val event = awaitPointerEvent()
-                        val change = event.changes.firstOrNull { it.id == down.id } ?: break
-                        if (change.changedToUpIgnoreConsumed()) {
-                            change.consume()
-                            break
-                        }
-                        val delta = change.positionChange()
-                        change.consume()
-                        if (!isDragging) {
-                            isDragging = true
-                            currentOnDragStart()
-                        }
-                        raw += delta
-                        pointerPosRef.value = raw
-                    }
-
-                    loopJob.cancel()
-                    if (isDragging) currentOnDragEnd() else currentOnTap()
-                }
-            }
+    Popup(
+        popupPositionProvider = popupPositionProvider,
+        properties = PopupProperties(clippingEnabled = false)
     ) {
         Box(
             modifier = Modifier
-                .align(if (isStartVisual) Alignment.TopEnd else Alignment.TopStart)
-                .size(handleVisualSizeDp)
-                .clip(if (isStartVisual) startHandleShape else endHandleShape)
-                .background(color)
-        )
+                .size(handleTouchSizeDp)
+                .pointerInput(Unit) {
+                    awaitEachGesture {
+                        val down = awaitFirstDown(requireUnconsumed = false)
+                        down.consume()
+
+                        var isDragging = false
+                        var raw = currentPositionProvider() ?: Offset.Zero
+                        val pointerPosRef = Ref(raw)
+
+                        val loopJob = coroutineScope.launch {
+                            while (isActive) {
+                                autoScrollIfNearEdge(
+                                    listState,
+                                    pointerPosRef.value.y,
+                                    selectionState.containerHeightPx,
+                                    edgeThresholdPx,
+                                    scrollSpeedPx
+                                )
+                                currentOnDragTo(pointerPosRef.value)
+                                delay(16.milliseconds)
+                            }
+                        }
+
+                        while (true) {
+                            val event = awaitPointerEvent()
+                            val change = event.changes.firstOrNull { it.id == down.id } ?: break
+                            if (change.changedToUpIgnoreConsumed()) {
+                                change.consume()
+                                break
+                            }
+                            val delta = change.positionChange()
+                            change.consume()
+                            if (!isDragging) {
+                                isDragging = true
+                                currentOnDragStart()
+                            }
+                            raw += delta
+                            pointerPosRef.value = raw
+                        }
+
+                        loopJob.cancel()
+                        if (isDragging) currentOnDragEnd() else currentOnTap()
+                    }
+                }
+        ) {
+            Box(
+                modifier = Modifier
+                    .align(if (isStartVisual) Alignment.TopEnd else Alignment.TopStart)
+                    .size(handleVisualSizeDp)
+                    .clip(if (isStartVisual) startHandleShape else endHandleShape)
+                    .background(color)
+            )
+        }
     }
 }
 
@@ -707,44 +727,60 @@ private fun SelectionToolbar(
     val gapPx = with(density) { textStyle.lineHeight.toPx() }
     val handleTouchPx = with(density) { 48.dp.toPx() }
 
-    Layout(
-        content = {
-            Surface(
-                shape = RoundedCornerShape(50),
-                tonalElevation = 4.dp,
-                shadowElevation = 4.dp
-            ) {
-                Row(modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp)) {
-                    SelectionToolbarActionButton(
-                        name = stringResource(R.string.copy),
-                        onClick = onCopy
-                    )
+    val anchorInContainer = anchorProvider() ?: return
 
-                    SelectionToolbarActionButton(
-                        name = stringResource(R.string.select_all),
-                        onClick = onSelectAll
+    val popupPositionProvider =
+        remember(containerWidthPx, containerHeightPx, gapPx, handleTouchPx) {
+            object : PopupPositionProvider {
+                override fun calculatePosition(
+                    anchorBounds: IntRect,
+                    windowSize: IntSize,
+                    layoutDirection: LayoutDirection,
+                    popupContentSize: IntSize
+                ): IntOffset {
+                    val anchor = anchorProvider() ?: return IntOffset.Zero
+
+                    val fitsAbove = anchor.y - gapPx - popupContentSize.height >= 0f
+                    val y = if (fitsAbove) {
+                        anchor.y - gapPx - popupContentSize.height
+                    } else {
+                        anchor.y + maxOf(gapPx, handleTouchPx)
+                    }
+                    val clampedY = y.coerceIn(
+                        0f,
+                        (containerHeightPx - popupContentSize.height).coerceAtLeast(0f)
+                    )
+                    val x = (anchor.x - popupContentSize.width / 2f)
+                        .coerceIn(0f, (containerWidthPx - popupContentSize.width).coerceAtLeast(0f))
+
+                    return IntOffset(
+                        x = anchorBounds.left + x.toInt(),
+                        y = anchorBounds.top + clampedY.toInt()
                     )
                 }
             }
         }
-    ) { measurables, _ ->
-        val anchorInContainer =
-            anchorProvider() ?: return@Layout layout(0, 0) {}
 
-        val placeable = measurables.first().measure(Constraints())
+    Popup(
+        popupPositionProvider = popupPositionProvider,
+        properties = PopupProperties(clippingEnabled = false)
+    ) {
+        Surface(
+            shape = RoundedCornerShape(50),
+            tonalElevation = 4.dp,
+            shadowElevation = 4.dp
+        ) {
+            Row(modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp)) {
+                SelectionToolbarActionButton(
+                    name = stringResource(R.string.copy),
+                    onClick = onCopy
+                )
 
-        val fitsAbove = anchorInContainer.y - gapPx - placeable.height >= 0f
-        val y = if (fitsAbove) {
-            anchorInContainer.y - gapPx - placeable.height
-        } else {
-            anchorInContainer.y + maxOf(gapPx, handleTouchPx)
-        }
-        val clampedY = y.coerceIn(0f, (containerHeightPx - placeable.height).coerceAtLeast(0f))
-        val x = (anchorInContainer.x - placeable.width / 2f)
-            .coerceIn(0f, (containerWidthPx - placeable.width).coerceAtLeast(0f))
-
-        layout(0, 0) {
-            placeable.placeRelative(x.toInt(), clampedY.toInt())
+                SelectionToolbarActionButton(
+                    name = stringResource(R.string.select_all),
+                    onClick = onSelectAll
+                )
+            }
         }
     }
 }
