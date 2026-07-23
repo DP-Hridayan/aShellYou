@@ -52,7 +52,7 @@ compose-stability-analyzer = "0.11.0"
 leakcanary = "1.0.0"
 appcompat = "1.7.1"
 dependencyAnalysis = "3.17.0"
-lazyselectioncontainer = "1.0.0"
+lazyselectioncontainer = "1.1.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -5,28 +5,28 @@
         id="TrustAllX509TrustManager"
         message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.6.1/transforms/a8b2401a70029e0c03bad01ae5991867/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.6.1/transforms/832d4f198e731f209c9495e66bb2d622/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
         id="TrustAllX509TrustManager"
         message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.6.1/transforms/a8b2401a70029e0c03bad01ae5991867/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.6.1/transforms/832d4f198e731f209c9495e66bb2d622/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
         id="TrustAllX509TrustManager"
         message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/com.google.http-client/google-http-client/2.1.1/edb33f4f362a6bd66012039363cd362d13979ab9/google-http-client-2.1.1.jar"/>
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/com.google.http-client/google-http-client/2.2.0/8321c1af1e7c5ce9ffb243b9bbe90c56fa60de9d/google-http-client-2.2.0.jar"/>
     </issue>
 
     <issue
         id="TrustAllX509TrustManager"
         message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/com.google.http-client/google-http-client/2.1.1/edb33f4f362a6bd66012039363cd362d13979ab9/google-http-client-2.1.1.jar"/>
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/com.google.http-client/google-http-client/2.2.0/8321c1af1e7c5ce9ffb243b9bbe90c56fa60de9d/google-http-client-2.2.0.jar"/>
     </issue>
 
     <issue

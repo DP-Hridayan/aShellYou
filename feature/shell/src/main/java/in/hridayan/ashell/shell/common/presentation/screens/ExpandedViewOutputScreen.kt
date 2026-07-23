@@ -66,8 +66,8 @@ import `in`.hridayan.ashell.shell.common.presentation.model.ShellState
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
 import `in`.hridayan.lazyselectioncontainer.LazySelectionContainer
 import `in`.hridayan.lazyselectioncontainer.lazySelectionItem
+import `in`.hridayan.lazyselectioncontainer.rememberLazySelectionState
 import `in`.hridayan.lazyselectioncontainer.rememberLazySelectionTextLayout
-import `in`.hridayan.lazyselectioncontainer.rememberSelectionState
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -322,7 +322,7 @@ fun ExpandedViewOutputScreen(
                         .fillMaxSize()
                         .padding(top = paddingValues.calculateTopPadding())
                 ) {
-                    val selectionState = rememberSelectionState()
+                    val selectionState = rememberLazySelectionState()
 
                     LazySelectionContainer(
                         modifier = Modifier.fillMaxWidth(),

@@ -149,8 +149,8 @@ import `in`.hridayan.ashell.shell.domain.model.SaveProgress
 import `in`.hridayan.ashell.shell.domain.model.ScrollDirection
 import `in`.hridayan.lazyselectioncontainer.LazySelectionContainer
 import `in`.hridayan.lazyselectioncontainer.lazySelectionItem
+import `in`.hridayan.lazyselectioncontainer.rememberLazySelectionState
 import `in`.hridayan.lazyselectioncontainer.rememberLazySelectionTextLayout
-import `in`.hridayan.lazyselectioncontainer.rememberSelectionState
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.android.awaitFrame
 import kotlinx.coroutines.delay
@@ -948,7 +948,7 @@ private fun OutputCard(
                             .fillMaxWidth()
                             .wrapContentHeight()
                     ) {
-                        val selectionState = rememberSelectionState()
+                        val selectionState = rememberLazySelectionState()
 
                         LazySelectionContainer(
                             modifier = Modifier
