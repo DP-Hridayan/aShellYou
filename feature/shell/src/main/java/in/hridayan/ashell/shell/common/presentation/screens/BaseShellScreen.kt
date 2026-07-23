@@ -120,7 +120,7 @@ import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scrollbar.VerticalScrollbar
 import `in`.hridayan.ashell.core.presentation.components.selectioncontainer.LazySelectionContainer
-import `in`.hridayan.ashell.core.presentation.components.selectioncontainer.allowTextSelection
+import `in`.hridayan.ashell.core.presentation.components.selectioncontainer.lazySelectionItem
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
@@ -144,7 +144,6 @@ import `in`.hridayan.ashell.shell.common.presentation.components.dialog.FileSave
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ShellDialogKey
 import `in`.hridayan.ashell.shell.common.presentation.components.icon.AnimatedStopIcon
 import `in`.hridayan.ashell.shell.common.presentation.components.text.OutputLineText
-import `in`.hridayan.ashell.shell.common.presentation.model.CommandResult
 import `in`.hridayan.ashell.shell.common.presentation.model.ShellState
 import `in`.hridayan.ashell.shell.common.presentation.util.rememberScrollDirection
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.BookmarkViewModel
@@ -956,7 +955,7 @@ private fun OutputCard(
                                 .padding(start = 16.dp, end = 16.dp, bottom = 20.dp),
                             listState = listState,
                             items = combinedOutput.value,
-                            textOf = { it.text },
+                            itemToText = { it.text },
                             onCopy = { success ->
                                 val toastMessage =
                                     if (success) res.getString(R.string.copied_to_clipboard)
@@ -977,7 +976,7 @@ private fun OutputCard(
                                         if (isCommandLine) commandTextStyle else bodyTextStyle
 
                                     OutputLineText(
-                                        modifier = Modifier.allowTextSelection(
+                                        modifier = Modifier.lazySelectionItem(
                                             index = index,
                                             text = line.text,
                                             selectionState = selectionState,
@@ -1214,4 +1213,4 @@ private fun BottomExtendedFAB(
         }
     )
 }
-
+

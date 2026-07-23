@@ -60,7 +60,7 @@ import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scrollbar.VerticalScrollbar
 import `in`.hridayan.ashell.core.presentation.components.selectioncontainer.LazySelectionContainer
-import `in`.hridayan.ashell.core.presentation.components.selectioncontainer.allowTextSelection
+import `in`.hridayan.ashell.core.presentation.components.selectioncontainer.lazySelectionItem
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.shell.common.presentation.components.text.OutputLineText
@@ -322,7 +322,7 @@ fun ExpandedViewOutputScreen(
                         modifier = Modifier.fillMaxWidth(),
                         listState = fullscreenListState,
                         items = combinedOutput.value,
-                        textOf = { it.text },
+                        itemToText = { it.text },
                         onCopy = { success ->
                             val toastMessage =
                                 if (success) res.getString(R.string.copied_to_clipboard)
@@ -353,7 +353,7 @@ fun ExpandedViewOutputScreen(
                                             verticalAlignment = Alignment.CenterVertically
                                         ) {
                                             Text(
-                                                modifier = Modifier.allowTextSelection(
+                                                modifier = Modifier.lazySelectionItem(
                                                     index = section.commandGlobalIndex,
                                                     text = section.commandText,
                                                     selectionState = selectionState,
@@ -387,7 +387,7 @@ fun ExpandedViewOutputScreen(
 
                                     Box(modifier = Modifier.padding(horizontal = 20.dp)) {
                                         OutputLineText(
-                                            modifier = Modifier.allowTextSelection(
+                                            modifier = Modifier.lazySelectionItem(
                                                 index = globalIndex,
                                                 text = line.text,
                                                 selectionState = selectionState,

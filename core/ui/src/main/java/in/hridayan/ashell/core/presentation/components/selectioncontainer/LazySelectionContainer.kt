@@ -118,7 +118,7 @@ enum class SelectionEnd { START, END }
  * Manages selection coordinates, visibility of handles, and the selection toolbar.
  */
 @Stable
-class SelectionState {
+class LazySelectionState {
     /**
      * The current selection range, or null if no text is selected.
      */
@@ -171,10 +171,10 @@ class SelectionState {
 }
 
 /**
- * Creates and remembers a [SelectionState] instance.
+ * Creates and remembers a [LazySelectionState] instance.
  */
 @Composable
-fun rememberSelectionState(): SelectionState = remember { SelectionState() }
+fun rememberSelectionState(): LazySelectionState = remember { LazySelectionState() }
 
 /**
  * Adds text selection gesture support to a [Modifier].
@@ -188,7 +188,7 @@ fun rememberSelectionState(): SelectionState = remember { SelectionState() }
  * @param autoScrollSpeed The speed of auto-scrolling.
  */
 fun <T> Modifier.textSelectionGestures(
-    selectionState: SelectionState,
+    selectionState: LazySelectionState,
     items: List<T>,
     textOf: (T) -> String,
     listState: LazyListState,
@@ -328,8 +328,8 @@ fun <T> Modifier.textSelectionGestures(
  * @param highlightColor The color used for the selection background.
  */
 @Composable
-fun Modifier.allowTextSelection(
-    selectionState: SelectionState,
+fun Modifier.lazySelectionItem(
+    selectionState: LazySelectionState,
     index: Int,
     text: String,
     style: TextStyle = TextStyle.Default,
@@ -384,10 +384,10 @@ fun Modifier.allowTextSelection(
  * Overlay that renders selection handles and the selection toolbar.
  */
 @Composable
-fun <T> SelectionHandlesOverlay(
-    selectionState: SelectionState,
+private fun <T> SelectionHandlesOverlay(
+    selectionState: LazySelectionState,
     items: List<T>,
-    textOf: (T) -> String,
+    itemToText: (T) -> String,
     listState: LazyListState,
     modifier: Modifier = Modifier,
     handleColor: Color = MaterialTheme.colorScheme.primary,
@@ -410,7 +410,7 @@ fun <T> SelectionHandlesOverlay(
     fun doCopy() {
         scope.launch {
             val sel = selectionState.selection?.normalized() ?: return@launch
-            copySelection(clipboard, items, textOf, sel, onCopy)
+            copySelection(clipboard, items, itemToText, sel, onCopy)
         }
         selectionState.toolbarVisible = false
     }
@@ -608,7 +608,7 @@ private fun SelectionHandle(
     positionProvider: () -> Offset?,
     isStartVisual: Boolean,
     color: Color,
-    selectionState: SelectionState,
+    selectionState: LazySelectionState,
     listState: LazyListState,
     edgeThresholdPx: Float,
     scrollSpeedPx: Float,
@@ -858,7 +858,7 @@ private suspend fun autoScrollIfNearEdge(
 }
 
 private fun updateSelectionForVisualHandle(
-    selectionState: SelectionState,
+    selectionState: LazySelectionState,
     isStartVisual: Boolean,
     line: Int,
     offset: Int,
@@ -872,7 +872,7 @@ private fun updateSelectionForVisualHandle(
 }
 
 private fun computeHandleOffset(
-    selectionState: SelectionState,
+    selectionState: LazySelectionState,
     line: Int,
     charOffset: Int,
 ): Offset? {
@@ -887,7 +887,7 @@ private fun computeHandleOffset(
     return local
 }
 
-private fun <T> selectAll(selectionState: SelectionState, items: List<T>) {
+private fun <T> selectAll(selectionState: LazySelectionState, items: List<T>) {
     if (items.isEmpty()) return
     selectionState.selection = LineSelection(0, 0, items.lastIndex, Int.MAX_VALUE)
     selectionState.handlesVisible = true
@@ -914,7 +914,7 @@ private suspend fun <T> copySelection(
     onResult?.invoke(success)
 }
 
-private fun findLineOffset(state: SelectionState, globalPos: Offset): Pair<Int, Int>? {
+private fun findLineOffset(state: LazySelectionState, globalPos: Offset): Pair<Int, Int>? {
     for ((index, info) in state.lineInfos) {
         val b = info.boundsInWindow
         if (globalPos.y in b.top..b.bottom) {
@@ -929,7 +929,10 @@ private fun findLineOffset(state: SelectionState, globalPos: Offset): Pair<Int, 
     return null
 }
 
-private fun findLineOffsetOrNearestEdge(state: SelectionState, globalPos: Offset): Pair<Int, Int>? {
+private fun findLineOffsetOrNearestEdge(
+    state: LazySelectionState,
+    globalPos: Offset
+): Pair<Int, Int>? {
     findLineOffset(state, globalPos)?.let { return it }
     if (state.lineInfos.isEmpty()) {
         return null
@@ -981,7 +984,7 @@ private fun <T> buildSelectedText(
  * native Android behaviour.
  */
 private fun computeMagnifierOffset(
-    selectionState: SelectionState,
+    selectionState: LazySelectionState,
     lineIndex: Int,
     charOffset: Int,
     fingerX: Float,
@@ -1002,7 +1005,7 @@ private fun computeMagnifierOffset(
  * ordinary composables.
  *
  * Place your own [LazyColumn] (or any scrollable list) inside [content],
- * and apply [allowTextSelection] to each selectable item. The wrapper
+ * and apply [lazySelectionItem] to each selectable item. The wrapper
  * automatically provides gesture detection, selection handles, a magnifier
  * loupe, and a copy/select-all toolbar.
  *
@@ -1029,7 +1032,7 @@ private fun computeMagnifierOffset(
  * ```
  *
  * @param items The list of data items backing the selectable content.
- * @param textOf A function to extract selectable text from an item.
+ * @param itemToText A function to extract selectable text from an item.
  * @param listState The [LazyListState] of the [LazyColumn] inside [content].
  *   Must be the **same** instance passed to the inner [LazyColumn] so that
  *   auto-scroll and handle positioning work correctly.
@@ -1043,21 +1046,21 @@ private fun computeMagnifierOffset(
  *   loupe is positioned.
  * @param onCopy Callback invoked after a copy operation completes.
  * @param content Your composable content — typically a [LazyColumn]. Receives
- *   [SelectionState] so each item can apply [allowTextSelection].
+ *   [LazySelectionState] so each item can apply [lazySelectionItem].
  */
 @Composable
 fun <T> LazySelectionContainer(
     modifier: Modifier = Modifier,
     items: List<T>,
-    textOf: (T) -> String,
+    itemToText: (T) -> String,
     listState: LazyListState,
-    selectionState: SelectionState = rememberSelectionState(),
+    selectionState: LazySelectionState = rememberSelectionState(),
     handleColor: Color = MaterialTheme.colorScheme.primary,
     autoScrollEdgeThreshold: Dp = 48.dp,
     autoScrollSpeed: Dp = 6.dp,
     magnifierVerticalOffset: Dp = 64.dp,
     onCopy: ((success: Boolean) -> Unit)? = null,
-    content: @Composable (selectionState: SelectionState) -> Unit,
+    content: @Composable (selectionState: LazySelectionState) -> Unit,
 ) {
     Box(
         modifier = modifier
@@ -1073,7 +1076,7 @@ fun <T> LazySelectionContainer(
             .textSelectionGestures(
                 selectionState = selectionState,
                 items = items,
-                textOf = textOf,
+                textOf = itemToText,
                 listState = listState,
                 autoScrollEdgeThreshold = autoScrollEdgeThreshold,
                 autoScrollSpeed = autoScrollSpeed,
@@ -1084,7 +1087,7 @@ fun <T> LazySelectionContainer(
         SelectionHandlesOverlay(
             selectionState = selectionState,
             items = items,
-            textOf = textOf,
+            itemToText = itemToText,
             listState = listState,
             handleColor = handleColor,
             autoScrollEdgeThreshold = autoScrollEdgeThreshold,
