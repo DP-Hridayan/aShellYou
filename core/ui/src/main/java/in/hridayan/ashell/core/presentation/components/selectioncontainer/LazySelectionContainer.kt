@@ -75,6 +75,50 @@ import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.milliseconds
 
 /**
+ * Configuration for colors used in text selection.
+ */
+data class LazySelectionColors(
+    val highlightColor: Color,
+    val dragHandleColor: Color
+)
+
+/**
+ * Configuration for edge auto-scrolling during text selection drag.
+ */
+data class LazySelectionAutoScroll(
+    val scrollThreshold: Dp,
+    val scrollSpeed: Dp
+)
+
+/**
+ * Default configurations for [LazySelectionContainer].
+ */
+object LazySelectionDefaults {
+    /**
+     * Creates a [LazySelectionColors] with the default text selection highlight and handle colors.
+     */
+    @Composable
+    fun colors(
+        highlightColor: Color = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f),
+        dragHandleColor: Color = MaterialTheme.colorScheme.primary
+    ): LazySelectionColors = LazySelectionColors(
+        highlightColor = highlightColor,
+        dragHandleColor = dragHandleColor
+    )
+
+    /**
+     * Creates a [LazySelectionAutoScroll] with the default auto-scroll behavior parameters.
+     */
+    fun autoScroll(
+        scrollThreshold: Dp = 48.dp,
+        scrollSpeed: Dp = 6.dp
+    ): LazySelectionAutoScroll = LazySelectionAutoScroll(
+        scrollThreshold = scrollThreshold,
+        scrollSpeed = scrollSpeed
+    )
+}
+
+/**
  * A data class representing a selection across lines in a [LazyColumn].
  *
  * @property startLine The index of the item where the selection begins.
@@ -325,7 +369,7 @@ fun <T> Modifier.textSelectionGestures(
  * @param text The text content of the item.
  * @param selectionState The state holder for the selection.
  * @param style The [TextStyle] used to render the text. Must match exactly for correct layout calculations.
- * @param highlightColor The color used for the selection background.
+ * @param colors Configuration for colors used in text selection.
  */
 @Composable
 fun Modifier.lazySelectionItem(
@@ -333,7 +377,7 @@ fun Modifier.lazySelectionItem(
     index: Int,
     text: String,
     style: TextStyle = TextStyle.Default,
-    highlightColor: Color = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f),
+    colors: LazySelectionColors = LazySelectionDefaults.colors(),
 ): Modifier = composed {
     val textMeasurer = rememberTextMeasurer()
     val windowBounds = remember(index) { Ref(Rect.Zero) }
@@ -376,7 +420,7 @@ fun Modifier.lazySelectionItem(
             if (lineStart == lineEnd) return@drawBehind
 
             val path = result.getPathForRange(minOf(lineStart, lineEnd), maxOf(lineStart, lineEnd))
-            drawPath(path, color = highlightColor)
+            drawPath(path, color = colors.highlightColor)
         }
 }
 
@@ -385,14 +429,14 @@ fun Modifier.lazySelectionItem(
  */
 @Composable
 private fun <T> SelectionHandlesOverlay(
+    modifier: Modifier = Modifier,
     selectionState: LazySelectionState,
     items: List<T>,
     itemToText: (T) -> String,
     listState: LazyListState,
-    modifier: Modifier = Modifier,
-    handleColor: Color = MaterialTheme.colorScheme.primary,
-    autoScrollEdgeThreshold: Dp = 48.dp,
-    autoScrollSpeed: Dp = 6.dp,
+    handleColor: Color,
+    autoScrollEdgeThreshold: Dp,
+    autoScrollSpeed: Dp,
     onCopy: ((success: Boolean) -> Unit)? = null,
 ) {
     if (!selectionState.handlesVisible) return
@@ -1015,15 +1059,17 @@ private fun computeMagnifierOffset(
  *
  * LazySelectionContainer(
  *     items = messages,
- *     textOf = { it.content },
+ *     itemToText = { it.content },
  *     listState = listState,
  * ) { selectionState ->
  *     LazyColumn(state = listState) {
  *         itemsIndexed(messages) { index, message ->
  *             Text(
  *                 text = message.content,
- *                 modifier = Modifier.allowTextSelection(
- *                     index, message.content, selectionState
+ *                 modifier = Modifier.lazySelectionItem(
+ *                     selectionState = selectionState,
+ *                     index = index,
+ *                     text = message.content
  *                 )
  *             )
  *         }
@@ -1038,10 +1084,8 @@ private fun computeMagnifierOffset(
  *   auto-scroll and handle positioning work correctly.
  * @param modifier Modifier applied to the outer container.
  * @param selectionState The state holder for the selection.
- * @param handleColor The color of selection drag handles.
- * @param autoScrollEdgeThreshold Distance from container edges at which
- *   auto-scroll activates during a drag.
- * @param autoScrollSpeed Speed of auto-scrolling near container edges.
+ * @param colors Configuration for colors used in text selection.
+ * @param autoScroll Configuration for edge auto-scrolling during text selection drag.
  * @param magnifierVerticalOffset How far above the drag point the magnifier
  *   loupe is positioned.
  * @param onCopy Callback invoked after a copy operation completes.
@@ -1055,9 +1099,8 @@ fun <T> LazySelectionContainer(
     itemToText: (T) -> String,
     listState: LazyListState,
     selectionState: LazySelectionState = rememberSelectionState(),
-    handleColor: Color = MaterialTheme.colorScheme.primary,
-    autoScrollEdgeThreshold: Dp = 48.dp,
-    autoScrollSpeed: Dp = 6.dp,
+    colors: LazySelectionColors = LazySelectionDefaults.colors(),
+    autoScroll: LazySelectionAutoScroll = LazySelectionDefaults.autoScroll(),
     magnifierVerticalOffset: Dp = 64.dp,
     onCopy: ((success: Boolean) -> Unit)? = null,
     content: @Composable (selectionState: LazySelectionState) -> Unit,
@@ -1078,8 +1121,8 @@ fun <T> LazySelectionContainer(
                 items = items,
                 textOf = itemToText,
                 listState = listState,
-                autoScrollEdgeThreshold = autoScrollEdgeThreshold,
-                autoScrollSpeed = autoScrollSpeed,
+                autoScrollEdgeThreshold = autoScroll.scrollThreshold,
+                autoScrollSpeed = autoScroll.scrollSpeed,
             )
     ) {
         content(selectionState)
@@ -1089,9 +1132,9 @@ fun <T> LazySelectionContainer(
             items = items,
             itemToText = itemToText,
             listState = listState,
-            handleColor = handleColor,
-            autoScrollEdgeThreshold = autoScrollEdgeThreshold,
-            autoScrollSpeed = autoScrollSpeed,
+            handleColor = colors.dragHandleColor,
+            autoScrollEdgeThreshold = autoScroll.scrollThreshold,
+            autoScrollSpeed = autoScroll.scrollSpeed,
             onCopy = onCopy,
         )
     }
