@@ -234,12 +234,12 @@ fun <T> Modifier.textSelectionGestures(
                     return@awaitEachGesture
                 }
 
+                val startGlobal = longPress.position + selectionState.containerWindowOrigin
+                val start = findLineOffset(selectionState, startGlobal) ?: return@awaitEachGesture
+
                 haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                 selectionState.handlesVisible = false
                 selectionState.toolbarVisible = false
-
-                val startGlobal = longPress.position + selectionState.containerWindowOrigin
-                val start = findLineOffset(selectionState, startGlobal) ?: return@awaitEachGesture
                 val lineText = currentTextOf(currentItems[start.first])
                 val wordRange = wordBoundsAt(lineText, start.second)
                 selectionState.selection =
