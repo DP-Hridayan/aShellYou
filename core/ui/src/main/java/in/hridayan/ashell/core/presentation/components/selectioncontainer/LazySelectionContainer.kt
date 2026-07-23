@@ -740,22 +740,31 @@ private fun SelectionToolbar(
                 ): IntOffset {
                     val anchor = anchorProvider() ?: return IntOffset.Zero
 
-                    val fitsAbove = anchor.y - gapPx - popupContentSize.height >= 0f
-                    val y = if (fitsAbove) {
-                        anchor.y - gapPx - popupContentSize.height
+                    val absoluteAnchorY = anchorBounds.top + anchor.y
+                    val fitsAbove = absoluteAnchorY - gapPx - popupContentSize.height >= 0f
+
+                    val absoluteY = if (fitsAbove) {
+                        absoluteAnchorY - gapPx - popupContentSize.height
                     } else {
-                        anchor.y + maxOf(gapPx, handleTouchPx)
+                        absoluteAnchorY + maxOf(gapPx, handleTouchPx)
                     }
-                    val clampedY = y.coerceIn(
-                        0f,
-                        (containerHeightPx - popupContentSize.height).coerceAtLeast(0f)
+
+                    val clampedAbsoluteY = absoluteY.toInt().coerceIn(
+                        0,
+                        (windowSize.height - popupContentSize.height).coerceAtLeast(0)
                     )
-                    val x = (anchor.x - popupContentSize.width / 2f)
-                        .coerceIn(0f, (containerWidthPx - popupContentSize.width).coerceAtLeast(0f))
+
+                    val absoluteAnchorX = anchorBounds.left + anchor.x
+                    val absoluteX = absoluteAnchorX - popupContentSize.width / 2f
+
+                    val clampedAbsoluteX = absoluteX.toInt().coerceIn(
+                        0,
+                        (windowSize.width - popupContentSize.width).coerceAtLeast(0)
+                    )
 
                     return IntOffset(
-                        x = anchorBounds.left + x.toInt(),
-                        y = anchorBounds.top + clampedY.toInt()
+                        x = clampedAbsoluteX,
+                        y = clampedAbsoluteY
                     )
                 }
             }
