@@ -29,7 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
+import `in`.hridayan.ashell.core.domain.model.WifiAdbState
 
 @Composable
 fun QRImage(

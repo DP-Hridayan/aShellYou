@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.shell.otg_adb_shell.domain.model
+package `in`.hridayan.ashell.core.domain.model
 
 sealed class OtgState {
     object Idle : OtgState()

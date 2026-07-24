@@ -21,11 +21,11 @@ import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
 import `in`.hridayan.ashell.shell.file_browser.domain.repository.FileBrowserRepository
 import `in`.hridayan.ashell.shell.file_browser.presentation.model.FileBrowserEvent
 import `in`.hridayan.ashell.shell.file_browser.presentation.model.FileBrowserState
-import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgConnection
-import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgState
+import `in`.hridayan.ashell.core.domain.model.OtgConnection
+import `in`.hridayan.ashell.core.domain.model.OtgState
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.repository.OtgRepository
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
-import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
+import `in`.hridayan.ashell.core.domain.model.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay

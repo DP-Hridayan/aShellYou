@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.shell.common.presentation.components.dialog
 
-
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween

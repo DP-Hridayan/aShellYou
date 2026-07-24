@@ -454,6 +454,8 @@
     <string name="logcat_is_running">Logcat is running</string>
     <string name="logcat_ive_granted_it">I\'ve granted it</string>
     <string name="logcat_no_logs">No logs yet</string>
+    <string name="logcat_tap_play">Tap ▶ to start logcat</string>
+
     <string name="logcat_notification_channel_description">Shown while logcat is actively collecting logs</string>
     <string name="logcat_notification_channel_name">Logcat Session</string>
     <string name="logcat_permission_body">Without this permission, only logs from aShellYou itself will be visible. Grant full access by running this command from a computer:</string>
@@ -500,6 +502,11 @@
     <string name="no_cloud_backup_found">No backup found on Google Drive</string>
     <string name="no_crashes">No crashes have been reported. aShell You is running smoothly.</string>
     <string name="no_device_connected">No device connected</string>
+    <string name="no_other_device_hint">Connect an external device to view its logs</string>
+    <string name="connect_via_wifi_adb">Connect via Wi-Fi ADB</string>
+    <string name="connect_via_otg">Connect via OTG</string>
+    <string name="logcat_source">Logcat Source</string>
+
     <string name="no_fastboot_device_error">Connected device is not in fastboot mode</string>
     <string name="no_files_download">No files selected (folders cannot be downloaded)</string>
     <string name="no_folder_selected">No folder selected</string>
@@ -525,6 +532,7 @@
     <string name="notification_style_error">If you cannot enter the Pairing Code from the notification, then you might need to change the Notification Shade to Android. Go to Notification Settings ~ Notification Style to change the Notification Style.  Otherwise you might not be able to enter the pairing code from the notification.</string>
     <string name="notification_styles">Notification styles</string>
     <string name="off">Off</string>
+    <string name="ok">OK</string>
     <string name="off_state" comment="Quick Settings tile toggle state label">Off</string>
     <string name="oldest" comment="Sorting option">Oldest</string>
     <string name="on">On</string>
@@ -628,6 +636,8 @@
     <string name="retry">Retry</string>
     <string name="root" translatable="false">Root</string>
     <string name="root_access_granted">Root access granted!</string>
+    <string name="root_unavailable">Root Not Available</string>
+    <string name="root_unavailable_message">Root access could not be detected. Ensure your device is rooted and try again, or switch to a different logcat source.</string>
     <string name="running">Running</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Save</string>
@@ -791,6 +801,8 @@
     <string name="wireless_debugging_guide_2">Enter the six digit Pairing Code into the notification sent by aShell You.</string>
     <string name="wireless_debugging_guide_3">Come back to the app and click on the \"Start\" button in the home screen.</string>
     <string name="wireless_debugging_important_notice">Please note that the left part of the Wireless Debugging option is clickable. Tapping on it will open the Wireless Debugging Pairing menu.</string>
+    <string name="wireless_not_connected">Not Connected</string>
+    <string name="wireless_not_connected_message">Your device is not connected via Wireless Debugging. Pair and connect your device first.</string>
     <string name="Z_A" translatable="false">Z → A</string>
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d new entry</item>

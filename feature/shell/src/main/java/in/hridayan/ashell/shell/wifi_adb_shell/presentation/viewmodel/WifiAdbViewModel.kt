@@ -8,9 +8,9 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.DiscoveredPairingService
-import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
-import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
-import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
+import `in`.hridayan.ashell.core.domain.model.WifiAdbConnection
+import `in`.hridayan.ashell.core.domain.model.WifiAdbDevice
+import `in`.hridayan.ashell.core.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

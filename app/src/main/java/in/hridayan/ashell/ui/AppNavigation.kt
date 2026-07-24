@@ -238,7 +238,7 @@ fun AppNavigation(isFirstLaunch: Boolean = false) {
             }
 
             composable<NavRoutes.LogcatScreen> {
-                LogcatScreen()
+                LogcatScreen(navController = navController)
             }
 
         }

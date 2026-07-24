@@ -35,8 +35,8 @@ import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ConnectedDeviceDialog
 import `in`.hridayan.ashell.shell.common.presentation.screens.BaseShellScreen
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
-import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
-import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
+import `in`.hridayan.ashell.core.domain.model.WifiAdbConnection
+import `in`.hridayan.ashell.core.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.DeviceDisconnectedDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
 

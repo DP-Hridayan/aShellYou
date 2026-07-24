@@ -79,9 +79,9 @@ import `in`.hridayan.ashell.core.utils.isNotificationPermissionGranted
 import `in`.hridayan.ashell.core.utils.registerNetworkCallback
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
-import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
-import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbEvent
-import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
+import `in`.hridayan.ashell.core.domain.model.WifiAdbConnection
+import `in`.hridayan.ashell.core.domain.model.WifiAdbEvent
+import `in`.hridayan.ashell.core.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.GrantNotificationAccessDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairDialogKey
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ReconnectFailedDialog

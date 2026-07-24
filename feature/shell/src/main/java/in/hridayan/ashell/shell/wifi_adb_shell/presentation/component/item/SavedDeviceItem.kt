@@ -34,7 +34,7 @@ import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
+import `in`.hridayan.ashell.core.domain.model.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ForgetDeviceConfirmationDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairDialogKey
 import java.text.SimpleDateFormat

@@ -7,7 +7,7 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbReposito
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl.PairingListener
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl.ReconnectListener
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.DiscoveredPairingService
-import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
+import `in`.hridayan.ashell.core.domain.model.WifiAdbDevice
 import kotlinx.coroutines.flow.Flow
 
 interface WifiAdbRepository {

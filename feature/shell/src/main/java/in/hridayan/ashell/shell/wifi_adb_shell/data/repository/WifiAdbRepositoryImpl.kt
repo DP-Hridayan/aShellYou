@@ -16,10 +16,10 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.database.WifiAdbDevi
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.mapper.toDomainList
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.mapper.toEntity
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.DiscoveredPairingService
-import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
-import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
-import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbEvent
-import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
+import `in`.hridayan.ashell.core.domain.model.WifiAdbConnection
+import `in`.hridayan.ashell.core.domain.model.WifiAdbDevice
+import `in`.hridayan.ashell.core.domain.model.WifiAdbEvent
+import `in`.hridayan.ashell.core.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import `in`.hridayan.ashell.shell.wifi_adb_shell.service.AdbConnectionService
 import io.github.muntashirakon.adb.AdbPairingRequiredException
@@ -1398,7 +1398,7 @@ class WifiAdbRepositoryImpl(
 
                 // Check if service name contains our serial
                 // Service name format: adb-{serial}-{random}
-                if (serviceName.contains(targetSerial, ignoreCase = true)) {
+                if (targetSerial != null && serviceName.contains(targetSerial, ignoreCase = true)) {
                     Log.d(TAG, "Serial matching: Service name matches! Resolving $serviceName")
 
                     nsdManager.resolveService(info, object : NsdManager.ResolveListener {

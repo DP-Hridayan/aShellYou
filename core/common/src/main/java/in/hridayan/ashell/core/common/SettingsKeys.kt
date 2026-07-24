@@ -127,6 +127,12 @@ sealed class SettingsKeys<out T>(
         )
 
     data object BookmarkSortType : SettingsKeys<Int>("BOOKMARK_SORT_TYPE", SortType.AZ)
+    data object LogcatMode :
+        SettingsKeys<Int>(
+            "LOGCAT_WORKING_MODE",
+            `in`.hridayan.ashell.core.domain.model.LogcatWorkingMode.BASIC
+        )
+
     data object CommandSortType : SettingsKeys<Int>("COMMAND_SORT_TYPE", SortType.AZ)
     data object AiCacheDays : SettingsKeys<Int>("AI_CACHE_DAYS", 30)
     data object AutoBackupTimeHour : SettingsKeys<Int>("AUTO_BACKUP_TIME_HOUR", 2)

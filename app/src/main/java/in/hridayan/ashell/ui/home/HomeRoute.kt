@@ -11,6 +11,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.domain.model.FastbootState
+import `in`.hridayan.ashell.core.domain.model.OtgState
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.home.presentation.screens.HomeScreen
@@ -18,7 +19,6 @@ import `in`.hridayan.ashell.home.presentation.viewmodel.HomeViewModel
 import `in`.hridayan.ashell.logcat.presentation.viewmodel.LogcatViewModel
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog.FastbootDeviceWaitingDialog
 import `in`.hridayan.ashell.shell.fastboot.presentation.viewmodel.FastbootViewModel
-import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgState
 import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.components.dialog.OtgDeviceWaitingDialog
 import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.viewmodel.OtgViewModel
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.bottomsheet.SavedDevicesBottomSheet

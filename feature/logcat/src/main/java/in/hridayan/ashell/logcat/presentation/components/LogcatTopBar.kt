@@ -2,18 +2,8 @@
 
 package `in`.hridayan.ashell.logcat.presentation.components
 
-
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.SizeTransform
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
-import androidx.compose.animation.togetherWith
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -22,115 +12,91 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.ashell.logcat.domain.model.LogFilter
 
+/**
+ * Logcat screen top app bar.
+ *
+ * Play/Pause controls the logging service (start/stop).
+ * Mode button (tab0 only) opens the source selection sheet.
+ * Filter and Clear are secondary actions.
+ */
 @Composable
 fun LogcatTopBar(
     isRunning: Boolean,
-    isAutoScrolling: Boolean,
+    showModeAction: Boolean,
     searchVisible: Boolean,
-    activeFilter: LogFilter,
-    onToggleSearch: () -> Unit,
-    onSearchQueryChange: (String) -> Unit,
-    onTogglePlayPause: () -> Unit,
+    isPreflightChecking: Boolean,
+    onSearchToggle: () -> Unit,
+    onPlayPause: () -> Unit,
+    onModeClick: () -> Unit,
     onOpenFilter: () -> Unit,
     onClear: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val focusRequester = remember { FocusRequester() }
-
-    LaunchedEffect(searchVisible) {
-        if (searchVisible) focusRequester.requestFocus()
-    }
-
     TopAppBar(
         modifier = modifier,
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.surface,
         ),
         title = {
-            AnimatedContent(
-                targetState = searchVisible,
-                transitionSpec = {
-                    (slideInVertically { -it } + fadeIn())
-                        .togetherWith(slideOutVertically { it } + fadeOut())
-                        .using(SizeTransform(clip = false))
-                },
-                label = "search_toggle"
-            ) { showSearch ->
-                if (showSearch) {
-                    BasicTextField(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .focusRequester(focusRequester),
-                        value = activeFilter.searchQuery,
-                        onValueChange = onSearchQueryChange,
-                        singleLine = true,
-                        textStyle = MaterialTheme.typography.bodyLarge.copy(
-                            color = MaterialTheme.colorScheme.onSurface,
-                        ),
-                        cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
-                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-                        keyboardActions = KeyboardActions(onSearch = { onToggleSearch() }),
-                        decorationBox = { inner ->
-                            if (activeFilter.searchQuery.isEmpty()) {
-                                Text(
-                                    text = stringResource(R.string.logcat_filter_search_hint),
-                                    style = MaterialTheme.typography.bodyLarge,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                )
-                            }
-                            inner()
-                        }
-                    )
-                } else {
-                    Text(
-                        text = stringResource(R.string.logcat),
-                        style = MaterialTheme.typography.titleLarge,
-                    )
-                }
-            }
+            Text(
+                text = stringResource(R.string.logcat),
+                style = MaterialTheme.typography.titleLarge,
+            )
         },
         actions = {
             // Search toggle
-            IconButton(onClick = onToggleSearch) {
+            IconButton(onClick = onSearchToggle) {
                 Icon(
-                    painter = painterResource(
-                        if (searchVisible) R.drawable.ic_cancel else R.drawable.ic_search
-                    ),
+                    painter = painterResource(R.drawable.ic_search),
                     contentDescription = stringResource(R.string.search),
+                    tint = if (searchVisible)
+                        MaterialTheme.colorScheme.primary
+                    else
+                        MaterialTheme.colorScheme.onSurface,
                 )
             }
 
-            // Play / Pause — controls the logcat service (start/stop logging)
-            // Red tint when running = tap to stop; green tint when stopped = tap to start
-            IconButton(onClick = onTogglePlayPause) {
-                Icon(
-                    painter = painterResource(
-                        if (isRunning) R.drawable.ic_pause else R.drawable.ic_play
-                    ),
-                    contentDescription = if (isRunning)
-                        stringResource(R.string.stop)
-                    else
-                        stringResource(R.string.resume),
-                    tint = if (isRunning)
-                        MaterialTheme.colorScheme.error
-                    else
-                        MaterialTheme.colorScheme.primary,
-                )
+            if (showModeAction) {
+                IconButton(onClick = onModeClick) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_settings),
+                        contentDescription = stringResource(R.string.logcat_source),
+                    )
+                }
             }
 
-            // Filter
+            IconButton(
+                onClick = onPlayPause,
+                enabled = !isPreflightChecking,
+            ) {
+                if (isPreflightChecking) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.padding(4.dp),
+                        strokeWidth = 2.dp,
+                    )
+                } else {
+                    Icon(
+                        painter = painterResource(
+                            if (isRunning) R.drawable.ic_pause else R.drawable.ic_play
+                        ),
+                        contentDescription = if (isRunning)
+                            stringResource(R.string.stop)
+                        else
+                            stringResource(R.string.resume),
+                        tint = if (isRunning)
+                            MaterialTheme.colorScheme.error
+                        else
+                            MaterialTheme.colorScheme.primary,
+                    )
+                }
+            }
+
             IconButton(onClick = onOpenFilter) {
                 Icon(
                     painter = painterResource(R.drawable.ic_filter_alt),
@@ -138,7 +104,6 @@ fun LogcatTopBar(
                 )
             }
 
-            // Clear
             IconButton(onClick = onClear) {
                 Icon(
                     painter = painterResource(R.drawable.ic_delete),

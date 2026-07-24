@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.shell.otg_adb_shell.domain.model
+package `in`.hridayan.ashell.core.domain.model
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

@@ -1,7 +1,7 @@
 package `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.mapper
 
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.model.WifiAdbDeviceEntity
-import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
+import `in`.hridayan.ashell.core.domain.model.WifiAdbDevice
 
 /**
  * Mapper extensions to convert between Room entity and domain model.

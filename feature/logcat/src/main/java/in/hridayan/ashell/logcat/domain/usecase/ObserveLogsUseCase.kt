@@ -9,18 +9,18 @@ import kotlinx.coroutines.flow.mapNotNull
 import javax.inject.Inject
 
 /**
- * Parses raw lines from [LogcatEmitter] into [LogEntry] objects.
+ * Parses raw lines from a [LogcatEmitter] into [LogEntry] objects.
  *
- * IDs are sourced from [LogcatSessionHolder.nextId] which is a @Singleton
- * monotonically-increasing counter. This guarantees IDs never reset even
- * when the service is stopped and restarted — preventing duplicate
- * LazyColumn keys that cause runtime crashes.
+ * The emitter is now passed at call-site so the service can swap it
+ * dynamically based on [LocalAdbWorkingMode] without restarting the use-case.
+ *
+ * IDs are sourced from [LogcatSessionHolder.nextId] — a singleton monotonically-
+ * increasing counter — guaranteeing unique LazyColumn keys across service restarts.
  */
 class ObserveLogsUseCase @Inject constructor(
-    private val emitter: LogcatEmitter,
     private val sessionHolder: LogcatSessionHolder,
 ) {
-    operator fun invoke(): Flow<LogEntry> =
+    operator fun invoke(emitter: LogcatEmitter): Flow<LogEntry> =
         emitter.lines()
             .mapNotNull { line -> LogcatParser.parse(line, sessionHolder.nextId()) }
 }

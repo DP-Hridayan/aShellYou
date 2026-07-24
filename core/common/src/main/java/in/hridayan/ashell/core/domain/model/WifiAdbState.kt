@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model
+package `in`.hridayan.ashell.core.domain.model
 
 /**
  * Represents the persistent connection state of WiFi ADB.

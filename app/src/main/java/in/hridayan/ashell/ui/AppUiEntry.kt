@@ -20,6 +20,8 @@ import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalSharedTransitionScope
 import `in`.hridayan.ashell.core.common.SettingsKeys
+import `in`.hridayan.ashell.core.domain.model.OtgConnection
+import `in`.hridayan.ashell.core.domain.model.OtgState
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.isNetworkAvailable
 import `in`.hridayan.ashell.core.utils.showToast
@@ -27,8 +29,6 @@ import `in`.hridayan.ashell.settings.domain.model.UpdateResult
 import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.UpdateBottomSheet
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
-import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgConnection
-import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgState
 import `in`.hridayan.ashell.ui.bottomsheet.ChangelogBottomSheet
 import kotlinx.coroutines.flow.collectLatest
 

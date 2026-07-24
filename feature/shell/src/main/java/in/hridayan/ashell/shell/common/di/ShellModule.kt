@@ -1,5 +1,6 @@
 package `in`.hridayan.ashell.shell.common.di
 
+import `in`.hridayan.ashell.core.domain.model.ExternalDeviceShell
 import android.content.Context
 import dagger.Module
 import dagger.Provides
@@ -8,6 +9,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import `in`.hridayan.ashell.core.domain.repository.ShellRepository
 import `in`.hridayan.ashell.shell.common.data.repository.ShellRepositoryImpl
+import `in`.hridayan.ashell.shell.common.data.shell.OtgDeviceShell
+import `in`.hridayan.ashell.shell.common.data.shell.WifiAdbOtherDeviceShell
+import `in`.hridayan.ashell.shell.common.data.shell.WifiAdbOwnDeviceShell
 import `in`.hridayan.ashell.shell.fastboot.data.repository.FastbootRepositoryImpl
 import `in`.hridayan.ashell.shell.fastboot.domain.repository.FastbootRepository
 import `in`.hridayan.ashell.shell.local_adb_shell.data.shell.ShellCommandExecutor
@@ -17,6 +21,7 @@ import `in`.hridayan.ashell.shell.otg_adb_shell.domain.repository.OtgRepository
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.database.WifiAdbDeviceDao
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -50,4 +55,19 @@ object ShellModule {
     fun provideFastbootRepository(@ApplicationContext context: Context): FastbootRepository {
         return FastbootRepositoryImpl(context)
     }
+
+    @Provides
+    @Singleton
+    @Named("otg")
+    fun provideOtgDeviceShell(impl: OtgDeviceShell): ExternalDeviceShell = impl
+
+    @Provides
+    @Singleton
+    @Named("wifiAdb")
+    fun provideWifiAdbOtherDeviceShell(impl: WifiAdbOtherDeviceShell): ExternalDeviceShell = impl
+
+    @Provides
+    @Singleton
+    @Named("wifiAdbOwn")
+    fun provideWifiAdbOwnDeviceShell(impl: WifiAdbOwnDeviceShell): ExternalDeviceShell = impl
 }
