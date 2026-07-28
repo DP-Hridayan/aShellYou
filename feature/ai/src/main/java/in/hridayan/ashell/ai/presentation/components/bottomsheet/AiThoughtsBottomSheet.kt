@@ -52,10 +52,10 @@ fun AiThoughtsBottomSheet(
         sheetState = sheetState,
         dragHandle = null
     ) {
-        Spacer(modifier = Modifier.height(36.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
         AutoResizeableText(
-            modifier = Modifier.padding(horizontal = 20.dp),
+            modifier = Modifier.padding(horizontal = 20.dp, vertical = 24.dp),
             text = stringResource(R.string.ai_chat_thoughts),
             style = MaterialTheme.typography.titleLarge,
         )
@@ -63,7 +63,7 @@ fun AiThoughtsBottomSheet(
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 24.dp)
+                .padding(horizontal = 20.dp)
         ) {
             itemsIndexed(thoughts) { index, thought ->
                 val isLastInList = index == thoughts.lastIndex
