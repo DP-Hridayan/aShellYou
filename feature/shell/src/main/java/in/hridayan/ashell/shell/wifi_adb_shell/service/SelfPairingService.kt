@@ -16,10 +16,10 @@ import dagger.hilt.components.SingletonComponent
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.common.data.adb.AdbConnectionManager
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
-import `in`.hridayan.ashell.core.domain.model.WifiAdbConnection
-import `in`.hridayan.ashell.core.domain.model.WifiAdbDevice
-import `in`.hridayan.ashell.core.domain.model.WifiAdbEvent
-import `in`.hridayan.ashell.core.domain.model.WifiAdbState
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbConnection
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbDevice
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbEvent
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import `in`.hridayan.ashell.shell.wifi_adb_shell.notification.SelfPairingNotificationHelper
 import io.github.muntashirakon.adb.AbsAdbConnectionManager

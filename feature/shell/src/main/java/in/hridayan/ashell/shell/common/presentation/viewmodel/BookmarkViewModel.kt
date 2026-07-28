@@ -7,7 +7,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import `in`.hridayan.ashell.core.domain.model.SortType
+import `in`.hridayan.ashell.core.common.domain.model.SortType
 import `in`.hridayan.ashell.shell.common.data.model.BookmarkEntity
 import `in`.hridayan.ashell.shell.common.domain.repository.BookmarkRepository
 import kotlinx.coroutines.Dispatchers

@@ -9,7 +9,7 @@ import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import `in`.hridayan.ashell.core.domain.model.FastbootState
+import `in`.hridayan.ashell.core.common.domain.model.FastbootState
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootCommandResult
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootConnection
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootDeviceInfo

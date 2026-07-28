@@ -15,8 +15,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.common.constants.UrlConst
-import `in`.hridayan.ashell.core.common.domain.model.BackupType
-import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.common.domain.model.backup.BackupType
+import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.settings.data.worker.BackupScheduler
 import `in`.hridayan.ashell.settings.domain.repository.GoogleAuthRepository
@@ -70,7 +70,7 @@ class SettingsViewModel @Inject constructor(
     val behaviorPage = SettingsProvider.behaviorPage
     val aboutPage = SettingsProvider.aboutPage
     val backupPage = SettingsProvider.backupPage
-    val aiModelsPage = SettingsProvider.aiModelsPage
+    val aiSettingsPage = SettingsProvider.aiSettingsPage
     val backupSchedulerPage = SettingsProvider.backupSchedulerPage
 
     private val _uiEvent = MutableSharedFlow<SettingsUiEvent>()
@@ -267,12 +267,8 @@ class SettingsViewModel @Inject constructor(
                     SettingsUiEvent.ShowDialog(SettingsDialogKey.ConfigureSaveDir)
                 )
 
-                SettingsKeys.AiModelManager -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.AiModelManagerScreen())
-                )
-
-                SettingsKeys.AiModels -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.ModelsScreen)
+                SettingsKeys.CloudModels -> _uiEvent.emit(
+                    SettingsUiEvent.Navigate(NavRoutes.AiModelsScreen)
                 )
 
                 SettingsKeys.AiCacheDays -> _uiEvent.emit(

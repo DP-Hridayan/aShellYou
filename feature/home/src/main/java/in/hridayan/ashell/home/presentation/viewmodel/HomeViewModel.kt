@@ -4,7 +4,7 @@ import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import `in`.hridayan.ashell.core.domain.repository.ShellRepository
+import `in`.hridayan.ashell.core.common.domain.repository.ShellRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

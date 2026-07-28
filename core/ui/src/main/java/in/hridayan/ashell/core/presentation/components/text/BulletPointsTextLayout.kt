@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.FirstBaseline
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 
@@ -26,11 +27,31 @@ fun BulletPointsTextLayout(
     bulletColor: Color = MaterialTheme.colorScheme.primary,
     verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(20.dp)
 ) {
+    BulletPointsTextLayout(
+        modifier = modifier,
+        annotatedTextLines = textLines.map { AnnotatedString(it) },
+        textColor = textColor,
+        textStyle = textStyle,
+        bulletColor = bulletColor,
+        verticalArrangement = verticalArrangement,
+    )
+}
+
+@JvmName("AnnotatedBulletPointsTextLayout")
+@Composable
+fun BulletPointsTextLayout(
+    modifier: Modifier = Modifier,
+    annotatedTextLines: List<AnnotatedString>,
+    textColor: Color = MaterialTheme.colorScheme.onSurface,
+    textStyle: TextStyle = MaterialTheme.typography.bodySmall,
+    bulletColor: Color = MaterialTheme.colorScheme.primary,
+    verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(20.dp),
+) {
     Column(
         modifier = modifier,
         verticalArrangement = verticalArrangement
     ) {
-        textLines.forEach { item ->
+        annotatedTextLines.forEach { item ->
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(10.dp)

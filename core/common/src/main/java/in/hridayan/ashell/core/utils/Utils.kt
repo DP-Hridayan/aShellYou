@@ -10,7 +10,7 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
 import androidx.core.net.toUri
-import `in`.hridayan.ashell.core.domain.model.SharedTextHolder
+import `in`.hridayan.ashell.core.common.domain.model.SharedTextHolder
 
 fun openUrl(url: String, context: Context) {
     try {

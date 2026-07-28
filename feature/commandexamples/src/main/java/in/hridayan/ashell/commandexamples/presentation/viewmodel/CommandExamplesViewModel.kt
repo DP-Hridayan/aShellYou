@@ -10,10 +10,15 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.commandexamples.presentation.model.CmdExamplesScreenState
 import `in`.hridayan.ashell.core.common.SettingsKeys
-import `in`.hridayan.ashell.core.domain.model.CommandEntity
-import `in`.hridayan.ashell.core.domain.model.SortType
-import `in`.hridayan.ashell.core.domain.repository.CommandRepository
-import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.common.domain.model.CommandEntity
+import `in`.hridayan.ashell.core.common.domain.model.SortType
+import `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException
+import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
+import `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository
+import `in`.hridayan.ashell.core.common.domain.repository.CommandRepository
+import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.common.domain.usecase.ai.AnalyzeCommandUseCase
+import `in`.hridayan.ashell.core.presentation.model.AiAnalysisUiState
 import `in`.hridayan.ashell.core.resources.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -21,6 +26,7 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
@@ -35,8 +41,17 @@ import javax.inject.Inject
 class CommandExamplesViewModel @Inject constructor(
     private val commandRepository: CommandRepository,
     private val settingsRepository: SettingsRepository,
-    @param:ApplicationContext private val appContext: Context
+    private val analyzeCommandUseCase: AnalyzeCommandUseCase,
+    @param:ApplicationContext private val appContext: Context,
+    private val apiKeyRepository: ApiKeyRepository
 ) : ViewModel() {
+    private val _showApiKeyRequiredDialog = MutableStateFlow(false)
+    val showApiKeyRequiredDialog = _showApiKeyRequiredDialog.asStateFlow()
+
+    fun dismissApiKeyRequiredDialog() {
+        _showApiKeyRequiredDialog.value = false
+    }
+
     private val _states = MutableStateFlow(CmdExamplesScreenState())
     val states: StateFlow<CmdExamplesScreenState> = _states
 
@@ -59,6 +74,9 @@ class CommandExamplesViewModel @Inject constructor(
 
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
+
+    private val _aiAnalysisState = MutableStateFlow<AiAnalysisUiState>(AiAnalysisUiState.Idle)
+    val aiAnalysisState: StateFlow<AiAnalysisUiState> = _aiAnalysisState
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -380,9 +398,31 @@ class CommandExamplesViewModel @Inject constructor(
         }
     }
 
-    fun setCommandSortType(value: Int) {
-        viewModelScope.launch {
-            settingsRepository.setInt(SettingsKeys.CommandSortType, value)
+    fun analyzeCommand(command: String) {
+        if (command.isBlank()) return
+        if (apiKeyRepository.getKey(LlmProvider.Gemini).isNullOrBlank()) {
+            _showApiKeyRequiredDialog.value = true
+            return
         }
+
+        viewModelScope.launch {
+            _aiAnalysisState.value = AiAnalysisUiState.Loading
+            try {
+                val result = analyzeCommandUseCase(command)
+                _aiAnalysisState.value = AiAnalysisUiState.Success(result)
+            } catch (e: Exception) {
+                if (e is CloudNetworkException.ProviderNotConfigured) {
+                    _showApiKeyRequiredDialog.value = true
+                } else {
+                    _aiAnalysisState.value = AiAnalysisUiState.Error(
+                        e.localizedMessage ?: appContext.getString(R.string.unexpected_error)
+                    )
+                }
+            }
+        }
+    }
+
+    fun resetAiAnalysisState() {
+        _aiAnalysisState.value = AiAnalysisUiState.Idle
     }
 }

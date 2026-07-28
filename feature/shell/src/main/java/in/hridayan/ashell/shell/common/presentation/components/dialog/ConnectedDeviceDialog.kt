@@ -60,7 +60,7 @@ import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
 import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
 import `in`.hridayan.ashell.core.presentation.model.ButtonType
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.ashell.core.ui.provider.RadioGroupOptionsProvider
+import `in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider
 import kotlinx.coroutines.launch
 
 @Composable

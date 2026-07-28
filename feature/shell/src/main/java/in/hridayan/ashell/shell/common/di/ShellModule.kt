@@ -1,13 +1,13 @@
 package `in`.hridayan.ashell.shell.common.di
 
-import `in`.hridayan.ashell.core.domain.model.ExternalDeviceShell
+import `in`.hridayan.ashell.core.common.domain.model.ExternalDeviceShell
 import android.content.Context
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import `in`.hridayan.ashell.core.domain.repository.ShellRepository
+import `in`.hridayan.ashell.core.common.domain.repository.ShellRepository
 import `in`.hridayan.ashell.shell.common.data.repository.ShellRepositoryImpl
 import `in`.hridayan.ashell.shell.common.data.shell.OtgDeviceShell
 import `in`.hridayan.ashell.shell.common.data.shell.WifiAdbOtherDeviceShell
@@ -17,7 +17,7 @@ import `in`.hridayan.ashell.shell.fastboot.domain.repository.FastbootRepository
 import `in`.hridayan.ashell.shell.local_adb_shell.data.shell.ShellCommandExecutor
 import `in`.hridayan.ashell.shell.local_adb_shell.data.shizuku.ShizukuPermissionHandler
 import `in`.hridayan.ashell.shell.otg_adb_shell.data.repository.OtgRepositoryImpl
-import `in`.hridayan.ashell.shell.otg_adb_shell.domain.repository.OtgRepository
+import `in`.hridayan.ashell.core.common.domain.repository.OtgRepository
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.database.WifiAdbDeviceDao
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository

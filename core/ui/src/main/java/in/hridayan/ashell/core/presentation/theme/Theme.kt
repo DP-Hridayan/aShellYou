@@ -17,11 +17,13 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalSettings
+import `in`.hridayan.ashell.core.common.LocalUserGeneratedColorScheme
 import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.theme.color.darkColorSchemeFromSeed
 import `in`.hridayan.ashell.core.presentation.theme.color.highContrastDarkColorSchemeFromSeed
 import `in`.hridayan.ashell.core.presentation.theme.color.highContrastDynamicDarkColorScheme
 import `in`.hridayan.ashell.core.presentation.theme.color.lightColorSchemeFromSeed
+import `in`.hridayan.ashell.core.presentation.theme.color.toColorScheme
 
 @Composable
 fun AshellYouTheme(
@@ -30,9 +32,11 @@ fun AshellYouTheme(
     val view = LocalView.current
     val context = LocalContext.current
     val darkTheme = LocalDarkMode.current
+    val generatedColorScheme = LocalUserGeneratedColorScheme.current
     val settings = LocalSettings.current
     val dynamicColor = settings[SettingsKeys.DynamicColors]
     val isHighContrastDarkTheme = settings[SettingsKeys.HighContrastDarkMode]
+    val isUserGeneratedColorSchemeApplied = settings[SettingsKeys.UserGeneratedColorSchemeApplied]
 
     LaunchedEffect(darkTheme) {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.R) {
@@ -55,6 +59,8 @@ fun AshellYouTheme(
     }
 
     val colorScheme = when {
+        isUserGeneratedColorSchemeApplied && generatedColorScheme != null && !dynamicColor -> generatedColorScheme.toColorScheme()
+
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             if (darkTheme && isHighContrastDarkTheme) highContrastDynamicDarkColorScheme(context)
             else if (darkTheme) dynamicDarkColorScheme(context)

@@ -1,7 +1,7 @@
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog
 
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
-import `in`.hridayan.ashell.core.domain.model.WifiAdbDevice
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbDevice
 
 sealed interface PairDialogKey : DialogKey {
     object GrantNotificationAccess : PairDialogKey

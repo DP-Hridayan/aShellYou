@@ -10,7 +10,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import `in`.hridayan.ashell.core.domain.model.OutputLine
+import `in`.hridayan.ashell.core.common.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.common.presentation.model.ShellScreenState
 import `in`.hridayan.ashell.shell.common.presentation.util.highlightQueryText
 

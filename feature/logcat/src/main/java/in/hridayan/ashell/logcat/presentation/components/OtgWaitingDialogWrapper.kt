@@ -2,8 +2,8 @@ package `in`.hridayan.ashell.logcat.presentation.components
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.components.dialog.OtgDeviceWaitingDialog
-import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.viewmodel.OtgViewModel
+import `in`.hridayan.ashell.core.presentation.components.dialog.OtgDeviceWaitingDialog
+import `in`.hridayan.ashell.core.ui.otg.OtgViewModel
 
 /**
  * Thin wrapper that calls [OtgDeviceWaitingDialog] from the logcat module.

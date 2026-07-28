@@ -15,6 +15,8 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,10 +28,12 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.Density
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.core.data.local.provider.AppSeedColors
-import `in`.hridayan.ashell.core.data.local.provider.SeedColor
-import `in`.hridayan.ashell.core.domain.model.PaletteStyle
+import `in`.hridayan.ashell.core.common.data.provider.AppSeedColors
+import `in`.hridayan.ashell.core.common.data.provider.SeedColor
+import `in`.hridayan.ashell.core.common.domain.model.PaletteStyle
 import `in`.hridayan.ashell.core.presentation.components.snackbar.SnackBarController
+import `in`.hridayan.ashell.core.presentation.theme.UserGeneratedColorSchemeViewModel
+import `in`.hridayan.ashell.core.presentation.theme.domain.model.UserGeneratedColorScheme
 import `in`.hridayan.ashell.core.presentation.utils.HapticUtils.strongHaptic
 import `in`.hridayan.ashell.core.presentation.utils.HapticUtils.weakHaptic
 import `in`.hridayan.ashell.core.presentation.viewmodel.DialogViewModel
@@ -47,6 +51,7 @@ val LocalTonalPalette = staticCompositionLocalOf<List<AppSeedColors>> {
     error("No tonal palette provided")
 }
 val LocalPaletteStyle = staticCompositionLocalOf { PaletteStyle.TONAL_SPOT }
+val LocalUserGeneratedColorScheme = staticCompositionLocalOf<UserGeneratedColorScheme?> { null }
 
 val LocalSharedTransitionScope = staticCompositionLocalOf<SharedTransitionScope> {
     error("No shared transition scope provided")
@@ -68,6 +73,7 @@ val LocalSnackBarController = staticCompositionLocalOf<SnackBarController> {
 fun CompositionLocals(
     settingsState: SettingsState,
     dialogViewModel: DialogViewModel = hiltViewModel(),
+    userGeneratedColorSchemeViewModel: UserGeneratedColorSchemeViewModel = hiltViewModel(),
     content: @Composable () -> Unit
 ) {
     val view = LocalView.current
@@ -76,6 +82,7 @@ fun CompositionLocals(
     val configuration = LocalConfiguration.current
 
     // Theme
+    val isDynamicColor = settingsState[SettingsKeys.DynamicColors]
     val themeMode = settingsState[SettingsKeys.ThemeMode]
     val primarySeed = settingsState[SettingsKeys.PrimarySeed]
     val seedColor = SeedColor(primarySeed)
@@ -83,6 +90,18 @@ fun CompositionLocals(
     val paletteStyle = remember(paletteStyleOrdinal) {
         PaletteStyle.entries.getOrElse(paletteStyleOrdinal) { PaletteStyle.TONAL_SPOT }
     }
+
+    val userGeneratedColorSchemeApplied =
+        settingsState[SettingsKeys.UserGeneratedColorSchemeApplied]
+    val isCustomColorSchemeDarkThemed =
+        settingsState[SettingsKeys.IsCustomColorSchemeDarkThemed]
+    val appliedCustomThemeId = settingsState[SettingsKeys.AppliedCustomThemeId]
+
+    LaunchedEffect(appliedCustomThemeId) {
+        userGeneratedColorSchemeViewModel.loadGeneratedColorScheme(appliedCustomThemeId)
+    }
+
+    val activeGeneratedColorScheme by userGeneratedColorSchemeViewModel.activeUserGeneratedColorScheme.collectAsState()
 
     // Haptics
     val isHapticEnabled = settingsState[SettingsKeys.HapticsAndVibration]
@@ -150,6 +169,7 @@ fun CompositionLocals(
     // ── Derived values ──
     val isDarkTheme = when {
         autoDarkModeOnBatterySaver && isBatterySaverOn -> true
+        userGeneratedColorSchemeApplied && !isDynamicColor -> isCustomColorSchemeDarkThemed
         else -> when (themeMode) {
             AppCompatDelegate.MODE_NIGHT_YES -> true
             AppCompatDelegate.MODE_NIGHT_NO -> false
@@ -208,7 +228,8 @@ fun CompositionLocals(
         LocalTonalPalette provides tonalPalette,
         LocalPaletteStyle provides paletteStyle,
         LocalDialogManager provides dialogViewModel,
-        LocalSnackBarController provides snackbarController
+        LocalSnackBarController provides snackbarController,
+        LocalUserGeneratedColorScheme provides if (userGeneratedColorSchemeApplied) activeGeneratedColorScheme else null
     ) {
         content()
     }

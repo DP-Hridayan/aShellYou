@@ -13,12 +13,19 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.core.common.SettingsKeys
-import `in`.hridayan.ashell.core.domain.model.CommandEntity
-import `in`.hridayan.ashell.core.domain.model.OutputLine
-import `in`.hridayan.ashell.core.domain.model.SortType
-import `in`.hridayan.ashell.core.domain.repository.CommandRepository
-import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
-import `in`.hridayan.ashell.core.domain.repository.ShellRepository
+import `in`.hridayan.ashell.core.common.domain.model.CommandEntity
+import `in`.hridayan.ashell.core.common.domain.model.OutputLine
+import `in`.hridayan.ashell.core.common.domain.model.SortType
+import `in`.hridayan.ashell.core.common.domain.repository.CommandRepository
+import `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException
+import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
+import `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository
+import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.common.domain.repository.ShellRepository
+import `in`.hridayan.ashell.core.common.domain.usecase.ai.AnalyzeCommandUseCase
+import `in`.hridayan.ashell.core.common.domain.usecase.ai.QueryCommandUseCase
+import `in`.hridayan.ashell.core.common.domain.tools.FindAppPackageTool
+import `in`.hridayan.ashell.core.presentation.model.AiAnalysisUiState
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.common.data.permission.PermissionProvider
 import `in`.hridayan.ashell.shell.common.domain.model.PackageInfo
@@ -34,16 +41,23 @@ import `in`.hridayan.ashell.shell.common.presentation.model.ShellScreenState
 import `in`.hridayan.ashell.shell.common.presentation.model.ShellState
 import `in`.hridayan.ashell.shell.domain.model.SaveProgress
 import `in`.hridayan.ashell.shell.domain.utils.saveToFileStreamingFlow
-import `in`.hridayan.ashell.shell.otg_adb_shell.domain.repository.OtgRepository
+import `in`.hridayan.ashell.core.common.domain.repository.OtgRepository
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -58,13 +72,24 @@ class ShellViewModel @Inject constructor(
     private val commandExamplesRepository: CommandRepository,
     private val packageRepository: PackageRepository,
     private val detectSuggestionTypeUseCase: DetectSuggestionTypeUseCase,
+    private val analyzeCommandUseCase: AnalyzeCommandUseCase,
+    private val queryCommandUseCase: QueryCommandUseCase,
+    private val findAppPackageTool: FindAppPackageTool,
     private val extractLastCommandOutputUseCase: ExtractLastCommandOutputUseCase,
     private val getSaveOutputFileNameUseCase: GetSaveOutputFileNameUseCase,
     private val otgRepository: OtgRepository,
     private val wifiAdbRepository: WifiAdbRepository,
     private val settingsRepository: SettingsRepository,
-    @param:ApplicationContext private val appContext: Context
+    @param:ApplicationContext private val appContext: Context,
+    private val apiKeyRepository: ApiKeyRepository
 ) : ViewModel() {
+    private val _showApiKeyRequiredDialog = MutableStateFlow(false)
+    val showApiKeyRequiredDialog = _showApiKeyRequiredDialog.asStateFlow()
+
+    fun dismissApiKeyRequiredDialog() {
+        _showApiKeyRequiredDialog.value = false
+    }
+
     private val _states = MutableStateFlow(ShellScreenState())
     val states: StateFlow<ShellScreenState> = _states
 
@@ -195,8 +220,18 @@ class ShellViewModel @Inject constructor(
                 emptyList()
             )
 
+    private val _aiAnalysisState = MutableStateFlow<AiAnalysisUiState>(AiAnalysisUiState.Idle)
+    val aiAnalysisState: StateFlow<AiAnalysisUiState> = _aiAnalysisState.asStateFlow()
+
+    private val _askAiState = MutableStateFlow<AiAnalysisUiState>(AiAnalysisUiState.Idle)
+    val askAiState: StateFlow<AiAnalysisUiState> = _askAiState.asStateFlow()
+
     fun updateButtonGroupHeight(newHeight: Dp) = with(_states.value) {
         _states.value = this.copy(buttonGroupHeight = newHeight)
+    }
+
+    fun resetAskAiState() {
+        _askAiState.value = AiAnalysisUiState.Idle
     }
 
     fun toggleSearchBar() = _states.update {
@@ -467,6 +502,35 @@ class ShellViewModel @Inject constructor(
         }
     }
 
+
+    fun analyzeCommand(command: String) {
+        if (command.isBlank()) return
+        if (apiKeyRepository.getKey(LlmProvider.Gemini).isNullOrBlank()) {
+            _showApiKeyRequiredDialog.value = true
+            return
+        }
+
+        viewModelScope.launch {
+            _aiAnalysisState.value = AiAnalysisUiState.Loading
+            try {
+                val result = analyzeCommandUseCase(command)
+                _aiAnalysisState.value = AiAnalysisUiState.Success(result)
+            } catch (e: Exception) {
+                if (e is CloudNetworkException.ProviderNotConfigured) {
+                    _showApiKeyRequiredDialog.value = true
+                } else {
+                    _aiAnalysisState.value = AiAnalysisUiState.Error(
+                        e.localizedMessage ?: appContext.getString(R.string.unexpected_error)
+                    )
+                }
+            }
+        }
+    }
+
+    fun resetAiAnalysisState() {
+        _aiAnalysisState.value = AiAnalysisUiState.Idle
+    }
+
     fun setLocalAdbWorkingMode(value: Int) {
         viewModelScope.launch {
             settingsRepository.setInt(SettingsKeys.LocalAdbWorkingMode, value)
@@ -476,6 +540,31 @@ class ShellViewModel @Inject constructor(
     fun setBookmarkSortType(value: Int) {
         viewModelScope.launch {
             settingsRepository.setInt(SettingsKeys.BookmarkSortType, value)
+        }
+    }
+
+    fun queryCommand(query: String) {
+        if (query.isBlank()) return
+        if (apiKeyRepository.getKey(LlmProvider.Gemini).isNullOrBlank()) {
+            _showApiKeyRequiredDialog.value = true
+            return
+        }
+
+        viewModelScope.launch {
+            _askAiState.value = AiAnalysisUiState.Loading
+            try {
+                // Pass available tools to the query use case
+                val result = queryCommandUseCase(query, listOf(findAppPackageTool))
+                _askAiState.value = AiAnalysisUiState.Success(result)
+            } catch (e: Exception) {
+                if (e is CloudNetworkException.ProviderNotConfigured) {
+                    _showApiKeyRequiredDialog.value = true
+                } else {
+                    _askAiState.value = AiAnalysisUiState.Error(
+                        e.localizedMessage ?: appContext.getString(R.string.unexpected_error)
+                    )
+                }
+            }
         }
     }
 }

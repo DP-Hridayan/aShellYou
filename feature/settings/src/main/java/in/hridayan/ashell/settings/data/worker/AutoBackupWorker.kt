@@ -15,8 +15,8 @@ import androidx.work.WorkerParameters
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import `in`.hridayan.ashell.core.common.SettingsKeys
-import `in`.hridayan.ashell.core.common.domain.model.BackupType
-import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.common.domain.model.backup.BackupType
+import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.settings.domain.repository.BackupAndRestoreRepository
 import `in`.hridayan.ashell.settings.domain.repository.GoogleAuthRepository

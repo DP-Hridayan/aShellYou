@@ -2,10 +2,10 @@ package `in`.hridayan.ashell.logcat.domain.usecase
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
-import `in`.hridayan.ashell.core.domain.model.LogcatWorkingMode
-import `in`.hridayan.ashell.core.domain.model.WifiAdbConnection
-import `in`.hridayan.ashell.core.domain.model.WifiAdbState
-import `in`.hridayan.ashell.core.domain.repository.ShellRepository
+import `in`.hridayan.ashell.core.common.domain.model.LogcatWorkingMode
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbConnection
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbState
+import `in`.hridayan.ashell.core.common.domain.repository.ShellRepository
 import `in`.hridayan.ashell.logcat.data.permission.LogcatPermissionHelper
 import `in`.hridayan.ashell.logcat.domain.model.LogcatPreflightResult
 import `in`.hridayan.ashell.logcat.domain.model.LogcatPreflightResult.NeedsReadLogs

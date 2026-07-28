@@ -1,7 +1,7 @@
 package `in`.hridayan.ashell.shell.local_adb_shell.data.shell
 
 import android.content.Context
-import `in`.hridayan.ashell.core.domain.model.OutputLine
+import `in`.hridayan.ashell.core.common.domain.model.OutputLine
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll

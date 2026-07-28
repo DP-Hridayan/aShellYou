@@ -54,7 +54,7 @@ import `in`.hridayan.ashell.core.common.LocalPaletteStyle
 import `in`.hridayan.ashell.core.common.LocalSeedColor
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.SettingsKeys
-import `in`.hridayan.ashell.core.domain.model.PaletteStyle
+import `in`.hridayan.ashell.core.common.domain.model.PaletteStyle
 import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -79,7 +79,7 @@ fun PaletteStylePickerDialog(
     val isDarkMode = LocalDarkMode.current
     val haptic = LocalHapticFeedback.current
     val currentStyle = LocalPaletteStyle.current
-    val primarySeed = LocalSeedColor.current.primary
+    val primarySeed = LocalSeedColor.current.seed
     val styles = PaletteStyle.entries.toList()
 
     var tempSelected by remember {

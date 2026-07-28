@@ -28,4 +28,6 @@ object UrlConst {
         "https://github.com/DP-Hridayan/aShellYou/wiki/OTG-ADB-Setup-Guide"
     const val URL_SHIZUKU_SITE = "https://shizuku.rikka.app"
     const val URL_CROWDIN_PROJECT = "https://crowdin.com/project/ashellyou"
+    const val URL_GOOGLE_GEMINI_API_KEY = "https://aistudio.google.com/app/apikey"
+    const val URL_GOOGLE_AI_STUDIO = "aistudio.google.com"
 }

@@ -20,6 +20,7 @@ import javax.inject.Singleton
 @Singleton
 class ShizukuLogcatEmitter @Inject constructor() : LogcatEmitter {
 
+    @Suppress("DEPRECATION")
     override fun lines(): Flow<String> = flow {
         if (!runCatching { Shizuku.pingBinder() }.getOrDefault(false)) return@flow
         val process = Shizuku.newProcess(

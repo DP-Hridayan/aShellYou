@@ -1,6 +1,6 @@
 package `in`.hridayan.ashell.settings.presentation.components.dialog
 
-import `in`.hridayan.ashell.core.common.domain.model.BackupType
+import `in`.hridayan.ashell.core.common.domain.model.backup.BackupType
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 
 sealed interface SettingsDialogKey : DialogKey {

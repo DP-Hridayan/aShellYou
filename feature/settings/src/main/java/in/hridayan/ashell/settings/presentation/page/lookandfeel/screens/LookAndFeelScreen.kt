@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens
 
-
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Spacer
@@ -36,6 +35,7 @@ import `in`.hridayan.ashell.core.common.LocalPaletteStyle
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.navigation.LocalNavController
+import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
@@ -72,6 +72,8 @@ fun LookAndFeelScreen(
     val hapticsEnabled = settings[SettingsKeys.HapticsAndVibration]
     val isDynamicColorEnabled = settings[SettingsKeys.DynamicColors]
     val autoScaleUI = settings[SettingsKeys.AutoScaleUi]
+    val userGeneratedColorSchemeApplied = settings[SettingsKeys.UserGeneratedColorSchemeApplied]
+    val isCustomColorSchemeDarkThemed = settings[SettingsKeys.IsCustomColorSchemeDarkThemed]
 
     var showFontStyleBottomSheet by remember { mutableStateOf(false) }
 
@@ -85,22 +87,6 @@ fun LookAndFeelScreen(
                 else -> {}
             }
         }
-    }
-
-    SettingsDialogKey.PaletteStyle.createDialog { dm ->
-        PaletteStylePickerDialog(
-            onDismiss = { dm.dismiss() },
-            onConfirm = { style ->
-                lookAndFeelViewModel.setPaletteStyle(style)
-                lookAndFeelViewModel.disableDynamicColors()
-            }
-        )
-    }
-
-    if (showFontStyleBottomSheet) {
-        FontStyleBottomSheet(
-            onDismiss = { showFontStyleBottomSheet = false }
-        )
     }
 
     val listState = rememberLazyListState()
@@ -126,6 +112,12 @@ fun LookAndFeelScreen(
             SettingsKeys.DarkTheme to {
                 when {
                     autoDarkModeOnBatterySaver && isDarkMode -> stringResource(R.string.on)
+
+                    userGeneratedColorSchemeApplied && !isDynamicColorEnabled -> {
+                        if (isCustomColorSchemeDarkThemed) stringResource(R.string.on)
+                        else stringResource(R.string.off)
+                    }
+
                     themeMode == AppCompatDelegate.MODE_NIGHT_YES -> stringResource(R.string.on)
                     themeMode == AppCompatDelegate.MODE_NIGHT_NO -> stringResource(R.string.off)
                     themeMode == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> stringResource(R.string.system)
@@ -139,7 +131,8 @@ fun LookAndFeelScreen(
             }
         ),
         visibilityOverrides = mapOf(
-            SettingsKeys.PaletteStyle to { !isDynamicColorEnabled }
+            SettingsKeys.PaletteStyle to { !(isDynamicColorEnabled || userGeneratedColorSchemeApplied) },
+            SettingsKeys.DarkTheme to { !userGeneratedColorSchemeApplied || isDynamicColorEnabled }
         ))
 
     AppScaffold(
@@ -171,17 +164,23 @@ fun LookAndFeelScreen(
                         modifier = Modifier.padding(20.dp),
                         onClickTab = { seedColor ->
                             lookAndFeelViewModel.setSeedColor(seedColor)
-                            lookAndFeelViewModel.disableDynamicColors()
+                            if (isDynamicColorEnabled) lookAndFeelViewModel.disableDynamicColors()
+                            if (userGeneratedColorSchemeApplied) lookAndFeelViewModel.disableUserGeneratedColorScheme()
                         },
                         onClickMonochromeTab = {
-                            lookAndFeelViewModel.disableDynamicColors()
+                            if (isDynamicColorEnabled) lookAndFeelViewModel.disableDynamicColors()
+                            if (userGeneratedColorSchemeApplied) lookAndFeelViewModel.disableUserGeneratedColorScheme()
+                        },
+                        onClickCreateTheme = {
+                            navController.navigate(NavRoutes.GenerateColorSchemeScreen)
                         }
                     )
                 }
 
                 settingsContent(
                     groups = resolvedGroups,
-                    viewModel = settingsViewModel, prefs = prefs,
+                    viewModel = settingsViewModel,
+                    prefs = prefs,
                     hapticsEnabled = hapticsEnabled
                 )
 
@@ -195,6 +194,21 @@ fun LookAndFeelScreen(
             }
         },
     )
+
+    SettingsDialogKey.PaletteStyle.createDialog { dm ->
+        PaletteStylePickerDialog(
+            onDismiss = { dm.dismiss() },
+            onConfirm = { style ->
+                lookAndFeelViewModel.setPaletteStyle(style)
+            }
+        )
+    }
+
+    if (showFontStyleBottomSheet) {
+        FontStyleBottomSheet(
+            onDismiss = { showFontStyleBottomSheet = false }
+        )
+    }
 }
 
 

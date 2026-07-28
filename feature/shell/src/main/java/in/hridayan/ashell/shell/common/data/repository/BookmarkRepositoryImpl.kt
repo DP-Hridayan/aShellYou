@@ -1,6 +1,6 @@
 package `in`.hridayan.ashell.shell.common.data.repository
 
-import `in`.hridayan.ashell.core.domain.model.SortType
+import `in`.hridayan.ashell.core.common.domain.model.SortType
 import `in`.hridayan.ashell.shell.common.data.database.BookmarkDao
 import `in`.hridayan.ashell.shell.common.data.model.BookmarkEntity
 import `in`.hridayan.ashell.shell.common.domain.repository.BookmarkRepository

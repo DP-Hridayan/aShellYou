@@ -1,6 +1,6 @@
 package `in`.hridayan.ashell.logcat.data.emitter
 
-import `in`.hridayan.ashell.core.domain.model.ExternalDeviceShell
+import `in`.hridayan.ashell.core.common.domain.model.ExternalDeviceShell
 import `in`.hridayan.ashell.logcat.domain.emitter.LogcatEmitter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

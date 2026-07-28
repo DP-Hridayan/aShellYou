@@ -35,6 +35,7 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:navigation"))
     implementation(project(":settings-dsl"))
+    implementation(project(":core:resources"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)
@@ -83,6 +84,5 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)
-
 }
 

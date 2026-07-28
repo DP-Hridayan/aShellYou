@@ -2,9 +2,9 @@ package `in`.hridayan.ashell.commandexamples.data.local.repository
 
 import `in`.hridayan.ashell.commandexamples.data.local.database.CommandDao
 import `in`.hridayan.ashell.commandexamples.data.local.source.preloadedCommands
-import `in`.hridayan.ashell.core.domain.model.CommandEntity
-import `in`.hridayan.ashell.core.domain.model.SortType
-import `in`.hridayan.ashell.core.domain.repository.CommandRepository
+import `in`.hridayan.ashell.core.common.domain.model.CommandEntity
+import `in`.hridayan.ashell.core.common.domain.model.SortType
+import `in`.hridayan.ashell.core.common.domain.repository.CommandRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map

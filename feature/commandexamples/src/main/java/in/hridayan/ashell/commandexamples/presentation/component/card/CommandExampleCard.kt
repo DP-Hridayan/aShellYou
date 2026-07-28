@@ -1,7 +1,6 @@
-@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalFlexBoxApi::class)
 
 package `in`.hridayan.ashell.commandexamples.presentation.component.card
-
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutLinearInEasing
@@ -13,14 +12,17 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.ExperimentalFlexBoxApi
+import androidx.compose.foundation.layout.FlexAlignItems
+import androidx.compose.foundation.layout.FlexBox
+import androidx.compose.foundation.layout.FlexDirection
+import androidx.compose.foundation.layout.FlexWrap
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -29,9 +31,6 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ButtonGroup
-import androidx.compose.material3.ButtonGroupDefaults
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -80,7 +79,7 @@ import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExampl
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSnackBarController
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
-import `in`.hridayan.ashell.core.navigation.LocalNavController
+import `in`.hridayan.ashell.core.presentation.components.ai.AiAnalysisButton
 import `in`.hridayan.ashell.core.presentation.components.card.CollapsibleCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.resources.R
@@ -99,18 +98,16 @@ fun CommandExampleCard(
     isFavourite: Boolean,
     labels: List<String>,
     commandExamplesViewModel: CommandExamplesViewModel = hiltViewModel(),
-    onUseCommand: (String) -> Unit
+    onUseCommand: (String) -> Unit,
+    onAnalyzeCommand: (String) -> Unit
 ) {
     val res = LocalResources.current
-    val navController = LocalNavController.current
     val weakHaptic = LocalWeakHaptic.current
     val screenDensity = LocalDensity.current
     val dialogManager = LocalDialogManager.current
     val snackBarController = LocalSnackBarController.current
     val coroutineScope = rememberCoroutineScope()
-    val prevScreen = navController.previousBackStackEntry
 
-    val interactionSources = remember { List(3) { MutableInteractionSource() } }
     var isDeleted by rememberSaveable { mutableStateOf(false) }
     val animatedHeight = remember { Animatable(1f) }
     var topPadding by remember(id) { mutableStateOf(15.dp) }
@@ -339,70 +336,50 @@ fun CommandExampleCard(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        ButtonGroup(
-                            modifier = Modifier.weight(1f),
-                            horizontalArrangement = Arrangement.spacedBy(15.dp),
-                            overflowIndicator = { menuState ->
-                                ButtonGroupDefaults.OverflowIndicator(menuState = menuState)
+                        FlexBox(
+                            modifier = Modifier.fillMaxWidth(),
+                            config = {
+                                direction(FlexDirection.Row)
+                                wrap(FlexWrap.Wrap)
+                                gap(10.dp)
+                                alignItems(FlexAlignItems.Stretch)
+                            }) {
+                            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                                EditButton(
+                                    onEdit = onEdit,
+                                    modifier = Modifier.size(40.dp)
+                                )
+
+                                DeleteButton(
+                                    modifier = Modifier.size(40.dp),
+                                    onClick = onDelete
+                                )
+
+                                CopyButton(
+                                    id = id,
+                                    modifier = Modifier.size(40.dp)
+                                )
                             }
-                        ) {
-                            customItem(
-                                buttonGroupContent = {
-                                    EditButton(
-                                        onEdit = onEdit,
-                                        interactionSource = interactionSources[0],
-                                        modifier = Modifier
-                                            .size(40.dp)
-                                            .animateWidth(interactionSources[0])
-                                    )
+
+                            UseCommandButton(
+                                onClick = {
+                                    onUseCommand(command)
+                                    commandExamplesViewModel.incrementUseCount(id)
                                 },
-                                menuContent = {
-                                    DropdownMenuItem(
-                                        text = { Text(text = stringResource(R.string.edit_command)) },
-                                        onClick = { onEdit() }
-                                    )
-                                }
+                                modifier = Modifier.flex { grow(1f) }
                             )
-                            customItem(
-                                buttonGroupContent = {
-                                    DeleteButton(
-                                        interactionSource = interactionSources[1],
-                                        modifier = Modifier
-                                            .size(40.dp)
-                                            .animateWidth(interactionSources[1]),
-                                        onClick = onDelete
-                                    )
+
+                            AiAnalysisButton(
+                                onClick = {
+                                    onAnalyzeCommand(command)
                                 },
-                                menuContent = {
-                                    DropdownMenuItem(
-                                        text = { Text(text = stringResource(R.string.delete)) },
-                                        onClick = { onDelete() }
-                                    )
-                                }
-                            )
-                            customItem(
-                                buttonGroupContent = {
-                                    CopyButton(
-                                        id = id,
-                                        interactionSource = interactionSources[2],
-                                        modifier = Modifier
-                                            .size(40.dp)
-                                            .animateWidth(interactionSources[2])
-                                    )
-                                },
-                                menuContent = {
-                                    DropdownMenuItem(
-                                        text = { Text(text = stringResource(R.string.copy)) },
-                                        onClick = { /* copy handled via CopyButton */ }
-                                    )
-                                }
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = MaterialTheme.colorScheme.tertiary,
+                                    contentColor = MaterialTheme.colorScheme.onTertiary
+                                ),
+                                modifier = Modifier.flex { grow(1f) }
                             )
                         }
-
-                        UseCommandButton(onClick = {
-                            onUseCommand(command)
-                            commandExamplesViewModel.incrementUseCount(id)
-                        })
                     }
                 })
         }
@@ -411,7 +388,6 @@ fun CommandExampleCard(
 @Composable
 private fun DeleteButton(
     modifier: Modifier = Modifier,
-    interactionSource: MutableInteractionSource,
     onClick: () -> Unit = {},
 ) {
     IconButton(
@@ -423,7 +399,6 @@ private fun DeleteButton(
             contentColor = MaterialTheme.colorScheme.onErrorContainer
         ),
         shapes = IconButtonDefaults.shapes(),
-        interactionSource = interactionSource,
         modifier = modifier
     ) {
         Icon(
@@ -436,10 +411,10 @@ private fun DeleteButton(
 @Composable
 private fun EditButton(
     modifier: Modifier = Modifier,
-    interactionSource: MutableInteractionSource,
     onEdit: () -> Unit = {}
 ) {
     IconButton(
+        modifier = modifier,
         onClick = withHaptic {
             onEdit()
         },
@@ -448,8 +423,6 @@ private fun EditButton(
             contentColor = MaterialTheme.colorScheme.onTertiaryContainer
         ),
         shapes = IconButtonDefaults.shapes(),
-        interactionSource = interactionSource,
-        modifier = modifier
     ) {
         Icon(
             painter = painterResource(id = R.drawable.ic_edit),
@@ -461,7 +434,6 @@ private fun EditButton(
 @Composable
 private fun CopyButton(
     modifier: Modifier = Modifier,
-    interactionSource: MutableInteractionSource,
     id: Int,
     viewModel: CommandExamplesViewModel = hiltViewModel()
 ) {
@@ -486,7 +458,6 @@ private fun CopyButton(
             contentColor = MaterialTheme.colorScheme.onPrimaryContainer
         ),
         shapes = IconButtonDefaults.shapes(),
-        interactionSource = interactionSource,
         modifier = modifier
     ) {
         Icon(
@@ -501,27 +472,25 @@ private fun UseCommandButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
-    val size = ButtonDefaults.ExtraSmallContainerHeight
-
     Button(
+        modifier = modifier,
         onClick = withHaptic {
             onClick()
         },
-        modifier = modifier.heightIn(size),
-        shapes = ButtonDefaults.shapes(),
-        contentPadding = ButtonDefaults.contentPaddingFor(size)
+        shapes = ButtonDefaults.shapes()
     ) {
         Icon(
+            modifier = Modifier.size(ButtonDefaults.IconSize),
             painter = painterResource(R.drawable.ic_open_in_new),
             contentDescription = null,
-            modifier = Modifier.size(ButtonDefaults.iconSizeFor(size))
         )
 
-        Spacer(Modifier.widthIn(ButtonDefaults.iconSpacingFor(size)))
+        Spacer(Modifier.widthIn(ButtonDefaults.IconSpacing))
 
         Text(text = stringResource(R.string.use))
     }
 }
+
 
 /**
  * @Composable

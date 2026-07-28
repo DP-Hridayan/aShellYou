@@ -1,6 +1,6 @@
 package `in`.hridayan.ashell.qstiles.data.backup
 
-import `in`.hridayan.ashell.core.common.domain.backup.BackupProvider
+import `in`.hridayan.ashell.core.common.domain.provider.BackupProvider
 import `in`.hridayan.ashell.qstiles.data.database.TileLogDatabase
 import `in`.hridayan.ashell.qstiles.data.datastore.TileDatastore
 import `in`.hridayan.ashell.qstiles.data.model.TileLogEntity

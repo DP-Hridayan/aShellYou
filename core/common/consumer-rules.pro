@@ -4,4 +4,4 @@
 -keep class in.hridayan.ashell.core.common.SettingsKeys { *; }
 -keep class in.hridayan.ashell.core.common.SettingsKeys$* { *; }
 
--keep enum in.hridayan.ashell.core.domain.model.AdbFileBrowserConnectionMode { *; }
+-keep enum in.hridayan.ashell.core.common.domain.model.AdbFileBrowserConnectionMode { *; }

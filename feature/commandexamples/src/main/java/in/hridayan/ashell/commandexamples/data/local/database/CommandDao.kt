@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import `in`.hridayan.ashell.core.domain.model.CommandEntity
+import `in`.hridayan.ashell.core.common.domain.model.CommandEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

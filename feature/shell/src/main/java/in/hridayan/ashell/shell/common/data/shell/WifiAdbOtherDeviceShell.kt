@@ -1,8 +1,8 @@
 package `in`.hridayan.ashell.shell.common.data.shell
 
-import `in`.hridayan.ashell.core.domain.model.ExternalDeviceShell
-import `in`.hridayan.ashell.core.domain.model.WifiAdbConnection
-import `in`.hridayan.ashell.core.domain.model.WifiAdbState
+import `in`.hridayan.ashell.core.common.domain.model.ExternalDeviceShell
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbConnection
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

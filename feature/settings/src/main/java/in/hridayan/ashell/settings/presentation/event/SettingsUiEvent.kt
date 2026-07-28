@@ -1,7 +1,7 @@
 package `in`.hridayan.ashell.settings.presentation.event
 
 import android.content.Intent
-import `in`.hridayan.ashell.core.common.domain.model.BackupType
+import `in`.hridayan.ashell.core.common.domain.model.backup.BackupType
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 
 sealed class SettingsUiEvent {

@@ -32,7 +32,9 @@ android {
 
 dependencies {
     api(project(":core:resources"))
+    api(project(":adblib"))
     implementation(project(":settings-dsl"))
+
     implementation(libs.kotlin.reflect)
     implementation(libs.androidx.appcompat)
     implementation(libs.core.ktx)

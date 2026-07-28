@@ -3,12 +3,13 @@ package `in`.hridayan.ashell.core.common
 import android.os.Environment
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.runtime.Stable
-import `in`.hridayan.ashell.core.domain.model.SortType
-import `in`.hridayan.ashell.core.domain.provider.SeedColorProvider
+import `in`.hridayan.ashell.core.common.domain.model.SortType
+import `in`.hridayan.ashell.core.common.domain.provider.SeedColorProvider
 import `in`.hridayan.ashell.core.common.SettingsKeys.Companion.entries
 import `in`.hridayan.ashell.core.common.SettingsKeys.Companion.valueOf
 import `in`.hridayan.settingsdsl.model.SettingsKey
 import kotlin.reflect.KClass
+import `in`.hridayan.ashell.core.common.domain.model.*
 
 /**
  * All settings keys used by the app.
@@ -57,8 +58,8 @@ sealed class SettingsKeys<out T>(
     data object QuickSettingsTiles : SettingsKeys<Nothing?>("QUICK_SETTINGS_TILES", null)
     data object Translators : SettingsKeys<Nothing?>("TRANSLATORS", null)
     data object Contributors : SettingsKeys<Nothing?>("CONTRIBUTORS", null)
-    data object AiModelManager : SettingsKeys<Nothing?>("AI_MODEL_MANAGER", null)
-    data object AiModels : SettingsKeys<Nothing?>("AI_MODELS", null)
+
+    data object CloudModels : SettingsKeys<Nothing?>("CLOUD_MODELS", null)
     data object AiCacheClear : SettingsKeys<Nothing?>("AI_CACHE_CLEAR", null)
 
     // Boolean Keys
@@ -88,6 +89,9 @@ sealed class SettingsKeys<out T>(
 
     data object AutoBackupLocalEnabled : SettingsKeys<Boolean>("AUTO_BACKUP_LOCAL_ENABLED", true)
     data object AutoBackupCloudEnabled : SettingsKeys<Boolean>("AUTO_BACKUP_CLOUD_ENABLED", true)
+    
+    data object UserGeneratedColorSchemeApplied : SettingsKeys<Boolean>("USER_GENERATED_COLOR_SCHEME_APPLIED", false)
+    data object IsCustomColorSchemeDarkThemed : SettingsKeys<Boolean>("IS_CUSTOM_COLOR_SCHEME_DARK_THEMED", false)
 
 
     // Float keys
@@ -104,7 +108,7 @@ sealed class SettingsKeys<out T>(
     data object PrimarySeed : SettingsKeys<Int>("PRIMARY_SEED", SeedColorProvider.primary)
     data object PaletteStyle : SettingsKeys<Int>(
         "PALETTE_STYLE",
-        `in`.hridayan.ashell.core.domain.model.PaletteStyle.TONAL_SPOT.ordinal
+        `in`.hridayan.ashell.core.common.domain.model.PaletteStyle.TONAL_SPOT.ordinal
     )
 
     data object GithubReleaseType :
@@ -117,20 +121,20 @@ sealed class SettingsKeys<out T>(
     data object LocalAdbWorkingMode :
         SettingsKeys<Int>(
             "LOCAL_ADB_WORKING_MODE",
-            `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode.BASIC
+            `in`.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode.BASIC
         )
 
     data object TerminalFontStyle :
         SettingsKeys<Int>(
             "TERMINAL_FONT_STYLE",
-            `in`.hridayan.ashell.core.domain.model.TerminalFontStyle.MONOSPACE
+            `in`.hridayan.ashell.core.common.domain.model.TerminalFontStyle.MONOSPACE
         )
 
     data object BookmarkSortType : SettingsKeys<Int>("BOOKMARK_SORT_TYPE", SortType.AZ)
     data object LogcatMode :
         SettingsKeys<Int>(
             "LOGCAT_WORKING_MODE",
-            `in`.hridayan.ashell.core.domain.model.LogcatWorkingMode.BASIC
+            LogcatWorkingMode.BASIC
         )
 
     data object CommandSortType : SettingsKeys<Int>("COMMAND_SORT_TYPE", SortType.AZ)
@@ -140,6 +144,8 @@ sealed class SettingsKeys<out T>(
     data object AutoBackupFrequency : SettingsKeys<Int>("AUTO_BACKUP_FREQUENCY", 0)
     data object AutoBackupType : SettingsKeys<Int>("AUTO_BACKUP_TYPE", 2)
     data object FontFamily : SettingsKeys<Int>("FONT_FAMILY", 0)
+    
+    data object AppliedCustomThemeId : SettingsKeys<Int>("APPLIED_CUSTOM_THEME_ID", 0)
 
     // String Keys
 
@@ -166,8 +172,12 @@ sealed class SettingsKeys<out T>(
         SettingsKeys<String>("LAST_AUTO_BACKUP_CLOUD_SUCCESS_TIME", "")
 
     data object LastAutoBackupCloudError : SettingsKeys<String>("LAST_AUTO_BACKUP_CLOUD_ERROR", "")
-    data object SelectedModelId :
-        SettingsKeys<String>("SELECTED_MODEL_ID", "qwen2.5-0.5b-instruct-q4_k_m")
+
+
+    data object AiCloudEnabled : SettingsKeys<Boolean>("AI_CLOUD_ENABLED", false)
+
+    data object AiCloudProvider : SettingsKeys<String>("AI_CLOUD_PROVIDER", "gemini")
+
 
     companion object {
         /**

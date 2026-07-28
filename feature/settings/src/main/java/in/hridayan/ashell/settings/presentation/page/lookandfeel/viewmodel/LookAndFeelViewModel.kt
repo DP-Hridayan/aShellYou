@@ -6,12 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.core.common.SettingsKeys
-import `in`.hridayan.ashell.core.data.local.provider.SeedColor
-import `in`.hridayan.ashell.core.domain.model.PaletteStyle
-import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.common.data.provider.SeedColor
+import `in`.hridayan.ashell.core.common.domain.model.PaletteStyle
+import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -62,7 +63,7 @@ class LookAndFeelViewModel @Inject constructor(
         lastSeed = seed
 
         viewModelScope.launch(Dispatchers.IO) {
-            settingsRepository.setInt(SettingsKeys.PrimarySeed, seed.primary)
+            settingsRepository.setInt(SettingsKeys.PrimarySeed, seed.seed)
         }
     }
 
@@ -75,6 +76,12 @@ class LookAndFeelViewModel @Inject constructor(
     fun disableDynamicColors() {
         viewModelScope.launch(Dispatchers.IO) {
             settingsRepository.setBoolean(SettingsKeys.DynamicColors, false)
+        }
+    }
+
+    fun disableUserGeneratedColorScheme() {
+        viewModelScope.launch(Dispatchers.IO) {
+            settingsRepository.setBoolean(SettingsKeys.UserGeneratedColorSchemeApplied, false)
         }
     }
 }

@@ -26,7 +26,7 @@ import androidx.compose.ui.window.DialogProperties
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.ashell.core.domain.model.WifiAdbDevice
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbDevice
 
 @Composable
 fun ConnectionSuccessDialog(

@@ -1,7 +1,7 @@
-package `in`.hridayan.ashell.shell.file_browser.data.executor
+﻿package `in`.hridayan.ashell.shell.file_browser.data.executor
 
 import android.util.Log
-import `in`.hridayan.ashell.shell.otg_adb_shell.domain.repository.OtgRepository
+import `in`.hridayan.ashell.core.common.domain.repository.OtgRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull

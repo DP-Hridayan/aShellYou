@@ -1,8 +1,8 @@
 package `in`.hridayan.ashell.commandexamples.data.backup
 
-import `in`.hridayan.ashell.core.common.domain.backup.BackupProvider
-import `in`.hridayan.ashell.core.domain.model.CommandEntity
-import `in`.hridayan.ashell.core.domain.repository.CommandRepository
+import `in`.hridayan.ashell.core.common.domain.provider.BackupProvider
+import `in`.hridayan.ashell.core.common.domain.model.CommandEntity
+import `in`.hridayan.ashell.core.common.domain.repository.CommandRepository
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.decodeFromJsonElement

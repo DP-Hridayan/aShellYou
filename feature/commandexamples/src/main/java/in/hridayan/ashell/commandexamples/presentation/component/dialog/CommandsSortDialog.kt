@@ -36,7 +36,7 @@ import `in`.hridayan.ashell.core.presentation.model.ButtonType
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.ashell.core.ui.provider.RadioGroupOptionsProvider
+import `in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider
 
 @Composable
 fun CommandsSortDialog(

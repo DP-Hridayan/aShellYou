@@ -8,7 +8,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import `in`.hridayan.ashell.core.common.data.SettingsDataStore
 import `in`.hridayan.ashell.core.common.data.repository.SettingsRepositoryImpl
-import `in`.hridayan.ashell.core.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.settings.domain.usecase.ToggleSettingUseCase
 import kotlinx.serialization.json.Json
 import javax.inject.Singleton

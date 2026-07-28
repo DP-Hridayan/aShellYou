@@ -1,6 +1,7 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.settings.presentation.components.palette
+package `in`.hridayan.ashell.settings.presentation.components.palette
+
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -28,8 +29,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.common.LocalPaletteStyle
-import `in`.hridayan.ashell.core.data.local.provider.SeedColor
-import `in`.hridayan.ashell.core.domain.provider.SeedColorProvider
+import `in`.hridayan.ashell.core.common.data.provider.SeedColor
+import `in`.hridayan.ashell.core.common.domain.provider.SeedColorProvider
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
@@ -54,8 +55,8 @@ fun PaletteWheel(
     // Derive display colors from the primary seed + current palette style.
     // These are always at tone 40 and independent of light/dark mode.
     val paletteStyle = LocalPaletteStyle.current
-    val keyColors = remember(seedColor.primary, paletteStyle) {
-        getPaletteKeyColors(seedColor.primary, paletteStyle)
+    val keyColors = remember(seedColor.seed, paletteStyle) {
+        getPaletteKeyColors(seedColor.seed, paletteStyle)
     }
 
     CustomCard(

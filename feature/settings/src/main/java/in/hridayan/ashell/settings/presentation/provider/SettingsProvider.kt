@@ -11,11 +11,11 @@ import androidx.compose.material.icons.rounded.Memory
 import androidx.compose.material.icons.rounded.TextFields
 import androidx.compose.material.icons.rounded.UnfoldMoreDouble
 import `in`.hridayan.ashell.core.common.SettingsKeys
-import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
+import `in`.hridayan.ashell.core.common.domain.model.TerminalFontStyle
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.presentation.components.floaters.FloatingIconsBackground
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.ashell.core.ui.provider.RadioGroupOptionsProvider
+import `in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider
 import `in`.hridayan.settingsdsl.dsl.buttonGroupItem
 import `in`.hridayan.settingsdsl.dsl.category
 import `in`.hridayan.settingsdsl.dsl.clickableItem
@@ -55,7 +55,7 @@ object SettingsProvider {
                 icon = R.drawable.ic_dashboard
             ),
             clickableItem(
-                key = SettingsKeys.AiModelManager,
+                key = SettingsKeys.CloudModels,
                 titleResId = R.string.ai_models,
                 descriptionResId = R.string.des_ai_models,
                 iconVector = Icons.Rounded.AutoAwesome
@@ -427,13 +427,13 @@ object SettingsProvider {
         )
     )
 
-    val aiModelsPage = settingsPage(
-        screenTitle = R.string.ai_models,
-        screenId = "ai_models",
+    val aiSettingsPage = settingsPage(
+        screenTitle = R.string.ai_models, // can reuse string or change to AI Settings later
+        screenId = "ai_settings",
         category(
             titleResId = R.string.models,
             clickableItem(
-                key = SettingsKeys.AiModels,
+                key = SettingsKeys.CloudModels,
                 titleResId = R.string.models,
                 descriptionResId = R.string.des_models,
                 iconVector = Icons.Rounded.Memory
@@ -466,7 +466,7 @@ object SettingsProvider {
     val allSearchablePages: List<SettingsPage> = listOf(
         settingsPage, lookAndFeelPage, darkThemePage,
         behaviorPage, autoUpdatePage, aboutPage, backupPage,
-        aiModelsPage, backupSchedulerPage,
+        aiSettingsPage, backupSchedulerPage,
     )
 
     /**
@@ -480,9 +480,8 @@ object SettingsProvider {
         darkThemePage.screenId!! to { NavRoutes.DarkThemeScreen(it) },
         behaviorPage.screenId!! to { NavRoutes.BehaviorScreen(it) },
         autoUpdatePage.screenId!! to { NavRoutes.AutoUpdateScreen(it) },
-        aboutPage.screenId!! to { NavRoutes.AboutScreen(it) },
         backupPage.screenId!! to { NavRoutes.BackupAndRestoreScreen(it) },
-        aiModelsPage.screenId!! to { NavRoutes.AiModelManagerScreen(it) },
+        aiSettingsPage.screenId!! to { NavRoutes.CloudModelsScreen },
         backupSchedulerPage.screenId!! to { NavRoutes.BackupSchedulerScreen },
     )
 

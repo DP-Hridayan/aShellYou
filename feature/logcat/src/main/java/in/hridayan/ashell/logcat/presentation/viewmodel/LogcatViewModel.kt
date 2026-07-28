@@ -6,11 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import `in`.hridayan.ashell.core.domain.model.OtgConnection
-import `in`.hridayan.ashell.core.domain.model.OtgState
-import `in`.hridayan.ashell.core.domain.model.WifiAdbConnection
-import `in`.hridayan.ashell.core.domain.model.WifiAdbState
-import `in`.hridayan.ashell.core.domain.repository.ShellRepository
+import `in`.hridayan.ashell.core.common.domain.model.otg.OtgConnection
+import `in`.hridayan.ashell.core.common.domain.model.otg.OtgState
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbConnection
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbState
+import `in`.hridayan.ashell.core.common.domain.repository.ShellRepository
 import `in`.hridayan.ashell.logcat.data.emitter.LogcatEmitterFactory
 import `in`.hridayan.ashell.logcat.data.session.LogcatSessionHolder
 import `in`.hridayan.ashell.logcat.domain.emitter.LogcatEmitter
@@ -29,7 +29,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch

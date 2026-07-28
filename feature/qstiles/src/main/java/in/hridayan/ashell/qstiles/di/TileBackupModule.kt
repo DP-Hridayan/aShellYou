@@ -5,7 +5,7 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dagger.multibindings.IntoSet
-import `in`.hridayan.ashell.core.common.domain.backup.BackupProvider
+import `in`.hridayan.ashell.core.common.domain.provider.BackupProvider
 import `in`.hridayan.ashell.qstiles.data.backup.TileBackupProvider
 
 @Module

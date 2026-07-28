@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalSharedTransitionApi::class)
+@file:OptIn(ExperimentalSharedTransitionApi::class, androidx.compose.material3.ExperimentalMaterial3Api::class)
 
 package `in`.hridayan.ashell.ui
 
@@ -20,8 +20,8 @@ import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalSharedTransitionScope
 import `in`.hridayan.ashell.core.common.SettingsKeys
-import `in`.hridayan.ashell.core.domain.model.OtgConnection
-import `in`.hridayan.ashell.core.domain.model.OtgState
+import `in`.hridayan.ashell.core.common.domain.model.otg.OtgConnection
+import `in`.hridayan.ashell.core.common.domain.model.otg.OtgState
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.isNetworkAvailable
 import `in`.hridayan.ashell.core.utils.showToast
@@ -29,8 +29,10 @@ import `in`.hridayan.ashell.settings.domain.model.UpdateResult
 import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.UpdateBottomSheet
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
-import `in`.hridayan.ashell.ui.bottomsheet.ChangelogBottomSheet
+import `in`.hridayan.ashell.ui.components.bottomsheet.ChangelogBottomSheet
+import `in`.hridayan.ashell.ui.navigation.AppNavigation
 import kotlinx.coroutines.flow.collectLatest
+
 
 @Composable
 fun AppUiEntry(
@@ -43,6 +45,7 @@ fun AppUiEntry(
 
     var showUpdateSheet by rememberSaveable { mutableStateOf(false) }
     var showChangelogSheet by rememberSaveable { mutableStateOf(false) }
+
     var tagName by rememberSaveable { mutableStateOf(BuildConfig.VERSION_NAME) }
     var apkUrl by rememberSaveable { mutableStateOf("") }
     var changelog by rememberSaveable { mutableStateOf("") }

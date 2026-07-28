@@ -1,6 +1,6 @@
 package `in`.hridayan.ashell.core.navigation
 
-import `in`.hridayan.ashell.core.domain.model.AdbFileBrowserConnectionMode
+import `in`.hridayan.ashell.core.common.domain.model.AdbFileBrowserConnectionMode
 import kotlinx.serialization.Serializable
 
 sealed class
@@ -97,12 +97,19 @@ NavRoutes {
     @Serializable
     data class CreateTileScreen(val tileId: Int) : NavRoutes()
 
-    @Serializable
-    data class AiModelManagerScreen(val highlightKey: String? = null) : NavRoutes()
-
-    @Serializable
-    object ModelsScreen : NavRoutes()
 
     @Serializable
     object LogcatScreen : NavRoutes()
+
+    @Serializable
+    object AiModelsScreen : NavRoutes()
+
+    @Serializable
+    object CloudModelsScreen : NavRoutes()
+
+    @Serializable
+    object GenerateColorSchemeScreen : NavRoutes()
+
+    @Serializable
+    object AiChatScreen : NavRoutes()
 }

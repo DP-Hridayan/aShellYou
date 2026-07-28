@@ -1,9 +1,9 @@
 package `in`.hridayan.ashell.shell.common.data.shell
 
-import `in`.hridayan.ashell.core.domain.model.ExternalDeviceShell
-import `in`.hridayan.ashell.core.domain.model.OtgConnection
-import `in`.hridayan.ashell.core.domain.model.OtgState
-import `in`.hridayan.ashell.shell.otg_adb_shell.domain.repository.OtgRepository
+import `in`.hridayan.ashell.core.common.domain.model.ExternalDeviceShell
+import `in`.hridayan.ashell.core.common.domain.model.otg.OtgConnection
+import `in`.hridayan.ashell.core.common.domain.model.otg.OtgState
+import `in`.hridayan.ashell.core.common.domain.repository.OtgRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

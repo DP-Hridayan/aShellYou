@@ -87,7 +87,7 @@ import `in`.hridayan.ashell.core.presentation.components.switch.AppSwitch
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.ashell.core.ui.provider.ButtonGroupOptionsProvider
+import `in`.hridayan.ashell.core.presentation.provider.ButtonGroupOptionsProvider
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
 import `in`.hridayan.ashell.qstiles.presentation.components.dialog.DeleteTileConfirmationDialog

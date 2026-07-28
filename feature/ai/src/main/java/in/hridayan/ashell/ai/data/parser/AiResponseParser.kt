@@ -1,8 +1,8 @@
 package `in`.hridayan.ashell.ai.data.parser
 
 import android.util.Log
-import `in`.hridayan.ashell.ai.domain.model.AnalysisResult
-import `in`.hridayan.ashell.ai.domain.model.AnalysisStatus
+import `in`.hridayan.ashell.core.common.domain.model.ai.AnalysisResult
+import `in`.hridayan.ashell.core.common.domain.model.ai.AnalysisStatus
 
 /**
  * Parses raw LLM plain text output into structured [AnalysisResult].
@@ -10,6 +10,11 @@ import `in`.hridayan.ashell.ai.domain.model.AnalysisStatus
 object AiResponseParser {
 
     private const val TAG = "AiParser"
+
+    private val json = kotlinx.serialization.json.Json {
+        ignoreUnknownKeys = true
+        isLenient = true
+    }
 
     /**
      * Parse raw LLM output into a structured [AnalysisResult].
@@ -20,26 +25,48 @@ object AiResponseParser {
     fun parse(rawResponse: String): AnalysisResult {
         Log.d(TAG, "parse() called, rawResponse length=${rawResponse.length}")
 
-        val cleaned = rawResponse.trim()
+        var cleaned = rawResponse.trim()
         if (cleaned.isBlank()) {
             Log.w(TAG, "Raw response is blank/empty")
             return AnalysisResult.gibberish("AI model returned empty response")
         }
 
-        // Check if the model indicates this is not a recognized command
-        val isGibberish = cleaned.contains("Not a recognized command", ignoreCase = true) ||
-                cleaned.contains("unrecognized command", ignoreCase = true) ||
-                cleaned.contains("invalid command", ignoreCase = true)
+        // Clean up markdown block if model ignored the prompt instruction
+        if (cleaned.startsWith("```json")) {
+            cleaned = cleaned.substringAfter("```json").substringBeforeLast("```").trim()
+        } else if (cleaned.startsWith("```")) {
+            cleaned = cleaned.substringAfter("```").substringBeforeLast("```").trim()
+        }
 
-        return if (isGibberish) {
-            Log.d(TAG, "Command recognized as GIBBERISH/invalid")
-            AnalysisResult.gibberish(cleaned)
-        } else {
-            Log.d(TAG, "Command recognized as VALID")
-            AnalysisResult(
-                status = AnalysisStatus.VALID,
-                description = cleaned
-            )
+        // Deepseek and other models might output preamble text. Extract just the JSON object.
+        val startIndex = cleaned.indexOf('{')
+        val endIndex = cleaned.lastIndexOf('}')
+        if (startIndex != -1 && endIndex != -1 && endIndex >= startIndex) {
+            cleaned = cleaned.substring(startIndex, endIndex + 1)
+        }
+
+        try {
+            return json.decodeFromString<AnalysisResult>(cleaned)
+        } catch (e: Exception) {
+            Log.w(TAG, "Strict JSON parse failed, attempting fallback repair: ${e.message}")
+            
+            // Fallback: Model probably hit max_tokens and truncated the JSON
+            // We append missing braces/quotes to try and salvage it.
+            var repaired = cleaned
+            if (!repaired.endsWith("}")) {
+                if (repaired.endsWith("\"")) {
+                    repaired += "\n}"
+                } else {
+                    repaired += "\"\n}"
+                }
+            }
+            
+            try {
+                return json.decodeFromString<AnalysisResult>(repaired)
+            } catch (e2: Exception) {
+                Log.e(TAG, "Fallback JSON repair failed as well.", e2)
+                return AnalysisResult.gibberish("AI response was incomplete or malformed. Try increasing context size.")
+            }
         }
     }
 }

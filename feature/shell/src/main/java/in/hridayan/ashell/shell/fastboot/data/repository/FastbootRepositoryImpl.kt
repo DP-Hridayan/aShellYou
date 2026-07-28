@@ -12,7 +12,7 @@ import android.net.Uri
 import android.os.Build
 import android.util.Log
 import androidx.core.content.ContextCompat
-import `in`.hridayan.ashell.core.domain.model.FastbootState
+import `in`.hridayan.ashell.core.common.domain.model.FastbootState
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootCommandResult
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootConnection

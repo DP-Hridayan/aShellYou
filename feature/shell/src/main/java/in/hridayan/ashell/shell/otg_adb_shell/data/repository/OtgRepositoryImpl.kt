@@ -17,11 +17,11 @@ import com.cgutman.adblib.AdbConnection
 import com.cgutman.adblib.AdbCrypto
 import com.cgutman.adblib.AdbStream
 import com.cgutman.adblib.UsbChannel
-import `in`.hridayan.ashell.core.domain.model.OutputLine
+import `in`.hridayan.ashell.core.common.domain.model.OutputLine
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.ashell.core.domain.model.OtgConnection
-import `in`.hridayan.ashell.core.domain.model.OtgState
-import `in`.hridayan.ashell.shell.otg_adb_shell.domain.repository.OtgRepository
+import `in`.hridayan.ashell.core.common.domain.model.otg.OtgConnection
+import `in`.hridayan.ashell.core.common.domain.model.otg.OtgState
+import `in`.hridayan.ashell.core.common.domain.repository.OtgRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

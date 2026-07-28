@@ -21,16 +21,19 @@ import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.core.common.CompositionLocals
 import `in`.hridayan.ashell.core.common.LocalSeedColor
 import `in`.hridayan.ashell.core.common.SettingsKeys
-import `in`.hridayan.ashell.core.domain.provider.SeedColorProvider
+import `in`.hridayan.ashell.core.common.domain.provider.SeedColorProvider
 import `in`.hridayan.ashell.core.presentation.components.snackbar.SnackBarHost
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouTheme
+import `in`.hridayan.ashell.core.presentation.theme.data.toPayload
+import `in`.hridayan.ashell.core.presentation.theme.util.ColorSchemeImportHolder
+import `in`.hridayan.ashell.core.presentation.theme.util.ColorSchemeSerializer
 import `in`.hridayan.ashell.core.utils.handleSharedText
 import `in`.hridayan.ashell.logcat.data.session.LogcatDeeplinkHolder
 import `in`.hridayan.ashell.logcat.data.session.LogcatSessionHolder
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.ashell.ui.AppUiEntry
-import `in`.hridayan.ashell.ui.SettingsStateImpl
+import `in`.hridayan.ashell.ui.state.SettingsStateImpl
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -42,6 +45,9 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var logcatSessionHolder: LogcatSessionHolder
+
+    @Inject
+    lateinit var colorSchemeImportHolder: ColorSchemeImportHolder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
@@ -56,6 +62,7 @@ class MainActivity : AppCompatActivity() {
 
         handleSharedText(intent)
         handleLogcatDeeplink(intent)
+        handleThemeImport(intent)
 
         lifecycleScope.launch {
             val autoUpdateEnabled = settingsViewModel.getBoolean(SettingsKeys.AutoUpdate).first()
@@ -93,11 +100,28 @@ class MainActivity : AppCompatActivity() {
         super.onNewIntent(intent)
         handleSharedText(intent)
         handleLogcatDeeplink(intent)
+        handleThemeImport(intent)
     }
 
     private fun handleLogcatDeeplink(intent: Intent?) {
         if (intent?.action == LogcatDeeplinkHolder.ACTION_OPEN_LOGCAT) {
             logcatSessionHolder.triggerLogcatNavigation()
+        }
+    }
+
+    private fun handleThemeImport(intent: Intent?) {
+        if (intent?.action == Intent.ACTION_VIEW && intent.data != null) {
+            try {
+                val uri = intent.data!!
+                contentResolver.openInputStream(uri)?.use { inputStream ->
+                    val base64String = inputStream.bufferedReader().readText()
+                    val entity = ColorSchemeSerializer.deserialize(base64String)
+                    val payload = entity.toPayload()
+                    colorSchemeImportHolder.setImportedColorScheme(payload)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 }

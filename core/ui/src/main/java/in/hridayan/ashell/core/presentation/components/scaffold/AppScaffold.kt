@@ -39,6 +39,7 @@ fun AppScaffold(
     listState: LazyListState,
     topAppBarState: TopAppBarState? = null,
     onNavigateBack: () -> Unit = {},
+    actions: @Composable androidx.compose.foundation.layout.RowScope.() -> Unit = {},
     content: @Composable (innerPadding: PaddingValues, topBarScrollBehavior: TopAppBarScrollBehavior) -> Unit,
     fabContent: @Composable (expanded: Boolean) -> Unit = {}
 ) {
@@ -55,6 +56,7 @@ fun AppScaffold(
         expanded = expanded,
         topAppBarState = topAppBarState,
         onNavigateBack = onNavigateBack,
+        actions = actions,
         content = content,
         fabContent = fabContent
     )
@@ -67,6 +69,7 @@ fun AppScaffold(
     scrollState: ScrollState,
     topAppBarState: TopAppBarState? = null,
     onNavigateBack: () -> Unit = {},
+    actions: @Composable androidx.compose.foundation.layout.RowScope.() -> Unit = {},
     content: @Composable (innerPadding: PaddingValues, topBarScrollBehavior: TopAppBarScrollBehavior) -> Unit,
     fabContent: @Composable (expanded: Boolean) -> Unit = {}
 ) {
@@ -82,6 +85,7 @@ fun AppScaffold(
         expanded = expanded,
         topAppBarState = topAppBarState,
         onNavigateBack = onNavigateBack,
+        actions = actions,
         content = content,
         fabContent = fabContent
     )
@@ -94,6 +98,7 @@ private fun AppScaffoldImpl(
     expanded: Boolean,
     topAppBarState: TopAppBarState? = null,
     onNavigateBack: () -> Unit,
+    actions: @Composable androidx.compose.foundation.layout.RowScope.() -> Unit = {},
     content: @Composable (innerPadding: PaddingValues, topBarScrollBehavior: TopAppBarScrollBehavior) -> Unit,
     fabContent: @Composable (expanded: Boolean) -> Unit = {}
 ) {
@@ -120,6 +125,7 @@ private fun AppScaffoldImpl(
                     )
                 },
                 navigationIcon = { BackButton(onClick = onNavigateBack) },
+                actions = actions,
                 scrollBehavior = scrollBehavior,
                 colors = TopAppBarDefaults.topAppBarColors(scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh)
             )

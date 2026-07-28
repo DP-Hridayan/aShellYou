@@ -3,9 +3,11 @@ package `in`.hridayan.ashell.ai.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import `in`.hridayan.ashell.ai.domain.model.CorrectionSuggestion
-import `in`.hridayan.ashell.ai.domain.usecase.AnalyzeCommandUseCase
-import `in`.hridayan.ashell.ai.presentation.model.AiAnalysisUiState
+import `in`.hridayan.ashell.core.common.domain.model.ai.CorrectionSuggestion
+import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
+import `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository
+import `in`.hridayan.ashell.core.common.domain.usecase.ai.AnalyzeCommandUseCase
+import `in`.hridayan.ashell.core.presentation.model.AiAnalysisUiState
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,8 +22,16 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class AiAnalysisViewModel @Inject constructor(
-    private val analyzeCommandUseCase: AnalyzeCommandUseCase
+    private val analyzeCommandUseCase: AnalyzeCommandUseCase,
+    private val apiKeyRepository: ApiKeyRepository
 ) : ViewModel() {
+
+    private val _showApiKeyRequiredDialog = MutableStateFlow(false)
+    val showApiKeyRequiredDialog: StateFlow<Boolean> = _showApiKeyRequiredDialog.asStateFlow()
+
+    fun dismissApiKeyRequiredDialog() {
+        _showApiKeyRequiredDialog.value = false
+    }
 
     private val _uiState = MutableStateFlow<AiAnalysisUiState>(AiAnalysisUiState.Idle)
     val uiState: StateFlow<AiAnalysisUiState> = _uiState.asStateFlow()
@@ -45,6 +55,10 @@ class AiAnalysisViewModel @Inject constructor(
      */
     fun analyzeCommand(command: String) {
         if (command.isBlank()) return
+        if (apiKeyRepository.getKey(LlmProvider.Gemini).isNullOrBlank()) {
+            _showApiKeyRequiredDialog.value = true
+            return
+        }
 
         // Cancel any in-flight analysis to release the inference engine mutex.
         // The native JNI call isn't interruptible, but cancelling the coroutine
@@ -59,8 +73,6 @@ class AiAnalysisViewModel @Inject constructor(
             try {
                 val result = analyzeCommandUseCase(command)
                 _uiState.value = AiAnalysisUiState.Success(result)
-            } catch (e: AnalyzeCommandUseCase.ModelNotInstalledException) {
-                _uiState.value = AiAnalysisUiState.ModelNotInstalled
             } catch (e: kotlinx.coroutines.CancellationException) {
                 // Coroutine was cancelled (user dismissed or started new analysis).
                 // Don't update UI state — the new analysis or Idle state takes over.

@@ -112,10 +112,14 @@ import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalSnackBarController
 import `in`.hridayan.ashell.core.common.SettingsKeys
-import `in`.hridayan.ashell.core.domain.model.OutputLine
-import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
+import `in`.hridayan.ashell.core.common.domain.model.OutputLine
+import `in`.hridayan.ashell.core.common.domain.model.TerminalFontStyle
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
+import `in`.hridayan.ashell.core.presentation.components.ai.AiAnalysisBottomSheet
+import `in`.hridayan.ashell.core.presentation.components.ai.AiAnalysisButton
+import `in`.hridayan.ashell.core.presentation.components.ai.AskAiButton
+import `in`.hridayan.ashell.core.presentation.components.dialog.ApiKeyRequiredDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scrollbar.VerticalScrollbar
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
@@ -166,8 +170,6 @@ fun BaseShellScreen(
     modeButtonText: String = stringResource(R.string.mode),
     shellViewModel: ShellViewModel = hiltViewModel(),
     bookmarkViewModel: BookmarkViewModel = hiltViewModel(),
-    aiAnalyzeButton: @Composable () -> Unit = {},
-    aiAnalysisBottomSheet: @Composable () -> Unit = {},
     extraButtonContent: @Composable (() -> Unit)? = null,
     extraContent: @Composable () -> Unit = {}
 ) {
@@ -206,6 +208,8 @@ fun BaseShellScreen(
     var isOutputFullscreen by rememberSaveable { mutableStateOf(false) }
     var restoredScrollIndex by rememberSaveable { mutableIntStateOf(-1) }
     var showBookmarksBottomSheet by rememberSaveable { mutableStateOf(false) }
+    var showAiAnalysisSheet by rememberSaveable { mutableStateOf(false) }
+    val aiAnalysisState by shellViewModel.aiAnalysisState.collectAsState()
 
     LaunchedEffect(disableSoftKeyboard) {
         disableKeyboard(context, disableSoftKeyboard)
@@ -291,9 +295,7 @@ fun BaseShellScreen(
                 addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             }
 
-            context.startActivity(
-                Intent.createChooser(intent, "Open text file")
-            )
+            context.startActivity(Intent.createChooser(intent, "Open text file"))
         } catch (e: Exception) {
             showToast(context, res.getString(R.string.file_not_found))
         }
@@ -430,11 +432,29 @@ fun BaseShellScreen(
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(25.dp)
                             ) {
-                                AutoResizeableText(
-                                    text = stringResource(R.string.app_name),
-                                    style = MaterialTheme.typography.headlineLarge,
-                                    modifier = Modifier.weight(1f)
-                                )
+                                Row(
+                                    modifier = Modifier.weight(1f),
+                                    horizontalArrangement = Arrangement.Start
+                                ) {
+                                    if (states.commandField.fieldValue.text.isBlank()) {
+                                        AskAiButton(
+                                            onClick = { navController.navigate(NavRoutes.AiChatScreen) }
+                                        )
+                                    } else {
+                                        AiAnalysisButton(
+                                            onClick = {
+                                                val commandToAnalyze =
+                                                    states.commandField.fieldValue.text
+                                                if (commandToAnalyze.isNotBlank()) {
+                                                    shellViewModel.analyzeCommand(commandToAnalyze)
+                                                    showAiAnalysisSheet = true
+                                                } else {
+                                                    showToast(context, "Command cannot be empty")
+                                                }
+                                            }
+                                        )
+                                    }
+                                }
 
                                 // Extra button content (e.g., file browser)
                                 extraButtonContent?.invoke()
@@ -466,17 +486,17 @@ fun BaseShellScreen(
                                     .padding(20.dp)
                             ) {
                                 val label =
-                                    if (states.commandField.isError) states.commandField.errorMessage else stringResource(
-                                        R.string.command_title
-                                    )
+                                    if (states.commandField.isError) states.commandField.errorMessage
+                                    else stringResource(R.string.command_title)
 
                                 val isBookmarked =
                                     bookmarkViewModel.isBookmarked(states.commandField.fieldValue.text)
                                         .collectAsState(initial = false)
+
                                 val trailingIcon =
-                                    if (isBookmarked.value) painterResource(R.drawable.ic_bookmark_added) else painterResource(
-                                        R.drawable.ic_add_bookmark
-                                    )
+                                    if (isBookmarked.value) painterResource(R.drawable.ic_bookmark_added)
+                                    else painterResource(R.drawable.ic_add_bookmark)
+
                                 val overrideBookmarksLimit =
                                     settings[SettingsKeys.OverrideMaximumBookmarksLimit]
 
@@ -511,8 +531,6 @@ fun BaseShellScreen(
                                                     .isNotEmpty()
                                             )
                                                 Row(verticalAlignment = Alignment.CenterVertically) {
-                                                    // AI Analyze button
-                                                    aiAnalyzeButton()
                                                     // Bookmark button
                                                     IconButton(
                                                         colors = IconButtonDefaults.iconButtonColors(
@@ -561,9 +579,7 @@ fun BaseShellScreen(
                                                 },
                                                 onClick = {
                                                     shellViewModel.onCommandTextFieldChange(
-                                                        TextFieldValue(
-                                                            command
-                                                        )
+                                                        TextFieldValue(command)
                                                     )
                                                     shellViewModel.updateTextFieldSelection()
                                                     historyMenuExpanded = false
@@ -575,7 +591,7 @@ fun BaseShellScreen(
                                 }
 
                                 FloatingActionButton(
-                                    modifier = Modifier.padding(top = 10.dp),
+                                    modifier = Modifier.padding(top = 8.dp),
                                     onClick = actionFabOnClick,
                                     containerColor = MaterialTheme.colorScheme.run {
                                         if (states.shellState is ShellState.Busy) errorContainer else primaryContainer
@@ -657,7 +673,27 @@ fun BaseShellScreen(
         else -> dialogManager.dismiss()
     }
 
-    aiAnalysisBottomSheet()
+    if (showAiAnalysisSheet) {
+        AiAnalysisBottomSheet(
+            uiState = aiAnalysisState,
+            onDismiss = { showAiAnalysisSheet = false },
+            onApplyCorrection = { correction ->
+                shellViewModel.onCommandTextFieldChange(TextFieldValue(correction.suggestedCommand))
+                shellViewModel.updateTextFieldSelection()
+                showAiAnalysisSheet = false
+                textFieldFocusRequester.requestFocus()
+            },
+            onTryExample = {
+                // Not applicable here
+                showAiAnalysisSheet = false
+            },
+            onRetry = {
+                shellViewModel.analyzeCommand(states.commandField.fieldValue.text)
+            }
+        )
+    }
+
+    // Ask AI bottom sheet removed, navigates to AiChatScreen instead
 
     if (showBookmarksBottomSheet) {
         BookmarksBottomSheet(
@@ -673,6 +709,17 @@ fun BaseShellScreen(
                 dialogManager.show(ShellDialogKey.DeleteBookmarks)
             },
             onSort = { dialogManager.show(ShellDialogKey.BookmarkSort) },
+        )
+    }
+
+    val showApiKeyRequiredDialog by shellViewModel.showApiKeyRequiredDialog.collectAsState()
+    if (showApiKeyRequiredDialog) {
+        ApiKeyRequiredDialog(
+            onDismiss = { shellViewModel.dismissApiKeyRequiredDialog() },
+            onConfirm = {
+                shellViewModel.dismissApiKeyRequiredDialog()
+                navController.navigate(NavRoutes.CloudModelsScreen)
+            }
         )
     }
 

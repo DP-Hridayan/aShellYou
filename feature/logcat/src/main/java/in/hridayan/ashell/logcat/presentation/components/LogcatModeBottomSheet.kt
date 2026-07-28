@@ -16,9 +16,10 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.RadioButton
+import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.material3.rememberBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -35,7 +36,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.SettingsKeys
-import `in`.hridayan.ashell.core.domain.model.LogcatWorkingMode
+import `in`.hridayan.ashell.core.common.domain.model.LogcatWorkingMode
 import `in`.hridayan.ashell.core.resources.R
 import kotlinx.coroutines.launch
 
@@ -58,7 +59,10 @@ fun LogcatModeBottomSheet(
     onModeChanged: (Int) -> Unit,
     onDismiss: () -> Unit,
 ) {
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val sheetState = rememberBottomSheetState(
+        initialValue = SheetValue.Hidden,
+        enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded)
+    )
     val scope = rememberCoroutineScope()
     val haptic = LocalHapticFeedback.current
     val settings = LocalSettings.current
@@ -67,9 +71,9 @@ fun LogcatModeBottomSheet(
 
     val modeOptions = remember {
         listOf(
-            ModeOption(LogcatWorkingMode.BASIC,    R.string.basic_shell),
-            ModeOption(LogcatWorkingMode.SHIZUKU,  R.string.shizuku),
-            ModeOption(LogcatWorkingMode.ROOT,     R.string.root),
+            ModeOption(LogcatWorkingMode.BASIC, R.string.basic_shell),
+            ModeOption(LogcatWorkingMode.SHIZUKU, R.string.shizuku),
+            ModeOption(LogcatWorkingMode.ROOT, R.string.root),
             ModeOption(LogcatWorkingMode.WIRELESS, R.string.wireless_debugging),
         )
     }

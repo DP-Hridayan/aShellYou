@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.graphics.ColorUtils
 import `in`.hridayan.ashell.core.common.LocalPaletteStyle
-import `in`.hridayan.ashell.core.domain.provider.SeedColorProvider
+import `in`.hridayan.ashell.core.common.domain.provider.SeedColorProvider
 
 @Composable
 fun lightColorSchemeFromSeed(): ColorScheme {

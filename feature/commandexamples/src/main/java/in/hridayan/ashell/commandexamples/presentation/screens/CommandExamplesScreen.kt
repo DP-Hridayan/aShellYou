@@ -87,7 +87,9 @@ import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.navigation.LocalNavController
+import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.navigation.navigateBack
+import `in`.hridayan.ashell.core.presentation.components.dialog.ApiKeyRequiredDialog
 import `in`.hridayan.ashell.core.presentation.components.appbar.TopAppBarLarge
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -98,6 +100,10 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
 import `in`.hridayan.ashell.core.resources.R
+import `in`.hridayan.ashell.core.presentation.components.ai.AiAnalysisBottomSheet
+import `in`.hridayan.ashell.core.presentation.model.AiAnalysisUiState
+import androidx.compose.ui.platform.LocalContext
+import `in`.hridayan.ashell.core.utils.showToast
 
 @SuppressLint("RememberInComposition")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -105,6 +111,7 @@ import `in`.hridayan.ashell.core.resources.R
 fun CommandExamplesScreen(
     viewModel: CommandExamplesViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
     val weakHaptic = LocalWeakHaptic.current
     val focusManager = LocalFocusManager.current
     val scrollBehavior =
@@ -120,10 +127,12 @@ fun CommandExamplesScreen(
     val commands by viewModel.searchedCommands.collectAsState()
     val filteredLabels by viewModel.filteredLabels.collectAsState()
     val states by viewModel.states.collectAsState()
+    val aiAnalysisState by viewModel.aiAnalysisState.collectAsState()
     val isKeyboardVisible = isKeyboardVisible()
     val isNewCommandsAvailable = LocalSettings.current[SettingsKeys.NewCommandsAvailable]
 
     var showFilterCommandBottomSheet by rememberSaveable { mutableStateOf(false) }
+    var showAiAnalysisSheet by rememberSaveable { mutableStateOf(false) }
     val showNoResultsUi =
         (states.search.textFieldValue.text.isNotEmpty() || filteredLabels.isNotEmpty()) && commands.isEmpty()
     val showLoadNewCommandsUi =
@@ -150,6 +159,14 @@ fun CommandExamplesScreen(
 
     LaunchedEffect(sortType) {
         viewModel.setSortType(sortType)
+    }
+
+    LaunchedEffect(aiAnalysisState) {
+        if (aiAnalysisState is AiAnalysisUiState.Error) {
+            val message = (aiAnalysisState as AiAnalysisUiState.Error).message
+            showToast(context, message)
+            showAiAnalysisSheet = false
+        }
     }
 
     BackHandler(fabMenuExpanded) { fabMenuExpanded = false }
@@ -263,6 +280,10 @@ fun CommandExamplesScreen(
                                     ?.savedStateHandle
                                     ?.set("suggestedCommand", command)
                                 navController.popBackStack()
+                            },
+                            onAnalyzeCommand = { command ->
+                                viewModel.analyzeCommand(command)
+                                showAiAnalysisSheet = true
                             }
                         )
                     }
@@ -375,6 +396,28 @@ fun CommandExamplesScreen(
         })
     }
 
+    if (showAiAnalysisSheet) {
+        AiAnalysisBottomSheet(
+            uiState = aiAnalysisState,
+            onDismiss = {
+                showAiAnalysisSheet = false
+            },
+            onApplyCorrection = { correction ->
+                navController.previousBackStackEntry
+                    ?.savedStateHandle
+                    ?.set("suggestedCommand", correction.suggestedCommand)
+                navController.popBackStack()
+            },
+            onTryExample = {
+                // Not applicable here, just close
+                showAiAnalysisSheet = false
+            },
+            onRetry = {
+                // Handled in viewmodel or UI
+            },
+        )
+    }
+
     when (dialogManager.activeDialog) {
         CommandExamplesDialogKey.LoadDefaultCommands -> LoadDefaultCommandsDialog(onDismiss = { dialogManager.dismiss() })
         CommandExamplesDialogKey.SortCommands -> CommandsSortDialog(onDismiss = { dialogManager.dismiss() })
@@ -386,6 +429,17 @@ fun CommandExamplesScreen(
             )
 
         else -> dialogManager.dismiss()
+    }
+
+    val showApiKeyRequiredDialog by viewModel.showApiKeyRequiredDialog.collectAsState()
+    if (showApiKeyRequiredDialog) {
+        ApiKeyRequiredDialog(
+            onDismiss = { viewModel.dismissApiKeyRequiredDialog() },
+            onConfirm = {
+                viewModel.dismissApiKeyRequiredDialog()
+                navController.navigate(NavRoutes.CloudModelsScreen)
+            }
+        )
     }
 }
 

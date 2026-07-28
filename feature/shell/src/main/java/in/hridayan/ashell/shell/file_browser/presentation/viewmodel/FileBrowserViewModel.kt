@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import `in`.hridayan.ashell.core.domain.model.AdbFileBrowserConnectionMode
+import `in`.hridayan.ashell.core.common.domain.model.AdbFileBrowserConnectionMode
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.file_browser.data.executor.OtgCommandExecutor
 import `in`.hridayan.ashell.shell.file_browser.data.repository.FileBrowserRepositoryImpl
@@ -21,11 +21,11 @@ import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
 import `in`.hridayan.ashell.shell.file_browser.domain.repository.FileBrowserRepository
 import `in`.hridayan.ashell.shell.file_browser.presentation.model.FileBrowserEvent
 import `in`.hridayan.ashell.shell.file_browser.presentation.model.FileBrowserState
-import `in`.hridayan.ashell.core.domain.model.OtgConnection
-import `in`.hridayan.ashell.core.domain.model.OtgState
-import `in`.hridayan.ashell.shell.otg_adb_shell.domain.repository.OtgRepository
+import `in`.hridayan.ashell.core.common.domain.model.otg.OtgConnection
+import `in`.hridayan.ashell.core.common.domain.model.otg.OtgState
+import `in`.hridayan.ashell.core.common.domain.repository.OtgRepository
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
-import `in`.hridayan.ashell.core.domain.model.WifiAdbDevice
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay

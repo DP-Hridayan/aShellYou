@@ -1,7 +1,7 @@
 package `in`.hridayan.ashell.ai.data.local.database
 
 import androidx.room.Entity
-import `in`.hridayan.ashell.ai.domain.model.AnalysisResult
+import `in`.hridayan.ashell.core.common.domain.model.ai.AnalysisResult
 
 /**
  * Room entity for caching AI analysis results.
