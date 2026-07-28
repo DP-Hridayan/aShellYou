@@ -13,7 +13,7 @@
     <string name="adb_connection_channel_description">Shows when ADB connection is active</string>
     <string name="adb_connection_channel_name">ADB Connection</string>
     <string name="adb_connection_description">WiFi ADB connection is being maintained</string>
-    <string name="adb_copilot">ADB Copilot</string>
+    <string name="adb_agent">ADB Agent</string>
     <string name="adb_sideload">ADB sideload</string>
     <string name="ai_prompt_suggestion_1">Check my battery health</string>
     <string name="ai_prompt_suggestion_2">List all installed packages</string>
@@ -519,7 +519,7 @@
     <string name="medium">Medium</string>
     <string name="merge">Merge</string>
     <string name="message">Message</string>
-    <string name="message_adb_copilot">Message ADB Copilot…</string>
+    <string name="message_adb_agent">Message ADB Agent…</string>
     <string name="minimize">Minimize</string>
     <string name="mode">Mode</string>
     <string name="mode_one_desc">Use root access to run commands. Rooted commands can be executed.</string>

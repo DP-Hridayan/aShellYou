@@ -166,7 +166,7 @@ fun HomeScreen(
                 Icon(
                     modifier = Modifier.size(24.dp),
                     painter = painterResource(R.drawable.ic_help),
-                    contentDescription = stringResource(R.string.adb_copilot)
+                    contentDescription = stringResource(R.string.adb_agent)
                 )
             }
         }

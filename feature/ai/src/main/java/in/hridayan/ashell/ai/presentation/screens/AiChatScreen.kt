@@ -247,7 +247,7 @@ fun AiChatScreen(
                         val currentSession =
                             uiState.sessions.find { it.id == uiState.currentSessionId }
                         val topBarTitle = currentSession?.title?.takeIf { it.isNotBlank() }
-                            ?: stringResource(R.string.adb_copilot)
+                            ?: stringResource(R.string.adb_agent)
                         Text(
                             text = topBarTitle,
                             maxLines = 1,
@@ -295,11 +295,11 @@ fun AiChatScreen(
 
                     if (reversedUiItems.isEmpty()) {
                         item {
-                            NewChatScreenCenterUI(
+                            NewChatWelcomeUI(
                                 modifier = Modifier
                                     .fillParentMaxSize()
-                                    .padding(horizontal = 24.dp),
-                                onClickPrompt = { prompt -> viewModel.sendMessage(prompt) })
+                                    .padding(horizontal = 24.dp)
+                            )
                         }
                     }
 
@@ -553,6 +553,13 @@ fun AiChatScreen(
                     }
                 }
 
+                if (uiItems.isEmpty()) {
+                    NewChatPromptSuggestions(
+                        modifier = Modifier.padding(horizontal = 15.dp, vertical = 5.dp),
+                        onClickPrompt = { prompt -> viewModel.sendMessage(prompt) }
+                    )
+                }
+
                 // Input text is a floating card
                 Card(
                     modifier = Modifier
@@ -585,7 +592,13 @@ fun AiChatScreen(
                             value = inputText,
                             onValueChange = { inputText = it },
                             modifier = Modifier.weight(1f),
-                            placeholder = { Text(stringResource(R.string.message_adb_copilot)) },
+                            placeholder = {
+                                Text(
+                                    text = stringResource(R.string.message_adb_agent),
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                            },
                             maxLines = 4,
                             colors = TextFieldDefaults.colors(
                                 focusedIndicatorColor = Color.Transparent,
@@ -594,7 +607,7 @@ fun AiChatScreen(
                                 focusedContainerColor = Color.Transparent,
                                 unfocusedContainerColor = Color.Transparent,
                                 disabledContainerColor = Color.Transparent
-                            )
+                            ),
                         )
 
                         IconButton(
@@ -681,9 +694,8 @@ fun AiChatScreen(
 }
 
 @Composable
-private fun NewChatScreenCenterUI(
-    modifier: Modifier = Modifier,
-    onClickPrompt: (String) -> Unit
+private fun NewChatWelcomeUI(
+    modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier,
@@ -692,8 +704,8 @@ private fun NewChatScreenCenterUI(
     ) {
         AnimatedAdbIcon(
             modifier = Modifier.size(100.dp),
-            headColor = MaterialTheme.colorScheme.primary,
-            eyeColor = MaterialTheme.colorScheme.onPrimary
+            headColor = MaterialTheme.colorScheme.tertiary,
+            eyeColor = MaterialTheme.colorScheme.onTertiary
         )
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -702,22 +714,32 @@ private fun NewChatScreenCenterUI(
             text = stringResource(R.string.ai_new_chat_welcome_msg),
             style = MaterialTheme.typography.headlineLarge,
             color = MaterialTheme.colorScheme.onSurface,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            maxLines = 2
         )
 
         Spacer(modifier = Modifier.height(32.dp))
+    }
+}
 
-        val prompts = listOf(
-            stringResource(R.string.ai_prompt_suggestion_1),
-            stringResource(R.string.ai_prompt_suggestion_2),
-            stringResource(R.string.ai_prompt_suggestion_3)
-        )
+@Composable
+private fun NewChatPromptSuggestions(
+    modifier: Modifier = Modifier,
+    onClickPrompt: (String) -> Unit
+) {
+    val prompts = listOf(
+        stringResource(R.string.ai_prompt_suggestion_1),
+        stringResource(R.string.ai_prompt_suggestion_2),
+        stringResource(R.string.ai_prompt_suggestion_3)
+    )
 
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
         prompts.forEach { prompt ->
             OutlinedCard(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 6.dp),
+                modifier = Modifier,
                 shape = RoundedCornerShape(50),
                 onClick = withHaptic { onClickPrompt(prompt) },
                 colors = CardDefaults.cardColors(
@@ -732,7 +754,6 @@ private fun NewChatScreenCenterUI(
                         vertical = 14.dp
                     ),
                     style = MaterialTheme.typography.bodyMedium,
-                    textAlign = TextAlign.Center
                 )
             }
         }

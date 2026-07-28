@@ -34,6 +34,6 @@ fun AskAiButton(
 
         Spacer(Modifier.widthIn(ButtonDefaults.IconSpacing))
 
-        Text(text = stringResource(R.string.adb_copilot))
+        Text(text = stringResource(R.string.adb_agent))
     }
 }
