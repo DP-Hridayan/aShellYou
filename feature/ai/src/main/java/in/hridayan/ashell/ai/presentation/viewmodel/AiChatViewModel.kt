@@ -108,98 +108,107 @@ class AiChatViewModel @Inject constructor(
             }
         ) { messages, streamingText ->
                 val items = mutableListOf<ChatUiItem>()
-                val currentThoughts = mutableListOf<Thought>()
-
-                messages.forEach { msg ->
-                    val isUser = msg.role == "user"
-                    val llmMessage = try {
-                        json.decodeFromString<LlmMessage>(msg.rawContent)
-                    } catch (e: Exception) {
-                        if (msg.rawContent.isNotBlank()) {
-                            if (currentThoughts.isNotEmpty()) {
-                                items.add(ChatUiItem.ThoughtGroup(msg.id + "_thoughts", currentThoughts.toList()))
-                                currentThoughts.clear()
-                            }
-                            if (isUser) items.add(ChatUiItem.UserMessage(msg.id, msg.rawContent))
-                            else items.add(ChatUiItem.ModelMessage(msg.id, msg.rawContent))
-                        }
-                        return@forEach
-                    }
-
-                    val toolCall = llmMessage.toolCall
-                    val toolRes = llmMessage.toolResponse
-                    val textContent = llmMessage.content
-
-                    if (toolCall != null) {
-                        val argsStr = toolCall.args?.toString() ?: ""
-                        val formattedArgs = try {
-                            // Try to format JSON nicely if possible, else just use raw string
-                            val parsed = json.parseToJsonElement(argsStr)
-                            val prettyJson = kotlinx.serialization.json.Json { prettyPrint = true }
-                            prettyJson.encodeToString(kotlinx.serialization.json.JsonElement.serializer(), parsed)
-                        } catch (e: Exception) {
-                            argsStr
-                        }
-                        
-                        currentThoughts.add(
-                            Thought(
-                                "Executing Tool: ${toolCall.name}",
-                                formattedArgs.take(500) + if (formattedArgs.length > 500) "\n\n[...Args truncated for UI]" else ""
-                            )
-                        )
-                    }
-                    if (toolRes != null) {
-                        val resStr = toolRes.result
-                        val lines = resStr.lines()
-                        val truncatedLines = if (lines.size > 10) {
-                            lines.take(10).joinToString("\n") + "\n\n[...Output truncated (${lines.size - 10} more lines)]"
-                        } else {
-                            resStr
-                        }
-                        
-                        val finalRes = if (truncatedLines.length > 500) {
-                            truncatedLines.take(500) + "\n\n[...Output truncated for UI]"
-                        } else {
-                            truncatedLines
-                        }
-                        
-                        currentThoughts.add(Thought("Result: ${toolRes.name}", finalRes))
-                    }
-
-                    if (textContent.isNotBlank()) {
-                        if (currentThoughts.isNotEmpty()) {
-                            items.add(ChatUiItem.ThoughtGroup(msg.id + "_thoughts", currentThoughts.toList()))
-                            currentThoughts.clear()
-                        }
-                        if (isUser) {
-                            val msgIndex = messages.indexOf(msg)
-                            val nextMsg = messages.getOrNull(msgIndex + 1)
-                            val isLast = msgIndex == messages.lastIndex
-                            
-                            val isOrphaned = if (isLast) {
-                                // If it's the last message, it's orphaned if not generating and no streaming text
-                                val isCurrentlyGenerating = uiState.value.generatingSessionIds.contains(_currentSessionId.value)
-                                !isCurrentlyGenerating && streamingText.isNullOrEmpty()
-                            } else {
-                                // If there is a next message, check if it's another user message
-                                nextMsg?.role == "user"
-                            }
-                            
-                            // Do not show previous orphaned prompts in the UI
-                            if (!isOrphaned || isLast) {
-                                items.add(ChatUiItem.UserMessage(msg.id, textContent, isOrphaned))
-                            }
-                        } else {
-                            items.add(ChatUiItem.ModelMessage(msg.id, textContent))
-                        }
-                    }
-                }
+                val turnThoughts = mutableListOf<Thought>()
+                val turnModelMessages = mutableListOf<ChatUiItem.ModelMessage>()
+                var currentTurnId = "initial_turn"
 
                 val isCurrentlyGenerating = uiState.value.generatingSessionIds.contains(_currentSessionId.value)
 
-                if (currentThoughts.isNotEmpty()) {
-                    items.add(ChatUiItem.ThoughtGroup("orphan_thoughts", currentThoughts.toList(), isGenerating = isCurrentlyGenerating))
+                messages.forEach { msg ->
+                    val llmMessage = try {
+                        json.decodeFromString<LlmMessage>(msg.rawContent)
+                    } catch (e: Exception) {
+                        null
+                    }
+
+                    // Tool responses have role = "user" but they are part of the model's execution chain!
+                    val isUserPrompt = msg.role == "user" && (llmMessage == null || llmMessage.toolResponse == null)
+                    
+                    if (isUserPrompt) {
+                        // Flush previous turn
+                        if (turnThoughts.isNotEmpty()) {
+                            items.add(ChatUiItem.ThoughtGroup(currentTurnId + "_thoughts", turnThoughts.toList(), isGenerating = false))
+                            turnThoughts.clear()
+                        }
+                        items.addAll(turnModelMessages)
+                        turnModelMessages.clear()
+                        
+                        currentTurnId = msg.id
+                        
+                        val msgIndex = messages.indexOf(msg)
+                        val nextMsg = messages.getOrNull(msgIndex + 1)
+                        val isLast = msgIndex == messages.lastIndex
+                        
+                        val isOrphaned = if (isLast) {
+                            !isCurrentlyGenerating && streamingText.isNullOrEmpty()
+                        } else {
+                            // Next message is user if it has role "user" and NO tool response!
+                            val nextLlmMsg = try { nextMsg?.let { json.decodeFromString<LlmMessage>(it.rawContent) } } catch (e: Exception) { null }
+                            nextMsg?.role == "user" && (nextLlmMsg == null || nextLlmMsg.toolResponse == null)
+                        }
+                        
+                        val textContent = llmMessage?.content ?: msg.rawContent
+                        
+                        if (!isOrphaned || isLast) {
+                            items.add(ChatUiItem.UserMessage(msg.id, textContent, isOrphaned))
+                        }
+                    } else {
+                        if (llmMessage == null) {
+                            if (msg.rawContent.isNotBlank()) {
+                                turnModelMessages.add(ChatUiItem.ModelMessage(msg.id, msg.rawContent))
+                            }
+                        } else {
+                            val toolCall = llmMessage.toolCall
+                            val toolRes = llmMessage.toolResponse
+                            val textContent = llmMessage.content
+
+                            if (toolCall != null) {
+                                val argsStr = toolCall.args?.toString() ?: ""
+                                val formattedArgs = try {
+                                    val parsed = json.parseToJsonElement(argsStr)
+                                    val prettyJson = kotlinx.serialization.json.Json { prettyPrint = true }
+                                    prettyJson.encodeToString(kotlinx.serialization.json.JsonElement.serializer(), parsed)
+                                } catch (e: Exception) {
+                                    argsStr
+                                }
+                                
+                                turnThoughts.add(
+                                    Thought(
+                                        "Executing Tool: ${toolCall.name}",
+                                        formattedArgs.take(500) + if (formattedArgs.length > 500) "\n\n[...Args truncated for UI]" else ""
+                                    )
+                                )
+                            }
+                            if (toolRes != null) {
+                                val resStr = toolRes.result
+                                val lines = resStr.lines()
+                                val truncatedLines = if (lines.size > 10) {
+                                    lines.take(10).joinToString("\n") + "\n\n[...Output truncated (${lines.size - 10} more lines)]"
+                                } else {
+                                    resStr
+                                }
+                                
+                                val finalRes = if (truncatedLines.length > 500) {
+                                    truncatedLines.take(500) + "\n\n[...Output truncated for UI]"
+                                } else {
+                                    truncatedLines
+                                }
+                                
+                                turnThoughts.add(Thought("Result: ${toolRes.name}", finalRes))
+                            }
+
+                            if (textContent.isNotBlank()) {
+                                turnModelMessages.add(ChatUiItem.ModelMessage(msg.id, textContent))
+                            }
+                        }
+                    }
                 }
+
+                // Flush final turn
+                if (turnThoughts.isNotEmpty()) {
+                    items.add(ChatUiItem.ThoughtGroup(currentTurnId + "_thoughts", turnThoughts.toList(), isGenerating = isCurrentlyGenerating))
+                }
+                items.addAll(turnModelMessages)
 
                 if (streamingText != null) {
                     var alreadyInDb = false

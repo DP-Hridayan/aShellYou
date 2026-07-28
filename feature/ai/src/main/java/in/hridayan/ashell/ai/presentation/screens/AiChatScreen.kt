@@ -122,7 +122,7 @@ fun AiChatScreen(
     val uiItems by viewModel.uiItems.collectAsState()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
-    var selectedThoughts by remember { mutableStateOf<ChatUiItem.ThoughtGroup?>(null) }
+    var selectedThoughtGroupId by remember { mutableStateOf<String?>(null) }
     var selectedSessionForOptions by remember { mutableStateOf<ChatSessionEntity?>(null) }
     var showRenameDialogForSession by remember { mutableStateOf<ChatSessionEntity?>(null) }
     var inputText by remember { mutableStateOf("") }
@@ -356,7 +356,7 @@ fun AiChatScreen(
                                 ) {
                                     CustomCard(
                                         onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                                            selectedThoughts = item
+                                            selectedThoughtGroupId = item.id
                                         },
                                         colors = CardDefaults.cardColors(
                                             containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(
@@ -612,10 +612,11 @@ fun AiChatScreen(
         }
     }
 
-    selectedThoughts?.let { group ->
+    val selectedGroup = uiItems.find { it.id == selectedThoughtGroupId } as? ChatUiItem.ThoughtGroup
+    selectedGroup?.let { group ->
 
         AiThoughtsBottomSheet(
-            onDismiss = { selectedThoughts = null },
+            onDismiss = { selectedThoughtGroupId = null },
             thoughts = group.thoughts,
             isGenerating = group.isGenerating
         )

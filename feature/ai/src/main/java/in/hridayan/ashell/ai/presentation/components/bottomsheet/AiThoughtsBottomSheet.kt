@@ -66,7 +66,8 @@ fun AiThoughtsBottomSheet(
                 .padding(horizontal = 20.dp, vertical = 24.dp)
         ) {
             itemsIndexed(thoughts) { index, thought ->
-                val isLastItem = index == thoughts.lastIndex && isGenerating
+                val isLastInList = index == thoughts.lastIndex
+                val isAnimatedSpinner = isLastInList && isGenerating
 
                 Row(modifier = Modifier.height(IntrinsicSize.Min)) {
                     // Left side: Icon + Vertical Line
@@ -74,7 +75,7 @@ fun AiThoughtsBottomSheet(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         modifier = Modifier.padding(end = 16.dp)
                     ) {
-                        if (isLastItem) {
+                        if (isAnimatedSpinner) {
                             AnimatedStopIcon(modifier = Modifier.size(24.dp))
                         } else {
                             Box(
@@ -92,7 +93,7 @@ fun AiThoughtsBottomSheet(
                             }
                         }
 
-                        if (!isLastItem) {
+                        if (!isLastInList) {
                             Box(
                                 modifier = Modifier
                                     .width(2.dp)
@@ -106,7 +107,7 @@ fun AiThoughtsBottomSheet(
                     Column(
                         modifier = Modifier
                             .weight(1f)
-                            .padding(bottom = if (isLastItem) 0.dp else 24.dp)
+                            .padding(bottom = if (isLastInList) 0.dp else 24.dp)
                     ) {
                         Text(
                             text = thought.title,
