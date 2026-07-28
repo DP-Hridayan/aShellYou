@@ -15,6 +15,10 @@
     <string name="adb_connection_description">WiFi ADB connection is being maintained</string>
     <string name="adb_copilot">ADB Copilot</string>
     <string name="adb_sideload">ADB sideload</string>
+    <string name="ai_prompt_suggestion_1">Check my battery health</string>
+    <string name="ai_prompt_suggestion_2">List all installed packages</string>
+    <string name="ai_prompt_suggestion_3">Help me create a Quick Settings tile</string>
+    <string name="ai_new_chat_welcome_msg">Hi, what can I do for you?</string>
     <string name="adb_through_otg">ADB Through OTG</string>
     <string name="adb_through_otg_summary">Use an OTG cable and USB debugging to execute ADB commands on another Android device. You need to turn on USB Debugging in the developer settings of the target device.</string>
     <string name="adb_via_otg">ADB via OTG</string>

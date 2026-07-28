@@ -45,6 +45,7 @@ import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -79,6 +80,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -100,6 +102,7 @@ import `in`.hridayan.ashell.ai.presentation.viewmodel.AiChatViewModel
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
+import `in`.hridayan.ashell.core.presentation.components.animatedcomposables.AnimatedAdbIcon
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.ApiKeyRequiredDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -289,6 +292,16 @@ fun AiChatScreen(
                     }
 
                     val reversedUiItems = uiItems.reversed()
+
+                    if (reversedUiItems.isEmpty()) {
+                        item {
+                            NewChatScreenCenterUI(
+                                modifier = Modifier
+                                    .fillParentMaxSize()
+                                    .padding(horizontal = 24.dp),
+                                onClickPrompt = { prompt -> viewModel.sendMessage(prompt) })
+                        }
+                    }
 
                     items(count = reversedUiItems.size, key = { reversedUiItems[it].id }) { index ->
                         val item = reversedUiItems[index]
@@ -668,6 +681,65 @@ fun AiChatScreen(
 }
 
 @Composable
+private fun NewChatScreenCenterUI(
+    modifier: Modifier = Modifier,
+    onClickPrompt: (String) -> Unit
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        AnimatedAdbIcon(
+            modifier = Modifier.size(100.dp),
+            headColor = MaterialTheme.colorScheme.primary,
+            eyeColor = MaterialTheme.colorScheme.onPrimary
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Text(
+            text = stringResource(R.string.ai_new_chat_welcome_msg),
+            style = MaterialTheme.typography.headlineLarge,
+            color = MaterialTheme.colorScheme.onSurface,
+            textAlign = TextAlign.Center
+        )
+
+        Spacer(modifier = Modifier.height(32.dp))
+
+        val prompts = listOf(
+            stringResource(R.string.ai_prompt_suggestion_1),
+            stringResource(R.string.ai_prompt_suggestion_2),
+            stringResource(R.string.ai_prompt_suggestion_3)
+        )
+
+        prompts.forEach { prompt ->
+            OutlinedCard(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 6.dp),
+                shape = RoundedCornerShape(50),
+                onClick = withHaptic { onClickPrompt(prompt) },
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    contentColor = MaterialTheme.colorScheme.onSurface
+                )
+            ) {
+                Text(
+                    text = prompt,
+                    modifier = Modifier.padding(
+                        horizontal = 20.dp,
+                        vertical = 14.dp
+                    ),
+                    style = MaterialTheme.typography.bodyMedium,
+                    textAlign = TextAlign.Center
+                )
+            }
+        }
+    }
+}
+
+@Composable
 private fun MarkdownMessageContent(
     modifier: Modifier = Modifier,
     textColor: Color,
@@ -697,8 +769,10 @@ private fun MarkdownMessageContent(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 6.dp),
-                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-                            contentColor = MaterialTheme.colorScheme.onSurface)
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                            contentColor = MaterialTheme.colorScheme.onSurface
+                        )
                     ) {
                         Column {
                             Row(
