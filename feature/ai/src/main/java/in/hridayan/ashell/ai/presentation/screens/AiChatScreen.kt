@@ -568,8 +568,6 @@ fun AiChatScreen(
                             )
                         }
 
-                        Spacer(Modifier.width(8.dp))
-
                         TextField(
                             value = inputText,
                             onValueChange = { inputText = it },
@@ -585,8 +583,6 @@ fun AiChatScreen(
                                 disabledContainerColor = Color.Transparent
                             )
                         )
-
-                        Spacer(Modifier.width(4.dp))
 
                         IconButton(
                             onClick = withHaptic {
