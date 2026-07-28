@@ -8,6 +8,7 @@ import dagger.multibindings.IntoSet
 import `in`.hridayan.ashell.commandexamples.tool.DeleteCommandExampleTool
 import `in`.hridayan.ashell.commandexamples.tool.SaveCommandExampleTool
 import `in`.hridayan.ashell.commandexamples.tool.SearchCommandExamplesTool
+import `in`.hridayan.ashell.commandexamples.tool.UpdateCommandExampleTool
 import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 
 @Module
@@ -29,5 +30,11 @@ abstract class CommandToolModule {
     @IntoSet
     abstract fun bindDeleteCommandExampleTool(
         tool: DeleteCommandExampleTool
+    ): AiTool
+    
+    @Binds
+    @IntoSet
+    abstract fun bindUpdateCommandExampleTool(
+        tool: UpdateCommandExampleTool
     ): AiTool
 }

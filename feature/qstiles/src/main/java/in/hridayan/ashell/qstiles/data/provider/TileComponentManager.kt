@@ -93,5 +93,18 @@ class TileComponentManager @Inject constructor(
     fun ensureAllEnabled() {
         tileServices.indices.forEach { setComponentEnabled(it, true) }
     }
+
+    /**
+     * Requests the system to refresh the tile UI state.
+     */
+    fun refreshTile(slotIndex: Int) {
+        if (slotIndex !in tileServices.indices) return
+        val componentName = ComponentName(packageName, tileServices[slotIndex].qualifiedName!!)
+        try {
+            android.service.quicksettings.TileService.requestListeningState(context, componentName)
+        } catch (e: Exception) {
+            // Ignore if service is not found or bound
+        }
+    }
 }
 

@@ -35,7 +35,7 @@ class CreateQsTileTool @Inject constructor(
             ),
             "command" to ToolSchemaProperty(
                 type = "STRING",
-                description = "The exact shell command to run when tapped (or when toggled ON)."
+                description = "The exact shell command to run when the tile is ALREADY ON (i.e. to turn the feature OFF). For simple tap tiles, this is the action command."
             ),
             "icon_name" to ToolSchemaProperty(
                 type = "STRING",
@@ -55,7 +55,7 @@ class CreateQsTileTool @Inject constructor(
             ),
             "inactive_command" to ToolSchemaProperty(
                 type = "STRING",
-                description = "If is_toggleable is true, the shell command to run when toggled OFF. Default empty string."
+                description = "If is_toggleable is true, the shell command to run when the tile is ALREADY OFF (i.e. to turn the feature ON). Default empty string."
             ),
             "active_subtitle" to ToolSchemaProperty(
                 type = "STRING",

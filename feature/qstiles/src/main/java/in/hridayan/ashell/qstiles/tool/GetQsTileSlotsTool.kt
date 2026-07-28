@@ -46,9 +46,9 @@ class GetQsTileSlotsTool @Inject constructor(
                     else -> "Shizuku"
                 }
                 val typeStr = if (tile.activeState.isToggleable) {
-                    "Toggle (ON: '${tile.activeState.activeCommand.text}', OFF: '${tile.activeState.inactiveCommand.text}')"
+                    "Toggle (Cmd to turn OFF: '${tile.activeState.activeCommand.text}', Cmd to turn ON: '${tile.activeState.inactiveCommand.text}')"
                 } else {
-                    "Tap ('${tile.activeState.activeCommand.text}')"
+                    "Tap Action ('${tile.activeState.activeCommand.text}')"
                 }
                 sb.appendLine("  - Slot ${tile.id}: '${tile.name}' [Mode: $modeStr] ($typeStr)")
             }

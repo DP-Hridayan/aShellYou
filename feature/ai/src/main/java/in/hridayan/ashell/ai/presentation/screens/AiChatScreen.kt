@@ -701,7 +701,8 @@ private fun MarkdownMessageContent(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 6.dp),
-                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                            contentColor = MaterialTheme.colorScheme.onSurface)
                     ) {
                         Column {
                             Row(
@@ -714,7 +715,6 @@ private fun MarkdownMessageContent(
                                 Text(
                                     text = component.language.ifBlank { "code" },
                                     style = MaterialTheme.typography.labelSmall,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
 
                                 Row {
@@ -792,7 +792,6 @@ private fun MarkdownMessageContent(
                                     text = annotatedString,
                                     style = MaterialTheme.typography.bodyMedium.copy(fontFamily = FontFamily.Monospace),
                                     modifier = Modifier.padding(8.dp),
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                             }
                         }
