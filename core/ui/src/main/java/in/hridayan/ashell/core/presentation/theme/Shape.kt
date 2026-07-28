@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.core.presentation.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -31,6 +32,7 @@ object Shape {
     )
 }
 
+@Stable
 data class CustomCardShape(
     val topStart: CornerSize = CornerSize.Absolute(0.dp),
     val topEnd: CornerSize = CornerSize.Absolute(0.dp),

@@ -1,5 +1,6 @@
 package `in`.hridayan.settingsdsl.ui.card
 
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -29,6 +30,7 @@ internal fun CornerSize.toDp(heightPx: Float, density: Density): Dp =
  *
  * You should not need to construct this directly — the library creates it for you.
  */
+@Stable
 data class CustomCardShape(
     val topStart: CornerSize = CornerSize.Absolute(0.dp),
     val topEnd: CornerSize = CornerSize.Absolute(0.dp),

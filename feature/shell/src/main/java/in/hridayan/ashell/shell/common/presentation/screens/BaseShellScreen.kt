@@ -91,12 +91,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -1208,7 +1210,9 @@ private fun BottomExtendedFAB(
     }
 
     val icon =
-        if (isOutputEmpty) painterResource(R.drawable.ic_paste) else painterResource(R.drawable.ic_save)
+        if (isOutputEmpty) ImageVector.vectorResource(R.drawable.ic_paste) else ImageVector.vectorResource(
+            R.drawable.ic_save
+        )
 
     val buttonText =
         if (isOutputEmpty) stringResource(R.string.paste) else stringResource(R.string.save)
@@ -1250,7 +1254,7 @@ private fun BottomExtendedFAB(
         expanded = expanded,
         icon = {
             Icon(
-                painter = icon,
+                imageVector = icon,
                 contentDescription = null
             )
         },
