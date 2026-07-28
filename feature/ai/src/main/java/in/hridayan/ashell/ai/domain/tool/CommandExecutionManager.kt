@@ -70,10 +70,11 @@ class CommandExecutionManager @Inject constructor(
         val deferred = CompletableDeferred<PermissionResult>()
         _permissionRequest.value = PermissionRequest(command, baseCommand, deferred)
         
-        val result = deferred.await()
-        _permissionRequest.value = null // clear prompt
-        
-        return result
+        return try {
+            deferred.await()
+        } finally {
+            _permissionRequest.value = null // clear prompt
+        }
     }
 
     suspend fun handlePermissionResponse(command: String, isAllowed: Boolean, alwaysAllowExact: Boolean, alwaysAllowBase: Boolean = false) {

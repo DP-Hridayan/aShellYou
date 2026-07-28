@@ -13,6 +13,8 @@ import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
 import `in`.hridayan.ashell.core.common.domain.provider.LlmProviderClient
 import `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository
 import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.common.domain.repository.AiConnectionStateProvider
+import `in`.hridayan.ashell.core.common.domain.repository.OtgRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,6 +30,8 @@ class GenerateAiChatResponseUseCase @Inject constructor(
     private val clients: Map<LlmProvider, @JvmSuppressWildcards LlmProviderClient>,
     private val apiKeyRepository: ApiKeyRepository,
     private val settingsRepository: SettingsRepository,
+    private val otgRepository: OtgRepository,
+    private val aiConnectionStateProvider: AiConnectionStateProvider
 ) {
     private val json = Json { ignoreUnknownKeys = true; encodeDefaults = true }
 
@@ -43,15 +47,37 @@ class GenerateAiChatResponseUseCase @Inject constructor(
         if (activeModels.isEmpty()) return
         
         val currentModeId = settingsRepository.getInt(SettingsKeys.LocalAdbWorkingMode).firstOrNull() ?: SettingsKeys.LocalAdbWorkingMode.default
-        val modeContext = when (currentModeId) {
-            `in`.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode.ROOT -> "ROOT mode. You execute commands using `su -c \$command`."
-            `in`.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode.SHIZUKU -> "SHIZUKU mode. You execute commands via Shizuku (`Shizuku.newProcess(arrayOf(\"sh\", \"-c\", \$command))`)."
-            else -> "BASIC mode. You execute commands using `sh -c \$command`. This mode has very limited permissions."
+        val localContext = when (currentModeId) {
+            `in`.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode.ROOT -> "Root"
+            `in`.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode.SHIZUKU -> "Shizuku"
+            else -> "Basic"
         }
+        
+        val otgContext = if (otgRepository.isConnected()) {
+            val device = otgRepository.getAdbConnection()
+            "Connected (Max Payload: ${device?.maxData ?: "Unknown"})"
+        } else {
+            "Not connected"
+        }
+        
+        val wifiDeviceName = aiConnectionStateProvider.getWifiConnectedDeviceName()
+        val wifiContext = if (wifiDeviceName != null) {
+            val type = if (aiConnectionStateProvider.isWifiOwnDevice()) "Own Device" else "Other Device"
+            "Connected to $wifiDeviceName ($type)"
+        } else {
+            "Not connected"
+        }
+        val pairedWifiDevices = aiConnectionStateProvider.getWifiPairedDevices()
+        val pairedDevicesStr = if (pairedWifiDevices.isNotEmpty()) pairedWifiDevices.joinToString(", ") else "None"
         
         val localeName = java.util.Locale.getDefault().displayName
         val systemPrompt = "You are a helpful AI shell assistant. You can execute commands on the user's Android device and answer questions. You MUST use your tools when appropriate to execute commands.\n\n" +
-                "The user's terminal is currently operating in $modeContext Tailor your command suggestions and execution strategies based on this environment. Ensure your final response to the user is clean and helpful without dumping raw JSON or tool responses directly in the text (the UI handles rendering tool thoughts separately).\n\n" +
+                "CONNECTION CAPABILITIES:\n" +
+                "You can execute commands on different targets by specifying the `target_mode` parameter in your `execute_command` tool (options: LOCAL, WIRELESS, OTG). Defaults to LOCAL if omitted.\n" +
+                "- LOCAL: Currently in $localContext mode.\n" +
+                "- WIRELESS: $wifiContext. Paired devices: $pairedDevicesStr.\n" +
+                "- OTG: $otgContext.\n" +
+                "Always choose the appropriate target based on the user's request. If the user doesn't specify, default to the most capable connected device.\n\n" +
                 "QUICK SETTINGS (QS) TILES RULES:\n" +
                 "1. If the user asks to create a Quick Settings (QS) tile, ALWAYS call `get_qs_tile_slots` first to see which of the 10 fixed slots (1-10) are empty/available.\n" +
                 "2. If the user did not specify an execution mode for the tile, ASK the user which execution mode they prefer (0 for Shizuku [default], 1 for Root) before calling `create_qs_tile`.\n" +

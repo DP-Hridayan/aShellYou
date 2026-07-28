@@ -5,31 +5,7 @@
     <string name="active">Active</string>
     <string name="active_slot">Active Slot</string>
     <string name="adb">ADB</string>
-    <string name="cloud_models">Cloud models</string>
-    <string name="des_cloud_models">Manage API keys for cloud models</string>
-    <string name="api_key">API key</string>
-    <string name="get_api_key">Get API key</string>
-    <string name="gemini_api_key_step_1">Visit Google AI Studio at aistudio.google.com</string>
-    <string name="gemini_api_key_step_2">Sign in with your Google Account</string>
-    <string name="gemini_api_key_step_3">Click on Create API key and select or create a project</string>
-    <string name="gemini_api_key_step_4">Copy your API key and paste it below</string>
     <string name="adb_command">ADB command</string>
-    <string name="verify_api_key">Verify API key</string>
-    <string name="verifying">Verifying</string>
-    <string name="analyse">Analyse</string>
-    <string name="save_key">Save key</string>
-    <string name="always_allow_base">Always allow base</string>
-    <string name="always_allow_exact">Always allow exact</string>
-    <string name="remove">Remove</string>
-    <string name="generate_scheme">Generate scheme</string>
-    <string name="unexpected_error">Unexpected error</string>
-    <string name="generate_color_scheme">Generate color scheme</string>
-    <string name="key_verified_success_msg">Key verified successfully</string>
-    <string name="verification_failed">Verification failed</string>
-    <string name="api_key_is_saved">API key is saved</string>
-    <string name="api_key_required">API Key Required</string>
-    <string name="api_key_required_message">An API key is required to use AI features. Please add your API key in Settings -> Cloud Models.</string>
-    <string name="add_api_key">Add API key</string>
     <string name="adb_command_hint" comment="Example ADB command shown as placeholder hint in input field">adb reboot</string>
     <string name="adb_command_off_state">ADB command (OFF state)</string>
     <string name="adb_command_on_state">ADB command (ON state)</string>
@@ -37,6 +13,7 @@
     <string name="adb_connection_channel_description">Shows when ADB connection is active</string>
     <string name="adb_connection_channel_name">ADB Connection</string>
     <string name="adb_connection_description">WiFi ADB connection is being maintained</string>
+    <string name="adb_copilot">ADB Copilot</string>
     <string name="adb_sideload">ADB sideload</string>
     <string name="adb_through_otg">ADB Through OTG</string>
     <string name="adb_through_otg_summary">Use an OTG cable and USB debugging to execute ADB commands on another Android device. You need to turn on USB Debugging in the developer settings of the target device.</string>
@@ -45,33 +22,40 @@
     <string name="adb_via_wireless_debugging_summary">Connect devices (Android 11+) over Wi-Fi using wireless debugging and execute ADB commands remotely.</string>
     <string name="add">Add</string>
     <string name="add_account">Add account</string>
+    <string name="add_api_key">Add API key</string>
     <string name="add_command">Add command</string>
     <string name="add_new_item">Add new item</string>
     <string name="additional_settings">Additional settings</string>
     <string name="ai_cache_days">Cache duration</string>
     <string name="ai_cache_enabled">Enable cache</string>
-    <string name="ai_models">AI &amp; Models</string>
-    <string name="ai_chat_sessions">Chat Sessions</string>
-    <string name="ai_chat_new_chat">New Chat</string>
-    <string name="adb_copilot">ADB Copilot</string>
-    <string name="ai_chat_running">Running: </string>
-    <string name="ai_chat_allow_run_command">Allow AI to run command:</string>
-    <string name="ai_chat_deny">Deny</string>
     <string name="ai_chat_allow">Allow</string>
+    <string name="ai_chat_allow_run_command">Allow AI to run command:</string>
     <string name="ai_chat_always_allow">Always Allow</string>
-    <string name="message_adb_copilot">Message ADB Copilot…</string>
-    <string name="ai_chat_thoughts">Thoughts…</string>
-    <string name="ai_chat_use">Use</string>
-    <string name="ai_chat_pin">Pin</string>
-    <string name="ai_chat_unpin">Unpin</string>
-    <string name="ai_chat_rename">Rename</string>
-    <string name="ai_chat_delete">Delete</string>
-    <string name="ai_chat_save">Save</string>
     <string name="ai_chat_cancel">Cancel</string>
+    <string name="ai_chat_delete">Delete</string>
+    <string name="ai_chat_deny">Deny</string>
+    <string name="ai_chat_new_chat">New Chat</string>
+    <string name="ai_chat_pin">Pin</string>
+    <string name="ai_chat_rename">Rename</string>
+    <string name="ai_chat_running">Running: </string>
+    <string name="ai_chat_save">Save</string>
+    <string name="ai_chat_sessions">Chat Sessions</string>
+    <string name="ai_chat_thoughts">Thoughts…</string>
+    <string name="ai_chat_unpin">Unpin</string>
+    <string name="ai_chat_use">Use</string>
+    <string name="ai_models">AI &amp; Models</string>
+    <string name="ai_theme_prompt_hint">e.g. Cyberpunk neon city, dark mode, high contrast</string>
     <string name="all">All</string>
     <string name="all_data">All data</string>
     <string name="already_connected">Already connected</string>
     <string name="already_latest_version">You are using the latest version</string>
+    <string name="always_allow_base">Always allow base</string>
+    <string name="always_allow_exact">Always allow exact</string>
+    <string name="analyse">Analyse</string>
+    <string name="api_key">API key</string>
+    <string name="api_key_is_saved">API key is saved</string>
+    <string name="api_key_required">API Key Required</string>
+    <string name="api_key_required_message">An API key is required to use AI features. Please add your API key in Settings -> Cloud Models.</string>
     <string name="app">App</string>
     <string name="app_crashed">App has crashed</string>
     <string name="app_name" translatable="false">aShell You</string>
@@ -89,6 +73,7 @@
     <string name="auto_update">Auto update</string>
     <string name="back">Back</string>
     <string name="back_button">Back button</string>
+    <string name="background">Background</string>
     <string name="backing_up">Backing up…</string>
     <string name="backup">Backup</string>
     <string name="backup_all_data">Backup all data</string>
@@ -142,6 +127,7 @@
     <string name="cloud_backup_failed">Failed to upload backup to Google Drive</string>
     <string name="cloud_backup_google_drive">Cloud backup (Google Drive)</string>
     <string name="cloud_backup_successful">Backup uploaded to Google Drive</string>
+    <string name="cloud_models">Cloud models</string>
     <string name="cloud_restore_failed">Failed to restore from Google Drive</string>
     <string name="cloud_restore_successful">Restored from Google Drive</string>
     <string name="code_pair_instruction">Open \"Wireless debugging\" on the target device and tap \"Pair device with pairing code\"</string>
@@ -162,6 +148,8 @@
     <string name="connect">Connect</string>
     <string name="connect_device_via_otg">Connect a device via OTG</string>
     <string name="connect_to_wifi_network">Connect to wifi network</string>
+    <string name="connect_via_otg">Connect via OTG</string>
+    <string name="connect_via_wifi_adb">Connect via Wi-Fi ADB</string>
     <string name="connected">Connected</string>
     <string name="connected_device">Connected device</string>
     <string name="connecting">Connecting…</string>
@@ -181,6 +169,7 @@
     <string name="create">Create</string>
     <string name="create_folder">Create folder</string>
     <string name="create_new_tile">Create new tile</string>
+    <string name="create_with_ai">Create with AI</string>
     <string name="crowdin" translatable="false">Crowdin</string>
     <string name="crowdin_contribution_msg">Visit our crowdin translation platform to contribute</string>
     <string name="current_version">Current version</string>
@@ -221,6 +210,7 @@
     <string name="des_changelogs">History of all the changes made to the app</string>
     <string name="des_choose_icon">Click here to choose an icon from the icon collection</string>
     <string name="des_clear_output_confirmation">Ask for confirmation before clearing the shell output</string>
+    <string name="des_cloud_models">Manage API keys for cloud models</string>
     <string name="des_configure_save_directory">Choose a directory to save the shell output</string>
     <string name="des_contributors">List of contributors who helped in the development of aShell You</string>
     <string name="des_crash_history">View all crashes that have occurred in the app</string>
@@ -298,7 +288,9 @@
     <string name="downloads">Downloads</string>
     <string name="duplicate_tile_name_error_msg">A tile with this name already exists</string>
     <string name="dynamic_colors">Dynamic colors</string>
+    <string name="edit">Edit</string>
     <string name="edit_command">Edit command</string>
+    <string name="edit_theme_title" comment="%1$s = theme name">Edit Theme: %1$s</string>
     <string name="edit_tile">Edit tile</string>
     <string name="empty_folder">This folder is empty</string>
     <string name="enable_auto_backup">Enable automatic backup</string>
@@ -426,7 +418,15 @@
     <string name="found_connect_service">Found connect service</string>
     <string name="frequency">Frequency</string>
     <string name="full_license_text">Full license text</string>
+    <string name="gemini_api_key_step_1">Visit Google AI Studio at aistudio.google.com</string>
+    <string name="gemini_api_key_step_2">Sign in with your Google Account</string>
+    <string name="gemini_api_key_step_3">Click on Create API key and select or create a project</string>
+    <string name="gemini_api_key_step_4">Copy your API key and paste it below</string>
+    <string name="generate_color_scheme">Generate color scheme</string>
+    <string name="generate_scheme">Generate scheme</string>
+    <string name="generate_theme">Generate Theme</string>
     <string name="generate_tile">Generate tile</string>
+    <string name="get_api_key">Get API key</string>
     <string name="get_variables">Get variables</string>
     <string name="github" translatable="false">Github</string>
     <string name="go_home">Go Home</string>
@@ -441,12 +441,14 @@
     <string name="great_news">Great news!</string>
     <string name="haptics_and_vibration">Haptics &amp; Vibration</string>
     <string name="have_a_nice_day">Have a nice day!</string>
+    <string name="hex_editor">Hex Editor</string>
     <string name="high">High</string>
     <string name="high_contrast_dark_mode">High contrast dark mode</string>
     <string name="hint">Hint</string>
     <string name="history">History</string>
     <string name="home">Home</string>
     <string name="icon_selected">Icon selected</string>
+    <string name="import_theme">Import Theme</string>
     <string name="include">Include</string>
     <string name="info">Info</string>
     <string name="initial_state">Initial state</string>
@@ -458,6 +460,7 @@
     <string name="irreversible_action_warning">This action is irreversible!</string>
     <string name="item_deleted">Item has been deleted successfully</string>
     <string name="keep_both">Keep Both</string>
+    <string name="key_verified_success_msg">Key verified successfully</string>
     <string name="label">Label</string>
     <string name="languages">Languages</string>
     <string name="last_auto_backup_cloud">Last cloud auto backup</string>
@@ -495,22 +498,24 @@
     <string name="logcat_is_running">Logcat is running</string>
     <string name="logcat_ive_granted_it">I\'ve granted it</string>
     <string name="logcat_no_logs">No logs yet</string>
-    <string name="logcat_tap_play">Tap ▶ to start logcat</string>
-
     <string name="logcat_notification_channel_description">Shown while logcat is actively collecting logs</string>
     <string name="logcat_notification_channel_name">Logcat Session</string>
     <string name="logcat_permission_body">Without this permission, only logs from aShellYou itself will be visible. Grant full access by running this command from a computer:</string>
     <string name="logcat_permission_title">Log access permission</string>
     <string name="logcat_running_description">aShellYou is collecting system logs in the background</string>
     <string name="logcat_shortcut_long_label">Open Logcat Viewer</string>
+    <string name="logcat_source">Logcat Source</string>
+    <string name="logcat_tap_play">Tap ▶ to start logcat</string>
     <string name="logs">Logs</string>
     <string name="look_and_feel">Look &amp; Feel</string>
     <string name="low">Low</string>
+    <string name="make_your_theme_title">Make Your Theme</string>
     <string name="manual_pair">Manual Pair</string>
     <string name="max_download_size">Max Download</string>
     <string name="medium">Medium</string>
     <string name="merge">Merge</string>
     <string name="message">Message</string>
+    <string name="message_adb_copilot">Message ADB Copilot…</string>
     <string name="minimize">Minimize</string>
     <string name="mode">Mode</string>
     <string name="mode_one_desc">Use root access to run commands. Rooted commands can be executed.</string>
@@ -542,12 +547,8 @@
     <string name="no_changelog_found">No changelog found for this version</string>
     <string name="no_cloud_backup_found">No backup found on Google Drive</string>
     <string name="no_crashes">No crashes have been reported. aShell You is running smoothly.</string>
+    <string name="no_custom_themes_yet">No custom themes yet. Create one below!</string>
     <string name="no_device_connected">No device connected</string>
-    <string name="no_other_device_hint">Connect an external device to view its logs</string>
-    <string name="connect_via_wifi_adb">Connect via Wi-Fi ADB</string>
-    <string name="connect_via_otg">Connect via OTG</string>
-    <string name="logcat_source">Logcat Source</string>
-
     <string name="no_fastboot_device_error">Connected device is not in fastboot mode</string>
     <string name="no_files_download">No files selected (folders cannot be downloaded)</string>
     <string name="no_folder_selected">No folder selected</string>
@@ -559,6 +560,7 @@
     <string name="no_logs_yet_msg">No logs have been recorded yet. Execute some tiles to show logs here.</string>
     <string name="no_model_selected">No model selected</string>
     <string name="no_operations">No operations in progress</string>
+    <string name="no_other_device_hint">Connect an external device to view its logs</string>
     <string name="no_results_found">No results found</string>
     <string name="no_root_access">No root access</string>
     <string name="no_saved_devices">No saved devices</string>
@@ -573,11 +575,17 @@
     <string name="notification_style_error">If you cannot enter the Pairing Code from the notification, then you might need to change the Notification Shade to Android. Go to Notification Settings ~ Notification Style to change the Notification Style.  Otherwise you might not be able to enter the pairing code from the notification.</string>
     <string name="notification_styles">Notification styles</string>
     <string name="off">Off</string>
-    <string name="ok">OK</string>
     <string name="off_state" comment="Quick Settings tile toggle state label">Off</string>
+    <string name="ok">OK</string>
     <string name="oldest" comment="Sorting option">Oldest</string>
     <string name="on">On</string>
+    <string name="on_background">On Background</string>
+    <string name="on_primary">On Primary</string>
+    <string name="on_primary_container">On Primary Container</string>
+    <string name="on_secondary">On Secondary</string>
     <string name="on_state" comment="Quick Settings tile toggle state label">On</string>
+    <string name="on_surface">On Surface</string>
+    <string name="on_tertiary">On Tertiary</string>
     <string name="open">Open</string>
     <string name="open_app_language_settings">Open app language settings</string>
     <string name="open_issues" comment="GitHub repository open issues count">Open issues</string>
@@ -629,6 +637,8 @@
     <string name="pre_release_warning_description">These versions are still in testing and may contain unfinished features or unexpected bugs. If you choose to update to a pre-release, please be aware that things might break or behave strangely.\nIf you encounter any issues, crashes, or weird behavior, please report them so we can fix and improve aShellYou before the stable release.\nThanks for helping us build better!</string>
     <string name="preference">Preference</string>
     <string name="preview">Preview</string>
+    <string name="primary">Primary</string>
+    <string name="primary_container">Primary Container</string>
     <string name="product">Product</string>
     <string name="qr_pair">QR Pair</string>
     <string name="qr_pair_hint">To pair an Android 11+ device, scan this QR from the target device</string>
@@ -655,6 +665,7 @@
     <string name="reconnect_the_device">Reconnect the device</string>
     <string name="recovery">Recovery</string>
     <string name="refresh">Refresh</string>
+    <string name="remove">Remove</string>
     <string name="rename">Rename</string>
     <string name="rename_title" comment="%1$s = file or folder name">Rename %1$s</string>
     <string name="replace">Replace</string>
@@ -683,6 +694,8 @@
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Save</string>
     <string name="save_as_profile">Save as profile…</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="save_key">Save key</string>
     <string name="save_whole_output">Save whole output</string>
     <string name="saved_devices">Saved devices</string>
     <string name="saving">Saving…</string>
@@ -702,6 +715,7 @@
     <string name="search_variables">Search variables…</string>
     <string name="searching_connect_service">Searching connect service</string>
     <string name="searching_for_devices">Searching for devices…</string>
+    <string name="secondary">Secondary</string>
     <string name="security_patch">Security Patch</string>
     <string name="select">Select</string>
     <string name="select_all">Select all</string>
@@ -709,6 +723,7 @@
     <string name="select_backup_folder_title">No backup folder</string>
     <string name="select_folder">Select folder</string>
     <string name="select_partition">Select partition</string>
+    <string name="select_theme_to_edit_hex">Select a theme above to edit its raw hex values here.</string>
     <string name="select_time">Select time</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">Self</string>
     <string name="self_pair_connection_failed">Connection failed - try manual connect</string>
@@ -731,6 +746,7 @@
     <string name="serif" comment="Font style category name">Serif</string>
     <string name="settings">Settings</string>
     <string name="settings_only">Settings only</string>
+    <string name="share">Share</string>
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">The output of last command is exported to \'%s\'</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">The shell output is exported to \'%s\'</string>
     <string name="shizuku" translatable="false">Shizuku</string>
@@ -764,6 +780,7 @@
     <string name="successful_connection_message">Device is connected successfully. You can now start running commands on the target device.</string>
     <string name="suggested_icons">Suggested icons</string>
     <string name="support_bmc">Like what I do?\nConsider buying me a coffee</string>
+    <string name="surface">Surface</string>
     <string name="switch_mode">Switch mode</string>
     <string name="system">System</string>
     <string name="system_default">System default</string>
@@ -773,6 +790,7 @@
     <string name="telegram">Telegram</string>
     <string name="terminal">Terminal</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Terminal font style</string>
+    <string name="tertiary">Tertiary</string>
     <string name="third_party_libraries">Third-party libraries</string>
     <string name="this_application">This application</string>
     <string name="this_device">This Device</string>
@@ -797,6 +815,7 @@
     <string name="type">Type</string>
     <string name="ui_scale">UI scale</string>
     <string name="undo">Undo</string>
+    <string name="unexpected_error">Unexpected error</string>
     <string name="unknown">Unknown</string>
     <string name="unknown_error">Unknown error occurred</string>
     <string name="unknown_sources_install_permission_not_granted">Permission not granted. Please allow app installation from unknown sources.</string>
@@ -813,6 +832,9 @@
     <string name="use">Use</string>
     <string name="utilities">Utilities</string>
     <string name="variant">Variant</string>
+    <string name="verification_failed">Verification failed</string>
+    <string name="verify_api_key">Verify API key</string>
+    <string name="verifying">Verifying</string>
     <string name="version">Version</string>
     <string name="version_code">Version code</string>
     <string name="version_name">Version name</string>
@@ -907,28 +929,4 @@
     <string name="changelog_v1_0_0">\nAdded some more command examples.\nMinor UI changes.\nChanged package name to avoid version confusion with original app.</string>
     <string name="changelog_v0_9_1">\nAdded changelogs into the app.\nAdded highlighted shell output.\nMinor UI changes.</string>
     <string name="changelog_v0_9_0">\nAdded dynamic material theming.\nRevamped whole UI to give a fresh look.</string>
-    <string name="make_your_theme_title">Make Your Theme</string>
-    <string name="import_theme">Import Theme</string>
-    <string name="share">Share</string>
-    <string name="edit">Edit</string>
-    <string name="no_custom_themes_yet">No custom themes yet. Create one below!</string>
-    <string name="create_with_ai">Create with AI</string>
-    <string name="ai_theme_prompt_hint">e.g. Cyberpunk neon city, dark mode, high contrast</string>
-    <string name="generate_theme">Generate Theme</string>
-    <string name="hex_editor">Hex Editor</string>
-    <string name="select_theme_to_edit_hex">Select a theme above to edit its raw hex values here.</string>
-    <string name="edit_theme_title" comment="%1$s = theme name">Edit Theme: %1$s</string>
-    <string name="save_changes">Save Changes</string>
-    <string name="primary">Primary</string>
-    <string name="on_primary">On Primary</string>
-    <string name="primary_container">Primary Container</string>
-    <string name="on_primary_container">On Primary Container</string>
-    <string name="secondary">Secondary</string>
-    <string name="on_secondary">On Secondary</string>
-    <string name="tertiary">Tertiary</string>
-    <string name="on_tertiary">On Tertiary</string>
-    <string name="background">Background</string>
-    <string name="on_background">On Background</string>
-    <string name="surface">Surface</string>
-    <string name="on_surface">On Surface</string>
 </resources>

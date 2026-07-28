@@ -154,8 +154,8 @@ fun HomeScreen(
             FloatingActionButton(
                 modifier = Modifier.padding(bottom = 20.dp),
                 onClick = withHaptic { onAiChatClick() },
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary,
                 shape = RoundedCornerShape(
                     topStartPercent = 50,
                     topEndPercent = 50,

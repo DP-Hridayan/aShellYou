@@ -63,6 +63,13 @@ class GenerateColorSchemeViewModel @Inject constructor(
             initialValue = emptyList()
         )
 
+    val appliedThemeId = settingsRepository.getInt(SettingsKeys.AppliedCustomThemeId)
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = SettingsKeys.AppliedCustomThemeId.default
+        )
+
     private val _isGenerating = MutableStateFlow(false)
     val isGenerating = _isGenerating.asStateFlow()
 

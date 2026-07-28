@@ -100,6 +100,7 @@ fun GenerateColorSchemeScreen(
     val isGenerating by viewModel.isGenerating.collectAsState()
     val generationMessage by viewModel.generationProgressMessage.collectAsState()
     val previewPayload by viewModel.previewPayload.collectAsState()
+    val appliedThemeId by viewModel.appliedThemeId.collectAsState()
 
     val topAppBarState = rememberTopAppBarState()
     val listState = rememberLazyListState()
@@ -187,6 +188,7 @@ fun GenerateColorSchemeScreen(
                                 .fillMaxWidth()
                                 .padding(top = 20.dp),
                             themes = savedColorSchemes,
+                            appliedThemeId = appliedThemeId,
                             onApplyTheme = { theme ->
                                 viewModel.applyColorScheme(theme)
                                 Log.d("GenerateTheme", "Is theme Dark?: ${theme.isDarkTheme}")
@@ -275,12 +277,21 @@ fun ThemePokerCardCarousel(
     modifier: Modifier = Modifier,
     cardHeight: Dp = 320.dp,
     themes: List<UserGeneratedColorScheme>,
+    appliedThemeId: Int,
     onApplyTheme: (UserGeneratedColorScheme) -> Unit,
     onDelete: (UserGeneratedColorScheme) -> Unit,
     onEdit: (UserGeneratedColorScheme) -> Unit,
     onShare: (UserGeneratedColorScheme) -> Unit
 ) {
-    val pagerState = rememberPagerState(pageCount = { themes.size })
+    val initialPage = remember(themes, appliedThemeId) {
+        val index = themes.indexOfFirst { it.id == appliedThemeId }
+        if (index >= 0) index else 0
+    }
+    
+    val pagerState = rememberPagerState(
+        initialPage = initialPage,
+        pageCount = { themes.size }
+    )
 
     HorizontalPager(
         modifier = modifier,
