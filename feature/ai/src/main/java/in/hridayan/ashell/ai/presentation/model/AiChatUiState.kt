@@ -44,6 +44,6 @@ sealed class ChatUiItem {
     
     data class UserMessage(override val id: String, val content: String, val isOrphaned: Boolean = false) : ChatUiItem()
     data class ModelMessage(override val id: String, val content: String) : ChatUiItem()
-    data class ThoughtGroup(override val id: String, val thoughts: List<Thought>) : ChatUiItem()
+    data class ThoughtGroup(override val id: String, val thoughts: List<Thought>, val isGenerating: Boolean = false) : ChatUiItem()
     data class LoadingDots(override val id: String = "loading_dots") : ChatUiItem()
 }

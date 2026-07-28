@@ -39,7 +39,8 @@ import `in`.hridayan.ashell.core.resources.R
 @Composable
 fun AiThoughtsBottomSheet(
     onDismiss: () -> Unit,
-    thoughts: List<Thought>
+    thoughts: List<Thought>,
+    isGenerating: Boolean = false
 ) {
     val sheetState = rememberBottomSheetState(
         initialValue = SheetValue.Hidden,
@@ -65,7 +66,7 @@ fun AiThoughtsBottomSheet(
                 .padding(horizontal = 20.dp, vertical = 24.dp)
         ) {
             itemsIndexed(thoughts) { index, thought ->
-                val isLastItem = index == thoughts.lastIndex
+                val isLastItem = index == thoughts.lastIndex && isGenerating
 
                 Row(modifier = Modifier.height(IntrinsicSize.Min)) {
                     // Left side: Icon + Vertical Line

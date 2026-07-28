@@ -195,8 +195,10 @@ class AiChatViewModel @Inject constructor(
                     }
                 }
 
+                val isCurrentlyGenerating = uiState.value.generatingSessionIds.contains(_currentSessionId.value)
+
                 if (currentThoughts.isNotEmpty()) {
-                    items.add(ChatUiItem.ThoughtGroup("orphan_thoughts", currentThoughts.toList()))
+                    items.add(ChatUiItem.ThoughtGroup("orphan_thoughts", currentThoughts.toList(), isGenerating = isCurrentlyGenerating))
                 }
 
                 if (streamingText != null) {
