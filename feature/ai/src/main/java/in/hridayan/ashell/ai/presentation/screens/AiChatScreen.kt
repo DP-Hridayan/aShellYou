@@ -24,7 +24,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.Send
+import androidx.compose.material.icons.automirrored.rounded.Send
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.PushPin
@@ -596,7 +596,8 @@ fun AiChatScreen(
                                 Text(
                                     text = stringResource(R.string.message_adb_agent),
                                     maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis
+                                    overflow = TextOverflow.Ellipsis,
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer
                                 )
                             },
                             maxLines = 4,
@@ -606,7 +607,10 @@ fun AiChatScreen(
                                 disabledIndicatorColor = Color.Transparent,
                                 focusedContainerColor = Color.Transparent,
                                 unfocusedContainerColor = Color.Transparent,
-                                disabledContainerColor = Color.Transparent
+                                disabledContainerColor = Color.Transparent,
+                                focusedTextColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                                unfocusedTextColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                                disabledTextColor = MaterialTheme.colorScheme.onSecondaryContainer
                             ),
                         )
 
@@ -628,7 +632,7 @@ fun AiChatScreen(
                                 AnimatedStopIcon()
                             } else {
                                 Icon(
-                                    imageVector = Icons.AutoMirrored.Filled.Send,
+                                    imageVector = Icons.AutoMirrored.Rounded.Send,
                                     contentDescription = "Send",
                                     tint = MaterialTheme.colorScheme.primary
                                 )
