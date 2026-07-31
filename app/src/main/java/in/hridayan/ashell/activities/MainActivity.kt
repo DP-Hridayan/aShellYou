@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.core.common.CompositionLocals
 import `in`.hridayan.ashell.core.common.LocalSeedColor
-import `in`.hridayan.ashell.core.common.SettingsKeys
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.common.domain.provider.SeedColorProvider
 import `in`.hridayan.ashell.core.presentation.components.snackbar.SnackBarHost
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouTheme

@@ -4,7 +4,7 @@ import android.util.Log
 import `in`.hridayan.ashell.ai.data.local.database.entity.ChatMessageEntity
 import `in`.hridayan.ashell.ai.domain.repository.ChatRepository
 import `in`.hridayan.ashell.ai.domain.tool.ToolRegistry
-import `in`.hridayan.ashell.core.common.SettingsKeys
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.common.constants.AiModelConstants
 import `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException
 import `in`.hridayan.ashell.core.common.domain.model.ai.LlmMessage

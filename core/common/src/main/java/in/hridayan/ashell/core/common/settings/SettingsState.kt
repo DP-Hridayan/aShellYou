@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.core.common
+package `in`.hridayan.ashell.core.common.settings
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable

@@ -2,7 +2,7 @@ package `in`.hridayan.ashell.ai.domain.tool.builtin
 
 import `in`.hridayan.ashell.ai.domain.tool.CommandExecutionManager
 import `in`.hridayan.ashell.ai.domain.tool.PermissionResult
-import `in`.hridayan.ashell.core.common.SettingsKeys
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 import `in`.hridayan.ashell.core.common.domain.model.ai.SessionIdContext
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema

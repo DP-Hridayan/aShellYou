@@ -11,6 +11,7 @@ import dagger.hilt.android.HiltAndroidApp
 import `in`.hridayan.ashell.activities.CrashReportActivity
 import `in`.hridayan.ashell.crashreporter.domain.model.CrashReport
 import `in`.hridayan.ashell.crashreporter.domain.repository.CrashRepository
+import `in`.hridayan.ashell.core.common.FeatureConfig
 import io.github.muntashirakon.adb.PRNGFixes
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -34,6 +35,9 @@ class App : Application(), Configuration.Provider {
         super.onCreate()
         instance = this
         contextReference = WeakReference(applicationContext)
+        
+        FeatureConfig.isAiEnabled = BuildConfig.IS_AI_ENABLED
+        
         PRNGFixes.apply()
 
         val entryPoint = EntryPointAccessors.fromApplication(

@@ -197,7 +197,7 @@
     <string name="des_about">Contributors and support</string>
     <string name="des_ai_cache_days">Number of days to keep cached results</string>
     <string name="des_ai_cache_enabled">Cache analysis results per model</string>
-    <string name="des_ai_models">Manage offline AI models for command analysis</string>
+    <string name="des_ai_models">Manage AI models data and API keys</string>
     <string name="des_auto_backup_content_type">Choose what to include in automatic backups</string>
     <string name="des_auto_backup_folder">Select a folder to save automatic backups</string>
     <string name="des_auto_backup_time">Set the time for automatic backups</string>

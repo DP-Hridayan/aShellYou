@@ -35,9 +35,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.common.LocalPaletteStyle
 import `in`.hridayan.ashell.core.common.LocalSeedColor
-import `in`.hridayan.ashell.core.common.LocalSettings
+import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalTonalPalette
-import `in`.hridayan.ashell.core.common.SettingsKeys
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.common.data.provider.SeedColor
 import `in`.hridayan.ashell.core.common.domain.model.PaletteStyle
 import `in`.hridayan.ashell.settings.presentation.components.palette.PaletteWheel

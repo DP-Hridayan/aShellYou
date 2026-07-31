@@ -1,7 +1,7 @@
 package `in`.hridayan.ashell.core.common.domain.repository
 
 import androidx.datastore.preferences.core.Preferences
-import `in`.hridayan.ashell.core.common.SettingsKeys
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import kotlinx.coroutines.flow.Flow
 
 interface SettingsRepository {

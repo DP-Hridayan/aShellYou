@@ -62,8 +62,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import `in`.hridayan.ashell.core.common.FeatureConfig
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode
+import `in`.hridayan.ashell.core.common.domain.model.otg.OtgState
 import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButton
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -151,23 +153,25 @@ fun HomeScreen(
             )
         },
         floatingActionButton = {
-            FloatingActionButton(
-                modifier = Modifier.padding(bottom = 20.dp),
-                onClick = withHaptic { onAiChatClick() },
-                containerColor = MaterialTheme.colorScheme.primary,
-                contentColor = MaterialTheme.colorScheme.onPrimary,
-                shape = RoundedCornerShape(
-                    topStartPercent = 50,
-                    topEndPercent = 50,
-                    bottomStartPercent = 50,
-                    bottomEndPercent = 5
-                )
-            ) {
-                Icon(
-                    modifier = Modifier.size(24.dp),
-                    painter = painterResource(R.drawable.ic_help),
-                    contentDescription = stringResource(R.string.adb_agent)
-                )
+            if (FeatureConfig.isAiEnabled) {
+                FloatingActionButton(
+                    modifier = Modifier.padding(bottom = 20.dp),
+                    onClick = withHaptic { onAiChatClick() },
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary,
+                    shape = RoundedCornerShape(
+                        topStartPercent = 50,
+                        topEndPercent = 50,
+                        bottomStartPercent = 50,
+                        bottomEndPercent = 5
+                    )
+                ) {
+                    Icon(
+                        modifier = Modifier.size(24.dp),
+                        painter = painterResource(R.drawable.ic_help),
+                        contentDescription = stringResource(R.string.adb_agent)
+                    )
+                }
             }
         }
     ) {

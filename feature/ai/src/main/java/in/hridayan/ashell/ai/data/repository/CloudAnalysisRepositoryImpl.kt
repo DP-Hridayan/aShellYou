@@ -9,7 +9,7 @@ import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
 import `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository
 import `in`.hridayan.ashell.core.common.domain.repository.CloudAnalysisRepository
 import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
-import `in`.hridayan.ashell.core.common.SettingsKeys
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.core.common.constants.AiModelConstants
 import kotlinx.coroutines.flow.firstOrNull

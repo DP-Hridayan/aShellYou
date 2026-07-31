@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.core.common.domain.repository.AiAnalysisRepository
 import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -24,13 +25,13 @@ class AiModelManagerViewModel @Inject constructor(
 
     val preferences = settingsRepository.preferences
 
-    fun setInt(key: `in`.hridayan.ashell.core.common.SettingsKeys<Int>, value: Int) {
+    fun setInt(key: SettingsKeys<Int>, value: Int) {
         viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
             settingsRepository.setInt(key, value)
         }
     }
 
-    fun toggleSetting(key: `in`.hridayan.ashell.core.common.SettingsKeys<Boolean>) {
+    fun toggleSetting(key: SettingsKeys<Boolean>) {
         viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
             settingsRepository.toggleSetting(key)
         }

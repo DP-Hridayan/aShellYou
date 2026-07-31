@@ -1,7 +1,7 @@
 package `in`.hridayan.ashell.settings.data.backup
 
 
-import `in`.hridayan.ashell.core.common.SettingsKeys
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 
 import `in`.hridayan.ashell.core.common.domain.provider.BackupProvider
 import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository

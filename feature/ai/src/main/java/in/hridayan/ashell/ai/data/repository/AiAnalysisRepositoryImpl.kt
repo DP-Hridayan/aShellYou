@@ -6,7 +6,7 @@ import `in`.hridayan.ashell.ai.data.local.database.AiCacheEntity
 import `in`.hridayan.ashell.core.common.domain.model.ai.AnalysisResult
 import `in`.hridayan.ashell.core.common.domain.repository.AiAnalysisRepository
 import `in`.hridayan.ashell.core.common.domain.repository.CloudAnalysisRepository
-import `in`.hridayan.ashell.core.common.SettingsKeys
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 import kotlinx.coroutines.flow.firstOrNull

@@ -109,13 +109,14 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import `in`.hridayan.ashell.core.common.FeatureConfig
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalDialogManager
-import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalSnackBarController
-import `in`.hridayan.ashell.core.common.SettingsKeys
 import `in`.hridayan.ashell.core.common.domain.model.OutputLine
 import `in`.hridayan.ashell.core.common.domain.model.TerminalFontStyle
+import `in`.hridayan.ashell.core.common.settings.LocalSettings
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.presentation.components.ai.AiAnalysisBottomSheet
@@ -125,6 +126,7 @@ import `in`.hridayan.ashell.core.presentation.components.dialog.ApiKeyRequiredDi
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scrollbar.VerticalScrollbar
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
+import `in`.hridayan.ashell.core.presentation.components.svg.vectors.appBrandingNoPadding
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
@@ -434,26 +436,38 @@ fun BaseShellScreen(
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(25.dp)
                             ) {
-                                Row(
+                                Box(
                                     modifier = Modifier.weight(1f),
-                                    horizontalArrangement = Arrangement.Start
+                                    contentAlignment = Alignment.CenterStart
                                 ) {
-                                    if (states.commandField.fieldValue.text.isBlank()) {
-                                        AskAiButton(
-                                            onClick = { navController.navigate(NavRoutes.AiChatScreen) }
-                                        )
-                                    } else {
-                                        AiAnalysisButton(
-                                            onClick = {
-                                                val commandToAnalyze =
-                                                    states.commandField.fieldValue.text
-                                                if (commandToAnalyze.isNotBlank()) {
-                                                    shellViewModel.analyzeCommand(commandToAnalyze)
-                                                    showAiAnalysisSheet = true
-                                                } else {
-                                                    showToast(context, "Command cannot be empty")
+                                    if (FeatureConfig.isAiEnabled) {
+                                        if (states.commandField.fieldValue.text.isBlank()) {
+                                            AskAiButton(
+                                                onClick = { navController.navigate(NavRoutes.AiChatScreen) }
+                                            )
+                                        } else {
+                                            AiAnalysisButton(
+                                                onClick = {
+                                                    val commandToAnalyze =
+                                                        states.commandField.fieldValue.text
+                                                    if (commandToAnalyze.isNotBlank()) {
+                                                        shellViewModel.analyzeCommand(
+                                                            commandToAnalyze
+                                                        )
+                                                        showAiAnalysisSheet = true
+                                                    } else {
+                                                        showToast(
+                                                            context,
+                                                            "Command cannot be empty"
+                                                        )
+                                                    }
                                                 }
-                                            }
+                                            )
+                                        }
+                                    } else {
+                                        Image(
+                                            imageVector = DynamicColorImageVectors.appBrandingNoPadding(),
+                                            contentDescription = null,
                                         )
                                     }
                                 }
@@ -1210,9 +1224,8 @@ private fun BottomExtendedFAB(
     }
 
     val icon =
-        if (isOutputEmpty) ImageVector.vectorResource(R.drawable.ic_paste) else ImageVector.vectorResource(
-            R.drawable.ic_save
-        )
+        if (isOutputEmpty) ImageVector.vectorResource(R.drawable.ic_paste)
+        else ImageVector.vectorResource(R.drawable.ic_save)
 
     val buttonText =
         if (isOutputEmpty) stringResource(R.string.paste) else stringResource(R.string.save)

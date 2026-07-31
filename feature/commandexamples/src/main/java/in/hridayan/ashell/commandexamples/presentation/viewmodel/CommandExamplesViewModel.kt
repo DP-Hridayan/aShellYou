@@ -9,7 +9,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.commandexamples.presentation.model.CmdExamplesScreenState
-import `in`.hridayan.ashell.core.common.SettingsKeys
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.common.domain.model.CommandEntity
 import `in`.hridayan.ashell.core.common.domain.model.SortType
 import `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException

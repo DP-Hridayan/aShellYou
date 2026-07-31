@@ -1,30 +1,39 @@
 package `in`.hridayan.ashell.core.presentation.components.svg.vectors
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.offset
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeJoin
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.ImageVector.Builder
 import androidx.compose.ui.graphics.vector.PathParser
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 
 @Composable
-fun DynamicColorImageVectors.appBranding(): ImageVector {
+fun DynamicColorImageVectors.appBranding(
+    defaultWidth: Dp = 200.dp,
+    defaultHeight: Dp = 80.dp,
+    viewportWidth: Float = 200f,
+    viewportHeight: Float = 80f,
+): ImageVector {
     val primary = SolidColor(MaterialTheme.colorScheme.primary)
     val tertiary = SolidColor(MaterialTheme.colorScheme.tertiary)
 
     return Builder(
         name = "appBranding",
-        defaultWidth = 200.dp,
-        defaultHeight = 80.dp,
-        viewportWidth = 200f,
-        viewportHeight = 80f
+        defaultWidth = defaultWidth,
+        defaultHeight = defaultHeight,
+        viewportWidth = viewportWidth,
+        viewportHeight = viewportHeight
     ).apply {
         // body
         addPath(
@@ -81,8 +90,16 @@ fun DynamicColorImageVectors.appBranding(): ImageVector {
 @Preview
 @Composable
 private fun Preview() {
-    val painter = rememberVectorPainter(DynamicColorImageVectors.appBranding())
+    val painter = rememberVectorPainter(DynamicColorImageVectors.appBranding(
+        defaultWidth = 200.dp,
+        defaultHeight = 60.dp,
+        viewportWidth = 200f,
+        viewportHeight = 60f
+    ))
     Image(
+        modifier = Modifier.graphicsLayer{
+            translationY = -10.dp.toPx()
+        },
         painter = painter,
         contentDescription = null
     )

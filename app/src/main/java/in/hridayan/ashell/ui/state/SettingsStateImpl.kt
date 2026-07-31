@@ -3,8 +3,8 @@ package `in`.hridayan.ashell.ui.state
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
-import `in`.hridayan.ashell.core.common.SettingsKeys
-import `in`.hridayan.ashell.core.common.SettingsState
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
+import `in`.hridayan.ashell.core.common.settings.SettingsState
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import kotlinx.coroutines.flow.distinctUntilChanged
 

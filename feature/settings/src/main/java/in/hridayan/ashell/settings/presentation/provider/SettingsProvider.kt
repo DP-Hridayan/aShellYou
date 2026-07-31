@@ -10,7 +10,7 @@ import androidx.compose.material.icons.rounded.Downloading
 import androidx.compose.material.icons.rounded.Memory
 import androidx.compose.material.icons.rounded.TextFields
 import androidx.compose.material.icons.rounded.UnfoldMoreDouble
-import `in`.hridayan.ashell.core.common.SettingsKeys
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.common.domain.model.TerminalFontStyle
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.presentation.components.floaters.FloatingIconsBackground
@@ -27,6 +27,8 @@ import `in`.hridayan.settingsdsl.dsl.switchBannerItem
 import `in`.hridayan.settingsdsl.dsl.switchItem
 import `in`.hridayan.settingsdsl.model.ButtonGroupOption
 import `in`.hridayan.settingsdsl.model.SettingsPage
+
+import `in`.hridayan.ashell.core.common.FeatureConfig
 
 private val isSdkLowerThan31 = Build.VERSION.SDK_INT < Build.VERSION_CODES.S
 
@@ -58,7 +60,8 @@ object SettingsProvider {
                 key = SettingsKeys.CloudModels,
                 titleResId = R.string.ai_models,
                 descriptionResId = R.string.des_ai_models,
-                iconVector = Icons.Rounded.AutoAwesome
+                iconVector = Icons.Rounded.AutoAwesome,
+                visible = FeatureConfig.isAiEnabled
             ),
             clickableItem(
                 key = SettingsKeys.AutoUpdate,

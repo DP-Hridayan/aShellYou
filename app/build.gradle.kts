@@ -98,9 +98,11 @@ android {
     productFlavors {
         create(flavorGitHub) {
             dimension = "distribution"
+            buildConfigField("Boolean", "IS_AI_ENABLED", "true")
         }
         create(flavorFDroid) {
             dimension = "distribution"
+            buildConfigField("Boolean", "IS_AI_ENABLED", "false")
         }
     }
 
@@ -217,7 +219,7 @@ dependencies {
     implementation(project(":feature:onboarding"))
     implementation(project(":feature:logcat"))
     implementation(project(":feature:crashreporter"))
-    implementation(project(":feature:ai"))
+    githubImplementation(project(":feature:ai"))
 
     implementation(libs.kotlin.reflect)
     implementation(libs.shizuku.provider)

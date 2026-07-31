@@ -76,6 +76,7 @@ import com.airbnb.lottie.compose.rememberLottieDynamicProperty
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.CommandExamplesDialogKey
 import `in`.hridayan.ashell.commandexamples.presentation.component.row.Labels
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
+import `in`.hridayan.ashell.core.common.FeatureConfig
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSnackBarController
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
@@ -369,16 +370,18 @@ fun CommandExampleCard(
                                 modifier = Modifier.flex { grow(1f) }
                             )
 
-                            AiAnalysisButton(
-                                onClick = {
-                                    onAnalyzeCommand(command)
-                                },
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = MaterialTheme.colorScheme.tertiary,
-                                    contentColor = MaterialTheme.colorScheme.onTertiary
-                                ),
-                                modifier = Modifier.flex { grow(1f) }
-                            )
+                            if (FeatureConfig.isAiEnabled) {
+                                AiAnalysisButton(
+                                    onClick = {
+                                        onAnalyzeCommand(command)
+                                    },
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = MaterialTheme.colorScheme.tertiary,
+                                        contentColor = MaterialTheme.colorScheme.onTertiary
+                                    ),
+                                    modifier = Modifier.flex { grow(1f) }
+                                )
+                            }
                         }
                     }
                 })

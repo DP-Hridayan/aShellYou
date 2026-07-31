@@ -1,7 +1,7 @@
 package `in`.hridayan.ashell.settings.domain.usecase
 
 import android.util.Log
-import `in`.hridayan.ashell.core.common.SettingsKeys
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException
 import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
 import `in`.hridayan.ashell.core.common.domain.provider.LlmProviderClient

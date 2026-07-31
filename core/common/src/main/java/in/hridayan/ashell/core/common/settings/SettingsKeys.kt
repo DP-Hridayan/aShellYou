@@ -1,12 +1,12 @@
-package `in`.hridayan.ashell.core.common
+package `in`.hridayan.ashell.core.common.settings
 
 import android.os.Environment
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.runtime.Stable
 import `in`.hridayan.ashell.core.common.domain.model.SortType
 import `in`.hridayan.ashell.core.common.domain.provider.SeedColorProvider
-import `in`.hridayan.ashell.core.common.SettingsKeys.Companion.entries
-import `in`.hridayan.ashell.core.common.SettingsKeys.Companion.valueOf
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys.Companion.entries
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys.Companion.valueOf
 import `in`.hridayan.settingsdsl.model.SettingsKey
 import kotlin.reflect.KClass
 import `in`.hridayan.ashell.core.common.domain.model.*
