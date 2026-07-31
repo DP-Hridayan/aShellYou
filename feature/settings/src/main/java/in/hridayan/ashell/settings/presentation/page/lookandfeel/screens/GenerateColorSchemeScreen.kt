@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalFlexBoxApi::class)
 
 package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens
 
@@ -12,6 +12,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalFlexBoxApi
+import androidx.compose.foundation.layout.FlexAlignItems
+import androidx.compose.foundation.layout.FlexBox
+import androidx.compose.foundation.layout.FlexDirection
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -21,6 +25,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
@@ -32,6 +37,7 @@ import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Share
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -39,6 +45,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarScrollBehavior
@@ -158,21 +165,6 @@ fun GenerateColorSchemeScreen(
         topAppBarState = topAppBarState,
         listState = listState,
         topBarTitle = stringResource(id = R.string.generate_color_scheme),
-        actions = {
-            IconButton(onClick = {
-                importLauncher.launch(
-                    arrayOf(
-                        "application/octet-stream",
-                        "*/*"
-                    )
-                )
-            }) {
-                Icon(
-                    painter = painterResource(id = android.R.drawable.ic_menu_add),
-                    contentDescription = stringResource(id = R.string.import_theme)
-                )
-            }
-        },
         content = { innerPadding: PaddingValues, topBarScrollBehavior: TopAppBarScrollBehavior ->
             LazyColumn(
                 modifier = Modifier
@@ -230,7 +222,12 @@ fun GenerateColorSchemeScreen(
                     CreateWithAiSection(
                         isGenerating = isGenerating,
                         generationMessage = generationMessage,
-                        onGenerate = { prompt -> viewModel.generateColorScheme(prompt) }
+                        onGenerate = { prompt -> viewModel.generateColorScheme(prompt) },
+                        onImport = {
+                            importLauncher.launch(
+                                arrayOf("application/octet-stream", "*/*")
+                            )
+                        }
                     )
                     Spacer(modifier = Modifier.height(32.dp))
                 }
@@ -479,7 +476,8 @@ fun ThemePokerCardCarousel(
 fun CreateWithAiSection(
     isGenerating: Boolean,
     generationMessage: String,
-    onGenerate: (String) -> Unit
+    onGenerate: (String) -> Unit,
+    onImport: () -> Unit
 ) {
     var prompt by remember { mutableStateOf("") }
 
@@ -491,7 +489,6 @@ fun CreateWithAiSection(
         Text(
             text = stringResource(id = R.string.create_with_ai),
             style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
@@ -527,17 +524,38 @@ fun CreateWithAiSection(
                 )
             }
         } else {
-            Button(
-                onClick = { onGenerate(prompt) },
+            FlexBox(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(16.dp)
-            ) {
-                Icon(
-                    Icons.Rounded.AutoAwesome,
-                    contentDescription = null,
-                    modifier = Modifier.padding(end = 8.dp)
-                )
-                Text(stringResource(id = R.string.generate_scheme))
+                config = {
+                    direction(FlexDirection.Row)
+                    gap(15.dp)
+                    alignItems(FlexAlignItems.Stretch)
+                }) {
+                Button(
+                    modifier = Modifier.flex { grow(1f) },
+                    onClick = withHaptic { onGenerate(prompt) },
+                    shapes = ButtonDefaults.shapes()
+                ) {
+                    Icon(
+                        Icons.Rounded.AutoAwesome,
+                        contentDescription = null,
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(stringResource(id = R.string.generate_scheme))
+                }
+
+                OutlinedButton(
+                    modifier = Modifier.flex { grow(1f) },
+                    onClick = withHaptic { onImport() },
+                    shapes = ButtonDefaults.shapes()
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_download),
+                        contentDescription = null,
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(stringResource(id = R.string._import))
+                }
             }
         }
     }
