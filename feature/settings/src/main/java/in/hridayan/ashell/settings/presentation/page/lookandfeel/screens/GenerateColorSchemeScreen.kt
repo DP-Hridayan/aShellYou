@@ -7,6 +7,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -77,6 +78,8 @@ import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.ApiKeyRequiredDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
+import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
+import `in`.hridayan.ashell.core.presentation.components.svg.vectors.undrawDreamWorld
 import `in`.hridayan.ashell.core.presentation.theme.domain.model.UserGeneratedColorScheme
 import `in`.hridayan.ashell.core.presentation.theme.domain.model.toDomain
 import `in`.hridayan.ashell.core.presentation.theme.domain.model.toEntity
@@ -180,7 +183,6 @@ fun GenerateColorSchemeScreen(
                 state = listState,
                 contentPadding = PaddingValues(vertical = 16.dp)
             ) {
-                // 1. Fanned Poker Card Carousel
                 item {
                     if (savedColorSchemes.isNotEmpty()) {
                         ThemePokerCardCarousel(
@@ -214,16 +216,16 @@ fun GenerateColorSchemeScreen(
                                 .height(250.dp),
                             contentAlignment = Alignment.Center
                         ) {
-                            Text(
-                                stringResource(id = R.string.no_custom_themes_yet),
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            Image(
+                                modifier = Modifier.padding(horizontal = 30.dp),
+                                imageVector = DynamicColorImageVectors.undrawDreamWorld(),
+                                contentDescription = null
                             )
                         }
                     }
                     Spacer(modifier = Modifier.height(32.dp))
                 }
 
-                // 2. Create with AI
                 item {
                     CreateWithAiSection(
                         isGenerating = isGenerating,
@@ -233,7 +235,6 @@ fun GenerateColorSchemeScreen(
                     Spacer(modifier = Modifier.height(32.dp))
                 }
 
-                // 3. Hex Editor
                 item {
                     if (schemeToEdit != null) {
                         HexEditorSection(
@@ -287,7 +288,7 @@ fun ThemePokerCardCarousel(
         val index = themes.indexOfFirst { it.id == appliedThemeId }
         if (index >= 0) index else 0
     }
-    
+
     val pagerState = rememberPagerState(
         initialPage = initialPage,
         pageCount = { themes.size }
