@@ -27,7 +27,6 @@ import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.PushPin
 import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -83,6 +82,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.navigation.NavDestination.Companion.hasRoute
 import com.mikepenz.markdown.m3.Markdown
 import com.mikepenz.markdown.m3.markdownColor
 import dev.snipme.highlights.Highlights
@@ -101,6 +101,7 @@ import `in`.hridayan.ashell.ai.presentation.model.MessageComponent
 import `in`.hridayan.ashell.ai.presentation.model.PermissionPrompt
 import `in`.hridayan.ashell.ai.presentation.viewmodel.AiChatViewModel
 import `in`.hridayan.ashell.core.common.LocalDarkMode
+import `in`.hridayan.ashell.core.common.domain.model.SharedTextHolder
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.presentation.components.animatedcomposables.AnimatedAdbIcon
@@ -109,7 +110,6 @@ import `in`.hridayan.ashell.core.presentation.components.dialog.ApiKeyRequiredDi
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.presentation.utils.hideKeyboard
-import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import `in`.hridayan.ashell.core.utils.showToast
@@ -185,30 +185,27 @@ fun AiChatScreen(
             bottomBar = {
                 Column(
                     modifier = Modifier
-                        .padding(bottom = 25.dp)
-                        .imePadding()
+                        .padding(horizontal = 16.dp, vertical = 30.dp)
+                        .imePadding(),
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     if (uiItems.isEmpty()) {
                         NewChatPromptSuggestions(
-                            modifier = Modifier.padding(horizontal = 15.dp, vertical = 5.dp),
                             onClickPrompt = { prompt -> viewModel.sendMessage(prompt) }
                         )
                     }
 
                     if (uiState.runningTasks.isNotEmpty() || uiState.permissionPrompt != null) {
                         CustomCard(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 15.dp, vertical = 8.dp)
+                            modifier = Modifier.fillMaxWidth()
                         ) {
                             Column(modifier = Modifier.fillMaxWidth()) {
                                 if (uiState.runningTasks.isNotEmpty()) {
-
                                     uiState.runningTasks.forEach { task ->
                                         RunningTasks(
                                             modifier = Modifier
                                                 .fillMaxWidth()
-                                                .padding(horizontal = 8.dp, vertical = 4.dp),
+                                                .padding(horizontal = 10.dp, vertical = 5.dp),
                                             taskName = task.name,
                                             onClickStop = withHaptic {
                                                 viewModel.cancelRunningTask(
@@ -225,7 +222,7 @@ fun AiChatScreen(
                                     }
                                     val prompt = uiState.permissionPrompt!!
                                     PermissionPromptCard(
-                                        modifier = Modifier.padding(8.dp),
+                                        modifier = Modifier.padding(10.dp),
                                         prompt = prompt
                                     )
                                 }
@@ -236,9 +233,7 @@ fun AiChatScreen(
                     var promptInputText by remember { mutableStateOf("") }
 
                     PromptInputField(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp),
+                        modifier = Modifier.fillMaxWidth(),
                         isGenerating = uiState.isGenerating,
                         onClickTrailingButton = withHaptic {
                             if (uiState.isGenerating) {
@@ -289,8 +284,7 @@ fun AiChatScreen(
                 }
 
                 items(count = reversedUiItems.size, key = { reversedUiItems[it].id }) { index ->
-                    val item = reversedUiItems[index]
-                    when (item) {
+                    when (val item = reversedUiItems[index]) {
                         is ChatUiItem.UserMessage -> {
                             Box(
                                 modifier = Modifier
@@ -311,10 +305,21 @@ fun AiChatScreen(
                                             content = item.content,
                                             textColor = MaterialTheme.colorScheme.onPrimaryContainer,
                                             onUseCommand = { command ->
-                                                navController.previousBackStackEntry
-                                                    ?.savedStateHandle
-                                                    ?.set("suggestedCommand", command)
-                                                navController.popBackStack()
+                                                val previousRoute =
+                                                    navController.previousBackStackEntry?.destination
+
+                                                val isPrevRouteHomeScreen =
+                                                    previousRoute?.hasRoute<NavRoutes.HomeScreen>() == true
+
+                                                if (isPrevRouteHomeScreen) {
+                                                    SharedTextHolder.text = command
+                                                    navController.navigate(NavRoutes.LocalAdbScreen)
+                                                } else {
+                                                    navController.previousBackStackEntry
+                                                        ?.savedStateHandle
+                                                        ?.set("suggestedCommand", command)
+                                                    navController.popBackStack()
+                                                }
                                             }
                                         )
                                     }
@@ -397,10 +402,22 @@ fun AiChatScreen(
                                         content = item.content,
                                         textColor = MaterialTheme.colorScheme.onSurface,
                                         onUseCommand = { command ->
-                                            navController.previousBackStackEntry
-                                                ?.savedStateHandle
-                                                ?.set("suggestedCommand", command)
-                                            navController.popBackStack()
+                                            val previousRoute =
+                                                navController.previousBackStackEntry?.destination?.route
+                                            val isPreviousShell =
+                                                previousRoute?.contains("AdbScreen") == true || previousRoute?.contains(
+                                                    "FastbootScreen"
+                                                ) == true
+
+                                            if (isPreviousShell) {
+                                                navController.previousBackStackEntry
+                                                    ?.savedStateHandle
+                                                    ?.set("suggestedCommand", command)
+                                                navController.popBackStack()
+                                            } else {
+                                                SharedTextHolder.text = command
+                                                navController.navigate(NavRoutes.LocalAdbScreen)
+                                            }
                                         }
                                     )
                                     Row(
@@ -748,10 +765,7 @@ private fun RunningTasks(
             onClick = onClickStop,
             modifier = Modifier.size(24.dp)
         ) {
-            Icon(
-                Icons.Default.Stop,
-                contentDescription = "Stop Task"
-            )
+            AnimatedStopIcon(tint = MaterialTheme.colorScheme.error)
         }
     }
 }
@@ -819,7 +833,7 @@ private fun PromptInputField(
                 onClick = onClickTrailingButton
             ) {
                 if (isGenerating) {
-                    AnimatedStopIcon()
+                    AnimatedStopIcon(tint = MaterialTheme.colorScheme.error)
                 } else {
                     Icon(
                         imageVector = Icons.AutoMirrored.Rounded.Send,
