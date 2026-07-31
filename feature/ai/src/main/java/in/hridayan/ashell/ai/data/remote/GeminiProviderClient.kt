@@ -1,34 +1,37 @@
 package `in`.hridayan.ashell.ai.data.remote
 
+import android.util.Log
 import `in`.hridayan.ashell.ai.data.remote.dto.GeminiContent
+import `in`.hridayan.ashell.ai.data.remote.dto.GeminiFunctionDeclaration
+import `in`.hridayan.ashell.ai.data.remote.dto.GeminiFunctionResponse
 import `in`.hridayan.ashell.ai.data.remote.dto.GeminiGenerationConfig
 import `in`.hridayan.ashell.ai.data.remote.dto.GeminiPart
 import `in`.hridayan.ashell.ai.data.remote.dto.GeminiRequest
 import `in`.hridayan.ashell.ai.data.remote.dto.GeminiResponse
-import `in`.hridayan.ashell.ai.data.remote.dto.GeminiFunctionDeclaration
-import `in`.hridayan.ashell.ai.data.remote.dto.GeminiFunctionResponse
 import `in`.hridayan.ashell.ai.data.remote.dto.GeminiSchema
 import `in`.hridayan.ashell.ai.data.remote.dto.GeminiSchemaProperty
 import `in`.hridayan.ashell.ai.data.remote.dto.GeminiTool
 import `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException
-import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
-import `in`.hridayan.ashell.core.common.domain.provider.LlmProviderClient
 import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 import `in`.hridayan.ashell.core.common.domain.model.ai.LlmMessage
 import `in`.hridayan.ashell.core.common.domain.model.ai.LlmToolCall
-import `in`.hridayan.ashell.core.common.domain.model.ai.LlmToolResponse
+import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
+import `in`.hridayan.ashell.core.common.domain.provider.LlmProviderClient
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.post
+import io.ktor.client.request.preparePost
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
-import io.ktor.client.statement.bodyAsText
 import io.ktor.client.statement.bodyAsChannel
-import io.ktor.client.request.preparePost
-import io.ktor.utils.io.readLine
+import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
+import io.ktor.utils.io.readLine
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.buildJsonObject
 import javax.inject.Inject
 
 class GeminiProviderClient @Inject constructor(
@@ -37,9 +40,15 @@ class GeminiProviderClient @Inject constructor(
 
     override val provider = LlmProvider.Gemini
 
-    override suspend fun complete(model: String, systemPrompt: String, userPrompt: String, apiKey: String): String {
+    override suspend fun complete(
+        model: String,
+        systemPrompt: String,
+        userPrompt: String,
+        apiKey: String
+    ): String {
         val response: HttpResponse = try {
-            val url = "https://generativelanguage.googleapis.com/v1beta/models/$model:generateContent?key=$apiKey"
+            val url =
+                "https://generativelanguage.googleapis.com/v1beta/models/$model:generateContent?key=$apiKey"
             httpClient.post(url) {
                 contentType(ContentType.Application.Json)
                 setBody(
@@ -63,21 +72,25 @@ class GeminiProviderClient @Inject constructor(
             } catch (e: Exception) {
                 throw CloudNetworkException.ParseError(e)
             }
+
             HttpStatusCode.Unauthorized,
             HttpStatusCode.Forbidden -> {
                 val body = runCatching { response.body<String>() }.getOrElse { "" }
-                android.util.Log.w(TAG, "Gemini auth error ${response.status.value}: $body")
+                Log.w(TAG, "Gemini auth error ${response.status.value}: $body")
                 throw CloudNetworkException.Unauthorized(provider)
             }
+
             HttpStatusCode.TooManyRequests -> {
                 val body = runCatching { response.bodyAsText() }.getOrElse { "" }
-                val retryAfter = RETRY_DELAY_REGEX.find(body)?.groupValues?.get(1)?.toDoubleOrNull()?.toInt()
-                android.util.Log.w(TAG, "Gemini rate limit ${response.status.value}: $body")
+                val retryAfter =
+                    RETRY_DELAY_REGEX.find(body)?.groupValues?.get(1)?.toDoubleOrNull()?.toInt()
+                Log.w(TAG, "Gemini rate limit ${response.status.value}: $body")
                 throw CloudNetworkException.RateLimited(retryAfter)
             }
+
             else -> {
                 val body = runCatching { response.bodyAsText() }.getOrElse { "" }
-                android.util.Log.w(TAG, "Gemini unexpected ${response.status.value}: $body")
+                Log.w(TAG, "Gemini unexpected ${response.status.value}: $body")
                 throw CloudNetworkException.ServerError(response.status.value)
             }
         }
@@ -100,7 +113,10 @@ class GeminiProviderClient @Inject constructor(
                             GeminiSchema(
                                 type = schema.type,
                                 properties = schema.properties.mapValues {
-                                    GeminiSchemaProperty(type = it.value.type, description = it.value.description)
+                                    GeminiSchemaProperty(
+                                        type = it.value.type,
+                                        description = it.value.description
+                                    )
                                 },
                                 required = schema.required.takeIf { it.isNotEmpty() }
                             )
@@ -110,11 +126,14 @@ class GeminiProviderClient @Inject constructor(
             )
         }
 
-        var contents = mutableListOf(GeminiContent(role = "user", parts = listOf(GeminiPart(text = userPrompt))))
+        val contents = mutableListOf(
+            GeminiContent(role = "user", parts = listOf(GeminiPart(text = userPrompt)))
+        )
 
         while (true) {
             val response: HttpResponse = try {
-                val url = "https://generativelanguage.googleapis.com/v1beta/models/$model:generateContent?key=$apiKey"
+                val url =
+                    "https://generativelanguage.googleapis.com/v1beta/models/$model:generateContent?key=$apiKey"
                 httpClient.post(url) {
                     contentType(ContentType.Application.Json)
                     setBody(
@@ -148,7 +167,7 @@ class GeminiProviderClient @Inject constructor(
                         // The model called a function
                         val functionCall = part.functionCall
                         val tool = tools.find { it.name == functionCall.name }
-                        
+
                         val functionResponseContent = if (tool != null) {
                             val result = try {
                                 tool.execute(functionCall.args)
@@ -157,7 +176,7 @@ class GeminiProviderClient @Inject constructor(
                             }
                             // Append assistant's functionCall to history
                             contents.add(candidate.content)
-                            
+
                             // Append our functionResponse
                             GeminiContent(
                                 role = "user",
@@ -165,8 +184,11 @@ class GeminiProviderClient @Inject constructor(
                                     GeminiPart(
                                         functionResponse = GeminiFunctionResponse(
                                             name = functionCall.name,
-                                            response = kotlinx.serialization.json.buildJsonObject {
-                                                put("result", kotlinx.serialization.json.JsonPrimitive(result))
+                                            response = buildJsonObject {
+                                                put(
+                                                    "result",
+                                                    JsonPrimitive(result)
+                                                )
                                             }
                                         )
                                     )
@@ -180,8 +202,11 @@ class GeminiProviderClient @Inject constructor(
                                     GeminiPart(
                                         functionResponse = GeminiFunctionResponse(
                                             name = functionCall.name,
-                                            response = kotlinx.serialization.json.buildJsonObject {
-                                                put("error", kotlinx.serialization.json.JsonPrimitive("Tool not found"))
+                                            response = buildJsonObject {
+                                                put(
+                                                    "error",
+                                                    JsonPrimitive("Tool not found")
+                                                )
                                             }
                                         )
                                     )
@@ -196,21 +221,25 @@ class GeminiProviderClient @Inject constructor(
                         return ""
                     }
                 }
+
                 HttpStatusCode.Unauthorized,
                 HttpStatusCode.Forbidden -> {
                     val body = runCatching { response.body<String>() }.getOrElse { "" }
-                    android.util.Log.w(TAG, "Gemini auth error ${response.status.value}: $body")
+                    Log.w(TAG, "Gemini auth error ${response.status.value}: $body")
                     throw CloudNetworkException.Unauthorized(provider)
                 }
+
                 HttpStatusCode.TooManyRequests -> {
                     val body = runCatching { response.bodyAsText() }.getOrElse { "" }
-                    val retryAfter = RETRY_DELAY_REGEX.find(body)?.groupValues?.get(1)?.toDoubleOrNull()?.toInt()
-                    android.util.Log.w(TAG, "Gemini rate limit ${response.status.value}: $body")
+                    val retryAfter =
+                        RETRY_DELAY_REGEX.find(body)?.groupValues?.get(1)?.toDoubleOrNull()?.toInt()
+                    Log.w(TAG, "Gemini rate limit ${response.status.value}: $body")
                     throw CloudNetworkException.RateLimited(retryAfter)
                 }
+
                 else -> {
                     val body = runCatching { response.bodyAsText() }.getOrElse { "" }
-                    android.util.Log.w(TAG, "Gemini unexpected ${response.status.value}: $body")
+                    Log.w(TAG, "Gemini unexpected ${response.status.value}: $body")
                     throw CloudNetworkException.ServerError(response.status.value)
                 }
             }
@@ -234,7 +263,10 @@ class GeminiProviderClient @Inject constructor(
                             GeminiSchema(
                                 type = schema.type,
                                 properties = schema.properties.mapValues {
-                                    GeminiSchemaProperty(type = it.value.type, description = it.value.description)
+                                    GeminiSchemaProperty(
+                                        type = it.value.type,
+                                        description = it.value.description
+                                    )
                                 },
                                 required = schema.required.takeIf { it.isNotEmpty() }
                             )
@@ -244,12 +276,12 @@ class GeminiProviderClient @Inject constructor(
             )
         }
 
-        val json = kotlinx.serialization.json.Json { ignoreUnknownKeys = true; encodeDefaults = true }
+        val json = Json { ignoreUnknownKeys = true; encodeDefaults = true }
 
         val contents = history.mapNotNull { msg ->
             val rawData = msg.rawProviderData
             val toolRes = msg.toolResponse
-            
+
             if (rawData != null) {
                 try {
                     json.decodeFromString<GeminiContent>(rawData)
@@ -263,8 +295,11 @@ class GeminiProviderClient @Inject constructor(
                         GeminiPart(
                             functionResponse = GeminiFunctionResponse(
                                 name = toolRes.name,
-                                response = kotlinx.serialization.json.buildJsonObject {
-                                    put("result", kotlinx.serialization.json.JsonPrimitive(toolRes.result))
+                                response = buildJsonObject {
+                                    put(
+                                        "result",
+                                        JsonPrimitive(toolRes.result)
+                                    )
                                 }
                             )
                         )
@@ -276,7 +311,8 @@ class GeminiProviderClient @Inject constructor(
         }.toMutableList()
 
         val response: HttpResponse = try {
-            val url = "https://generativelanguage.googleapis.com/v1beta/models/$model:generateContent?key=$apiKey"
+            val url =
+                "https://generativelanguage.googleapis.com/v1beta/models/$model:generateContent?key=$apiKey"
             httpClient.post(url) {
                 contentType(ContentType.Application.Json)
                 setBody(
@@ -303,13 +339,14 @@ class GeminiProviderClient @Inject constructor(
                     throw CloudNetworkException.ParseError(e)
                 }
 
-                val candidate = geminiResponse.candidates.firstOrNull() 
-                    ?: return LlmMessage(role = "model", content = "")
-                
-                val part = candidate.content.parts.firstOrNull() 
+                val candidate = geminiResponse.candidates.firstOrNull()
                     ?: return LlmMessage(role = "model", content = "")
 
-                val serializedContent = json.encodeToString(GeminiContent.serializer(), candidate.content)
+                val part = candidate.content.parts.firstOrNull()
+                    ?: return LlmMessage(role = "model", content = "")
+
+                val serializedContent =
+                    json.encodeToString(GeminiContent.serializer(), candidate.content)
 
                 if (part.functionCall != null) {
                     return LlmMessage(
@@ -329,21 +366,25 @@ class GeminiProviderClient @Inject constructor(
                     )
                 }
             }
+
             HttpStatusCode.Unauthorized,
             HttpStatusCode.Forbidden -> {
                 val body = runCatching { response.body<String>() }.getOrElse { "" }
-                android.util.Log.w(TAG, "Gemini auth error ${response.status.value}: $body")
+                Log.w(TAG, "Gemini auth error ${response.status.value}: $body")
                 throw CloudNetworkException.Unauthorized(provider)
             }
+
             HttpStatusCode.TooManyRequests -> {
                 val body = runCatching { response.bodyAsText() }.getOrElse { "" }
-                val retryAfter = RETRY_DELAY_REGEX.find(body)?.groupValues?.get(1)?.toDoubleOrNull()?.toInt()
-                android.util.Log.w(TAG, "Gemini rate limit ${response.status.value}: $body")
+                val retryAfter =
+                    RETRY_DELAY_REGEX.find(body)?.groupValues?.get(1)?.toDoubleOrNull()?.toInt()
+                Log.w(TAG, "Gemini rate limit ${response.status.value}: $body")
                 throw CloudNetworkException.RateLimited(retryAfter)
             }
+
             else -> {
                 val body = runCatching { response.bodyAsText() }.getOrElse { "" }
-                android.util.Log.w(TAG, "Gemini unexpected ${response.status.value}: $body")
+                Log.w(TAG, "Gemini unexpected ${response.status.value}: $body")
                 throw CloudNetworkException.ServerError(response.status.value)
             }
         }
@@ -367,7 +408,10 @@ class GeminiProviderClient @Inject constructor(
                             GeminiSchema(
                                 type = schema.type,
                                 properties = schema.properties.mapValues {
-                                    GeminiSchemaProperty(type = it.value.type, description = it.value.description)
+                                    GeminiSchemaProperty(
+                                        type = it.value.type,
+                                        description = it.value.description
+                                    )
                                 },
                                 required = schema.required.takeIf { it.isNotEmpty() }
                             )
@@ -377,12 +421,12 @@ class GeminiProviderClient @Inject constructor(
             )
         }
 
-        val json = kotlinx.serialization.json.Json { ignoreUnknownKeys = true; encodeDefaults = true }
+        val json = Json { ignoreUnknownKeys = true; encodeDefaults = true }
 
         val contents = history.mapNotNull { msg ->
             val rawData = msg.rawProviderData
             val toolRes = msg.toolResponse
-            
+
             if (rawData != null) {
                 try {
                     json.decodeFromString<GeminiContent>(rawData)
@@ -396,8 +440,11 @@ class GeminiProviderClient @Inject constructor(
                         GeminiPart(
                             functionResponse = GeminiFunctionResponse(
                                 name = toolRes.name,
-                                response = kotlinx.serialization.json.buildJsonObject {
-                                    put("result", kotlinx.serialization.json.JsonPrimitive(toolRes.result))
+                                response = buildJsonObject {
+                                    put(
+                                        "result",
+                                        JsonPrimitive(toolRes.result)
+                                    )
                                 }
                             )
                         )
@@ -408,12 +455,13 @@ class GeminiProviderClient @Inject constructor(
             }
         }.toMutableList()
 
-        val url = "https://generativelanguage.googleapis.com/v1beta/models/$model:streamGenerateContent?alt=sse&key=$apiKey"
-        
+        val url =
+            "https://generativelanguage.googleapis.com/v1beta/models/$model:streamGenerateContent?alt=sse&key=$apiKey"
+
         var finalFullContent = ""
         var rawProviderData = ""
         var toolCall: LlmToolCall? = null
-        
+
         try {
             httpClient.preparePost(url) {
                 contentType(ContentType.Application.Json)
@@ -438,12 +486,20 @@ class GeminiProviderClient @Inject constructor(
                                 val jsonStr = line.substring(6).trim()
                                 if (jsonStr == "[DONE]") continue
                                 try {
-                                    val geminiResponse = json.decodeFromString<GeminiResponse>(jsonStr)
-                                    val candidate = geminiResponse.candidates.firstOrNull() ?: continue
+                                    val geminiResponse =
+                                        json.decodeFromString<GeminiResponse>(jsonStr)
+                                    val candidate =
+                                        geminiResponse.candidates.firstOrNull() ?: continue
                                     val part = candidate.content.parts.firstOrNull() ?: continue
                                     if (part.functionCall != null) {
-                                        toolCall = LlmToolCall(name = part.functionCall.name, args = part.functionCall.args)
-                                        rawProviderData = json.encodeToString(GeminiContent.serializer(), candidate.content)
+                                        toolCall = LlmToolCall(
+                                            name = part.functionCall.name,
+                                            args = part.functionCall.args
+                                        )
+                                        rawProviderData = json.encodeToString(
+                                            GeminiContent.serializer(),
+                                            candidate.content
+                                        )
                                         break
                                     } else {
                                         val text = part.text ?: ""
@@ -456,12 +512,15 @@ class GeminiProviderClient @Inject constructor(
                             }
                         }
                     }
+
                     HttpStatusCode.Unauthorized, HttpStatusCode.Forbidden -> {
                         throw CloudNetworkException.Unauthorized(provider)
                     }
+
                     HttpStatusCode.TooManyRequests -> {
                         throw CloudNetworkException.RateLimited(null)
                     }
+
                     else -> {
                         throw CloudNetworkException.ServerError(response.status.value)
                     }
@@ -472,14 +531,22 @@ class GeminiProviderClient @Inject constructor(
         } catch (e: Exception) {
             throw CloudNetworkException.NetworkError(e)
         }
-        
+
         if (toolCall != null) {
-            return LlmMessage(role = "model", content = "", toolCall = toolCall, rawProviderData = rawProviderData)
+            return LlmMessage(
+                role = "model",
+                content = "",
+                toolCall = toolCall,
+                rawProviderData = rawProviderData
+            )
         } else {
             return LlmMessage(
-                role = "model", 
+                role = "model",
                 content = finalFullContent,
-                rawProviderData = json.encodeToString(GeminiContent.serializer(), GeminiContent("model", listOf(GeminiPart(text = finalFullContent))))
+                rawProviderData = json.encodeToString(
+                    GeminiContent.serializer(),
+                    GeminiContent("model", listOf(GeminiPart(text = finalFullContent)))
+                )
             )
         }
     }

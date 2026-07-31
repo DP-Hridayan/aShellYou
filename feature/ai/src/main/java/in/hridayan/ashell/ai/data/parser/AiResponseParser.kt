@@ -2,7 +2,7 @@ package `in`.hridayan.ashell.ai.data.parser
 
 import android.util.Log
 import `in`.hridayan.ashell.core.common.domain.model.ai.AnalysisResult
-import `in`.hridayan.ashell.core.common.domain.model.ai.AnalysisStatus
+import kotlinx.serialization.json.Json
 
 /**
  * Parses raw LLM plain text output into structured [AnalysisResult].
@@ -11,7 +11,7 @@ object AiResponseParser {
 
     private const val TAG = "AiParser"
 
-    private val json = kotlinx.serialization.json.Json {
+    private val json = Json {
         ignoreUnknownKeys = true
         isLenient = true
     }
@@ -49,7 +49,7 @@ object AiResponseParser {
             return json.decodeFromString<AnalysisResult>(cleaned)
         } catch (e: Exception) {
             Log.w(TAG, "Strict JSON parse failed, attempting fallback repair: ${e.message}")
-            
+
             // Fallback: Model probably hit max_tokens and truncated the JSON
             // We append missing braces/quotes to try and salvage it.
             var repaired = cleaned
@@ -60,7 +60,7 @@ object AiResponseParser {
                     repaired += "\"\n}"
                 }
             }
-            
+
             try {
                 return json.decodeFromString<AnalysisResult>(repaired)
             } catch (e2: Exception) {

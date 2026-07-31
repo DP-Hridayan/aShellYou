@@ -2,6 +2,7 @@ package `in`.hridayan.ashell.ai.data.remote.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 
 @Serializable
@@ -23,12 +24,12 @@ internal data class GeminiPart(
     val text: String? = null,
     val functionCall: GeminiFunctionCall? = null,
     val functionResponse: GeminiFunctionResponse? = null,
-    val executableCode: kotlinx.serialization.json.JsonElement? = null,
-    val codeExecutionResult: kotlinx.serialization.json.JsonElement? = null,
+    val executableCode: JsonElement? = null,
+    val codeExecutionResult: JsonElement? = null,
     @SerialName("thought_signature") val thoughtSignatureSnakeCase: String? = null,
     @SerialName("thoughtSignature") val thoughtSignatureCamelCase: String? = null,
-    val thoughtCall: kotlinx.serialization.json.JsonElement? = null,
-    val thought: kotlinx.serialization.json.JsonElement? = null,
+    val thoughtCall: JsonElement? = null,
+    val thought: JsonElement? = null,
 )
 
 @Serializable
@@ -37,8 +38,8 @@ internal data class GeminiFunctionCall(
     val args: JsonObject? = null,
     @SerialName("thought_signature") val thoughtSignatureSnakeCase: String? = null,
     @SerialName("thoughtSignature") val thoughtSignatureCamelCase: String? = null,
-    val thoughtCall: kotlinx.serialization.json.JsonElement? = null,
-    val thought: kotlinx.serialization.json.JsonElement? = null,
+    val thoughtCall: JsonElement? = null,
+    val thought: JsonElement? = null,
 )
 
 @Serializable
