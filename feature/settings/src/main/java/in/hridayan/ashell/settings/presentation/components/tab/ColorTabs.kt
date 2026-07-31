@@ -16,15 +16,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Palette
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
@@ -33,6 +32,8 @@ import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.common.FeatureConfig
 import `in`.hridayan.ashell.core.common.LocalPaletteStyle
@@ -45,6 +46,7 @@ import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.settings.presentation.components.palette.PaletteWheel
 import `in`.hridayan.shapeindicators.ShapeIndicatorDefaults
 import `in`.hridayan.shapeindicators.ShapeIndicatorRow
@@ -63,7 +65,10 @@ fun ColorTabs(
     val isDynamicColor = settings[SettingsKeys.DynamicColors]
     val userGeneratedColorSchemeApplied = settings[SettingsKeys.UserGeneratedColorSchemeApplied]
 
-    BoxWithConstraints(modifier = modifier) {
+    BoxWithConstraints(
+        modifier = modifier,
+        contentAlignment = Alignment.Center
+    ) {
         val aiSectionWidth =
             if (FeatureConfig.isAiEnabled) 85.dp else 0.dp // 70dp button + padding + divider
         val availablePagerWidth = maxWidth - aiSectionWidth
@@ -71,10 +76,12 @@ fun ColorTabs(
         val calculatedChunkSize = maxOf(1, (availablePagerWidth / itemWidth).toInt())
         val groupedPalettes = tonalPalettes.chunked(calculatedChunkSize)
         val pagerState = rememberPagerState(initialPage = 0) { groupedPalettes.size }
+        val pagerContentWidth =
+            (70.dp * calculatedChunkSize) + (10.dp * (calculatedChunkSize - 1).coerceAtLeast(0))
 
         Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.Top
+            modifier = Modifier.wrapContentWidth(),
+            verticalAlignment = Alignment.Top,
         ) {
             if (FeatureConfig.isAiEnabled) {
                 Row(
@@ -98,7 +105,7 @@ fun ColorTabs(
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(
-                                imageVector = Icons.Rounded.Palette,
+                                painter = painterResource(R.drawable.ic_format_paint),
                                 contentDescription = "Create Custom Theme",
                                 modifier = Modifier.size(32.dp),
                                 tint = MaterialTheme.colorScheme.tertiary
@@ -123,7 +130,6 @@ fun ColorTabs(
                     exit = ExitTransition.None
                 ) {
                     Box(
-                        modifier = Modifier.fillMaxWidth(),
                         contentAlignment = Alignment.Center
                     ) {
                         PaletteWheel(
@@ -142,11 +148,12 @@ fun ColorTabs(
                 ) {
                     HorizontalPager(
                         state = pagerState,
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier
+                            .width(pagerContentWidth)
+                            .clip(RoundedCornerShape(20.dp))
                     ) { page ->
                         Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceEvenly
+                            horizontalArrangement = Arrangement.spacedBy(10.dp),
                         ) {
 
                             groupedPalettes[page].forEach { palette ->

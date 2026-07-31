@@ -161,7 +161,9 @@ fun LookAndFeelScreen(
 
                 item {
                     ColorTabs(
-                        modifier = Modifier.padding(20.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(20.dp),
                         onClickTab = { seedColor ->
                             lookAndFeelViewModel.setSeedColor(seedColor)
                             if (isDynamicColorEnabled) lookAndFeelViewModel.disableDynamicColors()
