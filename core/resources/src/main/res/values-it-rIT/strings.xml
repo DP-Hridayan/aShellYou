@@ -13,7 +13,12 @@
     <string name="adb_connection_channel_description">Mostra quando la connessione ADB è attiva</string>
     <string name="adb_connection_channel_name">Connessione ADB</string>
     <string name="adb_connection_description">La connessione WiFi ADB viene mantenuta attiva</string>
+    <string name="adb_agent">Agente ADB</string>
     <string name="adb_sideload">ADB sideload</string>
+    <string name="ai_prompt_suggestion_1">Controlla lo stato della batteria</string>
+    <string name="ai_prompt_suggestion_2">Elenca tutti i pacchetti installati</string>
+    <string name="ai_prompt_suggestion_3">Aiutami a creare un tile impostazioni rapide</string>
+    <string name="ai_new_chat_welcome_msg">Ciao, cosa posso fare per te?</string>
     <string name="adb_through_otg">ADB attraverso OTG</string>
     <string name="adb_through_otg_summary">Usa un cavo OTG e il Debug USB per eseguire comandi ABD su un altro dispositivo Android. Hai bisogno di attivare Debug USB sulle opzioni sviluppatore del dispositivo controllato.</string>
     <string name="adb_via_otg">ADB via OTG</string>
@@ -21,16 +26,40 @@
     <string name="adb_via_wireless_debugging_summary">Connetti dispositivi (Android 11+) tramite Wi-Fi usando il Debug wireless ed esegui comandi ADB in remoto.</string>
     <string name="add">Aggiungi</string>
     <string name="add_account">Aggiunti account</string>
+    <string name="add_api_key">Aggiungi chiave API</string>
     <string name="add_command">Aggiungi comando</string>
     <string name="add_new_item">Aggiungi nuovo elemento</string>
     <string name="additional_settings">Impostazioni aggiuntive</string>
     <string name="ai_cache_days">Durata cache</string>
     <string name="ai_cache_enabled">Abilita cache</string>
+    <string name="ai_chat_allow">Consenti</string>
+    <string name="ai_chat_allow_run_command">Permetti all\'IA di eseguire il comando:</string>
+    <string name="ai_chat_always_allow">Consenti Sempre</string>
+    <string name="ai_chat_cancel">Annulla</string>
+    <string name="ai_chat_delete">Elimina</string>
+    <string name="ai_chat_deny">Nega</string>
+    <string name="ai_chat_new_chat">Nuova Chat</string>
+    <string name="ai_chat_pin">Pin</string>
+    <string name="ai_chat_rename">Rinomina</string>
+    <string name="ai_chat_running">Esecuzione: </string>
+    <string name="ai_chat_save">Salva</string>
+    <string name="ai_chat_sessions">Sessioni Di Chat</string>
+    <string name="ai_chat_thoughts">Pensieri…</string>
+    <string name="ai_chat_unpin">Unpin</string>
+    <string name="ai_chat_use">Usa</string>
     <string name="ai_models">AI e Modelli</string>
+    <string name="ai_theme_prompt_hint">es. Cyberpunk città neon, modalità scura, alto contrasto</string>
     <string name="all">Tutto</string>
     <string name="all_data">Tutti i dati</string>
     <string name="already_connected">Già connesso</string>
     <string name="already_latest_version">Stai usando l\'ultima versione</string>
+    <string name="always_allow_base">Consenti sempre la base</string>
+    <string name="always_allow_exact">Consenti sempre esatte</string>
+    <string name="analyse">Analizza</string>
+    <string name="api_key">Chiave API</string>
+    <string name="api_key_is_saved">La chiave API è stata salvata</string>
+    <string name="api_key_required">Chiave API Richiesta</string>
+    <string name="api_key_required_message">È necessaria una chiave API per utilizzare le funzioni AI. Si prega di aggiungere la chiave API in Impostazioni -&gt; Modelli Cloud.</string>
     <string name="app">App</string>
     <string name="app_crashed">L\'app si è bloccata</string>
     <string name="app_tagline">ADB a portata di mano</string>
@@ -47,6 +76,7 @@
     <string name="auto_update">Aggiornamento automatico</string>
     <string name="back">Indietro</string>
     <string name="back_button">Pulsante indietro</string>
+    <string name="background">Sfondo</string>
     <string name="backing_up">Backup in corso…</string>
     <string name="backup">Backup</string>
     <string name="backup_all_data">Backup tutti i dati</string>
@@ -100,6 +130,7 @@
     <string name="cloud_backup_failed">Impossibile caricare il backup su Google Drive</string>
     <string name="cloud_backup_google_drive">Backup su cloud (Google Drive)</string>
     <string name="cloud_backup_successful">Backup caricato su Google Drive</string>
+    <string name="cloud_models">Modelli cloud</string>
     <string name="cloud_restore_failed">Impossibile ripristinare da Google Drive</string>
     <string name="cloud_restore_successful">Ripristinato da Google Drive</string>
     <string name="code_pair_instruction">Apri \"Debug wireless\" sul dispositivo di destinazione e tocca \"Accoppia dispositivo con codice di accoppiamento\"</string>
@@ -120,6 +151,8 @@
     <string name="connect">Connetti</string>
     <string name="connect_device_via_otg">Connetti un dispositivo tramite OTG</string>
     <string name="connect_to_wifi_network">Connettiti alla rete wifi</string>
+    <string name="connect_via_otg">Connetti tramite OTG</string>
+    <string name="connect_via_wifi_adb">Connettiti tramite Wi-Fi ADB</string>
     <string name="connected">Connesso</string>
     <string name="connected_device">Dispositivo connesso</string>
     <string name="connecting">Connessione in corso…</string>
@@ -139,6 +172,7 @@
     <string name="create">Crea</string>
     <string name="create_folder">Crea cartella</string>
     <string name="create_new_tile">Crea un nuovo riquadro</string>
+    <string name="create_with_ai">Crea con IA</string>
     <string name="crowdin_contribution_msg">Visita la nostra piattaforma di traduzione Crowdin per contribuire</string>
     <string name="current_version">Versione attuale</string>
     <string name="custom_ui_scale">Scala UI personalizzata</string>
@@ -161,7 +195,7 @@
     <string name="des_about">Collaboratori e supporto</string>
     <string name="des_ai_cache_days">Numero di giorni in cui mantenere i risultati nella cache</string>
     <string name="des_ai_cache_enabled">Risultati dell\'analisi della cache per modello</string>
-    <string name="des_ai_models">Gestisci modelli AI offline per l\'analisi dei comandi</string>
+    <string name="des_ai_models">Gestisci i dati dei modelli AI e le chiavi API</string>
     <string name="des_auto_backup_content_type">Scegli cosa includere nei backup automatici</string>
     <string name="des_auto_backup_folder">Seleziona una cartella per salvare i backup automatici</string>
     <string name="des_auto_backup_time">Imposta l\'ora per i backup automatici</string>
@@ -178,6 +212,7 @@
     <string name="des_changelogs">Cronologia di tutte le modifiche apportate all\'app</string>
     <string name="des_choose_icon">Clicca qui per scegliere un\'icona dalla collezione di icone</string>
     <string name="des_clear_output_confirmation">Chiedi conferma prima di cancellare l\'output della shell</string>
+    <string name="des_cloud_models">Gestisci le chiavi API per i modelli cloud</string>
     <string name="des_configure_save_directory">Scegli una cartella per salvare l\'output della shell</string>
     <string name="des_contributors">Elenco dei collaboratori che hanno aiutato nello sviluppo di aShell You</string>
     <string name="des_crash_history">Visualizza tutti i crash che si sono verificati nell\'app</string>
@@ -255,7 +290,9 @@
     <string name="downloads">Download</string>
     <string name="duplicate_tile_name_error_msg">Esiste già un riquadro con questo nome</string>
     <string name="dynamic_colors">Colori dinamici</string>
+    <string name="edit">Modifica</string>
     <string name="edit_command">Modifica comando</string>
+    <string name="edit_theme_title" comment="%1$s = theme name">Modifica Tema: %1$s</string>
     <string name="edit_tile">Modifica riquadro</string>
     <string name="empty_folder">La cartella è vuota</string>
     <string name="enable_auto_backup">Abilita backup automatico</string>
@@ -383,7 +420,15 @@
     <string name="found_connect_service">Trovato servizio di connessione</string>
     <string name="frequency">Frequenza</string>
     <string name="full_license_text">Testo completo della licenza</string>
+    <string name="gemini_api_key_step_1">Visita Google AI Studio su aistudio.google.com</string>
+    <string name="gemini_api_key_step_2">Accedi con il tuo account Google</string>
+    <string name="gemini_api_key_step_3">Fare clic su Crea chiave API e selezionare o creare un progetto</string>
+    <string name="gemini_api_key_step_4">Copia la tua chiave API e incollala qui sotto</string>
+    <string name="generate_color_scheme">Genera schema colore</string>
+    <string name="generate_scheme">Genera schema</string>
+    <string name="generate_theme">Genera Tema</string>
     <string name="generate_tile">Genera riquadro</string>
+    <string name="get_api_key">Get API key</string>
     <string name="get_variables">Ottieni variabili</string>
     <string name="go_home">Vai alla home</string>
     <string name="go_to_terminal">Vai al terminale</string>
@@ -396,12 +441,14 @@
     <string name="great_news">Ottime notizie!</string>
     <string name="haptics_and_vibration">Haptic e Vibrazione</string>
     <string name="have_a_nice_day">Buona giornata!</string>
+    <string name="hex_editor">Editor Esadecimale</string>
     <string name="high">Alto</string>
     <string name="high_contrast_dark_mode">Modalità scura ad alto contrasto</string>
     <string name="hint">Suggerimento</string>
     <string name="history">Cronologia</string>
     <string name="home">Home</string>
     <string name="icon_selected">Icona selezionata</string>
+    <string name="import_theme">Importa Tema</string>
     <string name="include">Includi</string>
     <string name="info">Info</string>
     <string name="initial_state">Stato iniziale</string>
@@ -413,6 +460,7 @@
     <string name="irreversible_action_warning">Questa azione è irreversibile!</string>
     <string name="item_deleted">L\'elemento è stato eliminato con successo</string>
     <string name="keep_both">Mantieni Entrambi</string>
+    <string name="key_verified_success_msg">Chiave verificata correttamente</string>
     <string name="label">Etichetta</string>
     <string name="languages">Lingue</string>
     <string name="last_auto_backup_cloud">Ultimo backup automatico cloud</string>
@@ -453,14 +501,18 @@
     <string name="logcat_permission_title">Permessi di accesso al registro</string>
     <string name="logcat_running_description">aShellYou sta raccogliendo i log di sistema in background</string>
     <string name="logcat_shortcut_long_label">Apri Visualizzatore Logcat</string>
+    <string name="logcat_source">Sorgente Logcat</string>
+    <string name="logcat_tap_play">Tocca ▶️ per avviare logcat</string>
     <string name="logs">Log</string>
     <string name="look_and_feel">Aspetto e Impressione</string>
     <string name="low">Basso</string>
+    <string name="make_your_theme_title">Crea Il Tuo Tema</string>
     <string name="manual_pair">Accoppiamento manuale</string>
     <string name="max_download_size">Download Massimo</string>
     <string name="medium">Medio</string>
     <string name="merge">Unisci</string>
     <string name="message">Messaggio</string>
+    <string name="message_adb_agent">Messaggio Agente ADB…</string>
     <string name="minimize">Minimizza</string>
     <string name="mode">Modalità</string>
     <string name="mode_one_desc">Usa l\'accesso root per eseguire i comandi. I comandi root possono essere eseguiti.</string>
@@ -492,6 +544,7 @@
     <string name="no_changelog_found">Nessun changelog trovato per questa versione</string>
     <string name="no_cloud_backup_found">Nessun backup trovato su Google Drive</string>
     <string name="no_crashes">Nessun crash è stato segnalato. aShell You sta funzionando senza intoppi.</string>
+    <string name="no_custom_themes_yet">Ancora nessun tema personalizzato. Creane uno qui sotto!</string>
     <string name="no_device_connected">Nessun dispositivo connesso</string>
     <string name="no_fastboot_device_error">Il dispositivo connesso non è in modalità fastboot</string>
     <string name="no_files_download">Nessun file selezionato (le cartelle non possono essere scaricate)</string>
@@ -504,6 +557,7 @@
     <string name="no_logs_yet_msg">Nessun log è stato ancora registrato. Esegui alcuni riquadri per mostrare i log qui.</string>
     <string name="no_model_selected">Nessun modello selezionato</string>
     <string name="no_operations">Nessuna operazione in corso</string>
+    <string name="no_other_device_hint">Collega un dispositivo esterno per visualizzare i suoi registri</string>
     <string name="no_results_found">Nessun risultato trovato</string>
     <string name="no_root_access">Nessun accesso root</string>
     <string name="no_saved_devices">Nessun dispositivo salvato</string>
@@ -519,9 +573,16 @@
     <string name="notification_styles">Stile notifiche</string>
     <string name="off">Disattiva</string>
     <string name="off_state" comment="Quick Settings tile toggle state label">Disattivato</string>
+    <string name="ok">OK</string>
     <string name="oldest" comment="Sorting option">Più vecchio</string>
     <string name="on">Attiva</string>
+    <string name="on_background">Sullo Sfondo</string>
+    <string name="on_primary">On Primary</string>
+    <string name="on_primary_container">Sul Contenitore Principale</string>
+    <string name="on_secondary">In Secondario</string>
     <string name="on_state" comment="Quick Settings tile toggle state label">Attivo</string>
+    <string name="on_surface">Su Superficie</string>
+    <string name="on_tertiary">In Terziario</string>
     <string name="open">Apri</string>
     <string name="open_app_language_settings">Apri le impostazioni della lingua dell\'app</string>
     <string name="open_issues" comment="GitHub repository open issues count">Problemi aperti</string>
@@ -573,6 +634,8 @@
     <string name="pre_release_warning_description">Queste versioni sono ancora in fase di test e possono contenere funzionalità incomplete o bug inattesi. Se si sceglie di aggiornare a una pre-release, si prega di essere consapevoli che le cose potrebbero rompere o comportarsi stranamente.\nSe riscontri problemi, crash o comportamenti strani, per favore segnalali in modo da poter risolvere e migliorare aShellYou prima del rilascio stabile.\nGrazie per averci aiutato a migliorare!</string>
     <string name="preference">Preferenze</string>
     <string name="preview">Anteprima</string>
+    <string name="primary">Principale</string>
+    <string name="primary_container">Contenitore Principale</string>
     <string name="product">Prodotto</string>
     <string name="qr_pair">Accoppiamento con QR</string>
     <string name="qr_pair_hint">Per abbinare un dispositivo Android 11+, scansiona questo QR dal dispositivo di destinazione</string>
@@ -599,6 +662,7 @@
     <string name="reconnect_the_device">Riconnetti il dispositivo</string>
     <string name="recovery">Recupero</string>
     <string name="refresh">Aggiorna</string>
+    <string name="remove">Rimuovi</string>
     <string name="rename">Rinomina</string>
     <string name="rename_title" comment="%1$s = file or folder name">Rinomina %1$s</string>
     <string name="replace">Sostituisci</string>
@@ -620,10 +684,14 @@
     <string name="resume">Riprendi</string>
     <string name="retry">Riprova</string>
     <string name="root_access_granted">Accesso root concesso!</string>
+    <string name="root_unavailable">Root Non Disponibile</string>
+    <string name="root_unavailable_message">Impossibile rilevare l\'accesso root. Assicurati che il tuo dispositivo sia radicato e riprova o passa a un\'altra fonte logcat.</string>
     <string name="running">Esecuzione</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Salva</string>
     <string name="save_as_profile">Salva come profilo…</string>
+    <string name="save_changes">Salva Modifiche</string>
+    <string name="save_key">Salva chiave</string>
     <string name="save_whole_output">Salva tutto l\'output</string>
     <string name="saved_devices">Dispositivi salvati</string>
     <string name="saving">Salvataggio…</string>
@@ -643,6 +711,7 @@
     <string name="search_variables">Cerca variabili…</string>
     <string name="searching_connect_service">Ricerca servizio di connessione</string>
     <string name="searching_for_devices">Ricerca dispositivi in corso…</string>
+    <string name="secondary">Secondario</string>
     <string name="security_patch">Patch Di Sicurezza</string>
     <string name="select">Seleziona</string>
     <string name="select_all">Seleziona tutto</string>
@@ -650,6 +719,7 @@
     <string name="select_backup_folder_title">Nessuna cartella di backup</string>
     <string name="select_folder">Seleziona cartella</string>
     <string name="select_partition">Seleziona partizione</string>
+    <string name="select_theme_to_edit_hex">Seleziona qui un tema sopra per modificare i valori esadecimali grezzi.</string>
     <string name="select_time">Seleziona l\'ora</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">Sé</string>
     <string name="self_pair_connection_failed">Connessione fallita - prova connessione manuale</string>
@@ -672,6 +742,7 @@
     <string name="serif" comment="Font style category name">Serif</string>
     <string name="settings">Impostazioni</string>
     <string name="settings_only">Solo impostazioni</string>
+    <string name="share">Condividi</string>
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">L\'output dell\'ultimo comando è esportato in \'%s\'</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">L\'output della shell è esportato in \'%s\'</string>
     <string name="shizuku_not_installed">Shizuku non è installato</string>
@@ -704,6 +775,7 @@
     <string name="successful_connection_message">Dispositivo collegato con successo. Ora puoi avviare comandi in esecuzione sul dispositivo di destinazione.</string>
     <string name="suggested_icons">Icone consigliate</string>
     <string name="support_bmc">Ti piace quello che faccio?\nConsidera di offrirmi un caffè</string>
+    <string name="surface">Superficie</string>
     <string name="switch_mode">Cambia modalità</string>
     <string name="system">Sistema</string>
     <string name="system_default">Predefinito di sistema</string>
@@ -713,6 +785,7 @@
     <string name="telegram">Telegram</string>
     <string name="terminal">Terminale</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Stile font del terminale</string>
+    <string name="tertiary">Terziario</string>
     <string name="third_party_libraries">Librerie di terze parti</string>
     <string name="this_application">Questa applicazione</string>
     <string name="this_device">Questo dispositivo</string>
@@ -737,6 +810,7 @@
     <string name="type">Tipo</string>
     <string name="ui_scale">Scala UI</string>
     <string name="undo">Annulla</string>
+    <string name="unexpected_error">Errore inatteso</string>
     <string name="unknown">Sconosciuto</string>
     <string name="unknown_error">Si è verificato un errore sconosciuto</string>
     <string name="unknown_sources_install_permission_not_granted">Permesso non concesso. Consenti l\'installazione di app da fonti sconosciute.</string>
@@ -753,6 +827,9 @@
     <string name="use">Usa</string>
     <string name="utilities">Utilità</string>
     <string name="variant">Variante</string>
+    <string name="verification_failed">Verifica fallita</string>
+    <string name="verify_api_key">Verifica chiave API</string>
+    <string name="verifying">Verifica</string>
     <string name="version">Versione</string>
     <string name="version_code">Codice versione</string>
     <string name="version_name">Nome versione</string>
@@ -781,6 +858,8 @@
     <string name="wireless_debugging_guide_2">Inserisci il codice di accoppiamento a sei cifre nella notifica inviata da aShell You.</string>
     <string name="wireless_debugging_guide_3">Torna all\'app e clicca sul pulsante \"Start\" nella schermata home.</string>
     <string name="wireless_debugging_important_notice">Si prega di notare che la parte sinistra dell\'opzione di debug wireless è cliccabile. Toccando su di essa aprirà il menu di accoppiamento debug wireless.</string>
+    <string name="wireless_not_connected">Non Connesso</string>
+    <string name="wireless_not_connected_message">Il tuo dispositivo non è connesso tramite il debug wireless. Collega e collega prima il tuo dispositivo.</string>
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d nuova voce</item>
         <item quantity="other">%1$d nuove voci</item>

@@ -13,7 +13,12 @@
     <string name="adb_connection_channel_description">Показує, коли з\'єднання ADB активно</string>
     <string name="adb_connection_channel_name">Підключення ADB</string>
     <string name="adb_connection_description">Підключення до Wi-Fi ADB підтримується</string>
+    <string name="adb_agent">Агент АБР</string>
     <string name="adb_sideload">ADB Sideload</string>
+    <string name="ai_prompt_suggestion_1">Перевірити витрату заряду акумулятора</string>
+    <string name="ai_prompt_suggestion_2">Список всіх встановлених пакетів</string>
+    <string name="ai_prompt_suggestion_3">Допоможи мені створити плитку швидких налаштувань</string>
+    <string name="ai_new_chat_welcome_msg">Привіт, що я можу для тебе зробити?</string>
     <string name="adb_through_otg">ADB через OTG</string>
     <string name="adb_through_otg_summary">Використовуйте OTG кабель та налагодження USB для виконання команд ADB на іншому пристрої Android. Необхідно увімкнути налагодження USB у налаштуваннях розробника цільового пристрою.</string>
     <string name="adb_via_otg">ADB через OTG</string>
@@ -21,16 +26,40 @@
     <string name="adb_via_wireless_debugging_summary">Підключайте пристрої (Android 11+) Wi-Fi за допомогою бездротового налагодження і виконуйте команди ADB віддалено.</string>
     <string name="add">Додати</string>
     <string name="add_account">Додати обліковий запис</string>
+    <string name="add_api_key">Додати ключ API</string>
     <string name="add_command">Додати команду</string>
     <string name="add_new_item">Додати новий елемент</string>
     <string name="additional_settings">Додаткові налаштування</string>
     <string name="ai_cache_days">Тривалість кешу</string>
     <string name="ai_cache_enabled">Увімкнути кешування</string>
+    <string name="ai_chat_allow">Дозволити</string>
+    <string name="ai_chat_allow_run_command">Дозволити команду:</string>
+    <string name="ai_chat_always_allow">Завжди дозволяти</string>
+    <string name="ai_chat_cancel">Скасувати</string>
+    <string name="ai_chat_delete">Видалити</string>
+    <string name="ai_chat_deny">Відмовити</string>
+    <string name="ai_chat_new_chat">Новий чат</string>
+    <string name="ai_chat_pin">Закріплення повідомлень</string>
+    <string name="ai_chat_rename">Перейменувати</string>
+    <string name="ai_chat_running">Версія: </string>
+    <string name="ai_chat_save">Зберегти</string>
+    <string name="ai_chat_sessions">Сесії чату</string>
+    <string name="ai_chat_thoughts">Thoughts…</string>
+    <string name="ai_chat_unpin">Unpin</string>
+    <string name="ai_chat_use">Використати</string>
     <string name="ai_models">AI &amp; Моделі</string>
+    <string name="ai_theme_prompt_hint">наприклад місто Кіберпанк, неон — темний режим, високий контраст</string>
     <string name="all">Всі</string>
     <string name="all_data">Всі дані</string>
     <string name="already_connected">Вже під\'єднано</string>
     <string name="already_latest_version">Ви використовуєте останню версію</string>
+    <string name="always_allow_base">Завжди дозволяти базу</string>
+    <string name="always_allow_exact">Завжди дозволяти точні дії</string>
+    <string name="analyse">Проаналізувати</string>
+    <string name="api_key">API ключ</string>
+    <string name="api_key_is_saved">API ключ збережено</string>
+    <string name="api_key_required">Потрібен ключ API</string>
+    <string name="api_key_required_message">Ключ API необхідний для використання функцій AI. Будь ласка, додайте Ваш ключ API в Налаштування -&gt; Хмарні моделі.</string>
     <string name="app">Додаток</string>
     <string name="app_crashed">Збій у додатку</string>
     <string name="app_tagline">ADB у вас під рукою</string>
@@ -47,6 +76,7 @@
     <string name="auto_update">Автооновлення</string>
     <string name="back">Назад</string>
     <string name="back_button">Кнопка \"Назад\"</string>
+    <string name="background">Фон</string>
     <string name="backing_up">Резервування…</string>
     <string name="backup">Резервування</string>
     <string name="backup_all_data">Резервування всіх даних</string>
@@ -100,6 +130,7 @@
     <string name="cloud_backup_failed">Не вдалося завантажити резервування на Google Диск</string>
     <string name="cloud_backup_google_drive">Резервування в хмару (Google Диск)</string>
     <string name="cloud_backup_successful">Резервування завантажено на Google Диск</string>
+    <string name="cloud_models">Хмарні моделі</string>
     <string name="cloud_restore_failed">Не вдалося відновити з Google Диску</string>
     <string name="cloud_restore_successful">Відновлено з Google Диску</string>
     <string name="code_pair_instruction">Відкрийте \"Бездротове налагодження\" на цільовому пристрої та натисніть \"Сполучити пристрій за допомогою коду сполучення\"</string>
@@ -120,6 +151,8 @@
     <string name="connect">Під\'єднатися</string>
     <string name="connect_device_via_otg">Під\'єднати пристрій через OTG</string>
     <string name="connect_to_wifi_network">Підключення до Wi-Fi мережі</string>
+    <string name="connect_via_otg">З\'єднатися через OTG</string>
+    <string name="connect_via_wifi_adb">Підключитися через Wi-Fi ADB</string>
     <string name="connected">Під\'єднано</string>
     <string name="connected_device">Під\'єднаний пристрій</string>
     <string name="connecting">Під’єднання…</string>
@@ -139,6 +172,7 @@
     <string name="create">Створити</string>
     <string name="create_folder">Створити теку</string>
     <string name="create_new_tile">Створити нову плитку</string>
+    <string name="create_with_ai">Створити за допомогою ШІ</string>
     <string name="crowdin_contribution_msg">Відвідайте нашу платформу перекладів crowdin, щоб зробити свій внесок</string>
     <string name="current_version">Поточна версія</string>
     <string name="custom_ui_scale">Свій масштаб UI</string>
@@ -161,7 +195,7 @@
     <string name="des_about">Співробітники та підтримка</string>
     <string name="des_ai_cache_days">Кількість днів для зберігання кешованих результатів</string>
     <string name="des_ai_cache_enabled">Результати аналізу кешу по моделі</string>
-    <string name="des_ai_models">Управління офлайн AI моделями для аналізу команд</string>
+    <string name="des_ai_models">Керувати даними AI моделей і ключами API</string>
     <string name="des_auto_backup_content_type">Виберіть, що включити до авторезервувань</string>
     <string name="des_auto_backup_folder">Виберіть теку для збереження авторезервувань</string>
     <string name="des_auto_backup_time">Встановіть час для авторезервувань</string>
@@ -178,6 +212,7 @@
     <string name="des_changelogs">Історія всіх змін, внесених у додаток</string>
     <string name="des_choose_icon">Натисніть тут, щоб вибрати іконку з колекції іконок</string>
     <string name="des_clear_output_confirmation">Запитувати підтвердження перед очищенням виводу оболонки</string>
+    <string name="des_cloud_models">Управління ключами API для хмарних моделей</string>
     <string name="des_configure_save_directory">Виберіть каталог для збереження виводу оболонки</string>
     <string name="des_contributors">Список учасників, які допомогли у розробці aShell You</string>
     <string name="des_crash_history">Переглянути всі збої, що сталися в додатку</string>
@@ -255,7 +290,9 @@
     <string name="downloads">Завантаження</string>
     <string name="duplicate_tile_name_error_msg">Плитка з таким ім\'ям вже існує</string>
     <string name="dynamic_colors">Динамічні кольори</string>
+    <string name="edit">Редагувати</string>
     <string name="edit_command">Редагувати команду</string>
+    <string name="edit_theme_title" comment="%1$s = theme name">Редагувати тему: %1$s</string>
     <string name="edit_tile">Редагувати плитку</string>
     <string name="empty_folder">Ця тека порожня</string>
     <string name="enable_auto_backup">Увімкнути авторезервування</string>
@@ -383,7 +420,15 @@
     <string name="found_connect_service">Знайдено сервіс підключення</string>
     <string name="frequency">Частота</string>
     <string name="full_license_text">Повний текст ліцензії</string>
+    <string name="gemini_api_key_step_1">Відвідайте Google AI Studio на aistudio.google.com</string>
+    <string name="gemini_api_key_step_2">Увійдіть за допомогою свого облікового запису Google</string>
+    <string name="gemini_api_key_step_3">Натисніть на Створити ключ API і виберіть або створіть проект</string>
+    <string name="gemini_api_key_step_4">Скопіюйте свій ключ API і вставте його нижче</string>
+    <string name="generate_color_scheme">Генерувати колірну схему</string>
+    <string name="generate_scheme">Створення схеми</string>
+    <string name="generate_theme">Створити тему</string>
     <string name="generate_tile">Створити плитку</string>
+    <string name="get_api_key">Get API key</string>
     <string name="get_variables">Отримати змінні</string>
     <string name="go_home">На головну</string>
     <string name="go_to_terminal">Перейти до термінала</string>
@@ -396,12 +441,14 @@
     <string name="great_news">Чудова новина!</string>
     <string name="haptics_and_vibration">Тактильна віддача &amp; Вібрація</string>
     <string name="have_a_nice_day">Приємного дня!</string>
+    <string name="hex_editor">Hex-редактор</string>
     <string name="high">Високий</string>
     <string name="high_contrast_dark_mode">Висококонтрастний темний режим</string>
     <string name="hint">Підказка</string>
     <string name="history">Історія</string>
     <string name="home">Головна</string>
     <string name="icon_selected">Іконка обрана</string>
+    <string name="import_theme">Імпортувати тему</string>
     <string name="include">Включити</string>
     <string name="info">Інформація</string>
     <string name="initial_state">Початковий стан</string>
@@ -413,6 +460,7 @@
     <string name="irreversible_action_warning">Ця дія незворотна!</string>
     <string name="item_deleted">Елемент був успішно видалений</string>
     <string name="keep_both">Залишити обидва</string>
+    <string name="key_verified_success_msg">Ключ успішно перевірено</string>
     <string name="label">Мітка</string>
     <string name="languages">Мови</string>
     <string name="last_auto_backup_cloud">Останнє авторезервування у хмарі</string>
@@ -453,14 +501,18 @@
     <string name="logcat_permission_title">Дозвіл доступу до журналу</string>
     <string name="logcat_running_description">aShellYou збирає системні журнали у фоні</string>
     <string name="logcat_shortcut_long_label">Відкрити перегляд Logcat</string>
+    <string name="logcat_source">Джерело Logcat</string>
+    <string name="logcat_tap_play">Натисніть ▶️ щоб почати logcat</string>
     <string name="logs">Журнали</string>
     <string name="look_and_feel">Оформлення</string>
     <string name="low">Низький</string>
+    <string name="make_your_theme_title">Створіть свою тему</string>
     <string name="manual_pair">Ручне сполучення</string>
     <string name="max_download_size">Максимальне завантаження</string>
     <string name="medium">Середній</string>
     <string name="merge">Об’єднати</string>
     <string name="message">Повідомлення</string>
+    <string name="message_adb_agent">Агент ADB…</string>
     <string name="minimize">Мінімізувати</string>
     <string name="mode">Режим</string>
     <string name="mode_one_desc">Використовуйте root доступ для запуску команд. Rooted команди можуть бути виконані.</string>
@@ -492,6 +544,7 @@
     <string name="no_changelog_found">Журнал змін для цієї версії не знайдено</string>
     <string name="no_cloud_backup_found">Резервування не знайдено на Google Диску</string>
     <string name="no_crashes">Повідомлень про збої не надходило. aShell You працює гладко.</string>
+    <string name="no_custom_themes_yet">Ще немає власних тем. Створіть їх!</string>
     <string name="no_device_connected">Немає під\'єднаного пристрою</string>
     <string name="no_fastboot_device_error">Підключений пристрій не перебуває в режимі fastboot</string>
     <string name="no_files_download">Файли не вибрані (теки неможливо завантажити)</string>
@@ -504,6 +557,7 @@
     <string name="no_logs_yet_msg">Жодних журналів ще не записано. Виконайте кілька дій, щоб показати журнали.</string>
     <string name="no_model_selected">Модель не вибрано</string>
     <string name="no_operations">Операції не виконуються</string>
+    <string name="no_other_device_hint">Підключіть зовнішній пристрій для перегляду його журналів</string>
     <string name="no_results_found">Результатів не знайдено</string>
     <string name="no_root_access">Немає root доступу</string>
     <string name="no_saved_devices">Немає збережених пристроїв</string>
@@ -519,9 +573,16 @@
     <string name="notification_styles">Стилі сповіщень</string>
     <string name="off">Вимкнено</string>
     <string name="off_state" comment="Quick Settings tile toggle state label">\"Вимк\"</string>
+    <string name="ok">ОК</string>
     <string name="oldest" comment="Sorting option">Найстаріший</string>
     <string name="on">Увімкнено</string>
+    <string name="on_background">Фоновий режим</string>
+    <string name="on_primary">На первинному</string>
+    <string name="on_primary_container">На первинному контейнері</string>
+    <string name="on_secondary">Вторинний</string>
     <string name="on_state" comment="Quick Settings tile toggle state label">\"Увім\"</string>
+    <string name="on_surface">На поверхні</string>
+    <string name="on_tertiary">На Tertiary</string>
     <string name="open">Відкрити</string>
     <string name="open_app_language_settings">Відкрити налаштування мови додатку</string>
     <string name="open_issues" comment="GitHub repository open issues count">Відкриті питання</string>
@@ -573,6 +634,8 @@
     <string name="pre_release_warning_description">Ці версії все ще знаходяться на стадії тестування та можуть містити незавершені функції або несподівані помилки. Якщо ви вирішите оновитись до передрелізної версії, майте на увазі, що можуть виникнути збої або дивна поведінка.\nЯкщо ви зіткнетеся з будь-якими проблемами, збоями або дивною поведінкою, будь ласка, повідомте нам про це, щоб ми могли виправити та покращити aShellYou до стабільного релізу.\nДякую, що допомагаєте нам будувати краще!</string>
     <string name="preference">Переважно</string>
     <string name="preview">Перед огляд</string>
+    <string name="primary">Первинний</string>
+    <string name="primary_container">Основний контейнер</string>
     <string name="product">Продукт</string>
     <string name="qr_pair">Сполучення QR</string>
     <string name="qr_pair_hint">Для сполучення пристрою Android 11+ скануйте цей QR із цільового пристрою</string>
@@ -599,6 +662,7 @@
     <string name="reconnect_the_device">Підключення пристрою знову</string>
     <string name="recovery">Recovery</string>
     <string name="refresh">Оновити</string>
+    <string name="remove">Видалити</string>
     <string name="rename">Перейменувати</string>
     <string name="rename_title" comment="%1$s = file or folder name">Перейменувати %1$s</string>
     <string name="replace">Замінити</string>
@@ -620,10 +684,14 @@
     <string name="resume">Продовжити</string>
     <string name="retry">Повторити</string>
     <string name="root_access_granted">Root доступ надано!</string>
+    <string name="root_unavailable">Кореневий вузол недоступний</string>
+    <string name="root_unavailable_message">Не вдалося знайти рут-доступ. Переконайтеся, що ваш пристрій має \"root\" права і повторіть спробу, або виберіть інше джерело журналу.</string>
     <string name="running">Виконується</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Зберегти</string>
     <string name="save_as_profile">Зберегти як профіль…</string>
+    <string name="save_changes">Зберегти зміни</string>
+    <string name="save_key">Зберегти ключ</string>
     <string name="save_whole_output">Зберегти весь вивід</string>
     <string name="saved_devices">Збережені пристрої</string>
     <string name="saving">Збереження…</string>
@@ -643,6 +711,7 @@
     <string name="search_variables">Пошук змінних…</string>
     <string name="searching_connect_service">Пошук служби підключення</string>
     <string name="searching_for_devices">Пошук пристроїв…</string>
+    <string name="secondary">Вторинна</string>
     <string name="security_patch">Патч безпеки</string>
     <string name="select">Вибрати</string>
     <string name="select_all">Вибрати все</string>
@@ -650,6 +719,7 @@
     <string name="select_backup_folder_title">Немає теки резервування</string>
     <string name="select_folder">Виберіть теку</string>
     <string name="select_partition">Виберіть розділ</string>
+    <string name="select_theme_to_edit_hex">Виберіть тему вище, щоб змінити її значення у hex.</string>
     <string name="select_time">Виберіть час</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">Своє</string>
     <string name="self_pair_connection_failed">Помилка підключення - спробуйте ручне підключення</string>
@@ -672,6 +742,7 @@
     <string name="serif" comment="Font style category name">Serif</string>
     <string name="settings">Налаштування</string>
     <string name="settings_only">Тільки параметри</string>
+    <string name="share">Поділитись</string>
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">Вивід останньої команди експортується до \'%s\'</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">Вивід оболонки експортується до \'%s\'</string>
     <string name="shizuku_not_installed">Shizuku не встановлено</string>
@@ -704,6 +775,7 @@
     <string name="successful_connection_message">Пристрій успішно підключений. Тепер ви можете розпочати виконання команд на цільовому пристрої.</string>
     <string name="suggested_icons">Запропоновані іконки</string>
     <string name="support_bmc">Подобається те, що я роблю?\nПригостіть мене кавою</string>
+    <string name="surface">Поверхня</string>
     <string name="switch_mode">Перемикнути режим</string>
     <string name="system">Системна</string>
     <string name="system_default">Системні за замовчуванням</string>
@@ -713,6 +785,7 @@
     <string name="telegram">Telegram</string>
     <string name="terminal">Термінал</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Стиль шрифту терміналу</string>
+    <string name="tertiary">Третинний період</string>
     <string name="third_party_libraries">Сторонні бібліотеки</string>
     <string name="this_application">Цей додаток</string>
     <string name="this_device">Цей пристрій</string>
@@ -737,6 +810,7 @@
     <string name="type">Тип</string>
     <string name="ui_scale">Масштаб UI</string>
     <string name="undo">Скасувати</string>
+    <string name="unexpected_error">Неочікувана помилка</string>
     <string name="unknown">Невідомо</string>
     <string name="unknown_error">Сталася невідома помилка</string>
     <string name="unknown_sources_install_permission_not_granted">Дозвіл не надано. Дозвольте встановлення програми з невідомих джерел.</string>
@@ -753,6 +827,9 @@
     <string name="use">Використати</string>
     <string name="utilities">Утиліти</string>
     <string name="variant">Варіант</string>
+    <string name="verification_failed">Не вдалося виконати перевірку</string>
+    <string name="verify_api_key">Підтвердити API ключ</string>
+    <string name="verifying">Перевірка</string>
     <string name="version">Версія</string>
     <string name="version_code">Код версії</string>
     <string name="version_name">Назва версії</string>
@@ -781,6 +858,8 @@
     <string name="wireless_debugging_guide_2">Введіть шестизначний код сполучення в повідомлення, надіслане aShell You.</string>
     <string name="wireless_debugging_guide_3">Поверніться до програми та натисніть кнопку \"Запустити\" на головному екрані.</string>
     <string name="wireless_debugging_important_notice">Зверніть увагу, що ліва частина опції \"Бездротового налагодження\" є активною. При натисканні на неї відкриється меню \"Сполучення\" для \"Бездротового налагодження\".</string>
+    <string name="wireless_not_connected">Не підключено</string>
+    <string name="wireless_not_connected_message">Ваш пристрій не підключено через бездротове налагодження. Спершу підключіть свій пристрій.</string>
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d новий запис</item>
         <item quantity="few">%1$d нових записів</item>

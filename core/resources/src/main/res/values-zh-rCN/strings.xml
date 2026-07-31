@@ -13,7 +13,12 @@
     <string name="adb_connection_channel_description">ADB 连接激活时显示</string>
     <string name="adb_connection_channel_name">ADB 连接</string>
     <string name="adb_connection_description">WiFi ADB 连接正在维护中</string>
+    <string name="adb_agent">ADB 代理</string>
     <string name="adb_sideload">ADB sideload</string>
+    <string name="ai_prompt_suggestion_1">检查我的电池健康</string>
+    <string name="ai_prompt_suggestion_2">列出所有已安装的软件包</string>
+    <string name="ai_prompt_suggestion_3">帮助我创建一个快速设置瓷块</string>
+    <string name="ai_new_chat_welcome_msg">您好，我可以为您做些什么？</string>
     <string name="adb_through_otg">通过 OTG 使用 ADB</string>
     <string name="adb_through_otg_summary">使用OTG线为另一个安卓设备执行ADB命令。在此之前，你需要为目标设备启用USB调试。</string>
     <string name="adb_via_otg">通过 OTG 进行ADB</string>
@@ -21,16 +26,40 @@
     <string name="adb_via_wireless_debugging_summary">通过“无线调试”功能（安卓11及以上）实现远程执行ADB命令。</string>
     <string name="add">添加</string>
     <string name="add_account">添加帐户</string>
+    <string name="add_api_key">添加 API 密钥</string>
     <string name="add_command">添加命令</string>
     <string name="add_new_item">添加新项目</string>
     <string name="additional_settings">额外设置</string>
     <string name="ai_cache_days">缓存持续时间</string>
     <string name="ai_cache_enabled">启用缓存</string>
+    <string name="ai_chat_allow">允许</string>
+    <string name="ai_chat_allow_run_command">允许 AI 运行命令：</string>
+    <string name="ai_chat_always_allow">总是允许</string>
+    <string name="ai_chat_cancel">取消</string>
+    <string name="ai_chat_delete">删除</string>
+    <string name="ai_chat_deny">拒绝</string>
+    <string name="ai_chat_new_chat">新建聊天</string>
+    <string name="ai_chat_pin">置顶</string>
+    <string name="ai_chat_rename">重命名：</string>
+    <string name="ai_chat_running">正在运行： </string>
+    <string name="ai_chat_save">保存</string>
+    <string name="ai_chat_sessions">聊天会话</string>
+    <string name="ai_chat_thoughts">灵魂的…</string>
+    <string name="ai_chat_unpin">Unpin</string>
+    <string name="ai_chat_use">使用</string>
     <string name="ai_models">AI &amp; Models</string>
+    <string name="ai_theme_prompt_hint">例如：Cyberpunk neon 城市，黑暗模式，高对比度</string>
     <string name="all">所有的</string>
     <string name="all_data">所有数据</string>
     <string name="already_connected">已连接</string>
     <string name="already_latest_version">你使用的是最新版</string>
+    <string name="always_allow_base">总是允许基础</string>
+    <string name="always_allow_exact">总是允许精确的</string>
+    <string name="analyse">分析</string>
+    <string name="api_key">API 密钥</string>
+    <string name="api_key_is_saved">API 密钥已保存</string>
+    <string name="api_key_required">需要 API 密钥</string>
+    <string name="api_key_required_message">使用 AI 功能需要一个 API 密钥。请在 设置 -&gt; 云模式中添加您的 API 密钥。</string>
     <string name="app">应用</string>
     <string name="app_crashed">软件崩溃了: (1ww</string>
     <string name="app_tagline">动动手指就能轻松使用的ADB</string>
@@ -47,6 +76,7 @@
     <string name="auto_update">自动更新</string>
     <string name="back">返回</string>
     <string name="back_button">返回键</string>
+    <string name="background">二. 背景</string>
     <string name="backing_up">备份…</string>
     <string name="backup">备份</string>
     <string name="backup_all_data">备份全部数据</string>
@@ -100,6 +130,7 @@
     <string name="cloud_backup_failed">上传备份到 Google Drive 失败</string>
     <string name="cloud_backup_google_drive">云备份(Google Drive)</string>
     <string name="cloud_backup_successful">备份上传到 Google Drive</string>
+    <string name="cloud_models">云模型</string>
     <string name="cloud_restore_failed">从 Google Drive 还原失败</string>
     <string name="cloud_restore_successful">从 Google Drive 恢复</string>
     <string name="code_pair_instruction">在目标设备上打开“无线调试”，然后点击配对码的“配对设备”</string>
@@ -120,6 +151,8 @@
     <string name="connect">连接</string>
     <string name="connect_device_via_otg">通过 OTG 连接设备</string>
     <string name="connect_to_wifi_network">连接到 wifi 网络</string>
+    <string name="connect_via_otg">通过 OTG 连接</string>
+    <string name="connect_via_wifi_adb">通过 Wi-Fi ADB 连接</string>
     <string name="connected">已连接</string>
     <string name="connected_device">已连接的设备</string>
     <string name="connecting">正在连接…</string>
@@ -139,6 +172,7 @@
     <string name="create">创建</string>
     <string name="create_folder">创建文件夹</string>
     <string name="create_new_tile">创建新瓷贴</string>
+    <string name="create_with_ai">使用 AI 创建</string>
     <string name="crowdin_contribution_msg">访问我们的crowdin 翻译平台来贡献</string>
     <string name="current_version">当前版本</string>
     <string name="custom_ui_scale">自定义界面缩放</string>
@@ -161,7 +195,7 @@
     <string name="des_about">贡献者和支持</string>
     <string name="des_ai_cache_days">保存缓存结果的天数</string>
     <string name="des_ai_cache_enabled">每个模型缓存分析结果</string>
-    <string name="des_ai_models">管理离线的 AI 模型用于命令分析</string>
+    <string name="des_ai_models">管理 AI 模型数据和 API 密钥</string>
     <string name="des_auto_backup_content_type">选择自动备份中包含的内容</string>
     <string name="des_auto_backup_folder">选择要保存自动备份的文件夹</string>
     <string name="des_auto_backup_time">设置自动备份时间</string>
@@ -178,6 +212,7 @@
     <string name="des_changelogs">包含历史更新内容</string>
     <string name="des_choose_icon">点击此处从图标集合中选择一个图标</string>
     <string name="des_clear_output_confirmation">清除终端输出前询问确认</string>
+    <string name="des_cloud_models">管理云模型的 API 密钥</string>
     <string name="des_configure_save_directory">配置目录保存终端输出</string>
     <string name="des_contributors">帮助开发 aShell You 的贡献者列表</string>
     <string name="des_crash_history">查看应用程序中发生的所有崩溃问题</string>
@@ -255,7 +290,9 @@
     <string name="downloads">下载</string>
     <string name="duplicate_tile_name_error_msg">此名称的瓦片已存在</string>
     <string name="dynamic_colors">莫奈取色</string>
+    <string name="edit">编辑</string>
     <string name="edit_command">编辑命令</string>
+    <string name="edit_theme_title" comment="%1$s = theme name">编辑主题: %1$s</string>
     <string name="edit_tile">编辑瓷块</string>
     <string name="empty_folder">此文件夹为空</string>
     <string name="enable_auto_backup">启用自动备份</string>
@@ -383,7 +420,15 @@
     <string name="found_connect_service">找到连接服务</string>
     <string name="frequency">频率</string>
     <string name="full_license_text">完整许可文本</string>
+    <string name="gemini_api_key_step_1">通过 aistudio.google.com 访问 Google AI Studio</string>
+    <string name="gemini_api_key_step_2">使用您的Google帐户登录</string>
+    <string name="gemini_api_key_step_3">点击创建 API 密钥并选择或创建一个项目</string>
+    <string name="gemini_api_key_step_4">复制您的 API 密钥并粘贴在下方：</string>
+    <string name="generate_color_scheme">生成配色方案</string>
+    <string name="generate_scheme">生成方案</string>
+    <string name="generate_theme">生成主题</string>
     <string name="generate_tile">生成瓷块</string>
+    <string name="get_api_key">Get API key</string>
     <string name="get_variables">获取变量</string>
     <string name="go_home">返回首页</string>
     <string name="go_to_terminal">转到终端</string>
@@ -396,12 +441,14 @@
     <string name="great_news">好消息！</string>
     <string name="haptics_and_vibration">触感&amp;震动</string>
     <string name="have_a_nice_day">祝你好日！</string>
+    <string name="hex_editor">十六进制编辑器</string>
     <string name="high">高</string>
     <string name="high_contrast_dark_mode">高对比度暗色模式</string>
     <string name="hint">提示</string>
     <string name="history">历史</string>
     <string name="home">首页</string>
     <string name="icon_selected">选择图标</string>
+    <string name="import_theme">导入主题</string>
     <string name="include">包含</string>
     <string name="info">信息</string>
     <string name="initial_state">初始状态</string>
@@ -413,6 +460,7 @@
     <string name="irreversible_action_warning">此操作不可逆！</string>
     <string name="item_deleted">项目已成功删除</string>
     <string name="keep_both">同时保留</string>
+    <string name="key_verified_success_msg">密钥验证成功</string>
     <string name="label">标签</string>
     <string name="languages">语文</string>
     <string name="last_auto_backup_cloud">最后一个云自动备份</string>
@@ -453,14 +501,18 @@
     <string name="logcat_permission_title">日志访问权限</string>
     <string name="logcat_running_description">aShellYou 正在后台收集系统日志</string>
     <string name="logcat_shortcut_long_label">打开日志查看器</string>
+    <string name="logcat_source">日志源</string>
+    <string name="logcat_tap_play">点击 :play_buton: 开始日志</string>
     <string name="logs">日志</string>
     <string name="look_and_feel">外观 &amp; 体验</string>
     <string name="low">低</string>
+    <string name="make_your_theme_title">制作您的主题</string>
     <string name="manual_pair">手动配对</string>
     <string name="max_download_size">最大下载</string>
     <string name="medium">中</string>
     <string name="merge">合并</string>
     <string name="message">留言</string>
+    <string name="message_adb_agent">Message ADB Agent…</string>
     <string name="minimize">最小化</string>
     <string name="mode">模式</string>
     <string name="mode_one_desc">使用Root执行命令. 依赖Root权限的命令可以被执行</string>
@@ -492,6 +544,7 @@
     <string name="no_changelog_found">未找到此版本的更新日志</string>
     <string name="no_cloud_backup_found">未在Google Drive上找到备份</string>
     <string name="no_crashes">没有报告崩溃。你正在顺利运行。</string>
+    <string name="no_custom_themes_yet">尚无自定义主题。请在下方创建一个主题！</string>
     <string name="no_device_connected">未连接设备</string>
     <string name="no_fastboot_device_error">已连接的设备不在快速启动模式</string>
     <string name="no_files_download">未选择文件(文件夹无法下载)</string>
@@ -504,6 +557,7 @@
     <string name="no_logs_yet_msg">尚未记录日志。执行一些瓷块以显示日志。</string>
     <string name="no_model_selected">没有选择模型</string>
     <string name="no_operations">没有正在进行的操作</string>
+    <string name="no_other_device_hint">连接外部设备以查看日志</string>
     <string name="no_results_found">未找到结果</string>
     <string name="no_root_access">无root权限</string>
     <string name="no_saved_devices">没有保存的设备</string>
@@ -519,9 +573,16 @@
     <string name="notification_styles">通知样式</string>
     <string name="off">关</string>
     <string name="off_state" comment="Quick Settings tile toggle state label">关闭</string>
+    <string name="ok">确定</string>
     <string name="oldest" comment="Sorting option">最早的</string>
     <string name="on">开</string>
+    <string name="on_background">在背景</string>
+    <string name="on_primary">在首页</string>
+    <string name="on_primary_container">在主容器</string>
+    <string name="on_secondary">在次要时</string>
     <string name="on_state" comment="Quick Settings tile toggle state label">开启</string>
+    <string name="on_surface">在地面上</string>
+    <string name="on_tertiary">在高等上</string>
     <string name="open">打开</string>
     <string name="open_app_language_settings">打开应用语言设置</string>
     <string name="open_issues" comment="GitHub repository open issues count">未决问题</string>
@@ -573,6 +634,8 @@
     <string name="pre_release_warning_description">这些版本仍在测试中，可能包含未完成的功能或未预料的故障。如果选择更新到预发行版本，请意识到应用可能出问题或表现怪异。\n如遇任何问题、崩溃或奇怪行为，请报告它们。以便我们在稳定版发布前修复和改进 sShellYou。\n感谢帮助我们让 aShell 变得更好！</string>
     <string name="preference">首选项</string>
     <string name="preview">预览</string>
+    <string name="primary">主要的</string>
+    <string name="primary_container">主容器</string>
     <string name="product">产品</string>
     <string name="qr_pair">二维码对</string>
     <string name="qr_pair_hint">要配对 Android 11+ 设备，请从目标设备扫描此 QR</string>
@@ -599,6 +662,7 @@
     <string name="reconnect_the_device">重新连接设备</string>
     <string name="recovery">恢复</string>
     <string name="refresh">刷新</string>
+    <string name="remove">删除</string>
     <string name="rename">重命名：</string>
     <string name="rename_title" comment="%1$s = file or folder name">重命名 %1$s</string>
     <string name="replace">替换</string>
@@ -620,10 +684,14 @@
     <string name="resume">继续</string>
     <string name="retry">重试</string>
     <string name="root_access_granted">Root 访问已授予！</string>
+    <string name="root_unavailable">根不可用</string>
+    <string name="root_unavailable_message">无法检测到Root访问权限。请确保您的设备已root并重试，或切换到其他日志源。</string>
     <string name="running">正在运行</string>
     <string name="sans_serif" comment="Font style category name">无衬线字体</string>
     <string name="save">保存</string>
     <string name="save_as_profile">另存为…</string>
+    <string name="save_changes">保存更改</string>
+    <string name="save_key">保存密钥</string>
     <string name="save_whole_output">保存整个输出</string>
     <string name="saved_devices">已保存的设备</string>
     <string name="saving">保存中…</string>
@@ -643,6 +711,7 @@
     <string name="search_variables">搜索变量…</string>
     <string name="searching_connect_service">搜索连接服务</string>
     <string name="searching_for_devices">正在搜索设备…</string>
+    <string name="secondary">次要文件</string>
     <string name="security_patch">安全补丁</string>
     <string name="select">选择</string>
     <string name="select_all">全选</string>
@@ -650,6 +719,7 @@
     <string name="select_backup_folder_title">没有备份文件夹</string>
     <string name="select_folder">选择文件夹</string>
     <string name="select_partition">选择分区</string>
+    <string name="select_theme_to_edit_hex">在这里选择一个主题来编辑其原生十六进制值。</string>
     <string name="select_time">选择时间</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">自己的</string>
     <string name="self_pair_connection_failed">连接失败 - 尝试手动连接</string>
@@ -672,6 +742,7 @@
     <string name="serif" comment="Font style category name">序列号</string>
     <string name="settings">设置</string>
     <string name="settings_only">仅设置</string>
+    <string name="share">分享</string>
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">上一个命令的输出导出到\'%s\'</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">终端输出导出到 \'%s\'</string>
     <string name="shizuku_not_installed">尚未安装 Shizuku</string>
@@ -704,6 +775,7 @@
     <string name="successful_connection_message">设备连接成功。您现在可以在目标设备上运行命令。</string>
     <string name="suggested_icons">建议图标</string>
     <string name="support_bmc">觉得我做的好？\n考虑请我一杯咖啡吧</string>
+    <string name="surface">表面</string>
     <string name="switch_mode">切换模式</string>
     <string name="system">跟随系统</string>
     <string name="system_default">系统默认</string>
@@ -713,6 +785,7 @@
     <string name="telegram">Telegram</string>
     <string name="terminal">终端</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">终端字体样式</string>
+    <string name="tertiary">三等式</string>
     <string name="third_party_libraries">第三方库</string>
     <string name="this_application">此应用程序</string>
     <string name="this_device">此设备</string>
@@ -737,6 +810,7 @@
     <string name="type">类型</string>
     <string name="ui_scale">界面缩放</string>
     <string name="undo">撤消操作</string>
+    <string name="unexpected_error">意外错误</string>
     <string name="unknown">未知的</string>
     <string name="unknown_error">未知错误</string>
     <string name="unknown_sources_install_permission_not_granted">未授予权限。请允许从未知来源安装应用程序。</string>
@@ -753,6 +827,9 @@
     <string name="use">使用</string>
     <string name="utilities">实用工具</string>
     <string name="variant">变体</string>
+    <string name="verification_failed">验证失败</string>
+    <string name="verify_api_key">验证 API 密钥</string>
+    <string name="verifying">正在验证</string>
     <string name="version">版本</string>
     <string name="version_code">版本代码</string>
     <string name="version_name">版本名称</string>
@@ -781,6 +858,8 @@
     <string name="wireless_debugging_guide_2">在aShell You发送的通知中输入配对码</string>
     <string name="wireless_debugging_guide_3">返回aShell You的主页点击无线ADB板块的“开始”即可</string>
     <string name="wireless_debugging_important_notice">注意无线调试选项左侧是可以点的。点击会打开无线调试配对菜单</string>
+    <string name="wireless_not_connected">未连接</string>
+    <string name="wireless_not_connected_message">您的设备未通过无线调试连接。请先配对并连接您的设备。</string>
     <plurals name="logcat_new_entries">
         <item quantity="other">%1$d 新条目</item>
     </plurals>
