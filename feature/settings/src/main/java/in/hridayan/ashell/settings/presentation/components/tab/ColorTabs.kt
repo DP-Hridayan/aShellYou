@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
@@ -33,14 +34,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import `in`.hridayan.ashell.core.common.FeatureConfig
 import `in`.hridayan.ashell.core.common.LocalPaletteStyle
 import `in`.hridayan.ashell.core.common.LocalSeedColor
-import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalTonalPalette
-import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.common.data.provider.SeedColor
 import `in`.hridayan.ashell.core.common.domain.model.PaletteStyle
+import `in`.hridayan.ashell.core.common.settings.LocalSettings
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.components.palette.PaletteWheel
+import `in`.hridayan.shapeindicators.ShapeIndicatorDefaults
 import `in`.hridayan.shapeindicators.ShapeIndicatorRow
 
 @Composable
@@ -58,8 +61,10 @@ fun ColorTabs(
     val userGeneratedColorSchemeApplied = settings[SettingsKeys.UserGeneratedColorSchemeApplied]
 
     BoxWithConstraints(modifier = modifier) {
-        val availablePagerWidth = maxWidth * 0.75f // Pager takes 3f out of 4f total weight
-        val itemWidth = 75.dp // 70.dp for the PaletteWheel + 5.dp padding approx
+        val aiSectionWidth =
+            if (FeatureConfig.isAiEnabled) 85.dp else 0.dp // 70dp button + padding + divider
+        val availablePagerWidth = maxWidth - aiSectionWidth
+        val itemWidth = 70.dp + 10.dp
         val calculatedChunkSize = maxOf(1, (availablePagerWidth / itemWidth).toInt())
         val groupedPalettes = tonalPalettes.chunked(calculatedChunkSize)
         val pagerState = rememberPagerState(initialPage = 0) { groupedPalettes.size }
@@ -94,37 +99,39 @@ fun ColorTabs(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Box(
-                        modifier = Modifier.weight(1f),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        OutlinedIconButton(
-                            onClick = onClickCreateTheme,
-                            modifier = Modifier.size(70.dp),
-                            shape = CircleShape,
-                            border = BorderStroke(
-                                2.dp,
-                                MaterialTheme.colorScheme.outlineVariant
-                            )
+                    if (FeatureConfig.isAiEnabled) {
+                        Box(
+                            modifier = Modifier.wrapContentWidth(),
+                            contentAlignment = Alignment.Center
                         ) {
-                            Icon(
-                                imageVector = Icons.Rounded.Palette,
-                                contentDescription = "Create Custom Theme",
-                                modifier = Modifier.size(32.dp),
-                                tint = MaterialTheme.colorScheme.onSurface
-                            )
+                            OutlinedIconButton(
+                                onClick = onClickCreateTheme,
+                                modifier = Modifier.size(70.dp),
+                                shape = CircleShape,
+                                border = BorderStroke(
+                                    2.dp,
+                                    MaterialTheme.colorScheme.outlineVariant
+                                )
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Rounded.Palette,
+                                    contentDescription = "Create Custom Theme",
+                                    modifier = Modifier.size(32.dp),
+                                    tint = MaterialTheme.colorScheme.onSurface
+                                )
+                            }
                         }
-                    }
 
-                    VerticalDivider(
-                        modifier = Modifier
-                            .height(50.dp)
-                            .padding(horizontal = 5.dp)
-                    )
+                        VerticalDivider(
+                            modifier = Modifier
+                                .height(50.dp)
+                                .padding(horizontal = 5.dp)
+                        )
+                    }
 
                     HorizontalPager(
                         state = pagerState,
-                        modifier = Modifier.weight(3f)
+                        modifier = Modifier.weight(1f)
                     ) { page ->
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -162,6 +169,7 @@ fun ColorTabs(
                     pagerState = pagerState,
                     horizontalArrangement = Arrangement.spacedBy(10.dp),
                     shuffleShapes = true,
+                    overflow = ShapeIndicatorDefaults.overflow(maxVisibleItems = 7)
                 )
             }
         }
