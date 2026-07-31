@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -22,13 +23,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Palette
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -42,6 +42,9 @@ import `in`.hridayan.ashell.core.common.data.provider.SeedColor
 import `in`.hridayan.ashell.core.common.domain.model.PaletteStyle
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
+import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.settings.presentation.components.palette.PaletteWheel
 import `in`.hridayan.shapeindicators.ShapeIndicatorDefaults
 import `in`.hridayan.shapeindicators.ShapeIndicatorRow
@@ -69,66 +72,74 @@ fun ColorTabs(
         val groupedPalettes = tonalPalettes.chunked(calculatedChunkSize)
         val pagerState = rememberPagerState(initialPage = 0) { groupedPalettes.size }
 
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.Top
         ) {
-            AnimatedVisibility(
-                visible = isMonochromePalette,
-                enter = scaleIn(animationSpec = spring(dampingRatio = Spring.DampingRatioLowBouncy)),
-                exit = ExitTransition.None
-            ) {
-                Box(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
+            if (FeatureConfig.isAiEnabled) {
+                Row(
+                    modifier = Modifier.wrapContentWidth(),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    PaletteWheel(
+                    CustomCard(
+                        onClick = withHaptic { onClickCreateTheme() },
                         modifier = Modifier.size(70.dp),
-                        seedColor = tonalPalettes.first().colors,
-                        onClick = onClickMonochromeTab,
-                        isChecked = !isDynamicColor && !userGeneratedColorSchemeApplied,
+                        shape = CustomCardShape(50),
+                        border = BorderStroke(
+                            1.dp,
+                            MaterialTheme.colorScheme.outlineVariant
+                        ),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surface
+                        )
+                    ) {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Rounded.Palette,
+                                contentDescription = "Create Custom Theme",
+                                modifier = Modifier.size(32.dp),
+                                tint = MaterialTheme.colorScheme.tertiary
+                            )
+                        }
+                    }
+
+                    VerticalDivider(
+                        modifier = Modifier
+                            .height(50.dp)
+                            .padding(horizontal = 10.dp)
                     )
                 }
             }
 
-            AnimatedVisibility(
-                visible = !isMonochromePalette,
-                enter = scaleIn(animationSpec = spring(dampingRatio = Spring.DampingRatioLowBouncy)),
-                exit = ExitTransition.None
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
+                AnimatedVisibility(
+                    visible = isMonochromePalette,
+                    enter = scaleIn(animationSpec = spring(dampingRatio = Spring.DampingRatioLowBouncy)),
+                    exit = ExitTransition.None
                 ) {
-                    if (FeatureConfig.isAiEnabled) {
-                        Box(
-                            modifier = Modifier.wrapContentWidth(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            OutlinedIconButton(
-                                onClick = onClickCreateTheme,
-                                modifier = Modifier.size(70.dp),
-                                shape = CircleShape,
-                                border = BorderStroke(
-                                    2.dp,
-                                    MaterialTheme.colorScheme.outlineVariant
-                                )
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Rounded.Palette,
-                                    contentDescription = "Create Custom Theme",
-                                    modifier = Modifier.size(32.dp),
-                                    tint = MaterialTheme.colorScheme.onSurface
-                                )
-                            }
-                        }
-
-                        VerticalDivider(
-                            modifier = Modifier
-                                .height(50.dp)
-                                .padding(horizontal = 5.dp)
+                    Box(
+                        modifier = Modifier.fillMaxWidth(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        PaletteWheel(
+                            modifier = Modifier.size(70.dp),
+                            seedColor = tonalPalettes.first().colors,
+                            onClick = onClickMonochromeTab,
+                            isChecked = !isDynamicColor && !userGeneratedColorSchemeApplied,
                         )
                     }
+                }
 
+                AnimatedVisibility(
+                    visible = !isMonochromePalette,
+                    enter = scaleIn(animationSpec = spring(dampingRatio = Spring.DampingRatioLowBouncy)),
+                    exit = ExitTransition.None
+                ) {
                     HorizontalPager(
                         state = pagerState,
                         modifier = Modifier.weight(1f)
@@ -154,24 +165,25 @@ fun ColorTabs(
                         }
                     }
                 }
-            }
 
-            Spacer(Modifier.height(12.dp))
-
-            AnimatedVisibility(
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally),
-                visible = !isMonochromePalette,
-                enter = scaleIn(animationSpec = spring(dampingRatio = Spring.DampingRatioLowBouncy)),
-                exit = ExitTransition.None
-            ) {
-                ShapeIndicatorRow(
-                    pagerState = pagerState,
-                    horizontalArrangement = Arrangement.spacedBy(10.dp),
-                    shuffleShapes = true,
-                    overflow = ShapeIndicatorDefaults.overflow(maxVisibleItems = 7)
-                )
+                AnimatedVisibility(
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .padding(top = 10.dp),
+                    visible = !isMonochromePalette,
+                    enter = scaleIn(animationSpec = spring(dampingRatio = Spring.DampingRatioLowBouncy)),
+                    exit = ExitTransition.None
+                ) {
+                    ShapeIndicatorRow(
+                        pagerState = pagerState,
+                        horizontalArrangement = Arrangement.spacedBy(10.dp),
+                        shuffleShapes = true,
+                        overflow = ShapeIndicatorDefaults.overflow(maxVisibleItems = 6)
+                    )
+                }
             }
         }
+
+        Spacer(Modifier.height(12.dp))
     }
 }
