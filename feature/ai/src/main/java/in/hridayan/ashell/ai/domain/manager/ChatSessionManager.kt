@@ -23,6 +23,8 @@ class ChatSessionManager @Inject constructor(
     private val managerScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private val generationJobs = ConcurrentHashMap<String, Job>()
     private val json = Json { ignoreUnknownKeys = true; encodeDefaults = true }
+    
+    var activeSessionId: String? = null
 
     fun sendMessage(sessionId: String, onStart: suspend () -> Unit = {}) {
         generationJobs[sessionId]?.cancel()

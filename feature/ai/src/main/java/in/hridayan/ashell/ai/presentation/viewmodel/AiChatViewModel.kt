@@ -52,7 +52,7 @@ class AiChatViewModel @Inject constructor(
         _showApiKeyRequiredDialog.value = false
     }
 
-    private val _currentSessionId = MutableStateFlow<String?>(null)
+    private val _currentSessionId = MutableStateFlow<String?>(chatSessionManager.activeSessionId)
     // We'll wire permission flows and task flows in Phase 4
 
     val uiState: StateFlow<AiChatUiState> = combine(
@@ -243,14 +243,15 @@ class AiChatViewModel @Inject constructor(
                 initialValue = emptyList()
             )
 
+
     init {
         viewModelScope.launch {
-            val sessions = chatRepository.getAllSessions().first()
-            if (sessions.isNotEmpty()) {
-                _currentSessionId.value = sessions.first().id
+            _currentSessionId.collect {
+                chatSessionManager.activeSessionId = it
             }
         }
     }
+
 
     fun onNewChat() {
         val newSessionId = UUID.randomUUID().toString()
