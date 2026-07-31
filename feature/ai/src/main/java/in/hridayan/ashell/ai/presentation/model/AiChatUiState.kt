@@ -1,8 +1,10 @@
 package `in`.hridayan.ashell.ai.presentation.model
 
+import androidx.compose.runtime.Immutable
 import `in`.hridayan.ashell.ai.data.local.database.entity.ChatMessageEntity
 import `in`.hridayan.ashell.ai.data.local.database.entity.ChatSessionEntity
 
+@Immutable
 data class AiChatUiState(
     val sessions: List<ChatSessionEntity> = emptyList(),
     val currentSessionId: String? = null,
@@ -13,6 +15,7 @@ data class AiChatUiState(
     val runningTasks: List<RunningTaskUiModel> = emptyList()
 )
 
+@Immutable
 data class PermissionPrompt(
     val command: String,
     val baseCommand: String,
@@ -22,6 +25,7 @@ data class PermissionPrompt(
     val onDeny: () -> Unit
 )
 
+@Immutable
 data class RunningTaskUiModel(
     val taskId: String,
     val name: String,
@@ -41,9 +45,19 @@ sealed class MessageComponent {
 
 sealed class ChatUiItem {
     abstract val id: String
-    
-    data class UserMessage(override val id: String, val content: String, val isOrphaned: Boolean = false) : ChatUiItem()
+
+    data class UserMessage(
+        override val id: String,
+        val content: String,
+        val isOrphaned: Boolean = false
+    ) : ChatUiItem()
+
     data class ModelMessage(override val id: String, val content: String) : ChatUiItem()
-    data class ThoughtGroup(override val id: String, val thoughts: List<Thought>, val isGenerating: Boolean = false) : ChatUiItem()
+    data class ThoughtGroup(
+        override val id: String,
+        val thoughts: List<Thought>,
+        val isGenerating: Boolean = false
+    ) : ChatUiItem()
+
     data class LoadingDots(override val id: String = "loading_dots") : ChatUiItem()
 }

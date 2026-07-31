@@ -5,10 +5,8 @@ import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -35,6 +33,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -96,8 +95,10 @@ import `in`.hridayan.ashell.ai.presentation.components.bottomsheet.AiSessionOpti
 import `in`.hridayan.ashell.ai.presentation.components.bottomsheet.AiThoughtsBottomSheet
 import `in`.hridayan.ashell.ai.presentation.components.dialog.RenameAiSessionDialog
 import `in`.hridayan.ashell.ai.presentation.components.loadingindicator.BouncyDotsLoadingIndicator
+import `in`.hridayan.ashell.ai.presentation.model.AiChatUiState
 import `in`.hridayan.ashell.ai.presentation.model.ChatUiItem
 import `in`.hridayan.ashell.ai.presentation.model.MessageComponent
+import `in`.hridayan.ashell.ai.presentation.model.PermissionPrompt
 import `in`.hridayan.ashell.ai.presentation.viewmodel.AiChatViewModel
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.navigation.LocalNavController
@@ -120,19 +121,20 @@ fun AiChatScreen(
 ) {
     val navController = LocalNavController.current
     val context = LocalContext.current
+    val haptic = LocalHapticFeedback.current
+
     val uiState by viewModel.uiState.collectAsState()
     val uiItems by viewModel.uiItems.collectAsState()
-    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    val scope = rememberCoroutineScope()
+
     var selectedThoughtGroupId by remember { mutableStateOf<String?>(null) }
     var selectedSessionForOptions by remember { mutableStateOf<ChatSessionEntity?>(null) }
     var showRenameDialogForSession by remember { mutableStateOf<ChatSessionEntity?>(null) }
-    var inputText by remember { mutableStateOf("") }
 
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
+    val listState = rememberLazyListState()
     val topAppBarState = rememberTopAppBarState()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(topAppBarState)
-    val listState = rememberLazyListState()
-    val haptic = LocalHapticFeedback.current
 
     LaunchedEffect(uiState.permissionPrompt != null) {
         if (uiState.permissionPrompt != null) {
@@ -143,99 +145,17 @@ fun AiChatScreen(
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
-            ModalDrawerSheet {
-                Spacer(Modifier.height(16.dp))
-
-                Text(
-                    stringResource(R.string.ai_chat_sessions),
-                    modifier = Modifier.padding(16.dp),
-                    style = MaterialTheme.typography.titleLarge
-                )
-
-                Spacer(modifier = Modifier.height(15.dp))
-
-                OutlinedButton(
-                    modifier = Modifier
-                        .padding(NavigationDrawerItemDefaults.ItemPadding)
-                        .fillMaxWidth(),
-                    onClick = withHaptic {
-                        viewModel.onNewChat()
-                        scope.launch { drawerState.close() }
-                    }
-                ) {
-                    Icon(
-                        modifier = Modifier.padding(vertical = 5.dp),
-                        imageVector = Icons.Rounded.Add,
-                        contentDescription = null
-                    )
-
-                    Spacer(Modifier.width(8.dp))
-
-                    Text(
-                        modifier = Modifier.padding(vertical = 5.dp),
-                        text = stringResource(R.string.ai_chat_new_chat),
-                        style = MaterialTheme.typography.titleMedium
-                    )
+            DrawerUI(
+                drawerState = drawerState,
+                uiState = uiState,
+                onClickSession = { selectedSessionId ->
+                    viewModel.onSessionSelected(selectedSessionId)
+                    scope.launch { drawerState.close() }
+                },
+                onLongClickSession = {
+                    selectedSessionForOptions = it
                 }
-
-                Spacer(modifier = Modifier.height(15.dp))
-
-                LazyColumn {
-                    items(uiState.sessions) { session ->
-                        @OptIn(ExperimentalFoundationApi::class)
-                        Surface(
-                            modifier = Modifier
-                                .padding(NavigationDrawerItemDefaults.ItemPadding)
-                                .fillMaxWidth()
-                                .height(56.dp)
-                                .clip(RoundedCornerShape(50))
-                                .combinedClickable(
-                                    onClick = withHaptic {
-                                        viewModel.onSessionSelected(session.id)
-                                        scope.launch { drawerState.close() }
-                                    },
-                                    onLongClick = withHaptic(HapticFeedbackType.LongPress) {
-                                        selectedSessionForOptions = session
-                                    }
-                                ),
-                            shape = CircleShape,
-                            color = if (session.id == uiState.currentSessionId) MaterialTheme.colorScheme.secondaryContainer else Color.Transparent,
-                            contentColor = MaterialTheme.colorScheme.run {
-                                if (session.id == uiState.currentSessionId) onSecondaryContainer else onSurfaceVariant
-                            }
-                        ) {
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                modifier = Modifier.padding(horizontal = 16.dp)
-                            ) {
-                                Text(
-                                    session.title,
-                                    modifier = Modifier.weight(1f),
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis
-                                )
-
-                                val isGeneratingOrRunning =
-                                    uiState.generatingSessionIds.contains(session.id) ||
-                                            uiState.runningTasks.any { it.sessionId == session.id }
-
-                                if (isGeneratingOrRunning) {
-                                    Spacer(modifier = Modifier.width(8.dp))
-                                    AnimatedStopIcon(modifier = Modifier.size(16.dp))
-                                } else if (session.isPinned) {
-                                    Spacer(modifier = Modifier.width(8.dp))
-                                    Icon(
-                                        Icons.Default.PushPin,
-                                        contentDescription = "Pinned",
-                                        modifier = Modifier.size(16.dp),
-                                        tint = MaterialTheme.colorScheme.primary
-                                    )
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            )
         }
     ) {
         Scaffold(
@@ -260,157 +180,135 @@ fun AiChatScreen(
                         }
                     }
                 )
-            }
-        ) { innerPadding ->
-
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
-                    .consumeWindowInsets(innerPadding)
-                    .imePadding()
-            ) {
-                LazyColumn(
-                    state = listState,
+            },
+            bottomBar = {
+                Column(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                        .nestedScroll(scrollBehavior.nestedScrollConnection)
-                        .padding(horizontal = 15.dp),
-                    contentPadding = PaddingValues(
-                        top = 0.dp,
-                        bottom = 0.dp
-                    ),
-                    reverseLayout = true,
+                        .padding(bottom = 25.dp)
+                        .imePadding()
                 ) {
-                    item {
-                        Spacer(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(30.dp)
+                    if (uiItems.isEmpty()) {
+                        NewChatPromptSuggestions(
+                            modifier = Modifier.padding(horizontal = 15.dp, vertical = 5.dp),
+                            onClickPrompt = { prompt -> viewModel.sendMessage(prompt) }
                         )
                     }
 
-                    val reversedUiItems = uiItems.reversed()
+                    if (uiState.runningTasks.isNotEmpty() || uiState.permissionPrompt != null) {
+                        CustomCard(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 15.dp, vertical = 8.dp)
+                        ) {
+                            Column(modifier = Modifier.fillMaxWidth()) {
+                                if (uiState.runningTasks.isNotEmpty()) {
 
-                    if (reversedUiItems.isEmpty()) {
-                        item {
-                            NewChatWelcomeUI(
-                                modifier = Modifier
-                                    .fillParentMaxSize()
-                                    .padding(horizontal = 24.dp)
-                            )
-                        }
-                    }
-
-                    items(count = reversedUiItems.size, key = { reversedUiItems[it].id }) { index ->
-                        val item = reversedUiItems[index]
-                        when (item) {
-                            is ChatUiItem.UserMessage -> {
-                                Box(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(start = 48.dp, top = 15.dp, bottom = 15.dp)
-                                        .animateItem(),
-                                    contentAlignment = Alignment.CenterEnd
-                                ) {
-                                    Column(horizontalAlignment = Alignment.End) {
-                                        Card(
-                                            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
-                                        ) {
-                                            MarkdownMessageContent(
-                                                modifier = Modifier.padding(
-                                                    horizontal = 12.dp,
-                                                    vertical = 6.dp
-                                                ),
-                                                content = item.content,
-                                                textColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                                                onUseCommand = { command ->
-                                                    navController.previousBackStackEntry
-                                                        ?.savedStateHandle
-                                                        ?.set("suggestedCommand", command)
-                                                    navController.popBackStack()
-                                                }
-                                            )
-                                        }
-
-                                        if (item.isOrphaned) {
-                                            IconButton(
-                                                onClick = withHaptic {
-                                                    viewModel.retryPrompt(item.id, item.content)
-                                                }
-                                            ) {
-                                                Icon(
-                                                    Icons.Default.Refresh,
-                                                    contentDescription = "Retry",
-                                                    tint = MaterialTheme.colorScheme.error,
-                                                    modifier = Modifier.size(20.dp)
+                                    uiState.runningTasks.forEach { task ->
+                                        RunningTasks(
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .padding(horizontal = 8.dp, vertical = 4.dp),
+                                            taskName = task.name,
+                                            onClickStop = withHaptic {
+                                                viewModel.cancelRunningTask(
+                                                    task.taskId
                                                 )
                                             }
-                                        }
+                                        )
                                     }
                                 }
-                            }
 
-                            is ChatUiItem.LoadingDots -> {
-                                Box(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(end = 48.dp)
-                                        .animateItem(),
-                                    contentAlignment = Alignment.CenterStart
-                                ) {
-                                    BouncyDotsLoadingIndicator(
-                                        modifier = Modifier.padding(8.dp)
+                                if (uiState.permissionPrompt != null) {
+                                    if (uiState.runningTasks.isNotEmpty()) {
+                                        HorizontalDivider()
+                                    }
+                                    val prompt = uiState.permissionPrompt!!
+                                    PermissionPromptCard(
+                                        modifier = Modifier.padding(8.dp),
+                                        prompt = prompt
                                     )
                                 }
                             }
+                        }
+                    }
 
-                            is ChatUiItem.ThoughtGroup -> {
-                                Box(
-                                    modifier = Modifier
-                                        .padding(horizontal = 10.dp)
-                                        .animateItem(),
-                                    contentAlignment = Alignment.CenterStart
-                                ) {
-                                    CustomCard(
-                                        onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                                            selectedThoughtGroupId = item.id
-                                        },
-                                        colors = CardDefaults.cardColors(
-                                            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(
-                                                alpha = 0.5f
-                                            )
-                                        ),
-                                        shape = CustomCardShape(50)
-                                    ) {
-                                        Column(modifier = Modifier.padding(8.dp)) {
-                                            Text(
-                                                text = stringResource(R.string.ai_chat_thoughts),
-                                                style = MaterialTheme.typography.labelMedium,
-                                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                                            )
-                                        }
-                                    }
+                    var promptInputText by remember { mutableStateOf("") }
+
+                    PromptInputField(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
+                        isGenerating = uiState.isGenerating,
+                        onClickTrailingButton = withHaptic {
+                            if (uiState.isGenerating) {
+                                viewModel.stopGeneration()
+                            } else if (promptInputText.isNotBlank()) {
+                                hideKeyboard(context)
+                                viewModel.sendMessage(promptInputText)
+                                promptInputText = ""
+                                scope.launch {
+                                    listState.animateScrollToItem(0)
                                 }
                             }
+                        },
+                        textFieldValue = promptInputText,
+                        onValueChange = { promptInputText = it },
+                    )
+                }
+            }
+        ) { innerPadding ->
 
-                            is ChatUiItem.ModelMessage -> {
-                                Box(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(vertical = 4.dp)
-                                        .animateItem(),
-                                    contentAlignment = Alignment.CenterStart
-                                ) {
-                                    Column {
+            LazyColumn(
+                state = listState,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .nestedScroll(scrollBehavior.nestedScrollConnection)
+                    .padding(horizontal = 15.dp),
+                contentPadding = innerPadding,
+                reverseLayout = true,
+            ) {
+                item {
+                    Spacer(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(30.dp)
+                    )
+                }
+
+                val reversedUiItems = uiItems.reversed()
+
+                if (reversedUiItems.isEmpty()) {
+                    item {
+                        NewChatWelcomeUI(
+                            modifier = Modifier
+                                .fillParentMaxSize()
+                                .padding(horizontal = 24.dp)
+                        )
+                    }
+                }
+
+                items(count = reversedUiItems.size, key = { reversedUiItems[it].id }) { index ->
+                    val item = reversedUiItems[index]
+                    when (item) {
+                        is ChatUiItem.UserMessage -> {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(start = 48.dp, top = 15.dp, bottom = 15.dp)
+                                    .animateItem(),
+                                contentAlignment = Alignment.CenterEnd
+                            ) {
+                                Column(horizontalAlignment = Alignment.End) {
+                                    Card(
+                                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
+                                    ) {
                                         MarkdownMessageContent(
                                             modifier = Modifier.padding(
                                                 horizontal = 12.dp,
                                                 vertical = 6.dp
                                             ),
                                             content = item.content,
-                                            textColor = MaterialTheme.colorScheme.onSurface,
+                                            textColor = MaterialTheme.colorScheme.onPrimaryContainer,
                                             onUseCommand = { command ->
                                                 navController.previousBackStackEntry
                                                     ?.savedStateHandle
@@ -418,224 +316,137 @@ fun AiChatScreen(
                                                 navController.popBackStack()
                                             }
                                         )
-                                        Row(
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .padding(horizontal = 8.dp),
-                                            horizontalArrangement = Arrangement.Start
-                                        ) {
-                                            IconButton(
-                                                onClick = withHaptic {
-                                                    ClipboardUtils.copyToClipboard(
-                                                        item.content,
-                                                        context
-                                                    )
-                                                }
-                                            ) {
-                                                Icon(
-                                                    Icons.Default.ContentCopy,
-                                                    contentDescription = "Copy",
-                                                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                                                    modifier = Modifier.size(20.dp)
-                                                )
-                                            }
-                                            IconButton(
-                                                onClick = withHaptic {
-                                                    val promptText = reversedUiItems.subList(
-                                                        index + 1,
-                                                        reversedUiItems.size
-                                                    )
-                                                        .firstOrNull { it is ChatUiItem.UserMessage }
-                                                        ?.let { (it as ChatUiItem.UserMessage).content }
-                                                    if (promptText != null) {
-                                                        // Note: We don't delete the prompt since we didn't pass the prompt ID, 
-                                                        // but we just resend the text. 
-                                                        viewModel.sendMessage(promptText)
-                                                    }
-                                                }
-                                            ) {
-                                                Icon(
-                                                    Icons.Default.Refresh,
-                                                    contentDescription = "Retry",
-                                                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                                                    modifier = Modifier.size(20.dp)
-                                                )
-                                            }
-                                        }
                                     }
-                                }
-                            }
-                        }
-                    }
-                }
 
-                if (uiState.runningTasks.isNotEmpty() || uiState.permissionPrompt != null) {
-                    CustomCard(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 15.dp, vertical = 8.dp)
-                    ) {
-                        Column(modifier = Modifier.fillMaxWidth()) {
-                            if (uiState.runningTasks.isNotEmpty()) {
-                                uiState.runningTasks.forEach { task ->
-                                    Row(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .padding(horizontal = 8.dp, vertical = 4.dp),
-                                        verticalAlignment = Alignment.CenterVertically
-                                    ) {
-                                        CircularProgressIndicator(
-                                            modifier = Modifier.size(16.dp),
-                                            strokeWidth = 2.dp
-                                        )
-                                        Spacer(modifier = Modifier.width(8.dp))
-                                        Text(
-                                            text = stringResource(R.string.ai_chat_running) + task.name,
-                                            style = MaterialTheme.typography.bodyMedium,
-                                            modifier = Modifier.weight(1f)
-                                        )
+                                    if (item.isOrphaned) {
                                         IconButton(
-                                            onClick = withHaptic { viewModel.cancelRunningTask(task.taskId) },
-                                            modifier = Modifier.size(24.dp)
+                                            onClick = withHaptic {
+                                                viewModel.retryPrompt(item.id, item.content)
+                                            }
                                         ) {
                                             Icon(
-                                                Icons.Default.Stop,
-                                                contentDescription = "Stop Task"
+                                                Icons.Default.Refresh,
+                                                contentDescription = "Retry",
+                                                tint = MaterialTheme.colorScheme.error,
+                                                modifier = Modifier.size(20.dp)
                                             )
                                         }
                                     }
                                 }
                             }
+                        }
 
-                            if (uiState.permissionPrompt != null) {
-                                if (uiState.runningTasks.isNotEmpty()) {
-                                    HorizontalDivider()
+                        is ChatUiItem.LoadingDots -> {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(end = 48.dp)
+                                    .animateItem(),
+                                contentAlignment = Alignment.CenterStart
+                            ) {
+                                BouncyDotsLoadingIndicator(
+                                    modifier = Modifier.padding(8.dp)
+                                )
+                            }
+                        }
+
+                        is ChatUiItem.ThoughtGroup -> {
+                            Box(
+                                modifier = Modifier
+                                    .padding(horizontal = 10.dp)
+                                    .animateItem(),
+                                contentAlignment = Alignment.CenterStart
+                            ) {
+                                CustomCard(
+                                    onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                                        selectedThoughtGroupId = item.id
+                                    },
+                                    colors = CardDefaults.cardColors(
+                                        containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(
+                                            alpha = 0.5f
+                                        )
+                                    ),
+                                    shape = CustomCardShape(50)
+                                ) {
+                                    Column(modifier = Modifier.padding(8.dp)) {
+                                        Text(
+                                            text = stringResource(R.string.ai_chat_thoughts),
+                                            style = MaterialTheme.typography.labelMedium,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                                        )
+                                    }
                                 }
-                                val prompt = uiState.permissionPrompt!!
-                                Column(modifier = Modifier.padding(8.dp)) {
-                                    Text(
-                                        text = stringResource(R.string.ai_chat_allow_run_command),
-                                        style = MaterialTheme.typography.labelMedium
-                                    )
+                            }
+                        }
 
-                                    Text(
-                                        text = prompt.command,
-                                        style = MaterialTheme.typography.bodyMedium,
-                                        color = MaterialTheme.colorScheme.primary,
-                                        modifier = Modifier.padding(vertical = 4.dp)
+                        is ChatUiItem.ModelMessage -> {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 4.dp)
+                                    .animateItem(),
+                                contentAlignment = Alignment.CenterStart
+                            ) {
+                                Column {
+                                    MarkdownMessageContent(
+                                        modifier = Modifier.padding(
+                                            horizontal = 12.dp,
+                                            vertical = 6.dp
+                                        ),
+                                        content = item.content,
+                                        textColor = MaterialTheme.colorScheme.onSurface,
+                                        onUseCommand = { command ->
+                                            navController.previousBackStackEntry
+                                                ?.savedStateHandle
+                                                ?.set("suggestedCommand", command)
+                                            navController.popBackStack()
+                                        }
                                     )
-
-                                    Column(
-                                        modifier = Modifier.fillMaxWidth(),
-                                        verticalArrangement = Arrangement.spacedBy(5.dp)
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(horizontal = 8.dp),
+                                        horizontalArrangement = Arrangement.Start
                                     ) {
-                                        TextButton(onClick = prompt.onDeny) {
-                                            Text(stringResource(R.string.ai_chat_deny))
-                                        }
-
-                                        TextButton(onClick = prompt.onAllow) {
-                                            Text(stringResource(R.string.ai_chat_allow))
-                                        }
-
-                                        Button(onClick = prompt.onAlwaysAllowExact) {
-                                            Text(stringResource(R.string.always_allow_exact))
-                                        }
-
-                                        if (prompt.baseCommand.isNotBlank()) {
-                                            Button(onClick = prompt.onAlwaysAllowBase) {
-                                                Text(stringResource(R.string.always_allow_base) + " (${prompt.baseCommand})")
+                                        IconButton(
+                                            onClick = withHaptic {
+                                                ClipboardUtils.copyToClipboard(
+                                                    item.content,
+                                                    context
+                                                )
                                             }
+                                        ) {
+                                            Icon(
+                                                Icons.Default.ContentCopy,
+                                                contentDescription = "Copy",
+                                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                                modifier = Modifier.size(20.dp)
+                                            )
+                                        }
+                                        IconButton(
+                                            onClick = withHaptic {
+                                                val promptText = reversedUiItems.subList(
+                                                    index + 1,
+                                                    reversedUiItems.size
+                                                )
+                                                    .firstOrNull { it is ChatUiItem.UserMessage }
+                                                    ?.let { (it as ChatUiItem.UserMessage).content }
+                                                if (promptText != null) {
+                                                    // Note: We don't delete the prompt since we didn't pass the prompt ID,
+                                                    // but we just resend the text.
+                                                    viewModel.sendMessage(promptText)
+                                                }
+                                            }
+                                        ) {
+                                            Icon(
+                                                Icons.Default.Refresh,
+                                                contentDescription = "Retry",
+                                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                                modifier = Modifier.size(20.dp)
+                                            )
                                         }
                                     }
                                 }
-                            }
-                        }
-                    }
-                }
-
-                if (uiItems.isEmpty()) {
-                    NewChatPromptSuggestions(
-                        modifier = Modifier.padding(horizontal = 15.dp, vertical = 5.dp),
-                        onClickPrompt = { prompt -> viewModel.sendMessage(prompt) }
-                    )
-                }
-
-                // Input text is a floating card
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(15.dp),
-                    shape = RoundedCornerShape(50),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-                    )
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 8.dp, vertical = 4.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        IconButton(
-                            onClick = withHaptic {}
-                        ) {
-                            Icon(
-                                modifier = Modifier.size(24.dp),
-                                painter = painterResource(R.drawable.ic_help),
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary
-                            )
-                        }
-
-                        TextField(
-                            value = inputText,
-                            onValueChange = { inputText = it },
-                            modifier = Modifier.weight(1f),
-                            placeholder = {
-                                Text(
-                                    text = stringResource(R.string.message_adb_agent),
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis,
-                                    color = MaterialTheme.colorScheme.onSecondaryContainer
-                                )
-                            },
-                            maxLines = 4,
-                            colors = TextFieldDefaults.colors(
-                                focusedIndicatorColor = Color.Transparent,
-                                unfocusedIndicatorColor = Color.Transparent,
-                                disabledIndicatorColor = Color.Transparent,
-                                focusedContainerColor = Color.Transparent,
-                                unfocusedContainerColor = Color.Transparent,
-                                disabledContainerColor = Color.Transparent,
-                                focusedTextColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                                unfocusedTextColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                                disabledTextColor = MaterialTheme.colorScheme.onSecondaryContainer
-                            ),
-                        )
-
-                        IconButton(
-                            onClick = withHaptic {
-                                if (uiState.isGenerating) {
-                                    viewModel.stopGeneration()
-                                } else if (inputText.isNotBlank()) {
-                                    hideKeyboard(context)
-                                    viewModel.sendMessage(inputText)
-                                    inputText = ""
-                                    scope.launch {
-                                        listState.animateScrollToItem(0)
-                                    }
-                                }
-                            }
-                        ) {
-                            if (uiState.isGenerating) {
-                                AnimatedStopIcon()
-                            } else {
-                                Icon(
-                                    imageVector = Icons.AutoMirrored.Rounded.Send,
-                                    contentDescription = "Send",
-                                    tint = MaterialTheme.colorScheme.primary
-                                )
                             }
                         }
                     }
@@ -694,6 +505,111 @@ fun AiChatScreen(
                 navController.navigate(NavRoutes.CloudModelsScreen)
             }
         )
+    }
+}
+
+@Composable
+private fun DrawerUI(
+    modifier: Modifier = Modifier,
+    drawerState: DrawerState,
+    uiState: AiChatUiState,
+    onClickSession: (String) -> Unit,
+    onLongClickSession: (ChatSessionEntity) -> Unit,
+    viewModel: AiChatViewModel = hiltViewModel()
+) {
+    val scope = rememberCoroutineScope()
+
+    ModalDrawerSheet(modifier = modifier) {
+        Spacer(Modifier.height(16.dp))
+
+        Text(
+            stringResource(R.string.ai_chat_sessions),
+            modifier = Modifier.padding(16.dp),
+            style = MaterialTheme.typography.titleLarge
+        )
+
+        Spacer(modifier = Modifier.height(15.dp))
+
+        OutlinedButton(
+            modifier = Modifier
+                .padding(NavigationDrawerItemDefaults.ItemPadding)
+                .fillMaxWidth(),
+            onClick = withHaptic {
+                viewModel.onNewChat()
+                scope.launch { drawerState.close() }
+            }
+        ) {
+            Icon(
+                modifier = Modifier.padding(vertical = 5.dp),
+                imageVector = Icons.Rounded.Add,
+                contentDescription = null
+            )
+
+            Spacer(Modifier.width(8.dp))
+
+            Text(
+                modifier = Modifier.padding(vertical = 5.dp),
+                text = stringResource(R.string.ai_chat_new_chat),
+                style = MaterialTheme.typography.titleMedium
+            )
+        }
+
+        Spacer(modifier = Modifier.height(15.dp))
+
+        LazyColumn {
+            items(uiState.sessions) { session ->
+                @OptIn(ExperimentalFoundationApi::class)
+                Surface(
+                    modifier = Modifier
+                        .padding(NavigationDrawerItemDefaults.ItemPadding)
+                        .fillMaxWidth()
+                        .height(56.dp)
+                        .clip(RoundedCornerShape(50))
+                        .combinedClickable(
+                            onClick = withHaptic {
+                                onClickSession(session.id)
+                            },
+                            onLongClick = withHaptic(HapticFeedbackType.LongPress) {
+                                onLongClickSession(session)
+                            }
+                        ),
+                    shape = CircleShape,
+                    color = if (session.id == uiState.currentSessionId) MaterialTheme.colorScheme.secondaryContainer else Color.Transparent,
+                    contentColor = MaterialTheme.colorScheme.run {
+                        if (session.id == uiState.currentSessionId) onSecondaryContainer else onSurfaceVariant
+                    }
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.padding(horizontal = 16.dp)
+                    ) {
+                        Text(
+                            session.title,
+                            modifier = Modifier.weight(1f),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+
+                        val isGeneratingOrRunning =
+                            uiState.generatingSessionIds.contains(session.id) ||
+                                    uiState.runningTasks.any { it.sessionId == session.id }
+
+                        if (isGeneratingOrRunning) {
+                            Spacer(modifier = Modifier.width(8.dp))
+                            AnimatedStopIcon(modifier = Modifier.size(16.dp))
+                        } else if (session.isPinned) {
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Icon(
+                                Icons.Default.PushPin,
+                                contentDescription = "Pinned",
+                                modifier = Modifier.size(16.dp),
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -759,6 +675,157 @@ private fun NewChatPromptSuggestions(
                     ),
                     style = MaterialTheme.typography.bodyMedium,
                 )
+            }
+        }
+    }
+}
+
+@Composable
+private fun PermissionPromptCard(
+    modifier: Modifier = Modifier,
+    prompt: PermissionPrompt
+) {
+    Column(modifier = modifier) {
+        Text(
+            text = stringResource(R.string.ai_chat_allow_run_command),
+            style = MaterialTheme.typography.labelMedium
+        )
+
+        Text(
+            text = prompt.command,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.padding(vertical = 4.dp)
+        )
+
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(5.dp)
+        ) {
+            TextButton(onClick = prompt.onDeny) {
+                Text(stringResource(R.string.ai_chat_deny))
+            }
+
+            TextButton(onClick = prompt.onAllow) {
+                Text(stringResource(R.string.ai_chat_allow))
+            }
+
+            Button(onClick = prompt.onAlwaysAllowExact) {
+                Text(stringResource(R.string.always_allow_exact))
+            }
+
+            if (prompt.baseCommand.isNotBlank()) {
+                Button(onClick = prompt.onAlwaysAllowBase) {
+                    Text(stringResource(R.string.always_allow_base) + " (${prompt.baseCommand})")
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun RunningTasks(
+    modifier: Modifier = Modifier,
+    taskName: String,
+    onClickStop: () -> Unit
+) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        CircularProgressIndicator(
+            modifier = Modifier.size(16.dp),
+            strokeWidth = 2.dp
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(
+            text = stringResource(R.string.ai_chat_running) + taskName,
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.weight(1f)
+        )
+        IconButton(
+            onClick = onClickStop,
+            modifier = Modifier.size(24.dp)
+        ) {
+            Icon(
+                Icons.Default.Stop,
+                contentDescription = "Stop Task"
+            )
+        }
+    }
+}
+
+@Composable
+private fun PromptInputField(
+    modifier: Modifier = Modifier,
+    textFieldValue: String = "",
+    onValueChange: (String) -> Unit = {},
+    isGenerating: Boolean,
+    onClickTrailingButton: () -> Unit
+) {
+    Card(
+        modifier = modifier,
+        shape = RoundedCornerShape(50),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+        )
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp, vertical = 4.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(
+                onClick = withHaptic {}
+            ) {
+                Icon(
+                    modifier = Modifier.size(24.dp),
+                    painter = painterResource(R.drawable.ic_help),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            }
+
+            TextField(
+                value = textFieldValue,
+                onValueChange = { onValueChange(it) },
+                modifier = Modifier.weight(1f),
+                placeholder = {
+                    Text(
+                        text = stringResource(R.string.message_adb_agent),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        color = MaterialTheme.colorScheme.onSecondaryContainer
+                    )
+                },
+                maxLines = 4,
+                colors = TextFieldDefaults.colors(
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    disabledIndicatorColor = Color.Transparent,
+                    focusedContainerColor = Color.Transparent,
+                    unfocusedContainerColor = Color.Transparent,
+                    disabledContainerColor = Color.Transparent,
+                    focusedTextColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                    unfocusedTextColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                    disabledTextColor = MaterialTheme.colorScheme.onSecondaryContainer
+                ),
+            )
+
+            IconButton(
+                onClick = onClickTrailingButton
+            ) {
+                if (isGenerating) {
+                    AnimatedStopIcon()
+                } else {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Rounded.Send,
+                        contentDescription = "Send",
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                }
             }
         }
     }
