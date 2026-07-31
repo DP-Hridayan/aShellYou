@@ -22,7 +22,7 @@ Thanks to these translators and proofreaders, this project exists:
           <br />
           <sub><b>(AY_Translator)</b></sub></a>
         <br />
-        <sub><b>16549 words</b></sub>
+        <sub><b>16550 words</b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/mikropsoft"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/15972315/medium/23948a4df1f365f3bd7accc92c87bc4e.jpg" />
@@ -32,6 +32,15 @@ Thanks to these translators and proofreaders, this project exists:
           <sub><b>(mikropsoft)</b></sub></a>
         <br />
         <sub><b>11602 words</b></sub>
+      </td>
+      <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/luciakun"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17812685/medium/873770cc48fabe807a57b4bc6f933ff4.jpeg" />
+          <br />
+          <sub><b>Hoàng Đức Hùng</b></sub>
+          <br />
+          <sub><b>(luciakun)</b></sub></a>
+        <br />
+        <sub><b>4504 words</b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/flagman4634"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17776929/medium/2653304d654949cae989f95bbd434f36_default.png" />
@@ -49,6 +58,8 @@ Thanks to these translators and proofreaders, this project exists:
         <br />
         <sub><b>3750 words</b></sub>
       </td>
+    </tr>
+    <tr>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/marciozomb13"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/18094/medium/b31d380c3d0bcfe7b1b27099eaa8a89c.jpg" />
           <br />
@@ -56,10 +67,8 @@ Thanks to these translators and proofreaders, this project exists:
           <br />
           <sub><b>(marciozomb13)</b></sub></a>
         <br />
-        <sub><b>5970 words</b></sub>
+        <sub><b>5973 words</b></sub>
       </td>
-    </tr>
-    <tr>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/rahim.0"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17262364/medium/def988bf394394d50abe0836563619b3.png" />
           <br />
@@ -101,6 +110,8 @@ Thanks to these translators and proofreaders, this project exists:
         <br />
         <sub><b>647 words</b></sub>
       </td>
+    </tr>
+    <tr>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/ru-tei"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17196264/medium/0fc56e447148eb14a35b45b787149aaf.png" />
           <br />
@@ -110,8 +121,6 @@ Thanks to these translators and proofreaders, this project exists:
         <br />
         <sub><b>570 words</b></sub>
       </td>
-    </tr>
-    <tr>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/alex211952i"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/16749463/medium/631c1c9c703bd7059f0a1663ad087ba3.jpg" />
           <br />
@@ -153,6 +162,8 @@ Thanks to these translators and proofreaders, this project exists:
         <br />
         <sub><b>113 words</b></sub>
       </td>
+    </tr>
+    <tr>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/R9TRH"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/16623243/medium/87137f31b65ee3f2e1a137eafcf9729d.jpeg" />
           <br />
@@ -162,8 +173,6 @@ Thanks to these translators and proofreaders, this project exists:
         <br />
         <sub><b>110 words</b></sub>
       </td>
-    </tr>
-    <tr>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/AuroraRock"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/15525979/medium/722916fe19562a00720ef8eeb5d2a43f_default.png" />
           <br />
@@ -201,6 +210,8 @@ Thanks to these translators and proofreaders, this project exists:
         <br />
         <sub><b>36 words</b></sub>
       </td>
+    </tr>
+    <tr>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/ahmed7007422"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17149392/medium/40a58ed2808c14f0826a29590bb350dd.jpeg" />
           <br />
@@ -210,14 +221,19 @@ Thanks to these translators and proofreaders, this project exists:
         <br />
         <sub><b>32 words</b></sub>
       </td>
-    </tr>
-    <tr>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/cxy0714"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17661168/medium/351c9eb4c94770924fe8de78006bbcc6.png" />
           <br />
           <sub><b>cxy0714</b></sub></a>
         <br />
         <sub><b>15 words</b></sub>
+      </td>
+      <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/Camellan"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/13410766/medium/b4019516b3323e817b7e77712961de69_default.png" />
+          <br />
+          <sub><b>Camellan</b></sub></a>
+        <br />
+        <sub><b>13 words</b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/YiChunlin"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17561228/medium/911e5f4617252479deca9ec2c128b3dd_default.png" />
@@ -234,13 +250,6 @@ Thanks to these translators and proofreaders, this project exists:
         <sub><b>5 words</b></sub>
       </td>
       <td align="center" valign="top">
-        <a href="https://crowdin.com/profile/Camellan"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/13410766/medium/b4019516b3323e817b7e77712961de69_default.png" />
-          <br />
-          <sub><b>Camellan</b></sub></a>
-        <br />
-        <sub><b>3 words</b></sub>
-      </td>
-      <td align="center" valign="top">
         <a href="https://crowdin.com/profile/agetennhjhwnessa755644"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17607862/medium/29bf8044fe9e595a2aa2d335a4ba6d5b.png" />
           <br />
           <sub><b>Conta para Qualquer ...</b></sub>
@@ -249,6 +258,8 @@ Thanks to these translators and proofreaders, this project exists:
         <br />
         <sub><b>3 words</b></sub>
       </td>
+    </tr>
+    <tr>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/kitreaksa78"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17777221/medium/c9384c35c55bbaa77003cc2c26c83f64.png" />
           <br />
@@ -258,8 +269,15 @@ Thanks to these translators and proofreaders, this project exists:
         <br />
         <sub><b>3 words</b></sub>
       </td>
-    </tr>
-    <tr>
+      <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/ikromjonuulufaryozbek"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17803931/medium/f532692702a7bb0123379249e6e575f5.jpeg" />
+          <br />
+          <sub><b>Arslonbek Otaxonov</b></sub>
+          <br />
+          <sub><b>(ikromjonuulufaryozbek)</b></sub></a>
+        <br />
+        <sub><b>3 words</b></sub>
+      </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/cesar.baralis"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17303784/medium/d26f0f1704f27d2443086c716c177d83.png" />
           <br />

@@ -13,7 +13,12 @@
     <string name="adb_connection_channel_description">ADB कनेक्शन सक्रिय होने पर दिखाता है</string>
     <string name="adb_connection_channel_name">ADB कनेक्शन</string>
     <string name="adb_connection_description">WiFi ADB कनेक्शन बनाए रखा जा रहा है</string>
+    <string name="adb_agent">ADB Agent</string>
     <string name="adb_sideload">ADB sideload</string>
+    <string name="ai_prompt_suggestion_1">Check my battery health</string>
+    <string name="ai_prompt_suggestion_2">List all installed packages</string>
+    <string name="ai_prompt_suggestion_3">Help me create a Quick Settings tile</string>
+    <string name="ai_new_chat_welcome_msg">Hi, what can I do for you?</string>
     <string name="adb_through_otg">OTG के माध्यम से ADB</string>
     <string name="adb_through_otg_summary">किसी अन्य Android डिवाइस पर ADB कमांड निष्पादित करने के लिए OTG केबल और USB डीबगिंग का उपयोग करें। आपको लक्ष्य डिवाइस की डेवलपर सेटिंग में USB डीबगिंग चालू करनी होगी।</string>
     <string name="adb_via_otg">ADB via OTG</string>
@@ -21,16 +26,40 @@
     <string name="adb_via_wireless_debugging_summary">वायरलेस डिबगिंग का उपयोग करके वाई-फाई पर डिवाइस (एंड्रॉइड 11+) कनेक्ट करें और दूरस्थ रूप से ADB कमांड निष्पादित करें।</string>
     <string name="add">जोड़ें</string>
     <string name="add_account">खाता जोड़ें</string>
+    <string name="add_api_key">Add API key</string>
     <string name="add_command">कमांड जोड़ें</string>
     <string name="add_new_item">नया आइटम जोड़ें</string>
     <string name="additional_settings">अतिरिक्त सेटिंग्स</string>
     <string name="ai_cache_days">Cache duration</string>
     <string name="ai_cache_enabled">Enable cache</string>
+    <string name="ai_chat_allow">Allow</string>
+    <string name="ai_chat_allow_run_command">Allow AI to run command:</string>
+    <string name="ai_chat_always_allow">Always Allow</string>
+    <string name="ai_chat_cancel">Cancel</string>
+    <string name="ai_chat_delete">Delete</string>
+    <string name="ai_chat_deny">Deny</string>
+    <string name="ai_chat_new_chat">New Chat</string>
+    <string name="ai_chat_pin">Pin</string>
+    <string name="ai_chat_rename">Rename</string>
+    <string name="ai_chat_running">Running: </string>
+    <string name="ai_chat_save">Save</string>
+    <string name="ai_chat_sessions">Chat Sessions</string>
+    <string name="ai_chat_thoughts">Thoughts…</string>
+    <string name="ai_chat_unpin">Unpin</string>
+    <string name="ai_chat_use">Use</string>
     <string name="ai_models">AI &amp; Models</string>
+    <string name="ai_theme_prompt_hint">e.g. Cyberpunk neon city, dark mode, high contrast</string>
     <string name="all">सभी</string>
     <string name="all_data">सभी डेटा</string>
     <string name="already_connected">पहले से कनेक्ट है</string>
     <string name="already_latest_version">आप लेटेस्ट वर्ज़न का उपयोग कर रहे हैं</string>
+    <string name="always_allow_base">Always allow base</string>
+    <string name="always_allow_exact">Always allow exact</string>
+    <string name="analyse">Analyse</string>
+    <string name="api_key">API key</string>
+    <string name="api_key_is_saved">API key is saved</string>
+    <string name="api_key_required">API Key Required</string>
+    <string name="api_key_required_message">An API key is required to use AI features. Please add your API key in Settings -&gt; Cloud Models.</string>
     <string name="app">एप्लिकेशन</string>
     <string name="app_crashed">ऐप क्रैश हो गया है</string>
     <string name="app_tagline">ADB आपकी उंगलियों पर</string>
@@ -47,6 +76,7 @@
     <string name="auto_update">ऑटो अपडेट</string>
     <string name="back">पीछे</string>
     <string name="back_button">बैक बटन</string>
+    <string name="background">Background</string>
     <string name="backing_up">बैकअप जारी…</string>
     <string name="backup">बैकअप</string>
     <string name="backup_all_data">सभी डेटा बैकअप करें</string>
@@ -100,6 +130,7 @@
     <string name="cloud_backup_failed">Failed to upload backup to Google Drive</string>
     <string name="cloud_backup_google_drive">Cloud backup (Google Drive)</string>
     <string name="cloud_backup_successful">Backup uploaded to Google Drive</string>
+    <string name="cloud_models">Cloud models</string>
     <string name="cloud_restore_failed">Failed to restore from Google Drive</string>
     <string name="cloud_restore_successful">Restored from Google Drive</string>
     <string name="code_pair_instruction">लक्ष्य डिवाइस पर \"वायरलेस डिबगिंग\" खोलें और \"पेयरिंग कोड से डिवाइस पेयर करें\" पर टैप करें</string>
@@ -120,6 +151,8 @@
     <string name="connect">कनेक्ट करें</string>
     <string name="connect_device_via_otg">OTG के माध्यम से डिवाइस कनेक्ट करें</string>
     <string name="connect_to_wifi_network">वाई-फाई नेटवर्क से कनेक्ट करें</string>
+    <string name="connect_via_otg">Connect via OTG</string>
+    <string name="connect_via_wifi_adb">Connect via Wi-Fi ADB</string>
     <string name="connected">कनेक्ट हो गया</string>
     <string name="connected_device">कनेक्ट किए हुए डिवाइस</string>
     <string name="connecting">कनेक्ट हो रहा है…</string>
@@ -139,6 +172,7 @@
     <string name="create">बनाएं</string>
     <string name="create_folder">फ़ोल्डर बनाएं</string>
     <string name="create_new_tile">Create new tile</string>
+    <string name="create_with_ai">Create with AI</string>
     <string name="crowdin_contribution_msg">Visit our crowdin translation platform to contribute</string>
     <string name="current_version">वर्तमान संस्करण</string>
     <string name="custom_ui_scale">Custom UI scale</string>
@@ -161,7 +195,7 @@
     <string name="des_about">योगदानकर्ता और समर्थन</string>
     <string name="des_ai_cache_days">Number of days to keep cached results</string>
     <string name="des_ai_cache_enabled">Cache analysis results per model</string>
-    <string name="des_ai_models">Manage offline AI models for command analysis</string>
+    <string name="des_ai_models">Manage AI models data and API keys</string>
     <string name="des_auto_backup_content_type">Choose what to include in automatic backups</string>
     <string name="des_auto_backup_folder">Select a folder to save automatic backups</string>
     <string name="des_auto_backup_time">Set the time for automatic backups</string>
@@ -178,6 +212,7 @@
     <string name="des_changelogs">एप्लिकेशन में किए गए सभी परिवर्तनों का इतिहास</string>
     <string name="des_choose_icon">Click here to choose an icon from the icon collection</string>
     <string name="des_clear_output_confirmation">शेल आउटपुट साफ़ करने से पहले पुष्टि मांगें</string>
+    <string name="des_cloud_models">Manage API keys for cloud models</string>
     <string name="des_configure_save_directory">शेल आउटपुट को सहेजने के लिए एक निर्देशिका चुनें</string>
     <string name="des_contributors">List of contributors who helped in the development of aShell You</string>
     <string name="des_crash_history">ऐप में हुई सभी क्रैश देखें</string>
@@ -255,7 +290,9 @@
     <string name="downloads">डाउनलोड्स</string>
     <string name="duplicate_tile_name_error_msg">A tile with this name already exists</string>
     <string name="dynamic_colors">डायनैमिक रंग</string>
+    <string name="edit">Edit</string>
     <string name="edit_command">कमांड संपादित करें</string>
+    <string name="edit_theme_title" comment="%1$s = theme name">Edit Theme: %1$s</string>
     <string name="edit_tile">Edit tile</string>
     <string name="empty_folder">यह फ़ोल्डर खाली है</string>
     <string name="enable_auto_backup">Enable automatic backup</string>
@@ -383,7 +420,15 @@
     <string name="found_connect_service">कनेक्ट सर्विस मिली</string>
     <string name="frequency">Frequency</string>
     <string name="full_license_text">Full license text</string>
+    <string name="gemini_api_key_step_1">Visit Google AI Studio at aistudio.google.com</string>
+    <string name="gemini_api_key_step_2">Sign in with your Google Account</string>
+    <string name="gemini_api_key_step_3">Click on Create API key and select or create a project</string>
+    <string name="gemini_api_key_step_4">Copy your API key and paste it below</string>
+    <string name="generate_color_scheme">Generate color scheme</string>
+    <string name="generate_scheme">Generate scheme</string>
+    <string name="generate_theme">Generate Theme</string>
     <string name="generate_tile">Generate tile</string>
+    <string name="get_api_key">Get API key</string>
     <string name="get_variables">Get variables</string>
     <string name="go_home">होम पर जाएं</string>
     <string name="go_to_terminal">टर्मिनल पर जाएं</string>
@@ -396,12 +441,14 @@
     <string name="great_news">अच्छी ख़बर!</string>
     <string name="haptics_and_vibration">हैप्टिक्स और वाइब्रेशन</string>
     <string name="have_a_nice_day">Have a nice day!</string>
+    <string name="hex_editor">Hex Editor</string>
     <string name="high">High</string>
     <string name="high_contrast_dark_mode">हाई कॉन्ट्रास्ट डार्क मोड</string>
     <string name="hint">संकेत</string>
     <string name="history">इतिहास</string>
     <string name="home">होम</string>
     <string name="icon_selected">Icon selected</string>
+    <string name="import_theme">Import Theme</string>
     <string name="include">Include</string>
     <string name="info">जानकारी</string>
     <string name="initial_state">Initial state</string>
@@ -413,6 +460,7 @@
     <string name="irreversible_action_warning">यह क्रिया अपरिवर्तनीय है!</string>
     <string name="item_deleted">आइटम सफलतापूर्वक हटाया गया</string>
     <string name="keep_both">दोनों रखें</string>
+    <string name="key_verified_success_msg">Key verified successfully</string>
     <string name="label">लेबल</string>
     <string name="languages">Languages</string>
     <string name="last_auto_backup_cloud">Last cloud auto backup</string>
@@ -453,14 +501,18 @@
     <string name="logcat_permission_title">Log access permission</string>
     <string name="logcat_running_description">aShellYou is collecting system logs in the background</string>
     <string name="logcat_shortcut_long_label">Open Logcat Viewer</string>
+    <string name="logcat_source">Logcat Source</string>
+    <string name="logcat_tap_play">Tap ▶ to start logcat</string>
     <string name="logs">Logs</string>
     <string name="look_and_feel">देखें और अनुभव</string>
     <string name="low">Low</string>
+    <string name="make_your_theme_title">Make Your Theme</string>
     <string name="manual_pair">मैन्युअल पेयर</string>
     <string name="max_download_size">Max Download</string>
     <string name="medium">Medium</string>
     <string name="merge">मर्ज करें</string>
     <string name="message">Message</string>
+    <string name="message_adb_agent">Message ADB Agent…</string>
     <string name="minimize">छोटा करें</string>
     <string name="mode">मोड</string>
     <string name="mode_one_desc">कमांड चलाने के लिए root एक्सेस का उपयोग करें। root किए गए कमांड निष्पादित किए जा सकते हैं।</string>
@@ -492,6 +544,7 @@
     <string name="no_changelog_found">इस संस्करण के लिए कोई चेंजलॉग नहीं मिला</string>
     <string name="no_cloud_backup_found">No backup found on Google Drive</string>
     <string name="no_crashes">कोई क्रैश रिपोर्ट नहीं हुई। aShell You सुचारू रूप से चल रहा है।</string>
+    <string name="no_custom_themes_yet">No custom themes yet. Create one below!</string>
     <string name="no_device_connected">No device connected</string>
     <string name="no_fastboot_device_error">Connected device is not in fastboot mode</string>
     <string name="no_files_download">कोई फ़ाइल नहीं चुनी (फ़ोल्डर डाउनलोड नहीं किए जा सकते)</string>
@@ -504,6 +557,7 @@
     <string name="no_logs_yet_msg">No logs have been recorded yet. Execute some tiles to show logs here.</string>
     <string name="no_model_selected">No model selected</string>
     <string name="no_operations">कोई ऑपरेशन प्रगति में नहीं</string>
+    <string name="no_other_device_hint">Connect an external device to view its logs</string>
     <string name="no_results_found">No results found</string>
     <string name="no_root_access">कोई रूट एक्सेस नहीं</string>
     <string name="no_saved_devices">कोई सहेजे गए डिवाइस नहीं</string>
@@ -519,9 +573,16 @@
     <string name="notification_styles">Notification styles</string>
     <string name="off">बंद</string>
     <string name="off_state" comment="Quick Settings tile toggle state label">Off</string>
+    <string name="ok">ठीक है</string>
     <string name="oldest" comment="Sorting option">Oldest</string>
     <string name="on">चालू</string>
+    <string name="on_background">On Background</string>
+    <string name="on_primary">On Primary</string>
+    <string name="on_primary_container">On Primary Container</string>
+    <string name="on_secondary">On Secondary</string>
     <string name="on_state" comment="Quick Settings tile toggle state label">On</string>
+    <string name="on_surface">On Surface</string>
+    <string name="on_tertiary">On Tertiary</string>
     <string name="open">खोलें</string>
     <string name="open_app_language_settings">Open app language settings</string>
     <string name="open_issues" comment="GitHub repository open issues count">Open issues</string>
@@ -573,6 +634,8 @@
     <string name="pre_release_warning_description">ये संस्करण अभी परीक्षण में हैं और अधूरी सुविधाएं या अप्रत्याशित बग हो सकते हैं।</string>
     <string name="preference">Preference</string>
     <string name="preview">Preview</string>
+    <string name="primary">Primary</string>
+    <string name="primary_container">Primary Container</string>
     <string name="product">Product</string>
     <string name="qr_pair">QR पेयर</string>
     <string name="qr_pair_hint">Android 11+ डिवाइस पेयर करने के लिए, लक्ष्य डिवाइस से इस QR को स्कैन करें</string>
@@ -599,6 +662,7 @@
     <string name="reconnect_the_device">डिवाइस पुनः कनेक्ट करें</string>
     <string name="recovery">रिकवरी</string>
     <string name="refresh">रिफ्रेश करें</string>
+    <string name="remove">Remove</string>
     <string name="rename">नाम बदलें</string>
     <string name="rename_title" comment="%1$s = file or folder name">%1$s का नाम बदलें</string>
     <string name="replace">बदलें</string>
@@ -620,10 +684,14 @@
     <string name="resume">जारी रखें</string>
     <string name="retry">पुनः प्रयास करें</string>
     <string name="root_access_granted">रूट एक्सेस मिल गया!</string>
+    <string name="root_unavailable">Root Not Available</string>
+    <string name="root_unavailable_message">Root access could not be detected. Ensure your device is rooted and try again, or switch to a different logcat source.</string>
     <string name="running">Running</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">सहेजें</string>
     <string name="save_as_profile">Save as profile…</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="save_key">Save key</string>
     <string name="save_whole_output">पूरा आउटपुट सहेजें</string>
     <string name="saved_devices">सहेजे गए डिवाइस</string>
     <string name="saving">सहेजा जा रहा है…</string>
@@ -643,6 +711,7 @@
     <string name="search_variables">Search variables…</string>
     <string name="searching_connect_service">कनेक्ट सर्विस खोज रहे हैं</string>
     <string name="searching_for_devices">डिवाइस खोज रहे हैं…</string>
+    <string name="secondary">Secondary</string>
     <string name="security_patch">Security Patch</string>
     <string name="select">Select</string>
     <string name="select_all">सभी चुनें</string>
@@ -650,6 +719,7 @@
     <string name="select_backup_folder_title">No backup folder</string>
     <string name="select_folder">Select folder</string>
     <string name="select_partition">Select partition</string>
+    <string name="select_theme_to_edit_hex">Select a theme above to edit its raw hex values here.</string>
     <string name="select_time">Select time</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">स्वयं</string>
     <string name="self_pair_connection_failed">कनेक्शन विफल - मैन्युअल कनेक्ट करें</string>
@@ -672,6 +742,7 @@
     <string name="serif" comment="Font style category name">Serif</string>
     <string name="settings">सेटिंग्स</string>
     <string name="settings_only">Settings only</string>
+    <string name="share">Share</string>
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">अंतिम कमांड का आउटपुट \'%s\' में निर्यात हुआ</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">शेल आउटपुट \'%s\' में निर्यात हुआ</string>
     <string name="shizuku_not_installed">Shizuku इंस्टॉल नहीं है</string>
@@ -704,6 +775,7 @@
     <string name="successful_connection_message">डिवाइस सफलतापूर्वक कनेक्ट है। अब आप लक्ष्य डिवाइस पर कमांड चला सकते हैं।</string>
     <string name="suggested_icons">Suggested icons</string>
     <string name="support_bmc">जो मैं करता हूं पसंद है?\nमुझे एक कॉफी लेने पर विचार करें</string>
+    <string name="surface">Surface</string>
     <string name="switch_mode">मोड स्विच करें</string>
     <string name="system">सिस्टम</string>
     <string name="system_default">System default</string>
@@ -713,6 +785,7 @@
     <string name="telegram">टेलीग्राम</string>
     <string name="terminal">टर्मिनल</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">टर्मिनल फ़ॉन्ट शैली</string>
+    <string name="tertiary">Tertiary</string>
     <string name="third_party_libraries">Third-party libraries</string>
     <string name="this_application">This application</string>
     <string name="this_device">यह डिवाइस</string>
@@ -737,6 +810,7 @@
     <string name="type">प्रकार</string>
     <string name="ui_scale">UI scale</string>
     <string name="undo">पूर्ववत करें</string>
+    <string name="unexpected_error">Unexpected error</string>
     <string name="unknown">अज्ञात</string>
     <string name="unknown_error">अज्ञात त्रुटि हुई</string>
     <string name="unknown_sources_install_permission_not_granted">अनुमति नहीं दी गई। कृपया अज्ञात स्रोतों से ऐप इंस्टॉल की अनुमति दें।</string>
@@ -753,6 +827,9 @@
     <string name="use">उपयोग करें</string>
     <string name="utilities">Utilities</string>
     <string name="variant">Variant</string>
+    <string name="verification_failed">Verification failed</string>
+    <string name="verify_api_key">Verify API key</string>
+    <string name="verifying">Verifying</string>
     <string name="version">संस्करण</string>
     <string name="version_code">संस्करण कोड</string>
     <string name="version_name">संस्करण नाम</string>
@@ -781,6 +858,8 @@
     <string name="wireless_debugging_guide_2">aShell द्वारा भेजी गई सूचना में छह अंकों का युग्मन कोड दर्ज करें।</string>
     <string name="wireless_debugging_guide_3">ऐप पर वापस आएं और होम स्क्रीन में \"स्टार्ट\" बटन पर क्लिक करें।</string>
     <string name="wireless_debugging_important_notice">कृपया ध्यान दें कि वायरलेस डिबगिंग विकल्प का बायाँ भाग क्लिक करने योग्य है। इस पर टैप करने से वायरलेस डिबगिंग पेयरिंग मेनू खुल जाएगा।</string>
+    <string name="wireless_not_connected">Not Connected</string>
+    <string name="wireless_not_connected_message">Your device is not connected via Wireless Debugging. Pair and connect your device first.</string>
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d new entry</item>
         <item quantity="other">%1$d new entries</item>

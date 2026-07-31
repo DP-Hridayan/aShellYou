@@ -13,7 +13,12 @@
     <string name="adb_connection_channel_description">ADB 接続がアクティブな時に表示</string>
     <string name="adb_connection_channel_name">ADB 接続</string>
     <string name="adb_connection_description">WiFi ADB 接続は維持されています</string>
+    <string name="adb_agent">ADB エージェント</string>
     <string name="adb_sideload">ADB sideload</string>
+    <string name="ai_prompt_suggestion_1">バッテリーの状態を確認する</string>
+    <string name="ai_prompt_suggestion_2">インストールされているすべてのパッケージの一覧</string>
+    <string name="ai_prompt_suggestion_3">クイック設定タイルを作成するのを手伝ってください</string>
+    <string name="ai_new_chat_welcome_msg">こんにちは、何ができますか？</string>
     <string name="adb_through_otg">OTGを介したADB</string>
     <string name="adb_through_otg_summary">OTGケーブルとUSBデバッグを使用して、別のAndroidデバイスでADBコマンドを実行します。 対象デバイスの開発者設定でUSBデバッグを有効にする必要があります。</string>
     <string name="adb_via_otg">OTG 経由のADB</string>
@@ -21,16 +26,40 @@
     <string name="adb_via_wireless_debugging_summary">ワイヤレスデバッグを使用してWi-Fi経由でデバイス(Android 11 以降)を接続し、ADBコマンドをリモートで実行します。</string>
     <string name="add">追加</string>
     <string name="add_account">アカウントを追加</string>
+    <string name="add_api_key">API キーを追加</string>
     <string name="add_command">コマンドを追加</string>
     <string name="add_new_item">新しいアイテムを追加</string>
     <string name="additional_settings">詳細設定</string>
     <string name="ai_cache_days">キャッシュの長さ</string>
     <string name="ai_cache_enabled">キャッシュを有効にする</string>
+    <string name="ai_chat_allow">許可する</string>
+    <string name="ai_chat_allow_run_command">AIにコマンドの実行を許可:</string>
+    <string name="ai_chat_always_allow">常に許可する</string>
+    <string name="ai_chat_cancel">キャンセル</string>
+    <string name="ai_chat_delete">削除</string>
+    <string name="ai_chat_deny">拒否</string>
+    <string name="ai_chat_new_chat">新しいチャット</string>
+    <string name="ai_chat_pin">ピン留めする</string>
+    <string name="ai_chat_rename">名前の変更</string>
+    <string name="ai_chat_running">実行中: </string>
+    <string name="ai_chat_save">保存</string>
+    <string name="ai_chat_sessions">チャットセッション</string>
+    <string name="ai_chat_thoughts">…</string>
+    <string name="ai_chat_unpin">Unpin</string>
+    <string name="ai_chat_use">使用</string>
     <string name="ai_models">AI &amp; Models</string>
+    <string name="ai_theme_prompt_hint">例: Cyberpunk neon city, darkmode, high-direction</string>
     <string name="all">すべて</string>
     <string name="all_data">すべてのデータ</string>
     <string name="already_connected">すでに接続しています</string>
     <string name="already_latest_version">バージョンは最新です</string>
+    <string name="always_allow_base">常にベースを許可する</string>
+    <string name="always_allow_exact">常に正確さを許可する</string>
+    <string name="analyse">分析</string>
+    <string name="api_key">API キー</string>
+    <string name="api_key_is_saved">API キーが保存されました</string>
+    <string name="api_key_required">APIキーが必要です</string>
+    <string name="api_key_required_message">AI機能を使用するにはAPIキーが必要です。設定 -&gt; クラウドモデルでAPIキーを追加してください。</string>
     <string name="app">アプリ</string>
     <string name="app_crashed">アプリがクラッシュしました</string>
     <string name="app_tagline">指先でADBを</string>
@@ -47,6 +76,7 @@
     <string name="auto_update">自動アップデート</string>
     <string name="back">戻る</string>
     <string name="back_button">戻る</string>
+    <string name="background">背景</string>
     <string name="backing_up">Backing up…</string>
     <string name="backup">バックアップ</string>
     <string name="backup_all_data">すべてのデータをバックアップ</string>
@@ -100,6 +130,7 @@
     <string name="cloud_backup_failed">Google ドライブにバックアップをアップロードできませんでした</string>
     <string name="cloud_backup_google_drive">クラウドバックアップ (Google ドライブ)</string>
     <string name="cloud_backup_successful">Google ドライブにバックアップをアップロードしました</string>
+    <string name="cloud_models">クラウドモデル</string>
     <string name="cloud_restore_failed">Google ドライブから復元できませんでした</string>
     <string name="cloud_restore_successful">Google ドライブから復元しました</string>
     <string name="code_pair_instruction">対象デバイスで「ワイヤレスデバッグ」を開き、「ペアリングコードとペアリングデバイス」をタップします。</string>
@@ -120,6 +151,8 @@
     <string name="connect">接続する</string>
     <string name="connect_device_via_otg">OTG 経由でデバイスを接続</string>
     <string name="connect_to_wifi_network">Wi-Fiネットワークに接続</string>
+    <string name="connect_via_otg">OTG 経由で接続</string>
+    <string name="connect_via_wifi_adb">Wi-Fi ADB 経由で接続</string>
     <string name="connected">接続されました</string>
     <string name="connected_device">接続済みのデバイス</string>
     <string name="connecting">接続しています...</string>
@@ -139,6 +172,7 @@
     <string name="create">作成</string>
     <string name="create_folder">フォルダを作成</string>
     <string name="create_new_tile">新しいタイルを作成</string>
+    <string name="create_with_ai">AIで作成</string>
     <string name="crowdin_contribution_msg">クラウドイン翻訳プラットフォームにアクセスして貢献してください</string>
     <string name="current_version">最近のバージョン</string>
     <string name="custom_ui_scale">カスタムUIスケール</string>
@@ -161,7 +195,7 @@
     <string name="des_about">貢献者とサポート</string>
     <string name="des_ai_cache_days">キャッシュされた結果を保持する日数</string>
     <string name="des_ai_cache_enabled">モデルごとのキャッシュ解析結果</string>
-    <string name="des_ai_models">コマンド解析のためのオフラインAIモデルの管理</string>
+    <string name="des_ai_models">AIモデルのデータとAPIキーの管理</string>
     <string name="des_auto_backup_content_type">自動バックアップに含める内容を選択します</string>
     <string name="des_auto_backup_folder">自動バックアップを保存するフォルダを選択します</string>
     <string name="des_auto_backup_time">自動バックアップの時間を設定します</string>
@@ -178,6 +212,7 @@
     <string name="des_changelogs">歴史的なアップデートも含む</string>
     <string name="des_choose_icon">アイコンコレクションからアイコンを選択するにはここをクリック</string>
     <string name="des_clear_output_confirmation">シェル出力をクリアする前に確認を求める</string>
+    <string name="des_cloud_models">クラウドモデルの API キーを管理</string>
     <string name="des_configure_save_directory">シェル出力を保存するディレクトリを選択します</string>
     <string name="des_contributors">aShell You の開発に協力した貢献者のリスト</string>
     <string name="des_crash_history">アプリで発生したすべてのクラッシュを表示</string>
@@ -255,7 +290,9 @@
     <string name="downloads">ダウンロード</string>
     <string name="duplicate_tile_name_error_msg">この名前のタイルは既に存在します</string>
     <string name="dynamic_colors">ダイナミックカラー</string>
+    <string name="edit">編集</string>
     <string name="edit_command">コマンドを編集</string>
+    <string name="edit_theme_title" comment="%1$s = theme name">テーマを編集: %1$s</string>
     <string name="edit_tile">タイルを編集</string>
     <string name="empty_folder">このフォルダは空です</string>
     <string name="enable_auto_backup">自動バックアップを有効にする</string>
@@ -383,7 +420,15 @@
     <string name="found_connect_service">接続サービスが見つかりました</string>
     <string name="frequency">利息支払回数</string>
     <string name="full_license_text">フルライセンステキスト</string>
+    <string name="gemini_api_key_step_1">aistudio.google.comのGoogle AI Studioをご覧ください</string>
+    <string name="gemini_api_key_step_2">Googleアカウントでサインイン</string>
+    <string name="gemini_api_key_step_3">Create API キーをクリックし、プロジェクトを選択または作成</string>
+    <string name="gemini_api_key_step_4">API キーをコピーして以下に貼り付けてください</string>
+    <string name="generate_color_scheme">カラースキームを生成</string>
+    <string name="generate_scheme">スキームを生成</string>
+    <string name="generate_theme">テーマを生成</string>
     <string name="generate_tile">タイルを生成</string>
+    <string name="get_api_key">Get API key</string>
     <string name="get_variables">変数を取得</string>
     <string name="go_home">帰還する</string>
     <string name="go_to_terminal">端末へ移動</string>
@@ -396,12 +441,14 @@
     <string name="great_news">素晴らしいニュース！</string>
     <string name="haptics_and_vibration">触覚&amp;バイブレーション</string>
     <string name="have_a_nice_day">素敵な一日を！</string>
+    <string name="hex_editor">16 進エディター</string>
     <string name="high">高い</string>
     <string name="high_contrast_dark_mode">高コントラストとダークモード</string>
     <string name="hint">ヒント</string>
     <string name="history">歴史</string>
     <string name="home">ホーム</string>
     <string name="icon_selected">アイコンを選択しました</string>
+    <string name="import_theme">テーマをインポート</string>
     <string name="include">Include</string>
     <string name="info">情報</string>
     <string name="initial_state">初期状態</string>
@@ -413,6 +460,7 @@
     <string name="irreversible_action_warning">この操作は元に戻せません！</string>
     <string name="item_deleted">アイテムは正常に削除されました</string>
     <string name="keep_both">両方を保持</string>
+    <string name="key_verified_success_msg">鍵の確認に成功しました</string>
     <string name="label">ラベル</string>
     <string name="languages">言語</string>
     <string name="last_auto_backup_cloud">最後のクラウドの自動バックアップ</string>
@@ -453,14 +501,18 @@
     <string name="logcat_permission_title">ログアクセス許可</string>
     <string name="logcat_running_description">aShellあなたはバックグラウンドでシステムログを収集しています</string>
     <string name="logcat_shortcut_long_label">Logcat ビューアを開く</string>
+    <string name="logcat_source">Logcat のソース</string>
+    <string name="logcat_tap_play">▶️ をタップしてlogcat を開始</string>
     <string name="logs">ログ</string>
     <string name="look_and_feel">見た目&amp;触覚</string>
     <string name="low">低い</string>
+    <string name="make_your_theme_title">テーマを作成</string>
     <string name="manual_pair">手動ペア</string>
     <string name="max_download_size">最大ダウンロード</string>
     <string name="medium">ミディアム</string>
     <string name="merge">結合</string>
     <string name="message">メッセージ</string>
+    <string name="message_adb_agent">Message ADB Agent…</string>
     <string name="minimize">最小化</string>
     <string name="mode">モード</string>
     <string name="mode_one_desc">Rootアクセスを使用してコマンドを実行します。</string>
@@ -492,6 +544,7 @@
     <string name="no_changelog_found">このバージョンの変更履歴が見つかりませんでした</string>
     <string name="no_cloud_backup_found">Google ドライブにバックアップが見つかりません</string>
     <string name="no_crashes">クラッシュは報告されていません。aShell スムーズに実行されています。</string>
+    <string name="no_custom_themes_yet">カスタムテーマはまだありません。以下に作成してください！</string>
     <string name="no_device_connected">デバイスが接続されていません</string>
     <string name="no_fastboot_device_error">接続されたデバイスはfastbootモードではありません</string>
     <string name="no_files_download">ファイルが選択されていません（フォルダをダウンロードできません）</string>
@@ -504,6 +557,7 @@
     <string name="no_logs_yet_msg">ログはまだ記録されていません。ここにログを表示するタイルを実行してください。</string>
     <string name="no_model_selected">モデルが選択されていません</string>
     <string name="no_operations">進行中の操作はありません</string>
+    <string name="no_other_device_hint">ログを表示するには外部デバイスを接続してください</string>
     <string name="no_results_found">結果が見つかりませんでした</string>
     <string name="no_root_access">ルートアクセスがありません</string>
     <string name="no_saved_devices">保存されたデバイスはありません</string>
@@ -519,9 +573,16 @@
     <string name="notification_styles">通知スタイル</string>
     <string name="off">OFF</string>
     <string name="off_state" comment="Quick Settings tile toggle state label">オフ</string>
+    <string name="ok">OK</string>
     <string name="oldest" comment="Sorting option">古い</string>
     <string name="on">ON</string>
+    <string name="on_background">背景に</string>
+    <string name="on_primary">プライマリで</string>
+    <string name="on_primary_container">プライマリコンテナ上</string>
+    <string name="on_secondary">セカンダリ時</string>
     <string name="on_state" comment="Quick Settings tile toggle state label">オン</string>
+    <string name="on_surface">表面上</string>
+    <string name="on_tertiary">第三紀で</string>
     <string name="open">開く</string>
     <string name="open_app_language_settings">アプリの言語設定を開く</string>
     <string name="open_issues" comment="GitHub repository open issues count">未解決の課題</string>
@@ -573,6 +634,8 @@
     <string name="pre_release_warning_description">これらのバージョンはまだテスト段階であり、未完成の機能や予期せぬバグが含まれている可能性があります。プレリリース版にアップデートすると、不具合が発生したり、動作が不安定になったりする可能性があることにご注意ください。\n問題、クラッシュ、または奇妙な動作に遭遇した場合は、安定版リリース前にaShellYouを修正して改善できるように報告してください。\nアプリをより良くするために協力してくれてありがとうございます！</string>
     <string name="preference">設定</string>
     <string name="preview">プレビュー</string>
+    <string name="primary">プライマリ（プライマリ）</string>
+    <string name="primary_container">プライマリコンテナ</string>
     <string name="product">商品</string>
     <string name="qr_pair">QRコードペアリング</string>
     <string name="qr_pair_hint">Android 11以上のデバイスをペアリングするには、対象デバイスからこのQRをスキャンしてください</string>
@@ -599,6 +662,7 @@
     <string name="reconnect_the_device">デバイスを再接続</string>
     <string name="recovery">回復</string>
     <string name="refresh">更新</string>
+    <string name="remove">削除</string>
     <string name="rename">名前の変更</string>
     <string name="rename_title" comment="%1$s = file or folder name">名前の変更 %1$s</string>
     <string name="replace">置換</string>
@@ -620,10 +684,14 @@
     <string name="resume">再開</string>
     <string name="retry">再試行する</string>
     <string name="root_access_granted">ルートアクセスを許可しました！</string>
+    <string name="root_unavailable">ルート権限がありません</string>
+    <string name="root_unavailable_message">ルートアクセスを検出できませんでした。デバイスがルート化されていることを確認し、もう一度やり直すか、別の logcat ソースに切り替えてください。</string>
     <string name="running">実行中</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">保存</string>
     <string name="save_as_profile">Save as profile…</string>
+    <string name="save_changes">変更を保存</string>
+    <string name="save_key">キーを保存</string>
     <string name="save_whole_output">出力全体を保存</string>
     <string name="saved_devices">保存されたデバイス</string>
     <string name="saving">保存中…</string>
@@ -643,6 +711,7 @@
     <string name="search_variables">Search variables…</string>
     <string name="searching_connect_service">接続サービスを検索中</string>
     <string name="searching_for_devices">デバイスを検索中…</string>
+    <string name="secondary">Secondary</string>
     <string name="security_patch">セキュリティパッチ</string>
     <string name="select">選択</string>
     <string name="select_all">すべて選択</string>
@@ -650,6 +719,7 @@
     <string name="select_backup_folder_title">バックアップフォルダがありません</string>
     <string name="select_folder">フォルダを選択</string>
     <string name="select_partition">パーティションを選択</string>
+    <string name="select_theme_to_edit_hex">上記のテーマを選択して、生の16進数の値をここで編集します。</string>
     <string name="select_time">時間を選択</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">自己|自分format@@0</string>
     <string name="self_pair_connection_failed">接続に失敗しました - 手動で接続してみてください</string>
@@ -672,6 +742,7 @@
     <string name="serif" comment="Font style category name">Serif</string>
     <string name="settings">設定</string>
     <string name="settings_only">設定のみ</string>
+    <string name="share">共有</string>
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">最後のコマンドの出力は \'%s\' にエクスポートされます</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">シェル出力は \'%s\' にエクスポートされます</string>
     <string name="shizuku_not_installed">しずくは設置されていません</string>
@@ -704,6 +775,7 @@
     <string name="successful_connection_message">デバイスが正常に接続されました。これで、ターゲットデバイスでコマンドの実行を開始できます。</string>
     <string name="suggested_icons">おすすめのアイコン</string>
     <string name="support_bmc">気に入っていただけましたか？\nよろしければコーヒーをください</string>
+    <string name="surface">Surface</string>
     <string name="switch_mode">モードを切り替える</string>
     <string name="system">システム</string>
     <string name="system_default">システムのデフォルト</string>
@@ -713,6 +785,7 @@
     <string name="telegram">Telegram</string>
     <string name="terminal">ターミナル</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">端末のフォントスタイル</string>
+    <string name="tertiary">三&lt;unk&gt;</string>
     <string name="third_party_libraries">サードパーティのライブラリ</string>
     <string name="this_application">このアプリケーション</string>
     <string name="this_device">このデバイス</string>
@@ -737,6 +810,7 @@
     <string name="type">タイプ</string>
     <string name="ui_scale">UIスケール</string>
     <string name="undo">元に戻す</string>
+    <string name="unexpected_error">予期しないエラー</string>
     <string name="unknown">不明</string>
     <string name="unknown_error">不明なエラーが発生しました</string>
     <string name="unknown_sources_install_permission_not_granted">権限がありません。不明なソースからアプリをインストールすることを許可してください。</string>
@@ -753,6 +827,9 @@
     <string name="use">利用</string>
     <string name="utilities">ユーティリティ</string>
     <string name="variant">バリアント型</string>
+    <string name="verification_failed">認証に失敗しました</string>
+    <string name="verify_api_key">APIキーを確認</string>
+    <string name="verifying">確認中</string>
     <string name="version">バージョン</string>
     <string name="version_code">バージョンコード</string>
     <string name="version_name">バージョン名</string>
@@ -781,6 +858,8 @@
     <string name="wireless_debugging_guide_2">aShell Youから送信された通知に6桁のペアリングコードを入力します。</string>
     <string name="wireless_debugging_guide_3">アプリに戻って、ホーム画面の「スタート」ボタンをクリックしてください。</string>
     <string name="wireless_debugging_important_notice">「ワイヤレスデバッグ」オプションの左側がクリック可能であることに注意してください。このオプションをタップすると、「ワイヤレスデバッグペアリング」メニューが開きます。</string>
+    <string name="wireless_not_connected">接続していません</string>
+    <string name="wireless_not_connected_message">デバイスはワイヤレスデバッグで接続されていません。まずデバイスをペアリングして接続してください。</string>
     <plurals name="logcat_new_entries">
         <item quantity="other">%1$d 新規エントリ</item>
     </plurals>

@@ -13,7 +13,12 @@
     <string name="adb_connection_channel_description">نمایش زمانی که اتصال ADB فعال است</string>
     <string name="adb_connection_channel_name">اتصال ADB</string>
     <string name="adb_connection_description">اتصال WiFi ADB برقرار است</string>
+    <string name="adb_agent">ADB Agent</string>
     <string name="adb_sideload">ADB sideload</string>
+    <string name="ai_prompt_suggestion_1">Check my battery health</string>
+    <string name="ai_prompt_suggestion_2">List all installed packages</string>
+    <string name="ai_prompt_suggestion_3">Help me create a Quick Settings tile</string>
+    <string name="ai_new_chat_welcome_msg">Hi, what can I do for you?</string>
     <string name="adb_through_otg">ADB از طریق OTG</string>
     <string name="adb_through_otg_summary">با استفاده از کابل OTG و اشکال‌زدایی USB، دستورات ADB را روی دستگاه اندروید دیگری اجرا کنید. باید اشکال‌زدایی USB را در تنظیمات توسعه‌دهنده دستگاه مقصد فعال کنید.</string>
     <string name="adb_via_otg">ADB via OTG</string>
@@ -21,16 +26,40 @@
     <string name="adb_via_wireless_debugging_summary">دستگاه‌ها (اندروید ۱۱+) را از طریق Wi-Fi با استفاده از اشکال‌زدایی بی‌سیم متصل کرده و دستورات ADB را از راه دور اجرا کنید.</string>
     <string name="add">افزودن</string>
     <string name="add_account">Add account</string>
+    <string name="add_api_key">Add API key</string>
     <string name="add_command">افزودن دستور</string>
     <string name="add_new_item">افزودن مورد جدید</string>
     <string name="additional_settings">تنظیمات اضافی</string>
     <string name="ai_cache_days">Cache duration</string>
     <string name="ai_cache_enabled">Enable cache</string>
+    <string name="ai_chat_allow">Allow</string>
+    <string name="ai_chat_allow_run_command">Allow AI to run command:</string>
+    <string name="ai_chat_always_allow">Always Allow</string>
+    <string name="ai_chat_cancel">Cancel</string>
+    <string name="ai_chat_delete">Delete</string>
+    <string name="ai_chat_deny">Deny</string>
+    <string name="ai_chat_new_chat">New Chat</string>
+    <string name="ai_chat_pin">Pin</string>
+    <string name="ai_chat_rename">Rename</string>
+    <string name="ai_chat_running">Running: </string>
+    <string name="ai_chat_save">Save</string>
+    <string name="ai_chat_sessions">Chat Sessions</string>
+    <string name="ai_chat_thoughts">Thoughts…</string>
+    <string name="ai_chat_unpin">Unpin</string>
+    <string name="ai_chat_use">Use</string>
     <string name="ai_models">AI &amp; Models</string>
+    <string name="ai_theme_prompt_hint">e.g. Cyberpunk neon city, dark mode, high contrast</string>
     <string name="all">All</string>
     <string name="all_data">All data</string>
     <string name="already_connected">قبلاً متصل شده</string>
     <string name="already_latest_version">شما از آخرین نسخه استفاده می‌کنید</string>
+    <string name="always_allow_base">Always allow base</string>
+    <string name="always_allow_exact">Always allow exact</string>
+    <string name="analyse">Analyse</string>
+    <string name="api_key">API key</string>
+    <string name="api_key_is_saved">API key is saved</string>
+    <string name="api_key_required">API Key Required</string>
+    <string name="api_key_required_message">An API key is required to use AI features. Please add your API key in Settings -&gt; Cloud Models.</string>
     <string name="app">برنامه</string>
     <string name="app_crashed">برنامه از کار افتاد</string>
     <string name="app_tagline">ADB در نوک انگشتان شما</string>
@@ -47,6 +76,7 @@
     <string name="auto_update">بروزرسانی خودکار</string>
     <string name="back">بازگشت</string>
     <string name="back_button">دکمه بازگشت</string>
+    <string name="background">Background</string>
     <string name="backing_up">Backing up…</string>
     <string name="backup">پشتیبان‌گیری</string>
     <string name="backup_all_data">پشتیبان‌گیری از همه داده‌ها</string>
@@ -100,6 +130,7 @@
     <string name="cloud_backup_failed">Failed to upload backup to Google Drive</string>
     <string name="cloud_backup_google_drive">Cloud backup (Google Drive)</string>
     <string name="cloud_backup_successful">Backup uploaded to Google Drive</string>
+    <string name="cloud_models">Cloud models</string>
     <string name="cloud_restore_failed">Failed to restore from Google Drive</string>
     <string name="cloud_restore_successful">Restored from Google Drive</string>
     <string name="code_pair_instruction">\"اشکال‌زدایی بی‌سیم\" را روی دستگاه مقصد باز کنید و روی \"جفت کردن دستگاه با کد\" ضربه بزنید</string>
@@ -120,6 +151,8 @@
     <string name="connect">اتصال</string>
     <string name="connect_device_via_otg">اتصال دستگاه از طریق OTG</string>
     <string name="connect_to_wifi_network">اتصال به شبکه وای‌فای</string>
+    <string name="connect_via_otg">Connect via OTG</string>
+    <string name="connect_via_wifi_adb">Connect via Wi-Fi ADB</string>
     <string name="connected">متصل</string>
     <string name="connected_device">دستگاه متصل</string>
     <string name="connecting">در حال اتصال…</string>
@@ -139,6 +172,7 @@
     <string name="create">ایجاد</string>
     <string name="create_folder">ایجاد پوشه</string>
     <string name="create_new_tile">Create new tile</string>
+    <string name="create_with_ai">Create with AI</string>
     <string name="crowdin_contribution_msg">Visit our crowdin translation platform to contribute</string>
     <string name="current_version">نسخه فعلی</string>
     <string name="custom_ui_scale">Custom UI scale</string>
@@ -161,7 +195,7 @@
     <string name="des_about">همکاران و پشتیبانی</string>
     <string name="des_ai_cache_days">Number of days to keep cached results</string>
     <string name="des_ai_cache_enabled">Cache analysis results per model</string>
-    <string name="des_ai_models">Manage offline AI models for command analysis</string>
+    <string name="des_ai_models">Manage AI models data and API keys</string>
     <string name="des_auto_backup_content_type">Choose what to include in automatic backups</string>
     <string name="des_auto_backup_folder">Select a folder to save automatic backups</string>
     <string name="des_auto_backup_time">Set the time for automatic backups</string>
@@ -178,6 +212,7 @@
     <string name="des_changelogs">تاریخچه همه تغییرات برنامه</string>
     <string name="des_choose_icon">Click here to choose an icon from the icon collection</string>
     <string name="des_clear_output_confirmation">درخواست تأیید قبل از پاک کردن خروجی شل</string>
+    <string name="des_cloud_models">Manage API keys for cloud models</string>
     <string name="des_configure_save_directory">انتخاب پوشه برای ذخیره خروجی شل</string>
     <string name="des_contributors">List of contributors who helped in the development of aShell You</string>
     <string name="des_crash_history">مشاهده همه خرابی‌های برنامه</string>
@@ -255,7 +290,9 @@
     <string name="downloads">دانلودها</string>
     <string name="duplicate_tile_name_error_msg">A tile with this name already exists</string>
     <string name="dynamic_colors">رنگ‌های پویا</string>
+    <string name="edit">Edit</string>
     <string name="edit_command">ویرایش دستور</string>
+    <string name="edit_theme_title" comment="%1$s = theme name">Edit Theme: %1$s</string>
     <string name="edit_tile">Edit tile</string>
     <string name="empty_folder">این پوشه خالی است</string>
     <string name="enable_auto_backup">Enable automatic backup</string>
@@ -383,7 +420,15 @@
     <string name="found_connect_service">سرویس اتصال یافت شد</string>
     <string name="frequency">Frequency</string>
     <string name="full_license_text">Full license text</string>
+    <string name="gemini_api_key_step_1">Visit Google AI Studio at aistudio.google.com</string>
+    <string name="gemini_api_key_step_2">Sign in with your Google Account</string>
+    <string name="gemini_api_key_step_3">Click on Create API key and select or create a project</string>
+    <string name="gemini_api_key_step_4">Copy your API key and paste it below</string>
+    <string name="generate_color_scheme">Generate color scheme</string>
+    <string name="generate_scheme">Generate scheme</string>
+    <string name="generate_theme">Generate Theme</string>
     <string name="generate_tile">Generate tile</string>
+    <string name="get_api_key">Get API key</string>
     <string name="get_variables">Get variables</string>
     <string name="go_home">برو به خانه</string>
     <string name="go_to_terminal">برو به ترمینال</string>
@@ -396,12 +441,14 @@
     <string name="great_news">خبر خوب!</string>
     <string name="haptics_and_vibration">لرزش و بازخورد لمسی</string>
     <string name="have_a_nice_day">Have a nice day!</string>
+    <string name="hex_editor">Hex Editor</string>
     <string name="high">High</string>
     <string name="high_contrast_dark_mode">حالت تاریک با کنتراست بالا</string>
     <string name="hint">راهنما</string>
     <string name="history">تاریخچه</string>
     <string name="home">خانه</string>
     <string name="icon_selected">Icon selected</string>
+    <string name="import_theme">Import Theme</string>
     <string name="include">Include</string>
     <string name="info">اطلاعات</string>
     <string name="initial_state">Initial state</string>
@@ -413,6 +460,7 @@
     <string name="irreversible_action_warning">این عمل برگشت‌ناپذیر است!</string>
     <string name="item_deleted">مورد با موفقیت حذف شد</string>
     <string name="keep_both">هر دو را نگه دار</string>
+    <string name="key_verified_success_msg">Key verified successfully</string>
     <string name="label">برچسب</string>
     <string name="languages">Languages</string>
     <string name="last_auto_backup_cloud">Last cloud auto backup</string>
@@ -453,14 +501,18 @@
     <string name="logcat_permission_title">Log access permission</string>
     <string name="logcat_running_description">aShellYou is collecting system logs in the background</string>
     <string name="logcat_shortcut_long_label">Open Logcat Viewer</string>
+    <string name="logcat_source">Logcat Source</string>
+    <string name="logcat_tap_play">Tap ▶ to start logcat</string>
     <string name="logs">Logs</string>
     <string name="look_and_feel">ظاهر و احساس</string>
     <string name="low">Low</string>
+    <string name="make_your_theme_title">Make Your Theme</string>
     <string name="manual_pair">جفت‌سازی دستی</string>
     <string name="max_download_size">Max Download</string>
     <string name="medium">Medium</string>
     <string name="merge">ادغام</string>
     <string name="message">Message</string>
+    <string name="message_adb_agent">Message ADB Agent…</string>
     <string name="minimize">کمینه کردن</string>
     <string name="mode">حالت</string>
     <string name="mode_one_desc">از دسترسی روت برای اجرای دستورات استفاده کنید. دستورات روت شده قابل اجرا هستند.</string>
@@ -492,6 +544,7 @@
     <string name="no_changelog_found">تغییرات برای این نسخه یافت نشد</string>
     <string name="no_cloud_backup_found">No backup found on Google Drive</string>
     <string name="no_crashes">هیچ خرابی گزارش نشده است. aShell You به خوبی کار می‌کند.</string>
+    <string name="no_custom_themes_yet">No custom themes yet. Create one below!</string>
     <string name="no_device_connected">No device connected</string>
     <string name="no_fastboot_device_error">Connected device is not in fastboot mode</string>
     <string name="no_files_download">فایلی انتخاب نشده (پوشه‌ها قابل دانلود نیستند)</string>
@@ -504,6 +557,7 @@
     <string name="no_logs_yet_msg">No logs have been recorded yet. Execute some tiles to show logs here.</string>
     <string name="no_model_selected">No model selected</string>
     <string name="no_operations">عملیاتی در حال انجام نیست</string>
+    <string name="no_other_device_hint">Connect an external device to view its logs</string>
     <string name="no_results_found">No results found</string>
     <string name="no_root_access">دسترسی روت وجود ندارد</string>
     <string name="no_saved_devices">دستگاه ذخیره شده‌ای وجود ندارد</string>
@@ -519,9 +573,16 @@
     <string name="notification_styles">Notification styles</string>
     <string name="off">خاموش</string>
     <string name="off_state" comment="Quick Settings tile toggle state label">Off</string>
+    <string name="ok">OK</string>
     <string name="oldest" comment="Sorting option">قدیمی‌ترین</string>
     <string name="on">روشن</string>
+    <string name="on_background">On Background</string>
+    <string name="on_primary">On Primary</string>
+    <string name="on_primary_container">On Primary Container</string>
+    <string name="on_secondary">On Secondary</string>
     <string name="on_state" comment="Quick Settings tile toggle state label">On</string>
+    <string name="on_surface">On Surface</string>
+    <string name="on_tertiary">On Tertiary</string>
     <string name="open">باز کردن</string>
     <string name="open_app_language_settings">Open app language settings</string>
     <string name="open_issues" comment="GitHub repository open issues count">مسائل باز</string>
@@ -573,6 +634,8 @@
     <string name="pre_release_warning_description">این نسخه‌ها هنوز در حال آزمایش هستند و ممکن است شامل ویژگی‌های ناتمام یا باگ‌های غیرمنتظره باشند. اگر به پیش‌انتشار بروزرسانی کنید، توجه داشته باشید که ممکن است مشکلاتی پیش بیاید.\nاگر با مشکل، خرابی یا رفتار عجیبی مواجه شدید، لطفاً گزارش دهید تا قبل از انتشار پایدار بتوانیم آن را رفع کنیم.\nممنون که کمک می‌کنید!</string>
     <string name="preference">Preference</string>
     <string name="preview">Preview</string>
+    <string name="primary">Primary</string>
+    <string name="primary_container">Primary Container</string>
     <string name="product">Product</string>
     <string name="qr_pair">جفت‌سازی QR</string>
     <string name="qr_pair_hint">برای جفت کردن دستگاه اندروید ۱۱+، این QR را از دستگاه مقصد اسکن کنید</string>
@@ -599,6 +662,7 @@
     <string name="reconnect_the_device">اتصال مجدد دستگاه</string>
     <string name="recovery">ریکاوری</string>
     <string name="refresh">بازخوانی</string>
+    <string name="remove">Remove</string>
     <string name="rename">تغییر نام</string>
     <string name="rename_title" comment="%1$s = file or folder name">تغییر نام %1$s</string>
     <string name="replace">جایگزین</string>
@@ -620,10 +684,14 @@
     <string name="resume">Resume</string>
     <string name="retry">تلاش مجدد</string>
     <string name="root_access_granted">دسترسی روت اعطا شد!</string>
+    <string name="root_unavailable">Root Not Available</string>
+    <string name="root_unavailable_message">Root access could not be detected. Ensure your device is rooted and try again, or switch to a different logcat source.</string>
     <string name="running">Running</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">ذخیره</string>
     <string name="save_as_profile">Save as profile…</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="save_key">Save key</string>
     <string name="save_whole_output">ذخیره کل خروجی</string>
     <string name="saved_devices">دستگاه‌های ذخیره شده</string>
     <string name="saving">در حال ذخیره…</string>
@@ -643,6 +711,7 @@
     <string name="search_variables">Search variables…</string>
     <string name="searching_connect_service">جستجوی سرویس اتصال</string>
     <string name="searching_for_devices">جستجوی دستگاه‌ها…</string>
+    <string name="secondary">Secondary</string>
     <string name="security_patch">Security Patch</string>
     <string name="select">Select</string>
     <string name="select_all">انتخاب همه</string>
@@ -650,6 +719,7 @@
     <string name="select_backup_folder_title">No backup folder</string>
     <string name="select_folder">Select folder</string>
     <string name="select_partition">Select partition</string>
+    <string name="select_theme_to_edit_hex">Select a theme above to edit its raw hex values here.</string>
     <string name="select_time">Select time</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">خود</string>
     <string name="self_pair_connection_failed">اتصال ناموفق - اتصال دستی را امتحان کنید</string>
@@ -672,6 +742,7 @@
     <string name="serif" comment="Font style category name">Serif</string>
     <string name="settings">تنظیمات</string>
     <string name="settings_only">Settings only</string>
+    <string name="share">Share</string>
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">خروجی آخرین دستور به \'%s\' صادر شد</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">خروجی شل به \'%s\' صادر شد</string>
     <string name="shizuku_not_installed">Shizuku نصب نیست</string>
@@ -704,6 +775,7 @@
     <string name="successful_connection_message">دستگاه با موفقیت متصل شد. اکنون می‌توانید دستورات را روی دستگاه مقصد اجرا کنید.</string>
     <string name="suggested_icons">Suggested icons</string>
     <string name="support_bmc">کار من را دوست دارید؟\nیک قهوه برایم بخرید</string>
+    <string name="surface">Surface</string>
     <string name="switch_mode">تغییر حالت</string>
     <string name="system">سیستم</string>
     <string name="system_default">System default</string>
@@ -713,6 +785,7 @@
     <string name="telegram">تلگرام</string>
     <string name="terminal">ترمینال</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">سبک فونت ترمینال</string>
+    <string name="tertiary">Tertiary</string>
     <string name="third_party_libraries">Third-party libraries</string>
     <string name="this_application">This application</string>
     <string name="this_device">این دستگاه</string>
@@ -737,6 +810,7 @@
     <string name="type">نوع</string>
     <string name="ui_scale">UI scale</string>
     <string name="undo">برگرداندن</string>
+    <string name="unexpected_error">Unexpected error</string>
     <string name="unknown">ناشناخته</string>
     <string name="unknown_error">خطای ناشناخته رخ داد</string>
     <string name="unknown_sources_install_permission_not_granted">مجوز داده نشد. لطفاً نصب برنامه از منابع ناشناخته را مجاز کنید.</string>
@@ -753,6 +827,9 @@
     <string name="use">استفاده</string>
     <string name="utilities">Utilities</string>
     <string name="variant">Variant</string>
+    <string name="verification_failed">Verification failed</string>
+    <string name="verify_api_key">Verify API key</string>
+    <string name="verifying">Verifying</string>
     <string name="version">نسخه</string>
     <string name="version_code">کد نسخه</string>
     <string name="version_name">نام نسخه</string>
@@ -781,6 +858,8 @@
     <string name="wireless_debugging_guide_2">کد شش رقمی را در اعلان ارسال شده توسط aShell You وارد کنید.</string>
     <string name="wireless_debugging_guide_3">به برنامه برگردید و روی دکمه \"شروع\" در صفحه اصلی کلیک کنید.</string>
     <string name="wireless_debugging_important_notice">توجه داشته باشید که قسمت چپ گزینه اشکال‌زدایی بی‌سیم قابل کلیک است. ضربه زدن روی آن منوی جفت‌سازی را باز می‌کند.</string>
+    <string name="wireless_not_connected">Not Connected</string>
+    <string name="wireless_not_connected_message">Your device is not connected via Wireless Debugging. Pair and connect your device first.</string>
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d new entry</item>
         <item quantity="other">%1$d new entries</item>
