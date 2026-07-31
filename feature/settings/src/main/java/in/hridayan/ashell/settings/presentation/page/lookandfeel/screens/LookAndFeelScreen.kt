@@ -40,6 +40,7 @@ import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
+import `in`.hridayan.ashell.core.presentation.components.svg.vectors.undrawDreamWorld
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.FontStyleBottomSheet
 import `in`.hridayan.ashell.settings.presentation.components.dialog.PaletteStylePickerDialog
@@ -153,8 +154,8 @@ fun LookAndFeelScreen(
                     Image(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 100.dp, vertical = 25.dp),
-                        imageVector = DynamicColorImageVectors.themePicker(),
+                            .padding(horizontal = 40.dp, vertical = 25.dp),
+                        imageVector = DynamicColorImageVectors.undrawDreamWorld(),
                         contentDescription = null,
                     )
                 }

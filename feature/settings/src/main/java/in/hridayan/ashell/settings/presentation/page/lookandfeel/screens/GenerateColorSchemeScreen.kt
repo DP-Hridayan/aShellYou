@@ -86,7 +86,6 @@ import `in`.hridayan.ashell.core.presentation.components.dialog.ApiKeyRequiredDi
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
-import `in`.hridayan.ashell.core.presentation.components.svg.vectors.undrawDreamWorld
 import `in`.hridayan.ashell.core.presentation.theme.domain.model.UserGeneratedColorScheme
 import `in`.hridayan.ashell.core.presentation.theme.domain.model.toDomain
 import `in`.hridayan.ashell.core.presentation.theme.domain.model.toEntity
@@ -94,6 +93,7 @@ import `in`.hridayan.ashell.core.presentation.theme.domain.model.toPayload
 import `in`.hridayan.ashell.core.presentation.theme.util.ColorSchemeSerializer
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.ThemePreviewBottomSheet
+import `in`.hridayan.ashell.settings.presentation.components.svg.vectors.themePicker
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel.GenerateColorSchemeViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -169,11 +169,10 @@ fun GenerateColorSchemeScreen(
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(innerPadding)
                     .nestedScroll(topBarScrollBehavior.nestedScrollConnection)
                     .imePadding(),
                 state = listState,
-                contentPadding = PaddingValues(vertical = 16.dp)
+                contentPadding = innerPadding
             ) {
                 item {
                     if (savedColorSchemes.isNotEmpty()) {
@@ -209,8 +208,11 @@ fun GenerateColorSchemeScreen(
                             contentAlignment = Alignment.Center
                         ) {
                             Image(
-                                modifier = Modifier.padding(horizontal = 30.dp),
-                                imageVector = DynamicColorImageVectors.undrawDreamWorld(),
+                                modifier = Modifier.padding(
+                                    horizontal = 40.dp,
+                                    vertical = 20.dp
+                                ),
+                                imageVector = DynamicColorImageVectors.themePicker(),
                                 contentDescription = null
                             )
                         }
@@ -243,7 +245,7 @@ fun GenerateColorSchemeScreen(
                             onCancel = { schemeToEdit = null }
                         )
                     } else {
-                        HexEditorPlaceholder()
+                        //    HexEditorPlaceholder()
                     }
                 }
             }
