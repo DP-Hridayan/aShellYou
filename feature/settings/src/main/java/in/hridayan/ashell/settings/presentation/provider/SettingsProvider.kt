@@ -3,19 +3,20 @@ package `in`.hridayan.ashell.settings.presentation.provider
 
 import android.os.Build
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.AutoAwesome
 import androidx.compose.material.icons.outlined.DarkMode
-import androidx.compose.material.icons.rounded.AutoAwesome
 import androidx.compose.material.icons.rounded.Cached
 import androidx.compose.material.icons.rounded.Downloading
 import androidx.compose.material.icons.rounded.Memory
 import androidx.compose.material.icons.rounded.TextFields
 import androidx.compose.material.icons.rounded.UnfoldMoreDouble
-import `in`.hridayan.ashell.core.common.settings.SettingsKeys
+import `in`.hridayan.ashell.core.common.FeatureConfig
 import `in`.hridayan.ashell.core.common.domain.model.TerminalFontStyle
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.presentation.components.floaters.FloatingIconsBackground
-import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.settingsdsl.dsl.buttonGroupItem
 import `in`.hridayan.settingsdsl.dsl.category
 import `in`.hridayan.settingsdsl.dsl.clickableItem
@@ -27,8 +28,6 @@ import `in`.hridayan.settingsdsl.dsl.switchBannerItem
 import `in`.hridayan.settingsdsl.dsl.switchItem
 import `in`.hridayan.settingsdsl.model.ButtonGroupOption
 import `in`.hridayan.settingsdsl.model.SettingsPage
-
-import `in`.hridayan.ashell.core.common.FeatureConfig
 
 private val isSdkLowerThan31 = Build.VERSION.SDK_INT < Build.VERSION_CODES.S
 
@@ -60,7 +59,7 @@ object SettingsProvider {
                 key = SettingsKeys.CloudModels,
                 titleResId = R.string.ai_models,
                 descriptionResId = R.string.des_ai_models,
-                iconVector = Icons.Rounded.AutoAwesome,
+                iconVector = Icons.Outlined.AutoAwesome,
                 visible = FeatureConfig.isAiEnabled
             ),
             clickableItem(
