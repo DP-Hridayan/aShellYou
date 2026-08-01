@@ -249,7 +249,7 @@ fun ColorRoleCard(
                 label = stringResource(id = pair.role2NameRes),
                 hex = hex2,
                 color = color2,
-                onClick = {
+                onClick = withHaptic {
                     onOpenColorPicker(2, color2) { newColor ->
                         val newHex = "#%06X".format(0xFFFFFF and newColor.toArgb())
                         onThemeChange(pair.setRole2(theme, newHex))
