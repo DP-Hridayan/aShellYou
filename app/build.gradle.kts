@@ -29,7 +29,7 @@ android {
         minSdk = 28
         targetSdk = 37
         versionCode = 63
-        versionName = "v8.0.0-alpha02"
+        versionName = "v8.0.0-alpha03"
 
         buildConfigField("String", "DIST_FLAVOR_GITHUB", "\"$flavorGitHub\"")
         buildConfigField("String", "DIST_FLAVOR_FDROID", "\"$flavorFDroid\"")

@@ -343,7 +343,7 @@ fun CommandExampleCard(
                                 direction(FlexDirection.Row)
                                 wrap(FlexWrap.Wrap)
                                 gap(10.dp)
-                                alignItems(FlexAlignItems.Stretch)
+                                alignItems(FlexAlignItems.Center)
                             }) {
                             Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                                 EditButton(

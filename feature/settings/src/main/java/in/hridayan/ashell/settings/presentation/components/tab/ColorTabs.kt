@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.components.tab
 
-
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.Spring
