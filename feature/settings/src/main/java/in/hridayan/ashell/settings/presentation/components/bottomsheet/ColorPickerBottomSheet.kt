@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -50,6 +51,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.resources.R
 import kotlin.math.atan2
 import kotlin.math.cos
@@ -247,8 +249,16 @@ private fun ColorSlider(
     color: Color,
     onValueChange: (Float) -> Unit
 ) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Text(text = label, modifier = Modifier.width(24.dp), fontWeight = FontWeight.Bold)
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(15.dp)
+    ) {
+        AutoResizeableText(
+            modifier = Modifier.width(24.dp),
+            text = label,
+            fontWeight = FontWeight.Bold
+        )
+
         Slider(
             value = value,
             onValueChange = onValueChange,
@@ -258,7 +268,8 @@ private fun ColorSlider(
                 activeTrackColor = color
             )
         )
-        Text(
+
+        AutoResizeableText(
             text = (value * 255).roundToInt().toString(),
             modifier = Modifier.width(32.dp)
         )
