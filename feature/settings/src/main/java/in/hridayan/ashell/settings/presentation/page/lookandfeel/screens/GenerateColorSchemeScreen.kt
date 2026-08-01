@@ -38,7 +38,6 @@ import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Share
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -178,7 +177,7 @@ fun GenerateColorSchemeScreen(
                         ThemePokerCardCarousel(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(top = 20.dp),
+                                .padding(vertical = 20.dp),
                             themes = savedColorSchemes,
                             appliedThemeId = appliedThemeId,
                             onApplyTheme = { theme ->
@@ -550,33 +549,6 @@ fun CreateWithAiSection(
                     Text(stringResource(id = R.string._import))
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun HexEditorPlaceholder() {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 24.dp)
-    ) {
-        Text(
-            text = stringResource(id = R.string.hex_editor),
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
-
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
-        ) {
-            Text(
-                text = stringResource(id = R.string.select_theme_to_edit_hex),
-                modifier = Modifier.padding(24.dp),
-                textAlign = TextAlign.Center
-            )
         }
     }
 }

@@ -43,6 +43,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalLocale
 import androidx.compose.ui.res.stringResource
@@ -233,7 +234,7 @@ fun ColorRoleCard(
                 label = stringResource(id = pair.role1NameRes),
                 hex = hex1,
                 color = color1,
-                onClick = {
+                onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                     onOpenColorPicker(1, color1) { newColor ->
                         val newHex = "#%06X".format(0xFFFFFF and newColor.toArgb())
                         onThemeChange(pair.setRole1(theme, newHex))
