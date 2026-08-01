@@ -4,21 +4,20 @@ import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.common.constants.AiModelConstants
-import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
-import `in`.hridayan.ashell.core.presentation.theme.data.CustomColorSchemeDao
-import `in`.hridayan.ashell.core.presentation.theme.data.ColorSchemePayload
-import `in`.hridayan.ashell.core.presentation.theme.domain.model.UserGeneratedColorScheme
-import `in`.hridayan.ashell.core.presentation.theme.domain.model.toDomain
-import `in`.hridayan.ashell.core.presentation.theme.domain.model.toEntity
 import `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException
 import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
 import `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository
+import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
+import `in`.hridayan.ashell.core.presentation.theme.data.ColorSchemePayload
+import `in`.hridayan.ashell.core.presentation.theme.data.CustomColorSchemeDao
+import `in`.hridayan.ashell.core.presentation.theme.domain.model.UserGeneratedColorScheme
+import `in`.hridayan.ashell.core.presentation.theme.domain.model.toDomain
+import `in`.hridayan.ashell.core.presentation.theme.domain.model.toEntity
 import `in`.hridayan.ashell.core.presentation.theme.util.ColorSchemeImportHolder
 import `in`.hridayan.ashell.settings.domain.usecase.GenerateCustomThemeUseCase
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
@@ -26,7 +25,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.time.Duration.Companion.milliseconds
 
 @Stable
 @HiltViewModel
@@ -76,6 +74,13 @@ class GenerateColorSchemeViewModel @Inject constructor(
     private val _generationProgressMessage = MutableStateFlow("")
     val generationProgressMessage = _generationProgressMessage.asStateFlow()
 
+    private val _generationError = MutableStateFlow<String?>(null)
+    val generationError = _generationError.asStateFlow()
+
+    fun dismissGenerationError() {
+        _generationError.value = null
+    }
+
     fun deleteTheme(theme: UserGeneratedColorScheme) {
         viewModelScope.launch {
             customColorSchemeDao.deleteColorScheme(theme.toEntity())
@@ -124,13 +129,12 @@ class GenerateColorSchemeViewModel @Inject constructor(
                     _showApiKeyRequiredDialog.value = true
                 } else {
                     val error = exception?.message ?: "Unknown error"
-                    _generationProgressMessage.value = "Failed: $error"
-                    delay(2000.milliseconds)
+                    _generationError.value = "Failed to generate theme:\n$error"
                 }
             }
 
             _isGenerating.value = false
-            if (result.isSuccess) _generationProgressMessage.value = ""
+            _generationProgressMessage.value = ""
         }
     }
 

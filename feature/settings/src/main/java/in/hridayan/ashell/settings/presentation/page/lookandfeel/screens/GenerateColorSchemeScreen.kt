@@ -5,6 +5,11 @@ package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
@@ -36,10 +41,10 @@ import androidx.compose.material.icons.rounded.AutoAwesome
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Share
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -47,6 +52,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
@@ -69,7 +75,6 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -77,6 +82,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import `in`.hridayan.ashell.core.common.LocalDarkMode
+import `in`.hridayan.ashell.core.common.settings.LocalSettings
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.navigation.navigateBack
@@ -91,6 +99,7 @@ import `in`.hridayan.ashell.core.presentation.theme.domain.model.toEntity
 import `in`.hridayan.ashell.core.presentation.theme.domain.model.toPayload
 import `in`.hridayan.ashell.core.presentation.theme.util.ColorSchemeSerializer
 import `in`.hridayan.ashell.core.resources.R
+import `in`.hridayan.ashell.settings.presentation.components.animatedcomposable.AiGenerationAnimationBox
 import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.ThemePreviewBottomSheet
 import `in`.hridayan.ashell.settings.presentation.components.svg.vectors.themePicker
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel.GenerateColorSchemeViewModel
@@ -110,6 +119,7 @@ fun GenerateColorSchemeScreen(
     val generationMessage by viewModel.generationProgressMessage.collectAsState()
     val previewPayload by viewModel.previewPayload.collectAsState()
     val appliedThemeId by viewModel.appliedThemeId.collectAsState()
+    val generationError by viewModel.generationError.collectAsState()
 
     val topAppBarState = rememberTopAppBarState()
     val listState = rememberLazyListState()
@@ -172,7 +182,12 @@ fun GenerateColorSchemeScreen(
                 state = listState,
                 contentPadding = innerPadding
             ) {
+
                 item {
+                    val localDarkMode = LocalDarkMode.current
+                    val userGeneratedColorSchemeDark =
+                        LocalSettings.current[SettingsKeys.IsCustomColorSchemeDarkThemed]
+
                     if (savedColorSchemes.isNotEmpty()) {
                         ThemePokerCardCarousel(
                             modifier = Modifier
@@ -182,7 +197,15 @@ fun GenerateColorSchemeScreen(
                             appliedThemeId = appliedThemeId,
                             onApplyTheme = { theme ->
                                 viewModel.applyColorScheme(theme)
-                                Log.d("GenerateTheme", "Is theme Dark?: ${theme.isDarkTheme}")
+                                Log.d(
+                                    "GenerateThemeDebugDark",
+                                    "Is theme Dark?: ${theme.isDarkTheme}"
+                                )
+                                Log.d("GenerateThemeDebugDark", "LocalDarkMode: $localDarkMode")
+                                Log.d(
+                                    "GenerateThemeDebugDark",
+                                    "UserGeneratedColorSchemeIsDark: $userGeneratedColorSchemeDark"
+                                )
                             },
                             onDelete = { theme -> viewModel.deleteTheme(theme) },
                             onEdit = { theme ->
@@ -257,6 +280,20 @@ fun GenerateColorSchemeScreen(
             onConfirm = {
                 viewModel.dismissApiKeyRequiredDialog()
                 navController.navigate(NavRoutes.CloudModelsScreen)
+            }
+        )
+    }
+
+    generationError?.let { error ->
+        AlertDialog(
+            onDismissRequest = { viewModel.dismissGenerationError() },
+            icon = { Icon(Icons.Rounded.AutoAwesome, contentDescription = null) },
+            title = { Text(stringResource(id = R.string.error)) },
+            text = { Text(error) },
+            confirmButton = {
+                TextButton(onClick = withHaptic { viewModel.dismissGenerationError() }) {
+                    Text(stringResource(id = android.R.string.ok))
+                }
             }
         )
     }
@@ -484,38 +521,46 @@ fun CreateWithAiSection(
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        OutlinedTextField(
-            value = prompt,
-            onValueChange = { if (it.length <= 1096) prompt = it },
-            placeholder = { Text(stringResource(id = R.string.ai_theme_prompt_hint)) },
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(16.dp),
-            minLines = 3,
-            enabled = !isGenerating,
-            supportingText = {
-                Text(
-                    text = "${prompt.length}/1096",
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.End,
-                    color = if (prompt.length == 1096) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant
+        AnimatedContent(
+            targetState = isGenerating,
+            label = "AI Generation State",
+            transitionSpec = {
+                fadeIn(animationSpec = tween(500)) togetherWith fadeOut(animationSpec = tween(500))
+            }
+        ) { generating ->
+            if (generating) {
+                AiGenerationAnimationBox(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(130.dp)
+                        .clip(RoundedCornerShape(16.dp)),
+                    message = generationMessage
+                )
+            } else {
+                OutlinedTextField(
+                    value = prompt,
+                    onValueChange = { if (it.length <= 1096) prompt = it },
+                    placeholder = { Text(stringResource(id = R.string.ai_theme_prompt_hint)) },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(130.dp),
+                    shape = RoundedCornerShape(16.dp),
+                    enabled = !isGenerating,
+                    supportingText = {
+                        Text(
+                            text = "${prompt.length}/1096",
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.End,
+                            color = if (prompt.length == 1096) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
                 )
             }
-        )
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        if (isGenerating) {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                CircularProgressIndicator(modifier = Modifier.padding(8.dp))
-                Text(
-                    text = generationMessage,
-                    fontStyle = FontStyle.Italic
-                )
-            }
-        } else {
+        if (!isGenerating) {
             FlexBox(
                 modifier = Modifier.fillMaxWidth(),
                 config = {
@@ -525,7 +570,10 @@ fun CreateWithAiSection(
                 }) {
                 Button(
                     modifier = Modifier.flex { grow(1f) },
-                    onClick = withHaptic { onGenerate(prompt) },
+                    onClick = withHaptic {
+                        onGenerate(prompt)
+                        prompt = ""
+                    },
                     shapes = ButtonDefaults.shapes()
                 ) {
                     Icon(
