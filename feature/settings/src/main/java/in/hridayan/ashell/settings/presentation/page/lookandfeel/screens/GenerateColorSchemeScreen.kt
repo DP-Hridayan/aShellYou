@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalFlexBoxApi::class)
 
 package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens
 
@@ -7,10 +7,15 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalFlexBoxApi
+import androidx.compose.foundation.layout.FlexAlignItems
+import androidx.compose.foundation.layout.FlexBox
+import androidx.compose.foundation.layout.FlexDirection
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -20,6 +25,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
@@ -31,6 +37,7 @@ import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Share
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -38,6 +45,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarScrollBehavior
@@ -77,6 +85,7 @@ import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.ApiKeyRequiredDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
+import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.theme.domain.model.UserGeneratedColorScheme
 import `in`.hridayan.ashell.core.presentation.theme.domain.model.toDomain
 import `in`.hridayan.ashell.core.presentation.theme.domain.model.toEntity
@@ -84,6 +93,7 @@ import `in`.hridayan.ashell.core.presentation.theme.domain.model.toPayload
 import `in`.hridayan.ashell.core.presentation.theme.util.ColorSchemeSerializer
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.ThemePreviewBottomSheet
+import `in`.hridayan.ashell.settings.presentation.components.svg.vectors.themePicker
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel.GenerateColorSchemeViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -155,32 +165,15 @@ fun GenerateColorSchemeScreen(
         topAppBarState = topAppBarState,
         listState = listState,
         topBarTitle = stringResource(id = R.string.generate_color_scheme),
-        actions = {
-            IconButton(onClick = {
-                importLauncher.launch(
-                    arrayOf(
-                        "application/octet-stream",
-                        "*/*"
-                    )
-                )
-            }) {
-                Icon(
-                    painter = painterResource(id = android.R.drawable.ic_menu_add),
-                    contentDescription = stringResource(id = R.string.import_theme)
-                )
-            }
-        },
         content = { innerPadding: PaddingValues, topBarScrollBehavior: TopAppBarScrollBehavior ->
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(innerPadding)
                     .nestedScroll(topBarScrollBehavior.nestedScrollConnection)
                     .imePadding(),
                 state = listState,
-                contentPadding = PaddingValues(vertical = 16.dp)
+                contentPadding = innerPadding
             ) {
-                // 1. Fanned Poker Card Carousel
                 item {
                     if (savedColorSchemes.isNotEmpty()) {
                         ThemePokerCardCarousel(
@@ -214,26 +207,33 @@ fun GenerateColorSchemeScreen(
                                 .height(250.dp),
                             contentAlignment = Alignment.Center
                         ) {
-                            Text(
-                                stringResource(id = R.string.no_custom_themes_yet),
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            Image(
+                                modifier = Modifier.padding(
+                                    horizontal = 40.dp,
+                                    vertical = 20.dp
+                                ),
+                                imageVector = DynamicColorImageVectors.themePicker(),
+                                contentDescription = null
                             )
                         }
                     }
                     Spacer(modifier = Modifier.height(32.dp))
                 }
 
-                // 2. Create with AI
                 item {
                     CreateWithAiSection(
                         isGenerating = isGenerating,
                         generationMessage = generationMessage,
-                        onGenerate = { prompt -> viewModel.generateColorScheme(prompt) }
+                        onGenerate = { prompt -> viewModel.generateColorScheme(prompt) },
+                        onImport = {
+                            importLauncher.launch(
+                                arrayOf("application/octet-stream", "*/*")
+                            )
+                        }
                     )
                     Spacer(modifier = Modifier.height(32.dp))
                 }
 
-                // 3. Hex Editor
                 item {
                     if (schemeToEdit != null) {
                         HexEditorSection(
@@ -245,7 +245,7 @@ fun GenerateColorSchemeScreen(
                             onCancel = { schemeToEdit = null }
                         )
                     } else {
-                        HexEditorPlaceholder()
+                        //    HexEditorPlaceholder()
                     }
                 }
             }
@@ -287,7 +287,7 @@ fun ThemePokerCardCarousel(
         val index = themes.indexOfFirst { it.id == appliedThemeId }
         if (index >= 0) index else 0
     }
-    
+
     val pagerState = rememberPagerState(
         initialPage = initialPage,
         pageCount = { themes.size }
@@ -478,7 +478,8 @@ fun ThemePokerCardCarousel(
 fun CreateWithAiSection(
     isGenerating: Boolean,
     generationMessage: String,
-    onGenerate: (String) -> Unit
+    onGenerate: (String) -> Unit,
+    onImport: () -> Unit
 ) {
     var prompt by remember { mutableStateOf("") }
 
@@ -490,7 +491,6 @@ fun CreateWithAiSection(
         Text(
             text = stringResource(id = R.string.create_with_ai),
             style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
@@ -526,17 +526,38 @@ fun CreateWithAiSection(
                 )
             }
         } else {
-            Button(
-                onClick = { onGenerate(prompt) },
+            FlexBox(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(16.dp)
-            ) {
-                Icon(
-                    Icons.Rounded.AutoAwesome,
-                    contentDescription = null,
-                    modifier = Modifier.padding(end = 8.dp)
-                )
-                Text(stringResource(id = R.string.generate_scheme))
+                config = {
+                    direction(FlexDirection.Row)
+                    gap(15.dp)
+                    alignItems(FlexAlignItems.Stretch)
+                }) {
+                Button(
+                    modifier = Modifier.flex { grow(1f) },
+                    onClick = withHaptic { onGenerate(prompt) },
+                    shapes = ButtonDefaults.shapes()
+                ) {
+                    Icon(
+                        Icons.Rounded.AutoAwesome,
+                        contentDescription = null,
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(stringResource(id = R.string.generate_scheme))
+                }
+
+                OutlinedButton(
+                    modifier = Modifier.flex { grow(1f) },
+                    onClick = withHaptic { onImport() },
+                    shapes = ButtonDefaults.shapes()
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_download),
+                        contentDescription = null,
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(stringResource(id = R.string._import))
+                }
             }
         }
     }

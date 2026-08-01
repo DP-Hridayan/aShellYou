@@ -452,6 +452,7 @@
     <string name="history">History</string>
     <string name="home">Home</string>
     <string name="icon_selected">Icon selected</string>
+    <string name="_import">Import</string>
     <string name="import_theme">Import Theme</string>
     <string name="include">Include</string>
     <string name="info">Info</string>
