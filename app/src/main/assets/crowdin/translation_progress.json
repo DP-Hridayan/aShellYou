@@ -96,7 +96,7 @@
     "editorCode": "ru",
     "locale": "ru-RU",
     "translationProgress": 100,
-    "approvalProgress": 94
+    "approvalProgress": 96
   },
   {
     "languageId": "tr",
@@ -113,8 +113,8 @@
     "androidCode": "uk-rUA",
     "editorCode": "uk",
     "locale": "uk-UA",
-    "translationProgress": 99,
-    "approvalProgress": 94
+    "translationProgress": 100,
+    "approvalProgress": 96
   },
   {
     "languageId": "vi",

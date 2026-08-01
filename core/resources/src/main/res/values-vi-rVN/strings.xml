@@ -448,6 +448,7 @@
     <string name="history">Lịch sử</string>
     <string name="home">Trang chủ</string>
     <string name="icon_selected">Đã chọn biểu tượng</string>
+    <string name="_import">Import</string>
     <string name="import_theme">Import Theme</string>
     <string name="include">Bao gồm</string>
     <string name="info">Thông tin</string>
