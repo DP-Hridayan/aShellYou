@@ -142,9 +142,6 @@ private fun ColorWheel(
     onColorChange: (Color) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    // We compute hsv dynamically in the pointer/draw block to avoid recomposition
-
-
     val updateColorFromPointer by rememberUpdatedState { offset: Offset, sz: IntSize ->
         val center = Offset(sz.width / 2f, sz.height / 2f)
         val radius = sz.width / 2f
