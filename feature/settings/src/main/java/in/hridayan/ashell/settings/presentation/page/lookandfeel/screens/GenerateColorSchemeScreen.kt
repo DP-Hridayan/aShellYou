@@ -117,7 +117,6 @@ fun GenerateColorSchemeScreen(
     val coroutineScope = rememberCoroutineScope()
 
     var schemeToExport by remember { mutableStateOf<UserGeneratedColorScheme?>(null) }
-    var schemeToEdit by remember { mutableStateOf<UserGeneratedColorScheme?>(null) }
 
     val exportLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.CreateDocument("application/octet-stream")
@@ -187,7 +186,13 @@ fun GenerateColorSchemeScreen(
                                 Log.d("GenerateTheme", "Is theme Dark?: ${theme.isDarkTheme}")
                             },
                             onDelete = { theme -> viewModel.deleteTheme(theme) },
-                            onEdit = { theme -> schemeToEdit = theme },
+                            onEdit = { theme ->
+                                navController.navigate(
+                                    NavRoutes.EditColorSchemeScreen(
+                                        theme.id
+                                    )
+                                )
+                            },
                             onShare = { theme ->
                                 schemeToExport = theme
                                 exportLauncher.launch(
@@ -234,20 +239,6 @@ fun GenerateColorSchemeScreen(
                     Spacer(modifier = Modifier.height(32.dp))
                 }
 
-                item {
-                    if (schemeToEdit != null) {
-                        HexEditorSection(
-                            theme = schemeToEdit!!,
-                            onSave = { editedTheme ->
-                                viewModel.saveColorScheme(editedTheme)
-                                schemeToEdit = null
-                            },
-                            onCancel = { schemeToEdit = null }
-                        )
-                    } else {
-                        //    HexEditorPlaceholder()
-                    }
-                }
             }
         }
     )
@@ -446,21 +437,21 @@ fun ThemePokerCardCarousel(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceEvenly
                     ) {
-                        IconButton(onClick = { onShare(theme) }) {
+                        IconButton(onClick = withHaptic { onShare(theme) }) {
                             Icon(
                                 Icons.Rounded.Share,
                                 contentDescription = stringResource(id = R.string.share),
                                 tint = primary
                             )
                         }
-                        IconButton(onClick = { onEdit(theme) }) {
+                        IconButton(onClick = withHaptic { onEdit(theme) }) {
                             Icon(
                                 Icons.Rounded.Edit,
                                 contentDescription = stringResource(id = R.string.edit),
                                 tint = secondary
                             )
                         }
-                        IconButton(onClick = { onDelete(theme) }) {
+                        IconButton(onClick = withHaptic { onDelete(theme) }) {
                             Icon(
                                 Icons.Rounded.Delete,
                                 contentDescription = stringResource(id = R.string.delete),

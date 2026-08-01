@@ -110,6 +110,10 @@ NavRoutes {
     @Serializable
     object GenerateColorSchemeScreen : NavRoutes()
 
+    // Add EditColorSchemeScreen route
+    @Serializable
+    data class EditColorSchemeScreen(val themeId: Int) : NavRoutes()
+
     @Serializable
     object AiChatScreen : NavRoutes()
 }

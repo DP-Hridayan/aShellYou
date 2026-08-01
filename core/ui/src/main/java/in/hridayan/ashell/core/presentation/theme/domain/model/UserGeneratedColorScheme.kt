@@ -1,8 +1,8 @@
 package `in`.hridayan.ashell.core.presentation.theme.domain.model
 
 import androidx.compose.runtime.Immutable
-import `in`.hridayan.ashell.core.presentation.theme.data.UserGeneratedColorSchemeEntity
 import `in`.hridayan.ashell.core.presentation.theme.data.ColorSchemePayload
+import `in`.hridayan.ashell.core.presentation.theme.data.UserGeneratedColorSchemeEntity
 
 @Immutable
 data class UserGeneratedColorScheme(
@@ -57,7 +57,8 @@ data class UserGeneratedColorScheme(
     val outlineVariant: String,
     val scrim: String,
     val svgPathData: String = "",
-    val isDarkTheme: Boolean = false
+    val isDarkTheme: Boolean = false,
+    val createdAt: Long = System.currentTimeMillis()
 )
 
 fun UserGeneratedColorSchemeEntity.toDomain(): UserGeneratedColorScheme {
@@ -101,7 +102,8 @@ fun UserGeneratedColorSchemeEntity.toDomain(): UserGeneratedColorScheme {
         outlineVariant = outlineVariant,
         scrim = scrim,
         svgPathData = svgPathData,
-        isDarkTheme = isDarkTheme
+        isDarkTheme = isDarkTheme,
+        createdAt = createdAt
     )
 }
 
@@ -146,7 +148,8 @@ fun UserGeneratedColorScheme.toEntity(): UserGeneratedColorSchemeEntity {
         outlineVariant = outlineVariant,
         scrim = scrim,
         svgPathData = svgPathData,
-        isDarkTheme = isDarkTheme
+        isDarkTheme = isDarkTheme,
+        createdAt = createdAt
     )
 }
 

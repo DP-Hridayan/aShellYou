@@ -46,6 +46,7 @@ import `in`.hridayan.ashell.settings.presentation.page.contributors.screens.Tran
 import `in`.hridayan.ashell.settings.presentation.page.languages.screens.LanguagesScreen
 import `in`.hridayan.ashell.settings.presentation.page.licenses.screens.LicensesScreen
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.DarkThemeScreen
+import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.EditColorSchemeScreen
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.GenerateColorSchemeScreen
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.LookAndFeelScreen
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.UiScaleScreen
@@ -235,6 +236,11 @@ fun AppNavigation(
 
             composable<NavRoutes.GenerateColorSchemeScreen> {
                 GenerateColorSchemeScreen()
+            }
+
+            composable<NavRoutes.EditColorSchemeScreen> { backStackEntry ->
+                val route = backStackEntry.toRoute<NavRoutes.EditColorSchemeScreen>()
+                EditColorSchemeScreen(themeId = route.themeId)
             }
 
             composable<NavRoutes.AiChatScreen> {

@@ -35,6 +35,7 @@ dependencies {
 
     implementation(project(":core:common"))
     implementation(project(":core:ui"))
+    implementation(project(":core:resources"))
     implementation(project(":settings-dsl"))
     implementation(project(":core:navigation"))
 
