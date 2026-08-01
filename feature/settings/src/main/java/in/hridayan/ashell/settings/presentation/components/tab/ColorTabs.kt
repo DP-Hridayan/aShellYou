@@ -44,6 +44,7 @@ import `in`.hridayan.ashell.core.common.domain.model.PaletteStyle
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
+import `in`.hridayan.ashell.core.presentation.components.card.CustomCardDefaults
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.resources.R
@@ -150,7 +151,7 @@ fun ColorTabs(
                         state = pagerState,
                         modifier = Modifier
                             .width(pagerContentWidth)
-                            .clip(RoundedCornerShape(20.dp))
+                            .clip(RoundedCornerShape(CustomCardDefaults.pressedCornerRadius))
                     ) { page ->
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(10.dp),

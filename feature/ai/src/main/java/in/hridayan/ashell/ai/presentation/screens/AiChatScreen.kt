@@ -29,6 +29,7 @@ import androidx.compose.material.icons.filled.PushPin
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -43,7 +44,6 @@ import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -676,21 +676,14 @@ private fun NewChatPromptSuggestions(
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         prompts.forEach { prompt ->
-            OutlinedCard(
+            OutlinedButton(
                 modifier = Modifier,
-                shape = RoundedCornerShape(50),
+                shapes = ButtonDefaults.shapes(),
                 onClick = withHaptic { onClickPrompt(prompt) },
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surface,
-                    contentColor = MaterialTheme.colorScheme.onSurface
-                )
             ) {
                 Text(
+                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 3.dp),
                     text = prompt,
-                    modifier = Modifier.padding(
-                        horizontal = 20.dp,
-                        vertical = 14.dp
-                    ),
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }
