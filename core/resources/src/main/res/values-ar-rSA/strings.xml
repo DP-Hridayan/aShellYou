@@ -449,6 +449,7 @@
     <string name="history">تاريخ</string>
     <string name="home">المنزل</string>
     <string name="icon_selected">الرمز المحدد</string>
+    <string name="_import">استيراد</string>
     <string name="import_theme">استيراد السمة</string>
     <string name="include">تضمين</string>
     <string name="info">معلومات</string>
