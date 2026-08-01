@@ -1,7 +1,5 @@
 package `in`.hridayan.ashell.ai.presentation.screens
 
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,43 +11,23 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.rounded.Send
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.PushPin
 import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
-import androidx.compose.material3.NavigationDrawerItemDefaults
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
@@ -64,47 +42,32 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
-import androidx.compose.ui.platform.LocalResources
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavDestination.Companion.hasRoute
-import com.mikepenz.markdown.m3.Markdown
-import com.mikepenz.markdown.m3.markdownColor
-import dev.snipme.highlights.Highlights
-import dev.snipme.highlights.model.BoldHighlight
-import dev.snipme.highlights.model.ColorHighlight
-import dev.snipme.highlights.model.SyntaxThemes
 import `in`.hridayan.ashell.ai.data.local.database.entity.ChatSessionEntity
-import `in`.hridayan.ashell.ai.presentation.components.animatedcomposable.AnimatedStopIcon
 import `in`.hridayan.ashell.ai.presentation.components.bottomsheet.AiSessionOptionsBottomSheet
 import `in`.hridayan.ashell.ai.presentation.components.bottomsheet.AiThoughtsBottomSheet
+import `in`.hridayan.ashell.ai.presentation.components.chat.AiChatDrawerUI
+import `in`.hridayan.ashell.ai.presentation.components.chat.MarkdownMessageContent
+import `in`.hridayan.ashell.ai.presentation.components.chat.NewChatPromptSuggestions
+import `in`.hridayan.ashell.ai.presentation.components.chat.NewChatWelcomeUI
+import `in`.hridayan.ashell.ai.presentation.components.chat.PermissionPromptCard
+import `in`.hridayan.ashell.ai.presentation.components.chat.PromptInputField
+import `in`.hridayan.ashell.ai.presentation.components.chat.RunningTasks
 import `in`.hridayan.ashell.ai.presentation.components.dialog.RenameAiSessionDialog
 import `in`.hridayan.ashell.ai.presentation.components.loadingindicator.BouncyDotsLoadingIndicator
-import `in`.hridayan.ashell.ai.presentation.model.AiChatUiState
 import `in`.hridayan.ashell.ai.presentation.model.ChatUiItem
-import `in`.hridayan.ashell.ai.presentation.model.MessageComponent
-import `in`.hridayan.ashell.ai.presentation.model.PermissionPrompt
 import `in`.hridayan.ashell.ai.presentation.viewmodel.AiChatViewModel
-import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.domain.model.SharedTextHolder
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
-import `in`.hridayan.ashell.core.presentation.components.animatedcomposables.AnimatedAdbIcon
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.ApiKeyRequiredDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -112,7 +75,6 @@ import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.presentation.utils.hideKeyboard
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.ClipboardUtils
-import `in`.hridayan.ashell.core.utils.showToast
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -146,7 +108,7 @@ fun AiChatScreen(
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
-            DrawerUI(
+            AiChatDrawerUI(
                 drawerState = drawerState,
                 uiState = uiState,
                 onClickSession = { selectedSessionId ->
@@ -526,461 +488,3 @@ fun AiChatScreen(
     }
 }
 
-@Composable
-private fun DrawerUI(
-    modifier: Modifier = Modifier,
-    drawerState: DrawerState,
-    uiState: AiChatUiState,
-    onClickSession: (String) -> Unit,
-    onLongClickSession: (ChatSessionEntity) -> Unit,
-    viewModel: AiChatViewModel = hiltViewModel()
-) {
-    val scope = rememberCoroutineScope()
-
-    ModalDrawerSheet(modifier = modifier) {
-        Spacer(Modifier.height(16.dp))
-
-        Text(
-            stringResource(R.string.ai_chat_sessions),
-            modifier = Modifier.padding(16.dp),
-            style = MaterialTheme.typography.titleLarge
-        )
-
-        Spacer(modifier = Modifier.height(15.dp))
-
-        OutlinedButton(
-            modifier = Modifier
-                .padding(NavigationDrawerItemDefaults.ItemPadding)
-                .fillMaxWidth(),
-            onClick = withHaptic {
-                viewModel.onNewChat()
-                scope.launch { drawerState.close() }
-            }
-        ) {
-            Icon(
-                modifier = Modifier.padding(vertical = 5.dp),
-                imageVector = Icons.Rounded.Add,
-                contentDescription = null
-            )
-
-            Spacer(Modifier.width(8.dp))
-
-            Text(
-                modifier = Modifier.padding(vertical = 5.dp),
-                text = stringResource(R.string.ai_chat_new_chat),
-                style = MaterialTheme.typography.titleMedium
-            )
-        }
-
-        Spacer(modifier = Modifier.height(15.dp))
-
-        LazyColumn {
-            items(uiState.sessions) { session ->
-                @OptIn(ExperimentalFoundationApi::class)
-                Surface(
-                    modifier = Modifier
-                        .padding(NavigationDrawerItemDefaults.ItemPadding)
-                        .fillMaxWidth()
-                        .height(56.dp)
-                        .clip(RoundedCornerShape(50))
-                        .combinedClickable(
-                            onClick = withHaptic {
-                                onClickSession(session.id)
-                            },
-                            onLongClick = withHaptic(HapticFeedbackType.LongPress) {
-                                onLongClickSession(session)
-                            }
-                        ),
-                    shape = CircleShape,
-                    color = if (session.id == uiState.currentSessionId) MaterialTheme.colorScheme.secondaryContainer else Color.Transparent,
-                    contentColor = MaterialTheme.colorScheme.run {
-                        if (session.id == uiState.currentSessionId) onSecondaryContainer else onSurfaceVariant
-                    }
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.padding(horizontal = 16.dp)
-                    ) {
-                        Text(
-                            session.title,
-                            modifier = Modifier.weight(1f),
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-
-                        val isGeneratingOrRunning =
-                            uiState.generatingSessionIds.contains(session.id) ||
-                                    uiState.runningTasks.any { it.sessionId == session.id }
-
-                        if (isGeneratingOrRunning) {
-                            Spacer(modifier = Modifier.width(8.dp))
-                            AnimatedStopIcon(modifier = Modifier.size(16.dp))
-                        } else if (session.isPinned) {
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Icon(
-                                Icons.Default.PushPin,
-                                contentDescription = "Pinned",
-                                modifier = Modifier.size(16.dp),
-                                tint = MaterialTheme.colorScheme.primary
-                            )
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun NewChatWelcomeUI(
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        AnimatedAdbIcon(
-            modifier = Modifier.size(100.dp),
-            headColor = MaterialTheme.colorScheme.tertiary,
-            eyeColor = MaterialTheme.colorScheme.onTertiary
-        )
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        Text(
-            text = stringResource(R.string.ai_new_chat_welcome_msg),
-            style = MaterialTheme.typography.headlineLarge,
-            color = MaterialTheme.colorScheme.onSurface,
-            textAlign = TextAlign.Center,
-            maxLines = 2
-        )
-
-        Spacer(modifier = Modifier.height(32.dp))
-    }
-}
-
-@Composable
-private fun NewChatPromptSuggestions(
-    modifier: Modifier = Modifier,
-    onClickPrompt: (String) -> Unit
-) {
-    val prompts = listOf(
-        stringResource(R.string.ai_prompt_suggestion_1),
-        stringResource(R.string.ai_prompt_suggestion_2),
-        stringResource(R.string.ai_prompt_suggestion_3)
-    )
-
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(10.dp)
-    ) {
-        prompts.forEach { prompt ->
-            OutlinedButton(
-                modifier = Modifier,
-                shapes = ButtonDefaults.shapes(),
-                onClick = withHaptic { onClickPrompt(prompt) },
-            ) {
-                Text(
-                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 3.dp),
-                    text = prompt,
-                    style = MaterialTheme.typography.bodyMedium,
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun PermissionPromptCard(
-    modifier: Modifier = Modifier,
-    prompt: PermissionPrompt
-) {
-    Column(modifier = modifier) {
-        Text(
-            text = stringResource(R.string.ai_chat_allow_run_command),
-            style = MaterialTheme.typography.labelMedium
-        )
-
-        Text(
-            text = prompt.command,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.padding(vertical = 4.dp)
-        )
-
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(5.dp)
-        ) {
-            TextButton(onClick = prompt.onDeny) {
-                Text(stringResource(R.string.ai_chat_deny))
-            }
-
-            TextButton(onClick = prompt.onAllow) {
-                Text(stringResource(R.string.ai_chat_allow))
-            }
-
-            Button(onClick = prompt.onAlwaysAllowExact) {
-                Text(stringResource(R.string.always_allow_exact))
-            }
-
-            if (prompt.baseCommand.isNotBlank()) {
-                Button(onClick = prompt.onAlwaysAllowBase) {
-                    Text(stringResource(R.string.always_allow_base) + " (${prompt.baseCommand})")
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun RunningTasks(
-    modifier: Modifier = Modifier,
-    taskName: String,
-    onClickStop: () -> Unit
-) {
-    Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        CircularProgressIndicator(
-            modifier = Modifier.size(16.dp),
-            strokeWidth = 2.dp
-        )
-        Spacer(modifier = Modifier.width(8.dp))
-        Text(
-            text = stringResource(R.string.ai_chat_running) + taskName,
-            style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.weight(1f)
-        )
-        IconButton(
-            onClick = onClickStop,
-            modifier = Modifier.size(24.dp)
-        ) {
-            AnimatedStopIcon(tint = MaterialTheme.colorScheme.error)
-        }
-    }
-}
-
-@Composable
-private fun PromptInputField(
-    modifier: Modifier = Modifier,
-    textFieldValue: String = "",
-    onValueChange: (String) -> Unit = {},
-    isGenerating: Boolean,
-    onClickTrailingButton: () -> Unit
-) {
-    Card(
-        modifier = modifier,
-        shape = RoundedCornerShape(50),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.secondaryContainer,
-            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-        )
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 8.dp, vertical = 4.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            IconButton(
-                onClick = withHaptic {}
-            ) {
-                Icon(
-                    modifier = Modifier.size(24.dp),
-                    painter = painterResource(R.drawable.ic_help),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary
-                )
-            }
-
-            TextField(
-                value = textFieldValue,
-                onValueChange = { onValueChange(it) },
-                modifier = Modifier.weight(1f),
-                placeholder = {
-                    Text(
-                        text = stringResource(R.string.message_adb_agent),
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        color = MaterialTheme.colorScheme.onSecondaryContainer
-                    )
-                },
-                maxLines = 4,
-                colors = TextFieldDefaults.colors(
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent,
-                    disabledIndicatorColor = Color.Transparent,
-                    focusedContainerColor = Color.Transparent,
-                    unfocusedContainerColor = Color.Transparent,
-                    disabledContainerColor = Color.Transparent,
-                    focusedTextColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                    unfocusedTextColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                    disabledTextColor = MaterialTheme.colorScheme.onSecondaryContainer
-                ),
-            )
-
-            IconButton(
-                onClick = onClickTrailingButton
-            ) {
-                if (isGenerating) {
-                    AnimatedStopIcon(tint = MaterialTheme.colorScheme.error)
-                } else {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Rounded.Send,
-                        contentDescription = "Send",
-                        tint = MaterialTheme.colorScheme.primary
-                    )
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun MarkdownMessageContent(
-    modifier: Modifier = Modifier,
-    textColor: Color,
-    content: String,
-    onUseCommand: (String) -> Unit,
-    viewModel: AiChatViewModel = hiltViewModel()
-) {
-    val res = LocalResources.current
-    val context = LocalContext.current
-    val components = remember(content) { viewModel.parseMarkdown(content) }
-
-    Column(modifier = modifier) {
-        components.forEach { component ->
-            when (component) {
-                is MessageComponent.Text -> {
-                    SelectionContainer {
-                        Markdown(
-                            modifier = Modifier.wrapContentWidth(),
-                            content = component.text,
-                            colors = markdownColor(text = textColor),
-                        )
-                    }
-                }
-
-                is MessageComponent.CodeBlock -> {
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 6.dp),
-                        colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-                            contentColor = MaterialTheme.colorScheme.onSurface
-                        )
-                    ) {
-                        Column {
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 8.dp, vertical = 4.dp),
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text(
-                                    text = component.language.ifBlank { "code" },
-                                    style = MaterialTheme.typography.labelSmall,
-                                )
-
-                                Row {
-                                    TextButton(onClick = withHaptic {
-                                        ClipboardUtils.copyToClipboard(
-                                            text = AnnotatedString(component.code).text,
-                                            context = context
-                                        )
-
-                                        showToast(
-                                            context,
-                                            res.getString(R.string.copied_to_clipboard)
-                                        )
-                                    }) {
-                                        Text(stringResource(R.string.copy))
-                                    }
-
-                                    if (isShellLanguage(component.language)) {
-                                        TextButton(onClick = withHaptic { onUseCommand(component.code) }) {
-                                            Text(stringResource(R.string.ai_chat_use))
-                                        }
-                                    }
-                                }
-                            }
-
-                            HorizontalDivider()
-
-                            val isDarkTheme = LocalDarkMode.current
-
-                            val highlights =
-                                remember(component.code, component.language, isDarkTheme) {
-                                    try {
-                                        Highlights.Builder()
-                                            .code(component.code)
-                                            .theme(
-                                                SyntaxThemes.default(isDarkTheme)
-                                            )
-                                            .build()
-                                    } catch (e: Exception) {
-                                        null
-                                    }
-                                }
-
-                            val annotatedString = remember(highlights, component.code) {
-                                if (highlights != null) {
-                                    buildAnnotatedString {
-                                        append(component.code)
-                                        highlights.getHighlights().forEach { highlight ->
-                                            when (highlight) {
-                                                is ColorHighlight -> {
-                                                    addStyle(
-                                                        style = SpanStyle(color = Color(highlight.rgb or 0xFF000000.toInt())),
-                                                        start = highlight.location.start,
-                                                        end = highlight.location.end
-                                                    )
-                                                }
-
-                                                is BoldHighlight -> {
-                                                    addStyle(
-                                                        style = SpanStyle(fontWeight = FontWeight.Bold),
-                                                        start = highlight.location.start,
-                                                        end = highlight.location.end
-                                                    )
-                                                }
-                                            }
-                                        }
-                                    }
-                                } else {
-                                    AnnotatedString(component.code)
-                                }
-                            }
-
-                            SelectionContainer {
-                                Text(
-                                    text = annotatedString,
-                                    style = MaterialTheme.typography.bodyMedium.copy(fontFamily = FontFamily.Monospace),
-                                    modifier = Modifier.padding(8.dp),
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-private fun isShellLanguage(text: String): Boolean {
-    val shellLanguages = listOf(
-        "sh",
-        "bash",
-        "shell",
-        "cmd",
-        "powershell",
-        "zsh",
-        ""
-    )
-    return text.lowercase().trim() in shellLanguages
-}
