@@ -448,6 +448,7 @@
     <string name="history">历史</string>
     <string name="home">首页</string>
     <string name="icon_selected">选择图标</string>
+    <string name="_import">导入</string>
     <string name="import_theme">导入主题</string>
     <string name="include">包含</string>
     <string name="info">信息</string>

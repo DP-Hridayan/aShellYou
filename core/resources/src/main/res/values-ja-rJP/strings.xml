@@ -448,6 +448,7 @@
     <string name="history">歴史</string>
     <string name="home">ホーム</string>
     <string name="icon_selected">アイコンを選択しました</string>
+    <string name="_import">インポート</string>
     <string name="import_theme">テーマをインポート</string>
     <string name="include">Include</string>
     <string name="info">情報</string>

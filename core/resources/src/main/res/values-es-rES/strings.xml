@@ -448,6 +448,7 @@
     <string name="history">Historial</string>
     <string name="home">Inicio</string>
     <string name="icon_selected">Icono seleccionado</string>
+    <string name="_import">Importar</string>
     <string name="import_theme">Importar tema</string>
     <string name="include">Incluye</string>
     <string name="info">Información</string>
