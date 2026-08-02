@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
+    <string name="_import">导入</string>
+    <string name="_new">新的</string>
     <string name="abort_command">先中止命令</string>
     <string name="about">关于</string>
     <string name="active">已启用</string>
     <string name="active_slot">活动栏位</string>
     <string name="adb">ADB</string>
+    <string name="adb_agent">ADB 代理</string>
     <string name="adb_command">ADB 命令</string>
     <string name="adb_command_hint" comment="Example ADB command shown as placeholder hint in input field">adb reboot</string>
     <string name="adb_command_off_state">ADB 命令(OFF 状态)</string>
@@ -13,12 +16,7 @@
     <string name="adb_connection_channel_description">ADB 连接激活时显示</string>
     <string name="adb_connection_channel_name">ADB 连接</string>
     <string name="adb_connection_description">WiFi ADB 连接正在维护中</string>
-    <string name="adb_agent">ADB 代理</string>
     <string name="adb_sideload">ADB sideload</string>
-    <string name="ai_prompt_suggestion_1">检查我的电池健康</string>
-    <string name="ai_prompt_suggestion_2">列出所有已安装的软件包</string>
-    <string name="ai_prompt_suggestion_3">帮助我创建一个快速设置瓷块</string>
-    <string name="ai_new_chat_welcome_msg">您好，我可以为您做些什么？</string>
     <string name="adb_through_otg">通过 OTG 使用 ADB</string>
     <string name="adb_through_otg_summary">使用OTG线为另一个安卓设备执行ADB命令。在此之前，你需要为目标设备启用USB调试。</string>
     <string name="adb_via_otg">通过 OTG 进行ADB</string>
@@ -48,6 +46,10 @@
     <string name="ai_chat_unpin">Unpin</string>
     <string name="ai_chat_use">使用</string>
     <string name="ai_models">AI &amp; Models</string>
+    <string name="ai_new_chat_welcome_msg">您好，我可以为您做些什么？</string>
+    <string name="ai_prompt_suggestion_1">检查我的电池健康</string>
+    <string name="ai_prompt_suggestion_2">列出所有已安装的软件包</string>
+    <string name="ai_prompt_suggestion_3">帮助我创建一个快速设置瓷块</string>
     <string name="ai_theme_prompt_hint">例如：Cyberpunk neon 城市，黑暗模式，高对比度</string>
     <string name="all">所有的</string>
     <string name="all_data">所有数据</string>
@@ -135,6 +137,51 @@
     <string name="cloud_restore_successful">从 Google Drive 恢复</string>
     <string name="code_pair_instruction">在目标设备上打开“无线调试”，然后点击配对码的“配对设备”</string>
     <string name="collapse">折叠</string>
+    <string name="color_preview_error_occurred">发生错误</string>
+    <string name="color_preview_high_elevation">高海拔(对话框)</string>
+    <string name="color_preview_highest_elevation">最高海拔(底板)</string>
+    <string name="color_preview_list_item">列表项/文本字段</string>
+    <string name="color_preview_low_elevation">低海拔(电梯卡)</string>
+    <string name="color_preview_lowest_elevation">最低高度</string>
+    <string name="color_preview_outlined_button">外观按钮</string>
+    <string name="color_preview_primary_button">主按钮</string>
+    <string name="color_preview_screen_content">屏幕内容</string>
+    <string name="color_preview_standard_elevation">标准海拔(Card)</string>
+    <string name="color_preview_surface_area">表面区域</string>
+    <string name="color_preview_tonal_button">切换按钮</string>
+    <string name="color_role_app_background">应用背景</string>
+    <string name="color_role_background">二. 背景</string>
+    <string name="color_role_error">错误</string>
+    <string name="color_role_error_container">错误容器</string>
+    <string name="color_role_main_accent">主口音(主要)</string>
+    <string name="color_role_on_background" context="The color used for text and icons drawn on top of the background color">在背景</string>
+    <string name="color_role_on_error" context="The color used for text and icons drawn on top of the error color">发生错误</string>
+    <string name="color_role_on_error_container" context="The color used for text and icons drawn on top of the error container color">在错误容器</string>
+    <string name="color_role_on_primary" context="The color used for text and icons drawn on top of the primary color">在首页</string>
+    <string name="color_role_on_primary_container" context="The color used for text and icons drawn on top of the primary container color">在主容器</string>
+    <string name="color_role_on_secondary" context="The color used for text and icons drawn on top of the secondary color">在次要时</string>
+    <string name="color_role_on_secondary_container" context="The color used for text and icons drawn on top of the secondary container color">在次要容器</string>
+    <string name="color_role_on_surface" context="The color used for text and icons drawn on top of the surface color">在地面上</string>
+    <string name="color_role_on_surface_variant" context="The color used for text and icons drawn on top of the surface variant color">在表面变体</string>
+    <string name="color_role_on_tertiary" context="The color used for text and icons drawn on top of the tertiary color">在高等上</string>
+    <string name="color_role_on_tertiary_container" context="The color used for text and icons drawn on top of the tertiary container color">在三级容器</string>
+    <string name="color_role_outline">轮廓：</string>
+    <string name="color_role_outline_variant">轮廓变体</string>
+    <string name="color_role_primary">主要的</string>
+    <string name="color_role_primary_container">主容器</string>
+    <string name="color_role_secondary">次要文件</string>
+    <string name="color_role_secondary_accent">次要Accent</string>
+    <string name="color_role_secondary_container">辅助容器</string>
+    <string name="color_role_surface">表面</string>
+    <string name="color_role_surface_container">表面容器</string>
+    <string name="color_role_surface_container_high">表面容器高</string>
+    <string name="color_role_surface_container_highest">表面容器最高值</string>
+    <string name="color_role_surface_container_low">表面容器低</string>
+    <string name="color_role_surface_container_lowest">表面容器最低值</string>
+    <string name="color_role_surface_variant">表面变体</string>
+    <string name="color_role_tertiary">三等式</string>
+    <string name="color_role_tertiary_accent">第三音度</string>
+    <string name="color_role_tertiary_container">三级容器</string>
     <string name="command">命令</string>
     <string name="command_analysis">命令分析</string>
     <string name="command_not_found">找不到命令！</string>
@@ -448,7 +495,6 @@
     <string name="history">历史</string>
     <string name="home">首页</string>
     <string name="icon_selected">选择图标</string>
-    <string name="_import">导入</string>
     <string name="import_theme">导入主题</string>
     <string name="include">包含</string>
     <string name="info">信息</string>
@@ -507,6 +553,7 @@
     <string name="logs">日志</string>
     <string name="look_and_feel">外观 &amp; 体验</string>
     <string name="low">低</string>
+    <string name="low_contrast_ratio">低对比度</string>
     <string name="make_your_theme_title">制作您的主题</string>
     <string name="manual_pair">手动配对</string>
     <string name="max_download_size">最大下载</string>
@@ -628,6 +675,7 @@
     <string name="permission_denied">权限被拒绝</string>
     <string name="permission_optional">这些权限的授予是可选的！按需授权</string>
     <string name="pick_ashellyou_extension">请选择一个 .ashellyou 扩展名的文件</string>
+    <string name="pick_color">选择颜色</string>
     <string name="port">端口</string>
     <string name="possible_reasons">可能的原因</string>
     <string name="pre_release_github">预释放(GitHub)</string>
@@ -782,6 +830,7 @@
     <string name="system_default">系统默认</string>
     <string name="system_font" comment="Option to use the device default font">系统字体</string>
     <string name="system_settings">系统设置</string>
+    <string name="tab">Tab</string>
     <string name="tag">标签</string>
     <string name="telegram">Telegram</string>
     <string name="terminal">终端</string>

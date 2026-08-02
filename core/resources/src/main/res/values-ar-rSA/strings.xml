@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
+    <string name="_import">استيراد</string>
+    <string name="_new">جديد</string>
     <string name="abort_command">أولاً أوقف الأمر</string>
     <string name="about">حول</string>
     <string name="active">نشط</string>
     <string name="active_slot">خانة نشطة</string>
     <string name="adb">ADB</string>
+    <string name="adb_agent">وكيل ADB</string>
     <string name="adb_command">أمر ADB</string>
     <string name="adb_command_hint" comment="Example ADB command shown as placeholder hint in input field">adb reboot</string>
     <string name="adb_command_off_state">أمر ADB (OFF state)</string>
@@ -13,12 +16,7 @@
     <string name="adb_connection_channel_description">يظهر عندما يكون اتصال ADB نشط</string>
     <string name="adb_connection_channel_name">اتصال ADB</string>
     <string name="adb_connection_description">يتم الحفاظ على اتصال WiFi ADB</string>
-    <string name="adb_agent">وكيل ADB</string>
     <string name="adb_sideload">تحميل ADB الجانبي</string>
-    <string name="ai_prompt_suggestion_1">تحقق من صحة البطارية</string>
-    <string name="ai_prompt_suggestion_2">قائمة جميع الحزم المثبتة</string>
-    <string name="ai_prompt_suggestion_3">ساعدني في إنشاء بلاط الإعدادات السريعة</string>
-    <string name="ai_new_chat_welcome_msg">مرحبا، ماذا يمكنني أن أفعل من أجلك؟</string>
     <string name="adb_through_otg">ADB عبر OTG</string>
     <string name="adb_through_otg_summary">استخدم كابل OTG وتصحيح USB لتنفيذ أوامر ADB على جهاز Android آخر. تحتاج إلى تشغيل تصحيح USB في إعدادات المطور على الجهاز المستهدف.</string>
     <string name="adb_via_otg">ADB عبر OTG</string>
@@ -48,6 +46,10 @@
     <string name="ai_chat_unpin">Unpin</string>
     <string name="ai_chat_use">استخدام</string>
     <string name="ai_models">AI &amp; Models</string>
+    <string name="ai_new_chat_welcome_msg">مرحبا، ماذا يمكنني أن أفعل من أجلك؟</string>
+    <string name="ai_prompt_suggestion_1">تحقق من صحة البطارية</string>
+    <string name="ai_prompt_suggestion_2">قائمة جميع الحزم المثبتة</string>
+    <string name="ai_prompt_suggestion_3">ساعدني في إنشاء بلاط الإعدادات السريعة</string>
     <string name="ai_theme_prompt_hint">على سبيل المثال مدينة نيون Cyberpunk ، الوضع المظلم ، تباين كبير</string>
     <string name="all">الكل</string>
     <string name="all_data">جميع البيانات</string>
@@ -135,6 +137,51 @@
     <string name="cloud_restore_successful">استعادة من Google Drive</string>
     <string name="code_pair_instruction">افتح \"التصحيح اللاسلكي\" على الجهاز المستهدف وانقر على \"جهاز مزدوج مع رمز الاقتران\"</string>
     <string name="collapse">تصغير</string>
+    <string name="color_preview_error_occurred">حدث خطأ</string>
+    <string name="color_preview_high_elevation">ترقية عالية (مربع الحوار)</string>
+    <string name="color_preview_highest_elevation">أعلى نقطة (لوحة أسفل)</string>
+    <string name="color_preview_list_item">قائمة العناصر / حقل النص</string>
+    <string name="color_preview_low_elevation">ترقية منخفضة (بطاقة مرتفعة)</string>
+    <string name="color_preview_lowest_elevation">أدنى عنصر</string>
+    <string name="color_preview_outlined_button">الزر الخارجي</string>
+    <string name="color_preview_primary_button">الزر الأساسي</string>
+    <string name="color_preview_screen_content">محتوى الشاشة</string>
+    <string name="color_preview_standard_elevation">ترقية قياسية (بطاقة )</string>
+    <string name="color_preview_surface_area">المنطقة السطحية</string>
+    <string name="color_preview_tonal_button">زر التون</string>
+    <string name="color_role_app_background">خلفية التطبيق</string>
+    <string name="color_role_background">الخلفية</string>
+    <string name="color_role_error">خطأ</string>
+    <string name="color_role_error_container">حاوية خطأ</string>
+    <string name="color_role_main_accent">اللوحة الرئيسية (الرئيسية)</string>
+    <string name="color_role_on_background" context="The color used for text and icons drawn on top of the background color">في الخلفية</string>
+    <string name="color_role_on_error" context="The color used for text and icons drawn on top of the error color">على خطأ</string>
+    <string name="color_role_on_error_container" context="The color used for text and icons drawn on top of the error container color">على حاوية الخطأ</string>
+    <string name="color_role_on_primary" context="The color used for text and icons drawn on top of the primary color">في البداية</string>
+    <string name="color_role_on_primary_container" context="The color used for text and icons drawn on top of the primary container color">على الحاوية الرئيسية</string>
+    <string name="color_role_on_secondary" context="The color used for text and icons drawn on top of the secondary color">في المرحلة الثانوية</string>
+    <string name="color_role_on_secondary_container" context="The color used for text and icons drawn on top of the secondary container color">على الحاوية الثانوية</string>
+    <string name="color_role_on_surface" context="The color used for text and icons drawn on top of the surface color">على السطح</string>
+    <string name="color_role_on_surface_variant" context="The color used for text and icons drawn on top of the surface variant color">المتغير السطحي</string>
+    <string name="color_role_on_tertiary" context="The color used for text and icons drawn on top of the tertiary color">على المستوى الثالث</string>
+    <string name="color_role_on_tertiary_container" context="The color used for text and icons drawn on top of the tertiary container color">حاوية من المستوى الثالث</string>
+    <string name="color_role_outline">مخطط</string>
+    <string name="color_role_outline_variant">متغير المخطط</string>
+    <string name="color_role_primary">اساسي</string>
+    <string name="color_role_primary_container">الحاوية الرئيسية</string>
+    <string name="color_role_secondary">ثانوي</string>
+    <string name="color_role_secondary_accent">اللكنة الثانوية</string>
+    <string name="color_role_secondary_container">الحاوية الثانوية</string>
+    <string name="color_role_surface">السطح</string>
+    <string name="color_role_surface_container">حاوية سطحية</string>
+    <string name="color_role_surface_container_high">حاوية السطح عالية</string>
+    <string name="color_role_surface_container_highest">أعلى حاوية سطحية</string>
+    <string name="color_role_surface_container_low">حاوية السطح منخفضة</string>
+    <string name="color_role_surface_container_lowest">اقل حاوية سطحية</string>
+    <string name="color_role_surface_variant">المتغير السطحي</string>
+    <string name="color_role_tertiary">المستوى الثالث</string>
+    <string name="color_role_tertiary_accent">اللكنة الجامعية</string>
+    <string name="color_role_tertiary_container">حاوية من المستوى الثالث</string>
     <string name="command">أمر</string>
     <string name="command_analysis">تحليل الأوامر</string>
     <string name="command_not_found">لم يتم العثور على أمر!</string>
@@ -449,7 +496,6 @@
     <string name="history">تاريخ</string>
     <string name="home">المنزل</string>
     <string name="icon_selected">الرمز المحدد</string>
-    <string name="_import">استيراد</string>
     <string name="import_theme">استيراد السمة</string>
     <string name="include">تضمين</string>
     <string name="info">معلومات</string>
@@ -508,6 +554,7 @@
     <string name="logs">السجلات</string>
     <string name="look_and_feel">المظهر والشعور</string>
     <string name="low">منخفض</string>
+    <string name="low_contrast_ratio">نسبة التباين المنخفضة</string>
     <string name="make_your_theme_title">اصنع السمة الخاصة بك</string>
     <string name="manual_pair">اقتران يدوي</string>
     <string name="max_download_size">الحد الأقصى للتحميل</string>
@@ -629,6 +676,7 @@
     <string name="permission_denied">تم رفض الإذن</string>
     <string name="permission_optional">منح هذه الأذونات اختياري!</string>
     <string name="pick_ashellyou_extension">الرجاء اختيار ملف مع ملحق .ashellyou</string>
+    <string name="pick_color">اختيار اللون</string>
     <string name="port">المنفذ</string>
     <string name="possible_reasons">الأسباب المحتملة</string>
     <string name="pre_release_github">الإفراج المسبق (GitHub)</string>
@@ -783,6 +831,7 @@
     <string name="system_default">النظام الافتراضي</string>
     <string name="system_font" comment="Option to use the device default font">خط النظام</string>
     <string name="system_settings">إعدادات النظام</string>
+    <string name="tab">Tab</string>
     <string name="tag">وسم</string>
     <string name="telegram">تيليجرام</string>
     <string name="terminal">المحطة</string>
