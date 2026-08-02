@@ -5,6 +5,7 @@ import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbEndpoint;
 import android.hardware.usb.UsbInterface;
 import android.hardware.usb.UsbRequest;
+import android.os.Build;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -21,9 +22,7 @@ public class UsbChannel implements AdbChannel {
     private final UsbEndpoint mEndpointIn;
     private final UsbInterface mInterface;
 
-    private final int defaultTimeout = 1000;
-
-    private final LinkedList<UsbRequest> mInRequestPool = new LinkedList<UsbRequest>();
+    private final LinkedList<UsbRequest> mInRequestPool = new LinkedList<>();
 
     // return an IN request to the pool
     public void releaseInRequest(UsbRequest request) {
@@ -55,7 +54,20 @@ public class UsbChannel implements AdbChannel {
         ByteBuffer expected = ByteBuffer.allocate(length).order(ByteOrder.LITTLE_ENDIAN);
         usbRequest.setClientData(expected);
 
-        if (!usbRequest.queue(expected, length)) {
+        expected.position(0);
+        expected.limit(length);
+
+        boolean success;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            success = usbRequest.queue(expected);
+        } else {
+            @SuppressWarnings("deprecation")
+            boolean legacyResult = usbRequest.queue(expected, length);
+            success = legacyResult;
+        }
+
+        if (!success) {
             throw new IOException("fail to queue read UsbRequest");
         }
 
@@ -69,14 +81,14 @@ public class UsbChannel implements AdbChannel {
             ByteBuffer clientData = (ByteBuffer) wait.getClientData();
             wait.setClientData(null);
 
-            if (wait.getEndpoint() == mEndpointOut) {
-                // a write UsbRequest complete, just ignore
-            } else if (expected == clientData) {
-                releaseInRequest(wait);
-                break;
+            if (wait.getEndpoint() != mEndpointOut) {
+                if (expected == clientData) {
+                    releaseInRequest(wait);
+                    break;
 
-            } else {
-                throw new IOException("unexpected behavior");
+                } else {
+                    throw new IOException("unexpected behavior");
+                }
             }
         }
         expected.flip();
@@ -102,7 +114,7 @@ public class UsbChannel implements AdbChannel {
 //    }
 
     // A dirty solution, only API level 12 is needed, not 18
-    private void writex(byte[] buffer) throws IOException{
+    private void writex(byte[] buffer) throws IOException {
 
         int offset = 0;
         int transferred = 0;
@@ -110,6 +122,7 @@ public class UsbChannel implements AdbChannel {
         byte[] tmp = new byte[buffer.length];
         System.arraycopy(buffer, 0, tmp, 0, buffer.length);
 
+        int defaultTimeout = 1000;
         while ((transferred = mDeviceConnection.bulkTransfer(mEndpointOut, tmp, buffer.length - offset, defaultTimeout)) >= 0) {
             offset += transferred;
             if (offset >= buffer.length) {
