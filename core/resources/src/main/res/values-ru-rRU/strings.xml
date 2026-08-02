@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
+    <string name="_import">Импорт</string>
+    <string name="_new">Новое</string>
     <string name="abort_command">Сначала остановите команду</string>
     <string name="about">О программе</string>
     <string name="active">Активный</string>
     <string name="active_slot">Активный слот</string>
     <string name="adb">ADB</string>
+    <string name="adb_agent">Агент ADB</string>
     <string name="adb_command">Команда ADB</string>
     <string name="adb_command_hint" comment="Example ADB command shown as placeholder hint in input field">adb reboot</string>
     <string name="adb_command_off_state">Команда ADB (состояние ВЫКЛ.)</string>
@@ -13,12 +16,7 @@
     <string name="adb_connection_channel_description">Показывает, когда соединение ADB активно</string>
     <string name="adb_connection_channel_name">Подключение ADB</string>
     <string name="adb_connection_description">Подключение к Wi-Fi ADB поддерживается</string>
-    <string name="adb_agent">Агент ADB</string>
     <string name="adb_sideload">ADB sideload</string>
-    <string name="ai_prompt_suggestion_1">Проверить здоровье моего аккумулятора</string>
-    <string name="ai_prompt_suggestion_2">Перечислить все установленные пакеты</string>
-    <string name="ai_prompt_suggestion_3">Помочь мне создать плитку быстрых настроек</string>
-    <string name="ai_new_chat_welcome_msg">Привет, что я могу для тебя сделать?</string>
     <string name="adb_through_otg">ADB через OTG</string>
     <string name="adb_through_otg_summary">Используйте OTG кабель и отладку по USB для выполнения команд ADB на другом устройстве Android. Необходимо включить отладку по USB в настройках разработчика целевого устройства.</string>
     <string name="adb_via_otg">ADB через OTG</string>
@@ -48,6 +46,10 @@
     <string name="ai_chat_unpin">Открепить</string>
     <string name="ai_chat_use">Использовать</string>
     <string name="ai_models">AI &amp; Модели</string>
+    <string name="ai_new_chat_welcome_msg">Привет, что я могу для тебя сделать?</string>
+    <string name="ai_prompt_suggestion_1">Проверить здоровье моего аккумулятора</string>
+    <string name="ai_prompt_suggestion_2">Перечислить все установленные пакеты</string>
+    <string name="ai_prompt_suggestion_3">Помочь мне создать плитку быстрых настроек</string>
     <string name="ai_theme_prompt_hint">например, Cyberpunk неоновый город, темный режим, высокая контрастность</string>
     <string name="all">Все</string>
     <string name="all_data">Все данные</string>
@@ -135,6 +137,51 @@
     <string name="cloud_restore_successful">Восстановлено с Google Диска</string>
     <string name="code_pair_instruction">Откройте \"Беспроводная отладка\" на целевом устройстве и нажмите \"Сопрячь устройство с помощью кода сопряжения\"</string>
     <string name="collapse">Свернуть</string>
+    <string name="color_preview_error_occurred">Произошла ошибка</string>
+    <string name="color_preview_high_elevation">Высокая высота (диалог)</string>
+    <string name="color_preview_highest_elevation">Высокая высота (нижний лист)</string>
+    <string name="color_preview_list_item">Элемент списка / Текстовое поле</string>
+    <string name="color_preview_low_elevation">Низкая высота (Высота карты)</string>
+    <string name="color_preview_lowest_elevation">Самая низкая высота</string>
+    <string name="color_preview_outlined_button">Контурная кнопка</string>
+    <string name="color_preview_primary_button">Первичная кнопка</string>
+    <string name="color_preview_screen_content">Содержимое экрана</string>
+    <string name="color_preview_standard_elevation">Стандартная высота (Карты)</string>
+    <string name="color_preview_surface_area">Площадь поверхности</string>
+    <string name="color_preview_tonal_button">Тональная кнопка</string>
+    <string name="color_role_app_background">Фон приложения</string>
+    <string name="color_role_background">Фон</string>
+    <string name="color_role_error">Ошибка</string>
+    <string name="color_role_error_container">Контейнер ошибок</string>
+    <string name="color_role_main_accent">Главный Акцент (Первичный)</string>
+    <string name="color_role_on_background" context="The color used for text and icons drawn on top of the background color">На фоне</string>
+    <string name="color_role_on_error" context="The color used for text and icons drawn on top of the error color">При ошибке</string>
+    <string name="color_role_on_error_container" context="The color used for text and icons drawn on top of the error container color">На контейнере ошибок</string>
+    <string name="color_role_on_primary" context="The color used for text and icons drawn on top of the primary color">На Первичном</string>
+    <string name="color_role_on_primary_container" context="The color used for text and icons drawn on top of the primary container color">На первичном контейнере</string>
+    <string name="color_role_on_secondary" context="The color used for text and icons drawn on top of the secondary color">На вторичном</string>
+    <string name="color_role_on_secondary_container" context="The color used for text and icons drawn on top of the secondary container color">На вторичном контейнере</string>
+    <string name="color_role_on_surface" context="The color used for text and icons drawn on top of the surface color">На поверхности</string>
+    <string name="color_role_on_surface_variant" context="The color used for text and icons drawn on top of the surface variant color">В варианте поверхности</string>
+    <string name="color_role_on_tertiary" context="The color used for text and icons drawn on top of the tertiary color">В Третичном</string>
+    <string name="color_role_on_tertiary_container" context="The color used for text and icons drawn on top of the tertiary container color">О третичном контейнере</string>
+    <string name="color_role_outline">Контур</string>
+    <string name="color_role_outline_variant">Вариант контура</string>
+    <string name="color_role_primary">Первичный</string>
+    <string name="color_role_primary_container">Первичный контейнер</string>
+    <string name="color_role_secondary">Вторичный</string>
+    <string name="color_role_secondary_accent">Вторичный Акцент</string>
+    <string name="color_role_secondary_container">Вторичный контейнер</string>
+    <string name="color_role_surface">Поверхность</string>
+    <string name="color_role_surface_container">Контейнер поверхности</string>
+    <string name="color_role_surface_container_high">Высокая поверхность контейнера</string>
+    <string name="color_role_surface_container_highest">Наивысший контейнер поверхности</string>
+    <string name="color_role_surface_container_low">Низкая поверхность контейнера</string>
+    <string name="color_role_surface_container_lowest">Наименьший поверхностный контейнер</string>
+    <string name="color_role_surface_variant">Вариант поверхности</string>
+    <string name="color_role_tertiary">Третичный</string>
+    <string name="color_role_tertiary_accent">Третичный акцент</string>
+    <string name="color_role_tertiary_container">Третичный контейнер</string>
     <string name="command">Команда</string>
     <string name="command_analysis">Анализ команд</string>
     <string name="command_not_found">Команда не найдена!</string>
@@ -172,7 +219,7 @@
     <string name="create">Создать</string>
     <string name="create_folder">Создать папку</string>
     <string name="create_new_tile">Создать новую плитку</string>
-    <string name="create_with_ai">Создать с помощью ИИ</string>
+    <string name="create_with_ai">Создать с помощью AI</string>
     <string name="crowdin_contribution_msg">Посетите нашу платформу переводов crowdin, чтобы внести свой вклад</string>
     <string name="current_version">Текущая версия</string>
     <string name="custom_ui_scale">Свой масштаб UI</string>
@@ -195,7 +242,7 @@
     <string name="des_about">Сотрудники и поддержка</string>
     <string name="des_ai_cache_days">Количество дней для хранения кэшированных результатов</string>
     <string name="des_ai_cache_enabled">Результаты анализа кэша по модели</string>
-    <string name="des_ai_models">Управление данными и API моделей ИИ</string>
+    <string name="des_ai_models">Управлять AI данными моделей и API ключами</string>
     <string name="des_auto_backup_content_type">Выберите, что включить в авто резервирования</string>
     <string name="des_auto_backup_folder">Выберите папку для сохранения авто резервирования</string>
     <string name="des_auto_backup_time">Установите время для авто резервирования</string>
@@ -421,14 +468,14 @@
     <string name="frequency">Частота</string>
     <string name="full_license_text">Полный текст лицензии</string>
     <string name="gemini_api_key_step_1">Посетите Google AI Studio на aistudio.google.com</string>
-    <string name="gemini_api_key_step_2">Войти с помощью учетной записи Google</string>
-    <string name="gemini_api_key_step_3">Нажмите на клавишу Create API и выберите или создайте проект</string>
-    <string name="gemini_api_key_step_4">Скопируйте ваш ключ API и вставьте его ниже</string>
-    <string name="generate_color_scheme">Создать цветовую схему</string>
-    <string name="generate_scheme">Создать схему</string>
-    <string name="generate_theme">Создать тему</string>
+    <string name="gemini_api_key_step_2">Войти с помощью своего Google Account</string>
+    <string name="gemini_api_key_step_3">Нажмите на клавишу создать API ключ и выберите или создайте проект</string>
+    <string name="gemini_api_key_step_4">Скопируйте ваш API ключ и вставьте его ниже</string>
+    <string name="generate_color_scheme">Сгенерировать цветовую схему</string>
+    <string name="generate_scheme">Сгенерировать схему</string>
+    <string name="generate_theme">Сгенерировать тему</string>
     <string name="generate_tile">Генерировать плитку</string>
-    <string name="get_api_key">Get API key</string>
+    <string name="get_api_key">Получить API ключ</string>
     <string name="get_variables">Получить переменные</string>
     <string name="go_home">На главную</string>
     <string name="go_to_terminal">Перейти в терминал</string>
@@ -448,7 +495,6 @@
     <string name="history">История</string>
     <string name="home">Главная</string>
     <string name="icon_selected">Иконка выбрана</string>
-    <string name="_import">Импорт</string>
     <string name="import_theme">Импортировать тему</string>
     <string name="include">Включить</string>
     <string name="info">Информация</string>
@@ -461,7 +507,7 @@
     <string name="irreversible_action_warning">Это действие необратимо!</string>
     <string name="item_deleted">Элемент был успешно удалён</string>
     <string name="keep_both">Оставить оба</string>
-    <string name="key_verified_success_msg">Ключ успешно подтвержден</string>
+    <string name="key_verified_success_msg">Ключ успешно проверен</string>
     <string name="label">Метка</string>
     <string name="languages">Языки</string>
     <string name="last_auto_backup_cloud">Последнее авто резервирование в облаке</string>
@@ -507,13 +553,14 @@
     <string name="logs">Журналы</string>
     <string name="look_and_feel">Оформление</string>
     <string name="low">Низкий</string>
-    <string name="make_your_theme_title">Сделайте вашу тему</string>
+    <string name="low_contrast_ratio">Низкий контрастный коэффициент</string>
+    <string name="make_your_theme_title">Создайте свою тему</string>
     <string name="manual_pair">Ручное сопряжение</string>
     <string name="max_download_size">Максимальная загрузка</string>
     <string name="medium">Средний</string>
     <string name="merge">Объединить</string>
     <string name="message">Сообщение</string>
-    <string name="message_adb_agent">Сообщение Агента ADB…</string>
+    <string name="message_adb_agent">Сообщение ADB Агента…</string>
     <string name="minimize">Минимизировать</string>
     <string name="mode">Режим</string>
     <string name="mode_one_desc">Используйте root доступ для запуска команд. Rooted команды могут быть выполнены.</string>
@@ -578,12 +625,12 @@
     <string name="oldest" comment="Sorting option">Найстаріший</string>
     <string name="on">Включить</string>
     <string name="on_background">На фоне</string>
-    <string name="on_primary">На Основном</string>
+    <string name="on_primary">На Первичном</string>
     <string name="on_primary_container">На первичном контейнере</string>
     <string name="on_secondary">На вторичном</string>
     <string name="on_state" comment="Quick Settings tile toggle state label">\"Вкл\"</string>
     <string name="on_surface">На поверхности</string>
-    <string name="on_tertiary">В Третичном</string>
+    <string name="on_tertiary">На Третичном</string>
     <string name="open">Открыть</string>
     <string name="open_app_language_settings">Открыть настройки языка приложения</string>
     <string name="open_issues" comment="GitHub repository open issues count">Открыть вопросы</string>
@@ -628,6 +675,7 @@
     <string name="permission_denied">Разрешение отклонено</string>
     <string name="permission_optional">Предоставление этих разрешений необязательно!</string>
     <string name="pick_ashellyou_extension">Пожалуйста, выберите файл с расширением \".ashellyou\"</string>
+    <string name="pick_color">Выбрать цвет</string>
     <string name="port">Порт</string>
     <string name="possible_reasons">Возможные причины</string>
     <string name="pre_release_github">Пред релиз (GitHub)</string>
@@ -636,7 +684,7 @@
     <string name="preference">Предпочтение</string>
     <string name="preview">Предпросмотр</string>
     <string name="primary">Первичный</string>
-    <string name="primary_container">Основной контейнер</string>
+    <string name="primary_container">Первичный контейнер</string>
     <string name="product">Продукт</string>
     <string name="qr_pair">Сопряжение QR</string>
     <string name="qr_pair_hint">Для сопряжения устройства Android 11+ сканируйте этот QR с целевого устройства</string>
@@ -685,8 +733,8 @@
     <string name="resume">Продовжити</string>
     <string name="retry">Повторить</string>
     <string name="root_access_granted">Root доступ предоставлен!</string>
-    <string name="root_unavailable">Root доступ недоступен</string>
-    <string name="root_unavailable_message">Root доступ не обнаружен. Убедитесь, что устройство рут и повторите попытку или переключитесь на другой источник logcat .</string>
+    <string name="root_unavailable">Root недоступен</string>
+    <string name="root_unavailable_message">Root доступ не обнаружен. Убедитесь, что устройство rooted и повторите попытку или переключитесь на другой источник logcat.</string>
     <string name="running">Выполняется</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Сохранить</string>
@@ -720,7 +768,7 @@
     <string name="select_backup_folder_title">Нет папки резервирования</string>
     <string name="select_folder">Выберите папку</string>
     <string name="select_partition">Выберите раздел</string>
-    <string name="select_theme_to_edit_hex">Выберите шаблон выше, чтобы изменить его шестнадцатеричные значения здесь.</string>
+    <string name="select_theme_to_edit_hex">Выберите шаблон выше, чтобы изменить его hex значения здесь.</string>
     <string name="select_time">Выберите время</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">Своё</string>
     <string name="self_pair_connection_failed">Ошибка подключения - попробуйте ручное подключение</string>
@@ -782,6 +830,7 @@
     <string name="system_default">Системные по умолчанию</string>
     <string name="system_font" comment="Option to use the device default font">Системный шрифт</string>
     <string name="system_settings">Системные настройки</string>
+    <string name="tab">Вкладка</string>
     <string name="tag">Тег</string>
     <string name="telegram">Telegram</string>
     <string name="terminal">Терминал</string>
@@ -829,7 +878,7 @@
     <string name="utilities">Утилиты</string>
     <string name="variant">Вариант</string>
     <string name="verification_failed">Проверка не удалась</string>
-    <string name="verify_api_key">Проверка ключа API</string>
+    <string name="verify_api_key">Проверка API ключа</string>
     <string name="verifying">Проверка</string>
     <string name="version">Версия</string>
     <string name="version_code">Код версии</string>
@@ -860,7 +909,7 @@
     <string name="wireless_debugging_guide_3">Вернитесь в приложение и нажмите кнопку \"Запустить\" на главном экране.</string>
     <string name="wireless_debugging_important_notice">Обратите внимание, что левая часть опции \"Беспроводная отладка\" является кликабельной. При нажатии на неё откроется меню \"Сопряжения\" для \"Беспроводной отладки\".</string>
     <string name="wireless_not_connected">Не подключен</string>
-    <string name="wireless_not_connected_message">Ваше устройство не подключено через Беспроводную Отладку. Соедините сначала ваше устройство и подключите его.</string>
+    <string name="wireless_not_connected_message">Устройство не подключено из-за беспроводной настройки. Сначала соединить и подключить устройство.</string>
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d новая запись</item>
         <item quantity="few">%1$d новых записей</item>

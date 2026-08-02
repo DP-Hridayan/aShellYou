@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
+    <string name="_import">インポート</string>
+    <string name="_new">新規作成</string>
     <string name="abort_command">実行中のコマンドを終了してください</string>
     <string name="about">このアプリについて</string>
     <string name="active">アクティブ</string>
     <string name="active_slot">アクティブスロット</string>
     <string name="adb">ADB</string>
+    <string name="adb_agent">ADB エージェント</string>
     <string name="adb_command">ADB コマンド</string>
     <string name="adb_command_hint" comment="Example ADB command shown as placeholder hint in input field">adb reboot</string>
     <string name="adb_command_off_state">ADB コマンド (OFF 状態)</string>
@@ -13,12 +16,7 @@
     <string name="adb_connection_channel_description">ADB 接続がアクティブな時に表示</string>
     <string name="adb_connection_channel_name">ADB 接続</string>
     <string name="adb_connection_description">WiFi ADB 接続は維持されています</string>
-    <string name="adb_agent">ADB エージェント</string>
     <string name="adb_sideload">ADB sideload</string>
-    <string name="ai_prompt_suggestion_1">バッテリーの状態を確認する</string>
-    <string name="ai_prompt_suggestion_2">インストールされているすべてのパッケージの一覧</string>
-    <string name="ai_prompt_suggestion_3">クイック設定タイルを作成するのを手伝ってください</string>
-    <string name="ai_new_chat_welcome_msg">こんにちは、何ができますか？</string>
     <string name="adb_through_otg">OTGを介したADB</string>
     <string name="adb_through_otg_summary">OTGケーブルとUSBデバッグを使用して、別のAndroidデバイスでADBコマンドを実行します。 対象デバイスの開発者設定でUSBデバッグを有効にする必要があります。</string>
     <string name="adb_via_otg">OTG 経由のADB</string>
@@ -48,6 +46,10 @@
     <string name="ai_chat_unpin">Unpin</string>
     <string name="ai_chat_use">使用</string>
     <string name="ai_models">AI &amp; Models</string>
+    <string name="ai_new_chat_welcome_msg">こんにちは、何ができますか？</string>
+    <string name="ai_prompt_suggestion_1">バッテリーの状態を確認する</string>
+    <string name="ai_prompt_suggestion_2">インストールされているすべてのパッケージの一覧</string>
+    <string name="ai_prompt_suggestion_3">クイック設定タイルを作成するのを手伝ってください</string>
     <string name="ai_theme_prompt_hint">例: Cyberpunk neon city, darkmode, high-direction</string>
     <string name="all">すべて</string>
     <string name="all_data">すべてのデータ</string>
@@ -135,6 +137,51 @@
     <string name="cloud_restore_successful">Google ドライブから復元しました</string>
     <string name="code_pair_instruction">対象デバイスで「ワイヤレスデバッグ」を開き、「ペアリングコードとペアリングデバイス」をタップします。</string>
     <string name="collapse">折りたたむ</string>
+    <string name="color_preview_error_occurred">エラーが起きました</string>
+    <string name="color_preview_high_elevation">標高上昇 (ダイアログ)</string>
+    <string name="color_preview_highest_elevation">最高標高（Bottom Sheet）</string>
+    <string name="color_preview_list_item">リストアイテム / テキストフィールド</string>
+    <string name="color_preview_low_elevation">低い標高(昇格したカード)</string>
+    <string name="color_preview_lowest_elevation">最低標高値</string>
+    <string name="color_preview_outlined_button">アウトラインボタン</string>
+    <string name="color_preview_primary_button">プライマリボタン</string>
+    <string name="color_preview_screen_content">画面の内容</string>
+    <string name="color_preview_standard_elevation">標準的な標高値（カード）</string>
+    <string name="color_preview_surface_area">表面エリア</string>
+    <string name="color_preview_tonal_button">音色ボタン</string>
+    <string name="color_role_app_background">アプリの背景</string>
+    <string name="color_role_background">背景</string>
+    <string name="color_role_error">エラー</string>
+    <string name="color_role_error_container">Error Container</string>
+    <string name="color_role_main_accent">メイン・アクセント（プライマリ）</string>
+    <string name="color_role_on_background" context="The color used for text and icons drawn on top of the background color">背景に</string>
+    <string name="color_role_on_error" context="The color used for text and icons drawn on top of the error color">エラー時</string>
+    <string name="color_role_on_error_container" context="The color used for text and icons drawn on top of the error container color">On Error Container</string>
+    <string name="color_role_on_primary" context="The color used for text and icons drawn on top of the primary color">プライマリで</string>
+    <string name="color_role_on_primary_container" context="The color used for text and icons drawn on top of the primary container color">プライマリコンテナ上</string>
+    <string name="color_role_on_secondary" context="The color used for text and icons drawn on top of the secondary color">セカンダリ時</string>
+    <string name="color_role_on_secondary_container" context="The color used for text and icons drawn on top of the secondary container color">セカンダリコンテナ上</string>
+    <string name="color_role_on_surface" context="The color used for text and icons drawn on top of the surface color">表面上</string>
+    <string name="color_role_on_surface_variant" context="The color used for text and icons drawn on top of the surface variant color">オンサーフェスバリエーション</string>
+    <string name="color_role_on_tertiary" context="The color used for text and icons drawn on top of the tertiary color">第三紀で</string>
+    <string name="color_role_on_tertiary_container" context="The color used for text and icons drawn on top of the tertiary container color">第三次コンテナ上</string>
+    <string name="color_role_outline">概要</string>
+    <string name="color_role_outline_variant">アウトラインバリエーション</string>
+    <string name="color_role_primary">プライマリ（プライマリ）</string>
+    <string name="color_role_primary_container">プライマリコンテナ</string>
+    <string name="color_role_secondary">Secondary</string>
+    <string name="color_role_secondary_accent">セカンダリアクセント</string>
+    <string name="color_role_secondary_container">セカンダリコンテナ</string>
+    <string name="color_role_surface">Surface</string>
+    <string name="color_role_surface_container">表面コンテナ</string>
+    <string name="color_role_surface_container_high">表面コンテナ高</string>
+    <string name="color_role_surface_container_highest">表面コンテナ最高値</string>
+    <string name="color_role_surface_container_low">表面コンテナが低い</string>
+    <string name="color_role_surface_container_lowest">表面コンテナの最小値</string>
+    <string name="color_role_surface_variant">サーフェスバリエーション</string>
+    <string name="color_role_tertiary">三&lt;unk&gt;</string>
+    <string name="color_role_tertiary_accent">三次アクセントformat@@0</string>
+    <string name="color_role_tertiary_container">三次形コンテナ</string>
     <string name="command">(Command)</string>
     <string name="command_analysis">コマンド分析</string>
     <string name="command_not_found">コマンドが見つかりません！</string>
@@ -448,7 +495,6 @@
     <string name="history">歴史</string>
     <string name="home">ホーム</string>
     <string name="icon_selected">アイコンを選択しました</string>
-    <string name="_import">インポート</string>
     <string name="import_theme">テーマをインポート</string>
     <string name="include">Include</string>
     <string name="info">情報</string>
@@ -507,6 +553,7 @@
     <string name="logs">ログ</string>
     <string name="look_and_feel">見た目&amp;触覚</string>
     <string name="low">低い</string>
+    <string name="low_contrast_ratio">コントラストが低い比</string>
     <string name="make_your_theme_title">テーマを作成</string>
     <string name="manual_pair">手動ペア</string>
     <string name="max_download_size">最大ダウンロード</string>
@@ -628,6 +675,7 @@
     <string name="permission_denied">権限がありません</string>
     <string name="permission_optional">これらの権限を付与することは任意です！</string>
     <string name="pick_ashellyou_extension">拡張子が .ashellyou のファイルを選択してください</string>
+    <string name="pick_color">色を選択</string>
     <string name="port">ポート</string>
     <string name="possible_reasons">考えられる理由</string>
     <string name="pre_release_github">プレリリース(GitHub)</string>
@@ -782,6 +830,7 @@
     <string name="system_default">システムのデフォルト</string>
     <string name="system_font" comment="Option to use the device default font">システムフォント</string>
     <string name="system_settings">システム設定</string>
+    <string name="tab">Tab</string>
     <string name="tag">タグ</string>
     <string name="telegram">Telegram</string>
     <string name="terminal">ターミナル</string>

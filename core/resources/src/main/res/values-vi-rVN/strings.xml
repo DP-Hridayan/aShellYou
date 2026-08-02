@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
+    <string name="_import">Nhập</string>
+    <string name="_new">Mới</string>
     <string name="abort_command">Hủy lệnh trước</string>
     <string name="about">Giới thiệu về ứng dụng</string>
     <string name="active">Hoạt động</string>
-    <string name="active_slot">Khe cắm hoạt động</string>
+    <string name="active_slot">Slot đang hoạt động</string>
     <string name="adb">ADB</string>
+    <string name="adb_agent">ADB Agent</string>
     <string name="adb_command">Lệnh ADB</string>
     <string name="adb_command_hint" comment="Example ADB command shown as placeholder hint in input field">adb reboot</string>
     <string name="adb_command_off_state">Lệnh ADB (Trạng thái TẮT)</string>
@@ -13,59 +16,58 @@
     <string name="adb_connection_channel_description">Hiển thị khi kết nối ADB đang hoạt động</string>
     <string name="adb_connection_channel_name">Kết nối ADB</string>
     <string name="adb_connection_description">Kết nối WiFi ADB đang được duy trì</string>
-    <string name="adb_agent">ADB Agent</string>
-    <string name="adb_sideload">ADB Sideload</string>
-    <string name="ai_prompt_suggestion_1">Check my battery health</string>
-    <string name="ai_prompt_suggestion_2">List all installed packages</string>
-    <string name="ai_prompt_suggestion_3">Help me create a Quick Settings tile</string>
-    <string name="ai_new_chat_welcome_msg">Hi, what can I do for you?</string>
+    <string name="adb_sideload">ADB sideload</string>
     <string name="adb_through_otg">ADB qua OTG</string>
     <string name="adb_through_otg_summary">Sử dụng cáp OTG và gỡ lỗi USB để thực thi các lệnh ADB trên thiết bị Android khác. Cần bật gỡ lỗi USB trong cài đặt nhà phát triển của thiết bị mục tiêu.</string>
     <string name="adb_via_otg">ADB qua OTG</string>
-    <string name="adb_via_wireless_debugging">ADB qua \"Gỡ lỗi không dây\"</string>
-    <string name="adb_via_wireless_debugging_summary">Kết nối các thiết bị (Android 11+) qua Wi-Fi bằng tính năng gỡ lỗi không dây và thực thi lệnh ADB từ xa.</string>
+    <string name="adb_via_wireless_debugging">ADB qua Gỡ lỗi không dây</string>
+    <string name="adb_via_wireless_debugging_summary">Kết nối các thiết bị (Android 11+) qua WiFi bằng tính năng gỡ lỗi không dây và thực thi lệnh ADB từ xa.</string>
     <string name="add">Thêm</string>
     <string name="add_account">Thêm tài khoản</string>
-    <string name="add_api_key">Add API key</string>
+    <string name="add_api_key">Thêm khóa API</string>
     <string name="add_command">Thêm lệnh</string>
     <string name="add_new_item">Thêm mục mới</string>
     <string name="additional_settings">Cài đặt bổ sung</string>
-    <string name="ai_cache_days">Thời lượng cache</string>
-    <string name="ai_cache_enabled">Bật cache</string>
-    <string name="ai_chat_allow">Allow</string>
-    <string name="ai_chat_allow_run_command">Allow AI to run command:</string>
-    <string name="ai_chat_always_allow">Always Allow</string>
-    <string name="ai_chat_cancel">Cancel</string>
-    <string name="ai_chat_delete">Delete</string>
-    <string name="ai_chat_deny">Deny</string>
-    <string name="ai_chat_new_chat">New Chat</string>
-    <string name="ai_chat_pin">Pin</string>
-    <string name="ai_chat_rename">Rename</string>
-    <string name="ai_chat_running">Running: </string>
-    <string name="ai_chat_save">Save</string>
-    <string name="ai_chat_sessions">Chat Sessions</string>
-    <string name="ai_chat_thoughts">Thoughts…</string>
-    <string name="ai_chat_unpin">Unpin</string>
-    <string name="ai_chat_use">Use</string>
+    <string name="ai_cache_days">Thời gian lưu bộ nhớ đệm</string>
+    <string name="ai_cache_enabled">Bật bộ nhớ đệm</string>
+    <string name="ai_chat_allow">Cho phép</string>
+    <string name="ai_chat_allow_run_command">Cho phép AI chạy lệnh:</string>
+    <string name="ai_chat_always_allow">Luôn cho phép</string>
+    <string name="ai_chat_cancel">Hủy</string>
+    <string name="ai_chat_delete">Xóa</string>
+    <string name="ai_chat_deny">Từ chối</string>
+    <string name="ai_chat_new_chat">Đoạn chat mới</string>
+    <string name="ai_chat_pin">Ghim</string>
+    <string name="ai_chat_rename">Đổi tên</string>
+    <string name="ai_chat_running">Đang chạy: </string>
+    <string name="ai_chat_save">Lưu</string>
+    <string name="ai_chat_sessions">Phiên chat</string>
+    <string name="ai_chat_thoughts">Đang suy nghĩ…</string>
+    <string name="ai_chat_unpin">Bỏ ghim</string>
+    <string name="ai_chat_use">Sử dụng</string>
     <string name="ai_models">AI &amp; Mô hình</string>
-    <string name="ai_theme_prompt_hint">e.g. Cyberpunk neon city, dark mode, high contrast</string>
+    <string name="ai_new_chat_welcome_msg">Xin chào, tôi có thể giúp gì cho bạn?</string>
+    <string name="ai_prompt_suggestion_1">Kiểm tra tình trạng pin của tôi</string>
+    <string name="ai_prompt_suggestion_2">Liệt kê tất cả các gói đã cài đặt</string>
+    <string name="ai_prompt_suggestion_3">Giúp tôi tạo một ô Cài đặt nhanh</string>
+    <string name="ai_theme_prompt_hint">VD: Thành phố neon Cyberpunk, chế độ tối, độ tương phản cao</string>
     <string name="all">Tất cả</string>
     <string name="all_data">Tất cả dữ liệu</string>
     <string name="already_connected">Đã kết nối</string>
     <string name="already_latest_version">Bạn đang sử dụng phiên bản mới nhất</string>
-    <string name="always_allow_base">Always allow base</string>
-    <string name="always_allow_exact">Always allow exact</string>
-    <string name="analyse">Analyse</string>
-    <string name="api_key">API key</string>
-    <string name="api_key_is_saved">API key is saved</string>
-    <string name="api_key_required">API Key Required</string>
-    <string name="api_key_required_message">An API key is required to use AI features. Please add your API key in Settings -&gt; Cloud Models.</string>
+    <string name="always_allow_base">Luôn cho phép lệnh nhưng bỏ qua tham số</string>
+    <string name="always_allow_exact">Luôn cho phép lệnh nguyên văn</string>
+    <string name="analyse">Phân tích</string>
+    <string name="api_key">Khóa API</string>
+    <string name="api_key_is_saved">Đã lưu khóa API</string>
+    <string name="api_key_required">Yêu cầu khóa API</string>
+    <string name="api_key_required_message">Yêu cầu phải có khóa API để sử dụng các tính năng AI. Vui lòng thêm khóa API của bạn trong Cài đặt -&gt; Mô hình đám mây.</string>
     <string name="app">Ứng dụng</string>
     <string name="app_crashed">Ứng dụng đã gặp sự cố</string>
     <string name="app_tagline">ADB ngay trong tầm tay bạn</string>
     <string name="apply">Áp dụng</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">Áp dụng cho tất cả (còn %1$d mục)</string>
-    <string name="artifact_id">ID tạo tác</string>
+    <string name="artifact_id">ID thành phần</string>
     <string name="auto">Tự động</string>
     <string name="auto_backup">Tự động sao lưu</string>
     <string name="auto_backup_content_type">Nội dung sao lưu</string>
@@ -75,8 +77,8 @@
     <string name="auto_scale_ui">Tự động điều chỉnh tỉ lệ UI</string>
     <string name="auto_update">Tự động cập nhật</string>
     <string name="back">Quay lại</string>
-    <string name="back_button">Nút \"Quay lại\"</string>
-    <string name="background">Background</string>
+    <string name="back_button">Nút Quay lại</string>
+    <string name="background">Nền</string>
     <string name="backing_up">Đang sao lưu…</string>
     <string name="backup">Sao lưu</string>
     <string name="backup_all_data">Sao lưu tất cả dữ liệu</string>
@@ -95,7 +97,7 @@
     <string name="backup_time">Thời gian sao lưu</string>
     <string name="backup_type">Loại sao lưu</string>
     <string name="baseband_version">Baseband</string>
-    <string name="basic_shell">Lệnh cơ bản</string>
+    <string name="basic_shell">Basic shell</string>
     <string name="battery_level">Pin</string>
     <string name="battery_saver">Tiết kiệm pin</string>
     <string name="behavior">Hành vi</string>
@@ -105,10 +107,10 @@
     <string name="boot_image">Boot Image</string>
     <string name="boot_into_fastboot">Khởi động vào Fastboot</string>
     <string name="bootloader">Bootloader</string>
-    <string name="bootloader_version">Bootloader</string>
+    <string name="bootloader_version">Bootloader ver</string>
     <string name="btn_continue">Tiếp tục</string>
-    <string name="cache_settings">Cache</string>
-    <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Kích thước Cache: %s</string>
+    <string name="cache_settings">Bộ nhớ đệm</string>
+    <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Kích thước bộ nhớ đệm: %s</string>
     <string name="cancel">Hủy</string>
     <string name="cancel_all">Hủy tất cả</string>
     <string name="cancelling">Đang hủy…</string>
@@ -120,8 +122,8 @@
     <string name="clear">Dọn dẹp</string>
     <string name="clear_all">Xóa tất cả</string>
     <string name="clear_all_message">Bạn có chắc chắn muốn xóa tất cả nội dung trên màn hình này không?</string>
-    <string name="clear_analysis_cache">Xóa cache phân tích</string>
-    <string name="clear_cache">Xóa cache</string>
+    <string name="clear_analysis_cache">Xóa bộ nhớ đệm phân tích</string>
+    <string name="clear_cache">Xóa bộ nhớ đệm</string>
     <string name="clear_everything">Xóa mọi thứ</string>
     <string name="clear_history">Xóa lịch sử</string>
     <string name="clear_output_confirmation">Xác nhận xóa dữ liệu đầu ra</string>
@@ -130,11 +132,56 @@
     <string name="cloud_backup_failed">Không thể tải bản sao lưu lên Google Drive</string>
     <string name="cloud_backup_google_drive">Sao lưu đám mây (Google Drive)</string>
     <string name="cloud_backup_successful">Bản sao lưu đã được tải lên Google Drive</string>
-    <string name="cloud_models">Cloud models</string>
+    <string name="cloud_models">Mô hình đám mây</string>
     <string name="cloud_restore_failed">Không thể khôi phục từ Google Drive</string>
     <string name="cloud_restore_successful">Đã khôi phục từ Google Drive</string>
     <string name="code_pair_instruction">Mở \"Gỡ lỗi không dây\" trên thiết bị mục tiêu và nhấn \"Ghép nối thiết bị bằng mã ghép nối\"</string>
     <string name="collapse">Thu gọn</string>
+    <string name="color_preview_error_occurred">Đã xảy ra lỗi</string>
+    <string name="color_preview_high_elevation">Độ nổi cao (Hộp thoại)</string>
+    <string name="color_preview_highest_elevation">Độ nổi cao nhất (Bảng dưới cùng)</string>
+    <string name="color_preview_list_item">Mục danh sách / Trường văn bản</string>
+    <string name="color_preview_low_elevation">Độ nổi thấp (Thẻ nổi)</string>
+    <string name="color_preview_lowest_elevation">Độ nổi thấp nhất</string>
+    <string name="color_preview_outlined_button">Nút có viền</string>
+    <string name="color_preview_primary_button">Nút chính</string>
+    <string name="color_preview_screen_content">Nội dung màn hình</string>
+    <string name="color_preview_standard_elevation">Độ nổi tiêu chuẩn (Thẻ)</string>
+    <string name="color_preview_surface_area">Khu vực bề mặt</string>
+    <string name="color_preview_tonal_button">Nút tông màu</string>
+    <string name="color_role_app_background">Nền ứng dụng</string>
+    <string name="color_role_background">Nền</string>
+    <string name="color_role_error">Lỗi</string>
+    <string name="color_role_error_container">Vùng chứa lỗi</string>
+    <string name="color_role_main_accent">Điểm nhấn chính</string>
+    <string name="color_role_on_background" context="The color used for text and icons drawn on top of the background color">Trên nền</string>
+    <string name="color_role_on_error" context="The color used for text and icons drawn on top of the error color">Trên màu lỗi</string>
+    <string name="color_role_on_error_container" context="The color used for text and icons drawn on top of the error container color">Trên vùng chứa lỗi</string>
+    <string name="color_role_on_primary" context="The color used for text and icons drawn on top of the primary color">Trên màu chính</string>
+    <string name="color_role_on_primary_container" context="The color used for text and icons drawn on top of the primary container color">Trên vùng chứa màu chính</string>
+    <string name="color_role_on_secondary" context="The color used for text and icons drawn on top of the secondary color">Trên màu phụ</string>
+    <string name="color_role_on_secondary_container" context="The color used for text and icons drawn on top of the secondary container color">Trên vùng chứa màu phụ</string>
+    <string name="color_role_on_surface" context="The color used for text and icons drawn on top of the surface color">Trên bề mặt</string>
+    <string name="color_role_on_surface_variant" context="The color used for text and icons drawn on top of the surface variant color">Trên biến thể bề mặt</string>
+    <string name="color_role_on_tertiary" context="The color used for text and icons drawn on top of the tertiary color">Trên màu thứ ba</string>
+    <string name="color_role_on_tertiary_container" context="The color used for text and icons drawn on top of the tertiary container color">Trên vùng chứa màu thứ ba</string>
+    <string name="color_role_outline">Đường viền</string>
+    <string name="color_role_outline_variant">Biến thể đường viền</string>
+    <string name="color_role_primary">Màu chính</string>
+    <string name="color_role_primary_container">Vùng chứa màu chính</string>
+    <string name="color_role_secondary">Màu phụ</string>
+    <string name="color_role_secondary_accent">Điểm nhấn phụ</string>
+    <string name="color_role_secondary_container">Vùng chứa màu phụ</string>
+    <string name="color_role_surface">Bề mặt</string>
+    <string name="color_role_surface_container">Vùng chứa bề mặt</string>
+    <string name="color_role_surface_container_high">Vùng chứa bề mặt cao</string>
+    <string name="color_role_surface_container_highest">Vùng chứa bề mặt cao nhất</string>
+    <string name="color_role_surface_container_low">Vùng chứa bề mặt thấp</string>
+    <string name="color_role_surface_container_lowest">Vùng chứa bề mặt thấp nhất</string>
+    <string name="color_role_surface_variant">Biến thể bề mặt</string>
+    <string name="color_role_tertiary">Màu thứ ba</string>
+    <string name="color_role_tertiary_accent">Điểm nhấn màu thứ ba</string>
+    <string name="color_role_tertiary_container">Vùng chứa màu thứ ba</string>
     <string name="command">Lệnh</string>
     <string name="command_analysis">Phân tích lệnh</string>
     <string name="command_not_found">Không tìm thấy lệnh!</string>
@@ -145,14 +192,14 @@
     <string name="confirm_bookmark_delete_message">Cảnh báo! Hành động này không thể hoàn tác.\nBạn có chắc chắn muốn xóa tất cả dấu trang không?</string>
     <string name="confirm_delete">Xác nhận xóa</string>
     <string name="confirm_tile_delete_message">Bạn có chắc chắn muốn xóa ô này không?</string>
-    <string name="confirmation_clear_cache">Lưu cache giúp nhận kết quả phân tích tức thì.\nBạn vẫn muốn xóa tất cả dữ liệu cache phân tích AI chứ?</string>
+    <string name="confirmation_clear_cache">Lưu bộ nhớ đệm giúp nhận kết quả phân tích tức thì.\nBạn vẫn muốn xóa tất cả dữ liệu bộ nhớ đệm phân tích AI chứ?</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" đã tồn tại ở vị trí này.</string>
     <string name="conflict_title">Mục đã tồn tại</string>
     <string name="connect">Kết nối</string>
     <string name="connect_device_via_otg">Kết nối thiết bị qua OTG</string>
     <string name="connect_to_wifi_network">Kết nối với mạng WiFi</string>
-    <string name="connect_via_otg">Connect via OTG</string>
-    <string name="connect_via_wifi_adb">Connect via Wi-Fi ADB</string>
+    <string name="connect_via_otg">Kết nối qua OTG</string>
+    <string name="connect_via_wifi_adb">Kết nối qua WiFi ADB</string>
     <string name="connected">Đã kết nối</string>
     <string name="connected_device">Thiết bị đã kết nối</string>
     <string name="connecting">Đang kết nối…</string>
@@ -172,7 +219,7 @@
     <string name="create">Tạo</string>
     <string name="create_folder">Tạo thư mục</string>
     <string name="create_new_tile">Tạo ô mới</string>
-    <string name="create_with_ai">Create with AI</string>
+    <string name="create_with_ai">Tạo bằng AI</string>
     <string name="crowdin_contribution_msg">Truy cập nền tảng dịch thuật Crowdin của chúng tôi để đóng góp</string>
     <string name="current_version">Phiên bản hiện tại</string>
     <string name="custom_ui_scale">Tùy chỉnh tỉ lệ UI</string>
@@ -193,9 +240,9 @@
     <string name="delete_message" comment="%1$s = file or folder name">Bạn có chắc chắn muốn xóa \"%1$s\" không?</string>
     <string name="delete_title" comment="%1$s = file or folder name">Xóa %1$s?</string>
     <string name="des_about">Những người đóng góp và Hỗ trợ</string>
-    <string name="des_ai_cache_days">Số ngày lưu trữ kết quả phân tích trong cache</string>
-    <string name="des_ai_cache_enabled">Lưu kết quả phân tích vào cache theo mô hình</string>
-    <string name="des_ai_models">Manage AI models data and API keys</string>
+    <string name="des_ai_cache_days">Số ngày lưu trữ kết quả phân tích trong bộ nhớ đệm</string>
+    <string name="des_ai_cache_enabled">Lưu kết quả phân tích vào bộ nhớ đệm theo mô hình</string>
+    <string name="des_ai_models">Quản lý dữ liệu mô hình AI và khóa API</string>
     <string name="des_auto_backup_content_type">Chọn những gì cần bao gồm trong bản tự động sao lưu</string>
     <string name="des_auto_backup_folder">Chọn một thư mục để lưu các bản tự động sao lưu</string>
     <string name="des_auto_backup_time">Đặt thời gian tự động sao lưu</string>
@@ -212,7 +259,7 @@
     <string name="des_changelogs">Lịch sử của tất cả các thay đổi được thực hiện đối với ứng dụng</string>
     <string name="des_choose_icon">Nhấn vào đây để chọn biểu tượng từ bộ sưu tập</string>
     <string name="des_clear_output_confirmation">Yêu cầu xác nhận trước khi xóa đầu ra của lệnh</string>
-    <string name="des_cloud_models">Manage API keys for cloud models</string>
+    <string name="des_cloud_models">Quản lý khóa API cho các mô hình đám mây</string>
     <string name="des_configure_save_directory">Chọn một thư mục để lưu đầu ra của lệnh</string>
     <string name="des_contributors">Danh sách những người đã giúp phát triển aShell You</string>
     <string name="des_crash_history">Xem tất cả các sự cố đã xảy ra với ứng dụng</string>
@@ -230,7 +277,7 @@
     <string name="des_font_family">Thay đổi kiểu phông chữ của ứng dụng</string>
     <string name="des_font_size">Điều chỉnh kích thước phông chữ để văn bản trong ứng dụng hiển thị lớn hơn hoặc nhỏ hơn</string>
     <string name="des_haptics_and_vibration">Phản hồi xúc giác tương tác cho các phản hồi chạm</string>
-    <string name="des_high_contrast_dark_mode">Giao diện tối đen hoàn toàn cho các thiết bị có màn hình OLED</string>
+    <string name="des_high_contrast_dark_mode">Giao diện đen tuyền cho các thiết bị có màn hình OLED</string>
     <string name="des_hridayan">Chỉ là một anh chàng yêu thích các ứng dụng và thiết kế</string>
     <string name="des_initial_state">Trạng thái hiển thị cố định của ô khi nó nằm trong bảng \"Cài đặt nhanh\"</string>
     <string name="des_licenses">Xem các giấy phép được sử dụng bởi ứng dụng và các thư viện</string>
@@ -241,17 +288,17 @@
     <string name="des_models">Chưa chọn mô hình</string>
     <string name="des_override_bookmarks">Có thể bị lag nếu thêm một lượng lớn dấu trang! Nên tắt tính năng này trên các thiết bị cấu hình thấp</string>
     <string name="des_pair_another_device">Ghép nối một thiết bị mục tiêu khác</string>
-    <string name="des_qs_tiles">Tạo các ô Cài đặt nhanh để thực thi các lệnh adb</string>
+    <string name="des_qs_tiles">Tạo các ô Cài đặt nhanh để thực thi các lệnh ADB</string>
     <string name="des_report_issue">Báo cáo mọi vấn đề bạn gặp phải khi sử dụng ứng dụng</string>
     <string name="des_reset_app_settings">Đặt lại cài đặt ứng dụng về mặc định</string>
     <string name="des_restore_app_data">Khôi phục dữ liệu ứng dụng từ tệp sao lưu đã lưu.\nCơ sở dữ liệu đã lưu sẽ ghi đè lên cơ sở dữ liệu hiện tại</string>
     <string name="des_save_whole_output">Bật tùy chọn này để lưu toàn bộ đầu ra của phiên làm việc shell.\nNếu tắt, chỉ đầu ra của lệnh cuối cùng mới được lưu.</string>
     <string name="des_screen_density">Điều chỉnh mật độ màn hình để làm cho các phần tử UI hiển thị lớn hơn hoặc nhỏ hơn</string>
     <string name="des_select_file_for_flashing">Chọn một tệp boot image để flash vào phân vùng đã chọn</string>
-    <string name="des_sign_in_with_google">Liên kết tài khoản Google của bạn (tùy chọn) để sao lưu đám mây</string>
+    <string name="des_sign_in_with_google">Liên kết tài khoản Google của bạn để sao lưu đám mây</string>
     <string name="des_smooth_scroll">Bật cuộn mượt mà trong đầu ra của shell, khi nhấn phím mũi tên Lên hoặc Xuống</string>
     <string name="des_toggleable">Khi được bật, ô sẽ chuyển đổi giữa các trạng thái BẬT và TẮT mỗi lần nhấn, thực hiện các lệnh khác nhau cho mỗi trạng thái</string>
-    <string name="des_translators">Những người đã giúp dịch aShellYou</string>
+    <string name="des_translators">Những người đã giúp dịch aShell You</string>
     <string name="des_ui_scale">Điều chỉnh tỉ lệ phần tử UI và kích thước phông chữ</string>
     <string name="des_warning_incorrect_file_bootloop">Hãy cẩn thận vì một image sai có thể gây ra bootloop</string>
     <string name="description">Mô tả</string>
@@ -290,9 +337,9 @@
     <string name="downloads">Tải xuống</string>
     <string name="duplicate_tile_name_error_msg">Đã tồn tại một ô với tên này</string>
     <string name="dynamic_colors">Màu động</string>
-    <string name="edit">Edit</string>
+    <string name="edit">Chỉnh sửa</string>
     <string name="edit_command">Chỉnh sửa lệnh</string>
-    <string name="edit_theme_title" comment="%1$s = theme name">Edit Theme: %1$s</string>
+    <string name="edit_theme_title" comment="%1$s = theme name">Chỉnh sửa chủ đề: %1$s</string>
     <string name="edit_tile">Chỉnh sửa ô</string>
     <string name="empty_folder">Thư mục này trống</string>
     <string name="enable_auto_backup">Bật tự động sao lưu</string>
@@ -310,13 +357,13 @@
     <string name="erase_partition">Xóa phân vùng</string>
     <string name="erasing">Đang xóa…</string>
     <string name="error">Lỗi</string>
-    <string name="error_labels_limit_reached">Đã đạt đến giới hạn nhãn dán tối đa</string>
+    <string name="error_labels_limit_reached">Đã đạt đến giới hạn nhãn tối đa</string>
     <string name="exclude">Loại trừ</string>
     <string name="execution_method">Phương thức thực thi</string>
     <string name="expand">Mở rộng</string>
     <string name="experimental">Thử nghiệm</string>
     <string name="failed">Thất bại</string>
-    <string name="failed_to_claim_interface">Không thể yêu cầu giao diện</string>
+    <string name="failed_to_claim_interface">Không thể nhận giao diện</string>
     <string name="failed_to_copy">Sao chép thất bại</string>
     <string name="failed_to_open_usb_connection">Không thể mở kết nối USB. Gỡ lỗi USB đã được bật chưa?</string>
     <string name="fastboot">Fastboot</string>
@@ -385,7 +432,7 @@
     <string name="font_display_text" comment="Sample text used to preview font styles">Con cáo nâu nhanh nhẹn nhảy qua con chó lười</string>
     <string name="font_eb_garamond" comment="Font style name">EB Garamond</string>
     <string name="font_exo_2" comment="Font style name">Exo 2</string>
-    <string name="font_family">Họ phông chữ</string>
+    <string name="font_family">Kiểu phông chữ</string>
     <string name="font_heebo" comment="Font style name">Heebo</string>
     <string name="font_inter" comment="Font style name">Inter</string>
     <string name="font_josefin_sans" comment="Font style name">Josefin Sans</string>
@@ -420,15 +467,15 @@
     <string name="found_connect_service">Đã tìm thấy dịch vụ kết nối</string>
     <string name="frequency">Tần suất</string>
     <string name="full_license_text">Toàn văn giấy phép</string>
-    <string name="gemini_api_key_step_1">Visit Google AI Studio at aistudio.google.com</string>
-    <string name="gemini_api_key_step_2">Sign in with your Google Account</string>
-    <string name="gemini_api_key_step_3">Click on Create API key and select or create a project</string>
-    <string name="gemini_api_key_step_4">Copy your API key and paste it below</string>
-    <string name="generate_color_scheme">Generate color scheme</string>
-    <string name="generate_scheme">Generate scheme</string>
-    <string name="generate_theme">Generate Theme</string>
+    <string name="gemini_api_key_step_1">Truy cập Google AI Studio tại aistudio.google.com</string>
+    <string name="gemini_api_key_step_2">Đăng nhập bằng Tài khoản Google của bạn</string>
+    <string name="gemini_api_key_step_3">Nhấp vào Tạo khóa API và chọn hoặc tạo một dự án</string>
+    <string name="gemini_api_key_step_4">Sao chép khóa API của bạn và dán vào bên dưới</string>
+    <string name="generate_color_scheme">Tạo bảng màu</string>
+    <string name="generate_scheme">Tạo bảng màu</string>
+    <string name="generate_theme">Tạo chủ đề</string>
     <string name="generate_tile">Tạo ô</string>
-    <string name="get_api_key">Get API key</string>
+    <string name="get_api_key">Nhận khóa API</string>
     <string name="get_variables">Lấy các biến</string>
     <string name="go_home">Trang chủ</string>
     <string name="go_to_terminal">Đi đến terminal</string>
@@ -441,15 +488,14 @@
     <string name="great_news">Tin tuyệt vời!</string>
     <string name="haptics_and_vibration">Phản hồi xúc giác &amp; Rung</string>
     <string name="have_a_nice_day">Chúc một ngày tốt lành!</string>
-    <string name="hex_editor">Hex Editor</string>
+    <string name="hex_editor">Trình chỉnh sửa Hex</string>
     <string name="high">Cao</string>
     <string name="high_contrast_dark_mode">Chế độ tối độ tương phản cao</string>
     <string name="hint">Gợi ý</string>
     <string name="history">Lịch sử</string>
     <string name="home">Trang chủ</string>
     <string name="icon_selected">Đã chọn biểu tượng</string>
-    <string name="_import">Import</string>
-    <string name="import_theme">Import Theme</string>
+    <string name="import_theme">Nhập chủ đề</string>
     <string name="include">Bao gồm</string>
     <string name="info">Thông tin</string>
     <string name="initial_state">Trạng thái ban đầu</string>
@@ -461,7 +507,7 @@
     <string name="irreversible_action_warning">Hành động này không thể đảo ngược!</string>
     <string name="item_deleted">Đã xóa mục thành công</string>
     <string name="keep_both">Giữ cả hai</string>
-    <string name="key_verified_success_msg">Key verified successfully</string>
+    <string name="key_verified_success_msg">Xác minh mã thành công</string>
     <string name="label">Nhãn</string>
     <string name="languages">Ngôn ngữ</string>
     <string name="last_auto_backup_cloud">Bản tự động sao lưu đám mây gần nhất</string>
@@ -490,30 +536,31 @@
     <string name="locked">Đã khóa</string>
     <string name="logcat">Logcat</string>
     <string name="logcat_cleared">Đã dọn dẹp logs</string>
-    <string name="logcat_detail_package">Package</string>
-    <string name="logcat_filter_level">Mức độ nhật ký</string>
+    <string name="logcat_detail_package">Gói</string>
+    <string name="logcat_filter_level">Mức độ logcat</string>
     <string name="logcat_filter_search_hint">Tìm kiếm trong tin nhắn…</string>
     <string name="logcat_is_running">Logcat đang chạy</string>
     <string name="logcat_ive_granted_it">Tôi đã cấp quyền này</string>
     <string name="logcat_no_logs">Chưa có nhật ký nào</string>
-    <string name="logcat_notification_channel_description">Hiển thị khi logcat đang chủ động thu thập nhật ký</string>
+    <string name="logcat_notification_channel_description">Hiển thị khi logcat đang chủ động thu thập logs</string>
     <string name="logcat_notification_channel_name">Phiên bản Logcat</string>
-    <string name="logcat_permission_body">Nếu không có quyền này, bạn chỉ có thể xem nhật ký từ aShellYou. Cấp quyền truy cập đầy đủ bằng cách chạy lệnh này từ máy tính:</string>
-    <string name="logcat_permission_title">Quyền truy cập nhật ký</string>
-    <string name="logcat_running_description">aShellYou đang thu thập nhật ký hệ thống ở chế độ nền</string>
+    <string name="logcat_permission_body">Nếu không có quyền này, bạn chỉ có thể xem logs từ aShell You. Cấp quyền truy cập đầy đủ bằng cách chạy lệnh này từ máy tính:</string>
+    <string name="logcat_permission_title">Quyền truy cập logs</string>
+    <string name="logcat_running_description">aShell You đang thu thập logs hệ thống ở chế độ nền</string>
     <string name="logcat_shortcut_long_label">Mở Trình xem Logcat</string>
-    <string name="logcat_source">Logcat Source</string>
-    <string name="logcat_tap_play">Tap ▶ to start logcat</string>
+    <string name="logcat_source">Nguồn Logcat</string>
+    <string name="logcat_tap_play">Nhấn ▶ để bắt đầu logcat</string>
     <string name="logs">Logs</string>
     <string name="look_and_feel">Giao diện &amp; Cảm nhận</string>
     <string name="low">Thấp</string>
-    <string name="make_your_theme_title">Make Your Theme</string>
+    <string name="low_contrast_ratio">Độ tương phản thấp</string>
+    <string name="make_your_theme_title">Tạo chủ đề của bạn</string>
     <string name="manual_pair">Ghép nối thủ công</string>
     <string name="max_download_size">Tải xuống tối đa</string>
     <string name="medium">Trung bình</string>
     <string name="merge">Gộp</string>
     <string name="message">Tin nhắn</string>
-    <string name="message_adb_agent">Message ADB Agent…</string>
+    <string name="message_adb_agent">Nhắn tin cho ADB Agent…</string>
     <string name="minimize">Thu nhỏ</string>
     <string name="mode">Chế độ</string>
     <string name="mode_one_desc">Sử dụng quyền truy cập root để chạy lệnh. Các lệnh yêu cầu root sẽ được thực thi.</string>
@@ -539,13 +586,13 @@
     <string name="new_name">Tên mới</string>
     <string name="newest">Mới nhất</string>
     <string name="no_adb_device_error">Không phát hiện thấy thiết bị tương thích với ADB. Hãy bật Gỡ lỗi USB trên thiết bị mục tiêu.</string>
-    <string name="no_adb_interface_found">Không tìm thấy giao diện adb</string>
+    <string name="no_adb_interface_found">Không tìm thấy giao diện ADB</string>
     <string name="no_auto_backup_yet">Chưa có bản tự động sao lưu nào</string>
     <string name="no_bookmarks">Không tìm thấy dấu trang</string>
     <string name="no_changelog_found">Không tìm thấy nhật ký thay đổi cho phiên bản này</string>
     <string name="no_cloud_backup_found">Không tìm thấy bản sao lưu nào trên Google Drive</string>
     <string name="no_crashes">Chưa có thông báo sự cố nào. aShell You đang hoạt động mượt mà.</string>
-    <string name="no_custom_themes_yet">No custom themes yet. Create one below!</string>
+    <string name="no_custom_themes_yet">Chưa có chủ đề tùy chỉnh nào. Hãy tạo một chủ đề bên dưới!</string>
     <string name="no_device_connected">Không có thiết bị nào được kết nối</string>
     <string name="no_fastboot_device_error">Thiết bị được kết nối không ở chế độ fastboot</string>
     <string name="no_files_download">Chưa chọn tệp (không thể tải thư mục xuống)</string>
@@ -555,10 +602,10 @@
     <string name="no_history">Không có lịch sử lệnh</string>
     <string name="no_libraries_found">Không tìm thấy thư viện</string>
     <string name="no_logs_yet">Chưa có nhật ký nào!</string>
-    <string name="no_logs_yet_msg">Chưa có nhật ký nào được ghi lại. Hãy thực hiện vài hành động để hiển thị nhật ký.</string>
+    <string name="no_logs_yet_msg">Chưa có logs nào được ghi lại. Hãy thực hiện vài hành động để hiển thị logs.</string>
     <string name="no_model_selected">Chưa chọn mô hình</string>
     <string name="no_operations">Không có hoạt động nào đang diễn ra</string>
-    <string name="no_other_device_hint">Connect an external device to view its logs</string>
+    <string name="no_other_device_hint">Kết nối thiết bị bên ngoài để xem logs của thiết bị đó</string>
     <string name="no_results_found">Không tìm thấy kết quả</string>
     <string name="no_root_access">Không có quyền truy cập root</string>
     <string name="no_saved_devices">Không có thiết bị nào đã lưu</string>
@@ -573,34 +620,34 @@
     <string name="notification_style_error">Nếu bạn không thể nhập mã ghép nối từ thông báo, có thể bạn cần thay đổi kiểu thông báo trên Android. Để đổi kiểu thông báo, đi tới Cài đặt thông báo ~ Kiểu thông báo. Nếu không, bạn không thể nhập mã ghép nối từ thông báo.</string>
     <string name="notification_styles">Kiểu thông báo</string>
     <string name="off">Tắt</string>
-    <string name="off_state" comment="Quick Settings tile toggle state label">\"Tắt\"</string>
+    <string name="off_state" comment="Quick Settings tile toggle state label">Tắt</string>
     <string name="ok">OK</string>
     <string name="oldest" comment="Sorting option">Cũ nhất</string>
     <string name="on">Bật</string>
-    <string name="on_background">On Background</string>
-    <string name="on_primary">On Primary</string>
-    <string name="on_primary_container">On Primary Container</string>
-    <string name="on_secondary">On Secondary</string>
-    <string name="on_state" comment="Quick Settings tile toggle state label">\"Bật\"</string>
-    <string name="on_surface">On Surface</string>
-    <string name="on_tertiary">On Tertiary</string>
+    <string name="on_background">Trên nền</string>
+    <string name="on_primary">Trên màu chính</string>
+    <string name="on_primary_container">Trên vùng chứa màu chính</string>
+    <string name="on_secondary">Trên màu phụ</string>
+    <string name="on_state" comment="Quick Settings tile toggle state label">Bật</string>
+    <string name="on_surface">Trên bề mặt</string>
+    <string name="on_tertiary">Trên màu thứ ba</string>
     <string name="open">Mở</string>
     <string name="open_app_language_settings">Mở cài đặt ngôn ngữ của ứng dụng</string>
     <string name="open_issues" comment="GitHub repository open issues count">Vấn đề mở</string>
     <string name="open_url">Mở URL</string>
     <string name="operation_complete">Hoạt động đã hoàn tất</string>
     <string name="operations">Các hoạt động</string>
-    <string name="or">HOẶC</string>
+    <string name="or">Hoặc</string>
     <string name="otg" comment="USB On-The-Go. Technical term, keep as OTG">OTG</string>
     <string name="other_details">Chi tiết khác</string>
     <string name="other_device">Thiết bị khác</string>
     <string name="output">Đầu ra</string>
     <string name="override_bookmarks_limit">Vượt qua giới hạn tối đa của dấu trang</string>
-    <string name="package_name">Tên Package</string>
+    <string name="package_name">Tên gói</string>
     <string name="pair">Ghép nối</string>
     <string name="pair_a_device_first">Ghép nối một thiết bị trước</string>
     <string name="pair_another_device">Ghép nối một thiết bị khác</string>
-    <string name="pair_connect_failed_message">\nKhông thể kết nối với thiết bị đã ghép nối\nThiết bị có thể đang ở trên một mạng khác\nHãy thử ghép nối lại</string>
+    <string name="pair_connect_failed_message">\nKhông thể kết nối với thiết bị đã ghép nối\nThiết bị có thể đang kết nối một mạng khác\nHãy thử ghép nối lại</string>
     <string name="pair_device_to_start">Ghép nối một thiết bị bằng mã QR hoặc mã ghép nối để hiển thị tại đây</string>
     <string name="pair_manually">Ghép nối thủ công</string>
     <string name="pair_this_device">Ghép nối thiết bị này</string>
@@ -612,11 +659,11 @@
     <string name="pairing_notification_hint">Bạn sẽ nhận được thông báo từ aShell You để hỗ trợ việc ghép nối</string>
     <string name="pairing_process_notification_access_message">Để hoàn tất quá trình ghép nối, bạn cần tương tác với thông báo từ aShell You. Vui lòng cấp quyền truy cập thông báo cho aShell You.</string>
     <string name="palette_content" comment="Material Design color scheme style name">Nội dung</string>
-    <string name="palette_expressive" comment="Material Design color scheme style name">Biểu cảm</string>
-    <string name="palette_fidelity" comment="Material Design color scheme style name">Trung thực</string>
-    <string name="palette_fruit_salad" comment="Material Design color scheme style name">Salad trái cây</string>
+    <string name="palette_expressive" comment="Material Design color scheme style name">Expressive</string>
+    <string name="palette_fidelity" comment="Material Design color scheme style name">Fidelity</string>
+    <string name="palette_fruit_salad" comment="Material Design color scheme style name">Fruit Salad</string>
     <string name="palette_monochrome" comment="Material Design color scheme style name">Đơn sắc</string>
-    <string name="palette_neutral" comment="Material Design color scheme style name">Trung tính</string>
+    <string name="palette_neutral" comment="Material Design color scheme style name">Neutral</string>
     <string name="palette_rainbow" comment="Material Design color scheme style name">Cầu vồng</string>
     <string name="palette_style" comment="Settings label for choosing Material Design color palette">Kiểu bảng màu</string>
     <string name="palette_tonal_spot" comment="Material Design color scheme style name">Điểm nhấn tông màu</string>
@@ -628,15 +675,16 @@
     <string name="permission_denied">Quyền bị từ chối</string>
     <string name="permission_optional">Việc cấp các quyền này là tùy chọn!</string>
     <string name="pick_ashellyou_extension">Vui lòng chọn một tệp có đuôi mở rộng .ashellyou</string>
+    <string name="pick_color">Chọn màu</string>
     <string name="port">Cổng</string>
     <string name="possible_reasons">Nguyên nhân có thể</string>
-    <string name="pre_release_github">Bản phát hành trước (GitHub)</string>
-    <string name="pre_release_warning">Bản dựng trước khi phát hành (Pre-release) có thể không ổn định</string>
-    <string name="pre_release_warning_description">Những phiên bản này vẫn đang trong giai đoạn thử nghiệm và có thể chứa các tính năng chưa hoàn thiện hoặc các lỗi không mong muốn. Nếu bạn chọn cập nhật lên phiên bản trước khi phát hành, hãy nhớ rằng bạn có thể gặp phải sự cố hoặc ứng dụng hoạt động lạ.\nNếu bạn gặp phải bất kỳ vấn đề, sự cố hoặc hoạt động lạ nào, vui lòng cho chúng tôi biết để chúng tôi có thể sửa lỗi và cải thiện aShellYou đến phiên bản phát hành ổn định.\nCảm ơn bạn đã giúp chúng tôi xây dựng ứng dụng tốt hơn!</string>
-    <string name="preference">Ưu tiên</string>
+    <string name="pre_release_github">Pre-release (GitHub)</string>
+    <string name="pre_release_warning">Bản Pre-release có thể không ổn định</string>
+    <string name="pre_release_warning_description">Những phiên bản này vẫn đang trong giai đoạn thử nghiệm và có thể chứa các tính năng chưa hoàn thiện hoặc các lỗi không mong muốn. Nếu bạn chọn cập nhật lên phiên bản Pre-release, hãy nhớ rằng bạn có thể gặp phải sự cố hoặc ứng dụng hoạt động lạ.\nNếu bạn gặp phải bất kỳ vấn đề, sự cố hoặc hoạt động lạ nào, vui lòng cho chúng tôi biết để chúng tôi có thể sửa lỗi và cải thiện aShell You đến phiên bản phát hành ổn định.\nCảm ơn bạn đã giúp chúng tôi xây dựng ứng dụng tốt hơn!</string>
+    <string name="preference">Tùy chọn</string>
     <string name="preview">Xem trước</string>
-    <string name="primary">Primary</string>
-    <string name="primary_container">Primary Container</string>
+    <string name="primary">Chính</string>
+    <string name="primary_container">Vùng chứa màu chính</string>
     <string name="product">Sản phẩm</string>
     <string name="qr_pair">Ghép nối qua QR</string>
     <string name="qr_pair_hint">Để ghép nối thiết bị Android 11+, quét mã QR này từ thiết bị mục tiêu</string>
@@ -663,7 +711,7 @@
     <string name="reconnect_the_device">Kết nối lại thiết bị</string>
     <string name="recovery">Recovery</string>
     <string name="refresh">Làm mới</string>
-    <string name="remove">Remove</string>
+    <string name="remove">Xóa</string>
     <string name="rename">Đổi tên</string>
     <string name="rename_title" comment="%1$s = file or folder name">Đổi tên %1$s</string>
     <string name="replace">Thay thế</string>
@@ -685,14 +733,14 @@
     <string name="resume">Tiếp tục</string>
     <string name="retry">Thử lại</string>
     <string name="root_access_granted">Quyền truy cập Root đã được cấp!</string>
-    <string name="root_unavailable">Root Not Available</string>
-    <string name="root_unavailable_message">Root access could not be detected. Ensure your device is rooted and try again, or switch to a different logcat source.</string>
+    <string name="root_unavailable">Không có quyền Root</string>
+    <string name="root_unavailable_message">Không thể phát hiện quyền truy cập Root. Đảm bảo thiết bị của bạn đã được root và thử lại, hoặc chuyển sang một nguồn logcat khác.</string>
     <string name="running">Đang chạy</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Lưu</string>
     <string name="save_as_profile">Lưu làm hồ sơ…</string>
-    <string name="save_changes">Save Changes</string>
-    <string name="save_key">Save key</string>
+    <string name="save_changes">Lưu thay đổi</string>
+    <string name="save_key">Lưu khóa</string>
     <string name="save_whole_output">Lưu toàn bộ đầu ra</string>
     <string name="saved_devices">Thiết bị đã lưu</string>
     <string name="saving">Đang lưu…</string>
@@ -712,7 +760,7 @@
     <string name="search_variables">Tìm kiếm biến…</string>
     <string name="searching_connect_service">Đang tìm kiếm dịch vụ kết nối</string>
     <string name="searching_for_devices">Đang tìm kiếm các thiết bị…</string>
-    <string name="secondary">Secondary</string>
+    <string name="secondary">Phụ</string>
     <string name="security_patch">Bản vá bảo mật</string>
     <string name="select">Chọn</string>
     <string name="select_all">Chọn tất cả</string>
@@ -720,9 +768,9 @@
     <string name="select_backup_folder_title">Không có thư mục sao lưu</string>
     <string name="select_folder">Chọn thư mục</string>
     <string name="select_partition">Chọn phân vùng</string>
-    <string name="select_theme_to_edit_hex">Select a theme above to edit its raw hex values here.</string>
+    <string name="select_theme_to_edit_hex">Chọn một chủ đề ở trên để chỉnh sửa các giá trị hex thô tại đây.</string>
     <string name="select_time">Chọn thời gian</string>
-    <string name="self" comment="Refers to pairing this device with itself for local ADB">Của mình</string>
+    <string name="self" comment="Refers to pairing this device with itself for local ADB">Thiết bị này</string>
     <string name="self_pair_connection_failed">Lỗi kết nối - thử kết nối thủ công</string>
     <string name="self_pair_enter_code">Nhập mã 6 chữ số từ hộp thoại ghép nối</string>
     <string name="self_pair_enter_code_hint">Nhập mã ghép nối gồm 6 chữ số</string>
@@ -743,7 +791,7 @@
     <string name="serif" comment="Font style category name">Serif</string>
     <string name="settings">Cài đặt</string>
     <string name="settings_only">Chỉ cài đặt</string>
-    <string name="share">Share</string>
+    <string name="share">Chia sẻ</string>
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">Đầu ra của lệnh cuối cùng được xuất ra \'%s\'</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">Đầu ra của lệnh được xuất ra \'%s\'</string>
     <string name="shizuku_not_installed">Shizuku chưa được cài đặt</string>
@@ -758,7 +806,7 @@
     <string name="size">Kích thước</string>
     <string name="skip">Bỏ qua</string>
     <string name="slide_to_flash">Trượt để Flash</string>
-    <string name="slot_data_unknown">Dữ liệu khe cắm không xác định</string>
+    <string name="slot_data_unknown">Dữ liệu slot không xác định</string>
     <string name="smooth_scrolling">Cuộn mượt mà</string>
     <string name="sort">Sắp xếp</string>
     <string name="stable_fdroid">Ổn định (F-Droid)</string>
@@ -776,24 +824,25 @@
     <string name="successful_connection_message">Thiết bị đã được kết nối thành công. Giờ đây bạn có thể bắt đầu thực thi lệnh trên thiết bị mục tiêu.</string>
     <string name="suggested_icons">Biểu tượng được đề xuất</string>
     <string name="support_bmc">Bạn thích những gì tôi làm?\nHãy mời tôi một ly cà phê nhé</string>
-    <string name="surface">Surface</string>
+    <string name="surface">Bề mặt</string>
     <string name="switch_mode">Chuyển chế độ</string>
     <string name="system">Hệ thống</string>
     <string name="system_default">Mặc định hệ thống</string>
     <string name="system_font" comment="Option to use the device default font">Phông chữ hệ thống</string>
     <string name="system_settings">Cài đặt hệ thống</string>
+    <string name="tab">Tab</string>
     <string name="tag">Tag</string>
     <string name="telegram">Telegram</string>
     <string name="terminal">Terminal</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Kiểu phông chữ Terminal</string>
-    <string name="tertiary">Tertiary</string>
+    <string name="tertiary">Thứ ba</string>
     <string name="third_party_libraries">Thư viện của bên thứ ba</string>
     <string name="this_application">Ứng dụng này</string>
     <string name="this_device">Thiết bị này</string>
-    <string name="tile">Ô (Tile)</string>
+    <string name="tile">Ô</string>
     <string name="tile_behavior">Hành vi của ô</string>
-    <string name="tile_dashboard_notification_access_message">Bật thông báo để nhận cảnh báo về việc thực thi lỗi từ các ô</string>
-    <string name="tile_logs">Nhật ký của ô</string>
+    <string name="tile_dashboard_notification_access_message">Bật thông báo để nhận thông báo bất cứ khi nào quá trình thực thi ô bị lỗi</string>
+    <string name="tile_logs">Logs của ô</string>
     <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">Ô %1$d</string>
     <string name="tile_name">Tên ô</string>
     <string name="tiles">Các ô</string>
@@ -811,7 +860,7 @@
     <string name="type">Loại</string>
     <string name="ui_scale">Tỉ lệ UI</string>
     <string name="undo">Hoàn tác</string>
-    <string name="unexpected_error">Unexpected error</string>
+    <string name="unexpected_error">Lỗi không xác định</string>
     <string name="unknown">Không xác định</string>
     <string name="unknown_error">Đã xảy ra lỗi không xác định</string>
     <string name="unknown_sources_install_permission_not_granted">Chưa được cấp quyền. Vui lòng cho phép Cài đặt ứng dụng từ các nguồn không xác định.</string>
@@ -828,15 +877,15 @@
     <string name="use">Sử dụng</string>
     <string name="utilities">Tiện ích</string>
     <string name="variant">Biến thể</string>
-    <string name="verification_failed">Verification failed</string>
-    <string name="verify_api_key">Verify API key</string>
-    <string name="verifying">Verifying</string>
+    <string name="verification_failed">Xác minh thất bại</string>
+    <string name="verify_api_key">Xác minh khóa API</string>
+    <string name="verifying">Đang xác minh</string>
     <string name="version">Phiên bản</string>
     <string name="version_code">Mã phiên bản</string>
     <string name="version_name">Tên phiên bản</string>
     <string name="view_license_online_msg">Nhấn \'Mở URL\' để xem giấy phép trực tuyến.</string>
     <string name="view_on_github">Xem trên GitHub</string>
-    <string name="visit_repo_to_download">Nhấn nút tải xuống để lấy phiên bản aShellYou mới nhất từ kho lưu trữ GitHub.</string>
+    <string name="visit_repo_to_download">Nhấn nút tải xuống để lấy phiên bản aShell You mới nhất từ kho lưu trữ GitHub.</string>
     <string name="waiting_for_device">Đang đợi thiết bị</string>
     <string name="waiting_for_devices">Đang đợi các thiết bị…</string>
     <string name="want_to_contribute_too">Bạn cũng muốn đóng góp?</string>
@@ -845,7 +894,7 @@
     <string name="whats_new">Có gì mới!</string>
     <string name="which_device_to_pair">Bạn muốn ghép nối thiết bị nào?</string>
     <string name="wifi_adb">WiFi ADB</string>
-    <string name="wifi_connection_required">Để sử dụng tính năng gỡ lỗi không dây, thiết bị của bạn phải được kết nối với mạng Wi-Fi. Nếu kết nối WiFi của bạn không có quyền truy cập internet, hãy tắt dữ liệu di động để kết nối Wi-Fi được ổn định.</string>
+    <string name="wifi_connection_required">Để sử dụng tính năng gỡ lỗi không dây, thiết bị của bạn phải được kết nối với mạng WiFi. Nếu kết nối WiFi của bạn không có quyền truy cập internet, hãy tắt dữ liệu di động để kết nối WiFi được ổn định.</string>
     <string name="wipe_cache_desc">fastboot xóa cache</string>
     <string name="wipe_cache_title">Xóa cache</string>
     <string name="wipe_data">Xóa dữ liệu</string>
@@ -859,18 +908,18 @@
     <string name="wireless_debugging_guide_2">Nhập mã ghép nối sáu chữ số vào thông báo được gửi từ aShell You.</string>
     <string name="wireless_debugging_guide_3">Quay lại ứng dụng và nhấn nút \"Bắt đầu\" trên Màn hình chính.</string>
     <string name="wireless_debugging_important_notice">Xin lưu ý rằng phần bên trái của tùy chọn \"Gỡ lỗi không dây\" có thể nhấp được. Chạm vào nó sẽ mở menu \"Ghép nối\" cho tính năng \"Gỡ lỗi không dây\".</string>
-    <string name="wireless_not_connected">Not Connected</string>
-    <string name="wireless_not_connected_message">Your device is not connected via Wireless Debugging. Pair and connect your device first.</string>
+    <string name="wireless_not_connected">Chưa kết nối</string>
+    <string name="wireless_not_connected_message">Thiết bị của bạn chưa được kết nối qua Gỡ lỗi không dây. Vui lòng ghép nối và kết nối thiết bị của bạn trước.</string>
     <plurals name="logcat_new_entries">
         <item quantity="other">%1$d mục mới</item>
     </plurals>
     <string name="changelog_v7_4_0">\nGiờ đây bạn có thể tìm kiếm các cài đặt phụ trên màn hình cài đặt\nĐã thêm các kiểu bảng màu cho phối màu\nĐã thêm tùy chọn đặt ngôn ngữ ứng dụng trực tiếp trong ứng dụng</string>
     <string name="changelog_v7_3_0">\nĐã cải thiện giao diện người dùng trên màn hình nhật ký thay đổi\nĐã thêm các dịch giả vào phần Giới thiệu.\nĐã thêm Màn hình giấy phép hiển thị thông tin chi tiết về giấy phép của ứng dụng và các thư viện khác mà ứng dụng sử dụng</string>
     <string name="changelog_v7_2_1">\nBản cập nhật bảo trì!</string>
-    <string name="changelog_v7_2_0">\nĐã thêm tùy chọn chạy các lệnh adb từ Các ô Cài đặt nhanh bằng cách thêm các ô tùy chỉnh.\nĐã thêm tùy chọn sao lưu đám mây (Google Drive). Tính năng này chỉ có trên các bản dựng GitHub.\nĐã cải thiện phối màu, giao diện người dùng UI và trải nghiệm người dùng UX ở nhiều khu vực.\nĐã thêm nhiều ví dụ lệnh ADB hơn nữa.</string>
+    <string name="changelog_v7_2_0">\nĐã thêm tùy chọn chạy các lệnh ADB từ Các ô Cài đặt nhanh bằng cách thêm các ô tùy chỉnh.\nĐã thêm tùy chọn sao lưu đám mây (Google Drive). Tính năng này chỉ có trên các bản dựng GitHub.\nĐã cải thiện phối màu, giao diện người dùng (UI) và trải nghiệm người dùng (UX) ở nhiều khu vực.\nĐã thêm nhiều ví dụ lệnh ADB hơn nữa.</string>
     <string name="changelog_v7_1_0">\nĐã sửa lỗi bàn phím tiếng Anh có thể không xuất hiện khi nhập lệnh nếu người dùng đặt ngôn ngữ ứng dụng khác tiếng Anh\nĐã sửa lỗi hiển thị sai biểu tượng thư\nĐã sửa lỗi gây ra sự cố khi lưu các tệp lớn\nĐã loại bỏ các quyền dư thừa\nĐã cải thiện UI trong phần \"Giới thiệu về ứng dụng\"</string>
     <string name="changelog_v7_0_1">\nĐã sửa lỗi Fastlane</string>
-    <string name="changelog_v7_0_0">\nToàn bộ giao diện người dùng đã được cập nhật sử dụng các thành phần biểu cảm\nToàn bộ mã nguồn đã được viết lại bằng Kotlin và Jetpack Compose cho UI Framework\nĐã thêm Trình quản lý tệp dựa trên Push &amp; Pull\nĐã thêm chế độ ghép nối Wifi Adb qua mã QR\nĐã thêm Tùy chọn ứng dụng và Tùy chọn sao lưu cơ sở dữ liệu\nĐã thêm các tùy chọn thiết kế chủ đề đặc biệt\nĐã thêm Lịch sử sự cố để xem nhật ký lỗi của ứng dụng\nĐã cải thiện tính năng tự động cập nhật\nĐã cải thiện UI &amp; UX ở phần đầu ra của shell\nĐã thêm đề xuất về quyền trên Android\nĐã cập nhật bố cục cho các mẫu lệnh bao gồm cả nhãn\nĐã thêm tùy chọn thêm, chỉnh sửa hoặc xóa lệnh theo ý muốn của bạn\nNhiều lỗi hiện tại đã được sửa</string>
+    <string name="changelog_v7_0_0">\nToàn bộ giao diện người dùng đã được cập nhật sử dụng các thành phần Expressive\nToàn bộ mã nguồn đã được viết lại bằng Kotlin và Jetpack Compose cho UI Framework\nĐã thêm Trình quản lý tệp dựa trên Push &amp; Pull\nĐã thêm chế độ ghép nối WiFi ADB qua mã QR\nĐã thêm Tùy chọn ứng dụng và Tùy chọn sao lưu cơ sở dữ liệu\nĐã thêm các tùy chọn thiết kế chủ đề đặc biệt\nĐã thêm Lịch sử sự cố để xem nhật ký lỗi của ứng dụng\nĐã cải thiện tính năng tự động cập nhật\nĐã cải thiện UI &amp; UX ở phần đầu ra của shell\nĐã thêm đề xuất về quyền trên Android\nĐã cập nhật bố cục cho các mẫu lệnh bao gồm cả nhãn\nĐã thêm tùy chọn thêm, chỉnh sửa hoặc xóa lệnh theo ý muốn của bạn\nNhiều lỗi hiện tại đã được sửa</string>
     <string name="changelog_v6_1_0">\nGiờ đây việc tìm kiếm lệnh có thể tìm kiếm các lệnh chứa từ bạn đã nhập, so với các phiên bản trước chỉ tìm kiếm các lệnh bắt đầu bằng từ đã nhập.\nKhả năng mở trực tiếp ứng dụng Shizuku khi Shizuku được cài đặt nhưng chưa chạy.\nĐã sửa lỗi báo cáo sự cố ứng dụng bị hỏng.</string>
     <string name="changelog_v6_0_3">\nĐã giải quyết vấn đề gây hỏng bản dịch của ứng dụng aShell You</string>
     <string name="changelog_v6_0_2">\nĐã điều chỉnh Github Actions cho các bản phát hành.\nĐiều này có ý nghĩa gì đối với bạn?\nTất cả các bản dựng tiếp theo, bao gồm cả bản này, sẽ an toàn hơn!</string>
@@ -879,39 +928,39 @@
     <string name="changelog_v5_2_1">\nBản cập nhật bảo trì</string>
     <string name="changelog_v5_2_0">\nCải thiện UI\nĐã sửa một số lỗi</string>
     <string name="changelog_v5_1_0">\nCải thiện nhỏ về UI</string>
-    <string name="changelog_v5_0_0">\nCải thiện lớn về giao diện người dùng UI và trải nghiệm người dùng UX ở tất cả các khu vực của ứng dụng\nĐã thêm ROOT shell và BASIC shell bên cạnh Shizuku shell để thực thi lệnh\nĐã thêm tùy chọn để lưu đầu ra vào thư mục tùy chỉnh\nĐã sửa nhiều lỗi và sự cố\nĐã tối ưu hóa mã nguồn ứng dụng để có hiệu suất và độ ổn định tốt hơn</string>
+    <string name="changelog_v5_0_0">\nCải thiện lớn về giao diện người dùng (UI) và trải nghiệm người dùng (UX) ở tất cả các khu vực của ứng dụng\nĐã thêm ROOT shell và BASIC shell bên cạnh Shizuku shell để thực thi lệnh\nĐã thêm tùy chọn để lưu đầu ra vào thư mục tùy chỉnh\nĐã sửa nhiều lỗi và sự cố\nĐã tối ưu hóa mã nguồn ứng dụng để có hiệu suất và độ ổn định tốt hơn</string>
     <string name="changelog_v4_4_0">\nĐã thêm rung cho phản hồi xúc giác\nĐã thêm khả năng thay đổi ngôn ngữ ứng dụng ngay trong ứng dụng (chỉ hỗ trợ thiết bị chạy Android 13 trở lên, ngoại trừ các thiết bị không được hỗ trợ)\nĐã sửa một số sự cố và cải thiện báo cáo sự cố\nCải thiện nhỏ về UI</string>
     <string name="changelog_v4_3_1">\nGiờ đây ứng dụng sẽ phát hiện mọi sự cố và cung cấp tùy chọn báo cáo sự cố đó qua email</string>
     <string name="changelog_v4_3_0">\nĐã thêm tùy chọn để mở trực tiếp các đầu ra đã lưu\nĐã thêm tùy chọn để lưu toàn bộ đầu ra hoặc chỉ đầu ra của lệnh cuối cùng\nĐã sửa lỗi treo ứng dụng</string>
     <string name="changelog_v4_2_1">\nĐã giải quyết sự cố về việc chia sẻ văn bản vào aShell You khi văn bản không xuất hiện nếu ứng dụng đang bắt đầu khởi chạy\nĐã sửa một số lỗi nhỏ về UI</string>
     <string name="changelog_v4_2_0">\nBản phát hành ổn định cho chế độ OTG\nĐã thêm các tính năng như lưu, chia sẻ, nút cuộn nhanh trong chế độ OTG\nĐã thêm các thẻ thông tin để xem nhanh\nĐã thêm trình kiểm tra cập nhật trong ứng dụng cùng với tùy chọn tự động kiểm tra bản cập nhật\nCải thiện nhỏ về giao diện người dùng</string>
-    <string name="changelog_v4_1_0">\nĐã sửa một số sự cố liên quan đến hỗ trợ OTG adb\nĐã cập nhật bản dịch</string>
+    <string name="changelog_v4_1_0">\nĐã sửa một số sự cố liên quan đến hỗ trợ OTG ADB\nĐã cập nhật bản dịch</string>
     <string name="changelog_v4_0_3">\nĐã cập nhật các thành phần phụ thuộc\nĐã thêm nhiều mẫu lệnh hơn</string>
     <string name="changelog_v4_0_2">\nĐã sửa lỗi giao diện AMOLED không hoạt động trên các thiết bị chạy Android 11 hoặc cũ hơn</string>
-    <string name="changelog_v4_0_1">\nGiờ đây bạn có thể ghim các lệnh để truy cập nhanh\n\nSửa lỗi và thực hiện nhiều tối ưu hóa mã</string>
-    <string name="changelog_v4_0_0">\nGiờ đây bạn có thể trực tiếp sử dụng lệnh từ phần «Các lệnh» thay vì sao chép mỗi lần sử dụng\n\nĐã thêm tùy chọn để xóa tất cả dấu trang\nTrong tính năng tìm kiếm: giờ đây bạn có thể tìm kiếm trong phần mô tả của lệnh bằng cách nhấp vào chip gợi ý\nĐã thêm các tùy chọn sắp xếp cho các mẫu lệnh\nĐã thêm tùy chọn tạo dấu trang trực tiếp cho các mục đã chọn trong phần «Các lệnh»\nChỉ báo chip hiển thị thiết bị đã kết nối (hiện tại chỉ ở chế độ ADB Cục bộ)\nĐã sửa lỗi gây treo ứng dụng trên các thiết bị chạy Android 11 hoặc cũ hơn\nĐã thêm bản dịch tiếng Thổ Nhĩ Kỳ\nCải thiện nhỏ về UI\nVà nhiều bản sửa lỗi khác</string>
+    <string name="changelog_v4_0_1">\nGiờ đây bạn có thể ghim các lệnh để truy cập nhanh\n\nSửa lỗi và thực hiện nhiều tối ưu hóa mã nguồn</string>
+    <string name="changelog_v4_0_0">\nGiờ đây bạn có thể trực tiếp sử dụng lệnh từ phần \"Các lệnh\" thay vì sao chép mỗi lần sử dụng\n\nĐã thêm tùy chọn để xóa tất cả dấu trang\nTrong tính năng tìm kiếm: giờ đây bạn có thể tìm kiếm trong phần mô tả của lệnh bằng cách nhấp vào thẻ gợi ý\nĐã thêm các tùy chọn sắp xếp cho các mẫu lệnh\nĐã thêm tùy chọn tạo dấu trang trực tiếp cho các mục đã chọn trong phần \"Các lệnh\"\nChỉ báo thẻ hiển thị thiết bị đã kết nối (hiện tại chỉ ở chế độ ADB Cục bộ)\nĐã sửa lỗi gây treo ứng dụng trên các thiết bị chạy Android 11 hoặc cũ hơn\nĐã thêm bản dịch tiếng Thổ Nhĩ Kỳ\nCải thiện nhỏ về UI\nVà nhiều bản sửa lỗi khác</string>
     <string name="changelog_v3_9_1">\nĐã thêm tổng số lượng dấu trang\nĐã sửa một số lỗi</string>
     <string name="changelog_v3_9_0">\nĐã thêm tính năng tìm kiếm vào phần lệnh\nĐã thêm tùy chọn thiết lập chế độ làm việc mặc định\nĐã cải thiện hình ảnh động\nĐã thiết kế lại phần Dấu trang và thêm tùy chọn sắp xếp\nĐã tăng giới hạn dấu trang lên 25\nĐã xóa lối tắt khởi chạy của ADB shell và thêm lối tắt khởi chạy cho lệnh\nĐã sửa lỗi thụt lề trong tính năng điều hướng bằng nút\nĐã sửa lại hình dáng của một số nút bấm</string>
     <string name="changelog_v3_8_2">\nỨng dụng đang sử dụng bảng màu Material Design được cập nhật mới nhất để đồng bộ theo chủ đề của bạn\nĐã sửa một số lỗi nhỏ</string>
     <string name="changelog_v3_8_1">\nĐã sửa một số sự cố xuất hiện trong bản v3.8.0</string>
-    <string name="changelog_v3_8_0">\nĐã thêm chủ đề đen (amoled)\nĐã thêm nút hoàn tác để hủy thao tác dán\nĐã thêm tùy chọn tắt bàn phím ảo\nĐã sửa lỗi các nút bị kéo dài trên một số kích thước màn hình\nĐã sửa lỗi nút dấu trang không xuất hiện sau khi mở ứng dụng\nPhần Ví dụ được đổi tên thành \"Các lệnh\"\nĐã sửa lỗi tham số sao chép lệnh không hiển thị đối với mọi mẫu lệnh\nỨng dụng giờ đây sử dụng phông chữ hệ thống ở mọi nơi\nĐã cải thiện xử lý giao diện người dùng (UI)\nĐã cập nhật các bản dịch</string>
+    <string name="changelog_v3_8_0">\nĐã thêm chủ đề đen (AMOLED)\nĐã thêm nút hoàn tác để hủy thao tác dán\nĐã thêm tùy chọn tắt bàn phím ảo\nĐã sửa lỗi các nút bị kéo dài trên một số kích thước màn hình\nĐã sửa lỗi nút dấu trang không xuất hiện sau khi mở ứng dụng\nPhần Ví dụ được đổi tên thành \"Các lệnh\"\nĐã sửa lỗi tham số sao chép lệnh không hiển thị đối với mọi mẫu lệnh\nỨng dụng giờ đây sử dụng phông chữ hệ thống ở mọi nơi\nĐã cải thiện xử lý giao diện người dùng (UI)\nĐã cập nhật các bản dịch</string>
     <string name="changelog_v3_7_0">\nGiờ đây bạn có thể chia sẻ các đoạn văn bản từ bất cứ đâu trên thiết bị của bạn vào aShell You và trực tiếp chạy các lệnh.\nGiờ đây bạn có thể trực tiếp chia sẻ đầu ra của shell mà không cần phải lưu nó lại!\nNhiều tính năng tối ưu hóa và xử lý giao diện người dùng.\nĐã thêm bản dịch tiếng Trung Quốc.\nĐã cập nhật các bản dịch.</string>
     <string name="changelog_v3_6_0">\nĐã thêm tùy chọn dọn dẹp trường nhập lệnh sau khi có lỗi\nĐã sửa lỗi gây treo ứng dụng sau khi dán từ bộ nhớ tạm trong một số điều kiện nhất định\nTối ưu hóa mã nguồn</string>
     <string name="changelog_v3_5_1">\nĐã sửa một số lỗi với menu điều hướng phía dưới.</string>
-    <string name="changelog_v3_5_0">\nĐã cập nhật phần \"Giới thiệu về ứng dụng\".\nĐã thêm các lối tắt khởi chạy (launcher shortcuts).\nĐã sửa menu điều hướng không hiển thị ở chế độ điều hướng bằng nút.\nCải thiện khả năng hiển thị của menu điều hướng phía dưới trong quá trình cuộn.\nĐã thêm hỗ trợ ngôn ngữ theo từng ứng dụng cho aShell You (bản dịch vẫn đang hoàn thiện).\nĐã tối ưu hóa rất nhiều cho mã nguồn.</string>
+    <string name="changelog_v3_5_0">\nĐã cập nhật phần \"Giới thiệu về ứng dụng\".\nĐã thêm các lối tắt khởi chạy.\nĐã sửa menu điều hướng không hiển thị ở chế độ điều hướng bằng nút.\nCải thiện khả năng hiển thị của menu điều hướng phía dưới trong quá trình cuộn.\nĐã thêm hỗ trợ ngôn ngữ theo từng ứng dụng cho aShell You (bản dịch vẫn đang hoàn thiện).\nĐã tối ưu hóa rất nhiều cho mã nguồn.</string>
     <string name="changelog_v3_4_0">\nĐã thêm một nút \"Dán\" để bạn có thể sao chép và dán lệnh nhanh chóng.\nĐã thêm chỉ báo lỗi trong trường nhập văn bản.\nĐã cải thiện logic hiển thị của thanh điều hướng.\nĐã giải quyết vấn đề với các công tắc chuyển đổi không hoạt động trong một số tình huống nhất định.\nĐã sửa chữa việc thêm biểu tượng dấu trang để có độ hiển thị tốt hơn ở các mức tương phản khác nhau.\nTối ưu hóa rất nhiều mã nguồn. Ứng dụng giờ đây mở nhanh hơn rất nhiều so với trước đây.\nỨng dụng sẽ duy trì hoạt động trong chế độ nền và không khởi động lại mỗi khi bạn đóng ứng dụng chỉ bằng cách nhấn nút \"Quay lại\" hoặc cử chỉ.</string>
     <string name="changelog_v3_3_0">\nĐã thêm dấu trang, lịch sử và các gợi ý lệnh cho tính năng OTG\nĐã thêm giới hạn tối đa cho số lượng dấu trang.\nĐã thêm tùy chọn vượt qua giới hạn số lượng dấu trang tối đa.\nSửa rất nhiều lỗi.\nĐã cải thiện cách xử lý giao diện người dùng.\nTối ưu hóa rất nhiều mã nguồn.</string>
-    <string name="changelog_v3_2_0">\nRất nhiều cải tiến liên quan đến giao diện người dùng UI.\nĐã thêm các chip (chỉ báo) biểu thị cho chế độ hoạt động hiện tại của ADB.\nTối ưu hóa rất nhiều mã nguồn.</string>
-    <string name="changelog_v3_1_0">\nĐã cải thiện tính năng ADB OTG sau lần phát hành ban đầu.\nMột số điều chỉnh về giao diện người dùng UI và logic để tương thích với tính năng otg mới.</string>
+    <string name="changelog_v3_2_0">\nRất nhiều cải tiến liên quan đến giao diện người dùng (UI).\nĐã thêm các chỉ báo biểu thị cho chế độ hoạt động hiện tại của ADB.\nTối ưu hóa rất nhiều mã nguồn.</string>
+    <string name="changelog_v3_1_0">\nĐã cải thiện tính năng ADB OTG sau lần phát hành ban đầu.\nMột số điều chỉnh về giao diện người dùng (UI) và logic để tương thích với tính năng OTG mới.</string>
     <string name="changelog_v3_0_0">\nĐã thêm hỗ trợ cho ADB QUA OTG.\n\n*** Bạn sẽ có thể chạy các lệnh ADB trên các thiết bị khác bằng aShellYou, bằng cách kết nối với thiết bị khác thông qua cáp OTG ***</string>
-    <string name="changelog_v2_0_2">\nĐã loại bỏ những đoạn mã và tài nguyên không cần thiết.\nNhững thay đổi nhỏ về giao diện người dùng UI.</string>
-    <string name="changelog_v2_0_1">\nĐã loại bỏ những đoạn mã và tài nguyên không cần thiết.\nNhững thay đổi nhỏ về giao diện người dùng UI.</string>
-    <string name="changelog_v2_0_0">\nTên ứng dụng được thay đổi thành aShell You.\nĐã thêm hình ảnh động Predictive Back (Dự đoán thao tác Quay lại) cho các thiết bị được hỗ trợ.\nĐã thêm hộp thoại bật lên xác nhận trước khi xóa màn hình.\nĐã sửa lỗi các thành phần của thanh trạng thái không hiển thị chính xác trong chế độ giao diện sáng.\nỨng dụng hiện hoạt động mượt mà hơn rất nhiều.\n~ Đã giảm dung lượng ứng dụng và tối ưu hóa mã nguồn.\nĐã thêm biểu tượng theo chủ đề cho các trình khởi chạy (launchers) có hỗ trợ biểu tượng theo chủ đề.\nNhững thay đổi nhỏ về giao diện người dùng (UI).</string>
-    <string name="changelog_v1_3_0">\nBảng điều khiển cài đặt đã được cập nhật.\nĐã thêm tính năng chạm hai lần để cuộn tức thì đến vị trí trên cùng và dưới cùng trong cửa sổ đầu ra của shell.\nNhững thay đổi nhỏ về giao diện người dùng UI.</string>
+    <string name="changelog_v2_0_2">\nĐã loại bỏ những đoạn mã và tài nguyên không cần thiết.\nNhững thay đổi nhỏ về giao diện người dùng (UI).</string>
+    <string name="changelog_v2_0_1">\nĐã loại bỏ những đoạn mã và tài nguyên không cần thiết.\nNhững thay đổi nhỏ về giao diện người dùng (UI).</string>
+    <string name="changelog_v2_0_0">\nTên ứng dụng được thay đổi thành aShell You.\nĐã thêm hình ảnh động Dự đoán thao tác Quay lại cho các thiết bị được hỗ trợ.\nĐã thêm hộp thoại bật lên xác nhận trước khi xóa màn hình.\nĐã sửa lỗi các thành phần của thanh trạng thái không hiển thị chính xác trong chế độ giao diện sáng.\nỨng dụng hiện hoạt động mượt mà hơn rất nhiều.\n~ Đã giảm dung lượng ứng dụng và tối ưu hóa mã nguồn.\nĐã thêm biểu tượng theo chủ đề cho các launchers có hỗ trợ biểu tượng theo chủ đề.\nNhững thay đổi nhỏ về giao diện người dùng (UI).</string>
+    <string name="changelog_v1_3_0">\nBảng điều khiển cài đặt đã được cập nhật.\nĐã thêm tính năng chạm hai lần để cuộn tức thì đến vị trí trên cùng và dưới cùng trong cửa sổ đầu ra của shell.\nNhững thay đổi nhỏ về giao diện người dùng (UI).</string>
     <string name="changelog_v1_2_0">\nĐã thêm bảng điều khiển cài đặt.\nĐã thêm một thông số để vô hiệu hóa tính năng cuộn mượt mà trong đầu ra của shell.\nĐã sửa chữa các lỗi nghiêm trọng sau:\n\n ~ Treo ứng dụng trong quá trình thay đổi chủ đề thiết bị.\n\n ~ Treo ứng dụng khi cố gắng lưu một đầu ra shell có dung lượng lớn. ví dụ: đầu ra của lệnh \'pm\'.</string>
-    <string name="changelog_v1_1_1">\nĐã thay thế một số API lỗi thời.\nNhững thay đổi nhỏ về giao diện người dùng UI.</string>
+    <string name="changelog_v1_1_1">\nĐã thay thế một số API lỗi thời.\nNhững thay đổi nhỏ về giao diện người dùng (UI).</string>
     <string name="changelog_v1_1_0">\nĐã thêm nút \"Cuộn Lên\" và \"Cuộn Xuống\".\nĐã thêm phím Enter trên bàn phím ảo với chức năng \"Nhấn\" để gửi lệnh.\nĐã bổ sung thêm một số lệnh.\nĐã cập nhật các thành phần phụ thuộc để bao gồm các tài liệu mới nhất từ thư viện.\nNhững thay đổi nhỏ về giao diện người dùng (UI).</string>
-    <string name="changelog_v1_0_0">\nĐã bổ sung thêm một vài ví dụ về lệnh.\nNhững thay đổi nhỏ về giao diện người dùng UI.\nĐã thay đổi tên gói để tránh gây nhầm lẫn phiên bản với ứng dụng ban đầu.</string>
-    <string name="changelog_v0_9_1">\nĐã thêm nhật ký thay đổi vào ứng dụng.\nĐã thêm chức năng đánh dấu kết quả đầu ra của shell.\nNhững thay đổi nhỏ về giao diện người dùng UI.</string>
-    <string name="changelog_v0_9_0">\nĐã thêm chủ đề động (Dynamic Material Theming).\nĐã thiết kế lại hoàn toàn giao diện người dùng UI để mang lại một cái nhìn mới mẻ.</string>
+    <string name="changelog_v1_0_0">\nĐã bổ sung thêm một vài ví dụ về lệnh.\nNhững thay đổi nhỏ về giao diện người dùng (UI).\nĐã thay đổi tên gói để tránh gây nhầm lẫn phiên bản với ứng dụng ban đầu.</string>
+    <string name="changelog_v0_9_1">\nĐã thêm nhật ký thay đổi vào ứng dụng.\nĐã thêm chức năng đánh dấu kết quả đầu ra của shell.\nNhững thay đổi nhỏ về giao diện người dùng (UI).</string>
+    <string name="changelog_v0_9_0">\nĐã thêm chủ đề động.\nĐã thiết kế lại hoàn toàn giao diện người dùng UI để mang lại một cái nhìn mới mẻ.</string>
 </resources>

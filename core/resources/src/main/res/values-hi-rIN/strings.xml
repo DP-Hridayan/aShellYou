@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
+    <string name="_import">Import</string>
+    <string name="_new">New</string>
     <string name="abort_command">पहले आदेश निरस्त करें</string>
     <string name="about">इसके बारे में</string>
     <string name="active">सक्रिय</string>
     <string name="active_slot">सक्रिय स्लॉट</string>
     <string name="adb">ADB</string>
+    <string name="adb_agent">ADB Agent</string>
     <string name="adb_command">ADB command</string>
     <string name="adb_command_hint" comment="Example ADB command shown as placeholder hint in input field">adb reboot</string>
     <string name="adb_command_off_state">ADB command (OFF state)</string>
@@ -13,12 +16,7 @@
     <string name="adb_connection_channel_description">ADB कनेक्शन सक्रिय होने पर दिखाता है</string>
     <string name="adb_connection_channel_name">ADB कनेक्शन</string>
     <string name="adb_connection_description">WiFi ADB कनेक्शन बनाए रखा जा रहा है</string>
-    <string name="adb_agent">ADB Agent</string>
     <string name="adb_sideload">ADB sideload</string>
-    <string name="ai_prompt_suggestion_1">Check my battery health</string>
-    <string name="ai_prompt_suggestion_2">List all installed packages</string>
-    <string name="ai_prompt_suggestion_3">Help me create a Quick Settings tile</string>
-    <string name="ai_new_chat_welcome_msg">Hi, what can I do for you?</string>
     <string name="adb_through_otg">OTG के माध्यम से ADB</string>
     <string name="adb_through_otg_summary">किसी अन्य Android डिवाइस पर ADB कमांड निष्पादित करने के लिए OTG केबल और USB डीबगिंग का उपयोग करें। आपको लक्ष्य डिवाइस की डेवलपर सेटिंग में USB डीबगिंग चालू करनी होगी।</string>
     <string name="adb_via_otg">ADB via OTG</string>
@@ -48,6 +46,10 @@
     <string name="ai_chat_unpin">Unpin</string>
     <string name="ai_chat_use">Use</string>
     <string name="ai_models">AI &amp; Models</string>
+    <string name="ai_new_chat_welcome_msg">Hi, what can I do for you?</string>
+    <string name="ai_prompt_suggestion_1">Check my battery health</string>
+    <string name="ai_prompt_suggestion_2">List all installed packages</string>
+    <string name="ai_prompt_suggestion_3">Help me create a Quick Settings tile</string>
     <string name="ai_theme_prompt_hint">e.g. Cyberpunk neon city, dark mode, high contrast</string>
     <string name="all">सभी</string>
     <string name="all_data">सभी डेटा</string>
@@ -135,6 +137,51 @@
     <string name="cloud_restore_successful">Restored from Google Drive</string>
     <string name="code_pair_instruction">लक्ष्य डिवाइस पर \"वायरलेस डिबगिंग\" खोलें और \"पेयरिंग कोड से डिवाइस पेयर करें\" पर टैप करें</string>
     <string name="collapse">Collapse</string>
+    <string name="color_preview_error_occurred">Error occurred</string>
+    <string name="color_preview_high_elevation">High Elevation (Dialog)</string>
+    <string name="color_preview_highest_elevation">Highest Elevation (Bottom Sheet)</string>
+    <string name="color_preview_list_item">List Item / Text Field</string>
+    <string name="color_preview_low_elevation">Low Elevation (Elevated Card)</string>
+    <string name="color_preview_lowest_elevation">Lowest Elevation</string>
+    <string name="color_preview_outlined_button">Outlined Button</string>
+    <string name="color_preview_primary_button">Primary Button</string>
+    <string name="color_preview_screen_content">Screen Content</string>
+    <string name="color_preview_standard_elevation">Standard Elevation (Card)</string>
+    <string name="color_preview_surface_area">Surface Area</string>
+    <string name="color_preview_tonal_button">Tonal Button</string>
+    <string name="color_role_app_background">App Background</string>
+    <string name="color_role_background">Background</string>
+    <string name="color_role_error">Error</string>
+    <string name="color_role_error_container">Error Container</string>
+    <string name="color_role_main_accent">Main Accent (Primary)</string>
+    <string name="color_role_on_background" context="The color used for text and icons drawn on top of the background color">On Background</string>
+    <string name="color_role_on_error" context="The color used for text and icons drawn on top of the error color">On Error</string>
+    <string name="color_role_on_error_container" context="The color used for text and icons drawn on top of the error container color">On Error Container</string>
+    <string name="color_role_on_primary" context="The color used for text and icons drawn on top of the primary color">On Primary</string>
+    <string name="color_role_on_primary_container" context="The color used for text and icons drawn on top of the primary container color">On Primary Container</string>
+    <string name="color_role_on_secondary" context="The color used for text and icons drawn on top of the secondary color">On Secondary</string>
+    <string name="color_role_on_secondary_container" context="The color used for text and icons drawn on top of the secondary container color">On Secondary Container</string>
+    <string name="color_role_on_surface" context="The color used for text and icons drawn on top of the surface color">On Surface</string>
+    <string name="color_role_on_surface_variant" context="The color used for text and icons drawn on top of the surface variant color">On Surface Variant</string>
+    <string name="color_role_on_tertiary" context="The color used for text and icons drawn on top of the tertiary color">On Tertiary</string>
+    <string name="color_role_on_tertiary_container" context="The color used for text and icons drawn on top of the tertiary container color">On Tertiary Container</string>
+    <string name="color_role_outline">Outline</string>
+    <string name="color_role_outline_variant">Outline Variant</string>
+    <string name="color_role_primary">Primary</string>
+    <string name="color_role_primary_container">Primary Container</string>
+    <string name="color_role_secondary">Secondary</string>
+    <string name="color_role_secondary_accent">Secondary Accent</string>
+    <string name="color_role_secondary_container">Secondary Container</string>
+    <string name="color_role_surface">Surface</string>
+    <string name="color_role_surface_container">Surface Container</string>
+    <string name="color_role_surface_container_high">Surface Container High</string>
+    <string name="color_role_surface_container_highest">Surface Container Highest</string>
+    <string name="color_role_surface_container_low">Surface Container Low</string>
+    <string name="color_role_surface_container_lowest">Surface Container Lowest</string>
+    <string name="color_role_surface_variant">Surface Variant</string>
+    <string name="color_role_tertiary">Tertiary</string>
+    <string name="color_role_tertiary_accent">Tertiary Accent</string>
+    <string name="color_role_tertiary_container">Tertiary Container</string>
     <string name="command">कमांड</string>
     <string name="command_analysis">Command analysis</string>
     <string name="command_not_found">कमांड नहीं मिला!</string>
@@ -448,7 +495,6 @@
     <string name="history">इतिहास</string>
     <string name="home">होम</string>
     <string name="icon_selected">Icon selected</string>
-    <string name="_import">Import</string>
     <string name="import_theme">Import Theme</string>
     <string name="include">Include</string>
     <string name="info">जानकारी</string>
@@ -507,6 +553,7 @@
     <string name="logs">Logs</string>
     <string name="look_and_feel">देखें और अनुभव</string>
     <string name="low">Low</string>
+    <string name="low_contrast_ratio">Low contrast ratio</string>
     <string name="make_your_theme_title">Make Your Theme</string>
     <string name="manual_pair">मैन्युअल पेयर</string>
     <string name="max_download_size">Max Download</string>
@@ -628,6 +675,7 @@
     <string name="permission_denied">अनुमति अस्वीकृत</string>
     <string name="permission_optional">ये अनुमतियाँ देना वैकल्पिक है!</string>
     <string name="pick_ashellyou_extension">कृपया .ashellyou एक्सटेंशन वाली फ़ाइल चुनें</string>
+    <string name="pick_color">Pick color</string>
     <string name="port">पोर्ट</string>
     <string name="possible_reasons">संभावित कारण</string>
     <string name="pre_release_github">Pre-release (GitHub)</string>
@@ -782,6 +830,7 @@
     <string name="system_default">System default</string>
     <string name="system_font" comment="Option to use the device default font">सिस्टम फ़ॉन्ट</string>
     <string name="system_settings">सिस्टम सेटिंग्स</string>
+    <string name="tab">Tab</string>
     <string name="tag">Tag</string>
     <string name="telegram">टेलीग्राम</string>
     <string name="terminal">टर्मिनल</string>

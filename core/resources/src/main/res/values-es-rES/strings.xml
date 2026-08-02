@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
+    <string name="_import">Importar</string>
+    <string name="_new">Nuevo</string>
     <string name="abort_command">Aborta el comando primero</string>
     <string name="about">Acerca de</string>
     <string name="active">Activo</string>
     <string name="active_slot">Ranura activa</string>
     <string name="adb">ADB</string>
+    <string name="adb_agent">Agente ADB</string>
     <string name="adb_command">Comando ADB</string>
     <string name="adb_command_hint" comment="Example ADB command shown as placeholder hint in input field">adb reboot</string>
     <string name="adb_command_off_state">Comando ADB (Estado: DESACTIVADO)</string>
@@ -13,12 +16,7 @@
     <string name="adb_connection_channel_description">Muestra cuando la conexión ADB está activa</string>
     <string name="adb_connection_channel_name">Conexión ADB</string>
     <string name="adb_connection_description">La conexión ADB por Wifi se está manteniendo</string>
-    <string name="adb_agent">Agente ADB</string>
     <string name="adb_sideload">Carga lateral ADB</string>
-    <string name="ai_prompt_suggestion_1">Comprobar el estado de mi batería</string>
-    <string name="ai_prompt_suggestion_2">Listar todos los paquetes instalados</string>
-    <string name="ai_prompt_suggestion_3">Ayúdame a crear un ajuste rápido</string>
-    <string name="ai_new_chat_welcome_msg">Hola, ¿qué puedo hacer por ti?</string>
     <string name="adb_through_otg">ADB a través de OTG</string>
     <string name="adb_through_otg_summary">Usa un cable OTG y la depuración USB para ejecutar comandos ADB en otro dispositivo Android. Debes activar Depuración USB en las opciones de desarrollador del dispositivo objetivo.</string>
     <string name="adb_via_otg">ADB vía OTG</string>
@@ -48,6 +46,10 @@
     <string name="ai_chat_unpin">Unpin</string>
     <string name="ai_chat_use">Usar</string>
     <string name="ai_models">AI &amp; Models</string>
+    <string name="ai_new_chat_welcome_msg">Hola, ¿qué puedo hacer por ti?</string>
+    <string name="ai_prompt_suggestion_1">Comprobar el estado de mi batería</string>
+    <string name="ai_prompt_suggestion_2">Listar todos los paquetes instalados</string>
+    <string name="ai_prompt_suggestion_3">Ayúdame a crear un ajuste rápido</string>
     <string name="ai_theme_prompt_hint">ej. Ciudad neón Cyberpunk, modo oscuro, alto contraste</string>
     <string name="all">Todo</string>
     <string name="all_data">Todos los datos</string>
@@ -135,6 +137,51 @@
     <string name="cloud_restore_successful">Restaurado desde Google Drive</string>
     <string name="code_pair_instruction">Abre \"Depuración inalámbrica\" en el dispositivo de destino y toca \"Emparejar dispositivo con código de sincronización\"</string>
     <string name="collapse">Contraer</string>
+    <string name="color_preview_error_occurred">Ha ocurrido un error</string>
+    <string name="color_preview_high_elevation">Alta notificación (Dialog)</string>
+    <string name="color_preview_highest_elevation">Temperatura más alta (Hoja de Botín)</string>
+    <string name="color_preview_list_item">Listar elemento / campo de texto</string>
+    <string name="color_preview_low_elevation">Disminución baja (tarjeta elevada)</string>
+    <string name="color_preview_lowest_elevation">Comunicación más baja</string>
+    <string name="color_preview_outlined_button">Botón Outlined</string>
+    <string name="color_preview_primary_button">Botón primario</string>
+    <string name="color_preview_screen_content">Contenido de pantalla</string>
+    <string name="color_preview_standard_elevation">Atención estándar (Card)</string>
+    <string name="color_preview_surface_area">Superficie</string>
+    <string name="color_preview_tonal_button">Botón Tonal</string>
+    <string name="color_role_app_background">Fondo de app</string>
+    <string name="color_role_background">Fondo</string>
+    <string name="color_role_error">Error</string>
+    <string name="color_role_error_container">Contenedor de errores</string>
+    <string name="color_role_main_accent">Acento principal (primario)</string>
+    <string name="color_role_on_background" context="The color used for text and icons drawn on top of the background color">En segundo plano</string>
+    <string name="color_role_on_error" context="The color used for text and icons drawn on top of the error color">En Error</string>
+    <string name="color_role_on_error_container" context="The color used for text and icons drawn on top of the error container color">En Contenedor de Error</string>
+    <string name="color_role_on_primary" context="The color used for text and icons drawn on top of the primary color">En Primario</string>
+    <string name="color_role_on_primary_container" context="The color used for text and icons drawn on top of the primary container color">En contenedor primario</string>
+    <string name="color_role_on_secondary" context="The color used for text and icons drawn on top of the secondary color">En secundario</string>
+    <string name="color_role_on_secondary_container" context="The color used for text and icons drawn on top of the secondary container color">En el contenedor secundario</string>
+    <string name="color_role_on_surface" context="The color used for text and icons drawn on top of the surface color">Superficie</string>
+    <string name="color_role_on_surface_variant" context="The color used for text and icons drawn on top of the surface variant color">Variante superficial</string>
+    <string name="color_role_on_tertiary" context="The color used for text and icons drawn on top of the tertiary color">En Terciario</string>
+    <string name="color_role_on_tertiary_container" context="The color used for text and icons drawn on top of the tertiary container color">En Contenedor Terciario</string>
+    <string name="color_role_outline">Fuera</string>
+    <string name="color_role_outline_variant">Variante Outline</string>
+    <string name="color_role_primary">Principal</string>
+    <string name="color_role_primary_container">Contenedor primario</string>
+    <string name="color_role_secondary">Secundario</string>
+    <string name="color_role_secondary_accent">Acento secundario</string>
+    <string name="color_role_secondary_container">Contenedor secundario</string>
+    <string name="color_role_surface">Superficie</string>
+    <string name="color_role_surface_container">Contenedor de superficie</string>
+    <string name="color_role_surface_container_high">Contenedor de superficie alto</string>
+    <string name="color_role_surface_container_highest">Contenedor de la superficie más alto</string>
+    <string name="color_role_surface_container_low">Contenedor de Superficie Bajo</string>
+    <string name="color_role_surface_container_lowest">Contenedor de superficie más bajo</string>
+    <string name="color_role_surface_variant">Variante de superficie</string>
+    <string name="color_role_tertiary">Terciario</string>
+    <string name="color_role_tertiary_accent">Acento terciario</string>
+    <string name="color_role_tertiary_container">Contenedor Terciario</string>
     <string name="command">Comando</string>
     <string name="command_analysis">Análisis de comandos</string>
     <string name="command_not_found">¡Comando no encontrado!</string>
@@ -448,7 +495,6 @@
     <string name="history">Historial</string>
     <string name="home">Inicio</string>
     <string name="icon_selected">Icono seleccionado</string>
-    <string name="_import">Importar</string>
     <string name="import_theme">Importar tema</string>
     <string name="include">Incluye</string>
     <string name="info">Información</string>
@@ -507,6 +553,7 @@
     <string name="logs">Registros</string>
     <string name="look_and_feel">Apariencia y comportamiento</string>
     <string name="low">Baja</string>
+    <string name="low_contrast_ratio">Relación de contraste bajo</string>
     <string name="make_your_theme_title">Hacer tu tema</string>
     <string name="manual_pair">Emparejamiento manual</string>
     <string name="max_download_size">Máxima descarga</string>
@@ -628,6 +675,7 @@
     <string name="permission_denied">Permiso denegado</string>
     <string name="permission_optional">¡Conceder estos permisos es opcional!</string>
     <string name="pick_ashellyou_extension">Por favor, selecciona un archivo con la extensión .ashellyou</string>
+    <string name="pick_color">Elegir color</string>
     <string name="port">Puerto</string>
     <string name="possible_reasons">Posibles razones</string>
     <string name="pre_release_github">Prelanzamiento (GitHub)</string>
@@ -782,6 +830,7 @@
     <string name="system_default">Predeterminado del sistema</string>
     <string name="system_font" comment="Option to use the device default font">Fuente del sistema</string>
     <string name="system_settings">Ajustes del sistema</string>
+    <string name="tab">Tab</string>
     <string name="tag">Etiqueta</string>
     <string name="telegram">Telegram</string>
     <string name="terminal">Terminal</string>
