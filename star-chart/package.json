@@ -1,0 +1,8 @@
+{
+  "name": "ashell-star-chart",
+  "version": "1.0.0",
+  "description": "Dynamic stargazer history chart for aShellYou — served as an SVG via Vercel",
+  "engines": {
+    "node": "20.x"
+  }
+}
