@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="_import">Import</string>
     <string name="_new">New</string>
     <string name="abort_command">पहले आदेश निरस्त करें</string>
@@ -921,9 +921,9 @@
     <string name="changelog_v7_1_0">\nउस समस्या को ठीक किया जहां अंग्रेजी कीबोर्ड कमांड इनपुट में नहीं दिखता था जब उपयोगकर्ता अंग्रेजी के अलावा कोई भाषा सेट करता था\nमेल आइकन ठीक से न दिखने की समस्या ठीक की\nबड़ी फाइल आउटपुट सहेजते समय ऐप क्रैश होने की समस्या ठीक की\nअनावश्यक अनुमतियां हटाईं\nAbout सेक्शन में UI सुधार</string>
     <string name="changelog_v7_0_1">\nFastlane फिक्स</string>
     <string name="changelog_v7_0_0">\nपूरा UI नया किया गया, material expressive कंपोनेंट्स के साथ\nपूरा कोडबेस Kotlin और Jetpack Compose में फिर से लिखा\npush और pull आधारित फाइल मैनेजर जोड़ा\nQR WiFi ADB पेयरिंग मोड जोड़ा\nऐप सेटिंग्स और डेटाबेस बैकअप विकल्प जोड़े\nकस्टम थीमिंग विकल्प जोड़े\nक्रैश हिस्ट्री जोड़ी\nऑटो अपडेट में सुधार\nशेल आउटपुट में UI और UX सुधार\nAndroid अनुमति सुझाव जोड़े\nकमांड उदाहरण लेआउट में लेबल जोड़े\nकमांड जोड़ने, संपादित करने या हटाने का विकल्प\nकई बग ठीक किए</string>
-    <string name="changelog_v6_1_0">\nअब कमांड सर्च उन कमांड को खोज सकता है जिनमें आपका टाइप किया शब्द है\nShizuku ऐप सीधे खोलने का विकल्प जब यह इंस्टॉल है पर चल नहीं रहा\nइन-ऐप क्रैश रिपोर्टर ठीक किया</string>
+    <string name="changelog_v6_1_0">\nNow command search can search the commands that contains the word you typed compared to previous versions where it only searched commands that starts with the typed word.\nOption to open Shizuku app directly when Shizuku is installed but not running.\nFixed the broken in-app crash reporter.</string>
     <string name="changelog_v6_0_3">\nउस समस्या को ठीक किया जो प्रति ऐप अनुवाद को तोड़ रही थी</string>
-    <string name="changelog_v6_0_2">\nरिलीज बिल्ड के लिए Github Actions अपनाया\nआपके लिए इसका मतलब?\nइसके बाद के सभी बिल्ड अधिक सुरक्षित होंगे!</string>
+    <string name="changelog_v6_0_2">\nAdapted GitHub Actions for release builds.\nWhat this means for you?\nAll subsequent builds including this will be more secure!</string>
     <string name="changelog_v6_0_1">\nरखरखाव अपडेट</string>
     <string name="changelog_v6_0_0">\nADB कमांड चलाने के लिए वायरलेस डिबगिंग मोड जोड़ा\nन्यूनतम नेविगेशन के लिए होमपेज नया डिज़ाइन किया\nक्रिटिकल सिस्टम पैकेज वाले कमांड चलाते समय चेतावनी जोड़ी\nइन-ऐप अपडेटर जोड़ा\nकई बग ठीक किए</string>
     <string name="changelog_v5_2_1">\nरखरखाव अपडेट</string>
@@ -951,7 +951,7 @@
     <string name="changelog_v3_5_0">\nऐप का About सेक्शन नया बनाया\nलॉन्चर शॉर्टकट जोड़े\nनेविगेशन मेनू न दिखने की समस्या ठीक की\nस्क्रॉल करते समय बॉटम नेविगेशन मेनू दृश्यता में सुधार\nप्रति ऐप भाषा समर्थन जोड़ा\nकोड ऑप्टिमाइज़ेशन</string>
     <string name="changelog_v3_4_0">\nपेस्ट बटन जोड़ा ताकि आप जल्दी कमांड कॉपी पेस्ट कर सकें\nटेक्स्ट इनपुट फील्ड में एरर इंडिकेटर जोड़े\nनेविगेशन बार दृश्यता लॉजिक में सुधार\nस्विच की समस्या ठीक की\nबुकमार्क आइकन दृश्यता ठीक की\nकोड ऑप्टिमाइज़ेशन - ऐप तेज़ी से खुलता है\nऐप बैकग्राउंड में रहेगा</string>
     <string name="changelog_v3_3_0">\nOTG में बुकमार्क, हिस्ट्री और कमांड सुझाव जोड़े\nअधिकतम बुकमार्क सीमा जोड़ी\nअधिकतम बुकमार्क सीमा ओवरराइड करने का विकल्प\nकई बग फिक्स\nकुछ UI हैंडलिंग में सुधार\nकोड ऑप्टिमाइज़ेशन</string>
-    <string name="changelog_v3_2_0">\nकई UI संबंधित सुधार\nवर्तमान ADB वर्किंग मोड दिखाने वाले चिप्स जोड़े\nकोड ऑप्टिमाइज़ेशन</string>
+    <string name="changelog_v3_2_0">\nA lot of UI related improvements.\nAdded chips that indicate current ADB working mode.\nA lot of code optimization.</string>
     <string name="changelog_v3_1_0">\nImprovements to ADB OTG after initial release.\nSome UI and logic adjustments to accommodate the new otg feature.</string>
     <string name="changelog_v3_0_0">\nOTG के माध्यम से ADB सपोर्ट जोड़ा\n\n*** आप OTG केबल से जोड़कर अन्य डिवाइस पर ADB कमांड चला सकते हैं ***</string>
     <string name="changelog_v2_0_2">\nअनावश्यक कोड और रिसोर्स हटाए\nमामूली UI बदलाव</string>
