@@ -227,9 +227,9 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)"
-    srcset="https://YOUR_VERCEL_URL/api/stars?theme=dark">
-  <img alt="Star History Chart"
-    src="https://YOUR_VERCEL_URL/api/stars?theme=light">
+    srcset="https://star-chart-xi.vercel.app/api/stars?repo=DP-Hridayan/aShellYou&theme=dark">
+  <img alt="Star History"
+    src="https://star-chart-xi.vercel.app/api/stars?repo=DP-Hridayan/aShellYou&theme=light">
 </picture>
 
 <br/>
