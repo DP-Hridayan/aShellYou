@@ -17,22 +17,14 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
     if: ${{ !endsWith(github.actor, '[bot]') && github.actor != 'dependabot[bot]' }}
 
     steps:
-      - name: Restore Peak Star Count
-        if: ${{ github.event_name == 'watch' }}
-        uses: actions/cache/restore@v4
-        with:
-          path: peak_stars.txt
-          key: peak-stars-record
-          restore-keys: |
-            peak-stars-
-
       - name: Send Telegram Message
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
           THREAD_ID: ${{ secrets.THREAD_ID }}
           EVENT_NAME: ${{ github.event_name }}
@@ -84,17 +76,42 @@ jobs:
 
           elif [[ "$EVENT_NAME" == "watch" ]]; then
             STAR_COUNT=$(curl -s "https://api.github.com/repos/${REPO}" | jq -r '.stargazers_count')
+          
+            if [[ ! "$STAR_COUNT" =~ ^[0-9]+$ ]]; then
+              echo "Error: Failed to fetch valid star count."
+              exit 0
+            fi
+
+            # Setup temporary working dir to handle 'stars' state branch
+            STATE_DIR=$(mktemp -d)
+            cd "$STATE_DIR"
+            git init -q
+            git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git"
+            git fetch origin stars -q 2>/dev/null || true
+          
             LAST_MAX=0
-            if [ -f peak_stars.txt ]; then
-              LAST_MAX=$(cat peak_stars.txt)
+            if git checkout stars -q 2>/dev/null; then
+              if [ -f peak_stars.txt ]; then
+                LAST_MAX=$(cat peak_stars.txt)
+              fi
+            else
+              git checkout -q -b stars
             fi
 
             if [ "$STAR_COUNT" -gt "$LAST_MAX" ]; then
               echo "$STAR_COUNT" > peak_stars.txt
-              echo "NEW_PEAK=true" >> $GITHUB_ENV
+              git add peak_stars.txt
+              git config user.name "github-actions[bot]"
+              git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+              git commit -q -m "Update peak star count to $STAR_COUNT"
+              git push -q origin stars
+          
+              cd "$GITHUB_WORKSPACE"
+              rm -rf "$STATE_DIR"
               send_message "⭐ *$ACTOR* starred *${REPO}*\n Total stars: *$STAR_COUNT*"
             else
-              echo "NEW_PEAK=false" >> $GITHUB_ENV
+              cd "$GITHUB_WORKSPACE"
+              rm -rf "$STATE_DIR"
               echo "Skipping star alert: Star count ($STAR_COUNT) did not exceed peak ($LAST_MAX)."
             fi
 
@@ -128,10 +145,3 @@ jobs:
             REPLY='{"inline_keyboard": [[{"text": "View Release", "url": "'"$REL_URL"'"}]]}'
             send_message "🚀 *New Release Published* by [$ACTOR](https://github.com/$ACTOR):\n• *$REL_NAME*" "$REPLY"
           fi
-
-      - name: Save Peak Star Count
-        if: ${{ github.event_name == 'watch' && env.NEW_PEAK == 'true' }}
-        uses: actions/cache/save@v4
-        with:
-          path: peak_stars.txt
-          key: peak-stars-${{ github.run_id }}
