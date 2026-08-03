@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="_import">Import</string>
     <string name="_new">New</string>
     <string name="A_Z" translatable="false">A → Z</string>
@@ -940,9 +940,9 @@
     <string name="changelog_v7_1_0">\nFixed an issue where English keyboard might not show up in command input in case user sets a locale other than English for the app\nFixed an issue with Mail icon not showing properly\nFixed an issue which caused app to crash while trying to save huge file outputs\nRemoved redundant permissions\nImproved UI in About section</string>
     <string name="changelog_v7_0_1">\nFastlane fix</string>
     <string name="changelog_v7_0_0">\nWhole UI Revamped, using material expressive components\nRewritten whole codebase in Kotlin and Jetpack Compose as UI Framework\nAdded push &amp; pull based file manager\nAdded QR Wifi Adb Pairing mode\nAdded app settings and database backup options\nAdded custom theming options\nAdded crash history to view app crash logs\nImproved auto update feature\nImproved UI &amp; UX in shell output\nAdded Android permissions suggestions\nRevamped command examples layout to include labels\nAdded option to Add, Edit or Delete commands as you wish\nLots of existing bugs are now fixed</string>
-    <string name="changelog_v6_1_0">\nNow command search can search the commands that contains the word you typed compared to previous versions where it only searched commands that starts with the typed word.\nOption to open Shizuku app directly when Shizuku is installed but not running.\nFixed the broken in app crash reporter.</string>
+    <string name="changelog_v6_1_0">\nNow command search can search the commands that contains the word you typed compared to previous versions where it only searched commands that starts with the typed word.\nOption to open Shizuku app directly when Shizuku is installed but not running.\nFixed the broken in-app crash reporter.</string>
     <string name="changelog_v6_0_3">\nFixed the issue which caused per app translations to be broken for aShell You</string>
-    <string name="changelog_v6_0_2">\nAdapted Github Actions for release builds.\nWhat this means for you?\nAll subsequent builds including this will be more secure!</string>
+    <string name="changelog_v6_0_2">\nAdapted GitHub Actions for release builds.\nWhat this means for you?\nAll subsequent builds including this will be more secure!</string>
     <string name="changelog_v6_0_1">\nMaintenance update</string>
     <string name="changelog_v6_0_0">\nAdded WIRELESS DEBUGGING mode for running ADB commands on both own or other device\nRedesigned homepage for minimal navigation and less cluttery input field screen\nAdded Warning feedback when executing commands involving critical system packages\nAdded in-app updater. Now you can directly download the latest package without visiting Github repository\nFixed a lot of bugs</string>
     <string name="changelog_v5_2_1">\nMaintenance update</string>
@@ -970,7 +970,7 @@
     <string name="changelog_v3_5_0">\nRevamped About section of the app.\nAdded launcher shortcuts.\nFixed navigation menu not showing in button navigation.\nImproved bottom navigation menu visibility on scrolling.\nAdded per app language support for aShell You (translations aren\'t completed yet).\nA lot of code optimisations.</string>
     <string name="changelog_v3_4_0">\nAdded a Paste button so that you can copy and paste commands quickly.\nAdded Error indicators in the text input field.\nImproved Navigation Bar visibility logic.\nFixed an issue where switches misbehaves under certain situations.\nFixed add bookmark icon visibility in various contrast levels.\nA lot of code optimisation. App now opens a lot faster than before.\nApp will stay in background and won\'t restart every time you close the app by just pressing the back button or gesture.</string>
     <string name="changelog_v3_3_0">\nAdded bookmarks , history and command suggestions to OTG\nAdded maximum bookmarks limit.\nAdded option to override maximum bookmarks limit.\nA lot of bug fixes.\nImproved some UI handling.\nA lot of code optimisation.</string>
-    <string name="changelog_v3_2_0">\nA lot of UI related improvements.\nAdded chips that indicate current ADB working mode.\nA lot of code optimisation.</string>
+    <string name="changelog_v3_2_0">\nA lot of UI related improvements.\nAdded chips that indicate current ADB working mode.\nA lot of code optimization.</string>
     <string name="changelog_v3_1_0">\nImprovements to ADB OTG after initial release.\nSome UI and logic adjustments to accommodate the new otg feature.</string>
     <string name="changelog_v3_0_0">\nAdded ADB THROUGH OTG support.\n\n*** You will be able to run ADB commands on other devices using aShellYou by connecting the other device using an OTG cable ***</string>
     <string name="changelog_v2_0_2">\nRemoved unnecessary code and resources.\nMinor UI changes.</string>

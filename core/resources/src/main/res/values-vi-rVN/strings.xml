@@ -107,7 +107,7 @@
     <string name="boot_image">Boot Image</string>
     <string name="boot_into_fastboot">Khởi động vào Fastboot</string>
     <string name="bootloader">Bootloader</string>
-    <string name="bootloader_version">Bootloader</string>
+    <string name="bootloader_version">Bootloader ver</string>
     <string name="btn_continue">Tiếp tục</string>
     <string name="cache_settings">Bộ nhớ đệm</string>
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Kích thước bộ nhớ đệm: %s</string>
