@@ -83,8 +83,8 @@ jobs:
           echo "✅ Found APKs:"
           echo "$APK_FILES"
 
-          gh release create "${{ github.ref_name }}" \
+          gh release create "$GITHUB_REF_NAME" \
             $APK_FILES \
-            --title "aShell You ${{ github.ref_name }}" \
+            --title "aShell You $GITHUB_REF_NAME" \
             --notes-file docs/prerelease-notes.md \
             --prerelease

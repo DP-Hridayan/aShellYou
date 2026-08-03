@@ -106,9 +106,9 @@ jobs:
           echo "✅ Found APKs:"
           echo "$APK_FILES"
 
-          gh release create "${{ github.ref_name }}" \
+          gh release create "$GITHUB_REF_NAME" \
             $APK_FILES \
-            --title "aShell You ${{ github.ref_name }}" \
+            --title "aShell You $GITHUB_REF_NAME" \
             --notes-file changelog.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -119,8 +119,8 @@ jobs:
           CHAT_ID: ${{ secrets.CHAT_ID }}
           THREAD_ID: ${{ secrets.RELEASE_THREAD_ID }}
         run: |
-          TAG=${{ github.ref_name }}
-          URL="https://github.com/${{ github.repository }}/releases/tag/${TAG}"
+          TAG=$GITHUB_REF_NAME
+          URL="https://github.com/$GITHUB_REPOSITORY/releases/tag/${TAG}"
 
           # Escape underscores for MarkdownV2
           ESC_TAG=$(echo "$TAG" | sed -e 's/\./\\./g' -e 's/_/\\_/g' -e 's/\*/\\*/g' -e 's/\-/\\-/g')

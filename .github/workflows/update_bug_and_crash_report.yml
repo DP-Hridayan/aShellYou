@@ -21,16 +21,15 @@ jobs:
 
       - name: Set up environment
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
             VERSION=$(git tag --sort=-v:refname | grep '^v' | head -n 1)
-          elif [ "${{ github.event_name }}" = "push" ]; then
-            RAW_REF="${{ github.ref }}"
-            VERSION="${RAW_REF##*/}"
-          elif [ "${{ github.event_name }}" = "delete" ]; then
+          elif [ "$GITHUB_EVENT_NAME" = "push" ]; then
+            VERSION="${GITHUB_REF##*/}"
+          elif [ "$GITHUB_EVENT_NAME" = "delete" ]; then
             VERSION="${GITHUB_REF##*/}"
           fi
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "EVENT=${{ github.event_name }}" >> $GITHUB_ENV
+          echo "EVENT=$GITHUB_EVENT_NAME" >> $GITHUB_ENV
 
       - name: Configure Git
         run: |
