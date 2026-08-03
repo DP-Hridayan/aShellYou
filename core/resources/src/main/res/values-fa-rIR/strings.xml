@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="_import">Import</string>
     <string name="_new">New</string>
     <string name="abort_command">ابتدا دستور را لغو کنید</string>
@@ -921,9 +921,9 @@
     <string name="changelog_v7_1_0">\nرفع مشکلی که کیبورد انگلیسی در ورودی دستور نمایش داده نمی‌شد وقتی کاربر زبان غیر انگلیسی انتخاب می‌کرد\nرفع مشکل نمایش آیکون ایمیل\nرفع مشکل خرابی برنامه هنگام ذخیره خروجی‌های بزرگ\nحذف مجوزهای اضافی\nبهبود رابط کاربری در بخش درباره</string>
     <string name="changelog_v7_0_1">\nرفع Fastlane</string>
     <string name="changelog_v7_0_0">\nبازطراحی کامل رابط کاربری با اجزای material expressive\nبازنویسی کل کد به Kotlin و Jetpack Compose\nافزودن مدیر فایل با قابلیت push و pull\nافزودن حالت جفت‌سازی QR WiFi ADB\nافزودن گزینه‌های پشتیبان‌گیری تنظیمات و پایگاه داده\nافزودن گزینه‌های تم سفارشی\nافزودن تاریخچه خرابی برای مشاهده لاگ‌ها\nبهبود بروزرسانی خودکار\nبهبود رابط کاربری در خروجی شل\nافزودن پیشنهاد مجوزهای اندروید\nبازطراحی نمونه دستورات با برچسب‌ها\nقابلیت افزودن، ویرایش یا حذف دستورات\nرفع بسیاری از باگ‌ها</string>
-    <string name="changelog_v6_1_0">\nاکنون جستجوی دستور می‌تواند دستوراتی که حاوی کلمه هستند را پیدا کند\nقابلیت باز کردن مستقیم Shizuku وقتی نصب است اما اجرا نمی‌شود\nرفع گزارشگر خرابی درون برنامه‌ای</string>
+    <string name="changelog_v6_1_0">\nNow command search can search the commands that contains the word you typed compared to previous versions where it only searched commands that starts with the typed word.\nOption to open Shizuku app directly when Shizuku is installed but not running.\nFixed the broken in-app crash reporter.</string>
     <string name="changelog_v6_0_3">\nرفع مشکلی که ترجمه‌های هر برنامه را خراب می‌کرد</string>
-    <string name="changelog_v6_0_2">\nاستفاده از Github Actions برای ساخت‌های انتشار\nهمه ساخت‌های بعدی امن‌تر خواهند بود!</string>
+    <string name="changelog_v6_0_2">\nAdapted GitHub Actions for release builds.\nWhat this means for you?\nAll subsequent builds including this will be more secure!</string>
     <string name="changelog_v6_0_1">\nبروزرسانی نگهداری</string>
     <string name="changelog_v6_0_0">\nافزودن حالت اشکال‌زدایی بی‌سیم برای اجرای دستورات ADB\nبازطراحی صفحه اصلی\nافزودن هشدار هنگام اجرای دستورات مربوط به بسته‌های سیستمی\nافزودن بروزرسانی درون برنامه‌ای\nرفع بسیاری از باگ‌ها</string>
     <string name="changelog_v5_2_1">\nبروزرسانی نگهداری</string>
@@ -951,7 +951,7 @@
     <string name="changelog_v3_5_0">\nبازطراحی بخش درباره\nافزودن میانبرهای لانچر\nرفع منوی ناوبری\nبهبود نمایش منوی ناوبری پایین\nافزودن پشتیبانی زبان هر برنامه\nبهینه‌سازی کد</string>
     <string name="changelog_v3_4_0">\nافزودن دکمه چسباندن سریع\nافزودن نشانگرهای خطا در فیلد ورودی\nبهبود منطق نوار ناوبری\nرفع مشکل سوئیچ‌ها\nرفع نمایش آیکون نشانک\nبهینه‌سازی کد - برنامه سریع‌تر باز می‌شود\nبرنامه در پس‌زمینه می‌ماند</string>
     <string name="changelog_v3_3_0">\nافزودن نشانک‌ها، تاریخچه و پیشنهادات به OTG\nافزودن محدودیت نشانک‌ها\nافزودن نادیده گرفتن محدودیت\nرفع بسیاری از باگ‌ها\nبهبود رابط کاربری\nبهینه‌سازی کد</string>
-    <string name="changelog_v3_2_0">\nبهبودهای رابط کاربری\nافزودن چیپ‌های نشانگر حالت ADB\nبهینه‌سازی کد</string>
+    <string name="changelog_v3_2_0">\nA lot of UI related improvements.\nAdded chips that indicate current ADB working mode.\nA lot of code optimization.</string>
     <string name="changelog_v3_1_0">\nImprovements to ADB OTG after initial release.\nSome UI and logic adjustments to accommodate the new otg feature.</string>
     <string name="changelog_v3_0_0">\nافزودن پشتیبانی ADB از طریق OTG\n\n*** می‌توانید دستورات ADB را روی دستگاه‌های دیگر با کابل OTG اجرا کنید ***</string>
     <string name="changelog_v2_0_2">\nحذف کد و منابع غیرضروری\nتغییرات جزئی رابط کاربری</string>

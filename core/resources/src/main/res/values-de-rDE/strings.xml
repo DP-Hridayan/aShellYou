@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="_import">Importieren</string>
     <string name="_new">Neu</string>
     <string name="abort_command">Befehl zuerst abbrechen</string>
@@ -921,9 +921,9 @@
     <string name="changelog_v7_1_0">\nFixed an issue where English keyboard might not show up in command input in case user sets a locale other than English for the app\nFixed an issue with Mail icon not showing properly\nFixed an issue which caused app to crash while trying to save huge file outputs\nRemoved redundant permissions\nImproved UI in About section</string>
     <string name="changelog_v7_0_1">\nSchnell-Fix</string>
     <string name="changelog_v7_0_0">\nWhole UI Revamped, using material expressive components\nRewritten whole codebase in Kotlin and Jetpack Compose as UI Framework\nAdded push &amp; pull based file manager\nAdded QR Wifi Adb Pairing mode\nAdded app settings and database backup options\nAdded custom theming options\nAdded crash history to view app crash logs\nImproved auto update feature\nImproved UI &amp; UX in shell output\nAdded Android permissions suggestions\nRevamped command examples layout to include labels\nAdded option to Add, Edit or Delete commands as you wish\nLots of existing bugs are now fixed</string>
-    <string name="changelog_v6_1_0">\nJetzt kann die Befehlssuche die Befehle durchsuchen, die das eingegebene Wort enthalten, verglichen mit früheren Versionen, bei denen nur Befehle durchsucht wurden, die mit dem eingegebenen Wort beginnen.\nOption, die Shizuku App direkt zu öffnen, wenn Shizuku installiert ist, aber nicht ausgeführt wird.\nFehler beim Absturz-Reporter behoben.</string>
+    <string name="changelog_v6_1_0">\nJetzt kann die Befehlssuche die Befehle durchsuchen, die das eingegebene Wort enthalten, verglichen mit früheren Versionen, bei denen nur Befehle durchsucht wurden, die mit dem eingegebenen Wort beginnen.\nOption, die Shizuku App direkt zu öffnen, wenn Shizuku installiert aber nicht ausgeführt wird.\nhat den defekten In-App Absturz-Reporter behoben.</string>
     <string name="changelog_v6_0_3">\nhat den Fehler behoben, der dazu führte, dass die Übersetzungen pro App für aShell beschädigt wurden</string>
-    <string name="changelog_v6_0_2">\nGithub Aktionen für Release-Builds angepasst.\nWas bedeutet das für dich?\nAlle nachfolgenden Builds einschließlich dieser werden sicherer sein!</string>
+    <string name="changelog_v6_0_2">\nAngepasste GitHub Aktionen für Release-Builds.\nWas bedeutet das für dich?\nAlle nachfolgenden Builds einschließlich dieser werden sicherer sein!</string>
     <string name="changelog_v6_0_1">\nWartungsaktualisierung</string>
     <string name="changelog_v6_0_0">\nAdded WIRELESS DEBUGGING mode for running ADB commands on both own or other device\nRedesigned homepage for minimal navigation and less cluttery input field screen\nAdded Warning feedback when executing commands involving critical system packages\nAdded in-app updater. Now you can directly download the latest package without visiting Github repository\nFixed a lot of bugs</string>
     <string name="changelog_v5_2_1">\nWartungsaktualisierung</string>
