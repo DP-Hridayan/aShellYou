@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="_import">导入</string>
     <string name="_new">新的</string>
     <string name="abort_command">先中止命令</string>
@@ -920,9 +920,9 @@
     <string name="changelog_v7_1_0">\n修复了一个问题，在用户为应用程序设置一个除英文以外的区域位置时，英文键盘可能无法在命令输入中显示。\n修复了一个邮件图标没有正确显示\n修复了一个问题，这个问题在试图保存大量文件输出时导致应用程序崩溃。\n删除了多余的权限\n关于部分改进了UI</string>
     <string name="changelog_v7_0_1">\nFastlane 修复</string>
     <string name="changelog_v7_0_0">\n全新的用户界面，使用 Material 表达性组件\n整个代码库使用 Kotlin 和 Jetpack Compose 重写\n添加了基于 push 和 pull 的文件管理器\n添加了 QR WiFi ADB 配对模式\n添加了应用设置和数据库备份选项\n添加了自定义主题选项\n添加了崩溃历史记录\n改进了自动更新功能\n改进了 Shell 输出的用户界面和用户体验\n添加了 Android 权限建议\n重新设计了命令示例布局，包含标签\n添加了添加、编辑或删除命令的选项\n修复了大量现有错误</string>
-    <string name="changelog_v6_1_0">\n现在命令搜索可以搜索包含您输入的单词的命令，而之前的版本则只搜索以输入单词开头的命令。\n选项在Shizuku安装但未运行时直接打开 Shizuku应用。\n修复了应用程序崩溃报告中的故障。</string>
+    <string name="changelog_v6_1_0">\nNow command search can search the commands that contains the word you typed compared to previous versions where it only searched commands that starts with the typed word.\nOption to open Shizuku app directly when Shizuku is installed but not running.\nFixed the broken in-app crash reporter.</string>
     <string name="changelog_v6_0_3">\n修复了导致每个应用程序翻译被损坏的 aShell 的问题</string>
-    <string name="changelog_v6_0_2">\n适合发布版本的 Github 动作。\n这对您意味着什么？\n随后的所有构建都将更加安全！</string>
+    <string name="changelog_v6_0_2">\n适合发布版本的 GitHub 动作。\n这对您意味着什么？\n随后的所有构建都将更加安全！</string>
     <string name="changelog_v6_0_1">\n维护更新</string>
     <string name="changelog_v6_0_0">\n添加了无线调试模式，用于在本机或其他设备上运行 ADB 命令\n重新设计了主页，简化导航并减少输入字段的杂乱\n在执行涉及关键系统包的命令时添加了警告反馈\n添加了应用内更新器，现在可以直接下载最新版本而无需访问 Github 仓库\n修复了大量错误</string>
     <string name="changelog_v5_2_1">\n维护更新</string>
@@ -950,7 +950,7 @@
     <string name="changelog_v3_5_0">\n重新设计了应用程序的关于部分\n添加了启动器快捷方式\n修复了按钮导航中导航菜单未显示的问题\n改进了滚动时底部导航菜单的可见性\n为 aShell You 添加了每个应用程序的语言支持（翻译尚未完成）\n大量代码优化</string>
     <string name="changelog_v3_4_0">\n添加了粘贴按钮，可以快速复制和粘贴命令\n在文本输入字段中添加了错误指示器\n改进了导航栏可见性逻辑\n修复了开关在某些情况下行为异常的问题\n修复了在各种对比度级别下添加书签图标的可见性\n大量代码优化，应用程序现在打开速度更快\n应用程序将保留在后台，关闭应用程序时不会每次都重新启动</string>
     <string name="changelog_v3_3_0">\n为 OTG 添加了书签、历史记录和命令建议\n添加了最大书签限制\n添加了覆盖最大书签限制的选项\n大量错误修复\n改进了一些用户界面处理\n大量代码优化</string>
-    <string name="changelog_v3_2_0">\n大量与用户界面相关的改进\n添加了指示当前 ADB 工作模式的芯片\n大量代码优化</string>
+    <string name="changelog_v3_2_0">\nA lot of UI related improvements.\nAdded chips that indicate current ADB working mode.\nA lot of code optimization.</string>
     <string name="changelog_v3_1_0">\n对初始版本发布后的 ADB OTG 功能进行了改进。\n进行了部分 UI 和逻辑调整，以适配全新的 OTG 功能。</string>
     <string name="changelog_v3_0_0">\n已添加 ADB THROUGH OTG 支持。\n\n*** 您可以通过 aShellYou 连接其他设备使用 OTG 电缆来运行 ADB 命令 ***</string>
     <string name="changelog_v2_0_2">\n删除了不必要的代码和资源\n用户界面小改动</string>

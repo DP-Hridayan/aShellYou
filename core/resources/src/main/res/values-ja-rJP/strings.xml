@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="_import">インポート</string>
     <string name="_new">新規作成</string>
     <string name="abort_command">実行中のコマンドを終了してください</string>
@@ -920,9 +920,9 @@
     <string name="changelog_v7_1_0">\nユーザーが英語以外のロケールを設定した場合に英語キーボードが表示されない問題を修正\nメールアイコンが正しく表示されない問題を修正\n大きなファイル出力を保存しようとするとアプリがクラッシュする問題を修正\n冗長な権限を削除\nAboutセクションのUIを改善</string>
     <string name="changelog_v7_0_1">\nFastlane修正</string>
     <string name="changelog_v7_0_0">\nマテリアルエクスプレッシブコンポーネントを使用してUI全体を刷新\nコードベース全体をKotlinとJetpack Composeで書き直し\nプッシュ＆プルベースのファイルマネージャーを追加\nQR WiFi ADBペアリングモードを追加\nアプリ設定とデータベースバックアップオプションを追加\nカスタムテーマオプションを追加\nクラッシュ履歴を追加\n自動更新機能を改善\nシェル出力のUIとUXを改善\nAndroid権限の提案を追加\nラベル付きコマンド例レイアウトを刷新\nコマンドの追加、編集、削除オプションを追加\n多くのバグを修正</string>
-    <string name="changelog_v6_1_0">\nコマンド検索で入力した単語を含むコマンドを検索できるようになりました\nShizukuがインストールされているが実行されていない場合に直接開くオプション\nアプリ内クラッシュレポーターを修正</string>
+    <string name="changelog_v6_1_0">\nNow command search can search the commands that contains the word you typed compared to previous versions where it only searched commands that starts with the typed word.\nOption to open Shizuku app directly when Shizuku is installed but not running.\nFixed the broken in-app crash reporter.</string>
     <string name="changelog_v6_0_3">\naShell でアプリごとの翻訳が壊れる問題を修正しました</string>
-    <string name="changelog_v6_0_2">\nリリースビルド用にGithub Actionsを採用\nこれはあなたにとって何を意味しますか?\nこれを含む以降のビルドはすべてより安全になります!</string>
+    <string name="changelog_v6_0_2">\nGitHubアクションをリリースビルドに適用しました。\nこれはあなたにとって何を意味しますか？\nこれを含むすべての後続のビルドはより安全になります！</string>
     <string name="changelog_v6_0_1">\nメンテナンスの更新</string>
     <string name="changelog_v6_0_0">\n自分または他のデバイスでADBコマンドを実行するためのワイヤレスデバッグモードを追加\nミニマルなナビゲーションのためにホームページを再設計\n重要なシステムパッケージに関するコマンド実行時の警告を追加\nアプリ内アップデーターを追加\n多くのバグを修正</string>
     <string name="changelog_v5_2_1">\nメンテナンスの更新</string>
@@ -950,7 +950,7 @@
     <string name="changelog_v3_5_0">\nアプリのAboutセクションを刷新\nランチャーショートカットを追加\nボタンナビゲーションでナビゲーションメニューが表示されない問題を修正\nスクロール時のボトムナビゲーションメニューの可視性を改善\nアプリごとの言語サポートを追加\n多くのコード最適化</string>
     <string name="changelog_v3_4_0">\n貼り付けボタンを追加\nテキスト入力フィールドにエラーインジケーターを追加\nナビゲーションバーの可視性ロジックを改善\nスイッチの誤動作を修正\nブックマークアイコンの可視性を修正\nコード最適化 - アプリの起動が大幅に高速化\nアプリがバックグラウンドに留まる</string>
     <string name="changelog_v3_3_0">\nOTGにブックマーク、履歴、コマンド提案を追加\n最大ブックマーク制限を追加\n最大ブックマーク制限をオーバーライドするオプションを追加\n多くのバグ修正\nUI処理を改善\n多くのコード最適化</string>
-    <string name="changelog_v3_2_0">\n多くのUI関連の改善\n現在のADB動作モードを示すチップを追加\n多くのコード最適化</string>
+    <string name="changelog_v3_2_0">\n多くのUI関連の改善。\n現在のADB動作モードを示すチップを追加。\n多くのコードを最適化。</string>
     <string name="changelog_v3_1_0">\n初期リリース後のADB OTG の改善。\n新しいotg 機能に対応するためのいくつかのUIとロジック調整。</string>
     <string name="changelog_v3_0_0">\nOTG経由のADBサポートを追加\n\n*** OTGケーブルで他のデバイスを接続してADBコマンドを実行できます ***</string>
     <string name="changelog_v2_0_2">\n不要なコードとリソースを削除しました\n軽微なUI変更</string>

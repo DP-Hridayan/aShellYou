@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="_import">Nhập</string>
     <string name="_new">Mới</string>
     <string name="abort_command">Hủy lệnh trước</string>
-    <string name="about">Giới thiệu về ứng dụng</string>
+    <string name="about">Giới thiệu</string>
     <string name="active">Hoạt động</string>
     <string name="active_slot">Slot đang hoạt động</string>
     <string name="adb">ADB</string>
     <string name="adb_agent">ADB Agent</string>
     <string name="adb_command">Lệnh ADB</string>
     <string name="adb_command_hint" comment="Example ADB command shown as placeholder hint in input field">adb reboot</string>
-    <string name="adb_command_off_state">Lệnh ADB (Trạng thái TẮT)</string>
-    <string name="adb_command_on_state">Lệnh ADB (Trạng thái BẬT)</string>
+    <string name="adb_command_off_state">Lệnh ADB (TẮT)</string>
+    <string name="adb_command_on_state">Lệnh ADB (BẬT)</string>
     <string name="adb_connection_active">Kết nối ADB đang hoạt động</string>
     <string name="adb_connection_channel_description">Hiển thị khi kết nối ADB đang hoạt động</string>
     <string name="adb_connection_channel_name">Kết nối ADB</string>
@@ -28,7 +28,7 @@
     <string name="add_command">Thêm lệnh</string>
     <string name="add_new_item">Thêm mục mới</string>
     <string name="additional_settings">Cài đặt bổ sung</string>
-    <string name="ai_cache_days">Thời gian lưu bộ nhớ đệm</string>
+    <string name="ai_cache_days">Thời gian giữ bộ nhớ đệm</string>
     <string name="ai_cache_enabled">Bật bộ nhớ đệm</string>
     <string name="ai_chat_allow">Cho phép</string>
     <string name="ai_chat_allow_run_command">Cho phép AI chạy lệnh:</string>
@@ -107,7 +107,7 @@
     <string name="boot_image">Boot Image</string>
     <string name="boot_into_fastboot">Khởi động vào Fastboot</string>
     <string name="bootloader">Bootloader</string>
-    <string name="bootloader_version">Bootloader ver</string>
+    <string name="bootloader_version">Bootloader</string>
     <string name="btn_continue">Tiếp tục</string>
     <string name="cache_settings">Bộ nhớ đệm</string>
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Kích thước bộ nhớ đệm: %s</string>
@@ -119,14 +119,14 @@
     <string name="check_updates">Kiểm tra bản cập nhật</string>
     <string name="choose_a_device">Chọn một thiết bị</string>
     <string name="choose_icon">Chọn một biểu tượng</string>
-    <string name="clear">Dọn dẹp</string>
+    <string name="clear">Xoá</string>
     <string name="clear_all">Xóa tất cả</string>
     <string name="clear_all_message">Bạn có chắc chắn muốn xóa tất cả nội dung trên màn hình này không?</string>
     <string name="clear_analysis_cache">Xóa bộ nhớ đệm phân tích</string>
     <string name="clear_cache">Xóa bộ nhớ đệm</string>
     <string name="clear_everything">Xóa mọi thứ</string>
     <string name="clear_history">Xóa lịch sử</string>
-    <string name="clear_output_confirmation">Xác nhận xóa dữ liệu đầu ra</string>
+    <string name="clear_output_confirmation">Xác nhận xóa đầu ra</string>
     <string name="clipboard_empty">Bộ nhớ tạm không có văn bản</string>
     <string name="close">Đóng</string>
     <string name="cloud_backup_failed">Không thể tải bản sao lưu lên Google Drive</string>
@@ -239,15 +239,15 @@
     <string name="delete_items_title" comment="%1$d = number of items">Xóa %1$d mục?</string>
     <string name="delete_message" comment="%1$s = file or folder name">Bạn có chắc chắn muốn xóa \"%1$s\" không?</string>
     <string name="delete_title" comment="%1$s = file or folder name">Xóa %1$s?</string>
-    <string name="des_about">Những người đóng góp và Hỗ trợ</string>
+    <string name="des_about">Những người đóng góp và hỗ trợ</string>
     <string name="des_ai_cache_days">Số ngày lưu trữ kết quả phân tích trong bộ nhớ đệm</string>
     <string name="des_ai_cache_enabled">Lưu kết quả phân tích vào bộ nhớ đệm theo mô hình</string>
     <string name="des_ai_models">Quản lý dữ liệu mô hình AI và khóa API</string>
-    <string name="des_auto_backup_content_type">Chọn những gì cần bao gồm trong bản tự động sao lưu</string>
-    <string name="des_auto_backup_folder">Chọn một thư mục để lưu các bản tự động sao lưu</string>
-    <string name="des_auto_backup_time">Đặt thời gian tự động sao lưu</string>
+    <string name="des_auto_backup_content_type">Chọn những gì cần bao gồm trong bản sao lưu tự động</string>
+    <string name="des_auto_backup_folder">Chọn một thư mục để lưu các bản sao lưu tự động</string>
+    <string name="des_auto_backup_time">Đặt thời gian sao lưu tự động</string>
     <string name="des_auto_dark_mode">Tự động chuyển sang chế độ tối khi bật tính năng Tiết kiệm pin</string>
-    <string name="des_auto_delete_existing_backups">Xóa các bản tự động sao lưu cũ khi lưu bản mới</string>
+    <string name="des_auto_delete_existing_backups">Xóa các bản sao lưu tự động cũ khi lưu bản mới</string>
     <string name="des_auto_scale_ui">Tự động điều chỉnh tỉ lệ UI theo chiều rộng màn hình tối thiểu của thiết bị</string>
     <string name="des_auto_update">Tự động kiểm tra bản cập nhật</string>
     <string name="des_backup_all_data">Sao lưu tất cả dữ liệu ứng dụng</string>
@@ -276,7 +276,7 @@
     <string name="des_feature_request">Nếu bạn có bất kỳ ý tưởng hoặc đề xuất nào cho ứng dụng, hãy cho chúng tôi biết</string>
     <string name="des_font_family">Thay đổi kiểu phông chữ của ứng dụng</string>
     <string name="des_font_size">Điều chỉnh kích thước phông chữ để văn bản trong ứng dụng hiển thị lớn hơn hoặc nhỏ hơn</string>
-    <string name="des_haptics_and_vibration">Phản hồi xúc giác tương tác cho các phản hồi chạm</string>
+    <string name="des_haptics_and_vibration">Phản hồi rung cho thao tác chạm</string>
     <string name="des_high_contrast_dark_mode">Giao diện đen tuyền cho các thiết bị có màn hình OLED</string>
     <string name="des_hridayan">Chỉ là một anh chàng yêu thích các ứng dụng và thiết kế</string>
     <string name="des_initial_state">Trạng thái hiển thị cố định của ô khi nó nằm trong bảng \"Cài đặt nhanh\"</string>
@@ -354,7 +354,7 @@
     <string name="enter_pairing_code">Nhập mã ghép nối gồm 6 chữ số</string>
     <string name="erase_confirm_message">Điều này sẽ xóa vĩnh viễn phân vùng %1$s. Không thể hoàn tác hành động này.</string>
     <string name="erase_confirm_title">Xóa %1$s?</string>
-    <string name="erase_partition">Xóa phân vùng</string>
+    <string name="erase_partition">Xóa</string>
     <string name="erasing">Đang xóa…</string>
     <string name="error">Lỗi</string>
     <string name="error_labels_limit_reached">Đã đạt đến giới hạn nhãn tối đa</string>
@@ -394,7 +394,7 @@
     <string name="fb_paste_completed" comment="%1$d = number of items pasted">Đã hoàn thành: %1$d mục</string>
     <string name="fb_paste_completed_with_failed" comment="%1$d = completed, %2$d = skipped, %3$d = failed">Đã hoàn thành: %1$d mục, Bỏ qua %2$d, Thất bại %3$d</string>
     <string name="fb_paste_completed_with_skipped" comment="%1$d = completed, %2$d = skipped">Đã hoàn thành: %1$d mục, Bỏ qua %2$d</string>
-    <string name="fb_reconnected_successfully">Khôi phục kết nối thành công</string>
+    <string name="fb_reconnected_successfully">Kết nối lại thành công</string>
     <string name="fb_rename_failed" comment="%1$s = error message">Đổi tên thất bại: %1$s</string>
     <string name="fb_renamed_successfully">Đã đổi tên thành công</string>
     <string name="fb_upload_failed" comment="%1$s = error message">Tải lên thất bại: %1$s</string>
@@ -535,7 +535,7 @@
     <string name="local_file">Tệp cục bộ</string>
     <string name="locked">Đã khóa</string>
     <string name="logcat">Logcat</string>
-    <string name="logcat_cleared">Đã dọn dẹp logs</string>
+    <string name="logcat_cleared">Đã xoá logs</string>
     <string name="logcat_detail_package">Gói</string>
     <string name="logcat_filter_level">Mức độ logcat</string>
     <string name="logcat_filter_search_hint">Tìm kiếm trong tin nhắn…</string>
@@ -543,7 +543,7 @@
     <string name="logcat_ive_granted_it">Tôi đã cấp quyền này</string>
     <string name="logcat_no_logs">Chưa có nhật ký nào</string>
     <string name="logcat_notification_channel_description">Hiển thị khi logcat đang chủ động thu thập logs</string>
-    <string name="logcat_notification_channel_name">Phiên bản Logcat</string>
+    <string name="logcat_notification_channel_name">Phiên Logcat</string>
     <string name="logcat_permission_body">Nếu không có quyền này, bạn chỉ có thể xem logs từ aShell You. Cấp quyền truy cập đầy đủ bằng cách chạy lệnh này từ máy tính:</string>
     <string name="logcat_permission_title">Quyền truy cập logs</string>
     <string name="logcat_running_description">aShell You đang thu thập logs hệ thống ở chế độ nền</string>
@@ -602,7 +602,7 @@
     <string name="no_history">Không có lịch sử lệnh</string>
     <string name="no_libraries_found">Không tìm thấy thư viện</string>
     <string name="no_logs_yet">Chưa có nhật ký nào!</string>
-    <string name="no_logs_yet_msg">Chưa có logs nào được ghi lại. Hãy thực hiện vài hành động để hiển thị logs.</string>
+    <string name="no_logs_yet_msg">Chưa có logs nào được ghi lại. Hãy thực thi một số ô để hiển thị logs ở đây.</string>
     <string name="no_model_selected">Chưa chọn mô hình</string>
     <string name="no_operations">Không có hoạt động nào đang diễn ra</string>
     <string name="no_other_device_hint">Kết nối thiết bị bên ngoài để xem logs của thiết bị đó</string>
@@ -614,7 +614,7 @@
     <string name="no_wifi_connection">Không có kết nối WiFi</string>
     <string name="none">Không có</string>
     <string name="not_signed_in">Chưa đăng nhập</string>
-    <string name="nothing_to_clear">Không có gì để dọn dẹp</string>
+    <string name="nothing_to_clear">Không có gì để xoá</string>
     <string name="nothing_to_search">Không có gì để tìm kiếm</string>
     <string name="notification_settings">Cài đặt thông báo</string>
     <string name="notification_style_error">Nếu bạn không thể nhập mã ghép nối từ thông báo, có thể bạn cần thay đổi kiểu thông báo trên Android. Để đổi kiểu thông báo, đi tới Cài đặt thông báo ~ Kiểu thông báo. Nếu không, bạn không thể nhập mã ghép nối từ thông báo.</string>
@@ -633,7 +633,7 @@
     <string name="on_tertiary">Trên màu thứ ba</string>
     <string name="open">Mở</string>
     <string name="open_app_language_settings">Mở cài đặt ngôn ngữ của ứng dụng</string>
-    <string name="open_issues" comment="GitHub repository open issues count">Vấn đề mở</string>
+    <string name="open_issues" comment="GitHub repository open issues count">Vấn đề chưa giải quyết</string>
     <string name="open_url">Mở URL</string>
     <string name="operation_complete">Hoạt động đã hoàn tất</string>
     <string name="operations">Các hoạt động</string>
@@ -642,7 +642,7 @@
     <string name="other_details">Chi tiết khác</string>
     <string name="other_device">Thiết bị khác</string>
     <string name="output">Đầu ra</string>
-    <string name="override_bookmarks_limit">Vượt qua giới hạn tối đa của dấu trang</string>
+    <string name="override_bookmarks_limit">Bỏ qua giới hạn dấu trang</string>
     <string name="package_name">Tên gói</string>
     <string name="pair">Ghép nối</string>
     <string name="pair_a_device_first">Ghép nối một thiết bị trước</string>
@@ -694,7 +694,7 @@
     <string name="reading_file">Đang đọc tệp…</string>
     <string name="ready_to_paste">Sẵn sàng dán</string>
     <string name="reboot_bootloader">Khởi động lại vào Bootloader</string>
-    <string name="reboot_confirm_message">Hành động này sẽ khởi động lại thiết bị đã kết nối %1$s. Tiếp tục?</string>
+    <string name="reboot_confirm_message">Hành động này sẽ khởi động lại thiết bị đã kết nối vào %1$s. Tiếp tục?</string>
     <string name="reboot_confirm_title">Xác nhận khởi động lại</string>
     <string name="reboot_fastbootd">Khởi động lại vào Fastbootd</string>
     <string name="reboot_normal">Khởi động lại</string>
@@ -755,7 +755,7 @@
     <string name="search_labels_here">Tìm kiếm nhãn ở đây</string>
     <string name="search_libraries">Tìm kiếm thư viện, tác giả, giấy phép…</string>
     <string name="search_output">Tìm kiếm đầu ra ở đây</string>
-    <string name="search_settings">Cài đặt tìm kiếm</string>
+    <string name="search_settings">Tìm kiếm trong cài đặt</string>
     <string name="search_something">Tìm kiếm bất cứ điều gì</string>
     <string name="search_variables">Tìm kiếm biến…</string>
     <string name="searching_connect_service">Đang tìm kiếm dịch vụ kết nối</string>
@@ -860,7 +860,7 @@
     <string name="type">Loại</string>
     <string name="ui_scale">Tỉ lệ UI</string>
     <string name="undo">Hoàn tác</string>
-    <string name="unexpected_error">Lỗi không xác định</string>
+    <string name="unexpected_error">Lỗi ngoài dự kiến</string>
     <string name="unknown">Không xác định</string>
     <string name="unknown_error">Đã xảy ra lỗi không xác định</string>
     <string name="unknown_sources_install_permission_not_granted">Chưa được cấp quyền. Vui lòng cho phép Cài đặt ứng dụng từ các nguồn không xác định.</string>
@@ -895,13 +895,13 @@
     <string name="which_device_to_pair">Bạn muốn ghép nối thiết bị nào?</string>
     <string name="wifi_adb">WiFi ADB</string>
     <string name="wifi_connection_required">Để sử dụng tính năng gỡ lỗi không dây, thiết bị của bạn phải được kết nối với mạng WiFi. Nếu kết nối WiFi của bạn không có quyền truy cập internet, hãy tắt dữ liệu di động để kết nối WiFi được ổn định.</string>
-    <string name="wipe_cache_desc">fastboot xóa cache</string>
+    <string name="wipe_cache_desc">fastboot erase cache</string>
     <string name="wipe_cache_title">Xóa cache</string>
     <string name="wipe_data">Xóa dữ liệu</string>
     <string name="wipe_data_description">Xóa các phân vùng trên thiết bị của bạn. Chọn phân vùng nào cần xóa.</string>
-    <string name="wipe_metadata_desc">fastboot xóa metadata</string>
+    <string name="wipe_metadata_desc">fastboot erase metadata</string>
     <string name="wipe_metadata_title">Xóa metadata</string>
-    <string name="wipe_userdata_desc">fastboot xóa userdata</string>
+    <string name="wipe_userdata_desc">fastboot erase userdata</string>
     <string name="wipe_userdata_title">Xóa userdata</string>
     <string name="wipe_warning">Các thao tác này không thể đảo ngược. Tiến hành với sự cẩn trọng.</string>
     <string name="wireless_debugging_guide_1">Đi tới Cài đặt Nhà phát triển &gt; Gỡ lỗi không dây. Chạm vào \'Ghép nối thiết bị bằng mã ghép nối\'.</string>
@@ -917,12 +917,12 @@
     <string name="changelog_v7_3_0">\nĐã cải thiện giao diện người dùng trên màn hình nhật ký thay đổi\nĐã thêm các dịch giả vào phần Giới thiệu.\nĐã thêm Màn hình giấy phép hiển thị thông tin chi tiết về giấy phép của ứng dụng và các thư viện khác mà ứng dụng sử dụng</string>
     <string name="changelog_v7_2_1">\nBản cập nhật bảo trì!</string>
     <string name="changelog_v7_2_0">\nĐã thêm tùy chọn chạy các lệnh ADB từ Các ô Cài đặt nhanh bằng cách thêm các ô tùy chỉnh.\nĐã thêm tùy chọn sao lưu đám mây (Google Drive). Tính năng này chỉ có trên các bản dựng GitHub.\nĐã cải thiện phối màu, giao diện người dùng (UI) và trải nghiệm người dùng (UX) ở nhiều khu vực.\nĐã thêm nhiều ví dụ lệnh ADB hơn nữa.</string>
-    <string name="changelog_v7_1_0">\nĐã sửa lỗi bàn phím tiếng Anh có thể không xuất hiện khi nhập lệnh nếu người dùng đặt ngôn ngữ ứng dụng khác tiếng Anh\nĐã sửa lỗi hiển thị sai biểu tượng thư\nĐã sửa lỗi gây ra sự cố khi lưu các tệp lớn\nĐã loại bỏ các quyền dư thừa\nĐã cải thiện UI trong phần \"Giới thiệu về ứng dụng\"</string>
+    <string name="changelog_v7_1_0">\nĐã sửa lỗi bàn phím tiếng Anh có thể không xuất hiện khi nhập lệnh nếu người dùng đặt ngôn ngữ ứng dụng khác tiếng Anh\nĐã sửa lỗi hiển thị sai biểu tượng thư\nĐã sửa lỗi gây ra sự cố khi lưu các tệp lớn\nĐã loại bỏ các quyền dư thừa\nĐã cải thiện UI trong phần \"Giới thiệu\"</string>
     <string name="changelog_v7_0_1">\nĐã sửa lỗi Fastlane</string>
     <string name="changelog_v7_0_0">\nToàn bộ giao diện người dùng đã được cập nhật sử dụng các thành phần Expressive\nToàn bộ mã nguồn đã được viết lại bằng Kotlin và Jetpack Compose cho UI Framework\nĐã thêm Trình quản lý tệp dựa trên Push &amp; Pull\nĐã thêm chế độ ghép nối WiFi ADB qua mã QR\nĐã thêm Tùy chọn ứng dụng và Tùy chọn sao lưu cơ sở dữ liệu\nĐã thêm các tùy chọn thiết kế chủ đề đặc biệt\nĐã thêm Lịch sử sự cố để xem nhật ký lỗi của ứng dụng\nĐã cải thiện tính năng tự động cập nhật\nĐã cải thiện UI &amp; UX ở phần đầu ra của shell\nĐã thêm đề xuất về quyền trên Android\nĐã cập nhật bố cục cho các mẫu lệnh bao gồm cả nhãn\nĐã thêm tùy chọn thêm, chỉnh sửa hoặc xóa lệnh theo ý muốn của bạn\nNhiều lỗi hiện tại đã được sửa</string>
-    <string name="changelog_v6_1_0">\nGiờ đây việc tìm kiếm lệnh có thể tìm kiếm các lệnh chứa từ bạn đã nhập, so với các phiên bản trước chỉ tìm kiếm các lệnh bắt đầu bằng từ đã nhập.\nKhả năng mở trực tiếp ứng dụng Shizuku khi Shizuku được cài đặt nhưng chưa chạy.\nĐã sửa lỗi báo cáo sự cố ứng dụng bị hỏng.</string>
+    <string name="changelog_v6_1_0">\nNow command search can search the commands that contains the word you typed compared to previous versions where it only searched commands that starts with the typed word.\nOption to open Shizuku app directly when Shizuku is installed but not running.\nFixed the broken in-app crash reporter.</string>
     <string name="changelog_v6_0_3">\nĐã giải quyết vấn đề gây hỏng bản dịch của ứng dụng aShell You</string>
-    <string name="changelog_v6_0_2">\nĐã điều chỉnh Github Actions cho các bản phát hành.\nĐiều này có ý nghĩa gì đối với bạn?\nTất cả các bản dựng tiếp theo, bao gồm cả bản này, sẽ an toàn hơn!</string>
+    <string name="changelog_v6_0_2">\nAdapted GitHub Actions for release builds.\nWhat this means for you?\nAll subsequent builds including this will be more secure!</string>
     <string name="changelog_v6_0_1">\nBản cập nhật bảo trì</string>
     <string name="changelog_v6_0_0">\nĐã thêm chế độ GỠ LỖI KHÔNG DÂY để chạy lệnh ADB trên cả thiết bị của bạn và thiết bị khác\nTrang chủ được thiết kế lại để tối giản điều hướng và giảm bớt sự lộn xộn ở trường nhập liệu\nĐã thêm cảnh báo phản hồi khi thực thi các lệnh liên quan đến các gói hệ thống quan trọng\nĐã thêm Cập nhật trong ứng dụng. Giờ đây bạn có thể tải xuống gói mới nhất trực tiếp mà không cần truy cập kho lưu trữ Github\nĐã sửa nhiều lỗi</string>
     <string name="changelog_v5_2_1">\nBản cập nhật bảo trì</string>
@@ -945,12 +945,12 @@
     <string name="changelog_v3_8_1">\nĐã sửa một số sự cố xuất hiện trong bản v3.8.0</string>
     <string name="changelog_v3_8_0">\nĐã thêm chủ đề đen (AMOLED)\nĐã thêm nút hoàn tác để hủy thao tác dán\nĐã thêm tùy chọn tắt bàn phím ảo\nĐã sửa lỗi các nút bị kéo dài trên một số kích thước màn hình\nĐã sửa lỗi nút dấu trang không xuất hiện sau khi mở ứng dụng\nPhần Ví dụ được đổi tên thành \"Các lệnh\"\nĐã sửa lỗi tham số sao chép lệnh không hiển thị đối với mọi mẫu lệnh\nỨng dụng giờ đây sử dụng phông chữ hệ thống ở mọi nơi\nĐã cải thiện xử lý giao diện người dùng (UI)\nĐã cập nhật các bản dịch</string>
     <string name="changelog_v3_7_0">\nGiờ đây bạn có thể chia sẻ các đoạn văn bản từ bất cứ đâu trên thiết bị của bạn vào aShell You và trực tiếp chạy các lệnh.\nGiờ đây bạn có thể trực tiếp chia sẻ đầu ra của shell mà không cần phải lưu nó lại!\nNhiều tính năng tối ưu hóa và xử lý giao diện người dùng.\nĐã thêm bản dịch tiếng Trung Quốc.\nĐã cập nhật các bản dịch.</string>
-    <string name="changelog_v3_6_0">\nĐã thêm tùy chọn dọn dẹp trường nhập lệnh sau khi có lỗi\nĐã sửa lỗi gây treo ứng dụng sau khi dán từ bộ nhớ tạm trong một số điều kiện nhất định\nTối ưu hóa mã nguồn</string>
+    <string name="changelog_v3_6_0">\nĐã thêm tùy chọn xoá trường nhập lệnh sau khi có lỗi\nĐã sửa lỗi gây treo ứng dụng sau khi dán từ bộ nhớ tạm trong một số điều kiện nhất định\nTối ưu hóa mã nguồn</string>
     <string name="changelog_v3_5_1">\nĐã sửa một số lỗi với menu điều hướng phía dưới.</string>
     <string name="changelog_v3_5_0">\nĐã cập nhật phần \"Giới thiệu về ứng dụng\".\nĐã thêm các lối tắt khởi chạy.\nĐã sửa menu điều hướng không hiển thị ở chế độ điều hướng bằng nút.\nCải thiện khả năng hiển thị của menu điều hướng phía dưới trong quá trình cuộn.\nĐã thêm hỗ trợ ngôn ngữ theo từng ứng dụng cho aShell You (bản dịch vẫn đang hoàn thiện).\nĐã tối ưu hóa rất nhiều cho mã nguồn.</string>
     <string name="changelog_v3_4_0">\nĐã thêm một nút \"Dán\" để bạn có thể sao chép và dán lệnh nhanh chóng.\nĐã thêm chỉ báo lỗi trong trường nhập văn bản.\nĐã cải thiện logic hiển thị của thanh điều hướng.\nĐã giải quyết vấn đề với các công tắc chuyển đổi không hoạt động trong một số tình huống nhất định.\nĐã sửa chữa việc thêm biểu tượng dấu trang để có độ hiển thị tốt hơn ở các mức tương phản khác nhau.\nTối ưu hóa rất nhiều mã nguồn. Ứng dụng giờ đây mở nhanh hơn rất nhiều so với trước đây.\nỨng dụng sẽ duy trì hoạt động trong chế độ nền và không khởi động lại mỗi khi bạn đóng ứng dụng chỉ bằng cách nhấn nút \"Quay lại\" hoặc cử chỉ.</string>
     <string name="changelog_v3_3_0">\nĐã thêm dấu trang, lịch sử và các gợi ý lệnh cho tính năng OTG\nĐã thêm giới hạn tối đa cho số lượng dấu trang.\nĐã thêm tùy chọn vượt qua giới hạn số lượng dấu trang tối đa.\nSửa rất nhiều lỗi.\nĐã cải thiện cách xử lý giao diện người dùng.\nTối ưu hóa rất nhiều mã nguồn.</string>
-    <string name="changelog_v3_2_0">\nRất nhiều cải tiến liên quan đến giao diện người dùng (UI).\nĐã thêm các chỉ báo biểu thị cho chế độ hoạt động hiện tại của ADB.\nTối ưu hóa rất nhiều mã nguồn.</string>
+    <string name="changelog_v3_2_0">\nA lot of UI related improvements.\nAdded chips that indicate current ADB working mode.\nA lot of code optimization.</string>
     <string name="changelog_v3_1_0">\nĐã cải thiện tính năng ADB OTG sau lần phát hành ban đầu.\nMột số điều chỉnh về giao diện người dùng (UI) và logic để tương thích với tính năng OTG mới.</string>
     <string name="changelog_v3_0_0">\nĐã thêm hỗ trợ cho ADB QUA OTG.\n\n*** Bạn sẽ có thể chạy các lệnh ADB trên các thiết bị khác bằng aShellYou, bằng cách kết nối với thiết bị khác thông qua cáp OTG ***</string>
     <string name="changelog_v2_0_2">\nĐã loại bỏ những đoạn mã và tài nguyên không cần thiết.\nNhững thay đổi nhỏ về giao diện người dùng (UI).</string>
