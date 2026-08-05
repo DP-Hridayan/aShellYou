@@ -910,6 +910,7 @@
     <string name="wireless_debugging_important_notice">Si prega di notare che la parte sinistra dell\'opzione di debug wireless è cliccabile. Toccando su di essa aprirà il menu di accoppiamento debug wireless.</string>
     <string name="wireless_not_connected">Non Connesso</string>
     <string name="wireless_not_connected_message">Il tuo dispositivo non è connesso tramite il debug wireless. Collega e collega prima il tuo dispositivo.</string>
+    <string name="ai_session_search_hint">Cerca chat…</string>
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d nuova voce</item>
         <item quantity="other">%1$d nuove voci</item>

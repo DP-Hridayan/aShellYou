@@ -910,6 +910,7 @@
     <string name="wireless_debugging_important_notice">Lütfen Kablosuz Hata Ayıklama seçeneğinin sol kısmının tıklanabilir olduğuna dikkat edin. Üzerine dokunulduğunda Kablosuz Hata Ayıklama Eşleştirme menüsü açılır.</string>
     <string name="wireless_not_connected">Not Connected</string>
     <string name="wireless_not_connected_message">Your device is not connected via Wireless Debugging. Pair and connect your device first.</string>
+    <string name="ai_session_search_hint">Search chat…</string>
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d new entry</item>
         <item quantity="other">%1$d new entries</item>

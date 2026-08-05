@@ -23,7 +23,7 @@
     "androidCode": "es-rES",
     "editorCode": "es",
     "locale": "es-ES",
-    "translationProgress": 99,
+    "translationProgress": 100,
     "approvalProgress": 0
   },
   {
@@ -95,8 +95,8 @@
     "androidCode": "ru-rRU",
     "editorCode": "ru",
     "locale": "ru-RU",
-    "translationProgress": 99,
-    "approvalProgress": 98
+    "translationProgress": 100,
+    "approvalProgress": 99
   },
   {
     "languageId": "tr",
@@ -113,8 +113,8 @@
     "androidCode": "uk-rUA",
     "editorCode": "uk",
     "locale": "uk-UA",
-    "translationProgress": 99,
-    "approvalProgress": 98
+    "translationProgress": 100,
+    "approvalProgress": 99
   },
   {
     "languageId": "vi",
@@ -122,7 +122,7 @@
     "androidCode": "vi-rVN",
     "editorCode": "vi",
     "locale": "vi-VN",
-    "translationProgress": 95,
+    "translationProgress": 97,
     "approvalProgress": 0
   },
   {

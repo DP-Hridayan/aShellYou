@@ -910,6 +910,7 @@
     <string name="wireless_debugging_important_notice">Veuillez noter que la partie gauche de l\'option Débogage sans fil est cliquable. Appuyer dessus ouvrira le menu de couplage du débogage sans fil.</string>
     <string name="wireless_not_connected">Non connecté</string>
     <string name="wireless_not_connected_message">Votre appareil n\'est pas connecté via le débogage sans fil. Associez et connectez d\'abord votre appareil.</string>
+    <string name="ai_session_search_hint">Rechercher dans le chat…</string>
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d new entry</item>
         <item quantity="other">%1$d new entries</item>
