@@ -2,6 +2,7 @@ package `in`.hridayan.ashell.ai.presentation.components.chat
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -65,6 +66,9 @@ fun AiChatDrawerUI(
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 32.dp),
             style = MaterialTheme.typography.titleLarge
         )
+
+        // Added this spacer to absorb auto-focus of search bar
+        Spacer(modifier = Modifier.focusable())
 
         CustomSearchBar(
             modifier = Modifier

@@ -105,6 +105,12 @@ fun AiChatScreen(
         }
     }
 
+    LaunchedEffect(drawerState.isClosed) {
+        if (drawerState.isClosed) {
+            hideKeyboard(context)
+        }
+    }
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
