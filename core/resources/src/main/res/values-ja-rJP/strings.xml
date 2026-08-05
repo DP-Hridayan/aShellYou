@@ -910,6 +910,7 @@
     <string name="wireless_debugging_important_notice">「ワイヤレスデバッグ」オプションの左側がクリック可能であることに注意してください。このオプションをタップすると、「ワイヤレスデバッグペアリング」メニューが開きます。</string>
     <string name="wireless_not_connected">接続していません</string>
     <string name="wireless_not_connected_message">デバイスはワイヤレスデバッグで接続されていません。まずデバイスをペアリングして接続してください。</string>
+    <string name="ai_session_search_hint">Search chat…</string>
     <plurals name="logcat_new_entries">
         <item quantity="other">%1$d 新規エントリ</item>
     </plurals>

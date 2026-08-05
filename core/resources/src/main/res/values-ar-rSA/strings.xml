@@ -911,6 +911,7 @@
     <string name="wireless_debugging_important_notice">يرجى ملاحظة أن الجزء الأيسر من خيار التصحيح اللاسلكي قابل للنقر. النقر عليه سيفتح قائمة اقتران التصحيح اللاسلكي.</string>
     <string name="wireless_not_connected">غير متصل</string>
     <string name="wireless_not_connected_message">جهازك غير متصل عن طريق التصحيح اللاسلكي. قم بإقران جهازك واتصل به أولاً.</string>
+    <string name="ai_session_search_hint">البحث في الدردشة…</string>
     <plurals name="logcat_new_entries">
         <item quantity="zero">%1$d إدخالات جديدة</item>
         <item quantity="one">%1$d new entry</item>

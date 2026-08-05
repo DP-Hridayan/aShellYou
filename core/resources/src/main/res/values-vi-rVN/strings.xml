@@ -55,8 +55,8 @@
     <string name="all_data">Tất cả dữ liệu</string>
     <string name="already_connected">Đã kết nối</string>
     <string name="already_latest_version">Bạn đang sử dụng phiên bản mới nhất</string>
-    <string name="always_allow_base">Luôn cho phép lệnh nhưng bỏ qua tham số</string>
-    <string name="always_allow_exact">Luôn cho phép lệnh nguyên văn</string>
+    <string name="always_allow_base">Luôn cho phép cơ sở</string>
+    <string name="always_allow_exact">Luôn cho phép chính xác</string>
     <string name="analyse">Phân tích</string>
     <string name="api_key">Khóa API</string>
     <string name="api_key_is_saved">Đã lưu khóa API</string>
@@ -107,7 +107,7 @@
     <string name="boot_image">Boot Image</string>
     <string name="boot_into_fastboot">Khởi động vào Fastboot</string>
     <string name="bootloader">Bootloader</string>
-    <string name="bootloader_version">Bootloader ver</string>
+    <string name="bootloader_version">Bootloader</string>
     <string name="btn_continue">Tiếp tục</string>
     <string name="cache_settings">Bộ nhớ đệm</string>
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Kích thước bộ nhớ đệm: %s</string>
@@ -296,7 +296,7 @@
     <string name="des_screen_density">Điều chỉnh mật độ màn hình để làm cho các phần tử UI hiển thị lớn hơn hoặc nhỏ hơn</string>
     <string name="des_select_file_for_flashing">Chọn một tệp boot image để flash vào phân vùng đã chọn</string>
     <string name="des_sign_in_with_google">Liên kết tài khoản Google của bạn để sao lưu đám mây</string>
-    <string name="des_smooth_scroll">Bật cuộn mượt mà trong đầu ra của shell, khi nhấn phím mũi tên Lên hoặc Xuống</string>
+    <string name="des_smooth_scroll">Bật cuộn mượt trong đầu ra của shell, khi nhấn phím mũi tên Lên hoặc Xuống</string>
     <string name="des_toggleable">Khi được bật, ô sẽ chuyển đổi giữa các trạng thái BẬT và TẮT mỗi lần nhấn, thực hiện các lệnh khác nhau cho mỗi trạng thái</string>
     <string name="des_translators">Những người đã giúp dịch aShell You</string>
     <string name="des_ui_scale">Điều chỉnh tỉ lệ phần tử UI và kích thước phông chữ</string>
@@ -538,10 +538,10 @@
     <string name="logcat_cleared">Đã xoá logs</string>
     <string name="logcat_detail_package">Gói</string>
     <string name="logcat_filter_level">Mức độ logcat</string>
-    <string name="logcat_filter_search_hint">Tìm kiếm trong tin nhắn…</string>
+    <string name="logcat_filter_search_hint">Tìm kiếm trong thông điệp…</string>
     <string name="logcat_is_running">Logcat đang chạy</string>
     <string name="logcat_ive_granted_it">Tôi đã cấp quyền này</string>
-    <string name="logcat_no_logs">Chưa có nhật ký nào</string>
+    <string name="logcat_no_logs">Chưa có logs nào</string>
     <string name="logcat_notification_channel_description">Hiển thị khi logcat đang chủ động thu thập logs</string>
     <string name="logcat_notification_channel_name">Phiên Logcat</string>
     <string name="logcat_permission_body">Nếu không có quyền này, bạn chỉ có thể xem logs từ aShell You. Cấp quyền truy cập đầy đủ bằng cách chạy lệnh này từ máy tính:</string>
@@ -601,7 +601,7 @@
     <string name="no_google_account_title">Không có Tài khoản Google</string>
     <string name="no_history">Không có lịch sử lệnh</string>
     <string name="no_libraries_found">Không tìm thấy thư viện</string>
-    <string name="no_logs_yet">Chưa có nhật ký nào!</string>
+    <string name="no_logs_yet">Chưa có logs nào!</string>
     <string name="no_logs_yet_msg">Chưa có logs nào được ghi lại. Hãy thực thi một số ô để hiển thị logs ở đây.</string>
     <string name="no_model_selected">Chưa chọn mô hình</string>
     <string name="no_operations">Không có hoạt động nào đang diễn ra</string>
@@ -807,7 +807,7 @@
     <string name="skip">Bỏ qua</string>
     <string name="slide_to_flash">Trượt để Flash</string>
     <string name="slot_data_unknown">Dữ liệu slot không xác định</string>
-    <string name="smooth_scrolling">Cuộn mượt mà</string>
+    <string name="smooth_scrolling">Cuộn mượt</string>
     <string name="sort">Sắp xếp</string>
     <string name="stable_fdroid">Ổn định (F-Droid)</string>
     <string name="stable_github">Ổn định (GitHub)</string>
@@ -910,6 +910,7 @@
     <string name="wireless_debugging_important_notice">Xin lưu ý rằng phần bên trái của tùy chọn \"Gỡ lỗi không dây\" có thể nhấp được. Chạm vào nó sẽ mở menu \"Ghép nối\" cho tính năng \"Gỡ lỗi không dây\".</string>
     <string name="wireless_not_connected">Chưa kết nối</string>
     <string name="wireless_not_connected_message">Thiết bị của bạn chưa được kết nối qua Gỡ lỗi không dây. Vui lòng ghép nối và kết nối thiết bị của bạn trước.</string>
+    <string name="ai_session_search_hint">Search chat…</string>
     <plurals name="logcat_new_entries">
         <item quantity="other">%1$d mục mới</item>
     </plurals>
@@ -957,7 +958,7 @@
     <string name="changelog_v2_0_1">\nĐã loại bỏ những đoạn mã và tài nguyên không cần thiết.\nNhững thay đổi nhỏ về giao diện người dùng (UI).</string>
     <string name="changelog_v2_0_0">\nTên ứng dụng được thay đổi thành aShell You.\nĐã thêm hình ảnh động Dự đoán thao tác Quay lại cho các thiết bị được hỗ trợ.\nĐã thêm hộp thoại bật lên xác nhận trước khi xóa màn hình.\nĐã sửa lỗi các thành phần của thanh trạng thái không hiển thị chính xác trong chế độ giao diện sáng.\nỨng dụng hiện hoạt động mượt mà hơn rất nhiều.\n~ Đã giảm dung lượng ứng dụng và tối ưu hóa mã nguồn.\nĐã thêm biểu tượng theo chủ đề cho các launchers có hỗ trợ biểu tượng theo chủ đề.\nNhững thay đổi nhỏ về giao diện người dùng (UI).</string>
     <string name="changelog_v1_3_0">\nBảng điều khiển cài đặt đã được cập nhật.\nĐã thêm tính năng chạm hai lần để cuộn tức thì đến vị trí trên cùng và dưới cùng trong cửa sổ đầu ra của shell.\nNhững thay đổi nhỏ về giao diện người dùng (UI).</string>
-    <string name="changelog_v1_2_0">\nĐã thêm bảng điều khiển cài đặt.\nĐã thêm một thông số để vô hiệu hóa tính năng cuộn mượt mà trong đầu ra của shell.\nĐã sửa chữa các lỗi nghiêm trọng sau:\n\n ~ Treo ứng dụng trong quá trình thay đổi chủ đề thiết bị.\n\n ~ Treo ứng dụng khi cố gắng lưu một đầu ra shell có dung lượng lớn. ví dụ: đầu ra của lệnh \'pm\'.</string>
+    <string name="changelog_v1_2_0">\nĐã thêm bảng điều khiển cài đặt.\nĐã thêm một thông số để vô hiệu hóa tính năng cuộn mượt trong đầu ra của shell.\nĐã sửa chữa các lỗi nghiêm trọng sau:\n\n ~ Treo ứng dụng trong quá trình thay đổi chủ đề thiết bị.\n\n ~ Treo ứng dụng khi cố gắng lưu một đầu ra shell có dung lượng lớn. ví dụ: đầu ra của lệnh \'pm\'.</string>
     <string name="changelog_v1_1_1">\nĐã thay thế một số API lỗi thời.\nNhững thay đổi nhỏ về giao diện người dùng (UI).</string>
     <string name="changelog_v1_1_0">\nĐã thêm nút \"Cuộn Lên\" và \"Cuộn Xuống\".\nĐã thêm phím Enter trên bàn phím ảo với chức năng \"Nhấn\" để gửi lệnh.\nĐã bổ sung thêm một số lệnh.\nĐã cập nhật các thành phần phụ thuộc để bao gồm các tài liệu mới nhất từ thư viện.\nNhững thay đổi nhỏ về giao diện người dùng (UI).</string>
     <string name="changelog_v1_0_0">\nĐã bổ sung thêm một vài ví dụ về lệnh.\nNhững thay đổi nhỏ về giao diện người dùng (UI).\nĐã thay đổi tên gói để tránh gây nhầm lẫn phiên bản với ứng dụng ban đầu.</string>

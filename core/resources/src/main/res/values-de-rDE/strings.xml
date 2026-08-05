@@ -910,6 +910,7 @@
     <string name="wireless_debugging_important_notice">Bitte beachte, dass der linke Bereich der WLAN-Debugging-Option anklickbar ist. Durch Anklicken öffnet sich das Kopplungsmenü für WLAN-Debugging</string>
     <string name="wireless_not_connected">Nicht verbunden</string>
     <string name="wireless_not_connected_message">Ihr Gerät ist nicht über drahtloses Debuggen verbunden. Kopieren und verbinden Sie Ihr Gerät zuerst.</string>
+    <string name="ai_session_search_hint">Chat durchsuchen…</string>
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d neuer Eintrag</item>
         <item quantity="other">%1$d neue Einträge</item>

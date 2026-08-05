@@ -910,6 +910,7 @@
     <string name="wireless_debugging_important_notice">注意无线调试选项左侧是可以点的。点击会打开无线调试配对菜单</string>
     <string name="wireless_not_connected">未连接</string>
     <string name="wireless_not_connected_message">您的设备未通过无线调试连接。请先配对并连接您的设备。</string>
+    <string name="ai_session_search_hint">搜索聊天…</string>
     <plurals name="logcat_new_entries">
         <item quantity="other">%1$d 新条目</item>
     </plurals>

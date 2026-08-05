@@ -910,6 +910,7 @@
     <string name="wireless_debugging_important_notice">Por favor, note que a parte esquerda da opção de depuração por Wi-Fi é clicável. Tocando nele abrirá o menu de depuração por Wi-Fi.</string>
     <string name="wireless_not_connected">Não Conectado</string>
     <string name="wireless_not_connected_message">Seu dispositivo não está conectado via Depuração sem fios. Pareie e conecte seu dispositivo primeiro.</string>
+    <string name="ai_session_search_hint">Pesquisar bate-papo…</string>
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d new entry</item>
         <item quantity="other">%1$d novas entradas</item>
