@@ -2,8 +2,6 @@
 
 package `in`.hridayan.ashell.shell.common.presentation.components.bottomsheet
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,6 +13,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetValue
@@ -24,7 +23,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -114,29 +112,23 @@ fun BookmarksBottomSheet(
                 onValueChange = { bookmarkViewModel.onSearchQueryChange(it) },
                 trailingIcon = {
                     if (searchQuery.text.isNotEmpty()) {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_clear),
-                            contentDescription = null,
-                            modifier = Modifier.clickable(
-                                enabled = true,
-                                indication = null,
-                                interactionSource = remember { MutableInteractionSource() },
-                                onClick = withHaptic {
-                                    bookmarkViewModel.onSearchQueryChange(TextFieldValue(""))
-                                }
-                            ))
+                        IconButton(
+                            onClick = withHaptic {
+                                bookmarkViewModel.onSearchQueryChange(TextFieldValue(""))
+                            }
+                        ) {
+                            Icon(
+                                painter = painterResource(R.drawable.ic_clear),
+                                contentDescription = null,
+                            )
+                        }
                     } else {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_sort),
-                            contentDescription = null,
-                            modifier = Modifier.clickable(
-                                enabled = true,
-                                indication = null,
-                                interactionSource = remember { MutableInteractionSource() },
-                                onClick = withHaptic {
-                                    onSort()
-                                }
-                            ))
+                        IconButton(onClick = withHaptic { onSort() }) {
+                            Icon(
+                                painter = painterResource(R.drawable.ic_sort),
+                                contentDescription = null,
+                            )
+                        }
                     }
                 }
             )
