@@ -34,7 +34,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -76,13 +75,7 @@ fun AiChatDrawerUI(
                 .fillMaxWidth(),
             value = sessionSearchQuery,
             onValueChange = { viewModel.onSessionSearchQueryChange(it) },
-            hint = stringResource(R.string.ai_session_search_hint),
-            leadingIcon = {
-                Icon(
-                    painter = painterResource(R.drawable.ic_search),
-                    contentDescription = null
-                )
-            }
+            hint = stringResource(R.string.ai_session_search_hint)
         )
 
         Spacer(modifier = Modifier.height(15.dp))

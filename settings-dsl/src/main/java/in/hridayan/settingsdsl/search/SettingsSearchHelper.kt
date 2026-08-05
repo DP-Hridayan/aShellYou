@@ -2,6 +2,7 @@ package `in`.hridayan.settingsdsl.search
 
 import android.content.Context
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import `in`.hridayan.settingsdsl.model.GroupSpec
@@ -19,6 +20,7 @@ import `in`.hridayan.settingsdsl.model.SettingsPage
  * @param screenId     App-defined string identifying which screen hosts this item (e.g. `"behavior"`).
  * @param screenTitle  Human-readable title of the parent screen (e.g. `"Behavior"`).
  */
+@Immutable
 data class SearchEntry(
     val key: SettingsKey<*>,
     val title: String,

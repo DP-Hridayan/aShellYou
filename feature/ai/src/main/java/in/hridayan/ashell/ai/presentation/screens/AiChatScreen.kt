@@ -217,7 +217,7 @@ fun AiChatScreen(
                                 }
                             }
                         },
-                        textFieldValue = promptInputText,
+                        value = promptInputText,
                         onValueChange = { promptInputText = it },
                     )
                 }

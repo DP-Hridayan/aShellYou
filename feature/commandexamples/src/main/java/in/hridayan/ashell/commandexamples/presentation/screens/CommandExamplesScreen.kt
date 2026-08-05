@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.width
@@ -37,6 +38,7 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FloatingActionButtonMenu
 import androidx.compose.material3.FloatingActionButtonMenuItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ToggleFloatingActionButton
@@ -61,6 +63,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -83,26 +86,25 @@ import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.EditCo
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.LoadDefaultCommandsDialog
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
 import `in`.hridayan.ashell.core.common.LocalDialogManager
-import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.navigation.navigateBack
-import `in`.hridayan.ashell.core.presentation.components.dialog.ApiKeyRequiredDialog
+import `in`.hridayan.ashell.core.presentation.components.ai.AiAnalysisBottomSheet
 import `in`.hridayan.ashell.core.presentation.components.appbar.TopAppBarLarge
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
+import `in`.hridayan.ashell.core.presentation.components.dialog.ApiKeyRequiredDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.model.AiAnalysisUiState
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.ashell.core.presentation.components.ai.AiAnalysisBottomSheet
-import `in`.hridayan.ashell.core.presentation.model.AiAnalysisUiState
-import androidx.compose.ui.platform.LocalContext
 import `in`.hridayan.ashell.core.utils.showToast
 
 @SuppressLint("RememberInComposition")
@@ -212,59 +214,24 @@ fun CommandExamplesScreen(
                     }
 
                     item {
-                        CustomSearchBar(
+                        CommandsSearchBar(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(horizontal = 15.dp),
+                                .padding(horizontal = 15.dp)
+                                .imePadding(),
                             value = states.search.textFieldValue,
                             onValueChange = { viewModel.onSearchQueryChange(it) },
-                            hint = stringResource(R.string.search_commands_here),
-                            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
-                            trailingIcon = {
-                                if (states.search.textFieldValue.text.isNotEmpty()) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_clear),
-                                        contentDescription = "Clear text",
-                                        modifier = Modifier
-                                            .clickable(
-                                                enabled = true,
-                                                indication = null,
-                                                interactionSource = remember { MutableInteractionSource() },
-                                                onClick = withHaptic {
-                                                    viewModel.onSearchQueryChange(TextFieldValue(""))
-                                                    focusManager.clearFocus()
-                                                }
-                                            )
-                                    )
-                                } else {
-                                    Icon(
-                                        painter = painterResource(R.drawable.ic_filter_alt),
-                                        contentDescription = null,
-                                        modifier = Modifier.clickable(
-                                            enabled = true,
-                                            indication = null,
-                                            interactionSource = remember { MutableInteractionSource() },
-                                            onClick = withHaptic {
-                                                showFilterCommandBottomSheet = true
-                                            }
-                                        )
-                                    )
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_sort),
-                                        contentDescription = "Sort",
-                                        modifier = Modifier
-                                            .clickable(
-                                                enabled = true,
-                                                indication = null,
-                                                interactionSource = remember { MutableInteractionSource() },
-                                                onClick = withHaptic {
-                                                    dialogManager.show(CommandExamplesDialogKey.SortCommands)
-                                                }
-                                            )
-                                    )
-                                }
-                            }
-                        )
+                            isQueryEmpty = states.search.textFieldValue.text.isEmpty(),
+                            onClickClear = withHaptic {
+                                viewModel.onSearchQueryChange(TextFieldValue(""))
+                                focusManager.clearFocus()
+                            },
+                            onClickFilter = withHaptic {
+                                showFilterCommandBottomSheet = true
+                            },
+                            onClickSort = withHaptic {
+                                dialogManager.show(CommandExamplesDialogKey.SortCommands)
+                            })
                     }
 
                     items(commands.size, key = { index -> commands[index].id }) { index ->
@@ -498,5 +465,47 @@ private fun NewCommandsAvailableCard(
                 )
             }
         },
+    )
+}
+
+@Composable
+private fun CommandsSearchBar(
+    modifier: Modifier = Modifier,
+    value: TextFieldValue,
+    onValueChange: (TextFieldValue) -> Unit,
+    isQueryEmpty: Boolean,
+    onClickClear: () -> Unit,
+    onClickFilter: () -> Unit,
+    onClickSort: () -> Unit
+) {
+    CustomSearchBar(
+        modifier = modifier,
+        value = value,
+        onValueChange = { onValueChange(it) },
+        hint = stringResource(R.string.search_commands_here),
+        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
+        trailingIcon = {
+            if (isQueryEmpty) {
+                IconButton(onClick = onClickFilter) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_filter_alt),
+                        contentDescription = null,
+                    )
+                }
+                IconButton(onClick = onClickSort) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_sort),
+                        contentDescription = null,
+                    )
+                }
+            } else {
+                IconButton(onClick = onClickClear) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_clear),
+                        contentDescription = null,
+                    )
+                }
+            }
+        }
     )
 }
