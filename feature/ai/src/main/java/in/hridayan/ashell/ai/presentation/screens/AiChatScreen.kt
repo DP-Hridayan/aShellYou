@@ -47,6 +47,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -102,6 +103,13 @@ fun AiChatScreen(
     LaunchedEffect(uiState.permissionPrompt != null) {
         if (uiState.permissionPrompt != null) {
             haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+        }
+    }
+
+    LaunchedEffect(drawerState.isClosed) {
+        if (drawerState.isClosed) {
+            hideKeyboard(context)
+            viewModel.onSessionSearchQueryChange(TextFieldValue(""))
         }
     }
 

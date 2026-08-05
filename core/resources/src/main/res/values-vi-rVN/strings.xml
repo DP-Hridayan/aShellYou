@@ -28,7 +28,7 @@
     <string name="add_command">Thêm lệnh</string>
     <string name="add_new_item">Thêm mục mới</string>
     <string name="additional_settings">Cài đặt bổ sung</string>
-    <string name="ai_cache_days">Thời gian lưu bộ nhớ đệm</string>
+    <string name="ai_cache_days">Thời gian giữ bộ nhớ đệm</string>
     <string name="ai_cache_enabled">Bật bộ nhớ đệm</string>
     <string name="ai_chat_allow">Cho phép</string>
     <string name="ai_chat_allow_run_command">Cho phép AI chạy lệnh:</string>
@@ -921,9 +921,9 @@
     <string name="changelog_v7_1_0">\nĐã sửa lỗi bàn phím tiếng Anh có thể không xuất hiện khi nhập lệnh nếu người dùng đặt ngôn ngữ ứng dụng khác tiếng Anh\nĐã sửa lỗi hiển thị sai biểu tượng thư\nĐã sửa lỗi gây ra sự cố khi lưu các tệp lớn\nĐã loại bỏ các quyền dư thừa\nĐã cải thiện UI trong phần \"Giới thiệu\"</string>
     <string name="changelog_v7_0_1">\nĐã sửa lỗi Fastlane</string>
     <string name="changelog_v7_0_0">\nToàn bộ giao diện người dùng đã được cập nhật sử dụng các thành phần Expressive\nToàn bộ mã nguồn đã được viết lại bằng Kotlin và Jetpack Compose cho UI Framework\nĐã thêm Trình quản lý tệp dựa trên Push &amp; Pull\nĐã thêm chế độ ghép nối WiFi ADB qua mã QR\nĐã thêm Tùy chọn ứng dụng và Tùy chọn sao lưu cơ sở dữ liệu\nĐã thêm các tùy chọn thiết kế chủ đề đặc biệt\nĐã thêm Lịch sử sự cố để xem nhật ký lỗi của ứng dụng\nĐã cải thiện tính năng tự động cập nhật\nĐã cải thiện UI &amp; UX ở phần đầu ra của shell\nĐã thêm đề xuất về quyền trên Android\nĐã cập nhật bố cục cho các mẫu lệnh bao gồm cả nhãn\nĐã thêm tùy chọn thêm, chỉnh sửa hoặc xóa lệnh theo ý muốn của bạn\nNhiều lỗi hiện tại đã được sửa</string>
-    <string name="changelog_v6_1_0">\nGiờ đây việc tìm kiếm lệnh có thể tìm kiếm các lệnh chứa từ bạn đã nhập, so với các phiên bản trước chỉ tìm kiếm các lệnh bắt đầu bằng từ đã nhập.\nKhả năng mở trực tiếp ứng dụng Shizuku khi Shizuku được cài đặt nhưng chưa chạy.\nĐã sửa lỗi báo cáo sự cố ứng dụng bị hỏng.</string>
+    <string name="changelog_v6_1_0">\nNow command search can search the commands that contains the word you typed compared to previous versions where it only searched commands that starts with the typed word.\nOption to open Shizuku app directly when Shizuku is installed but not running.\nFixed the broken in-app crash reporter.</string>
     <string name="changelog_v6_0_3">\nĐã giải quyết vấn đề gây hỏng bản dịch của ứng dụng aShell You</string>
-    <string name="changelog_v6_0_2">\nĐã điều chỉnh Github Actions cho các bản phát hành.\nĐiều này có ý nghĩa gì đối với bạn?\nTất cả các bản dựng tiếp theo, bao gồm cả bản này, sẽ an toàn hơn!</string>
+    <string name="changelog_v6_0_2">\nAdapted GitHub Actions for release builds.\nWhat this means for you?\nAll subsequent builds including this will be more secure!</string>
     <string name="changelog_v6_0_1">\nBản cập nhật bảo trì</string>
     <string name="changelog_v6_0_0">\nĐã thêm chế độ GỠ LỖI KHÔNG DÂY để chạy lệnh ADB trên cả thiết bị của bạn và thiết bị khác\nTrang chủ được thiết kế lại để tối giản điều hướng và giảm bớt sự lộn xộn ở trường nhập liệu\nĐã thêm cảnh báo phản hồi khi thực thi các lệnh liên quan đến các gói hệ thống quan trọng\nĐã thêm Cập nhật trong ứng dụng. Giờ đây bạn có thể tải xuống gói mới nhất trực tiếp mà không cần truy cập kho lưu trữ Github\nĐã sửa nhiều lỗi</string>
     <string name="changelog_v5_2_1">\nBản cập nhật bảo trì</string>
@@ -951,7 +951,7 @@
     <string name="changelog_v3_5_0">\nĐã cập nhật phần \"Giới thiệu về ứng dụng\".\nĐã thêm các lối tắt khởi chạy.\nĐã sửa menu điều hướng không hiển thị ở chế độ điều hướng bằng nút.\nCải thiện khả năng hiển thị của menu điều hướng phía dưới trong quá trình cuộn.\nĐã thêm hỗ trợ ngôn ngữ theo từng ứng dụng cho aShell You (bản dịch vẫn đang hoàn thiện).\nĐã tối ưu hóa rất nhiều cho mã nguồn.</string>
     <string name="changelog_v3_4_0">\nĐã thêm một nút \"Dán\" để bạn có thể sao chép và dán lệnh nhanh chóng.\nĐã thêm chỉ báo lỗi trong trường nhập văn bản.\nĐã cải thiện logic hiển thị của thanh điều hướng.\nĐã giải quyết vấn đề với các công tắc chuyển đổi không hoạt động trong một số tình huống nhất định.\nĐã sửa chữa việc thêm biểu tượng dấu trang để có độ hiển thị tốt hơn ở các mức tương phản khác nhau.\nTối ưu hóa rất nhiều mã nguồn. Ứng dụng giờ đây mở nhanh hơn rất nhiều so với trước đây.\nỨng dụng sẽ duy trì hoạt động trong chế độ nền và không khởi động lại mỗi khi bạn đóng ứng dụng chỉ bằng cách nhấn nút \"Quay lại\" hoặc cử chỉ.</string>
     <string name="changelog_v3_3_0">\nĐã thêm dấu trang, lịch sử và các gợi ý lệnh cho tính năng OTG\nĐã thêm giới hạn tối đa cho số lượng dấu trang.\nĐã thêm tùy chọn vượt qua giới hạn số lượng dấu trang tối đa.\nSửa rất nhiều lỗi.\nĐã cải thiện cách xử lý giao diện người dùng.\nTối ưu hóa rất nhiều mã nguồn.</string>
-    <string name="changelog_v3_2_0">\nRất nhiều cải tiến liên quan đến giao diện người dùng (UI).\nĐã thêm các chỉ báo biểu thị cho chế độ hoạt động hiện tại của ADB.\nTối ưu hóa rất nhiều mã nguồn.</string>
+    <string name="changelog_v3_2_0">\nA lot of UI related improvements.\nAdded chips that indicate current ADB working mode.\nA lot of code optimization.</string>
     <string name="changelog_v3_1_0">\nĐã cải thiện tính năng ADB OTG sau lần phát hành ban đầu.\nMột số điều chỉnh về giao diện người dùng (UI) và logic để tương thích với tính năng OTG mới.</string>
     <string name="changelog_v3_0_0">\nĐã thêm hỗ trợ cho ADB QUA OTG.\n\n*** Bạn sẽ có thể chạy các lệnh ADB trên các thiết bị khác bằng aShellYou, bằng cách kết nối với thiết bị khác thông qua cáp OTG ***</string>
     <string name="changelog_v2_0_2">\nĐã loại bỏ những đoạn mã và tài nguyên không cần thiết.\nNhững thay đổi nhỏ về giao diện người dùng (UI).</string>

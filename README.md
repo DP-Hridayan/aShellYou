@@ -223,6 +223,17 @@
 
 <br/>
 
+## Star History
+
+<picture>
+  <source media="(prefers-color-scheme: dark)"
+    srcset="https://star-chart-xi.vercel.app/api/stars?repo=DP-Hridayan/aShellYou&theme=dark&v=4">
+  <img alt="Star History"
+    src="https://star-chart-xi.vercel.app/api/stars?repo=DP-Hridayan/aShellYou&theme=light&v=4">
+</picture>
+
+<br/>
+
 ## License
 
 ```

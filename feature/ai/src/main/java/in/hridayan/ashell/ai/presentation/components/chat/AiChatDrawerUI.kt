@@ -2,6 +2,7 @@ package `in`.hridayan.ashell.ai.presentation.components.chat
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,12 +26,15 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -40,6 +44,7 @@ import `in`.hridayan.ashell.ai.presentation.components.animatedcomposable.Animat
 import `in`.hridayan.ashell.ai.presentation.model.AiChatUiState
 import `in`.hridayan.ashell.ai.presentation.viewmodel.AiChatViewModel
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.resources.R
 import kotlinx.coroutines.launch
 
@@ -53,41 +58,43 @@ fun AiChatDrawerUI(
     viewModel: AiChatViewModel = hiltViewModel()
 ) {
     val scope = rememberCoroutineScope()
+    val sessionSearchQuery by viewModel.sessionSearchQuery.collectAsState()
 
     ModalDrawerSheet(modifier = modifier) {
-        Spacer(Modifier.height(16.dp))
-
         Text(
             stringResource(R.string.ai_chat_sessions),
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 32.dp),
             style = MaterialTheme.typography.titleLarge
+        )
+
+        // Added this spacer to absorb auto-focus of search bar
+        Spacer(modifier = Modifier.focusable())
+
+        CustomSearchBar(
+            modifier = Modifier
+                .padding(NavigationDrawerItemDefaults.ItemPadding)
+                .fillMaxWidth(),
+            value = sessionSearchQuery,
+            onValueChange = { viewModel.onSessionSearchQueryChange(it) },
+            hint = stringResource(R.string.ai_session_search_hint),
+            leadingIcon = {
+                Icon(
+                    painter = painterResource(R.drawable.ic_search),
+                    contentDescription = null
+                )
+            }
         )
 
         Spacer(modifier = Modifier.height(15.dp))
 
-        OutlinedButton(
+        NewChatButton(
             modifier = Modifier
                 .padding(NavigationDrawerItemDefaults.ItemPadding)
                 .fillMaxWidth(),
             onClick = withHaptic {
                 viewModel.onNewChat()
                 scope.launch { drawerState.close() }
-            }
-        ) {
-            Icon(
-                modifier = Modifier.padding(vertical = 5.dp),
-                imageVector = Icons.Rounded.Add,
-                contentDescription = null
-            )
-
-            Spacer(Modifier.width(8.dp))
-
-            Text(
-                modifier = Modifier.padding(vertical = 5.dp),
-                text = stringResource(R.string.ai_chat_new_chat),
-                style = MaterialTheme.typography.titleMedium
-            )
-        }
+            })
 
         Spacer(modifier = Modifier.height(15.dp))
 
@@ -107,7 +114,8 @@ fun AiChatDrawerUI(
                             onLongClick = withHaptic(HapticFeedbackType.LongPress) {
                                 onLongClickSession(session)
                             }
-                        ),
+                        )
+                        .animateItem(),
                     shape = CircleShape,
                     color = if (session.id == uiState.currentSessionId) MaterialTheme.colorScheme.secondaryContainer else Color.Transparent,
                     contentColor = MaterialTheme.colorScheme.run {
@@ -145,5 +153,30 @@ fun AiChatDrawerUI(
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun NewChatButton(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
+) {
+    OutlinedButton(
+        modifier = modifier,
+        onClick = onClick
+    ) {
+        Icon(
+            modifier = Modifier.padding(vertical = 5.dp),
+            imageVector = Icons.Rounded.Add,
+            contentDescription = null
+        )
+
+        Spacer(Modifier.width(8.dp))
+
+        Text(
+            modifier = Modifier.padding(vertical = 5.dp),
+            text = stringResource(R.string.ai_chat_new_chat),
+            style = MaterialTheme.typography.titleMedium
+        )
     }
 }

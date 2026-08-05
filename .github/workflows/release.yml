@@ -34,11 +34,15 @@ jobs:
           echo "$KEYSTORE_BASE64" | base64 --decode > keystore.jks
 
       - name: Set Environment Variables
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
           echo "KEYSTORE_PATH=$PWD/keystore.jks" >> $GITHUB_ENV
-          echo "KEYSTORE_PASSWORD=$(echo -n '${{ secrets.KEYSTORE_PASSWORD }}')" >> $GITHUB_ENV
-          echo "KEY_ALIAS=$(echo -n '${{ secrets.KEY_ALIAS }}')" >> $GITHUB_ENV
-          echo "KEY_PASSWORD=$(echo -n '${{ secrets.KEY_PASSWORD }}')" >> $GITHUB_ENV
+          echo "KEYSTORE_PASSWORD=$KEYSTORE_PASSWORD" >> $GITHUB_ENV
+          echo "KEY_ALIAS=$KEY_ALIAS" >> $GITHUB_ENV
+          echo "KEY_PASSWORD=$KEY_PASSWORD" >> $GITHUB_ENV
 
       - name: Grant Execute Permission to Gradle
         run: chmod +x gradlew
@@ -106,9 +110,9 @@ jobs:
           echo "✅ Found APKs:"
           echo "$APK_FILES"
 
-          gh release create "${{ github.ref_name }}" \
+          gh release create "$GITHUB_REF_NAME" \
             $APK_FILES \
-            --title "aShell You ${{ github.ref_name }}" \
+            --title "aShell You $GITHUB_REF_NAME" \
             --notes-file changelog.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -119,8 +123,8 @@ jobs:
           CHAT_ID: ${{ secrets.CHAT_ID }}
           THREAD_ID: ${{ secrets.RELEASE_THREAD_ID }}
         run: |
-          TAG=${{ github.ref_name }}
-          URL="https://github.com/${{ github.repository }}/releases/tag/${TAG}"
+          TAG=$GITHUB_REF_NAME
+          URL="https://github.com/$GITHUB_REPOSITORY/releases/tag/${TAG}"
 
           # Escape underscores for MarkdownV2
           ESC_TAG=$(echo "$TAG" | sed -e 's/\./\\./g' -e 's/_/\\_/g' -e 's/\*/\\*/g' -e 's/\-/\\-/g')
