@@ -467,10 +467,10 @@
     <string name="found_connect_service">Đã tìm thấy dịch vụ kết nối</string>
     <string name="frequency">Tần suất</string>
     <string name="full_license_text">Toàn văn giấy phép</string>
-    <string name="gemini_api_key_step_1">Truy cập Google AI Studio tại aistudio.google.com</string>
+    <string name="gemini_api_key_step_1" comment="%1$s = URL">Visit Google AI Studio at %1$s</string>
     <string name="gemini_api_key_step_2">Đăng nhập bằng Tài khoản Google của bạn</string>
     <string name="gemini_api_key_step_3">Nhấp vào Tạo khóa API và chọn hoặc tạo một dự án</string>
-    <string name="gemini_api_key_step_4">Sao chép khóa API của bạn và dán vào bên dưới</string>
+    <string name="gemini_api_key_step_4">Copy your API key and paste it here</string>
     <string name="generate_color_scheme">Tạo bảng màu</string>
     <string name="generate_scheme">Tạo bảng màu</string>
     <string name="generate_theme">Tạo chủ đề</string>

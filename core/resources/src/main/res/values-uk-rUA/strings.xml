@@ -467,10 +467,10 @@
     <string name="found_connect_service">Знайдено сервіс підключення</string>
     <string name="frequency">Частота</string>
     <string name="full_license_text">Повний текст ліцензії</string>
-    <string name="gemini_api_key_step_1">Відвідайте Google AI Studio на aistudio.google.com</string>
+    <string name="gemini_api_key_step_1" comment="%1$s = URL">Відвідайте Google AI Studio від %1$s</string>
     <string name="gemini_api_key_step_2">Увійти за допомогою свого Google Account</string>
     <string name="gemini_api_key_step_3">Натисніть на Створити API ключ і виберіть або створити проєкт</string>
-    <string name="gemini_api_key_step_4">Скопіюйте свій API ключ і вставте його нижче</string>
+    <string name="gemini_api_key_step_4">Скопіюйте свій ключ API та вставте його тут</string>
     <string name="generate_color_scheme">Згенерувати колірну схему</string>
     <string name="generate_scheme">Згенерувати схему</string>
     <string name="generate_theme">Згенерувати тему</string>
