@@ -28,7 +28,7 @@ jobs:
             --ai="openai" \
             --openAiKey="$GOOGLE_AI_KEY" \
             --openAiBaseUrl="$GOOGLE_AI_BASE_URL" \
-            --model="gemini-3.5-live-translate" \
+            --model="gemini-3.5-flash-lite" \
             --output="crowdin" \
             --concurrency=5
             
