@@ -1,0 +1,34 @@
+name: Harvest Localization Context
+
+on:
+  workflow_dispatch: # This allows you to trigger the job manually from your phone
+
+jobs:
+  harvest-context:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '20'
+
+      - name: Run Crowdin Context Harvester
+        env:
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+          OPENAI_KEY: ${{ secrets.GOOGLE_AI_KEY }}
+          OPENAI_BASE_URL: "https://generativelanguage.googleapis.com/v1beta/openai/"
+        run: |
+          npx crowdin-context-harvester harvest \
+            --token="$CROWDIN_PERSONAL_TOKEN" \
+            --project="$CROWDIN_PROJECT_ID" \
+            --ai="openai" \
+            --openAiKey="$OPENAI_KEY" \
+            --openAiBaseUrl="$OPENAI_BASE_URL" \
+            --crowdinFiles="**/strings.xml" \
+            --output="crowdin" \
+            --concurrency=5
+            
