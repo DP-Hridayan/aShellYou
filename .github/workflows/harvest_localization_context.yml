@@ -1,7 +1,7 @@
 name: Harvest Localization Context
 
 on:
-  workflow_dispatch: # This allows you to trigger the job manually from your phone
+  workflow_dispatch:
 
 jobs:
   harvest-context:
@@ -19,16 +19,16 @@ jobs:
         env:
           CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
           CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
-          OPENAI_KEY: ${{ secrets.GOOGLE_AI_KEY }}
-          OPENAI_BASE_URL: "https://generativelanguage.googleapis.com/v1beta/openai/"
+          GOOGLE_AI_KEY: ${{ secrets.GOOGLE_AI_KEY }}
+          GOOGLE_AI_BASE_URL: "https://generativelanguage.googleapis.com/v1beta/openai/"
         run: |
           npx crowdin-context-harvester harvest \
             --token="$CROWDIN_PERSONAL_TOKEN" \
             --project="$CROWDIN_PROJECT_ID" \
             --ai="openai" \
-            --openAiKey="$OPENAI_KEY" \
-            --openAiBaseUrl="$OPENAI_BASE_URL" \
-            --crowdinFiles="**/strings.xml" \
+            --openAiKey="$GOOGLE_AI_KEY" \
+            --openAiBaseUrl="$GOOGLE_AI_BASE_URL" \
+            --model="gemini-3.5-flash" \
             --output="crowdin" \
             --concurrency=5
             
