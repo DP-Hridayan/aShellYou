@@ -62,8 +62,8 @@
     "id": "15085871",
     "username": "AY_Translator",
     "name": "Aleksandr (AY_Translator)",
-    "translated": 8115,
-    "approved": 10028,
+    "translated": 8117,
+    "approved": 10032,
     "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/15085871/medium/3a254014b133e0fc2d376c776aba8dbd.jpg",
     "languages": [
       {
@@ -96,7 +96,7 @@
     "id": "17812685",
     "username": "luciakun",
     "name": "Hoàng Đức Hùng (luciakun)",
-    "translated": 4981,
+    "translated": 4983,
     "approved": 0,
     "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/17812685/medium/873770cc48fabe807a57b4bc6f933ff4.jpeg",
     "languages": [
@@ -170,6 +170,21 @@
       }
     ],
     "avatar": "crowdin/contributors_pfp/contributor_17262364.webp"
+  },
+  {
+    "id": "15129943",
+    "username": "WinterSoldier",
+    "name": "Kerem Ç. (WinterSoldier)",
+    "translated": 1857,
+    "approved": 0,
+    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/15129943/medium/81a99fc95a115ad1cddc7e943e05a36a.png",
+    "languages": [
+      {
+        "id": "tr",
+        "name": "Turkish"
+      }
+    ],
+    "avatar": "crowdin/contributors_pfp/contributor_15129943.webp"
   },
   {
     "id": "17500342",
