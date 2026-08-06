@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.components.bottomsheet
 
-
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.expandVertically
@@ -11,7 +10,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,6 +30,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.RadioButton
@@ -61,9 +60,9 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import `in`.hridayan.ashell.core.common.domain.model.AppFont
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
-import `in`.hridayan.ashell.core.common.domain.model.AppFont
 import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -72,11 +71,11 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
 import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
 import `in`.hridayan.ashell.core.presentation.model.ButtonType
+import `in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel.LookAndFeelViewModel
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
@@ -191,18 +190,14 @@ fun FontStyleBottomSheet(
                 hint = stringResource(R.string.search_fonts),
                 trailingIcon = {
                     if (searchQuery.text.isNotEmpty()) {
-                        Icon(
-                            modifier = Modifier.clickable(
-                                enabled = true,
-                                indication = null,
-                                interactionSource = remember { MutableInteractionSource() },
-                                onClick = withHaptic {
-                                    searchQuery = TextFieldValue("")
-                                }
-                            ),
-                            painter = painterResource(R.drawable.ic_cross),
-                            contentDescription = null
-                        )
+                        IconButton(onClick = withHaptic {
+                            searchQuery = TextFieldValue("")
+                        }) {
+                            Icon(
+                                painter = painterResource(R.drawable.ic_cross),
+                                contentDescription = null
+                            )
+                        }
                     }
                 }
             )

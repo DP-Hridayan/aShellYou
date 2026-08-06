@@ -2,7 +2,6 @@ package `in`.hridayan.ashell.settings.presentation.page.search.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,6 +21,7 @@ import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.History
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -112,32 +112,24 @@ fun SettingsSearchScreen(
                     },
                     hint = stringResource(R.string.search_settings),
                     leadingIcon = {
-                        Icon(
-                            modifier = Modifier.clickable(
-                                enabled = true,
-                                indication = null,
-                                interactionSource = remember { MutableInteractionSource() },
-                                onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                                    navController.navigateBack()
-                                }),
-                            imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
-                            contentDescription = null,
-                        )
+                        IconButton(onClick = withHaptic { navController.navigateBack() }) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
+                                contentDescription = null,
+                            )
+                        }
                     },
                     trailingIcon = {
                         if (query.isNotEmpty()) {
-                            Icon(
-                                modifier = Modifier.clickable(
-                                    enabled = true,
-                                    indication = null,
-                                    interactionSource = remember { MutableInteractionSource() },
-                                    onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                                        textFieldValue = TextFieldValue("")
-                                        viewModel.onQueryChanged("")
-                                    }),
-                                imageVector = Icons.Rounded.Close,
-                                contentDescription = null
-                            )
+                            IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                                textFieldValue = TextFieldValue("")
+                                viewModel.onQueryChanged("")
+                            }) {
+                                Icon(
+                                    imageVector = Icons.Rounded.Close,
+                                    contentDescription = null
+                                )
+                            }
                         }
                     },
                 )

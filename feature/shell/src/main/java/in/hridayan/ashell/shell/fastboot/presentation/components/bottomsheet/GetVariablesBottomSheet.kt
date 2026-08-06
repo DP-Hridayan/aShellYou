@@ -42,6 +42,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.resources.R
@@ -112,7 +113,15 @@ fun GetVariablesBottomSheet(
                 modifier = Modifier.fillMaxWidth(),
                 value = searchQuery,
                 onValueChange = { searchQuery = it },
-                hint = stringResource(R.string.search_variables)
+                hint = stringResource(R.string.search_variables),
+                trailingIcon = {
+                    IconButton(onClick = withHaptic { searchQuery = TextFieldValue("") }) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_cross),
+                            contentDescription = null
+                        )
+                    }
+                }
             )
 
             Spacer(modifier = Modifier.height(16.dp))

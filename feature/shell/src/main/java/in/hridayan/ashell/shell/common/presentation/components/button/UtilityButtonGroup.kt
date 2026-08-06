@@ -3,8 +3,6 @@
 package `in`.hridayan.ashell.shell.common.presentation.components.button
 
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -18,12 +16,12 @@ import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -88,35 +86,25 @@ fun UtilityButtonGroup(
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
                 trailingIcon = {
                     if (states.search.textFieldValue.text.isNotEmpty()) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_clear),
-                            contentDescription = "Clear text",
-                            modifier = Modifier
-                                .clickable(
-                                    enabled = true,
-                                    indication = null,
-                                    interactionSource = remember { MutableInteractionSource() },
-                                    onClick = withHaptic {
-                                        shellViewModel.onSearchQueryChange(TextFieldValue(""))
-                                        focusManager.clearFocus()
-                                    }
-                                )
-                        )
+                        IconButton(onClick = withHaptic {
+                            shellViewModel.onSearchQueryChange(TextFieldValue(""))
+                            focusManager.clearFocus()
+                        }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_clear),
+                                contentDescription = "Clear text",
+                            )
+                        }
                     }
 
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_cross),
-                        contentDescription = "Clear text",
-                        modifier = Modifier
-                            .clickable(
-                                enabled = true,
-                                indication = null,
-                                interactionSource = remember { MutableInteractionSource() },
-                                onClick = withHaptic {
-                                    shellViewModel.toggleSearchBar()
-                                }
-                            )
-                    )
+                    IconButton(onClick = withHaptic {
+                        shellViewModel.toggleSearchBar()
+                    }) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_cross),
+                            contentDescription = "Dismiss Searchbar",
+                        )
+                    }
                 }
             )
         }
