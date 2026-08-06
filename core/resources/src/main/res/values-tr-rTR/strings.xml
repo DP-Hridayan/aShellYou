@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="_import">Import</string>
-    <string name="_new">New</string>
+    <string name="_import">İçe aktar</string>
+    <string name="_new">Yeni</string>
     <string name="abort_command">Önce komutu iptal et</string>
     <string name="about">Hakkında</string>
-    <string name="active">Active</string>
-    <string name="active_slot">Active Slot</string>
+    <string name="active">Aktif</string>
+    <string name="active_slot">Aktif Slot</string>
     <string name="adb">ADB</string>
-    <string name="adb_agent">ADB Agent</string>
+    <string name="adb_agent">ADB Ajanı</string>
     <string name="adb_command">ADB Komutu</string>
     <string name="adb_command_hint" comment="Example ADB command shown as placeholder hint in input field">adb reboot</string>
-    <string name="adb_command_off_state">ADB command (OFF state)</string>
-    <string name="adb_command_on_state"></string>
+    <string name="adb_command_off_state">ADB komutu (KAPALI Durum)</string>
+    <string name="adb_command_on_state">ADB komutu (AÇIK durum)</string>
     <string name="adb_connection_active">ADB Bağlantısı Etkin</string>
     <string name="adb_connection_channel_description">ADB bağlantısı etkin olduğunda gösterilir</string>
     <string name="adb_connection_channel_name">ADB Bağlantısı</string>
@@ -19,187 +19,187 @@
     <string name="adb_sideload">ADB sideload</string>
     <string name="adb_through_otg">OTG Üzerinden ADB</string>
     <string name="adb_through_otg_summary">Başka bir Android cihazda ADB komutları çalıştırmak için bir OTG kablosu ve USB hata ayıklama kullanın. Hedef cihazın geliştirici seçeneklerinden USB Hata Ayıklama\'yı açmanız gerekir.</string>
-    <string name="adb_via_otg">ADB via OTG</string>
+    <string name="adb_via_otg">OTG üzerinden ADB</string>
     <string name="adb_via_wireless_debugging">Kablosuz Hata Ayıklama ile ADB</string>
     <string name="adb_via_wireless_debugging_summary">Kablosuz hata ayıklama kullanarak cihazları (Android 11+) Wi-Fi üzerinden bağlayın ve uzaktan ADB komutları çalıştırın.</string>
     <string name="add">Ekle</string>
-    <string name="add_account">Add account</string>
-    <string name="add_api_key">Add API key</string>
+    <string name="add_account">Hesap Ekle</string>
+    <string name="add_api_key">API Key Ekle</string>
     <string name="add_command">Komut ekle</string>
     <string name="add_new_item">Yeni öge ekle</string>
     <string name="additional_settings">Ek ayarlar</string>
-    <string name="ai_cache_days">Cache duration</string>
-    <string name="ai_cache_enabled">Enable cache</string>
-    <string name="ai_chat_allow">Allow</string>
-    <string name="ai_chat_allow_run_command">Allow AI to run command:</string>
-    <string name="ai_chat_always_allow">Always Allow</string>
-    <string name="ai_chat_cancel">Cancel</string>
-    <string name="ai_chat_delete">Delete</string>
-    <string name="ai_chat_deny">Deny</string>
-    <string name="ai_chat_new_chat">New Chat</string>
-    <string name="ai_chat_pin">Pin</string>
-    <string name="ai_chat_rename">Rename</string>
-    <string name="ai_chat_running">Running: </string>
-    <string name="ai_chat_save">Save</string>
-    <string name="ai_chat_sessions">Chat Sessions</string>
-    <string name="ai_chat_thoughts">Thoughts…</string>
-    <string name="ai_chat_unpin">Unpin</string>
-    <string name="ai_chat_use">Use</string>
-    <string name="ai_models">AI &amp; Models</string>
-    <string name="ai_new_chat_welcome_msg">Hi, what can I do for you?</string>
-    <string name="ai_prompt_suggestion_1">Check my battery health</string>
-    <string name="ai_prompt_suggestion_2">List all installed packages</string>
-    <string name="ai_prompt_suggestion_3">Help me create a Quick Settings tile</string>
-    <string name="ai_theme_prompt_hint">e.g. Cyberpunk neon city, dark mode, high contrast</string>
-    <string name="all">All</string>
-    <string name="all_data">All data</string>
+    <string name="ai_cache_days">Önbellek süresi</string>
+    <string name="ai_cache_enabled">Önbelleği etkinleştir</string>
+    <string name="ai_chat_allow">İzin Ver</string>
+    <string name="ai_chat_allow_run_command">AI\'ın komut çalıştırmasına izin ver:</string>
+    <string name="ai_chat_always_allow">Her zaman İzin Ver</string>
+    <string name="ai_chat_cancel">İptal et</string>
+    <string name="ai_chat_delete">Sil</string>
+    <string name="ai_chat_deny">Reddet</string>
+    <string name="ai_chat_new_chat">Yeni Sohbet</string>
+    <string name="ai_chat_pin">Sabitle</string>
+    <string name="ai_chat_rename">Yeniden adlandır</string>
+    <string name="ai_chat_running">Çalışıyor: </string>
+    <string name="ai_chat_save">Kaydet</string>
+    <string name="ai_chat_sessions">Sohbet Oturumları</string>
+    <string name="ai_chat_thoughts">Düşünceler…</string>
+    <string name="ai_chat_unpin">Sabitlemeyi Kaldır</string>
+    <string name="ai_chat_use">Kullan</string>
+    <string name="ai_models">AI &amp; Modeller</string>
+    <string name="ai_new_chat_welcome_msg">Merhaba, size nasıl yardımcı olabilirim?</string>
+    <string name="ai_prompt_suggestion_1">Pilimin durumunu kontrol et</string>
+    <string name="ai_prompt_suggestion_2">Tüm yüklü paketlerin listesi</string>
+    <string name="ai_prompt_suggestion_3">Hızlı Ayarlar kutucuğu oluşturmama yardımcı ol</string>
+    <string name="ai_theme_prompt_hint">örnek: Siberpunk neon şehir, karanlık mod, yüksek kontrast</string>
+    <string name="all">Tümü</string>
+    <string name="all_data">Tüm veriler</string>
     <string name="already_connected">Zaten bağlı</string>
     <string name="already_latest_version">En son sürümü kullanıyorsunuz</string>
-    <string name="always_allow_base">Always allow base</string>
-    <string name="always_allow_exact">Always allow exact</string>
-    <string name="analyse">Analyse</string>
-    <string name="api_key">API key</string>
-    <string name="api_key_is_saved">API key is saved</string>
-    <string name="api_key_required">API Key Required</string>
-    <string name="api_key_required_message">An API key is required to use AI features. Please add your API key in Settings -&gt; Cloud Models.</string>
+    <string name="always_allow_base">Her zaman tabana izin verin</string>
+    <string name="always_allow_exact">Her zaman kesinliğe izin verin</string>
+    <string name="analyse">Analiz</string>
+    <string name="api_key">API anahtarı</string>
+    <string name="api_key_is_saved">API anahtarı kaydedildi</string>
+    <string name="api_key_required">API anahtarı gerekli</string>
+    <string name="api_key_required_message">AI özelliklerini kullanmak için bir API anahtarı gereklidir. Lütfen API anahtarınızı Ayarlar -&gt; Bulut Modelleri bölümüne ekleyin.</string>
     <string name="app">Uygulama</string>
     <string name="app_crashed">Uygulama çöktü</string>
     <string name="app_tagline">ADB parmaklarınızın ucunda</string>
-    <string name="apply">Apply</string>
+    <string name="apply">Uygula</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">Tümüne uygula (Kalan: %1$d)</string>
-    <string name="artifact_id">Artifact ID</string>
-    <string name="auto">Auto</string>
-    <string name="auto_backup">Automatic backup</string>
-    <string name="auto_backup_content_type">Backup content</string>
-    <string name="auto_backup_folder">Backup folder</string>
-    <string name="auto_dark_mode">Auto dark mode</string>
-    <string name="auto_delete_existing_backups">Auto-delete old backups</string>
-    <string name="auto_scale_ui">Auto scale UI</string>
+    <string name="artifact_id">Yapı Kimliği</string>
+    <string name="auto">Otomatik</string>
+    <string name="auto_backup">Otomatik yedekleme</string>
+    <string name="auto_backup_content_type">Yedekleme içeriği</string>
+    <string name="auto_backup_folder">Yedekleme klasörü</string>
+    <string name="auto_dark_mode">Otomatik karanlık mod</string>
+    <string name="auto_delete_existing_backups">Eski yedeklemeleri otomatik olarak sil</string>
+    <string name="auto_scale_ui">Kullanıcı arayüzünü otomatik ölçeklendirin</string>
     <string name="auto_update">Otomatik güncelle</string>
     <string name="back">Geri</string>
     <string name="back_button">Geri butonu</string>
-    <string name="background">Background</string>
-    <string name="backing_up">Backing up…</string>
+    <string name="background">Arkaplan</string>
+    <string name="backing_up">Yedekleniyor…</string>
     <string name="backup">Yedekle</string>
     <string name="backup_all_data">Tüm verileri yedekle</string>
     <string name="backup_and_restore">Yedekle ve geri yükle</string>
     <string name="backup_app_database">Uygulama veritabanını yedekle</string>
     <string name="backup_date">Yedekleme tarihi</string>
-    <string name="backup_destination">Backup destination</string>
+    <string name="backup_destination">Yedekleme hedefi</string>
     <string name="backup_failed">Yedekleme başarısız</string>
     <string name="backup_found">Yedek bulundu</string>
-    <string name="backup_frequency">Backup frequency</string>
-    <string name="backup_now">Backup now</string>
-    <string name="backup_scheduler">Backup scheduler</string>
+    <string name="backup_frequency">Yedekleme sıklığı</string>
+    <string name="backup_now">Şimdi yedekle</string>
+    <string name="backup_scheduler">Yedekleme zamanlayıcısı</string>
     <string name="backup_settings">Uygulama ayarlarını yedekle</string>
-    <string name="backup_status">Backup status</string>
+    <string name="backup_status">Yedekleme durumu</string>
     <string name="backup_successful">Yedekleme başarılı</string>
     <string name="backup_time">Yedekleme saati</string>
-    <string name="backup_type">Backup type</string>
-    <string name="baseband_version">Baseband</string>
+    <string name="backup_type">Yedekleme türü</string>
+    <string name="baseband_version">Ana bant</string>
     <string name="basic_shell">Temel Shell</string>
-    <string name="battery_level">Battery</string>
-    <string name="battery_saver">Battery saver</string>
+    <string name="battery_level">Pil</string>
+    <string name="battery_saver">Pil tasarrufu</string>
     <string name="behavior">Davranış</string>
     <string name="bookmark_limit_reached">Maksimum yer imi sınırına ulaşıldı! Yenilerini eklemek için bazı yer imlerini silin</string>
     <string name="bookmarks">Yer İmleri</string>
-    <string name="boot_device_into_fastboot">Boot the target device into fastboot mode and connect via OTG cable</string>
-    <string name="boot_image">Boot Image</string>
-    <string name="boot_into_fastboot">Boot into Fastboot</string>
+    <string name="boot_device_into_fastboot">Hedef cihazı fastboot moduna alın ve OTG kablosuyla bağlayın</string>
+    <string name="boot_image">Boot İmajı</string>
+    <string name="boot_into_fastboot">Fastboot moduna geçin</string>
     <string name="bootloader">Bootloader</string>
-    <string name="bootloader_version">Bootloader</string>
+    <string name="bootloader_version">Önyükleyici (Bootloader)</string>
     <string name="btn_continue">Devam et</string>
-    <string name="cache_settings">Cache</string>
-    <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Cache size: %s</string>
+    <string name="cache_settings">Önbellek</string>
+    <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Önbellek Boyutu: %s</string>
     <string name="cancel">İptal</string>
     <string name="cancel_all">Tümünü iptal et</string>
-    <string name="cancelling">Cancelling…</string>
-    <string name="changelog">Changelog</string>
+    <string name="cancelling">İptal ediliyor…</string>
+    <string name="changelog">Değişiklik Notları</string>
     <string name="changelogs">Değişiklik Günlükleri</string>
     <string name="check_updates">Güncellemeleri denetle</string>
     <string name="choose_a_device">Bir cihaz seçin</string>
-    <string name="choose_icon">Choose icon</string>
+    <string name="choose_icon">Simge seçin</string>
     <string name="clear">Temizle</string>
-    <string name="clear_all">Clear all</string>
+    <string name="clear_all">Tümünü temizle</string>
     <string name="clear_all_message">Bu ekrandaki her şeyi temizlemek istediğinize emin misiniz?</string>
-    <string name="clear_analysis_cache">Clear analysis cache</string>
-    <string name="clear_cache">Clear cache</string>
+    <string name="clear_analysis_cache">Analiz önbelleğini temizle</string>
+    <string name="clear_cache">Önbelleği temizle</string>
     <string name="clear_everything">Her şeyi temizle</string>
-    <string name="clear_history">Clear History</string>
+    <string name="clear_history">Geçmişi Temizle</string>
     <string name="clear_output_confirmation">Çıktı temizleme onayı</string>
     <string name="clipboard_empty">Pano metin içermiyor</string>
     <string name="close">Kapat</string>
-    <string name="cloud_backup_failed">Failed to upload backup to Google Drive</string>
-    <string name="cloud_backup_google_drive">Cloud backup (Google Drive)</string>
-    <string name="cloud_backup_successful">Backup uploaded to Google Drive</string>
-    <string name="cloud_models">Cloud models</string>
-    <string name="cloud_restore_failed">Failed to restore from Google Drive</string>
-    <string name="cloud_restore_successful">Restored from Google Drive</string>
+    <string name="cloud_backup_failed">Yedekleme dosyasını Google Drive\'a yükleme başarısız oldu</string>
+    <string name="cloud_backup_google_drive">Bulut yedekleme (Google Drive)</string>
+    <string name="cloud_backup_successful">Yedekleme dosyası Google Drive\'a yüklendi</string>
+    <string name="cloud_models">Bulut modelleri</string>
+    <string name="cloud_restore_failed">Google Drive\'dan geri yükleme başarısız oldu</string>
+    <string name="cloud_restore_successful">Google Drive\'dan geri yüklendi</string>
     <string name="code_pair_instruction">Hedef cihazda \"Kablosuz hata ayıklama\"yı açın ve \"Cihazı eşleştirme koduyla eşleştir\" seçeneğine dokunun</string>
-    <string name="collapse">Collapse</string>
-    <string name="color_preview_error_occurred">Error occurred</string>
-    <string name="color_preview_high_elevation">High Elevation (Dialog)</string>
-    <string name="color_preview_highest_elevation">Highest Elevation (Bottom Sheet)</string>
-    <string name="color_preview_list_item">List Item / Text Field</string>
-    <string name="color_preview_low_elevation">Low Elevation (Elevated Card)</string>
-    <string name="color_preview_lowest_elevation">Lowest Elevation</string>
-    <string name="color_preview_outlined_button">Outlined Button</string>
-    <string name="color_preview_primary_button">Primary Button</string>
-    <string name="color_preview_screen_content">Screen Content</string>
-    <string name="color_preview_standard_elevation">Standard Elevation (Card)</string>
-    <string name="color_preview_surface_area">Surface Area</string>
-    <string name="color_preview_tonal_button">Tonal Button</string>
-    <string name="color_role_app_background">App Background</string>
-    <string name="color_role_background">Background</string>
-    <string name="color_role_error">Error</string>
-    <string name="color_role_error_container">Error Container</string>
-    <string name="color_role_main_accent">Main Accent (Primary)</string>
-    <string name="color_role_on_background" context="The color used for text and icons drawn on top of the background color">On Background</string>
-    <string name="color_role_on_error" context="The color used for text and icons drawn on top of the error color">On Error</string>
-    <string name="color_role_on_error_container" context="The color used for text and icons drawn on top of the error container color">On Error Container</string>
-    <string name="color_role_on_primary" context="The color used for text and icons drawn on top of the primary color">On Primary</string>
-    <string name="color_role_on_primary_container" context="The color used for text and icons drawn on top of the primary container color">On Primary Container</string>
-    <string name="color_role_on_secondary" context="The color used for text and icons drawn on top of the secondary color">On Secondary</string>
-    <string name="color_role_on_secondary_container" context="The color used for text and icons drawn on top of the secondary container color">On Secondary Container</string>
-    <string name="color_role_on_surface" context="The color used for text and icons drawn on top of the surface color">On Surface</string>
-    <string name="color_role_on_surface_variant" context="The color used for text and icons drawn on top of the surface variant color">On Surface Variant</string>
-    <string name="color_role_on_tertiary" context="The color used for text and icons drawn on top of the tertiary color">On Tertiary</string>
-    <string name="color_role_on_tertiary_container" context="The color used for text and icons drawn on top of the tertiary container color">On Tertiary Container</string>
-    <string name="color_role_outline">Outline</string>
-    <string name="color_role_outline_variant">Outline Variant</string>
-    <string name="color_role_primary">Primary</string>
-    <string name="color_role_primary_container">Primary Container</string>
-    <string name="color_role_secondary">Secondary</string>
-    <string name="color_role_secondary_accent">Secondary Accent</string>
-    <string name="color_role_secondary_container">Secondary Container</string>
-    <string name="color_role_surface">Surface</string>
-    <string name="color_role_surface_container">Surface Container</string>
-    <string name="color_role_surface_container_high">Surface Container High</string>
-    <string name="color_role_surface_container_highest">Surface Container Highest</string>
-    <string name="color_role_surface_container_low">Surface Container Low</string>
-    <string name="color_role_surface_container_lowest">Surface Container Lowest</string>
-    <string name="color_role_surface_variant">Surface Variant</string>
-    <string name="color_role_tertiary">Tertiary</string>
-    <string name="color_role_tertiary_accent">Tertiary Accent</string>
-    <string name="color_role_tertiary_container">Tertiary Container</string>
+    <string name="collapse">Daralt</string>
+    <string name="color_preview_error_occurred">Hata oluştu</string>
+    <string name="color_preview_high_elevation">Yüksek Rakım (Diyalog)</string>
+    <string name="color_preview_highest_elevation">En Yüksek Rakım (Alt Sayfa)</string>
+    <string name="color_preview_list_item">Liste Öğesi / Metin Alanı</string>
+    <string name="color_preview_low_elevation">Düşük Rakım (Yükseltilmiş Kart)</string>
+    <string name="color_preview_lowest_elevation">En Düşük Rakım</string>
+    <string name="color_preview_outlined_button">Anahatlı Düğme</string>
+    <string name="color_preview_primary_button">Birincil Buton</string>
+    <string name="color_preview_screen_content">Ekran içeriği</string>
+    <string name="color_preview_standard_elevation">Standart Yükseklik (Kart)</string>
+    <string name="color_preview_surface_area">Yüzey Alanı</string>
+    <string name="color_preview_tonal_button">Ton Düğmesi</string>
+    <string name="color_role_app_background">Uygulama Arkaplanı</string>
+    <string name="color_role_background">Arkaplan</string>
+    <string name="color_role_error">Hata</string>
+    <string name="color_role_error_container">Hata Konteyneri</string>
+    <string name="color_role_main_accent">Ana Vurgu (Birincil)</string>
+    <string name="color_role_on_background" context="The color used for text and icons drawn on top of the background color">Arka planda</string>
+    <string name="color_role_on_error" context="The color used for text and icons drawn on top of the error color">Hata durumunda</string>
+    <string name="color_role_on_error_container" context="The color used for text and icons drawn on top of the error container color">Hata Konteyneri</string>
+    <string name="color_role_on_primary" context="The color used for text and icons drawn on top of the primary color">Birincil</string>
+    <string name="color_role_on_primary_container" context="The color used for text and icons drawn on top of the primary container color">Birincil Konteynerde</string>
+    <string name="color_role_on_secondary" context="The color used for text and icons drawn on top of the secondary color">İkincil</string>
+    <string name="color_role_on_secondary_container" context="The color used for text and icons drawn on top of the secondary container color">İkinci Konteynerda</string>
+    <string name="color_role_on_surface" context="The color used for text and icons drawn on top of the surface color">Yüzeyde</string>
+    <string name="color_role_on_surface_variant" context="The color used for text and icons drawn on top of the surface variant color">Yüzey Varyantında</string>
+    <string name="color_role_on_tertiary" context="The color used for text and icons drawn on top of the tertiary color">Üçüncül</string>
+    <string name="color_role_on_tertiary_container" context="The color used for text and icons drawn on top of the tertiary container color">Üçüncül Konteynerde</string>
+    <string name="color_role_outline">Anahat</string>
+    <string name="color_role_outline_variant">Anahat Varyantı</string>
+    <string name="color_role_primary">Birincil</string>
+    <string name="color_role_primary_container">Birincil Konteyner</string>
+    <string name="color_role_secondary">İkincil</string>
+    <string name="color_role_secondary_accent">İkincil Vurgu Rengi</string>
+    <string name="color_role_secondary_container">İkinci Konteyner</string>
+    <string name="color_role_surface">Yüzey</string>
+    <string name="color_role_surface_container">Yüzey Konteyner</string>
+    <string name="color_role_surface_container_high">Yüzey Konteyneri Yüksek</string>
+    <string name="color_role_surface_container_highest">Yüzey Konteyneri En Yüksek</string>
+    <string name="color_role_surface_container_low">Yüzey Konteyneri Düşük</string>
+    <string name="color_role_surface_container_lowest">Yüzey Konteyneri En Düşük</string>
+    <string name="color_role_surface_variant">Yüzey Varyantı</string>
+    <string name="color_role_tertiary">Üçüncül</string>
+    <string name="color_role_tertiary_accent">Üçüncül Vurgu</string>
+    <string name="color_role_tertiary_container">Üçüncül Konteyner</string>
     <string name="command">Komut</string>
-    <string name="command_analysis">Command analysis</string>
+    <string name="command_analysis">Komut analizi</string>
     <string name="command_not_found">Komut bulunamadı!</string>
     <string name="command_title">ADB Komutunu Girin</string>
     <string name="commands">Komutlar</string>
     <string name="configure_save_directory">Kayıt dizinini yapılandır</string>
     <string name="confirm">Onayla</string>
-    <string name="confirm_bookmark_delete_message">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
+    <string name="confirm_bookmark_delete_message">Uyarı! Bu işlem geri alınamaz.\nTüm yer işaretlerini silmek istediğinizden emin misiniz?</string>
     <string name="confirm_delete">Silmeyi onayla</string>
-    <string name="confirm_tile_delete_message">Are you sure you want to delete this tile?</string>
-    <string name="confirmation_clear_cache">Caching helps to retrieve analysis results instantly.\nDo you still want to clear all AI analysis cache data?</string>
+    <string name="confirm_tile_delete_message">Bu karoyu silmek isteğinizden emin misiniz?</string>
+    <string name="confirmation_clear_cache">Önbellekleme, analiz sonuçlarını anında almanıza yardımcı olur.\nYine de tüm yapay zeka analiz önbellek verilerini temizlemek istiyor musunuz?</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" bu konumda zaten var.</string>
     <string name="conflict_title">Öge zaten var</string>
     <string name="connect">Bağlan</string>
     <string name="connect_device_via_otg">Cihazı OTG üzerinden bağla</string>
     <string name="connect_to_wifi_network">Bir Wi-Fi ağına bağlanın</string>
-    <string name="connect_via_otg">Connect via OTG</string>
-    <string name="connect_via_wifi_adb">Connect via Wi-Fi ADB</string>
+    <string name="connect_via_otg">OTG ile bağlan</string>
+    <string name="connect_via_wifi_adb">Wi-Fi ADB üzerinden bağlanın</string>
     <string name="connected">Bağlanıldı</string>
     <string name="connected_device">Bağlı cihaz</string>
     <string name="connecting">Bağlanılıyor…</string>
@@ -207,7 +207,7 @@
     <string name="connection_failed">Bağlantı başarısız</string>
     <string name="connection_lost">Bağlantı Kesildi</string>
     <string name="connection_lost_back_message">Kablosuz hata ayıklama bağlantısı kesildi. Ne yapmak istersiniz?</string>
-    <string name="continue_anyway">Continue anyway</string>
+    <string name="continue_anyway">Yine de devam et</string>
     <string name="contributors">Katkıda Bulunanlar</string>
     <string name="copied_items" comment="%1$d = number of items copied to clipboard">%1$d öge kopyalandı</string>
     <string name="copied_to_clipboard">Panoya kopyalandı!</string>
@@ -218,17 +218,17 @@
     <string name="crash_history">Çökme geçmişi</string>
     <string name="create">Oluştur</string>
     <string name="create_folder">Klasör oluştur</string>
-    <string name="create_new_tile">Create new tile</string>
-    <string name="create_with_ai">Create with AI</string>
-    <string name="crowdin_contribution_msg">Visit our crowdin translation platform to contribute</string>
+    <string name="create_new_tile">Yeni karo oluştur</string>
+    <string name="create_with_ai">AI ile oluştur</string>
+    <string name="crowdin_contribution_msg">Çeviriye katkıda bulunmak için Crowdin çeviri platformumuzu ziyaret edin</string>
     <string name="current_version">Mevcut sürüm</string>
-    <string name="custom_ui_scale">Custom UI scale</string>
+    <string name="custom_ui_scale">Özel UI ölçeği</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">%1$d öge kesildi</string>
     <string name="cut_to_clipboard">Kes ve panoya al</string>
-    <string name="daily">Daily</string>
+    <string name="daily">Günlük</string>
     <string name="dark_theme">Karanlık tema</string>
-    <string name="dashboard">Dashboard</string>
-    <string name="databases_only">Databases only</string>
+    <string name="dashboard">Kontrol Paneli</string>
+    <string name="databases_only">Yalnızca veritabanları</string>
     <string name="default_folder">Varsayılan klasör</string>
     <string name="default_language">Varsayılan dil</string>
     <string name="delete">Sil</string>
@@ -240,70 +240,70 @@
     <string name="delete_message" comment="%1$s = file or folder name">\"%1$s\" adlı ögeyi silmek istediğinize emin misiniz?</string>
     <string name="delete_title" comment="%1$s = file or folder name">%1$s silinsin mi?</string>
     <string name="des_about">Katkıda bulunanlar ve destek</string>
-    <string name="des_ai_cache_days">Number of days to keep cached results</string>
-    <string name="des_ai_cache_enabled">Cache analysis results per model</string>
-    <string name="des_ai_models">Manage AI models data and API keys</string>
-    <string name="des_auto_backup_content_type">Choose what to include in automatic backups</string>
-    <string name="des_auto_backup_folder">Select a folder to save automatic backups</string>
-    <string name="des_auto_backup_time">Set the time for automatic backups</string>
-    <string name="des_auto_dark_mode">Automatically switch to dark mode when battery saver is enabled</string>
-    <string name="des_auto_delete_existing_backups">Delete older automatic backups when a new one is saved</string>
-    <string name="des_auto_scale_ui">Automatically scales the UI according to device smallest width</string>
+    <string name="des_ai_cache_days">Önbelleğe alınmış sonuçların gün olarak saklanma süresi</string>
+    <string name="des_ai_cache_enabled">Modele göre önbellek analizi sonuçları</string>
+    <string name="des_ai_models">AI modelleri verilerini ve API anahtarlarını yönetin</string>
+    <string name="des_auto_backup_content_type">Otomatik yedeklemelere neleri dahil edeceğinizi seçin</string>
+    <string name="des_auto_backup_folder">Otomatik yedeklemelerin kaydedileceği klasörü seçin</string>
+    <string name="des_auto_backup_time">Otomatik yedeklemeler için zamanı ayarlayın</string>
+    <string name="des_auto_dark_mode">Pil tasarrufu etkinleştirildiğinde otomatik olarak karanlık moda geç</string>
+    <string name="des_auto_delete_existing_backups">Yeni bir otomatik yedekleme kaydedildiğinde eski yedeklemeler silinir</string>
+    <string name="des_auto_scale_ui">Kullanıcı arayüzünü, cihazın en küçük genişliğine göre otomatik olarak ölçeklendirir</string>
     <string name="des_auto_update">Güncellemeleri otomatik olarak denetle</string>
     <string name="des_backup_all_data">Uygulamanın tüm verilerini yedekle</string>
     <string name="des_backup_and_restore">Uygulama ayarlarını ve diğer verileri yedekle/geri yükle</string>
     <string name="des_backup_app_database">Komut örneklerini ve yer imlerini içeren uygulama veritabanını yedekle</string>
-    <string name="des_backup_scheduler">Automatically schedule backups at selected intervals</string>
+    <string name="des_backup_scheduler">Yedeklemeleri seçilen aralıklarla otomatik olarak planla</string>
     <string name="des_backup_settings">Yalnızca uygulama ayarları tercihlerini yedekle</string>
     <string name="des_behavior">Uygulamanın belirli davranışlarını değiştir</string>
     <string name="des_changelogs">Uygulamada yapılan tüm değişikliklerin geçmişi</string>
-    <string name="des_choose_icon">Click here to choose an icon from the icon collection</string>
+    <string name="des_choose_icon">Simge koleksiyonundan bir simge seçmek için buraya tıklayın</string>
     <string name="des_clear_output_confirmation">Shell çıktısını temizlemeden önce onay iste</string>
-    <string name="des_cloud_models">Manage API keys for cloud models</string>
+    <string name="des_cloud_models">Bulut modelleri için API anahtarlarını yönetin</string>
     <string name="des_configure_save_directory">Shell çıktısını kaydetmek için bir dizin seçin</string>
-    <string name="des_contributors">List of contributors who helped in the development of aShell You</string>
+    <string name="des_contributors">aShell You\'nun geliştirilmesine katkıda bulunanların listesi</string>
     <string name="des_crash_history">Uygulamada meydana gelen tüm çökmeleri görüntüleyin</string>
     <string name="des_default_language">Uygulama için varsayılan dili seçin</string>
     <string name="des_disable_softkey">Harici bir klavye kullanmak istediğinizde faydalıdır</string>
-    <string name="des_drive_backup">Upload encrypted backup to your Google Drive.\nThis action will overwrite any existing cloud backups.</string>
-    <string name="des_drive_restore">Download your latest backup from Google Drive</string>
+    <string name="des_drive_backup">Şifrelenmiş yedeklemeyi Google Drive\'ınıza yükleyin.\nBu işlem, mevcut bulut yedeklemelerinin üzerine yazacaktır.</string>
+    <string name="des_drive_restore">Google Drive\'dan en son yedeklemenizi indirin</string>
     <string name="des_dynamic_colors">Uygulama temasını cihazın duvar kağıdına göre otomatik olarak ayarlar</string>
-    <string name="des_enable_auto_backup">Automatically backup app data at the scheduled time</string>
-    <string name="des_enable_cloud_auto_backup">Automatically backup to your Google Drive account</string>
-    <string name="des_enable_direct_download">When turned on, updates will be downloaded directly from GitHub inside the app. Turn off to visit the Github releases page for manual download instead.</string>
-    <string name="des_enable_local_auto_backup">Automatically backup to the selected folder on your device</string>
+    <string name="des_enable_auto_backup">Uygulama verilerini planlanan zamanda otomatik olarak yedekle</string>
+    <string name="des_enable_cloud_auto_backup">Google Drive hesabınıza otomatik olarak yedekleme yapın</string>
+    <string name="des_enable_direct_download">Etkinleştirildiğinde, güncellemeler doğrudan GitHub\'dan uygulama içinden indirilecektir. Bunun yerine manuel indirme için GitHub sürüm sayfasına gitmek isterseniz, bu özelliği devre dışı bırakabilirsiniz.</string>
+    <string name="des_enable_local_auto_backup">Cihazınızdaki seçili klasöre otomatik olarak yedekleme yapın</string>
     <string name="des_examples">Bazı komut şablonları koleksiyonu</string>
     <string name="des_feature_request">Uygulama için herhangi bir fikir veya öneriniz varsa bize bildirin</string>
-    <string name="des_font_family">Change the font style of the application</string>
-    <string name="des_font_size">Adjust font size to make text in the app appear larger or smaller</string>
+    <string name="des_font_family">Uygulamanın yazı tipi stilini değiştirin</string>
+    <string name="des_font_size">Uygulamadaki metnin daha büyük veya daha küçük görünmesini sağlamak için yazı tipi boyutunu ayarlayın</string>
     <string name="des_haptics_and_vibration">Dokunma geri bildirimi için etkileşimli dokunsal titreşim</string>
     <string name="des_high_contrast_dark_mode">OLED ekranlı cihazlar için zifiri karanlık tema</string>
     <string name="des_hridayan">Uygulamaları ve tasarımı seven sıradan bir adam</string>
-    <string name="des_initial_state">The fixed visual state of the tile when it is shown in the Quick Settings panel</string>
-    <string name="des_licenses">View the licenses that the app and libraries are using</string>
-    <string name="des_local_backup">Save encrypted backup to your device</string>
-    <string name="des_local_restore">Pick a backup file from your device</string>
-    <string name="des_logcat">Real-time logcat output from a connected device</string>
+    <string name="des_initial_state">Hızlı Ayarlar panelinde gösterildiğinde karonun sabit görsel durumu</string>
+    <string name="des_licenses">Uygulamanın ve kütüphanelerin kullandığı lisansları görüntüleyin</string>
+    <string name="des_local_backup">Şifrelenmiş yedeklemeyi cihazınıza kaydedin</string>
+    <string name="des_local_restore">Cihazınızdan bir yedekleme dosyası seçin</string>
+    <string name="des_logcat">Bağlı bir cihazdan gerçek zamanlı logcat çıktısı</string>
     <string name="des_look_and_feel">Dinamik renkler, Karanlık tema, Dil</string>
-    <string name="des_models">No model selected</string>
-    <string name="des_override_bookmarks">Might cause lag if a large number of bookmarks are added! Low-end devices should keep this option turned off</string>
+    <string name="des_models">Model seçilmedi</string>
+    <string name="des_override_bookmarks">Çok sayıda yer imi eklenirse gecikmeye neden olabilir! Düşük donanımlı cihazlarda bu seçenek kapalı tutulmalıdır</string>
     <string name="des_pair_another_device">Başka bir hedef cihazı eşleştirin</string>
-    <string name="des_qs_tiles">Create quick settings tiles for executing adb commands</string>
+    <string name="des_qs_tiles">ADB komutlarını çalıştırmak için hızlı ayarlar karoları oluşturun</string>
     <string name="des_report_issue">Uygulamayı kullanırken karşılaştığınız herhangi bir sorunu veya hatayı bildirin</string>
     <string name="des_reset_app_settings">Uygulama ayarlarını varsayılan değerlere sıfırla</string>
     <string name="des_restore_app_data">Kaydedilen yedek dosyasından uygulama verilerini geri yükle.\nKaydedilen veritabanı mevcut veritabanının üzerine yazılacaktır</string>
     <string name="des_save_whole_output">Tüm shell oturumunun çıktısını kaydetmek için bu seçeneği etkinleştirin.\nDevre dışı bırakılırsa, yalnızca son komut çıktısı kaydedilir.</string>
-    <string name="des_screen_density">Adjust screen density to make UI elements appear larger or smaller</string>
-    <string name="des_select_file_for_flashing">Select a boot image file to flash to the selected partition</string>
-    <string name="des_sign_in_with_google">Optionally link your Google account for cloud backups</string>
+    <string name="des_screen_density">Kullanıcı arayüzü öğelerinin daha büyük veya daha küçük görünmesini sağlamak için ekran yoğunluğunu ayarlayın</string>
+    <string name="des_select_file_for_flashing">Seçilen bölüme yüklemek için bir önyükleme (boot) imaj dosyası seçin.</string>
+    <string name="des_sign_in_with_google">İsteğe bağlı olarak bulut yedeklemeleri için Google hesabınızı bağlayabilirsiniz</string>
     <string name="des_smooth_scroll">Üst veya alt oka tıklandığında shell çıktısında yumuşak kaydırmayı etkinleştirir</string>
     <string name="des_toggleable">English</string>
-    <string name="des_translators">People who helped translate aShellYou</string>
-    <string name="des_ui_scale">Adjust the scale of UI elements and font size</string>
-    <string name="des_warning_incorrect_file_bootloop">Proceed with caution as an incorrect image may cause a bootloop</string>
+    <string name="des_translators">aShellYou\'yu çevirmeye yardımcı olan kişiler</string>
+    <string name="des_ui_scale">Kullanıcı arayüzü öğelerinin ölçeğini ve yazı tipi boyutunu ayarlayın</string>
+    <string name="des_warning_incorrect_file_bootloop">Yanlış bir imaj bootloop\'a (yeniden başlama döngüsüne) neden olabileceğinden dikkatli ilerleyin</string>
     <string name="description">Açıklama</string>
     <string name="deselect_all">Tüm seçimleri kaldır</string>
-    <string name="developer">Developer</string>
+    <string name="developer">Geliştirici</string>
     <string name="developer_options">Geliştirici seçenekleri</string>
     <string name="developer_options_not_available">Geliştirici seçenekleri mevcut değil!</string>
     <string name="device_backup_local">i</string>
@@ -333,49 +333,49 @@
     <string name="download">İndir</string>
     <string name="download_failed">İndirme başarısız</string>
     <string name="downloading">İndiriliyor…</string>
-    <string name="downloading_backup">Downloading backup from Google Drive…</string>
+    <string name="downloading_backup">Google Drive\'dan yedekleme dosyası indiriliyor…</string>
     <string name="downloads">İndirilenler</string>
-    <string name="duplicate_tile_name_error_msg">A tile with this name already exists</string>
+    <string name="duplicate_tile_name_error_msg">Bu isimde bir karo zaten mevcut</string>
     <string name="dynamic_colors">Dinamik renkler</string>
-    <string name="edit">Edit</string>
+    <string name="edit">Düzenle</string>
     <string name="edit_command">Komutu düzenle</string>
-    <string name="edit_theme_title" comment="%1$s = theme name">Edit Theme: %1$s</string>
-    <string name="edit_tile">Edit tile</string>
+    <string name="edit_theme_title" comment="%1$s = theme name">Temayı Düzenle: %1$s</string>
+    <string name="edit_tile">Karoyu düzenle</string>
     <string name="empty_folder">Bu klasör boş</string>
-    <string name="enable_auto_backup">Enable automatic backup</string>
+    <string name="enable_auto_backup">Otomatik yedeklemeyi aç</string>
     <string name="enable_auto_update">Otomatik güncellemeyi etkinleştir</string>
-    <string name="enable_cloud_auto_backup">Auto backup to Google Drive</string>
+    <string name="enable_cloud_auto_backup">Google Drive\'a otomatik yedekleme</string>
     <string name="enable_direct_download">Doğrudan APK indirmeyi etkinleştir</string>
-    <string name="enable_local_auto_backup">Auto backup to local storage</string>
+    <string name="enable_local_auto_backup">Yerel depolama alanına otomatik yedekleme</string>
     <string name="enable_wifi">Wi-Fi\'ı etkinleştir</string>
     <string name="enable_wireless_debugging">Lütfen Geliştirici Seçenekleri\'nden Kablosuz Hata Ayıklama\'yı etkinleştirin</string>
     <string name="enable_wireless_debugging_button">Etkinleştir</string>
     <string name="enter">Gir</string>
     <string name="enter_pairing_code">6 haneli eşleştirme kodunu girin</string>
-    <string name="erase_confirm_message">This will permanently erase the %1$s partition. This action cannot be undone.</string>
-    <string name="erase_confirm_title">Erase %1$s?</string>
-    <string name="erase_partition">Erase</string>
-    <string name="erasing">Erasing…</string>
+    <string name="erase_confirm_message">Bu işlem %1$s bölümünü kalıcı olarak silecektir. Bu işlem geri alınamaz.</string>
+    <string name="erase_confirm_title">%1$s\'leri sil?</string>
+    <string name="erase_partition">Sil</string>
+    <string name="erasing">Siliniyor…</string>
     <string name="error">Hata</string>
     <string name="error_labels_limit_reached">Maksimum etiket sınırına ulaşıldı</string>
-    <string name="exclude">Exclude</string>
-    <string name="execution_method">Execution method</string>
-    <string name="expand">Expand</string>
-    <string name="experimental">Experimental</string>
+    <string name="exclude">Hariç tut</string>
+    <string name="execution_method">Çalıştırma yöntemi</string>
+    <string name="expand">Genişlet</string>
+    <string name="experimental">Deneysel</string>
     <string name="failed">Başarısız</string>
     <string name="failed_to_claim_interface">Arayüz alınamadı (Claim interface başarısız)</string>
-    <string name="failed_to_copy">Failed to copy</string>
+    <string name="failed_to_copy">Kopyalama başarısız</string>
     <string name="failed_to_open_usb_connection">USB bağlantısı açılamadı. USB hata ayıklama etkin mi?</string>
     <string name="fastboot">Fastboot</string>
-    <string name="fastboot_and_recovery">Fastboot &amp; Recovery</string>
-    <string name="fastboot_coming_soon">Coming Soon</string>
-    <string name="fastboot_command_console">Command Console</string>
-    <string name="fastboot_command_hint">Enter fastboot command…</string>
-    <string name="fastboot_device_info">Device Information</string>
-    <string name="fastboot_partitions">Partitions</string>
-    <string name="fastboot_quick_actions">Quick Actions</string>
-    <string name="fastboot_summary">Connect to a device in fastboot mode via OTG</string>
-    <string name="fastboot_variable_explorer">Variable Explorer</string>
+    <string name="fastboot_and_recovery">Fastboot &amp; Kurtarma</string>
+    <string name="fastboot_coming_soon">Çok Yakında</string>
+    <string name="fastboot_command_console">Komut Konsolu</string>
+    <string name="fastboot_command_hint">Fastboot komutunu girin…</string>
+    <string name="fastboot_device_info">Cihaz Bilgileri</string>
+    <string name="fastboot_partitions">Bölümler</string>
+    <string name="fastboot_quick_actions">Hızlı Eylemler</string>
+    <string name="fastboot_summary">OTG aracılığıyla fastboot modundaki bir cihaza bağlanın</string>
+    <string name="fastboot_variable_explorer">Değişken Gezgini</string>
     <string name="fb_all_operations_cancelled">Tüm işlemler iptal edildi</string>
     <string name="fb_cannot_paste_into_selected">Seçilen klasöre yapıştırılamıyor</string>
     <string name="fb_create_folder_failed" comment="%1$s = error message. fb_ prefix = file browser">Klasör oluşturulamadı: %1$s</string>
@@ -401,8 +401,8 @@
     <string name="fb_uploaded_successfully">Dosya başarıyla yüklendi</string>
     <string name="fb_uploading" comment="%1$s = file name">%1$s yükleniyor</string>
     <string name="feature_request">Özellik isteği</string>
-    <string name="fetching_backup_time">Fetching backup time …</string>
-    <string name="fetching_backup_type">Fetching backup type…</string>
+    <string name="fetching_backup_time">Yedekleme zamanı alınıyor…</string>
+    <string name="fetching_backup_type">Yedekleme türü alınıyor…</string>
     <string name="field_cannot_be_blank">Alan boş bırakılamaz</string>
     <string name="file">Dosya</string>
     <string name="file_actions">Dosya işlemleri</string>
@@ -414,9 +414,9 @@
     <string name="file_not_found">Dosya bulunamadı</string>
     <string name="filter">Filtrele</string>
     <string name="filter_by_labels">Etiketlere göre filtrele</string>
-    <string name="flash">Flash</string>
-    <string name="flash_partition">Flash partition</string>
-    <string name="flashing">Flashing…</string>
+    <string name="flash">Flaş</string>
+    <string name="flash_partition">Flaşla</string>
+    <string name="flashing">Flaşlanıyor…</string>
     <string name="folder">Klasör</string>
     <string name="folder_already_exists">Bu adda bir klasör zaten mevcut</string>
     <string name="folder_conflict_title">Klasör Zaten Var</string>
@@ -424,8 +424,8 @@
     <string name="folder_name">Klasör adı</string>
     <string name="folder_picker">Klasör seçici</string>
     <string name="font_amatic_sc" comment="Font style name">Amatic SC</string>
-    <string name="font_cabin" comment="Font style name">Cabin</string>
-    <string name="font_caveat" comment="Font style name">Caveat</string>
+    <string name="font_cabin" comment="Font style name">Kabin</string>
+    <string name="font_caveat" comment="Font style name">Uyarılar</string>
     <string name="font_comfortaa" comment="Font style name">Comfortaa</string>
     <string name="font_crimson_pro" comment="Font style name">Crimson Pro</string>
     <string name="font_dancing_script" comment="Font style name">Dancing Script</string>
@@ -445,7 +445,7 @@
     <string name="font_nunito" comment="Font style name">Nunito</string>
     <string name="font_open_sans" comment="Font style name">Open Sans</string>
     <string name="font_oswald" comment="Font style name">Oswald</string>
-    <string name="font_outfit" comment="Font style name">Outfit</string>
+    <string name="font_outfit" comment="Font style name">Kıyafet</string>
     <string name="font_pacifico" comment="Font style name">Pacifico</string>
     <string name="font_playfair_display" comment="Font style name">Playfair Display</string>
     <string name="font_playpen_sans" comment="Font style name">Playpen Sans</string>
@@ -456,7 +456,7 @@
     <string name="font_roboto_flex" comment="Font style name">Roboto Flex</string>
     <string name="font_rubik" comment="Font style name">Rubik</string>
     <string name="font_shadows_into_light" comment="Font style name">Shadows Into Light</string>
-    <string name="font_size_multiplier">Font size multiplier</string>
+    <string name="font_size_multiplier">Font Boyutu Çarpanı</string>
     <string name="font_source_sans_3" comment="Font style name">Source Sans 3</string>
     <string name="font_source_serif_4" comment="Font style name">Source Serif 4</string>
     <string name="font_work_sans" comment="Font style name">Work Sans</string>
@@ -465,185 +465,185 @@
     <string name="forget_device_confirmation" comment="%1$s = device name">%1$s adlı cihazı unutmak istediğinize emin misiniz? Bağlanmak için tekrar eşleştirmeniz gerekecek.</string>
     <string name="forks">Fork\'lar (Çatallar)</string>
     <string name="found_connect_service">Bağlantı servisi bulundu</string>
-    <string name="frequency">Frequency</string>
-    <string name="full_license_text">Full license text</string>
-    <string name="gemini_api_key_step_1">Visit Google AI Studio at aistudio.google.com</string>
-    <string name="gemini_api_key_step_2">Sign in with your Google Account</string>
-    <string name="gemini_api_key_step_3">Click on Create API key and select or create a project</string>
-    <string name="gemini_api_key_step_4">Copy your API key and paste it below</string>
-    <string name="generate_color_scheme">Generate color scheme</string>
-    <string name="generate_scheme">Generate scheme</string>
-    <string name="generate_theme">Generate Theme</string>
-    <string name="generate_tile">Generate tile</string>
-    <string name="get_api_key">Get API key</string>
-    <string name="get_variables">Get variables</string>
+    <string name="frequency">Sıklık</string>
+    <string name="full_license_text">Tam lisans metni</string>
+    <string name="gemini_api_key_step_1">Google AI Studio\'yu aistudio.google.com adresinden ziyaret edin</string>
+    <string name="gemini_api_key_step_2">Google Hesabınızla oturum açın</string>
+    <string name="gemini_api_key_step_3">API anahtarı oluştur seçeneğine tıklayın ve bir proje seçin veya oluşturun</string>
+    <string name="gemini_api_key_step_4">API anahtarınızı kopyalayıp aşağıya yapıştırın</string>
+    <string name="generate_color_scheme">Renk şemasını oluştur</string>
+    <string name="generate_scheme">Renk şemasını oluştur</string>
+    <string name="generate_theme">Tema Oluştur</string>
+    <string name="generate_tile">Karo Oluştur</string>
+    <string name="get_api_key">API anahtarını al</string>
+    <string name="get_variables">Değişkenleri al</string>
     <string name="go_home">Ana Sayfaya Git</string>
     <string name="go_to_terminal">Terminale git</string>
     <string name="google_drive">Google Drive</string>
-    <string name="google_drive_backup">Google Drive backup</string>
-    <string name="gpl_3_0_description">aShell You is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</string>
+    <string name="google_drive_backup">Google Drive yedeklemesi</string>
+    <string name="gpl_3_0_description">aShell You özgür bir yazılımdır: GNU Genel Kamu Lisansı\'nın Free Software Foundation tarafından yayınlanan 3. sürümü veya (isteğe bağlı olarak) daha sonraki herhangi bir sürümü şartları altında yeniden dağıtabilir ve/veya değiştirebilirsiniz.</string>
     <string name="grant">İzin Ver</string>
     <string name="grant_permission">İzin ver</string>
-    <string name="grant_shizuku_permission_for_tiles">Shizuku permission is not granted!\naShell You needs Shizuku permission to execute the tile commands.</string>
+    <string name="grant_shizuku_permission_for_tiles">Shizuku izni verilmedi!\naShell Komutları çalıştırmak için Shizuku iznine ihtiyacınız var.</string>
     <string name="great_news">Harika haber!</string>
     <string name="haptics_and_vibration">Dokunsal Geri Bildirim ve Titreşim</string>
-    <string name="have_a_nice_day">Have a nice day!</string>
-    <string name="hex_editor">Hex Editor</string>
-    <string name="high">High</string>
+    <string name="have_a_nice_day">İyi günler!</string>
+    <string name="hex_editor">Hex Düzenleyici</string>
+    <string name="high">Yüksek</string>
     <string name="high_contrast_dark_mode">Yüksek kontrastlı karanlık mod</string>
     <string name="hint">İpucu</string>
     <string name="history">Geçmiş</string>
     <string name="home">Ana Sayfa</string>
-    <string name="icon_selected">Icon selected</string>
-    <string name="import_theme">Import Theme</string>
-    <string name="include">Include</string>
+    <string name="icon_selected">Seçilen simge</string>
+    <string name="import_theme">Tema İçe Aktar</string>
+    <string name="include">Dahil Et</string>
     <string name="info">Bilgi</string>
-    <string name="initial_state">Initial state</string>
+    <string name="initial_state">Başlangıç durumu</string>
     <string name="instructions">Talimatlar</string>
-    <string name="intent_not_found">Intent not found</string>
+    <string name="intent_not_found">Eylem bulunamadı</string>
     <string name="internal_storage">Dahili Depolama</string>
     <string name="invalid_folder_name">Klasör adı / karakterini içeremez</string>
     <string name="ip_address">IP adresi</string>
     <string name="irreversible_action_warning">Bu işlem geri alınamaz!</string>
     <string name="item_deleted">Öge başarıyla silindi</string>
     <string name="keep_both">Her İkisini de Tut</string>
-    <string name="key_verified_success_msg">Key verified successfully</string>
+    <string name="key_verified_success_msg">Anahtar başarıyla doğrulandı</string>
     <string name="label">Etiket</string>
-    <string name="languages">Languages</string>
-    <string name="last_auto_backup_cloud">Last cloud auto backup</string>
-    <string name="last_auto_backup_local">Last local auto backup</string>
+    <string name="languages">Diller</string>
+    <string name="last_auto_backup_cloud">Son bulut otomatik yedeklemesi</string>
+    <string name="last_auto_backup_local">Son yerel otomatik yedekleme</string>
     <string name="last_backup_date">Son yedekleme tarihi</string>
-    <string name="last_backup_details">Last backup details</string>
+    <string name="last_backup_details">Son yedekleme detayları</string>
     <string name="last_backup_time">Son yedekleme saati</string>
     <string name="latest_version">En son sürüm</string>
     <string name="lead_developer">Lider Geliştirici</string>
     <string name="least_used">En az kullanılan</string>
-    <string name="level">Level</string>
-    <string name="library_count" comment="%1$d = number of third-party libraries">%1$d libraries detected</string>
+    <string name="level">Seviye</string>
+    <string name="library_count" comment="%1$d = number of third-party libraries">%1$d kütüphane tespit edildi</string>
     <string name="license">Lisans</string>
-    <string name="license_label">License</string>
-    <string name="licenses">Licenses</string>
-    <string name="load">Load</string>
+    <string name="license_label">Lisans</string>
+    <string name="licenses">Lisanslar</string>
+    <string name="load">Yükle</string>
     <string name="load_predefined_commands">Önceden tanımlanmış komutları yükle</string>
     <string name="loading">Yükleniyor</string>
-    <string name="loading_device_info">Loading device info…</string>
-    <string name="loading_licenses">Loading license information…</string>
+    <string name="loading_device_info">Aygıt bilgileri yükleniyor…</string>
+    <string name="loading_licenses">Lisans bilgisi yükleniyor…</string>
     <string name="local_adb">Yerel ADB</string>
     <string name="local_adb_shell">Yerel ADB shell</string>
     <string name="local_adb_summary">Shizuku veya root kullanarak ADB komutlarını doğrudan kendi cihazınızda çalıştırın.</string>
-    <string name="local_backup">Local backup</string>
-    <string name="local_file">Local file</string>
-    <string name="locked">Locked</string>
+    <string name="local_backup">Yerel yedekleme</string>
+    <string name="local_file">Yerel dosya</string>
+    <string name="locked">Kilitli</string>
     <string name="logcat">Logcat</string>
-    <string name="logcat_cleared">Logs cleared</string>
-    <string name="logcat_detail_package">Package</string>
-    <string name="logcat_filter_level">Log levels</string>
-    <string name="logcat_filter_search_hint">Search in messages…</string>
-    <string name="logcat_is_running">Logcat is running</string>
-    <string name="logcat_ive_granted_it">I\'ve granted it</string>
-    <string name="logcat_no_logs">No logs yet</string>
-    <string name="logcat_notification_channel_description">Shown while logcat is actively collecting logs</string>
-    <string name="logcat_notification_channel_name">Logcat Session</string>
-    <string name="logcat_permission_body">Without this permission, only logs from aShellYou itself will be visible. Grant full access by running this command from a computer:</string>
-    <string name="logcat_permission_title">Log access permission</string>
-    <string name="logcat_running_description">aShellYou is collecting system logs in the background</string>
-    <string name="logcat_shortcut_long_label">Open Logcat Viewer</string>
-    <string name="logcat_source">Logcat Source</string>
-    <string name="logcat_tap_play">Tap ▶ to start logcat</string>
-    <string name="logs">Logs</string>
+    <string name="logcat_cleared">Günlükler temizlendi</string>
+    <string name="logcat_detail_package">Paket</string>
+    <string name="logcat_filter_level">Günlük seviyesi</string>
+    <string name="logcat_filter_search_hint">Mesajlarda ara…</string>
+    <string name="logcat_is_running">Logcat çalışıyor</string>
+    <string name="logcat_ive_granted_it">Onayı verdim</string>
+    <string name="logcat_no_logs">Henüz günlük yok</string>
+    <string name="logcat_notification_channel_description">Logcat aktif olarak günlükleri toplarken gösterilir</string>
+    <string name="logcat_notification_channel_name">Logcat Oturumu</string>
+    <string name="logcat_permission_body">Bu izin olmadan, yalnızca aShellYou\'nun kendi günlükleri görünür olacaktır. Tam erişim izni vermek için bilgisayarınızdan şu komutu çalıştırın:</string>
+    <string name="logcat_permission_title">Günlük erişim izni</string>
+    <string name="logcat_running_description">aShellYou arka planda sistem günlüklerini topluyor</string>
+    <string name="logcat_shortcut_long_label">Logcat Görüntüleyiciyi Aç</string>
+    <string name="logcat_source">Logcat Kaynağı</string>
+    <string name="logcat_tap_play">Logcat\'i başlatmak için ▶\'ye dokunun</string>
+    <string name="logs">Günlükler</string>
     <string name="look_and_feel">Görünüm ve His</string>
-    <string name="low">Low</string>
-    <string name="low_contrast_ratio">Low contrast ratio</string>
-    <string name="make_your_theme_title">Make Your Theme</string>
+    <string name="low">Düşük</string>
+    <string name="low_contrast_ratio">Düşük kontrast oranı</string>
+    <string name="make_your_theme_title">Temanızı Oluşturun</string>
     <string name="manual_pair">Manuel Eşleştirme</string>
-    <string name="max_download_size">Max Download</string>
-    <string name="medium">Medium</string>
+    <string name="max_download_size">Maks İndirme</string>
+    <string name="medium">Orta</string>
     <string name="merge">Birleştir</string>
-    <string name="message">Message</string>
-    <string name="message_adb_agent">Message ADB Agent…</string>
+    <string name="message">Mesaj</string>
+    <string name="message_adb_agent">ADB Aracısına mesaj gönder…</string>
     <string name="minimize">Küçült</string>
     <string name="mode">Mod</string>
     <string name="mode_one_desc">Komutları çalıştırmak için root erişimini kullanır. Root gerektiren komutlar çalıştırılabilir.</string>
     <string name="mode_two_desc">Komutları çalıştırmak için Shizuku kullanır. Root gerektiren komutlar çalıştırılamaz.</string>
-    <string name="model_category_large" comment="AI model size category label">Large (1.5–2.5 GB)</string>
-    <string name="model_category_medium" comment="AI model size category label">Medium (800 MB–1.1 GB)</string>
-    <string name="model_category_small" comment="AI model size category label">Small (300–500 MB)</string>
-    <string name="model_category_tiny" comment="AI model size category label">Tiny (under 300 MB)</string>
-    <string name="models" comment="Refers to AI/ML models used for command analysis">Models</string>
+    <string name="model_category_large" comment="AI model size category label">Büyük (1.5–2.5 GB)</string>
+    <string name="model_category_medium" comment="AI model size category label">Orta (800 MB–1.1 GB)</string>
+    <string name="model_category_small" comment="AI model size category label">Küçük (300–500 MB)</string>
+    <string name="model_category_tiny" comment="AI model size category label">Minik (300 MB\'ın altında)</string>
+    <string name="models" comment="Refers to AI/ML models used for command analysis">Modeller</string>
     <string name="modified" comment="File property: last modified date">Değiştirilme tarihi</string>
     <string name="monospace" comment="Font style category name">Eşaralıklı (Monospace)</string>
-    <string name="monthly">Monthly</string>
+    <string name="monthly">Aylık</string>
     <string name="more">Daha Fazla</string>
     <string name="most_used">En çok kullanılan</string>
     <string name="move">Taşı</string>
     <string name="moving">Taşınıyor…</string>
     <string name="moving_items" comment="%1$d = number of items being moved">%1$d öge taşınıyor</string>
-    <string name="n_days" comment="%d = number of days for cache duration setting">%d days</string>
+    <string name="n_days" comment="%d = number of days for cache duration setting">%d gün</string>
     <string name="name">Ad</string>
     <string name="network_error">Ağ hatası</string>
-    <string name="new_commands_available_msg">New command examples are added!\nClick on the button below to load the new commands.</string>
+    <string name="new_commands_available_msg">Yeni komut örnekleri eklendi!\nYeni komutları yüklemek için aşağıdaki düğmeye tıklayın.</string>
     <string name="new_folder">Yeni klasör</string>
     <string name="new_name">Yeni ad</string>
     <string name="newest">En yeni</string>
     <string name="no_adb_device_error">ADB uyumlu cihaz bulunamadı. Hedef cihazda USB hata ayıklamayı etkinleştirin.</string>
     <string name="no_adb_interface_found">Adb arayüzü bulunamadı</string>
-    <string name="no_auto_backup_yet">No automatic backup performed yet</string>
+    <string name="no_auto_backup_yet">Henüz otomatik yedekleme işlemi yapılmadı</string>
     <string name="no_bookmarks">Yer imi bulunamadı</string>
     <string name="no_changelog_found">Bu sürüm için değişiklik günlüğü bulunamadı</string>
-    <string name="no_cloud_backup_found">No backup found on Google Drive</string>
+    <string name="no_cloud_backup_found">Google Drive\'da yedekleme bulunamadı</string>
     <string name="no_crashes">Hiçbir çökme rapor edilmedi. aShell You sorunsuz çalışıyor.</string>
-    <string name="no_custom_themes_yet">No custom themes yet. Create one below!</string>
-    <string name="no_device_connected">No device connected</string>
-    <string name="no_fastboot_device_error">Connected device is not in fastboot mode</string>
+    <string name="no_custom_themes_yet">Henüz özel tema yok. Aşağıdan bir tane oluşturun!</string>
+    <string name="no_device_connected">Bağlı cihaz yok</string>
+    <string name="no_fastboot_device_error">Bağlı cihaz fastboot modunda değil</string>
     <string name="no_files_download">Dosya seçilmedi (klasörler indirilemez)</string>
-    <string name="no_folder_selected">No folder selected</string>
-    <string name="no_google_account_message">No Google account was found on this device. Would you like to add one to use cloud backups?</string>
-    <string name="no_google_account_title">No Google Account</string>
+    <string name="no_folder_selected">Seçili klasör yok</string>
+    <string name="no_google_account_message">Bu cihazda Google hesabı bulunamadı. Bulut yedeklemelerini kullanmak için bir hesap eklemek ister misiniz?</string>
+    <string name="no_google_account_title">Google Hesabı Yok</string>
     <string name="no_history">Komut geçmişi yok</string>
-    <string name="no_libraries_found">No libraries found</string>
-    <string name="no_logs_yet">No logs yet!</string>
-    <string name="no_logs_yet_msg">No logs have been recorded yet. Execute some tiles to show logs here.</string>
-    <string name="no_model_selected">No model selected</string>
+    <string name="no_libraries_found">Hiçbir kütüphane bulunamadı</string>
+    <string name="no_logs_yet">Henüz günlük yok! </string>
+    <string name="no_logs_yet_msg">Henüz hiçbir kayıt oluşturulmadı. Kayıtları burada görüntülemek için bazı komutları çalıştırın. </string>
+    <string name="no_model_selected">Model seçilmedi</string>
     <string name="no_operations">Devam eden işlem yok</string>
-    <string name="no_other_device_hint">Connect an external device to view its logs</string>
-    <string name="no_results_found">No results found</string>
+    <string name="no_other_device_hint">Harici bir cihaz bağlayarak günlük kayıtlarını görüntüleyebilirsiniz</string>
+    <string name="no_results_found">Hiçbir sonuç bulunamadı</string>
     <string name="no_root_access">Root erişimi yok</string>
     <string name="no_saved_devices">Kayıtlı cihaz yok</string>
     <string name="no_search_results_found">Arama sonucu bulunamadı</string>
-    <string name="no_variables_loaded">No variables loaded</string>
+    <string name="no_variables_loaded">Hiçbir değişken yüklenmedi</string>
     <string name="no_wifi_connection">Wi-Fi bağlantısı yok</string>
     <string name="none">Yok</string>
-    <string name="not_signed_in">Not signed in</string>
+    <string name="not_signed_in">Oturum açılmadı</string>
     <string name="nothing_to_clear">Temizlenecek bir şey yok</string>
     <string name="nothing_to_search">Aranacak bir şey yok</string>
     <string name="notification_settings">Bildirim ayarları</string>
     <string name="notification_style_error">Bildirimden Eşleştirme Kodunu giremiyorsanız Bildirim Panelini Android olarak değiştirmeniz gerekebilir. Bildirim Stilini değiştirmek için Ayarlar ~ Bildirimler ~ Bildirim Stili bölümüne gidin. Aksi takdirde bildirimden eşleştirme kodunu giremeyebilirsiniz.</string>
-    <string name="notification_styles">Notification styles</string>
+    <string name="notification_styles">Bildirim Stilleri</string>
     <string name="off">Kapalı</string>
-    <string name="off_state" comment="Quick Settings tile toggle state label">Off</string>
+    <string name="off_state" comment="Quick Settings tile toggle state label">Kapalı</string>
     <string name="ok">TAMAM</string>
     <string name="oldest" comment="Sorting option">En eski</string>
     <string name="on">Açık</string>
-    <string name="on_background">On Background</string>
-    <string name="on_primary">On Primary</string>
-    <string name="on_primary_container">On Primary Container</string>
-    <string name="on_secondary">On Secondary</string>
+    <string name="on_background">Arka planda</string>
+    <string name="on_primary">Birincil</string>
+    <string name="on_primary_container">Birincil Konteynerde</string>
+    <string name="on_secondary">İkincil</string>
     <string name="on_state" comment="Quick Settings tile toggle state label">Aç</string>
-    <string name="on_surface">On Surface</string>
-    <string name="on_tertiary">On Tertiary</string>
+    <string name="on_surface">Yüzeyde</string>
+    <string name="on_tertiary">Üçüncül</string>
     <string name="open">Aç</string>
-    <string name="open_app_language_settings">Open app language settings</string>
+    <string name="open_app_language_settings">Uygulama dil ayarlarını açın</string>
     <string name="open_issues" comment="GitHub repository open issues count">Açık sorunlar (Issues)</string>
-    <string name="open_url">Open URL</string>
-    <string name="operation_complete">Operation complete</string>
+    <string name="open_url">URL\'yi Aç</string>
+    <string name="operation_complete">İşlem tamamlandı</string>
     <string name="operations">İşlemler</string>
     <string name="or">VEYA</string>
     <string name="otg" comment="USB On-The-Go. Technical term, keep as OTG">OTG</string>
-    <string name="other_details">Other details</string>
-    <string name="other_device">Other device</string>
+    <string name="other_details">Diğer Detaylar</string>
+    <string name="other_device">Diğer cihaz</string>
     <string name="output">Çıktı</string>
     <string name="override_bookmarks_limit">Maksimum yer imi sınırını geçersiz kıl</string>
-    <string name="package_name">Package name</string>
+    <string name="package_name">Paket adı</string>
     <string name="pair">Eşleştir</string>
     <string name="pair_a_device_first">Önce bir cihazı eşleştirin</string>
     <string name="pair_another_device">Başka bir cihaz eşleştir</string>
@@ -657,52 +657,52 @@
     <string name="pairing">Eşleştiriliyor</string>
     <string name="pairing_code">Eşleştirme kodu</string>
     <string name="pairing_notification_hint">Eşleştirmeye yardımcı olması için aShell You uygulamasından bir bildirim alacaksınız</string>
-    <string name="pairing_process_notification_access_message">To complete the pairing process you will need to interact with a notification from aShell You. Please allow notification access to aShell You.</string>
-    <string name="palette_content" comment="Material Design color scheme style name">Content</string>
+    <string name="pairing_process_notification_access_message">Eşleştirme işlemini tamamlamak için aShell You\'dan gelen bir bildirimle etkileşim kurmanız gerekecektir. Lütfen aShell You\'ya bildirim erişimine izin verin.</string>
+    <string name="palette_content" comment="Material Design color scheme style name">İçerik</string>
     <string name="palette_expressive" comment="Material Design color scheme style name">Expressive</string>
     <string name="palette_fidelity" comment="Material Design color scheme style name">Fidelity</string>
     <string name="palette_fruit_salad" comment="Material Design color scheme style name">Fruit Salad</string>
     <string name="palette_monochrome" comment="Material Design color scheme style name">Monochrome</string>
     <string name="palette_neutral" comment="Material Design color scheme style name">Neutral</string>
     <string name="palette_rainbow" comment="Material Design color scheme style name">Rainbow</string>
-    <string name="palette_style" comment="Settings label for choosing Material Design color palette">Palette style</string>
+    <string name="palette_style" comment="Settings label for choosing Material Design color palette">Palet stili</string>
     <string name="palette_tonal_spot" comment="Material Design color scheme style name">Tonal Spot</string>
     <string name="palette_vibrant" comment="Material Design color scheme style name">Vibrant</string>
-    <string name="partition">Partition</string>
+    <string name="partition">Bölüm</string>
     <string name="paste">Yapıştır</string>
     <string name="path">Yol</string>
-    <string name="paused">Paused</string>
+    <string name="paused">Duraklatıldı</string>
     <string name="permission_denied">İzin reddedildi</string>
     <string name="permission_optional">Bu izinleri vermek isteğe bağlıdır!</string>
     <string name="pick_ashellyou_extension">Lütfen .ashellyou uzantılı bir dosya seçin</string>
-    <string name="pick_color">Pick color</string>
+    <string name="pick_color">Renk seç</string>
     <string name="port">Port</string>
     <string name="possible_reasons">Olası nedenler</string>
-    <string name="pre_release_github">Pre-release (GitHub)</string>
+    <string name="pre_release_github">Ön sürüm (GitHub)</string>
     <string name="pre_release_warning">Yayın öncesi sürümler kararsız olabilir</string>
     <string name="pre_release_warning_description">Bu sürümler hala test aşamasındadır ve tamamlanmamış özellikler veya beklenmeyen hatalar içerebilir. Yayın öncesi sürüme güncellemeyi seçerseniz, lütfen bazı şeylerin kırılabileceği veya tuhaf davranabileceği ihtimalinin farkında olun.\nHerhangi bir sorun, çökme veya garip bir davranışla karşılaşırsanız, lütfen bunları bildirin ki kararlı sürümden önce düzeltebilelim ve aShellYou\'yu geliştirebilelim.\nDaha iyisini inşa etmemize yardımcı olduğunuz için teşekkürler!</string>
-    <string name="preference">Preference</string>
+    <string name="preference">Tercih</string>
     <string name="preview">Önizleme</string>
-    <string name="primary">Primary</string>
-    <string name="primary_container">Primary Container</string>
-    <string name="product">Product</string>
+    <string name="primary">Birincil</string>
+    <string name="primary_container">Birincil Konteyner</string>
+    <string name="product">Ürün</string>
     <string name="qr_pair">QR ile Eşleştir</string>
     <string name="qr_pair_hint">Bir Android 11+ cihazı eşleştirmek için, bu QR kodunu hedef cihazdan tarayın</string>
     <string name="qr_scanner_location_hint">QR tarayıcı konumu:\nGeliştirici Seçenekleri &gt; Kablosuz Hata Ayıklama &gt; QR kodu ile eşleştir</string>
-    <string name="qs_tiles">Quick settings tiles</string>
+    <string name="qs_tiles">Hızlı ayarlar karoları</string>
     <string name="quick_tools">Hızlı Araçlar</string>
-    <string name="reading_file">Reading file…</string>
+    <string name="reading_file">Dosya okunuyor…</string>
     <string name="ready_to_paste">Yapıştırmaya hazır</string>
-    <string name="reboot_bootloader">Reboot to Bootloader</string>
-    <string name="reboot_confirm_message">This will reboot the connected device to %1$s. Continue?</string>
-    <string name="reboot_confirm_title">Confirm Reboot</string>
-    <string name="reboot_fastbootd">Reboot to Fastbootd</string>
-    <string name="reboot_normal">Reboot</string>
+    <string name="reboot_bootloader">Bootloader Modunda Yeniden Başlat</string>
+    <string name="reboot_confirm_message">Bu işlem, bağlı cihazı %1$s yeniden başlatacaktır. Devam edilsin mi?</string>
+    <string name="reboot_confirm_title">Yeniden Başlatmayı Onayla</string>
+    <string name="reboot_fastbootd">Fastbootd\'ye Yeniden Başlat</string>
+    <string name="reboot_normal">Yeniden başlat</string>
     <string name="reboot_options">Yeniden başlatma (Reboot) seçenekleri</string>
-    <string name="reboot_recovery">Reboot to Recovery</string>
-    <string name="recent_activity">Recent activity</string>
-    <string name="recent_searches">Recent searches</string>
-    <string name="recommended">Recommended</string>
+    <string name="reboot_recovery">Recovery Modunda Yeniden Başlat</string>
+    <string name="recent_activity">En son aktiviteler</string>
+    <string name="recent_searches">Son aramalar</string>
+    <string name="recommended">Önerilen</string>
     <string name="reconnect">Yeniden Bağlan</string>
     <string name="reconnect_failed">Yeniden bağlantı başarısız</string>
     <string name="reconnect_failed_message">\nKablosuz Hata Ayıklama etkinleştirilmemiş olabilir\nEşleştirme bilgileri kaybolmuş olabilir. Tekrar manuel olarak eşleştirin!</string>
@@ -711,7 +711,7 @@
     <string name="reconnect_the_device">Cihazı yeniden bağla</string>
     <string name="recovery">Recovery (Kurtarma)</string>
     <string name="refresh">Yenile</string>
-    <string name="remove">Remove</string>
+    <string name="remove">Temizle</string>
     <string name="rename">Yeniden adlandır</string>
     <string name="rename_title" comment="%1$s = file or folder name">%1$s ögesini yeniden adlandır</string>
     <string name="replace">Değiştir</string>
@@ -727,49 +727,49 @@
     <string name="restore_app_data">Uygulama verilerini geri yükle</string>
     <string name="restore_dialog_message">Kaydedilen dosyadaki veriler mevcut verilerin üzerine yazılacaktır.</string>
     <string name="restore_failed">Geri yükleme başarısız</string>
-    <string name="restore_from">Restore from</string>
+    <string name="restore_from">Şuradan geri yükle</string>
     <string name="restore_successful">Geri yükleme başarılı</string>
-    <string name="restoring_backup">Restoring backup…</string>
+    <string name="restoring_backup">Yedek geri yükleniyor…</string>
     <string name="resume">Devam Et</string>
     <string name="retry">Yeniden dene</string>
     <string name="root_access_granted">Root erişimi verildi!</string>
-    <string name="root_unavailable">Root Not Available</string>
-    <string name="root_unavailable_message">Root access could not be detected. Ensure your device is rooted and try again, or switch to a different logcat source.</string>
-    <string name="running">Running</string>
+    <string name="root_unavailable">Root Erişimi Yok</string>
+    <string name="root_unavailable_message">Root erişimi algılanamadı. Cihazınızın rootlu olduğundan emin olun ve tekrar deneyin veya farklı bir logcat kaynağı kullanın.</string>
+    <string name="running">Çalışıyor</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Kaydet</string>
-    <string name="save_as_profile">Save as profile…</string>
-    <string name="save_changes">Save Changes</string>
-    <string name="save_key">Save key</string>
+    <string name="save_as_profile">Profil olarak kaydet…</string>
+    <string name="save_changes">Değişiklikleri Kaydet</string>
+    <string name="save_key">Anahtarı kaydet</string>
     <string name="save_whole_output">Tüm çıktıyı kaydet</string>
     <string name="saved_devices">Kayıtlı cihazlar</string>
     <string name="saving">Kaydediliyor…</string>
     <string name="saving_output">Çıktı dosyaya dışa aktarılıyor…</string>
-    <string name="schedule">Schedule</string>
-    <string name="screen_density_multiplier">Screen density multiplier</string>
+    <string name="schedule">Zamanlama</string>
+    <string name="screen_density_multiplier">Ekran yoğunluğu çarpanı</string>
     <string name="search">Ara</string>
-    <string name="search_bookmarks_here">Search bookmarks here</string>
+    <string name="search_bookmarks_here">Yer işaretlerini burada arayın</string>
     <string name="search_commands_here">Komutları burada arayın</string>
-    <string name="search_fonts">Search fonts…</string>
-    <string name="search_icons_here">Search icons here</string>
+    <string name="search_fonts">Yazı tiplerini ara…</string>
+    <string name="search_icons_here">Simgeleri burada ara</string>
     <string name="search_labels_here">Etiketleri burada arayın</string>
-    <string name="search_libraries">Search libraries, authors, licenses…</string>
+    <string name="search_libraries">Kütüphaneleri, yazarları, lisansları arayın…</string>
     <string name="search_output">Çıktıyı burada arayın</string>
-    <string name="search_settings">Search settings</string>
-    <string name="search_something">Search something</string>
-    <string name="search_variables">Search variables…</string>
+    <string name="search_settings">Ayarlarda ara</string>
+    <string name="search_something">Arama yap</string>
+    <string name="search_variables">Değişkenleri ara…</string>
     <string name="searching_connect_service">Bağlantı servisi aranıyor</string>
     <string name="searching_for_devices">Cihazlar aranıyor…</string>
-    <string name="secondary">Secondary</string>
-    <string name="security_patch">Security Patch</string>
+    <string name="secondary">İkincil</string>
+    <string name="security_patch">Güvenlik Yaması</string>
     <string name="select">Seç</string>
     <string name="select_all">Tümünü seç</string>
-    <string name="select_backup_folder_message">Please select a folder where backups will be saved. The app needs read and write access to this folder.</string>
-    <string name="select_backup_folder_title">No backup folder</string>
-    <string name="select_folder">Select folder</string>
-    <string name="select_partition">Select partition</string>
-    <string name="select_theme_to_edit_hex">Select a theme above to edit its raw hex values here.</string>
-    <string name="select_time">Select time</string>
+    <string name="select_backup_folder_message">Lütfen yedeklemelerin kaydedileceği bir klasör seçin. Uygulamanın bu klasöre okuma ve yazma erişimine ihtiyacı var.</string>
+    <string name="select_backup_folder_title">Yedekleme klasörü yok</string>
+    <string name="select_folder">Klasör seç</string>
+    <string name="select_partition">Bölüm seçin</string>
+    <string name="select_theme_to_edit_hex">Yukarıdan bir tema seçerek ham onaltılık değerlerini buradan düzenleyebilirsiniz.</string>
+    <string name="select_time">Zaman seç</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">Kendi Cihazı</string>
     <string name="self_pair_connection_failed">Bağlantı başarısız - manuel bağlanmayı deneyin</string>
     <string name="self_pair_enter_code">Eşleştirme iletişim kutusundan 6 haneli kodu girin</string>
@@ -787,144 +787,144 @@
     <string name="self_pair_success_hint">Yerel ADB shell artık kullanılabilir</string>
     <string name="self_pair_timeout">Zaman aşımı - Kablosuz Hata Ayıklama\'da eşleştirme iletişim kutusunu açın</string>
     <string name="self_pair_wrong_code">Yanlış kod - eşleştirme iletişim kutusunu tekrar açın</string>
-    <string name="serial_number">Serial Number</string>
+    <string name="serial_number">Seri Numarası</string>
     <string name="serif" comment="Font style category name">Serif</string>
     <string name="settings">Ayarlar</string>
-    <string name="settings_only">Settings only</string>
-    <string name="share">Share</string>
+    <string name="settings_only">Sadece Ayarlar</string>
+    <string name="share">Paylaş</string>
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">Son komutun çıktısı \'%s\' konumuna aktarıldı</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">Shell çıktısı \'%s\' konumuna aktarıldı</string>
     <string name="shizuku_not_installed">Shizuku yüklü değil</string>
     <string name="shizuku_unavailable">Shizuku kullanılamıyor</string>
     <string name="shizuku_unavailable_message">Shizuku yüklü değil veya cihazınızda düzgün yapılandırılmamış</string>
-    <string name="sign_in_failed">Google sign-in failed</string>
-    <string name="sign_in_with_google">Sign in with Google</string>
-    <string name="sign_out">Sign out</string>
-    <string name="sign_out_confirmation_msg">Signing out will pause all automatic cloud backups!\nDo you still want to sign out?</string>
-    <string name="signed_in_as" comment="%1$s = user email or name">Signed in as %1$s</string>
-    <string name="signed_out">Signed out</string>
+    <string name="sign_in_failed">Google oturum açma işlemi başarısız oldu</string>
+    <string name="sign_in_with_google">Google ile giriş yapın</string>
+    <string name="sign_out">Çıkış</string>
+    <string name="sign_out_confirmation_msg">Oturumu kapatmak tüm otomatik bulut yedeklemelerini durduracaktır!\nYine de oturumu kapatmak istiyor musunuz?</string>
+    <string name="signed_in_as" comment="%1$s = user email or name">%1$s olarak giriş yapıldı</string>
+    <string name="signed_out">Oturum kapatıldı</string>
     <string name="size">Boyut</string>
     <string name="skip">Atla</string>
-    <string name="slide_to_flash">Slide to flash</string>
-    <string name="slot_data_unknown">Slot data unknown</string>
+    <string name="slide_to_flash">Flaşlamak için kaydırın</string>
+    <string name="slot_data_unknown">Slot verileri bilinmiyor</string>
     <string name="smooth_scrolling">Yumuşak kaydırma</string>
     <string name="sort">Sırala</string>
-    <string name="stable_fdroid">Stable (Fdroid)</string>
-    <string name="stable_github">Stable (GitHub)</string>
+    <string name="stable_fdroid">Stabil (Fdroid)</string>
+    <string name="stable_github">Stabil (GitHub)</string>
     <string name="stack_trace">Yığın İzleme (Stack trace)</string>
     <string name="stargazers">Yıldız Verenler (Stargazers)</string>
     <string name="start">Başlat</string>
-    <string name="stop">Stop</string>
-    <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">%.1f MB used by AI models</string>
-    <string name="subtitle">Subtitle</string>
-    <string name="subtitle_off_state">Subtitle (OFF state)</string>
-    <string name="subtitle_on_state">Subtitle (ON state)</string>
+    <string name="stop">Durdur</string>
+    <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">Yapay zeka modelleri tarafından kullanılan %.1f MB</string>
+    <string name="subtitle">Altyazı</string>
+    <string name="subtitle_off_state">Altyazı (KAPALI durumda)</string>
+    <string name="subtitle_on_state">Altyazı (AÇIK durumda)</string>
     <string name="success">Başarılı</string>
-    <string name="success_rate">Success rate</string>
+    <string name="success_rate">Başarı oranı</string>
     <string name="successful_connection_message">Cihaz başarıyla bağlandı. Artık hedef cihazda komutları çalıştırmaya başlayabilirsiniz.</string>
-    <string name="suggested_icons">Suggested icons</string>
+    <string name="suggested_icons">Önerilen simgeler</string>
     <string name="support_bmc">Yaptığım işi beğendiniz mi?\nBana bir kahve ısmarlamayı düşünebilirsiniz</string>
-    <string name="surface">Surface</string>
+    <string name="surface">Yüzey</string>
     <string name="switch_mode">Mod değiştir</string>
     <string name="system">Sistem</string>
-    <string name="system_default">System default</string>
+    <string name="system_default">Sistem varsayılanı</string>
     <string name="system_font" comment="Option to use the device default font">Sistem yazı tipi</string>
     <string name="system_settings">Sistem ayarları</string>
-    <string name="tab">Tab</string>
-    <string name="tag">Tag</string>
+    <string name="tab">Sekme</string>
+    <string name="tag">Etiket</string>
     <string name="telegram">Telegram</string>
     <string name="terminal">Terminal</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Terminal yazı tipi stili</string>
-    <string name="tertiary">Tertiary</string>
-    <string name="third_party_libraries">Third-party libraries</string>
-    <string name="this_application">This application</string>
+    <string name="tertiary">Üçüncül</string>
+    <string name="third_party_libraries">Üçüncü parti kütüphaneler</string>
+    <string name="this_application">Bu uygulama</string>
     <string name="this_device">Bu Cihaz</string>
-    <string name="tile">Tile</string>
-    <string name="tile_behavior">Tile behavior</string>
-    <string name="tile_dashboard_notification_access_message">Turn on notifications to get notified whenever a tile execution fails</string>
-    <string name="tile_logs">Tile logs</string>
-    <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">Tile %1$d</string>
-    <string name="tile_name">Tile name</string>
-    <string name="tiles">Tiles</string>
-    <string name="time">Time</string>
-    <string name="timestamp">Timestamp</string>
-    <string name="toggleable">Toggleable</string>
-    <string name="total_executions">Total executions</string>
+    <string name="tile">Karo</string>
+    <string name="tile_behavior">Karo davranışı</string>
+    <string name="tile_dashboard_notification_access_message">Karo yürütmesi başarısız olduğunda bildirim almak için bildirimleri açın</string>
+    <string name="tile_logs">Karo günlükleri</string>
+    <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">Karo %1$d</string>
+    <string name="tile_name">Karo adı</string>
+    <string name="tiles">Karolar</string>
+    <string name="time">Zaman</string>
+    <string name="timestamp">Zaman Bilgisi</string>
+    <string name="toggleable">Açılıp kapanabilir</string>
+    <string name="total_executions">Toplam Yürütme</string>
     <string name="translations">Çeviriler</string>
-    <string name="translators">Translators</string>
+    <string name="translators">Çeviriciler</string>
     <string name="troubleshoot">Sorun Giderme</string>
     <string name="troubleshoot_reconnect">Kablosuz hata ayıklama bağlantısını kapatıp açarak yenileyin</string>
-    <string name="try_different_search">Try a different search term</string>
+    <string name="try_different_search">Farklı bir arama terimi deneyin</string>
     <string name="turn_off_mobile_data">Wi-Fi bağlantısında İNTERNET YOK uyarısı alıyorsanız Mobil Veriyi kapatın</string>
     <string name="tweak_your_experience">Deneyiminizi özelleştirin</string>
     <string name="type">Tür</string>
-    <string name="ui_scale">UI scale</string>
+    <string name="ui_scale">Arayüz ölçeği</string>
     <string name="undo">Geri al</string>
-    <string name="unexpected_error">Unexpected error</string>
+    <string name="unexpected_error">Beklenmedik hata</string>
     <string name="unknown">Bilinmeyen</string>
     <string name="unknown_error">Bilinmeyen bir hata oluştu</string>
     <string name="unknown_sources_install_permission_not_granted">İzin verilmedi. Lütfen bilinmeyen kaynaklardan uygulama yüklemesine izin verin.</string>
-    <string name="unlock_status">Unlock Status</string>
-    <string name="unlocked">Unlocked</string>
-    <string name="untitled">Untitled</string>
+    <string name="unlock_status">Kilit Açma Durumu</string>
+    <string name="unlocked">Kilit Açıldı</string>
+    <string name="untitled">Başlıksız</string>
     <string name="update">Güncelle</string>
     <string name="update_available">Güncelleme mevcut!</string>
     <string name="update_channel">Güncelleme kanalı</string>
     <string name="upload_file">Dosya yükle</string>
     <string name="uploading">Yükleniyor…</string>
-    <string name="uploading_backup">Uploading backup to Google Drive…</string>
+    <string name="uploading_backup">Yedekleme dosyası Google Drive\'a yükleniyor…</string>
     <string name="usb_manager_unavailable">USB Yöneticisi bu cihazda mevcut değil</string>
     <string name="use">Kullan</string>
-    <string name="utilities">Utilities</string>
-    <string name="variant">Variant</string>
-    <string name="verification_failed">Verification failed</string>
-    <string name="verify_api_key">Verify API key</string>
-    <string name="verifying">Verifying</string>
+    <string name="utilities">Yardımcı Araçlar</string>
+    <string name="variant">Varyant</string>
+    <string name="verification_failed">Doğrulama başarısız</string>
+    <string name="verify_api_key">API Anahtarı Doğrula</string>
+    <string name="verifying">Doğrulanıyor</string>
     <string name="version">Sürüm</string>
     <string name="version_code">Sürüm kodu</string>
     <string name="version_name">Sürüm adı</string>
-    <string name="view_license_online_msg">Tap \'Open URL\' to view the license online.</string>
-    <string name="view_on_github">View on GitHub</string>
+    <string name="view_license_online_msg">Lisansı çevrimiçi olarak görüntülemek için \'URL\'yi Aç\' seçeneğine dokunun.</string>
+    <string name="view_on_github">GitHub\'da Görüntüle</string>
     <string name="visit_repo_to_download">Github deposundan aShellYou\'nun son sürümünü almak için indirme düğmesine tıklayın.</string>
     <string name="waiting_for_device">Cihaz bekleniyor</string>
     <string name="waiting_for_devices">Cihazlar bekleniyor…</string>
-    <string name="want_to_contribute_too">Want to contribute too?</string>
-    <string name="weekly">Weekly</string>
+    <string name="want_to_contribute_too">Siz de katkıda bulunmak ister misiniz?</string>
+    <string name="weekly">Haftalık</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">%1$s işlemi yapılırken ne yapmak istersiniz?</string>
     <string name="whats_new">Neler yeni!</string>
     <string name="which_device_to_pair">Hangi cihazı eşleştirmek istersiniz?</string>
     <string name="wifi_adb">WiFi ADB</string>
     <string name="wifi_connection_required">Kablosuz Hata Ayıklama özelliğini kullanmak için cihazınızın bir Wi-Fi ağına bağlı olması gerekir. Wi-Fi bağlantınızın internet erişimi yoksa stabil bir Wi-Fi bağlantısı için mobil veriyi kapatın.</string>
-    <string name="wipe_cache_desc">fastboot erase cache</string>
-    <string name="wipe_cache_title">Erase Cache</string>
-    <string name="wipe_data">Wipe data</string>
-    <string name="wipe_data_description">Erase partitions on your device. Select which partition to wipe.</string>
-    <string name="wipe_metadata_desc">fastboot erase metadata</string>
-    <string name="wipe_metadata_title">Erase Metadata</string>
-    <string name="wipe_userdata_desc">fastboot erase userdata</string>
-    <string name="wipe_userdata_title">Erase Userdata</string>
-    <string name="wipe_warning">These operations are irreversible. Proceed with caution.</string>
+    <string name="wipe_cache_desc">cache bölümünü sil</string>
+    <string name="wipe_cache_title">Cache\'i Sil</string>
+    <string name="wipe_data">Datayı sil</string>
+    <string name="wipe_data_description">Cihazınızdaki bölümleri silin. Silinecek bölümü seçin.</string>
+    <string name="wipe_metadata_desc">metadata bölümünü sil</string>
+    <string name="wipe_metadata_title">Metadata\'yı Sil</string>
+    <string name="wipe_userdata_desc">userdata bölümünü sil</string>
+    <string name="wipe_userdata_title">Userdata\'yı sil</string>
+    <string name="wipe_warning">Bu işlemler geri döndürülemez. Dikkatli ilerleyin.</string>
     <string name="wireless_debugging_guide_1">Geliştirici seçenekleri &gt; Kablosuz Hata Ayıklama bölümüne gidin. Cihazı Eşleştirme Kodu ile eşleştir seçeneğine dokunun.</string>
     <string name="wireless_debugging_guide_2">Altı haneli Eşleştirme Kodunu aShell You tarafından gönderilen bildirime girin.</string>
     <string name="wireless_debugging_guide_3">Uygulamaya geri dönün ve ana ekrandaki \"Başlat\" düğmesine tıklayın.</string>
     <string name="wireless_debugging_important_notice">Lütfen Kablosuz Hata Ayıklama seçeneğinin sol kısmının tıklanabilir olduğuna dikkat edin. Üzerine dokunulduğunda Kablosuz Hata Ayıklama Eşleştirme menüsü açılır.</string>
-    <string name="wireless_not_connected">Not Connected</string>
-    <string name="wireless_not_connected_message">Your device is not connected via Wireless Debugging. Pair and connect your device first.</string>
-    <string name="ai_session_search_hint">Search chat…</string>
+    <string name="wireless_not_connected">Bağlı değil</string>
+    <string name="wireless_not_connected_message">Cihazınız Kablosuz Hata Ayıklama üzerinden bağlı değil. Öncelikle cihazınızı eşleştirin ve bağlayın.</string>
+    <string name="ai_session_search_hint">Sohbette ara…</string>
     <plurals name="logcat_new_entries">
-        <item quantity="one">%1$d new entry</item>
-        <item quantity="other">%1$d new entries</item>
+        <item quantity="one">%1$d yeni giriş</item>
+        <item quantity="other">%1$d yeni girişler</item>
     </plurals>
-    <string name="changelog_v7_4_0">\nYou can now search Sub-settings inside Settings screens\nAdded Palette Styles for color schemes\nAdded option to set app language directly in-app</string>
-    <string name="changelog_v7_3_0">\nImproved UI in changelog screen\nAdded translation contributors in about section\nAdded Licenses screen that shows detailed license information about the app and other libraries used by the app</string>
-    <string name="changelog_v7_2_1">\nMaintenance update!</string>
-    <string name="changelog_v7_2_0">\nAdded option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>
+    <string name="changelog_v7_4_0">\nArtık Ayarlar ekranlarında Alt Ayarlar\'ı arayabilirsiniz.\nRenk şemaları için Palet Stilleri eklendi.\nUygulama dilini doğrudan uygulama içinden ayarlama seçeneği eklendi</string>
+    <string name="changelog_v7_3_0">\nDeğişiklik günlüğü ekranındaki kullanıcı arayüzü iyileştirildi.\nHakkında bölümüne çeviriye katkıda bulunanlar eklendi.\nUygulama ve uygulama tarafından kullanılan diğer kütüphaneler hakkında ayrıntılı lisans bilgilerini gösteren Lisanslar ekranı eklendi</string>
+    <string name="changelog_v7_2_1">\n• Bakım güncellemesi!</string>
+    <string name="changelog_v7_2_0">\nHızlı Ayarlar Kutucuklarından özel kutucuklar ekleyerek adb komutlarını çalıştırma seçeneği eklendi.\nBuluta (Google Drive) yedekleme seçeneği eklendi. Bu özellik yalnızca GitHub sürümlerinde mevcuttur.\nBirçok alanda renk şeması, kullanıcı arayüzü ve kullanıcı deneyimi iyileştirildi.\nÇok daha fazla ADB komut örneği eklendi.</string>
     <string name="changelog_v7_1_0">\nKullanıcının uygulama için İngilizce dışında bir dil belirlediği durumlarda, komut girişinde İngilizce klavyenin görünmemesi sorunu düzeltildi\nPosta simgesinin düzgün gösterilmemesi sorunu düzeltildi\nDevasa dosya çıktılarını kaydetmeye çalışırken uygulamanın çökmesine neden olan bir sorun düzeltildi\nGereksiz izinler kaldırıldı\nHakkında bölümündeki kullanıcı arayüzü iyileştirildi</string>
     <string name="changelog_v7_0_1">\nFastlane düzeltmesi</string>
     <string name="changelog_v7_0_0">\nTüm Kullanıcı Arayüzü yenilendi (Material Expressive bileşenleri kullanılarak)\nTüm kod tabanı Kotlin ile yeniden yazıldı ve Kullanıcı Arayüzü Çerçevesi olarak Jetpack Compose kullanıldı\nPush &amp; pull (itme/çekme) tabanlı dosya yöneticisi eklendi\nQR WiFi ADB Eşleştirme modu eklendi\nUygulama ayarları ve veritabanı yedekleme seçenekleri eklendi\nÖzel tema seçenekleri eklendi\nUygulama çökme günlüklerini görüntülemek için çökme geçmişi eklendi\nOtomatik güncelleme özelliği iyileştirildi\nShell çıktısında Kullanıcı Arayüzü (UI) ve Deneyimi (UX) iyileştirildi\nAndroid izinleri önerileri eklendi\nKomut örnekleri düzeni etiketleri içerecek şekilde yenilendi\nİsteğe bağlı olarak Komut Ekleme, Düzenleme veya Silme seçeneği eklendi\nMevcut pek çok hata düzeltildi</string>
-    <string name="changelog_v6_1_0">\nNow command search can search the commands that contains the word you typed compared to previous versions where it only searched commands that starts with the typed word.\nOption to open Shizuku app directly when Shizuku is installed but not running.\nFixed the broken in-app crash reporter.</string>
+    <string name="changelog_v6_1_0">\nArtık komut arama özelliği, önceki sürümlerde yalnızca yazılan kelimeyle başlayan komutları ararken, şimdi yazdığınız kelimeyi içeren komutları da arayabiliyor.\nShizuku yüklü ancak çalışmıyorken Shizuku uygulamasını doğrudan açma seçeneği eklendi.\nUygulama içi çökme raporlayıcısındaki hata düzeltildi.</string>
     <string name="changelog_v6_0_3">\naShell You için uygulama bazlı dil çevirilerinin bozulmasına neden olan sorun düzeltildi</string>
-    <string name="changelog_v6_0_2">\nAdapted GitHub Actions for release builds.\nWhat this means for you?\nAll subsequent builds including this will be more secure!</string>
+    <string name="changelog_v6_0_2">\nSürüm derlemeleri için uyarlanmış GitHub Actions.\nBu sizin için ne anlama geliyor?\nBundan sonraki tüm derlemeler daha güvenli olacak!</string>
     <string name="changelog_v6_0_1">\nBakım güncellemesi</string>
     <string name="changelog_v6_0_0">\nKendi veya başka bir cihazda ADB komutları çalıştırmak için KABLOSUZ HATA AYIKLAMA modu eklendi\nMinimal gezinme ve daha az karmaşık giriş alanı ekranı için ana sayfa yeniden tasarlandı\nKritik sistem paketlerini içeren komutları yürütürken Uyarı geri bildirimi eklendi\nUygulama içi güncelleyici eklendi. Artık Github deposunu ziyaret etmeden doğrudan en son paketi indirebilirsiniz\nBirçok hata düzeltildi</string>
     <string name="changelog_v5_2_1">\nBakım güncellemesi</string>
@@ -952,8 +952,8 @@
     <string name="changelog_v3_5_0">\nUygulamanın Hakkında bölümü yenilendi.\nBaşlatıcı kısayolları eklendi.\nButon gezinmesinde görünmeyen gezinme menüsü düzeltildi.\nKaydırma sırasında alt gezinme menüsünün görünürlüğü iyileştirildi.\naShell You için uygulama bazlı dil desteği eklendi (çeviriler henüz tamamlanmadı).\nBirçok kod optimizasyonu yapıldı.</string>
     <string name="changelog_v3_4_0">\nKomutları hızlıca kopyalayıp yapıştırabilmeniz için bir Yapıştır düğmesi eklendi.\nMetin giriş alanına Hata göstergeleri eklendi.\nGezinme Çubuğu görünürlük mantığı iyileştirildi.\nAnahtarların (switch) belirli durumlarda yanlış davranmasına neden olan bir sorun düzeltildi.\nÇeşitli kontrast seviyelerinde yer imi ekleme simgesinin görünürlüğü düzeltildi.\nBirçok kod optimizasyonu yapıldı. Uygulama artık eskisinden çok daha hızlı açılıyor.\nSadece geri tuşuna basarak veya hareketle (gesture) uygulamayı her kapattığınızda uygulama arka planda kalacak ve baştan başlamayacak.</string>
     <string name="changelog_v3_3_0">\nOTG moduna yer imleri, geçmiş ve komut önerileri eklendi\nMaksimum yer imi sınırı eklendi.\nMaksimum yer imi sınırını geçersiz kılma seçeneği eklendi.\nBirçok hata düzeltmesi yapıldı.\nBazı kullanıcı arayüzü (UI) mantıkları iyileştirildi.\nBirçok kod optimizasyonu yapıldı.</string>
-    <string name="changelog_v3_2_0">\nA lot of UI related improvements.\nAdded chips that indicate current ADB working mode.\nA lot of code optimization.</string>
-    <string name="changelog_v3_1_0">\nImprovements to ADB OTG after initial release.\nSome UI and logic adjustments to accommodate the new otg feature.</string>
+    <string name="changelog_v3_2_0">\nKullanıcı arayüzüyle ilgili birçok iyileştirme yapıldı.\nMevcut ADB çalışma modunu gösteren çipler eklendi.\nKodda birçok optimizasyon yapıldı.</string>
+    <string name="changelog_v3_1_0">\nİlk sürümden sonra ADB OTG\'de yapılan iyileştirmeler.\nYeni OTG özelliğine uyum sağlamak için bazı kullanıcı arayüzü ve mantık ayarlamaları yapıldı.</string>
     <string name="changelog_v3_0_0">\nOTG ÜZERİNDEN ADB desteği eklendi.\n\n*** Artık bir OTG kablosu kullanarak diğer cihazı bağlayıp, aShellYou aracılığıyla o cihazda ADB komutları çalıştırabileceksiniz ***</string>
     <string name="changelog_v2_0_2">\nGereksiz kodlar ve kaynaklar kaldırıldı.\nKüçük kullanıcı arayüzü (UI) değişiklikleri yapıldı.</string>
     <string name="changelog_v2_0_1">\nGereksiz kodlar ve kaynaklar kaldırıldı.\nKüçük kullanıcı arayüzü (UI) değişiklikleri yapıldı.</string>

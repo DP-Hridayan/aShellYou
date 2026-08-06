@@ -910,7 +910,7 @@
     <string name="wireless_debugging_important_notice">Зверніть увагу, що ліва частина опції \"Бездротового налагодження\" є активною. При натисканні на неї відкриється меню \"Сполучення\" для \"Бездротового налагодження\".</string>
     <string name="wireless_not_connected">Не під\'єднано</string>
     <string name="wireless_not_connected_message">Ваш пристрій не під\'єднано через бездротове налагодження. Спочатку сполучити та під\'єднати ваш пристрій.</string>
-    <string name="ai_session_search_hint">Пошук в чаті…</string>
+    <string name="ai_session_search_hint">Пошук чату…</string>
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d новий запис</item>
         <item quantity="few">%1$d нових записів</item>

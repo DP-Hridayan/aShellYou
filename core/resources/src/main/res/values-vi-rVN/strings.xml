@@ -28,7 +28,7 @@
     <string name="add_command">Thêm lệnh</string>
     <string name="add_new_item">Thêm mục mới</string>
     <string name="additional_settings">Cài đặt bổ sung</string>
-    <string name="ai_cache_days">Thời gian giữ bộ nhớ đệm</string>
+    <string name="ai_cache_days">Thời gian lưu bộ nhớ đệm</string>
     <string name="ai_cache_enabled">Bật bộ nhớ đệm</string>
     <string name="ai_chat_allow">Cho phép</string>
     <string name="ai_chat_allow_run_command">Cho phép AI chạy lệnh:</string>
@@ -120,7 +120,7 @@
     <string name="choose_a_device">Chọn một thiết bị</string>
     <string name="choose_icon">Chọn một biểu tượng</string>
     <string name="clear">Xoá</string>
-    <string name="clear_all">Xóa tất cả</string>
+    <string name="clear_all">Xoá tất cả</string>
     <string name="clear_all_message">Bạn có chắc chắn muốn xóa tất cả nội dung trên màn hình này không?</string>
     <string name="clear_analysis_cache">Xóa bộ nhớ đệm phân tích</string>
     <string name="clear_cache">Xóa bộ nhớ đệm</string>
@@ -258,9 +258,9 @@
     <string name="des_behavior">Sửa đổi các hành vi nhất định của ứng dụng</string>
     <string name="des_changelogs">Lịch sử của tất cả các thay đổi được thực hiện đối với ứng dụng</string>
     <string name="des_choose_icon">Nhấn vào đây để chọn biểu tượng từ bộ sưu tập</string>
-    <string name="des_clear_output_confirmation">Yêu cầu xác nhận trước khi xóa đầu ra của lệnh</string>
+    <string name="des_clear_output_confirmation">Yêu cầu xác nhận trước khi xóa đầu ra của shell</string>
     <string name="des_cloud_models">Quản lý khóa API cho các mô hình đám mây</string>
-    <string name="des_configure_save_directory">Chọn một thư mục để lưu đầu ra của lệnh</string>
+    <string name="des_configure_save_directory">Chọn một thư mục để lưu đầu ra của shell</string>
     <string name="des_contributors">Danh sách những người đã giúp phát triển aShell You</string>
     <string name="des_crash_history">Xem tất cả các sự cố đã xảy ra với ứng dụng</string>
     <string name="des_default_language">Chọn ngôn ngữ mặc định cho ứng dụng</string>
@@ -279,7 +279,7 @@
     <string name="des_haptics_and_vibration">Phản hồi rung cho thao tác chạm</string>
     <string name="des_high_contrast_dark_mode">Giao diện đen tuyền cho các thiết bị có màn hình OLED</string>
     <string name="des_hridayan">Chỉ là một anh chàng yêu thích các ứng dụng và thiết kế</string>
-    <string name="des_initial_state">Trạng thái hiển thị cố định của ô khi nó nằm trong bảng \"Cài đặt nhanh\"</string>
+    <string name="des_initial_state">Trạng thái ban đầu của ô khi được hiển thị trong bảng Cài đặt nhanh</string>
     <string name="des_licenses">Xem các giấy phép được sử dụng bởi ứng dụng và các thư viện</string>
     <string name="des_local_backup">Lưu bản sao lưu đã mã hóa trên thiết bị của bạn</string>
     <string name="des_local_restore">Chọn tệp sao lưu từ thiết bị của bạn</string>
@@ -292,7 +292,7 @@
     <string name="des_report_issue">Báo cáo mọi vấn đề bạn gặp phải khi sử dụng ứng dụng</string>
     <string name="des_reset_app_settings">Đặt lại cài đặt ứng dụng về mặc định</string>
     <string name="des_restore_app_data">Khôi phục dữ liệu ứng dụng từ tệp sao lưu đã lưu.\nCơ sở dữ liệu đã lưu sẽ ghi đè lên cơ sở dữ liệu hiện tại</string>
-    <string name="des_save_whole_output">Bật tùy chọn này để lưu toàn bộ đầu ra của phiên làm việc shell.\nNếu tắt, chỉ đầu ra của lệnh cuối cùng mới được lưu.</string>
+    <string name="des_save_whole_output">Bật tùy chọn này để lưu toàn bộ đầu ra của phiên shell.\nNếu tắt, chỉ đầu ra của lệnh cuối cùng mới được lưu.</string>
     <string name="des_screen_density">Điều chỉnh mật độ màn hình để làm cho các phần tử UI hiển thị lớn hơn hoặc nhỏ hơn</string>
     <string name="des_select_file_for_flashing">Chọn một tệp boot image để flash vào phân vùng đã chọn</string>
     <string name="des_sign_in_with_google">Liên kết tài khoản Google của bạn để sao lưu đám mây</string>
@@ -316,14 +316,14 @@
     <string name="disable_softkey">Tắt bàn phím ảo</string>
     <string name="disclaimer">Tuyên bố từ chối trách nhiệm</string>
     <string name="disclaimer_1_description">Việc thực thi các lệnh ADB có thể sửa đổi cài đặt hệ thống, quản lý tệp và thực hiện các thao tác có thể ảnh hưởng đến sự ổn định của thiết bị.\nBạn hoàn toàn chịu trách nhiệm về mọi thay đổi được thực hiện bằng ứng dụng này.</string>
-    <string name="disclaimer_1_title">Sử dụng với rủi ro tự chịu</string>
-    <string name="disclaimer_2_description">Mặc dù quyền truy cập root không bắt buộc, một số lệnh có thể yêu cầu quyền ưu tiên.\nViệc sử dụng sai các lệnh ADB có thể dẫn đến mất dữ liệu, ứng dụng bị lỗi hoặc hệ thống hoạt động không mong muốn.</string>
+    <string name="disclaimer_1_title">Tự chịu rủi ro khi sử dụng</string>
+    <string name="disclaimer_2_description">Mặc dù quyền truy cập root không bắt buộc, một số lệnh có thể yêu cầu quyền nâng cao.\nViệc sử dụng sai các lệnh ADB có thể dẫn đến mất dữ liệu, ứng dụng bị lỗi hoặc hệ thống hoạt động không mong muốn.</string>
     <string name="disclaimer_2_title">Root không bắt buộc nhưng cần thận trọng</string>
     <string name="disclaimer_3_description">Các nhà phát triển(s) của ứng dụng này không chịu trách nhiệm về mọi hư hỏng, mất mát dữ liệu hoặc hậu quả không lường trước được phát sinh từ việc sử dụng ứng dụng này.\nHãy tiến hành một cách thận trọng và đảm bảo bạn hiểu rõ các lệnh đang được thực thi.</string>
     <string name="disclaimer_3_title">Chúng tôi không chịu trách nhiệm</string>
     <string name="disclaimer_4_description">Ứng dụng này được thiết kế cho những người dùng có hiểu biết cơ bản về các lệnh ADB.\nNếu bạn không chắc chắn về tác dụng của một lệnh, hãy nghiên cứu trước khi thực thi nó.</string>
     <string name="disclaimer_4_title">Dành cho người dùng có kinh nghiệm</string>
-    <string name="disclaimer_5_description">Ứng dụng này có thể yêu cầu các quyền đặc biệt để hoạt động bình thường.\nNó không thu thập hoặc truyền dữ liệu cá nhân, nhưng người dùng phải nhận thức được ý nghĩa của việc cấp quyền liên quan đến ADB.</string>
+    <string name="disclaimer_5_description">Ứng dụng này có thể yêu cầu các quyền đặc biệt để hoạt động bình thường.\nNó không thu thập hoặc chia sẻ dữ liệu cá nhân, nhưng người dùng phải nhận thức được ý nghĩa của việc cấp quyền liên quan đến ADB.</string>
     <string name="disclaimer_5_title">Quyền và Bảo mật</string>
     <string name="disconnect">Ngắt kết nối</string>
     <string name="disconnected">Đã ngắt kết nối!</string>
@@ -352,9 +352,9 @@
     <string name="enable_wireless_debugging_button">Bật</string>
     <string name="enter">Nhập</string>
     <string name="enter_pairing_code">Nhập mã ghép nối gồm 6 chữ số</string>
-    <string name="erase_confirm_message">Điều này sẽ xóa vĩnh viễn phân vùng %1$s. Không thể hoàn tác hành động này.</string>
-    <string name="erase_confirm_title">Xóa %1$s?</string>
-    <string name="erase_partition">Xóa</string>
+    <string name="erase_confirm_message">Điều này sẽ Erase vĩnh viễn phân vùng %1$s. Không thể hoàn tác hành động này.</string>
+    <string name="erase_confirm_title">Erase %1$s?</string>
+    <string name="erase_partition">Erase</string>
     <string name="erasing">Đang xóa…</string>
     <string name="error">Lỗi</string>
     <string name="error_labels_limit_reached">Đã đạt đến giới hạn nhãn tối đa</string>
@@ -477,7 +477,7 @@
     <string name="generate_tile">Tạo ô</string>
     <string name="get_api_key">Nhận khóa API</string>
     <string name="get_variables">Lấy các biến</string>
-    <string name="go_home">Trang chủ</string>
+    <string name="go_home">Về trang chủ</string>
     <string name="go_to_terminal">Đi đến terminal</string>
     <string name="google_drive">Google Drive</string>
     <string name="google_drive_backup">Sao lưu Google Drive</string>
@@ -500,14 +500,14 @@
     <string name="info">Thông tin</string>
     <string name="initial_state">Trạng thái ban đầu</string>
     <string name="instructions">Hướng dẫn</string>
-    <string name="intent_not_found">Không tìm thấy ý định</string>
+    <string name="intent_not_found">Không tìm thấy Intent</string>
     <string name="internal_storage">Bộ nhớ trong</string>
     <string name="invalid_folder_name">Tên thư mục không được chứa /</string>
     <string name="ip_address">Địa chỉ IP</string>
     <string name="irreversible_action_warning">Hành động này không thể đảo ngược!</string>
     <string name="item_deleted">Đã xóa mục thành công</string>
     <string name="keep_both">Giữ cả hai</string>
-    <string name="key_verified_success_msg">Xác minh mã thành công</string>
+    <string name="key_verified_success_msg">Xác minh khoá thành công</string>
     <string name="label">Nhãn</string>
     <string name="languages">Ngôn ngữ</string>
     <string name="last_auto_backup_cloud">Bản tự động sao lưu đám mây gần nhất</string>
@@ -537,7 +537,7 @@
     <string name="logcat">Logcat</string>
     <string name="logcat_cleared">Đã xoá logs</string>
     <string name="logcat_detail_package">Gói</string>
-    <string name="logcat_filter_level">Mức độ logcat</string>
+    <string name="logcat_filter_level">Mức độ log</string>
     <string name="logcat_filter_search_hint">Tìm kiếm trong thông điệp…</string>
     <string name="logcat_is_running">Logcat đang chạy</string>
     <string name="logcat_ive_granted_it">Tôi đã cấp quyền này</string>
@@ -559,12 +559,12 @@
     <string name="max_download_size">Tải xuống tối đa</string>
     <string name="medium">Trung bình</string>
     <string name="merge">Gộp</string>
-    <string name="message">Tin nhắn</string>
+    <string name="message">Thông điệp</string>
     <string name="message_adb_agent">Nhắn tin cho ADB Agent…</string>
     <string name="minimize">Thu nhỏ</string>
     <string name="mode">Chế độ</string>
     <string name="mode_one_desc">Sử dụng quyền truy cập root để chạy lệnh. Các lệnh yêu cầu root sẽ được thực thi.</string>
-    <string name="mode_two_desc">Sử dụng Shizuku để thực thi lệnh. Các lệnh yêu cầu quyền root sẽ bị lỗi.</string>
+    <string name="mode_two_desc">Sử dụng Shizuku để thực thi lệnh. Các lệnh yêu cầu quyền root sẽ không thực thi.</string>
     <string name="model_category_large" comment="AI model size category label">Lớn (1.5–2.5 GB)</string>
     <string name="model_category_medium" comment="AI model size category label">Trung bình (800 MB–1.1 GB)</string>
     <string name="model_category_small" comment="AI model size category label">Nhỏ (300-500 MB)</string>
@@ -647,7 +647,7 @@
     <string name="pair">Ghép nối</string>
     <string name="pair_a_device_first">Ghép nối một thiết bị trước</string>
     <string name="pair_another_device">Ghép nối một thiết bị khác</string>
-    <string name="pair_connect_failed_message">\nKhông thể kết nối với thiết bị đã ghép nối\nThiết bị có thể đang kết nối một mạng khác\nHãy thử ghép nối lại</string>
+    <string name="pair_connect_failed_message">\nKhông thể kết nối với thiết bị đã ghép nối\nThiết bị có thể không ở cùng mạng\nHãy thử ghép nối lại</string>
     <string name="pair_device_to_start">Ghép nối một thiết bị bằng mã QR hoặc mã ghép nối để hiển thị tại đây</string>
     <string name="pair_manually">Ghép nối thủ công</string>
     <string name="pair_this_device">Ghép nối thiết bị này</string>
@@ -711,7 +711,7 @@
     <string name="reconnect_the_device">Kết nối lại thiết bị</string>
     <string name="recovery">Recovery</string>
     <string name="refresh">Làm mới</string>
-    <string name="remove">Xóa</string>
+    <string name="remove">Gỡ bỏ</string>
     <string name="rename">Đổi tên</string>
     <string name="rename_title" comment="%1$s = file or folder name">Đổi tên %1$s</string>
     <string name="replace">Thay thế</string>
@@ -732,9 +732,9 @@
     <string name="restoring_backup">Đang khôi phục bản sao lưu…</string>
     <string name="resume">Tiếp tục</string>
     <string name="retry">Thử lại</string>
-    <string name="root_access_granted">Quyền truy cập Root đã được cấp!</string>
-    <string name="root_unavailable">Không có quyền Root</string>
-    <string name="root_unavailable_message">Không thể phát hiện quyền truy cập Root. Đảm bảo thiết bị của bạn đã được root và thử lại, hoặc chuyển sang một nguồn logcat khác.</string>
+    <string name="root_access_granted">Quyền truy cập root đã được cấp!</string>
+    <string name="root_unavailable">Không có quyền root</string>
+    <string name="root_unavailable_message">Không thể phát hiện quyền truy cập root. Đảm bảo thiết bị của bạn đã được root và thử lại, hoặc chuyển sang một nguồn logcat khác.</string>
     <string name="running">Đang chạy</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Lưu</string>
@@ -756,7 +756,7 @@
     <string name="search_libraries">Tìm kiếm thư viện, tác giả, giấy phép…</string>
     <string name="search_output">Tìm kiếm đầu ra ở đây</string>
     <string name="search_settings">Tìm kiếm trong cài đặt</string>
-    <string name="search_something">Tìm kiếm bất cứ điều gì</string>
+    <string name="search_something">Tìm kiếm thứ gì đó</string>
     <string name="search_variables">Tìm kiếm biến…</string>
     <string name="searching_connect_service">Đang tìm kiếm dịch vụ kết nối</string>
     <string name="searching_for_devices">Đang tìm kiếm các thiết bị…</string>
@@ -793,7 +793,7 @@
     <string name="settings_only">Chỉ cài đặt</string>
     <string name="share">Chia sẻ</string>
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">Đầu ra của lệnh cuối cùng được xuất ra \'%s\'</string>
-    <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">Đầu ra của lệnh được xuất ra \'%s\'</string>
+    <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">Đầu ra của shell được xuất ra \'%s\'</string>
     <string name="shizuku_not_installed">Shizuku chưa được cài đặt</string>
     <string name="shizuku_unavailable">Shizuku không khả dụng</string>
     <string name="shizuku_unavailable_message">Shizuku chưa được cài đặt hoặc thiết lập chính xác trên thiết bị của bạn</string>
@@ -896,13 +896,13 @@
     <string name="wifi_adb">WiFi ADB</string>
     <string name="wifi_connection_required">Để sử dụng tính năng gỡ lỗi không dây, thiết bị của bạn phải được kết nối với mạng WiFi. Nếu kết nối WiFi của bạn không có quyền truy cập internet, hãy tắt dữ liệu di động để kết nối WiFi được ổn định.</string>
     <string name="wipe_cache_desc">fastboot erase cache</string>
-    <string name="wipe_cache_title">Xóa cache</string>
-    <string name="wipe_data">Xóa dữ liệu</string>
-    <string name="wipe_data_description">Xóa các phân vùng trên thiết bị của bạn. Chọn phân vùng nào cần xóa.</string>
+    <string name="wipe_cache_title">Erase Cache</string>
+    <string name="wipe_data">Erase Data</string>
+    <string name="wipe_data_description">Erase các phân vùng trên thiết bị của bạn. Chọn phân vùng nào cần Erase.</string>
     <string name="wipe_metadata_desc">fastboot erase metadata</string>
-    <string name="wipe_metadata_title">Xóa metadata</string>
+    <string name="wipe_metadata_title">Erase Metadata</string>
     <string name="wipe_userdata_desc">fastboot erase userdata</string>
-    <string name="wipe_userdata_title">Xóa userdata</string>
+    <string name="wipe_userdata_title">Erase Userdata</string>
     <string name="wipe_warning">Các thao tác này không thể đảo ngược. Tiến hành với sự cẩn trọng.</string>
     <string name="wireless_debugging_guide_1">Đi tới Cài đặt Nhà phát triển &gt; Gỡ lỗi không dây. Chạm vào \'Ghép nối thiết bị bằng mã ghép nối\'.</string>
     <string name="wireless_debugging_guide_2">Nhập mã ghép nối sáu chữ số vào thông báo được gửi từ aShell You.</string>
@@ -910,20 +910,20 @@
     <string name="wireless_debugging_important_notice">Xin lưu ý rằng phần bên trái của tùy chọn \"Gỡ lỗi không dây\" có thể nhấp được. Chạm vào nó sẽ mở menu \"Ghép nối\" cho tính năng \"Gỡ lỗi không dây\".</string>
     <string name="wireless_not_connected">Chưa kết nối</string>
     <string name="wireless_not_connected_message">Thiết bị của bạn chưa được kết nối qua Gỡ lỗi không dây. Vui lòng ghép nối và kết nối thiết bị của bạn trước.</string>
-    <string name="ai_session_search_hint">Search chat…</string>
+    <string name="ai_session_search_hint">Tìm kiếm đoạn chat…</string>
     <plurals name="logcat_new_entries">
         <item quantity="other">%1$d mục mới</item>
     </plurals>
-    <string name="changelog_v7_4_0">\nGiờ đây bạn có thể tìm kiếm các cài đặt phụ trên màn hình cài đặt\nĐã thêm các kiểu bảng màu cho phối màu\nĐã thêm tùy chọn đặt ngôn ngữ ứng dụng trực tiếp trong ứng dụng</string>
+    <string name="changelog_v7_4_0">\nGiờ đây bạn có thể tìm kiếm các cài đặt phụ trong màn hình cài đặt\nĐã thêm các kiểu bảng màu cho phối màu\nĐã thêm tùy chọn đặt ngôn ngữ ứng dụng trực tiếp trong ứng dụng</string>
     <string name="changelog_v7_3_0">\nĐã cải thiện giao diện người dùng trên màn hình nhật ký thay đổi\nĐã thêm các dịch giả vào phần Giới thiệu.\nĐã thêm Màn hình giấy phép hiển thị thông tin chi tiết về giấy phép của ứng dụng và các thư viện khác mà ứng dụng sử dụng</string>
     <string name="changelog_v7_2_1">\nBản cập nhật bảo trì!</string>
     <string name="changelog_v7_2_0">\nĐã thêm tùy chọn chạy các lệnh ADB từ Các ô Cài đặt nhanh bằng cách thêm các ô tùy chỉnh.\nĐã thêm tùy chọn sao lưu đám mây (Google Drive). Tính năng này chỉ có trên các bản dựng GitHub.\nĐã cải thiện phối màu, giao diện người dùng (UI) và trải nghiệm người dùng (UX) ở nhiều khu vực.\nĐã thêm nhiều ví dụ lệnh ADB hơn nữa.</string>
     <string name="changelog_v7_1_0">\nĐã sửa lỗi bàn phím tiếng Anh có thể không xuất hiện khi nhập lệnh nếu người dùng đặt ngôn ngữ ứng dụng khác tiếng Anh\nĐã sửa lỗi hiển thị sai biểu tượng thư\nĐã sửa lỗi gây ra sự cố khi lưu các tệp lớn\nĐã loại bỏ các quyền dư thừa\nĐã cải thiện UI trong phần \"Giới thiệu\"</string>
     <string name="changelog_v7_0_1">\nĐã sửa lỗi Fastlane</string>
     <string name="changelog_v7_0_0">\nToàn bộ giao diện người dùng đã được cập nhật sử dụng các thành phần Expressive\nToàn bộ mã nguồn đã được viết lại bằng Kotlin và Jetpack Compose cho UI Framework\nĐã thêm Trình quản lý tệp dựa trên Push &amp; Pull\nĐã thêm chế độ ghép nối WiFi ADB qua mã QR\nĐã thêm Tùy chọn ứng dụng và Tùy chọn sao lưu cơ sở dữ liệu\nĐã thêm các tùy chọn thiết kế chủ đề đặc biệt\nĐã thêm Lịch sử sự cố để xem nhật ký lỗi của ứng dụng\nĐã cải thiện tính năng tự động cập nhật\nĐã cải thiện UI &amp; UX ở phần đầu ra của shell\nĐã thêm đề xuất về quyền trên Android\nĐã cập nhật bố cục cho các mẫu lệnh bao gồm cả nhãn\nĐã thêm tùy chọn thêm, chỉnh sửa hoặc xóa lệnh theo ý muốn của bạn\nNhiều lỗi hiện tại đã được sửa</string>
-    <string name="changelog_v6_1_0">\nNow command search can search the commands that contains the word you typed compared to previous versions where it only searched commands that starts with the typed word.\nOption to open Shizuku app directly when Shizuku is installed but not running.\nFixed the broken in-app crash reporter.</string>
+    <string name="changelog_v6_1_0">\nGiờ đây việc tìm kiếm lệnh có thể tìm kiếm các lệnh chứa từ bạn đã nhập, so với các phiên bản trước chỉ tìm kiếm các lệnh bắt đầu bằng từ đã nhập.\nKhả năng mở trực tiếp ứng dụng Shizuku khi Shizuku được cài đặt nhưng chưa chạy.\nĐã sửa lỗi báo cáo sự cố ứng dụng bị hỏng.</string>
     <string name="changelog_v6_0_3">\nĐã giải quyết vấn đề gây hỏng bản dịch của ứng dụng aShell You</string>
-    <string name="changelog_v6_0_2">\nAdapted GitHub Actions for release builds.\nWhat this means for you?\nAll subsequent builds including this will be more secure!</string>
+    <string name="changelog_v6_0_2">\nĐã điều chỉnh Github Actions cho các bản phát hành.\nĐiều này có ý nghĩa gì đối với bạn?\nTất cả các bản dựng tiếp theo, bao gồm cả bản này, sẽ an toàn hơn!</string>
     <string name="changelog_v6_0_1">\nBản cập nhật bảo trì</string>
     <string name="changelog_v6_0_0">\nĐã thêm chế độ GỠ LỖI KHÔNG DÂY để chạy lệnh ADB trên cả thiết bị của bạn và thiết bị khác\nTrang chủ được thiết kế lại để tối giản điều hướng và giảm bớt sự lộn xộn ở trường nhập liệu\nĐã thêm cảnh báo phản hồi khi thực thi các lệnh liên quan đến các gói hệ thống quan trọng\nĐã thêm Cập nhật trong ứng dụng. Giờ đây bạn có thể tải xuống gói mới nhất trực tiếp mà không cần truy cập kho lưu trữ Github\nĐã sửa nhiều lỗi</string>
     <string name="changelog_v5_2_1">\nBản cập nhật bảo trì</string>
@@ -951,7 +951,7 @@
     <string name="changelog_v3_5_0">\nĐã cập nhật phần \"Giới thiệu về ứng dụng\".\nĐã thêm các lối tắt khởi chạy.\nĐã sửa menu điều hướng không hiển thị ở chế độ điều hướng bằng nút.\nCải thiện khả năng hiển thị của menu điều hướng phía dưới trong quá trình cuộn.\nĐã thêm hỗ trợ ngôn ngữ theo từng ứng dụng cho aShell You (bản dịch vẫn đang hoàn thiện).\nĐã tối ưu hóa rất nhiều cho mã nguồn.</string>
     <string name="changelog_v3_4_0">\nĐã thêm một nút \"Dán\" để bạn có thể sao chép và dán lệnh nhanh chóng.\nĐã thêm chỉ báo lỗi trong trường nhập văn bản.\nĐã cải thiện logic hiển thị của thanh điều hướng.\nĐã giải quyết vấn đề với các công tắc chuyển đổi không hoạt động trong một số tình huống nhất định.\nĐã sửa chữa việc thêm biểu tượng dấu trang để có độ hiển thị tốt hơn ở các mức tương phản khác nhau.\nTối ưu hóa rất nhiều mã nguồn. Ứng dụng giờ đây mở nhanh hơn rất nhiều so với trước đây.\nỨng dụng sẽ duy trì hoạt động trong chế độ nền và không khởi động lại mỗi khi bạn đóng ứng dụng chỉ bằng cách nhấn nút \"Quay lại\" hoặc cử chỉ.</string>
     <string name="changelog_v3_3_0">\nĐã thêm dấu trang, lịch sử và các gợi ý lệnh cho tính năng OTG\nĐã thêm giới hạn tối đa cho số lượng dấu trang.\nĐã thêm tùy chọn vượt qua giới hạn số lượng dấu trang tối đa.\nSửa rất nhiều lỗi.\nĐã cải thiện cách xử lý giao diện người dùng.\nTối ưu hóa rất nhiều mã nguồn.</string>
-    <string name="changelog_v3_2_0">\nA lot of UI related improvements.\nAdded chips that indicate current ADB working mode.\nA lot of code optimization.</string>
+    <string name="changelog_v3_2_0">\nRất nhiều cải tiến liên quan đến giao diện người dùng (UI).\nĐã thêm các chỉ báo biểu thị cho chế độ hoạt động hiện tại của ADB.\nTối ưu hóa rất nhiều mã nguồn.</string>
     <string name="changelog_v3_1_0">\nĐã cải thiện tính năng ADB OTG sau lần phát hành ban đầu.\nMột số điều chỉnh về giao diện người dùng (UI) và logic để tương thích với tính năng OTG mới.</string>
     <string name="changelog_v3_0_0">\nĐã thêm hỗ trợ cho ADB QUA OTG.\n\n*** Bạn sẽ có thể chạy các lệnh ADB trên các thiết bị khác bằng aShellYou, bằng cách kết nối với thiết bị khác thông qua cáp OTG ***</string>
     <string name="changelog_v2_0_2">\nĐã loại bỏ những đoạn mã và tài nguyên không cần thiết.\nNhững thay đổi nhỏ về giao diện người dùng (UI).</string>
