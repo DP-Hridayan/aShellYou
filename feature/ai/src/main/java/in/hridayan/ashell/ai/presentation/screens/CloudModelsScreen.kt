@@ -42,7 +42,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.LinkAnnotation
@@ -254,12 +253,13 @@ private fun ApiKeySection(
 
                         val primaryColor = MaterialTheme.colorScheme.primary
 
-                        val step1String = stringResource(R.string.gemini_api_key_step_1)
+                        val urlText = UrlConst.URL_GOOGLE_AI_STUDIO
+
+                        val step1String = stringResource(R.string.gemini_api_key_step_1, urlText)
                         val step2String = stringResource(R.string.gemini_api_key_step_2)
                         val step3String = stringResource(R.string.gemini_api_key_step_3)
                         val step4String = stringResource(R.string.gemini_api_key_step_4)
 
-                        val urlText = UrlConst.URL_GOOGLE_AI_STUDIO
                         val startIndex = step1String.indexOf(urlText)
 
                         val step1Annotated = remember(step1String, primaryColor) {
