@@ -213,6 +213,7 @@ dependencies {
     implementation(project(":core:navigation"))
     implementation(project(":feature:settings"))
     implementation(project(":feature:shell"))
+    implementation(project(":feature:adbsideload"))
     implementation(project(":feature:commandexamples"))
     implementation(project(":feature:qstiles"))
     implementation(project(":feature:home"))

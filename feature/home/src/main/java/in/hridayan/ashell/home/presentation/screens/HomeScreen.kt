@@ -65,7 +65,6 @@ import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.common.FeatureConfig
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode
-import `in`.hridayan.ashell.core.common.domain.model.otg.OtgState
 import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButton
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -91,6 +90,7 @@ fun HomeScreen(
     onLocalAdbClick: () -> Unit = {},
     onLogcatClick: () -> Unit = {},
     onAiChatClick: () -> Unit = {},
+    onSideloadClick: () -> Unit = {},
     onReboot: (Array<String>) -> Unit = {}
 ) {
     val context = LocalContext.current
@@ -267,6 +267,7 @@ fun HomeScreen(
                     )
                     AdbSideloadCard(
                         modifier = Modifier.flex { grow(1f) },
+                        onClick = onSideloadClick
                     )
                 }
             }

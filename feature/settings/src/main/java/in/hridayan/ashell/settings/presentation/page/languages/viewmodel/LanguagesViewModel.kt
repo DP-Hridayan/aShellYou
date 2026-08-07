@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.compose.runtime.Stable
 import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.AndroidViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +17,6 @@ import org.xmlpull.v1.XmlPullParser
 import java.util.Locale
 import javax.inject.Inject
 
-@Stable
 @HiltViewModel
 class LanguagesViewModel @Inject constructor(
     application: Application,

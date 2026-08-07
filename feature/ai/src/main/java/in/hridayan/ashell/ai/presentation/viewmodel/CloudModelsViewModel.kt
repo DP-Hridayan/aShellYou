@@ -1,7 +1,6 @@
 package `in`.hridayan.ashell.ai.presentation.viewmodel
 
 import android.content.Context
-import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,8 +16,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
-@Stable
 @HiltViewModel
 class CloudModelsViewModel @Inject constructor(
     val apiKeyRepository: ApiKeyRepository,

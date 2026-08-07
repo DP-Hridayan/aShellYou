@@ -1,6 +1,5 @@
 package `in`.hridayan.ashell.ai.presentation.viewmodel
 
-import androidx.compose.runtime.Stable
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -32,7 +31,6 @@ import kotlinx.serialization.json.Json
 import java.util.UUID
 import javax.inject.Inject
 
-@Stable
 @HiltViewModel
 class AiChatViewModel @Inject constructor(
     private val chatRepository: ChatRepository,

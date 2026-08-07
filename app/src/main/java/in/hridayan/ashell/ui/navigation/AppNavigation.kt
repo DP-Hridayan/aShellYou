@@ -17,6 +17,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import `in`.hridayan.ashell.adbsideload.presentation.screens.AdbSideloadScreen
 import `in`.hridayan.ashell.ai.presentation.screens.AiChatScreen
 import `in`.hridayan.ashell.ai.presentation.screens.AiModelsScreen
 import `in`.hridayan.ashell.ai.presentation.screens.CloudModelsScreen
@@ -191,6 +192,10 @@ fun AppNavigation(
 
             composable<NavRoutes.FastbootScreen> {
                 FastbootScreen()
+            }
+
+            composable<NavRoutes.AdbSideloadScreen> {
+                AdbSideloadScreen()
             }
 
             composable<NavRoutes.PairingOwnDeviceScreen> {

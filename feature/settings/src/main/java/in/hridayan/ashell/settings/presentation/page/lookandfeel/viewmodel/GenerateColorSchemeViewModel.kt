@@ -1,6 +1,5 @@
 package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel
 
-import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,7 +25,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@Stable
 @HiltViewModel
 class GenerateColorSchemeViewModel @Inject constructor(
     private val customColorSchemeDao: CustomColorSchemeDao,
@@ -92,7 +90,10 @@ class GenerateColorSchemeViewModel @Inject constructor(
             settingsRepository.setBoolean(SettingsKeys.UserGeneratedColorSchemeApplied, true)
             settingsRepository.setInt(SettingsKeys.AppliedCustomThemeId, scheme.id)
             settingsRepository.setBoolean(SettingsKeys.DynamicColors, false)
-            settingsRepository.setBoolean(SettingsKeys.IsCustomColorSchemeDarkThemed, scheme.isDarkTheme)
+            settingsRepository.setBoolean(
+                SettingsKeys.IsCustomColorSchemeDarkThemed,
+                scheme.isDarkTheme
+            )
         }
     }
 

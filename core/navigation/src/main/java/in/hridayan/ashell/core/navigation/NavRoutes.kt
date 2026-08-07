@@ -76,6 +76,9 @@ NavRoutes {
     object FastbootScreen : NavRoutes()
 
     @Serializable
+    object AdbSideloadScreen : NavRoutes()
+
+    @Serializable
     object PairingOwnDeviceScreen : NavRoutes()
 
     @Serializable

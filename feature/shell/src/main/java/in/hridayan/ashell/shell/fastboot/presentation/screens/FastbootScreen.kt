@@ -5,7 +5,6 @@
 
 package `in`.hridayan.ashell.shell.fastboot.presentation.screens
 
-
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalFlexBoxApi
@@ -15,12 +14,15 @@ import androidx.compose.foundation.layout.FlexDirection
 import androidx.compose.foundation.layout.FlexWrap
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -28,15 +30,18 @@ import androidx.compose.material.icons.filled.Usb
 import androidx.compose.material.icons.filled.UsbOff
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberBottomSheetScaffoldState
+import androidx.compose.material3.rememberBottomSheetState
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -66,6 +71,8 @@ import `in`.hridayan.ashell.core.presentation.components.navigation.FloatingNavP
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
 import `in`.hridayan.ashell.core.resources.R
+import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootDeviceInfo
+import `in`.hridayan.ashell.shell.fastboot.presentation.components.bottomsheet.CommandConsoleSheetContent
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.bottomsheet.FlashPartitionBottomSheet
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.bottomsheet.GetVariablesBottomSheet
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.bottomsheet.WipeDataBottomSheet
@@ -73,6 +80,8 @@ import `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog.Fastbo
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog.FastbootRebootOptionsDialog
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.ActiveSlotsCard
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.ConnectedDeviceCard
+import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.FastbootCommandsSection
+import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.FastbootLogsSection
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.FastbootQuickToolsCard
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.UnlockStatusCard
 import `in`.hridayan.ashell.shell.fastboot.presentation.viewmodel.FastbootViewModel
@@ -83,13 +92,15 @@ fun FastbootScreen(
 ) {
     val weakHaptic = LocalWeakHaptic.current
     val navController = LocalNavController.current
+
     val fastbootState by viewModel.state.collectAsState()
     val deviceInfo by viewModel.deviceInfo.collectAsState()
     val variables by viewModel.variables.collectAsState()
     val commandHistory by viewModel.commandHistory.collectAsState()
-    val isLoadingDeviceInfo by viewModel.isLoadingDeviceInfo.collectAsState()
     val isLoadingVariables by viewModel.isLoadingVariables.collectAsState()
     val flashOperation by viewModel.flashOperation.collectAsState()
+    val runningCommandId by viewModel.runningCommandId.collectAsState()
+    val commandOutput by viewModel.commandOutput.collectAsState()
 
     val isConnected = fastbootState is FastbootState.Connected
     var showDeviceWaitingDialog by rememberSaveable { mutableStateOf(false) }
@@ -97,12 +108,6 @@ fun FastbootScreen(
     var showGetVariablesBottomSheet by rememberSaveable { mutableStateOf(false) }
     var showWipeDataBottomSheet by rememberSaveable { mutableStateOf(false) }
     var showRebootOptionsDialog by rememberSaveable { mutableStateOf(false) }
-
-    /**
-     * Similar to OTG screen's dirty hack for properly syncing states after reconnection.
-     * Tracks whether a disconnection happened so we can auto-show the waiting dialog
-     * and re-scan when reconnecting (e.g. after device reboots between modes).
-     */
     var disconnected by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(fastbootState) {
@@ -114,14 +119,13 @@ fun FastbootScreen(
                 viewModel.loadAllVariables()
             }
 
-            is FastbootState.Idle,
             is FastbootState.Disconnected -> {
                 showDeviceWaitingDialog = true
                 disconnected = true
                 viewModel.startScan()
             }
 
-            // DeviceFound, Searching, Connecting, Error — show dialog so user can see status
+            // DeviceFound, Searching, Connecting, Error, Idle — show dialog so user can see status
             else -> {
                 showDeviceWaitingDialog = true
             }
@@ -129,29 +133,38 @@ fun FastbootScreen(
     }
 
     val topAppBarState = rememberTopAppBarState()
-    val scrollBehavior =
-        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(topAppBarState)
-
-    val tabItems = listOf(
-        FloatingNavPillItem(text = stringResource(R.string.dashboard)),
-        FloatingNavPillItem(text = stringResource(R.string.commands)),
-        FloatingNavPillItem(text = stringResource(R.string.logs))
-    )
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(topAppBarState)
 
     var selectedTabIndex by rememberSaveable { mutableIntStateOf(FastbootTabs.DASHBOARD) }
 
-    Scaffold(
-        contentWindowInsets = WindowInsets.safeDrawing,
+    val sheetState = rememberBottomSheetState(
+        initialValue = SheetValue.PartiallyExpanded,
+        enabledValues = setOf(SheetValue.PartiallyExpanded, SheetValue.Expanded)
+    )
+    val scaffoldState = rememberBottomSheetScaffoldState(bottomSheetState = sheetState)
+
+    // Collapse the sheet back to partial when leaving the Commands tab
+    LaunchedEffect(selectedTabIndex) {
+        if (selectedTabIndex != FastbootTabs.COMMANDS && sheetState.currentValue == SheetValue.Expanded) {
+            sheetState.partialExpand()
+        }
+    }
+
+    // peekHeight: visible sheet peek only on Commands tab
+    val sheetPeekHeight = if (selectedTabIndex == FastbootTabs.COMMANDS) 240.dp else 0.dp
+
+    BottomSheetScaffold(
+        scaffoldState = scaffoldState,
+        sheetPeekHeight = sheetPeekHeight,
+        sheetContainerColor = MaterialTheme.colorScheme.surfaceContainer,
+        sheetTonalElevation = 4.dp,
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             LargeTopAppBar(
                 scrollBehavior = scrollBehavior,
                 title = {
                     val collapsedFraction = scrollBehavior.state.collapsedFraction
-                    val expandedFontSize = 33.sp
-                    val collapsedFontSize = 20.sp
-
-                    val fontSize = lerp(expandedFontSize, collapsedFontSize, collapsedFraction)
+                    val fontSize = lerp(33.sp, 20.sp, collapsedFraction)
                     Text(
                         modifier = Modifier.basicMarquee(),
                         text = stringResource(R.string.fastboot),
@@ -173,11 +186,10 @@ fun FastbootScreen(
                         },
                         label = {
                             Text(
-                                text = if (isConnected) {
+                                text = if (isConnected)
                                     (fastbootState as FastbootState.Connected).deviceName
-                                } else {
-                                    stringResource(R.string.disconnected)
-                                },
+                                else
+                                    stringResource(R.string.disconnected),
                                 style = MaterialTheme.typography.labelMedium
                             )
                         },
@@ -188,18 +200,21 @@ fun FastbootScreen(
                                 modifier = Modifier.size(18.dp)
                             )
                         },
-                        colors = if (isConnected) {
-                            AssistChipDefaults.assistChipColors(
-                                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                                labelColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                                leadingIconContentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                            )
-                        } else {
-                            AssistChipDefaults.assistChipColors()
-                        },
+                        colors = if (isConnected) AssistChipDefaults.assistChipColors(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer,
+                            labelColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                            leadingIconContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                        ) else AssistChipDefaults.assistChipColors(),
                         modifier = Modifier.padding(end = Dimens.paddingSmall)
                     )
                 }
+            )
+        },
+        sheetContent = {
+            PredefinedCommandsSheetContent(
+                isConnected = isConnected,
+                runningCommandId = runningCommandId,
+                onRunCommand = { id, cmd -> viewModel.runPredefinedCommand(id, cmd) }
             )
         }
     ) { paddingValues ->
@@ -208,14 +223,24 @@ fun FastbootScreen(
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
                 .padding(paddingValues)
+                .windowInsetsPadding(
+                    WindowInsets.safeDrawing.only(
+                        WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom
+                    )
+                )
                 .padding(horizontal = 20.dp)
         ) {
+            // Tab bar
             FloatingNavPill(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(96.dp)
                     .padding(vertical = 20.dp),
-                items = tabItems,
+                items = listOf(
+                    FloatingNavPillItem(text = stringResource(R.string.dashboard)),
+                    FloatingNavPillItem(text = stringResource(R.string.commands)),
+                    FloatingNavPillItem(text = stringResource(R.string.logs))
+                ),
                 selectedIndex = selectedTabIndex,
                 onSelectionChange = {
                     weakHaptic()
@@ -230,141 +255,44 @@ fun FastbootScreen(
                 innerPillPadding = PaddingValues(0.dp)
             )
 
-            AutoResizeableText(
-                modifier = Modifier.padding(bottom = 10.dp, start = 5.dp, end = 5.dp),
-                text = stringResource(R.string.device_info),
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.primary
-            )
+            when (selectedTabIndex) {
+                FastbootTabs.DASHBOARD -> DashboardTabContent(
+                    isConnected = isConnected,
+                    deviceInfo = deviceInfo,
+                    onFlashClick = { showFlashPartitionBottomSheet = true },
+                    onGetVariablesClick = { showGetVariablesBottomSheet = true },
+                    onWipeDataClick = { showWipeDataBottomSheet = true },
+                    onRebootOptionsClick = { showRebootOptionsDialog = true }
+                )
 
-            ConnectedDeviceCard(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 10.dp),
-                isConnected = isConnected,
-                deviceName = deviceInfo?.product,
-                serialNumber = deviceInfo?.serialNo,
-                variant = deviceInfo?.variant,
-                bootloaderVersion = deviceInfo?.bootloaderVersion,
-                basebandVersion = deviceInfo?.basebandVersion,
-                securityPatch = deviceInfo?.securityPatchLevel,
-                batteryLevel = deviceInfo?.batteryLevel
-            )
-
-            FlexBox(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 25.dp),
-                config = {
-                    direction(FlexDirection.Row)
-                    wrap(FlexWrap.Wrap)
-                    gap(10.dp)
-                    alignItems(FlexAlignItems.Stretch)
+                FastbootTabs.COMMANDS -> {
+                    CommandConsoleSheetContent(
+                        commandOutput = commandOutput,
+                        isConnected = isConnected,
+                        onSendCommand = { viewModel.sendCommand(it) },
+                        onClearOutput = { viewModel.clearOutput() },
+                        modifier = Modifier.padding(bottom = sheetPeekHeight + 16.dp)
+                    )
                 }
-            ) {
-                ActiveSlotsCard(
-                    modifier = Modifier.flex { grow(1f) },
-                    activeSlotIsA = deviceInfo?.currentSlot?.contains(
-                        other = "A",
-                        ignoreCase = true
-                    ) == true,
-                    activeSlotIsB = deviceInfo?.currentSlot?.contains(
-                        other = "B",
-                        ignoreCase = true
-                    ) == true
-                )
 
-                UnlockStatusCard(
-                    modifier = Modifier.flex { grow(1f) },
-                    isUnlocked = deviceInfo?.isUnlocked
-                )
-            }
-
-            AutoResizeableText(
-                modifier = Modifier.padding(bottom = 10.dp, start = 5.dp, end = 5.dp),
-                text = stringResource(R.string.quick_tools),
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.primary
-            )
-
-            FlexBox(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 10.dp),
-                config = {
-                    direction(FlexDirection.Row)
-                    wrap(FlexWrap.Wrap)
-                    gap(10.dp)
-                    alignItems(FlexAlignItems.Stretch)
+                FastbootTabs.LOGS -> {
+                    FastbootLogsSection(
+                        commandHistory = commandHistory,
+                        onClearHistory = { viewModel.clearHistory() },
+                        modifier = Modifier.padding(bottom = 24.dp)
+                    )
                 }
-            ) {
-                FastbootQuickToolsCard(
-                    modifier = Modifier.flex { grow(1f) },
-                    title = stringResource(R.string.flash),
-                    painter = painterResource(R.drawable.ic_bolt),
-                    enabled = isConnected,
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.errorContainer,
-                        contentColor = MaterialTheme.colorScheme.onErrorContainer
-                    ),
-                    onClick = { showFlashPartitionBottomSheet = true }
-                )
-
-                FastbootQuickToolsCard(
-                    modifier = Modifier.flex { grow(1f) },
-                    title = stringResource(R.string.get_variables),
-                    painter = painterResource(R.drawable.ic_list_alt),
-                    enabled = isConnected,
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceContainer,
-                        contentColor = MaterialTheme.colorScheme.onSurface
-                    ),
-                    onClick = { showGetVariablesBottomSheet = true }
-                )
-
-                FastbootQuickToolsCard(
-                    modifier = Modifier.flex { grow(1f) },
-                    title = stringResource(R.string.wipe_data),
-                    painter = painterResource(R.drawable.ic_delete_sweep),
-                    enabled = isConnected,
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.errorContainer,
-                        contentColor = MaterialTheme.colorScheme.onErrorContainer
-                    ),
-                    onClick = { showWipeDataBottomSheet = true }
-                )
-
-                FastbootQuickToolsCard(
-                    modifier = Modifier.flex { grow(1f) },
-                    title = stringResource(R.string.reboot_options),
-                    painter = painterResource(R.drawable.ic_settings_backup_restore),
-                    enabled = isConnected,
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                    ),
-                    onClick = { showRebootOptionsDialog = true }
-                )
             }
-
-            /* QuickActionsSection(
-                 isConnected = isConnected,
-                 onReboot = { mode ->
-                     pendingRebootMode = mode
-                     showRebootConfirmDialog = true
-                 }
-             )*/
         }
     }
 
+    // Modal bottom sheets and dialogs (these are fine as modals — they're intentionally blocking)
     if (showDeviceWaitingDialog) {
         FastbootDeviceWaitingDialog(
             onDismiss = { showDeviceWaitingDialog = false },
             onConfirm = {
                 showDeviceWaitingDialog = false
-                if (disconnected) {
-                    viewModel.startScan()
-                }
+                if (disconnected) viewModel.startScan()
             }
         )
     }
@@ -406,8 +334,158 @@ fun FastbootScreen(
     }
 }
 
+@Composable
+private fun DashboardTabContent(
+    isConnected: Boolean,
+    deviceInfo: FastbootDeviceInfo?,
+    onFlashClick: () -> Unit,
+    onGetVariablesClick: () -> Unit,
+    onWipeDataClick: () -> Unit,
+    onRebootOptionsClick: () -> Unit,
+) {
+    AutoResizeableText(
+        modifier = Modifier.padding(bottom = 10.dp, start = 5.dp, end = 5.dp),
+        text = stringResource(R.string.device_info),
+        style = MaterialTheme.typography.labelLarge,
+        color = MaterialTheme.colorScheme.primary
+    )
+
+    ConnectedDeviceCard(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 10.dp),
+        isConnected = isConnected,
+        deviceName = deviceInfo?.product,
+        serialNumber = deviceInfo?.serialNo,
+        variant = deviceInfo?.variant,
+        bootloaderVersion = deviceInfo?.bootloaderVersion,
+        basebandVersion = deviceInfo?.basebandVersion,
+        securityPatch = deviceInfo?.securityPatchLevel,
+        batteryLevel = deviceInfo?.batteryLevel
+    )
+
+    FlexBox(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 25.dp),
+        config = {
+            direction(FlexDirection.Row)
+            wrap(FlexWrap.Wrap)
+            gap(10.dp)
+            alignItems(FlexAlignItems.Stretch)
+        }
+    ) {
+        ActiveSlotsCard(
+            modifier = Modifier.flex { grow(1f) },
+            activeSlotIsA = deviceInfo?.currentSlot?.contains("A", ignoreCase = true) == true,
+            activeSlotIsB = deviceInfo?.currentSlot?.contains("B", ignoreCase = true) == true
+        )
+        UnlockStatusCard(
+            modifier = Modifier.flex { grow(1f) },
+            isUnlocked = deviceInfo?.isUnlocked
+        )
+    }
+
+    AutoResizeableText(
+        modifier = Modifier.padding(bottom = 10.dp, start = 5.dp, end = 5.dp),
+        text = stringResource(R.string.quick_tools),
+        style = MaterialTheme.typography.labelLarge,
+        color = MaterialTheme.colorScheme.primary
+    )
+
+    FlexBox(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 10.dp),
+        config = {
+            direction(FlexDirection.Row)
+            wrap(FlexWrap.Wrap)
+            gap(10.dp)
+            alignItems(FlexAlignItems.Stretch)
+        }
+    ) {
+        FastbootQuickToolsCard(
+            modifier = Modifier.flex { grow(1f) },
+            title = stringResource(R.string.flash),
+            painter = painterResource(R.drawable.ic_bolt),
+            enabled = isConnected,
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.errorContainer,
+                contentColor = MaterialTheme.colorScheme.onErrorContainer
+            ),
+            onClick = onFlashClick
+        )
+        FastbootQuickToolsCard(
+            modifier = Modifier.flex { grow(1f) },
+            title = stringResource(R.string.get_variables),
+            painter = painterResource(R.drawable.ic_list_alt),
+            enabled = isConnected,
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceContainer,
+                contentColor = MaterialTheme.colorScheme.onSurface
+            ),
+            onClick = onGetVariablesClick
+        )
+        FastbootQuickToolsCard(
+            modifier = Modifier.flex { grow(1f) },
+            title = stringResource(R.string.wipe_data),
+            painter = painterResource(R.drawable.ic_delete_sweep),
+            enabled = isConnected,
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.errorContainer,
+                contentColor = MaterialTheme.colorScheme.onErrorContainer
+            ),
+            onClick = onWipeDataClick
+        )
+        FastbootQuickToolsCard(
+            modifier = Modifier.flex { grow(1f) },
+            title = stringResource(R.string.reboot_options),
+            painter = painterResource(R.drawable.ic_settings_backup_restore),
+            enabled = isConnected,
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+            ),
+            onClick = onRebootOptionsClick
+        )
+    }
+}
+
 object FastbootTabs {
     const val DASHBOARD = 0
     const val COMMANDS = 1
     const val LOGS = 2
+}
+
+@Composable
+private fun PredefinedCommandsSheetContent(
+    isConnected: Boolean,
+    runningCommandId: String?,
+    onRunCommand: (commandId: String, command: String) -> Unit,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = 16.dp)
+            .padding(bottom = 24.dp)
+    ) {
+        AutoResizeableText(
+            modifier = Modifier.padding(bottom = 4.dp, start = 4.dp),
+            text = stringResource(R.string.predefined_commands),
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.primary
+        )
+        AutoResizeableText(
+            modifier = Modifier.padding(bottom = 16.dp, start = 4.dp),
+            text = stringResource(R.string.predefined_commands_desc),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        FastbootCommandsSection(
+            isConnected = isConnected,
+            runningCommandId = runningCommandId,
+            onRunCommand = onRunCommand,
+        )
+    }
 }

@@ -1,23 +1,21 @@
 package `in`.hridayan.ashell.commandexamples.presentation.viewmodel
 
-
 import android.content.Context
-import androidx.compose.runtime.Stable
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.commandexamples.presentation.model.CmdExamplesScreenState
-import `in`.hridayan.ashell.core.common.settings.SettingsKeys
+import `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException
 import `in`.hridayan.ashell.core.common.domain.model.CommandEntity
 import `in`.hridayan.ashell.core.common.domain.model.SortType
-import `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException
 import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
 import `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository
 import `in`.hridayan.ashell.core.common.domain.repository.CommandRepository
 import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.core.common.domain.usecase.ai.AnalyzeCommandUseCase
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.model.AiAnalysisUiState
 import `in`.hridayan.ashell.core.resources.R
 import kotlinx.coroutines.Dispatchers
@@ -36,7 +34,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-@Stable
 @HiltViewModel
 class CommandExamplesViewModel @Inject constructor(
     private val commandRepository: CommandRepository,

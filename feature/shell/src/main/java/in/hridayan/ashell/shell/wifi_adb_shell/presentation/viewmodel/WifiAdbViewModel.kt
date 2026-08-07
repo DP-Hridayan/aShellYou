@@ -2,15 +2,14 @@ package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel
 
 import android.graphics.Bitmap
 import android.util.Log
-import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
-import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.DiscoveredPairingService
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbConnection
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbDevice
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbState
+import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.DiscoveredPairingService
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,7 +17,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@Stable
 @HiltViewModel
 class WifiAdbViewModel @Inject constructor(
     private val wifiAdbRepository: WifiAdbRepository
@@ -192,9 +190,6 @@ class WifiAdbViewModel @Inject constructor(
     fun stopQrPairDiscovery() {
         wifiAdbRepository.stopMdnsDiscovery()
     }
-
-
-    // ============ "Pair Using Code" Tab Methods ============
 
     /**
      * Start discovery for both pairing and connect services.

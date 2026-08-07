@@ -1,6 +1,5 @@
 package `in`.hridayan.ashell.core.presentation.theme
 
-import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +12,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@Stable
 @HiltViewModel
 class UserGeneratedColorSchemeViewModel @Inject constructor(
     private val customColorSchemeDao: CustomColorSchemeDao

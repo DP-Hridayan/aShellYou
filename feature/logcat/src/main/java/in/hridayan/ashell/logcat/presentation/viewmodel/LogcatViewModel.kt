@@ -1,7 +1,6 @@
 package `in`.hridayan.ashell.logcat.presentation.viewmodel
 
 import android.content.Context
-import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -36,7 +35,6 @@ import javax.inject.Inject
 
 private const val MAX_LOGS = 2000
 
-@Stable
 @HiltViewModel
 class LogcatViewModel @Inject constructor(
     private val sessionHolder: LogcatSessionHolder,
@@ -48,17 +46,17 @@ class LogcatViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
 ) : ViewModel() {
 
-    // ── Service running state ─────────────────────────────────────────────
     val isRunning: StateFlow<Boolean> = sessionHolder.isRunning
 
-    // ── Pre-flight ────────────────────────────────────────────────────────
     private val _preflightResult = MutableStateFlow<LogcatPreflightResult?>(null)
     val preflightResult: StateFlow<LogcatPreflightResult?> = _preflightResult.asStateFlow()
 
     private val _preflightChecking = MutableStateFlow(false)
     val preflightChecking: StateFlow<Boolean> = _preflightChecking.asStateFlow()
 
-    fun consumePreflight() { _preflightResult.value = null }
+    fun consumePreflight() {
+        _preflightResult.value = null
+    }
 
     /**
      * Run the pre-flight check for [mode], then:
@@ -81,30 +79,30 @@ class LogcatViewModel @Inject constructor(
     fun startLogcat() = LogcatService.start(context)
     fun stopLogcat() = LogcatService.stop(context)
 
-    // ── Shizuku permission state (for auto-start after grant) ─────────────
     val shizukuPermissionState: StateFlow<Boolean> =
         shellRepository.shizukuPermissionState()
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
 
     fun requestShizukuPermission() = shellRepository.requestShizukuPermission()
 
-    // ── Current logcat mode — read by the Screen via LocalSettings ──────────
-    // (no repository needed here; mode changes trigger restart from the UI)
-
-    // ── Tabs (0 = This Device, 1 = Other Device) ──────────────────────────
     private val _activeTab = MutableStateFlow(0)
     val activeTab: StateFlow<Int> = _activeTab.asStateFlow()
 
-    fun switchTab(tab: Int) { _activeTab.value = tab }
+    fun switchTab(tab: Int) {
+        _activeTab.value = tab
+    }
 
-    // ── This Device auto-scroll ───────────────────────────────────────────
     private val _isAutoScrolling = MutableStateFlow(true)
     val isAutoScrolling: StateFlow<Boolean> = _isAutoScrolling.asStateFlow()
 
-    fun pauseAutoScroll() { _isAutoScrolling.value = false }
-    fun resumeAutoScroll() { _isAutoScrolling.value = true }
+    fun pauseAutoScroll() {
+        _isAutoScrolling.value = false
+    }
 
-    // ── Other Device connection state ──────────────────────────────────────
+    fun resumeAutoScroll() {
+        _isAutoScrolling.value = true
+    }
+
     val otgState: StateFlow<OtgState> = OtgConnection.state
     val wifiAdbState: StateFlow<WifiAdbState> = WifiAdbConnection.state
 
@@ -117,7 +115,6 @@ class LogcatViewModel @Inject constructor(
                 (wifi is WifiAdbState.Connected && device?.isOwnDevice == false)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
 
-    // ── Other Device logs ─────────────────────────────────────────────────
     private val _otherLogs = MutableStateFlow<List<LogEntry>>(emptyList())
     val otherDeviceLogs: StateFlow<List<LogEntry>> = _otherLogs.asStateFlow()
     private var otherDeviceJob: Job? = null
@@ -125,8 +122,13 @@ class LogcatViewModel @Inject constructor(
     private val _isOtherAutoScrolling = MutableStateFlow(true)
     val isOtherAutoScrolling: StateFlow<Boolean> = _isOtherAutoScrolling.asStateFlow()
 
-    fun pauseOtherAutoScroll() { _isOtherAutoScrolling.value = false }
-    fun resumeOtherAutoScroll() { _isOtherAutoScrolling.value = true }
+    fun pauseOtherAutoScroll() {
+        _isOtherAutoScrolling.value = false
+    }
+
+    fun resumeOtherAutoScroll() {
+        _isOtherAutoScrolling.value = true
+    }
 
     fun startOtherDeviceLogs(emitter: LogcatEmitter) {
         otherDeviceJob?.cancel()
@@ -149,23 +151,20 @@ class LogcatViewModel @Inject constructor(
         _otherLogs.value = emptyList()
     }
 
-    // ── This Device logs ──────────────────────────────────────────────────
     private val _logs = MutableStateFlow<List<LogEntry>>(emptyList())
     val logs: StateFlow<List<LogEntry>> = _logs.asStateFlow()
 
-    // ── Filter ────────────────────────────────────────────────────────────
     private val _activeFilter = MutableStateFlow(LogFilter())
     val activeFilter: StateFlow<LogFilter> = _activeFilter.asStateFlow()
 
     val savedFilters: StateFlow<List<LogFilter>> = filterRepository.getSavedFilters()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
-    // ── Expanded rows ─────────────────────────────────────────────────────
     private val _expandedIds = MutableStateFlow<Set<Long>>(emptySet())
     val expandedIds: StateFlow<Set<Long>> = _expandedIds.asStateFlow()
 
-    // ── Live log collection ───────────────────────────────────────────────
-    @Volatile private var lastRestoredId: Long = 0L
+    @Volatile
+    private var lastRestoredId: Long = 0L
 
     init {
         lastRestoredId = restoreFromBuffer()
@@ -175,8 +174,6 @@ class LogcatViewModel @Inject constructor(
             }
         }
     }
-
-    // ── Actions ───────────────────────────────────────────────────────────
 
     fun updateFilter(filter: LogFilter) {
         _activeFilter.value = filter
@@ -202,8 +199,6 @@ class LogcatViewModel @Inject constructor(
 
     fun otgEmitter(): LogcatEmitter = emitterFactory.otg
     fun wifiAdbEmitter(): LogcatEmitter = emitterFactory.wifiAdb
-
-    // ── Private helpers ───────────────────────────────────────────────────
 
     private fun restoreFromBuffer(): Long {
         val filter = _activeFilter.value

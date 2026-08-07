@@ -1,6 +1,5 @@
 package `in`.hridayan.ashell.crashreporter.presentation.viewmodel
 
-import androidx.compose.runtime.Stable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -11,7 +10,6 @@ import `in`.hridayan.ashell.crashreporter.domain.repository.CrashRepository
 import jakarta.inject.Inject
 import kotlinx.coroutines.launch
 
-@Stable
 @HiltViewModel
 class CrashViewModel @Inject constructor(
     private val crashRepository: CrashRepository
@@ -24,7 +22,7 @@ class CrashViewModel @Inject constructor(
     private val _crash = mutableStateOf<CrashReport?>(null)
     val crash: State<CrashReport?> = _crash
 
-    private val _sharedElementKey = mutableStateOf<String>("")
+    private val _sharedElementKey = mutableStateOf("")
     val sharedElementKey: State<String> = _sharedElementKey
 
     init {

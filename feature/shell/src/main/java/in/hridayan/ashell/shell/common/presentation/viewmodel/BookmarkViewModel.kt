@@ -1,6 +1,5 @@
 package `in`.hridayan.ashell.shell.common.presentation.viewmodel
 
-import androidx.compose.runtime.Stable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.input.TextFieldValue
@@ -24,7 +23,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-@Stable
 @HiltViewModel
 class BookmarkViewModel @Inject constructor(
     private val repository: BookmarkRepository

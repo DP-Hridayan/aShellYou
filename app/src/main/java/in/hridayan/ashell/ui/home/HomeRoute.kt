@@ -8,19 +8,19 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.core.common.settings.LocalSettings
-import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.common.domain.model.FastbootState
 import `in`.hridayan.ashell.core.common.domain.model.otg.OtgState
+import `in`.hridayan.ashell.core.common.settings.LocalSettings
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
+import `in`.hridayan.ashell.core.presentation.components.dialog.OtgDeviceWaitingDialog
+import `in`.hridayan.ashell.core.ui.otg.OtgViewModel
 import `in`.hridayan.ashell.home.presentation.screens.HomeScreen
 import `in`.hridayan.ashell.home.presentation.viewmodel.HomeViewModel
 import `in`.hridayan.ashell.logcat.presentation.viewmodel.LogcatViewModel
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog.FastbootDeviceWaitingDialog
 import `in`.hridayan.ashell.shell.fastboot.presentation.viewmodel.FastbootViewModel
-import `in`.hridayan.ashell.core.presentation.components.dialog.OtgDeviceWaitingDialog
-import `in`.hridayan.ashell.core.ui.otg.OtgViewModel
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.bottomsheet.SavedDevicesBottomSheet
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairModeChooseDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
@@ -87,6 +87,9 @@ fun HomeRoute(
         },
         onReboot = { cmd ->
             homeViewModel.reboot(cmd)
+        },
+        onSideloadClick = {
+            navController.navigate(NavRoutes.AdbSideloadScreen)
         }
     )
 

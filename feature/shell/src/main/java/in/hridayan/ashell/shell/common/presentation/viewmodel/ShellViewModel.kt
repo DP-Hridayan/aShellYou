@@ -1,10 +1,8 @@
 package `in`.hridayan.ashell.shell.common.presentation.viewmodel
 
-
 import android.app.Activity
 import android.content.Context
 import android.net.Uri
-import androidx.compose.runtime.Stable
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.Dp
@@ -12,19 +10,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import `in`.hridayan.ashell.core.common.settings.SettingsKeys
+import `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException
 import `in`.hridayan.ashell.core.common.domain.model.CommandEntity
 import `in`.hridayan.ashell.core.common.domain.model.OutputLine
 import `in`.hridayan.ashell.core.common.domain.model.SortType
-import `in`.hridayan.ashell.core.common.domain.repository.CommandRepository
-import `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException
 import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
 import `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository
+import `in`.hridayan.ashell.core.common.domain.repository.CommandRepository
+import `in`.hridayan.ashell.core.common.domain.repository.OtgRepository
 import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.core.common.domain.repository.ShellRepository
+import `in`.hridayan.ashell.core.common.domain.tools.FindAppPackageTool
 import `in`.hridayan.ashell.core.common.domain.usecase.ai.AnalyzeCommandUseCase
 import `in`.hridayan.ashell.core.common.domain.usecase.ai.QueryCommandUseCase
-import `in`.hridayan.ashell.core.common.domain.tools.FindAppPackageTool
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.model.AiAnalysisUiState
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.common.data.permission.PermissionProvider
@@ -41,7 +40,6 @@ import `in`.hridayan.ashell.shell.common.presentation.model.ShellScreenState
 import `in`.hridayan.ashell.shell.common.presentation.model.ShellState
 import `in`.hridayan.ashell.shell.domain.model.SaveProgress
 import `in`.hridayan.ashell.shell.domain.utils.saveToFileStreamingFlow
-import `in`.hridayan.ashell.core.common.domain.repository.OtgRepository
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
@@ -59,7 +57,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-@Stable
 @HiltViewModel
 class ShellViewModel @Inject constructor(
     private val shellRepository: ShellRepository,

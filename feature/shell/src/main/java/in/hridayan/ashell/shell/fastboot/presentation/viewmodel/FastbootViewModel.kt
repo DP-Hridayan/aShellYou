@@ -2,10 +2,8 @@
 
 package `in`.hridayan.ashell.shell.fastboot.presentation.viewmodel
 
-
 import android.net.Uri
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,7 +21,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@Stable
 @HiltViewModel
 class FastbootViewModel @Inject constructor(
     private val repository: FastbootRepository
@@ -49,7 +46,16 @@ class FastbootViewModel @Inject constructor(
     private val _flashOperation = MutableStateFlow(FlashOperation())
     val flashOperation: StateFlow<FlashOperation> = _flashOperation.asStateFlow()
 
+    // Tracks which predefined command card is currently running (by its unique ID string)
+    private val _runningCommandId = MutableStateFlow<String?>(null)
+    val runningCommandId: StateFlow<String?> = _runningCommandId.asStateFlow()
+
+    // Accumulates real-time output for the command console bottom sheet
+    private val _commandOutput = MutableStateFlow("")
+    val commandOutput: StateFlow<String> = _commandOutput.asStateFlow()
+
     private var flashJob: kotlinx.coroutines.Job? = null
+    private var commandJob: kotlinx.coroutines.Job? = null
 
     fun startScan() = viewModelScope.launch {
         repository.searchDevices()
@@ -81,10 +87,44 @@ class FastbootViewModel @Inject constructor(
         }
     }
 
-    fun sendCommand(command: String) = viewModelScope.launch {
-        repository.sendCommand(command).collect { result ->
-            _commandHistory.value += result
+    /** Send an arbitrary command from the console bottom sheet input field. */
+    fun sendCommand(command: String) {
+        commandJob?.cancel()
+        _commandOutput.value += "\n> $command\n"
+        commandJob = viewModelScope.launch {
+            repository.sendCommand(command).collect { result ->
+                _commandHistory.value += result
+                _commandOutput.value += result.data + "\n"
+            }
         }
+    }
+
+    /** Run a predefined command card identified by [commandId]. */
+    fun runPredefinedCommand(commandId: String, command: String) {
+        if (_runningCommandId.value == commandId) {
+            // Already running — cancel it
+            commandJob?.cancel()
+            commandJob = null
+            _runningCommandId.value = null
+            return
+        }
+        commandJob?.cancel()
+        _runningCommandId.value = commandId
+        _commandOutput.value += "\n> $command\n"
+        commandJob = viewModelScope.launch {
+            try {
+                repository.sendCommand(command).collect { result ->
+                    _commandHistory.value += result
+                    _commandOutput.value += result.data + "\n"
+                }
+            } finally {
+                _runningCommandId.value = null
+            }
+        }
+    }
+
+    fun clearOutput() {
+        _commandOutput.value = ""
     }
 
     fun reboot(mode: RebootMode) {

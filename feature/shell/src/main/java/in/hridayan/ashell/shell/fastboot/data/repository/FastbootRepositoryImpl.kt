@@ -45,6 +45,8 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
 
     private var currentDevice: UsbDevice? = null
     private var deviceContext: FastbootDeviceContext? = null
+    @Volatile
+    private var isConnecting = false
 
     // Fastboot USB interface identifiers
     companion object {
@@ -313,6 +315,15 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
     }
 
     private fun connectToDevice(device: UsbDevice) {
+        val currentState = FastbootConnection.state.value
+        if (isConnecting || currentState is FastbootState.Connected || currentState is FastbootState.Connecting) {
+            Log.d(
+                TAG,
+                "connectToDevice: SKIPPING — already connecting or connected (state=$currentState, isConnecting=$isConnecting)"
+            )
+            return
+        }
+        isConnecting = true
         Log.d(
             TAG,
             "connectToDevice: START device=${device.deviceName}, product=${device.productName}"
@@ -387,6 +398,7 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
                         TAG,
                         "connectToDevice: setting Connected state, name=$name, stateBeforeUpdate=${FastbootConnection.state.value}"
                     )
+                    isConnecting = false
                     FastbootConnection.updateState(
                         FastbootState.Connected(name, device.deviceName)
                     )
@@ -397,6 +409,7 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "connectToDevice: EXCEPTION", e)
+                isConnecting = false
                 withContext(Dispatchers.Main) {
                     FastbootConnection.updateState(
                         FastbootState.Error("Connection failed: ${e.message}")
@@ -650,6 +663,7 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
     }.flowOn(Dispatchers.IO)
 
     override fun disconnect() {
+        isConnecting = false
         try {
             deviceContext?.close()
         } catch (e: Exception) {

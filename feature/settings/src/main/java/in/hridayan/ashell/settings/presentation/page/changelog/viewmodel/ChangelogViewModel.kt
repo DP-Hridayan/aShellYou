@@ -1,6 +1,5 @@
 package `in`.hridayan.ashell.settings.presentation.page.changelog.viewmodel
 
-import androidx.compose.runtime.Stable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -11,8 +10,6 @@ import `in`.hridayan.ashell.settings.domain.usecase.GetAllChangelogsUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
-@Stable
 @HiltViewModel
 class ChangelogViewModel @Inject constructor(
     private val getAllChangelogsUseCase: GetAllChangelogsUseCase

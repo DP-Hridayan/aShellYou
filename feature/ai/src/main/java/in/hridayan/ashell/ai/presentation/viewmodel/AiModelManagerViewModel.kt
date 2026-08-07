@@ -1,6 +1,5 @@
 package `in`.hridayan.ashell.ai.presentation.viewmodel
 
-import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +15,6 @@ import javax.inject.Inject
 /**
  * ViewModel for the AI Model Manager settings screen (Cloud & Cache settings).
  */
-@Stable
 @HiltViewModel
 class AiModelManagerViewModel @Inject constructor(
     private val analysisRepository: AiAnalysisRepository,
