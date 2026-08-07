@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<?xml version='1.0' encoding='utf-8'?>
+<resources xmlns:ns0="http://schemas.android.com/tools" ns0:ignore="MissingTranslation">
     <string name="_import">Імпорт</string>
     <string name="_new">Нове</string>
     <string name="abort_command">Спочатку скасуйте команду</string>
@@ -33,18 +33,13 @@
     <string name="ai_chat_allow">Дозволити</string>
     <string name="ai_chat_allow_run_command">Дозволити AI запустити команду:</string>
     <string name="ai_chat_always_allow">Завжди дозволяти</string>
-    <string name="ai_chat_cancel">Скасувати</string>
-    <string name="ai_chat_delete">Видалити</string>
     <string name="ai_chat_deny">Заперечити</string>
     <string name="ai_chat_new_chat">Новий Чат</string>
     <string name="ai_chat_pin">Закріпки</string>
-    <string name="ai_chat_rename">Перейменувати</string>
     <string name="ai_chat_running">Виконується: </string>
-    <string name="ai_chat_save">Зберегти</string>
     <string name="ai_chat_sessions">Чат сесії</string>
     <string name="ai_chat_thoughts">Думки…</string>
     <string name="ai_chat_unpin">Відкріпити</string>
-    <string name="ai_chat_use">Використати</string>
     <string name="ai_models">AI &amp; Моделі</string>
     <string name="ai_new_chat_welcome_msg">Привіт, що я можу для зробити?</string>
     <string name="ai_prompt_suggestion_1">Перевірити здоров\'я мого акумулятора</string>

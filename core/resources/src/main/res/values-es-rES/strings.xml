@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<?xml version='1.0' encoding='utf-8'?>
+<resources xmlns:ns0="http://schemas.android.com/tools" ns0:ignore="MissingTranslation">
     <string name="_import">Importar</string>
     <string name="_new">Nuevo</string>
     <string name="abort_command">Aborta el comando primero</string>
@@ -33,18 +33,13 @@
     <string name="ai_chat_allow">Permitir</string>
     <string name="ai_chat_allow_run_command">Permitir que la IA ejecute el comando:</string>
     <string name="ai_chat_always_allow">Permitir siempre</string>
-    <string name="ai_chat_cancel">Cancelar</string>
-    <string name="ai_chat_delete">Eliminar</string>
     <string name="ai_chat_deny">Denegar</string>
     <string name="ai_chat_new_chat">Nuevo chat</string>
     <string name="ai_chat_pin">Fijar</string>
-    <string name="ai_chat_rename">Renombrar</string>
     <string name="ai_chat_running">Ejecutar: </string>
-    <string name="ai_chat_save">Guardar</string>
     <string name="ai_chat_sessions">Sesiones de Chat</string>
     <string name="ai_chat_thoughts">Arrojos…</string>
     <string name="ai_chat_unpin">Unpin</string>
-    <string name="ai_chat_use">Usar</string>
     <string name="ai_models">AI &amp; Models</string>
     <string name="ai_new_chat_welcome_msg">Hola, ¿qué puedo hacer por ti?</string>
     <string name="ai_prompt_suggestion_1">Comprobar el estado de mi batería</string>
@@ -688,7 +683,7 @@
     <string name="product">Producto</string>
     <string name="qr_pair">Emparejar por QR</string>
     <string name="qr_pair_hint">Para emparejar un dispositivo con Android 11 o superior, escanea este código QR desde el dispositivo de destino</string>
-    <string name="qr_scanner_location_hint">Escáner QR disponible en:\nOpciones de desarrollador > Depuración inalámbrica > Emparejar dispositivo con código QR</string>
+    <string name="qr_scanner_location_hint">Escáner QR disponible en:\nOpciones de desarrollador &gt; Depuración inalámbrica &gt; Emparejar dispositivo con código QR</string>
     <string name="qs_tiles">Mosaicos de ajustes rápidos</string>
     <string name="quick_tools">Herramientas rápidas</string>
     <string name="reading_file">Leyendo archivo…</string>
@@ -904,7 +899,7 @@
     <string name="wipe_userdata_desc">fastboot borra datos de usuario</string>
     <string name="wipe_userdata_title">Borrar datos de usuario</string>
     <string name="wipe_warning">Estas operaciones son irreversibles. Proceda con precaución.</string>
-    <string name="wireless_debugging_guide_1">Ve a Opciones de desarrollador > Depuración inalámbrica. Toca en Emparejar dispositivo con código de sincronización.</string>
+    <string name="wireless_debugging_guide_1">Ve a Opciones de desarrollador &gt; Depuración inalámbrica. Toca en Emparejar dispositivo con código de sincronización.</string>
     <string name="wireless_debugging_guide_2">Introduce el código de emparejamiento de seis dígitos en la notificación enviada por aShell You.</string>
     <string name="wireless_debugging_guide_3">Vuelve a la aplicación y pulsa el botón \"Iniciar\" en la pantalla principal.</string>
     <string name="wireless_debugging_important_notice">Ten en cuenta que la parte izquierda de la opción Depuración inalámbrica es pulsable. Al tocarla, se abrirá el menú de emparejamiento de Depuración inalámbrica.</string>

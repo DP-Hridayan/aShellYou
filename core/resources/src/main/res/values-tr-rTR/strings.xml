@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<?xml version='1.0' encoding='utf-8'?>
+<resources xmlns:ns0="http://schemas.android.com/tools" ns0:ignore="MissingTranslation">
     <string name="_import">İçe aktar</string>
     <string name="_new">Yeni</string>
     <string name="abort_command">Önce komutu iptal et</string>
@@ -33,18 +33,13 @@
     <string name="ai_chat_allow">İzin Ver</string>
     <string name="ai_chat_allow_run_command">AI\'ın komut çalıştırmasına izin ver:</string>
     <string name="ai_chat_always_allow">Her zaman İzin Ver</string>
-    <string name="ai_chat_cancel">İptal et</string>
-    <string name="ai_chat_delete">Sil</string>
     <string name="ai_chat_deny">Reddet</string>
     <string name="ai_chat_new_chat">Yeni Sohbet</string>
     <string name="ai_chat_pin">Sabitle</string>
-    <string name="ai_chat_rename">Yeniden adlandır</string>
     <string name="ai_chat_running">Çalışıyor: </string>
-    <string name="ai_chat_save">Kaydet</string>
     <string name="ai_chat_sessions">Sohbet Oturumları</string>
     <string name="ai_chat_thoughts">Düşünceler…</string>
     <string name="ai_chat_unpin">Sabitlemeyi Kaldır</string>
-    <string name="ai_chat_use">Kullan</string>
     <string name="ai_models">AI &amp; Modeller</string>
     <string name="ai_new_chat_welcome_msg">Merhaba, size nasıl yardımcı olabilirim?</string>
     <string name="ai_prompt_suggestion_1">Pilimin durumunu kontrol et</string>

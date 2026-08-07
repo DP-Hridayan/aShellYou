@@ -151,7 +151,7 @@ fun FastbootScreen(
     }
 
     // peekHeight: visible sheet peek only on Commands tab
-    val sheetPeekHeight = if (selectedTabIndex == FastbootTabs.COMMANDS) 240.dp else 0.dp
+    val sheetPeekHeight = if (selectedTabIndex == FastbootTabs.COMMANDS) 180.dp else 0.dp
 
     BottomSheetScaffold(
         scaffoldState = scaffoldState,
@@ -476,7 +476,7 @@ private fun PredefinedCommandsSheetContent(
             style = MaterialTheme.typography.labelLarge,
             color = MaterialTheme.colorScheme.primary
         )
-        AutoResizeableText(
+        Text(
             modifier = Modifier.padding(bottom = 16.dp, start = 4.dp),
             text = stringResource(R.string.predefined_commands_desc),
             style = MaterialTheme.typography.bodySmall,

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<?xml version='1.0' encoding='utf-8'?>
+<resources xmlns:ns0="http://schemas.android.com/tools" ns0:ignore="MissingTranslation">
     <string name="_import">Nhập</string>
     <string name="_new">Mới</string>
     <string name="abort_command">Hủy lệnh trước</string>
@@ -33,18 +33,13 @@
     <string name="ai_chat_allow">Cho phép</string>
     <string name="ai_chat_allow_run_command">Cho phép AI chạy lệnh:</string>
     <string name="ai_chat_always_allow">Luôn cho phép</string>
-    <string name="ai_chat_cancel">Hủy</string>
-    <string name="ai_chat_delete">Xóa</string>
     <string name="ai_chat_deny">Từ chối</string>
     <string name="ai_chat_new_chat">Đoạn chat mới</string>
     <string name="ai_chat_pin">Ghim</string>
-    <string name="ai_chat_rename">Đổi tên</string>
     <string name="ai_chat_running">Đang chạy: </string>
-    <string name="ai_chat_save">Lưu</string>
     <string name="ai_chat_sessions">Phiên chat</string>
     <string name="ai_chat_thoughts">Đang suy nghĩ…</string>
     <string name="ai_chat_unpin">Bỏ ghim</string>
-    <string name="ai_chat_use">Sử dụng</string>
     <string name="ai_models">AI &amp; Mô hình</string>
     <string name="ai_new_chat_welcome_msg">Xin chào, tôi có thể giúp gì cho bạn?</string>
     <string name="ai_prompt_suggestion_1">Kiểm tra tình trạng pin của tôi</string>

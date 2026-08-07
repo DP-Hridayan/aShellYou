@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<?xml version='1.0' encoding='utf-8'?>
+<resources xmlns:ns0="http://schemas.android.com/tools" ns0:ignore="MissingTranslation">
     <string name="_import">インポート</string>
     <string name="_new">新規作成</string>
     <string name="abort_command">実行中のコマンドを終了してください</string>
@@ -33,18 +33,13 @@
     <string name="ai_chat_allow">許可する</string>
     <string name="ai_chat_allow_run_command">AIにコマンドの実行を許可:</string>
     <string name="ai_chat_always_allow">常に許可する</string>
-    <string name="ai_chat_cancel">キャンセル</string>
-    <string name="ai_chat_delete">削除</string>
     <string name="ai_chat_deny">拒否</string>
     <string name="ai_chat_new_chat">新しいチャット</string>
     <string name="ai_chat_pin">ピン留めする</string>
-    <string name="ai_chat_rename">名前の変更</string>
     <string name="ai_chat_running">実行中: </string>
-    <string name="ai_chat_save">保存</string>
     <string name="ai_chat_sessions">チャットセッション</string>
     <string name="ai_chat_thoughts">…</string>
     <string name="ai_chat_unpin">Unpin</string>
-    <string name="ai_chat_use">使用</string>
     <string name="ai_models">AI &amp; Models</string>
     <string name="ai_new_chat_welcome_msg">こんにちは、何ができますか？</string>
     <string name="ai_prompt_suggestion_1">バッテリーの状態を確認する</string>

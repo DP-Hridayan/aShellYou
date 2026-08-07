@@ -81,7 +81,6 @@ fun CommandConsoleSheetContent(
         modifier = modifier
             .fillMaxWidth()
             .imePadding()
-            .padding(horizontal = 16.dp)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),

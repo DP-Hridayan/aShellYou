@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<?xml version='1.0' encoding='utf-8'?>
+<resources xmlns:ns0="http://schemas.android.com/tools" ns0:ignore="MissingTranslation">
     <string name="_import">Importation</string>
     <string name="_new">Nouveau</string>
     <string name="abort_command">Interrompez d\'abord la commande</string>
@@ -33,18 +33,13 @@
     <string name="ai_chat_allow">Autoriser</string>
     <string name="ai_chat_allow_run_command">Autoriser AI à exécuter la commande :</string>
     <string name="ai_chat_always_allow">Toujours autoriser</string>
-    <string name="ai_chat_cancel">Abandonner</string>
-    <string name="ai_chat_delete">Supprimez</string>
     <string name="ai_chat_deny">Refuser</string>
     <string name="ai_chat_new_chat">Nouveau chat</string>
     <string name="ai_chat_pin">Épingler</string>
-    <string name="ai_chat_rename">Renommer</string>
     <string name="ai_chat_running">En cours: </string>
-    <string name="ai_chat_save">Enregistrer</string>
     <string name="ai_chat_sessions">Sessions de chat</string>
     <string name="ai_chat_thoughts">Penser…</string>
     <string name="ai_chat_unpin">Unpin</string>
-    <string name="ai_chat_use">Utiliser</string>
     <string name="ai_models">IA &amp; Modèles</string>
     <string name="ai_new_chat_welcome_msg">Bonjour, que puis-je faire pour vous?</string>
     <string name="ai_prompt_suggestion_1">Vérifier l\'état de ma batterie</string>

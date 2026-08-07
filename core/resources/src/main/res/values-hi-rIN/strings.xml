@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<?xml version='1.0' encoding='utf-8'?>
+<resources xmlns:ns0="http://schemas.android.com/tools" ns0:ignore="MissingTranslation">
     <string name="_import">आयात करें</string>
     <string name="_new">नया</string>
     <string name="abort_command">पहले आदेश निरस्त करें</string>
@@ -33,18 +33,13 @@
     <string name="ai_chat_allow">अनुमति दें</string>
     <string name="ai_chat_allow_run_command">AI को कमांड चलाने की अनुमति दें:</string>
     <string name="ai_chat_always_allow">हमेशा अनुमति दें</string>
-    <string name="ai_chat_cancel">रद्द करें</string>
-    <string name="ai_chat_delete">हटाएं</string>
     <string name="ai_chat_deny">इनकार करें</string>
     <string name="ai_chat_new_chat">नई चैट</string>
     <string name="ai_chat_pin">पिन करें</string>
-    <string name="ai_chat_rename">नाम बदलें</string>
     <string name="ai_chat_running">चल रहा है: </string>
-    <string name="ai_chat_save">सेव करें</string>
     <string name="ai_chat_sessions">चैट सत्र</string>
     <string name="ai_chat_thoughts">विचार…</string>
     <string name="ai_chat_unpin">अनपिन करें</string>
-    <string name="ai_chat_use">उपयोग करें</string>
     <string name="ai_models">AI &amp; मॉडल</string>
     <string name="ai_new_chat_welcome_msg">नमस्ते, मैं आपके लिए क्या कर सकता हूं?</string>
     <string name="ai_prompt_suggestion_1">मेरी बैटरी का स्वास्थ्य जांचें</string>
