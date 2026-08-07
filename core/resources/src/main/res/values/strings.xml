@@ -155,17 +155,17 @@
     <string name="color_role_error">Error</string>
     <string name="color_role_error_container">Error Container</string>
     <string name="color_role_main_accent">Main Accent (Primary)</string>
-    <string name="color_role_on_background" context="The color used for text and icons drawn on top of the background color">On Background</string>
-    <string name="color_role_on_error" context="The color used for text and icons drawn on top of the error color">On Error</string>
-    <string name="color_role_on_error_container" context="The color used for text and icons drawn on top of the error container color">On Error Container</string>
-    <string name="color_role_on_primary" context="The color used for text and icons drawn on top of the primary color">On Primary</string>
-    <string name="color_role_on_primary_container" context="The color used for text and icons drawn on top of the primary container color">On Primary Container</string>
-    <string name="color_role_on_secondary" context="The color used for text and icons drawn on top of the secondary color">On Secondary</string>
-    <string name="color_role_on_secondary_container" context="The color used for text and icons drawn on top of the secondary container color">On Secondary Container</string>
-    <string name="color_role_on_surface" context="The color used for text and icons drawn on top of the surface color">On Surface</string>
-    <string name="color_role_on_surface_variant" context="The color used for text and icons drawn on top of the surface variant color">On Surface Variant</string>
-    <string name="color_role_on_tertiary" context="The color used for text and icons drawn on top of the tertiary color">On Tertiary</string>
-    <string name="color_role_on_tertiary_container" context="The color used for text and icons drawn on top of the tertiary container color">On Tertiary Container</string>
+    <string name="color_role_on_background" comment="The color used for text and icons drawn on top of the background color">On Background</string>
+    <string name="color_role_on_error" comment="The color used for text and icons drawn on top of the error color">On Error</string>
+    <string name="color_role_on_error_container" comment="The color used for text and icons drawn on top of the error container color">On Error Container</string>
+    <string name="color_role_on_primary" comment="The color used for text and icons drawn on top of the primary color">On Primary</string>
+    <string name="color_role_on_primary_container" comment="The color used for text and icons drawn on top of the primary container color">On Primary Container</string>
+    <string name="color_role_on_secondary" comment="The color used for text and icons drawn on top of the secondary color">On Secondary</string>
+    <string name="color_role_on_secondary_container" comment="The color used for text and icons drawn on top of the secondary container color">On Secondary Container</string>
+    <string name="color_role_on_surface" comment="The color used for text and icons drawn on top of the surface color">On Surface</string>
+    <string name="color_role_on_surface_variant" comment="The color used for text and icons drawn on top of the surface variant color">On Surface Variant</string>
+    <string name="color_role_on_tertiary" comment="The color used for text and icons drawn on top of the tertiary color">On Tertiary</string>
+    <string name="color_role_on_tertiary_container" comment="The color used for text and icons drawn on top of the tertiary container color">On Tertiary Container</string>
     <string name="color_role_outline">Outline</string>
     <string name="color_role_outline_variant">Outline Variant</string>
     <string name="color_role_primary">Primary</string>
