@@ -1,115 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="_import" comment="Action button to import theme or database file">导入</string>
-    <string name="_new" comment="Badge or tab label for new items">新的</string>
+    <string name="_new" comment="Badge or tab label for new items">新</string>
     <string name="abort_command" comment="Toast warning shown when trying to perform an action while an ADB shell command is currently running">先中止命令</string>
     <string name="about">关于</string>
-    <string name="active" comment="Status indicator label for active ADB connection or active slot">已启用</string>
-    <string name="active_slot" comment="Refers to the active A/B partition slot on a dual-slot Android device">活动栏位</string>
+    <string name="active" comment="Status indicator label for active ADB connection or active slot">活动</string>
+    <string name="active_slot" comment="Refers to the active A/B partition slot on a dual-slot Android device">活动槽位</string>
     <string name="adb_agent" comment="Name of the AI chat assistant persona in aShellYou">ADB 代理</string>
     <string name="adb_command" comment="Input field label for typing an ADB shell command">ADB 命令</string>
-    <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">ADB 命令(OFF 状态)</string>
-    <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">ADB 命令 (ON 状态)</string>
-    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB 连接 — 确保设备处于侧边载模式</string>
+    <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">ADB 命令（关闭状态）</string>
+    <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">ADB 命令（开启状态）</string>
+    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB 已连接 — 请确保设备处于 sideload 模式</string>
     <string name="adb_connection_active" comment="Foreground notification title when an ADB connection (Wireless/OTG) is currently active">ADB 连接已启用</string>
     <string name="adb_connection_channel_description" comment="Android notification channel description in System Settings for ADB connection status">ADB 连接激活时显示</string>
     <string name="adb_connection_channel_name" comment="Android notification channel name in System Settings for active ADB connections">ADB 连接</string>
     <string name="adb_connection_description" comment="Notification body text indicating an active background Wi-Fi ADB connection">WiFi ADB 连接正在维护中</string>
-    <string name="adb_sideload" comment="Feature title for pushing and installing ZIP update packages to device recovery via ADB sideload over USB OTG">ADB 天体负载</string>
+    <string name="adb_sideload" comment="Feature title for pushing and installing ZIP update packages to device recovery via ADB sideload over USB OTG">ADB Sideload</string>
     <string name="adb_through_otg" comment="Title for USB OTG ADB connection mode where this device controls a target device over OTG cable">通过 OTG 使用 ADB</string>
     <string name="adb_through_otg_summary" comment="Summary description of ADB OTG feature in connection selection screen">使用OTG线为另一个安卓设备执行ADB命令。在此之前，你需要为目标设备启用USB调试。</string>
-    <string name="adb_via_otg" comment="Compact label for ADB connection via USB OTG cable">通过 OTG 进行ADB</string>
+    <string name="adb_via_otg" comment="Compact label for ADB connection via USB OTG cable">ADB via OTG</string>
     <string name="adb_via_wireless_debugging" comment="Feature title for wireless ADB connection on Android 11+ devices">无线ADB</string>
     <string name="adb_via_wireless_debugging_summary" comment="Summary description for wireless ADB feature in connection setup screen">通过“无线调试”功能（安卓11及以上）实现远程执行ADB命令。</string>
     <string name="add">添加</string>
-    <string name="add_account" comment="Button label in cloud backup settings to link a Google account for backup sync">添加帐户</string>
+    <string name="add_account" comment="Button label in cloud backup settings to link a Google account for backup sync">添加账号</string>
     <string name="add_api_key" comment="Button label in AI settings to input a custom LLM provider API key">添加 API 密钥</string>
     <string name="add_command" comment="Button label to create and save a new command snippet to database">添加命令</string>
     <string name="add_new_item" comment="Generic button label to add a new list entry">添加新项目</string>
-    <string name="additional_settings" comment="Category header in app settings">额外设置</string>
+    <string name="additional_settings" comment="Category header in app settings">更多设置</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">缓存持续时间</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">启用缓存</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">允许</string>
     <string name="ai_chat_allow_run_command" comment="Dialog header asking user permission for AI assistant to execute a specific ADB command">允许 AI 运行命令：</string>
     <string name="ai_chat_always_allow" comment="Button in AI chat dialog to grant permanent permission for AI agent to run proposed command">总是允许</string>
     <string name="ai_chat_deny" comment="Button in AI chat dialog to reject proposed command execution">拒绝</string>
-    <string name="ai_chat_new_chat" comment="Action button to start a fresh conversation session with AI ADB agent">新建聊天</string>
+    <string name="ai_chat_new_chat" comment="Action button to start a fresh conversation session with AI ADB agent">新聊天</string>
     <string name="ai_chat_pin" comment="Action button to pin an AI chat conversation to top of list">置顶</string>
-    <string name="ai_chat_running" comment="Prefix label in AI chat card indicating an ADB command is currently executing">正在运行： </string>
+    <string name="ai_chat_running" comment="Prefix label in AI chat card indicating an ADB command is currently executing">Running: </string>
     <string name="ai_chat_sessions" comment="Header title for stored AI chat conversations list">聊天会话</string>
-    <string name="ai_chat_thoughts" comment="Collapsible section title showing step-by-step reasoning/thinking of AI model">灵魂的…</string>
-    <string name="ai_chat_unpin" comment="Action button to unpin a pinned AI chat session">Unpin</string>
-    <string name="ai_models" comment="Settings header for configuring AI models and API credentials">AI &amp; Models</string>
-    <string name="ai_new_chat_welcome_msg" comment="Initial welcome message from AI ADB Agent when starting a new chat session">您好，我可以为您做些什么？</string>
-    <string name="ai_prompt_suggestion_1" comment="Clickable suggestion chip prompt in AI chat for checking battery health">检查我的电池健康</string>
+    <string name="ai_chat_thoughts" comment="Collapsible section title showing step-by-step reasoning/thinking of AI model">思考过程…</string>
+    <string name="ai_chat_unpin" comment="Action button to unpin a pinned AI chat session">取消置顶</string>
+    <string name="ai_models" comment="Settings header for configuring AI models and API credentials">AI &amp; 模型</string>
+    <string name="ai_new_chat_welcome_msg" comment="Initial welcome message from AI ADB Agent when starting a new chat session">你好，有什么我可以帮您的吗？</string>
+    <string name="ai_prompt_suggestion_1" comment="Clickable suggestion chip prompt in AI chat for checking battery health">检查我的电池健康状况</string>
     <string name="ai_prompt_suggestion_2" comment="Clickable suggestion chip prompt in AI chat for listing installed package names">列出所有已安装的软件包</string>
-    <string name="ai_prompt_suggestion_3" comment="Clickable suggestion chip prompt in AI chat for creating Quick Settings tiles">帮助我创建一个快速设置瓷块</string>
+    <string name="ai_prompt_suggestion_3" comment="Clickable suggestion chip prompt in AI chat for creating Quick Settings tiles">帮我创建一个快捷设置磁贴</string>
     <string name="ai_session_search_hint" comment="Placeholder text in AI chat session search bar">搜索聊天…</string>
-    <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">例如：Cyberpunk neon 城市，黑暗模式，高对比度</string>
-    <string name="all">所有的</string>
-    <string name="all_data" comment="Option in backup selector to include full app database, settings, and chat history">所有数据</string>
+    <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">例如赛博朋克霓虹城市、深色模式、高对比度</string>
+    <string name="all">全部</string>
+    <string name="all_data" comment="Option in backup selector to include full app database, settings, and chat history">全部数据</string>
     <string name="already_connected" comment="Status message in wireless ADB setup screen indicating device is already connected">已连接</string>
-    <string name="already_latest_version" comment="In-app updater message when user is running the most recent version of aShellYou">你使用的是最新版</string>
-    <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">总是允许基础</string>
-    <string name="always_allow_exact" comment="Permission rule option in AI chat: automatically approve commands matching exact command string">总是允许精确的</string>
+    <string name="already_latest_version" comment="In-app updater message when user is running the most recent version of aShellYou">您正在使用最新版本</string>
+    <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">始终允许基础命令</string>
+    <string name="always_allow_exact" comment="Permission rule option in AI chat: automatically approve commands matching exact command string">始终允许精确命令</string>
     <string name="analyse" comment="Action button to request AI analysis of command execution output or error log">分析</string>
     <string name="api_key" comment="Label for AI provider API key text input field">API 密钥</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">API 密钥已保存</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">需要 API 密钥</string>
-    <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">使用 AI 功能需要一个 API 密钥。请在 设置 -&gt; 云模式中添加您的 API 密钥。</string>
+    <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">An API key is required to use AI features. Please add your API key in Settings &gt; Cloud Models.</string>
     <string name="app">应用</string>
-    <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">软件崩溃了: (1ww</string>
+    <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">软件崩溃了</string>
     <string name="app_tagline" comment="App subtitle/tagline shown on welcome and about screens">动动手指就能轻松使用的ADB</string>
     <string name="apply">应用</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">应用于所有 (%1$d 剩余)</string>
     <string name="artifact_id" comment="Technical label for AI artifact identifier in developer options">构件 ID</string>
-    <string name="auto" comment="Selection option for automatic theme/mode handling">自动操作</string>
+    <string name="auto" comment="Selection option for automatic theme/mode handling">自动</string>
     <string name="auto_backup" comment="Setting toggle title for scheduled automatic backups">自动备份</string>
     <string name="auto_backup_content_type" comment="Setting title for selecting items to include in automatic backups">备份内容</string>
     <string name="auto_backup_folder" comment="Setting title for selecting target local folder for automatic backups">备份文件夹</string>
-    <string name="auto_dark_mode" comment="Setting toggle title to enable dark mode automatically when battery saver is active">自动暗色模式</string>
+    <string name="auto_dark_mode" comment="Setting toggle title to enable dark mode automatically when battery saver is active">自动深色模式</string>
     <string name="auto_delete_existing_backups" comment="Setting toggle title to delete older backup files when a new backup is created">自动删除旧备份</string>
-    <string name="auto_scale_ui" comment="Setting toggle title to automatically scale UI based on device screen width">自动缩放界面</string>
+    <string name="auto_scale_ui" comment="Setting toggle title to automatically scale UI based on device screen width">自动缩放 UI</string>
     <string name="auto_update" comment="Setting toggle title to automatically check for application updates on startup">自动更新</string>
     <string name="back">返回</string>
     <string name="back_button" comment="Custom key bar button in terminal view simulating system back button press">返回键</string>
-    <string name="background" comment="Material design theme surface/background color role label">二. 背景</string>
-    <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">备份…</string>
+    <string name="background" comment="Material design theme surface/background color role label">背景</string>
+    <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">正在备份…</string>
     <string name="backup">备份</string>
     <string name="backup_all_data" comment="Option in backup dialog to export all app database content and settings">备份全部数据</string>
     <string name="backup_and_restore" comment="Settings screen header for managing local and cloud backups">备份 &amp; 恢复</string>
     <string name="backup_app_database" comment="Backup option to export only stored command database, templates, and bookmarks">备份应用数据库</string>
     <string name="backup_date" comment="Card label showing creation date of backup file">备份日期</string>
-    <string name="backup_destination" comment="Setting label to pick target location for backup storage (local directory or Google Drive)">备份目标</string>
+    <string name="backup_destination" comment="Setting label to pick target location for backup storage (local directory or Google Drive)">备份目标位置</string>
     <string name="backup_failed" comment="Toast notification or dialog title shown when a local or cloud backup operation fails">备份失败</string>
     <string name="backup_found" comment="Status banner shown when a valid backup file is detected on device or cloud">找到备份</string>
     <string name="backup_frequency" comment="Setting label for selecting auto-backup interval (Daily, Weekly, Monthly)">备份频率</string>
     <string name="backup_now" comment="Action button to immediately trigger a backup operation">立即备份</string>
-    <string name="backup_scheduler" comment="Setting category title for automated backup schedule settings">备份调度器</string>
+    <string name="backup_scheduler" comment="Setting category title for automated backup schedule settings">备份计划程序</string>
     <string name="backup_settings" comment="Backup option to export only application settings preferences">备份应用设置</string>
     <string name="backup_status" comment="Card header showing current status of automated backups">备份状态</string>
     <string name="backup_successful" comment="Toast notification or dialog text when a backup completes successfully">备份成功</string>
     <string name="backup_time" comment="Setting label for picking exact time of day for automated backup execution">备份时间</string>
     <string name="backup_type" comment="Card label showing type of backup file (e.g. Full, Database, Settings)">备份类型</string>
-    <string name="baseband_version" comment="Device info field label showing modem/baseband firmware version">巴斯巴兰</string>
+    <string name="baseband_version" comment="Device info field label showing modem/baseband firmware version">基带</string>
     <string name="basic_shell" comment="Execution mode option: run standard non-rooted, non-Shizuku shell commands">普通终端</string>
-    <string name="battery_level" comment="Device info card label displaying current battery charge percentage">电量：</string>
+    <string name="battery_level" comment="Device info card label displaying current battery charge percentage">电池</string>
     <string name="battery_saver" comment="Device system battery saver mode label">省电模式</string>
     <string name="behavior" comment="Settings category title for application behavior preferences">行为</string>
-    <string name="block" comment="Action button to block execution or permissions">封禁</string>
+    <string name="block" comment="Action button to block execution or permissions">阻止</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">书签达到设定数量，移除部分书签后再尝试添加</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">书签</string>
-    <string name="boot_device_into_fastboot" comment="Instructional prompt in Fastboot screen instructing user to boot target device into fastboot mode">启动目标设备进入快速启动模式并通过 OTG 电缆连接</string>
-    <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">启动图像</string>
-    <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">启动到 Fastboot</string>
+    <string name="boot_device_into_fastboot" comment="Instructional prompt in Fastboot screen instructing user to boot target device into fastboot mode">将目标设备引导至 fastboot 模式并通过 OTG 线连接</string>
+    <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">引导镜像</string>
+    <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">引导至 Fastboot</string>
     <string name="bootloader" comment="Device info label or fastboot section title for bootloader mode">Bootloader</string>
-    <string name="bootloader_version" comment="Device info field label displaying bootloader version string">引导加载器</string>
+    <string name="bootloader_version" comment="Device info field label displaying bootloader version string">Bootloader</string>
     <string name="btn_continue" comment="Action button label to proceed to next step in setup wizard">继续</string>
     <string name="cache_settings" comment="Settings section header for AI analysis response caching options">缓存</string>
-    <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">缓存大小: %s</string>
+    <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">缓存大小：%s</string>
     <string name="cancel">取消</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">全部取消</string>
-    <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">Cancelling…</string>
+    <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">正在取消…</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">更新日志</string>
     <string name="changelogs" comment="Settings list item title for viewing version history logs">更新日志</string>
     <string name="check_updates" comment="Action button in about screen to check GitHub or F-Droid for app updates">检查更新</string>
@@ -125,89 +125,89 @@
     <string name="clear_output_confirmation" comment="Setting toggle title to request confirmation before clearing shell output view">清除输出确认</string>
     <string name="clipboard_empty" comment="Toast error message when user taps paste but system clipboard has no text content">剪贴板中未找到文本</string>
     <string name="close">关闭</string>
-    <string name="cloud_backup_failed" comment="Error toast when uploading backup file to Google Drive fails">上传备份到 Google Drive 失败</string>
-    <string name="cloud_backup_google_drive" comment="Setting toggle title for automated cloud backups to Google Drive">云备份(Google Drive)</string>
-    <string name="cloud_backup_successful" comment="Toast message confirming successful backup upload to Google Drive">备份上传到 Google Drive</string>
-    <string name="cloud_models" comment="Settings screen title for managing cloud-based LLM provider API keys">云模型</string>
-    <string name="cloud_restore_failed" comment="Error toast when downloading/restoring backup from Google Drive fails">从 Google Drive 还原失败</string>
-    <string name="cloud_restore_successful" comment="Toast message confirming successful backup restoration from Google Drive">从 Google Drive 恢复</string>
-    <string name="cmd_get_battery_desc" comment="Description for predefined fastboot command: fastboot getvar battery-voltage">查询当前电池充电水平</string>
-    <string name="cmd_get_battery_title" comment="Predefined fastboot command title: check battery level in fastboot">电量等级</string>
-    <string name="cmd_get_current_slot_desc" comment="Description for predefined fastboot command: fastboot getvar current-slot">哪个A/B槽目前处于活动状态</string>
-    <string name="cmd_get_current_slot_title" comment="Predefined fastboot command title: check active A/B slot">当前栏位</string>
+    <string name="cloud_backup_failed" comment="Error toast when uploading backup file to Google Drive fails">将备份上传到Google Drive失败</string>
+    <string name="cloud_backup_google_drive" comment="Setting toggle title for automated cloud backups to Google Drive">云备份 (Google Drive)</string>
+    <string name="cloud_backup_successful" comment="Toast message confirming successful backup upload to Google Drive">备份已上传到 Google Drive</string>
+    <string name="cloud_models" comment="Settings screen title for managing cloud-based LLM provider API keys">云端模型</string>
+    <string name="cloud_restore_failed" comment="Error toast when downloading/restoring backup from Google Drive fails">从 Google Drive 恢复失败</string>
+    <string name="cloud_restore_successful" comment="Toast message confirming successful backup restoration from Google Drive">已从 Google Drive 恢复</string>
+    <string name="cmd_get_battery_desc" comment="Description for predefined fastboot command: fastboot getvar battery-voltage">查询当前电池电量</string>
+    <string name="cmd_get_battery_title" comment="Predefined fastboot command title: check battery level in fastboot">电池电量</string>
+    <string name="cmd_get_current_slot_desc" comment="Description for predefined fastboot command: fastboot getvar current-slot">当前活动的 A/B 分区槽位</string>
+    <string name="cmd_get_current_slot_title" comment="Predefined fastboot command title: check active A/B slot">当前槽位</string>
     <string name="cmd_get_product_desc" comment="Description for predefined fastboot command: fastboot getvar product">检索设备产品名称标识符</string>
     <string name="cmd_get_product_title" comment="Predefined fastboot command title: check product name">产品名称</string>
-    <string name="cmd_get_slot_count_desc" comment="Description for predefined fastboot command: fastboot getvar slot-count">此设备上的 A/B 槽数</string>
-    <string name="cmd_get_slot_count_title" comment="Predefined fastboot command title: check A/B slot count">插槽计数</string>
-    <string name="cmd_get_unlocked_desc" comment="Description for predefined fastboot command: fastboot getvar unlocked">检查引导程序是否已解锁</string>
-    <string name="cmd_get_unlocked_title" comment="Predefined fastboot command title: check bootloader unlock status">启动加载器解锁状态</string>
+    <string name="cmd_get_slot_count_desc" comment="Description for predefined fastboot command: fastboot getvar slot-count">此设备上的 A/B 槽位数量</string>
+    <string name="cmd_get_slot_count_title" comment="Predefined fastboot command title: check A/B slot count">槽位数量</string>
+    <string name="cmd_get_unlocked_desc" comment="Description for predefined fastboot command: fastboot getvar unlocked">检查引导加载程序当前是否已解锁</string>
+    <string name="cmd_get_unlocked_title" comment="Predefined fastboot command title: check bootloader unlock status">引导加载程序解锁状态</string>
     <string name="cmd_getvar_all_desc" comment="Description for predefined fastboot command: fastboot getvar all">列出所有设备变量及其当前值</string>
     <string name="cmd_getvar_all_title" comment="Predefined fastboot command title: get all device variables">获取所有变量</string>
-    <string name="cmd_oem_device_info_desc" comment="Description for predefined fastboot command: fastboot oem device-info">获取OEM特定设备信息</string>
+    <string name="cmd_oem_device_info_desc" comment="Description for predefined fastboot command: fastboot oem device-info">检索 OEM 特定的设备信息</string>
     <string name="cmd_oem_device_info_title" comment="Predefined fastboot command title: query OEM device info">OEM 设备信息</string>
-    <string name="cmd_unlock_ability_desc" comment="Description for predefined fastboot command: fastboot flashing get_unlock_ability">检查此设备是否可以启动加载器解锁</string>
+    <string name="cmd_unlock_ability_desc" comment="Description for predefined fastboot command: fastboot flashing get_unlock_ability">检查此设备是否可以解锁引导加载程序</string>
     <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">解锁能力</string>
     <string name="code_pair_instruction" comment="Instructional text in Wireless Debugging pairing dialog directing user to open Wireless Debugging menu on target device">在目标设备上打开“无线调试”，然后点击配对码的“配对设备”</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">折叠</string>
     <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">发生错误</string>
-    <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">高海拔(对话框)</string>
-    <string name="color_preview_highest_elevation" comment="Sample label in theme editor showing highest elevation surface color (Bottom Sheet)">最高海拔(底板)</string>
-    <string name="color_preview_list_item" comment="Sample text field label in theme customizer preview">列表项/文本字段</string>
-    <string name="color_preview_low_elevation" comment="Sample label in theme customizer for low elevation card colors">低海拔(电梯卡)</string>
-    <string name="color_preview_lowest_elevation" comment="Sample label in theme customizer for lowest elevation surface color">最低高度</string>
-    <string name="color_preview_outlined_button" comment="Sample outlined button text in theme preview">外观按钮</string>
-    <string name="color_preview_primary_button" comment="Sample primary button text in theme preview">主按钮</string>
+    <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">高海拔（对话框）</string>
+    <string name="color_preview_highest_elevation" comment="Sample label in theme editor showing highest elevation surface color (Bottom Sheet)">最高海拔（底部动作条）</string>
+    <string name="color_preview_list_item" comment="Sample text field label in theme customizer preview">列表项 / 文本框</string>
+    <string name="color_preview_low_elevation" comment="Sample label in theme customizer for low elevation card colors">低海拔（高地卡片）</string>
+    <string name="color_preview_lowest_elevation" comment="Sample label in theme customizer for lowest elevation surface color">最低海拔</string>
+    <string name="color_preview_outlined_button" comment="Sample outlined button text in theme preview">描边按钮</string>
+    <string name="color_preview_primary_button" comment="Sample primary button text in theme preview">主要按钮</string>
     <string name="color_preview_screen_content" comment="Sample screen content body text in theme preview">屏幕内容</string>
-    <string name="color_preview_standard_elevation" comment="Sample label in theme customizer for standard card elevation surface color">标准海拔(Card)</string>
+    <string name="color_preview_standard_elevation" comment="Sample label in theme customizer for standard card elevation surface color">标准海拔（卡片）</string>
     <string name="color_preview_surface_area" comment="Sample surface area text in theme preview">表面区域</string>
-    <string name="color_preview_tonal_button" comment="Sample tonal button text in theme preview">切换按钮</string>
+    <string name="color_preview_tonal_button" comment="Sample tonal button text in theme preview">色调按钮</string>
     <string name="color_role_app_background" comment="Material 3 color role name for main application background color">应用背景</string>
-    <string name="color_role_background" comment="Material 3 color role name for default surface background">二. 背景</string>
+    <string name="color_role_background" comment="Material 3 color role name for default surface background">背景</string>
     <string name="color_role_error" comment="Material 3 color role name for error indicator color">错误</string>
     <string name="color_role_error_container" comment="Material 3 color role name for container background of error elements">错误容器</string>
-    <string name="color_role_main_accent" comment="Material 3 color role name for primary accent color">主口音(主要)</string>
-    <string name="color_role_on_background" comment="The color used for text and icons drawn on top of the background color">在背景</string>
-    <string name="color_role_on_error" comment="The color used for text and icons drawn on top of the error color">发生错误</string>
-    <string name="color_role_on_error_container" comment="The color used for text and icons drawn on top of the error container color">在错误容器</string>
-    <string name="color_role_on_primary" comment="The color used for text and icons drawn on top of the primary color">在首页</string>
-    <string name="color_role_on_primary_container" comment="The color used for text and icons drawn on top of the primary container color">在主容器</string>
-    <string name="color_role_on_secondary" comment="The color used for text and icons drawn on top of the secondary color">在次要时</string>
-    <string name="color_role_on_secondary_container" comment="The color used for text and icons drawn on top of the secondary container color">在次要容器</string>
-    <string name="color_role_on_surface" comment="The color used for text and icons drawn on top of the surface color">在地面上</string>
-    <string name="color_role_on_surface_variant" comment="The color used for text and icons drawn on top of the surface variant color">在表面变体</string>
-    <string name="color_role_on_tertiary" comment="The color used for text and icons drawn on top of the tertiary color">在高等上</string>
-    <string name="color_role_on_tertiary_container" comment="The color used for text and icons drawn on top of the tertiary container color">在三级容器</string>
-    <string name="color_role_outline" comment="Material 3 color role name for component outline borders">轮廓：</string>
+    <string name="color_role_main_accent" comment="Material 3 color role name for primary accent color">主色调（主要）</string>
+    <string name="color_role_on_background" comment="The color used for text and icons drawn on top of the background color">背景之上</string>
+    <string name="color_role_on_error" comment="The color used for text and icons drawn on top of the error color">错误之上</string>
+    <string name="color_role_on_error_container" comment="The color used for text and icons drawn on top of the error container color">错误容器之上</string>
+    <string name="color_role_on_primary" comment="The color used for text and icons drawn on top of the primary color">主要颜色之上</string>
+    <string name="color_role_on_primary_container" comment="The color used for text and icons drawn on top of the primary container color">主要容器之上</string>
+    <string name="color_role_on_secondary" comment="The color used for text and icons drawn on top of the secondary color">次要颜色之上</string>
+    <string name="color_role_on_secondary_container" comment="The color used for text and icons drawn on top of the secondary container color">次要容器之上</string>
+    <string name="color_role_on_surface" comment="The color used for text and icons drawn on top of the surface color">表面之上</string>
+    <string name="color_role_on_surface_variant" comment="The color used for text and icons drawn on top of the surface variant color">表面变体之上</string>
+    <string name="color_role_on_tertiary" comment="The color used for text and icons drawn on top of the tertiary color">第三颜色之上</string>
+    <string name="color_role_on_tertiary_container" comment="The color used for text and icons drawn on top of the tertiary container color">第三容器之上</string>
+    <string name="color_role_outline" comment="Material 3 color role name for component outline borders">轮廓</string>
     <string name="color_role_outline_variant" comment="Material 3 color role name for secondary outline borders">轮廓变体</string>
-    <string name="color_role_primary" comment="Material 3 color role name for primary theme color">主要的</string>
-    <string name="color_role_primary_container" comment="Material 3 color role name for container surface of primary elements">主容器</string>
-    <string name="color_role_secondary" comment="Material 3 color role name for secondary theme accent color">次要文件</string>
-    <string name="color_role_secondary_accent" comment="Material 3 color role name for secondary accent color">次要Accent</string>
-    <string name="color_role_secondary_container" comment="Material 3 color role name for container surface of secondary elements">辅助容器</string>
+    <string name="color_role_primary" comment="Material 3 color role name for primary theme color">主要颜色</string>
+    <string name="color_role_primary_container" comment="Material 3 color role name for container surface of primary elements">主要容器</string>
+    <string name="color_role_secondary" comment="Material 3 color role name for secondary theme accent color">次要颜色</string>
+    <string name="color_role_secondary_accent" comment="Material 3 color role name for secondary accent color">次要色调</string>
+    <string name="color_role_secondary_container" comment="Material 3 color role name for container surface of secondary elements">次要容器</string>
     <string name="color_role_surface" comment="Material 3 color role name for default component surface color">表面</string>
     <string name="color_role_surface_container" comment="Material 3 color role name for standard surface container">表面容器</string>
-    <string name="color_role_surface_container_high" comment="Material 3 color role name for high elevation surface container">表面容器高</string>
-    <string name="color_role_surface_container_highest" comment="Material 3 color role name for highest elevation surface container">表面容器最高值</string>
-    <string name="color_role_surface_container_low" comment="Material 3 color role name for low elevation surface container">表面容器低</string>
-    <string name="color_role_surface_container_lowest" comment="Material 3 color role name for lowest elevation surface container">表面容器最低值</string>
+    <string name="color_role_surface_container_high" comment="Material 3 color role name for high elevation surface container">高海拔表面容器</string>
+    <string name="color_role_surface_container_highest" comment="Material 3 color role name for highest elevation surface container">最高海拔表面容器</string>
+    <string name="color_role_surface_container_low" comment="Material 3 color role name for low elevation surface container">低海拔表面容器</string>
+    <string name="color_role_surface_container_lowest" comment="Material 3 color role name for lowest elevation surface container">最低海拔表面容器</string>
     <string name="color_role_surface_variant" comment="Material 3 color role name for variant surface background">表面变体</string>
-    <string name="color_role_tertiary" comment="Material 3 color role name for tertiary theme accent color">三等式</string>
-    <string name="color_role_tertiary_accent" comment="Material 3 color role name for tertiary accent color">第三音度</string>
-    <string name="color_role_tertiary_container" comment="Material 3 color role name for container surface of tertiary elements">三级容器</string>
+    <string name="color_role_tertiary" comment="Material 3 color role name for tertiary theme accent color">第三颜色</string>
+    <string name="color_role_tertiary_accent" comment="Material 3 color role name for tertiary accent color">第三色调</string>
+    <string name="color_role_tertiary_container" comment="Material 3 color role name for container surface of tertiary elements">第三容器</string>
     <string name="command" comment="Label/header for an ADB command snippet">命令</string>
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">命令分析</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">命令控制台</string>
     <string name="command_logs" comment="Tab header for history log of executed fastboot commands">命令日志</string>
-    <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">所有执行的快速启动命令的历史记录。</string>
+    <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">所有已执行的 fastboot 命令的历史记录。</string>
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">找不到命令！</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">输入 ADB 命令</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">命令</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">配置输出保存目录</string>
-    <string name="confirm">确认</string>
-    <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">警告！此操作是不可逆的\n您确定要删除所有书签吗？</string>
+    <string name="confirm">确定</string>
+    <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">确认删除</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">您确定要删除此磁贴吗？</string>
-    <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">Caching helps to retrieve analysis results instantly.\nDo you still want to clear all AI analysis cache data?</string>
+    <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">缓存有助于立即检索分析结果。\n您确定仍要清除所有 AI 分析缓存数据吗？</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" 已经存在于这个位置。</string>
     <string name="conflict_title" comment="Dialog title when attempting to paste or create a file that already exists">项目已存在</string>
     <string name="connect" comment="Action button to initiate ADB connection to target device over Wireless Debugging or OTG">连接</string>
@@ -235,14 +235,14 @@
     <string name="create_folder" comment="Action button or dialog title to create a new directory in file browser">创建文件夹</string>
     <string name="create_new_tile" comment="Screen header or button label to add a new custom Quick Settings tile">创建新瓷贴</string>
     <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">使用 AI 创建</string>
-    <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">访问我们的crowdin 翻译平台来贡献</string>
+    <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">访问我们的 crowin 翻译平台进行贡献</string>
     <string name="current_version" comment="About screen card label showing installed application version number">当前版本</string>
-    <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">自定义界面缩放</string>
+    <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">自定义 UI 缩放</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">剪切 %1$d 项目</string>
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">剪切到剪贴板</string>
-    <string name="daily" comment="Option in backup scheduler frequency selection">每天</string>
+    <string name="daily" comment="Option in backup scheduler frequency selection">每日</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">暗色主题</string>
-    <string name="dashboard" comment="Main screen header or navigation drawer item">仪表板</string>
+    <string name="dashboard" comment="Main screen header or navigation drawer item">仪表盘</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">仅数据库</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">重置目录</string>
     <string name="default_language" comment="Setting preference label for selecting application language">默认语言</string>
@@ -255,73 +255,73 @@
     <string name="delete_message" comment="%1$s = file or folder name">您确定要删除 \"%1$s \"吗？</string>
     <string name="delete_title" comment="%1$s = file or folder name">删除 %1$s？</string>
     <string name="des_about" comment="Subtitle description for About section in settings menu">贡献者和支持</string>
-    <string name="des_ai_cache_days" comment="Description under Cache duration setting in AI settings">保存缓存结果的天数</string>
-    <string name="des_ai_cache_enabled" comment="Description under Enable cache setting in AI settings">每个模型缓存分析结果</string>
+    <string name="des_ai_cache_days" comment="Description under Cache duration setting in AI settings">保留缓存结果的天数</string>
+    <string name="des_ai_cache_enabled" comment="Description under Enable cache setting in AI settings">按模型缓存分析结果</string>
     <string name="des_ai_models" comment="Description under AI &amp; Models item in settings">管理 AI 模型数据和 API 密钥</string>
-    <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">选择自动备份中包含的内容</string>
-    <string name="des_auto_backup_folder" comment="Description under Backup folder setting">选择要保存自动备份的文件夹</string>
-    <string name="des_auto_backup_time" comment="Description under Backup time setting">设置自动备份时间</string>
-    <string name="des_auto_dark_mode" comment="Description under Auto dark mode setting">省电模式启用时自动切换到暗色模式</string>
-    <string name="des_auto_delete_existing_backups" comment="Description under Auto-delete old backups setting">保存新备份时删除旧的自动备份</string>
-    <string name="des_auto_scale_ui" comment="Description under Auto scale UI setting">根据设备最小宽度自动缩放界面</string>
+    <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">选择要在自动备份中包含的内容</string>
+    <string name="des_auto_backup_folder" comment="Description under Backup folder setting">选择保存自动备份的文件夹</string>
+    <string name="des_auto_backup_time" comment="Description under Backup time setting">设置自动备份的时间</string>
+    <string name="des_auto_dark_mode" comment="Description under Auto dark mode setting">启用省电模式时自动切换到深色模式</string>
+    <string name="des_auto_delete_existing_backups" comment="Description under Auto-delete old backups setting">保存新备份时删除较旧的自动备份</string>
+    <string name="des_auto_scale_ui" comment="Description under Auto scale UI setting">根据设备最小宽度自动缩放 UI</string>
     <string name="des_auto_update" comment="Description under Auto update setting">自动检测更新</string>
     <string name="des_backup_all_data" comment="Description for full backup option in backup dialog">备份应用全部数据</string>
     <string name="des_backup_and_restore" comment="Description under Backup &amp; restore item in settings menu">备份和恢复应用设置和其他数据</string>
     <string name="des_backup_app_database" comment="Description for app database backup option">备份包含命令示例 &amp; 书签的应用程序数据库</string>
-    <string name="des_backup_scheduler" comment="Description under Backup scheduler setting">在选定的间隔时间内自动安排备份</string>
+    <string name="des_backup_scheduler" comment="Description under Backup scheduler setting">在选定的时间间隔自动安排备份</string>
     <string name="des_backup_settings" comment="Description for app settings backup option">仅备份应用设置首选项</string>
     <string name="des_behavior" comment="Description under Behavior item in settings menu">修改应用的特定行为</string>
-    <string name="des_changelogs" comment="Description under Changelogs item in settings menu">包含历史更新内容</string>
-    <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">点击此处从图标集合中选择一个图标</string>
+    <string name="des_changelogs" comment="Description under Changelogs item in settings menu">应用所有的变化历史</string>
+    <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">点击此处从图标库中选择图标</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">清除终端输出前询问确认</string>
-    <string name="des_cloud_models" comment="Description under Cloud models setting item">管理云模型的 API 密钥</string>
+    <string name="des_cloud_models" comment="Description under Cloud models setting item">管理云端模型的 API 密钥</string>
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">配置目录保存终端输出</string>
     <string name="des_contributors" comment="Description under Contributors item in About section">帮助开发 aShell You 的贡献者列表</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">查看应用程序中发生的所有崩溃问题</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">为本软件更改默认语言</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">在使用实体键盘时会有帮助</string>
-    <string name="des_drive_backup" comment="Description card text for Google Drive backup option">上传加密备份到您的Google Drive。\n此操作将覆盖任何现有的云备份。</string>
+    <string name="des_drive_backup" comment="Description card text for Google Drive backup option">将加密备份上传至您的 Google Drive。\n此操作将覆盖任何现有的云备份。</string>
     <string name="des_drive_restore" comment="Description card text for Google Drive restore option">从 Google Drive 下载您的最新备份</string>
-    <string name="des_dynamic_colors" comment="Description under Dynamic colors setting item">根据壁纸自动取主题色</string>
+    <string name="des_dynamic_colors" comment="Description under Dynamic colors setting item">根据设备壁纸自动设置应用主题</string>
     <string name="des_enable_auto_backup" comment="Description under Enable automatic backup toggle setting">在预定时间自动备份应用数据</string>
-    <string name="des_enable_cloud_auto_backup" comment="Description under Auto backup to Google Drive toggle setting">自动备份到您的 Google Drive 帐户</string>
-    <string name="des_enable_direct_download" comment="Description under Enable direct apk download setting">开启后，将直接从 GitHub 应用程序内下载更新。关闭以访问Github 发布页面进行手动下载。</string>
-    <string name="des_enable_local_auto_backup" comment="Description under Auto backup to local storage toggle setting">自动备份到您设备上选定的文件夹</string>
+    <string name="des_enable_cloud_auto_backup" comment="Description under Auto backup to Google Drive toggle setting">自动备份到您的 Google Drive 账号</string>
+    <string name="des_enable_direct_download" comment="Description under Enable direct apk download setting">开启后，更新将直接从 Github应用程序中下载。关闭以访问Github 发布页面进行手动下载。</string>
+    <string name="des_enable_local_auto_backup" comment="Description under Auto backup to local storage toggle setting">自动备份到您设备上的所选文件夹</string>
     <string name="des_examples" comment="Description under Command templates item in navigation menu">一些常用命令示例</string>
     <string name="des_feature_request" comment="Description under Feature request item in About menu">如果您对应用有任何想法或建议，请告知我们</string>
     <string name="des_font_family" comment="Description under Font family setting item">更改应用程序的字体样式</string>
-    <string name="des_font_size" comment="Description under Font size multiplier setting item">调整字体大小以使应用程序中的文本显得更大或更小</string>
+    <string name="des_font_size" comment="Description under Font size multiplier setting item">调整字体大小以使应用中的文本显得更大或更小</string>
     <string name="des_haptics_and_vibration" comment="Description under Haptics &amp; Vibration setting item">触摸反馈的交互式振动</string>
     <string name="des_high_contrast_dark_mode" comment="Description under High contrast dark mode setting item">在OLED 显示设备上使用黑暗主题</string>
     <string name="des_hridayan" comment="Developer bio subtitle in About section">一个热爱应用开发和设计的小伙子</string>
-    <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">在快速设置面板中显示图块的固定视觉状态</string>
-    <string name="des_licenses" comment="Description under Licenses setting item in About section">查看应用和库正在使用的许可证</string>
-    <string name="des_local_backup" comment="Description card text for local backup option">保存加密备份到您的设备</string>
-    <string name="des_local_restore" comment="Description card text for local restore option">从您的设备中选择备份文件</string>
-    <string name="des_logcat" comment="Description under Logcat item in navigation menu">从已连接设备上输出实时日志</string>
+    <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">磁贴显示在快速设置面板中的固定视觉状态</string>
+    <string name="des_licenses" comment="Description under Licenses setting item in About section">查看应用及库所使用的许可证</string>
+    <string name="des_local_backup" comment="Description card text for local backup option">将加密备份保存到您的设备</string>
+    <string name="des_local_restore" comment="Description card text for local restore option">从您的设备选择备份文件</string>
+    <string name="des_logcat" comment="Description under Logcat item in navigation menu">来自已连接设备的实时 logcat 输出</string>
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">莫奈取色，暗色主题以及语言设置</string>
-    <string name="des_models" comment="Status text under AI models setting when no model is active">没有选择模型</string>
-    <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">如果添加了大量书签，可能会造成延迟！低端设备应保持关闭此选项</string>
+    <string name="des_models" comment="Status text under AI models setting when no model is active">未选择模型</string>
+    <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">若启用后添加了大量书签，可能会导致性能问题！低端设备应保持关闭</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">配对另一个目标设备</string>
-    <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">为执行 adb 命令创建快速设置瓷块</string>
+    <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">创建用于执行 adb 命令的快速设置磁贴</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">报告使用 App 时遇到的任何问题和漏洞</string>
-    <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">重置所有设置为默认值。</string>
+    <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">Reset app settings to default values</string>
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">从保存的备份文件中恢复应用数据。\n保存的数据库将覆盖当前数据库</string>
     <string name="des_save_whole_output" comment="Description under Save whole output setting toggle">启用此选项以保存整个shell会话的输出。\n如果禁用只保存最后一个命令输出。</string>
-    <string name="des_screen_density" comment="Description under Screen density multiplier setting item">调整屏幕密度以使界面元素显得更大或更小</string>
-    <string name="des_select_file_for_flashing" comment="Instructional description prompt for picking boot image file to flash">选择要刷入选定分区的引导镜像文件</string>
-    <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">为云备份链接您的 Google 帐户</string>
+    <string name="des_screen_density" comment="Description under Screen density multiplier setting item">调整屏幕密度以使 UI 元素显得更大或更小</string>
+    <string name="des_select_file_for_flashing" comment="Instructional description prompt for picking boot image file to flash">选择要刷入所选分区的引导镜像文件</string>
+    <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">可选：关联您的谷歌账号以用于云备份</string>
     <string name="des_smooth_scroll" comment="Description under Smooth scrolling setting toggle">当点击回到 顶部 或 底部 方向的箭头时，使用平滑效果</string>
-    <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">如果启用，每次点击打开和关闭状态之间的瓷块切换，为每个状态运行一个不同的命令</string>
-    <string name="des_translators" comment="Subtitle description under Translators list in About section">帮助翻译 aShellYou 的人</string>
-    <string name="des_ui_scale" comment="Description under UI scale setting item">调整界面元素和字体大小</string>
-    <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">谨慎行事，因为错误的图像可能会导致引导循环</string>
+    <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">启用后，磁贴在每次点击时会在“开”和“关”状态之间切换，每个状态执行不同的命令</string>
+    <string name="des_translators" comment="Subtitle description under Translators list in About section">帮助翻译 aShellYou 的人员</string>
+    <string name="des_ui_scale" comment="Description under UI scale setting item">调整 UI 元素和字体大小的缩放比例</string>
+    <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">请谨慎操作，错误的镜像可能会导致无限重启 bootloop</string>
     <string name="description">描述</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">取消全选</string>
     <string name="developer" comment="Section title in About screen for lead developer info">开发者</string>
     <string name="developer_options" comment="System Developer Options setting item or prompt">开发者选项</string>
     <string name="developer_options_not_available" comment="Toast error message when Developer options shortcut cannot be opened">开发者选项不可用！</string>
-    <string name="device_backup_local" comment="Label for local device storage backup file">设备备份 (本地)</string>
+    <string name="device_backup_local" comment="Label for local device storage backup file">设备备份（本地）</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">设备已连接！</string>
     <string name="device_disconnected" comment="Notification title when ADB connection drops">设备已断开连接</string>
     <string name="device_disconnected_message" comment="Notification body message when wireless ADB connection is lost">WiFi ADB 连接丢失。</string>
@@ -348,14 +348,14 @@
     <string name="download">下载</string>
     <string name="download_failed" comment="Toast message when in-app updater APK download fails">下载失败</string>
     <string name="downloading" comment="Progress status text while downloading update package">正在下载…</string>
-    <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">从Google Drive下载备份…</string>
+    <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">正在从 Google Drive 下载备份…</string>
     <string name="downloads" comment="Screen header or list item for downloaded files">下载</string>
-    <string name="duplicate_tile_name_error_msg" comment="Validation error in Quick Settings tile builder when entered tile name already exists">此名称的瓦片已存在</string>
-    <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">莫奈取色</string>
+    <string name="duplicate_tile_name_error_msg" comment="Validation error in Quick Settings tile builder when entered tile name already exists">具有此名称的文件夹已存在</string>
+    <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">动态颜色</string>
     <string name="edit">编辑</string>
     <string name="edit_command" comment="Dialog header for editing a saved ADB command snippet">编辑命令</string>
-    <string name="edit_theme_title" comment="%1$s = theme name">编辑主题: %1$s</string>
-    <string name="edit_tile" comment="Screen title for modifying a Quick Settings tile configuration">编辑瓷块</string>
+    <string name="edit_theme_title" comment="%1$s = theme name">编辑主题：%1$s</string>
+    <string name="edit_tile" comment="Screen title for modifying a Quick Settings tile configuration">编辑磁贴</string>
     <string name="empty_folder" comment="Placeholder text in file browser when current folder contains no files">此文件夹为空</string>
     <string name="enable_auto_backup" comment="Toggle setting title to enable scheduled automated local backups">启用自动备份</string>
     <string name="enable_auto_update" comment="Toggle setting title to enable automatic update checking">启用自动更新</string>
@@ -369,12 +369,12 @@
     <string name="enter_command" comment="Input hint placeholder format for entering fastboot commands">fastboot &lt;command&gt;</string>
     <string name="enter_pairing_code" comment="Instructional header in Wireless Debugging pairing dialog asking for 6-digit code">输入6位数字配对代码</string>
     <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">这将永久擦除 %1$s 分区。此操作无法撤消。</string>
-    <string name="erase_confirm_title" comment="%1$s = partition name. Dialog title for partition erase confirmation">Erase %1$s?</string>
-    <string name="erase_partition" comment="Action button to trigger fastboot partition erase">Erase</string>
+    <string name="erase_confirm_title" comment="%1$s = partition name. Dialog title for partition erase confirmation">擦除 %1$s？</string>
+    <string name="erase_partition" comment="Action button to trigger fastboot partition erase">擦除</string>
     <string name="erasing" comment="Progress status header while fastboot partition erase command is running">正在擦除…</string>
     <string name="error">错误</string>
     <string name="error_labels_limit_reached" comment="Validation error when maximum number of custom command labels/tags is reached">已达到最大标签限制</string>
-    <string name="exclude" comment="Filter toggle option to exclude selected package or item">不包含</string>
+    <string name="exclude" comment="Filter toggle option to exclude selected package or item">排除</string>
     <string name="execution_method" comment="Setting label for selecting shell execution engine (Shizuku, Root, or Basic Shell)">执行方法</string>
     <string name="expand" comment="Action button to expand a collapsed card section">展开</string>
     <string name="experimental" comment="Badge or section title marking experimental features">实验性</string>
@@ -383,14 +383,14 @@
     <string name="failed_to_copy" comment="Toast notification when copying text or file fails">复制失败</string>
     <string name="failed_to_open_usb_connection" comment="Error toast when USB OTG connection fails">无法打开 USB 连接。是否启用 USB 调试？</string>
     <string name="fastboot" comment="Refers to Fastboot mode protocol for Android bootloader partition flashing over OTG">快速启动</string>
-    <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">快速启动 &amp; 恢复</string>
-    <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">即将到来的</string>
+    <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; 恢复</string>
+    <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">即将推出</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">命令控制台</string>
-    <string name="fastboot_command_hint" comment="Placeholder hint in fastboot command input field">输入fastboot 命令…</string>
+    <string name="fastboot_command_hint" comment="Placeholder hint in fastboot command input field">输入 fastboot 命令…</string>
     <string name="fastboot_device_info" comment="Card header displaying target device variables queried over fastboot">设备信息</string>
     <string name="fastboot_partitions" comment="Tab title for Fastboot partition manager tool">分区</string>
     <string name="fastboot_quick_actions" comment="Section header for predefined quick fastboot action buttons">快速操作</string>
-    <string name="fastboot_summary" comment="Feature description card text for Fastboot OTG mode">通过 OTG 连接到快速启动模式的设备</string>
+    <string name="fastboot_summary" comment="Feature description card text for Fastboot OTG mode">通过 OTG 连接到 fastboot 模式下的设备</string>
     <string name="fastboot_variable_explorer" comment="Tab title for Fastboot variable query screen">变量浏览器</string>
     <string name="fb_all_operations_cancelled" comment="Notification toast when all file browser queue operations are cancelled">所有操作已取消</string>
     <string name="fb_cannot_paste_into_selected" comment="Error toast in file browser when target paste item is a file instead of a folder">无法粘贴到所选文件夹</string>
@@ -417,7 +417,7 @@
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">文件上传成功</string>
     <string name="fb_uploading" comment="%1$s = file name">正在上传 %1$s</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">功能建议</string>
-    <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">正在获取备份时间 …</string>
+    <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">正在获取备份时间…</string>
     <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">正在获取备份类型…</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">字段不能为空</string>
     <string name="file">文件</string>
@@ -430,8 +430,8 @@
     <string name="file_not_found" comment="Error toast when requested file path does not exist on device">文件未找到</string>
     <string name="filter">筛选器</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">按标签过滤</string>
-    <string name="flash" comment="Action button to start fastboot partition flashing process">闪光灯</string>
-    <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">Flash 分区</string>
+    <string name="flash" comment="Action button to start fastboot partition flashing process">刷入</string>
+    <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">刷入分区</string>
     <string name="flashing" comment="Progress status header while partition flashing is in progress">正在刷入…</string>
     <string name="folder">文件夹</string>
     <string name="folder_already_exists" comment="Validation error when creating a directory with duplicate name">具有此名称的文件夹已存在</string>
@@ -440,17 +440,17 @@
     <string name="folder_name" comment="Text field label for entering new directory name">文件夹名称</string>
     <string name="folder_picker" comment="Dialog title for selecting a target directory">选择文件夹</string>
     <string name="font_amatic_sc" comment="Font style name">Amatic SC</string>
-    <string name="font_cabin" comment="Font style name">客车</string>
-    <string name="font_caveat" comment="Font style name">注意事项</string>
+    <string name="font_cabin" comment="Font style name">Cabin</string>
+    <string name="font_caveat" comment="Font style name">Caveat</string>
     <string name="font_comfortaa" comment="Font style name">Comfortaa</string>
     <string name="font_crimson_pro" comment="Font style name">Crimson Pro</string>
-    <string name="font_dancing_script" comment="Font style name">舞蹈脚本</string>
-    <string name="font_display_text" comment="Sample text used to preview font styles">飞速的棕色恐龙跳过已经落后的狗龙</string>
+    <string name="font_dancing_script" comment="Font style name">Dancing Script</string>
+    <string name="font_display_text" comment="Sample text used to preview font styles">The quick brown fox jumps over the lazy dog</string>
     <string name="font_eb_garamond" comment="Font style name">EB Garamond</string>
     <string name="font_exo_2" comment="Font style name">Exo 2</string>
     <string name="font_family" comment="Settings preference title for selecting application font family">字体</string>
     <string name="font_heebo" comment="Font style name">Heebo</string>
-    <string name="font_inter" comment="Font style name">倒计时</string>
+    <string name="font_inter" comment="Font style name">Inter</string>
     <string name="font_josefin_sans" comment="Font style name">Josefin Sans</string>
     <string name="font_karla" comment="Font style name">Karla</string>
     <string name="font_lexend" comment="Font style name">Lexend</string>
@@ -458,66 +458,66 @@
     <string name="font_manrope" comment="Font style name">Manrope</string>
     <string name="font_montserrat" comment="Font style name">Montserrat</string>
     <string name="font_noto_sans" comment="Font style name">Noto Sans</string>
-    <string name="font_nunito" comment="Font style name">纳尼托文</string>
-    <string name="font_open_sans" comment="Font style name">打开Sans</string>
-    <string name="font_oswald" comment="Font style name">奥斯瓦尔德</string>
-    <string name="font_outfit" comment="Font style name">外观</string>
-    <string name="font_pacifico" comment="Font style name">太平洋区域</string>
-    <string name="font_playfair_display" comment="Font style name">播放平面显示</string>
-    <string name="font_playpen_sans" comment="Font style name">原版</string>
+    <string name="font_nunito" comment="Font style name">Nunito</string>
+    <string name="font_open_sans" comment="Font style name">Open Sans</string>
+    <string name="font_oswald" comment="Font style name">Oswald</string>
+    <string name="font_outfit" comment="Font style name">Outfit</string>
+    <string name="font_pacifico" comment="Font style name">Pacifico</string>
+    <string name="font_playfair_display" comment="Font style name">Playfair Display</string>
+    <string name="font_playpen_sans" comment="Font style name">Playpen Sans</string>
     <string name="font_plus_jakarta_sans" comment="Font style name">Plus Jakarta Sans</string>
-    <string name="font_public_sans" comment="Font style name">公開的 Sans</string>
+    <string name="font_public_sans" comment="Font style name">Public Sans</string>
     <string name="font_quicksand" comment="Font style name">Quicksand</string>
     <string name="font_raleway" comment="Font style name">Raleway</string>
     <string name="font_roboto_flex" comment="Font style name">Roboto Flex</string>
     <string name="font_rubik" comment="Font style name">Rubik</string>
-    <string name="font_shadows_into_light" comment="Font style name">阴影进入光</string>
+    <string name="font_shadows_into_light" comment="Font style name">Shadows Into Light</string>
     <string name="font_size_multiplier" comment="Settings preference title for adjusting font size scaling multiplier">字体大小乘数</string>
-    <string name="font_source_sans_3" comment="Font style name">源 Sans 3</string>
-    <string name="font_source_serif_4" comment="Font style name">源序列4</string>
-    <string name="font_work_sans" comment="Font style name">工兵</string>
+    <string name="font_source_sans_3" comment="Font style name">Source Sans 3</string>
+    <string name="font_source_serif_4" comment="Font style name">Source Serif 4</string>
+    <string name="font_work_sans" comment="Font style name">Work Sans</string>
     <string name="forget" comment="Action button to remove/forget a paired device">忘记了</string>
     <string name="forget_device" comment="Button label in device details card to unpair/forget ADB device">忘记设备</string>
     <string name="forget_device_confirmation" comment="%1$s = device name">您确定要忘记 %1$s？您需要再次配对才能连接。</string>
     <string name="forks" comment="GitHub repository metadata count label for project forks">分叉</string>
     <string name="found_connect_service" comment="Status message when mDNS ADB connection service is discovered">找到连接服务</string>
     <string name="frequency" comment="Setting label for automated backup interval frequency">频率</string>
-    <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">完整许可文本</string>
-    <string name="gemini_api_key_step_1" comment="%1$s = URL">通过 %1$s 访问 Google AI Studio</string>
-    <string name="gemini_api_key_step_2" comment="Step 2 of API key setup guide: signing in with Google Account">使用您的Google帐户登录</string>
-    <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">点击创建 API 密钥并选择或创建一个项目</string>
-    <string name="gemini_api_key_step_4" comment="Step 4 of API key setup guide: copying API key string">复制您的 API 密钥并粘贴到这里</string>
+    <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">完整许可证文本</string>
+    <string name="gemini_api_key_step_1" comment="%1$s = URL">访问 Google AI Studio：%1$s</string>
+    <string name="gemini_api_key_step_2" comment="Step 2 of API key setup guide: signing in with Google Account">使用您的 Google 账号登录</string>
+    <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">点击“创建 API 密钥”并选择或创建一个项目</string>
+    <string name="gemini_api_key_step_4" comment="Step 4 of API key setup guide: copying API key string">复制您的 API 密钥并将其粘贴到此处</string>
     <string name="generate_color_scheme" comment="Action button in theme builder to generate Material 3 color palette">生成配色方案</string>
     <string name="generate_scheme" comment="Compact button label to generate theme color scheme">生成方案</string>
     <string name="generate_theme" comment="Dialog header or button for AI/wallpaper theme generation">生成主题</string>
-    <string name="generate_tile" comment="Action button in Quick Settings builder to generate tile command via AI">生成瓷块</string>
-    <string name="get_api_key" comment="Button linking to Google AI Studio website to create an API key">Get API key</string>
+    <string name="generate_tile" comment="Action button in Quick Settings builder to generate tile command via AI">生成磁贴</string>
+    <string name="get_api_key" comment="Button linking to Google AI Studio website to create an API key">获取 API 密钥</string>
     <string name="get_variables" comment="Action button in Fastboot screen to query fastboot device variables">获取变量</string>
     <string name="go_home" comment="Button label to navigate back to home screen dashboard">返回首页</string>
     <string name="go_to_terminal" comment="Button label to navigate to terminal command input screen">转到终端</string>
     <string name="google_drive" comment="Refers to Google Drive cloud storage service">Google Drive</string>
     <string name="google_drive_backup" comment="Option label for Google Drive automated cloud backup">Google Drive 备份</string>
-    <string name="gpl_3_0_description" comment="Summary text explaining GNU General Public License v3 terms for aShellYou">aShell 您是免费软件：您可以根据自由软件基金会发布的 GNU 通用公共许可证的条款重新发布和/或修改它。 或许可协议第三版，或(在您的选择下) 任何其后版本。</string>
+    <string name="gpl_3_0_description" comment="Summary text explaining GNU General Public License v3 terms for aShellYou">aShell You 是一项免费软件：您可以根据自由软件基金会发布的 GNU 通用公共许可证（第 3 版或（由您选择）任何更高版本）的条款重新分发和/或修改它。</string>
     <string name="grant" comment="Button label to approve permission grant request">授权</string>
-    <string name="grant_permission" comment="Action button to trigger system permission request dialog">获取权限</string>
+    <string name="grant_permission" comment="Action button to trigger system permission request dialog">给予权限</string>
     <string name="grant_shizuku_permission_for_tiles" comment="Warning alert shown when Shizuku permission is missing for Quick Settings tiles">未授予 Shizuku 权限！\naShell You 需要 Shizuku 权限执行命令。</string>
     <string name="great_news" comment="Dialog title header for update available notification">好消息！</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">触感&amp;震动</string>
-    <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">祝你好日！</string>
+    <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">祝您有个美好的一天！</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">十六进制编辑器</string>
     <string name="high" comment="Selection option for high haptic strength or elevation level">高</string>
     <string name="high_contrast_dark_mode" comment="Settings preference title for OLED pitch-black dark theme">高对比度暗色模式</string>
     <string name="hint" comment="Card header or field label for helpful hints">提示</string>
     <string name="history" comment="Screen title and tab label for executed terminal command history">历史</string>
     <string name="home">首页</string>
-    <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">如何进入侧边载模式</string>
-    <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">选择图标</string>
+    <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">如何进入 sideload 模式</string>
+    <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">已选择图标</string>
     <string name="import_theme" comment="Action button to import theme configuration file">导入主题</string>
     <string name="include" comment="Filter toggle option to include selected items">包含</string>
     <string name="info">信息</string>
     <string name="initial_state" comment="Label for initial tile state picker in Quick Settings builder">初始状态</string>
     <string name="instructions" comment="Section header for step-by-step connection guides">指南</string>
-    <string name="intent_not_found" comment="Error toast when external app activity or URL link cannot be opened">未找到意向信息</string>
+    <string name="intent_not_found" comment="Error toast when external app activity or URL link cannot be opened">未找到意图</string>
     <string name="internal_storage" comment="Root folder label in file browser for local storage">内部存储</string>
     <string name="invalid_folder_name" comment="Validation error when entered directory name contains slash characters">文件夹名称不能包含 /</string>
     <string name="ip_address" comment="Field label for device IP address in wireless ADB setup">IP地址</string>
@@ -526,21 +526,21 @@
     <string name="keep_both" comment="Resolution option in file conflict dialog to keep both original and new file">同时保留</string>
     <string name="key_verified_success_msg" comment="Confirmation text when entered AI API key is validated successfully">密钥验证成功</string>
     <string name="label" comment="Field label for custom command label/tag name">标签</string>
-    <string name="languages" comment="Settings section header for language and locale options">语文</string>
-    <string name="last_auto_backup_cloud" comment="Card label showing timestamp of last Google Drive auto backup">最后一个云自动备份</string>
+    <string name="languages" comment="Settings section header for language and locale options">语言</string>
+    <string name="last_auto_backup_cloud" comment="Card label showing timestamp of last Google Drive auto backup">上次云自动备份</string>
     <string name="last_auto_backup_local" comment="Card label showing timestamp of last local storage auto backup">上次本地自动备份</string>
     <string name="last_backup_date" comment="Card metadata label for backup creation date">上次备份日期</string>
-    <string name="last_backup_details" comment="Card header for summary of last backup attempt">最后备份详情</string>
+    <string name="last_backup_details" comment="Card header for summary of last backup attempt">上次备份详情</string>
     <string name="last_backup_time" comment="Card metadata label for backup creation time">上次备份时间</string>
     <string name="latest_version" comment="Label showing latest available version string from GitHub release">最新版本</string>
-    <string name="lead_developer" comment="Role subtitle for project lead developer in About section">Developer</string>
+    <string name="lead_developer" comment="Role subtitle for project lead developer in About section">主要开发者</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">最少使用</string>
-    <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">关卡</string>
-    <string name="library_count" comment="%1$d = number of third-party libraries">检测到 %1$d 库</string>
-    <string name="license" comment="Card label for software license type">开源协议</string>
+    <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">级别</string>
+    <string name="library_count" comment="%1$d = number of third-party libraries">检测到 %1$d 个库</string>
+    <string name="license" comment="Card label for software license type">许可证</string>
     <string name="license_label" comment="Header label for software license info">许可证</string>
-    <string name="licenses" comment="Screen title listing open-source licenses of app dependencies">许可协议</string>
-    <string name="load" comment="Action button to load command templates into database">负载</string>
+    <string name="licenses" comment="Screen title listing open-source licenses of app dependencies">许可证</string>
+    <string name="load" comment="Action button to load command templates into database">加载</string>
     <string name="load_predefined_commands" comment="Button label in fastboot screen to load preset fastboot commands">加载预定义命令</string>
     <string name="loading">正在加载</string>
     <string name="loading_device_info" comment="Progress status text while querying ADB device specifications">正在加载设备信息…</string>
@@ -553,43 +553,43 @@
     <string name="locked" comment="Status badge showing bootloader lock state is locked">已锁定</string>
     <string name="logcat" comment="Refers to Android system logcat log streaming tool">Logcat</string>
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">日志已清除</string>
-    <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">包</string>
+    <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">应用包名</string>
     <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">日志级别</string>
-    <string name="logcat_filter_search_hint" comment="Placeholder text in logcat search bar">在信件中搜索…</string>
-    <string name="logcat_is_running" comment="Status banner shown while background logcat collection is active">日志正在运行</string>
-    <string name="logcat_ive_granted_it" comment="Button in logcat permission dialog confirming user ran ADB grant command on PC">我已经给予它了</string>
-    <string name="logcat_no_logs" comment="Placeholder text in logcat screen when no log entries match current filters">尚无日志</string>
-    <string name="logcat_notification_channel_description" comment="Android Notification Channel description for logcat background session">当logcat 正在积极收集日志时显示</string>
-    <string name="logcat_notification_channel_name" comment="Android Notification Channel name for Logcat background collection">日志会话</string>
-    <string name="logcat_permission_body" comment="Instructions in logcat dialog detailing PM grant command required via computer ADB for non-root logcat access">没有此权限，只有从 aShellYou 本身的日志才会可见。通过从计算机运行此命令授予完全访问权限：</string>
+    <string name="logcat_filter_search_hint" comment="Placeholder text in logcat search bar">搜索消息…</string>
+    <string name="logcat_is_running" comment="Status banner shown while background logcat collection is active">Logcat 正在运行</string>
+    <string name="logcat_ive_granted_it" comment="Button in logcat permission dialog confirming user ran ADB grant command on PC">我已授予</string>
+    <string name="logcat_no_logs" comment="Placeholder text in logcat screen when no log entries match current filters">暂无日志</string>
+    <string name="logcat_notification_channel_description" comment="Android Notification Channel description for logcat background session">在 logcat 主动收集日志时显示</string>
+    <string name="logcat_notification_channel_name" comment="Android Notification Channel name for Logcat background collection">Logcat 会话</string>
+    <string name="logcat_permission_body" comment="Instructions in logcat dialog detailing PM grant command required via computer ADB for non-root logcat access">如果没有此权限，则只能看到 aShellYou 自身的日志。请通过计算机运行以下命令来授予完全访问权限：</string>
     <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide">日志访问权限</string>
     <string name="logcat_running_description" comment="Notification body text shown while logcat runs in background">aShellYou 正在后台收集系统日志</string>
-    <string name="logcat_shortcut_long_label" comment="App launcher shortcut label for launching directly into Logcat Viewer">打开日志查看器</string>
-    <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">日志源</string>
-    <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">点击 :play_buton: 开始日志</string>
+    <string name="logcat_shortcut_long_label" comment="App launcher shortcut label for launching directly into Logcat Viewer">打开 Logcat 查看器</string>
+    <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Logcat 来源</string>
+    <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">点击 ▶ 开始 logcat</string>
     <string name="logs" comment="Screen header or tab title for application and execution log views">日志</string>
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">外观 &amp; 体验</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">低</string>
-    <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">低对比度</string>
+    <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">对比度过低</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">制作您的主题</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">手动配对</string>
     <string name="max_download_size" comment="Setting label for capping maximum update download file size">最大下载</string>
     <string name="medium">中</string>
     <string name="merge" comment="Resolution option in file browser conflict dialog to merge directory contents">合并</string>
-    <string name="message">留言</string>
-    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">Message ADB Agent…</string>
+    <string name="message">消息</string>
+    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">给 ADB 代理发消息…</string>
     <string name="minimize" comment="Action button to minimize terminal overlay window">最小化</string>
     <string name="mode" comment="Header title for ADB execution engine mode selector">模式</string>
-    <string name="mode_one_desc" comment="Description for Root execution engine option in settings">使用Root执行命令. 依赖Root权限的命令可以被执行</string>
-    <string name="mode_two_desc" comment="Description for Shizuku execution engine option in settings">使用Shizuku执行命令. 依赖Root权限的命令无法被执行</string>
-    <string name="model_category_large" comment="AI model size category label">大(1.5-2.5GB)</string>
-    <string name="model_category_medium" comment="AI model size category label">中等(800 MB-1.1 GB)</string>
-    <string name="model_category_small" comment="AI model size category label">小(300-500 MB)</string>
-    <string name="model_category_tiny" comment="AI model size category label">蒂尼(低于300 MB)</string>
+    <string name="mode_one_desc" comment="Description for Root execution engine option in settings">Use root access to run commands. Rooted commands can be executed.</string>
+    <string name="mode_two_desc" comment="Description for Shizuku execution engine option in settings">Use shizuku to run commands. Commands that require root won\'t execute.</string>
+    <string name="model_category_large" comment="AI model size category label">大型 (1.5–2.5 GB)</string>
+    <string name="model_category_medium" comment="AI model size category label">中型 (800 MB–1.1 GB)</string>
+    <string name="model_category_small" comment="AI model size category label">小型 (300–500 MB)</string>
+    <string name="model_category_tiny" comment="AI model size category label">微型 (300 MB 以下)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">模型</string>
     <string name="modified" comment="File property: last modified date">已修改</string>
     <string name="monospace" comment="Font style category name">等宽字体</string>
-    <string name="monthly" comment="Option in backup scheduler frequency selection">每月的</string>
+    <string name="monthly" comment="Option in backup scheduler frequency selection">每月</string>
     <string name="more">更多</string>
     <string name="most_used" comment="Sorting option for commands or bookmarks list">最多使用</string>
     <string name="move">移动</string>
@@ -598,7 +598,7 @@
     <string name="n_days" comment="%d = number of days for cache duration setting">%d 天</string>
     <string name="name">名称</string>
     <string name="network_error" comment="Toast error message when network connection fails during wireless pairing or cloud backup">网络异常</string>
-    <string name="new_commands_available_msg" comment="Banner prompt shown when updated command templates are available to load into database">添加了新的命令示例！\n点击下面的按钮加载新命令。</string>
+    <string name="new_commands_available_msg" comment="Banner prompt shown when updated command templates are available to load into database">已添加新的命令示例！\n点击下方按钮以加载新命令。</string>
     <string name="new_folder" comment="Action button label in file browser to create a new directory">新建文件夹</string>
     <string name="new_name" comment="Text field label for entering new item or file name">新名称</string>
     <string name="newest" comment="Sorting option for items by creation date (newest first)">最新的</string>
@@ -607,24 +607,24 @@
     <string name="no_auto_backup_yet" comment="Placeholder text under backup status when no automated backup has executed">尚未执行自动备份</string>
     <string name="no_bookmarks" comment="Placeholder text in bookmarks tab when no commands are saved">无书签</string>
     <string name="no_changelog_found" comment="Placeholder message in changelog screen when no version notes exist">未找到此版本的更新日志</string>
-    <string name="no_cloud_backup_found" comment="Status banner when no backup file is found on Google Drive">未在Google Drive上找到备份</string>
-    <string name="no_commands_run_yet" comment="Placeholder message when no fastboot commands have been run in session">尚未运行命令</string>
+    <string name="no_cloud_backup_found" comment="Status banner when no backup file is found on Google Drive">在 Google Drive 上未找到备份</string>
+    <string name="no_commands_run_yet" comment="Placeholder message when no fastboot commands have been run in session">尚未运行任何命令</string>
     <string name="no_crashes" comment="Placeholder text in crash history screen when no app crashes have occurred">没有报告崩溃。你正在顺利运行。</string>
-    <string name="no_custom_themes_yet" comment="Placeholder text in theme manager screen when no custom themes exist">尚无自定义主题。请在下方创建一个主题！</string>
+    <string name="no_custom_themes_yet" comment="Placeholder text in theme manager screen when no custom themes exist">尚无自定义主题。在下方创建一个！</string>
     <string name="no_device_connected" comment="Status banner shown when no wireless or OTG ADB device is connected">未连接设备</string>
-    <string name="no_fastboot_device_error" comment="Error banner in fastboot screen when connected USB device is not in fastboot mode">已连接的设备不在快速启动模式</string>
+    <string name="no_fastboot_device_error" comment="Error banner in fastboot screen when connected USB device is not in fastboot mode">连接的设备不在 fastboot 模式下</string>
     <string name="no_files_download" comment="Toast warning in file browser when user selects directory instead of files for download">未选择文件(文件夹无法下载)</string>
     <string name="no_folder_selected" comment="Placeholder status text when no backup directory is picked">未选择文件夹</string>
-    <string name="no_google_account_message" comment="Dialog message when no Google account is registered on device for cloud backups">在此设备上找不到谷歌帐户。您想要添加一个帐户来使用云备份吗？</string>
-    <string name="no_google_account_title" comment="Dialog title when no Google account is detected">无Google账户</string>
+    <string name="no_google_account_message" comment="Dialog message when no Google account is registered on device for cloud backups">此设备上未找到 Google 账号。您是否要添加一个账号来使用云备份？</string>
+    <string name="no_google_account_title" comment="Dialog title when no Google account is detected">无 Google 账号</string>
     <string name="no_history" comment="Placeholder text in terminal history tab when execution log is empty">无历史命令</string>
     <string name="no_libraries_found" comment="Placeholder text in licenses screen when search query returns no matching third-party libraries">未找到库</string>
-    <string name="no_logs_yet" comment="Placeholder text in Quick Settings tile execution logs tab">还没有日志！</string>
-    <string name="no_logs_yet_msg" comment="Instructional prompt under empty tile logs screen">尚未记录日志。执行一些瓷块以显示日志。</string>
-    <string name="no_model_selected" comment="Status text when no AI LLM model is selected in settings">没有选择模型</string>
+    <string name="no_logs_yet" comment="Placeholder text in Quick Settings tile execution logs tab">暂无日志！</string>
+    <string name="no_logs_yet_msg" comment="Instructional prompt under empty tile logs screen">尚未记录日志。执行一些磁贴以在此处显示日志。</string>
+    <string name="no_model_selected" comment="Status text when no AI LLM model is selected in settings">未选择模型</string>
     <string name="no_operations" comment="Placeholder text in file manager operations queue sheet">没有正在进行的操作</string>
-    <string name="no_other_device_hint" comment="Instructional subtext in logcat viewer when viewing remote device logs">连接外部设备以查看日志</string>
-    <string name="no_results_found" comment="Placeholder text when search query yields no matching items">未找到结果</string>
+    <string name="no_other_device_hint" comment="Instructional subtext in logcat viewer when viewing remote device logs">连接外部设备以查看其日志</string>
+    <string name="no_results_found" comment="Placeholder text when search query yields no matching items">未找到搜索结果</string>
     <string name="no_root_access" comment="Error toast or status badge when root superuser access is unavailable">无root权限</string>
     <string name="no_saved_devices" comment="Placeholder text in saved devices screen when no ADB target devices are paired">没有保存的设备</string>
     <string name="no_search_results_found" comment="Placeholder text when command search yields no results">未找到搜索结果</string>
@@ -635,38 +635,38 @@
     <string name="nothing_to_clear" comment="Toast notification when user taps clear output but screen is already empty">没什么可清的</string>
     <string name="nothing_to_search" comment="Toast message when search query string is empty">无可检索项</string>
     <string name="notification_settings" comment="Button label to open system notification settings screen">通知设置</string>
-    <string name="notification_style_error" comment="Troubleshooting guide text explaining Xiaomi/MIUI notification shade issues with entering pairing code">看这里！\n如果你使用的手机运行的是MIUI/HyperOS，你可能需要事先前往 设置=&gt;通知与状态栏=&gt;通知样式设置 将其设置为“原生样式”\n\n否则在输入配对码这一步会出问题——打不开输入框</string>
+    <string name="notification_style_error" comment="Troubleshooting guide text explaining Xiaomi/MIUI notification shade issues with entering pairing code">If you cannot enter the Pairing Code from the notification, then you might need to change the Notification Shade to Android. Go to Notification Settings ~ Notification Style to change the Notification Style.  Otherwise you might not be able to enter the pairing code from the notification.</string>
     <string name="notification_styles" comment="Settings preference title for notification shade style options">通知样式</string>
-    <string name="off">关</string>
-    <string name="off_state" comment="Quick Settings tile toggle state label">关闭</string>
+    <string name="off">开启</string>
+    <string name="off_state" comment="Quick Settings tile toggle state label">开启</string>
     <string name="ok">确定</string>
     <string name="oldest" comment="Sorting option">最早的</string>
-    <string name="on">开</string>
-    <string name="on_background">在背景</string>
-    <string name="on_primary">在首页</string>
-    <string name="on_primary_container">在主容器</string>
-    <string name="on_secondary">在次要时</string>
-    <string name="on_state" comment="Quick Settings tile toggle state label">开启</string>
-    <string name="on_surface">在地面上</string>
-    <string name="on_tertiary">在高等上</string>
+    <string name="on">关闭</string>
+    <string name="on_background">背景之上</string>
+    <string name="on_primary">主要颜色之上</string>
+    <string name="on_primary_container">主要容器之上</string>
+    <string name="on_secondary">次要颜色之上</string>
+    <string name="on_state" comment="Quick Settings tile toggle state label">关闭</string>
+    <string name="on_surface">表面之上</string>
+    <string name="on_tertiary">第三颜色之上</string>
     <string name="open">打开</string>
     <string name="open_app_language_settings" comment="Button label on Android 13+ to jump to system per-app language setting screen">打开应用语言设置</string>
     <string name="open_issues" comment="GitHub repository open issues count">未决问题</string>
     <string name="open_url" comment="Action button to launch web browser to external URL link">打开 URL</string>
-    <string name="operation_complete" comment="Notification toast when file copy/move operation finishes">操作完成</string>
+    <string name="operation_complete" comment="Notification toast when file copy/move operation finishes">操作已完成</string>
     <string name="operations" comment="Bottom sheet title for file transfer operations list">业务活动</string>
     <string name="or">或</string>
     <string name="otg" comment="USB On-The-Go. Technical term, keep as OTG">OTG</string>
-    <string name="other_details" comment="Expandable card title for additional device metadata details">其他详细信息</string>
+    <string name="other_details" comment="Expandable card title for additional device metadata details">其他详情</string>
     <string name="other_device" comment="Selection tab for target device in Logcat Viewer">其他设备</string>
     <string name="output" comment="Header title for shell command output window">产出</string>
-    <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">输出将显示在这里…</string>
+    <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">输出将显示在此处…</string>
     <string name="override_bookmarks_limit" comment="Setting toggle title to remove the maximum limit on saved bookmarks count">取消书签数量限制</string>
-    <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">包名</string>
+    <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">应用包名</string>
     <string name="pair" comment="Button/action label to initiate ADB wireless or OTG pairing with another device">配对</string>
     <string name="pair_a_device_first" comment="Instructional notice directing user to pair an ADB device before attempting connection">先配对设备</string>
     <string name="pair_another_device" comment="Button label in Wireless Debugging setup to pair an additional target device">配对另一台设备</string>
-    <string name="pair_connect_failed_message" comment="Dialog message when connecting to a paired wireless ADB device fails">无法连接到配对设备\n设备可能不在同一个网络\n上，请尝试重新配对</string>
+    <string name="pair_connect_failed_message" comment="Dialog message when connecting to a paired wireless ADB device fails">无法连接到配对设备\n设备可能不在同一个网络\n尝试重新配对</string>
     <string name="pair_device_to_start" comment="Placeholder banner in wireless debugging screen directing user to pair device via QR or pairing code">使用二维码或配对码配对设备来查看它</string>
     <string name="pair_manually" comment="Option in Wireless Debugging setup to enter IP, Port, and Pairing Code manually">手动配对</string>
     <string name="pair_this_device" comment="Button label in wireless debugging screen to initiate self-pairing for local device ADB">配对此设备</string>
@@ -676,55 +676,55 @@
     <string name="pairing" comment="Status header/banner displayed while ADB wireless pairing is in progress">配对中</string>
     <string name="pairing_code" comment="Field label or dialog title for 6-digit ADB wireless pairing code">配对码</string>
     <string name="pairing_notification_hint" comment="Notice informing user that a system notification will appear to facilitate quick pairing code entry">提示：你会在通知栏看见一个来自aShell You的通知，在打开无线调试并进入配对界面后请点击这个通知的“提交”按钮即可唤出输入界面</string>
-    <string name="pairing_process_notification_access_message" comment="Dialog message asking user to grant system notification access to enable quick pairing code entry">要完成配对过程，您需要与 aShell 您的通知交互。请允许通知访问您。</string>
+    <string name="pairing_process_notification_access_message" comment="Dialog message asking user to grant system notification access to enable quick pairing code entry">To complete the pairing process you will need to interact with a notification from aShell You. Please allow notification access to aShell You.</string>
     <string name="palette_content" comment="Material Design color scheme style name">内容</string>
-    <string name="palette_expressive" comment="Material Design color scheme style name">表达式</string>
-    <string name="palette_fidelity" comment="Material Design color scheme style name">幻影性</string>
-    <string name="palette_fruit_salad" comment="Material Design color scheme style name">水果沙拉德</string>
+    <string name="palette_expressive" comment="Material Design color scheme style name">表现力</string>
+    <string name="palette_fidelity" comment="Material Design color scheme style name">保真度</string>
+    <string name="palette_fruit_salad" comment="Material Design color scheme style name">水果沙拉</string>
     <string name="palette_monochrome" comment="Material Design color scheme style name">单色</string>
-    <string name="palette_neutral" comment="Material Design color scheme style name">中性的</string>
-    <string name="palette_rainbow" comment="Material Design color scheme style name">彩虹灯</string>
-    <string name="palette_style" comment="Settings label for choosing Material Design color palette">Palette style</string>
-    <string name="palette_tonal_spot" comment="Material Design color scheme style name">倾斜点</string>
-    <string name="palette_vibrant" comment="Material Design color scheme style name">振动</string>
+    <string name="palette_neutral" comment="Material Design color scheme style name">中性</string>
+    <string name="palette_rainbow" comment="Material Design color scheme style name">彩虹</string>
+    <string name="palette_style" comment="Settings label for choosing Material Design color palette">调色板样式</string>
+    <string name="palette_tonal_spot" comment="Material Design color scheme style name">色调专区</string>
+    <string name="palette_vibrant" comment="Material Design color scheme style name">活力</string>
     <string name="partition" comment="Field label or dropdown header for fastboot partition name (e.g. boot, system, recovery)">分区</string>
     <string name="paste">粘贴</string>
     <string name="path" comment="Field label for file or directory path in file browser properties">路径</string>
     <string name="paused" comment="Status badge showing ongoing file transfer or logcat session is paused">已暂停</string>
     <string name="permission_denied" comment="Error toast when requested Android system permission is denied by user">权限被拒绝</string>
-    <string name="permission_optional" comment="Subtext notice indicating requested permissions are non-mandatory">这些权限的授予是可选的！按需授权</string>
+    <string name="permission_optional" comment="Subtext notice indicating requested permissions are non-mandatory">Granting these permissions is optional!</string>
     <string name="pick_ashellyou_extension" comment="File picker validation error requiring user to select a .ashellyou backup file">请选择一个 .ashellyou 扩展名的文件</string>
-    <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">选择颜色</string>
+    <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">挑选颜色</string>
     <string name="port" comment="Field label for network port number in wireless ADB manual pairing setup">端口</string>
     <string name="possible_reasons" comment="Dialog section header listing potential causes of ADB connection failure">可能的原因</string>
-    <string name="pre_release_github" comment="Option in update channel settings to receive GitHub pre-release builds">预释放(GitHub)</string>
+    <string name="pre_release_github" comment="Option in update channel settings to receive GitHub pre-release builds">预发布版 (GitHub)</string>
     <string name="pre_release_warning" comment="Warning alert header when switching to pre-release update channel">预发布版本可能不稳定</string>
     <string name="pre_release_warning_description" comment="Detailed description of risks when opting into pre-release testing builds">这些版本仍在测试中，可能包含未完成的功能或未预料的故障。如果选择更新到预发行版本，请意识到应用可能出问题或表现怪异。\n如遇任何问题、崩溃或奇怪行为，请报告它们。以便我们在稳定版发布前修复和改进 sShellYou。\n感谢帮助我们让 aShell 变得更好！</string>
     <string name="predefined_commands" comment="Section header for pre-saved fastboot command actions">预定义命令</string>
-    <string name="predefined_commands_desc" comment="Description under predefined fastboot commands header">快速访问常见的 fastboot 命令。结果流到下面的控制台。</string>
-    <string name="preference" comment="Header title for settings preference category">首选项</string>
+    <string name="predefined_commands_desc" comment="Description under predefined fastboot commands header">快速访问常见的 fastboot 命令。结果将流式传输至下方的控制台。</string>
+    <string name="preference" comment="Header title for settings preference category">偏好设置</string>
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">预览</string>
-    <string name="primary">主要的</string>
-    <string name="primary_container">主容器</string>
+    <string name="primary">主要颜色</string>
+    <string name="primary_container">主要容器</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">产品</string>
-    <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">通过恢复菜单将设备置于侧边载模式</string>
+    <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">通过恢复模式菜单将设备置于 sideload 模式</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">二维码对</string>
     <string name="qr_pair_hint" comment="Instructional text in QR pairing screen instructing user to scan QR code from target device">要配对 Android 11+ 设备，请从目标设备扫描此 QR</string>
     <string name="qr_scanner_location_hint" comment="Instructional hint directing user where to find system QR scanner in target device Developer Options">QR 扫描仪可用于：\n开发者选项 &gt; 无线调试 &gt; 配对 QR 代码</string>
-    <string name="qs_tiles" comment="Refers to Android System Quick Settings tiles configured for custom ADB scripts">快速设置瓷块</string>
+    <string name="qs_tiles" comment="Refers to Android System Quick Settings tiles configured for custom ADB scripts">快速设置磁贴</string>
     <string name="quick_tools" comment="Section header for fast access utility tools">快速工具</string>
     <string name="reading_file" comment="Progress status text while loading file contents into viewer">正在读取文件…</string>
     <string name="ready_to_paste" comment="Status message in file manager when item is stored in paste clipboard">准备粘贴</string>
-    <string name="reboot_bootloader" comment="Action button / dialog choice to reboot target device into bootloader mode">重启到 Bootloader</string>
-    <string name="reboot_confirm_message" comment="%1$s = target boot mode (e.g. recovery, bootloader). Confirmation prompt before rebooting target device">这将重新启动连接设备到 %1$s。是否继续？</string>
+    <string name="reboot_bootloader" comment="Action button / dialog choice to reboot target device into bootloader mode">重启至 Bootloader</string>
+    <string name="reboot_confirm_message" comment="%1$s = target boot mode (e.g. recovery, bootloader). Confirmation prompt before rebooting target device">这将会把连接的设备重启至 %1$s。是否继续？</string>
     <string name="reboot_confirm_title" comment="Dialog title asking user confirmation before rebooting target device">确认重启</string>
-    <string name="reboot_fastbootd" comment="Action button / dialog choice to reboot target device into fastbootd (userspace fastboot) mode">重启到 Fastbootd</string>
-    <string name="reboot_normal" comment="Action button / dialog choice to perform standard system reboot">Reboot</string>
+    <string name="reboot_fastbootd" comment="Action button / dialog choice to reboot target device into fastbootd (userspace fastboot) mode">重启至 Fastbootd</string>
+    <string name="reboot_normal" comment="Action button / dialog choice to perform standard system reboot">重启</string>
     <string name="reboot_options" comment="Menu header listing target device reboot modes (Normal, Recovery, Bootloader, Fastbootd)">重启选项</string>
-    <string name="reboot_recovery" comment="Action button / dialog choice to reboot target device into recovery mode">重启到恢复</string>
+    <string name="reboot_recovery" comment="Action button / dialog choice to reboot target device into recovery mode">重启至 Recovery</string>
     <string name="recent_activity" comment="Dashboard card header listing recent command executions">最近活动</string>
     <string name="recent_searches" comment="Header title for recent search query history">最近搜索</string>
-    <string name="recommended" comment="Badge label marking recommended settings or AI choices">推荐的</string>
+    <string name="recommended" comment="Badge label marking recommended settings or AI choices">推荐</string>
     <string name="reconnect" comment="Action button to attempt reconnecting to last known wireless ADB device">重新连接</string>
     <string name="reconnect_failed" comment="Toast notification or card status when wireless ADB reconnection fails">重新连接失败</string>
     <string name="reconnect_failed_message" comment="Dialog body text detailing causes of wireless ADB reconnection failure">\n无线调试可能无法启用\n配对信息可能丢失。再次手动配对！</string>
@@ -733,13 +733,13 @@
     <string name="reconnect_the_device" comment="Button prompt directing user to reconnect target ADB device">重新连接设备</string>
     <string name="recovery" comment="Refers to Android System Recovery partition / boot mode">恢复</string>
     <string name="refresh">刷新</string>
-    <string name="remove">删除</string>
-    <string name="rename">重命名：</string>
+    <string name="remove">移除</string>
+    <string name="rename">Rename</string>
     <string name="rename_title" comment="%1$s = file or folder name">重命名 %1$s</string>
     <string name="replace" comment="Resolution option in file conflict dialog to replace existing file">替换</string>
     <string name="report">反馈</string>
     <string name="report_issue" comment="Button in About screen linking to GitHub issue tracker">提交议题</string>
-    <string name="repository" comment="Button in About screen linking to GitHub project repository">存储库</string>
+    <string name="repository" comment="Button in About screen linking to GitHub project repository">仓库</string>
     <string name="request_timeout" comment="Error toast when network request or ADB response times out">请求超时</string>
     <string name="reset">重置</string>
     <string name="reset_app_settings" comment="Button label in settings to restore default application configuration">重置应用设置</string>
@@ -749,29 +749,29 @@
     <string name="restore_app_data" comment="Button label in backup settings to import and restore data from backup file">恢复应用数据</string>
     <string name="restore_dialog_message" comment="Warning message in restore dialog that existing database will be overwritten">保存文件中的数据将覆盖当前数据。</string>
     <string name="restore_failed" comment="Toast error message when restoring app data fails">恢复失败</string>
-    <string name="restore_from" comment="Dialog header prompting user to select restore source (Local File or Google Drive)">还原自</string>
+    <string name="restore_from" comment="Dialog header prompting user to select restore source (Local File or Google Drive)">恢复来源</string>
     <string name="restore_successful" comment="Toast message confirming successful app data restoration">恢复成功</string>
-    <string name="restoring_backup" comment="Progress status text shown while restoring database from backup">恢复备份…</string>
+    <string name="restoring_backup" comment="Progress status text shown while restoring database from backup">正在恢复备份…</string>
     <string name="resume" comment="Action button to resume paused logcat streaming or file download">继续</string>
     <string name="retry" comment="Action button to retry failed network connection or command execution">重试</string>
     <string name="root_access_granted" comment="Toast notification confirming superuser root access granted to aShellYou">Root 访问已授予！</string>
-    <string name="root_unavailable" comment="Dialog title when root access check returns false">根不可用</string>
-    <string name="root_unavailable_message" comment="Dialog message explaining root access was not detected on device">无法检测到Root访问权限。请确保您的设备已root并重试，或切换到其他日志源。</string>
+    <string name="root_unavailable" comment="Dialog title when root access check returns false">Root 不可用</string>
+    <string name="root_unavailable_message" comment="Dialog message explaining root access was not detected on device">无法检测到 Root 访问权限。请确保您的设备已获取 Root 权限并重试，或者切换到其他 logcat 来源。</string>
     <string name="run">运行</string>
-    <string name="run_a_command_to_see_logs" comment="Instructional prompt under empty fastboot logs view">使用命令选项卡执行快速启动命令</string>
-    <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">在已连接设备上执行 \"%1$s\" 吗？</string>
+    <string name="run_a_command_to_see_logs" comment="Instructional prompt under empty fastboot logs view">使用“命令”选项卡执行 fastboot 命令</string>
+    <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">在已连接的设备上执行“%1$s”？</string>
     <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">运行命令？</string>
     <string name="running" comment="Status badge showing task or command execution is active">正在运行</string>
     <string name="sans_serif" comment="Font style category name">无衬线字体</string>
     <string name="save">保存</string>
-    <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">另存为…</string>
+    <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">另存为配置文件…</string>
     <string name="save_changes" comment="Action button to persist edited settings or tile parameters">保存更改</string>
     <string name="save_key" comment="Button label to save entered API key string in settings">保存密钥</string>
     <string name="save_whole_output" comment="Setting toggle title to export full terminal session output to file">保存整个输出</string>
     <string name="saved_devices" comment="Screen title and list header for paired ADB devices history">已保存的设备</string>
     <string name="saving" comment="Progress status text while saving file or settings">保存中…</string>
-    <string name="saving_output" comment="Progress status text while exporting terminal log output to file">导出输出到文件…</string>
-    <string name="schedule" comment="Header title or setting label for automated backup schedule picker">日程安排</string>
+    <string name="saving_output" comment="Progress status text while exporting terminal log output to file">正在将输出导出到文件…</string>
+    <string name="schedule" comment="Header title or setting label for automated backup schedule picker">计划</string>
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">屏幕密度乘数</string>
     <string name="search">搜索</string>
     <string name="search_bookmarks_here" comment="Placeholder text in bookmarks tab search bar">在此搜索书签</string>
@@ -779,24 +779,24 @@
     <string name="search_fonts" comment="Placeholder text in font family picker search bar">搜索字体…</string>
     <string name="search_icons_here" comment="Placeholder text in Quick Settings tile icon picker search bar">在这里搜索图标</string>
     <string name="search_labels_here" comment="Placeholder text in command label filter search bar">在此搜索标签</string>
-    <string name="search_libraries" comment="Placeholder text in open-source licenses search bar">搜索库，作者，许可证，…</string>
+    <string name="search_libraries" comment="Placeholder text in open-source licenses search bar">搜索库、作者、许可证…</string>
     <string name="search_output" comment="Placeholder text in terminal output search bar">在此处搜索输出内容</string>
     <string name="search_settings" comment="Placeholder text in settings top search bar">搜索设置</string>
     <string name="search_something" comment="Generic search field placeholder prompt">搜索内容</string>
     <string name="search_variables" comment="Placeholder text in fastboot variables explorer search bar">搜索变量…</string>
     <string name="searching_connect_service" comment="Status message while discovering ADB mDNS connection service on local network">搜索连接服务</string>
     <string name="searching_for_devices" comment="Progress status text while scanning for local Wireless Debugging or OTG ADB target devices">正在搜索设备…</string>
-    <string name="secondary">次要文件</string>
+    <string name="secondary">次要颜色</string>
     <string name="security_patch" comment="Device property label displaying Android security patch level date">安全补丁</string>
     <string name="select">选择</string>
     <string name="select_all">全选</string>
-    <string name="select_backup_folder_message" comment="Dialog message prompting user to grant folder access for local automated backups">请选择要保存备份的文件夹。应用程序需要读取并写入此文件夹的权限。</string>
-    <string name="select_backup_folder_title" comment="Dialog title when no backup directory has been configured">没有备份文件夹</string>
+    <string name="select_backup_folder_message" comment="Dialog message prompting user to grant folder access for local automated backups">请选择保存备份的文件夹。应用需要对该文件夹的读写权限。</string>
+    <string name="select_backup_folder_title" comment="Dialog title when no backup directory has been configured">无备份文件夹</string>
     <string name="select_folder" comment="Action button to open system directory picker for backup storage">选择文件夹</string>
     <string name="select_partition" comment="Dropdown hint or dialog header for picking target fastboot partition">选择分区</string>
-    <string name="select_theme_to_edit_hex" comment="Instructional prompt under hex editor section in theme builder">在这里选择一个主题来编辑其原生十六进制值。</string>
+    <string name="select_theme_to_edit_hex" comment="Instructional prompt under hex editor section in theme builder">在上方选择一个主题以在此处编辑其原始十六进制值。</string>
     <string name="select_time" comment="Button label to open time picker dialog for automated backup schedule">选择时间</string>
-    <string name="select_zip_package" comment="Button label to launch file picker for selecting a ZIP update package to sideload">选择 ZIP 包</string>
+    <string name="select_zip_package" comment="Button label to launch file picker for selecting a ZIP update package to sideload">选择 ZIP 软件包</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">自己的</string>
     <string name="self_pair_connection_failed" comment="Toast error message when automatic local self-pairing fails">连接失败 - 尝试手动连接</string>
     <string name="self_pair_enter_code" comment="Subtext instruction prompting user for 6-digit wireless pairing code">从配对对话框中输入6位数字</string>
@@ -816,7 +816,7 @@
     <string name="self_pair_wrong_code" comment="Toast error message when entered 6-digit wireless pairing code is incorrect">错误的代码 - 再次打开配对对话框</string>
     <string name="send">发送</string>
     <string name="serial_number" comment="Device property label displaying target device hardware serial number">序列号</string>
-    <string name="serif" comment="Font style category name">序列号</string>
+    <string name="serif" comment="Font style category name">衬线字体</string>
     <string name="settings">设置</string>
     <string name="settings_only" comment="Option in backup screen to export only application settings (excluding history/bookmarks)">仅设置</string>
     <string name="share">分享</string>
@@ -824,78 +824,78 @@
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">终端输出导出到 \'%s\'</string>
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">尚未安装 Shizuku</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku 不可用</string>
-    <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku is not running or missing permissions">您的设备上未安装 Shizuku 或未激活。没有 Shizuku 环境，aShell You 无法运行。</string>
-    <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">通过恢复将设备置于侧边载模式</string>
-    <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">侧边载模式 - 已就绪</string>
-    <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">启动到恢复(按住音量下调+电源，或运行：adb 重启恢复)</string>
-    <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">导航到恢复菜单中的“应用更新”</string>
-    <string name="sideload_step_3" comment="Step 3 of ADB sideload guide: selecting ADB sideload mode in recovery">选择 \"Apply from ADB\" (or \"ADB sideload\")</string>
-    <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">通过 OTG 电缆连接您的设备，然后在此选择ZIP</string>
-    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Sideloading…</string>
-    <string name="sign_in_failed" comment="Toast error message when Google account sign-in fails">谷歌登录失败</string>
-    <string name="sign_in_with_google" comment="Button label in cloud backup settings to sign into Google account">使用Google登录</string>
+    <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku is not running or missing permissions">Shizuku is not installed or properly configured on your device</string>
+    <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">通过恢复模式将设备置于 sideload 模式</string>
+    <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Sideload 模式 — 就绪</string>
+    <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">引导至恢复模式（按住“音量减”+“电源”，或运行：adb reboot recovery）</string>
+    <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">在恢复模式菜单中导航至“Apply update”</string>
+    <string name="sideload_step_3" comment="Step 3 of ADB sideload guide: selecting ADB sideload mode in recovery">选择“Apply from ADB”（或“ADB Sideload”）</string>
+    <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">通过 OTG 线连接您的设备，然后在此处选择 ZIP 文件</string>
+    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">正在 Sideload…</string>
+    <string name="sign_in_failed" comment="Toast error message when Google account sign-in fails">Google 登录失败</string>
+    <string name="sign_in_with_google" comment="Button label in cloud backup settings to sign into Google account">登录 Google</string>
     <string name="sign_out" comment="Button label in cloud backup settings to sign out of Google account">登出</string>
-    <string name="sign_out_confirmation_msg" comment="Warning prompt in sign-out confirmation dialog warning that auto cloud backups will pause">登出将暂停所有自动云备份！\n您仍然想要登出吗？</string>
-    <string name="signed_in_as" comment="%1$s = user email or name">以 %1$s 登录</string>
-    <string name="signed_out" comment="Status text in cloud backup card when signed out of Google account">登出</string>
+    <string name="sign_out_confirmation_msg" comment="Warning prompt in sign-out confirmation dialog warning that auto cloud backups will pause">登出将暂停所有自动云备份！\n您确定仍要登出吗？</string>
+    <string name="signed_in_as" comment="%1$s = user email or name">已登录为 %1$s</string>
+    <string name="signed_out" comment="Status text in cloud backup card when signed out of Google account">已登出</string>
     <string name="size">大小</string>
     <string name="skip">跳过</string>
-    <string name="slide_to_flash" comment="Slider text prompt in fastboot partition flash confirmation sheet">滑动刷入</string>
-    <string name="slide_to_sideload" comment="Slider button prompt to initiate the ADB sideload transfer of chosen ZIP file over OTG">滑动到侧边栏</string>
-    <string name="slot_data_unknown" comment="Status text when device A/B slot information cannot be retrieved over fastboot">未知插槽数据</string>
+    <string name="slide_to_flash" comment="Slider text prompt in fastboot partition flash confirmation sheet">滑动以刷入</string>
+    <string name="slide_to_sideload" comment="Slider button prompt to initiate the ADB sideload transfer of chosen ZIP file over OTG">滑动以 Sideload</string>
+    <string name="slot_data_unknown" comment="Status text when device A/B slot information cannot be retrieved over fastboot">槽位数据未知</string>
     <string name="smooth_scrolling" comment="Settings toggle preference title to enable smooth scrolling animation in terminal">平滑滚动</string>
     <string name="sort">排序</string>
-    <string name="stable_fdroid" comment="Option in update channel settings for F-Droid stable releases">稳定(Fdroid)</string>
-    <string name="stable_github" comment="Option in update channel settings for GitHub stable releases">稳定(GitHub)</string>
+    <string name="stable_fdroid" comment="Option in update channel settings for F-Droid stable releases">稳定版 (F-Droid)</string>
+    <string name="stable_github" comment="Option in update channel settings for GitHub stable releases">稳定版 (GitHub)</string>
     <string name="stack_trace" comment="Header title for crash log exception stack trace section">堆栈跟踪</string>
     <string name="stargazers" comment="GitHub repository star count label in About screen">Stargazers</string>
     <string name="start">开始</string>
     <string name="stop">停止</string>
-    <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">%.1f MB 被AI 模型使用</string>
-    <string name="subtitle" comment="Field label for Quick Settings tile subtitle text">字幕</string>
-    <string name="subtitle_off_state" comment="Field label for tile subtitle text when Quick Settings tile is OFF">字幕 (OFF 状态)</string>
-    <string name="subtitle_on_state" comment="Field label for tile subtitle text when Quick Settings tile is ON">字幕 (N 状态)</string>
+    <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">AI 模型已占用 %.1f MB</string>
+    <string name="subtitle" comment="Field label for Quick Settings tile subtitle text">副标题</string>
+    <string name="subtitle_off_state" comment="Field label for tile subtitle text when Quick Settings tile is OFF">副标题（关闭状态）</string>
+    <string name="subtitle_on_state" comment="Field label for tile subtitle text when Quick Settings tile is ON">副标题（开启状态）</string>
     <string name="success">成功</string>
     <string name="success_rate" comment="Analytics metadata metric showing tile execution success percentage">成功率</string>
     <string name="successful_connection_message" comment="Dialog message confirming target ADB device connected successfully">设备连接成功。您现在可以在目标设备上运行命令。</string>
-    <string name="suggested_icons" comment="Header title in tile icon picker listing suggested Material icons">建议图标</string>
+    <string name="suggested_icons" comment="Header title in tile icon picker listing suggested Material icons">推荐图标</string>
     <string name="support_bmc" comment="Banner text in About section linking to Buy Me a Coffee donation page">觉得我做的好？\n考虑请我一杯咖啡吧</string>
     <string name="surface">表面</string>
     <string name="switch_mode" comment="Action button to switch ADB connection mode between Local ADB, Remote Wireless ADB, and OTG">切换模式</string>
-    <string name="system">跟随系统</string>
-    <string name="system_default" comment="Theme or language option to match Android OS system default settings">系统默认</string>
+    <string name="system">系统</string>
+    <string name="system_default" comment="Theme or language option to match Android OS system default settings">系统字体</string>
     <string name="system_font" comment="Option to use the device default font">系统字体</string>
     <string name="system_settings" comment="Button label linking to Android system Settings app">系统设置</string>
-    <string name="tab" comment="Settings option for terminal tab indentation behavior">Tab</string>
+    <string name="tab" comment="Settings option for terminal tab indentation behavior">制表符</string>
     <string name="tag" comment="Field label for custom command category tag/label">标签</string>
-    <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">点击浏览.zip 文件</string>
+    <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">点击以浏览 .zip 文件</string>
     <string name="telegram" comment="Button in About screen linking to official Telegram community group">Telegram</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">终端</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">终端字体样式</string>
-    <string name="tertiary">三等式</string>
+    <string name="tertiary">第三颜色</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">第三方库</string>
-    <string name="this_application" comment="Option label for target scope in Logcat Viewer">此应用程序</string>
+    <string name="this_application" comment="Option label for target scope in Logcat Viewer">本应用程序</string>
     <string name="this_device" comment="Selection option for target ADB device matching host phone">此设备</string>
-    <string name="tile" comment="Refers to Android System Quick Settings tile">平铺图</string>
-    <string name="tile_behavior" comment="Settings title for Quick Settings tile click behavior (click vs long-click)">平铺行为</string>
-    <string name="tile_dashboard_notification_access_message" comment="Banner notice asking for notification permission to report tile execution errors">打开通知栏以在平铺执行失败时获得通知</string>
-    <string name="tile_logs" comment="Tab header for Quick Settings tile execution history log">平铺日志</string>
-    <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">平铺 %1$d</string>
+    <string name="tile" comment="Refers to Android System Quick Settings tile">磁贴</string>
+    <string name="tile_behavior" comment="Settings title for Quick Settings tile click behavior (click vs long-click)">磁贴行为</string>
+    <string name="tile_dashboard_notification_access_message" comment="Banner notice asking for notification permission to report tile execution errors">开启通知以便在磁贴执行失败时接收提醒</string>
+    <string name="tile_logs" comment="Tab header for Quick Settings tile execution history log">磁贴日志</string>
+    <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">磁贴 %1$d</string>
     <string name="tile_name" comment="Field label for Quick Settings tile title text">瓷贴名称</string>
-    <string name="tiles" comment="Navigation drawer item and screen header for Quick Settings tiles manager">瓷块</string>
+    <string name="tiles" comment="Navigation drawer item and screen header for Quick Settings tiles manager">磁贴</string>
     <string name="time">时间</string>
     <string name="timestamp">时间戳</string>
-    <string name="toggleable">可切换的</string>
-    <string name="total_executions">执行总数</string>
+    <string name="toggleable">可切换</string>
+    <string name="total_executions">总执行次数</string>
     <string name="translations">翻译</string>
-    <string name="translators">翻译者</string>
+    <string name="translators">翻译人员</string>
     <string name="troubleshoot">疑难解答</string>
     <string name="troubleshoot_reconnect">切换开启无线调试连接以刷新连接</string>
     <string name="try_different_search">尝试其他搜索词</string>
     <string name="turn_off_mobile_data">如果提示“此无线网络不能访问互联网”，请关闭手机的数据流量</string>
     <string name="tweak_your_experience">改善你的体验</string>
     <string name="type">类型</string>
-    <string name="ui_scale" comment="Settings preference title for adjusting UI scale factor">界面缩放</string>
+    <string name="ui_scale" comment="Settings preference title for adjusting UI scale factor">UI 缩放</string>
     <string name="undo">撤消操作</string>
     <string name="unexpected_error" comment="Generic exception toast header when unhandled error occurs">意外错误</string>
     <string name="unknown">未知的</string>
@@ -903,14 +903,14 @@
     <string name="unknown_sources_install_permission_not_granted" comment="Error toast when REQUEST_INSTALL_PACKAGES permission is missing for app update installation">未授予权限。请允许从未知来源安装应用程序。</string>
     <string name="unlock_status" comment="Device property label displaying bootloader lock state">解锁状态</string>
     <string name="unlocked" comment="Status badge showing bootloader is unlocked">已解锁</string>
-    <string name="untitled" comment="Default name fallback for unsaved theme profile or custom tile">无标题</string>
+    <string name="untitled" comment="Default name fallback for unsaved theme profile or custom tile">未命名</string>
     <string name="update">更新</string>
-    <string name="update_available" comment="Banner title announcing a new application update release">更新可用！</string>
+    <string name="update_available" comment="Banner title announcing a new application update release">可更新！</string>
     <string name="update_channel" comment="Settings preference title for choosing update channel (Stable, Pre-release, F-Droid)">更新渠道</string>
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">上传文件</string>
     <string name="uploading" comment="Progress status text shown while uploading file to device">正在上传…</string>
-    <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">将备份上传到Google Drive…</string>
-    <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">USB 管理器在此设备上不可用</string>
+    <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">正在将备份上传到 Google Drive…</string>
+    <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">此设备上不可用 USB 管理器</string>
     <string name="use">使用</string>
     <string name="utilities" comment="Category title in homescreen">实用工具</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">变体</string>
@@ -920,46 +920,46 @@
     <string name="version">版本</string>
     <string name="version_code" comment="Device/app metadata label for build version code number">版本代码</string>
     <string name="version_name" comment="Device/app metadata label for human-readable version string">版本名称</string>
-    <string name="view_license_online_msg" comment="Subtext in license viewer directing user to view license URL online">点击 \'Open URL\' 在线查看许可协议。</string>
+    <string name="view_license_online_msg" comment="Subtext in license viewer directing user to view license URL online">点击“打开 URL”在线查看许可证。</string>
     <string name="view_on_github" comment="Button linking to GitHub release page or commit diff">在 GitHub 上查看</string>
     <string name="visit_repo_to_download" comment="Instructions directing user to download the update APK file from GitHub releases">点击下载按钮从github 仓库获取最新版本。</string>
     <string name="waiting_for_device" comment="Progress status banner while awaiting target device USB OTG attachment">等待设备</string>
     <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">等待设备…</string>
-    <string name="want_to_contribute_too" comment="Call-to-action banner in About screen inviting code or translation contributions">想要也做贡献吗？</string>
-    <string name="weekly" comment="Option in backup scheduler frequency selection">每周的</string>
+    <string name="want_to_contribute_too" comment="Call-to-action banner in About screen inviting code or translation contributions">也想参与贡献？</string>
+    <string name="weekly" comment="Option in backup scheduler frequency selection">每周</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">当 %1$s时你想做什么？</string>
     <string name="whats_new" comment="Header title for app release notes and changelog dialog">更新内容！</string>
     <string name="which_device_to_pair" comment="Dialog header prompting user to choose wireless pairing method or device">您想配对哪个设备？</string>
     <string name="wifi_adb" comment="Refers to Android Wireless Debugging ADB over Wi-Fi connection feature">WiFi ADB</string>
-    <string name="wifi_connection_required" comment="Detailed explanation of Wi-Fi requirements for Wireless Debugging ADB">要使用无线调试功能，你必须连接WiFi。如果你连接的WiFi没有网络连接，则关闭数据流量避免整机流量绕过WiFi导致无法配对和连接</string>
+    <string name="wifi_connection_required" comment="Detailed explanation of Wi-Fi requirements for Wireless Debugging ADB">To use the Wireless Debugging feature, your device must be connected to a Wi-Fi network. If your Wi-Fi connection has no Internet access then turn off mobile data for a solid Wi-Fi connection.</string>
     <string name="wipe_cache_desc" comment="Description for predefined fastboot erase cache command">fastboot erase cache</string>
-    <string name="wipe_cache_title" comment="Predefined fastboot command title: erase cache partition">Erase Cache</string>
+    <string name="wipe_cache_title" comment="Predefined fastboot command title: erase cache partition">擦除缓存 Cache</string>
     <string name="wipe_data" comment="Section header or dialog button to wipe device partitions over fastboot">清除数据</string>
-    <string name="wipe_data_description" comment="Subtext warning explaining fastboot partition erase operation">删除您设备上的分区。选择要擦除哪个分区。</string>
-    <string name="wipe_metadata_desc" comment="Description for predefined fastboot erase metadata command">fastboot 擦除元数据</string>
-    <string name="wipe_metadata_title" comment="Predefined fastboot command title: erase metadata partition">删除元数据</string>
-    <string name="wipe_userdata_desc" comment="Description for predefined fastboot erase userdata command">fastboot 擦除用户数据</string>
-    <string name="wipe_userdata_title" comment="Predefined fastboot command title: erase userdata partition">删除用户数据</string>
-    <string name="wipe_warning" comment="Warning notice in fastboot partition wipe screen emphasizing data loss risk">这些行动是不可逆转的，谨慎行事。</string>
-    <string name="wireless_debugging_guide_1" comment="Step 1 of Wireless Debugging setup walkthrough">现在前往开发者选项 &gt; 无线调试。点击“使用配对码配对设备”</string>
-    <string name="wireless_debugging_guide_2" comment="Step 2 of Wireless Debugging setup walkthrough">在aShell You发送的通知中输入配对码</string>
-    <string name="wireless_debugging_guide_3" comment="Step 3 of Wireless Debugging setup walkthrough">回到应用并点击主屏幕上的 &quot;开始&quot; 按钮。</string>
-    <string name="wireless_debugging_important_notice" comment="Important tip clarifying that tapping the left side of Wireless Debugging switch opens the pairing sub-menu">注意无线调试选项左侧是可以点的。点击会打开无线调试配对菜单</string>
+    <string name="wipe_data_description" comment="Subtext warning explaining fastboot partition erase operation">擦除设备上的分区。选择要擦除的分区。</string>
+    <string name="wipe_metadata_desc" comment="Description for predefined fastboot erase metadata command">fastboot erase metadata</string>
+    <string name="wipe_metadata_title" comment="Predefined fastboot command title: erase metadata partition">擦除元数据 Metadata</string>
+    <string name="wipe_userdata_desc" comment="Description for predefined fastboot erase userdata command">fastboot erase userdata</string>
+    <string name="wipe_userdata_title" comment="Predefined fastboot command title: erase userdata partition">擦除用户数据 Userdata</string>
+    <string name="wipe_warning" comment="Warning notice in fastboot partition wipe screen emphasizing data loss risk">这些操作不可逆。请谨慎操作。</string>
+    <string name="wireless_debugging_guide_1" comment="Step 1 of Wireless Debugging setup walkthrough">Go to Developer options &gt; Wireless Debugging. Tap on Pair device with Pairing Code.</string>
+    <string name="wireless_debugging_guide_2" comment="Step 2 of Wireless Debugging setup walkthrough">Enter the six digit Pairing Code into the notification sent by aShell You.</string>
+    <string name="wireless_debugging_guide_3" comment="Step 3 of Wireless Debugging setup walkthrough">Come back to the app and click on the &quot;Start&quot; button in the home screen.</string>
+    <string name="wireless_debugging_important_notice" comment="Important tip clarifying that tapping the left side of Wireless Debugging switch opens the pairing sub-menu">Please note that the left part of the Wireless Debugging option is clickable. Tapping on it will open the Wireless Debugging Pairing menu.</string>
     <string name="wireless_not_connected" comment="Status banner shown when target device is not connected over Wireless Debugging">未连接</string>
     <string name="wireless_not_connected_message" comment="Instructional body text advising user to pair and connect device first">您的设备未通过无线调试连接。请先配对并连接您的设备。</string>
     <plurals name="logcat_new_entries">
-        <item quantity="other">%1$d 新条目</item>
+        <item quantity="other">%1$d 条新条目</item>
     </plurals>
-    <string name="changelog_v7_4_0">\n您现在可以在设置屏幕中搜索子设置\n添加色板样式用于配色方案\n添加选项以直接在应用中设置应用语言</string>
-    <string name="changelog_v7_3_0">\n在更新日志屏幕上改进了UI。\n添加了翻译贡献者，在\n添加了许可证屏幕，显示有关应用程序和其他库的详细许可信息</string>
-    <string name="changelog_v7_2_1">\n维护更新！</string>
+    <string name="changelog_v7_4_0">\n现在您可以在设置屏幕内搜索子设置\n为配色方案添加了调色板样式\n添加了直接在应用内设置应用语言的选项</string>
+    <string name="changelog_v7_3_0">\n改进了更新日志屏幕中的 UI\n在“关于”部分添加了翻译贡献者\n添加了“许可证”屏幕，用于显示有关应用及应用所用其他库的详细许可证信息</string>
+    <string name="changelog_v7_2_1">\nMaintenance update！</string>
     <string name="changelog_v7_2_0">\n新增了通过添加自定义磁贴来从快速设置运行 ADB 命令的功能。\n新增了云端备份（Google Drive）功能。该功能仅存在于 GitHub 构建版本中。\n改进了诸多区域的配色方案以及 UI 和 UX 。\n添加了大量 ADB 命令示例。</string>
-    <string name="changelog_v7_1_0">\n修复了一个问题，在用户为应用程序设置一个除英文以外的区域位置时，英文键盘可能无法在命令输入中显示。\n修复了一个邮件图标没有正确显示\n修复了一个问题，这个问题在试图保存大量文件输出时导致应用程序崩溃。\n删除了多余的权限\n关于部分改进了UI</string>
+    <string name="changelog_v7_1_0">\n修复了当用户为应用设置非英语的语言区域时，英语键盘可能无法在命令输入中显示的问题\n修复了邮件图标未正确显示的问题\n修复了尝试保存大型文件输出时导致应用崩溃的问题\n删除了冗余权限\n改进了“关于”部分的用户界面</string>
     <string name="changelog_v7_0_1">\nFastlane 修复</string>
-    <string name="changelog_v7_0_0">\n全新的用户界面，使用 Material 表达性组件\n整个代码库使用 Kotlin 和 Jetpack Compose 重写\n添加了基于 push 和 pull 的文件管理器\n添加了 QR WiFi ADB 配对模式\n添加了应用设置和数据库备份选项\n添加了自定义主题选项\n添加了崩溃历史记录\n改进了自动更新功能\n改进了 Shell 输出的用户界面和用户体验\n添加了 Android 权限建议\n重新设计了命令示例布局，包含标签\n添加了添加、编辑或删除命令的选项\n修复了大量现有错误</string>
-    <string name="changelog_v6_1_0">\nNow command search can search the commands that contains the word you typed compared to previous versions where it only searched commands that starts with the typed word.\nOption to open Shizuku app directly when Shizuku is installed but not running.\nFixed the broken in-app crash reporter.</string>
+    <string name="changelog_v7_0_0">\nWhole UI Revamped, using material expressive components\nRewritten whole codebase in Kotlin and Jetpack Compose as UI Framework\nAdded push &amp; pull based file manager\nAdded QR Wifi Adb Pairing mode\nAdded app settings and database backup options\nAdded custom theming options\nAdded crash history to view app crash logs\nImproved auto update feature\nImproved UI &amp; UX in shell output\nAdded Android permissions suggestions\nRevamped command examples layout to include labels\nAdded option to Add, Edit or Delete commands as you wish\nLots of existing bugs are now fixed</string>
+    <string name="changelog_v6_1_0">\n现在命令搜索可以搜索包含您输入的单词的命令，而之前的版本则只搜索以输入单词开头的命令。\n选项在Shizuku安装但未运行时直接打开 Shizuku应用。\n修复了应用程序崩溃报告中的故障。</string>
     <string name="changelog_v6_0_3">\n修复了导致每个应用程序翻译被损坏的 aShell 的问题</string>
-    <string name="changelog_v6_0_2">\n适合发布版本的 GitHub 动作。\n这对您意味着什么？\n随后的所有构建都将更加安全！</string>
+    <string name="changelog_v6_0_2">\n适合发布版本的 Github 动作。\n这对您意味着什么？\n随后的所有构建都将更加安全！</string>
     <string name="changelog_v6_0_1">\n维护更新</string>
     <string name="changelog_v6_0_0">\n添加了无线调试模式，用于在本机或其他设备上运行 ADB 命令\n重新设计了主页，简化导航并减少输入字段的杂乱\n在执行涉及关键系统包的命令时添加了警告反馈\n添加了应用内更新器，现在可以直接下载最新版本而无需访问 Github 仓库\n修复了大量错误</string>
     <string name="changelog_v5_2_1">\n维护更新</string>
@@ -976,28 +976,28 @@
     <string name="changelog_v4_0_2">\n修复了 AMOLED 主题在 Android 11 或更早版本上不工作的问题</string>
     <string name="changelog_v4_0_1">\n现在可以固定命令以便快速访问\n\n错误修复和大量代码优化</string>
     <string name="changelog_v4_0_0">\n现在可以直接使用命令部分的命令，无需每次都复制\n\n添加了删除所有书签的选项\n搜索：现在可以通过点击提示芯片在命令摘要中搜索\n在命令模板中添加了排序选项\n添加了直接将命令部分的选定项加为书签的选项\n芯片指示器显示已连接的设备（目前仅在本地 ADB 模式）\n修复了导致 Android 11 或更早版本设备崩溃的错误\n添加了土耳其语翻译\n用户界面小改进\n大量其他错误修复</string>
-    <string name="changelog_v3_9_1">\n添加了全部书签计数\n修复了一些bug。</string>
+    <string name="changelog_v3_9_1">\nAdded total bookmarks count\nFixed some bugs</string>
     <string name="changelog_v3_9_0">\n在命令部分添加了搜索功能\n添加了设置默认工作模式的选项\n改进了动画\n重新设计了书签部分并添加了排序选项\n书签限制增加到 25\n移除了 ADB shell 启动器快捷方式，添加了命令启动器快捷方式\n修复了按钮导航中的填充问题\n修复了一些按钮形状</string>
     <string name="changelog_v3_8_2">\n应用程序使用了更新鲜的 Material You 主题色彩调色板\n修复了小错误</string>
     <string name="changelog_v3_8_1">\n修复了 v3.8.0 引入的一些崩溃问题</string>
     <string name="changelog_v3_8_0">\n添加了黑色 (AMOLED) 主题\n添加了撤销粘贴按钮\n添加了禁用软键盘的选项\n修复了某些屏幕尺寸上按钮被拉伸的问题\n修复了打开应用程序后书签按钮未显示的问题\n将示例部分重命名为命令\n修复了复制命令选项未在每个命令模板中显示的问题\n应用程序现在到处使用系统字体\n改进了用户界面处理\n更新了翻译</string>
-    <string name="changelog_v3_7_0">\n现在您可以从设备上的任何地方分享文本到 aShell You 并直接运行命令\n现在可以直接分享 shell 输出而无需保存\n大量优化和用户界面处理\n添加了中文翻译\n更新了翻译</string>
+    <string name="changelog_v3_7_0">\nNow you can share texts from anywhere on your device to aShell You and run commands directly.\nNow you can share shell output directly without needing to save it !\nA lot of optimisations and UI handling.\nAdded Chinese translations.\nUpdated translations.</string>
     <string name="changelog_v3_6_0">\n添加了出错后清除命令输入字段的选项\n修复了在某些情况下从剪贴板粘贴时导致应用程序崩溃的错误\n代码优化</string>
-    <string name="changelog_v3_5_1">\n修复了一些底部导航问题</string>
-    <string name="changelog_v3_5_0">\n重新设计了应用程序的关于部分\n添加了启动器快捷方式\n修复了按钮导航中导航菜单未显示的问题\n改进了滚动时底部导航菜单的可见性\n为 aShell You 添加了每个应用程序的语言支持（翻译尚未完成）\n大量代码优化</string>
-    <string name="changelog_v3_4_0">\n添加了粘贴按钮，可以快速复制和粘贴命令\n在文本输入字段中添加了错误指示器\n改进了导航栏可见性逻辑\n修复了开关在某些情况下行为异常的问题\n修复了在各种对比度级别下添加书签图标的可见性\n大量代码优化，应用程序现在打开速度更快\n应用程序将保留在后台，关闭应用程序时不会每次都重新启动</string>
-    <string name="changelog_v3_3_0">\n为 OTG 添加了书签、历史记录和命令建议\n添加了最大书签限制\n添加了覆盖最大书签限制的选项\n大量错误修复\n改进了一些用户界面处理\n大量代码优化</string>
+    <string name="changelog_v3_5_1">\nFixed some issues with bottom navigation.</string>
+    <string name="changelog_v3_5_0">\nRevamped About section of the app.\nAdded launcher shortcuts.\nFixed navigation menu not showing in button navigation.\nImproved bottom navigation menu visibility on scrolling.\nAdded per app language support for aShell You (translations aren\'t completed yet).\nA lot of code optimisations.</string>
+    <string name="changelog_v3_4_0">\nAdded a Paste button so that you can copy and paste commands quickly.\nAdded Error indicators in the text input field.\nImproved Navigation Bar visibility logic.\nFixed an issue where switches misbehaves under certain situations.\nFixed add bookmark icon visibility in various contrast levels.\nA lot of code optimisation. App now opens a lot faster than before.\nApp will stay in background and won\'t restart every time you close the app by just pressing the back button or gesture.</string>
+    <string name="changelog_v3_3_0">\nAdded bookmarks , history and command suggestions to OTG\nAdded maximum bookmarks limit.\nAdded option to override maximum bookmarks limit.\nA lot of bug fixes.\nImproved some UI handling.\nA lot of code optimisation.</string>
     <string name="changelog_v3_2_0">\nA lot of UI related improvements.\nAdded chips that indicate current ADB working mode.\nA lot of code optimization.</string>
     <string name="changelog_v3_1_0">\n对初始版本发布后的 ADB OTG 功能进行了改进。\n进行了部分 UI 和逻辑调整，以适配全新的 OTG 功能。</string>
-    <string name="changelog_v3_0_0">\n已添加 ADB THROUGH OTG 支持。\n\n*** 您可以通过 aShellYou 连接其他设备使用 OTG 电缆来运行 ADB 命令 ***</string>
-    <string name="changelog_v2_0_2">\n删除了不必要的代码和资源\n用户界面小改动</string>
-    <string name="changelog_v2_0_1">\n删除了不必要的代码和资源\n用户界面小改动</string>
-    <string name="changelog_v2_0_0">\n应用程序名称更改为 aShell You\n为支持的设备添加了预测性返回动画\n在清除屏幕之前添加了确认对话框\n修复了状态栏元素在浅色模式下显示不正确的问题\n应用程序现在更流畅\n~ 减小了应用程序大小并优化了代码\n为支持主题图标的启动器添加了主题图标\n用户界面小改动</string>
-    <string name="changelog_v1_3_0">\n重新设计了设置面板\n添加了双击立即滚动到 shell 输出视图顶部和底部位置的功能\n用户界面小修复</string>
-    <string name="changelog_v1_2_0">\n添加了设置面板\n添加了禁用 shell 输出中平滑滚动的选项\n修复了主要错误：\n\n ~ 更改设备主题时崩溃\n\n ~ 尝试保存大型 shell 输出时崩溃，例如 \'pm\' 命令的输出</string>
-    <string name="changelog_v1_1_1">\n替换了一些已弃用的 API\n用户界面小改动</string>
-    <string name="changelog_v1_1_0">\n添加了滚动到顶部和滚动到底部按钮\n添加了点击键盘 Enter 键发送命令的功能\n添加了一些命令\n更新了依赖项以包含最新的 Material You 库\n用户界面小改动</string>
-    <string name="changelog_v1_0_0">\n添加了更多命令示例\n用户界面小改动\n更改了包名以避免与原始应用程序混淆</string>
-    <string name="changelog_v0_9_1">\n在应用程序中添加了更新日志\n添加了高亮显示的 shell 输出\n用户界面小改动</string>
-    <string name="changelog_v0_9_0">\n添加了动态 Material 主题\n重新设计了整个用户界面以呈现全新外观</string>
+    <string name="changelog_v3_0_0">\n已添加 ADB THROUGH OTG support。\n\n*** 您可以通过 aShell You 连接其他设备使用 OTG 电缆来运行 ADB 命令 ***</string>
+    <string name="changelog_v2_0_2">\nRemoved unnecessary code and resources.\nMinor UI changes.</string>
+    <string name="changelog_v2_0_1">\nRemoved unnecessary code and resources.\nMinor UI changes.</string>
+    <string name="changelog_v2_0_0">\nChanged app name to aShell You.\nAdded predictive back animations for supporting devices.\nAdded confirmation dialog popup before clearing screen.\nFixed StatusBar elements not properly visible in Light mode.\nApp is much more smooth now.\n~ Reduced app size and optimised code.\nAdded themed icon for launchers that support themed icons.\nMinor UI changes.</string>
+    <string name="changelog_v1_3_0">\nRevamped Settings panel.\nAdded Double Tap to instant scroll to top and bottom positions in shell output view.\nMinor UI fixes.</string>
+    <string name="changelog_v1_2_0">\nAdded Settings panel.\nAdded option to disable smooth scroll in shell output.\nFixed major bugs:\n\n ~  Crash while changing device theme.\n\n ~  Crash while trying to save large shell output . eg : output of \'pm\' command.</string>
+    <string name="changelog_v1_1_1">\nReplaced some deprecated api.\nMinor UI changes.</string>
+    <string name="changelog_v1_1_0">\nAdded Scroll To Top and Scroll To Bottom buttons.\nAdded Click keyboard Enter key to Send command.\nAdded some commands.\nUpdated dependencies to include latest material you library.\nMinor UI changes.</string>
+    <string name="changelog_v1_0_0">\nAdded some more command examples.\nMinor UI changes.\nChanged package name to avoid version confusion with original app.</string>
+    <string name="changelog_v0_9_1">\nAdded changelogs into the app.\nAdded highlighted shell output.\nMinor UI changes.</string>
+    <string name="changelog_v0_9_0">\nAdded dynamic material theming.\nRevamped whole UI to give a fresh look.</string>
 </resources>

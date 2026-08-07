@@ -10,12 +10,12 @@
     <string name="adb_command" comment="Input field label for typing an ADB shell command">Команда ADB</string>
     <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">Команда ADB (состояние ВЫКЛ.)</string>
     <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">Команда ADB (состояние ВКЛ.)</string>
-    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB подключен — убедитесь, что устройство находится в режиме поперечной работы</string>
+    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB подключен — убедитесь, что устройство находится в режиме sideload</string>
     <string name="adb_connection_active" comment="Foreground notification title when an ADB connection (Wireless/OTG) is currently active">Подключение ADB активно</string>
     <string name="adb_connection_channel_description" comment="Android notification channel description in System Settings for ADB connection status">Показывает, когда соединение ADB активно</string>
     <string name="adb_connection_channel_name" comment="Android notification channel name in System Settings for active ADB connections">Подключение ADB</string>
     <string name="adb_connection_description" comment="Notification body text indicating an active background Wi-Fi ADB connection">Подключение к Wi-Fi ADB поддерживается</string>
-    <string name="adb_sideload" comment="Feature title for pushing and installing ZIP update packages to device recovery via ADB sideload over USB OTG">ДОБАВИТЬ</string>
+    <string name="adb_sideload" comment="Feature title for pushing and installing ZIP update packages to device recovery via ADB sideload over USB OTG">ADB sideload</string>
     <string name="adb_through_otg" comment="Title for USB OTG ADB connection mode where this device controls a target device over OTG cable">ADB через OTG</string>
     <string name="adb_through_otg_summary" comment="Summary description of ADB OTG feature in connection selection screen">Используйте OTG кабель и отладку по USB для выполнения команд ADB на другом устройстве Android. Необходимо включить отладку по USB в настройках разработчика целевого устройства.</string>
     <string name="adb_via_otg" comment="Compact label for ADB connection via USB OTG cable">ADB через OTG</string>
@@ -96,7 +96,7 @@
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">Батарея</string>
     <string name="battery_saver" comment="Device system battery saver mode label">Экономия батареи</string>
     <string name="behavior" comment="Settings category title for application behavior preferences">Поведение</string>
-    <string name="block" comment="Action button to block execution or permissions">Блок</string>
+    <string name="block" comment="Action button to block execution or permissions">Заблокировать</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">Достигнуто максимальное количество закладок! Удалите некоторые закладки для добавления новых</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">Закладки</string>
     <string name="boot_device_into_fastboot" comment="Instructional prompt in Fastboot screen instructing user to boot target device into fastboot mode">Загрузите целевое устройство в режиме fastboot и подключите его через OTG кабель</string>
@@ -131,22 +131,22 @@
     <string name="cloud_models" comment="Settings screen title for managing cloud-based LLM provider API keys">Облачные модели</string>
     <string name="cloud_restore_failed" comment="Error toast when downloading/restoring backup from Google Drive fails">Не удалось восстановить из Google Диск</string>
     <string name="cloud_restore_successful" comment="Toast message confirming successful backup restoration from Google Drive">Восстановлено с Google Диска</string>
-    <string name="cmd_get_battery_desc" comment="Description for predefined fastboot command: fastboot getvar battery-voltage">Запрашивать текущий уровень заряда батареи</string>
+    <string name="cmd_get_battery_desc" comment="Description for predefined fastboot command: fastboot getvar battery-voltage">Запросить текущий уровень заряда батареи</string>
     <string name="cmd_get_battery_title" comment="Predefined fastboot command title: check battery level in fastboot">Уровень заряда батареи</string>
-    <string name="cmd_get_current_slot_desc" comment="Description for predefined fastboot command: fastboot getvar current-slot">Какой A/B слот сейчас активен</string>
+    <string name="cmd_get_current_slot_desc" comment="Description for predefined fastboot command: fastboot getvar current-slot">Какой слот A/B в настоящее время активен</string>
     <string name="cmd_get_current_slot_title" comment="Predefined fastboot command title: check active A/B slot">Текущий слот</string>
-    <string name="cmd_get_product_desc" comment="Description for predefined fastboot command: fastboot getvar product">Получить идентификатор продукта устройства</string>
-    <string name="cmd_get_product_title" comment="Predefined fastboot command title: check product name">Название товара</string>
-    <string name="cmd_get_slot_count_desc" comment="Description for predefined fastboot command: fastboot getvar slot-count">Количество А/Б слотов на этом устройстве</string>
+    <string name="cmd_get_product_desc" comment="Description for predefined fastboot command: fastboot getvar product">Получить идентификатор наименования продукта устройства</string>
+    <string name="cmd_get_product_title" comment="Predefined fastboot command title: check product name">Имя продукта</string>
+    <string name="cmd_get_slot_count_desc" comment="Description for predefined fastboot command: fastboot getvar slot-count">Количество слотов A/B на этом устройстве</string>
     <string name="cmd_get_slot_count_title" comment="Predefined fastboot command title: check A/B slot count">Количество слотов</string>
-    <string name="cmd_get_unlocked_desc" comment="Description for predefined fastboot command: fastboot getvar unlocked">Проверьте, разблокирован ли загрузчик</string>
+    <string name="cmd_get_unlocked_desc" comment="Description for predefined fastboot command: fastboot getvar unlocked">Проверить, разблокирован ли загрузчик в настоящее время</string>
     <string name="cmd_get_unlocked_title" comment="Predefined fastboot command title: check bootloader unlock status">Статус разблокировки загрузчика</string>
-    <string name="cmd_getvar_all_desc" comment="Description for predefined fastboot command: fastboot getvar all">Список всех переменных устройства и их текущих значений</string>
+    <string name="cmd_getvar_all_desc" comment="Description for predefined fastboot command: fastboot getvar all">Перечислить все переменные устройства и их текущие значения</string>
     <string name="cmd_getvar_all_title" comment="Predefined fastboot command title: get all device variables">Получить все переменные</string>
-    <string name="cmd_oem_device_info_desc" comment="Description for predefined fastboot command: fastboot oem device-info">Получить информацию об OEM-устройствах</string>
-    <string name="cmd_oem_device_info_title" comment="Predefined fastboot command title: query OEM device info">Информация об устройстве OEM</string>
-    <string name="cmd_unlock_ability_desc" comment="Description for predefined fastboot command: fastboot flashing get_unlock_ability">Проверьте, может ли это устройство быть разблокированным загрузчиком</string>
-    <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">Открыть Способность</string>
+    <string name="cmd_oem_device_info_desc" comment="Description for predefined fastboot command: fastboot oem device-info">Получить специфичную для OEM информацию об устройстве</string>
+    <string name="cmd_oem_device_info_title" comment="Predefined fastboot command title: query OEM device info">Информация об OEM-устройстве</string>
+    <string name="cmd_unlock_ability_desc" comment="Description for predefined fastboot command: fastboot flashing get_unlock_ability">Проверить, можно ли разблокировать загрузчик этого устройства</string>
+    <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">Возможность разблокировки</string>
     <string name="code_pair_instruction" comment="Instructional text in Wireless Debugging pairing dialog directing user to open Wireless Debugging menu on target device">Откройте \"Беспроводная отладка\" на целевом устройстве и нажмите \"Сопрячь устройство с помощью кода сопряжения\"</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">Свернуть</string>
     <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">Произошла ошибка</string>
@@ -175,7 +175,7 @@
     <string name="color_role_on_secondary_container" comment="The color used for text and icons drawn on top of the secondary container color">На вторичном контейнере</string>
     <string name="color_role_on_surface" comment="The color used for text and icons drawn on top of the surface color">На поверхности</string>
     <string name="color_role_on_surface_variant" comment="The color used for text and icons drawn on top of the surface variant color">В варианте поверхности</string>
-    <string name="color_role_on_tertiary" comment="The color used for text and icons drawn on top of the tertiary color">В Третичном</string>
+    <string name="color_role_on_tertiary" comment="The color used for text and icons drawn on top of the tertiary color">На Третичном</string>
     <string name="color_role_on_tertiary_container" comment="The color used for text and icons drawn on top of the tertiary container color">О третичном контейнере</string>
     <string name="color_role_outline" comment="Material 3 color role name for component outline borders">Контур</string>
     <string name="color_role_outline_variant" comment="Material 3 color role name for secondary outline borders">Вариант контура</string>
@@ -196,8 +196,8 @@
     <string name="color_role_tertiary_container" comment="Material 3 color role name for container surface of tertiary elements">Третичный контейнер</string>
     <string name="command" comment="Label/header for an ADB command snippet">Команда</string>
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">Анализ команд</string>
-    <string name="command_console" comment="Screen title for Fastboot interactive command console">Консоль команд</string>
-    <string name="command_logs" comment="Tab header for history log of executed fastboot commands">Журнал команд</string>
+    <string name="command_console" comment="Screen title for Fastboot interactive command console">Командная консоль</string>
+    <string name="command_logs" comment="Tab header for history log of executed fastboot commands">Журналы команд</string>
     <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">История всех выполненных команд fastboot.</string>
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Команда не найдена!</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">Ввод команды ADB</string>
@@ -608,7 +608,7 @@
     <string name="no_bookmarks" comment="Placeholder text in bookmarks tab when no commands are saved">Закладки не найдены</string>
     <string name="no_changelog_found" comment="Placeholder message in changelog screen when no version notes exist">Журнал изменений для этой версии не найден</string>
     <string name="no_cloud_backup_found" comment="Status banner when no backup file is found on Google Drive">Резервирование не найдено на Google Диске</string>
-    <string name="no_commands_run_yet" comment="Placeholder message when no fastboot commands have been run in session">Команд не запущено</string>
+    <string name="no_commands_run_yet" comment="Placeholder message when no fastboot commands have been run in session">Команды еще не выполнялись</string>
     <string name="no_crashes" comment="Placeholder text in crash history screen when no app crashes have occurred">Сообщений о сбоях не поступало. aShell You работает гладко.</string>
     <string name="no_custom_themes_yet" comment="Placeholder text in theme manager screen when no custom themes exist">Еще нет пользовательских тем. Создайте их ниже!</string>
     <string name="no_device_connected" comment="Status banner shown when no wireless or OTG ADB device is connected">Нет подключенного устройства</string>
@@ -666,7 +666,7 @@
     <string name="pair" comment="Button/action label to initiate ADB wireless or OTG pairing with another device">Сопряжение</string>
     <string name="pair_a_device_first" comment="Instructional notice directing user to pair an ADB device before attempting connection">Сначала сопряжение устройства</string>
     <string name="pair_another_device" comment="Button label in Wireless Debugging setup to pair an additional target device">Сопрячь другое устройство</string>
-    <string name="pair_connect_failed_message" comment="Dialog message when connecting to a paired wireless ADB device fails">Не удалось подключиться к сопряженному устройству\nВозможно, устройство не находится в той же сети\nПопробуйте соединиться снова</string>
+    <string name="pair_connect_failed_message" comment="Dialog message when connecting to a paired wireless ADB device fails">Не удалось подключиться к сопряженному устройству\nУстройство может не находиться в той же сети\nПопробуйте сопрячь снова</string>
     <string name="pair_device_to_start" comment="Placeholder banner in wireless debugging screen directing user to pair device via QR or pairing code">Сопрячь устройство с помощью QR или кода сопряжения, чтобы увидеть его здесь</string>
     <string name="pair_manually" comment="Option in Wireless Debugging setup to enter IP, Port, and Pairing Code manually">Сопряжение вручную</string>
     <string name="pair_this_device" comment="Button label in wireless debugging screen to initiate self-pairing for local device ADB">Сопрячь это устройство</string>
@@ -701,13 +701,13 @@
     <string name="pre_release_warning" comment="Warning alert header when switching to pre-release update channel">Предварительные сборки могут быть нестабильными</string>
     <string name="pre_release_warning_description" comment="Detailed description of risks when opting into pre-release testing builds">Эти версии всё ещё находятся на стадии тестирования и могут содержать незавершённые функции или неожиданные ошибки. Если вы решите обновиться до предрелизной версии, имейте в виду, что могут возникнуть сбои или странное поведение.\nЕсли вы столкнетесь с какими-либо проблемами, сбоями или странным поведением, пожалуйста, сообщите нам об этом, чтобы мы могли исправить и улучшить aShellYou до стабильного релиза.\nСпасибо, что помогаете нам строить лучше!</string>
     <string name="predefined_commands" comment="Section header for pre-saved fastboot command actions">Предопределенные команды</string>
-    <string name="predefined_commands_desc" comment="Description under predefined fastboot commands header">Быстрый доступ к общим командам быстрой загрузки. Результаты потока в консоль ниже.</string>
+    <string name="predefined_commands_desc" comment="Description under predefined fastboot commands header">Быстрый доступ к общим командам fastboot. Результаты передаются в консоль ниже.</string>
     <string name="preference" comment="Header title for settings preference category">Предпочтение</string>
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">Предпросмотр</string>
     <string name="primary">Первичный</string>
     <string name="primary_container">Первичный контейнер</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">Продукт</string>
-    <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">Вставить устройство в режим sideload через меню восстановления</string>
+    <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">Переведите устройство в режим sideload через меню восстановления</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">Сопряжение QR</string>
     <string name="qr_pair_hint" comment="Instructional text in QR pairing screen instructing user to scan QR code from target device">Для сопряжения устройства Android 11+ сканируйте этот QR с целевого устройства</string>
     <string name="qr_scanner_location_hint" comment="Instructional hint directing user where to find system QR scanner in target device Developer Options">Сканер QR доступен в:\nПараметры разработчика &gt; Беспроводная отладка &gt; Сопряжение с помощью QR кода</string>
@@ -758,9 +758,9 @@
     <string name="root_unavailable" comment="Dialog title when root access check returns false">Root недоступен</string>
     <string name="root_unavailable_message" comment="Dialog message explaining root access was not detected on device">Root доступ не обнаружен. Убедитесь, что устройство rooted и повторите попытку или переключитесь на другой источник logcat.</string>
     <string name="run">Запустить</string>
-    <string name="run_a_command_to_see_logs" comment="Instructional prompt under empty fastboot logs view">Используйте вкладку Команды для выполнения команд быстрой загрузки</string>
+    <string name="run_a_command_to_see_logs" comment="Instructional prompt under empty fastboot logs view">Используйте вкладку «Команды» для выполнения команд fastboot</string>
     <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">Выполнить \"%1$s\" на подключенном устройстве?</string>
-    <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">Выполнить команду?</string>
+    <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">Запустить команду?</string>
     <string name="running" comment="Status badge showing task or command execution is active">Выполняется</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Сохранить</string>
@@ -796,7 +796,7 @@
     <string name="select_partition" comment="Dropdown hint or dialog header for picking target fastboot partition">Выберите раздел</string>
     <string name="select_theme_to_edit_hex" comment="Instructional prompt under hex editor section in theme builder">Выберите шаблон выше, чтобы изменить его hex значения здесь.</string>
     <string name="select_time" comment="Button label to open time picker dialog for automated backup schedule">Выберите время</string>
-    <string name="select_zip_package" comment="Button label to launch file picker for selecting a ZIP update package to sideload">Выберите ZIP пакет</string>
+    <string name="select_zip_package" comment="Button label to launch file picker for selecting a ZIP update package to sideload">Выберите ZIP-пакет</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">Своё</string>
     <string name="self_pair_connection_failed" comment="Toast error message when automatic local self-pairing fails">Ошибка подключения - попробуйте ручное подключение</string>
     <string name="self_pair_enter_code" comment="Subtext instruction prompting user for 6-digit wireless pairing code">Введите 6-значный код из диалогового окна сопряжения</string>
@@ -825,13 +825,13 @@
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">Shizuku не установлен</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku недоступен</string>
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku is not running or missing permissions">Shizuku не установлен или не настроен должным образом на вашем устройстве</string>
-    <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">Перевести устройство в режим перегрузки через восстановление</string>
-    <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Режим перегрузки — готов</string>
-    <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">Загрузитесь в режим восстановления (удерживайте громкость + Power, или выполните: adb reboot recovery)</string>
-    <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">Перейдите для «Применить обновление» в меню восстановления</string>
-    <string name="sideload_step_3" comment="Step 3 of ADB sideload guide: selecting ADB sideload mode in recovery">Выберите \"Apply from ADB\" (или \"ADB Sideload\")</string>
-    <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">Подключите устройство через OTG кабель, затем выберите ZIP здесь</string>
-    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Sideloading…</string>
+    <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">Переведите устройство в режим sideload через recovery</string>
+    <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Режим sideload — готов</string>
+    <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">Загрузитесь в recovery (удерживайте Уменьшение громкости + Питание или выполните: adb reboot recovery)</string>
+    <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">Перейдите к разделу «Apply update» в меню recovery</string>
+    <string name="sideload_step_3" comment="Step 3 of ADB sideload guide: selecting ADB sideload mode in recovery">Выберите «Apply from ADB» (или «ADB Sideload»)</string>
+    <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">Подключите устройство через OTG-кабель, затем выберите ZIP здесь</string>
+    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Загрузка sideload…</string>
     <string name="sign_in_failed" comment="Toast error message when Google account sign-in fails">Не удалось войти в Google</string>
     <string name="sign_in_with_google" comment="Button label in cloud backup settings to sign into Google account">Войти через Google</string>
     <string name="sign_out" comment="Button label in cloud backup settings to sign out of Google account">Выйти</string>
@@ -841,7 +841,7 @@
     <string name="size">Размер</string>
     <string name="skip">Пропустить</string>
     <string name="slide_to_flash" comment="Slider text prompt in fastboot partition flash confirmation sheet">Слайд для прошивки</string>
-    <string name="slide_to_sideload" comment="Slider button prompt to initiate the ADB sideload transfer of chosen ZIP file over OTG">Сдвинуть на Сиделуад</string>
+    <string name="slide_to_sideload" comment="Slider button prompt to initiate the ADB sideload transfer of chosen ZIP file over OTG">Сдвиньте для sideload</string>
     <string name="slot_data_unknown" comment="Status text when device A/B slot information cannot be retrieved over fastboot">Данные слота неизвестны</string>
     <string name="smooth_scrolling" comment="Settings toggle preference title to enable smooth scrolling animation in terminal">Плавная прокрутка</string>
     <string name="sort">Сортировать</string>
@@ -868,7 +868,7 @@
     <string name="system_settings" comment="Button label linking to Android system Settings app">Системные настройки</string>
     <string name="tab" comment="Settings option for terminal tab indentation behavior">Вкладка</string>
     <string name="tag" comment="Field label for custom command category tag/label">Тег</string>
-    <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">Нажмите для просмотра файла .zip</string>
+    <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">Нажмите, чтобы найти .zip файл</string>
     <string name="telegram" comment="Button in About screen linking to official Telegram community group">Telegram</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">Терминал</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Стиль шрифта терминала</string>
@@ -943,7 +943,7 @@
     <string name="wipe_warning" comment="Warning notice in fastboot partition wipe screen emphasizing data loss risk">Эти операции необратимы. Действуйте с осторожностью.</string>
     <string name="wireless_debugging_guide_1" comment="Step 1 of Wireless Debugging setup walkthrough">Перейдите к параметрам Разработчика &gt; Беспроводная отладка. Коснитесь \'Сопрячь\' устройство с помощью кода сопряжения.</string>
     <string name="wireless_debugging_guide_2" comment="Step 2 of Wireless Debugging setup walkthrough">Введите шестизначный код сопряжения в уведомление, отправленное aShell You.</string>
-    <string name="wireless_debugging_guide_3" comment="Step 3 of Wireless Debugging setup walkthrough">Вернитесь в приложение и нажмите кнопку &quot;Начать&quot; на главном экране.</string>
+    <string name="wireless_debugging_guide_3" comment="Step 3 of Wireless Debugging setup walkthrough">Вернитесь в приложение и нажмите кнопку &quot;Запустить&quot; на главном экране.</string>
     <string name="wireless_debugging_important_notice" comment="Important tip clarifying that tapping the left side of Wireless Debugging switch opens the pairing sub-menu">Обратите внимание, что левая часть опции \"Беспроводная отладка\" является кликабельной. При нажатии на неё откроется меню \"Сопряжения\" для \"Беспроводной отладки\".</string>
     <string name="wireless_not_connected" comment="Status banner shown when target device is not connected over Wireless Debugging">Не подключен</string>
     <string name="wireless_not_connected_message" comment="Instructional body text advising user to pair and connect device first">Устройство не подключено из-за беспроводной настройки. Сначала соединить и подключить устройство.</string>

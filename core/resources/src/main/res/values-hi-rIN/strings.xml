@@ -7,18 +7,18 @@
     <string name="active" comment="Status indicator label for active ADB connection or active slot">सक्रिय</string>
     <string name="active_slot" comment="Refers to the active A/B partition slot on a dual-slot Android device">सक्रिय स्लॉट</string>
     <string name="adb_agent" comment="Name of the AI chat assistant persona in aShellYou">ADB एजेंट</string>
-    <string name="adb_command" comment="Input field label for typing an ADB shell command">ADB कमांड</string>
-    <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">ADB कमांड (OFF स्थिति)</string>
-    <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">ADB कमांड (ON स्थिति)</string>
-    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB connected — ensure device is in sideload mode</string>
+    <string name="adb_command" comment="Input field label for typing an ADB shell command">कमांड जोड़ें</string>
+    <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">ADB कमांड (बंद स्थिति)</string>
+    <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">ADB कमांड (चालू स्थिति)</string>
+    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB कनेक्टेड — सुनिश्चित करें कि डिवाइस साइडलोड मोड में है</string>
     <string name="adb_connection_active" comment="Foreground notification title when an ADB connection (Wireless/OTG) is currently active">ADB कनेक्शन सक्रिय</string>
     <string name="adb_connection_channel_description" comment="Android notification channel description in System Settings for ADB connection status">ADB कनेक्शन सक्रिय होने पर दिखाता है</string>
     <string name="adb_connection_channel_name" comment="Android notification channel name in System Settings for active ADB connections">ADB कनेक्शन</string>
     <string name="adb_connection_description" comment="Notification body text indicating an active background Wi-Fi ADB connection">WiFi ADB कनेक्शन बनाए रखा जा रहा है</string>
-    <string name="adb_sideload" comment="Feature title for pushing and installing ZIP update packages to device recovery via ADB sideload over USB OTG">ADB Sideload</string>
+    <string name="adb_sideload" comment="Feature title for pushing and installing ZIP update packages to device recovery via ADB sideload over USB OTG">ADB साइडलोड</string>
     <string name="adb_through_otg" comment="Title for USB OTG ADB connection mode where this device controls a target device over OTG cable">OTG के माध्यम से ADB</string>
     <string name="adb_through_otg_summary" comment="Summary description of ADB OTG feature in connection selection screen">किसी अन्य Android डिवाइस पर ADB कमांड निष्पादित करने के लिए OTG केबल और USB डीबगिंग का उपयोग करें। आपको लक्ष्य डिवाइस की डेवलपर सेटिंग में USB डीबगिंग चालू करनी होगी।</string>
-    <string name="adb_via_otg" comment="Compact label for ADB connection via USB OTG cable">OTG के माध्यम से ADB</string>
+    <string name="adb_via_otg" comment="Compact label for ADB connection via USB OTG cable">OTG के ज़रिए ADB</string>
     <string name="adb_via_wireless_debugging" comment="Feature title for wireless ADB connection on Android 11+ devices">वायरलेस डिबगिंग के माध्यम से ADB</string>
     <string name="adb_via_wireless_debugging_summary" comment="Summary description for wireless ADB feature in connection setup screen">वायरलेस डिबगिंग का उपयोग करके वाई-फाई पर डिवाइस (एंड्रॉइड 11+) कनेक्ट करें और दूरस्थ रूप से ADB कमांड निष्पादित करें।</string>
     <string name="add">जोड़ें</string>
@@ -27,8 +27,8 @@
     <string name="add_command" comment="Button label to create and save a new command snippet to database">कमांड जोड़ें</string>
     <string name="add_new_item" comment="Generic button label to add a new list entry">नया आइटम जोड़ें</string>
     <string name="additional_settings" comment="Category header in app settings">अतिरिक्त सेटिंग्स</string>
-    <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">कैश अवधि</string>
-    <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">कैश सक्षम करें</string>
+    <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">कैशे अवधि</string>
+    <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">कैशे सक्षम करें</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">अनुमति दें</string>
     <string name="ai_chat_allow_run_command" comment="Dialog header asking user permission for AI assistant to execute a specific ADB command">AI को कमांड चलाने की अनुमति दें:</string>
     <string name="ai_chat_always_allow" comment="Button in AI chat dialog to grant permanent permission for AI agent to run proposed command">हमेशा अनुमति दें</string>
@@ -40,23 +40,23 @@
     <string name="ai_chat_thoughts" comment="Collapsible section title showing step-by-step reasoning/thinking of AI model">विचार…</string>
     <string name="ai_chat_unpin" comment="Action button to unpin a pinned AI chat session">अनपिन करें</string>
     <string name="ai_models" comment="Settings header for configuring AI models and API credentials">AI &amp; मॉडल</string>
-    <string name="ai_new_chat_welcome_msg" comment="Initial welcome message from AI ADB Agent when starting a new chat session">नमस्ते, मैं आपके लिए क्या कर सकता हूं?</string>
-    <string name="ai_prompt_suggestion_1" comment="Clickable suggestion chip prompt in AI chat for checking battery health">मेरी बैटरी का स्वास्थ्य जांचें</string>
-    <string name="ai_prompt_suggestion_2" comment="Clickable suggestion chip prompt in AI chat for listing installed package names">सभी इंस्टॉल किए गए पैकेज की सूची बनाएं</string>
-    <string name="ai_prompt_suggestion_3" comment="Clickable suggestion chip prompt in AI chat for creating Quick Settings tiles">त्वरित सेटिंग टाइल बनाने में मेरी सहायता करें</string>
+    <string name="ai_new_chat_welcome_msg" comment="Initial welcome message from AI ADB Agent when starting a new chat session">नमस्ते, मैं आपके लिए क्या कर सकता हूँ?</string>
+    <string name="ai_prompt_suggestion_1" comment="Clickable suggestion chip prompt in AI chat for checking battery health">मेरी बैटरी स्वास्थ्य की जाँच करें</string>
+    <string name="ai_prompt_suggestion_2" comment="Clickable suggestion chip prompt in AI chat for listing installed package names">सभी इंस्टॉल किए गए पैकेज सूचीबद्ध करें</string>
+    <string name="ai_prompt_suggestion_3" comment="Clickable suggestion chip prompt in AI chat for creating Quick Settings tiles">मुझे त्वरित सेटिंग टाइल बनाने में मदद करें</string>
     <string name="ai_session_search_hint" comment="Placeholder text in AI chat session search bar">चैट खोजें…</string>
-    <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">उदा. साइबरपंक नियॉन सिटी, डार्क मोड, उच्च कंट्रास्ट</string>
+    <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">उदा. साइबरपंक नियॉन सिटी, डार्क मोड, हाई कंट्रास्ट</string>
     <string name="all">सभी</string>
     <string name="all_data" comment="Option in backup selector to include full app database, settings, and chat history">सभी डेटा</string>
     <string name="already_connected" comment="Status message in wireless ADB setup screen indicating device is already connected">पहले से कनेक्ट है</string>
     <string name="already_latest_version" comment="In-app updater message when user is running the most recent version of aShellYou">आप लेटेस्ट वर्ज़न का उपयोग कर रहे हैं</string>
-    <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">हमेशा बेस की अनुमति दें</string>
-    <string name="always_allow_exact" comment="Permission rule option in AI chat: automatically approve commands matching exact command string">हमेशा सटीक की अनुमति दें</string>
+    <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">बेस के लिए हमेशा अनुमति दें</string>
+    <string name="always_allow_exact" comment="Permission rule option in AI chat: automatically approve commands matching exact command string">सटीक के लिए हमेशा अनुमति दें</string>
     <string name="analyse" comment="Action button to request AI analysis of command execution output or error log">विश्लेषण करें</string>
     <string name="api_key" comment="Label for AI provider API key text input field">API कुंजी</string>
-    <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">API कुंजी सहेजी गई है</string>
+    <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">API कुंजी सहेज ली गई है</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">API कुंजी आवश्यक है</string>
-    <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">AI सुविधाओं का उपयोग करने के लिए API कुंजी आवश्यक है। कृपया सेटिंग्स -&gt; क्लाउड मॉडल में अपनी API कुंजी जोड़ें।</string>
+    <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">AI सुविधाओं का उपयोग करने के लिए एक API कुंजी आवश्यक है। कृपया सेटिंग्स -&gt; क्लाउड मॉडल में अपनी API कुंजी जोड़ें।</string>
     <string name="app">एप्लिकेशन</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">ऐप क्रैश हो गया है</string>
     <string name="app_tagline" comment="App subtitle/tagline shown on welcome and about screens">ADB आपकी उंगलियों पर</string>
@@ -65,11 +65,11 @@
     <string name="artifact_id" comment="Technical label for AI artifact identifier in developer options">आर्टिफैक्ट ID</string>
     <string name="auto" comment="Selection option for automatic theme/mode handling">स्वतः</string>
     <string name="auto_backup" comment="Setting toggle title for scheduled automatic backups">स्वचालित संरक्षण</string>
-    <string name="auto_backup_content_type" comment="Setting title for selecting items to include in automatic backups">बैकअप सामग्री</string>
+    <string name="auto_backup_content_type" comment="Setting title for selecting items to include in automatic backups">बैकअप फ़ोल्डर</string>
     <string name="auto_backup_folder" comment="Setting title for selecting target local folder for automatic backups">बैकअप फ़ोल्डर</string>
     <string name="auto_dark_mode" comment="Setting toggle title to enable dark mode automatically when battery saver is active">ऑटो डार्क मोड</string>
     <string name="auto_delete_existing_backups" comment="Setting toggle title to delete older backup files when a new backup is created">पुराने बैकअप स्वतः हटाएं</string>
-    <string name="auto_scale_ui" comment="Setting toggle title to automatically scale UI based on device screen width">ऑटो स्केल UI</string>
+    <string name="auto_scale_ui" comment="Setting toggle title to automatically scale UI based on device screen width">UI स्वतः स्केल करें</string>
     <string name="auto_update" comment="Setting toggle title to automatically check for application updates on startup">ऑटो अपडेट</string>
     <string name="back">पीछे</string>
     <string name="back_button" comment="Custom key bar button in terminal view simulating system back button press">बैक बटन</string>
@@ -77,21 +77,21 @@
     <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">बैकअप जारी…</string>
     <string name="backup">बैकअप</string>
     <string name="backup_all_data" comment="Option in backup dialog to export all app database content and settings">सभी डेटा बैकअप करें</string>
-    <string name="backup_and_restore" comment="Settings screen header for managing local and cloud backups">बैकअप और रिस्टोर</string>
+    <string name="backup_and_restore" comment="Settings screen header for managing local and cloud backups">बैकअप &amp; रिस्टोर</string>
     <string name="backup_app_database" comment="Backup option to export only stored command database, templates, and bookmarks">ऐप डेटाबेस बैकअप करें</string>
     <string name="backup_date" comment="Card label showing creation date of backup file">बैकअप तारीख</string>
-    <string name="backup_destination" comment="Setting label to pick target location for backup storage (local directory or Google Drive)">बैकअप गंतव्य</string>
+    <string name="backup_destination" comment="Setting label to pick target location for backup storage (local directory or Google Drive)">बैकअप स्थिति</string>
     <string name="backup_failed" comment="Toast notification or dialog title shown when a local or cloud backup operation fails">बैकअप विफल</string>
     <string name="backup_found" comment="Status banner shown when a valid backup file is detected on device or cloud">बैकअप मिला</string>
     <string name="backup_frequency" comment="Setting label for selecting auto-backup interval (Daily, Weekly, Monthly)">सरंक्षण आवृत्ति</string>
     <string name="backup_now" comment="Action button to immediately trigger a backup operation">अभ बैकअप करें</string>
-    <string name="backup_scheduler" comment="Setting category title for automated backup schedule settings">बैकअप शेड्यूलर</string>
+    <string name="backup_scheduler" comment="Setting category title for automated backup schedule settings">बैकअप फ़ोल्डर</string>
     <string name="backup_settings" comment="Backup option to export only application settings preferences">ऐप सेटिंग्स बैकअप करें</string>
     <string name="backup_status" comment="Card header showing current status of automated backups">बैकअप स्थिति</string>
     <string name="backup_successful" comment="Toast notification or dialog text when a backup completes successfully">बैकअप सफल</string>
     <string name="backup_time" comment="Setting label for picking exact time of day for automated backup execution">बैकअप समय</string>
-    <string name="backup_type" comment="Card label showing type of backup file (e.g. Full, Database, Settings)">बैकअप प्रकार</string>
-    <string name="baseband_version" comment="Device info field label showing modem/baseband firmware version">बेसैंड</string>
+    <string name="backup_type" comment="Card label showing type of backup file (e.g. Full, Database, Settings)">बैकअप समय</string>
+    <string name="baseband_version" comment="Device info field label showing modem/baseband firmware version">बेसबैंड</string>
     <string name="basic_shell" comment="Execution mode option: run standard non-rooted, non-Shizuku shell commands">साधारण shell</string>
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">बैटरी</string>
     <string name="battery_saver" comment="Device system battery saver mode label">बैटरी सेवर</string>
@@ -99,14 +99,14 @@
     <string name="block" comment="Action button to block execution or permissions">ब्लॉक करें</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">बुकमार्क की अधिकतम सीमा पहुंच गई है! नए जोड़ने के लिए कुछ पुराने बुकमार्क हटा दें</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">बुकमार्क्स</string>
-    <string name="boot_device_into_fastboot" comment="Instructional prompt in Fastboot screen instructing user to boot target device into fastboot mode">टारगेट डिवाइस को फास्टबूट मोड में बूट करें और OTG केबल के माध्यम से कनेक्ट करें</string>
+    <string name="boot_device_into_fastboot" comment="Instructional prompt in Fastboot screen instructing user to boot target device into fastboot mode">लक्ष्य डिवाइस को फ़ास्टबूट मोड में बूट करें और OTG केबल के ज़रिए कनेक्ट करें</string>
     <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">बूट इमेज</string>
-    <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">फास्टबूट में बूट करें</string>
+    <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">फ़ास्टबूट में बूट करें</string>
     <string name="bootloader" comment="Device info label or fastboot section title for bootloader mode">बूटलोडर</string>
     <string name="bootloader_version" comment="Device info field label displaying bootloader version string">बूटलोडर</string>
     <string name="btn_continue" comment="Action button label to proceed to next step in setup wizard">जारी रखें</string>
-    <string name="cache_settings" comment="Settings section header for AI analysis response caching options">कैश</string>
-    <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">कैश आकार: %s</string>
+    <string name="cache_settings" comment="Settings section header for AI analysis response caching options">कैशे</string>
+    <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">कैशे आकार: %s</string>
     <string name="cancel">रद्द करें</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">सभी रद्द करें</string>
     <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">रद्द किया जा रहा है…</string>
@@ -118,87 +118,87 @@
     <string name="clear">साफ़ करें</string>
     <string name="clear_all" comment="Action button to clear all entries in command history or terminal output screen">सभी साफ़ करें</string>
     <string name="clear_all_message" comment="Confirmation prompt asking user if they want to clear the terminal output view">क्या आप सभी को साफ़ करना चाहते हैं?</string>
-    <string name="clear_analysis_cache" comment="Button label in settings to clear cached AI analysis responses">विश्लेषण कैश साफ़ करें</string>
-    <string name="clear_cache" comment="Action button in settings to clear app cache data">कैश साफ़ करें</string>
+    <string name="clear_analysis_cache" comment="Button label in settings to clear cached AI analysis responses">विश्लेषण कैशे साफ़ करें</string>
+    <string name="clear_cache" comment="Action button in settings to clear app cache data">कैशे साफ़ करें</string>
     <string name="clear_everything" comment="Dialog button label to confirm clearing screen output and logs">सभी साफ़ करें</string>
     <string name="clear_history" comment="Action button in terminal/bookmarks screen to clear executed command history">इतिहास मिटाएं</string>
     <string name="clear_output_confirmation" comment="Setting toggle title to request confirmation before clearing shell output view">आउटपुट साफ़ करने की पुष्टि</string>
     <string name="clipboard_empty" comment="Toast error message when user taps paste but system clipboard has no text content">क्लिपबोर्ड में कोई पाठ नहीं है</string>
     <string name="close">बंद करे</string>
-    <string name="cloud_backup_failed" comment="Error toast when uploading backup file to Google Drive fails">गूगल ड्राइव पर बैकअप अपलोड करने में विफल</string>
-    <string name="cloud_backup_google_drive" comment="Setting toggle title for automated cloud backups to Google Drive">क्लाउड बैकअप (गूगल ड्राइव)</string>
-    <string name="cloud_backup_successful" comment="Toast message confirming successful backup upload to Google Drive">बैकअप गूगल ड्राइव पर अपलोड हो गया</string>
+    <string name="cloud_backup_failed" comment="Error toast when uploading backup file to Google Drive fails">Google ड्राइव पर बैकअप अपलोड करने में विफल</string>
+    <string name="cloud_backup_google_drive" comment="Setting toggle title for automated cloud backups to Google Drive">क्लाउड बैकअप (Google ड्राइव)</string>
+    <string name="cloud_backup_successful" comment="Toast message confirming successful backup upload to Google Drive">Google ड्राइव पर बैकअप अपलोड किया गया</string>
     <string name="cloud_models" comment="Settings screen title for managing cloud-based LLM provider API keys">क्लाउड मॉडल</string>
-    <string name="cloud_restore_failed" comment="Error toast when downloading/restoring backup from Google Drive fails">गूगल ड्राइव से रिस्टोर करने में विफल</string>
-    <string name="cloud_restore_successful" comment="Toast message confirming successful backup restoration from Google Drive">गूगल ड्राइव से रिस्टोर हो गया</string>
-    <string name="cmd_get_battery_desc" comment="Description for predefined fastboot command: fastboot getvar battery-voltage">वर्तमान बैटरी चार्ज स्तर की जांच करें</string>
+    <string name="cloud_restore_failed" comment="Error toast when downloading/restoring backup from Google Drive fails">Google ड्राइव से रिस्टोर करने में विफल</string>
+    <string name="cloud_restore_successful" comment="Toast message confirming successful backup restoration from Google Drive">Google ड्राइव से रिस्टोर किया गया</string>
+    <string name="cmd_get_battery_desc" comment="Description for predefined fastboot command: fastboot getvar battery-voltage">वर्तमान बैटरी चार्ज स्तर की क्वेरी करें</string>
     <string name="cmd_get_battery_title" comment="Predefined fastboot command title: check battery level in fastboot">बैटरी स्तर</string>
     <string name="cmd_get_current_slot_desc" comment="Description for predefined fastboot command: fastboot getvar current-slot">वर्तमान में कौन सा A/B स्लॉट सक्रिय है</string>
     <string name="cmd_get_current_slot_title" comment="Predefined fastboot command title: check active A/B slot">वर्तमान स्लॉट</string>
-    <string name="cmd_get_product_desc" comment="Description for predefined fastboot command: fastboot getvar product">डिवाइस का उत्पाद नाम पहचानकर्ता प्राप्त करें</string>
+    <string name="cmd_get_product_desc" comment="Description for predefined fastboot command: fastboot getvar product">डिवाइस उत्पाद नाम पहचानकर्ता पुनर्प्राप्त करें</string>
     <string name="cmd_get_product_title" comment="Predefined fastboot command title: check product name">उत्पाद का नाम</string>
     <string name="cmd_get_slot_count_desc" comment="Description for predefined fastboot command: fastboot getvar slot-count">इस डिवाइस पर A/B स्लॉट की संख्या</string>
-    <string name="cmd_get_slot_count_title" comment="Predefined fastboot command title: check A/B slot count">स्लॉट संख्या</string>
-    <string name="cmd_get_unlocked_desc" comment="Description for predefined fastboot command: fastboot getvar unlocked">जांचें कि क्या बूटलोडर वर्तमान में अनलॉक है</string>
+    <string name="cmd_get_slot_count_title" comment="Predefined fastboot command title: check A/B slot count">स्लॉट गिनती</string>
+    <string name="cmd_get_unlocked_desc" comment="Description for predefined fastboot command: fastboot getvar unlocked">जाँच करें कि बूटलोडर वर्तमान में अनलॉक है या नहीं</string>
     <string name="cmd_get_unlocked_title" comment="Predefined fastboot command title: check bootloader unlock status">बूटलोडर अनलॉक स्थिति</string>
-    <string name="cmd_getvar_all_desc" comment="Description for predefined fastboot command: fastboot getvar all">सभी डिवाइस वैरिएबल और उनके वर्तमान मानों की सूची बनाएं</string>
-    <string name="cmd_getvar_all_title" comment="Predefined fastboot command title: get all device variables">सभी वैरिएबल प्राप्त करें</string>
-    <string name="cmd_oem_device_info_desc" comment="Description for predefined fastboot command: fastboot oem device-info">OEM-विशिष्ट डिवाइस जानकारी प्राप्त करें</string>
+    <string name="cmd_getvar_all_desc" comment="Description for predefined fastboot command: fastboot getvar all">सभी डिवाइस चर और उनके वर्तमान मानों को सूचीबद्ध करें</string>
+    <string name="cmd_getvar_all_title" comment="Predefined fastboot command title: get all device variables">सभी चर प्राप्त करें</string>
+    <string name="cmd_oem_device_info_desc" comment="Description for predefined fastboot command: fastboot oem device-info">OEM-विशिष्ट डिवाइस जानकारी पुनर्प्राप्त करें</string>
     <string name="cmd_oem_device_info_title" comment="Predefined fastboot command title: query OEM device info">OEM डिवाइस जानकारी</string>
-    <string name="cmd_unlock_ability_desc" comment="Description for predefined fastboot command: fastboot flashing get_unlock_ability">जांचें कि क्या इस डिवाइस का बूटलोडर अनलॉक किया जा सकता है</string>
+    <string name="cmd_unlock_ability_desc" comment="Description for predefined fastboot command: fastboot flashing get_unlock_ability">जाँच करें कि क्या इस डिवाइस का बूटलोडर अनलॉक किया जा सकता है</string>
     <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">अनलॉक क्षमता</string>
     <string name="code_pair_instruction" comment="Instructional text in Wireless Debugging pairing dialog directing user to open Wireless Debugging menu on target device">लक्ष्य डिवाइस पर \"वायरलेस डिबगिंग\" खोलें और \"पेयरिंग कोड से डिवाइस पेयर करें\" पर टैप करें</string>
-    <string name="collapse" comment="Action button label to collapse an expanded card or section">सिकोड़ें</string>
-    <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">त्रुटि हुई</string>
-    <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">उच्च ऊंचाई (डायलॉग)</string>
-    <string name="color_preview_highest_elevation" comment="Sample label in theme editor showing highest elevation surface color (Bottom Sheet)">उच्चतम ऊंचाई (बॉटम शीट)</string>
+    <string name="collapse" comment="Action button label to collapse an expanded card or section">संकोच करें</string>
+    <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">त्रुटि आई</string>
+    <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">उच्च एलिवेशन (डायलॉग)</string>
+    <string name="color_preview_highest_elevation" comment="Sample label in theme editor showing highest elevation surface color (Bottom Sheet)">उच्चतम एलिवेशन (बॉटम शीट)</string>
     <string name="color_preview_list_item" comment="Sample text field label in theme customizer preview">सूची आइटम / टेक्स्ट फ़ील्ड</string>
-    <string name="color_preview_low_elevation" comment="Sample label in theme customizer for low elevation card colors">कम ऊंचाई (एलिवेटेड कार्ड)</string>
-    <string name="color_preview_lowest_elevation" comment="Sample label in theme customizer for lowest elevation surface color">न्यूनतम ऊंचाई</string>
-    <string name="color_preview_outlined_button" comment="Sample outlined button text in theme preview">आउटलाइंड बटन</string>
-    <string name="color_preview_primary_button" comment="Sample primary button text in theme preview">प्राथमिक बटन</string>
+    <string name="color_preview_low_elevation" comment="Sample label in theme customizer for low elevation card colors">निम्न एलिवेशन (एलिवेटेड कार्ड)</string>
+    <string name="color_preview_lowest_elevation" comment="Sample label in theme customizer for lowest elevation surface color">न्यूनतम एलिवेशन</string>
+    <string name="color_preview_outlined_button" comment="Sample outlined button text in theme preview">आउटलाइन किया गया बटन</string>
+    <string name="color_preview_primary_button" comment="Sample primary button text in theme preview">प्राइमरी बटन</string>
     <string name="color_preview_screen_content" comment="Sample screen content body text in theme preview">स्क्रीन सामग्री</string>
-    <string name="color_preview_standard_elevation" comment="Sample label in theme customizer for standard card elevation surface color">मानक ऊंचाई (कार्ड)</string>
+    <string name="color_preview_standard_elevation" comment="Sample label in theme customizer for standard card elevation surface color">मानक एलिवेशन (कार्ड)</string>
     <string name="color_preview_surface_area" comment="Sample surface area text in theme preview">सतह क्षेत्र</string>
     <string name="color_preview_tonal_button" comment="Sample tonal button text in theme preview">टोनल बटन</string>
     <string name="color_role_app_background" comment="Material 3 color role name for main application background color">ऐप बैकग्राउंड</string>
     <string name="color_role_background" comment="Material 3 color role name for default surface background">बैकग्राउंड</string>
     <string name="color_role_error" comment="Material 3 color role name for error indicator color">त्रुटि</string>
     <string name="color_role_error_container" comment="Material 3 color role name for container background of error elements">त्रुटि कंटेनर</string>
-    <string name="color_role_main_accent" comment="Material 3 color role name for primary accent color">मुख्य एक्सेंट (प्राथमिक)</string>
+    <string name="color_role_main_accent" comment="Material 3 color role name for primary accent color">मुख्य एक्सेंट (प्राइमरी)</string>
     <string name="color_role_on_background" comment="The color used for text and icons drawn on top of the background color">बैकग्राउंड पर</string>
     <string name="color_role_on_error" comment="The color used for text and icons drawn on top of the error color">त्रुटि पर</string>
     <string name="color_role_on_error_container" comment="The color used for text and icons drawn on top of the error container color">त्रुटि कंटेनर पर</string>
-    <string name="color_role_on_primary" comment="The color used for text and icons drawn on top of the primary color">प्राथमिक पर</string>
-    <string name="color_role_on_primary_container" comment="The color used for text and icons drawn on top of the primary container color">प्राथमिक कंटेनर पर</string>
-    <string name="color_role_on_secondary" comment="The color used for text and icons drawn on top of the secondary color">द्वितीयक पर</string>
-    <string name="color_role_on_secondary_container" comment="The color used for text and icons drawn on top of the secondary container color">द्वितीयक कंटेनर पर</string>
+    <string name="color_role_on_primary" comment="The color used for text and icons drawn on top of the primary color">प्राइमरी पर</string>
+    <string name="color_role_on_primary_container" comment="The color used for text and icons drawn on top of the primary container color">प्राइमरी कंटेनर पर</string>
+    <string name="color_role_on_secondary" comment="The color used for text and icons drawn on top of the secondary color">सेकेंडरी पर</string>
+    <string name="color_role_on_secondary_container" comment="The color used for text and icons drawn on top of the secondary container color">सेकेंडरी कंटेनर पर</string>
     <string name="color_role_on_surface" comment="The color used for text and icons drawn on top of the surface color">सतह पर</string>
-    <string name="color_role_on_surface_variant" comment="The color used for text and icons drawn on top of the surface variant color">सतह के प्रकार पर</string>
-    <string name="color_role_on_tertiary" comment="The color used for text and icons drawn on top of the tertiary color">तृतीयक पर</string>
-    <string name="color_role_on_tertiary_container" comment="The color used for text and icons drawn on top of the tertiary container color">तृतीयक कंटेनर पर</string>
+    <string name="color_role_on_surface_variant" comment="The color used for text and icons drawn on top of the surface variant color">सतह वेरिएंट पर</string>
+    <string name="color_role_on_tertiary" comment="The color used for text and icons drawn on top of the tertiary color">टर्शियरी पर</string>
+    <string name="color_role_on_tertiary_container" comment="The color used for text and icons drawn on top of the tertiary container color">टर्शियरी कंटेनर पर</string>
     <string name="color_role_outline" comment="Material 3 color role name for component outline borders">आउटलाइन</string>
-    <string name="color_role_outline_variant" comment="Material 3 color role name for secondary outline borders">आउटलाइन प्रकार</string>
-    <string name="color_role_primary" comment="Material 3 color role name for primary theme color">प्राथमिक</string>
-    <string name="color_role_primary_container" comment="Material 3 color role name for container surface of primary elements">प्राथमिक कंटेनर</string>
-    <string name="color_role_secondary" comment="Material 3 color role name for secondary theme accent color">द्वितीयक</string>
-    <string name="color_role_secondary_accent" comment="Material 3 color role name for secondary accent color">द्वितीयक एक्सेंट</string>
-    <string name="color_role_secondary_container" comment="Material 3 color role name for container surface of secondary elements">द्वितीयक कंटेनर</string>
+    <string name="color_role_outline_variant" comment="Material 3 color role name for secondary outline borders">आउटलाइन वेरिएंट</string>
+    <string name="color_role_primary" comment="Material 3 color role name for primary theme color">प्राइमरी</string>
+    <string name="color_role_primary_container" comment="Material 3 color role name for container surface of primary elements">प्राइमरी कंटेनर</string>
+    <string name="color_role_secondary" comment="Material 3 color role name for secondary theme accent color">सेकेंडरी</string>
+    <string name="color_role_secondary_accent" comment="Material 3 color role name for secondary accent color">सेकेंडरी एक्सेंट</string>
+    <string name="color_role_secondary_container" comment="Material 3 color role name for container surface of secondary elements">सेकेंडरी कंटेनर</string>
     <string name="color_role_surface" comment="Material 3 color role name for default component surface color">सतह</string>
     <string name="color_role_surface_container" comment="Material 3 color role name for standard surface container">सतह कंटेनर</string>
     <string name="color_role_surface_container_high" comment="Material 3 color role name for high elevation surface container">सतह कंटेनर उच्च</string>
     <string name="color_role_surface_container_highest" comment="Material 3 color role name for highest elevation surface container">सतह कंटेनर उच्चतम</string>
-    <string name="color_role_surface_container_low" comment="Material 3 color role name for low elevation surface container">सतह कंटेनर निम्न</string>
+    <string name="color_role_surface_container_low" comment="Material 3 color role name for low elevation surface container">सतह कंटेनर कम</string>
     <string name="color_role_surface_container_lowest" comment="Material 3 color role name for lowest elevation surface container">सतह कंटेनर न्यूनतम</string>
-    <string name="color_role_surface_variant" comment="Material 3 color role name for variant surface background">सतह प्रकार</string>
-    <string name="color_role_tertiary" comment="Material 3 color role name for tertiary theme accent color">तृतीयक</string>
-    <string name="color_role_tertiary_accent" comment="Material 3 color role name for tertiary accent color">तृतीयक एक्सेंट</string>
-    <string name="color_role_tertiary_container" comment="Material 3 color role name for container surface of tertiary elements">तृतीयक कंटेनर</string>
+    <string name="color_role_surface_variant" comment="Material 3 color role name for variant surface background">सतह वेरिएंट</string>
+    <string name="color_role_tertiary" comment="Material 3 color role name for tertiary theme accent color">टर्शियरी</string>
+    <string name="color_role_tertiary_accent" comment="Material 3 color role name for tertiary accent color">टर्शियरी एक्सेंट</string>
+    <string name="color_role_tertiary_container" comment="Material 3 color role name for container surface of tertiary elements">टर्शियरी कंटेनर</string>
     <string name="command" comment="Label/header for an ADB command snippet">कमांड</string>
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">कमांड विश्लेषण</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">कमांड कंसोल</string>
     <string name="command_logs" comment="Tab header for history log of executed fastboot commands">कमांड लॉग</string>
-    <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">निष्पादित सभी फ़ास्टबूट कमांड का इतिहास।</string>
+    <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">सभी निष्पादित फ़ास्टबूट कमांड का इतिहास।</string>
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">कमांड नहीं मिला!</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">ADB कमांड टाइप करें</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">कमांड</string>
@@ -206,15 +206,15 @@
     <string name="confirm">पुष्टि करें</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">चेतावनी! यह क्रिया अपरिवर्तनीय है\nक्या आप वाकई सभी बुकमार्क हटाना चाहते हैं?</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">मिटाने की पुष्टि करें</string>
-    <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">क्या आप वाकई इस टाइल को हटाना चाहते हैं?</string>
-    <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">कैशिंग से विश्लेषण परिणाम तुरंत प्राप्त करने में मदद मिलती है।\nक्या आप अभी भी सभी AI विश्लेषण कैश डेटा को साफ़ करना चाहते हैं?</string>
+    <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">क्या आप वाकई \"%1$s\" हटाना चाहते हैं?</string>
+    <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">कैशे करने से विश्लेषण परिणाम तुरंत पुनः प्राप्त करने में मदद मिलती है।\nक्या आप फिर भी सभी AI विश्लेषण कैशे डेटा साफ़ करना चाहते हैं?</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" इस स्थान पर पहले से मौजूद है।</string>
     <string name="conflict_title" comment="Dialog title when attempting to paste or create a file that already exists">आइटम पहले से मौजूद है</string>
     <string name="connect" comment="Action button to initiate ADB connection to target device over Wireless Debugging or OTG">कनेक्ट करें</string>
     <string name="connect_device_via_otg" comment="Prompt instructing user to attach a target device using USB OTG cable">OTG के माध्यम से डिवाइस कनेक्ट करें</string>
     <string name="connect_to_wifi_network" comment="Instructional notice indicating device must be connected to Wi-Fi for Wireless Debugging">वाई-फाई नेटवर्क से कनेक्ट करें</string>
     <string name="connect_via_otg" comment="Option in ADB connection menu to connect via USB OTG cable">OTG के माध्यम से कनेक्ट करें</string>
-    <string name="connect_via_wifi_adb" comment="Option in connection menu to connect via Wi-Fi Wireless Debugging">Wi-Fi ADB के माध्यम से कनेक्ट करें</string>
+    <string name="connect_via_wifi_adb" comment="Option in connection menu to connect via Wi-Fi Wireless Debugging">Wi-Fi ADB के ज़रिए कनेक्ट करें</string>
     <string name="connected" comment="Status badge showing device is successfully connected over ADB">कनेक्ट हो गया</string>
     <string name="connected_device" comment="Header title for the currently active ADB target device information card">कनेक्ट किए हुए डिवाइस</string>
     <string name="connecting" comment="Progress status text shown while establishing ADB connection">कनेक्ट हो रहा है…</string>
@@ -228,14 +228,14 @@
     <string name="copied_to_clipboard" comment="Toast message shown after copying text or command to system clipboard">क्लिपबोर्ड पर कॉपी किया!</string>
     <string name="copy">कॉपी</string>
     <string name="copying" comment="Progress status text shown while copying files in file browser">कॉपी हो रहा है…</string>
-    <string name="copying_items" comment="%1$d = number of items being copied">%1$d आइटम कॉपी हो रहे हैं</string>
+    <string name="copying_items" comment="%1$d = number of items being copied">%1$d आइटम (item) कॉपी हो रहे हैं</string>
     <string name="crash_details" comment="Screen title for inspecting stack trace details of a crash log">क्रैश विवरण</string>
     <string name="crash_history" comment="Settings menu title and screen header for viewing past application crash reports">क्रैश इतिहास</string>
     <string name="create">बनाएं</string>
     <string name="create_folder" comment="Action button or dialog title to create a new directory in file browser">फ़ोल्डर बनाएं</string>
     <string name="create_new_tile" comment="Screen header or button label to add a new custom Quick Settings tile">नई टाइल बनाएं</string>
-    <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">AI के साथ बनाएं</string>
-    <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">योगदान देने के लिए हमारे Crowdin अनुवाद प्लेटफॉर्म पर जाएं</string>
+    <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">AI के साथ बनाएँ</string>
+    <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">योगदान देने के लिए हमारे क्राउडिन अनुवाद प्लेटफ़ॉर्म पर जाएं</string>
     <string name="current_version" comment="About screen card label showing installed application version number">वर्तमान संस्करण</string>
     <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">कस्टम UI स्केल</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">%1$d आइटम कट किए</string>
@@ -255,73 +255,73 @@
     <string name="delete_message" comment="%1$s = file or folder name">क्या आप वाकई \"%1$s\" हटाना चाहते हैं?</string>
     <string name="delete_title" comment="%1$s = file or folder name">%1$s हटाएं?</string>
     <string name="des_about" comment="Subtitle description for About section in settings menu">योगदानकर्ता और समर्थन</string>
-    <string name="des_ai_cache_days" comment="Description under Cache duration setting in AI settings">कैश किए गए परिणामों को रखने के दिनों की संख्या</string>
-    <string name="des_ai_cache_enabled" comment="Description under Enable cache setting in AI settings">प्रति मॉडल विश्लेषण परिणामों को कैश करें</string>
-    <string name="des_ai_models" comment="Description under AI &amp; Models item in settings">AI मॉडल डेटा और API कुंजियों का प्रबंधन करें</string>
-    <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">चुनें कि स्वचालित बैकअप में क्या शामिल करना है</string>
+    <string name="des_ai_cache_days" comment="Description under Cache duration setting in AI settings">कैशे किए गए परिणामों को रखने के लिए दिनों की संख्या</string>
+    <string name="des_ai_cache_enabled" comment="Description under Enable cache setting in AI settings">प्रति मॉडल विश्लेषण परिणाम कैशे करें</string>
+    <string name="des_ai_models" comment="Description under AI &amp; Models item in settings">AI मॉडल डेटा और API कुंजियाँ प्रबंधित करें</string>
+    <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">स्वचालित बैकअप में क्या शामिल करना है चुनें</string>
     <string name="des_auto_backup_folder" comment="Description under Backup folder setting">स्वचालित बैकअप सहेजने के लिए एक फ़ोल्डर चुनें</string>
-    <string name="des_auto_backup_time" comment="Description under Backup time setting">स्वचालित बैकअप के लिए समय निर्धारित करें</string>
-    <string name="des_auto_dark_mode" comment="Description under Auto dark mode setting">बैटरी सेवर चालू होने पर स्वचालित रूप से डार्क मोड पर स्विच करें</string>
-    <string name="des_auto_delete_existing_backups" comment="Description under Auto-delete old backups setting">नया स्वचालित बैकअप सहेजे जाने पर पुराने बैकअप को हटा दें</string>
+    <string name="des_auto_backup_time" comment="Description under Backup time setting">स्वचालित बैकअप के लिए समय सेट करें</string>
+    <string name="des_auto_dark_mode" comment="Description under Auto dark mode setting">बैटरी सेवर सक्षम होने पर स्वचालित रूप से डार्क मोड पर स्विच करें</string>
+    <string name="des_auto_delete_existing_backups" comment="Description under Auto-delete old backups setting">नया बैकअप सहेजे जाने पर पुराने स्वचालित बैकअप हटाएं</string>
     <string name="des_auto_scale_ui" comment="Description under Auto scale UI setting">डिवाइस की सबसे छोटी चौड़ाई के अनुसार UI को स्वचालित रूप से स्केल करता है</string>
     <string name="des_auto_update" comment="Description under Auto update setting">स्वचालित रूप से अपडेट जांचें</string>
     <string name="des_backup_all_data" comment="Description for full backup option in backup dialog">ऐप का सभी डेटा बैकअप करें</string>
     <string name="des_backup_and_restore" comment="Description under Backup &amp; restore item in settings menu">ऐप सेटिंग्स और अन्य डेटा बैकअप और रिस्टोर करें</string>
-    <string name="des_backup_app_database" comment="Description for app database backup option">कमांड उदाहरण और बुकमार्क सहित ऐप डेटाबेस बैकअप करें</string>
-    <string name="des_backup_scheduler" comment="Description under Backup scheduler setting">चयनित अंतरालों पर स्वचालित रूप से बैकअप शेड्यूल करें</string>
+    <string name="des_backup_app_database" comment="Description for app database backup option">कमांड उदाहरण &amp; बुकमार्क सहित ऐप डेटाबेस का बैकअप लें</string>
+    <string name="des_backup_scheduler" comment="Description under Backup scheduler setting">चयनित अंतराल पर स्वचालित रूप से बैकअप शेड्यूल करें</string>
     <string name="des_backup_settings" comment="Description for app settings backup option">केवल ऐप सेटिंग्स प्राथमिकताएं बैकअप करें</string>
     <string name="des_behavior" comment="Description under Behavior item in settings menu">ऐप के कुछ व्यवहार बदलें</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">एप्लिकेशन में किए गए सभी परिवर्तनों का इतिहास</string>
-    <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">आइकन संग्रह से एक आइकन चुनने के लिए यहाँ क्लिक करें</string>
+    <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">आइकन संग्रह से कोई आइकन चुनने के लिए यहां क्लिक करें</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">शेल आउटपुट साफ़ करने से पहले पुष्टि मांगें</string>
-    <string name="des_cloud_models" comment="Description under Cloud models setting item">क्लाउड मॉडल के लिए API कुंजियों का प्रबंधन करें</string>
+    <string name="des_cloud_models" comment="Description under Cloud models setting item">क्लाउड मॉडल के लिए API कुंजियाँ प्रबंधित करें</string>
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">शेल आउटपुट को सहेजने के लिए एक निर्देशिका चुनें</string>
-    <string name="des_contributors" comment="Description under Contributors item in About section">योगदानकर्ताओं की सूची जिन्होंने aShell You के विकास में मदद की</string>
+    <string name="des_contributors" comment="Description under Contributors item in About section">aShell You के विकास में मदद करने वाले योगदानकर्ताओं की सूची</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">ऐप में हुई सभी क्रैश देखें</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">ऐप के लिए डिफ़ॉल्ट भाषा चुनें</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">जब आप बाहरी कीबोर्ड का उपयोग करना चाहते हैं तो उपयोगी होता है</string>
-    <string name="des_drive_backup" comment="Description card text for Google Drive backup option">अपने गूगल ड्राइव पर एन्क्रिप्टेड बैकअप अपलोड करें।\nयह कार्रवाई किसी भी मौजूदा क्लाउड बैकअप को ओवरराइट कर देगी।</string>
-    <string name="des_drive_restore" comment="Description card text for Google Drive restore option">गूगल ड्राइव से अपना नवीनतम बैकअप डाउनलोड करें</string>
+    <string name="des_drive_backup" comment="Description card text for Google Drive backup option">अपने Google ड्राइव पर एन्क्रिप्टेड बैकअप अपलोड करें।\nयह क्रिया किसी भी मौजूदा क्लाउड बैकअप को ओवरराइड कर देगी।</string>
+    <string name="des_drive_restore" comment="Description card text for Google Drive restore option">Google ड्राइव से अपना नवीनतम बैकअप डाउनलोड करें</string>
     <string name="des_dynamic_colors" comment="Description under Dynamic colors setting item">डिवाइस वॉलपेपर के अनुसार ऐप थीम को स्वचालित रूप से सेट करें</string>
-    <string name="des_enable_auto_backup" comment="Description under Enable automatic backup toggle setting">निर्धारित समय पर स्वचालित रूप से ऐप डेटा का बैकअप लें</string>
-    <string name="des_enable_cloud_auto_backup" comment="Description under Auto backup to Google Drive toggle setting">अपने Google Drive खाते में स्वचालित रूप से बैकअप लें</string>
-    <string name="des_enable_direct_download" comment="Description under Enable direct apk download setting">चालू होने पर, अपडेट सीधे ऐप के अंदर ही GitHub से डाउनलोड होंगे। मैन्युअल रूप से डाउनलोड करने के लिए GitHub रिलीज़ पेज पर जाने हेतु इसे बंद करें।</string>
-    <string name="des_enable_local_auto_backup" comment="Description under Auto backup to local storage toggle setting">अपने डिवाइस पर चुने गए फ़ोल्डर में स्वचालित रूप से बैकअप लें</string>
+    <string name="des_enable_auto_backup" comment="Description under Enable automatic backup toggle setting">निर्धारित समय पर ऐप डेटा का स्वचालित रूप से बैकअप लें</string>
+    <string name="des_enable_cloud_auto_backup" comment="Description under Auto backup to Google Drive toggle setting">अपने Google ड्राइव खाते पर स्वचालित रूप से बैकअप लें</string>
+    <string name="des_enable_direct_download" comment="Description under Enable direct apk download setting">चालू होने पर, अपडेट सीधे ऐप के अंदर Github से डाउनलोड होंगे। बंद करने पर मैन्युअल डाउनलोड के लिए Github रिलीज़ पेज पर जाएंगे।</string>
+    <string name="des_enable_local_auto_backup" comment="Description under Auto backup to local storage toggle setting">अपने डिवाइस के चुनिंदा फ़ोल्डर में स्वचालित रूप से बैकअप लें</string>
     <string name="des_examples" comment="Description under Command templates item in navigation menu">कुछ कमांड के उदाहरणों का संग्रह</string>
     <string name="des_feature_request" comment="Description under Feature request item in About menu">यदि आपके पास ऐप के लिए कोई विचार या सुझाव हो, तो हमें बताएं</string>
-    <string name="des_font_family" comment="Description under Font family setting item">एप्लिकेशन का फ़ॉन्ट स्टाइल बदलें</string>
-    <string name="des_font_size" comment="Description under Font size multiplier setting item">ऐप में टेक्स्ट को बड़ा या छोटा दिखाने के लिए फ़ॉन्ट आकार को समायोजित करें</string>
+    <string name="des_font_family" comment="Description under Font family setting item">एप्लिकेशन की फ़ॉन्ट शैली बदलें</string>
+    <string name="des_font_size" comment="Description under Font size multiplier setting item">ऐप में टेक्स्ट को बड़ा या छोटा दिखाने के लिए फ़ॉन्ट आकार समायोजित करें</string>
     <string name="des_haptics_and_vibration" comment="Description under Haptics &amp; Vibration setting item">टच फ़ीडबैक के लिए इंटरेक्टिव हैप्टिक्स</string>
     <string name="des_high_contrast_dark_mode" comment="Description under High contrast dark mode setting item">OLED डिस्प्ले वाले डिवाइस के लिए गहरी काली डार्क थीम</string>
     <string name="des_hridayan" comment="Developer bio subtitle in About section">बस एक लड़का जिसे ऐप्स और डिज़ाइन पसंद है</string>
-    <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">क्विक सेटिंग्स पैनल में दिखाए जाने पर टाइल की निश्चित दृश्य स्थिति</string>
-    <string name="des_licenses" comment="Description under Licenses setting item in About section">ऐप और लाइब्रेरी द्वारा उपयोग किए जा रहे लाइसेंस देखें</string>
+    <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">त्वरित सेटिंग पैनल में दिखाए जाने पर टाइल की निश्चित दृश्य अवस्था</string>
+    <string name="des_licenses" comment="Description under Licenses setting item in About section">ऐप और लाइब्रेरीज़ द्वारा उपयोग किए जाने वाले लाइसेंस देखें</string>
     <string name="des_local_backup" comment="Description card text for local backup option">अपने डिवाइस पर एन्क्रिप्टेड बैकअप सहेजें</string>
-    <string name="des_local_restore" comment="Description card text for local restore option">अपने डिवाइस से एक बैकअप फ़ाइल चुनें</string>
-    <string name="des_logcat" comment="Description under Logcat item in navigation menu">कनेक्टेड डिवाइस से रियल-टाइम logcat आउटपुट</string>
+    <string name="des_local_restore" comment="Description card text for local restore option">अपने डिवाइस से कोई बैकअप फ़ाइल चुनें</string>
+    <string name="des_logcat" comment="Description under Logcat item in navigation menu">कनेक्टेड डिवाइस से रीयल-टाइम लॉगकैट आउटपुट</string>
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">गतिशील रंग, डार्क थीम, भाषा</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">कोई मॉडल चयनित नहीं</string>
-    <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">यदि बड़ी संख्या में बुकमार्क जोड़े जाते हैं तो लैग हो सकता है! कम क्षमता वाले डिवाइसों पर इस विकल्प को बंद रखना चाहिए</string>
+    <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">यदि बड़ी संख्या में बुकमार्क जोड़े जाएंगे तो यह धीमा कर सकता है! लो एंड उपकरणों को इस विकल्प को अक्षम रखना चाहिए</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">दूसरा लक्ष्य डिवाइस पेयर करें</string>
-    <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">ADB कमांड निष्पादित करने के लिए क्विक सेटिंग्स टाइल्स बनाएं</string>
+    <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">ADB कमांड निष्पादित करने के लिए त्वरित सेटिंग टाइलें बनाएं</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">ऐप उपयोग करते समय आई किसी भी समस्या या बग की रिपोर्ट करें</string>
     <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">ऐप सेटिंग्स को डिफ़ॉल्ट मानों पर रीसेट करें</string>
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">सहेजी गई बैकअप फ़ाइल से ऐप डेटा रिस्टोर करें।\nसहेजा डेटाबेस वर्तमान डेटाबेस को ओवरराइड करेगा</string>
     <string name="des_save_whole_output" comment="Description under Save whole output setting toggle">पूरे शेल सेशन का आउटपुट सहेजने के लिए इस विकल्प को सक्षम करें।\nअक्षम होने पर केवल अंतिम कमांड का आउटपुट सहेजा जाएगा।</string>
-    <string name="des_screen_density" comment="Description under Screen density multiplier setting item">UI तत्वों को बड़ा या छोटा दिखाने के लिए स्क्रीन डेंसिटी को समायोजित करें</string>
-    <string name="des_select_file_for_flashing" comment="Instructional description prompt for picking boot image file to flash">चुने गए पार्टिशन पर फ्लैश करने के लिए बूट इमेज फ़ाइल चुनें</string>
-    <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">क्लाउड बैकअप के लिए वैकल्पिक रूप से अपना गूगल खाता लिंक करें</string>
+    <string name="des_screen_density" comment="Description under Screen density multiplier setting item">UI तत्वों को बड़ा या छोटा दिखाने के लिए स्क्रीन घनत्व समायोजित करें</string>
+    <string name="des_select_file_for_flashing" comment="Instructional description prompt for picking boot image file to flash">चयनित पार्टीशन पर फ्लैश करने के लिए एक बूट इमेज फ़ाइल चुनें</string>
+    <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">क्लाउड बैकअप के लिए वैकल्पिक रूप से अपना Google खाता लिंक करें</string>
     <string name="des_smooth_scroll" comment="Description under Smooth scrolling setting toggle">जब ऊपर या नीचे की तीर को क्लिक किया जाता है, तो शैल के आउटपुट में मुलायम स्क्रोलिंग की अनुमति देता है</string>
-    <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">सक्षम होने पर, टाइल प्रत्येक टैप पर ON और OFF स्थितियों के बीच स्विच करती है, और प्रत्येक स्थिति के लिए एक अलग कमांड चलाती है</string>
-    <string name="des_translators" comment="Subtitle description under Translators list in About section">वे लोग जिन्होंने aShellYou का अनुवाद करने में मदद की</string>
-    <string name="des_ui_scale" comment="Description under UI scale setting item">UI तत्वों और फ़ॉन्ट आकार के स्केल को समायोजित करें</string>
-    <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">सावधानी से आगे बढ़ें क्योंकि गलत इमेज बूटलूप का कारण बन सकती है</string>
+    <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">सक्षम होने पर, टाइल प्रत्येक टैप पर चालू और बंद अवस्थाओं के बीच स्विच करती है, प्रत्येक अवस्था के लिए एक अलग कमांड चलाती है</string>
+    <string name="des_translators" comment="Subtitle description under Translators list in About section">aShell You का अनुवाद करने में मदद करने वाले लोग</string>
+    <string name="des_ui_scale" comment="Description under UI scale setting item">UI तत्वों और फ़ॉन्ट आकार का स्केल समायोजित करें</string>
+    <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">सावधानी से आगे बढ़ें क्योंकि गलत इमेज से बूटलूप हो सकता है</string>
     <string name="description">विवरण</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">सभी अचयनित करें</string>
     <string name="developer" comment="Section title in About screen for lead developer info">डेवलपर</string>
     <string name="developer_options" comment="System Developer Options setting item or prompt">डेवलपर विकल्प</string>
     <string name="developer_options_not_available" comment="Toast error message when Developer options shortcut cannot be opened">डेवलपर विकल्प उपलब्ध नहीं हैं!</string>
-    <string name="device_backup_local" comment="Label for local device storage backup file">डिवाइस बैकअप (लोकल)</string>
+    <string name="device_backup_local" comment="Label for local device storage backup file">डिवाइस बैकअप (स्थानीय)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">डिवाइस कनेक्ट है!</string>
     <string name="device_disconnected" comment="Notification title when ADB connection drops">डिवाइस डिस्कनेक्ट</string>
     <string name="device_disconnected_message" comment="Notification body message when wireless ADB connection is lost">वाई-फाई ADB कनेक्शन खो गया।</string>
@@ -334,7 +334,7 @@
     <string name="disclaimer_1_title" comment="Title for disclaimer point 1: user risk acknowledgement">अपने जोखिम पर उपयोग करें</string>
     <string name="disclaimer_2_description" comment="Text for disclaimer point 2: root requirements and elevated permissions">रूट एक्सेस अनिवार्य नहीं है, लेकिन कुछ कमांड के लिए उन्नत अनुमतियों की आवश्यकता हो सकती है।\nADB कमांड का दुरुपयोग डेटा हानि, ऐप क्रैश, या अप्रत्याशित सिस्टम व्यवहार का कारण बन सकता है।</string>
     <string name="disclaimer_2_title" comment="Title for disclaimer point 2: root and caution warning">रूट अनिवार्य नहीं है, लेकिन सावधानी जरूरी है</string>
-    <string name="disclaimer_3_description" comment="Text for disclaimer point 3: developer liability waiver">इस ऐप के डेवलपर इस ऐप के उपयोग से होने वाली किसी भी क्षति, डेटा हानि, या अनपेक्षित परिणामों के लिए जिम्मेदार नहीं हैं।\nसावधानी से आगे बढ़ें और सुनिश्चित करें कि आप जो कमांड चलाते हैं उन्हें समझते हैं।</string>
+    <string name="disclaimer_3_description" comment="Text for disclaimer point 3: developer liability waiver">इस ऐप के डेवलपर (developer) इस ऐप के उपयोग से होने वाली किसी भी क्षति, डेटा हानि, या अनपेक्षित परिणामों के लिए जिम्मेदार नहीं हैं।\nसावधानी से आगे बढ़ें और सुनिश्चित करें कि आप जो कमांड चलाते हैं उन्हें समझते हैं।</string>
     <string name="disclaimer_3_title" comment="Title for disclaimer point 3: liability waiver">हम उत्तरदायी नहीं हैं</string>
     <string name="disclaimer_4_description" comment="Text for disclaimer point 4: target user expertise level">यह ऐप उन उपयोगकर्ताओं के लिए डिज़ाइन किया गया है जिनकी ADB कमांड की बुनियादी समझ है।\nयदि आप किसी कमांड के प्रभाव के बारे में अनिश्चित हैं, तो इसे चलाने से पहले खोजें।</string>
     <string name="disclaimer_4_title" comment="Title for disclaimer point 4: target audience notice">उन्नत उपयोगकर्ताओं के लिए अभिप्रेत</string>
@@ -348,9 +348,9 @@
     <string name="download">डाउनलोड करें</string>
     <string name="download_failed" comment="Toast message when in-app updater APK download fails">डाउनलोड विफल</string>
     <string name="downloading" comment="Progress status text while downloading update package">डाउनलोड हो रहा है…</string>
-    <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">गूगल ड्राइव से बैकअप डाउनलोड किया जा रहा है…</string>
+    <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Google ड्राइव से बैकअप डाउनलोड हो रहा है…</string>
     <string name="downloads" comment="Screen header or list item for downloaded files">डाउनलोड्स</string>
-    <string name="duplicate_tile_name_error_msg" comment="Validation error in Quick Settings tile builder when entered tile name already exists">इस नाम की टाइल पहले से मौजूद है</string>
+    <string name="duplicate_tile_name_error_msg" comment="Validation error in Quick Settings tile builder when entered tile name already exists">इस नाम का फ़ोल्डर पहले से मौजूद है</string>
     <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">डायनैमिक रंग</string>
     <string name="edit">संपादित करें</string>
     <string name="edit_command" comment="Dialog header for editing a saved ADB command snippet">कमांड संपादित करें</string>
@@ -361,14 +361,14 @@
     <string name="enable_auto_update" comment="Toggle setting title to enable automatic update checking">ऑटो अपडेट सक्षम करें</string>
     <string name="enable_cloud_auto_backup" comment="Toggle setting title to enable automated backups to Google Drive">Google Drive पर ऑटो बैकअप</string>
     <string name="enable_direct_download" comment="Toggle setting title to download APK release files directly within app instead of opening browser release page">सीधा एपीके डाउनलोड सक्षम करें</string>
-    <string name="enable_local_auto_backup" comment="Toggle setting title to enable scheduled automatic backups to local device folder">लोकल स्टोरेज में ऑटो बैकअप</string>
+    <string name="enable_local_auto_backup" comment="Toggle setting title to enable scheduled automatic backups to local device folder">स्थानीय स्टोरेज पर ऑटो बैकअप</string>
     <string name="enable_wifi" comment="Prompt asking user to enable Wi-Fi for Wireless Debugging ADB connection">वाई-फाई चालू करें</string>
     <string name="enable_wireless_debugging" comment="Prompt directing user to enable Wireless Debugging option in System Developer Options">कृपया डेवलपर विकल्पों में वायरलेस डिबगिंग सक्षम करें</string>
     <string name="enable_wireless_debugging_button" comment="Action button label to jump to System Developer Options settings screen">सक्षम करें</string>
     <string name="enter">एंटर</string>
-    <string name="enter_command" comment="Input hint placeholder format for entering fastboot commands">fastboot &lt;कमांड&gt;</string>
+    <string name="enter_command" comment="Input hint placeholder format for entering fastboot commands">fastboot &lt;command&gt;</string>
     <string name="enter_pairing_code" comment="Instructional header in Wireless Debugging pairing dialog asking for 6-digit code">6 अंकों का पेयरिंग कोड दर्ज करें</string>
-    <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">यह %1$s पार्टिशन को स्थायी रूप से मिटा देगा। इस क्रिया को पूर्ववत नहीं किया जा सकता।</string>
+    <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">इससे %1$s पार्टीशन हमेशा के लिए मिट जाएगा। इस क्रिया को पूर्ववत नहीं किया जा सकता।</string>
     <string name="erase_confirm_title" comment="%1$s = partition name. Dialog title for partition erase confirmation">%1$s मिटाएं?</string>
     <string name="erase_partition" comment="Action button to trigger fastboot partition erase">मिटाएं</string>
     <string name="erasing" comment="Progress status header while fastboot partition erase command is running">मिटाया जा रहा है…</string>
@@ -377,7 +377,7 @@
     <string name="exclude" comment="Filter toggle option to exclude selected package or item">बाहर रखें</string>
     <string name="execution_method" comment="Setting label for selecting shell execution engine (Shizuku, Root, or Basic Shell)">निष्पादन विधि</string>
     <string name="expand" comment="Action button to expand a collapsed card section">विस्तार करें</string>
-    <string name="experimental" comment="Badge or section title marking experimental features">प्रायोगिक</string>
+    <string name="experimental" comment="Badge or section title marking experimental features">प्रयोगात्मक</string>
     <string name="failed">विफल</string>
     <string name="failed_to_claim_interface" comment="Technical error message when USB OTG interface claim fails">इंटरफ़ेस क्लेम करने में विफल</string>
     <string name="failed_to_copy" comment="Toast notification when copying text or file fails">कॉपी करने में विफल</string>
@@ -386,12 +386,12 @@
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; Recovery</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">जल्द आ रहा है</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">कमांड कंसोल</string>
-    <string name="fastboot_command_hint" comment="Placeholder hint in fastboot command input field">फास्टबूट कमांड दर्ज करें…</string>
+    <string name="fastboot_command_hint" comment="Placeholder hint in fastboot command input field">फ़ास्टबूट कमांड दर्ज करें…</string>
     <string name="fastboot_device_info" comment="Card header displaying target device variables queried over fastboot">डिवाइस की जानकारी</string>
-    <string name="fastboot_partitions" comment="Tab title for Fastboot partition manager tool">पार्टिशन</string>
-    <string name="fastboot_quick_actions" comment="Section header for predefined quick fastboot action buttons">त्वरित कार्रवाइयां</string>
-    <string name="fastboot_summary" comment="Feature description card text for Fastboot OTG mode">OTG के माध्यम से फास्टबूट मोड में किसी डिवाइस से कनेक्ट करें</string>
-    <string name="fastboot_variable_explorer" comment="Tab title for Fastboot variable query screen">वेरिएबल एक्सप्लोरर</string>
+    <string name="fastboot_partitions" comment="Tab title for Fastboot partition manager tool">पार्टीशन</string>
+    <string name="fastboot_quick_actions" comment="Section header for predefined quick fastboot action buttons">त्वरित कार्य</string>
+    <string name="fastboot_summary" comment="Feature description card text for Fastboot OTG mode">OTG के ज़रिए फ़ास्टबूट मोड में किसी डिवाइस से कनेक्ट करें</string>
+    <string name="fastboot_variable_explorer" comment="Tab title for Fastboot variable query screen">वैरिएबल एक्सप्लोरर</string>
     <string name="fb_all_operations_cancelled" comment="Notification toast when all file browser queue operations are cancelled">सभी ऑपरेशन रद्द किए गए</string>
     <string name="fb_cannot_paste_into_selected" comment="Error toast in file browser when target paste item is a file instead of a folder">चयनित फ़ोल्डर में पेस्ट नहीं कर सकते</string>
     <string name="fb_create_folder_failed" comment="%1$s = error message. fb_ prefix = file browser">फ़ोल्डर बनाना विफल: %1$s</string>
@@ -417,8 +417,8 @@
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">फ़ाइल सफलतापूर्वक अपलोड हुई</string>
     <string name="fb_uploading" comment="%1$s = file name">%1$s अपलोड हो रही है</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">सुविधा अनुरोध</string>
-    <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">बैकअप समय प्राप्त किया जा रहा है …</string>
-    <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">बैकअप प्रकार प्राप्त किया जा रहा है…</string>
+    <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">बैकअप समय लाया जा रहा है…</string>
+    <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">बैकअप प्रकार लाया जा रहा है…</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">फ़ील्ड खाली नहीं हो सकती</string>
     <string name="file">फ़ाइल</string>
     <string name="file_actions" comment="Bottom sheet title for file operations (copy, move, delete, rename)">फ़ाइल क्रियाएं</string>
@@ -431,147 +431,147 @@
     <string name="filter">फ़िल्टर</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">लेबल से फ़िल्टर करें</string>
     <string name="flash" comment="Action button to start fastboot partition flashing process">फ्लैश करें</string>
-    <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">पार्टिशन फ्लैश करें</string>
-    <string name="flashing" comment="Progress status header while partition flashing is in progress">फ्लैश हो रहा है…</string>
+    <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">फ्लैश पार्टीशन</string>
+    <string name="flashing" comment="Progress status header while partition flashing is in progress">फ्लैशिंग…</string>
     <string name="folder">फ़ोल्डर</string>
     <string name="folder_already_exists" comment="Validation error when creating a directory with duplicate name">इस नाम का फ़ोल्डर पहले से मौजूद है</string>
     <string name="folder_conflict_title" comment="Dialog header when creating folder collides with existing folder name">फ़ोल्डर पहले से मौजूद है</string>
     <string name="folder_info" comment="Dialog header displaying directory metadata properties">फ़ोल्डर जानकारी</string>
     <string name="folder_name" comment="Text field label for entering new directory name">फ़ोल्डर नाम</string>
     <string name="folder_picker" comment="Dialog title for selecting a target directory">फ़ोल्डर पिकर</string>
-    <string name="font_amatic_sc" comment="Font style name">Amatic SC</string>
-    <string name="font_cabin" comment="Font style name">Cabin</string>
-    <string name="font_caveat" comment="Font style name">Caveat</string>
-    <string name="font_comfortaa" comment="Font style name">Comfortaa</string>
-    <string name="font_crimson_pro" comment="Font style name">Crimson Pro</string>
-    <string name="font_dancing_script" comment="Font style name">Dancing Script</string>
-    <string name="font_display_text" comment="Sample text used to preview font styles">एक तेज़ भूरी लोमड़ी आलसी कुत्ते के ऊपर से कूदती है</string>
-    <string name="font_eb_garamond" comment="Font style name">EB Garamond</string>
-    <string name="font_exo_2" comment="Font style name">Exo 2</string>
-    <string name="font_family" comment="Settings preference title for selecting application font family">फ़ॉन्ट फैमिली</string>
-    <string name="font_heebo" comment="Font style name">Heebo</string>
-    <string name="font_inter" comment="Font style name">Inter</string>
-    <string name="font_josefin_sans" comment="Font style name">Josefin Sans</string>
-    <string name="font_karla" comment="Font style name">Karla</string>
-    <string name="font_lexend" comment="Font style name">Lexend</string>
-    <string name="font_lora" comment="Font style name">Lora</string>
-    <string name="font_manrope" comment="Font style name">Manrope</string>
-    <string name="font_montserrat" comment="Font style name">Montserrat</string>
-    <string name="font_noto_sans" comment="Font style name">Noto Sans</string>
-    <string name="font_nunito" comment="Font style name">Nunito</string>
-    <string name="font_open_sans" comment="Font style name">Open Sans</string>
-    <string name="font_oswald" comment="Font style name">Oswald</string>
-    <string name="font_outfit" comment="Font style name">Outfit</string>
-    <string name="font_pacifico" comment="Font style name">Pacifico</string>
-    <string name="font_playfair_display" comment="Font style name">Playfair Display</string>
-    <string name="font_playpen_sans" comment="Font style name">Playpen Sans</string>
-    <string name="font_plus_jakarta_sans" comment="Font style name">Plus Jakarta Sans</string>
-    <string name="font_public_sans" comment="Font style name">Public Sans</string>
-    <string name="font_quicksand" comment="Font style name">Quicksand</string>
-    <string name="font_raleway" comment="Font style name">Raleway</string>
-    <string name="font_roboto_flex" comment="Font style name">Roboto Flex</string>
-    <string name="font_rubik" comment="Font style name">Rubik</string>
-    <string name="font_shadows_into_light" comment="Font style name">Shadows Into Light</string>
+    <string name="font_amatic_sc" comment="Font style name">अमैटिक एस सी</string>
+    <string name="font_cabin" comment="Font style name">केबिन</string>
+    <string name="font_caveat" comment="Font style name">केविएट</string>
+    <string name="font_comfortaa" comment="Font style name">कंफोर्टाआ</string>
+    <string name="font_crimson_pro" comment="Font style name">क्रिमसन प्रो</string>
+    <string name="font_dancing_script" comment="Font style name">डान्सिंग स्क्रिप्ट</string>
+    <string name="font_display_text" comment="Sample text used to preview font styles">द क्विक ब्राउन फॉक्स जंप्स ओवर द लेजी डॉग</string>
+    <string name="font_eb_garamond" comment="Font style name">ईबी गैरामोंड</string>
+    <string name="font_exo_2" comment="Font style name">एक्सो 2</string>
+    <string name="font_family" comment="Settings preference title for selecting application font family">फ़ॉन्ट परिवार</string>
+    <string name="font_heebo" comment="Font style name">हीबो</string>
+    <string name="font_inter" comment="Font style name">इंटर</string>
+    <string name="font_josefin_sans" comment="Font style name">जोसेफिन सैंस</string>
+    <string name="font_karla" comment="Font style name">कार्ला</string>
+    <string name="font_lexend" comment="Font style name">लेक्सेंड</string>
+    <string name="font_lora" comment="Font style name">लोरा</string>
+    <string name="font_manrope" comment="Font style name">मैन्रोप</string>
+    <string name="font_montserrat" comment="Font style name">मोंटसेराट</string>
+    <string name="font_noto_sans" comment="Font style name">नोटो सैंस</string>
+    <string name="font_nunito" comment="Font style name">न्यूनिटो</string>
+    <string name="font_open_sans" comment="Font style name">ओपन सैंस</string>
+    <string name="font_oswald" comment="Font style name">ऑसवाल्ड</string>
+    <string name="font_outfit" comment="Font style name">आउटफिट</string>
+    <string name="font_pacifico" comment="Font style name">पैसिफिको</string>
+    <string name="font_playfair_display" comment="Font style name">प्लेफेयर डिस्प्ले</string>
+    <string name="font_playpen_sans" comment="Font style name">प्लेपेन सैंस</string>
+    <string name="font_plus_jakarta_sans" comment="Font style name">प्लस जकार्ता सैंस</string>
+    <string name="font_public_sans" comment="Font style name">पब्लिक सैंस</string>
+    <string name="font_quicksand" comment="Font style name">क्विकसैंड</string>
+    <string name="font_raleway" comment="Font style name">रालेवे</string>
+    <string name="font_roboto_flex" comment="Font style name">रोबोटो फ्लेक्स</string>
+    <string name="font_rubik" comment="Font style name">रुबिक</string>
+    <string name="font_shadows_into_light" comment="Font style name">शैडोज़ इनटू लाइट</string>
     <string name="font_size_multiplier" comment="Settings preference title for adjusting font size scaling multiplier">फ़ॉन्ट आकार गुणक</string>
-    <string name="font_source_sans_3" comment="Font style name">Source Sans 3</string>
-    <string name="font_source_serif_4" comment="Font style name">Source Serif 4</string>
-    <string name="font_work_sans" comment="Font style name">Work Sans</string>
+    <string name="font_source_sans_3" comment="Font style name">सोर्स सैंस 3</string>
+    <string name="font_source_serif_4" comment="Font style name">सोर्स सेरिफ़ 4</string>
+    <string name="font_work_sans" comment="Font style name">वर्क सैंस</string>
     <string name="forget" comment="Action button to remove/forget a paired device">भूल जाएं</string>
     <string name="forget_device" comment="Button label in device details card to unpair/forget ADB device">डिवाइस भूल जाएं</string>
     <string name="forget_device_confirmation" comment="%1$s = device name">क्या आप वाकई %1$s को भूलना चाहते हैं? कनेक्ट करने के लिए आपको दोबारा पेयर करना होगा।</string>
     <string name="forks" comment="GitHub repository metadata count label for project forks">फ़ोर्क्स</string>
     <string name="found_connect_service" comment="Status message when mDNS ADB connection service is discovered">कनेक्ट सर्विस मिली</string>
     <string name="frequency" comment="Setting label for automated backup interval frequency">आवृत्ति</string>
-    <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">पूरा लाइसेंस टेक्स्ट</string>
-    <string name="gemini_api_key_step_1" comment="%1$s = URL">%1$s पर Google AI Studio पर जाएं</string>
+    <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">पूर्ण लाइसेंस पाठ</string>
+    <string name="gemini_api_key_step_1" comment="%1$s = URL">%1$s पर Google AI Studio पर जाएँ</string>
     <string name="gemini_api_key_step_2" comment="Step 2 of API key setup guide: signing in with Google Account">अपने Google खाते से साइन इन करें</string>
-    <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">Create API key पर क्लिक करें और कोई प्रोजेक्ट चुनें या बनाएं</string>
-    <string name="gemini_api_key_step_4" comment="Step 4 of API key setup guide: copying API key string">अपनी API कुंजी कॉपी करें और यहां पेस्ट करें</string>
+    <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">\'API कुंजी बनाएँ\' पर क्लिक करें और कोई प्रोजेक्ट चुनें या बनाएँ</string>
+    <string name="gemini_api_key_step_4" comment="Step 4 of API key setup guide: copying API key string">अपनी API कुंजी कॉपी करें और इसे यहाँ पेस्ट करें</string>
     <string name="generate_color_scheme" comment="Action button in theme builder to generate Material 3 color palette">रंग योजना जनरेट करें</string>
     <string name="generate_scheme" comment="Compact button label to generate theme color scheme">योजना जनरेट करें</string>
     <string name="generate_theme" comment="Dialog header or button for AI/wallpaper theme generation">थीम जनरेट करें</string>
-    <string name="generate_tile" comment="Action button in Quick Settings builder to generate tile command via AI">टाइल बनाएं</string>
+    <string name="generate_tile" comment="Action button in Quick Settings builder to generate tile command via AI">टाइल जनरेट करें</string>
     <string name="get_api_key" comment="Button linking to Google AI Studio website to create an API key">API कुंजी प्राप्त करें</string>
-    <string name="get_variables" comment="Action button in Fastboot screen to query fastboot device variables">वेरिएबल प्राप्त करें</string>
+    <string name="get_variables" comment="Action button in Fastboot screen to query fastboot device variables">वैरिएबल प्राप्त करें</string>
     <string name="go_home" comment="Button label to navigate back to home screen dashboard">होम पर जाएं</string>
     <string name="go_to_terminal" comment="Button label to navigate to terminal command input screen">टर्मिनल पर जाएं</string>
-    <string name="google_drive" comment="Refers to Google Drive cloud storage service">गूगल ड्राइव</string>
+    <string name="google_drive" comment="Refers to Google Drive cloud storage service">Google ड्राइव</string>
     <string name="google_drive_backup" comment="Option label for Google Drive automated cloud backup">Google Drive बैकअप</string>
-    <string name="gpl_3_0_description" comment="Summary text explaining GNU General Public License v3 terms for aShellYou">aShell You एक फ्री सॉफ्टवेयर है: आप फ्री सॉफ्टवेयर फाउंडेशन द्वारा प्रकाशित GNU जनरल पब्लिक लाइसेंस के तहत इसे पुनर्वितरित और/या संशोधित कर सकते हैं, लाइसेंस के संस्करण 3 या (आपके विकल्प पर) किसी भी बाद के संस्करण के तहत।</string>
+    <string name="gpl_3_0_description" comment="Summary text explaining GNU General Public License v3 terms for aShellYou">aShell You निःशुल्क सॉफ़्टवेयर है: आप इसे फ्री सॉफ़्टवेयर फ़ाउंडेशन द्वारा प्रकाशित GNU जनरल पब्लिक लाइसेंस की शर्तों के तहत पुनर्वितरित और/या संशोधित कर सकते हैं, या तो लाइसेंस के संस्करण 3, या (आपके विकल्प पर) किसी भी बाद के संस्करण के तहत।</string>
     <string name="grant" comment="Button label to approve permission grant request">अनुमति दें</string>
     <string name="grant_permission" comment="Action button to trigger system permission request dialog">अनुमति दें</string>
     <string name="grant_shizuku_permission_for_tiles" comment="Warning alert shown when Shizuku permission is missing for Quick Settings tiles">Shizuku अनुमति नहीं दी गई है!\naShell You को टाइल कमांड निष्पादित करने के लिए Shizuku अनुमति की आवश्यकता है।</string>
     <string name="great_news" comment="Dialog title header for update available notification">अच्छी ख़बर!</string>
-    <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">हैप्टिक्स और वाइब्रेशन</string>
+    <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">हैप्टिक्स &amp; वाइब्रेशन</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">आपका दिन शुभ हो!</string>
-    <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Hex संपादक</string>
+    <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">हेक्स एडिटर</string>
     <string name="high" comment="Selection option for high haptic strength or elevation level">उच्च</string>
     <string name="high_contrast_dark_mode" comment="Settings preference title for OLED pitch-black dark theme">हाई कॉन्ट्रास्ट डार्क मोड</string>
     <string name="hint" comment="Card header or field label for helpful hints">संकेत</string>
     <string name="history" comment="Screen title and tab label for executed terminal command history">इतिहास</string>
     <string name="home">होम</string>
     <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">साइडलोड मोड में कैसे प्रवेश करें</string>
-    <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">आइकन चुना गया</string>
+    <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">आइकन चयनित</string>
     <string name="import_theme" comment="Action button to import theme configuration file">थीम आयात करें</string>
     <string name="include" comment="Filter toggle option to include selected items">शामिल करें</string>
     <string name="info">जानकारी</string>
-    <string name="initial_state" comment="Label for initial tile state picker in Quick Settings builder">प्रारंभिक स्थिति</string>
+    <string name="initial_state" comment="Label for initial tile state picker in Quick Settings builder">प्रारंभिक अवस्था</string>
     <string name="instructions" comment="Section header for step-by-step connection guides">निर्देश</string>
-    <string name="intent_not_found" comment="Error toast when external app activity or URL link cannot be opened">Intent नहीं मिला</string>
+    <string name="intent_not_found" comment="Error toast when external app activity or URL link cannot be opened">फ़ाइल नहीं मिली</string>
     <string name="internal_storage" comment="Root folder label in file browser for local storage">आंतरिक स्टोरेज</string>
     <string name="invalid_folder_name" comment="Validation error when entered directory name contains slash characters">फ़ोल्डर नाम में / नहीं हो सकता</string>
     <string name="ip_address" comment="Field label for device IP address in wireless ADB setup">IP पता</string>
     <string name="irreversible_action_warning" comment="Warning dialog subtitle warning user that deletion cannot be undone">यह क्रिया अपरिवर्तनीय है!</string>
     <string name="item_deleted" comment="Confirmation toast after item is deleted">आइटम सफलतापूर्वक हटाया गया</string>
     <string name="keep_both" comment="Resolution option in file conflict dialog to keep both original and new file">दोनों रखें</string>
-    <string name="key_verified_success_msg" comment="Confirmation text when entered AI API key is validated successfully">कुंजी सफलतापूर्वक सत्यापित की गई</string>
+    <string name="key_verified_success_msg" comment="Confirmation text when entered AI API key is validated successfully">कुंजी का सफलतापूर्वक सत्यापन हो गया</string>
     <string name="label" comment="Field label for custom command label/tag name">लेबल</string>
     <string name="languages" comment="Settings section header for language and locale options">भाषाएं</string>
     <string name="last_auto_backup_cloud" comment="Card label showing timestamp of last Google Drive auto backup">अंतिम क्लाउड ऑटो बैकअप</string>
-    <string name="last_auto_backup_local" comment="Card label showing timestamp of last local storage auto backup">अंतिम लोकल ऑटो बैकअप</string>
+    <string name="last_auto_backup_local" comment="Card label showing timestamp of last local storage auto backup">अंतिम स्थानीय ऑटो बैकअप</string>
     <string name="last_backup_date" comment="Card metadata label for backup creation date">अंतिम बैकअप तारीख</string>
-    <string name="last_backup_details" comment="Card header for summary of last backup attempt">अंतिम बैकअप विवरण</string>
+    <string name="last_backup_details" comment="Card header for summary of last backup attempt">अंतिम बैकअप तारीख</string>
     <string name="last_backup_time" comment="Card metadata label for backup creation time">अंतिम बैकअप समय</string>
     <string name="latest_version" comment="Label showing latest available version string from GitHub release">नवीनतम संस्करण</string>
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">मुख्य डेवलपर</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">सबसे कम इस्तेमाल किया गया</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">स्तर</string>
-    <string name="library_count" comment="%1$d = number of third-party libraries">%1$d लाइब्रेरी का पता चला</string>
+    <string name="library_count" comment="%1$d = number of third-party libraries">%1$d लाइब्रेरीज़ मिलीं</string>
     <string name="license" comment="Card label for software license type">लाइसेंस</string>
     <string name="license_label" comment="Header label for software license info">लाइसेंस</string>
     <string name="licenses" comment="Screen title listing open-source licenses of app dependencies">लाइसेंस</string>
     <string name="load" comment="Action button to load command templates into database">लोड करें</string>
     <string name="load_predefined_commands" comment="Button label in fastboot screen to load preset fastboot commands">पूर्वनिर्धारित कमांड लोड करें</string>
     <string name="loading">लोड हो रहा है</string>
-    <string name="loading_device_info" comment="Progress status text while querying ADB device specifications">डिवाइस की जानकारी लोड की जा रही है…</string>
-    <string name="loading_licenses" comment="Progress status text while loading open-source license files">लाइसेंस की जानकारी लोड हो रही है…</string>
+    <string name="loading_device_info" comment="Progress status text while querying ADB device specifications">डिवाइस की जानकारी लोड हो रही है…</string>
+    <string name="loading_licenses" comment="Progress status text while loading open-source license files">लाइसेंस जानकारी लोड हो रही है…</string>
     <string name="local_adb" comment="Connection mode option: run ADB commands locally on host device using Shizuku or Root">स्थानीय ADB</string>
     <string name="local_adb_shell" comment="Screen header for local device ADB shell terminal">स्थानीय ADB शेल</string>
     <string name="local_adb_summary" comment="Summary text for local ADB feature card">Shizuku या root का उपयोग करके अपने डिवाइस पर सीधे ADB कमांड चलाएं।</string>
-    <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">लोकल बैकअप</string>
-    <string name="local_file" comment="Source option label for picking local backup file">लोकल फ़ाइल</string>
-    <string name="locked" comment="Status badge showing bootloader lock state is locked">लॉक किया गया</string>
-    <string name="logcat" comment="Refers to Android system logcat log streaming tool">Logcat</string>
+    <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">स्थानीय बैकअप</string>
+    <string name="local_file" comment="Source option label for picking local backup file">स्थानीय फ़ाइल</string>
+    <string name="locked" comment="Status badge showing bootloader lock state is locked">लॉक है</string>
+    <string name="logcat" comment="Refers to Android system logcat log streaming tool">लॉगकैट</string>
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">लॉग साफ़ कर दिए गए</string>
     <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">पैकेज</string>
     <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">लॉग स्तर</string>
     <string name="logcat_filter_search_hint" comment="Placeholder text in logcat search bar">संदेशों में खोजें…</string>
-    <string name="logcat_is_running" comment="Status banner shown while background logcat collection is active">Logcat चल रहा है</string>
-    <string name="logcat_ive_granted_it" comment="Button in logcat permission dialog confirming user ran ADB grant command on PC">मैंने इसे अनुमति दे दी है</string>
-    <string name="logcat_no_logs" comment="Placeholder text in logcat screen when no log entries match current filters">अभी कोई लॉग नहीं हैं</string>
-    <string name="logcat_notification_channel_description" comment="Android Notification Channel description for logcat background session">जब logcat सक्रिय रूप से लॉग एकत्र कर रहा हो तब दिखाया जाता है</string>
-    <string name="logcat_notification_channel_name" comment="Android Notification Channel name for Logcat background collection">Logcat सत्र</string>
-    <string name="logcat_permission_body" comment="Instructions in logcat dialog detailing PM grant command required via computer ADB for non-root logcat access">इस अनुमति के बिना, केवल aShellYou के अपने लॉग दिखाई देंगे। कंप्यूटर से यह कमांड चलाकर पूर्ण एक्सेस प्रदान करें:</string>
+    <string name="logcat_is_running" comment="Status banner shown while background logcat collection is active">लॉगकैट चल रहा है</string>
+    <string name="logcat_ive_granted_it" comment="Button in logcat permission dialog confirming user ran ADB grant command on PC">मैंने अनुमति दे दी है</string>
+    <string name="logcat_no_logs" comment="Placeholder text in logcat screen when no log entries match current filters">अभी तक कोई लॉग नहीं है</string>
+    <string name="logcat_notification_channel_description" comment="Android Notification Channel description for logcat background session">लॉगकैट सक्रिय रूप से लॉग एकत्र करते समय दिखाया जाता है</string>
+    <string name="logcat_notification_channel_name" comment="Android Notification Channel name for Logcat background collection">लॉगकैट सत्र</string>
+    <string name="logcat_permission_body" comment="Instructions in logcat dialog detailing PM grant command required via computer ADB for non-root logcat access">इस अनुमति के बिना, केवल aShellYou के अपने लॉग दिखाई देंगे। कंप्यूटर से यह कमांड चलाकर पूर्ण एक्सेस दें:</string>
     <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide">लॉग एक्सेस अनुमति</string>
     <string name="logcat_running_description" comment="Notification body text shown while logcat runs in background">aShellYou बैकग्राउंड में सिस्टम लॉग एकत्र कर रहा है</string>
-    <string name="logcat_shortcut_long_label" comment="App launcher shortcut label for launching directly into Logcat Viewer">Logcat व्यूअर खोलें</string>
-    <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Logcat स्रोत</string>
-    <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">Logcat शुरू करने के लिए ▶ पर टैप करें</string>
-    <string name="logs" comment="Screen header or tab title for application and execution log views">लॉग्स</string>
-    <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">देखें और अनुभव</string>
-    <string name="low" comment="Selection option for low haptic strength or elevation level">निम्न</string>
+    <string name="logcat_shortcut_long_label" comment="App launcher shortcut label for launching directly into Logcat Viewer">लॉगकैट व्यूअर खोलें</string>
+    <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">लॉगकैट स्रोत</string>
+    <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">लॉगकैट शुरू करने के लिए ▶ पर टैप करें</string>
+    <string name="logs" comment="Screen header or tab title for application and execution log views">लॉग</string>
+    <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Look &amp; Feel</string>
+    <string name="low" comment="Selection option for low haptic strength or elevation level">कम</string>
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">कम कंट्रास्ट अनुपात</string>
-    <string name="make_your_theme_title" comment="Header title for custom theme builder screen">अपनी थीम बनाएं</string>
+    <string name="make_your_theme_title" comment="Header title for custom theme builder screen">अपनी थीम बनाएँ</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">मैन्युअल पेयर</string>
     <string name="max_download_size" comment="Setting label for capping maximum update download file size">अधिकतम डाउनलोड</string>
     <string name="medium">मध्यम</string>
@@ -585,7 +585,7 @@
     <string name="model_category_large" comment="AI model size category label">बड़ा (1.5–2.5 GB)</string>
     <string name="model_category_medium" comment="AI model size category label">मध्यम (800 MB–1.1 GB)</string>
     <string name="model_category_small" comment="AI model size category label">छोटा (300–500 MB)</string>
-    <string name="model_category_tiny" comment="AI model size category label">अति सूक्ष्म (300 MB से कम)</string>
+    <string name="model_category_tiny" comment="AI model size category label">बेहद छोटा (300 MB से कम)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">मॉडल</string>
     <string name="modified" comment="File property: last modified date">संशोधित</string>
     <string name="monospace" comment="Font style category name">मोनोस्पेस</string>
@@ -594,7 +594,7 @@
     <string name="most_used" comment="Sorting option for commands or bookmarks list">सबसे अधिक इस्तेमाल किया गता</string>
     <string name="move">स्थानांतरित करें</string>
     <string name="moving" comment="Progress status text shown while moving files in file browser">स्थानांतरित हो रहा है…</string>
-    <string name="moving_items" comment="%1$d = number of items being moved">%1$d आइटम स्थानांतरित हो रहे हैं</string>
+    <string name="moving_items" comment="%1$d = number of items being moved">%1$d आइटम (item) स्थानांतरित हो रहे हैं</string>
     <string name="n_days" comment="%d = number of days for cache duration setting">%d दिन</string>
     <string name="name">नाम</string>
     <string name="network_error" comment="Toast error message when network connection fails during wireless pairing or cloud backup">नेटवर्क त्रुटि</string>
@@ -603,73 +603,71 @@
     <string name="new_name" comment="Text field label for entering new item or file name">नया नाम</string>
     <string name="newest" comment="Sorting option for items by creation date (newest first)">नवीनतम</string>
     <string name="no_adb_device_error" comment="Error toast when no ADB target device is found over USB OTG">ADB-संगत डिवाइस नहीं मिले। लक्ष्य पर USB डिबगिंग सक्षम करें।</string>
-    <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">ADB इंटरफ़ेस नहीं मिला</string>
-    <string name="no_auto_backup_yet" comment="Placeholder text under backup status when no automated backup has executed">अभी तक कोई स्वचालित बैकअप नहीं लिया गया है</string>
+    <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">कोई ADB इंटरफ़ेस नहीं मिला</string>
+    <string name="no_auto_backup_yet" comment="Placeholder text under backup status when no automated backup has executed">अभी तक कोई स्वचालित बैकअप नहीं किया गया</string>
     <string name="no_bookmarks" comment="Placeholder text in bookmarks tab when no commands are saved">कोई बुकमार्क नहीं मिला</string>
     <string name="no_changelog_found" comment="Placeholder message in changelog screen when no version notes exist">इस संस्करण के लिए कोई चेंजलॉग नहीं मिला</string>
-    <string name="no_cloud_backup_found" comment="Status banner when no backup file is found on Google Drive">गूगल ड्राइव पर कोई बैकअप नहीं मिला</string>
-    <string name="no_commands_run_yet" comment="Placeholder message when no fastboot commands have been run in session">अभी तक कोई कमांड नहीं चलाई गई है</string>
+    <string name="no_cloud_backup_found" comment="Status banner when no backup file is found on Google Drive">Google ड्राइव पर कोई बैकअप नहीं मिला</string>
+    <string name="no_commands_run_yet" comment="Placeholder message when no fastboot commands have been run in session">अभी तक कोई कमांड नहीं चलाया गया</string>
     <string name="no_crashes" comment="Placeholder text in crash history screen when no app crashes have occurred">कोई क्रैश रिपोर्ट नहीं हुई। aShell You सुचारू रूप से चल रहा है।</string>
-    <string name="no_custom_themes_yet" comment="Placeholder text in theme manager screen when no custom themes exist">अभी तक कोई कस्टम थीम नहीं है। नीचे एक बनाएं!</string>
+    <string name="no_custom_themes_yet" comment="Placeholder text in theme manager screen when no custom themes exist">अभी तक कोई कस्टम थीम नहीं है। नीचे एक बनाएँ!</string>
     <string name="no_device_connected" comment="Status banner shown when no wireless or OTG ADB device is connected">कोई डिवाइस कनेक्ट नहीं है</string>
-    <string name="no_fastboot_device_error" comment="Error banner in fastboot screen when connected USB device is not in fastboot mode">कनेक्टेड डिवाइस फास्टबूट मोड में नहीं है</string>
+    <string name="no_fastboot_device_error" comment="Error banner in fastboot screen when connected USB device is not in fastboot mode">कनेक्ट किया गया डिवाइस फ़ास्टबूट मोड में नहीं है</string>
     <string name="no_files_download" comment="Toast warning in file browser when user selects directory instead of files for download">कोई फ़ाइल नहीं चुनी (फ़ोल्डर डाउनलोड नहीं किए जा सकते)</string>
     <string name="no_folder_selected" comment="Placeholder status text when no backup directory is picked">कोई फ़ोल्डर नहीं चुना गया</string>
-    <string name="no_google_account_message" comment="Dialog message when no Google account is registered on device for cloud backups">इस डिवाइस पर कोई गूगल खाता नहीं मिला। क्या आप क्लाउड बैकअप का उपयोग करने के लिए एक खाता जोड़ना चाहते हैं?</string>
-    <string name="no_google_account_title" comment="Dialog title when no Google account is detected">कोई गूगल खाता नहीं</string>
+    <string name="no_google_account_message" comment="Dialog message when no Google account is registered on device for cloud backups">इस डिवाइस पर कोई Google खाता नहीं मिला। क्या आप क्लाउड बैकअप का उपयोग करने के लिए एक जोड़ना चाहते हैं?</string>
+    <string name="no_google_account_title" comment="Dialog title when no Google account is detected">कोई Google खाता नहीं</string>
     <string name="no_history" comment="Placeholder text in terminal history tab when execution log is empty">कोई कमांड इतिहास नहीं</string>
-    <string name="no_libraries_found" comment="Placeholder text in licenses screen when search query returns no matching third-party libraries">कोई लाइब्रेरी नहीं मिली</string>
+    <string name="no_libraries_found" comment="Placeholder text in licenses screen when search query returns no matching third-party libraries">कोई बुकमार्क नहीं मिला</string>
     <string name="no_logs_yet" comment="Placeholder text in Quick Settings tile execution logs tab">अभी तक कोई लॉग नहीं!</string>
-    <string name="no_logs_yet_msg" comment="Instructional prompt under empty tile logs screen">अभी तक कोई लॉग रिकॉर्ड नहीं किया गया है। यहाँ लॉग देखने के लिए कुछ टाइल्स चलाएं।</string>
+    <string name="no_logs_yet_msg" comment="Instructional prompt under empty tile logs screen">अभी तक कोई लॉग रिकॉर्ड नहीं किया गया है। यहां लॉग दिखाने के लिए कुछ टाइलें निष्पादित करें।</string>
     <string name="no_model_selected" comment="Status text when no AI LLM model is selected in settings">कोई मॉडल चयनित नहीं</string>
     <string name="no_operations" comment="Placeholder text in file manager operations queue sheet">कोई ऑपरेशन प्रगति में नहीं</string>
-    <string name="no_other_device_hint" comment="Instructional subtext in logcat viewer when viewing remote device logs">इसके लॉग देखने के लिए किसी बाहरी डिवाइस को कनेक्ट करें</string>
-    <string name="no_results_found" comment="Placeholder text when search query yields no matching items">कोई परिणाम नहीं मिला</string>
+    <string name="no_other_device_hint" comment="Instructional subtext in logcat viewer when viewing remote device logs">इसके लॉग देखने के लिए कोई बाहरी डिवाइस कनेक्ट करें</string>
+    <string name="no_results_found" comment="Placeholder text when search query yields no matching items">कोई खोज परिणाम नहीं मिला</string>
     <string name="no_root_access" comment="Error toast or status badge when root superuser access is unavailable">कोई रूट एक्सेस नहीं</string>
     <string name="no_saved_devices" comment="Placeholder text in saved devices screen when no ADB target devices are paired">कोई सहेजे गए डिवाइस नहीं</string>
     <string name="no_search_results_found" comment="Placeholder text when command search yields no results">कोई खोज परिणाम नहीं मिला</string>
-    <string name="no_variables_loaded" comment="Placeholder text in fastboot variable explorer tab before querying getvar">कोई वेरिएबल लोड नहीं हुआ</string>
+    <string name="no_variables_loaded" comment="Placeholder text in fastboot variable explorer tab before querying getvar">कोई वैरिएबल लोड नहीं हुआ</string>
     <string name="no_wifi_connection" comment="Error banner when Wi-Fi is disabled during Wireless Debugging setup">कोई वाई-फाई कनेक्शन नहीं</string>
     <string name="none">कोई भी नहीं</string>
-    <string name="not_signed_in" comment="Status text in cloud backup settings when Google account is signed out">साइन इन नहीं हैं</string>
+    <string name="not_signed_in" comment="Status text in cloud backup settings when Google account is signed out">साइन इन नहीं किया गया</string>
     <string name="nothing_to_clear" comment="Toast notification when user taps clear output but screen is already empty">साफ़ करने के लिए कुछ नहीं</string>
     <string name="nothing_to_search" comment="Toast message when search query string is empty">खोजने के लिए कुछ भी नहीं</string>
     <string name="notification_settings" comment="Button label to open system notification settings screen">नोटिफिकेशन सेटिंग</string>
     <string name="notification_style_error" comment="Troubleshooting guide text explaining Xiaomi/MIUI notification shade issues with entering pairing code">यदि आप नोटिफ़िकेशन से पेयरिंग कोड दर्ज नहीं कर सकते हैं, तो आपको नोटिफ़िकेशन शेड को Android में बदलने की आवश्यकता हो सकती है। नोटिफ़िकेशन स्टाइल बदलने के लिए नोटिफ़िकेशन सेटिंग ~ नोटिफ़िकेशन स्टाइल पर जाएँ। अन्यथा आप नोटिफ़िकेशन से पेयरिंग कोड दर्ज नहीं कर पाएँगे।</string>
-    <string name="notification_styles" comment="Settings preference title for notification shade style options">नोटिफिकेशन स्टाइल</string>
+    <string name="notification_styles" comment="Settings preference title for notification shade style options">नोटिफिकेशन सेटिंग</string>
     <string name="off">बंद</string>
     <string name="off_state" comment="Quick Settings tile toggle state label">बंद</string>
     <string name="ok">ठीक है</string>
-    <string name="oldest" comment="Sorting option">सबसे पुराना</string>
+    <string name="oldest" comment="Sorting option">पुराना</string>
     <string name="on">चालू</string>
     <string name="on_background">बैकग्राउंड पर</string>
-    <string name="on_primary">प्राथमिक पर</string>
-    <string name="on_primary_container">प्राथमिक कंटेनर पर</string>
-    <string name="on_secondary">द्वितीयक पर</string>
+    <string name="on_primary">प्राइमरी पर</string>
+    <string name="on_primary_container">प्राइमरी कंटेनर पर</string>
+    <string name="on_secondary">सेकेंडरी पर</string>
     <string name="on_state" comment="Quick Settings tile toggle state label">चालू</string>
     <string name="on_surface">सतह पर</string>
-    <string name="on_tertiary">तृतीयक पर</string>
+    <string name="on_tertiary">टर्शियरी पर</string>
     <string name="open">खोलें</string>
-    <string name="open_app_language_settings" comment="Button label on Android 13+ to jump to system per-app language setting screen">ऐप की भाषा सेटिंग्स खोलें</string>
-    <string name="open_issues" comment="GitHub repository open issues count">खुले इश्यू</string>
+    <string name="open_app_language_settings" comment="Button label on Android 13+ to jump to system per-app language setting screen">ऐप भाषा सेटिंग्स खोलें</string>
+    <string name="open_issues" comment="GitHub repository open issues count">खुले मुद्दे</string>
     <string name="open_url" comment="Action button to launch web browser to external URL link">URL खोलें</string>
-    <string name="operation_complete" comment="Notification toast when file copy/move operation finishes">ऑपरेशन पूर्ण</string>
-    <string name="operations" comment="Bottom sheet title for file transfer operations list">ऑपरेशन्स</string>
+    <string name="operation_complete" comment="Notification toast when file copy/move operation finishes">ऑपरेशन पूरा हुआ</string>
+    <string name="operations" comment="Bottom sheet title for file transfer operations list">ऑपरेशन</string>
     <string name="or">या</string>
     <string name="otg" comment="USB On-The-Go. Technical term, keep as OTG">OTG</string>
     <string name="other_details" comment="Expandable card title for additional device metadata details">अन्य विवरण</string>
     <string name="other_device" comment="Selection tab for target device in Logcat Viewer">अन्य डिवाइस</string>
     <string name="output" comment="Header title for shell command output window">आउटपुट</string>
-    <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">आउटपुट यहां दिखाई देगा…</string>
+    <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">आउटपुट यहाँ दिखाई देगा…</string>
     <string name="override_bookmarks_limit" comment="Setting toggle title to remove the maximum limit on saved bookmarks count">पसंदीदा की अधिकतम सीमा को अधिलेखित करें</string>
     <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">पैकेज का नाम</string>
     <string name="pair" comment="Button/action label to initiate ADB wireless or OTG pairing with another device">जोड़ें</string>
-    <string name="pair_a_device_first" comment="Instructional notice directing user to pair an ADB device before attempting connection">पहले किसी डिवाइस को पेयर करें</string>
-    <string name="pair_another_device" comment="Button label in Wireless Debugging setup to pair an additional target device">कोई अन्य डिवाइस पेयर करें</string>
-    <string name="pair_connect_failed_message" comment="Dialog message when connecting to a paired wireless ADB device fails">पेयर किए गए डिवाइस से कनेक्ट नहीं किया जा सका
-हो सकता है कि डिवाइस एक ही नेटवर्क पर न हो
-फिर से पेयर करने का प्रयास करें</string>
-    <string name="pair_device_to_start" comment="Placeholder banner in wireless debugging screen directing user to pair device via QR or pairing code">इसे यहाँ देखने के लिए QR या पेयरिंग कोड का उपयोग करके डिवाइस पेयर करें</string>
+    <string name="pair_a_device_first" comment="Instructional notice directing user to pair an ADB device before attempting connection">पहले एक डिवाइस पेयर करें</string>
+    <string name="pair_another_device" comment="Button label in Wireless Debugging setup to pair an additional target device">दूसरा डिवाइस पेयर करें</string>
+    <string name="pair_connect_failed_message" comment="Dialog message when connecting to a paired wireless ADB device fails">पेयर किए गए डिवाइस से कनेक्ट नहीं हो सका\nडिवाइस एक ही नेटवर्क पर नहीं हो सकता है\nदोबारा पेयर करने का प्रयास करें</string>
+    <string name="pair_device_to_start" comment="Placeholder banner in wireless debugging screen directing user to pair device via QR or pairing code">इसे यहां देखने के लिए QR या पेयरिंग कोड का उपयोग करके किसी डिवाइस को पेयर करें</string>
     <string name="pair_manually" comment="Option in Wireless Debugging setup to enter IP, Port, and Pairing Code manually">मैन्युअल पेयर करें</string>
     <string name="pair_this_device" comment="Button label in wireless debugging screen to initiate self-pairing for local device ADB">इस डिवाइस को पेयर करें</string>
     <string name="pair_using_code" comment="Option in Wireless Debugging setup to pair device using 6-digit pairing code">कोड से पेयर करें</string>
@@ -678,18 +676,18 @@
     <string name="pairing" comment="Status header/banner displayed while ADB wireless pairing is in progress">पेयरिंग जारी है</string>
     <string name="pairing_code" comment="Field label or dialog title for 6-digit ADB wireless pairing code">पेयरिंग कोड</string>
     <string name="pairing_notification_hint" comment="Notice informing user that a system notification will appear to facilitate quick pairing code entry">आपको युग्मन में सहायता के लिए aShell You से एक सूचना प्राप्त होगी</string>
-    <string name="pairing_process_notification_access_message" comment="Dialog message asking user to grant system notification access to enable quick pairing code entry">पेयरिंग प्रक्रिया को पूरा करने के लिए आपको aShell You के एक नोटिफिकेशन के साथ इंटरैक्ट करना होगा। कृपया aShell You को नोटिफिकेशन एक्सेस की अनुमति दें।</string>
-    <string name="palette_content" comment="Material Design color scheme style name">Content</string>
-    <string name="palette_expressive" comment="Material Design color scheme style name">Expressive</string>
-    <string name="palette_fidelity" comment="Material Design color scheme style name">Fidelity</string>
-    <string name="palette_fruit_salad" comment="Material Design color scheme style name">Fruit Salad</string>
-    <string name="palette_monochrome" comment="Material Design color scheme style name">Monochrome</string>
-    <string name="palette_neutral" comment="Material Design color scheme style name">Neutral</string>
-    <string name="palette_rainbow" comment="Material Design color scheme style name">Rainbow</string>
-    <string name="palette_style" comment="Settings label for choosing Material Design color palette">पैलेट स्टाइल</string>
-    <string name="palette_tonal_spot" comment="Material Design color scheme style name">Tonal Spot</string>
-    <string name="palette_vibrant" comment="Material Design color scheme style name">Vibrant</string>
-    <string name="partition" comment="Field label or dropdown header for fastboot partition name (e.g. boot, system, recovery)">पार्टिशन</string>
+    <string name="pairing_process_notification_access_message" comment="Dialog message asking user to grant system notification access to enable quick pairing code entry">युग्मन प्रक्रिया को पूरा करने के लिए आपको aShell You से एक अधिसूचना के साथ बातचीत करने की आवश्यकता होगी। कृपया aShell You को अधिसूचना एक्सेस की अनुमति दें।</string>
+    <string name="palette_content" comment="Material Design color scheme style name">सामग्री</string>
+    <string name="palette_expressive" comment="Material Design color scheme style name">अभिव्यंजक</string>
+    <string name="palette_fidelity" comment="Material Design color scheme style name">निष्ठा</string>
+    <string name="palette_fruit_salad" comment="Material Design color scheme style name">फ्रूट सलाद</string>
+    <string name="palette_monochrome" comment="Material Design color scheme style name">मोनोक्रोम</string>
+    <string name="palette_neutral" comment="Material Design color scheme style name">तटस्थ</string>
+    <string name="palette_rainbow" comment="Material Design color scheme style name">इंद्रधनुष</string>
+    <string name="palette_style" comment="Settings label for choosing Material Design color palette">पैलेट शैली</string>
+    <string name="palette_tonal_spot" comment="Material Design color scheme style name">टोनल स्पॉट</string>
+    <string name="palette_vibrant" comment="Material Design color scheme style name">जीवंत</string>
+    <string name="partition" comment="Field label or dropdown header for fastboot partition name (e.g. boot, system, recovery)">पार्टीशन</string>
     <string name="paste">पेस्ट</string>
     <string name="path" comment="Field label for file or directory path in file browser properties">पथ</string>
     <string name="paused" comment="Status badge showing ongoing file transfer or logcat session is paused">रोका गया</string>
@@ -699,31 +697,31 @@
     <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">रंग चुनें</string>
     <string name="port" comment="Field label for network port number in wireless ADB manual pairing setup">पोर्ट</string>
     <string name="possible_reasons" comment="Dialog section header listing potential causes of ADB connection failure">संभावित कारण</string>
-    <string name="pre_release_github" comment="Option in update channel settings to receive GitHub pre-release builds">प्री-रिलीज़ (GitHub)</string>
+    <string name="pre_release_github" comment="Option in update channel settings to receive GitHub pre-release builds">प्री-रिलीज (GitHub)</string>
     <string name="pre_release_warning" comment="Warning alert header when switching to pre-release update channel">प्री-रिलीज़ बिल्ड अस्थिर हो सकते हैं</string>
-    <string name="pre_release_warning_description" comment="Detailed description of risks when opting into pre-release testing builds">ये संस्करण अभी परीक्षण में हैं और अधूरी सुविधाएं या अप्रत्याशित बग हो सकते हैं।</string>
+    <string name="pre_release_warning_description" comment="Detailed description of risks when opting into pre-release testing builds">ये संस्करण अभी परीक्षण में हैं और इनमें अधूरी सुविधाएँ या अप्रत्याशित बग हो सकते हैं। यदि आप किसी पूर्व-रिलीज (pre-release) पर अपडेट करना चुनते हैं, तो कृपया ध्यान रखें कि चीजें टूट सकती हैं या अजीब तरह से व्यवहार कर सकती हैं।\nयदि आपको कोई समस्या, क्रैश या अजीब व्यवहार का सामना करना पड़ता है, तो कृपया उनकी रिपोर्ट करें ताकि हम स्थिर रिलीज से पहले aShellYou को ठीक और बेहतर बना सकें।\nबेहतर बनाने में हमारी मदद करने के लिए धन्यवाद!</string>
     <string name="predefined_commands" comment="Section header for pre-saved fastboot command actions">पूर्वनिर्धारित कमांड</string>
-    <string name="predefined_commands_desc" comment="Description under predefined fastboot commands header">सामान्य फ़ास्टबूट कमांड तक त्वरित पहुंच। परिणाम नीचे कंसोल में स्ट्रीम होंगे।</string>
+    <string name="predefined_commands_desc" comment="Description under predefined fastboot commands header">सामान्य फ़ास्टबूट कमांड तक त्वरित पहुँच। परिणाम नीचे कंसोल पर स्ट्रीम होते हैं।</string>
     <string name="preference" comment="Header title for settings preference category">प्राथमिकता</string>
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">पूर्वावलोकन</string>
-    <string name="primary">प्राथमिक</string>
-    <string name="primary_container">प्राथमिक कंटेनर</string>
-    <string name="product" comment="Fastboot device property label displaying target device model/product code">प्रोडक्ट</string>
-    <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">रिकवरी मेनू के माध्यम से डिवाइस को साइडलोड मोड में रखें</string>
+    <string name="primary">प्राइमरी</string>
+    <string name="primary_container">प्राइमरी कंटेनर</string>
+    <string name="product" comment="Fastboot device property label displaying target device model/product code">उत्पाद</string>
+    <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">अपने रिकवरी मेनू के माध्यम से डिवाइस को साइडलोड मोड में रखें</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">QR पेयर</string>
     <string name="qr_pair_hint" comment="Instructional text in QR pairing screen instructing user to scan QR code from target device">Android 11+ डिवाइस पेयर करने के लिए, लक्ष्य डिवाइस से इस QR को स्कैन करें</string>
     <string name="qr_scanner_location_hint" comment="Instructional hint directing user where to find system QR scanner in target device Developer Options">QR स्कैनर यहां उपलब्ध है:\nडेवलपर विकल्प &gt; वायरलेस डिबगिंग &gt; QR कोड से पेयर करें</string>
-    <string name="qs_tiles" comment="Refers to Android System Quick Settings tiles configured for custom ADB scripts">क्विक सेटिंग्स टाइल्स</string>
+    <string name="qs_tiles" comment="Refers to Android System Quick Settings tiles configured for custom ADB scripts">सेटिंग्स रीसेट विफल</string>
     <string name="quick_tools" comment="Section header for fast access utility tools">त्वरित टूल्स</string>
     <string name="reading_file" comment="Progress status text while loading file contents into viewer">फ़ाइल पढ़ी जा रही है…</string>
     <string name="ready_to_paste" comment="Status message in file manager when item is stored in paste clipboard">पेस्ट करने के लिए तैयार</string>
-    <string name="reboot_bootloader" comment="Action button / dialog choice to reboot target device into bootloader mode">बूटलोडर में रीबूट करें</string>
-    <string name="reboot_confirm_message" comment="%1$s = target boot mode (e.g. recovery, bootloader). Confirmation prompt before rebooting target device">यह कनेक्टेड डिवाइस को %1$s में रीबूट करेगा। जारी रखें?</string>
+    <string name="reboot_bootloader" comment="Action button / dialog choice to reboot target device into bootloader mode">बूटलोडर पर रीबूट करें</string>
+    <string name="reboot_confirm_message" comment="%1$s = target boot mode (e.g. recovery, bootloader). Confirmation prompt before rebooting target device">इससे कनेक्ट किया गया डिवाइस %1$s पर रीबूट हो जाएगा। जारी रखें?</string>
     <string name="reboot_confirm_title" comment="Dialog title asking user confirmation before rebooting target device">रीबूट की पुष्टि करें</string>
-    <string name="reboot_fastbootd" comment="Action button / dialog choice to reboot target device into fastbootd (userspace fastboot) mode">Fastbootd में रीबूट करें</string>
+    <string name="reboot_fastbootd" comment="Action button / dialog choice to reboot target device into fastbootd (userspace fastboot) mode">Fastbootd पर रीबूट करें</string>
     <string name="reboot_normal" comment="Action button / dialog choice to perform standard system reboot">रीबूट करें</string>
     <string name="reboot_options" comment="Menu header listing target device reboot modes (Normal, Recovery, Bootloader, Fastbootd)">रीबूट विकल्प</string>
-    <string name="reboot_recovery" comment="Action button / dialog choice to reboot target device into recovery mode">रिकवरी में रीबूट करें</string>
+    <string name="reboot_recovery" comment="Action button / dialog choice to reboot target device into recovery mode">रिकवरी पर रीबूट करें</string>
     <string name="recent_activity" comment="Dashboard card header listing recent command executions">हाल की गतिविधि</string>
     <string name="recent_searches" comment="Header title for recent search query history">हाल की खोजें</string>
     <string name="recommended" comment="Badge label marking recommended settings or AI choices">अनुशंसित</string>
@@ -751,21 +749,21 @@
     <string name="restore_app_data" comment="Button label in backup settings to import and restore data from backup file">ऐप डेटा रिस्टोर करें</string>
     <string name="restore_dialog_message" comment="Warning message in restore dialog that existing database will be overwritten">सहेजी गई फ़ाइल का डेटा वर्तमान डेटा को ओवरराइड करेगा।</string>
     <string name="restore_failed" comment="Toast error message when restoring app data fails">रिस्टोर विफल</string>
-    <string name="restore_from" comment="Dialog header prompting user to select restore source (Local File or Google Drive)">से रिस्टोर करें</string>
+    <string name="restore_from" comment="Dialog header prompting user to select restore source (Local File or Google Drive)">रिस्टोर विफल</string>
     <string name="restore_successful" comment="Toast message confirming successful app data restoration">रिस्टोर सफल</string>
-    <string name="restoring_backup" comment="Progress status text shown while restoring database from backup">बैकअप रिस्टोर किया जा रहा है…</string>
+    <string name="restoring_backup" comment="Progress status text shown while restoring database from backup">बैकअप रिस्टोर हो रहा है…</string>
     <string name="resume" comment="Action button to resume paused logcat streaming or file download">जारी रखें</string>
     <string name="retry" comment="Action button to retry failed network connection or command execution">पुनः प्रयास करें</string>
     <string name="root_access_granted" comment="Toast notification confirming superuser root access granted to aShellYou">रूट एक्सेस मिल गया!</string>
-    <string name="root_unavailable" comment="Dialog title when root access check returns false">Root उपलब्ध नहीं है</string>
-    <string name="root_unavailable_message" comment="Dialog message explaining root access was not detected on device">Root एक्सेस का पता नहीं चल सका। सुनिश्चित करें कि आपका डिवाइस रूट किया गया है और पुनः प्रयास करें, या किसी अन्य logcat स्रोत पर स्विच करें।</string>
-    <string name="run">चलाएं</string>
+    <string name="root_unavailable" comment="Dialog title when root access check returns false">रूट उपलब्ध नहीं है</string>
+    <string name="root_unavailable_message" comment="Dialog message explaining root access was not detected on device">रूट एक्सेस का पता नहीं चल सका। सुनिश्चित करें कि आपका डिवाइस रूट किया गया है और पुनः प्रयास करें, या किसी अन्य लॉगकैट स्रोत पर स्विच करें।</string>
+    <string name="run">चलाएँ</string>
     <string name="run_a_command_to_see_logs" comment="Instructional prompt under empty fastboot logs view">फ़ास्टबूट कमांड निष्पादित करने के लिए कमांड टैब का उपयोग करें</string>
-    <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">क्या कनेक्ट किए गए डिवाइस पर \"%1$s\" निष्पादित करें?</string>
-    <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">कमांड चलाएं?</string>
+    <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">कनेक्टेड डिवाइस पर \"%1$s\" निष्पादित करें?</string>
+    <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">कमांड चलाएँ?</string>
     <string name="running" comment="Status badge showing task or command execution is active">चल रहा है</string>
-    <string name="sans_serif" comment="Font style category name">Sans Serif</string>
-    <string name="save">सहेजें</string>
+    <string name="sans_serif" comment="Font style category name">सैंस सेरिफ़</string>
+    <string name="save">सेव करें</string>
     <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">प्रोफ़ाइल के रूप में सहेजें…</string>
     <string name="save_changes" comment="Action button to persist edited settings or tile parameters">परिवर्तन सहेजें</string>
     <string name="save_key" comment="Button label to save entered API key string in settings">कुंजी सहेजें</string>
@@ -773,30 +771,30 @@
     <string name="saved_devices" comment="Screen title and list header for paired ADB devices history">सहेजे गए डिवाइस</string>
     <string name="saving" comment="Progress status text while saving file or settings">सहेजा जा रहा है…</string>
     <string name="saving_output" comment="Progress status text while exporting terminal log output to file">आउटपुट फ़ाइल में निर्यात हो रहा है…</string>
-    <string name="schedule" comment="Header title or setting label for automated backup schedule picker">शेड्यूल</string>
-    <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">स्क्रीन डेंसिटी गुणक</string>
+    <string name="schedule" comment="Header title or setting label for automated backup schedule picker">अनुसूची</string>
+    <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">स्क्रीन घनत्व गुणक</string>
     <string name="search">खोजें</string>
     <string name="search_bookmarks_here" comment="Placeholder text in bookmarks tab search bar">यहां बुकमार्क खोजें</string>
     <string name="search_commands_here" comment="Placeholder text in command templates tab search bar">यहां कमांड खोजें</string>
     <string name="search_fonts" comment="Placeholder text in font family picker search bar">फ़ॉन्ट खोजें…</string>
-    <string name="search_icons_here" comment="Placeholder text in Quick Settings tile icon picker search bar">यहाँ आइकन खोजें</string>
+    <string name="search_icons_here" comment="Placeholder text in Quick Settings tile icon picker search bar">यहां कमांड खोजें</string>
     <string name="search_labels_here" comment="Placeholder text in command label filter search bar">यहां लेबल खोजें</string>
-    <string name="search_libraries" comment="Placeholder text in open-source licenses search bar">लाइब्रेरी, लेखक, लाइसेंस खोजें…</string>
+    <string name="search_libraries" comment="Placeholder text in open-source licenses search bar">लाइब्रेरीज़, लेखक, लाइसेंस खोजें…</string>
     <string name="search_output" comment="Placeholder text in terminal output search bar">कमांड के परिणाम खोजें</string>
-    <string name="search_settings" comment="Placeholder text in settings top search bar">सेटिंग्स खोजें</string>
+    <string name="search_settings" comment="Placeholder text in settings top search bar">सिस्टम सेटिंग्स</string>
     <string name="search_something" comment="Generic search field placeholder prompt">कुछ खोजें</string>
-    <string name="search_variables" comment="Placeholder text in fastboot variables explorer search bar">वेरिएबल खोजें…</string>
+    <string name="search_variables" comment="Placeholder text in fastboot variables explorer search bar">वैरिएबल खोजें…</string>
     <string name="searching_connect_service" comment="Status message while discovering ADB mDNS connection service on local network">कनेक्ट सर्विस खोज रहे हैं</string>
     <string name="searching_for_devices" comment="Progress status text while scanning for local Wireless Debugging or OTG ADB target devices">डिवाइस खोज रहे हैं…</string>
-    <string name="secondary">द्वितीयक</string>
+    <string name="secondary">सेकेंडरी</string>
     <string name="security_patch" comment="Device property label displaying Android security patch level date">सुरक्षा पैच</string>
-    <string name="select">चुनें</string>
+    <string name="select">चयनित</string>
     <string name="select_all">सभी चुनें</string>
-    <string name="select_backup_folder_message" comment="Dialog message prompting user to grant folder access for local automated backups">कृपया वह फ़ोल्डर चुनें जहां बैकअप सहेजे जाएंगे। ऐप को इस फ़ोल्डर के लिए रीड और राइट एक्सेस की आवश्यकता है।</string>
+    <string name="select_backup_folder_message" comment="Dialog message prompting user to grant folder access for local automated backups">कृपया एक ऐसा फ़ोल्डर चुनें जहाँ बैकअप सहेजे जाएँगे। ऐप को इस फ़ोल्डर के लिए पढ़ने और लिखने की अनुमति की आवश्यकता है।</string>
     <string name="select_backup_folder_title" comment="Dialog title when no backup directory has been configured">कोई बैकअप फ़ोल्डर नहीं</string>
     <string name="select_folder" comment="Action button to open system directory picker for backup storage">फ़ोल्डर चुनें</string>
-    <string name="select_partition" comment="Dropdown hint or dialog header for picking target fastboot partition">पार्टिशन चुनें</string>
-    <string name="select_theme_to_edit_hex" comment="Instructional prompt under hex editor section in theme builder">यहां इसके रॉ hex मानों को संपादित करने के लिए ऊपर एक थीम चुनें।</string>
+    <string name="select_partition" comment="Dropdown hint or dialog header for picking target fastboot partition">पार्टीशन चुनें</string>
+    <string name="select_theme_to_edit_hex" comment="Instructional prompt under hex editor section in theme builder">यहाँ इसके रॉ हेक्स मानों को संपादित करने के लिए ऊपर एक थीम चुनें।</string>
     <string name="select_time" comment="Button label to open time picker dialog for automated backup schedule">समय चुनें</string>
     <string name="select_zip_package" comment="Button label to launch file picker for selecting a ZIP update package to sideload">ZIP पैकेज चुनें</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">स्वयं</string>
@@ -818,10 +816,10 @@
     <string name="self_pair_wrong_code" comment="Toast error message when entered 6-digit wireless pairing code is incorrect">गलत कोड - पेयरिंग डायलॉग दोबारा खोलें</string>
     <string name="send">भेजें</string>
     <string name="serial_number" comment="Device property label displaying target device hardware serial number">सीरियल नंबर</string>
-    <string name="serif" comment="Font style category name">Serif</string>
+    <string name="serif" comment="Font style category name">सेरिफ़</string>
     <string name="settings">सेटिंग्स</string>
-    <string name="settings_only" comment="Option in backup screen to export only application settings (excluding history/bookmarks)">केवल सेटिंग्स</string>
-    <string name="share">साझा करें</string>
+    <string name="settings_only" comment="Option in backup screen to export only application settings (excluding history/bookmarks)">सेटिंग्स</string>
+    <string name="share">शेयर करें</string>
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">अंतिम कमांड का आउटपुट \'%s\' में निर्यात हुआ</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">शेल आउटपुट \'%s\' में निर्यात हुआ</string>
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">Shizuku इंस्टॉल नहीं है</string>
@@ -829,34 +827,34 @@
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku is not running or missing permissions">Shizuku अभी तक स्थापित नहीं है या आपके डिवाइस पर सही ढंग से निर्धारित नहीं है। aShell You एक उचित Shizuku वातावरण के बिना काम नहीं करेगा</string>
     <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">रिकवरी के माध्यम से डिवाइस को साइडलोड मोड में रखें</string>
     <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">साइडलोड मोड — तैयार</string>
-    <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">रिकवरी में बूट करें (वॉल्यूम डाउन + पावर बटन दबाए रखें, या चलाएं: adb reboot recovery)</string>
-    <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">रिकवरी मेनू में \"Apply update\" पर जाएं</string>
+    <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">रिकवरी में बूट करें (वॉल्यूम डाउन + पावर दबाए रखें, या चलाएँ: adb reboot recovery)</string>
+    <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">रिकवरी मेनू में \"Apply update\" पर जाएँ</string>
     <string name="sideload_step_3" comment="Step 3 of ADB sideload guide: selecting ADB sideload mode in recovery">\"Apply from ADB\" (या \"ADB Sideload\") चुनें</string>
-    <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">अपने डिवाइस को OTG केबल के माध्यम से कनेक्ट करें, फिर यहां एक ZIP फ़ाइल चुनें</string>
-    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">साइडलोड किया जा रहा है…</string>
-    <string name="sign_in_failed" comment="Toast error message when Google account sign-in fails">गूगल साइन-इन विफल रहा</string>
-    <string name="sign_in_with_google" comment="Button label in cloud backup settings to sign into Google account">गूगल से साइन इन करें</string>
+    <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">OTG केबल के ज़रिए अपना डिवाइस कनेक्ट करें, फिर यहाँ एक ZIP चुनें</string>
+    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">साइडलोड हो रहा है…</string>
+    <string name="sign_in_failed" comment="Toast error message when Google account sign-in fails">Google साइन-इन विफल</string>
+    <string name="sign_in_with_google" comment="Button label in cloud backup settings to sign into Google account">Google से साइन इन करें</string>
     <string name="sign_out" comment="Button label in cloud backup settings to sign out of Google account">साइन आउट करें</string>
-    <string name="sign_out_confirmation_msg" comment="Warning prompt in sign-out confirmation dialog warning that auto cloud backups will pause">साइन आउट करने पर सभी स्वचालित क्लाउड बैकअप रुक जाएंगे!\nक्या आप अभी भी साइन आउट करना चाहते हैं?</string>
-    <string name="signed_in_as" comment="%1$s = user email or name">%1$s के रूप में साइन इन हैं</string>
-    <string name="signed_out" comment="Status text in cloud backup card when signed out of Google account">साइन आउट हो गए</string>
+    <string name="sign_out_confirmation_msg" comment="Warning prompt in sign-out confirmation dialog warning that auto cloud backups will pause">साइन आउट करने से सभी स्वचालित क्लाउड बैकअप रुक जाएंगे!\nक्या आप फिर भी साइन आउट करना चाहते हैं?</string>
+    <string name="signed_in_as" comment="%1$s = user email or name">%1$s के रूप में साइन इन किया गया</string>
+    <string name="signed_out" comment="Status text in cloud backup card when signed out of Google account">साइन आउट किया गया</string>
     <string name="size">आकार</string>
     <string name="skip">छोड़ें</string>
     <string name="slide_to_flash" comment="Slider text prompt in fastboot partition flash confirmation sheet">फ्लैश करने के लिए स्लाइड करें</string>
     <string name="slide_to_sideload" comment="Slider button prompt to initiate the ADB sideload transfer of chosen ZIP file over OTG">साइडलोड करने के लिए स्लाइड करें</string>
-    <string name="slot_data_unknown" comment="Status text when device A/B slot information cannot be retrieved over fastboot">स्लॉट डेटा अज्ञात</string>
+    <string name="slot_data_unknown" comment="Status text when device A/B slot information cannot be retrieved over fastboot">स्लॉट डेटा अज्ञात है</string>
     <string name="smooth_scrolling" comment="Settings toggle preference title to enable smooth scrolling animation in terminal">मुलायम स्क्रोलिंग</string>
     <string name="sort">क्रमबद्ध</string>
-    <string name="stable_fdroid" comment="Option in update channel settings for F-Droid stable releases">स्टेबल (F-Droid)</string>
-    <string name="stable_github" comment="Option in update channel settings for GitHub stable releases">स्टेबल (GitHub)</string>
+    <string name="stable_fdroid" comment="Option in update channel settings for F-Droid stable releases">स्थिर (Fdroid)</string>
+    <string name="stable_github" comment="Option in update channel settings for GitHub stable releases">स्थिर (GitHub)</string>
     <string name="stack_trace" comment="Header title for crash log exception stack trace section">स्टैक ट्रेस</string>
     <string name="stargazers" comment="GitHub repository star count label in About screen">स्टारगेज़र्स</string>
     <string name="start">शुरू करें</string>
     <string name="stop">रोकें</string>
-    <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">AI मॉडल द्वारा %.1f MB का उपयोग</string>
+    <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">AI मॉडल द्वारा %.1f MB उपयोग किया गया</string>
     <string name="subtitle" comment="Field label for Quick Settings tile subtitle text">उपशीर्षक</string>
-    <string name="subtitle_off_state" comment="Field label for tile subtitle text when Quick Settings tile is OFF">उपशीर्षक (OFF स्थिति)</string>
-    <string name="subtitle_on_state" comment="Field label for tile subtitle text when Quick Settings tile is ON">उपशीर्षक (ON स्थिति)</string>
+    <string name="subtitle_off_state" comment="Field label for tile subtitle text when Quick Settings tile is OFF">उपशीर्षक (बंद स्थिति)</string>
+    <string name="subtitle_on_state" comment="Field label for tile subtitle text when Quick Settings tile is ON">उपशीर्षक (चालू स्थिति)</string>
     <string name="success">सफलता</string>
     <string name="success_rate" comment="Analytics metadata metric showing tile execution success percentage">सफलता दर</string>
     <string name="successful_connection_message" comment="Dialog message confirming target ADB device connected successfully">डिवाइस सफलतापूर्वक कनेक्ट है। अब आप लक्ष्य डिवाइस पर कमांड चला सकते हैं।</string>
@@ -865,56 +863,56 @@
     <string name="surface">सतह</string>
     <string name="switch_mode" comment="Action button to switch ADB connection mode between Local ADB, Remote Wireless ADB, and OTG">मोड स्विच करें</string>
     <string name="system">सिस्टम</string>
-    <string name="system_default" comment="Theme or language option to match Android OS system default settings">सिस्टम डिफ़ॉल्ट</string>
+    <string name="system_default" comment="Theme or language option to match Android OS system default settings">सिस्टम फ़ॉन्ट</string>
     <string name="system_font" comment="Option to use the device default font">सिस्टम फ़ॉन्ट</string>
     <string name="system_settings" comment="Button label linking to Android system Settings app">सिस्टम सेटिंग्स</string>
     <string name="tab" comment="Settings option for terminal tab indentation behavior">टैब</string>
     <string name="tag" comment="Field label for custom command category tag/label">टैग</string>
-    <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">.zip फ़ाइल खोजने के लिए टैप करें</string>
+    <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">कोई .zip फ़ाइल ढूँढने के लिए टैप करें</string>
     <string name="telegram" comment="Button in About screen linking to official Telegram community group">टेलीग्राम</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">टर्मिनल</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">टर्मिनल फ़ॉन्ट शैली</string>
-    <string name="tertiary">तृतीयक</string>
-    <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">थर्ड-पार्टी लाइब्रेरी</string>
+    <string name="tertiary">टर्शियरी</string>
+    <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">तृतीय-पक्ष लाइब्रेरीज़</string>
     <string name="this_application" comment="Option label for target scope in Logcat Viewer">यह एप्लिकेशन</string>
     <string name="this_device" comment="Selection option for target ADB device matching host phone">यह डिवाइस</string>
     <string name="tile" comment="Refers to Android System Quick Settings tile">टाइल</string>
     <string name="tile_behavior" comment="Settings title for Quick Settings tile click behavior (click vs long-click)">टाइल व्यवहार</string>
-    <string name="tile_dashboard_notification_access_message" comment="Banner notice asking for notification permission to report tile execution errors">जब भी टाइल निष्पादन विफल हो, सूचित किए जाने के लिए नोटिफिकेशन चालू करें</string>
-    <string name="tile_logs" comment="Tab header for Quick Settings tile execution history log">टाइल लॉग्स</string>
+    <string name="tile_dashboard_notification_access_message" comment="Banner notice asking for notification permission to report tile execution errors">जब भी कोई टाइल निष्पादन विफल हो, तो सूचना प्राप्त करने के लिए सूचनाएं चालू करें</string>
+    <string name="tile_logs" comment="Tab header for Quick Settings tile execution history log">टाइल लॉग</string>
     <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">टाइल %1$d</string>
-    <string name="tile_name" comment="Field label for Quick Settings tile title text">टाइल का नाम</string>
+    <string name="tile_name" comment="Field label for Quick Settings tile title text">फ़ोल्डर नाम</string>
     <string name="tiles" comment="Navigation drawer item and screen header for Quick Settings tiles manager">टाइल्स</string>
     <string name="time">समय</string>
     <string name="timestamp">टाइमस्टैम्प</string>
-    <string name="toggleable">टॉगल योग्य</string>
+    <string name="toggleable">टॉगल करने योग्य</string>
     <string name="total_executions">कुल निष्पादन</string>
     <string name="translations">अनुवाद</string>
-    <string name="translators">अनुवादक</string>
+    <string name="translators">अनुवाद</string>
     <string name="troubleshoot">समस्या निवारण</string>
     <string name="troubleshoot_reconnect">वायरलेस डिबगिंग कनेक्शन को बंद-चालू करके रिफ्रेश करें</string>
-    <string name="try_different_search">कोई अलग खोज शब्द आज़माएं</string>
+    <string name="try_different_search">कोई भिन्न खोज शब्द आज़माएं</string>
     <string name="turn_off_mobile_data">यदि वाई-फाई कनेक्शन में इंटरनेट नहीं है तो मोबाइल डेटा बंद कर दें</string>
     <string name="tweak_your_experience">अपना अनुभव अनुकूलित करें</string>
     <string name="type">प्रकार</string>
     <string name="ui_scale" comment="Settings preference title for adjusting UI scale factor">UI स्केल</string>
     <string name="undo">पूर्ववत करें</string>
-    <string name="unexpected_error" comment="Generic exception toast header when unhandled error occurs">अनपेक्षित त्रुटि</string>
+    <string name="unexpected_error" comment="Generic exception toast header when unhandled error occurs">अपेक्षित त्रुटि</string>
     <string name="unknown">अज्ञात</string>
     <string name="unknown_error" comment="Toast error message when error cause is unmapped">अज्ञात त्रुटि हुई</string>
     <string name="unknown_sources_install_permission_not_granted" comment="Error toast when REQUEST_INSTALL_PACKAGES permission is missing for app update installation">अनुमति नहीं दी गई। कृपया अज्ञात स्रोतों से ऐप इंस्टॉल की अनुमति दें।</string>
-    <string name="unlock_status" comment="Device property label displaying bootloader lock state">अनलाॉक स्थिति</string>
-    <string name="unlocked" comment="Status badge showing bootloader is unlocked">अनलॉक किया गया</string>
-    <string name="untitled" comment="Default name fallback for unsaved theme profile or custom tile">बिना शीर्षक</string>
+    <string name="unlock_status" comment="Device property label displaying bootloader lock state">अनलॉक स्थिति</string>
+    <string name="unlocked" comment="Status badge showing bootloader is unlocked">अनलॉक है</string>
+    <string name="untitled" comment="Default name fallback for unsaved theme profile or custom tile">शीर्षकहीन</string>
     <string name="update">अपडेट करें</string>
     <string name="update_available" comment="Banner title announcing a new application update release">अपडेट उपलब्ध है!</string>
     <string name="update_channel" comment="Settings preference title for choosing update channel (Stable, Pre-release, F-Droid)">अपडेट चैनल</string>
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">फ़ाइल अपलोड करें</string>
     <string name="uploading" comment="Progress status text shown while uploading file to device">अपलोड हो रहा है…</string>
-    <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">गूगल ड्राइव पर बैकअप अपलोड किया जा रहा है…</string>
+    <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Google ड्राइव पर बैकअप अपलोड हो रहा है…</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">इस डिवाइस पर USB मैनेजर उपलब्ध नहीं है</string>
     <string name="use">उपयोग करें</string>
-    <string name="utilities" comment="Category title in homescreen">उपयोगिताएं</string>
+    <string name="utilities" comment="Category title in homescreen">यूटिलिटीज</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">वेरिएंट</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">सत्यापन विफल रहा</string>
     <string name="verify_api_key" comment="Action button to validate entered AI API key with remote service">API कुंजी सत्यापित करें</string>
@@ -922,12 +920,12 @@
     <string name="version">संस्करण</string>
     <string name="version_code" comment="Device/app metadata label for build version code number">संस्करण कोड</string>
     <string name="version_name" comment="Device/app metadata label for human-readable version string">संस्करण नाम</string>
-    <string name="view_license_online_msg" comment="Subtext in license viewer directing user to view license URL online">ऑनलाइन लाइसेंस देखने के लिए \'URL खोलें\' पर टैप करें।</string>
+    <string name="view_license_online_msg" comment="Subtext in license viewer directing user to view license URL online">लाइसेंस ऑनलाइन देखने के लिए \'URL खोलें\' पर टैप करें।</string>
     <string name="view_on_github" comment="Button linking to GitHub release page or commit diff">GitHub पर देखें</string>
-    <string name="visit_repo_to_download" comment="Instructions directing user to download the update APK file from GitHub releases">aShellYou का नवीनतम संस्करण प्राप्त करने के लिए डाउनलोड बटन पर क्लिक करें।</string>
+    <string name="visit_repo_to_download" comment="Instructions directing user to download the update APK file from GitHub releases">GitHub रिपॉजिटरी से aShell You का नवीनतम संस्करण प्राप्त करने के लिए डाउनलोड बटन पर क्लिक करें।</string>
     <string name="waiting_for_device" comment="Progress status banner while awaiting target device USB OTG attachment">डिवाइस की प्रतीक्षा हो रही है</string>
     <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">डिवाइस की प्रतीक्षा हो रही है…</string>
-    <string name="want_to_contribute_too" comment="Call-to-action banner in About screen inviting code or translation contributions">क्या आप भी योगदान देना चाहते हैं?</string>
+    <string name="want_to_contribute_too" comment="Call-to-action banner in About screen inviting code or translation contributions">योगदान भी देना चाहते हैं?</string>
     <string name="weekly" comment="Option in backup scheduler frequency selection">साप्ताहिक</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">%1$s के दौरान आप क्या करना चाहेंगे?</string>
     <string name="whats_new" comment="Header title for app release notes and changelog dialog">नया क्या है!</string>
@@ -935,34 +933,34 @@
     <string name="wifi_adb" comment="Refers to Android Wireless Debugging ADB over Wi-Fi connection feature">वाई-फाई ADB</string>
     <string name="wifi_connection_required" comment="Detailed explanation of Wi-Fi requirements for Wireless Debugging ADB">वायरलेस डिबगिंग सुविधा का उपयोग करने के लिए, आपका डिवाइस वाई-फाई नेटवर्क से जुड़ा होना चाहिए। यदि आपके वाई-फाई कनेक्शन में इंटरनेट एक्सेस नहीं है, तो एक ठोस वाई-फाई कनेक्शन के लिए मोबाइल डेटा बंद करें।</string>
     <string name="wipe_cache_desc" comment="Description for predefined fastboot erase cache command">fastboot erase cache</string>
-    <string name="wipe_cache_title" comment="Predefined fastboot command title: erase cache partition">Cache मिटाएं</string>
+    <string name="wipe_cache_title" comment="Predefined fastboot command title: erase cache partition">कैशे मिटाएं</string>
     <string name="wipe_data" comment="Section header or dialog button to wipe device partitions over fastboot">डेटा वाइप करें</string>
-    <string name="wipe_data_description" comment="Subtext warning explaining fastboot partition erase operation">अपने डिवाइस पर पार्टिशन मिटाएं। चुनें कि कौन सा पार्टिशन वाइप करना है।</string>
+    <string name="wipe_data_description" comment="Subtext warning explaining fastboot partition erase operation">अपने डिवाइस पर पार्टीशन मिटाएं। वाइप करने के लिए पार्टीशन चुनें।</string>
     <string name="wipe_metadata_desc" comment="Description for predefined fastboot erase metadata command">fastboot erase metadata</string>
-    <string name="wipe_metadata_title" comment="Predefined fastboot command title: erase metadata partition">Metadata मिटाएं</string>
+    <string name="wipe_metadata_title" comment="Predefined fastboot command title: erase metadata partition">मेटाडेटा मिटाएं</string>
     <string name="wipe_userdata_desc" comment="Description for predefined fastboot erase userdata command">fastboot erase userdata</string>
-    <string name="wipe_userdata_title" comment="Predefined fastboot command title: erase userdata partition">Userdata मिटाएं</string>
-    <string name="wipe_warning" comment="Warning notice in fastboot partition wipe screen emphasizing data loss risk">ये ऑपरेशन अपरिवर्तनीय हैं। सावधानी से आगे बढ़ें।</string>
-    <string name="wireless_debugging_guide_1" comment="Step 1 of Wireless Debugging setup walkthrough">डेवलपर विकल्प  &gt;  वायरलेस डिबगिंग पर जाएँ। पेयरिंग कोड के साथ डिवाइस को पेयर करें पर टैप करें।</string>
-    <string name="wireless_debugging_guide_2" comment="Step 2 of Wireless Debugging setup walkthrough">aShell द्वारा भेजी गई सूचना में छह अंकों का युग्मन कोड दर्ज करें।</string>
+    <string name="wipe_userdata_title" comment="Predefined fastboot command title: erase userdata partition">यूज़रडेटा मिटाएं</string>
+    <string name="wipe_warning" comment="Warning notice in fastboot partition wipe screen emphasizing data loss risk">ये ऑपरेशन अपूरणीय हैं। सावधानी से आगे बढ़ें।</string>
+    <string name="wireless_debugging_guide_1" comment="Step 1 of Wireless Debugging setup walkthrough">डेवलपर विकल्प &gt; वायरलेस डिबगिंग पर जाएँ। पेयरिंग कोड के साथ डिवाइस को पेयर करें पर टैप करें।</string>
+    <string name="wireless_debugging_guide_2" comment="Step 2 of Wireless Debugging setup walkthrough">aShell You द्वारा भेजी गई सूचना में छह अंकों का पेयरिंग कोड दर्ज करें।</string>
     <string name="wireless_debugging_guide_3" comment="Step 3 of Wireless Debugging setup walkthrough">ऐप पर वापस आएं और होम स्क्रीन में &quot;स्टार्ट&quot; बटन पर क्लिक करें।</string>
     <string name="wireless_debugging_important_notice" comment="Important tip clarifying that tapping the left side of Wireless Debugging switch opens the pairing sub-menu">कृपया ध्यान दें कि वायरलेस डिबगिंग विकल्प का बायाँ भाग क्लिक करने योग्य है। इस पर टैप करने से वायरलेस डिबगिंग पेयरिंग मेनू खुल जाएगा।</string>
     <string name="wireless_not_connected" comment="Status banner shown when target device is not connected over Wireless Debugging">कनेक्ट नहीं है</string>
-    <string name="wireless_not_connected_message" comment="Instructional body text advising user to pair and connect device first">आपका डिवाइस वायरलेस डिबगिंग के माध्यम से कनेक्ट नहीं है। पहले अपने डिवाइस को पेयर और कनेक्ट करें।</string>
+    <string name="wireless_not_connected_message" comment="Instructional body text advising user to pair and connect device first">आपका डिवाइस वायरलेस डिबगिंग के माध्यम से कनेक्ट नहीं है। पहले अपने डिवाइस को पेयर करें और कनेक्ट करें।</string>
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d नई प्रविष्टि</item>
-        <item quantity="other">%1$d नई प्रविष्टियां</item>
+        <item quantity="other">%1$d नई प्रविष्टियाँ</item>
     </plurals>
-    <string name="changelog_v7_4_0">\nअब आप सेटिंग्स स्क्रीन के अंदर उप-सेटिंग्स खोज सकते हैं\nकलर स्कीम्स के लिए पैलेट स्टाइल जोड़े गए\nऐप में ही सीधे ऐप की भाषा सेट करने का विकल्प जोड़ा गया</string>
-    <string name="changelog_v7_3_0">\nचेंजलॉग स्क्रीन में UI में सुधार किया गया\n\'हमारे बारे में\' सेक्शन में अनुवाद योगदानकर्ताओं को जोड़ा गया\nलाइसेंस स्क्रीन जोड़ी गई जो ऐप और ऐप द्वारा उपयोग की जाने वाली अन्य लाइब्रेरी के बारे में विस्तृत लाइसेंस जानकारी दिखाती है</string>
+    <string name="changelog_v7_4_0">\nअब आप सेटिंग्स स्क्रीन के अंदर उप-सेटिंग्स खोज सकते हैं\nरंग योजनाओं के लिए पैलेट शैलियाँ जोड़ी गईं\nसीधे ऐप में ऐप भाषा सेट करने का विकल्प जोड़ा गया</string>
+    <string name="changelog_v7_3_0">\nचेंजलॉग स्क्रीन में बेहतर UI\nअबाउट सेक्शन में अनुवाद योगदानकर्ता जोड़े गए\nलाइसेंस स्क्रीन जोड़ी गई जो ऐप और ऐप द्वारा उपयोग की जाने वाली अन्य लाइब्रेरी के बारे में विस्तृत लाइसेंस जानकारी दिखाती है</string>
     <string name="changelog_v7_2_1">\nरखरखाव अपडेट!</string>
-    <string name="changelog_v7_2_0">\nकस्टम टाइल्स जोड़कर क्विक सेटिंग्स टाइल्स से ADB कमांड चलाने का विकल्प जोड़ा गया।\nक्लाउड (गूगल ड्राइव) पर बैकअप करने का विकल्प जोड़ा गया। यह फ़ीचर केवल GitHub बिल्ड्स में मौजूद है।\nकई क्षेत्रों में कलर स्कीम और UI तथा UX में सुधार किया गया।\nकई और ADB कमांड उदाहरण जोड़े गए।</string>
+    <string name="changelog_v7_2_0">\nकस्टम टाइलें जोड़कर त्वरित सेटिंग टाइल्स से adb कमांड चलाने का विकल्प जोड़ा गया।\nक्लाउड (Google ड्राइव) पर बैकअप लेने का विकल्प जोड़ा गया। यह सुविधा केवल GitHub बिल्ड में मौजूद है।\nकई क्षेत्रों में रंग योजना और UI और UX में सुधार किया गया।\nकई और ADB कमांड उदाहरण जोड़े गए।</string>
     <string name="changelog_v7_1_0">\nउस समस्या को ठीक किया जहां अंग्रेजी कीबोर्ड कमांड इनपुट में नहीं दिखता था जब उपयोगकर्ता अंग्रेजी के अलावा कोई भाषा सेट करता था\nमेल आइकन ठीक से न दिखने की समस्या ठीक की\nबड़ी फाइल आउटपुट सहेजते समय ऐप क्रैश होने की समस्या ठीक की\nअनावश्यक अनुमतियां हटाईं\nAbout सेक्शन में UI सुधार</string>
     <string name="changelog_v7_0_1">\nFastlane फिक्स</string>
-    <string name="changelog_v7_0_0">\nपूरा UI नया किया गया, material expressive कंपोनेंट्स के साथ\nपूरा कोडबेस Kotlin और Jetpack Compose में फिर से लिखा\npush और pull आधारित फाइल मैनेजर जोड़ा\nQR WiFi ADB पेयरिंग मोड जोड़ा\nऐप सेटिंग्स और डेटाबेस बैकअप विकल्प जोड़े\nकस्टम थीमिंग विकल्प जोड़े\nक्रैश हिस्ट्री जोड़ी\nऑटो अपडेट में सुधार\nशेल आउटपुट में UI और UX सुधार\nAndroid अनुमति सुझाव जोड़े\nकमांड उदाहरण लेआउट में लेबल जोड़े\nकमांड जोड़ने, संपादित करने या हटाने का विकल्प\nकई बग ठीक किए</string>
-    <string name="changelog_v6_1_0">\nअब कमांड खोज उन कमांडों को खोज सकती है जिनमें आपका टाइप किया हुआ शब्द शामिल है, जबकि पिछले संस्करणों में यह केवल उन्हीं कमांडों को खोजती थी जो टाइप किए गए शब्द से शुरू होते थे।\nजब Shizuku इंस्टॉल हो लेकिन चल न रहा हो, तो Shizuku ऐप को सीधे खोलने का विकल्प दिया गया है।\nटूटे हुए इन-ऐप क्रैश रिपोर्टर को ठीक किया गया।</string>
+    <string name="changelog_v7_0_0">\nपूरा UI नया किया गया, material expressive कंपोनेंट्स का उपयोग किया गया\nपूरा कोडबेस Kotlin और Jetpack Compose में UI फ्रेमवर्क के रूप में फिर से लिखा गया\npush &amp; pull आधारित फाइल मैनेजर जोड़ा गया\nQR वाई-फाई ADB पेयरिंग मोड जोड़ा गया\nऐप सेटिंग्स और डेटाबेस बैकअप विकल्प जोड़े गए\nकस्टम थीमिंग विकल्प जोड़े गए\nऐप क्रैश लॉग देखने के लिए क्रैश हिस्ट्री जोड़ी गई\nऑटो-अपडेट सुविधा में सुधार किया गया\nशेल आउटपुट में UI और UX में सुधार किया गया\nAndroid अनुमति सुझाव जोड़े गए\nलेबल शामिल करने के लिए कमांड उदाहरण लेआउट को नया रूप दिया गया\nअपनी इच्छानुसार कमांड जोड़ने, संपादित करने या हटाने का विकल्प जोड़ा गया\nकई मौजूदा बग अब ठीक कर दिए गए हैं</string>
+    <string name="changelog_v6_1_0">\nअब कमांड खोज उन कमांड को खोज सकती है जिनमें आपके द्वारा टाइप किया गया शब्द शामिल है, जबकि पिछले संस्करणों में यह केवल उन कमांड को खोजती थी जो टाइप किए गए शब्द से शुरू होते थे।\nShizuku ऐप इंस्टॉल होने पर लेकिन न चलने पर उसे सीधे खोलने का विकल्प।\nटूटे हुए इन-ऐप क्रैश रिपोर्टर को ठीक किया गया।</string>
     <string name="changelog_v6_0_3">\nउस समस्या को ठीक किया जो प्रति ऐप अनुवाद को तोड़ रही थी</string>
-    <string name="changelog_v6_0_2">\nरिलीज़ बिल्ड के लिए GitHub Actions अनुकूलित किए गए।\nआपके लिए इसका क्या मतलब है?\nइस सहित इसके बाद के सभी बिल्ड अधिक सुरक्षित होंगे!</string>
+    <string name="changelog_v6_0_2">\nरिलीज़ बिल्ड के लिए GitHub Actions को अपनाया गया।\nआपके लिए इसका क्या अर्थ है?\nइसके बाद के सभी बिल्ड अधिक सुरक्षित होंगे!</string>
     <string name="changelog_v6_0_1">\nरखरखाव अपडेट</string>
     <string name="changelog_v6_0_0">\nADB कमांड चलाने के लिए वायरलेस डिबगिंग मोड जोड़ा\nन्यूनतम नेविगेशन के लिए होमपेज नया डिज़ाइन किया\nक्रिटिकल सिस्टम पैकेज वाले कमांड चलाते समय चेतावनी जोड़ी\nइन-ऐप अपडेटर जोड़ा\nकई बग ठीक किए</string>
     <string name="changelog_v5_2_1">\nरखरखाव अपडेट</string>
@@ -978,29 +976,29 @@
     <string name="changelog_v4_0_3">\nडिपेंडेंसी अपडेट कीं\nऔर कमांड उदाहरण जोड़े</string>
     <string name="changelog_v4_0_2">\nAndroid 11 या उससे नीचे पर AMOLED थीम काम न करने की समस्या ठीक की</string>
     <string name="changelog_v4_0_1">\nअब आप त्वरित पहुंच के लिए कमांड पिन कर सकते हैं\n\nबग फिक्स और कोड ऑप्टिमाइज़ेशन</string>
-    <string name="changelog_v4_0_0">\nअब आप कमांड सेक्शन से सीधे कमांड उपयोग कर सकते हैं\n\nसभी बुकमार्क हटाने का विकल्प जोड़ा\nसर्च में कमांड सारांश में खोजें\nकमांड टेम्पलेट में सॉर्टिंग विकल्प जोड़े\nचयनित आइटम सीधे बुकमार्क करने का विकल्प\nचिप इंडिकेटर कनेक्टेड डिवाइस दिखाता है\nAndroid 11 या नीचे पर क्रैश ठीक किए\nतुर्की अनुवाद जोड़ा\nमामूली UI सुधार\nअन्य बग फिक्स</string>
+    <string name="changelog_v4_0_0">\nअब आपको हर बार कमांड कॉपी करने की आवश्यकता के बिना सीधे कमांड अनुभाग (Commands section) से कमांड का उपयोग कर सकते हैं\n\nसभी बुकमार्क हटाने का विकल्प जोड़ा गया\nखोज में: अब आप प्रॉम्प्ट चिप पर क्लिक करके कमांड सारांश में खोज सकते हैं\nकमांड टेम्प्लेट में सॉर्टिंग विकल्प जोड़े गए\nकमांड अनुभाग में चयनित आइटम को सीधे बुकमार्क करने का विकल्प जोड़ा गया\nचिप इंडिकेटर कनेक्टेड डिवाइस दिखाता है (वर्तमान में केवल स्थानीय ADB मोड में)\nAndroid 11 या उससे नीचे चलने वाले उपकरणों में क्रैश होने वाले बग को ठीक किया गया\nतुर्की अनुवाद जोड़ा गया\nमामूली UI सुधार\nअन्य कई बग फिक्स</string>
     <string name="changelog_v3_9_1">\nकुल बुकमार्क गिनती जोड़ी\nकुछ बग ठीक किए</string>
-    <string name="changelog_v3_9_0">\nकमांड सेक्शन में सर्च जोड़ा\nडिफ़ॉल्ट वर्किंग मोड सेट करने का विकल्प\nएनिमेशन में सुधार\nबुकमार्क सेक्शन फिर से बनाया और सॉर्टिंग विकल्प जोड़े\nबुकमार्क सीमा 25 तक बढ़ाई\nADB शेल शॉर्टकट हटाया और कमांड शॉर्टकट जोड़ा\nपैडिंग समस्याएं ठीक कीं</string>
+    <string name="changelog_v3_9_0">\nकमांड अनुभाग में खोज (Search) जोड़ी गई\nडिफ़ॉल्ट कार्य मोड (default working mode) सेट करने का विकल्प जोड़ा गया\nएनिमेशन में सुधार किया गया\nबुकमार्क अनुभाग को नया रूप दिया गया और सॉर्टिंग विकल्प जोड़े गए\nबुकमार्क की सीमा बढ़ाकर 25 की गई\nADB शेल लॉन्चर शॉर्टकट हटाया गया और कमांड लॉन्चर शॉर्टकट जोड़ा गया\nबटन नेविगेशन में पैडिंग समस्याओं को ठीक किया गया\nकुछ बटन के आकार को ठीक किया गया</string>
     <string name="changelog_v3_8_2">\nमटीरियल यू थीमिंग के लिए ताज़ा रंग पैलेट\nमामूली बग ठीक किए</string>
     <string name="changelog_v3_8_1">\nv3.8.0 में आई कुछ क्रैश ठीक कीं</string>
-    <string name="changelog_v3_8_0">\nब्लैक (AMOLED) थीम जोड़ी\nपेस्ट अनडू बटन जोड़ा\nसॉफ्ट कीबोर्ड अक्षम करने का विकल्प\nकुछ स्क्रीन साइज में बटन स्ट्रेच होने की समस्या ठीक की\nबुकमार्क बटन न दिखने की समस्या ठीक की\nExamples सेक्शन का नाम Commands किया\nसिस्टम फॉन्ट का उपयोग\nअनुवाद अपडेट किए</string>
-    <string name="changelog_v3_7_0">\nअब आप अपने डिवाइस से कहीं से भी टेक्स्ट aShell You में शेयर कर सकते हैं\nशेल आउटपुट सीधे शेयर करें बिना सेव किए\nकई ऑप्टिमाइज़ेशन\nचीनी अनुवाद जोड़ा\nअनुवाद अपडेट किए</string>
+    <string name="changelog_v3_8_0">\nब्लैक (AMOLED) थीम जोड़ी गई\nपेस्ट पूर्ववत (undo) करने के लिए अनडू बटन जोड़ा गया\nसॉफ्ट कीबोर्ड को अक्षम करने का विकल्प जोड़ा गया\nकुछ स्क्रीन आकारों में खिंचे हुए बटन ठीक किए गए\nऐप खोलने के बाद बुकमार्क बटन के दिखाई न देने की समस्या ठीक की गई\nExamples अनुभाग का नाम बदलकर Commands किया गया\nप्रत्येक कमांड टेम्प्लेट के लिए कॉपी कमांड विकल्प के दिखाई न देने की समस्या ठीक की गई\nऐप अब हर जगह सिस्टम फोंट का उपयोग करता है\nUI हैंडलिंग में सुधार किया गया\nअनुवाद अपडेट किए गए</string>
+    <string name="changelog_v3_7_0">\nअब आप अपने डिवाइस पर कहीं से भी aShell You पर टेक्स्ट शेयर कर सकते हैं और सीधे कमांड चला सकते हैं।\nअब आप शेल आउटपुट को सेव करने की आवश्यकता के बिना सीधे शेयर कर सकते हैं!\nढेर सारी अनुकूलन (optimisations) और UI हैंडलिंग।\nचीनी अनुवाद जोड़े गए।\nअनुवाद अपडेट किए गए।</string>
     <string name="changelog_v3_6_0">\nत्रुटि के बाद कमांड इनपुट फील्ड क्लियर करने का विकल्प\nक्लिपबोर्ड से पेस्ट करते समय क्रैश होने का बग ठीक किया\nकोड ऑप्टिमाइज़ेशन</string>
-    <string name="changelog_v3_5_1">\nबॉटम नेविगेशन में कुछ समस्याएं ठीक कीं</string>
-    <string name="changelog_v3_5_0">\nऐप का About सेक्शन नया बनाया\nलॉन्चर शॉर्टकट जोड़े\nनेविगेशन मेनू न दिखने की समस्या ठीक की\nस्क्रॉल करते समय बॉटम नेविगेशन मेनू दृश्यता में सुधार\nप्रति ऐप भाषा समर्थन जोड़ा\nकोड ऑप्टिमाइज़ेशन</string>
-    <string name="changelog_v3_4_0">\nपेस्ट बटन जोड़ा ताकि आप जल्दी कमांड कॉपी पेस्ट कर सकें\nटेक्स्ट इनपुट फील्ड में एरर इंडिकेटर जोड़े\nनेविगेशन बार दृश्यता लॉजिक में सुधार\nस्विच की समस्या ठीक की\nबुकमार्क आइकन दृश्यता ठीक की\nकोड ऑप्टिमाइज़ेशन - ऐप तेज़ी से खुलता है\nऐप बैकग्राउंड में रहेगा</string>
-    <string name="changelog_v3_3_0">\nOTG में बुकमार्क, हिस्ट्री और कमांड सुझाव जोड़े\nअधिकतम बुकमार्क सीमा जोड़ी\nअधिकतम बुकमार्क सीमा ओवरराइड करने का विकल्प\nकई बग फिक्स\nकुछ UI हैंडलिंग में सुधार\nकोड ऑप्टिमाइज़ेशन</string>
-    <string name="changelog_v3_2_0">\nUI से संबंधित कई सुधार किए गए हैं।\nवर्तमान ADB वर्किंग मोड को दर्शाने वाले चिप्स जोड़े गए हैं।\nकाफी कोड ऑप्टिमाइजेशन किया गया है।</string>
-    <string name="changelog_v3_1_0">\nप्रारंभिक रिलीज़ के बाद ADB OTG में सुधार।\nनए OTG फ़ीचर को समायोजित करने के लिए कुछ UI और लॉजिक समायोजन।</string>
+    <string name="changelog_v3_5_1">\nबॉटम नेविगेशन से जुड़ी कुछ समस्याओं को ठीक किया गया।</string>
+    <string name="changelog_v3_5_0">\nऐप के About अनुभाग को नया रूप दिया गया।\nलॉन्चर शॉर्टकट जोड़े गए।\nबटन नेविगेशन में नेविगेशन मेनू के न दिखने की समस्या को ठीक किया गया।\nस्क्रॉल करने पर बॉटम नेविगेशन मेनू की दृश्यता में सुधार किया गया।\n\naShell You के लिए प्रति-ऐप भाषा समर्थन जोड़ा गया (अनुवाद अभी पूरे नहीं हुए हैं)।\nढेर सारे कोड ऑप्टिमाइज़ेशन।</string>
+    <string name="changelog_v3_4_0">\nपेस्ट बटन जोड़ा गया ताकि आप कमांड को जल्दी से कॉपी और पेस्ट कर सकें।\nटेक्स्ट इनपुट फ़ील्ड में त्रुटि संकेतक (Error indicators) जोड़े गए।\nनेविगेशन बार दृश्यता लॉजिक में सुधार किया गया।\nएक समस्या को ठीक किया गया जहाँ कुछ निश्चित स्थितियों में स्विच गलत तरीके से काम करते थे।\nविभिन्न कंट्रास्ट स्तरों में बुकमार्क आइकन जोड़ने की दृश्यता को ठीक किया गया।\nढेर सारा कोड ऑप्टिमाइज़ेशन। ऐप अब पहले की तुलना में बहुत तेजी से खुलता है।\nऐप बैकग्राउंड में रहेगा और हर बार जब आप बैक बटन या जेस्चर दबाकर ऐप बंद करेंगे तो यह रीस्टार्ट नहीं होगा।</string>
+    <string name="changelog_v3_3_0">\nOTG में बुकमार्क, हिस्ट्री और कमांड सुझाव जोड़े गए।\nअधिकतम बुकमार्क सीमा जोड़ी गई।\nअधिकतम बुकमार्क सीमा को ओवरराइड करने का विकल्प जोड़ा गया।\nढेर सारे बग फिक्स।\nकुछ UI हैंडलिंग में सुधार किया गया।\nढेर सारा कोड ऑप्टिमाइज़ेशन।</string>
+    <string name="changelog_v3_2_0">\nUI से संबंधित कई सुधार।\nवर्तमान ADB वर्किंग मोड को दर्शाने वाले चिप्स जोड़े गए।\nकोड का काफ़ी अनुकूलन।</string>
+    <string name="changelog_v3_1_0">प्रारंभिक रिलीज के बाद ADB OTG में सुधार।\nनई OTG सुविधा को समायोजित करने के लिए कुछ UI और लॉजिक समायोजन।</string>
     <string name="changelog_v3_0_0">\nOTG के माध्यम से ADB सपोर्ट जोड़ा\n\n*** आप OTG केबल से जोड़कर अन्य डिवाइस पर ADB कमांड चला सकते हैं ***</string>
-    <string name="changelog_v2_0_2">\nअनावश्यक कोड और रिसोर्स हटाए\nमामूली UI बदलाव</string>
-    <string name="changelog_v2_0_1">\nअनावश्यक कोड और रिसोर्स हटाए\nमामूली UI बदलाव</string>
-    <string name="changelog_v2_0_0">\nऐप का नाम aShell You किया\nसपोर्टिंग डिवाइस के लिए प्रेडिक्टिव बैक एनिमेशन जोड़ा\nस्क्रीन क्लियर करने से पहले कन्फर्मेशन डायलॉग जोड़ा\nलाइट मोड में स्टेटसबार एलीमेंट्स ठीक किए\nऐप अधिक स्मूथ है\nऐप साइज कम किया और कोड ऑप्टिमाइज़ किया\nथीम्ड आइकन जोड़ा\nमामूली UI बदलाव</string>
-    <string name="changelog_v1_3_0">\nसेटिंग्स पैनल नया बनाया\nशेल आउटपुट व्यू में डबल टैप से टॉप और बॉटम पोज़िशन पर स्क्रॉल\nमामूली UI फिक्स</string>
-    <string name="changelog_v1_2_0">\nसेटिंग्स पैनल जोड़ा\nशेल आउटपुट में स्मूथ स्क्रॉल अक्षम करने का विकल्प\nमुख्य बग ठीक किए:\n~ थीम बदलते समय क्रैश\n~ बड़ा शेल आउटपुट सेव करते समय क्रैश</string>
-    <string name="changelog_v1_1_1">\nकुछ डेप्रिकेटेड API बदले\nमामूली UI बदलाव</string>
-    <string name="changelog_v1_1_0">\nस्क्रॉल टू टॉप और बॉटम बटन जोड़े\nकीबोर्ड Enter से कमांड भेजें\nकुछ कमांड जोड़े\nडिपेंडेंसी अपडेट कीं\nमामूली UI बदलाव</string>
-    <string name="changelog_v1_0_0">\nऔर कमांड उदाहरण जोड़े\nमामूली UI बदलाव\nपैकेज नाम बदला</string>
-    <string name="changelog_v0_9_1">\nऐप में चेंजलॉग जोड़ा\nहाइलाइटेड शेल आउटपुट जोड़ा\nमामूली UI बदलाव</string>
-    <string name="changelog_v0_9_0">\nडायनामिक मटीरियल थीमिंग जोड़ी\nताज़ा लुक के लिए पूरा UI नया बनाया</string>
+    <string name="changelog_v2_0_2">\nअनावश्यक कोड और संसाधन हटाए गए।\nमामूली UI बदलाव।</string>
+    <string name="changelog_v2_0_1">\nअनावश्यक कोड और संसाधन हटाए गए।\nमामूली UI बदलाव।</string>
+    <string name="changelog_v2_0_0">\nऐप का नाम बदलकर aShell You किया गया।\nसमर्थित उपकरणों के लिए प्रेडिक्टिव बैक एनिमेशन जोड़े गए।\nस्क्रीन साफ़ करने से पहले कन्फर्मेशन डायलॉग पॉपअप जोड़ा गया।\nलाइट मोड में StatusBar तत्वों के ठीक से न दिखने की समस्या को ठीक किया गया।\nऐप अब बहुत अधिक स्मूथ है।\n~ ऐप का आकार घटाया गया और कोड को अनुकूलित किया गया।\nथीम्ड आइकन का समर्थन करने वाले लॉन्चरों के लिए थीम्ड आइकन जोड़ा गया।\nमामूली UI बदलाव।</string>
+    <string name="changelog_v1_3_0">\nसेटिंग्स पैनल को नया रूप दिया गया।\nशेल आउटपुट व्यू में शीर्ष और नीचे की स्थितियों पर तुरंत स्क्रॉल करने के लिए डबल टैप जोड़ा गया।\nमामूली UI फिक्स।</string>
+    <string name="changelog_v1_2_0">\nसेटिंग्स पैनल जोड़ा गया।\nशेल आउटपुट में स्मूथ स्क्रॉल को अक्षम करने का विकल्प जोड़ा गया।\nप्रमुख बग ठीक किए गए:\n\n~ डिवाइस थीम बदलते समय क्रैश।\n\n~ बड़ा शेल आउटपुट सहेजने का प्रयास करते समय क्रैश। उदा: \'pm\' कमांड का आउटपुट।</string>
+    <string name="changelog_v1_1_1">\nकुछ अप्रचलित (deprecated) API को बदला गया।\nमामूली UI बदलाव।</string>
+    <string name="changelog_v1_1_0">\nस्कroll to Top और Scroll to Bottom बटन जोड़े गए।\nकमांड भेजने के लिए कीबोर्ड की Enter कुंजी दबाने का विकल्प जोड़ा गया।\nकुछ कमांड जोड़े गए।\nनवीनतम material you लाइब्रेरी को शामिल करने के लिए डिपेंडेंसी अपडेट की गईं।\nमामूली UI बदलाव।</string>
+    <string name="changelog_v1_0_0">\nकुछ और कमांड उदाहरण जोड़े गए।\nमामूली UI बदलाव।\nमूल ऐप के साथ संस्करण भ्रम से बचने के लिए पैकेज का नाम बदला गया।</string>
+    <string name="changelog_v0_9_1">\nऐप में चेंजलॉग जोड़े गए।\nहाइलाइट किया गया शेल आउटपुट जोड़ा गया।\nमामूली UI बदलाव।</string>
+    <string name="changelog_v0_9_0">\nडायनेमिक मटीरियल थीमिंग जोड़ी गई।\nएक ताज़ा लुक देने के लिए पूरे UI को नया रूप दिया गया।</string>
 </resources>

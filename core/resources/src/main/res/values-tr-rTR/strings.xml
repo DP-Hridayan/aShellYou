@@ -10,7 +10,7 @@
     <string name="adb_command" comment="Input field label for typing an ADB shell command">ADB Komutu</string>
     <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">ADB komutu (KAPALI Durum)</string>
     <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">ADB komutu (AÇIK durum)</string>
-    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB connected — ensure device is in sideload mode</string>
+    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB bağlandı — cihazın sideload modunda olduğundan emin olun</string>
     <string name="adb_connection_active" comment="Foreground notification title when an ADB connection (Wireless/OTG) is currently active">ADB Bağlantısı Etkin</string>
     <string name="adb_connection_channel_description" comment="Android notification channel description in System Settings for ADB connection status">ADB bağlantısı etkin olduğunda gösterilir</string>
     <string name="adb_connection_channel_name" comment="Android notification channel name in System Settings for active ADB connections">ADB Bağlantısı</string>
@@ -96,14 +96,14 @@
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">Pil</string>
     <string name="battery_saver" comment="Device system battery saver mode label">Pil tasarrufu</string>
     <string name="behavior" comment="Settings category title for application behavior preferences">Davranış</string>
-    <string name="block" comment="Action button to block execution or permissions">Block</string>
+    <string name="block" comment="Action button to block execution or permissions">Engelle</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">Maksimum yer imi sınırına ulaşıldı! Yenilerini eklemek için bazı yer imlerini silin</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">Yer İmleri</string>
     <string name="boot_device_into_fastboot" comment="Instructional prompt in Fastboot screen instructing user to boot target device into fastboot mode">Hedef cihazı fastboot moduna alın ve OTG kablosuyla bağlayın</string>
     <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">Boot İmajı</string>
     <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">Fastboot moduna geçin</string>
     <string name="bootloader" comment="Device info label or fastboot section title for bootloader mode">Bootloader</string>
-    <string name="bootloader_version" comment="Device info field label displaying bootloader version string">Önyükleyici (Bootloader)</string>
+    <string name="bootloader_version" comment="Device info field label displaying bootloader version string">Önyükleyici</string>
     <string name="btn_continue" comment="Action button label to proceed to next step in setup wizard">Devam et</string>
     <string name="cache_settings" comment="Settings section header for AI analysis response caching options">Önbellek</string>
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Önbellek Boyutu: %s</string>
@@ -131,22 +131,22 @@
     <string name="cloud_models" comment="Settings screen title for managing cloud-based LLM provider API keys">Bulut modelleri</string>
     <string name="cloud_restore_failed" comment="Error toast when downloading/restoring backup from Google Drive fails">Google Drive\'dan geri yükleme başarısız oldu</string>
     <string name="cloud_restore_successful" comment="Toast message confirming successful backup restoration from Google Drive">Google Drive\'dan geri yüklendi</string>
-    <string name="cmd_get_battery_desc" comment="Description for predefined fastboot command: fastboot getvar battery-voltage">Query the current battery charge level</string>
-    <string name="cmd_get_battery_title" comment="Predefined fastboot command title: check battery level in fastboot">Battery Level</string>
-    <string name="cmd_get_current_slot_desc" comment="Description for predefined fastboot command: fastboot getvar current-slot">Which A/B slot is currently active</string>
-    <string name="cmd_get_current_slot_title" comment="Predefined fastboot command title: check active A/B slot">Current Slot</string>
-    <string name="cmd_get_product_desc" comment="Description for predefined fastboot command: fastboot getvar product">Retrieve the device product name identifier</string>
-    <string name="cmd_get_product_title" comment="Predefined fastboot command title: check product name">Product Name</string>
-    <string name="cmd_get_slot_count_desc" comment="Description for predefined fastboot command: fastboot getvar slot-count">Number of A/B slots on this device</string>
-    <string name="cmd_get_slot_count_title" comment="Predefined fastboot command title: check A/B slot count">Slot Count</string>
-    <string name="cmd_get_unlocked_desc" comment="Description for predefined fastboot command: fastboot getvar unlocked">Check if the bootloader is currently unlocked</string>
-    <string name="cmd_get_unlocked_title" comment="Predefined fastboot command title: check bootloader unlock status">Bootloader Unlock Status</string>
-    <string name="cmd_getvar_all_desc" comment="Description for predefined fastboot command: fastboot getvar all">List all device variables and their current values</string>
-    <string name="cmd_getvar_all_title" comment="Predefined fastboot command title: get all device variables">Get All Variables</string>
-    <string name="cmd_oem_device_info_desc" comment="Description for predefined fastboot command: fastboot oem device-info">Retrieve OEM-specific device information</string>
-    <string name="cmd_oem_device_info_title" comment="Predefined fastboot command title: query OEM device info">OEM Device Info</string>
-    <string name="cmd_unlock_ability_desc" comment="Description for predefined fastboot command: fastboot flashing get_unlock_ability">Check if this device can be bootloader unlocked</string>
-    <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">Unlock Ability</string>
+    <string name="cmd_get_battery_desc" comment="Description for predefined fastboot command: fastboot getvar battery-voltage">Mevcut pil şarj seviyesini sorgula</string>
+    <string name="cmd_get_battery_title" comment="Predefined fastboot command title: check battery level in fastboot">Pil Seviyesi</string>
+    <string name="cmd_get_current_slot_desc" comment="Description for predefined fastboot command: fastboot getvar current-slot">Şu anda hangi A/B yuvası aktif</string>
+    <string name="cmd_get_current_slot_title" comment="Predefined fastboot command title: check active A/B slot">Mevcut Yuva</string>
+    <string name="cmd_get_product_desc" comment="Description for predefined fastboot command: fastboot getvar product">Cihaz ürün adı tanımlayıcısını al</string>
+    <string name="cmd_get_product_title" comment="Predefined fastboot command title: check product name">Ürün Adı</string>
+    <string name="cmd_get_slot_count_desc" comment="Description for predefined fastboot command: fastboot getvar slot-count">Bu cihazdaki A/B yuva sayısı</string>
+    <string name="cmd_get_slot_count_title" comment="Predefined fastboot command title: check A/B slot count">Yuva Sayısı</string>
+    <string name="cmd_get_unlocked_desc" comment="Description for predefined fastboot command: fastboot getvar unlocked">Ön yükleyicinin kilitli olup olmadığını kontrol et</string>
+    <string name="cmd_get_unlocked_title" comment="Predefined fastboot command title: check bootloader unlock status">Ön Yükleyici Kilit Durumu</string>
+    <string name="cmd_getvar_all_desc" comment="Description for predefined fastboot command: fastboot getvar all">Tüm cihaz değişkenlerini ve mevcut değerlerini listele</string>
+    <string name="cmd_getvar_all_title" comment="Predefined fastboot command title: get all device variables">Tüm Değişkenleri Al</string>
+    <string name="cmd_oem_device_info_desc" comment="Description for predefined fastboot command: fastboot oem device-info">OEM\'e özel cihaz bilgilerini al</string>
+    <string name="cmd_oem_device_info_title" comment="Predefined fastboot command title: query OEM device info">OEM Cihaz Bilgisi</string>
+    <string name="cmd_unlock_ability_desc" comment="Description for predefined fastboot command: fastboot flashing get_unlock_ability">Bu cihazın ön yükleyicisinin kilidinin açılıp açılamayacağını kontrol et</string>
+    <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">Kilit Açma Yeteneği</string>
     <string name="code_pair_instruction" comment="Instructional text in Wireless Debugging pairing dialog directing user to open Wireless Debugging menu on target device">Hedef cihazda \"Kablosuz hata ayıklama\"yı açın ve \"Cihazı eşleştirme koduyla eşleştir\" seçeneğine dokunun</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">Daralt</string>
     <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">Hata oluştu</string>
@@ -196,9 +196,9 @@
     <string name="color_role_tertiary_container" comment="Material 3 color role name for container surface of tertiary elements">Üçüncül Konteyner</string>
     <string name="command" comment="Label/header for an ADB command snippet">Komut</string>
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">Komut analizi</string>
-    <string name="command_console" comment="Screen title for Fastboot interactive command console">Command Console</string>
-    <string name="command_logs" comment="Tab header for history log of executed fastboot commands">Command Logs</string>
-    <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">History of all executed fastboot commands.</string>
+    <string name="command_console" comment="Screen title for Fastboot interactive command console">Komut Konsolu</string>
+    <string name="command_logs" comment="Tab header for history log of executed fastboot commands">Komut Günlükleri</string>
+    <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">Çalıştırılan tüm fastboot komutlarının geçmişi.</string>
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Komut bulunamadı!</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">ADB Komutunu Girin</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">Komutlar</string>
@@ -309,19 +309,19 @@
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">Kaydedilen yedek dosyasından uygulama verilerini geri yükle.\nKaydedilen veritabanı mevcut veritabanının üzerine yazılacaktır</string>
     <string name="des_save_whole_output" comment="Description under Save whole output setting toggle">Tüm shell oturumunun çıktısını kaydetmek için bu seçeneği etkinleştirin.\nDevre dışı bırakılırsa, yalnızca son komut çıktısı kaydedilir.</string>
     <string name="des_screen_density" comment="Description under Screen density multiplier setting item">Kullanıcı arayüzü öğelerinin daha büyük veya daha küçük görünmesini sağlamak için ekran yoğunluğunu ayarlayın</string>
-    <string name="des_select_file_for_flashing" comment="Instructional description prompt for picking boot image file to flash">Seçilen bölüme yüklemek için bir önyükleme (boot) imaj dosyası seçin.</string>
+    <string name="des_select_file_for_flashing" comment="Instructional description prompt for picking boot image file to flash">Seçilen bölüme yüklemek için bir önyükleme imaj dosyası seçin</string>
     <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">İsteğe bağlı olarak bulut yedeklemeleri için Google hesabınızı bağlayabilirsiniz</string>
     <string name="des_smooth_scroll" comment="Description under Smooth scrolling setting toggle">Üst veya alt oka tıklandığında shell çıktısında yumuşak kaydırmayı etkinleştirir</string>
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">English</string>
-    <string name="des_translators" comment="Subtitle description under Translators list in About section">aShellYou\'yu çevirmeye yardımcı olan kişiler</string>
+    <string name="des_translators" comment="Subtitle description under Translators list in About section">AShellYou\'yu çevirmeye yardımcı olan kişiler</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">Kullanıcı arayüzü öğelerinin ölçeğini ve yazı tipi boyutunu ayarlayın</string>
-    <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">Yanlış bir imaj bootloop\'a (yeniden başlama döngüsüne) neden olabileceğinden dikkatli ilerleyin</string>
+    <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">Yanlış bir imaj bootloop\'a neden olabileceğinden dikkatli ilerleyin</string>
     <string name="description">Açıklama</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">Tüm seçimleri kaldır</string>
     <string name="developer" comment="Section title in About screen for lead developer info">Geliştirici</string>
     <string name="developer_options" comment="System Developer Options setting item or prompt">Geliştirici seçenekleri</string>
     <string name="developer_options_not_available" comment="Toast error message when Developer options shortcut cannot be opened">Geliştirici seçenekleri mevcut değil!</string>
-    <string name="device_backup_local" comment="Label for local device storage backup file">i</string>
+    <string name="device_backup_local" comment="Label for local device storage backup file">Cihaz yedeği (Yerel)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">Cihaz bağlandı!</string>
     <string name="device_disconnected" comment="Notification title when ADB connection drops">Cihaz Bağlantısı Kesildi</string>
     <string name="device_disconnected_message" comment="Notification body message when wireless ADB connection is lost">WiFi ADB bağlantısı kesildi.</string>
@@ -445,7 +445,7 @@
     <string name="font_comfortaa" comment="Font style name">Comfortaa</string>
     <string name="font_crimson_pro" comment="Font style name">Crimson Pro</string>
     <string name="font_dancing_script" comment="Font style name">Dancing Script</string>
-    <string name="font_display_text" comment="Sample text used to preview font styles">Pijamalı hasta yağız şoföre çabucak güvendi.</string>
+    <string name="font_display_text" comment="Sample text used to preview font styles">Pijamalı hasta yağız şoföre çabucak güvendi</string>
     <string name="font_eb_garamond" comment="Font style name">EB Garamond</string>
     <string name="font_exo_2" comment="Font style name">Exo 2</string>
     <string name="font_family" comment="Settings preference title for selecting application font family">Yazı tipi ailesi</string>
@@ -483,10 +483,10 @@
     <string name="found_connect_service" comment="Status message when mDNS ADB connection service is discovered">Bağlantı servisi bulundu</string>
     <string name="frequency" comment="Setting label for automated backup interval frequency">Sıklık</string>
     <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">Tam lisans metni</string>
-    <string name="gemini_api_key_step_1" comment="%1$s = URL">Visit Google AI Studio at %1$s</string>
+    <string name="gemini_api_key_step_1" comment="%1$s = URL">Google AI Studio\'yu %1$s adresinden ziyaret edin</string>
     <string name="gemini_api_key_step_2" comment="Step 2 of API key setup guide: signing in with Google Account">Google Hesabınızla oturum açın</string>
     <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">API anahtarı oluştur seçeneğine tıklayın ve bir proje seçin veya oluşturun</string>
-    <string name="gemini_api_key_step_4" comment="Step 4 of API key setup guide: copying API key string">Copy your API key and paste it here</string>
+    <string name="gemini_api_key_step_4" comment="Step 4 of API key setup guide: copying API key string">API anahtarınızı kopyalayıp aşağıya yapıştırın</string>
     <string name="generate_color_scheme" comment="Action button in theme builder to generate Material 3 color palette">Renk şemasını oluştur</string>
     <string name="generate_scheme" comment="Compact button label to generate theme color scheme">Renk şemasını oluştur</string>
     <string name="generate_theme" comment="Dialog header or button for AI/wallpaper theme generation">Tema Oluştur</string>
@@ -510,7 +510,7 @@
     <string name="hint" comment="Card header or field label for helpful hints">İpucu</string>
     <string name="history" comment="Screen title and tab label for executed terminal command history">Geçmiş</string>
     <string name="home">Ana Sayfa</string>
-    <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">How to enter sideload mode</string>
+    <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">Sideload moduna nasıl girilir</string>
     <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">Seçilen simge</string>
     <string name="import_theme" comment="Action button to import theme configuration file">Tema İçe Aktar</string>
     <string name="include" comment="Filter toggle option to include selected items">Dahil Et</string>
@@ -608,7 +608,7 @@
     <string name="no_bookmarks" comment="Placeholder text in bookmarks tab when no commands are saved">Yer imi bulunamadı</string>
     <string name="no_changelog_found" comment="Placeholder message in changelog screen when no version notes exist">Bu sürüm için değişiklik günlüğü bulunamadı</string>
     <string name="no_cloud_backup_found" comment="Status banner when no backup file is found on Google Drive">Google Drive\'da yedekleme bulunamadı</string>
-    <string name="no_commands_run_yet" comment="Placeholder message when no fastboot commands have been run in session">No commands run yet</string>
+    <string name="no_commands_run_yet" comment="Placeholder message when no fastboot commands have been run in session">Henüz komut çalıştırılmadı</string>
     <string name="no_crashes" comment="Placeholder text in crash history screen when no app crashes have occurred">Hiçbir çökme rapor edilmedi. aShell You sorunsuz çalışıyor.</string>
     <string name="no_custom_themes_yet" comment="Placeholder text in theme manager screen when no custom themes exist">Henüz özel tema yok. Aşağıdan bir tane oluşturun!</string>
     <string name="no_device_connected" comment="Status banner shown when no wireless or OTG ADB device is connected">Bağlı cihaz yok</string>
@@ -619,8 +619,8 @@
     <string name="no_google_account_title" comment="Dialog title when no Google account is detected">Google Hesabı Yok</string>
     <string name="no_history" comment="Placeholder text in terminal history tab when execution log is empty">Komut geçmişi yok</string>
     <string name="no_libraries_found" comment="Placeholder text in licenses screen when search query returns no matching third-party libraries">Hiçbir kütüphane bulunamadı</string>
-    <string name="no_logs_yet" comment="Placeholder text in Quick Settings tile execution logs tab">Henüz günlük yok! </string>
-    <string name="no_logs_yet_msg" comment="Instructional prompt under empty tile logs screen">Henüz hiçbir kayıt oluşturulmadı. Kayıtları burada görüntülemek için bazı komutları çalıştırın. </string>
+    <string name="no_logs_yet" comment="Placeholder text in Quick Settings tile execution logs tab">Henüz günlük yok!</string>
+    <string name="no_logs_yet_msg" comment="Instructional prompt under empty tile logs screen">Henüz hiçbir kayıt oluşturulmadı. Kayıtları burada görüntülemek için bazı komutları çalıştırın.</string>
     <string name="no_model_selected" comment="Status text when no AI LLM model is selected in settings">Model seçilmedi</string>
     <string name="no_operations" comment="Placeholder text in file manager operations queue sheet">Devam eden işlem yok</string>
     <string name="no_other_device_hint" comment="Instructional subtext in logcat viewer when viewing remote device logs">Harici bir cihaz bağlayarak günlük kayıtlarını görüntüleyebilirsiniz</string>
@@ -639,7 +639,7 @@
     <string name="notification_styles" comment="Settings preference title for notification shade style options">Bildirim Stilleri</string>
     <string name="off">Kapalı</string>
     <string name="off_state" comment="Quick Settings tile toggle state label">Kapalı</string>
-    <string name="ok">TAMAM</string>
+    <string name="ok">Tamam</string>
     <string name="oldest" comment="Sorting option">En eski</string>
     <string name="on">Açık</string>
     <string name="on_background">Arka planda</string>
@@ -660,13 +660,13 @@
     <string name="other_details" comment="Expandable card title for additional device metadata details">Diğer Detaylar</string>
     <string name="other_device" comment="Selection tab for target device in Logcat Viewer">Diğer cihaz</string>
     <string name="output" comment="Header title for shell command output window">Çıktı</string>
-    <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">Output will appear here…</string>
+    <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">Çıktı burada görünecek…</string>
     <string name="override_bookmarks_limit" comment="Setting toggle title to remove the maximum limit on saved bookmarks count">Maksimum yer imi sınırını geçersiz kıl</string>
     <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">Paket adı</string>
     <string name="pair" comment="Button/action label to initiate ADB wireless or OTG pairing with another device">Eşleştir</string>
     <string name="pair_a_device_first" comment="Instructional notice directing user to pair an ADB device before attempting connection">Önce bir cihazı eşleştirin</string>
     <string name="pair_another_device" comment="Button label in Wireless Debugging setup to pair an additional target device">Başka bir cihaz eşleştir</string>
-    <string name="pair_connect_failed_message" comment="Dialog message when connecting to a paired wireless ADB device fails">Could not connect to the paired device\nThe device may not be on the same network\nTry pairing again</string>
+    <string name="pair_connect_failed_message" comment="Dialog message when connecting to a paired wireless ADB device fails">Eşleştirilen cihaza bağlanılamadı\nCihaz aynı ağda olmayabilir\nYeniden eşleştirmeyi deneyin</string>
     <string name="pair_device_to_start" comment="Placeholder banner in wireless debugging screen directing user to pair device via QR or pairing code">Burada görebilmek için QR veya eşleştirme kodu kullanarak bir cihaz eşleştirin</string>
     <string name="pair_manually" comment="Option in Wireless Debugging setup to enter IP, Port, and Pairing Code manually">Manuel eşleştir</string>
     <string name="pair_this_device" comment="Button label in wireless debugging screen to initiate self-pairing for local device ADB">Bu cihazı eşleştir</string>
@@ -700,14 +700,14 @@
     <string name="pre_release_github" comment="Option in update channel settings to receive GitHub pre-release builds">Ön sürüm (GitHub)</string>
     <string name="pre_release_warning" comment="Warning alert header when switching to pre-release update channel">Yayın öncesi sürümler kararsız olabilir</string>
     <string name="pre_release_warning_description" comment="Detailed description of risks when opting into pre-release testing builds">Bu sürümler hala test aşamasındadır ve tamamlanmamış özellikler veya beklenmeyen hatalar içerebilir. Yayın öncesi sürüme güncellemeyi seçerseniz, lütfen bazı şeylerin kırılabileceği veya tuhaf davranabileceği ihtimalinin farkında olun.\nHerhangi bir sorun, çökme veya garip bir davranışla karşılaşırsanız, lütfen bunları bildirin ki kararlı sürümden önce düzeltebilelim ve aShellYou\'yu geliştirebilelim.\nDaha iyisini inşa etmemize yardımcı olduğunuz için teşekkürler!</string>
-    <string name="predefined_commands" comment="Section header for pre-saved fastboot command actions">Predefined Commands</string>
-    <string name="predefined_commands_desc" comment="Description under predefined fastboot commands header">Quick access to common fastboot commands. Results stream to the console below.</string>
+    <string name="predefined_commands" comment="Section header for pre-saved fastboot command actions">Ön Tanımlı Komutlar</string>
+    <string name="predefined_commands_desc" comment="Description under predefined fastboot commands header">Yaygın fastboot komutlarına hızlı erişim. Sonuçlar aşağıdaki konsola aktarılır.</string>
     <string name="preference" comment="Header title for settings preference category">Tercih</string>
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">Önizleme</string>
     <string name="primary">Birincil</string>
     <string name="primary_container">Birincil Konteyner</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">Ürün</string>
-    <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">Put device into sideload mode via its recovery menu</string>
+    <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">Kurtarma menüsü aracılığıyla cihazı sideload moduna alın</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">QR ile Eşleştir</string>
     <string name="qr_pair_hint" comment="Instructional text in QR pairing screen instructing user to scan QR code from target device">Bir Android 11+ cihazı eşleştirmek için, bu QR kodunu hedef cihazdan tarayın</string>
     <string name="qr_scanner_location_hint" comment="Instructional hint directing user where to find system QR scanner in target device Developer Options">QR tarayıcı konumu:\nGeliştirici Seçenekleri &gt; Kablosuz Hata Ayıklama &gt; QR kodu ile eşleştir</string>
@@ -757,10 +757,10 @@
     <string name="root_access_granted" comment="Toast notification confirming superuser root access granted to aShellYou">Root erişimi verildi!</string>
     <string name="root_unavailable" comment="Dialog title when root access check returns false">Root Erişimi Yok</string>
     <string name="root_unavailable_message" comment="Dialog message explaining root access was not detected on device">Root erişimi algılanamadı. Cihazınızın rootlu olduğundan emin olun ve tekrar deneyin veya farklı bir logcat kaynağı kullanın.</string>
-    <string name="run">Run</string>
-    <string name="run_a_command_to_see_logs" comment="Instructional prompt under empty fastboot logs view">Use the Commands tab to execute fastboot commands</string>
-    <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">Execute \"%1$s\" on the connected device?</string>
-    <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">Run Command?</string>
+    <string name="run">Çalıştır</string>
+    <string name="run_a_command_to_see_logs" comment="Instructional prompt under empty fastboot logs view">Fastboot komutlarını çalıştırmak için Komutlar sekmesini kullanın</string>
+    <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">Bağlı cihazda \"%1$s\" çalıştırılsın mı?</string>
+    <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">Komut Çalıştırılsın mı?</string>
     <string name="running" comment="Status badge showing task or command execution is active">Çalışıyor</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Kaydet</string>
@@ -796,7 +796,7 @@
     <string name="select_partition" comment="Dropdown hint or dialog header for picking target fastboot partition">Bölüm seçin</string>
     <string name="select_theme_to_edit_hex" comment="Instructional prompt under hex editor section in theme builder">Yukarıdan bir tema seçerek ham onaltılık değerlerini buradan düzenleyebilirsiniz.</string>
     <string name="select_time" comment="Button label to open time picker dialog for automated backup schedule">Zaman seç</string>
-    <string name="select_zip_package" comment="Button label to launch file picker for selecting a ZIP update package to sideload">Select ZIP Package</string>
+    <string name="select_zip_package" comment="Button label to launch file picker for selecting a ZIP update package to sideload">ZIP Paketi Seç</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">Kendi Cihazı</string>
     <string name="self_pair_connection_failed" comment="Toast error message when automatic local self-pairing fails">Bağlantı başarısız - manuel bağlanmayı deneyin</string>
     <string name="self_pair_enter_code" comment="Subtext instruction prompting user for 6-digit wireless pairing code">Eşleştirme iletişim kutusundan 6 haneli kodu girin</string>
@@ -814,7 +814,7 @@
     <string name="self_pair_success_hint" comment="Subtext banner confirming local ADB terminal session is ready">Yerel ADB shell artık kullanılabilir</string>
     <string name="self_pair_timeout" comment="Toast error message when self-pairing service lookup times out">Zaman aşımı - Kablosuz Hata Ayıklama\'da eşleştirme iletişim kutusunu açın</string>
     <string name="self_pair_wrong_code" comment="Toast error message when entered 6-digit wireless pairing code is incorrect">Yanlış kod - eşleştirme iletişim kutusunu tekrar açın</string>
-    <string name="send">Send</string>
+    <string name="send">Gönder</string>
     <string name="serial_number" comment="Device property label displaying target device hardware serial number">Seri Numarası</string>
     <string name="serif" comment="Font style category name">Serif</string>
     <string name="settings">Ayarlar</string>
@@ -825,13 +825,13 @@
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">Shizuku yüklü değil</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku kullanılamıyor</string>
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku is not running or missing permissions">Shizuku yüklü değil veya cihazınızda düzgün yapılandırılmamış</string>
-    <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">Put device into sideload mode via recovery</string>
-    <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Sideload mode — ready</string>
-    <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">Boot into recovery (hold Volume Down + Power, or run: adb reboot recovery)</string>
-    <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">Navigate to \"Apply update\" in the recovery menu</string>
-    <string name="sideload_step_3" comment="Step 3 of ADB sideload guide: selecting ADB sideload mode in recovery">Select \"Apply from ADB\" (or \"ADB Sideload\")</string>
-    <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">Connect your device via OTG cable, then select a ZIP here</string>
-    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Sideloading…</string>
+    <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">Kurtarma menüsü üzerinden cihazı sideload moduna alın</string>
+    <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Sideload modu — hazır</string>
+    <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">Kurtarma moduna önyükleme yapın (Ses Kısma + Güç tuşlarını basılı tutun veya şunu çalıştırın: adb reboot recovery)</string>
+    <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">Kurtarma menüsünde \"Apply update\" seçeneğine gidin</string>
+    <string name="sideload_step_3" comment="Step 3 of ADB sideload guide: selecting ADB sideload mode in recovery">\"Apply from ADB\" (veya \"ADB Sideload\") seçeneğini seçin</string>
+    <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">Cihazınızı OTG kablosuyla bağlayın, ardından buradan bir ZIP seçin</string>
+    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Sideload yapılıyor…</string>
     <string name="sign_in_failed" comment="Toast error message when Google account sign-in fails">Google oturum açma işlemi başarısız oldu</string>
     <string name="sign_in_with_google" comment="Button label in cloud backup settings to sign into Google account">Google ile giriş yapın</string>
     <string name="sign_out" comment="Button label in cloud backup settings to sign out of Google account">Çıkış</string>
@@ -841,7 +841,7 @@
     <string name="size">Boyut</string>
     <string name="skip">Atla</string>
     <string name="slide_to_flash" comment="Slider text prompt in fastboot partition flash confirmation sheet">Flaşlamak için kaydırın</string>
-    <string name="slide_to_sideload" comment="Slider button prompt to initiate the ADB sideload transfer of chosen ZIP file over OTG">Slide to Sideload</string>
+    <string name="slide_to_sideload" comment="Slider button prompt to initiate the ADB sideload transfer of chosen ZIP file over OTG">Sideload için Kaydırın</string>
     <string name="slot_data_unknown" comment="Status text when device A/B slot information cannot be retrieved over fastboot">Slot verileri bilinmiyor</string>
     <string name="smooth_scrolling" comment="Settings toggle preference title to enable smooth scrolling animation in terminal">Yumuşak kaydırma</string>
     <string name="sort">Sırala</string>
@@ -868,7 +868,7 @@
     <string name="system_settings" comment="Button label linking to Android system Settings app">Sistem ayarları</string>
     <string name="tab" comment="Settings option for terminal tab indentation behavior">Sekme</string>
     <string name="tag" comment="Field label for custom command category tag/label">Etiket</string>
-    <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">Tap to browse for a .zip file</string>
+    <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">Bir .zip dosyasına göz atmak için dokunun</string>
     <string name="telegram" comment="Button in About screen linking to official Telegram community group">Telegram</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">Terminal</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Terminal yazı tipi stili</string>
@@ -943,13 +943,13 @@
     <string name="wipe_warning" comment="Warning notice in fastboot partition wipe screen emphasizing data loss risk">Bu işlemler geri döndürülemez. Dikkatli ilerleyin.</string>
     <string name="wireless_debugging_guide_1" comment="Step 1 of Wireless Debugging setup walkthrough">Geliştirici seçenekleri &gt; Kablosuz Hata Ayıklama bölümüne gidin. Cihazı Eşleştirme Kodu ile eşleştir seçeneğine dokunun.</string>
     <string name="wireless_debugging_guide_2" comment="Step 2 of Wireless Debugging setup walkthrough">Altı haneli Eşleştirme Kodunu aShell You tarafından gönderilen bildirime girin.</string>
-    <string name="wireless_debugging_guide_3" comment="Step 3 of Wireless Debugging setup walkthrough">Come back to the app and click on the &quot;Start&quot; button in the home screen.</string>
+    <string name="wireless_debugging_guide_3" comment="Step 3 of Wireless Debugging setup walkthrough">Uygulamaya geri dönün ve ana ekrandaki &quot;Başlat&quot; düğmesine tıklayın.</string>
     <string name="wireless_debugging_important_notice" comment="Important tip clarifying that tapping the left side of Wireless Debugging switch opens the pairing sub-menu">Lütfen Kablosuz Hata Ayıklama seçeneğinin sol kısmının tıklanabilir olduğuna dikkat edin. Üzerine dokunulduğunda Kablosuz Hata Ayıklama Eşleştirme menüsü açılır.</string>
     <string name="wireless_not_connected" comment="Status banner shown when target device is not connected over Wireless Debugging">Bağlı değil</string>
     <string name="wireless_not_connected_message" comment="Instructional body text advising user to pair and connect device first">Cihazınız Kablosuz Hata Ayıklama üzerinden bağlı değil. Öncelikle cihazınızı eşleştirin ve bağlayın.</string>
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d yeni giriş</item>
-        <item quantity="other">%1$d yeni girişler</item>
+        <item quantity="other">%1$d yeni giriş</item>
     </plurals>
     <string name="changelog_v7_4_0">\nArtık Ayarlar ekranlarında Alt Ayarlar\'ı arayabilirsiniz.\nRenk şemaları için Palet Stilleri eklendi.\nUygulama dilini doğrudan uygulama içinden ayarlama seçeneği eklendi</string>
     <string name="changelog_v7_3_0">\nDeğişiklik günlüğü ekranındaki kullanıcı arayüzü iyileştirildi.\nHakkında bölümüne çeviriye katkıda bulunanlar eklendi.\nUygulama ve uygulama tarafından kullanılan diğer kütüphaneler hakkında ayrıntılı lisans bilgilerini gösteren Lisanslar ekranı eklendi</string>
