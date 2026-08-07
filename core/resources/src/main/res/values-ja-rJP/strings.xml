@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="_import" comment="Action button to import theme or database file">インポート</string>
-    <string name="_new" comment="Badge or tab label for new items">新規作成</string>
+    <string name="_new" comment="Badge or tab label for new items">新規</string>
     <string name="abort_command" comment="Toast warning shown when trying to perform an action while an ADB shell command is currently running">実行中のコマンドを終了してください</string>
     <string name="about">このアプリについて</string>
     <string name="active" comment="Status indicator label for active ADB connection or active slot">アクティブ</string>
     <string name="active_slot" comment="Refers to the active A/B partition slot on a dual-slot Android device">アクティブスロット</string>
     <string name="adb_agent" comment="Name of the AI chat assistant persona in aShellYou">ADB エージェント</string>
-    <string name="adb_command" comment="Input field label for typing an ADB shell command">ADB コマンド</string>
-    <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">ADB コマンド (OFF 状態)</string>
-    <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">ADB コマンド (状態オン)</string>
-    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB が接続されています — デバイスがサイドロードモードになっていることを確認します</string>
+    <string name="adb_command" comment="Input field label for typing an ADB shell command">コマンドを追加</string>
+    <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">ADBコマンド (OFF状態)</string>
+    <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">ADBコマンド (ON状態)</string>
+    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB 接続完了 — デバイスがサイドロードモードになっていることを確認してください</string>
     <string name="adb_connection_active" comment="Foreground notification title when an ADB connection (Wireless/OTG) is currently active">ADB 接続が有効です</string>
     <string name="adb_connection_channel_description" comment="Android notification channel description in System Settings for ADB connection status">ADB 接続がアクティブな時に表示</string>
     <string name="adb_connection_channel_name" comment="Android notification channel name in System Settings for active ADB connections">ADB 接続</string>
     <string name="adb_connection_description" comment="Notification body text indicating an active background Wi-Fi ADB connection">WiFi ADB 接続は維持されています</string>
-    <string name="adb_sideload" comment="Feature title for pushing and installing ZIP update packages to device recovery via ADB sideload over USB OTG">ADB Sideload</string>
+    <string name="adb_sideload" comment="Feature title for pushing and installing ZIP update packages to device recovery via ADB sideload over USB OTG">ADB サイドロード</string>
     <string name="adb_through_otg" comment="Title for USB OTG ADB connection mode where this device controls a target device over OTG cable">OTGを介したADB</string>
     <string name="adb_through_otg_summary" comment="Summary description of ADB OTG feature in connection selection screen">OTGケーブルとUSBデバッグを使用して、別のAndroidデバイスでADBコマンドを実行します。 対象デバイスの開発者設定でUSBデバッグを有効にする必要があります。</string>
-    <string name="adb_via_otg" comment="Compact label for ADB connection via USB OTG cable">OTG 経由のADB</string>
+    <string name="adb_via_otg" comment="Compact label for ADB connection via USB OTG cable">OTG経由のADB</string>
     <string name="adb_via_wireless_debugging" comment="Feature title for wireless ADB connection on Android 11+ devices">ワイヤレスデバッグ経由のADB</string>
     <string name="adb_via_wireless_debugging_summary" comment="Summary description for wireless ADB feature in connection setup screen">ワイヤレスデバッグを使用してWi-Fi経由でデバイス(Android 11 以降)を接続し、ADBコマンドをリモートで実行します。</string>
     <string name="add">追加</string>
@@ -27,54 +27,54 @@
     <string name="add_command" comment="Button label to create and save a new command snippet to database">コマンドを追加</string>
     <string name="add_new_item" comment="Generic button label to add a new list entry">新しいアイテムを追加</string>
     <string name="additional_settings" comment="Category header in app settings">詳細設定</string>
-    <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">キャッシュの長さ</string>
+    <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">キャッシュ期間</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">キャッシュを有効にする</string>
-    <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">許可する</string>
-    <string name="ai_chat_allow_run_command" comment="Dialog header asking user permission for AI assistant to execute a specific ADB command">AIにコマンドの実行を許可:</string>
-    <string name="ai_chat_always_allow" comment="Button in AI chat dialog to grant permanent permission for AI agent to run proposed command">常に許可する</string>
+    <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">許可</string>
+    <string name="ai_chat_allow_run_command" comment="Dialog header asking user permission for AI assistant to execute a specific ADB command">AIによるコマンドの実行を許可する：</string>
+    <string name="ai_chat_always_allow" comment="Button in AI chat dialog to grant permanent permission for AI agent to run proposed command">常に許可</string>
     <string name="ai_chat_deny" comment="Button in AI chat dialog to reject proposed command execution">拒否</string>
     <string name="ai_chat_new_chat" comment="Action button to start a fresh conversation session with AI ADB agent">新しいチャット</string>
-    <string name="ai_chat_pin" comment="Action button to pin an AI chat conversation to top of list">ピン留めする</string>
+    <string name="ai_chat_pin" comment="Action button to pin an AI chat conversation to top of list">トップ</string>
     <string name="ai_chat_running" comment="Prefix label in AI chat card indicating an ADB command is currently executing">実行中: </string>
     <string name="ai_chat_sessions" comment="Header title for stored AI chat conversations list">チャットセッション</string>
-    <string name="ai_chat_thoughts" comment="Collapsible section title showing step-by-step reasoning/thinking of AI model">…</string>
-    <string name="ai_chat_unpin" comment="Action button to unpin a pinned AI chat session">Unpin</string>
-    <string name="ai_models" comment="Settings header for configuring AI models and API credentials">AI &amp; Models</string>
-    <string name="ai_new_chat_welcome_msg" comment="Initial welcome message from AI ADB Agent when starting a new chat session">こんにちは、何ができますか？</string>
-    <string name="ai_prompt_suggestion_1" comment="Clickable suggestion chip prompt in AI chat for checking battery health">バッテリーの状態を確認する</string>
-    <string name="ai_prompt_suggestion_2" comment="Clickable suggestion chip prompt in AI chat for listing installed package names">インストールされているすべてのパッケージの一覧</string>
-    <string name="ai_prompt_suggestion_3" comment="Clickable suggestion chip prompt in AI chat for creating Quick Settings tiles">クイック設定タイルを作成するのを手伝ってください</string>
-    <string name="ai_session_search_hint" comment="Placeholder text in AI chat session search bar">Search chat…</string>
-    <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">例: Cyberpunk neon city, darkmode, high-direction</string>
+    <string name="ai_chat_thoughts" comment="Collapsible section title showing step-by-step reasoning/thinking of AI model">思考プロセス…</string>
+    <string name="ai_chat_unpin" comment="Action button to unpin a pinned AI chat session">キャンセルトップ</string>
+    <string name="ai_models" comment="Settings header for configuring AI models and API credentials">AI &amp; モデル</string>
+    <string name="ai_new_chat_welcome_msg" comment="Initial welcome message from AI ADB Agent when starting a new chat session">こんにちは、何かお手伝いできますか？</string>
+    <string name="ai_prompt_suggestion_1" comment="Clickable suggestion chip prompt in AI chat for checking battery health">バッテリーの健康状態をチェックする</string>
+    <string name="ai_prompt_suggestion_2" comment="Clickable suggestion chip prompt in AI chat for listing installed package names">インストールされているすべてのパッケージを一覧表示する</string>
+    <string name="ai_prompt_suggestion_3" comment="Clickable suggestion chip prompt in AI chat for creating Quick Settings tiles">クイック設定タイルの作成を手伝って</string>
+    <string name="ai_session_search_hint" comment="Placeholder text in AI chat session search bar">チャットを検索…</string>
+    <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">例: サイバーパンクネオンシティ、ダークモード、ハイコントラスト</string>
     <string name="all">すべて</string>
     <string name="all_data" comment="Option in backup selector to include full app database, settings, and chat history">すべてのデータ</string>
     <string name="already_connected" comment="Status message in wireless ADB setup screen indicating device is already connected">すでに接続しています</string>
     <string name="already_latest_version" comment="In-app updater message when user is running the most recent version of aShellYou">バージョンは最新です</string>
-    <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">常にベースを許可する</string>
-    <string name="always_allow_exact" comment="Permission rule option in AI chat: automatically approve commands matching exact command string">常に正確さを許可する</string>
+    <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">ベースを常に許可</string>
+    <string name="always_allow_exact" comment="Permission rule option in AI chat: automatically approve commands matching exact command string">完全一致を常に許可</string>
     <string name="analyse" comment="Action button to request AI analysis of command execution output or error log">分析</string>
     <string name="api_key" comment="Label for AI provider API key text input field">API キー</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">API キーが保存されました</string>
-    <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">APIキーが必要です</string>
-    <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">AI機能を使用するにはAPIキーが必要です。設定 -&gt; クラウドモデルでAPIキーを追加してください。</string>
+    <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">API キーが必要です</string>
+    <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">AI機能を使用するにはAPIキーが必要です。「設定」&gt;「クラウドモデル」からAPIキーを追加してください。</string>
     <string name="app">アプリ</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">アプリがクラッシュしました</string>
     <string name="app_tagline" comment="App subtitle/tagline shown on welcome and about screens">指先でADBを</string>
     <string name="apply">適用</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">すべてに適用する (残り%1$d)</string>
-    <string name="artifact_id" comment="Technical label for AI artifact identifier in developer options">アーティファクトID</string>
+    <string name="artifact_id" comment="Technical label for AI artifact identifier in developer options">アーティファクト ID</string>
     <string name="auto" comment="Selection option for automatic theme/mode handling">自動</string>
     <string name="auto_backup" comment="Setting toggle title for scheduled automatic backups">自動バックアップ</string>
-    <string name="auto_backup_content_type" comment="Setting title for selecting items to include in automatic backups">コンテンツをバックアップ</string>
-    <string name="auto_backup_folder" comment="Setting title for selecting target local folder for automatic backups">バックアップフォルダ</string>
+    <string name="auto_backup_content_type" comment="Setting title for selecting items to include in automatic backups">バックアップ日</string>
+    <string name="auto_backup_folder" comment="Setting title for selecting target local folder for automatic backups">バックアップに失敗しました</string>
     <string name="auto_dark_mode" comment="Setting toggle title to enable dark mode automatically when battery saver is active">自動ダークモード</string>
-    <string name="auto_delete_existing_backups" comment="Setting toggle title to delete older backup files when a new backup is created">古いバックアップを自動的に削除</string>
-    <string name="auto_scale_ui" comment="Setting toggle title to automatically scale UI based on device screen width">自動スケールUI</string>
+    <string name="auto_delete_existing_backups" comment="Setting toggle title to delete older backup files when a new backup is created">古いバックアップを自動削除</string>
+    <string name="auto_scale_ui" comment="Setting toggle title to automatically scale UI based on device screen width">UIを自動スケール</string>
     <string name="auto_update" comment="Setting toggle title to automatically check for application updates on startup">自動アップデート</string>
     <string name="back">戻る</string>
     <string name="back_button" comment="Custom key bar button in terminal view simulating system back button press">戻る</string>
     <string name="background" comment="Material design theme surface/background color role label">背景</string>
-    <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">Backing up…</string>
+    <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">バックアップを作成中…</string>
     <string name="backup">バックアップ</string>
     <string name="backup_all_data" comment="Option in backup dialog to export all app database content and settings">すべてのデータをバックアップ</string>
     <string name="backup_and_restore" comment="Settings screen header for managing local and cloud backups">バックアップ&amp;復元</string>
@@ -83,14 +83,14 @@
     <string name="backup_destination" comment="Setting label to pick target location for backup storage (local directory or Google Drive)">バックアップ先</string>
     <string name="backup_failed" comment="Toast notification or dialog title shown when a local or cloud backup operation fails">バックアップに失敗しました</string>
     <string name="backup_found" comment="Status banner shown when a valid backup file is detected on device or cloud">バックアップが見つかりました</string>
-    <string name="backup_frequency" comment="Setting label for selecting auto-backup interval (Daily, Weekly, Monthly)">バックアップ頻度</string>
-    <string name="backup_now" comment="Action button to immediately trigger a backup operation">今すぐバックアップ</string>
-    <string name="backup_scheduler" comment="Setting category title for automated backup schedule settings">バックアップスケジューラ</string>
+    <string name="backup_frequency" comment="Setting label for selecting auto-backup interval (Daily, Weekly, Monthly)">バックアップが見つかりました</string>
+    <string name="backup_now" comment="Action button to immediately trigger a backup operation">バックアップが見つかりました</string>
+    <string name="backup_scheduler" comment="Setting category title for automated backup schedule settings">バックアップスケジューラー</string>
     <string name="backup_settings" comment="Backup option to export only application settings preferences">アプリの設定をバックアップ</string>
-    <string name="backup_status" comment="Card header showing current status of automated backups">バックアップの状態</string>
+    <string name="backup_status" comment="Card header showing current status of automated backups">バックアップ日</string>
     <string name="backup_successful" comment="Toast notification or dialog text when a backup completes successfully">バックアップに成功しました</string>
     <string name="backup_time" comment="Setting label for picking exact time of day for automated backup execution">バックアップ時間</string>
-    <string name="backup_type" comment="Card label showing type of backup file (e.g. Full, Database, Settings)">バックアップの種類</string>
+    <string name="backup_type" comment="Card label showing type of backup file (e.g. Full, Database, Settings)">バックアップ時間</string>
     <string name="baseband_version" comment="Device info field label showing modem/baseband firmware version">ベースバンド</string>
     <string name="basic_shell" comment="Execution mode option: run standard non-rooted, non-Shizuku shell commands">基本シェル</string>
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">バッテリー</string>
@@ -99,9 +99,9 @@
     <string name="block" comment="Action button to block execution or permissions">ブロック</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">ブックマークの上限に達しました！ブックマークを削除して新しいブックマークを追加しましょう</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">ブックマーク</string>
-    <string name="boot_device_into_fastboot" comment="Instructional prompt in Fastboot screen instructing user to boot target device into fastboot mode">ターゲットデバイスをfastbootモードで起動し、OTGケーブル経由で接続します</string>
+    <string name="boot_device_into_fastboot" comment="Instructional prompt in Fastboot screen instructing user to boot target device into fastboot mode">ターゲットデバイスをファストブートモードで起動し、OTGケーブルで接続します</string>
     <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">ブートイメージ</string>
-    <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">Fastboot で起動</string>
+    <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">Fastbootで起動</string>
     <string name="bootloader" comment="Device info label or fastboot section title for bootloader mode">ブートローダー</string>
     <string name="bootloader_version" comment="Device info field label displaying bootloader version string">ブートローダー</string>
     <string name="btn_continue" comment="Action button label to proceed to next step in setup wizard">続行</string>
@@ -109,7 +109,7 @@
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">キャッシュサイズ: %s</string>
     <string name="cancel">キャンセル</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">すべてキャンセル</string>
-    <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">Cancelling…</string>
+    <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">キャンセル中…</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">更新履歴</string>
     <string name="changelogs" comment="Settings list item title for viewing version history logs">更新履歴</string>
     <string name="check_updates" comment="Action button in about screen to check GitHub or F-Droid for app updates">アップデートを確認</string>
@@ -118,96 +118,96 @@
     <string name="clear">クリア</string>
     <string name="clear_all" comment="Action button to clear all entries in command history or terminal output screen">すべてクリア</string>
     <string name="clear_all_message" comment="Confirmation prompt asking user if they want to clear the terminal output view">この画面のすべてを消去してもよろしいですか？</string>
-    <string name="clear_analysis_cache" comment="Button label in settings to clear cached AI analysis responses">解析キャッシュをクリア</string>
+    <string name="clear_analysis_cache" comment="Button label in settings to clear cached AI analysis responses">分析キャッシュをクリア</string>
     <string name="clear_cache" comment="Action button in settings to clear app cache data">キャッシュをクリア</string>
     <string name="clear_everything" comment="Dialog button label to confirm clearing screen output and logs">すべて消去</string>
-    <string name="clear_history" comment="Action button in terminal/bookmarks screen to clear executed command history">履歴を消去</string>
+    <string name="clear_history" comment="Action button in terminal/bookmarks screen to clear executed command history">クラッシュ履歴</string>
     <string name="clear_output_confirmation" comment="Setting toggle title to request confirmation before clearing shell output view">出力確認をクリア</string>
     <string name="clipboard_empty" comment="Toast error message when user taps paste but system clipboard has no text content">クリップボードにテキストがない</string>
     <string name="close">閉じる</string>
-    <string name="cloud_backup_failed" comment="Error toast when uploading backup file to Google Drive fails">Google ドライブにバックアップをアップロードできませんでした</string>
+    <string name="cloud_backup_failed" comment="Error toast when uploading backup file to Google Drive fails">Google ドライブへのバックアップのアップロードに失敗しました</string>
     <string name="cloud_backup_google_drive" comment="Setting toggle title for automated cloud backups to Google Drive">クラウドバックアップ (Google ドライブ)</string>
     <string name="cloud_backup_successful" comment="Toast message confirming successful backup upload to Google Drive">Google ドライブにバックアップをアップロードしました</string>
     <string name="cloud_models" comment="Settings screen title for managing cloud-based LLM provider API keys">クラウドモデル</string>
-    <string name="cloud_restore_failed" comment="Error toast when downloading/restoring backup from Google Drive fails">Google ドライブから復元できませんでした</string>
+    <string name="cloud_restore_failed" comment="Error toast when downloading/restoring backup from Google Drive fails">Google ドライブからの復元に失敗しました</string>
     <string name="cloud_restore_successful" comment="Toast message confirming successful backup restoration from Google Drive">Google ドライブから復元しました</string>
-    <string name="cmd_get_battery_desc" comment="Description for predefined fastboot command: fastboot getvar battery-voltage">現在のバッテリー充電レベルを問い合わせます</string>
-    <string name="cmd_get_battery_title" comment="Predefined fastboot command title: check battery level in fastboot">バッテリー残量</string>
-    <string name="cmd_get_current_slot_desc" comment="Description for predefined fastboot command: fastboot getvar current-slot">どのA/Bスロットが現在アクティブですか？</string>
+    <string name="cmd_get_battery_desc" comment="Description for predefined fastboot command: fastboot getvar battery-voltage">現在のバッテリー充電レベルを照会する</string>
+    <string name="cmd_get_battery_title" comment="Predefined fastboot command title: check battery level in fastboot">バッテリーレベル</string>
+    <string name="cmd_get_current_slot_desc" comment="Description for predefined fastboot command: fastboot getvar current-slot">現在アクティブな A/B スロット</string>
     <string name="cmd_get_current_slot_title" comment="Predefined fastboot command title: check active A/B slot">現在のスロット</string>
-    <string name="cmd_get_product_desc" comment="Description for predefined fastboot command: fastboot getvar product">デバイスの製品名IDを取得する</string>
-    <string name="cmd_get_product_title" comment="Predefined fastboot command title: check product name">商品名</string>
-    <string name="cmd_get_slot_count_desc" comment="Description for predefined fastboot command: fastboot getvar slot-count">このデバイス上のA/Bスロットの数</string>
+    <string name="cmd_get_product_desc" comment="Description for predefined fastboot command: fastboot getvar product">デバイスの製品名識別子を取得する</string>
+    <string name="cmd_get_product_title" comment="Predefined fastboot command title: check product name">製品名</string>
+    <string name="cmd_get_slot_count_desc" comment="Description for predefined fastboot command: fastboot getvar slot-count">このデバイス上の A/B スロットの数</string>
     <string name="cmd_get_slot_count_title" comment="Predefined fastboot command title: check A/B slot count">スロット数</string>
-    <string name="cmd_get_unlocked_desc" comment="Description for predefined fastboot command: fastboot getvar unlocked">ブートローダーが現在ロック解除されているか確認してください</string>
-    <string name="cmd_get_unlocked_title" comment="Predefined fastboot command title: check bootloader unlock status">ブートローダーのロック解除状態</string>
-    <string name="cmd_getvar_all_desc" comment="Description for predefined fastboot command: fastboot getvar all">すべてのデバイス変数とその現在の値を一覧表示します</string>
+    <string name="cmd_get_unlocked_desc" comment="Description for predefined fastboot command: fastboot getvar unlocked">ブートローダーが現在ロック解除されているかどうかを確認する</string>
+    <string name="cmd_get_unlocked_title" comment="Predefined fastboot command title: check bootloader unlock status">ブートローダーのロック解除ステータス</string>
+    <string name="cmd_getvar_all_desc" comment="Description for predefined fastboot command: fastboot getvar all">すべてのデバイス変数と現在の値を一覧表示する</string>
     <string name="cmd_getvar_all_title" comment="Predefined fastboot command title: get all device variables">すべての変数を取得</string>
-    <string name="cmd_oem_device_info_desc" comment="Description for predefined fastboot command: fastboot oem device-info">OEM固有のデバイス情報を取得</string>
+    <string name="cmd_oem_device_info_desc" comment="Description for predefined fastboot command: fastboot oem device-info">OEM 固有のデバイス情報を取得する</string>
     <string name="cmd_oem_device_info_title" comment="Predefined fastboot command title: query OEM device info">OEM デバイス情報</string>
-    <string name="cmd_unlock_ability_desc" comment="Description for predefined fastboot command: fastboot flashing get_unlock_ability">このデバイスがブートローダーでロック解除できるかどうかを確認してください</string>
-    <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">Desbloquear Poder</string>
-    <string name="code_pair_instruction" comment="Instructional text in Wireless Debugging pairing dialog directing user to open Wireless Debugging menu on target device">対象デバイスで「ワイヤレスデバッグ」を開き、「ペアリングコードとペアリングデバイス」をタップします。</string>
+    <string name="cmd_unlock_ability_desc" comment="Description for predefined fastboot command: fastboot flashing get_unlock_ability">このデバイスのブートローダーのロック解除が可能かどうかを確認する</string>
+    <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">ロック解除機能</string>
+    <string name="code_pair_instruction" comment="Instructional text in Wireless Debugging pairing dialog directing user to open Wireless Debugging menu on target device">対象デバイスで「ワイヤレスデバッグ」を開き、「ペアリングコードとペアリングデバイス」をタップします</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">折りたたむ</string>
-    <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">エラーが起きました</string>
-    <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">標高上昇 (ダイアログ)</string>
-    <string name="color_preview_highest_elevation" comment="Sample label in theme editor showing highest elevation surface color (Bottom Sheet)">最高標高（Bottom Sheet）</string>
+    <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">エラーが発生しました</string>
+    <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">高エレベーション (ダイアログ)</string>
+    <string name="color_preview_highest_elevation" comment="Sample label in theme editor showing highest elevation surface color (Bottom Sheet)">最高エレベーション (ボトムシート)</string>
     <string name="color_preview_list_item" comment="Sample text field label in theme customizer preview">リストアイテム / テキストフィールド</string>
-    <string name="color_preview_low_elevation" comment="Sample label in theme customizer for low elevation card colors">低い標高(昇格したカード)</string>
-    <string name="color_preview_lowest_elevation" comment="Sample label in theme customizer for lowest elevation surface color">最低標高値</string>
+    <string name="color_preview_low_elevation" comment="Sample label in theme customizer for low elevation card colors">低エレベーション (昇格カード)</string>
+    <string name="color_preview_lowest_elevation" comment="Sample label in theme customizer for lowest elevation surface color">最低エレベーション</string>
     <string name="color_preview_outlined_button" comment="Sample outlined button text in theme preview">アウトラインボタン</string>
     <string name="color_preview_primary_button" comment="Sample primary button text in theme preview">プライマリボタン</string>
-    <string name="color_preview_screen_content" comment="Sample screen content body text in theme preview">画面の内容</string>
-    <string name="color_preview_standard_elevation" comment="Sample label in theme customizer for standard card elevation surface color">標準的な標高値（カード）</string>
-    <string name="color_preview_surface_area" comment="Sample surface area text in theme preview">表面エリア</string>
-    <string name="color_preview_tonal_button" comment="Sample tonal button text in theme preview">音色ボタン</string>
+    <string name="color_preview_screen_content" comment="Sample screen content body text in theme preview">画面コンテンツ</string>
+    <string name="color_preview_standard_elevation" comment="Sample label in theme customizer for standard card elevation surface color">標準エレベーション (カード)</string>
+    <string name="color_preview_surface_area" comment="Sample surface area text in theme preview">サーフェス領域</string>
+    <string name="color_preview_tonal_button" comment="Sample tonal button text in theme preview">トーナルボタン</string>
     <string name="color_role_app_background" comment="Material 3 color role name for main application background color">アプリの背景</string>
     <string name="color_role_background" comment="Material 3 color role name for default surface background">背景</string>
     <string name="color_role_error" comment="Material 3 color role name for error indicator color">エラー</string>
-    <string name="color_role_error_container" comment="Material 3 color role name for container background of error elements">Error Container</string>
-    <string name="color_role_main_accent" comment="Material 3 color role name for primary accent color">メイン・アクセント（プライマリ）</string>
-    <string name="color_role_on_background" comment="The color used for text and icons drawn on top of the background color">背景に</string>
-    <string name="color_role_on_error" comment="The color used for text and icons drawn on top of the error color">エラー時</string>
-    <string name="color_role_on_error_container" comment="The color used for text and icons drawn on top of the error container color">On Error Container</string>
-    <string name="color_role_on_primary" comment="The color used for text and icons drawn on top of the primary color">プライマリで</string>
-    <string name="color_role_on_primary_container" comment="The color used for text and icons drawn on top of the primary container color">プライマリコンテナ上</string>
-    <string name="color_role_on_secondary" comment="The color used for text and icons drawn on top of the secondary color">セカンダリ時</string>
-    <string name="color_role_on_secondary_container" comment="The color used for text and icons drawn on top of the secondary container color">セカンダリコンテナ上</string>
-    <string name="color_role_on_surface" comment="The color used for text and icons drawn on top of the surface color">表面上</string>
-    <string name="color_role_on_surface_variant" comment="The color used for text and icons drawn on top of the surface variant color">オンサーフェスバリエーション</string>
-    <string name="color_role_on_tertiary" comment="The color used for text and icons drawn on top of the tertiary color">第三紀で</string>
-    <string name="color_role_on_tertiary_container" comment="The color used for text and icons drawn on top of the tertiary container color">第三次コンテナ上</string>
-    <string name="color_role_outline" comment="Material 3 color role name for component outline borders">概要</string>
-    <string name="color_role_outline_variant" comment="Material 3 color role name for secondary outline borders">アウトラインバリエーション</string>
-    <string name="color_role_primary" comment="Material 3 color role name for primary theme color">プライマリ（プライマリ）</string>
+    <string name="color_role_error_container" comment="Material 3 color role name for container background of error elements">エラーコンテナ</string>
+    <string name="color_role_main_accent" comment="Material 3 color role name for primary accent color">メインアクセント (プライマリ)</string>
+    <string name="color_role_on_background" comment="The color used for text and icons drawn on top of the background color">背景上の色</string>
+    <string name="color_role_on_error" comment="The color used for text and icons drawn on top of the error color">エラー上の色</string>
+    <string name="color_role_on_error_container" comment="The color used for text and icons drawn on top of the error container color">エラーコンテナ上の色</string>
+    <string name="color_role_on_primary" comment="The color used for text and icons drawn on top of the primary color">プライマリ上の色</string>
+    <string name="color_role_on_primary_container" comment="The color used for text and icons drawn on top of the primary container color">プライマリコンテナ上の色</string>
+    <string name="color_role_on_secondary" comment="The color used for text and icons drawn on top of the secondary color">セカンダリ上の色</string>
+    <string name="color_role_on_secondary_container" comment="The color used for text and icons drawn on top of the secondary container color">セカンダリコンテナ上の色</string>
+    <string name="color_role_on_surface" comment="The color used for text and icons drawn on top of the surface color">サーフェス上の色</string>
+    <string name="color_role_on_surface_variant" comment="The color used for text and icons drawn on top of the surface variant color">サーフェスバリアント上の色</string>
+    <string name="color_role_on_tertiary" comment="The color used for text and icons drawn on top of the tertiary color">ターシャリー上の色</string>
+    <string name="color_role_on_tertiary_container" comment="The color used for text and icons drawn on top of the tertiary container color">ターシャリーコンテナ上の色</string>
+    <string name="color_role_outline" comment="Material 3 color role name for component outline borders">アウトライン</string>
+    <string name="color_role_outline_variant" comment="Material 3 color role name for secondary outline borders">アウトラインバリアント</string>
+    <string name="color_role_primary" comment="Material 3 color role name for primary theme color">プライマリ</string>
     <string name="color_role_primary_container" comment="Material 3 color role name for container surface of primary elements">プライマリコンテナ</string>
-    <string name="color_role_secondary" comment="Material 3 color role name for secondary theme accent color">Secondary</string>
+    <string name="color_role_secondary" comment="Material 3 color role name for secondary theme accent color">セカンダリ</string>
     <string name="color_role_secondary_accent" comment="Material 3 color role name for secondary accent color">セカンダリアクセント</string>
     <string name="color_role_secondary_container" comment="Material 3 color role name for container surface of secondary elements">セカンダリコンテナ</string>
-    <string name="color_role_surface" comment="Material 3 color role name for default component surface color">Surface</string>
-    <string name="color_role_surface_container" comment="Material 3 color role name for standard surface container">表面コンテナ</string>
-    <string name="color_role_surface_container_high" comment="Material 3 color role name for high elevation surface container">表面コンテナ高</string>
-    <string name="color_role_surface_container_highest" comment="Material 3 color role name for highest elevation surface container">表面コンテナ最高値</string>
-    <string name="color_role_surface_container_low" comment="Material 3 color role name for low elevation surface container">表面コンテナが低い</string>
-    <string name="color_role_surface_container_lowest" comment="Material 3 color role name for lowest elevation surface container">表面コンテナの最小値</string>
-    <string name="color_role_surface_variant" comment="Material 3 color role name for variant surface background">サーフェスバリエーション</string>
-    <string name="color_role_tertiary" comment="Material 3 color role name for tertiary theme accent color">三&lt;unk&gt;</string>
-    <string name="color_role_tertiary_accent" comment="Material 3 color role name for tertiary accent color">三次アクセントformat@@0</string>
-    <string name="color_role_tertiary_container" comment="Material 3 color role name for container surface of tertiary elements">三次形コンテナ</string>
-    <string name="command" comment="Label/header for an ADB command snippet">(Command)</string>
+    <string name="color_role_surface" comment="Material 3 color role name for default component surface color">サーフェス</string>
+    <string name="color_role_surface_container" comment="Material 3 color role name for standard surface container">サーフェスコンテナ</string>
+    <string name="color_role_surface_container_high" comment="Material 3 color role name for high elevation surface container">サーフェスコンテナハイ</string>
+    <string name="color_role_surface_container_highest" comment="Material 3 color role name for highest elevation surface container">サーフェスコンテナハイゲスト</string>
+    <string name="color_role_surface_container_low" comment="Material 3 color role name for low elevation surface container">サーフェスコンテナロー</string>
+    <string name="color_role_surface_container_lowest" comment="Material 3 color role name for lowest elevation surface container">サーフェスコンテナローテスト</string>
+    <string name="color_role_surface_variant" comment="Material 3 color role name for variant surface background">サーフェスバリアント</string>
+    <string name="color_role_tertiary" comment="Material 3 color role name for tertiary theme accent color">ターシャリー</string>
+    <string name="color_role_tertiary_accent" comment="Material 3 color role name for tertiary accent color">ターシャリーアクセント</string>
+    <string name="color_role_tertiary_container" comment="Material 3 color role name for container surface of tertiary elements">ターシャリーコンテナ</string>
+    <string name="command" comment="Label/header for an ADB command snippet">Command</string>
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">コマンド分析</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">コマンドコンソール</string>
     <string name="command_logs" comment="Tab header for history log of executed fastboot commands">コマンドログ</string>
-    <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">すべての実行されたfastbootコマンドの履歴。</string>
+    <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">実行されたすべての fastboot コマンドの履歴。</string>
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">コマンドが見つかりません！</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">ADBコマンドを入力する</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">コマンド</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">保存ディレクトリの設定</string>
-    <string name="confirm">確認する</string>
-    <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
+    <string name="confirm">確認</string>
+    <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">警告 ！この操作は元に戻せません。\n本当にすべてのブックマークを削除しますか？</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">削除の確認</string>
-    <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">このタイルを削除してもよろしいですか？</string>
-    <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">キャッシングは分析結果を即座に取得するのに役立ちます。\nすべてのAI分析キャッシュデータを消去しますか？</string>
+    <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">これを削除してもいいですか？</string>
+    <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">キャッシュを使用すると、分析結果をすぐに取得できます。\n本当にすべてのAI分析キャッシュデータをクリアしますか？</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" は既にこの場所に存在します。</string>
     <string name="conflict_title" comment="Dialog title when attempting to paste or create a file that already exists">アイテムは既に存在します</string>
     <string name="connect" comment="Action button to initiate ADB connection to target device over Wireless Debugging or OTG">接続する</string>
@@ -217,25 +217,25 @@
     <string name="connect_via_wifi_adb" comment="Option in connection menu to connect via Wi-Fi Wireless Debugging">Wi-Fi ADB 経由で接続</string>
     <string name="connected" comment="Status badge showing device is successfully connected over ADB">接続されました</string>
     <string name="connected_device" comment="Header title for the currently active ADB target device information card">接続済みのデバイス</string>
-    <string name="connecting" comment="Progress status text shown while establishing ADB connection">接続しています...</string>
+    <string name="connecting" comment="Progress status text shown while establishing ADB connection">接続しています…</string>
     <string name="connection_error" comment="Toast notification or dialog title for ADB network connection errors">接続エラー</string>
     <string name="connection_failed" comment="Status banner or toast when ADB connection attempt fails">接続に失敗しました</string>
     <string name="connection_lost" comment="Dialog title shown when ADB Wireless Debugging connection is unexpectedly disconnected">接続が失われました</string>
     <string name="connection_lost_back_message" comment="Dialog message prompt when connection is lost asking user what action to take">無線デバッグ接続が失われました。どうしますか？</string>
-    <string name="continue_anyway" comment="Action button in warning dialog to ignore warning and proceed">それでも続ける</string>
+    <string name="continue_anyway" comment="Action button in warning dialog to ignore warning and proceed">続行する</string>
     <string name="contributors" comment="Screen title and card header listing app open-source contributors">貢献者</string>
     <string name="copied_items" comment="%1$d = number of items copied to clipboard">%1$d 個のアイテムをコピーしました</string>
     <string name="copied_to_clipboard" comment="Toast message shown after copying text or command to system clipboard">クリップボードにコピーしました！</string>
     <string name="copy">コピー</string>
     <string name="copying" comment="Progress status text shown while copying files in file browser">コピー中…</string>
-    <string name="copying_items" comment="%1$d = number of items being copied">%1$d アイテムをコピーしています</string>
+    <string name="copying_items" comment="%1$d = number of items being copied">%1$d個のアイテムをコピーしています</string>
     <string name="crash_details" comment="Screen title for inspecting stack trace details of a crash log">クラッシュの詳細</string>
     <string name="crash_history" comment="Settings menu title and screen header for viewing past application crash reports">クラッシュ履歴</string>
     <string name="create">作成</string>
     <string name="create_folder" comment="Action button or dialog title to create a new directory in file browser">フォルダを作成</string>
     <string name="create_new_tile" comment="Screen header or button label to add a new custom Quick Settings tile">新しいタイルを作成</string>
-    <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">AIで作成</string>
-    <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">クラウドイン翻訳プラットフォームにアクセスして貢献してください</string>
+    <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">AI で作成</string>
+    <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">翻訳プラットフォーム Crowdin にアクセスして貢献してください</string>
     <string name="current_version" comment="About screen card label showing installed application version number">最近のバージョン</string>
     <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">カスタムUIスケール</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">%1$d 項目を切り取り</string>
@@ -256,14 +256,14 @@
     <string name="delete_title" comment="%1$s = file or folder name">%1$s を削除しますか？</string>
     <string name="des_about" comment="Subtitle description for About section in settings menu">貢献者とサポート</string>
     <string name="des_ai_cache_days" comment="Description under Cache duration setting in AI settings">キャッシュされた結果を保持する日数</string>
-    <string name="des_ai_cache_enabled" comment="Description under Enable cache setting in AI settings">モデルごとのキャッシュ解析結果</string>
-    <string name="des_ai_models" comment="Description under AI &amp; Models item in settings">AIモデルのデータとAPIキーの管理</string>
-    <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">自動バックアップに含める内容を選択します</string>
-    <string name="des_auto_backup_folder" comment="Description under Backup folder setting">自動バックアップを保存するフォルダを選択します</string>
-    <string name="des_auto_backup_time" comment="Description under Backup time setting">自動バックアップの時間を設定します</string>
-    <string name="des_auto_dark_mode" comment="Description under Auto dark mode setting">バッテリーセーバー有効時に自動的にダークモードに切り替えます</string>
-    <string name="des_auto_delete_existing_backups" comment="Description under Auto-delete old backups setting">新しいバックアップを保存したときに古い自動バックアップを削除する</string>
-    <string name="des_auto_scale_ui" comment="Description under Auto scale UI setting">端末の最小幅に応じてUIを自動的に拡大縮小します</string>
+    <string name="des_ai_cache_enabled" comment="Description under Enable cache setting in AI settings">モデルごとに分析結果をキャッシュする</string>
+    <string name="des_ai_models" comment="Description under AI &amp; Models item in settings">AI モデルのデータと API キーを管理する</string>
+    <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">自動バックアップに含める内容を選択する</string>
+    <string name="des_auto_backup_folder" comment="Description under Backup folder setting">自動バックアップを保存するフォルダを選択する</string>
+    <string name="des_auto_backup_time" comment="Description under Backup time setting">自動バックアップの時間設定</string>
+    <string name="des_auto_dark_mode" comment="Description under Auto dark mode setting">バッテリーセーバーが有効な場合に自動的にダークモードに切り替えます</string>
+    <string name="des_auto_delete_existing_backups" comment="Description under Auto-delete old backups setting">新しいバックアップが保存されたときに古い自動バックアップを削除する</string>
+    <string name="des_auto_scale_ui" comment="Description under Auto scale UI setting">デバイスの最小幅に応じてUIを自動的にスケーリングします</string>
     <string name="des_auto_update" comment="Description under Auto update setting">自動でアップデートを確認する</string>
     <string name="des_backup_all_data" comment="Description for full backup option in backup dialog">アプリのすべてのデータをバックアップ</string>
     <string name="des_backup_and_restore" comment="Description under Backup &amp; restore item in settings menu">アプリの設定やその他のデータのバックアップと復元</string>
@@ -271,57 +271,57 @@
     <string name="des_backup_scheduler" comment="Description under Backup scheduler setting">選択した間隔で自動的にバックアップをスケジュールする</string>
     <string name="des_backup_settings" comment="Description for app settings backup option">アプリの設定のみをバックアップ</string>
     <string name="des_behavior" comment="Description under Behavior item in settings menu">アプリの特定の動作を変更する</string>
-    <string name="des_changelogs" comment="Description under Changelogs item in settings menu">歴史的なアップデートも含む</string>
-    <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">アイコンコレクションからアイコンを選択するにはここをクリック</string>
+    <string name="des_changelogs" comment="Description under Changelogs item in settings menu">アプリの全ての変更履歴</string>
+    <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">ここをクリックしてアイコンコレクションからアイコンを選択します</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">シェル出力をクリアする前に確認を求める</string>
-    <string name="des_cloud_models" comment="Description under Cloud models setting item">クラウドモデルの API キーを管理</string>
+    <string name="des_cloud_models" comment="Description under Cloud models setting item">クラウドモデルの API キーを管理する</string>
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">シェル出力を保存するディレクトリを選択します</string>
-    <string name="des_contributors" comment="Description under Contributors item in About section">aShell You の開発に協力した貢献者のリスト</string>
+    <string name="des_contributors" comment="Description under Contributors item in About section">aShell Youの開発に協力した貢献者のリスト</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">アプリで発生したすべてのクラッシュを表示</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">アプリのデフォルトの言語を選択する</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">物理キーボードを使用するときに便利です</string>
-    <string name="des_drive_backup" comment="Description card text for Google Drive backup option">Google ドライブに暗号化されたバックアップをアップロードします。\n既存のクラウドバックアップを上書きします。</string>
+    <string name="des_drive_backup" comment="Description card text for Google Drive backup option">暗号化されたバックアップを Google ドライブにアップロードします。\nこの操作により、既存のクラウドバックアップが上書きされます。</string>
     <string name="des_drive_restore" comment="Description card text for Google Drive restore option">Google ドライブから最新のバックアップをダウンロードする</string>
     <string name="des_dynamic_colors" comment="Description under Dynamic colors setting item">端末の壁紙に応じてアプリのテーマを自動的に設定します</string>
-    <string name="des_enable_auto_backup" comment="Description under Enable automatic backup toggle setting">アプリのデータをスケジュールされた時間に自動的にバックアップする</string>
-    <string name="des_enable_cloud_auto_backup" comment="Description under Auto backup to Google Drive toggle setting">Google ドライブアカウントに自動的にバックアップ</string>
-    <string name="des_enable_direct_download" comment="Description under Enable direct apk download setting">オンにすると、アプリ内のGitHubから直接アップデートがダウンロードされます。オフにすると代わりに手動でダウンロードするためにGithubのリリースページにアクセスできます。</string>
-    <string name="des_enable_local_auto_backup" comment="Description under Auto backup to local storage toggle setting">デバイス上の選択したフォルダに自動的にバックアップする</string>
+    <string name="des_enable_auto_backup" comment="Description under Enable automatic backup toggle setting">予定時刻にアプリデータを自動的にバックアップする</string>
+    <string name="des_enable_cloud_auto_backup" comment="Description under Auto backup to Google Drive toggle setting">Google ドライブアカウントに自動バックアップする</string>
+    <string name="des_enable_direct_download" comment="Description under Enable direct apk download setting">オンにすると、アップデートはアプリ内のGithubから直接ダウンロードされます。オフにすると代わりに手動でダウンロードするためにGithubのリリースページにアクセスできます。</string>
+    <string name="des_enable_local_auto_backup" comment="Description under Auto backup to local storage toggle setting">デバイス上の選択したフォルダに自動バックアップする</string>
     <string name="des_examples" comment="Description under Command templates item in navigation menu">よく使われるコマンドの例</string>
     <string name="des_feature_request" comment="Description under Feature request item in About menu">もしこのアプリについてアイデアや提案があれば教えてください</string>
     <string name="des_font_family" comment="Description under Font family setting item">アプリケーションのフォントスタイルを変更する</string>
-    <string name="des_font_size" comment="Description under Font size multiplier setting item">フォントサイズを調整して、アプリ内のテキストを大きくまたは小さくする</string>
+    <string name="des_font_size" comment="Description under Font size multiplier setting item">フォントサイズを調整して、アプリ内のテキストを大きくしたり小さくしたりします</string>
     <string name="des_haptics_and_vibration" comment="Description under Haptics &amp; Vibration setting item">タッチフィードバックのためのインタラクティブな触覚</string>
     <string name="des_high_contrast_dark_mode" comment="Description under High contrast dark mode setting item">OLEDディスプレイ搭載デバイス向けの真っ黒なダークテーマ</string>
     <string name="des_hridayan" comment="Developer bio subtitle in About section">アプリとデザインが大好きな男</string>
-    <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">クイック設定パネルに表示されているタイルの固定表示状態</string>
-    <string name="des_licenses" comment="Description under Licenses setting item in About section">アプリとライブラリが使用しているライセンスを表示する</string>
+    <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">クイック設定パネルに表示されるときのタイルの固定された視覚状態</string>
+    <string name="des_licenses" comment="Description under Licenses setting item in About section">アプリとライブラリで使用されているライセンスを表示する</string>
     <string name="des_local_backup" comment="Description card text for local backup option">暗号化されたバックアップをデバイスに保存する</string>
-    <string name="des_local_restore" comment="Description card text for local restore option">デバイスからバックアップファイルを選択してください</string>
-    <string name="des_logcat" comment="Description under Logcat item in navigation menu">接続されたデバイスからのリアルタイムのlogcat出力</string>
+    <string name="des_local_restore" comment="Description card text for local restore option">デバイスからバックアップファイルを選択する</string>
+    <string name="des_logcat" comment="Description under Logcat item in navigation menu">接続されたデバイスからのリアルタイムな logcat 出力</string>
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">ダイナミックカラー、ダークテーマ、言語</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">モデルが選択されていません</string>
-    <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">ブックマークが多数追加されるとラグを引き起こす可能性があります！ローエンド端末はこのオプションをオフにしておく必要があります。</string>
+    <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">有効にした状態で大量のブックマークが追加されると、パフォーマンスの問題が発生する可能性があります！ ローエンドデバイスはオフのままにしてください</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">別のターゲットデバイスをペアリングする</string>
-    <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">Adb コマンドを実行するクイック設定タイルを作成します</string>
+    <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">ADBコマンドを実行するためのクイック設定タイルを作成します</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">アプリ使用中に発生した問題やバグを教えてください</string>
     <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">アプリの設定を既定値にリセット</string>
-    <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">保存したバックアップファイルからアプリのデータを復元します。\n保存したデータベースは現在のデータベースを上書きします。</string>
+    <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">保存したバックアップファイルからアプリのデータを復元します。\n保存したデータベースは現在のデータベースを上書きします</string>
     <string name="des_save_whole_output" comment="Description under Save whole output setting toggle">このオプションを有効にすると、シェルセッション全体の出力を保存します。\n無効にすると、最後のコマンド出力のみが保存されます。</string>
-    <string name="des_screen_density" comment="Description under Screen density multiplier setting item">画面密度を調整してUI要素を大きく小さく表示する</string>
-    <string name="des_select_file_for_flashing" comment="Instructional description prompt for picking boot image file to flash">選択したパーティションにフラッシュするブートイメージファイルを選択します</string>
-    <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">必要に応じてクラウドバックアップのためにGoogleアカウントをリンクする</string>
+    <string name="des_screen_density" comment="Description under Screen density multiplier setting item">画面密度を調整して、UI要素を大きくしたり小さくしたりします</string>
+    <string name="des_select_file_for_flashing" comment="Instructional description prompt for picking boot image file to flash">選択したパーティションにフラッシュするブートイメージファイルを選択してください</string>
+    <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">クラウドバックアップ用にGoogleアカウントをオプションでリンクする</string>
     <string name="des_smooth_scroll" comment="Description under Smooth scrolling setting toggle">上矢印または下矢印をクリックしたときにシェルのスムーズなスクロールを有効にします</string>
-    <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">有効にすると、タイルはタップごとにONとOFFの状態を切り替え、各状態ごとに異なるコマンドを実行します</string>
-    <string name="des_translators" comment="Subtitle description under Translators list in About section">aShellYou の翻訳を手伝った人</string>
-    <string name="des_ui_scale" comment="Description under UI scale setting item">UI要素のスケールとフォントサイズを調整する</string>
-    <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">間違ったイメージがブートループを引き起こす可能性があるため、注意してください。</string>
+    <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">有効にすると、タイルはタップごとにONとOFFの状態を切り替え、状態ごとに異なるコマンドを実行します</string>
+    <string name="des_translators" comment="Subtitle description under Translators list in About section">aShellYouの翻訳に協力してくれた方々</string>
+    <string name="des_ui_scale" comment="Description under UI scale setting item">UI要素とフォントサイズのスケールを調整します</string>
+    <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">正しくないイメージはブートロープを引き起こす可能性があるため、注意して進めてください</string>
     <string name="description">説明</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">すべての選択を解除</string>
     <string name="developer" comment="Section title in About screen for lead developer info">開発者</string>
     <string name="developer_options" comment="System Developer Options setting item or prompt">開発者オプション</string>
     <string name="developer_options_not_available" comment="Toast error message when Developer options shortcut cannot be opened">開発者向けオプションは利用できません！</string>
-    <string name="device_backup_local" comment="Label for local device storage backup file">デバイスのバックアップ (ローカル)</string>
+    <string name="device_backup_local" comment="Label for local device storage backup file">デバイスバックアップ (ローカル)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">デバイスが接続されました！</string>
     <string name="device_disconnected" comment="Notification title when ADB connection drops">デバイスが切断されました</string>
     <string name="device_disconnected_message" comment="Notification body message when wireless ADB connection is lost">WiFi ADB 接続が失われました。</string>
@@ -332,9 +332,9 @@
     <string name="disclaimer" comment="Section title in About screen for legal disclaimer notices">免責事項</string>
     <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">ADB コマンドを実行すると、システム設定の変更、ファイルの管理、デバイスの安定性に影響する可能性のある操作を実行できます。\nこのアプリを使用して行われた変更については、お客様のみが責任を負います。</string>
     <string name="disclaimer_1_title" comment="Title for disclaimer point 1: user risk acknowledgement">自己責任で使用する</string>
-    <string name="disclaimer_2_description" comment="Text for disclaimer point 2: root requirements and elevated permissions">root アクセスは必須ではありませんが、特定のコマンドには昇格された権限が必要な場合があります。\nADB コマンドの誤用は、データ損失、アプリのクラッシュ、または予期しないシステムの動作につながる可能性があります。</string>
+    <string name="disclaimer_2_description" comment="Text for disclaimer point 2: root requirements and elevated permissions">Rootアクセスは必須ではありませんが、特定のコマンドには昇格された権限が必要な場合があります。\nADBコマンドの誤用は、データ損失、アプリのクラッシュ、または予期しないシステムの動作につながる可能性があります。</string>
     <string name="disclaimer_2_title" comment="Title for disclaimer point 2: root and caution warning">Rootは必須ではありませんが、注意が必要です</string>
-    <string name="disclaimer_3_description" comment="Text for disclaimer point 3: developer liability waiver">本アプリの開発者は、本アプリの使用に起因するいかなる損害、データの損失、または意図しない結果に対しても責任を負いません。\n実行するコマンドについてご理解いただき、ご注意ください。</string>
+    <string name="disclaimer_3_description" comment="Text for disclaimer point 3: developer liability waiver">本アプリの(開発者)は、本アプリの使用に起因するいかなる損害、データの損失、または意図しない結果に対しても責任を負いません。\n実行するコマンドについてご理解いただき、ご注意ください。</string>
     <string name="disclaimer_3_title" comment="Title for disclaimer point 3: liability waiver">私たちは責任を負うことはできません</string>
     <string name="disclaimer_4_description" comment="Text for disclaimer point 4: target user expertise level">このアプリは、ADB コマンドの基本的な理解を持っているユーザーのために設計されています。\nコマンドの効果がわからない場合は、コマンドを実行する前に調べてください。</string>
     <string name="disclaimer_4_title" comment="Title for disclaimer point 4: target audience notice">高度なユーザーに向けて</string>
@@ -348,9 +348,9 @@
     <string name="download">ダウンロード</string>
     <string name="download_failed" comment="Toast message when in-app updater APK download fails">ダウンロードに失敗しました</string>
     <string name="downloading" comment="Progress status text while downloading update package">ダウンロード中…</string>
-    <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Downloading backup from Google Drive…</string>
+    <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Google ドライブからバックアップをダウンロードしています…</string>
     <string name="downloads" comment="Screen header or list item for downloaded files">ダウンロード</string>
-    <string name="duplicate_tile_name_error_msg" comment="Validation error in Quick Settings tile builder when entered tile name already exists">この名前のタイルは既に存在します</string>
+    <string name="duplicate_tile_name_error_msg" comment="Validation error in Quick Settings tile builder when entered tile name already exists">この名前のフォルダは既に存在します</string>
     <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">ダイナミックカラー</string>
     <string name="edit">編集</string>
     <string name="edit_command" comment="Dialog header for editing a saved ADB command snippet">コマンドを編集</string>
@@ -359,7 +359,7 @@
     <string name="empty_folder" comment="Placeholder text in file browser when current folder contains no files">このフォルダは空です</string>
     <string name="enable_auto_backup" comment="Toggle setting title to enable scheduled automated local backups">自動バックアップを有効にする</string>
     <string name="enable_auto_update" comment="Toggle setting title to enable automatic update checking">自動更新を有効にする</string>
-    <string name="enable_cloud_auto_backup" comment="Toggle setting title to enable automated backups to Google Drive">Google ドライブに自動バックアップ</string>
+    <string name="enable_cloud_auto_backup" comment="Toggle setting title to enable automated backups to Google Drive">Google ドライブへの自動バックアップ</string>
     <string name="enable_direct_download" comment="Toggle setting title to download APK release files directly within app instead of opening browser release page">APKの直接ダウンロードを有効にする</string>
     <string name="enable_local_auto_backup" comment="Toggle setting title to enable scheduled automatic backups to local device folder">ローカルストレージへの自動バックアップ</string>
     <string name="enable_wifi" comment="Prompt asking user to enable Wi-Fi for Wireless Debugging ADB connection">Wi-Fiを有効にする</string>
@@ -368,29 +368,29 @@
     <string name="enter">Enter</string>
     <string name="enter_command" comment="Input hint placeholder format for entering fastboot commands">fastboot &lt;command&gt;</string>
     <string name="enter_pairing_code" comment="Instructional header in Wireless Debugging pairing dialog asking for 6-digit code">6桁のペアリングコードを入力してください</string>
-    <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">%1$s パーティションを永久に消去します。この操作は元に戻せません。</string>
-    <string name="erase_confirm_title" comment="%1$s = partition name. Dialog title for partition erase confirmation">Erase %1$s?</string>
-    <string name="erase_partition" comment="Action button to trigger fastboot partition erase">Erase</string>
-    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Erasing…</string>
+    <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">これにより、%1$s パーティションが完全に消去されます。この操作は元に戻せません。</string>
+    <string name="erase_confirm_title" comment="%1$s = partition name. Dialog title for partition erase confirmation">%1$s を消去しますか？</string>
+    <string name="erase_partition" comment="Action button to trigger fastboot partition erase">消去</string>
+    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">消去中…</string>
     <string name="error">エラー</string>
     <string name="error_labels_limit_reached" comment="Validation error when maximum number of custom command labels/tags is reached">ラベルの上限に達しました</string>
     <string name="exclude" comment="Filter toggle option to exclude selected package or item">除外</string>
-    <string name="execution_method" comment="Setting label for selecting shell execution engine (Shizuku, Root, or Basic Shell)">実行メソッド</string>
+    <string name="execution_method" comment="Setting label for selecting shell execution engine (Shizuku, Root, or Basic Shell)">実行方法</string>
     <string name="expand" comment="Action button to expand a collapsed card section">展開</string>
-    <string name="experimental" comment="Badge or section title marking experimental features">実験</string>
+    <string name="experimental" comment="Badge or section title marking experimental features">実験的</string>
     <string name="failed">失敗しました</string>
     <string name="failed_to_claim_interface" comment="Technical error message when USB OTG interface claim fails">インターフェイスの取得に失敗しました</string>
     <string name="failed_to_copy" comment="Toast notification when copying text or file fails">コピーに失敗しました</string>
     <string name="failed_to_open_usb_connection" comment="Error toast when USB OTG connection fails">USB接続を開けませんでした。USBデバッグは有効ですか？</string>
     <string name="fastboot" comment="Refers to Fastboot mode protocol for Android bootloader partition flashing over OTG">Fastboot</string>
-    <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">fastboot &amp; Recovery</string>
+    <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; リカバリー</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">近日公開</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">コマンドコンソール</string>
-    <string name="fastboot_command_hint" comment="Placeholder hint in fastboot command input field">Enter fastboot command…</string>
-    <string name="fastboot_device_info" comment="Card header displaying target device variables queried over fastboot">端末情報</string>
+    <string name="fastboot_command_hint" comment="Placeholder hint in fastboot command input field">Fastbootコマンドを入力…</string>
+    <string name="fastboot_device_info" comment="Card header displaying target device variables queried over fastboot">デバイス情報</string>
     <string name="fastboot_partitions" comment="Tab title for Fastboot partition manager tool">パーティション</string>
-    <string name="fastboot_quick_actions" comment="Section header for predefined quick fastboot action buttons">クイックアクション</string>
-    <string name="fastboot_summary" comment="Feature description card text for Fastboot OTG mode">OTG経由でfastbootモードでデバイスに接続します</string>
+    <string name="fastboot_quick_actions" comment="Section header for predefined quick fastboot action buttons">クイックツール</string>
+    <string name="fastboot_summary" comment="Feature description card text for Fastboot OTG mode">OTG経由でファストブートモードのデバイスに接続する</string>
     <string name="fastboot_variable_explorer" comment="Tab title for Fastboot variable query screen">変数エクスプローラー</string>
     <string name="fb_all_operations_cancelled" comment="Notification toast when all file browser queue operations are cancelled">すべての操作がキャンセルされました</string>
     <string name="fb_cannot_paste_into_selected" comment="Error toast in file browser when target paste item is a file instead of a folder">選択したフォルダに貼り付けることができません</string>
@@ -417,8 +417,8 @@
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">ファイルが正常にアップロードされました</string>
     <string name="fb_uploading" comment="%1$s = file name">%1$sをアップロード中</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">機能リクエスト</string>
-    <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Fetching backup time …</string>
-    <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Fetching backup type…</string>
+    <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">バックアップ時間を取得中…</string>
+    <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">バックアップタイプを取得中…</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">フィールドは空白にできません</string>
     <string name="file">ファイル</string>
     <string name="file_actions" comment="Bottom sheet title for file operations (copy, move, delete, rename)">ファイル操作</string>
@@ -430,9 +430,9 @@
     <string name="file_not_found" comment="Error toast when requested file path does not exist on device">ファイルが見つかりません</string>
     <string name="filter">フィルター</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">ラベルでフィルター</string>
-    <string name="flash" comment="Action button to start fastboot partition flashing process">フラッシュ</string>
-    <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">パーティションをフラッシュ</string>
-    <string name="flashing" comment="Progress status header while partition flashing is in progress">Flashing…</string>
+    <string name="flash" comment="Action button to start fastboot partition flashing process">フラッシング</string>
+    <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">パーティションのフラッシュ</string>
+    <string name="flashing" comment="Progress status header while partition flashing is in progress">フラッシング中…</string>
     <string name="folder">フォルダ</string>
     <string name="folder_already_exists" comment="Validation error when creating a directory with duplicate name">この名前のフォルダは既に存在します</string>
     <string name="folder_conflict_title" comment="Dialog header when creating folder collides with existing folder name">フォルダは既に存在します</string>
@@ -441,16 +441,16 @@
     <string name="folder_picker" comment="Dialog title for selecting a target directory">フォルダ選択</string>
     <string name="font_amatic_sc" comment="Font style name">Amatic SC</string>
     <string name="font_cabin" comment="Font style name">Cabin</string>
-    <string name="font_caveat" comment="Font style name">注意</string>
+    <string name="font_caveat" comment="Font style name">Caveat</string>
     <string name="font_comfortaa" comment="Font style name">Comfortaa</string>
     <string name="font_crimson_pro" comment="Font style name">Crimson Pro</string>
-    <string name="font_dancing_script" comment="Font style name">ダンススクリプト</string>
-    <string name="font_display_text" comment="Sample text used to preview font styles">素早い茶色のキツネが怠け者の犬の上を飛び越える。</string>
-    <string name="font_eb_garamond" comment="Font style name">EJB Garamond</string>
+    <string name="font_dancing_script" comment="Font style name">Dancing Script</string>
+    <string name="font_display_text" comment="Sample text used to preview font styles">The quick brown fox jumps over the lazy dog</string>
+    <string name="font_eb_garamond" comment="Font style name">EB Garamond</string>
     <string name="font_exo_2" comment="Font style name">Exo 2</string>
     <string name="font_family" comment="Settings preference title for selecting application font family">フォントファミリー</string>
     <string name="font_heebo" comment="Font style name">Heebo</string>
-    <string name="font_inter" comment="Font style name">インターー</string>
+    <string name="font_inter" comment="Font style name">Inter</string>
     <string name="font_josefin_sans" comment="Font style name">Josefin Sans</string>
     <string name="font_karla" comment="Font style name">Karla</string>
     <string name="font_lexend" comment="Font style name">Lexend</string>
@@ -458,177 +458,177 @@
     <string name="font_manrope" comment="Font style name">Manrope</string>
     <string name="font_montserrat" comment="Font style name">Montserrat</string>
     <string name="font_noto_sans" comment="Font style name">Noto Sans</string>
-    <string name="font_nunito" comment="Font style name">ヌニト</string>
-    <string name="font_open_sans" comment="Font style name">Sans を開く</string>
-    <string name="font_oswald" comment="Font style name">オスワルド</string>
-    <string name="font_outfit" comment="Font style name">服</string>
-    <string name="font_pacifico" comment="Font style name">パシフィコ</string>
+    <string name="font_nunito" comment="Font style name">Nunito</string>
+    <string name="font_open_sans" comment="Font style name">Open Sans</string>
+    <string name="font_oswald" comment="Font style name">Oswald</string>
+    <string name="font_outfit" comment="Font style name">Outfit</string>
+    <string name="font_pacifico" comment="Font style name">Pacifico</string>
     <string name="font_playfair_display" comment="Font style name">Playfair Display</string>
     <string name="font_playpen_sans" comment="Font style name">Playpen Sans</string>
     <string name="font_plus_jakarta_sans" comment="Font style name">Plus Jakarta Sans</string>
     <string name="font_public_sans" comment="Font style name">Public Sans</string>
-    <string name="font_quicksand" comment="Font style name">流砂（水砂）</string>
+    <string name="font_quicksand" comment="Font style name">Quicksand</string>
     <string name="font_raleway" comment="Font style name">Raleway</string>
     <string name="font_roboto_flex" comment="Font style name">Roboto Flex</string>
     <string name="font_rubik" comment="Font style name">Rubik</string>
-    <string name="font_shadows_into_light" comment="Font style name">光に影をつける</string>
-    <string name="font_size_multiplier" comment="Settings preference title for adjusting font size scaling multiplier">フォントサイズの乗算</string>
-    <string name="font_source_sans_3" comment="Font style name">送信元サンセット3</string>
-    <string name="font_source_serif_4" comment="Font style name">ソースセリフ4</string>
+    <string name="font_shadows_into_light" comment="Font style name">Shadows Into Light</string>
+    <string name="font_size_multiplier" comment="Settings preference title for adjusting font size scaling multiplier">フォントサイズの倍率</string>
+    <string name="font_source_sans_3" comment="Font style name">Source Sans 3</string>
+    <string name="font_source_serif_4" comment="Font style name">Source Serif 4</string>
     <string name="font_work_sans" comment="Font style name">Work Sans</string>
     <string name="forget" comment="Action button to remove/forget a paired device">忘れた</string>
     <string name="forget_device" comment="Button label in device details card to unpair/forget ADB device">デバイスを忘れた</string>
     <string name="forget_device_confirmation" comment="%1$s = device name">%1$sを忘れてもよろしいですか？接続するには再度ペアリングする必要があります。</string>
     <string name="forks" comment="GitHub repository metadata count label for project forks">フォーク</string>
     <string name="found_connect_service" comment="Status message when mDNS ADB connection service is discovered">接続サービスが見つかりました</string>
-    <string name="frequency" comment="Setting label for automated backup interval frequency">利息支払回数</string>
-    <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">フルライセンステキスト</string>
-    <string name="gemini_api_key_step_1" comment="%1$s = URL">%1$s の Google AI Studio にアクセスする</string>
-    <string name="gemini_api_key_step_2" comment="Step 2 of API key setup guide: signing in with Google Account">Googleアカウントでサインイン</string>
-    <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">Create API キーをクリックし、プロジェクトを選択または作成</string>
-    <string name="gemini_api_key_step_4" comment="Step 4 of API key setup guide: copying API key string">API キーをコピーしてここに貼り付け</string>
-    <string name="generate_color_scheme" comment="Action button in theme builder to generate Material 3 color palette">カラースキームを生成</string>
+    <string name="frequency" comment="Setting label for automated backup interval frequency">頻度</string>
+    <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">完全なライセンス条文</string>
+    <string name="gemini_api_key_step_1" comment="%1$s = URL">%1$s で Google AI Studio にアクセスする</string>
+    <string name="gemini_api_key_step_2" comment="Step 2 of API key setup guide: signing in with Google Account">Google アカウントでサインインする</string>
+    <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">「API キーを作成」をクリックし、プロジェクトを選択または作成する</string>
+    <string name="gemini_api_key_step_4" comment="Step 4 of API key setup guide: copying API key string">API キーをコピーしてここに貼り付けます</string>
+    <string name="generate_color_scheme" comment="Action button in theme builder to generate Material 3 color palette">配色を生成</string>
     <string name="generate_scheme" comment="Compact button label to generate theme color scheme">スキームを生成</string>
     <string name="generate_theme" comment="Dialog header or button for AI/wallpaper theme generation">テーマを生成</string>
     <string name="generate_tile" comment="Action button in Quick Settings builder to generate tile command via AI">タイルを生成</string>
-    <string name="get_api_key" comment="Button linking to Google AI Studio website to create an API key">Get API key</string>
+    <string name="get_api_key" comment="Button linking to Google AI Studio website to create an API key">API キーを取得</string>
     <string name="get_variables" comment="Action button in Fastboot screen to query fastboot device variables">変数を取得</string>
     <string name="go_home" comment="Button label to navigate back to home screen dashboard">帰還する</string>
     <string name="go_to_terminal" comment="Button label to navigate to terminal command input screen">端末へ移動</string>
     <string name="google_drive" comment="Refers to Google Drive cloud storage service">Google ドライブ</string>
-    <string name="google_drive_backup" comment="Option label for Google Drive automated cloud backup">Google ドライブのバックアップ</string>
-    <string name="gpl_3_0_description" comment="Summary text explaining GNU General Public License v3 terms for aShellYou">aShell フリーソフトウェア: フリーソフトウェア財団が公開している GNU General Public License の条件の下で再配布および/または変更することができます。 バージョン3のライセンス、または(任意で)それ以降のバージョンのいずれか。</string>
+    <string name="google_drive_backup" comment="Option label for Google Drive automated cloud backup">Google ドライブ バックアップ</string>
+    <string name="gpl_3_0_description" comment="Summary text explaining GNU General Public License v3 terms for aShellYou">aShell Youはフリーソフトウェアです：フリーソフトウェア財団が発行するGNU一般公衆利用許諾契約書のバージョン3、または（オプションで）それ以降のバージョンの定める条件の下で、再頒布および/または変更することができます。</string>
     <string name="grant" comment="Button label to approve permission grant request">許可</string>
     <string name="grant_permission" comment="Action button to trigger system permission request dialog">権限の付与</string>
-    <string name="grant_shizuku_permission_for_tiles" comment="Warning alert shown when Shizuku permission is missing for Quick Settings tiles">\naShell コマンドを実行するには、Shizuku権限が必要です。</string>
+    <string name="grant_shizuku_permission_for_tiles" comment="Warning alert shown when Shizuku permission is missing for Quick Settings tiles">Shizukuの権限が許可されていません！\naShell Youがタイルのコマンドを実行するにはShizukuの権限が必要です。</string>
     <string name="great_news" comment="Dialog title header for update available notification">素晴らしいニュース！</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">触覚&amp;バイブレーション</string>
-    <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">素敵な一日を！</string>
-    <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">16 進エディター</string>
-    <string name="high" comment="Selection option for high haptic strength or elevation level">高い</string>
+    <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">良い一日を！</string>
+    <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Hexエディタ</string>
+    <string name="high" comment="Selection option for high haptic strength or elevation level">高</string>
     <string name="high_contrast_dark_mode" comment="Settings preference title for OLED pitch-black dark theme">高コントラストとダークモード</string>
     <string name="hint" comment="Card header or field label for helpful hints">ヒント</string>
     <string name="history" comment="Screen title and tab label for executed terminal command history">歴史</string>
     <string name="home">ホーム</string>
     <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">サイドロードモードに入る方法</string>
-    <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">アイコンを選択しました</string>
+    <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">アイコンが選択されました</string>
     <string name="import_theme" comment="Action button to import theme configuration file">テーマをインポート</string>
-    <string name="include" comment="Filter toggle option to include selected items">Include</string>
+    <string name="include" comment="Filter toggle option to include selected items">含める</string>
     <string name="info">情報</string>
     <string name="initial_state" comment="Label for initial tile state picker in Quick Settings builder">初期状態</string>
     <string name="instructions" comment="Section header for step-by-step connection guides">ご利用方法</string>
-    <string name="intent_not_found" comment="Error toast when external app activity or URL link cannot be opened">Intent not found</string>
+    <string name="intent_not_found" comment="Error toast when external app activity or URL link cannot be opened">ファイルが見つかりません</string>
     <string name="internal_storage" comment="Root folder label in file browser for local storage">内部ストレージ</string>
     <string name="invalid_folder_name" comment="Validation error when entered directory name contains slash characters">フォルダ名に含めることはできません /</string>
     <string name="ip_address" comment="Field label for device IP address in wireless ADB setup">IPアドレス</string>
     <string name="irreversible_action_warning" comment="Warning dialog subtitle warning user that deletion cannot be undone">この操作は元に戻せません！</string>
     <string name="item_deleted" comment="Confirmation toast after item is deleted">アイテムは正常に削除されました</string>
     <string name="keep_both" comment="Resolution option in file conflict dialog to keep both original and new file">両方を保持</string>
-    <string name="key_verified_success_msg" comment="Confirmation text when entered AI API key is validated successfully">鍵の確認に成功しました</string>
+    <string name="key_verified_success_msg" comment="Confirmation text when entered AI API key is validated successfully">キーの検証に成功しました</string>
     <string name="label" comment="Field label for custom command label/tag name">ラベル</string>
     <string name="languages" comment="Settings section header for language and locale options">言語</string>
-    <string name="last_auto_backup_cloud" comment="Card label showing timestamp of last Google Drive auto backup">最後のクラウドの自動バックアップ</string>
+    <string name="last_auto_backup_cloud" comment="Card label showing timestamp of last Google Drive auto backup">最後のクラウド自動バックアップ</string>
     <string name="last_auto_backup_local" comment="Card label showing timestamp of last local storage auto backup">最後のローカル自動バックアップ</string>
     <string name="last_backup_date" comment="Card metadata label for backup creation date">最終バックアップ日</string>
-    <string name="last_backup_details" comment="Card header for summary of last backup attempt">最後のバックアップの詳細</string>
+    <string name="last_backup_details" comment="Card header for summary of last backup attempt">最終バックアップ日</string>
     <string name="last_backup_time" comment="Card metadata label for backup creation time">前回のバックアップ時間</string>
     <string name="latest_version" comment="Label showing latest available version string from GitHub release">最新バージョン</string>
-    <string name="lead_developer" comment="Role subtitle for project lead developer in About section">開発リーダー</string>
+    <string name="lead_developer" comment="Role subtitle for project lead developer in About section">開発者</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">最小限使用</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">レベル</string>
-    <string name="library_count" comment="%1$d = number of third-party libraries">%1$d ライブラリが検出されました</string>
+    <string name="library_count" comment="%1$d = number of third-party libraries">%1$d 個のライブラリが見つかりました</string>
     <string name="license" comment="Card label for software license type">ライセンス</string>
     <string name="license_label" comment="Header label for software license info">ライセンス</string>
     <string name="licenses" comment="Screen title listing open-source licenses of app dependencies">ライセンス</string>
-    <string name="load" comment="Action button to load command templates into database">読み込み</string>
+    <string name="load" comment="Action button to load command templates into database">読み込む</string>
     <string name="load_predefined_commands" comment="Button label in fastboot screen to load preset fastboot commands">定義済みのコマンドを読み込む</string>
     <string name="loading">読み込み中</string>
-    <string name="loading_device_info" comment="Progress status text while querying ADB device specifications">Loading device info…</string>
-    <string name="loading_licenses" comment="Progress status text while loading open-source license files">Loading license information…</string>
+    <string name="loading_device_info" comment="Progress status text while querying ADB device specifications">デバイス情報を読み込み中…</string>
+    <string name="loading_licenses" comment="Progress status text while loading open-source license files">ライセンス情報を読み込み中…</string>
     <string name="local_adb" comment="Connection mode option: run ADB commands locally on host device using Shizuku or Root">ローカルADB</string>
     <string name="local_adb_shell" comment="Screen header for local device ADB shell terminal">ローカル ADB シェル</string>
     <string name="local_adb_summary" comment="Summary text for local ADB feature card">Shizukuまたはrootを使用して、デバイス上で直接ADBコマンドを実行します。</string>
     <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">ローカルバックアップ</string>
     <string name="local_file" comment="Source option label for picking local backup file">ローカルファイル</string>
-    <string name="locked" comment="Status badge showing bootloader lock state is locked">ロック中</string>
+    <string name="locked" comment="Status badge showing bootloader lock state is locked">ロック済み</string>
     <string name="logcat" comment="Refers to Android system logcat log streaming tool">Logcat</string>
-    <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">ログを消去しました</string>
+    <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">ログがクリアされました</string>
     <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">パッケージ</string>
     <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">ログレベル</string>
-    <string name="logcat_filter_search_hint" comment="Placeholder text in logcat search bar">Search in messages…</string>
-    <string name="logcat_is_running" comment="Status banner shown while background logcat collection is active">Logcat が実行されています</string>
-    <string name="logcat_ive_granted_it" comment="Button in logcat permission dialog confirming user ran ADB grant command on PC">許可されました</string>
+    <string name="logcat_filter_search_hint" comment="Placeholder text in logcat search bar">メッセージを検索…</string>
+    <string name="logcat_is_running" comment="Status banner shown while background logcat collection is active">Logcat が実行中です</string>
+    <string name="logcat_ive_granted_it" comment="Button in logcat permission dialog confirming user ran ADB grant command on PC">許可しました</string>
     <string name="logcat_no_logs" comment="Placeholder text in logcat screen when no log entries match current filters">ログはまだありません</string>
-    <string name="logcat_notification_channel_description" comment="Android Notification Channel description for logcat background session">logcat がログを積極的に収集している間に表示されます</string>
+    <string name="logcat_notification_channel_description" comment="Android Notification Channel description for logcat background session">Logcatがアクティブにログを収集している間に表示されます</string>
     <string name="logcat_notification_channel_name" comment="Android Notification Channel name for Logcat background collection">Logcat セッション</string>
-    <string name="logcat_permission_body" comment="Instructions in logcat dialog detailing PM grant command required via computer ADB for non-root logcat access">この権限がなければ、aShellYou 自身からのログのみが表示されます。コンピュータからこのコマンドを実行してフルアクセスを許可してください:</string>
-    <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide">ログアクセス許可</string>
-    <string name="logcat_running_description" comment="Notification body text shown while logcat runs in background">aShellあなたはバックグラウンドでシステムログを収集しています</string>
+    <string name="logcat_permission_body" comment="Instructions in logcat dialog detailing PM grant command required via computer ADB for non-root logcat access">この権限がない場合、aShell You自体のログのみが表示されます。パソコンから次のコマンドを実行して、フルアクセスを付与してください：</string>
+    <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide">ログアクセスの権限</string>
+    <string name="logcat_running_description" comment="Notification body text shown while logcat runs in background">aShellYou がバックグラウンドでシステムログを収集しています</string>
     <string name="logcat_shortcut_long_label" comment="App launcher shortcut label for launching directly into Logcat Viewer">Logcat ビューアを開く</string>
-    <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Logcat のソース</string>
-    <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">▶️ をタップしてlogcat を開始</string>
+    <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Logcat ソース</string>
+    <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">▶をタップして logcat を開始する</string>
     <string name="logs" comment="Screen header or tab title for application and execution log views">ログ</string>
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">見た目&amp;触覚</string>
-    <string name="low" comment="Selection option for low haptic strength or elevation level">低い</string>
-    <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">コントラストが低い比</string>
-    <string name="make_your_theme_title" comment="Header title for custom theme builder screen">テーマを作成</string>
+    <string name="low" comment="Selection option for low haptic strength or elevation level">低</string>
+    <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">コントラスト比が低すぎます</string>
+    <string name="make_your_theme_title" comment="Header title for custom theme builder screen">テーマを作成する</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">手動ペア</string>
-    <string name="max_download_size" comment="Setting label for capping maximum update download file size">最大ダウンロード</string>
-    <string name="medium">ミディアム</string>
+    <string name="max_download_size" comment="Setting label for capping maximum update download file size">ダウンロード</string>
+    <string name="medium">中</string>
     <string name="merge" comment="Resolution option in file browser conflict dialog to merge directory contents">結合</string>
     <string name="message">メッセージ</string>
-    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">Message ADB Agent…</string>
+    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">ADBエージェントにメッセージを送る…</string>
     <string name="minimize" comment="Action button to minimize terminal overlay window">最小化</string>
     <string name="mode" comment="Header title for ADB execution engine mode selector">モード</string>
     <string name="mode_one_desc" comment="Description for Root execution engine option in settings">Rootアクセスを使用してコマンドを実行します。</string>
     <string name="mode_two_desc" comment="Description for Shizuku execution engine option in settings">コマンドを実行するにはShizukuを使用します。Rootが必要なコマンドは実行されません。</string>
-    <string name="model_category_large" comment="AI model size category label">大 (1.5-2.5 GB)</string>
-    <string name="model_category_medium" comment="AI model size category label">Medium (800 MB - 1.1 GB)</string>
-    <string name="model_category_small" comment="AI model size category label">小 (300～500MB)</string>
-    <string name="model_category_tiny" comment="AI model size category label">小さい（300 MB未満）</string>
+    <string name="model_category_large" comment="AI model size category label">大 (1.5～2.5 GB)</string>
+    <string name="model_category_medium" comment="AI model size category label">中 (800 MB～1.1 GB)</string>
+    <string name="model_category_small" comment="AI model size category label">小 (300～500 MB)</string>
+    <string name="model_category_tiny" comment="AI model size category label">極小 (300 MB未満)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">モデル</string>
     <string name="modified" comment="File property: last modified date">修正されました</string>
     <string name="monospace" comment="Font style category name">Monospace</string>
-    <string name="monthly" comment="Option in backup scheduler frequency selection">月ごと</string>
+    <string name="monthly" comment="Option in backup scheduler frequency selection">毎月</string>
     <string name="more">もっと見る</string>
     <string name="most_used" comment="Sorting option for commands or bookmarks list">最大使用</string>
     <string name="move">移動</string>
     <string name="moving" comment="Progress status text shown while moving files in file browser">移動中…</string>
-    <string name="moving_items" comment="%1$d = number of items being moved">%1$d アイテムを移動中</string>
+    <string name="moving_items" comment="%1$d = number of items being moved">%1$d個のアイテムを移動中</string>
     <string name="n_days" comment="%d = number of days for cache duration setting">%d 日</string>
     <string name="name">名前</string>
     <string name="network_error" comment="Toast error message when network connection fails during wireless pairing or cloud backup">ネットワークエラー</string>
-    <string name="new_commands_available_msg" comment="Banner prompt shown when updated command templates are available to load into database">新しいコマンド例が追加されました!\n下のボタンをクリックして新しいコマンドをロードします。</string>
+    <string name="new_commands_available_msg" comment="Banner prompt shown when updated command templates are available to load into database">新しいコマンド例が追加されました！\n下のボタンをクリックして新しいコマンドを読み込んでください。</string>
     <string name="new_folder" comment="Action button label in file browser to create a new directory">新しいフォルダ</string>
     <string name="new_name" comment="Text field label for entering new item or file name">新しい名前</string>
     <string name="newest" comment="Sorting option for items by creation date (newest first)">最新</string>
     <string name="no_adb_device_error" comment="Error toast when no ADB target device is found over USB OTG">ADB 互換デバイスが見つかりませんでした。ターゲットの USB デバッグを有効にしてください。</string>
-    <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">adb インターフェイスが見つかりません</string>
+    <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">ADBインターフェイスが見つかりません</string>
     <string name="no_auto_backup_yet" comment="Placeholder text under backup status when no automated backup has executed">自動バックアップはまだ実行されていません</string>
     <string name="no_bookmarks" comment="Placeholder text in bookmarks tab when no commands are saved">ブックマークが見つかりません</string>
     <string name="no_changelog_found" comment="Placeholder message in changelog screen when no version notes exist">このバージョンの変更履歴が見つかりませんでした</string>
     <string name="no_cloud_backup_found" comment="Status banner when no backup file is found on Google Drive">Google ドライブにバックアップが見つかりません</string>
-    <string name="no_commands_run_yet" comment="Placeholder message when no fastboot commands have been run in session">コマンドはまだ実行されていません</string>
+    <string name="no_commands_run_yet" comment="Placeholder message when no fastboot commands have been run in session">実行されたコマンドはありません</string>
     <string name="no_crashes" comment="Placeholder text in crash history screen when no app crashes have occurred">クラッシュは報告されていません。aShell スムーズに実行されています。</string>
-    <string name="no_custom_themes_yet" comment="Placeholder text in theme manager screen when no custom themes exist">カスタムテーマはまだありません。以下に作成してください！</string>
-    <string name="no_device_connected" comment="Status banner shown when no wireless or OTG ADB device is connected">デバイスが接続されていません</string>
+    <string name="no_custom_themes_yet" comment="Placeholder text in theme manager screen when no custom themes exist">カスタムテーマはまだありません。以下から作成してください！</string>
+    <string name="no_device_connected" comment="Status banner shown when no wireless or OTG ADB device is connected">ADBデバイスが接続されていません</string>
     <string name="no_fastboot_device_error" comment="Error banner in fastboot screen when connected USB device is not in fastboot mode">接続されたデバイスはfastbootモードではありません</string>
     <string name="no_files_download" comment="Toast warning in file browser when user selects directory instead of files for download">ファイルが選択されていません（フォルダをダウンロードできません）</string>
     <string name="no_folder_selected" comment="Placeholder status text when no backup directory is picked">フォルダが選択されていません</string>
-    <string name="no_google_account_message" comment="Dialog message when no Google account is registered on device for cloud backups">このデバイスにGoogleアカウントが見つかりませんでした。クラウドバックアップを使用するアカウントを追加しますか？</string>
+    <string name="no_google_account_message" comment="Dialog message when no Google account is registered on device for cloud backups">このデバイスにGoogleアカウントが見つかりませんでした。クラウドバックアップを使用するために追加しますか？</string>
     <string name="no_google_account_title" comment="Dialog title when no Google account is detected">Google アカウントがありません</string>
     <string name="no_history" comment="Placeholder text in terminal history tab when execution log is empty">コマンド履歴はありません</string>
-    <string name="no_libraries_found" comment="Placeholder text in licenses screen when search query returns no matching third-party libraries">ライブラリが見つかりません</string>
+    <string name="no_libraries_found" comment="Placeholder text in licenses screen when search query returns no matching third-party libraries">ブックマークが見つかりません</string>
     <string name="no_logs_yet" comment="Placeholder text in Quick Settings tile execution logs tab">ログはまだありません！</string>
-    <string name="no_logs_yet_msg" comment="Instructional prompt under empty tile logs screen">ログはまだ記録されていません。ここにログを表示するタイルを実行してください。</string>
+    <string name="no_logs_yet_msg" comment="Instructional prompt under empty tile logs screen">ログはまだ記録されていません。ここにログを表示するには、いくつかのタイルを実行してください。</string>
     <string name="no_model_selected" comment="Status text when no AI LLM model is selected in settings">モデルが選択されていません</string>
     <string name="no_operations" comment="Placeholder text in file manager operations queue sheet">進行中の操作はありません</string>
-    <string name="no_other_device_hint" comment="Instructional subtext in logcat viewer when viewing remote device logs">ログを表示するには外部デバイスを接続してください</string>
-    <string name="no_results_found" comment="Placeholder text when search query yields no matching items">結果が見つかりませんでした</string>
+    <string name="no_other_device_hint" comment="Instructional subtext in logcat viewer when viewing remote device logs">外部デバイスを接続してログを表示する</string>
+    <string name="no_results_found" comment="Placeholder text when search query yields no matching items">検索結果が見つかりません</string>
     <string name="no_root_access" comment="Error toast or status badge when root superuser access is unavailable">ルートアクセスがありません</string>
     <string name="no_saved_devices" comment="Placeholder text in saved devices screen when no ADB target devices are paired">保存されたデバイスはありません</string>
     <string name="no_search_results_found" comment="Placeholder text when command search yields no results">検索結果が見つかりません</string>
-    <string name="no_variables_loaded" comment="Placeholder text in fastboot variable explorer tab before querying getvar">ロードされた変数はありません</string>
+    <string name="no_variables_loaded" comment="Placeholder text in fastboot variable explorer tab before querying getvar">変数が読み込まれていません</string>
     <string name="no_wifi_connection" comment="Error banner when Wi-Fi is disabled during Wireless Debugging setup">WiFi接続がありません</string>
     <string name="none">無し</string>
     <string name="not_signed_in" comment="Status text in cloud backup settings when Google account is signed out">サインインしていません</string>
@@ -636,37 +636,37 @@
     <string name="nothing_to_search" comment="Toast message when search query string is empty">検索するものがありません</string>
     <string name="notification_settings" comment="Button label to open system notification settings screen">通知設定</string>
     <string name="notification_style_error" comment="Troubleshooting guide text explaining Xiaomi/MIUI notification shade issues with entering pairing code">通知からペアリングコードを入力できない場合は、通知シェードを Android に変更する必要がある場合があります。 通知設定~通知スタイルを変更するには、通知スタイルを選択します。 そうしないと、通知からペアリングコードを入力できない場合があります。</string>
-    <string name="notification_styles" comment="Settings preference title for notification shade style options">通知スタイル</string>
-    <string name="off">OFF</string>
-    <string name="off_state" comment="Quick Settings tile toggle state label">オフ</string>
+    <string name="notification_styles" comment="Settings preference title for notification shade style options">通知設定</string>
+    <string name="off">オフ</string>
+    <string name="off_state" comment="Quick Settings tile toggle state label">OFF</string>
     <string name="ok">OK</string>
     <string name="oldest" comment="Sorting option">古い</string>
-    <string name="on">ON</string>
-    <string name="on_background">背景に</string>
-    <string name="on_primary">プライマリで</string>
+    <string name="on">オン</string>
+    <string name="on_background">背景上</string>
+    <string name="on_primary">プライマリ上</string>
     <string name="on_primary_container">プライマリコンテナ上</string>
-    <string name="on_secondary">セカンダリ時</string>
-    <string name="on_state" comment="Quick Settings tile toggle state label">オン</string>
-    <string name="on_surface">表面上</string>
-    <string name="on_tertiary">第三紀で</string>
+    <string name="on_secondary">セカンダリ上</string>
+    <string name="on_state" comment="Quick Settings tile toggle state label">ON</string>
+    <string name="on_surface">サーフェス上</string>
+    <string name="on_tertiary">ターシャリー上</string>
     <string name="open">開く</string>
     <string name="open_app_language_settings" comment="Button label on Android 13+ to jump to system per-app language setting screen">アプリの言語設定を開く</string>
     <string name="open_issues" comment="GitHub repository open issues count">未解決の課題</string>
-    <string name="open_url" comment="Action button to launch web browser to external URL link">URLを開く</string>
-    <string name="operation_complete" comment="Notification toast when file copy/move operation finishes">操作が完了しました</string>
+    <string name="open_url" comment="Action button to launch web browser to external URL link">URL を開く</string>
+    <string name="operation_complete" comment="Notification toast when file copy/move operation finishes">操作がキャンセルされました</string>
     <string name="operations" comment="Bottom sheet title for file transfer operations list">操作</string>
     <string name="or">OR</string>
     <string name="otg" comment="USB On-The-Go. Technical term, keep as OTG">OTG</string>
-    <string name="other_details" comment="Expandable card title for additional device metadata details">その他の詳細</string>
-    <string name="other_device" comment="Selection tab for target device in Logcat Viewer">その他のデバイス</string>
+    <string name="other_details" comment="Expandable card title for additional device metadata details">クラッシュの詳細</string>
+    <string name="other_device" comment="Selection tab for target device in Logcat Viewer">保存されたデバイス</string>
     <string name="output" comment="Header title for shell command output window">出力</string>
-    <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">Output will appear here…</string>
+    <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">出力はここに表示されます…</string>
     <string name="override_bookmarks_limit" comment="Setting toggle title to remove the maximum limit on saved bookmarks count">ブックマークの上限をオーバーライドする</string>
     <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">パッケージ名</string>
     <string name="pair" comment="Button/action label to initiate ADB wireless or OTG pairing with another device">ペアリング</string>
     <string name="pair_a_device_first" comment="Instructional notice directing user to pair an ADB device before attempting connection">デバイスを最初にペアリングする</string>
     <string name="pair_another_device" comment="Button label in Wireless Debugging setup to pair an additional target device">別のデバイスをペアリングする</string>
-    <string name="pair_connect_failed_message" comment="Dialog message when connecting to a paired wireless ADB device fails">Could not connect to the paired device\nThe device may not be on the same network\nTry pairing again</string>
+    <string name="pair_connect_failed_message" comment="Dialog message when connecting to a paired wireless ADB device fails">ペアリングしたデバイスに接続できませんでした\nデバイスが同じネットワーク上にあるか確認してください\nペアリングし直してみてください</string>
     <string name="pair_device_to_start" comment="Placeholder banner in wireless debugging screen directing user to pair device via QR or pairing code">QRコードまたはペアリングコードを使用してデバイスをペアリングしてここで確認できます</string>
     <string name="pair_manually" comment="Option in Wireless Debugging setup to enter IP, Port, and Pairing Code manually">手動でペアリングする</string>
     <string name="pair_this_device" comment="Button label in wireless debugging screen to initiate self-pairing for local device ADB">このデバイスをペアリングする</string>
@@ -676,58 +676,58 @@
     <string name="pairing" comment="Status header/banner displayed while ADB wireless pairing is in progress">ペアリング中</string>
     <string name="pairing_code" comment="Field label or dialog title for 6-digit ADB wireless pairing code">ペアリングコード</string>
     <string name="pairing_notification_hint" comment="Notice informing user that a system notification will appear to facilitate quick pairing code entry">ペアリングを支援するためにaShell Youから通知が届きます</string>
-    <string name="pairing_process_notification_access_message" comment="Dialog message asking user to grant system notification access to enable quick pairing code entry">ペアリングプロセスを完了するには、aShell あなたからの通知と対話する必要があります。aShell あなたへの通知アクセスを許可してください。</string>
+    <string name="pairing_process_notification_access_message" comment="Dialog message asking user to grant system notification access to enable quick pairing code entry">ペアリングプロセスを完了するには、aShell Youからの通知を許可する必要があります。aShell Youからの通知を許可してください。</string>
     <string name="palette_content" comment="Material Design color scheme style name">コンテンツ</string>
-    <string name="palette_expressive" comment="Material Design color scheme style name">表現的</string>
-    <string name="palette_fidelity" comment="Material Design color scheme style name">忠実度</string>
+    <string name="palette_expressive" comment="Material Design color scheme style name">エクスプレッシブ</string>
+    <string name="palette_fidelity" comment="Material Design color scheme style name">フィデリティ</string>
     <string name="palette_fruit_salad" comment="Material Design color scheme style name">フルーツサラダ</string>
     <string name="palette_monochrome" comment="Material Design color scheme style name">モノクローム</string>
     <string name="palette_neutral" comment="Material Design color scheme style name">ニュートラル</string>
-    <string name="palette_rainbow" comment="Material Design color scheme style name">Rainbow</string>
-    <string name="palette_style" comment="Settings label for choosing Material Design color palette">Palette style</string>
-    <string name="palette_tonal_spot" comment="Material Design color scheme style name">トーナルスポット</string>
-    <string name="palette_vibrant" comment="Material Design color scheme style name">バイブ</string>
+    <string name="palette_rainbow" comment="Material Design color scheme style name">レインボー</string>
+    <string name="palette_style" comment="Settings label for choosing Material Design color palette">パレットスタイル</string>
+    <string name="palette_tonal_spot" comment="Material Design color scheme style name">トーンスポット</string>
+    <string name="palette_vibrant" comment="Material Design color scheme style name">ビブラント</string>
     <string name="partition" comment="Field label or dropdown header for fastboot partition name (e.g. boot, system, recovery)">パーティション</string>
     <string name="paste">貼り付け</string>
     <string name="path" comment="Field label for file or directory path in file browser properties">パス</string>
-    <string name="paused" comment="Status badge showing ongoing file transfer or logcat session is paused">一時停止</string>
+    <string name="paused" comment="Status badge showing ongoing file transfer or logcat session is paused">一時停止中</string>
     <string name="permission_denied" comment="Error toast when requested Android system permission is denied by user">権限がありません</string>
     <string name="permission_optional" comment="Subtext notice indicating requested permissions are non-mandatory">これらの権限を付与することは任意です！</string>
     <string name="pick_ashellyou_extension" comment="File picker validation error requiring user to select a .ashellyou backup file">拡張子が .ashellyou のファイルを選択してください</string>
     <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">色を選択</string>
     <string name="port" comment="Field label for network port number in wireless ADB manual pairing setup">ポート</string>
     <string name="possible_reasons" comment="Dialog section header listing potential causes of ADB connection failure">考えられる理由</string>
-    <string name="pre_release_github" comment="Option in update channel settings to receive GitHub pre-release builds">プレリリース(GitHub)</string>
+    <string name="pre_release_github" comment="Option in update channel settings to receive GitHub pre-release builds">プレリリース (GitHub)</string>
     <string name="pre_release_warning" comment="Warning alert header when switching to pre-release update channel">プレリリースビルドは不安定になる可能性があります</string>
     <string name="pre_release_warning_description" comment="Detailed description of risks when opting into pre-release testing builds">これらのバージョンはまだテスト段階であり、未完成の機能や予期せぬバグが含まれている可能性があります。プレリリース版にアップデートすると、不具合が発生したり、動作が不安定になったりする可能性があることにご注意ください。\n問題、クラッシュ、または奇妙な動作に遭遇した場合は、安定版リリース前にaShellYouを修正して改善できるように報告してください。\nアプリをより良くするために協力してくれてありがとうございます！</string>
     <string name="predefined_commands" comment="Section header for pre-saved fastboot command actions">定義済みコマンド</string>
-    <string name="predefined_commands_desc" comment="Description under predefined fastboot commands header">一般的なfastbootコマンドへの迅速なアクセス。結果は以下のコンソールにストリームされます。</string>
+    <string name="predefined_commands_desc" comment="Description under predefined fastboot commands header">よく使われる fastboot コマンドにすばやくアクセスします。結果は以下のコンソールにストリーミングされます。</string>
     <string name="preference" comment="Header title for settings preference category">設定</string>
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">プレビュー</string>
-    <string name="primary">プライマリ（プライマリ）</string>
+    <string name="primary">プライマリ</string>
     <string name="primary_container">プライマリコンテナ</string>
-    <string name="product" comment="Fastboot device property label displaying target device model/product code">商品</string>
-    <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">リカバリメニューから端末をサイドロードモードにする</string>
+    <string name="product" comment="Fastboot device property label displaying target device model/product code">製品</string>
+    <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">リカバリメニューからデバイスをサイドロードモードにする</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">QRコードペアリング</string>
     <string name="qr_pair_hint" comment="Instructional text in QR pairing screen instructing user to scan QR code from target device">Android 11以上のデバイスをペアリングするには、対象デバイスからこのQRをスキャンしてください</string>
     <string name="qr_scanner_location_hint" comment="Instructional hint directing user where to find system QR scanner in target device Developer Options">QRコードを使用して、\n開発者向けオプション &gt; ワイヤレスデバッグ &gt; ペアリングする</string>
-    <string name="qs_tiles" comment="Refers to Android System Quick Settings tiles configured for custom ADB scripts">クイック設定タイル</string>
+    <string name="qs_tiles" comment="Refers to Android System Quick Settings tiles configured for custom ADB scripts">設定のリセットに失敗しました</string>
     <string name="quick_tools" comment="Section header for fast access utility tools">クイックツール</string>
-    <string name="reading_file" comment="Progress status text while loading file contents into viewer">Reading file…</string>
+    <string name="reading_file" comment="Progress status text while loading file contents into viewer">ファイルを読み込み中…</string>
     <string name="ready_to_paste" comment="Status message in file manager when item is stored in paste clipboard">ペーストする準備ができました</string>
-    <string name="reboot_bootloader" comment="Action button / dialog choice to reboot target device into bootloader mode">ブートローダーで再起動</string>
-    <string name="reboot_confirm_message" comment="%1$s = target boot mode (e.g. recovery, bootloader). Confirmation prompt before rebooting target device">接続されたデバイスを %1$sに再起動します。続行しますか？</string>
-    <string name="reboot_confirm_title" comment="Dialog title asking user confirmation before rebooting target device">再起動を確認</string>
+    <string name="reboot_bootloader" comment="Action button / dialog choice to reboot target device into bootloader mode">ブートローダーに再起動</string>
+    <string name="reboot_confirm_message" comment="%1$s = target boot mode (e.g. recovery, bootloader). Confirmation prompt before rebooting target device">接続されたデバイスが %1$s に再起動します。続行しますか？</string>
+    <string name="reboot_confirm_title" comment="Dialog title asking user confirmation before rebooting target device">終了を確認する</string>
     <string name="reboot_fastbootd" comment="Action button / dialog choice to reboot target device into fastbootd (userspace fastboot) mode">Fastbootdに再起動</string>
-    <string name="reboot_normal" comment="Action button / dialog choice to perform standard system reboot">Reboot</string>
+    <string name="reboot_normal" comment="Action button / dialog choice to perform standard system reboot">再起動</string>
     <string name="reboot_options" comment="Menu header listing target device reboot modes (Normal, Recovery, Bootloader, Fastbootd)">再起動オプション</string>
-    <string name="reboot_recovery" comment="Action button / dialog choice to reboot target device into recovery mode">リカバリに再起動</string>
+    <string name="reboot_recovery" comment="Action button / dialog choice to reboot target device into recovery mode">リカバリーに再起動</string>
     <string name="recent_activity" comment="Dashboard card header listing recent command executions">最近のアクティビティ</string>
     <string name="recent_searches" comment="Header title for recent search query history">最近の検索</string>
-    <string name="recommended" comment="Badge label marking recommended settings or AI choices">Recommended</string>
+    <string name="recommended" comment="Badge label marking recommended settings or AI choices">おすすめ</string>
     <string name="reconnect" comment="Action button to attempt reconnecting to last known wireless ADB device">再接続</string>
     <string name="reconnect_failed" comment="Toast notification or card status when wireless ADB reconnection fails">再接続に失敗しました</string>
-    <string name="reconnect_failed_message" comment="Dialog body text detailing causes of wireless ADB reconnection failure">\nワイヤレスデバッグが有効になっていない可能性があります\nペアリング情報が失われている可能性があります。手動で再度ペアリングしてください。</string>
+    <string name="reconnect_failed_message" comment="Dialog body text detailing causes of wireless ADB reconnection failure">\nワイヤレスデバッグが有効になっていない可能性があります\nペアリング情報が失われている可能性があります。手動で再度ペアリングしてください！</string>
     <string name="reconnect_failed_requires_pairing" comment="Toast notification indicating device un-paired and needs re-pairing">再接続に失敗しました。再ペアリングが必要です。</string>
     <string name="reconnect_success" comment="Toast message confirming successful wireless ADB reconnection">再接続に成功しました</string>
     <string name="reconnect_the_device" comment="Button prompt directing user to reconnect target ADB device">デバイスを再接続</string>
@@ -751,20 +751,20 @@
     <string name="restore_failed" comment="Toast error message when restoring app data fails">復元に失敗しました</string>
     <string name="restore_from" comment="Dialog header prompting user to select restore source (Local File or Google Drive)">復元元</string>
     <string name="restore_successful" comment="Toast message confirming successful app data restoration">正常に復元しました</string>
-    <string name="restoring_backup" comment="Progress status text shown while restoring database from backup">Restoring backup…</string>
+    <string name="restoring_backup" comment="Progress status text shown while restoring database from backup">バックアップを復元中…</string>
     <string name="resume" comment="Action button to resume paused logcat streaming or file download">再開</string>
     <string name="retry" comment="Action button to retry failed network connection or command execution">再試行する</string>
     <string name="root_access_granted" comment="Toast notification confirming superuser root access granted to aShellYou">ルートアクセスを許可しました！</string>
-    <string name="root_unavailable" comment="Dialog title when root access check returns false">ルート権限がありません</string>
-    <string name="root_unavailable_message" comment="Dialog message explaining root access was not detected on device">ルートアクセスを検出できませんでした。デバイスがルート化されていることを確認し、もう一度やり直すか、別の logcat ソースに切り替えてください。</string>
+    <string name="root_unavailable" comment="Dialog title when root access check returns false">Rootが利用できません</string>
+    <string name="root_unavailable_message" comment="Dialog message explaining root access was not detected on device">Rootアクセスが検出されませんでした。デバイスがRoot化されていることを確認してもう一度試すか、別のLogcatソースに切り替えてください。</string>
     <string name="run">実行</string>
-    <string name="run_a_command_to_see_logs" comment="Instructional prompt under empty fastboot logs view">コマンドタブを使用してfastbootコマンドを実行します</string>
-    <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">接続されているデバイスで \"%1$s\" を実行しますか？</string>
-    <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">コマンドを実行？</string>
+    <string name="run_a_command_to_see_logs" comment="Instructional prompt under empty fastboot logs view">「コマンド」タブを使用して fastboot コマンドを実行します</string>
+    <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">接続されたデバイスで \"%1$s\" を実行しますか？</string>
+    <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">コマンドを実行しますか？</string>
     <string name="running" comment="Status badge showing task or command execution is active">実行中</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">保存</string>
-    <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">Save as profile…</string>
+    <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">プロファイルとして保存…</string>
     <string name="save_changes" comment="Action button to persist edited settings or tile parameters">変更を保存</string>
     <string name="save_key" comment="Button label to save entered API key string in settings">キーを保存</string>
     <string name="save_whole_output" comment="Setting toggle title to export full terminal session output to file">出力全体を保存</string>
@@ -772,32 +772,32 @@
     <string name="saving" comment="Progress status text while saving file or settings">保存中…</string>
     <string name="saving_output" comment="Progress status text while exporting terminal log output to file">出力をファイルにエクスポート中…</string>
     <string name="schedule" comment="Header title or setting label for automated backup schedule picker">スケジュール</string>
-    <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">画面密度倍率</string>
+    <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">画面密度の倍率</string>
     <string name="search">検索</string>
-    <string name="search_bookmarks_here" comment="Placeholder text in bookmarks tab search bar">ブックマークをここで検索</string>
+    <string name="search_bookmarks_here" comment="Placeholder text in bookmarks tab search bar">ここでコマンドを検索</string>
     <string name="search_commands_here" comment="Placeholder text in command templates tab search bar">ここでコマンドを検索</string>
-    <string name="search_fonts" comment="Placeholder text in font family picker search bar">Search fonts…</string>
-    <string name="search_icons_here" comment="Placeholder text in Quick Settings tile icon picker search bar">アイコンを検索</string>
+    <string name="search_fonts" comment="Placeholder text in font family picker search bar">フォントを検索…</string>
+    <string name="search_icons_here" comment="Placeholder text in Quick Settings tile icon picker search bar">ここでコマンドを検索</string>
     <string name="search_labels_here" comment="Placeholder text in command label filter search bar">ここにラベルを検索</string>
-    <string name="search_libraries" comment="Placeholder text in open-source licenses search bar">Search libraries, authors, licenses…</string>
+    <string name="search_libraries" comment="Placeholder text in open-source licenses search bar">ライブラリ、作者、ライセンスを検索…</string>
     <string name="search_output" comment="Placeholder text in terminal output search bar">ここで出力を検索</string>
-    <string name="search_settings" comment="Placeholder text in settings top search bar">検索設定</string>
+    <string name="search_settings" comment="Placeholder text in settings top search bar">システム設定</string>
     <string name="search_something" comment="Generic search field placeholder prompt">何かを検索</string>
-    <string name="search_variables" comment="Placeholder text in fastboot variables explorer search bar">Search variables…</string>
+    <string name="search_variables" comment="Placeholder text in fastboot variables explorer search bar">変数を検索…</string>
     <string name="searching_connect_service" comment="Status message while discovering ADB mDNS connection service on local network">接続サービスを検索中</string>
     <string name="searching_for_devices" comment="Progress status text while scanning for local Wireless Debugging or OTG ADB target devices">デバイスを検索中…</string>
-    <string name="secondary">Secondary</string>
+    <string name="secondary">セカンダリ</string>
     <string name="security_patch" comment="Device property label displaying Android security patch level date">セキュリティパッチ</string>
     <string name="select">選択</string>
     <string name="select_all">すべて選択</string>
-    <string name="select_backup_folder_message" comment="Dialog message prompting user to grant folder access for local automated backups">バックアップを保存するフォルダを選択してください。アプリはこのフォルダへの読み取りと書き込みアクセスを必要とします。</string>
+    <string name="select_backup_folder_message" comment="Dialog message prompting user to grant folder access for local automated backups">バックアップを保存するフォルダを選択してください。アプリにはこのフォルダへの読み取りおよび書き込みアクセス権が必要です。</string>
     <string name="select_backup_folder_title" comment="Dialog title when no backup directory has been configured">バックアップフォルダがありません</string>
-    <string name="select_folder" comment="Action button to open system directory picker for backup storage">フォルダを選択</string>
+    <string name="select_folder" comment="Action button to open system directory picker for backup storage">フォルダを削除</string>
     <string name="select_partition" comment="Dropdown hint or dialog header for picking target fastboot partition">パーティションを選択</string>
-    <string name="select_theme_to_edit_hex" comment="Instructional prompt under hex editor section in theme builder">上記のテーマを選択して、生の16進数の値をここで編集します。</string>
-    <string name="select_time" comment="Button label to open time picker dialog for automated backup schedule">時間を選択</string>
-    <string name="select_zip_package" comment="Button label to launch file picker for selecting a ZIP update package to sideload">ZIPパッケージの選択</string>
-    <string name="self" comment="Refers to pairing this device with itself for local ADB">自己|自分format@@0</string>
+    <string name="select_theme_to_edit_hex" comment="Instructional prompt under hex editor section in theme builder">上のテーマを選択して、ここで生のHex値を編集します。</string>
+    <string name="select_time" comment="Button label to open time picker dialog for automated backup schedule">すべて選択</string>
+    <string name="select_zip_package" comment="Button label to launch file picker for selecting a ZIP update package to sideload">ZIP パッケージを選択</string>
+    <string name="self" comment="Refers to pairing this device with itself for local ADB">自己</string>
     <string name="self_pair_connection_failed" comment="Toast error message when automatic local self-pairing fails">接続に失敗しました - 手動で接続してみてください</string>
     <string name="self_pair_enter_code" comment="Subtext instruction prompting user for 6-digit wireless pairing code">ペアリングダイアログから6桁のコードを入力してください</string>
     <string name="self_pair_enter_code_hint" comment="Placeholder text in text field for entering 6-digit self-pairing code">6桁のペアリングコードを入力してください</string>
@@ -818,148 +818,148 @@
     <string name="serial_number" comment="Device property label displaying target device hardware serial number">シリアル番号</string>
     <string name="serif" comment="Font style category name">Serif</string>
     <string name="settings">設定</string>
-    <string name="settings_only" comment="Option in backup screen to export only application settings (excluding history/bookmarks)">設定のみ</string>
+    <string name="settings_only" comment="Option in backup screen to export only application settings (excluding history/bookmarks)">設定</string>
     <string name="share">共有</string>
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">最後のコマンドの出力は \'%s\' にエクスポートされます</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">シェル出力は \'%s\' にエクスポートされます</string>
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">しずくは設置されていません</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizukuは使用できません</string>
-    <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku is not running or missing permissions">お使いの端末に「Shizuku」がインストールされていないか、有効化されていません。 「Shizuku」の環境がないと、aShell Youは実行できません。</string>
-    <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">リカバリ経由で端末をサイドロードモードにする</string>
-    <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Sideload mode — 準備完了</string>
-    <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">リカバリー起動（音量を下げたまま、電源を入れたまま：adb reboot recovery）</string>
-    <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">リカバリメニューの「更新の適用」に移動します</string>
-    <string name="sideload_step_3" comment="Step 3 of ADB sideload guide: selecting ADB sideload mode in recovery">「ADBから適用」（または「ADB Sideload」）を選択します</string>
-    <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">OTGケーブルを介してデバイスを接続し、ここでZIPを選択してください</string>
-    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Sideloading…</string>
-    <string name="sign_in_failed" comment="Toast error message when Google account sign-in fails">Google のサインインに失敗しました</string>
-    <string name="sign_in_with_google" comment="Button label in cloud backup settings to sign into Google account">Googleアカウントでログイン</string>
+    <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku is not running or missing permissions">お使いの端末に「Shizuku」がインストールされていないか、有効化されていません。 「Shizuku」の環境がないと、aShell Youは実行できません</string>
+    <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">リカバリ経由でデバイスをサイドロードモードにする</string>
+    <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">サイドロードモード — 準備完了</string>
+    <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">リカバリモードで起動します (音量小 + 電源ボタンを長押しするか、adb reboot recovery を実行します)</string>
+    <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">リカバリメニューの「Apply update」に移動します</string>
+    <string name="sideload_step_3" comment="Step 3 of ADB sideload guide: selecting ADB sideload mode in recovery">「Apply from ADB」(または「ADB Sideload」) を選択します</string>
+    <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">OTG ケーブルでデバイスを接続し、ここで ZIP を選択します</string>
+    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">サイドロード中…</string>
+    <string name="sign_in_failed" comment="Toast error message when Google account sign-in fails">Google サインインに失敗しました</string>
+    <string name="sign_in_with_google" comment="Button label in cloud backup settings to sign into Google account">Google でサインイン</string>
     <string name="sign_out" comment="Button label in cloud backup settings to sign out of Google account">サインアウト</string>
-    <string name="sign_out_confirmation_msg" comment="Warning prompt in sign-out confirmation dialog warning that auto cloud backups will pause">サインアウトすると全ての自動クラウドバックアップが一時停止されます！\nサインアウトしますか？</string>
-    <string name="signed_in_as" comment="%1$s = user email or name">%1$s としてサインインしました</string>
-    <string name="signed_out" comment="Status text in cloud backup card when signed out of Google account">サインアウトしました</string>
+    <string name="sign_out_confirmation_msg" comment="Warning prompt in sign-out confirmation dialog warning that auto cloud backups will pause">サインアウトすると、すべての自動クラウドバックアップが一時停止します！\nそれでもサインアウトしますか？</string>
+    <string name="signed_in_as" comment="%1$s = user email or name">%1$s としてサインイン中</string>
+    <string name="signed_out" comment="Status text in cloud backup card when signed out of Google account">サインアウト済み</string>
     <string name="size">サイズ</string>
     <string name="skip">スキップ</string>
     <string name="slide_to_flash" comment="Slider text prompt in fastboot partition flash confirmation sheet">スライドしてフラッシュ</string>
-    <string name="slide_to_sideload" comment="Slider button prompt to initiate the ADB sideload transfer of chosen ZIP file over OTG">Slide to Sideload</string>
+    <string name="slide_to_sideload" comment="Slider button prompt to initiate the ADB sideload transfer of chosen ZIP file over OTG">スライドしてサイドロード</string>
     <string name="slot_data_unknown" comment="Status text when device A/B slot information cannot be retrieved over fastboot">スロットデータが不明です</string>
     <string name="smooth_scrolling" comment="Settings toggle preference title to enable smooth scrolling animation in terminal">スムーズなスクロール</string>
     <string name="sort">並び替え</string>
-    <string name="stable_fdroid" comment="Option in update channel settings for F-Droid stable releases">安定版 (フドロイド)</string>
+    <string name="stable_fdroid" comment="Option in update channel settings for F-Droid stable releases">安定版 (Fdroid)</string>
     <string name="stable_github" comment="Option in update channel settings for GitHub stable releases">安定版 (GitHub)</string>
     <string name="stack_trace" comment="Header title for crash log exception stack trace section">スタックトレース</string>
     <string name="stargazers" comment="GitHub repository star count label in About screen">Starを付けたユーザ</string>
     <string name="start">スタート</string>
     <string name="stop">停止</string>
-    <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">%.1f MB は AI モデルによって使用されています</string>
+    <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">AIモデルで使用されているストレージ: %.1f MB</string>
     <string name="subtitle" comment="Field label for Quick Settings tile subtitle text">サブタイトル</string>
-    <string name="subtitle_off_state" comment="Field label for tile subtitle text when Quick Settings tile is OFF">字幕（OFF状態）</string>
-    <string name="subtitle_on_state" comment="Field label for tile subtitle text when Quick Settings tile is ON">字幕（オン状態）</string>
+    <string name="subtitle_off_state" comment="Field label for tile subtitle text when Quick Settings tile is OFF">サブタイトル (OFF状態)</string>
+    <string name="subtitle_on_state" comment="Field label for tile subtitle text when Quick Settings tile is ON">サブタイトル (ON状態)</string>
     <string name="success">成功しました</string>
     <string name="success_rate" comment="Analytics metadata metric showing tile execution success percentage">成功率</string>
     <string name="successful_connection_message" comment="Dialog message confirming target ADB device connected successfully">デバイスが正常に接続されました。これで、ターゲットデバイスでコマンドの実行を開始できます。</string>
     <string name="suggested_icons" comment="Header title in tile icon picker listing suggested Material icons">おすすめのアイコン</string>
     <string name="support_bmc" comment="Banner text in About section linking to Buy Me a Coffee donation page">気に入っていただけましたか？\nよろしければコーヒーをください</string>
-    <string name="surface">Surface</string>
+    <string name="surface">サーフェス</string>
     <string name="switch_mode" comment="Action button to switch ADB connection mode between Local ADB, Remote Wireless ADB, and OTG">モードを切り替える</string>
     <string name="system">システム</string>
-    <string name="system_default" comment="Theme or language option to match Android OS system default settings">システムのデフォルト</string>
+    <string name="system_default" comment="Theme or language option to match Android OS system default settings">システムフォント</string>
     <string name="system_font" comment="Option to use the device default font">システムフォント</string>
     <string name="system_settings" comment="Button label linking to Android system Settings app">システム設定</string>
-    <string name="tab" comment="Settings option for terminal tab indentation behavior">Tab</string>
+    <string name="tab" comment="Settings option for terminal tab indentation behavior">タブ</string>
     <string name="tag" comment="Field label for custom command category tag/label">タグ</string>
-    <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">.zip ファイルを参照するにはタップします</string>
+    <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">タップして .zip ファイルを参照する</string>
     <string name="telegram" comment="Button in About screen linking to official Telegram community group">Telegram</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">ターミナル</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">端末のフォントスタイル</string>
-    <string name="tertiary">三&lt;unk&gt;</string>
-    <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">サードパーティのライブラリ</string>
+    <string name="tertiary">ターシャリー</string>
+    <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">サードパーティライブラリ</string>
     <string name="this_application" comment="Option label for target scope in Logcat Viewer">このアプリケーション</string>
     <string name="this_device" comment="Selection option for target ADB device matching host phone">このデバイス</string>
     <string name="tile" comment="Refers to Android System Quick Settings tile">タイル</string>
     <string name="tile_behavior" comment="Settings title for Quick Settings tile click behavior (click vs long-click)">タイルの動作</string>
-    <string name="tile_dashboard_notification_access_message" comment="Banner notice asking for notification permission to report tile execution errors">タイルの実行に失敗したときに通知を受け取るために通知をオンにする</string>
+    <string name="tile_dashboard_notification_access_message" comment="Banner notice asking for notification permission to report tile execution errors">通知をオンにして、タイルの実行が失敗したときに通知を受け取る</string>
     <string name="tile_logs" comment="Tab header for Quick Settings tile execution history log">タイルログ</string>
     <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">タイル %1$d</string>
-    <string name="tile_name" comment="Field label for Quick Settings tile title text">タイル名</string>
+    <string name="tile_name" comment="Field label for Quick Settings tile title text">フォルダ名</string>
     <string name="tiles" comment="Navigation drawer item and screen header for Quick Settings tiles manager">タイル</string>
-    <string name="time">時刻</string>
+    <string name="time">時間</string>
     <string name="timestamp">タイムスタンプ</string>
-    <string name="toggleable">切り替え可能</string>
-    <string name="total_executions">合計実行数</string>
+    <string name="toggleable">トグル可能</string>
+    <string name="total_executions">総実行回数</string>
     <string name="translations">翻訳</string>
-    <string name="translators">翻訳</string>
+    <string name="translators">翻訳者</string>
     <string name="troubleshoot">トラブルシューティング</string>
     <string name="troubleshoot_reconnect">オフに切り替えて無線デバッグ接続を更新する</string>
-    <string name="try_different_search">別の検索語を試してください</string>
+    <string name="try_different_search">別の検索用語をお試しください</string>
     <string name="turn_off_mobile_data">Wi-Fi接続にインターネットがない場合、モバイルデータ通信をオフにします</string>
     <string name="tweak_your_experience">経験値を調整する</string>
     <string name="type">タイプ</string>
     <string name="ui_scale" comment="Settings preference title for adjusting UI scale factor">UIスケール</string>
     <string name="undo">元に戻す</string>
-    <string name="unexpected_error" comment="Generic exception toast header when unhandled error occurs">予期しないエラー</string>
+    <string name="unexpected_error" comment="Generic exception toast header when unhandled error occurs">予期せぬエラー</string>
     <string name="unknown">不明</string>
     <string name="unknown_error" comment="Toast error message when error cause is unmapped">不明なエラーが発生しました</string>
     <string name="unknown_sources_install_permission_not_granted" comment="Error toast when REQUEST_INSTALL_PACKAGES permission is missing for app update installation">権限がありません。不明なソースからアプリをインストールすることを許可してください。</string>
-    <string name="unlock_status" comment="Device property label displaying bootloader lock state">ステータスのロックを解除</string>
+    <string name="unlock_status" comment="Device property label displaying bootloader lock state">ロック解除ステータス</string>
     <string name="unlocked" comment="Status badge showing bootloader is unlocked">ロック解除済み</string>
-    <string name="untitled" comment="Default name fallback for unsaved theme profile or custom tile">無題のタイトル</string>
-    <string name="update">アップデート</string>
+    <string name="untitled" comment="Default name fallback for unsaved theme profile or custom tile">無題</string>
+    <string name="update">更新</string>
     <string name="update_available" comment="Banner title announcing a new application update release">アップデートがあります！</string>
     <string name="update_channel" comment="Settings preference title for choosing update channel (Stable, Pre-release, F-Droid)">チャンネルをアップデート</string>
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">ファイルをアップロード</string>
     <string name="uploading" comment="Progress status text shown while uploading file to device">アップロード中…</string>
-    <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Uploading backup to Google Drive…</string>
-    <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">このデバイスではUSBマネージャーは利用できません</string>
+    <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Google ドライブにバックアップをアップロード中…</string>
+    <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">このデバイスでは USB マネージャーを利用できません</string>
     <string name="use">利用</string>
     <string name="utilities" comment="Category title in homescreen">ユーティリティ</string>
-    <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">バリアント型</string>
-    <string name="verification_failed" comment="Toast error message when AI API key verification fails">認証に失敗しました</string>
-    <string name="verify_api_key" comment="Action button to validate entered AI API key with remote service">APIキーを確認</string>
-    <string name="verifying" comment="Progress status text while verifying API key validity">確認中</string>
+    <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">バリアント</string>
+    <string name="verification_failed" comment="Toast error message when AI API key verification fails">検証に失敗しました</string>
+    <string name="verify_api_key" comment="Action button to validate entered AI API key with remote service">API キーを検証</string>
+    <string name="verifying" comment="Progress status text while verifying API key validity">検証中</string>
     <string name="version">バージョン</string>
     <string name="version_code" comment="Device/app metadata label for build version code number">バージョンコード</string>
     <string name="version_name" comment="Device/app metadata label for human-readable version string">バージョン名</string>
-    <string name="view_license_online_msg" comment="Subtext in license viewer directing user to view license URL online">「URLを開く」をタップして、ライセンスをオンラインで表示します。</string>
-    <string name="view_on_github" comment="Button linking to GitHub release page or commit diff">GitHubで見る</string>
+    <string name="view_license_online_msg" comment="Subtext in license viewer directing user to view license URL online">「URLを開く」をタップして、オンラインでライセンスを表示します。</string>
+    <string name="view_on_github" comment="Button linking to GitHub release page or commit diff">GitHub で表示</string>
     <string name="visit_repo_to_download" comment="Instructions directing user to download the update APK file from GitHub releases">ダウンロードボタンをクリックして、githubリポジトリから最新バージョンのaShellYouを取得します。</string>
     <string name="waiting_for_device" comment="Progress status banner while awaiting target device USB OTG attachment">デバイスを待っています</string>
     <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">デバイスを待っています…</string>
-    <string name="want_to_contribute_too" comment="Call-to-action banner in About screen inviting code or translation contributions">貢献したいですか?</string>
-    <string name="weekly" comment="Option in backup scheduler frequency selection">Weekly</string>
+    <string name="want_to_contribute_too" comment="Call-to-action banner in About screen inviting code or translation contributions">貢献したいですか？</string>
+    <string name="weekly" comment="Option in backup scheduler frequency selection">毎週</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">%1$sの間、何をしますか？</string>
     <string name="whats_new" comment="Header title for app release notes and changelog dialog">更新内容！</string>
     <string name="which_device_to_pair" comment="Dialog header prompting user to choose wireless pairing method or device">どのデバイスをペアリングしますか？</string>
     <string name="wifi_adb" comment="Refers to Android Wireless Debugging ADB over Wi-Fi connection feature">Wi-Fi ADB</string>
     <string name="wifi_connection_required" comment="Detailed explanation of Wi-Fi requirements for Wireless Debugging ADB">ワイヤレスデバッグ機能を使用するには、デバイスをWi-Fiネットワークに接続する必要があります。 Wi-Fi接続にインターネットアクセスがない場合は、堅牢なWi-Fi接続のためのモバイルデータをオフにしてください。</string>
     <string name="wipe_cache_desc" comment="Description for predefined fastboot erase cache command">fastboot erase cache</string>
-    <string name="wipe_cache_title" comment="Predefined fastboot command title: erase cache partition">Erase Cache</string>
-    <string name="wipe_data" comment="Section header or dialog button to wipe device partitions over fastboot">データを消去</string>
-    <string name="wipe_data_description" comment="Subtext warning explaining fastboot partition erase operation">デバイス上のパーティションを消去します。消去するパーティションを選択します。</string>
-    <string name="wipe_metadata_desc" comment="Description for predefined fastboot erase metadata command">fastboot消去メタデータ</string>
+    <string name="wipe_cache_title" comment="Predefined fastboot command title: erase cache partition">キャッシュの消去</string>
+    <string name="wipe_data" comment="Section header or dialog button to wipe device partitions over fastboot">データをワイプ</string>
+    <string name="wipe_data_description" comment="Subtext warning explaining fastboot partition erase operation">デバイス上のパーティションを消去します。ワイプするパーティションを選択してください。</string>
+    <string name="wipe_metadata_desc" comment="Description for predefined fastboot erase metadata command">fastboot erase metadata</string>
     <string name="wipe_metadata_title" comment="Predefined fastboot command title: erase metadata partition">メタデータの消去</string>
-    <string name="wipe_userdata_desc" comment="Description for predefined fastboot erase userdata command">fastbootでユーザーデータを消去する</string>
-    <string name="wipe_userdata_title" comment="Predefined fastboot command title: erase userdata partition">ユーザーデータを消去</string>
-    <string name="wipe_warning" comment="Warning notice in fastboot partition wipe screen emphasizing data loss risk">これらの操作は元に戻せません。慎重に行ってください。</string>
+    <string name="wipe_userdata_desc" comment="Description for predefined fastboot erase userdata command">fastboot erase userdata</string>
+    <string name="wipe_userdata_title" comment="Predefined fastboot command title: erase userdata partition">ユーザーデータの消去</string>
+    <string name="wipe_warning" comment="Warning notice in fastboot partition wipe screen emphasizing data loss risk">これらの操作は元に戻せません。注意して進めてください。</string>
     <string name="wireless_debugging_guide_1" comment="Step 1 of Wireless Debugging setup walkthrough">開発者向けオプション &gt; ワイヤレスデバッグに移動します。ペア設定コードによるデバイスのペア設定をタップします。</string>
     <string name="wireless_debugging_guide_2" comment="Step 2 of Wireless Debugging setup walkthrough">aShell Youから送信された通知に6桁のペアリングコードを入力します。</string>
-    <string name="wireless_debugging_guide_3" comment="Step 3 of Wireless Debugging setup walkthrough">アプリに戻って、ホーム画面の &quot;Start&quot; ボタンをクリックしてください。</string>
+    <string name="wireless_debugging_guide_3" comment="Step 3 of Wireless Debugging setup walkthrough">アプリに戻って、ホーム画面の&quot;Start&quot;ボタンをクリックしてください。</string>
     <string name="wireless_debugging_important_notice" comment="Important tip clarifying that tapping the left side of Wireless Debugging switch opens the pairing sub-menu">「ワイヤレスデバッグ」オプションの左側がクリック可能であることに注意してください。このオプションをタップすると、「ワイヤレスデバッグペアリング」メニューが開きます。</string>
-    <string name="wireless_not_connected" comment="Status banner shown when target device is not connected over Wireless Debugging">接続していません</string>
-    <string name="wireless_not_connected_message" comment="Instructional body text advising user to pair and connect device first">デバイスはワイヤレスデバッグで接続されていません。まずデバイスをペアリングして接続してください。</string>
+    <string name="wireless_not_connected" comment="Status banner shown when target device is not connected over Wireless Debugging">未接続</string>
+    <string name="wireless_not_connected_message" comment="Instructional body text advising user to pair and connect device first">デバイスがワイヤレスデバッグ経由で接続されていません。まずデバイスをペア設定して接続してください。</string>
     <plurals name="logcat_new_entries">
-        <item quantity="other">%1$d 新規エントリ</item>
+        <item quantity="other">%1$d 件の新着エントリー</item>
     </plurals>
-    <string name="changelog_v7_4_0">\nYou can now search Sub-settings inside Settings screens\nAdded Palette Styles for color schemes\nAdded option to set app language directly in-app</string>
-    <string name="changelog_v7_3_0">\nImproved UI in changelog screen\nAdded translation contributors in about section\nAdded Licenses screen that shows detailed license information about the app and other libraries used by the app</string>
-    <string name="changelog_v7_2_1">\nメンテナンスのアップデート！</string>
-    <string name="changelog_v7_2_0">\nAdded option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>
+    <string name="changelog_v7_4_0">\n設定画面内でサブ設定を検索できるようになりました\nカラースキームのパレットスタイルを追加\nアプリ内で直接アプリの言語を設定するオプションを追加</string>
+    <string name="changelog_v7_3_0">\n変更履歴画面のUIを改善\n情報セクションに翻訳貢献者を追加\nアプリおよびアプリで使用されているその他のライブラリに関する詳細なライセンス情報を表示するライセンス画面を追加</string>
+    <string name="changelog_v7_2_1">\nメンテナンスの更新！</string>
+    <string name="changelog_v7_2_0">\nカスタムタイルを追加することで、クイック設定タイルからADBコマンドを実行するオプションを追加。\nクラウド (Google ドライブ) へのバックアップオプションを追加。この機能はGitHubビルドでのみ利用可能です。\n多くの領域でカラースキーム、UI、UXを改善。\nADBコマンドの例をさらに多数追加。</string>
     <string name="changelog_v7_1_0">\nユーザーが英語以外のロケールを設定した場合に英語キーボードが表示されない問題を修正\nメールアイコンが正しく表示されない問題を修正\n大きなファイル出力を保存しようとするとアプリがクラッシュする問題を修正\n冗長な権限を削除\nAboutセクションのUIを改善</string>
     <string name="changelog_v7_0_1">\nFastlane修正</string>
-    <string name="changelog_v7_0_0">\nマテリアルエクスプレッシブコンポーネントを使用してUI全体を刷新\nコードベース全体をKotlinとJetpack Composeで書き直し\nプッシュ＆プルベースのファイルマネージャーを追加\nQR WiFi ADBペアリングモードを追加\nアプリ設定とデータベースバックアップオプションを追加\nカスタムテーマオプションを追加\nクラッシュ履歴を追加\n自動更新機能を改善\nシェル出力のUIとUXを改善\nAndroid権限の提案を追加\nラベル付きコマンド例レイアウトを刷新\nコマンドの追加、編集、削除オプションを追加\n多くのバグを修正</string>
-    <string name="changelog_v6_1_0">\nNow command search can search the commands that contains the word you typed compared to previous versions where it only searched commands that starts with the typed word.\nOption to open Shizuku app directly when Shizuku is installed but not running.\nFixed the broken in-app crash reporter.</string>
+    <string name="changelog_v7_0_0">\nマテリアルエクスプレッシブコンポーネントを使用してUI全体を刷新\nコードベース全体をKotlinとJetpack Composeで書き直し\nプッシュ &amp; プルベースのファイルマネージャーを追加\nQR WiFi ADBペアリングモードを追加\nアプリ設定とデータベースバックアップオプションを追加\nカスタムテーマオプションを追加\nクラッシュ履歴を追加\n自動更新機能を改善\nシェル出力のUI &amp; UXを改善\nAndroid権限の提案を追加\nラベル付きコマンド例レイアウトを刷新\nコマンドの追加、編集、削除オプションを追加\n多くのバグを修正</string>
+    <string name="changelog_v6_1_0">\nコマンドで入力した単語が先頭一致のものしか検索できなかった以前のバージョンに比べ、入力した単語を含むコマンドも検索できるようになりました。\nShizukuがインストールされているが実行されていない場合に、直接Shizukuアプリを開くオプションを追加しました。\n壊れていたアプリ内クラッシュレポーターを修正しました。</string>
     <string name="changelog_v6_0_3">\naShell でアプリごとの翻訳が壊れる問題を修正しました</string>
-    <string name="changelog_v6_0_2">\nGitHubアクションをリリースビルドに適用しました。\nこれはあなたにとって何を意味しますか？\nこれを含むすべての後続のビルドはより安全になります！</string>
+    <string name="changelog_v6_0_2">\nリリースビルドに GitHub Actions を採用しました。\nこれに伴う変更点:\nこれ以降のすべてのビルドの安全性が向上します！</string>
     <string name="changelog_v6_0_1">\nメンテナンスの更新</string>
     <string name="changelog_v6_0_0">\n自分または他のデバイスでADBコマンドを実行するためのワイヤレスデバッグモードを追加\nミニマルなナビゲーションのためにホームページを再設計\n重要なシステムパッケージに関するコマンド実行時の警告を追加\nアプリ内アップデーターを追加\n多くのバグを修正</string>
     <string name="changelog_v5_2_1">\nメンテナンスの更新</string>
@@ -975,29 +975,29 @@
     <string name="changelog_v4_0_3">\n依存関係を更新\nコマンド例を追加</string>
     <string name="changelog_v4_0_2">\nAndroid 11以下のデバイスでAMOLEDが動作しない問題を修正しました</string>
     <string name="changelog_v4_0_1">\nクイックアクセス用にコマンドをピン留め可能に\n\nバグ修正と多くのコード最適化</string>
-    <string name="changelog_v4_0_0">\nコマンドセクションから直接コマンドを使用可能に\n\nすべてのブックマークを削除するオプションを追加\n検索でコマンドサマリーを検索可能\nコマンドテンプレートにソートオプションを追加\nコマンドセクションで選択したアイテムを直接ブックマーク可能\nチップインジケーターが接続デバイスを表示\nAndroid 11以下でのクラッシュを修正\nトルコ語翻訳を追加\n軽微なUI改善\nその他多くのバグ修正</string>
+    <string name="changelog_v4_0_0">\nコマンドセクションから直接コマンドを使用可能に\n\nすべてのブックマークを削除するオプションを追加\n検索でコマンドサマリーを検索可能\nコマンドテンプレートにソートオプションを追加\nコマンドセクションで選択したアイテムを直接ブックマーク可能\nチップインジケーターが接続デバイスを表示(現在ローカルADBモードのみ)\nAndroid 11以下でのクラッシュを修正\nトルコ語翻訳を追加\n軽微なUI改善\nその他多くのバグ修正</string>
     <string name="changelog_v3_9_1">\nブックマーク総数を追加\nいくつかのバグを修正</string>
-    <string name="changelog_v3_9_0">\nコマンドセクションに検索を追加\nデフォルトの動作モードを設定するオプションを追加\nアニメーションを改善\nブックマークセクションを再構築しソートオプションを追加\nブックマーク上限を25に増加\nADBシェルショートカットを削除しコマンドショートカットを追加\nパディングの問題を修正</string>
+    <string name="changelog_v3_9_0">\nコマンドセクションに検索を追加\nデフォルトの動作モードを設定するオプションを追加\nアニメーションを改善\nブックマークセクションを再構築しソートオプションを追加\nブックマーク上限を25に増加\nADBシェルショートカットを削除しコマンドショートカットを追加\nパディングの問題を修正\nボタンの形状を修正</string>
     <string name="changelog_v3_8_2">\nマテリアルユーテーマ用のリフレッシュされたカラーパレット\n軽微なバグを修正</string>
-    <string name="changelog_v3_8_1">\nv3.8.0で導入された一部のクラッシュを修正しました。</string>
-    <string name="changelog_v3_8_0">\nブラック（AMOLED）テーマを追加\n貼り付けを元に戻すボタンを追加\nソフトキーボードを無効にするオプションを追加\n一部の画面サイズでボタンが伸びる問題を修正\nアプリを開いた後にブックマークボタンが表示されない問題を修正\n例セクションをコマンドに名前変更\nシステムフォントを使用\n翻訳を更新</string>
-    <string name="changelog_v3_7_0">\nデバイスのどこからでもテキストをaShell Youに共有してコマンドを直接実行可能\nシェル出力を保存せずに直接共有可能\n多くの最適化\n中国語翻訳を追加\n翻訳を更新</string>
+    <string name="changelog_v3_8_1">\nv3.8.0で導入された一部のクラッシュを修正しました</string>
+    <string name="changelog_v3_8_0">\nブラック（AMOLED）テーマを追加\n貼り付けを元に戻すボタンを追加\nソフトキーボードを無効にするオプションを追加\n一部の画面サイズでボタンが伸びる問題を修正\nアプリを開いた後にブックマークボタンが表示されない問題を修正\n例セクションをコマンドに名前変更\nすべての場所でシステムフォントを使用\nUIの処理を改善\n翻訳を更新</string>
+    <string name="changelog_v3_7_0">\nデバイスのどこからでもテキストをaShell Youに共有してコマンドを直接実行可能。\nシェル出力を保存せずに直接共有可能！\n多くの最適化とUI処理。\n中国語翻訳を追加。\n翻訳を更新。</string>
     <string name="changelog_v3_6_0">\nエラー後にコマンド入力フィールドをクリアするオプションを追加\nクリップボードから貼り付け時にクラッシュするバグを修正\nコード最適化</string>
     <string name="changelog_v3_5_1">\nボトムナビゲーションの問題を修正しました。</string>
-    <string name="changelog_v3_5_0">\nアプリのAboutセクションを刷新\nランチャーショートカットを追加\nボタンナビゲーションでナビゲーションメニューが表示されない問題を修正\nスクロール時のボトムナビゲーションメニューの可視性を改善\nアプリごとの言語サポートを追加\n多くのコード最適化</string>
-    <string name="changelog_v3_4_0">\n貼り付けボタンを追加\nテキスト入力フィールドにエラーインジケーターを追加\nナビゲーションバーの可視性ロジックを改善\nスイッチの誤動作を修正\nブックマークアイコンの可視性を修正\nコード最適化 - アプリの起動が大幅に高速化\nアプリがバックグラウンドに留まる</string>
-    <string name="changelog_v3_3_0">\nOTGにブックマーク、履歴、コマンド提案を追加\n最大ブックマーク制限を追加\n最大ブックマーク制限をオーバーライドするオプションを追加\n多くのバグ修正\nUI処理を改善\n多くのコード最適化</string>
-    <string name="changelog_v3_2_0">\n多くのUI関連の改善。\n現在のADB動作モードを示すチップを追加。\n多くのコードを最適化。</string>
-    <string name="changelog_v3_1_0">\n初期リリース後のADB OTG の改善。\n新しいotg 機能に対応するためのいくつかのUIとロジック調整。</string>
+    <string name="changelog_v3_5_0">\nアプリの(About)セクションを刷新。\nランチャーショートカットを追加。\nボタンナビゲーションでナビゲーションメニューが表示されない問題を修正。\nスクロール時のボトムナビゲーションメニューの可視性を改善。\nアプリごとの言語サポートを追加 (翻訳はまだ完了していません)。\n多くのコード最適化。</string>
+    <string name="changelog_v3_4_0">\n貼り付けボタンを追加し、コマンドを素早くコピー＆ペーストできるようにしました。\nテキスト入力フィールドにエラーインジケーターを追加。\nナビゲーションバーの可視性ロジックを改善。\n特定の状況下でスイッチが誤動作する問題を修正。\n様々なコントラストレベルでのブックマーク追加アイコンの可視性を修正。\n多くのコード最適化。アプリの起動が以前より大幅に高速化されました。\nアプリはバックグラウンドに留まり、戻るボタンやジェスチャーで閉じるたびに再起動することはありません。</string>
+    <string name="changelog_v3_3_0">\nOTGにブックマーク、履歴、コマンド提案を追加。\n最大ブックマーク制限を追加。\n最大ブックマーク制限をオーバーライドするオプションを追加。\n多くのバグ修正。\nUI処理の一部を改善。\n多くのコード最適化。</string>
+    <string name="changelog_v3_2_0">\nUI に関連する多くの改善を行いました。\n現在の ADB 動作モードを示すチップを追加しました。\n多くのコード最適化を行いました。</string>
+    <string name="changelog_v3_1_0">\n最初のリリース後のADB OTGの改善。\n新しいOTG機能に対応するためのUIとロジックの調整。</string>
     <string name="changelog_v3_0_0">\nOTG経由のADBサポートを追加\n\n*** OTGケーブルで他のデバイスを接続してADBコマンドを実行できます ***</string>
-    <string name="changelog_v2_0_2">\n不要なコードとリソースを削除しました\n軽微なUI変更</string>
-    <string name="changelog_v2_0_1">\n不要なコードとリソースを削除しました\n軽微なUI変更</string>
-    <string name="changelog_v2_0_0">\nアプリ名をaShell Youに変更\nサポートデバイス向けの予測バックアニメーションを追加\n画面クリア前の確認ダイアログを追加\nライトモードでステータスバー要素が正しく表示されない問題を修正\nアプリがよりスムーズに\nアプリサイズを縮小しコードを最適化\nテーマアイコンを追加\n軽微なUI変更</string>
-    <string name="changelog_v1_3_0">\n設定パネルを刷新\nダブルタップでシェル出力ビューの上下にスクロール\n軽微なUI修正</string>
-    <string name="changelog_v1_2_0">\n設定パネルを追加\nシェル出力のスムーズスクロールを無効にするオプションを追加\n主要なバグを修正:\n~ テーマ変更時のクラッシュ\n~ 大きなシェル出力保存時のクラッシュ</string>
-    <string name="changelog_v1_1_1">\n非推奨のAPIを置き換え\n軽微なUI変更</string>
-    <string name="changelog_v1_1_0">\n上下スクロールボタンを追加\nキーボードのEnterでコマンド送信を追加\nいくつかのコマンドを追加\n依存関係を更新\n軽微なUI変更</string>
-    <string name="changelog_v1_0_0">\nいくつかのコマンド例を追加\n軽微なUI変更\nパッケージ名を変更</string>
-    <string name="changelog_v0_9_1">\nアプリにチェンジログを追加\nハイライトされたシェル出力を追加\n軽微なUI変更</string>
-    <string name="changelog_v0_9_0">\n動的なマテリアルテーマを追加\nUI全体を刷新</string>
+    <string name="changelog_v2_0_2">\n不要なコードとリソースを削除しました。\n軽微なUI変更。</string>
+    <string name="changelog_v2_0_1">\n不要なコードとリソースを削除しました。\n軽微なUI変更。</string>
+    <string name="changelog_v2_0_0">\nアプリ名をaShell Youに変更。\nサポートデバイス向けの予測バックアニメーションを追加。\n画面クリア前の確認ダイアログポップアップを追加。\nライトモードでステータスバーの要素が正しく表示されない問題を修正。\nアプリの動作が非常にスムーズになりました。\n~ アプリサイズを縮小し、コードを最適化。\nテーマアイコンをサポートするランチャー用のテーマアイコンを追加。\n軽微なUI変更。</string>
+    <string name="changelog_v1_3_0">\n設定パネルを刷新。\nシェル出力ビューでダブルタップしてトップおよびボトムの位置に瞬時にスクロールする機能を追加。\n軽微なUI修正。</string>
+    <string name="changelog_v1_2_0">\n設定パネルを追加。\nシェル出力のスムーズスクロールを無効にするオプションを追加。\n主なバグを修正：\n\n ~ デバイステーマ変更時のクラッシュ。\n\n ~ 大きなシェル出力を保存しようとした時のクラッシュ (例: \'pm\'コマンドの出力)。</string>
+    <string name="changelog_v1_1_1">\n非推奨の一部APIを置き換えました。\n軽微なUI変更。</string>
+    <string name="changelog_v1_1_0">\n上へスクロールおよび下へスクロールボタンを追加。\nキーボードのEnterキーをクリックしてコマンドを送信する機能を追加。\nいくつかのコマンドを追加。\n最新のMaterial Youライブラリを含むように依存関係を更新。\n軽微なUI変更。</string>
+    <string name="changelog_v1_0_0">\nコマンド例を追加。\n軽微なUI変更。\n元のアプリとのバージョン混同を避けるためパッケージ名を変更。</string>
+    <string name="changelog_v0_9_1">\nアプリにチェンジログを追加。\nハイライトされたシェル出力を追加。\n軽微なUI変更。</string>
+    <string name="changelog_v0_9_0">\n動的なマテリアルテーマを追加。\nUI全体を刷新し、新鮮な外観を提供。</string>
 </resources>

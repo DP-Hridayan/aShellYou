@@ -10,7 +10,7 @@
     <string name="adb_command" comment="Input field label for typing an ADB shell command">Lệnh ADB</string>
     <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">Lệnh ADB (TẮT)</string>
     <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">Lệnh ADB (BẬT)</string>
-    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB connected — ensure device is in sideload mode</string>
+    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB đã kết nối — đảm bảo thiết bị ở chế độ sideload</string>
     <string name="adb_connection_active" comment="Foreground notification title when an ADB connection (Wireless/OTG) is currently active">Kết nối ADB đang hoạt động</string>
     <string name="adb_connection_channel_description" comment="Android notification channel description in System Settings for ADB connection status">Hiển thị khi kết nối ADB đang hoạt động</string>
     <string name="adb_connection_channel_name" comment="Android notification channel name in System Settings for active ADB connections">Kết nối ADB</string>
@@ -45,7 +45,7 @@
     <string name="ai_prompt_suggestion_2" comment="Clickable suggestion chip prompt in AI chat for listing installed package names">Liệt kê tất cả các gói đã cài đặt</string>
     <string name="ai_prompt_suggestion_3" comment="Clickable suggestion chip prompt in AI chat for creating Quick Settings tiles">Giúp tôi tạo một ô Cài đặt nhanh</string>
     <string name="ai_session_search_hint" comment="Placeholder text in AI chat session search bar">Tìm kiếm đoạn chat…</string>
-    <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">VD: Thành phố neon Cyberpunk, chế độ tối, độ tương phản cao</string>
+    <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">Ví dụ: Thành phố neon Cyberpunk, chế độ tối, độ tương phản cao</string>
     <string name="all">Tất cả</string>
     <string name="all_data" comment="Option in backup selector to include full app database, settings, and chat history">Tất cả dữ liệu</string>
     <string name="already_connected" comment="Status message in wireless ADB setup screen indicating device is already connected">Đã kết nối</string>
@@ -92,11 +92,11 @@
     <string name="backup_time" comment="Setting label for picking exact time of day for automated backup execution">Thời gian sao lưu</string>
     <string name="backup_type" comment="Card label showing type of backup file (e.g. Full, Database, Settings)">Loại sao lưu</string>
     <string name="baseband_version" comment="Device info field label showing modem/baseband firmware version">Baseband</string>
-    <string name="basic_shell" comment="Execution mode option: run standard non-rooted, non-Shizuku shell commands">Basic shell</string>
+    <string name="basic_shell" comment="Execution mode option: run standard non-rooted, non-Shizuku shell commands">Shell cơ bản</string>
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">Pin</string>
     <string name="battery_saver" comment="Device system battery saver mode label">Tiết kiệm pin</string>
     <string name="behavior" comment="Settings category title for application behavior preferences">Hành vi</string>
-    <string name="block" comment="Action button to block execution or permissions">Block</string>
+    <string name="block" comment="Action button to block execution or permissions">Chặn</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">Đã đạt giới hạn dấu trang! Vui lòng xóa một số dấu trang để thêm mới</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">Dấu trang</string>
     <string name="boot_device_into_fastboot" comment="Instructional prompt in Fastboot screen instructing user to boot target device into fastboot mode">Khởi động thiết bị mục tiêu vào chế độ fastboot và kết nối qua cáp OTG</string>
@@ -131,22 +131,22 @@
     <string name="cloud_models" comment="Settings screen title for managing cloud-based LLM provider API keys">Mô hình đám mây</string>
     <string name="cloud_restore_failed" comment="Error toast when downloading/restoring backup from Google Drive fails">Không thể khôi phục từ Google Drive</string>
     <string name="cloud_restore_successful" comment="Toast message confirming successful backup restoration from Google Drive">Đã khôi phục từ Google Drive</string>
-    <string name="cmd_get_battery_desc" comment="Description for predefined fastboot command: fastboot getvar battery-voltage">Query the current battery charge level</string>
-    <string name="cmd_get_battery_title" comment="Predefined fastboot command title: check battery level in fastboot">Battery Level</string>
-    <string name="cmd_get_current_slot_desc" comment="Description for predefined fastboot command: fastboot getvar current-slot">Which A/B slot is currently active</string>
-    <string name="cmd_get_current_slot_title" comment="Predefined fastboot command title: check active A/B slot">Current Slot</string>
-    <string name="cmd_get_product_desc" comment="Description for predefined fastboot command: fastboot getvar product">Retrieve the device product name identifier</string>
-    <string name="cmd_get_product_title" comment="Predefined fastboot command title: check product name">Product Name</string>
-    <string name="cmd_get_slot_count_desc" comment="Description for predefined fastboot command: fastboot getvar slot-count">Number of A/B slots on this device</string>
-    <string name="cmd_get_slot_count_title" comment="Predefined fastboot command title: check A/B slot count">Slot Count</string>
-    <string name="cmd_get_unlocked_desc" comment="Description for predefined fastboot command: fastboot getvar unlocked">Check if the bootloader is currently unlocked</string>
-    <string name="cmd_get_unlocked_title" comment="Predefined fastboot command title: check bootloader unlock status">Bootloader Unlock Status</string>
-    <string name="cmd_getvar_all_desc" comment="Description for predefined fastboot command: fastboot getvar all">List all device variables and their current values</string>
-    <string name="cmd_getvar_all_title" comment="Predefined fastboot command title: get all device variables">Get All Variables</string>
-    <string name="cmd_oem_device_info_desc" comment="Description for predefined fastboot command: fastboot oem device-info">Retrieve OEM-specific device information</string>
-    <string name="cmd_oem_device_info_title" comment="Predefined fastboot command title: query OEM device info">OEM Device Info</string>
-    <string name="cmd_unlock_ability_desc" comment="Description for predefined fastboot command: fastboot flashing get_unlock_ability">Check if this device can be bootloader unlocked</string>
-    <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">Unlock Ability</string>
+    <string name="cmd_get_battery_desc" comment="Description for predefined fastboot command: fastboot getvar battery-voltage">Truy vấn mức sạc pin hiện tại</string>
+    <string name="cmd_get_battery_title" comment="Predefined fastboot command title: check battery level in fastboot">Mức pin</string>
+    <string name="cmd_get_current_slot_desc" comment="Description for predefined fastboot command: fastboot getvar current-slot">Khe A/B nào hiện đang hoạt động</string>
+    <string name="cmd_get_current_slot_title" comment="Predefined fastboot command title: check active A/B slot">Khe hiện tại</string>
+    <string name="cmd_get_product_desc" comment="Description for predefined fastboot command: fastboot getvar product">Truy xuất định danh tên sản phẩm thiết bị</string>
+    <string name="cmd_get_product_title" comment="Predefined fastboot command title: check product name">Tên sản phẩm</string>
+    <string name="cmd_get_slot_count_desc" comment="Description for predefined fastboot command: fastboot getvar slot-count">Số lượng khe A/B trên thiết bị này</string>
+    <string name="cmd_get_slot_count_title" comment="Predefined fastboot command title: check A/B slot count">Số lượng khe</string>
+    <string name="cmd_get_unlocked_desc" comment="Description for predefined fastboot command: fastboot getvar unlocked">Kiểm tra xem bootloader hiện đã được mở khóa chưa</string>
+    <string name="cmd_get_unlocked_title" comment="Predefined fastboot command title: check bootloader unlock status">Trạng thái mở khóa Bootloader</string>
+    <string name="cmd_getvar_all_desc" comment="Description for predefined fastboot command: fastboot getvar all">Liệt kê tất cả các biến của thiết bị và giá trị hiện tại của chúng</string>
+    <string name="cmd_getvar_all_title" comment="Predefined fastboot command title: get all device variables">Lấy tất cả các biến</string>
+    <string name="cmd_oem_device_info_desc" comment="Description for predefined fastboot command: fastboot oem device-info">Truy xuất thông tin thiết bị cụ thể của OEM</string>
+    <string name="cmd_oem_device_info_title" comment="Predefined fastboot command title: query OEM device info">Thông tin thiết bị OEM</string>
+    <string name="cmd_unlock_ability_desc" comment="Description for predefined fastboot command: fastboot flashing get_unlock_ability">Kiểm tra xem thiết bị này có thể mở khóa bootloader được không</string>
+    <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">Khả năng mở khóa</string>
     <string name="code_pair_instruction" comment="Instructional text in Wireless Debugging pairing dialog directing user to open Wireless Debugging menu on target device">Mở \"Gỡ lỗi không dây\" trên thiết bị mục tiêu và nhấn \"Ghép nối thiết bị bằng mã ghép nối\"</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">Thu gọn</string>
     <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">Đã xảy ra lỗi</string>
@@ -165,7 +165,7 @@
     <string name="color_role_background" comment="Material 3 color role name for default surface background">Nền</string>
     <string name="color_role_error" comment="Material 3 color role name for error indicator color">Lỗi</string>
     <string name="color_role_error_container" comment="Material 3 color role name for container background of error elements">Vùng chứa lỗi</string>
-    <string name="color_role_main_accent" comment="Material 3 color role name for primary accent color">Điểm nhấn chính</string>
+    <string name="color_role_main_accent" comment="Material 3 color role name for primary accent color">Điểm nhấn chính (Chính)</string>
     <string name="color_role_on_background" comment="The color used for text and icons drawn on top of the background color">Trên nền</string>
     <string name="color_role_on_error" comment="The color used for text and icons drawn on top of the error color">Trên màu lỗi</string>
     <string name="color_role_on_error_container" comment="The color used for text and icons drawn on top of the error container color">Trên vùng chứa lỗi</string>
@@ -179,9 +179,9 @@
     <string name="color_role_on_tertiary_container" comment="The color used for text and icons drawn on top of the tertiary container color">Trên vùng chứa màu thứ ba</string>
     <string name="color_role_outline" comment="Material 3 color role name for component outline borders">Đường viền</string>
     <string name="color_role_outline_variant" comment="Material 3 color role name for secondary outline borders">Biến thể đường viền</string>
-    <string name="color_role_primary" comment="Material 3 color role name for primary theme color">Màu chính</string>
+    <string name="color_role_primary" comment="Material 3 color role name for primary theme color">Chính</string>
     <string name="color_role_primary_container" comment="Material 3 color role name for container surface of primary elements">Vùng chứa màu chính</string>
-    <string name="color_role_secondary" comment="Material 3 color role name for secondary theme accent color">Màu phụ</string>
+    <string name="color_role_secondary" comment="Material 3 color role name for secondary theme accent color">Phụ</string>
     <string name="color_role_secondary_accent" comment="Material 3 color role name for secondary accent color">Điểm nhấn phụ</string>
     <string name="color_role_secondary_container" comment="Material 3 color role name for container surface of secondary elements">Vùng chứa màu phụ</string>
     <string name="color_role_surface" comment="Material 3 color role name for default component surface color">Bề mặt</string>
@@ -191,14 +191,14 @@
     <string name="color_role_surface_container_low" comment="Material 3 color role name for low elevation surface container">Vùng chứa bề mặt thấp</string>
     <string name="color_role_surface_container_lowest" comment="Material 3 color role name for lowest elevation surface container">Vùng chứa bề mặt thấp nhất</string>
     <string name="color_role_surface_variant" comment="Material 3 color role name for variant surface background">Biến thể bề mặt</string>
-    <string name="color_role_tertiary" comment="Material 3 color role name for tertiary theme accent color">Màu thứ ba</string>
+    <string name="color_role_tertiary" comment="Material 3 color role name for tertiary theme accent color">Thứ ba</string>
     <string name="color_role_tertiary_accent" comment="Material 3 color role name for tertiary accent color">Điểm nhấn màu thứ ba</string>
     <string name="color_role_tertiary_container" comment="Material 3 color role name for container surface of tertiary elements">Vùng chứa màu thứ ba</string>
     <string name="command" comment="Label/header for an ADB command snippet">Lệnh</string>
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">Phân tích lệnh</string>
-    <string name="command_console" comment="Screen title for Fastboot interactive command console">Command Console</string>
-    <string name="command_logs" comment="Tab header for history log of executed fastboot commands">Command Logs</string>
-    <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">History of all executed fastboot commands.</string>
+    <string name="command_console" comment="Screen title for Fastboot interactive command console">Bảng điều khiển lệnh</string>
+    <string name="command_logs" comment="Tab header for history log of executed fastboot commands">Nhật ký lệnh</string>
+    <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">Lịch sử của tất cả các lệnh fastboot đã thực thi.</string>
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Không tìm thấy lệnh!</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">Nhập lệnh ADB</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">Các lệnh</string>
@@ -303,7 +303,7 @@
     <string name="des_models" comment="Status text under AI models setting when no model is active">Chưa chọn mô hình</string>
     <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">Có thể bị lag nếu thêm một lượng lớn dấu trang! Nên tắt tính năng này trên các thiết bị cấu hình thấp</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">Ghép nối một thiết bị mục tiêu khác</string>
-    <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">Tạo các ô Cài đặt nhanh để thực thi các lệnh ADB</string>
+    <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">Tạo các ô cài đặt nhanh để thực thi các lệnh adb</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">Báo cáo mọi vấn đề bạn gặp phải khi sử dụng ứng dụng</string>
     <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">Đặt lại cài đặt ứng dụng về mặc định</string>
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">Khôi phục dữ liệu ứng dụng từ tệp sao lưu đã lưu.\nCơ sở dữ liệu đã lưu sẽ ghi đè lên cơ sở dữ liệu hiện tại</string>
@@ -369,7 +369,7 @@
     <string name="enter_command" comment="Input hint placeholder format for entering fastboot commands">fastboot &lt;command&gt;</string>
     <string name="enter_pairing_code" comment="Instructional header in Wireless Debugging pairing dialog asking for 6-digit code">Nhập mã ghép nối gồm 6 chữ số</string>
     <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">Điều này sẽ Erase vĩnh viễn phân vùng %1$s. Không thể hoàn tác hành động này.</string>
-    <string name="erase_confirm_title" comment="%1$s = partition name. Dialog title for partition erase confirmation">Erase %1$s?</string>
+    <string name="erase_confirm_title" comment="%1$s = partition name. Dialog title for partition erase confirmation">Xóa %1$s?</string>
     <string name="erase_partition" comment="Action button to trigger fastboot partition erase">Erase</string>
     <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Đang Erase…</string>
     <string name="error">Lỗi</string>
@@ -430,7 +430,7 @@
     <string name="file_not_found" comment="Error toast when requested file path does not exist on device">Không tìm thấy tệp</string>
     <string name="filter">Bộ lọc</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">Lọc theo nhãn</string>
-    <string name="flash" comment="Action button to start fastboot partition flashing process">Flash</string>
+    <string name="flash" comment="Action button to start fastboot partition flashing process">Đang Flash</string>
     <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">Flash phân vùng</string>
     <string name="flashing" comment="Progress status header while partition flashing is in progress">Đang Flash…</string>
     <string name="folder">Thư mục</string>
@@ -510,7 +510,7 @@
     <string name="hint" comment="Card header or field label for helpful hints">Gợi ý</string>
     <string name="history" comment="Screen title and tab label for executed terminal command history">Lịch sử</string>
     <string name="home">Trang chủ</string>
-    <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">How to enter sideload mode</string>
+    <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">Cách vào chế độ sideload</string>
     <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">Đã chọn biểu tượng</string>
     <string name="import_theme" comment="Action button to import theme configuration file">Nhập chủ đề</string>
     <string name="include" comment="Filter toggle option to include selected items">Bao gồm</string>
@@ -603,12 +603,12 @@
     <string name="new_name" comment="Text field label for entering new item or file name">Tên mới</string>
     <string name="newest" comment="Sorting option for items by creation date (newest first)">Mới nhất</string>
     <string name="no_adb_device_error" comment="Error toast when no ADB target device is found over USB OTG">Không phát hiện thấy thiết bị tương thích với ADB. Hãy bật Gỡ lỗi USB trên thiết bị mục tiêu.</string>
-    <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">Không tìm thấy giao diện ADB</string>
+    <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">Không tìm thấy giao diện adb</string>
     <string name="no_auto_backup_yet" comment="Placeholder text under backup status when no automated backup has executed">Chưa có bản tự động sao lưu nào</string>
     <string name="no_bookmarks" comment="Placeholder text in bookmarks tab when no commands are saved">Không tìm thấy dấu trang</string>
     <string name="no_changelog_found" comment="Placeholder message in changelog screen when no version notes exist">Không tìm thấy nhật ký thay đổi cho phiên bản này</string>
     <string name="no_cloud_backup_found" comment="Status banner when no backup file is found on Google Drive">Không tìm thấy bản sao lưu nào trên Google Drive</string>
-    <string name="no_commands_run_yet" comment="Placeholder message when no fastboot commands have been run in session">No commands run yet</string>
+    <string name="no_commands_run_yet" comment="Placeholder message when no fastboot commands have been run in session">Chưa có lệnh nào được chạy</string>
     <string name="no_crashes" comment="Placeholder text in crash history screen when no app crashes have occurred">Chưa có thông báo sự cố nào. aShell You đang hoạt động mượt mà.</string>
     <string name="no_custom_themes_yet" comment="Placeholder text in theme manager screen when no custom themes exist">Chưa có chủ đề tùy chỉnh nào. Hãy tạo một chủ đề bên dưới!</string>
     <string name="no_device_connected" comment="Status banner shown when no wireless or OTG ADB device is connected">Không có thiết bị nào được kết nối</string>
@@ -660,13 +660,13 @@
     <string name="other_details" comment="Expandable card title for additional device metadata details">Chi tiết khác</string>
     <string name="other_device" comment="Selection tab for target device in Logcat Viewer">Thiết bị khác</string>
     <string name="output" comment="Header title for shell command output window">Đầu ra</string>
-    <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">Output will appear here…</string>
+    <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">Kết quả sẽ xuất hiện ở đây…</string>
     <string name="override_bookmarks_limit" comment="Setting toggle title to remove the maximum limit on saved bookmarks count">Bỏ qua giới hạn dấu trang</string>
     <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">Tên gói</string>
     <string name="pair" comment="Button/action label to initiate ADB wireless or OTG pairing with another device">Ghép nối</string>
     <string name="pair_a_device_first" comment="Instructional notice directing user to pair an ADB device before attempting connection">Ghép nối một thiết bị trước</string>
     <string name="pair_another_device" comment="Button label in Wireless Debugging setup to pair an additional target device">Ghép nối một thiết bị khác</string>
-    <string name="pair_connect_failed_message" comment="Dialog message when connecting to a paired wireless ADB device fails">Could not connect to the paired device\nThe device may not be on the same network\nTry pairing again</string>
+    <string name="pair_connect_failed_message" comment="Dialog message when connecting to a paired wireless ADB device fails">Không thể kết nối với thiết bị đã ghép nối\nThiết bị có thể không ở cùng mạng\nHãy thử ghép nối lại</string>
     <string name="pair_device_to_start" comment="Placeholder banner in wireless debugging screen directing user to pair device via QR or pairing code">Ghép nối một thiết bị bằng mã QR hoặc mã ghép nối để hiển thị tại đây</string>
     <string name="pair_manually" comment="Option in Wireless Debugging setup to enter IP, Port, and Pairing Code manually">Ghép nối thủ công</string>
     <string name="pair_this_device" comment="Button label in wireless debugging screen to initiate self-pairing for local device ADB">Ghép nối thiết bị này</string>
@@ -700,14 +700,14 @@
     <string name="pre_release_github" comment="Option in update channel settings to receive GitHub pre-release builds">Pre-release (GitHub)</string>
     <string name="pre_release_warning" comment="Warning alert header when switching to pre-release update channel">Bản Pre-release có thể không ổn định</string>
     <string name="pre_release_warning_description" comment="Detailed description of risks when opting into pre-release testing builds">Những phiên bản này vẫn đang trong giai đoạn thử nghiệm và có thể chứa các tính năng chưa hoàn thiện hoặc các lỗi không mong muốn. Nếu bạn chọn cập nhật lên phiên bản Pre-release, hãy nhớ rằng bạn có thể gặp phải sự cố hoặc ứng dụng hoạt động lạ.\nNếu bạn gặp phải bất kỳ vấn đề, sự cố hoặc hoạt động lạ nào, vui lòng cho chúng tôi biết để chúng tôi có thể sửa lỗi và cải thiện aShell You đến phiên bản phát hành ổn định.\nCảm ơn bạn đã giúp chúng tôi xây dựng ứng dụng tốt hơn!</string>
-    <string name="predefined_commands" comment="Section header for pre-saved fastboot command actions">Predefined Commands</string>
-    <string name="predefined_commands_desc" comment="Description under predefined fastboot commands header">Quick access to common fastboot commands. Results stream to the console below.</string>
+    <string name="predefined_commands" comment="Section header for pre-saved fastboot command actions">Các lệnh định sẵn</string>
+    <string name="predefined_commands_desc" comment="Description under predefined fastboot commands header">Truy cập nhanh vào các lệnh fastboot phổ biến. Kết quả sẽ phát trực tuyến xuống bảng điều khiển bên dưới.</string>
     <string name="preference" comment="Header title for settings preference category">Tùy chọn</string>
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">Xem trước</string>
     <string name="primary">Chính</string>
     <string name="primary_container">Vùng chứa màu chính</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">Sản phẩm</string>
-    <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">Put device into sideload mode via its recovery menu</string>
+    <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">Đưa thiết bị vào chế độ sideload thông qua menu recovery</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">Ghép nối qua QR</string>
     <string name="qr_pair_hint" comment="Instructional text in QR pairing screen instructing user to scan QR code from target device">Để ghép nối thiết bị Android 11+, quét mã QR này từ thiết bị mục tiêu</string>
     <string name="qr_scanner_location_hint" comment="Instructional hint directing user where to find system QR scanner in target device Developer Options">Trình quét QR có trong:\nTùy chọn nhà phát triển &gt; Gỡ lỗi không dây &gt; Ghép nối thiết bị bằng mã QR</string>
@@ -757,10 +757,10 @@
     <string name="root_access_granted" comment="Toast notification confirming superuser root access granted to aShellYou">Quyền truy cập root đã được cấp!</string>
     <string name="root_unavailable" comment="Dialog title when root access check returns false">Không có quyền root</string>
     <string name="root_unavailable_message" comment="Dialog message explaining root access was not detected on device">Không thể phát hiện quyền truy cập root. Đảm bảo thiết bị của bạn đã được root và thử lại, hoặc chuyển sang một nguồn logcat khác.</string>
-    <string name="run">Run</string>
-    <string name="run_a_command_to_see_logs" comment="Instructional prompt under empty fastboot logs view">Use the Commands tab to execute fastboot commands</string>
-    <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">Execute \"%1$s\" on the connected device?</string>
-    <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">Run Command?</string>
+    <string name="run">Chạy</string>
+    <string name="run_a_command_to_see_logs" comment="Instructional prompt under empty fastboot logs view">Sử dụng tab Lệnh để thực thi các lệnh fastboot</string>
+    <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">Thực thi \"%1$s\" trên thiết bị đã kết nối?</string>
+    <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">Chạy lệnh?</string>
     <string name="running" comment="Status badge showing task or command execution is active">Đang chạy</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Lưu</string>
@@ -796,7 +796,7 @@
     <string name="select_partition" comment="Dropdown hint or dialog header for picking target fastboot partition">Chọn phân vùng</string>
     <string name="select_theme_to_edit_hex" comment="Instructional prompt under hex editor section in theme builder">Chọn một chủ đề ở trên để chỉnh sửa các giá trị hex thô tại đây.</string>
     <string name="select_time" comment="Button label to open time picker dialog for automated backup schedule">Chọn thời gian</string>
-    <string name="select_zip_package" comment="Button label to launch file picker for selecting a ZIP update package to sideload">Select ZIP Package</string>
+    <string name="select_zip_package" comment="Button label to launch file picker for selecting a ZIP update package to sideload">Chọn gói ZIP</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">Thiết bị này</string>
     <string name="self_pair_connection_failed" comment="Toast error message when automatic local self-pairing fails">Lỗi kết nối - thử kết nối thủ công</string>
     <string name="self_pair_enter_code" comment="Subtext instruction prompting user for 6-digit wireless pairing code">Nhập mã 6 chữ số từ hộp thoại ghép nối</string>
@@ -814,7 +814,7 @@
     <string name="self_pair_success_hint" comment="Subtext banner confirming local ADB terminal session is ready">ADB Shell cục bộ hiện đã khả dụng</string>
     <string name="self_pair_timeout" comment="Toast error message when self-pairing service lookup times out">Hết thời gian chờ - mở hộp thoại ghép nối trong Gỡ lỗi không dây</string>
     <string name="self_pair_wrong_code" comment="Toast error message when entered 6-digit wireless pairing code is incorrect">Mã không chính xác - mở lại hộp thoại ghép nối</string>
-    <string name="send">Send</string>
+    <string name="send">Gửi</string>
     <string name="serial_number" comment="Device property label displaying target device hardware serial number">Số sê-ri</string>
     <string name="serif" comment="Font style category name">Serif</string>
     <string name="settings">Cài đặt</string>
@@ -825,13 +825,13 @@
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">Shizuku chưa được cài đặt</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku không khả dụng</string>
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku is not running or missing permissions">Shizuku chưa được cài đặt hoặc thiết lập chính xác trên thiết bị của bạn</string>
-    <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">Put device into sideload mode via recovery</string>
-    <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Sideload mode — ready</string>
-    <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">Boot into recovery (hold Volume Down + Power, or run: adb reboot recovery)</string>
-    <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">Navigate to \"Apply update\" in the recovery menu</string>
-    <string name="sideload_step_3" comment="Step 3 of ADB sideload guide: selecting ADB sideload mode in recovery">Select \"Apply from ADB\" (or \"ADB Sideload\")</string>
-    <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">Connect your device via OTG cable, then select a ZIP here</string>
-    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Sideloading…</string>
+    <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">Đưa thiết bị vào chế độ sideload thông qua recovery</string>
+    <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Chế độ sideload — sẵn sàng</string>
+    <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">Khởi động vào recovery (giữ Giảm âm lượng + Nguồn, hoặc chạy: adb reboot recovery)</string>
+    <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">Chuyển đến \"Apply update\" trong menu recovery</string>
+    <string name="sideload_step_3" comment="Step 3 of ADB sideload guide: selecting ADB sideload mode in recovery">Chọn \"Apply from ADB\" (hoặc \"ADB Sideload\")</string>
+    <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">Kết nối thiết bị của bạn qua cáp OTG, sau đó chọn tệp ZIP ở đây</string>
+    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Đang sideload…</string>
     <string name="sign_in_failed" comment="Toast error message when Google account sign-in fails">Đăng nhập Google thất bại</string>
     <string name="sign_in_with_google" comment="Button label in cloud backup settings to sign into Google account">Đăng nhập bằng Google</string>
     <string name="sign_out" comment="Button label in cloud backup settings to sign out of Google account">Đăng xuất</string>
@@ -841,7 +841,7 @@
     <string name="size">Kích thước</string>
     <string name="skip">Bỏ qua</string>
     <string name="slide_to_flash" comment="Slider text prompt in fastboot partition flash confirmation sheet">Trượt để Flash</string>
-    <string name="slide_to_sideload" comment="Slider button prompt to initiate the ADB sideload transfer of chosen ZIP file over OTG">Slide to Sideload</string>
+    <string name="slide_to_sideload" comment="Slider button prompt to initiate the ADB sideload transfer of chosen ZIP file over OTG">Trượt để Sideload</string>
     <string name="slot_data_unknown" comment="Status text when device A/B slot information cannot be retrieved over fastboot">Dữ liệu slot không xác định</string>
     <string name="smooth_scrolling" comment="Settings toggle preference title to enable smooth scrolling animation in terminal">Cuộn mượt</string>
     <string name="sort">Sắp xếp</string>
@@ -867,8 +867,8 @@
     <string name="system_font" comment="Option to use the device default font">Phông chữ hệ thống</string>
     <string name="system_settings" comment="Button label linking to Android system Settings app">Cài đặt hệ thống</string>
     <string name="tab" comment="Settings option for terminal tab indentation behavior">Tab</string>
-    <string name="tag" comment="Field label for custom command category tag/label">Tag</string>
-    <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">Tap to browse for a .zip file</string>
+    <string name="tag" comment="Field label for custom command category tag/label">Thẻ</string>
+    <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">Nhấn để duyệt tìm tệp .zip</string>
     <string name="telegram" comment="Button in About screen linking to official Telegram community group">Telegram</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">Terminal</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Kiểu phông chữ Terminal</string>
@@ -933,7 +933,7 @@
     <string name="wifi_adb" comment="Refers to Android Wireless Debugging ADB over Wi-Fi connection feature">WiFi ADB</string>
     <string name="wifi_connection_required" comment="Detailed explanation of Wi-Fi requirements for Wireless Debugging ADB">Để sử dụng tính năng gỡ lỗi không dây, thiết bị của bạn phải được kết nối với mạng WiFi. Nếu kết nối WiFi của bạn không có quyền truy cập internet, hãy tắt dữ liệu di động để kết nối WiFi được ổn định.</string>
     <string name="wipe_cache_desc" comment="Description for predefined fastboot erase cache command">fastboot erase cache</string>
-    <string name="wipe_cache_title" comment="Predefined fastboot command title: erase cache partition">Erase Cache</string>
+    <string name="wipe_cache_title" comment="Predefined fastboot command title: erase cache partition">Bật bộ nhớ đệm</string>
     <string name="wipe_data" comment="Section header or dialog button to wipe device partitions over fastboot">Erase Data</string>
     <string name="wipe_data_description" comment="Subtext warning explaining fastboot partition erase operation">Erase các phân vùng trên thiết bị của bạn. Chọn phân vùng nào cần Erase.</string>
     <string name="wipe_metadata_desc" comment="Description for predefined fastboot erase metadata command">fastboot erase metadata</string>
@@ -943,7 +943,7 @@
     <string name="wipe_warning" comment="Warning notice in fastboot partition wipe screen emphasizing data loss risk">Các thao tác này không thể hoàn tác. Tiến hành với sự cẩn trọng.</string>
     <string name="wireless_debugging_guide_1" comment="Step 1 of Wireless Debugging setup walkthrough">Đi tới Cài đặt Nhà phát triển &gt; Gỡ lỗi không dây. Chạm vào \'Ghép nối thiết bị bằng mã ghép nối\'.</string>
     <string name="wireless_debugging_guide_2" comment="Step 2 of Wireless Debugging setup walkthrough">Nhập mã ghép nối sáu chữ số vào thông báo được gửi từ aShell You.</string>
-    <string name="wireless_debugging_guide_3" comment="Step 3 of Wireless Debugging setup walkthrough">Come back to the app and click on the &quot;Start&quot; button in the home screen.</string>
+    <string name="wireless_debugging_guide_3" comment="Step 3 of Wireless Debugging setup walkthrough">Quay lại ứng dụng và nhấn nút &quot;Start&quot; trên Màn hình chính.</string>
     <string name="wireless_debugging_important_notice" comment="Important tip clarifying that tapping the left side of Wireless Debugging switch opens the pairing sub-menu">Xin lưu ý rằng phần bên trái của tùy chọn \"Gỡ lỗi không dây\" có thể nhấp được. Chạm vào nó sẽ mở menu \"Ghép nối\" cho tính năng \"Gỡ lỗi không dây\".</string>
     <string name="wireless_not_connected" comment="Status banner shown when target device is not connected over Wireless Debugging">Chưa kết nối</string>
     <string name="wireless_not_connected_message" comment="Instructional body text advising user to pair and connect device first">Thiết bị của bạn chưa được kết nối qua Gỡ lỗi không dây. Vui lòng ghép nối và kết nối thiết bị của bạn trước.</string>
@@ -953,7 +953,7 @@
     <string name="changelog_v7_4_0">\nGiờ đây bạn có thể tìm kiếm các cài đặt phụ trong màn hình cài đặt\nĐã thêm các kiểu bảng màu cho phối màu\nĐã thêm tùy chọn đặt ngôn ngữ ứng dụng trực tiếp trong ứng dụng</string>
     <string name="changelog_v7_3_0">\nĐã cải thiện giao diện người dùng trên màn hình nhật ký thay đổi\nĐã thêm các dịch giả vào phần Giới thiệu.\nĐã thêm Màn hình giấy phép hiển thị thông tin chi tiết về giấy phép của ứng dụng và các thư viện khác mà ứng dụng sử dụng</string>
     <string name="changelog_v7_2_1">\nBản cập nhật bảo trì!</string>
-    <string name="changelog_v7_2_0">\nĐã thêm tùy chọn chạy các lệnh ADB từ Các ô Cài đặt nhanh bằng cách thêm các ô tùy chỉnh.\nĐã thêm tùy chọn sao lưu đám mây (Google Drive). Tính năng này chỉ có trên các bản dựng GitHub.\nĐã cải thiện phối màu, giao diện người dùng (UI) và trải nghiệm người dùng (UX) ở nhiều khu vực.\nĐã thêm nhiều ví dụ lệnh ADB hơn nữa.</string>
+    <string name="changelog_v7_2_0">\nĐã thêm tùy chọn chạy lệnh adb từ Các ô cài đặt nhanh bằng cách thêm các ô tùy chỉnh.\nĐã thêm tùy chọn sao lưu lên đám mây (Google Drive). Tính năng này chỉ có trên các bản dựng GitHub.\nĐã cải thiện bảng màu, giao diện và trải nghiệm người dùng ở nhiều khu vực.\nĐã thêm nhiều ví dụ lệnh ADB hơn.</string>
     <string name="changelog_v7_1_0">\nĐã sửa lỗi bàn phím tiếng Anh có thể không xuất hiện khi nhập lệnh nếu người dùng đặt ngôn ngữ ứng dụng khác tiếng Anh\nĐã sửa lỗi hiển thị sai biểu tượng thư\nĐã sửa lỗi gây ra sự cố khi lưu các tệp lớn\nĐã loại bỏ các quyền dư thừa\nĐã cải thiện UI trong phần \"Giới thiệu\"</string>
     <string name="changelog_v7_0_1">\nĐã sửa lỗi Fastlane</string>
     <string name="changelog_v7_0_0">\nToàn bộ giao diện người dùng đã được cập nhật sử dụng các thành phần Expressive\nToàn bộ mã nguồn đã được viết lại bằng Kotlin và Jetpack Compose cho UI Framework\nĐã thêm Trình quản lý tệp dựa trên Push &amp; Pull\nĐã thêm chế độ ghép nối WiFi ADB qua mã QR\nĐã thêm Tùy chọn ứng dụng và Tùy chọn sao lưu cơ sở dữ liệu\nĐã thêm các tùy chọn thiết kế chủ đề đặc biệt\nĐã thêm Lịch sử sự cố để xem nhật ký lỗi của ứng dụng\nĐã cải thiện tính năng tự động cập nhật\nĐã cải thiện UI &amp; UX ở phần đầu ra của shell\nĐã thêm đề xuất về quyền trên Android\nĐã cập nhật bố cục cho các mẫu lệnh bao gồm cả nhãn\nĐã thêm tùy chọn thêm, chỉnh sửa hoặc xóa lệnh theo ý muốn của bạn\nNhiều lỗi hiện tại đã được sửa</string>
@@ -965,7 +965,7 @@
     <string name="changelog_v5_2_1">\nBản cập nhật bảo trì</string>
     <string name="changelog_v5_2_0">\nCải thiện UI\nĐã sửa một số lỗi</string>
     <string name="changelog_v5_1_0">\nCải thiện nhỏ về UI</string>
-    <string name="changelog_v5_0_0">\nCải thiện lớn về giao diện người dùng (UI) và trải nghiệm người dùng (UX) ở tất cả các khu vực của ứng dụng\nĐã thêm ROOT shell và BASIC shell bên cạnh Shizuku shell để thực thi lệnh\nĐã thêm tùy chọn để lưu đầu ra vào thư mục tùy chỉnh\nĐã sửa nhiều lỗi và sự cố\nĐã tối ưu hóa mã nguồn ứng dụng để có hiệu suất và độ ổn định tốt hơn</string>
+    <string name="changelog_v5_0_0">\nCải thiện lớn về UI và UX ở tất cả các khu vực của ứng dụng\nĐã thêm ROOT và BASIC shell bên cạnh Shizuku shell để thực thi lệnh\nĐã thêm tùy chọn lưu đầu ra vào thư mục tùy chỉnh\nĐã sửa nhiều lỗi và sự cố\nĐã tối ưu hóa mã nguồn ứng dụng để mang lại hiệu suất và độ ổn định tốt hơn</string>
     <string name="changelog_v4_4_0">\nĐã thêm rung cho phản hồi xúc giác\nĐã thêm khả năng thay đổi ngôn ngữ ứng dụng ngay trong ứng dụng (chỉ hỗ trợ thiết bị chạy Android 13 trở lên, ngoại trừ các thiết bị không được hỗ trợ)\nĐã sửa một số sự cố và cải thiện báo cáo sự cố\nCải thiện nhỏ về UI</string>
     <string name="changelog_v4_3_1">\nGiờ đây ứng dụng sẽ phát hiện mọi sự cố và cung cấp tùy chọn báo cáo sự cố đó qua email</string>
     <string name="changelog_v4_3_0">\nĐã thêm tùy chọn để mở trực tiếp các đầu ra đã lưu\nĐã thêm tùy chọn để lưu toàn bộ đầu ra hoặc chỉ đầu ra của lệnh cuối cùng\nĐã sửa lỗi treo ứng dụng</string>
@@ -980,24 +980,24 @@
     <string name="changelog_v3_9_0">\nĐã thêm tính năng tìm kiếm vào phần lệnh\nĐã thêm tùy chọn thiết lập chế độ làm việc mặc định\nĐã cải thiện hình ảnh động\nĐã thiết kế lại phần Dấu trang và thêm tùy chọn sắp xếp\nĐã tăng giới hạn dấu trang lên 25\nĐã xóa lối tắt khởi chạy của ADB shell và thêm lối tắt khởi chạy cho lệnh\nĐã sửa lỗi thụt lề trong tính năng điều hướng bằng nút\nĐã sửa lại hình dáng của một số nút bấm</string>
     <string name="changelog_v3_8_2">\nỨng dụng đang sử dụng bảng màu Material Design được cập nhật mới nhất để đồng bộ theo chủ đề của bạn\nĐã sửa một số lỗi nhỏ</string>
     <string name="changelog_v3_8_1">\nĐã sửa một số sự cố xuất hiện trong bản v3.8.0</string>
-    <string name="changelog_v3_8_0">\nĐã thêm chủ đề đen (AMOLED)\nĐã thêm nút hoàn tác để hủy thao tác dán\nĐã thêm tùy chọn tắt bàn phím ảo\nĐã sửa lỗi các nút bị kéo dài trên một số kích thước màn hình\nĐã sửa lỗi nút dấu trang không xuất hiện sau khi mở ứng dụng\nPhần Ví dụ được đổi tên thành \"Các lệnh\"\nĐã sửa lỗi tham số sao chép lệnh không hiển thị đối với mọi mẫu lệnh\nỨng dụng giờ đây sử dụng phông chữ hệ thống ở mọi nơi\nĐã cải thiện xử lý giao diện người dùng (UI)\nĐã cập nhật các bản dịch</string>
+    <string name="changelog_v3_8_0">\nĐã thêm chủ đề đen (AMOLED)\nĐã thêm nút hoàn tác để hủy thao tác dán\nĐã thêm tùy chọn tắt bàn phím ảo\nĐã sửa lỗi các nút bị kéo dài trên một số kích thước màn hình\nĐã sửa lỗi nút dấu trang không xuất hiện sau khi mở ứng dụng\nĐã đổi tên phần Ví dụ thành Commands\nĐã sửa lỗi tùy chọn sao chép lệnh không xuất hiện cho mọi mẫu lệnh\nỨng dụng giờ đây sử dụng phông chữ hệ thống ở mọi nơi\nĐã cải thiện cách xử lý UI\nĐã cập nhật các bản dịch</string>
     <string name="changelog_v3_7_0">\nGiờ đây bạn có thể chia sẻ các đoạn văn bản từ bất cứ đâu trên thiết bị của bạn vào aShell You và trực tiếp chạy các lệnh.\nGiờ đây bạn có thể trực tiếp chia sẻ đầu ra của shell mà không cần phải lưu nó lại!\nNhiều tính năng tối ưu hóa và xử lý giao diện người dùng.\nĐã thêm bản dịch tiếng Trung Quốc.\nĐã cập nhật các bản dịch.</string>
     <string name="changelog_v3_6_0">\nĐã thêm tùy chọn xoá trường nhập lệnh sau khi có lỗi\nĐã sửa lỗi gây treo ứng dụng sau khi dán từ bộ nhớ tạm trong một số điều kiện nhất định\nTối ưu hóa mã nguồn</string>
     <string name="changelog_v3_5_1">\nĐã sửa một số lỗi với menu điều hướng phía dưới.</string>
     <string name="changelog_v3_5_0">\nĐã cập nhật phần \"Giới thiệu về ứng dụng\".\nĐã thêm các lối tắt khởi chạy.\nĐã sửa menu điều hướng không hiển thị ở chế độ điều hướng bằng nút.\nCải thiện khả năng hiển thị của menu điều hướng phía dưới trong quá trình cuộn.\nĐã thêm hỗ trợ ngôn ngữ theo từng ứng dụng cho aShell You (bản dịch vẫn đang hoàn thiện).\nĐã tối ưu hóa rất nhiều cho mã nguồn.</string>
     <string name="changelog_v3_4_0">\nĐã thêm một nút \"Dán\" để bạn có thể sao chép và dán lệnh nhanh chóng.\nĐã thêm chỉ báo lỗi trong trường nhập văn bản.\nĐã cải thiện logic hiển thị của thanh điều hướng.\nĐã giải quyết vấn đề với các công tắc chuyển đổi không hoạt động trong một số tình huống nhất định.\nĐã sửa chữa việc thêm biểu tượng dấu trang để có độ hiển thị tốt hơn ở các mức tương phản khác nhau.\nTối ưu hóa rất nhiều mã nguồn. Ứng dụng giờ đây mở nhanh hơn rất nhiều so với trước đây.\nỨng dụng sẽ duy trì hoạt động trong chế độ nền và không khởi động lại mỗi khi bạn đóng ứng dụng chỉ bằng cách nhấn nút \"Quay lại\" hoặc cử chỉ.</string>
     <string name="changelog_v3_3_0">\nĐã thêm dấu trang, lịch sử và các gợi ý lệnh cho tính năng OTG\nĐã thêm giới hạn tối đa cho số lượng dấu trang.\nĐã thêm tùy chọn vượt qua giới hạn số lượng dấu trang tối đa.\nSửa rất nhiều lỗi.\nĐã cải thiện cách xử lý giao diện người dùng.\nTối ưu hóa rất nhiều mã nguồn.</string>
-    <string name="changelog_v3_2_0">\nRất nhiều cải tiến liên quan đến giao diện người dùng (UI).\nĐã thêm các chỉ báo biểu thị cho chế độ hoạt động hiện tại của ADB.\nTối ưu hóa rất nhiều mã nguồn.</string>
-    <string name="changelog_v3_1_0">\nĐã cải thiện tính năng ADB OTG sau lần phát hành ban đầu.\nMột số điều chỉnh về giao diện người dùng (UI) và logic để tương thích với tính năng OTG mới.</string>
-    <string name="changelog_v3_0_0">\nĐã thêm hỗ trợ cho ADB QUA OTG.\n\n*** Bạn sẽ có thể chạy các lệnh ADB trên các thiết bị khác bằng aShellYou, bằng cách kết nối với thiết bị khác thông qua cáp OTG ***</string>
-    <string name="changelog_v2_0_2">\nĐã loại bỏ những đoạn mã và tài nguyên không cần thiết.\nNhững thay đổi nhỏ về giao diện người dùng (UI).</string>
-    <string name="changelog_v2_0_1">\nĐã loại bỏ những đoạn mã và tài nguyên không cần thiết.\nNhững thay đổi nhỏ về giao diện người dùng (UI).</string>
-    <string name="changelog_v2_0_0">\nTên ứng dụng được thay đổi thành aShell You.\nĐã thêm hình ảnh động Dự đoán thao tác Quay lại cho các thiết bị được hỗ trợ.\nĐã thêm hộp thoại bật lên xác nhận trước khi xóa màn hình.\nĐã sửa lỗi các thành phần của thanh trạng thái không hiển thị chính xác trong chế độ giao diện sáng.\nỨng dụng hiện hoạt động mượt mà hơn rất nhiều.\n~ Đã giảm dung lượng ứng dụng và tối ưu hóa mã nguồn.\nĐã thêm biểu tượng theo chủ đề cho các launchers có hỗ trợ biểu tượng theo chủ đề.\nNhững thay đổi nhỏ về giao diện người dùng (UI).</string>
-    <string name="changelog_v1_3_0">\nBảng điều khiển cài đặt đã được cập nhật.\nĐã thêm tính năng chạm hai lần để cuộn tức thì đến vị trí trên cùng và dưới cùng trong cửa sổ đầu ra của shell.\nNhững thay đổi nhỏ về giao diện người dùng (UI).</string>
+    <string name="changelog_v3_2_0">\nRất nhiều cải tiến liên quan đến giao diện người dùng.\nĐã thêm các chỉ báo biểu thị cho chế độ hoạt động hiện tại của ADB.\nTối ưu hóa rất nhiều mã nguồn.</string>
+    <string name="changelog_v3_1_0">\nCải tiến ADB OTG sau lần phát hành đầu tiên.\nMột số điều chỉnh về giao diện và logic để phù hợp với tính năng otg mới.</string>
+    <string name="changelog_v3_0_0">\nĐã thêm hỗ trợ cho ADB QUA OTG.\n\n*** Bạn sẽ có thể chạy các lệnh ADB trên các thiết bị khác bằng aShell You, bằng cách kết nối với thiết bị khác thông qua cáp OTG ***</string>
+    <string name="changelog_v2_0_2">\nĐã xóa mã và tài nguyên không cần thiết.\nThay đổi nhỏ về giao diện.</string>
+    <string name="changelog_v2_0_1">\nĐã xóa mã và tài nguyên không cần thiết.\nThay đổi nhỏ về giao diện.</string>
+    <string name="changelog_v2_0_0">\nĐã đổi tên ứng dụng thành aShell You.\nĐã thêm hiệu ứng động dự đoán thao tác quay lại cho các thiết bị hỗ trợ.\nĐã thêm hộp thoại xác nhận trước khi xóa màn hình.\nĐã sửa lỗi các phần tử trên Thanh trạng thái không hiển thị rõ trong chế độ Sáng.\nỨng dụng hiện mượt mà hơn nhiều.\n~ Giảm kích thước ứng dụng và tối ưu hóa mã nguồn.\nĐã thêm biểu tượng theo chủ đề cho các launcher hỗ trợ.\nThay đổi nhỏ về giao diện.</string>
+    <string name="changelog_v1_3_0">\nĐã thiết kế lại bảng Cài đặt.\nĐã thêm tính năng Chạm hai lần để cuộn nhanh đến vị trí đầu và cuối trong chế độ xem đầu ra của shell.\nSửa lỗi giao diện nhỏ.</string>
     <string name="changelog_v1_2_0">\nĐã thêm bảng điều khiển cài đặt.\nĐã thêm một thông số để vô hiệu hóa tính năng cuộn mượt trong đầu ra của shell.\nĐã sửa chữa các lỗi nghiêm trọng sau:\n\n ~ Treo ứng dụng trong quá trình thay đổi chủ đề thiết bị.\n\n ~ Treo ứng dụng khi cố gắng lưu một đầu ra shell có dung lượng lớn. ví dụ: đầu ra của lệnh \'pm\'.</string>
-    <string name="changelog_v1_1_1">\nĐã thay thế một số API lỗi thời.\nNhững thay đổi nhỏ về giao diện người dùng (UI).</string>
-    <string name="changelog_v1_1_0">\nĐã thêm nút \"Cuộn Lên\" và \"Cuộn Xuống\".\nĐã thêm phím Enter trên bàn phím ảo với chức năng \"Nhấn\" để gửi lệnh.\nĐã bổ sung thêm một số lệnh.\nĐã cập nhật các thành phần phụ thuộc để bao gồm các tài liệu mới nhất từ thư viện.\nNhững thay đổi nhỏ về giao diện người dùng (UI).</string>
-    <string name="changelog_v1_0_0">\nĐã bổ sung thêm một vài ví dụ về lệnh.\nNhững thay đổi nhỏ về giao diện người dùng (UI).\nĐã thay đổi tên gói để tránh gây nhầm lẫn phiên bản với ứng dụng ban đầu.</string>
-    <string name="changelog_v0_9_1">\nĐã thêm nhật ký thay đổi vào ứng dụng.\nĐã thêm chức năng đánh dấu kết quả đầu ra của shell.\nNhững thay đổi nhỏ về giao diện người dùng (UI).</string>
+    <string name="changelog_v1_1_1">\nĐã thay thế một số API lỗi thời.\nThay đổi nhỏ về giao diện.</string>
+    <string name="changelog_v1_1_0">\nĐã thêm các nút Cuộn lên và Cuộn xuống.\nĐã thêm tính năng nhấn phím Enter trên bàn phím để gửi lệnh.\nĐã thêm một số lệnh.\nĐã cập nhật các phần phụ thuộc để bao gồm thư viện material you mới nhất.\nThay đổi nhỏ về giao diện.</string>
+    <string name="changelog_v1_0_0">\nĐã thêm một số ví dụ lệnh.\nThay đổi nhỏ về giao diện.\nĐã thay đổi tên gói để tránh nhầm lẫn phiên bản với ứng dụng gốc.</string>
+    <string name="changelog_v0_9_1">\nĐã thêm nhật ký thay đổi vào ứng dụng.\nĐã thêm đầu ra shell được tô sáng.\nThay đổi nhỏ về giao diện.</string>
     <string name="changelog_v0_9_0">\nĐã thêm chủ đề động.\nĐã thiết kế lại hoàn toàn giao diện người dùng UI để mang lại một cái nhìn mới mẻ.</string>
 </resources>
