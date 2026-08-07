@@ -467,10 +467,10 @@
     <string name="found_connect_service">接続サービスが見つかりました</string>
     <string name="frequency">利息支払回数</string>
     <string name="full_license_text">フルライセンステキスト</string>
-    <string name="gemini_api_key_step_1">aistudio.google.comのGoogle AI Studioをご覧ください</string>
+    <string name="gemini_api_key_step_1" comment="%1$s = URL">%1$s の Google AI Studio にアクセスする</string>
     <string name="gemini_api_key_step_2">Googleアカウントでサインイン</string>
     <string name="gemini_api_key_step_3">Create API キーをクリックし、プロジェクトを選択または作成</string>
-    <string name="gemini_api_key_step_4">API キーをコピーして以下に貼り付けてください</string>
+    <string name="gemini_api_key_step_4">API キーをコピーしてここに貼り付け</string>
     <string name="generate_color_scheme">カラースキームを生成</string>
     <string name="generate_scheme">スキームを生成</string>
     <string name="generate_theme">テーマを生成</string>
