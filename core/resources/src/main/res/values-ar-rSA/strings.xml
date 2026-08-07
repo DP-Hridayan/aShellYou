@@ -468,10 +468,10 @@
     <string name="found_connect_service">تم العثور على خدمة اتصال</string>
     <string name="frequency">التردد</string>
     <string name="full_license_text">نص الترخيص الكامل</string>
-    <string name="gemini_api_key_step_1">قم بزيارة استوديو Google AI على aistudio.google.com</string>
+    <string name="gemini_api_key_step_1" comment="%1$s = URL">زيارة استوديو جوجل AI في %1$s</string>
     <string name="gemini_api_key_step_2">تسجيل الدخول باستخدام حساب جوجل الخاص بك</string>
     <string name="gemini_api_key_step_3">انقر على إنشاء مفتاح API وحدد أو إنشاء مشروع</string>
-    <string name="gemini_api_key_step_4">نسخ مفتاح API الخاص بك ولصقه أدناه</string>
+    <string name="gemini_api_key_step_4">نسخ مفتاح API الخاص بك ولصقه هنا</string>
     <string name="generate_color_scheme">إنشاء نظام الألوان</string>
     <string name="generate_scheme">إنشاء مخطط</string>
     <string name="generate_theme">إنشاء السمة</string>

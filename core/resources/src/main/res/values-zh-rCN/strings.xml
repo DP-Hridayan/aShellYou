@@ -467,10 +467,10 @@
     <string name="found_connect_service">找到连接服务</string>
     <string name="frequency">频率</string>
     <string name="full_license_text">完整许可文本</string>
-    <string name="gemini_api_key_step_1">通过 aistudio.google.com 访问 Google AI Studio</string>
+    <string name="gemini_api_key_step_1" comment="%1$s = URL">通过 %1$s 访问 Google AI Studio</string>
     <string name="gemini_api_key_step_2">使用您的Google帐户登录</string>
     <string name="gemini_api_key_step_3">点击创建 API 密钥并选择或创建一个项目</string>
-    <string name="gemini_api_key_step_4">复制您的 API 密钥并粘贴在下方：</string>
+    <string name="gemini_api_key_step_4">复制您的 API 密钥并粘贴到这里</string>
     <string name="generate_color_scheme">生成配色方案</string>
     <string name="generate_scheme">生成方案</string>
     <string name="generate_theme">生成主题</string>

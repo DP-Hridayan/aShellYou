@@ -467,10 +467,10 @@
     <string name="found_connect_service">Servicio de conexión encontrado</string>
     <string name="frequency">Frecuencia</string>
     <string name="full_license_text">Texto completo de la licencia</string>
-    <string name="gemini_api_key_step_1">Visite Google AI Studio en aistudio.google.com</string>
+    <string name="gemini_api_key_step_1" comment="%1$s = URL">Visita Google AI Studio en %1$s</string>
     <string name="gemini_api_key_step_2">Inicia sesión con tu cuenta de Google</string>
     <string name="gemini_api_key_step_3">Haga clic en Crear clave API y seleccione o cree un proyecto</string>
-    <string name="gemini_api_key_step_4">Copia tu clave API y pégala abajo</string>
+    <string name="gemini_api_key_step_4">Copia tu clave API y pégala aquí</string>
     <string name="generate_color_scheme">Generar esquema de color</string>
     <string name="generate_scheme">Generar esquema</string>
     <string name="generate_theme">Generar tema</string>

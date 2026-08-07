@@ -467,10 +467,10 @@
     <string name="found_connect_service">Bağlantı servisi bulundu</string>
     <string name="frequency">Sıklık</string>
     <string name="full_license_text">Tam lisans metni</string>
-    <string name="gemini_api_key_step_1">Google AI Studio\'yu aistudio.google.com adresinden ziyaret edin</string>
+    <string name="gemini_api_key_step_1" comment="%1$s = URL">Visit Google AI Studio at %1$s</string>
     <string name="gemini_api_key_step_2">Google Hesabınızla oturum açın</string>
     <string name="gemini_api_key_step_3">API anahtarı oluştur seçeneğine tıklayın ve bir proje seçin veya oluşturun</string>
-    <string name="gemini_api_key_step_4">API anahtarınızı kopyalayıp aşağıya yapıştırın</string>
+    <string name="gemini_api_key_step_4">Copy your API key and paste it here</string>
     <string name="generate_color_scheme">Renk şemasını oluştur</string>
     <string name="generate_scheme">Renk şemasını oluştur</string>
     <string name="generate_theme">Tema Oluştur</string>
