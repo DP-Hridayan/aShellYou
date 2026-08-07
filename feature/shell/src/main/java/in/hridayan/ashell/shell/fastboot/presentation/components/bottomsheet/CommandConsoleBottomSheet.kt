@@ -8,18 +8,19 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.ClearAll
@@ -37,6 +38,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -47,6 +49,10 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.resources.R
+import `in`.hridayan.lazyselectioncontainer.LazySelectionContainer
+import `in`.hridayan.lazyselectioncontainer.lazySelectionItem
+import `in`.hridayan.lazyselectioncontainer.rememberLazySelectionState
+import `in`.hridayan.lazyselectioncontainer.rememberLazySelectionTextLayout
 
 /**
  * The inner content of the command console — designed to be placed directly
@@ -61,11 +67,14 @@ fun CommandConsoleSheetContent(
     modifier: Modifier = Modifier,
 ) {
     var inputText by rememberSaveable { mutableStateOf("") }
-    val scrollState = rememberScrollState()
+    val lines = remember(commandOutput) {
+        if (commandOutput.isBlank()) emptyList() else commandOutput.lines()
+    }
+    val listState = rememberLazyListState()
+    val selectionState = rememberLazySelectionState()
 
-    // Auto-scroll to bottom when new output arrives
-    LaunchedEffect(commandOutput) {
-        scrollState.animateScrollTo(scrollState.maxValue)
+    LaunchedEffect(lines.size) {
+        if (lines.isNotEmpty()) listState.animateScrollToItem(lines.size - 1)
     }
 
     Column(
@@ -74,7 +83,6 @@ fun CommandConsoleSheetContent(
             .imePadding()
             .padding(horizontal = 16.dp)
     ) {
-        // Header
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
@@ -112,7 +120,6 @@ fun CommandConsoleSheetContent(
             color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f)
         )
 
-        // Input field
         OutlinedTextField(
             value = inputText,
             onValueChange = { inputText = it },
@@ -168,16 +175,14 @@ fun CommandConsoleSheetContent(
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        // Scrollable output area — expands to fill remaining sheet height
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(min = 200.dp)
+                .height(280.dp)
                 .clip(RoundedCornerShape(12.dp))
                 .background(MaterialTheme.colorScheme.surfaceContainerLow)
-                .padding(12.dp)
         ) {
-            if (commandOutput.isBlank()) {
+            if (lines.isEmpty()) {
                 Text(
                     text = stringResource(R.string.output_will_appear_here),
                     style = MaterialTheme.typography.bodySmall.copy(
@@ -187,14 +192,34 @@ fun CommandConsoleSheetContent(
                     modifier = Modifier.align(Alignment.Center)
                 )
             } else {
-                Text(
-                    text = commandOutput,
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        fontFamily = FontFamily.Monospace
-                    ),
-                    color = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.verticalScroll(scrollState)
-                )
+                LazySelectionContainer(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(12.dp),
+                    selectionState = selectionState,
+                    listState = listState,
+                    items = lines,
+                    itemToText = { it },
+                    onCopy = {},
+                ) {
+                    LazyColumn(
+                        state = listState,
+                        modifier = Modifier.fillMaxSize(),
+                    ) {
+                        itemsIndexed(lines) { index, line ->
+                            val textLayoutResult = rememberLazySelectionTextLayout(index)
+                            Text(
+                                text = line,
+                                style = MaterialTheme.typography.bodySmall.copy(
+                                    fontFamily = FontFamily.Monospace
+                                ),
+                                color = MaterialTheme.colorScheme.onSurface,
+                                modifier = Modifier.lazySelectionItem(index = index),
+                                onTextLayout = textLayoutResult
+                            )
+                        }
+                    }
+                }
             }
         }
 

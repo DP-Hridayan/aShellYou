@@ -16,3 +16,4 @@ local.properties
 signing-foss.properties
 .stability/
 /.artifacts
+/.agents
