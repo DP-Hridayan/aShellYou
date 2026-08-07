@@ -2,7 +2,7 @@ name: Crowdin Download
 
 on:
   schedule:
-    - cron: '0 0 * * 0'
+    - cron: '0 0 * * *'
 
   workflow_dispatch:
 
@@ -22,6 +22,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.x"
+
       - name: Prepare asset directories
         run: |
           mkdir -p app/src/main/assets/crowdin
@@ -31,10 +36,13 @@ jobs:
         run: |
           rm -rf app/src/main/assets/crowdin/contributors_pfp/*
 
-      - name: Install dependencies
+      - name: Install system dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y imagemagick jq
+
+      - name: Install Python dependencies
+        run: pip install requests
 
       - name: Generate translators table
         id: translators
@@ -129,7 +137,18 @@ jobs:
             ]
           ' "$RUNNER_TEMP/crowdin_progress_raw.json" > "$OUTPUT_FILE"
 
-      - name: Download translations
+      - name: Generate translation SVG
+        run: python .github/scripts/generate_crowdin_svg.py
+        env:
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+
+      - name: Update README timestamp
+        run: |
+          TS=$(date +%s)
+          sed -i "s/ts=[0-9]*/ts=$TS/g" README.md
+
+      - name: Download translations and push to PR
         uses: crowdin/github-action@v2
         with:
           upload_translations: false
@@ -141,3 +160,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
           CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
           CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+          
