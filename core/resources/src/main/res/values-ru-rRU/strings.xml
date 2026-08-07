@@ -1,423 +1,444 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources xmlns:ns0="http://schemas.android.com/tools" ns0:ignore="MissingTranslation">
-    <string name="_import">Импорт</string>
-    <string name="_new">Новое</string>
-    <string name="abort_command">Сначала остановите команду</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="_import" comment="Action button to import theme or database file">Импорт</string>
+    <string name="_new" comment="Badge or tab label for new items">Новое</string>
+    <string name="abort_command" comment="Toast warning shown when trying to perform an action while an ADB shell command is currently running">Сначала остановите команду</string>
     <string name="about">О программе</string>
-    <string name="active">Активный</string>
-    <string name="active_slot">Активный слот</string>
-    <string name="adb">ADB</string>
-    <string name="adb_agent">Агент ADB</string>
-    <string name="adb_command">Команда ADB</string>
-    <string name="adb_command_hint" comment="Example ADB command shown as placeholder hint in input field">adb reboot</string>
-    <string name="adb_command_off_state">Команда ADB (состояние ВЫКЛ.)</string>
-    <string name="adb_command_on_state">Команда ADB (состояние ВКЛ.)</string>
-    <string name="adb_connection_active">Подключение ADB активно</string>
-    <string name="adb_connection_channel_description">Показывает, когда соединение ADB активно</string>
-    <string name="adb_connection_channel_name">Подключение ADB</string>
-    <string name="adb_connection_description">Подключение к Wi-Fi ADB поддерживается</string>
-    <string name="adb_sideload">ADB sideload</string>
-    <string name="adb_through_otg">ADB через OTG</string>
-    <string name="adb_through_otg_summary">Используйте OTG кабель и отладку по USB для выполнения команд ADB на другом устройстве Android. Необходимо включить отладку по USB в настройках разработчика целевого устройства.</string>
-    <string name="adb_via_otg">ADB через OTG</string>
-    <string name="adb_via_wireless_debugging">ADB через \"Беспроводную отладку\"</string>
-    <string name="adb_via_wireless_debugging_summary">Подключайте устройства (Android 11+) по Wi-Fi с помощью беспроводной отладки и выполняйте команды ADB удалённо.</string>
+    <string name="active" comment="Status indicator label for active ADB connection or active slot">Активный</string>
+    <string name="active_slot" comment="Refers to the active A/B partition slot on a dual-slot Android device">Активный слот</string>
+    <string name="adb_agent" comment="Name of the AI chat assistant persona in aShellYou">Агент ADB</string>
+    <string name="adb_command" comment="Input field label for typing an ADB shell command">Команда ADB</string>
+    <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">Команда ADB (состояние ВЫКЛ.)</string>
+    <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">Команда ADB (состояние ВКЛ.)</string>
+    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB подключен — убедитесь, что устройство находится в режиме поперечной работы</string>
+    <string name="adb_connection_active" comment="Foreground notification title when an ADB connection (Wireless/OTG) is currently active">Подключение ADB активно</string>
+    <string name="adb_connection_channel_description" comment="Android notification channel description in System Settings for ADB connection status">Показывает, когда соединение ADB активно</string>
+    <string name="adb_connection_channel_name" comment="Android notification channel name in System Settings for active ADB connections">Подключение ADB</string>
+    <string name="adb_connection_description" comment="Notification body text indicating an active background Wi-Fi ADB connection">Подключение к Wi-Fi ADB поддерживается</string>
+    <string name="adb_sideload" comment="Feature title for pushing and installing ZIP update packages to device recovery via ADB sideload over USB OTG">ДОБАВИТЬ</string>
+    <string name="adb_through_otg" comment="Title for USB OTG ADB connection mode where this device controls a target device over OTG cable">ADB через OTG</string>
+    <string name="adb_through_otg_summary" comment="Summary description of ADB OTG feature in connection selection screen">Используйте OTG кабель и отладку по USB для выполнения команд ADB на другом устройстве Android. Необходимо включить отладку по USB в настройках разработчика целевого устройства.</string>
+    <string name="adb_via_otg" comment="Compact label for ADB connection via USB OTG cable">ADB через OTG</string>
+    <string name="adb_via_wireless_debugging" comment="Feature title for wireless ADB connection on Android 11+ devices">ADB через \"Беспроводную отладку\"</string>
+    <string name="adb_via_wireless_debugging_summary" comment="Summary description for wireless ADB feature in connection setup screen">Подключайте устройства (Android 11+) по Wi-Fi с помощью беспроводной отладки и выполняйте команды ADB удалённо.</string>
     <string name="add">Добавить</string>
-    <string name="add_account">Добавить аккаунт</string>
-    <string name="add_api_key">Добавить ключ API</string>
-    <string name="add_command">Добавить команду</string>
-    <string name="add_new_item">Добавить новый элемент</string>
-    <string name="additional_settings">Дополнительные настройки</string>
-    <string name="ai_cache_days">Продолжительность кеша</string>
-    <string name="ai_cache_enabled">Включить кэширование</string>
-    <string name="ai_chat_allow">Разрешить</string>
-    <string name="ai_chat_allow_run_command">Разрешить AI запустить команду:</string>
-    <string name="ai_chat_always_allow">Всегда разрешать</string>
-    <string name="ai_chat_deny">Отрицать</string>
-    <string name="ai_chat_new_chat">Новый Чат</string>
-    <string name="ai_chat_pin">Закрепить</string>
-    <string name="ai_chat_running">Выполняется: </string>
-    <string name="ai_chat_sessions">Чат сессии</string>
-    <string name="ai_chat_thoughts">Мысли…</string>
-    <string name="ai_chat_unpin">Открепить</string>
-    <string name="ai_models">AI &amp; Модели</string>
-    <string name="ai_new_chat_welcome_msg">Привет, что я могу для тебя сделать?</string>
-    <string name="ai_prompt_suggestion_1">Проверить здоровье моего аккумулятора</string>
-    <string name="ai_prompt_suggestion_2">Перечислить все установленные пакеты</string>
-    <string name="ai_prompt_suggestion_3">Помочь мне создать плитку быстрых настроек</string>
-    <string name="ai_theme_prompt_hint">например, Cyberpunk неоновый город, темный режим, высокая контрастность</string>
+    <string name="add_account" comment="Button label in cloud backup settings to link a Google account for backup sync">Добавить аккаунт</string>
+    <string name="add_api_key" comment="Button label in AI settings to input a custom LLM provider API key">Добавить ключ API</string>
+    <string name="add_command" comment="Button label to create and save a new command snippet to database">Добавить команду</string>
+    <string name="add_new_item" comment="Generic button label to add a new list entry">Добавить новый элемент</string>
+    <string name="additional_settings" comment="Category header in app settings">Дополнительные настройки</string>
+    <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">Продолжительность кеша</string>
+    <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">Включить кэширование</string>
+    <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">Разрешить</string>
+    <string name="ai_chat_allow_run_command" comment="Dialog header asking user permission for AI assistant to execute a specific ADB command">Разрешить AI запустить команду:</string>
+    <string name="ai_chat_always_allow" comment="Button in AI chat dialog to grant permanent permission for AI agent to run proposed command">Всегда разрешать</string>
+    <string name="ai_chat_deny" comment="Button in AI chat dialog to reject proposed command execution">Отрицать</string>
+    <string name="ai_chat_new_chat" comment="Action button to start a fresh conversation session with AI ADB agent">Новый Чат</string>
+    <string name="ai_chat_pin" comment="Action button to pin an AI chat conversation to top of list">Закрепить</string>
+    <string name="ai_chat_running" comment="Prefix label in AI chat card indicating an ADB command is currently executing">Выполняется: </string>
+    <string name="ai_chat_sessions" comment="Header title for stored AI chat conversations list">Чат сессии</string>
+    <string name="ai_chat_thoughts" comment="Collapsible section title showing step-by-step reasoning/thinking of AI model">Мысли…</string>
+    <string name="ai_chat_unpin" comment="Action button to unpin a pinned AI chat session">Открепить</string>
+    <string name="ai_models" comment="Settings header for configuring AI models and API credentials">AI &amp; Модели</string>
+    <string name="ai_new_chat_welcome_msg" comment="Initial welcome message from AI ADB Agent when starting a new chat session">Привет, что я могу для тебя сделать?</string>
+    <string name="ai_prompt_suggestion_1" comment="Clickable suggestion chip prompt in AI chat for checking battery health">Проверить здоровье моего аккумулятора</string>
+    <string name="ai_prompt_suggestion_2" comment="Clickable suggestion chip prompt in AI chat for listing installed package names">Перечислить все установленные пакеты</string>
+    <string name="ai_prompt_suggestion_3" comment="Clickable suggestion chip prompt in AI chat for creating Quick Settings tiles">Помочь мне создать плитку быстрых настроек</string>
+    <string name="ai_session_search_hint" comment="Placeholder text in AI chat session search bar">Поиск чата…</string>
+    <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">например, Cyberpunk неоновый город, темный режим, высокая контрастность</string>
     <string name="all">Все</string>
-    <string name="all_data">Все данные</string>
-    <string name="already_connected">Уже подключено</string>
-    <string name="already_latest_version">Вы используете последнюю версию</string>
-    <string name="always_allow_base">Всегда разрешать базу</string>
-    <string name="always_allow_exact">Всегда разрешать точное</string>
-    <string name="analyse">Анализ</string>
-    <string name="api_key">API ключ</string>
-    <string name="api_key_is_saved">API ключ сохранен</string>
-    <string name="api_key_required">Требуется ключ API</string>
-    <string name="api_key_required_message">Для использования функций AI требуется ключ API. Добавьте ключ API в настройках. -&gt; Облачные модели.</string>
+    <string name="all_data" comment="Option in backup selector to include full app database, settings, and chat history">Все данные</string>
+    <string name="already_connected" comment="Status message in wireless ADB setup screen indicating device is already connected">Уже подключено</string>
+    <string name="already_latest_version" comment="In-app updater message when user is running the most recent version of aShellYou">Вы используете последнюю версию</string>
+    <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">Всегда разрешать базу</string>
+    <string name="always_allow_exact" comment="Permission rule option in AI chat: automatically approve commands matching exact command string">Всегда разрешать точное</string>
+    <string name="analyse" comment="Action button to request AI analysis of command execution output or error log">Анализ</string>
+    <string name="api_key" comment="Label for AI provider API key text input field">API ключ</string>
+    <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">API ключ сохранен</string>
+    <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">Требуется ключ API</string>
+    <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">Для использования функций AI требуется ключ API. Добавьте ключ API в настройках. -&gt; Облачные модели.</string>
     <string name="app">Приложение</string>
-    <string name="app_crashed">Сбой в приложении</string>
-    <string name="app_tagline">ADB у вас под рукой</string>
+    <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">Сбой в приложении</string>
+    <string name="app_tagline" comment="App subtitle/tagline shown on welcome and about screens">ADB у вас под рукой</string>
     <string name="apply">Применить</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">Применить ко всем (%1$d оставшимся)</string>
-    <string name="artifact_id">Артефакт ID</string>
-    <string name="auto">Авто</string>
-    <string name="auto_backup">Авто резервирование</string>
-    <string name="auto_backup_content_type">Резервирование содержимого</string>
-    <string name="auto_backup_folder">Папка резервирования</string>
-    <string name="auto_dark_mode">Авто тёмный режим</string>
-    <string name="auto_delete_existing_backups">Авто удаление старых резервных копий</string>
-    <string name="auto_scale_ui">Авто масштабирование UI</string>
-    <string name="auto_update">Авто обновление</string>
+    <string name="artifact_id" comment="Technical label for AI artifact identifier in developer options">Артефакт ID</string>
+    <string name="auto" comment="Selection option for automatic theme/mode handling">Авто</string>
+    <string name="auto_backup" comment="Setting toggle title for scheduled automatic backups">Авто резервирование</string>
+    <string name="auto_backup_content_type" comment="Setting title for selecting items to include in automatic backups">Резервирование содержимого</string>
+    <string name="auto_backup_folder" comment="Setting title for selecting target local folder for automatic backups">Папка резервирования</string>
+    <string name="auto_dark_mode" comment="Setting toggle title to enable dark mode automatically when battery saver is active">Авто тёмный режим</string>
+    <string name="auto_delete_existing_backups" comment="Setting toggle title to delete older backup files when a new backup is created">Авто удаление старых резервных копий</string>
+    <string name="auto_scale_ui" comment="Setting toggle title to automatically scale UI based on device screen width">Авто масштабирование UI</string>
+    <string name="auto_update" comment="Setting toggle title to automatically check for application updates on startup">Авто обновление</string>
     <string name="back">Назад</string>
-    <string name="back_button">Кнопка \"Назад\"</string>
-    <string name="background">Фон</string>
-    <string name="backing_up">Резервирование…</string>
+    <string name="back_button" comment="Custom key bar button in terminal view simulating system back button press">Кнопка \"Назад\"</string>
+    <string name="background" comment="Material design theme surface/background color role label">Фон</string>
+    <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">Резервирование…</string>
     <string name="backup">Резервирование</string>
-    <string name="backup_all_data">Резервирование всех данных</string>
-    <string name="backup_and_restore">Резервирование и восстановление</string>
-    <string name="backup_app_database">Резервирование базы данных приложения</string>
-    <string name="backup_date">Дата резервирования</string>
-    <string name="backup_destination">Место назначения резервирования</string>
-    <string name="backup_failed">Резервирование не удалось</string>
-    <string name="backup_found">Найдено резервирование</string>
-    <string name="backup_frequency">Частота резервирования</string>
-    <string name="backup_now">Резервировать сейчас</string>
-    <string name="backup_scheduler">Планировщик резервирования</string>
-    <string name="backup_settings">Резервирование настроек приложения</string>
-    <string name="backup_status">Состояние резервирования</string>
-    <string name="backup_successful">Резервирование выполнено успешно</string>
-    <string name="backup_time">Время резервирования</string>
-    <string name="backup_type">Тип резервирования</string>
-    <string name="baseband_version">Baseband</string>
-    <string name="basic_shell">Базовая оболочка</string>
-    <string name="battery_level">Батарея</string>
-    <string name="battery_saver">Экономия батареи</string>
-    <string name="behavior">Поведение</string>
-    <string name="bookmark_limit_reached">Достигнуто максимальное количество закладок! Удалите некоторые закладки для добавления новых</string>
-    <string name="bookmarks">Закладки</string>
-    <string name="boot_device_into_fastboot">Загрузите целевое устройство в режиме fastboot и подключите его через OTG кабель</string>
-    <string name="boot_image">Boot образ</string>
-    <string name="boot_into_fastboot">Загрузить в Fastboot</string>
-    <string name="bootloader">Загрузчик</string>
-    <string name="bootloader_version">Bootloader</string>
-    <string name="btn_continue">Продолжить</string>
-    <string name="cache_settings">Кэш</string>
+    <string name="backup_all_data" comment="Option in backup dialog to export all app database content and settings">Резервирование всех данных</string>
+    <string name="backup_and_restore" comment="Settings screen header for managing local and cloud backups">Резервирование и восстановление</string>
+    <string name="backup_app_database" comment="Backup option to export only stored command database, templates, and bookmarks">Резервирование базы данных приложения</string>
+    <string name="backup_date" comment="Card label showing creation date of backup file">Дата резервирования</string>
+    <string name="backup_destination" comment="Setting label to pick target location for backup storage (local directory or Google Drive)">Место назначения резервирования</string>
+    <string name="backup_failed" comment="Toast notification or dialog title shown when a local or cloud backup operation fails">Резервирование не удалось</string>
+    <string name="backup_found" comment="Status banner shown when a valid backup file is detected on device or cloud">Найдено резервирование</string>
+    <string name="backup_frequency" comment="Setting label for selecting auto-backup interval (Daily, Weekly, Monthly)">Частота резервирования</string>
+    <string name="backup_now" comment="Action button to immediately trigger a backup operation">Резервировать сейчас</string>
+    <string name="backup_scheduler" comment="Setting category title for automated backup schedule settings">Планировщик резервирования</string>
+    <string name="backup_settings" comment="Backup option to export only application settings preferences">Резервирование настроек приложения</string>
+    <string name="backup_status" comment="Card header showing current status of automated backups">Состояние резервирования</string>
+    <string name="backup_successful" comment="Toast notification or dialog text when a backup completes successfully">Резервирование выполнено успешно</string>
+    <string name="backup_time" comment="Setting label for picking exact time of day for automated backup execution">Время резервирования</string>
+    <string name="backup_type" comment="Card label showing type of backup file (e.g. Full, Database, Settings)">Тип резервирования</string>
+    <string name="baseband_version" comment="Device info field label showing modem/baseband firmware version">Baseband</string>
+    <string name="basic_shell" comment="Execution mode option: run standard non-rooted, non-Shizuku shell commands">Базовая оболочка</string>
+    <string name="battery_level" comment="Device info card label displaying current battery charge percentage">Батарея</string>
+    <string name="battery_saver" comment="Device system battery saver mode label">Экономия батареи</string>
+    <string name="behavior" comment="Settings category title for application behavior preferences">Поведение</string>
+    <string name="block" comment="Action button to block execution or permissions">Блок</string>
+    <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">Достигнуто максимальное количество закладок! Удалите некоторые закладки для добавления новых</string>
+    <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">Закладки</string>
+    <string name="boot_device_into_fastboot" comment="Instructional prompt in Fastboot screen instructing user to boot target device into fastboot mode">Загрузите целевое устройство в режиме fastboot и подключите его через OTG кабель</string>
+    <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">Boot образ</string>
+    <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">Загрузить в Fastboot</string>
+    <string name="bootloader" comment="Device info label or fastboot section title for bootloader mode">Загрузчик</string>
+    <string name="bootloader_version" comment="Device info field label displaying bootloader version string">Bootloader</string>
+    <string name="btn_continue" comment="Action button label to proceed to next step in setup wizard">Продолжить</string>
+    <string name="cache_settings" comment="Settings section header for AI analysis response caching options">Кэш</string>
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Размер кэша: %s</string>
     <string name="cancel">Отмена</string>
-    <string name="cancel_all">Отменить все</string>
-    <string name="cancelling">Отмена…</string>
-    <string name="changelog">Список изменений</string>
-    <string name="changelogs">Журналы изменений</string>
-    <string name="check_updates">Проверить обновления</string>
-    <string name="choose_a_device">Выберите устройство</string>
-    <string name="choose_icon">Выберите иконку</string>
+    <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">Отменить все</string>
+    <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">Отмена…</string>
+    <string name="changelog" comment="Screen header and navigation item for release notes">Список изменений</string>
+    <string name="changelogs" comment="Settings list item title for viewing version history logs">Журналы изменений</string>
+    <string name="check_updates" comment="Action button in about screen to check GitHub or F-Droid for app updates">Проверить обновления</string>
+    <string name="choose_a_device" comment="Dialog header prompting user to select a device from connected ADB devices list">Выберите устройство</string>
+    <string name="choose_icon" comment="Button label in Quick Settings tile editor to select a custom icon">Выберите иконку</string>
     <string name="clear">Очистить</string>
-    <string name="clear_all">Очистить все</string>
-    <string name="clear_all_message">Вы уверены, что хотите очистить все на этом экране?</string>
-    <string name="clear_analysis_cache">Очистить кэш анализа</string>
-    <string name="clear_cache">Очистить кэш</string>
-    <string name="clear_everything">Очистить все</string>
-    <string name="clear_history">Очистить историю</string>
-    <string name="clear_output_confirmation">Подтверждение очистки вывода</string>
-    <string name="clipboard_empty">Буфер обмена не содержит текст</string>
+    <string name="clear_all" comment="Action button to clear all entries in command history or terminal output screen">Очистить все</string>
+    <string name="clear_all_message" comment="Confirmation prompt asking user if they want to clear the terminal output view">Вы уверены, что хотите очистить все на этом экране?</string>
+    <string name="clear_analysis_cache" comment="Button label in settings to clear cached AI analysis responses">Очистить кэш анализа</string>
+    <string name="clear_cache" comment="Action button in settings to clear app cache data">Очистить кэш</string>
+    <string name="clear_everything" comment="Dialog button label to confirm clearing screen output and logs">Очистить все</string>
+    <string name="clear_history" comment="Action button in terminal/bookmarks screen to clear executed command history">Очистить историю</string>
+    <string name="clear_output_confirmation" comment="Setting toggle title to request confirmation before clearing shell output view">Подтверждение очистки вывода</string>
+    <string name="clipboard_empty" comment="Toast error message when user taps paste but system clipboard has no text content">Буфер обмена не содержит текст</string>
     <string name="close">Закрыть</string>
-    <string name="cloud_backup_failed">Не удалось загрузить резервирование на Google Диск</string>
-    <string name="cloud_backup_google_drive">Резервирование в облако (Google Диск)</string>
-    <string name="cloud_backup_successful">Резервирование загружено на Google Диск</string>
-    <string name="cloud_models">Облачные модели</string>
-    <string name="cloud_restore_failed">Не удалось восстановить из Google Диск</string>
-    <string name="cloud_restore_successful">Восстановлено с Google Диска</string>
-    <string name="code_pair_instruction">Откройте \"Беспроводная отладка\" на целевом устройстве и нажмите \"Сопрячь устройство с помощью кода сопряжения\"</string>
-    <string name="collapse">Свернуть</string>
-    <string name="color_preview_error_occurred">Произошла ошибка</string>
-    <string name="color_preview_high_elevation">Высокая высота (диалог)</string>
-    <string name="color_preview_highest_elevation">Высокая высота (нижний лист)</string>
-    <string name="color_preview_list_item">Элемент списка / Текстовое поле</string>
-    <string name="color_preview_low_elevation">Низкая высота (Высота карты)</string>
-    <string name="color_preview_lowest_elevation">Самая низкая высота</string>
-    <string name="color_preview_outlined_button">Контурная кнопка</string>
-    <string name="color_preview_primary_button">Первичная кнопка</string>
-    <string name="color_preview_screen_content">Содержимое экрана</string>
-    <string name="color_preview_standard_elevation">Стандартная высота (Карты)</string>
-    <string name="color_preview_surface_area">Площадь поверхности</string>
-    <string name="color_preview_tonal_button">Тональная кнопка</string>
-    <string name="color_role_app_background">Фон приложения</string>
-    <string name="color_role_background">Фон</string>
-    <string name="color_role_error">Ошибка</string>
-    <string name="color_role_error_container">Контейнер ошибок</string>
-    <string name="color_role_main_accent">Главный Акцент (Первичный)</string>
-    <string name="color_role_on_background" context="The color used for text and icons drawn on top of the background color">На фоне</string>
-    <string name="color_role_on_error" context="The color used for text and icons drawn on top of the error color">При ошибке</string>
-    <string name="color_role_on_error_container" context="The color used for text and icons drawn on top of the error container color">На контейнере ошибок</string>
-    <string name="color_role_on_primary" context="The color used for text and icons drawn on top of the primary color">На Первичном</string>
-    <string name="color_role_on_primary_container" context="The color used for text and icons drawn on top of the primary container color">На первичном контейнере</string>
-    <string name="color_role_on_secondary" context="The color used for text and icons drawn on top of the secondary color">На вторичном</string>
-    <string name="color_role_on_secondary_container" context="The color used for text and icons drawn on top of the secondary container color">На вторичном контейнере</string>
-    <string name="color_role_on_surface" context="The color used for text and icons drawn on top of the surface color">На поверхности</string>
-    <string name="color_role_on_surface_variant" context="The color used for text and icons drawn on top of the surface variant color">В варианте поверхности</string>
-    <string name="color_role_on_tertiary" context="The color used for text and icons drawn on top of the tertiary color">В Третичном</string>
-    <string name="color_role_on_tertiary_container" context="The color used for text and icons drawn on top of the tertiary container color">О третичном контейнере</string>
-    <string name="color_role_outline">Контур</string>
-    <string name="color_role_outline_variant">Вариант контура</string>
-    <string name="color_role_primary">Первичный</string>
-    <string name="color_role_primary_container">Первичный контейнер</string>
-    <string name="color_role_secondary">Вторичный</string>
-    <string name="color_role_secondary_accent">Вторичный Акцент</string>
-    <string name="color_role_secondary_container">Вторичный контейнер</string>
-    <string name="color_role_surface">Поверхность</string>
-    <string name="color_role_surface_container">Контейнер поверхности</string>
-    <string name="color_role_surface_container_high">Высокая поверхность контейнера</string>
-    <string name="color_role_surface_container_highest">Наивысший контейнер поверхности</string>
-    <string name="color_role_surface_container_low">Низкая поверхность контейнера</string>
-    <string name="color_role_surface_container_lowest">Наименьший поверхностный контейнер</string>
-    <string name="color_role_surface_variant">Вариант поверхности</string>
-    <string name="color_role_tertiary">Третичный</string>
-    <string name="color_role_tertiary_accent">Третичный акцент</string>
-    <string name="color_role_tertiary_container">Третичный контейнер</string>
-    <string name="command">Команда</string>
-    <string name="command_analysis">Анализ команд</string>
-    <string name="command_not_found">Команда не найдена!</string>
-    <string name="command_title">Ввод команды ADB</string>
-    <string name="commands">Команды</string>
-    <string name="configure_save_directory">Настроить каталог сохранения</string>
+    <string name="cloud_backup_failed" comment="Error toast when uploading backup file to Google Drive fails">Не удалось загрузить резервирование на Google Диск</string>
+    <string name="cloud_backup_google_drive" comment="Setting toggle title for automated cloud backups to Google Drive">Резервирование в облако (Google Диск)</string>
+    <string name="cloud_backup_successful" comment="Toast message confirming successful backup upload to Google Drive">Резервирование загружено на Google Диск</string>
+    <string name="cloud_models" comment="Settings screen title for managing cloud-based LLM provider API keys">Облачные модели</string>
+    <string name="cloud_restore_failed" comment="Error toast when downloading/restoring backup from Google Drive fails">Не удалось восстановить из Google Диск</string>
+    <string name="cloud_restore_successful" comment="Toast message confirming successful backup restoration from Google Drive">Восстановлено с Google Диска</string>
+    <string name="cmd_get_battery_desc" comment="Description for predefined fastboot command: fastboot getvar battery-voltage">Запрашивать текущий уровень заряда батареи</string>
+    <string name="cmd_get_battery_title" comment="Predefined fastboot command title: check battery level in fastboot">Уровень заряда батареи</string>
+    <string name="cmd_get_current_slot_desc" comment="Description for predefined fastboot command: fastboot getvar current-slot">Какой A/B слот сейчас активен</string>
+    <string name="cmd_get_current_slot_title" comment="Predefined fastboot command title: check active A/B slot">Текущий слот</string>
+    <string name="cmd_get_product_desc" comment="Description for predefined fastboot command: fastboot getvar product">Получить идентификатор продукта устройства</string>
+    <string name="cmd_get_product_title" comment="Predefined fastboot command title: check product name">Название товара</string>
+    <string name="cmd_get_slot_count_desc" comment="Description for predefined fastboot command: fastboot getvar slot-count">Количество А/Б слотов на этом устройстве</string>
+    <string name="cmd_get_slot_count_title" comment="Predefined fastboot command title: check A/B slot count">Количество слотов</string>
+    <string name="cmd_get_unlocked_desc" comment="Description for predefined fastboot command: fastboot getvar unlocked">Проверьте, разблокирован ли загрузчик</string>
+    <string name="cmd_get_unlocked_title" comment="Predefined fastboot command title: check bootloader unlock status">Статус разблокировки загрузчика</string>
+    <string name="cmd_getvar_all_desc" comment="Description for predefined fastboot command: fastboot getvar all">Список всех переменных устройства и их текущих значений</string>
+    <string name="cmd_getvar_all_title" comment="Predefined fastboot command title: get all device variables">Получить все переменные</string>
+    <string name="cmd_oem_device_info_desc" comment="Description for predefined fastboot command: fastboot oem device-info">Получить информацию об OEM-устройствах</string>
+    <string name="cmd_oem_device_info_title" comment="Predefined fastboot command title: query OEM device info">Информация об устройстве OEM</string>
+    <string name="cmd_unlock_ability_desc" comment="Description for predefined fastboot command: fastboot flashing get_unlock_ability">Проверьте, может ли это устройство быть разблокированным загрузчиком</string>
+    <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">Открыть Способность</string>
+    <string name="code_pair_instruction" comment="Instructional text in Wireless Debugging pairing dialog directing user to open Wireless Debugging menu on target device">Откройте \"Беспроводная отладка\" на целевом устройстве и нажмите \"Сопрячь устройство с помощью кода сопряжения\"</string>
+    <string name="collapse" comment="Action button label to collapse an expanded card or section">Свернуть</string>
+    <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">Произошла ошибка</string>
+    <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">Высокая высота (диалог)</string>
+    <string name="color_preview_highest_elevation" comment="Sample label in theme editor showing highest elevation surface color (Bottom Sheet)">Высокая высота (нижний лист)</string>
+    <string name="color_preview_list_item" comment="Sample text field label in theme customizer preview">Элемент списка / Текстовое поле</string>
+    <string name="color_preview_low_elevation" comment="Sample label in theme customizer for low elevation card colors">Низкая высота (Высота карты)</string>
+    <string name="color_preview_lowest_elevation" comment="Sample label in theme customizer for lowest elevation surface color">Самая низкая высота</string>
+    <string name="color_preview_outlined_button" comment="Sample outlined button text in theme preview">Контурная кнопка</string>
+    <string name="color_preview_primary_button" comment="Sample primary button text in theme preview">Первичная кнопка</string>
+    <string name="color_preview_screen_content" comment="Sample screen content body text in theme preview">Содержимое экрана</string>
+    <string name="color_preview_standard_elevation" comment="Sample label in theme customizer for standard card elevation surface color">Стандартная высота (Карты)</string>
+    <string name="color_preview_surface_area" comment="Sample surface area text in theme preview">Площадь поверхности</string>
+    <string name="color_preview_tonal_button" comment="Sample tonal button text in theme preview">Тональная кнопка</string>
+    <string name="color_role_app_background" comment="Material 3 color role name for main application background color">Фон приложения</string>
+    <string name="color_role_background" comment="Material 3 color role name for default surface background">Фон</string>
+    <string name="color_role_error" comment="Material 3 color role name for error indicator color">Ошибка</string>
+    <string name="color_role_error_container" comment="Material 3 color role name for container background of error elements">Контейнер ошибок</string>
+    <string name="color_role_main_accent" comment="Material 3 color role name for primary accent color">Главный Акцент (Первичный)</string>
+    <string name="color_role_on_background" comment="The color used for text and icons drawn on top of the background color">На фоне</string>
+    <string name="color_role_on_error" comment="The color used for text and icons drawn on top of the error color">При ошибке</string>
+    <string name="color_role_on_error_container" comment="The color used for text and icons drawn on top of the error container color">На контейнере ошибок</string>
+    <string name="color_role_on_primary" comment="The color used for text and icons drawn on top of the primary color">На Первичном</string>
+    <string name="color_role_on_primary_container" comment="The color used for text and icons drawn on top of the primary container color">На первичном контейнере</string>
+    <string name="color_role_on_secondary" comment="The color used for text and icons drawn on top of the secondary color">На вторичном</string>
+    <string name="color_role_on_secondary_container" comment="The color used for text and icons drawn on top of the secondary container color">На вторичном контейнере</string>
+    <string name="color_role_on_surface" comment="The color used for text and icons drawn on top of the surface color">На поверхности</string>
+    <string name="color_role_on_surface_variant" comment="The color used for text and icons drawn on top of the surface variant color">В варианте поверхности</string>
+    <string name="color_role_on_tertiary" comment="The color used for text and icons drawn on top of the tertiary color">В Третичном</string>
+    <string name="color_role_on_tertiary_container" comment="The color used for text and icons drawn on top of the tertiary container color">О третичном контейнере</string>
+    <string name="color_role_outline" comment="Material 3 color role name for component outline borders">Контур</string>
+    <string name="color_role_outline_variant" comment="Material 3 color role name for secondary outline borders">Вариант контура</string>
+    <string name="color_role_primary" comment="Material 3 color role name for primary theme color">Первичный</string>
+    <string name="color_role_primary_container" comment="Material 3 color role name for container surface of primary elements">Первичный контейнер</string>
+    <string name="color_role_secondary" comment="Material 3 color role name for secondary theme accent color">Вторичный</string>
+    <string name="color_role_secondary_accent" comment="Material 3 color role name for secondary accent color">Вторичный Акцент</string>
+    <string name="color_role_secondary_container" comment="Material 3 color role name for container surface of secondary elements">Вторичный контейнер</string>
+    <string name="color_role_surface" comment="Material 3 color role name for default component surface color">Поверхность</string>
+    <string name="color_role_surface_container" comment="Material 3 color role name for standard surface container">Контейнер поверхности</string>
+    <string name="color_role_surface_container_high" comment="Material 3 color role name for high elevation surface container">Высокая поверхность контейнера</string>
+    <string name="color_role_surface_container_highest" comment="Material 3 color role name for highest elevation surface container">Наивысший контейнер поверхности</string>
+    <string name="color_role_surface_container_low" comment="Material 3 color role name for low elevation surface container">Низкая поверхность контейнера</string>
+    <string name="color_role_surface_container_lowest" comment="Material 3 color role name for lowest elevation surface container">Наименьший поверхностный контейнер</string>
+    <string name="color_role_surface_variant" comment="Material 3 color role name for variant surface background">Вариант поверхности</string>
+    <string name="color_role_tertiary" comment="Material 3 color role name for tertiary theme accent color">Третичный</string>
+    <string name="color_role_tertiary_accent" comment="Material 3 color role name for tertiary accent color">Третичный акцент</string>
+    <string name="color_role_tertiary_container" comment="Material 3 color role name for container surface of tertiary elements">Третичный контейнер</string>
+    <string name="command" comment="Label/header for an ADB command snippet">Команда</string>
+    <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">Анализ команд</string>
+    <string name="command_console" comment="Screen title for Fastboot interactive command console">Консоль команд</string>
+    <string name="command_logs" comment="Tab header for history log of executed fastboot commands">Журнал команд</string>
+    <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">История всех выполненных команд fastboot.</string>
+    <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Команда не найдена!</string>
+    <string name="command_title" comment="Dialog/screen header for ADB command entry form">Ввод команды ADB</string>
+    <string name="commands" comment="Screen title and tab label for saved ADB command templates">Команды</string>
+    <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Настроить каталог сохранения</string>
     <string name="confirm">Подтвердить</string>
-    <string name="confirm_bookmark_delete_message">Внимание! Это действие необратимо\nВы уверены, что хотите удалить все закладки?</string>
-    <string name="confirm_delete">Подтвердить удаление</string>
-    <string name="confirm_tile_delete_message">Вы уверены, что хотите удалить эту плитку?</string>
-    <string name="confirmation_clear_cache">Кэширование помогает мгновенно получать результаты анализа.\nВы все еще хотите очистить все данные кэша анализа AI?</string>
+    <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Внимание! Это действие необратимо\nВы уверены, что хотите удалить все закладки?</string>
+    <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Подтвердить удаление</string>
+    <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">Вы уверены, что хотите удалить эту плитку?</string>
+    <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">Кэширование помогает мгновенно получать результаты анализа.\nВы все еще хотите очистить все данные кэша анализа AI?</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" уже существует в этом месте.</string>
-    <string name="conflict_title">Элемент уже существует</string>
-    <string name="connect">Подключить</string>
-    <string name="connect_device_via_otg">Подключить устройство через OTG</string>
-    <string name="connect_to_wifi_network">Подключиться к Wi-Fi сети</string>
-    <string name="connect_via_otg">Подключиться через OTG</string>
-    <string name="connect_via_wifi_adb">Подключиться через Wi-Fi ADB</string>
-    <string name="connected">Подключено</string>
-    <string name="connected_device">Подключенное устройство</string>
-    <string name="connecting">Подключение…</string>
-    <string name="connection_error">Ошибка подключения</string>
-    <string name="connection_failed">Ошибка подключения</string>
-    <string name="connection_lost">Соединение потеряно</string>
-    <string name="connection_lost_back_message">Беспроводное соединение для отладки потеряно. Что вы хотите сделать?</string>
-    <string name="continue_anyway">Продолжить все равно</string>
-    <string name="contributors">Участники проекта</string>
+    <string name="conflict_title" comment="Dialog title when attempting to paste or create a file that already exists">Элемент уже существует</string>
+    <string name="connect" comment="Action button to initiate ADB connection to target device over Wireless Debugging or OTG">Подключить</string>
+    <string name="connect_device_via_otg" comment="Prompt instructing user to attach a target device using USB OTG cable">Подключить устройство через OTG</string>
+    <string name="connect_to_wifi_network" comment="Instructional notice indicating device must be connected to Wi-Fi for Wireless Debugging">Подключиться к Wi-Fi сети</string>
+    <string name="connect_via_otg" comment="Option in ADB connection menu to connect via USB OTG cable">Подключиться через OTG</string>
+    <string name="connect_via_wifi_adb" comment="Option in connection menu to connect via Wi-Fi Wireless Debugging">Подключиться через Wi-Fi ADB</string>
+    <string name="connected" comment="Status badge showing device is successfully connected over ADB">Подключено</string>
+    <string name="connected_device" comment="Header title for the currently active ADB target device information card">Подключенное устройство</string>
+    <string name="connecting" comment="Progress status text shown while establishing ADB connection">Подключение…</string>
+    <string name="connection_error" comment="Toast notification or dialog title for ADB network connection errors">Ошибка подключения</string>
+    <string name="connection_failed" comment="Status banner or toast when ADB connection attempt fails">Ошибка подключения</string>
+    <string name="connection_lost" comment="Dialog title shown when ADB Wireless Debugging connection is unexpectedly disconnected">Соединение потеряно</string>
+    <string name="connection_lost_back_message" comment="Dialog message prompt when connection is lost asking user what action to take">Беспроводное соединение для отладки потеряно. Что вы хотите сделать?</string>
+    <string name="continue_anyway" comment="Action button in warning dialog to ignore warning and proceed">Продолжить все равно</string>
+    <string name="contributors" comment="Screen title and card header listing app open-source contributors">Участники проекта</string>
     <string name="copied_items" comment="%1$d = number of items copied to clipboard">Скопировано %1$d элементов</string>
-    <string name="copied_to_clipboard">Скопировано в буфер обмена!</string>
+    <string name="copied_to_clipboard" comment="Toast message shown after copying text or command to system clipboard">Скопировано в буфер обмена!</string>
     <string name="copy">Копировать</string>
-    <string name="copying">Копирование…</string>
+    <string name="copying" comment="Progress status text shown while copying files in file browser">Копирование…</string>
     <string name="copying_items" comment="%1$d = number of items being copied">Копирование %1$d элемент(ов)</string>
-    <string name="crash_details">Детали сбоя</string>
-    <string name="crash_history">История сбоев</string>
+    <string name="crash_details" comment="Screen title for inspecting stack trace details of a crash log">Детали сбоя</string>
+    <string name="crash_history" comment="Settings menu title and screen header for viewing past application crash reports">История сбоев</string>
     <string name="create">Создать</string>
-    <string name="create_folder">Создать папку</string>
-    <string name="create_new_tile">Создать новую плитку</string>
-    <string name="create_with_ai">Создать с помощью AI</string>
-    <string name="crowdin_contribution_msg">Посетите нашу платформу переводов crowdin, чтобы внести свой вклад</string>
-    <string name="current_version">Текущая версия</string>
-    <string name="custom_ui_scale">Свой масштаб UI</string>
+    <string name="create_folder" comment="Action button or dialog title to create a new directory in file browser">Создать папку</string>
+    <string name="create_new_tile" comment="Screen header or button label to add a new custom Quick Settings tile">Создать новую плитку</string>
+    <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">Создать с помощью AI</string>
+    <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">Посетите нашу платформу переводов crowdin, чтобы внести свой вклад</string>
+    <string name="current_version" comment="About screen card label showing installed application version number">Текущая версия</string>
+    <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">Свой масштаб UI</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Вырезать %1$d элементов</string>
-    <string name="cut_to_clipboard">Вырезать в буфер обмена</string>
-    <string name="daily">Ежедневно</string>
-    <string name="dark_theme">Тёмная тема</string>
-    <string name="dashboard">Приборная доска</string>
-    <string name="databases_only">Только базы данных</string>
-    <string name="default_folder">Папка по умолчанию</string>
-    <string name="default_language">Язык по умолчанию</string>
+    <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">Вырезать в буфер обмена</string>
+    <string name="daily" comment="Option in backup scheduler frequency selection">Ежедневно</string>
+    <string name="dark_theme" comment="Settings preference title for dark theme mode">Тёмная тема</string>
+    <string name="dashboard" comment="Main screen header or navigation drawer item">Приборная доска</string>
+    <string name="databases_only" comment="Option in backup content selector to include database files only">Только базы данных</string>
+    <string name="default_folder" comment="Default folder location label in file manager settings">Папка по умолчанию</string>
+    <string name="default_language" comment="Setting preference label for selecting application language">Язык по умолчанию</string>
     <string name="delete">Удалить</string>
-    <string name="delete_all">Удалить все</string>
-    <string name="delete_file">Удалить файл</string>
-    <string name="delete_folder">Удалить папку</string>
+    <string name="delete_all" comment="Action button to delete all items in list, history, or bookmarks">Удалить все</string>
+    <string name="delete_file" comment="File browser action to delete selected file">Удалить файл</string>
+    <string name="delete_folder" comment="File browser action to delete selected directory">Удалить папку</string>
     <string name="delete_items_message" comment="%1$d = number of selected items">Вы уверены, что хотите удалить %1$d выбранных элементов?</string>
     <string name="delete_items_title" comment="%1$d = number of items">Удалить %1$d элементов?</string>
     <string name="delete_message" comment="%1$s = file or folder name">Вы уверены, что хотите удалить \"%1$s\"?</string>
     <string name="delete_title" comment="%1$s = file or folder name">Удалить %1$s?</string>
-    <string name="des_about">Сотрудники и поддержка</string>
-    <string name="des_ai_cache_days">Количество дней для хранения кэшированных результатов</string>
-    <string name="des_ai_cache_enabled">Результаты анализа кэша по модели</string>
-    <string name="des_ai_models">Управлять AI данными моделей и API ключами</string>
-    <string name="des_auto_backup_content_type">Выберите, что включить в авто резервирования</string>
-    <string name="des_auto_backup_folder">Выберите папку для сохранения авто резервирования</string>
-    <string name="des_auto_backup_time">Установите время для авто резервирования</string>
-    <string name="des_auto_dark_mode">Авто переключение в темный режим, когда включён режим экономии батареи</string>
-    <string name="des_auto_delete_existing_backups">Удалять старые авто резервирования, когда сохраняется новая</string>
-    <string name="des_auto_scale_ui">Авто масштабирует UI в соответствии с минимальной шириной экрана устройства</string>
-    <string name="des_auto_update">Авто проверка обновлений</string>
-    <string name="des_backup_all_data">Резервирование всех данных приложения</string>
-    <string name="des_backup_and_restore">Резервирование и восстановление настроек приложения и других данных</string>
-    <string name="des_backup_app_database">Резервирование базы данных программы, содержащая примеры команд &amp; закладки</string>
-    <string name="des_backup_scheduler">Автоматически планировать резервирование на выбранные интервалы</string>
-    <string name="des_backup_settings">Резервирование только настроек приложения</string>
-    <string name="des_behavior">Изменить определенное поведение приложения</string>
-    <string name="des_changelogs">История всех изменений, внесённых в приложение</string>
-    <string name="des_choose_icon">Нажмите здесь, чтобы выбрать иконку из коллекции иконок</string>
-    <string name="des_clear_output_confirmation">Запрашивать подтверждение перед очисткой вывода оболочки</string>
-    <string name="des_cloud_models">Управление ключами API для облачных моделей</string>
-    <string name="des_configure_save_directory">Выберите каталог для сохранения вывода оболочки</string>
-    <string name="des_contributors">Список участников, которые помогли в разработке aShell You</string>
-    <string name="des_crash_history">Просмотреть все сбои, которые произошли в приложении</string>
-    <string name="des_default_language">Выберите язык по умолчанию для приложения</string>
-    <string name="des_disable_softkey">Полезно, когда нужно использовать внешнюю клавиатуру</string>
-    <string name="des_drive_backup">Загрузите зашифрованное резервирование на Google Диск.\nЭто действие перезапишет любые существующие облачные резервные копии.</string>
-    <string name="des_drive_restore">Скачать последнее резервирование с Google Диска</string>
-    <string name="des_dynamic_colors">Автоматическая установка темы приложения в соответствии с обоями устройства</string>
-    <string name="des_enable_auto_backup">Авто резервирование данных программы в запланированное время</string>
-    <string name="des_enable_cloud_auto_backup">Авто резервирование в ваш аккаунт Google Диска</string>
-    <string name="des_enable_direct_download">При включении обновления будут загружаться непосредственно из GitHub внутри приложения. Отключите, чтобы посетить страницу выпусков Github для загрузки вручную.</string>
-    <string name="des_enable_local_auto_backup">Авто резервирование в выбранную папку на вашем устройстве</string>
-    <string name="des_examples">Коллекция некоторых шаблонов команд</string>
-    <string name="des_feature_request">Если у вас есть какие-либо идеи или предложения по программе, сообщите нам</string>
-    <string name="des_font_family">Изменить стиль шрифта приложения</string>
-    <string name="des_font_size">Регулировка размер шрифта, чтобы текст в приложении отображался крупнее или меньше</string>
-    <string name="des_haptics_and_vibration">Интерактивно тактильный отклик для сенсорной обратной связи</string>
-    <string name="des_high_contrast_dark_mode">Чёрно темная тема для устройств с OLED дисплеем</string>
-    <string name="des_hridayan">Просто парень, который любит приложения и дизайн</string>
-    <string name="des_initial_state">Фиксированное визуальное состояние плитки, когда она отображается на панели \"Быстрых настроек\"</string>
-    <string name="des_licenses">Просмотрите лицензии, используемые приложением и библиотеками</string>
-    <string name="des_local_backup">Сохранить зашифрованную резервную копию на своем устройстве</string>
-    <string name="des_local_restore">Выберите файл резервирования со своего устройства</string>
-    <string name="des_logcat">Вывод logcat в реальном времени из подключенного устройства</string>
-    <string name="des_look_and_feel">Динамические цвета, Темная тема, Язык</string>
-    <string name="des_models">Модель не выбрана</string>
-    <string name="des_override_bookmarks">Возможна задержка, если добавлено большое количество закладок! На недорогих устройствах эту опцию следует отключить</string>
-    <string name="des_pair_another_device">Сопрячь другое целевое устройство</string>
-    <string name="des_qs_tiles">Создать плитки быстрых настроек для выполнения команд adb</string>
-    <string name="des_report_issue">Сообщите о любой проблеме, с которой вы столкнулись при использовании приложения</string>
-    <string name="des_reset_app_settings">Сбросить настройки приложения до значений по умолчанию</string>
-    <string name="des_restore_app_data">Восстановите данные программы из сохраненного файла резервной копии.\nСохраненная база данных перезапишет текущую базу данных</string>
-    <string name="des_save_whole_output">Включите эту опцию, чтобы сохранить вывод всей сессии оболочки.\nЕсли отключен, будет сохранен только вывод последней команды.</string>
-    <string name="des_screen_density">Регулировка плотности экрана, чтобы элементы UI отображались больше или меньше</string>
-    <string name="des_select_file_for_flashing">Выберите файл загрузочного образа для прошивки на выбранный раздел</string>
-    <string name="des_sign_in_with_google">При желании свяжите свой аккаунт Google для резервирования в облако</string>
-    <string name="des_smooth_scroll">Включает плавную прокрутку в выводе оболочки, при нажатии на верхнюю или нижнюю стрелку</string>
-    <string name="des_toggleable">Когда включено, плитка переключается между состояниями ВКЛ и ВЫКЛ при каждом нажатии, выполняя разные команды для каждого состояния</string>
-    <string name="des_translators">Люди, которые помогли перевести aShellYou</string>
-    <string name="des_ui_scale">Регулировка масштаба элементов UI и размера шрифта</string>
-    <string name="des_warning_incorrect_file_bootloop">Будьте осторожны, так как неправильный образ может вызвать bootloop</string>
+    <string name="des_about" comment="Subtitle description for About section in settings menu">Сотрудники и поддержка</string>
+    <string name="des_ai_cache_days" comment="Description under Cache duration setting in AI settings">Количество дней для хранения кэшированных результатов</string>
+    <string name="des_ai_cache_enabled" comment="Description under Enable cache setting in AI settings">Результаты анализа кэша по модели</string>
+    <string name="des_ai_models" comment="Description under AI &amp; Models item in settings">Управлять AI данными моделей и API ключами</string>
+    <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">Выберите, что включить в авто резервирования</string>
+    <string name="des_auto_backup_folder" comment="Description under Backup folder setting">Выберите папку для сохранения авто резервирования</string>
+    <string name="des_auto_backup_time" comment="Description under Backup time setting">Установите время для авто резервирования</string>
+    <string name="des_auto_dark_mode" comment="Description under Auto dark mode setting">Авто переключение в темный режим, когда включён режим экономии батареи</string>
+    <string name="des_auto_delete_existing_backups" comment="Description under Auto-delete old backups setting">Удалять старые авто резервирования, когда сохраняется новая</string>
+    <string name="des_auto_scale_ui" comment="Description under Auto scale UI setting">Авто масштабирует UI в соответствии с минимальной шириной экрана устройства</string>
+    <string name="des_auto_update" comment="Description under Auto update setting">Авто проверка обновлений</string>
+    <string name="des_backup_all_data" comment="Description for full backup option in backup dialog">Резервирование всех данных приложения</string>
+    <string name="des_backup_and_restore" comment="Description under Backup &amp; restore item in settings menu">Резервирование и восстановление настроек приложения и других данных</string>
+    <string name="des_backup_app_database" comment="Description for app database backup option">Резервирование базы данных программы, содержащая примеры команд &amp; закладки</string>
+    <string name="des_backup_scheduler" comment="Description under Backup scheduler setting">Автоматически планировать резервирование на выбранные интервалы</string>
+    <string name="des_backup_settings" comment="Description for app settings backup option">Резервирование только настроек приложения</string>
+    <string name="des_behavior" comment="Description under Behavior item in settings menu">Изменить определенное поведение приложения</string>
+    <string name="des_changelogs" comment="Description under Changelogs item in settings menu">История всех изменений, внесённых в приложение</string>
+    <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">Нажмите здесь, чтобы выбрать иконку из коллекции иконок</string>
+    <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">Запрашивать подтверждение перед очисткой вывода оболочки</string>
+    <string name="des_cloud_models" comment="Description under Cloud models setting item">Управление ключами API для облачных моделей</string>
+    <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">Выберите каталог для сохранения вывода оболочки</string>
+    <string name="des_contributors" comment="Description under Contributors item in About section">Список участников, которые помогли в разработке aShell You</string>
+    <string name="des_crash_history" comment="Description under Crash history item in settings menu">Просмотреть все сбои, которые произошли в приложении</string>
+    <string name="des_default_language" comment="Description under Default language item in settings menu">Выберите язык по умолчанию для приложения</string>
+    <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">Полезно, когда нужно использовать внешнюю клавиатуру</string>
+    <string name="des_drive_backup" comment="Description card text for Google Drive backup option">Загрузите зашифрованное резервирование на Google Диск.\nЭто действие перезапишет любые существующие облачные резервные копии.</string>
+    <string name="des_drive_restore" comment="Description card text for Google Drive restore option">Скачать последнее резервирование с Google Диска</string>
+    <string name="des_dynamic_colors" comment="Description under Dynamic colors setting item">Автоматическая установка темы приложения в соответствии с обоями устройства</string>
+    <string name="des_enable_auto_backup" comment="Description under Enable automatic backup toggle setting">Авто резервирование данных программы в запланированное время</string>
+    <string name="des_enable_cloud_auto_backup" comment="Description under Auto backup to Google Drive toggle setting">Авто резервирование в ваш аккаунт Google Диска</string>
+    <string name="des_enable_direct_download" comment="Description under Enable direct apk download setting">При включении обновления будут загружаться непосредственно из GitHub внутри приложения. Отключите, чтобы посетить страницу выпусков Github для загрузки вручную.</string>
+    <string name="des_enable_local_auto_backup" comment="Description under Auto backup to local storage toggle setting">Авто резервирование в выбранную папку на вашем устройстве</string>
+    <string name="des_examples" comment="Description under Command templates item in navigation menu">Коллекция некоторых шаблонов команд</string>
+    <string name="des_feature_request" comment="Description under Feature request item in About menu">Если у вас есть какие-либо идеи или предложения по программе, сообщите нам</string>
+    <string name="des_font_family" comment="Description under Font family setting item">Изменить стиль шрифта приложения</string>
+    <string name="des_font_size" comment="Description under Font size multiplier setting item">Регулировка размер шрифта, чтобы текст в приложении отображался крупнее или меньше</string>
+    <string name="des_haptics_and_vibration" comment="Description under Haptics &amp; Vibration setting item">Интерактивно тактильный отклик для сенсорной обратной связи</string>
+    <string name="des_high_contrast_dark_mode" comment="Description under High contrast dark mode setting item">Чёрно темная тема для устройств с OLED дисплеем</string>
+    <string name="des_hridayan" comment="Developer bio subtitle in About section">Просто парень, который любит приложения и дизайн</string>
+    <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">Фиксированное визуальное состояние плитки, когда она отображается на панели \"Быстрых настроек\"</string>
+    <string name="des_licenses" comment="Description under Licenses setting item in About section">Просмотрите лицензии, используемые приложением и библиотеками</string>
+    <string name="des_local_backup" comment="Description card text for local backup option">Сохранить зашифрованную резервную копию на своем устройстве</string>
+    <string name="des_local_restore" comment="Description card text for local restore option">Выберите файл резервирования со своего устройства</string>
+    <string name="des_logcat" comment="Description under Logcat item in navigation menu">Вывод logcat в реальном времени из подключенного устройства</string>
+    <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">Динамические цвета, Темная тема, Язык</string>
+    <string name="des_models" comment="Status text under AI models setting when no model is active">Модель не выбрана</string>
+    <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">Возможна задержка, если добавлено большое количество закладок! На недорогих устройствах эту опцию следует отключить</string>
+    <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">Сопрячь другое целевое устройство</string>
+    <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">Создать плитки быстрых настроек для выполнения команд adb</string>
+    <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">Сообщите о любой проблеме, с которой вы столкнулись при использовании приложения</string>
+    <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">Сбросить настройки приложения до значений по умолчанию</string>
+    <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">Восстановите данные программы из сохраненного файла резервной копии.\nСохраненная база данных перезапишет текущую базу данных</string>
+    <string name="des_save_whole_output" comment="Description under Save whole output setting toggle">Включите эту опцию, чтобы сохранить вывод всей сессии оболочки.\nЕсли отключен, будет сохранен только вывод последней команды.</string>
+    <string name="des_screen_density" comment="Description under Screen density multiplier setting item">Регулировка плотности экрана, чтобы элементы UI отображались больше или меньше</string>
+    <string name="des_select_file_for_flashing" comment="Instructional description prompt for picking boot image file to flash">Выберите файл загрузочного образа для прошивки на выбранный раздел</string>
+    <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">При желании свяжите свой аккаунт Google для резервирования в облако</string>
+    <string name="des_smooth_scroll" comment="Description under Smooth scrolling setting toggle">Включает плавную прокрутку в выводе оболочки, при нажатии на верхнюю или нижнюю стрелку</string>
+    <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">Когда включено, плитка переключается между состояниями ВКЛ и ВЫКЛ при каждом нажатии, выполняя разные команды для каждого состояния</string>
+    <string name="des_translators" comment="Subtitle description under Translators list in About section">Люди, которые помогли перевести aShellYou</string>
+    <string name="des_ui_scale" comment="Description under UI scale setting item">Регулировка масштаба элементов UI и размера шрифта</string>
+    <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">Будьте осторожны, так как неправильный образ может вызвать bootloop</string>
     <string name="description">Описание</string>
-    <string name="deselect_all">Снять выбор со всех</string>
-    <string name="developer">Разработчик</string>
-    <string name="developer_options">Параметры разработчика</string>
-    <string name="developer_options_not_available">Параметра разработчика недоступны!</string>
-    <string name="device_backup_local">Резервирование устройства (Локально)</string>
-    <string name="device_connected">Устройство подключено!</string>
-    <string name="device_disconnected">Устройство отключено</string>
-    <string name="device_disconnected_message">Подключение WiFi ADB было потеряно.</string>
+    <string name="deselect_all" comment="Action button to deselect all selected list items">Снять выбор со всех</string>
+    <string name="developer" comment="Section title in About screen for lead developer info">Разработчик</string>
+    <string name="developer_options" comment="System Developer Options setting item or prompt">Параметры разработчика</string>
+    <string name="developer_options_not_available" comment="Toast error message when Developer options shortcut cannot be opened">Параметра разработчика недоступны!</string>
+    <string name="device_backup_local" comment="Label for local device storage backup file">Резервирование устройства (Локально)</string>
+    <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">Устройство подключено!</string>
+    <string name="device_disconnected" comment="Notification title when ADB connection drops">Устройство отключено</string>
+    <string name="device_disconnected_message" comment="Notification body message when wireless ADB connection is lost">Подключение WiFi ADB было потеряно.</string>
     <string name="device_disconnected_message_with_name" comment="%s = device name">\"%s\" отключился.</string>
-    <string name="device_found">Найдено устройство!</string>
-    <string name="device_info">Информация об устройстве</string>
-    <string name="disable_softkey">Отключить программную клавиатуру</string>
-    <string name="disclaimer">Отказ от ответственности</string>
-    <string name="disclaimer_1_description">Выполнение команд ADB может изменять системные настройки, управлять файлами и выполнять операции, которые могут повлиять на стабильность устройства.\nВы несете полную ответственность за любые изменения, внесенные с помощью этого приложения.</string>
-    <string name="disclaimer_1_title">Используйте на свой страх и риск</string>
-    <string name="disclaimer_2_description">Хотя root доступ не обязателен, некоторые команды могут требовать повышенных прав.\nНеправильное использование команд ADB может привести к потере данных, сбоям программы или неожиданному поведению системы.</string>
-    <string name="disclaimer_2_title">Root доступ не обязателен, но нужна осторожность</string>
-    <string name="disclaimer_3_description">Разработчик(и) этого приложения не несут ответственности за какие-либо повреждения, потерю данных или непредвиденные последствия, возникшие в результате использования этого приложения.\nДействуйте осторожно и убедитесь, что вы понимаете выполняемые команды.</string>
-    <string name="disclaimer_3_title">Мы не несём ответственности</string>
-    <string name="disclaimer_4_description">Это приложение предназначено для пользователей, имеющих базовое понимание команд ADB.\nЕсли вы не уверены в эффективности команды, изучите её перед выполнением.</string>
-    <string name="disclaimer_4_title">Предназначен для продвинутых пользователей</string>
-    <string name="disclaimer_5_description">Для надлежащей работы этой программы могут потребоваться специальные разрешения.\nОни не собирают и не передают персональные данные, но пользователи должны знать о последствиях предоставления разрешений, связанных с ADB.</string>
-    <string name="disclaimer_5_title">Разрешения и Безопасность</string>
-    <string name="disconnect">Отключиться</string>
-    <string name="disconnected">Отключено!</string>
-    <string name="discussions">Обсуждения</string>
+    <string name="device_found" comment="Status banner when an ADB/Wireless Debugging device service is discovered on local network">Найдено устройство!</string>
+    <string name="device_info" comment="Screen header or navigation item for target device hardware/OS specifications">Информация об устройстве</string>
+    <string name="disable_softkey" comment="Setting toggle title to hide soft keyboard during shell session">Отключить программную клавиатуру</string>
+    <string name="disclaimer" comment="Section title in About screen for legal disclaimer notices">Отказ от ответственности</string>
+    <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">Выполнение команд ADB может изменять системные настройки, управлять файлами и выполнять операции, которые могут повлиять на стабильность устройства.\nВы несете полную ответственность за любые изменения, внесенные с помощью этого приложения.</string>
+    <string name="disclaimer_1_title" comment="Title for disclaimer point 1: user risk acknowledgement">Используйте на свой страх и риск</string>
+    <string name="disclaimer_2_description" comment="Text for disclaimer point 2: root requirements and elevated permissions">Хотя root доступ не обязателен, некоторые команды могут требовать повышенных прав.\nНеправильное использование команд ADB может привести к потере данных, сбоям программы или неожиданному поведению системы.</string>
+    <string name="disclaimer_2_title" comment="Title for disclaimer point 2: root and caution warning">Root доступ не обязателен, но нужна осторожность</string>
+    <string name="disclaimer_3_description" comment="Text for disclaimer point 3: developer liability waiver">Разработчик(и) этого приложения не несут ответственности за какие-либо повреждения, потерю данных или непредвиденные последствия, возникшие в результате использования этого приложения.\nДействуйте осторожно и убедитесь, что вы понимаете выполняемые команды.</string>
+    <string name="disclaimer_3_title" comment="Title for disclaimer point 3: liability waiver">Мы не несём ответственности</string>
+    <string name="disclaimer_4_description" comment="Text for disclaimer point 4: target user expertise level">Это приложение предназначено для пользователей, имеющих базовое понимание команд ADB.\nЕсли вы не уверены в эффективности команды, изучите её перед выполнением.</string>
+    <string name="disclaimer_4_title" comment="Title for disclaimer point 4: target audience notice">Предназначен для продвинутых пользователей</string>
+    <string name="disclaimer_5_description" comment="Text for disclaimer point 5: privacy and permissions notice">Для надлежащей работы этой программы могут потребоваться специальные разрешения.\nОни не собирают и не передают персональные данные, но пользователи должны знать о последствиях предоставления разрешений, связанных с ADB.</string>
+    <string name="disclaimer_5_title" comment="Title for disclaimer point 5: security and privacy">Разрешения и Безопасность</string>
+    <string name="disconnect" comment="Action button to terminate active ADB connection">Отключиться</string>
+    <string name="disconnected" comment="Status badge showing ADB is currently disconnected">Отключено!</string>
+    <string name="discussions" comment="About screen button linking to GitHub Discussions">Обсуждения</string>
     <string name="dismiss">Отклонить</string>
     <string name="done">Готово</string>
     <string name="download">Загрузить</string>
-    <string name="download_failed">Загрузка не удалась</string>
-    <string name="downloading">Загрузка…</string>
-    <string name="downloading_backup">Загрузка резервирования из Google Диска…</string>
-    <string name="downloads">Загрузки</string>
-    <string name="duplicate_tile_name_error_msg">Плитка с таким именем уже существует</string>
-    <string name="dynamic_colors">Динамические цвета</string>
+    <string name="download_failed" comment="Toast message when in-app updater APK download fails">Загрузка не удалась</string>
+    <string name="downloading" comment="Progress status text while downloading update package">Загрузка…</string>
+    <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Загрузка резервирования из Google Диска…</string>
+    <string name="downloads" comment="Screen header or list item for downloaded files">Загрузки</string>
+    <string name="duplicate_tile_name_error_msg" comment="Validation error in Quick Settings tile builder when entered tile name already exists">Плитка с таким именем уже существует</string>
+    <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">Динамические цвета</string>
     <string name="edit">Редактирование</string>
-    <string name="edit_command">Редактировать команду</string>
+    <string name="edit_command" comment="Dialog header for editing a saved ADB command snippet">Редактировать команду</string>
     <string name="edit_theme_title" comment="%1$s = theme name">Редактировать тему: %1$s</string>
-    <string name="edit_tile">Редактировать плитку</string>
-    <string name="empty_folder">Эта папка пуста</string>
-    <string name="enable_auto_backup">Включить авто резервирование</string>
-    <string name="enable_auto_update">Включить авто обновление</string>
-    <string name="enable_cloud_auto_backup">Авто резервирование на Google Диск</string>
-    <string name="enable_direct_download">Включить прямую загрузку apk</string>
-    <string name="enable_local_auto_backup">Авто резервирование в локальное хранилище</string>
-    <string name="enable_wifi">Включить Wi-Fi</string>
-    <string name="enable_wireless_debugging">Пожалуйста, включите \"Беспроводную отладку\" в параметрах \"Разработчика\"</string>
-    <string name="enable_wireless_debugging_button">Включить</string>
+    <string name="edit_tile" comment="Screen title for modifying a Quick Settings tile configuration">Редактировать плитку</string>
+    <string name="empty_folder" comment="Placeholder text in file browser when current folder contains no files">Эта папка пуста</string>
+    <string name="enable_auto_backup" comment="Toggle setting title to enable scheduled automated local backups">Включить авто резервирование</string>
+    <string name="enable_auto_update" comment="Toggle setting title to enable automatic update checking">Включить авто обновление</string>
+    <string name="enable_cloud_auto_backup" comment="Toggle setting title to enable automated backups to Google Drive">Авто резервирование на Google Диск</string>
+    <string name="enable_direct_download" comment="Toggle setting title to download APK release files directly within app instead of opening browser release page">Включить прямую загрузку apk</string>
+    <string name="enable_local_auto_backup" comment="Toggle setting title to enable scheduled automatic backups to local device folder">Авто резервирование в локальное хранилище</string>
+    <string name="enable_wifi" comment="Prompt asking user to enable Wi-Fi for Wireless Debugging ADB connection">Включить Wi-Fi</string>
+    <string name="enable_wireless_debugging" comment="Prompt directing user to enable Wireless Debugging option in System Developer Options">Пожалуйста, включите \"Беспроводную отладку\" в параметрах \"Разработчика\"</string>
+    <string name="enable_wireless_debugging_button" comment="Action button label to jump to System Developer Options settings screen">Включить</string>
     <string name="enter">Ввести</string>
-    <string name="enter_pairing_code">Введите 6-значный код сопряжения</string>
-    <string name="erase_confirm_message">Это приведет к окончательной очистке раздела %1$s. Это действие нельзя отменить.</string>
-    <string name="erase_confirm_title">Очистить %1$s?</string>
-    <string name="erase_partition">Стереть</string>
-    <string name="erasing">Стирание…</string>
+    <string name="enter_command" comment="Input hint placeholder format for entering fastboot commands">fastboot &lt;command&gt;</string>
+    <string name="enter_pairing_code" comment="Instructional header in Wireless Debugging pairing dialog asking for 6-digit code">Введите 6-значный код сопряжения</string>
+    <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">Это приведет к окончательной очистке раздела %1$s. Это действие нельзя отменить.</string>
+    <string name="erase_confirm_title" comment="%1$s = partition name. Dialog title for partition erase confirmation">Очистить %1$s?</string>
+    <string name="erase_partition" comment="Action button to trigger fastboot partition erase">Стереть</string>
+    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Стирание…</string>
     <string name="error">Ошибка</string>
-    <string name="error_labels_limit_reached">Достигнут максимальный лимит этикеток</string>
-    <string name="exclude">Исключить</string>
-    <string name="execution_method">Метод выполнения</string>
-    <string name="expand">Развернуть</string>
-    <string name="experimental">Экспериментальный</string>
+    <string name="error_labels_limit_reached" comment="Validation error when maximum number of custom command labels/tags is reached">Достигнут максимальный лимит этикеток</string>
+    <string name="exclude" comment="Filter toggle option to exclude selected package or item">Исключить</string>
+    <string name="execution_method" comment="Setting label for selecting shell execution engine (Shizuku, Root, or Basic Shell)">Метод выполнения</string>
+    <string name="expand" comment="Action button to expand a collapsed card section">Развернуть</string>
+    <string name="experimental" comment="Badge or section title marking experimental features">Экспериментальный</string>
     <string name="failed">Не удалось</string>
-    <string name="failed_to_claim_interface">Не удалось получить доступ к интерфейсу</string>
-    <string name="failed_to_copy">Не удалось скопировать</string>
-    <string name="failed_to_open_usb_connection">Не удалось открыть USB соединение. Включена ли отладка по USB?</string>
-    <string name="fastboot">Fastboot</string>
-    <string name="fastboot_and_recovery">Fastboot &amp; Recovery</string>
-    <string name="fastboot_coming_soon">Вскоре</string>
-    <string name="fastboot_command_console">Командная консоль</string>
-    <string name="fastboot_command_hint">Введите команду fastboot…</string>
-    <string name="fastboot_device_info">Информация устройства</string>
-    <string name="fastboot_partitions">Разделы</string>
-    <string name="fastboot_quick_actions">Быстрые действия</string>
-    <string name="fastboot_summary">Подключение к устройству в режиме fastboot через OTG</string>
-    <string name="fastboot_variable_explorer">Обозреватель переменных</string>
-    <string name="fb_all_operations_cancelled">Все операции отменены</string>
-    <string name="fb_cannot_paste_into_selected">Не могу вставить в выбранную папку</string>
+    <string name="failed_to_claim_interface" comment="Technical error message when USB OTG interface claim fails">Не удалось получить доступ к интерфейсу</string>
+    <string name="failed_to_copy" comment="Toast notification when copying text or file fails">Не удалось скопировать</string>
+    <string name="failed_to_open_usb_connection" comment="Error toast when USB OTG connection fails">Не удалось открыть USB соединение. Включена ли отладка по USB?</string>
+    <string name="fastboot" comment="Refers to Fastboot mode protocol for Android bootloader partition flashing over OTG">Fastboot</string>
+    <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; Recovery</string>
+    <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">Вскоре</string>
+    <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">Командная консоль</string>
+    <string name="fastboot_command_hint" comment="Placeholder hint in fastboot command input field">Введите команду fastboot…</string>
+    <string name="fastboot_device_info" comment="Card header displaying target device variables queried over fastboot">Информация устройства</string>
+    <string name="fastboot_partitions" comment="Tab title for Fastboot partition manager tool">Разделы</string>
+    <string name="fastboot_quick_actions" comment="Section header for predefined quick fastboot action buttons">Быстрые действия</string>
+    <string name="fastboot_summary" comment="Feature description card text for Fastboot OTG mode">Подключение к устройству в режиме fastboot через OTG</string>
+    <string name="fastboot_variable_explorer" comment="Tab title for Fastboot variable query screen">Обозреватель переменных</string>
+    <string name="fb_all_operations_cancelled" comment="Notification toast when all file browser queue operations are cancelled">Все операции отменены</string>
+    <string name="fb_cannot_paste_into_selected" comment="Error toast in file browser when target paste item is a file instead of a folder">Не могу вставить в выбранную папку</string>
     <string name="fb_create_folder_failed" comment="%1$s = error message. fb_ prefix = file browser">Не удалось создать папку: %1$s</string>
     <string name="fb_delete_failed" comment="%1$s = error message">Не удалось удалить: %1$s</string>
     <string name="fb_deleted_items" comment="%1$d = number of deleted items">Удалено %1$d элементов</string>
     <string name="fb_download_failed" comment="%1$s = error message">Загрузка не удалась: %1$s</string>
     <string name="fb_downloaded_to" comment="%1$s = file path">Загружено в %1$s</string>
     <string name="fb_downloading" comment="%1$s = file name">Загрузка %1$s</string>
-    <string name="fb_empty_folder_skipped">Пустая папка пропущена</string>
+    <string name="fb_empty_folder_skipped" comment="Status message when empty directories are skipped during file browser transfer">Пустая папка пропущена</string>
     <string name="fb_error" comment="%1$s = error message">Ошибка: %1$s</string>
-    <string name="fb_file_deleted">Файл удалён</string>
-    <string name="fb_folder_created">Папка создана</string>
-    <string name="fb_nothing_to_paste">Нечего вставить</string>
-    <string name="fb_operation_cancelled">Операция отменена</string>
+    <string name="fb_file_deleted" comment="Notification toast confirming file deletion">Файл удалён</string>
+    <string name="fb_folder_created" comment="Notification toast confirming new directory creation">Папка создана</string>
+    <string name="fb_nothing_to_paste" comment="Toast notification when user taps paste but file clipboard is empty">Нечего вставить</string>
+    <string name="fb_operation_cancelled" comment="Toast notification when file browser operation is cancelled by user">Операция отменена</string>
     <string name="fb_otg_transfers_not_supported" comment="OTG = USB On-The-Go">Передача файлов не поддерживается в режиме OTG</string>
     <string name="fb_paste_completed" comment="%1$d = number of items pasted">Завершено: %1$d элементов</string>
     <string name="fb_paste_completed_with_failed" comment="%1$d = completed, %2$d = skipped, %3$d = failed">Завершено: %1$d элементов, %2$d пропущено, %3$d не удалось</string>
     <string name="fb_paste_completed_with_skipped" comment="%1$d = completed, %2$d = skipped">Завершено: %1$d элементов, %2$d пропущено</string>
-    <string name="fb_reconnected_successfully">Подключение успешно восстановлено</string>
+    <string name="fb_reconnected_successfully" comment="Toast notification when file browser ADB session reconnects">Подключение успешно восстановлено</string>
     <string name="fb_rename_failed" comment="%1$s = error message">Переименование не удалось: %1$s</string>
-    <string name="fb_renamed_successfully">Успешно переименовано</string>
+    <string name="fb_renamed_successfully" comment="Toast notification confirming file or folder rename">Успешно переименовано</string>
     <string name="fb_upload_failed" comment="%1$s = error message">Загрузка не удалась: %1$s</string>
-    <string name="fb_uploaded_successfully">Файл успешно загружен</string>
+    <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">Файл успешно загружен</string>
     <string name="fb_uploading" comment="%1$s = file name">Загрузка %1$s</string>
-    <string name="feature_request">Запрос функции</string>
-    <string name="fetching_backup_time">Получение времени резервного копирования …</string>
-    <string name="fetching_backup_type">Получение типа резервной копии…</string>
-    <string name="field_cannot_be_blank">Поле не может быть пустым</string>
+    <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">Запрос функции</string>
+    <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Получение времени резервного копирования …</string>
+    <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Получение типа резервной копии…</string>
+    <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">Поле не может быть пустым</string>
     <string name="file">Файл</string>
-    <string name="file_actions">Действия с файлом</string>
-    <string name="file_already_exists">Файл уже существует</string>
-    <string name="file_browser">Файловый менеджер</string>
-    <string name="file_conflict_title">Файл уже существует</string>
+    <string name="file_actions" comment="Bottom sheet title for file operations (copy, move, delete, rename)">Действия с файлом</string>
+    <string name="file_already_exists" comment="Dialog header when target file name collides with existing file">Файл уже существует</string>
+    <string name="file_browser" comment="Navigation drawer item and screen header for device file manager">Файловый менеджер</string>
+    <string name="file_conflict_title" comment="Dialog header when file creation or paste collides with existing file name">Файл уже существует</string>
     <string name="file_exists_message" comment="%1$s = file name">\"%1$s\" уже существует в этом месте.</string>
-    <string name="file_info">Информация о файле</string>
-    <string name="file_not_found">Файл не найден</string>
+    <string name="file_info" comment="Dialog header displaying file metadata properties (size, permissions, modified date)">Информация о файле</string>
+    <string name="file_not_found" comment="Error toast when requested file path does not exist on device">Файл не найден</string>
     <string name="filter">Фильтр</string>
-    <string name="filter_by_labels">Фильтр по меткам</string>
-    <string name="flash">Прошить</string>
-    <string name="flash_partition">Прошить раздел</string>
-    <string name="flashing">Прошивка…</string>
+    <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">Фильтр по меткам</string>
+    <string name="flash" comment="Action button to start fastboot partition flashing process">Прошить</string>
+    <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">Прошить раздел</string>
+    <string name="flashing" comment="Progress status header while partition flashing is in progress">Прошивка…</string>
     <string name="folder">Папка</string>
-    <string name="folder_already_exists">Папка с таким именем уже существует</string>
-    <string name="folder_conflict_title">Папка уже существует</string>
-    <string name="folder_info">Информация о папке</string>
-    <string name="folder_name">Имя папки</string>
-    <string name="folder_picker">Выбор папки</string>
+    <string name="folder_already_exists" comment="Validation error when creating a directory with duplicate name">Папка с таким именем уже существует</string>
+    <string name="folder_conflict_title" comment="Dialog header when creating folder collides with existing folder name">Папка уже существует</string>
+    <string name="folder_info" comment="Dialog header displaying directory metadata properties">Информация о папке</string>
+    <string name="folder_name" comment="Text field label for entering new directory name">Имя папки</string>
+    <string name="folder_picker" comment="Dialog title for selecting a target directory">Выбор папки</string>
     <string name="font_amatic_sc" comment="Font style name">Amatic SC</string>
     <string name="font_cabin" comment="Font style name">Cabin</string>
     <string name="font_caveat" comment="Font style name">Caveat</string>
@@ -427,7 +448,7 @@
     <string name="font_display_text" comment="Sample text used to preview font styles">Быстрая бурая лиса перепрыгивает через ленивую собаку</string>
     <string name="font_eb_garamond" comment="Font style name">EB Garamond</string>
     <string name="font_exo_2" comment="Font style name">Exo 2</string>
-    <string name="font_family">Семейство шрифтов</string>
+    <string name="font_family" comment="Settings preference title for selecting application font family">Семейство шрифтов</string>
     <string name="font_heebo" comment="Font style name">Heebo</string>
     <string name="font_inter" comment="Font style name">Inter</string>
     <string name="font_josefin_sans" comment="Font style name">Josefin Sans</string>
@@ -451,115 +472,116 @@
     <string name="font_roboto_flex" comment="Font style name">Roboto Flex</string>
     <string name="font_rubik" comment="Font style name">Rubik</string>
     <string name="font_shadows_into_light" comment="Font style name">Shadows Into Light</string>
-    <string name="font_size_multiplier">Множитель размера шрифта</string>
+    <string name="font_size_multiplier" comment="Settings preference title for adjusting font size scaling multiplier">Множитель размера шрифта</string>
     <string name="font_source_sans_3" comment="Font style name">Source Sans 3</string>
     <string name="font_source_serif_4" comment="Font style name">Source Serif 4</string>
     <string name="font_work_sans" comment="Font style name">Work Sans</string>
-    <string name="forget">Забыть</string>
-    <string name="forget_device">Забыть устройство</string>
+    <string name="forget" comment="Action button to remove/forget a paired device">Забыть</string>
+    <string name="forget_device" comment="Button label in device details card to unpair/forget ADB device">Забыть устройство</string>
     <string name="forget_device_confirmation" comment="%1$s = device name">Вы уверены, что хотите забыть %1$s? Вам нужно будет повторно выполнить сопряжение для подключения.</string>
-    <string name="forks">Forks</string>
-    <string name="found_connect_service">Найден сервис подключения</string>
-    <string name="frequency">Частота</string>
-    <string name="full_license_text">Полный текст лицензии</string>
-    <string name="gemini_api_key_step_1" comment="%1$s = URL">Посетите Google AI Studio на %1$s</string>
-    <string name="gemini_api_key_step_2">Войти с помощью своего Google Account</string>
-    <string name="gemini_api_key_step_3">Нажмите на клавишу создать API ключ и выберите или создайте проект</string>
-    <string name="gemini_api_key_step_4">Скопируйте ваш ключ API и вставьте его здесь</string>
-    <string name="generate_color_scheme">Сгенерировать цветовую схему</string>
-    <string name="generate_scheme">Сгенерировать схему</string>
-    <string name="generate_theme">Сгенерировать тему</string>
-    <string name="generate_tile">Генерировать плитку</string>
-    <string name="get_api_key">Получить API ключ</string>
-    <string name="get_variables">Получить переменные</string>
-    <string name="go_home">На главную</string>
-    <string name="go_to_terminal">Перейти в терминал</string>
-    <string name="google_drive">Google Диск</string>
-    <string name="google_drive_backup">Google Диск резервирование</string>
-    <string name="gpl_3_0_description">aShell You это свободное программное обеспечение: вы можете распространять его/или изменять в соответствии с условиями Общей публичной лицензии GNU, опубликованной Фондом свободного программного обеспечения, или версии 3 Лицензии, или (по вашему выбору) любой более поздней версии.</string>
-    <string name="grant">Предоставить</string>
-    <string name="grant_permission">Предоставить разрешение</string>
-    <string name="grant_shizuku_permission_for_tiles">Разрешение Shizuku не предоставлено!\naShell You требуется разрешение Shizuku для выполнения команд плиток.</string>
-    <string name="great_news">Отличные новости!</string>
-    <string name="haptics_and_vibration">Тактильная отдача &amp; Вибрация</string>
-    <string name="have_a_nice_day">Приятного дня!</string>
-    <string name="hex_editor">Hex редактор</string>
-    <string name="high">Высокий</string>
-    <string name="high_contrast_dark_mode">Высококонтрастный тёмный режим</string>
-    <string name="hint">Подсказка</string>
-    <string name="history">История</string>
+    <string name="forks" comment="GitHub repository metadata count label for project forks">Forks</string>
+    <string name="found_connect_service" comment="Status message when mDNS ADB connection service is discovered">Найден сервис подключения</string>
+    <string name="frequency" comment="Setting label for automated backup interval frequency">Частота</string>
+    <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">Полный текст лицензии</string>
+    <string name="gemini_api_key_step_1" comment="%1$s = URL">Посетить Google AI Студию на %1$s</string>
+    <string name="gemini_api_key_step_2" comment="Step 2 of API key setup guide: signing in with Google Account">Войти с помощью своего Google Account</string>
+    <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">Нажмите на клавишу создать API ключ и выберите или создайте проект</string>
+    <string name="gemini_api_key_step_4" comment="Step 4 of API key setup guide: copying API key string">Скопировать ваш API ключ и вставь его сюда</string>
+    <string name="generate_color_scheme" comment="Action button in theme builder to generate Material 3 color palette">Сгенерировать цветовую схему</string>
+    <string name="generate_scheme" comment="Compact button label to generate theme color scheme">Сгенерировать схему</string>
+    <string name="generate_theme" comment="Dialog header or button for AI/wallpaper theme generation">Сгенерировать тему</string>
+    <string name="generate_tile" comment="Action button in Quick Settings builder to generate tile command via AI">Генерировать плитку</string>
+    <string name="get_api_key" comment="Button linking to Google AI Studio website to create an API key">Получить API ключ</string>
+    <string name="get_variables" comment="Action button in Fastboot screen to query fastboot device variables">Получить переменные</string>
+    <string name="go_home" comment="Button label to navigate back to home screen dashboard">На главную</string>
+    <string name="go_to_terminal" comment="Button label to navigate to terminal command input screen">Перейти в терминал</string>
+    <string name="google_drive" comment="Refers to Google Drive cloud storage service">Google Диск</string>
+    <string name="google_drive_backup" comment="Option label for Google Drive automated cloud backup">Google Диск резервирование</string>
+    <string name="gpl_3_0_description" comment="Summary text explaining GNU General Public License v3 terms for aShellYou">aShell You это свободное программное обеспечение: вы можете распространять его/или изменять в соответствии с условиями Общей публичной лицензии GNU, опубликованной Фондом свободного программного обеспечения, или версии 3 Лицензии, или (по вашему выбору) любой более поздней версии.</string>
+    <string name="grant" comment="Button label to approve permission grant request">Предоставить</string>
+    <string name="grant_permission" comment="Action button to trigger system permission request dialog">Предоставить разрешение</string>
+    <string name="grant_shizuku_permission_for_tiles" comment="Warning alert shown when Shizuku permission is missing for Quick Settings tiles">Разрешение Shizuku не предоставлено!\naShell You требуется разрешение Shizuku для выполнения команд плиток.</string>
+    <string name="great_news" comment="Dialog title header for update available notification">Отличные новости!</string>
+    <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">Тактильная отдача &amp; Вибрация</string>
+    <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">Приятного дня!</string>
+    <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Hex редактор</string>
+    <string name="high" comment="Selection option for high haptic strength or elevation level">Высокий</string>
+    <string name="high_contrast_dark_mode" comment="Settings preference title for OLED pitch-black dark theme">Высококонтрастный тёмный режим</string>
+    <string name="hint" comment="Card header or field label for helpful hints">Подсказка</string>
+    <string name="history" comment="Screen title and tab label for executed terminal command history">История</string>
     <string name="home">Главная</string>
-    <string name="icon_selected">Иконка выбрана</string>
-    <string name="import_theme">Импортировать тему</string>
-    <string name="include">Включить</string>
+    <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">Как войти в режим sideload</string>
+    <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">Иконка выбрана</string>
+    <string name="import_theme" comment="Action button to import theme configuration file">Импортировать тему</string>
+    <string name="include" comment="Filter toggle option to include selected items">Включить</string>
     <string name="info">Информация</string>
-    <string name="initial_state">Начальное состояние</string>
-    <string name="instructions">Инструкции</string>
-    <string name="intent_not_found">Намерение не найдено</string>
-    <string name="internal_storage">Внутреннее хранилище</string>
-    <string name="invalid_folder_name">Имя папки не может содержать /</string>
-    <string name="ip_address">IP адрес</string>
-    <string name="irreversible_action_warning">Это действие необратимо!</string>
-    <string name="item_deleted">Элемент был успешно удалён</string>
-    <string name="keep_both">Оставить оба</string>
-    <string name="key_verified_success_msg">Ключ успешно проверен</string>
-    <string name="label">Метка</string>
-    <string name="languages">Языки</string>
-    <string name="last_auto_backup_cloud">Последнее авто резервирование в облаке</string>
-    <string name="last_auto_backup_local">Последнее локальное авто резервирование</string>
-    <string name="last_backup_date">Дата последнего резервирования</string>
-    <string name="last_backup_details">Детали последней резервной копии</string>
-    <string name="last_backup_time">Время последнего резервирования</string>
-    <string name="latest_version">Последняя версия</string>
-    <string name="lead_developer">Ведущий разработчик</string>
-    <string name="least_used">Редко используемые</string>
-    <string name="level">Уровень</string>
+    <string name="initial_state" comment="Label for initial tile state picker in Quick Settings builder">Начальное состояние</string>
+    <string name="instructions" comment="Section header for step-by-step connection guides">Инструкции</string>
+    <string name="intent_not_found" comment="Error toast when external app activity or URL link cannot be opened">Намерение не найдено</string>
+    <string name="internal_storage" comment="Root folder label in file browser for local storage">Внутреннее хранилище</string>
+    <string name="invalid_folder_name" comment="Validation error when entered directory name contains slash characters">Имя папки не может содержать /</string>
+    <string name="ip_address" comment="Field label for device IP address in wireless ADB setup">IP адрес</string>
+    <string name="irreversible_action_warning" comment="Warning dialog subtitle warning user that deletion cannot be undone">Это действие необратимо!</string>
+    <string name="item_deleted" comment="Confirmation toast after item is deleted">Элемент был успешно удалён</string>
+    <string name="keep_both" comment="Resolution option in file conflict dialog to keep both original and new file">Оставить оба</string>
+    <string name="key_verified_success_msg" comment="Confirmation text when entered AI API key is validated successfully">Ключ успешно проверен</string>
+    <string name="label" comment="Field label for custom command label/tag name">Метка</string>
+    <string name="languages" comment="Settings section header for language and locale options">Языки</string>
+    <string name="last_auto_backup_cloud" comment="Card label showing timestamp of last Google Drive auto backup">Последнее авто резервирование в облаке</string>
+    <string name="last_auto_backup_local" comment="Card label showing timestamp of last local storage auto backup">Последнее локальное авто резервирование</string>
+    <string name="last_backup_date" comment="Card metadata label for backup creation date">Дата последнего резервирования</string>
+    <string name="last_backup_details" comment="Card header for summary of last backup attempt">Детали последней резервной копии</string>
+    <string name="last_backup_time" comment="Card metadata label for backup creation time">Время последнего резервирования</string>
+    <string name="latest_version" comment="Label showing latest available version string from GitHub release">Последняя версия</string>
+    <string name="lead_developer" comment="Role subtitle for project lead developer in About section">Ведущий разработчик</string>
+    <string name="least_used" comment="Sorting option for commands or bookmarks list">Редко используемые</string>
+    <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">Уровень</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">Обнаружено библиотек %1$d</string>
-    <string name="license">Лицензия</string>
-    <string name="license_label">Лицензия</string>
-    <string name="licenses">Лицензии</string>
-    <string name="load">Загрузить</string>
-    <string name="load_predefined_commands">Загрузка предопределенных команд</string>
+    <string name="license" comment="Card label for software license type">Лицензия</string>
+    <string name="license_label" comment="Header label for software license info">Лицензия</string>
+    <string name="licenses" comment="Screen title listing open-source licenses of app dependencies">Лицензии</string>
+    <string name="load" comment="Action button to load command templates into database">Загрузить</string>
+    <string name="load_predefined_commands" comment="Button label in fastboot screen to load preset fastboot commands">Загрузка предопределенных команд</string>
     <string name="loading">Загрузка</string>
-    <string name="loading_device_info">Загрузка информации устройства…</string>
-    <string name="loading_licenses">Загрузка информации о лицензии…</string>
-    <string name="local_adb">Локальный ADB</string>
-    <string name="local_adb_shell">Локальная оболочка ADB</string>
-    <string name="local_adb_summary">Выполняйте команды ADB непосредственно на вашем устройстве, используя Shizuku или root.</string>
-    <string name="local_backup">Локальное резервирование</string>
-    <string name="local_file">Локальный файл</string>
-    <string name="locked">Заблокировано</string>
-    <string name="logcat">Logcat</string>
-    <string name="logcat_cleared">Журналы очищены</string>
-    <string name="logcat_detail_package">Пакет</string>
-    <string name="logcat_filter_level">Журнал уровней</string>
-    <string name="logcat_filter_search_hint">Поиск в сообщениях…</string>
-    <string name="logcat_is_running">Logcat запущен</string>
-    <string name="logcat_ive_granted_it">Я предоставил это</string>
-    <string name="logcat_no_logs">Журналов пока нет</string>
-    <string name="logcat_notification_channel_description">Показать, когда logcat активно собирает журналы</string>
-    <string name="logcat_notification_channel_name">Logcat Сессия</string>
-    <string name="logcat_permission_body">Без этого разрешения видны только журналы из aShellYou. Предоставьте полный доступ, запустив эту команду с компьютера:</string>
-    <string name="logcat_permission_title">Разрешение доступа к журналу</string>
-    <string name="logcat_running_description">aShellYou собирает системные журналы в фоне</string>
-    <string name="logcat_shortcut_long_label">Открыть просмотр Logcat</string>
-    <string name="logcat_source">Источник Logcat</string>
-    <string name="logcat_tap_play">Нажмите ▶️ чтобы начать logcat</string>
-    <string name="logs">Журналы</string>
-    <string name="look_and_feel">Оформление</string>
-    <string name="low">Низкий</string>
-    <string name="low_contrast_ratio">Низкий контрастный коэффициент</string>
-    <string name="make_your_theme_title">Создайте свою тему</string>
-    <string name="manual_pair">Ручное сопряжение</string>
-    <string name="max_download_size">Максимальная загрузка</string>
+    <string name="loading_device_info" comment="Progress status text while querying ADB device specifications">Загрузка информации устройства…</string>
+    <string name="loading_licenses" comment="Progress status text while loading open-source license files">Загрузка информации о лицензии…</string>
+    <string name="local_adb" comment="Connection mode option: run ADB commands locally on host device using Shizuku or Root">Локальный ADB</string>
+    <string name="local_adb_shell" comment="Screen header for local device ADB shell terminal">Локальная оболочка ADB</string>
+    <string name="local_adb_summary" comment="Summary text for local ADB feature card">Выполняйте команды ADB непосредственно на вашем устройстве, используя Shizuku или root.</string>
+    <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">Локальное резервирование</string>
+    <string name="local_file" comment="Source option label for picking local backup file">Локальный файл</string>
+    <string name="locked" comment="Status badge showing bootloader lock state is locked">Заблокировано</string>
+    <string name="logcat" comment="Refers to Android system logcat log streaming tool">Logcat</string>
+    <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">Журналы очищены</string>
+    <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">Пакет</string>
+    <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">Журнал уровней</string>
+    <string name="logcat_filter_search_hint" comment="Placeholder text in logcat search bar">Поиск в сообщениях…</string>
+    <string name="logcat_is_running" comment="Status banner shown while background logcat collection is active">Logcat запущен</string>
+    <string name="logcat_ive_granted_it" comment="Button in logcat permission dialog confirming user ran ADB grant command on PC">Я предоставил это</string>
+    <string name="logcat_no_logs" comment="Placeholder text in logcat screen when no log entries match current filters">Журналов пока нет</string>
+    <string name="logcat_notification_channel_description" comment="Android Notification Channel description for logcat background session">Показать, когда logcat активно собирает журналы</string>
+    <string name="logcat_notification_channel_name" comment="Android Notification Channel name for Logcat background collection">Logcat Сессия</string>
+    <string name="logcat_permission_body" comment="Instructions in logcat dialog detailing PM grant command required via computer ADB for non-root logcat access">Без этого разрешения видны только журналы из aShellYou. Предоставьте полный доступ, запустив эту команду с компьютера:</string>
+    <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide">Разрешение доступа к журналу</string>
+    <string name="logcat_running_description" comment="Notification body text shown while logcat runs in background">aShellYou собирает системные журналы в фоне</string>
+    <string name="logcat_shortcut_long_label" comment="App launcher shortcut label for launching directly into Logcat Viewer">Открыть просмотр Logcat</string>
+    <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Источник Logcat</string>
+    <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">Нажмите ▶️ чтобы начать logcat</string>
+    <string name="logs" comment="Screen header or tab title for application and execution log views">Журналы</string>
+    <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Оформление</string>
+    <string name="low" comment="Selection option for low haptic strength or elevation level">Низкий</string>
+    <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">Низкий контрастный коэффициент</string>
+    <string name="make_your_theme_title" comment="Header title for custom theme builder screen">Создайте свою тему</string>
+    <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">Ручное сопряжение</string>
+    <string name="max_download_size" comment="Setting label for capping maximum update download file size">Максимальная загрузка</string>
     <string name="medium">Средний</string>
-    <string name="merge">Объединить</string>
+    <string name="merge" comment="Resolution option in file browser conflict dialog to merge directory contents">Объединить</string>
     <string name="message">Сообщение</string>
-    <string name="message_adb_agent">Сообщение ADB Агента…</string>
-    <string name="minimize">Минимизировать</string>
-    <string name="mode">Режим</string>
-    <string name="mode_one_desc">Используйте root доступ для запуска команд. Rooted команды могут быть выполнены.</string>
-    <string name="mode_two_desc">Используйте shizuku для выполнения команд. Команды, требующие root, не будут выполняться.</string>
+    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">Сообщение ADB Агента…</string>
+    <string name="minimize" comment="Action button to minimize terminal overlay window">Минимизировать</string>
+    <string name="mode" comment="Header title for ADB execution engine mode selector">Режим</string>
+    <string name="mode_one_desc" comment="Description for Root execution engine option in settings">Используйте root доступ для запуска команд. Rooted команды могут быть выполнены.</string>
+    <string name="mode_two_desc" comment="Description for Shizuku execution engine option in settings">Используйте shizuku для выполнения команд. Команды, требующие root, не будут выполняться.</string>
     <string name="model_category_large" comment="AI model size category label">Большой (1,5–2,5 ГБ)</string>
     <string name="model_category_medium" comment="AI model size category label">Средний (800 MB–1,1 GB)</string>
     <string name="model_category_small" comment="AI model size category label">Небольшой (300–500 МБ)</string>
@@ -567,53 +589,54 @@
     <string name="models" comment="Refers to AI/ML models used for command analysis">Модели</string>
     <string name="modified" comment="File property: last modified date">Изменено</string>
     <string name="monospace" comment="Font style category name">Monospace</string>
-    <string name="monthly">Ежемесячно</string>
+    <string name="monthly" comment="Option in backup scheduler frequency selection">Ежемесячно</string>
     <string name="more">Ещё</string>
-    <string name="most_used">Часто используемые</string>
+    <string name="most_used" comment="Sorting option for commands or bookmarks list">Часто используемые</string>
     <string name="move">Переместить</string>
-    <string name="moving">Перемещение…</string>
+    <string name="moving" comment="Progress status text shown while moving files in file browser">Перемещение…</string>
     <string name="moving_items" comment="%1$d = number of items being moved">Перемещение %1$d элемента(ов)</string>
     <string name="n_days" comment="%d = number of days for cache duration setting">%d дней</string>
     <string name="name">Имя</string>
-    <string name="network_error">Ошибка сети</string>
-    <string name="new_commands_available_msg">Добавлены новые примеры команд!\nНажмите на кнопку ниже, чтобы загрузить новые команды.</string>
-    <string name="new_folder">Новая папка</string>
-    <string name="new_name">Новое имя</string>
-    <string name="newest">Новейшие</string>
-    <string name="no_adb_device_error">Устройства, совместимые с ADB, не обнаружены. Включите отладку по USB на целевом устройстве.</string>
-    <string name="no_adb_interface_found">Интерфейс adb не найден</string>
-    <string name="no_auto_backup_yet">Авто резервирование еще не выполнено</string>
-    <string name="no_bookmarks">Закладки не найдены</string>
-    <string name="no_changelog_found">Журнал изменений для этой версии не найден</string>
-    <string name="no_cloud_backup_found">Резервирование не найдено на Google Диске</string>
-    <string name="no_crashes">Сообщений о сбоях не поступало. aShell You работает гладко.</string>
-    <string name="no_custom_themes_yet">Еще нет пользовательских тем. Создайте их ниже!</string>
-    <string name="no_device_connected">Нет подключенного устройства</string>
-    <string name="no_fastboot_device_error">Подключенное устройство не находится в режиме fastboot</string>
-    <string name="no_files_download">Файлы не выбраны (папки невозможно загрузить)</string>
-    <string name="no_folder_selected">Папка не выбрана</string>
-    <string name="no_google_account_message">На этом устройстве не найден аккаунт Google. Вы хотите добавить один для использования облачного резервного копирования?</string>
-    <string name="no_google_account_title">Нет аккаунта Google</string>
-    <string name="no_history">Нет истории команд</string>
-    <string name="no_libraries_found">Библиотеки не найдены</string>
-    <string name="no_logs_yet">Журналов ещё нет!</string>
-    <string name="no_logs_yet_msg">Никакие журналы еще не записаны. Выполните несколько действий, чтобы показать журналы.</string>
-    <string name="no_model_selected">Модель не выбрана</string>
-    <string name="no_operations">Операции не выполняются</string>
-    <string name="no_other_device_hint">Подключите внешнее устройство для просмотра его журналов</string>
-    <string name="no_results_found">Результатов не найдено</string>
-    <string name="no_root_access">Нет root доступа</string>
-    <string name="no_saved_devices">Нет сохраненных устройств</string>
-    <string name="no_search_results_found">Результаты поиска не найдены</string>
-    <string name="no_variables_loaded">Нет загруженных переменных</string>
-    <string name="no_wifi_connection">Нет подключения Wi-Fi</string>
+    <string name="network_error" comment="Toast error message when network connection fails during wireless pairing or cloud backup">Ошибка сети</string>
+    <string name="new_commands_available_msg" comment="Banner prompt shown when updated command templates are available to load into database">Добавлены новые примеры команд!\nНажмите на кнопку ниже, чтобы загрузить новые команды.</string>
+    <string name="new_folder" comment="Action button label in file browser to create a new directory">Новая папка</string>
+    <string name="new_name" comment="Text field label for entering new item or file name">Новое имя</string>
+    <string name="newest" comment="Sorting option for items by creation date (newest first)">Новейшие</string>
+    <string name="no_adb_device_error" comment="Error toast when no ADB target device is found over USB OTG">Устройства, совместимые с ADB, не обнаружены. Включите отладку по USB на целевом устройстве.</string>
+    <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">Интерфейс adb не найден</string>
+    <string name="no_auto_backup_yet" comment="Placeholder text under backup status when no automated backup has executed">Авто резервирование еще не выполнено</string>
+    <string name="no_bookmarks" comment="Placeholder text in bookmarks tab when no commands are saved">Закладки не найдены</string>
+    <string name="no_changelog_found" comment="Placeholder message in changelog screen when no version notes exist">Журнал изменений для этой версии не найден</string>
+    <string name="no_cloud_backup_found" comment="Status banner when no backup file is found on Google Drive">Резервирование не найдено на Google Диске</string>
+    <string name="no_commands_run_yet" comment="Placeholder message when no fastboot commands have been run in session">Команд не запущено</string>
+    <string name="no_crashes" comment="Placeholder text in crash history screen when no app crashes have occurred">Сообщений о сбоях не поступало. aShell You работает гладко.</string>
+    <string name="no_custom_themes_yet" comment="Placeholder text in theme manager screen when no custom themes exist">Еще нет пользовательских тем. Создайте их ниже!</string>
+    <string name="no_device_connected" comment="Status banner shown when no wireless or OTG ADB device is connected">Нет подключенного устройства</string>
+    <string name="no_fastboot_device_error" comment="Error banner in fastboot screen when connected USB device is not in fastboot mode">Подключенное устройство не находится в режиме fastboot</string>
+    <string name="no_files_download" comment="Toast warning in file browser when user selects directory instead of files for download">Файлы не выбраны (папки невозможно загрузить)</string>
+    <string name="no_folder_selected" comment="Placeholder status text when no backup directory is picked">Папка не выбрана</string>
+    <string name="no_google_account_message" comment="Dialog message when no Google account is registered on device for cloud backups">На этом устройстве не найден аккаунт Google. Вы хотите добавить один для использования облачного резервного копирования?</string>
+    <string name="no_google_account_title" comment="Dialog title when no Google account is detected">Нет аккаунта Google</string>
+    <string name="no_history" comment="Placeholder text in terminal history tab when execution log is empty">Нет истории команд</string>
+    <string name="no_libraries_found" comment="Placeholder text in licenses screen when search query returns no matching third-party libraries">Библиотеки не найдены</string>
+    <string name="no_logs_yet" comment="Placeholder text in Quick Settings tile execution logs tab">Журналов ещё нет!</string>
+    <string name="no_logs_yet_msg" comment="Instructional prompt under empty tile logs screen">Никакие журналы еще не записаны. Выполните несколько действий, чтобы показать журналы.</string>
+    <string name="no_model_selected" comment="Status text when no AI LLM model is selected in settings">Модель не выбрана</string>
+    <string name="no_operations" comment="Placeholder text in file manager operations queue sheet">Операции не выполняются</string>
+    <string name="no_other_device_hint" comment="Instructional subtext in logcat viewer when viewing remote device logs">Подключите внешнее устройство для просмотра его журналов</string>
+    <string name="no_results_found" comment="Placeholder text when search query yields no matching items">Результатов не найдено</string>
+    <string name="no_root_access" comment="Error toast or status badge when root superuser access is unavailable">Нет root доступа</string>
+    <string name="no_saved_devices" comment="Placeholder text in saved devices screen when no ADB target devices are paired">Нет сохраненных устройств</string>
+    <string name="no_search_results_found" comment="Placeholder text when command search yields no results">Результаты поиска не найдены</string>
+    <string name="no_variables_loaded" comment="Placeholder text in fastboot variable explorer tab before querying getvar">Нет загруженных переменных</string>
+    <string name="no_wifi_connection" comment="Error banner when Wi-Fi is disabled during Wireless Debugging setup">Нет подключения Wi-Fi</string>
     <string name="none">Ни один</string>
-    <string name="not_signed_in">Вход не выполнен</string>
-    <string name="nothing_to_clear">Нечего очищать</string>
-    <string name="nothing_to_search">Нечего искать</string>
-    <string name="notification_settings">Настройки уведомлений</string>
-    <string name="notification_style_error">Если вы не можете ввести код сопряжения из уведомления, возможно, вам нужно будет изменить панель уведомлений на Android. Чтобы изменить стиль уведомлений, перейдите к Настройка уведомлений ~ Стиль уведомлений. В противном случае вы можете не ввести код сопряжения из сообщения.</string>
-    <string name="notification_styles">Стили уведомлений</string>
+    <string name="not_signed_in" comment="Status text in cloud backup settings when Google account is signed out">Вход не выполнен</string>
+    <string name="nothing_to_clear" comment="Toast notification when user taps clear output but screen is already empty">Нечего очищать</string>
+    <string name="nothing_to_search" comment="Toast message when search query string is empty">Нечего искать</string>
+    <string name="notification_settings" comment="Button label to open system notification settings screen">Настройки уведомлений</string>
+    <string name="notification_style_error" comment="Troubleshooting guide text explaining Xiaomi/MIUI notification shade issues with entering pairing code">Если вы не можете ввести код сопряжения из уведомления, возможно, вам нужно будет изменить панель уведомлений на Android. Чтобы изменить стиль уведомлений, перейдите к Настройка уведомлений ~ Стиль уведомлений. В противном случае вы можете не ввести код сопряжения из сообщения.</string>
+    <string name="notification_styles" comment="Settings preference title for notification shade style options">Стили уведомлений</string>
     <string name="off">Выключить</string>
     <string name="off_state" comment="Quick Settings tile toggle state label">\"Выкл\"</string>
     <string name="ok">ОК</string>
@@ -627,32 +650,33 @@
     <string name="on_surface">На поверхности</string>
     <string name="on_tertiary">На Третичном</string>
     <string name="open">Открыть</string>
-    <string name="open_app_language_settings">Открыть настройки языка приложения</string>
+    <string name="open_app_language_settings" comment="Button label on Android 13+ to jump to system per-app language setting screen">Открыть настройки языка приложения</string>
     <string name="open_issues" comment="GitHub repository open issues count">Открыть вопросы</string>
-    <string name="open_url">Открыть URL</string>
-    <string name="operation_complete">Операция завершена</string>
-    <string name="operations">Операции</string>
+    <string name="open_url" comment="Action button to launch web browser to external URL link">Открыть URL</string>
+    <string name="operation_complete" comment="Notification toast when file copy/move operation finishes">Операция завершена</string>
+    <string name="operations" comment="Bottom sheet title for file transfer operations list">Операции</string>
     <string name="or">OR</string>
     <string name="otg" comment="USB On-The-Go. Technical term, keep as OTG">OTG</string>
-    <string name="other_details">Другие детали</string>
-    <string name="other_device">Другие устройства</string>
-    <string name="output">Вывод</string>
-    <string name="override_bookmarks_limit">Переопределить максимальное количество закладок</string>
-    <string name="package_name">Имя пакета</string>
-    <string name="pair">Сопряжение</string>
-    <string name="pair_a_device_first">Сначала сопряжение устройства</string>
-    <string name="pair_another_device">Сопрячь другое устройство</string>
-    <string name="pair_connect_failed_message">\nНе удалось подключиться к сопряженному устройству\nУстройство может не находиться в той же сети\nПопробуйте сопрячь снова</string>
-    <string name="pair_device_to_start">Сопрячь устройство с помощью QR или кода сопряжения, чтобы увидеть его здесь</string>
-    <string name="pair_manually">Сопряжение вручную</string>
-    <string name="pair_this_device">Сопрячь это устройство</string>
-    <string name="pair_using_code">Сопряжение с помощью кода</string>
-    <string name="pair_using_qr">Сопряжение с помощью QR</string>
-    <string name="paired">Сопряжено</string>
-    <string name="pairing">Сопряжение</string>
-    <string name="pairing_code">Код сопряжения</string>
-    <string name="pairing_notification_hint">Вы получите уведомление от aShell You, которое поможет вам с сопряжением</string>
-    <string name="pairing_process_notification_access_message">Для завершения процесса сопряжения вам нужно будет взаимодействовать с уведомлением от aShell You. Пожалуйста, разрешите доступ к уведомлениям aShell You.</string>
+    <string name="other_details" comment="Expandable card title for additional device metadata details">Другие детали</string>
+    <string name="other_device" comment="Selection tab for target device in Logcat Viewer">Другие устройства</string>
+    <string name="output" comment="Header title for shell command output window">Вывод</string>
+    <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">Вывод появится здесь…</string>
+    <string name="override_bookmarks_limit" comment="Setting toggle title to remove the maximum limit on saved bookmarks count">Переопределить максимальное количество закладок</string>
+    <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">Имя пакета</string>
+    <string name="pair" comment="Button/action label to initiate ADB wireless or OTG pairing with another device">Сопряжение</string>
+    <string name="pair_a_device_first" comment="Instructional notice directing user to pair an ADB device before attempting connection">Сначала сопряжение устройства</string>
+    <string name="pair_another_device" comment="Button label in Wireless Debugging setup to pair an additional target device">Сопрячь другое устройство</string>
+    <string name="pair_connect_failed_message" comment="Dialog message when connecting to a paired wireless ADB device fails">Не удалось подключиться к сопряженному устройству\nВозможно, устройство не находится в той же сети\nПопробуйте соединиться снова</string>
+    <string name="pair_device_to_start" comment="Placeholder banner in wireless debugging screen directing user to pair device via QR or pairing code">Сопрячь устройство с помощью QR или кода сопряжения, чтобы увидеть его здесь</string>
+    <string name="pair_manually" comment="Option in Wireless Debugging setup to enter IP, Port, and Pairing Code manually">Сопряжение вручную</string>
+    <string name="pair_this_device" comment="Button label in wireless debugging screen to initiate self-pairing for local device ADB">Сопрячь это устройство</string>
+    <string name="pair_using_code" comment="Option in Wireless Debugging setup to pair device using 6-digit pairing code">Сопряжение с помощью кода</string>
+    <string name="pair_using_qr" comment="Option in Wireless Debugging setup to pair device by scanning QR code">Сопряжение с помощью QR</string>
+    <string name="paired" comment="Status badge showing device is successfully paired via ADB">Сопряжено</string>
+    <string name="pairing" comment="Status header/banner displayed while ADB wireless pairing is in progress">Сопряжение</string>
+    <string name="pairing_code" comment="Field label or dialog title for 6-digit ADB wireless pairing code">Код сопряжения</string>
+    <string name="pairing_notification_hint" comment="Notice informing user that a system notification will appear to facilitate quick pairing code entry">Вы получите уведомление от aShell You, которое поможет вам с сопряжением</string>
+    <string name="pairing_process_notification_access_message" comment="Dialog message asking user to grant system notification access to enable quick pairing code entry">Для завершения процесса сопряжения вам нужно будет взаимодействовать с уведомлением от aShell You. Пожалуйста, разрешите доступ к уведомлениям aShell You.</string>
     <string name="palette_content" comment="Material Design color scheme style name">Содержание</string>
     <string name="palette_expressive" comment="Material Design color scheme style name">Выразительный</string>
     <string name="palette_fidelity" comment="Material Design color scheme style name">Верность</string>
@@ -663,184 +687,202 @@
     <string name="palette_style" comment="Settings label for choosing Material Design color palette">Стиль палитры</string>
     <string name="palette_tonal_spot" comment="Material Design color scheme style name">Тональная точка</string>
     <string name="palette_vibrant" comment="Material Design color scheme style name">Вибрация</string>
-    <string name="partition">Раздел</string>
+    <string name="partition" comment="Field label or dropdown header for fastboot partition name (e.g. boot, system, recovery)">Раздел</string>
     <string name="paste">Вставить</string>
-    <string name="path">Путь</string>
-    <string name="paused">Пауза</string>
-    <string name="permission_denied">Разрешение отклонено</string>
-    <string name="permission_optional">Предоставление этих разрешений необязательно!</string>
-    <string name="pick_ashellyou_extension">Пожалуйста, выберите файл с расширением \".ashellyou\"</string>
-    <string name="pick_color">Выбрать цвет</string>
-    <string name="port">Порт</string>
-    <string name="possible_reasons">Возможные причины</string>
-    <string name="pre_release_github">Пред релиз (GitHub)</string>
-    <string name="pre_release_warning">Предварительные сборки могут быть нестабильными</string>
-    <string name="pre_release_warning_description">Эти версии всё ещё находятся на стадии тестирования и могут содержать незавершённые функции или неожиданные ошибки. Если вы решите обновиться до предрелизной версии, имейте в виду, что могут возникнуть сбои или странное поведение.\nЕсли вы столкнетесь с какими-либо проблемами, сбоями или странным поведением, пожалуйста, сообщите нам об этом, чтобы мы могли исправить и улучшить aShellYou до стабильного релиза.\nСпасибо, что помогаете нам строить лучше!</string>
-    <string name="preference">Предпочтение</string>
-    <string name="preview">Предпросмотр</string>
+    <string name="path" comment="Field label for file or directory path in file browser properties">Путь</string>
+    <string name="paused" comment="Status badge showing ongoing file transfer or logcat session is paused">Пауза</string>
+    <string name="permission_denied" comment="Error toast when requested Android system permission is denied by user">Разрешение отклонено</string>
+    <string name="permission_optional" comment="Subtext notice indicating requested permissions are non-mandatory">Предоставление этих разрешений необязательно!</string>
+    <string name="pick_ashellyou_extension" comment="File picker validation error requiring user to select a .ashellyou backup file">Пожалуйста, выберите файл с расширением \".ashellyou\"</string>
+    <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">Выбрать цвет</string>
+    <string name="port" comment="Field label for network port number in wireless ADB manual pairing setup">Порт</string>
+    <string name="possible_reasons" comment="Dialog section header listing potential causes of ADB connection failure">Возможные причины</string>
+    <string name="pre_release_github" comment="Option in update channel settings to receive GitHub pre-release builds">Пред релиз (GitHub)</string>
+    <string name="pre_release_warning" comment="Warning alert header when switching to pre-release update channel">Предварительные сборки могут быть нестабильными</string>
+    <string name="pre_release_warning_description" comment="Detailed description of risks when opting into pre-release testing builds">Эти версии всё ещё находятся на стадии тестирования и могут содержать незавершённые функции или неожиданные ошибки. Если вы решите обновиться до предрелизной версии, имейте в виду, что могут возникнуть сбои или странное поведение.\nЕсли вы столкнетесь с какими-либо проблемами, сбоями или странным поведением, пожалуйста, сообщите нам об этом, чтобы мы могли исправить и улучшить aShellYou до стабильного релиза.\nСпасибо, что помогаете нам строить лучше!</string>
+    <string name="predefined_commands" comment="Section header for pre-saved fastboot command actions">Предопределенные команды</string>
+    <string name="predefined_commands_desc" comment="Description under predefined fastboot commands header">Быстрый доступ к общим командам быстрой загрузки. Результаты потока в консоль ниже.</string>
+    <string name="preference" comment="Header title for settings preference category">Предпочтение</string>
+    <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">Предпросмотр</string>
     <string name="primary">Первичный</string>
     <string name="primary_container">Первичный контейнер</string>
-    <string name="product">Продукт</string>
-    <string name="qr_pair">Сопряжение QR</string>
-    <string name="qr_pair_hint">Для сопряжения устройства Android 11+ сканируйте этот QR с целевого устройства</string>
-    <string name="qr_scanner_location_hint">Сканер QR доступен в:\nПараметры разработчика &gt; Беспроводная отладка &gt; Сопряжение с помощью QR кода</string>
-    <string name="qs_tiles">Плитки быстрых настроек</string>
-    <string name="quick_tools">Быстрые инструменты</string>
-    <string name="reading_file">Чтение файла…</string>
-    <string name="ready_to_paste">Готов к вставке</string>
-    <string name="reboot_bootloader">Перезагрузить в Bootloader</string>
-    <string name="reboot_confirm_message">Это перезагрузит подключенное устройство в %1$s. Продолжить?</string>
-    <string name="reboot_confirm_title">Подтвердить перезагрузку</string>
-    <string name="reboot_fastbootd">Перезагрузить в Fastbootd</string>
-    <string name="reboot_normal">Перезагрузить</string>
-    <string name="reboot_options">Параметры перезагрузки</string>
-    <string name="reboot_recovery">Перезагрузить в Recovery</string>
-    <string name="recent_activity">Недавняя активность</string>
-    <string name="recent_searches">Недавние поиски</string>
-    <string name="recommended">Рекомендовано</string>
-    <string name="reconnect">Переподключение</string>
-    <string name="reconnect_failed">Переподключение не удалось</string>
-    <string name="reconnect_failed_message">\nВозможно, беспроводная отладка не включена\nИнформация о сопряжении может быть потеряна. Выполните сопряжение вручную ещё раз!</string>
-    <string name="reconnect_failed_requires_pairing">Переподключение не удалось. Требуется повторное сопряжение.</string>
-    <string name="reconnect_success">Подключение успешно восстановлено</string>
-    <string name="reconnect_the_device">Подключите устройство заново</string>
-    <string name="recovery">Recovery</string>
+    <string name="product" comment="Fastboot device property label displaying target device model/product code">Продукт</string>
+    <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">Вставить устройство в режим sideload через меню восстановления</string>
+    <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">Сопряжение QR</string>
+    <string name="qr_pair_hint" comment="Instructional text in QR pairing screen instructing user to scan QR code from target device">Для сопряжения устройства Android 11+ сканируйте этот QR с целевого устройства</string>
+    <string name="qr_scanner_location_hint" comment="Instructional hint directing user where to find system QR scanner in target device Developer Options">Сканер QR доступен в:\nПараметры разработчика &gt; Беспроводная отладка &gt; Сопряжение с помощью QR кода</string>
+    <string name="qs_tiles" comment="Refers to Android System Quick Settings tiles configured for custom ADB scripts">Плитки быстрых настроек</string>
+    <string name="quick_tools" comment="Section header for fast access utility tools">Быстрые инструменты</string>
+    <string name="reading_file" comment="Progress status text while loading file contents into viewer">Чтение файла…</string>
+    <string name="ready_to_paste" comment="Status message in file manager when item is stored in paste clipboard">Готов к вставке</string>
+    <string name="reboot_bootloader" comment="Action button / dialog choice to reboot target device into bootloader mode">Перезагрузить в Bootloader</string>
+    <string name="reboot_confirm_message" comment="%1$s = target boot mode (e.g. recovery, bootloader). Confirmation prompt before rebooting target device">Это перезагрузит подключенное устройство в %1$s. Продолжить?</string>
+    <string name="reboot_confirm_title" comment="Dialog title asking user confirmation before rebooting target device">Подтвердить перезагрузку</string>
+    <string name="reboot_fastbootd" comment="Action button / dialog choice to reboot target device into fastbootd (userspace fastboot) mode">Перезагрузить в Fastbootd</string>
+    <string name="reboot_normal" comment="Action button / dialog choice to perform standard system reboot">Перезагрузить</string>
+    <string name="reboot_options" comment="Menu header listing target device reboot modes (Normal, Recovery, Bootloader, Fastbootd)">Параметры перезагрузки</string>
+    <string name="reboot_recovery" comment="Action button / dialog choice to reboot target device into recovery mode">Перезагрузить в Recovery</string>
+    <string name="recent_activity" comment="Dashboard card header listing recent command executions">Недавняя активность</string>
+    <string name="recent_searches" comment="Header title for recent search query history">Недавние поиски</string>
+    <string name="recommended" comment="Badge label marking recommended settings or AI choices">Рекомендовано</string>
+    <string name="reconnect" comment="Action button to attempt reconnecting to last known wireless ADB device">Переподключение</string>
+    <string name="reconnect_failed" comment="Toast notification or card status when wireless ADB reconnection fails">Переподключение не удалось</string>
+    <string name="reconnect_failed_message" comment="Dialog body text detailing causes of wireless ADB reconnection failure">\nВозможно, беспроводная отладка не включена\nИнформация о сопряжении может быть потеряна. Выполните сопряжение вручную ещё раз!</string>
+    <string name="reconnect_failed_requires_pairing" comment="Toast notification indicating device un-paired and needs re-pairing">Переподключение не удалось. Требуется повторное сопряжение.</string>
+    <string name="reconnect_success" comment="Toast message confirming successful wireless ADB reconnection">Подключение успешно восстановлено</string>
+    <string name="reconnect_the_device" comment="Button prompt directing user to reconnect target ADB device">Подключите устройство заново</string>
+    <string name="recovery" comment="Refers to Android System Recovery partition / boot mode">Recovery</string>
     <string name="refresh">Обновить</string>
     <string name="remove">Удалить</string>
     <string name="rename">Переименовать</string>
     <string name="rename_title" comment="%1$s = file or folder name">Переименовать %1$s</string>
-    <string name="replace">Заменить</string>
+    <string name="replace" comment="Resolution option in file conflict dialog to replace existing file">Заменить</string>
     <string name="report">Отчёт</string>
-    <string name="report_issue">Отчёт о проблеме</string>
-    <string name="repository">Репозиторий</string>
-    <string name="request_timeout">Таймаут запроса</string>
+    <string name="report_issue" comment="Button in About screen linking to GitHub issue tracker">Отчёт о проблеме</string>
+    <string name="repository" comment="Button in About screen linking to GitHub project repository">Репозиторий</string>
+    <string name="request_timeout" comment="Error toast when network request or ADB response times out">Таймаут запроса</string>
     <string name="reset">Сбросить</string>
-    <string name="reset_app_settings">Сбросить настройки приложения</string>
-    <string name="reset_settings_failed">Сброс настроек не удался</string>
-    <string name="reset_settings_successful">Настройки сброшены успешно</string>
+    <string name="reset_app_settings" comment="Button label in settings to restore default application configuration">Сбросить настройки приложения</string>
+    <string name="reset_settings_failed" comment="Toast notification when settings reset operation fails">Сброс настроек не удался</string>
+    <string name="reset_settings_successful" comment="Toast notification confirming settings have been reset to defaults">Настройки сброшены успешно</string>
     <string name="restore">Восстановить</string>
-    <string name="restore_app_data">Восстановить данные приложения</string>
-    <string name="restore_dialog_message">Данные в сохранённом файле заменят текущие данные.</string>
-    <string name="restore_failed">Восстановление не удалось</string>
-    <string name="restore_from">Восстановить из</string>
-    <string name="restore_successful">Успешно восстановлено</string>
-    <string name="restoring_backup">Восстановление резервирования…</string>
-    <string name="resume">Продовжити</string>
-    <string name="retry">Повторить</string>
-    <string name="root_access_granted">Root доступ предоставлен!</string>
-    <string name="root_unavailable">Root недоступен</string>
-    <string name="root_unavailable_message">Root доступ не обнаружен. Убедитесь, что устройство rooted и повторите попытку или переключитесь на другой источник logcat.</string>
-    <string name="running">Выполняется</string>
+    <string name="restore_app_data" comment="Button label in backup settings to import and restore data from backup file">Восстановить данные приложения</string>
+    <string name="restore_dialog_message" comment="Warning message in restore dialog that existing database will be overwritten">Данные в сохранённом файле заменят текущие данные.</string>
+    <string name="restore_failed" comment="Toast error message when restoring app data fails">Восстановление не удалось</string>
+    <string name="restore_from" comment="Dialog header prompting user to select restore source (Local File or Google Drive)">Восстановить из</string>
+    <string name="restore_successful" comment="Toast message confirming successful app data restoration">Успешно восстановлено</string>
+    <string name="restoring_backup" comment="Progress status text shown while restoring database from backup">Восстановление резервирования…</string>
+    <string name="resume" comment="Action button to resume paused logcat streaming or file download">Продовжити</string>
+    <string name="retry" comment="Action button to retry failed network connection or command execution">Повторить</string>
+    <string name="root_access_granted" comment="Toast notification confirming superuser root access granted to aShellYou">Root доступ предоставлен!</string>
+    <string name="root_unavailable" comment="Dialog title when root access check returns false">Root недоступен</string>
+    <string name="root_unavailable_message" comment="Dialog message explaining root access was not detected on device">Root доступ не обнаружен. Убедитесь, что устройство rooted и повторите попытку или переключитесь на другой источник logcat.</string>
+    <string name="run">Запустить</string>
+    <string name="run_a_command_to_see_logs" comment="Instructional prompt under empty fastboot logs view">Используйте вкладку Команды для выполнения команд быстрой загрузки</string>
+    <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">Выполнить \"%1$s\" на подключенном устройстве?</string>
+    <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">Выполнить команду?</string>
+    <string name="running" comment="Status badge showing task or command execution is active">Выполняется</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Сохранить</string>
-    <string name="save_as_profile">Сохранить как профиль…</string>
-    <string name="save_changes">Сохранить изменения</string>
-    <string name="save_key">Сохранить ключ</string>
-    <string name="save_whole_output">Сохранить весь вывод</string>
-    <string name="saved_devices">Сохранённые устройства</string>
-    <string name="saving">Сохранение…</string>
-    <string name="saving_output">Экспорт вывода в файл…</string>
-    <string name="schedule">График</string>
-    <string name="screen_density_multiplier">Множитель плотности экрана</string>
+    <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">Сохранить как профиль…</string>
+    <string name="save_changes" comment="Action button to persist edited settings or tile parameters">Сохранить изменения</string>
+    <string name="save_key" comment="Button label to save entered API key string in settings">Сохранить ключ</string>
+    <string name="save_whole_output" comment="Setting toggle title to export full terminal session output to file">Сохранить весь вывод</string>
+    <string name="saved_devices" comment="Screen title and list header for paired ADB devices history">Сохранённые устройства</string>
+    <string name="saving" comment="Progress status text while saving file or settings">Сохранение…</string>
+    <string name="saving_output" comment="Progress status text while exporting terminal log output to file">Экспорт вывода в файл…</string>
+    <string name="schedule" comment="Header title or setting label for automated backup schedule picker">График</string>
+    <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">Множитель плотности экрана</string>
     <string name="search">Поиск</string>
-    <string name="search_bookmarks_here">Поиск закладок здесь</string>
-    <string name="search_commands_here">Поиск команд здесь</string>
-    <string name="search_fonts">Поиск шрифтов…</string>
-    <string name="search_icons_here">Поиск иконок здесь</string>
-    <string name="search_labels_here">Поиск меток здесь</string>
-    <string name="search_libraries">Поиск библиотек, авторов, лицензий…</string>
-    <string name="search_output">Поиск вывода здесь</string>
-    <string name="search_settings">Настройки поиска</string>
-    <string name="search_something">Искать что-нибудь</string>
-    <string name="search_variables">Поиск переменных…</string>
-    <string name="searching_connect_service">Поиск службы подключения</string>
-    <string name="searching_for_devices">Поиск устройств…</string>
+    <string name="search_bookmarks_here" comment="Placeholder text in bookmarks tab search bar">Поиск закладок здесь</string>
+    <string name="search_commands_here" comment="Placeholder text in command templates tab search bar">Поиск команд здесь</string>
+    <string name="search_fonts" comment="Placeholder text in font family picker search bar">Поиск шрифтов…</string>
+    <string name="search_icons_here" comment="Placeholder text in Quick Settings tile icon picker search bar">Поиск иконок здесь</string>
+    <string name="search_labels_here" comment="Placeholder text in command label filter search bar">Поиск меток здесь</string>
+    <string name="search_libraries" comment="Placeholder text in open-source licenses search bar">Поиск библиотек, авторов, лицензий…</string>
+    <string name="search_output" comment="Placeholder text in terminal output search bar">Поиск вывода здесь</string>
+    <string name="search_settings" comment="Placeholder text in settings top search bar">Настройки поиска</string>
+    <string name="search_something" comment="Generic search field placeholder prompt">Искать что-нибудь</string>
+    <string name="search_variables" comment="Placeholder text in fastboot variables explorer search bar">Поиск переменных…</string>
+    <string name="searching_connect_service" comment="Status message while discovering ADB mDNS connection service on local network">Поиск службы подключения</string>
+    <string name="searching_for_devices" comment="Progress status text while scanning for local Wireless Debugging or OTG ADB target devices">Поиск устройств…</string>
     <string name="secondary">Вторичный</string>
-    <string name="security_patch">Патч безопасности</string>
+    <string name="security_patch" comment="Device property label displaying Android security patch level date">Патч безопасности</string>
     <string name="select">Выбрать</string>
     <string name="select_all">Выбрать все</string>
-    <string name="select_backup_folder_message">Пожалуйста, выберите папку, где будут сохранены резервирования. Приложению требуется доступ для чтения и записи в эту папку.</string>
-    <string name="select_backup_folder_title">Нет папки резервирования</string>
-    <string name="select_folder">Выберите папку</string>
-    <string name="select_partition">Выберите раздел</string>
-    <string name="select_theme_to_edit_hex">Выберите шаблон выше, чтобы изменить его hex значения здесь.</string>
-    <string name="select_time">Выберите время</string>
+    <string name="select_backup_folder_message" comment="Dialog message prompting user to grant folder access for local automated backups">Пожалуйста, выберите папку, где будут сохранены резервирования. Приложению требуется доступ для чтения и записи в эту папку.</string>
+    <string name="select_backup_folder_title" comment="Dialog title when no backup directory has been configured">Нет папки резервирования</string>
+    <string name="select_folder" comment="Action button to open system directory picker for backup storage">Выберите папку</string>
+    <string name="select_partition" comment="Dropdown hint or dialog header for picking target fastboot partition">Выберите раздел</string>
+    <string name="select_theme_to_edit_hex" comment="Instructional prompt under hex editor section in theme builder">Выберите шаблон выше, чтобы изменить его hex значения здесь.</string>
+    <string name="select_time" comment="Button label to open time picker dialog for automated backup schedule">Выберите время</string>
+    <string name="select_zip_package" comment="Button label to launch file picker for selecting a ZIP update package to sideload">Выберите ZIP пакет</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">Своё</string>
-    <string name="self_pair_connection_failed">Ошибка подключения - попробуйте ручное подключение</string>
-    <string name="self_pair_enter_code">Введите 6-значный код из диалогового окна сопряжения</string>
-    <string name="self_pair_enter_code_hint">Введите 6-значный код сопряжения</string>
-    <string name="self_pair_error_no_ip">Не удалось определить IP адрес</string>
-    <string name="self_pair_error_saving">Ошибка сохранения устройства</string>
-    <string name="self_pair_failed">Сопряжение не удалось</string>
-    <string name="self_pair_found">Сервис сопряжения найден!</string>
-    <string name="self_pair_in_progress">Сопряжение в процессе…</string>
-    <string name="self_pair_in_progress_hint">Пожалуйста, подождите подключения к этому устройству</string>
-    <string name="self_pair_pairing_not_found">Сервис сопряжения не найдено</string>
-    <string name="self_pair_searching">Поиск сервиса сопряжения…</string>
-    <string name="self_pair_searching_hint">Откройте \"Беспроводная отладка\" и нажмите \'Сопрячь устройство с помощью кода сопряжения\'</string>
-    <string name="self_pair_success">Подключено к этому устройству!</string>
-    <string name="self_pair_success_hint">Локальная оболочка ADB теперь доступна</string>
-    <string name="self_pair_timeout">Таймаут - открыть диалог сопряжения в беспроводной отладке</string>
-    <string name="self_pair_wrong_code">Неверный код - снова откройте диалог сопряжения</string>
-    <string name="serial_number">Серийный номер</string>
+    <string name="self_pair_connection_failed" comment="Toast error message when automatic local self-pairing fails">Ошибка подключения - попробуйте ручное подключение</string>
+    <string name="self_pair_enter_code" comment="Subtext instruction prompting user for 6-digit wireless pairing code">Введите 6-значный код из диалогового окна сопряжения</string>
+    <string name="self_pair_enter_code_hint" comment="Placeholder text in text field for entering 6-digit self-pairing code">Введите 6-значный код сопряжения</string>
+    <string name="self_pair_error_no_ip" comment="Error toast when Wi-Fi IP address cannot be retrieved during self-pairing">Не удалось определить IP адрес</string>
+    <string name="self_pair_error_saving" comment="Toast error message when storing self-paired device credentials fails">Ошибка сохранения устройства</string>
+    <string name="self_pair_failed" comment="Toast notification when local self-pairing operation fails">Сопряжение не удалось</string>
+    <string name="self_pair_found" comment="Status message when local device mDNS ADB pairing service is detected">Сервис сопряжения найден!</string>
+    <string name="self_pair_in_progress" comment="Progress status text shown while establishing local ADB self-pairing connection">Сопряжение в процессе…</string>
+    <string name="self_pair_in_progress_hint" comment="Instructional hint displayed during local ADB self-pairing">Пожалуйста, подождите подключения к этому устройству</string>
+    <string name="self_pair_pairing_not_found" comment="Error notification when mDNS ADB pairing service is not broadcasting">Сервис сопряжения не найдено</string>
+    <string name="self_pair_searching" comment="Progress status text while scanning for local mDNS pairing service">Поиск сервиса сопряжения…</string>
+    <string name="self_pair_searching_hint" comment="Instructional prompt directing user to open Wireless Debugging pairing dialog">Откройте \"Беспроводная отладка\" и нажмите \'Сопрячь устройство с помощью кода сопряжения\'</string>
+    <string name="self_pair_success" comment="Toast confirmation message when local ADB self-pairing succeeds">Подключено к этому устройству!</string>
+    <string name="self_pair_success_hint" comment="Subtext banner confirming local ADB terminal session is ready">Локальная оболочка ADB теперь доступна</string>
+    <string name="self_pair_timeout" comment="Toast error message when self-pairing service lookup times out">Таймаут - открыть диалог сопряжения в беспроводной отладке</string>
+    <string name="self_pair_wrong_code" comment="Toast error message when entered 6-digit wireless pairing code is incorrect">Неверный код - снова откройте диалог сопряжения</string>
+    <string name="send">Отправить</string>
+    <string name="serial_number" comment="Device property label displaying target device hardware serial number">Серийный номер</string>
     <string name="serif" comment="Font style category name">Serif</string>
     <string name="settings">Настройки</string>
-    <string name="settings_only">Только настройки</string>
+    <string name="settings_only" comment="Option in backup screen to export only application settings (excluding history/bookmarks)">Только настройки</string>
     <string name="share">Поделиться</string>
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">Вывод последней команды экспортируется в \'%s\'</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">Вывод оболочки экспортируется в \'%s\'</string>
-    <string name="shizuku_not_installed">Shizuku не установлен</string>
-    <string name="shizuku_unavailable">Shizuku недоступен</string>
-    <string name="shizuku_unavailable_message">Shizuku не установлен или не настроен должным образом на вашем устройстве</string>
-    <string name="sign_in_failed">Не удалось войти в Google</string>
-    <string name="sign_in_with_google">Войти через Google</string>
-    <string name="sign_out">Выйти</string>
-    <string name="sign_out_confirmation_msg">Выход из аккаунта приостановит все автоматические резервные копии в облако!\nВы все еще хотите выйти?</string>
+    <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">Shizuku не установлен</string>
+    <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku недоступен</string>
+    <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku is not running or missing permissions">Shizuku не установлен или не настроен должным образом на вашем устройстве</string>
+    <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">Перевести устройство в режим перегрузки через восстановление</string>
+    <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Режим перегрузки — готов</string>
+    <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">Загрузитесь в режим восстановления (удерживайте громкость + Power, или выполните: adb reboot recovery)</string>
+    <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">Перейдите для «Применить обновление» в меню восстановления</string>
+    <string name="sideload_step_3" comment="Step 3 of ADB sideload guide: selecting ADB sideload mode in recovery">Выберите \"Apply from ADB\" (или \"ADB Sideload\")</string>
+    <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">Подключите устройство через OTG кабель, затем выберите ZIP здесь</string>
+    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Sideloading…</string>
+    <string name="sign_in_failed" comment="Toast error message when Google account sign-in fails">Не удалось войти в Google</string>
+    <string name="sign_in_with_google" comment="Button label in cloud backup settings to sign into Google account">Войти через Google</string>
+    <string name="sign_out" comment="Button label in cloud backup settings to sign out of Google account">Выйти</string>
+    <string name="sign_out_confirmation_msg" comment="Warning prompt in sign-out confirmation dialog warning that auto cloud backups will pause">Выход из аккаунта приостановит все автоматические резервные копии в облако!\nВы все еще хотите выйти?</string>
     <string name="signed_in_as" comment="%1$s = user email or name">Вы вошли как %1$s</string>
-    <string name="signed_out">Выполнен выход</string>
+    <string name="signed_out" comment="Status text in cloud backup card when signed out of Google account">Выполнен выход</string>
     <string name="size">Размер</string>
     <string name="skip">Пропустить</string>
-    <string name="slide_to_flash">Слайд для прошивки</string>
-    <string name="slot_data_unknown">Данные слота неизвестны</string>
-    <string name="smooth_scrolling">Плавная прокрутка</string>
+    <string name="slide_to_flash" comment="Slider text prompt in fastboot partition flash confirmation sheet">Слайд для прошивки</string>
+    <string name="slide_to_sideload" comment="Slider button prompt to initiate the ADB sideload transfer of chosen ZIP file over OTG">Сдвинуть на Сиделуад</string>
+    <string name="slot_data_unknown" comment="Status text when device A/B slot information cannot be retrieved over fastboot">Данные слота неизвестны</string>
+    <string name="smooth_scrolling" comment="Settings toggle preference title to enable smooth scrolling animation in terminal">Плавная прокрутка</string>
     <string name="sort">Сортировать</string>
-    <string name="stable_fdroid">Стабильный (F-Droid)</string>
-    <string name="stable_github">Стабильный (GitHub)</string>
-    <string name="stack_trace">Трассировка стека</string>
-    <string name="stargazers">Звёзды</string>
+    <string name="stable_fdroid" comment="Option in update channel settings for F-Droid stable releases">Стабильный (F-Droid)</string>
+    <string name="stable_github" comment="Option in update channel settings for GitHub stable releases">Стабильный (GitHub)</string>
+    <string name="stack_trace" comment="Header title for crash log exception stack trace section">Трассировка стека</string>
+    <string name="stargazers" comment="GitHub repository star count label in About screen">Звёзды</string>
     <string name="start">Запустить</string>
     <string name="stop">Остановить</string>
     <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">%.1f МБ используется AI моделями</string>
-    <string name="subtitle">Субтитры</string>
-    <string name="subtitle_off_state">Субтитры (состояние ВЫКЛ.)</string>
-    <string name="subtitle_on_state">Субтитры (состояние ВКЛ.)</string>
+    <string name="subtitle" comment="Field label for Quick Settings tile subtitle text">Субтитры</string>
+    <string name="subtitle_off_state" comment="Field label for tile subtitle text when Quick Settings tile is OFF">Субтитры (состояние ВЫКЛ.)</string>
+    <string name="subtitle_on_state" comment="Field label for tile subtitle text when Quick Settings tile is ON">Субтитры (состояние ВКЛ.)</string>
     <string name="success">Успешно</string>
-    <string name="success_rate">Показатель успеха</string>
-    <string name="successful_connection_message">Устройство подключено успешно. Теперь вы можете запускать команды на целевом устройстве.</string>
-    <string name="suggested_icons">Предлагаемые иконки</string>
-    <string name="support_bmc">Нравится то, что я делаю?\nУгостите меня кофе</string>
+    <string name="success_rate" comment="Analytics metadata metric showing tile execution success percentage">Показатель успеха</string>
+    <string name="successful_connection_message" comment="Dialog message confirming target ADB device connected successfully">Устройство подключено успешно. Теперь вы можете запускать команды на целевом устройстве.</string>
+    <string name="suggested_icons" comment="Header title in tile icon picker listing suggested Material icons">Предлагаемые иконки</string>
+    <string name="support_bmc" comment="Banner text in About section linking to Buy Me a Coffee donation page">Нравится то, что я делаю?\nУгостите меня кофе</string>
     <string name="surface">Поверхность</string>
-    <string name="switch_mode">Переключить режим</string>
+    <string name="switch_mode" comment="Action button to switch ADB connection mode between Local ADB, Remote Wireless ADB, and OTG">Переключить режим</string>
     <string name="system">Системная</string>
-    <string name="system_default">Системные по умолчанию</string>
+    <string name="system_default" comment="Theme or language option to match Android OS system default settings">Системные по умолчанию</string>
     <string name="system_font" comment="Option to use the device default font">Системный шрифт</string>
-    <string name="system_settings">Системные настройки</string>
-    <string name="tab">Вкладка</string>
-    <string name="tag">Тег</string>
-    <string name="telegram">Telegram</string>
-    <string name="terminal">Терминал</string>
+    <string name="system_settings" comment="Button label linking to Android system Settings app">Системные настройки</string>
+    <string name="tab" comment="Settings option for terminal tab indentation behavior">Вкладка</string>
+    <string name="tag" comment="Field label for custom command category tag/label">Тег</string>
+    <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">Нажмите для просмотра файла .zip</string>
+    <string name="telegram" comment="Button in About screen linking to official Telegram community group">Telegram</string>
+    <string name="terminal" comment="Refers to shell command line terminal execution screen">Терминал</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Стиль шрифта терминала</string>
     <string name="tertiary">Третичный</string>
-    <string name="third_party_libraries">Сторонние библиотеки</string>
-    <string name="this_application">Это приложение</string>
-    <string name="this_device">Это устройство</string>
-    <string name="tile">Плитка</string>
-    <string name="tile_behavior">Поведение плитки</string>
-    <string name="tile_dashboard_notification_access_message">Включите уведомления, чтобы получать уведомления при сбое исполнения плиток</string>
-    <string name="tile_logs">Журналы плиток</string>
+    <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">Сторонние библиотеки</string>
+    <string name="this_application" comment="Option label for target scope in Logcat Viewer">Это приложение</string>
+    <string name="this_device" comment="Selection option for target ADB device matching host phone">Это устройство</string>
+    <string name="tile" comment="Refers to Android System Quick Settings tile">Плитка</string>
+    <string name="tile_behavior" comment="Settings title for Quick Settings tile click behavior (click vs long-click)">Поведение плитки</string>
+    <string name="tile_dashboard_notification_access_message" comment="Banner notice asking for notification permission to report tile execution errors">Включите уведомления, чтобы получать уведомления при сбое исполнения плиток</string>
+    <string name="tile_logs" comment="Tab header for Quick Settings tile execution history log">Журналы плиток</string>
     <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">Плитка %1$d</string>
-    <string name="tile_name">Название плитки</string>
-    <string name="tiles">Плитки</string>
+    <string name="tile_name" comment="Field label for Quick Settings tile title text">Название плитки</string>
+    <string name="tiles" comment="Navigation drawer item and screen header for Quick Settings tiles manager">Плитки</string>
     <string name="time">Время</string>
     <string name="timestamp">Отметка времени</string>
     <string name="toggleable">Переключаемый</string>
@@ -853,59 +895,58 @@
     <string name="turn_off_mobile_data">Отключите мобильную передачу данных, если Wi-Fi-соединение не подключено к Интернету</string>
     <string name="tweak_your_experience">Улучшите свой опыт использования</string>
     <string name="type">Тип</string>
-    <string name="ui_scale">Масштаб UI</string>
+    <string name="ui_scale" comment="Settings preference title for adjusting UI scale factor">Масштаб UI</string>
     <string name="undo">Отменить</string>
-    <string name="unexpected_error">Неожиданная ошибка</string>
+    <string name="unexpected_error" comment="Generic exception toast header when unhandled error occurs">Неожиданная ошибка</string>
     <string name="unknown">Неизвестно</string>
-    <string name="unknown_error">Произошла неизвестная ошибка</string>
-    <string name="unknown_sources_install_permission_not_granted">Разрешение не выдано. Пожалуйста, разрешите установку приложений из неизвестных источников.</string>
-    <string name="unlock_status">Статус разблокировки</string>
-    <string name="unlocked">Разблокировано</string>
-    <string name="untitled">Без названия</string>
+    <string name="unknown_error" comment="Toast error message when error cause is unmapped">Произошла неизвестная ошибка</string>
+    <string name="unknown_sources_install_permission_not_granted" comment="Error toast when REQUEST_INSTALL_PACKAGES permission is missing for app update installation">Разрешение не выдано. Пожалуйста, разрешите установку приложений из неизвестных источников.</string>
+    <string name="unlock_status" comment="Device property label displaying bootloader lock state">Статус разблокировки</string>
+    <string name="unlocked" comment="Status badge showing bootloader is unlocked">Разблокировано</string>
+    <string name="untitled" comment="Default name fallback for unsaved theme profile or custom tile">Без названия</string>
     <string name="update">Обновление</string>
-    <string name="update_available">Доступно обновление!</string>
-    <string name="update_channel">Канал обновлений</string>
-    <string name="upload_file">Загрузить файл</string>
-    <string name="uploading">Загрузка…</string>
-    <string name="uploading_backup">Загрузка резервирования на Google Диск…</string>
-    <string name="usb_manager_unavailable">Менеджер USB недоступен на этом устройстве</string>
+    <string name="update_available" comment="Banner title announcing a new application update release">Доступно обновление!</string>
+    <string name="update_channel" comment="Settings preference title for choosing update channel (Stable, Pre-release, F-Droid)">Канал обновлений</string>
+    <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">Загрузить файл</string>
+    <string name="uploading" comment="Progress status text shown while uploading file to device">Загрузка…</string>
+    <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Загрузка резервирования на Google Диск…</string>
+    <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">Менеджер USB недоступен на этом устройстве</string>
     <string name="use">Использовать</string>
-    <string name="utilities">Утилиты</string>
-    <string name="variant">Вариант</string>
-    <string name="verification_failed">Проверка не удалась</string>
-    <string name="verify_api_key">Проверка API ключа</string>
-    <string name="verifying">Проверка</string>
+    <string name="utilities" comment="Category title in homescreen">Утилиты</string>
+    <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">Вариант</string>
+    <string name="verification_failed" comment="Toast error message when AI API key verification fails">Проверка не удалась</string>
+    <string name="verify_api_key" comment="Action button to validate entered AI API key with remote service">Проверка API ключа</string>
+    <string name="verifying" comment="Progress status text while verifying API key validity">Проверка</string>
     <string name="version">Версия</string>
-    <string name="version_code">Код версии</string>
-    <string name="version_name">Название версии</string>
-    <string name="view_license_online_msg">Нажмите \'Открыть URL\', чтобы просмотреть лицензию онлайн.</string>
-    <string name="view_on_github">Посмотреть на GitHub</string>
-    <string name="visit_repo_to_download">Нажмите кнопку загрузки, чтобы получить последнюю версию aShellYou из репозитория GitHub.</string>
-    <string name="waiting_for_device">Ожидание устройства</string>
-    <string name="waiting_for_devices">Ожидание устройств…</string>
-    <string name="want_to_contribute_too">Хотите тоже внести свой вклад?</string>
-    <string name="weekly">Еженедельно</string>
+    <string name="version_code" comment="Device/app metadata label for build version code number">Код версии</string>
+    <string name="version_name" comment="Device/app metadata label for human-readable version string">Название версии</string>
+    <string name="view_license_online_msg" comment="Subtext in license viewer directing user to view license URL online">Нажмите \'Открыть URL\', чтобы просмотреть лицензию онлайн.</string>
+    <string name="view_on_github" comment="Button linking to GitHub release page or commit diff">Посмотреть на GitHub</string>
+    <string name="visit_repo_to_download" comment="Instructions directing user to download the update APK file from GitHub releases">Нажмите кнопку загрузки, чтобы получить последнюю версию aShellYou из репозитория GitHub.</string>
+    <string name="waiting_for_device" comment="Progress status banner while awaiting target device USB OTG attachment">Ожидание устройства</string>
+    <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">Ожидание устройств…</string>
+    <string name="want_to_contribute_too" comment="Call-to-action banner in About screen inviting code or translation contributions">Хотите тоже внести свой вклад?</string>
+    <string name="weekly" comment="Option in backup scheduler frequency selection">Еженедельно</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">Что бы вы хотели сделать пока %1$s?</string>
-    <string name="whats_new">Что нового!</string>
-    <string name="which_device_to_pair">Какое устройство вы хотите сопрячь?</string>
-    <string name="wifi_adb">WiFi ADB</string>
-    <string name="wifi_connection_required">Чтобы использовать функцию беспроводной отладки, ваше устройство должно быть подключено к сети Wi-Fi. Если у вас нет доступа в Интернет через Wi-Fi, отключите мобильные данные для стабильного подключения к Wi-Fi.</string>
-    <string name="wipe_cache_desc">fastboot очистить кеш</string>
-    <string name="wipe_cache_title">Очистить кеш</string>
-    <string name="wipe_data">Вытереть данные</string>
-    <string name="wipe_data_description">Очистка разделов на вашем устройстве. Выберите, какой раздел очистить.</string>
-    <string name="wipe_metadata_desc">fastboot очистить метаданные</string>
-    <string name="wipe_metadata_title">Очистить метаданные</string>
-    <string name="wipe_userdata_desc">fastboot очистить данные пользователя</string>
-    <string name="wipe_userdata_title">Очистить данные пользователя</string>
-    <string name="wipe_warning">Эти операции необратимы. Действуйте с осторожностью.</string>
-    <string name="wireless_debugging_guide_1">Перейдите к параметрам Разработчика &gt; Беспроводная отладка. Коснитесь \'Сопрячь\' устройство с помощью кода сопряжения.</string>
-    <string name="wireless_debugging_guide_2">Введите шестизначный код сопряжения в уведомление, отправленное aShell You.</string>
-    <string name="wireless_debugging_guide_3">Вернитесь в приложение и нажмите кнопку \"Запустить\" на главном экране.</string>
-    <string name="wireless_debugging_important_notice">Обратите внимание, что левая часть опции \"Беспроводная отладка\" является кликабельной. При нажатии на неё откроется меню \"Сопряжения\" для \"Беспроводной отладки\".</string>
-    <string name="wireless_not_connected">Не подключен</string>
-    <string name="wireless_not_connected_message">Устройство не подключено из-за беспроводной настройки. Сначала соединить и подключить устройство.</string>
-    <string name="ai_session_search_hint">Поиск чата…</string>
+    <string name="whats_new" comment="Header title for app release notes and changelog dialog">Что нового!</string>
+    <string name="which_device_to_pair" comment="Dialog header prompting user to choose wireless pairing method or device">Какое устройство вы хотите сопрячь?</string>
+    <string name="wifi_adb" comment="Refers to Android Wireless Debugging ADB over Wi-Fi connection feature">WiFi ADB</string>
+    <string name="wifi_connection_required" comment="Detailed explanation of Wi-Fi requirements for Wireless Debugging ADB">Чтобы использовать функцию беспроводной отладки, ваше устройство должно быть подключено к сети Wi-Fi. Если у вас нет доступа в Интернет через Wi-Fi, отключите мобильные данные для стабильного подключения к Wi-Fi.</string>
+    <string name="wipe_cache_desc" comment="Description for predefined fastboot erase cache command">fastboot очистить кеш</string>
+    <string name="wipe_cache_title" comment="Predefined fastboot command title: erase cache partition">Очистить кеш</string>
+    <string name="wipe_data" comment="Section header or dialog button to wipe device partitions over fastboot">Вытереть данные</string>
+    <string name="wipe_data_description" comment="Subtext warning explaining fastboot partition erase operation">Очистка разделов на вашем устройстве. Выберите, какой раздел очистить.</string>
+    <string name="wipe_metadata_desc" comment="Description for predefined fastboot erase metadata command">fastboot очистить метаданные</string>
+    <string name="wipe_metadata_title" comment="Predefined fastboot command title: erase metadata partition">Очистить метаданные</string>
+    <string name="wipe_userdata_desc" comment="Description for predefined fastboot erase userdata command">fastboot очистить данные пользователя</string>
+    <string name="wipe_userdata_title" comment="Predefined fastboot command title: erase userdata partition">Очистить данные пользователя</string>
+    <string name="wipe_warning" comment="Warning notice in fastboot partition wipe screen emphasizing data loss risk">Эти операции необратимы. Действуйте с осторожностью.</string>
+    <string name="wireless_debugging_guide_1" comment="Step 1 of Wireless Debugging setup walkthrough">Перейдите к параметрам Разработчика &gt; Беспроводная отладка. Коснитесь \'Сопрячь\' устройство с помощью кода сопряжения.</string>
+    <string name="wireless_debugging_guide_2" comment="Step 2 of Wireless Debugging setup walkthrough">Введите шестизначный код сопряжения в уведомление, отправленное aShell You.</string>
+    <string name="wireless_debugging_guide_3" comment="Step 3 of Wireless Debugging setup walkthrough">Вернитесь в приложение и нажмите кнопку &quot;Начать&quot; на главном экране.</string>
+    <string name="wireless_debugging_important_notice" comment="Important tip clarifying that tapping the left side of Wireless Debugging switch opens the pairing sub-menu">Обратите внимание, что левая часть опции \"Беспроводная отладка\" является кликабельной. При нажатии на неё откроется меню \"Сопряжения\" для \"Беспроводной отладки\".</string>
+    <string name="wireless_not_connected" comment="Status banner shown when target device is not connected over Wireless Debugging">Не подключен</string>
+    <string name="wireless_not_connected_message" comment="Instructional body text advising user to pair and connect device first">Устройство не подключено из-за беспроводной настройки. Сначала соединить и подключить устройство.</string>
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d новая запись</item>
         <item quantity="few">%1$d новых записей</item>
