@@ -107,7 +107,7 @@ fun MarkdownMessageContent(
 
                                     if (isShellLanguage(component.language)) {
                                         TextButton(onClick = withHaptic { onUseCommand(component.code) }) {
-                                            Text(stringResource(R.string.ai_chat_use))
+                                            Text(stringResource(R.string.use))
                                         }
                                     }
                                 }

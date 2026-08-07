@@ -23,7 +23,7 @@ fun RenameAiSessionDialog(
     var newTitle by remember { mutableStateOf(session.title) }
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(stringResource(R.string.ai_chat_rename)) },
+        title = { Text(stringResource(R.string.rename)) },
         text = {
             OutlinedTextField(
                 value = newTitle,
@@ -35,13 +35,13 @@ fun RenameAiSessionDialog(
             TextButton(
                 onClick = withHaptic { if (newTitle.isNotBlank()) onConfirm(newTitle) }
             ) {
-                Text(stringResource(R.string.ai_chat_save))
+                Text(stringResource(R.string.save))
             }
         },
 
         dismissButton = {
             TextButton(onClick = withHaptic { onDismiss() }) {
-                Text(stringResource(R.string.ai_chat_cancel))
+                Text(stringResource(R.string.cancel))
             }
         }
     )
