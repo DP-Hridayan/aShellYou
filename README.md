@@ -205,7 +205,7 @@
   </tr>
   <tr>
     <td style="padding: 8px; border: 1px solid #ddd;">Proper localization</td>
-    <td style="padding: 8px; border: 1px solid #ddd; color: gray;">⏺️ In progress</td>
+    <td style="padding: 8px; border: 1px solid #ddd; color: gray;">✅ Done</td>
   </tr>
   <tr>
     <td style="padding: 8px; border: 1px solid #ddd;">Fix scripts execution</td>
