@@ -5,12 +5,12 @@
     <string name="abort_command" comment="Toast warning shown when trying to perform an action while an ADB shell command is currently running">Hủy lệnh trước</string>
     <string name="about">Giới thiệu</string>
     <string name="active" comment="Status indicator label for active ADB connection or active slot">Hoạt động</string>
-    <string name="active_slot" comment="Refers to the active A/B partition slot on a dual-slot Android device">Slot đang hoạt động</string>
+    <string name="active_slot" comment="Refers to the active A/B partition slot on a dual-slot Android device">Khe đang hoạt động</string>
     <string name="adb_agent" comment="Name of the AI chat assistant persona in aShellYou">ADB Agent</string>
     <string name="adb_command" comment="Input field label for typing an ADB shell command">Lệnh ADB</string>
     <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">Lệnh ADB (TẮT)</string>
     <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">Lệnh ADB (BẬT)</string>
-    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB đã kết nối — đảm bảo thiết bị ở chế độ sideload</string>
+    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB đã kết nối — Hãy đảm bảo thiết bị đang ở chế độ sideload</string>
     <string name="adb_connection_active" comment="Foreground notification title when an ADB connection (Wireless/OTG) is currently active">Kết nối ADB đang hoạt động</string>
     <string name="adb_connection_channel_description" comment="Android notification channel description in System Settings for ADB connection status">Hiển thị khi kết nối ADB đang hoạt động</string>
     <string name="adb_connection_channel_name" comment="Android notification channel name in System Settings for active ADB connections">Kết nối ADB</string>
@@ -135,7 +135,7 @@
     <string name="cmd_get_battery_title" comment="Predefined fastboot command title: check battery level in fastboot">Mức pin</string>
     <string name="cmd_get_current_slot_desc" comment="Description for predefined fastboot command: fastboot getvar current-slot">Khe A/B nào hiện đang hoạt động</string>
     <string name="cmd_get_current_slot_title" comment="Predefined fastboot command title: check active A/B slot">Khe hiện tại</string>
-    <string name="cmd_get_product_desc" comment="Description for predefined fastboot command: fastboot getvar product">Truy xuất định danh tên sản phẩm thiết bị</string>
+    <string name="cmd_get_product_desc" comment="Description for predefined fastboot command: fastboot getvar product">Truy xuất mã định danh tên sản phẩm của thiết bị</string>
     <string name="cmd_get_product_title" comment="Predefined fastboot command title: check product name">Tên sản phẩm</string>
     <string name="cmd_get_slot_count_desc" comment="Description for predefined fastboot command: fastboot getvar slot-count">Số lượng khe A/B trên thiết bị này</string>
     <string name="cmd_get_slot_count_title" comment="Predefined fastboot command title: check A/B slot count">Số lượng khe</string>
@@ -238,7 +238,7 @@
     <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">Truy cập nền tảng dịch thuật Crowdin của chúng tôi để đóng góp</string>
     <string name="current_version" comment="About screen card label showing installed application version number">Phiên bản hiện tại</string>
     <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">Tùy chỉnh tỉ lệ UI</string>
-    <string name="cut_items" comment="%1$d = number of items cut to clipboard">Đã cắt %1$d mục</string>
+    <string name="cut_items" comment="%1$d = number of items cut to clipboard">Cắt %1$d mục</string>
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">Cắt vào bộ nhớ tạm</string>
     <string name="daily" comment="Option in backup scheduler frequency selection">Hằng ngày</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">Giao diện tối</string>
@@ -368,12 +368,12 @@
     <string name="enter">Nhập</string>
     <string name="enter_command" comment="Input hint placeholder format for entering fastboot commands">fastboot &lt;command&gt;</string>
     <string name="enter_pairing_code" comment="Instructional header in Wireless Debugging pairing dialog asking for 6-digit code">Nhập mã ghép nối gồm 6 chữ số</string>
-    <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">Điều này sẽ Erase vĩnh viễn phân vùng %1$s. Không thể hoàn tác hành động này.</string>
+    <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">Điều này sẽ xoá vĩnh viễn phân vùng %1$s. Không thể hoàn tác hành động này.</string>
     <string name="erase_confirm_title" comment="%1$s = partition name. Dialog title for partition erase confirmation">Xóa %1$s?</string>
-    <string name="erase_partition" comment="Action button to trigger fastboot partition erase">Erase</string>
-    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Đang Erase…</string>
+    <string name="erase_partition" comment="Action button to trigger fastboot partition erase">Xoá</string>
+    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Đang xoá…</string>
     <string name="error">Lỗi</string>
-    <string name="error_labels_limit_reached" comment="Validation error when maximum number of custom command labels/tags is reached">Đã đạt đến giới hạn nhãn tối đa</string>
+    <string name="error_labels_limit_reached" comment="Validation error when maximum number of custom command labels/tags is reached">Đã đạt giới hạn nhãn tối đa</string>
     <string name="exclude" comment="Filter toggle option to exclude selected package or item">Loại trừ</string>
     <string name="execution_method" comment="Setting label for selecting shell execution engine (Shizuku, Root, or Basic Shell)">Phương thức thực thi</string>
     <string name="expand" comment="Action button to expand a collapsed card section">Mở rộng</string>
@@ -501,7 +501,7 @@
     <string name="grant" comment="Button label to approve permission grant request">Cấp</string>
     <string name="grant_permission" comment="Action button to trigger system permission request dialog">Cấp quyền</string>
     <string name="grant_shizuku_permission_for_tiles" comment="Warning alert shown when Shizuku permission is missing for Quick Settings tiles">Quyền Shizuku chưa được cấp!\naShell You cần quyền từ Shizuku để thực thi các lệnh từ các ô.</string>
-    <string name="great_news" comment="Dialog title header for update available notification">Tin tuyệt vời!</string>
+    <string name="great_news" comment="Dialog title header for update available notification">Tin vui!</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">Phản hồi xúc giác &amp; Rung</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">Chúc một ngày tốt lành!</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Trình chỉnh sửa Hex</string>
@@ -519,7 +519,7 @@
     <string name="instructions" comment="Section header for step-by-step connection guides">Hướng dẫn</string>
     <string name="intent_not_found" comment="Error toast when external app activity or URL link cannot be opened">Không tìm thấy Intent</string>
     <string name="internal_storage" comment="Root folder label in file browser for local storage">Bộ nhớ trong</string>
-    <string name="invalid_folder_name" comment="Validation error when entered directory name contains slash characters">Tên thư mục không được chứa /</string>
+    <string name="invalid_folder_name" comment="Validation error when entered directory name contains slash characters">Tên thư mục không được chứa dấu /</string>
     <string name="ip_address" comment="Field label for device IP address in wireless ADB setup">Địa chỉ IP</string>
     <string name="irreversible_action_warning" comment="Warning dialog subtitle warning user that deletion cannot be undone">Hành động này không thể hoàn tác!</string>
     <string name="item_deleted" comment="Confirmation toast after item is deleted">Đã xóa mục thành công</string>
@@ -541,7 +541,7 @@
     <string name="license_label" comment="Header label for software license info">Giấy phép</string>
     <string name="licenses" comment="Screen title listing open-source licenses of app dependencies">Giấy phép</string>
     <string name="load" comment="Action button to load command templates into database">Tải</string>
-    <string name="load_predefined_commands" comment="Button label in fastboot screen to load preset fastboot commands">Tải các lệnh định sẵn</string>
+    <string name="load_predefined_commands" comment="Button label in fastboot screen to load preset fastboot commands">Tải các lệnh mẫu</string>
     <string name="loading">Đang tải</string>
     <string name="loading_device_info" comment="Progress status text while querying ADB device specifications">Đang tải thông tin thiết bị…</string>
     <string name="loading_licenses" comment="Progress status text while loading open-source license files">Đang tải thông tin giấy phép…</string>
@@ -552,22 +552,22 @@
     <string name="local_file" comment="Source option label for picking local backup file">Tệp cục bộ</string>
     <string name="locked" comment="Status badge showing bootloader lock state is locked">Đã khóa</string>
     <string name="logcat" comment="Refers to Android system logcat log streaming tool">Logcat</string>
-    <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">Đã xoá logs</string>
+    <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">Đã xoá nhật ký</string>
     <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">Gói</string>
-    <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">Mức độ log</string>
+    <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">Mức độ nhật ký</string>
     <string name="logcat_filter_search_hint" comment="Placeholder text in logcat search bar">Tìm kiếm trong thông điệp…</string>
     <string name="logcat_is_running" comment="Status banner shown while background logcat collection is active">Logcat đang chạy</string>
     <string name="logcat_ive_granted_it" comment="Button in logcat permission dialog confirming user ran ADB grant command on PC">Tôi đã cấp quyền này</string>
-    <string name="logcat_no_logs" comment="Placeholder text in logcat screen when no log entries match current filters">Chưa có logs nào</string>
-    <string name="logcat_notification_channel_description" comment="Android Notification Channel description for logcat background session">Hiển thị khi logcat đang chủ động thu thập logs</string>
+    <string name="logcat_no_logs" comment="Placeholder text in logcat screen when no log entries match current filters">Chưa có nhật ký nào</string>
+    <string name="logcat_notification_channel_description" comment="Android Notification Channel description for logcat background session">Hiển thị khi logcat đang chủ động thu thập nhật ký</string>
     <string name="logcat_notification_channel_name" comment="Android Notification Channel name for Logcat background collection">Phiên Logcat</string>
-    <string name="logcat_permission_body" comment="Instructions in logcat dialog detailing PM grant command required via computer ADB for non-root logcat access">Nếu không có quyền này, bạn chỉ có thể xem logs từ aShell You. Cấp quyền truy cập đầy đủ bằng cách chạy lệnh này từ máy tính:</string>
-    <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide">Quyền truy cập logs</string>
-    <string name="logcat_running_description" comment="Notification body text shown while logcat runs in background">aShell You đang thu thập logs hệ thống ở chế độ nền</string>
+    <string name="logcat_permission_body" comment="Instructions in logcat dialog detailing PM grant command required via computer ADB for non-root logcat access">Nếu không có quyền này, bạn chỉ có thể xem nhật ký từ aShell You. Cấp quyền truy cập đầy đủ bằng cách chạy lệnh này từ máy tính:</string>
+    <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide">Quyền truy cập nhật ký</string>
+    <string name="logcat_running_description" comment="Notification body text shown while logcat runs in background">aShell You đang thu thập nhật ký hệ thống ở chế độ nền</string>
     <string name="logcat_shortcut_long_label" comment="App launcher shortcut label for launching directly into Logcat Viewer">Mở Trình xem Logcat</string>
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Nguồn Logcat</string>
     <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">Nhấn ▶ để bắt đầu logcat</string>
-    <string name="logs" comment="Screen header or tab title for application and execution log views">Logs</string>
+    <string name="logs" comment="Screen header or tab title for application and execution log views">Nhật ký</string>
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Giao diện &amp; Cảm nhận</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">Thấp</string>
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">Độ tương phản thấp</string>
@@ -575,10 +575,10 @@
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">Ghép nối thủ công</string>
     <string name="max_download_size" comment="Setting label for capping maximum update download file size">Tải xuống tối đa</string>
     <string name="medium">Trung bình</string>
-    <string name="merge" comment="Resolution option in file browser conflict dialog to merge directory contents">Gộp</string>
+    <string name="merge" comment="Resolution option in file browser conflict dialog to merge directory contents">Hợp nhất</string>
     <string name="message">Thông điệp</string>
     <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">Nhắn tin cho ADB Agent…</string>
-    <string name="minimize" comment="Action button to minimize terminal overlay window">Thu nhỏ</string>
+    <string name="minimize" comment="Action button to minimize terminal overlay window">Thu gọn</string>
     <string name="mode" comment="Header title for ADB execution engine mode selector">Chế độ</string>
     <string name="mode_one_desc" comment="Description for Root execution engine option in settings">Sử dụng quyền truy cập root để chạy lệnh. Các lệnh yêu cầu root sẽ được thực thi.</string>
     <string name="mode_two_desc" comment="Description for Shizuku execution engine option in settings">Sử dụng Shizuku để thực thi lệnh. Các lệnh yêu cầu quyền root sẽ không thực thi.</string>
@@ -619,11 +619,11 @@
     <string name="no_google_account_title" comment="Dialog title when no Google account is detected">Không có Tài khoản Google</string>
     <string name="no_history" comment="Placeholder text in terminal history tab when execution log is empty">Không có lịch sử lệnh</string>
     <string name="no_libraries_found" comment="Placeholder text in licenses screen when search query returns no matching third-party libraries">Không tìm thấy thư viện</string>
-    <string name="no_logs_yet" comment="Placeholder text in Quick Settings tile execution logs tab">Chưa có logs nào!</string>
-    <string name="no_logs_yet_msg" comment="Instructional prompt under empty tile logs screen">Chưa có logs nào được ghi lại. Hãy thực thi một số ô để hiển thị logs ở đây.</string>
+    <string name="no_logs_yet" comment="Placeholder text in Quick Settings tile execution logs tab">Chưa có nhật ký nào!</string>
+    <string name="no_logs_yet_msg" comment="Instructional prompt under empty tile logs screen">Chưa có nhật ký nào được ghi lại. Hãy thực thi một số ô để hiển thị nhật ký ở đây.</string>
     <string name="no_model_selected" comment="Status text when no AI LLM model is selected in settings">Chưa chọn mô hình</string>
     <string name="no_operations" comment="Placeholder text in file manager operations queue sheet">Không có hoạt động nào đang diễn ra</string>
-    <string name="no_other_device_hint" comment="Instructional subtext in logcat viewer when viewing remote device logs">Kết nối thiết bị bên ngoài để xem logs của thiết bị đó</string>
+    <string name="no_other_device_hint" comment="Instructional subtext in logcat viewer when viewing remote device logs">Kết nối thiết bị bên ngoài để xem nhật ký của thiết bị đó</string>
     <string name="no_results_found" comment="Placeholder text when search query yields no matching items">Không tìm thấy kết quả</string>
     <string name="no_root_access" comment="Error toast or status badge when root superuser access is unavailable">Không có quyền truy cập root</string>
     <string name="no_saved_devices" comment="Placeholder text in saved devices screen when no ADB target devices are paired">Không có thiết bị nào đã lưu</string>
@@ -660,7 +660,7 @@
     <string name="other_details" comment="Expandable card title for additional device metadata details">Chi tiết khác</string>
     <string name="other_device" comment="Selection tab for target device in Logcat Viewer">Thiết bị khác</string>
     <string name="output" comment="Header title for shell command output window">Đầu ra</string>
-    <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">Kết quả sẽ xuất hiện ở đây…</string>
+    <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">Đầu ra sẽ xuất hiện ở đây…</string>
     <string name="override_bookmarks_limit" comment="Setting toggle title to remove the maximum limit on saved bookmarks count">Bỏ qua giới hạn dấu trang</string>
     <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">Tên gói</string>
     <string name="pair" comment="Button/action label to initiate ADB wireless or OTG pairing with another device">Ghép nối</string>
@@ -701,7 +701,7 @@
     <string name="pre_release_warning" comment="Warning alert header when switching to pre-release update channel">Bản Pre-release có thể không ổn định</string>
     <string name="pre_release_warning_description" comment="Detailed description of risks when opting into pre-release testing builds">Những phiên bản này vẫn đang trong giai đoạn thử nghiệm và có thể chứa các tính năng chưa hoàn thiện hoặc các lỗi không mong muốn. Nếu bạn chọn cập nhật lên phiên bản Pre-release, hãy nhớ rằng bạn có thể gặp phải sự cố hoặc ứng dụng hoạt động lạ.\nNếu bạn gặp phải bất kỳ vấn đề, sự cố hoặc hoạt động lạ nào, vui lòng cho chúng tôi biết để chúng tôi có thể sửa lỗi và cải thiện aShell You đến phiên bản phát hành ổn định.\nCảm ơn bạn đã giúp chúng tôi xây dựng ứng dụng tốt hơn!</string>
     <string name="predefined_commands" comment="Section header for pre-saved fastboot command actions">Các lệnh định sẵn</string>
-    <string name="predefined_commands_desc" comment="Description under predefined fastboot commands header">Truy cập nhanh vào các lệnh fastboot phổ biến. Kết quả sẽ phát trực tuyến xuống bảng điều khiển bên dưới.</string>
+    <string name="predefined_commands_desc" comment="Description under predefined fastboot commands header">Truy cập nhanh các lệnh fastboot phổ biến. Kết quả sẽ hiển thị trong bảng điều khiển bên dưới.</string>
     <string name="preference" comment="Header title for settings preference category">Tùy chọn</string>
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">Xem trước</string>
     <string name="primary">Chính</string>
@@ -738,7 +738,7 @@
     <string name="rename_title" comment="%1$s = file or folder name">Đổi tên %1$s</string>
     <string name="replace" comment="Resolution option in file conflict dialog to replace existing file">Thay thế</string>
     <string name="report">Báo cáo</string>
-    <string name="report_issue" comment="Button in About screen linking to GitHub issue tracker">Báo cáo vấn đề</string>
+    <string name="report_issue" comment="Button in About screen linking to GitHub issue tracker">Báo cáo lỗi</string>
     <string name="repository" comment="Button in About screen linking to GitHub project repository">Kho lưu trữ</string>
     <string name="request_timeout" comment="Error toast when network request or ADB response times out">Hết thời gian chờ</string>
     <string name="reset">Đặt lại</string>
@@ -798,7 +798,7 @@
     <string name="select_time" comment="Button label to open time picker dialog for automated backup schedule">Chọn thời gian</string>
     <string name="select_zip_package" comment="Button label to launch file picker for selecting a ZIP update package to sideload">Chọn gói ZIP</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">Thiết bị này</string>
-    <string name="self_pair_connection_failed" comment="Toast error message when automatic local self-pairing fails">Lỗi kết nối - thử kết nối thủ công</string>
+    <string name="self_pair_connection_failed" comment="Toast error message when automatic local self-pairing fails">Kết nối thất bại - thử kết nối thủ công</string>
     <string name="self_pair_enter_code" comment="Subtext instruction prompting user for 6-digit wireless pairing code">Nhập mã 6 chữ số từ hộp thoại ghép nối</string>
     <string name="self_pair_enter_code_hint" comment="Placeholder text in text field for entering 6-digit self-pairing code">Nhập mã ghép nối gồm 6 chữ số</string>
     <string name="self_pair_error_no_ip" comment="Error toast when Wi-Fi IP address cannot be retrieved during self-pairing">Không thể xác định địa chỉ IP</string>
@@ -828,7 +828,7 @@
     <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">Đưa thiết bị vào chế độ sideload thông qua recovery</string>
     <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Chế độ sideload — sẵn sàng</string>
     <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">Khởi động vào recovery (giữ Giảm âm lượng + Nguồn, hoặc chạy: adb reboot recovery)</string>
-    <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">Chuyển đến \"Apply update\" trong menu recovery</string>
+    <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">Di chuyển đến \"Apply update\" trong menu recovery</string>
     <string name="sideload_step_3" comment="Step 3 of ADB sideload guide: selecting ADB sideload mode in recovery">Chọn \"Apply from ADB\" (hoặc \"ADB Sideload\")</string>
     <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">Kết nối thiết bị của bạn qua cáp OTG, sau đó chọn tệp ZIP ở đây</string>
     <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Đang sideload…</string>
@@ -842,7 +842,7 @@
     <string name="skip">Bỏ qua</string>
     <string name="slide_to_flash" comment="Slider text prompt in fastboot partition flash confirmation sheet">Trượt để Flash</string>
     <string name="slide_to_sideload" comment="Slider button prompt to initiate the ADB sideload transfer of chosen ZIP file over OTG">Trượt để Sideload</string>
-    <string name="slot_data_unknown" comment="Status text when device A/B slot information cannot be retrieved over fastboot">Dữ liệu slot không xác định</string>
+    <string name="slot_data_unknown" comment="Status text when device A/B slot information cannot be retrieved over fastboot">Dữ liệu khe không xác định</string>
     <string name="smooth_scrolling" comment="Settings toggle preference title to enable smooth scrolling animation in terminal">Cuộn mượt</string>
     <string name="sort">Sắp xếp</string>
     <string name="stable_fdroid" comment="Option in update channel settings for F-Droid stable releases">Ổn định (F-Droid)</string>
@@ -879,7 +879,7 @@
     <string name="tile" comment="Refers to Android System Quick Settings tile">Ô</string>
     <string name="tile_behavior" comment="Settings title for Quick Settings tile click behavior (click vs long-click)">Hành vi của ô</string>
     <string name="tile_dashboard_notification_access_message" comment="Banner notice asking for notification permission to report tile execution errors">Bật thông báo để nhận thông báo bất cứ khi nào quá trình thực thi ô bị lỗi</string>
-    <string name="tile_logs" comment="Tab header for Quick Settings tile execution history log">Logs của ô</string>
+    <string name="tile_logs" comment="Tab header for Quick Settings tile execution history log">Nhật ký của ô</string>
     <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">Ô %1$d</string>
     <string name="tile_name" comment="Field label for Quick Settings tile title text">Tên ô</string>
     <string name="tiles" comment="Navigation drawer item and screen header for Quick Settings tiles manager">Các ô</string>
@@ -933,17 +933,17 @@
     <string name="wifi_adb" comment="Refers to Android Wireless Debugging ADB over Wi-Fi connection feature">WiFi ADB</string>
     <string name="wifi_connection_required" comment="Detailed explanation of Wi-Fi requirements for Wireless Debugging ADB">Để sử dụng tính năng gỡ lỗi không dây, thiết bị của bạn phải được kết nối với mạng WiFi. Nếu kết nối WiFi của bạn không có quyền truy cập internet, hãy tắt dữ liệu di động để kết nối WiFi được ổn định.</string>
     <string name="wipe_cache_desc" comment="Description for predefined fastboot erase cache command">fastboot erase cache</string>
-    <string name="wipe_cache_title" comment="Predefined fastboot command title: erase cache partition">Bật bộ nhớ đệm</string>
-    <string name="wipe_data" comment="Section header or dialog button to wipe device partitions over fastboot">Erase Data</string>
-    <string name="wipe_data_description" comment="Subtext warning explaining fastboot partition erase operation">Erase các phân vùng trên thiết bị của bạn. Chọn phân vùng nào cần Erase.</string>
+    <string name="wipe_cache_title" comment="Predefined fastboot command title: erase cache partition">Xoá bộ nhớ đệm</string>
+    <string name="wipe_data" comment="Section header or dialog button to wipe device partitions over fastboot">Xoá dữ liệu</string>
+    <string name="wipe_data_description" comment="Subtext warning explaining fastboot partition erase operation">Xoá các phân vùng trên thiết bị của bạn. Chọn phân vùng nào cần xoá.</string>
     <string name="wipe_metadata_desc" comment="Description for predefined fastboot erase metadata command">fastboot erase metadata</string>
-    <string name="wipe_metadata_title" comment="Predefined fastboot command title: erase metadata partition">Erase Metadata</string>
+    <string name="wipe_metadata_title" comment="Predefined fastboot command title: erase metadata partition">Xoá Metadata</string>
     <string name="wipe_userdata_desc" comment="Description for predefined fastboot erase userdata command">fastboot erase userdata</string>
-    <string name="wipe_userdata_title" comment="Predefined fastboot command title: erase userdata partition">Erase Userdata</string>
+    <string name="wipe_userdata_title" comment="Predefined fastboot command title: erase userdata partition">Xoá Userdata</string>
     <string name="wipe_warning" comment="Warning notice in fastboot partition wipe screen emphasizing data loss risk">Các thao tác này không thể hoàn tác. Tiến hành với sự cẩn trọng.</string>
     <string name="wireless_debugging_guide_1" comment="Step 1 of Wireless Debugging setup walkthrough">Đi tới Cài đặt Nhà phát triển &gt; Gỡ lỗi không dây. Chạm vào \'Ghép nối thiết bị bằng mã ghép nối\'.</string>
     <string name="wireless_debugging_guide_2" comment="Step 2 of Wireless Debugging setup walkthrough">Nhập mã ghép nối sáu chữ số vào thông báo được gửi từ aShell You.</string>
-    <string name="wireless_debugging_guide_3" comment="Step 3 of Wireless Debugging setup walkthrough">Quay lại ứng dụng và nhấn nút &quot;Start&quot; trên Màn hình chính.</string>
+    <string name="wireless_debugging_guide_3" comment="Step 3 of Wireless Debugging setup walkthrough">Quay lại ứng dụng và nhấn nút &quot;Bắt đầu&quot; trên Màn hình chính.</string>
     <string name="wireless_debugging_important_notice" comment="Important tip clarifying that tapping the left side of Wireless Debugging switch opens the pairing sub-menu">Xin lưu ý rằng phần bên trái của tùy chọn \"Gỡ lỗi không dây\" có thể nhấp được. Chạm vào nó sẽ mở menu \"Ghép nối\" cho tính năng \"Gỡ lỗi không dây\".</string>
     <string name="wireless_not_connected" comment="Status banner shown when target device is not connected over Wireless Debugging">Chưa kết nối</string>
     <string name="wireless_not_connected_message" comment="Instructional body text advising user to pair and connect device first">Thiết bị của bạn chưa được kết nối qua Gỡ lỗi không dây. Vui lòng ghép nối và kết nối thiết bị của bạn trước.</string>
