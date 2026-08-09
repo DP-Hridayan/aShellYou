@@ -202,6 +202,7 @@
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">لم يتم العثور على أمر!</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">إدخال أمر ADB</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">الأوامر</string>
+    <string name="console" comment="Tab label for the interactive fastboot command console">وحدة</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">تكوين دليل الحفظ</string>
     <string name="confirm">تأكيد</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">تحذير! هذا الإجراء لا يمكن التراجع عنه\nهل أنت متأكد من رغبتك في حذف جميع الإشارات المرجعية؟</string>
@@ -382,7 +383,6 @@
     <string name="failed_to_claim_interface" comment="Technical error message when USB OTG interface claim fails">فشل في المطالبة بالواجهة</string>
     <string name="failed_to_copy" comment="Toast notification when copying text or file fails">فشل النسخ</string>
     <string name="failed_to_open_usb_connection" comment="Error toast when USB OTG connection fails">فشل في فتح اتصال USB. هل تم تمكين تصحيح أخطاء USB؟</string>
-    <string name="fastboot" comment="Refers to Fastboot mode protocol for Android bootloader partition flashing over OTG">Fastboot</string>
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; Recovery</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">قريباً</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">وحدة تحكم الأوامر</string>
@@ -495,7 +495,6 @@
     <string name="get_variables" comment="Action button in Fastboot screen to query fastboot device variables">الحصول على المتغيرات</string>
     <string name="go_home" comment="Button label to navigate back to home screen dashboard">الذهاب إلى المنزل</string>
     <string name="go_to_terminal" comment="Button label to navigate to terminal command input screen">الذهاب إلى المحطة الطرفية</string>
-    <string name="google_drive" comment="Refers to Google Drive cloud storage service">Google Drive</string>
     <string name="google_drive_backup" comment="Option label for Google Drive automated cloud backup">نسخ احتياطي لـ Google Drive</string>
     <string name="gpl_3_0_description" comment="Summary text explaining GNU General Public License v3 terms for aShellYou">aShell You هو برنامج مجاني: يمكنك إعادة توزيعه و/أو تعديله بموجب شروط رخصة جنو العمومية كما نشرتها مؤسسة البرمجيات الحرة، إما الإصدار 3 من الرخصة، أو (حسب اختيارك) أي إصدار لاحق.</string>
     <string name="grant" comment="Button label to approve permission grant request">منح</string>
@@ -551,7 +550,6 @@
     <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">نسخ احتياطي محلي</string>
     <string name="local_file" comment="Source option label for picking local backup file">ملف محلي</string>
     <string name="locked" comment="Status badge showing bootloader lock state is locked">مقفل</string>
-    <string name="logcat" comment="Refers to Android system logcat log streaming tool">سجل النظام</string>
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">تم مسح السجلات</string>
     <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">الحزمة</string>
     <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">مستويات السجل</string>
@@ -656,7 +654,6 @@
     <string name="operation_complete" comment="Notification toast when file copy/move operation finishes">تم اكتمال العملية</string>
     <string name="operations" comment="Bottom sheet title for file transfer operations list">العمليات</string>
     <string name="or">أو</string>
-    <string name="otg" comment="USB On-The-Go. Technical term, keep as OTG">OTG</string>
     <string name="other_details" comment="Expandable card title for additional device metadata details">تفاصيل أخرى</string>
     <string name="other_device" comment="Selection tab for target device in Logcat Viewer">الأجهزة المحفوظة</string>
     <string name="output" comment="Header title for shell command output window">الناتج</string>

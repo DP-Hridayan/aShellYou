@@ -202,6 +202,7 @@
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">找不到命令！</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">输入 ADB 命令</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">命令</string>
+    <string name="console" comment="Tab label for the interactive fastboot command console">控制台</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">配置输出保存目录</string>
     <string name="confirm">确定</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
@@ -382,7 +383,6 @@
     <string name="failed_to_claim_interface" comment="Technical error message when USB OTG interface claim fails">无法认领接口</string>
     <string name="failed_to_copy" comment="Toast notification when copying text or file fails">复制失败</string>
     <string name="failed_to_open_usb_connection" comment="Error toast when USB OTG connection fails">无法打开 USB 连接。是否启用 USB 调试？</string>
-    <string name="fastboot" comment="Refers to Fastboot mode protocol for Android bootloader partition flashing over OTG">快速启动</string>
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; 恢复</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">即将推出</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">命令控制台</string>
@@ -495,7 +495,6 @@
     <string name="get_variables" comment="Action button in Fastboot screen to query fastboot device variables">获取变量</string>
     <string name="go_home" comment="Button label to navigate back to home screen dashboard">返回首页</string>
     <string name="go_to_terminal" comment="Button label to navigate to terminal command input screen">转到终端</string>
-    <string name="google_drive" comment="Refers to Google Drive cloud storage service">Google Drive</string>
     <string name="google_drive_backup" comment="Option label for Google Drive automated cloud backup">Google Drive 备份</string>
     <string name="gpl_3_0_description" comment="Summary text explaining GNU General Public License v3 terms for aShellYou">aShell You 是一项免费软件：您可以根据自由软件基金会发布的 GNU 通用公共许可证（第 3 版或（由您选择）任何更高版本）的条款重新分发和/或修改它。</string>
     <string name="grant" comment="Button label to approve permission grant request">授权</string>
@@ -551,7 +550,6 @@
     <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">本地备份</string>
     <string name="local_file" comment="Source option label for picking local backup file">本地文件</string>
     <string name="locked" comment="Status badge showing bootloader lock state is locked">已锁定</string>
-    <string name="logcat" comment="Refers to Android system logcat log streaming tool">Logcat</string>
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">日志已清除</string>
     <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">应用包名</string>
     <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">日志级别</string>
@@ -656,7 +654,6 @@
     <string name="operation_complete" comment="Notification toast when file copy/move operation finishes">操作已完成</string>
     <string name="operations" comment="Bottom sheet title for file transfer operations list">业务活动</string>
     <string name="or">或</string>
-    <string name="otg" comment="USB On-The-Go. Technical term, keep as OTG">OTG</string>
     <string name="other_details" comment="Expandable card title for additional device metadata details">其他详情</string>
     <string name="other_device" comment="Selection tab for target device in Logcat Viewer">其他设备</string>
     <string name="output" comment="Header title for shell command output window">产出</string>

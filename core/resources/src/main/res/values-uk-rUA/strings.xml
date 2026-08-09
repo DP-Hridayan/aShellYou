@@ -10,7 +10,7 @@
     <string name="adb_command" comment="Input field label for typing an ADB shell command">Команда ADB</string>
     <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">Команда ADB (стан ВИМК.)</string>
     <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">Команда ADB (стан УВІМК.)</string>
-    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB підключено — переконайтеся, що пристрій у режимі sideload</string>
+    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB під\'єднано — переконайтеся, що пристрій у режимі sideload</string>
     <string name="adb_connection_active" comment="Foreground notification title when an ADB connection (Wireless/OTG) is currently active">Підключення ADB активне</string>
     <string name="adb_connection_channel_description" comment="Android notification channel description in System Settings for ADB connection status">Показує, коли з\'єднання ADB активно</string>
     <string name="adb_connection_channel_name" comment="Android notification channel name in System Settings for active ADB connections">Підключення ADB</string>
@@ -23,7 +23,7 @@
     <string name="adb_via_wireless_debugging_summary" comment="Summary description for wireless ADB feature in connection setup screen">Підключайте пристрої (Android 11+) Wi-Fi за допомогою бездротового налагодження і виконуйте команди ADB віддалено.</string>
     <string name="add">Додати</string>
     <string name="add_account" comment="Button label in cloud backup settings to link a Google account for backup sync">Додати обліковий запис</string>
-    <string name="add_api_key" comment="Button label in AI settings to input a custom LLM provider API key">Додати ключ API</string>
+    <string name="add_api_key" comment="Button label in AI settings to input a custom LLM provider API key">Додати API ключ</string>
     <string name="add_command" comment="Button label to create and save a new command snippet to database">Додати команду</string>
     <string name="add_new_item" comment="Generic button label to add a new list entry">Додати новий елемент</string>
     <string name="additional_settings" comment="Category header in app settings">Додаткові налаштування</string>
@@ -55,7 +55,7 @@
     <string name="analyse" comment="Action button to request AI analysis of command execution output or error log">Аналіз</string>
     <string name="api_key" comment="Label for AI provider API key text input field">API ключ</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">API ключ збережено</string>
-    <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">Потрібен ключ API</string>
+    <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">Потрібен API ключ</string>
     <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">Для використання функцій AI потрібен ключ API. Додайте свій ключ API у налаштуваннях. -&gt; Хмарні моделі.</string>
     <string name="app">Додаток</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">Збій у додатку</string>
@@ -139,13 +139,13 @@
     <string name="cmd_get_product_title" comment="Predefined fastboot command title: check product name">Назва продукту</string>
     <string name="cmd_get_slot_count_desc" comment="Description for predefined fastboot command: fastboot getvar slot-count">Кількість слотів A/B на цьому пристрої</string>
     <string name="cmd_get_slot_count_title" comment="Predefined fastboot command title: check A/B slot count">Кількість слотів</string>
-    <string name="cmd_get_unlocked_desc" comment="Description for predefined fastboot command: fastboot getvar unlocked">Перевірити, чи розблоковано завантажувач</string>
-    <string name="cmd_get_unlocked_title" comment="Predefined fastboot command title: check bootloader unlock status">Статус розблокування завантажувача</string>
+    <string name="cmd_get_unlocked_desc" comment="Description for predefined fastboot command: fastboot getvar unlocked">Перевірити, чи bootloader в цей час розблоковано</string>
+    <string name="cmd_get_unlocked_title" comment="Predefined fastboot command title: check bootloader unlock status">Стан Розблокування Bootloader</string>
     <string name="cmd_getvar_all_desc" comment="Description for predefined fastboot command: fastboot getvar all">Перерахувати всі змінні пристрою та їх поточні значення</string>
     <string name="cmd_getvar_all_title" comment="Predefined fastboot command title: get all device variables">Отримати всі змінні</string>
     <string name="cmd_oem_device_info_desc" comment="Description for predefined fastboot command: fastboot oem device-info">Отримати інформацію про пристрій від OEM</string>
     <string name="cmd_oem_device_info_title" comment="Predefined fastboot command title: query OEM device info">Інформація про пристрій OEM</string>
-    <string name="cmd_unlock_ability_desc" comment="Description for predefined fastboot command: fastboot flashing get_unlock_ability">Перевірити, чи можна розблокувати завантажувач цього пристрою</string>
+    <string name="cmd_unlock_ability_desc" comment="Description for predefined fastboot command: fastboot flashing get_unlock_ability">Перевірити, чи можна розблокувати bootloader цього пристрою</string>
     <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">Можливість розблокування</string>
     <string name="code_pair_instruction" comment="Instructional text in Wireless Debugging pairing dialog directing user to open Wireless Debugging menu on target device">Відкрийте \"Бездротове налагодження\" на цільовому пристрої та натисніть \"Сполучити пристрій за допомогою коду сполучення\"</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">Згорнути</string>
@@ -164,17 +164,17 @@
     <string name="color_role_app_background" comment="Material 3 color role name for main application background color">Фон додатка</string>
     <string name="color_role_background" comment="Material 3 color role name for default surface background">Фон</string>
     <string name="color_role_error" comment="Material 3 color role name for error indicator color">Помилка</string>
-    <string name="color_role_error_container" comment="Material 3 color role name for container background of error elements">Помилка контейнера</string>
-    <string name="color_role_main_accent" comment="Material 3 color role name for primary accent color">Основний акцент (Первинний)</string>
+    <string name="color_role_error_container" comment="Material 3 color role name for container background of error elements">Контейнер помилок</string>
+    <string name="color_role_main_accent" comment="Material 3 color role name for primary accent color">Головний акцент (Первинний)</string>
     <string name="color_role_on_background" comment="The color used for text and icons drawn on top of the background color">На фоні</string>
     <string name="color_role_on_error" comment="The color used for text and icons drawn on top of the error color">При помилці</string>
-    <string name="color_role_on_error_container" comment="The color used for text and icons drawn on top of the error container color">На Контейнер помилок</string>
+    <string name="color_role_on_error_container" comment="The color used for text and icons drawn on top of the error container color">На контейнері помилок</string>
     <string name="color_role_on_primary" comment="The color used for text and icons drawn on top of the primary color">На первинному</string>
     <string name="color_role_on_primary_container" comment="The color used for text and icons drawn on top of the primary container color">На первинному контейнері</string>
     <string name="color_role_on_secondary" comment="The color used for text and icons drawn on top of the secondary color">На вторинному</string>
     <string name="color_role_on_secondary_container" comment="The color used for text and icons drawn on top of the secondary container color">На вторинному контейнері</string>
     <string name="color_role_on_surface" comment="The color used for text and icons drawn on top of the surface color">На поверхні</string>
-    <string name="color_role_on_surface_variant" comment="The color used for text and icons drawn on top of the surface variant color">На поверхні варіант</string>
+    <string name="color_role_on_surface_variant" comment="The color used for text and icons drawn on top of the surface variant color">На поверхневому варіанті</string>
     <string name="color_role_on_tertiary" comment="The color used for text and icons drawn on top of the tertiary color">На третинному</string>
     <string name="color_role_on_tertiary_container" comment="The color used for text and icons drawn on top of the tertiary container color">На третинному контейнері</string>
     <string name="color_role_outline" comment="Material 3 color role name for component outline borders">Контур</string>
@@ -202,6 +202,7 @@
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Команда не знайдена!</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">Введення команди ADB</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">Команди</string>
+    <string name="console" comment="Tab label for the interactive fastboot command console">Консоль</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Налаштувати каталог збереження</string>
     <string name="confirm">Підтвердити</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Увага! Цю дію неможливо скасувати.\nВи впевнені, що хочете видалити всі закладки?</string>
@@ -242,7 +243,7 @@
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">Вирізати в буфер обміну</string>
     <string name="daily" comment="Option in backup scheduler frequency selection">Щоденно</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">Темна тема</string>
-    <string name="dashboard" comment="Main screen header or navigation drawer item">Приладна дошка</string>
+    <string name="dashboard" comment="Main screen header or navigation drawer item">Приладна панель</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Тільки бази даних</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Тека за замовчуванням</string>
     <string name="default_language" comment="Setting preference label for selecting application language">Мова за замовчуванням</string>
@@ -354,7 +355,7 @@
     <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">Динамічні кольори</string>
     <string name="edit">Редагувати</string>
     <string name="edit_command" comment="Dialog header for editing a saved ADB command snippet">Редагувати команду</string>
-    <string name="edit_theme_title" comment="%1$s = theme name">Редагувати тему: %1$s</string>
+    <string name="edit_theme_title" comment="%1$s = theme name">Редагувати Тему: %1$s</string>
     <string name="edit_tile" comment="Screen title for modifying a Quick Settings tile configuration">Редагувати плитку</string>
     <string name="empty_folder" comment="Placeholder text in file browser when current folder contains no files">Ця тека порожня</string>
     <string name="enable_auto_backup" comment="Toggle setting title to enable scheduled automated local backups">Увімкнути авторезервування</string>
@@ -382,7 +383,6 @@
     <string name="failed_to_claim_interface" comment="Technical error message when USB OTG interface claim fails">Не вдалося отримати доступ до інтерфейсу</string>
     <string name="failed_to_copy" comment="Toast notification when copying text or file fails">Не вдалося скопіювати</string>
     <string name="failed_to_open_usb_connection" comment="Error toast when USB OTG connection fails">Не вдалося відкрити USB з\'єднання. Чи увімкнено налагодження USB?</string>
-    <string name="fastboot" comment="Refers to Fastboot mode protocol for Android bootloader partition flashing over OTG">Fastboot</string>
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; Recovery</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">Скоро</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">Командна консоль</string>
@@ -418,7 +418,7 @@
     <string name="fb_uploading" comment="%1$s = file name">Завантаження %1$s</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">Запит функції</string>
     <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Отримання часу резервного копіювання …</string>
-    <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Отримання типу резервної копії…</string>
+    <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Отримання типу резервування…</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">Поле не може бути порожнім</string>
     <string name="file">Файл</string>
     <string name="file_actions" comment="Bottom sheet title for file operations (copy, move, delete, rename)">Дії з файлом</string>
@@ -495,7 +495,6 @@
     <string name="get_variables" comment="Action button in Fastboot screen to query fastboot device variables">Отримати змінні</string>
     <string name="go_home" comment="Button label to navigate back to home screen dashboard">На головну</string>
     <string name="go_to_terminal" comment="Button label to navigate to terminal command input screen">Перейти до термінала</string>
-    <string name="google_drive" comment="Refers to Google Drive cloud storage service">Google Диск</string>
     <string name="google_drive_backup" comment="Option label for Google Drive automated cloud backup">Google Диск резервування</string>
     <string name="gpl_3_0_description" comment="Summary text explaining GNU General Public License v3 terms for aShellYou">aShell You це вільне програмне забезпечення: ви можете розповсюджувати його/або змінювати відповідно до умов Загальної публічної ліцензії GNU, опублікованої Фондом вільного програмного забезпечення, або версії 3 Ліцензії, або (на ваш вибір) будь-якої пізнішої версії.</string>
     <string name="grant" comment="Button label to approve permission grant request">Надати</string>
@@ -504,7 +503,7 @@
     <string name="great_news" comment="Dialog title header for update available notification">Чудова новина!</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">Тактильна віддача &amp; Вібрація</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">Приємного дня!</string>
-    <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Hex-редактор</string>
+    <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Hex Редактор</string>
     <string name="high" comment="Selection option for high haptic strength or elevation level">Високий</string>
     <string name="high_contrast_dark_mode" comment="Settings preference title for OLED pitch-black dark theme">Висококонтрастний темний режим</string>
     <string name="hint" comment="Card header or field label for helpful hints">Підказка</string>
@@ -530,7 +529,7 @@
     <string name="last_auto_backup_cloud" comment="Card label showing timestamp of last Google Drive auto backup">Останнє авторезервування у хмарі</string>
     <string name="last_auto_backup_local" comment="Card label showing timestamp of last local storage auto backup">Останнє локальне авторезервування</string>
     <string name="last_backup_date" comment="Card metadata label for backup creation date">Дата останнього резервування</string>
-    <string name="last_backup_details" comment="Card header for summary of last backup attempt">Деталі останньої резервної копії</string>
+    <string name="last_backup_details" comment="Card header for summary of last backup attempt">Деталі останнього резервування</string>
     <string name="last_backup_time" comment="Card metadata label for backup creation time">Час останнього резервування</string>
     <string name="latest_version" comment="Label showing latest available version string from GitHub release">Остання версія</string>
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">Провідний розробник</string>
@@ -551,7 +550,6 @@
     <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">Локальне резервування</string>
     <string name="local_file" comment="Source option label for picking local backup file">Локальний файл</string>
     <string name="locked" comment="Status badge showing bootloader lock state is locked">Заблоковано</string>
-    <string name="logcat" comment="Refers to Android system logcat log streaming tool">Logcat</string>
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">Журнали очищено</string>
     <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">Пакет</string>
     <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">Рівні журналу</string>
@@ -610,7 +608,7 @@
     <string name="no_cloud_backup_found" comment="Status banner when no backup file is found on Google Drive">Резервування не знайдено на Google Диску</string>
     <string name="no_commands_run_yet" comment="Placeholder message when no fastboot commands have been run in session">Ще не виконано жодної команди</string>
     <string name="no_crashes" comment="Placeholder text in crash history screen when no app crashes have occurred">Повідомлень про збої не надходило. aShell You працює гладко.</string>
-    <string name="no_custom_themes_yet" comment="Placeholder text in theme manager screen when no custom themes exist">Ще немає власних тем. Створіть їх!</string>
+    <string name="no_custom_themes_yet" comment="Placeholder text in theme manager screen when no custom themes exist">Поки що немає власних тем. Створіть одну нижче!</string>
     <string name="no_device_connected" comment="Status banner shown when no wireless or OTG ADB device is connected">Немає під\'єднаного пристрою</string>
     <string name="no_fastboot_device_error" comment="Error banner in fastboot screen when connected USB device is not in fastboot mode">Підключений пристрій не перебуває в режимі fastboot</string>
     <string name="no_files_download" comment="Toast warning in file browser when user selects directory instead of files for download">Файли не вибрані (теки неможливо завантажити)</string>
@@ -656,7 +654,6 @@
     <string name="operation_complete" comment="Notification toast when file copy/move operation finishes">Операцію завершено</string>
     <string name="operations" comment="Bottom sheet title for file transfer operations list">Операції</string>
     <string name="or">OR</string>
-    <string name="otg" comment="USB On-The-Go. Technical term, keep as OTG">OTG</string>
     <string name="other_details" comment="Expandable card title for additional device metadata details">Інші деталі</string>
     <string name="other_device" comment="Selection tab for target device in Logcat Viewer">Інший пристрій</string>
     <string name="output" comment="Header title for shell command output window">Вивід</string>
@@ -686,7 +683,7 @@
     <string name="palette_rainbow" comment="Material Design color scheme style name">Веселка</string>
     <string name="palette_style" comment="Settings label for choosing Material Design color palette">Стиль палітри</string>
     <string name="palette_tonal_spot" comment="Material Design color scheme style name">Тональна цятка</string>
-    <string name="palette_vibrant" comment="Material Design color scheme style name">Вібрація</string>
+    <string name="palette_vibrant" comment="Material Design color scheme style name">Яскравий</string>
     <string name="partition" comment="Field label or dropdown header for fastboot partition name (e.g. boot, system, recovery)">Розділ</string>
     <string name="paste">Вставити</string>
     <string name="path" comment="Field label for file or directory path in file browser properties">Шлях</string>
@@ -758,7 +755,7 @@
     <string name="root_unavailable" comment="Dialog title when root access check returns false">Root Не доступний</string>
     <string name="root_unavailable_message" comment="Dialog message explaining root access was not detected on device">Не вдалося знайти root-доступ. Переконайтеся, що ваш пристрій має \"root\" права і повторіть спробу, або виберіть інше джерело журналу.</string>
     <string name="run">Запустити</string>
-    <string name="run_a_command_to_see_logs" comment="Instructional prompt under empty fastboot logs view">Використовуйте вкладку «Команди», щоб виконувати команди fastboot</string>
+    <string name="run_a_command_to_see_logs" comment="Instructional prompt under empty fastboot logs view">Використовуйте вкладку \"Команди\", щоб виконувати команди fastboot</string>
     <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">Виконати \"%1$s\" на підключеному пристрої?</string>
     <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">Виконати команду?</string>
     <string name="running" comment="Status badge showing task or command execution is active">Виконується</string>
@@ -782,7 +779,7 @@
     <string name="search_libraries" comment="Placeholder text in open-source licenses search bar">Пошук бібліотек, авторів, ліцензій…</string>
     <string name="search_output" comment="Placeholder text in terminal output search bar">Пошук виводу тут</string>
     <string name="search_settings" comment="Placeholder text in settings top search bar">Налаштування пошуку</string>
-    <string name="search_something" comment="Generic search field placeholder prompt">Знайти що-небудь</string>
+    <string name="search_something" comment="Generic search field placeholder prompt">Пошук чого-небудь</string>
     <string name="search_variables" comment="Placeholder text in fastboot variables explorer search bar">Пошук змінних…</string>
     <string name="searching_connect_service" comment="Status message while discovering ADB mDNS connection service on local network">Пошук служби підключення</string>
     <string name="searching_for_devices" comment="Progress status text while scanning for local Wireless Debugging or OTG ADB target devices">Пошук пристроїв…</string>
@@ -796,7 +793,7 @@
     <string name="select_partition" comment="Dropdown hint or dialog header for picking target fastboot partition">Виберіть розділ</string>
     <string name="select_theme_to_edit_hex" comment="Instructional prompt under hex editor section in theme builder">Виберіть тему вище, щоб змінити її значення у hex.</string>
     <string name="select_time" comment="Button label to open time picker dialog for automated backup schedule">Виберіть час</string>
-    <string name="select_zip_package" comment="Button label to launch file picker for selecting a ZIP update package to sideload">Вибрати ZIP-пакет</string>
+    <string name="select_zip_package" comment="Button label to launch file picker for selecting a ZIP update package to sideload">Вибрати ZIP пакет</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">Своє</string>
     <string name="self_pair_connection_failed" comment="Toast error message when automatic local self-pairing fails">Помилка підключення - спробуйте ручне підключення</string>
     <string name="self_pair_enter_code" comment="Subtext instruction prompting user for 6-digit wireless pairing code">Введіть 6-значний код із діалогового вікна сполучення</string>
@@ -818,20 +815,20 @@
     <string name="serial_number" comment="Device property label displaying target device hardware serial number">Серійний номер</string>
     <string name="serif" comment="Font style category name">Serif</string>
     <string name="settings">Налаштування</string>
-    <string name="settings_only" comment="Option in backup screen to export only application settings (excluding history/bookmarks)">Тільки параметри</string>
+    <string name="settings_only" comment="Option in backup screen to export only application settings (excluding history/bookmarks)">Тільки налаштування</string>
     <string name="share">Поділитись</string>
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">Вивід останньої команди експортується до \'%s\'</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">Вивід оболонки експортується до \'%s\'</string>
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">Shizuku не встановлено</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku недоступний</string>
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku is not running or missing permissions">Shizuku не встановлено або не налаштовано належним чином на вашому пристрої</string>
-    <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">Переведіть пристрій у режим sideload через відновлення</string>
+    <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">Переведіть пристрій у режим sideload через recovery</string>
     <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Режим sideload — готово</string>
-    <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">Завантажтеся в рекавері (утримуйте Volume Down + Power або виконайте: adb reboot recovery)</string>
-    <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">Перейдіть до пункту «Apply update» у меню відновлення</string>
-    <string name="sideload_step_3" comment="Step 3 of ADB sideload guide: selecting ADB sideload mode in recovery">Виберіть «Apply from ADB» (або «ADB Sideload»)</string>
-    <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">Під\'єднайте пристрій за допомогою кабіля OTG, а потім виберіть ZIP тут</string>
-    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Завантаження sideload…</string>
+    <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">Завантажтеся в recovery (утримуйте Volume Down + Power або виконайте: adb reboot recovery)</string>
+    <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">Перейдіть до пункту \"Застосувати оновлення\" у меню відновлення</string>
+    <string name="sideload_step_3" comment="Step 3 of ADB sideload guide: selecting ADB sideload mode in recovery">Виберіть \"Застосувати з ADB\" (або \"ADB Sideload\")</string>
+    <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">Під\'єднати пристрій за допомогою кабелю OTG, а потім виберіть ZIP тут</string>
+    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Sideloading…</string>
     <string name="sign_in_failed" comment="Toast error message when Google account sign-in fails">Не вдалося ввійти в Google</string>
     <string name="sign_in_with_google" comment="Button label in cloud backup settings to sign into Google account">Увійти через Google</string>
     <string name="sign_out" comment="Button label in cloud backup settings to sign out of Google account">Вийти</string>
@@ -856,7 +853,7 @@
     <string name="subtitle_off_state" comment="Field label for tile subtitle text when Quick Settings tile is OFF">Субтитри (стан ВИМК.)</string>
     <string name="subtitle_on_state" comment="Field label for tile subtitle text when Quick Settings tile is ON">Субтитри (стан УВІМК.)</string>
     <string name="success">Успішно</string>
-    <string name="success_rate" comment="Analytics metadata metric showing tile execution success percentage">Шанс успіху</string>
+    <string name="success_rate" comment="Analytics metadata metric showing tile execution success percentage">Коефіцієнт успіху</string>
     <string name="successful_connection_message" comment="Dialog message confirming target ADB device connected successfully">Пристрій успішно підключений. Тепер ви можете розпочати виконання команд на цільовому пристрої.</string>
     <string name="suggested_icons" comment="Header title in tile icon picker listing suggested Material icons">Запропоновані іконки</string>
     <string name="support_bmc" comment="Banner text in About section linking to Buy Me a Coffee donation page">Подобається те, що я роблю?\nПригостіть мене кавою</string>
@@ -868,7 +865,7 @@
     <string name="system_settings" comment="Button label linking to Android system Settings app">Системні налаштування</string>
     <string name="tab" comment="Settings option for terminal tab indentation behavior">Вкладка</string>
     <string name="tag" comment="Field label for custom command category tag/label">Тег</string>
-    <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">Торкніться, щоб знайти файл .zip</string>
+    <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">Торкніться, щоб знайти .zip файл</string>
     <string name="telegram" comment="Button in About screen linking to official Telegram community group">Telegram</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">Термінал</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Стиль шрифту терміналу</string>
@@ -878,7 +875,7 @@
     <string name="this_device" comment="Selection option for target ADB device matching host phone">Цей пристрій</string>
     <string name="tile" comment="Refers to Android System Quick Settings tile">Плитка</string>
     <string name="tile_behavior" comment="Settings title for Quick Settings tile click behavior (click vs long-click)">Поведінка плитки</string>
-    <string name="tile_dashboard_notification_access_message" comment="Banner notice asking for notification permission to report tile execution errors">Увімкніть сповіщення, щоб отримати повідомлення про несправність виконання плиток</string>
+    <string name="tile_dashboard_notification_access_message" comment="Banner notice asking for notification permission to report tile execution errors">Увімкніть сповіщення, щоб отримувати сповіщення про будь-які невдалі спроби виконання плитки</string>
     <string name="tile_logs" comment="Tab header for Quick Settings tile execution history log">Журнали плиток</string>
     <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">Плитка %1$d</string>
     <string name="tile_name" comment="Field label for Quick Settings tile title text">Назва плитки</string>
@@ -901,7 +898,7 @@
     <string name="unknown">Невідомо</string>
     <string name="unknown_error" comment="Toast error message when error cause is unmapped">Сталася невідома помилка</string>
     <string name="unknown_sources_install_permission_not_granted" comment="Error toast when REQUEST_INSTALL_PACKAGES permission is missing for app update installation">Дозвіл не надано. Дозвольте встановлення програми з невідомих джерел.</string>
-    <string name="unlock_status" comment="Device property label displaying bootloader lock state">Статус розблокування</string>
+    <string name="unlock_status" comment="Device property label displaying bootloader lock state">Стан Розблокування</string>
     <string name="unlocked" comment="Status badge showing bootloader is unlocked">Розблоковано</string>
     <string name="untitled" comment="Default name fallback for unsaved theme profile or custom tile">Без назви</string>
     <string name="update">Оновлення</string>

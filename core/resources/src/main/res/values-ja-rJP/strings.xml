@@ -202,6 +202,7 @@
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">コマンドが見つかりません！</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">ADBコマンドを入力する</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">コマンド</string>
+    <string name="console" comment="Tab label for the interactive fastboot command console">コンソール</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">保存ディレクトリの設定</string>
     <string name="confirm">確認</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">警告 ！この操作は元に戻せません。\n本当にすべてのブックマークを削除しますか？</string>
@@ -382,7 +383,6 @@
     <string name="failed_to_claim_interface" comment="Technical error message when USB OTG interface claim fails">インターフェイスの取得に失敗しました</string>
     <string name="failed_to_copy" comment="Toast notification when copying text or file fails">コピーに失敗しました</string>
     <string name="failed_to_open_usb_connection" comment="Error toast when USB OTG connection fails">USB接続を開けませんでした。USBデバッグは有効ですか？</string>
-    <string name="fastboot" comment="Refers to Fastboot mode protocol for Android bootloader partition flashing over OTG">Fastboot</string>
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; リカバリー</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">近日公開</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">コマンドコンソール</string>
@@ -495,7 +495,6 @@
     <string name="get_variables" comment="Action button in Fastboot screen to query fastboot device variables">変数を取得</string>
     <string name="go_home" comment="Button label to navigate back to home screen dashboard">帰還する</string>
     <string name="go_to_terminal" comment="Button label to navigate to terminal command input screen">端末へ移動</string>
-    <string name="google_drive" comment="Refers to Google Drive cloud storage service">Google ドライブ</string>
     <string name="google_drive_backup" comment="Option label for Google Drive automated cloud backup">Google ドライブ バックアップ</string>
     <string name="gpl_3_0_description" comment="Summary text explaining GNU General Public License v3 terms for aShellYou">aShell Youはフリーソフトウェアです：フリーソフトウェア財団が発行するGNU一般公衆利用許諾契約書のバージョン3、または（オプションで）それ以降のバージョンの定める条件の下で、再頒布および/または変更することができます。</string>
     <string name="grant" comment="Button label to approve permission grant request">許可</string>
@@ -551,7 +550,6 @@
     <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">ローカルバックアップ</string>
     <string name="local_file" comment="Source option label for picking local backup file">ローカルファイル</string>
     <string name="locked" comment="Status badge showing bootloader lock state is locked">ロック済み</string>
-    <string name="logcat" comment="Refers to Android system logcat log streaming tool">Logcat</string>
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">ログがクリアされました</string>
     <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">パッケージ</string>
     <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">ログレベル</string>
@@ -656,7 +654,6 @@
     <string name="operation_complete" comment="Notification toast when file copy/move operation finishes">操作がキャンセルされました</string>
     <string name="operations" comment="Bottom sheet title for file transfer operations list">操作</string>
     <string name="or">OR</string>
-    <string name="otg" comment="USB On-The-Go. Technical term, keep as OTG">OTG</string>
     <string name="other_details" comment="Expandable card title for additional device metadata details">クラッシュの詳細</string>
     <string name="other_device" comment="Selection tab for target device in Logcat Viewer">保存されたデバイス</string>
     <string name="output" comment="Header title for shell command output window">出力</string>
