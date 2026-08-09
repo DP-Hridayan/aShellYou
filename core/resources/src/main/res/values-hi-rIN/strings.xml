@@ -202,6 +202,7 @@
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">कमांड नहीं मिला!</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">ADB कमांड टाइप करें</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">कमांड</string>
+    <string name="console" comment="Tab label for the interactive fastboot command console">Console</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">सेव डायरेक्टरी कॉन्फ़िगर करें</string>
     <string name="confirm">पुष्टि करें</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">चेतावनी! यह क्रिया अपरिवर्तनीय है\nक्या आप वाकई सभी बुकमार्क हटाना चाहते हैं?</string>
@@ -382,7 +383,6 @@
     <string name="failed_to_claim_interface" comment="Technical error message when USB OTG interface claim fails">इंटरफ़ेस क्लेम करने में विफल</string>
     <string name="failed_to_copy" comment="Toast notification when copying text or file fails">कॉपी करने में विफल</string>
     <string name="failed_to_open_usb_connection" comment="Error toast when USB OTG connection fails">USB कनेक्शन खोलने में विफल। क्या USB डिबगिंग सक्षम है?</string>
-    <string name="fastboot" comment="Refers to Fastboot mode protocol for Android bootloader partition flashing over OTG">फ़ास्टबूट</string>
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; Recovery</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">जल्द आ रहा है</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">कमांड कंसोल</string>
@@ -495,7 +495,6 @@
     <string name="get_variables" comment="Action button in Fastboot screen to query fastboot device variables">वैरिएबल प्राप्त करें</string>
     <string name="go_home" comment="Button label to navigate back to home screen dashboard">होम पर जाएं</string>
     <string name="go_to_terminal" comment="Button label to navigate to terminal command input screen">टर्मिनल पर जाएं</string>
-    <string name="google_drive" comment="Refers to Google Drive cloud storage service">Google ड्राइव</string>
     <string name="google_drive_backup" comment="Option label for Google Drive automated cloud backup">Google Drive बैकअप</string>
     <string name="gpl_3_0_description" comment="Summary text explaining GNU General Public License v3 terms for aShellYou">aShell You निःशुल्क सॉफ़्टवेयर है: आप इसे फ्री सॉफ़्टवेयर फ़ाउंडेशन द्वारा प्रकाशित GNU जनरल पब्लिक लाइसेंस की शर्तों के तहत पुनर्वितरित और/या संशोधित कर सकते हैं, या तो लाइसेंस के संस्करण 3, या (आपके विकल्प पर) किसी भी बाद के संस्करण के तहत।</string>
     <string name="grant" comment="Button label to approve permission grant request">अनुमति दें</string>
@@ -551,7 +550,6 @@
     <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">स्थानीय बैकअप</string>
     <string name="local_file" comment="Source option label for picking local backup file">स्थानीय फ़ाइल</string>
     <string name="locked" comment="Status badge showing bootloader lock state is locked">लॉक है</string>
-    <string name="logcat" comment="Refers to Android system logcat log streaming tool">लॉगकैट</string>
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">लॉग साफ़ कर दिए गए</string>
     <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">पैकेज</string>
     <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">लॉग स्तर</string>
@@ -656,7 +654,6 @@
     <string name="operation_complete" comment="Notification toast when file copy/move operation finishes">ऑपरेशन पूरा हुआ</string>
     <string name="operations" comment="Bottom sheet title for file transfer operations list">ऑपरेशन</string>
     <string name="or">या</string>
-    <string name="otg" comment="USB On-The-Go. Technical term, keep as OTG">OTG</string>
     <string name="other_details" comment="Expandable card title for additional device metadata details">अन्य विवरण</string>
     <string name="other_device" comment="Selection tab for target device in Logcat Viewer">अन्य डिवाइस</string>
     <string name="output" comment="Header title for shell command output window">आउटपुट</string>

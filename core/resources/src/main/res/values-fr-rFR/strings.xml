@@ -202,6 +202,7 @@
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Commande introuvable !</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">Entrer la commande ADB</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">Commandes</string>
+    <string name="console" comment="Tab label for the interactive fastboot command console">Console</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Configurer le répertoire de sauvegarde</string>
     <string name="confirm">Confirmer</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Attention ! Cette action est irréversible\nÊtes-vous sûr de vouloir supprimer tous les favoris ?</string>
@@ -382,7 +383,6 @@
     <string name="failed_to_claim_interface" comment="Technical error message when USB OTG interface claim fails">Impossible de réclamer l\'interface</string>
     <string name="failed_to_copy" comment="Toast notification when copying text or file fails">Échec de la copie</string>
     <string name="failed_to_open_usb_connection" comment="Error toast when USB OTG connection fails">Impossible d\'ouvrir la connexion USB. Le débogage USB est-il activé ?</string>
-    <string name="fastboot" comment="Refers to Fastboot mode protocol for Android bootloader partition flashing over OTG">Fastboot</string>
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; Recovery</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">Bientôt disponible</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">Console de commande</string>
@@ -495,7 +495,6 @@
     <string name="get_variables" comment="Action button in Fastboot screen to query fastboot device variables">Obtenir les variables</string>
     <string name="go_home" comment="Button label to navigate back to home screen dashboard">Retour à la maison</string>
     <string name="go_to_terminal" comment="Button label to navigate to terminal command input screen">Aller au terminal</string>
-    <string name="google_drive" comment="Refers to Google Drive cloud storage service">Google Drive</string>
     <string name="google_drive_backup" comment="Option label for Google Drive automated cloud backup">Sauvegarde Google Drive</string>
     <string name="gpl_3_0_description" comment="Summary text explaining GNU General Public License v3 terms for aShellYou">aShell You est un logiciel libre : vous pouvez le redistribuer et/ou le modifier selon les termes de la Licence Publique Générale GNU telle que publiée par la Free Software Foundation, soit la version 3 de la Licence, soit (à votre convenance) toute version ultérieure.</string>
     <string name="grant" comment="Button label to approve permission grant request">Accorder</string>
@@ -551,7 +550,6 @@
     <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">Sauvegarde locale</string>
     <string name="local_file" comment="Source option label for picking local backup file">Fichier local</string>
     <string name="locked" comment="Status badge showing bootloader lock state is locked">Verrouillé</string>
-    <string name="logcat" comment="Refers to Android system logcat log streaming tool">Logcat</string>
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">Journaux effacés</string>
     <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">Paquet</string>
     <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">Niveaux de journalisation</string>
@@ -656,7 +654,6 @@
     <string name="operation_complete" comment="Notification toast when file copy/move operation finishes">Opération terminée</string>
     <string name="operations" comment="Bottom sheet title for file transfer operations list">Opérations</string>
     <string name="or">OU</string>
-    <string name="otg" comment="USB On-The-Go. Technical term, keep as OTG">OTG</string>
     <string name="other_details" comment="Expandable card title for additional device metadata details">Autres détails</string>
     <string name="other_device" comment="Selection tab for target device in Logcat Viewer">Autre appareil</string>
     <string name="output" comment="Header title for shell command output window">Sortie</string>

@@ -202,6 +202,7 @@
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">دستور یافت نشد!</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">دستور ADB را وارد کنید</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">دستورات</string>
+    <string name="console" comment="Tab label for the interactive fastboot command console">کنسول</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">پیکربندی پوشه ذخیره‌سازی</string>
     <string name="confirm">تأیید</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">هشدار! این عمل برگشت‌ناپذیر است\nآیا مطمئن هستید که می‌خواهید همه نشانک‌ها را حذف کنید؟</string>
@@ -382,7 +383,6 @@
     <string name="failed_to_claim_interface" comment="Technical error message when USB OTG interface claim fails">عدم موفقیت در دسترسی به رابط</string>
     <string name="failed_to_copy" comment="Toast notification when copying text or file fails">کپی کردن انجام نشد</string>
     <string name="failed_to_open_usb_connection" comment="Error toast when USB OTG connection fails">عدم موفقیت در باز کردن اتصال USB. آیا اشکال‌زدایی USB فعال است؟</string>
-    <string name="fastboot" comment="Refers to Fastboot mode protocol for Android bootloader partition flashing over OTG">فست‌بوت</string>
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">فست‌بوت و ریکاوری</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">به زودی</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">کنسول دستور</string>
@@ -495,7 +495,6 @@
     <string name="get_variables" comment="Action button in Fastboot screen to query fastboot device variables">دریافت متغیرها</string>
     <string name="go_home" comment="Button label to navigate back to home screen dashboard">برو به خانه</string>
     <string name="go_to_terminal" comment="Button label to navigate to terminal command input screen">برو به ترمینال</string>
-    <string name="google_drive" comment="Refers to Google Drive cloud storage service">گوگل درایو</string>
     <string name="google_drive_backup" comment="Option label for Google Drive automated cloud backup">پشتیبان‌گیری گوگل درایو</string>
     <string name="gpl_3_0_description" comment="Summary text explaining GNU General Public License v3 terms for aShellYou">aShell You نرم‌افزاری آزاد است: شما می‌توانید آن را تحت شرایط پروانه عمومی همگانی گنو که توسط بنیاد نرم‌افزار آزاد منتشر شده است، نسخه ۳ پروانه یا (به انتخاب خودتان) هر نسخه بعدی، توزیع مجدد و/یا اصلاح کنید.</string>
     <string name="grant" comment="Button label to approve permission grant request">اعطا</string>
@@ -551,7 +550,6 @@
     <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">پشتیبان محلی</string>
     <string name="local_file" comment="Source option label for picking local backup file">فایل محلی</string>
     <string name="locked" comment="Status badge showing bootloader lock state is locked">قفل شده</string>
-    <string name="logcat" comment="Refers to Android system logcat log streaming tool">لاگ‌کت</string>
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">لاگ‌ها پاک شدند</string>
     <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">بسته</string>
     <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">سطوح لاگ</string>
@@ -656,7 +654,6 @@
     <string name="operation_complete" comment="Notification toast when file copy/move operation finishes">عملیات لغو شد</string>
     <string name="operations" comment="Bottom sheet title for file transfer operations list">عملیات</string>
     <string name="or">یا</string>
-    <string name="otg" comment="USB On-The-Go. Technical term, keep as OTG">OTG</string>
     <string name="other_details" comment="Expandable card title for additional device metadata details">جزئیات خرابی</string>
     <string name="other_device" comment="Selection tab for target device in Logcat Viewer">دستگاه‌های ذخیره شده</string>
     <string name="output" comment="Header title for shell command output window">خروجی</string>
