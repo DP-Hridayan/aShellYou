@@ -205,6 +205,7 @@
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Command not found!</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">Input ADB Command</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">Commands</string>
+    <string name="console" comment="Tab label for the interactive fastboot command console">Console</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Configure save directory</string>
     <string name="confirm">Confirm</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
@@ -386,7 +387,7 @@
     <string name="failed_to_claim_interface" comment="Technical error message when USB OTG interface claim fails">Failed to claim interface</string>
     <string name="failed_to_copy" comment="Toast notification when copying text or file fails">Failed to copy</string>
     <string name="failed_to_open_usb_connection" comment="Error toast when USB OTG connection fails">Failed to open USB connection. Is USB debugging enabled?</string>
-    <string name="fastboot" comment="Refers to Fastboot mode protocol for Android bootloader partition flashing over OTG">Fastboot</string>
+    <string name="fastboot" comment="Refers to Fastboot mode protocol for Android bootloader partition flashing over OTG" translatable="false">Fastboot</string>
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; Recovery</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">Coming Soon</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">Command Console</string>
@@ -500,7 +501,7 @@
     <string name="github" translatable="false">Github</string>
     <string name="go_home" comment="Button label to navigate back to home screen dashboard">Go Home</string>
     <string name="go_to_terminal" comment="Button label to navigate to terminal command input screen">Go to terminal</string>
-    <string name="google_drive" comment="Refers to Google Drive cloud storage service">Google Drive</string>
+    <string name="google_drive" comment="Refers to Google Drive cloud storage service" translatable="false">Google Drive</string>
     <string name="google_drive_backup" comment="Option label for Google Drive automated cloud backup">Google Drive backup</string>
     <string name="gpl_3_0" translatable="false">GPL-3.0</string>
     <string name="gpl_3_0_description" comment="Summary text explaining GNU General Public License v3 terms for aShellYou">aShell You is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</string>
@@ -557,7 +558,7 @@
     <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">Local backup</string>
     <string name="local_file" comment="Source option label for picking local backup file">Local file</string>
     <string name="locked" comment="Status badge showing bootloader lock state is locked">Locked</string>
-    <string name="logcat" comment="Refers to Android system logcat log streaming tool">Logcat</string>
+    <string name="logcat" comment="Refers to Android system logcat log streaming tool" translatable="false">Logcat</string>
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">Logs cleared</string>
     <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">Package</string>
     <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">Log levels</string>
@@ -665,7 +666,7 @@
     <string name="operation_complete" comment="Notification toast when file copy/move operation finishes">Operation complete</string>
     <string name="operations" comment="Bottom sheet title for file transfer operations list">Operations</string>
     <string name="or">OR</string>
-    <string name="otg" comment="USB On-The-Go. Technical term, keep as OTG">OTG</string>
+    <string name="otg" comment="USB On-The-Go. Technical term, keep as OTG" translatable="false">OTG</string>
     <string name="other_details" comment="Expandable card title for additional device metadata details">Other details</string>
     <string name="other_device" comment="Selection tab for target device in Logcat Viewer">Other device</string>
     <string name="output" comment="Header title for shell command output window">Output</string>
