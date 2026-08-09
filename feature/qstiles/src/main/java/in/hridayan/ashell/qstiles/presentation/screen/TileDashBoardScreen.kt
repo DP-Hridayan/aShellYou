@@ -6,7 +6,6 @@
 
 package `in`.hridayan.ashell.qstiles.presentation.screen
 
-
 import android.content.pm.PackageManager
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
@@ -66,13 +65,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLocale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -82,7 +82,6 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
-import androidx.navigation.NavController
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.common.constants.SHIZUKU_PACKAGE_NAME
@@ -167,6 +166,25 @@ fun TileDashBoardScreen(
         modifier = modifier,
         listState = listState,
         topBarTitle = title,
+        bottomBar = {
+            FloatingNavPill(
+                modifier = Modifier
+                    .padding(50.dp)
+                    .fillMaxWidth()
+                    .height(56.dp),
+                selectedIndex = uiState.currentTab,
+                onSelectionChange = {
+                    tileDashboardViewModel.onTabChange(it)
+                    weakHaptic()
+                },
+                items = navigationItems,
+                colors = FloatingNavPillDefaults.colors(
+                    floatingContainerColor = MaterialTheme.colorScheme.run {
+                        if (isDarkMode) surfaceContainerHigh else surfaceContainerLowest
+                    }
+                )
+            )
+        },
         content = { innerPadding, topBarScrollBehavior ->
 
             Box(modifier = Modifier.fillMaxSize()) {
@@ -194,7 +212,6 @@ fun TileDashBoardScreen(
                                 uiState = uiState,
                                 hasNotificationAccess = hasNotificationAccess,
                                 onClickNotificationButton = onClickNotificationButton,
-                                navController = navController
                             )
                         }
 
@@ -204,7 +221,7 @@ fun TileDashBoardScreen(
                                 innerPadding = innerPadding,
                                 topBarScrollBehavior = topBarScrollBehavior,
                                 uiState = uiState,
-                                viewModel = tileDashboardViewModel
+                                onFilterChange = tileDashboardViewModel::onFilterChange
                             )
                         }
                     }
@@ -213,25 +230,6 @@ fun TileDashBoardScreen(
                 if (uiState.logs.isEmpty() && uiState.currentTab == TileScreenTabs.LOGS) {
                     NoLogsUi(modifier = Modifier.align(Alignment.Center))
                 }
-
-                FloatingNavPill(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .padding(50.dp)
-                        .fillMaxWidth()
-                        .height(56.dp),
-                    selectedIndex = uiState.currentTab,
-                    onSelectionChange = {
-                        tileDashboardViewModel.onTabChange(it)
-                        weakHaptic()
-                    },
-                    items = navigationItems,
-                    colors = FloatingNavPillDefaults.colors(
-                        floatingContainerColor = MaterialTheme.colorScheme.run {
-                            if (isDarkMode) surfaceContainerHigh else surfaceContainerLowest
-                        }
-                    )
-                )
             }
         })
 }
@@ -244,9 +242,9 @@ private fun TilesContent(
     uiState: TileDashBoardScreenUiState,
     hasNotificationAccess: Boolean,
     onClickNotificationButton: () -> Unit,
-    navController: NavController
 ) {
     val context = LocalContext.current
+    val navController = LocalNavController.current
 
     var isShizukuInstalled by rememberSaveable {
         mutableStateOf(
@@ -381,7 +379,7 @@ private fun TilesContent(
                                     modifier = Modifier
                                         .weight(1f)
                                         .height(80.dp),
-                                    icon = painterResource(
+                                    icon = ImageVector.vectorResource(
                                         tileIcon?.resId ?: R.drawable.ic_adb
                                     ),
                                     title = tileConfig.name,
@@ -410,7 +408,7 @@ private fun LogsContent(
     innerPadding: PaddingValues,
     topBarScrollBehavior: TopAppBarScrollBehavior,
     uiState: TileDashBoardScreenUiState,
-    viewModel: TileDashboardViewModel
+    onFilterChange: (Int?) -> Unit,
 ) {
     LazyColumn(
         modifier = Modifier
@@ -437,7 +435,7 @@ private fun LogsContent(
                     modifier = Modifier.padding(20.dp),
                     selectedTileId = uiState.selectedTileIdFilter,
                     tilesWithLogs = uiState.tilesWithLogs,
-                    onFilterChange = viewModel::onFilterChange
+                    onFilterChange = onFilterChange
                 )
             }
 
@@ -502,7 +500,7 @@ private fun EmptyTileBox(
 @Composable
 private fun ModernTile(
     modifier: Modifier = Modifier,
-    icon: Painter,
+    icon: ImageVector,
     title: String,
     subtitle: String = "",
     isActive: Boolean = true,
@@ -527,7 +525,7 @@ private fun ModernTile(
         ) {
             Icon(
                 modifier = Modifier.size(28.dp),
-                painter = icon,
+                imageVector = icon,
                 tint = if (isActive) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.primary,
                 contentDescription = null
             )
@@ -577,7 +575,7 @@ private fun LogStatsRow(
             modifier = Modifier.weight(1.2f),
             label = stringResource(R.string.total_executions).uppercase(locale.platformLocale),
             value = totalExecutions.toString(),
-            icon = painterResource(R.drawable.ic_analytics_filled),
+            icon = ImageVector.vectorResource(R.drawable.ic_analytics_filled),
             containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
         )
         StatCard(
@@ -595,7 +593,7 @@ private fun StatCard(
     modifier: Modifier = Modifier,
     label: String,
     value: String,
-    icon: Painter? = null,
+    icon: ImageVector? = null,
     containerColor: Color = MaterialTheme.colorScheme.surfaceContainer,
     contentColor: Color = MaterialTheme.colorScheme.onSurface
 ) {
@@ -632,7 +630,7 @@ private fun StatCard(
                 if (icon != null) {
                     Icon(
                         modifier = Modifier.size(64.dp),
-                        painter = icon,
+                        imageVector = icon,
                         contentDescription = null,
                         tint = contentColor.copy(alpha = 0.15f)
                     )

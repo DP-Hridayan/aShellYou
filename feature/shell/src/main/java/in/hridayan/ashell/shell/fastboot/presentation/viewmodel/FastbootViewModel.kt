@@ -46,13 +46,14 @@ class FastbootViewModel @Inject constructor(
     private val _flashOperation = MutableStateFlow(FlashOperation())
     val flashOperation: StateFlow<FlashOperation> = _flashOperation.asStateFlow()
 
-    // Tracks which predefined command card is currently running (by its unique ID string)
     private val _runningCommandId = MutableStateFlow<String?>(null)
     val runningCommandId: StateFlow<String?> = _runningCommandId.asStateFlow()
 
-    // Accumulates real-time output for the command console bottom sheet
     private val _commandOutput = MutableStateFlow("")
     val commandOutput: StateFlow<String> = _commandOutput.asStateFlow()
+
+    private val _isConsoleCommandRunning = MutableStateFlow(false)
+    val isConsoleCommandRunning: StateFlow<Boolean> = _isConsoleCommandRunning.asStateFlow()
 
     private var flashJob: kotlinx.coroutines.Job? = null
     private var commandJob: kotlinx.coroutines.Job? = null
@@ -87,16 +88,26 @@ class FastbootViewModel @Inject constructor(
         }
     }
 
-    /** Send an arbitrary command from the console bottom sheet input field. */
     fun sendCommand(command: String) {
         commandJob?.cancel()
         _commandOutput.value += "\n> $command\n"
+        _isConsoleCommandRunning.value = true
         commandJob = viewModelScope.launch {
-            repository.sendCommand(command).collect { result ->
-                _commandHistory.value += result
-                _commandOutput.value += result.data + "\n"
+            try {
+                repository.sendCommand(command).collect { result ->
+                    _commandHistory.value += result
+                    _commandOutput.value += result.data + "\n"
+                }
+            } finally {
+                _isConsoleCommandRunning.value = false
             }
         }
+    }
+
+    fun stopConsoleCommand() {
+        commandJob?.cancel()
+        commandJob = null
+        _isConsoleCommandRunning.value = false
     }
 
     /** Run a predefined command card identified by [commandId]. */

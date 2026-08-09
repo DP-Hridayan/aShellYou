@@ -42,6 +42,7 @@ fun AppScaffold(
     topAppBarState: TopAppBarState? = null,
     onNavigateBack: () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
+    bottomBar: @Composable () -> Unit = {},
     content: @Composable (innerPadding: PaddingValues, topBarScrollBehavior: TopAppBarScrollBehavior) -> Unit,
     fabContent: @Composable (expanded: Boolean) -> Unit = {}
 ) {
@@ -59,6 +60,7 @@ fun AppScaffold(
         topAppBarState = topAppBarState,
         onNavigateBack = onNavigateBack,
         actions = actions,
+        bottomBar = bottomBar,
         content = content,
         fabContent = fabContent
     )
@@ -72,6 +74,7 @@ fun AppScaffold(
     topAppBarState: TopAppBarState? = null,
     onNavigateBack: () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
+    bottomBar: @Composable () -> Unit = {},
     content: @Composable (innerPadding: PaddingValues, topBarScrollBehavior: TopAppBarScrollBehavior) -> Unit,
     fabContent: @Composable (expanded: Boolean) -> Unit = {}
 ) {
@@ -88,6 +91,7 @@ fun AppScaffold(
         topAppBarState = topAppBarState,
         onNavigateBack = onNavigateBack,
         actions = actions,
+        bottomBar = bottomBar,
         content = content,
         fabContent = fabContent
     )
@@ -101,6 +105,7 @@ private fun AppScaffoldImpl(
     topAppBarState: TopAppBarState? = null,
     onNavigateBack: () -> Unit,
     actions: @Composable RowScope.() -> Unit = {},
+    bottomBar: @Composable () -> Unit = {},
     content: @Composable (innerPadding: PaddingValues, topBarScrollBehavior: TopAppBarScrollBehavior) -> Unit,
     fabContent: @Composable (expanded: Boolean) -> Unit = {}
 ) {
@@ -134,7 +139,9 @@ private fun AppScaffoldImpl(
         },
         floatingActionButton = {
             fabContent(expanded)
-        }) { innerPadding ->
+        },
+        bottomBar = bottomBar
+    ) { innerPadding ->
 
         // Pass the SAME scrollBehavior used in LargeTopAppBar to the content
         content(innerPadding, scrollBehavior)
