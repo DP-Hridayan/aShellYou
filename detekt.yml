@@ -1,0 +1,138 @@
+build:
+  maxIssues: 0
+  excludeCorrectable: false
+
+config:
+  validation: true
+  warningsAsErrors: true
+  excludes:
+    - "**/build/**"
+    - "**/.gradle/**"
+    - "**/generated/**"
+    - "**/.idea/**"
+    - "**/.agents/**"
+    - "**/*.kts"
+    - "**/assets/**"
+    - "**/docs/**"
+    - "**/fastlane/**"
+    - "**/gradle/**"
+    - "**/test/**"
+    - "**/androidTest/**"
+
+complexity:
+  active: true
+  LongMethod:
+    active: true
+    threshold: 30
+    ignoreAnnotated: [ "Composable" ]
+  LongParameterList:
+    active: true
+    functionThreshold: 7
+    constructorThreshold: 12
+    ignoreDefaultParameters: true
+    ignoreDataClasses: true
+    ignoreAnnotatedParameter: [ "Composable", "Inject" ]
+  LargeClass:
+    active: true
+    threshold: 200
+  TooManyFunctions:
+    active: true
+    thresholdInFiles: 15
+    thresholdInClasses: 15
+    ignoreAnnotatedFunctions: [ "Composable" ]
+  ComplexCondition:
+    active: true
+    threshold: 4
+  CyclomaticComplexMethod:
+    active: true
+    threshold: 10
+    ignoreAnnotated: [ "Composable" ]
+
+style:
+  active: true
+  MaxLineLength:
+    active: true
+    maxLineLength: 120
+    excludePackageStatements: true
+    excludeImportStatements: true
+    excludeCommentStatements: true
+  WildcardImport:
+    active: true
+  MagicNumber:
+    active: true
+    ignoreNumbers: [ "-1", "0", "1", "2", "3", "10", "100", "1000" ]
+    ignoreHashCodeFunction: true
+    ignorePropertyDeclaration: true
+    ignoreLocalVariableDeclaration: true
+    ignoreConstantDeclaration: true
+    ignoreCompanionObjectPropertyDeclaration: true
+    ignoreEnums: true
+    ignoreRanges: true
+    ignoreAnnotated: [ "Composable" ]
+  ReturnCount:
+    active: true
+    max: 3
+    excludedFunctions: [ "equals" ]
+    excludeGuardClauses: true
+  ForbiddenComment:
+    active: true
+    comments:
+      - reason: "Use issue tracker"
+        value: "TODO:"
+      - reason: "Use issue tracker"
+        value: "FIXME:"
+  UnusedPrivateMember:
+    active: true
+  UseDataClass:
+    active: true
+
+coroutines:
+  active: true
+  GlobalCoroutineUsage:
+    active: true
+  RedundantSuspendModifier:
+    active: true
+  SleepInsteadOfDelay:
+    active: true
+  SuspendFunWithFlowReturnType:
+    active: true
+
+exceptions:
+  active: true
+  SwallowedException:
+    active: true
+    allowedExceptionNameRegex: "(_|(ignore|expected).*)"
+  TooGenericExceptionCaught:
+    active: true
+    exceptionNames:
+      - Error
+      - RuntimeException
+      - Throwable
+      - NullPointerException
+    allowedExceptionNameRegex: "(_|(ignore|expected).*)"
+  TooGenericExceptionThrown:
+    active: true
+
+naming:
+  active: true
+  FunctionNaming:
+    active: true
+    functionPattern: "[a-z][a-zA-Z0-9]*"
+    ignoreAnnotated: [ "Composable" ]
+  TopLevelPropertyNaming:
+    active: true
+    constantPattern: "[A-Z][_A-Z0-9]*"
+  ClassNaming:
+    active: true
+    classPattern: "[A-Z][a-zA-Z0-9]*"
+
+empty-blocks:
+  active: true
+  EmptyCatchBlock:
+    active: true
+    allowedExceptionNameRegex: "_|(ignore|expected).*"
+  EmptyFunctionBlock:
+    active: true
+    ignoreOverridden: true
+  EmptyClassBlock:
+    active: true
