@@ -1,6 +1,5 @@
 package `in`.hridayan.ashell.shell.common.presentation.components.dialog
 
-
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -52,7 +51,9 @@ fun FileSavedDialog(
                 uriString.toUri(),
                 context
             ) ?: uriString
-        } else uriString
+        } else {
+            uriString
+        }
 
     val isSaving = saveProgress is SaveProgress.Saving
     val isSuccess = saveProgress is SaveProgress.Success
@@ -61,10 +62,14 @@ fun FileSavedDialog(
     val message = when {
         isSaving -> stringResource(R.string.saving_output)
         isError -> saveProgress.message
-        else -> if (saveWholeOutput) stringResource(
-            R.string.shell_output_saved_whole_message,
-            pathToDisplay
-        ) else stringResource(R.string.shell_output_saved_message, pathToDisplay)
+        else -> if (saveWholeOutput) {
+            stringResource(
+                R.string.shell_output_saved_whole_message,
+                pathToDisplay
+            )
+        } else {
+            stringResource(R.string.shell_output_saved_message, pathToDisplay)
+        }
     }
 
     val title = when {
@@ -95,8 +100,11 @@ fun FileSavedDialog(
                     AutoResizeableText(
                         text = titleText,
                         style = MaterialTheme.typography.titleLarge,
-                        color = if (isError) MaterialTheme.colorScheme.error
-                        else MaterialTheme.colorScheme.onSurface,
+                        color = if (isError) {
+                            MaterialTheme.colorScheme.error
+                        } else {
+                            MaterialTheme.colorScheme.onSurface
+                        },
                     )
                 }
 
@@ -131,8 +139,11 @@ fun FileSavedDialog(
                         Text(
                             text = message,
                             style = MaterialTheme.typography.bodyMedium,
-                            color = if (isError) MaterialTheme.colorScheme.error
-                            else MaterialTheme.colorScheme.onSurfaceVariant
+                            color = if (isError) {
+                                MaterialTheme.colorScheme.error
+                            } else {
+                                MaterialTheme.colorScheme.onSurfaceVariant
+                            }
                         )
                     }
                 }
@@ -142,8 +153,11 @@ fun FileSavedDialog(
                 val buttonGroupItems = listOf(
                     ButtonGroupItem(
                         buttonConfig = ButtonConfigDefaults.defaultConfig(type = ButtonType.OutlinedButton),
-                        text = if (isError) stringResource(R.string.close)
-                        else stringResource(R.string.cancel),
+                        text = if (isError) {
+                            stringResource(R.string.close)
+                        } else {
+                            stringResource(R.string.cancel)
+                        },
                         onClick = { onDismiss() },
                         enabled = !isSaving
                     ),

@@ -26,7 +26,6 @@ fun DeleteBookmarksDialog(
     onDismiss: () -> Unit,
     onDelete: () -> Unit,
 ) {
-
     Dialog(
         onDismissRequest = { onDismiss() },
         properties = DialogProperties(dismissOnClickOutside = true)

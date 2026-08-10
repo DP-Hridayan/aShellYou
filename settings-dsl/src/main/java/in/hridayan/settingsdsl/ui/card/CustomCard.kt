@@ -14,7 +14,6 @@ import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
@@ -28,7 +27,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
@@ -108,23 +106,28 @@ internal fun CustomCard(
 
     val topStart by animateDpAsState(
         targetValue = if (doCardInteractions) pressedCornerRadius else resolvedTopStart,
-        animationSpec = springDp, label = "corner_ts",
+        animationSpec = springDp,
+        label = "corner_ts",
     )
     val topEnd by animateDpAsState(
         targetValue = if (doCardInteractions) pressedCornerRadius else resolvedTopEnd,
-        animationSpec = springDp, label = "corner_te",
+        animationSpec = springDp,
+        label = "corner_te",
     )
     val bottomStart by animateDpAsState(
         targetValue = if (doCardInteractions) pressedCornerRadius else resolvedBottomStart,
-        animationSpec = springDp, label = "corner_bs",
+        animationSpec = springDp,
+        label = "corner_bs",
     )
     val bottomEnd by animateDpAsState(
         targetValue = if (doCardInteractions) pressedCornerRadius else resolvedBottomEnd,
-        animationSpec = springDp, label = "corner_be",
+        animationSpec = springDp,
+        label = "corner_be",
     )
     val animatedScale by animateFloatAsState(
         targetValue = if (doCardInteractions) pressedScale else 1f,
-        animationSpec = springFloat, label = "scale",
+        animationSpec = springFloat,
+        label = "scale",
     )
 
     val animatedShape = remember {

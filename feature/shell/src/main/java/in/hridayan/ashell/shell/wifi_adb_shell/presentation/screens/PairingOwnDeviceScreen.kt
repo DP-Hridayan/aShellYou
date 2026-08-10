@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens
 
-
 import android.os.Build
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Arrangement
@@ -57,6 +56,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import `in`.hridayan.ashell.core.common.LocalDialogManager
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbConnection
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbEvent
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbState
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.navigation.navigateBack
@@ -79,9 +81,6 @@ import `in`.hridayan.ashell.core.utils.isNotificationPermissionGranted
 import `in`.hridayan.ashell.core.utils.registerNetworkCallback
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
-import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbConnection
-import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbEvent
-import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.GrantNotificationAccessDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairDialogKey
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ReconnectFailedDialog
@@ -233,7 +232,8 @@ fun PairingOwnDeviceScreen(
                 },
                 scrollBehavior = scrollBehavior,
             )
-        }) { innerPadding ->
+        }
+    ) { innerPadding ->
         LazyColumn(
             state = lazyListState,
             modifier = Modifier
@@ -243,11 +243,13 @@ fun PairingOwnDeviceScreen(
             contentPadding = innerPadding,
             verticalArrangement = Arrangement.spacedBy(13.dp)
         ) {
-            if (!isWifiConnected) item {
-                WifiEnableCard(
-                    onClickButton = onClickWifiEnableButton,
-                    modifier = Modifier.animateItem()
-                )
+            if (!isWifiConnected) {
+                item {
+                    WifiEnableCard(
+                        onClickButton = onClickWifiEnableButton,
+                        modifier = Modifier.animateItem()
+                    )
+                }
             }
 
             item {
@@ -308,7 +310,8 @@ fun PairingOwnDeviceScreen(
                                 shapes = ButtonDefaults.shapes(),
                                 onClick = withHaptic(HapticFeedbackType.Reject) {
                                     viewModel.cancelReconnect()
-                                }) {
+                                }
+                            ) {
                                 AutoResizeableText(text = stringResource(R.string.cancel))
                             }
                         }
@@ -319,7 +322,8 @@ fun PairingOwnDeviceScreen(
                                     .fillMaxWidth()
                                     .animateItem(),
                                 shapes = ButtonDefaults.shapes(),
-                                onClick = withHaptic { navController.navigate(NavRoutes.WifiAdbScreen()) }) {
+                                onClick = withHaptic { navController.navigate(NavRoutes.WifiAdbScreen()) }
+                            ) {
                                 AutoResizeableText(text = stringResource(R.string.go_to_terminal))
                             }
                         }
@@ -342,15 +346,18 @@ fun PairingOwnDeviceScreen(
                 )
             }
 
-            if (!hasNotificationAccess) item {
-                NotificationAccessRequestCard(
-                    onClickButton = onClickNotificationButton,
-                    modifier = Modifier.animateItem()
-                )
-            } else
+            if (!hasNotificationAccess) {
+                item {
+                    NotificationAccessRequestCard(
+                        onClickButton = onClickNotificationButton,
+                        modifier = Modifier.animateItem()
+                    )
+                }
+            } else {
                 item {
                     NotificationPairingHintCard(modifier = Modifier.animateItem())
                 }
+            }
 
             item {
                 NotificationStylesHintCard(
@@ -379,7 +386,8 @@ fun PairingOwnDeviceScreen(
     PairDialogKey.GrantNotificationAccess.createDialog {
         GrantNotificationAccessDialog(
             onDismiss = { it.dismiss() },
-            onConfirm = { onClickNotificationButton() })
+            onConfirm = { onClickNotificationButton() }
+        )
     }
 
     PairDialogKey.ReconnectFailed(showDevOptionsButton = true).createDialog {
@@ -399,7 +407,8 @@ fun PairingOwnDeviceScreen(
                 if (!WirelessDebuggingUtils.isWirelessDebuggingEnabled(context) && ownDevice != null) {
                     WirelessDebuggingUtils.openWirelessDebuggingSettings(context)
                 }
-            })
+            }
+        )
     }
 }
 

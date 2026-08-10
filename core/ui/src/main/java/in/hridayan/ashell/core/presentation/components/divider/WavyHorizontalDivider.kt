@@ -56,5 +56,4 @@ fun WavyHorizontalDivider(
             style = Stroke(width = thicknessPx)
         )
     }
-
 }

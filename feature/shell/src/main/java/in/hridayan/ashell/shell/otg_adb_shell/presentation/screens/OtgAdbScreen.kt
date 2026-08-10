@@ -1,7 +1,6 @@
-﻿@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
 package `in`.hridayan.ashell.shell.otg_adb_shell.presentation.screens
-
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -25,16 +24,16 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.domain.model.AdbFileBrowserConnectionMode
+import `in`.hridayan.ashell.core.common.domain.model.otg.OtgState
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
+import `in`.hridayan.ashell.core.presentation.components.dialog.OtgDeviceWaitingDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.resources.R
+import `in`.hridayan.ashell.core.ui.otg.OtgViewModel
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ConnectedDeviceDialog
 import `in`.hridayan.ashell.shell.common.presentation.screens.BaseShellScreen
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
-import `in`.hridayan.ashell.core.common.domain.model.otg.OtgState
-import `in`.hridayan.ashell.core.presentation.components.dialog.OtgDeviceWaitingDialog
-import `in`.hridayan.ashell.core.ui.otg.OtgViewModel
 
 @Composable
 fun OtgAdbScreen(
@@ -122,7 +121,9 @@ fun OtgAdbScreen(
                     )
                 }
             }
-        } else null
+        } else {
+            null
+        }
     )
 
     if (showConnectedDeviceDialog) {

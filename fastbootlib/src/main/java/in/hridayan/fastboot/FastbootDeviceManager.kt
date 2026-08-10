@@ -30,7 +30,7 @@ object FastbootDeviceManager {
     private const val ACTION_USB_PERMISSION = "in.hridayan.fastboot.USB_PERMISSION"
 
     /** Fastboot USB interface identifiers */
-    private const val FASTBOOT_INTERFACE_CLASS = 0xFF    // Vendor Specific
+    private const val FASTBOOT_INTERFACE_CLASS = 0xFF // Vendor Specific
     private const val FASTBOOT_INTERFACE_SUBCLASS = 0x42 // Android Fastboot
     private const val FASTBOOT_INTERFACE_PROTOCOL = 0x03 // Fastboot Protocol
 
@@ -81,7 +81,8 @@ object FastbootDeviceManager {
         if (isRegistered) return
 
         ContextCompat.registerReceiver(
-            appContext, permissionReceiver,
+            appContext,
+            permissionReceiver,
             IntentFilter(ACTION_USB_PERMISSION),
             ContextCompat.RECEIVER_NOT_EXPORTED
         )
@@ -91,7 +92,9 @@ object FastbootDeviceManager {
             addAction(UsbManager.ACTION_USB_DEVICE_DETACHED)
         }
         ContextCompat.registerReceiver(
-            appContext, usbReceiver, usbFilter,
+            appContext,
+            usbReceiver,
+            usbFilter,
             ContextCompat.RECEIVER_NOT_EXPORTED
         )
         isRegistered = true
@@ -184,7 +187,10 @@ object FastbootDeviceManager {
         val appContext = context.applicationContext
         val manager = appContext.getSystemService(Context.USB_SERVICE) as? UsbManager ?: return
         val pendingIntent = PendingIntent.getBroadcast(
-            appContext, 0, Intent(ACTION_USB_PERMISSION), PendingIntent.FLAG_IMMUTABLE
+            appContext,
+            0,
+            Intent(ACTION_USB_PERMISSION),
+            PendingIntent.FLAG_IMMUTABLE
         )
         manager.requestPermission(device, pendingIntent)
     }
@@ -253,8 +259,8 @@ object FastbootDeviceManager {
 
     private fun isFastbootInterface(intf: UsbInterface): Boolean =
         intf.interfaceClass == FASTBOOT_INTERFACE_CLASS &&
-        intf.interfaceSubclass == FASTBOOT_INTERFACE_SUBCLASS &&
-        intf.interfaceProtocol == FASTBOOT_INTERFACE_PROTOCOL
+                intf.interfaceSubclass == FASTBOOT_INTERFACE_SUBCLASS &&
+                intf.interfaceProtocol == FASTBOOT_INTERFACE_PROTOCOL
 
     private fun getUsbDeviceFromIntent(intent: Intent): UsbDevice? {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

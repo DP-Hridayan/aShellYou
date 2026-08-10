@@ -101,9 +101,11 @@ class CreateTileViewModel @Inject constructor(
 
             _state.update {
                 it.copy(
-                    nameError = if (isDuplicate)
+                    nameError = if (isDuplicate) {
                         context.getString(R.string.duplicate_tile_name_error_msg)
-                    else null
+                    } else {
+                        null
+                    }
                 )
             }
         }

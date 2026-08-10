@@ -9,7 +9,6 @@ class TileIconScorer @Inject constructor() {
         keywords: List<String>,
         icons: List<TileIcon>
     ): List<TileIcon> {
-
         val scores = mutableMapOf<TileIcon, Int>()
 
         for (icon in icons) {

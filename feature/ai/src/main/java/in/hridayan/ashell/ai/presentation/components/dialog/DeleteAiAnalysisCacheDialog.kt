@@ -49,7 +49,6 @@ fun DeleteAiAnalysisCacheDialog(
         ),
     )
 
-
     Dialog(
         onDismissRequest = { onDismiss() },
         properties = DialogProperties(dismissOnClickOutside = true)
@@ -82,4 +81,3 @@ fun DeleteAiAnalysisCacheDialog(
         }
     }
 }
-

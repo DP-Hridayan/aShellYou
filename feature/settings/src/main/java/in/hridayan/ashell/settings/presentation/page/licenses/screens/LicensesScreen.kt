@@ -341,10 +341,3 @@ private fun LicensesEmptyState(modifier: Modifier = Modifier) {
         )
     }
 }
-
-
-
-
-
-
-

@@ -58,5 +58,3 @@ class AiModelManagerViewModel @Inject constructor(
         }
     }
 }
-
-

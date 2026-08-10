@@ -6,7 +6,6 @@
 
 package `in`.hridayan.ashell.shell.fastboot.presentation.components.section
 
-
 import android.net.Uri
 import android.provider.OpenableColumns
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -366,4 +365,3 @@ fun PartitionOperationsSection(
         )
     }
 }
-

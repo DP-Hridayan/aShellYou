@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.contributors.screens
 
-
 import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
@@ -120,7 +119,8 @@ fun TranslatorsScreen(
                     )
                 }
             }
-        })
+        }
+    )
 }
 
 @Composable
@@ -226,9 +226,3 @@ private fun InitialsAvatar(
         )
     }
 }
-
-
-
-
-
-

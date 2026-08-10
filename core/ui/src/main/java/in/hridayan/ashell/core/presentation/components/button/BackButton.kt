@@ -19,9 +19,11 @@ fun BackButton(
     onClick: () -> Unit
 ) {
     TooltipContent(stringResource(R.string.back_button)) {
-        IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-            onClick()
-        }) {
+        IconButton(
+            onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                onClick()
+            }
+        ) {
             Icon(
                 modifier = modifier,
                 imageVector = Icons.AutoMirrored.Rounded.ArrowBack,

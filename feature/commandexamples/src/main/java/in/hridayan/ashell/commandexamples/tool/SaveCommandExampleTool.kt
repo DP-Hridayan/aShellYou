@@ -16,9 +16,9 @@ class SaveCommandExampleTool @Inject constructor(
 ) : AiTool {
 
     override val name: String = "save_command_example"
-    
+
     override val description: String = "Save a shell command into the user's Command Examples library for later use. Use this for general templates like 'pm uninstall --user <user> <package>' or complex scripts with placeholders."
-    
+
     override val parametersSchema: ToolSchema = ToolSchema(
         type = "OBJECT",
         properties = mapOf(
@@ -42,7 +42,13 @@ class SaveCommandExampleTool @Inject constructor(
         val title = args?.get("title")?.jsonPrimitive?.content ?: return "Error: title is required"
         val commandString = args["command_string"]?.jsonPrimitive?.content ?: return "Error: command_string is required"
         val labelsString = args["labels"]?.jsonPrimitive?.content ?: ""
-        val labelsList = if (labelsString.isBlank()) emptyList() else labelsString.split(",").map { it.trim() }.filter { it.isNotEmpty() }
+        val labelsList = if (labelsString.isBlank()) {
+            emptyList()
+        } else {
+            labelsString.split(",").map {
+                it.trim()
+            }.filter { it.isNotEmpty() }
+        }
 
         // Check if it already exists
         val existingCommands = commandRepository.getAllCommandsOnce()
@@ -57,7 +63,7 @@ class SaveCommandExampleTool @Inject constructor(
                 labels = labelsList
             )
         )
-        
+
         return "Successfully saved '$title' to Command Examples."
     }
 }

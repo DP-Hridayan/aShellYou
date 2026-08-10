@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.onboarding.presentation.component.item
 
-
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -57,7 +56,6 @@ fun DisclaimerItemLayout(
                     modifier = Modifier.alignBy(FirstBaseline)
                 )
             }
-
         }
     }
 }

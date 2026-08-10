@@ -13,7 +13,7 @@ interface CommandPermissionDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun setPermission(permission: CommandPermissionEntity)
-    
+
     @Query("DELETE FROM command_permissions WHERE command = :command")
     suspend fun clearPermission(command: String)
 }

@@ -20,7 +20,6 @@ fun MainCard(
     contentAlignment: Alignment = Alignment.Center,
     content: @Composable BoxScope.() -> Unit
 ) {
-
     Box(
         modifier = modifier
             .graphicsLayer {

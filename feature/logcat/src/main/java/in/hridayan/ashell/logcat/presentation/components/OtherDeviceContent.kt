@@ -64,10 +64,11 @@ fun OtherDeviceContent(
     // Start/stop emitter on connection changes
     LaunchedEffect(isOtherDeviceConnected, otgState) {
         if (isOtherDeviceConnected) {
-            val emitter = if (otgState is OtgState.Connected)
+            val emitter = if (otgState is OtgState.Connected) {
                 viewModel.otgEmitter()
-            else
+            } else {
                 viewModel.wifiAdbEmitter()
+            }
             viewModel.startOtherDeviceLogs(emitter)
             viewModel.resumeOtherAutoScroll()
         } else {

@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.autoupdate.screens
 
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -154,7 +153,8 @@ fun AutoUpdateScreen(
 
                 settingsContent(
                     groups = resolvedGroups,
-                    viewModel = settingsViewModel, prefs = prefs,
+                    viewModel = settingsViewModel,
+                    prefs = prefs,
                     hapticsEnabled = hapticsEnabled
                 )
 
@@ -252,8 +252,11 @@ private fun CheckUpdateButton(
         onClick = onClick,
         expanded = expanded,
         icon = {
-            if (showLoading) LoadingSpinner(modifier = Modifier.size(24.dp))
-            else Icon(imageVector = Icons.Rounded.Update, contentDescription = null)
+            if (showLoading) {
+                LoadingSpinner(modifier = Modifier.size(24.dp))
+            } else {
+                Icon(imageVector = Icons.Rounded.Update, contentDescription = null)
+            }
         },
         text = {
             AutoResizeableText(
@@ -263,9 +266,3 @@ private fun CheckUpdateButton(
         },
     )
 }
-
-
-
-
-
-

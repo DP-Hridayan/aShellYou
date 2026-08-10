@@ -55,10 +55,11 @@ fun LogcatTopBar(
                 Icon(
                     painter = painterResource(R.drawable.ic_search),
                     contentDescription = stringResource(R.string.search),
-                    tint = if (searchVisible)
+                    tint = if (searchVisible) {
                         MaterialTheme.colorScheme.primary
-                    else
-                        MaterialTheme.colorScheme.onSurface,
+                    } else {
+                        MaterialTheme.colorScheme.onSurface
+                    },
                 )
             }
 
@@ -85,14 +86,16 @@ fun LogcatTopBar(
                         painter = painterResource(
                             if (isRunning) R.drawable.ic_pause else R.drawable.ic_play
                         ),
-                        contentDescription = if (isRunning)
+                        contentDescription = if (isRunning) {
                             stringResource(R.string.stop)
-                        else
-                            stringResource(R.string.resume),
-                        tint = if (isRunning)
+                        } else {
+                            stringResource(R.string.resume)
+                        },
+                        tint = if (isRunning) {
                             MaterialTheme.colorScheme.error
-                        else
-                            MaterialTheme.colorScheme.primary,
+                        } else {
+                            MaterialTheme.colorScheme.primary
+                        },
                     )
                 }
             }

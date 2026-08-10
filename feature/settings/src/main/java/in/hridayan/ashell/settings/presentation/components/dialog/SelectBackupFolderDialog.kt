@@ -21,7 +21,6 @@ fun SelectBackupFolderDialog(
     onDismiss: () -> Unit,
     onSelectFolder: () -> Unit,
 ) {
-
     DialogContainer(
         onDismiss = onDismiss,
     ) {

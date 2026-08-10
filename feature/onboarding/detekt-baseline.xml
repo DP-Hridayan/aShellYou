@@ -2,10 +2,6 @@
 <SmellBaseline>
     <ManuallySuppressedIssues></ManuallySuppressedIssues>
     <CurrentIssues>
-        <ID>ArgumentListWrapping:PageThree.kt$( onDismiss = { showShizukuUnavailableDialog = false
-            }, onConfirm = { if (isShizukuInstalled) context.launchApp(SHIZUKU_PACKAGE_NAME) else
-            UrlUtils.openUrl( url = UrlConst.URL_SHIZUKU_SITE, context = context ) })
-        </ID>
         <ID>FinalNewline:ExampleUnitTest.kt$in.hridayan.ashell.onboarding.ExampleUnitTest.kt</ID>
         <ID>ImportOrdering:ExampleUnitTest.kt$import org.junit.Test import org.junit.Assert.*</ID>
         <ID>ImportOrdering:PageThree.kt$import androidx.compose.animation.core.Animatable import
@@ -66,6 +62,8 @@
             kotlinx.coroutines.Dispatchers import kotlinx.coroutines.launch import
             kotlinx.coroutines.withContext import rikka.shizuku.Shizuku
         </ID>
+        <ID>Indentation:OnboardingScreen.kt$</ID>
+        <ID>Indentation:PageThree.kt$</ID>
         <ID>MaxLineLength:UndrawPhoneLady.kt$"M118.36,233.59c1.22,-4.64 1.68,-9.5
             3.44,-13.96a25.34,25.34 0,0 1,45.51 -3.39,17.26 17.26,0 0,1 2.5,11.23c-0.69,4.26
             -3.52,8.31 -2.63,12.54 0.59,2.83 2.73,5.02 4.42,7.36s3.03,5.43 1.81,8.05c-1.33,2.84
@@ -503,40 +501,12 @@
             = context )
         </ID>
         <ID>MultiLineIfElse:PageThree.kt$context.launchApp(SHIZUKU_PACKAGE_NAME)</ID>
-        <ID>NewLineAtEndOfFile:ExampleUnitTest.kt$in.hridayan.ashell.onboarding.ExampleUnitTest.kt
-        </ID>
         <ID>NoBlankLineBeforeRbrace:DisclaimerItemLayout.kt$</ID>
         <ID>NoBlankLineBeforeRbrace:UndrawPhoneLady.kt$</ID>
         <ID>NoConsecutiveBlankLines:DisclaimerItemLayout.kt$</ID>
         <ID>NoConsecutiveBlankLines:OnboardingScreen.kt$</ID>
         <ID>NoEmptyFirstLineInMethodBlock:MainCard.kt$</ID>
         <ID>NoWildcardImports:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
-        <ID>PackageName:DecorativeShape.kt$package
-            `in`.hridayan.ashell.onboarding.presentation.component.shape
-        </ID>
-        <ID>PackageName:DisclaimerItemLayout.kt$package
-            `in`.hridayan.ashell.onboarding.presentation.component.item
-        </ID>
-        <ID>PackageName:ExampleUnitTest.kt$package `in`.hridayan.ashell.onboarding</ID>
-        <ID>PackageName:MainCard.kt$package
-            `in`.hridayan.ashell.onboarding.presentation.component.shape
-        </ID>
-        <ID>PackageName:OnboardingScreen.kt$package
-            `in`.hridayan.ashell.onboarding.presentation.screens
-        </ID>
-        <ID>PackageName:OnboardingViewModel.kt$package
-            `in`.hridayan.ashell.onboarding.presentation.viewmodel
-        </ID>
-        <ID>PackageName:PageOne.kt$package `in`.hridayan.ashell.onboarding.presentation.screens</ID>
-        <ID>PackageName:PageThree.kt$package `in`.hridayan.ashell.onboarding.presentation.screens
-        </ID>
-        <ID>PackageName:PageTwo.kt$package `in`.hridayan.ashell.onboarding.presentation.screens</ID>
-        <ID>PackageName:UndrawPhoneLady.kt$package
-            `in`.hridayan.ashell.onboarding.presentation.components.svg.vectors
-        </ID>
-        <ID>PackageName:UndrawSelectChoice.kt$package
-            `in`.hridayan.ashell.onboarding.presentation.components.svg.vectors
-        </ID>
         <ID>ParameterListWrapping:PageThree.kt$( modifier: Modifier = Modifier, pagerState:
             PagerState, viewModel: OnboardingViewModel = hiltViewModel() )
         </ID>

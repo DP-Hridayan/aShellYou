@@ -1,17 +1,17 @@
 package `in`.hridayan.ashell.settings.domain.usecase
 
 import android.util.Log
-import `in`.hridayan.ashell.core.common.settings.SettingsKeys
+import `in`.hridayan.ashell.core.common.constants.AiModelConstants
 import `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException
 import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
 import `in`.hridayan.ashell.core.common.domain.provider.LlmProviderClient
 import `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository
 import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.theme.data.ColorSchemePayload
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
-import `in`.hridayan.ashell.core.common.constants.AiModelConstants
 
 class GenerateCustomThemeUseCase @Inject constructor(
     private val clients: Map<LlmProvider, @JvmSuppressWildcards LlmProviderClient>,
@@ -30,7 +30,7 @@ class GenerateCustomThemeUseCase @Inject constructor(
                 LlmProvider.Gemini -> AiModelConstants.geminiModelsHighestToLowest
                 // Add other providers here later
             }
-            
+
             if (models.isEmpty()) throw IllegalStateException("No models configured for provider ${provider.displayName}")
 
             val systemPrompt = """
@@ -109,7 +109,7 @@ class GenerateCustomThemeUseCase @Inject constructor(
                     break
                 } catch (e: CloudNetworkException.RateLimited) {
                     lastException = e
-                  Log.w("GenerateCustomTheme", "Model $model rate limited, trying next")
+                    Log.w("GenerateCustomTheme", "Model $model rate limited, trying next")
                 } catch (e: CloudNetworkException.ServerError) {
                     if (e.code == 429 || e.code >= 500 || e.code == 404) {
                         lastException = e
@@ -128,7 +128,7 @@ class GenerateCustomThemeUseCase @Inject constructor(
                     throw e
                 }
             }
-            
+
             if (response.isBlank()) {
                 throw lastException ?: IllegalStateException("Failed to generate theme with all fallback models.")
             }
@@ -138,7 +138,7 @@ class GenerateCustomThemeUseCase @Inject constructor(
             // Sanitize response to ensure it's pure JSON
             val jsonString = response.substringAfter("{").substringBeforeLast("}")
             val finalJson = "{$jsonString}"
-            
+
             Log.d("GenerateCustomTheme", "Cleaned JSON:\n$finalJson")
 
             val jsonParser = Json { ignoreUnknownKeys = true }

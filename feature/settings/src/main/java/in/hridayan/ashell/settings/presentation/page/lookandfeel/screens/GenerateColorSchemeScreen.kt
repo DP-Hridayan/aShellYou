@@ -182,7 +182,6 @@ fun GenerateColorSchemeScreen(
                 state = listState,
                 contentPadding = innerPadding
             ) {
-
                 item {
                     val localDarkMode = LocalDarkMode.current
                     val userGeneratedColorSchemeDark =
@@ -260,7 +259,6 @@ fun GenerateColorSchemeScreen(
                     )
                     Spacer(modifier = Modifier.height(32.dp))
                 }
-
             }
         }
     )
@@ -444,7 +442,6 @@ fun ThemePokerCardCarousel(
                         color = onSurface
                     )
 
-
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceEvenly
@@ -567,7 +564,8 @@ fun CreateWithAiSection(
                     direction(FlexDirection.Row)
                     gap(15.dp)
                     alignItems(FlexAlignItems.Stretch)
-                }) {
+                }
+            ) {
                 Button(
                     modifier = Modifier.flex { grow(1f) },
                     onClick = withHaptic {

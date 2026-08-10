@@ -36,6 +36,9 @@ data class ToolSchemaProperty(
 /**
  * A coroutine context element for passing the current chat session ID to tools.
  */
-data class SessionIdContext(val sessionId: String) : kotlin.coroutines.AbstractCoroutineContextElement(SessionIdContext) {
+data class SessionIdContext(val sessionId: String) :
+    kotlin.coroutines.AbstractCoroutineContextElement(
+        SessionIdContext
+    ) {
     companion object Key : kotlin.coroutines.CoroutineContext.Key<SessionIdContext>
 }

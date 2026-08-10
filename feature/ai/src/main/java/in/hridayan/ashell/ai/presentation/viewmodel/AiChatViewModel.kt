@@ -39,7 +39,10 @@ class AiChatViewModel @Inject constructor(
     private val apiKeyRepository: ApiKeyRepository
 ) : ViewModel() {
 
-    private val json = Json { ignoreUnknownKeys = true; encodeDefaults = true }
+    private val json = Json {
+        ignoreUnknownKeys = true
+        encodeDefaults = true
+    }
 
     private val _showApiKeyRequiredDialog = MutableStateFlow(false)
     val showApiKeyRequiredDialog = _showApiKeyRequiredDialog.asStateFlow()
@@ -137,7 +140,6 @@ class AiChatViewModel @Inject constructor(
         started = SharingStarted.WhileSubscribed(5000),
         initialValue = AiChatUiState()
     )
-
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val uiItems: StateFlow<List<ChatUiItem>> =
@@ -310,7 +312,6 @@ class AiChatViewModel @Inject constructor(
                 initialValue = emptyList()
             )
 
-
     init {
         viewModelScope.launch {
             _currentSessionId.collect {
@@ -318,7 +319,6 @@ class AiChatViewModel @Inject constructor(
             }
         }
     }
-
 
     fun onNewChat() {
         val newSessionId = UUID.randomUUID().toString()

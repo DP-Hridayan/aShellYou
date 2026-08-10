@@ -20,4 +20,3 @@ interface CommandRepository {
     suspend fun incrementUseCount(commandId: Int)
     suspend fun updateFavoriteStatus(commandId: Int, isFavourite: Boolean)
 }
-

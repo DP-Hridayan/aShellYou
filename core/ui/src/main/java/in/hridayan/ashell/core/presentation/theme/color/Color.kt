@@ -80,7 +80,6 @@ fun Color.harmonizeWithPrimary(
     @FloatRange(from = 0.0, to = 1.0) fraction: Float = 0.1f
 ): Color = blend(MaterialTheme.colorScheme.primary, fraction)
 
-
 fun Color.blend(
     color: Color,
     @FloatRange(from = 0.0, to = 1.0) fraction: Float = 0.1f

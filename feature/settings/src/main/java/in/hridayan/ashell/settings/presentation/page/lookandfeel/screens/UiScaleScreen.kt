@@ -5,7 +5,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens
 
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -79,7 +78,6 @@ fun UiScaleScreen(
                 state = listState,
                 contentPadding = innerPadding,
             ) {
-
                 item {
                     Spacer(
                         modifier = Modifier
@@ -253,15 +251,19 @@ private fun ScaleModifyCard(
                     value = sliderValue,
                     onValueChange = {
                         sliderValue = it
-                        if (enableHaptics) haptic.performHapticFeedback(
-                            HapticFeedbackType.VirtualKey
-                        )
+                        if (enableHaptics) {
+                            haptic.performHapticFeedback(
+                                HapticFeedbackType.VirtualKey
+                            )
+                        }
                         onValueChange(it)
                     },
                     onValueChangeFinished = {
-                        if (enableHaptics) haptic.performHapticFeedback(
-                            HapticFeedbackType.VirtualKey
-                        )
+                        if (enableHaptics) {
+                            haptic.performHapticFeedback(
+                                HapticFeedbackType.VirtualKey
+                            )
+                        }
                         onValueChangeFinished(sliderValue)
                     },
                     valueRange = valueRange,
@@ -274,11 +276,14 @@ private fun ScaleModifyCard(
                         containerColor = MaterialTheme.colorScheme.surfaceContainerLow
                     ),
                     onClick = {
-                        if (enableHaptics) haptic.performHapticFeedback(
-                            HapticFeedbackType.VirtualKey
-                        )
+                        if (enableHaptics) {
+                            haptic.performHapticFeedback(
+                                HapticFeedbackType.VirtualKey
+                            )
+                        }
                         onValueReset()
-                    }) {
+                    }
+                ) {
                     Icon(
                         painter = painterResource(R.drawable.ic_reset_settings),
                         contentDescription = null
@@ -288,9 +293,3 @@ private fun ScaleModifyCard(
         }
     }
 }
-
-
-
-
-
-

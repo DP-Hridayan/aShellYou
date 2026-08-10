@@ -69,8 +69,11 @@ fun FileListItem(
             .fillMaxWidth()
             .alpha(if (isDisabledForPaste) 0.4f else 1f)
             .background(
-                if (isSelected) MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
-                else Color.Transparent
+                if (isSelected) {
+                    MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
+                } else {
+                    Color.Transparent
+                }
             )
             .combinedClickable(
                 onClick = withHaptic(HapticFeedbackType.VirtualKey) { onClick() },
@@ -90,8 +93,11 @@ fun FileListItem(
         Icon(
             imageVector = FileIconMapper.getIcon(file),
             contentDescription = null,
-            tint = if (file.isDirectory) MaterialTheme.colorScheme.primary
-            else MaterialTheme.colorScheme.onSurfaceVariant,
+            tint = if (file.isDirectory) {
+                MaterialTheme.colorScheme.primary
+            } else {
+                MaterialTheme.colorScheme.onSurfaceVariant
+            },
             modifier = Modifier.size(28.dp)
         )
 
@@ -131,9 +137,11 @@ fun FileListItem(
                 )
             } else {
                 Box {
-                    IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                        showMenu = true
-                    }) {
+                    IconButton(
+                        onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                            showMenu = true
+                        }
+                    ) {
                         Icon(
                             imageVector = Icons.Rounded.MoreVert,
                             contentDescription = "More",

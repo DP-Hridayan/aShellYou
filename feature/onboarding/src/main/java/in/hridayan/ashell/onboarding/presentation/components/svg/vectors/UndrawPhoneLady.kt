@@ -498,7 +498,6 @@ fun DynamicColorImageVectors.undrawPhoneLady(): ImageVector {
                 .toNodes(),
             fill = SolidColor(MaterialTheme.colorScheme.surface),
         )
-
     }.build()
 }
 

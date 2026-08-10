@@ -220,7 +220,8 @@ fun category(
     GroupSpec.Category(
         titleResId = titleResId,
         title = "",
-        items = items.map { it.spec })
+        items = items.map { it.spec }
+    )
 )
 
 /**
@@ -236,7 +237,8 @@ fun category(
     GroupSpec.Category(
         titleResId = null,
         title = title,
-        items = items.map { it.spec })
+        items = items.map { it.spec }
+    )
 )
 
 /** @see category */
@@ -247,7 +249,8 @@ fun category(
     GroupSpec.Category(
         titleResId = titleResId,
         title = "",
-        items = items.map { it.spec })
+        items = items.map { it.spec }
+    )
 )
 
 /** @see category */
@@ -258,7 +261,8 @@ fun category(
     GroupSpec.Category(
         titleResId = null,
         title = title,
-        items = items.map { it.spec })
+        items = items.map { it.spec }
+    )
 )
 
 /**

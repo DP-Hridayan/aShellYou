@@ -30,7 +30,6 @@ fun DynamicColorImageVectors.adbAppIcon(): ImageVector {
         viewportWidth = 48f,
         viewportHeight = 48f
     ).apply {
-
         group(
             name = "headGroup",
             pivotX = 24f,
@@ -104,6 +103,5 @@ fun DynamicColorImageVectors.adbAppIcon(): ImageVector {
                 fill = foreground
             )
         }
-
     }.build()
 }

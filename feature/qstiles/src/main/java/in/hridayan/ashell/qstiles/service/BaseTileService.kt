@@ -126,7 +126,12 @@ abstract class BaseTileService : TileService() {
     /** Collects a single emission from the flow and returns it. */
     private suspend fun <T> kotlinx.coroutines.flow.Flow<T>.firstValue(): T {
         var result: T? = null
-        val job = serviceScope.launch { collect { v -> result = v; cancel() } }
+        val job = serviceScope.launch {
+            collect { v ->
+                result = v
+                cancel()
+            }
+        }
         job.join()
         @Suppress("UNCHECKED_CAST")
         return result as T

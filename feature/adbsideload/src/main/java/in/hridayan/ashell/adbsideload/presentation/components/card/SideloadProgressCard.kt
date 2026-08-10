@@ -88,7 +88,8 @@ fun SideloadProgressCard(
                         },
                         contentColor = MaterialTheme.colorScheme.run {
                             if (operation.status == SideloadStatus.COMPLETE) onPrimary else onError
-                        })
+                        }
+                    )
                 ) {
                     Text(stringResource(R.string.done))
                 }
@@ -157,10 +158,11 @@ private fun ProgressDetails(operation: SideloadOperation) {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
-            text = if (operation.totalBlocks > 0)
+            text = if (operation.totalBlocks > 0) {
                 "${stringResource(R.string.block)} ${operation.currentBlock} / ${operation.totalBlocks}"
-            else
-                operation.message,
+            } else {
+                operation.message
+            },
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )

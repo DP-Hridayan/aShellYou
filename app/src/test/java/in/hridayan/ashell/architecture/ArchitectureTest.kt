@@ -10,13 +10,13 @@ class ArchitectureTest {
     @Test
     fun `feature modules do not depend on each other`() {
         val features = listOf(
-            "shell", "ai", "settings", "home", "onboarding", 
+            "shell", "ai", "settings", "home", "onboarding",
             "qstiles", "logcat", "crashreporter", "commandexamples"
         )
-        
+
         features.forEach { feature ->
             val otherFeatures = features.filter { it != feature }
-            
+
             Konsist.scopeFromProject()
                 .files
                 .withPackage("in.hridayan.ashell.$feature..")
@@ -32,10 +32,10 @@ class ArchitectureTest {
     @Test
     fun `core modules do not depend on feature modules`() {
         val features = listOf(
-            "shell", "ai", "settings", "home", "onboarding", 
+            "shell", "ai", "settings", "home", "onboarding",
             "qstiles", "logcat", "crashreporter", "commandexamples"
         )
-        
+
         Konsist.scopeFromProject()
             .files
             .withPackage("in.hridayan.ashell.core..")
@@ -47,6 +47,6 @@ class ArchitectureTest {
                 }
             }
     }
-    
+
     // Removed data/domain UI check because Compose entities like FontFamily and ImageVector are heavily used in domain models.
 }

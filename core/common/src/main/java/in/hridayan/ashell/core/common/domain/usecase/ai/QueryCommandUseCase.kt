@@ -1,7 +1,7 @@
 package `in`.hridayan.ashell.core.common.domain.usecase.ai
 
-import `in`.hridayan.ashell.core.common.domain.model.ai.AnalysisResult
 import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
+import `in`.hridayan.ashell.core.common.domain.model.ai.AnalysisResult
 import `in`.hridayan.ashell.core.common.domain.repository.AiAnalysisRepository
 import javax.inject.Inject
 
@@ -19,7 +19,11 @@ class QueryCommandUseCase @Inject constructor(
      * @param tools The tools the AI is allowed to use
      * @return The generated analysis result
      */
-    suspend operator fun invoke(query: String, tools: List<AiTool>, fallbackModels: List<String>? = null): AnalysisResult {
+    suspend operator fun invoke(
+        query: String,
+        tools: List<AiTool>,
+        fallbackModels: List<String>? = null
+    ): AnalysisResult {
         val trimmedQuery = query.trim()
 
         if (trimmedQuery.isBlank()) {

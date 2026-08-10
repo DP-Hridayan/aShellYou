@@ -1,6 +1,5 @@
 package `in`.hridayan.ashell.settings.presentation.viewmodel
 
-
 import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.getValue
@@ -76,7 +75,6 @@ class SettingsViewModel @Inject constructor(
 
     private val _isBackingUp = MutableStateFlow(false)
     val isBackingUp = _isBackingUp.asStateFlow()
-
 
     fun onToggle(key: SettingsKeys<Boolean>) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -331,5 +329,3 @@ class SettingsViewModel @Inject constructor(
         }
     }
 }
-
-

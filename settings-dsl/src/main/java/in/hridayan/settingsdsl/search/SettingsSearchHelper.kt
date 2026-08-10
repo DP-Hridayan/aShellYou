@@ -167,7 +167,7 @@ class SettingsSearchEngine private constructor(
  * The engine is rebuilt only when [pages] changes (by reference).
  *
  * @param pages List of [SettingsPage]s to index.
- * @return      A stable [SettingsSearchEngine] ready to call [SettingsSearchEngine.search] on.
+ * @return A stable [SettingsSearchEngine] ready to call [SettingsSearchEngine.search] on.
  */
 @Composable
 fun rememberSettingsSearch(
@@ -188,7 +188,7 @@ fun rememberSettingsSearch(
  *
  * @param screens      List of `(screenId, SettingsPage)` pairs to index.
  * @param screenTitles Map from screen ID → string resource ID for the screen's display title.
- * @return             A stable [SettingsSearchEngine] ready to call [SettingsSearchEngine.search] on.
+ * @return A stable [SettingsSearchEngine] ready to call [SettingsSearchEngine.search] on.
  */
 @Composable
 fun rememberSettingsSearch(

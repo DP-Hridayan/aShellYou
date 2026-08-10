@@ -31,14 +31,16 @@ fun RenameDialog(
 ) {
     var newName by remember { mutableStateOf(currentName) }
 
-
     DialogContainer(
         onDismiss = onDismiss
     ) {
         DialogTitle(
             text = stringResource(R.string.rename) + " " +
-                    if (isDirectory) stringResource(R.string.folder)
-                    else stringResource(R.string.file),
+                    if (isDirectory) {
+                        stringResource(R.string.folder)
+                    } else {
+                        stringResource(R.string.file)
+                    },
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
 

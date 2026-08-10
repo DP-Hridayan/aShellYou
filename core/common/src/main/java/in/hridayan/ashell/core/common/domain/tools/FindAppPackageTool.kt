@@ -14,9 +14,9 @@ class FindAppPackageTool @Inject constructor(
     @ApplicationContext private val context: Context
 ) : AiTool {
     override val name: String = "find_app_package"
-    
+
     override val description: String = "Search for an installed application's package name by providing its common app name (e.g., 'whatsapp', 'facebook'). Returns the package name if found."
-    
+
     override val parametersSchema: ToolSchema = ToolSchema(
         type = "OBJECT",
         properties = mapOf(
@@ -34,21 +34,21 @@ class FindAppPackageTool @Inject constructor(
 
         val pm = context.packageManager
         val packages = pm.getInstalledApplications(PackageManager.GET_META_DATA)
-        
+
         // Find best match
         val matches = packages.filter { appInfo ->
             val label = pm.getApplicationLabel(appInfo).toString()
             label.contains(appName, ignoreCase = true) || appInfo.packageName.contains(appName, ignoreCase = true)
         }
-        
+
         if (matches.isEmpty()) {
             return "No application found matching '$appName'."
         }
-        
+
         // Sort by exact match first, then return the first one
         val exactMatch = matches.find { pm.getApplicationLabel(it).toString().equals(appName, ignoreCase = true) }
         val bestMatch = exactMatch ?: matches.first()
-        
+
         return bestMatch.packageName
     }
 }

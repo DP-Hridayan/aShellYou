@@ -1,5 +1,6 @@
 package `in`.hridayan.ashell.qstiles.tool
 
+import androidx.compose.ui.text.input.TextFieldValue
 import `in`.hridayan.ashell.core.common.domain.model.TileExecutionMode
 import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema
@@ -7,11 +8,10 @@ import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaProperty
 import `in`.hridayan.ashell.qstiles.data.provider.TileComponentManager
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
 import `in`.hridayan.ashell.qstiles.domain.repository.TileRepository
-import androidx.compose.ui.text.input.TextFieldValue
-import kotlinx.serialization.json.JsonObject as KJsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.serialization.json.JsonObject as KJsonObject
 
 @Singleton
 class UpdateQsTileTool @Inject constructor(
@@ -76,7 +76,7 @@ class UpdateQsTileTool @Inject constructor(
         val title = args["title"]?.jsonPrimitive?.content ?: existingTile.name
         val command = args["command"]?.jsonPrimitive?.content ?: existingTile.activeState.activeCommand.text
         val iconName = args["icon_name"]?.jsonPrimitive?.content ?: existingTile.iconId
-        
+
         val rawMode = args["execution_mode"]?.jsonPrimitive?.content?.toIntOrNull()
         val executionMode = if (rawMode != null) {
             if (rawMode == TileExecutionMode.ROOT) TileExecutionMode.ROOT else TileExecutionMode.SHIZUKU

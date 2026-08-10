@@ -29,7 +29,9 @@ data class FileOperation(
     val progress: Float
         get() = if (totalBytes > 0) {
             (bytesTransferred.toFloat() / totalBytes.toFloat()).coerceIn(0f, 1f)
-        } else 0f
+        } else {
+            0f
+        }
 
     val isComplete: Boolean
         get() = status == OperationStatus.COMPLETED || status == OperationStatus.FAILED

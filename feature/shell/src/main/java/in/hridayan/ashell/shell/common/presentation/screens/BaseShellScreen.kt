@@ -371,8 +371,8 @@ fun BaseShellScreen(
                     )
                 }
             }
-        })
-    { innerPadding ->
+        }
+    ) { innerPadding ->
         SharedTransitionLayout {
             Box(
                 modifier = Modifier
@@ -383,11 +383,13 @@ fun BaseShellScreen(
                     label = "fullscreen_transition",
                     transitionSpec = {
                         if (targetState) {
-                            (fadeIn(animationSpec = spring(stiffness = Spring.StiffnessLow)) +
+                            (
+                                    fadeIn(animationSpec = spring(stiffness = Spring.StiffnessLow)) +
                                     scaleIn(
                                         initialScale = 0.9f,
                                         animationSpec = spring(stiffness = Spring.StiffnessLow)
-                                    ))
+                                    )
+                                    )
                                 .togetherWith(fadeOut(animationSpec = spring(stiffness = Spring.StiffnessLow)))
                         } else {
                             fadeIn(animationSpec = spring(stiffness = Spring.StiffnessLow))
@@ -427,7 +429,8 @@ fun BaseShellScreen(
                                 showBookmarkDialog = {
                                     handleBookmarkButtonClick()
                                 },
-                                showHistoryMenu = { handleHistoryButtonClick() })
+                                showHistoryMenu = { handleHistoryButtonClick() }
+                            )
 
                             Row(
                                 modifier = Modifier
@@ -502,16 +505,22 @@ fun BaseShellScreen(
                                     .padding(20.dp)
                             ) {
                                 val label =
-                                    if (states.commandField.isError) states.commandField.errorMessage
-                                    else stringResource(R.string.command_title)
+                                    if (states.commandField.isError) {
+                                        states.commandField.errorMessage
+                                    } else {
+                                        stringResource(R.string.command_title)
+                                    }
 
                                 val isBookmarked =
                                     bookmarkViewModel.isBookmarked(states.commandField.fieldValue.text)
                                         .collectAsState(initial = false)
 
                                 val trailingIcon =
-                                    if (isBookmarked.value) painterResource(R.drawable.ic_bookmark_added)
-                                    else painterResource(R.drawable.ic_add_bookmark)
+                                    if (isBookmarked.value) {
+                                        painterResource(R.drawable.ic_bookmark_added)
+                                    } else {
+                                        painterResource(R.drawable.ic_add_bookmark)
+                                    }
 
                                 val overrideBookmarksLimit =
                                     settings[SettingsKeys.OverrideMaximumBookmarksLimit]
@@ -519,8 +528,8 @@ fun BaseShellScreen(
                                 ExposedDropdownMenuBox(
                                     modifier = Modifier.weight(1f),
                                     expanded = historyMenuExpanded,
-                                    onExpandedChange = {}) {
-
+                                    onExpandedChange = {}
+                                ) {
                                     OutlinedTextField(
                                         modifier = Modifier
                                             .weight(1f)
@@ -545,7 +554,7 @@ fun BaseShellScreen(
                                         trailingIcon = {
                                             if (states.commandField.fieldValue.text.trim()
                                                     .isNotEmpty()
-                                            )
+                                            ) {
                                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                                     // Bookmark button
                                                     IconButton(
@@ -554,18 +563,24 @@ fun BaseShellScreen(
                                                             contentColor = MaterialTheme.colorScheme.primary
                                                         ),
                                                         onClick = withHaptic {
-                                                            if (isBookmarked.value) bookmarkViewModel.deleteBookmark(
-                                                                states.commandField.fieldValue.text
-                                                            )
-                                                            else if (bookmarkCount.value >= 25 && !overrideBookmarksLimit) {
+                                                            if (isBookmarked.value) {
+                                                                bookmarkViewModel.deleteBookmark(
+                                                                    states.commandField.fieldValue.text
+                                                                )
+                                                            } else if (bookmarkCount.value >= 25 && !overrideBookmarksLimit) {
                                                                 hideKeyboard(context)
                                                                 snackBarController.show(
-                                                                    message = res.getString(R.string.bookmark_limit_reached)
+                                                                    message = res.getString(
+                                                                        R.string.bookmark_limit_reached
+                                                                    )
                                                                 )
-                                                            } else bookmarkViewModel.addBookmark(
-                                                                states.commandField.fieldValue.text
-                                                            )
-                                                        }) {
+                                                            } else {
+                                                                bookmarkViewModel.addBookmark(
+                                                                    states.commandField.fieldValue.text
+                                                                )
+                                                            }
+                                                        }
+                                                    ) {
                                                         Icon(
                                                             painter = trailingIcon,
                                                             contentDescription = null,
@@ -573,7 +588,9 @@ fun BaseShellScreen(
                                                         )
                                                     }
                                                 }
-                                        })
+                                            }
+                                        }
+                                    )
 
                                     ExposedDropdownMenu(
                                         expanded = historyMenuExpanded,
@@ -763,7 +780,8 @@ fun Suggestions(
     ) {
         items(
             count = suggestions.size,
-            key = { index -> suggestions[index].id }) { index ->
+            key = { index -> suggestions[index].id }
+        ) { index ->
             val shape = getRoundedShape(index = index, size = suggestions.size)
 
             SuggestionCard(
@@ -777,12 +795,13 @@ fun Suggestions(
         }
 
         item {
-            if (results.isEmpty())
+            if (results.isEmpty()) {
                 Spacer(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(100.dp)
                 )
+            }
         }
     }
 }
@@ -823,18 +842,25 @@ private fun OutputCard(
     val terminalFontStyle = LocalSettings.current[SettingsKeys.TerminalFontStyle]
 
     val commandTextStyle =
-        if (terminalFontStyle == TerminalFontStyle.MONOSPACE) MaterialTheme.typography.titleSmallEmphasized.copy(
-            fontFamily = FontFamily.Monospace,
-            fontWeight = FontWeight.SemiBold
-        )
-        else MaterialTheme.typography.titleSmallEmphasized.copy(
-            fontWeight = FontWeight.SemiBold
-        )
+        if (terminalFontStyle == TerminalFontStyle.MONOSPACE) {
+            MaterialTheme.typography.titleSmallEmphasized.copy(
+                fontFamily = FontFamily.Monospace,
+                fontWeight = FontWeight.SemiBold
+            )
+        } else {
+            MaterialTheme.typography.titleSmallEmphasized.copy(
+                fontWeight = FontWeight.SemiBold
+            )
+        }
 
     val bodyTextStyle =
-        if (terminalFontStyle == TerminalFontStyle.MONOSPACE) MaterialTheme.typography.bodySmallEmphasized.copy(
-            fontFamily = FontFamily.Monospace
-        ) else MaterialTheme.typography.bodySmallEmphasized
+        if (terminalFontStyle == TerminalFontStyle.MONOSPACE) {
+            MaterialTheme.typography.bodySmallEmphasized.copy(
+                fontFamily = FontFamily.Monospace
+            )
+        } else {
+            MaterialTheme.typography.bodySmallEmphasized
+        }
 
     val states by shellViewModel.states.collectAsState()
     val results by shellViewModel.filteredOutput.collectAsState()
@@ -1023,8 +1049,11 @@ private fun OutputCard(
                             itemToText = { it.text },
                             onCopy = { success ->
                                 val toastMessage =
-                                    if (success) res.getString(R.string.copied_to_clipboard)
-                                    else res.getString(R.string.failed_to_copy)
+                                    if (success) {
+                                        res.getString(R.string.copied_to_clipboard)
+                                    } else {
+                                        res.getString(R.string.failed_to_copy)
+                                    }
 
                                 showToast(context, toastMessage)
                             },
@@ -1097,10 +1126,12 @@ private fun ScrollFAB(
 
                     if (targetIndex < 0) return@launch
 
-                    if (smoothScroll) listState.animateScrollToItem(targetIndex)
-                    else listState.scrollToItem(targetIndex)
+                    if (smoothScroll) {
+                        listState.animateScrollToItem(targetIndex)
+                    } else {
+                        listState.scrollToItem(targetIndex)
+                    }
                 }
-
             }
         ) {
             Icon(
@@ -1155,7 +1186,6 @@ private fun ShareFAB(
                     addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 }
                 act.startActivity(Intent.createChooser(shareIntent, "Share command output"))
-
             } catch (e: Exception) {
                 e.printStackTrace()
                 showToast(context, res.getString(R.string.failed))
@@ -1166,7 +1196,8 @@ private fun ShareFAB(
     SmallFloatingActionButton(
         onClick = withHaptic {
             shareAction()
-        }, containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+        },
+        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
         contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
         modifier = modifier
     ) {
@@ -1224,8 +1255,11 @@ private fun BottomExtendedFAB(
     }
 
     val icon =
-        if (isOutputEmpty) ImageVector.vectorResource(R.drawable.ic_paste)
-        else ImageVector.vectorResource(R.drawable.ic_save)
+        if (isOutputEmpty) {
+            ImageVector.vectorResource(R.drawable.ic_paste)
+        } else {
+            ImageVector.vectorResource(R.drawable.ic_save)
+        }
 
     val buttonText =
         if (isOutputEmpty) stringResource(R.string.paste) else stringResource(R.string.save)
@@ -1247,7 +1281,6 @@ private fun BottomExtendedFAB(
             )
         }
     }
-
 
     val pasteAction: () -> Unit = {
         val textInClipboard = ClipboardUtils.readFromClipboard(context) ?: ""
@@ -1276,4 +1309,3 @@ private fun BottomExtendedFAB(
         }
     )
 }
-

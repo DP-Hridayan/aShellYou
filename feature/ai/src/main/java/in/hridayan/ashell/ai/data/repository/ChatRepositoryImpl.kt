@@ -25,10 +25,10 @@ class ChatRepositoryImpl @Inject constructor(
             }
         }
     }
-    
+
     private val _activeGeneratingSessions = MutableStateFlow<Set<String>>(emptySet())
     override val activeGeneratingSessions: StateFlow<Set<String>> = _activeGeneratingSessions.asStateFlow()
-    
+
     override fun setGenerating(sessionId: String, isGenerating: Boolean) {
         _activeGeneratingSessions.update { current ->
             if (isGenerating) current + sessionId else current - sessionId

@@ -43,6 +43,8 @@ fun syncedRotationAndScale(): Pair<() -> Float, () -> Float> {
     }
 
     return remember {
-        { rotation.value } to { scale.value }
+        {
+            rotation.value
+        } to { scale.value }
     }
 }

@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.item
 
-
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,12 +28,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.common.LocalDialogManager
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbDevice
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ForgetDeviceConfirmationDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairDialogKey
 import java.text.SimpleDateFormat
@@ -203,7 +202,8 @@ fun SavedDeviceItem(
         ForgetDeviceConfirmationDialog(
             deviceName = (dialogManager.activeDialog as PairDialogKey.ForgetDeviceConfirmation).device.deviceName,
             onConfirm = { onForget((dialogManager.activeDialog as PairDialogKey.ForgetDeviceConfirmation).device) },
-            onDismiss = { dialogManager.dismiss() })
+            onDismiss = { dialogManager.dismiss() }
+        )
     }
 }
 

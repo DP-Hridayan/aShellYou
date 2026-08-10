@@ -1,7 +1,6 @@
 package `in`.hridayan.ashell.qstiles.data.provider
 
 import `in`.hridayan.ashell.core.resources.R
-
 import `in`.hridayan.ashell.qstiles.data.model.TileIcon
 
 object TileIconProvider {
@@ -150,4 +149,3 @@ object TileIconProvider {
         return iconById[id]?.resId ?: R.drawable.ic_adb
     }
 }
-

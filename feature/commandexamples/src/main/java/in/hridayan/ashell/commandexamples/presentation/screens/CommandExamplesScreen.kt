@@ -229,7 +229,8 @@ fun CommandExamplesScreen(
                             },
                             onClickSort = withHaptic {
                                 dialogManager.show(CommandExamplesDialogKey.SortCommands)
-                            })
+                            }
+                        )
                     }
 
                     items(commands.size, key = { index -> commands[index].id }) { index ->
@@ -273,7 +274,7 @@ fun CommandExamplesScreen(
             }
         }
 
-        if (dimAlpha > 0)
+        if (dimAlpha > 0) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -284,8 +285,10 @@ fun CommandExamplesScreen(
                         interactionSource = remember { MutableInteractionSource() },
                         onClick = {
                             fabMenuExpanded = false
-                        })
+                        }
+                    )
             )
+        }
 
         FloatingActionButtonMenu(
             modifier = Modifier
@@ -351,7 +354,6 @@ fun CommandExamplesScreen(
                     icon = { }
                 )
             }
-
         }
     }
 
@@ -384,7 +386,9 @@ fun CommandExamplesScreen(
     }
 
     when (dialogManager.activeDialog) {
-        CommandExamplesDialogKey.LoadDefaultCommands -> LoadDefaultCommandsDialog(onDismiss = { dialogManager.dismiss() })
+        CommandExamplesDialogKey.LoadDefaultCommands -> LoadDefaultCommandsDialog(
+            onDismiss = { dialogManager.dismiss() }
+        )
         CommandExamplesDialogKey.SortCommands -> CommandsSortDialog(onDismiss = { dialogManager.dismiss() })
         CommandExamplesDialogKey.Add -> AddCommandDialog(onDismiss = { dialogManager.dismiss() })
         is CommandExamplesDialogKey.Edit ->
@@ -426,7 +430,6 @@ private fun NoSearchResultUi(modifier: Modifier = Modifier) {
         )
     }
 }
-
 
 @Composable
 private fun NewCommandsAvailableCard(

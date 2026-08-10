@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.logcat.presentation.components.filter
 
-
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -199,40 +198,50 @@ fun LogcatFilterBottomSheet(
                 label = stringResource(R.string.tag),
                 value = draft.tags.joinToString(","),
                 onValueChange = { raw ->
-                    draft = draft.copy(tags = raw.split(",").map { it.trim() }
-                        .filter { it.isNotBlank() }.toSet())
+                    draft = draft.copy(
+                        tags = raw.split(",").map { it.trim() }
+                            .filter { it.isNotBlank() }.toSet()
+                    )
                 }
             )
             FilterTextField(
                 label = stringResource(R.string.package_name),
                 value = draft.packages.joinToString(","),
                 onValueChange = { raw ->
-                    draft = draft.copy(packages = raw.split(",").map { it.trim() }
-                        .filter { it.isNotBlank() }.toSet())
+                    draft = draft.copy(
+                        packages = raw.split(",").map { it.trim() }
+                            .filter { it.isNotBlank() }.toSet()
+                    )
                 }
             )
             FilterTextField(
                 label = stringResource(R.string.logcat_filter_pid),
                 value = draft.pids.joinToString(","),
                 onValueChange = { raw ->
-                    draft = draft.copy(pids = raw.split(",").map { it.trim() }
-                        .filter { it.isNotBlank() }.toSet())
+                    draft = draft.copy(
+                        pids = raw.split(",").map { it.trim() }
+                            .filter { it.isNotBlank() }.toSet()
+                    )
                 }
             )
             FilterTextField(
                 label = stringResource(R.string.logcat_filter_tid),
                 value = draft.tids.joinToString(","),
                 onValueChange = { raw ->
-                    draft = draft.copy(tids = raw.split(",").map { it.trim() }
-                        .filter { it.isNotBlank() }.toSet())
+                    draft = draft.copy(
+                        tids = raw.split(",").map { it.trim() }
+                            .filter { it.isNotBlank() }.toSet()
+                    )
                 }
             )
             FilterTextField(
                 label = stringResource(R.string.logcat_filter_uid),
                 value = draft.uids.joinToString(","),
                 onValueChange = { raw ->
-                    draft = draft.copy(uids = raw.split(",").map { it.trim() }
-                        .filter { it.isNotBlank() }.toSet())
+                    draft = draft.copy(
+                        uids = raw.split(",").map { it.trim() }
+                            .filter { it.isNotBlank() }.toSet()
+                    )
                 }
             )
 
@@ -259,7 +268,10 @@ fun LogcatFilterBottomSheet(
                 }
                 Button(
                     modifier = Modifier.weight(1f),
-                    onClick = { onApply(draft); onDismiss() }
+                    onClick = {
+                        onApply(draft);
+                        onDismiss()
+                    }
                 ) {
                     Text(stringResource(R.string.apply))
                 }

@@ -26,10 +26,14 @@ fun FastbootQuickToolsCard(
     colors: CardColors = CardDefaults.cardColors(),
     enabled: Boolean = true
 ) {
-    val targetedColors = if (enabled) colors else CardDefaults.cardColors(
-        containerColor = colors.disabledContainerColor,
-        contentColor = colors.disabledContentColor
-    )
+    val targetedColors = if (enabled) {
+        colors
+    } else {
+        CardDefaults.cardColors(
+            containerColor = colors.disabledContainerColor,
+            contentColor = colors.disabledContentColor
+        )
+    }
 
     CustomCard(
         modifier = modifier,

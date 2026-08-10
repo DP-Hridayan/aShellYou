@@ -170,7 +170,6 @@ fun Modifier.premiumShine(
     durationMillis: Int = 6500,
     pauseBetween: Int = 3000
 ): Modifier = composed {
-
     val infiniteTransition = rememberInfiniteTransition(
         label = "shineTransition"
     )
@@ -190,7 +189,6 @@ fun Modifier.premiumShine(
     )
 
     drawWithContent {
-
         drawContent()
 
         val width = size.width
@@ -234,9 +232,11 @@ private fun ContactBox(
         verticalArrangement = Arrangement.spacedBy(5.dp),
         modifier = modifier
             .clip(MaterialTheme.shapes.extraLarge)
-            .clickable(onClick = withHaptic {
-                onClick()
-            })
+            .clickable(
+                onClick = withHaptic {
+                    onClick()
+                }
+            )
             .padding(vertical = 5.dp),
     ) {
         Image(

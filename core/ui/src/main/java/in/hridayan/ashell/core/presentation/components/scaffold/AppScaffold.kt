@@ -134,7 +134,9 @@ private fun AppScaffoldImpl(
                 navigationIcon = { BackButton(onClick = onNavigateBack) },
                 actions = actions,
                 scrollBehavior = scrollBehavior,
-                colors = TopAppBarDefaults.topAppBarColors(scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh)
+                colors = TopAppBarDefaults.topAppBarColors(
+                    scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh
+                )
             )
         },
         floatingActionButton = {

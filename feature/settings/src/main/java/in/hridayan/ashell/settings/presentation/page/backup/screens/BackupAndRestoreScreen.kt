@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.backup.screens
 
-
 import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
@@ -51,9 +50,9 @@ import androidx.core.net.toUri
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalDialogManager
+import `in`.hridayan.ashell.core.common.domain.model.backup.BackupType
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
-import `in`.hridayan.ashell.core.common.domain.model.backup.BackupType
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
@@ -130,8 +129,11 @@ fun BackupAndRestoreScreen(
 
     val consentLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
-            if (result.resultCode == android.app.Activity.RESULT_OK) backupAndRestoreViewModel.onConsentGranted()
-            else backupAndRestoreViewModel.onConsentDenied()
+            if (result.resultCode == android.app.Activity.RESULT_OK) {
+                backupAndRestoreViewModel.onConsentGranted()
+            } else {
+                backupAndRestoreViewModel.onConsentDenied()
+            }
         }
 
     if (isCloudBackupAvailable) {
@@ -151,7 +153,9 @@ fun BackupAndRestoreScreen(
                     launcherBackup.launch("backup_${System.currentTimeMillis()}.ashellyou")
                 }
 
-                is SettingsUiEvent.RequestDocumentUriForRestore -> launcherRestore.launch(arrayOf("application/octet-stream"))
+                is SettingsUiEvent.RequestDocumentUriForRestore -> launcherRestore.launch(
+                    arrayOf("application/octet-stream")
+                )
                 is SettingsUiEvent.RequestGoogleDriveBackup -> backupAndRestoreViewModel.backupToGoogleDrive(
                     event.backupType
                 )
@@ -267,7 +271,8 @@ fun BackupAndRestoreScreen(
     SettingsDialogKey.ResetSettings.createDialog {
         ResetSettingsDialog(
             onDismiss = { it.dismiss() },
-            onConfirm = { backupAndRestoreViewModel.resetSettingsToDefault() })
+            onConfirm = { backupAndRestoreViewModel.resetSettingsToDefault() }
+        )
     }
 
     SettingsDialogKey.RestoreBackup.createDialog {
@@ -288,9 +293,10 @@ fun BackupAndRestoreScreen(
                 BackupDestinationDialog(
                     onDismiss = { dialogViewModel.dismiss() },
                     onLocalBackup = {
-                        backupAndRestoreViewModel.initiateBackup(backupType); launcherBackup.launch(
-                        "backup_${System.currentTimeMillis()}.ashellyou"
-                    )
+                        backupAndRestoreViewModel.initiateBackup(backupType);
+                        launcherBackup.launch(
+                            "backup_${System.currentTimeMillis()}.ashellyou"
+                        )
                     },
                     onGoogleDriveBackup = { backupAndRestoreViewModel.backupToGoogleDrive(backupType) },
                 )
@@ -307,7 +313,8 @@ fun BackupAndRestoreScreen(
         SettingsDialogKey.ConfirmGoogleSignOut.createDialog { dialogViewModel ->
             GoogleSignOutConfirmationDialog(
                 onDismiss = { dialogViewModel.dismiss() },
-                onConfirm = { backupAndRestoreViewModel.signOut() })
+                onConfirm = { backupAndRestoreViewModel.signOut() }
+            )
         }
 
         cloudOperationMessage?.let { CloudOperationDialog(message = it) }
@@ -326,9 +333,11 @@ fun BackupAndRestoreScreen(
         NoGoogleAccountDialog(
             onDismiss = { dialogViewModel.dismiss() },
             onAddAccount = {
-                context.startActivity(android.content.Intent(Settings.ACTION_ADD_ACCOUNT).apply {
-                    putExtra(Settings.EXTRA_ACCOUNT_TYPES, arrayOf("com.google"))
-                })
+                context.startActivity(
+                    android.content.Intent(Settings.ACTION_ADD_ACCOUNT).apply {
+                        putExtra(Settings.EXTRA_ACCOUNT_TYPES, arrayOf("com.google"))
+                    }
+                )
             },
         )
     }
@@ -345,7 +354,9 @@ private fun LastBackupTimeCard(
 ) {
     val roundedCornerShape = if (isExpanded) CardCornerShape.FIRST_CARD else CustomCardShape(50)
     val cloudCardIcon =
-        if (userState.isSignedIn) painterResource(R.drawable.ic_cloud_done) else painterResource(R.drawable.ic_cloud_off)
+        if (userState.isSignedIn) painterResource(
+            R.drawable.ic_cloud_done
+        ) else painterResource(R.drawable.ic_cloud_off)
 
     Column(modifier = modifier.animateContentSize()) {
         CustomCard(
@@ -435,7 +446,8 @@ private fun TimeCard(
     CustomCard(
         modifier = modifier,
         shape = shape,
-        onClick = withHaptic { showToast(context, res.getString(R.string.have_a_nice_day)) }) {
+        onClick = withHaptic { showToast(context, res.getString(R.string.have_a_nice_day)) }
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -485,18 +497,14 @@ private fun TimeCard(
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.alpha(0.7f)
                 )
-                if (dateTime.isNotEmpty()) Text(
-                    text = dateTime,
-                    style = MaterialTheme.typography.bodySmall,
-                    modifier = Modifier.alpha(0.7f)
-                )
+                if (dateTime.isNotEmpty()) {
+                    Text(
+                        text = dateTime,
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.alpha(0.7f)
+                    )
+                }
             }
         }
     }
 }
-
-
-
-
-
-

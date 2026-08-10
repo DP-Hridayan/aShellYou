@@ -20,7 +20,9 @@ data class RemoteFile(
     val extension: String
         get() = if (!isDirectory && name.contains(".")) {
             name.substringAfterLast(".")
-        } else ""
+        } else {
+            ""
+        }
 
     val displaySize: String
         @SuppressLint("DefaultLocale")

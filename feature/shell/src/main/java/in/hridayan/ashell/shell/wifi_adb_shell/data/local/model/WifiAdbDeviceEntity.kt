@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 /**
  * Room entity for storing paired WiFi ADB devices.
- * 
+ *
  * @param id Unique identifier (serial number if available, otherwise IP)
  * @param ip IP address of the device
  * @param port ADB connect port

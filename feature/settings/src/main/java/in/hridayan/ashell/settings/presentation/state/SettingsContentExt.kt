@@ -61,5 +61,3 @@ fun LazyListScope.settingsContent(
         categoryHeader = categoryHeader,
     )
 }
-
-

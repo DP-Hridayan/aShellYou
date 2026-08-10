@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.shell.fastboot.presentation.components.bottomsheet
 
-
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Arrangement
@@ -159,10 +158,11 @@ fun GetVariablesBottomSheet(
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = if (searchQuery.text.isNotBlank())
+                            text = if (searchQuery.text.isNotBlank()) {
                                 stringResource(R.string.no_results_found)
-                            else
-                                stringResource(R.string.no_variables_loaded),
+                            } else {
+                                stringResource(R.string.no_variables_loaded)
+                            },
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -194,10 +194,11 @@ fun GetVariablesBottomSheet(
             // Count
             if (!isLoading && variables.isNotEmpty()) {
                 Text(
-                    text = if (searchQuery.text.isNotBlank())
+                    text = if (searchQuery.text.isNotBlank()) {
                         "${filteredVariables.size} / ${variables.size}"
-                    else
-                        "${variables.size} variables",
+                    } else {
+                        "${variables.size} variables"
+                    },
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(vertical = 12.dp)

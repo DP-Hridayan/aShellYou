@@ -28,7 +28,6 @@ fun DeleteTileConfirmationDialog(
     onConfirm: () -> Unit,
     onDismiss: () -> Unit
 ) {
-
     Dialog(
         onDismissRequest = { onDismiss() },
         properties = DialogProperties(dismissOnClickOutside = true)

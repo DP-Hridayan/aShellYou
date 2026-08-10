@@ -1,9 +1,8 @@
 package `in`.hridayan.ashell.core.common.domain.model
 
-import `in`.hridayan.ashell.core.resources.R
-
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import `in`.hridayan.ashell.core.resources.R
 
 enum class AppFont(val id: Int, val labelResId: Int) {
     SYSTEM(0, R.string.system_font) {

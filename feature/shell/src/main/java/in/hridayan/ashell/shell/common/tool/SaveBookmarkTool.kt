@@ -3,7 +3,6 @@ package `in`.hridayan.ashell.shell.common.tool
 import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaProperty
-import `in`.hridayan.ashell.shell.common.data.model.BookmarkEntity
 import `in`.hridayan.ashell.shell.common.domain.repository.BookmarkRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.serialization.json.JsonObject
@@ -17,9 +16,9 @@ class SaveBookmarkTool @Inject constructor(
 ) : AiTool {
 
     override val name: String = "save_bookmark"
-    
+
     override val description: String = "Save a fully formed, ready-to-execute shell command (with all parameters filled) into the user's Bookmarks for quick access. Only use this if the command is general, parameter-less, or the user specifically requests to save it as a bookmark."
-    
+
     override val parametersSchema: ToolSchema = ToolSchema(
         type = "OBJECT",
         properties = mapOf(
@@ -40,7 +39,7 @@ class SaveBookmarkTool @Inject constructor(
         }
 
         bookmarkRepository.addBookmark(commandString)
-        
+
         return "Successfully saved command to Bookmarks."
     }
 }

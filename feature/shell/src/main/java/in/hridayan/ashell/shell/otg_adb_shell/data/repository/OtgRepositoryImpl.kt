@@ -18,10 +18,10 @@ import com.cgutman.adblib.AdbCrypto
 import com.cgutman.adblib.AdbStream
 import com.cgutman.adblib.UsbChannel
 import `in`.hridayan.ashell.core.common.domain.model.OutputLine
-import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.common.domain.model.otg.OtgConnection
 import `in`.hridayan.ashell.core.common.domain.model.otg.OtgState
 import `in`.hridayan.ashell.core.common.domain.repository.OtgRepository
+import `in`.hridayan.ashell.core.resources.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -87,8 +87,10 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
 
     private fun registerReceivers() {
         ContextCompat.registerReceiver(
-            context, permissionReceiver,
-            IntentFilter(permissionAction), ContextCompat.RECEIVER_NOT_EXPORTED
+            context,
+            permissionReceiver,
+            IntentFilter(permissionAction),
+            ContextCompat.RECEIVER_NOT_EXPORTED
         )
 
         val usbFilter = IntentFilter().apply {
@@ -96,7 +98,10 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
             addAction(UsbManager.ACTION_USB_DEVICE_DETACHED)
         }
         ContextCompat.registerReceiver(
-            context, usbReceiver, usbFilter, ContextCompat.RECEIVER_NOT_EXPORTED
+            context,
+            usbReceiver,
+            usbFilter,
+            ContextCompat.RECEIVER_NOT_EXPORTED
         )
     }
 
@@ -159,7 +164,6 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
         }
     }
 
-
     override fun searchDevices() {
         if (usbManager == null) {
             OtgConnection.updateState(OtgState.UsbManagerUnavailable)
@@ -181,8 +185,11 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
         }
 
         val adbDevice = devices.firstOrNull { isAdbDevice(it) }
-        if (adbDevice != null) handleDeviceAttach(adbDevice)
-        else OtgConnection.updateState(OtgState.Error(context.getString(R.string.no_adb_device_error)))
+        if (adbDevice != null) {
+            handleDeviceAttach(adbDevice)
+        } else {
+            OtgConnection.updateState(OtgState.Error(context.getString(R.string.no_adb_device_error)))
+        }
     }
 
     private fun requestPermission(device: UsbDevice) {
@@ -193,7 +200,10 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
         if (manager.hasPermission(device)) return
 
         val pendingIntent = PendingIntent.getBroadcast(
-            context, 0, Intent(permissionAction), PendingIntent.FLAG_IMMUTABLE
+            context,
+            0,
+            Intent(permissionAction),
+            PendingIntent.FLAG_IMMUTABLE
         )
         manager.requestPermission(device, pendingIntent)
     }
@@ -236,7 +246,6 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
                     OtgConnection.updateState(OtgState.Connected(name))
                     Log.d("OtgRepository", "ADB connected to $name")
                 }
-
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     OtgConnection.updateState(OtgState.Error("ADB Connection failed: ${e.message}"))
@@ -252,7 +261,9 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
             if (intf.interfaceClass == 255 &&
                 intf.interfaceSubclass == 66 &&
                 intf.interfaceProtocol == 1
-            ) return intf
+            ) {
+                return intf
+            }
         }
         return null
     }
@@ -262,7 +273,7 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
     /**
      * Handle cd command and return the command to actually execute.
      * - If it's a pure "cd" command, updates currentDir and returns null.
-     * - If it's a compound command starting with cd (e.g., "cd /data && ls"), 
+     * - If it's a compound command starting with cd (e.g., "cd /data && ls"),
      *   updates currentDir and returns the remaining commands.
      */
     private fun handleCdCommand(commandText: String): String? {
@@ -288,7 +299,11 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
                 remainingCommand = trimmedCommand.substring(
                     separatorIndex + if (trimmedCommand.substring(separatorIndex)
                             .startsWith(" && ")
-                    ) 4 else 2
+                    ) {
+                        4
+                    } else {
+                        2
+                    }
                 ).trim()
             } else {
                 cdPart = trimmedCommand
@@ -357,7 +372,6 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
                 val text = String(data, Charsets.UTF_8)
                 buffer.append(text)
 
-
                 val lines = buffer.split("\n")
                 for (i in 0 until lines.size - 1) {
                     emit(OutputLine(lines[i].trimEnd(), isError = false))
@@ -370,7 +384,6 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
             if (buffer.isNotEmpty()) {
                 emit(OutputLine(buffer.toString().trimEnd(), isError = false))
             }
-
         } catch (e: IOException) {
             emit(OutputLine("OTG shell: ${e.message}", isError = true))
         } finally {
@@ -420,7 +433,9 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
             if (intf.interfaceClass == 255 &&
                 intf.interfaceSubclass == 66 &&
                 intf.interfaceProtocol == 1
-            ) return true
+            ) {
+                return true
+            }
         }
         return false
     }

@@ -23,7 +23,6 @@ fun DeleteFileDialog(
     title: String,
     message: String
 ) {
-
     DialogContainer(
         onDismiss = onDismiss,
     ) {

@@ -14,7 +14,6 @@ class ContributorsRepositoryImpl(
 ) : ContributorsRepository {
 
     override fun getTranslators(): List<Translator> {
-
         return TranslatorParser
             .loadJson(context)
             .sortedByDescending { it.translated }
@@ -22,7 +21,6 @@ class ContributorsRepositoryImpl(
     }
 
     override fun getGitHubContributors(): List<GitHubContributor> {
-
         return GitHubContributorParser
             .loadJson(context)
             .sortedByDescending { it.contributions }

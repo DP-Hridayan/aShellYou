@@ -128,7 +128,8 @@ class GenerateCorrectionsUseCase @Inject constructor(
                         correction.suggestedCommand,
                         ignoreCase = true
                     )
-                }) {
+                }
+            ) {
                 results.add(
                     correction.copy(
                         confidence = CorrectionConfidence.LOW,

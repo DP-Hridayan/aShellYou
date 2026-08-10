@@ -61,14 +61,21 @@ private fun getInverseColorScheme(darkTheme: Boolean): ColorScheme {
         isUserGeneratedColorSchemeApplied && generatedColorScheme != null && !dynamicColor -> generatedColorScheme.toColorScheme()
 
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            if (darkTheme && isHighContrastDarkTheme) highContrastDynamicDarkColorScheme(context)
-            else if (darkTheme) dynamicDarkColorScheme(context)
-            else dynamicLightColorScheme(context)
+            if (darkTheme && isHighContrastDarkTheme) {
+                highContrastDynamicDarkColorScheme(context)
+            } else if (darkTheme) {
+                dynamicDarkColorScheme(context)
+            } else {
+                dynamicLightColorScheme(context)
+            }
         }
 
         darkTheme -> {
-            if (isHighContrastDarkTheme) highContrastDarkColorSchemeFromSeed()
-            else darkColorSchemeFromSeed()
+            if (isHighContrastDarkTheme) {
+                highContrastDarkColorSchemeFromSeed()
+            } else {
+                darkColorSchemeFromSeed()
+            }
         }
 
         else -> lightColorSchemeFromSeed()

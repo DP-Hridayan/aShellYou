@@ -45,7 +45,6 @@ import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.FontStyleBottomSheet
 import `in`.hridayan.ashell.settings.presentation.components.dialog.PaletteStylePickerDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
-import `in`.hridayan.ashell.settings.presentation.components.svg.vectors.themePicker
 import `in`.hridayan.ashell.settings.presentation.components.tab.ColorTabs
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel.LookAndFeelViewModel
@@ -115,8 +114,11 @@ fun LookAndFeelScreen(
                     autoDarkModeOnBatterySaver && isDarkMode -> stringResource(R.string.on)
 
                     userGeneratedColorSchemeApplied && !isDynamicColorEnabled -> {
-                        if (isCustomColorSchemeDarkThemed) stringResource(R.string.on)
-                        else stringResource(R.string.off)
+                        if (isCustomColorSchemeDarkThemed) {
+                            stringResource(R.string.on)
+                        } else {
+                            stringResource(R.string.off)
+                        }
                     }
 
                     themeMode == AppCompatDelegate.MODE_NIGHT_YES -> stringResource(R.string.on)
@@ -134,7 +136,8 @@ fun LookAndFeelScreen(
         visibilityOverrides = mapOf(
             SettingsKeys.PaletteStyle to { !(isDynamicColorEnabled || userGeneratedColorSchemeApplied) },
             SettingsKeys.DarkTheme to { !userGeneratedColorSchemeApplied || isDynamicColorEnabled }
-        ))
+        )
+    )
 
     AppScaffold(
         onNavigateBack = { navController.navigateBack() },
@@ -213,9 +216,3 @@ fun LookAndFeelScreen(
         )
     }
 }
-
-
-
-
-
-

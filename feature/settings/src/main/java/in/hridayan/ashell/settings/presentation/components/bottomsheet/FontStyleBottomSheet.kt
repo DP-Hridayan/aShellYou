@@ -190,9 +190,11 @@ fun FontStyleBottomSheet(
                 hint = stringResource(R.string.search_fonts),
                 trailingIcon = {
                     if (searchQuery.text.isNotEmpty()) {
-                        IconButton(onClick = withHaptic {
-                            searchQuery = TextFieldValue("")
-                        }) {
+                        IconButton(
+                            onClick = withHaptic {
+                                searchQuery = TextFieldValue("")
+                            }
+                        ) {
                             Icon(
                                 painter = painterResource(R.drawable.ic_cross),
                                 contentDescription = null
@@ -289,7 +291,9 @@ fun FontStyleBottomSheet(
 
                             RadioButton(
                                 selected = (option.value == tempSelected),
-                                onClick = withHaptic(if (isSelected) HapticFeedbackType.ToggleOn else HapticFeedbackType.ToggleOff) {
+                                onClick = withHaptic(
+                                    if (isSelected) HapticFeedbackType.ToggleOn else HapticFeedbackType.ToggleOff
+                                ) {
                                     tempSelected = option.value
                                 },
                                 colors = RadioButtonDefaults.colors(
@@ -378,7 +382,8 @@ private fun TextFormatUtilityRow(
                         enabled = true,
                         onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                             viewModel.toggleMatchCase()
-                        }),
+                        }
+                    ),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
@@ -400,7 +405,8 @@ private fun TextFormatUtilityRow(
                         enabled = true,
                         onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                             viewModel.toggleBold()
-                        }),
+                        }
+                    ),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
@@ -422,7 +428,8 @@ private fun TextFormatUtilityRow(
                         enabled = true,
                         onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                             viewModel.toggleItalic()
-                        }),
+                        }
+                    ),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
@@ -444,7 +451,8 @@ private fun TextFormatUtilityRow(
                         enabled = true,
                         onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                             viewModel.toggleUnderline()
-                        }),
+                        }
+                    ),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
@@ -465,7 +473,8 @@ private fun TextFormatUtilityRow(
                         enabled = true,
                         onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                             viewModel.formatClear()
-                        }),
+                        }
+                    ),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(

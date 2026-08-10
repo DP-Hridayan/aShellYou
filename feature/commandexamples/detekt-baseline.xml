@@ -60,6 +60,9 @@
             onClickFilter = withHaptic { showFilterCommandBottomSheet = true }, onClickSort =
             withHaptic { dialogManager.show(CommandExamplesDialogKey.SortCommands) })
         </ID>
+        <ID>ArgumentListWrapping:CommandExamplesScreen.kt$( onDismiss = { dialogManager.dismiss()
+            })
+        </ID>
         <ID>ArgumentListWrapping:CommandExamplesScreen.kt$(onDismiss = { dialogManager.dismiss()
             })
         </ID>
@@ -67,7 +70,7 @@
             shapes = ButtonDefaults.shapes(), onClick = withHaptic(HapticFeedbackType.Confirm) {
             onDismiss() })
         </ID>
-        <ID>ArgumentListWrapping:SaveCommandExampleTool.kt$SaveCommandExampleTool$(",")</ID>
+        <ID>ArgumentListWrapping:UpdateCommandExampleTool.kt$UpdateCommandExampleTool$( ",")</ID>
         <ID>ArgumentListWrapping:UpdateCommandExampleTool.kt$UpdateCommandExampleTool$(",")</ID>
         <ID>FinalNewline:ExampleUnitTest.kt$in.hridayan.ashell.commandexamples.ExampleUnitTest.kt
         </ID>
@@ -110,18 +113,16 @@
             `in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider
         </ID>
         <ID>ImportOrdering:ExampleUnitTest.kt$import org.junit.Test import org.junit.Assert.*</ID>
+        <ID>Indentation:CommandExampleCard.kt$</ID>
         <ID>Indentation:CommandExamplesViewModel.kt$CommandExamplesViewModel$</ID>
+        <ID>Indentation:CommandsFilterBottomSheet.kt$</ID>
+        <ID>Indentation:CommandsSortDialog.kt$</ID>
+        <ID>Indentation:SaveCommandExampleTool.kt$SaveCommandExampleTool$</ID>
         <ID>Indentation:SearchCommandExamplesTool.kt$SearchCommandExamplesTool$</ID>
         <ID>InstanceOfCheckForException:CommandExamplesViewModel.kt$CommandExamplesViewModel$e is
             CloudNetworkException.ProviderNotConfigured
         </ID>
         <ID>LargeClass:CommandExamplesViewModel.kt$CommandExamplesViewModel : ViewModel</ID>
-        <ID>LongMethod:CommandExamplesViewModel.kt$CommandExamplesViewModel$fun
-            addCommand(onSuccess: () -&gt; Unit)
-        </ID>
-        <ID>LongMethod:CommandExamplesViewModel.kt$CommandExamplesViewModel$fun editCommand(id: Int,
-            onSuccess: () -&gt; Unit)
-        </ID>
         <ID>LongMethod:CommandExamplesViewModel.kt$CommandExamplesViewModel$fun onLabelAdd(label:
             String)
         </ID>
@@ -140,9 +141,6 @@
         <ID>MaxLineLength:CmdExamplesScreenState.kt$CmdExamplesScreenState$val descriptionField:
             CmdScreenInputFieldState.DescriptionInputFieldState =
             CmdScreenInputFieldState.DescriptionInputFieldState()
-        </ID>
-        <ID>MaxLineLength:CommandExamplesScreen.kt$CommandExamplesDialogKey.LoadDefaultCommands -&gt;
-            LoadDefaultCommandsDialog(onDismiss = { dialogManager.dismiss() })
         </ID>
         <ID>MaxLineLength:CommandsFilterBottomSheet.kt$if (selected)
             MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface
@@ -164,18 +162,10 @@
             Use this for general templates like 'pm uninstall --user &lt;user&gt; &lt;package&gt;'
             or complex scripts with placeholders."
         </ID>
-        <ID>MaxLineLength:SaveCommandExampleTool.kt$SaveCommandExampleTool$val labelsList = if
-            (labelsString.isBlank()) emptyList() else labelsString.split(",").map { it.trim()
-            }.filter { it.isNotEmpty() }
-        </ID>
         <ID>MaxLineLength:SearchCommandExamplesTool.kt$SearchCommandExamplesTool$override val
             description: String = "Search the user's Command Examples library for shell command
             templates, descriptions, or labels. Returns matching command examples along with their
             IDs, titles, command strings, and labels."
-        </ID>
-        <ID>MaxLineLength:UpdateCommandExampleTool.kt$UpdateCommandExampleTool$if
-            (labelsString.isBlank()) emptyList() else labelsString.split(",").map { it.trim()
-            }.filter { it.isNotEmpty() }
         </ID>
         <ID>MaxLineLength:UpdateCommandExampleTool.kt$UpdateCommandExampleTool$override val
             description: String = "Update an existing shell command in the user's Command Examples
@@ -183,7 +173,6 @@
             search_command_examples first) and optionally the fields you want to update."
         </ID>
         <ID>MaximumLineLength:CmdExamplesScreenState.kt$CmdExamplesScreenState$</ID>
-        <ID>MaximumLineLength:CommandExamplesScreen.kt$</ID>
         <ID>MaximumLineLength:CommandsFilterBottomSheet.kt$</ID>
         <ID>MaximumLineLength:DeleteCommandExampleTool.kt$DeleteCommandExampleTool$</ID>
         <ID>MaximumLineLength:SaveCommandExampleTool.kt$SaveCommandExampleTool$</ID>
@@ -234,7 +223,7 @@
             horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment =
             Alignment.CenterVertically ) { FlexBox( modifier = Modifier.fillMaxWidth(), config = {
             direction(FlexDirection.Row) wrap(FlexWrap.Wrap) gap(10.dp)
-            alignItems(FlexAlignItems.Center) }) { Row(horizontalArrangement =
+            alignItems(FlexAlignItems.Center) } ) { Row(horizontalArrangement =
             Arrangement.spacedBy(10.dp)) { EditButton( onEdit = onEdit, modifier =
             Modifier.size(40.dp) ) DeleteButton( modifier = Modifier.size(40.dp), onClick = onDelete
             ) CopyButton( id = id, modifier = Modifier.size(40.dp) ) } UseCommandButton( onClick = {
@@ -242,7 +231,7 @@
             Modifier.flex { grow(1f) } ) if (FeatureConfig.isAiEnabled) { AiAnalysisButton( onClick
             = { onAnalyzeCommand(command) }, colors = ButtonDefaults.buttonColors( containerColor =
             MaterialTheme.colorScheme.tertiary, contentColor = MaterialTheme.colorScheme.onTertiary
-            ), modifier = Modifier.flex { grow(1f) } ) } } } }) }
+            ), modifier = Modifier.flex { grow(1f) } ) } } } } ) }
         </ID>
         <ID>MultiLineIfElse:CommandExampleCard.kt$DeleteLottie( composition =
             compositionDeleteLottie, progress = deleteLottieProgress, )
@@ -260,7 +249,7 @@
         <ID>MultiLineIfElse:CommandExamplesScreen.kt$Box( modifier = Modifier .fillMaxSize()
             .background(color = Color.Black.copy(alpha = dimAlpha)) .clickable( enabled =
             fabMenuExpanded, indication = null, interactionSource = remember {
-            MutableInteractionSource() }, onClick = { fabMenuExpanded = false }) )
+            MutableInteractionSource() }, onClick = { fabMenuExpanded = false } ) )
         </ID>
         <ID>MultiLineIfElse:CommandsFilterBottomSheet.kt$Icon( painter =
             painterResource(R.drawable.ic_check), contentDescription = null, modifier =
@@ -274,8 +263,10 @@
             MaterialTheme.colorScheme.surfaceContainerLowest, contentColor =
             MaterialTheme.colorScheme.onSurface )
         </ID>
+        <ID>MultiLineIfElse:SaveCommandExampleTool.kt$SaveCommandExampleTool$emptyList()</ID>
         <ID>
-            NewLineAtEndOfFile:ExampleUnitTest.kt$in.hridayan.ashell.commandexamples.ExampleUnitTest.kt
+            MultiLineIfElse:SaveCommandExampleTool.kt$SaveCommandExampleTool$labelsString.split(",").map
+            { it.trim() }.filter { it.isNotEmpty() }
         </ID>
         <ID>NoBlankLineBeforeRbrace:CommandExamplesScreen.kt$</ID>
         <ID>NoConsecutiveBlankLines:CommandExampleCard.kt$</ID>
@@ -292,79 +283,6 @@
             NoUnusedImports:UpdateCommandExampleTool.kt$in.hridayan.ashell.commandexamples.tool.UpdateCommandExampleTool.kt
         </ID>
         <ID>NoWildcardImports:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
-        <ID>PackageName:AddCommandDialog.kt$package
-            `in`.hridayan.ashell.commandexamples.presentation.component.dialog
-        </ID>
-        <ID>PackageName:CmdExamplesScreenState.kt$package
-            `in`.hridayan.ashell.commandexamples.presentation.model
-        </ID>
-        <ID>PackageName:CmdScreenInputFieldState.kt$package
-            `in`.hridayan.ashell.commandexamples.presentation.model
-        </ID>
-        <ID>PackageName:CmdScreenUiState.kt$package
-            `in`.hridayan.ashell.commandexamples.presentation.model
-        </ID>
-        <ID>PackageName:CommandBackupModule.kt$package `in`.hridayan.ashell.commandexamples.di</ID>
-        <ID>PackageName:CommandBackupProvider.kt$package
-            `in`.hridayan.ashell.commandexamples.data.backup
-        </ID>
-        <ID>PackageName:CommandDao.kt$package
-            `in`.hridayan.ashell.commandexamples.data.local.database
-        </ID>
-        <ID>PackageName:CommandDatabase.kt$package
-            `in`.hridayan.ashell.commandexamples.data.local.database
-        </ID>
-        <ID>PackageName:CommandDatabaseModule.kt$package `in`.hridayan.ashell.commandexamples.di
-        </ID>
-        <ID>PackageName:CommandExampleCard.kt$package
-            `in`.hridayan.ashell.commandexamples.presentation.component.card
-        </ID>
-        <ID>PackageName:CommandExamplesDialogKey.kt$package
-            `in`.hridayan.ashell.commandexamples.presentation.component.dialog
-        </ID>
-        <ID>PackageName:CommandExamplesScreen.kt$package
-            `in`.hridayan.ashell.commandexamples.presentation.screens
-        </ID>
-        <ID>PackageName:CommandExamplesViewModel.kt$package
-            `in`.hridayan.ashell.commandexamples.presentation.viewmodel
-        </ID>
-        <ID>PackageName:CommandRepositoryImpl.kt$package
-            `in`.hridayan.ashell.commandexamples.data.local.repository
-        </ID>
-        <ID>PackageName:CommandRepositoryModule.kt$package `in`.hridayan.ashell.commandexamples.di
-        </ID>
-        <ID>PackageName:CommandToolModule.kt$package `in`.hridayan.ashell.commandexamples.di</ID>
-        <ID>PackageName:CommandsFilterBottomSheet.kt$package
-            `in`.hridayan.ashell.commandexamples.presentation.component.bottomsheet
-        </ID>
-        <ID>PackageName:CommandsSortDialog.kt$package
-            `in`.hridayan.ashell.commandexamples.presentation.component.dialog
-        </ID>
-        <ID>PackageName:DeleteCommandExampleTool.kt$package
-            `in`.hridayan.ashell.commandexamples.tool
-        </ID>
-        <ID>PackageName:EditCommandDialog.kt$package
-            `in`.hridayan.ashell.commandexamples.presentation.component.dialog
-        </ID>
-        <ID>PackageName:ExampleUnitTest.kt$package `in`.hridayan.ashell.commandexamples</ID>
-        <ID>PackageName:Labels.kt$package
-            `in`.hridayan.ashell.commandexamples.presentation.component.row
-        </ID>
-        <ID>PackageName:LoadDefaultCommandsDialog.kt$package
-            `in`.hridayan.ashell.commandexamples.presentation.component.dialog
-        </ID>
-        <ID>PackageName:PreloadedCommands.kt$package
-            `in`.hridayan.ashell.commandexamples.data.local.source
-        </ID>
-        <ID>PackageName:SaveCommandExampleTool.kt$package
-            `in`.hridayan.ashell.commandexamples.tool
-        </ID>
-        <ID>PackageName:SearchCommandExamplesTool.kt$package
-            `in`.hridayan.ashell.commandexamples.tool
-        </ID>
-        <ID>PackageName:UpdateCommandExampleTool.kt$package
-            `in`.hridayan.ashell.commandexamples.tool
-        </ID>
         <ID>PrintStackTrace:CommandBackupProvider.kt$CommandBackupProvider$e</ID>
         <ID>SpacingAroundCurly:CommandsSortDialog.kt${</ID>
         <ID>TooManyFunctions:CommandDao.kt$CommandDao</ID>
@@ -372,10 +290,6 @@
         <ID>TooManyFunctions:CommandRepositoryImpl.kt$CommandRepositoryImpl : CommandRepository</ID>
         <ID>UnusedParameter:CommandExampleCard.kt$isFavourite: Boolean</ID>
         <ID>WildcardImport:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
-        <ID>Wrapping:CommandExampleCard.kt$(</ID>
-        <ID>Wrapping:CommandExamplesScreen.kt$(</ID>
-        <ID>Wrapping:LoadDefaultCommandsDialog.kt$(</ID>
-        <ID>Wrapping:SaveCommandExampleTool.kt$SaveCommandExampleTool$it.isNotEmpty()</ID>
         <ID>Wrapping:SaveCommandExampleTool.kt$SaveCommandExampleTool$it.trim()</ID>
         <ID>Wrapping:SearchCommandExamplesTool.kt$SearchCommandExamplesTool$(</ID>
     </CurrentIssues>

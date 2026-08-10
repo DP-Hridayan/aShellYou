@@ -21,4 +21,3 @@ data class CommandEntity(
     val useCount: Int = 0,
     val labels: List<String> = emptyList()
 )
-

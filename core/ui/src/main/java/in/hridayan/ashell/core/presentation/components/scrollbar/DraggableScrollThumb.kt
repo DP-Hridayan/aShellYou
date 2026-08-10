@@ -47,8 +47,9 @@ fun DraggableScrollThumb(
     val scrollProgress by remember {
         derivedStateOf {
             val info = listState.layoutInfo
-            if (info.totalItemsCount == 0 || info.visibleItemsInfo.isEmpty()) 0f
-            else {
+            if (info.totalItemsCount == 0 || info.visibleItemsInfo.isEmpty()) {
+                0f
+            } else {
                 val firstVisibleItem = info.visibleItemsInfo.first()
                 val totalItemsCount = info.totalItemsCount
                 val viewportHeight = info.viewportEndOffset - info.viewportStartOffset
@@ -110,8 +111,11 @@ fun DraggableScrollThumb(
 ) {
     val scrollProgress by remember {
         derivedStateOf {
-            if (scrollState.maxValue == 0) 0f
-            else (scrollState.value.toFloat() / scrollState.maxValue).coerceIn(0f, 1f)
+            if (scrollState.maxValue == 0) {
+                0f
+            } else {
+                (scrollState.value.toFloat() / scrollState.maxValue).coerceIn(0f, 1f)
+            }
         }
     }
 

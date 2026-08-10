@@ -2,7 +2,6 @@ package `in`.hridayan.ashell.ai.domain.tool.builtin
 
 import `in`.hridayan.ashell.ai.domain.tool.CommandExecutionManager
 import `in`.hridayan.ashell.ai.domain.tool.PermissionResult
-import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 import `in`.hridayan.ashell.core.common.domain.model.ai.SessionIdContext
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema
@@ -12,6 +11,7 @@ import `in`.hridayan.ashell.core.common.domain.repository.AiConnectionStateProvi
 import `in`.hridayan.ashell.core.common.domain.repository.OtgRepository
 import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.core.common.domain.repository.ShellRepository
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.withTimeoutOrNull

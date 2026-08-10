@@ -80,15 +80,20 @@ fun ConnectedDeviceCard(
                 Box(
                     modifier = Modifier
                         .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.run {
-                            if (isConnected) primary else error
-                        }),
+                        .background(
+                            MaterialTheme.colorScheme.run {
+                                if (isConnected) primary else error
+                            }
+                        ),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         modifier = Modifier.padding(15.dp),
-                        painter = if (isConnected) painterResource(R.drawable.ic_check_circle)
-                        else painterResource(R.drawable.ic_cancel),
+                        painter = if (isConnected) {
+                            painterResource(R.drawable.ic_check_circle)
+                        } else {
+                            painterResource(R.drawable.ic_cancel)
+                        },
                         tint = MaterialTheme.colorScheme.run {
                             if (isConnected) onPrimary else onError
                         },
@@ -108,9 +113,13 @@ fun ConnectedDeviceCard(
                     )
 
                     Text(
-                        text = if (isConnected && deviceName != null) deviceName else stringResource(
-                            R.string.no_device_connected
-                        ),
+                        text = if (isConnected && deviceName != null) {
+                            deviceName
+                        } else {
+                            stringResource(
+                                R.string.no_device_connected
+                            )
+                        },
                         style = MaterialTheme.typography.bodySmall
                     )
                 }
@@ -129,57 +138,59 @@ fun ConnectedDeviceCard(
             }
         }
 
-        if (isExpanded) Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 15.dp),
-            verticalArrangement = Arrangement.spacedBy(5.dp)
-        ) {
-            WavyHorizontalDivider(
+        if (isExpanded) {
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 10.dp),
-                waveHeight = 6.dp,
-                waveLength = 30.dp,
-                thickness = 1.dp
-            )
+                    .padding(bottom = 15.dp),
+                verticalArrangement = Arrangement.spacedBy(5.dp)
+            ) {
+                WavyHorizontalDivider(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 10.dp),
+                    waveHeight = 6.dp,
+                    waveLength = 30.dp,
+                    thickness = 1.dp
+                )
 
-            Text(
-                modifier = Modifier.padding(horizontal = 15.dp),
-                text = stringResource(R.string.other_details) + " : ",
-                style = MaterialTheme.typography.labelLargeEmphasized,
-                fontWeight = FontWeight.SemiBold
-            )
+                Text(
+                    modifier = Modifier.padding(horizontal = 15.dp),
+                    text = stringResource(R.string.other_details) + " : ",
+                    style = MaterialTheme.typography.labelLargeEmphasized,
+                    fontWeight = FontWeight.SemiBold
+                )
 
-            SpecificationText(
-                modifier = Modifier.padding(horizontal = 15.dp),
-                spec = stringResource(R.string.serial_number),
-                value = serialNumber
-            )
+                SpecificationText(
+                    modifier = Modifier.padding(horizontal = 15.dp),
+                    spec = stringResource(R.string.serial_number),
+                    value = serialNumber
+                )
 
-            SpecificationText(
-                modifier = Modifier.padding(horizontal = 15.dp),
-                spec = stringResource(R.string.variant),
-                value = variant
-            )
+                SpecificationText(
+                    modifier = Modifier.padding(horizontal = 15.dp),
+                    spec = stringResource(R.string.variant),
+                    value = variant
+                )
 
-            SpecificationText(
-                modifier = Modifier.padding(horizontal = 15.dp),
-                spec = stringResource(R.string.bootloader_version),
-                value = bootloaderVersion
-            )
+                SpecificationText(
+                    modifier = Modifier.padding(horizontal = 15.dp),
+                    spec = stringResource(R.string.bootloader_version),
+                    value = bootloaderVersion
+                )
 
-            SpecificationText(
-                modifier = Modifier.padding(horizontal = 15.dp),
-                spec = stringResource(R.string.baseband_version),
-                value = basebandVersion
-            )
+                SpecificationText(
+                    modifier = Modifier.padding(horizontal = 15.dp),
+                    spec = stringResource(R.string.baseband_version),
+                    value = basebandVersion
+                )
 
-            SpecificationText(
-                modifier = Modifier.padding(horizontal = 15.dp),
-                spec = stringResource(R.string.security_patch),
-                value = securityPatch
-            )
+                SpecificationText(
+                    modifier = Modifier.padding(horizontal = 15.dp),
+                    spec = stringResource(R.string.security_patch),
+                    value = securityPatch
+                )
+            }
         }
     }
 }

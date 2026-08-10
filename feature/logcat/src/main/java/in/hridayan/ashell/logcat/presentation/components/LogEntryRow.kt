@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.logcat.presentation.components
 
-
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -108,4 +107,3 @@ fun LogEntryRow(
         }
     }
 }
-

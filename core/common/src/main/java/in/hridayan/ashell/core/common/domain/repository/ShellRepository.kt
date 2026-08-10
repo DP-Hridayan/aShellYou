@@ -15,4 +15,3 @@ interface ShellRepository {
     suspend fun executeShizukuCommand(command: String): Flow<OutputLine>
     fun stopCommand()
 }
-

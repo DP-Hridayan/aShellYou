@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens
 
-
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
@@ -26,6 +25,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.domain.model.AdbFileBrowserConnectionMode
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbConnection
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbState
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -35,8 +36,6 @@ import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ConnectedDeviceDialog
 import `in`.hridayan.ashell.shell.common.presentation.screens.BaseShellScreen
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
-import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbConnection
-import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.DeviceDisconnectedDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
 

@@ -1,6 +1,5 @@
 package `in`.hridayan.ashell.commandexamples.presentation.component.dialog
 
-
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,10 +32,10 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
 import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
 import `in`.hridayan.ashell.core.presentation.model.ButtonType
+import `in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider
 
 @Composable
 fun CommandsSortDialog(
@@ -69,13 +68,17 @@ fun CommandsSortDialog(
 
             val selected = option.value == tempSelected
 
-            val cardColors = if (selected) CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-            ) else CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
-                contentColor = MaterialTheme.colorScheme.onSurface
-            )
+            val cardColors = if (selected) {
+                CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                )
+            } else {
+                CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
+                    contentColor = MaterialTheme.colorScheme.onSurface
+                )
+            }
 
             val finalShape = if (selected) {
                 CustomCardShape(50)
@@ -92,8 +95,7 @@ fun CommandsSortDialog(
                 onClick = withHaptic(HapticFeedbackType.ToggleOn) {
                     tempSelected = option.value
                 }
-            )
-            {
+            ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier

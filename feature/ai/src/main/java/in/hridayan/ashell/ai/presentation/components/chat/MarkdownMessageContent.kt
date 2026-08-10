@@ -91,17 +91,19 @@ fun MarkdownMessageContent(
                                 )
 
                                 Row {
-                                    TextButton(onClick = withHaptic {
-                                        ClipboardUtils.copyToClipboard(
-                                            text = AnnotatedString(component.code).text,
-                                            context = context
-                                        )
+                                    TextButton(
+                                        onClick = withHaptic {
+                                            ClipboardUtils.copyToClipboard(
+                                                text = AnnotatedString(component.code).text,
+                                                context = context
+                                            )
 
-                                        showToast(
-                                            context,
-                                            res.getString(R.string.copied_to_clipboard)
-                                        )
-                                    }) {
+                                            showToast(
+                                                context,
+                                                res.getString(R.string.copied_to_clipboard)
+                                            )
+                                        }
+                                    ) {
                                         Text(stringResource(R.string.copy))
                                     }
 
@@ -139,7 +141,9 @@ fun MarkdownMessageContent(
                                             when (highlight) {
                                                 is ColorHighlight -> {
                                                     addStyle(
-                                                        style = SpanStyle(color = Color(highlight.rgb or 0xFF000000.toInt())),
+                                                        style = SpanStyle(
+                                                            color = Color(highlight.rgb or 0xFF000000.toInt())
+                                                        ),
                                                         start = highlight.location.start,
                                                         end = highlight.location.end
                                                     )

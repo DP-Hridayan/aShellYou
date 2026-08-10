@@ -100,8 +100,11 @@ fun FloatingNavPill(
                             style = MaterialTheme.typography.titleMediumEmphasized,
                             fontWeight = FontWeight.SemiBold,
                             color = colors.run {
-                                if (index == selectedIndex) selectedContentColor
-                                else floatingContentColor
+                                if (index == selectedIndex) {
+                                    selectedContentColor
+                                } else {
+                                    floatingContentColor
+                                }
                             }
                         )
                     }
@@ -138,4 +141,3 @@ data class FloatingNavPillColors(
 data class FloatingNavPillItem(
     val text: String
 )
-

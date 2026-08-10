@@ -29,7 +29,6 @@ fun CreateFolderDialog(
     onCreate: (String) -> Unit,
     existingNames: Set<String> = emptySet()
 ) {
-
     var folderName by remember { mutableStateOf("") }
     val nameExists by remember(folderName, existingNames) {
         derivedStateOf {

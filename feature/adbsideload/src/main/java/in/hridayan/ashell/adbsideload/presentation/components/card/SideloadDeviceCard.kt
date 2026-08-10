@@ -34,10 +34,11 @@ fun SideloadDeviceCard(
         modifier = modifier.fillMaxWidth(),
         shape = CustomCardShape(24.dp),
         colors = CardDefaults.cardColors(
-            containerColor = if (isDetected)
+            containerColor = if (isDetected) {
                 MaterialTheme.colorScheme.primaryContainer
-            else
+            } else {
                 MaterialTheme.colorScheme.surfaceContainer
+            }
         )
     ) {
         Row(
@@ -63,10 +64,11 @@ private fun ConnectionIcon(isDetected: Boolean) {
         imageVector = if (isDetected) Icons.Default.Usb else Icons.Default.UsbOff,
         contentDescription = null,
         modifier = Modifier.size(28.dp),
-        tint = if (isDetected)
+        tint = if (isDetected) {
             MaterialTheme.colorScheme.onPrimaryContainer
-        else
+        } else {
             MaterialTheme.colorScheme.onSurfaceVariant
+        }
     )
 }
 
@@ -86,10 +88,11 @@ private fun ConnectionInfo(
         isDetected -> stringResource(R.string.adb_connected_verify_sideload)
         else -> stringResource(R.string.sideload_device_hint)
     }
-    val contentColor = if (isDetected)
+    val contentColor = if (isDetected) {
         MaterialTheme.colorScheme.onPrimaryContainer
-    else
+    } else {
         MaterialTheme.colorScheme.onSurface
+    }
 
     Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
         Text(
@@ -100,10 +103,11 @@ private fun ConnectionInfo(
         Text(
             text = subtitleText,
             style = MaterialTheme.typography.bodySmall,
-            color = if (isDetected)
+            color = if (isDetected) {
                 MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
-            else
+            } else {
                 MaterialTheme.colorScheme.onSurfaceVariant
+            }
         )
     }
 }

@@ -269,7 +269,11 @@ private fun FileSection(
 private fun resolveFileName(context: Context, uri: Uri): String {
     if (uri.scheme == "content") {
         context.contentResolver.query(
-            uri, arrayOf(OpenableColumns.DISPLAY_NAME), null, null, null
+            uri,
+            arrayOf(OpenableColumns.DISPLAY_NAME),
+            null,
+            null,
+            null
         )?.use { cursor ->
             if (cursor.moveToFirst()) {
                 val col = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)

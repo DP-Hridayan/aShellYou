@@ -58,6 +58,3 @@ class AutoUpdateViewModel @Inject constructor(
         downloadApkUseCase.cancel()
     }
 }
-
-
-

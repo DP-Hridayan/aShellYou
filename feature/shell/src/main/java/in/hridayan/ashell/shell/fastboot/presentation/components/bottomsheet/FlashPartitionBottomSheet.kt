@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.shell.fastboot.presentation.components.bottomsheet
 
-
 import android.net.Uri
 import android.provider.OpenableColumns
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -84,7 +83,6 @@ fun FlashPartitionBottomSheet(
     onResetOperation: () -> Unit,
     onCancel: () -> Unit
 ) {
-
     var selectedPartition by rememberSaveable { mutableStateOf("boot") }
     var customPartition by rememberSaveable { mutableStateOf("") }
     var dropdownExpanded by rememberSaveable { mutableStateOf(false) }
@@ -143,7 +141,6 @@ fun FlashPartitionBottomSheet(
     ) { uri: Uri? ->
         uri?.let { onBootImage(it) }
     }
-
 
     val sheetState = rememberBottomSheetState(
         initialValue = SheetValue.Hidden,
@@ -320,13 +317,16 @@ private fun ChooseFileHintBox(
                 modifier = Modifier
                     .padding(10.dp)
                     .size(36.dp),
-                painter = if (isFileAdded) painterResource(R.drawable.ic_description)
-                else painterResource(R.drawable.ic_note_add),
+                painter = if (isFileAdded) {
+                    painterResource(R.drawable.ic_description)
+                } else {
+                    painterResource(R.drawable.ic_note_add)
+                },
                 tint = MaterialTheme.colorScheme.onSurface,
                 contentDescription = null
             )
 
-            if (isFileAdded)
+            if (isFileAdded) {
                 Box(
                     modifier = Modifier
                         .padding(5.dp)
@@ -343,6 +343,7 @@ private fun ChooseFileHintBox(
                         contentDescription = null
                     )
                 }
+            }
         }
 
         if (isFileAdded && selectedFileName != null) {
@@ -499,18 +500,20 @@ private fun FlashingProgressContent(
             Button(
                 onClick = onDismiss,
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = if (operation.status == FlashStatus.COMPLETE)
+                    containerColor = if (operation.status == FlashStatus.COMPLETE) {
                         MaterialTheme.colorScheme.tertiary
-                    else
+                    } else {
                         MaterialTheme.colorScheme.error
+                    }
                 ),
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    if (operation.status == FlashStatus.COMPLETE)
+                    if (operation.status == FlashStatus.COMPLETE) {
                         stringResource(R.string.done)
-                    else
+                    } else {
                         stringResource(R.string.close)
+                    }
                 )
             }
         }

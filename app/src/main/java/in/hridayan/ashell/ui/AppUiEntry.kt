@@ -17,11 +17,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.BuildConfig
-import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalSharedTransitionScope
-import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.common.domain.model.otg.OtgConnection
 import `in`.hridayan.ashell.core.common.domain.model.otg.OtgState
+import `in`.hridayan.ashell.core.common.settings.LocalSettings
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.isNetworkAvailable
 import `in`.hridayan.ashell.core.utils.showToast
@@ -32,7 +32,6 @@ import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.ashell.ui.components.bottomsheet.ChangelogBottomSheet
 import `in`.hridayan.ashell.ui.navigation.AppNavigation
 import kotlinx.coroutines.flow.collectLatest
-
 
 @Composable
 fun AppUiEntry(

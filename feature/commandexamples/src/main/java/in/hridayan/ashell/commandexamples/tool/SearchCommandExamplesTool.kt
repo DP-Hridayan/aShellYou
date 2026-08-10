@@ -42,8 +42,8 @@ class SearchCommandExamplesTool @Inject constructor(
         } else {
             allCommands.filter { cmd ->
                 cmd.description.contains(query, ignoreCase = true) ||
-                cmd.command.contains(query, ignoreCase = true) ||
-                cmd.labels.any { it.contains(query, ignoreCase = true) }
+                        cmd.command.contains(query, ignoreCase = true) ||
+                        cmd.labels.any { it.contains(query, ignoreCase = true) }
             }
         }
 
@@ -53,16 +53,18 @@ class SearchCommandExamplesTool @Inject constructor(
 
         val jsonArray = buildJsonArray {
             for (cmd in filtered) {
-                add(buildJsonObject {
-                    put("id", cmd.id)
-                    put("title", cmd.description)
-                    put("command", cmd.command)
-                    putJsonArray("labels") {
-                        for (label in cmd.labels) {
-                            add(kotlinx.serialization.json.JsonPrimitive(label))
+                add(
+                    buildJsonObject {
+                        put("id", cmd.id)
+                        put("title", cmd.description)
+                        put("command", cmd.command)
+                        putJsonArray("labels") {
+                            for (label in cmd.labels) {
+                                add(kotlinx.serialization.json.JsonPrimitive(label))
+                            }
                         }
                     }
-                })
+                )
             }
         }
 

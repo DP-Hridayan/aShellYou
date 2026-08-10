@@ -1,179 +1,126 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
-    <ManuallySuppressedIssues></ManuallySuppressedIssues>
-    <CurrentIssues>
-        <ID>ArgumentListWrapping:AdbSideloadScreen.kt$( uri, arrayOf(OpenableColumns.DISPLAY_NAME),
-            null, null, null )
-        </ID>
-        <ID>ArgumentListWrapping:SideloadFileCard.kt$( locale.platformLocale, "%.0f KB", bytes /
-            1024.0 )
-        </ID>
-        <ID>ArgumentListWrapping:SideloadFileCard.kt$( locale.platformLocale, "%.1f MB", bytes /
-            1_048_576.0 )
-        </ID>
-        <ID>ArgumentListWrapping:SideloadProgressCard.kt$( containerColor =
-            MaterialTheme.colorScheme.run { if (operation.status == SideloadStatus.COMPLETE) primary
-            else error }, contentColor = MaterialTheme.colorScheme.run { if (operation.status ==
-            SideloadStatus.COMPLETE) onPrimary else onError })
-        </ID>
-        <ID>ArgumentListWrapping:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$( context, 0,
-            Intent(permissionAction), PendingIntent.FLAG_IMMUTABLE )
-        </ID>
-        <ID>ArgumentListWrapping:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$( context,
-            permissionReceiver, IntentFilter(permissionAction), ContextCompat.RECEIVER_NOT_EXPORTED
-            )
-        </ID>
-        <ID>ArgumentListWrapping:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$( context,
-            usbReceiver, usbFilter, ContextCompat.RECEIVER_EXPORTED )
-        </ID>
-        <ID>ArgumentListWrapping:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$( uri,
-            arrayOf(OpenableColumns.DISPLAY_NAME), null, null, null )
-        </ID>
-        <ID>ArgumentListWrapping:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$("Connection timed
-            out. Check recovery screen for RSA auth prompt.")
-        </ID>
-        <ID>
-            ArgumentListWrapping:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$(SideloadState.Error("Connection
-            timed out. Check recovery screen for RSA auth prompt."))
-        </ID>
-        <ID>CyclomaticComplexMethod:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$private fun
-            connectToDevice(device: UsbDevice)
-        </ID>
-        <ID>CyclomaticComplexMethod:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$private suspend
-            fun serveBlockRequests( stream: AdbStream, fileChannel: java.nio.channels.FileChannel,
-            fileSize: Long, blockSize: Int, totalBlocks: Int, fileName: String, onProgress:
-            (SideloadOperation) -&gt; Unit ): SideloadOperation
-        </ID>
-        <ID>FinalNewline:ExampleUnitTest.kt$in.hridayan.ashell.adbsideload.ExampleUnitTest.kt</ID>
-        <ID>ImplicitDefaultLocale:SideloadProgressCard.kt$String.format("%.1f MB/s",
-            operation.transferRateMBps)
-        </ID>
-        <ID>Indentation:AdbSideloadScreen.kt$</ID>
-        <ID>Indentation:SideloadProgressCard.kt$</ID>
-        <ID>LargeClass:SideloadRepositoryImpl.kt$SideloadRepositoryImpl : SideloadRepository</ID>
-        <ID>LongMethod:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$override fun sideload( uri:
-            Uri, onProgress: (SideloadOperation) -&gt; Unit ): Flow&lt;SideloadOperation&gt;
-        </ID>
-        <ID>LongMethod:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$private fun
-            connectToDevice(device: UsbDevice)
-        </ID>
-        <ID>LongMethod:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$private suspend fun
-            executeSideloadProtocol( connection: AdbConnection, fileChannel:
-            java.nio.channels.FileChannel, fileSize: Long, fileName: String, onProgress:
-            (SideloadOperation) -&gt; Unit ): SideloadOperation
-        </ID>
-        <ID>LongMethod:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$private suspend fun
-            serveBlockRequests( stream: AdbStream, fileChannel: java.nio.channels.FileChannel,
-            fileSize: Long, blockSize: Int, totalBlocks: Int, fileName: String, onProgress:
-            (SideloadOperation) -&gt; Unit ): SideloadOperation
-        </ID>
-        <ID>LongParameterList:AdbSideloadScreen.kt$( modifier: Modifier, isDeviceDetected: Boolean,
-            isAdbReady: Boolean, isConnecting: Boolean, deviceName: String?, selectedFileName:
-            String?, selectedFileSize: Long, isOperationActive: Boolean, isOperationFinished:
-            Boolean, operation: SideloadOperation, selectedUri: Uri?, onPickFile: () -&gt; Unit,
-            onClearFile: () -&gt; Unit, onSideload: (Uri) -&gt; Unit, onCancelSideload: () -&gt;
-            Unit, onDone: () -&gt; Unit, )
-        </ID>
-        <ID>LongParameterList:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$( stream: AdbStream,
-            fileChannel: java.nio.channels.FileChannel, fileSize: Long, blockSize: Int, totalBlocks:
-            Int, fileName: String, onProgress: (SideloadOperation) -&gt; Unit )
-        </ID>
-        <ID>MagicNumber:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$255</ID>
-        <ID>MagicNumber:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$66</ID>
-        <ID>MagicNumber:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$8</ID>
-        <ID>
-            MaxLineLength:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$SideloadConnection.updateState(SideloadState.Error("Connection
-            timed out. Check recovery screen for RSA auth prompt."))
-        </ID>
-        <ID>MaximumLineLength:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$</ID>
-        <ID>MultiLineIfElse:SideloadDeviceCard.kt$MaterialTheme.colorScheme.onPrimaryContainer</ID>
-        <ID>
-            MultiLineIfElse:SideloadDeviceCard.kt$MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha
-            = 0.7f)
-        </ID>
-        <ID>MultiLineIfElse:SideloadDeviceCard.kt$MaterialTheme.colorScheme.onSurface</ID>
-        <ID>MultiLineIfElse:SideloadDeviceCard.kt$MaterialTheme.colorScheme.onSurfaceVariant</ID>
-        <ID>MultiLineIfElse:SideloadDeviceCard.kt$MaterialTheme.colorScheme.primaryContainer</ID>
-        <ID>MultiLineIfElse:SideloadDeviceCard.kt$MaterialTheme.colorScheme.surfaceContainer</ID>
-        <ID>
-            MultiLineIfElse:SideloadDeviceWaitingDialog.kt$stringResource(R.string.device_connected)
-        </ID>
-        <ID>
-            MultiLineIfElse:SideloadDeviceWaitingDialog.kt$stringResource(R.string.waiting_for_device)
-        </ID>
-        <ID>MultiLineIfElse:SideloadProgressCard.kt$"${stringResource(R.string.block)}
-            ${operation.currentBlock} / ${operation.totalBlocks}"
-        </ID>
-        <ID>MultiLineIfElse:SideloadProgressCard.kt$operation.message</ID>
-        <ID>MultiLineIfElse:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$return intf</ID>
-        <ID>MultiLineIfElse:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$return true</ID>
-        <ID>NestedBlockDepth:AdbSideloadScreen.kt$private fun resolveFileName(context: Context, uri:
-            Uri): String
-        </ID>
-        <ID>NestedBlockDepth:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$private fun
-            resolveFileName(uri: Uri): String
-        </ID>
-        <ID>NestedBlockDepth:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$private suspend fun
-            serveBlockRequests( stream: AdbStream, fileChannel: java.nio.channels.FileChannel,
-            fileSize: Long, blockSize: Int, totalBlocks: Int, fileName: String, onProgress:
-            (SideloadOperation) -&gt; Unit ): SideloadOperation
-        </ID>
-        <ID>
-            NewLineAtEndOfFile:ExampleUnitTest.kt$in.hridayan.ashell.adbsideload.ExampleUnitTest.kt
-        </ID>
-        <ID>PackageName:AdbSideloadScreen.kt$package
-            `in`.hridayan.ashell.adbsideload.presentation.screens
-        </ID>
-        <ID>PackageName:ExampleUnitTest.kt$package `in`.hridayan.ashell.adbsideload</ID>
-        <ID>PackageName:SideloadConnection.kt$package
-            `in`.hridayan.ashell.adbsideload.domain.model
-        </ID>
-        <ID>PackageName:SideloadDeviceCard.kt$package
-            `in`.hridayan.ashell.adbsideload.presentation.components.card
-        </ID>
-        <ID>PackageName:SideloadDeviceWaitingDialog.kt$package
-            `in`.hridayan.ashell.adbsideload.presentation.components.dialog
-        </ID>
-        <ID>PackageName:SideloadFileCard.kt$package
-            `in`.hridayan.ashell.adbsideload.presentation.components.card
-        </ID>
-        <ID>PackageName:SideloadInstructionsCard.kt$package
-            `in`.hridayan.ashell.adbsideload.presentation.components.card
-        </ID>
-        <ID>PackageName:SideloadModule.kt$package `in`.hridayan.ashell.adbsideload.data.di</ID>
-        <ID>PackageName:SideloadOperation.kt$package `in`.hridayan.ashell.adbsideload.domain.model
-        </ID>
-        <ID>PackageName:SideloadProgressCard.kt$package
-            `in`.hridayan.ashell.adbsideload.presentation.components.card
-        </ID>
-        <ID>PackageName:SideloadRepository.kt$package
-            `in`.hridayan.ashell.adbsideload.domain.repository
-        </ID>
-        <ID>PackageName:SideloadRepositoryImpl.kt$package
-            `in`.hridayan.ashell.adbsideload.data.repository
-        </ID>
-        <ID>PackageName:SideloadSlider.kt$package
-            `in`.hridayan.ashell.adbsideload.presentation.components.slidetoconfirm
-        </ID>
-        <ID>PackageName:SideloadState.kt$package `in`.hridayan.ashell.adbsideload.domain.model</ID>
-        <ID>PackageName:SideloadStatus.kt$package `in`.hridayan.ashell.adbsideload.domain.model</ID>
-        <ID>PackageName:SideloadViewModel.kt$package
-            `in`.hridayan.ashell.adbsideload.presentation.viewmodel
-        </ID>
-        <ID>ReturnCount:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$private suspend fun
-            serveBlockRequests( stream: AdbStream, fileChannel: java.nio.channels.FileChannel,
-            fileSize: Long, blockSize: Int, totalBlocks: Int, fileName: String, onProgress:
-            (SideloadOperation) -&gt; Unit ): SideloadOperation
-        </ID>
-        <ID>
-            SpacingBetweenDeclarationsWithAnnotations:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$@Volatile
-            private var isConnecting = false
-        </ID>
-        <ID>SwallowedException:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$e:
-            TimeoutCancellationException
-        </ID>
-        <ID>TooManyFunctions:SideloadRepositoryImpl.kt$SideloadRepositoryImpl : SideloadRepository
-        </ID>
-        <ID>Wrapping:SideloadProgressCard.kt$(</ID>
-    </CurrentIssues>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>ArgumentListWrapping:AdbSideloadScreen.kt$( uri, arrayOf(OpenableColumns.DISPLAY_NAME),
+      null, null, null )
+    </ID>
+    <ID>ArgumentListWrapping:SideloadFileCard.kt$( locale.platformLocale, "%.0f KB", bytes / 1024.0
+      )
+    </ID>
+    <ID>ArgumentListWrapping:SideloadFileCard.kt$( locale.platformLocale, "%.1f MB", bytes /
+      1_048_576.0 )
+    </ID>
+    <ID>ArgumentListWrapping:SideloadProgressCard.kt$( containerColor =
+      MaterialTheme.colorScheme.run { if (operation.status == SideloadStatus.COMPLETE) primary else
+      error }, contentColor = MaterialTheme.colorScheme.run { if (operation.status ==
+      SideloadStatus.COMPLETE) onPrimary else onError })
+    </ID>
+    <ID>ArgumentListWrapping:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$(
+      SideloadState.Error("Connection timed out. Check recovery screen for RSA auth prompt."))
+    </ID>
+    <ID>ArgumentListWrapping:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$( context, 0,
+      Intent(permissionAction), PendingIntent.FLAG_IMMUTABLE )
+    </ID>
+    <ID>ArgumentListWrapping:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$( context,
+      permissionReceiver, IntentFilter(permissionAction), ContextCompat.RECEIVER_NOT_EXPORTED )
+    </ID>
+    <ID>ArgumentListWrapping:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$( context,
+      usbReceiver, usbFilter, ContextCompat.RECEIVER_EXPORTED )
+    </ID>
+    <ID>ArgumentListWrapping:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$( uri,
+      arrayOf(OpenableColumns.DISPLAY_NAME), null, null, null )
+    </ID>
+    <ID>
+      ArgumentListWrapping:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$(SideloadState.Error("Connection
+      timed out. Check recovery screen for RSA auth prompt."))
+    </ID>
+    <ID>CyclomaticComplexMethod:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$private fun
+      connectToDevice(device: UsbDevice)
+    </ID>
+    <ID>CyclomaticComplexMethod:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$private suspend fun
+      serveBlockRequests( stream: AdbStream, fileChannel: java.nio.channels.FileChannel, fileSize:
+      Long, blockSize: Int, totalBlocks: Int, fileName: String, onProgress: (SideloadOperation) -&gt;
+      Unit ): SideloadOperation
+    </ID>
+    <ID>FinalNewline:ExampleUnitTest.kt$in.hridayan.ashell.adbsideload.ExampleUnitTest.kt</ID>
+    <ID>ImplicitDefaultLocale:SideloadProgressCard.kt$String.format("%.1f MB/s",
+      operation.transferRateMBps)
+    </ID>
+    <ID>Indentation:AdbSideloadScreen.kt$</ID>
+    <ID>Indentation:SideloadProgressCard.kt$</ID>
+    <ID>LargeClass:SideloadRepositoryImpl.kt$SideloadRepositoryImpl : SideloadRepository</ID>
+    <ID>LongMethod:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$override fun sideload( uri: Uri,
+      onProgress: (SideloadOperation) -&gt; Unit ): Flow&lt;SideloadOperation&gt;
+    </ID>
+    <ID>LongMethod:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$private fun
+      connectToDevice(device: UsbDevice)
+    </ID>
+    <ID>LongMethod:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$private suspend fun
+      executeSideloadProtocol( connection: AdbConnection, fileChannel:
+      java.nio.channels.FileChannel, fileSize: Long, fileName: String, onProgress:
+      (SideloadOperation) -&gt; Unit ): SideloadOperation
+    </ID>
+    <ID>LongMethod:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$private suspend fun
+      serveBlockRequests( stream: AdbStream, fileChannel: java.nio.channels.FileChannel, fileSize:
+      Long, blockSize: Int, totalBlocks: Int, fileName: String, onProgress: (SideloadOperation) -&gt;
+      Unit ): SideloadOperation
+    </ID>
+    <ID>LongParameterList:AdbSideloadScreen.kt$( modifier: Modifier, isDeviceDetected: Boolean,
+      isAdbReady: Boolean, isConnecting: Boolean, deviceName: String?, selectedFileName: String?,
+      selectedFileSize: Long, isOperationActive: Boolean, isOperationFinished: Boolean, operation:
+      SideloadOperation, selectedUri: Uri?, onPickFile: () -&gt; Unit, onClearFile: () -&gt; Unit,
+      onSideload: (Uri) -&gt; Unit, onCancelSideload: () -&gt; Unit, onDone: () -&gt; Unit, )
+    </ID>
+    <ID>LongParameterList:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$( stream: AdbStream,
+      fileChannel: java.nio.channels.FileChannel, fileSize: Long, blockSize: Int, totalBlocks: Int,
+      fileName: String, onProgress: (SideloadOperation) -&gt; Unit )
+    </ID>
+    <ID>MagicNumber:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$255</ID>
+    <ID>MagicNumber:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$66</ID>
+    <ID>MagicNumber:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$8</ID>
+    <ID>MultiLineIfElse:SideloadDeviceCard.kt$MaterialTheme.colorScheme.onPrimaryContainer</ID>
+    <ID>
+      MultiLineIfElse:SideloadDeviceCard.kt$MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha
+      = 0.7f)
+    </ID>
+    <ID>MultiLineIfElse:SideloadDeviceCard.kt$MaterialTheme.colorScheme.onSurface</ID>
+    <ID>MultiLineIfElse:SideloadDeviceCard.kt$MaterialTheme.colorScheme.onSurfaceVariant</ID>
+    <ID>MultiLineIfElse:SideloadDeviceCard.kt$MaterialTheme.colorScheme.primaryContainer</ID>
+    <ID>MultiLineIfElse:SideloadDeviceCard.kt$MaterialTheme.colorScheme.surfaceContainer</ID>
+    <ID>MultiLineIfElse:SideloadDeviceWaitingDialog.kt$stringResource(R.string.device_connected)
+    </ID>
+    <ID>MultiLineIfElse:SideloadDeviceWaitingDialog.kt$stringResource(R.string.waiting_for_device)
+    </ID>
+    <ID>MultiLineIfElse:SideloadProgressCard.kt$"${stringResource(R.string.block)}
+      ${operation.currentBlock} / ${operation.totalBlocks}"
+    </ID>
+    <ID>MultiLineIfElse:SideloadProgressCard.kt$operation.message</ID>
+    <ID>MultiLineIfElse:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$return intf</ID>
+    <ID>MultiLineIfElse:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$return true</ID>
+    <ID>NestedBlockDepth:AdbSideloadScreen.kt$private fun resolveFileName(context: Context, uri:
+      Uri): String
+    </ID>
+    <ID>NestedBlockDepth:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$private fun
+      resolveFileName(uri: Uri): String
+    </ID>
+    <ID>NestedBlockDepth:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$private suspend fun
+      serveBlockRequests( stream: AdbStream, fileChannel: java.nio.channels.FileChannel, fileSize:
+      Long, blockSize: Int, totalBlocks: Int, fileName: String, onProgress: (SideloadOperation) -&gt;
+      Unit ): SideloadOperation
+    </ID>
+    <ID>ReturnCount:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$private suspend fun
+      serveBlockRequests( stream: AdbStream, fileChannel: java.nio.channels.FileChannel, fileSize:
+      Long, blockSize: Int, totalBlocks: Int, fileName: String, onProgress: (SideloadOperation) -&gt;
+      Unit ): SideloadOperation
+    </ID>
+    <ID>
+      SpacingBetweenDeclarationsWithAnnotations:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$@Volatile
+      private var isConnecting = false
+    </ID>
+    <ID>SwallowedException:SideloadRepositoryImpl.kt$SideloadRepositoryImpl$e:
+      TimeoutCancellationException
+    </ID>
+    <ID>TooManyFunctions:SideloadRepositoryImpl.kt$SideloadRepositoryImpl : SideloadRepository</ID>
+  </CurrentIssues>
 </SmellBaseline>

@@ -101,7 +101,6 @@ fun AiModelsScreen(
 
     val prefs by aiViewModel.preferences.collectAsState(initial = emptyPreferences())
 
-
     val cacheDays = settings[SettingsKeys.AiCacheDays]
 
     val cacheSizeBytes by aiViewModel.cacheSizeBytes.collectAsState()
@@ -214,11 +213,7 @@ fun AiModelsScreen(
             onDelete = {
                 aiViewModel.clearCache()
                 dm.dismiss()
-            })
+            }
+        )
     }
 }
-
-
-
-
-

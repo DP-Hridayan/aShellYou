@@ -5,17 +5,17 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import `in`.hridayan.ashell.ai.data.remote.GeminiProviderClient
-import `in`.hridayan.ashell.core.common.domain.provider.LlmProviderClient
 import `in`.hridayan.ashell.ai.data.repository.CloudAnalysisRepositoryImpl
 import `in`.hridayan.ashell.ai.data.security.ApiKeyRepositoryImpl
 import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
+import `in`.hridayan.ashell.core.common.domain.provider.LlmProviderClient
 import `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository
-import dagger.hilt.components.SingletonComponent
 import `in`.hridayan.ashell.core.common.domain.repository.CloudAnalysisRepository
-import `in`.hridayan.ashell.core.common.domain.usecase.ai.AnalyzeCommandWithCloudUseCase
 import `in`.hridayan.ashell.core.common.domain.repository.CommandRepository
 import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.common.domain.usecase.ai.AnalyzeCommandWithCloudUseCase
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.HttpTimeout
@@ -69,4 +69,3 @@ object CloudAiModule {
         commandRepository: CommandRepository,
     ): AnalyzeCommandWithCloudUseCase = AnalyzeCommandWithCloudUseCase(cloudRepository, commandRepository)
 }
-

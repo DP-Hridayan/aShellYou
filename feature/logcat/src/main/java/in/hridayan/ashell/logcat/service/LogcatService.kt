@@ -9,8 +9,8 @@ import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.components.SingletonComponent
-import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.logcat.data.emitter.LogcatEmitterFactory
 import `in`.hridayan.ashell.logcat.data.session.LogcatSessionHolder
 import `in`.hridayan.ashell.logcat.domain.model.LogEntry
@@ -114,6 +114,7 @@ class LogcatService : Service() {
     override fun onBind(intent: Intent?): IBinder? = null
 
     private fun entryPoint() = EntryPointAccessors.fromApplication(
-        applicationContext, LogcatServiceEntryPoint::class.java
+        applicationContext,
+        LogcatServiceEntryPoint::class.java
     )
 }

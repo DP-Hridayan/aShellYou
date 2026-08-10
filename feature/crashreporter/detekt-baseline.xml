@@ -5,54 +5,6 @@
         <ID>ArgumentListWrapping:CrashDetailsScreen.kt$( ExperimentalMaterial3Api::class,
             ExperimentalMaterial3ExpressiveApi::class, ExperimentalSharedTransitionApi::class )
         </ID>
-        <ID>ArgumentListWrapping:CrashDetailsScreen.kt$( onNavigateBack = {
-            navController.navigateBack() }, modifier = modifier, listState = listState, topBarTitle
-            = stringResource(R.string.crash_details), fabContent = { ExtendedFloatingActionButton(
-            onClick = withHaptic { context.sendCrashReport("$deviceInfo\n\n$appInfo\n\n$stacktrace")
-            }, modifier = Modifier.padding(bottom = 10.dp) ) { Icon( painter =
-            painterResource(R.drawable.ic_report), contentDescription = null, modifier =
-            Modifier.padding(end = 10.dp) ) AutoResizeableText(text =
-            stringResource(R.string.report)) } }, content = { innerPadding, topBarScrollBehavior -&gt;
-            LazyColumn( modifier = Modifier .fillMaxWidth()
-            .nestedScroll(topBarScrollBehavior.nestedScrollConnection), contentPadding =
-            innerPadding ) { item { AutoResizeableText( text = stringResource(R.string.device_info),
-            style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.padding(15.dp) ) with(sharedTransitionScope) { CustomCard( modifier
-            = Modifier .fillMaxWidth() .padding(horizontal = 15.dp) .sharedElement(
-            sharedContentState = rememberSharedContentState(sharedElementKey),
-            animatedVisibilityScope = animatedContentScope ), colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer, contentColor =
-            MaterialTheme.colorScheme.onPrimaryContainer ) ) { Row( modifier = Modifier
-            .fillMaxWidth() .padding(horizontal = 20.dp, vertical = 10.dp), horizontalArrangement =
-            Arrangement.spacedBy(20.dp), verticalAlignment = Alignment.CenterVertically ) { Icon(
-            painter = painterResource(R.drawable.ic_mobile_info), contentDescription = null )
-            Column( modifier = Modifier.fillMaxWidth(), verticalArrangement =
-            Arrangement.spacedBy(10.dp) ) { Text( text = deviceInfo, style =
-            MaterialTheme.typography.bodySmallEmphasized ) } } } } CustomCard( modifier = Modifier
-            .fillMaxWidth() .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 15.dp), shape
-            = CustomCardShape(50), colors = CardDefaults.cardColors( containerColor =
-            MaterialTheme.colorScheme.tertiaryContainer, contentColor =
-            MaterialTheme.colorScheme.onTertiaryContainer ) ) { Row( modifier = Modifier
-            .fillMaxWidth() .padding(horizontal = 20.dp, vertical = 10.dp), horizontalArrangement =
-            Arrangement.spacedBy(20.dp), verticalAlignment = Alignment.CenterVertically ) { Icon(
-            painter = painterResource(R.drawable.ic_adb2), contentDescription = null ) Column(
-            modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(10.dp) )
-            { Text( text = appInfo, style = MaterialTheme.typography.bodySmallEmphasized ) } } }
-            AutoResizeableText( text = stringResource(R.string.stack_trace), style =
-            MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary, modifier
-            = Modifier.padding( start = 20.dp, end = 20.dp, top = 25.dp, bottom = 10.dp ) ) }
-            stacktrace?.let { trace -&gt; val lines = trace.split("\n") items(lines.size) { index -&gt;
-            val line = lines[index] val cardShape = when (index) { 0 -&gt; CustomCardShape(top =
-            24.dp, bottom = 0.dp) lines.lastIndex -&gt; CustomCardShape(top = 0.dp, bottom = 24.dp)
-            else -&gt; CustomCardShape(0.dp) } CustomCard( modifier = Modifier .fillMaxWidth()
-            .padding(horizontal = 15.dp), shape = cardShape, colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainer, contentColor =
-            MaterialTheme.colorScheme.onSurface ), clickable = false ) { Text( text = line, modifier
-            = Modifier .fillMaxWidth() .padding( start = 20.dp, end = 20.dp, top = if (index == 0)
-            20.dp else 2.dp, bottom = if (index == lines.lastIndex) 20.dp else 2.dp ), style =
-            MaterialTheme.typography.bodySmallEmphasized, fontFamily = FontFamily.Monospace, ) } } }
-            item { Spacer( modifier = Modifier .fillMaxWidth() .height(25.dp) ) } } })
-        </ID>
         <ID>ArgumentListWrapping:CrashHistoryScreen.kt$( ExperimentalMaterial3Api::class,
             ExperimentalMaterial3ExpressiveApi::class, ExperimentalSharedTransitionApi::class )
         </ID>
@@ -104,47 +56,20 @@
         </ID>
         <ID>MaximumLineLength:CrashDetailsScreen.kt$</ID>
         <ID>MaximumLineLength:CrashReportScreen.kt$</ID>
-        <ID>
-            NewLineAtEndOfFile:ExampleUnitTest.kt$in.hridayan.ashell.crashreporter.ExampleUnitTest.kt
-        </ID>
         <ID>NoBlankLineBeforeRbrace:CrashDetailsScreen.kt$</ID>
         <ID>NoBlankLineBeforeRbrace:CrashReportScreen.kt$</ID>
         <ID>NoConsecutiveBlankLines:CrashHistoryScreen.kt$</ID>
         <ID>NoEmptyFirstLineInMethodBlock:CrashHistoryScreen.kt$</ID>
         <ID>NoWildcardImports:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
-        <ID>PackageName:CrashDatabase.kt$package `in`.hridayan.ashell.crashreporter.data.database
-        </ID>
-        <ID>PackageName:CrashDatabaseModule.kt$package `in`.hridayan.ashell.crashreporter.di</ID>
-        <ID>PackageName:CrashDetailsScreen.kt$package
-            `in`.hridayan.ashell.crashreporter.presentation.screens
-        </ID>
-        <ID>PackageName:CrashHistoryScreen.kt$package
-            `in`.hridayan.ashell.crashreporter.presentation.screens
-        </ID>
-        <ID>PackageName:CrashLogDao.kt$package `in`.hridayan.ashell.crashreporter.data.database</ID>
-        <ID>PackageName:CrashLogEntity.kt$package `in`.hridayan.ashell.crashreporter.data.model</ID>
-        <ID>PackageName:CrashReport.kt$package `in`.hridayan.ashell.crashreporter.domain.model</ID>
-        <ID>PackageName:CrashReportScreen.kt$package
-            `in`.hridayan.ashell.crashreporter.presentation.screens
-        </ID>
-        <ID>PackageName:CrashRepository.kt$package
-            `in`.hridayan.ashell.crashreporter.domain.repository
-        </ID>
-        <ID>PackageName:CrashRepositoryImpl.kt$package
-            `in`.hridayan.ashell.crashreporter.data.repository
-        </ID>
-        <ID>PackageName:CrashRepositoryModule.kt$package `in`.hridayan.ashell.crashreporter.di</ID>
-        <ID>PackageName:CrashViewModel.kt$package
-            `in`.hridayan.ashell.crashreporter.presentation.viewmodel
-        </ID>
-        <ID>PackageName:ExampleUnitTest.kt$package `in`.hridayan.ashell.crashreporter</ID>
         <ID>StringTemplate:CrashDetailsScreen.kt$${e.toString()}</ID>
         <ID>StringTemplate:CrashDetailsScreen.kt$${log}</ID>
         <ID>StringTemplate:CrashReportScreen.kt$${e.toString()}</ID>
         <ID>StringTemplate:CrashReportScreen.kt$${log}</ID>
+        <ID>SwallowedException:CrashDetailsScreen.kt$e: Exception</ID>
+        <ID>SwallowedException:CrashReportScreen.kt$e: Exception</ID>
+        <ID>UnusedParameter:CrashDetailsScreen.kt$log: String</ID>
+        <ID>UnusedParameter:CrashReportScreen.kt$log: String</ID>
         <ID>WildcardImport:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
         <ID>Wrapping:CrashDetailsScreen.kt$(</ID>
-        <ID>Wrapping:CrashHistoryScreen.kt$(</ID>
-        <ID>Wrapping:CrashReportScreen.kt$(</ID>
     </CurrentIssues>
 </SmellBaseline>

@@ -63,10 +63,12 @@ class TileDatastore @Inject constructor(
             executionMode = prefs[keyInt(id, "mode")] ?: 0,
             isCustom = prefs[keyBool(id, "custom")] ?: false,
             slotIndex = prefs[keyInt(id, "slot")].let { if (it == null || it == -1) null else it },
-            timeoutMs = prefs[keyLong(
-                id,
-                "timeout"
-            )].let { if (it == null || it == -1L) null else it },
+            timeoutMs = prefs[
+                keyLong(
+                    id,
+                    "timeout"
+                )
+            ].let { if (it == null || it == -1L) null else it },
             activeState = buildActiveState(id, prefs),
         )
     }

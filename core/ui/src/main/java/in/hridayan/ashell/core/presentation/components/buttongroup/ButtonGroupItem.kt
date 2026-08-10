@@ -89,9 +89,11 @@ fun ButtonGroupItem(
 
             ButtonType.IconButton -> IconButton(
                 modifier = modifier.then(
-                    if (buttonConfig.iconButtonConfig?.containerSize != null)
+                    if (buttonConfig.iconButtonConfig?.containerSize != null) {
                         Modifier.size(buttonConfig.iconButtonConfig.containerSize)
-                    else Modifier
+                    } else {
+                        Modifier
+                    }
                 ),
                 enabled = enabled,
                 onClick = withHaptic { onClick() },
@@ -103,20 +105,23 @@ fun ButtonGroupItem(
                     if (icon != null) {
                         Icon(
                             modifier = Modifier.then(
-                                if (buttonConfig.iconButtonConfig?.iconSize != null)
+                                if (buttonConfig.iconButtonConfig?.iconSize != null) {
                                     Modifier.size(buttonConfig.iconButtonConfig.iconSize)
-                                else Modifier
+                                } else {
+                                    Modifier
+                                }
                             ),
                             imageVector = icon,
                             contentDescription = contentDescription
                         )
-
                     } else if (iconResId != null) {
                         Icon(
                             modifier = Modifier.then(
-                                if (buttonConfig.iconButtonConfig?.iconSize != null)
+                                if (buttonConfig.iconButtonConfig?.iconSize != null) {
                                     Modifier.size(buttonConfig.iconButtonConfig.iconSize)
-                                else Modifier
+                                } else {
+                                    Modifier
+                                }
                             ),
                             painter = painterResource(iconResId),
                             contentDescription = null

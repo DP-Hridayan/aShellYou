@@ -116,7 +116,9 @@ fun HomeScreen(
 
             MediumTopAppBar(
                 scrollBehavior = scrollBehavior,
-                colors = TopAppBarDefaults.topAppBarColors(scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh),
+                colors = TopAppBarDefaults.topAppBarColors(
+                    scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh
+                ),
                 title = {
                     Image(
                         modifier = Modifier.graphicsLayer {
@@ -143,7 +145,8 @@ fun HomeScreen(
                         modifier = Modifier.padding(end = 10.dp),
                         onClick = withHaptic {
                             onSettingsClick()
-                        }) {
+                        }
+                    ) {
                         Icon(
                             painter = painterResource(R.drawable.ic_settings),
                             contentDescription = null,
@@ -292,7 +295,8 @@ fun HomeScreen(
                     isRunning = isLogcatRunning,
                     onClick = withHaptic {
                         onLogcatClick()
-                    })
+                    }
+                )
             }
 
             item {
@@ -418,14 +422,16 @@ private fun WirelessDebuggingCard(
                     contentDescription = null,
                     onClick = withHaptic {
                         onPairClick()
-                    })
+                    }
+                )
 
                 IconWithTextButton(
                     modifier = Modifier.flex { grow(1f) },
                     icon = painterResource(R.drawable.ic_play),
                     text = stringResource(R.string.start),
                     contentDescription = null,
-                    onClick = withHaptic { onStartClick() })
+                    onClick = withHaptic { onStartClick() }
+                )
 
                 /* OutlinedIconButtonWithText(
                      modifier = Modifier.flex { grow(1f) },
@@ -709,11 +715,15 @@ private fun Badge(
             .clip(RoundedCornerShape(50))
             .background(badgeContainerColor)
             .then(
-                if (borderEnabled) Modifier.border(
-                    width = 1.dp,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
-                    shape = RoundedCornerShape(50)
-                ) else Modifier
+                if (borderEnabled) {
+                    Modifier.border(
+                        width = 1.dp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
+                        shape = RoundedCornerShape(50)
+                    )
+                } else {
+                    Modifier
+                }
             )
             .padding(horizontal = 10.dp, vertical = 5.dp)
     ) {

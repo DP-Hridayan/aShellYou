@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.bottomsheet
 
-
 import android.os.Build
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -38,6 +37,9 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbConnection
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbEvent
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbState
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.resources.R
@@ -45,9 +47,6 @@ import `in`.hridayan.ashell.core.utils.isConnectedToWifi
 import `in`.hridayan.ashell.core.utils.registerNetworkCallback
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
-import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbConnection
-import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbEvent
-import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ReconnectFailedDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.item.SavedDeviceItem
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel

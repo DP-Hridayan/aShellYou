@@ -32,7 +32,9 @@ fun OperationItem(
 ) {
     val progress = if (operation.totalBytes > 0) {
         operation.bytesTransferred.toFloat() / operation.totalBytes.toFloat()
-    } else 0f
+    } else {
+        0f
+    }
 
     val icon = when (operation.type) {
         OperationType.DOWNLOAD -> Icons.Rounded.Download

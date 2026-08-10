@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.mainscreen.screen
 
-
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -115,7 +114,9 @@ fun SettingsScreen(
                 }
             },
             scrollBehavior = scrollBehavior,
-            colors = TopAppBarDefaults.topAppBarColors(scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh)
+            colors = TopAppBarDefaults.topAppBarColors(
+                scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh
+            )
         )
     }) { innerPadding ->
         LazyColumn(
@@ -172,7 +173,8 @@ fun SettingsScreen(
 
             settingsContent(
                 groups = resolvedGroups,
-                viewModel = viewModel, prefs = prefs,
+                viewModel = viewModel,
+                prefs = prefs,
                 hapticsEnabled = hapticsEnabled
             )
 
@@ -192,7 +194,8 @@ private fun SpinningGears(modifier: Modifier = Modifier) {
     val infiniteTransition = rememberInfiniteTransition(label = "gears")
 
     val bigGearRotation by infiniteTransition.animateFloat(
-        initialValue = 0f, targetValue = 360f,
+        initialValue = 0f,
+        targetValue = 360f,
         animationSpec = infiniteRepeatable(
             animation = tween(10000, easing = LinearEasing),
             repeatMode = RepeatMode.Restart
@@ -200,7 +203,8 @@ private fun SpinningGears(modifier: Modifier = Modifier) {
         label = "bigGear",
     )
     val mediumGearRotation by infiniteTransition.animateFloat(
-        initialValue = 0f, targetValue = 360f,
+        initialValue = 0f,
+        targetValue = 360f,
         animationSpec = infiniteRepeatable(
             animation = tween(5000, easing = LinearEasing),
             repeatMode = RepeatMode.Restart
@@ -208,7 +212,8 @@ private fun SpinningGears(modifier: Modifier = Modifier) {
         label = "mediumGear",
     )
     val smallGearRotation by infiniteTransition.animateFloat(
-        initialValue = 0f, targetValue = 360f,
+        initialValue = 0f,
+        targetValue = 360f,
         animationSpec = infiniteRepeatable(
             animation = tween(3500, easing = LinearEasing),
             repeatMode = RepeatMode.Restart
@@ -250,10 +255,3 @@ private fun SpinningGears(modifier: Modifier = Modifier) {
         )
     }
 }
-
-
-
-
-
-
-

@@ -45,6 +45,7 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
 
     private var currentDevice: UsbDevice? = null
     private var deviceContext: FastbootDeviceContext? = null
+
     @Volatile
     private var isConnecting = false
 
@@ -99,8 +100,10 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
 
     private fun registerReceivers() {
         ContextCompat.registerReceiver(
-            context, permissionReceiver,
-            IntentFilter(permissionAction), ContextCompat.RECEIVER_EXPORTED
+            context,
+            permissionReceiver,
+            IntentFilter(permissionAction),
+            ContextCompat.RECEIVER_EXPORTED
         )
 
         val usbFilter = IntentFilter().apply {
@@ -108,7 +111,10 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
             addAction(UsbManager.ACTION_USB_DEVICE_DETACHED)
         }
         ContextCompat.registerReceiver(
-            context, usbReceiver, usbFilter, ContextCompat.RECEIVER_EXPORTED
+            context,
+            usbReceiver,
+            usbFilter,
+            ContextCompat.RECEIVER_EXPORTED
         )
     }
 
@@ -291,8 +297,9 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
 
         val fastbootDevice = devices.firstOrNull { isFastbootDevice(it) }
         Log.d(TAG, "checkConnectedDevices: fastbootDevice=${fastbootDevice?.deviceName}")
-        if (fastbootDevice != null) handleDeviceAttach(fastbootDevice)
-        else {
+        if (fastbootDevice != null) {
+            handleDeviceAttach(fastbootDevice)
+        } else {
             FastbootConnection.updateState(FastbootState.Idle)
         }
     }
@@ -309,7 +316,10 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
             setPackage(context.packageName)
         }
         val pendingIntent = PendingIntent.getBroadcast(
-            context, 0, intent, PendingIntent.FLAG_MUTABLE
+            context,
+            0,
+            intent,
+            PendingIntent.FLAG_MUTABLE
         )
         manager.requestPermission(device, pendingIntent)
     }
@@ -425,7 +435,9 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
             if (intf.interfaceClass == FASTBOOT_INTERFACE_CLASS &&
                 intf.interfaceSubclass == FASTBOOT_INTERFACE_SUBCLASS &&
                 intf.interfaceProtocol == FASTBOOT_INTERFACE_PROTOCOL
-            ) return intf
+            ) {
+                return intf
+            }
         }
         return null
     }
@@ -436,7 +448,9 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
             if (intf.interfaceClass == FASTBOOT_INTERFACE_CLASS &&
                 intf.interfaceSubclass == FASTBOOT_INTERFACE_SUBCLASS &&
                 intf.interfaceProtocol == FASTBOOT_INTERFACE_PROTOCOL
-            ) return true
+            ) {
+                return true
+            }
         }
         return false
     }
@@ -455,8 +469,11 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
 
         // Strip leading "fastboot " prefix if user types CLI-style commands
         val stripped = command.trim().let {
-            if (it.startsWith("fastboot ", ignoreCase = true)) it.substring(9).trimStart()
-            else it
+            if (it.startsWith("fastboot ", ignoreCase = true)) {
+                it.substring(9).trimStart()
+            } else {
+                it
+            }
         }
 
         // Handle "devices" locally — not a real protocol command
@@ -740,8 +757,11 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
                         partition = partition,
                         status = if (progress < 1f) FlashStatus.DOWNLOADING else FlashStatus.FLASHING,
                         progress = progress,
-                        message = if (progress < 1f) "Sending ${(progress * 100).toInt()}% ($fileSizeMB MB)"
-                        else "Writing to $partition..."
+                        message = if (progress < 1f) {
+                            "Sending ${(progress * 100).toInt()}% ($fileSizeMB MB)"
+                        } else {
+                            "Writing to $partition..."
+                        }
                     )
                 )
             }

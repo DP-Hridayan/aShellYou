@@ -85,10 +85,11 @@ private fun DialogContent(
         else -> null
     }
 
-    val title = if (deviceName != null)
+    val title = if (deviceName != null) {
         stringResource(R.string.device_connected)
-    else
+    } else {
         stringResource(R.string.waiting_for_device)
+    }
 
     val statusText = when (state) {
         is SideloadState.Idle -> stringResource(R.string.put_device_in_sideload_mode)

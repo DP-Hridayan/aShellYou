@@ -148,8 +148,11 @@ private fun TonalPalette.resolve(
 ): Color {
     return Color(
         tone(
-            if (isDark) darkTone
-            else lightTone
+            if (isDark) {
+                darkTone
+            } else {
+                lightTone
+            }
         )
     )
 }

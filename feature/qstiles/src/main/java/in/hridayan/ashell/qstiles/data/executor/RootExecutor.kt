@@ -60,5 +60,3 @@ class RootExecutor @Inject constructor() : CommandExecutor {
         return command.trim().removePrefix("adb ").removePrefix("shell ")
     }
 }
-
-

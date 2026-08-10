@@ -1,6 +1,5 @@
 package `in`.hridayan.ashell.settings.presentation.page.backup.viewmodel
 
-
 import android.content.Context
 import android.content.IntentSender
 import android.net.Uri
@@ -9,9 +8,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.common.domain.model.backup.BackupType
 import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.settings.domain.exception.NoGoogleAccountException
 import `in`.hridayan.ashell.settings.domain.model.DriveAuthEvent
@@ -183,7 +182,13 @@ class BackupAndRestoreViewModel @Inject constructor(
             val success = backupAndRestoreRepository.backupToDevice(uri, _currentBackupType.value)
 
             val message =
-                if (success) context.getString(R.string.backup_successful) else context.getString(R.string.backup_failed)
+                if (success) {
+                    context.getString(
+                        R.string.backup_successful
+                    )
+                } else {
+                    context.getString(R.string.backup_failed)
+                }
             _uiEvent.emit(SettingsUiEvent.ShowToast(message))
         }
     }
@@ -193,7 +198,13 @@ class BackupAndRestoreViewModel @Inject constructor(
             val success = backupAndRestoreRepository.restoreDataFromFile(uri)
 
             val message =
-                if (success) context.getString(R.string.restore_successful) else context.getString(R.string.restore_failed)
+                if (success) {
+                    context.getString(
+                        R.string.restore_successful
+                    )
+                } else {
+                    context.getString(R.string.restore_failed)
+                }
             _uiEvent.emit(SettingsUiEvent.ShowToast(message))
         }
     }
@@ -203,9 +214,13 @@ class BackupAndRestoreViewModel @Inject constructor(
             val success = settingsRepository.resetAndRestoreDefaults()
 
             val message =
-                if (success) context.getString(R.string.reset_settings_successful) else context.getString(
-                    R.string.reset_settings_failed
-                )
+                if (success) {
+                    context.getString(R.string.reset_settings_successful)
+                } else {
+                    context.getString(
+                        R.string.reset_settings_failed
+                    )
+                }
 
             _uiEvent.emit(SettingsUiEvent.ShowToast(message))
         }
@@ -484,7 +499,6 @@ class BackupAndRestoreViewModel @Inject constructor(
         _cloudBackupType.value = null
     }
 
-
     private fun formatLocalBackupTime(raw: String?): String {
         if (raw.isNullOrEmpty()) return ""
 
@@ -562,7 +576,3 @@ class BackupAndRestoreViewModel @Inject constructor(
         }
     }
 }
-
-
-
-

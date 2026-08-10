@@ -161,11 +161,13 @@ fun CommandsFilterBottomSheet(
                                 style = MaterialTheme.typography.bodyMediumEmphasized,
                             )
 
-                            if (selected) Icon(
-                                painter = painterResource(R.drawable.ic_check),
-                                contentDescription = null,
-                                modifier = Modifier.size(20.dp)
-                            )
+                            if (selected) {
+                                Icon(
+                                    painter = painterResource(R.drawable.ic_check),
+                                    contentDescription = null,
+                                    modifier = Modifier.size(20.dp)
+                                )
+                            }
                         }
                     }
                 }

@@ -30,9 +30,11 @@ fun RebootOptionsCard(modifier: Modifier = Modifier, onClick: () -> Unit = {}) {
     Card(
         modifier = modifier
             .clip(MaterialTheme.shapes.largeIncreased)
-            .clickable(onClick = withHaptic {
-                onClick()
-            }),
+            .clickable(
+                onClick = withHaptic {
+                    onClick()
+                }
+            ),
         shape = MaterialTheme.shapes.largeIncreased,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.errorContainer,

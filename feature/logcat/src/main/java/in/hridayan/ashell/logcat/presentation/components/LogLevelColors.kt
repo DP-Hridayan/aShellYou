@@ -18,13 +18,13 @@ import `in`.hridayan.ashell.logcat.presentation.components.LogLevelColors.textCo
 object LogLevelColors {
 
     // Base hues — intentionally distinct across the spectrum
-    val Verbose = Color(0xFF9E9E9E)  // neutral grey
-    val Debug = Color(0xFF4FC3F7)  // light blue
-    val Info = Color(0xFF81C784)  // green
-    val Warning = Color(0xFFFFB74D)  // amber
-    val Error = Color(0xFFE57373)  // red
-    val Fatal = Color(0xFFCE93D8)  // purple
-    val Unknown = Color(0xFF78909C)  // blue-grey
+    val Verbose = Color(0xFF9E9E9E) // neutral grey
+    val Debug = Color(0xFF4FC3F7) // light blue
+    val Info = Color(0xFF81C784) // green
+    val Warning = Color(0xFFFFB74D) // amber
+    val Error = Color(0xFFE57373) // red
+    val Fatal = Color(0xFFCE93D8) // purple
+    val Unknown = Color(0xFF78909C) // blue-grey
 
     fun baseColor(level: LogLevel): Color = when (level) {
         LogLevel.VERBOSE -> Verbose
@@ -57,4 +57,3 @@ object LogLevelColors {
         }
     }
 }
-

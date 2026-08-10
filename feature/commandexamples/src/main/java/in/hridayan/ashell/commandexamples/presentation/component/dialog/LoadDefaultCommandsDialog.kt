@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.commandexamples.presentation.component.dialog
 
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -89,7 +88,8 @@ fun LoadDefaultCommandsDialog(
                     shapes = ButtonDefaults.shapes(),
                     onClick = withHaptic(HapticFeedbackType.Confirm) {
                         onDismiss()
-                    }) {
+                    }
+                ) {
                     AutoResizeableText(text = stringResource(R.string.done))
                 }
             }

@@ -5,9 +5,9 @@ import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema
 import `in`.hridayan.ashell.qstiles.domain.repository.TileRepository
 import kotlinx.coroutines.flow.first
-import kotlinx.serialization.json.JsonObject as KJsonObject
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.serialization.json.JsonObject as KJsonObject
 
 @Singleton
 class GetQsTileSlotsTool @Inject constructor(

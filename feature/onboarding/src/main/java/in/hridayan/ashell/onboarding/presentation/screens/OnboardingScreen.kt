@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.onboarding.presentation.screens
 
-
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
@@ -105,9 +104,11 @@ fun OnboardingScreen(viewModel: OnboardingViewModel = hiltViewModel()) {
                     TextButton(
                         onClick = withHaptic {
                             coroutineScope.launch {
-                                if (pagerState.currentPage > 0) pagerState.animateScrollToPage(
-                                    pagerState.currentPage - 1
-                                )
+                                if (pagerState.currentPage > 0) {
+                                    pagerState.animateScrollToPage(
+                                        pagerState.currentPage - 1
+                                    )
+                                }
                             }
                         },
                         shapes = ButtonDefaults.shapes(),
@@ -138,8 +139,11 @@ fun OnboardingScreen(viewModel: OnboardingViewModel = hiltViewModel()) {
                     modifier = Modifier.animateContentSize()
                 ) {
                     Text(
-                        text = if (pagerState.currentPage == pageCount - 1) stringResource(R.string.start)
-                        else stringResource(R.string.btn_continue),
+                        text = if (pagerState.currentPage == pageCount - 1) {
+                            stringResource(R.string.start)
+                        } else {
+                            stringResource(R.string.btn_continue)
+                        },
                         modifier = Modifier.padding(horizontal = 10.dp)
                     )
                 }

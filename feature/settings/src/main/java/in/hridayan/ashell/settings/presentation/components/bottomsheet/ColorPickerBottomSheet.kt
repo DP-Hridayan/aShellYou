@@ -170,8 +170,13 @@ private fun ColorWheel(
             val radius = size.width / 2f
 
             val colors = listOf(
-                Color.Red, Color.Yellow, Color.Green, Color.Cyan,
-                Color.Blue, Color.Magenta, Color.Red
+                Color.Red,
+                Color.Yellow,
+                Color.Green,
+                Color.Cyan,
+                Color.Blue,
+                Color.Magenta,
+                Color.Red
             )
             drawCircle(
                 brush = Brush.sweepGradient(colors, center),

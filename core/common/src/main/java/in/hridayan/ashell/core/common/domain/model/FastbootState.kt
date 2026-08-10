@@ -14,4 +14,3 @@ sealed class FastbootState {
     data object UsbManagerUnavailable : FastbootState()
     data class Error(val message: String) : FastbootState()
 }
-

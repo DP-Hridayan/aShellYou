@@ -15,7 +15,6 @@ import `in`.hridayan.settingsdsl.model.CustomSlot
 import `in`.hridayan.settingsdsl.model.ResolvedGroup
 import `in`.hridayan.settingsdsl.model.SettingsItem
 import `in`.hridayan.settingsdsl.model.SettingsKey
-import `in`.hridayan.settingsdsl.resolver.resolveAll
 
 /**
  * Renders a list of [ResolvedGroup]s into a [LazyListScope].
@@ -150,4 +149,3 @@ private fun SettingsItemEntry(
         onValueChange = onValueChange,
     )
 }
-

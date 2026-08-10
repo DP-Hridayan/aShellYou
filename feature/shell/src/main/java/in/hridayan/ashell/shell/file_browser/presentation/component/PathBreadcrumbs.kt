@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.shell.file_browser.presentation.component
 
-
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Row
@@ -80,8 +79,11 @@ fun PathBreadcrumbs(
                     text = displayName,
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.Bold,
-                    color = if (isLast) MaterialTheme.colorScheme.primary
-                    else MaterialTheme.colorScheme.onSurface,
+                    color = if (isLast) {
+                        MaterialTheme.colorScheme.primary
+                    } else {
+                        MaterialTheme.colorScheme.onSurface
+                    },
                     modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp)
                 )
             }

@@ -20,8 +20,11 @@ sealed class CloudNetworkException(message: String, cause: Throwable? = null) : 
      * @param retryAfterSeconds Hint from the provider's `Retry-After` header, if present.
      */
     class RateLimited(val retryAfterSeconds: Int? = null) : CloudNetworkException(
-        if (retryAfterSeconds != null) "Rate limited — retry after ${retryAfterSeconds}s"
-        else "Rate limited by provider"
+        if (retryAfterSeconds != null) {
+            "Rate limited — retry after ${retryAfterSeconds}s"
+        } else {
+            "Rate limited by provider"
+        }
     )
 
     /** The provider returned an unexpected HTTP error code. */

@@ -29,7 +29,6 @@ class CloudModelsViewModel @Inject constructor(
     private val _isVerifying = MutableStateFlow(false)
     val isVerifying: StateFlow<Boolean> = _isVerifying.asStateFlow()
 
-
     fun saveApiKey(provider: LlmProvider, key: String) {
         if (key.isNotBlank()) apiKeyRepository.setKey(provider, key)
     }

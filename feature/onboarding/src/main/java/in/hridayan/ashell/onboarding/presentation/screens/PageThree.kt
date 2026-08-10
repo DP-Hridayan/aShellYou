@@ -54,10 +54,10 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
-import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.common.constants.SHIZUKU_PACKAGE_NAME
 import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.ShizukuUnavailableDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -79,7 +79,8 @@ import rikka.shizuku.Shizuku
 
 @Composable
 fun PageThree(
-    modifier: Modifier = Modifier, pagerState: PagerState,
+    modifier: Modifier = Modifier,
+    pagerState: PagerState,
     viewModel: OnboardingViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
@@ -308,12 +309,16 @@ fun PageThree(
         ShizukuUnavailableDialog(
             onDismiss = { showShizukuUnavailableDialog = false },
             onConfirm = {
-                if (isShizukuInstalled) context.launchApp(SHIZUKU_PACKAGE_NAME)
-                else UrlUtils.openUrl(
-                    url = UrlConst.URL_SHIZUKU_SITE,
-                    context = context
-                )
-            })
+                if (isShizukuInstalled) {
+                    context.launchApp(SHIZUKU_PACKAGE_NAME)
+                } else {
+                    UrlUtils.openUrl(
+                        url = UrlConst.URL_SHIZUKU_SITE,
+                        context = context
+                    )
+                }
+            }
+        )
     }
 }
 

@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.home.presentation.component.dialog
 
-
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -33,7 +32,6 @@ import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.resources.R
-
 
 @Composable
 fun RebootOptionsDialog(
@@ -254,4 +252,3 @@ fun RebootOptionsDialog(
         }
     }
 }
-

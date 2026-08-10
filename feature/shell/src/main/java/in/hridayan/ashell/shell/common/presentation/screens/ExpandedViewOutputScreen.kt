@@ -53,10 +53,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.core.common.settings.LocalSettings
-import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.common.domain.model.OutputLine
 import `in`.hridayan.ashell.core.common.domain.model.TerminalFontStyle
+import `in`.hridayan.ashell.core.common.settings.LocalSettings
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scrollbar.VerticalScrollbar
 import `in`.hridayan.ashell.core.resources.R
@@ -89,22 +89,26 @@ fun ExpandedViewOutputScreen(
 
     val commandTextStyle =
         MaterialTheme.typography.titleSmallEmphasized.run {
-            if (terminalFontStyle == TerminalFontStyle.MONOSPACE) this.copy(
-                fontFamily = FontFamily.Monospace,
-                fontWeight = FontWeight.SemiBold
-            )
-            else this.copy(fontWeight = FontWeight.SemiBold)
+            if (terminalFontStyle == TerminalFontStyle.MONOSPACE) {
+                this.copy(
+                    fontFamily = FontFamily.Monospace,
+                    fontWeight = FontWeight.SemiBold
+                )
+            } else {
+                this.copy(fontWeight = FontWeight.SemiBold)
+            }
         }
-
 
     val bodyTextStyle =
         MaterialTheme.typography.bodySmallEmphasized.run {
-            if (terminalFontStyle == TerminalFontStyle.MONOSPACE) this.copy(
-                fontFamily = FontFamily.Monospace
-            )
-            else this
+            if (terminalFontStyle == TerminalFontStyle.MONOSPACE) {
+                this.copy(
+                    fontFamily = FontFamily.Monospace
+                )
+            } else {
+                this
+            }
         }
-
 
     val states by shellViewModel.states.collectAsState()
     val results by shellViewModel.filteredOutput.collectAsState()
@@ -223,11 +227,13 @@ fun ExpandedViewOutputScreen(
                             )
                         },
                         navigationIcon = {
-                            IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                                onDismiss(
-                                    fullscreenListState.firstVisibleItemIndex
-                                )
-                            }) {
+                            IconButton(
+                                onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                                    onDismiss(
+                                        fullscreenListState.firstVisibleItemIndex
+                                    )
+                                }
+                            ) {
                                 Icon(
                                     imageVector = Icons.Rounded.FullscreenExit,
                                     contentDescription = "Exit fullscreen"
@@ -237,30 +243,40 @@ fun ExpandedViewOutputScreen(
                         actions = {
                             if (states.shellState !is ShellState.Busy) {
                                 // Scroll to top
-                                IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                                    coroutineScope.launch {
-                                        if (smoothScroll) fullscreenListState.animateScrollToItem(0)
-                                        else fullscreenListState.scrollToItem(0)
+                                IconButton(
+                                    onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                                        coroutineScope.launch {
+                                            if (smoothScroll) {
+                                                fullscreenListState.animateScrollToItem(0)
+                                            } else {
+                                                fullscreenListState.scrollToItem(0)
+                                            }
+                                        }
                                     }
-                                }) {
+                                ) {
                                     Icon(
                                         imageVector = Icons.Rounded.KeyboardDoubleArrowUp,
                                         contentDescription = "Scroll to top"
                                     )
                                 }
                                 // Scroll to bottom
-                                IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                                    coroutineScope.launch {
-                                        val lastIndex =
-                                            fullscreenListState.layoutInfo.totalItemsCount - 1
-                                        if (lastIndex >= 0) {
-                                            if (smoothScroll) fullscreenListState.animateScrollToItem(
-                                                lastIndex
-                                            )
-                                            else fullscreenListState.scrollToItem(lastIndex)
+                                IconButton(
+                                    onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                                        coroutineScope.launch {
+                                            val lastIndex =
+                                                fullscreenListState.layoutInfo.totalItemsCount - 1
+                                            if (lastIndex >= 0) {
+                                                if (smoothScroll) {
+                                                    fullscreenListState.animateScrollToItem(
+                                                        lastIndex
+                                                    )
+                                                } else {
+                                                    fullscreenListState.scrollToItem(lastIndex)
+                                                }
+                                            }
                                         }
                                     }
-                                }) {
+                                ) {
                                     Icon(
                                         imageVector = Icons.Rounded.KeyboardDoubleArrowDown,
                                         contentDescription = "Scroll to bottom"
@@ -332,8 +348,11 @@ fun ExpandedViewOutputScreen(
                         itemToText = { it.text },
                         onCopy = { success ->
                             val toastMessage =
-                                if (success) res.getString(R.string.copied_to_clipboard)
-                                else res.getString(R.string.failed_to_copy)
+                                if (success) {
+                                    res.getString(R.string.copied_to_clipboard)
+                                } else {
+                                    res.getString(R.string.failed_to_copy)
+                                }
 
                             showToast(context, toastMessage)
                         },

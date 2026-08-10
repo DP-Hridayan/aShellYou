@@ -24,6 +24,3 @@ class ChangelogViewModel @Inject constructor(
         }
     }
 }
-
-
-

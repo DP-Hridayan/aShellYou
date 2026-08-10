@@ -13,13 +13,13 @@ import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.components.SingletonComponent
-import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.ashell.shell.common.data.adb.AdbConnectionManager
-import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbConnection
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbDevice
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbEvent
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbState
+import `in`.hridayan.ashell.core.resources.R
+import `in`.hridayan.ashell.shell.common.data.adb.AdbConnectionManager
+import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import `in`.hridayan.ashell.shell.wifi_adb_shell.notification.SelfPairingNotificationHelper
 import io.github.muntashirakon.adb.AbsAdbConnectionManager
@@ -84,10 +84,13 @@ class SelfPairingService : Service() {
     private var discoveredPairingIp: String? = null
     private var discoveredPairingPort: Int? = null
     private var discoveredConnectPort: Int? = null
+
     @Volatile
     private var isProcessing = false
+
     @Volatile
     private var isPairingDone = false
+
     @Volatile
     private var isConnected = false
 
@@ -210,75 +213,78 @@ class SelfPairingService : Service() {
     private fun startMdnsDiscovery() {
         Log.d(TAG, "Starting NsdManager-based mDNS discovery...")
 
-        mdnsDiscovery = AdbMdnsDiscovery(this, object : AdbMdnsDiscovery.AdbFoundCallback {
-            override fun onPairingServiceFound(ipAddress: String, port: Int) {
-                if (isPairingDone) {
-                    Log.d(TAG, "Pairing service found but pairing already done, ignoring")
-                    return
-                }
-
-                if (isProcessing) {
-                    Log.d(TAG, "Pairing service found but pairing in progress, ignoring")
-                    return
-                }
-
-                // Always update to the latest service info (handles dialog close/reopen)
-                Log.d(TAG, "Pairing service detected at $ipAddress:$port")
-                discoveredPairingIp = ipAddress
-                discoveredPairingPort = port
-                discoveryTimeout?.cancel(false)
-
-                // Show notification to enter pairing code
-                notificationHelper.showEnterCodeNotification(SelfPairingService::class.java)
-            }
-
-            override fun onPairingServiceLost() {
-                if (isPairingDone || isProcessing) {
-                    Log.d(TAG, "Pairing service lost but pairing done/in progress, ignoring")
-                    return
-                }
-
-                // Debounce: only clear state if service doesn't reappear in 3 seconds
-                // This handles cases where user briefly closes/reopens the pairing dialog
-                Log.d(TAG, "Pairing service lost - scheduling state clear after delay")
-                executor?.schedule({
-                    if (!isPairingDone && !isProcessing && discoveredPairingIp != null) {
-                        Log.d(TAG, "Clearing stale pairing state after debounce")
-                        discoveredPairingIp = null
-                        discoveredPairingPort = null
-                        notificationHelper.showSearchingNotification(SelfPairingService::class.java)
-                    }
-                }, 3, TimeUnit.SECONDS)
-            }
-
-            override fun onConnectServiceFound(ipAddress: String, port: Int) {
-                if (isConnected) {
-                    Log.d(TAG, "Connect service found but already connected, ignoring")
-                    return
-                }
-
-                // ALWAYS store the connect port when found, even before pairing completes
-                // The connect service may be discovered before pairing and then disappear
-                if (discoveredPairingIp == null || discoveredPairingIp == ipAddress) {
-                    Log.d(
-                        TAG,
-                        "Connect service detected at $ipAddress:$port - storing for later use"
-                    )
-                    discoveredConnectPort = port
-
-                    // If pairing is already done, connect immediately
+        mdnsDiscovery = AdbMdnsDiscovery(
+            this,
+            object : AdbMdnsDiscovery.AdbFoundCallback {
+                override fun onPairingServiceFound(ipAddress: String, port: Int) {
                     if (isPairingDone) {
-                        Log.d(TAG, "Pairing already done, connecting now...")
-                        connectAndSave(ipAddress, port)
+                        Log.d(TAG, "Pairing service found but pairing already done, ignoring")
+                        return
                     }
-                } else {
-                    Log.d(
-                        TAG,
-                        "Ignoring connect service at $ipAddress:$port (different from pairing IP $discoveredPairingIp)"
-                    )
+
+                    if (isProcessing) {
+                        Log.d(TAG, "Pairing service found but pairing in progress, ignoring")
+                        return
+                    }
+
+                    // Always update to the latest service info (handles dialog close/reopen)
+                    Log.d(TAG, "Pairing service detected at $ipAddress:$port")
+                    discoveredPairingIp = ipAddress
+                    discoveredPairingPort = port
+                    discoveryTimeout?.cancel(false)
+
+                    // Show notification to enter pairing code
+                    notificationHelper.showEnterCodeNotification(SelfPairingService::class.java)
+                }
+
+                override fun onPairingServiceLost() {
+                    if (isPairingDone || isProcessing) {
+                        Log.d(TAG, "Pairing service lost but pairing done/in progress, ignoring")
+                        return
+                    }
+
+                    // Debounce: only clear state if service doesn't reappear in 3 seconds
+                    // This handles cases where user briefly closes/reopens the pairing dialog
+                    Log.d(TAG, "Pairing service lost - scheduling state clear after delay")
+                    executor?.schedule({
+                        if (!isPairingDone && !isProcessing && discoveredPairingIp != null) {
+                            Log.d(TAG, "Clearing stale pairing state after debounce")
+                            discoveredPairingIp = null
+                            discoveredPairingPort = null
+                            notificationHelper.showSearchingNotification(SelfPairingService::class.java)
+                        }
+                    }, 3, TimeUnit.SECONDS)
+                }
+
+                override fun onConnectServiceFound(ipAddress: String, port: Int) {
+                    if (isConnected) {
+                        Log.d(TAG, "Connect service found but already connected, ignoring")
+                        return
+                    }
+
+                    // ALWAYS store the connect port when found, even before pairing completes
+                    // The connect service may be discovered before pairing and then disappear
+                    if (discoveredPairingIp == null || discoveredPairingIp == ipAddress) {
+                        Log.d(
+                            TAG,
+                            "Connect service detected at $ipAddress:$port - storing for later use"
+                        )
+                        discoveredConnectPort = port
+
+                        // If pairing is already done, connect immediately
+                        if (isPairingDone) {
+                            Log.d(TAG, "Pairing already done, connecting now...")
+                            connectAndSave(ipAddress, port)
+                        }
+                    } else {
+                        Log.d(
+                            TAG,
+                            "Ignoring connect service at $ipAddress:$port (different from pairing IP $discoveredPairingIp)"
+                        )
+                    }
                 }
             }
-        })
+        )
 
         mdnsDiscovery?.start()
 
@@ -320,55 +326,60 @@ class SelfPairingService : Service() {
         }
 
         // Use repository for pairing
-        repository.pair(ip, port, code, object : WifiAdbRepositoryImpl.PairingListener {
-            override fun onPairingSuccess() {
-                Log.d(TAG, "Pairing succeeded!")
-                isPairingDone = true
-                mainScope.launch {
-                    WifiAdbConnection.tryEmitEvent(WifiAdbEvent.PairingSuccess(ip))
-                }
+        repository.pair(
+            ip,
+            port,
+            code,
+            object : WifiAdbRepositoryImpl.PairingListener {
+                override fun onPairingSuccess() {
+                    Log.d(TAG, "Pairing succeeded!")
+                    isPairingDone = true
+                    mainScope.launch {
+                        WifiAdbConnection.tryEmitEvent(WifiAdbEvent.PairingSuccess(ip))
+                    }
 
-                // Check if we already have a connect port from earlier discovery
-                val connectPort = discoveredConnectPort
-                if (connectPort != null) {
-                    Log.d(TAG, "Using previously discovered connect port: $connectPort")
-                    connectAndSave(ip, connectPort)
-                } else {
-                    // Wait a bit for the connect service to be discovered via mDNS
-                    Log.d(TAG, "Waiting for connect service discovery...")
-                    executor?.schedule({
-                        if (!isConnected) {
-                            // Check again if connect port was discovered while waiting
-                            val port = discoveredConnectPort
-                            if (port != null) {
-                                Log.d(TAG, "Connect port discovered during wait: $port")
-                                connectAndSave(ip, port)
-                            } else {
-                                Log.d(
-                                    TAG,
-                                    "Connect service not found via mDNS, trying direct connect..."
-                                )
-                                tryDirectConnect(ip)
+                    // Check if we already have a connect port from earlier discovery
+                    val connectPort = discoveredConnectPort
+                    if (connectPort != null) {
+                        Log.d(TAG, "Using previously discovered connect port: $connectPort")
+                        connectAndSave(ip, connectPort)
+                    } else {
+                        // Wait a bit for the connect service to be discovered via mDNS
+                        Log.d(TAG, "Waiting for connect service discovery...")
+                        executor?.schedule({
+                            if (!isConnected) {
+                                // Check again if connect port was discovered while waiting
+                                val port = discoveredConnectPort
+                                if (port != null) {
+                                    Log.d(TAG, "Connect port discovered during wait: $port")
+                                    connectAndSave(ip, port)
+                                } else {
+                                    Log.d(
+                                        TAG,
+                                        "Connect service not found via mDNS, trying direct connect..."
+                                    )
+                                    tryDirectConnect(ip)
+                                }
                             }
-                        }
-                    }, 3, TimeUnit.SECONDS)
+                        }, 3, TimeUnit.SECONDS)
+                    }
                 }
-            }
 
-            override fun onPairingFailed() {
-                Log.e(TAG, "Pairing failed - wrong code")
-                isProcessing = false
-                mainScope.launch {
-                    WifiAdbConnection.updateState(WifiAdbState.Idle)
-                    WifiAdbConnection.tryEmitEvent(WifiAdbEvent.PairingFailed("Pairing failed"))
+                override fun onPairingFailed() {
+                    Log.e(TAG, "Pairing failed - wrong code")
+                    isProcessing = false
+                    mainScope.launch {
+                        WifiAdbConnection.updateState(WifiAdbState.Idle)
+                        WifiAdbConnection.tryEmitEvent(WifiAdbEvent.PairingFailed("Pairing failed"))
+                    }
+                    // Show error and let user try again
+                    notificationHelper.showFailureNotification(getString(R.string.self_pair_wrong_code))
+                    executor?.schedule({
+                        notificationHelper.showEnterCodeNotification(SelfPairingService::class.java)
+                    }, 2, TimeUnit.SECONDS)
                 }
-                // Show error and let user try again
-                notificationHelper.showFailureNotification(getString(R.string.self_pair_wrong_code))
-                executor?.schedule({
-                    notificationHelper.showEnterCodeNotification(SelfPairingService::class.java)
-                }, 2, TimeUnit.SECONDS)
             }
-        })
+        )
     }
 
     private fun connectAndSave(ip: String, port: Int) {
@@ -472,7 +483,6 @@ class SelfPairingService : Service() {
 
             notificationHelper.showSuccessNotification()
             stopSelfDelayed()
-
         } catch (e: Exception) {
             Log.e(TAG, "Error saving self device", e)
             notificationHelper.showFailureNotification(getString(R.string.self_pair_error_saving))

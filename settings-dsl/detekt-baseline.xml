@@ -21,19 +21,8 @@
         <ID>ArgumentListWrapping:CustomCard.kt$( targetValue = if (doCardInteractions) pressedScale
             else 1f, animationSpec = springFloat, label = "scale", )
         </ID>
-        <ID>ArgumentListWrapping:SettingsDsl.kt$( titleResId = null, title = title, items =
-            items.map { it.spec })
-        </ID>
-        <ID>ArgumentListWrapping:SettingsDsl.kt$( titleResId = titleResId, title = "", items =
-            items.map { it.spec })
-        </ID>
-        <ID>ArgumentListWrapping:SettingsItemView.kt$( checked = isChecked, enabled = enabled,
-            onCheckedChange = { onToggle() })
-        </ID>
-        <ID>ArgumentListWrapping:SettingsItemView.kt$( selected = option.value == selectedValue,
-            onClick = { onSelect(option.value) })
-        </ID>
         <ID>FinalNewline:CustomCard.kt$in.hridayan.settingsdsl.ui.card.CustomCard.kt</ID>
+        <ID>Indentation:SettingsItemView.kt$</ID>
         <ID>Indentation:SettingsSearchHelper.kt$SettingsSearchEngine$</ID>
         <ID>LongMethod:SettingsContent.kt$fun LazyListScope.settingsContent( groups: List&lt;ResolvedGroup&gt;,
             modifier: Modifier = Modifier, itemPaddingHorizontal: Dp = 15.dp, itemPaddingVertical:
@@ -83,27 +72,11 @@
         <ID>MultiLineIfElse:SettingsItemView.kt$Text( text = title, fontWeight =
             FontWeight.SemiBold, style = MaterialTheme.typography.titleMediumEmphasized )
         </ID>
-        <ID>NewLineAtEndOfFile:CustomCard.kt$in.hridayan.settingsdsl.ui.card.CustomCard.kt</ID>
         <ID>NoConsecutiveBlankLines:SettingsContent.kt$</ID>
         <ID>NoMultipleSpaces:SettingsSearchHelper.kt$</ID>
         <ID>NoUnusedImports:CustomCard.kt$in.hridayan.settingsdsl.ui.card.CustomCard.kt</ID>
         <ID>NoUnusedImports:SettingsContent.kt$in.hridayan.settingsdsl.ui.item.SettingsContent.kt
         </ID>
-        <ID>PackageName:CustomCard.kt$package `in`.hridayan.settingsdsl.ui.card</ID>
-        <ID>PackageName:CustomCardShape.kt$package `in`.hridayan.settingsdsl.ui.card</ID>
-        <ID>PackageName:CustomSlot.kt$package `in`.hridayan.settingsdsl.model</ID>
-        <ID>PackageName:GroupSpec.kt$package `in`.hridayan.settingsdsl.model</ID>
-        <ID>PackageName:HighlightUtils.kt$package `in`.hridayan.settingsdsl.ui.highlight</ID>
-        <ID>PackageName:ItemSpec.kt$package `in`.hridayan.settingsdsl.model</ID>
-        <ID>PackageName:ResolvedGroup.kt$package `in`.hridayan.settingsdsl.model</ID>
-        <ID>PackageName:SettingsContent.kt$package `in`.hridayan.settingsdsl.ui.item</ID>
-        <ID>PackageName:SettingsDsl.kt$package `in`.hridayan.settingsdsl.dsl</ID>
-        <ID>PackageName:SettingsItem.kt$package `in`.hridayan.settingsdsl.model</ID>
-        <ID>PackageName:SettingsItemView.kt$package `in`.hridayan.settingsdsl.ui.item</ID>
-        <ID>PackageName:SettingsKey.kt$package `in`.hridayan.settingsdsl.model</ID>
-        <ID>PackageName:SettingsPage.kt$package `in`.hridayan.settingsdsl.model</ID>
-        <ID>PackageName:SettingsResolver.kt$package `in`.hridayan.settingsdsl.resolver</ID>
-        <ID>PackageName:SettingsSearchHelper.kt$package `in`.hridayan.settingsdsl.search</ID>
         <ID>TooManyFunctions:SettingsDsl.kt$in.hridayan.settingsdsl.dsl.SettingsDsl.kt</ID>
         <ID>TopLevelPropertyNaming:CustomCard.kt$private const val DampingRatioMediumHighBouncy =
             0.35f

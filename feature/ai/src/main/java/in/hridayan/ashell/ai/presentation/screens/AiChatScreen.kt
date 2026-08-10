@@ -200,7 +200,7 @@ fun AiChatScreen(
                         }
                     }
 
-                    var promptInputText by remember { mutableStateOf("") }
+                    var promptInputText by remember { mutableStateOf(TextFieldValue("")) }
 
                     PromptInputField(
                         modifier = Modifier.fillMaxWidth(),
@@ -208,10 +208,10 @@ fun AiChatScreen(
                         onClickTrailingButton = withHaptic {
                             if (uiState.isGenerating) {
                                 viewModel.stopGeneration()
-                            } else if (promptInputText.isNotBlank()) {
+                            } else if (promptInputText.text.isNotBlank()) {
                                 hideKeyboard(context)
-                                viewModel.sendMessage(promptInputText)
-                                promptInputText = ""
+                                viewModel.sendMessage(promptInputText.text)
+                                promptInputText = TextFieldValue("")
                                 scope.launch {
                                     listState.animateScrollToItem(0)
                                 }
@@ -265,7 +265,9 @@ fun AiChatScreen(
                             ) {
                                 Column(horizontalAlignment = Alignment.End) {
                                     Card(
-                                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
+                                        colors = CardDefaults.cardColors(
+                                            containerColor = MaterialTheme.colorScheme.primaryContainer
+                                        )
                                     ) {
                                         MarkdownMessageContent(
                                             modifier = Modifier.padding(
@@ -469,7 +471,8 @@ fun AiChatScreen(
             onDelete = {
                 viewModel.deleteSession(session.id)
                 selectedSessionForOptions = null
-            })
+            }
+        )
     }
 
     showRenameDialogForSession?.let { session ->
@@ -495,4 +498,3 @@ fun AiChatScreen(
         )
     }
 }
-

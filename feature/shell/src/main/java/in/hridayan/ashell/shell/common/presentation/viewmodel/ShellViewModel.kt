@@ -110,7 +110,8 @@ class ShellViewModel @Inject constructor(
     private val allCommands: Flow<List<CommandEntity>> =
         commandExamplesRepository.getSortedCommands(SortType.AZ).stateIn(
             viewModelScope,
-            SharingStarted.WhileSubscribed(5000), emptyList()
+            SharingStarted.WhileSubscribed(5000),
+            emptyList()
         )
 
     private val _packages = MutableStateFlow<List<PackageInfo>>(emptyList())
@@ -275,8 +276,8 @@ class ShellViewModel @Inject constructor(
             SuggestionType.COMMAND -> {
                 // For commands: replace entire input with sanitized command (remove placeholders)
                 val sanitizedCommand = suggestion.text
-                    .replace(Regex("<[^>]+>"), "")  // Remove <package>, <permission>, etc.
-                    .replace(Regex("\\s+"), " ")    // Collapse multiple spaces
+                    .replace(Regex("<[^>]+>"), "") // Remove <package>, <permission>, etc.
+                    .replace(Regex("\\s+"), " ") // Collapse multiple spaces
                     .trim()
                 onCommandTextFieldChange(TextFieldValue(sanitizedCommand))
             }
@@ -473,7 +474,8 @@ class ShellViewModel @Inject constructor(
                 when (progress) {
                     is SaveProgress.Success -> onComplete(true, progress.uri)
                     is SaveProgress.Error -> onComplete(false, null)
-                    else -> { /* Saving in progress */
+                    else -> {
+                        /* Saving in progress */
                     }
                 }
             }
@@ -492,7 +494,6 @@ class ShellViewModel @Inject constructor(
             settingsRepository.setString(SettingsKeys.LastSavedFileUri, uri)
         }
     }
-
 
     fun analyzeCommand(command: String) {
         if (command.isBlank()) return
@@ -559,4 +560,3 @@ class ShellViewModel @Inject constructor(
         }
     }
 }
-

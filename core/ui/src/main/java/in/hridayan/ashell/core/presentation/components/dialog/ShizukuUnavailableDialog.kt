@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.core.presentation.components.dialog
 
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -36,8 +35,6 @@ fun ShizukuUnavailableDialog(
     onDismiss: () -> Unit = {},
     onConfirm: () -> Unit = {}
 ) {
-
-
     Dialog(
         onDismissRequest = { onDismiss() },
         properties = DialogProperties(dismissOnClickOutside = true)
@@ -97,4 +94,3 @@ fun ShizukuUnavailableDialog(
         }
     }
 }
-

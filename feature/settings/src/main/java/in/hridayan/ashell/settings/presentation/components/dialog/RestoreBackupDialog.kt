@@ -32,7 +32,6 @@ fun RestoreBackupDialog(
     backupTime: String? = "",
     backupType: String? = ""
 ) {
-
     val (date, time) = (backupTime ?: "").split(" ").let {
         Pair(it.getOrNull(0) ?: "", it.getOrNull(1) ?: "")
     }
@@ -63,7 +62,6 @@ fun RestoreBackupDialog(
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.onSurface,
                 )
-
 
                 Text(
                     modifier = Modifier.padding(vertical = 16.dp),

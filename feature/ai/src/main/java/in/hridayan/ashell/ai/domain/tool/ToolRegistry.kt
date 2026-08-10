@@ -9,7 +9,7 @@ class ToolRegistry @Inject constructor(
     private val tools: Set<@JvmSuppressWildcards AiTool>
 ) {
     fun getAllTools(): List<AiTool> = tools.toList()
-    
+
     fun getToolByName(name: String): AiTool? {
         return tools.find { it.name == name }
     }

@@ -1,12 +1,12 @@
 package `in`.hridayan.ashell.core.presentation.provider
 
 import androidx.appcompat.app.AppCompatDelegate
+import `in`.hridayan.ashell.core.common.domain.model.AppFont
+import `in`.hridayan.ashell.core.common.domain.model.GithubReleaseType
+import `in`.hridayan.ashell.core.common.domain.model.SortType
 import `in`.hridayan.ashell.core.common.domain.model.backup.BackupFrequency
 import `in`.hridayan.ashell.core.common.domain.model.backup.BackupType
-import `in`.hridayan.ashell.core.common.domain.model.GithubReleaseType
-import `in`.hridayan.ashell.core.common.domain.model.AppFont
 import `in`.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode
-import `in`.hridayan.ashell.core.common.domain.model.SortType
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.settingsdsl.model.RadioButtonOption
 
@@ -61,7 +61,8 @@ class RadioGroupOptionsProvider {
             RadioButtonOption(
                 value = SortType.AZ,
                 labelResId = R.string.A_Z
-            ), RadioButtonOption(
+            ),
+            RadioButtonOption(
                 value = SortType.ZA,
                 labelResId = R.string.Z_A
             ),
@@ -79,7 +80,8 @@ class RadioGroupOptionsProvider {
             RadioButtonOption(
                 value = SortType.AZ,
                 labelResId = R.string.A_Z
-            ), RadioButtonOption(
+            ),
+            RadioButtonOption(
                 value = SortType.ZA,
                 labelResId = R.string.Z_A
             ),

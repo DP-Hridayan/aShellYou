@@ -73,7 +73,6 @@ fun CollapsibleCard(
                     .wrapContentHeight(),
                 horizontalArrangement = Arrangement.spacedBy(Dimens.paddingLarge)
             ) {
-
                 Column(
                     modifier = Modifier
                         .weight(1f)

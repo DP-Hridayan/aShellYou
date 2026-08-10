@@ -13,4 +13,3 @@ data class OutputLine(
     val text: String,
     val isError: Boolean = false
 )
-

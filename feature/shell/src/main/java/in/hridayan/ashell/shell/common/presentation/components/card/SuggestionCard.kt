@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.shell.common.presentation.components.card
 
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -73,14 +72,19 @@ fun SuggestionCard(
                         .lowercase()
                         .replaceFirstChar { it.uppercase() },
                     colors = CardDefaults.cardColors(
-                        containerColor = if (label == SuggestionLabel.SYSTEM) MaterialTheme.colorScheme.errorContainer
-                        else MaterialTheme.colorScheme.tertiaryContainer,
-                        contentColor = if (label == SuggestionLabel.SYSTEM) MaterialTheme.colorScheme.onErrorContainer
-                        else MaterialTheme.colorScheme.onTertiaryContainer
+                        containerColor = if (label == SuggestionLabel.SYSTEM) {
+                            MaterialTheme.colorScheme.errorContainer
+                        } else {
+                            MaterialTheme.colorScheme.tertiaryContainer
+                        },
+                        contentColor = if (label == SuggestionLabel.SYSTEM) {
+                            MaterialTheme.colorScheme.onErrorContainer
+                        } else {
+                            MaterialTheme.colorScheme.onTertiaryContainer
+                        }
                     )
                 )
             }
         }
     }
 }
-

@@ -55,6 +55,7 @@ class SideloadRepositoryImpl(private val context: Context) : SideloadRepository 
     private var adbCrypto: AdbCrypto? = null
     private var sideloadStream: AdbStream? = null
     private var sideloadJob: Job? = null
+
     @Volatile
     private var isConnecting = false
 
@@ -94,15 +95,20 @@ class SideloadRepositoryImpl(private val context: Context) : SideloadRepository 
 
     private fun registerReceivers() {
         ContextCompat.registerReceiver(
-            context, permissionReceiver,
-            IntentFilter(permissionAction), ContextCompat.RECEIVER_NOT_EXPORTED
+            context,
+            permissionReceiver,
+            IntentFilter(permissionAction),
+            ContextCompat.RECEIVER_NOT_EXPORTED
         )
         val usbFilter = IntentFilter().apply {
             addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED)
             addAction(UsbManager.ACTION_USB_DEVICE_DETACHED)
         }
         ContextCompat.registerReceiver(
-            context, usbReceiver, usbFilter, ContextCompat.RECEIVER_EXPORTED
+            context,
+            usbReceiver,
+            usbFilter,
+            ContextCompat.RECEIVER_EXPORTED
         )
     }
 
@@ -179,7 +185,10 @@ class SideloadRepositoryImpl(private val context: Context) : SideloadRepository 
         val manager = usbManager ?: return
         if (manager.hasPermission(device)) return
         val pendingIntent = PendingIntent.getBroadcast(
-            context, 0, Intent(permissionAction), PendingIntent.FLAG_IMMUTABLE
+            context,
+            0,
+            Intent(permissionAction),
+            PendingIntent.FLAG_IMMUTABLE
         )
         manager.requestPermission(device, pendingIntent)
     }
@@ -225,7 +234,9 @@ class SideloadRepositoryImpl(private val context: Context) : SideloadRepository 
                 SideloadConnection.updateState(SideloadState.Connected(name))
             } catch (e: TimeoutCancellationException) {
                 isConnecting = false
-                SideloadConnection.updateState(SideloadState.Error("Connection timed out. Check recovery screen for RSA auth prompt."))
+                SideloadConnection.updateState(
+                    SideloadState.Error("Connection timed out. Check recovery screen for RSA auth prompt.")
+                )
             } catch (e: Exception) {
                 isConnecting = false
                 SideloadConnection.updateState(SideloadState.Error("Connection failed: ${e.message}"))
@@ -245,7 +256,9 @@ class SideloadRepositoryImpl(private val context: Context) : SideloadRepository 
             if (intf.interfaceClass == 255 &&
                 intf.interfaceSubclass == 66 &&
                 intf.interfaceProtocol == 1
-            ) return true
+            ) {
+                return true
+            }
         }
         return false
     }
@@ -256,7 +269,9 @@ class SideloadRepositoryImpl(private val context: Context) : SideloadRepository 
             if (intf.interfaceClass == 255 &&
                 intf.interfaceSubclass == 66 &&
                 intf.interfaceProtocol == 1
-            ) return intf
+            ) {
+                return intf
+            }
         }
         return null
     }
@@ -328,7 +343,11 @@ class SideloadRepositoryImpl(private val context: Context) : SideloadRepository 
     private fun resolveFileName(uri: Uri): String {
         if (uri.scheme == "content") {
             context.contentResolver.query(
-                uri, arrayOf(OpenableColumns.DISPLAY_NAME), null, null, null
+                uri,
+                arrayOf(OpenableColumns.DISPLAY_NAME),
+                null,
+                null,
+                null
             )?.use { cursor ->
                 if (cursor.moveToFirst()) {
                     val col = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)

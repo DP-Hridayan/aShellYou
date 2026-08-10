@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.logcat.presentation.components
 
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -164,10 +163,11 @@ private fun DetailRow(
         )
         Text(
             text = value,
-            style = if (monospace)
+            style = if (monospace) {
                 MaterialTheme.typography.bodyMedium.copy(fontFamily = FontFamily.Monospace)
-            else
-                MaterialTheme.typography.bodyMedium,
+            } else {
+                MaterialTheme.typography.bodyMedium
+            },
             color = MaterialTheme.colorScheme.onSurface,
         )
     }

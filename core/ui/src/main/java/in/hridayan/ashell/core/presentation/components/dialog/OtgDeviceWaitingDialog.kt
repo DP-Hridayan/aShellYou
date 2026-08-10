@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.core.presentation.components.dialog
 
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -35,12 +34,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import `in`.hridayan.ashell.core.common.domain.model.otg.OtgState
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.ashell.core.common.domain.model.otg.OtgState
 import `in`.hridayan.ashell.core.ui.otg.OtgViewModel
 
 @Composable
@@ -59,9 +58,13 @@ fun OtgDeviceWaitingDialog(
     }
 
     val dialogTitle =
-        if (otgState is OtgState.DeviceFound || otgState is OtgState.Connected) stringResource(R.string.device_connected) else stringResource(
-            R.string.waiting_for_device
-        )
+        if (otgState is OtgState.DeviceFound || otgState is OtgState.Connected) {
+            stringResource(R.string.device_connected)
+        } else {
+            stringResource(
+                R.string.waiting_for_device
+            )
+        }
 
     val waitingStatusText = when (otgState) {
         is OtgState.Idle -> stringResource(R.string.connect_device_via_otg)
@@ -143,7 +146,8 @@ fun OtgDeviceWaitingDialog(
                         onClick = withHaptic(HapticFeedbackType.Reject) {
                             onDismiss()
                             otgViewModel.disconnect()
-                        }) {
+                        }
+                    ) {
                         AutoResizeableText(text = stringResource(R.string.cancel))
                     }
                 }

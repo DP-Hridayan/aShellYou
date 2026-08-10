@@ -40,17 +40,17 @@ class CommandExecutionManager @Inject constructor(
     val runningTasks: StateFlow<List<RunningTask>> = _runningTasks.asStateFlow()
 
     private val safeCommands = setOf(
-        "ls", "cat", "grep", "find", "dumpsys", "logcat", "getprop", 
-        "ps", "pwd", "date", "whoami", "echo", "which", "whereis", 
-        "uptime", "free", "top", "df", "du", "stat", "file", 
-        "uname", "dmesg", "ping", "netstat", "ip", "ifconfig", 
+        "ls", "cat", "grep", "find", "dumpsys", "logcat", "getprop",
+        "ps", "pwd", "date", "whoami", "echo", "which", "whereis",
+        "uptime", "free", "top", "df", "du", "stat", "file",
+        "uname", "dmesg", "ping", "netstat", "ip", "ifconfig",
         "id", "groups", "help"
     )
 
     suspend fun requestPermission(command: String): PermissionResult {
         // Extract base command (first word)
         val baseCommand = command.trim().substringBefore(" ")
-        
+
         // Auto-allow completely safe read-only commands
         if (baseCommand.isNotBlank() && safeCommands.contains(baseCommand)) {
             return PermissionResult.GRANTED
@@ -60,7 +60,7 @@ class CommandExecutionManager @Inject constructor(
         if (permissionRepository.isCommandAlwaysAllowed(command)) {
             return PermissionResult.GRANTED
         }
-        
+
         // Check if base command is always allowed
         if (baseCommand.isNotBlank() && permissionRepository.isCommandAlwaysAllowed(baseCommand)) {
             return PermissionResult.GRANTED
@@ -69,7 +69,7 @@ class CommandExecutionManager @Inject constructor(
         // Suspend and wait for user response
         val deferred = CompletableDeferred<PermissionResult>()
         _permissionRequest.value = PermissionRequest(command, baseCommand, deferred)
-        
+
         return try {
             deferred.await()
         } finally {
@@ -87,7 +87,7 @@ class CommandExecutionManager @Inject constructor(
                 permissionRepository.setCommandAlwaysAllowed(baseCommand, true)
             }
         }
-        
+
         _permissionRequest.value?.let { request ->
             if (request.command == command) {
                 request.deferredResult.complete(if (isAllowed) PermissionResult.GRANTED else PermissionResult.DENIED)
@@ -105,7 +105,7 @@ class CommandExecutionManager @Inject constructor(
     fun removeRunningTask(id: String) {
         _runningTasks.update { tasks -> tasks.filter { it.id != id } }
     }
-    
+
     fun cancelTask(id: String) {
         _runningTasks.value.find { it.id == id }?.onCancel?.invoke()
         removeRunningTask(id)

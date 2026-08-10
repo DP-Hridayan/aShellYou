@@ -9,9 +9,9 @@ import androidx.work.Configuration
 import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.android.HiltAndroidApp
 import `in`.hridayan.ashell.activities.CrashReportActivity
+import `in`.hridayan.ashell.core.common.FeatureConfig
 import `in`.hridayan.ashell.crashreporter.domain.model.CrashReport
 import `in`.hridayan.ashell.crashreporter.domain.repository.CrashRepository
-import `in`.hridayan.ashell.core.common.FeatureConfig
 import io.github.muntashirakon.adb.PRNGFixes
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,9 +35,9 @@ class App : Application(), Configuration.Provider {
         super.onCreate()
         instance = this
         contextReference = WeakReference(applicationContext)
-        
+
         FeatureConfig.isAiEnabled = BuildConfig.IS_AI_ENABLED
-        
+
         PRNGFixes.apply()
 
         val entryPoint = EntryPointAccessors.fromApplication(
@@ -47,7 +47,6 @@ class App : Application(), Configuration.Provider {
         val crashRepo = entryPoint.crashRepository()
         val tileComponentManager = entryPoint.tileComponentManager()
 
-        // Sync QS tile components
         tileComponentManager.ensureAllEnabled()
 
         val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
@@ -61,48 +60,44 @@ class App : Application(), Configuration.Provider {
         throwable: Throwable,
         crashRepo: CrashRepository
     ) {
-        val timestamp = System.currentTimeMillis()
-        val deviceBrand = Build.BRAND ?: "Unknown"
-        val deviceModel = Build.MODEL
-        val manufacturer = Build.MANUFACTURER ?: "Unknown"
-        val osVersion = Build.VERSION.RELEASE ?: "Unknown"
+        val crashReport = buildCrashReport(throwable)
+        saveAndLaunchCrashActivity(crashReport, crashRepo)
+        Thread.sleep(CRASH_DELAY_MS)
+    }
+
+    private fun buildCrashReport(throwable: Throwable): CrashReport {
         val socManufacturer = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             Build.SOC_MANUFACTURER
         } else {
             "Unknown"
         }
 
-        val cpuAbi = Build.SUPPORTED_ABIS.joinToString()
-        val appPackageName = BuildConfig.APPLICATION_ID
-        val appVersionName = BuildConfig.VERSION_NAME
-        val appVersionCode = BuildConfig.VERSION_CODE.toString()
-        val stackTrace = throwable.stackTraceToString()
-
-        val crashReport = CrashReport(
-            timestamp = timestamp,
-            deviceBrand = deviceBrand,
-            deviceModel = deviceModel,
-            manufacturer = manufacturer,
-            osVersion = osVersion,
+        return CrashReport(
+            timestamp = System.currentTimeMillis(),
+            deviceBrand = Build.BRAND ?: "Unknown",
+            deviceModel = Build.MODEL,
+            manufacturer = Build.MANUFACTURER ?: "Unknown",
+            osVersion = Build.VERSION.RELEASE ?: "Unknown",
             socManufacturer = socManufacturer,
-            cpuAbi = cpuAbi,
-            appPackageName = appPackageName,
-            appVersionName = appVersionName,
-            appVersionCode = appVersionCode,
-            stackTrace = stackTrace
+            cpuAbi = Build.SUPPORTED_ABIS.joinToString(),
+            appPackageName = BuildConfig.APPLICATION_ID,
+            appVersionName = BuildConfig.VERSION_NAME,
+            appVersionCode = BuildConfig.VERSION_CODE.toString(),
+            stackTrace = throwable.stackTraceToString()
         )
+    }
 
+    private fun saveAndLaunchCrashActivity(crashReport: CrashReport, crashRepo: CrashRepository) {
         val scope = CoroutineScope(Dispatchers.IO)
         scope.launch {
             crashRepo.addCrash(crashReport)
 
-            val intent = Intent(this@App, CrashReportActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            intent.putExtra("CRASH_TIMESTAMP", timestamp)
+            val intent = Intent(this@App, CrashReportActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                putExtra("CRASH_TIMESTAMP", crashReport.timestamp)
+            }
             this@App.startActivity(intent)
         }
-
-        Thread.sleep(500)
     }
 
     override fun attachBaseContext(base: Context) {
@@ -110,8 +105,8 @@ class App : Application(), Configuration.Provider {
         HiddenApiBypass.addHiddenApiExemptions("L")
     }
 
-
     companion object {
+        private const val CRASH_DELAY_MS = 500L
         private lateinit var instance: App
         private lateinit var contextReference: WeakReference<Context>
 

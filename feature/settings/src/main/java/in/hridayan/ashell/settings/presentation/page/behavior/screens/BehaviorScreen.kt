@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.behavior.screens
 
-
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -87,7 +86,8 @@ fun BehaviorScreen(
             ) {
                 settingsContent(
                     groups = resolvedGroups,
-                    viewModel = settingsViewModel, prefs = prefs,
+                    viewModel = settingsViewModel,
+                    prefs = prefs,
                     hapticsEnabled = hapticsEnabled
                 )
 
@@ -106,9 +106,3 @@ fun BehaviorScreen(
         ConfigureSaveDirectoryDialog(onDismiss = { it.dismiss() })
     }
 }
-
-
-
-
-
-

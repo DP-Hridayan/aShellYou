@@ -46,8 +46,11 @@ class SettingsSearchViewModel @Inject constructor(
     /** Filtered results derived from the DSL engine, reactive to [_query]. */
     val filteredResults: StateFlow<List<SearchEntry>> =
         _query.combine(MutableStateFlow(allEntries)) { q, entries ->
-            if (q.isBlank()) emptyList()
-            else engine.search(q)
+            if (q.isBlank()) {
+                emptyList()
+            } else {
+                engine.search(q)
+            }
         }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
     private val _recentEntries = MutableStateFlow<List<SearchEntry>>(emptyList())
@@ -102,6 +105,3 @@ class SettingsSearchViewModel @Inject constructor(
         return keyNames.mapNotNull { entryMap[it] }
     }
 }
-
-
-

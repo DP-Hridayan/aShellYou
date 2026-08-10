@@ -22,10 +22,13 @@ data class FastbootResponse(
 enum class ResponseStatus(val prefix: String) {
     /** Command completed successfully. */
     OKAY("OKAY"),
+
     /** Command failed. Remaining bytes are error message. */
     FAIL("FAIL"),
+
     /** Device is ready to receive data. Remaining bytes are hex-encoded data size. */
     DATA("DATA"),
+
     /** Informational message. Remaining bytes are text. */
     INFO("INFO");
 

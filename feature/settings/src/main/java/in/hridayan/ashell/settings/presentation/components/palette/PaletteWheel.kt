@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.components.palette
 
-
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -45,10 +44,14 @@ fun PaletteWheel(
 ) {
     val checkedIconScale by animateFloatAsState(
         targetValue = if (isChecked) 1f else 0f,
-        animationSpec = if (isChecked) AshellYouAnimationSpecs.springFloat else tween(
-            durationMillis = 300,
-            easing = LinearEasing
-        ),
+        animationSpec = if (isChecked) {
+            AshellYouAnimationSpecs.springFloat
+        } else {
+            tween(
+                durationMillis = 300,
+                easing = LinearEasing
+            )
+        },
         label = "Check Scale Animation"
     )
 

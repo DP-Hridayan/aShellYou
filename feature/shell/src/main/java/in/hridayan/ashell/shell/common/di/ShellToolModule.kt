@@ -5,10 +5,10 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dagger.multibindings.IntoSet
+import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 import `in`.hridayan.ashell.shell.common.tool.DeleteBookmarkTool
 import `in`.hridayan.ashell.shell.common.tool.SaveBookmarkTool
 import `in`.hridayan.ashell.shell.common.tool.SearchBookmarksTool
-import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 
 @Module
 @InstallIn(SingletonComponent::class)

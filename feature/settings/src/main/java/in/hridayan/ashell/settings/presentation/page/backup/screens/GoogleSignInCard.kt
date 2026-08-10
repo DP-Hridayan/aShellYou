@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.backup.screens
 
-
 import android.net.Uri
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.fadeIn
@@ -224,7 +223,3 @@ private fun InitialsAvatar(
         )
     }
 }
-
-
-
-

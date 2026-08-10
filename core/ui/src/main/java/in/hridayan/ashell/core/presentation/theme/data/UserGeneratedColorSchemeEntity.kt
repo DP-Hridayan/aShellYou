@@ -9,32 +9,32 @@ import kotlinx.serialization.Serializable
 data class UserGeneratedColorSchemeEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val name: String,
-    
+
     // Primary
     val primary: String,
     val onPrimary: String,
     val primaryContainer: String,
     val onPrimaryContainer: String,
     val inversePrimary: String,
-    
+
     // Secondary
     val secondary: String,
     val onSecondary: String,
     val secondaryContainer: String,
     val onSecondaryContainer: String,
-    
+
     // Tertiary
     val tertiary: String,
     val onTertiary: String,
     val tertiaryContainer: String,
     val onTertiaryContainer: String,
-    
+
     // Error
     val error: String,
     val onError: String,
     val errorContainer: String,
     val onErrorContainer: String,
-    
+
     // Surface
     val background: String,
     val onBackground: String,
@@ -52,15 +52,15 @@ data class UserGeneratedColorSchemeEntity(
     val surfaceContainerHighest: String,
     val surfaceContainerLow: String,
     val surfaceContainerLowest: String,
-    
+
     // Misc
     val outline: String,
     val outlineVariant: String,
     val scrim: String,
     val svgPathData: String = "",
-    
+
     val isDarkTheme: Boolean = false,
-    
+
     val createdAt: Long = System.currentTimeMillis()
 )
 

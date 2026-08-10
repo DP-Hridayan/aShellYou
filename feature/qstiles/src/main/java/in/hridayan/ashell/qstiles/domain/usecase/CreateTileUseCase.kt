@@ -21,7 +21,6 @@ class CreateTileUseCase(
         executionMode: Int,
         existing: List<TileConfig>,
     ): Result<Unit> {
-
         val nextId = (1..10).firstOrNull { id -> existing.none { it.id == id } }
             ?: return Result.failure(Exception("Max tiles reached"))
 

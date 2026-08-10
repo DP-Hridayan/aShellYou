@@ -75,4 +75,3 @@ class CheckUpdateUseCase @Inject constructor(
         return ParsedVersion(numbers, stage, stageNumber)
     }
 }
-

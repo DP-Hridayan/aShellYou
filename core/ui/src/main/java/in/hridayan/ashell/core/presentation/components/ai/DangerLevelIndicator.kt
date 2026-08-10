@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.core.presentation.components.ai
 
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer

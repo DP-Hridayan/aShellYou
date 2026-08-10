@@ -35,8 +35,11 @@ fun rememberScrollDirection(
                         lastItem.offset + lastItem.size <= layoutInfo.viewportEndOffset
             } ?: false
 
-            if (!isScrollable || atBottom) null
-            else listState.firstVisibleItemIndex to listState.firstVisibleItemScrollOffset
+            if (!isScrollable || atBottom) {
+                null
+            } else {
+                listState.firstVisibleItemIndex to listState.firstVisibleItemScrollOffset
+            }
         }.collect { value ->
             if (value == null) {
                 direction = ScrollDirection.NONE
@@ -76,4 +79,3 @@ fun rememberScrollDirection(
 
     return direction
 }
-

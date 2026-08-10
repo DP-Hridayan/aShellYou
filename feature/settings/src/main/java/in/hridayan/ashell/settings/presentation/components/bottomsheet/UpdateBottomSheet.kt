@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.components.bottomsheet
 
-
 import android.app.Activity
 import android.content.Intent
 import android.provider.Settings
@@ -56,9 +55,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
-import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -352,7 +351,6 @@ fun UpdateBottomSheet(
                 .fillMaxWidth()
                 .height(100.dp)
         ) {
-
             when (downloadState) {
                 is DownloadState.Started -> {
                     LoadingIndicator(
@@ -399,20 +397,24 @@ fun UpdateBottomSheet(
                         }
                     }
                 ),
-                if (showDownloadButton) ButtonGroupItem(
-                    text = stringResource(R.string.download),
-                    onClick = {
-                        if (isDirectDownloadEnabled) {
-                            permissionPromptShown = false
-                            viewModel.downloadApk(apkUrl, apkName)
-                        } else {
-                            openUrl(
-                                context = context,
-                                url = UrlConst.URL_GITHUB_REPO + "/releases/tag/$latestVersion"
-                            )
+                if (showDownloadButton) {
+                    ButtonGroupItem(
+                        text = stringResource(R.string.download),
+                        onClick = {
+                            if (isDirectDownloadEnabled) {
+                                permissionPromptShown = false
+                                viewModel.downloadApk(apkUrl, apkName)
+                            } else {
+                                openUrl(
+                                    context = context,
+                                    url = UrlConst.URL_GITHUB_REPO + "/releases/tag/$latestVersion"
+                                )
+                            }
                         }
-                    }
-                ) else null
+                    )
+                } else {
+                    null
+                }
             )
         )
     }
@@ -493,8 +495,8 @@ private fun responsiveHeight(): Dp {
     }
 
     return when {
-        screenHeightDp < 640.dp -> 60.dp   // small
-        screenHeightDp < 840.dp -> 160.dp   // medium
-        else -> 300.dp                      // large
+        screenHeightDp < 640.dp -> 60.dp // small
+        screenHeightDp < 840.dp -> 160.dp // medium
+        else -> 300.dp // large
     }
 }

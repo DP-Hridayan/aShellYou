@@ -64,18 +64,18 @@ Assistant: {
   "useCases": ["Remove unwanted files", "Clean up storage directory"],
   "dangerLevel": "DANGEROUS"
 }
-""".trimIndent()
+        """.trimIndent()
     }
 
     fun buildUserPrompt(command: String, ragContext: String): String {
         // If it looks like a natural language sentence, don't prefix with adb shell
-        val isNaturalLanguage = !command.trim().startsWith("adb") && 
-                                !command.trim().startsWith("pm ") && 
-                                !command.trim().startsWith("am ") && 
-                                !command.trim().startsWith("rm ") &&
-                                !command.trim().startsWith("ls ") &&
-                                command.contains(" ") && 
-                                command.length > 10
+        val isNaturalLanguage = !command.trim().startsWith("adb") &&
+                !command.trim().startsWith("pm ") &&
+                !command.trim().startsWith("am ") &&
+                !command.trim().startsWith("rm ") &&
+                !command.trim().startsWith("ls ") &&
+                command.contains(" ") &&
+                command.length > 10
 
         val formattedCommand = if (isNaturalLanguage) {
             command.trim()
@@ -95,7 +95,7 @@ Assistant: {
 ${contextSection}Please analyze or process this input: $formattedCommand
 
 CRITICAL: In your JSON 'description', you MUST explicitly mention the exact package names, file paths, or parameters. Do NOT give a generic description. If input is natural language, set status to NATURAL_LANGUAGE and put the generated command in suggestedCorrection.
-""".trimIndent()
+        """.trimIndent()
     }
 
     /**
@@ -125,7 +125,7 @@ Rules:
 3. If the user asks for a command involving a specific app name (e.g., "uninstall WhatsApp"), you must use your tools to find the exact package name (e.g., com.whatsapp) before generating the command.
 4. You MUST write the 'description' and 'feedback' fields entirely in $userLocale.
 5. Only return JSON.
-""".trimIndent()
+        """.trimIndent()
     }
 
     fun buildQueryUserPrompt(query: String, ragContext: String): String {
@@ -140,6 +140,6 @@ ${contextSection}User Request: ${query.trim()}
 
 Generate the corresponding ADB command.
 CRITICAL: In your JSON 'description', explicitly mention the exact package names or parameters. Output the ADB command in 'suggestedCorrection'.
-""".trimIndent()
+        """.trimIndent()
     }
 }

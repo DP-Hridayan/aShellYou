@@ -2,8 +2,6 @@
 
 package `in`.hridayan.ashell.core.utils
 
-import `in`.hridayan.ashell.core.resources.R
-
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
@@ -11,6 +9,7 @@ import android.content.ContextWrapper
 import android.content.Intent
 import androidx.core.net.toUri
 import `in`.hridayan.ashell.core.common.domain.model.SharedTextHolder
+import `in`.hridayan.ashell.core.resources.R
 
 fun openUrl(url: String, context: Context) {
     try {
@@ -81,6 +80,3 @@ fun handleSharedText(intent: Intent) {
 fun splitStringToLines(input: String): List<String> {
     return input.split("\n").filter { it.isNotBlank() }
 }
-
-
-

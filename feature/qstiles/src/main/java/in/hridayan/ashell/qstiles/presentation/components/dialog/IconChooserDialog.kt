@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.qstiles.presentation.components.dialog
 
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -57,7 +56,6 @@ fun IconChooserDialog(
     val scrollState = rememberScrollState()
 
     DialogContainer(onDismiss = onDismiss) {
-
         DialogTitle(
             text = stringResource(R.string.choose_icon),
             modifier = Modifier.align(Alignment.CenterHorizontally)

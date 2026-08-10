@@ -149,7 +149,8 @@ fun CommandExampleCard(
                 if (isDeleted) {
                     commandExamplesViewModel.deleteCommand(
                         id = id,
-                        onSuccess = { isDeleted = true })
+                        onSuccess = { isDeleted = true }
+                    )
                 }
             }
         )
@@ -172,7 +173,7 @@ fun CommandExampleCard(
         color = MaterialTheme.colorScheme.onSurface.copy(alpha = borderAlpha)
     )
 
-    if (!isDeleted || swipeOffset.value != 0f)
+    if (!isDeleted || swipeOffset.value != 0f) {
         Box(
             modifier = modifier
                 .fillMaxWidth()
@@ -184,13 +185,15 @@ fun CommandExampleCard(
                     cardWidth.floatValue = it.size.width.toFloat()
                 }
                 .then(
-                    if (isDeleted && cardHeight.floatValue > 0f)
+                    if (isDeleted && cardHeight.floatValue > 0f) {
                         Modifier.height(
                             with(screenDensity) {
                                 (cardHeight.floatValue * animatedHeight.value).toDp()
                             }
                         )
-                    else Modifier
+                    } else {
+                        Modifier
+                    }
                 ),
             contentAlignment = if (swipeOffset.value > 0) Alignment.CenterStart else Alignment.CenterEnd
         ) {
@@ -209,15 +212,17 @@ fun CommandExampleCard(
                         ),
                     contentAlignment = Alignment.Center
                 ) {
-                    if (swipeOffset.value > 0)
+                    if (swipeOffset.value > 0) {
                         EditLottie(
                             composition = compositionEditLottie,
                             progress = editLottieProgress,
                         )
-                    else DeleteLottie(
-                        composition = compositionDeleteLottie,
-                        progress = deleteLottieProgress,
-                    )
+                    } else {
+                        DeleteLottie(
+                            composition = compositionDeleteLottie,
+                            progress = deleteLottieProgress,
+                        )
+                    }
                 }
             }
 
@@ -309,10 +314,12 @@ fun CommandExampleCard(
                     .fillMaxWidth(),
                 border = borderStroke,
                 collapsedContent = {
-                    if (labels.isNotEmpty()) Labels(
-                        modifier = Modifier.fillMaxWidth(),
-                        labels = labels
-                    )
+                    if (labels.isNotEmpty()) {
+                        Labels(
+                            modifier = Modifier.fillMaxWidth(),
+                            labels = labels
+                        )
+                    }
 
                     Text(
                         text = command,
@@ -344,7 +351,8 @@ fun CommandExampleCard(
                                 wrap(FlexWrap.Wrap)
                                 gap(10.dp)
                                 alignItems(FlexAlignItems.Center)
-                            }) {
+                            }
+                        ) {
                             Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                                 EditButton(
                                     onEdit = onEdit,
@@ -384,8 +392,10 @@ fun CommandExampleCard(
                             }
                         }
                     }
-                })
+                }
+            )
         }
+    }
 }
 
 @Composable
@@ -494,7 +504,6 @@ private fun UseCommandButton(
     }
 }
 
-
 /**
  * @Composable
  * private fun FavouriteButton(
@@ -513,7 +522,6 @@ private fun UseCommandButton(
  *         })
  * }
  */
-
 
 @Composable
 private fun DeleteLottie(

@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.components.dialog
 
-
 import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -72,7 +71,9 @@ fun ConfigureSaveDirectoryDialog(
                 uriString.toUri(),
                 context
             ) ?: uriString
-        } else uriString
+        } else {
+            uriString
+        }
 
     var rotationAngle by rememberSaveable { mutableFloatStateOf(0f) }
 

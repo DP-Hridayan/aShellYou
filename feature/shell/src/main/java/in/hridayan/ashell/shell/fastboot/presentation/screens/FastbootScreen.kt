@@ -150,10 +150,11 @@ fun FastbootScreen(
                 },
                 label = {
                     Text(
-                        text = if (isConnected)
+                        text = if (isConnected) {
                             (fastbootState as FastbootState.Connected).deviceName
-                        else
-                            stringResource(R.string.disconnected),
+                        } else {
+                            stringResource(R.string.disconnected)
+                        },
                         style = MaterialTheme.typography.labelMedium
                     )
                 },
@@ -164,11 +165,15 @@ fun FastbootScreen(
                         modifier = Modifier.size(18.dp)
                     )
                 },
-                colors = if (isConnected) AssistChipDefaults.assistChipColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    labelColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                    leadingIconContentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                ) else AssistChipDefaults.assistChipColors(),
+                colors = if (isConnected) {
+                    AssistChipDefaults.assistChipColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        labelColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                        leadingIconContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                } else {
+                    AssistChipDefaults.assistChipColors()
+                },
                 modifier = Modifier.padding(end = Dimens.paddingSmall)
             )
         },
@@ -369,13 +374,14 @@ private fun ConsoleTabContent(
                         else -> onOpenPredefinedCommands()
                     }
                 },
-                colors = if (isCommandRunning)
+                colors = if (isCommandRunning) {
                     IconButtonDefaults.filledIconButtonColors(
                         containerColor = MaterialTheme.colorScheme.errorContainer,
                         contentColor = MaterialTheme.colorScheme.onErrorContainer
                     )
-                else
-                    IconButtonDefaults.filledIconButtonColors(),
+                } else {
+                    IconButtonDefaults.filledIconButtonColors()
+                },
                 modifier = Modifier.size(56.dp)
             ) {
                 when {

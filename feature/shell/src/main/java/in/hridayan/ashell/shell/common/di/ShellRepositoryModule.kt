@@ -24,9 +24,11 @@ abstract class ShellRepositoryModule {
     abstract fun bindPackageRepository(
         packageRepositoryImpl: PackageRepositoryImpl
     ): PackageRepository
+
     @Binds
     @Singleton
     abstract fun bindAiConnectionStateProvider(
-        aiConnectionStateProviderImpl: `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.AiConnectionStateProviderImpl
+        aiConnectionStateProviderImpl:
+        `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.AiConnectionStateProviderImpl
     ): `in`.hridayan.ashell.core.common.domain.repository.AiConnectionStateProvider
 }

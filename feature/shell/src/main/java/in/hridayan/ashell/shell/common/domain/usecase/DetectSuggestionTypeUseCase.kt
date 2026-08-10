@@ -37,7 +37,7 @@ class DetectSuggestionTypeUseCase @Inject constructor() {
                 fullText = text,
                 currentToken = currentToken,
                 suggestionType = SuggestionType.COMMAND,
-                filterPrefix = text.trim()  // Use full text for command filtering
+                filterPrefix = text.trim() // Use full text for command filtering
             )
         }
 

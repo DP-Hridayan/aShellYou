@@ -87,4 +87,3 @@ fun Context.askUserToEnableWifi() {
         }
     }
 }
-

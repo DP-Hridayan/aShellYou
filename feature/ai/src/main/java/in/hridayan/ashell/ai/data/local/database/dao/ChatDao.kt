@@ -25,7 +25,7 @@ interface ChatDao {
 
     @Query("SELECT * FROM chat_messages WHERE sessionId = :sessionId ORDER BY timestamp ASC")
     fun getMessagesForSession(sessionId: String): Flow<List<ChatMessageEntity>>
-    
+
     @Query("SELECT * FROM chat_messages WHERE sessionId = :sessionId ORDER BY timestamp ASC")
     suspend fun getMessagesForSessionSync(sessionId: String): List<ChatMessageEntity>
 
@@ -46,16 +46,16 @@ interface ChatDao {
         insertMessage(message)
         updateSessionTimestamp(message.sessionId, message.timestamp)
     }
-    
+
     @Query("UPDATE chat_sessions SET updatedAt = :timestamp WHERE id = :sessionId")
     suspend fun updateSessionTimestamp(sessionId: String, timestamp: Long)
-    
+
     @Query("UPDATE chat_sessions SET title = :title WHERE id = :sessionId")
     suspend fun updateSessionTitle(sessionId: String, title: String)
 
     @Query("UPDATE chat_sessions SET title = :title, isUserRenamed = 1 WHERE id = :sessionId")
     suspend fun updateSessionTitleByUser(sessionId: String, title: String)
-    
+
     @Query("UPDATE chat_sessions SET isPinned = :isPinned WHERE id = :sessionId")
     suspend fun updateSessionPinned(sessionId: String, isPinned: Boolean)
 }

@@ -1,6 +1,5 @@
 package `in`.hridayan.ashell.shell.local_adb_shell.presentation.screens
 
-
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -19,12 +18,12 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
-import `in`.hridayan.ashell.core.common.settings.LocalSettings
-import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.common.constants.SHIZUKU_PACKAGE_NAME
 import `in`.hridayan.ashell.core.common.constants.UrlConst
-import `in`.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.common.domain.model.SharedTextHolder
+import `in`.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode
+import `in`.hridayan.ashell.core.common.settings.LocalSettings
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.dialog.ShizukuUnavailableDialog
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.DeviceUtils
@@ -109,7 +108,6 @@ fun LocalAdbScreen(
                                     shellViewModel.runRootCommand()
                                 }
                             }
-
                         }
                     }
                 }
@@ -173,11 +171,15 @@ fun LocalAdbScreen(
         ShizukuUnavailableDialog(
             onDismiss = { showShizukuUnavailableDialog = false },
             onConfirm = {
-                if (isShizukuInstalled) context.launchApp(SHIZUKU_PACKAGE_NAME)
-                else UrlUtils.openUrl(
-                    url = UrlConst.URL_SHIZUKU_SITE,
-                    context = context
-                )
-            })
+                if (isShizukuInstalled) {
+                    context.launchApp(SHIZUKU_PACKAGE_NAME)
+                } else {
+                    UrlUtils.openUrl(
+                        url = UrlConst.URL_SHIZUKU_SITE,
+                        context = context
+                    )
+                }
+            }
+        )
     }
 }

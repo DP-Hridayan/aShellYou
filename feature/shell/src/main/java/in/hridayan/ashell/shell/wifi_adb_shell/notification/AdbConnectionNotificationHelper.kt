@@ -43,7 +43,9 @@ class AdbConnectionNotificationHelper(private val context: Context) {
         val openAppIntent =
             Intent(context, Class.forName("in.hridayan.ashell.activities.MainActivity"))
         val openAppPendingIntent = PendingIntent.getActivity(
-            context, 0, openAppIntent,
+            context,
+            0,
+            openAppIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
@@ -51,7 +53,9 @@ class AdbConnectionNotificationHelper(private val context: Context) {
             action = ACTION_DISCONNECT
         }
         val disconnectPendingIntent = PendingIntent.getService(
-            context, 1, disconnectIntent,
+            context,
+            1,
+            disconnectIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 

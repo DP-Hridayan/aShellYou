@@ -228,10 +228,11 @@ fun DynamicColorImageVectors.undraw404Error(): ImageVector {
             fill = SolidColor(MaterialTheme.colorScheme.tertiary),
         )
         addPath(
-            pathData = PathParser().parsePathString("M858.9,570.8l-857.8,0.3a1.2,1.2 0,1 1,0 -2.4l857.8,-0.3a1.2,1.2 0,0 1,0 2.4Z")
+            pathData = PathParser().parsePathString(
+                "M858.9,570.8l-857.8,0.3a1.2,1.2 0,1 1,0 -2.4l857.8,-0.3a1.2,1.2 0,0 1,0 2.4Z"
+            )
                 .toNodes(),
             fill = SolidColor(MaterialTheme.colorScheme.inverseSurface),
         )
     }.build()
 }
-

@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.backup.screens
 
-
 import android.content.Intent
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -395,8 +394,3 @@ private fun BackupStatusRow(
         }
     }
 }
-
-
-
-
-

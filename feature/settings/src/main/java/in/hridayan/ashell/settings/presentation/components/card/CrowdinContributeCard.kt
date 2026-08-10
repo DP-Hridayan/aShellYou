@@ -88,7 +88,8 @@ fun CrowdinContributeCard(modifier: Modifier = Modifier) {
                             context = context,
                             url = UrlConst.URL_CROWDIN_PROJECT
                         )
-                    })
+                    }
+                )
             }
         }
     }

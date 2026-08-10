@@ -31,12 +31,6 @@
             connectToUsbDevice(manager: UsbManager, device: UsbDevice)
         </ID>
         <ID>NoMultipleSpaces:FastbootDeviceManager.kt$FastbootDeviceManager$</ID>
-        <ID>PackageName:DeviceId.kt$package `in`.hridayan.fastboot</ID>
-        <ID>PackageName:FastbootCommand.kt$package `in`.hridayan.fastboot</ID>
-        <ID>PackageName:FastbootDeviceContext.kt$package `in`.hridayan.fastboot</ID>
-        <ID>PackageName:FastbootDeviceManager.kt$package `in`.hridayan.fastboot</ID>
-        <ID>PackageName:FastbootDeviceManagerListener.kt$package `in`.hridayan.fastboot</ID>
-        <ID>PackageName:FastbootResponse.kt$package `in`.hridayan.fastboot</ID>
         <ID>ReturnCount:FastbootDeviceManager.kt$FastbootDeviceManager$private fun
             connectToUsbDevice(manager: UsbManager, device: UsbDevice)
         </ID>

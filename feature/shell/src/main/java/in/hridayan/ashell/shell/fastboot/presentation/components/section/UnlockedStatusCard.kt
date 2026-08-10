@@ -57,9 +57,10 @@ fun UnlockStatusCard(
                 Row(
                     modifier = Modifier
                         .clip(RoundedCornerShape(50))
-                        .background(MaterialTheme.colorScheme.run {
-                            if (isUnlocked) error else primary
-                        }
+                        .background(
+                            MaterialTheme.colorScheme.run {
+                                if (isUnlocked) error else primary
+                            }
                         )
                         .padding(horizontal = 10.dp, vertical = 5.dp),
                     horizontalArrangement = Arrangement.spacedBy(5.dp),
@@ -67,15 +68,21 @@ fun UnlockStatusCard(
                 ) {
                     Icon(
                         modifier = Modifier.size(16.dp),
-                        painter = if (isUnlocked) painterResource(R.drawable.ic_lock_open)
-                        else painterResource(R.drawable.ic_lock),
+                        painter = if (isUnlocked) {
+                            painterResource(R.drawable.ic_lock_open)
+                        } else {
+                            painterResource(R.drawable.ic_lock)
+                        },
                         tint = MaterialTheme.colorScheme.run { if (isUnlocked) onError else onPrimary },
                         contentDescription = null
                     )
 
                     Text(
-                        text = if (isUnlocked) stringResource(R.string.unlocked)
-                        else stringResource(R.string.locked),
+                        text = if (isUnlocked) {
+                            stringResource(R.string.unlocked)
+                        } else {
+                            stringResource(R.string.locked)
+                        },
                         style = MaterialTheme.typography.bodyMediumEmphasized,
                         color = MaterialTheme.colorScheme.run {
                             if (isUnlocked) onError else onPrimary

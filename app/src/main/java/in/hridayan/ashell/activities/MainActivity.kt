@@ -20,8 +20,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.core.common.CompositionLocals
 import `in`.hridayan.ashell.core.common.LocalSeedColor
-import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.common.domain.provider.SeedColorProvider
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.snackbar.SnackBarHost
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouTheme
 import `in`.hridayan.ashell.core.presentation.theme.data.toPayload
@@ -55,22 +55,33 @@ class MainActivity : AppCompatActivity() {
 
         splashScreen.setKeepOnScreenCondition {
             settingsViewModel.isFirstLaunch == null ||
-                    System.currentTimeMillis() - splashStartTime < 650L
+                    System.currentTimeMillis() - splashStartTime < SPLASH_SCREEN_DELAY_MS
         }
 
         super.onCreate(savedInstanceState)
 
+        handleInitialIntents(intent)
+        checkAutoUpdate()
+        setupUi()
+    }
+
+    private fun handleInitialIntents(intent: Intent?) {
+        if (intent == null) return
         handleSharedText(intent)
         handleLogcatDeeplink(intent)
         handleThemeImport(intent)
+    }
 
+    private fun checkAutoUpdate() {
         lifecycleScope.launch {
             val autoUpdateEnabled = settingsViewModel.getBoolean(SettingsKeys.AutoUpdate).first()
             if (autoUpdateEnabled) {
                 autoUpdateViewModel.checkForUpdates(BuildConfig.VERSION_NAME)
             }
         }
+    }
 
+    private fun setupUi() {
         enableEdgeToEdge()
         setContent {
             val settingsState = remember(settingsViewModel) { SettingsStateImpl(settingsViewModel) }
@@ -98,9 +109,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        handleSharedText(intent)
-        handleLogcatDeeplink(intent)
-        handleThemeImport(intent)
+        handleInitialIntents(intent)
     }
 
     private fun handleLogcatDeeplink(intent: Intent?) {
@@ -120,8 +129,12 @@ class MainActivity : AppCompatActivity() {
                     colorSchemeImportHolder.setImportedColorScheme(payload)
                 }
             } catch (e: Exception) {
-                e.printStackTrace()
+                android.util.Log.e("MainActivity", "Failed to import theme", e)
             }
         }
+    }
+
+    companion object {
+        private const val SPLASH_SCREEN_DELAY_MS = 650L
     }
 }

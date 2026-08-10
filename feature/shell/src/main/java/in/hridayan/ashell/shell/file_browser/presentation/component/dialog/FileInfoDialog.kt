@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog
 
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -35,8 +34,11 @@ fun FileInfoDialog(
         onDismiss = onDismiss,
     ) {
         DialogTitle(
-            text = if (file.isDirectory) stringResource(R.string.folder_info)
-            else stringResource(R.string.file_info),
+            text = if (file.isDirectory) {
+                stringResource(R.string.folder_info)
+            } else {
+                stringResource(R.string.file_info)
+            },
         )
 
         Spacer(modifier = Modifier.height(24.dp))

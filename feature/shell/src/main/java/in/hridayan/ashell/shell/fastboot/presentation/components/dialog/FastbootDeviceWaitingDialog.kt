@@ -67,10 +67,11 @@ fun FastbootDeviceWaitingDialog(
     }
 
     val dialogTitle =
-        if (fastbootState is FastbootState.DeviceFound || fastbootState is FastbootState.Connected)
+        if (fastbootState is FastbootState.DeviceFound || fastbootState is FastbootState.Connected) {
             stringResource(R.string.device_connected)
-        else
+        } else {
             stringResource(R.string.waiting_for_device)
+        }
 
     val waitingStatusText = when (fastbootState) {
         is FastbootState.Idle -> stringResource(R.string.boot_device_into_fastboot)
@@ -196,7 +197,8 @@ fun FastbootDeviceWaitingDialog(
                         onClick = withHaptic(HapticFeedbackType.Reject) {
                             onDismiss()
                             fastbootViewModel.disconnect()
-                        }) {
+                        }
+                    ) {
                         AutoResizeableText(text = stringResource(R.string.cancel))
                     }
                 }

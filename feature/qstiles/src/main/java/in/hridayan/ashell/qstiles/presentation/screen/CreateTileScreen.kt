@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.qstiles.presentation.screen
 
-
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.expandVertically
@@ -85,9 +84,9 @@ import `in`.hridayan.ashell.core.presentation.components.modifier.dashedBorder
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.components.switch.AppSwitch
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.provider.ButtonGroupOptionsProvider
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.ashell.core.presentation.provider.ButtonGroupOptionsProvider
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
 import `in`.hridayan.ashell.qstiles.presentation.components.dialog.DeleteTileConfirmationDialog
@@ -129,8 +128,11 @@ fun CreateTileScreen(
         onNavigateBack = { navController.navigateBack() },
         modifier = modifier,
         listState = listState,
-        topBarTitle = if (uiState.isUpdateMode) stringResource(R.string.edit_tile)
-        else stringResource(R.string.create_new_tile),
+        topBarTitle = if (uiState.isUpdateMode) {
+            stringResource(R.string.edit_tile)
+        } else {
+            stringResource(R.string.create_new_tile)
+        },
         fabContent = { _ ->
             if (uiState.isUpdateMode) {
                 HorizontalFloatingToolbar(
@@ -160,7 +162,8 @@ fun CreateTileScreen(
                                     onClick = withHaptic {
                                         createTileViewModel.createTile()
                                         navController.navigateBack()
-                                    })
+                                    }
+                                )
                                 .padding(horizontal = 20.dp),
                             horizontalArrangement = Arrangement.spacedBy(10.dp),
                             verticalAlignment = Alignment.CenterVertically
@@ -176,7 +179,8 @@ fun CreateTileScreen(
                                 tint = floatingToolbarContentColor.copy(alpha = if (isValid) 1f else 0.38f)
                             )
                         }
-                    })
+                    }
+                )
             }
         },
         content = { innerPadding, topBarScrollBehavior ->
@@ -262,10 +266,11 @@ fun CreateTileScreen(
                     )
                 }
                 item {
-                    val label = if (uiState.isToggleable)
+                    val label = if (uiState.isToggleable) {
                         stringResource(R.string.subtitle_on_state)
-                    else
+                    } else {
                         stringResource(R.string.subtitle)
+                    }
                     SectionLabel(
                         text = label,
                         modifier = Modifier.padding(top = 25.dp, start = 25.dp, bottom = 10.dp)
@@ -280,9 +285,11 @@ fun CreateTileScreen(
                             if (isToggleable || isActive) activeSubtitle else inactiveSubtitle
                         },
                         onValueChange = {
-                            if (uiState.isActive || uiState.isToggleable)
+                            if (uiState.isActive || uiState.isToggleable) {
                                 createTileViewModel.onActiveSubtitleChange(it)
-                            else createTileViewModel.onInactiveSubtitleChange(it)
+                            } else {
+                                createTileViewModel.onInactiveSubtitleChange(it)
+                            }
                         },
                         hint = stringResource(R.string.on_state),
                         shape = RoundedCornerShape(50),
@@ -303,7 +310,9 @@ fun CreateTileScreen(
                             SectionLabel(
                                 text = stringResource(R.string.subtitle_off_state),
                                 modifier = Modifier.padding(
-                                    top = 20.dp, start = 25.dp, bottom = 10.dp
+                                    top = 20.dp,
+                                    start = 25.dp,
+                                    bottom = 10.dp
                                 )
                             )
                             TextField(
@@ -324,10 +333,11 @@ fun CreateTileScreen(
                 }
 
                 item {
-                    val label = if (uiState.isToggleable)
+                    val label = if (uiState.isToggleable) {
                         stringResource(R.string.adb_command_on_state)
-                    else
+                    } else {
                         stringResource(R.string.adb_command)
+                    }
                     SectionLabel(
                         text = label,
                         modifier = Modifier.padding(top = 25.dp, start = 25.dp, bottom = 10.dp)
@@ -364,7 +374,9 @@ fun CreateTileScreen(
                             SectionLabel(
                                 text = stringResource(R.string.adb_command_off_state),
                                 modifier = Modifier.padding(
-                                    top = 20.dp, start = 25.dp, bottom = 10.dp
+                                    top = 20.dp,
+                                    start = 25.dp,
+                                    bottom = 10.dp
                                 )
                             )
                             TextField(
@@ -452,15 +464,20 @@ fun CreateTileScreen(
                                         .background(
                                             MaterialTheme.colorScheme.run { if (isIconSelected) primary else surfaceVariant }
                                         )
-                                        .clickable(onClick = withHaptic {
-                                            createTileViewModel.onIconSelected(tileIcon.id)
-                                        }),
+                                        .clickable(
+                                            onClick = withHaptic {
+                                                createTileViewModel.onIconSelected(tileIcon.id)
+                                            }
+                                        ),
                                     contentAlignment = Alignment.Center
                                 ) {
                                     Icon(
                                         painter = painterResource(it),
-                                        tint = if (isIconSelected) MaterialTheme.colorScheme.onPrimary
-                                        else MaterialTheme.colorScheme.onSurface,
+                                        tint = if (isIconSelected) {
+                                            MaterialTheme.colorScheme.onPrimary
+                                        } else {
+                                            MaterialTheme.colorScheme.onSurface
+                                        },
                                         contentDescription = null
                                     )
                                 }
@@ -475,7 +492,8 @@ fun CreateTileScreen(
                             .fillMaxWidth()
                             .heightIn(min = 140.dp)
                             .padding(horizontal = 20.dp),
-                        onClick = withHaptic { showIconChooserDialog = true })
+                        onClick = withHaptic { showIconChooserDialog = true }
+                    )
                 }
 
                 item {
@@ -486,14 +504,16 @@ fun CreateTileScreen(
                 }
                 item {
                     val selectedIcon = TileIconProvider.iconById[uiState.selectedIconId]
-                    val icon: Painter = if (selectedIcon?.resId != null)
+                    val icon: Painter = if (selectedIcon?.resId != null) {
                         painterResource(selectedIcon.resId)
-                    else
+                    } else {
                         painterResource(R.drawable.ic_add)
+                    }
 
                     val previewSubtitle = uiState.run {
-                        if (isToggleable) "${activeSubtitle.text} / ${inactiveSubtitle.text}"
-                        else if (isActive) activeSubtitle.text else inactiveSubtitle.text
+                        if (isToggleable) {
+                            "${activeSubtitle.text} / ${inactiveSubtitle.text}"
+                        } else if (isActive) activeSubtitle.text else inactiveSubtitle.text
                     }
 
                     Row(
@@ -565,7 +585,8 @@ fun CreateTileScreen(
                     }
                 }
             }
-        })
+        }
+    )
 
     if (showIconChooserDialog) {
         IconChooserDialog(
@@ -577,7 +598,8 @@ fun CreateTileScreen(
                 createTileViewModel.onIconSelected(it)
                 showIconChooserDialog = false
                 showToast(context, res.getString(R.string.icon_selected))
-            })
+            }
+        )
     }
 
     if (showDeleteTileConfirmationDialog) {
@@ -586,7 +608,8 @@ fun CreateTileScreen(
             onConfirm = {
                 createTileViewModel.deleteTile()
                 navController.navigateBack()
-            })
+            }
+        )
     }
 }
 
@@ -712,10 +735,11 @@ private fun BehaviorSwitchRow(
                     // State badge
                     if (checkedLabel != null && uncheckedLabel != null) {
                         val badge = if (checked) checkedLabel else uncheckedLabel
-                        val badgeColor = if (checked)
+                        val badgeColor = if (checked) {
                             MaterialTheme.colorScheme.primary
-                        else
+                        } else {
                             MaterialTheme.colorScheme.outline
+                        }
                         Box(
                             modifier = Modifier
                                 .clip(RoundedCornerShape(50))
@@ -831,7 +855,6 @@ private fun ModernTilePreview(
                 horizontalArrangement = Arrangement.spacedBy(10.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-
                 Icon(
                     modifier = Modifier.size(28.dp),
                     painter = icon,
@@ -857,8 +880,11 @@ private fun ModernTilePreview(
                             text = subtitle,
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.run {
-                                if (isActive) onPrimaryContainer.copy(alpha = 0.7f)
-                                else onSurface.copy(alpha = 0.5f)
+                                if (isActive) {
+                                    onPrimaryContainer.copy(alpha = 0.7f)
+                                } else {
+                                    onSurface.copy(alpha = 0.5f)
+                                }
                             },
                             maxLines = 1
                         )

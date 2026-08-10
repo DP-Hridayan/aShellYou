@@ -1,5 +1,6 @@
 @file:OptIn(
-    ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class,
+    ExperimentalMaterial3Api::class,
+    ExperimentalMaterial3ExpressiveApi::class,
     ExperimentalSharedTransitionApi::class
 )
 
@@ -155,7 +156,6 @@ fun CrashDetailsScreen(
                                         style = MaterialTheme.typography.bodySmallEmphasized
                                     )
                                 }
-
                             }
                         }
                     }
@@ -191,7 +191,6 @@ fun CrashDetailsScreen(
                                     style = MaterialTheme.typography.bodySmallEmphasized
                                 )
                             }
-
                         }
                     }
 
@@ -255,7 +254,8 @@ fun CrashDetailsScreen(
                     )
                 }
             }
-        })
+        }
+    )
 }
 
 private fun Context.sendCrashReport(log: String) {
@@ -263,11 +263,11 @@ private fun Context.sendCrashReport(log: String) {
     val to = DEV_EMAIL
 
     try {
-        val uriText = "mailto:$to?subject=${Uri.encode(subject)}&body=${log}"
+        val uriText = "mailto:$to?subject=${Uri.encode(subject)}&body=$log"
         val uri = uriText.toUri()
         val emailIntent = Intent(Intent.ACTION_SENDTO, uri)
         startActivity(Intent.createChooser(emailIntent, "Send email using..."))
     } catch (e: Exception) {
-        makeToast(this, "Failed to encode email content. ${e.toString()}")
+        makeToast(this, "Failed to encode email content. $e")
     }
 }

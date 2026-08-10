@@ -18,6 +18,9 @@
         <ID>ArgumentListWrapping:HomeScreen.kt$( modifier = Modifier.padding(end = 10.dp), onClick =
             withHaptic { onSettingsClick() })
         </ID>
+        <ID>ArgumentListWrapping:HomeScreen.kt$( scrolledContainerColor =
+            MaterialTheme.colorScheme.surfaceContainerHigh)
+        </ID>
         <ID>ArgumentListWrapping:HomeScreen.kt$(scrolledContainerColor =
             MaterialTheme.colorScheme.surfaceContainerHigh)
         </ID>
@@ -26,47 +29,20 @@
             FinalNewline:HomeDialogKey.kt$in.hridayan.ashell.home.presentation.component.dialog.HomeDialogKey.kt
         </ID>
         <ID>ImportOrdering:ExampleUnitTest.kt$import org.junit.Test import org.junit.Assert.*</ID>
-        <ID>MaxLineLength:HomeScreen.kt$colors =
-            TopAppBarDefaults.topAppBarColors(scrolledContainerColor =
-            MaterialTheme.colorScheme.surfaceContainerHigh)
-        </ID>
-        <ID>MaximumLineLength:HomeScreen.kt$</ID>
+        <ID>Indentation:HomeScreen.kt$</ID>
+        <ID>Indentation:RebootOptions.kt$</ID>
         <ID>MultiLineIfElse:HomeScreen.kt$Modifier</ID>
         <ID>MultiLineIfElse:HomeScreen.kt$Modifier.border( width = 1.dp, color =
             MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f), shape =
             RoundedCornerShape(50) )
         </ID>
-        <ID>NewLineAtEndOfFile:ExampleUnitTest.kt$in.hridayan.ashell.home.ExampleUnitTest.kt</ID>
-        <ID>
-            NewLineAtEndOfFile:HomeDialogKey.kt$in.hridayan.ashell.home.presentation.component.dialog.HomeDialogKey.kt
-        </ID>
         <ID>NoConsecutiveBlankLines:DeviceInfoCard.kt$</ID>
         <ID>NoConsecutiveBlankLines:RebootOptionsDialog.kt$</ID>
         <ID>NoWildcardImports:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
-        <ID>PackageName:DeviceInfoCard.kt$package
-            `in`.hridayan.ashell.home.presentation.component.card
-        </ID>
-        <ID>PackageName:ExampleUnitTest.kt$package `in`.hridayan.ashell.home</ID>
-        <ID>PackageName:HomeDialogKey.kt$package
-            `in`.hridayan.ashell.home.presentation.component.dialog
-        </ID>
-        <ID>PackageName:HomeScreen.kt$package `in`.hridayan.ashell.home.presentation.screens</ID>
-        <ID>PackageName:HomeViewModel.kt$package `in`.hridayan.ashell.home.presentation.viewmodel
-        </ID>
-        <ID>PackageName:RebootOptions.kt$package
-            `in`.hridayan.ashell.home.presentation.component.card
-        </ID>
-        <ID>PackageName:RebootOptionsDialog.kt$package
-            `in`.hridayan.ashell.home.presentation.component.dialog
-        </ID>
-        <ID>PackageName:SystemSettings.kt$package
-            `in`.hridayan.ashell.home.presentation.component.card
-        </ID>
         <ID>UnusedPrivateMember:HomeScreen.kt$@Preview(showBackground = true) @Composable private
             fun NavItemCompactCardPreview()
         </ID>
         <ID>WildcardImport:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
-        <ID>Wrapping:HomeScreen.kt$(</ID>
         <ID>Wrapping:RebootOptions.kt$(</ID>
     </CurrentIssues>
 </SmellBaseline>

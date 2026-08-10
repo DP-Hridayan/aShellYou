@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.shell.fastboot.presentation.components.section
 
-
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -65,10 +64,13 @@ fun VariableExplorerSection(
     val res = LocalResources.current
     var searchQuery by rememberSaveable { mutableStateOf("") }
 
-    val filteredVariables = if (searchQuery.isBlank()) variables
-    else variables.filter { (key, value) ->
-        key.contains(searchQuery, ignoreCase = true) ||
+    val filteredVariables = if (searchQuery.isBlank()) {
+        variables
+    } else {
+        variables.filter { (key, value) ->
+            key.contains(searchQuery, ignoreCase = true) ||
                 value.contains(searchQuery, ignoreCase = true)
+        }
     }
 
     CustomCard(
@@ -122,8 +124,11 @@ fun VariableExplorerSection(
 
             AnimatedVisibility(visible = !isLoading && variables.isEmpty()) {
                 Text(
-                    text = if (!isConnected) stringResource(R.string.no_device_connected)
-                    else stringResource(R.string.no_variables_loaded),
+                    text = if (!isConnected) {
+                        stringResource(R.string.no_device_connected)
+                    } else {
+                        stringResource(R.string.no_variables_loaded)
+                    },
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.alpha(0.6f)
                 )

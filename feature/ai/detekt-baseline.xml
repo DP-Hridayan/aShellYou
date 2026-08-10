@@ -1,628 +1,471 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
-    <ManuallySuppressedIssues></ManuallySuppressedIssues>
-    <CurrentIssues>
-        <ID>ArgumentListWrapping:AiChatDrawerUI.kt$( modifier = Modifier
-            .padding(NavigationDrawerItemDefaults.ItemPadding) .fillMaxWidth(), onClick = withHaptic
-            { viewModel.onNewChat() scope.launch { drawerState.close() } })
-        </ID>
-        <ID>ArgumentListWrapping:AiChatScreen.kt$( onDismiss = { selectedSessionForOptions = null },
-            session = session, onPin = { viewModel.togglePinSession(session)
-            selectedSessionForOptions = null }, onRename = { showRenameDialogForSession = session
-            selectedSessionForOptions = null }, onDelete = { viewModel.deleteSession(session.id)
-            selectedSessionForOptions = null })
-        </ID>
-        <ID>ArgumentListWrapping:AiChatScreen.kt$(containerColor =
-            MaterialTheme.colorScheme.primaryContainer)
-        </ID>
-        <ID>ArgumentListWrapping:AiModelsScreen.kt$( onDismiss = { dm.dismiss() }, onDelete = {
-            aiViewModel.clearCache() dm.dismiss() })
-        </ID>
-        <ID>ArgumentListWrapping:GetStructuredLogcatTool.kt$GetStructuredLogcatTool$("logcat", "-d",
-            "-v", "threadtime", "-t", maxLines.toString(), logLevel)
-        </ID>
-        <ID>
-            ArgumentListWrapping:GetStructuredLogcatTool.kt$GetStructuredLogcatTool$(arrayOf("logcat",
-            "-d", "-v", "threadtime", "-t", maxLines.toString(), logLevel))
-        </ID>
-        <ID>ArgumentListWrapping:MarkdownMessageContent.kt$(color = Color(highlight.rgb or
-            0xFF000000.toInt()))
-        </ID>
-        <ID>ArgumentListWrapping:MarkdownMessageContent.kt$(highlight.rgb or 0xFF000000.toInt())
-        </ID>
-        <ID>CyclomaticComplexMethod:AiAnalysisRepositoryImpl.kt$AiAnalysisRepositoryImpl$override
-            suspend fun analyzeCommand(command: String, ragContext: String, fallbackModels: List&lt;String&gt;?):
-            AnalysisResult
-        </ID>
-        <ID>CyclomaticComplexMethod:AiResponseParser.kt$AiResponseParser$fun parse(rawResponse:
-            String): AnalysisResult
-        </ID>
-        <ID>
-            CyclomaticComplexMethod:CloudAnalysisRepositoryImpl.kt$CloudAnalysisRepositoryImpl$override
-            suspend fun analyzeCommand(command: String, ragContext: String, fallbackModels: List&lt;String&gt;?):
-            AnalysisResult
-        </ID>
-        <ID>
-            CyclomaticComplexMethod:CloudAnalysisRepositoryImpl.kt$CloudAnalysisRepositoryImpl$override
-            suspend fun queryCommand(query: String, tools: List&lt;AiTool&gt;, fallbackModels: List&lt;String&gt;?):
-            AnalysisResult
-        </ID>
-        <ID>CyclomaticComplexMethod:ExecuteCommandTool.kt$ExecuteCommandTool$override suspend fun
-            execute(args: JsonObject?): String
-        </ID>
-        <ID>CyclomaticComplexMethod:GeminiProviderClient.kt$GeminiProviderClient$override suspend
-            fun completeWithTools( model: String, systemPrompt: String, userPrompt: String, apiKey:
-            String, tools: List&lt;AiTool&gt; ): String
-        </ID>
-        <ID>CyclomaticComplexMethod:GeminiProviderClient.kt$GeminiProviderClient$private suspend fun
-            parseSseStream( channel: ByteReadChannel, onChunk: suspend (String) -&gt; Unit ):
-            StreamResult
-        </ID>
-        <ID>
-            CyclomaticComplexMethod:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$suspend
-            operator fun invoke(sessionId: String)
-        </ID>
-        <ID>CyclomaticComplexMethod:GetStructuredLogcatTool.kt$GetStructuredLogcatTool$override
-            suspend fun execute(args: JsonObject?): String
-        </ID>
-        <ID>CyclomaticComplexMethod:PromptBuilder.kt$PromptBuilder$fun buildUserPrompt(command:
-            String, ragContext: String): String
-        </ID>
-        <ID>
-            FinalNewline:AiChatDrawerUI.kt$in.hridayan.ashell.ai.presentation.components.chat.AiChatDrawerUI.kt
-        </ID>
-        <ID>
-            FinalNewline:AiSessionOptionsBottomSheet.kt$in.hridayan.ashell.ai.presentation.components.bottomsheet.AiSessionOptionsBottomSheet.kt
-        </ID>
-        <ID>
-            FinalNewline:AiThoughtsBottomSheet.kt$in.hridayan.ashell.ai.presentation.components.bottomsheet.AiThoughtsBottomSheet.kt
-        </ID>
-        <ID>
-            FinalNewline:AnimatedStopIcon.kt$in.hridayan.ashell.ai.presentation.components.animatedcomposable.AnimatedStopIcon.kt
-        </ID>
-        <ID>FinalNewline:ExampleUnitTest.kt$in.hridayan.ashell.ai.ExampleUnitTest.kt</ID>
-        <ID>
-            FinalNewline:RenameAiSessionDialog.kt$in.hridayan.ashell.ai.presentation.components.dialog.RenameAiSessionDialog.kt
-        </ID>
-        <ID>ImportOrdering:AiAnalysisRepositoryImpl.kt$import android.util.Log import
-            `in`.hridayan.ashell.ai.data.local.database.AiCacheDao import
-            `in`.hridayan.ashell.ai.data.local.database.AiCacheEntity import
-            `in`.hridayan.ashell.core.common.domain.model.ai.AnalysisResult import
-            `in`.hridayan.ashell.core.common.domain.repository.AiAnalysisRepository import
-            `in`.hridayan.ashell.core.common.domain.repository.CloudAnalysisRepository import
-            `in`.hridayan.ashell.core.common.settings.SettingsKeys import
-            `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository import
-            `in`.hridayan.ashell.core.common.domain.model.ai.AiTool import
-            kotlinx.coroutines.flow.firstOrNull import kotlinx.serialization.json.Json import
-            java.security.MessageDigest import javax.inject.Inject import javax.inject.Singleton
-        </ID>
-        <ID>ImportOrdering:BouncyDotsLoadingIndicator.kt$import
-            androidx.compose.animation.core.FastOutLinearInEasing import
-            androidx.compose.animation.core.RepeatMode import
-            androidx.compose.animation.core.animateFloat import
-            androidx.compose.animation.core.infiniteRepeatable import
-            androidx.compose.animation.core.rememberInfiniteTransition import
-            androidx.compose.animation.core.tween import androidx.compose.foundation.background
-            import androidx.compose.foundation.layout.Box import
-            androidx.compose.foundation.layout.Row import androidx.compose.foundation.layout.Spacer
-            import androidx.compose.foundation.layout.padding import
-            androidx.compose.foundation.layout.size import androidx.compose.foundation.layout.width
-            import androidx.compose.ui.graphics.graphicsLayer import
-            androidx.compose.foundation.shape.CircleShape import
-            androidx.compose.material3.MaterialTheme import androidx.compose.runtime.Composable
-            import androidx.compose.ui.Modifier import androidx.compose.ui.graphics.Color import
-            androidx.compose.ui.unit.dp
-        </ID>
-        <ID>ImportOrdering:ChatSessionManager.kt$import
-            `in`.hridayan.ashell.ai.domain.repository.ChatRepository import
-            `in`.hridayan.ashell.ai.domain.usecase.GenerateAiChatResponseUseCase import
-            `in`.hridayan.ashell.core.common.domain.model.ai.LlmMessage import
-            `in`.hridayan.ashell.ai.data.local.database.entity.ChatMessageEntity import
-            kotlinx.coroutines.CoroutineScope import kotlinx.coroutines.Dispatchers import
-            kotlinx.coroutines.Job import kotlinx.coroutines.SupervisorJob import
-            kotlinx.coroutines.launch import kotlinx.serialization.json.Json import java.util.UUID
-            import java.util.concurrent.ConcurrentHashMap import javax.inject.Inject import
-            javax.inject.Singleton
-        </ID>
-        <ID>ImportOrdering:CloudAiModule.kt$import android.content.Context import dagger.Module
-            import dagger.Provides import dagger.hilt.InstallIn import
-            dagger.hilt.android.qualifiers.ApplicationContext import
-            `in`.hridayan.ashell.ai.data.remote.GeminiProviderClient import
-            `in`.hridayan.ashell.core.common.domain.provider.LlmProviderClient import
-            `in`.hridayan.ashell.ai.data.repository.CloudAnalysisRepositoryImpl import
-            `in`.hridayan.ashell.ai.data.security.ApiKeyRepositoryImpl import
-            `in`.hridayan.ashell.core.common.domain.provider.LlmProvider import
-            `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository import
-            dagger.hilt.components.SingletonComponent import
-            `in`.hridayan.ashell.core.common.domain.repository.CloudAnalysisRepository import
-            `in`.hridayan.ashell.core.common.domain.usecase.ai.AnalyzeCommandWithCloudUseCase import
-            `in`.hridayan.ashell.core.common.domain.repository.CommandRepository import
-            `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository import
-            io.ktor.client.HttpClient import io.ktor.client.engine.cio.CIO import
-            io.ktor.client.plugins.HttpTimeout import
-            io.ktor.client.plugins.contentnegotiation.ContentNegotiation import
-            io.ktor.serialization.kotlinx.json.json import kotlinx.serialization.json.Json import
-            javax.inject.Singleton
-        </ID>
-        <ID>ImportOrdering:CloudAnalysisRepositoryImpl.kt$import
-            `in`.hridayan.ashell.ai.data.parser.AiResponseParser import
-            `in`.hridayan.ashell.ai.data.parser.PromptBuilder import
-            `in`.hridayan.ashell.core.common.domain.provider.LlmProviderClient import
-            `in`.hridayan.ashell.core.common.domain.model.ai.AnalysisResult import
-            `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException import
-            `in`.hridayan.ashell.core.common.domain.provider.LlmProvider import
-            `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository import
-            `in`.hridayan.ashell.core.common.domain.repository.CloudAnalysisRepository import
-            `in`.hridayan.ashell.core.common.domain.model.ai.AiTool import
-            `in`.hridayan.ashell.core.common.settings.SettingsKeys import
-            `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository import
-            `in`.hridayan.ashell.core.common.constants.AiModelConstants import
-            kotlinx.coroutines.flow.firstOrNull import java.util.Locale import javax.inject.Inject
-            import javax.inject.Singleton
-        </ID>
-        <ID>ImportOrdering:CloudAnalysisUiState.kt$import
-            `in`.hridayan.ashell.core.common.domain.model.ai.AnalysisResult import
-            `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException
-        </ID>
-        <ID>ImportOrdering:ExampleUnitTest.kt$import org.junit.Test import org.junit.Assert.*</ID>
-        <ID>ImportOrdering:ExecuteCommandTool.kt$import
-            `in`.hridayan.ashell.ai.domain.tool.CommandExecutionManager import
-            `in`.hridayan.ashell.ai.domain.tool.PermissionResult import
-            `in`.hridayan.ashell.core.common.settings.SettingsKeys import
-            `in`.hridayan.ashell.core.common.domain.model.ai.AiTool import
-            `in`.hridayan.ashell.core.common.domain.model.ai.SessionIdContext import
-            `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema import
-            `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaProperty import
-            `in`.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode import
-            `in`.hridayan.ashell.core.common.domain.repository.AiConnectionStateProvider import
-            `in`.hridayan.ashell.core.common.domain.repository.OtgRepository import
-            `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository import
-            `in`.hridayan.ashell.core.common.domain.repository.ShellRepository import
-            kotlinx.coroutines.currentCoroutineContext import kotlinx.coroutines.flow.firstOrNull
-            import kotlinx.coroutines.withTimeoutOrNull import kotlinx.serialization.json.JsonObject
-            import kotlinx.serialization.json.jsonPrimitive import javax.inject.Inject import
-            javax.inject.Singleton import kotlin.time.Duration.Companion.milliseconds
-        </ID>
-        <ID>ImportOrdering:GenerateAiChatResponseUseCase.kt$import android.util.Log import
-            `in`.hridayan.ashell.ai.data.local.database.entity.ChatMessageEntity import
-            `in`.hridayan.ashell.ai.domain.repository.ChatRepository import
-            `in`.hridayan.ashell.ai.domain.tool.ToolRegistry import
-            `in`.hridayan.ashell.core.common.settings.SettingsKeys import
-            `in`.hridayan.ashell.core.common.constants.AiModelConstants import
-            `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException import
-            `in`.hridayan.ashell.core.common.domain.model.ai.LlmMessage import
-            `in`.hridayan.ashell.core.common.domain.model.ai.LlmToolResponse import
-            `in`.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode import
-            `in`.hridayan.ashell.core.common.domain.provider.LlmProvider import
-            `in`.hridayan.ashell.core.common.domain.provider.LlmProviderClient import
-            `in`.hridayan.ashell.core.common.domain.repository.AiConnectionStateProvider import
-            `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository import
-            `in`.hridayan.ashell.core.common.domain.repository.OtgRepository import
-            `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository import
-            kotlinx.coroutines.CoroutineScope import kotlinx.coroutines.Dispatchers import
-            kotlinx.coroutines.flow.firstOrNull import kotlinx.coroutines.launch import
-            kotlinx.coroutines.withContext import kotlinx.serialization.json.Json import
-            java.util.Locale import java.util.UUID import javax.inject.Inject
-        </ID>
-        <ID>Indentation:AiChatDrawerUI.kt$</ID>
-        <ID>Indentation:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$</ID>
-        <ID>Indentation:PromptBuilder.kt$PromptBuilder$</ID>
-        <ID>LargeClass:AiChatViewModel.kt$AiChatViewModel : ViewModel</ID>
-        <ID>LargeClass:GeminiProviderClient.kt$GeminiProviderClient : LlmProviderClient</ID>
-        <ID>LargeClass:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase</ID>
-        <ID>LongMethod:AiAnalysisRepositoryImpl.kt$AiAnalysisRepositoryImpl$override suspend fun
-            analyzeCommand(command: String, ragContext: String, fallbackModels: List&lt;String&gt;?):
-            AnalysisResult
-        </ID>
-        <ID>LongMethod:AiResponseParser.kt$AiResponseParser$fun parse(rawResponse: String):
-            AnalysisResult
-        </ID>
-        <ID>LongMethod:CloudAnalysisRepositoryImpl.kt$CloudAnalysisRepositoryImpl$override suspend
-            fun analyzeCommand(command: String, ragContext: String, fallbackModels: List&lt;String&gt;?):
-            AnalysisResult
-        </ID>
-        <ID>LongMethod:CloudAnalysisRepositoryImpl.kt$CloudAnalysisRepositoryImpl$override suspend
-            fun queryCommand(query: String, tools: List&lt;AiTool&gt;, fallbackModels: List&lt;String&gt;?):
-            AnalysisResult
-        </ID>
-        <ID>LongMethod:ExecuteCommandTool.kt$ExecuteCommandTool$override suspend fun execute(args:
-            JsonObject?): String
-        </ID>
-        <ID>LongMethod:GeminiProviderClient.kt$GeminiProviderClient$override suspend fun
-            completeWithHistory( model: String, systemPrompt: String, history: List&lt;LlmMessage&gt;,
-            apiKey: String, tools: List&lt;AiTool&gt; ): LlmMessage
-        </ID>
-        <ID>LongMethod:GeminiProviderClient.kt$GeminiProviderClient$override suspend fun
-            completeWithHistoryStream( model: String, systemPrompt: String, history: List&lt;LlmMessage&gt;,
-            apiKey: String, tools: List&lt;AiTool&gt;, onChunk: suspend (String) -&gt; Unit ):
-            LlmMessage
-        </ID>
-        <ID>LongMethod:GeminiProviderClient.kt$GeminiProviderClient$override suspend fun
-            completeWithTools( model: String, systemPrompt: String, userPrompt: String, apiKey:
-            String, tools: List&lt;AiTool&gt; ): String
-        </ID>
-        <ID>LongMethod:GeminiProviderClient.kt$GeminiProviderClient$private suspend fun
-            parseSseStream( channel: ByteReadChannel, onChunk: suspend (String) -&gt; Unit ):
-            StreamResult
-        </ID>
-        <ID>LongMethod:GeminiRequestMapper.kt$GeminiRequestMapper$fun mapHistory(history: List&lt;LlmMessage&gt;):
-            MutableList&lt;GeminiContent&gt;
-        </ID>
-        <ID>LongMethod:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$suspend
-            operator fun invoke(sessionId: String)
-        </ID>
-        <ID>LongMethod:PromptBuilder.kt$PromptBuilder$fun buildSystemPrompt(userLocale: String):
-            String
-        </ID>
-        <ID>LoopWithTooManyJumpStatements:GeminiProviderClient.kt$GeminiProviderClient$while</ID>
-        <ID>MagicNumber:CloudAiModule.kt$CloudAiModule$12000L</ID>
-        <ID>MagicNumber:CloudAiModule.kt$CloudAiModule$60000L</ID>
-        <ID>MagicNumber:CloudAiModule.kt$CloudAiModule$8000L</ID>
-        <ID>MagicNumber:CloudAnalysisRepositoryImpl.kt$CloudAnalysisRepositoryImpl$429</ID>
-        <ID>MagicNumber:CloudAnalysisRepositoryImpl.kt$CloudAnalysisRepositoryImpl$500</ID>
-        <ID>MagicNumber:CloudNetworkExceptionExt.kt$400</ID>
-        <ID>MagicNumber:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$404</ID>
-        <ID>MagicNumber:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$429</ID>
-        <ID>MagicNumber:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$500</ID>
-        <ID>MatchingDeclarationName:AiModelsScreen.kt$AiDialogKey : DialogKey</ID>
-        <ID>MaxLineLength:AiAnalysisRepositoryImpl.kt$AiAnalysisRepositoryImpl$override suspend</ID>
-        <ID>MaxLineLength:AiChatDrawerUI.kt$color = if (session.id == uiState.currentSessionId)
-            MaterialTheme.colorScheme.secondaryContainer else Color.Transparent
-        </ID>
-        <ID>MaxLineLength:AiChatScreen.kt$colors = CardDefaults.cardColors(containerColor =
-            MaterialTheme.colorScheme.primaryContainer)
-        </ID>
-        <ID>MaxLineLength:AiChatViewModel.kt$AiChatViewModel$formattedArgs.take(500) + if
-            (formattedArgs.length &gt; 500) "\n\n[...Args truncated for UI]" else ""
-        </ID>
-        <ID>MaxLineLength:CloudAnalysisRepositoryImpl.kt$CloudAnalysisRepositoryImpl$override
-            suspend
-        </ID>
-        <ID>MaxLineLength:CommandExecutionManager.kt$CommandExecutionManager$suspend</ID>
-        <ID>MaxLineLength:ExecuteCommandTool.kt$ExecuteCommandTool$"Execute a shell command on the
-            user's device. You MUST use this tool to perform actions requested by the user. If the
-            user hasn't explicitly allowed the command before, they will be prompted to allow it."
-        </ID>
-        <ID>MaxLineLength:ExecuteCommandTool.kt$ExecuteCommandTool$description = "The target
-            connection mode to run the command on: 'LOCAL', 'WIRELESS', or 'OTG'. Defaults to
-            'LOCAL'."
-        </ID>
-        <ID>MaxLineLength:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$"1. If the
-            user asks to create a Quick Settings (QS) tile, ALWAYS call `get_qs_tile_slots` first to
-            see which of the 10 fixed slots (1-10) are empty/available.\n"
-        </ID>
-        <ID>MaxLineLength:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$"2. If the
-            user did not specify an execution mode for the tile, ASK the user which execution mode
-            they prefer (0 for Shizuku [default], 1 for Root) before calling `create_qs_tile`.\n"
-        </ID>
-        <ID>MaxLineLength:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$"3. Decide
-            whether the tile should be toggleable (`is_toggleable = true` with active/inactive
-            commands) or a simple tap action based on the user's request.\n"
-        </ID>
-        <ID>MaxLineLength:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$"4. After
-            creating the tile, tell the user which slot number (1-10) it was created in and confirm
-            that the system prompt dialog was triggered to add the tile to their Quick Settings
-            panel.\n\n"
-        </ID>
-        <ID>MaxLineLength:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$"Always
-            choose the appropriate target based on the user's request. If the user doesn't specify,
-            default to the most capable connected device.\n\n"
-        </ID>
-        <ID>MaxLineLength:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$"CRITICAL:
-            You must communicate and provide all your conversational responses and explanations in
-            the user's local language ($localeName). However, all shell commands, ADB commands, tool
-            names, and technical function names must remain strictly in English.\n\n"
-        </ID>
-        <ID>MaxLineLength:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$"Generate a
-            short, concise title (max 5 words) for a conversation about: \"$contextSummary\". Do not
-            include quotes. CRITICAL: The title MUST be generated in the language: $localeName."
-        </ID>
-        <ID>MaxLineLength:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$"IMPORTANT:
-            When you suggest a command for the user to run themselves, you MUST format it as a
-            markdown code block (e.g., ```bash\\ncommand\\n```). The UI will automatically detect
-            this and render a 'Use' button for the user."
-        </ID>
-        <ID>MaxLineLength:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$"You are a
-            helpful AI shell assistant. You can execute commands on the user's Android device and
-            answer questions. You MUST use your tools when appropriate to execute commands.\n\n"
-        </ID>
-        <ID>MaxLineLength:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$"You can
-            execute commands on different targets by specifying the `target_mode` parameter in your
-            `execute_command` tool (options: LOCAL, WIRELESS, OTG). Defaults to LOCAL if omitted.\n"
-        </ID>
-        <ID>MaxLineLength:GetStructuredLogcatTool.kt$GetStructuredLogcatTool$description = "Optional
-            log level to filter by (e.g., '*:E' for errors, '*:W' for warnings). Default is '*:D'."
-        </ID>
-        <ID>MaxLineLength:GetStructuredLogcatTool.kt$GetStructuredLogcatTool$override val
-            description: String = "Fetch recent logcat output. Uses 'logcat -d' to safely fetch logs
-            without hanging. Returns raw text logs."
-        </ID>
-        <ID>MaxLineLength:GetStructuredLogcatTool.kt$GetStructuredLogcatTool$val process =
-            Runtime.getRuntime().exec(arrayOf("logcat", "-d", "-v", "threadtime", "-t",
-            maxLines.toString(), logLevel))
-        </ID>
-        <ID>MaxLineLength:MarkdownMessageContent.kt$style = SpanStyle(color = Color(highlight.rgb or
-            0xFF000000.toInt()))
-        </ID>
-        <ID>
-            MaxLineLength:QueryInstalledAppsTool.kt$QueryInstalledAppsTool$label.contains(searchQuery,
-            ignoreCase = true) || appInfo.packageName.contains(searchQuery, ignoreCase = true)
-        </ID>
-        <ID>MaxLineLength:QueryInstalledAppsTool.kt$QueryInstalledAppsTool$override val description:
-            String = "Query the installed applications on the device. Returns a JSON array of apps.
-            Use this instead of running 'pm list packages' via shell to save tokens and get
-            structured data."
-        </ID>
-        <ID>MaxLineLength:QueryInstalledAppsTool.kt$QueryInstalledAppsTool$val includeSystemApps =
-            args?.get("include_system_apps")?.jsonPrimitive?.content?.toBooleanStrictOrNull() ?:
-            false
-        </ID>
-        <ID>MaximumLineLength:AiAnalysisRepositoryImpl.kt$AiAnalysisRepositoryImpl$</ID>
-        <ID>MaximumLineLength:AiChatDrawerUI.kt$</ID>
-        <ID>MaximumLineLength:AiChatScreen.kt$</ID>
-        <ID>MaximumLineLength:AiChatViewModel.kt$AiChatViewModel$</ID>
-        <ID>MaximumLineLength:CloudAnalysisRepositoryImpl.kt$CloudAnalysisRepositoryImpl$</ID>
-        <ID>MaximumLineLength:CommandExecutionManager.kt$CommandExecutionManager$</ID>
-        <ID>MaximumLineLength:ExecuteCommandTool.kt$ExecuteCommandTool$</ID>
-        <ID>MaximumLineLength:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$</ID>
-        <ID>MaximumLineLength:GetStructuredLogcatTool.kt$GetStructuredLogcatTool$</ID>
-        <ID>MaximumLineLength:MarkdownMessageContent.kt$</ID>
-        <ID>MaximumLineLength:QueryInstalledAppsTool.kt$QueryInstalledAppsTool$</ID>
-        <ID>MultiLineIfElse:AiSessionOptionsBottomSheet.kt$stringResource(R.string.ai_chat_pin)</ID>
-        <ID>MultiLineIfElse:AiSessionOptionsBottomSheet.kt$stringResource(R.string.ai_chat_unpin)
-        </ID>
-        <ID>MultiLineIfElse:CloudModelsScreen.kt$LoadingIndicator( modifier =
-            Modifier.size(ButtonDefaults.IconSize) )
-        </ID>
-        <ID>MultiLineIfElse:CloudModelsScreen.kt$stringResource(R.string.verify_api_key)</ID>
-        <ID>MultiLineIfElse:CloudModelsScreen.kt$stringResource(R.string.verifying)</ID>
-        <ID>MultiLineIfElse:CloudNetworkExceptionExt.kt$"Provider server error ($code). Try again
-            later."
-        </ID>
-        <ID>MultiLineIfElse:CloudNetworkExceptionExt.kt$"Rate limited by provider. Try again
-            shortly."
-        </ID>
-        <ID>MultiLineIfElse:CloudNetworkExceptionExt.kt$"Rate limited — try again in
-            ${retryAfterSeconds}s."
-        </ID>
-        <ID>MultiLineIfElse:CloudNetworkExceptionExt.kt$"Request error (HTTP 400): Invalid request
-            or tool schema."
-        </ID>
-        <ID>NestedBlockDepth:GeminiProviderClient.kt$GeminiProviderClient$override suspend fun
-            completeWithTools( model: String, systemPrompt: String, userPrompt: String, apiKey:
-            String, tools: List&lt;AiTool&gt; ): String
-        </ID>
-        <ID>NestedBlockDepth:GeminiProviderClient.kt$GeminiProviderClient$private suspend fun
-            parseSseStream( channel: ByteReadChannel, onChunk: suspend (String) -&gt; Unit ):
-            StreamResult
-        </ID>
-        <ID>NestedBlockDepth:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$suspend
-            operator fun invoke(sessionId: String)
-        </ID>
-        <ID>NestedBlockDepth:GetStructuredLogcatTool.kt$GetStructuredLogcatTool$override suspend fun
-            execute(args: JsonObject?): String
-        </ID>
-        <ID>
-            NewLineAtEndOfFile:AiChatDrawerUI.kt$in.hridayan.ashell.ai.presentation.components.chat.AiChatDrawerUI.kt
-        </ID>
-        <ID>
-            NewLineAtEndOfFile:AiSessionOptionsBottomSheet.kt$in.hridayan.ashell.ai.presentation.components.bottomsheet.AiSessionOptionsBottomSheet.kt
-        </ID>
-        <ID>
-            NewLineAtEndOfFile:AiThoughtsBottomSheet.kt$in.hridayan.ashell.ai.presentation.components.bottomsheet.AiThoughtsBottomSheet.kt
-        </ID>
-        <ID>
-            NewLineAtEndOfFile:AnimatedStopIcon.kt$in.hridayan.ashell.ai.presentation.components.animatedcomposable.AnimatedStopIcon.kt
-        </ID>
-        <ID>NewLineAtEndOfFile:ExampleUnitTest.kt$in.hridayan.ashell.ai.ExampleUnitTest.kt</ID>
-        <ID>
-            NewLineAtEndOfFile:RenameAiSessionDialog.kt$in.hridayan.ashell.ai.presentation.components.dialog.RenameAiSessionDialog.kt
-        </ID>
-        <ID>NoBlankLineBeforeRbrace:CloudModelsScreen.kt$</ID>
-        <ID>NoConsecutiveBlankLines:AiChatScreen.kt$</ID>
-        <ID>NoConsecutiveBlankLines:AiChatViewModel.kt$AiChatViewModel$</ID>
-        <ID>NoConsecutiveBlankLines:AiModelManagerViewModel.kt$</ID>
-        <ID>NoConsecutiveBlankLines:AiModelsScreen.kt$</ID>
-        <ID>NoConsecutiveBlankLines:CacheDurationDialog.kt$</ID>
-        <ID>NoConsecutiveBlankLines:CloudAiModule.kt$</ID>
-        <ID>NoConsecutiveBlankLines:CloudAnalysisRepositoryImpl.kt$</ID>
-        <ID>NoConsecutiveBlankLines:CloudAnalysisUiState.kt$</ID>
-        <ID>NoConsecutiveBlankLines:CloudModelsScreen.kt$</ID>
-        <ID>NoConsecutiveBlankLines:CloudModelsViewModel.kt$CloudModelsViewModel$</ID>
-        <ID>NoConsecutiveBlankLines:CloudNetworkExceptionExt.kt$</ID>
-        <ID>NoConsecutiveBlankLines:DeleteAiAnalysisCacheDialog.kt$</ID>
-        <ID>NoTrailingSpaces:BouncyDotsLoadingIndicator.kt$</ID>
-        <ID>NoTrailingSpaces:ChatDao.kt$ChatDao$</ID>
-        <ID>NoTrailingSpaces:ChatRepository.kt$ChatRepository$</ID>
-        <ID>NoTrailingSpaces:ChatRepositoryImpl.kt$ChatRepositoryImpl$</ID>
-        <ID>NoTrailingSpaces:ChatSessionManager.kt$ChatSessionManager$</ID>
-        <ID>NoTrailingSpaces:CloudAnalysisRepositoryImpl.kt$CloudAnalysisRepositoryImpl$</ID>
-        <ID>NoTrailingSpaces:CommandExecutionManager.kt$CommandExecutionManager$</ID>
-        <ID>NoTrailingSpaces:CommandPermissionDao.kt$CommandPermissionDao$</ID>
-        <ID>NoTrailingSpaces:GetStructuredLogcatTool.kt$GetStructuredLogcatTool$</ID>
-        <ID>NoTrailingSpaces:PromptBuilder.kt$PromptBuilder$</ID>
-        <ID>NoTrailingSpaces:QueryInstalledAppsTool.kt$QueryInstalledAppsTool$</ID>
-        <ID>NoTrailingSpaces:ToolRegistry.kt$ToolRegistry$</ID>
-        <ID>
-            NoUnusedImports:QueryInstalledAppsTool.kt$in.hridayan.ashell.ai.domain.tool.builtin.QueryInstalledAppsTool.kt
-        </ID>
-        <ID>NoWildcardImports:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
-        <ID>PackageName:AiAnalysisRepositoryImpl.kt$package
-            `in`.hridayan.ashell.ai.data.repository
-        </ID>
-        <ID>PackageName:AiAnalysisViewModel.kt$package
-            `in`.hridayan.ashell.ai.presentation.viewmodel
-        </ID>
-        <ID>PackageName:AiCacheDao.kt$package `in`.hridayan.ashell.ai.data.local.database</ID>
-        <ID>PackageName:AiCacheEntity.kt$package `in`.hridayan.ashell.ai.data.local.database</ID>
-        <ID>PackageName:AiChatDrawerUI.kt$package
-            `in`.hridayan.ashell.ai.presentation.components.chat
-        </ID>
-        <ID>PackageName:AiChatScreen.kt$package `in`.hridayan.ashell.ai.presentation.screens</ID>
-        <ID>PackageName:AiChatUiState.kt$package `in`.hridayan.ashell.ai.presentation.model</ID>
-        <ID>PackageName:AiChatViewModel.kt$package `in`.hridayan.ashell.ai.presentation.viewmodel
-        </ID>
-        <ID>PackageName:AiDatabase.kt$package `in`.hridayan.ashell.ai.data.local.database</ID>
-        <ID>PackageName:AiModelManagerViewModel.kt$package
-            `in`.hridayan.ashell.ai.presentation.viewmodel
-        </ID>
-        <ID>PackageName:AiModelsScreen.kt$package `in`.hridayan.ashell.ai.presentation.screens</ID>
-        <ID>PackageName:AiModule.kt$package `in`.hridayan.ashell.ai.di</ID>
-        <ID>PackageName:AiRepositoryModule.kt$package `in`.hridayan.ashell.ai.di</ID>
-        <ID>PackageName:AiResponseParser.kt$package `in`.hridayan.ashell.ai.data.parser</ID>
-        <ID>PackageName:AiSessionOptionsBottomSheet.kt$package
-            `in`.hridayan.ashell.ai.presentation.components.bottomsheet
-        </ID>
-        <ID>PackageName:AiThoughtsBottomSheet.kt$package
-            `in`.hridayan.ashell.ai.presentation.components.bottomsheet
-        </ID>
-        <ID>PackageName:AiToolModule.kt$package `in`.hridayan.ashell.ai.di</ID>
-        <ID>PackageName:AnimatedStopIcon.kt$package
-            `in`.hridayan.ashell.ai.presentation.components.animatedcomposable
-        </ID>
-        <ID>PackageName:ApiKeyRepositoryImpl.kt$package `in`.hridayan.ashell.ai.data.security</ID>
-        <ID>PackageName:BouncyDotsLoadingIndicator.kt$package
-            `in`.hridayan.ashell.ai.presentation.components.loadingindicator
-        </ID>
-        <ID>PackageName:CacheDurationDialog.kt$package
-            `in`.hridayan.ashell.ai.presentation.components.dialog
-        </ID>
-        <ID>PackageName:ChatDao.kt$package `in`.hridayan.ashell.ai.data.local.database.dao</ID>
-        <ID>PackageName:ChatMessageEntity.kt$package
-            `in`.hridayan.ashell.ai.data.local.database.entity
-        </ID>
-        <ID>PackageName:ChatRepository.kt$package `in`.hridayan.ashell.ai.domain.repository</ID>
-        <ID>PackageName:ChatRepositoryImpl.kt$package `in`.hridayan.ashell.ai.data.repository</ID>
-        <ID>PackageName:ChatSessionEntity.kt$package
-            `in`.hridayan.ashell.ai.data.local.database.entity
-        </ID>
-        <ID>PackageName:ChatSessionManager.kt$package `in`.hridayan.ashell.ai.domain.manager</ID>
-        <ID>PackageName:CloudAiModule.kt$package `in`.hridayan.ashell.ai.di</ID>
-        <ID>PackageName:CloudAnalysisRepositoryImpl.kt$package
-            `in`.hridayan.ashell.ai.data.repository
-        </ID>
-        <ID>PackageName:CloudAnalysisUiState.kt$package `in`.hridayan.ashell.ai.presentation.model
-        </ID>
-        <ID>PackageName:CloudModelsScreen.kt$package `in`.hridayan.ashell.ai.presentation.screens
-        </ID>
-        <ID>PackageName:CloudModelsViewModel.kt$package
-            `in`.hridayan.ashell.ai.presentation.viewmodel
-        </ID>
-        <ID>PackageName:CloudNetworkExceptionExt.kt$package
-            `in`.hridayan.ashell.ai.presentation.util
-        </ID>
-        <ID>PackageName:CommandExecutionManager.kt$package `in`.hridayan.ashell.ai.domain.tool</ID>
-        <ID>PackageName:CommandPermissionDao.kt$package
-            `in`.hridayan.ashell.ai.data.local.database.dao
-        </ID>
-        <ID>PackageName:CommandPermissionEntity.kt$package
-            `in`.hridayan.ashell.ai.data.local.database.entity
-        </ID>
-        <ID>PackageName:CommandPermissionRepository.kt$package
-            `in`.hridayan.ashell.ai.domain.repository
-        </ID>
-        <ID>PackageName:CommandPermissionRepositoryImpl.kt$package
-            `in`.hridayan.ashell.ai.data.repository
-        </ID>
-        <ID>PackageName:DeleteAiAnalysisCacheDialog.kt$package
-            `in`.hridayan.ashell.ai.presentation.components.dialog
-        </ID>
-        <ID>PackageName:ExampleUnitTest.kt$package `in`.hridayan.ashell.ai</ID>
-        <ID>PackageName:ExecuteCommandTool.kt$package `in`.hridayan.ashell.ai.domain.tool.builtin
-        </ID>
-        <ID>PackageName:GeminiDto.kt$package `in`.hridayan.ashell.ai.data.remote.dto</ID>
-        <ID>PackageName:GeminiProviderClient.kt$package `in`.hridayan.ashell.ai.data.remote</ID>
-        <ID>PackageName:GeminiRequestMapper.kt$package `in`.hridayan.ashell.ai.data.remote</ID>
-        <ID>PackageName:GeminiResponseHandler.kt$package `in`.hridayan.ashell.ai.data.remote</ID>
-        <ID>PackageName:GenerateAiChatResponseUseCase.kt$package
-            `in`.hridayan.ashell.ai.domain.usecase
-        </ID>
-        <ID>PackageName:GetStructuredLogcatTool.kt$package
-            `in`.hridayan.ashell.ai.domain.tool.builtin
-        </ID>
-        <ID>PackageName:MarkdownMessageContent.kt$package
-            `in`.hridayan.ashell.ai.presentation.components.chat
-        </ID>
-        <ID>PackageName:NewChatPromptSuggestions.kt$package
-            `in`.hridayan.ashell.ai.presentation.components.chat
-        </ID>
-        <ID>PackageName:NewChatWelcomeUI.kt$package
-            `in`.hridayan.ashell.ai.presentation.components.chat
-        </ID>
-        <ID>PackageName:PermissionPromptCard.kt$package
-            `in`.hridayan.ashell.ai.presentation.components.chat
-        </ID>
-        <ID>PackageName:PromptBuilder.kt$package `in`.hridayan.ashell.ai.data.parser</ID>
-        <ID>PackageName:PromptInputField.kt$package
-            `in`.hridayan.ashell.ai.presentation.components.chat
-        </ID>
-        <ID>PackageName:QueryInstalledAppsTool.kt$package
-            `in`.hridayan.ashell.ai.domain.tool.builtin
-        </ID>
-        <ID>PackageName:RenameAiSessionDialog.kt$package
-            `in`.hridayan.ashell.ai.presentation.components.dialog
-        </ID>
-        <ID>PackageName:RunningTasks.kt$package
-            `in`.hridayan.ashell.ai.presentation.components.chat
-        </ID>
-        <ID>PackageName:ToolRegistry.kt$package `in`.hridayan.ashell.ai.domain.tool</ID>
-        <ID>PrintStackTrace:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$e</ID>
-        <ID>RethrowCaughtException:CloudAnalysisRepositoryImpl.kt$CloudAnalysisRepositoryImpl$throw
-            e
-        </ID>
-        <ID>
-            RethrowCaughtException:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$throw
-            e
-        </ID>
-        <ID>ReturnCount:AiAnalysisRepositoryImpl.kt$AiAnalysisRepositoryImpl$override suspend fun
-            analyzeCommand(command: String, ragContext: String, fallbackModels: List&lt;String&gt;?):
-            AnalysisResult
-        </ID>
-        <ID>ReturnCount:AiResponseParser.kt$AiResponseParser$fun parse(rawResponse: String):
-            AnalysisResult
-        </ID>
-        <ID>ReturnCount:CommandExecutionManager.kt$CommandExecutionManager$suspend fun
-            requestPermission(command: String): PermissionResult
-        </ID>
-        <ID>ReturnCount:ExecuteCommandTool.kt$ExecuteCommandTool$override suspend fun execute(args:
-            JsonObject?): String
-        </ID>
-        <ID>ReturnCount:GeminiProviderClient.kt$GeminiProviderClient$override suspend fun
-            completeWithHistory( model: String, systemPrompt: String, history: List&lt;LlmMessage&gt;,
-            apiKey: String, tools: List&lt;AiTool&gt; ): LlmMessage
-        </ID>
-        <ID>ReturnCount:GeminiProviderClient.kt$GeminiProviderClient$override suspend fun
-            completeWithTools( model: String, systemPrompt: String, userPrompt: String, apiKey:
-            String, tools: List&lt;AiTool&gt; ): String
-        </ID>
-        <ID>SwallowedException:AiChatViewModel.kt$AiChatViewModel$e: Exception</ID>
-        <ID>SwallowedException:ApiKeyRepositoryImpl.kt$ApiKeyRepositoryImpl$e: Exception</ID>
-        <ID>SwallowedException:GeminiProviderClient.kt$GeminiProviderClient$e: Exception</ID>
-        <ID>SwallowedException:GeminiRequestMapper.kt$GeminiRequestMapper$e: Exception</ID>
-        <ID>SwallowedException:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$e:
-            Exception
-        </ID>
-        <ID>SwallowedException:MarkdownMessageContent.kt$e: Exception</ID>
-        <ID>ThrowsCount:GeminiResponseHandler.kt$GeminiResponseHandler$suspend fun
-            handleError(response: HttpResponse): Nothing
-        </ID>
-        <ID>ThrowsCount:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$suspend
-            operator fun invoke(sessionId: String)
-        </ID>
-        <ID>TooManyFunctions:ChatDao.kt$ChatDao</ID>
-        <ID>TooManyFunctions:ChatRepository.kt$ChatRepository</ID>
-        <ID>UseCheckOrError:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$throw
-            lastException ?: java.lang.IllegalStateException("Failed to generate chat response with
-            all fallback models.")
-        </ID>
-        <ID>WildcardImport:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
-        <ID>Wrapping:AiChatDrawerUI.kt$(</ID>
-        <ID>Wrapping:AiChatScreen.kt$(</ID>
-        <ID>Wrapping:AiChatViewModel.kt$AiChatViewModel$;</ID>
-        <ID>Wrapping:AiModelsScreen.kt$(</ID>
-        <ID>Wrapping:ChatSessionManager.kt$ChatSessionManager$;</ID>
-        <ID>Wrapping:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$;</ID>
-        <ID>Wrapping:MarkdownMessageContent.kt$(</ID>
-        <ID>Wrapping:QueryInstalledAppsTool.kt$QueryInstalledAppsTool$(</ID>
-    </CurrentIssues>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>ArgumentListWrapping:AiChatScreen.kt$( containerColor =
+      MaterialTheme.colorScheme.primaryContainer)
+    </ID>
+    <ID>ArgumentListWrapping:AiChatScreen.kt$( onDismiss = { selectedSessionForOptions = null },
+      session = session, onPin = { viewModel.togglePinSession(session) selectedSessionForOptions =
+      null }, onRename = { showRenameDialogForSession = session selectedSessionForOptions = null },
+      onDelete = { viewModel.deleteSession(session.id) selectedSessionForOptions = null })
+    </ID>
+    <ID>ArgumentListWrapping:AiChatScreen.kt$(containerColor =
+      MaterialTheme.colorScheme.primaryContainer)
+    </ID>
+    <ID>ArgumentListWrapping:GetStructuredLogcatTool.kt$GetStructuredLogcatTool$( arrayOf("logcat",
+      "-d", "-v", "threadtime", "-t", maxLines.toString(), logLevel))
+    </ID>
+    <ID>ArgumentListWrapping:GetStructuredLogcatTool.kt$GetStructuredLogcatTool$(arrayOf("logcat",
+      "-d", "-v", "threadtime", "-t", maxLines.toString(), logLevel))
+    </ID>
+    <ID>ArgumentListWrapping:MarkdownMessageContent.kt$( color = Color(highlight.rgb or
+      0xFF000000.toInt()))
+    </ID>
+    <ID>ArgumentListWrapping:MarkdownMessageContent.kt$(color = Color(highlight.rgb or
+      0xFF000000.toInt()))
+    </ID>
+    <ID>CyclomaticComplexMethod:AiAnalysisRepositoryImpl.kt$AiAnalysisRepositoryImpl$override
+      suspend fun analyzeCommand(command: String, ragContext: String, fallbackModels: List&lt;String&gt;?):
+      AnalysisResult
+    </ID>
+    <ID>CyclomaticComplexMethod:AiResponseParser.kt$AiResponseParser$fun parse(rawResponse: String):
+      AnalysisResult
+    </ID>
+    <ID>CyclomaticComplexMethod:CloudAnalysisRepositoryImpl.kt$CloudAnalysisRepositoryImpl$override
+      suspend fun analyzeCommand(command: String, ragContext: String, fallbackModels: List&lt;String&gt;?):
+      AnalysisResult
+    </ID>
+    <ID>CyclomaticComplexMethod:CloudAnalysisRepositoryImpl.kt$CloudAnalysisRepositoryImpl$override
+      suspend fun queryCommand(query: String, tools: List&lt;AiTool&gt;, fallbackModels: List&lt;String&gt;?):
+      AnalysisResult
+    </ID>
+    <ID>CyclomaticComplexMethod:ExecuteCommandTool.kt$ExecuteCommandTool$override suspend fun
+      execute(args: JsonObject?): String
+    </ID>
+    <ID>CyclomaticComplexMethod:GeminiProviderClient.kt$GeminiProviderClient$override suspend fun
+      completeWithTools( model: String, systemPrompt: String, userPrompt: String, apiKey: String,
+      tools: List&lt;AiTool&gt; ): String
+    </ID>
+    <ID>CyclomaticComplexMethod:GeminiProviderClient.kt$GeminiProviderClient$private suspend fun
+      parseSseStream( channel: ByteReadChannel, onChunk: suspend (String) -&gt; Unit ): StreamResult
+    </ID>
+    <ID>
+      CyclomaticComplexMethod:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$suspend
+      operator fun invoke(sessionId: String)
+    </ID>
+    <ID>CyclomaticComplexMethod:GetStructuredLogcatTool.kt$GetStructuredLogcatTool$override suspend
+      fun execute(args: JsonObject?): String
+    </ID>
+    <ID>CyclomaticComplexMethod:PromptBuilder.kt$PromptBuilder$fun buildUserPrompt(command: String,
+      ragContext: String): String
+    </ID>
+    <ID>
+      FinalNewline:AiChatDrawerUI.kt$in.hridayan.ashell.ai.presentation.components.chat.AiChatDrawerUI.kt
+    </ID>
+    <ID>
+      FinalNewline:AiSessionOptionsBottomSheet.kt$in.hridayan.ashell.ai.presentation.components.bottomsheet.AiSessionOptionsBottomSheet.kt
+    </ID>
+    <ID>
+      FinalNewline:AiThoughtsBottomSheet.kt$in.hridayan.ashell.ai.presentation.components.bottomsheet.AiThoughtsBottomSheet.kt
+    </ID>
+    <ID>
+      FinalNewline:AnimatedStopIcon.kt$in.hridayan.ashell.ai.presentation.components.animatedcomposable.AnimatedStopIcon.kt
+    </ID>
+    <ID>FinalNewline:ExampleUnitTest.kt$in.hridayan.ashell.ai.ExampleUnitTest.kt</ID>
+    <ID>
+      FinalNewline:RenameAiSessionDialog.kt$in.hridayan.ashell.ai.presentation.components.dialog.RenameAiSessionDialog.kt
+    </ID>
+    <ID>ImportOrdering:AiAnalysisRepositoryImpl.kt$import android.util.Log import
+      `in`.hridayan.ashell.ai.data.local.database.AiCacheDao import
+      `in`.hridayan.ashell.ai.data.local.database.AiCacheEntity import
+      `in`.hridayan.ashell.core.common.domain.model.ai.AnalysisResult import
+      `in`.hridayan.ashell.core.common.domain.repository.AiAnalysisRepository import
+      `in`.hridayan.ashell.core.common.domain.repository.CloudAnalysisRepository import
+      `in`.hridayan.ashell.core.common.settings.SettingsKeys import
+      `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository import
+      `in`.hridayan.ashell.core.common.domain.model.ai.AiTool import
+      kotlinx.coroutines.flow.firstOrNull import kotlinx.serialization.json.Json import
+      java.security.MessageDigest import javax.inject.Inject import javax.inject.Singleton
+    </ID>
+    <ID>ImportOrdering:BouncyDotsLoadingIndicator.kt$import
+      androidx.compose.animation.core.FastOutLinearInEasing import
+      androidx.compose.animation.core.RepeatMode import androidx.compose.animation.core.animateFloat
+      import androidx.compose.animation.core.infiniteRepeatable import
+      androidx.compose.animation.core.rememberInfiniteTransition import
+      androidx.compose.animation.core.tween import androidx.compose.foundation.background import
+      androidx.compose.foundation.layout.Box import androidx.compose.foundation.layout.Row import
+      androidx.compose.foundation.layout.Spacer import androidx.compose.foundation.layout.padding
+      import androidx.compose.foundation.layout.size import androidx.compose.foundation.layout.width
+      import androidx.compose.ui.graphics.graphicsLayer import
+      androidx.compose.foundation.shape.CircleShape import androidx.compose.material3.MaterialTheme
+      import androidx.compose.runtime.Composable import androidx.compose.ui.Modifier import
+      androidx.compose.ui.graphics.Color import androidx.compose.ui.unit.dp
+    </ID>
+    <ID>ImportOrdering:ChatSessionManager.kt$import
+      `in`.hridayan.ashell.ai.domain.repository.ChatRepository import
+      `in`.hridayan.ashell.ai.domain.usecase.GenerateAiChatResponseUseCase import
+      `in`.hridayan.ashell.core.common.domain.model.ai.LlmMessage import
+      `in`.hridayan.ashell.ai.data.local.database.entity.ChatMessageEntity import
+      kotlinx.coroutines.CoroutineScope import kotlinx.coroutines.Dispatchers import
+      kotlinx.coroutines.Job import kotlinx.coroutines.SupervisorJob import
+      kotlinx.coroutines.launch import kotlinx.serialization.json.Json import java.util.UUID import
+      java.util.concurrent.ConcurrentHashMap import javax.inject.Inject import
+      javax.inject.Singleton
+    </ID>
+    <ID>ImportOrdering:CloudAiModule.kt$import android.content.Context import dagger.Module import
+      dagger.Provides import dagger.hilt.InstallIn import
+      dagger.hilt.android.qualifiers.ApplicationContext import
+      `in`.hridayan.ashell.ai.data.remote.GeminiProviderClient import
+      `in`.hridayan.ashell.core.common.domain.provider.LlmProviderClient import
+      `in`.hridayan.ashell.ai.data.repository.CloudAnalysisRepositoryImpl import
+      `in`.hridayan.ashell.ai.data.security.ApiKeyRepositoryImpl import
+      `in`.hridayan.ashell.core.common.domain.provider.LlmProvider import
+      `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository import
+      dagger.hilt.components.SingletonComponent import
+      `in`.hridayan.ashell.core.common.domain.repository.CloudAnalysisRepository import
+      `in`.hridayan.ashell.core.common.domain.usecase.ai.AnalyzeCommandWithCloudUseCase import
+      `in`.hridayan.ashell.core.common.domain.repository.CommandRepository import
+      `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository import
+      io.ktor.client.HttpClient import io.ktor.client.engine.cio.CIO import
+      io.ktor.client.plugins.HttpTimeout import
+      io.ktor.client.plugins.contentnegotiation.ContentNegotiation import
+      io.ktor.serialization.kotlinx.json.json import kotlinx.serialization.json.Json import
+      javax.inject.Singleton
+    </ID>
+    <ID>ImportOrdering:CloudAnalysisRepositoryImpl.kt$import
+      `in`.hridayan.ashell.ai.data.parser.AiResponseParser import
+      `in`.hridayan.ashell.ai.data.parser.PromptBuilder import
+      `in`.hridayan.ashell.core.common.domain.provider.LlmProviderClient import
+      `in`.hridayan.ashell.core.common.domain.model.ai.AnalysisResult import
+      `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException import
+      `in`.hridayan.ashell.core.common.domain.provider.LlmProvider import
+      `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository import
+      `in`.hridayan.ashell.core.common.domain.repository.CloudAnalysisRepository import
+      `in`.hridayan.ashell.core.common.domain.model.ai.AiTool import
+      `in`.hridayan.ashell.core.common.settings.SettingsKeys import
+      `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository import
+      `in`.hridayan.ashell.core.common.constants.AiModelConstants import
+      kotlinx.coroutines.flow.firstOrNull import java.util.Locale import javax.inject.Inject import
+      javax.inject.Singleton
+    </ID>
+    <ID>ImportOrdering:CloudAnalysisUiState.kt$import
+      `in`.hridayan.ashell.core.common.domain.model.ai.AnalysisResult import
+      `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException
+    </ID>
+    <ID>ImportOrdering:ExampleUnitTest.kt$import org.junit.Test import org.junit.Assert.*</ID>
+    <ID>ImportOrdering:ExecuteCommandTool.kt$import
+      `in`.hridayan.ashell.ai.domain.tool.CommandExecutionManager import
+      `in`.hridayan.ashell.ai.domain.tool.PermissionResult import
+      `in`.hridayan.ashell.core.common.settings.SettingsKeys import
+      `in`.hridayan.ashell.core.common.domain.model.ai.AiTool import
+      `in`.hridayan.ashell.core.common.domain.model.ai.SessionIdContext import
+      `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema import
+      `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaProperty import
+      `in`.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode import
+      `in`.hridayan.ashell.core.common.domain.repository.AiConnectionStateProvider import
+      `in`.hridayan.ashell.core.common.domain.repository.OtgRepository import
+      `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository import
+      `in`.hridayan.ashell.core.common.domain.repository.ShellRepository import
+      kotlinx.coroutines.currentCoroutineContext import kotlinx.coroutines.flow.firstOrNull import
+      kotlinx.coroutines.withTimeoutOrNull import kotlinx.serialization.json.JsonObject import
+      kotlinx.serialization.json.jsonPrimitive import javax.inject.Inject import
+      javax.inject.Singleton import kotlin.time.Duration.Companion.milliseconds
+    </ID>
+    <ID>ImportOrdering:GenerateAiChatResponseUseCase.kt$import android.util.Log import
+      `in`.hridayan.ashell.ai.data.local.database.entity.ChatMessageEntity import
+      `in`.hridayan.ashell.ai.domain.repository.ChatRepository import
+      `in`.hridayan.ashell.ai.domain.tool.ToolRegistry import
+      `in`.hridayan.ashell.core.common.settings.SettingsKeys import
+      `in`.hridayan.ashell.core.common.constants.AiModelConstants import
+      `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException import
+      `in`.hridayan.ashell.core.common.domain.model.ai.LlmMessage import
+      `in`.hridayan.ashell.core.common.domain.model.ai.LlmToolResponse import
+      `in`.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode import
+      `in`.hridayan.ashell.core.common.domain.provider.LlmProvider import
+      `in`.hridayan.ashell.core.common.domain.provider.LlmProviderClient import
+      `in`.hridayan.ashell.core.common.domain.repository.AiConnectionStateProvider import
+      `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository import
+      `in`.hridayan.ashell.core.common.domain.repository.OtgRepository import
+      `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository import
+      kotlinx.coroutines.CoroutineScope import kotlinx.coroutines.Dispatchers import
+      kotlinx.coroutines.flow.firstOrNull import kotlinx.coroutines.launch import
+      kotlinx.coroutines.withContext import kotlinx.serialization.json.Json import java.util.Locale
+      import java.util.UUID import javax.inject.Inject
+    </ID>
+    <ID>Indentation:AiChatDrawerUI.kt$</ID>
+    <ID>Indentation:AiChatViewModel.kt$AiChatViewModel$</ID>
+    <ID>Indentation:ChatSessionManager.kt$ChatSessionManager$</ID>
+    <ID>Indentation:CloudModelsScreen.kt$</ID>
+    <ID>Indentation:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$</ID>
+    <ID>Indentation:MarkdownMessageContent.kt$</ID>
+    <ID>Indentation:PromptBuilder.kt$PromptBuilder$</ID>
+    <ID>Indentation:QueryInstalledAppsTool.kt$QueryInstalledAppsTool$</ID>
+    <ID>LargeClass:AiChatViewModel.kt$AiChatViewModel : ViewModel</ID>
+    <ID>LargeClass:GeminiProviderClient.kt$GeminiProviderClient : LlmProviderClient</ID>
+    <ID>LargeClass:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase</ID>
+    <ID>LongMethod:AiAnalysisRepositoryImpl.kt$AiAnalysisRepositoryImpl$override suspend fun
+      analyzeCommand(command: String, ragContext: String, fallbackModels: List&lt;String&gt;?):
+      AnalysisResult
+    </ID>
+    <ID>LongMethod:AiResponseParser.kt$AiResponseParser$fun parse(rawResponse: String):
+      AnalysisResult
+    </ID>
+    <ID>LongMethod:CloudAnalysisRepositoryImpl.kt$CloudAnalysisRepositoryImpl$override suspend fun
+      analyzeCommand(command: String, ragContext: String, fallbackModels: List&lt;String&gt;?):
+      AnalysisResult
+    </ID>
+    <ID>LongMethod:CloudAnalysisRepositoryImpl.kt$CloudAnalysisRepositoryImpl$override suspend fun
+      queryCommand(query: String, tools: List&lt;AiTool&gt;, fallbackModels: List&lt;String&gt;?):
+      AnalysisResult
+    </ID>
+    <ID>LongMethod:ExecuteCommandTool.kt$ExecuteCommandTool$override suspend fun execute(args:
+      JsonObject?): String
+    </ID>
+    <ID>LongMethod:GeminiProviderClient.kt$GeminiProviderClient$override suspend fun
+      completeWithHistory( model: String, systemPrompt: String, history: List&lt;LlmMessage&gt;,
+      apiKey: String, tools: List&lt;AiTool&gt; ): LlmMessage
+    </ID>
+    <ID>LongMethod:GeminiProviderClient.kt$GeminiProviderClient$override suspend fun
+      completeWithHistoryStream( model: String, systemPrompt: String, history: List&lt;LlmMessage&gt;,
+      apiKey: String, tools: List&lt;AiTool&gt;, onChunk: suspend (String) -&gt; Unit ): LlmMessage
+    </ID>
+    <ID>LongMethod:GeminiProviderClient.kt$GeminiProviderClient$override suspend fun
+      completeWithTools( model: String, systemPrompt: String, userPrompt: String, apiKey: String,
+      tools: List&lt;AiTool&gt; ): String
+    </ID>
+    <ID>LongMethod:GeminiProviderClient.kt$GeminiProviderClient$private suspend fun parseSseStream(
+      channel: ByteReadChannel, onChunk: suspend (String) -&gt; Unit ): StreamResult
+    </ID>
+    <ID>LongMethod:GeminiRequestMapper.kt$GeminiRequestMapper$fun mapHistory(history: List&lt;LlmMessage&gt;):
+      MutableList&lt;GeminiContent&gt;
+    </ID>
+    <ID>LongMethod:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$suspend operator
+      fun invoke(sessionId: String)
+    </ID>
+    <ID>LongMethod:PromptBuilder.kt$PromptBuilder$fun buildSystemPrompt(userLocale: String):
+      String
+    </ID>
+    <ID>LoopWithTooManyJumpStatements:GeminiProviderClient.kt$GeminiProviderClient$while</ID>
+    <ID>MagicNumber:CloudAiModule.kt$CloudAiModule$12000L</ID>
+    <ID>MagicNumber:CloudAiModule.kt$CloudAiModule$60000L</ID>
+    <ID>MagicNumber:CloudAiModule.kt$CloudAiModule$8000L</ID>
+    <ID>MagicNumber:CloudAnalysisRepositoryImpl.kt$CloudAnalysisRepositoryImpl$429</ID>
+    <ID>MagicNumber:CloudAnalysisRepositoryImpl.kt$CloudAnalysisRepositoryImpl$500</ID>
+    <ID>MagicNumber:CloudNetworkExceptionExt.kt$400</ID>
+    <ID>MagicNumber:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$404</ID>
+    <ID>MagicNumber:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$429</ID>
+    <ID>MagicNumber:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$500</ID>
+    <ID>MatchingDeclarationName:AiModelsScreen.kt$AiDialogKey : DialogKey</ID>
+    <ID>MaxLineLength:AiAnalysisRepositoryImpl.kt$AiAnalysisRepositoryImpl$override suspend</ID>
+    <ID>MaxLineLength:AiChatDrawerUI.kt$color = if (session.id == uiState.currentSessionId)
+      MaterialTheme.colorScheme.secondaryContainer else Color.Transparent
+    </ID>
+    <ID>MaxLineLength:AiChatViewModel.kt$AiChatViewModel$formattedArgs.take(500) + if
+      (formattedArgs.length &gt; 500) "\n\n[...Args truncated for UI]" else ""
+    </ID>
+    <ID>MaxLineLength:CloudAnalysisRepositoryImpl.kt$CloudAnalysisRepositoryImpl$override suspend
+    </ID>
+    <ID>MaxLineLength:CommandExecutionManager.kt$CommandExecutionManager$suspend</ID>
+    <ID>MaxLineLength:ExecuteCommandTool.kt$ExecuteCommandTool$"Execute a shell command on the
+      user's device. You MUST use this tool to perform actions requested by the user. If the user
+      hasn't explicitly allowed the command before, they will be prompted to allow it."
+    </ID>
+    <ID>MaxLineLength:ExecuteCommandTool.kt$ExecuteCommandTool$description = "The target connection
+      mode to run the command on: 'LOCAL', 'WIRELESS', or 'OTG'. Defaults to 'LOCAL'."
+    </ID>
+    <ID>MaxLineLength:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$"1. If the user
+      asks to create a Quick Settings (QS) tile, ALWAYS call `get_qs_tile_slots` first to see which
+      of the 10 fixed slots (1-10) are empty/available.\n"
+    </ID>
+    <ID>MaxLineLength:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$"2. If the user
+      did not specify an execution mode for the tile, ASK the user which execution mode they prefer
+      (0 for Shizuku [default], 1 for Root) before calling `create_qs_tile`.\n"
+    </ID>
+    <ID>MaxLineLength:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$"3. Decide
+      whether the tile should be toggleable (`is_toggleable = true` with active/inactive commands)
+      or a simple tap action based on the user's request.\n"
+    </ID>
+    <ID>MaxLineLength:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$"4. After
+      creating the tile, tell the user which slot number (1-10) it was created in and confirm that
+      the system prompt dialog was triggered to add the tile to their Quick Settings panel.\n\n"
+    </ID>
+    <ID>MaxLineLength:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$"Always choose
+      the appropriate target based on the user's request. If the user doesn't specify, default to
+      the most capable connected device.\n\n"
+    </ID>
+    <ID>MaxLineLength:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$"CRITICAL: You
+      must communicate and provide all your conversational responses and explanations in the user's
+      local language ($localeName). However, all shell commands, ADB commands, tool names, and
+      technical function names must remain strictly in English.\n\n"
+    </ID>
+    <ID>MaxLineLength:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$"Generate a
+      short, concise title (max 5 words) for a conversation about: \"$contextSummary\". Do not
+      include quotes. CRITICAL: The title MUST be generated in the language: $localeName."
+    </ID>
+    <ID>MaxLineLength:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$"IMPORTANT:
+      When you suggest a command for the user to run themselves, you MUST format it as a markdown
+      code block (e.g., ```bash\\ncommand\\n```). The UI will automatically detect this and render a
+      'Use' button for the user."
+    </ID>
+    <ID>MaxLineLength:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$"You are a
+      helpful AI shell assistant. You can execute commands on the user's Android device and answer
+      questions. You MUST use your tools when appropriate to execute commands.\n\n"
+    </ID>
+    <ID>MaxLineLength:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$"You can
+      execute commands on different targets by specifying the `target_mode` parameter in your
+      `execute_command` tool (options: LOCAL, WIRELESS, OTG). Defaults to LOCAL if omitted.\n"
+    </ID>
+    <ID>MaxLineLength:GetStructuredLogcatTool.kt$GetStructuredLogcatTool$description = "Optional log
+      level to filter by (e.g., '*:E' for errors, '*:W' for warnings). Default is '*:D'."
+    </ID>
+    <ID>MaxLineLength:GetStructuredLogcatTool.kt$GetStructuredLogcatTool$override val description:
+      String = "Fetch recent logcat output. Uses 'logcat -d' to safely fetch logs without hanging.
+      Returns raw text logs."
+    </ID>
+    <ID>MaxLineLength:QueryInstalledAppsTool.kt$QueryInstalledAppsTool$label.contains(searchQuery,
+      ignoreCase = true) || appInfo.packageName.contains(searchQuery, ignoreCase = true)
+    </ID>
+    <ID>MaxLineLength:QueryInstalledAppsTool.kt$QueryInstalledAppsTool$override val description:
+      String = "Query the installed applications on the device. Returns a JSON array of apps. Use
+      this instead of running 'pm list packages' via shell to save tokens and get structured data."
+    </ID>
+    <ID>MaxLineLength:QueryInstalledAppsTool.kt$QueryInstalledAppsTool$val includeSystemApps =
+      args?.get("include_system_apps")?.jsonPrimitive?.content?.toBooleanStrictOrNull() ?: false
+    </ID>
+    <ID>MaximumLineLength:AiAnalysisRepositoryImpl.kt$AiAnalysisRepositoryImpl$</ID>
+    <ID>MaximumLineLength:AiChatDrawerUI.kt$</ID>
+    <ID>MaximumLineLength:AiChatViewModel.kt$AiChatViewModel$</ID>
+    <ID>MaximumLineLength:CloudAnalysisRepositoryImpl.kt$CloudAnalysisRepositoryImpl$</ID>
+    <ID>MaximumLineLength:CommandExecutionManager.kt$CommandExecutionManager$</ID>
+    <ID>MaximumLineLength:ExecuteCommandTool.kt$ExecuteCommandTool$</ID>
+    <ID>MaximumLineLength:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$</ID>
+    <ID>MaximumLineLength:GetStructuredLogcatTool.kt$GetStructuredLogcatTool$</ID>
+    <ID>MaximumLineLength:QueryInstalledAppsTool.kt$QueryInstalledAppsTool$</ID>
+    <ID>MultiLineIfElse:AiSessionOptionsBottomSheet.kt$stringResource(R.string.ai_chat_pin)</ID>
+    <ID>MultiLineIfElse:AiSessionOptionsBottomSheet.kt$stringResource(R.string.ai_chat_unpin)</ID>
+    <ID>MultiLineIfElse:CloudModelsScreen.kt$LoadingIndicator( modifier =
+      Modifier.size(ButtonDefaults.IconSize) )
+    </ID>
+    <ID>MultiLineIfElse:CloudModelsScreen.kt$stringResource(R.string.verify_api_key)</ID>
+    <ID>MultiLineIfElse:CloudModelsScreen.kt$stringResource(R.string.verifying)</ID>
+    <ID>MultiLineIfElse:CloudNetworkExceptionExt.kt$"Provider server error ($code). Try again
+      later."
+    </ID>
+    <ID>MultiLineIfElse:CloudNetworkExceptionExt.kt$"Rate limited by provider. Try again shortly."
+    </ID>
+    <ID>MultiLineIfElse:CloudNetworkExceptionExt.kt$"Rate limited — try again in
+      ${retryAfterSeconds}s."
+    </ID>
+    <ID>MultiLineIfElse:CloudNetworkExceptionExt.kt$"Request error (HTTP 400): Invalid request or
+      tool schema."
+    </ID>
+    <ID>NestedBlockDepth:GeminiProviderClient.kt$GeminiProviderClient$override suspend fun
+      completeWithTools( model: String, systemPrompt: String, userPrompt: String, apiKey: String,
+      tools: List&lt;AiTool&gt; ): String
+    </ID>
+    <ID>NestedBlockDepth:GeminiProviderClient.kt$GeminiProviderClient$private suspend fun
+      parseSseStream( channel: ByteReadChannel, onChunk: suspend (String) -&gt; Unit ): StreamResult
+    </ID>
+    <ID>NestedBlockDepth:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$suspend
+      operator fun invoke(sessionId: String)
+    </ID>
+    <ID>NestedBlockDepth:GetStructuredLogcatTool.kt$GetStructuredLogcatTool$override suspend fun
+      execute(args: JsonObject?): String
+    </ID>
+    <ID>NoBlankLineBeforeRbrace:CloudModelsScreen.kt$</ID>
+    <ID>NoConsecutiveBlankLines:AiChatScreen.kt$</ID>
+    <ID>NoConsecutiveBlankLines:AiChatViewModel.kt$AiChatViewModel$</ID>
+    <ID>NoConsecutiveBlankLines:AiModelManagerViewModel.kt$</ID>
+    <ID>NoConsecutiveBlankLines:AiModelsScreen.kt$</ID>
+    <ID>NoConsecutiveBlankLines:CacheDurationDialog.kt$</ID>
+    <ID>NoConsecutiveBlankLines:CloudAiModule.kt$</ID>
+    <ID>NoConsecutiveBlankLines:CloudAnalysisRepositoryImpl.kt$</ID>
+    <ID>NoConsecutiveBlankLines:CloudAnalysisUiState.kt$</ID>
+    <ID>NoConsecutiveBlankLines:CloudModelsScreen.kt$</ID>
+    <ID>NoConsecutiveBlankLines:CloudModelsViewModel.kt$CloudModelsViewModel$</ID>
+    <ID>NoConsecutiveBlankLines:CloudNetworkExceptionExt.kt$</ID>
+    <ID>NoConsecutiveBlankLines:DeleteAiAnalysisCacheDialog.kt$</ID>
+    <ID>NoSemicolons:AiChatViewModel.kt$AiChatViewModel$;</ID>
+    <ID>NoTrailingSpaces:BouncyDotsLoadingIndicator.kt$</ID>
+    <ID>NoTrailingSpaces:ChatDao.kt$ChatDao$</ID>
+    <ID>NoTrailingSpaces:ChatRepository.kt$ChatRepository$</ID>
+    <ID>NoTrailingSpaces:ChatRepositoryImpl.kt$ChatRepositoryImpl$</ID>
+    <ID>NoTrailingSpaces:ChatSessionManager.kt$ChatSessionManager$</ID>
+    <ID>NoTrailingSpaces:CloudAnalysisRepositoryImpl.kt$CloudAnalysisRepositoryImpl$</ID>
+    <ID>NoTrailingSpaces:CommandExecutionManager.kt$CommandExecutionManager$</ID>
+    <ID>NoTrailingSpaces:CommandPermissionDao.kt$CommandPermissionDao$</ID>
+    <ID>NoTrailingSpaces:GetStructuredLogcatTool.kt$GetStructuredLogcatTool$</ID>
+    <ID>NoTrailingSpaces:PromptBuilder.kt$PromptBuilder$</ID>
+    <ID>NoTrailingSpaces:QueryInstalledAppsTool.kt$QueryInstalledAppsTool$</ID>
+    <ID>NoTrailingSpaces:ToolRegistry.kt$ToolRegistry$</ID>
+    <ID>
+      NoUnusedImports:QueryInstalledAppsTool.kt$in.hridayan.ashell.ai.domain.tool.builtin.QueryInstalledAppsTool.kt
+    </ID>
+    <ID>NoWildcardImports:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
+    <ID>PrintStackTrace:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$e</ID>
+    <ID>RethrowCaughtException:CloudAnalysisRepositoryImpl.kt$CloudAnalysisRepositoryImpl$throw e
+    </ID>
+    <ID>RethrowCaughtException:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$throw
+      e
+    </ID>
+    <ID>ReturnCount:AiAnalysisRepositoryImpl.kt$AiAnalysisRepositoryImpl$override suspend fun
+      analyzeCommand(command: String, ragContext: String, fallbackModels: List&lt;String&gt;?):
+      AnalysisResult
+    </ID>
+    <ID>ReturnCount:AiResponseParser.kt$AiResponseParser$fun parse(rawResponse: String):
+      AnalysisResult
+    </ID>
+    <ID>ReturnCount:CommandExecutionManager.kt$CommandExecutionManager$suspend fun
+      requestPermission(command: String): PermissionResult
+    </ID>
+    <ID>ReturnCount:ExecuteCommandTool.kt$ExecuteCommandTool$override suspend fun execute(args:
+      JsonObject?): String
+    </ID>
+    <ID>ReturnCount:GeminiProviderClient.kt$GeminiProviderClient$override suspend fun
+      completeWithHistory( model: String, systemPrompt: String, history: List&lt;LlmMessage&gt;,
+      apiKey: String, tools: List&lt;AiTool&gt; ): LlmMessage
+    </ID>
+    <ID>ReturnCount:GeminiProviderClient.kt$GeminiProviderClient$override suspend fun
+      completeWithTools( model: String, systemPrompt: String, userPrompt: String, apiKey: String,
+      tools: List&lt;AiTool&gt; ): String
+    </ID>
+    <ID>SwallowedException:AiChatViewModel.kt$AiChatViewModel$e: Exception</ID>
+    <ID>SwallowedException:ApiKeyRepositoryImpl.kt$ApiKeyRepositoryImpl$e: Exception</ID>
+    <ID>SwallowedException:GeminiProviderClient.kt$GeminiProviderClient$e: Exception</ID>
+    <ID>SwallowedException:GeminiRequestMapper.kt$GeminiRequestMapper$e: Exception</ID>
+    <ID>SwallowedException:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$e:
+      Exception
+    </ID>
+    <ID>SwallowedException:MarkdownMessageContent.kt$e: Exception</ID>
+    <ID>ThrowsCount:GeminiResponseHandler.kt$GeminiResponseHandler$suspend fun handleError(response:
+      HttpResponse): Nothing
+    </ID>
+    <ID>ThrowsCount:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$suspend operator
+      fun invoke(sessionId: String)
+    </ID>
+    <ID>TooManyFunctions:ChatDao.kt$ChatDao</ID>
+    <ID>TooManyFunctions:ChatRepository.kt$ChatRepository</ID>
+    <ID>UseCheckOrError:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$throw
+      lastException ?: java.lang.IllegalStateException("Failed to generate chat response with all
+      fallback models.")
+    </ID>
+    <ID>WildcardImport:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
+    <ID>Wrapping:AiChatDrawerUI.kt$(</ID>
+    <ID>Wrapping:AiChatViewModel.kt$AiChatViewModel$;</ID>
+    <ID>Wrapping:AiChatViewModel.kt$AiChatViewModel$ignoreUnknownKeys = true; encodeDefaults =
+      true
+    </ID>
+    <ID>Wrapping:AiModelsScreen.kt$(</ID>
+    <ID>Wrapping:ChatSessionManager.kt$ChatSessionManager$;</ID>
+    <ID>Wrapping:ChatSessionManager.kt$ChatSessionManager$ignoreUnknownKeys = true; encodeDefaults =
+      true
+    </ID>
+    <ID>Wrapping:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$;</ID>
+    <ID>Wrapping:GenerateAiChatResponseUseCase.kt$GenerateAiChatResponseUseCase$ignoreUnknownKeys =
+      true; encodeDefaults = true
+    </ID>
+    <ID>Wrapping:MarkdownMessageContent.kt$(</ID>
+    <ID>Wrapping:QueryInstalledAppsTool.kt$QueryInstalledAppsTool$(</ID>
+  </CurrentIssues>
 </SmellBaseline>

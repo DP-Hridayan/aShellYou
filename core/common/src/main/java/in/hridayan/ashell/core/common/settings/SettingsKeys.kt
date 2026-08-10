@@ -3,13 +3,13 @@ package `in`.hridayan.ashell.core.common.settings
 import android.os.Environment
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.runtime.Stable
+import `in`.hridayan.ashell.core.common.domain.model.LogcatWorkingMode
 import `in`.hridayan.ashell.core.common.domain.model.SortType
 import `in`.hridayan.ashell.core.common.domain.provider.SeedColorProvider
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys.Companion.entries
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys.Companion.valueOf
 import `in`.hridayan.settingsdsl.model.SettingsKey
 import kotlin.reflect.KClass
-import `in`.hridayan.ashell.core.common.domain.model.*
 
 /**
  * All settings keys used by the app.
@@ -89,16 +89,14 @@ sealed class SettingsKeys<out T>(
 
     data object AutoBackupLocalEnabled : SettingsKeys<Boolean>("AUTO_BACKUP_LOCAL_ENABLED", true)
     data object AutoBackupCloudEnabled : SettingsKeys<Boolean>("AUTO_BACKUP_CLOUD_ENABLED", true)
-    
+
     data object UserGeneratedColorSchemeApplied : SettingsKeys<Boolean>("USER_GENERATED_COLOR_SCHEME_APPLIED", false)
     data object IsCustomColorSchemeDarkThemed : SettingsKeys<Boolean>("IS_CUSTOM_COLOR_SCHEME_DARK_THEMED", false)
-
 
     // Float keys
 
     data object ScreenDensityMultiplier : SettingsKeys<Float>("SCREEN_DENSITY_MULTIPLIER", 1f)
     data object FontSizeMultiplier : SettingsKeys<Float>("FONT_SIZE_MULTIPLIER", 1f)
-
 
     // Int Keys
 
@@ -144,7 +142,7 @@ sealed class SettingsKeys<out T>(
     data object AutoBackupFrequency : SettingsKeys<Int>("AUTO_BACKUP_FREQUENCY", 0)
     data object AutoBackupType : SettingsKeys<Int>("AUTO_BACKUP_TYPE", 2)
     data object FontFamily : SettingsKeys<Int>("FONT_FAMILY", 0)
-    
+
     data object AppliedCustomThemeId : SettingsKeys<Int>("APPLIED_CUSTOM_THEME_ID", 0)
 
     // String Keys
@@ -173,11 +171,9 @@ sealed class SettingsKeys<out T>(
 
     data object LastAutoBackupCloudError : SettingsKeys<String>("LAST_AUTO_BACKUP_CLOUD_ERROR", "")
 
-
     data object AiCloudEnabled : SettingsKeys<Boolean>("AI_CLOUD_ENABLED", false)
 
     data object AiCloudProvider : SettingsKeys<String>("AI_CLOUD_PROVIDER", "gemini")
-
 
     companion object {
         /**

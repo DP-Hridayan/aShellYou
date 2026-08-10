@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.components.dialog
 
-
 import android.annotation.SuppressLint
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -52,9 +51,9 @@ import androidx.compose.ui.window.DialogProperties
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalPaletteStyle
 import `in`.hridayan.ashell.core.common.LocalSeedColor
+import `in`.hridayan.ashell.core.common.domain.model.PaletteStyle
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
-import `in`.hridayan.ashell.core.common.domain.model.PaletteStyle
 import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -89,7 +88,6 @@ fun PaletteStylePickerDialog(
     val listState = rememberLazyListState()
 
     LaunchedEffect(listState) {
-
         var previousTop = true
         var previousBottom = false
         var firstEmission = true
@@ -158,7 +156,6 @@ fun PaletteStylePickerDialog(
                             .heightIn(max = 320.dp),
                         verticalArrangement = Arrangement.spacedBy(2.dp)
                     ) {
-
                         itemsIndexed(styles) { index, style ->
 
                             val shape = getRoundedShape(index, styles.size)
@@ -182,13 +179,17 @@ fun PaletteStylePickerDialog(
                                 Color(styleScheme.primaryPalette.tone(if (isDarkMode) 80 else 40))
                             }
 
-                            val cardColors = if (selected) CardDefaults.cardColors(
-                                containerColor = stylePrimaryContainer,
-                                contentColor = styleOnPrimaryContainer
-                            ) else CardDefaults.cardColors(
-                                containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
-                                contentColor = MaterialTheme.colorScheme.onSurface
-                            )
+                            val cardColors = if (selected) {
+                                CardDefaults.cardColors(
+                                    containerColor = stylePrimaryContainer,
+                                    contentColor = styleOnPrimaryContainer
+                                )
+                            } else {
+                                CardDefaults.cardColors(
+                                    containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
+                                    contentColor = MaterialTheme.colorScheme.onSurface
+                                )
+                            }
 
                             val finalShape = if (selected) {
                                 CustomCardShape(50)
@@ -313,7 +314,6 @@ private fun MiniPalettePreview(
     primarySeedArgb: Int,
     paletteStyle: PaletteStyle,
 ) {
-
     val keyColors = remember(primarySeedArgb, paletteStyle) {
         getPaletteKeyColors(
             primarySeedArgb,
@@ -329,7 +329,6 @@ private fun MiniPalettePreview(
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-
             Box(
                 modifier = Modifier
                     .weight(1f)
@@ -342,7 +341,6 @@ private fun MiniPalettePreview(
                     .weight(1f)
                     .fillMaxSize()
             ) {
-
                 Box(
                     modifier = Modifier
                         .weight(1f)

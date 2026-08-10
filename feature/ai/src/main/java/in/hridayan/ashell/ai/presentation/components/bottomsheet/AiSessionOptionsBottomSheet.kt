@@ -71,8 +71,11 @@ fun AiSessionOptionsBottomSheet(
             ) {
                 ClickableOptions(
                     shape = CardCornerShape.FIRST_CARD,
-                    title = if (session.isPinned) stringResource(R.string.ai_chat_unpin)
-                    else stringResource(R.string.ai_chat_pin),
+                    title = if (session.isPinned) {
+                        stringResource(R.string.ai_chat_unpin)
+                    } else {
+                        stringResource(R.string.ai_chat_pin)
+                    },
                     imageVector = ImageVector.vectorResource(R.drawable.ic_pin),
                     onClick = withHaptic { onPin() }
                 )

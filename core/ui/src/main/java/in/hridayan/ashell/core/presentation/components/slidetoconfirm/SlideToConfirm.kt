@@ -184,10 +184,20 @@ fun SlideToConfirm(
                 .align(Alignment.Center)
                 .graphicsLayer {
                     alpha =
-                        if (confirmed) 1f else 1f - (if (maxOffset > 0f) (thumbOffset / maxOffset).coerceIn(
-                            0f,
+                        if (confirmed) {
                             1f
-                        ) else 0f)
+                        } else {
+                            1f - (
+                                    if (maxOffset > 0f) {
+                                        (thumbOffset / maxOffset).coerceIn(
+                                            0f,
+                                            1f
+                                        )
+                                    } else {
+                                        0f
+                                    }
+                                    )
+                        }
                 }
         )
 
@@ -231,7 +241,6 @@ fun SlideToConfirm(
         }
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable

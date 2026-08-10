@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.shell.fastboot.presentation.components.section
 
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -73,7 +72,8 @@ fun CommandConsoleSection(
     ) {
         Column(modifier = Modifier.padding(Dimens.paddingExtraLarge)) {
             Row(
-                modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
                     imageVector = Icons.Default.Terminal,
@@ -90,7 +90,8 @@ fun CommandConsoleSection(
                 )
                 if (commandHistory.isNotEmpty()) {
                     IconButton(
-                        onClick = onClearHistory, modifier = Modifier.size(32.dp)
+                        onClick = onClearHistory,
+                        modifier = Modifier.size(32.dp)
                     ) {
                         Icon(
                             imageVector = Icons.Default.ClearAll,

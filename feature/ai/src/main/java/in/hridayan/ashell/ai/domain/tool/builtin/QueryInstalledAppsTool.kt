@@ -7,7 +7,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaProperty
-import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
@@ -22,9 +21,9 @@ class QueryInstalledAppsTool @Inject constructor(
 ) : AiTool {
 
     override val name: String = "query_installed_apps"
-    
+
     override val description: String = "Query the installed applications on the device. Returns a JSON array of apps. Use this instead of running 'pm list packages' via shell to save tokens and get structured data."
-    
+
     override val parametersSchema: ToolSchema = ToolSchema(
         type = "OBJECT",
         properties = mapOf(
@@ -50,7 +49,7 @@ class QueryInstalledAppsTool @Inject constructor(
         val filteredPackages = packages.filter { appInfo ->
             val isSystem = (appInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0
             if (!includeSystemApps && isSystem) return@filter false
-            
+
             if (searchQuery.isNotBlank()) {
                 val label = pm.getApplicationLabel(appInfo).toString()
                 label.contains(searchQuery, ignoreCase = true) || appInfo.packageName.contains(searchQuery, ignoreCase = true)
@@ -61,11 +60,13 @@ class QueryInstalledAppsTool @Inject constructor(
 
         val jsonArray = buildJsonArray {
             for (appInfo in filteredPackages) {
-                add(buildJsonObject {
-                    put("name", pm.getApplicationLabel(appInfo).toString())
-                    put("package", appInfo.packageName)
-                    put("isSystem", (appInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0)
-                })
+                add(
+                    buildJsonObject {
+                        put("name", pm.getApplicationLabel(appInfo).toString())
+                        put("package", appInfo.packageName)
+                        put("isSystem", (appInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0)
+                    }
+                )
             }
         }
 

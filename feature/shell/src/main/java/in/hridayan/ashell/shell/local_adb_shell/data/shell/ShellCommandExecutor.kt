@@ -22,7 +22,7 @@ class ShellCommandExecutor {
     /**
      * Handle cd command and return the command to actually execute.
      * - If it's a pure "cd" command, updates currentDir and returns null.
-     * - If it's a compound command starting with cd (e.g., "cd /data && ls"), 
+     * - If it's a compound command starting with cd (e.g., "cd /data && ls"),
      *   updates currentDir and returns the remaining commands.
      * - Otherwise returns the original command.
      */
@@ -51,7 +51,11 @@ class ShellCommandExecutor {
                 remainingCommand = trimmedCommand.substring(
                     separatorIndex + if (trimmedCommand.substring(separatorIndex)
                             .startsWith(" && ")
-                    ) 4 else 2
+                    ) {
+                        4
+                    } else {
+                        2
+                    }
                 ).trim()
             } else {
                 // Pure cd command
@@ -177,7 +181,6 @@ class ShellCommandExecutor {
             shizukuProcess?.destroy()
             shizukuProcess = null
         }
-
     }
 
     fun exec(process: Process): Flow<OutputLine> = flow {

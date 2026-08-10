@@ -31,7 +31,7 @@ abstract class CommandToolModule {
     abstract fun bindDeleteCommandExampleTool(
         tool: DeleteCommandExampleTool
     ): AiTool
-    
+
     @Binds
     @IntoSet
     abstract fun bindUpdateCommandExampleTool(

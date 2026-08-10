@@ -59,8 +59,8 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
 import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
 import `in`.hridayan.ashell.core.presentation.model.ButtonType
-import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider
+import `in`.hridayan.ashell.core.resources.R
 import kotlinx.coroutines.launch
 
 @Composable
@@ -196,7 +196,6 @@ private fun ExpandedLayoutView(
     }
 
     val items = RadioGroupOptionsProvider.localAdbShellModeOptions
-
 
     Column(
         modifier = modifier,

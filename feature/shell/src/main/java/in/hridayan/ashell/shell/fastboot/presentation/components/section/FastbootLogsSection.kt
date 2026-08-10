@@ -163,8 +163,11 @@ private fun LogEntryCard(
                     .size(10.dp)
                     .clip(CircleShape)
                     .background(
-                        if (isSuccess) MaterialTheme.colorScheme.primary
-                        else MaterialTheme.colorScheme.error
+                        if (isSuccess) {
+                            MaterialTheme.colorScheme.primary
+                        } else {
+                            MaterialTheme.colorScheme.error
+                        }
                     )
             )
 
@@ -192,10 +195,11 @@ private fun LogEntryCard(
                 modifier = Modifier
                     .clip(RoundedCornerShape(8.dp))
                     .background(
-                        if (isSuccess)
+                        if (isSuccess) {
                             MaterialTheme.colorScheme.primaryContainer
-                        else
+                        } else {
                             MaterialTheme.colorScheme.errorContainer
+                        }
                     )
                     .padding(horizontal = 8.dp, vertical = 4.dp)
             ) {
@@ -204,10 +208,11 @@ private fun LogEntryCard(
                     style = MaterialTheme.typography.labelSmall.copy(
                         fontWeight = FontWeight.Bold
                     ),
-                    color = if (isSuccess)
+                    color = if (isSuccess) {
                         MaterialTheme.colorScheme.onPrimaryContainer
-                    else
+                    } else {
                         MaterialTheme.colorScheme.onErrorContainer
+                    }
                 )
             }
         }

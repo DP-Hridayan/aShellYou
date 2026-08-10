@@ -39,9 +39,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import `in`.hridayan.ashell.core.common.domain.model.LogcatWorkingMode
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
-import `in`.hridayan.ashell.core.common.domain.model.LogcatWorkingMode
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.presentation.components.dialog.ShizukuUnavailableDialog
 import `in`.hridayan.ashell.core.resources.R
@@ -132,8 +132,11 @@ fun LogcatScreen(
                 isPreflightChecking = preflightChecking,
                 onSearchToggle = { searchVisible = !searchVisible },
                 onPlayPause = {
-                    if (isRunning) viewModel.stopLogcat()
-                    else tryStartLogcat()
+                    if (isRunning) {
+                        viewModel.stopLogcat()
+                    } else {
+                        tryStartLogcat()
+                    }
                 },
                 onModeClick = { showModeSheet = true },
                 onOpenFilter = { showFilterSheet = true },

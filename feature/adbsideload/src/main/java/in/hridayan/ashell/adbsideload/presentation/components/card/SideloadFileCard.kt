@@ -167,13 +167,15 @@ private fun formatFileSize(bytes: Long): String {
         )
 
         bytes >= 1_048_576L -> String.format(
-            locale.platformLocale, "%.1f MB",
+            locale.platformLocale,
+            "%.1f MB",
             bytes / 1_048_576.0
         )
 
         bytes >= 1024L -> String.format(
             locale.platformLocale,
-            "%.0f KB", bytes / 1024.0
+            "%.0f KB",
+            bytes / 1024.0
         )
 
         else -> "$bytes B"

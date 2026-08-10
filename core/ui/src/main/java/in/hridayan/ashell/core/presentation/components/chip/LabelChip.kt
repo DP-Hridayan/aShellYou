@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.core.presentation.components.chip
+package `in`.hridayan.ashell.core.presentation.components.chip
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -76,4 +76,3 @@ fun LabelChip(
         }
     }
 }
-

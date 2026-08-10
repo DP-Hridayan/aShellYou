@@ -191,14 +191,19 @@ private fun ApiKeySection(
                     enabled = !isVerifying,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    if (isVerifying) LoadingIndicator(
-                        modifier = Modifier.size(ButtonDefaults.IconSize)
-                    )
+                    if (isVerifying) {
+                        LoadingIndicator(
+                            modifier = Modifier.size(ButtonDefaults.IconSize)
+                        )
+                    }
                     Spacer(Modifier.width(ButtonDefaults.IconSpacing))
 
                     Text(
-                        text = if (isVerifying) stringResource(R.string.verifying)
-                        else stringResource(R.string.verify_api_key)
+                        text = if (isVerifying) {
+                            stringResource(R.string.verifying)
+                        } else {
+                            stringResource(R.string.verify_api_key)
+                        }
                     )
                 }
 
@@ -213,7 +218,6 @@ private fun ApiKeySection(
                         }
                     )
                 }
-
             } else {
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
@@ -305,4 +309,3 @@ private fun ApiKeySection(
         }
     }
 }
-

@@ -36,4 +36,3 @@ class GithubDataViewModel @Inject constructor(
         }
     }
 }
-

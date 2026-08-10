@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens
 
-
 import android.annotation.SuppressLint
 import android.os.Build
 import androidx.activity.compose.BackHandler
@@ -65,6 +64,10 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import `in`.hridayan.ashell.core.common.LocalDialogManager
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbConnection
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbDevice
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbEvent
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbState
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.navigation.navigateBack
@@ -81,10 +84,6 @@ import `in`.hridayan.ashell.core.utils.isConnectedToWifi
 import `in`.hridayan.ashell.core.utils.registerNetworkCallback
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
-import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbConnection
-import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbDevice
-import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbEvent
-import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.card.DiscoveredDeviceCard
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ConnectionSuccessDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairConnectFailedDialog
@@ -254,7 +253,8 @@ fun PairingOtherDeviceScreen(
                 },
                 scrollBehavior = scrollBehavior,
             )
-        }) { innerPadding ->
+        }
+    ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -360,9 +360,11 @@ fun PairingOtherDeviceScreen(
                 it.dismiss()
                 WifiAdbConnection.updateState(WifiAdbState.Idle)
                 if (!isWifiConnected) return@ReconnectFailedDialog
-                if (pagerState.currentPage == PairingTab.QrPair.ordinal) viewModel.startQrPairDiscovery(
-                    pairingCode
-                )
+                if (pagerState.currentPage == PairingTab.QrPair.ordinal) {
+                    viewModel.startQrPairDiscovery(
+                        pairingCode
+                    )
+                }
                 if (pagerState.currentPage == PairingTab.CodePair.ordinal) viewModel.startCodePairingDiscovery()
             }
         )

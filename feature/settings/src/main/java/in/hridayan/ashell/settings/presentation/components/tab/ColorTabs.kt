@@ -155,7 +155,6 @@ fun ColorTabs(
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(10.dp),
                         ) {
-
                             groupedPalettes[page].forEach { palette ->
                                 val isChecked =
                                     LocalSeedColor.current.seed == palette.colors.seed
@@ -168,7 +167,6 @@ fun ColorTabs(
                                     isChecked = isChecked && !isDynamicColor && !userGeneratedColorSchemeApplied,
                                 )
                             }
-
                         }
                     }
                 }

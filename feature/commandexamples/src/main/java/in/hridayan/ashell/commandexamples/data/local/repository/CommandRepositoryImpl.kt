@@ -65,7 +65,6 @@ class CommandRepositoryImpl @Inject constructor(
                 .sortedBy { it.lowercase() }
         }
 
-
     override fun getCommandCount(): Int {
         return commandDao.getCommandCount()
     }

@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.components.dialog
 
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -93,9 +92,11 @@ fun AutoBackupTimePickerDialog(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                        showDial = !showDial
-                    }) {
+                    IconButton(
+                        onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                            showDial = !showDial
+                        }
+                    ) {
                         Icon(
                             imageVector = if (showDial) {
                                 Icons.Outlined.Keyboard

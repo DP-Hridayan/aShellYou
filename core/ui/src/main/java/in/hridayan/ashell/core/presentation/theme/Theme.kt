@@ -16,8 +16,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 import `in`.hridayan.ashell.core.common.LocalDarkMode
-import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalUserGeneratedColorScheme
+import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.theme.color.darkColorSchemeFromSeed
 import `in`.hridayan.ashell.core.presentation.theme.color.highContrastDarkColorSchemeFromSeed
@@ -62,14 +62,21 @@ fun AshellYouTheme(
         isUserGeneratedColorSchemeApplied && generatedColorScheme != null && !dynamicColor -> generatedColorScheme.toColorScheme()
 
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            if (darkTheme && isHighContrastDarkTheme) highContrastDynamicDarkColorScheme(context)
-            else if (darkTheme) dynamicDarkColorScheme(context)
-            else dynamicLightColorScheme(context)
+            if (darkTheme && isHighContrastDarkTheme) {
+                highContrastDynamicDarkColorScheme(context)
+            } else if (darkTheme) {
+                dynamicDarkColorScheme(context)
+            } else {
+                dynamicLightColorScheme(context)
+            }
         }
 
         darkTheme -> {
-            if (isHighContrastDarkTheme) highContrastDarkColorSchemeFromSeed()
-            else darkColorSchemeFromSeed()
+            if (isHighContrastDarkTheme) {
+                highContrastDarkColorSchemeFromSeed()
+            } else {
+                darkColorSchemeFromSeed()
+            }
         }
 
         else -> lightColorSchemeFromSeed()

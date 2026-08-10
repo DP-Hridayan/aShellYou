@@ -27,7 +27,6 @@ class SineWaveShape(
         layoutDirection: LayoutDirection,
         density: Density
     ): Outline {
-
         val width = size.width
         val height = size.height
         val path = Path()

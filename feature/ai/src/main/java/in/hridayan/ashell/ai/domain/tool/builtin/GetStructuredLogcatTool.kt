@@ -14,9 +14,9 @@ import javax.inject.Singleton
 class GetStructuredLogcatTool @Inject constructor() : AiTool {
 
     override val name: String = "get_structured_logcat"
-    
+
     override val description: String = "Fetch recent logcat output. Uses 'logcat -d' to safely fetch logs without hanging. Returns raw text logs."
-    
+
     override val parametersSchema: ToolSchema = ToolSchema(
         type = "OBJECT",
         properties = mapOf(
@@ -42,13 +42,15 @@ class GetStructuredLogcatTool @Inject constructor() : AiTool {
         val grepFilter = args?.get("grep_filter")?.jsonPrimitive?.content
 
         return try {
-            val process = Runtime.getRuntime().exec(arrayOf("logcat", "-d", "-v", "threadtime", "-t", maxLines.toString(), logLevel))
+            val process = Runtime.getRuntime().exec(
+                arrayOf("logcat", "-d", "-v", "threadtime", "-t", maxLines.toString(), logLevel)
+            )
             val reader = BufferedReader(InputStreamReader(process.inputStream))
-            
+
             val builder = StringBuilder()
             var line: String?
             var count = 0
-            
+
             while (reader.readLine().also { line = it } != null) {
                 if (grepFilter.isNullOrBlank() || line!!.contains(grepFilter, ignoreCase = true)) {
                     builder.appendLine(line)
@@ -56,9 +58,9 @@ class GetStructuredLogcatTool @Inject constructor() : AiTool {
                     if (count >= maxLines) break
                 }
             }
-            
+
             process.waitFor()
-            
+
             if (builder.isEmpty()) {
                 "No logs found."
             } else {

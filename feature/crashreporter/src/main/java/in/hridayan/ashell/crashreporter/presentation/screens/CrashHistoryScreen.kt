@@ -1,5 +1,6 @@
 @file:OptIn(
-    ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class,
+    ExperimentalMaterial3Api::class,
+    ExperimentalMaterial3ExpressiveApi::class,
     ExperimentalSharedTransitionApi::class
 )
 
@@ -129,7 +130,8 @@ fun CrashHistoryScreen(
                     }
                 }
             }
-        })
+        }
+    )
 }
 
 @Composable
@@ -198,8 +200,8 @@ fun SharedTransitionScope.CrashCard(
             crashViewModel.setSharedElementKey(sharedElementKey)
             crashViewModel.setViewingCrash(crashReport)
             navController.navigate(NavRoutes.CrashDetailsScreen)
-        }) {
-
+        }
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -254,4 +256,3 @@ private fun getCrashTitle(stackTrace: String): String {
 
     return title.replace(Regex("(?<!^)([A-Z])"), " $1").trim()
 }
-

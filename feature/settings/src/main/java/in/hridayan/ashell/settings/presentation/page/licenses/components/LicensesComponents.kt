@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.licenses.components
 
-
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
@@ -250,10 +249,11 @@ fun LibraryListItem(
 
                 Icon(
                     imageVector = if (expanded) Icons.Rounded.ExpandLess else Icons.Rounded.ExpandMore,
-                    contentDescription = if (expanded)
+                    contentDescription = if (expanded) {
                         stringResource(R.string.collapse)
-                    else
-                        stringResource(R.string.expand),
+                    } else {
+                        stringResource(R.string.expand)
+                    },
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.size(20.dp),
                 )
@@ -380,7 +380,3 @@ private fun MetadataRow(
         )
     }
 }
-
-
-
-

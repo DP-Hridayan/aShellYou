@@ -44,7 +44,6 @@ class DownloadRepositoryImpl @Inject constructor(
                 downloadId = dm.enqueue(createRequest(url, file))
 
                 monitorDownload(dm, file, onProgress, isActive)
-
             } catch (e: CancellationException) {
                 cancelDownload()
                 onProgress(DownloadState.Cancelled)

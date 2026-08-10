@@ -74,7 +74,9 @@ class SelfPairingNotificationHelper(private val context: Context) {
             action = ACTION_CANCEL
         }
         val cancelPendingIntent = PendingIntent.getService(
-            context, 0, cancelIntent,
+            context,
+            0,
+            cancelIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
@@ -101,7 +103,9 @@ class SelfPairingNotificationHelper(private val context: Context) {
             action = ACTION_SUBMIT_PAIRING_CODE
         }
         val submitPendingIntent = PendingIntent.getService(
-            context, 1, submitIntent,
+            context,
+            1,
+            submitIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
         )
 
@@ -109,12 +113,16 @@ class SelfPairingNotificationHelper(private val context: Context) {
             action = ACTION_CANCEL
         }
         val cancelPendingIntent = PendingIntent.getService(
-            context, 2, cancelIntent,
+            context,
+            2,
+            cancelIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
         val submitAction = NotificationCompat.Action.Builder(
-            R.drawable.ic_check, context.getString(R.string.enter), submitPendingIntent
+            R.drawable.ic_check,
+            context.getString(R.string.enter),
+            submitPendingIntent
         ).addRemoteInput(remoteInput).build()
 
         return NotificationCompat.Builder(context, CHANNEL_ID)
@@ -146,7 +154,9 @@ class SelfPairingNotificationHelper(private val context: Context) {
         val openAppIntent =
             Intent(context, Class.forName("in.hridayan.ashell.activities.MainActivity"))
         val openAppPendingIntent = PendingIntent.getActivity(
-            context, 3, openAppIntent,
+            context,
+            3,
+            openAppIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 

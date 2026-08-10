@@ -46,7 +46,9 @@ class LogcatNotificationHelper(private val context: Context) {
                 flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
             } ?: Intent()
         val openAppPendingIntent = PendingIntent.getActivity(
-            context, 0, openAppIntent,
+            context,
+            0,
+            openAppIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
@@ -54,7 +56,9 @@ class LogcatNotificationHelper(private val context: Context) {
             action = ACTION_STOP
         }
         val stopPendingIntent = PendingIntent.getService(
-            context, 1, stopIntent,
+            context,
+            1,
+            stopIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 

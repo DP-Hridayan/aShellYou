@@ -1,14 +1,18 @@
 package `in`.hridayan.ashell.core.common.domain.repository
 
-import `in`.hridayan.ashell.core.common.domain.model.ai.AnalysisResult
 import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
+import `in`.hridayan.ashell.core.common.domain.model.ai.AnalysisResult
 
 /**
  * Repository interface for AI command analysis operations.
  */
 interface AiAnalysisRepository {
     /** Analyze a command using the hybrid pipeline (cache â†’ heuristics â†’ AI) */
-    suspend fun analyzeCommand(command: String, ragContext: String = "", fallbackModels: List<String>? = null): AnalysisResult
+    suspend fun analyzeCommand(
+        command: String,
+        ragContext: String = "",
+        fallbackModels: List<String>? = null
+    ): AnalysisResult
 
     /** Query the AI with a specific command and set of available tools */
     suspend fun queryCommand(query: String, tools: List<AiTool>, fallbackModels: List<String>? = null): AnalysisResult

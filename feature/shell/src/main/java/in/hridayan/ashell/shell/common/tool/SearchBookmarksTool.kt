@@ -48,10 +48,12 @@ class SearchBookmarksTool @Inject constructor(
 
         val jsonArray = buildJsonArray {
             for (bm in filtered) {
-                add(buildJsonObject {
-                    put("id", bm.id)
-                    put("command", bm.command)
-                })
+                add(
+                    buildJsonObject {
+                        put("id", bm.id)
+                        put("command", bm.command)
+                    }
+                )
             }
         }
 

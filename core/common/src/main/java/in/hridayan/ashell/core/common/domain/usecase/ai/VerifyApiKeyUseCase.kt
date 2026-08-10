@@ -1,12 +1,11 @@
 package `in`.hridayan.ashell.core.common.domain.usecase.ai
 
-import `in`.hridayan.ashell.core.common.domain.provider.LlmProviderClient
+import `in`.hridayan.ashell.core.common.constants.AiModelConstants
 import `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException
 import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
+import `in`.hridayan.ashell.core.common.domain.provider.LlmProviderClient
 import javax.inject.Inject
 import javax.inject.Singleton
-
-import `in`.hridayan.ashell.core.common.constants.AiModelConstants
 
 @Singleton
 class VerifyApiKeyUseCase @Inject constructor(
@@ -18,7 +17,7 @@ class VerifyApiKeyUseCase @Inject constructor(
      */
     suspend operator fun invoke(provider: LlmProvider, apiKey: String): Boolean {
         val client = clients[provider] ?: throw CloudNetworkException.ProviderNotConfigured(provider)
-        
+
         val models = if (provider == LlmProvider.Gemini) {
             AiModelConstants.geminiModelsLowestToHighest
         } else {
@@ -53,9 +52,8 @@ class VerifyApiKeyUseCase @Inject constructor(
                 throw e
             }
         }
-        
+
         // If all models failed with RateLimited/ServerError, throw the last exception
         throw lastException ?: CloudNetworkException.ProviderNotConfigured(provider)
     }
 }
-

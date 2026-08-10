@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog
 
-
 import android.os.Build
 import android.widget.Toast
 import androidx.compose.foundation.interaction.MutableInteractionSource

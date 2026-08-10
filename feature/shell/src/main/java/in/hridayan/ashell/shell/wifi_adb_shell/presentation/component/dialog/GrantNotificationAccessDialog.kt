@@ -27,8 +27,6 @@ fun GrantNotificationAccessDialog(
     onDismiss: () -> Unit = {},
     onConfirm: () -> Unit = {}
 ) {
-
-
     Dialog(
         onDismissRequest = { onDismiss() },
         properties = DialogProperties(dismissOnClickOutside = true)

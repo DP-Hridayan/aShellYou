@@ -121,10 +121,12 @@ fun SettingsSearchScreen(
                     },
                     trailingIcon = {
                         if (query.isNotEmpty()) {
-                            IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                                textFieldValue = TextFieldValue("")
-                                viewModel.onQueryChanged("")
-                            }) {
+                            IconButton(
+                                onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                                    textFieldValue = TextFieldValue("")
+                                    viewModel.onQueryChanged("")
+                                }
+                            ) {
                                 Icon(
                                     imageVector = Icons.Rounded.Close,
                                     contentDescription = null
@@ -162,15 +164,18 @@ fun SettingsSearchScreen(
                             style = MaterialTheme.typography.labelLarge,
                             color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.padding(
-                                start = 20.dp, end = 20.dp,
-                                top = 16.dp, bottom = 4.dp,
+                                start = 20.dp,
+                                end = 20.dp,
+                                top = 16.dp,
+                                bottom = 4.dp,
                             ),
                         )
                     }
 
                     items(
                         entries,
-                        key = { "result_${it.screenId}_${it.key.name}" }) { entry ->
+                        key = { "result_${it.screenId}_${it.key.name}" }
+                    ) { entry ->
                         SearchResultRow(
                             entry = entry,
                             isRecent = false,
@@ -231,7 +236,8 @@ fun SettingsSearchScreen(
 
                     items(
                         recentEntries,
-                        key = { "recent_${it.screenId}_${it.key.name}" }) { entry ->
+                        key = { "recent_${it.screenId}_${it.key.name}" }
+                    ) { entry ->
                         SearchResultRow(
                             entry = entry,
                             isRecent = true,
@@ -326,11 +332,3 @@ private fun SearchSomethingUi(
         )
     }
 }
-
-
-
-
-
-
-
-

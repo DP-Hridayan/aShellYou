@@ -33,16 +33,22 @@ class CheckLogcatPreflightUseCase @Inject constructor(
     @ApplicationContext private val context: Context,
 ) {
     suspend fun check(mode: Int): LogcatPreflightResult = when (mode) {
-
         LogcatWorkingMode.BASIC -> {
-            if (LogcatPermissionHelper.hasReadLogsPermission(context)) Ready
-            else NeedsReadLogs
+            if (LogcatPermissionHelper.hasReadLogsPermission(context)) {
+                Ready
+            } else {
+                NeedsReadLogs
+            }
         }
 
         LogcatWorkingMode.SHIZUKU -> {
-            if (!Shizuku.pingBinder()) ShizukuUnavailable
-            else if (!shellRepository.hasShizukuPermission()) ShizukuPermissionDenied
-            else Ready
+            if (!Shizuku.pingBinder()) {
+                ShizukuUnavailable
+            } else if (!shellRepository.hasShizukuPermission()) {
+                ShizukuPermissionDenied
+            } else {
+                Ready
+            }
         }
 
         LogcatWorkingMode.ROOT -> {
@@ -53,8 +59,11 @@ class CheckLogcatPreflightUseCase @Inject constructor(
         LogcatWorkingMode.WIRELESS -> {
             val device = WifiAdbConnection.currentDevice.value
             val state = WifiAdbConnection.currentState
-            if (device?.isOwnDevice == true && state is WifiAdbState.Connected) Ready
-            else WirelessNotConnected
+            if (device?.isOwnDevice == true && state is WifiAdbState.Connected) {
+                Ready
+            } else {
+                WirelessNotConnected
+            }
         }
 
         else -> Ready

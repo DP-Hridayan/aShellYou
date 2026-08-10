@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.home.presentation.component.card
 
-
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

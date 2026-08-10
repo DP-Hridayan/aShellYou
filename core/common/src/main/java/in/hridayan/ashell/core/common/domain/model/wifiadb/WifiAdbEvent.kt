@@ -2,11 +2,11 @@ package `in`.hridayan.ashell.core.common.domain.model.wifiadb
 
 /**
  * One-shot events for WiFi ADB operations.
- * 
+ *
  * Unlike [WifiAdbState] which represents persistent conditions (Connected, Disconnected, etc.),
  * these events are consumed once and should not persist. Use `SharedFlow` with `replay=0`
  * to collect these events in the UI layer.
- * 
+ *
  * ## Usage in Compose:
  * ```kotlin
  * LaunchedEffect(Unit) {
@@ -66,7 +66,6 @@ sealed class WifiAdbEvent {
         val deviceId: String,
         val requiresPairing: Boolean = false
     ) : WifiAdbEvent()
-
 
     /**
      * Pairing with a device succeeded.

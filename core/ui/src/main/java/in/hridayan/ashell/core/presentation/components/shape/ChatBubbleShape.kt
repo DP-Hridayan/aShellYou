@@ -44,8 +44,10 @@ class ChatBubbleShape(
 
             // Concave curve swooping from the tip smoothly into the bottom edge
             quadraticTo(
-                x1 = w, y1 = bodyH, // Control point for perfect tangent transition
-                x2 = w - tailW, y2 = bodyH
+                x1 = w,
+                y1 = bodyH, // Control point for perfect tangent transition
+                x2 = w - tailW,
+                y2 = bodyH
             )
 
             // Bottom edge

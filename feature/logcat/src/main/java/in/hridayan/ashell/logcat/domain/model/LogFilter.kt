@@ -70,7 +70,8 @@ fun LogFilter.matches(entry: LogEntry): Boolean {
             // Query exclusion: hide if the query matches
             val queryExcluded = searchQuery.isNotBlank() && (
                     entry.message.contains(searchQuery, ignoreCase = true) ||
-                            entry.tag.contains(searchQuery, ignoreCase = true))
+                            entry.tag.contains(searchQuery, ignoreCase = true)
+                    )
             // Field exclusion: hide if any non-empty field set matches
             val fieldExcluded = (pids.isNotEmpty() && entry.pid in pids) ||
                     (tids.isNotEmpty() && entry.tid in tids) ||

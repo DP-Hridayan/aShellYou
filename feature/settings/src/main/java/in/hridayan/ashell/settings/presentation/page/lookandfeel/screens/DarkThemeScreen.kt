@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens
 
-
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -71,7 +70,8 @@ fun DarkThemeScreen(
             ) {
                 settingsContent(
                     groups = resolvedGroups,
-                    viewModel = settingsViewModel, prefs = prefs,
+                    viewModel = settingsViewModel,
+                    prefs = prefs,
                     hapticsEnabled = hapticsEnabled
                 )
 
@@ -86,9 +86,3 @@ fun DarkThemeScreen(
         },
     )
 }
-
-
-
-
-
-

@@ -87,7 +87,8 @@ fun AiChatDrawerUI(
             onClick = withHaptic {
                 viewModel.onNewChat()
                 scope.launch { drawerState.close() }
-            })
+            }
+        )
 
         Spacer(modifier = Modifier.height(15.dp))
 

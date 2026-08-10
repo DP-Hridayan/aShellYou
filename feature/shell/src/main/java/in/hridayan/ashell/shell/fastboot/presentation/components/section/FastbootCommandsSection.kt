@@ -153,10 +153,11 @@ private fun PredefinedCommandCard(
         modifier = modifier.fillMaxWidth(),
         shape = CustomCardShape(20.dp),
         colors = CardDefaults.cardColors(
-            containerColor = if (isRunning)
+            containerColor = if (isRunning) {
                 MaterialTheme.colorScheme.secondaryContainer
-            else
+            } else {
                 MaterialTheme.colorScheme.surfaceContainer
+            }
         )
     ) {
         Row(
@@ -177,14 +178,16 @@ private fun PredefinedCommandCard(
                 },
                 enabled = enabled,
                 colors = IconButtonDefaults.filledIconButtonColors(
-                    containerColor = if (isRunning)
+                    containerColor = if (isRunning) {
                         MaterialTheme.colorScheme.secondary
-                    else
-                        MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = if (isRunning)
+                    } else {
+                        MaterialTheme.colorScheme.primaryContainer
+                    },
+                    contentColor = if (isRunning) {
                         MaterialTheme.colorScheme.onSecondary
-                    else
-                        MaterialTheme.colorScheme.onPrimaryContainer,
+                    } else {
+                        MaterialTheme.colorScheme.onPrimaryContainer
+                    },
                     disabledContainerColor = MaterialTheme.colorScheme.surfaceContainerHighest,
                     disabledContentColor = MaterialTheme.colorScheme.outline
                 ),
@@ -194,9 +197,13 @@ private fun PredefinedCommandCard(
             ) {
                 Icon(
                     imageVector = if (isRunning) Icons.Default.Pause else Icons.Default.PlayArrow,
-                    contentDescription = if (isRunning) stringResource(R.string.cancel) else stringResource(
-                        R.string.run
-                    ),
+                    contentDescription = if (isRunning) {
+                        stringResource(R.string.cancel)
+                    } else {
+                        stringResource(
+                            R.string.run
+                        )
+                    },
                     modifier = Modifier.size(20.dp)
                 )
             }
@@ -207,10 +214,11 @@ private fun PredefinedCommandCard(
                     style = MaterialTheme.typography.bodyMedium.copy(
                         fontWeight = FontWeight.SemiBold
                     ),
-                    color = if (isRunning)
+                    color = if (isRunning) {
                         MaterialTheme.colorScheme.onSecondaryContainer
-                    else
-                        MaterialTheme.colorScheme.onSurface,
+                    } else {
+                        MaterialTheme.colorScheme.onSurface
+                    },
                     maxLines = 1
                 )
                 Text(

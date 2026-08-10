@@ -22,25 +22,32 @@ fun OutputLineText(
     textStyle: TextStyle,
     onTextLayout: (TextLayoutResult) -> Unit = {}
 ) {
-    val text = if (!states.search.isVisible) line.text else line.text.takeIf {
-        line.text.contains(
-            states.search.textFieldValue.text,
-            ignoreCase = true
-        )
+    val text = if (!states.search.isVisible) {
+        line.text
+    } else {
+        line.text.takeIf {
+            line.text.contains(
+                states.search.textFieldValue.text,
+                ignoreCase = true
+            )
+        }
     }
 
     val isCommandLine = text?.startsWith("$ ")
 
     val lineColor = MaterialTheme.colorScheme.run {
-        if (isCommandLine == true) primary
-        else if (line.isError) error
-        else onSurface
+        if (isCommandLine == true) {
+            primary
+        } else if (line.isError) {
+            error
+        } else {
+            onSurface
+        }
     }
 
     text?.let {
         val annotatedText =
             if (states.search.isVisible && !states.search.textFieldValue.text.isBlank()) {
-
                 val highlightBgColor = MaterialTheme.colorScheme.run {
                     if (line.isError) errorContainer else primaryContainer
                 }
@@ -67,10 +74,14 @@ fun OutputLineText(
             modifier = Modifier
                 .fillMaxWidth()
                 .then(
-                    if (isCommandLine == true) Modifier.padding(
-                        top = 20.dp,
-                        bottom = 10.dp
-                    ) else Modifier
+                    if (isCommandLine == true) {
+                        Modifier.padding(
+                            top = 20.dp,
+                            bottom = 10.dp
+                        )
+                    } else {
+                        Modifier
+                    }
                 )
                 .then(modifier)
         )

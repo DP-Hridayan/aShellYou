@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.languages.screens
 
-
 import android.content.Intent
 import android.os.Build
 import android.provider.Settings
@@ -147,11 +146,15 @@ fun LanguagesScreen(
                 // Locale list
                 itemsIndexed(
                     allLocales,
-                    key = { _, locale -> "locale_${locale.tag}" }) { index, locale ->
+                    key = { _, locale -> "locale_${locale.tag}" }
+                ) { index, locale ->
                     val isSelected = locale.tag == currentTag
 
-                    val shape = if (isSelected) CustomCardShape(50)
-                    else getRoundedShape(index, allLocales.size)
+                    val shape = if (isSelected) {
+                        CustomCardShape(50)
+                    } else {
+                        getRoundedShape(index, allLocales.size)
+                    }
 
                     LocaleCard(
                         locale = locale,
@@ -255,8 +258,11 @@ private fun LocaleCard(
                             if (isSelected) onPrimaryContainer else primary
                         },
                         trackColor = MaterialTheme.colorScheme.run {
-                            if (isSelected) onPrimaryContainer.copy(alpha = 0.2f)
-                            else primary.copy(alpha = 0.15f)
+                            if (isSelected) {
+                                onPrimaryContainer.copy(alpha = 0.2f)
+                            } else {
+                                primary.copy(alpha = 0.15f)
+                            }
                         },
                         strokeWidth = 3.dp
                     )
@@ -273,10 +279,3 @@ private fun LocaleCard(
         }
     }
 }
-
-
-
-
-
-
-

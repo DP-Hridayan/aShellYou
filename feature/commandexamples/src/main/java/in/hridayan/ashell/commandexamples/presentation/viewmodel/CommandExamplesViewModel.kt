@@ -158,7 +158,6 @@ class CommandExamplesViewModel @Inject constructor(
                 emptyList()
             )
 
-
     fun onSearchQueryChange(newValue: TextFieldValue) = with(_states.value) {
         _states.value = this.copy(
             search = search.copy(textFieldValue = newValue)
@@ -250,7 +249,6 @@ class CommandExamplesViewModel @Inject constructor(
         }
         _filteredLabels.value = current.distinct().sortedBy { it.lowercase() }
     }
-
 
     fun getCommandCount(): Int {
         var count = 0

@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.about.screens
 
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -49,9 +48,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
-import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.core.presentation.components.animatedcomposables.AnimatedAdbIcon
@@ -178,14 +177,16 @@ fun AboutScreen(
                                 icon = painterResource(R.drawable.ic_telegram),
                                 title = stringResource(R.string.telegram),
                                 description = stringResource(R.string.discussions),
-                                onClick = { openUrl(UrlConst.URL_TELEGRAM_CHANNEL, context) })
+                                onClick = { openUrl(UrlConst.URL_TELEGRAM_CHANNEL, context) }
+                            )
                             AppHandlesChip(
                                 icon = painterResource(R.drawable.ic_github),
                                 title = stringResource(R.string.github),
                                 description = stringResource(R.string.repository),
                                 containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                                 contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
-                                onClick = { openUrl(UrlConst.URL_GITHUB_REPO, context) })
+                                onClick = { openUrl(UrlConst.URL_GITHUB_REPO, context) }
+                            )
                             AppHandlesChip(
                                 icon = painterResource(R.drawable.ic_version_tag),
                                 title = context.packageManager.getPackageInfo(
@@ -195,21 +196,24 @@ fun AboutScreen(
                                 description = stringResource(R.string.current_version),
                                 containerColor = MaterialTheme.colorScheme.secondaryContainer,
                                 contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                                onClick = { openUrl(UrlConst.URL_GITHUB_RELEASES, context) })
+                                onClick = { openUrl(UrlConst.URL_GITHUB_RELEASES, context) }
+                            )
                             AppHandlesChip(
                                 icon = painterResource(R.drawable.ic_license),
                                 title = stringResource(R.string.gpl_3_0),
                                 description = stringResource(R.string.license),
                                 containerColor = MaterialTheme.colorScheme.errorContainer,
                                 contentColor = MaterialTheme.colorScheme.onErrorContainer,
-                                onClick = { openUrl(UrlConst.URL_GITHUB_REPO_LICENSE, context) })
+                                onClick = { openUrl(UrlConst.URL_GITHUB_REPO_LICENSE, context) }
+                            )
                             AppHandlesChip(
                                 icon = painterResource(R.drawable.ic_crowdin),
                                 title = stringResource(R.string.crowdin),
                                 description = stringResource(R.string.translations),
                                 containerColor = MaterialTheme.colorScheme.surfaceVariant,
                                 contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                                onClick = { openUrl(UrlConst.URL_CROWDIN_PROJECT, context) })
+                                onClick = { openUrl(UrlConst.URL_CROWDIN_PROJECT, context) }
+                            )
                         }
                     }
                 }
@@ -264,7 +268,8 @@ fun AboutScreen(
 
                 settingsContent(
                     groups = resolvedGroups,
-                    viewModel = settingsViewModel, prefs = prefs,
+                    viewModel = settingsViewModel,
+                    prefs = prefs,
                     hapticsEnabled = hapticsEnabled
                 )
 
@@ -316,9 +321,3 @@ private fun AppHandlesChip(
         }
     }
 }
-
-
-
-
-
-

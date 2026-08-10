@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.shell.file_browser.presentation.screens
 
-
 import android.net.Uri
 import android.provider.OpenableColumns
 import androidx.activity.compose.BackHandler
@@ -231,9 +230,11 @@ fun FileBrowserScreen(
                             actionIconContentColor = MaterialTheme.colorScheme.onSurface
                         ),
                         navigationIcon = {
-                            IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                                viewModel.exitSelectionMode()
-                            }) {
+                            IconButton(
+                                onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                                    viewModel.exitSelectionMode()
+                                }
+                            ) {
                                 Icon(Icons.Rounded.Close, contentDescription = "Cancel")
                             }
                         },
@@ -250,17 +251,22 @@ fun FileBrowserScreen(
                                 }
                             ) {
                                 Icon(
-                                    painter = if (allSelected) painterResource(R.drawable.ic_deselect_all)
-                                    else painterResource(R.drawable.ic_select_all),
+                                    painter = if (allSelected) {
+                                        painterResource(R.drawable.ic_deselect_all)
+                                    } else {
+                                        painterResource(R.drawable.ic_select_all)
+                                    },
                                     contentDescription = if (allSelected) "Deselect all" else "Select all"
                                 )
                             }
 
                             // Hide download in OTG mode (file transfers not supported)
                             if (connectionMode != AdbFileBrowserConnectionMode.OTG_ADB) {
-                                IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                                    viewModel.downloadSelectedFiles()
-                                }) {
+                                IconButton(
+                                    onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                                        viewModel.downloadSelectedFiles()
+                                    }
+                                ) {
                                     Icon(
                                         imageVector = Icons.Rounded.Download,
                                         contentDescription = "Download"
@@ -268,46 +274,52 @@ fun FileBrowserScreen(
                                 }
                             }
 
-                            IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                                val selectedPaths = viewModel.getSelectedFilePaths()
-                                if (selectedPaths.isNotEmpty()) {
-                                    clipboardPaths = selectedPaths
-                                    clipboardOperation = ClipboardOperation.COPY_BATCH
-                                    clipboardFile =
-                                        state.files.find { it.path == selectedPaths.first() }
-                                    showToast(
-                                        context,
-                                        res.getString(R.string.copied_items, selectedPaths.size)
-                                    )
-                                    viewModel.exitSelectionMode()
+                            IconButton(
+                                onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                                    val selectedPaths = viewModel.getSelectedFilePaths()
+                                    if (selectedPaths.isNotEmpty()) {
+                                        clipboardPaths = selectedPaths
+                                        clipboardOperation = ClipboardOperation.COPY_BATCH
+                                        clipboardFile =
+                                            state.files.find { it.path == selectedPaths.first() }
+                                        showToast(
+                                            context,
+                                            res.getString(R.string.copied_items, selectedPaths.size)
+                                        )
+                                        viewModel.exitSelectionMode()
+                                    }
                                 }
-                            }) {
+                            ) {
                                 Icon(Icons.Rounded.ContentCopy, contentDescription = "Copy")
                             }
 
-                            IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                                val selectedPaths = viewModel.getSelectedFilePaths()
-                                if (selectedPaths.isNotEmpty()) {
-                                    clipboardPaths = selectedPaths
-                                    clipboardOperation = ClipboardOperation.MOVE_BATCH
-                                    clipboardFile =
-                                        state.files.find { it.path == selectedPaths.first() }
-                                    showToast(
-                                        context,
-                                        res.getString(R.string.cut_items, selectedPaths.size)
-                                    )
-                                    viewModel.exitSelectionMode()
+                            IconButton(
+                                onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                                    val selectedPaths = viewModel.getSelectedFilePaths()
+                                    if (selectedPaths.isNotEmpty()) {
+                                        clipboardPaths = selectedPaths
+                                        clipboardOperation = ClipboardOperation.MOVE_BATCH
+                                        clipboardFile =
+                                            state.files.find { it.path == selectedPaths.first() }
+                                        showToast(
+                                            context,
+                                            res.getString(R.string.cut_items, selectedPaths.size)
+                                        )
+                                        viewModel.exitSelectionMode()
+                                    }
                                 }
-                            }) {
+                            ) {
                                 Icon(
                                     Icons.AutoMirrored.Rounded.DriveFileMove,
                                     contentDescription = "Move"
                                 )
                             }
 
-                            IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                                showDeleteDialog = true
-                            }) {
+                            IconButton(
+                                onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                                    showDeleteDialog = true
+                                }
+                            ) {
                                 Icon(
                                     Icons.Rounded.Delete,
                                     contentDescription = "Delete",
@@ -333,13 +345,15 @@ fun FileBrowserScreen(
                             actionIconContentColor = MaterialTheme.colorScheme.onSurface
                         ),
                         navigationIcon = {
-                            IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                                if (isAtHome) {
-                                    navController.navigateBack()
-                                } else {
-                                    viewModel.navigateUp()
+                            IconButton(
+                                onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                                    if (isAtHome) {
+                                        navController.navigateBack()
+                                    } else {
+                                        viewModel.navigateUp()
+                                    }
                                 }
-                            }) {
+                            ) {
                                 Icon(
                                     imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
                                     contentDescription = "Back"
@@ -347,14 +361,18 @@ fun FileBrowserScreen(
                             }
                         },
                         actions = {
-                            IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                                navController.navigateBack()
-                            }) {
+                            IconButton(
+                                onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                                    navController.navigateBack()
+                                }
+                            ) {
                                 Icon(Icons.Rounded.Home, contentDescription = "Home")
                             }
-                            IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                                viewModel.refresh()
-                            }) {
+                            IconButton(
+                                onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                                    viewModel.refresh()
+                                }
+                            ) {
                                 Icon(Icons.Rounded.Refresh, contentDescription = "Refresh")
                             }
                         }
@@ -401,13 +419,15 @@ fun FileBrowserScreen(
                                         color = MaterialTheme.colorScheme.error
                                     )
                                     Spacer(modifier = Modifier.height(8.dp))
-                                    TextButton(onClick = withHaptic {
-                                        if (isWifiConnected) {
-                                            viewModel.silentReconnectAndRefresh()
-                                        } else {
-                                            viewModel.refresh()
+                                    TextButton(
+                                        onClick = withHaptic {
+                                            if (isWifiConnected) {
+                                                viewModel.silentReconnectAndRefresh()
+                                            } else {
+                                                viewModel.refresh()
+                                            }
                                         }
-                                    }) {
+                                    ) {
                                         Text(stringResource(R.string.retry))
                                     }
                                 }
@@ -515,30 +535,31 @@ fun FileBrowserScreen(
                                         }
                                     }
 
-
-                                    if (isEmpty) Column(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .align(Alignment.Center)
-                                            .padding(bottom = 45.dp),
-                                        horizontalAlignment = Alignment.CenterHorizontally,
-                                        verticalArrangement = Arrangement.spacedBy(30.dp)
-                                    ) {
-                                        Image(
+                                    if (isEmpty) {
+                                        Column(
                                             modifier = Modifier
                                                 .fillMaxWidth()
-                                                .padding(horizontal = 40.dp),
-                                            imageVector = DynamicColorImageVectors.undrawDreamer(),
-                                            contentDescription = null
-                                        )
+                                                .align(Alignment.Center)
+                                                .padding(bottom = 45.dp),
+                                            horizontalAlignment = Alignment.CenterHorizontally,
+                                            verticalArrangement = Arrangement.spacedBy(30.dp)
+                                        ) {
+                                            Image(
+                                                modifier = Modifier
+                                                    .fillMaxWidth()
+                                                    .padding(horizontal = 40.dp),
+                                                imageVector = DynamicColorImageVectors.undrawDreamer(),
+                                                contentDescription = null
+                                            )
 
-                                        Text(
-                                            text = stringResource(R.string.empty_folder),
-                                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(
-                                                alpha = 0.9f
-                                            ),
-                                            style = MaterialTheme.typography.bodyLarge
-                                        )
+                                            Text(
+                                                text = stringResource(R.string.empty_folder),
+                                                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(
+                                                    alpha = 0.9f
+                                                ),
+                                                style = MaterialTheme.typography.bodyLarge
+                                            )
+                                        }
                                     }
                                 } // End Box
                             } // End PullToRefreshBox
@@ -686,11 +707,13 @@ fun FileBrowserScreen(
                     val operationText = when {
                         clipboardOperation?.isCopy == true -> stringResource(
                             R.string.copying_items,
-                            clipboardPaths.size.takeIf { it > 0 } ?: 1)
+                            clipboardPaths.size.takeIf { it > 0 } ?: 1
+                        )
 
                         clipboardOperation?.isMove == true -> stringResource(
                             R.string.moving_items,
-                            clipboardPaths.size.takeIf { it > 0 } ?: 1)
+                            clipboardPaths.size.takeIf { it > 0 } ?: 1
+                        )
 
                         else -> stringResource(R.string.ready_to_paste)
                     }
@@ -856,8 +879,11 @@ fun FileBrowserScreen(
         val deleteTitle = if (isSelectionDelete) {
             stringResource(R.string.delete_items_title, deleteCount)
         } else {
-            if (fileToDelete?.isDirectory == true) stringResource(R.string.delete_folder)
-            else stringResource(R.string.delete_file)
+            if (fileToDelete?.isDirectory == true) {
+                stringResource(R.string.delete_folder)
+            } else {
+                stringResource(R.string.delete_file)
+            }
         }
         val deleteMessage = if (isSelectionDelete) {
             stringResource(R.string.delete_items_message, deleteCount)

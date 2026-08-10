@@ -21,9 +21,9 @@ class LogcatEmitterFactory @Inject constructor(
     val wifiAdb: WifiAdbLogcatEmitter,
 ) {
     fun forMode(mode: Int): LogcatEmitter = when (mode) {
-        LogcatWorkingMode.SHIZUKU  -> shizuku
-        LogcatWorkingMode.ROOT     -> root
+        LogcatWorkingMode.SHIZUKU -> shizuku
+        LogcatWorkingMode.ROOT -> root
         LogcatWorkingMode.WIRELESS -> wireless
-        else                       -> basic
+        else -> basic
     }
 }

@@ -1,7 +1,7 @@
 package `in`.hridayan.ashell.core.common.domain.usecase.ai
 
-import `in`.hridayan.ashell.core.common.domain.model.ai.AnalysisResult
 import `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException
+import `in`.hridayan.ashell.core.common.domain.model.ai.AnalysisResult
 import `in`.hridayan.ashell.core.common.domain.repository.CloudAnalysisRepository
 import `in`.hridayan.ashell.core.common.domain.repository.CommandRepository
 import kotlinx.coroutines.flow.firstOrNull
@@ -44,4 +44,3 @@ class AnalyzeCommandWithCloudUseCase @Inject constructor(
         const val MAX_COMMAND_LENGTH = 4000
     }
 }
-

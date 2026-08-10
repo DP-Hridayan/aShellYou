@@ -88,7 +88,8 @@ fun AnimatedAdbIcon(
     val idle = rememberInfiniteTransition(label = "idle")
 
     val iHeadY = idle.animateFloat(
-        initialValue = 0f, targetValue = -1f,
+        initialValue = 0f,
+        targetValue = -1f,
         animationSpec = infiniteRepeatable(
             tween(idleHeadBobDuration, easing = FastOutSlowInEasing),
             RepeatMode.Reverse,
@@ -96,7 +97,8 @@ fun AnimatedAdbIcon(
         label = "headBob",
     )
     val iHeadSway = idle.animateFloat(
-        initialValue = -1.5f, targetValue = 1.5f,
+        initialValue = -1.5f,
+        targetValue = 1.5f,
         animationSpec = infiniteRepeatable(
             tween(idleHeadSwayDuration, easing = LinearEasing),
             RepeatMode.Reverse,
@@ -104,7 +106,8 @@ fun AnimatedAdbIcon(
         label = "headSway",
     )
     val iAntenna = idle.animateFloat(
-        initialValue = -5f, targetValue = 5f,
+        initialValue = -5f,
+        targetValue = 5f,
         animationSpec = infiniteRepeatable(
             tween(idleAntennaDuration, easing = FastOutSlowInEasing),
             RepeatMode.Reverse,
@@ -112,7 +115,8 @@ fun AnimatedAdbIcon(
         label = "antennaSway",
     )
     val iEyeBlink = idle.animateFloat(
-        initialValue = 1f, targetValue = 1f,
+        initialValue = 1f,
+        targetValue = 1f,
         animationSpec = infiniteRepeatable(
             animation = keyframes {
                 durationMillis = idleBlinkCycleDuration
@@ -127,7 +131,8 @@ fun AnimatedAdbIcon(
         label = "eyeBlink",
     )
     val iBodyScale = idle.animateFloat(
-        initialValue = 1f, targetValue = 1.025f,
+        initialValue = 1f,
+        targetValue = 1.025f,
         animationSpec = infiniteRepeatable(
             tween(idleBodyBreatheDuration, easing = FastOutSlowInEasing),
             RepeatMode.Reverse,

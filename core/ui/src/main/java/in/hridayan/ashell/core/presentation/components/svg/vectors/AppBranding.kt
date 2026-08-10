@@ -1,7 +1,6 @@
 package `in`.hridayan.ashell.core.presentation.components.svg.vectors
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.offset
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -90,14 +89,16 @@ fun DynamicColorImageVectors.appBranding(
 @Preview
 @Composable
 private fun Preview() {
-    val painter = rememberVectorPainter(DynamicColorImageVectors.appBranding(
-        defaultWidth = 200.dp,
-        defaultHeight = 60.dp,
-        viewportWidth = 200f,
-        viewportHeight = 60f
-    ))
+    val painter = rememberVectorPainter(
+        DynamicColorImageVectors.appBranding(
+            defaultWidth = 200.dp,
+            defaultHeight = 60.dp,
+            viewportWidth = 200f,
+            viewportHeight = 60f
+        )
+    )
     Image(
-        modifier = Modifier.graphicsLayer{
+        modifier = Modifier.graphicsLayer {
             translationY = -10.dp.toPx()
         },
         painter = painter,

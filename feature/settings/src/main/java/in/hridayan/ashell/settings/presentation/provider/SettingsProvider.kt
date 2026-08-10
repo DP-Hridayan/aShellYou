@@ -1,6 +1,5 @@
 package `in`.hridayan.ashell.settings.presentation.provider
 
-
 import android.os.Build
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AutoAwesome

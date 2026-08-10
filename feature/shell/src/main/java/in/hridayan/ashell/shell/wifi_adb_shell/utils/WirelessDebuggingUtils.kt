@@ -216,7 +216,8 @@ object WirelessDebuggingUtils {
             val granted = hasWriteSecureSettingsPermission(context)
             val outputStr = output.toString().trim()
             Log.d(
-                TAG, "Permission grant result: $granted" +
+                TAG,
+                "Permission grant result: $granted" +
                         if (outputStr.isNotEmpty()) ", output: $outputStr" else ""
             )
             granted

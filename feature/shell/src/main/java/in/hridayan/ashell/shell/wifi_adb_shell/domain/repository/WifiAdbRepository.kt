@@ -2,12 +2,12 @@ package `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository
 
 import android.graphics.Bitmap
 import `in`.hridayan.ashell.core.common.domain.model.OutputLine
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl.ConnectionListener
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl.MdnsDiscoveryCallback
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl.PairingListener
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl.ReconnectListener
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.DiscoveredPairingService
-import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbDevice
 import kotlinx.coroutines.flow.Flow
 
 interface WifiAdbRepository {

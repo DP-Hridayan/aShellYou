@@ -101,7 +101,6 @@ fun AiAnalysisBottomSheet(
                 )
             }
 
-
             is AiAnalysisUiState.Idle -> {
                 // Should not be visible when Idle
             }

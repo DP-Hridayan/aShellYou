@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.shell.common.presentation.components.button
 
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -86,10 +85,12 @@ fun UtilityButtonGroup(
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
                 trailingIcon = {
                     if (states.search.textFieldValue.text.isNotEmpty()) {
-                        IconButton(onClick = withHaptic {
-                            shellViewModel.onSearchQueryChange(TextFieldValue(""))
-                            focusManager.clearFocus()
-                        }) {
+                        IconButton(
+                            onClick = withHaptic {
+                                shellViewModel.onSearchQueryChange(TextFieldValue(""))
+                                focusManager.clearFocus()
+                            }
+                        ) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_clear),
                                 contentDescription = "Clear text",
@@ -97,9 +98,11 @@ fun UtilityButtonGroup(
                         }
                     }
 
-                    IconButton(onClick = withHaptic {
-                        shellViewModel.toggleSearchBar()
-                    }) {
+                    IconButton(
+                        onClick = withHaptic {
+                            shellViewModel.toggleSearchBar()
+                        }
+                    ) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_cross),
                             contentDescription = "Dismiss Searchbar",
@@ -164,8 +167,11 @@ fun UtilityButtonGroup(
                         return@ButtonGroupItem
                     }
 
-                    if (askToClean) showClearOutputDialog()
-                    else handleClearOutput()
+                    if (askToClean) {
+                        showClearOutputDialog()
+                    } else {
+                        handleClearOutput()
+                    }
                 }
             ),
             ButtonGroupItem(

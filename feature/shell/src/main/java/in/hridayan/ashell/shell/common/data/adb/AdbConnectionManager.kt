@@ -64,7 +64,8 @@ class AdbConnectionManager private constructor(context: Context) : AbsAdbConnect
             val expiryDate = System.currentTimeMillis() + 86400000
             val certificateExtensions = CertificateExtensions()
             certificateExtensions.set(
-                "SubjectKeyIdentifier", SubjectKeyIdentifierExtension(
+                "SubjectKeyIdentifier",
+                SubjectKeyIdentifierExtension(
                     KeyIdentifier(publicKey).identifier
                 )
             )

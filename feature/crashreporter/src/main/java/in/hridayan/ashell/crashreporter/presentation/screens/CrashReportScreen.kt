@@ -108,7 +108,8 @@ fun CrashReportScreen(
                 )
                 AutoResizeableText(text = stringResource(R.string.report))
             }
-        }) { innerPadding ->
+        }
+    ) { innerPadding ->
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
@@ -153,7 +154,6 @@ fun CrashReportScreen(
                                 style = MaterialTheme.typography.bodySmallEmphasized
                             )
                         }
-
                     }
                 }
 
@@ -187,9 +187,7 @@ fun CrashReportScreen(
                                 text = appInfo,
                                 style = MaterialTheme.typography.bodySmallEmphasized
                             )
-
                         }
-
                     }
                 }
 
@@ -261,11 +259,11 @@ private fun Context.sendCrashReport(log: String) {
     val to = DEV_EMAIL
 
     try {
-        val uriText = "mailto:$to?subject=${Uri.encode(subject)}&body=${log}"
+        val uriText = "mailto:$to?subject=${Uri.encode(subject)}&body=$log"
         val uri = uriText.toUri()
         val emailIntent = Intent(Intent.ACTION_SENDTO, uri)
         startActivity(Intent.createChooser(emailIntent, "Send email using..."))
     } catch (e: Exception) {
-        makeToast(this, "Failed to encode email content. ${e.toString()}")
+        makeToast(this, "Failed to encode email content. $e")
     }
 }

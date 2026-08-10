@@ -79,26 +79,29 @@ class WifiAdbViewModel @Inject constructor(
                         wifiAdbRepository.stopHeartbeat()
                     }
 
-                    else -> { /* Keep heartbeat running for other states */
+                    else -> {
+                        /* Keep heartbeat running for other states */
                     }
                 }
             }
         }
     }
 
-
     fun reconnectToDevice(device: WifiAdbDevice) {
-        wifiAdbRepository.reconnect(device, object : WifiAdbRepositoryImpl.ReconnectListener {
-            override fun onReconnectSuccess() {
-                WifiAdbConnection.setCurrentDevice(device)
-                _lastConnectedDevice.value = currentDevice.value
-                // State is already set by repository
-            }
+        wifiAdbRepository.reconnect(
+            device,
+            object : WifiAdbRepositoryImpl.ReconnectListener {
+                override fun onReconnectSuccess() {
+                    WifiAdbConnection.setCurrentDevice(device)
+                    _lastConnectedDevice.value = currentDevice.value
+                    // State is already set by repository
+                }
 
-            override fun onReconnectFailed(requiresPairing: Boolean) {
-                WifiAdbConnection.setCurrentDevice(null)
+                override fun onReconnectFailed(requiresPairing: Boolean) {
+                    WifiAdbConnection.setCurrentDevice(null)
+                }
             }
-        })
+        )
     }
 
     fun reconnectToDeviceWithCallback(
@@ -106,25 +109,28 @@ class WifiAdbViewModel @Inject constructor(
         onSuccess: () -> Unit,
         onFailure: (requiresPairing: Boolean) -> Unit
     ) {
-        wifiAdbRepository.reconnect(device, object : WifiAdbRepositoryImpl.ReconnectListener {
-            override fun onReconnectSuccess() {
-                WifiAdbConnection.setCurrentDevice(device)
-                _lastConnectedDevice.value = currentDevice.value
-                // State is already set by repository
-                // Ensure callback runs on main thread for Toast
-                viewModelScope.launch {
-                    onSuccess()
+        wifiAdbRepository.reconnect(
+            device,
+            object : WifiAdbRepositoryImpl.ReconnectListener {
+                override fun onReconnectSuccess() {
+                    WifiAdbConnection.setCurrentDevice(device)
+                    _lastConnectedDevice.value = currentDevice.value
+                    // State is already set by repository
+                    // Ensure callback runs on main thread for Toast
+                    viewModelScope.launch {
+                        onSuccess()
+                    }
                 }
-            }
 
-            override fun onReconnectFailed(requiresPairing: Boolean) {
-                WifiAdbConnection.setCurrentDevice(null)
-                // Ensure callback runs on main thread for Toast
-                viewModelScope.launch {
-                    onFailure(requiresPairing)
+                override fun onReconnectFailed(requiresPairing: Boolean) {
+                    WifiAdbConnection.setCurrentDevice(null)
+                    // Ensure callback runs on main thread for Toast
+                    viewModelScope.launch {
+                        onFailure(requiresPairing)
+                    }
                 }
             }
-        })
+        )
     }
 
     fun cancelReconnect() {
@@ -184,7 +190,8 @@ class WifiAdbViewModel @Inject constructor(
                 override fun onError(e: Throwable) {
                     Log.e("ADB", "Error: ${e.message}")
                 }
-            })
+            }
+        )
     }
 
     fun stopQrPairDiscovery() {

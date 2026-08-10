@@ -256,7 +256,6 @@ class FileBrowserRepositoryImpl @Inject constructor(
             if (transferComplete) {
                 emit(FileOperationResult.Success("File downloaded"))
             }
-
         } catch (e: Exception) {
             Log.e(TAG, "Error pulling file $remotePath", e)
 

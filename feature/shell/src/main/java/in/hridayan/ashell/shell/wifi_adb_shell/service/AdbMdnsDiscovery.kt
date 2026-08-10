@@ -127,7 +127,6 @@ class AdbMdnsDiscovery(
 
             if (SdkExtensions.getExtensionVersion(Build.VERSION_CODES.TIRAMISU) >= 7) {
                 registerServiceCallback(serviceKey, info)
-
             } else {
                 // Old logic
                 if (!resolvedServices.contains(serviceKey)) {
@@ -265,7 +264,6 @@ class AdbMdnsDiscovery(
             Log.w(TAG, "Failed to register service callback: $serviceKey", e)
         }
     }
-
 
     @RequiresExtension(extension = Build.VERSION_CODES.TIRAMISU, version = 7)
     private fun unregisterServiceCallback(serviceKey: String) {

@@ -77,6 +77,3 @@ class LicensesViewModel @Inject constructor(
         }
     }
 }
-
-
-

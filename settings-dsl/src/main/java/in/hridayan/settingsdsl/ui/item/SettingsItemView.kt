@@ -279,16 +279,20 @@ private fun ClickableItemView(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(7.dp)
             ) {
-                if (title.isNotEmpty()) Text(
-                    text = title,
-                    fontWeight = FontWeight.SemiBold,
-                    style = MaterialTheme.typography.titleMediumEmphasized
-                )
-                if (description.isNotEmpty()) Text(
-                    text = description,
-                    style = MaterialTheme.typography.bodySmall,
-                    modifier = Modifier.alpha(0.7f)
-                )
+                if (title.isNotEmpty()) {
+                    Text(
+                        text = title,
+                        fontWeight = FontWeight.SemiBold,
+                        style = MaterialTheme.typography.titleMediumEmphasized
+                    )
+                }
+                if (description.isNotEmpty()) {
+                    Text(
+                        text = description,
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.alpha(0.7f)
+                    )
+                }
             }
         }
     }
@@ -330,23 +334,28 @@ private fun SwitchItemView(
             ) {
                 if (enableExperimentalFlag) ExperimentalBadge(label = experimentalFlagText)
 
-                if (title.isNotEmpty()) Text(
-                    text = title,
-                    fontWeight = FontWeight.SemiBold,
-                    style = MaterialTheme.typography.titleMediumEmphasized
-                )
+                if (title.isNotEmpty()) {
+                    Text(
+                        text = title,
+                        fontWeight = FontWeight.SemiBold,
+                        style = MaterialTheme.typography.titleMediumEmphasized
+                    )
+                }
 
-                if (description.isNotEmpty()) Text(
-                    text = description,
-                    style = MaterialTheme.typography.bodySmall,
-                    modifier = Modifier.alpha(0.7f)
-                )
+                if (description.isNotEmpty()) {
+                    Text(
+                        text = description,
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.alpha(0.7f)
+                    )
+                }
             }
             // Switch also fires haptic via onToggle which already wraps the haptic call
             SettingsSwitch(
                 checked = isChecked,
                 enabled = enabled,
-                onCheckedChange = { onToggle() })
+                onCheckedChange = { onToggle() }
+            )
         }
     }
 }
@@ -391,7 +400,8 @@ private fun SwitchBannerItemView(
             SettingsSwitch(
                 checked = isChecked,
                 enabled = enabled,
-                onCheckedChange = { onToggle() })
+                onCheckedChange = { onToggle() }
+            )
         }
     }
 }
@@ -426,7 +436,8 @@ private fun RadioGroupItemView(
                     )
                     RadioButton(
                         selected = option.value == selectedValue,
-                        onClick = { onSelect(option.value) })
+                        onClick = { onSelect(option.value) }
+                    )
                 }
             }
         }

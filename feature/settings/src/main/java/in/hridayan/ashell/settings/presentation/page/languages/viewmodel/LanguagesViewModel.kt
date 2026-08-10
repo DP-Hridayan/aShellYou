@@ -114,14 +114,17 @@ class LanguagesViewModel @Inject constructor(
             val tags = mutableListOf<String>()
             try {
                 val resId = context.resources.getIdentifier(
-                    "_generated_res_locale_config", "xml", context.packageName
+                    "_generated_res_locale_config",
+                    "xml",
+                    context.packageName
                 )
                 if (resId == 0) return tags
                 val parser = context.resources.getXml(resId)
                 while (parser.next() != XmlPullParser.END_DOCUMENT) {
                     if (parser.eventType == XmlPullParser.START_TAG && parser.name == "locale") {
                         val name = parser.getAttributeValue(
-                            "http://schemas.android.com/apk/res/android", "name"
+                            "http://schemas.android.com/apk/res/android",
+                            "name"
                         )
                         if (!name.isNullOrBlank()) {
                             tags.add(name)
@@ -173,7 +176,3 @@ class LanguagesViewModel @Inject constructor(
         }
     }
 }
-
-
-
-

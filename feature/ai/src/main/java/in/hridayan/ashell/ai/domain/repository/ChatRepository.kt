@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 interface ChatRepository {
     val streamingContents: StateFlow<Map<String, String?>>
     fun setStreamingContent(sessionId: String, content: String?)
-    
+
     val activeGeneratingSessions: StateFlow<Set<String>>
     fun setGenerating(sessionId: String, isGenerating: Boolean)
     fun getAllSessions(): Flow<List<ChatSessionEntity>>

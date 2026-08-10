@@ -55,4 +55,3 @@ fun create(text: String, path: File) {
         e.printStackTrace()
     }
 }
-

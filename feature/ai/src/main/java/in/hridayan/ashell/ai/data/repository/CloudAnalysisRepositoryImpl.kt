@@ -2,16 +2,16 @@ package `in`.hridayan.ashell.ai.data.repository
 
 import `in`.hridayan.ashell.ai.data.parser.AiResponseParser
 import `in`.hridayan.ashell.ai.data.parser.PromptBuilder
-import `in`.hridayan.ashell.core.common.domain.provider.LlmProviderClient
-import `in`.hridayan.ashell.core.common.domain.model.ai.AnalysisResult
+import `in`.hridayan.ashell.core.common.constants.AiModelConstants
 import `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException
+import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
+import `in`.hridayan.ashell.core.common.domain.model.ai.AnalysisResult
 import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
+import `in`.hridayan.ashell.core.common.domain.provider.LlmProviderClient
 import `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository
 import `in`.hridayan.ashell.core.common.domain.repository.CloudAnalysisRepository
-import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
-import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
-import `in`.hridayan.ashell.core.common.constants.AiModelConstants
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import kotlinx.coroutines.flow.firstOrNull
 import java.util.Locale
 import javax.inject.Inject
@@ -37,7 +37,7 @@ class CloudAnalysisRepositoryImpl @Inject constructor(
 
         val systemPrompt = PromptBuilder.buildSystemPrompt(Locale.getDefault().displayLanguage)
         val userPrompt = PromptBuilder.buildUserPrompt(command, ragContext)
-        
+
         var lastException: CloudNetworkException? = null
         for (model in models) {
             try {
@@ -64,7 +64,7 @@ class CloudAnalysisRepositoryImpl @Inject constructor(
                 throw e
             }
         }
-        
+
         // If we exhausted the entire chain, throw the last exception encountered
         // If we exhausted the entire chain, throw the last exception encountered
         throw lastException ?: CloudNetworkException.ProviderNotConfigured(provider)
@@ -83,7 +83,7 @@ class CloudAnalysisRepositoryImpl @Inject constructor(
 
         val systemPrompt = PromptBuilder.buildQuerySystemPrompt(Locale.getDefault().displayLanguage)
         val userPrompt = PromptBuilder.buildQueryUserPrompt(query, "")
-        
+
         var lastException: CloudNetworkException? = null
         for (model in models) {
             try {
@@ -105,8 +105,7 @@ class CloudAnalysisRepositoryImpl @Inject constructor(
                 throw e
             }
         }
-        
+
         throw lastException ?: CloudNetworkException.ProviderNotConfigured(provider)
     }
 }
-

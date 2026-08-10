@@ -5,10 +5,10 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dagger.multibindings.IntoSet
+import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 import `in`.hridayan.ashell.qstiles.tool.CreateQsTileTool
 import `in`.hridayan.ashell.qstiles.tool.GetQsTileSlotsTool
 import `in`.hridayan.ashell.qstiles.tool.UpdateQsTileTool
-import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -24,7 +24,7 @@ abstract class QsTileToolModule {
     abstract fun bindGetQsTileSlotsTool(
         tool: GetQsTileSlotsTool
     ): AiTool
-    
+
     @Binds
     @IntoSet
     abstract fun bindUpdateQsTileTool(

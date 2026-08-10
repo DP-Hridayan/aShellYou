@@ -9,10 +9,10 @@ data class FileConflict(
     val sourcePath: String,
     val destPath: String,
     val operationType: OperationType,
-    val isDirectory: Boolean = false,  // Destination is directory
-    val sourceIsDirectory: Boolean = false,  // Source is directory
+    val isDirectory: Boolean = false, // Destination is directory
+    val sourceIsDirectory: Boolean = false, // Source is directory
     val fileName: String = sourcePath.substringAfterLast("/"),
-    val remainingCount: Int = 0  // How many more conflicts after this one
+    val remainingCount: Int = 0 // How many more conflicts after this one
 )
 
 /**

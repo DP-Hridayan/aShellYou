@@ -158,8 +158,11 @@ fun TileDashBoardScreen(
     }
 
     val title =
-        if (uiState.currentTab == TileScreenTabs.TILES) stringResource(R.string.qs_tiles)
-        else stringResource(R.string.tile_logs)
+        if (uiState.currentTab == TileScreenTabs.TILES) {
+            stringResource(R.string.qs_tiles)
+        } else {
+            stringResource(R.string.tile_logs)
+        }
 
     AppScaffold(
         onNavigateBack = { navController.navigateBack() },
@@ -231,7 +234,8 @@ fun TileDashBoardScreen(
                     NoLogsUi(modifier = Modifier.align(Alignment.Center))
                 }
             }
-        })
+        }
+    )
 }
 
 @Composable
@@ -261,7 +265,9 @@ private fun TilesContent(
         mutableStateOf(
             if (Shizuku.pingBinder()) {
                 Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED
-            } else false
+            } else {
+                false
+            }
         )
     }
 
@@ -314,11 +320,14 @@ private fun TilesContent(
                         .fillMaxWidth()
                         .padding(start = 20.dp, end = 20.dp, bottom = 20.dp),
                     onClickButton = withHaptic {
-                        if (isShizukuInstalled) context.launchApp(SHIZUKU_PACKAGE_NAME)
-                        else UrlUtils.openUrl(
-                            url = UrlConst.URL_SHIZUKU_SITE,
-                            context = context
-                        )
+                        if (isShizukuInstalled) {
+                            context.launchApp(SHIZUKU_PACKAGE_NAME)
+                        } else {
+                            UrlUtils.openUrl(
+                                url = UrlConst.URL_SHIZUKU_SITE,
+                                context = context
+                            )
+                        }
                     }
                 )
             }
@@ -417,11 +426,9 @@ private fun LogsContent(
         state = listState,
         contentPadding = innerPadding
     ) {
-
         item { Spacer(Modifier.height(25.dp)) }
 
         if (uiState.logs.isNotEmpty()) {
-
             item {
                 LogStatsRow(
                     modifier = Modifier.padding(horizontal = 20.dp),
@@ -547,10 +554,11 @@ private fun ModernTile(
                         modifier = Modifier.basicMarquee(),
                         text = subtitle,
                         style = MaterialTheme.typography.bodySmall,
-                        color = if (isActive)
+                        color = if (isActive) {
                             MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.75f)
-                        else
-                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+                        } else {
+                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                        },
                         maxLines = 1
                     )
                 }
@@ -763,10 +771,14 @@ private fun TileLogCard(
 
     val containerColor = MaterialTheme.colorScheme.run {
         if (darkMode) {
-            if (log.isSuccess) surfaceContainerLow else surfaceContainerLow.blend(
-                errorContainer,
-                0.3f
-            )
+            if (log.isSuccess) {
+                surfaceContainerLow
+            } else {
+                surfaceContainerLow.blend(
+                    errorContainer,
+                    0.3f
+                )
+            }
         } else {
             if (log.isSuccess) surfaceContainer else surfaceContainer.blend(errorContainer, 0.6f)
         }
@@ -792,9 +804,13 @@ private fun TileLogCard(
                 ) {
                     Icon(
                         modifier = Modifier.size(20.dp),
-                        painter = if (tileIcon != null) painterResource(tileIcon.resId) else painterResource(
-                            R.drawable.ic_adb
-                        ),
+                        painter = if (tileIcon != null) {
+                            painterResource(tileIcon.resId)
+                        } else {
+                            painterResource(
+                                R.drawable.ic_adb
+                            )
+                        },
                         contentDescription = null,
                         tint = badgeColor
                     )
@@ -807,8 +823,11 @@ private fun TileLogCard(
                         fontWeight = FontWeight.Bold
                     )
                     val modeLabel =
-                        if (log.executionMode == TileExecutionMode.SHIZUKU) stringResource(R.string.shizuku)
-                        else stringResource(R.string.root)
+                        if (log.executionMode == TileExecutionMode.SHIZUKU) {
+                            stringResource(R.string.shizuku)
+                        } else {
+                            stringResource(R.string.root)
+                        }
                     Text(
                         text = "$modeLabel • ${DateTimeUtils.getRelativeTime(log.timestamp)}",
                         style = MaterialTheme.typography.labelSmall,
@@ -823,8 +842,11 @@ private fun TileLogCard(
                         .padding(horizontal = 10.dp, vertical = 4.dp)
                 ) {
                     Text(
-                        text = if (log.isSuccess) stringResource(R.string.success)
-                        else stringResource(R.string.failed),
+                        text = if (log.isSuccess) {
+                            stringResource(R.string.success)
+                        } else {
+                            stringResource(R.string.failed)
+                        },
                         style = MaterialTheme.typography.labelSmall,
                         fontWeight = FontWeight.Bold,
                         color = badgeColor

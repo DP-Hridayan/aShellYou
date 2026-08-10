@@ -173,7 +173,10 @@ class FastbootDeviceContext constructor(
     private fun readSingleResponse(): FastbootResponse {
         val buffer = ByteArray(MAX_RESPONSE_SIZE)
         val received = connection.bulkTransfer(
-            inEndpoint, buffer, buffer.size, RESPONSE_TIMEOUT_MS
+            inEndpoint,
+            buffer,
+            buffer.size,
+            RESPONSE_TIMEOUT_MS
         )
 
         if (received < STATUS_PREFIX_LENGTH) {
