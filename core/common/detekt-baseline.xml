@@ -1,0 +1,425 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+    <ManuallySuppressedIssues></ManuallySuppressedIssues>
+    <CurrentIssues>
+        <ID>ArgumentListWrapping:AiTool.kt$SessionIdContext$(SessionIdContext)</ID>
+        <ID>CyclomaticComplexMethod:GenerateCorrectionsUseCase.kt$GenerateCorrectionsUseCase$suspend
+            operator fun invoke( command: String, aiCorrections: List&lt;CorrectionSuggestion&gt; =
+            emptyList() ): List&lt;CorrectionSuggestion&gt;
+        </ID>
+        <ID>CyclomaticComplexMethod:SettingsDataStore.kt$SettingsDataStore$suspend fun
+            resetAndRestoreDefaults(): Boolean
+        </ID>
+        <ID>CyclomaticComplexMethod:VerifyApiKeyUseCase.kt$VerifyApiKeyUseCase$suspend operator fun
+            invoke(provider: LlmProvider, apiKey: String): Boolean
+        </ID>
+        <ID>
+            Filename:BackupOption.kt$in.hridayan.ashell.core.common.domain.model.backup.BackupOption.kt
+        </ID>
+        <ID>
+            FinalNewline:AdbFileBrowserConnectionMode.kt$in.hridayan.ashell.core.common.domain.model.AdbFileBrowserConnectionMode.kt
+        </ID>
+        <ID>
+            FinalNewline:AiModelConstants.kt$in.hridayan.ashell.core.common.constants.AiModelConstants.kt
+        </ID>
+        <ID>
+            FinalNewline:BackupMode.kt$in.hridayan.ashell.core.common.domain.model.backup.BackupMode.kt
+        </ID>
+        <ID>
+            FinalNewline:BackupOption.kt$in.hridayan.ashell.core.common.domain.model.backup.BackupOption.kt
+        </ID>
+        <ID>
+            FinalNewline:BackupProvider.kt$in.hridayan.ashell.core.common.domain.provider.BackupProvider.kt
+        </ID>
+        <ID>FinalNewline:Const.kt$in.hridayan.ashell.core.common.constants.Const.kt</ID>
+        <ID>FinalNewline:DeviceUtils.kt$in.hridayan.ashell.core.utils.DeviceUtils.kt</ID>
+        <ID>FinalNewline:ExampleUnitTest.kt$in.hridayan.ashell.core.common.ExampleUnitTest.kt</ID>
+        <ID>
+            FinalNewline:GithubReleaseType.kt$in.hridayan.ashell.core.common.domain.model.GithubReleaseType.kt
+        </ID>
+        <ID>
+            FinalNewline:LlmProvider.kt$in.hridayan.ashell.core.common.domain.provider.LlmProvider.kt
+        </ID>
+        <ID>
+            FinalNewline:LocalAdbWorkingMode.kt$in.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode.kt
+        </ID>
+        <ID>FinalNewline:LocalSettings.kt$in.hridayan.ashell.core.common.settings.LocalSettings.kt
+        </ID>
+        <ID>FinalNewline:MiUiCheck.kt$in.hridayan.ashell.core.utils.MiUiCheck.kt</ID>
+        <ID>FinalNewline:NotificationUtils.kt$in.hridayan.ashell.core.utils.NotificationUtils.kt
+        </ID>
+        <ID>
+            FinalNewline:SeedColorProvider.kt$in.hridayan.ashell.core.common.domain.provider.SeedColorProvider.kt
+        </ID>
+        <ID>
+            FinalNewline:SettingsRepository.kt$in.hridayan.ashell.core.common.domain.repository.SettingsRepository.kt
+        </ID>
+        <ID>
+            FinalNewline:SharedTextHolder.kt$in.hridayan.ashell.core.common.domain.model.SharedTextHolder.kt
+        </ID>
+        <ID>FinalNewline:SortType.kt$in.hridayan.ashell.core.common.domain.model.SortType.kt</ID>
+        <ID>
+            FinalNewline:StringListConverter.kt$in.hridayan.ashell.core.common.converters.StringListConverter.kt
+        </ID>
+        <ID>
+            FinalNewline:TerminalFontStyle.kt$in.hridayan.ashell.core.common.domain.model.TerminalFontStyle.kt
+        </ID>
+        <ID>
+            FinalNewline:TileExecutionMode.kt$in.hridayan.ashell.core.common.domain.model.TileExecutionMode.kt
+        </ID>
+        <ID>FinalNewline:ToastUtils.kt$in.hridayan.ashell.core.utils.ToastUtils.kt</ID>
+        <ID>FinalNewline:UrlUtils.kt$in.hridayan.ashell.core.utils.UrlUtils.kt</ID>
+        <ID>ImportOrdering:AiAnalysisRepository.kt$import
+            `in`.hridayan.ashell.core.common.domain.model.ai.AnalysisResult import
+            `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
+        </ID>
+        <ID>ImportOrdering:AnalyzeCommandWithCloudUseCase.kt$import
+            `in`.hridayan.ashell.core.common.domain.model.ai.AnalysisResult import
+            `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException import
+            `in`.hridayan.ashell.core.common.domain.repository.CloudAnalysisRepository import
+            `in`.hridayan.ashell.core.common.domain.repository.CommandRepository import
+            kotlinx.coroutines.flow.firstOrNull import javax.inject.Inject
+        </ID>
+        <ID>ImportOrdering:AppFont.kt$import `in`.hridayan.ashell.core.resources.R import
+            androidx.compose.ui.text.font.Font import androidx.compose.ui.text.font.FontFamily
+        </ID>
+        <ID>ImportOrdering:CloudAnalysisRepository.kt$import
+            `in`.hridayan.ashell.core.common.domain.model.ai.AnalysisResult import
+            `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
+        </ID>
+        <ID>ImportOrdering:ExampleUnitTest.kt$import org.junit.Test import org.junit.Assert.*</ID>
+        <ID>ImportOrdering:QueryCommandUseCase.kt$import
+            `in`.hridayan.ashell.core.common.domain.model.ai.AnalysisResult import
+            `in`.hridayan.ashell.core.common.domain.model.ai.AiTool import
+            `in`.hridayan.ashell.core.common.domain.repository.AiAnalysisRepository import
+            javax.inject.Inject
+        </ID>
+        <ID>ImportOrdering:SettingsKeys.kt$import android.os.Environment import
+            androidx.appcompat.app.AppCompatDelegate import androidx.compose.runtime.Stable import
+            `in`.hridayan.ashell.core.common.domain.model.SortType import
+            `in`.hridayan.ashell.core.common.domain.provider.SeedColorProvider import
+            `in`.hridayan.ashell.core.common.settings.SettingsKeys.Companion.entries import
+            `in`.hridayan.ashell.core.common.settings.SettingsKeys.Companion.valueOf import
+            `in`.hridayan.settingsdsl.model.SettingsKey import kotlin.reflect.KClass import
+            `in`.hridayan.ashell.core.common.domain.model.*
+        </ID>
+        <ID>ImportOrdering:SettingsRepositoryImpl.kt$import
+            androidx.datastore.preferences.core.Preferences import
+            `in`.hridayan.ashell.core.common.settings.SettingsKeys import
+            `in`.hridayan.ashell.core.common.data.SettingsDataStore import
+            `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository import
+            kotlinx.coroutines.flow.Flow
+        </ID>
+        <ID>ImportOrdering:Utils.kt$import `in`.hridayan.ashell.core.resources.R import
+            android.app.Activity import android.content.ActivityNotFoundException import
+            android.content.Context import android.content.ContextWrapper import
+            android.content.Intent import androidx.core.net.toUri import
+            `in`.hridayan.ashell.core.common.domain.model.SharedTextHolder
+        </ID>
+        <ID>ImportOrdering:VerifyApiKeyUseCase.kt$import
+            `in`.hridayan.ashell.core.common.domain.provider.LlmProviderClient import
+            `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException import
+            `in`.hridayan.ashell.core.common.domain.provider.LlmProvider import javax.inject.Inject
+            import javax.inject.Singleton import
+            `in`.hridayan.ashell.core.common.constants.AiModelConstants
+        </ID>
+        <ID>LongMethod:GenerateCorrectionsUseCase.kt$GenerateCorrectionsUseCase$suspend operator fun
+            invoke( command: String, aiCorrections: List&lt;CorrectionSuggestion&gt; = emptyList()
+            ): List&lt;CorrectionSuggestion&gt;
+        </ID>
+        <ID>LongMethod:SettingsDataStore.kt$SettingsDataStore$suspend fun resetAndRestoreDefaults():
+            Boolean
+        </ID>
+        <ID>LongMethod:VerifyApiKeyUseCase.kt$VerifyApiKeyUseCase$suspend operator fun
+            invoke(provider: LlmProvider, apiKey: String): Boolean
+        </ID>
+        <ID>MagicNumber:BackupFrequency.kt$BackupFrequency$30L</ID>
+        <ID>MagicNumber:BackupFrequency.kt$BackupFrequency$7L</ID>
+        <ID>MagicNumber:DateTimeUtils.kt$DateTimeUtils$24</ID>
+        <ID>MagicNumber:DateTimeUtils.kt$DateTimeUtils$60</ID>
+        <ID>MagicNumber:DateTimeUtils.kt$DateTimeUtils$7</ID>
+        <ID>MagicNumber:GenerateCorrectionsUseCase.kt$GenerateCorrectionsUseCase$5</ID>
+        <ID>MagicNumber:MiUiCheck.kt$MiUiCheck$1024</ID>
+        <ID>MagicNumber:SettingsKeys.kt$SettingsKeys.AiCacheDays$30</ID>
+        <ID>MagicNumber:VerifyApiKeyUseCase.kt$VerifyApiKeyUseCase$404</ID>
+        <ID>MagicNumber:VerifyApiKeyUseCase.kt$VerifyApiKeyUseCase$429</ID>
+        <ID>MagicNumber:VerifyApiKeyUseCase.kt$VerifyApiKeyUseCase$500</ID>
+        <ID>MatchingDeclarationName:BackupOption.kt$BackupType</ID>
+        <ID>MaxLineLength:AiAnalysisRepository.kt$AiAnalysisRepository$suspend</ID>
+        <ID>MaxLineLength:AiTool.kt$SessionIdContext$data</ID>
+        <ID>MaxLineLength:CloudAnalysisRepository.kt$CloudAnalysisRepository$suspend fun
+            analyzeCommand(command: String, ragContext: String = "", fallbackModels: List&lt;String&gt;?
+            = null): AnalysisResult
+        </ID>
+        <ID>MaxLineLength:FindAppPackageTool.kt$FindAppPackageTool$override val description: String
+            = "Search for an installed application's package name by providing its common app name
+            (e.g., 'whatsapp', 'facebook'). Returns the package name if found."
+        </ID>
+        <ID>MaxLineLength:QueryCommandUseCase.kt$QueryCommandUseCase$suspend operator</ID>
+        <ID>MaximumLineLength:AiAnalysisRepository.kt$AiAnalysisRepository$</ID>
+        <ID>MaximumLineLength:AiTool.kt$SessionIdContext$data</ID>
+        <ID>MaximumLineLength:CloudAnalysisRepository.kt$CloudAnalysisRepository$</ID>
+        <ID>MaximumLineLength:FindAppPackageTool.kt$FindAppPackageTool$</ID>
+        <ID>MaximumLineLength:QueryCommandUseCase.kt$QueryCommandUseCase$</ID>
+        <ID>MultiLineIfElse:CloudNetworkException.kt$CloudNetworkException.RateLimited$"Rate limited
+            by provider"
+        </ID>
+        <ID>MultiLineIfElse:CloudNetworkException.kt$CloudNetworkException.RateLimited$"Rate limited
+            — retry after ${retryAfterSeconds}s"
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:AdbFileBrowserConnectionMode.kt$in.hridayan.ashell.core.common.domain.model.AdbFileBrowserConnectionMode.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:AiModelConstants.kt$in.hridayan.ashell.core.common.constants.AiModelConstants.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:BackupMode.kt$in.hridayan.ashell.core.common.domain.model.backup.BackupMode.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:BackupOption.kt$in.hridayan.ashell.core.common.domain.model.backup.BackupOption.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:BackupProvider.kt$in.hridayan.ashell.core.common.domain.provider.BackupProvider.kt
+        </ID>
+        <ID>NewLineAtEndOfFile:Const.kt$in.hridayan.ashell.core.common.constants.Const.kt</ID>
+        <ID>NewLineAtEndOfFile:DeviceUtils.kt$in.hridayan.ashell.core.utils.DeviceUtils.kt</ID>
+        <ID>
+            NewLineAtEndOfFile:ExampleUnitTest.kt$in.hridayan.ashell.core.common.ExampleUnitTest.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:GithubReleaseType.kt$in.hridayan.ashell.core.common.domain.model.GithubReleaseType.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:LlmProvider.kt$in.hridayan.ashell.core.common.domain.provider.LlmProvider.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:LocalAdbWorkingMode.kt$in.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:LocalSettings.kt$in.hridayan.ashell.core.common.settings.LocalSettings.kt
+        </ID>
+        <ID>NewLineAtEndOfFile:MiUiCheck.kt$in.hridayan.ashell.core.utils.MiUiCheck.kt</ID>
+        <ID>
+            NewLineAtEndOfFile:NotificationUtils.kt$in.hridayan.ashell.core.utils.NotificationUtils.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:SeedColorProvider.kt$in.hridayan.ashell.core.common.domain.provider.SeedColorProvider.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:SettingsRepository.kt$in.hridayan.ashell.core.common.domain.repository.SettingsRepository.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:SharedTextHolder.kt$in.hridayan.ashell.core.common.domain.model.SharedTextHolder.kt
+        </ID>
+        <ID>NewLineAtEndOfFile:SortType.kt$in.hridayan.ashell.core.common.domain.model.SortType.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:StringListConverter.kt$in.hridayan.ashell.core.common.converters.StringListConverter.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:TerminalFontStyle.kt$in.hridayan.ashell.core.common.domain.model.TerminalFontStyle.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:TileExecutionMode.kt$in.hridayan.ashell.core.common.domain.model.TileExecutionMode.kt
+        </ID>
+        <ID>NewLineAtEndOfFile:ToastUtils.kt$in.hridayan.ashell.core.utils.ToastUtils.kt</ID>
+        <ID>NewLineAtEndOfFile:UrlUtils.kt$in.hridayan.ashell.core.utils.UrlUtils.kt</ID>
+        <ID>NoConsecutiveBlankLines:AnalyzeCommandWithCloudUseCase.kt$</ID>
+        <ID>NoConsecutiveBlankLines:CommandEntity.kt$</ID>
+        <ID>NoConsecutiveBlankLines:CommandRepository.kt$</ID>
+        <ID>NoConsecutiveBlankLines:FastbootState.kt$</ID>
+        <ID>NoConsecutiveBlankLines:FileUtils.kt$</ID>
+        <ID>NoConsecutiveBlankLines:NetworkUtils.kt$</ID>
+        <ID>NoConsecutiveBlankLines:OutputLine.kt$</ID>
+        <ID>NoConsecutiveBlankLines:SettingsKeys.kt$SettingsKeys$</ID>
+        <ID>NoConsecutiveBlankLines:ShellRepository.kt$</ID>
+        <ID>NoConsecutiveBlankLines:Utils.kt$</ID>
+        <ID>NoConsecutiveBlankLines:VerifyApiKeyUseCase.kt$</ID>
+        <ID>NoConsecutiveBlankLines:WifiAdbEvent.kt$WifiAdbEvent$</ID>
+        <ID>NoMultipleSpaces:LogcatWorkingMode.kt$LogcatWorkingMode$</ID>
+        <ID>NoTrailingSpaces:AutocompleteUseCase.kt$AutocompleteUseCase$</ID>
+        <ID>NoTrailingSpaces:FindAppPackageTool.kt$FindAppPackageTool$</ID>
+        <ID>NoTrailingSpaces:SettingsKeys.kt$SettingsKeys$</ID>
+        <ID>NoTrailingSpaces:VerifyApiKeyUseCase.kt$VerifyApiKeyUseCase$</ID>
+        <ID>NoTrailingSpaces:WifiAdbEvent.kt$WifiAdbEvent$</ID>
+        <ID>NoWildcardImports:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
+        <ID>NoWildcardImports:SettingsKeys.kt$import
+            `in`.hridayan.ashell.core.common.domain.model.*
+        </ID>
+        <ID>PackageName:AdbFileBrowserConnectionMode.kt$package
+            `in`.hridayan.ashell.core.common.domain.model
+        </ID>
+        <ID>PackageName:AiAnalysisRepository.kt$package
+            `in`.hridayan.ashell.core.common.domain.repository
+        </ID>
+        <ID>PackageName:AiConnectionStateProvider.kt$package
+            `in`.hridayan.ashell.core.common.domain.repository
+        </ID>
+        <ID>PackageName:AiModelConstants.kt$package `in`.hridayan.ashell.core.common.constants</ID>
+        <ID>PackageName:AiTool.kt$package `in`.hridayan.ashell.core.common.domain.model.ai</ID>
+        <ID>PackageName:AnalysisResult.kt$package `in`.hridayan.ashell.core.common.domain.model.ai
+        </ID>
+        <ID>PackageName:AnalyzeCommandUseCase.kt$package
+            `in`.hridayan.ashell.core.common.domain.usecase.ai
+        </ID>
+        <ID>PackageName:AnalyzeCommandWithCloudUseCase.kt$package
+            `in`.hridayan.ashell.core.common.domain.usecase.ai
+        </ID>
+        <ID>PackageName:ApiKeyRepository.kt$package
+            `in`.hridayan.ashell.core.common.domain.repository
+        </ID>
+        <ID>PackageName:ApkInstaller.kt$package `in`.hridayan.ashell.core.utils</ID>
+        <ID>PackageName:AppFont.kt$package `in`.hridayan.ashell.core.common.domain.model</ID>
+        <ID>PackageName:BackupData.kt$package `in`.hridayan.ashell.core.common.domain.model.backup
+        </ID>
+        <ID>PackageName:BackupFrequency.kt$package
+            `in`.hridayan.ashell.core.common.domain.model.backup
+        </ID>
+        <ID>PackageName:BackupMode.kt$package `in`.hridayan.ashell.core.common.domain.model.backup
+        </ID>
+        <ID>PackageName:BackupOption.kt$package
+            `in`.hridayan.ashell.core.common.domain.model.backup
+        </ID>
+        <ID>PackageName:BackupProvider.kt$package `in`.hridayan.ashell.core.common.domain.provider
+        </ID>
+        <ID>PackageName:ClipboardUtils.kt$package `in`.hridayan.ashell.core.utils</ID>
+        <ID>PackageName:CloudAnalysisRepository.kt$package
+            `in`.hridayan.ashell.core.common.domain.repository
+        </ID>
+        <ID>PackageName:CloudNetworkException.kt$package
+            `in`.hridayan.ashell.core.common.domain.model
+        </ID>
+        <ID>PackageName:CommandEntity.kt$package `in`.hridayan.ashell.core.common.domain.model</ID>
+        <ID>PackageName:CommandRepository.kt$package
+            `in`.hridayan.ashell.core.common.domain.repository
+        </ID>
+        <ID>PackageName:Const.kt$package `in`.hridayan.ashell.core.common.constants</ID>
+        <ID>PackageName:DateTimeUtils.kt$package `in`.hridayan.ashell.core.utils</ID>
+        <ID>PackageName:DetectDangerLevelUseCase.kt$package
+            `in`.hridayan.ashell.core.common.domain.usecase.ai
+        </ID>
+        <ID>PackageName:DeviceUtils.kt$package `in`.hridayan.ashell.core.utils</ID>
+        <ID>PackageName:DispatcherModule.kt$package `in`.hridayan.ashell.core.common.di</ID>
+        <ID>PackageName:DispatcherProvider.kt$package
+            `in`.hridayan.ashell.core.common.data.provider
+        </ID>
+        <ID>PackageName:ExampleUnitTest.kt$package `in`.hridayan.ashell.core.common</ID>
+        <ID>PackageName:ExternalDeviceShell.kt$package
+            `in`.hridayan.ashell.core.common.domain.model
+        </ID>
+        <ID>PackageName:FastbootState.kt$package `in`.hridayan.ashell.core.common.domain.model</ID>
+        <ID>PackageName:FeatureConfig.kt$package `in`.hridayan.ashell.core.common</ID>
+        <ID>PackageName:FileUtils.kt$package `in`.hridayan.ashell.core.utils</ID>
+        <ID>PackageName:FindAppPackageTool.kt$package
+            `in`.hridayan.ashell.core.common.domain.tools
+        </ID>
+        <ID>PackageName:GenerateCorrectionsUseCase.kt$package
+            `in`.hridayan.ashell.core.common.domain.usecase.ai
+        </ID>
+        <ID>PackageName:GetCachedAnalysisUseCase.kt$package
+            `in`.hridayan.ashell.core.common.domain.usecase.ai
+        </ID>
+        <ID>PackageName:GithubReleaseType.kt$package `in`.hridayan.ashell.core.common.domain.model
+        </ID>
+        <ID>PackageName:LlmMessage.kt$package `in`.hridayan.ashell.core.common.domain.model.ai</ID>
+        <ID>PackageName:LlmProvider.kt$package `in`.hridayan.ashell.core.common.domain.provider</ID>
+        <ID>PackageName:LlmProviderClient.kt$package
+            `in`.hridayan.ashell.core.common.domain.provider
+        </ID>
+        <ID>PackageName:LocalAdbWorkingMode.kt$package
+            `in`.hridayan.ashell.core.common.domain.model.localadb
+        </ID>
+        <ID>PackageName:LocalSettings.kt$package `in`.hridayan.ashell.core.common.settings</ID>
+        <ID>PackageName:LogcatWorkingMode.kt$package `in`.hridayan.ashell.core.common.domain.model
+        </ID>
+        <ID>PackageName:MiUiCheck.kt$package `in`.hridayan.ashell.core.utils</ID>
+        <ID>PackageName:NetworkUtils.kt$package `in`.hridayan.ashell.core.utils</ID>
+        <ID>PackageName:NotificationUtils.kt$package `in`.hridayan.ashell.core.utils</ID>
+        <ID>PackageName:OtgConnection.kt$package `in`.hridayan.ashell.core.common.domain.model.otg
+        </ID>
+        <ID>PackageName:OtgRepository.kt$package
+            `in`.hridayan.ashell.core.common.domain.repository
+        </ID>
+        <ID>PackageName:OtgState.kt$package `in`.hridayan.ashell.core.common.domain.model.otg</ID>
+        <ID>PackageName:OutputLine.kt$package `in`.hridayan.ashell.core.common.domain.model</ID>
+        <ID>PackageName:PaletteStyle.kt$package `in`.hridayan.ashell.core.common.domain.model</ID>
+        <ID>PackageName:QueryCommandUseCase.kt$package
+            `in`.hridayan.ashell.core.common.domain.usecase.ai
+        </ID>
+        <ID>PackageName:SeedColorProvider.kt$package
+            `in`.hridayan.ashell.core.common.domain.provider
+        </ID>
+        <ID>PackageName:SeedColors.kt$package `in`.hridayan.ashell.core.common.data.provider</ID>
+        <ID>PackageName:SettingsDataStore.kt$package `in`.hridayan.ashell.core.common.data</ID>
+        <ID>PackageName:SettingsDataStoreProvider.kt$package `in`.hridayan.ashell.core.common.data
+        </ID>
+        <ID>PackageName:SettingsKeys.kt$package `in`.hridayan.ashell.core.common.settings</ID>
+        <ID>PackageName:SettingsRepository.kt$package
+            `in`.hridayan.ashell.core.common.domain.repository
+        </ID>
+        <ID>PackageName:SettingsRepositoryImpl.kt$package
+            `in`.hridayan.ashell.core.common.data.repository
+        </ID>
+        <ID>PackageName:SettingsState.kt$package `in`.hridayan.ashell.core.common.settings</ID>
+        <ID>PackageName:SharedTextHolder.kt$package `in`.hridayan.ashell.core.common.domain.model
+        </ID>
+        <ID>PackageName:ShellRepository.kt$package
+            `in`.hridayan.ashell.core.common.domain.repository
+        </ID>
+        <ID>PackageName:SortType.kt$package `in`.hridayan.ashell.core.common.domain.model</ID>
+        <ID>PackageName:StringListConverter.kt$package `in`.hridayan.ashell.core.common.converters
+        </ID>
+        <ID>PackageName:TerminalFontStyle.kt$package `in`.hridayan.ashell.core.common.domain.model
+        </ID>
+        <ID>PackageName:TextFieldValueSerializer.kt$package
+            `in`.hridayan.ashell.core.common.serializers
+        </ID>
+        <ID>PackageName:TileExecutionMode.kt$package `in`.hridayan.ashell.core.common.domain.model
+        </ID>
+        <ID>PackageName:ToastUtils.kt$package `in`.hridayan.ashell.core.utils</ID>
+        <ID>PackageName:UrlConst.kt$package `in`.hridayan.ashell.core.common.constants</ID>
+        <ID>PackageName:UrlUtils.kt$package `in`.hridayan.ashell.core.utils</ID>
+        <ID>PackageName:Utils.kt$package `in`.hridayan.ashell.core.utils</ID>
+        <ID>PackageName:VerifyApiKeyUseCase.kt$package
+            `in`.hridayan.ashell.core.common.domain.usecase.ai
+        </ID>
+        <ID>PackageName:WifiAdbConnection.kt$package
+            `in`.hridayan.ashell.core.common.domain.model.wifiadb
+        </ID>
+        <ID>PackageName:WifiAdbDevice.kt$package
+            `in`.hridayan.ashell.core.common.domain.model.wifiadb
+        </ID>
+        <ID>PackageName:WifiAdbEvent.kt$package
+            `in`.hridayan.ashell.core.common.domain.model.wifiadb
+        </ID>
+        <ID>PackageName:WifiAdbState.kt$package
+            `in`.hridayan.ashell.core.common.domain.model.wifiadb
+        </ID>
+        <ID>ParameterListWrapping:AiAnalysisRepository.kt$AiAnalysisRepository$(command: String,
+            ragContext: String = "", fallbackModels: List&lt;String&gt;? = null)
+        </ID>
+        <ID>ParameterListWrapping:AiTool.kt$SessionIdContext$(val sessionId: String)</ID>
+        <ID>ParameterListWrapping:CloudAnalysisRepository.kt$CloudAnalysisRepository$(command:
+            String, ragContext: String = "", fallbackModels: List&lt;String&gt;? = null)
+        </ID>
+        <ID>ParameterListWrapping:QueryCommandUseCase.kt$QueryCommandUseCase$(query: String, tools:
+            List&lt;AiTool&gt;, fallbackModels: List&lt;String&gt;? = null)
+        </ID>
+        <ID>PrintStackTrace:FileUtils.kt$e</ID>
+        <ID>RethrowCaughtException:VerifyApiKeyUseCase.kt$VerifyApiKeyUseCase$throw e</ID>
+        <ID>ThrowsCount:VerifyApiKeyUseCase.kt$VerifyApiKeyUseCase$suspend operator fun
+            invoke(provider: LlmProvider, apiKey: String): Boolean
+        </ID>
+        <ID>TooManyFunctions:CommandRepository.kt$CommandRepository</ID>
+        <ID>TooManyFunctions:SettingsDataStore.kt$SettingsDataStore</ID>
+        <ID>TooManyFunctions:SettingsRepository.kt$SettingsRepository</ID>
+        <ID>UnusedParameter:FileUtils.kt$context: Context</ID>
+        <ID>UnusedParameter:NotificationUtils.kt$context: Context</ID>
+        <ID>UtilityClassWithPublicConstructor:UrlUtils.kt$UrlUtils</ID>
+        <ID>WildcardImport:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
+        <ID>WildcardImport:SettingsKeys.kt$import `in`.hridayan.ashell.core.common.domain.model.*
+        </ID>
+        <ID>Wrapping:GenerateCorrectionsUseCase.kt$GenerateCorrectionsUseCase$(</ID>
+    </CurrentIssues>
+</SmellBaseline>

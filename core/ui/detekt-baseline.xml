@@ -1,0 +1,1787 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+    <ManuallySuppressedIssues></ManuallySuppressedIssues>
+    <CurrentIssues>
+        <ID>ArgumentListWrapping:AnimatedAdbIcon.kt$( initialValue = -1.5f, targetValue = 1.5f,
+            animationSpec = infiniteRepeatable( tween(idleHeadSwayDuration, easing = LinearEasing),
+            RepeatMode.Reverse, ), label = "headSway", )
+        </ID>
+        <ID>ArgumentListWrapping:AnimatedAdbIcon.kt$( initialValue = -5f, targetValue = 5f,
+            animationSpec = infiniteRepeatable( tween(idleAntennaDuration, easing =
+            FastOutSlowInEasing), RepeatMode.Reverse, ), label = "antennaSway", )
+        </ID>
+        <ID>ArgumentListWrapping:AnimatedAdbIcon.kt$( initialValue = 0f, targetValue = -1f,
+            animationSpec = infiniteRepeatable( tween(idleHeadBobDuration, easing =
+            FastOutSlowInEasing), RepeatMode.Reverse, ), label = "headBob", )
+        </ID>
+        <ID>ArgumentListWrapping:AnimatedAdbIcon.kt$( initialValue = 1f, targetValue = 1.025f,
+            animationSpec = infiniteRepeatable( tween(idleBodyBreatheDuration, easing =
+            FastOutSlowInEasing), RepeatMode.Reverse, ), label = "bodyBreathe", )
+        </ID>
+        <ID>ArgumentListWrapping:AnimatedAdbIcon.kt$( initialValue = 1f, targetValue = 1f,
+            animationSpec = infiniteRepeatable( animation = keyframes { durationMillis =
+            idleBlinkCycleDuration 1f at 0 1f at (idleBlinkCycleDuration * 0.92f).toInt() using
+            LinearEasing 0f at (idleBlinkCycleDuration * 0.95f).toInt() using FastOutSlowInEasing 1f
+            at (idleBlinkCycleDuration * 0.98f).toInt() 1f at idleBlinkCycleDuration }, repeatMode =
+            RepeatMode.Restart, ), label = "eyeBlink", )
+        </ID>
+        <ID>ArgumentListWrapping:AppScaffold.kt$(scrolledContainerColor =
+            MaterialTheme.colorScheme.surfaceContainerHigh)
+        </ID>
+        <ID>ArgumentListWrapping:ChatBubbleShape.kt$ChatBubbleShape$( x1 = w, y1 = bodyH, // Control
+            point for perfect tangent transition x2 = w - tailW, y2 = bodyH )
+        </ID>
+        <ID>ArgumentListWrapping:OtgDeviceWaitingDialog.kt$( modifier = Modifier.fillMaxWidth(),
+            shapes = ButtonDefaults.shapes(), onClick = withHaptic(HapticFeedbackType.Reject) {
+            onDismiss() otgViewModel.disconnect() })
+        </ID>
+        <ID>ArgumentListWrapping:OtgDeviceWaitingDialog.kt$(R.string.device_connected)</ID>
+        <ID>ArgumentListWrapping:RadioGroupOptionsProvider.kt$RadioGroupOptionsProvider.Companion$(
+            RadioButtonOption( value = SortType.AZ, labelResId = R.string.A_Z ), RadioButtonOption(
+            value = SortType.ZA, labelResId = R.string.Z_A ), RadioButtonOption( value =
+            SortType.MOST_USED, labelResId = R.string.most_used ), RadioButtonOption( value =
+            SortType.LEAST_USED, labelResId = R.string.least_used ) )
+        </ID>
+        <ID>ArgumentListWrapping:RadioGroupOptionsProvider.kt$RadioGroupOptionsProvider.Companion$(
+            RadioButtonOption( value = SortType.AZ, labelResId = R.string.A_Z ), RadioButtonOption(
+            value = SortType.ZA, labelResId = R.string.Z_A ), RadioButtonOption( value =
+            SortType.NEWEST, labelResId = R.string.newest ), RadioButtonOption( value =
+            SortType.OLDEST, labelResId = R.string.oldest ) )
+        </ID>
+        <ID>ArgumentListWrapping:Undraw404Error.kt$("M858.9,570.8l-857.8,0.3a1.2,1.2 0,1 1,0
+            -2.4l857.8,-0.3a1.2,1.2 0,0 1,0 2.4Z")
+        </ID>
+        <ID>CyclomaticComplexMethod:FloatingIcons.kt$private fun updatePhysics( icons: List&lt;FloatingIconState&gt;,
+            width: Float, height: Float, dt: Float, touchPos: Offset?, repelRadius: Float,
+            repelForce: Float )
+        </ID>
+        <ID>CyclomaticComplexMethod:TonalSchemeFactory.kt$fun createDynamicScheme( primarySeedArgb:
+            Int, paletteStyle: PaletteStyle, isDark: Boolean, contrastLevel: Double = 0.0 ):
+            DynamicScheme
+        </ID>
+        <ID>
+            Filename:AnimationSpecs.kt$in.hridayan.ashell.core.presentation.theme.AnimationSpecs.kt
+        </ID>
+        <ID>
+            Filename:_DrawableVectors.kt$in.hridayan.ashell.core.presentation.components.svg._DrawableVectors.kt
+        </ID>
+        <ID>
+            FinalNewline:AdbAppIcon.kt$in.hridayan.ashell.core.presentation.components.svg.vectors.AdbAppIcon.kt
+        </ID>
+        <ID>
+            FinalNewline:AnimatedSnackBar.kt$in.hridayan.ashell.core.presentation.components.snackbar.AnimatedSnackBar.kt
+        </ID>
+        <ID>
+            FinalNewline:AnimationSpecs.kt$in.hridayan.ashell.core.presentation.theme.AnimationSpecs.kt
+        </ID>
+        <ID>
+            FinalNewline:AppBranding.kt$in.hridayan.ashell.core.presentation.components.svg.vectors.AppBranding.kt
+        </ID>
+        <ID>
+            FinalNewline:AppBrandingNoPadding.kt$in.hridayan.ashell.core.presentation.components.svg.vectors.AppBrandingNoPadding.kt
+        </ID>
+        <ID>
+            FinalNewline:AppScaffold.kt$in.hridayan.ashell.core.presentation.components.scaffold.AppScaffold.kt
+        </ID>
+        <ID>
+            FinalNewline:AppSwitch.kt$in.hridayan.ashell.core.presentation.components.switch.AppSwitch.kt
+        </ID>
+        <ID>
+            FinalNewline:AutoResizeableText.kt$in.hridayan.ashell.core.presentation.components.text.AutoResizeableText.kt
+        </ID>
+        <ID>
+            FinalNewline:BackButton.kt$in.hridayan.ashell.core.presentation.components.button.BackButton.kt
+        </ID>
+        <ID>
+            FinalNewline:BatteryIndicator.kt$in.hridayan.ashell.core.presentation.components.battery.BatteryIndicator.kt
+        </ID>
+        <ID>
+            FinalNewline:BottomCornerRoundedCard.kt$in.hridayan.ashell.core.presentation.components.card.BottomCornerRoundedCard.kt
+        </ID>
+        <ID>
+            FinalNewline:BulletPointsTextLayout.kt$in.hridayan.ashell.core.presentation.components.text.BulletPointsTextLayout.kt
+        </ID>
+        <ID>
+            FinalNewline:ButtonGroupItem.kt$in.hridayan.ashell.core.presentation.components.buttongroup.ButtonGroupItem.kt
+        </ID>
+        <ID>
+            FinalNewline:ButtonGroupOptions.kt$in.hridayan.ashell.core.presentation.components.buttongroup.ButtonGroupOptions.kt
+        </ID>
+        <ID>
+            FinalNewline:CollapsibleCard.kt$in.hridayan.ashell.core.presentation.components.card.CollapsibleCard.kt
+        </ID>
+        <ID>
+            FinalNewline:CustomCard.kt$in.hridayan.ashell.core.presentation.components.card.CustomCard.kt
+        </ID>
+        <ID>
+            FinalNewline:DashedBorder.kt$in.hridayan.ashell.core.presentation.components.modifier.DashedBorder.kt
+        </ID>
+        <ID>
+            FinalNewline:DialogContainer.kt$in.hridayan.ashell.core.presentation.components.dialog.DialogContainer.kt
+        </ID>
+        <ID>
+            FinalNewline:DialogKey.kt$in.hridayan.ashell.core.presentation.components.dialog.DialogKey.kt
+        </ID>
+        <ID>
+            FinalNewline:DialogText.kt$in.hridayan.ashell.core.presentation.components.text.DialogText.kt
+        </ID>
+        <ID>FinalNewline:Dimens.kt$in.hridayan.ashell.core.presentation.theme.Dimens.kt</ID>
+        <ID>FinalNewline:ExampleUnitTest.kt$in.hridayan.ashell.core.ui.ExampleUnitTest.kt</ID>
+        <ID>
+            FinalNewline:FloatingIcons.kt$in.hridayan.ashell.core.presentation.components.floaters.FloatingIcons.kt
+        </ID>
+        <ID>FinalNewline:HapticUtils.kt$in.hridayan.ashell.core.presentation.utils.HapticUtils.kt
+        </ID>
+        <ID>
+            FinalNewline:IconWithTextButton.kt$in.hridayan.ashell.core.presentation.components.button.IconWithTextButton.kt
+        </ID>
+        <ID>
+            FinalNewline:IconWithTextCard.kt$in.hridayan.ashell.core.presentation.components.card.IconWithTextCard.kt
+        </ID>
+        <ID>
+            FinalNewline:KeyboardUtils.kt$in.hridayan.ashell.core.presentation.utils.KeyboardUtils.kt
+        </ID>
+        <ID>
+            FinalNewline:LoadingSpinner.kt$in.hridayan.ashell.core.presentation.components.progress.LoadingSpinner.kt
+        </ID>
+        <ID>
+            FinalNewline:NavigationCard.kt$in.hridayan.ashell.core.presentation.components.card.NavigationCard.kt
+        </ID>
+        <ID>
+            FinalNewline:NoSearchResult.kt$in.hridayan.ashell.core.presentation.components.svg.vectors.NoSearchResult.kt
+        </ID>
+        <ID>
+            FinalNewline:OutlinedIconButtonWithText.kt$in.hridayan.ashell.core.presentation.components.button.OutlinedIconButtonWithText.kt
+        </ID>
+        <ID>
+            FinalNewline:SpinningGearsLottie.kt$in.hridayan.ashell.core.presentation.components.lottie.SpinningGearsLottie.kt
+        </ID>
+        <ID>
+            FinalNewline:TooltipContent.kt$in.hridayan.ashell.core.presentation.components.tooltip.TooltipContent.kt
+        </ID>
+        <ID>
+            FinalNewline:TopCornerRoundedCard.kt$in.hridayan.ashell.core.presentation.components.card.TopCornerRoundedCard.kt
+        </ID>
+        <ID>
+            FinalNewline:UndrawDreamWorld.kt$in.hridayan.ashell.core.presentation.components.svg.vectors.UndrawDreamWorld.kt
+        </ID>
+        <ID>
+            FinalNewline:VerticalScrollbar.kt$in.hridayan.ashell.core.presentation.components.scrollbar.VerticalScrollbar.kt
+        </ID>
+        <ID>
+            FinalNewline:WavyHorizontalDivider.kt$in.hridayan.ashell.core.presentation.components.divider.WavyHorizontalDivider.kt
+        </ID>
+        <ID>
+            FinalNewline:_DrawableVectors.kt$in.hridayan.ashell.core.presentation.components.svg._DrawableVectors.kt
+        </ID>
+        <ID>ImportOrdering:ButtonGroupOptionsProvider.kt$import
+            `in`.hridayan.ashell.core.common.domain.model.TileExecutionMode import
+            `in`.hridayan.ashell.core.resources.R import
+            `in`.hridayan.ashell.core.presentation.components.buttongroup.ButtonGroupOptions
+        </ID>
+        <ID>ImportOrdering:ExampleUnitTest.kt$import org.junit.Test import org.junit.Assert.*</ID>
+        <ID>ImportOrdering:OtgDeviceWaitingDialog.kt$import
+            androidx.compose.foundation.layout.Arrangement import
+            androidx.compose.foundation.layout.Column import
+            androidx.compose.foundation.layout.Spacer import
+            androidx.compose.foundation.layout.fillMaxWidth import
+            androidx.compose.foundation.layout.heightIn import
+            androidx.compose.foundation.layout.padding import
+            androidx.compose.foundation.layout.size import
+            androidx.compose.foundation.layout.widthIn import androidx.compose.material3.Button
+            import androidx.compose.material3.ButtonDefaults import
+            androidx.compose.material3.CardDefaults import
+            androidx.compose.material3.ExperimentalMaterial3ExpressiveApi import
+            androidx.compose.material3.Icon import androidx.compose.material3.LoadingIndicator
+            import androidx.compose.material3.MaterialTheme import
+            androidx.compose.material3.OutlinedButton import androidx.compose.material3.Surface
+            import androidx.compose.material3.Text import androidx.compose.runtime.Composable import
+            androidx.compose.runtime.LaunchedEffect import androidx.compose.runtime.collectAsState
+            import androidx.compose.runtime.getValue import androidx.compose.ui.Alignment import
+            androidx.compose.ui.Modifier import
+            androidx.compose.ui.hapticfeedback.HapticFeedbackType import
+            androidx.compose.ui.res.painterResource import androidx.compose.ui.res.stringResource
+            import androidx.compose.ui.text.style.TextAlign import androidx.compose.ui.unit.dp
+            import androidx.compose.ui.window.Dialog import
+            androidx.compose.ui.window.DialogProperties import
+            androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel import
+            `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard import
+            `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic import
+            `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText import
+            `in`.hridayan.ashell.core.presentation.theme.CustomCardShape import
+            `in`.hridayan.ashell.core.resources.R import
+            `in`.hridayan.ashell.core.common.domain.model.otg.OtgState import
+            `in`.hridayan.ashell.core.ui.otg.OtgViewModel
+        </ID>
+        <ID>ImportOrdering:RadioGroupOptionsProvider.kt$import
+            androidx.appcompat.app.AppCompatDelegate import
+            `in`.hridayan.ashell.core.common.domain.model.backup.BackupFrequency import
+            `in`.hridayan.ashell.core.common.domain.model.backup.BackupType import
+            `in`.hridayan.ashell.core.common.domain.model.GithubReleaseType import
+            `in`.hridayan.ashell.core.common.domain.model.AppFont import
+            `in`.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode import
+            `in`.hridayan.ashell.core.common.domain.model.SortType import
+            `in`.hridayan.ashell.core.resources.R import
+            `in`.hridayan.settingsdsl.model.RadioButtonOption
+        </ID>
+        <ID>ImportOrdering:Theme.kt$import android.app.Activity import android.graphics.Color import
+            android.os.Build import android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+            import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi import
+            androidx.compose.material3.MaterialExpressiveTheme import
+            androidx.compose.material3.dynamicDarkColorScheme import
+            androidx.compose.material3.dynamicLightColorScheme import
+            androidx.compose.runtime.Composable import androidx.compose.runtime.LaunchedEffect
+            import androidx.compose.ui.platform.LocalContext import
+            androidx.compose.ui.platform.LocalView import androidx.core.view.WindowCompat import
+            `in`.hridayan.ashell.core.common.LocalDarkMode import
+            `in`.hridayan.ashell.core.common.settings.LocalSettings import
+            `in`.hridayan.ashell.core.common.LocalUserGeneratedColorScheme import
+            `in`.hridayan.ashell.core.common.settings.SettingsKeys import
+            `in`.hridayan.ashell.core.presentation.theme.color.darkColorSchemeFromSeed import
+            `in`.hridayan.ashell.core.presentation.theme.color.highContrastDarkColorSchemeFromSeed
+            import
+            `in`.hridayan.ashell.core.presentation.theme.color.highContrastDynamicDarkColorScheme
+            import `in`.hridayan.ashell.core.presentation.theme.color.lightColorSchemeFromSeed
+            import `in`.hridayan.ashell.core.presentation.theme.color.toColorScheme
+        </ID>
+        <ID>Indentation:AdbAppIcon.kt$</ID>
+        <ID>Indentation:AnimatedAdbIcon.kt$</ID>
+        <ID>Indentation:AppScaffold.kt$</ID>
+        <ID>LongMethod:ChatBubbleShape.kt$ChatBubbleShape$override fun createOutline( size: Size,
+            layoutDirection: LayoutDirection, density: Density ): Outline
+        </ID>
+        <ID>LongMethod:FloatingIcons.kt$private fun updatePhysics( icons: List&lt;FloatingIconState&gt;,
+            width: Float, height: Float, dt: Float, touchPos: Offset?, repelRadius: Float,
+            repelForce: Float )
+        </ID>
+        <ID>LongMethod:TonalSchemeFactory.kt$fun DynamicScheme.toComposeColorScheme(): ColorScheme
+        </ID>
+        <ID>LongMethod:UserGeneratedColorScheme.kt$fun UserGeneratedColorScheme.toEntity():
+            UserGeneratedColorSchemeEntity
+        </ID>
+        <ID>LongMethod:UserGeneratedColorScheme.kt$fun UserGeneratedColorScheme.toPayload():
+            ColorSchemePayload
+        </ID>
+        <ID>LongMethod:UserGeneratedColorScheme.kt$fun UserGeneratedColorSchemeEntity.toDomain():
+            UserGeneratedColorScheme
+        </ID>
+        <ID>LongMethod:UserGeneratedColorSchemeEntity.kt$fun ColorSchemePayload.toEntity():
+            UserGeneratedColorSchemeEntity
+        </ID>
+        <ID>LongMethod:UserGeneratedColorSchemeEntity.kt$fun
+            UserGeneratedColorSchemeEntity.toPayload(): ColorSchemePayload
+        </ID>
+        <ID>LongMethod:UserGeneratedColorSchemeMapper.kt$fun
+            UserGeneratedColorScheme.toColorScheme(): ColorScheme
+        </ID>
+        <ID>LongMethod:Wavy.kt$SineWaveShape$override fun createOutline( size: Size,
+            layoutDirection: LayoutDirection, density: Density ): Outline
+        </ID>
+        <ID>LongParameterList:FloatingIcons.kt$( icons: List&lt;FloatingIconState&gt;, width: Float,
+            height: Float, dt: Float, touchPos: Offset?, repelRadius: Float, repelForce: Float )
+        </ID>
+        <ID>MagicNumber:TonalSchemeFactory.kt$12</ID>
+        <ID>MagicNumber:TonalSchemeFactory.kt$17</ID>
+        <ID>MagicNumber:TonalSchemeFactory.kt$20</ID>
+        <ID>MagicNumber:TonalSchemeFactory.kt$22</ID>
+        <ID>MagicNumber:TonalSchemeFactory.kt$24</ID>
+        <ID>MagicNumber:TonalSchemeFactory.kt$30</ID>
+        <ID>MagicNumber:TonalSchemeFactory.kt$4</ID>
+        <ID>MagicNumber:TonalSchemeFactory.kt$40</ID>
+        <ID>MagicNumber:TonalSchemeFactory.kt$50</ID>
+        <ID>MagicNumber:TonalSchemeFactory.kt$6</ID>
+        <ID>MagicNumber:TonalSchemeFactory.kt$60</ID>
+        <ID>MagicNumber:TonalSchemeFactory.kt$80</ID>
+        <ID>MagicNumber:TonalSchemeFactory.kt$87</ID>
+        <ID>MagicNumber:TonalSchemeFactory.kt$90</ID>
+        <ID>MagicNumber:TonalSchemeFactory.kt$92</ID>
+        <ID>MagicNumber:TonalSchemeFactory.kt$94</ID>
+        <ID>MagicNumber:TonalSchemeFactory.kt$95</ID>
+        <ID>MagicNumber:TonalSchemeFactory.kt$96</ID>
+        <ID>MagicNumber:TonalSchemeFactory.kt$98</ID>
+        <ID>MatchingDeclarationName:AnimationSpecs.kt$AshellYouAnimationSpecs</ID>
+        <ID>MatchingDeclarationName:BatteryIndicator.kt$BatteryOrientation</ID>
+        <ID>MatchingDeclarationName:_DrawableVectors.kt$DynamicColorImageVectors</ID>
+        <ID>MaxLineLength:AppBranding.kt$"m11.63,19.97c-0.46,0.09 -0.8,0.3 -1.03,0.65 -0.26,0.39
+            -0.27,0.87 -0.05,1.31 0.03,0.07 0.3,0.43 0.59,0.81 0.29,0.38 0.64,0.84 0.78,1.01
+            0.24,0.31 0.62,0.82 1.22,1.61 0.58,0.77 0.89,1.19 0.89,1.21 0,0.01 -0.1,0.09 -0.21,0.18
+            -1.32,1.02 -2.35,2.09 -3.16,3.53 -0.68,1.23 1.2,-0.41 0.55,0.28 -1.13,1.48 -0.23,-0.65
+            0,-0.44 0.18,0.16 -0.42,0.18 -0.16,0.18 0.24,-0 -0.49,1.22 -0.53,0.44 -0.1,-0.16
+            0.32,1.18 1.19,0.01 1.02,-1.3 1.57,-1.68 2.13,-2.27 0.79,-0.72 1.59,-1.27 2.54,-1.79
+            1.03,-0.56 2.3,-0.86 3.41,-1.01 0.77,-0.1 0.85,-0.11 1.67,-0.11 0.73,0 0.81,0 1.23,0.05
+            0.53,0.06 0.74,0.1 1.23,0.22 1.61,0.38 3.18,1.16 4.52,2.26 1.43,1.17 2.44,2.64 3,4.38
+            0.38,1.17 0.45,2.29 0.19,3.01 -0.16,0.46 -0.46,0.94 -0.79,1.29 -0.19,0.19 -0.51,0.46
+            -0.69,0.58 -0.59,0.38 -1.33,0.63 -1.94,0.66 -0.14,0.01 -3.54,0.01 -7.55,0.02 -6.88,0
+            -7.32,0.01 -7.51,0.04 -1.13,0.19 -2.02,0.65 -2.72,1.4 -0.53,0.57 -0.92,1.36 -1.04,2.11
+            -0.05,0.29 -0.07,2.07 -0.03,2.6 0.08,1.09 0.31,2.11 0.71,3.13 0.57,1.45 1.44,2.7
+            2.64,3.8 0.96,0.88 1.95,1.52 3.2,2.08 0.93,0.42 2.05,0.76 3.08,0.93 0.36,0.06 0.47,0.08
+            0.89,0.13 0.55,0.07 1.84,0.1 2.37,0.06 0.13,-0.01 0.35,-0.03 0.49,-0.04 1.01,-0.08
+            2.2,-0.35 3.3,-0.75 1.53,-0.55 2.98,-1.44 4.14,-2.54 0.83,-0.79 1.46,-1.6 2.01,-2.59
+            0.21,-0.38 0.26,-0.49 0.51,-1.06 0.34,-0.8 0.61,-1.85 0.72,-2.79 0.06,-0.58 0.07,-1.3
+            0.07,-5.75 -0,-4.58 -0,-4.54 -0.09,-5.16 -0.04,-0.29 -0.18,-0.92 -0.28,-1.28 -0.1,-0.36
+            -0.3,-0.89 -0.5,-1.34 -0.75,-1.66 -2.05,-3.21 -3.67,-4.39l-0.05,-0.04
+            0.08,-0.12c0.05,-0.06 0.18,-0.25 0.3,-0.4 0.56,-0.73 0.87,-1.13 1.27,-1.65 0.24,-0.31
+            0.53,-0.69 0.65,-0.84 0.12,-0.16 0.3,-0.39 0.39,-0.51 0.1,-0.12 0.28,-0.36 0.41,-0.52
+            0.12,-0.16 0.26,-0.33 0.3,-0.38 0.26,-0.31 0.36,-0.83 0.25,-1.21 -0.08,-0.25 -0.18,-0.41
+            -0.38,-0.59 -0.21,-0.19 -0.38,-0.28 -0.65,-0.35 -0.58,-0.15 -1.26,0.06 -1.64,0.51
+            -0.08,0.1 -0.61,1.02 -1.94,3.43 -0.45,0.81 -0.83,1.48 -0.85,1.5 -0.02,0.02 -0.08,-0
+            -0.29,-0.1 -0.82,-0.39 -1.89,-0.74 -2.75,-0.92 -0.29,-0.06 -0.94,-0.15 -1.33,-0.19
+            -0.43,-0.05 -1.94,-0.05 -2.32,-0.01 -1.68,0.18 -3.04,0.56 -4.23,1.15 -0.12,0.06
+            -0.23,0.11 -0.24,0.1 -0.01,-0 -0.05,-0.07 -0.09,-0.14 -0.07,-0.15 -0.22,-0.43 -1.2,-2.21
+            -0.38,-0.7 -0.85,-1.55 -1.03,-1.88 -0.18,-0.34 -0.38,-0.66 -0.43,-0.73 -0.18,-0.22
+            -0.5,-0.42 -0.8,-0.5 -0.14,-0.04 -0.56,-0.06 -0.7,-0.03zM29.71,39.63c0.44,0.06 0.72,0.15
+            1.02,0.33 0.37,0.23 0.57,0.43 0.79,0.83 0.2,0.37 0.26,0.63 0.27,1.45 0.02,0.65
+            -0.02,2.03 -0.05,2.26 -0.01,0.08 -0.04,0.25 -0.06,0.37 -0.13,0.85 -0.54,2 -1.02,2.87
+            -0.33,0.59 -0.82,1.26 -1.3,1.79 -0.24,0.26 -0.9,0.86 -1.19,1.08 -1.33,1.01 -3.01,1.73
+            -4.74,2.04 -0.72,0.13 -1.29,0.18 -2.04,0.18 -0.74,-0 -1.25,-0.04 -1.95,-0.16 -2.67,-0.45
+            -5.01,-1.77 -6.58,-3.72 -0.26,-0.32 -0.29,-0.37 -0.5,-0.69 -0.45,-0.7 -0.88,-1.61
+            -1.08,-2.33 -0.29,-1.01 -0.36,-1.66 -0.35,-3.11 0.01,-0.93 0.02,-1.04 0.14,-1.36
+            0.08,-0.21 0.25,-0.52 0.38,-0.7 0.34,-0.46 1.01,-0.9 1.62,-1.06 0.43,-0.11 -0.07,-0.11
+            8.5,-0.11 6.85,-0 7.94,0 8.13,0.03z"
+        </ID>
+        <ID>MaxLineLength:AppBranding.kt$"m17.46,30.27c-0.65,0.13 -1.16,0.47 -1.49,0.99 -0.43,0.67
+            -0.42,1.44 0.01,2.08 0.15,0.22 0.41,0.46 0.66,0.61 0.25,0.15 0.4,0.21 0.67,0.28 0.41,0.1
+            0.72,0.1 1.11,0.01 0.9,-0.21 1.55,-0.9 1.67,-1.78 0.06,-0.43 -0.08,-0.93 -0.36,-1.32
+            -0.28,-0.38 -0.82,-0.74 -1.3,-0.85 -0.22,-0.05 -0.76,-0.07 -0.96,-0.03z"
+        </ID>
+        <ID>MaxLineLength:AppBranding.kt$"m24.76,30.27c-0.4,0.07 -0.77,0.25 -1.09,0.53 -0.36,0.32
+            -0.61,0.73 -0.68,1.14 -0.07,0.44 0.02,0.95 0.22,1.28 0.27,0.43 0.54,0.67 0.99,0.87
+            0.24,0.11 0.35,0.14 0.59,0.18 0.35,0.05 0.76,0.03 1.09,-0.07 0.31,-0.09 0.7,-0.32
+            0.93,-0.56 0.48,-0.48 0.7,-1.17 0.55,-1.79 -0.15,-0.64 -0.66,-1.21 -1.32,-1.46
+            -0.3,-0.12 -0.54,-0.16 -0.86,-0.16 -0.16,-0 -0.35,0.01 -0.43,0.03z"
+        </ID>
+        <ID>MaxLineLength:AppBranding.kt$"m54.65,46.16q0,1.91 -0.66,3.41 -0.66,1.51 -1.86,2.57
+            -1.2,1.04 -2.85,1.6 -1.65,0.55 -3.6,0.55 -1.33,0 -2.5,-0.27 -1.18,-0.24 -2.1,-0.6
+            -0.92,-0.35 -1.56,-0.71 -0.62,-0.38 -0.86,-0.62 -0.24,-0.27 -0.34,-0.6 -0.11,-0.35
+            -0.11,-0.86 0,-0.38 0.04,-0.62 0.04,-0.24 0.11,-0.4 0.09,-0.16 0.19,-0.2 0.13,-0.07
+            0.26,-0.07 0.3,0 0.83,0.4 0.56,0.38 1.41,0.84 0.88,0.44 2.08,0.84 1.22,0.38 2.83,0.38
+            1.31,0 2.4,-0.35 1.09,-0.38 1.88,-1.06 0.79,-0.69 1.22,-1.68 0.45,-1.02 0.45,-2.31
+            0,-1.33 -0.56,-2.28 -0.56,-0.95 -1.48,-1.66 -0.9,-0.73 -2.05,-1.31 -1.16,-0.6
+            -2.38,-1.17 -1.2,-0.6 -2.35,-1.29 -1.16,-0.69 -2.08,-1.6 -0.9,-0.93 -1.46,-2.17
+            -0.56,-1.24 -0.56,-2.95 0,-1.66 0.58,-2.97 0.58,-1.33 1.63,-2.24 1.05,-0.93 2.5,-1.42
+            1.48,-0.49 3.23,-0.49 0.88,0 1.78,0.18 0.9,0.18 1.69,0.47 0.81,0.27 1.43,0.62 0.64,0.33
+            0.83,0.55 0.21,0.2 0.26,0.31 0.06,0.09 0.11,0.24 0.04,0.16 0.06,0.38 0.02,0.2 0.02,0.51
+            0,0.29 -0.04,0.53 -0.02,0.22 -0.09,0.4 -0.06,0.16 -0.17,0.24 -0.09,0.09 -0.21,0.09
+            -0.24,0 -0.73,-0.31 -0.47,-0.33 -1.2,-0.73 -0.73,-0.4 -1.73,-0.71 -1.01,-0.33
+            -2.29,-0.33 -1.26,0 -2.2,0.35 -0.94,0.35 -1.56,0.98 -0.62,0.6 -0.94,1.42 -0.3,0.82
+            -0.3,1.73 0,1.33 0.56,2.28 0.56,0.95 1.48,1.68 0.92,0.73 2.08,1.33 1.18,0.58 2.38,1.17
+            1.22,0.58 2.38,1.26 1.18,0.66 2.1,1.6 0.92,0.91 1.48,2.15 0.56,1.22
+            0.56,2.9zM75.71,53.47q0,0.13 -0.06,0.24 -0.06,0.11 -0.21,0.18 -0.13,0.07 -0.39,0.11
+            -0.24,0.04 -0.6,0.04 -0.39,0 -0.64,-0.04 -0.24,-0.04 -0.39,-0.11 -0.13,-0.07 -0.19,-0.18
+            -0.06,-0.11 -0.06,-0.24L73.17,41.57q0,-1.86 -0.28,-3.01 -0.28,-1.17 -0.83,-1.99
+            -0.56,-0.84 -1.43,-1.29 -0.86,-0.47 -2.01,-0.47 -1.48,0 -2.95,1.09 -1.48,1.09
+            -3.1,3.19l0,14.38q0,0.13 -0.06,0.24 -0.06,0.11 -0.21,0.18 -0.13,0.07 -0.39,0.11
+            -0.24,0.04 -0.62,0.04 -0.36,0 -0.62,-0.04 -0.24,-0.04 -0.39,-0.11 -0.15,-0.07
+            -0.21,-0.18 -0.04,-0.11 -0.04,-0.24L60,23.6q0,-0.13 0.04,-0.24 0.06,-0.11 0.21,-0.18
+            0.15,-0.09 0.39,-0.11 0.26,-0.04 0.62,-0.04 0.39,0 0.62,0.04 0.26,0.02 0.39,0.11
+            0.15,0.07 0.21,0.18 0.06,0.11 0.06,0.24l0,12.52q1.58,-1.82 3.17,-2.66 1.58,-0.86
+            3.17,-0.86 1.9,0 3.21,0.66 1.31,0.66 2.1,1.8 0.81,1.13 1.16,2.64 0.36,1.51
+            0.36,3.63zM98.57,42.42q0,0.8 -0.41,1.11 -0.41,0.29 -0.79,0.29L84.17,43.81q0,1.86
+            0.34,3.37 0.36,1.51 1.18,2.59 0.81,1.06 2.12,1.64 1.31,0.58 3.21,0.58 1.35,0 2.42,-0.24
+            1.07,-0.24 1.84,-0.53 0.79,-0.31 1.28,-0.55 0.51,-0.24 0.73,-0.24 0.13,0 0.24,0.07
+            0.11,0.07 0.17,0.22 0.06,0.13 0.09,0.35 0.04,0.22 0.04,0.55 0,0.16 -0.02,0.31 -0.02,0.13
+            -0.06,0.27 -0.02,0.11 -0.09,0.22 -0.06,0.11 -0.17,0.22 -0.11,0.11 -0.66,0.4 -0.56,0.27
+            -1.46,0.55 -0.9,0.27 -2.1,0.49 -1.18,0.22 -2.55,0.22 -2.25,0 -3.98,-0.69 -1.73,-0.71
+            -2.91,-2.06 -1.18,-1.37 -1.8,-3.39 -0.6,-2.02 -0.6,-4.68 0,-2.55 0.62,-4.57 0.64,-2.02
+            1.82,-3.41 1.18,-1.42 2.83,-2.15 1.67,-0.75 3.7,-0.75 2.18,0 3.72,0.75 1.54,0.75
+            2.53,2.04 1.01,1.26 1.46,2.95 0.47,1.68 0.47,3.55zM95.94,41.64q0.06,-3.19 -1.41,-4.99
+            -1.48,-1.8 -4.3,-1.8 -1.46,0 -2.57,0.58 -1.09,0.55 -1.86,1.48 -0.75,0.93 -1.16,2.17
+            -0.41,1.22 -0.47,2.55zM106.98,53.47q0,0.13 -0.06,0.24 -0.06,0.11 -0.21,0.18 -0.13,0.07
+            -0.39,0.11 -0.24,0.04 -0.62,0.04 -0.36,0 -0.62,-0.04 -0.24,-0.04 -0.39,-0.11 -0.15,-0.07
+            -0.21,-0.18 -0.04,-0.11 -0.04,-0.24L104.43,23.6q0,-0.13 0.04,-0.24 0.06,-0.11 0.21,-0.18
+            0.15,-0.09 0.39,-0.11 0.26,-0.04 0.62,-0.04 0.39,0 0.62,0.04 0.26,0.02 0.39,0.11
+            0.15,0.07 0.21,0.18 0.06,0.11 0.06,0.24zM116.65,53.47q0,0.13 -0.06,0.24 -0.06,0.11
+            -0.21,0.18 -0.13,0.07 -0.39,0.11 -0.24,0.04 -0.62,0.04 -0.36,0 -0.62,-0.04 -0.24,-0.04
+            -0.39,-0.11 -0.15,-0.07 -0.21,-0.18 -0.04,-0.11 -0.04,-0.24L114.11,23.6q0,-0.13
+            0.04,-0.24 0.06,-0.11 0.21,-0.18 0.15,-0.09 0.39,-0.11 0.26,-0.04 0.62,-0.04 0.39,0
+            0.62,0.04 0.26,0.02 0.39,0.11 0.15,0.07 0.21,0.18 0.06,0.11
+            0.06,0.24zM141.71,42.61l0,10.86q0,0.13 -0.06,0.24 -0.06,0.11 -0.21,0.18 -0.15,0.07
+            -0.41,0.11 -0.26,0.04 -0.62,0.04 -0.39,0 -0.64,-0.04 -0.24,-0.04 -0.41,-0.11 -0.15,-0.07
+            -0.21,-0.18 -0.06,-0.11 -0.06,-0.24L139.08,42.61l-7.96,-16.47q-0.15,-0.33 -0.17,-0.53
+            -0.02,-0.2 0.09,-0.31 0.13,-0.11 0.41,-0.16 0.28,-0.04 0.71,-0.04 0.47,0 0.75,0.04
+            0.3,0.02 0.47,0.09 0.19,0.07 0.28,0.18 0.09,0.11 0.17,0.27l4.24,8.93q0.6,1.26 1.18,2.62
+            0.6,1.35 1.2,2.73l0.04,0q0.56,-1.31 1.13,-2.64 0.58,-1.33 1.18,-2.64l4.28,-9q0.06,-0.16
+            0.15,-0.27 0.09,-0.11 0.24,-0.18 0.15,-0.07 0.39,-0.09 0.26,-0.04 0.62,-0.04 0.51,0
+            0.83,0.04 0.32,0.04 0.45,0.18 0.13,0.11 0.11,0.31 -0.02,0.2
+            -0.17,0.51zM168.3,43.24q0,2.39 -0.6,4.41 -0.6,2.02 -1.8,3.5 -1.18,1.48 -2.95,2.33
+            -1.78,0.82 -4.13,0.82 -2.27,0 -3.98,-0.73 -1.69,-0.75 -2.85,-2.13 -1.13,-1.4 -1.71,-3.37
+            -0.56,-1.97 -0.56,-4.45 0,-2.39 0.58,-4.41 0.6,-2.02 1.78,-3.48 1.2,-1.48 2.97,-2.31
+            1.78,-0.82 4.15,-0.82 2.27,0 3.96,0.73 1.71,0.73 2.85,2.13 1.13,1.37 1.71,3.35 0.58,1.97
+            0.58,4.43zM165.6,43.48q0,-1.71 -0.32,-3.26 -0.32,-1.55 -1.07,-2.73 -0.75,-1.2
+            -2.01,-1.88 -1.26,-0.71 -3.15,-0.71 -1.73,0 -3,0.64 -1.26,0.64 -2.08,1.8 -0.79,1.13
+            -1.18,2.68 -0.39,1.55 -0.39,3.35 0,1.73 0.32,3.3 0.32,1.55 1.07,2.73 0.75,1.17 2.01,1.86
+            1.26,0.69 3.15,0.69 1.73,0 3,-0.64 1.26,-0.64 2.05,-1.77 0.81,-1.13 1.2,-2.68 0.39,-1.55
+            0.39,-3.37zM189.63,53.47q0,0.13 -0.06,0.24 -0.04,0.11 -0.19,0.18 -0.15,0.07 -0.39,0.11
+            -0.24,0.04 -0.58,0.04 -0.39,0 -0.62,-0.04 -0.24,-0.04 -0.36,-0.11 -0.13,-0.07
+            -0.19,-0.18 -0.04,-0.11 -0.04,-0.24l0,-2.84q-1.67,1.93 -3.27,2.79 -1.58,0.86 -3.17,0.86
+            -1.9,0 -3.21,-0.66 -1.31,-0.66 -2.12,-1.8 -0.79,-1.15 -1.16,-2.66 -0.34,-1.51
+            -0.34,-3.63L173.92,33.42q0,-0.13 0.04,-0.24 0.06,-0.11 0.21,-0.18 0.15,-0.09 0.39,-0.11
+            0.26,-0.04 0.62,-0.04 0.39,0 0.62,0.04 0.26,0.02 0.39,0.11 0.15,0.07 0.21,0.18 0.06,0.11
+            0.06,0.24l0,11.88q0,1.86 0.28,3.04 0.28,1.17 0.83,2.02 0.56,0.82 1.41,1.29 0.88,0.44
+            2.03,0.44 1.48,0 2.93,-1.09 1.48,-1.09 3.12,-3.19L187.09,33.42q0,-0.13 0.04,-0.24
+            0.06,-0.11 0.21,-0.18 0.15,-0.09 0.39,-0.11 0.26,-0.04 0.64,-0.04 0.36,0 0.6,0.04
+            0.26,0.02 0.39,0.11 0.15,0.07 0.21,0.18 0.06,0.11 0.06,0.24z"
+        </ID>
+        <ID>MaxLineLength:AppBranding.kt$"m61.27,21.76c-0.27,0 -0.51,0.02 -0.75,0.06 -0.25,0.03
+            -0.51,0.1 -0.78,0.24 -0.26,0.12 -0.55,0.32 -0.74,0.65a1.27,1.22 90,0 0,-0.09
+            0.18c-0.09,0.24 -0.13,0.48 -0.13,0.71l0,29.88c0,0.23 0.04,0.48 0.13,0.72a1.27,1.22 90,0
+            0,0.09 0.18c0.2,0.35 0.51,0.57 0.78,0.69 0.22,0.1 0.43,0.15 0.65,0.19a1.27,1.22 90,0
+            0,0.02 0c0.26,0.05 0.53,0.06 0.82,0.06 0.3,0 0.55,-0.01 0.82,-0.06 0,-0 0,0 0,0
+            0.22,-0.04 0.43,-0.09 0.68,-0.21 0.26,-0.12 0.56,-0.33 0.76,-0.67 0.15,-0.27 0.24,-0.6
+            0.24,-0.9L63.77,39.6c0.93,-1.15 1.82,-2.1 2.59,-2.67 0.83,-0.61 1.55,-0.85 2.25,-0.85
+            0.61,0 1.07,0.12 1.44,0.32a1.27,1.22 90,0 0,0.03 0.02c0.4,0.2 0.7,0.47
+            0.96,0.86a1.27,1.22 90,0 0,0.01 0.01c0.27,0.4 0.49,0.91 0.65,1.57a1.27,1.22 90,0 0,0
+            0.01c0.15,0.61 0.24,1.53 0.24,2.71l0,11.9c0,0.3 0.08,0.63 0.24,0.9 0.17,0.3 0.44,0.53
+            0.69,0.66a1.27,1.22 90,0 0,0.07 0.03c0.22,0.1 0.43,0.15 0.65,0.19a1.27,1.22 90,0 0,0.02
+            0c0.27,0.05 0.54,0.06 0.84,0.06 0.28,0 0.54,-0.01 0.8,-0.06 0,-0 0,0 0,0 0.22,-0.04
+            0.43,-0.09 0.69,-0.21 0.26,-0.12 0.56,-0.33 0.76,-0.67 0.15,-0.27 0.24,-0.6
+            0.24,-0.9L76.94,41.33c0,-1.49 -0.13,-2.79 -0.4,-3.93 -0.26,-1.15 -0.71,-2.19 -1.36,-3.09
+            -0.65,-0.92 -1.52,-1.66 -2.54,-2.18 -1.08,-0.55 -2.34,-0.8 -3.75,-0.8 -1.27,0 -2.53,0.36
+            -3.73,1.01 -0,0 -0,-0 -0,0 -0.48,0.26 -0.91,0.79 -1.37,1.15l0,-9.89c0,-0.3 -0.08,-0.63
+            -0.24,-0.9 -0.18,-0.31 -0.45,-0.49 -0.7,-0.62 -0.29,-0.17 -0.57,-0.25 -0.81,-0.27
+            -0.24,-0.04 -0.48,-0.06 -0.76,-0.06zM105.7,21.76c-0.27,0 -0.51,0.02 -0.75,0.06
+            -0.25,0.02 -0.51,0.1 -0.78,0.24 -0.26,0.12 -0.55,0.32 -0.74,0.65a1.27,1.22 90,0 0,-0.09
+            0.18c-0.09,0.24 -0.13,0.48 -0.13,0.71l0,29.88c0,0.23 0.04,0.48 0.13,0.71a1.27,1.22 90,0
+            0,0.09 0.18c0.2,0.35 0.51,0.57 0.78,0.69 0.22,0.1 0.43,0.15 0.65,0.19a1.27,1.22 90,0
+            0,0.02 0c0.26,0.05 0.53,0.06 0.82,0.06 0.3,0 0.56,-0.01 0.82,-0.06 0,-0 0,0 0,0
+            0.22,-0.04 0.43,-0.09 0.68,-0.21 0.26,-0.12 0.56,-0.33 0.76,-0.67 0.15,-0.27 0.24,-0.6
+            0.24,-0.9L108.2,23.6c0,-0.3 -0.08,-0.63 -0.24,-0.89 -0.18,-0.32 -0.46,-0.49 -0.7,-0.62
+            -0.29,-0.17 -0.56,-0.25 -0.81,-0.27 -0.24,-0.04 -0.49,-0.06
+            -0.76,-0.06zM115.37,21.76c-0.27,0 -0.51,0.02 -0.75,0.06 -0.25,0.03 -0.51,0.1 -0.78,0.24
+            -0.26,0.12 -0.55,0.32 -0.74,0.65a1.27,1.22 90,0 0,-0.09 0.18c-0.09,0.24 -0.13,0.49
+            -0.13,0.72l0,29.88c0,0.23 0.04,0.48 0.13,0.72a1.27,1.22 90,0 0,0.09 0.18c0.2,0.35
+            0.51,0.57 0.78,0.69 0.22,0.1 0.43,0.15 0.65,0.19a1.27,1.22 90,0 0,0.02 0c0.26,0.05
+            0.53,0.06 0.82,0.06 0.3,0 0.55,-0.01 0.82,-0.06 0,-0 0,0 0,0 0.22,-0.04 0.43,-0.09
+            0.68,-0.21 0.26,-0.12 0.56,-0.33 0.76,-0.67 0.15,-0.27 0.24,-0.6
+            0.24,-0.9L117.88,23.6c0,-0.3 -0.08,-0.63 -0.24,-0.89a1.27,1.22 90,0 0,-0 -0c-0.18,-0.31
+            -0.45,-0.49 -0.7,-0.62 -0.29,-0.17 -0.57,-0.25 -0.81,-0.27 -0.24,-0.04 -0.48,-0.06
+            -0.76,-0.06zM46.95,23.6c-1.28,0 -2.48,0.18 -3.6,0.55a1.27,1.22 90,0 0,-0.01 0c-1.1,0.37
+            -2.09,0.92 -2.92,1.66 -0.84,0.73 -1.5,1.63 -1.95,2.68 -0.47,1.06 -0.69,2.24 -0.69,3.5
+            0,1.28 0.21,2.45 0.67,3.48 0.43,0.95 1,1.81 1.7,2.53a1.27,1.22 90,0 0,0.02
+            0.02c0.69,0.68 1.46,1.27 2.31,1.78 0.8,0.47 1.61,0.92 2.43,1.33a1.27,1.22 90,0 0,0.02
+            0.01c0.8,0.38 1.58,0.76 2.34,1.15a1.27,1.22 90,0 0,0.02 0.01c0.7,0.35 1.31,0.74
+            1.83,1.16a1.27,1.22 90,0 0,0.02 0.02c0.5,0.38 0.88,0.81 1.16,1.3 0.24,0.41 0.38,0.92
+            0.38,1.63 0,0.7 -0.12,1.28 -0.34,1.78a1.27,1.22 90,0 0,-0 0.01c-0.21,0.5 -0.5,0.89
+            -0.89,1.23 -0.4,0.35 -0.88,0.62 -1.48,0.83 -0.59,0.19 -1.26,0.29 -2.02,0.29 -0.97,0
+            -1.8,-0.12 -2.47,-0.32 -0.74,-0.25 -1.38,-0.51 -1.89,-0.77 -0,-0 -0.01,-0 -0.01,-0
+            -0.53,-0.29 -0.96,-0.55 -1.28,-0.76l0.05,0.03c-0.44,-0.33 -0.83,-0.64 -1.55,-0.64
+            -0.27,0 -0.52,0.08 -0.74,0.18 -0.39,0.18 -0.63,0.47 -0.77,0.72a1.27,1.22 90,0 0,-0.06
+            0.13c-0.1,0.23 -0.15,0.45 -0.19,0.67 -0.05,0.28 -0.06,0.55 -0.06,0.85 0,0.43 0.04,0.84
+            0.16,1.24a1.27,1.22 90,0 0,0.01 0.02c0.13,0.39 0.33,0.75 0.6,1.05a1.27,1.22 90,0 0,0.04
+            0.04c0.31,0.33 0.65,0.54 1.1,0.82a1.27,1.22 90,0 0,0.04 0.02c0.49,0.27 1.06,0.53
+            1.71,0.78 0.68,0.26 1.44,0.48 2.26,0.65 0.88,0.2 1.8,0.3 2.76,0.3 1.41,0 2.74,-0.2
+            3.97,-0.62 1.23,-0.41 2.33,-1.02 3.26,-1.83a1.27,1.22 90,0 0,0.01 -0.01c0.93,-0.83
+            1.67,-1.84 2.18,-3.01 0.52,-1.19 0.77,-2.51 0.77,-3.94 0,-1.27 -0.21,-2.42 -0.67,-3.44
+            -0,-0 0,-0 0,-0 -0.43,-0.96 -1.01,-1.81 -1.74,-2.52 -0.69,-0.7 -1.48,-1.29 -2.35,-1.79
+            -0.79,-0.47 -1.6,-0.9 -2.44,-1.3l-0.01,-0c-0.79,-0.39 -1.57,-0.78
+            -2.35,-1.16l-0,-0c-0.71,-0.37 -1.33,-0.77 -1.87,-1.2 -0.5,-0.4 -0.89,-0.84 -1.17,-1.33
+            -0.24,-0.41 -0.38,-0.92 -0.38,-1.63 0,-0.46 0.07,-0.87 0.21,-1.26 0.15,-0.38 0.35,-0.68
+            0.64,-0.96a1.27,1.22 90,0 0,0.02 -0.02c0.28,-0.28 0.64,-0.51 1.13,-0.7 0.46,-0.17
+            1.06,-0.28 1.79,-0.28 0.75,0 1.39,0.1 1.92,0.27a1.27,1.22 90,0 0,0.02 0.01c0.61,0.19
+            1.12,0.4 1.51,0.61 0.46,0.25 0.82,0.47 1.08,0.66a1.27,1.22 90,0 0,0.05 0.04c0.4,0.25
+            0.69,0.49 1.36,0.49 0.34,0 0.75,-0.18 1.03,-0.44 0.21,-0.2 0.38,-0.43
+            0.48,-0.66a1.27,1.22 90,0 0,0.02 -0.05c0.08,-0.22 0.13,-0.45 0.15,-0.68 0.04,-0.23
+            0.06,-0.46 0.06,-0.7 0,-0.24 -0.01,-0.44 -0.03,-0.65 -0.02,-0.2 -0.05,-0.39 -0.1,-0.59
+            -0.04,-0.14 -0.13,-0.3 -0.21,-0.46C53.86,26.09 53.71,25.94 53.55,25.8 53.2,25.41
+            52.87,25.24 52.41,25 51.93,24.73 51.39,24.5 50.8,24.31 50.22,24.09 49.6,23.92 48.95,23.8
+            48.28,23.66 47.61,23.6 46.95,23.6ZM132.15,23.84c-0.33,0 -0.61,0.02 -0.89,0.06 -0.31,0.05
+            -0.64,0.12 -1,0.43a1.27,1.22 90,0 0,-0.08 0.08c-0.36,0.37 -0.48,0.96 -0.44,1.35
+            0.04,0.38 0.15,0.64 0.28,0.93a1.27,1.22 90,0 0,0.01 0.03l7.83,16.2l0,10.56c0,0.3
+            0.08,0.63 0.24,0.9 0.2,0.35 0.51,0.57 0.78,0.69a1.27,1.22 90,0 0,0.05 0.02c0.2,0.08
+            0.41,0.13 0.62,0.17a1.27,1.22 90,0 0,0.02 0c0.27,0.05 0.54,0.06 0.84,0.06 0.29,0
+            0.56,-0.02 0.82,-0.06 0.23,-0.04 0.45,-0.09 0.69,-0.19 0.27,-0.12 0.58,-0.34 0.78,-0.69
+            0.15,-0.27 0.24,-0.6 0.24,-0.9L142.94,42.91L150.77,26.71a1.27,1.22 90,0 0,0 0c0.14,-0.28
+            0.25,-0.55 0.29,-0.94 0.05,-0.42 -0.16,-1.03 -0.52,-1.38 -0.38,-0.35 -0.76,-0.46
+            -1.09,-0.51 -0.3,-0.04 -0.62,-0.06 -1,-0.06 -0.27,0 -0.52,0.02 -0.76,0.06 -0.23,0.02
+            -0.47,0.06 -0.73,0.18 -0.25,0.11 -0.51,0.29 -0.71,0.55 -0.14,0.18 -0.24,0.37
+            -0.32,0.56l0.03,-0.06 -4.28,9a1.27,1.22 90,0 0,-0.01 0.02c-0.4,0.88 -0.8,1.77 -1.19,2.66
+            -0.02,0.04 -0.04,0.08 -0.05,0.12 -0.03,-0.07 -0.06,-0.14
+            -0.09,-0.2l-0.01,-0.02c-0.39,-0.91 -0.79,-1.79 -1.19,-2.65L134.92,25.12a1.27,1.22 90,0
+            0,-0.04 -0.07c-0.08,-0.15 -0.17,-0.29 -0.28,-0.43 -0.26,-0.33 -0.56,-0.48 -0.83,-0.58
+            -0.27,-0.1 -0.5,-0.13 -0.74,-0.15 -0.27,-0.04 -0.55,-0.06
+            -0.88,-0.06zM61.27,24.29c0.03,0 0.03,0 0.06,0l0,11.83a1.27,1.22 90,0 0,1.39
+            1.03c-0.37,0.42 -0.74,0.66 -1.12,1.15a1.27,1.22 90,0 0,-0.27 0.79l0,13.69c-0.03,0
+            -0.03,0 -0.06,0 -0.02,0 -0.02,-0 -0.04,-0L61.23,24.29c0.02,-0 0.02,-0
+            0.04,-0zM105.7,24.29c0.03,0 0.03,0 0.06,0l0,28.49c-0.03,0 -0.03,0 -0.06,0 -0.02,0
+            -0.02,-0 -0.04,-0L105.66,24.29c0.02,-0 0.02,-0 0.04,-0zM115.37,24.29c0.03,0 0.03,0
+            0.06,0l0,28.49c-0.03,0 -0.03,0 -0.06,0 -0.02,0 -0.02,-0 -0.04,-0L115.33,24.29c0.02,-0
+            0.02,-0 0.04,-0zM48.05,26.24c0.15,0.02 0.3,0.02 0.45,0.05 0.06,0.01 0.11,0.03 0.17,0.05
+            -0.2,-0.05 -0.41,-0.06 -0.62,-0.09zM148.19,26.39 L143.52,36.06c0.12,-0.27 0.24,-0.55
+            0.37,-0.82l0.01,-0.02 4.2,-8.83c0.02,-0 0.07,-0 0.1,-0.01zM132.61,26.4c0.02,0 0.09,0
+            0.11,0.01a1.27,1.22 90,0 0,0.09 0.01L136.96,35.17c0.39,0.83 0.78,1.68
+            1.16,2.57a1.27,1.22 90,0 0,0.01 0.02c0.07,0.15 0.13,0.3 0.2,0.45zM49.31,26.42
+            L49.33,26.43c-0,-0 -0,0 -0.01,0 -0.01,-0 -0.01,-0.01 -0.02,-0.01zM49.96,26.68c0.02,0.01
+            0.04,0.01 0.05,0.02a1.27,1.22 90,0 0,0.04 0.01c0.21,0.07 0.35,0.15 0.53,0.23 -0.2,-0.09
+            -0.41,-0.18 -0.62,-0.26zM51.59,27.42c0.05,0.03 0.23,0.16 0.19,0.11a1.27,1.22 90,0 0,0.02
+            0.02C51.72,27.5 51.66,27.46 51.59,27.42ZM51.81,27.46a1.27,1.22 90,0 0,0.07 0.12c0,0
+            0,0.01 0,0.01 -0.01,-0.01 -0.02,-0.01 -0.02,-0.02 0.03,0.05 0.06,0.15
+            -0.04,-0.12zM42.3,27.56c-0.07,0.06 -0.17,0.08 -0.24,0.15 -0.54,0.52 -0.96,1.15
+            -1.23,1.86a1.27,1.22 90,0 0,-0.01 0.03c-0.25,0.69 -0.38,1.43 -0.38,2.18 0,1.07 0.23,2.08
+            0.73,2.94 0.45,0.78 1.05,1.46 1.78,2.03 0.68,0.54 1.44,1.03 2.27,1.46a1.27,1.22 90,0
+            0,0.02 0.01c0.78,0.38 1.57,0.77 2.37,1.17a1.27,1.22 90,0 0,0.02 0.01c0.78,0.37 1.54,0.77
+            2.27,1.21a1.27,1.22 90,0 0,0.02 0.01c0.69,0.39 1.3,0.85 1.83,1.39a1.27,1.22 90,0 0,0.01
+            0.01c0.5,0.5 0.9,1.07 1.21,1.77a1.27,1.22 90,0 0,0 0.01c0.28,0.61 0.44,1.38 0.44,2.36
+            0,1.12 -0.19,2.07 -0.55,2.89 -0.37,0.84 -0.88,1.54 -1.54,2.13 -0.08,0.07 -0.21,0.1
+            -0.29,0.16 0.65,-0.57 1.18,-1.29 1.53,-2.1l0,-0c0.38,-0.86 0.56,-1.82 0.56,-2.83 0,-1.07
+            -0.23,-2.08 -0.73,-2.94 -0.45,-0.78 -1.06,-1.45 -1.78,-2.01 -0.67,-0.55 -1.43,-1.03
+            -2.27,-1.44 -0.77,-0.4 -1.56,-0.79 -2.37,-1.17l-0.01,-0.01c-0,-0 -0.01,-0 -0.01,-0.01
+            -0.76,-0.38 -1.52,-0.79 -2.25,-1.23 -0.68,-0.41 -1.29,-0.87 -1.83,-1.4 -0.49,-0.51
+            -0.89,-1.1 -1.21,-1.8 -0.28,-0.63 -0.44,-1.42 -0.44,-2.41 0,-0.96 0.16,-1.76
+            0.47,-2.44a1.27,1.22 90,0 0,0 -0.01c0.31,-0.72 0.74,-1.3 1.3,-1.79a1.27,1.22 90,0 0,0.01
+            -0.01c0.08,-0.07 0.21,-0.1 0.29,-0.16zM52.53,27.99 L52.58,28.03c-0.01,-0.01 -0.04,-0.02
+            -0.05,-0.03 -0.01,-0.01 0.01,0 -0,-0.01zM90.39,31.33c-1.5,0 -2.91,0.28 -4.18,0.86 -0,0
+            -0,0 -0,0 -1.26,0.56 -2.36,1.4 -3.26,2.48 -0.9,1.07 -1.59,2.37 -2.06,3.85a1.27,1.22 90,0
+            0,-0 0.01c-0.46,1.49 -0.68,3.14 -0.68,4.95 0,1.87 0.21,3.55 0.65,5.05a1.27,1.22 90,0 0,0
+            0.01c0.46,1.49 1.14,2.78 2.05,3.85a1.27,1.22 90,0 0,0.01 0.01c0.91,1.05 2.06,1.85
+            3.37,2.39a1.27,1.22 90,0 0,0.01 0c1.32,0.52 2.8,0.77 4.42,0.77 0.98,0 1.9,-0.08
+            2.76,-0.24 0.83,-0.15 1.57,-0.32 2.22,-0.51a1.27,1.22 90,0 0,0.02 -0.01c0.63,-0.2
+            1.16,-0.4 1.61,-0.61a1.27,1.22 90,0 0,0.03 -0.02c0.2,-0.1 0.36,-0.19 0.51,-0.28
+            0.15,-0.09 0.25,-0.12 0.47,-0.35 0.13,-0.13 0.25,-0.28 0.36,-0.47 0.1,-0.18 0.18,-0.38
+            0.23,-0.61 0.03,-0.11 0.06,-0.21 0.08,-0.32a1.27,1.22 90,0 0,0 -0.03c0.02,-0.16
+            0.03,-0.33 0.03,-0.49 0,-0.25 -0.02,-0.48 -0.06,-0.72 -0.02,-0.22 -0.07,-0.45
+            -0.19,-0.71 -0.12,-0.27 -0.32,-0.58 -0.65,-0.79 -0.26,-0.16 -0.57,-0.25 -0.86,-0.25
+            -0.59,0 -0.84,0.17 -1.24,0.36a1.27,1.22 90,0 0,-0.02 0.01c-0.28,0.14 -0.68,0.31
+            -1.18,0.51 -0,0 -0,0 -0.01,0 -0.44,0.17 -1,0.33 -1.67,0.48 -0.61,0.14 -1.33,0.21
+            -2.16,0.21 -1.15,0 -2.06,-0.18 -2.73,-0.48 -0.7,-0.31 -1.22,-0.72 -1.63,-1.26
+            -0.43,-0.57 -0.75,-1.26 -0.95,-2.11 -0.12,-0.52 -0.13,-1.19 -0.18,-1.8l11.86,0c0.55,0
+            1.06,-0.21 1.48,-0.51a1.27,1.22 90,0 0,0.03 -0.03c0.67,-0.51 0.9,-1.37
+            0.9,-2.13L99.79,41.88c0,-1.35 -0.17,-2.65 -0.52,-3.89 -0.34,-1.27 -0.91,-2.42 -1.69,-3.4
+            -0.78,-1.01 -1.78,-1.81 -2.95,-2.39 -1.23,-0.6 -2.66,-0.87
+            -4.25,-0.87zM159.2,31.33c-1.72,0 -3.28,0.3 -4.65,0.93 -1.34,0.62 -2.5,1.51
+            -3.41,2.65a1.27,1.22 90,0 0,-0 0c-0.9,1.11 -1.56,2.43 -2.01,3.92a1.27,1.22 90,0 0,-0
+            0.01c-0.42,1.48 -0.63,3.07 -0.63,4.77 0,1.75 0.2,3.36 0.61,4.81a1.27,1.22 90,0 0,0
+            0.01c0.43,1.46 1.07,2.74 1.95,3.82a1.27,1.22 90,0 0,0.01 0.02c0.89,1.06 2,1.89
+            3.28,2.46a1.27,1.22 90,0 0,0.02 0.01c1.32,0.56 2.81,0.83 4.45,0.83 1.71,0 3.26,-0.3
+            4.63,-0.93a1.27,1.22 90,0 0,0.01 -0.01c1.34,-0.63 2.48,-1.53 3.38,-2.67 0.91,-1.13
+            1.59,-2.45 2.03,-3.94 0.44,-1.48 0.65,-3.08 0.65,-4.78 0,-1.74 -0.2,-3.35 -0.63,-4.8
+            -0.43,-1.46 -1.08,-2.74 -1.95,-3.8 -0.88,-1.08 -2,-1.92 -3.31,-2.48 -1.31,-0.57
+            -2.79,-0.83 -4.43,-0.83zM175.19,31.57c-0.27,0 -0.51,0.02 -0.75,0.06 -0.25,0.03 -0.51,0.1
+            -0.78,0.24 -0.26,0.12 -0.54,0.32 -0.74,0.65a1.27,1.22 90,0 0,-0.09 0.18c-0.09,0.24
+            -0.13,0.49 -0.13,0.72L172.7,45.54c0,1.49 0.12,2.79 0.37,3.93a1.27,1.22 90,0 0,0
+            0.02c0.28,1.14 0.72,2.18 1.35,3.08a1.27,1.22 90,0 0,0.02 0.02c0.66,0.92 1.53,1.65
+            2.56,2.17 1.08,0.55 2.34,0.8 3.75,0.8 1.27,0 2.53,-0.35 3.73,-1.01 0.51,-0.28 0.99,-0.87
+            1.49,-1.26l0,0.18c0,0.23 0.04,0.48 0.13,0.72a1.27,1.22 90,0 0,0.09 0.18c0.17,0.3
+            0.44,0.53 0.69,0.66 0.26,0.13 0.47,0.18 0.69,0.22 0.27,0.05 0.54,0.06 0.84,0.06 0.28,0
+            0.54,-0.01 0.8,-0.06 0.22,-0.04 0.43,-0.09 0.65,-0.19 0.27,-0.12 0.6,-0.4 0.79,-0.81
+            0.12,-0.24 0.21,-0.51 0.21,-0.77L190.86,33.42c0,-0.3 -0.09,-0.63 -0.24,-0.89a1.27,1.22
+            90,0 0,0 -0c-0.18,-0.31 -0.45,-0.49 -0.69,-0.62 -0.3,-0.17 -0.57,-0.25 -0.82,-0.27
+            -0.24,-0.04 -0.47,-0.06 -0.73,-0.06 -0.28,0 -0.53,0.02 -0.78,0.06 -0.25,0.03 -0.51,0.1
+            -0.78,0.24 -0.26,0.12 -0.54,0.32 -0.74,0.65a1.27,1.22 90,0 0,-0.09 0.18c-0.09,0.24
+            -0.13,0.49 -0.13,0.72l0,13.87c-0.94,1.15 -1.84,2.11 -2.61,2.68a1.27,1.22 90,0 0,-0.01
+            0.01c-0.81,0.61 -1.52,0.85 -2.22,0.85 -0.61,0 -1.09,-0.12 -1.48,-0.31 -0.39,-0.22
+            -0.7,-0.49 -0.96,-0.87 -0.27,-0.42 -0.5,-0.94 -0.65,-1.59 -0.15,-0.63 -0.24,-1.56
+            -0.24,-2.73L177.69,33.42c0,-0.3 -0.08,-0.63 -0.24,-0.89a1.27,1.22 90,0 0,0
+            -0c-0.18,-0.31 -0.45,-0.49 -0.7,-0.62 -0.3,-0.17 -0.57,-0.25 -0.82,-0.27 -0.24,-0.04
+            -0.48,-0.06 -0.75,-0.06zM175.19,34.11c0.03,0 0.03,0 0.06,0l0,11.19c0,1.31 0.09,2.4
+            0.31,3.34 0.21,0.9 0.55,1.72 1.01,2.43a1.27,1.22 90,0 0,0.01 0.01c0.41,0.6 0.97,1.05
+            1.57,1.43 -0.02,-0.01 -0.06,-0.01 -0.08,-0.02 -0.71,-0.36 -1.25,-0.82 -1.67,-1.41
+            -0.43,-0.63 -0.75,-1.35 -0.96,-2.21 -0.2,-0.87 -0.31,-1.99
+            -0.31,-3.34L175.15,34.11c0.02,-0 0.02,-0 0.04,-0zM188.37,34.11c0.02,0 0.02,0
+            0.04,0l0,16.52a1.27,1.22 90,0 0,-1.36 -1.03c0.33,-0.37 0.65,-0.57 0.98,-1a1.27,1.22 90,0
+            0,0.27 -0.8L188.31,34.11c0.03,-0 0.03,-0 0.06,-0zM71.15,34.14 L71.19,34.16c-0.01,-0
+            -0.01,-0 -0.02,-0 -0,-0 -0.01,-0.01 -0.01,-0.01zM71.41,34.37c0.04,0.02 0.11,0.01
+            0.15,0.03 0.71,0.36 1.24,0.82 1.65,1.4a1.27,1.22 90,0 0,0.01 0.01c0.44,0.61 0.75,1.32
+            0.95,2.17a1.27,1.22 90,0 0,0 0.02c0.21,0.87 0.33,1.99 0.33,3.33l0,11.45c-0.02,0 -0.02,0
+            -0.04,0 -0.03,0 -0.03,-0 -0.06,-0L74.39,41.57c0,-1.31 -0.09,-2.4 -0.31,-3.32 -0.21,-0.9
+            -0.55,-1.71 -1.02,-2.41 -0.42,-0.63 -1.01,-1.1 -1.65,-1.48zM162.76,34.49
+            L162.78,34.5c-0,-0 -0.01,-0 -0.01,-0 -0,-0 -0,-0 -0,-0zM163.08,34.79c0.76,0.39 1.46,0.84
+            1.99,1.48a1.27,1.22 90,0 0,0.01 0.01c0.64,0.77 1.13,1.72 1.47,2.89 0.34,1.18 0.52,2.53
+            0.52,4.07 0,1.49 -0.19,2.83 -0.55,4.04 -0.33,1.12 -0.84,2.05 -1.47,2.87 0.6,-0.87
+            1.06,-1.86 1.34,-2.98 0.29,-1.15 0.42,-2.38 0.42,-3.69 0,-1.22 -0.11,-2.39 -0.35,-3.52
+            -0.24,-1.17 -0.65,-2.23 -1.24,-3.15 -0.53,-0.85 -1.31,-1.48
+            -2.15,-2.01zM95.59,36.1c0.03,0.03 0.07,0.05 0.1,0.08a1.27,1.22 90,0 0,0.01 0.02c0.56,0.7
+            0.96,1.51 1.22,2.48a1.27,1.22 90,0 0,0 0.01c0.28,1 0.42,2.06 0.42,3.19l0,0.53c0,0.3
+            -0.03,0.19 0.09,0.09 -0.03,0.02 -0.09,0.04 -0.07,0.04l-1.08,0a1.27,1.22 90,0 0,0.87
+            -0.88c0.04,-2.22 -0.48,-4.11 -1.57,-5.57zM90.22,36.12c1.63,0 2.64,0.46 3.37,1.35
+            0.56,0.68 0.85,1.69 0.99,2.9l-8.95,0c0.06,-0.29 0.07,-0.59 0.16,-0.87a1.27,1.22 90,0 0,0
+            -0.01c0.23,-0.69 0.54,-1.27 0.93,-1.76 0.41,-0.49 0.88,-0.87 1.47,-1.17a1.27,1.22 90,0
+            0,0.01 -0c0.55,-0.29 1.21,-0.44 2.02,-0.44zM159.05,36.17c1.11,0 1.94,0.21
+            2.56,0.56a1.27,1.22 90,0 0,0.02 0.01c0.67,0.37 1.17,0.83 1.55,1.45a1.27,1.22 90,0 0,0.01
+            0.01c0.41,0.64 0.71,1.39 0.89,2.3 0.19,0.94 0.29,1.94 0.29,2.99 0,1.12 -0.12,2.14
+            -0.35,3.05 -0.22,0.9 -0.56,1.63 -1,2.24a1.27,1.22 90,0 0,-0.01 0.01c-0.41,0.59
+            -0.93,1.04 -1.6,1.38 -0.64,0.33 -1.45,0.51 -2.46,0.51 -1.11,0 -1.96,-0.21 -2.58,-0.54
+            -0.68,-0.37 -1.17,-0.83 -1.56,-1.44 -0.41,-0.64 -0.71,-1.39 -0.89,-2.29 -0.2,-0.96
+            -0.3,-1.97 -0.3,-3.04 0,-1.1 0.12,-2.11 0.35,-3.03 0.22,-0.9 0.56,-1.64 0.98,-2.25 0,-0
+            -0,-0 0,-0 0.43,-0.6 0.95,-1.06 1.63,-1.4 0.64,-0.33 1.45,-0.51
+            2.46,-0.51zM153.48,36.17c-0.14,0.17 -0.36,0.24 -0.49,0.42a1.27,1.22 90,0 0,-0
+            0c-0.63,0.9 -1.08,1.95 -1.37,3.11 -0.29,1.15 -0.42,2.37 -0.42,3.66 0,1.23 0.11,2.42
+            0.35,3.56a1.27,1.22 90,0 0,0 0c0.24,1.17 0.65,2.23 1.24,3.16 0.57,0.9 1.38,1.6 2.31,2.14
+            -0.85,-0.42 -1.59,-0.93 -2.18,-1.62 -0.64,-0.78 -1.13,-1.74 -1.47,-2.9 -0.33,-1.18
+            -0.51,-2.54 -0.51,-4.09 0,-1.49 0.18,-2.83 0.53,-4.04 0.36,-1.2 0.87,-2.2
+            1.54,-3.03l0,-0c0.13,-0.15 0.33,-0.22 0.47,-0.36zM83.45,38.86c-0.28,0.88 -0.46,1.78
+            -0.5,2.72a1.27,1.22 90,0 0,0.98 1.22,1.27 1.22,90 0,0 -0.98,1.01c0,1.32 0.12,2.54
+            0.37,3.66a1.27,1.22 90,0 0,0 0.02c0.28,1.15 0.74,2.19 1.4,3.06a1.27,1.22 90,0 0,0.01
+            0.01c0.5,0.65 1.22,1.07 1.93,1.5 -0.71,-0.37 -1.4,-0.77 -1.92,-1.35 -0.66,-0.77
+            -1.17,-1.73 -1.54,-2.93 -0.35,-1.19 -0.55,-2.63 -0.55,-4.3 0,-1.59 0.19,-2.98 0.56,-4.17
+            0.06,-0.18 0.17,-0.28 0.24,-0.45zM139.46,40.57a1.27,1.22 90,0 0,0.97
+            0.65l0.04,0a1.27,1.22 90,0 0,0.81 -0.55l-0.66,1.38A1.27,1.22 90,0 0,140.49
+            42.61l0,10.16c-0.04,0 -0.05,0.01 -0.08,0.01 -0.05,0 -0.06,-0
+            -0.1,-0.01L140.31,42.61a1.27,1.22 90,0 0,-0.13 -0.57zM164.98,50.29c-0.01,0.01 -0.01,0.03
+            -0.02,0.05a1.27,1.22 90,0 0,-0.01 0.01c-0.09,0.11 -0.24,0.16 -0.34,0.27 0.1,-0.13
+            0.27,-0.18 0.37,-0.32zM39.49,51.11c0.32,0.2 0.61,0.39 1.01,0.6a1.27,1.22 90,0 0,0.03
+            0.02c0.56,0.28 1.21,0.53 1.91,0.78C42.13,52.42 41.77,52.34 41.51,52.24 40.94,52.03
+            40.48,51.81 40.12,51.61 39.78,51.41 39.57,51.23 39.55,51.22c-0.03,-0.04 -0.05,-0.07
+            -0.06,-0.11zM155.3,52.39c0.02,0.01 0.04,0 0.06,0.01 -0.01,-0.01 -0.04,-0 -0.05,-0.01
+            -0,-0 -0,-0 -0.01,-0zM43.06,52.69c0.68,0.19 1.44,0.26 2.22,0.3 -0.64,-0.02 -1.27,-0.07
+            -1.84,-0.19a1.27,1.22 90,0 0,-0.02 -0c-0.14,-0.03 -0.23,-0.07 -0.36,-0.1z"
+        </ID>
+        <ID>MaxLineLength:AppBrandingNoPadding.kt$"m16.8,11.55c-0.4,0.07 -0.77,0.25 -1.09,0.53
+            -0.36,0.32 -0.61,0.73 -0.68,1.14 -0.07,0.44 0.02,0.95 0.22,1.28 0.27,0.43 0.54,0.67
+            0.99,0.87 0.24,0.11 0.35,0.14 0.59,0.18 0.35,0.05 0.76,0.03 1.09,-0.07 0.31,-0.09
+            0.7,-0.32 0.93,-0.56 0.48,-0.48 0.7,-1.17 0.55,-1.79 -0.15,-0.64 -0.66,-1.21 -1.32,-1.46
+            -0.3,-0.12 -0.54,-0.16 -0.86,-0.16 -0.16,-0 -0.35,0.01 -0.43,0.03z"
+        </ID>
+        <ID>MaxLineLength:AppBrandingNoPadding.kt$"m3.67,1.25c-0.46,0.09 -0.8,0.3 -1.03,0.65
+            -0.26,0.39 -0.27,0.87 -0.05,1.31 0.03,0.07 0.3,0.43 0.59,0.81 0.29,0.38 0.64,0.84
+            0.78,1.01 0.24,0.31 0.62,0.82 1.22,1.61 0.58,0.77 0.89,1.19 0.89,1.21 0,0.01 -0.1,0.09
+            -0.21,0.18 -1.32,1.02 -2.35,2.09 -3.16,3.53 -0.68,1.23 1.2,-0.41 0.55,0.28 -1.13,1.48
+            -0.23,-0.65 0,-0.44 0.18,0.16 -0.42,0.18 -0.16,0.18 0.24,-0 -0.49,1.22 -0.53,0.44
+            -0.1,-0.16 0.32,1.18 1.19,0.01 1.02,-1.3 1.57,-1.68 2.13,-2.27 0.79,-0.72 1.59,-1.27
+            2.54,-1.79 1.03,-0.56 2.3,-0.86 3.41,-1.01 0.77,-0.1 0.85,-0.11 1.67,-0.11 0.73,0 0.81,0
+            1.23,0.05 0.53,0.06 0.74,0.1 1.23,0.22 1.61,0.38 3.18,1.16 4.52,2.26 1.43,1.17 2.44,2.64
+            3,4.38 0.38,1.17 0.45,2.29 0.19,3.01 -0.16,0.46 -0.46,0.94 -0.79,1.29 -0.19,0.19
+            -0.51,0.46 -0.69,0.58 -0.59,0.38 -1.33,0.63 -1.94,0.66 -0.14,0.01 -3.54,0.01 -7.55,0.02
+            -6.88,0 -7.32,0.01 -7.51,0.04 -1.13,0.19 -2.02,0.65 -2.72,1.4 -0.53,0.57 -0.92,1.36
+            -1.04,2.11 -0.05,0.29 -0.07,2.07 -0.03,2.6 0.08,1.09 0.31,2.11 0.71,3.13 0.57,1.45
+            1.44,2.7 2.64,3.8 0.96,0.88 1.95,1.52 3.2,2.08 0.93,0.42 2.05,0.76 3.08,0.93 0.36,0.06
+            0.47,0.08 0.89,0.13 0.55,0.07 1.84,0.1 2.37,0.06 0.13,-0.01 0.35,-0.03 0.49,-0.04
+            1.01,-0.08 2.2,-0.35 3.3,-0.75 1.53,-0.55 2.98,-1.44 4.14,-2.54 0.83,-0.79 1.46,-1.6
+            2.01,-2.59 0.21,-0.38 0.26,-0.49 0.51,-1.06 0.34,-0.8 0.61,-1.85 0.72,-2.79 0.06,-0.58
+            0.07,-1.3 0.07,-5.75 -0,-4.58 -0,-4.54 -0.09,-5.16 -0.04,-0.29 -0.18,-0.92 -0.28,-1.28
+            -0.1,-0.36 -0.3,-0.89 -0.5,-1.34 -0.75,-1.66 -2.05,-3.21 -3.67,-4.39l-0.05,-0.04
+            0.08,-0.12c0.05,-0.06 0.18,-0.25 0.3,-0.4 0.56,-0.73 0.87,-1.13 1.27,-1.65 0.24,-0.31
+            0.53,-0.69 0.65,-0.84 0.12,-0.16 0.3,-0.39 0.39,-0.51 0.1,-0.12 0.28,-0.36 0.41,-0.52
+            0.12,-0.16 0.26,-0.33 0.3,-0.38 0.26,-0.31 0.36,-0.83 0.25,-1.21 -0.08,-0.25 -0.18,-0.41
+            -0.38,-0.59 -0.21,-0.19 -0.38,-0.28 -0.65,-0.35 -0.58,-0.15 -1.26,0.06 -1.64,0.51
+            -0.08,0.1 -0.61,1.02 -1.94,3.43 -0.45,0.81 -0.83,1.48 -0.85,1.5 -0.02,0.02 -0.08,-0
+            -0.29,-0.1 -0.82,-0.39 -1.89,-0.74 -2.75,-0.92 -0.29,-0.06 -0.94,-0.15 -1.33,-0.19
+            -0.43,-0.05 -1.94,-0.05 -2.32,-0.01 -1.68,0.18 -3.04,0.56 -4.23,1.15 -0.12,0.06
+            -0.23,0.11 -0.24,0.1 -0.01,-0 -0.05,-0.07 -0.09,-0.14 -0.07,-0.15 -0.22,-0.43 -1.2,-2.21
+            -0.38,-0.7 -0.85,-1.55 -1.03,-1.88 -0.18,-0.34 -0.38,-0.66 -0.43,-0.73 -0.18,-0.22
+            -0.5,-0.42 -0.8,-0.5 -0.14,-0.04 -0.56,-0.06 -0.7,-0.03zM21.75,20.91c0.44,0.06 0.72,0.15
+            1.02,0.33 0.37,0.23 0.57,0.43 0.79,0.83 0.2,0.37 0.26,0.63 0.27,1.45 0.02,0.65
+            -0.02,2.03 -0.05,2.26 -0.01,0.08 -0.04,0.25 -0.06,0.37 -0.13,0.85 -0.54,2 -1.02,2.87
+            -0.33,0.59 -0.82,1.26 -1.3,1.79 -0.24,0.26 -0.9,0.86 -1.19,1.08 -1.33,1.01 -3.01,1.73
+            -4.74,2.04 -0.72,0.13 -1.29,0.18 -2.04,0.18 -0.74,-0 -1.25,-0.04 -1.95,-0.16 -2.67,-0.45
+            -5.01,-1.77 -6.58,-3.72 -0.26,-0.32 -0.29,-0.37 -0.5,-0.69 -0.45,-0.7 -0.88,-1.61
+            -1.08,-2.33 -0.29,-1.01 -0.36,-1.66 -0.35,-3.11 0.01,-0.93 0.02,-1.04 0.14,-1.36
+            0.08,-0.21 0.25,-0.52 0.38,-0.7 0.34,-0.46 1.01,-0.9 1.62,-1.06 0.43,-0.11 -0.07,-0.11
+            8.5,-0.11 6.85,-0 7.94,0 8.13,0.03z"
+        </ID>
+        <ID>MaxLineLength:AppBrandingNoPadding.kt$"m46.19,27.6q0,1.91 -0.66,3.41 -0.66,1.51
+            -1.86,2.57 -1.2,1.04 -2.85,1.6 -1.65,0.55 -3.6,0.55 -1.33,0 -2.5,-0.27 -1.18,-0.24
+            -2.1,-0.6 -0.92,-0.35 -1.56,-0.71 -0.62,-0.38 -0.86,-0.62 -0.24,-0.27 -0.34,-0.6
+            -0.11,-0.35 -0.11,-0.86 0,-0.38 0.04,-0.62 0.04,-0.24 0.11,-0.4 0.09,-0.16 0.19,-0.2
+            0.13,-0.07 0.26,-0.07 0.3,0 0.83,0.4 0.56,0.38 1.41,0.84 0.88,0.44 2.08,0.84 1.22,0.38
+            2.83,0.38 1.31,0 2.4,-0.35 1.09,-0.38 1.88,-1.06 0.79,-0.69 1.22,-1.68 0.45,-1.02
+            0.45,-2.31 0,-1.33 -0.56,-2.28 -0.56,-0.95 -1.48,-1.66 -0.9,-0.73 -2.05,-1.31 -1.16,-0.6
+            -2.38,-1.17 -1.2,-0.6 -2.35,-1.29 -1.16,-0.69 -2.08,-1.6 -0.9,-0.93 -1.46,-2.17
+            -0.56,-1.24 -0.56,-2.95 0,-1.66 0.58,-2.97 0.58,-1.33 1.63,-2.24 1.05,-0.93 2.5,-1.42
+            1.48,-0.49 3.23,-0.49 0.88,0 1.78,0.18 0.9,0.18 1.69,0.47 0.81,0.27 1.43,0.62 0.64,0.33
+            0.83,0.55 0.21,0.2 0.26,0.31 0.06,0.09 0.11,0.24 0.04,0.16 0.06,0.38 0.02,0.2 0.02,0.51
+            0,0.29 -0.04,0.53 -0.02,0.22 -0.09,0.4 -0.06,0.16 -0.17,0.24 -0.09,0.09 -0.21,0.09
+            -0.24,0 -0.73,-0.31 -0.47,-0.33 -1.2,-0.73 -0.73,-0.4 -1.73,-0.71 -1.01,-0.33
+            -2.29,-0.33 -1.26,0 -2.2,0.35 -0.94,0.35 -1.56,0.98 -0.62,0.6 -0.94,1.42 -0.3,0.82
+            -0.3,1.73 0,1.33 0.56,2.28 0.56,0.95 1.48,1.68 0.92,0.73 2.08,1.33 1.18,0.58 2.38,1.17
+            1.22,0.58 2.38,1.26 1.18,0.66 2.1,1.6 0.92,0.91 1.48,2.15 0.56,1.22
+            0.56,2.9zM67.25,34.91q0,0.13 -0.06,0.24 -0.06,0.11 -0.21,0.18 -0.13,0.07 -0.39,0.11
+            -0.24,0.04 -0.6,0.04 -0.39,0 -0.64,-0.04 -0.24,-0.04 -0.39,-0.11 -0.13,-0.07 -0.19,-0.18
+            -0.06,-0.11 -0.06,-0.24L64.7,23.01q0,-1.86 -0.28,-3.01 -0.28,-1.17 -0.83,-1.99
+            -0.56,-0.84 -1.43,-1.29 -0.86,-0.47 -2.01,-0.47 -1.48,0 -2.95,1.09 -1.48,1.09
+            -3.1,3.19l0,14.38q0,0.13 -0.06,0.24 -0.06,0.11 -0.21,0.18 -0.13,0.07 -0.39,0.11
+            -0.24,0.04 -0.62,0.04 -0.36,0 -0.62,-0.04 -0.24,-0.04 -0.39,-0.11 -0.15,-0.07
+            -0.21,-0.18 -0.04,-0.11 -0.04,-0.24L51.54,5.04q0,-0.13 0.04,-0.24 0.06,-0.11 0.21,-0.18
+            0.15,-0.09 0.39,-0.11 0.26,-0.04 0.62,-0.04 0.39,0 0.62,0.04 0.26,0.02 0.39,0.11
+            0.15,0.07 0.21,0.18 0.06,0.11 0.06,0.24l0,12.52q1.58,-1.82 3.17,-2.66 1.58,-0.86
+            3.17,-0.86 1.9,0 3.21,0.66 1.31,0.66 2.1,1.8 0.81,1.13 1.16,2.64 0.36,1.51
+            0.36,3.63zM90.1,23.85q0,0.8 -0.41,1.11 -0.41,0.29 -0.79,0.29L75.7,25.25q0,1.86 0.34,3.37
+            0.36,1.51 1.18,2.59 0.81,1.06 2.12,1.64 1.31,0.58 3.21,0.58 1.35,0 2.42,-0.24 1.07,-0.24
+            1.84,-0.53 0.79,-0.31 1.28,-0.55 0.51,-0.24 0.73,-0.24 0.13,0 0.24,0.07 0.11,0.07
+            0.17,0.22 0.06,0.13 0.09,0.35 0.04,0.22 0.04,0.55 0,0.16 -0.02,0.31 -0.02,0.13
+            -0.06,0.27 -0.02,0.11 -0.09,0.22 -0.06,0.11 -0.17,0.22 -0.11,0.11 -0.66,0.4 -0.56,0.27
+            -1.46,0.55 -0.9,0.27 -2.1,0.49 -1.18,0.22 -2.55,0.22 -2.25,0 -3.98,-0.69 -1.73,-0.71
+            -2.91,-2.06 -1.18,-1.37 -1.8,-3.39 -0.6,-2.02 -0.6,-4.68 0,-2.55 0.62,-4.57 0.64,-2.02
+            1.82,-3.41 1.18,-1.42 2.83,-2.15 1.67,-0.75 3.7,-0.75 2.18,0 3.72,0.75 1.54,0.75
+            2.53,2.04 1.01,1.26 1.46,2.95 0.47,1.68 0.47,3.55zM87.47,23.08q0.06,-3.19 -1.41,-4.99
+            -1.48,-1.8 -4.3,-1.8 -1.46,0 -2.57,0.58 -1.09,0.55 -1.86,1.48 -0.75,0.93 -1.16,2.17
+            -0.41,1.22 -0.47,2.55zM98.51,34.91q0,0.13 -0.06,0.24 -0.06,0.11 -0.21,0.18 -0.13,0.07
+            -0.39,0.11 -0.24,0.04 -0.62,0.04 -0.36,0 -0.62,-0.04 -0.24,-0.04 -0.39,-0.11 -0.15,-0.07
+            -0.21,-0.18 -0.04,-0.11 -0.04,-0.24L95.97,5.04q0,-0.13 0.04,-0.24 0.06,-0.11 0.21,-0.18
+            0.15,-0.09 0.39,-0.11 0.26,-0.04 0.62,-0.04 0.39,0 0.62,0.04 0.26,0.02 0.39,0.11
+            0.15,0.07 0.21,0.18 0.06,0.11 0.06,0.24zM108.19,34.91q0,0.13 -0.06,0.24 -0.06,0.11
+            -0.21,0.18 -0.13,0.07 -0.39,0.11 -0.24,0.04 -0.62,0.04 -0.36,0 -0.62,-0.04 -0.24,-0.04
+            -0.39,-0.11 -0.15,-0.07 -0.21,-0.18 -0.04,-0.11 -0.04,-0.24L105.64,5.04q0,-0.13
+            0.04,-0.24 0.06,-0.11 0.21,-0.18 0.15,-0.09 0.39,-0.11 0.26,-0.04 0.62,-0.04 0.39,0
+            0.62,0.04 0.26,0.02 0.39,0.11 0.15,0.07 0.21,0.18 0.06,0.11
+            0.06,0.24zM133.25,24.05l0,10.86q0,0.13 -0.06,0.24 -0.06,0.11 -0.21,0.18 -0.15,0.07
+            -0.41,0.11 -0.26,0.04 -0.62,0.04 -0.39,0 -0.64,-0.04 -0.24,-0.04 -0.41,-0.11 -0.15,-0.07
+            -0.21,-0.18 -0.06,-0.11 -0.06,-0.24L130.62,24.05l-7.96,-16.47q-0.15,-0.33 -0.17,-0.53
+            -0.02,-0.2 0.09,-0.31 0.13,-0.11 0.41,-0.16 0.28,-0.04 0.71,-0.04 0.47,0 0.75,0.04
+            0.3,0.02 0.47,0.09 0.19,0.07 0.28,0.18 0.09,0.11 0.17,0.27l4.24,8.93q0.6,1.26 1.18,2.62
+            0.6,1.35 1.2,2.73l0.04,0q0.56,-1.31 1.13,-2.64 0.58,-1.33 1.18,-2.64l4.28,-9q0.06,-0.16
+            0.15,-0.27 0.09,-0.11 0.24,-0.18 0.15,-0.07 0.39,-0.09 0.26,-0.04 0.62,-0.04 0.51,0
+            0.83,0.04 0.32,0.04 0.45,0.18 0.13,0.11 0.11,0.31 -0.02,0.2
+            -0.17,0.51zM159.83,24.67q0,2.39 -0.6,4.41 -0.6,2.02 -1.8,3.5 -1.18,1.48 -2.95,2.33
+            -1.78,0.82 -4.13,0.82 -2.27,0 -3.98,-0.73 -1.69,-0.75 -2.85,-2.13 -1.13,-1.4 -1.71,-3.37
+            -0.56,-1.97 -0.56,-4.45 0,-2.39 0.58,-4.41 0.6,-2.02 1.78,-3.48 1.2,-1.48 2.97,-2.31
+            1.78,-0.82 4.15,-0.82 2.27,0 3.96,0.73 1.71,0.73 2.85,2.13 1.13,1.37 1.71,3.35 0.58,1.97
+            0.58,4.43zM157.13,24.92q0,-1.71 -0.32,-3.26 -0.32,-1.55 -1.07,-2.73 -0.75,-1.2
+            -2.01,-1.88 -1.26,-0.71 -3.15,-0.71 -1.73,0 -3,0.64 -1.26,0.64 -2.08,1.8 -0.79,1.13
+            -1.18,2.68 -0.39,1.55 -0.39,3.35 0,1.73 0.32,3.3 0.32,1.55 1.07,2.73 0.75,1.17 2.01,1.86
+            1.26,0.69 3.15,0.69 1.73,0 3,-0.64 1.26,-0.64 2.05,-1.77 0.81,-1.13 1.2,-2.68 0.39,-1.55
+            0.39,-3.37zM181.17,34.91q0,0.13 -0.06,0.24 -0.04,0.11 -0.19,0.18 -0.15,0.07 -0.39,0.11
+            -0.24,0.04 -0.58,0.04 -0.39,0 -0.62,-0.04 -0.24,-0.04 -0.36,-0.11 -0.13,-0.07
+            -0.19,-0.18 -0.04,-0.11 -0.04,-0.24l0,-2.84q-1.67,1.93 -3.27,2.79 -1.58,0.86 -3.17,0.86
+            -1.9,0 -3.21,-0.66 -1.31,-0.66 -2.12,-1.8 -0.79,-1.15 -1.16,-2.66 -0.34,-1.51
+            -0.34,-3.63L165.46,14.86q0,-0.13 0.04,-0.24 0.06,-0.11 0.21,-0.18 0.15,-0.09 0.39,-0.11
+            0.26,-0.04 0.62,-0.04 0.39,0 0.62,0.04 0.26,0.02 0.39,0.11 0.15,0.07 0.21,0.18 0.06,0.11
+            0.06,0.24l0,11.88q0,1.86 0.28,3.04 0.28,1.17 0.83,2.02 0.56,0.82 1.41,1.29 0.88,0.44
+            2.03,0.44 1.48,0 2.93,-1.09 1.48,-1.09 3.12,-3.19L178.62,14.86q0,-0.13 0.04,-0.24
+            0.06,-0.11 0.21,-0.18 0.15,-0.09 0.39,-0.11 0.26,-0.04 0.64,-0.04 0.36,0 0.6,0.04
+            0.26,0.02 0.39,0.11 0.15,0.07 0.21,0.18 0.06,0.11 0.06,0.24z"
+        </ID>
+        <ID>MaxLineLength:AppBrandingNoPadding.kt$"m52.8,3.19c-0.27,0 -0.51,0.02 -0.75,0.06
+            -0.25,0.03 -0.51,0.1 -0.78,0.24 -0.26,0.12 -0.55,0.32 -0.74,0.65a1.27,1.22 90,0 0,-0.09
+            0.18c-0.09,0.24 -0.13,0.48 -0.13,0.71l0,29.88c0,0.23 0.04,0.48 0.13,0.72a1.27,1.22 90,0
+            0,0.09 0.18c0.2,0.35 0.51,0.57 0.78,0.69 0.22,0.1 0.43,0.15 0.65,0.19a1.27,1.22 90,0
+            0,0.02 0c0.26,0.05 0.53,0.06 0.82,0.06 0.3,0 0.55,-0.01 0.82,-0.06 0,-0 0,0 0,0
+            0.22,-0.04 0.43,-0.09 0.68,-0.21 0.26,-0.12 0.56,-0.33 0.76,-0.67 0.15,-0.27 0.24,-0.6
+            0.24,-0.9L55.31,21.04c0.93,-1.15 1.82,-2.1 2.59,-2.67 0.83,-0.61 1.55,-0.85 2.25,-0.85
+            0.61,0 1.07,0.12 1.44,0.32a1.27,1.22 90,0 0,0.03 0.02c0.4,0.2 0.7,0.47
+            0.96,0.86a1.27,1.22 90,0 0,0.01 0.01c0.27,0.4 0.49,0.91 0.65,1.57a1.27,1.22 90,0 0,0
+            0.01c0.15,0.61 0.24,1.53 0.24,2.71l0,11.9c0,0.3 0.08,0.63 0.24,0.9 0.17,0.3 0.44,0.53
+            0.69,0.66a1.27,1.22 90,0 0,0.07 0.03c0.22,0.1 0.43,0.15 0.65,0.19a1.27,1.22 90,0 0,0.02
+            0c0.27,0.05 0.54,0.06 0.84,0.06 0.28,0 0.54,-0.01 0.8,-0.06 0,-0 0,0 0,0 0.22,-0.04
+            0.43,-0.09 0.69,-0.21 0.26,-0.12 0.56,-0.33 0.76,-0.67 0.15,-0.27 0.24,-0.6
+            0.24,-0.9L68.47,22.77c0,-1.49 -0.13,-2.79 -0.4,-3.93 -0.26,-1.15 -0.71,-2.19 -1.36,-3.09
+            -0.65,-0.92 -1.52,-1.66 -2.54,-2.18 -1.08,-0.55 -2.34,-0.8 -3.75,-0.8 -1.27,0 -2.53,0.36
+            -3.73,1.01 -0,0 -0,-0 -0,0 -0.48,0.26 -0.91,0.79 -1.37,1.15l0,-9.89c0,-0.3 -0.08,-0.63
+            -0.24,-0.9 -0.18,-0.31 -0.45,-0.49 -0.7,-0.62 -0.29,-0.17 -0.57,-0.25 -0.81,-0.27
+            -0.24,-0.04 -0.48,-0.06 -0.76,-0.06zM97.23,3.19c-0.27,0 -0.51,0.02 -0.75,0.06 -0.25,0.02
+            -0.51,0.1 -0.78,0.24 -0.26,0.12 -0.55,0.32 -0.74,0.65a1.27,1.22 90,0 0,-0.09
+            0.18c-0.09,0.24 -0.13,0.48 -0.13,0.71l0,29.88c0,0.23 0.04,0.48 0.13,0.71a1.27,1.22 90,0
+            0,0.09 0.18c0.2,0.35 0.51,0.57 0.78,0.69 0.22,0.1 0.43,0.15 0.65,0.19a1.27,1.22 90,0
+            0,0.02 0c0.26,0.05 0.53,0.06 0.82,0.06 0.3,0 0.56,-0.01 0.82,-0.06 0,-0 0,0 0,0
+            0.22,-0.04 0.43,-0.09 0.68,-0.21 0.26,-0.12 0.56,-0.33 0.76,-0.67 0.15,-0.27 0.24,-0.6
+            0.24,-0.9L99.74,5.04c0,-0.3 -0.08,-0.63 -0.24,-0.89 -0.18,-0.32 -0.46,-0.49 -0.7,-0.62
+            -0.29,-0.17 -0.56,-0.25 -0.81,-0.27 -0.24,-0.04 -0.49,-0.06
+            -0.76,-0.06zM106.9,3.19c-0.27,0 -0.51,0.02 -0.75,0.06 -0.25,0.03 -0.51,0.1 -0.78,0.24
+            -0.26,0.12 -0.55,0.32 -0.74,0.65a1.27,1.22 90,0 0,-0.09 0.18c-0.09,0.24 -0.13,0.49
+            -0.13,0.72l0,29.88c0,0.23 0.04,0.48 0.13,0.72a1.27,1.22 90,0 0,0.09 0.18c0.2,0.35
+            0.51,0.57 0.78,0.69 0.22,0.1 0.43,0.15 0.65,0.19a1.27,1.22 90,0 0,0.02 0c0.26,0.05
+            0.53,0.06 0.82,0.06 0.3,0 0.55,-0.01 0.82,-0.06 0,-0 0,0 0,0 0.22,-0.04 0.43,-0.09
+            0.68,-0.21 0.26,-0.12 0.56,-0.33 0.76,-0.67 0.15,-0.27 0.24,-0.6
+            0.24,-0.9L109.41,5.04c0,-0.3 -0.08,-0.63 -0.24,-0.89a1.27,1.22 90,0 0,-0 -0c-0.18,-0.31
+            -0.45,-0.49 -0.7,-0.62 -0.29,-0.17 -0.57,-0.25 -0.81,-0.27 -0.24,-0.04 -0.48,-0.06
+            -0.76,-0.06zM38.48,5.04c-1.28,0 -2.48,0.18 -3.6,0.55a1.27,1.22 90,0 0,-0.01 0c-1.1,0.37
+            -2.09,0.92 -2.92,1.66 -0.84,0.73 -1.5,1.63 -1.95,2.68 -0.47,1.06 -0.69,2.24 -0.69,3.5
+            0,1.28 0.21,2.45 0.67,3.48 0.43,0.95 1,1.81 1.7,2.53a1.27,1.22 90,0 0,0.02
+            0.02c0.69,0.68 1.46,1.27 2.31,1.78 0.8,0.47 1.61,0.92 2.43,1.33a1.27,1.22 90,0 0,0.02
+            0.01c0.8,0.38 1.58,0.76 2.34,1.15a1.27,1.22 90,0 0,0.02 0.01c0.7,0.35 1.31,0.74
+            1.83,1.16a1.27,1.22 90,0 0,0.02 0.02c0.5,0.38 0.88,0.81 1.16,1.3 0.24,0.41 0.38,0.92
+            0.38,1.63 0,0.7 -0.12,1.28 -0.34,1.78a1.27,1.22 90,0 0,-0 0.01c-0.21,0.5 -0.5,0.89
+            -0.89,1.23 -0.4,0.35 -0.88,0.62 -1.48,0.83 -0.59,0.19 -1.26,0.29 -2.02,0.29 -0.97,0
+            -1.8,-0.12 -2.47,-0.32 -0.74,-0.25 -1.38,-0.51 -1.89,-0.77 -0,-0 -0.01,-0 -0.01,-0
+            -0.53,-0.29 -0.96,-0.55 -1.28,-0.76l0.05,0.03c-0.44,-0.33 -0.83,-0.64 -1.55,-0.64
+            -0.27,0 -0.52,0.08 -0.74,0.18 -0.39,0.18 -0.63,0.47 -0.77,0.72a1.27,1.22 90,0 0,-0.06
+            0.13c-0.1,0.23 -0.15,0.45 -0.19,0.67 -0.05,0.28 -0.06,0.55 -0.06,0.85 0,0.43 0.04,0.84
+            0.16,1.24a1.27,1.22 90,0 0,0.01 0.02c0.13,0.39 0.33,0.75 0.6,1.05a1.27,1.22 90,0 0,0.04
+            0.04c0.31,0.33 0.65,0.54 1.1,0.82a1.27,1.22 90,0 0,0.04 0.02c0.49,0.27 1.06,0.53
+            1.71,0.78 0.68,0.26 1.44,0.48 2.26,0.65 0.88,0.2 1.8,0.3 2.76,0.3 1.41,0 2.74,-0.2
+            3.97,-0.62 1.23,-0.41 2.33,-1.02 3.26,-1.83a1.27,1.22 90,0 0,0.01 -0.01c0.93,-0.83
+            1.67,-1.84 2.18,-3.01 0.52,-1.19 0.77,-2.51 0.77,-3.94 0,-1.27 -0.21,-2.42 -0.67,-3.44
+            -0,-0 0,-0 0,-0 -0.43,-0.96 -1.01,-1.81 -1.74,-2.52 -0.69,-0.7 -1.48,-1.29 -2.35,-1.79
+            -0.79,-0.47 -1.6,-0.9 -2.44,-1.3l-0.01,-0c-0.79,-0.39 -1.57,-0.78
+            -2.35,-1.16l-0,-0c-0.71,-0.37 -1.33,-0.77 -1.87,-1.2 -0.5,-0.4 -0.89,-0.84 -1.17,-1.33
+            -0.24,-0.41 -0.38,-0.92 -0.38,-1.63 0,-0.46 0.07,-0.87 0.21,-1.26 0.15,-0.38 0.35,-0.68
+            0.64,-0.96a1.27,1.22 90,0 0,0.02 -0.02c0.28,-0.28 0.64,-0.51 1.13,-0.7 0.46,-0.17
+            1.06,-0.28 1.79,-0.28 0.75,0 1.39,0.1 1.92,0.27a1.27,1.22 90,0 0,0.02 0.01c0.61,0.19
+            1.12,0.4 1.51,0.61 0.46,0.25 0.82,0.47 1.08,0.66a1.27,1.22 90,0 0,0.05 0.04c0.4,0.25
+            0.69,0.49 1.36,0.49 0.34,0 0.75,-0.18 1.03,-0.44 0.21,-0.2 0.38,-0.43
+            0.48,-0.66a1.27,1.22 90,0 0,0.02 -0.05c0.08,-0.22 0.13,-0.45 0.15,-0.68 0.04,-0.23
+            0.06,-0.46 0.06,-0.7 0,-0.24 -0.01,-0.44 -0.03,-0.65 -0.02,-0.2 -0.05,-0.39 -0.1,-0.59
+            -0.04,-0.14 -0.13,-0.3 -0.21,-0.46C45.39,7.53 45.24,7.38 45.08,7.24 44.73,6.85 44.4,6.68
+            43.95,6.44 43.46,6.17 42.92,5.94 42.34,5.75 41.75,5.53 41.14,5.36 40.49,5.23 39.82,5.1
+            39.15,5.04 38.48,5.04ZM123.68,5.28c-0.33,0 -0.61,0.02 -0.89,0.06 -0.31,0.05 -0.64,0.12
+            -1,0.43a1.27,1.22 90,0 0,-0.08 0.08c-0.36,0.37 -0.48,0.96 -0.44,1.35 0.04,0.38 0.15,0.64
+            0.28,0.93a1.27,1.22 90,0 0,0.01 0.03l7.83,16.2l0,10.56c0,0.3 0.08,0.63 0.24,0.9 0.2,0.35
+            0.51,0.57 0.78,0.69a1.27,1.22 90,0 0,0.05 0.02c0.2,0.08 0.41,0.13 0.62,0.17a1.27,1.22
+            90,0 0,0.02 0c0.27,0.05 0.54,0.06 0.84,0.06 0.29,0 0.56,-0.02 0.82,-0.06 0.23,-0.04
+            0.45,-0.09 0.69,-0.19 0.27,-0.12 0.58,-0.34 0.78,-0.69 0.15,-0.27 0.24,-0.6
+            0.24,-0.9L134.47,24.35L142.3,8.15a1.27,1.22 90,0 0,0 0c0.14,-0.28 0.25,-0.55 0.29,-0.94
+            0.05,-0.42 -0.16,-1.03 -0.52,-1.38 -0.38,-0.35 -0.76,-0.46 -1.09,-0.51 -0.3,-0.04
+            -0.62,-0.06 -1,-0.06 -0.27,0 -0.52,0.02 -0.76,0.06 -0.23,0.02 -0.47,0.06 -0.73,0.18
+            -0.25,0.11 -0.51,0.29 -0.71,0.55 -0.14,0.18 -0.24,0.37 -0.32,0.56l0.03,-0.06
+            -4.28,9a1.27,1.22 90,0 0,-0.01 0.02c-0.4,0.88 -0.8,1.77 -1.19,2.66 -0.02,0.04 -0.04,0.08
+            -0.05,0.12 -0.03,-0.07 -0.06,-0.14 -0.09,-0.2l-0.01,-0.02c-0.39,-0.91 -0.79,-1.79
+            -1.19,-2.65L126.45,6.56a1.27,1.22 90,0 0,-0.04 -0.07c-0.08,-0.15 -0.17,-0.29 -0.28,-0.43
+            -0.26,-0.33 -0.56,-0.48 -0.83,-0.58 -0.27,-0.1 -0.5,-0.13 -0.74,-0.15 -0.27,-0.04
+            -0.55,-0.06 -0.88,-0.06zM52.8,5.73c0.03,0 0.03,0 0.06,0l0,11.83a1.27,1.22 90,0 0,1.39
+            1.03c-0.37,0.42 -0.74,0.66 -1.12,1.15a1.27,1.22 90,0 0,-0.27 0.79l0,13.69c-0.03,0
+            -0.03,0 -0.06,0 -0.02,0 -0.02,-0 -0.04,-0L52.76,5.73c0.02,-0 0.02,-0
+            0.04,-0zM97.23,5.73c0.03,0 0.03,0 0.06,0l0,28.49c-0.03,0 -0.03,0 -0.06,0 -0.02,0
+            -0.02,-0 -0.04,-0L97.19,5.73c0.02,-0 0.02,-0 0.04,-0zM106.9,5.73c0.03,0 0.03,0
+            0.06,0l0,28.49c-0.03,0 -0.03,0 -0.06,0 -0.02,0 -0.02,-0 -0.04,-0L106.86,5.73c0.02,-0
+            0.02,-0 0.04,-0zM39.58,7.67c0.15,0.02 0.3,0.02 0.45,0.05 0.06,0.01 0.11,0.03 0.17,0.05
+            -0.2,-0.05 -0.41,-0.06 -0.62,-0.09zM139.72,7.83 L135.05,17.5c0.12,-0.27 0.24,-0.55
+            0.37,-0.82l0.01,-0.02 4.2,-8.83c0.02,-0 0.07,-0 0.1,-0.01zM124.14,7.83c0.02,0 0.09,0
+            0.11,0.01a1.27,1.22 90,0 0,0.09 0.01L128.49,16.61c0.39,0.83 0.78,1.68
+            1.16,2.57a1.27,1.22 90,0 0,0.01 0.02c0.07,0.15 0.13,0.3 0.2,0.45zM40.84,7.86
+            L40.87,7.87c-0,-0 -0,0 -0.01,0 -0.01,-0 -0.01,-0.01 -0.02,-0.01zM41.49,8.12c0.02,0.01
+            0.04,0.01 0.05,0.02a1.27,1.22 90,0 0,0.04 0.01c0.21,0.07 0.35,0.15 0.53,0.23 -0.2,-0.09
+            -0.41,-0.18 -0.62,-0.26zM43.12,8.86c0.05,0.03 0.23,0.16 0.19,0.11a1.27,1.22 90,0 0,0.02
+            0.02c-0.07,-0.04 -0.13,-0.08 -0.21,-0.13zM43.34,8.9a1.27,1.22 90,0 0,0.07 0.12c0,0
+            0,0.01 0,0.01 -0.01,-0.01 -0.02,-0.01 -0.02,-0.02 0.03,0.05 0.06,0.15
+            -0.04,-0.12zM33.83,9c-0.07,0.06 -0.17,0.08 -0.24,0.15 -0.54,0.52 -0.96,1.15
+            -1.23,1.86a1.27,1.22 90,0 0,-0.01 0.03c-0.25,0.69 -0.38,1.43 -0.38,2.18 0,1.07 0.23,2.08
+            0.73,2.94 0.45,0.78 1.05,1.46 1.78,2.03 0.68,0.54 1.44,1.03 2.27,1.46a1.27,1.22 90,0
+            0,0.02 0.01c0.78,0.38 1.57,0.77 2.37,1.17a1.27,1.22 90,0 0,0.02 0.01c0.78,0.37 1.54,0.77
+            2.27,1.21a1.27,1.22 90,0 0,0.02 0.01c0.69,0.39 1.3,0.85 1.83,1.39a1.27,1.22 90,0 0,0.01
+            0.01c0.5,0.5 0.9,1.07 1.21,1.77a1.27,1.22 90,0 0,0 0.01c0.28,0.61 0.44,1.38 0.44,2.36
+            0,1.12 -0.19,2.07 -0.55,2.89 -0.37,0.84 -0.88,1.54 -1.54,2.13 -0.08,0.07 -0.21,0.1
+            -0.29,0.16 0.65,-0.57 1.18,-1.29 1.53,-2.1l0,-0c0.38,-0.86 0.56,-1.82 0.56,-2.83 0,-1.07
+            -0.23,-2.08 -0.73,-2.94 -0.45,-0.78 -1.06,-1.45 -1.78,-2.01 -0.67,-0.55 -1.43,-1.03
+            -2.27,-1.44 -0.77,-0.4 -1.56,-0.79 -2.37,-1.17l-0.01,-0.01c-0,-0 -0.01,-0
+            -0.01,-0.01C36.73,19.88 35.98,19.47 35.24,19.03 34.55,18.63 33.95,18.16 33.41,17.63
+            32.92,17.12 32.52,16.53 32.21,15.83 31.93,15.2 31.76,14.41 31.76,13.42c0,-0.96
+            0.16,-1.76 0.47,-2.44a1.27,1.22 90,0 0,0 -0.01c0.31,-0.72 0.74,-1.3 1.3,-1.79a1.27,1.22
+            90,0 0,0.01 -0.01c0.08,-0.07 0.21,-0.1 0.29,-0.16zM44.06,9.43 L44.12,9.47c-0.01,-0.01
+            -0.04,-0.02 -0.05,-0.03 -0.01,-0.01 0.01,0 -0,-0.01zM81.93,12.77c-1.5,0 -2.91,0.28
+            -4.18,0.86 -0,0 -0,0 -0,0 -1.26,0.56 -2.36,1.4 -3.26,2.48 -0.9,1.07 -1.59,2.37
+            -2.06,3.85a1.27,1.22 90,0 0,-0 0.01c-0.46,1.49 -0.68,3.14 -0.68,4.95 0,1.87 0.21,3.55
+            0.65,5.05a1.27,1.22 90,0 0,0 0.01c0.46,1.49 1.14,2.78 2.05,3.85a1.27,1.22 90,0 0,0.01
+            0.01c0.91,1.05 2.06,1.85 3.37,2.39a1.27,1.22 90,0 0,0.01 0c1.32,0.52 2.8,0.77 4.42,0.77
+            0.98,0 1.9,-0.08 2.76,-0.24 0.83,-0.15 1.57,-0.32 2.22,-0.51a1.27,1.22 90,0 0,0.02
+            -0.01c0.63,-0.2 1.16,-0.4 1.61,-0.61a1.27,1.22 90,0 0,0.03 -0.02c0.2,-0.1 0.36,-0.19
+            0.51,-0.28 0.15,-0.09 0.25,-0.12 0.47,-0.35 0.13,-0.13 0.25,-0.28 0.36,-0.47 0.1,-0.18
+            0.18,-0.38 0.23,-0.61 0.03,-0.11 0.06,-0.21 0.08,-0.32a1.27,1.22 90,0 0,0
+            -0.03c0.02,-0.16 0.03,-0.33 0.03,-0.49 0,-0.25 -0.02,-0.48 -0.06,-0.72 -0.02,-0.22
+            -0.07,-0.45 -0.19,-0.71 -0.12,-0.27 -0.32,-0.58 -0.65,-0.79 -0.26,-0.16 -0.57,-0.25
+            -0.86,-0.25 -0.59,0 -0.84,0.17 -1.24,0.36a1.27,1.22 90,0 0,-0.02 0.01c-0.28,0.14
+            -0.68,0.31 -1.18,0.51 -0,0 -0,0 -0.01,0 -0.44,0.17 -1,0.33 -1.67,0.48 -0.61,0.14
+            -1.33,0.21 -2.16,0.21 -1.15,0 -2.06,-0.18 -2.73,-0.48 -0.7,-0.31 -1.22,-0.72 -1.63,-1.26
+            -0.43,-0.57 -0.75,-1.26 -0.95,-2.11 -0.12,-0.52 -0.13,-1.19 -0.18,-1.8l11.86,0c0.55,0
+            1.06,-0.21 1.48,-0.51a1.27,1.22 90,0 0,0.03 -0.03c0.67,-0.51 0.9,-1.37
+            0.9,-2.13L91.33,23.32c0,-1.35 -0.17,-2.65 -0.52,-3.89 -0.34,-1.27 -0.91,-2.42 -1.69,-3.4
+            -0.78,-1.01 -1.78,-1.81 -2.95,-2.39 -1.23,-0.6 -2.66,-0.87
+            -4.25,-0.87zM150.73,12.77c-1.72,0 -3.28,0.3 -4.65,0.93 -1.34,0.62 -2.5,1.51
+            -3.41,2.65a1.27,1.22 90,0 0,-0 0c-0.9,1.11 -1.56,2.43 -2.01,3.92a1.27,1.22 90,0 0,-0
+            0.01c-0.42,1.48 -0.63,3.07 -0.63,4.77 0,1.75 0.2,3.36 0.61,4.81a1.27,1.22 90,0 0,0
+            0.01c0.43,1.46 1.07,2.74 1.95,3.82a1.27,1.22 90,0 0,0.01 0.02c0.89,1.06 2,1.89
+            3.28,2.46a1.27,1.22 90,0 0,0.02 0.01c1.32,0.56 2.81,0.83 4.45,0.83 1.71,0 3.26,-0.3
+            4.63,-0.93a1.27,1.22 90,0 0,0.01 -0.01c1.34,-0.63 2.48,-1.53 3.38,-2.67 0.91,-1.13
+            1.59,-2.45 2.03,-3.94 0.44,-1.48 0.65,-3.08 0.65,-4.78 0,-1.74 -0.2,-3.35 -0.63,-4.8
+            -0.43,-1.46 -1.08,-2.74 -1.95,-3.8 -0.88,-1.08 -2,-1.92 -3.31,-2.48 -1.31,-0.57
+            -2.79,-0.83 -4.43,-0.83zM166.72,13.01c-0.27,0 -0.51,0.02 -0.75,0.06 -0.25,0.03 -0.51,0.1
+            -0.78,0.24 -0.26,0.12 -0.54,0.32 -0.74,0.65a1.27,1.22 90,0 0,-0.09 0.18c-0.09,0.24
+            -0.13,0.49 -0.13,0.72L164.24,26.98c0,1.49 0.12,2.79 0.37,3.93a1.27,1.22 90,0 0,0
+            0.02c0.28,1.14 0.72,2.18 1.35,3.08a1.27,1.22 90,0 0,0.02 0.02c0.66,0.92 1.53,1.65
+            2.56,2.17 1.08,0.55 2.34,0.8 3.75,0.8 1.27,0 2.53,-0.35 3.73,-1.01 0.51,-0.28 0.99,-0.87
+            1.49,-1.26l0,0.18c0,0.23 0.04,0.48 0.13,0.72a1.27,1.22 90,0 0,0.09 0.18c0.17,0.3
+            0.44,0.53 0.69,0.66 0.26,0.13 0.47,0.18 0.69,0.22 0.27,0.05 0.54,0.06 0.84,0.06 0.28,0
+            0.54,-0.01 0.8,-0.06 0.22,-0.04 0.43,-0.09 0.65,-0.19 0.27,-0.12 0.6,-0.4 0.79,-0.81
+            0.12,-0.24 0.21,-0.51 0.21,-0.77L182.39,14.86c0,-0.3 -0.09,-0.63 -0.24,-0.89a1.27,1.22
+            90,0 0,0 -0c-0.18,-0.31 -0.45,-0.49 -0.69,-0.62 -0.3,-0.17 -0.57,-0.25 -0.82,-0.27
+            -0.24,-0.04 -0.47,-0.06 -0.73,-0.06 -0.28,0 -0.53,0.02 -0.78,0.06 -0.25,0.03 -0.51,0.1
+            -0.78,0.24 -0.26,0.12 -0.54,0.32 -0.74,0.65a1.27,1.22 90,0 0,-0.09 0.18c-0.09,0.24
+            -0.13,0.49 -0.13,0.72l0,13.87c-0.94,1.15 -1.84,2.11 -2.61,2.68a1.27,1.22 90,0 0,-0.01
+            0.01c-0.81,0.61 -1.52,0.85 -2.22,0.85 -0.61,0 -1.09,-0.12 -1.48,-0.31 -0.39,-0.22
+            -0.7,-0.49 -0.96,-0.87 -0.27,-0.42 -0.5,-0.94 -0.65,-1.59C169.32,28.84 169.23,27.91
+            169.23,26.74L169.23,14.86c0,-0.3 -0.08,-0.63 -0.24,-0.89a1.27,1.22 90,0 0,0
+            -0c-0.18,-0.31 -0.45,-0.49 -0.7,-0.62 -0.3,-0.17 -0.57,-0.25 -0.82,-0.27 -0.24,-0.04
+            -0.48,-0.06 -0.75,-0.06zM166.72,15.55c0.03,0 0.03,0 0.06,0l0,11.19c0,1.31 0.09,2.4
+            0.31,3.34 0.21,0.9 0.55,1.72 1.01,2.43a1.27,1.22 90,0 0,0.01 0.01c0.41,0.6 0.97,1.05
+            1.57,1.43 -0.02,-0.01 -0.06,-0.01 -0.08,-0.02 -0.71,-0.36 -1.25,-0.82 -1.67,-1.41
+            -0.43,-0.63 -0.75,-1.35 -0.96,-2.21 -0.2,-0.87 -0.31,-1.99
+            -0.31,-3.34L166.68,15.55c0.02,-0 0.02,-0 0.04,-0zM179.9,15.55c0.02,0 0.02,0
+            0.04,0l0,16.52a1.27,1.22 90,0 0,-1.36 -1.03c0.33,-0.37 0.65,-0.57 0.98,-1a1.27,1.22 90,0
+            0,0.27 -0.8L179.84,15.55c0.03,-0 0.03,-0 0.06,-0zM62.69,15.58 L62.72,15.6c-0.01,-0
+            -0.01,-0 -0.02,-0 -0,-0 -0.01,-0.01 -0.01,-0.01zM62.94,15.81c0.04,0.02 0.11,0.01
+            0.15,0.03 0.71,0.36 1.24,0.82 1.65,1.4a1.27,1.22 90,0 0,0.01 0.01c0.44,0.61 0.75,1.32
+            0.95,2.17a1.27,1.22 90,0 0,0 0.02c0.21,0.87 0.33,1.99 0.33,3.33l0,11.45c-0.02,0 -0.02,0
+            -0.04,0 -0.03,0 -0.03,-0 -0.06,-0L65.92,23.01c0,-1.31 -0.09,-2.4 -0.31,-3.32 -0.21,-0.9
+            -0.55,-1.71 -1.02,-2.41 -0.42,-0.63 -1.01,-1.1 -1.65,-1.48zM154.3,15.93
+            L154.31,15.94c-0,-0 -0.01,-0 -0.01,-0 -0,-0 -0,-0 -0,-0zM154.61,16.23c0.76,0.39
+            1.46,0.84 1.99,1.48a1.27,1.22 90,0 0,0.01 0.01c0.64,0.77 1.13,1.72 1.47,2.89 0.34,1.18
+            0.52,2.53 0.52,4.07 0,1.49 -0.19,2.83 -0.55,4.04 -0.33,1.12 -0.84,2.05 -1.47,2.87
+            0.6,-0.87 1.06,-1.86 1.34,-2.98 0.29,-1.15 0.42,-2.38 0.42,-3.69 0,-1.22 -0.11,-2.39
+            -0.35,-3.52 -0.24,-1.17 -0.65,-2.23 -1.24,-3.15 -0.53,-0.85 -1.31,-1.48
+            -2.15,-2.01zM87.12,17.54c0.03,0.03 0.07,0.05 0.1,0.08a1.27,1.22 90,0 0,0.01
+            0.02c0.56,0.7 0.96,1.51 1.22,2.48a1.27,1.22 90,0 0,0 0.01c0.28,1 0.42,2.06
+            0.42,3.19l0,0.53c0,0.3 -0.03,0.19 0.09,0.09 -0.03,0.02 -0.09,0.04
+            -0.07,0.04l-1.08,0a1.27,1.22 90,0 0,0.87 -0.88c0.04,-2.22 -0.48,-4.11
+            -1.57,-5.57zM81.76,17.56c1.63,0 2.64,0.46 3.37,1.35 0.56,0.68 0.85,1.69
+            0.99,2.9l-8.95,0c0.06,-0.29 0.07,-0.59 0.16,-0.87a1.27,1.22 90,0 0,0 -0.01c0.23,-0.69
+            0.54,-1.27 0.93,-1.76 0.41,-0.49 0.88,-0.87 1.47,-1.17a1.27,1.22 90,0 0,0.01
+            -0c0.55,-0.29 1.21,-0.44 2.02,-0.44zM150.58,17.61c1.11,0 1.94,0.21 2.56,0.56a1.27,1.22
+            90,0 0,0.02 0.01c0.67,0.37 1.17,0.83 1.55,1.45a1.27,1.22 90,0 0,0.01 0.01c0.41,0.64
+            0.71,1.39 0.89,2.3 0.19,0.94 0.29,1.94 0.29,2.99 0,1.12 -0.12,2.14 -0.35,3.05 -0.22,0.9
+            -0.56,1.63 -1,2.24a1.27,1.22 90,0 0,-0.01 0.01c-0.41,0.59 -0.93,1.04 -1.6,1.38
+            -0.64,0.33 -1.45,0.51 -2.46,0.51 -1.11,0 -1.96,-0.21 -2.58,-0.54 -0.68,-0.37 -1.17,-0.83
+            -1.56,-1.44 -0.41,-0.64 -0.71,-1.39 -0.89,-2.29 -0.2,-0.96 -0.3,-1.97 -0.3,-3.04 0,-1.1
+            0.12,-2.11 0.35,-3.03 0.22,-0.9 0.56,-1.64 0.98,-2.25 0,-0 -0,-0 0,-0 0.43,-0.6
+            0.95,-1.06 1.63,-1.4 0.64,-0.33 1.45,-0.51 2.46,-0.51zM145.01,17.61c-0.14,0.17
+            -0.36,0.24 -0.49,0.42a1.27,1.22 90,0 0,-0 0c-0.63,0.9 -1.08,1.95 -1.37,3.11 -0.29,1.15
+            -0.42,2.37 -0.42,3.66 0,1.23 0.11,2.42 0.35,3.56a1.27,1.22 90,0 0,0 0c0.24,1.17
+            0.65,2.23 1.24,3.16 0.57,0.9 1.38,1.6 2.31,2.14 -0.85,-0.42 -1.59,-0.93 -2.18,-1.62
+            -0.64,-0.78 -1.13,-1.74 -1.47,-2.9 -0.33,-1.18 -0.51,-2.54 -0.51,-4.09 0,-1.49
+            0.18,-2.83 0.53,-4.04 0.36,-1.2 0.87,-2.2 1.54,-3.03l0,-0c0.13,-0.15 0.33,-0.22
+            0.47,-0.36zM74.98,20.29c-0.28,0.88 -0.46,1.78 -0.5,2.72a1.27,1.22 90,0 0,0.98 1.22,1.27
+            1.22,90 0,0 -0.98,1.01c0,1.32 0.12,2.54 0.37,3.66a1.27,1.22 90,0 0,0 0.02c0.28,1.15
+            0.74,2.19 1.4,3.06a1.27,1.22 90,0 0,0.01 0.01c0.5,0.65 1.22,1.07 1.93,1.5 -0.71,-0.37
+            -1.4,-0.77 -1.92,-1.35 -0.66,-0.77 -1.17,-1.73 -1.54,-2.93 -0.35,-1.19 -0.55,-2.63
+            -0.55,-4.3 0,-1.59 0.19,-2.98 0.56,-4.17 0.06,-0.18 0.17,-0.28
+            0.24,-0.45zM131,22.01a1.27,1.22 90,0 0,0.97 0.65l0.04,0a1.27,1.22 90,0 0,0.81
+            -0.55l-0.66,1.38a1.27,1.22 90,0 0,-0.13 0.57l0,10.16c-0.04,0 -0.05,0.01 -0.08,0.01
+            -0.05,0 -0.06,-0 -0.1,-0.01L131.84,24.05a1.27,1.22 90,0 0,-0.13
+            -0.57zM156.52,31.73c-0.01,0.01 -0.01,0.03 -0.02,0.05a1.27,1.22 90,0 0,-0.01
+            0.01c-0.09,0.11 -0.24,0.16 -0.34,0.27 0.1,-0.13 0.27,-0.18
+            0.37,-0.32zM31.02,32.55c0.32,0.2 0.61,0.39 1.01,0.6a1.27,1.22 90,0 0,0.03 0.02c0.56,0.28
+            1.21,0.53 1.91,0.78 -0.31,-0.09 -0.66,-0.16 -0.92,-0.26C32.48,33.46 32.01,33.25
+            31.65,33.05 31.32,32.85 31.1,32.67 31.09,32.66c-0.03,-0.04 -0.05,-0.07
+            -0.06,-0.11zM146.84,33.83c0.02,0.01 0.04,0 0.06,0.01 -0.01,-0.01 -0.04,-0 -0.05,-0.01
+            -0,-0 -0,-0 -0.01,-0zM34.6,34.13c0.68,0.19 1.44,0.26 2.22,0.3 -0.64,-0.02 -1.27,-0.07
+            -1.84,-0.19a1.27,1.22 90,0 0,-0.02 -0c-0.14,-0.03 -0.23,-0.07 -0.36,-0.1z"
+        </ID>
+        <ID>MaxLineLength:AppBrandingNoPadding.kt$"m9.5,11.55c-0.65,0.13 -1.16,0.47 -1.49,0.99
+            -0.43,0.67 -0.42,1.44 0.01,2.08 0.15,0.22 0.41,0.46 0.66,0.61 0.25,0.15 0.4,0.21
+            0.67,0.28 0.41,0.1 0.72,0.1 1.11,0.01 0.9,-0.21 1.55,-0.9 1.67,-1.78 0.06,-0.43
+            -0.08,-0.93 -0.36,-1.32 -0.28,-0.38 -0.82,-0.74 -1.3,-0.85 -0.22,-0.05 -0.76,-0.07
+            -0.96,-0.03z"
+        </ID>
+        <ID>MaxLineLength:AppScaffold.kt$colors =
+            TopAppBarDefaults.topAppBarColors(scrolledContainerColor =
+            MaterialTheme.colorScheme.surfaceContainerHigh)
+        </ID>
+        <ID>MaxLineLength:NoSearchResult.kt$"M164 100H336A14 14 0 0 1 350 114V206A14 14 0 0 1 336
+            220H164A14 14 0 0 1 150 206V114A14 14 0 0 1 164 100Z"
+        </ID>
+        <ID>MaxLineLength:OtgDeviceWaitingDialog.kt$if</ID>
+        <ID>MaxLineLength:Theme.kt$isUserGeneratedColorSchemeApplied &amp;&amp; generatedColorScheme
+            != null &amp;&amp; !dynamicColor -&gt; generatedColorScheme.toColorScheme()
+        </ID>
+        <ID>MaxLineLength:Undraw404Error.kt$"M114.2,474.9A37.5,37.5 0,0 0,129.1 495.9c2.8,1.9
+            6.2,3.8 7.1,7a8.4,8.4 0,0 1,-0.9 6.2,24.9 24.9,0 0,1 -3.9,5l-0.1,0.5c-7,-4.2 -13.7,-9.4
+            -17.5,-16.6s-4.4,-16.5 0.3,-23.2"
+        </ID>
+        <ID>MaxLineLength:Undraw404Error.kt$"M196.4,170.1c-18.8,-9.6 -42.8,-7.8 -60,4.3a855.9,855.9
+            0,0 1,97.4 22.7C220.5,189.3 210.1,177.1 196.4,170.1Z"
+        </ID>
+        <ID>MaxLineLength:Undraw404Error.kt$"M232.9,317.7q-0.1,4.7 -0.3,9.4 -0.3,10.5 -0.6,20.9
+            -0.3,11.8 -0.7,23.5 -0.2,6.1 -0.3,12.2 -0.5,16.4 -0.9,32.7c0,1.1 -0.1,2.3
+            -0.1,3.4q-0.2,8.1 -0.5,16.2 -0.3,8.8 -0.5,17.6 -0.2,6.6 -0.4,13.2 -1.4,47.9
+            -2.7,95.8a7.7,7.7 0,0 1,-7.5 7.5,7.6 7.6,0 0,1 -7.5,-7.5q0.8,-26.9 1.5,-53.9 0.7,-24.4
+            1.4,-48.7 0.2,-8 0.5,-16.1 0.3,-12.1 0.7,-24.2c0,-1.1 0.1,-2.3 0.1,-3.4 0,-1 0.1,-2
+            0.1,-3q0.7,-23.5 1.3,-47 0.3,-9.2 0.5,-18.5 0.3,-10.6 0.6,-21.1c0.1,-3.1 0.2,-6.2
+            0.3,-9.3a7.7,7.7 0,0 1,7.5 -7.5A7.6,7.6 0,0 1,232.9 317.7Z"
+        </ID>
+        <ID>MaxLineLength:Undraw404Error.kt$"M245,191.4c-1.4,-1.6 -2.9,-3.2 -4.3,-4.8 -11.4,-12.6
+            -23.7,-25.1 -39.4,-32.4a57.1,57.1 0,0 0,-23.9 -5.6c-8.6,0 -16.9,2.3 -24.8,5.4 -3.7,1.5
+            -7.4,3.2 -11,5 -4.1,2.1 -8.2,4.3 -12.2,6.5q-11.3,6.3 -22.4,13.1 -22,13.6 -42.6,29.2
+            -10.7,8.1 -20.9,16.8 -9.5,8 -18.7,16.5c-1.3,1.2 -3.3,-0.7 -1.9,-1.9 1.6,-1.5 3.2,-3
+            4.9,-4.5q6.9,-6.2 14,-12.2 12.9,-10.9 26.6,-21 21.2,-15.7 43.8,-29.2 11.3,-6.8
+            22.9,-13c2.3,-1.3 4.7,-2.5 7.1,-3.6a113.1,113.1 0,0 1,16.9 -6.9,60 60,0 0,1 25.5,-2.5
+            66.3,66.3 0,0 1,23.5 8.1c15.4,8.6 27.4,21.9 39,34.9C248.1,190.8 246.2,192.7 245,191.4Z"
+        </ID>
+        <ID>MaxLineLength:Undraw404Error.kt$"M263,419.8a6.7,6.7 0,0 0,-1.7 -2.7,6.4 6.4,0 0,0
+            -0.9,-0.7c-2.6,-1.7 -6.5,-2.1 -9,0a5.8,5.8 0,0 0,-0.7 0.7q-1.1,1.4 -2.3,2.7c-1.3,1.5
+            -2.6,2.9 -4,4.2 -0.4,0.4 -0.8,0.8 -1.2,1.2 -0.2,0.2 -0.5,0.5 -0.7,0.7 -0.9,0.8 -1.8,1.7
+            -2.7,2.5 -0.5,0.4 -1,0.9 -1.5,1.3 -0.7,0.6 -1.5,1.2 -2.2,1.8 -0.1,0.1 -0.1,0.1 -0.2,0.2
+            0,0 0,0 -0.1,0 0,0 0,0 0,0a0.2,0.2 0,0 0,-0.1 0.1c-0.2,0.2 -0.4,0.3 -0.5,0.3 0,0
+            0.1,-0.1 0.1,-0.1 -0.2,0.1 -0.4,0.3 -0.6,0.4 -1.8,1.3 -3.5,2.5 -5.4,3.7a99.2,99.2 0,0
+            1,-14.2 7.6c-0.3,0.1 -0.7,0.3 -1,0.4a86,86 0,0 1,-40.9 6q-2.1,-0.2 -4.3,-0.5c-1.6,-0.2
+            -3.3,-0.5 -4.9,-0.9a97.9,97.9 0,0 1,-18 -5.4,118.7 118.7,0 0,1 -20.7,-12.1c-1,-0.7
+            -2,-1.4 -3,-2.1 1.2,-2.8 2.3,-5.6 3.4,-8.5 0.6,-1.4 1.1,-2.7 1.6,-4.1 4.1,-10.6
+            7.9,-21.4 11.6,-32.1q5.6,-16.4 10.5,-32.9 0.5,-1.7 1,-3.4 2.6,-8.7 5,-17.5c0.2,-0.6
+            0.3,-1.1 0.5,-1.7q0.7,-2.5 1.4,-5c1,-3.8 -1.3,-8.3 -5.2,-9.2a7.6,7.6 0,0 0,-9.2
+            5.2c-0.4,1.6 -0.9,3.2 -1.3,4.9q-3.2,11.7 -6.7,23.4 -0.5,1.7 -1,3.4 -7.7,25.4 -16.9,50.3
+            -1.1,3 -2.3,6c-0.4,1 -0.7,2 -1.1,2.9 -0.7,1.9 -1.5,3.9 -2.2,5.8 -0.4,1.1 -0.9,2.3
+            -1.3,3.4 -0.3,0.7 -0.6,1.4 -0.9,2.1a41.8,41.8 0,0 0,-8.8 -2.1l-0.5,-0.1a27.4,27.4 0,0
+            0,-7 0.1,23.9 23.9,0 0,0 -17.2,10.7c-4.8,7.5 -4.7,18.3 2,24.6 6.9,6.6 17.3,6.5
+            25.4,2.4a28.4,28.4 0,0 0,10.5 -9.9,50.6 50.6,0 0,0 2.7,-4.7c0.2,0.1 0.4,0.3 0.6,0.4
+            0.8,0.6 1.6,1.1 2.4,1.7a111.7,111.7 0,0 0,14.5 8.9,108.4 108.4,0 0,0 34.6,10.5c0.3,0
+            0.5,0.1 0.8,0.1 1.3,0.2 2.7,0.3 4,0.4a103.8,103.8 0,0 0,55.6 -11.4q2.2,-1.1 4.3,-2.4
+            3.3,-1.9 6.5,-4.1c1.2,-0.8 2.3,-1.6 3.4,-2.4a101,101 0,0 0,13.5 -12q2.4,-2.5
+            4.5,-5.1a8.1,8.1 0,0 0,2.2 -5.3A7.6,7.6 0,0 0,263 419.8ZM97.4,443.7c0.2,-0.2 0.4,-0.3
+            0.6,-0.5C98,443.3 97.7,443.5 97.4,443.7ZM100.6,440.4c-0.2,0.3 -0.4,0.5
+            -0.7,0.8a23.4,23.4 0,0 1,-2.3 2.2c-0.1,0.1 -0.2,0.2 -0.4,0.3a0,0 0,0 0,0 0,3.8 3.8,0 0,0
+            -0.4,0.2q-0.6,0.4 -1.3,0.7a17,17 0,0 1,-2.7 0.8,16.8 16.8,0 0,1 -2.1,0h0a14.8,14.8 0,0
+            1,-1.5 -0.4c-0.2,-0.1 -0.5,-0.3 -0.7,-0.4 -0.1,-0.1 -0.2,-0.2 -0.2,-0.2a2.4,2.4 0,0
+            1,-0.3 -0.3,0 0,0 0,0 0,0c-0.1,-0.2 -0.2,-0.4 -0.3,-0.6a0,0 0,0 1,0 0c-0.1,-0.3
+            -0.2,-0.5 -0.2,-0.8a12.5,12.5 0,0 1,0 -1.4,13.5 13.5,0 0,1 0.5,-1.9 11.1,11.1 0,0 1,0.7
+            -1.3c0,0 0.1,-0.2 0.2,-0.4 0,0 0,0 0,0 0.2,-0.2 0.3,-0.4 0.5,-0.5 0.3,-0.3 0.6,-0.6
+            0.9,-0.8a18,18 0,0 1,1.8 -1,19.5 19.5,0 0,1 2.9,-0.8 25,25 0,0 1,4.4 0,30.3 30.3,0 0,1
+            4.1,1 36.9,36.9 0,0 1,-2.8 4.5C100.7,440.3 100.7,440.4 100.6,440.4ZM89.5,437.1a2.2,2.2
+            0,0 1,-0.3 0.4A1.4,1.4 0,0 1,89.5 437.1Z"
+        </ID>
+        <ID>MaxLineLength:Undraw404Error.kt$"M346.2,285.9A37.5,37.5 0,0 0,361.1 306.9c2.8,1.9
+            6.2,3.8 7.1,7a8.4,8.4 0,0 1,-0.9 6.2,24.9 24.9,0 0,1 -3.9,5l-0.1,0.5c-7,-4.2 -13.7,-9.4
+            -17.5,-16.6s-4.4,-16.5 0.3,-23.2"
+        </ID>
+        <ID>MaxLineLength:Undraw404Error.kt$"M419.2,535.1l-1.2,3.4 -0.6,1.7c-1.5,0.1 -3,0.3
+            -4.5,0.4l-0.3,0c-1.7,0.2 -3.3,0.3 -5,0.5 -0.4,-0.5 -0.9,-1 -1.3,-1.5a62,62 0,0 1,8.1
+            -87.1c-1.3,6.9 0.2,13.5 2.8,20.1 -0.3,0.1 -0.5,0.2 -0.8,0.3a16.4,16.4 0,0 0,-5.1
+            3.8c-0.4,0.5 -0.8,1.1 -0.5,1.6 0.2,0.5 0.8,0.6 1.4,0.6 1.3,0.1 2.5,0.3 3.8,0.4 1,0.1
+            2,0.2 3,0.3q0.7,0.1 1.4,0.2c0.1,0.2 0.1,0.3 0.2,0.4 2.9,6.2 5.9,12.4 7.7,18.8a43.7,43.7
+            0,0 1,1 4.9A37.6,37.6 0,0 1,419.2 535.1Z"
+        </ID>
+        <ID>MaxLineLength:Undraw404Error.kt$"M432.5,512.5a3.8,3.8 0,0 1,-2.7 -6.6c0.1,-0.4 0.2,-0.7
+            0.3,-1q-0.1,-0.1 -0.1,-0.3c-3.5,-8.3 -25.7,14.8 -26.7,22.6a30,30 0,0 0,0.5
+            10.3A120.4,120.4 0,0 1,392.8 487.6a116.2,116.2 0,0 1,0.7 -13q0.6,-5.3
+            1.7,-10.5a121.8,121.8 0,0 1,24.2 -51.6c6.9,0.4 12.9,-0.7 13.5,-14 0.1,-2.4 1.9,-4.4
+            2.3,-6.8 -0.7,0.1 -1.3,0.1 -2,0.2 -0.2,0 -0.4,0 -0.6,0l-0.1,0a3.7,3.7 0,0 1,-3.1
+            -6.1q0.4,-0.5 0.9,-1.1c0.4,-0.5 0.9,-1.1 1.3,-1.6a1.9,1.9 0,0 0,0.1 -0.2c0.5,-0.6 1,-1.2
+            1.5,-1.8a10.8,10.8 0,0 0,-3.6 -3.4c-5,-2.9 -11.8,-0.9 -15.4,3.6 -3.6,4.5 -4.3,10.8
+            -3,16.4a43.4,43.4 0,0 0,6 13.4c-0.3,0.3 -0.6,0.7 -0.8,1a122.6,122.6 0,0 0,-12.8
+            20.3c1,-7.9 -11.4,-36.6 -16.2,-42.7 -5.8,-7.3 -17.6,-4.1 -18.6,5.1q0,0.1 0,0.3 1.1,0.6
+            2.1,1.3a5.1,5.1 0,0 1,-2.1 9.3l-0.1,0c-9.6,13.6 21.1,49.2 28.8,41.2a125.1,125.1 0,0
+            0,-6.7 31.7,118.7 118.7,0 0,0 0.1,19.2l0,-0.2C389,483.7 359.7,463.1 351.2,464.8c-4.9,1
+            -9.8,0.8 -9,5.7q0,0.1 0,0.2a34.4,34.4 0,0 1,3.9 1.9q1.1,0.6 2.1,1.3a5.1,5.1 0,0 1,-2.1
+            9.3l-0.1,0c-0.1,0 -0.1,0 -0.2,0 -4.4,15 27.9,39.1 47.5,31.4h0a125.1,125.1 0,0 0,8.4
+            24.5L431.7,539.3c0.1,-0.3 0.2,-0.7 0.3,-1a34.1,34.1 0,0 1,-8.3 -0.5c2.2,-2.7 4.5,-5.5
+            6.7,-8.2a1.9,1.9 0,0 0,0.1 -0.2c1.1,-1.4 2.3,-2.8 3.4,-4.2l0,-0a50,50 0,0 0,-1.5
+            -12.7ZM398.1,444.8 L398.1,444.8 398.1,444.9ZM391.5,504.8 L391.2,504.2c0,-0.4 0,-0.8
+            0,-1.3 0,-0.1 0,-0.2 0,-0.4 0.1,0.7 0.2,1.5 0.3,2.2Z"
+        </ID>
+        <ID>MaxLineLength:Undraw404Error.kt$"M435.7,160.5c-7.7,-12.7 -16.8,-26.2 -31,-30.4
+            -16.5,-4.8 -33.4,4.7 -47.8,14.1a1392.2,1392.2 0,0 0,-123.9 91.3l0,0.5q46.2,-3.2
+            92.5,-6.4c22.3,-1.5 45.3,-3.3 65,-13.8 7.5,-4 14.7,-9.3 23.2,-9.7 10.5,-0.5 19.7,6.9
+            26.9,14.6 42.6,45.4 54.9,114.8 102.7,154.6A1517,1517 0,0 0,435.7 160.5Z"
+        </ID>
+        <ID>MaxLineLength:Undraw404Error.kt$"M445.4,504.1a63.1,63.1 0,0 1,-20.1 33.7c-0.7,0.6
+            -1.5,1.3 -2.3,1.9q-2.8,0.3 -5.6,0.5c-1.5,0.1 -3,0.3 -4.5,0.4l-0.3,0 -0.2,-1.6
+            -0.8,-6.6a37.6,37.6 0,0 1,-3.3 -32.4c2.6,-7.1 7.4,-13.4 12.1,-19.7 6.5,-8.6 12.8,-17.1
+            13,-27.7a60.5,60.5 0,0 1,7.9 13.3,16.4 16.4,0 0,0 -5.1,3.8c-0.4,0.5 -0.8,1.1 -0.5,1.6
+            0.2,0.5 0.8,0.6 1.4,0.6 1.3,0.1 2.5,0.3 3.8,0.4 1,0.1 2,0.2 3,0.3a64,64 0,0 1,2.5
+            12.2A61.2,61.2 0,0 1,445.4 504.1Z"
+        </ID>
+        <ID>
+            MaxLineLength:Undraw404Error.kt$"M459.6,535.9h2.3L461.9,429.9h54.3v-2.3L461.9,427.6L461.9,382.8L503.9,382.8q-0.9,-1.2
+            -1.9,-2.3L461.9,380.5L461.9,351c-0.8,-0.3 -1.6,-0.6
+            -2.3,-0.9L459.6,380.5h-45.7L413.9,342.6c-0.8,0 -1.6,0.1
+            -2.3,0.2v37.7h-36.4L375.2,352.3c-0.8,0.4 -1.6,0.7
+            -2.3,1.1L372.9,380.5h-30.6v2.3h30.6v44.7h-30.6v2.3h30.6L372.9,535.9h2.3L375.2,429.9a36.4,36.4
+            0,0 1,36.4
+            36.4v69.6h2.3L413.9,429.9h45.7ZM375.2,427.6L375.2,382.8h36.4v44.7ZM413.9,427.6L413.9,382.8h0.9a44.7,44.7
+            0,0 1,44.7 44.7Z"
+        </ID>
+        <ID>MaxLineLength:Undraw404Error.kt$"M478.6,477.9c-5.9,4.3 -9.4,10.5 -12,17.3a16.6,16.6 0,0
+            0,-7.2 4.6c-0.4,0.5 -0.8,1.1 -0.5,1.6 0.2,0.5 0.8,0.6 1.4,0.6 1.3,0.1 2.5,0.3 3.8,0.4
+            -2.7,8 -5.1,16.4 -9.9,23.2a37,37 0,0 1,-12 10.9,38.5 38.5,0 0,1 -4,2q-7.6,0.6 -15,1.3
+            -2.8,0.3 -5.6,0.5c-1.5,0.1 -3,0.3 -4.5,0.4q0,-0.8 0,-1.7a63.3,63.3 0,0 1,15.3
+            -39.9c0.5,-0.5 0.9,-1 1.4,-1.5a61.8,61.8 0,0 1,16.8 -12.7A62.7,62.7 0,0 1,478.6 477.9Z"
+        </ID>
+        <ID>MaxLineLength:Undraw404Error.kt$"M519.9,390.1c-8.6,-16.8 -22,-30.9
+            -37.6,-41.3a114.2,114.2 0,0 0,-52.6 -18.4q-3.7,-0.3 -7.4,-0.4c-2.9,0 -46.9,12.6
+            -61.6,23a114.3,114.3 0,0 0,-35.3 39.5,102.5 102.5,0 0,0 -12.1,51.6 113.6,113.6 0,0
+            0,14.7 51.5,110.5 110.5,0 0,0 36.4,38.8C379.7,544.1 395.1,570.1 413.3,571c18.3,0.9
+            39.1,-23.6 55.7,-31a104.4,104.4 0,0 0,41.7 -34,110.3 110.3,0 0,0 19.6,-49c2.6,-18.1
+            1.4,-36.7 -4.8,-54a111.9,111.9 0,0 0,-5.6 -13c-1.8,-3.5 -7,-4.8 -10.3,-2.7a7.7,7.7 0,0
+            0,-2.7 10.3q1.6,3.1 2.9,6.3l-0.8,-1.8a101.2,101.2 0,0 1,6.9 25.5l-0.3,-2a109.2,109.2 0,0
+            1,-0.1 28.7l0.3,-2a109.7,109.7 0,0 1,-7.6 27.7l0.8,-1.8a104.2,104.2 0,0 1,-6.7
+            13.1q-1.9,3.2 -4.1,6.2c-0.6,0.9 -1.3,1.8 -1.9,2.6 -0.9,1.1 1.2,-1.5 0.3,-0.4 -0.2,0.2
+            -0.3,0.4 -0.5,0.6q-0.7,0.9 -1.4,1.7a93.6,93.6 0,0 1,-10.2 10.4q-1.4,1.2
+            -2.8,2.3c-0.5,0.4 -0.9,0.8 -1.4,1.1 0,0 1.6,-1.2 0.7,-0.5 -0.3,0.2 -0.6,0.4
+            -0.9,0.7q-2.9,2.2 -6,4.1a103.5,103.5 0,0 1,-14.8 7.7l1.8,-0.8a109.2,109.2 0,0 1,-27.6
+            7.6l2,-0.3a108.2,108.2 0,0 1,-28.6 0.1l2,0.3a99.8,99.8 0,0 1,-25.1
+            -6.8l1.8,0.8a93.6,93.6 0,0 1,-13.4 -7q-3.2,-2 -6.2,-4.3c-0.3,-0.2 -0.6,-0.4 -0.9,-0.7
+            -0.9,-0.7 0.7,0.5 0.7,0.5a19.2,19.2 0,0 1,-1.5 -1.2q-1.5,-1.2 -2.9,-2.4a102,102 0,0
+            1,-10.5 -10.7q-1.2,-1.4 -2.4,-2.9c-0.3,-0.4 -1,-1.3 0.4,0.5 -0.2,-0.2 -0.4,-0.5
+            -0.5,-0.7q-0.7,-0.9 -1.3,-1.7 -2.2,-3.1 -4.2,-6.3a109.3,109.3 0,0 1,-7.8
+            -15.1l0.8,1.8a106.6,106.6 0,0 1,-7.3 -26.8l0.3,2a97.9,97.9 0,0 1,-0.1
+            -25.6l-0.3,2A94.7,94.7 0,0 1,335.3 406.1l-0.8,1.8a101.6,101.6 0,0 1,7.2 -13.9q2.1,-3.3
+            4.4,-6.5 0.5,-0.7 1.1,-1.4c0.3,-0.4 1.2,-1.5 -0.3,0.4 0.2,-0.2 0.3,-0.4
+            0.4,-0.6q1.3,-1.6 2.6,-3.2A107.4,107.4 0,0 1,360.8 371.8q1.5,-1.3 3,-2.5 0.7,-0.6
+            1.4,-1.1c0.2,-0.2 0.4,-0.3 0.6,-0.4 -2,1.6 -0.6,0.4 -0.1,0.1q3.1,-2.4
+            6.4,-4.5a103.6,103.6 0,0 1,15.4 -8.1l-1.8,0.8c7.8,-3.3 42.1,-11
+            48.4,-10.1l-2,-0.3A106.2,106.2 0,0 1,458.8 353l-1.8,-0.8a110.3,110.3 0,0 1,12.6
+            6.3q3,1.8 6,3.8 1.4,0.9 2.7,1.9 0.7,0.5 1.4,1c0.3,0.2 0.5,0.4 0.7,0.6 1,0.8 -1.4,-1.1
+            -0.3,-0.3a110.8,110.8 0,0 1,10.4 9.3q2.4,2.4 4.6,5.1 1.2,1.3 2.3,2.7c0.4,0.5 1.6,2.1
+            0.1,0.1 0.4,0.5 0.8,1 1.1,1.5a98,98 0,0 1,8.4 13.5c1.8,3.5 7,4.8 10.3,2.7A7.7,7.7 0,0
+            0,519.9 390.1Z"
+        </ID>
+        <ID>MaxLineLength:Undraw404Error.kt$"M560.5,322.3l36.9,-13.5 18.3,-6.7c6,-2.2 11.9,-4.7
+            18.1,-6.2a28.5,28.5 0,0 1,16.4 0.2,37.7 37.7,0 0,1 12.8,7.9 103.6,103.6 0,0 1,10.5
+            11.2c4,4.8 7.9,9.6 11.9,14.5q24.4,29.9 48.6,60 24.1,30.2 47.9,60.6 23.9,30.5 47.4,61.2
+            2.9,3.8 5.8,7.5c1.1,1.4 3.5,0 2.4,-1.4Q813.7,486.6 789.6,455.8q-24.1,-30.9 -48.5,-61.5
+            -24.4,-30.6 -49.2,-60.9 -6.2,-7.6 -12.4,-15.1c-3.5,-4.2 -6.9,-8.5 -10.7,-12.5 -7,-7.3
+            -15.8,-13.7 -26.2,-13.8 -6.2,-0.1 -12.1,1.9 -17.8,3.9 -6.2,2.2 -12.3,4.5
+            -18.5,6.8l-37.2,13.6 -9.3,3.4c-1.7,0.6 -0.9,3.3 0.7,2.7Z"
+        </ID>
+        <ID>MaxLineLength:Undraw404Error.kt$"M579.2,488.9A37.5,37.5 0,0 0,594.1 509.9c2.8,1.9
+            6.2,3.8 7.1,7a8.4,8.4 0,0 1,-0.9 6.2,24.9 24.9,0 0,1 -3.9,5l-0.1,0.5c-7,-4.2 -13.7,-9.4
+            -17.5,-16.6s-4.4,-16.5 0.3,-23.2"
+        </ID>
+        <ID>MaxLineLength:Undraw404Error.kt$"M635.3,79.9c-24.7,-3.3 -52.9,10 -59.3,34.1a21.6,21.6
+            0,0 0,-41.1 2.1l2.8,2a372.3,372.3 0,0 0,160.7 -0.7C681.2,99.3 660,83.2 635.3,79.9Z"
+        </ID>
+        <ID>MaxLineLength:Undraw404Error.kt$"M644.4,319.8a893.2,893.2 0,0 1,-28.2 87.9c-3,8
+            -6.1,15.9 -9.4,23.7l0.8,-1.8a54.6,54.6 0,0 1,-5.6 10.6q-0.2,0.3 -0.5,0.6 1.2,-1.5
+            0.4,-0.6c-0.3,0.3 -0.5,0.6 -0.8,0.9a23.7,23.7 0,0 1,-2.3 2.2q-0.3,0.3
+            -0.6,0.5l0.9,-0.7c-0.1,0.3 -0.9,0.6 -1.1,0.7a18.3,18.3 0,0 1,-2.4 1.2l1.8,-0.8a19.1,19.1
+            0,0 1,-4.2 1.2l2,-0.3a17,17 0,0 1,-4.3 0.1l2,0.3a14,14 0,0 1,-3.4 -0.9l1.8,0.8a12,12 0,0
+            1,-1.7 -0.9c-0.3,-0.2 -1.1,-0.8 0,0 1.1,0.9 0.2,0.1 -0.1,-0.2 -0.2,-0.2 -0.4,-0.4
+            -0.6,-0.6 -0.9,-0.9 1,1.6 0.4,0.5a18.2,18.2 0,0 1,-0.9 -1.6l0.8,1.8a11.9,11.9 0,0 1,-0.7
+            -2.7l0.3,2a13.7,13.7 0,0 1,-0 -3.4l-0.3,2a16,16 0,0 1,1 -3.7l-0.8,1.8a16.7,16.7 0,0
+            1,1.2 -2.3,6.7 6.7,0 0,1 0.7,-1.1c0.1,0 -1.3,1.5 -0.6,0.8 0.2,-0.2 0.4,-0.4 0.5,-0.6
+            0.3,-0.3 0.6,-0.6 0.9,-0.9 1,-1 -1.5,1 -0.3,0.2a19.1,19.1 0,0 1,2.8
+            -1.5l-1.8,0.8a20.3,20.3 0,0 1,5 -1.3l-2,0.3a25.6,25.6 0,0 1,6.5 0.1l-2,-0.3a33.2,33.2
+            0,0 1,7.9 2.2l-1.8,-0.8c5.4,2.3 10.2,5.8 14.9,9.1a112,112 0,0 0,14.5 8.9,108.4 108.4,0
+            0,0 34.6,10.5 103.9,103.9 0,0 0,92.6 -36.8,8.1 8.1,0 0,0 2.2,-5.3 7.6,7.6 0,0 0,-2.2
+            -5.3c-2.8,-2.5 -8,-3.2 -10.6,0a95.6,95.6 0,0 1,-8.1 8.7q-2,1.9 -4.1,3.7 -1.2,1
+            -2.5,2c-0.4,0.3 -1.6,1.1 0.3,-0.2 -0.4,0.3 -0.9,0.6 -1.3,1a99.3,99.3 0,0 1,-20.3
+            11.6l1.8,-0.8a96.8,96.8 0,0 1,-24.2 6.6l2,-0.3a97.6,97.6 0,0 1,-25.8 0l2,0.3a99.8,99.8
+            0,0 1,-24.9 -6.8l1.8,0.8a116,116 0,0 1,-21.7 -12.6,86.9 86.9,0 0,0 -11.1,-7 42.8,42.8
+            0,0 0,-14.4 -4.4c-9.4,-1.1 -19.1,2.6 -24.3,10.7 -4.8,7.5 -4.7,18.2 2,24.6 6.9,6.6
+            17.3,6.5 25.4,2.4 7.8,-4 12.5,-12.2 15.8,-19.9 7.4,-17.5 14,-35.3 20.1,-53.3q9.1,-26.6
+            16.5,-53.8 0.9,-3.4 1.8,-6.7c1,-3.8 -1.3,-8.3 -5.2,-9.2a7.6,7.6 0,0 0,-9.2 5.2Z"
+        </ID>
+        <ID>MaxLineLength:Undraw404Error.kt$"M661.6,322.4c-3.6,-4.4 -7.6,-9.1
+            -13,-10.9l-5.1,0.2A575.4,575.4 0,0 0,796.8 487Q729.2,404.7 661.6,322.4Z"
+        </ID>
+        <ID>MaxLineLength:Undraw404Error.kt$"M697.6,545.4c-4.7,-6 -6.6,-7.3 -11.3,-13.4q-56.8,-73.4
+            -106.7,-151.8 -33.9,-53.2 -64.5,-108.5 -14.6,-26.3 -28.3,-53 -10.7,-20.7
+            -20.9,-41.6c-1.9,-4 -3.8,-8 -5.7,-12 -4.4,-9.4 -8.8,-18.9 -13.4,-28.2 -5.3,-10.6
+            -11.8,-21.7 -21.6,-28.9a29.4,29.4 0,0 0,-15.3 -5.9c-8,-0.5 -15.3,2.8 -22.2,6.4
+            -50.4,26.3 -97.7,59.3 -140.4,96.8A730.8,730.8 0,0 0,133.4 331.8c-1,1.4 -3.4,0.1
+            -2.4,-1.4q6,-8.5 12.3,-16.8A734.8,734.8 0,0 1,330.9 138.6q18.3,-11.8 37.2,-22.5c6.4,-3.6
+            12.8,-7.2 19.3,-10.5 6.4,-3.3 13.1,-6.2 20.4,-6.3 24.8,-0.4 37.6,27.7 46.4,46.5q4.2,8.9
+            8.4,17.8 16.1,33.6 33.4,66.6 10.7,20.4 21.8,40.5 34.7,62.7 73.8,122.9c34.5,53.1
+            68.7,100.1 108.1,149.8C700.7,544.8 698.7,546.8 697.6,545.4Z"
+        </ID>
+        <ID>MaxLineLength:Undraw404Error.kt$"M719.2,317.7l-2.7,95.8 -2.7,95.3 -1.5,53.9a7.6,7.6 0,0
+            0,7.5 7.5,7.7 7.7,0 0,0 7.5,-7.5l2.7,-95.8 2.7,-95.3 1.5,-53.9a7.6,7.6 0,0 0,-7.5
+            -7.5,7.7 7.7,0 0,0 -7.5,7.5Z"
+        </ID>
+        <ID>MaxLineLength:Undraw404Error.kt$"M741.3,11.9c-24.7,-3.3 -52.9,10 -59.3,34.1a21.6,21.6
+            0,0 0,-41.1 2.1l2.8,2a372.3,372.3 0,0 0,160.7 -0.7C787.2,31.3 766,15.2 741.3,11.9Z"
+        </ID>
+        <ID>MaxLineLength:Undraw404Error.kt$"M851,92.7a1,1 0,0 1,-0.3 -0.1C586.3,9.1 353.3,20
+            204.3,43.9c-20.3,3.3 -40.6,7 -60.4,11.2 -5.1,1.1 -10.3,2.2 -15.6,3.4 -6.3,1.4 -12.6,2.9
+            -18.5,4.3q-3.9,0.9 -7.6,1.9c-3.8,0.9 -7.6,1.9 -11.7,3 -4.6,1.2 -9.2,2.4
+            -13.8,3.7a0.4,0.4 0,0 1,-0.1 0l0,0c-5.2,1.4 -10.3,2.9 -15.3,4.3 -2.7,0.8 -5.3,1.6
+            -7.8,2.3 -0.3,0.1 -0.5,0.2 -0.8,0.2l-0.5,0.2c-0.3,0.1 -0.6,0.2 -0.9,0.3l0,0 0,0
+            -0.8,0.3c-1,0.3 -1.9,0.6 -2.8,0.9 -24.5,7.6 -38,13 -38.2,13a1,1 0,1 1,-0.7 -1.9c0.1,-0.1
+            13.7,-5.5 38.3,-13.1 0.9,-0.3 1.9,-0.6 2.9,-0.9l0.8,-0.2c0,0 0.1,0 0.1,0 0.3,-0.1
+            0.6,-0.2 0.9,-0.3l0.5,-0.2c0.3,-0.1 0.5,-0.2 0.8,-0.2 2.5,-0.8 5.1,-1.5 7.8,-2.3 5,-1.5
+            10.2,-2.9 15.3,-4.3 0,0 0,0 0.1,0v-0c4.6,-1.3 9.3,-2.5 13.9,-3.7 4.1,-1.1 7.9,-2
+            11.7,-3q3.7,-0.9 7.6,-1.9c6,-1.5 12.2,-2.9 18.6,-4.3 5.3,-1.2 10.6,-2.3 15.6,-3.4
+            19.8,-4.2 40.2,-7.9 60.5,-11.2C353.2,18 586.5,7 851.3,90.8a1,1 0,0 1,-0.3 2Z"
+        </ID>
+        <ID>MaxLineLength:Undraw404Error.kt$pathData</ID>
+        <ID>MaxLineLength:UndrawDreamWorld.kt$"M225.16,365.07c-2.56,0.16 -3.97,-3.02
+            -2.03,-4.87l0.19,-0.76c-0.03,-0.06 -0.05,-0.12 -0.08,-0.18 -2.58,-6.16 -11.34,-6.12
+            -13.91,0.05 -2.27,5.48 -5.17,10.97 -5.88,16.76 -0.32,2.56 -0.18,5.16 0.39,7.67
+            -5.33,-11.64 -8.13,-24.35 -8.13,-37.14 0,-3.21 0.18,-6.42 0.54,-9.63 0.3,-2.62 0.7,-5.23
+            1.23,-7.81 2.85,-13.95 9.03,-27.24 17.94,-38.34 4.28,-2.34 7.85,-6 10.01,-10.39
+            0.78,-1.58 1.38,-3.28 1.67,-5.02 -0.49,0.06 -1.84,-7.36 -1.47,-7.81 -0.68,-1.03
+            -1.89,-1.54 -2.64,-2.55 -3.69,-5 -8.77,-4.13 -11.43,2.67 -5.67,2.86 -5.72,7.61
+            -2.25,12.17 2.21,2.9 2.52,6.83 4.46,9.94 -0.2,0.26 -0.41,0.5 -0.61,0.76 -3.66,4.7
+            -6.83,9.75 -9.5,15.05 0.75,-5.9 -0.36,-13 -2.26,-17.58 -2.16,-5.22 -6.22,-9.61
+            -9.79,-14.12 -4.29,-5.42 -13.08,-3.05 -13.84,3.81 -0.01,0.07 -0.01,0.13 -0.02,0.2
+            0.53,0.3 1.05,0.62 1.56,0.95 2.89,1.91 1.89,6.4 -1.54,6.93l-0.08,0.01c0.19,1.91 0.52,3.8
+            1,5.67 -4.58,17.71 5.31,24.16 19.42,24.45 0.31,0.16 0.62,0.32 0.93,0.47 -1.43,4.03
+            -2.57,8.16 -3.42,12.34 -0.76,3.7 -1.29,7.44 -1.58,11.19 -0.37,4.74 -0.34,9.5
+            0.06,14.23l-0.02,-0.17c-1.01,-5.21 -3.84,-10.08 -7.95,-13.45 -6.12,-5.03 -14.76,-6.88
+            -21.36,-10.92 -3.18,-1.94 -7.25,0.57 -6.69,4.25 0.01,0.06 0.02,0.12 0.03,0.18 0.98,0.4
+            1.94,0.86 2.87,1.38 0.53,0.3 1.05,0.62 1.56,0.95 2.89,1.91 1.89,6.4
+            -1.54,6.93l-0.08,0.01c-0.06,0.01 -0.1,0.02 -0.16,0.02 1.69,4 4.04,7.72 6.98,10.92
+            2.86,15.46 15.16,16.93 28.32,12.42h0.01c1.44,6.26 3.54,12.38 6.24,18.22h22.29c0.08,-0.25
+            0.15,-0.5 0.22,-0.75 -2.06,0.13 -4.14,0.01 -6.17,-0.37 1.65,-2.03 3.31,-4.08 4.96,-6.1
+            0.04,-0.04 0.07,-0.08 0.1,-0.12 0.84,-1.04 1.69,-2.07 2.52,-3.11l0,-0c0.05,-3.19
+            -0.33,-6.37 -1.09,-9.45l-0,-0Z"
+        </ID>
+        <ID>MaxLineLength:UndrawDreamWorld.kt$"M246.11,370.74l4.07,4.25 4.74,-3.09 -2.16,5.79
+            10.32,10.76 0.48,0.5c0.25,0.26 0.52,0.47 0.82,0.63 0.47,0.26 0.99,0.4 1.51,0.43
+            0.93,0.06 1.9,-0.26 2.63,-0.97 0.83,-0.8 1.22,-1.95 1.04,-3.09l-2.42,-14.95 4.05,-3.89
+            -1.97,-1.83 -0.01,-0 -6.15,-5.68 -1.51,-1.4 -15.45,12.54Z"
+        </ID>
+        <ID>MaxLineLength:UndrawDreamWorld.kt$"M27.57,385.09c0,0.66 0.53,1.19
+            1.19,1.19H873.05c0.66,0 1.19,-0.53 1.19,-1.19 0,-0.66 -0.53,-1.19
+            -1.19,-1.19H28.76c-0.66,0 -1.19,0.53 -1.19,1.19Z"
+        </ID>
+        <ID>MaxLineLength:UndrawDreamWorld.kt$"M349.65,32.92c0.05,0.02 0.09,0.03 0.13,0.05 0.09,0.04
+            0.18,0.07 0.27,0.1 0.57,0.21 1.18,0.35 1.8,0.41 0.26,0.03 0.52,0.04 0.79,0.04 0.34,0
+            0.68,-0.02 1.01,-0.07 0.38,-0.04 0.75,-0.12 1.11,-0.22 0.17,-0.05 0.34,-0.1 0.51,-0.16
+            2.29,-0.81 4.08,-2.66 4.81,-4.98v-0.01c0.04,-0.11 0.07,-0.23 0.1,-0.34 0.17,-0.63
+            0.25,-1.29 0.26,-1.96l0,-0.01c0,-0.6 -0.07,-1.18 -0.19,-1.74 -0.23,-1.01 -0.66,-1.95
+            -1.25,-2.76 -0.57,-0.8 -1.22,-0.94 -0.86,-1.86 1.17,-2.93 -3.63,-5.33 -6.46,-4.04
+            -0.1,-0.01 -0.2,-0.01 -0.31,-0.01 -1.91,-0 -2.62,2.81 -3.75,4.4l0.03,0.01c1.32,0.43
+            1.3,2.34 -0.02,2.77 -0.76,0.25 -1.52,0.46 -2.3,0.65 -2.55,3.01 0.37,11.82 4.31,9.74Z"
+        </ID>
+        <ID>MaxLineLength:UndrawDreamWorld.kt$"M351.15,87.73l-10.86,-3.94c-4.75,12.49 -9,38.04
+            -6.69,37.63s0.92,2.62 0.11,3.1 1.26,2.97 0.23,3.23 0.24,2.47 0.39,3.7c0,0 5.6,8.4
+            11.2,8.4s11.08,-3.27 11.08,-3.27l6.07,0.61 -1.84,-24.21 -5.82,6.12 5.28,-22.48
+            -9.14,-8.9Z"
+        </ID>
+        <ID>MaxLineLength:UndrawDreamWorld.kt$"M358.09,98.28s-15.32,-16.28 -16.1,-8.4c-0.51,5.13
+            -5.6,31.85 -2.68,41.01 1.45,4.56 6.5,6.9 10.92,5.06l36.69,-15.23 -4.83,-9.9 -29.06,12.02
+            5.05,-24.56Z"
+        </ID>
+        <ID>MaxLineLength:UndrawDreamWorld.kt$"M358.77,20.5c0.28,5.4 -2.97,10.78 -7.9,13.02
+            -0.99,0.45 -1.86,-1.02 -0.86,-1.48 4.43,-2.01 7.3,-6.68 7.05,-11.55 -0.06,-1.1
+            1.65,-1.09 1.71,0h0Z"
+        </ID>
+        <ID>MaxLineLength:UndrawDreamWorld.kt$"M365.53,418.43l5.89,-0.05 0.05,-0.31 0.95,-5.26
+            2.6,5.26 0.14,0.27 15.6,-0.13c0.34,0 0.67,-0.05 0.97,-0.15 1.46,-0.44 2.53,-1.8
+            2.51,-3.4 -0.01,-1.14 -0.59,-2.22 -1.54,-2.87l-12.54,-8.51 -0.05,-5.61 -2.69,0.18
+            -8.36,0.57 -2.05,0.14 -1.46,19.5 -0.03,0.36Z"
+        </ID>
+        <ID>MaxLineLength:UndrawDreamWorld.kt$"M370.67,131.14c1.46,0.09 2.26,-1.72
+            1.16,-2.77l-0.11,-0.44 0.04,-0.1c1.47,-3.51 6.46,-3.49 7.92,0.03 1.3,3.12 2.94,6.25
+            3.35,9.54 0.18,1.46 0.1,2.94 -0.22,4.37 3.04,-6.63 4.63,-13.87 4.63,-21.15 0,-1.83
+            -0.1,-3.66 -0.3,-5.48 -0.17,-1.49 -0.4,-2.98 -0.7,-4.45 -1.62,-7.95 -5.14,-15.51
+            -10.22,-21.84 -2.44,-1.33 -4.47,-3.42 -5.7,-5.92 -0.44,-0.9 -0.79,-1.87 -0.95,-2.86
+            0.28,0.04 1.05,-4.19 0.84,-4.45 0.39,-0.59 1.08,-0.88 1.5,-1.45 2.1,-2.85 5,-2.35
+            6.51,1.52 3.23,1.63 3.26,4.33 1.28,6.93 -1.26,1.65 -1.43,3.89 -2.54,5.66 0.11,0.15
+            0.23,0.29 0.35,0.43 2.09,2.68 3.89,5.55 5.41,8.57 -0.43,-3.36 0.2,-7.4 1.29,-10.01
+            1.23,-2.97 3.54,-5.47 5.57,-8.04 2.44,-3.09 7.45,-1.74 7.88,2.17l0.01,0.11c-0.3,0.17
+            -0.6,0.35 -0.89,0.54 -1.65,1.09 -1.08,3.65 0.87,3.95l0.04,0.01c-0.11,1.09 -0.3,2.17
+            -0.57,3.23 2.61,10.09 -3.02,13.76 -11.06,13.93 -0.18,0.09 -0.35,0.18 -0.53,0.27
+            0.81,2.29 1.47,4.65 1.95,7.03 0.43,2.11 0.73,4.24 0.9,6.38 0.21,2.7 0.19,5.41
+            -0.04,8.11l0.01,-0.1c0.58,-2.97 2.19,-5.74 4.53,-7.66 3.48,-2.86 8.41,-3.92 12.17,-6.22
+            1.81,-1.11 4.13,0.32 3.81,2.42l-0.02,0.1c-0.56,0.23 -1.11,0.49 -1.63,0.79 -0.3,0.17
+            -0.6,0.35 -0.89,0.54 -1.65,1.09 -1.08,3.65 0.87,3.95l0.04,0.01c0.03,0 0.06,0.01
+            0.09,0.01 -0.96,2.28 -2.3,4.4 -3.97,6.22 -1.63,8.81 -8.64,9.64 -16.13,7.08h-0c-0.82,3.57
+            -2.02,7.05 -3.55,10.38h-12.7c-0.05,-0.14 -0.09,-0.29 -0.13,-0.43 1.17,0.07 2.36,0
+            3.51,-0.21 -0.94,-1.16 -1.88,-2.32 -2.83,-3.48 -0.02,-0.02 -0.04,-0.05 -0.06,-0.07
+            -0.48,-0.59 -0.96,-1.18 -1.44,-1.77l-0,-0c-0.03,-1.82 0.19,-3.63 0.62,-5.38l0,-0Z"
+        </ID>
+        <ID>MaxLineLength:UndrawDreamWorld.kt$"M384.89,141.68l14.98,43.53 0.49,3.48c3.77,3.58
+            -0.97,4.76 0.81,5.71s-1.85,3.81 0.58,4.07c5.18,0.55 -5.48,171.7 -20.31,176.85 -3.7,1.29
+            -11.47,3.31 -15.54,2.68 -6.19,-0.96 -7.53,-25.71 -0.83,-49.23 0.73,-2.57 -2.94,-5.49
+            -0.54,-8.08 2.4,-2.59 -0.3,-4.3 -0.45,-6.45 -0.67,-9.53 5.14,-11.47 4.82,-23.25
+            -0.71,-26.17 -7,-62 -7,-62 0,0 -10.88,85.22 -15,81 -4.12,-4.22 -5.94,2.71 -7.2,5.82
+            -1.05,2.6 -0.56,4.69 -7.16,4.77s-42.06,34.47 -43.64,34.41c-3.12,-0.12 -14.41,-3.72
+            -15,-9 -1,-9 12,-27 36.23,-48.55 2.14,-1.9 4.89,-2.83 2.23,-8.16 -2.66,-5.34
+            10.57,-39.86 9.43,-41.46 -3.01,-4.24 -4.16,-6.08 -1.19,-6.36 2.97,-0.28 3.85,1.35
+            4.01,-2.76 0.16,-4.11 0.67,-14.25 0.67,-14.25 0.71,-46.59 2.3,-49.59
+            17.22,-62.25l1.29,-13.16 41.09,-7.38Z"
+        </ID>
+        <ID>MaxLineLength:UndrawDreamWorld.kt$"M389.69,77.08c-7.64,-6.8 5.39,-26.21
+            -4.79,-39.16l-1.22,-0.92c-0.71,1.7 -2.53,3.09 -4.24,3.92 -0.39,-1.78 -1.02,-3.5
+            -1.89,-5.05 0.23,1.95 0.04,3.96 -0.52,5.83 -0.57,0.07 -0.98,-0.01 -1.12,-0.27 0.18,1.57
+            -4.63,2.35 -3.62,-0.09 0.01,-0.03 0.02,-0.05 0.03,-0.07 -1.24,2.5 -3.79,3.66 -6.01,5.05
+            -2.22,1.38 -4.47,3.68 -4.26,6.54 0.18,2.31 1.95,4.04 3.72,5.19 1.77,1.16 3.77,2.07
+            5.05,3.87 2.16,3.02 1.66,7.45 0.56,11.13 -0.34,1.14 -1.35,1.95 -2.68,2.41 -0.37,-1.99
+            -1.05,-3.93 -2.02,-5.65 0.24,2.05 0.02,4.14 -0.59,6.09 -2.58,0.05 -5.47,-0.84
+            -7.19,-2.71l1.37,6.07c-2.2,-0.46 -4.42,0.06 -6.66,0.46 -0.05,-0.68 -0.15,-1.37
+            -0.28,-2.05 -0.36,-2.05 -1.05,-4.03 -2.05,-5.8 0.29,2.51 -0.1,5.08 -1.06,7.37 -0.11,0.27
+            -0.23,0.53 -0.35,0.79 -3.44,-0.25 -6.87,-2.25 -6.22,-7.46 0.22,-1.73 1.07,-3.23
+            2.03,-4.59 1.77,-2.49 -7.27,-5.15 -6.72,-8.15 0.82,-4.45 9.07,-8.39 8.42,-12.88
+            -0.58,-4.07 -0.47,-13.26 1.77,-16.43 3.24,-4.58 -0.35,-14.04 22.66,-8.67 8.56,2
+            11.53,-6.4 24.43,19.24 2.21,4.4 -5.83,2.88 -1.1,12.31 4.73,9.42 -8.81,16.89
+            -5.45,23.69Z"
+        </ID>
+        <ID>MaxLineLength:UndrawDreamWorld.kt$"M391.24,43.51c-0.2,2.39 -0.39,4.78 -0.58,7.17
+            -0.23,2.79 -0.45,5.61 -1.17,8.31 -0.19,0.74 -0.43,1.5 -0.95,2.07 -0.85,0.97 0.72,6.64
+            -0.44,7.18 -1.29,0.61 -2.54,0.93 -3.77,1.06 -0.05,-0.4 -0.13,-0.8 -0.21,-1.19
+            -0.01,-0.05 -0.02,-0.08 -0.03,-0.13 -0.37,-1.76 -1.05,-3.46 -2.02,-4.98 0.24,1.8
+            0.02,3.65 -0.59,5.36 -0.1,0.28 -0.22,0.56 -0.34,0.84 -5.13,-0.76 -9.58,-4.23
+            -13.08,-4.19 -2.13,-7.14 -3.63,-14.46 -4.48,-21.85 -0.23,-1.97 -0.35,-4.17 0.86,-5.73
+            1.08,-1.39 2.92,-1.9 4.64,-2.27 5.61,-1.21 11.37,-1.77 17.11,-1.64l-9.95,-2.32c2.8,-0.02
+            5.64,-0.03 8.31,0.79 2.67,0.81 5.2,2.57 6.23,5.17 0.79,1.98 0.62,4.21 0.46,6.34Z"
+        </ID>
+        <ID>MaxLineLength:UndrawDreamWorld.kt$"M396.11,139.94c0.44,0.06 2.14,0.4 -0.11,0.93
+            -2.25,0.53 -0.15,1.23 -0.15,1.23 -0.74,0.49 -1.48,0.99 -2.22,1.5 -7.75,5.35 9.23,25.94
+            1.24,31.17 -11.25,7.34 -43.19,-6.05 -50.86,-11.54 -0.41,-0.29 -0.8,-0.6
+            -1.18,-0.95v-0.01c-0.22,-0.19 -0.43,-0.39 -0.65,-0.61 0,0 -2.78,-7.27
+            -1.53,-6.47s1.23,-1.06 0.24,-2.63 -1.41,-4.1 0.3,-2.83 3.45,-10.3 4.59,-11.67c0.77,-0.92
+            1.04,-1.46 1.04,-1.76 0,-0.67 -1.31,-0.18 -1.31,-0.18 0,0 -1.75,-0.36 -0.2,-1.39
+            1.55,-1.03 -2.53,-17.7 -2.53,-17.7l-2.02,-14.17c-2.21,-6.6 -4.5,-15.1
+            -0.48,-19.07l20.58,-10.97 21,-0.7 16.52,8.87c6.4,3.26 4.47,18.18 1.86,24.89 0,0
+            -3.53,33.4 -3.95,32.71 -0.43,-0.69 -0.6,1.29 -0.17,1.35Z"
+        </ID>
+        <ID>MaxLineLength:UndrawDreamWorld.kt$"M398.81,195.29c3.33,-2.23 4.22,-6.73 2,-10.06
+            -0.22,-0.34 -0.48,-0.64 -0.74,-0.92l1.48,-65.86 -13.01,2.02 0.92,63.88c-2.22,2.41
+            -2.6,6.1 -0.7,8.94 2.22,3.33 6.73,4.22 10.06,2Z"
+        </ID>
+        <ID>MaxLineLength:UndrawDreamWorld.kt$"M399.38,84.32s-0.86,0.65 3.56,7.4c3.1,4.73 2.67,38.16
+            3.31,37.72s-0.96,1.81 -0.16,2.19 -0.68,2.24 -0.3,3.2c0.47,1.18 -0.11,2.47 -0.48,3.66
+            -1.06,3.41 -1.28,6.34 -2.2,7.96 2.19,1.26 3.35,3.87 2.64,6.42l-18.34,-3.32c-2.24,-3.58
+            -1.91,-7.34 -0.39,-8l-0.45,-11.66 -5.22,-38.31 15.31,-6.83 2.72,-0.43Z"
+        </ID>
+        <ID>MaxLineLength:UndrawDreamWorld.kt$"M408.9,313.41c0,124.17 -79.5,153.58
+            -190.58,153.58s-143.36,-2.93 -143.36,-127.1S-69,0 42.08,0 408.9,189.24 408.9,313.41Z"
+        </ID>
+        <ID>MaxLineLength:UndrawDreamWorld.kt$"M667.64,365.07c2.56,0.16 3.97,-3.02
+            2.03,-4.87l-0.19,-0.76c0.03,-0.06 0.05,-0.12 0.08,-0.18 2.58,-6.16 11.34,-6.12
+            13.91,0.05 2.27,5.48 5.17,10.97 5.88,16.76 0.32,2.56 0.18,5.16 -0.39,7.67 5.33,-11.64
+            8.13,-24.35 8.13,-37.14 0,-3.21 -0.18,-6.42 -0.54,-9.63 -0.3,-2.62 -0.7,-5.23
+            -1.23,-7.81 -2.85,-13.95 -9.03,-27.24 -17.94,-38.34 -4.28,-2.34 -7.85,-6 -10.01,-10.39
+            -0.78,-1.58 -1.38,-3.28 -1.67,-5.02 0.49,0.06 1.84,-7.36 1.47,-7.81 0.68,-1.03
+            1.89,-1.54 2.64,-2.55 3.69,-5 8.77,-4.13 11.43,2.67 5.67,2.86 5.72,7.61 2.25,12.17
+            -2.21,2.9 -2.52,6.83 -4.46,9.94 0.2,0.26 0.41,0.5 0.61,0.76 3.66,4.7 6.83,9.75 9.5,15.05
+            -0.75,-5.9 0.36,-13 2.26,-17.58 2.16,-5.22 6.22,-9.61 9.79,-14.12 4.29,-5.42 13.08,-3.05
+            13.84,3.81 0.01,0.07 0.01,0.13 0.02,0.2 -0.53,0.3 -1.05,0.62 -1.56,0.95 -2.89,1.91
+            -1.89,6.4 1.54,6.93l0.08,0.01c-0.19,1.91 -0.52,3.8 -1,5.67 4.58,17.71 -5.31,24.16
+            -19.42,24.45 -0.31,0.16 -0.62,0.32 -0.93,0.47 1.43,4.03 2.57,8.16 3.42,12.34 0.76,3.7
+            1.29,7.44 1.58,11.19 0.37,4.74 0.34,9.5 -0.06,14.23l0.02,-0.17c1.01,-5.21 3.84,-10.08
+            7.95,-13.45 6.12,-5.03 14.76,-6.88 21.36,-10.92 3.18,-1.94 7.25,0.57 6.69,4.25
+            -0.01,0.06 -0.02,0.12 -0.03,0.18 -0.98,0.4 -1.94,0.86 -2.87,1.38 -0.53,0.3 -1.05,0.62
+            -1.56,0.95 -2.89,1.91 -1.89,6.4 1.54,6.93l0.08,0.01c0.06,0.01 0.1,0.02 0.16,0.02 -1.69,4
+            -4.04,7.72 -6.98,10.92 -2.86,15.46 -15.16,16.93 -28.32,12.42h-0.01c-1.44,6.26
+            -3.54,12.38 -6.24,18.22h-22.29c-0.08,-0.25 -0.15,-0.5 -0.22,-0.75 2.06,0.13 4.14,0.01
+            6.17,-0.37 -1.65,-2.03 -3.31,-4.08 -4.96,-6.1 -0.04,-0.04 -0.07,-0.08 -0.1,-0.12
+            -0.84,-1.04 -1.69,-2.07 -2.52,-3.11l-0,-0c-0.05,-3.19 0.33,-6.37 1.09,-9.45l0,-0Z"
+        </ID>
+        <ID>MaxLineLength:UndrawDreamWorld.kt$"M742.37,441.69H164.65c-14.69,0 -26.64,-11.95
+            -26.64,-26.64V136.33c0,-14.69 11.95,-26.64 26.64,-26.64H742.37c14.69,0 26.64,11.95
+            26.64,26.64V415.05c0,14.69 -11.95,26.64 -26.64,26.64ZM164.65,111.69c-13.59,0
+            -24.64,11.05 -24.64,24.64V415.05c0,13.59 11.05,24.64 24.64,24.64H742.37c13.59,0
+            24.64,-11.05 24.64,-24.64V136.33c0,-13.59 -11.05,-24.64 -24.64,-24.64H164.65Z"
+        </ID>
+        <ID>MaximumLineLength:AppBranding.kt$</ID>
+        <ID>MaximumLineLength:AppBrandingNoPadding.kt$</ID>
+        <ID>MaximumLineLength:AppScaffold.kt$</ID>
+        <ID>MaximumLineLength:NoSearchResult.kt$</ID>
+        <ID>MaximumLineLength:OtgDeviceWaitingDialog.kt$</ID>
+        <ID>MaximumLineLength:Theme.kt$</ID>
+        <ID>MaximumLineLength:Undraw404Error.kt$</ID>
+        <ID>MaximumLineLength:UndrawDreamWorld.kt$</ID>
+        <ID>MayBeConst:CustomCard.kt$CustomCardDefaults$val pressedScale = 0.97f</ID>
+        <ID>MultiLineIfElse:ButtonGroupItem.kt$Modifier</ID>
+        <ID>
+            MultiLineIfElse:ButtonGroupItem.kt$Modifier.size(buttonConfig.iconButtonConfig.containerSize)
+        </ID>
+        <ID>
+            MultiLineIfElse:ButtonGroupItem.kt$Modifier.size(buttonConfig.iconButtonConfig.iconSize)
+        </ID>
+        <ID>MultiLineIfElse:DraggableScrollThumb.kt$(scrollState.value.toFloat() /
+            scrollState.maxValue).coerceIn(0f, 1f)
+        </ID>
+        <ID>MultiLineIfElse:DraggableScrollThumb.kt$0f</ID>
+        <ID>MultiLineIfElse:FloatingNavPill.kt$floatingContentColor</ID>
+        <ID>MultiLineIfElse:FloatingNavPill.kt$selectedContentColor</ID>
+        <ID>MultiLineIfElse:OtgDeviceWaitingDialog.kt$stringResource( R.string.waiting_for_device
+            )
+        </ID>
+        <ID>MultiLineIfElse:OtgDeviceWaitingDialog.kt$stringResource(R.string.device_connected)</ID>
+        <ID>MultiLineIfElse:SlideToConfirm.kt$(thumbOffset / maxOffset).coerceIn( 0f, 1f )</ID>
+        <ID>MultiLineIfElse:SlideToConfirm.kt$0f</ID>
+        <ID>MultiLineIfElse:SlideToConfirm.kt$1f</ID>
+        <ID>MultiLineIfElse:SlideToConfirm.kt$1f - (if (maxOffset &gt; 0f) (thumbOffset /
+            maxOffset).coerceIn( 0f, 1f ) else 0f)
+        </ID>
+        <ID>MultiLineIfElse:Theme.kt$darkColorSchemeFromSeed()</ID>
+        <ID>MultiLineIfElse:Theme.kt$dynamicDarkColorScheme(context)</ID>
+        <ID>MultiLineIfElse:Theme.kt$dynamicLightColorScheme(context)</ID>
+        <ID>MultiLineIfElse:Theme.kt$highContrastDarkColorSchemeFromSeed()</ID>
+        <ID>MultiLineIfElse:Theme.kt$highContrastDynamicDarkColorScheme(context)</ID>
+        <ID>MultiLineIfElse:TonalSchemeFactory.kt$darkTone</ID>
+        <ID>MultiLineIfElse:TonalSchemeFactory.kt$lightTone</ID>
+        <ID>NestedBlockDepth:FloatingIcons.kt$private fun updatePhysics( icons: List&lt;FloatingIconState&gt;,
+            width: Float, height: Float, dt: Float, touchPos: Offset?, repelRadius: Float,
+            repelForce: Float )
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:AdbAppIcon.kt$in.hridayan.ashell.core.presentation.components.svg.vectors.AdbAppIcon.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:AnimatedSnackBar.kt$in.hridayan.ashell.core.presentation.components.snackbar.AnimatedSnackBar.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:AnimationSpecs.kt$in.hridayan.ashell.core.presentation.theme.AnimationSpecs.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:AppBranding.kt$in.hridayan.ashell.core.presentation.components.svg.vectors.AppBranding.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:AppBrandingNoPadding.kt$in.hridayan.ashell.core.presentation.components.svg.vectors.AppBrandingNoPadding.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:AppScaffold.kt$in.hridayan.ashell.core.presentation.components.scaffold.AppScaffold.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:AppSwitch.kt$in.hridayan.ashell.core.presentation.components.switch.AppSwitch.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:AutoResizeableText.kt$in.hridayan.ashell.core.presentation.components.text.AutoResizeableText.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:BackButton.kt$in.hridayan.ashell.core.presentation.components.button.BackButton.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:BatteryIndicator.kt$in.hridayan.ashell.core.presentation.components.battery.BatteryIndicator.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:BottomCornerRoundedCard.kt$in.hridayan.ashell.core.presentation.components.card.BottomCornerRoundedCard.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:BulletPointsTextLayout.kt$in.hridayan.ashell.core.presentation.components.text.BulletPointsTextLayout.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:ButtonGroupItem.kt$in.hridayan.ashell.core.presentation.components.buttongroup.ButtonGroupItem.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:ButtonGroupOptions.kt$in.hridayan.ashell.core.presentation.components.buttongroup.ButtonGroupOptions.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:CollapsibleCard.kt$in.hridayan.ashell.core.presentation.components.card.CollapsibleCard.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:CustomCard.kt$in.hridayan.ashell.core.presentation.components.card.CustomCard.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:DashedBorder.kt$in.hridayan.ashell.core.presentation.components.modifier.DashedBorder.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:DialogContainer.kt$in.hridayan.ashell.core.presentation.components.dialog.DialogContainer.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:DialogKey.kt$in.hridayan.ashell.core.presentation.components.dialog.DialogKey.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:DialogText.kt$in.hridayan.ashell.core.presentation.components.text.DialogText.kt
+        </ID>
+        <ID>NewLineAtEndOfFile:Dimens.kt$in.hridayan.ashell.core.presentation.theme.Dimens.kt</ID>
+        <ID>NewLineAtEndOfFile:ExampleUnitTest.kt$in.hridayan.ashell.core.ui.ExampleUnitTest.kt</ID>
+        <ID>
+            NewLineAtEndOfFile:FloatingIcons.kt$in.hridayan.ashell.core.presentation.components.floaters.FloatingIcons.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:HapticUtils.kt$in.hridayan.ashell.core.presentation.utils.HapticUtils.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:IconWithTextButton.kt$in.hridayan.ashell.core.presentation.components.button.IconWithTextButton.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:IconWithTextCard.kt$in.hridayan.ashell.core.presentation.components.card.IconWithTextCard.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:KeyboardUtils.kt$in.hridayan.ashell.core.presentation.utils.KeyboardUtils.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:LoadingSpinner.kt$in.hridayan.ashell.core.presentation.components.progress.LoadingSpinner.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:NavigationCard.kt$in.hridayan.ashell.core.presentation.components.card.NavigationCard.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:NoSearchResult.kt$in.hridayan.ashell.core.presentation.components.svg.vectors.NoSearchResult.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:OutlinedIconButtonWithText.kt$in.hridayan.ashell.core.presentation.components.button.OutlinedIconButtonWithText.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:SpinningGearsLottie.kt$in.hridayan.ashell.core.presentation.components.lottie.SpinningGearsLottie.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:TooltipContent.kt$in.hridayan.ashell.core.presentation.components.tooltip.TooltipContent.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:TopCornerRoundedCard.kt$in.hridayan.ashell.core.presentation.components.card.TopCornerRoundedCard.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:UndrawDreamWorld.kt$in.hridayan.ashell.core.presentation.components.svg.vectors.UndrawDreamWorld.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:VerticalScrollbar.kt$in.hridayan.ashell.core.presentation.components.scrollbar.VerticalScrollbar.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:WavyHorizontalDivider.kt$in.hridayan.ashell.core.presentation.components.divider.WavyHorizontalDivider.kt
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:_DrawableVectors.kt$in.hridayan.ashell.core.presentation.components.svg._DrawableVectors.kt
+        </ID>
+        <ID>NoBlankLineBeforeRbrace:AdbAppIcon.kt$</ID>
+        <ID>NoBlankLineBeforeRbrace:ButtonGroupItem.kt$</ID>
+        <ID>NoBlankLineBeforeRbrace:WavyHorizontalDivider.kt$</ID>
+        <ID>NoConsecutiveBlankLines:AiAnalysisBottomSheet.kt$</ID>
+        <ID>NoConsecutiveBlankLines:AutoResizeableText.kt$</ID>
+        <ID>NoConsecutiveBlankLines:ButtonGroupOptionsProvider.kt$</ID>
+        <ID>NoConsecutiveBlankLines:Color.kt$</ID>
+        <ID>NoConsecutiveBlankLines:CompositionLocals.kt$</ID>
+        <ID>NoConsecutiveBlankLines:DangerLevelIndicator.kt$</ID>
+        <ID>NoConsecutiveBlankLines:FloatingNavPill.kt$</ID>
+        <ID>NoConsecutiveBlankLines:LabelChip.kt$</ID>
+        <ID>NoConsecutiveBlankLines:OtgDeviceWaitingDialog.kt$</ID>
+        <ID>NoConsecutiveBlankLines:Shape.kt$</ID>
+        <ID>NoConsecutiveBlankLines:ShizukuUnavailableDialog.kt$</ID>
+        <ID>NoConsecutiveBlankLines:SlideToConfirm.kt$</ID>
+        <ID>NoConsecutiveBlankLines:Undraw404Error.kt$</ID>
+        <ID>NoEmptyFirstLineInMethodBlock:AdbAppIcon.kt$</ID>
+        <ID>NoEmptyFirstLineInMethodBlock:CollapsibleCard.kt$</ID>
+        <ID>NoEmptyFirstLineInMethodBlock:ShizukuUnavailableDialog.kt$</ID>
+        <ID>NoEmptyFirstLineInMethodBlock:Wavy.kt$SineWaveShape$</ID>
+        <ID>NoTrailingSpaces:UserGeneratedColorSchemeEntity.kt$UserGeneratedColorSchemeEntity$</ID>
+        <ID>
+            NoUnusedImports:AppBranding.kt$in.hridayan.ashell.core.presentation.components.svg.vectors.AppBranding.kt
+        </ID>
+        <ID>
+            NoUnusedImports:AppBrandingNoPadding.kt$in.hridayan.ashell.core.presentation.components.svg.vectors.AppBrandingNoPadding.kt
+        </ID>
+        <ID>NoWildcardImports:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
+        <ID>PackageName:AdbAppIcon.kt$package
+            `in`.hridayan.ashell.core.presentation.components.svg.vectors
+        </ID>
+        <ID>PackageName:AiAnalysisBottomSheet.kt$package
+            `in`.hridayan.ashell.core.presentation.components.ai
+        </ID>
+        <ID>PackageName:AiAnalysisButton.kt$package
+            `in`.hridayan.ashell.core.presentation.components.ai
+        </ID>
+        <ID>PackageName:AiAnalysisUiState.kt$package `in`.hridayan.ashell.core.presentation.model
+        </ID>
+        <ID>PackageName:AnalysisContent.kt$package
+            `in`.hridayan.ashell.core.presentation.components.ai
+        </ID>
+        <ID>PackageName:AnimatedAdbIcon.kt$package
+            `in`.hridayan.ashell.core.presentation.components.animatedcomposables
+        </ID>
+        <ID>PackageName:AnimatedSnackBar.kt$package
+            `in`.hridayan.ashell.core.presentation.components.snackbar
+        </ID>
+        <ID>PackageName:AnimationSpecs.kt$package `in`.hridayan.ashell.core.presentation.theme</ID>
+        <ID>PackageName:ApiKeyRequiredDialog.kt$package
+            `in`.hridayan.ashell.core.presentation.components.dialog
+        </ID>
+        <ID>PackageName:AppBranding.kt$package
+            `in`.hridayan.ashell.core.presentation.components.svg.vectors
+        </ID>
+        <ID>PackageName:AppBrandingNoPadding.kt$package
+            `in`.hridayan.ashell.core.presentation.components.svg.vectors
+        </ID>
+        <ID>PackageName:AppScaffold.kt$package
+            `in`.hridayan.ashell.core.presentation.components.scaffold
+        </ID>
+        <ID>PackageName:AppSwitch.kt$package
+            `in`.hridayan.ashell.core.presentation.components.switch
+        </ID>
+        <ID>PackageName:AskAiButton.kt$package
+            `in`.hridayan.ashell.core.presentation.components.ai
+        </ID>
+        <ID>PackageName:AutoResizeableText.kt$package
+            `in`.hridayan.ashell.core.presentation.components.text
+        </ID>
+        <ID>PackageName:BackButton.kt$package
+            `in`.hridayan.ashell.core.presentation.components.button
+        </ID>
+        <ID>PackageName:BatteryIndicator.kt$package
+            `in`.hridayan.ashell.core.presentation.components.battery
+        </ID>
+        <ID>PackageName:BottomCornerRoundedCard.kt$package
+            `in`.hridayan.ashell.core.presentation.components.card
+        </ID>
+        <ID>PackageName:BulletPointsTextLayout.kt$package
+            `in`.hridayan.ashell.core.presentation.components.text
+        </ID>
+        <ID>PackageName:ButtonGroupItem.kt$package
+            `in`.hridayan.ashell.core.presentation.components.buttongroup
+        </ID>
+        <ID>PackageName:ButtonGroupItem.kt$package `in`.hridayan.ashell.core.presentation.model</ID>
+        <ID>PackageName:ButtonGroupOptions.kt$package
+            `in`.hridayan.ashell.core.presentation.components.buttongroup
+        </ID>
+        <ID>PackageName:ButtonGroupOptionsProvider.kt$package
+            `in`.hridayan.ashell.core.presentation.provider
+        </ID>
+        <ID>PackageName:ChatBubbleShape.kt$package
+            `in`.hridayan.ashell.core.presentation.components.shape
+        </ID>
+        <ID>PackageName:CollapsibleCard.kt$package
+            `in`.hridayan.ashell.core.presentation.components.card
+        </ID>
+        <ID>PackageName:Color.kt$package `in`.hridayan.ashell.core.presentation.theme.color</ID>
+        <ID>PackageName:ColorSchemeImportHolder.kt$package
+            `in`.hridayan.ashell.core.presentation.theme.util
+        </ID>
+        <ID>PackageName:ColorSchemePayload.kt$package
+            `in`.hridayan.ashell.core.presentation.theme.data
+        </ID>
+        <ID>PackageName:ColorSchemeSerializer.kt$package
+            `in`.hridayan.ashell.core.presentation.theme.util
+        </ID>
+        <ID>PackageName:ComposeUtils.kt$package `in`.hridayan.ashell.core.presentation.utils</ID>
+        <ID>PackageName:CompositionLocals.kt$package `in`.hridayan.ashell.core.common</ID>
+        <ID>PackageName:CorrectionSection.kt$package
+            `in`.hridayan.ashell.core.presentation.components.ai
+        </ID>
+        <ID>PackageName:CustomCard.kt$package
+            `in`.hridayan.ashell.core.presentation.components.card
+        </ID>
+        <ID>PackageName:CustomColorSchemeDao.kt$package
+            `in`.hridayan.ashell.core.presentation.theme.data
+        </ID>
+        <ID>PackageName:CustomSearchBar.kt$package
+            `in`.hridayan.ashell.core.presentation.components.search
+        </ID>
+        <ID>PackageName:CustomThemeDatabase.kt$package
+            `in`.hridayan.ashell.core.presentation.theme.data
+        </ID>
+        <ID>PackageName:DangerLevelIndicator.kt$package
+            `in`.hridayan.ashell.core.presentation.components.ai
+        </ID>
+        <ID>PackageName:DashedBorder.kt$package
+            `in`.hridayan.ashell.core.presentation.components.modifier
+        </ID>
+        <ID>PackageName:DialogContainer.kt$package
+            `in`.hridayan.ashell.core.presentation.components.dialog
+        </ID>
+        <ID>PackageName:DialogKey.kt$package
+            `in`.hridayan.ashell.core.presentation.components.dialog
+        </ID>
+        <ID>PackageName:DialogText.kt$package
+            `in`.hridayan.ashell.core.presentation.components.text
+        </ID>
+        <ID>PackageName:DialogViewModel.kt$package
+            `in`.hridayan.ashell.core.presentation.viewmodel
+        </ID>
+        <ID>PackageName:Dimens.kt$package `in`.hridayan.ashell.core.presentation.theme</ID>
+        <ID>PackageName:DraggableScrollThumb.kt$package
+            `in`.hridayan.ashell.core.presentation.components.scrollbar
+        </ID>
+        <ID>PackageName:ExampleUnitTest.kt$package `in`.hridayan.ashell.core.ui</ID>
+        <ID>PackageName:FavouriteIconButton.kt$package
+            `in`.hridayan.ashell.core.presentation.components.button
+        </ID>
+        <ID>PackageName:FloatingIcons.kt$package
+            `in`.hridayan.ashell.core.presentation.components.floaters
+        </ID>
+        <ID>PackageName:FloatingNavPill.kt$package
+            `in`.hridayan.ashell.core.presentation.components.navigation
+        </ID>
+        <ID>PackageName:GibberishContent.kt$package
+            `in`.hridayan.ashell.core.presentation.components.ai
+        </ID>
+        <ID>PackageName:HapticUtils.kt$package `in`.hridayan.ashell.core.presentation.utils</ID>
+        <ID>PackageName:IconWithTextButton.kt$package
+            `in`.hridayan.ashell.core.presentation.components.button
+        </ID>
+        <ID>PackageName:IconWithTextCard.kt$package
+            `in`.hridayan.ashell.core.presentation.components.card
+        </ID>
+        <ID>PackageName:KeyboardUtils.kt$package `in`.hridayan.ashell.core.presentation.utils</ID>
+        <ID>PackageName:LabelChip.kt$package
+            `in`.hridayan.ashell.core.presentation.components.chip
+        </ID>
+        <ID>PackageName:LabelText.kt$package
+            `in`.hridayan.ashell.core.presentation.components.text
+        </ID>
+        <ID>PackageName:LoadingSpinner.kt$package
+            `in`.hridayan.ashell.core.presentation.components.progress
+        </ID>
+        <ID>PackageName:NavigationCard.kt$package
+            `in`.hridayan.ashell.core.presentation.components.card
+        </ID>
+        <ID>PackageName:NoSearchResult.kt$package
+            `in`.hridayan.ashell.core.presentation.components.svg.vectors
+        </ID>
+        <ID>PackageName:OtgDeviceWaitingDialog.kt$package
+            `in`.hridayan.ashell.core.presentation.components.dialog
+        </ID>
+        <ID>PackageName:OtgViewModel.kt$package `in`.hridayan.ashell.core.ui.otg</ID>
+        <ID>PackageName:OutlinedIconButtonWithText.kt$package
+            `in`.hridayan.ashell.core.presentation.components.button
+        </ID>
+        <ID>PackageName:OverflowButtonGroup.kt$package
+            `in`.hridayan.ashell.core.presentation.components.buttongroup
+        </ID>
+        <ID>PackageName:PaletteExtensions.kt$package `in`.hridayan.ashell.core.presentation.utils
+        </ID>
+        <ID>PackageName:RadioGroupOptionsProvider.kt$package
+            `in`.hridayan.ashell.core.presentation.provider
+        </ID>
+        <ID>PackageName:SectionCard.kt$package
+            `in`.hridayan.ashell.core.presentation.components.ai
+        </ID>
+        <ID>PackageName:Shape.kt$package `in`.hridayan.ashell.core.presentation.theme</ID>
+        <ID>PackageName:ShizukuUnavailableDialog.kt$package
+            `in`.hridayan.ashell.core.presentation.components.dialog
+        </ID>
+        <ID>PackageName:SkeletonLoadingContent.kt$package
+            `in`.hridayan.ashell.core.presentation.components.ai
+        </ID>
+        <ID>PackageName:SlideToConfirm.kt$package
+            `in`.hridayan.ashell.core.presentation.components.slidetoconfirm
+        </ID>
+        <ID>PackageName:SnackBarController.kt$package
+            `in`.hridayan.ashell.core.presentation.components.snackbar
+        </ID>
+        <ID>PackageName:SnackBarEvent.kt$package
+            `in`.hridayan.ashell.core.presentation.components.snackbar
+        </ID>
+        <ID>PackageName:SnackBarHost.kt$package
+            `in`.hridayan.ashell.core.presentation.components.snackbar
+        </ID>
+        <ID>PackageName:SpinningGearsLottie.kt$package
+            `in`.hridayan.ashell.core.presentation.components.lottie
+        </ID>
+        <ID>PackageName:Theme.kt$package `in`.hridayan.ashell.core.presentation.theme</ID>
+        <ID>PackageName:TonalSchemeFactory.kt$package
+            `in`.hridayan.ashell.core.presentation.theme.color
+        </ID>
+        <ID>PackageName:TooltipContent.kt$package
+            `in`.hridayan.ashell.core.presentation.components.tooltip
+        </ID>
+        <ID>PackageName:TopAppBarLarge.kt$package
+            `in`.hridayan.ashell.core.presentation.components.appbar
+        </ID>
+        <ID>PackageName:TopCornerRoundedCard.kt$package
+            `in`.hridayan.ashell.core.presentation.components.card
+        </ID>
+        <ID>PackageName:Type.kt$package `in`.hridayan.ashell.core.presentation.theme</ID>
+        <ID>PackageName:UiModule.kt$package `in`.hridayan.ashell.core.ui.di</ID>
+        <ID>PackageName:Undraw404Error.kt$package
+            `in`.hridayan.ashell.core.presentation.components.svg.vectors
+        </ID>
+        <ID>PackageName:UndrawDreamWorld.kt$package
+            `in`.hridayan.ashell.core.presentation.components.svg.vectors
+        </ID>
+        <ID>PackageName:UserGeneratedColorScheme.kt$package
+            `in`.hridayan.ashell.core.presentation.theme.domain.model
+        </ID>
+        <ID>PackageName:UserGeneratedColorSchemeEntity.kt$package
+            `in`.hridayan.ashell.core.presentation.theme.data
+        </ID>
+        <ID>PackageName:UserGeneratedColorSchemeMapper.kt$package
+            `in`.hridayan.ashell.core.presentation.theme.color
+        </ID>
+        <ID>PackageName:UserGeneratedColorSchemeViewModel.kt$package
+            `in`.hridayan.ashell.core.presentation.theme
+        </ID>
+        <ID>PackageName:VerticalScrollbar.kt$package
+            `in`.hridayan.ashell.core.presentation.components.scrollbar
+        </ID>
+        <ID>PackageName:Wavy.kt$package `in`.hridayan.ashell.core.presentation.components.shape</ID>
+        <ID>PackageName:WavyHorizontalDivider.kt$package
+            `in`.hridayan.ashell.core.presentation.components.divider
+        </ID>
+        <ID>PackageName:WithHaptic.kt$package
+            `in`.hridayan.ashell.core.presentation.components.haptic
+        </ID>
+        <ID>PackageName:_DrawableVectors.kt$package
+            `in`.hridayan.ashell.core.presentation.components.svg
+        </ID>
+        <ID>SpacingAroundCurly:AppBranding.kt${</ID>
+        <ID>SwallowedException:UserGeneratedColorSchemeMapper.kt$e: Exception</ID>
+        <ID>UnusedPrivateMember:SlideToConfirm.kt$@Preview(showBackground = true) @Composable
+            private fun SlideToConfirmPreview()
+        </ID>
+        <ID>UseDataClass:FloatingIcons.kt$FloatingIconState</ID>
+        <ID>
+            UtilityClassWithPublicConstructor:ButtonGroupOptionsProvider.kt$ButtonGroupOptionsProvider
+        </ID>
+        <ID>
+            UtilityClassWithPublicConstructor:RadioGroupOptionsProvider.kt$RadioGroupOptionsProvider
+        </ID>
+        <ID>WildcardImport:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
+        <ID>Wrapping:AppBranding.kt$(</ID>
+        <ID>Wrapping:BackButton.kt$(</ID>
+        <ID>Wrapping:ComposeUtils.kt${ rotation.value } to { scale.value }</ID>
+        <ID>Wrapping:OtgDeviceWaitingDialog.kt$(</ID>
+        <ID>Wrapping:RadioGroupOptionsProvider.kt$RadioGroupOptionsProvider.Companion$(
+            RadioButtonOption( value = SortType.AZ, labelResId = R.string.A_Z ), RadioButtonOption(
+            value = SortType.ZA, labelResId = R.string.Z_A ), RadioButtonOption( value =
+            SortType.MOST_USED, labelResId = R.string.most_used ), RadioButtonOption( value =
+            SortType.LEAST_USED, labelResId = R.string.least_used ) )
+        </ID>
+        <ID>Wrapping:RadioGroupOptionsProvider.kt$RadioGroupOptionsProvider.Companion$(
+            RadioButtonOption( value = SortType.AZ, labelResId = R.string.A_Z ), RadioButtonOption(
+            value = SortType.ZA, labelResId = R.string.Z_A ), RadioButtonOption( value =
+            SortType.NEWEST, labelResId = R.string.newest ), RadioButtonOption( value =
+            SortType.OLDEST, labelResId = R.string.oldest ) )
+        </ID>
+        <ID>Wrapping:SlideToConfirm.kt$(</ID>
+    </CurrentIssues>
+</SmellBaseline>

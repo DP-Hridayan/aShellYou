@@ -1,0 +1,267 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+    <ManuallySuppressedIssues></ManuallySuppressedIssues>
+    <CurrentIssues>
+        <ID>ArgumentListWrapping:LogcatNotificationHelper.kt$LogcatNotificationHelper$( context, 0,
+            openAppIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE )
+        </ID>
+        <ID>ArgumentListWrapping:LogcatNotificationHelper.kt$LogcatNotificationHelper$( context, 1,
+            stopIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE )
+        </ID>
+        <ID>ArgumentListWrapping:LogcatService.kt$LogcatService$( applicationContext,
+            LogcatServiceEntryPoint::class.java )
+        </ID>
+        <ID>
+            CyclomaticComplexMethod:CheckLogcatPreflightUseCase.kt$CheckLogcatPreflightUseCase$suspend
+            fun check(mode: Int): LogcatPreflightResult
+        </ID>
+        <ID>CyclomaticComplexMethod:LogFilter.kt$fun LogFilter.matches(entry: LogEntry): Boolean
+        </ID>
+        <ID>DestructuringDeclarationWithTooManyEntries:LogcatParser.kt$LogcatParser$val (timestamp,
+            pid, tid, levelChar, tag, message) = match.destructured
+        </ID>
+        <ID>FinalNewline:ExampleUnitTest.kt$in.hridayan.ashell.logcat.ExampleUnitTest.kt</ID>
+        <ID>ImportOrdering:ExampleUnitTest.kt$import org.junit.Test import org.junit.Assert.*</ID>
+        <ID>ImportOrdering:LogcatModeBottomSheet.kt$import androidx.compose.foundation.clickable
+            import androidx.compose.foundation.interaction.MutableInteractionSource import
+            androidx.compose.foundation.layout.Arrangement import
+            androidx.compose.foundation.layout.Column import androidx.compose.foundation.layout.Row
+            import androidx.compose.foundation.layout.Spacer import
+            androidx.compose.foundation.layout.fillMaxWidth import
+            androidx.compose.foundation.layout.navigationBarsPadding import
+            androidx.compose.foundation.layout.padding import
+            androidx.compose.material3.ButtonDefaults import
+            androidx.compose.material3.ExperimentalMaterial3Api import
+            androidx.compose.material3.MaterialTheme import
+            androidx.compose.material3.ModalBottomSheet import
+            androidx.compose.material3.RadioButton import androidx.compose.material3.SheetValue
+            import androidx.compose.material3.Text import androidx.compose.material3.TextButton
+            import androidx.compose.material3.rememberBottomSheetState import
+            androidx.compose.runtime.Composable import androidx.compose.runtime.getValue import
+            androidx.compose.runtime.mutableIntStateOf import androidx.compose.runtime.remember
+            import androidx.compose.runtime.rememberCoroutineScope import
+            androidx.compose.runtime.saveable.rememberSaveable import
+            androidx.compose.runtime.setValue import androidx.compose.ui.Alignment import
+            androidx.compose.ui.Modifier import
+            androidx.compose.ui.hapticfeedback.HapticFeedbackType import
+            androidx.compose.ui.platform.LocalHapticFeedback import
+            androidx.compose.ui.res.stringResource import androidx.compose.ui.text.font.FontWeight
+            import androidx.compose.ui.unit.dp import
+            `in`.hridayan.ashell.core.common.settings.LocalSettings import
+            `in`.hridayan.ashell.core.common.settings.SettingsKeys import
+            `in`.hridayan.ashell.core.common.domain.model.LogcatWorkingMode import
+            `in`.hridayan.ashell.core.resources.R import kotlinx.coroutines.launch
+        </ID>
+        <ID>ImportOrdering:LogcatScreen.kt$import androidx.compose.animation.AnimatedVisibility
+            import androidx.compose.animation.fadeIn import androidx.compose.animation.fadeOut
+            import androidx.compose.animation.slideInVertically import
+            androidx.compose.animation.slideOutVertically import
+            androidx.compose.foundation.layout.Box import androidx.compose.foundation.layout.Column
+            import androidx.compose.foundation.layout.PaddingValues import
+            androidx.compose.foundation.layout.WindowInsets import
+            androidx.compose.foundation.layout.fillMaxSize import
+            androidx.compose.foundation.layout.fillMaxWidth import
+            androidx.compose.foundation.layout.padding import
+            androidx.compose.foundation.lazy.LazyColumn import
+            androidx.compose.foundation.lazy.items import
+            androidx.compose.foundation.lazy.rememberLazyListState import
+            androidx.compose.material3.ExperimentalMaterial3Api import
+            androidx.compose.material3.FloatingActionButton import androidx.compose.material3.Icon
+            import androidx.compose.material3.MaterialTheme import
+            androidx.compose.material3.Scaffold import androidx.compose.material3.Text import
+            androidx.compose.runtime.Composable import androidx.compose.runtime.LaunchedEffect
+            import androidx.compose.runtime.getValue import androidx.compose.runtime.mutableStateOf
+            import androidx.compose.runtime.remember import
+            androidx.compose.runtime.saveable.rememberSaveable import
+            androidx.compose.runtime.setValue import androidx.compose.runtime.snapshotFlow import
+            androidx.compose.ui.Alignment import androidx.compose.ui.Modifier import
+            androidx.compose.ui.res.painterResource import androidx.compose.ui.res.stringResource
+            import androidx.compose.ui.unit.dp import
+            androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel import
+            androidx.lifecycle.compose.collectAsStateWithLifecycle import
+            androidx.navigation.NavController import
+            `in`.hridayan.ashell.core.common.settings.LocalSettings import
+            `in`.hridayan.ashell.core.common.settings.SettingsKeys import
+            `in`.hridayan.ashell.core.common.domain.model.LogcatWorkingMode import
+            `in`.hridayan.ashell.core.navigation.NavRoutes import
+            `in`.hridayan.ashell.core.presentation.components.dialog.ShizukuUnavailableDialog import
+            `in`.hridayan.ashell.core.resources.R import
+            `in`.hridayan.ashell.logcat.domain.model.LogEntry import
+            `in`.hridayan.ashell.logcat.domain.model.LogcatPreflightResult import
+            `in`.hridayan.ashell.logcat.presentation.components.LogEntryDetailBottomSheet import
+            `in`.hridayan.ashell.logcat.presentation.components.LogEntryRow import
+            `in`.hridayan.ashell.logcat.presentation.components.LogcatModeBottomSheet import
+            `in`.hridayan.ashell.logcat.presentation.components.LogcatPermissionDialog import
+            `in`.hridayan.ashell.logcat.presentation.components.LogcatSecondaryToolbar import
+            `in`.hridayan.ashell.logcat.presentation.components.LogcatTopBar import
+            `in`.hridayan.ashell.logcat.presentation.components.OtherDeviceContent import
+            `in`.hridayan.ashell.logcat.presentation.components.RootUnavailableDialog import
+            `in`.hridayan.ashell.logcat.presentation.components.WirelessNotConnectedDialog import
+            `in`.hridayan.ashell.logcat.presentation.components.filter.LogcatFilterBottomSheet
+            import `in`.hridayan.ashell.logcat.presentation.viewmodel.LogcatViewModel import
+            kotlinx.coroutines.flow.distinctUntilChanged
+        </ID>
+        <ID>ImportOrdering:LogcatService.kt$import android.app.Service import
+            android.content.Context import android.content.Intent import android.os.IBinder import
+            android.util.Log import dagger.hilt.EntryPoint import dagger.hilt.InstallIn import
+            dagger.hilt.android.EntryPointAccessors import dagger.hilt.components.SingletonComponent
+            import `in`.hridayan.ashell.core.common.settings.SettingsKeys import
+            `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository import
+            `in`.hridayan.ashell.logcat.data.emitter.LogcatEmitterFactory import
+            `in`.hridayan.ashell.logcat.data.session.LogcatSessionHolder import
+            `in`.hridayan.ashell.logcat.domain.model.LogEntry import
+            `in`.hridayan.ashell.logcat.domain.usecase.ObserveLogsUseCase import
+            kotlinx.coroutines.CoroutineScope import kotlinx.coroutines.Dispatchers import
+            kotlinx.coroutines.SupervisorJob import kotlinx.coroutines.cancel import
+            kotlinx.coroutines.flow.first import kotlinx.coroutines.launch
+        </ID>
+        <ID>Indentation:LogFilter.kt$</ID>
+        <ID>Indentation:LogcatFilterRepositoryImpl.kt$</ID>
+        <ID>Indentation:LogcatViewModel.kt$LogcatViewModel$</ID>
+        <ID>LongMethod:LogcatNotificationHelper.kt$LogcatNotificationHelper$fun
+            createNotification(): Notification
+        </ID>
+        <ID>LongParameterList:LogcatScreen.kt$( logs: List&lt;LogEntry&gt;, expandedIds: Set&lt;Long&gt;,
+            isAutoScrolling: Boolean, isRunning: Boolean, listState:
+            androidx.compose.foundation.lazy.LazyListState, onToggleExpanded: (Long) -&gt; Unit,
+            onLongClick: (LogEntry) -&gt; Unit, onResumeAutoScroll: () -&gt; Unit, )
+        </ID>
+        <ID>LongParameterList:LogcatTopBar.kt$( isRunning: Boolean, showModeAction: Boolean,
+            searchVisible: Boolean, isPreflightChecking: Boolean, onSearchToggle: () -&gt; Unit,
+            onPlayPause: () -&gt; Unit, onModeClick: () -&gt; Unit, onOpenFilter: () -&gt; Unit,
+            onClear: () -&gt; Unit, modifier: Modifier = Modifier, )
+        </ID>
+        <ID>MagicNumber:LogLevelColors.kt$LogLevelColors$0.45f</ID>
+        <ID>
+            MultiLineIfElse:CheckLogcatPreflightUseCase.kt$CheckLogcatPreflightUseCase$NeedsReadLogs
+        </ID>
+        <ID>MultiLineIfElse:CheckLogcatPreflightUseCase.kt$CheckLogcatPreflightUseCase$Ready</ID>
+        <ID>
+            MultiLineIfElse:CheckLogcatPreflightUseCase.kt$CheckLogcatPreflightUseCase$ShizukuPermissionDenied
+        </ID>
+        <ID>
+            MultiLineIfElse:CheckLogcatPreflightUseCase.kt$CheckLogcatPreflightUseCase$ShizukuUnavailable
+        </ID>
+        <ID>
+            MultiLineIfElse:CheckLogcatPreflightUseCase.kt$CheckLogcatPreflightUseCase$WirelessNotConnected
+        </ID>
+        <ID>MultiLineIfElse:LogEntryDetailBottomSheet.kt$MaterialTheme.typography.bodyMedium</ID>
+        <ID>
+            MultiLineIfElse:LogEntryDetailBottomSheet.kt$MaterialTheme.typography.bodyMedium.copy(fontFamily
+            = FontFamily.Monospace)
+        </ID>
+        <ID>MultiLineIfElse:LogcatScreen.kt$tryStartLogcat()</ID>
+        <ID>MultiLineIfElse:LogcatScreen.kt$viewModel.stopLogcat()</ID>
+        <ID>MultiLineIfElse:LogcatTopBar.kt$MaterialTheme.colorScheme.error</ID>
+        <ID>MultiLineIfElse:LogcatTopBar.kt$MaterialTheme.colorScheme.onSurface</ID>
+        <ID>MultiLineIfElse:LogcatTopBar.kt$MaterialTheme.colorScheme.primary</ID>
+        <ID>MultiLineIfElse:LogcatTopBar.kt$stringResource(R.string.resume)</ID>
+        <ID>MultiLineIfElse:LogcatTopBar.kt$stringResource(R.string.stop)</ID>
+        <ID>MultiLineIfElse:OtherDeviceContent.kt$viewModel.otgEmitter()</ID>
+        <ID>MultiLineIfElse:OtherDeviceContent.kt$viewModel.wifiAdbEmitter()</ID>
+        <ID>NewLineAtEndOfFile:ExampleUnitTest.kt$in.hridayan.ashell.logcat.ExampleUnitTest.kt</ID>
+        <ID>NoConsecutiveBlankLines:LogEntryDetailBottomSheet.kt$</ID>
+        <ID>NoConsecutiveBlankLines:LogEntryRow.kt$</ID>
+        <ID>NoConsecutiveBlankLines:LogLevelColors.kt$</ID>
+        <ID>NoConsecutiveBlankLines:LogcatFilterBottomSheet.kt$</ID>
+        <ID>
+            NoEmptyFirstLineInMethodBlock:CheckLogcatPreflightUseCase.kt$CheckLogcatPreflightUseCase$
+        </ID>
+        <ID>NoMultipleSpaces:LogLevelColors.kt$LogLevelColors$</ID>
+        <ID>NoMultipleSpaces:LogcatEmitterFactory.kt$LogcatEmitterFactory$</ID>
+        <ID>NoWildcardImports:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
+        <ID>PackageName:BasicLogcatEmitter.kt$package `in`.hridayan.ashell.logcat.data.emitter</ID>
+        <ID>PackageName:CheckLogcatPreflightUseCase.kt$package
+            `in`.hridayan.ashell.logcat.domain.usecase
+        </ID>
+        <ID>PackageName:ExampleUnitTest.kt$package `in`.hridayan.ashell.logcat</ID>
+        <ID>PackageName:FilterMode.kt$package `in`.hridayan.ashell.logcat.domain.model</ID>
+        <ID>PackageName:LogEntry.kt$package `in`.hridayan.ashell.logcat.domain.model</ID>
+        <ID>PackageName:LogEntryDetailBottomSheet.kt$package
+            `in`.hridayan.ashell.logcat.presentation.components
+        </ID>
+        <ID>PackageName:LogEntryRow.kt$package `in`.hridayan.ashell.logcat.presentation.components
+        </ID>
+        <ID>PackageName:LogFilter.kt$package `in`.hridayan.ashell.logcat.domain.model</ID>
+        <ID>PackageName:LogLevel.kt$package `in`.hridayan.ashell.logcat.domain.model</ID>
+        <ID>PackageName:LogLevelColors.kt$package
+            `in`.hridayan.ashell.logcat.presentation.components
+        </ID>
+        <ID>PackageName:LogcatDeeplinkHolder.kt$package `in`.hridayan.ashell.logcat.data.session
+        </ID>
+        <ID>PackageName:LogcatEmitter.kt$package `in`.hridayan.ashell.logcat.domain.emitter</ID>
+        <ID>PackageName:LogcatEmitterFactory.kt$package `in`.hridayan.ashell.logcat.data.emitter
+        </ID>
+        <ID>PackageName:LogcatFilterBottomSheet.kt$package
+            `in`.hridayan.ashell.logcat.presentation.components.filter
+        </ID>
+        <ID>PackageName:LogcatFilterRepository.kt$package
+            `in`.hridayan.ashell.logcat.domain.repository
+        </ID>
+        <ID>PackageName:LogcatFilterRepositoryImpl.kt$package
+            `in`.hridayan.ashell.logcat.data.repository
+        </ID>
+        <ID>PackageName:LogcatModeBottomSheet.kt$package
+            `in`.hridayan.ashell.logcat.presentation.components
+        </ID>
+        <ID>PackageName:LogcatModule.kt$package `in`.hridayan.ashell.logcat.di</ID>
+        <ID>PackageName:LogcatNotificationHelper.kt$package `in`.hridayan.ashell.logcat.service</ID>
+        <ID>PackageName:LogcatParser.kt$package `in`.hridayan.ashell.logcat.domain.parser</ID>
+        <ID>PackageName:LogcatPermissionDialog.kt$package
+            `in`.hridayan.ashell.logcat.presentation.components
+        </ID>
+        <ID>PackageName:LogcatPermissionHelper.kt$package
+            `in`.hridayan.ashell.logcat.data.permission
+        </ID>
+        <ID>PackageName:LogcatPreflightResult.kt$package `in`.hridayan.ashell.logcat.domain.model
+        </ID>
+        <ID>PackageName:LogcatScreen.kt$package `in`.hridayan.ashell.logcat.presentation.screens
+        </ID>
+        <ID>PackageName:LogcatSecondaryToolbar.kt$package
+            `in`.hridayan.ashell.logcat.presentation.components
+        </ID>
+        <ID>PackageName:LogcatService.kt$package `in`.hridayan.ashell.logcat.service</ID>
+        <ID>PackageName:LogcatSessionHolder.kt$package `in`.hridayan.ashell.logcat.data.session</ID>
+        <ID>PackageName:LogcatTopBar.kt$package
+            `in`.hridayan.ashell.logcat.presentation.components
+        </ID>
+        <ID>PackageName:LogcatViewModel.kt$package
+            `in`.hridayan.ashell.logcat.presentation.viewmodel
+        </ID>
+        <ID>PackageName:NotConnectedPanel.kt$package
+            `in`.hridayan.ashell.logcat.presentation.components
+        </ID>
+        <ID>PackageName:ObserveLogsUseCase.kt$package `in`.hridayan.ashell.logcat.domain.usecase
+        </ID>
+        <ID>PackageName:OtgLogcatEmitter.kt$package `in`.hridayan.ashell.logcat.data.emitter</ID>
+        <ID>PackageName:OtgWaitingDialogWrapper.kt$package
+            `in`.hridayan.ashell.logcat.presentation.components
+        </ID>
+        <ID>PackageName:OtherDeviceContent.kt$package
+            `in`.hridayan.ashell.logcat.presentation.components
+        </ID>
+        <ID>PackageName:RootLogcatEmitter.kt$package `in`.hridayan.ashell.logcat.data.emitter</ID>
+        <ID>PackageName:RootUnavailableDialog.kt$package
+            `in`.hridayan.ashell.logcat.presentation.components
+        </ID>
+        <ID>PackageName:ShizukuLogcatEmitter.kt$package `in`.hridayan.ashell.logcat.data.emitter
+        </ID>
+        <ID>PackageName:WifiAdbLogcatEmitter.kt$package `in`.hridayan.ashell.logcat.data.emitter
+        </ID>
+        <ID>PackageName:WifiAdbOwnLogcatEmitter.kt$package
+            `in`.hridayan.ashell.logcat.data.emitter
+        </ID>
+        <ID>PackageName:WirelessNotConnectedDialog.kt$package
+            `in`.hridayan.ashell.logcat.presentation.components
+        </ID>
+        <ID>SwallowedException:BasicLogcatEmitter.kt$BasicLogcatEmitter$e: IOException</ID>
+        <ID>TooManyFunctions:LogcatViewModel.kt$LogcatViewModel : ViewModel</ID>
+        <ID>VariableNaming:LogcatFilterRepositoryImpl.kt$LogcatFilterRepositoryImpl$private val
+            FILTERS_KEY = stringPreferencesKey("saved_filters")
+        </ID>
+        <ID>WildcardImport:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
+        <ID>Wrapping:LogFilter.kt$(</ID>
+        <ID>Wrapping:LogcatFilterBottomSheet.kt$(</ID>
+        <ID>Wrapping:LogcatFilterBottomSheet.kt$;</ID>
+    </CurrentIssues>
+</SmellBaseline>

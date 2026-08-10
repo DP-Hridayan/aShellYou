@@ -1,0 +1,382 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+    <ManuallySuppressedIssues></ManuallySuppressedIssues>
+    <CurrentIssues>
+        <ID>ArgumentListWrapping:CommandExampleCard.kt$( id = id, onSuccess = { isDeleted = true
+            })
+        </ID>
+        <ID>ArgumentListWrapping:CommandExampleCard.kt$( modifier = Modifier .offset {
+            IntOffset(swipeOffset.value.roundToInt(), 0) } .pointerInput(Unit) {
+            detectHorizontalDragGestures( onHorizontalDrag = { _, dragAmount -&gt; val width =
+            cardWidth.floatValue if (width == 0f) return@detectHorizontalDragGestures val
+            elasticLimit = width * 0.25f val newOffset = swipeOffset.value + dragAmount val
+            absOffset = abs(newOffset) val adjustedOffset = when { absOffset &lt; elasticLimit -&gt;
+            { val resistance = 1f - (absOffset / elasticLimit) val resistanceFactor = 0.25f +
+            (resistance * 0.75f) swipeOffset.value + (dragAmount * resistanceFactor) } else -&gt;
+            newOffset } scope.launch { swipeOffset.snapTo(adjustedOffset.coerceIn(-width, width)) }
+            val currentZone = when { swipeOffset.value &gt; elasticLimit -&gt; 1 swipeOffset.value
+            &lt; -elasticLimit -&gt; -1 else -&gt; 0 } if (currentZone != lastHapticZone) {
+            weakHaptic() lastHapticZone = currentZone } }, onDragEnd = { scope.launch {
+            lastHapticZone = 0 val width = cardWidth.floatValue val elasticLimit = width * 0.25f
+            when { swipeOffset.value &gt; elasticLimit -&gt; { swipeOffset.animateTo( width,
+            spring(stiffness = Spring.StiffnessMediumLow) ) onEdit() swipeOffset.snapTo(0f) }
+            swipeOffset.value &lt; -elasticLimit -&gt; { swipeOffset.animateTo( -width,
+            spring(stiffness = Spring.StiffnessMediumLow) ) scope.launch { animatedHeight.animateTo(
+            0f, animationSpec = tween( durationMillis = 130, easing = FastOutLinearInEasing ) )
+            topPadding = 0.dp } onDelete() } else -&gt; { swipeOffset.animateTo( 0f,
+            spring(stiffness = Spring.StiffnessLow) ) } } } } ) } .fillMaxWidth(), border =
+            borderStroke, collapsedContent = { if (labels.isNotEmpty()) Labels( modifier =
+            Modifier.fillMaxWidth(), labels = labels ) Text( text = command, style =
+            MaterialTheme.typography.titleMediumEmphasized, modifier = Modifier.padding(start =
+            5.dp) ) }, expandedContent = { if (description.isNotEmpty()) { Text( text = description,
+            style = MaterialTheme.typography.bodySmall, modifier = Modifier .fillMaxWidth()
+            .padding(start = 5.dp) ) } Row( modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment =
+            Alignment.CenterVertically ) { FlexBox( modifier = Modifier.fillMaxWidth(), config = {
+            direction(FlexDirection.Row) wrap(FlexWrap.Wrap) gap(10.dp)
+            alignItems(FlexAlignItems.Center) }) { Row(horizontalArrangement =
+            Arrangement.spacedBy(10.dp)) { EditButton( onEdit = onEdit, modifier =
+            Modifier.size(40.dp) ) DeleteButton( modifier = Modifier.size(40.dp), onClick = onDelete
+            ) CopyButton( id = id, modifier = Modifier.size(40.dp) ) } UseCommandButton( onClick = {
+            onUseCommand(command) commandExamplesViewModel.incrementUseCount(id) }, modifier =
+            Modifier.flex { grow(1f) } ) if (FeatureConfig.isAiEnabled) { AiAnalysisButton( onClick
+            = { onAnalyzeCommand(command) }, colors = ButtonDefaults.buttonColors( containerColor =
+            MaterialTheme.colorScheme.tertiary, contentColor = MaterialTheme.colorScheme.onTertiary
+            ), modifier = Modifier.flex { grow(1f) } ) } } } })
+        </ID>
+        <ID>ArgumentListWrapping:CommandExampleCard.kt$( modifier = Modifier.fillMaxWidth(), config
+            = { direction(FlexDirection.Row) wrap(FlexWrap.Wrap) gap(10.dp)
+            alignItems(FlexAlignItems.Center) })
+        </ID>
+        <ID>ArgumentListWrapping:CommandExamplesScreen.kt$( enabled = fabMenuExpanded, indication =
+            null, interactionSource = remember { MutableInteractionSource() }, onClick = {
+            fabMenuExpanded = false })
+        </ID>
+        <ID>ArgumentListWrapping:CommandExamplesScreen.kt$( modifier = Modifier .fillMaxWidth()
+            .padding(horizontal = 15.dp), value = states.search.textFieldValue, onValueChange = {
+            viewModel.onSearchQueryChange(it) }, isQueryEmpty =
+            states.search.textFieldValue.text.isEmpty(), onClickClear = withHaptic {
+            viewModel.onSearchQueryChange(TextFieldValue("")) focusManager.clearFocus() },
+            onClickFilter = withHaptic { showFilterCommandBottomSheet = true }, onClickSort =
+            withHaptic { dialogManager.show(CommandExamplesDialogKey.SortCommands) })
+        </ID>
+        <ID>ArgumentListWrapping:CommandExamplesScreen.kt$(onDismiss = { dialogManager.dismiss()
+            })
+        </ID>
+        <ID>ArgumentListWrapping:LoadDefaultCommandsDialog.kt$( modifier = Modifier.fillMaxWidth(),
+            shapes = ButtonDefaults.shapes(), onClick = withHaptic(HapticFeedbackType.Confirm) {
+            onDismiss() })
+        </ID>
+        <ID>ArgumentListWrapping:SaveCommandExampleTool.kt$SaveCommandExampleTool$(",")</ID>
+        <ID>ArgumentListWrapping:UpdateCommandExampleTool.kt$UpdateCommandExampleTool$(",")</ID>
+        <ID>FinalNewline:ExampleUnitTest.kt$in.hridayan.ashell.commandexamples.ExampleUnitTest.kt
+        </ID>
+        <ID>ImportOrdering:CommandBackupProvider.kt$import
+            `in`.hridayan.ashell.core.common.domain.provider.BackupProvider import
+            `in`.hridayan.ashell.core.common.domain.model.CommandEntity import
+            `in`.hridayan.ashell.core.common.domain.repository.CommandRepository import
+            kotlinx.serialization.json.Json import kotlinx.serialization.json.JsonElement import
+            kotlinx.serialization.json.decodeFromJsonElement import
+            kotlinx.serialization.json.encodeToJsonElement import javax.inject.Inject
+        </ID>
+        <ID>ImportOrdering:CommandsSortDialog.kt$import androidx.compose.foundation.layout.Row
+            import androidx.compose.foundation.layout.Spacer import
+            androidx.compose.foundation.layout.fillMaxWidth import
+            androidx.compose.foundation.layout.padding import
+            androidx.compose.material3.CardDefaults import androidx.compose.material3.MaterialTheme
+            import androidx.compose.material3.RadioButton import
+            androidx.compose.material3.RadioButtonDefaults import androidx.compose.material3.Text
+            import androidx.compose.runtime.Composable import
+            androidx.compose.runtime.LaunchedEffect import androidx.compose.runtime.getValue import
+            androidx.compose.runtime.mutableIntStateOf import androidx.compose.runtime.remember
+            import androidx.compose.runtime.setValue import androidx.compose.ui.Alignment import
+            androidx.compose.ui.Modifier import
+            androidx.compose.ui.hapticfeedback.HapticFeedbackType import
+            androidx.compose.ui.res.stringResource import androidx.compose.ui.text.font.FontWeight
+            import androidx.compose.ui.text.style.TextAlign import androidx.compose.ui.unit.dp
+            import `in`.hridayan.ashell.core.common.settings.LocalSettings import
+            `in`.hridayan.ashell.core.common.settings.SettingsKeys import
+            `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup import
+            `in`.hridayan.ashell.core.presentation.components.card.CustomCard import
+            `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer import
+            `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic import
+            `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText import
+            `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults import
+            `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem import
+            `in`.hridayan.ashell.core.presentation.model.ButtonType import
+            `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape import
+            `in`.hridayan.ashell.core.presentation.theme.CustomCardShape import
+            `in`.hridayan.ashell.core.resources.R import
+            `in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider
+        </ID>
+        <ID>ImportOrdering:ExampleUnitTest.kt$import org.junit.Test import org.junit.Assert.*</ID>
+        <ID>Indentation:CommandExamplesViewModel.kt$CommandExamplesViewModel$</ID>
+        <ID>Indentation:SearchCommandExamplesTool.kt$SearchCommandExamplesTool$</ID>
+        <ID>InstanceOfCheckForException:CommandExamplesViewModel.kt$CommandExamplesViewModel$e is
+            CloudNetworkException.ProviderNotConfigured
+        </ID>
+        <ID>LargeClass:CommandExamplesViewModel.kt$CommandExamplesViewModel : ViewModel</ID>
+        <ID>LongMethod:CommandExamplesViewModel.kt$CommandExamplesViewModel$fun
+            addCommand(onSuccess: () -&gt; Unit)
+        </ID>
+        <ID>LongMethod:CommandExamplesViewModel.kt$CommandExamplesViewModel$fun editCommand(id: Int,
+            onSuccess: () -&gt; Unit)
+        </ID>
+        <ID>LongMethod:CommandExamplesViewModel.kt$CommandExamplesViewModel$fun onLabelAdd(label:
+            String)
+        </ID>
+        <ID>LongMethod:SearchCommandExamplesTool.kt$SearchCommandExamplesTool$override suspend fun
+            execute(args: JsonObject?): String
+        </ID>
+        <ID>LongParameterList:CommandExampleCard.kt$( modifier: Modifier, id: Int, command: String,
+            description: String, isFavourite: Boolean, labels: List&lt;String&gt;,
+            commandExamplesViewModel: CommandExamplesViewModel = hiltViewModel(), onUseCommand:
+            (String) -&gt; Unit, onAnalyzeCommand: (String) -&gt; Unit )
+        </ID>
+        <ID>MaxLineLength:CmdExamplesScreenState.kt$CmdExamplesScreenState$val commandField:
+            CmdScreenInputFieldState.CommandInputFieldState =
+            CmdScreenInputFieldState.CommandInputFieldState()
+        </ID>
+        <ID>MaxLineLength:CmdExamplesScreenState.kt$CmdExamplesScreenState$val descriptionField:
+            CmdScreenInputFieldState.DescriptionInputFieldState =
+            CmdScreenInputFieldState.DescriptionInputFieldState()
+        </ID>
+        <ID>MaxLineLength:CommandExamplesScreen.kt$CommandExamplesDialogKey.LoadDefaultCommands -&gt;
+            LoadDefaultCommandsDialog(onDismiss = { dialogManager.dismiss() })
+        </ID>
+        <ID>MaxLineLength:CommandsFilterBottomSheet.kt$if (selected)
+            MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface
+        </ID>
+        <ID>MaxLineLength:CommandsFilterBottomSheet.kt$if (selected)
+            MaterialTheme.colorScheme.primaryContainer else
+            MaterialTheme.colorScheme.surfaceContainerLowest
+        </ID>
+        <ID>MaxLineLength:DeleteCommandExampleTool.kt$DeleteCommandExampleTool$override val
+            description: String = "Delete a command example from the user's Command Examples library
+            by its integer database ID."
+        </ID>
+        <ID>MaxLineLength:SaveCommandExampleTool.kt$SaveCommandExampleTool$description =
+            "Comma-separated string labels to categorize the command (e.g., 'Package Manager,
+            Debloat, Battery'). Keep labels concise."
+        </ID>
+        <ID>MaxLineLength:SaveCommandExampleTool.kt$SaveCommandExampleTool$override val description:
+            String = "Save a shell command into the user's Command Examples library for later use.
+            Use this for general templates like 'pm uninstall --user &lt;user&gt; &lt;package&gt;'
+            or complex scripts with placeholders."
+        </ID>
+        <ID>MaxLineLength:SaveCommandExampleTool.kt$SaveCommandExampleTool$val labelsList = if
+            (labelsString.isBlank()) emptyList() else labelsString.split(",").map { it.trim()
+            }.filter { it.isNotEmpty() }
+        </ID>
+        <ID>MaxLineLength:SearchCommandExamplesTool.kt$SearchCommandExamplesTool$override val
+            description: String = "Search the user's Command Examples library for shell command
+            templates, descriptions, or labels. Returns matching command examples along with their
+            IDs, titles, command strings, and labels."
+        </ID>
+        <ID>MaxLineLength:UpdateCommandExampleTool.kt$UpdateCommandExampleTool$if
+            (labelsString.isBlank()) emptyList() else labelsString.split(",").map { it.trim()
+            }.filter { it.isNotEmpty() }
+        </ID>
+        <ID>MaxLineLength:UpdateCommandExampleTool.kt$UpdateCommandExampleTool$override val
+            description: String = "Update an existing shell command in the user's Command Examples
+            library. You must provide the exact ID of the command (which you can get by using
+            search_command_examples first) and optionally the fields you want to update."
+        </ID>
+        <ID>MaximumLineLength:CmdExamplesScreenState.kt$CmdExamplesScreenState$</ID>
+        <ID>MaximumLineLength:CommandExamplesScreen.kt$</ID>
+        <ID>MaximumLineLength:CommandsFilterBottomSheet.kt$</ID>
+        <ID>MaximumLineLength:DeleteCommandExampleTool.kt$DeleteCommandExampleTool$</ID>
+        <ID>MaximumLineLength:SaveCommandExampleTool.kt$SaveCommandExampleTool$</ID>
+        <ID>MaximumLineLength:SearchCommandExamplesTool.kt$SearchCommandExamplesTool$</ID>
+        <ID>MaximumLineLength:UpdateCommandExampleTool.kt$UpdateCommandExampleTool$</ID>
+        <ID>MultiLineIfElse:CommandExampleCard.kt$Box( modifier = modifier .fillMaxWidth()
+            .padding(start = 15.dp, end = 15.dp, top = topPadding) .onGloballyPositioned { if
+            (cardHeight.floatValue == 0f || !isDeleted) { cardHeight.floatValue =
+            it.size.height.toFloat() } cardWidth.floatValue = it.size.width.toFloat() } .then( if
+            (isDeleted &amp;&amp; cardHeight.floatValue &gt; 0f) Modifier.height(
+            with(screenDensity) { (cardHeight.floatValue * animatedHeight.value).toDp() } ) else
+            Modifier ), contentAlignment = if (swipeOffset.value &gt; 0) Alignment.CenterStart else
+            Alignment.CenterEnd ) { if (swipeOffset.value != 0f) { Box( modifier = Modifier
+            .width(with(screenDensity) { abs(swipeOffset.value).toDp() })
+            .height(with(screenDensity) { cardHeight.floatValue.toDp() }) .clip(with(screenDensity)
+            { RoundedCornerShape(cardHeight.floatValue.toDp() / 2) }) .background( when {
+            swipeOffset.value &gt; 0 -&gt; MaterialTheme.colorScheme.primary swipeOffset.value &lt;
+            0 -&gt; MaterialTheme.colorScheme.error else -&gt; Color.Transparent } ),
+            contentAlignment = Alignment.Center ) { if (swipeOffset.value &gt; 0) EditLottie(
+            composition = compositionEditLottie, progress = editLottieProgress, ) else DeleteLottie(
+            composition = compositionDeleteLottie, progress = deleteLottieProgress, ) } }
+            CollapsibleCard( modifier = Modifier .offset { IntOffset(swipeOffset.value.roundToInt(),
+            0) } .pointerInput(Unit) { detectHorizontalDragGestures( onHorizontalDrag = { _,
+            dragAmount -&gt; val width = cardWidth.floatValue if (width == 0f)
+            return@detectHorizontalDragGestures val elasticLimit = width * 0.25f val newOffset =
+            swipeOffset.value + dragAmount val absOffset = abs(newOffset) val adjustedOffset = when
+            { absOffset &lt; elasticLimit -&gt; { val resistance = 1f - (absOffset / elasticLimit)
+            val resistanceFactor = 0.25f + (resistance * 0.75f) swipeOffset.value + (dragAmount *
+            resistanceFactor) } else -&gt; newOffset } scope.launch {
+            swipeOffset.snapTo(adjustedOffset.coerceIn(-width, width)) } val currentZone = when {
+            swipeOffset.value &gt; elasticLimit -&gt; 1 swipeOffset.value &lt; -elasticLimit -&gt;
+            -1 else -&gt; 0 } if (currentZone != lastHapticZone) { weakHaptic() lastHapticZone =
+            currentZone } }, onDragEnd = { scope.launch { lastHapticZone = 0 val width =
+            cardWidth.floatValue val elasticLimit = width * 0.25f when { swipeOffset.value &gt;
+            elasticLimit -&gt; { swipeOffset.animateTo( width, spring(stiffness =
+            Spring.StiffnessMediumLow) ) onEdit() swipeOffset.snapTo(0f) } swipeOffset.value &lt;
+            -elasticLimit -&gt; { swipeOffset.animateTo( -width, spring(stiffness =
+            Spring.StiffnessMediumLow) ) scope.launch { animatedHeight.animateTo( 0f, animationSpec
+            = tween( durationMillis = 130, easing = FastOutLinearInEasing ) ) topPadding = 0.dp }
+            onDelete() } else -&gt; { swipeOffset.animateTo( 0f, spring(stiffness =
+            Spring.StiffnessLow) ) } } } } ) } .fillMaxWidth(), border = borderStroke,
+            collapsedContent = { if (labels.isNotEmpty()) Labels( modifier =
+            Modifier.fillMaxWidth(), labels = labels ) Text( text = command, style =
+            MaterialTheme.typography.titleMediumEmphasized, modifier = Modifier.padding(start =
+            5.dp) ) }, expandedContent = { if (description.isNotEmpty()) { Text( text = description,
+            style = MaterialTheme.typography.bodySmall, modifier = Modifier .fillMaxWidth()
+            .padding(start = 5.dp) ) } Row( modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment =
+            Alignment.CenterVertically ) { FlexBox( modifier = Modifier.fillMaxWidth(), config = {
+            direction(FlexDirection.Row) wrap(FlexWrap.Wrap) gap(10.dp)
+            alignItems(FlexAlignItems.Center) }) { Row(horizontalArrangement =
+            Arrangement.spacedBy(10.dp)) { EditButton( onEdit = onEdit, modifier =
+            Modifier.size(40.dp) ) DeleteButton( modifier = Modifier.size(40.dp), onClick = onDelete
+            ) CopyButton( id = id, modifier = Modifier.size(40.dp) ) } UseCommandButton( onClick = {
+            onUseCommand(command) commandExamplesViewModel.incrementUseCount(id) }, modifier =
+            Modifier.flex { grow(1f) } ) if (FeatureConfig.isAiEnabled) { AiAnalysisButton( onClick
+            = { onAnalyzeCommand(command) }, colors = ButtonDefaults.buttonColors( containerColor =
+            MaterialTheme.colorScheme.tertiary, contentColor = MaterialTheme.colorScheme.onTertiary
+            ), modifier = Modifier.flex { grow(1f) } ) } } } }) }
+        </ID>
+        <ID>MultiLineIfElse:CommandExampleCard.kt$DeleteLottie( composition =
+            compositionDeleteLottie, progress = deleteLottieProgress, )
+        </ID>
+        <ID>MultiLineIfElse:CommandExampleCard.kt$EditLottie( composition = compositionEditLottie,
+            progress = editLottieProgress, )
+        </ID>
+        <ID>MultiLineIfElse:CommandExampleCard.kt$Labels( modifier = Modifier.fillMaxWidth(), labels
+            = labels )
+        </ID>
+        <ID>MultiLineIfElse:CommandExampleCard.kt$Modifier</ID>
+        <ID>MultiLineIfElse:CommandExampleCard.kt$Modifier.height( with(screenDensity) {
+            (cardHeight.floatValue * animatedHeight.value).toDp() } )
+        </ID>
+        <ID>MultiLineIfElse:CommandExamplesScreen.kt$Box( modifier = Modifier .fillMaxSize()
+            .background(color = Color.Black.copy(alpha = dimAlpha)) .clickable( enabled =
+            fabMenuExpanded, indication = null, interactionSource = remember {
+            MutableInteractionSource() }, onClick = { fabMenuExpanded = false }) )
+        </ID>
+        <ID>MultiLineIfElse:CommandsFilterBottomSheet.kt$Icon( painter =
+            painterResource(R.drawable.ic_check), contentDescription = null, modifier =
+            Modifier.size(20.dp) )
+        </ID>
+        <ID>MultiLineIfElse:CommandsSortDialog.kt$CardDefaults.cardColors( containerColor =
+            MaterialTheme.colorScheme.primaryContainer, contentColor =
+            MaterialTheme.colorScheme.onPrimaryContainer )
+        </ID>
+        <ID>MultiLineIfElse:CommandsSortDialog.kt$CardDefaults.cardColors( containerColor =
+            MaterialTheme.colorScheme.surfaceContainerLowest, contentColor =
+            MaterialTheme.colorScheme.onSurface )
+        </ID>
+        <ID>
+            NewLineAtEndOfFile:ExampleUnitTest.kt$in.hridayan.ashell.commandexamples.ExampleUnitTest.kt
+        </ID>
+        <ID>NoBlankLineBeforeRbrace:CommandExamplesScreen.kt$</ID>
+        <ID>NoConsecutiveBlankLines:CommandExampleCard.kt$</ID>
+        <ID>NoConsecutiveBlankLines:CommandExamplesScreen.kt$</ID>
+        <ID>NoConsecutiveBlankLines:CommandExamplesViewModel.kt$CommandExamplesViewModel$</ID>
+        <ID>NoConsecutiveBlankLines:CommandRepositoryImpl.kt$CommandRepositoryImpl$</ID>
+        <ID>NoConsecutiveBlankLines:CommandsSortDialog.kt$</ID>
+        <ID>NoConsecutiveBlankLines:EditCommandDialog.kt$</ID>
+        <ID>NoConsecutiveBlankLines:LoadDefaultCommandsDialog.kt$</ID>
+        <ID>NoTrailingSpaces:CommandToolModule.kt$CommandToolModule$</ID>
+        <ID>NoTrailingSpaces:SaveCommandExampleTool.kt$SaveCommandExampleTool$</ID>
+        <ID>NoTrailingSpaces:UpdateCommandExampleTool.kt$UpdateCommandExampleTool$</ID>
+        <ID>
+            NoUnusedImports:UpdateCommandExampleTool.kt$in.hridayan.ashell.commandexamples.tool.UpdateCommandExampleTool.kt
+        </ID>
+        <ID>NoWildcardImports:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
+        <ID>PackageName:AddCommandDialog.kt$package
+            `in`.hridayan.ashell.commandexamples.presentation.component.dialog
+        </ID>
+        <ID>PackageName:CmdExamplesScreenState.kt$package
+            `in`.hridayan.ashell.commandexamples.presentation.model
+        </ID>
+        <ID>PackageName:CmdScreenInputFieldState.kt$package
+            `in`.hridayan.ashell.commandexamples.presentation.model
+        </ID>
+        <ID>PackageName:CmdScreenUiState.kt$package
+            `in`.hridayan.ashell.commandexamples.presentation.model
+        </ID>
+        <ID>PackageName:CommandBackupModule.kt$package `in`.hridayan.ashell.commandexamples.di</ID>
+        <ID>PackageName:CommandBackupProvider.kt$package
+            `in`.hridayan.ashell.commandexamples.data.backup
+        </ID>
+        <ID>PackageName:CommandDao.kt$package
+            `in`.hridayan.ashell.commandexamples.data.local.database
+        </ID>
+        <ID>PackageName:CommandDatabase.kt$package
+            `in`.hridayan.ashell.commandexamples.data.local.database
+        </ID>
+        <ID>PackageName:CommandDatabaseModule.kt$package `in`.hridayan.ashell.commandexamples.di
+        </ID>
+        <ID>PackageName:CommandExampleCard.kt$package
+            `in`.hridayan.ashell.commandexamples.presentation.component.card
+        </ID>
+        <ID>PackageName:CommandExamplesDialogKey.kt$package
+            `in`.hridayan.ashell.commandexamples.presentation.component.dialog
+        </ID>
+        <ID>PackageName:CommandExamplesScreen.kt$package
+            `in`.hridayan.ashell.commandexamples.presentation.screens
+        </ID>
+        <ID>PackageName:CommandExamplesViewModel.kt$package
+            `in`.hridayan.ashell.commandexamples.presentation.viewmodel
+        </ID>
+        <ID>PackageName:CommandRepositoryImpl.kt$package
+            `in`.hridayan.ashell.commandexamples.data.local.repository
+        </ID>
+        <ID>PackageName:CommandRepositoryModule.kt$package `in`.hridayan.ashell.commandexamples.di
+        </ID>
+        <ID>PackageName:CommandToolModule.kt$package `in`.hridayan.ashell.commandexamples.di</ID>
+        <ID>PackageName:CommandsFilterBottomSheet.kt$package
+            `in`.hridayan.ashell.commandexamples.presentation.component.bottomsheet
+        </ID>
+        <ID>PackageName:CommandsSortDialog.kt$package
+            `in`.hridayan.ashell.commandexamples.presentation.component.dialog
+        </ID>
+        <ID>PackageName:DeleteCommandExampleTool.kt$package
+            `in`.hridayan.ashell.commandexamples.tool
+        </ID>
+        <ID>PackageName:EditCommandDialog.kt$package
+            `in`.hridayan.ashell.commandexamples.presentation.component.dialog
+        </ID>
+        <ID>PackageName:ExampleUnitTest.kt$package `in`.hridayan.ashell.commandexamples</ID>
+        <ID>PackageName:Labels.kt$package
+            `in`.hridayan.ashell.commandexamples.presentation.component.row
+        </ID>
+        <ID>PackageName:LoadDefaultCommandsDialog.kt$package
+            `in`.hridayan.ashell.commandexamples.presentation.component.dialog
+        </ID>
+        <ID>PackageName:PreloadedCommands.kt$package
+            `in`.hridayan.ashell.commandexamples.data.local.source
+        </ID>
+        <ID>PackageName:SaveCommandExampleTool.kt$package
+            `in`.hridayan.ashell.commandexamples.tool
+        </ID>
+        <ID>PackageName:SearchCommandExamplesTool.kt$package
+            `in`.hridayan.ashell.commandexamples.tool
+        </ID>
+        <ID>PackageName:UpdateCommandExampleTool.kt$package
+            `in`.hridayan.ashell.commandexamples.tool
+        </ID>
+        <ID>PrintStackTrace:CommandBackupProvider.kt$CommandBackupProvider$e</ID>
+        <ID>SpacingAroundCurly:CommandsSortDialog.kt${</ID>
+        <ID>TooManyFunctions:CommandDao.kt$CommandDao</ID>
+        <ID>TooManyFunctions:CommandExamplesViewModel.kt$CommandExamplesViewModel : ViewModel</ID>
+        <ID>TooManyFunctions:CommandRepositoryImpl.kt$CommandRepositoryImpl : CommandRepository</ID>
+        <ID>UnusedParameter:CommandExampleCard.kt$isFavourite: Boolean</ID>
+        <ID>WildcardImport:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
+        <ID>Wrapping:CommandExampleCard.kt$(</ID>
+        <ID>Wrapping:CommandExamplesScreen.kt$(</ID>
+        <ID>Wrapping:LoadDefaultCommandsDialog.kt$(</ID>
+        <ID>Wrapping:SaveCommandExampleTool.kt$SaveCommandExampleTool$it.isNotEmpty()</ID>
+        <ID>Wrapping:SaveCommandExampleTool.kt$SaveCommandExampleTool$it.trim()</ID>
+        <ID>Wrapping:SearchCommandExamplesTool.kt$SearchCommandExamplesTool$(</ID>
+    </CurrentIssues>
+</SmellBaseline>

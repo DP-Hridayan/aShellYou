@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+    <ManuallySuppressedIssues></ManuallySuppressedIssues>
+    <CurrentIssues>
+        <ID>ArgumentListWrapping:FastbootDeviceContext.kt$FastbootDeviceContext$( inEndpoint,
+            buffer, buffer.size, RESPONSE_TIMEOUT_MS )
+        </ID>
+        <ID>ArgumentListWrapping:FastbootDeviceManager.kt$FastbootDeviceManager$( appContext, 0,
+            Intent(ACTION_USB_PERMISSION), PendingIntent.FLAG_IMMUTABLE )
+        </ID>
+        <ID>ArgumentListWrapping:FastbootDeviceManager.kt$FastbootDeviceManager$( appContext,
+            permissionReceiver, IntentFilter(ACTION_USB_PERMISSION),
+            ContextCompat.RECEIVER_NOT_EXPORTED )
+        </ID>
+        <ID>ArgumentListWrapping:FastbootDeviceManager.kt$FastbootDeviceManager$( appContext,
+            usbReceiver, usbFilter, ContextCompat.RECEIVER_NOT_EXPORTED )
+        </ID>
+        <ID>CyclomaticComplexMethod:FastbootDeviceManager.kt$FastbootDeviceManager$private fun
+            connectToUsbDevice(manager: UsbManager, device: UsbDevice)
+        </ID>
+        <ID>
+            ImplicitDefaultLocale:FastbootDeviceContext.kt$FastbootDeviceContext$String.format("%08x",
+            data.size)
+        </ID>
+        <ID>Indentation:FastbootDeviceManager.kt$FastbootDeviceManager$</ID>
+        <ID>LongMethod:FastbootDeviceContext.kt$FastbootDeviceContext$private fun
+            sendCommandWithData( command: FastbootCommand, onProgress: ((Long, Long) -&gt; Unit)? ):
+            FastbootResponse
+        </ID>
+        <ID>LongMethod:FastbootDeviceManager.kt$FastbootDeviceManager$private fun
+            connectToUsbDevice(manager: UsbManager, device: UsbDevice)
+        </ID>
+        <ID>NoMultipleSpaces:FastbootDeviceManager.kt$FastbootDeviceManager$</ID>
+        <ID>PackageName:DeviceId.kt$package `in`.hridayan.fastboot</ID>
+        <ID>PackageName:FastbootCommand.kt$package `in`.hridayan.fastboot</ID>
+        <ID>PackageName:FastbootDeviceContext.kt$package `in`.hridayan.fastboot</ID>
+        <ID>PackageName:FastbootDeviceManager.kt$package `in`.hridayan.fastboot</ID>
+        <ID>PackageName:FastbootDeviceManagerListener.kt$package `in`.hridayan.fastboot</ID>
+        <ID>PackageName:FastbootResponse.kt$package `in`.hridayan.fastboot</ID>
+        <ID>ReturnCount:FastbootDeviceManager.kt$FastbootDeviceManager$private fun
+            connectToUsbDevice(manager: UsbManager, device: UsbDevice)
+        </ID>
+        <ID>SpacingBetweenDeclarationsWithComments:FastbootResponse.kt$ResponseStatus.DATA$/**
+            Device is ready to receive data. Remaining bytes are hex-encoded data size. */
+        </ID>
+        <ID>SpacingBetweenDeclarationsWithComments:FastbootResponse.kt$ResponseStatus.FAIL$/**
+            Command failed. Remaining bytes are error message. */
+        </ID>
+        <ID>SpacingBetweenDeclarationsWithComments:FastbootResponse.kt$ResponseStatus.INFO$/**
+            Informational message. Remaining bytes are text. */
+        </ID>
+        <ID>ThrowsCount:FastbootDeviceContext.kt$FastbootDeviceContext$private fun
+            sendCommandWithData( command: FastbootCommand, onProgress: ((Long, Long) -&gt; Unit)? ):
+            FastbootResponse
+        </ID>
+        <ID>TooManyFunctions:FastbootCommand.kt$FastbootCommand$Companion</ID>
+        <ID>TooManyFunctions:FastbootDeviceManager.kt$FastbootDeviceManager</ID>
+    </CurrentIssues>
+</SmellBaseline>

@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+    <ManuallySuppressedIssues></ManuallySuppressedIssues>
+    <CurrentIssues>
+        <ID>FinalNewline:ExampleUnitTest.kt$in.hridayan.ashell.core.resources.ExampleUnitTest.kt
+        </ID>
+        <ID>ImportOrdering:ExampleUnitTest.kt$import org.junit.Test import org.junit.Assert.*</ID>
+        <ID>
+            NewLineAtEndOfFile:ExampleUnitTest.kt$in.hridayan.ashell.core.resources.ExampleUnitTest.kt
+        </ID>
+        <ID>NoWildcardImports:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
+        <ID>PackageName:ExampleUnitTest.kt$package `in`.hridayan.ashell.core.resources</ID>
+        <ID>WildcardImport:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
+    </CurrentIssues>
+</SmellBaseline>

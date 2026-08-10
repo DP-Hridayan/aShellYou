@@ -56,6 +56,7 @@ lazyselectioncontainer = "1.4.0"
 tink = "1.23.0"
 markdown = "0.43.0"
 highlights = "1.1.0"
+detekt = "1.23.6"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -68,6 +69,7 @@ release-lint-baseline = { id = "release.lint.baseline" }
 aboutlibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutlibraries" }
 compose-stability-analyzer = { id = "com.github.skydoves.compose.stability.analyzer", version.ref = "compose-stability-analyzer" }
 dependencyAnalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 
 [libraries]
 agp-gradle = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -150,3 +152,4 @@ concurrent-futures-ktx = { group = "androidx.concurrent", name = "concurrent-fut
 tink-android = { group = "com.google.crypto.tink", name = "tink-android", version.ref = "tink" }
 markdown-renderer = { group = "com.mikepenz", name = "multiplatform-markdown-renderer-m3", version.ref = "markdown" }
 highlights = { module = "dev.snipme:highlights", version.ref = "highlights" }
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }

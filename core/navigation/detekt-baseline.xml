@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+    <ManuallySuppressedIssues></ManuallySuppressedIssues>
+    <CurrentIssues>
+        <ID>FinalNewline:ExampleUnitTest.kt$in.hridayan.ashell.core.navigation.ExampleUnitTest.kt
+        </ID>
+        <ID>ImportOrdering:ExampleUnitTest.kt$import org.junit.Test import org.junit.Assert.*</ID>
+        <ID>MagicNumber:NavTransitions.kt$200</ID>
+        <ID>MagicNumber:NavTransitions.kt$250</ID>
+        <ID>MagicNumber:NavTransitions.kt$350</ID>
+        <ID>MagicNumber:NavTransitions.kt$50</ID>
+        <ID>
+            NewLineAtEndOfFile:ExampleUnitTest.kt$in.hridayan.ashell.core.navigation.ExampleUnitTest.kt
+        </ID>
+        <ID>NoConsecutiveBlankLines:NavRoutes.kt$NavRoutes$</ID>
+        <ID>NoWildcardImports:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
+        <ID>PackageName:ExampleUnitTest.kt$package `in`.hridayan.ashell.core.navigation</ID>
+        <ID>PackageName:LocalNavController.kt$package `in`.hridayan.ashell.core.navigation</ID>
+        <ID>PackageName:NavControllerExt.kt$package `in`.hridayan.ashell.core.navigation</ID>
+        <ID>PackageName:NavRoutes.kt$package `in`.hridayan.ashell.core.navigation</ID>
+        <ID>PackageName:NavTransitions.kt$package `in`.hridayan.ashell.core.navigation</ID>
+        <ID>WildcardImport:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
+    </CurrentIssues>
+</SmellBaseline>

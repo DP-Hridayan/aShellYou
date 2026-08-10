@@ -1,0 +1,651 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+    <ManuallySuppressedIssues></ManuallySuppressedIssues>
+    <CurrentIssues>
+        <ID>ArgumentListWrapping:CreateTileScreen.kt$( enabled = isValid, interactionSource =
+            interactionSource, indication = null, onClick = withHaptic {
+            createTileViewModel.createTile() navController.navigateBack() })
+        </ID>
+        <ID>ArgumentListWrapping:CreateTileScreen.kt$( expanded = true, floatingActionButton = {
+            FloatingToolbarDefaults.VibrantFloatingActionButton( onClick =
+            withHaptic(HapticFeedbackType.Reject) { showDeleteTileConfirmationDialog = true },
+            containerColor = MaterialTheme.colorScheme.error, contentColor =
+            MaterialTheme.colorScheme.onError ) { Icon( painter =
+            painterResource(R.drawable.ic_delete), contentDescription = "Delete Tile" ) } }, colors
+            = FloatingToolbarDefaults.vibrantFloatingToolbarColors(), content = { Row( modifier =
+            Modifier .clickable( enabled = isValid, interactionSource = interactionSource,
+            indication = null, onClick = withHaptic { createTileViewModel.createTile()
+            navController.navigateBack() }) .padding(horizontal = 20.dp), horizontalArrangement =
+            Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically ) {
+            AutoResizeableText( text = stringResource(R.string.update), color =
+            floatingToolbarContentColor.copy(alpha = if (isValid) 1f else 0.38f) ) Icon( modifier =
+            Modifier.size(24.dp), painter = painterResource(R.drawable.ic_help), contentDescription
+            = null, tint = floatingToolbarContentColor.copy(alpha = if (isValid) 1f else 0.38f) ) }
+            })
+        </ID>
+        <ID>ArgumentListWrapping:CreateTileScreen.kt$( modifier = Modifier .fillMaxWidth()
+            .heightIn(min = 140.dp) .padding(horizontal = 20.dp), onClick = withHaptic {
+            showIconChooserDialog = true })
+        </ID>
+        <ID>ArgumentListWrapping:CreateTileScreen.kt$( onDismiss = {
+            showDeleteTileConfirmationDialog = false }, onConfirm = {
+            createTileViewModel.deleteTile() navController.navigateBack() })
+        </ID>
+        <ID>ArgumentListWrapping:CreateTileScreen.kt$( onDismiss = { showIconChooserDialog = false
+            }, icons = iconsList, searchQuery = uiState.iconSearchQuery, onQueryChange = {
+            createTileViewModel.onIconQueryChange(it) }, onIconSelected = {
+            createTileViewModel.onIconSelected(it) showIconChooserDialog = false showToast(context,
+            res.getString(R.string.icon_selected)) })
+        </ID>
+        <ID>ArgumentListWrapping:CreateTileScreen.kt$( onNavigateBack = {
+            navController.navigateBack() }, modifier = modifier, listState = listState, topBarTitle
+            = if (uiState.isUpdateMode) stringResource(R.string.edit_tile) else
+            stringResource(R.string.create_new_tile), fabContent = { _ -&gt; if
+            (uiState.isUpdateMode) { HorizontalFloatingToolbar( expanded = true,
+            floatingActionButton = { FloatingToolbarDefaults.VibrantFloatingActionButton( onClick =
+            withHaptic(HapticFeedbackType.Reject) { showDeleteTileConfirmationDialog = true },
+            containerColor = MaterialTheme.colorScheme.error, contentColor =
+            MaterialTheme.colorScheme.onError ) { Icon( painter =
+            painterResource(R.drawable.ic_delete), contentDescription = "Delete Tile" ) } }, colors
+            = FloatingToolbarDefaults.vibrantFloatingToolbarColors(), content = { Row( modifier =
+            Modifier .clickable( enabled = isValid, interactionSource = interactionSource,
+            indication = null, onClick = withHaptic { createTileViewModel.createTile()
+            navController.navigateBack() }) .padding(horizontal = 20.dp), horizontalArrangement =
+            Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically ) {
+            AutoResizeableText( text = stringResource(R.string.update), color =
+            floatingToolbarContentColor.copy(alpha = if (isValid) 1f else 0.38f) ) Icon( modifier =
+            Modifier.size(24.dp), painter = painterResource(R.drawable.ic_help), contentDescription
+            = null, tint = floatingToolbarContentColor.copy(alpha = if (isValid) 1f else 0.38f) ) }
+            }) } }, content = { innerPadding, topBarScrollBehavior -&gt; LazyColumn( modifier =
+            Modifier .fillMaxWidth() .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
+            state = listState, contentPadding = innerPadding ) { item { SectionLabel( text =
+            stringResource(R.string.tile_name), modifier = Modifier.padding(top = 25.dp, start =
+            25.dp, bottom = 10.dp) ) } item { TextField( modifier = Modifier .fillMaxWidth()
+            .padding(horizontal = 20.dp), value = uiState.nameField, onValueChange = {
+            createTileViewModel.onNameChange(it) }, hint = "Reboot", shape = RoundedCornerShape(50),
+            singleLine = true, errorMessage = uiState.nameError, keyboardOptions =
+            KeyboardOptions.Default.copy( imeAction = ImeAction.Done, ) ) } item { SectionLabel(
+            text = stringResource(R.string.tile_behavior), modifier = Modifier.padding(top = 25.dp,
+            start = 25.dp, bottom = 10.dp) ) } item { BehaviorSwitchRow( modifier = Modifier
+            .fillMaxWidth() .padding(horizontal = 20.dp), title =
+            stringResource(R.string.toggleable), description =
+            stringResource(R.string.des_toggleable), checked = uiState.isToggleable, onCheckedChange
+            = { createTileViewModel.onToggleableChange(it) weakHaptic() }, shape = CustomCardShape(
+            topStart = 24.dp, topEnd = 24.dp, bottomStart = 4.dp, bottomEnd = 4.dp ) ) } item {
+            BehaviorSwitchRow( modifier = Modifier .fillMaxWidth() .padding(start = 20.dp, end =
+            20.dp, top = 2.dp), title = stringResource(R.string.initial_state), description =
+            stringResource(R.string.des_initial_state), checked = uiState.isActive, onCheckedChange
+            = { createTileViewModel.onActiveStateChange(it) weakHaptic() }, checkedLabel =
+            stringResource(R.string.on_state), uncheckedLabel = stringResource(R.string.off_state),
+            shape = CustomCardShape( topStart = 4.dp, topEnd = 4.dp, bottomStart = 24.dp, bottomEnd
+            = 24.dp ) ) } item { val label = if (uiState.isToggleable)
+            stringResource(R.string.subtitle_on_state) else stringResource(R.string.subtitle)
+            SectionLabel( text = label, modifier = Modifier.padding(top = 25.dp, start = 25.dp,
+            bottom = 10.dp) ) } item { TextField( modifier = Modifier .fillMaxWidth()
+            .padding(horizontal = 20.dp), value = uiState.run { if (isToggleable || isActive)
+            activeSubtitle else inactiveSubtitle }, onValueChange = { if (uiState.isActive ||
+            uiState.isToggleable) createTileViewModel.onActiveSubtitleChange(it) else
+            createTileViewModel.onInactiveSubtitleChange(it) }, hint =
+            stringResource(R.string.on_state), shape = RoundedCornerShape(50), singleLine = true,
+            keyboardOptions = KeyboardOptions.Default.copy( imeAction = ImeAction.Done, ) ) } item {
+            AnimatedVisibility( visible = uiState.isToggleable, enter = fadeIn() +
+            expandVertically(), exit = fadeOut() + shrinkVertically(), ) { Column { SectionLabel(
+            text = stringResource(R.string.subtitle_off_state), modifier = Modifier.padding( top =
+            20.dp, start = 25.dp, bottom = 10.dp ) ) TextField( modifier = Modifier .fillMaxWidth()
+            .padding(horizontal = 20.dp), value = uiState.inactiveSubtitle, onValueChange = {
+            createTileViewModel.onInactiveSubtitleChange(it) }, hint =
+            stringResource(R.string.off_state), shape = RoundedCornerShape(50), singleLine = true,
+            keyboardOptions = KeyboardOptions.Default.copy( imeAction = ImeAction.Done, ) ) } } }
+            item { val label = if (uiState.isToggleable)
+            stringResource(R.string.adb_command_on_state) else stringResource(R.string.adb_command)
+            SectionLabel( text = label, modifier = Modifier.padding(top = 25.dp, start = 25.dp,
+            bottom = 10.dp) ) } item { TextField( modifier = Modifier .fillMaxWidth()
+            .padding(horizontal = 20.dp) .animateContentSize(), value = uiState.activeCommand,
+            onValueChange = { createTileViewModel.onActiveCommandChange(it) }, hint =
+            stringResource(R.string.adb_command_hint), shape = RoundedCornerShape(28.dp), singleLine
+            = false, minLines = 3, fontFamily = FontFamily.Monospace, keyboardOptions =
+            KeyboardOptions.Default.copy( keyboardType = KeyboardType.Ascii, imeAction =
+            ImeAction.Default, ) ) } item { AnimatedVisibility( visible = uiState.isToggleable,
+            enter = fadeIn() + expandVertically(), exit = fadeOut() + shrinkVertically(), ) { Column
+            { SectionLabel( text = stringResource(R.string.adb_command_off_state), modifier =
+            Modifier.padding( top = 20.dp, start = 25.dp, bottom = 10.dp ) ) TextField( modifier =
+            Modifier .fillMaxWidth() .padding(horizontal = 20.dp) .animateContentSize(), value =
+            uiState.inactiveCommand, onValueChange = {
+            createTileViewModel.onInactiveCommandChange(it) }, hint =
+            stringResource(R.string.adb_command_hint), shape = RoundedCornerShape(28.dp), singleLine
+            = false, minLines = 3, fontFamily = FontFamily.Monospace, keyboardOptions =
+            KeyboardOptions.Default.copy( keyboardType = KeyboardType.Ascii, imeAction =
+            ImeAction.Default, ) ) } } } item { SectionLabel( text =
+            stringResource(R.string.execution_method), modifier = Modifier.padding(top = 25.dp,
+            start = 25.dp, bottom = 10.dp) ) } item { Row( modifier = Modifier.padding(start =
+            20.dp, end = 20.dp, bottom = 10.dp), horizontalArrangement =
+            Arrangement.spacedBy(ButtonGroupDefaults.ConnectedSpaceBetween) ) {
+            executionMethodOptions.forEachIndexed { index, option -&gt; ToggleButton( checked =
+            option.value == uiState.executionMode, onCheckedChange = {
+            createTileViewModel.onExecutionModeChange(option.value) weakHaptic() }, modifier =
+            Modifier.weight(1f), shapes = when (index) { 0 -&gt;
+            ButtonGroupDefaults.connectedLeadingButtonShapes() executionMethodOptions.lastIndex -&gt;
+            ButtonGroupDefaults.connectedTrailingButtonShapes() else -&gt;
+            ButtonGroupDefaults.connectedMiddleButtonShapes() } ) { option.labelResId?.let {
+            Text(stringResource(it)) } } } } } item {
+            AnimatedVisibility(uiState.suggestedIcons.isNotEmpty()) { SectionLabel( text =
+            stringResource(R.string.suggested_icons), modifier = Modifier.padding(start = 25.dp, end
+            = 25.dp, bottom = 10.dp) ) } } item { FlowRow( modifier = Modifier .fillMaxWidth()
+            .padding(start = 20.dp, end = 20.dp, bottom = 15.dp) .clip(RoundedCornerShape(24.dp))
+            .background(MaterialTheme.colorScheme.surfaceContainerLow), horizontalArrangement =
+            Arrangement.SpaceAround, verticalArrangement = Arrangement.spacedBy(20.dp),
+            maxItemsInEachRow = 5 ) { uiState.suggestedIcons.forEach { iconKey -&gt; val tileIcon =
+            TileIconProvider.iconById[iconKey] val iconResId = tileIcon?.resId val isIconSelected =
+            tileIcon?.id == uiState.selectedIconId iconResId?.let { Box( modifier = Modifier
+            .padding(16.dp) .size(48.dp) .clip(CircleShape) .background(
+            MaterialTheme.colorScheme.run { if (isIconSelected) primary else surfaceVariant } )
+            .clickable(onClick = withHaptic { createTileViewModel.onIconSelected(tileIcon.id) }),
+            contentAlignment = Alignment.Center ) { Icon( painter = painterResource(it), tint = if
+            (isIconSelected) MaterialTheme.colorScheme.onPrimary else
+            MaterialTheme.colorScheme.onSurface, contentDescription = null ) } } } } } item {
+            ChooseIconHintBox( modifier = Modifier .fillMaxWidth() .heightIn(min = 140.dp)
+            .padding(horizontal = 20.dp), onClick = withHaptic { showIconChooserDialog = true }) }
+            item { SectionLabel( text = stringResource(R.string.preview), modifier =
+            Modifier.padding(top = 25.dp, start = 25.dp, bottom = 10.dp) ) } item { val selectedIcon
+            = TileIconProvider.iconById[uiState.selectedIconId] val icon: Painter = if
+            (selectedIcon?.resId != null) painterResource(selectedIcon.resId) else
+            painterResource(R.drawable.ic_add) val previewSubtitle = uiState.run { if (isToggleable)
+            "${activeSubtitle.text} / ${inactiveSubtitle.text}" else if (isActive)
+            activeSubtitle.text else inactiveSubtitle.text } Row( modifier = Modifier
+            .fillMaxWidth() .padding(horizontal = 20.dp) .clip(RoundedCornerShape(24.dp))
+            .background(MaterialTheme.colorScheme.surfaceContainer) .dashedBorder( color =
+            MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f), strokeWidth = 2.dp,
+            cornerRadius = 24.dp ), horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically ) { ClassicTile( modifier = Modifier
+            .weight(1f) .height(120.dp) .animateContentSize(), icon = icon, isActive =
+            uiState.isActive ) ModernTilePreview( modifier = Modifier .weight(2f) .height(120.dp)
+            .widthIn(min = 120.dp) .animateContentSize(), icon = icon, title =
+            uiState.nameField.text, subtitle = previewSubtitle, isActive = uiState.isActive, ) } }
+            item { if (uiState.isUpdateMode) { Spacer( modifier = Modifier .fillMaxWidth()
+            .height(120.dp) ) } else { Button( modifier = Modifier
+            .heightIn(ButtonDefaults.ExtraLargeContainerHeight) .fillMaxWidth() .padding(horizontal
+            = 60.dp, vertical = 30.dp), enabled = isValid, onClick = withHaptic {
+            createTileViewModel.createTile() navController.navigateBack() }, ) { AutoResizeableText(
+            text = stringResource(R.string.generate_tile), style =
+            MaterialTheme.typography.titleLargeEmphasized ) Spacer(modifier = Modifier.width(20.dp))
+            Icon( painter = painterResource(R.drawable.ic_help), contentDescription = null, modifier
+            = Modifier.size(32.dp) ) } } } } })
+        </ID>
+        <ID>ArgumentListWrapping:CreateTileScreen.kt$( top = 20.dp, start = 25.dp, bottom = 10.dp
+            )
+        </ID>
+        <ID>ArgumentListWrapping:TileDashBoardScreen.kt$( onNavigateBack = {
+            navController.navigateBack() }, modifier = modifier, listState = listState, topBarTitle
+            = title, bottomBar = { FloatingNavPill( modifier = Modifier .padding(50.dp)
+            .fillMaxWidth() .height(56.dp), selectedIndex = uiState.currentTab, onSelectionChange =
+            { tileDashboardViewModel.onTabChange(it) weakHaptic() }, items = navigationItems, colors
+            = FloatingNavPillDefaults.colors( floatingContainerColor = MaterialTheme.colorScheme.run
+            { if (isDarkMode) surfaceContainerHigh else surfaceContainerLowest } ) ) }, content = {
+            innerPadding, topBarScrollBehavior -&gt; Box(modifier = Modifier.fillMaxSize()) { val
+            tilesListState = rememberLazyListState() val logsListState = rememberLazyListState()
+            AnimatedContent( targetState = uiState.currentTab, transitionSpec = { if (targetState
+            &gt; initialState) { slideFadeInFromRight() togetherWith slideFadeOutToLeft() } else {
+            slideFadeInFromLeft() togetherWith slideFadeOutToRight() } }, label = "tile_tabs" ) {
+            tab -&gt; when (tab) { TileScreenTabs.TILES -&gt; { TilesContent( listState =
+            tilesListState, innerPadding = innerPadding, topBarScrollBehavior =
+            topBarScrollBehavior, uiState = uiState, hasNotificationAccess = hasNotificationAccess,
+            onClickNotificationButton = onClickNotificationButton, ) } TileScreenTabs.LOGS -&gt; {
+            LogsContent( listState = logsListState, innerPadding = innerPadding,
+            topBarScrollBehavior = topBarScrollBehavior, uiState = uiState, onFilterChange =
+            tileDashboardViewModel::onFilterChange ) } } } if (uiState.logs.isEmpty() &amp;&amp;
+            uiState.currentTab == TileScreenTabs.LOGS) { NoLogsUi(modifier =
+            Modifier.align(Alignment.Center)) } } })
+        </ID>
+        <ID>CyclomaticComplexMethod:CreateQsTileTool.kt$CreateQsTileTool$override suspend fun
+            execute(args: KJsonObject?): String
+        </ID>
+        <ID>CyclomaticComplexMethod:ShizukuExecutor.kt$ShizukuExecutor$@Suppress("DEPRECATION")
+            override suspend fun execute(command: String): CommandResult
+        </ID>
+        <ID>CyclomaticComplexMethod:TileBackupProvider.kt$TileBackupProvider$override suspend fun
+            restoreData(data: JsonElement?, legacyData: (String) -&gt; JsonElement?)
+        </ID>
+        <ID>CyclomaticComplexMethod:TileDatastore.kt$TileDatastore$private fun buildTileConfig( id:
+            Int, prefs: Preferences, ): TileConfig?
+        </ID>
+        <ID>CyclomaticComplexMethod:UpdateQsTileTool.kt$UpdateQsTileTool$override suspend fun
+            execute(args: KJsonObject?): String
+        </ID>
+        <ID>Filename:TIleLog.kt$in.hridayan.ashell.qstiles.domain.model.TIleLog.kt</ID>
+        <ID>
+            Filename:TileDashBoardViewModel.kt$in.hridayan.ashell.qstiles.presentation.viewmodel.TileDashBoardViewModel.kt
+        </ID>
+        <ID>Filename:TileLogState.kt$in.hridayan.ashell.qstiles.presentation.model.TileLogState.kt
+        </ID>
+        <ID>FinalNewline:ExampleUnitTest.kt$in.hridayan.ashell.qstiles.ExampleUnitTest.kt</ID>
+        <ID>ImportOrdering:CreateQsTileTool.kt$import
+            `in`.hridayan.ashell.core.common.domain.model.TileExecutionMode import
+            `in`.hridayan.ashell.core.common.domain.model.ai.AiTool import
+            `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema import
+            `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaProperty import
+            `in`.hridayan.ashell.qstiles.data.provider.TileComponentManager import
+            `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider import
+            `in`.hridayan.ashell.qstiles.domain.model.TileActiveState import
+            `in`.hridayan.ashell.qstiles.domain.model.TileConfig import
+            `in`.hridayan.ashell.qstiles.domain.repository.TileRepository import
+            androidx.compose.ui.text.input.TextFieldValue import kotlinx.coroutines.flow.first
+            import kotlinx.serialization.json.JsonObject as KJsonObject import
+            kotlinx.serialization.json.jsonPrimitive import javax.inject.Inject import
+            javax.inject.Singleton
+        </ID>
+        <ID>ImportOrdering:CreateTileScreen.kt$import androidx.compose.animation.AnimatedVisibility
+            import androidx.compose.animation.animateContentSize import
+            androidx.compose.animation.expandVertically import androidx.compose.animation.fadeIn
+            import androidx.compose.animation.fadeOut import
+            androidx.compose.animation.shrinkVertically import
+            androidx.compose.foundation.background import androidx.compose.foundation.basicMarquee
+            import androidx.compose.foundation.clickable import
+            androidx.compose.foundation.interaction.MutableInteractionSource import
+            androidx.compose.foundation.layout.Arrangement import
+            androidx.compose.foundation.layout.Box import androidx.compose.foundation.layout.Column
+            import androidx.compose.foundation.layout.FlowRow import
+            androidx.compose.foundation.layout.Row import androidx.compose.foundation.layout.Spacer
+            import androidx.compose.foundation.layout.fillMaxHeight import
+            androidx.compose.foundation.layout.fillMaxSize import
+            androidx.compose.foundation.layout.fillMaxWidth import
+            androidx.compose.foundation.layout.height import
+            androidx.compose.foundation.layout.heightIn import
+            androidx.compose.foundation.layout.padding import
+            androidx.compose.foundation.layout.size import androidx.compose.foundation.layout.width
+            import androidx.compose.foundation.layout.widthIn import
+            androidx.compose.foundation.lazy.LazyColumn import
+            androidx.compose.foundation.lazy.rememberLazyListState import
+            androidx.compose.foundation.shape.CircleShape import
+            androidx.compose.foundation.shape.RoundedCornerShape import
+            androidx.compose.foundation.text.BasicTextField import
+            androidx.compose.foundation.text.KeyboardOptions import
+            androidx.compose.material3.Button import androidx.compose.material3.ButtonDefaults
+            import androidx.compose.material3.ButtonGroupDefaults import
+            androidx.compose.material3.Card import androidx.compose.material3.CardDefaults import
+            androidx.compose.material3.ExperimentalMaterial3Api import
+            androidx.compose.material3.ExperimentalMaterial3ExpressiveApi import
+            androidx.compose.material3.FloatingToolbarDefaults import
+            androidx.compose.material3.HorizontalFloatingToolbar import
+            androidx.compose.material3.Icon import androidx.compose.material3.LocalTextStyle import
+            androidx.compose.material3.MaterialTheme import androidx.compose.material3.Text import
+            androidx.compose.material3.ToggleButton import androidx.compose.runtime.Composable
+            import androidx.compose.runtime.collectAsState import androidx.compose.runtime.getValue
+            import androidx.compose.runtime.mutableStateOf import androidx.compose.runtime.remember
+            import androidx.compose.runtime.saveable.rememberSaveable import
+            androidx.compose.runtime.setValue import androidx.compose.ui.Alignment import
+            androidx.compose.ui.Modifier import androidx.compose.ui.draw.clip import
+            androidx.compose.ui.graphics.SolidColor import
+            androidx.compose.ui.graphics.painter.Painter import
+            androidx.compose.ui.hapticfeedback.HapticFeedbackType import
+            androidx.compose.ui.input.nestedscroll.nestedScroll import
+            androidx.compose.ui.platform.LocalContext import
+            androidx.compose.ui.platform.LocalResources import
+            androidx.compose.ui.res.painterResource import androidx.compose.ui.res.stringResource
+            import androidx.compose.ui.text.font.FontFamily import
+            androidx.compose.ui.text.input.ImeAction import
+            androidx.compose.ui.text.input.KeyboardType import
+            androidx.compose.ui.text.input.TextFieldValue import
+            androidx.compose.ui.text.style.TextAlign import androidx.compose.ui.unit.Dp import
+            androidx.compose.ui.unit.dp import androidx.compose.ui.unit.sp import
+            androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel import
+            `in`.hridayan.ashell.core.common.LocalDarkMode import
+            `in`.hridayan.ashell.core.common.LocalWeakHaptic import
+            `in`.hridayan.ashell.core.navigation.LocalNavController import
+            `in`.hridayan.ashell.core.navigation.navigateBack import
+            `in`.hridayan.ashell.core.presentation.components.card.CustomCard import
+            `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic import
+            `in`.hridayan.ashell.core.presentation.components.modifier.dashedBorder import
+            `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold import
+            `in`.hridayan.ashell.core.presentation.components.switch.AppSwitch import
+            `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText import
+            `in`.hridayan.ashell.core.presentation.theme.CustomCardShape import
+            `in`.hridayan.ashell.core.resources.R import
+            `in`.hridayan.ashell.core.presentation.provider.ButtonGroupOptionsProvider import
+            `in`.hridayan.ashell.core.utils.showToast import
+            `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider import
+            `in`.hridayan.ashell.qstiles.presentation.components.dialog.DeleteTileConfirmationDialog
+            import `in`.hridayan.ashell.qstiles.presentation.components.dialog.IconChooserDialog
+            import `in`.hridayan.ashell.qstiles.presentation.viewmodel.CreateTileViewModel
+        </ID>
+        <ID>ImportOrdering:ExampleUnitTest.kt$import org.junit.Test import org.junit.Assert.*</ID>
+        <ID>ImportOrdering:GetQsTileSlotsTool.kt$import
+            `in`.hridayan.ashell.core.common.domain.model.TileExecutionMode import
+            `in`.hridayan.ashell.core.common.domain.model.ai.AiTool import
+            `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema import
+            `in`.hridayan.ashell.qstiles.domain.repository.TileRepository import
+            kotlinx.coroutines.flow.first import kotlinx.serialization.json.JsonObject as
+            KJsonObject import javax.inject.Inject import javax.inject.Singleton
+        </ID>
+        <ID>ImportOrdering:QsTileToolModule.kt$import dagger.Binds import dagger.Module import
+            dagger.hilt.InstallIn import dagger.hilt.components.SingletonComponent import
+            dagger.multibindings.IntoSet import `in`.hridayan.ashell.qstiles.tool.CreateQsTileTool
+            import `in`.hridayan.ashell.qstiles.tool.GetQsTileSlotsTool import
+            `in`.hridayan.ashell.qstiles.tool.UpdateQsTileTool import
+            `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
+        </ID>
+        <ID>ImportOrdering:TileIconProvider.kt$import `in`.hridayan.ashell.core.resources.R import
+            `in`.hridayan.ashell.qstiles.data.model.TileIcon
+        </ID>
+        <ID>ImportOrdering:UpdateQsTileTool.kt$import
+            `in`.hridayan.ashell.core.common.domain.model.TileExecutionMode import
+            `in`.hridayan.ashell.core.common.domain.model.ai.AiTool import
+            `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema import
+            `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaProperty import
+            `in`.hridayan.ashell.qstiles.data.provider.TileComponentManager import
+            `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider import
+            `in`.hridayan.ashell.qstiles.domain.repository.TileRepository import
+            androidx.compose.ui.text.input.TextFieldValue import
+            kotlinx.serialization.json.JsonObject as KJsonObject import
+            kotlinx.serialization.json.jsonPrimitive import javax.inject.Inject import
+            javax.inject.Singleton
+        </ID>
+        <ID>Indentation:CreateTileScreen.kt$</ID>
+        <ID>Indentation:CreateTileViewModel.kt$CreateTileViewModel$</ID>
+        <ID>LongMethod:CreateQsTileTool.kt$CreateQsTileTool$override suspend fun execute(args:
+            KJsonObject?): String
+        </ID>
+        <ID>LongMethod:GetQsTileSlotsTool.kt$GetQsTileSlotsTool$override suspend fun execute(args:
+            KJsonObject?): String
+        </ID>
+        <ID>LongMethod:RootExecutor.kt$RootExecutor$override suspend fun execute(command: String):
+            CommandResult
+        </ID>
+        <ID>LongMethod:ShizukuExecutor.kt$ShizukuExecutor$@Suppress("DEPRECATION") override suspend
+            fun execute(command: String): CommandResult
+        </ID>
+        <ID>LongMethod:TileBackupProvider.kt$TileBackupProvider$override suspend fun
+            restoreData(data: JsonElement?, legacyData: (String) -&gt; JsonElement?)
+        </ID>
+        <ID>LongMethod:TileExecutionManager.kt$TileExecutionManager$suspend fun execute(tile:
+            TileConfig): Boolean
+        </ID>
+        <ID>LongMethod:TileNotificationHelper.kt$TileNotificationHelper$fun notifyFailure( tileName:
+            String, errorType: TileErrorType, errorMessage: String, notificationId: Int )
+        </ID>
+        <ID>LongMethod:UpdateQsTileTool.kt$UpdateQsTileTool$override suspend fun execute(args:
+            KJsonObject?): String
+        </ID>
+        <ID>MagicNumber:CreateTileViewModel.kt$CreateTileViewModel$250</ID>
+        <ID>MatchingDeclarationName:TIleLog.kt$TileLog</ID>
+        <ID>MatchingDeclarationName:TileDashBoardScreen.kt$TileScreenTabs</ID>
+        <ID>MatchingDeclarationName:TileDashBoardViewModel.kt$TileDashboardViewModel : ViewModel
+        </ID>
+        <ID>MatchingDeclarationName:TileLogState.kt$TileLogsState</ID>
+        <ID>MaxLineLength:CreateQsTileTool.kt$CreateQsTileTool$description = "Icon identifier for
+            the tile. Valid options: ${TileIconProvider.icons.joinToString { it.id }}"
+        </ID>
+        <ID>MaxLineLength:CreateQsTileTool.kt$CreateQsTileTool$description = "If is_toggleable is
+            true, the shell command to run when the tile is ALREADY OFF (i.e. to turn the feature
+            ON). Default empty string."
+        </ID>
+        <ID>MaxLineLength:CreateQsTileTool.kt$CreateQsTileTool$description = "Optional target slot
+            ID (1 to 10). If omitted or occupied, the first available empty slot is used."
+        </ID>
+        <ID>MaxLineLength:CreateQsTileTool.kt$CreateQsTileTool$description = "The exact shell
+            command to run when the tile is ALREADY ON (i.e. to turn the feature OFF). For simple
+            tap tiles, this is the action command."
+        </ID>
+        <ID>MaxLineLength:CreateQsTileTool.kt$CreateQsTileTool$description = "Whether the tile
+            represents an on/off toggle (true) or a one-shot tap action (false). Default false."
+        </ID>
+        <ID>MaxLineLength:CreateQsTileTool.kt$CreateQsTileTool$override val description: String =
+            "Create a custom Quick Settings (QS) tile for the user in an available slot (1-10).
+            Before calling this tool: 1) ALWAYS use get_qs_tile_slots to check which slot is empty
+            if you haven't yet, 2) If the user didn't specify an execution mode in their request,
+            ask the user which execution mode they prefer (0 for Shizuku [default], 1 for Root), and
+            3) Decide whether the tile should be a toggle (on/off switch) or a simple tap action
+            based on the command/purpose."
+        </ID>
+        <ID>MaxLineLength:CreateQsTileTool.kt$CreateQsTileTool$return "Failed to create QS tile: All
+            10 Quick Settings tile slots (1 to 10) are currently occupied. Please delete an existing
+            tile before creating a new one."
+        </ID>
+        <ID>MaxLineLength:CreateQsTileTool.kt$CreateQsTileTool$return "Successfully created QS tile
+            '$title' in Slot $tileId (Slot Index $slotIndex) using $modeStr mode ($typeStr). System
+            prompt dialog triggered to add Tile $tileId to Quick Settings panel. Tell the user which
+            slot number ($tileId) it was created in."
+        </ID>
+        <ID>MaxLineLength:CreateQsTileTool.kt$CreateQsTileTool$val typeStr = if (isToggleable)
+            "Toggleable (ON: '$command', OFF: '$inactiveCmd')" else "Tap Action ('$command')"
+        </ID>
+        <ID>MaxLineLength:CreateTileScreen.kt$MaterialTheme.colorScheme.run { if (isIconSelected)
+            primary else surfaceVariant }
+        </ID>
+        <ID>MaxLineLength:CreateTileScreen.kt$executionMethodOptions.lastIndex -&gt;
+            ButtonGroupDefaults.connectedTrailingButtonShapes()
+        </ID>
+        <ID>MaxLineLength:GetQsTileSlotsTool.kt$GetQsTileSlotsTool$"Toggle (Cmd to turn OFF:
+            '${tile.activeState.activeCommand.text}', Cmd to turn ON:
+            '${tile.activeState.inactiveCommand.text}')"
+        </ID>
+        <ID>MaxLineLength:GetQsTileSlotsTool.kt$GetQsTileSlotsTool$override val description: String
+            = "Query the current status of all 10 Quick Settings (QS) tile slots (1 to 10), showing
+            which slots are available (empty) and which slots are occupied by existing custom tiles.
+            ALWAYS call this before creating a new tile to see if there is an empty slot and know
+            which slot number to use."
+        </ID>
+        <ID>MaxLineLength:TileDashBoardScreen.kt$containerColor = if (isActive)
+            MaterialTheme.colorScheme.primaryContainer else
+            MaterialTheme.colorScheme.surfaceContainer
+        </ID>
+        <ID>MaxLineLength:TileDashBoardScreen.kt$contentColor = if (isActive)
+            MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface
+        </ID>
+        <ID>MaxLineLength:TileDashBoardScreen.kt$tint = if (isActive)
+            MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.primary
+        </ID>
+        <ID>MaxLineLength:UpdateQsTileTool.kt$UpdateQsTileTool$description = "Optional. New icon
+            identifier. Valid options: ${TileIconProvider.icons.joinToString { it.id }}"
+        </ID>
+        <ID>MaxLineLength:UpdateQsTileTool.kt$UpdateQsTileTool$description = "Optional. New shell
+            command to run when the tile is ALREADY ON (to turn it OFF) or for tap actions."
+        </ID>
+        <ID>MaxLineLength:UpdateQsTileTool.kt$UpdateQsTileTool$override val description: String =
+            "Update an existing custom Quick Settings (QS) tile. You only need to provide the
+            slot/id of the tile to update, and optionally any properties you want to change. If a
+            property is omitted, its current value is preserved."
+        </ID>
+        <ID>MaxLineLength:UpdateQsTileTool.kt$UpdateQsTileTool$val activeSubtitle =
+            args["active_subtitle"]?.jsonPrimitive?.content ?:
+            existingTile.activeState.activeTileSubtitle.text
+        </ID>
+        <ID>MaxLineLength:UpdateQsTileTool.kt$UpdateQsTileTool$val inactiveCmd =
+            args["inactive_command"]?.jsonPrimitive?.content ?:
+            existingTile.activeState.inactiveCommand.text
+        </ID>
+        <ID>MaxLineLength:UpdateQsTileTool.kt$UpdateQsTileTool$val inactiveSubtitle =
+            args["inactive_subtitle"]?.jsonPrimitive?.content ?:
+            existingTile.activeState.inactiveTileSubtitle.text
+        </ID>
+        <ID>MaxLineLength:UpdateQsTileTool.kt$UpdateQsTileTool$val isToggleable =
+            args["is_toggleable"]?.jsonPrimitive?.content?.toBooleanStrictOrNull() ?:
+            existingTile.activeState.isToggleable
+        </ID>
+        <ID>MaximumLineLength:CreateQsTileTool.kt$CreateQsTileTool$</ID>
+        <ID>MaximumLineLength:CreateTileScreen.kt$</ID>
+        <ID>MaximumLineLength:GetQsTileSlotsTool.kt$GetQsTileSlotsTool$</ID>
+        <ID>MaximumLineLength:TileDashBoardScreen.kt$</ID>
+        <ID>MaximumLineLength:UpdateQsTileTool.kt$UpdateQsTileTool$</ID>
+        <ID>MultiLineIfElse:CreateTileScreen.kt$"${activeSubtitle.text} /
+            ${inactiveSubtitle.text}"
+        </ID>
+        <ID>MultiLineIfElse:CreateTileScreen.kt$MaterialTheme.colorScheme.onPrimary</ID>
+        <ID>MultiLineIfElse:CreateTileScreen.kt$MaterialTheme.colorScheme.onSurface</ID>
+        <ID>MultiLineIfElse:CreateTileScreen.kt$MaterialTheme.colorScheme.outline</ID>
+        <ID>MultiLineIfElse:CreateTileScreen.kt$MaterialTheme.colorScheme.primary</ID>
+        <ID>MultiLineIfElse:CreateTileScreen.kt$createTileViewModel.onActiveSubtitleChange(it)</ID>
+        <ID>MultiLineIfElse:CreateTileScreen.kt$createTileViewModel.onInactiveSubtitleChange(it)
+        </ID>
+        <ID>MultiLineIfElse:CreateTileScreen.kt$onPrimaryContainer.copy(alpha = 0.7f)</ID>
+        <ID>MultiLineIfElse:CreateTileScreen.kt$onSurface.copy(alpha = 0.5f)</ID>
+        <ID>MultiLineIfElse:CreateTileScreen.kt$painterResource(R.drawable.ic_add)</ID>
+        <ID>MultiLineIfElse:CreateTileScreen.kt$painterResource(selectedIcon.resId)</ID>
+        <ID>MultiLineIfElse:CreateTileScreen.kt$stringResource(R.string.adb_command)</ID>
+        <ID>MultiLineIfElse:CreateTileScreen.kt$stringResource(R.string.adb_command_on_state)</ID>
+        <ID>MultiLineIfElse:CreateTileScreen.kt$stringResource(R.string.create_new_tile)</ID>
+        <ID>MultiLineIfElse:CreateTileScreen.kt$stringResource(R.string.edit_tile)</ID>
+        <ID>MultiLineIfElse:CreateTileScreen.kt$stringResource(R.string.subtitle)</ID>
+        <ID>MultiLineIfElse:CreateTileScreen.kt$stringResource(R.string.subtitle_on_state)</ID>
+        <ID>
+            MultiLineIfElse:CreateTileViewModel.kt$CreateTileViewModel$context.getString(R.string.duplicate_tile_name_error_msg)
+        </ID>
+        <ID>MultiLineIfElse:CreateTileViewModel.kt$CreateTileViewModel$null</ID>
+        <ID>
+            MultiLineIfElse:TileDashBoardScreen.kt$MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha
+            = 0.75f)
+        </ID>
+        <ID>MultiLineIfElse:TileDashBoardScreen.kt$MaterialTheme.colorScheme.onSurface.copy(alpha =
+            0.7f)
+        </ID>
+        <ID>MultiLineIfElse:TileDashBoardScreen.kt$UrlUtils.openUrl( url =
+            UrlConst.URL_SHIZUKU_SITE, context = context )
+        </ID>
+        <ID>MultiLineIfElse:TileDashBoardScreen.kt$context.launchApp(SHIZUKU_PACKAGE_NAME)</ID>
+        <ID>MultiLineIfElse:TileDashBoardScreen.kt$false</ID>
+        <ID>MultiLineIfElse:TileDashBoardScreen.kt$painterResource( R.drawable.ic_adb )</ID>
+        <ID>MultiLineIfElse:TileDashBoardScreen.kt$painterResource(tileIcon.resId)</ID>
+        <ID>MultiLineIfElse:TileDashBoardScreen.kt$stringResource(R.string.failed)</ID>
+        <ID>MultiLineIfElse:TileDashBoardScreen.kt$stringResource(R.string.qs_tiles)</ID>
+        <ID>MultiLineIfElse:TileDashBoardScreen.kt$stringResource(R.string.root)</ID>
+        <ID>MultiLineIfElse:TileDashBoardScreen.kt$stringResource(R.string.shizuku)</ID>
+        <ID>MultiLineIfElse:TileDashBoardScreen.kt$stringResource(R.string.success)</ID>
+        <ID>MultiLineIfElse:TileDashBoardScreen.kt$stringResource(R.string.tile_logs)</ID>
+        <ID>MultiLineIfElse:TileDashBoardScreen.kt$surfaceContainerLow</ID>
+        <ID>MultiLineIfElse:TileDashBoardScreen.kt$surfaceContainerLow.blend( errorContainer, 0.3f
+            )
+        </ID>
+        <ID>NestedBlockDepth:TileBackupProvider.kt$TileBackupProvider$override suspend fun
+            restoreData(data: JsonElement?, legacyData: (String) -&gt; JsonElement?)
+        </ID>
+        <ID>NewLineAtEndOfFile:ExampleUnitTest.kt$in.hridayan.ashell.qstiles.ExampleUnitTest.kt</ID>
+        <ID>NoConsecutiveBlankLines:CreateTileScreen.kt$</ID>
+        <ID>NoConsecutiveBlankLines:IconChooserDialog.kt$</ID>
+        <ID>NoConsecutiveBlankLines:RootExecutor.kt$</ID>
+        <ID>NoConsecutiveBlankLines:TileComponentManager.kt$</ID>
+        <ID>NoConsecutiveBlankLines:TileIconProvider.kt$</ID>
+        <ID>NoEmptyFirstLineInMethodBlock:CreateTileScreen.kt$</ID>
+        <ID>NoEmptyFirstLineInMethodBlock:CreateTileUseCase.kt$CreateTileUseCase$</ID>
+        <ID>NoEmptyFirstLineInMethodBlock:DeleteTileConfirmationDialog.kt$</ID>
+        <ID>NoEmptyFirstLineInMethodBlock:IconChooserDialog.kt$</ID>
+        <ID>NoEmptyFirstLineInMethodBlock:TileDashBoardScreen.kt$</ID>
+        <ID>NoEmptyFirstLineInMethodBlock:TileIconScorer.kt$TileIconScorer$</ID>
+        <ID>NoTrailingSpaces:QsTileToolModule.kt$QsTileToolModule$</ID>
+        <ID>NoTrailingSpaces:UpdateQsTileTool.kt$UpdateQsTileTool$</ID>
+        <ID>NoWildcardImports:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
+        <ID>PackageName:BaseTileService.kt$package `in`.hridayan.ashell.qstiles.service</ID>
+        <ID>PackageName:CommandExecutor.kt$package `in`.hridayan.ashell.qstiles.domain.executor</ID>
+        <ID>PackageName:CommandResult.kt$package `in`.hridayan.ashell.qstiles.domain.executor</ID>
+        <ID>PackageName:CreateNewTileScreenUiState.kt$package
+            `in`.hridayan.ashell.qstiles.presentation.model
+        </ID>
+        <ID>PackageName:CreateQsTileTool.kt$package `in`.hridayan.ashell.qstiles.tool</ID>
+        <ID>PackageName:CreateTileScreen.kt$package
+            `in`.hridayan.ashell.qstiles.presentation.screen
+        </ID>
+        <ID>PackageName:CreateTileUseCase.kt$package `in`.hridayan.ashell.qstiles.domain.usecase
+        </ID>
+        <ID>PackageName:CreateTileViewModel.kt$package
+            `in`.hridayan.ashell.qstiles.presentation.viewmodel
+        </ID>
+        <ID>PackageName:DeleteTileConfirmationDialog.kt$package
+            `in`.hridayan.ashell.qstiles.presentation.components.dialog
+        </ID>
+        <ID>PackageName:ExampleUnitTest.kt$package `in`.hridayan.ashell.qstiles</ID>
+        <ID>PackageName:ExecuteTileUseCase.kt$package `in`.hridayan.ashell.qstiles.domain.usecase
+        </ID>
+        <ID>PackageName:GetQsTileSlotsTool.kt$package `in`.hridayan.ashell.qstiles.tool</ID>
+        <ID>PackageName:GetSuggestedIconsUseCase.kt$package
+            `in`.hridayan.ashell.qstiles.domain.usecase
+        </ID>
+        <ID>PackageName:IconChooserDialog.kt$package
+            `in`.hridayan.ashell.qstiles.presentation.components.dialog
+        </ID>
+        <ID>PackageName:QsTileToolModule.kt$package `in`.hridayan.ashell.qstiles.di</ID>
+        <ID>PackageName:RootExecutor.kt$package `in`.hridayan.ashell.qstiles.data.executor</ID>
+        <ID>PackageName:RunningTileState.kt$package `in`.hridayan.ashell.qstiles.domain.model</ID>
+        <ID>PackageName:ShizukuExecutor.kt$package `in`.hridayan.ashell.qstiles.data.executor</ID>
+        <ID>PackageName:TIleLog.kt$package `in`.hridayan.ashell.qstiles.domain.model</ID>
+        <ID>PackageName:Tile01Service.kt$package `in`.hridayan.ashell.qstiles.service.tiles</ID>
+        <ID>PackageName:Tile02Service.kt$package `in`.hridayan.ashell.qstiles.service.tiles</ID>
+        <ID>PackageName:Tile03Service.kt$package `in`.hridayan.ashell.qstiles.service.tiles</ID>
+        <ID>PackageName:Tile04Service.kt$package `in`.hridayan.ashell.qstiles.service.tiles</ID>
+        <ID>PackageName:Tile05Service.kt$package `in`.hridayan.ashell.qstiles.service.tiles</ID>
+        <ID>PackageName:Tile06Service.kt$package `in`.hridayan.ashell.qstiles.service.tiles</ID>
+        <ID>PackageName:Tile07Service.kt$package `in`.hridayan.ashell.qstiles.service.tiles</ID>
+        <ID>PackageName:Tile08Service.kt$package `in`.hridayan.ashell.qstiles.service.tiles</ID>
+        <ID>PackageName:Tile09Service.kt$package `in`.hridayan.ashell.qstiles.service.tiles</ID>
+        <ID>PackageName:Tile10Service.kt$package `in`.hridayan.ashell.qstiles.service.tiles</ID>
+        <ID>PackageName:TileActiveState.kt$package `in`.hridayan.ashell.qstiles.domain.model</ID>
+        <ID>PackageName:TileBackupModule.kt$package `in`.hridayan.ashell.qstiles.di</ID>
+        <ID>PackageName:TileBackupProvider.kt$package `in`.hridayan.ashell.qstiles.data.backup</ID>
+        <ID>PackageName:TileCommandKeywordProcessor.kt$package
+            `in`.hridayan.ashell.qstiles.domain.processor
+        </ID>
+        <ID>PackageName:TileComponentManager.kt$package `in`.hridayan.ashell.qstiles.data.provider
+        </ID>
+        <ID>PackageName:TileConfig.kt$package `in`.hridayan.ashell.qstiles.domain.model</ID>
+        <ID>PackageName:TileDashBoardScreen.kt$package
+            `in`.hridayan.ashell.qstiles.presentation.screen
+        </ID>
+        <ID>PackageName:TileDashBoardScreenUiState.kt$package
+            `in`.hridayan.ashell.qstiles.presentation.model
+        </ID>
+        <ID>PackageName:TileDashBoardViewModel.kt$package
+            `in`.hridayan.ashell.qstiles.presentation.viewmodel
+        </ID>
+        <ID>PackageName:TileDatastore.kt$package `in`.hridayan.ashell.qstiles.data.datastore</ID>
+        <ID>PackageName:TileDatastoreProvider.kt$package
+            `in`.hridayan.ashell.qstiles.data.provider
+        </ID>
+        <ID>PackageName:TileErrorType.kt$package `in`.hridayan.ashell.qstiles.domain.model</ID>
+        <ID>PackageName:TileExecutionManager.kt$package
+            `in`.hridayan.ashell.qstiles.domain.executor
+        </ID>
+        <ID>PackageName:TileIcon.kt$package `in`.hridayan.ashell.qstiles.data.model</ID>
+        <ID>PackageName:TileIconMatcher.kt$package `in`.hridayan.ashell.qstiles.domain.processor
+        </ID>
+        <ID>PackageName:TileIconProvider.kt$package `in`.hridayan.ashell.qstiles.data.provider</ID>
+        <ID>PackageName:TileIconScorer.kt$package `in`.hridayan.ashell.qstiles.domain.scorer</ID>
+        <ID>PackageName:TileLogDao.kt$package `in`.hridayan.ashell.qstiles.data.dao</ID>
+        <ID>PackageName:TileLogDatabase.kt$package `in`.hridayan.ashell.qstiles.data.database</ID>
+        <ID>PackageName:TileLogEntity.kt$package `in`.hridayan.ashell.qstiles.data.model</ID>
+        <ID>PackageName:TileLogMapper.kt$package `in`.hridayan.ashell.qstiles.data.mapper</ID>
+        <ID>PackageName:TileLogModule.kt$package `in`.hridayan.ashell.qstiles.di</ID>
+        <ID>PackageName:TileLogRepository.kt$package
+            `in`.hridayan.ashell.qstiles.domain.repository
+        </ID>
+        <ID>PackageName:TileLogRepositoryImpl.kt$package
+            `in`.hridayan.ashell.qstiles.data.repository
+        </ID>
+        <ID>PackageName:TileLogState.kt$package `in`.hridayan.ashell.qstiles.presentation.model</ID>
+        <ID>PackageName:TileLogsViewModel.kt$package
+            `in`.hridayan.ashell.qstiles.presentation.viewmodel
+        </ID>
+        <ID>PackageName:TileModule.kt$package `in`.hridayan.ashell.qstiles.di</ID>
+        <ID>PackageName:TileNotificationHelper.kt$package
+            `in`.hridayan.ashell.qstiles.data.provider
+        </ID>
+        <ID>PackageName:TileRepository.kt$package `in`.hridayan.ashell.qstiles.domain.repository
+        </ID>
+        <ID>PackageName:TileRepositoryImpl.kt$package `in`.hridayan.ashell.qstiles.data.repository
+        </ID>
+        <ID>PackageName:UpdateQsTileTool.kt$package `in`.hridayan.ashell.qstiles.tool</ID>
+        <ID>PrintStackTrace:TileBackupProvider.kt$TileBackupProvider$e</ID>
+        <ID>SwallowedException:TileComponentManager.kt$TileComponentManager$e: Exception</ID>
+        <ID>TooManyFunctions:CreateTileViewModel.kt$CreateTileViewModel : ViewModel</ID>
+        <ID>TooManyFunctions:TileDatastore.kt$TileDatastore</ID>
+        <ID>UnusedParameter:CreateTileScreen.kt$tileId: Int</ID>
+        <ID>UnusedPrivateProperty:BaseTileService.kt$BaseTileService$val intendedConfig = if
+            (config.activeState.isToggleable) { config.copy(activeState =
+            config.activeState.copy(isActive = !config.activeState.isActive)) } else { config }
+        </ID>
+        <ID>UnusedPrivateProperty:CreateTileScreen.kt$val floatingToolbarContainerColor =
+            FloatingToolbarDefaults.vibrantFloatingToolbarColors().toolbarContainerColor
+        </ID>
+        <ID>WildcardImport:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
+        <ID>Wrapping:BaseTileService.kt$BaseTileService$;</ID>
+        <ID>Wrapping:CreateTileScreen.kt$(</ID>
+        <ID>Wrapping:TileDashBoardScreen.kt$(</ID>
+        <ID>Wrapping:TileDatastore.kt$TileDatastore$[</ID>
+    </CurrentIssues>
+</SmellBaseline>

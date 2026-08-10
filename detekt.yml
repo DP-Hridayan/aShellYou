@@ -5,19 +5,7 @@ build:
 config:
   validation: true
   warningsAsErrors: true
-  excludes:
-    - "**/build/**"
-    - "**/.gradle/**"
-    - "**/generated/**"
-    - "**/.idea/**"
-    - "**/.agents/**"
-    - "**/*.kts"
-    - "**/assets/**"
-    - "**/docs/**"
-    - "**/fastlane/**"
-    - "**/gradle/**"
-    - "**/test/**"
-    - "**/androidTest/**"
+  excludes: ".*/build/.*,.*/\\.gradle/.*,.*/generated/.*,.*/\\.idea/.*,.*/\\.agents/.*,.*\\.kts,.*/assets/.*,.*/docs/.*,.*/fastlane/.*,.*/gradle/.*,.*/test/.*,.*/androidTest/.*"
 
 complexity:
   active: true
