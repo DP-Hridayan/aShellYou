@@ -141,10 +141,20 @@ class ShellCommandExecutor {
             return@flow
         }
 
+        val envArray = arrayOf(
+            "PATH=/product/bin:/apex/com.android.runtime/bin:/apex/com.android.art/bin:/system_ext/bin:/system/bin:/system/xbin:/odm/bin:/vendor/bin"
+        )
+
+        val safeDir = if (currentDir?.startsWith("/storage/emulated/") == true) {
+            null
+        } else {
+            currentDir
+        }
+
         shizukuProcess = Shizuku.newProcess(
             arrayOf("sh", "-c", actualCommand),
-            null,
-            currentDir
+            envArray,
+            safeDir
         )
 
         shizukuProcess?.let {
