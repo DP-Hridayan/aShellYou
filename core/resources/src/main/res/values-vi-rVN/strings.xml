@@ -202,7 +202,7 @@
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Không tìm thấy lệnh!</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">Nhập lệnh ADB</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">Các lệnh</string>
-    <string name="console" comment="Tab label for the interactive fastboot command console">Console</string>
+    <string name="console" comment="Tab label for the interactive fastboot command console">Bảng điều khiển</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Chọn thư mục lưu</string>
     <string name="confirm">Xác nhận</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Cảnh báo! Hành động này không thể hoàn tác.\nBạn có chắc chắn muốn xóa tất cả dấu trang không?</string>
@@ -243,7 +243,7 @@
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">Cắt vào bộ nhớ tạm</string>
     <string name="daily" comment="Option in backup scheduler frequency selection">Hằng ngày</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">Giao diện tối</string>
-    <string name="dashboard" comment="Main screen header or navigation drawer item">Bảng điều khiển</string>
+    <string name="dashboard" comment="Main screen header or navigation drawer item">Bảng tổng quan</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Chỉ cơ sở dữ liệu</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Thư mục mặc định</string>
     <string name="default_language" comment="Setting preference label for selecting application language">Ngôn ngữ mặc định</string>
@@ -824,7 +824,7 @@
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku is not running or missing permissions">Shizuku chưa được cài đặt hoặc cấu hình đúng trên thiết bị của bạn</string>
     <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">Đưa thiết bị vào chế độ sideload thông qua recovery</string>
     <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Chế độ sideload — sẵn sàng</string>
-    <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">Khởi động vào recovery (giữ nút Giảm âm lượng + Nguồn, hoặc chạy: adb reboot recovery)</string>
+    <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">Vào Recovery: Nhấn giữ Nguồn + Tăng âm lượng (tùy dòng máy) hoặc chạy adb reboot recovery</string>
     <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">Chọn \"Apply update\" trong menu recovery</string>
     <string name="sideload_step_3" comment="Step 3 of ADB sideload guide: selecting ADB sideload mode in recovery">Chọn \"Apply from ADB\" (hoặc \"ADB Sideload\")</string>
     <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">Kết nối thiết bị của bạn qua cáp OTG, sau đó chọn tệp ZIP ở đây</string>
