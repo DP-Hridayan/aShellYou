@@ -2,10 +2,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="_import" comment="Action button to import theme or database file">Nhập</string>
     <string name="_new" comment="Badge or tab label for new items">Mới</string>
-    <string name="abort_command" comment="Toast warning shown when trying to perform an action while an ADB shell command is currently running">Hủy lệnh trước đó đã!</string>
+    <string name="abort_command" comment="Toast warning shown when trying to perform an action while an ADB shell command is currently running">Hủy lệnh đang chạy trước!</string>
     <string name="about">Giới thiệu</string>
     <string name="active" comment="Status indicator label for active ADB connection or active slot">Hoạt động</string>
-    <string name="active_slot" comment="Refers to the active A/B partition slot on a dual-slot Android device">Khe đang hoạt động</string>
+    <string name="active_slot" comment="Refers to the active A/B partition slot on a dual-slot Android device">Slot đang hoạt động</string>
     <string name="adb_agent" comment="Name of the AI chat assistant persona in aShellYou">ADB Agent</string>
     <string name="adb_command" comment="Input field label for typing an ADB shell command">Lệnh ADB</string>
     <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">Lệnh ADB (TẮT)</string>
@@ -33,18 +33,18 @@
     <string name="ai_chat_allow_run_command" comment="Dialog header asking user permission for AI assistant to execute a specific ADB command">Cho phép AI chạy lệnh:</string>
     <string name="ai_chat_always_allow" comment="Button in AI chat dialog to grant permanent permission for AI agent to run proposed command">Luôn cho phép</string>
     <string name="ai_chat_deny" comment="Button in AI chat dialog to reject proposed command execution">Từ chối</string>
-    <string name="ai_chat_new_chat" comment="Action button to start a fresh conversation session with AI ADB agent">Đoạn chat mới</string>
+    <string name="ai_chat_new_chat" comment="Action button to start a fresh conversation session with AI ADB agent">Phiên chat mới</string>
     <string name="ai_chat_pin" comment="Action button to pin an AI chat conversation to top of list">Ghim</string>
     <string name="ai_chat_running" comment="Prefix label in AI chat card indicating an ADB command is currently executing">Đang chạy: </string>
-    <string name="ai_chat_sessions" comment="Header title for stored AI chat conversations list">Phiên chat</string>
+    <string name="ai_chat_sessions" comment="Header title for stored AI chat conversations list">Các phiên chat</string>
     <string name="ai_chat_thoughts" comment="Collapsible section title showing step-by-step reasoning/thinking of AI model">Đang suy nghĩ…</string>
     <string name="ai_chat_unpin" comment="Action button to unpin a pinned AI chat session">Bỏ ghim</string>
-    <string name="ai_models" comment="Settings header for configuring AI models and API credentials">AI &amp; Mô hình</string>
+    <string name="ai_models" comment="Settings header for configuring AI models and API credentials">AI &amp; Các mô hình</string>
     <string name="ai_new_chat_welcome_msg" comment="Initial welcome message from AI ADB Agent when starting a new chat session">Xin chào, tôi có thể giúp gì cho bạn?</string>
     <string name="ai_prompt_suggestion_1" comment="Clickable suggestion chip prompt in AI chat for checking battery health">Kiểm tra tình trạng pin của tôi</string>
     <string name="ai_prompt_suggestion_2" comment="Clickable suggestion chip prompt in AI chat for listing installed package names">Liệt kê tất cả các gói đã cài đặt</string>
     <string name="ai_prompt_suggestion_3" comment="Clickable suggestion chip prompt in AI chat for creating Quick Settings tiles">Giúp tôi tạo một ô Cài đặt nhanh</string>
-    <string name="ai_session_search_hint" comment="Placeholder text in AI chat session search bar">Tìm đoạn chat…</string>
+    <string name="ai_session_search_hint" comment="Placeholder text in AI chat session search bar">Tìm phiên chat…</string>
     <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">Ví dụ: Thành phố neon Cyberpunk, chế độ tối, độ tương phản cao</string>
     <string name="all">Tất cả</string>
     <string name="all_data" comment="Option in backup selector to include full app database, settings, and chat history">Tất cả dữ liệu</string>
@@ -56,7 +56,7 @@
     <string name="api_key" comment="Label for AI provider API key text input field">Khoá API</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">Đã lưu khoá API</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">Yêu cầu khoá API</string>
-    <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">Cần có khoá API để sử dụng các tính năng AI. Vui lòng thêm khoá API của bạn trong Cài đặt -&gt; Mô hình đám mây.</string>
+    <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">Cần có khoá API để sử dụng các tính năng AI. Vui lòng thêm khoá API của bạn trong Cài đặt -&gt; Các mô hình đám mây.</string>
     <string name="app">Ứng dụng</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">Ứng dụng đã bị sập</string>
     <string name="app_tagline" comment="App subtitle/tagline shown on welcome and about screens">ADB ngay trong tầm tay bạn</string>
@@ -98,8 +98,8 @@
     <string name="behavior" comment="Settings category title for application behavior preferences">Hành vi</string>
     <string name="block" comment="Action button to block execution or permissions">Chặn</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">Đã đạt giới hạn dấu trang! Vui lòng xoá một số dấu trang để thêm mới</string>
-    <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">Dấu trang</string>
-    <string name="boot_device_into_fastboot" comment="Instructional prompt in Fastboot screen instructing user to boot target device into fastboot mode">Khởi động thiết bị mục tiêu vào chế độ fastboot và kết nối qua cáp OTG</string>
+    <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">Các dấu trang</string>
+    <string name="boot_device_into_fastboot" comment="Instructional prompt in Fastboot screen instructing user to boot target device into fastboot mode">Hãy khởi động thiết bị mục tiêu vào chế độ fastboot và kết nối qua cáp OTG</string>
     <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">Boot Image</string>
     <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">Khởi động vào Fastboot</string>
     <string name="bootloader" comment="Device info label or fastboot section title for bootloader mode">Bootloader</string>
@@ -128,22 +128,22 @@
     <string name="cloud_backup_failed" comment="Error toast when uploading backup file to Google Drive fails">Không thể tải bản sao lưu lên Google Drive</string>
     <string name="cloud_backup_google_drive" comment="Setting toggle title for automated cloud backups to Google Drive">Sao lưu đám mây (Google Drive)</string>
     <string name="cloud_backup_successful" comment="Toast message confirming successful backup upload to Google Drive">Bản sao lưu đã được tải lên Google Drive</string>
-    <string name="cloud_models" comment="Settings screen title for managing cloud-based LLM provider API keys">Mô hình đám mây</string>
+    <string name="cloud_models" comment="Settings screen title for managing cloud-based LLM provider API keys">Các mô hình đám mây</string>
     <string name="cloud_restore_failed" comment="Error toast when downloading/restoring backup from Google Drive fails">Khôi phục từ Google Drive thất bại</string>
     <string name="cloud_restore_successful" comment="Toast message confirming successful backup restoration from Google Drive">Đã khôi phục từ Google Drive</string>
-    <string name="cmd_get_battery_desc" comment="Description for predefined fastboot command: fastboot getvar battery-voltage">Truy vấn mức điện áp pin hiện tại</string>
+    <string name="cmd_get_battery_desc" comment="Description for predefined fastboot command: fastboot getvar battery-voltage">Truy vấn điện áp pin hiện tại</string>
     <string name="cmd_get_battery_title" comment="Predefined fastboot command title: check battery level in fastboot">Mức pin</string>
-    <string name="cmd_get_current_slot_desc" comment="Description for predefined fastboot command: fastboot getvar current-slot">Khe A/B nào hiện đang hoạt động</string>
-    <string name="cmd_get_current_slot_title" comment="Predefined fastboot command title: check active A/B slot">Khe hiện tại</string>
+    <string name="cmd_get_current_slot_desc" comment="Description for predefined fastboot command: fastboot getvar current-slot">Slot A/B nào hiện đang hoạt động</string>
+    <string name="cmd_get_current_slot_title" comment="Predefined fastboot command title: check active A/B slot">Slot hiện tại</string>
     <string name="cmd_get_product_desc" comment="Description for predefined fastboot command: fastboot getvar product">Truy xuất tên mã của thiết bị</string>
     <string name="cmd_get_product_title" comment="Predefined fastboot command title: check product name">Tên mã thiết bị</string>
-    <string name="cmd_get_slot_count_desc" comment="Description for predefined fastboot command: fastboot getvar slot-count">Số lượng khe A/B trên thiết bị này</string>
-    <string name="cmd_get_slot_count_title" comment="Predefined fastboot command title: check A/B slot count">Số lượng khe</string>
+    <string name="cmd_get_slot_count_desc" comment="Description for predefined fastboot command: fastboot getvar slot-count">Số lượng slot A/B trên thiết bị này</string>
+    <string name="cmd_get_slot_count_title" comment="Predefined fastboot command title: check A/B slot count">Số lượng slot</string>
     <string name="cmd_get_unlocked_desc" comment="Description for predefined fastboot command: fastboot getvar unlocked">Kiểm tra xem bootloader hiện đã được mở khoá chưa</string>
     <string name="cmd_get_unlocked_title" comment="Predefined fastboot command title: check bootloader unlock status">Trạng thái mở khoá Bootloader</string>
     <string name="cmd_getvar_all_desc" comment="Description for predefined fastboot command: fastboot getvar all">Liệt kê tất cả các biến của thiết bị và giá trị hiện tại của chúng</string>
     <string name="cmd_getvar_all_title" comment="Predefined fastboot command title: get all device variables">Lấy tất cả các biến</string>
-    <string name="cmd_oem_device_info_desc" comment="Description for predefined fastboot command: fastboot oem device-info">Lấy thông tin thiết bị từ nhà sản xuất (OEM)</string>
+    <string name="cmd_oem_device_info_desc" comment="Description for predefined fastboot command: fastboot oem device-info">Lấy thông tin thiết bị (OEM)</string>
     <string name="cmd_oem_device_info_title" comment="Predefined fastboot command title: query OEM device info">Thông tin thiết bị OEM</string>
     <string name="cmd_unlock_ability_desc" comment="Description for predefined fastboot command: fastboot flashing get_unlock_ability">Kiểm tra xem thiết bị này có thể mở khoá bootloader được không</string>
     <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">Khả năng mở khoá</string>
@@ -155,45 +155,45 @@
     <string name="color_preview_list_item" comment="Sample text field label in theme customizer preview">Mục danh sách / Trường văn bản</string>
     <string name="color_preview_low_elevation" comment="Sample label in theme customizer for low elevation card colors">Độ nổi thấp (Thẻ nổi)</string>
     <string name="color_preview_lowest_elevation" comment="Sample label in theme customizer for lowest elevation surface color">Độ nổi thấp nhất</string>
-    <string name="color_preview_outlined_button" comment="Sample outlined button text in theme preview">Nút có viền</string>
+    <string name="color_preview_outlined_button" comment="Sample outlined button text in theme preview">Nút viền</string>
     <string name="color_preview_primary_button" comment="Sample primary button text in theme preview">Nút chính</string>
     <string name="color_preview_screen_content" comment="Sample screen content body text in theme preview">Nội dung trên màn hình</string>
     <string name="color_preview_standard_elevation" comment="Sample label in theme customizer for standard card elevation surface color">Độ nổi tiêu chuẩn (Thẻ)</string>
     <string name="color_preview_surface_area" comment="Sample surface area text in theme preview">Khu vực bề mặt</string>
-    <string name="color_preview_tonal_button" comment="Sample tonal button text in theme preview">Tông màu nút</string>
+    <string name="color_preview_tonal_button" comment="Sample tonal button text in theme preview">Nút phụ</string>
     <string name="color_role_app_background" comment="Material 3 color role name for main application background color">Nền ứng dụng</string>
     <string name="color_role_background" comment="Material 3 color role name for default surface background">Nền</string>
     <string name="color_role_error" comment="Material 3 color role name for error indicator color">Lỗi</string>
-    <string name="color_role_error_container" comment="Material 3 color role name for container background of error elements">Khung màu lỗi</string>
+    <string name="color_role_error_container" comment="Material 3 color role name for container background of error elements">Khối màu lỗi</string>
     <string name="color_role_main_accent" comment="Material 3 color role name for primary accent color">Điểm nhấn chính</string>
     <string name="color_role_on_background" comment="The color used for text and icons drawn on top of the background color">Chữ/icon trên nền</string>
-    <string name="color_role_on_error" comment="The color used for text and icons drawn on top of the error color">Chữ/icon lỗi</string>
-    <string name="color_role_on_error_container" comment="The color used for text and icons drawn on top of the error container color">Chữ/icon trên khung màu lỗi</string>
-    <string name="color_role_on_primary" comment="The color used for text and icons drawn on top of the primary color">Chữ/icon trên nút chính</string>
-    <string name="color_role_on_primary_container" comment="The color used for text and icons drawn on top of the primary container color">Chữ/icon trên khung chính</string>
-    <string name="color_role_on_secondary" comment="The color used for text and icons drawn on top of the secondary color">Chữ/icon trên điểm nhấn thứ hai</string>
-    <string name="color_role_on_secondary_container" comment="The color used for text and icons drawn on top of the secondary container color">Chữ/icon trên khung màu thứ hai</string>
+    <string name="color_role_on_error" comment="The color used for text and icons drawn on top of the error color">Chữ/icon trên lỗi</string>
+    <string name="color_role_on_error_container" comment="The color used for text and icons drawn on top of the error container color">Chữ/icon trên khối màu lỗi</string>
+    <string name="color_role_on_primary" comment="The color used for text and icons drawn on top of the primary color">Chữ/icon trên màu chính</string>
+    <string name="color_role_on_primary_container" comment="The color used for text and icons drawn on top of the primary container color">Chữ/icon trên khối màu chính</string>
+    <string name="color_role_on_secondary" comment="The color used for text and icons drawn on top of the secondary color">Chữ/icon trên màu phụ</string>
+    <string name="color_role_on_secondary_container" comment="The color used for text and icons drawn on top of the secondary container color">Chữ/icon trên khối màu phụ</string>
     <string name="color_role_on_surface" comment="The color used for text and icons drawn on top of the surface color">Chữ/icon trên bề mặt</string>
     <string name="color_role_on_surface_variant" comment="The color used for text and icons drawn on top of the surface variant color">Chữ/icon trên biến thể bề mặt</string>
-    <string name="color_role_on_tertiary" comment="The color used for text and icons drawn on top of the tertiary color">Chữ/icon trên điểm nhấn thứ ba</string>
-    <string name="color_role_on_tertiary_container" comment="The color used for text and icons drawn on top of the tertiary container color">Chữ/icon trên khung màu thứ ba</string>
+    <string name="color_role_on_tertiary" comment="The color used for text and icons drawn on top of the tertiary color">Chữ/icon trên màu bổ sung</string>
+    <string name="color_role_on_tertiary_container" comment="The color used for text and icons drawn on top of the tertiary container color">Chữ/icon trên khối màu bổ sung</string>
     <string name="color_role_outline" comment="Material 3 color role name for component outline borders">Đường viền</string>
     <string name="color_role_outline_variant" comment="Material 3 color role name for secondary outline borders">Biến thể đường viền</string>
-    <string name="color_role_primary" comment="Material 3 color role name for primary theme color">Chính</string>
-    <string name="color_role_primary_container" comment="Material 3 color role name for container surface of primary elements">Khung màu chính</string>
-    <string name="color_role_secondary" comment="Material 3 color role name for secondary theme accent color">Thứ hai</string>
-    <string name="color_role_secondary_accent" comment="Material 3 color role name for secondary accent color">Điểm nhấn thứ hai</string>
-    <string name="color_role_secondary_container" comment="Material 3 color role name for container surface of secondary elements">Khung màu thứ hai</string>
+    <string name="color_role_primary" comment="Material 3 color role name for primary theme color">Màu chính</string>
+    <string name="color_role_primary_container" comment="Material 3 color role name for container surface of primary elements">Khối màu chính</string>
+    <string name="color_role_secondary" comment="Material 3 color role name for secondary theme accent color">Màu phụ</string>
+    <string name="color_role_secondary_accent" comment="Material 3 color role name for secondary accent color">Điểm nhấn phụ</string>
+    <string name="color_role_secondary_container" comment="Material 3 color role name for container surface of secondary elements">Khối màu phụ</string>
     <string name="color_role_surface" comment="Material 3 color role name for default component surface color">Bề mặt</string>
-    <string name="color_role_surface_container" comment="Material 3 color role name for standard surface container">Khung màu bề mặt</string>
-    <string name="color_role_surface_container_high" comment="Material 3 color role name for high elevation surface container">Khung màu bề mặt cao</string>
-    <string name="color_role_surface_container_highest" comment="Material 3 color role name for highest elevation surface container">Khung màu bề mặt cao nhất</string>
-    <string name="color_role_surface_container_low" comment="Material 3 color role name for low elevation surface container">Khung màu bề mặt thấp</string>
-    <string name="color_role_surface_container_lowest" comment="Material 3 color role name for lowest elevation surface container">Khung màu bề mặt thấp nhất</string>
+    <string name="color_role_surface_container" comment="Material 3 color role name for standard surface container">Khối màu bề mặt</string>
+    <string name="color_role_surface_container_high" comment="Material 3 color role name for high elevation surface container">Khối màu bề mặt cao</string>
+    <string name="color_role_surface_container_highest" comment="Material 3 color role name for highest elevation surface container">Khối màu bề mặt cao nhất</string>
+    <string name="color_role_surface_container_low" comment="Material 3 color role name for low elevation surface container">Khối màu bề mặt thấp</string>
+    <string name="color_role_surface_container_lowest" comment="Material 3 color role name for lowest elevation surface container">Khối màu bề mặt thấp nhất</string>
     <string name="color_role_surface_variant" comment="Material 3 color role name for variant surface background">Biến thể bề mặt</string>
-    <string name="color_role_tertiary" comment="Material 3 color role name for tertiary theme accent color">Thứ ba</string>
-    <string name="color_role_tertiary_accent" comment="Material 3 color role name for tertiary accent color">Điểm nhấn thứ ba</string>
-    <string name="color_role_tertiary_container" comment="Material 3 color role name for container surface of tertiary elements">Khung màu thứ ba</string>
+    <string name="color_role_tertiary" comment="Material 3 color role name for tertiary theme accent color">Màu bổ sung</string>
+    <string name="color_role_tertiary_accent" comment="Material 3 color role name for tertiary accent color">Điểm nhấn bổ sung</string>
+    <string name="color_role_tertiary_container" comment="Material 3 color role name for container surface of tertiary elements">Khối màu bổ sung</string>
     <string name="command" comment="Label/header for an ADB command snippet">Lệnh</string>
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">Phân tích lệnh</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">Bảng điều khiển lệnh</string>
@@ -205,10 +205,10 @@
     <string name="console" comment="Tab label for the interactive fastboot command console">Bảng điều khiển</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Chọn thư mục lưu</string>
     <string name="confirm">Xác nhận</string>
-    <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Cảnh báo! Hành động này không thể hoàn tác.\nBạn có chắc chắn muốn xóa tất cả dấu trang không?</string>
+    <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Cảnh báo! Hành động này không thể hoàn tác.\nBạn có chắc chắn muốn xoá tất cả dấu trang không?</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Xác nhận xoá</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">Bạn có chắc chắn muốn xoá ô này không?</string>
-    <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">Lưu bộ nhớ đệm giúp nhận kết quả phân tích tức thì.\nBạn vẫn muốn xoá tất cả dữ liệu bộ nhớ đệm phân tích AI chứ?</string>
+    <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">Bộ nhớ đệm giúp nhận kết quả phân tích tức thì.\nBạn vẫn muốn xoá tất cả dữ liệu bộ nhớ đệm phân tích AI chứ?</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" đã tồn tại ở vị trí này.</string>
     <string name="conflict_title" comment="Dialog title when attempting to paste or create a file that already exists">Mục đã tồn tại</string>
     <string name="connect" comment="Action button to initiate ADB connection to target device over Wireless Debugging or OTG">Kết nối</string>
@@ -229,7 +229,7 @@
     <string name="copied_to_clipboard" comment="Toast message shown after copying text or command to system clipboard">Đã sao chép vào bộ nhớ tạm!</string>
     <string name="copy">Sao chép</string>
     <string name="copying" comment="Progress status text shown while copying files in file browser">Đang sao chép…</string>
-    <string name="copying_items" comment="%1$d = number of items being copied">Đang sao chép %1$d mục(s)</string>
+    <string name="copying_items" comment="%1$d = number of items being copied">Đang sao chép %1$d mục</string>
     <string name="crash_details" comment="Screen title for inspecting stack trace details of a crash log">Chi tiết lỗi sập</string>
     <string name="crash_history" comment="Settings menu title and screen header for viewing past application crash reports">Lịch sử sập ứng dụng</string>
     <string name="create">Tạo</string>
@@ -258,7 +258,7 @@
     <string name="des_about" comment="Subtitle description for About section in settings menu">Những người đóng góp và hỗ trợ</string>
     <string name="des_ai_cache_days" comment="Description under Cache duration setting in AI settings">Số ngày lưu trữ kết quả phân tích trong bộ nhớ đệm</string>
     <string name="des_ai_cache_enabled" comment="Description under Enable cache setting in AI settings">Lưu kết quả phân tích vào bộ nhớ đệm theo mô hình</string>
-    <string name="des_ai_models" comment="Description under AI &amp; Models item in settings">Quản lý dữ liệu mô hình AI và khoá API</string>
+    <string name="des_ai_models" comment="Description under AI &amp; Models item in settings">Quản lý dữ liệu các mô hình AI và khoá API</string>
     <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">Chọn những gì cần bao gồm trong bản sao lưu tự động</string>
     <string name="des_auto_backup_folder" comment="Description under Backup folder setting">Chọn một thư mục để lưu các bản sao lưu tự động</string>
     <string name="des_auto_backup_time" comment="Description under Backup time setting">Đặt thời gian sao lưu tự động</string>
@@ -286,7 +286,7 @@
     <string name="des_dynamic_colors" comment="Description under Dynamic colors setting item">Tự động điều chỉnh giao diện ứng dụng theo hình nền thiết bị</string>
     <string name="des_enable_auto_backup" comment="Description under Enable automatic backup toggle setting">Tự động sao lưu dữ liệu ứng dụng theo thời gian đã lên lịch</string>
     <string name="des_enable_cloud_auto_backup" comment="Description under Auto backup to Google Drive toggle setting">Tự động sao lưu vào tài khoản Google Drive của bạn</string>
-    <string name="des_enable_direct_download" comment="Description under Enable direct apk download setting">Khi được bật, bản cập nhật sẽ tải xuống trực tiếp từ GitHub ngay trong ứng dụng. Tắt để truy cập trang phát hành Github và tải xuống thủ công.</string>
+    <string name="des_enable_direct_download" comment="Description under Enable direct apk download setting">Khi được bật, bản cập nhật sẽ tải xuống trực tiếp từ GitHub ngay trong ứng dụng. Tắt để truy cập trang phát hành GitHub và tải xuống thủ công.</string>
     <string name="des_enable_local_auto_backup" comment="Description under Auto backup to local storage toggle setting">Tự động sao lưu vào thư mục đã chọn trên thiết bị của bạn</string>
     <string name="des_examples" comment="Description under Command templates item in navigation menu">Bộ sưu tập một số mẫu lệnh</string>
     <string name="des_feature_request" comment="Description under Feature request item in About menu">Nếu bạn có bất kỳ ý tưởng hoặc đề xuất nào cho ứng dụng, hãy cho chúng tôi biết</string>
@@ -335,7 +335,7 @@
     <string name="disclaimer_1_title" comment="Title for disclaimer point 1: user risk acknowledgement">Tự chịu rủi ro khi sử dụng</string>
     <string name="disclaimer_2_description" comment="Text for disclaimer point 2: root requirements and elevated permissions">Mặc dù quyền truy cập root không bắt buộc, một số lệnh có thể yêu cầu quyền nâng cao.\nViệc sử dụng sai các lệnh ADB có thể dẫn đến mất dữ liệu, ứng dụng bị sập hoặc hệ thống hoạt động không mong muốn.</string>
     <string name="disclaimer_2_title" comment="Title for disclaimer point 2: root and caution warning">Root không bắt buộc nhưng cần thận trọng</string>
-    <string name="disclaimer_3_description" comment="Text for disclaimer point 3: developer liability waiver">Các nhà phát triển(s) của ứng dụng này không chịu trách nhiệm về mọi hư hỏng, mất mát dữ liệu hoặc hậu quả không lường trước được phát sinh từ việc sử dụng ứng dụng này.\nHãy tiến hành một cách thận trọng và đảm bảo bạn hiểu rõ các lệnh đang được thực thi.</string>
+    <string name="disclaimer_3_description" comment="Text for disclaimer point 3: developer liability waiver">Các nhà phát triển của ứng dụng này không chịu trách nhiệm về mọi hư hỏng, mất mát dữ liệu hoặc hậu quả không lường trước được phát sinh từ việc sử dụng ứng dụng này.\nHãy tiến hành một cách thận trọng và đảm bảo bạn hiểu rõ các lệnh đang được thực thi.</string>
     <string name="disclaimer_3_title" comment="Title for disclaimer point 3: liability waiver">Chúng tôi không chịu trách nhiệm</string>
     <string name="disclaimer_4_description" comment="Text for disclaimer point 4: target user expertise level">Ứng dụng này được thiết kế cho những người dùng có hiểu biết cơ bản về các lệnh ADB.\nNếu bạn không chắc chắn về tác dụng của một lệnh, hãy nghiên cứu trước khi thực thi nó.</string>
     <string name="disclaimer_4_title" comment="Title for disclaimer point 4: target audience notice">Dành cho người dùng có kinh nghiệm</string>
@@ -398,7 +398,7 @@
     <string name="fb_delete_failed" comment="%1$s = error message">Xoá thất bại: %1$s</string>
     <string name="fb_deleted_items" comment="%1$d = number of deleted items">Đã xoá %1$d mục</string>
     <string name="fb_download_failed" comment="%1$s = error message">Tải xuống thất bại: %1$s</string>
-    <string name="fb_downloaded_to" comment="%1$s = file path">Đã tải xuống thư mục %1$s</string>
+    <string name="fb_downloaded_to" comment="%1$s = file path">Đã tải xuống vào %1$s</string>
     <string name="fb_downloading" comment="%1$s = file name">Đang tải xuống %1$s</string>
     <string name="fb_empty_folder_skipped" comment="Status message when empty directories are skipped during file browser transfer">Đã bỏ qua thư mục trống</string>
     <string name="fb_error" comment="%1$s = error message">Lỗi: %1$s</string>
@@ -421,7 +421,7 @@
     <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Đang tải loại sao lưu…</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">Trường này không được để trống</string>
     <string name="file">Tệp</string>
-    <string name="file_actions" comment="Bottom sheet title for file operations (copy, move, delete, rename)">Hành động tệp</string>
+    <string name="file_actions" comment="Bottom sheet title for file operations (copy, move, delete, rename)">Các hành động tệp</string>
     <string name="file_already_exists" comment="Dialog header when target file name collides with existing file">Tệp đã tồn tại</string>
     <string name="file_browser" comment="Navigation drawer item and screen header for device file manager">Trình quản lý tệp</string>
     <string name="file_conflict_title" comment="Dialog header when file creation or paste collides with existing file name">Tệp đã tồn tại</string>
@@ -485,7 +485,7 @@
     <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">Nội dung giấy phép đầy đủ</string>
     <string name="gemini_api_key_step_1" comment="%1$s = URL">Truy cập Google AI Studio tại %1$s</string>
     <string name="gemini_api_key_step_2" comment="Step 2 of API key setup guide: signing in with Google Account">Đăng nhập bằng Tài khoản Google của bạn</string>
-    <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">Nhấp vào Tạo khoá API và chọn hoặc tạo một dự án</string>
+    <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">Nhấn vào Tạo khoá API và chọn hoặc tạo một dự án</string>
     <string name="gemini_api_key_step_4" comment="Step 4 of API key setup guide: copying API key string">Sao chép khoá API của bạn và dán vào đây</string>
     <string name="generate_color_scheme" comment="Action button in theme builder to generate Material 3 color palette">Tạo bảng màu</string>
     <string name="generate_scheme" comment="Compact button label to generate theme color scheme">Tạo màu</string>
@@ -505,7 +505,7 @@
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">Chúc một ngày tốt lành!</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Trình chỉnh sửa Hex</string>
     <string name="high" comment="Selection option for high haptic strength or elevation level">Cao</string>
-    <string name="high_contrast_dark_mode" comment="Settings preference title for OLED pitch-black dark theme">Chế độ tối độ tương phản cao</string>
+    <string name="high_contrast_dark_mode" comment="Settings preference title for OLED pitch-black dark theme">Chế độ tối tương phản cao</string>
     <string name="hint" comment="Card header or field label for helpful hints">Gợi ý</string>
     <string name="history" comment="Screen title and tab label for executed terminal command history">Lịch sử</string>
     <string name="home">Trang chủ</string>
@@ -592,7 +592,7 @@
     <string name="most_used" comment="Sorting option for commands or bookmarks list">Sử dụng nhiều nhất</string>
     <string name="move">Di chuyển</string>
     <string name="moving" comment="Progress status text shown while moving files in file browser">Đang di chuyển…</string>
-    <string name="moving_items" comment="%1$d = number of items being moved">Đang di chuyển %1$d mục(s)</string>
+    <string name="moving_items" comment="%1$d = number of items being moved">Đang di chuyển %1$d mục</string>
     <string name="n_days" comment="%d = number of days for cache duration setting">%d ngày</string>
     <string name="name">Tên</string>
     <string name="network_error" comment="Toast error message when network connection fails during wireless pairing or cloud backup">Lỗi mạng</string>
@@ -642,14 +642,14 @@
     <string name="on">Bật</string>
     <string name="on_background">Trên nền</string>
     <string name="on_primary">Trên màu chính</string>
-    <string name="on_primary_container">Trên vùng chứa chính</string>
-    <string name="on_secondary">Trên thứ hai</string>
+    <string name="on_primary_container">Trên khối màu chính</string>
+    <string name="on_secondary">Trên màu phụ</string>
     <string name="on_state" comment="Quick Settings tile toggle state label">Bật</string>
     <string name="on_surface">Trên bề mặt</string>
-    <string name="on_tertiary">Trên thứ ba</string>
+    <string name="on_tertiary">Trên màu bổ sung</string>
     <string name="open">Mở</string>
     <string name="open_app_language_settings" comment="Button label on Android 13+ to jump to system per-app language setting screen">Mở cài đặt ngôn ngữ ứng dụng</string>
-    <string name="open_issues" comment="GitHub repository open issues count">Vấn đề đang mở</string>
+    <string name="open_issues" comment="GitHub repository open issues count">Các vấn đề đang mở</string>
     <string name="open_url" comment="Action button to launch web browser to external URL link">Mở URL</string>
     <string name="operation_complete" comment="Notification toast when file copy/move operation finishes">Thao tác đã hoàn tất</string>
     <string name="operations" comment="Bottom sheet title for file transfer operations list">Các thao tác</string>
@@ -664,7 +664,7 @@
     <string name="pair_a_device_first" comment="Instructional notice directing user to pair an ADB device before attempting connection">Ghép nối một thiết bị trước</string>
     <string name="pair_another_device" comment="Button label in Wireless Debugging setup to pair an additional target device">Ghép nối một thiết bị khác</string>
     <string name="pair_connect_failed_message" comment="Dialog message when connecting to a paired wireless ADB device fails">Không thể kết nối với thiết bị đã ghép nối\nThiết bị có thể không ở cùng mạng\nHãy thử ghép nối lại</string>
-    <string name="pair_device_to_start" comment="Placeholder banner in wireless debugging screen directing user to pair device via QR or pairing code">Hãy ghép nối một thiết bị bằng mã QR hoặc mã ghép nối để hiển thị tại đây</string>
+    <string name="pair_device_to_start" comment="Placeholder banner in wireless debugging screen directing user to pair device via QR or pairing code">Hãy ghép nối một thiết bị bằng mã QR hoặc mã ghép nối để nó hiển thị tại đây</string>
     <string name="pair_manually" comment="Option in Wireless Debugging setup to enter IP, Port, and Pairing Code manually">Ghép nối thủ công</string>
     <string name="pair_this_device" comment="Button label in wireless debugging screen to initiate self-pairing for local device ADB">Ghép nối thiết bị này</string>
     <string name="pair_using_code" comment="Option in Wireless Debugging setup to pair device using 6-digit pairing code">Ghép nối bằng mã</string>
@@ -701,8 +701,8 @@
     <string name="predefined_commands_desc" comment="Description under predefined fastboot commands header">Truy cập nhanh các lệnh fastboot phổ biến. Kết quả sẽ hiển thị trong bảng điều khiển bên dưới.</string>
     <string name="preference" comment="Header title for settings preference category">Tùy chọn</string>
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">Xem trước</string>
-    <string name="primary">Chính</string>
-    <string name="primary_container">Vùng chứa chính</string>
+    <string name="primary">Màu chính</string>
+    <string name="primary_container">Khối màu chính</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">Sản phẩm</string>
     <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">Đưa thiết bị vào chế độ sideload thông qua menu recovery</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">Ghép nối qua QR</string>
@@ -717,7 +717,7 @@
     <string name="reboot_confirm_title" comment="Dialog title asking user confirmation before rebooting target device">Xác nhận khởi động lại</string>
     <string name="reboot_fastbootd" comment="Action button / dialog choice to reboot target device into fastbootd (userspace fastboot) mode">Khởi động lại vào Fastbootd</string>
     <string name="reboot_normal" comment="Action button / dialog choice to perform standard system reboot">Khởi động lại</string>
-    <string name="reboot_options" comment="Menu header listing target device reboot modes (Normal, Recovery, Bootloader, Fastbootd)">Tùy chọn Khởi động lại</string>
+    <string name="reboot_options" comment="Menu header listing target device reboot modes (Normal, Recovery, Bootloader, Fastbootd)">Các tùy chọn khởi động lại</string>
     <string name="reboot_recovery" comment="Action button / dialog choice to reboot target device into recovery mode">Khởi động lại vào Recovery</string>
     <string name="recent_activity" comment="Dashboard card header listing recent command executions">Hoạt động gần đây</string>
     <string name="recent_searches" comment="Header title for recent search query history">Tìm kiếm gần đây</string>
@@ -761,11 +761,11 @@
     <string name="running" comment="Status badge showing task or command execution is active">Đang chạy</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Lưu</string>
-    <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">Lưu thành hồ sơ…</string>
+    <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">Lưu thành cấu hình…</string>
     <string name="save_changes" comment="Action button to persist edited settings or tile parameters">Lưu thay đổi</string>
     <string name="save_key" comment="Button label to save entered API key string in settings">Lưu khoá</string>
     <string name="save_whole_output" comment="Setting toggle title to export full terminal session output to file">Lưu toàn bộ đầu ra</string>
-    <string name="saved_devices" comment="Screen title and list header for paired ADB devices history">Thiết bị đã lưu</string>
+    <string name="saved_devices" comment="Screen title and list header for paired ADB devices history">Các thiết bị đã lưu</string>
     <string name="saving" comment="Progress status text while saving file or settings">Đang lưu…</string>
     <string name="saving_output" comment="Progress status text while exporting terminal log output to file">Đang xuất đầu ra ra tệp…</string>
     <string name="schedule" comment="Header title or setting label for automated backup schedule picker">Lịch trình</string>
@@ -783,7 +783,7 @@
     <string name="search_variables" comment="Placeholder text in fastboot variables explorer search bar">Tìm kiếm biến…</string>
     <string name="searching_connect_service" comment="Status message while discovering ADB mDNS connection service on local network">Đang tìm dịch vụ kết nối</string>
     <string name="searching_for_devices" comment="Progress status text while scanning for local Wireless Debugging or OTG ADB target devices">Đang tìm các thiết bị…</string>
-    <string name="secondary">Thứ hai</string>
+    <string name="secondary">Màu phụ</string>
     <string name="security_patch" comment="Device property label displaying Android security patch level date">Bản vá bảo mật</string>
     <string name="select">Chọn</string>
     <string name="select_all">Chọn tất cả</string>
@@ -839,7 +839,7 @@
     <string name="skip">Bỏ qua</string>
     <string name="slide_to_flash" comment="Slider text prompt in fastboot partition flash confirmation sheet">Trượt để Flash</string>
     <string name="slide_to_sideload" comment="Slider button prompt to initiate the ADB sideload transfer of chosen ZIP file over OTG">Trượt để Sideload</string>
-    <string name="slot_data_unknown" comment="Status text when device A/B slot information cannot be retrieved over fastboot">Dữ liệu khe không xác định</string>
+    <string name="slot_data_unknown" comment="Status text when device A/B slot information cannot be retrieved over fastboot">Dữ liệu slot không xác định</string>
     <string name="smooth_scrolling" comment="Settings toggle preference title to enable smooth scrolling animation in terminal">Cuộn mượt</string>
     <string name="sort">Sắp xếp</string>
     <string name="stable_fdroid" comment="Option in update channel settings for F-Droid stable releases">Ổn định (F-Droid)</string>
@@ -869,8 +869,8 @@
     <string name="telegram" comment="Button in About screen linking to official Telegram community group">Telegram</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">Terminal</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Kiểu phông chữ Terminal</string>
-    <string name="tertiary">Thứ ba</string>
-    <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">Thư viện bên thứ ba</string>
+    <string name="tertiary">Màu bổ sung</string>
+    <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">Các thư viện bên thứ ba</string>
     <string name="this_application" comment="Option label for target scope in Logcat Viewer">Ứng dụng này</string>
     <string name="this_device" comment="Selection option for target ADB device matching host phone">Thiết bị này</string>
     <string name="tile" comment="Refers to Android System Quick Settings tile">Ô</string>
@@ -884,8 +884,8 @@
     <string name="timestamp">Dấu thời gian</string>
     <string name="toggleable">Có thể bật/tắt</string>
     <string name="total_executions">Tổng số lần thực thi</string>
-    <string name="translations">Bản dịch</string>
-    <string name="translators">Người dịch</string>
+    <string name="translations">Các bản dịch</string>
+    <string name="translators">Những người dịch</string>
     <string name="troubleshoot">Khắc phục sự cố</string>
     <string name="troubleshoot_reconnect">Làm mới kết nối gỡ lỗi không dây bằng cách tắt và bật lại nó</string>
     <string name="try_different_search">Hãy thử một từ khoá tìm kiếm khác</string>
@@ -956,9 +956,9 @@
     <string name="changelog_v7_0_0">\nCập nhật toàn bộ giao diện sử dụng các thành phần Material Expressive\nViết lại toàn bộ mã nguồn bằng Kotlin và Jetpack Compose cho UI Framework\nĐã thêm trình quản lý tệp Push &amp; Pull\nĐã thêm chế độ ghép nối Wi-Fi ADB qua mã QR\nĐã thêm các tùy chọn sao lưu cài đặt ứng dụng và cơ sở dữ liệu\nĐã thêm các tùy chọn tùy chỉnh chủ đề\nĐã thêm Lịch sử sập ứng dụng để xem nhật ký sập của ứng dụng\nĐã cải thiện tính năng tự động cập nhật\nĐã cải thiện UI &amp; UX ở phần đầu ra của shell\nĐã thêm đề xuất về quyền trên Android\nĐã cập nhật bố cục cho các mẫu lệnh để bao gồm cả nhãn\nĐã thêm tùy chọn thêm, chỉnh sửa hoặc xoá lệnh theo ý muốn của bạn\nNhiều lỗi đã được sửa</string>
     <string name="changelog_v6_1_0">\nTìm kiếm lệnh giờ đây có thể tìm các lệnh chứa từ khoá thay vì chỉ tìm lệnh bắt đầu bằng từ đó.\nThêm khả năng mở trực tiếp Shizuku khi đã cài nhưng chưa chạy.\nSửa lỗi báo cáo sập ứng dụng.</string>
     <string name="changelog_v6_0_3">\nĐã giải quyết vấn đề gây hỏng bản dịch của ứng dụng aShell You</string>
-    <string name="changelog_v6_0_2">\nĐã điều chỉnh Github Actions cho các bản phát hành.\nĐiều này có ý nghĩa gì đối với bạn?\nTất cả các bản dựng tiếp theo, bao gồm cả bản này, sẽ an toàn hơn!</string>
+    <string name="changelog_v6_0_2">\nĐã điều chỉnh GitHub Actions cho các bản phát hành.\nĐiều này có ý nghĩa gì đối với bạn?\nTất cả các bản dựng tiếp theo, bao gồm cả bản này, sẽ an toàn hơn!</string>
     <string name="changelog_v6_0_1">\nBản cập nhật bảo trì</string>
-    <string name="changelog_v6_0_0">\nĐã thêm chế độ GỠ LỖI KHÔNG DÂY để chạy lệnh ADB trên cả thiết bị của bạn và thiết bị khác\nTrang chủ được thiết kế lại để tối giản điều hướng và giảm bớt sự lộn xộn ở trường nhập liệu\nĐã thêm cảnh báo khi thực thi các lệnh liên quan đến các gói hệ thống quan trọng\nĐã thêm Cập nhật trong ứng dụng. Giờ đây bạn có thể tải xuống gói mới nhất trực tiếp mà không cần vào Github\nĐã sửa nhiều lỗi</string>
+    <string name="changelog_v6_0_0">\nĐã thêm chế độ GỠ LỖI KHÔNG DÂY để chạy lệnh ADB trên cả thiết bị của bạn và thiết bị khác\nTrang chủ được thiết kế lại để tối giản điều hướng và giảm bớt sự lộn xộn ở trường nhập liệu\nĐã thêm cảnh báo khi thực thi các lệnh liên quan đến các gói hệ thống quan trọng\nĐã thêm Cập nhật trong ứng dụng. Giờ đây bạn có thể tải xuống gói mới nhất trực tiếp mà không cần vào GitHub\nĐã sửa nhiều lỗi</string>
     <string name="changelog_v5_2_1">\nBản cập nhật bảo trì</string>
     <string name="changelog_v5_2_0">\nCải thiện UI\nĐã sửa một số lỗi</string>
     <string name="changelog_v5_1_0">\nCải thiện nhỏ về UI</string>
@@ -991,7 +991,7 @@
     <string name="changelog_v2_0_1">\nĐã xoá mã và tài nguyên không cần thiết.\nThay đổi nhỏ về giao diện.</string>
     <string name="changelog_v2_0_0">\nĐổi tên ứng dụng thành aShell You.\nThêm hiệu ứng dự đoán quay lại cho thiết bị hỗ trợ.\nThêm xác nhận trước khi xóa màn hình.\nSửa lỗi hiển thị thanh trạng thái trong chế độ Sáng.\nỨng dụng mượt mà hơn.\n~ Giảm kích thước ứng dụng và tối ưu hóa mã nguồn.\nThêm biểu tượng theo chủ đề.\nThay đổi nhỏ về giao diện.</string>
     <string name="changelog_v1_3_0">\nĐã thiết kế lại bảng Cài đặt.\nĐã thêm tính năng Chạm hai lần để cuộn nhanh đến đầu và cuối trong chế độ xem đầu ra của shell.\nSửa lỗi giao diện nhỏ.</string>
-    <string name="changelog_v1_2_0">\nĐã thêm bảng điều khiển cài đặt.\nĐã thêm tùy chọn tắt cuộn mượt trong đầu ra của shell.\nĐã sửa các lỗi nghiêm trọng sau:\n\n ~ Sập ứng dụngkhi thay đổi chủ đề thiết bị.\n\n ~ Sập ứng dụng khi lưu một đầu ra shell có dung lượng lớn (ví dụ: đầu ra của lệnh \'pm\').</string>
+    <string name="changelog_v1_2_0">\nĐã thêm bảng điều khiển cài đặt.\nĐã thêm tùy chọn tắt cuộn mượt trong đầu ra của shell.\nĐã sửa các lỗi nghiêm trọng sau:\n\n ~ Sập ứng dụng khi thay đổi chủ đề thiết bị.\n\n ~ Sập ứng dụng khi lưu một đầu ra shell có dung lượng lớn (ví dụ: đầu ra của lệnh \'pm\').</string>
     <string name="changelog_v1_1_1">\nĐã thay thế một số API lỗi thời.\nThay đổi nhỏ về giao diện.</string>
     <string name="changelog_v1_1_0">\nĐã thêm các nút Cuộn lên và Cuộn xuống.\nĐã thêm tính năng nhấn phím Enter trên bàn phím để gửi lệnh.\nĐã thêm một số lệnh.\nĐã cập nhật các phần phụ thuộc để bao gồm thư viện Material You mới nhất.\nThay đổi nhỏ về giao diện.</string>
     <string name="changelog_v1_0_0">\nĐã thêm một số mẫu lệnh.\nThay đổi nhỏ về giao diện.\nĐã thay đổi tên gói để tránh nhầm lẫn với ứng dụng gốc.</string>
