@@ -102,8 +102,6 @@
     <string name="boot_device_into_fastboot" comment="Instructional prompt in Fastboot screen instructing user to boot target device into fastboot mode">लक्ष्य डिवाइस को फ़ास्टबूट मोड में बूट करें और OTG केबल के ज़रिए कनेक्ट करें</string>
     <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">बूट इमेज</string>
     <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">फ़ास्टबूट में बूट करें</string>
-    <string name="bootloader" comment="Device info label or fastboot section title for bootloader mode">बूटलोडर</string>
-    <string name="bootloader_version" comment="Device info field label displaying bootloader version string">बूटलोडर</string>
     <string name="btn_continue" comment="Action button label to proceed to next step in setup wizard">जारी रखें</string>
     <string name="cache_settings" comment="Settings section header for AI analysis response caching options">कैशे</string>
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">कैशे आकार: %s</string>
@@ -207,6 +205,7 @@
     <string name="confirm">पुष्टि करें</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">चेतावनी! यह क्रिया अपरिवर्तनीय है\nक्या आप वाकई सभी बुकमार्क हटाना चाहते हैं?</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">मिटाने की पुष्टि करें</string>
+    <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">क्या आप निश्चित रूप से \"%1$s\" को हटाना चाहते हैं? यदि यह वर्तमान में लागू है, तो ऐप सिस्टम फ़ॉन्ट पर वापस आ जाएगा।</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">क्या आप वाकई \"%1$s\" हटाना चाहते हैं?</string>
     <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">कैशे करने से विश्लेषण परिणाम तुरंत पुनः प्राप्त करने में मदद मिलती है।\nक्या आप फिर भी सभी AI विश्लेषण कैशे डेटा साफ़ करना चाहते हैं?</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" इस स्थान पर पहले से मौजूद है।</string>
@@ -249,6 +248,7 @@
     <string name="default_language" comment="Setting preference label for selecting application language">डिफ़ॉल्ट भाषा</string>
     <string name="delete">हटाएं</string>
     <string name="delete_all" comment="Action button to delete all items in list, history, or bookmarks">सभी डिलीट करें</string>
+    <string name="delete_custom_font" comment="Action label to remove an imported custom font from the font list">फ़ॉन्ट हटाएं</string>
     <string name="delete_file" comment="File browser action to delete selected file">फ़ाइल हटाएं</string>
     <string name="delete_folder" comment="File browser action to delete selected directory">फ़ोल्डर हटाएं</string>
     <string name="delete_items_message" comment="%1$d = number of selected items">क्या आप वाकई %1$d चयनित आइटम हटाना चाहते हैं?</string>
@@ -430,7 +430,6 @@
     <string name="file_not_found" comment="Error toast when requested file path does not exist on device">फ़ाइल नहीं मिली</string>
     <string name="filter">फ़िल्टर</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">लेबल से फ़िल्टर करें</string>
-    <string name="flash" comment="Action button to start fastboot partition flashing process">फ्लैश करें</string>
     <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">फ्लैश पार्टीशन</string>
     <string name="flashing" comment="Progress status header while partition flashing is in progress">फ्लैशिंग…</string>
     <string name="folder">फ़ोल्डर</string>
@@ -439,44 +438,9 @@
     <string name="folder_info" comment="Dialog header displaying directory metadata properties">फ़ोल्डर जानकारी</string>
     <string name="folder_name" comment="Text field label for entering new directory name">फ़ोल्डर नाम</string>
     <string name="folder_picker" comment="Dialog title for selecting a target directory">फ़ोल्डर पिकर</string>
-    <string name="font_amatic_sc" comment="Font style name">अमैटिक एस सी</string>
-    <string name="font_cabin" comment="Font style name">केबिन</string>
-    <string name="font_caveat" comment="Font style name">केविएट</string>
-    <string name="font_comfortaa" comment="Font style name">कंफोर्टाआ</string>
-    <string name="font_crimson_pro" comment="Font style name">क्रिमसन प्रो</string>
-    <string name="font_dancing_script" comment="Font style name">डान्सिंग स्क्रिप्ट</string>
-    <string name="font_display_text" comment="Sample text used to preview font styles">द क्विक ब्राउन फॉक्स जंप्स ओवर द लेजी डॉग</string>
-    <string name="font_eb_garamond" comment="Font style name">ईबी गैरामोंड</string>
-    <string name="font_exo_2" comment="Font style name">एक्सो 2</string>
     <string name="font_family" comment="Settings preference title for selecting application font family">फ़ॉन्ट परिवार</string>
-    <string name="font_heebo" comment="Font style name">हीबो</string>
-    <string name="font_inter" comment="Font style name">इंटर</string>
-    <string name="font_josefin_sans" comment="Font style name">जोसेफिन सैंस</string>
-    <string name="font_karla" comment="Font style name">कार्ला</string>
-    <string name="font_lexend" comment="Font style name">लेक्सेंड</string>
-    <string name="font_lora" comment="Font style name">लोरा</string>
-    <string name="font_manrope" comment="Font style name">मैन्रोप</string>
-    <string name="font_montserrat" comment="Font style name">मोंटसेराट</string>
-    <string name="font_noto_sans" comment="Font style name">नोटो सैंस</string>
-    <string name="font_nunito" comment="Font style name">न्यूनिटो</string>
-    <string name="font_open_sans" comment="Font style name">ओपन सैंस</string>
-    <string name="font_oswald" comment="Font style name">ऑसवाल्ड</string>
-    <string name="font_outfit" comment="Font style name">आउटफिट</string>
-    <string name="font_pacifico" comment="Font style name">पैसिफिको</string>
-    <string name="font_playfair_display" comment="Font style name">प्लेफेयर डिस्प्ले</string>
-    <string name="font_playpen_sans" comment="Font style name">प्लेपेन सैंस</string>
-    <string name="font_plus_jakarta_sans" comment="Font style name">प्लस जकार्ता सैंस</string>
-    <string name="font_public_sans" comment="Font style name">पब्लिक सैंस</string>
-    <string name="font_quicksand" comment="Font style name">क्विकसैंड</string>
-    <string name="font_raleway" comment="Font style name">रालेवे</string>
-    <string name="font_roboto_flex" comment="Font style name">रोबोटो फ्लेक्स</string>
-    <string name="font_rubik" comment="Font style name">रुबिक</string>
-    <string name="font_shadows_into_light" comment="Font style name">शैडोज़ इनटू लाइट</string>
+    <string name="font_import_success" comment="Toast shown after a custom font file is successfully imported and saved">फ़ॉन्ट सफलतापूर्वक आयात किया गया</string>
     <string name="font_size_multiplier" comment="Settings preference title for adjusting font size scaling multiplier">फ़ॉन्ट आकार गुणक</string>
-    <string name="font_source_sans_3" comment="Font style name">सोर्स सैंस 3</string>
-    <string name="font_source_serif_4" comment="Font style name">सोर्स सेरिफ़ 4</string>
-    <string name="font_work_sans" comment="Font style name">वर्क सैंस</string>
-    <string name="forget" comment="Action button to remove/forget a paired device">भूल जाएं</string>
     <string name="forget_device" comment="Button label in device details card to unpair/forget ADB device">डिवाइस भूल जाएं</string>
     <string name="forget_device_confirmation" comment="%1$s = device name">क्या आप वाकई %1$s को भूलना चाहते हैं? कनेक्ट करने के लिए आपको दोबारा पेयर करना होगा।</string>
     <string name="forks" comment="GitHub repository metadata count label for project forks">फ़ोर्क्स</string>
@@ -511,6 +475,9 @@
     <string name="home">होम</string>
     <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">साइडलोड मोड में कैसे प्रवेश करें</string>
     <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">आइकन चयनित</string>
+    <string name="action_import">आयात करें</string>
+    <string name="import_font" comment="Content description for the import font icon button in the font style picker">फ़ॉन्ट आयात करें</string>
+    <string name="import_font_name_hint" comment="Input field placeholder for the user-assigned display name of an imported font">फ़ॉन्ट नाम</string>
     <string name="import_theme" comment="Action button to import theme configuration file">थीम आयात करें</string>
     <string name="include" comment="Filter toggle option to include selected items">शामिल करें</string>
     <string name="info">जानकारी</string>
@@ -518,6 +485,8 @@
     <string name="instructions" comment="Section header for step-by-step connection guides">निर्देश</string>
     <string name="intent_not_found" comment="Error toast when external app activity or URL link cannot be opened">फ़ाइल नहीं मिली</string>
     <string name="internal_storage" comment="Root folder label in file browser for local storage">आंतरिक स्टोरेज</string>
+    <string name="invalid_font_file" comment="Dialog title shown when the selected file is not a valid TrueType font">अमान्य फ़ॉन्ट फ़ाइल</string>
+    <string name="invalid_font_file_desc" comment="Dialog body explaining that the selected file failed TTF validation">चयनित फ़ाइल एक वैध TrueType (.ttf) फ़ॉन्ट फ़ाइल नहीं है।</string>
     <string name="invalid_folder_name" comment="Validation error when entered directory name contains slash characters">फ़ोल्डर नाम में / नहीं हो सकता</string>
     <string name="ip_address" comment="Field label for device IP address in wireless ADB setup">IP पता</string>
     <string name="irreversible_action_warning" comment="Warning dialog subtitle warning user that deletion cannot be undone">यह क्रिया अपरिवर्तनीय है!</string>
@@ -586,7 +555,6 @@
     <string name="model_category_tiny" comment="AI model size category label">बेहद छोटा (300 MB से कम)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">मॉडल</string>
     <string name="modified" comment="File property: last modified date">संशोधित</string>
-    <string name="monospace" comment="Font style category name">मोनोस्पेस</string>
     <string name="monthly" comment="Option in backup scheduler frequency selection">मासिक</string>
     <string name="more">और</string>
     <string name="most_used" comment="Sorting option for commands or bookmarks list">सबसे अधिक इस्तेमाल किया गता</string>
@@ -728,7 +696,6 @@
     <string name="reconnect_failed_requires_pairing" comment="Toast notification indicating device un-paired and needs re-pairing">पुनः कनेक्शन विफल। पुनः पेयरिंग आवश्यक।</string>
     <string name="reconnect_success" comment="Toast message confirming successful wireless ADB reconnection">सफलतापूर्वक पुनः कनेक्ट हुआ</string>
     <string name="reconnect_the_device" comment="Button prompt directing user to reconnect target ADB device">डिवाइस पुनः कनेक्ट करें</string>
-    <string name="recovery" comment="Refers to Android System Recovery partition / boot mode">रिकवरी</string>
     <string name="refresh">रिफ्रेश करें</string>
     <string name="remove">हटाएं</string>
     <string name="rename">नाम बदलें</string>
@@ -866,7 +833,6 @@
     <string name="tab" comment="Settings option for terminal tab indentation behavior">टैब</string>
     <string name="tag" comment="Field label for custom command category tag/label">टैग</string>
     <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">कोई .zip फ़ाइल ढूँढने के लिए टैप करें</string>
-    <string name="telegram" comment="Button in About screen linking to official Telegram community group">टेलीग्राम</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">टर्मिनल</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">टर्मिनल फ़ॉन्ट शैली</string>
     <string name="tertiary">टर्शियरी</string>
@@ -927,7 +893,6 @@
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">%1$s के दौरान आप क्या करना चाहेंगे?</string>
     <string name="whats_new" comment="Header title for app release notes and changelog dialog">नया क्या है!</string>
     <string name="which_device_to_pair" comment="Dialog header prompting user to choose wireless pairing method or device">आप कौन सा डिवाइस पेयर करना चाहेंगे?</string>
-    <string name="wifi_adb" comment="Refers to Android Wireless Debugging ADB over Wi-Fi connection feature">वाई-फाई ADB</string>
     <string name="wifi_connection_required" comment="Detailed explanation of Wi-Fi requirements for Wireless Debugging ADB">वायरलेस डिबगिंग सुविधा का उपयोग करने के लिए, आपका डिवाइस वाई-फाई नेटवर्क से जुड़ा होना चाहिए। यदि आपके वाई-फाई कनेक्शन में इंटरनेट एक्सेस नहीं है, तो एक ठोस वाई-फाई कनेक्शन के लिए मोबाइल डेटा बंद करें।</string>
     <string name="wipe_cache_desc" comment="Description for predefined fastboot erase cache command">fastboot erase cache</string>
     <string name="wipe_cache_title" comment="Predefined fastboot command title: erase cache partition">कैशे मिटाएं</string>

@@ -102,8 +102,6 @@
     <string name="boot_device_into_fastboot" comment="Instructional prompt in Fastboot screen instructing user to boot target device into fastboot mode">قم بإقلاع الجهاز المستهدف في وضع fastboot والاتصال عبر كابل OTG</string>
     <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">صورة الإقلاع</string>
     <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">الإقلاع إلى Fastboot</string>
-    <string name="bootloader" comment="Device info label or fastboot section title for bootloader mode">محمل الإقلاع</string>
-    <string name="bootloader_version" comment="Device info field label displaying bootloader version string">محمل الإقلاع</string>
     <string name="btn_continue" comment="Action button label to proceed to next step in setup wizard">متابعة</string>
     <string name="cache_settings" comment="Settings section header for AI analysis response caching options">التخزين المؤقت</string>
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">حجم التخزين المؤقت: %s</string>
@@ -207,6 +205,7 @@
     <string name="confirm">تأكيد</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">تحذير! هذا الإجراء لا يمكن التراجع عنه\nهل أنت متأكد من رغبتك في حذف جميع الإشارات المرجعية؟</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">تأكيد الحذف</string>
+    <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">هل أنت متأكد من أنك تريد إزالة \"%1$s\"؟ إذا تم تطبيقه حاليًا ، فإن التطبيق سوف يعود إلى خط النظام.</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">هل تريد بالتأكيد حذف هذا الموضوع؟</string>
     <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">يساعد التخزين المؤقت في استرجاع نتائج التحليل فوراً.\nهل لا تزال تريد مسح جميع بيانات ذاكرة التخزين المؤقت لتحليل الذكاء الاصطناعي؟</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" موجود بالفعل في هذا الموقع.</string>
@@ -249,6 +248,7 @@
     <string name="default_language" comment="Setting preference label for selecting application language">اللغة الافتراضية</string>
     <string name="delete">حذف</string>
     <string name="delete_all" comment="Action button to delete all items in list, history, or bookmarks">حذف الكل</string>
+    <string name="delete_custom_font" comment="Action label to remove an imported custom font from the font list">Remove font</string>
     <string name="delete_file" comment="File browser action to delete selected file">حذف الملف</string>
     <string name="delete_folder" comment="File browser action to delete selected directory">حذف المجلد</string>
     <string name="delete_items_message" comment="%1$d = number of selected items">هل أنت متأكد من أنك تريد حذف العنصر %1$d المحدد؟</string>
@@ -430,7 +430,6 @@
     <string name="file_not_found" comment="Error toast when requested file path does not exist on device">المِلَفّ غير موجود</string>
     <string name="filter">تصفية</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">تصفية حسب التسميات</string>
-    <string name="flash" comment="Action button to start fastboot partition flashing process">تثبيت</string>
     <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">تثبيت القسم</string>
     <string name="flashing" comment="Progress status header while partition flashing is in progress">جاري الوميض…</string>
     <string name="folder">مجلد</string>
@@ -439,44 +438,9 @@
     <string name="folder_info" comment="Dialog header displaying directory metadata properties">معلومات المجلد</string>
     <string name="folder_name" comment="Text field label for entering new directory name">اسم المجلد</string>
     <string name="folder_picker" comment="Dialog title for selecting a target directory">محدد المجلد</string>
-    <string name="font_amatic_sc" comment="Font style name">Amatic SC</string>
-    <string name="font_cabin" comment="Font style name">Cabin</string>
-    <string name="font_caveat" comment="Font style name">Caveat</string>
-    <string name="font_comfortaa" comment="Font style name">Comfortaa</string>
-    <string name="font_crimson_pro" comment="Font style name">Crimson Pro</string>
-    <string name="font_dancing_script" comment="Font style name">Dancing Script</string>
-    <string name="font_display_text" comment="Sample text used to preview font styles">أبجد هوز حطي كلمن سعفص قرشت ثخذ ضظغ</string>
-    <string name="font_eb_garamond" comment="Font style name">EB Garamond</string>
-    <string name="font_exo_2" comment="Font style name">Exo 2</string>
     <string name="font_family" comment="Settings preference title for selecting application font family">عائلة الخط</string>
-    <string name="font_heebo" comment="Font style name">Heebo</string>
-    <string name="font_inter" comment="Font style name">Inter</string>
-    <string name="font_josefin_sans" comment="Font style name">Josefin Sans</string>
-    <string name="font_karla" comment="Font style name">Karla</string>
-    <string name="font_lexend" comment="Font style name">Lexend</string>
-    <string name="font_lora" comment="Font style name">Lora</string>
-    <string name="font_manrope" comment="Font style name">Manrope</string>
-    <string name="font_montserrat" comment="Font style name">Montserrat</string>
-    <string name="font_noto_sans" comment="Font style name">Noto Sans</string>
-    <string name="font_nunito" comment="Font style name">Nunito</string>
-    <string name="font_open_sans" comment="Font style name">Open Sans</string>
-    <string name="font_oswald" comment="Font style name">Oswald</string>
-    <string name="font_outfit" comment="Font style name">Outfit</string>
-    <string name="font_pacifico" comment="Font style name">Pacifico</string>
-    <string name="font_playfair_display" comment="Font style name">Playfair Display</string>
-    <string name="font_playpen_sans" comment="Font style name">Playpen Sans</string>
-    <string name="font_plus_jakarta_sans" comment="Font style name">Plus Jakarta Sans</string>
-    <string name="font_public_sans" comment="Font style name">Public Sans</string>
-    <string name="font_quicksand" comment="Font style name">Quicksand</string>
-    <string name="font_raleway" comment="Font style name">Raleway</string>
-    <string name="font_roboto_flex" comment="Font style name">Roboto Flex</string>
-    <string name="font_rubik" comment="Font style name">Rubik</string>
-    <string name="font_shadows_into_light" comment="Font style name">Shadows Into Light</string>
+    <string name="font_import_success" comment="Toast shown after a custom font file is successfully imported and saved">تم استيراد الخط بنجاح</string>
     <string name="font_size_multiplier" comment="Settings preference title for adjusting font size scaling multiplier">مضاعف حجم الخط</string>
-    <string name="font_source_sans_3" comment="Font style name">Source Sans 3</string>
-    <string name="font_source_serif_4" comment="Font style name">Source Serif 4</string>
-    <string name="font_work_sans" comment="Font style name">Work Sans</string>
-    <string name="forget" comment="Action button to remove/forget a paired device">نسيت</string>
     <string name="forget_device" comment="Button label in device details card to unpair/forget ADB device">نسيان الجهاز</string>
     <string name="forget_device_confirmation" comment="%1$s = device name">هل أنت متأكد من أنك تريد أن تنسى %1$s؟ سوف تحتاج إلى الإقران مرة أخرى للاتصال.</string>
     <string name="forks" comment="GitHub repository metadata count label for project forks">Forks</string>
@@ -511,6 +475,9 @@
     <string name="home">المنزل</string>
     <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">كيفية الدخول إلى وضع التحميل الجانبي</string>
     <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">تم اختيار الأيقونة</string>
+    <string name="action_import">استيراد</string>
+    <string name="import_font" comment="Content description for the import font icon button in the font style picker">Import font</string>
+    <string name="import_font_name_hint" comment="Input field placeholder for the user-assigned display name of an imported font">Font name</string>
     <string name="import_theme" comment="Action button to import theme configuration file">استيراد السمة</string>
     <string name="include" comment="Filter toggle option to include selected items">تضمين</string>
     <string name="info">معلومات</string>
@@ -518,6 +485,8 @@
     <string name="instructions" comment="Section header for step-by-step connection guides">تعليمات</string>
     <string name="intent_not_found" comment="Error toast when external app activity or URL link cannot be opened">لم يتم العثور على النية</string>
     <string name="internal_storage" comment="Root folder label in file browser for local storage">التخزين الداخلي</string>
+    <string name="invalid_font_file" comment="Dialog title shown when the selected file is not a valid TrueType font">ملف الخط غير صالح</string>
+    <string name="invalid_font_file_desc" comment="Dialog body explaining that the selected file failed TTF validation">الملف المحدد ليس ملف خط TrueType (.ttf) صالح.</string>
     <string name="invalid_folder_name" comment="Validation error when entered directory name contains slash characters">اسم المجلد لا يمكن أن يحتوي على /</string>
     <string name="ip_address" comment="Field label for device IP address in wireless ADB setup">عنوان IP</string>
     <string name="irreversible_action_warning" comment="Warning dialog subtitle warning user that deletion cannot be undone">هذا الاجراء لا يمكن التراجع عنه!</string>
@@ -586,7 +555,6 @@
     <string name="model_category_tiny" comment="AI model size category label">صغير جداً (أقل من 300 ميجابايت)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">النماذج</string>
     <string name="modified" comment="File property: last modified date">معدّل</string>
-    <string name="monospace" comment="Font style category name">أحادي المسافة</string>
     <string name="monthly" comment="Option in backup scheduler frequency selection">شهري</string>
     <string name="more">المزيد</string>
     <string name="most_used" comment="Sorting option for commands or bookmarks list">الأكثر استخدامًا</string>
@@ -728,7 +696,6 @@
     <string name="reconnect_failed_requires_pairing" comment="Toast notification indicating device un-paired and needs re-pairing">فشلت إعادة الاتصال. مطلوب إعادة الإقران.</string>
     <string name="reconnect_success" comment="Toast message confirming successful wireless ADB reconnection">تمت إعادة الاتصال بنجاح</string>
     <string name="reconnect_the_device" comment="Button prompt directing user to reconnect target ADB device">إعادة توصيل الجهاز</string>
-    <string name="recovery" comment="Refers to Android System Recovery partition / boot mode">الاسترداد</string>
     <string name="refresh">تحديث</string>
     <string name="remove">إزالة</string>
     <string name="rename">إعادة تسمية</string>
@@ -866,7 +833,6 @@
     <string name="tab" comment="Settings option for terminal tab indentation behavior">علامة تبويب</string>
     <string name="tag" comment="Field label for custom command category tag/label">الوسم</string>
     <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">انقر للاستعراض بحثاً عن ملف .zip</string>
-    <string name="telegram" comment="Button in About screen linking to official Telegram community group">تيليجرام</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">المحطة</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">نمط الخط الطرفي</string>
     <string name="tertiary">الثلاثي</string>
@@ -927,7 +893,6 @@
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">ماذا تريد أن تفعل أثناء %1$s؟</string>
     <string name="whats_new" comment="Header title for app release notes and changelog dialog">ما الجديد!</string>
     <string name="which_device_to_pair" comment="Dialog header prompting user to choose wireless pairing method or device">ما هو الجهاز الذي ترغب في الإقران؟</string>
-    <string name="wifi_adb" comment="Refers to Android Wireless Debugging ADB over Wi-Fi connection feature">واي فاي ADB</string>
     <string name="wifi_connection_required" comment="Detailed explanation of Wi-Fi requirements for Wireless Debugging ADB">لاستخدام ميزة التصحيح اللاسلكي، يجب أن يكون جهازك متصلًا بشبكة Wi-Fi. إذا كان اتصال Wi-Fi الخاص بك ليس لديه وصول إلى الإنترنت، فقم بإيقاف تشغيل بيانات الجوال للحصول على اتصال Wi-Fi ثابت.</string>
     <string name="wipe_cache_desc" comment="Description for predefined fastboot erase cache command">fastboot erase cache</string>
     <string name="wipe_cache_title" comment="Predefined fastboot command title: erase cache partition">محو ذاكرة التخزين المؤقت</string>
