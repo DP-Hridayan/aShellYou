@@ -105,8 +105,7 @@
     <string name="boot_device_into_fastboot" comment="Instructional prompt in Fastboot screen instructing user to boot target device into fastboot mode">Boot the target device into fastboot mode and connect via OTG cable</string>
     <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">Boot Image</string>
     <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">Boot into Fastboot</string>
-    <string name="bootloader" comment="Device info label or fastboot section title for bootloader mode">Bootloader</string>
-    <string name="bootloader_version" comment="Device info field label displaying bootloader version string">Bootloader</string>
+    <string name="bootloader" comment="Device info label or fastboot section title for bootloader mode" translatable="false">Bootloader</string>
     <string name="btn_continue" comment="Action button label to proceed to next step in setup wizard">Continue</string>
     <string name="cache_settings" comment="Settings section header for AI analysis response caching options">Cache</string>
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Cache size: %s</string>
@@ -435,7 +434,7 @@
     <string name="file_not_found" comment="Error toast when requested file path does not exist on device">File not found</string>
     <string name="filter">Filter</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">Filter by labels</string>
-    <string name="flash" comment="Action button to start fastboot partition flashing process">Flash</string>
+    <string name="flash" comment="Action button to start fastboot partition flashing process" translatable="false">Flash</string>
     <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">Flash partition</string>
     <string name="flashing" comment="Progress status header while partition flashing is in progress">Flashing…</string>
     <string name="folder">Folder</string>
@@ -444,44 +443,44 @@
     <string name="folder_info" comment="Dialog header displaying directory metadata properties">Folder Info</string>
     <string name="folder_name" comment="Text field label for entering new directory name">Folder name</string>
     <string name="folder_picker" comment="Dialog title for selecting a target directory">Folder picker</string>
-    <string name="font_amatic_sc" comment="Font style name">Amatic SC</string>
-    <string name="font_cabin" comment="Font style name">Cabin</string>
-    <string name="font_caveat" comment="Font style name">Caveat</string>
-    <string name="font_comfortaa" comment="Font style name">Comfortaa</string>
-    <string name="font_crimson_pro" comment="Font style name">Crimson Pro</string>
-    <string name="font_dancing_script" comment="Font style name">Dancing Script</string>
-    <string name="font_display_text" comment="Sample text used to preview font styles">The quick brown fox jumps over the lazy dog</string>
-    <string name="font_eb_garamond" comment="Font style name">EB Garamond</string>
-    <string name="font_exo_2" comment="Font style name">Exo 2</string>
+    <string name="font_amatic_sc" comment="Font style name" translatable="false">Amatic SC</string>
+    <string name="font_cabin" comment="Font style name" translatable="false">Cabin</string>
+    <string name="font_caveat" comment="Font style name" translatable="false">Caveat</string>
+    <string name="font_comfortaa" comment="Font style name" translatable="false">Comfortaa</string>
+    <string name="font_crimson_pro" comment="Font style name" translatable="false">Crimson Pro</string>
+    <string name="font_dancing_script" comment="Font style name" translatable="false">Dancing Script</string>
+    <string name="font_display_text" comment="Sample text used to preview font styles" translatable="false">The quick brown fox jumps over the lazy dog</string>
+    <string name="font_eb_garamond" comment="Font style name" translatable="false">EB Garamond</string>
+    <string name="font_exo_2" comment="Font style name" translatable="false">Exo 2</string>
     <string name="font_family" comment="Settings preference title for selecting application font family">Font family</string>
-    <string name="font_heebo" comment="Font style name">Heebo</string>
-    <string name="font_inter" comment="Font style name">Inter</string>
-    <string name="font_josefin_sans" comment="Font style name">Josefin Sans</string>
-    <string name="font_karla" comment="Font style name">Karla</string>
-    <string name="font_lexend" comment="Font style name">Lexend</string>
-    <string name="font_lora" comment="Font style name">Lora</string>
-    <string name="font_manrope" comment="Font style name">Manrope</string>
-    <string name="font_montserrat" comment="Font style name">Montserrat</string>
-    <string name="font_noto_sans" comment="Font style name">Noto Sans</string>
-    <string name="font_nunito" comment="Font style name">Nunito</string>
-    <string name="font_open_sans" comment="Font style name">Open Sans</string>
-    <string name="font_oswald" comment="Font style name">Oswald</string>
-    <string name="font_outfit" comment="Font style name">Outfit</string>
-    <string name="font_pacifico" comment="Font style name">Pacifico</string>
-    <string name="font_playfair_display" comment="Font style name">Playfair Display</string>
-    <string name="font_playpen_sans" comment="Font style name">Playpen Sans</string>
-    <string name="font_plus_jakarta_sans" comment="Font style name">Plus Jakarta Sans</string>
-    <string name="font_public_sans" comment="Font style name">Public Sans</string>
-    <string name="font_quicksand" comment="Font style name">Quicksand</string>
-    <string name="font_raleway" comment="Font style name">Raleway</string>
-    <string name="font_roboto_flex" comment="Font style name">Roboto Flex</string>
-    <string name="font_rubik" comment="Font style name">Rubik</string>
-    <string name="font_shadows_into_light" comment="Font style name">Shadows Into Light</string>
+    <string name="font_heebo" comment="Font style name" translatable="false">Heebo</string>
+    <string name="font_inter" comment="Font style name" translatable="false">Inter</string>
+    <string name="font_josefin_sans" comment="Font style name" translatable="false">Josefin Sans</string>
+    <string name="font_karla" comment="Font style name" translatable="false">Karla</string>
+    <string name="font_lexend" comment="Font style name" translatable="false">Lexend</string>
+    <string name="font_lora" comment="Font style name" translatable="false">Lora</string>
+    <string name="font_manrope" comment="Font style name" translatable="false">Manrope</string>
+    <string name="font_montserrat" comment="Font style name" translatable="false">Montserrat</string>
+    <string name="font_noto_sans" comment="Font style name" translatable="false">Noto Sans</string>
+    <string name="font_nunito" comment="Font style name" translatable="false">Nunito</string>
+    <string name="font_open_sans" comment="Font style name" translatable="false">Open Sans</string>
+    <string name="font_oswald" comment="Font style name" translatable="false">Oswald</string>
+    <string name="font_outfit" comment="Font style name" translatable="false">Outfit</string>
+    <string name="font_pacifico" comment="Font style name" translatable="false">Pacifico</string>
+    <string name="font_playfair_display" comment="Font style name" translatable="false">Playfair Display</string>
+    <string name="font_playpen_sans" comment="Font style name" translatable="false">Playpen Sans</string>
+    <string name="font_plus_jakarta_sans" comment="Font style name" translatable="false">Plus Jakarta Sans</string>
+    <string name="font_public_sans" comment="Font style name" translatable="false">Public Sans</string>
+    <string name="font_quicksand" comment="Font style name" translatable="false">Quicksand</string>
+    <string name="font_raleway" comment="Font style name" translatable="false">Raleway</string>
+    <string name="font_roboto_flex" comment="Font style name" translatable="false">Roboto Flex</string>
+    <string name="font_rubik" comment="Font style name" translatable="false">Rubik</string>
+    <string name="font_shadows_into_light" comment="Font style name" translatable="false">Shadows Into Light</string>
     <string name="font_size_multiplier" comment="Settings preference title for adjusting font size scaling multiplier">Font size multiplier</string>
-    <string name="font_source_sans_3" comment="Font style name">Source Sans 3</string>
-    <string name="font_source_serif_4" comment="Font style name">Source Serif 4</string>
-    <string name="font_work_sans" comment="Font style name">Work Sans</string>
-    <string name="forget" comment="Action button to remove/forget a paired device">Forget</string>
+    <string name="font_source_sans_3" comment="Font style name" translatable="false">Source Sans 3</string>
+    <string name="font_source_serif_4" comment="Font style name" translatable="false">Source Serif 4</string>
+    <string name="font_work_sans" comment="Font style name" translatable="false">Work Sans</string>
+    <string name="forget" comment="Action button to remove/forget a paired device" translatable="false">Forget</string>
     <string name="forget_device" comment="Button label in device details card to unpair/forget ADB device">Forget device</string>
     <string name="forget_device_confirmation" comment="%1$s = device name">Are you sure you want to forget %1$s? You will need to pair again to connect.</string>
     <string name="forks" comment="GitHub repository metadata count label for project forks">Forks</string>
@@ -598,7 +597,7 @@
     <string name="model_category_tiny" comment="AI model size category label">Tiny (under 300 MB)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">Models</string>
     <string name="modified" comment="File property: last modified date">Modified</string>
-    <string name="monospace" comment="Font style category name">Monospace</string>
+    <string name="monospace" comment="Font style category name" translatable="false">Monospace</string>
     <string name="monthly" comment="Option in backup scheduler frequency selection">Monthly</string>
     <string name="more">More</string>
     <string name="most_used" comment="Sorting option for commands or bookmarks list">Most used</string>
@@ -741,7 +740,7 @@
     <string name="reconnect_failed_requires_pairing" comment="Toast notification indicating device un-paired and needs re-pairing">Reconnection failed. Re-pairing required.</string>
     <string name="reconnect_success" comment="Toast message confirming successful wireless ADB reconnection">Reconnected successfully</string>
     <string name="reconnect_the_device" comment="Button prompt directing user to reconnect target ADB device">Reconnect the device</string>
-    <string name="recovery" comment="Refers to Android System Recovery partition / boot mode">Recovery</string>
+    <string name="recovery" comment="Refers to Android System Recovery partition / boot mode" translatable="false">Recovery</string>
     <string name="refresh">Refresh</string>
     <string name="remove">Remove</string>
     <string name="rename">Rename</string>
@@ -881,7 +880,7 @@
     <string name="tab" comment="Settings option for terminal tab indentation behavior">Tab</string>
     <string name="tag" comment="Field label for custom command category tag/label">Tag</string>
     <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">Tap to browse for a .zip file</string>
-    <string name="telegram" comment="Button in About screen linking to official Telegram community group">Telegram</string>
+    <string name="telegram" comment="Button in About screen linking to official Telegram community group" translatable="false">Telegram</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">Terminal</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Terminal font style</string>
     <string name="tertiary">Tertiary</string>
@@ -942,7 +941,7 @@
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">What would you like to do while %1$s?</string>
     <string name="whats_new" comment="Header title for app release notes and changelog dialog">What\'s new!</string>
     <string name="which_device_to_pair" comment="Dialog header prompting user to choose wireless pairing method or device">Which device would you like to pair?</string>
-    <string name="wifi_adb" comment="Refers to Android Wireless Debugging ADB over Wi-Fi connection feature">WiFi ADB</string>
+    <string name="wifi_adb" comment="Refers to Android Wireless Debugging ADB over Wi-Fi connection feature" translatable="false">WiFi ADB</string>
     <string name="wifi_connection_required" comment="Detailed explanation of Wi-Fi requirements for Wireless Debugging ADB">To use the Wireless Debugging feature, your device must be connected to a Wi-Fi network. If your Wi-Fi connection has no Internet access then turn off mobile data for a solid Wi-Fi connection.</string>
     <string name="wipe_cache_desc" comment="Description for predefined fastboot erase cache command">fastboot erase cache</string>
     <string name="wipe_cache_title" comment="Predefined fastboot command title: erase cache partition">Erase Cache</string>

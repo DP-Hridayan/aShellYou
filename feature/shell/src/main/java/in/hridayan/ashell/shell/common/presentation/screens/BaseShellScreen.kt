@@ -60,6 +60,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.ExposedDropdownMenu
 import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -134,11 +135,11 @@ import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedSh
 import `in`.hridayan.ashell.core.presentation.utils.disableKeyboard
 import `in`.hridayan.ashell.core.presentation.utils.hideKeyboard
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
-import `in`.hridayan.ashell.core.presentation.viewmodel.DialogViewModel
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import `in`.hridayan.ashell.core.utils.findActivity
 import `in`.hridayan.ashell.core.utils.showToast
+import `in`.hridayan.ashell.shell.common.domain.model.Suggestion
 import `in`.hridayan.ashell.shell.common.presentation.components.bottomsheet.BookmarksBottomSheet
 import `in`.hridayan.ashell.shell.common.presentation.components.button.UtilityButtonGroup
 import `in`.hridayan.ashell.shell.common.presentation.components.card.SuggestionCard
@@ -149,6 +150,7 @@ import `in`.hridayan.ashell.shell.common.presentation.components.dialog.FileSave
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ShellDialogKey
 import `in`.hridayan.ashell.shell.common.presentation.components.icon.AnimatedStopIcon
 import `in`.hridayan.ashell.shell.common.presentation.components.text.OutputLineText
+import `in`.hridayan.ashell.shell.common.presentation.model.CommandResult
 import `in`.hridayan.ashell.shell.common.presentation.model.ShellState
 import `in`.hridayan.ashell.shell.common.presentation.util.rememberScrollDirection
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.BookmarkViewModel
@@ -178,6 +180,7 @@ fun BaseShellScreen(
     extraContent: @Composable () -> Unit = {}
 ) {
     val context = LocalContext.current
+    val activity = context.findActivity()
     val res = LocalResources.current
     val navController = LocalNavController.current
     val dialogManager = LocalDialogManager.current
@@ -206,6 +209,8 @@ fun BaseShellScreen(
     val disableSoftKeyboard = settings[SettingsKeys.DisableSoftKeyboard]
     val bookmarkCount = bookmarkViewModel.getBookmarkCount.collectAsState(initial = 0)
     val lastSavedFileUri = settings[SettingsKeys.LastSavedFileUri]
+    val savePath = settings[SettingsKeys.OutputSaveDirectory].toUri()
+    val saveWholeOutput = settings[SettingsKeys.SaveWholeOutput]
     val textFieldFocusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
     var historyMenuExpanded by rememberSaveable { mutableStateOf(false) }
@@ -364,10 +369,40 @@ fun BaseShellScreen(
 
                     ShareFAB()
 
+
                     BottomExtendedFAB(
                         listState = listState,
                         scrollDirection = scrollDirection,
-                        dialogManager = dialogManager,
+                        isOutputEmpty = states.output.isEmpty(),
+                        saveAction = {
+                            dialogManager.show(ShellDialogKey.FileSaved)
+
+                            activity?.let {
+                                shellViewModel.startStreamingSave(
+                                    activity = it,
+                                    saveWholeOutput = saveWholeOutput,
+                                    savePathUri = savePath,
+                                    onComplete = { success, uri ->
+                                        if (success && uri != null) {
+                                            shellViewModel.setLastSavedFileUri(uri.toString())
+                                        }
+                                    }
+                                )
+                            }
+                        },
+                        pasteAction = {
+                            val textInClipboard = ClipboardUtils.readFromClipboard(context) ?: ""
+                            if (textInClipboard.trim().isEmpty()) {
+                                showToast(context, res.getString(R.string.clipboard_empty))
+                            } else {
+                                shellViewModel.onCommandTextFieldChange(
+                                    TextFieldValue(
+                                        textInClipboard
+                                    )
+                                )
+                                shellViewModel.updateTextFieldSelection()
+                            }
+                        },
                     )
                 }
             }
@@ -385,10 +420,10 @@ fun BaseShellScreen(
                         if (targetState) {
                             (
                                     fadeIn(animationSpec = spring(stiffness = Spring.StiffnessLow)) +
-                                    scaleIn(
-                                        initialScale = 0.9f,
-                                        animationSpec = spring(stiffness = Spring.StiffnessLow)
-                                    )
+                                            scaleIn(
+                                                initialScale = 0.9f,
+                                                animationSpec = spring(stiffness = Spring.StiffnessLow)
+                                            )
                                     )
                                 .togetherWith(fadeOut(animationSpec = spring(stiffness = Spring.StiffnessLow)))
                         } else {
@@ -412,8 +447,11 @@ fun BaseShellScreen(
                                 restoredScrollIndex = scrollIndex
                                 isOutputFullscreen = false
                             },
+                            results = searchOutputResult,
+                            shellState = states.shellState,
+                            isSearchVisible = states.search.isVisible,
+                            searchQuery = states.search.textFieldValue.text,
                             initialScrollIndex = initialScrollIndex,
-                            shellViewModel = shellViewModel,
                             sharedTransitionScope = this@SharedTransitionLayout,
                             animatedContentScope = this@AnimatedContent
                         )
@@ -642,6 +680,10 @@ fun BaseShellScreen(
 
                             OutputCard(
                                 listState = listState,
+                                results = searchOutputResult,
+                                shellState = states.shellState,
+                                isSearchVisible = states.search.isVisible,
+                                searchQuery = states.search.textFieldValue.text,
                                 isFullscreen = isOutputFullscreen,
                                 onFullscreenToggle = { isOutputFullscreen = !isOutputFullscreen },
                                 restoredScrollIndex = restoredScrollIndex,
@@ -762,11 +804,10 @@ fun BaseShellScreen(
 @Composable
 fun Suggestions(
     modifier: Modifier = Modifier,
-    viewModel: ShellViewModel = hiltViewModel()
+    results: List<CommandResult> = emptyList(),
+    suggestions: List<Suggestion> = emptyList(),
 ) {
     val listState = rememberLazyListState()
-    val results by viewModel.filteredOutput.collectAsState()
-    val suggestions by viewModel.suggestions.collectAsState()
 
     LaunchedEffect(suggestions) {
         if (suggestions.isNotEmpty()) {
@@ -834,7 +875,10 @@ private fun OutputCard(
     onScrollRestored: () -> Unit = {},
     sharedTransitionScope: SharedTransitionScope,
     animatedContentScope: AnimatedContentScope,
-    shellViewModel: ShellViewModel = hiltViewModel()
+    results: List<CommandResult>,
+    shellState: ShellState,
+    isSearchVisible: Boolean,
+    searchQuery: String,
 ) {
     val context = LocalContext.current
     val res = LocalResources.current
@@ -862,8 +906,6 @@ private fun OutputCard(
             MaterialTheme.typography.bodySmallEmphasized
         }
 
-    val states by shellViewModel.states.collectAsState()
-    val results by shellViewModel.filteredOutput.collectAsState()
 
     val allOutputs = results.map { commandResult ->
         commandResult.outputFlow.collectAsState()
@@ -945,8 +987,8 @@ private fun OutputCard(
     var wasBusy by remember { mutableStateOf(false) }
 
     // Reset scroll state and scroll to bottom when command finishes
-    LaunchedEffect(states.shellState, combinedOutput.value.size) {
-        val isBusy = states.shellState is ShellState.Busy
+    LaunchedEffect(shellState, combinedOutput.value.size) {
+        val isBusy = shellState is ShellState.Busy
 
         // When command finishes (was busy, now not)
         if (wasBusy && !isBusy && combinedOutput.value.isNotEmpty() && !isFullscreen) {
@@ -965,8 +1007,8 @@ private fun OutputCard(
     }
 
     // Auto-scroll to bottom during live output
-    LaunchedEffect(combinedOutput.value.size, states.shellState, userScrolledAway) {
-        if (states.shellState is ShellState.Busy && !userScrolledAway && combinedOutput.value.isNotEmpty() && !isFullscreen) {
+    LaunchedEffect(combinedOutput.value.size, shellState, userScrolledAway) {
+        if (shellState is ShellState.Busy && !userScrolledAway && combinedOutput.value.isNotEmpty() && !isFullscreen) {
             try {
                 listState.scrollToItem(combinedOutput.value.lastIndex)
             } catch (_: Exception) {
@@ -1074,7 +1116,8 @@ private fun OutputCard(
                                     OutputLineText(
                                         modifier = Modifier.lazySelectionItem(index = index),
                                         line = line,
-                                        states = states,
+                                        isSearchVisible = isSearchVisible,
+                                        searchQuery = searchQuery,
                                         textStyle = textStyle,
                                         onTextLayout = textLayoutResult
                                     )
@@ -1210,18 +1253,10 @@ private fun BottomExtendedFAB(
     modifier: Modifier = Modifier,
     listState: LazyListState,
     scrollDirection: ScrollDirection,
-    dialogManager: DialogViewModel,
-    shellViewModel: ShellViewModel = hiltViewModel()
+    saveAction: () -> Unit = {},
+    pasteAction: () -> Unit = {},
+    isOutputEmpty: Boolean = false,
 ) {
-    val context = LocalContext.current
-    val res = LocalResources.current
-    val activity = context.findActivity()
-    val states by shellViewModel.states.collectAsState()
-    val savePath = LocalSettings.current[SettingsKeys.OutputSaveDirectory].toUri()
-    val saveWholeOutput = LocalSettings.current[SettingsKeys.SaveWholeOutput]
-
-    val isOutputEmpty = states.output.isEmpty()
-
     val isFitsOnScreen by remember(isOutputEmpty) {
         derivedStateOf {
             if (isOutputEmpty) return@derivedStateOf true
@@ -1264,38 +1299,11 @@ private fun BottomExtendedFAB(
     val buttonText =
         if (isOutputEmpty) stringResource(R.string.paste) else stringResource(R.string.save)
 
-    val saveAction: () -> Unit = {
-        // Show dialog immediately in saving state
-        dialogManager.show(ShellDialogKey.FileSaved)
-
-        activity?.let {
-            shellViewModel.startStreamingSave(
-                activity = it,
-                saveWholeOutput = saveWholeOutput,
-                savePathUri = savePath,
-                onComplete = { success, uri ->
-                    if (success && uri != null) {
-                        shellViewModel.setLastSavedFileUri(uri.toString())
-                    }
-                }
-            )
-        }
-    }
-
-    val pasteAction: () -> Unit = {
-        val textInClipboard = ClipboardUtils.readFromClipboard(context) ?: ""
-        if (textInClipboard.trim().isEmpty()) {
-            showToast(context, res.getString(R.string.clipboard_empty))
-        } else {
-            shellViewModel.onCommandTextFieldChange(TextFieldValue(textInClipboard))
-            shellViewModel.updateTextFieldSelection()
-        }
-    }
 
     ExtendedFloatingActionButton(
         modifier = modifier,
         onClick = withHaptic {
-            if (states.output.isEmpty()) pasteAction() else saveAction()
+            if (isOutputEmpty) pasteAction() else saveAction()
         },
         expanded = expanded,
         icon = {

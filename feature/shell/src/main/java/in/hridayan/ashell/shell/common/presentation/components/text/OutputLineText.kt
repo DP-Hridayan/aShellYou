@@ -11,25 +11,22 @@ import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.common.domain.model.OutputLine
-import `in`.hridayan.ashell.shell.common.presentation.model.ShellScreenState
 import `in`.hridayan.ashell.shell.common.presentation.util.highlightQueryText
 
 @Composable
 fun OutputLineText(
     modifier: Modifier = Modifier,
     line: OutputLine,
-    states: ShellScreenState,
+    isSearchVisible: Boolean,
+    searchQuery: String,
     textStyle: TextStyle,
     onTextLayout: (TextLayoutResult) -> Unit = {}
 ) {
-    val text = if (!states.search.isVisible) {
+    val text = if (!isSearchVisible) {
         line.text
     } else {
         line.text.takeIf {
-            line.text.contains(
-                states.search.textFieldValue.text,
-                ignoreCase = true
-            )
+            line.text.contains(searchQuery, ignoreCase = true)
         }
     }
 
@@ -47,7 +44,7 @@ fun OutputLineText(
 
     text?.let {
         val annotatedText =
-            if (states.search.isVisible && !states.search.textFieldValue.text.isBlank()) {
+            if (isSearchVisible && !searchQuery.isBlank()) {
                 val highlightBgColor = MaterialTheme.colorScheme.run {
                     if (line.isError) errorContainer else primaryContainer
                 }
@@ -58,7 +55,7 @@ fun OutputLineText(
 
                 highlightQueryText(
                     text = text,
-                    query = states.search.textFieldValue.text,
+                    query = searchQuery,
                     highlightBgColor = highlightBgColor,
                     highlightTextColor = highlightTextColor
                 )

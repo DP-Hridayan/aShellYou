@@ -52,7 +52,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.domain.model.OutputLine
 import `in`.hridayan.ashell.core.common.domain.model.TerminalFontStyle
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
@@ -62,8 +61,8 @@ import `in`.hridayan.ashell.core.presentation.components.scrollbar.VerticalScrol
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.shell.common.presentation.components.text.OutputLineText
+import `in`.hridayan.ashell.shell.common.presentation.model.CommandResult
 import `in`.hridayan.ashell.shell.common.presentation.model.ShellState
-import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
 import `in`.hridayan.lazyselectioncontainer.LazySelectionContainer
 import `in`.hridayan.lazyselectioncontainer.lazySelectionItem
 import `in`.hridayan.lazyselectioncontainer.rememberLazySelectionState
@@ -76,8 +75,11 @@ import kotlin.time.Duration.Companion.milliseconds
 @Composable
 fun ExpandedViewOutputScreen(
     onDismiss: (scrollIndex: Int) -> Unit,
+    results: List<CommandResult>,
+    shellState: ShellState,
+    isSearchVisible: Boolean,
+    searchQuery: String,
     initialScrollIndex: Int = 0,
-    shellViewModel: ShellViewModel = hiltViewModel(),
     sharedTransitionScope: SharedTransitionScope,
     animatedContentScope: AnimatedContentScope
 ) {
@@ -110,8 +112,6 @@ fun ExpandedViewOutputScreen(
             }
         }
 
-    val states by shellViewModel.states.collectAsState()
-    val results by shellViewModel.filteredOutput.collectAsState()
 
     val allOutputs = results.map { commandResult ->
         commandResult.outputFlow.collectAsState()
@@ -178,8 +178,8 @@ fun ExpandedViewOutputScreen(
     }
 
     // Auto-scroll to absolute bottom during live output
-    LaunchedEffect(combinedOutput.value.size, states.shellState) {
-        if (states.shellState is ShellState.Busy && !userScrolledAway && combinedOutput.value.isNotEmpty()) {
+    LaunchedEffect(combinedOutput.value.size, shellState) {
+        if (shellState is ShellState.Busy && !userScrolledAway && combinedOutput.value.isNotEmpty()) {
             try {
                 // Use scrollToItem for instant positioning (no animation during rapid output)
                 fullscreenListState.scrollToItem(combinedOutput.value.lastIndex)
@@ -190,8 +190,8 @@ fun ExpandedViewOutputScreen(
     }
 
     // When command finishes, always scroll to absolute bottom
-    LaunchedEffect(states.shellState) {
-        if (states.shellState !is ShellState.Busy && combinedOutput.value.isNotEmpty()) {
+    LaunchedEffect(shellState) {
+        if (shellState !is ShellState.Busy && combinedOutput.value.isNotEmpty()) {
             userScrolledAway = false
             try {
                 fullscreenListState.animateScrollToItem(combinedOutput.value.lastIndex)
@@ -241,7 +241,7 @@ fun ExpandedViewOutputScreen(
                             }
                         },
                         actions = {
-                            if (states.shellState !is ShellState.Busy) {
+                            if (shellState !is ShellState.Busy) {
                                 // Scroll to top
                                 IconButton(
                                     onClick = withHaptic(HapticFeedbackType.VirtualKey) {
@@ -416,7 +416,8 @@ fun ExpandedViewOutputScreen(
                                             globalIndex
                                         ),
                                         line = line,
-                                        states = states,
+                                        isSearchVisible = isSearchVisible,
+                                        searchQuery = searchQuery,
                                         textStyle = textStyle
                                     )
                                 }

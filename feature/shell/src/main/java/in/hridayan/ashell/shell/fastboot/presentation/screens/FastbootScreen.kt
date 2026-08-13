@@ -272,11 +272,8 @@ fun FastbootScreen(
     if (showFlashPartitionBottomSheet) {
         FlashPartitionBottomSheet(
             onDismiss = { showFlashPartitionBottomSheet = false },
-            isConnected = isConnected,
             flashOperation = flashOperation,
             onFlash = { partition, uri -> viewModel.flashPartition(partition, uri) },
-            onErase = { partition -> viewModel.erasePartition(partition) },
-            onBootImage = { uri -> viewModel.bootImage(uri) },
             onResetOperation = { viewModel.resetFlashOperation() },
             onCancel = { viewModel.cancelFlashOperation() }
         )

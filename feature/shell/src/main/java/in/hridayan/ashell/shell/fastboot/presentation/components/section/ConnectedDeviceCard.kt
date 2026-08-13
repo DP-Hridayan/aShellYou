@@ -175,7 +175,7 @@ fun ConnectedDeviceCard(
 
                 SpecificationText(
                     modifier = Modifier.padding(horizontal = 15.dp),
-                    spec = stringResource(R.string.bootloader_version),
+                    spec = stringResource(R.string.bootloader),
                     value = bootloaderVersion
                 )
 

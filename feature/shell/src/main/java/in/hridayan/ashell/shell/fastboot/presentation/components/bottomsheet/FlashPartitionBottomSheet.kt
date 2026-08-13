@@ -32,6 +32,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenu
 import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
@@ -75,18 +76,14 @@ import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashStatus
 @Composable
 fun FlashPartitionBottomSheet(
     onDismiss: () -> Unit,
-    isConnected: Boolean,
     flashOperation: FlashOperation,
     onFlash: (partition: String, uri: Uri) -> Unit,
-    onErase: (partition: String) -> Unit,
-    onBootImage: (uri: Uri) -> Unit,
     onResetOperation: () -> Unit,
     onCancel: () -> Unit
 ) {
     var selectedPartition by rememberSaveable { mutableStateOf("boot") }
     var customPartition by rememberSaveable { mutableStateOf("") }
     var dropdownExpanded by rememberSaveable { mutableStateOf(false) }
-    var showEraseConfirm by rememberSaveable { mutableStateOf(false) }
     var selectedFileUri by rememberSaveable { mutableStateOf<Uri?>(null) }
     var selectedFileName by rememberSaveable { mutableStateOf<String?>(null) }
 
@@ -133,13 +130,6 @@ fun FlashPartitionBottomSheet(
                 null
             } ?: it.lastPathSegment ?: "selected file"
         }
-    }
-
-    // Boot image picker
-    val bootImagePickerLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.OpenDocument()
-    ) { uri: Uri? ->
-        uri?.let { onBootImage(it) }
     }
 
     val sheetState = rememberBottomSheetState(
