@@ -209,6 +209,7 @@
     <string name="confirm">Confirm</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Confirm delete</string>
+    <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">Are you sure you want to remove "%1$s"? If it is currently applied, the app will revert to the System font.</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">Are you sure you want to delete this tile?</string>
     <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">Caching helps to retrieve analysis results instantly.\nDo you still want to clear all AI analysis cache data?</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" already exists in this location.</string>
@@ -252,6 +253,7 @@
     <string name="default_language" comment="Setting preference label for selecting application language">Default language</string>
     <string name="delete">Delete</string>
     <string name="delete_all" comment="Action button to delete all items in list, history, or bookmarks">Delete all</string>
+    <string name="delete_custom_font" comment="Action label to remove an imported custom font from the font list">Remove font</string>
     <string name="delete_file" comment="File browser action to delete selected file">Delete file</string>
     <string name="delete_folder" comment="File browser action to delete selected directory">Delete folder</string>
     <string name="delete_items_message" comment="%1$d = number of selected items">Are you sure you want to delete %1$d selected items?</string>
@@ -453,6 +455,8 @@
     <string name="font_eb_garamond" comment="Font style name" translatable="false">EB Garamond</string>
     <string name="font_exo_2" comment="Font style name" translatable="false">Exo 2</string>
     <string name="font_family" comment="Settings preference title for selecting application font family">Font family</string>
+    <string name="font_google_sans" comment="Font style name" translatable="false">Google Sans</string>
+    <string name="font_import_success" comment="Toast shown after a custom font file is successfully imported and saved">Font imported successfully</string>
     <string name="font_heebo" comment="Font style name" translatable="false">Heebo</string>
     <string name="font_inter" comment="Font style name" translatable="false">Inter</string>
     <string name="font_josefin_sans" comment="Font style name" translatable="false">Josefin Sans</string>
@@ -518,6 +522,9 @@
     <string name="home">Home</string>
     <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">How to enter sideload mode</string>
     <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">Icon selected</string>
+    <string name="action_import">Import</string>
+    <string name="import_font" comment="Content description for the import font icon button in the font style picker">Import font</string>
+    <string name="import_font_name_hint" comment="Input field placeholder for the user-assigned display name of an imported font">Font name</string>
     <string name="import_theme" comment="Action button to import theme configuration file">Import Theme</string>
     <string name="include" comment="Filter toggle option to include selected items">Include</string>
     <string name="info">Info</string>
@@ -525,6 +532,8 @@
     <string name="instructions" comment="Section header for step-by-step connection guides">Instructions</string>
     <string name="intent_not_found" comment="Error toast when external app activity or URL link cannot be opened">Intent not found</string>
     <string name="internal_storage" comment="Root folder label in file browser for local storage">Internal Storage</string>
+    <string name="invalid_font_file" comment="Dialog title shown when the selected file is not a valid TrueType font">Invalid font file</string>
+    <string name="invalid_font_file_desc" comment="Dialog body explaining that the selected file failed TTF validation">The selected file is not a valid TrueType (.ttf) font file.</string>
     <string name="invalid_folder_name" comment="Validation error when entered directory name contains slash characters">Folder name cannot contain /</string>
     <string name="ip_address" comment="Field label for device IP address in wireless ADB setup">IP address</string>
     <string name="irreversible_action_warning" comment="Warning dialog subtitle warning user that deletion cannot be undone">This action is irreversible!</string>

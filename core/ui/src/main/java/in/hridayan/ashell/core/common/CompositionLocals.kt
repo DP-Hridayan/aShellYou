@@ -26,6 +26,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.Density
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.data.provider.AppSeedColors
@@ -71,6 +72,16 @@ val LocalDialogManager = staticCompositionLocalOf<DialogViewModel> {
 val LocalSnackBarController = staticCompositionLocalOf<SnackBarController> {
     error("No SnackBarController provided")
 }
+
+/**
+ * Provides the resolved [FontFamily] for a user-imported custom font,
+ * or `null` when a predefined [AppFont] is selected.
+ *
+ * Provided by the [app] module (the only module that can depend on both
+ * `core:ui` and `feature:settings`). [AshellYouTheme] reads this to
+ * override [appTypography] when a custom font is active.
+ */
+val LocalFontFamily = staticCompositionLocalOf<FontFamily?> { null }
 
 @Composable
 fun CompositionLocals(

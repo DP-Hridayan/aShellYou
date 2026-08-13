@@ -1,7 +1,9 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
+﻿@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 
 package `in`.hridayan.ashell.settings.presentation.components.bottomsheet
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.expandVertically
@@ -29,6 +31,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -51,9 +54,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
@@ -76,8 +82,15 @@ import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedSh
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
 import `in`.hridayan.ashell.core.resources.R
+import `in`.hridayan.ashell.settings.domain.model.CustomFontEntity
+import `in`.hridayan.ashell.settings.presentation.components.dialog.FontImportDialog
+import `in`.hridayan.ashell.settings.presentation.model.FontImportState
+import `in`.hridayan.ashell.settings.presentation.model.FontOption
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel.LookAndFeelViewModel
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
+import java.io.File
+
+private val TTF_MIME_TYPES = arrayOf("font/ttf", "application/octet-stream")
 
 @Composable
 fun FontStyleBottomSheet(
@@ -86,13 +99,17 @@ fun FontStyleBottomSheet(
     viewModel: LookAndFeelViewModel = hiltViewModel()
 ) {
     val res = LocalResources.current
+    val context = LocalContext.current
     val sheetState = rememberBottomSheetState(
         initialValue = SheetValue.Hidden,
         enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded)
     )
     val scrollState = rememberScrollState()
 
-    val fontStyles = RadioGroupOptionsProvider.fontStyleOptions
+    val predefinedOptions = RadioGroupOptionsProvider.fontStyleOptions
+    val customFonts by viewModel.customFonts.collectAsState()
+    val fontImportState by viewModel.fontImportState.collectAsState()
+
     val selected = LocalSettings.current[SettingsKeys.FontFamily]
     var tempSelected by remember { mutableIntStateOf(selected) }
 
@@ -103,18 +120,32 @@ fun FontStyleBottomSheet(
 
     var searchQuery by remember { mutableStateOf(TextFieldValue("")) }
 
-    val filteredFontStyles = remember(searchQuery.text, fontStyles) {
+    val allFontOptions: List<FontOption> = remember(predefinedOptions, customFonts) {
+        val predefined = predefinedOptions.map { option ->
+            FontOption.Predefined(
+                appFont = AppFont.fromId(option.value),
+                labelResId = option.labelResId
+            )
+        }
+        val custom = customFonts.map { FontOption.Custom(it) }
+        predefined + custom
+    }
+
+    val filteredFontOptions = remember(searchQuery.text, allFontOptions) {
         if (searchQuery.text.isEmpty()) {
-            fontStyles
+            allFontOptions
         } else {
-            fontStyles.filter { option ->
-                val displayName = res.getString(option.labelResId)
+            allFontOptions.filter { option ->
+                val displayName = when (option) {
+                    is FontOption.Predefined -> res.getString(option.labelResId)
+                    is FontOption.Custom -> option.entity.displayName
+                }
                 displayName.contains(searchQuery.text, ignoreCase = true)
             }
         }
     }
 
-    val displayFont = AppFont.fromId(tempSelected).fontFamily
+    val displayFont = resolveFontFamily(tempSelected, customFonts)
     val previewText = stringResource(R.string.font_display_text)
     val displayText = when {
         isCheckedMatchCase -> previewText.uppercase()
@@ -123,8 +154,28 @@ fun FontStyleBottomSheet(
 
     val isKeyboardVisible by isKeyboardVisible()
 
+    val fontFileLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.OpenDocument()
+    ) { uri ->
+        uri?.let { viewModel.onFontFilePicked(it) }
+    }
+
     LaunchedEffect(selected) {
         tempSelected = selected
+    }
+
+    if (fontImportState !is FontImportState.Idle && fontImportState !is FontImportState.Validating) {
+        FontImportDialog(
+            state = fontImportState,
+            onConfirm = { name ->
+                viewModel.confirmFontImport(
+                    displayName = name,
+                    onSuccess = {},
+                    onError = {}
+                )
+            },
+            onDismiss = { viewModel.dismissImportDialog() }
+        )
     }
 
     ModalBottomSheet(
@@ -181,31 +232,46 @@ fun FontStyleBottomSheet(
                     .padding(bottom = 16.dp)
             )
 
-            CustomSearchBar(
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 16.dp),
-                value = searchQuery,
-                onValueChange = { searchQuery = it },
-                hint = stringResource(R.string.search_fonts),
-                trailingIcon = {
-                    if (searchQuery.text.isNotEmpty()) {
-                        IconButton(
-                            onClick = withHaptic {
-                                searchQuery = TextFieldValue("")
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                CustomSearchBar(
+                    modifier = Modifier.weight(1f),
+                    value = searchQuery,
+                    onValueChange = { searchQuery = it },
+                    hint = stringResource(R.string.search_fonts),
+                    trailingIcon = {
+                        if (searchQuery.text.isNotEmpty()) {
+                            IconButton(
+                                onClick = withHaptic {
+                                    searchQuery = TextFieldValue("")
+                                }
+                            ) {
+                                Icon(
+                                    painter = painterResource(R.drawable.ic_cross),
+                                    contentDescription = null
+                                )
                             }
-                        ) {
-                            Icon(
-                                painter = painterResource(R.drawable.ic_cross),
-                                contentDescription = null
-                            )
                         }
                     }
+                )
+
+                FilledTonalIconButton(
+                    onClick = withHaptic { fontFileLauncher.launch(TTF_MIME_TYPES) }
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_upload_file),
+                        contentDescription = stringResource(R.string.import_font)
+                    )
                 }
-            )
+            }
 
             AnimatedVisibility(
-                visible = filteredFontStyles.isEmpty(),
+                visible = filteredFontOptions.isEmpty(),
                 enter = expandVertically(),
                 exit = shrinkVertically()
             ) {
@@ -242,10 +308,9 @@ fun FontStyleBottomSheet(
                     .verticalScroll(scrollState)
                     .animateContentSize()
             ) {
-                filteredFontStyles.forEachIndexed { index, option ->
-                    val shape = getRoundedShape(index, filteredFontStyles.size)
-
-                    val isSelected = option.value == tempSelected
+                filteredFontOptions.forEachIndexed { index, option ->
+                    val shape = getRoundedShape(index, filteredFontOptions.size)
+                    val isSelected = option.listId == tempSelected
 
                     val cardColors = CardDefaults.cardColors(
                         containerColor = MaterialTheme.colorScheme.run {
@@ -256,13 +321,9 @@ fun FontStyleBottomSheet(
                         }
                     )
 
-                    val finalShape = if (isSelected) {
-                        CustomCardShape(50)
-                    } else {
-                        shape
-                    }
+                    val finalShape = if (isSelected) CustomCardShape(50) else shape
 
-                    val labelNameFontFamily = AppFont.fromId(option.value).fontFamily
+                    val labelFontFamily = resolveFontFamily(option.listId, customFonts)
 
                     CustomCard(
                         modifier = Modifier
@@ -275,26 +336,51 @@ fun FontStyleBottomSheet(
                             verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .clickable(
-                                    onClick = withHaptic { tempSelected = option.value }
-                                )
+                                .clickable(onClick = withHaptic { tempSelected = option.listId })
                                 .padding(vertical = 8.dp, horizontal = 20.dp)
                         ) {
+                            val labelText = when (option) {
+                                is FontOption.Predefined -> stringResource(option.labelResId)
+                                is FontOption.Custom -> option.entity.displayName
+                            }
+
                             Text(
-                                text = stringResource(option.labelResId),
+                                text = labelText,
                                 style = MaterialTheme.typography.bodyLarge,
                                 fontWeight = FontWeight.Bold,
-                                fontFamily = labelNameFontFamily
+                                fontFamily = labelFontFamily
                             )
 
                             Spacer(Modifier.weight(1f))
 
+                            if (option is FontOption.Custom) {
+                                IconButton(
+                                    onClick = withHaptic(HapticFeedbackType.LongPress) {
+                                        viewModel.deleteCustomFont(option.entity) { _, deletedId ->
+                                            if (tempSelected == deletedId) {
+                                                tempSelected = AppFont.SYSTEM.id
+                                                settingsViewModel.setInt(
+                                                    key = SettingsKeys.FontFamily,
+                                                    value = AppFont.SYSTEM.id
+                                                )
+                                            }
+                                        }
+                                    }
+                                ) {
+                                    Icon(
+                                        painter = painterResource(R.drawable.ic_delete),
+                                        contentDescription = stringResource(R.string.delete_custom_font),
+                                        tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                                    )
+                                }
+                            }
+
                             RadioButton(
-                                selected = (option.value == tempSelected),
+                                selected = isSelected,
                                 onClick = withHaptic(
                                     if (isSelected) HapticFeedbackType.ToggleOn else HapticFeedbackType.ToggleOff
                                 ) {
-                                    tempSelected = option.value
+                                    tempSelected = option.listId
                                 },
                                 colors = RadioButtonDefaults.colors(
                                     selectedColor = MaterialTheme.colorScheme.onPrimaryContainer,
@@ -338,6 +424,16 @@ fun FontStyleBottomSheet(
                 )
             }
         }
+    }
+}
+
+private fun resolveFontFamily(fontId: Int, customFonts: List<CustomFontEntity>): FontFamily {
+    return if (fontId >= AppFont.CUSTOM_FONT_ID_OFFSET) {
+        customFonts.find { it.id == fontId }
+            ?.let { FontFamily(Font(File(it.filePath))) }
+            ?: FontFamily.Default
+    } else {
+        AppFont.fromId(fontId).fontFamily
     }
 }
 

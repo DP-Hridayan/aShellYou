@@ -2,6 +2,7 @@ package `in`.hridayan.ashell.core.common.domain.model
 
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import `in`.hridayan.ashell.core.common.domain.model.AppFont.Companion.CUSTOM_FONT_ID_OFFSET
 import `in`.hridayan.ashell.core.resources.R
 
 enum class AppFont(val id: Int, val labelResId: Int) {
@@ -118,12 +119,22 @@ enum class AppFont(val id: Int, val labelResId: Int) {
     },
     AMATIC_SC(37, R.string.font_amatic_sc) {
         override val fontFamily: FontFamily by lazy { FontFamily(Font(R.font.amatic_sc)) }
+    },
+    GOOGLE_SANS(38, R.string.font_google_sans) {
+        override val fontFamily: FontFamily by lazy { FontFamily(Font(R.font.google_sans)) }
     }
     ;
 
     abstract val fontFamily: FontFamily
 
     companion object {
+        /**
+         * All predefined [AppFont] entry [id] values must remain strictly below
+         * [CUSTOM_FONT_ID_OFFSET]. IDs at or above this threshold are reserved for
+         * user-imported custom fonts stored in the local Room database.
+         */
+        const val CUSTOM_FONT_ID_OFFSET = 1000
+
         fun fromId(id: Int): AppFont {
             return entries.find { it.id == id } ?: SYSTEM
         }

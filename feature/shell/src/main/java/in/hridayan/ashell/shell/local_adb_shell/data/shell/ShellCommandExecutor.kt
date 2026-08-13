@@ -145,7 +145,7 @@ class ShellCommandExecutor {
             "PATH=/product/bin:/apex/com.android.runtime/bin:/apex/com.android.art/bin:/system_ext/bin:/system/bin:/system/xbin:/odm/bin:/vendor/bin"
         )
 
-        val safeDir = if (currentDir?.startsWith("/storage/emulated/") == true) {
+        val safeDir = if (currentDir.startsWith("/storage/emulated/")) {
             null
         } else {
             currentDir
@@ -191,7 +191,7 @@ class ShellCommandExecutor {
             shizukuProcess?.destroy()
             shizukuProcess = null
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
     fun exec(process: Process): Flow<OutputLine> = flow {
         currentProcess = process
@@ -223,7 +223,7 @@ class ShellCommandExecutor {
             currentProcess?.destroy()
             currentProcess = null
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
     fun stop() {
         currentProcess?.destroy()

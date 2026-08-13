@@ -16,7 +16,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 import `in`.hridayan.ashell.core.common.LocalDarkMode
+import `in`.hridayan.ashell.core.common.LocalFontFamily
 import `in`.hridayan.ashell.core.common.LocalUserGeneratedColorScheme
+import `in`.hridayan.ashell.core.common.domain.model.AppFont
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.theme.color.darkColorSchemeFromSeed
@@ -82,11 +84,17 @@ fun AshellYouTheme(
         else -> lightColorSchemeFromSeed()
     }
 
-    val fontFamily = settings[SettingsKeys.FontFamily]
+    val fontFamilyId = settings[SettingsKeys.FontFamily]
+    val customFontFamily = LocalFontFamily.current
+    val resolvedFontFamily = if (fontFamilyId >= AppFont.CUSTOM_FONT_ID_OFFSET) {
+        customFontFamily ?: AppFont.SYSTEM.fontFamily
+    } else {
+        AppFont.fromId(fontFamilyId).fontFamily
+    }
 
     MaterialExpressiveTheme(
         colorScheme = colorScheme,
-        typography = appTypography(fontFamily),
+        typography = appTypography(resolvedFontFamily),
         content = content
     )
 }

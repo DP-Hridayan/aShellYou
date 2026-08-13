@@ -8,19 +8,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
-import `in`.hridayan.ashell.core.common.domain.model.AppFont
 
 /**
  * Builds a [Typography] with every text style (baseline + emphasized)
- * overridden to use the selected [AppFont]'s [FontFamily].
+ * overridden to use the given [fontFamily].
  *
  * Memoised via [remember] so a new object is created only when
- * [fontFamilyId] actually changes, not on every recomposition.
+ * [fontFamily] actually changes, not on every recomposition.
  */
 @Composable
-fun appTypography(fontFamilyId: Int): Typography {
-    return remember(fontFamilyId) {
-        val font = AppFont.fromId(fontFamilyId).fontFamily
+fun appTypography(fontFamily: FontFamily): Typography {
+    return remember(fontFamily) {
+        val font = fontFamily
         val base = Typography()
         base.copy(
             // Baseline styles
