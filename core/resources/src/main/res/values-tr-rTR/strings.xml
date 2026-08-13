@@ -102,8 +102,6 @@
     <string name="boot_device_into_fastboot" comment="Instructional prompt in Fastboot screen instructing user to boot target device into fastboot mode">Hedef cihazı fastboot moduna alın ve OTG kablosuyla bağlayın</string>
     <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">Boot İmajı</string>
     <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">Fastboot moduna geçin</string>
-    <string name="bootloader" comment="Device info label or fastboot section title for bootloader mode">Bootloader</string>
-    <string name="bootloader_version" comment="Device info field label displaying bootloader version string">Önyükleyici</string>
     <string name="btn_continue" comment="Action button label to proceed to next step in setup wizard">Devam et</string>
     <string name="cache_settings" comment="Settings section header for AI analysis response caching options">Önbellek</string>
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Önbellek Boyutu: %s</string>
@@ -207,6 +205,7 @@
     <string name="confirm">Onayla</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Uyarı! Bu işlem geri alınamaz.\nTüm yer işaretlerini silmek istediğinizden emin misiniz?</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Silmeyi onayla</string>
+    <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">\"%1$s\" ögesini kaldırmak istediğinizden emin misiniz? Şu anda uygulanmışsa uygulama Sistem yazı tipine geri dönecektir.</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">Bu karoyu silmek isteğinizden emin misiniz?</string>
     <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">Önbellekleme, analiz sonuçlarını anında almanıza yardımcı olur.\nYine de tüm yapay zeka analiz önbellek verilerini temizlemek istiyor musunuz?</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" bu konumda zaten var.</string>
@@ -249,6 +248,7 @@
     <string name="default_language" comment="Setting preference label for selecting application language">Varsayılan dil</string>
     <string name="delete">Sil</string>
     <string name="delete_all" comment="Action button to delete all items in list, history, or bookmarks">Tümünü sil</string>
+    <string name="delete_custom_font" comment="Action label to remove an imported custom font from the font list">Yazı tipini kaldır</string>
     <string name="delete_file" comment="File browser action to delete selected file">Dosyayı sil</string>
     <string name="delete_folder" comment="File browser action to delete selected directory">Klasörü sil</string>
     <string name="delete_items_message" comment="%1$d = number of selected items">Seçili %1$d ögeyi silmek istediğinize emin misiniz?</string>
@@ -430,7 +430,6 @@
     <string name="file_not_found" comment="Error toast when requested file path does not exist on device">Dosya bulunamadı</string>
     <string name="filter">Filtrele</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">Etiketlere göre filtrele</string>
-    <string name="flash" comment="Action button to start fastboot partition flashing process">Flaş</string>
     <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">Flaşla</string>
     <string name="flashing" comment="Progress status header while partition flashing is in progress">Flaşlanıyor…</string>
     <string name="folder">Klasör</string>
@@ -439,44 +438,9 @@
     <string name="folder_info" comment="Dialog header displaying directory metadata properties">Klasör Bilgisi</string>
     <string name="folder_name" comment="Text field label for entering new directory name">Klasör adı</string>
     <string name="folder_picker" comment="Dialog title for selecting a target directory">Klasör seçici</string>
-    <string name="font_amatic_sc" comment="Font style name">Amatic SC</string>
-    <string name="font_cabin" comment="Font style name">Kabin</string>
-    <string name="font_caveat" comment="Font style name">Uyarılar</string>
-    <string name="font_comfortaa" comment="Font style name">Comfortaa</string>
-    <string name="font_crimson_pro" comment="Font style name">Crimson Pro</string>
-    <string name="font_dancing_script" comment="Font style name">Dancing Script</string>
-    <string name="font_display_text" comment="Sample text used to preview font styles">Pijamalı hasta yağız şoföre çabucak güvendi</string>
-    <string name="font_eb_garamond" comment="Font style name">EB Garamond</string>
-    <string name="font_exo_2" comment="Font style name">Exo 2</string>
     <string name="font_family" comment="Settings preference title for selecting application font family">Yazı tipi ailesi</string>
-    <string name="font_heebo" comment="Font style name">Heebo</string>
-    <string name="font_inter" comment="Font style name">Inter</string>
-    <string name="font_josefin_sans" comment="Font style name">Josefin Sans</string>
-    <string name="font_karla" comment="Font style name">Karla</string>
-    <string name="font_lexend" comment="Font style name">Lexend</string>
-    <string name="font_lora" comment="Font style name">Lora</string>
-    <string name="font_manrope" comment="Font style name">Manrope</string>
-    <string name="font_montserrat" comment="Font style name">Montserrat</string>
-    <string name="font_noto_sans" comment="Font style name">Noto Sans</string>
-    <string name="font_nunito" comment="Font style name">Nunito</string>
-    <string name="font_open_sans" comment="Font style name">Open Sans</string>
-    <string name="font_oswald" comment="Font style name">Oswald</string>
-    <string name="font_outfit" comment="Font style name">Kıyafet</string>
-    <string name="font_pacifico" comment="Font style name">Pacifico</string>
-    <string name="font_playfair_display" comment="Font style name">Playfair Display</string>
-    <string name="font_playpen_sans" comment="Font style name">Playpen Sans</string>
-    <string name="font_plus_jakarta_sans" comment="Font style name">Plus Jakarta Sans</string>
-    <string name="font_public_sans" comment="Font style name">Public Sans</string>
-    <string name="font_quicksand" comment="Font style name">Quicksand</string>
-    <string name="font_raleway" comment="Font style name">Raleway</string>
-    <string name="font_roboto_flex" comment="Font style name">Roboto Flex</string>
-    <string name="font_rubik" comment="Font style name">Rubik</string>
-    <string name="font_shadows_into_light" comment="Font style name">Shadows Into Light</string>
+    <string name="font_import_success" comment="Toast shown after a custom font file is successfully imported and saved">Yazı tipi başarıyla içe aktarıldı</string>
     <string name="font_size_multiplier" comment="Settings preference title for adjusting font size scaling multiplier">Font Boyutu Çarpanı</string>
-    <string name="font_source_sans_3" comment="Font style name">Source Sans 3</string>
-    <string name="font_source_serif_4" comment="Font style name">Source Serif 4</string>
-    <string name="font_work_sans" comment="Font style name">Work Sans</string>
-    <string name="forget" comment="Action button to remove/forget a paired device">Unut</string>
     <string name="forget_device" comment="Button label in device details card to unpair/forget ADB device">Cihazı unut</string>
     <string name="forget_device_confirmation" comment="%1$s = device name">%1$s adlı cihazı unutmak istediğinize emin misiniz? Bağlanmak için tekrar eşleştirmeniz gerekecek.</string>
     <string name="forks" comment="GitHub repository metadata count label for project forks">Fork\'lar (Çatallar)</string>
@@ -511,6 +475,9 @@
     <string name="home">Ana Sayfa</string>
     <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">Sideload moduna nasıl girilir</string>
     <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">Seçilen simge</string>
+    <string name="action_import">İçe aktar</string>
+    <string name="import_font" comment="Content description for the import font icon button in the font style picker">Yazı tipini içe aktar</string>
+    <string name="import_font_name_hint" comment="Input field placeholder for the user-assigned display name of an imported font">Yazı tipi adı</string>
     <string name="import_theme" comment="Action button to import theme configuration file">Tema İçe Aktar</string>
     <string name="include" comment="Filter toggle option to include selected items">Dahil Et</string>
     <string name="info">Bilgi</string>
@@ -518,6 +485,8 @@
     <string name="instructions" comment="Section header for step-by-step connection guides">Talimatlar</string>
     <string name="intent_not_found" comment="Error toast when external app activity or URL link cannot be opened">Eylem bulunamadı</string>
     <string name="internal_storage" comment="Root folder label in file browser for local storage">Dahili Depolama</string>
+    <string name="invalid_font_file" comment="Dialog title shown when the selected file is not a valid TrueType font">Geçersiz yazı tipi dosyası</string>
+    <string name="invalid_font_file_desc" comment="Dialog body explaining that the selected file failed TTF validation">Seçilen dosya geçerli bir TrueType (.ttf) yazı tipi dosyası değil.</string>
     <string name="invalid_folder_name" comment="Validation error when entered directory name contains slash characters">Klasör adı / karakterini içeremez</string>
     <string name="ip_address" comment="Field label for device IP address in wireless ADB setup">IP adresi</string>
     <string name="irreversible_action_warning" comment="Warning dialog subtitle warning user that deletion cannot be undone">Bu işlem geri alınamaz!</string>
@@ -586,7 +555,6 @@
     <string name="model_category_tiny" comment="AI model size category label">Minik (300 MB\'ın altında)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">Modeller</string>
     <string name="modified" comment="File property: last modified date">Değiştirilme tarihi</string>
-    <string name="monospace" comment="Font style category name">Eşaralıklı (Monospace)</string>
     <string name="monthly" comment="Option in backup scheduler frequency selection">Aylık</string>
     <string name="more">Daha Fazla</string>
     <string name="most_used" comment="Sorting option for commands or bookmarks list">En çok kullanılan</string>
@@ -728,7 +696,6 @@
     <string name="reconnect_failed_requires_pairing" comment="Toast notification indicating device un-paired and needs re-pairing">Yeniden bağlantı başarısız oldu. Yeniden eşleştirme gerekiyor.</string>
     <string name="reconnect_success" comment="Toast message confirming successful wireless ADB reconnection">Yeniden başarıyla bağlanıldı</string>
     <string name="reconnect_the_device" comment="Button prompt directing user to reconnect target ADB device">Cihazı yeniden bağla</string>
-    <string name="recovery" comment="Refers to Android System Recovery partition / boot mode">Recovery (Kurtarma)</string>
     <string name="refresh">Yenile</string>
     <string name="remove">Temizle</string>
     <string name="rename">Yeniden adlandır</string>
@@ -866,7 +833,6 @@
     <string name="tab" comment="Settings option for terminal tab indentation behavior">Sekme</string>
     <string name="tag" comment="Field label for custom command category tag/label">Etiket</string>
     <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">Bir .zip dosyasına göz atmak için dokunun</string>
-    <string name="telegram" comment="Button in About screen linking to official Telegram community group">Telegram</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">Terminal</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Terminal yazı tipi stili</string>
     <string name="tertiary">Üçüncül</string>
@@ -927,7 +893,6 @@
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">%1$s işlemi yapılırken ne yapmak istersiniz?</string>
     <string name="whats_new" comment="Header title for app release notes and changelog dialog">Neler yeni!</string>
     <string name="which_device_to_pair" comment="Dialog header prompting user to choose wireless pairing method or device">Hangi cihazı eşleştirmek istersiniz?</string>
-    <string name="wifi_adb" comment="Refers to Android Wireless Debugging ADB over Wi-Fi connection feature">WiFi ADB</string>
     <string name="wifi_connection_required" comment="Detailed explanation of Wi-Fi requirements for Wireless Debugging ADB">Kablosuz Hata Ayıklama özelliğini kullanmak için cihazınızın bir Wi-Fi ağına bağlı olması gerekir. Wi-Fi bağlantınızın internet erişimi yoksa stabil bir Wi-Fi bağlantısı için mobil veriyi kapatın.</string>
     <string name="wipe_cache_desc" comment="Description for predefined fastboot erase cache command">cache bölümünü sil</string>
     <string name="wipe_cache_title" comment="Predefined fastboot command title: erase cache partition">Cache\'i Sil</string>

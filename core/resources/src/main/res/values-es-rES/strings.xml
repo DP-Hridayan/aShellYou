@@ -102,8 +102,6 @@
     <string name="boot_device_into_fastboot" comment="Instructional prompt in Fastboot screen instructing user to boot target device into fastboot mode">Inicia el dispositivo de destino en modo fastboot y conéctate mediante un cable OTG</string>
     <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">Imagen de arranque</string>
     <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">Iniciar en Fastboot</string>
-    <string name="bootloader" comment="Device info label or fastboot section title for bootloader mode">Gestor de arranque</string>
-    <string name="bootloader_version" comment="Device info field label displaying bootloader version string">Gestor de arranque</string>
     <string name="btn_continue" comment="Action button label to proceed to next step in setup wizard">Continuar</string>
     <string name="cache_settings" comment="Settings section header for AI analysis response caching options">Caché</string>
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Tamaño de caché: %s</string>
@@ -207,6 +205,7 @@
     <string name="confirm">Confirmar</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">¡Atención! Esta acción es irreversible\n¿Estás seguro de que quieres eliminar todos los marcadores?</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Confirmar eliminación</string>
+    <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">¿Está seguro que desea eliminar \"%1$s\"? Si actualmente se aplica, la aplicación se revertirá a la fuente del sistema.</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">¿Está seguro de que desea eliminar este mosaico?</string>
     <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">El uso de caché ayuda a recuperar los resultados de análisis al instante.\n¿Aún quieres borrar todos los datos de caché de análisis de IA?</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">“%1$s” ya existe en esta ubicación.</string>
@@ -249,6 +248,7 @@
     <string name="default_language" comment="Setting preference label for selecting application language">Idioma predeterminado</string>
     <string name="delete">Eliminar</string>
     <string name="delete_all" comment="Action button to delete all items in list, history, or bookmarks">Eliminar todo</string>
+    <string name="delete_custom_font" comment="Action label to remove an imported custom font from the font list">Remove font</string>
     <string name="delete_file" comment="File browser action to delete selected file">Eliminar archivo</string>
     <string name="delete_folder" comment="File browser action to delete selected directory">Eliminar carpeta</string>
     <string name="delete_items_message" comment="%1$d = number of selected items">¿Seguro que quieres eliminar los %1$d elementos seleccionados?</string>
@@ -430,7 +430,6 @@
     <string name="file_not_found" comment="Error toast when requested file path does not exist on device">Archivo no encontrado</string>
     <string name="filter">Filtro</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">Filtrar por etiquetas</string>
-    <string name="flash" comment="Action button to start fastboot partition flashing process">Flashear</string>
     <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">Flashear partición</string>
     <string name="flashing" comment="Progress status header while partition flashing is in progress">Flashes…</string>
     <string name="folder">Carpeta</string>
@@ -439,44 +438,9 @@
     <string name="folder_info" comment="Dialog header displaying directory metadata properties">Información de la carpeta</string>
     <string name="folder_name" comment="Text field label for entering new directory name">Nombre de la carpeta</string>
     <string name="folder_picker" comment="Dialog title for selecting a target directory">Selector de carpetas</string>
-    <string name="font_amatic_sc" comment="Font style name">Amatic SC</string>
-    <string name="font_cabin" comment="Font style name">Cabin</string>
-    <string name="font_caveat" comment="Font style name">Caveat</string>
-    <string name="font_comfortaa" comment="Font style name">Comfortaa</string>
-    <string name="font_crimson_pro" comment="Font style name">Crimson Pro</string>
-    <string name="font_dancing_script" comment="Font style name">Dancing Script</string>
-    <string name="font_display_text" comment="Sample text used to preview font styles">El rápido zorro marrón salta sobre el perro perezoso</string>
-    <string name="font_eb_garamond" comment="Font style name">EB Garamond</string>
-    <string name="font_exo_2" comment="Font style name">Exo 2</string>
     <string name="font_family" comment="Settings preference title for selecting application font family">Familia de fuentes</string>
-    <string name="font_heebo" comment="Font style name">Heebo</string>
-    <string name="font_inter" comment="Font style name">Inter</string>
-    <string name="font_josefin_sans" comment="Font style name">Josefin Sans</string>
-    <string name="font_karla" comment="Font style name">Karla</string>
-    <string name="font_lexend" comment="Font style name">Lexend</string>
-    <string name="font_lora" comment="Font style name">Lora</string>
-    <string name="font_manrope" comment="Font style name">Manrope</string>
-    <string name="font_montserrat" comment="Font style name">Montserrat</string>
-    <string name="font_noto_sans" comment="Font style name">Noto Sans</string>
-    <string name="font_nunito" comment="Font style name">Nunito</string>
-    <string name="font_open_sans" comment="Font style name">Open Sans</string>
-    <string name="font_oswald" comment="Font style name">Oswald</string>
-    <string name="font_outfit" comment="Font style name">Outfit</string>
-    <string name="font_pacifico" comment="Font style name">Pacifico</string>
-    <string name="font_playfair_display" comment="Font style name">Playfair Display</string>
-    <string name="font_playpen_sans" comment="Font style name">Playpen Sans</string>
-    <string name="font_plus_jakarta_sans" comment="Font style name">Plus Jakarta Sans</string>
-    <string name="font_public_sans" comment="Font style name">Public Sans</string>
-    <string name="font_quicksand" comment="Font style name">Quicksand</string>
-    <string name="font_raleway" comment="Font style name">Raleway</string>
-    <string name="font_roboto_flex" comment="Font style name">Roboto Flex</string>
-    <string name="font_rubik" comment="Font style name">Rubik</string>
-    <string name="font_shadows_into_light" comment="Font style name">Shadows Into Light</string>
+    <string name="font_import_success" comment="Toast shown after a custom font file is successfully imported and saved">Fuente importada correctamente</string>
     <string name="font_size_multiplier" comment="Settings preference title for adjusting font size scaling multiplier">Multiplicador de tamaño de fuente</string>
-    <string name="font_source_sans_3" comment="Font style name">Source Sans 3</string>
-    <string name="font_source_serif_4" comment="Font style name">Source Serif 4</string>
-    <string name="font_work_sans" comment="Font style name">Work Sans</string>
-    <string name="forget" comment="Action button to remove/forget a paired device">Olvidar</string>
     <string name="forget_device" comment="Button label in device details card to unpair/forget ADB device">Olvidar dispositivo</string>
     <string name="forget_device_confirmation" comment="%1$s = device name">¿Seguro que quieres olvidar %1$s? Tendrás que emparejarlo de nuevo para conectarte.</string>
     <string name="forks" comment="GitHub repository metadata count label for project forks">Bifurcaciones</string>
@@ -511,6 +475,9 @@
     <string name="home">Inicio</string>
     <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">Cómo entrar en modo sideload</string>
     <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">Icono seleccionado</string>
+    <string name="action_import">Importar</string>
+    <string name="import_font" comment="Content description for the import font icon button in the font style picker">Import font</string>
+    <string name="import_font_name_hint" comment="Input field placeholder for the user-assigned display name of an imported font">Font name</string>
     <string name="import_theme" comment="Action button to import theme configuration file">Importar tema</string>
     <string name="include" comment="Filter toggle option to include selected items">Incluir</string>
     <string name="info">Información</string>
@@ -518,6 +485,8 @@
     <string name="instructions" comment="Section header for step-by-step connection guides">Instrucciones</string>
     <string name="intent_not_found" comment="Error toast when external app activity or URL link cannot be opened">Intent no encontrado</string>
     <string name="internal_storage" comment="Root folder label in file browser for local storage">Almacenamiento interno</string>
+    <string name="invalid_font_file" comment="Dialog title shown when the selected file is not a valid TrueType font">Archivo de fuente no válido</string>
+    <string name="invalid_font_file_desc" comment="Dialog body explaining that the selected file failed TTF validation">El archivo seleccionado no es un archivo de fuente TrueType (.ttf) válido.</string>
     <string name="invalid_folder_name" comment="Validation error when entered directory name contains slash characters">El nombre de la carpeta no puede contener /</string>
     <string name="ip_address" comment="Field label for device IP address in wireless ADB setup">Dirección IP</string>
     <string name="irreversible_action_warning" comment="Warning dialog subtitle warning user that deletion cannot be undone">¡Esta acción es irreversible!</string>
@@ -586,7 +555,6 @@
     <string name="model_category_tiny" comment="AI model size category label">Muy pequeño (menos de 300 MB)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">Modelos</string>
     <string name="modified" comment="File property: last modified date">Modificado</string>
-    <string name="monospace" comment="Font style category name">Monoespaciado</string>
     <string name="monthly" comment="Option in backup scheduler frequency selection">Mensualmente</string>
     <string name="more">Más</string>
     <string name="most_used" comment="Sorting option for commands or bookmarks list">Más usado</string>
@@ -728,7 +696,6 @@
     <string name="reconnect_failed_requires_pairing" comment="Toast notification indicating device un-paired and needs re-pairing">La reconexión falló. Es necesario volver a emparejar.</string>
     <string name="reconnect_success" comment="Toast message confirming successful wireless ADB reconnection">Reconectado correctamente</string>
     <string name="reconnect_the_device" comment="Button prompt directing user to reconnect target ADB device">Vuelve a conectar el dispositivo</string>
-    <string name="recovery" comment="Refers to Android System Recovery partition / boot mode">Recuperación</string>
     <string name="refresh">Actualizar</string>
     <string name="remove">Eliminar</string>
     <string name="rename">Renombrar</string>
@@ -866,7 +833,6 @@
     <string name="tab" comment="Settings option for terminal tab indentation behavior">Tabulación</string>
     <string name="tag" comment="Field label for custom command category tag/label">Etiqueta</string>
     <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">Toca para buscar un archivo .zip</string>
-    <string name="telegram" comment="Button in About screen linking to official Telegram community group">Telegram</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">Terminal</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Estilo de fuente del Terminal</string>
     <string name="tertiary">Terciario</string>
@@ -927,7 +893,6 @@
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">¿Qué te gustaría hacer mientras %1$s?</string>
     <string name="whats_new" comment="Header title for app release notes and changelog dialog">¡Novedades!</string>
     <string name="which_device_to_pair" comment="Dialog header prompting user to choose wireless pairing method or device">¿Qué dispositivo te gustaría emparejar?</string>
-    <string name="wifi_adb" comment="Refers to Android Wireless Debugging ADB over Wi-Fi connection feature">ADB por Wifi</string>
     <string name="wifi_connection_required" comment="Detailed explanation of Wi-Fi requirements for Wireless Debugging ADB">Para usar la función de Depuración inalámbrica, tu dispositivo debe estar conectado a una red Wifi. Si tu conexión Wifi no tiene acceso a Internet, desactiva los datos móviles para asegurar una conexión Wifi estable.</string>
     <string name="wipe_cache_desc" comment="Description for predefined fastboot erase cache command">fastboot erase cache</string>
     <string name="wipe_cache_title" comment="Predefined fastboot command title: erase cache partition">Borrar caché</string>

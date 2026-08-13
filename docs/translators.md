@@ -40,7 +40,7 @@ Thanks to these translators and proofreaders, this project exists:
           <br />
           <sub><b>(luciakun)</b></sub></a>
         <br />
-        <sub><b>10214 words</b></sub>
+        <sub><b>10218 words</b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/flagman4634"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17776929/medium/2653304d654949cae989f95bbd434f36_default.png" />
