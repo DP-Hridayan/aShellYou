@@ -248,7 +248,7 @@
     <string name="default_language" comment="Setting preference label for selecting application language">Язык по умолчанию</string>
     <string name="delete">Удалить</string>
     <string name="delete_all" comment="Action button to delete all items in list, history, or bookmarks">Удалить все</string>
-    <string name="delete_custom_font" comment="Action label to remove an imported custom font from the font list">Remove font</string>
+    <string name="delete_custom_font" comment="Action label to remove an imported custom font from the font list">Удалить шрифт</string>
     <string name="delete_file" comment="File browser action to delete selected file">Удалить файл</string>
     <string name="delete_folder" comment="File browser action to delete selected directory">Удалить папку</string>
     <string name="delete_items_message" comment="%1$d = number of selected items">Вы уверены, что хотите удалить %1$d выбранных элементов?</string>
@@ -476,8 +476,8 @@
     <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">Как войти в режим sideload</string>
     <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">Иконка выбрана</string>
     <string name="action_import">Импорт</string>
-    <string name="import_font" comment="Content description for the import font icon button in the font style picker">Import font</string>
-    <string name="import_font_name_hint" comment="Input field placeholder for the user-assigned display name of an imported font">Font name</string>
+    <string name="import_font" comment="Content description for the import font icon button in the font style picker">Импортировать шрифт</string>
+    <string name="import_font_name_hint" comment="Input field placeholder for the user-assigned display name of an imported font">Имя шрифта</string>
     <string name="import_theme" comment="Action button to import theme configuration file">Импортировать Тему</string>
     <string name="include" comment="Filter toggle option to include selected items">Включить</string>
     <string name="info">Информация</string>

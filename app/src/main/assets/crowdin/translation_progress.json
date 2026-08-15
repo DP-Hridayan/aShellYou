@@ -96,7 +96,7 @@
     "editorCode": "ru",
     "locale": "ru-RU",
     "translationProgress": 100,
-    "approvalProgress": 99
+    "approvalProgress": 100
   },
   {
     "languageId": "tr",
@@ -104,7 +104,7 @@
     "androidCode": "tr-rTR",
     "editorCode": "tr",
     "locale": "tr-TR",
-    "translationProgress": 99,
+    "translationProgress": 100,
     "approvalProgress": 58
   },
   {
@@ -113,8 +113,8 @@
     "androidCode": "uk-rUA",
     "editorCode": "uk",
     "locale": "uk-UA",
-    "translationProgress": 99,
-    "approvalProgress": 99
+    "translationProgress": 100,
+    "approvalProgress": 100
   },
   {
     "languageId": "vi",
@@ -123,7 +123,7 @@
     "editorCode": "vi",
     "locale": "vi-VN",
     "translationProgress": 100,
-    "approvalProgress": 98
+    "approvalProgress": 99
   },
   {
     "languageId": "zh-CN",

@@ -205,7 +205,7 @@
     <string name="confirm">Підтвердити</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Увага! Цю дію неможливо скасувати.\nВи впевнені, що хочете видалити всі закладки?</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Підтвердити видалення</string>
-    <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">Are you sure you want to remove \"%1$s\"? If it is currently applied, the app will revert to the System font.</string>
+    <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">Ви впевнені, що хочете видалити \"%1$s\"? Якщо він наразі застосований, програма повернеться до системного шрифту.</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">Ви впевнені, що хочете видалити цю плитку?</string>
     <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">Кешування допомагає миттєво отримувати результати аналізу.\nВи все ще хочете очистити всі дані кешу аналізу AI?</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" вже існує в цьому місці.</string>
@@ -248,7 +248,7 @@
     <string name="default_language" comment="Setting preference label for selecting application language">Мова за замовчуванням</string>
     <string name="delete">Видалити</string>
     <string name="delete_all" comment="Action button to delete all items in list, history, or bookmarks">Видалити все</string>
-    <string name="delete_custom_font" comment="Action label to remove an imported custom font from the font list">Remove font</string>
+    <string name="delete_custom_font" comment="Action label to remove an imported custom font from the font list">Видалити шрифт</string>
     <string name="delete_file" comment="File browser action to delete selected file">Видалити файл</string>
     <string name="delete_folder" comment="File browser action to delete selected directory">Видалити теку</string>
     <string name="delete_items_message" comment="%1$d = number of selected items">Ви впевнені, що хочете видалити %1$d вибраних елементів?</string>
@@ -476,8 +476,8 @@
     <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">Як увійти в режим sideload</string>
     <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">Іконка обрана</string>
     <string name="action_import">Імпорт</string>
-    <string name="import_font" comment="Content description for the import font icon button in the font style picker">Import font</string>
-    <string name="import_font_name_hint" comment="Input field placeholder for the user-assigned display name of an imported font">Font name</string>
+    <string name="import_font" comment="Content description for the import font icon button in the font style picker">Імпортувати шрифт</string>
+    <string name="import_font_name_hint" comment="Input field placeholder for the user-assigned display name of an imported font">Ім\'я шрифту</string>
     <string name="import_theme" comment="Action button to import theme configuration file">Імпортувати тему</string>
     <string name="include" comment="Filter toggle option to include selected items">Включити</string>
     <string name="info">Інформація</string>

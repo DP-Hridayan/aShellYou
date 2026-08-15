@@ -7,12 +7,12 @@
     <string name="active" comment="Status indicator label for active ADB connection or active slot">सक्रिय</string>
     <string name="active_slot" comment="Refers to the active A/B partition slot on a dual-slot Android device">सक्रिय स्लॉट</string>
     <string name="adb_agent" comment="Name of the AI chat assistant persona in aShellYou">ADB एजेंट</string>
-    <string name="adb_command" comment="Input field label for typing an ADB shell command">कमांड जोड़ें</string>
+    <string name="adb_command" comment="Input field label for typing an ADB shell command">ADB कमांड</string>
     <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">ADB कमांड (बंद स्थिति)</string>
     <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">ADB कमांड (चालू स्थिति)</string>
-    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB कनेक्टेड — सुनिश्चित करें कि डिवाइस साइडलोड मोड में है</string>
-    <string name="adb_connection_active" comment="Foreground notification title when an ADB connection (Wireless/OTG) is currently active">ADB कनेक्शन सक्रिय</string>
-    <string name="adb_connection_channel_description" comment="Android notification channel description in System Settings for ADB connection status">ADB कनेक्शन सक्रिय होने पर दिखाता है</string>
+    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB कनेक्टेड है - सुनिश्चित करें कि डिवाइस साइडलोड मोड में है</string>
+    <string name="adb_connection_active" comment="Foreground notification title when an ADB connection (Wireless/OTG) is currently active">ADB कनेक्शन चालू है</string>
+    <string name="adb_connection_channel_description" comment="Android notification channel description in System Settings for ADB connection status">दिखाता है जब ADB कनेक्शन चालू है</string>
     <string name="adb_connection_channel_name" comment="Android notification channel name in System Settings for active ADB connections">ADB कनेक्शन</string>
     <string name="adb_connection_description" comment="Notification body text indicating an active background Wi-Fi ADB connection">WiFi ADB कनेक्शन बनाए रखा जा रहा है</string>
     <string name="adb_sideload" comment="Feature title for pushing and installing ZIP update packages to device recovery via ADB sideload over USB OTG">ADB साइडलोड</string>
