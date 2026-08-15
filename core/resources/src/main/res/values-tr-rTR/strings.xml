@@ -200,7 +200,7 @@
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Komut bulunamadı!</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">ADB Komutunu Girin</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">Komutlar</string>
-    <string name="console" comment="Tab label for the interactive fastboot command console">Console</string>
+    <string name="console" comment="Tab label for the interactive fastboot command console">Konsol</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Kayıt dizinini yapılandır</string>
     <string name="confirm">Onayla</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Uyarı! Bu işlem geri alınamaz.\nTüm yer işaretlerini silmek istediğinizden emin misiniz?</string>

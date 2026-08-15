@@ -62,8 +62,8 @@
     "id": "15085871",
     "username": "AY_Translator",
     "name": "Aleksandr (AY_Translator)",
-    "translated": 8394,
-    "approved": 10562,
+    "translated": 8427,
+    "approved": 10652,
     "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/15085871/medium/3a254014b133e0fc2d376c776aba8dbd.jpg",
     "languages": [
       {
@@ -96,8 +96,8 @@
     "id": "17812685",
     "username": "luciakun",
     "name": "Hoàng Đức Hùng (luciakun)",
-    "translated": 5120,
-    "approved": 5098,
+    "translated": 5141,
+    "approved": 5143,
     "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/17812685/medium/873770cc48fabe807a57b4bc6f933ff4.jpeg",
     "languages": [
       {
@@ -446,6 +446,21 @@
     "avatar": "crowdin/contributors_pfp/contributor_17149392.webp"
   },
   {
+    "id": "17834819",
+    "username": "A1692jk",
+    "name": "A1692jk",
+    "translated": 20,
+    "approved": 0,
+    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/17834819/medium/df30c210a0571cd025d94d1bc4cd0b36_default.png",
+    "languages": [
+      {
+        "id": "hi",
+        "name": "Hindi"
+      }
+    ],
+    "avatar": "crowdin/contributors_pfp/contributor_17834819.webp"
+  },
+  {
     "id": "17661168",
     "username": "cxy0714",
     "name": "cxy0714",
@@ -594,5 +609,20 @@
       }
     ],
     "avatar": "crowdin/contributors_pfp/contributor_17566200.webp"
+  },
+  {
+    "id": "16439435",
+    "username": "Teoman_OFF",
+    "name": "Teoman (Teoman_OFF)",
+    "translated": 1,
+    "approved": 0,
+    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/16439435/medium/11032a9899a460a7bcf54fa97099768c.png",
+    "languages": [
+      {
+        "id": "tr",
+        "name": "Turkish"
+      }
+    ],
+    "avatar": "crowdin/contributors_pfp/contributor_16439435.webp"
   }
 ]

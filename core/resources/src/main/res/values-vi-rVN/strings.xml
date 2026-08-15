@@ -205,7 +205,7 @@
     <string name="confirm">Xác nhận</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Cảnh báo! Hành động này không thể hoàn tác.\nBạn có chắc chắn muốn xoá tất cả dấu trang không?</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Xác nhận xoá</string>
-    <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">Bạn có chắc chắn muốn xóa \"%1$s\" không? Nếu phông chữ này đang được áp dụng, ứng dụng sẽ quay về phông chữ hệ thống.</string>
+    <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">Bạn có chắc chắn muốn xóa \"%1$s\" không? Nếu đang sử dụng, ứng dụng sẽ quay về phông chữ hệ thống.</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">Bạn có chắc chắn muốn xoá ô này không?</string>
     <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">Bộ nhớ đệm giúp nhận kết quả phân tích tức thì.\nBạn vẫn muốn xoá tất cả dữ liệu bộ nhớ đệm phân tích AI chứ?</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" đã tồn tại ở vị trí này.</string>
