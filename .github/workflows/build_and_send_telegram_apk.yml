@@ -1,0 +1,73 @@
+name: Build and Publish APK to Telegram
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build and Send APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Set up Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v4
+
+      - name: Grant execute permission to Gradle
+        run: chmod +x ./gradlew
+
+      - name: Decode Keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          echo "$KEYSTORE_BASE64" | base64 --decode > keystore.jks
+
+      - name: Set Environment Variables
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          echo "KEYSTORE_PATH=$PWD/keystore.jks" >> $GITHUB_ENV
+          echo "KEYSTORE_PASSWORD=$KEYSTORE_PASSWORD" >> $GITHUB_ENV
+          echo "KEY_ALIAS=$KEY_ALIAS" >> $GITHUB_ENV
+          echo "KEY_PASSWORD=$KEY_PASSWORD" >> $GITHUB_ENV
+
+      - name: Build Release APK
+        run: ./gradlew assembleGithubRelease
+
+      - name: Send APK to Telegram
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+          THREAD_ID: ${{ secrets.RELEASE_THREAD_ID }}
+        run: |
+          APK_FILE=$(find app/build/outputs/apk/github/release -name "*.apk" | head -n 1)
+
+          if [ -z "$APK_FILE" ]; then
+            echo "❌ No APK found!"
+            exit 1
+          fi
+
+          echo "✅ Found APK: $APK_FILE"
+          
+          CAPTION="🚀 *New APK Build*
+          Here is the latest GitHub Release flavor APK."
+
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendDocument" \
+            -F chat_id="$CHAT_ID" \
+            -F message_thread_id="$THREAD_ID" \
+            -F document="@$APK_FILE" \
+            -F caption="$CAPTION" \
+            -F parse_mode="Markdown"
