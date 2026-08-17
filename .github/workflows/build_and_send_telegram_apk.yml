@@ -62,8 +62,7 @@ jobs:
 
           echo "✅ Found APK: $APK_FILE"
           
-          CAPTION="🚀 *New APK Build*
-          Here is the latest GitHub Release flavor APK."
+          CAPTION="🚀 *New APK Build*"
 
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendDocument" \
             -F chat_id="$CHAT_ID" \
