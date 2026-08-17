@@ -1,4 +1,4 @@
-name: Build and Release Alpha APK
+name: Build and Publish Github Pre-release
 
 on:
   push:
