@@ -35,6 +35,7 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.RadioButton
@@ -55,7 +56,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -96,7 +96,6 @@ fun FontStyleBottomSheet(
     viewModel: LookAndFeelViewModel = hiltViewModel()
 ) {
     val res = LocalResources.current
-    val context = LocalContext.current
     val sheetState = rememberBottomSheetState(
         initialValue = SheetValue.Hidden,
         enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded)
@@ -259,10 +258,11 @@ fun FontStyleBottomSheet(
                 )
 
                 FilledTonalIconButton(
-                    onClick = withHaptic { fontFileLauncher.launch(TTF_MIME_TYPES) }
+                    onClick = withHaptic { fontFileLauncher.launch(TTF_MIME_TYPES) },
+                    shapes = IconButtonDefaults.shapes(),
                 ) {
                     Icon(
-                        painter = painterResource(R.drawable.ic_upload_file),
+                        painter = painterResource(R.drawable.ic_file_save),
                         contentDescription = stringResource(R.string.import_font)
                     )
                 }
