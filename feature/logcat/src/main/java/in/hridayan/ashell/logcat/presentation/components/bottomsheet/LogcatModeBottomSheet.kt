@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package `in`.hridayan.ashell.logcat.presentation.components
+package `in`.hridayan.ashell.logcat.presentation.components.bottomsheet
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource

@@ -7,6 +7,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.interaction.DragInteraction
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -47,16 +48,16 @@ import `in`.hridayan.ashell.core.presentation.components.dialog.ShizukuUnavailab
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.logcat.domain.model.LogEntry
 import `in`.hridayan.ashell.logcat.domain.model.LogcatPreflightResult
-import `in`.hridayan.ashell.logcat.presentation.components.LogEntryDetailBottomSheet
 import `in`.hridayan.ashell.logcat.presentation.components.LogEntryRow
-import `in`.hridayan.ashell.logcat.presentation.components.LogcatModeBottomSheet
-import `in`.hridayan.ashell.logcat.presentation.components.LogcatPermissionDialog
 import `in`.hridayan.ashell.logcat.presentation.components.LogcatSecondaryToolbar
 import `in`.hridayan.ashell.logcat.presentation.components.LogcatTopBar
 import `in`.hridayan.ashell.logcat.presentation.components.OtherDeviceContent
-import `in`.hridayan.ashell.logcat.presentation.components.RootUnavailableDialog
-import `in`.hridayan.ashell.logcat.presentation.components.WirelessNotConnectedDialog
-import `in`.hridayan.ashell.logcat.presentation.components.filter.LogcatFilterBottomSheet
+import `in`.hridayan.ashell.logcat.presentation.components.bottomsheet.LogEntryDetailBottomSheet
+import `in`.hridayan.ashell.logcat.presentation.components.bottomsheet.LogcatFilterBottomSheet
+import `in`.hridayan.ashell.logcat.presentation.components.bottomsheet.LogcatModeBottomSheet
+import `in`.hridayan.ashell.logcat.presentation.components.dialog.LogcatPermissionDialog
+import `in`.hridayan.ashell.logcat.presentation.components.dialog.RootUnavailableDialog
+import `in`.hridayan.ashell.logcat.presentation.components.dialog.WirelessNotConnectedDialog
 import `in`.hridayan.ashell.logcat.presentation.viewmodel.LogcatViewModel
 import kotlinx.coroutines.flow.distinctUntilChanged
 
@@ -66,7 +67,6 @@ fun LogcatScreen(
     viewModel: LogcatViewModel = hiltViewModel(),
 ) {
     val settings = LocalSettings.current
-
     val logs by viewModel.logs.collectAsStateWithLifecycle()
     val isRunning by viewModel.isRunning.collectAsStateWithLifecycle()
     val isAutoScrolling by viewModel.isAutoScrolling.collectAsStateWithLifecycle()
@@ -86,24 +86,22 @@ fun LogcatScreen(
     var searchVisible by rememberSaveable { mutableStateOf(false) }
     var detailEntry by remember { mutableStateOf<LogEntry?>(null) }
 
-    // ── Auto-scroll: position-based detection (no race-condition flag) ─────
-    // Observes whether the last item is visible. If the user scrolled away,
-    // we pause; if they scroll back to the bottom manually, we do nothing
-    // (they must press the FAB to resume programmatic auto-scroll).
+    // ── Auto-scroll: pause only on real user touch input ───────────────────
+    // Position-based detection is unusable here: a freshly appended item is
+    // laid out below the viewport for one frame before the auto-scroll runs,
+    // which looks identical to "user scrolled away" and killed auto-scroll on
+    // the very first log line. DragInteraction is emitted only for touch
+    // drags, never for programmatic scrolls, so it cannot self-trigger.
     LaunchedEffect(listState) {
-        snapshotFlow {
-            val total = listState.layoutInfo.totalItemsCount
-            val lastVisible = listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: -1
-            total > 0 && lastVisible < total - 1
+        listState.interactionSource.interactions.collect { interaction ->
+            if (interaction is DragInteraction.Start) viewModel.pauseAutoScroll()
         }
-            .distinctUntilChanged()
-            .collect { scrolledAway ->
-                if (scrolledAway) viewModel.pauseAutoScroll()
-            }
     }
 
     // When auto-scroll is ON, keep scrolling to the bottom as new items arrive.
-    LaunchedEffect(isAutoScrolling) {
+    // Re-keying on isAutoScrolling makes the FAB jump to the bottom instantly,
+    // because a fresh snapshotFlow always emits the current size first.
+    LaunchedEffect(listState, isAutoScrolling) {
         if (!isAutoScrolling) return@LaunchedEffect
         snapshotFlow { logs.size }
             .distinctUntilChanged()
@@ -169,15 +167,11 @@ fun LogcatScreen(
                     onResumeAutoScroll = { viewModel.resumeAutoScroll() },
                 )
 
-                1 -> OtherDeviceContent(
-                    viewModel = viewModel,
-                    navController = navController,
-                )
+                1 -> OtherDeviceContent(viewModel = viewModel)
             }
         }
     }
 
-    // ── Pre-flight dialogs ─────────────────────────────────────────────────
     when (preflightResult) {
         LogcatPreflightResult.NeedsReadLogs -> {
             LogcatPermissionDialog(
@@ -223,7 +217,8 @@ fun LogcatScreen(
             )
         }
 
-        else -> { /* Ready or null — no dialog */ }
+        else -> { /* Ready or null — no dialog */
+        }
     }
 
     if (showFilterSheet) {

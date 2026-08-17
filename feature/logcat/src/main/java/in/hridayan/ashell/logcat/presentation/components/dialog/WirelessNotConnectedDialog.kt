@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.logcat.presentation.components
+package `in`.hridayan.ashell.logcat.presentation.components.dialog
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -30,14 +30,15 @@ import `in`.hridayan.ashell.core.presentation.model.ButtonType
 import `in`.hridayan.ashell.core.resources.R
 
 /**
- * Shown when the user selects Root mode but `su` is not available.
+ * Shown when the user selects Wireless Debugging mode but their own device
+ * is not connected via WiFi ADB.
  *
- * Visual style mirrors [ShizukuUnavailableDialog] for consistency.
- * No confirm action — user can only dismiss and switch modes.
+ * "Connect" navigates to the pairing screen; Cancel dismisses.
  */
 @Composable
-fun RootUnavailableDialog(
+fun WirelessNotConnectedDialog(
     modifier: Modifier = Modifier,
+    onConnect: () -> Unit = {},
     onDismiss: () -> Unit = {},
 ) {
     Dialog(
@@ -64,7 +65,7 @@ fun RootUnavailableDialog(
 
                 AutoResizeableText(
                     modifier = Modifier.fillMaxWidth(),
-                    text = stringResource(R.string.root_unavailable),
+                    text = stringResource(R.string.wireless_not_connected),
                     style = MaterialTheme.typography.titleLargeEmphasized,
                     color = MaterialTheme.colorScheme.onSurface,
                     textAlign = TextAlign.Center,
@@ -74,7 +75,7 @@ fun RootUnavailableDialog(
 
                 Text(
                     modifier = Modifier.fillMaxWidth(),
-                    text = stringResource(R.string.root_unavailable_message),
+                    text = stringResource(R.string.wireless_not_connected_message),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurface,
                     textAlign = TextAlign.Center,
@@ -86,8 +87,15 @@ fun RootUnavailableDialog(
                     items = listOf(
                         ButtonGroupItem(
                             buttonConfig = ButtonConfigDefaults.defaultConfig(type = ButtonType.OutlinedButton),
-                            text = stringResource(R.string.ok),
+                            text = stringResource(R.string.cancel),
                             onClick = onDismiss,
+                        ),
+                        ButtonGroupItem(
+                            text = stringResource(R.string.connect),
+                            onClick = {
+                                onDismiss()
+                                onConnect()
+                            },
                         ),
                     ),
                 )

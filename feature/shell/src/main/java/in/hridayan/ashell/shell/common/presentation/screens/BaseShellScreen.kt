@@ -206,6 +206,7 @@ fun BaseShellScreen(
         }
     }
     val searchOutputResult by shellViewModel.filteredOutput.collectAsState()
+    val suggestions by shellViewModel.suggestions.collectAsState()
     val disableSoftKeyboard = settings[SettingsKeys.DisableSoftKeyboard]
     val bookmarkCount = bookmarkViewModel.getBookmarkCount.collectAsState(initial = 0)
     val lastSavedFileUri = settings[SettingsKeys.LastSavedFileUri]
@@ -675,7 +676,11 @@ fun BaseShellScreen(
                             }
 
                             if (states.commandField.fieldValue.text.isNotEmpty() && !states.search.isVisible) {
-                                Suggestions(modifier = Modifier.fillMaxWidth())
+                                Suggestions(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    results = searchOutputResult,
+                                    suggestions = suggestions
+                                )
                             }
 
                             OutputCard(

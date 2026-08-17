@@ -5,6 +5,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.interaction.DragInteraction
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -31,26 +32,28 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import `in`.hridayan.ashell.core.common.domain.model.otg.OtgState
+import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
+import `in`.hridayan.ashell.core.presentation.components.dialog.OtgDeviceWaitingDialog
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.logcat.domain.model.LogEntry
+import `in`.hridayan.ashell.logcat.presentation.components.bottomsheet.LogEntryDetailBottomSheet
 import `in`.hridayan.ashell.logcat.presentation.viewmodel.LogcatViewModel
 import kotlinx.coroutines.flow.distinctUntilChanged
 
 /**
  * Content for the "Other Device" tab.
  *
- * Auto-scroll uses position-based detection — no isProgrammaticScroll flag,
- * no race conditions when logs arrive fast (OTG/WiFi ADB).
+ * Auto-scroll pauses on user touch drags only, so programmatic scrolls can
+ * never pause it — no races when logs arrive fast (OTG/WiFi ADB).
  */
 @Composable
 fun OtherDeviceContent(
     viewModel: LogcatViewModel,
-    navController: NavController,
     modifier: Modifier = Modifier,
 ) {
+    val navController = LocalNavController.current
     val otgState by viewModel.otgState.collectAsStateWithLifecycle()
     val isOtherDeviceConnected by viewModel.isOtherDeviceConnected.collectAsStateWithLifecycle()
     val logs by viewModel.otherDeviceLogs.collectAsStateWithLifecycle()
@@ -76,21 +79,17 @@ fun OtherDeviceContent(
         }
     }
 
-    // Position-based auto-scroll pause: fires when user scrolls away from bottom
+    // Auto-scroll pause: only a real touch drag pauses. Position-based
+    // detection false-fires on the frame a new item is appended below the
+    // viewport, which killed auto-scroll on the first log line.
     LaunchedEffect(listState) {
-        snapshotFlow {
-            val total = listState.layoutInfo.totalItemsCount
-            val lastVisible = listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: -1
-            total > 0 && lastVisible < total - 1
+        listState.interactionSource.interactions.collect { interaction ->
+            if (interaction is DragInteraction.Start) viewModel.pauseOtherAutoScroll()
         }
-            .distinctUntilChanged()
-            .collect { scrolledAway ->
-                if (scrolledAway) viewModel.pauseOtherAutoScroll()
-            }
     }
 
     // Scroll to bottom when auto-scroll is on and new items arrive
-    LaunchedEffect(isAutoScrolling) {
+    LaunchedEffect(listState, isAutoScrolling) {
         if (!isAutoScrolling) return@LaunchedEffect
         snapshotFlow { logs.size }
             .distinctUntilChanged()
@@ -161,7 +160,7 @@ fun OtherDeviceContent(
     }
 
     if (showOtgDialog) {
-        OtgWaitingDialogWrapper(
+        OtgDeviceWaitingDialog(
             onDismiss = { showOtgDialog = false },
             onConfirm = { showOtgDialog = false },
         )

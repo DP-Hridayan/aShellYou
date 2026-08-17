@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.logcat.presentation.components
+package `in`.hridayan.ashell.logcat.presentation.components.dialog
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
