@@ -31,6 +31,7 @@ class SettingsDataStore @Inject constructor(
             SettingsKeys.GoogleAccountEmail.name,
             SettingsKeys.GoogleAccountPhotoUrl.name,
             SettingsKeys.NewCommandsAvailable.name,
+            SettingsKeys.FontFamily.name,
         )
     }
 

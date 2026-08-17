@@ -1,4 +1,4 @@
-﻿@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 
 package `in`.hridayan.ashell.settings.presentation.components.bottomsheet
 
@@ -22,9 +22,10 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -58,8 +59,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
@@ -82,13 +81,11 @@ import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedSh
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.ashell.settings.domain.model.CustomFontEntity
 import `in`.hridayan.ashell.settings.presentation.components.dialog.FontImportDialog
 import `in`.hridayan.ashell.settings.presentation.model.FontImportState
 import `in`.hridayan.ashell.settings.presentation.model.FontOption
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel.LookAndFeelViewModel
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
-import java.io.File
 
 private val TTF_MIME_TYPES = arrayOf("font/ttf", "application/octet-stream")
 
@@ -104,10 +101,11 @@ fun FontStyleBottomSheet(
         initialValue = SheetValue.Hidden,
         enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded)
     )
-    val scrollState = rememberScrollState()
+    val lazyListState = rememberLazyListState()
 
     val predefinedOptions = RadioGroupOptionsProvider.fontStyleOptions
     val customFonts by viewModel.customFonts.collectAsState()
+    val fontFamilyCache by viewModel.fontFamilyCache.collectAsState()
     val fontImportState by viewModel.fontImportState.collectAsState()
 
     val selected = LocalSettings.current[SettingsKeys.FontFamily]
@@ -145,7 +143,7 @@ fun FontStyleBottomSheet(
         }
     }
 
-    val displayFont = resolveFontFamily(tempSelected, customFonts)
+    val displayFont = fontFamilyCache[tempSelected] ?: AppFont.fromId(tempSelected).fontFamily
     val previewText = stringResource(R.string.font_display_text)
     val displayText = when {
         isCheckedMatchCase -> previewText.uppercase()
@@ -299,16 +297,18 @@ fun FontStyleBottomSheet(
                 }
             }
 
-            Column(
+            LazyColumn(
+                state = lazyListState,
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f, fill = false)
                     .padding(bottom = 24.dp)
                     .clip(RoundedCornerShape(20.dp))
-                    .verticalScroll(scrollState)
-                    .animateContentSize()
             ) {
-                filteredFontOptions.forEachIndexed { index, option ->
+                itemsIndexed(
+                    items = filteredFontOptions,
+                    key = { _, option -> option.listId }
+                ) { index, option ->
                     val shape = getRoundedShape(index, filteredFontOptions.size)
                     val isSelected = option.listId == tempSelected
 
@@ -323,7 +323,8 @@ fun FontStyleBottomSheet(
 
                     val finalShape = if (isSelected) CustomCardShape(50) else shape
 
-                    val labelFontFamily = resolveFontFamily(option.listId, customFonts)
+                    val labelFontFamily = fontFamilyCache[option.listId]
+                        ?: AppFont.fromId(option.listId).fontFamily
 
                     CustomCard(
                         modifier = Modifier
@@ -427,15 +428,6 @@ fun FontStyleBottomSheet(
     }
 }
 
-private fun resolveFontFamily(fontId: Int, customFonts: List<CustomFontEntity>): FontFamily {
-    return if (fontId >= AppFont.CUSTOM_FONT_ID_OFFSET) {
-        customFonts.find { it.id == fontId }
-            ?.let { FontFamily(Font(File(it.filePath))) }
-            ?: FontFamily.Default
-    } else {
-        AppFont.fromId(fontId).fontFamily
-    }
-}
 
 @Composable
 private fun TextFormatUtilityRow(
