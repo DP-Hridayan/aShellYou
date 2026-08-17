@@ -13,12 +13,14 @@ import androidx.compose.ui.text.font.FontFamily
  * Builds a [Typography] with every text style (baseline + emphasized)
  * overridden to use the given [fontFamily].
  *
- * Memoised via [remember] so a new object is created only when
- * [fontFamily] actually changes, not on every recomposition.
+ * Memoised via [remember] keyed on [fontKey] — a stable [String] that
+ * identifies the font (file path for custom fonts, enum name for predefined
+ * ones). This prevents cache misses caused by new [FontFamily] wrapper
+ * objects that point to the same underlying typeface.
  */
 @Composable
-fun appTypography(fontFamily: FontFamily): Typography {
-    return remember(fontFamily) {
+fun appTypography(fontFamily: FontFamily, fontKey: String): Typography {
+    return remember(fontKey) {
         val font = fontFamily
         val base = Typography()
         base.copy(

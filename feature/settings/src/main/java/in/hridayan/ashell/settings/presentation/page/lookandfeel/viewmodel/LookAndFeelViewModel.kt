@@ -1,7 +1,7 @@
 package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel
 
+import android.graphics.Typeface
 import android.net.Uri
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -21,6 +21,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -65,10 +66,12 @@ class LookAndFeelViewModel @Inject constructor(
         .map { entities ->
             entities.associate { entity ->
                 entity.id to runCatching {
-                    FontFamily(Font(File(entity.filePath)))
+                    val typeface = Typeface.createFromFile(File(entity.filePath))
+                    FontFamily(typeface)
                 }.getOrElse { FontFamily.Default }
             }
         }
+        .flowOn(Dispatchers.IO)
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyMap())
 
     private val _fontImportState = MutableStateFlow<FontImportState>(FontImportState.Idle)

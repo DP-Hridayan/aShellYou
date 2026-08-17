@@ -91,10 +91,15 @@ fun AshellYouTheme(
     } else {
         AppFont.fromId(fontFamilyId).fontFamily
     }
+    val fontKey = if (fontFamilyId >= AppFont.CUSTOM_FONT_ID_OFFSET) {
+        "custom:$fontFamilyId"
+    } else {
+        AppFont.fromId(fontFamilyId).name
+    }
 
     MaterialExpressiveTheme(
         colorScheme = colorScheme,
-        typography = appTypography(resolvedFontFamily),
+        typography = appTypography(resolvedFontFamily, fontKey),
         content = content
     )
 }

@@ -17,8 +17,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +24,6 @@ import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.core.common.CompositionLocals
 import `in`.hridayan.ashell.core.common.LocalFontFamily
 import `in`.hridayan.ashell.core.common.LocalSeedColor
-import `in`.hridayan.ashell.core.common.domain.model.AppFont
 import `in`.hridayan.ashell.core.common.domain.provider.SeedColorProvider
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.snackbar.SnackBarHost
@@ -37,29 +34,26 @@ import `in`.hridayan.ashell.core.presentation.theme.util.ColorSchemeSerializer
 import `in`.hridayan.ashell.core.utils.handleSharedText
 import `in`.hridayan.ashell.logcat.data.session.LogcatDeeplinkHolder
 import `in`.hridayan.ashell.logcat.data.session.LogcatSessionHolder
-import `in`.hridayan.ashell.settings.domain.repository.CustomFontRepository
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.ashell.ui.AppUiEntry
 import `in`.hridayan.ashell.ui.state.SettingsStateImpl
+import `in`.hridayan.ashell.ui.viewmodel.AppFontViewModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import java.io.File
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val settingsViewModel: SettingsViewModel by viewModels()
     private val autoUpdateViewModel: AutoUpdateViewModel by viewModels()
+    private val appFontViewModel: AppFontViewModel by viewModels()
 
     @Inject
     lateinit var logcatSessionHolder: LogcatSessionHolder
 
     @Inject
     lateinit var colorSchemeImportHolder: ColorSchemeImportHolder
-
-    @Inject
-    lateinit var customFontRepository: CustomFontRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
@@ -97,16 +91,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContent {
             val settingsState = remember(settingsViewModel) { SettingsStateImpl(settingsViewModel) }
-
-            val customFonts by customFontRepository.getAllCustomFonts()
-                .collectAsState(initial = emptyList())
-            val selectedFontId = settingsState[SettingsKeys.FontFamily]
-            val activeCustomFontFamily = remember(selectedFontId, customFonts) {
-                if (selectedFontId >= AppFont.CUSTOM_FONT_ID_OFFSET) {
-                    customFonts.find { it.id == selectedFontId }
-                        ?.let { FontFamily(Font(File(it.filePath))) }
-                } else null
-            }
+            val activeCustomFontFamily by appFontViewModel.activeCustomFontFamily.collectAsState()
 
             CompositionLocals(settingsState = settingsState) {
                 SeedColorProvider.setSeedColor(LocalSeedColor.current)
