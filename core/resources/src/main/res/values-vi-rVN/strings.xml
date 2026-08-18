@@ -23,7 +23,7 @@
     <string name="adb_via_wireless_debugging_summary" comment="Summary description for wireless ADB feature in connection setup screen">Kết nối các thiết bị (Android 11+) qua Wi-Fi bằng tính năng gỡ lỗi không dây và thực thi lệnh ADB từ xa.</string>
     <string name="add">Thêm</string>
     <string name="add_account" comment="Button label in cloud backup settings to link a Google account for backup sync">Thêm tài khoản</string>
-    <string name="add_api_key" comment="Button label in AI settings to input a custom LLM provider API key">Thêm khoá API</string>
+    <string name="add_api_key" comment="Button label in AI settings to input a custom LLM provider API key">Thêm khóa API</string>
     <string name="add_command" comment="Button label to create and save a new command snippet to database">Thêm lệnh</string>
     <string name="add_new_item" comment="Generic button label to add a new list entry">Thêm mục mới</string>
     <string name="additional_settings" comment="Category header in app settings">Cài đặt bổ sung</string>
@@ -53,10 +53,10 @@
     <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">Luôn cho phép lệnh tương tự</string>
     <string name="always_allow_exact" comment="Permission rule option in AI chat: automatically approve commands matching exact command string">Luôn cho phép các lệnh này</string>
     <string name="analyse" comment="Action button to request AI analysis of command execution output or error log">Phân tích</string>
-    <string name="api_key" comment="Label for AI provider API key text input field">Khoá API</string>
-    <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">Đã lưu khoá API</string>
-    <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">Yêu cầu khoá API</string>
-    <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">Cần có khoá API để sử dụng các tính năng AI. Vui lòng thêm khoá API của bạn trong Cài đặt -&gt; Các mô hình đám mây.</string>
+    <string name="api_key" comment="Label for AI provider API key text input field">Khóa API</string>
+    <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">Đã lưu khóa API</string>
+    <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">Yêu cầu khóa API</string>
+    <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">Cần có khóa API để sử dụng các tính năng AI. Vui lòng thêm khóa API của bạn trong Cài đặt -&gt; Các mô hình đám mây.</string>
     <string name="app">Ứng dụng</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">Ứng dụng đã bị sập</string>
     <string name="app_tagline" comment="App subtitle/tagline shown on welcome and about screens">ADB ngay trong tầm tay bạn</string>
@@ -68,7 +68,7 @@
     <string name="auto_backup_content_type" comment="Setting title for selecting items to include in automatic backups">Nội dung sao lưu</string>
     <string name="auto_backup_folder" comment="Setting title for selecting target local folder for automatic backups">Thư mục sao lưu</string>
     <string name="auto_dark_mode" comment="Setting toggle title to enable dark mode automatically when battery saver is active">Chế độ tối tự động</string>
-    <string name="auto_delete_existing_backups" comment="Setting toggle title to delete older backup files when a new backup is created">Tự động xoá các bản sao lưu cũ</string>
+    <string name="auto_delete_existing_backups" comment="Setting toggle title to delete older backup files when a new backup is created">Tự động xóa các bản sao lưu cũ</string>
     <string name="auto_scale_ui" comment="Setting toggle title to automatically scale UI based on device screen width">Tự động điều chỉnh tỷ lệ UI</string>
     <string name="auto_update" comment="Setting toggle title to automatically check for application updates on startup">Tự động cập nhật</string>
     <string name="back">Quay lại</string>
@@ -97,7 +97,7 @@
     <string name="battery_saver" comment="Device system battery saver mode label">Tiết kiệm pin</string>
     <string name="behavior" comment="Settings category title for application behavior preferences">Hành vi</string>
     <string name="block" comment="Action button to block execution or permissions">Chặn</string>
-    <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">Đã đạt giới hạn dấu trang! Vui lòng xoá một số dấu trang để thêm mới</string>
+    <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">Đã đạt giới hạn dấu trang! Vui lòng xóa một số dấu trang để thêm mới</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">Các dấu trang</string>
     <string name="boot_device_into_fastboot" comment="Instructional prompt in Fastboot screen instructing user to boot target device into fastboot mode">Hãy khởi động thiết bị mục tiêu vào chế độ fastboot và kết nối qua cáp OTG</string>
     <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">Boot Image</string>
@@ -113,14 +113,14 @@
     <string name="check_updates" comment="Action button in about screen to check GitHub or F-Droid for app updates">Kiểm tra bản cập nhật</string>
     <string name="choose_a_device" comment="Dialog header prompting user to select a device from connected ADB devices list">Chọn một thiết bị</string>
     <string name="choose_icon" comment="Button label in Quick Settings tile editor to select a custom icon">Chọn một biểu tượng</string>
-    <string name="clear">Xoá</string>
-    <string name="clear_all" comment="Action button to clear all entries in command history or terminal output screen">Xoá tất cả</string>
-    <string name="clear_all_message" comment="Confirmation prompt asking user if they want to clear the terminal output view">Bạn có chắc chắn muốn xoá tất cả nội dung trên màn hình này không?</string>
-    <string name="clear_analysis_cache" comment="Button label in settings to clear cached AI analysis responses">Xoá bộ nhớ đệm phân tích</string>
-    <string name="clear_cache" comment="Action button in settings to clear app cache data">Xoá bộ nhớ đệm</string>
-    <string name="clear_everything" comment="Dialog button label to confirm clearing screen output and logs">Xoá mọi thứ</string>
-    <string name="clear_history" comment="Action button in terminal/bookmarks screen to clear executed command history">Xoá lịch sử</string>
-    <string name="clear_output_confirmation" comment="Setting toggle title to request confirmation before clearing shell output view">Xác nhận xoá đầu ra</string>
+    <string name="clear">Xóa</string>
+    <string name="clear_all" comment="Action button to clear all entries in command history or terminal output screen">Xóa tất cả</string>
+    <string name="clear_all_message" comment="Confirmation prompt asking user if they want to clear the terminal output view">Bạn có chắc chắn muốn xóa tất cả nội dung trên màn hình này không?</string>
+    <string name="clear_analysis_cache" comment="Button label in settings to clear cached AI analysis responses">Xóa bộ nhớ đệm phân tích</string>
+    <string name="clear_cache" comment="Action button in settings to clear app cache data">Xóa bộ nhớ đệm</string>
+    <string name="clear_everything" comment="Dialog button label to confirm clearing screen output and logs">Xóa mọi thứ</string>
+    <string name="clear_history" comment="Action button in terminal/bookmarks screen to clear executed command history">Xóa lịch sử</string>
+    <string name="clear_output_confirmation" comment="Setting toggle title to request confirmation before clearing shell output view">Xác nhận xóa đầu ra</string>
     <string name="clipboard_empty" comment="Toast error message when user taps paste but system clipboard has no text content">Bộ nhớ tạm không có văn bản</string>
     <string name="close">Đóng</string>
     <string name="cloud_backup_failed" comment="Error toast when uploading backup file to Google Drive fails">Không thể tải bản sao lưu lên Google Drive</string>
@@ -137,14 +137,14 @@
     <string name="cmd_get_product_title" comment="Predefined fastboot command title: check product name">Tên mã thiết bị</string>
     <string name="cmd_get_slot_count_desc" comment="Description for predefined fastboot command: fastboot getvar slot-count">Số lượng slot A/B trên thiết bị này</string>
     <string name="cmd_get_slot_count_title" comment="Predefined fastboot command title: check A/B slot count">Số lượng slot</string>
-    <string name="cmd_get_unlocked_desc" comment="Description for predefined fastboot command: fastboot getvar unlocked">Kiểm tra xem bootloader hiện đã được mở khoá chưa</string>
-    <string name="cmd_get_unlocked_title" comment="Predefined fastboot command title: check bootloader unlock status">Trạng thái mở khoá Bootloader</string>
+    <string name="cmd_get_unlocked_desc" comment="Description for predefined fastboot command: fastboot getvar unlocked">Kiểm tra xem bootloader hiện đã được mở khóa chưa</string>
+    <string name="cmd_get_unlocked_title" comment="Predefined fastboot command title: check bootloader unlock status">Trạng thái mở khóa Bootloader</string>
     <string name="cmd_getvar_all_desc" comment="Description for predefined fastboot command: fastboot getvar all">Liệt kê tất cả các biến của thiết bị và giá trị hiện tại của chúng</string>
     <string name="cmd_getvar_all_title" comment="Predefined fastboot command title: get all device variables">Lấy tất cả các biến</string>
     <string name="cmd_oem_device_info_desc" comment="Description for predefined fastboot command: fastboot oem device-info">Lấy thông tin thiết bị (OEM)</string>
     <string name="cmd_oem_device_info_title" comment="Predefined fastboot command title: query OEM device info">Thông tin thiết bị OEM</string>
-    <string name="cmd_unlock_ability_desc" comment="Description for predefined fastboot command: fastboot flashing get_unlock_ability">Kiểm tra xem thiết bị này có thể mở khoá bootloader được không</string>
-    <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">Khả năng mở khoá</string>
+    <string name="cmd_unlock_ability_desc" comment="Description for predefined fastboot command: fastboot flashing get_unlock_ability">Kiểm tra xem thiết bị này có thể mở khóa bootloader được không</string>
+    <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">Khả năng mở khóa</string>
     <string name="code_pair_instruction" comment="Instructional text in Wireless Debugging pairing dialog directing user to open Wireless Debugging menu on target device">Mở \"Gỡ lỗi không dây\" trên thiết bị mục tiêu và nhấn \"Ghép nối thiết bị bằng mã ghép nối\"</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">Thu gọn</string>
     <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">Đã xảy ra lỗi</string>
@@ -203,11 +203,11 @@
     <string name="console" comment="Tab label for the interactive fastboot command console">Bảng điều khiển</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Chọn thư mục lưu</string>
     <string name="confirm">Xác nhận</string>
-    <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Cảnh báo! Hành động này không thể hoàn tác.\nBạn có chắc chắn muốn xoá tất cả dấu trang không?</string>
-    <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Xác nhận xoá</string>
+    <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Cảnh báo! Hành động này không thể hoàn tác.\nBạn có chắc chắn muốn xóa tất cả dấu trang không?</string>
+    <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Xác nhận xóa</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">Bạn có chắc chắn muốn xóa \"%1$s\" không? Nếu đang sử dụng, ứng dụng sẽ quay về phông chữ hệ thống.</string>
-    <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">Bạn có chắc chắn muốn xoá ô này không?</string>
-    <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">Bộ nhớ đệm giúp nhận kết quả phân tích tức thì.\nBạn vẫn muốn xoá tất cả dữ liệu bộ nhớ đệm phân tích AI chứ?</string>
+    <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">Bạn có chắc chắn muốn xóa ô này không?</string>
+    <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">Bộ nhớ đệm giúp nhận kết quả phân tích tức thì.\nBạn vẫn muốn xóa tất cả dữ liệu bộ nhớ đệm phân tích AI chứ?</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" đã tồn tại ở vị trí này.</string>
     <string name="conflict_title" comment="Dialog title when attempting to paste or create a file that already exists">Mục đã tồn tại</string>
     <string name="connect" comment="Action button to initiate ADB connection to target device over Wireless Debugging or OTG">Kết nối</string>
@@ -246,24 +246,24 @@
     <string name="databases_only" comment="Option in backup content selector to include database files only">Chỉ cơ sở dữ liệu</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Thư mục mặc định</string>
     <string name="default_language" comment="Setting preference label for selecting application language">Ngôn ngữ mặc định</string>
-    <string name="delete">Xoá</string>
-    <string name="delete_all" comment="Action button to delete all items in list, history, or bookmarks">Xoá tất cả</string>
+    <string name="delete">Xóa</string>
+    <string name="delete_all" comment="Action button to delete all items in list, history, or bookmarks">Xóa tất cả</string>
     <string name="delete_custom_font" comment="Action label to remove an imported custom font from the font list">Xóa phông chữ</string>
-    <string name="delete_file" comment="File browser action to delete selected file">Xoá tệp</string>
-    <string name="delete_folder" comment="File browser action to delete selected directory">Xoá thư mục</string>
-    <string name="delete_items_message" comment="%1$d = number of selected items">Bạn có chắc chắn muốn xoá %1$d mục đã chọn không?</string>
-    <string name="delete_items_title" comment="%1$d = number of items">Xoá %1$d mục?</string>
-    <string name="delete_message" comment="%1$s = file or folder name">Bạn có chắc chắn muốn xoá \"%1$s\" không?</string>
-    <string name="delete_title" comment="%1$s = file or folder name">Xoá %1$s?</string>
+    <string name="delete_file" comment="File browser action to delete selected file">Xóa tệp</string>
+    <string name="delete_folder" comment="File browser action to delete selected directory">Xóa thư mục</string>
+    <string name="delete_items_message" comment="%1$d = number of selected items">Bạn có chắc chắn muốn xóa %1$d mục đã chọn không?</string>
+    <string name="delete_items_title" comment="%1$d = number of items">Xóa %1$d mục?</string>
+    <string name="delete_message" comment="%1$s = file or folder name">Bạn có chắc chắn muốn xóa \"%1$s\" không?</string>
+    <string name="delete_title" comment="%1$s = file or folder name">Xóa %1$s?</string>
     <string name="des_about" comment="Subtitle description for About section in settings menu">Những người đóng góp và hỗ trợ</string>
     <string name="des_ai_cache_days" comment="Description under Cache duration setting in AI settings">Số ngày lưu trữ kết quả phân tích trong bộ nhớ đệm</string>
     <string name="des_ai_cache_enabled" comment="Description under Enable cache setting in AI settings">Lưu kết quả phân tích vào bộ nhớ đệm theo mô hình</string>
-    <string name="des_ai_models" comment="Description under AI &amp; Models item in settings">Quản lý dữ liệu các mô hình AI và khoá API</string>
+    <string name="des_ai_models" comment="Description under AI &amp; Models item in settings">Quản lý dữ liệu các mô hình AI và khóa API</string>
     <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">Chọn những gì cần bao gồm trong bản sao lưu tự động</string>
     <string name="des_auto_backup_folder" comment="Description under Backup folder setting">Chọn một thư mục để lưu các bản sao lưu tự động</string>
     <string name="des_auto_backup_time" comment="Description under Backup time setting">Đặt thời gian sao lưu tự động</string>
     <string name="des_auto_dark_mode" comment="Description under Auto dark mode setting">Tự động chuyển sang chế độ tối khi bật tính năng Tiết kiệm pin</string>
-    <string name="des_auto_delete_existing_backups" comment="Description under Auto-delete old backups setting">Xoá các bản sao lưu tự động cũ khi lưu bản mới</string>
+    <string name="des_auto_delete_existing_backups" comment="Description under Auto-delete old backups setting">Xóa các bản sao lưu tự động cũ khi lưu bản mới</string>
     <string name="des_auto_scale_ui" comment="Description under Auto scale UI setting">Tự động điều chỉnh tỷ lệ UI theo chiều rộng màn hình tối thiểu của thiết bị</string>
     <string name="des_auto_update" comment="Description under Auto update setting">Tự động kiểm tra bản cập nhật</string>
     <string name="des_backup_all_data" comment="Description for full backup option in backup dialog">Sao lưu tất cả dữ liệu ứng dụng</string>
@@ -274,8 +274,8 @@
     <string name="des_behavior" comment="Description under Behavior item in settings menu">Sửa đổi các hành vi nhất định của ứng dụng</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">Lịch sử của tất cả các thay đổi được thực hiện đối với ứng dụng</string>
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">Nhấn vào đây để chọn biểu tượng từ bộ sưu tập</string>
-    <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">Yêu cầu xác nhận trước khi xoá đầu ra của shell</string>
-    <string name="des_cloud_models" comment="Description under Cloud models setting item">Quản lý khoá API cho các mô hình đám mây</string>
+    <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">Yêu cầu xác nhận trước khi xóa đầu ra của shell</string>
+    <string name="des_cloud_models" comment="Description under Cloud models setting item">Quản lý khóa API cho các mô hình đám mây</string>
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">Chọn một thư mục để lưu đầu ra của shell</string>
     <string name="des_contributors" comment="Description under Contributors item in About section">Danh sách những người đã giúp phát triển aShell You</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">Xem tất cả các lỗi sập đã xảy ra với ứng dụng</string>
@@ -369,10 +369,10 @@
     <string name="enter">Nhập</string>
     <string name="enter_command" comment="Input hint placeholder format for entering fastboot commands">fastboot &lt;command&gt;</string>
     <string name="enter_pairing_code" comment="Instructional header in Wireless Debugging pairing dialog asking for 6-digit code">Nhập mã ghép nối gồm 6 chữ số</string>
-    <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">Điều này sẽ xoá vĩnh viễn phân vùng %1$s. Không thể hoàn tác hành động này.</string>
-    <string name="erase_confirm_title" comment="%1$s = partition name. Dialog title for partition erase confirmation">Xoá %1$s?</string>
-    <string name="erase_partition" comment="Action button to trigger fastboot partition erase">Xoá</string>
-    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Đang xoá…</string>
+    <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">Điều này sẽ xóa vĩnh viễn phân vùng %1$s. Không thể hoàn tác hành động này.</string>
+    <string name="erase_confirm_title" comment="%1$s = partition name. Dialog title for partition erase confirmation">Xóa %1$s?</string>
+    <string name="erase_partition" comment="Action button to trigger fastboot partition erase">Xóa</string>
+    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Đang xóa…</string>
     <string name="error">Lỗi</string>
     <string name="error_labels_limit_reached" comment="Validation error when maximum number of custom command labels/tags is reached">Đã đạt giới hạn nhãn tối đa</string>
     <string name="exclude" comment="Filter toggle option to exclude selected package or item">Loại trừ</string>
@@ -395,14 +395,14 @@
     <string name="fb_all_operations_cancelled" comment="Notification toast when all file browser queue operations are cancelled">Tất cả các thao tác đã bị hủy</string>
     <string name="fb_cannot_paste_into_selected" comment="Error toast in file browser when target paste item is a file instead of a folder">Không thể dán vào thư mục đã chọn</string>
     <string name="fb_create_folder_failed" comment="%1$s = error message. fb_ prefix = file browser">Không thể tạo thư mục: %1$s</string>
-    <string name="fb_delete_failed" comment="%1$s = error message">Xoá thất bại: %1$s</string>
-    <string name="fb_deleted_items" comment="%1$d = number of deleted items">Đã xoá %1$d mục</string>
+    <string name="fb_delete_failed" comment="%1$s = error message">Xóa thất bại: %1$s</string>
+    <string name="fb_deleted_items" comment="%1$d = number of deleted items">Đã xóa %1$d mục</string>
     <string name="fb_download_failed" comment="%1$s = error message">Tải xuống thất bại: %1$s</string>
     <string name="fb_downloaded_to" comment="%1$s = file path">Đã tải xuống vào %1$s</string>
     <string name="fb_downloading" comment="%1$s = file name">Đang tải xuống %1$s</string>
     <string name="fb_empty_folder_skipped" comment="Status message when empty directories are skipped during file browser transfer">Đã bỏ qua thư mục trống</string>
     <string name="fb_error" comment="%1$s = error message">Lỗi: %1$s</string>
-    <string name="fb_file_deleted" comment="Notification toast confirming file deletion">Đã xoá tệp</string>
+    <string name="fb_file_deleted" comment="Notification toast confirming file deletion">Đã xóa tệp</string>
     <string name="fb_folder_created" comment="Notification toast confirming new directory creation">Đã tạo thư mục</string>
     <string name="fb_nothing_to_paste" comment="Toast notification when user taps paste but file clipboard is empty">Không có gì để dán</string>
     <string name="fb_operation_cancelled" comment="Toast notification when file browser operation is cancelled by user">Thao tác đã bị hủy</string>
@@ -449,13 +449,13 @@
     <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">Nội dung giấy phép đầy đủ</string>
     <string name="gemini_api_key_step_1" comment="%1$s = URL">Truy cập Google AI Studio tại %1$s</string>
     <string name="gemini_api_key_step_2" comment="Step 2 of API key setup guide: signing in with Google Account">Đăng nhập bằng Tài khoản Google của bạn</string>
-    <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">Nhấn vào Tạo khoá API và chọn hoặc tạo một dự án</string>
-    <string name="gemini_api_key_step_4" comment="Step 4 of API key setup guide: copying API key string">Sao chép khoá API của bạn và dán vào đây</string>
+    <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">Nhấn vào Tạo khóa API và chọn hoặc tạo một dự án</string>
+    <string name="gemini_api_key_step_4" comment="Step 4 of API key setup guide: copying API key string">Sao chép khóa API của bạn và dán vào đây</string>
     <string name="generate_color_scheme" comment="Action button in theme builder to generate Material 3 color palette">Tạo bảng màu</string>
     <string name="generate_scheme" comment="Compact button label to generate theme color scheme">Tạo màu</string>
     <string name="generate_theme" comment="Dialog header or button for AI/wallpaper theme generation">Tạo chủ đề</string>
     <string name="generate_tile" comment="Action button in Quick Settings builder to generate tile command via AI">Tạo ô</string>
-    <string name="get_api_key" comment="Button linking to Google AI Studio website to create an API key">Nhận khoá API</string>
+    <string name="get_api_key" comment="Button linking to Google AI Studio website to create an API key">Nhận khóa API</string>
     <string name="get_variables" comment="Action button in Fastboot screen to query fastboot device variables">Lấy các biến</string>
     <string name="go_home" comment="Button label to navigate back to home screen dashboard">Về trang chủ</string>
     <string name="go_to_terminal" comment="Button label to navigate to terminal command input screen">Mở terminal</string>
@@ -490,9 +490,9 @@
     <string name="invalid_folder_name" comment="Validation error when entered directory name contains slash characters">Tên thư mục không được chứa dấu /</string>
     <string name="ip_address" comment="Field label for device IP address in wireless ADB setup">Địa chỉ IP</string>
     <string name="irreversible_action_warning" comment="Warning dialog subtitle warning user that deletion cannot be undone">Hành động này không thể hoàn tác!</string>
-    <string name="item_deleted" comment="Confirmation toast after item is deleted">Đã xoá mục thành công</string>
+    <string name="item_deleted" comment="Confirmation toast after item is deleted">Đã xóa mục thành công</string>
     <string name="keep_both" comment="Resolution option in file conflict dialog to keep both original and new file">Giữ cả hai</string>
-    <string name="key_verified_success_msg" comment="Confirmation text when entered AI API key is validated successfully">Xác minh khoá thành công</string>
+    <string name="key_verified_success_msg" comment="Confirmation text when entered AI API key is validated successfully">Xác minh khóa thành công</string>
     <string name="label" comment="Field label for custom command label/tag name">Nhãn</string>
     <string name="languages" comment="Settings section header for language and locale options">Ngôn ngữ</string>
     <string name="last_auto_backup_cloud" comment="Card label showing timestamp of last Google Drive auto backup">Bản tự động sao lưu đám mây gần nhất</string>
@@ -518,8 +518,8 @@
     <string name="local_adb_summary" comment="Summary text for local ADB feature card">Thực thi lệnh ADB trực tiếp trên thiết bị của bạn bằng Shizuku hoặc root.</string>
     <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">Sao lưu cục bộ</string>
     <string name="local_file" comment="Source option label for picking local backup file">Tệp cục bộ</string>
-    <string name="locked" comment="Status badge showing bootloader lock state is locked">Đã khoá</string>
-    <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">Đã xoá nhật ký</string>
+    <string name="locked" comment="Status badge showing bootloader lock state is locked">Đã khóa</string>
+    <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">Đã xóa nhật ký</string>
     <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">Gói</string>
     <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">Các mức độ nhật ký</string>
     <string name="logcat_filter_search_hint" comment="Placeholder text in logcat search bar">Tìm trong thông điệp…</string>
@@ -598,7 +598,7 @@
     <string name="no_wifi_connection" comment="Error banner when Wi-Fi is disabled during Wireless Debugging setup">Không có kết nối Wi-Fi</string>
     <string name="none">Không có</string>
     <string name="not_signed_in" comment="Status text in cloud backup settings when Google account is signed out">Chưa đăng nhập</string>
-    <string name="nothing_to_clear" comment="Toast notification when user taps clear output but screen is already empty">Không có gì để xoá</string>
+    <string name="nothing_to_clear" comment="Toast notification when user taps clear output but screen is already empty">Không có gì để xóa</string>
     <string name="nothing_to_search" comment="Toast message when search query string is empty">Không có gì để tìm kiếm</string>
     <string name="notification_settings" comment="Button label to open system notification settings screen">Cài đặt thông báo</string>
     <string name="notification_style_error" comment="Troubleshooting guide text explaining Xiaomi/MIUI notification shade issues with entering pairing code">Nếu bạn không thể nhập mã ghép nối từ thông báo, có thể bạn cần thay đổi kiểu thông báo thành Android. Để đổi kiểu thông báo, đi tới Cài đặt thông báo ~ Kiểu thông báo. Nếu không, bạn không thể nhập mã ghép nối từ thông báo.</string>
@@ -730,7 +730,7 @@
     <string name="save">Lưu</string>
     <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">Lưu thành cấu hình…</string>
     <string name="save_changes" comment="Action button to persist edited settings or tile parameters">Lưu thay đổi</string>
-    <string name="save_key" comment="Button label to save entered API key string in settings">Lưu khoá</string>
+    <string name="save_key" comment="Button label to save entered API key string in settings">Lưu khóa</string>
     <string name="save_whole_output" comment="Setting toggle title to export full terminal session output to file">Lưu toàn bộ đầu ra</string>
     <string name="saved_devices" comment="Screen title and list header for paired ADB devices history">Các thiết bị đã lưu</string>
     <string name="saving" comment="Progress status text while saving file or settings">Đang lưu…</string>
