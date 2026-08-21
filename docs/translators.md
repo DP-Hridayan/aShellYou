@@ -113,11 +113,11 @@ Thanks to these translators and proofreaders, this project exists:
     </tr>
     <tr>
       <td align="center" valign="top">
-        <a href="https://crowdin.com/profile/avlis84"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/15723517/medium/19b09a1f8d4148794ca49bb34526f2ac.jpg" />
+        <a href="https://crowdin.com/profile/akmodzs"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/15723517/medium/c5a008dfa5c5058be7216c810ae1ccf1.jpg" />
           <br />
-          <sub><b>Silva</b></sub>
+          <sub><b>Isaac</b></sub>
           <br />
-          <sub><b>(avlis84)</b></sub></a>
+          <sub><b>(akmodzs)</b></sub></a>
         <br />
         <sub><b>647 words</b></sub>
       </td>
@@ -329,6 +329,15 @@ Thanks to these translators and proofreaders, this project exists:
           <sub><b>Teoman</b></sub>
           <br />
           <sub><b>(Teoman_OFF)</b></sub></a>
+        <br />
+        <sub><b>1 words</b></sub>
+      </td>
+      <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/wemakebest4you"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17839363/medium/af45942096bb7b8772fd36534c05d0d4.jpeg" />
+          <br />
+          <sub><b>WeMakeBest</b></sub>
+          <br />
+          <sub><b>(wemakebest4you)</b></sub></a>
         <br />
         <sub><b>1 words</b></sub>
       </td>
