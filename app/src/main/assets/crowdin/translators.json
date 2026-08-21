@@ -233,11 +233,11 @@
   },
   {
     "id": "15723517",
-    "username": "avlis84",
-    "name": "Silva (avlis84)",
+    "username": "akmodzs",
+    "name": "Isaac (akmodzs)",
     "translated": 647,
     "approved": 0,
-    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/15723517/medium/19b09a1f8d4148794ca49bb34526f2ac.jpg",
+    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/15723517/medium/c5a008dfa5c5058be7216c810ae1ccf1.jpg",
     "languages": [
       {
         "id": "pt-PT",
@@ -624,5 +624,20 @@
       }
     ],
     "avatar": "crowdin/contributors_pfp/contributor_16439435.webp"
+  },
+  {
+    "id": "17839363",
+    "username": "wemakebest4you",
+    "name": "WeMakeBest (wemakebest4you)",
+    "translated": 1,
+    "approved": 0,
+    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/17839363/medium/af45942096bb7b8772fd36534c05d0d4.jpeg",
+    "languages": [
+      {
+        "id": "hi",
+        "name": "Hindi"
+      }
+    ],
+    "avatar": "crowdin/contributors_pfp/contributor_17839363.webp"
   }
 ]
