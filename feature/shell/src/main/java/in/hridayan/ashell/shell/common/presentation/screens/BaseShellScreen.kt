@@ -1164,7 +1164,7 @@ private fun ScrollFAB(
             modifier = modifier,
             containerColor = MaterialTheme.colorScheme.tertiaryContainer,
             contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
-            onClick = {
+            onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                 coroutineScope.launch {
                     val targetIndex = when (scrollDirection) {
                         ScrollDirection.UP -> 0
