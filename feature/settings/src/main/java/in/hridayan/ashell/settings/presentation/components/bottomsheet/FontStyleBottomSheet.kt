@@ -125,7 +125,12 @@ fun FontStyleBottomSheet(
             )
         }
         val custom = customFonts.map { FontOption.Custom(it) }
-        predefined + custom
+        (predefined + custom).sortedBy { option ->
+            when (option) {
+                is FontOption.Predefined -> res.getString(option.labelResId)
+                is FontOption.Custom -> option.entity.displayName
+            }.lowercase()
+        }
     }
 
     val filteredFontOptions = remember(searchQuery.text, allFontOptions) {
