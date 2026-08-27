@@ -66,6 +66,7 @@ import kotlin.reflect.KType
 @Composable
 fun AppNavigation(
     isFirstLaunch: Boolean = false,
+    defaultLaunchIsLocalAdb: Boolean = false,
     deepLinkViewModel: NavDeepLinkViewModel = hiltViewModel()
 ) {
     val navController = rememberNavController()
@@ -89,7 +90,9 @@ fun AppNavigation(
 
         NavHost(
             navController = navController,
-            startDestination = if (isFirstLaunch) NavRoutes.OnboardingScreen else NavRoutes.HomeScreen,
+            startDestination = if (isFirstLaunch) NavRoutes.OnboardingScreen
+            else if (defaultLaunchIsLocalAdb) NavRoutes.LocalAdbScreen
+            else NavRoutes.HomeScreen,
             enterTransition = { slideFadeInFromRight() },
             exitTransition = { slideFadeOutToLeft() },
             popEnterTransition = { slideFadeInFromLeft() },

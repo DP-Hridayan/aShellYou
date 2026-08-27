@@ -86,12 +86,16 @@ sealed class SettingsKeys<out T>(
     data object AutoBackupEnabled : SettingsKeys<Boolean>("AUTO_BACKUP_ENABLED", false)
     data object AutoBackupDeleteExisting :
         SettingsKeys<Boolean>("AUTO_BACKUP_DELETE_EXISTING", true)
-
     data object AutoBackupLocalEnabled : SettingsKeys<Boolean>("AUTO_BACKUP_LOCAL_ENABLED", true)
     data object AutoBackupCloudEnabled : SettingsKeys<Boolean>("AUTO_BACKUP_CLOUD_ENABLED", true)
+    data object UserGeneratedColorSchemeApplied :
+        SettingsKeys<Boolean>("USER_GENERATED_COLOR_SCHEME_APPLIED", false)
 
-    data object UserGeneratedColorSchemeApplied : SettingsKeys<Boolean>("USER_GENERATED_COLOR_SCHEME_APPLIED", false)
-    data object IsCustomColorSchemeDarkThemed : SettingsKeys<Boolean>("IS_CUSTOM_COLOR_SCHEME_DARK_THEMED", false)
+    data object IsCustomColorSchemeDarkThemed :
+        SettingsKeys<Boolean>("IS_CUSTOM_COLOR_SCHEME_DARK_THEMED", false)
+
+    data object DefaultLaunchIsLocalAdb :
+        SettingsKeys<Boolean>("DEFAULT_LAUNCH_IS_LOCAL_ADB", false)
 
     // Float keys
 
@@ -171,9 +175,8 @@ sealed class SettingsKeys<out T>(
 
     data object LastAutoBackupCloudError : SettingsKeys<String>("LAST_AUTO_BACKUP_CLOUD_ERROR", "")
 
-    data object AiCloudEnabled : SettingsKeys<Boolean>("AI_CLOUD_ENABLED", false)
-
     data object AiCloudProvider : SettingsKeys<String>("AI_CLOUD_PROVIDER", "gemini")
+
 
     companion object {
         /**

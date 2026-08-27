@@ -4,6 +4,7 @@
     <string name="A_Z" translatable="false">A → Z</string>
     <string name="abort_command" comment="Toast warning shown when trying to perform an action while an ADB shell command is currently running">Abort command first</string>
     <string name="about">About</string>
+    <string name="action_import">Import</string>
     <string name="active" comment="Status indicator label for active ADB connection or active slot">Active</string>
     <string name="active_slot" comment="Refers to the active A/B partition slot on a dual-slot Android device">Active Slot</string>
     <string name="adb" translatable="false">ADB</string>
@@ -204,7 +205,6 @@
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Command not found!</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">Input ADB Command</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">Commands</string>
-    <string name="console" comment="Tab label for the interactive fastboot command console">Console</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Configure save directory</string>
     <string name="confirm">Confirm</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
@@ -226,6 +226,7 @@
     <string name="connection_failed" comment="Status banner or toast when ADB connection attempt fails">Connection failed</string>
     <string name="connection_lost" comment="Dialog title shown when ADB Wireless Debugging connection is unexpectedly disconnected">Connection Lost</string>
     <string name="connection_lost_back_message" comment="Dialog message prompt when connection is lost asking user what action to take">The wireless debugging connection was lost. What would you like to do?</string>
+    <string name="console" comment="Tab label for the interactive fastboot command console">Console</string>
     <string name="continue_anyway" comment="Action button in warning dialog to ignore warning and proceed">Continue anyway</string>
     <string name="contributors" comment="Screen title and card header listing app open-source contributors">Contributors</string>
     <string name="copied_items" comment="%1$d = number of items copied to clipboard">Copied %1$d items</string>
@@ -316,6 +317,7 @@
     <string name="des_save_whole_output" comment="Description under Save whole output setting toggle">Enable this option to save output of the whole shell session.\nIf disabled only the last command output will be saved.</string>
     <string name="des_screen_density" comment="Description under Screen density multiplier setting item">Adjust screen density to make UI elements appear larger or smaller</string>
     <string name="des_select_file_for_flashing" comment="Instructional description prompt for picking boot image file to flash">Select a boot image file to flash to the selected partition</string>
+    <string name="des_set_local_adb_as_default_launch" comment="Description under Set Local ADB as default launch setting">Enter Local ADB screen directly on app launch</string>
     <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">Optionally link your Google account for cloud backups</string>
     <string name="des_smooth_scroll" comment="Description under Smooth scrolling setting toggle">Enables smooth scrolling in the shell output when top or bottom arrow is clicked</string>
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">When enabled, the tile switches between ON and OFF states on each tap, running a different command for each state</string>
@@ -456,8 +458,8 @@
     <string name="font_exo_2" comment="Font style name" translatable="false">Exo 2</string>
     <string name="font_family" comment="Settings preference title for selecting application font family">Font family</string>
     <string name="font_google_sans" comment="Font style name" translatable="false">Google Sans</string>
-    <string name="font_import_success" comment="Toast shown after a custom font file is successfully imported and saved">Font imported successfully</string>
     <string name="font_heebo" comment="Font style name" translatable="false">Heebo</string>
+    <string name="font_import_success" comment="Toast shown after a custom font file is successfully imported and saved">Font imported successfully</string>
     <string name="font_inter" comment="Font style name" translatable="false">Inter</string>
     <string name="font_josefin_sans" comment="Font style name" translatable="false">Josefin Sans</string>
     <string name="font_karla" comment="Font style name" translatable="false">Karla</string>
@@ -522,7 +524,6 @@
     <string name="home">Home</string>
     <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">How to enter sideload mode</string>
     <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">Icon selected</string>
-    <string name="action_import">Import</string>
     <string name="import_font" comment="Content description for the import font icon button in the font style picker">Import font</string>
     <string name="import_font_name_hint" comment="Input field placeholder for the user-assigned display name of an imported font">Font name</string>
     <string name="import_theme" comment="Action button to import theme configuration file">Import Theme</string>
@@ -532,9 +533,9 @@
     <string name="instructions" comment="Section header for step-by-step connection guides">Instructions</string>
     <string name="intent_not_found" comment="Error toast when external app activity or URL link cannot be opened">Intent not found</string>
     <string name="internal_storage" comment="Root folder label in file browser for local storage">Internal Storage</string>
+    <string name="invalid_folder_name" comment="Validation error when entered directory name contains slash characters">Folder name cannot contain /</string>
     <string name="invalid_font_file" comment="Dialog title shown when the selected file is not a valid TrueType font">Invalid font file</string>
     <string name="invalid_font_file_desc" comment="Dialog body explaining that the selected file failed TTF validation">The selected file is not a valid TrueType (.ttf) font file.</string>
-    <string name="invalid_folder_name" comment="Validation error when entered directory name contains slash characters">Folder name cannot contain /</string>
     <string name="ip_address" comment="Field label for device IP address in wireless ADB setup">IP address</string>
     <string name="irreversible_action_warning" comment="Warning dialog subtitle warning user that deletion cannot be undone">This action is irreversible!</string>
     <string name="item_deleted" comment="Confirmation toast after item is deleted">Item has been deleted successfully</string>
@@ -548,6 +549,7 @@
     <string name="last_backup_details" comment="Card header for summary of last backup attempt">Last backup details</string>
     <string name="last_backup_time" comment="Card metadata label for backup creation time">Last backup time</string>
     <string name="latest_version" comment="Label showing latest available version string from GitHub release">Latest version</string>
+    <string name="launch">Launch</string>
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">Lead developer</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">Least used</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">Level</string>
@@ -836,6 +838,7 @@
     <string name="send">Send</string>
     <string name="serial_number" comment="Device property label displaying target device hardware serial number">Serial Number</string>
     <string name="serif" comment="Font style category name">Serif</string>
+    <string name="set_local_adb_as_default_launch" comment="Setting toggle title to launch Local ADB screen directly when the app starts">Set Local ADB as default launch</string>
     <string name="settings">Settings</string>
     <string name="settings_only" comment="Option in backup screen to export only application settings (excluding history/bookmarks)">Settings only</string>
     <string name="share">Share</string>

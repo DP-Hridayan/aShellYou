@@ -60,8 +60,9 @@ class MainActivity : AppCompatActivity() {
         val splashStartTime = System.currentTimeMillis()
 
         splashScreen.setKeepOnScreenCondition {
-            settingsViewModel.isFirstLaunch == null ||
-                    System.currentTimeMillis() - splashStartTime < SPLASH_SCREEN_DELAY_MS
+            settingsViewModel.isFirstLaunch == null
+                    || settingsViewModel.defaultLaunchIsLocalAdb == null
+                    || System.currentTimeMillis() - splashStartTime < SPLASH_SCREEN_DELAY_MS
         }
 
         super.onCreate(savedInstanceState)

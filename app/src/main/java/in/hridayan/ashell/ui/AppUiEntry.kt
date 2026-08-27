@@ -1,10 +1,14 @@
-@file:OptIn(ExperimentalSharedTransitionApi::class, androidx.compose.material3.ExperimentalMaterial3Api::class)
+@file:OptIn(
+    ExperimentalSharedTransitionApi::class,
+    ExperimentalMaterial3Api::class
+)
 
 package `in`.hridayan.ashell.ui
 
 import android.util.Log
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -40,7 +44,9 @@ fun AppUiEntry(
 ) {
     val context = LocalContext.current
     val res = LocalResources.current
+
     val isFirstLaunch = settingsViewModel.isFirstLaunch ?: return
+    val defaultLaunchIsLocalAdb = settingsViewModel.defaultLaunchIsLocalAdb ?: return
 
     var showUpdateSheet by rememberSaveable { mutableStateOf(false) }
     var showChangelogSheet by rememberSaveable { mutableStateOf(false) }
@@ -88,7 +94,8 @@ fun AppUiEntry(
         SharedTransitionLayout {
             CompositionLocalProvider(LocalSharedTransitionScope provides this) {
                 AppNavigation(
-                    isFirstLaunch = isFirstLaunch
+                    isFirstLaunch = isFirstLaunch,
+                    defaultLaunchIsLocalAdb = defaultLaunchIsLocalAdb
                 )
             }
         }

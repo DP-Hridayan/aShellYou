@@ -217,6 +217,15 @@ object SettingsProvider {
             ),
         ),
         category(
+            titleResId = R.string.launch,
+            switchItem(
+                key = SettingsKeys.DefaultLaunchIsLocalAdb,
+                titleResId = R.string.set_local_adb_as_default_launch,
+                descriptionResId = R.string.des_set_local_adb_as_default_launch,
+                icon = R.drawable.ic_rocket_launch
+            ),
+        ),
+        category(
             titleResId = R.string.terminal,
             switchItem(
                 key = SettingsKeys.SmoothScrolling,

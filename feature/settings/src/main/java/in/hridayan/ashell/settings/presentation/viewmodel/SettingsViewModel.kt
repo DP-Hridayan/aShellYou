@@ -47,6 +47,9 @@ class SettingsViewModel @Inject constructor(
     var isFirstLaunch by mutableStateOf<Boolean?>(null)
         private set
 
+    var defaultLaunchIsLocalAdb by mutableStateOf<Boolean?>(null)
+        private set
+
     /**
      * Raw DataStore preferences — collected once per screen via [rememberController].
      * Replaces the old pre-warming pattern (21 coroutines at startup).
@@ -57,6 +60,8 @@ class SettingsViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             isFirstLaunch = getBoolean(SettingsKeys.FirstLaunch).firstOrNull()
+            defaultLaunchIsLocalAdb =
+                getBoolean(SettingsKeys.DefaultLaunchIsLocalAdb).firstOrNull()
         }
     }
 
@@ -67,7 +72,6 @@ class SettingsViewModel @Inject constructor(
     val behaviorPage = SettingsProvider.behaviorPage
     val aboutPage = SettingsProvider.aboutPage
     val backupPage = SettingsProvider.backupPage
-    val aiSettingsPage = SettingsProvider.aiSettingsPage
     val backupSchedulerPage = SettingsProvider.backupSchedulerPage
 
     private val _uiEvent = MutableSharedFlow<SettingsUiEvent>()
