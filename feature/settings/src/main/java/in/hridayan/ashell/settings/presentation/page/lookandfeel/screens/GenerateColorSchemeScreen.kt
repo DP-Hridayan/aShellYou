@@ -13,7 +13,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -90,7 +89,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalDarkMode
@@ -300,8 +298,8 @@ fun GenerateColorSchemeScreen(
 }
 
 private const val CARD_DEFAULT_HEIGHT = 300
-private const val CARD_BORDER_APPLIED = 2.5f
-private const val CARD_BORDER_DEFAULT = 1f
+private const val HEADER_HEIGHT = 64
+private const val HEADER_CURVE_DEPTH = 18
 private const val WAVE_PHASE_MODULO = 7
 private const val WAVE_PHASE_MULTIPLIER = 0.13f
 private const val WAVE_SEPARATOR_WIDTH_DP = 1.5f
@@ -376,7 +374,7 @@ fun ThemeMaterialCarousel(
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp),
                 itemSpacing = 8.dp,
-                contentPadding = PaddingValues(16.dp),
+                contentPadding = PaddingValues(8.dp),
             ) { index ->
                 val theme = filteredThemes[index]
                 ThemeCarouselItem(
@@ -414,7 +412,7 @@ private fun ThemeSearchBar(
     CustomSearchBar(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 32.dp, end = 32.dp, bottom = 12.dp),
+            .padding(start = 24.dp, end = 24.dp, bottom = 12.dp),
         value = query,
         onValueChange = onQueryChange,
         hint = stringResource(R.string.search),
@@ -441,21 +439,17 @@ private fun CarouselItemScope.ThemeCarouselItem(
     val onSecondary = parseHex(theme.onSecondary)
     val tertiary = parseHex(theme.tertiary)
     val surface = parseHex(theme.surface)
-    val onSurface = parseHex(theme.onSurface)
+    val secondaryContainer = parseHex(theme.secondaryContainer)
+    val onSecondaryContainer = parseHex(theme.onSecondaryContainer)
 
     val phase = (theme.id % WAVE_PHASE_MODULO) * WAVE_PHASE_MULTIPLIER
     val cardShape = RoundedCornerShape(24.dp)
-    val borderWidth = if (isApplied) CARD_BORDER_APPLIED.dp else CARD_BORDER_DEFAULT.dp
     val interactionSource = remember { MutableInteractionSource() }
 
     Box(
         modifier = Modifier
             .height(cardHeight)
             .maskClip(cardShape)
-            .maskBorder(
-                border = BorderStroke(width = borderWidth, color = primary),
-                shape = cardShape
-            )
             .background(surface)
             .clickable(
                 interactionSource = interactionSource,
@@ -475,8 +469,8 @@ private fun CarouselItemScope.ThemeCarouselItem(
         ThemeCardHeader(
             name = theme.name,
             isApplied = isApplied,
-            primary = primary,
-            onSurface = onSurface
+            secondaryContainer = secondaryContainer,
+            onSecondaryContainer = onSecondaryContainer
         )
     }
 }
@@ -485,32 +479,56 @@ private fun CarouselItemScope.ThemeCarouselItem(
 private fun ThemeCardHeader(
     name: String,
     isApplied: Boolean,
-    primary: Color,
-    onSurface: Color
+    secondaryContainer: Color,
+    onSecondaryContainer: Color
 ) {
-    Row(
+    Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 20.dp, end = 14.dp, top = 20.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.Top
+            .height((HEADER_HEIGHT + HEADER_CURVE_DEPTH).dp)
     ) {
-        Text(
-            modifier = Modifier.weight(1f),
-            text = name,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            color = onSurface,
-            overflow = TextOverflow.Ellipsis,
-            maxLines = 2,
-        )
-        if (isApplied) {
-            Icon(
-                imageVector = Icons.Rounded.Verified,
-                contentDescription = null,
-                tint = primary,
-                modifier = Modifier.size(22.dp)
+        Canvas(modifier = Modifier.matchParentSize()) {
+            val w = size.width
+            val baseH = HEADER_HEIGHT.dp.toPx()
+            val dip = HEADER_CURVE_DEPTH.dp.toPx()
+
+            val path = Path().apply {
+                moveTo(0f, 0f)
+                lineTo(w, 0f)
+                lineTo(w, baseH - dip)
+                cubicTo(
+                    w * 0.65f, baseH - dip,
+                    w * 0.35f, baseH + dip,
+                    0f, baseH + dip
+                )
+                close()
+            }
+            drawPath(path, color = secondaryContainer)
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 20.dp, end = 14.dp, top = 16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.Top
+        ) {
+            Text(
+                modifier = Modifier.weight(1f),
+                text = name,
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                color = onSecondaryContainer,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1
             )
+            if (isApplied) {
+                Icon(
+                    imageVector = Icons.Rounded.Verified,
+                    contentDescription = null,
+                    tint = onSecondaryContainer,
+                    modifier = Modifier.size(22.dp)
+                )
+            }
         }
     }
 }
