@@ -1,8 +1,11 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalFlexBoxApi::class)
+@file:OptIn(
+    ExperimentalMaterial3Api::class,
+    ExperimentalFlexBoxApi::class,
+    ExperimentalMaterial3ExpressiveApi::class
+)
 
 package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens
 
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedContent
@@ -14,6 +17,9 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,21 +37,22 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AutoAwesome
+import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Share
+import androidx.compose.material.icons.rounded.Verified
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -54,8 +61,14 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarScrollBehavior
+import androidx.compose.material3.VerticalDivider
+import androidx.compose.material3.carousel.CarouselItemScope
+import androidx.compose.material3.carousel.HorizontalCenteredHeroCarousel
+import androidx.compose.material3.carousel.rememberCarouselState
 import androidx.compose.material3.rememberTopAppBarState
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -65,18 +78,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.Fill
-import androidx.compose.ui.graphics.drawscope.withTransform
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.graphics.vector.PathParser
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -88,10 +99,10 @@ import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.navigation.navigateBack
-import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.ApiKeyRequiredDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
+import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.theme.domain.model.UserGeneratedColorScheme
 import `in`.hridayan.ashell.core.presentation.theme.domain.model.toDomain
@@ -105,7 +116,7 @@ import `in`.hridayan.ashell.settings.presentation.components.svg.vectors.themePi
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel.GenerateColorSchemeViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.math.absoluteValue
+
 
 @Composable
 fun GenerateColorSchemeScreen(
@@ -188,7 +199,7 @@ fun GenerateColorSchemeScreen(
                         LocalSettings.current[SettingsKeys.IsCustomColorSchemeDarkThemed]
 
                     if (savedColorSchemes.isNotEmpty()) {
-                        ThemePokerCardCarousel(
+                        ThemeMaterialCarousel(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(vertical = 20.dp),
@@ -196,15 +207,6 @@ fun GenerateColorSchemeScreen(
                             appliedThemeId = appliedThemeId,
                             onApplyTheme = { theme ->
                                 viewModel.applyColorScheme(theme)
-                                Log.d(
-                                    "GenerateThemeDebugDark",
-                                    "Is theme Dark?: ${theme.isDarkTheme}"
-                                )
-                                Log.d("GenerateThemeDebugDark", "LocalDarkMode: $localDarkMode")
-                                Log.d(
-                                    "GenerateThemeDebugDark",
-                                    "UserGeneratedColorSchemeIsDark: $userGeneratedColorSchemeDark"
-                                )
                             },
                             onDelete = { theme -> viewModel.deleteTheme(theme) },
                             onEdit = { theme ->
@@ -297,10 +299,37 @@ fun GenerateColorSchemeScreen(
     }
 }
 
+private const val CARD_DEFAULT_HEIGHT = 300
+private const val CARD_BORDER_APPLIED = 2.5f
+private const val CARD_BORDER_DEFAULT = 1f
+private const val WAVE_PHASE_MODULO = 7
+private const val WAVE_PHASE_MULTIPLIER = 0.13f
+private const val WAVE_SEPARATOR_WIDTH_DP = 1.5f
+private const val WAVE_SEPARATOR_ALPHA = 0.55f
+private const val WAVE1_ALPHA = 0.92f
+private const val WAVE2_ALPHA = 0.90f
+private const val WAVE3_ALPHA = 0.90f
+private const val WAVE1_Y_BASE = 0.44f
+private const val WAVE1_Y_PHASE = 0.06f
+private const val WAVE1_AMPLITUDE = 0.07f
+private const val WAVE2_Y_BASE = 0.61f
+private const val WAVE2_Y_PHASE = 0.04f
+private const val WAVE2_AMPLITUDE = 0.055f
+private const val WAVE3_Y_BASE = 0.76f
+private const val WAVE3_Y_PHASE = 0.03f
+private const val WAVE3_AMPLITUDE = 0.042f
+
+private fun parseHex(hex: String): Color = try {
+    val normalized = if (hex.startsWith("#")) hex else "#$hex"
+    Color(normalized.toColorInt())
+} catch (e: Exception) {
+    Color.Gray
+}
+
 @Composable
-fun ThemePokerCardCarousel(
+fun ThemeMaterialCarousel(
     modifier: Modifier = Modifier,
-    cardHeight: Dp = 320.dp,
+    cardHeight: Dp = CARD_DEFAULT_HEIGHT.dp,
     themes: List<UserGeneratedColorScheme>,
     appliedThemeId: Int,
     onApplyTheme: (UserGeneratedColorScheme) -> Unit,
@@ -308,193 +337,327 @@ fun ThemePokerCardCarousel(
     onEdit: (UserGeneratedColorScheme) -> Unit,
     onShare: (UserGeneratedColorScheme) -> Unit
 ) {
-    val initialPage = remember(themes, appliedThemeId) {
-        val index = themes.indexOfFirst { it.id == appliedThemeId }
-        if (index >= 0) index else 0
+    var searchQuery by remember { mutableStateOf("") }
+    val filteredThemes = remember(themes, searchQuery) {
+        if (searchQuery.isBlank()) themes
+        else themes.filter { it.name.contains(searchQuery, ignoreCase = true) }
     }
 
-    val pagerState = rememberPagerState(
-        initialPage = initialPage,
-        pageCount = { themes.size }
-    )
+    val initialItem = remember(filteredThemes, appliedThemeId) {
+        filteredThemes.indexOfFirst { it.id == appliedThemeId }.takeIf { it >= 0 } ?: 0
+    }
+    val carouselState = rememberCarouselState(initialItem = initialItem) { filteredThemes.size }
+    val animationScope = rememberCoroutineScope()
 
-    HorizontalPager(
+    LaunchedEffect(searchQuery) {
+        if (filteredThemes.isNotEmpty()) carouselState.scrollToItem(0)
+    }
+
+    Column(
         modifier = modifier,
-        state = pagerState,
-        contentPadding = PaddingValues(horizontal = 64.dp), // Fan out effect
-        pageSpacing = (-40).dp
-    ) { page ->
-        val theme = themes[page]
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        ThemeSearchBar(
+            query = searchQuery,
+            onQueryChange = { searchQuery = it }
+        )
 
-        fun parseHex(hex: String): Color {
-            return try {
-                val hexStr = if (hex.startsWith("#")) hex else "#$hex"
-                Color(hexStr.toColorInt())
-            } catch (e: Exception) {
-                Color.Gray
+        if (filteredThemes.isEmpty()) {
+            Text(
+                text = stringResource(R.string.no_results_found),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(vertical = 32.dp)
+            )
+        } else {
+            HorizontalCenteredHeroCarousel(
+                state = carouselState,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                itemSpacing = 8.dp,
+                contentPadding = PaddingValues(16.dp),
+            ) { index ->
+                val theme = filteredThemes[index]
+                ThemeCarouselItem(
+                    theme = theme,
+                    isApplied = theme.id == appliedThemeId,
+                    cardHeight = cardHeight,
+                    onClick = withHaptic {
+                        onApplyTheme(theme)
+                        if (carouselState.currentItem != index) {
+                            animationScope.launch { carouselState.animateScrollToItem(index) }
+                        }
+                    }
+                )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            filteredThemes.getOrNull(carouselState.currentItem)?.let { currentTheme ->
+                ThemeActionPill(
+                    theme = currentTheme,
+                    onShare = onShare,
+                    onEdit = onEdit,
+                    onDelete = onDelete
+                )
             }
         }
+    }
+}
 
-        val primary = parseHex(theme.primary)
-        val secondary = parseHex(theme.secondary)
-        val tertiary = parseHex(theme.tertiary)
-        val surface = parseHex(theme.surface)
-        val onSurface = parseHex(theme.onSurface)
-
-        CustomCard(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(cardHeight)
-                .graphicsLayer {
-                    val pageOffset =
-                        (pagerState.currentPage - page) + pagerState.currentPageOffsetFraction
-                    val absOffset = pageOffset.absoluteValue
-
-                    // Poker card fan math
-                    val scale = 1f - (absOffset * 0.15f)
-                    scaleX = scale
-                    scaleY = scale
-                    rotationZ = -pageOffset * 15f
-                    translationY = absOffset * 40.dp.toPx()
-                },
-            onClick = withHaptic { onApplyTheme(theme) },
-            elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
-            border = BorderStroke(
-                width = 2.dp,
-                color = primary
-            ),
-            colors = CardDefaults.cardColors(containerColor = surface)
-        ) {
-            Box(modifier = Modifier.fillMaxSize()) {
-                // Background Canvas for AI-generated SVG Art
-                val rawPathData = theme.svgPathData
-                val pathData = if (rawPathData.contains("<")) {
-                    val dMatch = Regex("""d\s*=\s*['"]([^'"]*)['"]""").find(rawPathData)
-                    dMatch?.groupValues?.get(1) ?: rawPathData
-                } else {
-                    rawPathData
-                }.trim()
-
-                if (pathData.isNotBlank()) {
-                    val path = remember(pathData) {
-                        try {
-                            Log.d("GenerateTheme", "Parsing SVG Path: ${pathData.take(50)}...")
-                            PathParser().parsePathString(pathData).toPath()
-                        } catch (e: Exception) {
-                            Log.e("GenerateTheme", "Failed to parse SVG: ${e.message}")
-                            null
-                        }
-                    }
-
-                    if (path != null) {
-                        Canvas(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(20.dp)
-                        ) {
-                            val bounds = path.getBounds()
-                            if (bounds.width > 0f && bounds.height > 0f) {
-                                val scaleFactor = minOf(
-                                    size.width / bounds.width,
-                                    size.height / bounds.height
-                                ) * 0.8f
-                                val dx =
-                                    (size.width - bounds.width * scaleFactor) / 2f - bounds.left * scaleFactor
-                                val dy =
-                                    (size.height - bounds.height * scaleFactor) / 2f - bounds.top * scaleFactor
-
-                                Log.d(
-                                    "GenerateTheme",
-                                    "Drawing SVG: size=$size, bounds=$bounds, scale=$scaleFactor, dx=$dx, dy=$dy"
-                                )
-
-                                withTransform({
-                                    translate(left = dx, top = dy)
-                                    scale(
-                                        scaleX = scaleFactor,
-                                        scaleY = scaleFactor,
-                                        pivot = Offset.Zero
-                                    )
-                                }) {
-                                    drawPath(
-                                        path = path,
-                                        color = onSurface.copy(alpha = 0.1f), // high contrast for visibility testing
-                                        style = Fill
-                                    )
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    Log.d("GenerateTheme", "pathdata is blank")
-                }
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(24.dp),
-                    verticalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(
-                        text = theme.name,
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = onSurface
-                    )
-
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceEvenly
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .size(50.dp)
-                                .clip(RoundedCornerShape(12.dp))
-                                .background(primary)
-                        )
-                        Box(
-                            modifier = Modifier
-                                .size(50.dp)
-                                .clip(RoundedCornerShape(12.dp))
-                                .background(secondary)
-                        )
-                        Box(
-                            modifier = Modifier
-                                .size(50.dp)
-                                .clip(RoundedCornerShape(12.dp))
-                                .background(tertiary)
-                        )
-                    }
-
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceEvenly
-                    ) {
-                        IconButton(onClick = withHaptic { onShare(theme) }) {
-                            Icon(
-                                Icons.Rounded.Share,
-                                contentDescription = stringResource(id = R.string.share),
-                                tint = primary
-                            )
-                        }
-                        IconButton(onClick = withHaptic { onEdit(theme) }) {
-                            Icon(
-                                Icons.Rounded.Edit,
-                                contentDescription = stringResource(id = R.string.edit),
-                                tint = secondary
-                            )
-                        }
-                        IconButton(onClick = withHaptic { onDelete(theme) }) {
-                            Icon(
-                                Icons.Rounded.Delete,
-                                contentDescription = stringResource(id = R.string.delete),
-                                tint = tertiary
-                            )
-                        }
-                    }
+@Composable
+private fun ThemeSearchBar(
+    query: String,
+    onQueryChange: (String) -> Unit
+) {
+    CustomSearchBar(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 32.dp, end = 32.dp, bottom = 12.dp),
+        value = query,
+        onValueChange = onQueryChange,
+        hint = stringResource(R.string.search),
+        trailingIcon = {
+            if (query.isNotEmpty()) {
+                IconButton(onClick = withHaptic { onQueryChange("") }) {
+                    Icon(imageVector = Icons.Rounded.Close, contentDescription = null)
                 }
             }
         }
+    )
+}
+
+@Composable
+private fun CarouselItemScope.ThemeCarouselItem(
+    theme: UserGeneratedColorScheme,
+    isApplied: Boolean,
+    cardHeight: Dp,
+    onClick: () -> Unit
+) {
+    val primary = parseHex(theme.primary)
+    val onPrimary = parseHex(theme.onPrimary)
+    val secondary = parseHex(theme.secondary)
+    val onSecondary = parseHex(theme.onSecondary)
+    val tertiary = parseHex(theme.tertiary)
+    val surface = parseHex(theme.surface)
+    val onSurface = parseHex(theme.onSurface)
+
+    val phase = (theme.id % WAVE_PHASE_MODULO) * WAVE_PHASE_MULTIPLIER
+    val cardShape = RoundedCornerShape(24.dp)
+    val borderWidth = if (isApplied) CARD_BORDER_APPLIED.dp else CARD_BORDER_DEFAULT.dp
+    val interactionSource = remember { MutableInteractionSource() }
+
+    Box(
+        modifier = Modifier
+            .height(cardHeight)
+            .maskClip(cardShape)
+            .maskBorder(
+                border = BorderStroke(width = borderWidth, color = primary),
+                shape = cardShape
+            )
+            .background(surface)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = ripple(),
+                onClick = onClick
+            )
+    ) {
+        WavePattern(
+            modifier = Modifier.fillMaxSize(),
+            phase = phase,
+            primary = primary,
+            onPrimary = onPrimary,
+            secondary = secondary,
+            onSecondary = onSecondary,
+            tertiary = tertiary
+        )
+        ThemeCardHeader(
+            name = theme.name,
+            isApplied = isApplied,
+            primary = primary,
+            onSurface = onSurface
+        )
+    }
+}
+
+@Composable
+private fun ThemeCardHeader(
+    name: String,
+    isApplied: Boolean,
+    primary: Color,
+    onSurface: Color
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 20.dp, end = 14.dp, top = 20.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.Top
+    ) {
+        Text(
+            modifier = Modifier.weight(1f),
+            text = name,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            color = onSurface,
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 2,
+        )
+        if (isApplied) {
+            Icon(
+                imageVector = Icons.Rounded.Verified,
+                contentDescription = null,
+                tint = primary,
+                modifier = Modifier.size(22.dp)
+            )
+        }
+    }
+}
+
+@Composable
+private fun ThemeActionPill(
+    theme: UserGeneratedColorScheme,
+    onShare: (UserGeneratedColorScheme) -> Unit,
+    onEdit: (UserGeneratedColorScheme) -> Unit,
+    onDelete: (UserGeneratedColorScheme) -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .wrapContentWidth()
+            .border(
+                width = 1.dp,
+                color = MaterialTheme.colorScheme.outline,
+                shape = RoundedCornerShape(50)
+            )
+            .padding(horizontal = 4.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        IconButton(onClick = withHaptic { onShare(theme) }) {
+            Icon(
+                imageVector = Icons.Rounded.Share,
+                contentDescription = stringResource(id = R.string.share),
+                tint = MaterialTheme.colorScheme.onSurface
+            )
+        }
+        VerticalDivider(
+            modifier = Modifier.height(24.dp),
+            color = MaterialTheme.colorScheme.outlineVariant
+        )
+        IconButton(onClick = withHaptic { onEdit(theme) }) {
+            Icon(
+                imageVector = Icons.Rounded.Edit,
+                contentDescription = stringResource(id = R.string.edit),
+                tint = MaterialTheme.colorScheme.onSurface
+            )
+        }
+        VerticalDivider(
+            modifier = Modifier.height(24.dp),
+            color = MaterialTheme.colorScheme.outlineVariant
+        )
+        IconButton(onClick = withHaptic { onDelete(theme) }) {
+            Icon(
+                imageVector = Icons.Rounded.Delete,
+                contentDescription = stringResource(id = R.string.delete),
+                tint = MaterialTheme.colorScheme.error
+            )
+        }
+    }
+}
+
+@Composable
+private fun WavePattern(
+    modifier: Modifier = Modifier,
+    phase: Float,
+    primary: Color,
+    onPrimary: Color,
+    secondary: Color,
+    onSecondary: Color,
+    tertiary: Color
+) {
+    Canvas(modifier = modifier) {
+        val w = size.width
+        val h = size.height
+
+        val p1Y = h * (WAVE1_Y_BASE + phase * WAVE1_Y_PHASE)
+        val p1A = h * WAVE1_AMPLITUDE
+        val p1Curve = listOf(
+            0f, p1Y + p1A * (1f - phase),
+            w * 0.20f, p1Y - p1A,
+            w * (0.45f + phase * 0.12f), p1Y + p1A * 1.5f,
+            w * 0.72f, p1Y - p1A * 0.5f,
+            w * 0.85f, p1Y - p1A * 0.8f,
+            w * 0.94f, p1Y + p1A * 0.4f,
+            w, p1Y + p1A * (0.3f - phase * 0.3f)
+        )
+        val primaryWave = Path().apply {
+            moveTo(p1Curve[0], p1Curve[1])
+            cubicTo(p1Curve[2], p1Curve[3], p1Curve[4], p1Curve[5], p1Curve[6], p1Curve[7])
+            cubicTo(p1Curve[8], p1Curve[9], p1Curve[10], p1Curve[11], p1Curve[12], p1Curve[13])
+            lineTo(w, h); lineTo(0f, h); close()
+        }
+        drawPath(primaryWave, color = primary.copy(alpha = WAVE1_ALPHA))
+
+        val p2Y = h * (WAVE2_Y_BASE + phase * WAVE2_Y_PHASE)
+        val p2A = h * WAVE2_AMPLITUDE
+        val p2Curve = listOf(
+            0f, p2Y - p2A * phase,
+            w * (0.28f + phase * 0.10f), p2Y + p2A,
+            w * 0.58f, p2Y - p2A,
+            w * 0.80f, p2Y + p2A * (0.5f + phase * 0.5f),
+            w * 0.90f, p2Y + p2A * 0.8f,
+            w * 0.96f, p2Y - p2A * 0.3f,
+            w, p2Y
+        )
+        val secondaryWave = Path().apply {
+            moveTo(p2Curve[0], p2Curve[1])
+            cubicTo(p2Curve[2], p2Curve[3], p2Curve[4], p2Curve[5], p2Curve[6], p2Curve[7])
+            cubicTo(p2Curve[8], p2Curve[9], p2Curve[10], p2Curve[11], p2Curve[12], p2Curve[13])
+            lineTo(w, h); lineTo(0f, h); close()
+        }
+        drawPath(secondaryWave, color = secondary.copy(alpha = WAVE2_ALPHA))
+
+        val sep1 = Path().apply {
+            moveTo(p2Curve[0], p2Curve[1])
+            cubicTo(p2Curve[2], p2Curve[3], p2Curve[4], p2Curve[5], p2Curve[6], p2Curve[7])
+            cubicTo(p2Curve[8], p2Curve[9], p2Curve[10], p2Curve[11], p2Curve[12], p2Curve[13])
+        }
+        drawPath(
+            sep1,
+            color = onPrimary.copy(alpha = WAVE_SEPARATOR_ALPHA),
+            style = Stroke(width = WAVE_SEPARATOR_WIDTH_DP.dp.toPx())
+        )
+
+        val p3Y = h * (WAVE3_Y_BASE + phase * WAVE3_Y_PHASE)
+        val p3A = h * WAVE3_AMPLITUDE
+        val p3Curve = listOf(
+            0f, p3Y - p3A * (1f - phase),
+            w * 0.25f, p3Y + p3A,
+            w * (0.52f + phase * 0.08f), p3Y - p3A * 1.2f,
+            w * 0.76f, p3Y + p3A * 0.8f,
+            w * 0.88f, p3Y + p3A,
+            w * 0.95f, p3Y - p3A * 0.5f,
+            w, p3Y - p3A * phase
+        )
+        val tertiaryWave = Path().apply {
+            moveTo(p3Curve[0], p3Curve[1])
+            cubicTo(p3Curve[2], p3Curve[3], p3Curve[4], p3Curve[5], p3Curve[6], p3Curve[7])
+            cubicTo(p3Curve[8], p3Curve[9], p3Curve[10], p3Curve[11], p3Curve[12], p3Curve[13])
+            lineTo(w, h); lineTo(0f, h); close()
+        }
+        drawPath(tertiaryWave, color = tertiary.copy(alpha = WAVE3_ALPHA))
+
+        val sep2 = Path().apply {
+            moveTo(p3Curve[0], p3Curve[1])
+            cubicTo(p3Curve[2], p3Curve[3], p3Curve[4], p3Curve[5], p3Curve[6], p3Curve[7])
+            cubicTo(p3Curve[8], p3Curve[9], p3Curve[10], p3Curve[11], p3Curve[12], p3Curve[13])
+        }
+        drawPath(
+            sep2,
+            color = onSecondary.copy(alpha = WAVE_SEPARATOR_ALPHA),
+            style = Stroke(width = WAVE_SEPARATOR_WIDTH_DP.dp.toPx())
+        )
     }
 }
 
