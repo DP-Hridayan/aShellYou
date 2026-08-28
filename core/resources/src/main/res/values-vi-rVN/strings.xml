@@ -4,6 +4,7 @@
     <string name="_new" comment="Badge or tab label for new items">Mới</string>
     <string name="abort_command" comment="Toast warning shown when trying to perform an action while an ADB shell command is currently running">Hủy lệnh đang chạy trước!</string>
     <string name="about">Giới thiệu</string>
+    <string name="action_import">Nhập</string>
     <string name="active" comment="Status indicator label for active ADB connection or active slot">Hoạt động</string>
     <string name="active_slot" comment="Refers to the active A/B partition slot on a dual-slot Android device">Slot đang hoạt động</string>
     <string name="adb_agent" comment="Name of the AI chat assistant persona in aShellYou">ADB Agent</string>
@@ -200,7 +201,6 @@
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Không tìm thấy lệnh!</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">Nhập lệnh ADB</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">Các lệnh</string>
-    <string name="console" comment="Tab label for the interactive fastboot command console">Bảng điều khiển</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Chọn thư mục lưu</string>
     <string name="confirm">Xác nhận</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Cảnh báo! Hành động này không thể hoàn tác.\nBạn có chắc chắn muốn xóa tất cả dấu trang không?</string>
@@ -222,6 +222,7 @@
     <string name="connection_failed" comment="Status banner or toast when ADB connection attempt fails">Kết nối thất bại</string>
     <string name="connection_lost" comment="Dialog title shown when ADB Wireless Debugging connection is unexpectedly disconnected">Mất kết nối</string>
     <string name="connection_lost_back_message" comment="Dialog message prompt when connection is lost asking user what action to take">Mất kết nối gỡ lỗi không dây. Bạn muốn làm gì?</string>
+    <string name="console" comment="Tab label for the interactive fastboot command console">Bảng điều khiển</string>
     <string name="continue_anyway" comment="Action button in warning dialog to ignore warning and proceed">Vẫn tiếp tục</string>
     <string name="contributors" comment="Screen title and card header listing app open-source contributors">Những người đóng góp</string>
     <string name="copied_items" comment="%1$d = number of items copied to clipboard">Đã sao chép %1$d mục</string>
@@ -311,6 +312,7 @@
     <string name="des_save_whole_output" comment="Description under Save whole output setting toggle">Bật tùy chọn này để lưu toàn bộ đầu ra của phiên shell.\nNếu tắt, chỉ đầu ra của lệnh cuối cùng mới được lưu.</string>
     <string name="des_screen_density" comment="Description under Screen density multiplier setting item">Điều chỉnh mật độ màn hình để làm cho các phần tử UI hiển thị lớn hơn hoặc nhỏ hơn</string>
     <string name="des_select_file_for_flashing" comment="Instructional description prompt for picking boot image file to flash">Chọn một tệp boot image để flash vào phân vùng đã chọn</string>
+    <string name="des_set_local_adb_as_default_launch" comment="Description under Set Local ADB as default launch setting">Mở trực tiếp màn hình ADB Cục bộ khi vào ứng dụng</string>
     <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">Liên kết tài khoản Google của bạn để sao lưu đám mây</string>
     <string name="des_smooth_scroll" comment="Description under Smooth scrolling setting toggle">Bật cuộn mượt trong đầu ra của shell, khi nhấn phím mũi tên Lên hoặc Xuống</string>
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">Khi được bật, ô sẽ chuyển đổi giữa các trạng thái BẬT và TẮT mỗi lần nhấn, thực hiện các lệnh khác nhau cho mỗi trạng thái</string>
@@ -475,7 +477,6 @@
     <string name="home">Trang chủ</string>
     <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">Cách vào chế độ sideload</string>
     <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">Đã chọn biểu tượng</string>
-    <string name="action_import">Nhập</string>
     <string name="import_font" comment="Content description for the import font icon button in the font style picker">Nhập phông chữ</string>
     <string name="import_font_name_hint" comment="Input field placeholder for the user-assigned display name of an imported font">Tên phông chữ</string>
     <string name="import_theme" comment="Action button to import theme configuration file">Nhập chủ đề</string>
@@ -485,9 +486,9 @@
     <string name="instructions" comment="Section header for step-by-step connection guides">Hướng dẫn</string>
     <string name="intent_not_found" comment="Error toast when external app activity or URL link cannot be opened">Không tìm thấy ứng dụng phù hợp</string>
     <string name="internal_storage" comment="Root folder label in file browser for local storage">Bộ nhớ trong</string>
+    <string name="invalid_folder_name" comment="Validation error when entered directory name contains slash characters">Tên thư mục không được chứa dấu /</string>
     <string name="invalid_font_file" comment="Dialog title shown when the selected file is not a valid TrueType font">Tệp phông chữ không hợp lệ</string>
     <string name="invalid_font_file_desc" comment="Dialog body explaining that the selected file failed TTF validation">Tệp đã chọn không phải là tệp phông chữ TrueType (.ttf) hợp lệ.</string>
-    <string name="invalid_folder_name" comment="Validation error when entered directory name contains slash characters">Tên thư mục không được chứa dấu /</string>
     <string name="ip_address" comment="Field label for device IP address in wireless ADB setup">Địa chỉ IP</string>
     <string name="irreversible_action_warning" comment="Warning dialog subtitle warning user that deletion cannot be undone">Hành động này không thể hoàn tác!</string>
     <string name="item_deleted" comment="Confirmation toast after item is deleted">Đã xóa mục thành công</string>
@@ -501,6 +502,7 @@
     <string name="last_backup_details" comment="Card header for summary of last backup attempt">Chi tiết bản sao lưu gần nhất</string>
     <string name="last_backup_time" comment="Card metadata label for backup creation time">Thời gian sao lưu gần nhất</string>
     <string name="latest_version" comment="Label showing latest available version string from GitHub release">Phiên bản mới nhất</string>
+    <string name="launch">Khởi chạy</string>
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">Nhà phát triển chính</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">Ít sử dụng nhất</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">Mức độ</string>
@@ -781,6 +783,7 @@
     <string name="send">Gửi</string>
     <string name="serial_number" comment="Device property label displaying target device hardware serial number">Số serial</string>
     <string name="serif" comment="Font style category name">Serif</string>
+    <string name="set_local_adb_as_default_launch" comment="Setting toggle title to launch Local ADB screen directly when the app starts">Đặt ADB Cục bộ làm mặc định khi khởi chạy</string>
     <string name="settings">Cài đặt</string>
     <string name="settings_only" comment="Option in backup screen to export only application settings (excluding history/bookmarks)">Chỉ cài đặt</string>
     <string name="share">Chia sẻ</string>
