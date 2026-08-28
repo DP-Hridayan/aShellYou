@@ -73,6 +73,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -91,9 +92,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.core.common.LocalDarkMode
-import `in`.hridayan.ashell.core.common.settings.LocalSettings
-import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.navigation.navigateBack
@@ -110,6 +108,7 @@ import `in`.hridayan.ashell.core.presentation.theme.util.ColorSchemeSerializer
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.settings.presentation.components.animatedcomposable.AiGenerationAnimationBox
 import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.ThemePreviewBottomSheet
+import `in`.hridayan.ashell.settings.presentation.components.dialog.DeleteColorSchemeDialog
 import `in`.hridayan.ashell.settings.presentation.components.svg.vectors.themePicker
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel.GenerateColorSchemeViewModel
 import kotlinx.coroutines.Dispatchers
@@ -192,10 +191,6 @@ fun GenerateColorSchemeScreen(
                 contentPadding = innerPadding
             ) {
                 item {
-                    val localDarkMode = LocalDarkMode.current
-                    val userGeneratedColorSchemeDark =
-                        LocalSettings.current[SettingsKeys.IsCustomColorSchemeDarkThemed]
-
                     if (savedColorSchemes.isNotEmpty()) {
                         ThemeMaterialCarousel(
                             modifier = Modifier
@@ -341,15 +336,19 @@ fun ThemeMaterialCarousel(
         else themes.filter { it.name.contains(searchQuery, ignoreCase = true) }
     }
 
-    val initialItem = remember(filteredThemes, appliedThemeId) {
-        filteredThemes.indexOfFirst { it.id == appliedThemeId }.takeIf { it >= 0 } ?: 0
-    }
-    val carouselState = rememberCarouselState(initialItem = initialItem) { filteredThemes.size }
+    val carouselState = rememberCarouselState { filteredThemes.size }
     val animationScope = rememberCoroutineScope()
+    var initialScrollDone by rememberSaveable { mutableStateOf(false) }
 
-    LaunchedEffect(searchQuery) {
-        if (filteredThemes.isNotEmpty()) carouselState.scrollToItem(0)
+    LaunchedEffect(filteredThemes) {
+        if (!initialScrollDone && filteredThemes.isNotEmpty()) {
+            val idx = filteredThemes.indexOfFirst { it.id == appliedThemeId }
+            if (idx >= 0) carouselState.scrollToItem(idx)
+            initialScrollDone = true
+        }
     }
+
+    var showDeleteDialog by remember { mutableStateOf(false) }
 
     Column(
         modifier = modifier,
@@ -397,8 +396,19 @@ fun ThemeMaterialCarousel(
                     theme = currentTheme,
                     onShare = onShare,
                     onEdit = onEdit,
-                    onDelete = onDelete
+                    onDeleteRequested = { showDeleteDialog = true }
                 )
+
+                if (showDeleteDialog) {
+                    DeleteColorSchemeDialog(
+                        themeName = currentTheme.name,
+                        onConfirm = {
+                            onDelete(currentTheme)
+                            showDeleteDialog = false
+                        },
+                        onDismiss = { showDeleteDialog = false }
+                    )
+                }
             }
         }
     }
@@ -538,7 +548,7 @@ private fun ThemeActionPill(
     theme: UserGeneratedColorScheme,
     onShare: (UserGeneratedColorScheme) -> Unit,
     onEdit: (UserGeneratedColorScheme) -> Unit,
-    onDelete: (UserGeneratedColorScheme) -> Unit
+    onDeleteRequested: () -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -574,7 +584,7 @@ private fun ThemeActionPill(
             modifier = Modifier.height(24.dp),
             color = MaterialTheme.colorScheme.outlineVariant
         )
-        IconButton(onClick = withHaptic { onDelete(theme) }) {
+        IconButton(onClick = withHaptic { onDeleteRequested() }) {
             Icon(
                 imageVector = Icons.Rounded.Delete,
                 contentDescription = stringResource(id = R.string.delete),
