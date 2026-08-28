@@ -4,6 +4,7 @@
     <string name="_new" comment="Badge or tab label for new items">Neu</string>
     <string name="abort_command" comment="Toast warning shown when trying to perform an action while an ADB shell command is currently running">Befehl zuerst abbrechen</string>
     <string name="about">Über</string>
+    <string name="action_import">Importieren</string>
     <string name="active" comment="Status indicator label for active ADB connection or active slot">Aktiv</string>
     <string name="active_slot" comment="Refers to the active A/B partition slot on a dual-slot Android device">Aktiver Slot</string>
     <string name="adb_agent" comment="Name of the AI chat assistant persona in aShellYou">ADB-Agent</string>
@@ -200,7 +201,6 @@
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Befehl nicht gefunden!</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">ADB-Befehl eingeben</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">Befehle</string>
-    <string name="console" comment="Tab label for the interactive fastboot command console">Konsole</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Speicherverzeichnis konfigurieren</string>
     <string name="confirm">Bestätigen</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Warnung! Diese Aktion ist unwiderruflich\nBist du sicher, dass du alle Lesezeichen löschen möchtest?</string>
@@ -222,6 +222,7 @@
     <string name="connection_failed" comment="Status banner or toast when ADB connection attempt fails">Verbindung fehlgeschlagen</string>
     <string name="connection_lost" comment="Dialog title shown when ADB Wireless Debugging connection is unexpectedly disconnected">Verbindung verloren</string>
     <string name="connection_lost_back_message" comment="Dialog message prompt when connection is lost asking user what action to take">Die WLAN-Debugging-Verbindung wurde getrennt. Was möchtest du tun?</string>
+    <string name="console" comment="Tab label for the interactive fastboot command console">Konsole</string>
     <string name="continue_anyway" comment="Action button in warning dialog to ignore warning and proceed">Trotzdem fortfahren</string>
     <string name="contributors" comment="Screen title and card header listing app open-source contributors">Mitwirkende</string>
     <string name="copied_items" comment="%1$d = number of items copied to clipboard">%1$d Elemente kopiert</string>
@@ -311,6 +312,7 @@
     <string name="des_save_whole_output" comment="Description under Save whole output setting toggle">Aktiviere diese Option, um die Ausgabe der gesamten Shell-Sitzung zu speichern.\nWenn deaktiviert, wird nur die Ausgabe des letzten Befehls gespeichert.</string>
     <string name="des_screen_density" comment="Description under Screen density multiplier setting item">Bildschirmdichte anpassen, damit UI-Elemente größer oder kleiner erscheinen</string>
     <string name="des_select_file_for_flashing" comment="Instructional description prompt for picking boot image file to flash">Wähle eine Boot-Image-Datei aus, um sie auf die ausgewählte Partition zu flashen</string>
+    <string name="des_set_local_adb_as_default_launch" comment="Description under Set Local ADB as default launch setting">Lokalen ADB-Bildschirm direkt beim Start der App eingeben</string>
     <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">Verknüpfe optional dein Google-Konto für Cloud-Backups</string>
     <string name="des_smooth_scroll" comment="Description under Smooth scrolling setting toggle">Aktiviert sanften Bildlauf in der Konsolen-Ausgabe, wenn der Pfeil nach oben oder unten geklickt wird</string>
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">Wenn aktiviert, wechselt die Kachel bei jedem Tippen zwischen AN- und AUS-Zustand und führt für jeden Zustand einen anderen Befehl aus</string>
@@ -475,7 +477,6 @@
     <string name="home">Startseite</string>
     <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">So rufen Sie den Sideload-Modus auf</string>
     <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">Symbol ausgewählt</string>
-    <string name="action_import">Importieren</string>
     <string name="import_font" comment="Content description for the import font icon button in the font style picker">Import font</string>
     <string name="import_font_name_hint" comment="Input field placeholder for the user-assigned display name of an imported font">Font name</string>
     <string name="import_theme" comment="Action button to import theme configuration file">Thema importieren</string>
@@ -485,9 +486,9 @@
     <string name="instructions" comment="Section header for step-by-step connection guides">Anleitungen</string>
     <string name="intent_not_found" comment="Error toast when external app activity or URL link cannot be opened">Intent nicht gefunden</string>
     <string name="internal_storage" comment="Root folder label in file browser for local storage">Interner Speicher</string>
+    <string name="invalid_folder_name" comment="Validation error when entered directory name contains slash characters">Ordnername darf kein / enthalten</string>
     <string name="invalid_font_file" comment="Dialog title shown when the selected file is not a valid TrueType font">Ungültige Schriftartdatei</string>
     <string name="invalid_font_file_desc" comment="Dialog body explaining that the selected file failed TTF validation">Die ausgewählte Datei ist keine gültige TrueType (.ttf) Schriftdatei.</string>
-    <string name="invalid_folder_name" comment="Validation error when entered directory name contains slash characters">Ordnername darf kein / enthalten</string>
     <string name="ip_address" comment="Field label for device IP address in wireless ADB setup">IP-Adresse</string>
     <string name="irreversible_action_warning" comment="Warning dialog subtitle warning user that deletion cannot be undone">Diese Aktion kann nicht rückgängig gemacht werden!</string>
     <string name="item_deleted" comment="Confirmation toast after item is deleted">Element wurde erfolgreich gelöscht</string>
@@ -501,6 +502,7 @@
     <string name="last_backup_details" comment="Card header for summary of last backup attempt">Details zum letzten Backup</string>
     <string name="last_backup_time" comment="Card metadata label for backup creation time">Uhrzeit der letzten Sicherung</string>
     <string name="latest_version" comment="Label showing latest available version string from GitHub release">Neueste Version</string>
+    <string name="launch">Starten</string>
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">Führender Entwickler</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">Am wenigsten genutzt</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">Ebene</string>
@@ -781,6 +783,7 @@
     <string name="send">Senden</string>
     <string name="serial_number" comment="Device property label displaying target device hardware serial number">Seriennummer</string>
     <string name="serif" comment="Font style category name">Serif</string>
+    <string name="set_local_adb_as_default_launch" comment="Setting toggle title to launch Local ADB screen directly when the app starts">Lokales ADB als Standardstart festlegen</string>
     <string name="settings">Einstellungen</string>
     <string name="settings_only" comment="Option in backup screen to export only application settings (excluding history/bookmarks)">Nur Einstellungen</string>
     <string name="share">Teilen</string>

@@ -4,6 +4,7 @@
     <string name="_new" comment="Badge or tab label for new items">Yeni</string>
     <string name="abort_command" comment="Toast warning shown when trying to perform an action while an ADB shell command is currently running">Önce komutu iptal et</string>
     <string name="about">Hakkında</string>
+    <string name="action_import">İçe aktar</string>
     <string name="active" comment="Status indicator label for active ADB connection or active slot">Aktif</string>
     <string name="active_slot" comment="Refers to the active A/B partition slot on a dual-slot Android device">Aktif Slot</string>
     <string name="adb_agent" comment="Name of the AI chat assistant persona in aShellYou">ADB Ajanı</string>
@@ -200,7 +201,6 @@
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Komut bulunamadı!</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">ADB Komutunu Girin</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">Komutlar</string>
-    <string name="console" comment="Tab label for the interactive fastboot command console">Konsol</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Kayıt dizinini yapılandır</string>
     <string name="confirm">Onayla</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Uyarı! Bu işlem geri alınamaz.\nTüm yer işaretlerini silmek istediğinizden emin misiniz?</string>
@@ -222,6 +222,7 @@
     <string name="connection_failed" comment="Status banner or toast when ADB connection attempt fails">Bağlantı başarısız</string>
     <string name="connection_lost" comment="Dialog title shown when ADB Wireless Debugging connection is unexpectedly disconnected">Bağlantı Kesildi</string>
     <string name="connection_lost_back_message" comment="Dialog message prompt when connection is lost asking user what action to take">Kablosuz hata ayıklama bağlantısı kesildi. Ne yapmak istersiniz?</string>
+    <string name="console" comment="Tab label for the interactive fastboot command console">Konsol</string>
     <string name="continue_anyway" comment="Action button in warning dialog to ignore warning and proceed">Yine de devam et</string>
     <string name="contributors" comment="Screen title and card header listing app open-source contributors">Katkıda Bulunanlar</string>
     <string name="copied_items" comment="%1$d = number of items copied to clipboard">%1$d öge kopyalandı</string>
@@ -311,6 +312,7 @@
     <string name="des_save_whole_output" comment="Description under Save whole output setting toggle">Tüm shell oturumunun çıktısını kaydetmek için bu seçeneği etkinleştirin.\nDevre dışı bırakılırsa, yalnızca son komut çıktısı kaydedilir.</string>
     <string name="des_screen_density" comment="Description under Screen density multiplier setting item">Kullanıcı arayüzü öğelerinin daha büyük veya daha küçük görünmesini sağlamak için ekran yoğunluğunu ayarlayın</string>
     <string name="des_select_file_for_flashing" comment="Instructional description prompt for picking boot image file to flash">Seçilen bölüme yüklemek için bir önyükleme imaj dosyası seçin</string>
+    <string name="des_set_local_adb_as_default_launch" comment="Description under Set Local ADB as default launch setting">Uygulama başlatıldığında doğrudan Yerel ADB ekranına gir</string>
     <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">İsteğe bağlı olarak bulut yedeklemeleri için Google hesabınızı bağlayabilirsiniz</string>
     <string name="des_smooth_scroll" comment="Description under Smooth scrolling setting toggle">Üst veya alt oka tıklandığında shell çıktısında yumuşak kaydırmayı etkinleştirir</string>
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">English</string>
@@ -475,7 +477,6 @@
     <string name="home">Ana Sayfa</string>
     <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">Sideload moduna nasıl girilir</string>
     <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">Seçilen simge</string>
-    <string name="action_import">İçe aktar</string>
     <string name="import_font" comment="Content description for the import font icon button in the font style picker">Yazı tipini içe aktar</string>
     <string name="import_font_name_hint" comment="Input field placeholder for the user-assigned display name of an imported font">Yazı tipi adı</string>
     <string name="import_theme" comment="Action button to import theme configuration file">Tema İçe Aktar</string>
@@ -485,9 +486,9 @@
     <string name="instructions" comment="Section header for step-by-step connection guides">Talimatlar</string>
     <string name="intent_not_found" comment="Error toast when external app activity or URL link cannot be opened">Eylem bulunamadı</string>
     <string name="internal_storage" comment="Root folder label in file browser for local storage">Dahili Depolama</string>
+    <string name="invalid_folder_name" comment="Validation error when entered directory name contains slash characters">Klasör adı / karakterini içeremez</string>
     <string name="invalid_font_file" comment="Dialog title shown when the selected file is not a valid TrueType font">Geçersiz yazı tipi dosyası</string>
     <string name="invalid_font_file_desc" comment="Dialog body explaining that the selected file failed TTF validation">Seçilen dosya geçerli bir TrueType (.ttf) yazı tipi dosyası değil.</string>
-    <string name="invalid_folder_name" comment="Validation error when entered directory name contains slash characters">Klasör adı / karakterini içeremez</string>
     <string name="ip_address" comment="Field label for device IP address in wireless ADB setup">IP adresi</string>
     <string name="irreversible_action_warning" comment="Warning dialog subtitle warning user that deletion cannot be undone">Bu işlem geri alınamaz!</string>
     <string name="item_deleted" comment="Confirmation toast after item is deleted">Öge başarıyla silindi</string>
@@ -501,6 +502,7 @@
     <string name="last_backup_details" comment="Card header for summary of last backup attempt">Son yedekleme detayları</string>
     <string name="last_backup_time" comment="Card metadata label for backup creation time">Son yedekleme saati</string>
     <string name="latest_version" comment="Label showing latest available version string from GitHub release">En son sürüm</string>
+    <string name="launch">Başlatma</string>
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">Lider Geliştirici</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">En az kullanılan</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">Seviye</string>
@@ -781,6 +783,7 @@
     <string name="send">Gönder</string>
     <string name="serial_number" comment="Device property label displaying target device hardware serial number">Seri Numarası</string>
     <string name="serif" comment="Font style category name">Serif</string>
+    <string name="set_local_adb_as_default_launch" comment="Setting toggle title to launch Local ADB screen directly when the app starts">Yerel ADB\'yi varsayılan başlatma olarak ayarla</string>
     <string name="settings">Ayarlar</string>
     <string name="settings_only" comment="Option in backup screen to export only application settings (excluding history/bookmarks)">Sadece Ayarlar</string>
     <string name="share">Paylaş</string>

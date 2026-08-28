@@ -4,6 +4,7 @@
     <string name="_new" comment="Badge or tab label for new items">جدید</string>
     <string name="abort_command" comment="Toast warning shown when trying to perform an action while an ADB shell command is currently running">ابتدا دستور را لغو کنید</string>
     <string name="about">درباره</string>
+    <string name="action_import">وارد کردن</string>
     <string name="active" comment="Status indicator label for active ADB connection or active slot">فعال</string>
     <string name="active_slot" comment="Refers to the active A/B partition slot on a dual-slot Android device">اسلات فعال</string>
     <string name="adb_agent" comment="Name of the AI chat assistant persona in aShellYou">عامل ADB</string>
@@ -200,7 +201,6 @@
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">دستور یافت نشد!</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">دستور ADB را وارد کنید</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">دستورات</string>
-    <string name="console" comment="Tab label for the interactive fastboot command console">کنسول</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">پیکربندی پوشه ذخیره‌سازی</string>
     <string name="confirm">تأیید</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">هشدار! این عمل برگشت‌ناپذیر است\nآیا مطمئن هستید که می‌خواهید همه نشانک‌ها را حذف کنید؟</string>
@@ -222,6 +222,7 @@
     <string name="connection_failed" comment="Status banner or toast when ADB connection attempt fails">اتصال ناموفق</string>
     <string name="connection_lost" comment="Dialog title shown when ADB Wireless Debugging connection is unexpectedly disconnected">اتصال قطع شد</string>
     <string name="connection_lost_back_message" comment="Dialog message prompt when connection is lost asking user what action to take">اتصال اشکال‌زدایی بی‌سیم قطع شد. می‌خواهید چه کاری انجام دهید؟</string>
+    <string name="console" comment="Tab label for the interactive fastboot command console">کنسول</string>
     <string name="continue_anyway" comment="Action button in warning dialog to ignore warning and proceed">ادامه به هر حال</string>
     <string name="contributors" comment="Screen title and card header listing app open-source contributors">همکاران</string>
     <string name="copied_items" comment="%1$d = number of items copied to clipboard">%1$d مورد کپی شد</string>
@@ -311,6 +312,7 @@
     <string name="des_save_whole_output" comment="Description under Save whole output setting toggle">فعال کنید تا کل خروجی جلسه شل ذخیره شود.\nدر غیر این صورت فقط آخرین خروجی دستور ذخیره می‌شود.</string>
     <string name="des_screen_density" comment="Description under Screen density multiplier setting item">تنظیم تراکم صفحه نمایش برای بزرگ‌تر یا کوچک‌تر نمایش دادن عناصر رابط کاربری</string>
     <string name="des_select_file_for_flashing" comment="Instructional description prompt for picking boot image file to flash">یک فایل تصویر بوت برای فلش کردن به پارتیشن انتخاب شده انتخاب کنید</string>
+    <string name="des_set_local_adb_as_default_launch" comment="Description under Set Local ADB as default launch setting">ورود مستقیم به صفحه ADB محلی هنگام اجرای برنامه</string>
     <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">در صورت تمایل حساب گوگل خود را برای پشتیبان‌گیری ابری متصل کنید</string>
     <string name="des_smooth_scroll" comment="Description under Smooth scrolling setting toggle">اسکرول نرم در خروجی شل هنگام کلیک روی فلش‌های بالا یا پایین</string>
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">در صورت فعال بودن، کاشی با هر بار ضربه زدن بین حالت روشن و خاموش جابجا می‌شود و برای هر حالت دستور متفاوتی را اجرا می‌کند</string>
@@ -475,7 +477,6 @@
     <string name="home">خانه</string>
     <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">نحوه ورود به حالت سایدلود</string>
     <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">آیکون انتخاب شد</string>
-    <string name="action_import">وارد کردن</string>
     <string name="import_font" comment="Content description for the import font icon button in the font style picker">وارد کردن فونت</string>
     <string name="import_font_name_hint" comment="Input field placeholder for the user-assigned display name of an imported font">نام فونت</string>
     <string name="import_theme" comment="Action button to import theme configuration file">وارد کردن پوسته</string>
@@ -485,9 +486,9 @@
     <string name="instructions" comment="Section header for step-by-step connection guides">دستورالعمل‌ها</string>
     <string name="intent_not_found" comment="Error toast when external app activity or URL link cannot be opened">Intent یافت نشد</string>
     <string name="internal_storage" comment="Root folder label in file browser for local storage">حافظه داخلی</string>
+    <string name="invalid_folder_name" comment="Validation error when entered directory name contains slash characters">نام پوشه نمی‌تواند شامل / باشد</string>
     <string name="invalid_font_file" comment="Dialog title shown when the selected file is not a valid TrueType font">فایل فونت نامعتبر</string>
     <string name="invalid_font_file_desc" comment="Dialog body explaining that the selected file failed TTF validation">فایل انتخاب‌شده یک فایل فونت TrueType (.ttf) معتبر نیست.</string>
-    <string name="invalid_folder_name" comment="Validation error when entered directory name contains slash characters">نام پوشه نمی‌تواند شامل / باشد</string>
     <string name="ip_address" comment="Field label for device IP address in wireless ADB setup">آدرس IP</string>
     <string name="irreversible_action_warning" comment="Warning dialog subtitle warning user that deletion cannot be undone">این عمل برگشت‌ناپذیر است!</string>
     <string name="item_deleted" comment="Confirmation toast after item is deleted">مورد با موفقیت حذف شد</string>
@@ -501,6 +502,7 @@
     <string name="last_backup_details" comment="Card header for summary of last backup attempt">جزئیات آخرین پشتیبان</string>
     <string name="last_backup_time" comment="Card metadata label for backup creation time">زمان آخرین پشتیبان</string>
     <string name="latest_version" comment="Label showing latest available version string from GitHub release">آخرین نسخه</string>
+    <string name="launch">راه‌اندازی</string>
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">توسعه‌دهنده اصلی</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">کمترین استفاده</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">سطح</string>
@@ -781,6 +783,7 @@
     <string name="send">ارسال</string>
     <string name="serial_number" comment="Device property label displaying target device hardware serial number">شماره سریال</string>
     <string name="serif" comment="Font style category name">سریف</string>
+    <string name="set_local_adb_as_default_launch" comment="Setting toggle title to launch Local ADB screen directly when the app starts">تنظیم ADB محلی به‌عنوان راه‌اندازی پیش‌فرض</string>
     <string name="settings">تنظیمات</string>
     <string name="settings_only" comment="Option in backup screen to export only application settings (excluding history/bookmarks)">فقط تنظیمات</string>
     <string name="share">اشتراک‌گذاری</string>
