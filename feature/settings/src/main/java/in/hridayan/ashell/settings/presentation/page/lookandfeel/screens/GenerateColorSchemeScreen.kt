@@ -9,6 +9,8 @@ package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -81,6 +83,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -100,6 +103,7 @@ import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
+import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
 import `in`.hridayan.ashell.core.presentation.theme.domain.model.UserGeneratedColorScheme
 import `in`.hridayan.ashell.core.presentation.theme.domain.model.toDomain
 import `in`.hridayan.ashell.core.presentation.theme.domain.model.toEntity
@@ -492,6 +496,19 @@ private fun ThemeCardHeader(
     secondaryContainer: Color,
     onSecondaryContainer: Color
 ) {
+    val checkedIconScale by animateFloatAsState(
+        targetValue = if (isApplied) 1f else 0f,
+        animationSpec = if (isApplied) {
+            AshellYouAnimationSpecs.springFloat
+        } else {
+            tween(
+                durationMillis = 300,
+                easing = LinearEasing
+            )
+        },
+        label = "Check Scale Animation"
+    )
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -533,10 +550,15 @@ private fun ThemeCardHeader(
             )
             if (isApplied) {
                 Icon(
+                    modifier = Modifier
+                        .size(22.dp)
+                        .graphicsLayer {
+                            scaleX = checkedIconScale
+                            scaleY = checkedIconScale
+                        },
                     imageVector = Icons.Rounded.Verified,
                     contentDescription = null,
-                    tint = onSecondaryContainer,
-                    modifier = Modifier.size(22.dp)
+                    tint = onSecondaryContainer
                 )
             }
         }

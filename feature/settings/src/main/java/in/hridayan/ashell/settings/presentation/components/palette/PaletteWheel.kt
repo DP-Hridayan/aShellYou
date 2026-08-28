@@ -25,7 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.common.LocalPaletteStyle
 import `in`.hridayan.ashell.core.common.data.provider.SeedColor
@@ -110,7 +110,10 @@ fun PaletteWheel(
                 modifier = Modifier
                     .size(20.dp)
                     .align(Alignment.Center)
-                    .scale(checkedIconScale)
+                    .graphicsLayer {
+                        scaleX = checkedIconScale
+                        scaleY = checkedIconScale
+                    }
                     .clip(CircleShape)
                     .background(color = MaterialTheme.colorScheme.primaryContainer)
             ) {
