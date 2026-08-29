@@ -10,7 +10,9 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -382,6 +384,7 @@ fun ThemeMaterialCarousel(
                 val theme = filteredThemes[index]
                 ThemeCarouselItem(
                     theme = theme,
+                    isCurrentItem = carouselState.currentItem == index,
                     isApplied = theme.id == appliedThemeId,
                     cardHeight = cardHeight,
                     onClick = withHaptic {
@@ -443,6 +446,7 @@ private fun ThemeSearchBar(
 @Composable
 private fun CarouselItemScope.ThemeCarouselItem(
     theme: UserGeneratedColorScheme,
+    isCurrentItem: Boolean,
     isApplied: Boolean,
     cardHeight: Dp,
     onClick: () -> Unit
@@ -482,6 +486,7 @@ private fun CarouselItemScope.ThemeCarouselItem(
         )
         ThemeCardHeader(
             name = theme.name,
+            isCurrentItem = isCurrentItem,
             isApplied = isApplied,
             secondaryContainer = secondaryContainer,
             onSecondaryContainer = onSecondaryContainer
@@ -492,6 +497,7 @@ private fun CarouselItemScope.ThemeCarouselItem(
 @Composable
 private fun ThemeCardHeader(
     name: String,
+    isCurrentItem: Boolean,
     isApplied: Boolean,
     secondaryContainer: Color,
     onSecondaryContainer: Color
@@ -507,6 +513,22 @@ private fun ThemeCardHeader(
             )
         },
         label = "Check Scale Animation"
+    )
+
+    val headerTextScale by animateFloatAsState(
+        targetValue = if (isCurrentItem) 1f else 0f,
+        animationSpec = if (isCurrentItem) {
+            spring(
+                dampingRatio = Spring.DampingRatioMediumBouncy,
+                stiffness = Spring.StiffnessMediumLow
+            )
+        } else {
+            tween(
+                durationMillis = 300,
+                easing = LinearEasing
+            )
+        },
+        label = "Header Text Scale Animation"
     )
 
     Box(
@@ -539,15 +561,23 @@ private fun ThemeCardHeader(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.Top
         ) {
-            Text(
-                modifier = Modifier.weight(1f),
-                text = name,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-                color = onSecondaryContainer,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 1
-            )
+            if (isCurrentItem) {
+                Text(
+                    modifier = Modifier
+                        .weight(1f)
+                        .graphicsLayer {
+                            scaleX = headerTextScale
+                            scaleY = headerTextScale
+                        },
+                    text = name,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = onSecondaryContainer,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1
+                )
+            }
+
             if (isApplied) {
                 Icon(
                     modifier = Modifier
