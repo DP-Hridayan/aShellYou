@@ -45,7 +45,6 @@ data class ColorSchemePayload(
     val surfaceContainerHighest: String,
     val surfaceContainerLow: String,
     val surfaceContainerLowest: String,
-    val svgPathData: String = "",
     // Misc
     val outline: String,
     val outlineVariant: String,

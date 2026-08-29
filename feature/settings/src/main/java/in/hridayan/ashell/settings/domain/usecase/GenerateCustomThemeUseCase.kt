@@ -43,12 +43,7 @@ class GenerateCustomThemeUseCase @Inject constructor(
                    - Any `on[Color]` (e.g., `onPrimary`, `onSurface`) must have at least a 4.5:1 contrast ratio against its base color (`primary`, `surface`).
                    - `primaryContainer` must be visually distinct from `primary`. `onPrimaryContainer` must have at least a 3.0:1 contrast against `primaryContainer`.
                 4. The "name" field should be a creative, 2-3 word name for the theme based on the user's prompt.
-                5. The "svgPathData" field MUST contain a valid SVG `d` path string representing a **simple, symbolic, minimalist emblem or icon** that represents the theme. 
-                   - For complex subjects (like Iron Man, Naruto, or movies), do NOT try to draw a detailed character or face. Instead, generate a highly recognizable minimalist symbol (e.g., an Arc Reactor or helmet outline for Iron Man, a Leaf Village symbol or Kunai for Naruto, a sword for a knight).
-                   - The path must be a single continuous or compound shape designed for a 24x24 or 100x100 viewBox.
-                   - Do not include `<svg>` or `<path>` tags, ONLY the raw mathematical `d` string (e.g., "M12 2L2 22h20L12 2z"). 
-                   - If you cannot confidently generate a recognizable simple symbol, return an empty string.
-                6. CRITICAL: The "isDarkTheme" field MUST be boolean `true` if the theme you generated relies on dark backgrounds, or `false` if it relies on light backgrounds. DO NOT blindly copy the schema example value! Analyze the colors you picked.
+                5. CRITICAL: The "isDarkTheme" field MUST be boolean `true` if the theme you generated relies on dark backgrounds, or `false` if it relies on light backgrounds. DO NOT blindly copy the schema example value! Analyze the colors you picked.
                 
                 JSON SCHEMA:
                 {
@@ -89,7 +84,6 @@ class GenerateCustomThemeUseCase @Inject constructor(
                   "surfaceContainerHighest": "XXXXXX",
                   "surfaceContainerLow": "XXXXXX",
                   "surfaceContainerLowest": "XXXXXX",
-                  "svgPathData": "M12 2L2 22h20L12 2z",
                   "isDarkTheme": true
                 }
             """.trimIndent()

@@ -56,7 +56,6 @@ data class UserGeneratedColorScheme(
     val outline: String,
     val outlineVariant: String,
     val scrim: String,
-    val svgPathData: String = "",
     val isDarkTheme: Boolean = false,
     val createdAt: Long = System.currentTimeMillis()
 )
@@ -101,7 +100,6 @@ fun UserGeneratedColorSchemeEntity.toDomain(): UserGeneratedColorScheme {
         outline = outline,
         outlineVariant = outlineVariant,
         scrim = scrim,
-        svgPathData = svgPathData,
         isDarkTheme = isDarkTheme,
         createdAt = createdAt
     )
@@ -147,7 +145,6 @@ fun UserGeneratedColorScheme.toEntity(): UserGeneratedColorSchemeEntity {
         outline = outline,
         outlineVariant = outlineVariant,
         scrim = scrim,
-        svgPathData = svgPathData,
         isDarkTheme = isDarkTheme,
         createdAt = createdAt
     )
@@ -192,7 +189,6 @@ fun UserGeneratedColorScheme.toPayload(): ColorSchemePayload {
         outline = outline,
         outlineVariant = outlineVariant,
         scrim = scrim,
-        svgPathData = svgPathData,
         isDarkTheme = isDarkTheme
     )
 }
