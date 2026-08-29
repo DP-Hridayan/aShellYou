@@ -21,8 +21,12 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
+import androidx.compose.foundation.gestures.waitForUpOrCancellation
+import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -87,6 +91,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -463,17 +468,31 @@ private fun CarouselItemScope.ThemeCarouselItem(
     val phase = (theme.id % WAVE_PHASE_MODULO) * WAVE_PHASE_MULTIPLIER
     val cardShape = RoundedCornerShape(24.dp)
     val interactionSource = remember { MutableInteractionSource() }
+    val coroutineScope = rememberCoroutineScope()
 
     Box(
         modifier = Modifier
             .height(cardHeight)
             .maskClip(cardShape)
             .background(surface)
-            .clickable(
-                interactionSource = interactionSource,
-                indication = ripple(),
-                onClick = onClick
-            )
+            .indication(interactionSource, ripple())
+            .pointerInput(onClick) {
+                awaitEachGesture {
+                    val down = awaitFirstDown(requireUnconsumed = false)
+                    val press = PressInteraction.Press(down.position)
+                    coroutineScope.launch { interactionSource.emit(press) }
+                    val up = waitForUpOrCancellation()
+                    if (up != null) {
+                        up.consume()
+                        coroutineScope.launch {
+                            interactionSource.emit(PressInteraction.Release(press))
+                        }
+                        onClick()
+                    } else {
+                        coroutineScope.launch { interactionSource.emit(PressInteraction.Cancel(press)) }
+                    }
+                }
+            }
     ) {
         WavePattern(
             modifier = Modifier.fillMaxSize(),
