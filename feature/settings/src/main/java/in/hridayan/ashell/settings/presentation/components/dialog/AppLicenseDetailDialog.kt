@@ -2,25 +2,19 @@ package `in`.hridayan.ashell.settings.presentation.components.dialog
 
 import android.content.Context
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.rounded.OpenInNew
-import androidx.compose.material3.Icon
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -35,7 +29,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import `in`.hridayan.ashell.core.common.constants.UrlConst
+import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
+import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
+import `in`.hridayan.ashell.core.presentation.model.ButtonType
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.openUrl
 
@@ -96,34 +94,32 @@ fun AppLicenseDetailDialog(onDismiss: () -> Unit) {
                     )
                 }
 
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp),
-                    horizontalArrangement = Arrangement.End,
-                ) {
-                    TextButton(
+                Spacer(modifier = Modifier.height(24.dp))
+
+                val buttonGroupItems = listOf(
+                    ButtonGroupItem(
+                        buttonConfig = ButtonConfigDefaults.defaultConfig(type = ButtonType.OutlinedButton),
+                        text = stringResource(R.string.dismiss),
+                        onClick = { onDismiss() }
+                    ),
+                    ButtonGroupItem(
+                        buttonConfig = ButtonConfigDefaults.defaultConfig(
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.primary,
+                                contentColor = MaterialTheme.colorScheme.onPrimary
+                            )
+                        ),
+                        text = stringResource(R.string.view_on_github),
                         onClick = withHaptic {
                             openUrl(
                                 UrlConst.URL_GITHUB_REPO_LICENSE,
                                 context,
                             )
                         },
-                    ) {
-                        Icon(
-                            Icons.AutoMirrored.Rounded.OpenInNew,
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(16.dp)
-                                .padding(end = 2.dp),
-                        )
-                        Text(stringResource(R.string.view_on_github))
-                    }
+                    )
+                )
 
-                    TextButton(onClick = withHaptic { onDismiss() }) {
-                        Text(stringResource(R.string.close))
-                    }
-                }
+                OverflowButtonGroup(items = buttonGroupItems)
             }
         }
     }
@@ -132,7 +128,7 @@ fun AppLicenseDetailDialog(onDismiss: () -> Unit) {
 @Composable
 private fun responsiveHeight(): Dp {
     return with(LocalDensity.current) {
-        LocalWindowInfo.current.containerSize.height.toDp() * 0.75f
+        LocalWindowInfo.current.containerSize.height.toDp() * 0.65f
     }
 }
 

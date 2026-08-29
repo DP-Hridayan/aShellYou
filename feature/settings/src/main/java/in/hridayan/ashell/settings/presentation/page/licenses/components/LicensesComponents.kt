@@ -1,4 +1,7 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
+@file:OptIn(
+    ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class,
+    ExperimentalFlexBoxApi::class
+)
 
 package `in`.hridayan.ashell.settings.presentation.page.licenses.components
 
@@ -10,11 +13,17 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalFlexBoxApi
+import androidx.compose.foundation.layout.FlexAlignItems
+import androidx.compose.foundation.layout.FlexBox
+import androidx.compose.foundation.layout.FlexDirection
+import androidx.compose.foundation.layout.FlexWrap
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,18 +32,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.rounded.OpenInNew
 import androidx.compose.material.icons.rounded.AccountBalance
 import androidx.compose.material.icons.rounded.Code
 import androidx.compose.material.icons.rounded.ExpandLess
 import androidx.compose.material.icons.rounded.ExpandMore
 import androidx.compose.material.icons.rounded.Link
 import androidx.compose.material.icons.rounded.Person
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -145,35 +155,50 @@ fun AppLicenseCard(
 
             Spacer(Modifier.height(12.dp))
 
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                TextButton(
+            FlexBox(
+                modifier = Modifier.fillMaxWidth(),
+                config = {
+                    direction(FlexDirection.Row)
+                    wrap(FlexWrap.Wrap)
+                    gap(10.dp)
+                    alignItems(FlexAlignItems.Center)
+                }
+            ) {
+                OutlinedButton(
+                    modifier = Modifier.flex { grow(1f) },
                     onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                         openUrl(
                             UrlConst.URL_GITHUB_REPO_LICENSE,
                             context
                         )
                     },
+                    colors = ButtonDefaults.outlinedButtonColors(
+                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
+                    ),
+                    border = BorderStroke(
+                        width = 1.dp,
+                        color = MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.7f)
+                    ),
+                    shapes = ButtonDefaults.shapes()
                 ) {
-                    Icon(
-                        Icons.AutoMirrored.Rounded.OpenInNew,
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(16.dp)
-                            .padding(end = 2.dp),
-                        tint = MaterialTheme.colorScheme.onTertiaryContainer
-                    )
-
                     Text(
                         text = stringResource(R.string.view_on_github),
-                        color = MaterialTheme.colorScheme.onTertiaryContainer
                     )
                 }
 
-                TextButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) { onReadFullText() }) {
-                    Text(
-                        text = stringResource(R.string.full_license_text),
-                        color = MaterialTheme.colorScheme.onTertiaryContainer
-                    )
+                OutlinedButton(
+                    modifier = Modifier.flex { grow(1f) },
+                    onClick = withHaptic(HapticFeedbackType.VirtualKey) { onReadFullText() },
+                    colors = ButtonDefaults.outlinedButtonColors(
+                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
+                    ),
+                    border = BorderStroke(
+                        width = 1.dp,
+                        color = MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.7f)
+                    ),
+                    shapes = ButtonDefaults.shapes()
+                ) {
+                    Text(text = stringResource(R.string.full_license_text))
                 }
             }
         }
