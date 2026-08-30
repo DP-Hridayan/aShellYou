@@ -8,6 +8,8 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
 import androidx.core.net.toUri
+import `in`.hridayan.ashell.core.common.constants.SHIZUKU_PACKAGE_NAME
+import `in`.hridayan.ashell.core.common.constants.SHIZUKU_PLUS_PACKAGE_NAME
 import `in`.hridayan.ashell.core.common.domain.model.SharedTextHolder
 import `in`.hridayan.ashell.core.resources.R
 
@@ -50,6 +52,17 @@ fun Context.launchApp(packageName: String) {
 
 fun showToast(context: Context, message: String) {
     ToastUtils.makeToast(context, message)
+}
+
+fun Context.isShizukuOrPlusInstalled(): Boolean =
+    isAppInstalled(SHIZUKU_PLUS_PACKAGE_NAME) || isAppInstalled(SHIZUKU_PACKAGE_NAME)
+
+fun Context.launchShizukuApp(fallbackUrl: String) {
+    when {
+        isAppInstalled(SHIZUKU_PLUS_PACKAGE_NAME) -> launchApp(SHIZUKU_PLUS_PACKAGE_NAME)
+        isAppInstalled(SHIZUKU_PACKAGE_NAME) -> launchApp(SHIZUKU_PACKAGE_NAME)
+        else -> openUrl(fallbackUrl, this)
+    }
 }
 
 fun Context.findActivity(): Activity? = when (this) {

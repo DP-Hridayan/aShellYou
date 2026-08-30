@@ -54,7 +54,6 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
-import `in`.hridayan.ashell.core.common.constants.SHIZUKU_PACKAGE_NAME
 import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
@@ -65,9 +64,8 @@ import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVe
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.ToastUtils.makeToast
-import `in`.hridayan.ashell.core.utils.UrlUtils
-import `in`.hridayan.ashell.core.utils.isAppInstalled
-import `in`.hridayan.ashell.core.utils.launchApp
+import `in`.hridayan.ashell.core.utils.isShizukuOrPlusInstalled
+import `in`.hridayan.ashell.core.utils.launchShizukuApp
 import `in`.hridayan.ashell.onboarding.presentation.component.shape.DecorativeShape
 import `in`.hridayan.ashell.onboarding.presentation.component.shape.MainCard
 import `in`.hridayan.ashell.onboarding.presentation.components.svg.vectors.undrawSelectChoice
@@ -94,7 +92,7 @@ fun PageThree(
     val hasShizukuPermission by viewModel.shizukuPermissionState().collectAsState()
     var showShizukuUnavailableDialog by rememberSaveable { mutableStateOf(false) }
     var isShizukuInstalled by rememberSaveable {
-        mutableStateOf(context.isAppInstalled(SHIZUKU_PACKAGE_NAME))
+        mutableStateOf(context.isShizukuOrPlusInstalled())
     }
 
     LaunchedEffect(pagerState.settledPage) {
@@ -118,7 +116,7 @@ fun PageThree(
         lifecycleOwner.lifecycle.addObserver(
             LifecycleEventObserver { _, event ->
                 if (event == Lifecycle.Event.ON_RESUME) {
-                    isShizukuInstalled = context.isAppInstalled(SHIZUKU_PACKAGE_NAME)
+                    isShizukuInstalled = context.isShizukuOrPlusInstalled()
                     showShizukuUnavailableDialog = false
                 }
             }
@@ -308,16 +306,7 @@ fun PageThree(
     if (showShizukuUnavailableDialog) {
         ShizukuUnavailableDialog(
             onDismiss = { showShizukuUnavailableDialog = false },
-            onConfirm = {
-                if (isShizukuInstalled) {
-                    context.launchApp(SHIZUKU_PACKAGE_NAME)
-                } else {
-                    UrlUtils.openUrl(
-                        url = UrlConst.URL_SHIZUKU_SITE,
-                        context = context
-                    )
-                }
-            }
+            onConfirm = { context.launchShizukuApp(fallbackUrl = UrlConst.URL_SHIZUKU_SITE) }
         )
     }
 }

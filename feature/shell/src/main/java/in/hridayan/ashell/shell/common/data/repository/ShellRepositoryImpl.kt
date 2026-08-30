@@ -4,10 +4,12 @@ import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.core.common.domain.model.OutputLine
 import `in`.hridayan.ashell.core.common.domain.repository.ShellRepository
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.local_adb_shell.data.shell.ShellCommandExecutor
 import `in`.hridayan.ashell.shell.local_adb_shell.data.shizuku.ShizukuPermissionHandler
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
 class ShellRepositoryImpl @Inject constructor(
@@ -60,6 +62,12 @@ class ShellRepositoryImpl @Inject constructor(
 
     override suspend fun executeShizukuCommand(command: String): Flow<OutputLine> {
         return shellCommandExecutor.runShizuku(command)
+            ?: flowOf(
+                OutputLine(
+                    context.getString(R.string.shizuku_service_unavailable_error),
+                    isError = true
+                )
+            )
     }
 
     override fun stopCommand() {

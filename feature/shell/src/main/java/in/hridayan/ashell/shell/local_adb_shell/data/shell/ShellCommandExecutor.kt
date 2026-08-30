@@ -132,14 +132,10 @@ class ShellCommandExecutor {
     }.flowOn(Dispatchers.IO)
 
     @Suppress("DEPRECATION")
-    fun runShizuku(commandText: String): Flow<OutputLine> = flow {
-        val actualCommand = handleCdCommand(commandText)
-
-        if (actualCommand == null) {
-            // Was a cd command - emit success message
+    fun runShizuku(commandText: String): Flow<OutputLine>? {
+        val actualCommand = handleCdCommand(commandText) ?: return flow {
             emit(OutputLine("Changed directory to: $currentDir", isError = false))
-            return@flow
-        }
+        }.flowOn(Dispatchers.IO)
 
         val envArray = arrayOf(
             "PATH=/product/bin:/apex/com.android.runtime/bin:/apex/com.android.art/bin:/system_ext/bin:/system/bin:/system/xbin:/odm/bin:/vendor/bin"
@@ -151,16 +147,27 @@ class ShellCommandExecutor {
             currentDir
         }
 
-        shizukuProcess = Shizuku.newProcess(
-            arrayOf("sh", "-c", actualCommand),
-            envArray,
-            safeDir
-        )
-
-        shizukuProcess?.let {
-            emitAll(execShizukuProcess())
+        val result = runCatching {
+            Shizuku.newProcess(arrayOf("sh", "-c", actualCommand), envArray, safeDir)
         }
-    }.flowOn(Dispatchers.IO)
+
+        val process = result.getOrNull() ?: return result.exceptionOrNull()?.let { throwable ->
+            flow {
+                emit(
+                    OutputLine(
+                        "[Shizuku] ${throwable::class.simpleName}: ${throwable.message}",
+                        isError = true
+                    )
+                )
+            }.flowOn(Dispatchers.IO)
+        } ?: return null
+
+        shizukuProcess = process
+        return flow {
+            emitAll(execShizukuProcess())
+        }.flowOn(Dispatchers.IO)
+    }
+
 
     private fun execShizukuProcess(): Flow<OutputLine> = flow {
         val reader = BufferedReader(InputStreamReader(shizukuProcess?.inputStream))

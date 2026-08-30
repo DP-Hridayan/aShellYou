@@ -18,7 +18,6 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
-import `in`.hridayan.ashell.core.common.constants.SHIZUKU_PACKAGE_NAME
 import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.common.domain.model.SharedTextHolder
 import `in`.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode
@@ -28,9 +27,8 @@ import `in`.hridayan.ashell.core.presentation.components.dialog.ShizukuUnavailab
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.DeviceUtils
 import `in`.hridayan.ashell.core.utils.ToastUtils.makeToast
-import `in`.hridayan.ashell.core.utils.UrlUtils
-import `in`.hridayan.ashell.core.utils.isAppInstalled
-import `in`.hridayan.ashell.core.utils.launchApp
+import `in`.hridayan.ashell.core.utils.isShizukuOrPlusInstalled
+import `in`.hridayan.ashell.core.utils.launchShizukuApp
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ConnectedDeviceDialog
 import `in`.hridayan.ashell.shell.common.presentation.model.ShellState
@@ -53,11 +51,7 @@ fun LocalAdbScreen(
 
     val hasShizukuPermission by shellViewModel.shizukuPermissionState.collectAsState()
     var isShizukuInstalled by rememberSaveable {
-        mutableStateOf(
-            context.isAppInstalled(
-                SHIZUKU_PACKAGE_NAME
-            )
-        )
+        mutableStateOf(context.isShizukuOrPlusInstalled())
     }
     var hasRootAccess by rememberSaveable { mutableStateOf(false) }
     val localAdbMode = LocalSettings.current[SettingsKeys.LocalAdbWorkingMode]
@@ -137,7 +131,7 @@ fun LocalAdbScreen(
         lifecycleOwner.lifecycle.addObserver(
             LifecycleEventObserver { _, event ->
                 if (event == Lifecycle.Event.ON_RESUME) {
-                    isShizukuInstalled = context.isAppInstalled(SHIZUKU_PACKAGE_NAME)
+                    isShizukuInstalled = context.isShizukuOrPlusInstalled()
                 }
             }
         )
@@ -170,16 +164,7 @@ fun LocalAdbScreen(
     if (showShizukuUnavailableDialog) {
         ShizukuUnavailableDialog(
             onDismiss = { showShizukuUnavailableDialog = false },
-            onConfirm = {
-                if (isShizukuInstalled) {
-                    context.launchApp(SHIZUKU_PACKAGE_NAME)
-                } else {
-                    UrlUtils.openUrl(
-                        url = UrlConst.URL_SHIZUKU_SITE,
-                        context = context
-                    )
-                }
-            }
+            onConfirm = { context.launchShizukuApp(fallbackUrl = UrlConst.URL_SHIZUKU_SITE) }
         )
     }
 }

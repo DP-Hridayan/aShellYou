@@ -849,7 +849,8 @@
     <string name="shizuku" translatable="false">Shizuku</string>
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">Shizuku is not installed</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku is unavailable</string>
-    <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku is not running or missing permissions">Shizuku is not installed or properly configured on your device</string>
+    <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">Shizuku or Shizuku+ is not installed or properly configured on your device</string>
+    <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">Shizuku service is unavailable. Make sure Shizuku or Shizuku+ is running and permission is granted.</string>
     <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">Put device into sideload mode via recovery</string>
     <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Sideload mode — ready</string>
     <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">Boot into recovery (hold Volume Down + Power, or run: adb reboot recovery)</string>

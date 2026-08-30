@@ -84,7 +84,6 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
-import `in`.hridayan.ashell.core.common.constants.SHIZUKU_PACKAGE_NAME
 import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.common.domain.model.TileExecutionMode
 import `in`.hridayan.ashell.core.navigation.LocalNavController
@@ -106,11 +105,10 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.color.blend
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.DateTimeUtils
-import `in`.hridayan.ashell.core.utils.UrlUtils
 import `in`.hridayan.ashell.core.utils.createAppNotificationSettingsIntent
-import `in`.hridayan.ashell.core.utils.isAppInstalled
 import `in`.hridayan.ashell.core.utils.isNotificationPermissionGranted
-import `in`.hridayan.ashell.core.utils.launchApp
+import `in`.hridayan.ashell.core.utils.isShizukuOrPlusInstalled
+import `in`.hridayan.ashell.core.utils.launchShizukuApp
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
 import `in`.hridayan.ashell.qstiles.domain.model.TileLog
@@ -251,11 +249,7 @@ private fun TilesContent(
     val navController = LocalNavController.current
 
     var isShizukuInstalled by rememberSaveable {
-        mutableStateOf(
-            context.isAppInstalled(
-                SHIZUKU_PACKAGE_NAME
-            )
-        )
+        mutableStateOf(context.isShizukuOrPlusInstalled())
     }
 
     val showShizukuUnavailableCard =
@@ -320,14 +314,7 @@ private fun TilesContent(
                         .fillMaxWidth()
                         .padding(start = 20.dp, end = 20.dp, bottom = 20.dp),
                     onClickButton = withHaptic {
-                        if (isShizukuInstalled) {
-                            context.launchApp(SHIZUKU_PACKAGE_NAME)
-                        } else {
-                            UrlUtils.openUrl(
-                                url = UrlConst.URL_SHIZUKU_SITE,
-                                context = context
-                            )
-                        }
+                        context.launchShizukuApp(fallbackUrl = UrlConst.URL_SHIZUKU_SITE)
                     }
                 )
             }
