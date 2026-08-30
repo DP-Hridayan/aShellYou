@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "app_name": "aShell You",
+  "package_name": "in.hridayan.ashell",
+  "category": "System Tools",
+  "short_description": "A material you designed app for your ADB needs",
+  "detailed_description": "<b>Run ADB commands on your device or on other devices \uD83C\uDF31 </b>\n\n<b>Features ✨</b>\n\n- \uD83C\uDFA8 Features a modern Material Design 3 user interface\n- \uD83D\uDCF2 Execute commands on your device using Shizuku , ROOT or Wireless Debugging\n- \uD83D\uDD0C Run commands on other devices via OTG connection or Wireless Debugging\n- \uD83D\uDCDA Provides examples of common ADB commands\n- \uD83D\uDEE0\uFE0F Supports continuously running commands like logcat and top\n- \uD83D\uDD0D Search within the command output\n- \uD83D\uDCDD Save or share the command output as a text file\n- \uD83D\uDCD1 Bookmark frequently used commands\n\n<b>Requirements ⚙\uFE0F</b>\n\n- Knowledge about basic ADB/Linux commands\n\n<b>Instructions</b>\n\n- Install and open the app\n- Follow the instructions\n\n<b>Translations</b>\nTranslations are managed via Crowdin:\nhttps://crowdin.com/project/ashellyou\n",
+  "developer_message": "Empowering users with elegant and functional tools. Thank you for supporting open-source software!",
+  "min_sdk": 28,
+  "target_sdk": 37,
+  "license": "GPL-3.0",
+  "requires_shizuku": true,
+  "open_source": true,
+  "store_issue_number": 1,
+  "changelog": "You can now search Sub-settings inside Settings screens\nAdded Palette Styles for color schemes\nAdded option to set app language directly in-app",
+  "tags": [
+    "shizuku",
+    "root",
+    "adb",
+    "shell",
+    "terminal",
+    "system-tools",
+    "android",
+    "material-you"
+  ],
+  "icon_url": "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/refs/heads/master/fastlane/metadata/android/en-US/images/icon.png",
+  "banner_url": "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/refs/heads/master/fastlane/metadata/android/en-US/images/featureGraphic.png",
+  "app_website": "https://github.com/DP-Hridayan/aShellYou",
+  "repo_url": "https://github.com/DP-Hridayan/aShellYou",
+  "download_url": "https://github.com/DP-Hridayan/aShellYou/releases/latest",
+  "screenshots": [
+    "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/refs/heads/master/fastlane/metadata/android/en-US/images/phoneScreenshots/01.jpeg",
+    "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/refs/heads/master/fastlane/metadata/android/en-US/images/phoneScreenshots/02.jpeg",
+    "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/refs/heads/master/fastlane/metadata/android/en-US/images/phoneScreenshots/03.jpeg",
+    "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/refs/heads/master/fastlane/metadata/android/en-US/images/phoneScreenshots/04.jpeg",
+    "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/refs/heads/master/fastlane/metadata/android/en-US/images/phoneScreenshots/05.jpeg",
+    "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/refs/heads/master/fastlane/metadata/android/en-US/images/phoneScreenshots/06.jpeg",
+    "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/refs/heads/master/fastlane/metadata/android/en-US/images/phoneScreenshots/07.jpeg",
+    "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/refs/heads/master/fastlane/metadata/android/en-US/images/phoneScreenshots/08.jpeg",
+    "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/refs/heads/master/fastlane/metadata/android/en-US/images/phoneScreenshots/09.jpeg",
+    "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/refs/heads/master/fastlane/metadata/android/en-US/images/phoneScreenshots/10.jpeg",
+    "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/refs/heads/master/fastlane/metadata/android/en-US/images/phoneScreenshots/11.jpeg",
+    "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/refs/heads/master/fastlane/metadata/android/en-US/images/phoneScreenshots/12.jpeg"
+  ],
+  "has_ads": false,
+  "ads": [],
+  "developer": {
+    "name": "DP-Hridayan",
+    "banner_url": "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/refs/heads/master/fastlane/metadata/android/en-US/images/featureGraphic.png",
+    "account_url": "https://github.com/DP-Hridayan",
+    "email": "",
+    "website": "https://github.com/DP-Hridayan/aShellYou",
+    "portfolio": "",
+    "donate_url": "buymeacoffee.com/hridayan",
+    "socials": {
+      "github": "https://github.com/DP-Hridayan",
+      "facebook": "",
+      "instagram": "",
+      "x": "",
+      "youtube": "",
+      "telegram": "https://t.me/aShellYou"
+    }
+  },
+  "locales": {
+    "ar": {
+      "category": "أدوات النظام",
+      "short_description": "تطبيق مصمم بنمط Material You لجميع احتياجات ADB الخاصة بك",
+      "detailed_description": "<b>شغّل أوامر ADB على جهازك أو على أجهزة أخرى 🌱 </b>\n\n<b>الميزات ✨</b>\n\n- 🎨 يتميز بواجهة مستخدم حديثة بتصميم Material Design 3\n- 📲 تنفيذ الأوامر على جهازك باستخدام Shizuku أو الروت (ROOT) أو تصحيح الأخطاء اللاسلكي\n- 🔌 تشغيل الأوامر على أجهزة أخرى عبر اتصال OTG أو تصحيح الأخطاء اللاسلكي\n- 📚 يوفر أمثلة لأوامر ADB الشائعة\n- 🛠️ يدعم تشغيل الأوامر المستمرة مثل logcat و top\n- 🔍 البحث داخل مخرجات الأوامر\n- 📝 حفظ أو مشاركة مخرجات الأوامر كملف نصي\n- 📑 حفظ الأوامر المستخدمة بكثرة في الإشارات المرجعية\n\n<b>المتطلبات ⚙️</b>\n\n- معرفة بأوامر ADB / Linux الأساسية\n\n<b>التعليمات</b>\n\n- ثبّت التطبيق وافتحه\n- اتبع التعليمات\n\n<b>الترجمات</b>\nتتم إدارة الترجمات عبر Crowdin:\nhttps://crowdin.com/project/ashellyou\n",
+      "developer_message": "تمكين المستخدمين بأدوات أنيقة وعملية. شكراً لدعمك للبرمجيات مفتوحة المصدر!",
+      "changelog": "يمكنك الآن البحث في الإعدادات الفرعية داخل شاشات الإعدادات\nتمت إضافة أنماط لوحة الألوان (Palette Styles)\nتمت إضافة خيار لتعيين لغة التطبيق مباشرة من داخل التطبيق"
+    },
+    "fr": {
+      "category": "Outils système",
+      "short_description": "Une application conçue avec Material You pour tous vos besoins ADB",
+      "detailed_description": "<b>Exécutez des commandes ADB sur votre appareil ou sur d'autres appareils 🌱 </b>\n\n<b>Fonctionnalités ✨</b>\n\n- 🎨 Dispose d'une interface utilisateur moderne Material Design 3\n- 📲 Exécutez des commandes sur votre appareil avec Shizuku, ROOT ou le débogage sans fil\n- 🔌 Lancez des commandes sur d'autres appareils via une connexion OTG ou le débogage sans fil\n- 📚 Fournit des exemples de commandes ADB courantes\n- 🛠️ Prend en charge les commandes en continu comme logcat et top\n- 🔍 Recherche dans la sortie des commandes\n- 📝 Enregistrez ou partagez la sortie des commandes sous forme de fichier texte\n- 📑 Ajoutez des commandes fréquemment utilisées aux favoris\n\n<b>Prérequis ⚙️</b>\n\n- Connaissance des commandes ADB/Linux de base\n\n<b>Instructions</b>\n\n- Installez et ouvrez l'application\n- Suivez les instructions\n\n<b>Traductions</b>\nLes traductions sont gérées via Crowdin :\nhttps://crowdin.com/project/ashellyou\n",
+      "developer_message": "Donner aux utilisateurs des outils élégants et fonctionnels. Merci de soutenir les logiciels open source !",
+      "changelog": "Vous pouvez désormais rechercher dans les sous-paramètres depuis les écrans de paramètres\nAjout de styles de palette pour les thèmes de couleurs\nAjout de la possibilité de définir la langue de l'application directement dans l'application"
+    },
+    "es": {
+      "category": "Herramientas del sistema",
+      "short_description": "Una aplicación con diseño Material You para tus necesidades de ADB",
+      "detailed_description": "<b>Ejecuta comandos ADB en tu dispositivo o en otros dispositivos 🌱 </b>\n\n<b>Características ✨</b>\n\n- 🎨 Cuenta con una interfaz de usuario moderna Material Design 3\n- 📲 Ejecuta comandos en tu dispositivo usando Shizuku, ROOT o depuración inalámbrica\n- 🔌 Ejecuta comandos en otros dispositivos mediante conexión OTG o depuración inalámbrica\n- 📚 Proporciona ejemplos de comandos ADB comunes\n- 🛠️ Admite comandos de ejecución continua como logcat y top\n- 🔍 Busca dentro del resultado del comando\n- 📝 Guarda o comparte el resultado del comando como un archivo de texto\n- 📑 Guarda en marcadores los comandos utilizados con frecuencia\n\n<b>Requisitos ⚙️</b>\n\n- Conocimientos sobre comandos básicos de ADB/Linux\n\n<b>Instrucciones</b>\n\n- Instala y abre la aplicación\n- Sigue las instrucciones\n\n<b>Traducciones</b>\nLas traducciones se gestionan a través de Crowdin:\nhttps://crowdin.com/project/ashellyou\n",
+      "developer_message": "Empoderando a los usuarios con herramientas elegantes y funcionales. ¡Gracias por apoyar el software de código abierto!",
+      "changelog": "Ahora puedes buscar subajustes dentro de las pantallas de Ajustes\nSe agregaron estilos de paleta para esquemas de color\nSe agregó la opción de configurar el idioma directamente en la app"
+    },
+    "pt": {
+      "category": "Ferramentas do sistema",
+      "short_description": "Um aplicativo com design Material You para suas necessidades de ADB",
+      "detailed_description": "<b>Execute comandos ADB no seu dispositivo ou em outros dispositivos 🌱 </b>\n\n<b>Recursos ✨</b>\n\n- 🎨 Apresenta uma interface de usuário moderna no estilo Material Design 3\n- 📲 Execute comandos no seu dispositivo usando Shizuku, ROOT ou depuração sem fio\n- 🔌 Execute comandos em outros dispositivos via conexão OTG ou depuração sem fio\n- 📚 Fornece exemplos de comandos ADB comuns\n- 🛠️ Suporte a comandos de execução contínua como logcat e top\n- 🔍 Pesquise na saída de comandos\n- 📝 Salve ou compartilhe a saída do comando como um arquivo de texto\n- 📑 Salve comandos usados frequentemente nos favoritos\n\n<b>Requisitos ⚙️</b>\n\n- Conhecimento sobre comandos básicos de ADB/Linux\n\n<b>Instruções</b>\n\n- Instale e abra o aplicativo\n- Siga as instruções\n\n<b>Traduções</b>\nAs traduções são gerenciadas pelo Crowdin:\nhttps://crowdin.com/project/ashellyou\n",
+      "developer_message": "Capacitando usuários com ferramentas elegantes e funcionais. Obrigado por apoiar o software de código aberto!",
+      "changelog": "Agora você pode pesquisar subconfigurações nas telas de Configurações\nAdicionados estilos de paleta para esquemas de cores\nAdicionada opção para definir o idioma do app diretamente no aplicativo"
+    },
+    "ru": {
+      "category": "Системные инструменты",
+      "short_description": "Приложение в дизайне Material You для всех ваших задач с ADB",
+      "detailed_description": "<b>Выполняйте команды ADB на своем устройстве или на других устройствах 🌱 </b>\n\n<b>Возможности ✨</b>\n\n- 🎨 Современный интерфейс в стиле Material Design 3\n- 📲 Выполнение команд на устройстве с помощью Shizuku, ROOT или беспроводной отладки\n- 🔌 Запуск команд на других устройствах через OTG-подключение или беспроводную отладку\n- 📚 Примеры часто используемых команд ADB\n- 🛠️ Поддержка непрерывно работающих команд, таких как logcat и top\n- 🔍 Поиск по выводу команд\n- 📝 Сохранение или отправка вывода команд в виде текстового файла\n- 📑 Добавление часто используемых команд в закладки\n\n<b>Требования ⚙️</b>\n\n- Знание базовых команд ADB/Linux\n\n<b>Инструкции</b>\n\n- Установите и откройте приложение\n- Следуйте инструкциям\n\n<b>Переводы</b>\nПереводы осуществляются через Crowdin:\nhttps://crowdin.com/project/ashellyou\n",
+      "developer_message": "Предоставляем пользователям элегантные и функциональные инструменты. Спасибо за поддержку открытого исходного кода!",
+      "changelog": "Теперь доступен поиск по подразделам в настройках\nДобавлены стили палитры для цветовых схем\nДобавлена возможность выбора языка непосредственно в приложении"
+    },
+    "hi": {
+      "category": "सिस्टम टूल्स",
+      "short_description": "आपकी ADB ज़रूरतों के लिए Material You डिज़ाइन वाला ऐप",
+      "detailed_description": "<b>अपने डिवाइस पर या अन्य डिवाइसों पर ADB कमांड चलाएं 🌱 </b>\n\n<b>विशेषताएं ✨</b>\n\n- 🎨 आधुनिक Material Design 3 यूज़र इंटरफ़ेस\n- 📲 Shizuku, ROOT या वायरलेस डिबगिंग का उपयोग करके अपने डिवाइस पर कमांड निष्पादित करें\n- 🔌 OTG कनेक्शन या वायरलेस डिबगिंग के माध्यम से अन्य डिवाइसों पर कमांड चलाएं\n- 📚 सामान्य ADB कमांड के उदाहरण प्रदान करता है\n- 🛠️ logcat और top जैसे लगातार चलने वाले कमांड का समर्थन करता है\n- 🔍 कमांड आउटपुट में खोजें\n- 📝 कमांड आउटपुट को टेक्स्ट फ़ाइल के रूप में सहेजें या साझा करें\n- 📑 अक्सर उपयोग किए जाने वाले कमांड को बुकमार्क करें\n\n<b>आवश्यकताएं ⚙️</b>\n\n- बुनियादी ADB/Linux कमांड की जानकारी\n\n<b>निर्देश</b>\n\n- ऐप इंस्टॉल करें और खोलें\n- निर्देशों का पालन करें\n\n<b>अनुवाद</b>\nअनुवाद Crowdin के माध्यम से प्रबंधित किए जाते हैं:\nhttps://crowdin.com/project/ashellyou\n",
+      "developer_message": "उपयोगकर्ताओं को सुंदर और कार्यात्मक उपकरणों से सशक्त बनाना। ओपन-सोर्स सॉफ़्टवेयर का समर्थन करने के लिए धन्यवाद!",
+      "changelog": "अब आप सेटिंग्स स्क्रीन के अंदर सब-सेटिंग्स खोज सकते हैं\nरंग योजनाओं के लिए पैलेट शैलियाँ जोड़ी गईं\nऐप में सीधे ऐप भाषा सेट करने का विकल्प जोड़ा गया"
+    },
+    "zh": {
+      "category": "系统工具",
+      "short_description": "一款采用 Material You 设计的 ADB 工具应用",
+      "detailed_description": "<b>在您的设备或其他设备上运行 ADB 命令 🌱 </b>\n\n<b>功能特性 ✨</b>\n\n- 🎨 采用现代化的 Material Design 3 用户界面\n- 📲 使用 Shizuku、ROOT 或无线调试在您的设备上执行命令\n- 🔌 通过 OTG 连接或无线调试在其他设备上运行命令\n- 📚 提供常用 ADB 命令示例\n- 🛠️ 支持持续运行的命令（如 logcat 和 top）\n- 🔍 在命令输出中进行搜索\n- 📝 将命令输出保存或分享为文本文件\n- 📑 收藏常用命令\n\n<b>使用要求 ⚙️</b>\n\n- 了解基础的 ADB/Linux 命令\n\n<b>使用说明</b>\n\n- 安装并打开应用\n- 按照说明进行操作\n\n<b>翻译</b>\n翻译通过 Crowdin 进行管理：\nhttps://crowdin.com/project/ashellyou\n",
+      "developer_message": "为用户提供优雅实用的工具。感谢您对开源软件的支持！",
+      "changelog": "现在可以在设置页面内搜索子设置项\n添加了配色方案的调色板样式\n添加了直接在应用内设置语言的选项"
+    },
+    "ja": {
+      "category": "システムツール",
+      "short_description": "ADBのニーズに応えるMaterial Youデザインのアプリ",
+      "detailed_description": "<b>お使いのデバイスや他のデバイスでADBコマンドを実行 🌱 </b>\n\n<b>主な機能 ✨</b>\n\n- 🎨 モダンなMaterial Design 3ユーザーインターフェースを採用\n- 📲 Shizuku、ROOT、またはワイヤレスデバッグを使用してデバイス上でコマンドを実行\n- 🔌 OTG接続またはワイヤレスデバッグ経由で他のデバイス上でコマンドを実行\n- 📚 一般的なADBコマンドのサンプルを提供\n- 🛠️ logcatやtopなどの継続実行コマンドに対応\n- 🔍 コマンド出力内の検索\n- 📝 コマンド出力をテキストファイルとして保存または共有\n- 📑 よく使うコマンドのブックマーク\n\n<b>要件 ⚙️</b>\n\n- 基本的なADB/Linuxコマンドの知識\n\n<b>手順</b>\n\n- アプリをインストールして起動します\n- 画面の指示に従ってください\n\n<b>翻訳</b>\n翻訳はCrowdinを通じて管理されています:\nhttps://crowdin.com/project/ashellyou\n",
+      "developer_message": "エレガントで機能的なツールでユーザーをサポートします。オープンソースソフトウェアへのご支援ありがとうございます！",
+      "changelog": "設定画面内のサブ設定を検索できるようになりました\nカラースキームにパレットスタイルを追加しました\nアプリ内で直接言語を設定するオプションを追加しました"
+    },
+    "tr": {
+      "category": "Sistem Araçları",
+      "short_description": "ADB ihtiyaçlarınız için Material You tasarımlı bir uygulama",
+      "detailed_description": "<b>Cihazınızda veya diğer cihazlarda ADB komutlarını çalıştırın 🌱 </b>\n\n<b>Özellikler ✨</b>\n\n- 🎨 Modern bir Material Design 3 kullanıcı arayüzüne sahiptir\n- 📲 Shizuku, ROOT veya Kablosuz Hata Ayıklama kullanarak cihazınızda komutlar yürütün\n- 🔌 OTG bağlantısı veya Kablosuz Hata Ayıklama ile diğer cihazlarda komutlar çalıştırın\n- 📚 Yaygın ADB komutlarına örnekler sunar\n- 🛠️ logcat ve top gibi sürekli çalışan komutları destekler\n- 🔍 Komut çıktısı içinde arama yapın\n- 📝 Komut çıktısını metin dosyası olarak kaydedin veya paylaşın\n- 📑 Sık kullanılan komutları yer imlerine ekleyin\n\n<b>Gereksinimler ⚙️</b>\n\n- Temel ADB/Linux komutları hakkında bilgi\n\n<b>Talimatlar</b>\n\n- Uygulamayı yükleyin ve açın\n- Talimatları izleyin\n\n<b>Çeviriler</b>\nÇeviriler Crowdin üzerinden yönetilmektedir:\nhttps://crowdin.com/project/ashellyou\n",
+      "developer_message": "Kullanıcıları şık ve işlevsel araçlarla güçlendiriyoruz. Açık kaynaklı yazılımları desteklediğiniz için teşekkür ederiz!",
+      "changelog": "Artık Ayarlar ekranlarında Alt Ayarları arayabilirsiniz\nRenk şemaları için Palet Stilleri eklendi\nUygulama dilini doğrudan uygulama içinden ayarlama seçeneği eklendi"
+    },
+    "cs": {
+      "category": "Systémové nástroje",
+      "short_description": "Aplikace s designem Material You pro vaše potřeby ADB",
+      "detailed_description": "<b>Spouštějte příkazy ADB na svém zařízení nebo na jiných zařízeních 🌱 </b>\n\n<b>Funkce ✨</b>\n\n- 🎨 Moderní uživatelské rozhraní Material Design 3\n- 📲 Spouštějte příkazy na svém zařízení pomocí Shizuku, ROOT nebo bezdrátového ladění\n- 🔌 Spouštějte příkazy na jiných zařízeních přes OTG připojení nebo bezdrátové ladění\n- 📚 Nabízí příklady běžných příkazů ADB\n- 🛠️ Podporuje nepřetržitě běžící příkazy jako logcat a top\n- 🔍 Vyhledávání ve výstupu příkazů\n- 📝 Uložení nebo sdílení výstupu příkazu jako textový soubor\n- 📑 Ukládání často používaných příkazů do záložek\n\n<b>Požadavky ⚙️</b>\n\n- Znalost základních příkazů ADB/Linux\n\n<b>Pokyny</b>\n\n- Nainstalujte a otevřete aplikaci\n- Postupujte podle pokynů\n\n<b>Překlady</b>\nPřeklady jsou spravovány přes Crowdin:\nhttps://crowdin.com/project/ashellyou\n",
+      "developer_message": "Poskytujeme uživatelům elegantní a funkční nástroje. Děkujeme za podporu open-source softwaru!",
+      "changelog": "Nyní můžete vyhledávat v dílčích nastaveních uvnitř obrazovek Nastavení\nPřidány styly palet pro barevná schémata\nPřidána možnost nastavit jazyk aplikace přímo v aplikaci"
+    },
+    "de": {
+      "category": "Systemwerkzeuge",
+      "short_description": "Eine App im Material You-Design für deine ADB-Bedürfnisse",
+      "detailed_description": "<b>Führe ADB-Befehle auf deinem Gerät oder auf anderen Geräten aus 🌱 </b>\n\n<b>Funktionen ✨</b>\n\n- 🎨 Modernes Material Design 3-Benutzerinterface\n- 📲 Befehle auf deinem Gerät mit Shizuku, ROOT oder Wireless Debugging ausführen\n- 🔌 Befehle auf anderen Geräten über OTG-Verbindung oder Wireless Debugging ausführen\n- 📚 Bietet Beispiele für gängige ADB-Befehle\n- 🛠️ Unterstützt kontinuierlich laufende Befehle wie logcat und top\n- 🔍 Suche in der Befehlsausgabe\n- 📝 Befehlsausgabe als Textdatei speichern oder teilen\n- 📑 Häufig verwendete Befehle als Lesezeichen speichern\n\n<b>Anforderungen ⚙️</b>\n\n- Kenntnisse grundlegender ADB-/Linux-Befehle\n\n<b>Anleitung</b>\n\n- App installieren und öffnen\n- Den Anweisungen folgen\n\n<b>Übersetzungen</b>\nÜbersetzungen werden über Crowdin verwaltet:\nhttps://crowdin.com/project/ashellyou\n",
+      "developer_message": "Nutzer mit eleganten und funktionalen Werkzeugen unterstützen. Vielen Dank für die Unterstützung von Open-Source-Software!",
+      "changelog": "Untergeordnete Einstellungen können nun in den Einstellungsbildschirmen durchsucht werden\nPalettenstile für Farbschemata hinzugefügt\nOption zur direkten Auswahl der App-Sprache in der App hinzugefügt"
+    },
+    "it": {
+      "category": "Strumenti di sistema",
+      "short_description": "Un'app progettata con Material You per le tue esigenze ADB",
+      "detailed_description": "<b>Esegui comandi ADB sul tuo dispositivo o su altri dispositivi 🌱 </b>\n\n<b>Caratteristiche ✨</b>\n\n- 🎨 Presenta una moderna interfaccia utente Material Design 3\n- 📲 Esegui comandi sul tuo dispositivo tramite Shizuku, ROOT o Debug Wireless\n- 🔌 Esegui comandi su altri dispositivi tramite connessione OTG o Debug Wireless\n- 📚 Fornisce esempi di comandi ADB comuni\n- 🛠️ Supporta comandi a esecuzione continua come logcat e top\n- 🔍 Cerca all'interno dell'output dei comandi\n- 📝 Salva o condividi l'output del comando come file di testo\n- 📑 Aggiungi ai segnalibri i comandi usati di frequente\n\n<b>Requisiti ⚙️</b>\n\n- Conoscenza dei comandi base ADB/Linux\n\n<b>Istruzioni</b>\n\n- Installa e apri l'applicazione\n- Segui le istruzioni\n\n<b>Traduzioni</b>\nLe traduzioni sono gestite tramite Crowdin:\nhttps://crowdin.com/project/ashellyou\n",
+      "developer_message": "Offrire agli utenti strumenti eleganti e funzionali. Grazie per il supporto al software open source!",
+      "changelog": "Ora puoi cercare le sottoimpostazioni all'interno delle schermate Impostazioni\nAggiunti stili di tavolozza per le combinazioni di colori\nAggiunta l'opzione per impostare la lingua direttamente nell'app"
+    }
+  }
+}
