@@ -62,6 +62,7 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.PairingOth
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.PairingOwnDeviceScreen
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.WifiAdbScreen
 import `in`.hridayan.ashell.ui.home.HomeRoute
+import kotlinx.serialization.serializer
 import kotlin.reflect.KType
 
 @Composable
@@ -104,7 +105,7 @@ fun AppNavigation(
 
             composable<NavRoutes.HomeScreen>(
                 enterTransition = {
-                    if (initialState.destination.route?.contains(NavRoutes.LocalAdbScreen::class.qualifiedName!!) == true) {
+                    if (initialState.destination.route?.contains(serializer<NavRoutes.LocalAdbScreen>().descriptor.serialName) == true) {
                         slideFadeInFromLeft()
                     } else {
                         slideFadeInFromRight()
@@ -196,7 +197,7 @@ fun AppNavigation(
 
             composable<NavRoutes.LocalAdbScreen>(
                 exitTransition = {
-                    if (targetState.destination.route?.contains(NavRoutes.HomeScreen::class.qualifiedName!!) == true) {
+                    if (targetState.destination.route?.contains(serializer<NavRoutes.HomeScreen>().descriptor.serialName) == true) {
                         slideFadeOutToRight()
                     } else {
                         slideFadeOutToLeft()
