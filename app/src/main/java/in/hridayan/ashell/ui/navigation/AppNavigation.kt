@@ -1,5 +1,6 @@
 package `in`.hridayan.ashell.ui.navigation
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.EnterTransition
@@ -74,11 +75,6 @@ fun AppNavigation(
     CompositionLocalProvider(
         LocalNavController provides navController,
     ) {
-        LaunchedEffect(Unit) {
-            SharedTextHolder.text?.let {
-                navController.navigate(NavRoutes.LocalAdbScreen)
-            }
-        }
 
         LaunchedEffect(navController) {
             deepLinkViewModel.sessionHolder.navigationEvents.collect {
@@ -90,9 +86,13 @@ fun AppNavigation(
 
         NavHost(
             navController = navController,
-            startDestination = if (isFirstLaunch) NavRoutes.OnboardingScreen
-            else if (defaultLaunchIsLocalAdb) NavRoutes.LocalAdbScreen
-            else NavRoutes.HomeScreen,
+            startDestination = if (isFirstLaunch) {
+                NavRoutes.OnboardingScreen
+            } else if (defaultLaunchIsLocalAdb || SharedTextHolder.text != null) {
+                NavRoutes.LocalAdbScreen
+            } else {
+                NavRoutes.HomeScreen
+            },
             enterTransition = { slideFadeInFromRight() },
             exitTransition = { slideFadeOutToLeft() },
             popEnterTransition = { slideFadeInFromLeft() },
@@ -102,7 +102,16 @@ fun AppNavigation(
                 OnboardingScreen()
             }
 
-            composable<NavRoutes.HomeScreen> {
+            composable<NavRoutes.HomeScreen>(
+                enterTransition = {
+                    if (initialState.destination.route?.contains(NavRoutes.LocalAdbScreen::class.qualifiedName!!) == true) {
+                        slideFadeInFromLeft()
+                    } else {
+                        slideFadeInFromRight()
+                    }
+                },
+                popEnterTransition = { slideFadeInFromLeft() }
+            ) {
                 HomeRoute()
             }
 
@@ -185,7 +194,24 @@ fun AppNavigation(
                 BackupSchedulerScreen()
             }
 
-            composable<NavRoutes.LocalAdbScreen> {
+            composable<NavRoutes.LocalAdbScreen>(
+                exitTransition = {
+                    if (targetState.destination.route?.contains(NavRoutes.HomeScreen::class.qualifiedName!!) == true) {
+                        slideFadeOutToRight()
+                    } else {
+                        slideFadeOutToLeft()
+                    }
+                },
+                popExitTransition = { slideFadeOutToRight() }
+            ) {
+                val isRoot = navController.previousBackStackEntry == null
+
+                BackHandler(enabled = isRoot) {
+                    navController.navigate(NavRoutes.HomeScreen) {
+                        popUpTo(NavRoutes.LocalAdbScreen) { inclusive = true }
+                    }
+                }
+
                 LocalAdbScreen()
             }
 

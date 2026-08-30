@@ -102,6 +102,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import `in`.hridayan.ashell.core.common.settings.LocalSettings
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.navigation.navigateBack
@@ -350,6 +352,9 @@ fun ThemeMaterialCarousel(
     val carouselState = rememberCarouselState { filteredThemes.size }
     val animationScope = rememberCoroutineScope()
     var initialScrollDone by rememberSaveable { mutableStateOf(false) }
+    val isDynamicColor = LocalSettings.current[SettingsKeys.DynamicColors]
+    val isUserGeneratedColorSchemeApplied =
+        LocalSettings.current[SettingsKeys.UserGeneratedColorSchemeApplied]
 
     LaunchedEffect(filteredThemes) {
         if (!initialScrollDone && filteredThemes.isNotEmpty()) {
@@ -390,7 +395,7 @@ fun ThemeMaterialCarousel(
                 ThemeCarouselItem(
                     theme = theme,
                     isCurrentItem = carouselState.currentItem == index,
-                    isApplied = theme.id == appliedThemeId,
+                    isApplied = theme.id == appliedThemeId && !isDynamicColor && isUserGeneratedColorSchemeApplied,
                     cardHeight = cardHeight,
                     onClick = withHaptic {
                         onApplyTheme(theme)
