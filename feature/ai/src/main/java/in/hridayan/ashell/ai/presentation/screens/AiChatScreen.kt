@@ -74,6 +74,7 @@ import `in`.hridayan.ashell.core.presentation.components.dialog.ApiKeyRequiredDi
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.presentation.utils.hideKeyboard
+import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import kotlinx.coroutines.launch
@@ -159,7 +160,7 @@ fun AiChatScreen(
                         .imePadding(),
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    if (uiItems.isEmpty()) {
+                    if (uiItems.isEmpty() && !isKeyboardVisible().value) {
                         NewChatPromptSuggestions(
                             onClickPrompt = { prompt -> viewModel.sendMessage(prompt) }
                         )
