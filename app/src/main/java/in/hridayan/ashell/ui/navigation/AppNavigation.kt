@@ -27,6 +27,8 @@ import `in`.hridayan.ashell.core.common.LocalAnimatedContentScope
 import `in`.hridayan.ashell.core.common.domain.model.SharedTextHolder
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
+import `in`.hridayan.ashell.core.navigation.predictiveEnter
+import `in`.hridayan.ashell.core.navigation.predictiveExit
 import `in`.hridayan.ashell.core.navigation.slideFadeInFromLeft
 import `in`.hridayan.ashell.core.navigation.slideFadeInFromRight
 import `in`.hridayan.ashell.core.navigation.slideFadeOutToLeft
@@ -97,7 +99,9 @@ fun AppNavigation(
             enterTransition = { slideFadeInFromRight() },
             exitTransition = { slideFadeOutToLeft() },
             popEnterTransition = { slideFadeInFromLeft() },
-            popExitTransition = { slideFadeOutToRight() }
+            popExitTransition = { slideFadeOutToRight() },
+            predictivePopEnterTransition = { predictiveEnter() },
+            predictivePopExitTransition = { predictiveExit() }
         ) {
             composable<NavRoutes.OnboardingScreen> {
                 OnboardingScreen()
