@@ -307,8 +307,8 @@ object SettingsProvider {
             ),
             clickableItem(
                 key = SettingsKeys.Licenses,
-                titleResId = R.string.licenses,
-                descriptionResId = R.string.des_licenses,
+                titleResId = R.string.libraries_and_licenses,
+                descriptionResId = R.string.des_libraries_and_licenses,
                 icon = R.drawable.ic_license
             ),
             clickableItem(

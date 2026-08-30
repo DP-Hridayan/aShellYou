@@ -81,7 +81,7 @@ fun LicensesScreen(
         onNavigateBack = { navController.navigateBack() },
         modifier = modifier,
         listState = listState,
-        topBarTitle = stringResource(R.string.licenses),
+        topBarTitle = stringResource(R.string.libraries_and_licenses),
         content = { innerPadding, topBarScrollBehavior ->
             LicensesContent(
                 uiState = uiState,
