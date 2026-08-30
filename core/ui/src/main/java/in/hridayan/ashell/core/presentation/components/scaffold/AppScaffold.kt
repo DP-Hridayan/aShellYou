@@ -7,6 +7,7 @@ import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LargeTopAppBar
@@ -22,6 +23,8 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
@@ -124,7 +127,12 @@ private fun AppScaffoldImpl(
 
                     val fontSize = lerp(expandedFontSize, collapsedFontSize, collapsedFraction)
                     Text(
-                        modifier = Modifier.basicMarquee(),
+                        modifier = Modifier
+                            .basicMarquee()
+                            .graphicsLayer {
+                                translationX = (-5).dp.toPx()
+                            }
+                            .padding(horizontal = 5.dp),
                         text = topBarTitle,
                         maxLines = 1,
                         fontSize = fontSize,
