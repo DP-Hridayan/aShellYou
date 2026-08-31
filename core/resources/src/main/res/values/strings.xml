@@ -330,6 +330,8 @@
     <string name="developer" comment="Section title in About screen for lead developer info">Developer</string>
     <string name="developer_options" comment="System Developer Options setting item or prompt">Developer options</string>
     <string name="developer_options_not_available" comment="Toast error message when Developer options shortcut cannot be opened">Developer options not available!</string>
+    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">Enable Developer Options first by tapping Build Number 7 times in Settings → About Phone\nIf this method to turn on Developer options does not work, then you can search the instructions for your device on the internet.</string>
+    <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">Developer Options Required</string>
     <string name="device_backup_local" comment="Label for local device storage backup file">Device backup (Local)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">Device connected!</string>
     <string name="device_disconnected" comment="Notification title when ADB connection drops">Device Disconnected</string>
@@ -848,9 +850,9 @@
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">The shell output is exported to \'%s\'</string>
     <string name="shizuku" translatable="false">Shizuku</string>
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">Shizuku is not installed</string>
+    <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">Shizuku service is unavailable. Make sure Shizuku or Shizuku+ is running and permission is granted.</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku is unavailable</string>
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">Shizuku or Shizuku+ is not installed or properly configured on your device</string>
-    <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">Shizuku service is unavailable. Make sure Shizuku or Shizuku+ is running and permission is granted.</string>
     <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">Put device into sideload mode via recovery</string>
     <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Sideload mode — ready</string>
     <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">Boot into recovery (hold Volume Down + Power, or run: adb reboot recovery)</string>
@@ -895,6 +897,10 @@
     <string name="tab" comment="Settings option for terminal tab indentation behavior">Tab</string>
     <string name="tag" comment="Field label for custom command category tag/label">Tag</string>
     <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">Tap to browse for a .zip file</string>
+    <string name="tcpip_connect_failed" comment="Toast shown when TCP connection to 127.0.0.1 on the detected port is refused. %1$d is replaced with the port number.">Connection to port %1$d refused. The ADB daemon may not be listening.</string>
+    <string name="tcpip_mode" comment="Label for the TCP/IP ADB local shell working mode (loopback port 5555)">TCP/IP ADB</string>
+    <string name="tcpip_not_available_body" comment="Dialog body explaining how to enable TCP ADB when the system property is missing. The adb command should stay untranslated.">Your device does not have TCP ADB enabled. Connect to a PC via USB once and run:\n\nadb tcpip 5555\n\nAfter that, this mode works without USB or Wi-Fi.</string>
+    <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">TCP Mode Not Available</string>
     <string name="telegram" comment="Button in About screen linking to official Telegram community group" translatable="false">Telegram</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">Terminal</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Terminal font style</string>
@@ -936,6 +942,8 @@
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">Upload file</string>
     <string name="uploading" comment="Progress status text shown while uploading file to device">Uploading…</string>
     <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Uploading backup to Google Drive…</string>
+    <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB requires USB debugging to be enabled in Developer Options</string>
+    <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">USB Debugging Required</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">USB Manager is not available on this device</string>
     <string name="use">Use</string>
     <string name="utilities" comment="Category title in homescreen">Utilities</string>
