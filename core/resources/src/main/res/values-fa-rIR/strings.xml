@@ -297,6 +297,7 @@
     <string name="des_high_contrast_dark_mode" comment="Description under High contrast dark mode setting item">تم تاریک مطلق برای صفحات OLED</string>
     <string name="des_hridayan" comment="Developer bio subtitle in About section">فقط یک پسر که برنامه‌ها و طراحی را دوست دارد</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">حالت بصری ثابتی از کاشی هنگامی که در پنل تنظیمات سریع نمایش داده می‌شود</string>
+    <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">View details of the libraries and licenses used by the app</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">مشاهده مجوزهایی که برنامه و کتابخانه‌ها استفاده می‌کنند</string>
     <string name="des_local_backup" comment="Description card text for local backup option">ذخیره پشتیبان رمزگذاری شده روی دستگاه</string>
     <string name="des_local_restore" comment="Description card text for local restore option">انتخاب فایل پشتیبان از روی دستگاه</string>
@@ -324,6 +325,8 @@
     <string name="developer" comment="Section title in About screen for lead developer info">توسعه‌دهنده</string>
     <string name="developer_options" comment="System Developer Options setting item or prompt">گزینه‌های توسعه‌دهنده</string>
     <string name="developer_options_not_available" comment="Toast error message when Developer options shortcut cannot be opened">گزینه‌های توسعه‌دهنده در دسترس نیست!</string>
+    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">Enable Developer Options first by tapping Build Number 7 times in Settings → About Phone\nIf this method to turn on Developer options does not work, then you can search the instructions for your device on the internet.</string>
+    <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">Developer Options Required</string>
     <string name="device_backup_local" comment="Label for local device storage backup file">پشتیبان‌گیری دستگاه (محلی)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">دستگاه متصل شد!</string>
     <string name="device_disconnected" comment="Notification title when ADB connection drops">دستگاه قطع شد</string>
@@ -506,6 +509,7 @@
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">توسعه‌دهنده اصلی</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">کمترین استفاده</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">سطح</string>
+    <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">Libraries &amp; Licenses</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d کتابخانه شناسایی شد</string>
     <string name="license" comment="Card label for software license type">مجوز</string>
     <string name="license_label" comment="Header label for software license info">مجوز</string>
@@ -790,8 +794,9 @@
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">خروجی آخرین دستور به \'%s\' صادر شد</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">خروجی شل به \'%s\' صادر شد</string>
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">Shizuku نصب نیست</string>
+    <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">Shizuku service is unavailable. Make sure Shizuku or Shizuku+ is running and permission is granted.</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku در دسترس نیست</string>
-    <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku is not running or missing permissions">Shizuku روی دستگاه شما نصب یا پیکربندی نشده است</string>
+    <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">Shizuku or Shizuku+ is not installed or properly configured on your device</string>
     <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">قرار دادن دستگاه در حالت سایدلود از طریق ریکاوری</string>
     <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">حالت سایدلود — آماده</string>
     <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">راه‌اندازی مجدد در ریکاوری (نگه‌داشتن ولوم پایین + پاور، یا اجرا: adb reboot recovery)</string>
@@ -836,6 +841,10 @@
     <string name="tab" comment="Settings option for terminal tab indentation behavior">برگه</string>
     <string name="tag" comment="Field label for custom command category tag/label">برچسب</string>
     <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">برای مرور یک فایل .zip ضربه بزنید</string>
+    <string name="tcpip_connect_failed" comment="Toast shown when TCP connection to 127.0.0.1 on the detected port is refused. %1$d is replaced with the port number.">Connection to port %1$d refused. The ADB daemon may not be listening.</string>
+    <string name="tcpip_mode" comment="Label for the TCP/IP local shell working mode (loopback port 5555)">TCP/IP</string>
+    <string name="tcpip_not_available_body" comment="Dialog body explaining how to enable TCP ADB when the system property is missing. The adb command should stay untranslated.">Your device does not have TCP ADB enabled. Connect to a PC via USB once and run:\n\nadb tcpip 5555\n\nAfter that, this mode works without USB or Wi-Fi.</string>
+    <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">TCP Mode Not Available</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">ترمینال</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">سبک فونت ترمینال</string>
     <string name="tertiary">سوم</string>
@@ -876,6 +885,8 @@
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">آپلود فایل</string>
     <string name="uploading" comment="Progress status text shown while uploading file to device">در حال آپلود…</string>
     <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">در حال آپلود پشتیبان به گوگل درایو…</string>
+    <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB requires USB debugging to be enabled in Developer Options</string>
+    <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">USB Debugging Required</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">مدیر USB در این دستگاه در دسترس نیست</string>
     <string name="use">استفاده</string>
     <string name="utilities" comment="Category title in homescreen">ابزارها</string>

@@ -16,7 +16,8 @@
     <string name="adb_connection_channel_description" comment="Android notification channel description in System Settings for ADB connection status">Hiển thị khi kết nối ADB đang hoạt động</string>
     <string name="adb_connection_channel_name" comment="Android notification channel name in System Settings for active ADB connections">Kết nối ADB</string>
     <string name="adb_connection_description" comment="Notification body text indicating an active background Wi-Fi ADB connection">Kết nối Wi-Fi ADB đang được duy trì</string>
-    <string name="adb_sideload" comment="Feature title for pushing and installing ZIP update packages to device recovery via ADB sideload over USB OTG">ADB Sideload</string>
+    <string name="adb_sideload" comment="Feature title for pushing and installing ZIP update packages to device recovery via ADB sideload over USB OTG">ADB Sideload
+</string>
     <string name="adb_through_otg" comment="Title for USB OTG ADB connection mode where this device controls a target device over OTG cable">ADB qua OTG</string>
     <string name="adb_through_otg_summary" comment="Summary description of ADB OTG feature in connection selection screen">Sử dụng cáp OTG và gỡ lỗi USB để thực thi các lệnh ADB trên thiết bị Android khác. Cần bật gỡ lỗi USB trong cài đặt nhà phát triển của thiết bị mục tiêu.</string>
     <string name="adb_via_otg" comment="Compact label for ADB connection via USB OTG cable">ADB qua OTG</string>
@@ -297,6 +298,7 @@
     <string name="des_high_contrast_dark_mode" comment="Description under High contrast dark mode setting item">Giao diện đen tuyền cho các thiết bị có màn hình OLED</string>
     <string name="des_hridayan" comment="Developer bio subtitle in About section">Chỉ là một anh chàng yêu thích các ứng dụng và thiết kế</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">Trạng thái ban đầu của ô khi được hiển thị trong bảng Cài đặt nhanh</string>
+    <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">Xem chi tiết các thư viện và giấy phép được ứng dụng sử dụng</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">Xem các giấy phép được sử dụng bởi ứng dụng và các thư viện</string>
     <string name="des_local_backup" comment="Description card text for local backup option">Lưu bản sao lưu đã mã hóa trên thiết bị của bạn</string>
     <string name="des_local_restore" comment="Description card text for local restore option">Chọn tệp sao lưu từ thiết bị của bạn</string>
@@ -324,6 +326,8 @@
     <string name="developer" comment="Section title in About screen for lead developer info">Nhà phát triển</string>
     <string name="developer_options" comment="System Developer Options setting item or prompt">Tùy chọn nhà phát triển</string>
     <string name="developer_options_not_available" comment="Toast error message when Developer options shortcut cannot be opened">Tùy chọn nhà phát triển không khả dụng!</string>
+    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">Enable Developer Options first by tapping Build Number 7 times in Settings → About Phone\nIf this method to turn on Developer options does not work, then you can search the instructions for your device on the internet.</string>
+    <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">Developer Options Required</string>
     <string name="device_backup_local" comment="Label for local device storage backup file">Sao lưu thiết bị (Cục bộ)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">Đã kết nối thiết bị!</string>
     <string name="device_disconnected" comment="Notification title when ADB connection drops">Đã ngắt kết nối với thiết bị</string>
@@ -506,6 +510,7 @@
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">Nhà phát triển chính</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">Ít sử dụng nhất</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">Mức độ</string>
+    <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">Thư viện &amp; Giấy phép</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">Phát hiện %1$d thư viện</string>
     <string name="license" comment="Card label for software license type">Giấy phép</string>
     <string name="license_label" comment="Header label for software license info">Giấy phép</string>
@@ -790,8 +795,9 @@
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">Đầu ra của lệnh cuối cùng được xuất ra \'%s\'</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">Đầu ra của shell được xuất ra \'%s\'</string>
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">Shizuku chưa được cài đặt</string>
+    <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">Dịch vụ Shizuku hiện không khả dụng. Hãy đảm bảo rằng Shizuku hoặc Shizuku+ đang chạy và đã cấp quyền.</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku không khả dụng</string>
-    <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku is not running or missing permissions">Shizuku chưa được cài đặt hoặc cấu hình đúng trên thiết bị của bạn</string>
+    <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">Shizuku hoặc Shizuku+ chưa được cài đặt hoặc cấu hình đúng trên thiết bị của bạn</string>
     <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">Đưa thiết bị vào chế độ sideload thông qua recovery</string>
     <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Chế độ sideload — sẵn sàng</string>
     <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">Vào Recovery: Nhấn giữ Nguồn + Tăng âm lượng (tùy dòng máy) hoặc chạy adb reboot recovery</string>
@@ -836,6 +842,10 @@
     <string name="tab" comment="Settings option for terminal tab indentation behavior">Tab</string>
     <string name="tag" comment="Field label for custom command category tag/label">Thẻ</string>
     <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">Nhấn để duyệt tìm tệp .zip</string>
+    <string name="tcpip_connect_failed" comment="Toast shown when TCP connection to 127.0.0.1 on the detected port is refused. %1$d is replaced with the port number.">Connection to port %1$d refused. The ADB daemon may not be listening.</string>
+    <string name="tcpip_mode" comment="Label for the TCP/IP local shell working mode (loopback port 5555)">TCP/IP</string>
+    <string name="tcpip_not_available_body" comment="Dialog body explaining how to enable TCP ADB when the system property is missing. The adb command should stay untranslated.">Your device does not have TCP ADB enabled. Connect to a PC via USB once and run:\n\nadb tcpip 5555\n\nAfter that, this mode works without USB or Wi-Fi.</string>
+    <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">TCP Mode Not Available</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">Terminal</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Kiểu phông chữ Terminal</string>
     <string name="tertiary">Màu bổ sung</string>
@@ -876,6 +886,8 @@
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">Tải lên tệp</string>
     <string name="uploading" comment="Progress status text shown while uploading file to device">Đang tải lên…</string>
     <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Đang tải bản sao lưu lên Google Drive…</string>
+    <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB requires USB debugging to be enabled in Developer Options</string>
+    <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">USB Debugging Required</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">Trình quản lý USB không khả dụng trên thiết bị này</string>
     <string name="use">Sử dụng</string>
     <string name="utilities" comment="Category title in homescreen">Tiện ích</string>

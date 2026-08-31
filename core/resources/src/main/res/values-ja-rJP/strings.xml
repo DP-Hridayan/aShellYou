@@ -297,6 +297,7 @@
     <string name="des_high_contrast_dark_mode" comment="Description under High contrast dark mode setting item">OLEDディスプレイ搭載デバイス向けの真っ黒なダークテーマ</string>
     <string name="des_hridayan" comment="Developer bio subtitle in About section">アプリとデザインが大好きな男</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">クイック設定パネルに表示されるときのタイルの固定された視覚状態</string>
+    <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">アプリで使用されているライブラリとライセンスの詳細を表示</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">アプリとライブラリで使用されているライセンスを表示する</string>
     <string name="des_local_backup" comment="Description card text for local backup option">暗号化されたバックアップをデバイスに保存する</string>
     <string name="des_local_restore" comment="Description card text for local restore option">デバイスからバックアップファイルを選択する</string>
@@ -324,6 +325,8 @@
     <string name="developer" comment="Section title in About screen for lead developer info">開発者</string>
     <string name="developer_options" comment="System Developer Options setting item or prompt">開発者オプション</string>
     <string name="developer_options_not_available" comment="Toast error message when Developer options shortcut cannot be opened">開発者向けオプションは利用できません！</string>
+    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">Enable Developer Options first by tapping Build Number 7 times in Settings → About Phone\nIf this method to turn on Developer options does not work, then you can search the instructions for your device on the internet.</string>
+    <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">開発者向けオプションが必要</string>
     <string name="device_backup_local" comment="Label for local device storage backup file">デバイスバックアップ (ローカル)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">デバイスが接続されました！</string>
     <string name="device_disconnected" comment="Notification title when ADB connection drops">デバイスが切断されました</string>
@@ -506,6 +509,7 @@
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">開発者</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">最小限使用</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">レベル</string>
+    <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">ライブラリ &amp; ライセンス</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d 個のライブラリが見つかりました</string>
     <string name="license" comment="Card label for software license type">ライセンス</string>
     <string name="license_label" comment="Header label for software license info">ライセンス</string>
@@ -790,8 +794,9 @@
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">最後のコマンドの出力は \'%s\' にエクスポートされます</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">シェル出力は \'%s\' にエクスポートされます</string>
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">しずくは設置されていません</string>
+    <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">しずくが運行できない。しずく、しずく+が運行されていることを確認し、許可されている。</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizukuは使用できません</string>
-    <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku is not running or missing permissions">お使いの端末に「Shizuku」がインストールされていないか、有効化されていません。 「Shizuku」の環境がないと、aShell Youは実行できません</string>
+    <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">シズクまたはシズク+がインストールされていないか、正しく設定されていません</string>
     <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">リカバリ経由でデバイスをサイドロードモードにする</string>
     <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">サイドロードモード — 準備完了</string>
     <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">リカバリモードで起動します (音量小 + 電源ボタンを長押しするか、adb reboot recovery を実行します)</string>
@@ -836,6 +841,10 @@
     <string name="tab" comment="Settings option for terminal tab indentation behavior">タブ</string>
     <string name="tag" comment="Field label for custom command category tag/label">タグ</string>
     <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">タップして .zip ファイルを参照する</string>
+    <string name="tcpip_connect_failed" comment="Toast shown when TCP connection to 127.0.0.1 on the detected port is refused. %1$d is replaced with the port number.">ポート %1$d への接続が拒否されました。ADB デーモンがリッスンしていない可能性があります。</string>
+    <string name="tcpip_mode" comment="Label for the TCP/IP local shell working mode (loopback port 5555)">TCP/IP</string>
+    <string name="tcpip_not_available_body" comment="Dialog body explaining how to enable TCP ADB when the system property is missing. The adb command should stay untranslated.">お使いのデバイスでは、TCP ADB が有効になっていません。 USB経由でPCに接続し、\n\nadb tcpip 5555\n\nその後。 このモードはUSBやWi-Fiなしで動作します</string>
+    <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">TCPモードが利用できません</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">ターミナル</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">端末のフォントスタイル</string>
     <string name="tertiary">ターシャリー</string>
@@ -876,6 +885,8 @@
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">ファイルをアップロード</string>
     <string name="uploading" comment="Progress status text shown while uploading file to device">アップロード中…</string>
     <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Google ドライブにバックアップをアップロード中…</string>
+    <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB は開発者向けオプションで USB デバッグを有効にする必要があります</string>
+    <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">USBデバッグが必要です</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">このデバイスでは USB マネージャーを利用できません</string>
     <string name="use">利用</string>
     <string name="utilities" comment="Category title in homescreen">ユーティリティ</string>
