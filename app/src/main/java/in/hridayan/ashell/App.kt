@@ -36,7 +36,7 @@ class App : Application(), Configuration.Provider {
         instance = this
         contextReference = WeakReference(applicationContext)
 
-        FeatureConfig.isAiEnabled = BuildConfig.IS_AI_ENABLED
+        FeatureConfig.isAiEnabled = BuildConfig.AI_FEATURES_ENABLED
 
         PRNGFixes.apply()
 

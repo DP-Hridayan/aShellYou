@@ -29,7 +29,7 @@ android {
         minSdk = 28
         targetSdk = 37
         versionCode = 63
-        versionName = "v8.0.0-alpha10"
+        versionName = "v8.0.0-alpha11"
 
         buildConfigField("String", "DIST_FLAVOR_GITHUB", "\"$flavorGitHub\"")
         buildConfigField("String", "DIST_FLAVOR_FDROID", "\"$flavorFDroid\"")
@@ -98,11 +98,11 @@ android {
     productFlavors {
         create(flavorGitHub) {
             dimension = "distribution"
-            buildConfigField("Boolean", "IS_AI_ENABLED", "true")
+            buildConfigField("Boolean", "AI_FEATURES_ENABLED", "true")
         }
         create(flavorFDroid) {
             dimension = "distribution"
-            buildConfigField("Boolean", "IS_AI_ENABLED", "false")
+            buildConfigField("Boolean", "AI_FEATURES_ENABLED", "false")
         }
     }
 
