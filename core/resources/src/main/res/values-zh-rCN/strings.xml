@@ -297,6 +297,7 @@
     <string name="des_high_contrast_dark_mode" comment="Description under High contrast dark mode setting item">在OLED 显示设备上使用黑暗主题</string>
     <string name="des_hridayan" comment="Developer bio subtitle in About section">一个热爱应用开发和设计的小伙子</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">磁贴显示在快速设置面板中的固定视觉状态</string>
+    <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">查看应用使用的库和许可证的详细信息</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">查看应用及库所使用的许可证</string>
     <string name="des_local_backup" comment="Description card text for local backup option">将加密备份保存到您的设备</string>
     <string name="des_local_restore" comment="Description card text for local restore option">从您的设备选择备份文件</string>
@@ -324,6 +325,8 @@
     <string name="developer" comment="Section title in About screen for lead developer info">开发者</string>
     <string name="developer_options" comment="System Developer Options setting item or prompt">开发者选项</string>
     <string name="developer_options_not_available" comment="Toast error message when Developer options shortcut cannot be opened">开发者选项不可用！</string>
+    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">请先点击设置中的构建编号7从而启用开发者选项。如果开启开发者选项无法正常工作，请点击设置 -> 关于 Phone\n然后您可以在互联网上搜索您设备的说明。</string>
+    <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">需要开发者选项</string>
     <string name="device_backup_local" comment="Label for local device storage backup file">设备备份（本地）</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">设备已连接！</string>
     <string name="device_disconnected" comment="Notification title when ADB connection drops">设备已断开连接</string>
@@ -506,6 +509,7 @@
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">主要开发者</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">最少使用</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">级别</string>
+    <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">库 &amp; 许可证</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">检测到 %1$d 个库</string>
     <string name="license" comment="Card label for software license type">许可证</string>
     <string name="license_label" comment="Header label for software license info">许可证</string>
@@ -790,8 +794,9 @@
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">上一个命令的输出导出到\'%s\'</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">终端输出导出到 \'%s\'</string>
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">尚未安装 Shizuku</string>
+    <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">Shizuku服务不可用。请确保Shizuku或Shizuku+正在运行并授予权限。</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku 不可用</string>
-    <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku is not running or missing permissions">Shizuku is not installed or properly configured on your device</string>
+    <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">Shizuku 或 Shizuku+ 未在您的设备上安装或正确配置</string>
     <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">通过恢复模式将设备置于 sideload 模式</string>
     <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Sideload 模式 — 就绪</string>
     <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">引导至恢复模式（按住“音量减”+“电源”，或运行：adb reboot recovery）</string>
@@ -836,6 +841,10 @@
     <string name="tab" comment="Settings option for terminal tab indentation behavior">制表符</string>
     <string name="tag" comment="Field label for custom command category tag/label">标签</string>
     <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">点击以浏览 .zip 文件</string>
+    <string name="tcpip_connect_failed" comment="Toast shown when TCP connection to 127.0.0.1 on the detected port is refused. %1$d is replaced with the port number.">连接到端口 %1$d 被拒绝。ADB 守护进程可能无法监听。</string>
+    <string name="tcpip_mode" comment="Label for the TCP/IP local shell working mode (loopback port 5555)">TCP/IP</string>
+    <string name="tcpip_not_available_body" comment="Dialog body explaining how to enable TCP ADB when the system property is missing. The adb command should stay untranslated.">您的设备没有启用 TCP ADB 。 通过 USB 连接并运行：\n\nadb tpp 5555\n\n之后， 此模式不使用 USB 或 Wi-Fi。</string>
+    <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">TCP 模式不可用</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">终端</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">终端字体样式</string>
     <string name="tertiary">第三颜色</string>
@@ -876,6 +885,8 @@
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">上传文件</string>
     <string name="uploading" comment="Progress status text shown while uploading file to device">正在上传…</string>
     <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">正在将备份上传到 Google Drive…</string>
+    <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB 需要在开发者选项中启用 USB 调试功能</string>
+    <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">需要 USB 调试</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">此设备上不可用 USB 管理器</string>
     <string name="use">使用</string>
     <string name="utilities" comment="Category title in homescreen">实用工具</string>

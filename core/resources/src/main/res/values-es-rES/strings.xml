@@ -297,6 +297,7 @@
     <string name="des_high_contrast_dark_mode" comment="Description under High contrast dark mode setting item">Tema oscuro absoluto para dispositivos con pantalla OLED</string>
     <string name="des_hridayan" comment="Developer bio subtitle in About section">Solo un tipo al que le encantan las aplicaciones y el diseño</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">El estado visual fijo del mosaico cuando se muestra en el panel de Ajustes rápidos</string>
+    <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">Ver detalles de las bibliotecas y licencias utilizadas por la aplicación</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">Ver las licencias que utiliza la aplicación y sus librerías</string>
     <string name="des_local_backup" comment="Description card text for local backup option">Guardar copia de seguridad cifrada en tu dispositivo</string>
     <string name="des_local_restore" comment="Description card text for local restore option">Selecciona un archivo de copia de seguridad desde tu dispositivo</string>
@@ -324,6 +325,8 @@
     <string name="developer" comment="Section title in About screen for lead developer info">Desarrollador</string>
     <string name="developer_options" comment="System Developer Options setting item or prompt">Opciones de desarrollador</string>
     <string name="developer_options_not_available" comment="Toast error message when Developer options shortcut cannot be opened">¡Las opciones de desarrollador no están disponibles!</string>
+    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">Habilitar las opciones de desarrollador primero pulsando el número de compilación 7 veces en Ajustes → Acerca del teléfono\nSi este método para activar las opciones de desarrollador no funciona, entonces usted puede buscar las instrucciones de su dispositivo en Internet.</string>
+    <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">Opciones de desarrollador requeridas</string>
     <string name="device_backup_local" comment="Label for local device storage backup file">Copia de seguridad del dispositivo (local)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">¡Dispositivo conectado!</string>
     <string name="device_disconnected" comment="Notification title when ADB connection drops">Dispositivo desconectado</string>
@@ -506,6 +509,7 @@
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">Desarrollador principal</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">Menos usado</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">Nivel</string>
+    <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">Bibliotecas &amp; Licencias</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d librerías detectadas</string>
     <string name="license" comment="Card label for software license type">Licencia</string>
     <string name="license_label" comment="Header label for software license info">Licencia</string>
@@ -790,8 +794,9 @@
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">La salida del último comando se ha exportado a ‘%s’</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">La salida de la consola se ha exportado a ‘%s’</string>
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">Shizuku no está instalado</string>
+    <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">El servicio Shizuku no está disponible. Asegúrese de que Shizuku o Shizuku+ se está ejecutando y se concede permiso.</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku no está disponible</string>
-    <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku is not running or missing permissions">Shizuku no está instalado o no está configurado correctamente en tu dispositivo</string>
+    <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">Shizuku o Shizuku+ no está instalado o configurado correctamente en su dispositivo</string>
     <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">Pon el dispositivo en modo sideload a través del recovery</string>
     <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Modo sideload — listo</string>
     <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">Inicia en modo recovery (mantén pulsados Volumen Abajo + Encendido, o ejecuta: adb reboot recovery)</string>
@@ -836,6 +841,10 @@
     <string name="tab" comment="Settings option for terminal tab indentation behavior">Tabulación</string>
     <string name="tag" comment="Field label for custom command category tag/label">Etiqueta</string>
     <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">Toca para buscar un archivo .zip</string>
+    <string name="tcpip_connect_failed" comment="Toast shown when TCP connection to 127.0.0.1 on the detected port is refused. %1$d is replaced with the port number.">Conexión al puerto %1$d rechazada. El demonio ADB puede no estar escuchando.</string>
+    <string name="tcpip_mode" comment="Label for the TCP/IP local shell working mode (loopback port 5555)">TCP/IP</string>
+    <string name="tcpip_not_available_body" comment="Dialog body explaining how to enable TCP ADB when the system property is missing. The adb command should stay untranslated.">Su dispositivo no tiene TCP ADB habilitado. Conéctate a un PC mediante USB una vez y ejecuta:\n\nadb tcpip 5555\n\nDespués de eso, este modo funciona sin USB o Wi-Fi.</string>
+    <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">Modo TCP no disponible</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">Terminal</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Estilo de fuente del Terminal</string>
     <string name="tertiary">Terciario</string>
@@ -876,6 +885,8 @@
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">Subir archivo</string>
     <string name="uploading" comment="Progress status text shown while uploading file to device">Subiendo…</string>
     <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Subiendo copia de seguridad a Google Drive…</string>
+    <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB requiere que la depuración USB esté habilitada en Opciones de Desarrollador</string>
+    <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">Depuración USB requerida</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">El administrador USB no está disponible en este dispositivo</string>
     <string name="use">Usar</string>
     <string name="utilities" comment="Category title in homescreen">Utilidades</string>
