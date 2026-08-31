@@ -54,6 +54,10 @@ class RadioGroupOptionsProvider {
             RadioButtonOption(
                 value = LocalAdbWorkingMode.ROOT,
                 labelResId = R.string.root
+            ),
+            RadioButtonOption(
+                value = LocalAdbWorkingMode.TCPIP,
+                labelResId = R.string.tcpip_mode
             )
         )
 

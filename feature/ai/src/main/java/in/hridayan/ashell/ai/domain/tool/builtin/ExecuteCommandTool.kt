@@ -86,6 +86,9 @@ class ExecuteCommandTool @Inject constructor(
                     when (mode) {
                         LocalAdbWorkingMode.ROOT -> shellRepository.executeRootCommand(command)
                         LocalAdbWorkingMode.SHIZUKU -> shellRepository.executeShizukuCommand(command)
+                        LocalAdbWorkingMode.TCPIP -> aiConnectionStateProvider.executeWifiCommand(
+                            command
+                        )
                         else -> shellRepository.executeBasicCommand(command)
                     }
                 }

@@ -1,5 +1,7 @@
 package `in`.hridayan.ashell.shell.local_adb_shell.presentation.screens
 
+import android.content.Intent
+import android.provider.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -21,6 +23,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.common.domain.model.SharedTextHolder
 import `in`.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbEvent
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.dialog.ShizukuUnavailableDialog
@@ -34,6 +37,9 @@ import `in`.hridayan.ashell.shell.common.presentation.components.dialog.Connecte
 import `in`.hridayan.ashell.shell.common.presentation.model.ShellState
 import `in`.hridayan.ashell.shell.common.presentation.screens.BaseShellScreen
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
+import `in`.hridayan.ashell.shell.local_adb_shell.presentation.components.dialog.DeveloperOptionsOffDialog
+import `in`.hridayan.ashell.shell.local_adb_shell.presentation.components.dialog.TcpIpUnavailableDialog
+import `in`.hridayan.ashell.shell.local_adb_shell.presentation.components.dialog.UsbDebuggingOffDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -57,7 +63,24 @@ fun LocalAdbScreen(
     val localAdbMode = LocalSettings.current[SettingsKeys.LocalAdbWorkingMode]
     var showConnectedDeviceDialog by rememberSaveable { mutableStateOf(false) }
     var showShizukuUnavailableDialog by rememberSaveable { mutableStateOf(false) }
+    var showTcpIpUnavailableDialog by rememberSaveable { mutableStateOf(false) }
+    var showUsbDebuggingOffDialog by rememberSaveable { mutableStateOf(false) }
+    var showDeveloperOptionsOffDialog by rememberSaveable { mutableStateOf(false) }
     val states by shellViewModel.states.collectAsState()
+
+    LaunchedEffect(Unit) {
+        shellViewModel.tcpIpEvent.collect { event ->
+            when (event) {
+                is WifiAdbEvent.TcpIpUnavailable -> showTcpIpUnavailableDialog = true
+                is WifiAdbEvent.UsbDebuggingOff -> showUsbDebuggingOffDialog = true
+                is WifiAdbEvent.DeveloperOptionsOff -> showDeveloperOptionsOffDialog = true
+                is WifiAdbEvent.TcpIpConnectFailed ->
+                    makeToast(context, res.getString(R.string.tcpip_connect_failed, event.port))
+
+                else -> Unit
+            }
+        }
+    }
 
     val runCommandIfPermissionGranted: () -> Unit =
         remember(localAdbMode, hasShizukuPermission, isShizukuInstalled) {
@@ -92,8 +115,7 @@ fun LocalAdbScreen(
                                             res.getString(R.string.no_root_access)
                                         )
                                         shellViewModel.onCommandTextFieldChange(
-                                            newValue =
-                                                TextFieldValue(""),
+                                            newValue = TextFieldValue(""),
                                             isError = true,
                                             errorMessage = res.getString(R.string.no_root_access)
                                         )
@@ -104,6 +126,8 @@ fun LocalAdbScreen(
                             }
                         }
                     }
+
+                    LocalAdbWorkingMode.TCPIP -> shellViewModel.runTcpIpCommand()
                 }
             }
         }
@@ -122,9 +146,8 @@ fun LocalAdbScreen(
         LocalAdbWorkingMode.BASIC -> stringResource(R.string.basic_shell)
         LocalAdbWorkingMode.SHIZUKU -> stringResource(R.string.shizuku)
         LocalAdbWorkingMode.ROOT -> stringResource(R.string.root)
-        else -> {
-            ""
-        }
+        LocalAdbWorkingMode.TCPIP -> stringResource(R.string.tcpip_mode)
+        else -> ""
     }
 
     LaunchedEffect(lifecycleOwner) {
@@ -154,9 +177,7 @@ fun LocalAdbScreen(
 
     if (showConnectedDeviceDialog) {
         ConnectedDeviceDialog(
-            onDismiss = {
-                showConnectedDeviceDialog = false
-            },
+            onDismiss = { showConnectedDeviceDialog = false },
             connectedDevice = DeviceUtils.DEVICE_MODEL
         )
     }
@@ -166,5 +187,26 @@ fun LocalAdbScreen(
             onDismiss = { showShizukuUnavailableDialog = false },
             onConfirm = { context.launchShizukuApp(fallbackUrl = UrlConst.URL_SHIZUKU_SITE) }
         )
+    }
+
+    if (showTcpIpUnavailableDialog) {
+        TcpIpUnavailableDialog(onDismiss = { showTcpIpUnavailableDialog = false })
+    }
+
+    if (showUsbDebuggingOffDialog) {
+        UsbDebuggingOffDialog(
+            onDismiss = { showUsbDebuggingOffDialog = false },
+            onOpenSettings = {
+                context.startActivity(
+                    Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS).apply {
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    }
+                )
+            }
+        )
+    }
+
+    if (showDeveloperOptionsOffDialog) {
+        DeveloperOptionsOffDialog(onDismiss = { showDeveloperOptionsOffDialog = false })
     }
 }

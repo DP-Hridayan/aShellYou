@@ -15,6 +15,7 @@ import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbConnection
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbDevice
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbEvent
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbState
+import `in`.hridayan.ashell.core.common.domain.repository.TcpIpAdbRepository
 import `in`.hridayan.ashell.shell.common.data.adb.AdbConnectionManager
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.database.WifiAdbDeviceDao
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.mapper.toDomainList
@@ -55,11 +56,15 @@ import kotlin.math.max
 class WifiAdbRepositoryImpl(
     private val context: Context,
     private val deviceDao: WifiAdbDeviceDao
-) : WifiAdbRepository {
+) : WifiAdbRepository, TcpIpAdbRepository {
     companion object {
         private const val TAG = "WifiAdbRepositoryImpl"
         private const val TLS_CONNECT = "_adb-tls-connect._tcp"
         private const val TLS_PAIRING = "_adb-tls-pairing._tcp"
+        private const val LOOPBACK_HOST = "127.0.0.1"
+        private const val SHELL_READ_BUFFER_SIZE = 4096
+        private const val SHELL_IDLE_TIMEOUT_MS = 500L
+        private const val SHELL_POLL_INTERVAL_MS = 20L
     }
 
     private var adbShellStream: AdbStream? = null
@@ -698,6 +703,28 @@ class WifiAdbRepositoryImpl(
         }
     }
 
+    override fun connect(
+        ip: String?,
+        port: Int,
+        callback: TcpIpAdbRepository.TcpIpConnectionListener?
+    ) {
+        executor.submit {
+            try {
+                val manager = AdbConnectionManager.getInstance(context)
+                val actualIp = ip ?: getHostIpAddress(context)
+                val connected = manager.connect(actualIp, port)
+                if (connected) {
+                    callback?.onConnectionSuccess()
+                } else {
+                    callback?.onConnectionFailed()
+                }
+            } catch (e: Throwable) {
+                Log.e(TAG, "connect() failed", e)
+                callback?.onConnectionFailed()
+            }
+        }
+    }
+
     // region Device Info Utilities
 
     /**
@@ -852,13 +879,37 @@ class WifiAdbRepositoryImpl(
             adbShellStream = manager.openStream("shell:$fullCommand")
 
             val input = adbShellStream!!.openInputStream()
-            val reader = BufferedReader(InputStreamReader(input, StandardCharsets.UTF_8))
+            val lineBuffer = StringBuilder()
+            val rawBuffer = ByteArray(SHELL_READ_BUFFER_SIZE)
+            var lastDataTimeMs = System.currentTimeMillis()
 
-            var line: String?
             while (!isAborted) {
-                line = reader.readLine()
-                if (line == null) break
-                emit(OutputLine(line, isError = false))
+                val available = input.available()
+                if (available > 0) {
+                    val bytesRead = input.read(rawBuffer, 0, minOf(available, rawBuffer.size))
+                    if (bytesRead < 0) break
+                    lastDataTimeMs = System.currentTimeMillis()
+                    lineBuffer.append(String(rawBuffer, 0, bytesRead, StandardCharsets.UTF_8))
+                    var newlineIdx: Int
+                    while (lineBuffer.indexOf('\n').also { newlineIdx = it } >= 0) {
+                        emit(
+                            OutputLine(
+                                lineBuffer.substring(0, newlineIdx).trimEnd('\r'),
+                                isError = false
+                            )
+                        )
+                        lineBuffer.delete(0, newlineIdx + 1)
+                    }
+                } else {
+                    if (System.currentTimeMillis() - lastDataTimeMs >= SHELL_IDLE_TIMEOUT_MS) {
+                        if (lineBuffer.isNotEmpty()) {
+                            emit(OutputLine(lineBuffer.toString().trimEnd('\r'), isError = false))
+                            lineBuffer.clear()
+                        }
+                        break
+                    }
+                    Thread.sleep(SHELL_POLL_INTERVAL_MS)
+                }
             }
 
             Log.d(TAG, "Command completed. Aborted: $isAborted")
@@ -915,7 +966,9 @@ class WifiAdbRepositoryImpl(
     // region Device CRUD
 
     override fun getSavedDevicesFlow(): Flow<List<WifiAdbDevice>> =
-        deviceDao.getAllDevices().map { entities -> entities.toDomainList() }
+        deviceDao.getAllDevices().map { entities ->
+            entities.toDomainList().filter { it.ip != LOOPBACK_HOST }
+        }
 
     override suspend fun saveDevice(device: WifiAdbDevice) {
         deviceDao.insertDevice(device.toEntity())

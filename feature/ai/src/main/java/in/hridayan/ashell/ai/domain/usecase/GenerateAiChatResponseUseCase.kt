@@ -58,6 +58,7 @@ class GenerateAiChatResponseUseCase @Inject constructor(
         val localContext = when (currentModeId) {
             LocalAdbWorkingMode.ROOT -> "Root"
             LocalAdbWorkingMode.SHIZUKU -> "Shizuku"
+            LocalAdbWorkingMode.TCPIP -> "TCP/IP ADB"
             else -> "Basic"
         }
 

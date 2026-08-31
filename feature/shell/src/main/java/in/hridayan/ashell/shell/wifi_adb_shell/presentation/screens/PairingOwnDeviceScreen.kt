@@ -286,16 +286,6 @@ fun PairingOwnDeviceScreen(
                                     return@SavedDeviceItem
                                 }
 
-                                /* if (!WirelessDebuggingUtils.isWirelessDebuggingEnabled(context)) {
-                                     WirelessDebuggingUtils.ensureWirelessDebuggingAndReconnect(
-                                         context = context,
-                                         onSuccess = { viewModel.reconnectToDevice(it) },
-                                         onFailed = {}
-                                     )
-
-                                     return@SavedDeviceItem
-                                 }*/
-
                                 viewModel.reconnectToDevice(it)
                             },
                             onForget = { device -> viewModel.forgetDevice(device) },

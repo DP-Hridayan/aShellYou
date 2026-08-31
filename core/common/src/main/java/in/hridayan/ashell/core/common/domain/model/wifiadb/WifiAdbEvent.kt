@@ -128,4 +128,19 @@ sealed class WifiAdbEvent {
      * Discovery session matched (for QR pairing flow).
      */
     data object DiscoverySessionMatched : WifiAdbEvent()
+
+    /** adbd is not in TCP mode — both service.adb.tcp.port and persist.adb.tcp.port are -1. */
+    data object TcpIpUnavailable : WifiAdbEvent()
+
+    /** USB debugging is disabled in Developer Options. */
+    data object UsbDebuggingOff : WifiAdbEvent()
+
+    /** Developer Options are not enabled on this device. */
+    data object DeveloperOptionsOff : WifiAdbEvent()
+
+    /**
+     * TCP connection to 127.0.0.1:[port] was refused — adbd is not listening.
+     * @param port The port that was attempted
+     */
+    data class TcpIpConnectFailed(val port: Int) : WifiAdbEvent()
 }

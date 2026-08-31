@@ -14,18 +14,21 @@ import `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException
 import `in`.hridayan.ashell.core.common.domain.model.CommandEntity
 import `in`.hridayan.ashell.core.common.domain.model.OutputLine
 import `in`.hridayan.ashell.core.common.domain.model.SortType
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbEvent
 import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
 import `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository
 import `in`.hridayan.ashell.core.common.domain.repository.CommandRepository
 import `in`.hridayan.ashell.core.common.domain.repository.OtgRepository
 import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.core.common.domain.repository.ShellRepository
+import `in`.hridayan.ashell.core.common.domain.repository.TcpIpAdbRepository
 import `in`.hridayan.ashell.core.common.domain.tools.FindAppPackageTool
 import `in`.hridayan.ashell.core.common.domain.usecase.ai.AnalyzeCommandUseCase
 import `in`.hridayan.ashell.core.common.domain.usecase.ai.QueryCommandUseCase
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.model.AiAnalysisUiState
 import `in`.hridayan.ashell.core.resources.R
+import `in`.hridayan.ashell.core.utils.TcpIpUtils
 import `in`.hridayan.ashell.shell.common.data.permission.PermissionProvider
 import `in`.hridayan.ashell.shell.common.domain.model.PackageInfo
 import `in`.hridayan.ashell.shell.common.domain.model.Suggestion
@@ -40,13 +43,15 @@ import `in`.hridayan.ashell.shell.common.presentation.model.ShellScreenState
 import `in`.hridayan.ashell.shell.common.presentation.model.ShellState
 import `in`.hridayan.ashell.shell.domain.model.SaveProgress
 import `in`.hridayan.ashell.shell.domain.utils.saveToFileStreamingFlow
-import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -54,8 +59,12 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import kotlin.coroutines.resume
+
+private const val LOOPBACK_HOST = "127.0.0.1"
 
 @HiltViewModel
 class ShellViewModel @Inject constructor(
@@ -69,13 +78,16 @@ class ShellViewModel @Inject constructor(
     private val extractLastCommandOutputUseCase: ExtractLastCommandOutputUseCase,
     private val getSaveOutputFileNameUseCase: GetSaveOutputFileNameUseCase,
     private val otgRepository: OtgRepository,
-    private val wifiAdbRepository: WifiAdbRepository,
+    private val wifiAdbRepository: TcpIpAdbRepository,
     private val settingsRepository: SettingsRepository,
     @param:ApplicationContext private val appContext: Context,
     private val apiKeyRepository: ApiKeyRepository
 ) : ViewModel() {
     private val _showApiKeyRequiredDialog = MutableStateFlow(false)
     val showApiKeyRequiredDialog = _showApiKeyRequiredDialog.asStateFlow()
+
+    private val _tcpIpEvent = MutableSharedFlow<WifiAdbEvent>(replay = 0)
+    val tcpIpEvent: SharedFlow<WifiAdbEvent> = _tcpIpEvent.asSharedFlow()
 
     fun dismissApiKeyRequiredDialog() {
         _showApiKeyRequiredDialog.value = false
@@ -318,6 +330,56 @@ class ShellViewModel @Inject constructor(
     fun runOtgCommand() = runCommand { otgRepository.runOtgCommand(it.removeAdbShellPrefix()) }
 
     fun runWifiAdbCommand() = runCommand { wifiAdbRepository.execute(it.removeAdbShellPrefix()) }
+
+    fun runTcpIpCommand() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val edgeCase = tcpIpEdgeCaseOrNull()
+            if (edgeCase != null) {
+                _tcpIpEvent.emit(edgeCase)
+                return@launch
+            }
+            connectAndRunTcpIpCommand()
+        }
+    }
+
+    private fun tcpIpEdgeCaseOrNull(): WifiAdbEvent? {
+        if (!TcpIpUtils.isDeveloperOptionsEnabled(appContext)) return WifiAdbEvent.DeveloperOptionsOff
+        if (!TcpIpUtils.isUsbDebuggingEnabled(appContext)) return WifiAdbEvent.UsbDebuggingOff
+        if (!TcpIpUtils.isTcpModeAvailable()) return WifiAdbEvent.TcpIpUnavailable
+        return null
+    }
+
+    private suspend fun connectAndRunTcpIpCommand() {
+        val port = TcpIpUtils.getAdbTcpPort()
+
+        if (wifiAdbRepository.isConnected()) {
+            runWifiAdbCommand()
+            return
+        }
+
+        val connected = suspendCancellableCoroutine { continuation ->
+            wifiAdbRepository.connect(
+                ip = LOOPBACK_HOST,
+                port = port,
+                callback = object : TcpIpAdbRepository.TcpIpConnectionListener {
+                    override fun onConnectionSuccess() {
+                        if (continuation.isActive) continuation.resume(true)
+                    }
+
+                    override fun onConnectionFailed() {
+                        if (continuation.isActive) continuation.resume(false)
+                    }
+                }
+            )
+        }
+
+        if (!connected) {
+            _tcpIpEvent.emit(WifiAdbEvent.TcpIpConnectFailed(port))
+            return
+        }
+
+        runWifiAdbCommand()
+    }
 
     private fun runCommand(executor: suspend (String) -> Flow<OutputLine>) = with(_states.value) {
         if (this.shellState is ShellState.Busy) return@with

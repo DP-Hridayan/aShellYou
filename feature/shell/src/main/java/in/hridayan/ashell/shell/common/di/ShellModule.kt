@@ -9,6 +9,7 @@ import dagger.hilt.components.SingletonComponent
 import `in`.hridayan.ashell.core.common.domain.model.ExternalDeviceShell
 import `in`.hridayan.ashell.core.common.domain.repository.OtgRepository
 import `in`.hridayan.ashell.core.common.domain.repository.ShellRepository
+import `in`.hridayan.ashell.core.common.domain.repository.TcpIpAdbRepository
 import `in`.hridayan.ashell.shell.common.data.repository.ShellRepositoryImpl
 import `in`.hridayan.ashell.shell.common.data.shell.OtgDeviceShell
 import `in`.hridayan.ashell.shell.common.data.shell.WifiAdbOtherDeviceShell
@@ -43,12 +44,18 @@ object ShellModule {
 
     @Provides
     @Singleton
-    fun provideWifiAdbRepository(
+    fun provideWifiAdbRepositoryImpl(
         @ApplicationContext context: Context,
         deviceDao: WifiAdbDeviceDao
-    ): WifiAdbRepository {
-        return WifiAdbRepositoryImpl(context, deviceDao)
-    }
+    ): WifiAdbRepositoryImpl = WifiAdbRepositoryImpl(context, deviceDao)
+
+    @Provides
+    @Singleton
+    fun provideWifiAdbRepository(impl: WifiAdbRepositoryImpl): WifiAdbRepository = impl
+
+    @Provides
+    @Singleton
+    fun provideTcpIpAdbRepository(impl: WifiAdbRepositoryImpl): TcpIpAdbRepository = impl
 
     @Provides
     @Singleton

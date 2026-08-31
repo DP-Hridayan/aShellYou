@@ -325,6 +325,7 @@ private fun LocalAdbCard(
         LocalAdbWorkingMode.BASIC -> stringResource(R.string.basic_shell)
         LocalAdbWorkingMode.SHIZUKU -> stringResource(R.string.shizuku)
         LocalAdbWorkingMode.ROOT -> stringResource(R.string.root)
+        LocalAdbWorkingMode.TCPIP -> stringResource(R.string.tcpip_mode)
         else -> stringResource(R.string.none)
     }
 
