@@ -8,6 +8,7 @@ import `in`.hridayan.ashell.ai.domain.repository.ChatRepository
 import `in`.hridayan.ashell.ai.domain.tool.ToolRegistry
 import `in`.hridayan.ashell.core.common.constants.AiModelConstants
 import `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException
+import `in`.hridayan.ashell.core.common.domain.model.ai.AiSkill
 import `in`.hridayan.ashell.core.common.domain.model.ai.LlmMessage
 import `in`.hridayan.ashell.core.common.domain.model.ai.LlmToolResponse
 import `in`.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode
@@ -84,25 +85,45 @@ class GenerateAiChatResponseUseCase @Inject constructor(
         val pairedDevicesStr =
             if (pairedWifiDevices.isNotEmpty()) pairedWifiDevices.joinToString(", ") else "None"
 
-        val enabledSkills = toolRegistry.getEnabledSkills()
-        val skillsContextText = if (enabledSkills.isNotEmpty()) {
-            "ACTIVE SKILLS CONTEXT:\n" + enabledSkills.keys.joinToString("\n") { skill ->
-                "- ${context.getString(skill.displayNameRes)}: ${context.getString(skill.descriptionRes)} (Allows tools: ${enabledSkills[skill]?.joinToString { tool -> tool.name }})"
-            } + "\n\n"
-        } else {
-            "ACTIVE SKILLS CONTEXT: None. You have no tool skills enabled.\n\n"
+        val allSkills = AiSkill.entries
+        val allSkillsWithTools = toolRegistry.getAllSkillsWithTools()
+
+        val skillsContextText = buildString {
+            append("APP SKILLS CONTEXT (Capabilities you potentially have):\n")
+            if (allSkills.isEmpty()) {
+                append("None.\n")
+            } else {
+                allSkills.forEach { skill ->
+                    val isEnabled = settingsRepository.getBoolean(skill.settingsKey).firstOrNull()
+                        ?: skill.settingsKey.default
+                    val status = if (isEnabled) "ENABLED" else "DISABLED"
+                    val toolsForSkill = allSkillsWithTools[skill] ?: emptyList()
+                    val toolNames =
+                        toolsForSkill.joinToString { it.name }.ifEmpty { "None mapped yet" }
+                    append(
+                        "- [${status}] ${context.getString(skill.displayNameRes)}: ${
+                            context.getString(
+                                skill.descriptionRes
+                            )
+                        } (Provides tools: $toolNames)\n"
+                    )
+                }
+            }
+            append("\nIMPORTANT RULES ABOUT SKILLS:\n")
+            append("1. If the user asks you to do something that requires a DISABLED skill, you MUST inform them that the skill is currently disabled and explicitly suggest they turn it on in the AI Agent Settings.\n")
+            append("2. If you HAVE an ENABLED skill for a task, you MUST use your tools to execute it yourself rather than just telling the user how to do it or suggesting commands. Never be lazy!\n\n")
         }
 
         val localeName = Locale.getDefault().displayName
         val systemPrompt =
-            "You are a helpful AI shell assistant. You can execute commands on the user's Android device and answer questions. You MUST use your tools when appropriate to execute commands.\n\n" +
+            "You are a highly capable AI shell assistant. You can execute commands on the user's Android device and answer questions. YOU MUST USE YOUR TOOLS TO EXECUTE COMMANDS WHENEVER POSSIBLE INSTEAD OF MERELY SUGGESTING THEM.\n\n" +
                     skillsContextText +
                     "CONNECTION CAPABILITIES:\n" +
                     "You can execute commands on different targets by specifying the `target_mode` parameter in your `execute_command` tool (options: LOCAL, WIRELESS, OTG). Defaults to LOCAL if omitted.\n" +
-                    "- LOCAL: Currently in $localContext mode.\n" +
+                    "- LOCAL: The default execution mode (currently set to $localContext by the user). IMPORTANT: If the user explicitly asks to execute a command in ROOT, SHIZUKU, or TCPIP mode, you MUST set the `local_adb_mode` parameter in your tool call (options: ROOT, SHIZUKU, TCPIP, BASIC) to explicitly override it!\n" +
                     "- WIRELESS: $wifiContext. Paired devices: $pairedDevicesStr.\n" +
                     "- OTG: $otgContext.\n" +
-                    "Always choose the appropriate target based on the user's request. If the user doesn't specify, default to the most capable connected device.\n\n" +
+                    "Always choose the appropriate target and mode based on the user's request. If the user doesn't specify, default to the most capable connected device.\n\n" +
                     "QUICK SETTINGS (QS) TILES RULES:\n" +
                     "1. If the user asks to create a Quick Settings (QS) tile, ALWAYS call `get_qs_tile_slots` first to see which of the 10 fixed slots (1-10) are empty/available.\n" +
                     "2. If the user did not specify an execution mode for the tile, ASK the user which execution mode they prefer (0 for Shizuku [default], 1 for Root) before calling `create_qs_tile`.\n" +

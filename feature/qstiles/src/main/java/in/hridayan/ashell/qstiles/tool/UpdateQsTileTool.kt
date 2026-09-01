@@ -5,6 +5,7 @@ import `in`.hridayan.ashell.core.common.domain.model.TileExecutionMode
 import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaProperty
+import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaType
 import `in`.hridayan.ashell.qstiles.data.provider.TileComponentManager
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
 import `in`.hridayan.ashell.qstiles.domain.repository.TileRepository
@@ -24,42 +25,42 @@ class UpdateQsTileTool @Inject constructor(
     override val description: String = "Update an existing custom Quick Settings (QS) tile. You only need to provide the slot/id of the tile to update, and optionally any properties you want to change. If a property is omitted, its current value is preserved."
 
     override val parametersSchema: ToolSchema = ToolSchema(
-        type = "OBJECT",
+        type = ToolSchemaType.OBJECT,
         properties = mapOf(
             "slot" to ToolSchemaProperty(
-                type = "INTEGER",
+                type = ToolSchemaType.INTEGER,
                 description = "The target slot ID (1 to 10) of the existing tile to update. This is required."
             ),
             "title" to ToolSchemaProperty(
-                type = "STRING",
+                type = ToolSchemaType.STRING,
                 description = "Optional. New short name for the tile (max 15 chars)."
             ),
             "command" to ToolSchemaProperty(
-                type = "STRING",
+                type = ToolSchemaType.STRING,
                 description = "Optional. New shell command to run when the tile is ALREADY ON (to turn it OFF) or for tap actions."
             ),
             "icon_name" to ToolSchemaProperty(
-                type = "STRING",
+                type = ToolSchemaType.STRING,
                 description = "Optional. New icon identifier. Valid options: ${TileIconProvider.icons.joinToString { it.id }}"
             ),
             "execution_mode" to ToolSchemaProperty(
-                type = "INTEGER",
+                type = ToolSchemaType.INTEGER,
                 description = "Optional. New execution mode (0 for Shizuku, 1 for Root)."
             ),
             "is_toggleable" to ToolSchemaProperty(
-                type = "BOOLEAN",
+                type = ToolSchemaType.BOOLEAN,
                 description = "Optional. Whether the tile represents an on/off toggle (true) or a tap action (false)."
             ),
             "inactive_command" to ToolSchemaProperty(
-                type = "STRING",
+                type = ToolSchemaType.STRING,
                 description = "Optional. New shell command to run when the tile is ALREADY OFF (to turn it ON)."
             ),
             "active_subtitle" to ToolSchemaProperty(
-                type = "STRING",
+                type = ToolSchemaType.STRING,
                 description = "Optional. Subtitle text when tile is active/on."
             ),
             "inactive_subtitle" to ToolSchemaProperty(
-                type = "STRING",
+                type = ToolSchemaType.STRING,
                 description = "Optional. Subtitle text when tile is inactive/off."
             )
         ),

@@ -3,6 +3,9 @@ package `in`.hridayan.ashell.ai.domain.tool.builtin
 import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaProperty
+import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaType
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import java.io.BufferedReader
@@ -18,18 +21,18 @@ class GetStructuredLogcatTool @Inject constructor() : AiTool {
     override val description: String = "Fetch recent logcat output. Uses 'logcat -d' to safely fetch logs without hanging. Returns raw text logs."
 
     override val parametersSchema: ToolSchema = ToolSchema(
-        type = "OBJECT",
+        type = ToolSchemaType.OBJECT,
         properties = mapOf(
             "log_level" to ToolSchemaProperty(
-                type = "STRING",
+                type = ToolSchemaType.STRING,
                 description = "Optional log level to filter by (e.g., '*:E' for errors, '*:W' for warnings). Default is '*:D'."
             ),
             "max_lines" to ToolSchemaProperty(
-                type = "INTEGER",
+                type = ToolSchemaType.INTEGER,
                 description = "Maximum number of lines to fetch. Default is 100. Max is 500."
             ),
             "grep_filter" to ToolSchemaProperty(
-                type = "STRING",
+                type = ToolSchemaType.STRING,
                 description = "Optional string to filter log lines containing this string."
             )
         ),
@@ -42,16 +45,20 @@ class GetStructuredLogcatTool @Inject constructor() : AiTool {
         val grepFilter = args?.get("grep_filter")?.jsonPrimitive?.content
 
         return try {
-            val process = Runtime.getRuntime().exec(
-                arrayOf("logcat", "-d", "-v", "threadtime", "-t", maxLines.toString(), logLevel)
-            )
+            val process = withContext(Dispatchers.IO) {
+                Runtime.getRuntime().exec(
+                    arrayOf("logcat", "-d", "-v", "threadtime", "-t", maxLines.toString(), logLevel)
+                )
+            }
             val reader = BufferedReader(InputStreamReader(process.inputStream))
 
             val builder = StringBuilder()
             var line: String?
             var count = 0
 
-            while (reader.readLine().also { line = it } != null) {
+            while (withContext(Dispatchers.IO) {
+                    reader.readLine()
+                }.also { line = it } != null) {
                 if (grepFilter.isNullOrBlank() || line!!.contains(grepFilter, ignoreCase = true)) {
                     builder.appendLine(line)
                     count++
@@ -59,7 +66,9 @@ class GetStructuredLogcatTool @Inject constructor() : AiTool {
                 }
             }
 
-            process.waitFor()
+            withContext(Dispatchers.IO) {
+                process.waitFor()
+            }
 
             if (builder.isEmpty()) {
                 "No logs found."

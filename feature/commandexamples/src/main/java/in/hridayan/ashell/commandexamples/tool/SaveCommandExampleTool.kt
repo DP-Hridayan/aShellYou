@@ -4,6 +4,7 @@ import `in`.hridayan.ashell.core.common.domain.model.CommandEntity
 import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaProperty
+import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaType
 import `in`.hridayan.ashell.core.common.domain.repository.CommandRepository
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonPrimitive
@@ -20,18 +21,18 @@ class SaveCommandExampleTool @Inject constructor(
     override val description: String = "Save a shell command into the user's Command Examples library for later use. Use this for general templates like 'pm uninstall --user <user> <package>' or complex scripts with placeholders."
 
     override val parametersSchema: ToolSchema = ToolSchema(
-        type = "OBJECT",
+        type = ToolSchemaType.OBJECT,
         properties = mapOf(
             "title" to ToolSchemaProperty(
-                type = "STRING",
+                type = ToolSchemaType.STRING,
                 description = "Short, descriptive title of what the command does."
             ),
             "command_string" to ToolSchemaProperty(
-                type = "STRING",
+                type = ToolSchemaType.STRING,
                 description = "The exact shell command string or template."
             ),
             "labels" to ToolSchemaProperty(
-                type = "STRING",
+                type = ToolSchemaType.STRING,
                 description = "Comma-separated string labels to categorize the command (e.g., 'Package Manager, Debloat, Battery'). Keep labels concise."
             )
         ),

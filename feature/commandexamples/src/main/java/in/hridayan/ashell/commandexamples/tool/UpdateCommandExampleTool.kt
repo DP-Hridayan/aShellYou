@@ -3,6 +3,7 @@ package `in`.hridayan.ashell.commandexamples.tool
 import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaProperty
+import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaType
 import `in`.hridayan.ashell.core.common.domain.repository.CommandRepository
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonPrimitive
@@ -19,22 +20,22 @@ class UpdateCommandExampleTool @Inject constructor(
     override val description: String = "Update an existing shell command in the user's Command Examples library. You must provide the exact ID of the command (which you can get by using search_command_examples first) and optionally the fields you want to update."
 
     override val parametersSchema: ToolSchema = ToolSchema(
-        type = "OBJECT",
+        type = ToolSchemaType.OBJECT,
         properties = mapOf(
             "id" to ToolSchemaProperty(
-                type = "INTEGER",
+                type = ToolSchemaType.INTEGER,
                 description = "The exact ID of the command example to update."
             ),
             "title" to ToolSchemaProperty(
-                type = "STRING",
+                type = ToolSchemaType.STRING,
                 description = "Optional. New short, descriptive title of what the command does."
             ),
             "command_string" to ToolSchemaProperty(
-                type = "STRING",
+                type = ToolSchemaType.STRING,
                 description = "Optional. New exact shell command string or template."
             ),
             "labels" to ToolSchemaProperty(
-                type = "STRING",
+                type = ToolSchemaType.STRING,
                 description = "Optional. New comma-separated string labels to categorize the command."
             )
         ),

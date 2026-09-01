@@ -6,6 +6,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaProperty
+import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaType
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import javax.inject.Inject
@@ -15,13 +16,14 @@ class FindAppPackageTool @Inject constructor(
 ) : AiTool {
     override val name: String = "find_app_package"
 
-    override val description: String = "Search for an installed application's package name by providing its common app name (e.g., 'whatsapp', 'facebook'). Returns the package name if found."
+    override val description: String =
+        "Search for an installed application's package name by providing its common app name (e.g., 'whatsapp', 'facebook'). Returns the package name if found."
 
     override val parametersSchema: ToolSchema = ToolSchema(
-        type = "OBJECT",
+        type = ToolSchemaType.OBJECT,
         properties = mapOf(
             "appName" to ToolSchemaProperty(
-                type = "STRING",
+                type = ToolSchemaType.STRING,
                 description = "The name of the application to search for."
             )
         ),
@@ -38,7 +40,10 @@ class FindAppPackageTool @Inject constructor(
         // Find best match
         val matches = packages.filter { appInfo ->
             val label = pm.getApplicationLabel(appInfo).toString()
-            label.contains(appName, ignoreCase = true) || appInfo.packageName.contains(appName, ignoreCase = true)
+            label.contains(appName, ignoreCase = true) || appInfo.packageName.contains(
+                appName,
+                ignoreCase = true
+            )
         }
 
         if (matches.isEmpty()) {
@@ -46,7 +51,9 @@ class FindAppPackageTool @Inject constructor(
         }
 
         // Sort by exact match first, then return the first one
-        val exactMatch = matches.find { pm.getApplicationLabel(it).toString().equals(appName, ignoreCase = true) }
+        val exactMatch = matches.find {
+            pm.getApplicationLabel(it).toString().equals(appName, ignoreCase = true)
+        }
         val bestMatch = exactMatch ?: matches.first()
 
         return bestMatch.packageName

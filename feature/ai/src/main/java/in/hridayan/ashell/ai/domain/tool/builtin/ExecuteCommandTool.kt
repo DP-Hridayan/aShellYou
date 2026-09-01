@@ -6,6 +6,7 @@ import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 import `in`.hridayan.ashell.core.common.domain.model.ai.SessionIdContext
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaProperty
+import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaType
 import `in`.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.common.domain.repository.AiConnectionStateProvider
 import `in`.hridayan.ashell.core.common.domain.repository.OtgRepository
@@ -34,15 +35,19 @@ class ExecuteCommandTool @Inject constructor(
     override val description =
         "Execute a shell command on the user's device. You MUST use this tool to perform actions requested by the user. If the user hasn't explicitly allowed the command before, they will be prompted to allow it."
     override val parametersSchema = ToolSchema(
-        type = "OBJECT",
+        type = ToolSchemaType.OBJECT,
         properties = mapOf(
             "command" to ToolSchemaProperty(
-                type = "STRING",
+                type = ToolSchemaType.STRING,
                 description = "The exact shell command to run, e.g. 'pm list packages'"
             ),
             "target_mode" to ToolSchemaProperty(
-                type = "STRING",
+                type = ToolSchemaType.STRING,
                 description = "The target connection mode to run the command on: 'LOCAL', 'WIRELESS', or 'OTG'. Defaults to 'LOCAL'."
+            ),
+            "local_adb_mode" to ToolSchemaProperty(
+                type = ToolSchemaType.STRING,
+                description = "If target_mode is 'LOCAL', you can explicitly override the local ADB working mode to use: 'ROOT', 'SHIZUKU', 'TCPIP', or 'BASIC'. If omitted, it will use the user's currently selected default mode."
             )
         ),
         required = listOf("command")
@@ -52,6 +57,7 @@ class ExecuteCommandTool @Inject constructor(
         val command = args?.get("command")?.jsonPrimitive?.content
             ?: return """{"error": "command is required"}"""
         val targetMode = args.get("target_mode")?.jsonPrimitive?.content?.uppercase() ?: "LOCAL"
+        val localAdbModeStr = args.get("local_adb_mode")?.jsonPrimitive?.content?.uppercase()
 
         // Request permission
         val permissionResult = commandExecutionManager.requestPermission(command)
@@ -80,10 +86,21 @@ class ExecuteCommandTool @Inject constructor(
                 }
 
                 else -> {
-                    val mode =
+                    val fallbackMode =
                         settingsRepository.getInt(SettingsKeys.LocalAdbWorkingMode).firstOrNull()
                             ?: SettingsKeys.LocalAdbWorkingMode.default
-                    when (mode) {
+
+                    val finalMode = if (localAdbModeStr != null) {
+                        when (localAdbModeStr) {
+                            "ROOT" -> LocalAdbWorkingMode.ROOT
+                            "SHIZUKU" -> LocalAdbWorkingMode.SHIZUKU
+                            "TCPIP" -> LocalAdbWorkingMode.TCPIP
+                            "BASIC" -> LocalAdbWorkingMode.BASIC
+                            else -> fallbackMode
+                        }
+                    } else fallbackMode
+
+                    when (finalMode) {
                         LocalAdbWorkingMode.ROOT -> shellRepository.executeRootCommand(command)
                         LocalAdbWorkingMode.SHIZUKU -> shellRepository.executeShizukuCommand(command)
                         LocalAdbWorkingMode.TCPIP -> aiConnectionStateProvider.executeWifiCommand(

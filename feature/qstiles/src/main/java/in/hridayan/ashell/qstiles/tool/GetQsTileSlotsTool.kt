@@ -3,6 +3,7 @@ package `in`.hridayan.ashell.qstiles.tool
 import `in`.hridayan.ashell.core.common.domain.model.TileExecutionMode
 import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema
+import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaType
 import `in`.hridayan.ashell.qstiles.domain.repository.TileRepository
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
@@ -19,7 +20,7 @@ class GetQsTileSlotsTool @Inject constructor(
     override val description: String = "Query the current status of all 10 Quick Settings (QS) tile slots (1 to 10), showing which slots are available (empty) and which slots are occupied by existing custom tiles. ALWAYS call this before creating a new tile to see if there is an empty slot and know which slot number to use."
 
     override val parametersSchema: ToolSchema = ToolSchema(
-        type = "OBJECT",
+        type = ToolSchemaType.OBJECT,
         properties = emptyMap(),
         required = emptyList()
     )

@@ -40,6 +40,14 @@ class ToolRegistry @Inject constructor(
     fun getToolByName(toolName: String): AiTool? {
         return skillBundles.flatMap { it.tools }.find { it.name == toolName }
     }
+    fun getAllSkillsWithTools(): Map<AiSkill, List<AiTool>> {
+        val groupedBundles = skillBundles.groupBy { it.skill }
+        val result = mutableMapOf<AiSkill, List<AiTool>>()
+        for ((skill, bundles) in groupedBundles) {
+            result[skill] = bundles.flatMap { it.tools }
+        }
+        return result
+    }
 }
 
 

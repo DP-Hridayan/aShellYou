@@ -3,6 +3,7 @@ package `in`.hridayan.ashell.shell.common.tool
 import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaProperty
+import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaType
 import `in`.hridayan.ashell.shell.common.domain.repository.BookmarkRepository
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonPrimitive
@@ -19,10 +20,10 @@ class DeleteBookmarkTool @Inject constructor(
     override val description: String = "Delete a bookmarked shell command from the user's bookmarks library by exact command string."
 
     override val parametersSchema: ToolSchema = ToolSchema(
-        type = "OBJECT",
+        type = ToolSchemaType.OBJECT,
         properties = mapOf(
             "command_string" to ToolSchemaProperty(
-                type = "STRING",
+                type = ToolSchemaType.STRING,
                 description = "The exact shell command string to remove from bookmarks."
             )
         ),

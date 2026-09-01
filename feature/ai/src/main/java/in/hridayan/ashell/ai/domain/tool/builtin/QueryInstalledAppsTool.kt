@@ -7,6 +7,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaProperty
+import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaType
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
@@ -25,14 +26,14 @@ class QueryInstalledAppsTool @Inject constructor(
     override val description: String = "Query the installed applications on the device. Returns a JSON array of apps. Use this instead of running 'pm list packages' via shell to save tokens and get structured data."
 
     override val parametersSchema: ToolSchema = ToolSchema(
-        type = "OBJECT",
+        type = ToolSchemaType.OBJECT,
         properties = mapOf(
             "search_query" to ToolSchemaProperty(
-                type = "STRING",
+                type = ToolSchemaType.STRING,
                 description = "Optional search query to filter apps by name or package name."
             ),
             "include_system_apps" to ToolSchemaProperty(
-                type = "BOOLEAN",
+                type = ToolSchemaType.BOOLEAN,
                 description = "Whether to include system apps in the results. Default is false."
             )
         ),

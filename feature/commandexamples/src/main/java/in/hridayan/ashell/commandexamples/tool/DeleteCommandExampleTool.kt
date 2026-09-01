@@ -3,6 +3,7 @@ package `in`.hridayan.ashell.commandexamples.tool
 import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaProperty
+import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaType
 import `in`.hridayan.ashell.core.common.domain.repository.CommandRepository
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.int
@@ -20,10 +21,10 @@ class DeleteCommandExampleTool @Inject constructor(
     override val description: String = "Delete a command example from the user's Command Examples library by its integer database ID."
 
     override val parametersSchema: ToolSchema = ToolSchema(
-        type = "OBJECT",
+        type = ToolSchemaType.OBJECT,
         properties = mapOf(
             "id" to ToolSchemaProperty(
-                type = "INTEGER",
+                type = ToolSchemaType.INTEGER,
                 description = "The database ID of the command example to delete (obtained via search_command_examples)."
             )
         ),

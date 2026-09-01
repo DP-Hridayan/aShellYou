@@ -25,15 +25,23 @@ interface AiTool {
  * Represents the JSON schema of a tool's parameters.
  */
 data class ToolSchema(
-    val type: String = "OBJECT",
+    val type: String = ToolSchemaType.OBJECT,
     val properties: Map<String, ToolSchemaProperty> = emptyMap(),
     val required: List<String> = emptyList(),
 )
 
 data class ToolSchemaProperty(
-    val type: String, // "STRING", "INTEGER", "BOOLEAN", etc.
+    val type: String,
     val description: String? = null,
 )
+
+object ToolSchemaType {
+    const val STRING = "STRING"
+    const val INTEGER = "INTEGER"
+    const val BOOLEAN = "BOOLEAN"
+    const val ARRAY = "ARRAY"
+    const val OBJECT = "OBJECT"
+}
 
 /**
  * A coroutine context element for passing the current chat session ID to tools.

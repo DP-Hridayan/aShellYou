@@ -3,6 +3,7 @@ package `in`.hridayan.ashell.commandexamples.tool
 import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaProperty
+import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaType
 import `in`.hridayan.ashell.core.common.domain.repository.CommandRepository
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.buildJsonArray
@@ -23,10 +24,10 @@ class SearchCommandExamplesTool @Inject constructor(
     override val description: String = "Search the user's Command Examples library for shell command templates, descriptions, or labels. Returns matching command examples along with their IDs, titles, command strings, and labels."
 
     override val parametersSchema: ToolSchema = ToolSchema(
-        type = "OBJECT",
+        type = ToolSchemaType.OBJECT,
         properties = mapOf(
             "query" to ToolSchemaProperty(
-                type = "STRING",
+                type = ToolSchemaType.STRING,
                 description = "Text to search for within titles, command strings, or labels. Leave blank to list all."
             )
         ),

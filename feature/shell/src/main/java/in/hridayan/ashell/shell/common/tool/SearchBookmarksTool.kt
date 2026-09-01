@@ -3,6 +3,7 @@ package `in`.hridayan.ashell.shell.common.tool
 import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaProperty
+import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaType
 import `in`.hridayan.ashell.shell.common.domain.repository.BookmarkRepository
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.buildJsonArray
@@ -19,13 +20,14 @@ class SearchBookmarksTool @Inject constructor(
 
     override val name: String = "search_bookmarks"
 
-    override val description: String = "Search the user's bookmarked shell commands. Returns matching bookmarks along with their database ID and exact command string."
+    override val description: String =
+        "Search the user's bookmarked shell commands. Returns matching bookmarks along with their database ID and exact command string."
 
     override val parametersSchema: ToolSchema = ToolSchema(
-        type = "OBJECT",
+        type = ToolSchemaType.OBJECT,
         properties = mapOf(
             "query" to ToolSchemaProperty(
-                type = "STRING",
+                type = ToolSchemaType.STRING,
                 description = "Text to search for within bookmarked commands. Leave blank to list all bookmarks."
             )
         ),
