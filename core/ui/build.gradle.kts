@@ -33,6 +33,7 @@ android {
 dependencies {
     api(project(":core:resources"))
     implementation(project(":core:common"))
+    implementation(project(":core:navigation"))
     implementation(project(":settings-dsl"))
 
     implementation(libs.androidx.appcompat)

@@ -217,7 +217,7 @@ class GenerateAiChatResponseUseCase @Inject constructor(
                             .firstOrNull() ?: skill.settingsKey.default)
 
                     if (!isSkillEnabled) {
-                        "Execution Blocked: The user has disabled the \"${context.getString(skill!!.displayNameRes)}\" skill. Please inform the user."
+                        "Execution Blocked: The user has disabled the \"${context.getString(skill.displayNameRes)}\" skill. Please inform the user."
                     } else {
                         try {
                             withContext(

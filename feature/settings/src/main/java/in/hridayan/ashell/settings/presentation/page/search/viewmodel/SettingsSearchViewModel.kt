@@ -7,7 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
-import `in`.hridayan.ashell.settings.presentation.provider.SettingsProvider
+import `in`.hridayan.ashell.core.presentation.provider.SettingsProvider
 import `in`.hridayan.settingsdsl.search.SearchEntry
 import `in`.hridayan.settingsdsl.search.SettingsSearchEngine
 import kotlinx.coroutines.Dispatchers

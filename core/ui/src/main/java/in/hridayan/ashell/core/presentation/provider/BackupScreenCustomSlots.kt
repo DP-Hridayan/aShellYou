@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.settings.presentation.provider
+package `in`.hridayan.ashell.core.presentation.provider
 
 import `in`.hridayan.settingsdsl.model.CustomSlot
 

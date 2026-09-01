@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.settings.presentation.provider
+package `in`.hridayan.ashell.core.presentation.provider
 
 import android.os.Build
 import androidx.compose.material.icons.Icons
@@ -6,7 +6,6 @@ import androidx.compose.material.icons.outlined.AutoAwesome
 import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material.icons.rounded.Cached
 import androidx.compose.material.icons.rounded.Downloading
-import androidx.compose.material.icons.rounded.Memory
 import androidx.compose.material.icons.rounded.TextFields
 import androidx.compose.material.icons.rounded.UnfoldMoreDouble
 import `in`.hridayan.ashell.core.common.FeatureConfig
@@ -14,7 +13,6 @@ import `in`.hridayan.ashell.core.common.domain.model.TerminalFontStyle
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.presentation.components.floaters.FloatingIconsBackground
-import `in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.settingsdsl.dsl.buttonGroupItem
 import `in`.hridayan.settingsdsl.dsl.category
@@ -443,32 +441,11 @@ object SettingsProvider {
         category(
             titleResId = R.string.models,
             clickableItem(
-                key = SettingsKeys.CloudModels,
-                titleResId = R.string.models,
-                descriptionResId = R.string.des_models,
-                iconVector = Icons.Rounded.Memory
+                key = SettingsKeys.AiCloudProvider,
+                titleResId = R.string.cloud_models,
+                descriptionResId = R.string.des_cloud_models,
+                icon = R.drawable.ic_cloud_model
             ),
-        ),
-        category(
-            titleResId = R.string.cache_settings,
-            switchItem(
-                key = SettingsKeys.AiCacheEnabled,
-                titleResId = R.string.ai_cache_enabled,
-                descriptionResId = R.string.des_ai_cache_enabled,
-                iconVector = Icons.Rounded.Cached
-            ),
-            clickableItem(
-                key = SettingsKeys.AiCacheDays,
-                titleResId = R.string.ai_cache_days,
-                descriptionResId = R.string.des_ai_cache_days,
-                icon = R.drawable.ic_schedule
-            ),
-            clickableItem(
-                key = SettingsKeys.AiCacheClear,
-                titleResId = R.string.clear_analysis_cache,
-                descriptionResId = R.string.cache_size,
-                icon = R.drawable.ic_delete_sweep
-            )
         ),
         category(
             titleResId = R.string.agent_skills,
@@ -495,6 +472,27 @@ object SettingsProvider {
                 titleResId = R.string.database_modification,
                 descriptionResId = R.string.des_database_modification,
                 icon = R.drawable.ic_database
+            )
+        ),
+        category(
+            titleResId = R.string.cache_settings,
+            switchItem(
+                key = SettingsKeys.AiCacheEnabled,
+                titleResId = R.string.ai_cache_enabled,
+                descriptionResId = R.string.des_ai_cache_enabled,
+                iconVector = Icons.Rounded.Cached
+            ),
+            clickableItem(
+                key = SettingsKeys.AiCacheDays,
+                titleResId = R.string.ai_cache_days,
+                descriptionResId = R.string.des_ai_cache_days,
+                icon = R.drawable.ic_schedule
+            ),
+            clickableItem(
+                key = SettingsKeys.AiCacheClear,
+                titleResId = R.string.clear_analysis_cache,
+                descriptionResId = R.string.cache_size,
+                icon = R.drawable.ic_delete_sweep
             )
         )
     )

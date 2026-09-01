@@ -8,9 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Cached
-import androidx.compose.material.icons.rounded.Memory
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
@@ -39,11 +36,8 @@ import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
+import `in`.hridayan.ashell.core.presentation.provider.SettingsProvider
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.settingsdsl.dsl.category
-import `in`.hridayan.settingsdsl.dsl.clickableItem
-import `in`.hridayan.settingsdsl.dsl.settingsPage
-import `in`.hridayan.settingsdsl.dsl.switchItem
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
 import `in`.hridayan.settingsdsl.ui.item.settingsContent
@@ -52,68 +46,6 @@ enum class AiDialogKey : DialogKey {
     CacheDays,
     CacheClearConfirmation
 }
-
-private val aiModelsPage = settingsPage(
-    screenTitle = R.string.ai_models, // can reuse string or change to AI Settings later
-    screenId = "ai_settings",
-    category(
-        titleResId = R.string.models,
-        clickableItem(
-            key = SettingsKeys.CloudModels,
-            titleResId = R.string.models,
-            descriptionResId = R.string.des_models,
-            iconVector = Icons.Rounded.Memory
-        ),
-    ),
-    category(
-        titleResId = R.string.cache_settings,
-        switchItem(
-            key = SettingsKeys.AiCacheEnabled,
-            titleResId = R.string.ai_cache_enabled,
-            descriptionResId = R.string.des_ai_cache_enabled,
-            iconVector = Icons.Rounded.Cached
-        ),
-        clickableItem(
-            key = SettingsKeys.AiCacheDays,
-            titleResId = R.string.ai_cache_days,
-            descriptionResId = R.string.des_ai_cache_days,
-            icon = R.drawable.ic_schedule
-        ),
-        clickableItem(
-            key = SettingsKeys.AiCacheClear,
-            titleResId = R.string.clear_analysis_cache,
-            descriptionResId = R.string.cache_size,
-            icon = R.drawable.ic_delete_sweep
-        )
-    ),
-    category(
-        titleResId = R.string.agent_skills,
-        switchItem(
-            key = SettingsKeys.AiSkillCommandExecution,
-            titleResId = R.string.command_execution,
-            descriptionResId = R.string.des_command_execution,
-            icon = R.drawable.ic_terminal
-        ),
-        switchItem(
-            key = SettingsKeys.AiSkillQuickSettings,
-            titleResId = R.string.quick_settings_tiles,
-            descriptionResId = R.string.des_quick_settings_tiles,
-            icon = R.drawable.ic_dashboard
-        ),
-        switchItem(
-            key = SettingsKeys.AiSkillPackages,
-            titleResId = R.string.packages,
-            descriptionResId = R.string.des_packages,
-            icon = R.drawable.ic_package
-        ),
-        switchItem(
-            key = SettingsKeys.AiSkillDatabase,
-            titleResId = R.string.database_modification,
-            descriptionResId = R.string.des_database_modification,
-            icon = R.drawable.ic_database
-        )
-    )
-)
 
 @Composable
 fun AiModelsScreen(
@@ -126,6 +58,8 @@ fun AiModelsScreen(
     val dialogManager = LocalDialogManager.current
     val settings = LocalSettings.current
     val hapticsEnabled = settings[SettingsKeys.HapticsAndVibration]
+
+    val aiModelsPage = SettingsProvider.aiSettingsPage
 
     val prefs by aiViewModel.preferences.collectAsState(initial = emptyPreferences())
 
@@ -155,7 +89,6 @@ fun AiModelsScreen(
     val resolvedGroups = aiModelsPage.resolveAll(
         highlightedKey = highlightedKey,
         descriptionOverrides = mapOf(
-
             SettingsKeys.AiCacheDays to {
                 stringResource(R.string.n_days, cacheDays)
             },
