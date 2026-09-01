@@ -326,8 +326,8 @@
     <string name="developer" comment="Section title in About screen for lead developer info">Nhà phát triển</string>
     <string name="developer_options" comment="System Developer Options setting item or prompt">Tùy chọn nhà phát triển</string>
     <string name="developer_options_not_available" comment="Toast error message when Developer options shortcut cannot be opened">Tùy chọn nhà phát triển không khả dụng!</string>
-    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">Enable Developer Options first by tapping Build Number 7 times in Settings → About Phone\nIf this method to turn on Developer options does not work, then you can search the instructions for your device on the internet.</string>
-    <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">Developer Options Required</string>
+    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">Trước tiên, hãy bật Tùy chọn nhà phát triển bằng cách chạm 7 lần vào mục Số bản dựng trong Cài đặt → Thông tin điện thoại\nNếu cách bật Tùy chọn nhà phát triển này không có tác dụng, bạn có thể tìm kiếm hướng dẫn dành riêng cho thiết bị của mình trên mạng.</string>
+    <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">Yêu cầu Tùy chọn nhà phát triển</string>
     <string name="device_backup_local" comment="Label for local device storage backup file">Sao lưu thiết bị (Cục bộ)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">Đã kết nối thiết bị!</string>
     <string name="device_disconnected" comment="Notification title when ADB connection drops">Đã ngắt kết nối với thiết bị</string>
@@ -842,10 +842,10 @@
     <string name="tab" comment="Settings option for terminal tab indentation behavior">Tab</string>
     <string name="tag" comment="Field label for custom command category tag/label">Thẻ</string>
     <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">Nhấn để duyệt tìm tệp .zip</string>
-    <string name="tcpip_connect_failed" comment="Toast shown when TCP connection to 127.0.0.1 on the detected port is refused. %1$d is replaced with the port number.">Connection to port %1$d refused. The ADB daemon may not be listening.</string>
+    <string name="tcpip_connect_failed" comment="Toast shown when TCP connection to 127.0.0.1 on the detected port is refused. %1$d is replaced with the port number.">Kết nối tới cổng %1$d bị từ chối. Tiến trình ngầm ADB có thể đang không chờ kết nối.</string>
     <string name="tcpip_mode" comment="Label for the TCP/IP local shell working mode (loopback port 5555)">TCP/IP</string>
-    <string name="tcpip_not_available_body" comment="Dialog body explaining how to enable TCP ADB when the system property is missing. The adb command should stay untranslated.">Your device does not have TCP ADB enabled. Connect to a PC via USB once and run:\n\nadb tcpip 5555\n\nAfter that, this mode works without USB or Wi-Fi.</string>
-    <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">TCP Mode Not Available</string>
+    <string name="tcpip_not_available_body" comment="Dialog body explaining how to enable TCP ADB when the system property is missing. The adb command should stay untranslated.">Thiết bị của bạn chưa bật TCP ADB. Hãy kết nối với máy tính qua cáp USB một lần và chạy lệnh sau:\n\nadb tcpip 5555\n\nSau đó, chế độ này sẽ hoạt động mà không cần kết nối USB hay Wi-Fi.</string>
+    <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">Chế độ TCP không khả dụng</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">Terminal</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Kiểu phông chữ Terminal</string>
     <string name="tertiary">Màu bổ sung</string>
@@ -886,8 +886,8 @@
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">Tải lên tệp</string>
     <string name="uploading" comment="Progress status text shown while uploading file to device">Đang tải lên…</string>
     <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Đang tải bản sao lưu lên Google Drive…</string>
-    <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB requires USB debugging to be enabled in Developer Options</string>
-    <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">USB Debugging Required</string>
+    <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB yêu cầu bật Gỡ lỗi USB trong Tùy chọn nhà phát triển</string>
+    <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">Yêu cầu Gỡ lỗi USB</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">Trình quản lý USB không khả dụng trên thiết bị này</string>
     <string name="use">Sử dụng</string>
     <string name="utilities" comment="Category title in homescreen">Tiện ích</string>
