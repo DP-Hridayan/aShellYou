@@ -1,6 +1,8 @@
 package `in`.hridayan.ashell.core.common.domain.model.ai
 
 import kotlinx.serialization.json.JsonObject
+import kotlin.coroutines.AbstractCoroutineContextElement
+import kotlin.coroutines.CoroutineContext
 
 /**
  * Defines a tool that the AI can call.
@@ -37,8 +39,8 @@ data class ToolSchemaProperty(
  * A coroutine context element for passing the current chat session ID to tools.
  */
 data class SessionIdContext(val sessionId: String) :
-    kotlin.coroutines.AbstractCoroutineContextElement(
+    AbstractCoroutineContextElement(
         SessionIdContext
     ) {
-    companion object Key : kotlin.coroutines.CoroutineContext.Key<SessionIdContext>
+    companion object Key : CoroutineContext.Key<SessionIdContext>
 }

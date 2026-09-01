@@ -1,33 +1,30 @@
 package `in`.hridayan.ashell.qstiles.di
 
-import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dagger.multibindings.IntoSet
-import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
+import `in`.hridayan.ashell.core.common.domain.model.ai.AiSkill
+import `in`.hridayan.ashell.core.common.domain.model.ai.AiSkillBundle
 import `in`.hridayan.ashell.qstiles.tool.CreateQsTileTool
 import `in`.hridayan.ashell.qstiles.tool.GetQsTileSlotsTool
 import `in`.hridayan.ashell.qstiles.tool.UpdateQsTileTool
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class QsTileToolModule {
-    @Binds
-    @IntoSet
-    abstract fun bindCreateQsTileTool(
-        tool: CreateQsTileTool
-    ): AiTool
+object QsTileToolModule {
 
-    @Binds
+    @Provides
     @IntoSet
-    abstract fun bindGetQsTileSlotsTool(
-        tool: GetQsTileSlotsTool
-    ): AiTool
-
-    @Binds
-    @IntoSet
-    abstract fun bindUpdateQsTileTool(
-        tool: UpdateQsTileTool
-    ): AiTool
+    fun provideQsTileSkillBundle(
+        createTool: CreateQsTileTool,
+        getSlotsTool: GetQsTileSlotsTool,
+        updateTool: UpdateQsTileTool
+    ): AiSkillBundle = object : AiSkillBundle {
+        override val skill = AiSkill.QUICK_SETTINGS
+        override val tools = listOf(createTool, getSlotsTool, updateTool)
+    }
 }
+
+

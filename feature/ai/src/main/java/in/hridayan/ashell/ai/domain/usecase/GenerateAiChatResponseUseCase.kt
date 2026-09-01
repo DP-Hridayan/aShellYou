@@ -1,6 +1,8 @@
 package `in`.hridayan.ashell.ai.domain.usecase
 
+import android.content.Context
 import android.util.Log
+import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.ai.data.local.database.entity.ChatMessageEntity
 import `in`.hridayan.ashell.ai.domain.repository.ChatRepository
 import `in`.hridayan.ashell.ai.domain.tool.ToolRegistry
@@ -27,6 +29,7 @@ import java.util.UUID
 import javax.inject.Inject
 
 class GenerateAiChatResponseUseCase @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val chatRepository: ChatRepository,
     private val toolRegistry: ToolRegistry,
     private val clients: Map<LlmProvider, @JvmSuppressWildcards LlmProviderClient>,
@@ -81,9 +84,19 @@ class GenerateAiChatResponseUseCase @Inject constructor(
         val pairedDevicesStr =
             if (pairedWifiDevices.isNotEmpty()) pairedWifiDevices.joinToString(", ") else "None"
 
+        val enabledSkills = toolRegistry.getEnabledSkills()
+        val skillsContextText = if (enabledSkills.isNotEmpty()) {
+            "ACTIVE SKILLS CONTEXT:\n" + enabledSkills.keys.joinToString("\n") { skill ->
+                "- ${context.getString(skill.displayNameRes)}: ${context.getString(skill.descriptionRes)} (Allows tools: ${enabledSkills[skill]?.joinToString { tool -> tool.name }})"
+            } + "\n\n"
+        } else {
+            "ACTIVE SKILLS CONTEXT: None. You have no tool skills enabled.\n\n"
+        }
+
         val localeName = Locale.getDefault().displayName
         val systemPrompt =
             "You are a helpful AI shell assistant. You can execute commands on the user's Android device and answer questions. You MUST use your tools when appropriate to execute commands.\n\n" +
+                    skillsContextText +
                     "CONNECTION CAPABILITIES:\n" +
                     "You can execute commands on different targets by specifying the `target_mode` parameter in your `execute_command` tool (options: LOCAL, WIRELESS, OTG). Defaults to LOCAL if omitted.\n" +
                     "- LOCAL: Currently in $localContext mode.\n" +
@@ -132,7 +145,7 @@ class GenerateAiChatResponseUseCase @Inject constructor(
                             systemPrompt = systemPrompt,
                             history = history,
                             apiKey = apiKey,
-                            tools = toolRegistry.getAllTools()
+                            tools = toolRegistry.getEnabledTools()
                         ) { chunk ->
                             val current = chatRepository.streamingContents.value[sessionId] ?: ""
                             chatRepository.setStreamingContent(sessionId, current + chunk)
@@ -198,16 +211,25 @@ class GenerateAiChatResponseUseCase @Inject constructor(
                 // Execute tool
                 val tool = toolRegistry.getToolByName(toolCall.name)
                 val resultText: String = if (tool != null) {
-                    try {
-                        withContext(
-                            `in`.hridayan.ashell.core.common.domain.model.ai.SessionIdContext(
-                                sessionId
-                            )
-                        ) {
-                            tool.execute(toolCall.args)
+                    val skill = toolRegistry.getSkillForToolName(toolCall.name)
+                    val isSkillEnabled =
+                        skill == null || (settingsRepository.getBoolean(skill.settingsKey)
+                            .firstOrNull() ?: skill.settingsKey.default)
+
+                    if (!isSkillEnabled) {
+                        "Execution Blocked: The user has disabled the \"${context.getString(skill!!.displayNameRes)}\" skill. Please inform the user."
+                    } else {
+                        try {
+                            withContext(
+                                `in`.hridayan.ashell.core.common.domain.model.ai.SessionIdContext(
+                                    sessionId
+                                )
+                            ) {
+                                tool.execute(toolCall.args)
+                            }
+                        } catch (e: Exception) {
+                            e.message ?: "Unknown error"
                         }
-                    } catch (e: Exception) {
-                        e.message ?: "Unknown error"
                     }
                 } else {
                     "Tool not found"
@@ -286,3 +308,6 @@ class GenerateAiChatResponseUseCase @Inject constructor(
         }
     }
 }
+
+
+

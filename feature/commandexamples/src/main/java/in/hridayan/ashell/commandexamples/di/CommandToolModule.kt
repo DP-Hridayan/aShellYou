@@ -1,7 +1,7 @@
 package `in`.hridayan.ashell.commandexamples.di
 
-import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dagger.multibindings.IntoSet
@@ -9,32 +9,24 @@ import `in`.hridayan.ashell.commandexamples.tool.DeleteCommandExampleTool
 import `in`.hridayan.ashell.commandexamples.tool.SaveCommandExampleTool
 import `in`.hridayan.ashell.commandexamples.tool.SearchCommandExamplesTool
 import `in`.hridayan.ashell.commandexamples.tool.UpdateCommandExampleTool
-import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
+import `in`.hridayan.ashell.core.common.domain.model.ai.AiSkill
+import `in`.hridayan.ashell.core.common.domain.model.ai.AiSkillBundle
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class CommandToolModule {
-    @Binds
-    @IntoSet
-    abstract fun bindSaveCommandExampleTool(
-        tool: SaveCommandExampleTool
-    ): AiTool
+object CommandToolModule {
 
-    @Binds
+    @Provides
     @IntoSet
-    abstract fun bindSearchCommandExamplesTool(
-        tool: SearchCommandExamplesTool
-    ): AiTool
-
-    @Binds
-    @IntoSet
-    abstract fun bindDeleteCommandExampleTool(
-        tool: DeleteCommandExampleTool
-    ): AiTool
-
-    @Binds
-    @IntoSet
-    abstract fun bindUpdateCommandExampleTool(
-        tool: UpdateCommandExampleTool
-    ): AiTool
+    fun provideCommandExampleSkillBundle(
+        deleteTool: DeleteCommandExampleTool,
+        saveTool: SaveCommandExampleTool,
+        searchTool: SearchCommandExamplesTool,
+        updateTool: UpdateCommandExampleTool
+    ): AiSkillBundle = object : AiSkillBundle {
+        override val skill = AiSkill.DATABASE
+        override val tools = listOf(deleteTool, saveTool, searchTool, updateTool)
+    }
 }
+
+

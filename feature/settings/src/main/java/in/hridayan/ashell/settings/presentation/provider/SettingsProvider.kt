@@ -470,6 +470,33 @@ object SettingsProvider {
                 icon = R.drawable.ic_delete_sweep
             )
         ),
+        category(
+            titleResId = R.string.agent_skills,
+            switchItem(
+                key = SettingsKeys.AiSkillCommandExecution,
+                titleResId = R.string.command_execution,
+                descriptionResId = R.string.des_command_execution,
+                icon = R.drawable.ic_terminal
+            ),
+            switchItem(
+                key = SettingsKeys.AiSkillQuickSettings,
+                titleResId = R.string.quick_settings_tiles,
+                descriptionResId = R.string.des_quick_settings_tiles,
+                icon = R.drawable.ic_dashboard
+            ),
+            switchItem(
+                key = SettingsKeys.AiSkillPackages,
+                titleResId = R.string.packages,
+                descriptionResId = R.string.des_packages,
+                icon = R.drawable.ic_package
+            ),
+            switchItem(
+                key = SettingsKeys.AiSkillDatabase,
+                titleResId = R.string.database_modification,
+                descriptionResId = R.string.des_database_modification,
+                icon = R.drawable.ic_database
+            )
+        )
     )
 
     /** All searchable pages — single source of truth for the search engine. */
@@ -533,5 +560,7 @@ fun getAllSettingsIcons(): List<Int> = listOf(
     R.drawable.ic_restore_page,
     R.drawable.ic_reset_settings,
     R.drawable.ic_styles,
-    R.drawable.ic_format_size
+    R.drawable.ic_format_size,
+    R.drawable.ic_adb
 )
+

@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Cached
+import androidx.compose.material.icons.rounded.Memory
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
@@ -53,15 +54,15 @@ enum class AiDialogKey : DialogKey {
 }
 
 private val aiModelsPage = settingsPage(
-    screenTitle = R.string.ai_models,
-    screenId = "ai_models",
+    screenTitle = R.string.ai_models, // can reuse string or change to AI Settings later
+    screenId = "ai_settings",
     category(
         titleResId = R.string.models,
         clickableItem(
-            key = SettingsKeys.AiCloudProvider,
-            titleResId = R.string.cloud_models,
-            descriptionResId = R.string.des_cloud_models,
-            icon = R.drawable.ic_cloud_model
+            key = SettingsKeys.CloudModels,
+            titleResId = R.string.models,
+            descriptionResId = R.string.des_models,
+            iconVector = Icons.Rounded.Memory
         ),
     ),
     category(
@@ -85,6 +86,33 @@ private val aiModelsPage = settingsPage(
             icon = R.drawable.ic_delete_sweep
         )
     ),
+    category(
+        titleResId = R.string.agent_skills,
+        switchItem(
+            key = SettingsKeys.AiSkillCommandExecution,
+            titleResId = R.string.command_execution,
+            descriptionResId = R.string.des_command_execution,
+            icon = R.drawable.ic_terminal
+        ),
+        switchItem(
+            key = SettingsKeys.AiSkillQuickSettings,
+            titleResId = R.string.quick_settings_tiles,
+            descriptionResId = R.string.des_quick_settings_tiles,
+            icon = R.drawable.ic_dashboard
+        ),
+        switchItem(
+            key = SettingsKeys.AiSkillPackages,
+            titleResId = R.string.packages,
+            descriptionResId = R.string.des_packages,
+            icon = R.drawable.ic_package
+        ),
+        switchItem(
+            key = SettingsKeys.AiSkillDatabase,
+            titleResId = R.string.database_modification,
+            descriptionResId = R.string.des_database_modification,
+            icon = R.drawable.ic_database
+        )
+    )
 )
 
 @Composable
