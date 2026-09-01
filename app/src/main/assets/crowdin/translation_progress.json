@@ -32,7 +32,7 @@
     "androidCode": "fa-rIR",
     "editorCode": "fa",
     "locale": "fa-IR",
-    "translationProgress": 100,
+    "translationProgress": 97,
     "approvalProgress": 0
   },
   {
@@ -41,7 +41,7 @@
     "androidCode": "fr-rFR",
     "editorCode": "fr",
     "locale": "fr-FR",
-    "translationProgress": 100,
+    "translationProgress": 99,
     "approvalProgress": 0
   },
   {
@@ -50,7 +50,7 @@
     "androidCode": "hi-rIN",
     "editorCode": "hi",
     "locale": "hi-IN",
-    "translationProgress": 100,
+    "translationProgress": 97,
     "approvalProgress": 0
   },
   {
@@ -68,7 +68,7 @@
     "androidCode": "ja-rJP",
     "editorCode": "ja",
     "locale": "ja-JP",
-    "translationProgress": 100,
+    "translationProgress": 99,
     "approvalProgress": 0
   },
   {
@@ -95,8 +95,8 @@
     "androidCode": "ru-rRU",
     "editorCode": "ru",
     "locale": "ru-RU",
-    "translationProgress": 100,
-    "approvalProgress": 100
+    "translationProgress": 99,
+    "approvalProgress": 98
   },
   {
     "languageId": "tr",
@@ -104,8 +104,8 @@
     "androidCode": "tr-rTR",
     "editorCode": "tr",
     "locale": "tr-TR",
-    "translationProgress": 100,
-    "approvalProgress": 58
+    "translationProgress": 97,
+    "approvalProgress": 56
   },
   {
     "languageId": "uk",
@@ -113,8 +113,8 @@
     "androidCode": "uk-rUA",
     "editorCode": "uk",
     "locale": "uk-UA",
-    "translationProgress": 100,
-    "approvalProgress": 100
+    "translationProgress": 99,
+    "approvalProgress": 98
   },
   {
     "languageId": "vi",
@@ -122,8 +122,8 @@
     "androidCode": "vi-rVN",
     "editorCode": "vi",
     "locale": "vi-VN",
-    "translationProgress": 100,
-    "approvalProgress": 99
+    "translationProgress": 98,
+    "approvalProgress": 97
   },
   {
     "languageId": "zh-CN",

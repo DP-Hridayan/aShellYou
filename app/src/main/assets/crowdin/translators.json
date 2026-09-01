@@ -62,8 +62,8 @@
     "id": "15085871",
     "username": "AY_Translator",
     "name": "Aleksandr (AY_Translator)",
-    "translated": 8443,
-    "approved": 10682,
+    "translated": 8525,
+    "approved": 10764,
     "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/15085871/medium/3a254014b133e0fc2d376c776aba8dbd.jpg",
     "languages": [
       {
@@ -96,8 +96,8 @@
     "id": "17812685",
     "username": "luciakun",
     "name": "Hoàng Đức Hùng (luciakun)",
-    "translated": 5156,
-    "approved": 5158,
+    "translated": 5301,
+    "approved": 5303,
     "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/17812685/medium/873770cc48fabe807a57b4bc6f933ff4.jpeg",
     "languages": [
       {
@@ -579,6 +579,21 @@
       }
     ],
     "avatar": "crowdin/contributors_pfp/contributor_17303784.webp"
+  },
+  {
+    "id": "17857121",
+    "username": "cuduc763",
+    "name": "Duc Cu (cuduc763)",
+    "translated": 2,
+    "approved": 0,
+    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/17857121/medium/da29b77f3f97bfeea85d0f5b72d810fb.png",
+    "languages": [
+      {
+        "id": "vi",
+        "name": "Vietnamese"
+      }
+    ],
+    "avatar": "crowdin/contributors_pfp/contributor_17857121.webp"
   },
   {
     "id": "16914423",

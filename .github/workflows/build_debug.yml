@@ -3,6 +3,9 @@ name: Build Debug APK
 on:
   workflow_dispatch:
   pull_request:
+  workflow_run:
+    workflows: ["Crowdin Download"]
+    types: [completed]
 
 jobs:
   build:
