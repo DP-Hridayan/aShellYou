@@ -125,18 +125,17 @@ jobs:
         run: |
           TAG=$GITHUB_REF_NAME
           URL="https://github.com/$GITHUB_REPOSITORY/releases/tag/${TAG}"
+          COFFEE_URL="https://buymeacoffee.com/hridayan"
 
           # Escape underscores for MarkdownV2
           ESC_TAG=$(echo "$TAG" | sed -e 's/\./\\./g' -e 's/_/\\_/g' -e 's/\*/\\*/g' -e 's/\-/\\-/g')
 
           TEXT=$(cat <<EOF
-          🚀 *New Release Published*
-          • *${ESC_TAG}*
-          🔗 [View Release](${URL})
+          🚀 *aShellYou${ESC_TAG} is released*
           EOF
           )
 
-          REPLY='{"inline_keyboard":[[{"text":"View Release","url":"'"$URL"'"}]]}'
+          REPLY='{"inline_keyboard":[[{"text":"View Release","url":"'"$URL"'"},{"text":"Buy Me a Coffee☕","url":"'"$COFFEE_URL"'"}]]}'
 
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
             -d chat_id="$CHAT_ID" \
