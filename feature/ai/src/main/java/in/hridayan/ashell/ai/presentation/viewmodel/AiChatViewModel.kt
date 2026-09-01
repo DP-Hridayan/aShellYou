@@ -17,6 +17,7 @@ import `in`.hridayan.ashell.ai.presentation.model.Thought
 import `in`.hridayan.ashell.core.common.domain.model.ai.LlmMessage
 import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
 import `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -25,6 +26,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
@@ -145,16 +148,25 @@ class AiChatViewModel @Inject constructor(
     val uiItems: StateFlow<List<ChatUiItem>> =
         combine(
             _currentSessionId.flatMapLatest { sessionId ->
-                if (sessionId != null) {
-                    chatRepository.getMessagesForSession(sessionId)
-                } else {
+                if (sessionId == null) {
                     flowOf(emptyList())
+                } else {
+                    chatRepository.getMessagesForSession(sessionId).map { messages ->
+                        messages.map { msg ->
+                            val llmMessage = try {
+                                json.decodeFromString<LlmMessage>(msg.rawContent)
+                            } catch (e: Exception) {
+                                null
+                            }
+                            msg to llmMessage
+                        }
+                    }.flowOn(Dispatchers.Default)
                 }
             },
             combine(_currentSessionId, chatRepository.streamingContents) { id, map ->
                 if (id != null) map[id] else null
             }
-        ) { messages, streamingText ->
+        ) { messagesWithParsed, streamingText ->
             val items = mutableListOf<ChatUiItem>()
             val turnThoughts = mutableListOf<Thought>()
             val turnModelMessages = mutableListOf<ChatUiItem.ModelMessage>()
@@ -163,13 +175,7 @@ class AiChatViewModel @Inject constructor(
             val isCurrentlyGenerating =
                 uiState.value.generatingSessionIds.contains(_currentSessionId.value)
 
-            messages.forEach { msg ->
-                val llmMessage = try {
-                    json.decodeFromString<LlmMessage>(msg.rawContent)
-                } catch (e: Exception) {
-                    null
-                }
-
+            messagesWithParsed.forEachIndexed { msgIndex, (msg, llmMessage) ->
                 val isUserPrompt =
                     msg.role == "user" && (llmMessage == null || llmMessage.toolResponse == null)
 
@@ -189,19 +195,14 @@ class AiChatViewModel @Inject constructor(
 
                     currentTurnId = msg.id
 
-                    val msgIndex = messages.indexOf(msg)
-                    val nextMsg = messages.getOrNull(msgIndex + 1)
-                    val isLast = msgIndex == messages.lastIndex
+                    val nextMsgPair = messagesWithParsed.getOrNull(msgIndex + 1)
+                    val isLast = msgIndex == messagesWithParsed.lastIndex
 
                     val isOrphaned = if (isLast) {
                         !isCurrentlyGenerating && streamingText.isNullOrEmpty()
                     } else {
-                        // Next message is user if it has role "user" and NO tool response!
-                        val nextLlmMsg = try {
-                            nextMsg?.let { json.decodeFromString<LlmMessage>(it.rawContent) }
-                        } catch (e: Exception) {
-                            null
-                        }
+                        val nextMsg = nextMsgPair?.first
+                        val nextLlmMsg = nextMsgPair?.second
                         nextMsg?.role == "user" && (nextLlmMsg == null || nextLlmMsg.toolResponse == null)
                     }
 
@@ -281,15 +282,15 @@ class AiChatViewModel @Inject constructor(
 
             if (streamingText != null) {
                 var alreadyInDb = false
-                val lastMsg = messages.lastOrNull()
-                if (lastMsg != null && lastMsg.role == "model") {
-                    try {
-                        val llmMsg = json.decodeFromString<LlmMessage>(lastMsg.rawContent)
+                val lastMsgPair = messagesWithParsed.lastOrNull()
+                if (lastMsgPair != null && lastMsgPair.first.role == "model") {
+                    val llmMsg = lastMsgPair.second
+                    if (llmMsg != null) {
                         if (llmMsg.content == streamingText) {
                             alreadyInDb = true
                         }
-                    } catch (e: Exception) {
-                        if (lastMsg.rawContent == streamingText) {
+                    } else {
+                        if (lastMsgPair.first.rawContent == streamingText) {
                             alreadyInDb = true
                         }
                     }
@@ -305,7 +306,7 @@ class AiChatViewModel @Inject constructor(
             }
 
             items
-        }
+        }.flowOn(kotlinx.coroutines.Dispatchers.Default)
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5000),

@@ -214,7 +214,7 @@ fun AiChatScreen(
                                 viewModel.sendMessage(promptInputText.text)
                                 promptInputText = TextFieldValue("")
                                 scope.launch {
-                                    listState.animateScrollToItem(0)
+                                    listState.scrollToItem(0)
                                 }
                             }
                         },
