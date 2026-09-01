@@ -67,6 +67,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Download Signed APK
         uses: actions/download-artifact@v8
@@ -127,11 +129,52 @@ jobs:
           URL="https://github.com/$GITHUB_REPOSITORY/releases/tag/${TAG}"
           COFFEE_URL="https://buymeacoffee.com/hridayan"
 
-          # Escape underscores for MarkdownV2
-          ESC_TAG=$(echo "$TAG" | sed -e 's/\./\\./g' -e 's/_/\\_/g' -e 's/\*/\\*/g' -e 's/\-/\\-/g')
+          # Find the previous *stable* tag (vX.Y.Z only — skips alpha/beta/rc builds)
+          STABLE_TAGS=$(git tag --list --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$')
+          PREV_TAG=$(echo "$STABLE_TAGS" | awk -v cur="$TAG" '$0==cur{found=1; next} found{print; exit}')
+          if [ -n "$PREV_TAG" ]; then
+            COMPARE_URL="https://github.com/$GITHUB_REPOSITORY/compare/${PREV_TAG}...${TAG}"
+          else
+            COMPARE_URL="https://github.com/$GITHUB_REPOSITORY/commits/${TAG}"
+          fi
+
+          # Escape MarkdownV2 reserved characters: _ * [ ] ( ) ~ ` > # + - = | { } . !
+          escape_md() {
+            echo "$1" | sed -e 's/\\/\\\\/g' \
+                             -e 's/_/\\_/g' \
+                             -e 's/\*/\\*/g' \
+                             -e 's/\[/\\[/g' \
+                             -e 's/\]/\\]/g' \
+                             -e 's/(/\\(/g' \
+                             -e 's/)/\\)/g' \
+                             -e 's/~/\\~/g' \
+                             -e 's/`/\\`/g' \
+                             -e 's/>/\\>/g' \
+                             -e 's/#/\\#/g' \
+                             -e 's/+/\\+/g' \
+                             -e 's/-/\\-/g' \
+                             -e 's/=/\\=/g' \
+                             -e 's/|/\\|/g' \
+                             -e 's/{/\\{/g' \
+                             -e 's/}/\\}/g' \
+                             -e 's/\./\\./g' \
+                             -e 's/!/\\!/g'
+          }
+
+          ESC_TAG=$(escape_md "$TAG")
+
+          # Reuse the changelog already extracted earlier in the job,
+          # skipping the "### Changelog" heading and its blank line
+          CHANGELOG_BODY=$(tail -n +3 changelog.txt)
+          ESC_CHANGELOG=$(escape_md "$CHANGELOG_BODY")
+          QUOTED_CHANGELOG=$(echo "$ESC_CHANGELOG" | sed 's/^/>/')
 
           TEXT=$(cat <<EOF
           🚀 *aShellYou${ESC_TAG} is released*
+
+          ${QUOTED_CHANGELOG}
+          >
+          >See full changelogs [here](${COMPARE_URL})
           EOF
           )
 
