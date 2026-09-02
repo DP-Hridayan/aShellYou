@@ -58,6 +58,15 @@
     <string name="api_key" comment="Label for AI provider API key text input field">Khóa API</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">Đã lưu khóa API</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">Yêu cầu khóa API</string>
+    <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Kỹ năng của trợ lý AI</string>
+    <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">Thực thi lệnh</string>
+    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Cho phép trợ lý AI thực thi các lệnh ADB shell</string>
+    <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">Ô cài đặt nhanh</string>
+    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Cho phép trợ lý AI tạo, sửa đổi và xóa các ô Cài đặt nhanh</string>
+    <string name="packages" comment="Title for the packages skill toggle in AI settings">Gói ứng dụng</string>
+    <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Cho phép trợ lý AI truy vấn các gói ứng dụng đã cài đặt và dữ liệu ứng dụng</string>
+    <string name="database_modification" comment="Title for the database skill toggle in AI settings">Sửa đổi cơ sở dữ liệu</string>
+    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Cho phép trợ lý AI thêm, sửa đổi hoặc xóa các mục trong cơ sở dữ liệu</string>
     <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">Cần có khóa API để sử dụng các tính năng AI. Vui lòng thêm khóa API của bạn trong Cài đặt -&gt; Các mô hình đám mây.</string>
     <string name="app">Ứng dụng</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">Ứng dụng đã bị sập</string>

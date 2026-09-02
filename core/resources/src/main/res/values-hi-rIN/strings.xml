@@ -57,6 +57,15 @@
     <string name="api_key" comment="Label for AI provider API key text input field">API कुंजी</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">API कुंजी सहेज ली गई है</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">API कुंजी आवश्यक है</string>
+    <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Agent skills</string>
+    <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">Command Execution</string>
+    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Allow the AI agent to execute ADB shell commands</string>
+    <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">Quick Settings Tiles</string>
+    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Allow the AI agent to create, modify, and delete Quick Settings tiles</string>
+    <string name="packages" comment="Title for the packages skill toggle in AI settings">Packages</string>
+    <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Allow the AI agent to query installed packages and application data</string>
+    <string name="database_modification" comment="Title for the database skill toggle in AI settings">Database Modification</string>
+    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Allow the AI agent to add, modify, or delete database items</string>
     <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">AI सुविधाओं का उपयोग करने के लिए एक API कुंजी आवश्यक है। कृपया सेटिंग्स -&gt; क्लाउड मॉडल में अपनी API कुंजी जोड़ें।</string>
     <string name="app">एप्लिकेशन</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">ऐप क्रैश हो गया है</string>
