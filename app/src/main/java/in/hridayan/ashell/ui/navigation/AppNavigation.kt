@@ -55,6 +55,7 @@ import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.Gener
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.LookAndFeelScreen
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.UiScaleScreen
 import `in`.hridayan.ashell.settings.presentation.page.mainscreen.screen.SettingsScreen
+import `in`.hridayan.ashell.settings.presentation.page.privacypolicy.screens.PrivacyPolicyScreen
 import `in`.hridayan.ashell.settings.presentation.page.search.screens.SettingsSearchScreen
 import `in`.hridayan.ashell.shell.fastboot.presentation.screens.FastbootScreen
 import `in`.hridayan.ashell.shell.file_browser.presentation.screens.FileBrowserScreen
@@ -175,6 +176,10 @@ fun AppNavigation(
 
             composable<NavRoutes.LicensesScreen> {
                 LicensesScreen()
+            }
+
+            composable<NavRoutes.PrivacyPolicyScreen> {
+                PrivacyPolicyScreen()
             }
 
             animatedComposable<NavRoutes.CrashHistoryScreen> {

@@ -173,6 +173,10 @@ class SettingsViewModel @Inject constructor(
                     SettingsUiEvent.Navigate(NavRoutes.LicensesScreen)
                 )
 
+                SettingsKeys.PrivacyPolicy -> _uiEvent.emit(
+                    SettingsUiEvent.Navigate(NavRoutes.PrivacyPolicyScreen)
+                )
+
                 SettingsKeys.Github -> _uiEvent.emit(
                     SettingsUiEvent.OpenUrl(UrlConst.URL_GITHUB_REPO)
                 )

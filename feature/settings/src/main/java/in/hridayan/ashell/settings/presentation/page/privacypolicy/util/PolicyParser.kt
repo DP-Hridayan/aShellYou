@@ -1,0 +1,87 @@
+package `in`.hridayan.ashell.settings.presentation.page.privacypolicy.util
+
+import `in`.hridayan.ashell.settings.presentation.page.privacypolicy.model.PolicyBlock
+
+/**
+ * Parses the privacy policy Markdown into a list of [PolicyBlock] items.
+ * Handles: headings (H1-H4), paragraphs, bullet lists, tables, block-quotes,
+ * horizontal rules, blank lines, and strips raw HTML tags (e.g. <br>).
+ */
+fun parsePolicy(text: String): List<PolicyBlock> {
+    // Strip HTML tags (e.g. <br>, </br>, <br/>) that are invisible in MD renderers
+    val cleaned = text.replace(Regex("<[^>]+>"), "")
+
+    val lines = cleaned.lines()
+    val blocks = mutableListOf<PolicyBlock>()
+    var i = 0
+
+    while (i < lines.size) {
+        val raw = lines[i]
+        val trimmed = raw.trim()
+
+        when {
+            // Blank line – collapse consecutive blanks to one
+            trimmed.isEmpty() -> {
+                if (blocks.lastOrNull() !is PolicyBlock.BlankLine) {
+                    blocks.add(PolicyBlock.BlankLine)
+                }
+                i++
+            }
+
+            // Horizontal rule
+            trimmed == "---" || trimmed == "***" || trimmed == "___" -> {
+                blocks.add(PolicyBlock.HorizontalRule)
+                i++
+            }
+
+            // Headings
+            trimmed.startsWith("#") -> {
+                val level = trimmed.takeWhile { it == '#' }.length.coerceAtMost(4)
+                blocks.add(PolicyBlock.Heading(level, trimmed.drop(level).trim()))
+                i++
+            }
+
+            // Bullet / unordered list (- or *)
+            trimmed.startsWith("- ") || trimmed.startsWith("* ") -> {
+                val depth = (raw.length - raw.trimStart().length) / 2
+                blocks.add(PolicyBlock.BulletItem(trimmed.drop(2).trim(), depth))
+                i++
+            }
+
+            // Table (pipe-delimited)
+            trimmed.startsWith("|") -> {
+                val tableLines = mutableListOf<String>()
+                while (i < lines.size && lines[i].trim().startsWith("|")) {
+                    tableLines.add(lines[i].trim())
+                    i++
+                }
+                val isSeparator = { cells: List<String> ->
+                    cells.all { it.all { c -> c == '-' || c == ':' || c == ' ' || c == '|' } }
+                }
+                val parsed = tableLines
+                    .map { line ->
+                        line.split("|").map { it.trim() }.filter { it.isNotEmpty() }
+                    }
+                    .filter { it.isNotEmpty() && !isSeparator(it) }
+
+                if (parsed.isNotEmpty()) {
+                    blocks.add(PolicyBlock.TableData(parsed.first(), parsed.drop(1)))
+                }
+            }
+
+            // Block-quote
+            trimmed.startsWith("> ") -> {
+                blocks.add(PolicyBlock.BlockQuote(trimmed.drop(2).trim()))
+                i++
+            }
+
+            // Regular paragraph
+            else -> {
+                blocks.add(PolicyBlock.Paragraph(trimmed))
+                i++
+            }
+        }
+    }
+
+    return blocks
+}

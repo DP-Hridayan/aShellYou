@@ -37,6 +37,9 @@ NavRoutes {
     object LicensesScreen : NavRoutes()
 
     @Serializable
+    object PrivacyPolicyScreen : NavRoutes()
+
+    @Serializable
     object LanguagesScreen : NavRoutes()
 
     @Serializable

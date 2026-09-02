@@ -44,6 +44,7 @@ sealed class SettingsKeys<out T>(
     data object FeatureRequest : SettingsKeys<Nothing?>("FEATURE_REQUEST", null)
     data object Github : SettingsKeys<Nothing?>("GITHUB", null)
     data object Licenses : SettingsKeys<Nothing?>("LICENSES", null)
+    data object PrivacyPolicy : SettingsKeys<Nothing?>("PRIVACY_POLICY", null)
     data object Commands : SettingsKeys<Nothing?>("COMMANDS", null)
     data object Telegram : SettingsKeys<Nothing?>("TELEGRAM", null)
     data object BackupAndRestore : SettingsKeys<Nothing?>("BACKUP_AND_RESTORE", null)

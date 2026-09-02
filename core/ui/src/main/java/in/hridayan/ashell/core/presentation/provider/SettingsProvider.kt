@@ -327,6 +327,12 @@ object SettingsProvider {
                 descriptionResId = R.string.des_libraries_and_licenses,
                 icon = R.drawable.ic_license
             ),
+            clickableItem(
+                key = SettingsKeys.PrivacyPolicy,
+                titleResId = R.string.privacy_policy,
+                descriptionResId = R.string.des_privacy_policy,
+                icon = R.drawable.ic_privacy_tip
+            ),
         ),
     )
 
