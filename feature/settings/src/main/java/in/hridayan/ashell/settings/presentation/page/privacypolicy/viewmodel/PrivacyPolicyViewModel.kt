@@ -29,7 +29,15 @@ class PrivacyPolicyViewModel @Inject constructor(
                     .openRawResource(R.raw.privacy_policy)
                     .bufferedReader()
                     .use { it.readText() }
-                parsePolicy(text)
+
+                val parsedBlocks = parsePolicy(text).toMutableList()
+                // Remove the main document title since the top app bar already shows it
+                if (parsedBlocks.firstOrNull()
+                        ?.let { it is PolicyBlock.Heading && it.level == 1 } == true
+                ) {
+                    parsedBlocks.removeAt(0)
+                }
+                parsedBlocks
             }
         }
     }
