@@ -307,6 +307,8 @@
     <string name="des_hridayan" comment="Developer bio subtitle in About section">アプリとデザインが大好きな男</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">クイック設定パネルに表示されるときのタイルの固定された視覚状態</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">アプリで使用されているライブラリとライセンスの詳細を表示</string>
+    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">プライバシーポリシー</string>
+    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">aShell あなたがあなたのデータを処理する方法</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">アプリとライブラリで使用されているライセンスを表示する</string>
     <string name="des_local_backup" comment="Description card text for local backup option">暗号化されたバックアップをデバイスに保存する</string>
     <string name="des_local_restore" comment="Description card text for local restore option">デバイスからバックアップファイルを選択する</string>

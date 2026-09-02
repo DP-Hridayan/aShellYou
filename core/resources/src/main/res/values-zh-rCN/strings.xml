@@ -307,6 +307,8 @@
     <string name="des_hridayan" comment="Developer bio subtitle in About section">一个热爱应用开发和设计的小伙子</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">磁贴显示在快速设置面板中的固定视觉状态</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">查看应用使用的库和许可证的详细信息</string>
+    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">隐私政策</string>
+    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">你如何处理你的数据</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">查看应用及库所使用的许可证</string>
     <string name="des_local_backup" comment="Description card text for local backup option">将加密备份保存到您的设备</string>
     <string name="des_local_restore" comment="Description card text for local restore option">从您的设备选择备份文件</string>

@@ -307,6 +307,8 @@
     <string name="des_hridayan" comment="Developer bio subtitle in About section">Apenas um cara que adora aplicativos e design</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">O estado visual fixo do bloco quando exibido no painel de Configurações Rápidas</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">Exibir detalhes das bibliotecas e licenças usadas pelo aplicativo</string>
+    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Política de Privacidade</string>
+    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">Como o aShell Você lida com seus dados</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">Exibir as licenças que o aplicativo e as bibliotecas estão usando</string>
     <string name="des_local_backup" comment="Description card text for local backup option">Salvar backup criptografado no seu dispositivo</string>
     <string name="des_local_restore" comment="Description card text for local restore option">Escolha um arquivo de backup do seu dispositivo</string>
