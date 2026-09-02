@@ -149,7 +149,6 @@ dependencies. Understanding which build you are using is important for understan
 ### 2.1 GitHub Build (`github` flavour)
 
 Available from: [GitHub Releases](https://github.com/DP-Hridayan/aShellYou/releases)
-and [IzzyOnDroid](https://apt.izzysoft.de/fdroid/index/apk/in.hridayan.ashell)
 
 This is the full-featured build. It includes all features described in this Privacy Policy,
 including:
@@ -163,6 +162,7 @@ including:
 ### 2.2 F-Droid Build (`fdroid` flavour)
 
 Available from: [F-Droid](https://f-droid.org/en/packages/in.hridayan.ashell)
+and [IzzyOnDroid](https://apt.izzysoft.de/fdroid/index/apk/in.hridayan.ashell)
 
 This build is **100% Free and Open-Source Software (FOSS)**. It contains **no proprietary libraries
 ** and no Google Play Services dependencies. The following features and their associated data

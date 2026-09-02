@@ -304,18 +304,6 @@ object SettingsProvider {
                 icon = R.drawable.ic_changelog
             ),
             clickableItem(
-                key = SettingsKeys.Licenses,
-                titleResId = R.string.libraries_and_licenses,
-                descriptionResId = R.string.des_libraries_and_licenses,
-                icon = R.drawable.ic_license
-            ),
-            clickableItem(
-                key = SettingsKeys.CrashHistory,
-                titleResId = R.string.crash_history,
-                descriptionResId = R.string.des_crash_history,
-                icon = R.drawable.ic_bug
-            ),
-            clickableItem(
                 key = SettingsKeys.Report,
                 titleResId = R.string.report_issue,
                 descriptionResId = R.string.des_report_issue,
@@ -326,6 +314,18 @@ object SettingsProvider {
                 titleResId = R.string.feature_request,
                 descriptionResId = R.string.des_feature_request,
                 icon = R.drawable.ic_add_comment
+            ),
+            clickableItem(
+                key = SettingsKeys.CrashHistory,
+                titleResId = R.string.crash_history,
+                descriptionResId = R.string.des_crash_history,
+                icon = R.drawable.ic_bug
+            ),
+            clickableItem(
+                key = SettingsKeys.Licenses,
+                titleResId = R.string.libraries_and_licenses,
+                descriptionResId = R.string.des_libraries_and_licenses,
+                icon = R.drawable.ic_license
             ),
         ),
     )
