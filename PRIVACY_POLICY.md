@@ -1,7 +1,7 @@
 # Privacy Policy for aShell You
 
-**Effective Date:** September 2, 2026
-**Last Updated:** September 2, 2026
+**Effective Date:** September 2, 2026</br>
+**Last Updated:** September 2, 2026</br>
 **Contact:** [hridayanofficial@gmail.com](mailto:hridayanofficial@gmail.com)
 
 DP Hridayan ("we," "us," or "our") is committed to protecting your privacy. This Privacy Policy
@@ -408,8 +408,8 @@ App after changes are posted constitutes your acceptance of the updated policy.
 
 If you have any questions, concerns, or requests regarding this Privacy Policy, please contact:
 
-**Developer:** DP Hridayan
-**Email:** [hridayanofficial@gmail.com](mailto:hridayanofficial@gmail.com)
+**Developer:** DP Hridayan</br>
+**Email:** [hridayanofficial@gmail.com](mailto:hridayanofficial@gmail.com)</br>
 **Project Repository:
 ** [https://github.com/DP-Hridayan/aShellYou](https://github.com/DP-Hridayan/aShellYou)
 
