@@ -51,7 +51,7 @@ class SettingsViewModel @Inject constructor(
         private set
 
     /**
-     * Raw DataStore preferences — collected once per screen via [rememberController].
+     * Raw DataStore preferences.
      * Replaces the old pre-warming pattern (21 coroutines at startup).
      */
     val preferences: StateFlow<Preferences> = settingsRepository.preferences
