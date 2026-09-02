@@ -244,6 +244,11 @@ This project is licensed under the GNU General Public License v3.0
 >
 >Full license copy [here](LICENSE.md)
 
+## Privacy Policy
+
+>
+>Privacy Policy [here](PRIVACY_POLICY.md)
+
 </br>
 
 ## Contributors
