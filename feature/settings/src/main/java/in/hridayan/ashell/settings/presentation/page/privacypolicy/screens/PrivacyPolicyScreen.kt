@@ -97,6 +97,10 @@ fun PrivacyPolicyScreen(
                             .padding(horizontal = 16.dp),
                     )
                 }
+
+                item {
+                    Spacer(modifier = Modifier.height(25.dp))
+                }
             }
         },
     )

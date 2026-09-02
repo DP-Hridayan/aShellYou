@@ -8,8 +8,8 @@ import `in`.hridayan.ashell.settings.presentation.page.privacypolicy.model.Polic
  * horizontal rules, blank lines, and strips raw HTML tags (e.g. <br>).
  */
 fun parsePolicy(text: String): List<PolicyBlock> {
-    // Replace <br> variants with a special placeholder to preserve actual newlines within blocks
-    val brPlaceholder = "\u2028"
+    // Replace <br> variants with a special non-whitespace placeholder to preserve actual newlines
+    val brPlaceholder = "___BR_PLACEHOLDER___"
     val cleaned = text
         .replace(Regex("<\\/?br\\s*\\/?>", RegexOption.IGNORE_CASE), brPlaceholder)
         .replace(Regex("<[^>]+>"), "")
@@ -87,12 +87,16 @@ fun parsePolicy(text: String): List<PolicyBlock> {
             // Regular text (Paragraph or continuation of previous block)
             else -> {
                 val last = blocks.lastOrNull()
+                // Check if the previous raw line ended with two spaces (Markdown hard line break)
+                val isHardBreak = i > 0 && lines[i - 1].endsWith("  ")
+                val joinChar = if (isHardBreak) "\n" else " "
+
                 if (last is PolicyBlock.Paragraph) {
-                    blocks[blocks.lastIndex] = last.copy(text = last.text + " " + trimmed)
+                    blocks[blocks.lastIndex] = last.copy(text = last.text + joinChar + trimmed)
                 } else if (last is PolicyBlock.BulletItem) {
-                    blocks[blocks.lastIndex] = last.copy(text = last.text + " " + trimmed)
+                    blocks[blocks.lastIndex] = last.copy(text = last.text + joinChar + trimmed)
                 } else if (last is PolicyBlock.BlockQuote) {
-                    blocks[blocks.lastIndex] = last.copy(text = last.text + " " + trimmed)
+                    blocks[blocks.lastIndex] = last.copy(text = last.text + joinChar + trimmed)
                 } else {
                     blocks.add(PolicyBlock.Paragraph(trimmed))
                 }
