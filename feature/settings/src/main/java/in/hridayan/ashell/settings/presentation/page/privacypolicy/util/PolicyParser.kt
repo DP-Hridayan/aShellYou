@@ -8,8 +8,10 @@ import `in`.hridayan.ashell.settings.presentation.page.privacypolicy.model.Polic
  * horizontal rules, blank lines, and strips raw HTML tags (e.g. <br>).
  */
 fun parsePolicy(text: String): List<PolicyBlock> {
-    // Strip HTML tags (e.g. <br>, </br>, <br/>) that are invisible in MD renderers
-    val cleaned = text.replace(Regex("<[^>]+>"), "")
+    // Replace <br> variants with actual double newlines to create BlankLines, then strip other HTML
+    val cleaned = text
+        .replace(Regex("<\\/?br\\s*\\/?>", RegexOption.IGNORE_CASE), "\n\n")
+        .replace(Regex("<[^>]+>"), "")
 
     val lines = cleaned.lines()
     val blocks = mutableListOf<PolicyBlock>()

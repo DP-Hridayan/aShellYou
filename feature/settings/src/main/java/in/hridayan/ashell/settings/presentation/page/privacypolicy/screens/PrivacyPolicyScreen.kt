@@ -4,6 +4,7 @@ package `in`.hridayan.ashell.settings.presentation.page.privacypolicy.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
@@ -17,6 +18,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -71,6 +73,7 @@ fun PrivacyPolicyScreen(
                     .fillMaxWidth()
                     .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
                 contentPadding = innerPadding,
+                verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 itemsIndexed(
                     items = blocks,
@@ -94,12 +97,10 @@ fun PrivacyPolicyScreen(
                             .padding(horizontal = 16.dp),
                     )
                 }
-                item { Spacer(modifier = Modifier.height(24.dp)) }
             }
         },
     )
 }
-
 
 @Composable
 private fun PolicyBlockView(block: PolicyBlock, modifier: Modifier = Modifier) {
@@ -147,7 +148,7 @@ private fun PolicyBlockView(block: PolicyBlock, modifier: Modifier = Modifier) {
                 modifier = modifier
                     .fillMaxWidth()
                     .padding(start = (block.depth * 16).dp),
-                horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(10.dp)
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 val isTopLevel = block.depth == 0
                 Box(
@@ -155,15 +156,11 @@ private fun PolicyBlockView(block: PolicyBlock, modifier: Modifier = Modifier) {
                         .size(10.dp)
                         .alignBy { it.measuredHeight }
                         .then(
-                            if (isTopLevel) Modifier.background(
-                                cs.primary,
-                                androidx.compose.foundation.shape.CircleShape
-                            )
-                            else Modifier.border(
-                                2.dp,
-                                cs.primary,
-                                androidx.compose.foundation.shape.CircleShape
-                            )
+                            if (isTopLevel) {
+                                Modifier.background(cs.primary, CircleShape)
+                            } else {
+                                Modifier.border(2.dp, cs.primary, CircleShape)
+                            }
                         )
                 )
 
@@ -277,7 +274,7 @@ private fun PolicyBlockView(block: PolicyBlock, modifier: Modifier = Modifier) {
         }
 
         PolicyBlock.BlankLine -> {
-            Spacer(modifier = modifier.height(8.dp))
+            Spacer(modifier = modifier.height(0.dp))
         }
     }
 }
