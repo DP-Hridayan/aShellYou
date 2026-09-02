@@ -410,8 +410,7 @@ If you have any questions, concerns, or requests regarding this Privacy Policy, 
 
 **Developer:** DP Hridayan</br>
 **Email:** [hridayanofficial@gmail.com](mailto:hridayanofficial@gmail.com)</br>
-**Project Repository:
-** [https://github.com/DP-Hridayan/aShellYou](https://github.com/DP-Hridayan/aShellYou)
+**Project Repository:** [https://github.com/DP-Hridayan/aShellYou](https://github.com/DP-Hridayan/aShellYou)
 
 ---
 
