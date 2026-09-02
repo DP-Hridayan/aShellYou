@@ -3,6 +3,7 @@
 package `in`.hridayan.ashell.settings.presentation.page.privacypolicy.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -109,16 +111,16 @@ private fun PolicyBlockView(block: PolicyBlock, modifier: Modifier = Modifier) {
         is PolicyBlock.Heading -> {
             val (style, color, topPad) = when (block.level) {
                 1 -> Triple(tp.headlineMedium.copy(fontWeight = FontWeight.Bold), cs.primary, 0.dp)
-                2 -> Triple(tp.titleLarge.copy(fontWeight = FontWeight.Bold), cs.onSurface, 16.dp)
+                2 -> Triple(tp.titleLarge.copy(fontWeight = FontWeight.Bold), cs.primary, 16.dp)
                 3 -> Triple(
                     tp.titleMedium.copy(fontWeight = FontWeight.SemiBold),
-                    cs.onSurface,
+                    cs.tertiary,
                     12.dp
                 )
 
                 else -> Triple(
                     tp.titleSmall.copy(fontWeight = FontWeight.Medium),
-                    cs.onSurfaceVariant,
+                    cs.tertiary,
                     8.dp
                 )
             }
@@ -141,24 +143,36 @@ private fun PolicyBlockView(block: PolicyBlock, modifier: Modifier = Modifier) {
         }
 
         is PolicyBlock.BulletItem -> {
-
             Row(
                 modifier = modifier
                     .fillMaxWidth()
                     .padding(start = (block.depth * 16).dp),
+                horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(10.dp)
             ) {
-                Text(
-                    text = if (block.depth == 0) "\u2022" else "\u25E6",
-                    style = tp.bodyMedium,
-                    color = cs.primary,
+                val isTopLevel = block.depth == 0
+                Box(
                     modifier = Modifier
-                        .width(20.dp)
-                        .padding(top = 1.dp),
+                        .size(10.dp)
+                        .alignBy { it.measuredHeight }
+                        .then(
+                            if (isTopLevel) Modifier.background(
+                                cs.primary,
+                                androidx.compose.foundation.shape.CircleShape
+                            )
+                            else Modifier.border(
+                                2.dp,
+                                cs.primary,
+                                androidx.compose.foundation.shape.CircleShape
+                            )
+                        )
                 )
+
                 InlineText(
                     text = block.text,
                     style = tp.bodyMedium.copy(color = cs.onSurface),
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier
+                        .weight(1f)
+                        .alignBy(androidx.compose.ui.layout.FirstBaseline),
                 )
             }
         }
@@ -169,7 +183,6 @@ private fun PolicyBlockView(block: PolicyBlock, modifier: Modifier = Modifier) {
                 shape = MaterialTheme.shapes.small,
                 colors = CardDefaults.cardColors(containerColor = cs.surfaceContainerLow),
             ) {
-                // Header row
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -276,6 +289,7 @@ private fun InlineText(text: String, style: TextStyle, modifier: Modifier = Modi
     val normalSpan = SpanStyle(color = cs.onSurface)
     val boldSpan = SpanStyle(color = cs.onSurface, fontWeight = FontWeight.Bold)
     val italicSpan = SpanStyle(color = cs.onSurface, fontStyle = FontStyle.Italic)
+
     val codeSpan = SpanStyle(
         color = cs.onSurfaceVariant,
         fontFamily = FontFamily.Monospace,
@@ -313,6 +327,7 @@ private fun buildInline(
                     withStyle(normal) { append(text[i]) }; i++
                 }
             }
+
             // Italic: *text*
             text[i] == '*' -> {
                 val end = text.indexOf('*', i + 1)
@@ -323,6 +338,7 @@ private fun buildInline(
                     withStyle(normal) { append(text[i]) }; i++
                 }
             }
+
             // Inline code: `text`
             text[i] == '`' -> {
                 val end = text.indexOf('`', i + 1)
@@ -333,6 +349,7 @@ private fun buildInline(
                     withStyle(normal) { append(text[i]) }; i++
                 }
             }
+
             // Link: [text](url) -- uses LinkAnnotation.Url, opened automatically by Text
             text[i] == '[' -> {
                 val bEnd = text.indexOf(']', i + 1)

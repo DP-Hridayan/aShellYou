@@ -75,9 +75,18 @@ fun parsePolicy(text: String): List<PolicyBlock> {
                 i++
             }
 
-            // Regular paragraph
+            // Regular text (Paragraph or continuation of previous block)
             else -> {
-                blocks.add(PolicyBlock.Paragraph(trimmed))
+                val last = blocks.lastOrNull()
+                if (last is PolicyBlock.Paragraph) {
+                    blocks[blocks.lastIndex] = last.copy(text = last.text + " " + trimmed)
+                } else if (last is PolicyBlock.BulletItem) {
+                    blocks[blocks.lastIndex] = last.copy(text = last.text + " " + trimmed)
+                } else if (last is PolicyBlock.BlockQuote) {
+                    blocks[blocks.lastIndex] = last.copy(text = last.text + " " + trimmed)
+                } else {
+                    blocks.add(PolicyBlock.Paragraph(trimmed))
+                }
                 i++
             }
         }
