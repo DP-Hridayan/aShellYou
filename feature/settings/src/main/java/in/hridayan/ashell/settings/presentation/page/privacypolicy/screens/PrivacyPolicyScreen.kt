@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -45,7 +44,6 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
-import `in`.hridayan.ashell.core.presentation.components.scrollbar.VerticalScrollbar
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.settings.presentation.page.privacypolicy.model.PolicyBlock
 import `in`.hridayan.ashell.settings.presentation.page.privacypolicy.viewmodel.PrivacyPolicyViewModel
@@ -65,50 +63,41 @@ fun PrivacyPolicyScreen(
         listState = listState,
         topBarTitle = stringResource(R.string.privacy_policy),
         content = { innerPadding, topBarScrollBehavior ->
-            Box(modifier = Modifier.fillMaxSize()) {
-                LazyColumn(
-                    state = listState,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
-                    contentPadding = innerPadding,
-                ) {
-                    itemsIndexed(
-                        items = blocks,
-                        key = { index, _ -> index },
-                        contentType = { _, block ->
-                            when (block) {
-                                is PolicyBlock.Heading -> "heading"
-                                is PolicyBlock.Paragraph -> "paragraph"
-                                is PolicyBlock.BulletItem -> "bullet"
-                                is PolicyBlock.TableData -> "table"
-                                is PolicyBlock.BlockQuote -> "blockquote"
-                                PolicyBlock.HorizontalRule -> "divider"
-                                PolicyBlock.BlankLine -> "blank"
-                            }
-                        },
-                    ) { _, block ->
-                        PolicyBlockView(
-                            block = block,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp),
-                        )
-                    }
-                    item { Spacer(modifier = Modifier.height(24.dp)) }
+            LazyColumn(
+                state = listState,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
+                contentPadding = innerPadding,
+            ) {
+                itemsIndexed(
+                    items = blocks,
+                    key = { index, _ -> index },
+                    contentType = { _, block ->
+                        when (block) {
+                            is PolicyBlock.Heading -> "heading"
+                            is PolicyBlock.Paragraph -> "paragraph"
+                            is PolicyBlock.BulletItem -> "bullet"
+                            is PolicyBlock.TableData -> "table"
+                            is PolicyBlock.BlockQuote -> "blockquote"
+                            PolicyBlock.HorizontalRule -> "divider"
+                            PolicyBlock.BlankLine -> "blank"
+                        }
+                    },
+                ) { _, block ->
+                    PolicyBlockView(
+                        block = block,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
+                    )
                 }
-
-                VerticalScrollbar(
-                    listState = listState,
-                    modifier = Modifier
-                        .align(Alignment.CenterEnd)
-                        .padding(innerPadding)
-                        .padding(end = 4.dp, top = 8.dp, bottom = 8.dp),
-                )
+                item { Spacer(modifier = Modifier.height(24.dp)) }
             }
         },
     )
 }
+
 
 @Composable
 private fun PolicyBlockView(block: PolicyBlock, modifier: Modifier = Modifier) {
