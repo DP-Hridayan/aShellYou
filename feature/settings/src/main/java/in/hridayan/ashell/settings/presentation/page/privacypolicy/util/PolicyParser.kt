@@ -8,9 +8,10 @@ import `in`.hridayan.ashell.settings.presentation.page.privacypolicy.model.Polic
  * horizontal rules, blank lines, and strips raw HTML tags (e.g. <br>).
  */
 fun parsePolicy(text: String): List<PolicyBlock> {
-    // Replace <br> variants with actual double newlines to create BlankLines, then strip other HTML
+    // Replace <br> variants with a special placeholder to preserve actual newlines within blocks
+    val brPlaceholder = "\u2028"
     val cleaned = text
-        .replace(Regex("<\\/?br\\s*\\/?>", RegexOption.IGNORE_CASE), "\n\n")
+        .replace(Regex("<\\/?br\\s*\\/?>", RegexOption.IGNORE_CASE), brPlaceholder)
         .replace(Regex("<[^>]+>"), "")
 
     val lines = cleaned.lines()
@@ -73,7 +74,13 @@ fun parsePolicy(text: String): List<PolicyBlock> {
 
             // Block-quote
             trimmed.startsWith("> ") -> {
-                blocks.add(PolicyBlock.BlockQuote(trimmed.drop(2).trim()))
+                val last = blocks.lastOrNull()
+                if (last is PolicyBlock.BlockQuote) {
+                    blocks[blocks.lastIndex] =
+                        last.copy(text = last.text + " " + trimmed.drop(2).trim())
+                } else {
+                    blocks.add(PolicyBlock.BlockQuote(trimmed.drop(2).trim()))
+                }
                 i++
             }
 
@@ -94,5 +101,39 @@ fun parsePolicy(text: String): List<PolicyBlock> {
         }
     }
 
-    return blocks
+    return blocks.map { block ->
+        when (block) {
+            is PolicyBlock.Heading -> block.copy(
+                text = block.text.replace(
+                    Regex("$brPlaceholder\\s*"),
+                    "\n"
+                )
+            )
+
+            is PolicyBlock.Paragraph -> block.copy(
+                text = block.text.replace(
+                    Regex("$brPlaceholder\\s*"),
+                    "\n"
+                )
+            )
+
+            is PolicyBlock.BulletItem -> block.copy(
+                text = block.text.replace(
+                    Regex("$brPlaceholder\\s*"),
+                    "\n"
+                )
+            )
+
+            is PolicyBlock.BlockQuote -> block.copy(
+                text = block.text.replace(
+                    Regex("$brPlaceholder\\s*"),
+                    "\n"
+                )
+            )
+
+            is PolicyBlock.TableData -> block
+            PolicyBlock.HorizontalRule -> block
+            PolicyBlock.BlankLine -> block
+        }
+    }
 }

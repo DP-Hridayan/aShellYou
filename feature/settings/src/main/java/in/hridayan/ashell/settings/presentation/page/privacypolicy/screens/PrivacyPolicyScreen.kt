@@ -242,15 +242,16 @@ private fun PolicyBlockView(block: PolicyBlock, modifier: Modifier = Modifier) {
 
         is PolicyBlock.BlockQuote -> {
             Row(
-                modifier = modifier.fillMaxWidth(),
+                modifier = modifier
+                    .fillMaxWidth()
+                    .height(IntrinsicSize.Min), // Force the Row to exactly fit the text height
                 verticalAlignment = Alignment.Top,
             ) {
                 Box(
                     modifier = Modifier
                         .width(4.dp)
-                        .height(IntrinsicSize.Min)
-                        .padding(top = 2.dp, bottom = 2.dp)
-                        .background(cs.tertiary, MaterialTheme.shapes.small),
+                        .fillMaxHeight() // Fill the height determined by the Row
+                        .background(cs.tertiary, MaterialTheme.shapes.small)
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 InlineText(
@@ -259,7 +260,9 @@ private fun PolicyBlockView(block: PolicyBlock, modifier: Modifier = Modifier) {
                         color = cs.onSurface,
                         fontStyle = FontStyle.Italic,
                     ),
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(vertical = 2.dp),
                 )
             }
         }
