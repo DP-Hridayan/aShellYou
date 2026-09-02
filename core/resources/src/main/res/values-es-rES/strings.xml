@@ -307,6 +307,8 @@
     <string name="des_hridayan" comment="Developer bio subtitle in About section">Solo un tipo al que le encantan las aplicaciones y el diseño</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">El estado visual fijo del mosaico cuando se muestra en el panel de Ajustes rápidos</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">Ver detalles de las bibliotecas y licencias utilizadas por la aplicación</string>
+    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Política de privacidad</string>
+    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">Cómo manejas el infierno tus datos</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">Ver las licencias que utiliza la aplicación y sus librerías</string>
     <string name="des_local_backup" comment="Description card text for local backup option">Guardar copia de seguridad cifrada en tu dispositivo</string>
     <string name="des_local_restore" comment="Description card text for local restore option">Selecciona un archivo de copia de seguridad desde tu dispositivo</string>
