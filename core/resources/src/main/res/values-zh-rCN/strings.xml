@@ -57,6 +57,15 @@
     <string name="api_key" comment="Label for AI provider API key text input field">API 密钥</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">API 密钥已保存</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">需要 API 密钥</string>
+    <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">代理人技能</string>
+    <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">命令执行</string>
+    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">允许 AI 代理执行 ADB shell 命令</string>
+    <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">快速设置瓷块</string>
+    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">允许AI 代理创建、修改和删除快速设置瓷块</string>
+    <string name="packages" comment="Title for the packages skill toggle in AI settings">包</string>
+    <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">允许AI 代理人查询已安装的软件包和应用程序数据</string>
+    <string name="database_modification" comment="Title for the database skill toggle in AI settings">数据库修改</string>
+    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">允许AI 代理人添加、修改或删除数据库项目</string>
     <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">An API key is required to use AI features. Please add your API key in Settings &gt; Cloud Models.</string>
     <string name="app">应用</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">软件崩溃了</string>

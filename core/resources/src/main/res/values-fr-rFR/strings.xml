@@ -57,6 +57,15 @@
     <string name="api_key" comment="Label for AI provider API key text input field">Clé API</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">La clé API est enregistrée</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">Clé API requise</string>
+    <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Compétences de l\'agent</string>
+    <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">Exécution de la commande</string>
+    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Autoriser l\'agent IA à exécuter des commandes ADB shell</string>
+    <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">Tuiles des réglages rapides</string>
+    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Permettre à l\'agent IA de créer, modifier et supprimer les tuiles des paramètres rapides</string>
+    <string name="packages" comment="Title for the packages skill toggle in AI settings">Paquets</string>
+    <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Autoriser l\'agent AI à interroger les paquets installés et les données de l\'application</string>
+    <string name="database_modification" comment="Title for the database skill toggle in AI settings">Modification de la base de données</string>
+    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Autoriser l\'agent IA à ajouter, modifier ou supprimer des éléments de la base de données</string>
     <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">Une clé API est requise pour utiliser les fonctionnalités d\'IA. Veuillez ajouter votre clé API dans Paramètres -&gt; Modèles cloud.</string>
     <string name="app">Application</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">L\'application a planté</string>
