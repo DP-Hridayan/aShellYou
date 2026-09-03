@@ -41,6 +41,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
@@ -212,26 +213,32 @@ private fun SettingsSwitch(
 
 @Composable
 private fun ItemLeadingIcon(icon: ImageVector?, @DrawableRes iconResId: Int?) {
+    val containerColor = MaterialTheme.colorScheme.primaryContainer
+    val contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+    val iconSize = 20.dp
+    val iconBgShape = CircleShape
+
     Box(
         modifier = Modifier
-            .clip(CircleShape)
-            .background(MaterialTheme.colorScheme.secondaryContainer)
+            .shadow(elevation = 1.dp, shape = iconBgShape)
+            .clip(iconBgShape)
+            .background(containerColor)
             .padding(10.dp),
         contentAlignment = Alignment.Center
     ) {
         when {
             icon != null -> Icon(
-                modifier = Modifier.size(20.dp),
+                modifier = Modifier.size(iconSize),
                 imageVector = icon,
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSecondaryContainer
+                tint = contentColor
             )
 
             iconResId != null -> Icon(
-                modifier = Modifier.size(20.dp),
+                modifier = Modifier.size(iconSize),
                 painter = painterResource(iconResId),
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSecondaryContainer
+                tint = contentColor
             )
         }
     }

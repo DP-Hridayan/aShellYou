@@ -42,6 +42,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
@@ -460,15 +461,16 @@ private fun TimeCard(
             iconResId?.let { resId ->
                 Box(
                     modifier = Modifier
+                        .shadow(elevation = 1.dp, shape = CircleShape)
                         .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.secondaryContainer)
+                        .background(MaterialTheme.colorScheme.primaryContainer)
                         .padding(10.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         modifier = Modifier.size(20.dp),
                         painter = painterResource(resId),
-                        tint = MaterialTheme.colorScheme.onSecondaryContainer,
+                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
                         contentDescription = null
                     )
                 }
