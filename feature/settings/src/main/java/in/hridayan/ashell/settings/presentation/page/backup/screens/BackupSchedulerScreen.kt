@@ -129,7 +129,7 @@ fun BackupSchedulerScreen(
         highlightKeyName = highlightKey,
         page = page,
         listState = listState,
-        headerItemCount = 0,
+        headerItemCount = 1,
         keyResolver = { SettingsKeys.valueOfOrNull(it) },
         topAppBarState = topAppBarState,
     )
@@ -408,6 +408,8 @@ private fun BackupStatusRow(
         }
     }
 }
+
+
 
 
 

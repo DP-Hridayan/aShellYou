@@ -200,8 +200,9 @@ fun AppNavigation(
                 BackupAndRestoreScreen(highlightKey = route.highlightKey)
             }
 
-            composable<NavRoutes.BackupSchedulerScreen> {
-                BackupSchedulerScreen()
+            composable<NavRoutes.BackupSchedulerScreen> { backStackEntry ->
+                val route = backStackEntry.toRoute<NavRoutes.BackupSchedulerScreen>()
+                BackupSchedulerScreen(highlightKey = route.highlightKey)
             }
 
             composable<NavRoutes.LocalAdbScreen>(
@@ -271,8 +272,9 @@ fun AppNavigation(
                 LogcatScreen(navController = navController)
             }
 
-            composable<NavRoutes.AiModelsScreen> {
-                AiModelsScreen()
+            composable<NavRoutes.AiModelsScreen> { backStackEntry ->
+                val route = backStackEntry.toRoute<NavRoutes.AiModelsScreen>()
+                AiModelsScreen(highlightKey = route.highlightKey)
             }
             composable<NavRoutes.CloudModelsScreen> {
                 CloudModelsScreen()
