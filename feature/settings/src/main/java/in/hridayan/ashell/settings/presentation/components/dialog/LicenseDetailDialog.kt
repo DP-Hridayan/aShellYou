@@ -124,7 +124,7 @@ fun LicenseDetailDialog(
                                 contentColor = MaterialTheme.colorScheme.onPrimary
                             )
                         ),
-                        text = stringResource(R.string.view_on_github),
+                        text = stringResource(R.string.open_url),
                         enabled = library.licenseUrl != null,
                         onClick = withHaptic {
                             library.licenseUrl?.let { url ->
