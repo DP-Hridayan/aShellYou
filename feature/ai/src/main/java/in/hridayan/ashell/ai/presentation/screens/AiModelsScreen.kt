@@ -77,6 +77,7 @@ fun AiModelsScreen(
 
     val listState = rememberLazyListState()
     val topAppBarState = rememberTopAppBarState()
+
     val highlightedKey = rememberHighlightState(
         highlightKeyName = highlightKey,
         page = aiModelsPage,

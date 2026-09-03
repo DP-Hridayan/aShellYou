@@ -16,7 +16,7 @@ NavRoutes {
     data class BackupAndRestoreScreen(val highlightKey: String? = null) : NavRoutes()
 
     @Serializable
-    object BackupSchedulerScreen : NavRoutes()
+    data class BackupSchedulerScreen(val highlightKey: String? = null) : NavRoutes()
 
     @Serializable
     data class BehaviorScreen(val highlightKey: String? = null) : NavRoutes()
@@ -107,7 +107,7 @@ NavRoutes {
     object LogcatScreen : NavRoutes()
 
     @Serializable
-    object AiModelsScreen : NavRoutes()
+    data class AiModelsScreen(val highlightKey: String? = null) : NavRoutes()
 
     @Serializable
     object CloudModelsScreen : NavRoutes()
@@ -122,3 +122,5 @@ NavRoutes {
     @Serializable
     object AiChatScreen : NavRoutes()
 }
+
+

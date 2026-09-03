@@ -30,6 +30,7 @@ import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -64,10 +65,12 @@ import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.state.settingsContent
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
+import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
 
 @Composable
 fun BackupSchedulerScreen(
     modifier: Modifier = Modifier,
+    highlightKey: String? = null,
     settingsViewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val navController = LocalNavController.current
@@ -119,6 +122,17 @@ fun BackupSchedulerScreen(
     }
 
     val listState = rememberLazyListState()
+    val topAppBarState = rememberTopAppBarState()
+    val page = remember { settingsViewModel.backupSchedulerPage }
+
+    val highlightedKey = rememberHighlightState(
+        highlightKeyName = highlightKey,
+        page = page,
+        listState = listState,
+        headerItemCount = 0,
+        keyResolver = { SettingsKeys.valueOfOrNull(it) },
+        topAppBarState = topAppBarState,
+    )
 
     LaunchedEffect(Unit) {
         settingsViewModel.uiEvent.collect { event ->
@@ -130,13 +144,13 @@ fun BackupSchedulerScreen(
         }
     }
 
-    val page = remember { settingsViewModel.backupSchedulerPage }
-    val resolvedGroups = page.resolveAll()
+    val resolvedGroups = page.resolveAll(highlightedKey = highlightedKey)
 
     AppScaffold(
         onNavigateBack = { navController.navigateBack() },
         modifier = modifier,
         listState = listState,
+        topAppBarState = topAppBarState,
         topBarTitle = stringResource(R.string.backup_scheduler),
         content = { innerPadding, topBarScrollBehavior ->
             LazyColumn(
@@ -394,3 +408,6 @@ private fun BackupStatusRow(
         }
     }
 }
+
+
+

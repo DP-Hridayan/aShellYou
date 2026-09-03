@@ -253,7 +253,7 @@ class SettingsViewModel @Inject constructor(
                 }
 
                 SettingsKeys.BackupScheduler -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.BackupSchedulerScreen)
+                    SettingsUiEvent.Navigate(NavRoutes.BackupSchedulerScreen())
                 )
 
                 // Restore: show source dialog if signed in AND cloud is available
@@ -272,7 +272,7 @@ class SettingsViewModel @Inject constructor(
                 )
 
                 SettingsKeys.CloudModels -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.AiModelsScreen)
+                    SettingsUiEvent.Navigate(NavRoutes.AiModelsScreen())
                 )
 
                 SettingsKeys.AiCacheDays -> _uiEvent.emit(
@@ -337,3 +337,4 @@ class SettingsViewModel @Inject constructor(
         }
     }
 }
+

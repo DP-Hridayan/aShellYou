@@ -482,8 +482,8 @@ object SettingsProvider {
         autoUpdatePage.screenId!! to { NavRoutes.AutoUpdateScreen(it) },
         backupPage.screenId!! to { NavRoutes.BackupAndRestoreScreen(it) },
         aboutPage.screenId!! to { NavRoutes.AboutScreen(it) },
-        aiSettingsPage.screenId!! to { NavRoutes.AiModelsScreen },
-        backupSchedulerPage.screenId!! to { NavRoutes.BackupSchedulerScreen },
+        aiSettingsPage.screenId!! to { NavRoutes.AiModelsScreen(it) },
+        backupSchedulerPage.screenId!! to { NavRoutes.BackupSchedulerScreen(it) },
     )
 
     /** Resolves a [screenId] to the correct [NavRoutes] destination. */
