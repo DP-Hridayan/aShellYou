@@ -31,7 +31,7 @@ fun LazyListScope.settingsContent(
     onBooleanToggle: ((SettingsKey<*>) -> Unit)? = null,
     onIntChanged: ((SettingsKey<*>, Int) -> Unit)? = null,
     customSlotContent: @Composable (CustomSlot) -> Unit = {},
-    categoryHeader: (@Composable (String) -> Unit)? = null,
+    groupHeader: (@Composable (String) -> Unit)? = null,
 ) {
     val vm = viewModel
 
@@ -58,6 +58,7 @@ fun LazyListScope.settingsContent(
         onIntChanged = onIntChanged
             ?: { key: SettingsKey<*>, v: Int -> vm.setInt(key as SettingsKeys<Int>, v) },
         customSlotContent = customSlotContent,
-        categoryHeader = categoryHeader,
+        groupHeader = groupHeader,
     )
 }
+

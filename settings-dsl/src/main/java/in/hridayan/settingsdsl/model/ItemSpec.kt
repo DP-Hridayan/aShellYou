@@ -6,7 +6,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 /**
  * Internal blueprint for a single settings item.
- * Created by DSL builder functions and stored in [SettingsGroup].
+ * Created by DSL builder functions and stored in [GroupSpec.Group].
  * Never exposed to screen-level or view-level code directly.
  */
 internal sealed class ItemSpec(
@@ -157,6 +157,7 @@ data class ButtonGroupOption(
     @param:StringRes val labelResId: Int,
     @param:DrawableRes val iconResId: Int? = null,
 )
+
 
 
 

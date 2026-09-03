@@ -32,7 +32,7 @@ import `in`.hridayan.settingsdsl.model.SettingsKey
  * @param onBooleanToggle Callback for boolean state toggles.
  * @param onIntChanged Callback for integer value changes.
  * @param customSlotContent Content to render for custom slots.
- * @param categoryHeader Optional override for the category header UI.
+ * @param groupHeader Optional override for the category header UI.
  */
 fun LazyListScope.settingsContent(
     groups: List<ResolvedGroup>,
@@ -46,7 +46,7 @@ fun LazyListScope.settingsContent(
     onBooleanToggle: (SettingsKey<*>) -> Unit = {},
     onIntChanged: (SettingsKey<*>, Int) -> Unit = { _, _ -> },
     customSlotContent: @Composable (CustomSlot) -> Unit = {},
-    categoryHeader: (@Composable (String) -> Unit)? = null,
+    groupHeader: (@Composable (String) -> Unit)? = null,
 ) {
     groups.forEach { group ->
         when (group) {
@@ -60,10 +60,10 @@ fun LazyListScope.settingsContent(
 
             is ResolvedGroup.ItemGroup -> {
                 // Category header
-                group.categoryTitle?.let { title ->
+                group.groupTitle?.let { title ->
                     item(key = "category_$title") {
-                        if (categoryHeader != null) {
-                            categoryHeader(title)
+                        if (groupHeader != null) {
+                            groupHeader(title)
                         } else {
                             Text(
                                 text = title,
@@ -148,4 +148,6 @@ private fun SettingsItemEntry(
         onValueChange = onValueChange,
     )
 }
+
+
 

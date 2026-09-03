@@ -43,7 +43,10 @@ data class SearchEntry(
  * val lookAndFeelPage = settingsPage(
  *     screenTitle = R.string.look_and_feel,
  *     screenId = "look_and_feel",
- *     group(switchItem(...), clickableItem(...)),
+ *     group {
+ *         switchItem(...) { ... }
+ *         clickableItem(...) { ... }
+ *     }
  * )
  *
  * val engine = SettingsSearchEngine.build(
@@ -203,3 +206,4 @@ fun rememberSettingsSearch(
         )
     }
 }
+

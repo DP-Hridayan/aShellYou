@@ -52,7 +52,7 @@ data class SettingsItem(
     /** True if this item should be visually highlighted (e.g. from a search result). */
     val isHighlighted: Boolean,
 
-    /** True if this item should show an experimental feature tag */
+    /** Text to show as an experimental feature badge. Empty string if no badge should be shown. */
     val experimentalFlagText: String
 )
 
@@ -88,5 +88,6 @@ sealed class ItemBehavior {
     @Immutable
     data class ButtonGroup(val options: List<ButtonGroupOption>) : ItemBehavior()
 }
+
 
 

@@ -132,11 +132,11 @@ private fun GroupSpec.resolve(
             val visibleSpecs = items.filter { spec ->
                 visibilityOverrides[spec.key]?.invoke() ?: spec.isVisible
             }
-            val resolvedCategoryTitle =
+            val resolvedGroupTitle =
                 if (titleResId != null) stringResource(titleResId) else title.takeIf { it.isNotEmpty() }
 
             ResolvedGroup.ItemGroup(
-                categoryTitle = resolvedCategoryTitle,
+                groupTitle = resolvedGroupTitle,
                 items = visibleSpecs.mapIndexed { i, spec ->
                     spec.toSettingsItem(
                         shape = cardShapeForPosition(i, visibleSpecs.size),
@@ -203,4 +203,6 @@ private fun GroupSpec.specsOrEmpty(): List<ItemSpec> = when (this) {
     is GroupSpec.Group -> items
     else -> emptyList()
 }
+
+
 

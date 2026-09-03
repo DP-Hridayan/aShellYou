@@ -225,13 +225,13 @@ class GroupScope internal constructor() {
     internal var titleString: String = ""
     internal val items = mutableListOf<ItemSpec>()
 
-    /** Sets the category title using a string resource ID. */
+    /** Sets the group title using a string resource ID. */
     fun title(@StringRes resId: Int) {
         titleResId = resId
         titleString = ""
     }
 
-    /** Sets the category title using a plain string. */
+    /** Sets the group title using a plain string. */
     fun title(text: String) {
         titleString = text
         titleResId = null
@@ -333,7 +333,7 @@ class SettingsPageBuilder internal constructor(
     /**
      * Creates a categorized group of items with a string resource header label.
      *
-     * @param titleResId String resource for the category title.
+     * @param titleResId String resource for the group title.
      * @param block Builder block for configuring the items in this group.
      */
     fun group(@StringRes titleResId: Int, block: GroupScope.() -> Unit) {
@@ -346,7 +346,7 @@ class SettingsPageBuilder internal constructor(
     /**
      * Creates a categorized group of items with a plain string header label.
      *
-     * @param title Plain string for the category title.
+     * @param title Plain string for the group title.
      * @param block Builder block for configuring the items in this group.
      */
     fun group(title: String, block: GroupScope.() -> Unit) {
@@ -377,4 +377,5 @@ class SettingsPageBuilder internal constructor(
             screenTitleResId = screenTitleResId
         )
 }
+
 

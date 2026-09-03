@@ -12,13 +12,13 @@ import `in`.hridayan.settingsdsl.resolver.resolveAll
 sealed class ResolvedGroup {
 
     /**
-     * A group of resolved items, optionally with a category header.
+     * A group of resolved items, optionally with a group header.
      *
-     * @param categoryTitle Already-resolved string for the category header, or null if uncategorized.
+     * @param groupTitle Already-resolved string for the group header, or null if uncategorized.
      * @param items Visibility-filtered list of [SettingsItem]s with auto-computed shapes.
      */
     data class ItemGroup(
-        val categoryTitle: String?,
+        val groupTitle: String?,
         val items: List<SettingsItem>,
     ) : ResolvedGroup()
 
@@ -28,3 +28,5 @@ sealed class ResolvedGroup {
     /** A horizontal visual divider between groups. */
     data object Divider : ResolvedGroup()
 }
+
+
