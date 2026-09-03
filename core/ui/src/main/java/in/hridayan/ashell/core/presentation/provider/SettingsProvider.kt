@@ -481,7 +481,8 @@ object SettingsProvider {
         behaviorPage.screenId!! to { NavRoutes.BehaviorScreen(it) },
         autoUpdatePage.screenId!! to { NavRoutes.AutoUpdateScreen(it) },
         backupPage.screenId!! to { NavRoutes.BackupAndRestoreScreen(it) },
-        aiSettingsPage.screenId!! to { NavRoutes.CloudModelsScreen },
+        aboutPage.screenId!! to { NavRoutes.AboutScreen(it) },
+        aiSettingsPage.screenId!! to { NavRoutes.AiModelsScreen },
         backupSchedulerPage.screenId!! to { NavRoutes.BackupSchedulerScreen },
     )
 
@@ -526,6 +527,9 @@ fun getAllSettingsIcons(): List<Int> = listOf(
     R.drawable.ic_format_size,
     R.drawable.ic_adb
 )
+
+
+
 
 
 
