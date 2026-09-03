@@ -19,6 +19,37 @@ import `in`.hridayan.settingsdsl.ui.card.cardShapeForPosition
 import `in`.hridayan.settingsdsl.ui.item.settingsContent
 
 /**
+ * Builder scope for providing dynamic state overrides to a [SettingsPage].
+ */
+class ResolverScope {
+    internal val titleOverrides = mutableMapOf<SettingsKey<*>, @Composable () -> String>()
+    internal val descriptionOverrides = mutableMapOf<SettingsKey<*>, @Composable () -> String>()
+    internal val iconOverrides = mutableMapOf<SettingsKey<*>, @Composable () -> ImageVector?>()
+    internal val visibilityOverrides = mutableMapOf<SettingsKey<*>, @Composable () -> Boolean>()
+    internal val enabledOverrides = mutableMapOf<SettingsKey<*>, @Composable () -> Boolean>()
+
+    fun overrideTitle(key: SettingsKey<*>, block: @Composable () -> String) {
+        titleOverrides[key] = block
+    }
+
+    fun overrideDescription(key: SettingsKey<*>, block: @Composable () -> String) {
+        descriptionOverrides[key] = block
+    }
+
+    fun overrideIcon(key: SettingsKey<*>, block: @Composable () -> ImageVector?) {
+        iconOverrides[key] = block
+    }
+
+    fun overrideVisibility(key: SettingsKey<*>, block: @Composable () -> Boolean) {
+        visibilityOverrides[key] = block
+    }
+
+    fun overrideEnabled(key: SettingsKey<*>, block: @Composable () -> Boolean) {
+        enabledOverrides[key] = block
+    }
+}
+
+/**
  * Resolves all groups in this [SettingsPage] into display-ready [ResolvedGroup]s.
  *
  * Call this **once** at the top of your screen composable, before the [LazyColumn].
@@ -29,34 +60,24 @@ import `in`.hridayan.settingsdsl.ui.item.settingsContent
  * [CompositionLocal] you reference in your override lambdas.
  * Recomposition is triggered automatically when those states change.
  *
- * @param titleOverrides Map from [SettingsKey<*>] to a `@Composable` lambda that returns a
- *   custom title string. Overrides the static title for that item.
- * @param descriptionOverrides Map from [SettingsKey<*>] to a `@Composable` lambda that returns
- *   a dynamic description string. Overrides the static description for that item.
- * @param iconOverrides Map from [SettingsKey<*>] to a `@Composable` lambda that returns a
- *   dynamic [ImageVector]. Overrides the static icon for that item.
- * @param visibilityOverrides Map from [SettingsKey<*>] to a `@Composable` lambda that returns
- *   whether the item is visible. Overrides the static [visible] value from the DSL.
  * @param highlightedKey The key of the item to visually highlight (e.g. from search). Null if none.
+ * @param block Builder block to provide dynamic overrides for specific items.
  *
  * @return List of [ResolvedGroup]s ready to pass to [settingsContent].
  */
 @Composable
 fun SettingsPage.resolveAll(
-    titleOverrides: Map<SettingsKey<*>, @Composable () -> String> = emptyMap(),
-    descriptionOverrides: Map<SettingsKey<*>, @Composable () -> String> = emptyMap(),
-    iconOverrides: Map<SettingsKey<*>, @Composable () -> ImageVector?> = emptyMap(),
-    visibilityOverrides: Map<SettingsKey<*>, @Composable () -> Boolean> = emptyMap(),
-    enabledOverrides: Map<SettingsKey<*>, @Composable () -> Boolean> = emptyMap(),
     highlightedKey: SettingsKey<*>? = null,
+    block: ResolverScope.() -> Unit = {}
 ): List<ResolvedGroup> {
+    val scope = ResolverScope().apply(block)
     return groups.map { group ->
         group.resolve(
-            titleOverrides = titleOverrides,
-            descriptionOverrides = descriptionOverrides,
-            iconOverrides = iconOverrides,
-            visibilityOverrides = visibilityOverrides,
-            enabledOverrides = enabledOverrides,
+            titleOverrides = scope.titleOverrides,
+            descriptionOverrides = scope.descriptionOverrides,
+            iconOverrides = scope.iconOverrides,
+            visibilityOverrides = scope.visibilityOverrides,
+            enabledOverrides = scope.enabledOverrides,
             highlightedKey = highlightedKey,
         )
     }
@@ -107,31 +128,12 @@ private fun GroupSpec.resolve(
     highlightedKey: SettingsKey<*>?,
 ): ResolvedGroup {
     return when (this) {
-        is GroupSpec.Items -> {
+        is GroupSpec.Group -> {
             val visibleSpecs = items.filter { spec ->
                 visibilityOverrides[spec.key]?.invoke() ?: spec.isVisible
             }
-            ResolvedGroup.ItemGroup(
-                categoryTitle = null,
-                items = visibleSpecs.mapIndexed { i, spec ->
-                    spec.toSettingsItem(
-                        shape = cardShapeForPosition(i, visibleSpecs.size),
-                        enabledOverride = enabledOverrides[spec.key]?.invoke() ?: spec.enabled,
-                        titleOverride = titleOverrides[spec.key]?.invoke(),
-                        descriptionOverride = descriptionOverrides[spec.key]?.invoke(),
-                        iconOverride = iconOverrides[spec.key]?.invoke(),
-                        highlightedKey = highlightedKey,
-                    )
-                },
-            )
-        }
-
-        is GroupSpec.Category -> {
-            val visibleSpecs = items.filter { spec ->
-                visibilityOverrides[spec.key]?.invoke() ?: spec.isVisible
-            }
-            val resolvedCategoryTitle = titleResId?.let { stringResource(it) }
-                ?: title
+            val resolvedCategoryTitle =
+                if (titleResId != null) stringResource(titleResId) else title.takeIf { it.isNotEmpty() }
 
             ResolvedGroup.ItemGroup(
                 categoryTitle = resolvedCategoryTitle,
@@ -199,7 +201,6 @@ private fun ItemSpec.toSettingsItem(
 }
 
 private fun GroupSpec.specsOrEmpty(): List<ItemSpec> = when (this) {
-    is GroupSpec.Items -> items
-    is GroupSpec.Category -> items
+    is GroupSpec.Group -> items
     else -> emptyList()
 }

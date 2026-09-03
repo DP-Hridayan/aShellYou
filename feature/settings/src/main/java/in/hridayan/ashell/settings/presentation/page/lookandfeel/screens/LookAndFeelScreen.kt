@@ -90,7 +90,9 @@ fun LookAndFeelScreen(
     }
 
     val listState = rememberLazyListState()
+
     val topAppBarState = rememberTopAppBarState()
+
     val highlightedKey = rememberHighlightState(
         highlightKeyName = highlightKey,
         page = settingsViewModel.lookAndFeelPage,
@@ -102,42 +104,44 @@ fun LookAndFeelScreen(
 
     val page = remember { settingsViewModel.lookAndFeelPage }
 
-    val resolvedGroups = page.resolveAll(
-        highlightedKey = highlightedKey,
-        enabledOverrides = mapOf(
-            SettingsKeys.CustomUiScale to { !autoScaleUI }
-        ),
-        descriptionOverrides = mapOf(
-            SettingsKeys.PaletteStyle to { stringResource(currentPaletteStyle.displayNameResId) },
-            SettingsKeys.DarkTheme to {
-                when {
-                    autoDarkModeOnBatterySaver && isDarkMode -> stringResource(R.string.on)
+    val resolvedGroups = page.resolveAll(highlightedKey = highlightedKey) {
+        overrideEnabled(SettingsKeys.CustomUiScale) { !autoScaleUI }
 
-                    userGeneratedColorSchemeApplied && !isDynamicColorEnabled -> {
-                        if (isCustomColorSchemeDarkThemed) {
-                            stringResource(R.string.on)
-                        } else {
-                            stringResource(R.string.off)
-                        }
+        overrideDescription(SettingsKeys.PaletteStyle) {
+            stringResource(currentPaletteStyle.displayNameResId)
+        }
+
+        overrideDescription(SettingsKeys.DarkTheme) {
+            when {
+                autoDarkModeOnBatterySaver && isDarkMode -> stringResource(R.string.on)
+
+                userGeneratedColorSchemeApplied && !isDynamicColorEnabled -> {
+                    if (isCustomColorSchemeDarkThemed) {
+                        stringResource(R.string.on)
+                    } else {
+                        stringResource(R.string.off)
                     }
-
-                    themeMode == AppCompatDelegate.MODE_NIGHT_YES -> stringResource(R.string.on)
-                    themeMode == AppCompatDelegate.MODE_NIGHT_NO -> stringResource(R.string.off)
-                    themeMode == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> stringResource(R.string.system)
-                    else -> ""
                 }
+
+                themeMode == AppCompatDelegate.MODE_NIGHT_YES -> stringResource(R.string.on)
+                themeMode == AppCompatDelegate.MODE_NIGHT_NO -> stringResource(R.string.off)
+                themeMode == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> stringResource(R.string.system)
+                else -> ""
             }
-        ),
-        iconOverrides = mapOf(
-            SettingsKeys.DarkTheme to {
-                if (isDarkMode) Icons.TwoTone.DarkMode else Icons.Rounded.LightMode
-            }
-        ),
-        visibilityOverrides = mapOf(
-            SettingsKeys.PaletteStyle to { !(isDynamicColorEnabled || userGeneratedColorSchemeApplied) },
-            SettingsKeys.DarkTheme to { !userGeneratedColorSchemeApplied || isDynamicColorEnabled }
-        )
-    )
+        }
+
+        overrideIcon(SettingsKeys.DarkTheme) {
+            if (isDarkMode) Icons.TwoTone.DarkMode else Icons.Rounded.LightMode
+        }
+
+        overrideVisibility(SettingsKeys.PaletteStyle) {
+            !(isDynamicColorEnabled || userGeneratedColorSchemeApplied)
+        }
+
+        overrideVisibility(SettingsKeys.DarkTheme) {
+            !userGeneratedColorSchemeApplied || isDynamicColorEnabled
+        }
+    }
 
     AppScaffold(
         onNavigateBack = { navController.navigateBack() },

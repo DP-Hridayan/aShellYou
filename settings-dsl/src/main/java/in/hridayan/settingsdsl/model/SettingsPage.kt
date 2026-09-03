@@ -32,8 +32,7 @@ class SettingsPage internal constructor(
     fun indexOfGroupContaining(key: SettingsKey<*>): Int =
         groups.indexOfFirst { group ->
             val items: List<ItemSpec> = when (group) {
-                is GroupSpec.Items -> group.items
-                is GroupSpec.Category -> group.items
+                is GroupSpec.Group -> group.items
                 else -> emptyList()
             }
             items.any { it.key == key }
@@ -43,8 +42,7 @@ class SettingsPage internal constructor(
      * Returns the exact LazyColumn item index for [key], accounting for how many lazy items
      * each group contributes:
      *
-     * - [GroupSpec.Items]    → item[0], item[1], … (no header row)
-     * - [GroupSpec.Category] → header row, item[0], item[1], …
+     * - [GroupSpec.Group]    → optionally header row, then item[0], item[1], …
      * - [GroupSpec.Custom]   → 1 lazy item
      * - [GroupSpec.Divider]  → 1 lazy item
      *
@@ -58,17 +56,14 @@ class SettingsPage internal constructor(
         var lazyIndex = headerItemCount
         for (group in groups) {
             when (group) {
-                is GroupSpec.Items -> {
+                is GroupSpec.Group -> {
+                    val hasHeader = group.titleResId != null || group.title.isNotEmpty()
                     val itemIndex = group.items.indexOfFirst { it.key == key }
-                    if (itemIndex >= 0) return lazyIndex + itemIndex
-                    lazyIndex += group.items.size
-                }
 
-                is GroupSpec.Category -> {
-                    val itemIndex = group.items.indexOfFirst { it.key == key }
-                    // +1 because the category header row occupies lazyIndex
-                    if (itemIndex >= 0) return lazyIndex + 1 + itemIndex
-                    lazyIndex += 1 + group.items.size
+                    if (itemIndex >= 0) {
+                        return lazyIndex + (if (hasHeader) 1 else 0) + itemIndex
+                    }
+                    lazyIndex += (if (hasHeader) 1 else 0) + group.items.size
                 }
 
                 is GroupSpec.Custom -> lazyIndex += 1

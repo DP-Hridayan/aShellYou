@@ -150,8 +150,7 @@ class SettingsSearchEngine private constructor(
         }
 
         private fun GroupSpec.specsOrEmpty(): List<ItemSpec> = when (this) {
-            is GroupSpec.Items -> items
-            is GroupSpec.Category -> items
+            is GroupSpec.Group -> items
             else -> emptyList()
         }
 

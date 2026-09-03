@@ -95,7 +95,7 @@ object SettingsProvider {
             }
         }
 
-        category(R.string.font_family) {
+        group(R.string.font_family) {
             clickableItem(SettingsKeys.FontFamily) {
                 title(R.string.font_family)
                 description(R.string.des_font_family)
@@ -103,7 +103,7 @@ object SettingsProvider {
             }
         }
 
-        category(R.string.ui_scale) {
+        group(R.string.ui_scale) {
             switchItem(SettingsKeys.AutoScaleUi) {
                 title(R.string.auto_scale_ui)
                 description(R.string.des_auto_scale_ui)
@@ -119,7 +119,7 @@ object SettingsProvider {
             }
         }
 
-        category(R.string.additional_settings) {
+        group(R.string.additional_settings) {
             switchItem(SettingsKeys.HapticsAndVibration) {
                 title(R.string.haptics_and_vibration)
                 description(R.string.des_haptics_and_vibration)
@@ -137,13 +137,13 @@ object SettingsProvider {
     val darkThemePage = settingsPage("dark_theme") {
         title(R.string.dark_theme)
 
-        category(R.string.preference) {
+        group(R.string.preference) {
             radioGroupItem(SettingsKeys.ThemeMode) {
                 options(RadioGroupOptionsProvider.darkModeOptions)
             }
         }
 
-        category(R.string.battery_saver) {
+        group(R.string.battery_saver) {
             switchItem(SettingsKeys.AutoDarkModeOnBatterySaver) {
                 title(R.string.auto_dark_mode)
                 description(R.string.des_auto_dark_mode)
@@ -151,7 +151,7 @@ object SettingsProvider {
             }
         }
 
-        category(R.string.additional_settings) {
+        group(R.string.additional_settings) {
             switchItem(SettingsKeys.HighContrastDarkMode) {
                 title(R.string.high_contrast_dark_mode)
                 description(R.string.des_high_contrast_dark_mode)
@@ -169,13 +169,13 @@ object SettingsProvider {
             }
         }
 
-        category(R.string.update_channel) {
+        group(R.string.update_channel) {
             radioGroupItem(SettingsKeys.GithubReleaseType) {
                 options(RadioGroupOptionsProvider.updateChannelOptions)
             }
         }
 
-        category(R.string.additional_settings) {
+        group(R.string.additional_settings) {
             switchItem(SettingsKeys.EnableDirectDownload) {
                 title(R.string.enable_direct_download)
                 description(R.string.des_enable_direct_download)
@@ -187,13 +187,13 @@ object SettingsProvider {
     val behaviorPage = settingsPage("behavior") {
         title(R.string.behavior)
 
-        category(R.string.local_adb_shell) {
+        group(R.string.local_adb_shell) {
             radioGroupItem(SettingsKeys.LocalAdbWorkingMode) {
                 options(RadioGroupOptionsProvider.localAdbShellModeOptions)
             }
         }
 
-        category(R.string.launch) {
+        group(R.string.launch) {
             switchItem(SettingsKeys.DefaultLaunchIsLocalAdb) {
                 title(R.string.set_local_adb_as_default_launch)
                 description(R.string.des_set_local_adb_as_default_launch)
@@ -201,7 +201,7 @@ object SettingsProvider {
             }
         }
 
-        category(R.string.terminal) {
+        group(R.string.terminal) {
             switchItem(SettingsKeys.SmoothScrolling) {
                 title(R.string.smooth_scrolling)
                 description(R.string.des_smooth_scroll)
@@ -227,7 +227,7 @@ object SettingsProvider {
             }
         }
 
-        category(R.string.terminal_font_style) {
+        group(R.string.terminal_font_style) {
             buttonGroupItem(SettingsKeys.TerminalFontStyle) {
                 options(
                     ButtonGroupOption(TerminalFontStyle.MONOSPACE, R.string.monospace),
@@ -236,7 +236,7 @@ object SettingsProvider {
             }
         }
 
-        category(R.string.file_actions) {
+        group(R.string.file_actions) {
             clickableItem(SettingsKeys.OutputSaveDirectory) {
                 title(R.string.configure_save_directory)
                 description(R.string.des_configure_save_directory)
@@ -254,7 +254,7 @@ object SettingsProvider {
     val aboutPage = settingsPage("about") {
         title(R.string.about)
 
-        category(R.string.contributors) {
+        group(R.string.contributors) {
             clickableItem(SettingsKeys.Contributors) {
                 title(R.string.contributors)
                 description(R.string.des_contributors)
@@ -268,7 +268,7 @@ object SettingsProvider {
             }
         }
 
-        category(R.string.app) {
+        group(R.string.app) {
             clickableItem(SettingsKeys.Changelogs) {
                 title(R.string.changelogs)
                 description(R.string.des_changelogs)
@@ -312,7 +312,7 @@ object SettingsProvider {
 
         customSlot(BackupScreenCustomSlots.GoogleSignIn)
 
-        category(R.string.backup) {
+        group(R.string.backup) {
             clickableItem(SettingsKeys.BackupAppSettings) {
                 title(R.string.backup_settings)
                 description(R.string.des_backup_settings)
@@ -334,7 +334,7 @@ object SettingsProvider {
 
         customSlot(BackupScreenCustomSlots.LastBackupTime)
 
-        category(R.string.auto_backup) {
+        group(R.string.auto_backup) {
             clickableItem(SettingsKeys.BackupScheduler) {
                 title(R.string.backup_scheduler)
                 description(R.string.des_backup_scheduler)
@@ -342,7 +342,7 @@ object SettingsProvider {
             }
         }
 
-        category(R.string.restore) {
+        group(R.string.restore) {
             clickableItem(SettingsKeys.RestoreAppData) {
                 title(R.string.restore_app_data)
                 description(R.string.des_restore_app_data)
@@ -350,7 +350,7 @@ object SettingsProvider {
             }
         }
 
-        category(R.string.reset) {
+        group(R.string.reset) {
             clickableItem(SettingsKeys.ResetAppSettings) {
                 title(R.string.reset_app_settings)
                 description(R.string.des_reset_app_settings)
@@ -370,7 +370,7 @@ object SettingsProvider {
 
         customSlot(BackupScreenCustomSlots.SchedulerStatus)
 
-        category(R.string.schedule) {
+        group(R.string.schedule) {
             clickableItem(SettingsKeys.AutoBackupTime) {
                 title(R.string.backup_time)
                 description(R.string.des_auto_backup_time)
@@ -378,19 +378,19 @@ object SettingsProvider {
             }
         }
 
-        category(R.string.frequency) {
+        group(R.string.frequency) {
             radioGroupItem(SettingsKeys.AutoBackupFrequency) {
                 options(RadioGroupOptionsProvider.backupFrequencyOptions)
             }
         }
 
-        category(R.string.auto_backup_content_type) {
+        group(R.string.auto_backup_content_type) {
             radioGroupItem(SettingsKeys.AutoBackupType) {
                 options(RadioGroupOptionsProvider.autoBackupTypeOptions)
             }
         }
 
-        category(R.string.local_backup) {
+        group(R.string.local_backup) {
             clickableItem(SettingsKeys.AutoBackupFolder) {
                 title(R.string.auto_backup_folder)
                 description(R.string.des_auto_backup_folder)
@@ -408,7 +408,7 @@ object SettingsProvider {
     val aiSettingsPage = settingsPage("ai_settings") {
         title(R.string.ai_models)
 
-        category(R.string.models) {
+        group(R.string.models) {
             clickableItem(SettingsKeys.AiCloudProvider) {
                 title(R.string.cloud_models)
                 description(R.string.des_cloud_models)
@@ -416,7 +416,7 @@ object SettingsProvider {
             }
         }
 
-        category(R.string.agent_skills) {
+        group(R.string.agent_skills) {
             switchItem(SettingsKeys.AiSkillCommandExecution) {
                 title(R.string.command_execution)
                 description(R.string.des_command_execution)
@@ -442,7 +442,7 @@ object SettingsProvider {
             }
         }
 
-        category(R.string.cache_settings) {
+        group(R.string.cache_settings) {
             switchItem(SettingsKeys.AiCacheEnabled) {
                 title(R.string.ai_cache_enabled)
                 description(R.string.des_ai_cache_enabled)
@@ -527,4 +527,5 @@ fun getAllSettingsIcons(): List<Int> = listOf(
     R.drawable.ic_format_size,
     R.drawable.ic_adb
 )
+
 

@@ -219,11 +219,26 @@ class ButtonGroupItemBuilder internal constructor(private val key: SettingsKey<*
 }
 
 /**
- * Scope for adding items to a group or category.
+ * Scope for adding items to a settings group.
+ * You can optionally set a title to render this group as a categorized section.
  */
 @SettingsDslMarker
 class GroupScope internal constructor() {
+    internal var titleResId: Int? = null
+    internal var titleString: String = ""
     internal val items = mutableListOf<ItemSpec>()
+
+    /** Sets the category title using a string resource ID. */
+    fun title(@StringRes resId: Int) {
+        titleResId = resId
+        titleString = ""
+    }
+
+    /** Sets the category title using a plain string. */
+    fun title(text: String) {
+        titleString = text
+        titleResId = null
+    }
 
     /**
      * Creates a settings item with a toggle switch using a builder block.
@@ -300,47 +315,48 @@ class SettingsPageBuilder internal constructor(
     }
 
     /**
-     * Creates an uncategorized group of items.
+     * Creates a group of items.
+     *
+     * If you call `title(...)` inside the builder block, the group will render as
+     * a categorized section with a header. Otherwise, it will render as an uncategorized block.
      *
      * @param block Builder block for configuring the items in this group.
      */
     fun group(block: GroupScope.() -> Unit) {
         val scope = GroupScope().apply(block)
-        groups.add(GroupSpec.Items(scope.items))
+        groups.add(
+            GroupSpec.Group(
+                titleResId = scope.titleResId,
+                title = scope.titleString,
+                items = scope.items
+            )
+        )
     }
 
     /**
-     * Creates a categorized group of items with a header label.
+     * Creates a categorized group of items with a string resource header label.
      *
      * @param titleResId String resource for the category title.
-     * @param block Builder block for configuring the items in this category.
+     * @param block Builder block for configuring the items in this group.
      */
-    fun category(@StringRes titleResId: Int, block: GroupScope.() -> Unit) {
-        val scope = GroupScope().apply(block)
-        groups.add(
-            GroupSpec.Category(
-                titleResId = titleResId,
-                title = "",
-                items = scope.items
-            )
-        )
+    fun group(@StringRes titleResId: Int, block: GroupScope.() -> Unit) {
+        group {
+            title(titleResId)
+            block()
+        }
     }
 
     /**
-     * Creates a categorized group of items with a header label.
+     * Creates a categorized group of items with a plain string header label.
      *
      * @param title Plain string for the category title.
-     * @param block Builder block for configuring the items in this category.
+     * @param block Builder block for configuring the items in this group.
      */
-    fun category(title: String, block: GroupScope.() -> Unit) {
-        val scope = GroupScope().apply(block)
-        groups.add(
-            GroupSpec.Category(
-                titleResId = null,
-                title = title,
-                items = scope.items
-            )
-        )
+    fun group(title: String, block: GroupScope.() -> Unit) {
+        group {
+            title(title)
+            block()
+        }
     }
 
     /**

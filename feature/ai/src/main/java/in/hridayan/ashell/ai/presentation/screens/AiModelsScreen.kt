@@ -86,17 +86,14 @@ fun AiModelsScreen(
         topAppBarState = topAppBarState,
     )
 
-    val resolvedGroups = aiModelsPage.resolveAll(
-        highlightedKey = highlightedKey,
-        descriptionOverrides = mapOf(
-            SettingsKeys.AiCacheDays to {
-                stringResource(R.string.n_days, cacheDays)
-            },
-            SettingsKeys.AiCacheClear to {
-                stringResource(R.string.cache_size, formattedSize)
-            }
-        ),
-    )
+    val resolvedGroups = aiModelsPage.resolveAll(highlightedKey = highlightedKey) {
+        overrideDescription(SettingsKeys.AiCacheDays) {
+            stringResource(R.string.n_days, cacheDays)
+        }
+        overrideDescription(SettingsKeys.AiCacheClear) {
+            stringResource(R.string.cache_size, formattedSize)
+        }
+    }
 
     AppScaffold(
         onNavigateBack = { navController.navigateBack() },
