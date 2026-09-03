@@ -44,6 +44,10 @@ import `in`.hridayan.ashell.core.utils.openUrl
 @Composable
 fun AppLicenseDetailDialog(onDismiss: () -> Unit) {
     val context = LocalContext.current
+    val licenseName = "GNU General Public License v3.0 or later"
+    val licenseFileName = "gpl_3_0.txt"
+
+    val fullLicenseText = rememberLicenseText(licenseFileName)
 
     Dialog(
         onDismissRequest = onDismiss,
@@ -64,7 +68,7 @@ fun AppLicenseDetailDialog(onDismiss: () -> Unit) {
                     fontWeight = FontWeight.Bold,
                 )
                 Text(
-                    text = "GNU General Public License v3.0 or later",
+                    text = licenseName,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.padding(top = 2.dp),
@@ -86,7 +90,7 @@ fun AppLicenseDetailDialog(onDismiss: () -> Unit) {
                         .verticalScroll(scrollState)
                 ) {
                     Text(
-                        text = rememberLicenseText("gpl_3_0.txt"),
+                        text = fullLicenseText,
                         style = MaterialTheme.typography.bodySmall.copy(
                             fontFamily = FontFamily.Monospace,
                         ),
@@ -132,6 +136,7 @@ private fun responsiveHeight(): Dp {
     }
 }
 
+@Suppress("SameParameterValue")
 @Composable
 private fun rememberLicenseText(fileName: String): String {
     val context = LocalContext.current
