@@ -307,6 +307,8 @@
     <string name="des_hridayan" comment="Developer bio subtitle in About section">बस एक लड़का जिसे ऐप्स और डिज़ाइन पसंद है</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">त्वरित सेटिंग पैनल में दिखाए जाने पर टाइल की निश्चित दृश्य अवस्था</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">View details of the libraries and licenses used by the app</string>
+    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Privacy Policy</string>
+    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">How aShell You handles your data</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">ऐप और लाइब्रेरीज़ द्वारा उपयोग किए जाने वाले लाइसेंस देखें</string>
     <string name="des_local_backup" comment="Description card text for local backup option">अपने डिवाइस पर एन्क्रिप्टेड बैकअप सहेजें</string>
     <string name="des_local_restore" comment="Description card text for local restore option">अपने डिवाइस से कोई बैकअप फ़ाइल चुनें</string>

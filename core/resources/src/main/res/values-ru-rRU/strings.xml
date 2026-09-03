@@ -59,9 +59,9 @@
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">Требуется ключ API</string>
     <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Навыки агента</string>
     <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">Выполнение команды</string>
-    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Разрешить AI агенту выполнять команды оболочки ADB</string>
+    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Разрешить AI агенту выполнять команды ADB shell</string>
     <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">Плитки быстрых настроек</string>
-    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Разрешить Агенту создавать, изменять и удалять плитки быстрых настроек</string>
+    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Разрешить AI агенту создавать, изменять и удалять плитки \"Быстрые настройки\"</string>
     <string name="packages" comment="Title for the packages skill toggle in AI settings">Пакеты</string>
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Разрешить AI агенту запрашивать установленные пакеты и данные приложений</string>
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">Модификация базы данных</string>
@@ -307,6 +307,8 @@
     <string name="des_hridayan" comment="Developer bio subtitle in About section">Просто парень, который любит приложения и дизайн</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">Фиксированное визуальное состояние плитки, когда она отображается на панели \"Быстрых настроек\"</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">Просмотреть сведения о библиотеках и лицензиях, используемых приложением</string>
+    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Политика конфиденциальности</string>
+    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">Как вы обрабатываете ваши данные</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">Просмотрите лицензии, используемые приложением и библиотеками</string>
     <string name="des_local_backup" comment="Description card text for local backup option">Сохранить зашифрованную резервную копию на своем устройстве</string>
     <string name="des_local_restore" comment="Description card text for local restore option">Выберите файл резервирования со своего устройства</string>
@@ -334,8 +336,8 @@
     <string name="developer" comment="Section title in About screen for lead developer info">Разработчик</string>
     <string name="developer_options" comment="System Developer Options setting item or prompt">Параметры разработчика</string>
     <string name="developer_options_not_available" comment="Toast error message when Developer options shortcut cannot be opened">Параметра разработчика недоступны!</string>
-    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">Enable Developer Options first by tapping Build Number 7 times in Settings → About Phone\nIf this method to turn on Developer options does not work, then you can search the instructions for your device on the internet.</string>
-    <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">Необходимы опции разработчика</string>
+    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">Сначала включите «Параметры разработчика», 7 раз нажав на «Номер сборки» в меню «Настройки» → О телефоне\nЕсли этот способ включения «Параметров разработчика» не работает, вы можете найти в Интернете инструкции для вашего устройства.</string>
+    <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">Требуются \"Параметры разработчика\"</string>
     <string name="device_backup_local" comment="Label for local device storage backup file">Резервирование устройства (Локально)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">Устройство подключено!</string>
     <string name="device_disconnected" comment="Notification title when ADB connection drops">Устройство отключено</string>
@@ -850,7 +852,7 @@
     <string name="tab" comment="Settings option for terminal tab indentation behavior">Вкладка</string>
     <string name="tag" comment="Field label for custom command category tag/label">Тег</string>
     <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">Нажмите, чтобы найти .zip файл</string>
-    <string name="tcpip_connect_failed" comment="Toast shown when TCP connection to 127.0.0.1 on the detected port is refused. %1$d is replaced with the port number.">Соединение с портом %1$d отказано. Демон ADB может не быть прослушиваемым.</string>
+    <string name="tcpip_connect_failed" comment="Toast shown when TCP connection to 127.0.0.1 on the detected port is refused. %1$d is replaced with the port number.">Соединение с портом %1$d отказано. Возможно, ADB daemon не находится в режиме прослушивания.</string>
     <string name="tcpip_mode" comment="Label for the TCP/IP local shell working mode (loopback port 5555)">TCP/IP</string>
     <string name="tcpip_not_available_body" comment="Dialog body explaining how to enable TCP ADB when the system property is missing. The adb command should stay untranslated.">В вашем устройстве не включен TCP ADB. Подключиться к ПК по USB один раз и запустить:\n\nadb tcpip 5555\n\nПосле этого этот режим работает без USB или Wi-Fi.</string>
     <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">Режим TCP недоступен</string>
@@ -894,7 +896,7 @@
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">Загрузить файл</string>
     <string name="uploading" comment="Progress status text shown while uploading file to device">Загрузка…</string>
     <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Загрузка резервирования на Google Диск…</string>
-    <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB требуется включить отладку по USB в настройках разработчика</string>
+    <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB требуется включить отладку по USB в \"Параметрах разработчика\"</string>
     <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">Требуется отладка по USB</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">Менеджер USB недоступен на этом устройстве</string>
     <string name="use">Использовать</string>

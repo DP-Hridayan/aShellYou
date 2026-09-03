@@ -308,6 +308,8 @@
     <string name="des_hridayan" comment="Developer bio subtitle in About section">Chỉ là một anh chàng yêu thích các ứng dụng và thiết kế</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">Trạng thái ban đầu của ô khi được hiển thị trong bảng Cài đặt nhanh</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">Xem chi tiết các thư viện và giấy phép được ứng dụng sử dụng</string>
+    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Privacy Policy</string>
+    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">How aShell You handles your data</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">Xem các giấy phép được sử dụng bởi ứng dụng và các thư viện</string>
     <string name="des_local_backup" comment="Description card text for local backup option">Lưu bản sao lưu đã mã hóa trên thiết bị của bạn</string>
     <string name="des_local_restore" comment="Description card text for local restore option">Chọn tệp sao lưu từ thiết bị của bạn</string>

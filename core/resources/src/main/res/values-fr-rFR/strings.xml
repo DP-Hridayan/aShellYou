@@ -307,6 +307,8 @@
     <string name="des_hridayan" comment="Developer bio subtitle in About section">Juste un gars qui aime les applications et le design</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">L\'état visuel fixe de la tuile lorsqu\'elle est affichée dans le panneau des paramètres rapides</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">Voir les détails des bibliothèques et licences utilisées par l\'application</string>
+    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Politique de confidentialité</string>
+    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">Comment aShell Vous gérez vos données</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">Afficher les licences utilisées par l\'application et les bibliothèques</string>
     <string name="des_local_backup" comment="Description card text for local backup option">Enregistrer une sauvegarde chiffrée sur votre appareil</string>
     <string name="des_local_restore" comment="Description card text for local restore option">Choisissez un fichier de sauvegarde sur votre appareil</string>

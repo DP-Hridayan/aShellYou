@@ -64,8 +64,8 @@
     <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Дозволити агенту AI створювати, змінювати та видаляти плитки швидких налаштувань</string>
     <string name="packages" comment="Title for the packages skill toggle in AI settings">Пакунки</string>
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Дозволити агенту AI запитувати встановлені пакунки та дані додатків</string>
-    <string name="database_modification" comment="Title for the database skill toggle in AI settings">Змінення бази даних</string>
-    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Дозволити агенту ШІ додавати, змінювати або видаляти елементи бази даних</string>
+    <string name="database_modification" comment="Title for the database skill toggle in AI settings">Внесення змін бази даних</string>
+    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Дозволити агенту AI додавати, змінювати або видаляти елементи бази даних</string>
     <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">Для використання функцій AI потрібен ключ API. Додайте свій ключ API у налаштуваннях. -&gt; Хмарні моделі.</string>
     <string name="app">Додаток</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">Збій у додатку</string>
@@ -307,6 +307,8 @@
     <string name="des_hridayan" comment="Developer bio subtitle in About section">Просто хлопець, який любить додатки та дизайн</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">Фіксований візуальний стан плитки, коли вона зображена на панелі \"Швидких налаштувань\"</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">Переглянути детальну інформацію про бібліотеки та ліцензії, які використовує додаток</string>
+    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Політика конфіденційності</string>
+    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">Як \"Shell Ви обробляєте ваші дані</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">Перегляньте ліцензії, які використовуються додатком та бібліотеками</string>
     <string name="des_local_backup" comment="Description card text for local backup option">Зберегти зашифровану резервну копію на своєму пристрої</string>
     <string name="des_local_restore" comment="Description card text for local restore option">Виберіть файл резервування зі свого пристрою</string>
@@ -334,8 +336,8 @@
     <string name="developer" comment="Section title in About screen for lead developer info">Розробник</string>
     <string name="developer_options" comment="System Developer Options setting item or prompt">Параметри розробника</string>
     <string name="developer_options_not_available" comment="Toast error message when Developer options shortcut cannot be opened">Параметри розробника недоступні!</string>
-    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">Enable Developer Options first by tapping Build Number 7 times in Settings → About Phone\nIf this method to turn on Developer options does not work, then you can search the instructions for your device on the internet.</string>
-    <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">Необхідно вказати параметри розробника</string>
+    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">Спочатку увімкніть \"Параметри розробника\", 7 разів натиснувши на \"Номер збірки\" в меню \"Налаштування\" → Про телефон\nЯкщо цей спосіб увімкнення \"Параметрів розробника\" не працює, ви можете знайти в Інтернеті інструкції для вашого пристрою.</string>
+    <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">Необхідні Параметри розробника</string>
     <string name="device_backup_local" comment="Label for local device storage backup file">Резервування пристрою (Локально)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">Пристрій під\'єднано!</string>
     <string name="device_disconnected" comment="Notification title when ADB connection drops">Пристрій від\'єднано</string>
@@ -852,8 +854,8 @@
     <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">Торкніться, щоб знайти .zip файл</string>
     <string name="tcpip_connect_failed" comment="Toast shown when TCP connection to 127.0.0.1 on the detected port is refused. %1$d is replaced with the port number.">Підключення до порту %1$d відхилено. ADB daemon може не прослуховуватися.</string>
     <string name="tcpip_mode" comment="Label for the TCP/IP local shell working mode (loopback port 5555)">TCP/IP</string>
-    <string name="tcpip_not_available_body" comment="Dialog body explaining how to enable TCP ADB when the system property is missing. The adb command should stay untranslated.">Ваш пристрій не має увімкненого TCP ADB Підключіться до комп\'ютера один раз через USB і запустіть:\n\nadb tcpip 5555\n\nпісля цього, цей режим працює без USB та Wi-Fi.</string>
-    <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">Режим TCP недоступний</string>
+    <string name="tcpip_not_available_body" comment="Dialog body explaining how to enable TCP ADB when the system property is missing. The adb command should stay untranslated.">Ваш пристрій не має увімкненого TCP ADB Під\'єднатися до комп\'ютера один раз через USB і запустіть:\n\nadb tcpip 5555\n\nпісля цього, цей режим працює без USB та Wi-Fi.</string>
+    <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">TCP Режим недоступний</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">Термінал</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Стиль шрифту терміналу</string>
     <string name="tertiary">Третинний</string>
@@ -894,8 +896,8 @@
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">Завантажити файл</string>
     <string name="uploading" comment="Progress status text shown while uploading file to device">Завантаження…</string>
     <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Завантаження резервування на Google Диск…</string>
-    <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB вимагає включення налагодження USB в налаштуваннях розробника</string>
-    <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">Необхідне відлагодження USB</string>
+    <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB потрібно увімкнути налагодження через USB у розділі \"Параметри розробника\"</string>
+    <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">Необхідне USB налагодження</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">Менеджер USB недоступний на цьому пристрої</string>
     <string name="use">Використати</string>
     <string name="utilities" comment="Category title in homescreen">Утиліти</string>
