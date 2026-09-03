@@ -5,6 +5,7 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,6 +18,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.style.ExperimentalFoundationStyleApi
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -35,7 +37,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalHapticFeedback
@@ -93,7 +94,7 @@ fun UiScaleScreen(
                             .padding(horizontal = 15.dp),
                         title = stringResource(R.string.screen_density_multiplier),
                         description = stringResource(R.string.des_screen_density),
-                        icon = painterResource(R.drawable.ic_high_density),
+                        iconResId = R.drawable.ic_high_density,
                         shape = CardCornerShape.FIRST_CARD,
                         value = settings[SettingsKeys.ScreenDensityMultiplier],
                         onValueChangeFinished = { newValue ->
@@ -126,7 +127,7 @@ fun UiScaleScreen(
                             .padding(horizontal = 15.dp),
                         title = stringResource(R.string.font_size_multiplier),
                         description = stringResource(R.string.des_font_size),
-                        icon = painterResource(R.drawable.ic_format_size),
+                        iconResId = R.drawable.ic_format_size,
                         shape = CardCornerShape.LAST_CARD,
                         value = settings[SettingsKeys.FontSizeMultiplier],
                         valueRange = 0.5f..2f,
@@ -169,7 +170,7 @@ private fun ScaleModifyCard(
     steps: Int = 9,
     title: String,
     description: String,
-    icon: Painter,
+    @DrawableRes iconResId: Int?,
     shape: CustomCardShape = CustomCardShape(24),
     enableHaptics: Boolean = true,
 ) {
@@ -194,12 +195,22 @@ private fun ScaleModifyCard(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                Icon(
-                    modifier = Modifier.padding(horizontal = 5.dp),
-                    painter = icon,
-                    tint = MaterialTheme.colorScheme.primary,
-                    contentDescription = null
-                )
+                iconResId?.let { resId ->
+                    Box(
+                        modifier = Modifier
+                            .clip(CircleShape)
+                            .background(MaterialTheme.colorScheme.secondaryContainer)
+                            .padding(10.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            modifier = Modifier.size(20.dp),
+                            painter = painterResource(resId),
+                            tint = MaterialTheme.colorScheme.onSecondaryContainer,
+                            contentDescription = null
+                        )
+                    }
+                }
 
                 Column(
                     modifier = Modifier

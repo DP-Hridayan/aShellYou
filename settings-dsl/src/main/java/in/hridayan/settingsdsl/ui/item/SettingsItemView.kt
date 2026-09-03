@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Check
@@ -211,18 +212,28 @@ private fun SettingsSwitch(
 
 @Composable
 private fun ItemLeadingIcon(icon: ImageVector?, @DrawableRes iconResId: Int?) {
-    when {
-        icon != null -> Icon(
-            imageVector = icon,
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary
-        )
+    Box(
+        modifier = Modifier
+            .clip(CircleShape)
+            .background(MaterialTheme.colorScheme.secondaryContainer)
+            .padding(10.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        when {
+            icon != null -> Icon(
+                modifier = Modifier.size(20.dp),
+                imageVector = icon,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSecondaryContainer
+            )
 
-        iconResId != null -> Icon(
-            painter = painterResource(iconResId),
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary
-        )
+            iconResId != null -> Icon(
+                modifier = Modifier.size(20.dp),
+                painter = painterResource(iconResId),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSecondaryContainer
+            )
+        }
     }
 }
 
@@ -270,9 +281,9 @@ private fun ClickableItemView(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 17.dp),
+                .padding(17.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(15.dp),
+            horizontalArrangement = Arrangement.spacedBy(17.dp),
         ) {
             ItemLeadingIcon(icon = icon, iconResId = iconResId)
 
@@ -324,9 +335,9 @@ private fun SwitchItemView(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 17.dp),
+                .padding(17.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(15.dp),
+            horizontalArrangement = Arrangement.spacedBy(17.dp),
         ) {
             ItemLeadingIcon(icon = icon, iconResId = iconResId)
 

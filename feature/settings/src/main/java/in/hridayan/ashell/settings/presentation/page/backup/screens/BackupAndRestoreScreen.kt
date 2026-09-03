@@ -6,6 +6,7 @@ import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.DrawableRes
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
@@ -17,8 +18,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -37,8 +40,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
@@ -156,6 +159,7 @@ fun BackupAndRestoreScreen(
                 is SettingsUiEvent.RequestDocumentUriForRestore -> launcherRestore.launch(
                     arrayOf("application/octet-stream")
                 )
+
                 is SettingsUiEvent.RequestGoogleDriveBackup -> backupAndRestoreViewModel.backupToGoogleDrive(
                     event.backupType
                 )
@@ -353,10 +357,8 @@ private fun LastBackupTimeCard(
     onClick: () -> Unit = {},
 ) {
     val roundedCornerShape = if (isExpanded) CardCornerShape.FIRST_CARD else CustomCardShape(50)
-    val cloudCardIcon =
-        if (userState.isSignedIn) painterResource(
-            R.drawable.ic_cloud_done
-        ) else painterResource(R.drawable.ic_cloud_off)
+    val cloudCardIconResId =
+        if (userState.isSignedIn) R.drawable.ic_cloud_done else R.drawable.ic_cloud_off
 
     Column(modifier = modifier.animateContentSize()) {
         CustomCard(
@@ -399,7 +401,7 @@ private fun LastBackupTimeCard(
             TimeCard(
                 modifier = Modifier.fillMaxWidth(),
                 shape = CardCornerShape.run { if (isCloudBackupAvailable) MIDDLE_CARD else LAST_CARD },
-                icon = painterResource(R.drawable.ic_mobile),
+                iconResId = R.drawable.ic_mobile,
                 title = stringResource(R.string.device_backup_local),
                 backupType = lastBackupData.localType,
                 dateTime = lastBackupData.localTime,
@@ -414,7 +416,7 @@ private fun LastBackupTimeCard(
                 TimeCard(
                     modifier = Modifier.fillMaxWidth(),
                     shape = CardCornerShape.LAST_CARD,
-                    icon = cloudCardIcon,
+                    iconResId = cloudCardIconResId,
                     title = stringResource(R.string.cloud_backup_google_drive),
                     backupType = lastBackupData.cloudType,
                     dateTime = lastBackupData.cloudTime,
@@ -429,7 +431,7 @@ private fun LastBackupTimeCard(
 private fun TimeCard(
     modifier: Modifier = Modifier,
     shape: CustomCardShape,
-    icon: Painter,
+    @DrawableRes iconResId: Int?,
     title: String,
     backupType: String,
     dateTime: String,
@@ -455,11 +457,23 @@ private fun TimeCard(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(15.dp)
         ) {
-            Icon(
-                painter = icon,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary
-            )
+            iconResId?.let { resId ->
+                Box(
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.secondaryContainer)
+                        .padding(10.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        modifier = Modifier.size(20.dp),
+                        painter = painterResource(resId),
+                        tint = MaterialTheme.colorScheme.onSecondaryContainer,
+                        contentDescription = null
+                    )
+                }
+            }
+
             Column(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(7.dp)
