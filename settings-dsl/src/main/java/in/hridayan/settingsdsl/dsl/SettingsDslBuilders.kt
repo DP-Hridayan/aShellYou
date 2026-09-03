@@ -88,9 +88,8 @@ abstract class BaseSettingsItemWithIconBuilder : BaseSettingsItemWithDescription
  */
 @SettingsDslMarker
 abstract class BaseSettingsItemWithExperimentalFlagBuilder : BaseSettingsItemWithIconBuilder() {
-    var enableExperimentalFlag: Boolean = false
     internal var experimentalFlagTextResId: Int? = null
-    internal var experimentalFlagTextString: String = "Experimental"
+    internal var experimentalFlagTextString: String = ""
 
     /** Sets the experimental flag text using a string resource ID. */
     fun experimentalFlagText(@StringRes resId: Int) {
@@ -121,7 +120,6 @@ class ClickableItemBuilder internal constructor(private val key: SettingsKey<*>)
         descriptionString = descriptionString,
         iconResId = iconResId,
         iconVector = iconVector,
-        enableExperimentalFlag = enableExperimentalFlag,
         experimentalFlagTextResId = experimentalFlagTextResId,
         experimentalFlagText = experimentalFlagTextString
     )
@@ -143,7 +141,6 @@ class SwitchItemBuilder internal constructor(private val key: SettingsKey<*>) :
         descriptionString = descriptionString,
         iconResId = iconResId,
         iconVector = iconVector,
-        enableExperimentalFlag = enableExperimentalFlag,
         experimentalFlagTextResId = experimentalFlagTextResId,
         experimentalFlagText = experimentalFlagTextString
     )
@@ -380,3 +377,4 @@ class SettingsPageBuilder internal constructor(
             screenTitleResId = screenTitleResId
         )
 }
+

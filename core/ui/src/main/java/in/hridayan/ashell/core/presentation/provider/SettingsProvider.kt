@@ -108,7 +108,6 @@ object SettingsProvider {
                 title(R.string.auto_scale_ui)
                 description(R.string.des_auto_scale_ui)
                 icon(R.drawable.ic_transform)
-                enableExperimentalFlag = true
                 experimentalFlagText(R.string.experimental)
             }
 
@@ -527,5 +526,6 @@ fun getAllSettingsIcons(): List<Int> = listOf(
     R.drawable.ic_format_size,
     R.drawable.ic_adb
 )
+
 
 

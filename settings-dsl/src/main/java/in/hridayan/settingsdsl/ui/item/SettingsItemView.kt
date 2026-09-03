@@ -77,7 +77,6 @@ fun SettingsItemView(
     @DrawableRes iconResId: Int? = null,
     shape: CustomCardShape = CustomCardShape(),
     isHighlighted: Boolean = false,
-    enableExperimentalFlag: Boolean = false,
     experimentalFlagText: String = "Experimental",
     behavior: ItemBehavior,
     enabled: Boolean = true,
@@ -118,7 +117,6 @@ fun SettingsItemView(
             iconResId = iconResId,
             shape = shape,
             isHighlighted = isHighlighted,
-            enableExperimentalFlag = enableExperimentalFlag,
             experimentalFlagText = experimentalFlagText,
             enabled = enabled,
             isChecked = isChecked,
@@ -141,6 +139,7 @@ fun SettingsItemView(
             iconResId = iconResId,
             shape = shape,
             isHighlighted = isHighlighted,
+            experimentalFlagText = experimentalFlagText,
             enabled = enabled,
             onClick = wrappedOnClick,
         )
@@ -257,6 +256,7 @@ private fun ClickableItemView(
     @DrawableRes iconResId: Int?,
     shape: CustomCardShape,
     isHighlighted: Boolean,
+    experimentalFlagText: String,
     enabled: Boolean,
     onClick: () -> Unit
 ) {
@@ -280,6 +280,7 @@ private fun ClickableItemView(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(7.dp)
             ) {
+                if (experimentalFlagText.isNotEmpty()) ExperimentalBadge(label = experimentalFlagText)
                 if (title.isNotEmpty()) {
                     Text(
                         text = title,
@@ -308,7 +309,6 @@ private fun SwitchItemView(
     @DrawableRes iconResId: Int?,
     shape: CustomCardShape,
     isHighlighted: Boolean,
-    enableExperimentalFlag: Boolean,
     experimentalFlagText: String,
     enabled: Boolean,
     isChecked: Boolean,
@@ -334,7 +334,7 @@ private fun SwitchItemView(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(7.dp)
             ) {
-                if (enableExperimentalFlag) ExperimentalBadge(label = experimentalFlagText)
+                if (experimentalFlagText.isNotEmpty()) ExperimentalBadge(label = experimentalFlagText)
 
                 if (title.isNotEmpty()) {
                     Text(
@@ -480,3 +480,7 @@ private fun ButtonGroupItemView(
         }
     }
 }
+
+
+
+

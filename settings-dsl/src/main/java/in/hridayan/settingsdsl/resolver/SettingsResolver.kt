@@ -195,7 +195,6 @@ private fun ItemSpec.toSettingsItem(
         shape = shape,
         behavior = behavior,
         isHighlighted = key == highlightedKey,
-        enableExperimentalFlag = enableExperimentalFlag,
         experimentalFlagText = resolvedExperimentalFlagText
     )
 }
@@ -204,3 +203,4 @@ private fun GroupSpec.specsOrEmpty(): List<ItemSpec> = when (this) {
     is GroupSpec.Group -> items
     else -> emptyList()
 }
+

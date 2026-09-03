@@ -137,7 +137,6 @@ private fun SettingsItemEntry(
         iconResId = item.iconResId,
         shape = item.shape,
         isHighlighted = item.isHighlighted,
-        enableExperimentalFlag = item.enableExperimentalFlag,
         experimentalFlagText = item.experimentalFlagText,
         behavior = item.behavior,
         enabled = item.enabled,
@@ -149,3 +148,4 @@ private fun SettingsItemEntry(
         onValueChange = onValueChange,
     )
 }
+

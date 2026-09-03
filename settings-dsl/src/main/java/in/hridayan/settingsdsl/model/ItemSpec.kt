@@ -19,7 +19,6 @@ internal sealed class ItemSpec(
     val descriptionString: String,
     @param:DrawableRes val iconResId: Int?,
     val iconVector: ImageVector?,
-    val enableExperimentalFlag: Boolean,
     @param:StringRes val experimentalFlagTextResId: Int?,
     val experimentalFlagText: String
 ) {
@@ -33,7 +32,6 @@ internal sealed class ItemSpec(
         descriptionString: String,
         @DrawableRes iconResId: Int?,
         iconVector: ImageVector?,
-        enableExperimentalFlag: Boolean,
         @StringRes experimentalFlagTextResId: Int?,
         experimentalFlagText: String
     ) : ItemSpec(
@@ -46,7 +44,6 @@ internal sealed class ItemSpec(
         descriptionString = descriptionString,
         iconResId = iconResId,
         iconVector = iconVector,
-        enableExperimentalFlag = enableExperimentalFlag,
         experimentalFlagTextResId = experimentalFlagTextResId,
         experimentalFlagText = experimentalFlagText
     )
@@ -67,7 +64,6 @@ internal sealed class ItemSpec(
         descriptionString = "",
         iconResId = null,
         iconVector = null,
-        enableExperimentalFlag = false,
         experimentalFlagTextResId = null,
         experimentalFlagText = ""
     )
@@ -82,7 +78,6 @@ internal sealed class ItemSpec(
         descriptionString: String,
         @DrawableRes iconResId: Int?,
         iconVector: ImageVector?,
-        enableExperimentalFlag: Boolean,
         @StringRes experimentalFlagTextResId: Int?,
         experimentalFlagText: String
     ) : ItemSpec(
@@ -95,7 +90,6 @@ internal sealed class ItemSpec(
         descriptionString = descriptionString,
         iconResId = iconResId,
         iconVector = iconVector,
-        enableExperimentalFlag = enableExperimentalFlag,
         experimentalFlagTextResId = experimentalFlagTextResId,
         experimentalFlagText = experimentalFlagText
     )
@@ -115,7 +109,6 @@ internal sealed class ItemSpec(
         descriptionString = "",
         iconResId = null,
         iconVector = null,
-        enableExperimentalFlag = false,
         experimentalFlagTextResId = null,
         experimentalFlagText = ""
     )
@@ -135,7 +128,6 @@ internal sealed class ItemSpec(
         descriptionString = "",
         iconResId = null,
         iconVector = null,
-        enableExperimentalFlag = false,
         experimentalFlagTextResId = null,
         experimentalFlagText = ""
     )
@@ -165,3 +157,6 @@ data class ButtonGroupOption(
     @param:StringRes val labelResId: Int,
     @param:DrawableRes val iconResId: Int? = null,
 )
+
+
+
