@@ -275,6 +275,7 @@ private fun ClickableItemView(
             horizontalArrangement = Arrangement.spacedBy(15.dp),
         ) {
             ItemLeadingIcon(icon = icon, iconResId = iconResId)
+
             Column(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(7.dp)
@@ -328,6 +329,7 @@ private fun SwitchItemView(
             horizontalArrangement = Arrangement.spacedBy(15.dp),
         ) {
             ItemLeadingIcon(icon = icon, iconResId = iconResId)
+
             Column(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(7.dp)
