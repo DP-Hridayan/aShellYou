@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 
 package `in`.hridayan.ashell.settings.presentation.page.privacypolicy.screens
 
@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -22,15 +23,22 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
@@ -48,6 +56,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
+import `in`.hridayan.ashell.core.presentation.utils.syncedRotationAndScale
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.settings.presentation.page.privacypolicy.model.PolicyBlock
 import `in`.hridayan.ashell.settings.presentation.page.privacypolicy.viewmodel.PrivacyPolicyViewModel
@@ -60,6 +69,8 @@ fun PrivacyPolicyScreen(
     val navController = LocalNavController.current
     val listState = rememberLazyListState()
     val blocks by viewModel.blocks
+
+    val (angle, scale) = syncedRotationAndScale()
 
     AppScaffold(
         onNavigateBack = { navController.navigateBack() },
@@ -75,6 +86,35 @@ fun PrivacyPolicyScreen(
                 contentPadding = innerPadding,
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
+                item {
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 30.dp, bottom = 10.dp)
+                    ) {
+                        Spacer(
+                            modifier = Modifier
+                                .requiredSize(120.dp)
+                                .align(Alignment.Center)
+                                .graphicsLayer {
+                                    rotationZ = angle()
+                                    scaleX = scale()
+                                    scaleY = scale()
+                                }
+                                .clip(MaterialShapes.Cookie9Sided.toShape())
+                                .background(MaterialTheme.colorScheme.primaryContainer)
+                        )
+
+                        Icon(
+                            modifier = Modifier.size(64.dp),
+                            painter = painterResource(R.drawable.ic_policy_filled),
+                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                            contentDescription = null,
+                        )
+                    }
+                }
+
                 itemsIndexed(
                     items = blocks,
                     key = { index, _ -> index },
