@@ -21,7 +21,7 @@ annotation class SettingsDslMarker
  * Base builder for a settings item with a title and visibility state.
  */
 @SettingsDslMarker
-abstract class BaseSettingsItemBuilder {
+abstract class BaseItemBuilder {
     var visible: Boolean = true
     var enabled: Boolean = true
 
@@ -45,7 +45,7 @@ abstract class BaseSettingsItemBuilder {
  * Base builder for a settings item that also has a description.
  */
 @SettingsDslMarker
-abstract class BaseSettingsItemWithDescriptionBuilder : BaseSettingsItemBuilder() {
+abstract class DescribedItemBuilder : BaseItemBuilder() {
     internal var descriptionResId: Int? = null
     internal var descriptionString: String = ""
 
@@ -66,7 +66,7 @@ abstract class BaseSettingsItemWithDescriptionBuilder : BaseSettingsItemBuilder(
  * Base builder for a settings item that also has an icon.
  */
 @SettingsDslMarker
-abstract class BaseSettingsItemWithIconBuilder : BaseSettingsItemWithDescriptionBuilder() {
+abstract class IconItemBuilder : DescribedItemBuilder() {
     internal var iconResId: Int? = null
     internal var iconVector: ImageVector? = null
 
@@ -87,7 +87,7 @@ abstract class BaseSettingsItemWithIconBuilder : BaseSettingsItemWithDescription
  * Base builder for a settings item that supports an experimental flag badge.
  */
 @SettingsDslMarker
-abstract class BaseSettingsItemWithExperimentalFlagBuilder : BaseSettingsItemWithIconBuilder() {
+abstract class BadgeItemBuilder : IconItemBuilder() {
     internal var experimentalFlagTextResId: Int? = null
     internal var experimentalFlagTextString: String = ""
 
@@ -109,7 +109,7 @@ abstract class BaseSettingsItemWithExperimentalFlagBuilder : BaseSettingsItemWit
  */
 @SettingsDslMarker
 class ClickableItemBuilder internal constructor(private val key: SettingsKey<*>) :
-    BaseSettingsItemWithExperimentalFlagBuilder() {
+    BadgeItemBuilder() {
     internal fun build(): ItemSpec = ItemSpec.ClickableSpec(
         key = key,
         isVisible = visible,
@@ -130,7 +130,7 @@ class ClickableItemBuilder internal constructor(private val key: SettingsKey<*>)
  */
 @SettingsDslMarker
 class SwitchItemBuilder internal constructor(private val key: SettingsKey<*>) :
-    BaseSettingsItemWithExperimentalFlagBuilder() {
+    BadgeItemBuilder() {
     internal fun build(): ItemSpec = ItemSpec.SwitchSpec(
         key = key,
         isVisible = visible,
@@ -151,7 +151,7 @@ class SwitchItemBuilder internal constructor(private val key: SettingsKey<*>) :
  */
 @SettingsDslMarker
 class SwitchBannerItemBuilder internal constructor(private val key: SettingsKey<*>) :
-    BaseSettingsItemBuilder() {
+    BaseItemBuilder() {
     internal fun build(): ItemSpec = ItemSpec.SwitchBannerSpec(
         key = key,
         isVisible = visible,
@@ -377,5 +377,6 @@ class SettingsPageBuilder internal constructor(
             screenTitleResId = screenTitleResId
         )
 }
+
 
 
