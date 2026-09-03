@@ -4,10 +4,12 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.vector.ImageVector
 import `in`.hridayan.settingsdsl.model.ButtonGroupOption
+import `in`.hridayan.settingsdsl.model.CustomSlot
+import `in`.hridayan.settingsdsl.model.GroupSpec
 import `in`.hridayan.settingsdsl.model.ItemSpec
 import `in`.hridayan.settingsdsl.model.RadioButtonOption
-import `in`.hridayan.settingsdsl.model.SettingsItemSpec
 import `in`.hridayan.settingsdsl.model.SettingsKey
+import `in`.hridayan.settingsdsl.model.SettingsPage
 
 /**
  * DSL marker annotation to restrict scope in settings DSL blocks.
@@ -109,21 +111,19 @@ abstract class BaseSettingsItemWithExperimentalFlagBuilder : BaseSettingsItemWit
 @SettingsDslMarker
 class ClickableItemBuilder internal constructor(private val key: SettingsKey<*>) :
     BaseSettingsItemWithExperimentalFlagBuilder() {
-    internal fun build(): SettingsItemSpec = SettingsItemSpec(
-        ItemSpec.ClickableSpec(
-            key = key,
-            isVisible = visible,
-            enabled = enabled,
-            titleResId = titleResId,
-            titleString = titleString,
-            descriptionResId = descriptionResId,
-            descriptionString = descriptionString,
-            iconResId = iconResId,
-            iconVector = iconVector,
-            enableExperimentalFlag = enableExperimentalFlag,
-            experimentalFlagTextResId = experimentalFlagTextResId,
-            experimentalFlagText = experimentalFlagTextString
-        )
+    internal fun build(): ItemSpec = ItemSpec.ClickableSpec(
+        key = key,
+        isVisible = visible,
+        enabled = enabled,
+        titleResId = titleResId,
+        titleString = titleString,
+        descriptionResId = descriptionResId,
+        descriptionString = descriptionString,
+        iconResId = iconResId,
+        iconVector = iconVector,
+        enableExperimentalFlag = enableExperimentalFlag,
+        experimentalFlagTextResId = experimentalFlagTextResId,
+        experimentalFlagText = experimentalFlagTextString
     )
 }
 
@@ -133,21 +133,19 @@ class ClickableItemBuilder internal constructor(private val key: SettingsKey<*>)
 @SettingsDslMarker
 class SwitchItemBuilder internal constructor(private val key: SettingsKey<*>) :
     BaseSettingsItemWithExperimentalFlagBuilder() {
-    internal fun build(): SettingsItemSpec = SettingsItemSpec(
-        ItemSpec.SwitchSpec(
-            key = key,
-            isVisible = visible,
-            enabled = enabled,
-            titleResId = titleResId,
-            titleString = titleString,
-            descriptionResId = descriptionResId,
-            descriptionString = descriptionString,
-            iconResId = iconResId,
-            iconVector = iconVector,
-            enableExperimentalFlag = enableExperimentalFlag,
-            experimentalFlagTextResId = experimentalFlagTextResId,
-            experimentalFlagText = experimentalFlagTextString
-        )
+    internal fun build(): ItemSpec = ItemSpec.SwitchSpec(
+        key = key,
+        isVisible = visible,
+        enabled = enabled,
+        titleResId = titleResId,
+        titleString = titleString,
+        descriptionResId = descriptionResId,
+        descriptionString = descriptionString,
+        iconResId = iconResId,
+        iconVector = iconVector,
+        enableExperimentalFlag = enableExperimentalFlag,
+        experimentalFlagTextResId = experimentalFlagTextResId,
+        experimentalFlagText = experimentalFlagTextString
     )
 }
 
@@ -157,14 +155,12 @@ class SwitchItemBuilder internal constructor(private val key: SettingsKey<*>) :
 @SettingsDslMarker
 class SwitchBannerItemBuilder internal constructor(private val key: SettingsKey<*>) :
     BaseSettingsItemBuilder() {
-    internal fun build(): SettingsItemSpec = SettingsItemSpec(
-        ItemSpec.SwitchBannerSpec(
-            key = key,
-            isVisible = visible,
-            enabled = enabled,
-            titleResId = titleResId,
-            titleString = titleString
-        )
+    internal fun build(): ItemSpec = ItemSpec.SwitchBannerSpec(
+        key = key,
+        isVisible = visible,
+        enabled = enabled,
+        titleResId = titleResId,
+        titleString = titleString
     )
 }
 
@@ -187,13 +183,11 @@ class RadioGroupItemBuilder internal constructor(private val key: SettingsKey<*>
         options = optionsList
     }
 
-    internal fun build(): SettingsItemSpec = SettingsItemSpec(
-        ItemSpec.RadioGroupSpec(
-            key = key,
-            isVisible = visible,
-            enabled = enabled,
-            options = options
-        )
+    internal fun build(): ItemSpec = ItemSpec.RadioGroupSpec(
+        key = key,
+        isVisible = visible,
+        enabled = enabled,
+        options = options
     )
 }
 
@@ -216,12 +210,157 @@ class ButtonGroupItemBuilder internal constructor(private val key: SettingsKey<*
         options = optionsList
     }
 
-    internal fun build(): SettingsItemSpec = SettingsItemSpec(
-        ItemSpec.ButtonGroupSpec(
-            key = key,
-            isVisible = visible,
-            enabled = enabled,
-            options = options
-        )
+    internal fun build(): ItemSpec = ItemSpec.ButtonGroupSpec(
+        key = key,
+        isVisible = visible,
+        enabled = enabled,
+        options = options
     )
+}
+
+/**
+ * Scope for adding items to a group or category.
+ */
+@SettingsDslMarker
+class GroupScope internal constructor() {
+    internal val items = mutableListOf<ItemSpec>()
+
+    /**
+     * Creates a settings item with a toggle switch using a builder block.
+     *
+     * @param key Unique identifier for this setting.
+     * @param block Builder block for configuring the item.
+     */
+    fun switchItem(key: SettingsKey<*>, block: SwitchItemBuilder.() -> Unit) {
+        items.add(SwitchItemBuilder(key).apply(block).build())
+    }
+
+    /**
+     * Creates a full-width switch banner item using a builder block.
+     *
+     * @param key Unique identifier for this setting.
+     * @param block Builder block for configuring the item.
+     */
+    fun switchBannerItem(key: SettingsKey<*>, block: SwitchBannerItemBuilder.() -> Unit) {
+        items.add(SwitchBannerItemBuilder(key).apply(block).build())
+    }
+
+    /**
+     * Creates a tappable settings item that navigates or opens a dialog using a builder block.
+     *
+     * @param key Unique identifier for this setting.
+     * @param block Builder block for configuring the item.
+     */
+    fun clickableItem(key: SettingsKey<*>, block: ClickableItemBuilder.() -> Unit) {
+        items.add(ClickableItemBuilder(key).apply(block).build())
+    }
+
+    /**
+     * Creates a settings item that renders a group of mutually exclusive radio options using a builder block.
+     *
+     * @param key Unique identifier for this setting.
+     * @param block Builder block for configuring the item.
+     */
+    fun radioGroupItem(key: SettingsKey<*>, block: RadioGroupItemBuilder.() -> Unit) {
+        items.add(RadioGroupItemBuilder(key).apply(block).build())
+    }
+
+    /**
+     * Creates a settings item that renders a segmented/button group selector using a builder block.
+     *
+     * @param key Unique identifier for this setting.
+     * @param block Builder block for configuring the item.
+     */
+    fun buttonGroupItem(key: SettingsKey<*>, block: ButtonGroupItemBuilder.() -> Unit) {
+        items.add(ButtonGroupItemBuilder(key).apply(block).build())
+    }
+}
+
+/**
+ * Scope for building a SettingsPage.
+ */
+@SettingsDslMarker
+class SettingsPageBuilder internal constructor(
+    private val screenId: String? = null
+) {
+    internal var screenTitleResId: Int? = null
+    internal var screenTitleString: String = ""
+    internal val groups = mutableListOf<GroupSpec>()
+
+    /** Sets the screen title using a string resource ID. */
+    fun title(@StringRes resId: Int) {
+        screenTitleResId = resId
+        screenTitleString = ""
+    }
+
+    /** Sets the screen title using a plain string. */
+    fun title(text: String) {
+        screenTitleString = text
+        screenTitleResId = null
+    }
+
+    /**
+     * Creates an uncategorized group of items.
+     *
+     * @param block Builder block for configuring the items in this group.
+     */
+    fun group(block: GroupScope.() -> Unit) {
+        val scope = GroupScope().apply(block)
+        groups.add(GroupSpec.Items(scope.items))
+    }
+
+    /**
+     * Creates a categorized group of items with a header label.
+     *
+     * @param titleResId String resource for the category title.
+     * @param block Builder block for configuring the items in this category.
+     */
+    fun category(@StringRes titleResId: Int, block: GroupScope.() -> Unit) {
+        val scope = GroupScope().apply(block)
+        groups.add(
+            GroupSpec.Category(
+                titleResId = titleResId,
+                title = "",
+                items = scope.items
+            )
+        )
+    }
+
+    /**
+     * Creates a categorized group of items with a header label.
+     *
+     * @param title Plain string for the category title.
+     * @param block Builder block for configuring the items in this category.
+     */
+    fun category(title: String, block: GroupScope.() -> Unit) {
+        val scope = GroupScope().apply(block)
+        groups.add(
+            GroupSpec.Category(
+                titleResId = null,
+                title = title,
+                items = scope.items
+            )
+        )
+    }
+
+    /**
+     * Inserts a custom composable slot identified by the given [CustomSlot].
+     */
+    fun customSlot(slot: CustomSlot) {
+        groups.add(GroupSpec.Custom(slot))
+    }
+
+    /**
+     * Inserts a horizontal visual divider between groups.
+     */
+    fun divider() {
+        groups.add(GroupSpec.Divider)
+    }
+
+    internal fun build(): SettingsPage =
+        SettingsPage(
+            groups = groups,
+            screenId = screenId,
+            screenTitleResId = screenTitleResId
+        )
 }

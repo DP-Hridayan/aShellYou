@@ -3,12 +3,6 @@ package `in`.hridayan.settingsdsl.model
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.vector.ImageVector
-import `in`.hridayan.settingsdsl.dsl.buttonGroupItem
-import `in`.hridayan.settingsdsl.dsl.category
-import `in`.hridayan.settingsdsl.dsl.clickableItem
-import `in`.hridayan.settingsdsl.dsl.group
-import `in`.hridayan.settingsdsl.dsl.radioGroupItem
-import `in`.hridayan.settingsdsl.dsl.switchItem
 
 /**
  * Internal blueprint for a single settings item.
@@ -147,14 +141,6 @@ internal sealed class ItemSpec(
     )
 }
 
-/**
- * Opaque wrapper around [ItemSpec] used as the parameter type for DSL group builders.
- *
- * The internal [spec] field is accessible only within the library module. Consumers
- * create instances via DSL builder functions ([switchItem], [clickableItem], etc.) and
- * pass them to group builders ([group], [category]). They cannot read or modify the spec directly.
- */
-class SettingsItemSpec internal constructor(internal val spec: ItemSpec)
 
 /**
  * A radio button option within a [radioGroupItem].
