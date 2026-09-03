@@ -1,199 +1,13 @@
 package `in`.hridayan.settingsdsl.dsl
 
-import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.ui.graphics.vector.ImageVector
-import `in`.hridayan.settingsdsl.model.ButtonGroupOption
 import `in`.hridayan.settingsdsl.model.CustomSlot
 import `in`.hridayan.settingsdsl.model.GroupSpec
-import `in`.hridayan.settingsdsl.model.ItemSpec
-import `in`.hridayan.settingsdsl.model.RadioButtonOption
 import `in`.hridayan.settingsdsl.model.SettingsGroup
 import `in`.hridayan.settingsdsl.model.SettingsItemSpec
 import `in`.hridayan.settingsdsl.model.SettingsKey
 import `in`.hridayan.settingsdsl.model.SettingsPage
 
-/**
- * Creates a settings item with a toggle switch.
- *
- * @param key Unique identifier for this setting.
- * @param titleResId String resource for the display title.
- * @param title Plain string for the display title (used if [titleResId] is null).
- * @param descriptionResId Optional string resource for the subtitle/description.
- * @param description Optional plain string for the subtitle/description.
- * @param icon Optional drawable resource for the leading icon.
- * @param iconVector Optional [ImageVector] for the leading icon.
- * @param visible Whether this item appears in the list.
- * @param enabled Whether the user can interact with this item.
- * @param enableExperimentalFlag Whether to show an experimental badge.
- * @param experimentalFlagTextResId String resource for the experimental badge text.
- * @param experimentalFlagText Plain string for the experimental badge text.
- */
-fun switchItem(
-    key: SettingsKey<*>,
-    @StringRes titleResId: Int? = null,
-    title: String = "",
-    @StringRes descriptionResId: Int? = null,
-    description: String = "",
-    @DrawableRes icon: Int? = null,
-    iconVector: ImageVector? = null,
-    visible: Boolean = true,
-    enabled: Boolean = true,
-    enableExperimentalFlag: Boolean = false,
-    @StringRes experimentalFlagTextResId: Int? = null,
-    experimentalFlagText: String = "Experimental"
-): SettingsItemSpec = SettingsItemSpec(
-    ItemSpec.SwitchSpec(
-        key = key,
-        isVisible = visible,
-        enabled = enabled,
-        titleResId = titleResId,
-        titleString = title,
-        descriptionResId = descriptionResId,
-        descriptionString = description,
-        iconResId = icon,
-        iconVector = iconVector,
-        enableExperimentalFlag = enableExperimentalFlag,
-        experimentalFlagTextResId = experimentalFlagTextResId,
-        experimentalFlagText = experimentalFlagText
-    )
-)
-
-/**
- * Creates a full-width switch banner item.
- *
- * @param key Unique identifier for this setting.
- * @param titleResId String resource for the banner title.
- * @param visible Whether this banner appears in the list.
- * @param enabled Whether the user can interact with this banner.
- */
-fun switchBannerItem(
-    key: SettingsKey<*>,
-    @StringRes titleResId: Int? = null,
-    visible: Boolean = true,
-    enabled: Boolean = true
-): SettingsItemSpec = SettingsItemSpec(
-    ItemSpec.SwitchBannerSpec(
-        key = key,
-        isVisible = visible,
-        enabled = enabled,
-        titleResId = titleResId,
-        titleString = ""
-    )
-)
-
-/**
- * Creates a full-width switch banner item.
- *
- * @param key Unique identifier for this setting.
- * @param title Plain string for the banner title.
- * @param visible Whether this banner appears in the list.
- * @param enabled Whether the user can interact with this banner.
- */
-fun switchBannerItem(
-    key: SettingsKey<*>,
-    title: String = "",
-    visible: Boolean = true,
-    enabled: Boolean = true
-): SettingsItemSpec = SettingsItemSpec(
-    ItemSpec.SwitchBannerSpec(
-        key = key,
-        isVisible = visible,
-        enabled = enabled,
-        titleResId = null,
-        titleString = title
-    )
-)
-
-/**
- * Creates a tappable settings item that navigates or opens a dialog.
- *
- * @param key Unique identifier for this setting.
- * @param titleResId String resource for the display title.
- * @param title Plain string for the display title.
- * @param descriptionResId Optional string resource for the subtitle/description.
- * @param description Optional plain string for the subtitle/description.
- * @param icon Optional drawable resource for the leading icon.
- * @param iconVector Optional [ImageVector] for the leading icon.
- * @param visible Whether this item appears in the list.
- * @param enabled Whether the user can interact with this item.
- * @param enableExperimentalFlag Whether to show an experimental badge.
- * @param experimentalFlagTextResId String resource for the experimental badge text.
- * @param experimentalFlagText Plain string for the experimental badge text.
- */
-fun clickableItem(
-    key: SettingsKey<*>,
-    @StringRes titleResId: Int? = null,
-    title: String = "",
-    @StringRes descriptionResId: Int? = null,
-    description: String = "",
-    @DrawableRes icon: Int? = null,
-    iconVector: ImageVector? = null,
-    visible: Boolean = true,
-    enabled: Boolean = true,
-    enableExperimentalFlag: Boolean = false,
-    @StringRes experimentalFlagTextResId: Int? = null,
-    experimentalFlagText: String = "Experimental"
-): SettingsItemSpec = SettingsItemSpec(
-    ItemSpec.ClickableSpec(
-        key = key,
-        isVisible = visible,
-        enabled = enabled,
-        titleResId = titleResId,
-        titleString = title,
-        descriptionResId = descriptionResId,
-        descriptionString = description,
-        iconResId = icon,
-        iconVector = iconVector,
-        enableExperimentalFlag = enableExperimentalFlag,
-        experimentalFlagTextResId = experimentalFlagTextResId,
-        experimentalFlagText = experimentalFlagText
-    )
-)
-
-/**
- * Creates a settings item that renders a group of mutually exclusive radio options.
- *
- * @param key Unique identifier for this setting.
- * @param options List of [RadioButtonOption] to display.
- * @param visible Whether this item appears in the list.
- * @param enabled Whether the user can interact with this item.
- */
-fun radioGroupItem(
-    key: SettingsKey<*>,
-    options: List<RadioButtonOption>,
-    visible: Boolean = true,
-    enabled: Boolean = true
-): SettingsItemSpec = SettingsItemSpec(
-    ItemSpec.RadioGroupSpec(
-        key = key,
-        isVisible = visible,
-        enabled = enabled,
-        options = options
-    )
-)
-
-/**
- * Creates a settings item that renders a segmented/button group selector.
- *
- * @param key Unique identifier for this setting.
- * @param options List of [ButtonGroupOption] to display.
- * @param visible Whether this item appears in the list.
- * @param enabled Whether the user can interact with this item.
- */
-fun buttonGroupItem(
-    key: SettingsKey<*>,
-    options: List<ButtonGroupOption>,
-    visible: Boolean = true,
-    enabled: Boolean = true
-): SettingsItemSpec = SettingsItemSpec(
-    ItemSpec.ButtonGroupSpec(
-        key = key,
-        isVisible = visible,
-        enabled = enabled,
-        options = options
-    )
-)
 
 /**
  * Creates an uncategorized group of items.
@@ -307,3 +121,59 @@ fun settingsPage(
     screenId = screenId,
     screenTitleResId = screenTitle,
 )
+
+/**
+ * Creates a settings item with a toggle switch using a builder block.
+ *
+ * @param key Unique identifier for this setting.
+ * @param block Builder block for configuring the item.
+ */
+fun switchItem(key: SettingsKey<*>, block: SwitchItemBuilder.() -> Unit): SettingsItemSpec {
+    return SwitchItemBuilder(key).apply(block).build()
+}
+
+/**
+ * Creates a full-width switch banner item using a builder block.
+ *
+ * @param key Unique identifier for this setting.
+ * @param block Builder block for configuring the item.
+ */
+fun switchBannerItem(
+    key: SettingsKey<*>,
+    block: SwitchBannerItemBuilder.() -> Unit
+): SettingsItemSpec {
+    return SwitchBannerItemBuilder(key).apply(block).build()
+}
+
+/**
+ * Creates a tappable settings item that navigates or opens a dialog using a builder block.
+ *
+ * @param key Unique identifier for this setting.
+ * @param block Builder block for configuring the item.
+ */
+fun clickableItem(key: SettingsKey<*>, block: ClickableItemBuilder.() -> Unit): SettingsItemSpec {
+    return ClickableItemBuilder(key).apply(block).build()
+}
+
+/**
+ * Creates a settings item that renders a group of mutually exclusive radio options using a builder block.
+ *
+ * @param key Unique identifier for this setting.
+ * @param block Builder block for configuring the item.
+ */
+fun radioGroupItem(key: SettingsKey<*>, block: RadioGroupItemBuilder.() -> Unit): SettingsItemSpec {
+    return RadioGroupItemBuilder(key).apply(block).build()
+}
+
+/**
+ * Creates a settings item that renders a segmented/button group selector using a builder block.
+ *
+ * @param key Unique identifier for this setting.
+ * @param block Builder block for configuring the item.
+ */
+fun buttonGroupItem(
+    key: SettingsKey<*>,
+    block: ButtonGroupItemBuilder.() -> Unit
+): SettingsItemSpec {
+    return ButtonGroupItemBuilder(key).apply(block).build()
+}
