@@ -308,7 +308,7 @@
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">Фиксированное визуальное состояние плитки, когда она отображается на панели \"Быстрых настроек\"</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">Просмотреть сведения о библиотеках и лицензиях, используемых приложением</string>
     <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Политика конфиденциальности</string>
-    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">Как вы обрабатываете ваши данные</string>
+    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">Как aShell You обрабатывает ваши данные</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">Просмотрите лицензии, используемые приложением и библиотеками</string>
     <string name="des_local_backup" comment="Description card text for local backup option">Сохранить зашифрованную резервную копию на своем устройстве</string>
     <string name="des_local_restore" comment="Description card text for local restore option">Выберите файл резервирования со своего устройства</string>
