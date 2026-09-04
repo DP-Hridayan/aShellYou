@@ -11,12 +11,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.common.domain.model.backup.BackupType
 import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
-import `in`.hridayan.ashell.core.navigation.NavRoutes
-import `in`.hridayan.ashell.core.presentation.provider.SettingsProvider
 import `in`.hridayan.ashell.settings.data.worker.BackupScheduler
 import `in`.hridayan.ashell.settings.domain.repository.GoogleAuthRepository
 import `in`.hridayan.ashell.settings.domain.usecase.ToggleSettingUseCase
@@ -32,6 +29,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -57,6 +55,15 @@ class SettingsViewModel @Inject constructor(
     val preferences: StateFlow<Preferences> = settingsRepository.preferences
         .stateIn(viewModelScope, SharingStarted.Lazily, emptyPreferences())
 
+    /**
+     * An arbitrary trigger that updates whenever [preferences] changes.
+     * Useful for Compose UI that needs to observe changes without importing DataStore types.
+     */
+    private var prefsCounter = 0
+    val prefsUpdateTrigger: StateFlow<Int> = preferences
+        .map { ++prefsCounter }
+        .stateIn(viewModelScope, SharingStarted.Lazily, 0)
+
     init {
         viewModelScope.launch {
             isFirstLaunch = getBoolean(SettingsKeys.FirstLaunch).firstOrNull()
@@ -64,15 +71,6 @@ class SettingsViewModel @Inject constructor(
                 getBoolean(SettingsKeys.DefaultLaunchIsLocalAdb).firstOrNull()
         }
     }
-
-    val settingsPage = SettingsProvider.settingsPage
-    val lookAndFeelPage = SettingsProvider.lookAndFeelPage
-    val darkThemePage = SettingsProvider.darkThemePage
-    val autoUpdatePage = SettingsProvider.autoUpdatePage
-    val behaviorPage = SettingsProvider.behaviorPage
-    val aboutPage = SettingsProvider.aboutPage
-    val backupPage = SettingsProvider.backupPage
-    val backupSchedulerPage = SettingsProvider.backupSchedulerPage
 
     private val _uiEvent = MutableSharedFlow<SettingsUiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
@@ -102,6 +100,34 @@ class SettingsViewModel @Inject constructor(
 
     fun getInt(key: SettingsKeys<Int>): Flow<Int> = settingsRepository.getInt(key)
 
+    /**
+     * Returns the current boolean value for [key] read synchronously from the cached
+     * [preferences] [StateFlow]. Falls back to the key's default if not yet stored.
+     *
+     * @param key A [SettingsKeys] whose [SettingsKeys.default] is a [Boolean].
+     * @return The stored value, or `false` if the key has no boolean default.
+     */
+    fun currentBoolean(key: Any): Boolean {
+        val sk = key as? SettingsKeys<*> ?: return false
+        if (sk.default !is Boolean) return false
+        return preferences.value[androidx.datastore.preferences.core.booleanPreferencesKey(sk.name)]
+            ?: (sk.default as Boolean)
+    }
+
+    /**
+     * Returns the current int value for [key] read synchronously from the cached
+     * [preferences] [StateFlow]. Falls back to the key's default if not yet stored.
+     *
+     * @param key A [SettingsKeys] whose [SettingsKeys.default] is an [Int].
+     * @return The stored value, or `-1` if the key has no int default.
+     */
+    fun currentInt(key: Any): Int {
+        val sk = key as? SettingsKeys<*> ?: return -1
+        if (sk.default !is Int) return -1
+        return preferences.value[androidx.datastore.preferences.core.intPreferencesKey(sk.name)]
+            ?: (sk.default as Int)
+    }
+
     fun setFloat(key: SettingsKeys<Float>, value: Float) {
         viewModelScope.launch(Dispatchers.IO) {
             settingsRepository.setFloat(key, value)
@@ -118,180 +144,60 @@ class SettingsViewModel @Inject constructor(
 
     fun getString(key: SettingsKeys<String>): Flow<String> = settingsRepository.getString(key)
 
-    fun onItemClicked(key: SettingsKeys<*>) {
+    fun handleBackupSettingsClick() {
         viewModelScope.launch {
-            when (key) {
-                SettingsKeys.LookAndFeel -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.LookAndFeelScreen())
-                )
-
-                SettingsKeys.AutoUpdate -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.AutoUpdateScreen())
-                )
-
-                SettingsKeys.Behavior -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.BehaviorScreen())
-                )
-
-                SettingsKeys.QuickSettingsTiles -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.TileDashboardScreen)
-                )
-
-                SettingsKeys.BackupAndRestore -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.BackupAndRestoreScreen())
-                )
-
-                SettingsKeys.About -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.AboutScreen())
-                )
-
-                SettingsKeys.Changelogs -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.ChangelogScreen)
-                )
-
-                SettingsKeys.Translators -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.TranslatorsScreen)
-                )
-
-                SettingsKeys.Contributors -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.ContributorsScreen)
-                )
-
-                SettingsKeys.CrashHistory -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.CrashHistoryScreen)
-                )
-
-                SettingsKeys.Report -> _uiEvent.emit(
-                    SettingsUiEvent.OpenUrl(UrlConst.URL_GITHUB_ISSUE_REPORT)
-                )
-
-                SettingsKeys.FeatureRequest -> _uiEvent.emit(
-                    SettingsUiEvent.OpenUrl(UrlConst.URL_GITHUB_ISSUE_FEATURE_REQUEST)
-                )
-
-                SettingsKeys.Licenses -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.LicensesScreen)
-                )
-
-                SettingsKeys.PrivacyPolicy -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.PrivacyPolicyScreen)
-                )
-
-                SettingsKeys.Github -> _uiEvent.emit(
-                    SettingsUiEvent.OpenUrl(UrlConst.URL_GITHUB_REPO)
-                )
-
-                SettingsKeys.Telegram -> _uiEvent.emit(
-                    SettingsUiEvent.OpenUrl(UrlConst.URL_TELEGRAM_CHANNEL)
-                )
-
-                SettingsKeys.Language -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.LanguagesScreen)
-                )
-
-                SettingsKeys.PaletteStyle -> _uiEvent.emit(
-                    SettingsUiEvent.ShowDialog(SettingsDialogKey.PaletteStyle)
-                )
-
-                SettingsKeys.DarkTheme -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.DarkThemeScreen())
-                )
-
-                SettingsKeys.CustomUiScale -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.UiScaleScreen)
-                )
-
-                SettingsKeys.FontFamily -> _uiEvent.emit(
-                    SettingsUiEvent.ShowFontStylesBottomSheet
-                )
-
-                SettingsKeys.ResetAppSettings -> _uiEvent.emit(
-                    SettingsUiEvent.ShowDialog(SettingsDialogKey.ResetSettings)
-                )
-
-                // Backup options: show destination dialog if signed-in AND cloud is available
-                SettingsKeys.BackupAppSettings -> {
-                    if (googleAuthRepository.isAvailable && googleAuthRepository.googleUserState.value.isSignedIn) {
-                        _uiEvent.emit(
-                            SettingsUiEvent.ShowDialog(
-                                SettingsDialogKey.BackupDestination(BackupType.SETTINGS_ONLY)
-                            )
+            if (googleAuthRepository.isAvailable && googleAuthRepository.googleUserState.value.isSignedIn) {
+                _uiEvent.emit(
+                    SettingsUiEvent.ShowDialog(
+                        SettingsDialogKey.BackupDestination(
+                            BackupType.SETTINGS_ONLY
                         )
-                    } else {
-                        _uiEvent.emit(
-                            SettingsUiEvent.RequestDocumentUriForBackup(BackupType.SETTINGS_ONLY)
+                    )
+                )
+            } else {
+                _uiEvent.emit(SettingsUiEvent.RequestDocumentUriForBackup(BackupType.SETTINGS_ONLY))
+            }
+        }
+    }
+
+    fun handleBackupDatabaseClick() {
+        viewModelScope.launch {
+            if (googleAuthRepository.isAvailable && googleAuthRepository.googleUserState.value.isSignedIn) {
+                _uiEvent.emit(
+                    SettingsUiEvent.ShowDialog(
+                        SettingsDialogKey.BackupDestination(
+                            BackupType.DATABASE_ONLY
                         )
-                    }
-                }
+                    )
+                )
+            } else {
+                _uiEvent.emit(SettingsUiEvent.RequestDocumentUriForBackup(BackupType.DATABASE_ONLY))
+            }
+        }
+    }
 
-                SettingsKeys.BackupAppDatabase -> {
-                    if (googleAuthRepository.isAvailable && googleAuthRepository.googleUserState.value.isSignedIn) {
-                        _uiEvent.emit(
-                            SettingsUiEvent.ShowDialog(
-                                SettingsDialogKey.BackupDestination(BackupType.DATABASE_ONLY)
-                            )
+    fun handleBackupAllClick() {
+        viewModelScope.launch {
+            if (googleAuthRepository.isAvailable && googleAuthRepository.googleUserState.value.isSignedIn) {
+                _uiEvent.emit(
+                    SettingsUiEvent.ShowDialog(
+                        SettingsDialogKey.BackupDestination(
+                            BackupType.SETTINGS_AND_DATABASE
                         )
-                    } else {
-                        _uiEvent.emit(
-                            SettingsUiEvent.RequestDocumentUriForBackup(BackupType.DATABASE_ONLY)
-                        )
-                    }
-                }
-
-                SettingsKeys.BackupAppData -> {
-                    if (googleAuthRepository.isAvailable && googleAuthRepository.googleUserState.value.isSignedIn) {
-                        _uiEvent.emit(
-                            SettingsUiEvent.ShowDialog(
-                                SettingsDialogKey.BackupDestination(BackupType.SETTINGS_AND_DATABASE)
-                            )
-                        )
-                    } else {
-                        _uiEvent.emit(
-                            SettingsUiEvent.RequestDocumentUriForBackup(BackupType.SETTINGS_AND_DATABASE)
-                        )
-                    }
-                }
-
-                SettingsKeys.BackupScheduler -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.BackupSchedulerScreen())
+                    )
                 )
+            } else {
+                _uiEvent.emit(SettingsUiEvent.RequestDocumentUriForBackup(BackupType.SETTINGS_AND_DATABASE))
+            }
+        }
+    }
 
-                // Restore: show source dialog if signed in AND cloud is available
-                SettingsKeys.RestoreAppData -> {
-                    if (googleAuthRepository.isAvailable && googleAuthRepository.googleUserState.value.isSignedIn) {
-                        _uiEvent.emit(
-                            SettingsUiEvent.ShowDialog(SettingsDialogKey.RestoreSource)
-                        )
-                    } else {
-                        _uiEvent.emit(SettingsUiEvent.RequestDocumentUriForRestore)
-                    }
-                }
-
-                SettingsKeys.OutputSaveDirectory -> _uiEvent.emit(
-                    SettingsUiEvent.ShowDialog(SettingsDialogKey.ConfigureSaveDir)
-                )
-
-                SettingsKeys.CloudModels -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.AiModelsScreen())
-                )
-
-                SettingsKeys.AiCacheDays -> _uiEvent.emit(
-                    SettingsUiEvent.ShowDialog(SettingsDialogKey.AiCacheDays)
-                )
-
-                SettingsKeys.AiCacheClear -> _uiEvent.emit(
-                    SettingsUiEvent.ShowDialog(SettingsDialogKey.AiCacheClearConfirmation)
-                )
-
-                SettingsKeys.AutoBackupTime -> _uiEvent.emit(
-                    SettingsUiEvent.ShowDialog(SettingsDialogKey.AutoBackupTimePicker)
-                )
-
-                SettingsKeys.AutoBackupFolder -> _uiEvent.emit(
-                    SettingsUiEvent.RequestAutoBackupFolderPicker
-                )
-
-                else -> {}
+    fun handleRestoreClick() {
+        viewModelScope.launch {
+            if (googleAuthRepository.isAvailable && googleAuthRepository.googleUserState.value.isSignedIn) {
+                _uiEvent.emit(SettingsUiEvent.ShowDialog(SettingsDialogKey.RestoreSource))
+            } else {
+                _uiEvent.emit(SettingsUiEvent.RequestDocumentUriForRestore)
             }
         }
     }

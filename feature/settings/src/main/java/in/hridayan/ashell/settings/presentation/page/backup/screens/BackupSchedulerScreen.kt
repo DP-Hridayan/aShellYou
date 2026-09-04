@@ -12,11 +12,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CheckCircle
@@ -62,10 +60,8 @@ import `in`.hridayan.ashell.settings.presentation.components.dialog.AutoBackupTi
 import `in`.hridayan.ashell.settings.presentation.components.dialog.SelectBackupFolderDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
-import `in`.hridayan.ashell.settings.presentation.state.settingsContent
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
-import `in`.hridayan.settingsdsl.resolver.resolveAll
-import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
+import `in`.hridayan.settingsdsl.ui.SettingsColumn
 
 @Composable
 fun BackupSchedulerScreen(
@@ -123,16 +119,6 @@ fun BackupSchedulerScreen(
 
     val listState = rememberLazyListState()
     val topAppBarState = rememberTopAppBarState()
-    val page = remember { settingsViewModel.backupSchedulerPage }
-
-    val highlightedKey = rememberHighlightState(
-        highlightKeyName = highlightKey,
-        page = page,
-        listState = listState,
-        headerItemCount = 1,
-        keyResolver = { SettingsKeys.valueOfOrNull(it) },
-        topAppBarState = topAppBarState,
-    )
 
     LaunchedEffect(Unit) {
         settingsViewModel.uiEvent.collect { event ->
@@ -144,8 +130,6 @@ fun BackupSchedulerScreen(
         }
     }
 
-    val resolvedGroups = page.resolveAll(highlightedKey = highlightedKey)
-
     AppScaffold(
         onNavigateBack = { navController.navigateBack() },
         modifier = modifier,
@@ -153,91 +137,110 @@ fun BackupSchedulerScreen(
         topAppBarState = topAppBarState,
         topBarTitle = stringResource(R.string.backup_scheduler),
         content = { innerPadding, topBarScrollBehavior ->
-            LazyColumn(
+            SettingsColumn(
                 modifier = Modifier
                     .fillMaxWidth()
                     .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
-                state = listState,
+                listState = listState,
                 contentPadding = innerPadding,
-            ) {
-                item {
-                    Spacer(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(15.dp)
-                    )
-                }
+                topAppBarState = topAppBarState,
+                hapticsEnabled = hapticsEnabled,
 
-                settingsContent(
-                    groups = resolvedGroups,
-                    viewModel = settingsViewModel,
-                    prefs = prefs,
-                    onItemClick = { key ->
-                        settingsViewModel.onItemClicked(key as SettingsKeys<*>)
-                    },
-                    onBooleanToggle = { key ->
-                        if (key == SettingsKeys.AutoBackupEnabled &&
-                            !autoBackupEnabled &&
-                            autoBackupFolderName.isEmpty()
-                        ) {
-                            // No folder yet — prompt the user to pick one first;
-                            // the picker callback will enable the toggle after selection.
-                            pendingEnableAfterFolderPick = true
-                            showFolderDialog = true
-                        } else {
-                            @Suppress("UNCHECKED_CAST")
-                            settingsViewModel.onToggle(key as SettingsKeys<Boolean>)
-                            if (key == SettingsKeys.AutoBackupEnabled) {
-                                settingsViewModel.rescheduleAutoBackup(enabled = !autoBackupEnabled)
+                customSlotContent = { slot ->
+                    when (slot) {
+                        is BackupScreenCustomSlots.SchedulerStatus -> {
+                            if (settings[SettingsKeys.AutoBackupEnabled]) {
+                                LastBackupStatusCard(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(horizontal = 15.dp, vertical = 10.dp),
+                                    lastAutoBackupLocalSuccessTime = settings[SettingsKeys.LastAutoBackupLocalSuccessTime],
+                                    lastAutoBackupLocalError = settings[SettingsKeys.LastAutoBackupLocalError],
+                                    lastAutoBackupCloudSuccessTime = settings[SettingsKeys.LastAutoBackupCloudSuccessTime],
+                                    lastAutoBackupCloudError = settings[SettingsKeys.LastAutoBackupCloudError],
+                                    isBackingUp = isBackingUp,
+                                    onBackupNow = {
+                                        if (autoBackupFolderName.isEmpty()) {
+                                            showFolderDialog = true
+                                        } else {
+                                            settingsViewModel.backupNow()
+                                        }
+                                    },
+                                )
                             }
                         }
-                    },
-                    onIntChanged = { key, value ->
-                        @Suppress("UNCHECKED_CAST")
-                        settingsViewModel.setInt(key as SettingsKeys<Int>, value)
-                        if (key == SettingsKeys.AutoBackupFrequency) {
+                    }
+                }
+            ) {
+                group {
+                    switchBannerItem(SettingsKeys.AutoBackupEnabled) {
+                        title(R.string.enable_auto_backup)
+                        onClick { key ->
+                            if (key == SettingsKeys.AutoBackupEnabled &&
+                                !autoBackupEnabled &&
+                                autoBackupFolderName.isEmpty()
+                            ) {
+                                pendingEnableAfterFolderPick = true
+                                showFolderDialog = true
+                            } else {
+                                @Suppress("UNCHECKED_CAST")
+                                settingsViewModel.onToggle(key as SettingsKeys<Boolean>)
+                                if (key == SettingsKeys.AutoBackupEnabled) {
+                                    settingsViewModel.rescheduleAutoBackup(enabled = !autoBackupEnabled)
+                                }
+                            }
+                        }
+                    }
+                }
+
+                customSlot(BackupScreenCustomSlots.SchedulerStatus)
+
+                group(R.string.schedule) {
+                    clickableItem(SettingsKeys.AutoBackupTime) {
+                        title(R.string.backup_time)
+                        description(R.string.des_auto_backup_time)
+                        icon(R.drawable.ic_schedule)
+                        onClick { dialogManager.show(SettingsDialogKey.AutoBackupTimePicker) }
+                    }
+                }
+
+                group(R.string.frequency) {
+                    radioGroupItem(SettingsKeys.AutoBackupFrequency) {
+                        options(`in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider.backupFrequencyOptions)
+                        onIntChanged { key, value ->
+                            @Suppress("UNCHECKED_CAST")
+                            settingsViewModel.setInt(key as SettingsKeys<Int>, value)
                             settingsViewModel.rescheduleAutoBackup(
                                 enabled = autoBackupEnabled,
                                 frequency = value,
                             )
                         }
-                    },
-                    hapticsEnabled = hapticsEnabled,
-                    customSlotContent = { slot ->
-                        when (slot) {
-                            is BackupScreenCustomSlots.SchedulerStatus -> {
-                                if (settings[SettingsKeys.AutoBackupEnabled]) {
-                                    LastBackupStatusCard(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .padding(horizontal = 15.dp, vertical = 10.dp),
-                                        lastAutoBackupLocalSuccessTime = settings[SettingsKeys.LastAutoBackupLocalSuccessTime],
-                                        lastAutoBackupLocalError = settings[SettingsKeys.LastAutoBackupLocalError],
-                                        lastAutoBackupCloudSuccessTime = settings[SettingsKeys.LastAutoBackupCloudSuccessTime],
-                                        lastAutoBackupCloudError = settings[SettingsKeys.LastAutoBackupCloudError],
-                                        isBackingUp = isBackingUp,
-                                        onBackupNow = {
-                                            if (autoBackupFolderName.isEmpty()) {
-                                                showFolderDialog = true
-                                            } else {
-                                                settingsViewModel.backupNow()
-                                            }
-                                        },
-                                    )
-                                }
-                            }
+                    }
+                }
 
-                            else -> {}
+                group(R.string.auto_backup_content_type) {
+                    radioGroupItem(SettingsKeys.AutoBackupType) {
+                        options(`in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider.autoBackupTypeOptions)
+                        onIntChanged { key, value ->
+                            @Suppress("UNCHECKED_CAST")
+                            settingsViewModel.setInt(key as SettingsKeys<Int>, value)
                         }
-                    },
-                )
+                    }
+                }
 
-                item {
-                    Spacer(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(25.dp)
-                    )
+                group(R.string.local_backup) {
+                    clickableItem(SettingsKeys.AutoBackupFolder) {
+                        title(R.string.auto_backup_folder)
+                        description(R.string.des_auto_backup_folder)
+                        icon(R.drawable.ic_directory)
+                        onClick { folderPickerLauncher.launch(null) }
+                    }
+
+                    switchItem(SettingsKeys.AutoBackupDeleteExisting) {
+                        title(R.string.auto_delete_existing_backups)
+                        description(R.string.des_auto_delete_existing_backups)
+                        icon(R.drawable.ic_delete_sweep)
+                    }
                 }
             }
         },
@@ -408,6 +411,7 @@ private fun BackupStatusRow(
         }
     }
 }
+
 
 
 

@@ -7,7 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
-import `in`.hridayan.ashell.core.presentation.provider.SettingsProvider
+import `in`.hridayan.settingsdsl.model.SettingsGraph
 import `in`.hridayan.settingsdsl.search.SearchEntry
 import `in`.hridayan.settingsdsl.search.SettingsSearchEngine
 import kotlinx.coroutines.Dispatchers
@@ -32,21 +32,21 @@ class SettingsSearchViewModel @Inject constructor(
         private const val SEPARATOR = ","
     }
 
-    /** Full search index � built once at init via the DSL's SettingsSearchEngine. */
-    private val engine: SettingsSearchEngine = SettingsSearchEngine.build(
-        context = context,
-        pages = SettingsProvider.allSearchablePages,
-    )
+    private val _engine = MutableStateFlow<SettingsSearchEngine?>(null)
 
-    private val allEntries: List<SearchEntry> = engine.allEntries()
+    fun setGraphs(graphs: List<SettingsGraph>) {
+        if (_engine.value == null) {
+            _engine.value = SettingsSearchEngine.build(context, graphs)
+            loadRecentSearches()
+        }
+    }
 
     private val _query = MutableStateFlow("")
     val query: StateFlow<String> = _query.asStateFlow()
 
-    /** Filtered results derived from the DSL engine, reactive to [_query]. */
     val filteredResults: StateFlow<List<SearchEntry>> =
-        _query.combine(MutableStateFlow(allEntries)) { q, entries ->
-            if (q.isBlank()) {
+        combine(_query, _engine) { q, engine ->
+            if (q.isBlank() || engine == null) {
                 emptyList()
             } else {
                 engine.search(q)
@@ -56,20 +56,15 @@ class SettingsSearchViewModel @Inject constructor(
     private val _recentEntries = MutableStateFlow<List<SearchEntry>>(emptyList())
     val recentEntries: StateFlow<List<SearchEntry>> = _recentEntries.asStateFlow()
 
-    init {
-        loadRecentSearches()
-    }
-
     fun onQueryChanged(newQuery: String) {
         _query.value = newQuery
     }
 
-    /** Called when the user taps a search result � persists to recent searches. */
     fun onResultClicked(entry: SearchEntry) {
         viewModelScope.launch(Dispatchers.IO) {
             val current = loadRecentKeyNames().toMutableList()
-            current.remove(entry.key.name)
-            current.add(0, entry.key.name)
+            current.remove(entry.key.toString())
+            current.add(0, entry.key.toString())
             val trimmed = current.take(MAX_RECENT)
             settingsRepository.setString(
                 SettingsKeys.RecentSearchKeys,
@@ -99,9 +94,9 @@ class SettingsSearchViewModel @Inject constructor(
         return raw.split(SEPARATOR).filter { it.isNotBlank() }
     }
 
-    /** Maps key name strings back to [SearchEntry] objects from the engine index. */
     private fun resolveEntries(keyNames: List<String>): List<SearchEntry> {
-        val entryMap = allEntries.associateBy { it.key.name }
+        val engine = _engine.value ?: return emptyList()
+        val entryMap = engine.allEntries().associateBy { it.key.toString() }
         return keyNames.mapNotNull { entryMap[it] }
     }
 }

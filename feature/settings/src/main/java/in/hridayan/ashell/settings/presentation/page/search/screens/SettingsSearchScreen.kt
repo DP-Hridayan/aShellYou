@@ -57,10 +57,11 @@ import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import `in`.hridayan.ashell.core.presentation.provider.SettingsProvider
+import `in`.hridayan.ashell.core.presentation.provider.rememberSettingsGraphs
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.settings.presentation.page.search.viewmodel.SettingsSearchViewModel
 import `in`.hridayan.settingsdsl.search.SearchEntry
+import `in`.hridayan.settingsdsl.ui.LocalSettingsDslState
 
 @Composable
 fun SettingsSearchScreen(
@@ -68,6 +69,9 @@ fun SettingsSearchScreen(
     viewModel: SettingsSearchViewModel = hiltViewModel(),
 ) {
     val navController = LocalNavController.current
+    val graphs = rememberSettingsGraphs(navController)
+    LaunchedEffect(graphs) { viewModel.setGraphs(graphs) }
+    val highlightState = LocalSettingsDslState.current.highlightState
     val query by viewModel.query.collectAsStateWithLifecycle()
     val results by viewModel.filteredResults.collectAsStateWithLifecycle()
     val recentEntries by viewModel.recentEntries.collectAsStateWithLifecycle()
@@ -174,24 +178,16 @@ fun SettingsSearchScreen(
 
                     items(
                         entries,
-                        key = { "result_${it.screenId}_${it.key.name}" }
+                        key = { "result_${it.screenTitle}_${it.key.toString()}" }
                     ) { entry ->
                         SearchResultRow(
                             entry = entry,
                             isRecent = false,
                             onClick = {
                                 viewModel.onResultClicked(entry)
-                                val route =
-                                    SettingsProvider.resolveNavRoute(entry.screenId, entry.key.name)
-                                navController.navigate(route) {
-                                    if (route is NavRoutes.SettingsScreen) {
-                                        popUpTo<NavRoutes.SettingsScreen> { inclusive = true }
-                                    } else {
-                                        popUpTo<NavRoutes.SettingsSearchScreen> { inclusive = true }
-                                    }
-
-                                    launchSingleTop = true
-                                }
+                                highlightState.highlight(entry.key)
+                                navController.popBackStack<NavRoutes.SettingsSearchScreen>(inclusive = true)
+                                entry.navigateTo()
                             },
                         )
                     }
@@ -236,23 +232,16 @@ fun SettingsSearchScreen(
 
                     items(
                         recentEntries,
-                        key = { "recent_${it.screenId}_${it.key.name}" }
+                        key = { "recent_${it.screenTitle}_${it.key.toString()}" }
                     ) { entry ->
                         SearchResultRow(
                             entry = entry,
                             isRecent = true,
                             onClick = {
                                 viewModel.onResultClicked(entry)
-                                val route =
-                                    SettingsProvider.resolveNavRoute(entry.screenId, entry.key.name)
-                                navController.navigate(route) {
-                                    if (route is NavRoutes.SettingsScreen) {
-                                        popUpTo<NavRoutes.SettingsScreen> { inclusive = true }
-                                    } else {
-                                        popUpTo<NavRoutes.SettingsSearchScreen> { inclusive = true }
-                                    }
-                                    launchSingleTop = true
-                                }
+                                highlightState.highlight(entry.key)
+                                navController.popBackStack<NavRoutes.SettingsSearchScreen>(inclusive = true)
+                                entry.navigateTo()
                             },
                         )
                     }
@@ -332,3 +321,4 @@ private fun SearchSomethingUi(
         )
     }
 }
+

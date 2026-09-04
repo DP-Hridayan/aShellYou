@@ -12,9 +12,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Downloading
 import androidx.compose.material.icons.rounded.Update
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -28,7 +28,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -53,6 +52,7 @@ import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.components.shape.SineWaveShape
 import `in`.hridayan.ashell.core.presentation.components.shape.WaveEdge
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.settings.domain.model.UpdateResult
@@ -60,15 +60,16 @@ import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.UpdateB
 import `in`.hridayan.ashell.settings.presentation.components.dialog.LatestVersionDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
-import `in`.hridayan.ashell.settings.presentation.state.settingsContent
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
-import `in`.hridayan.settingsdsl.resolver.resolveAll
-import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
+import `in`.hridayan.settingsdsl.model.CustomSlot
+import `in`.hridayan.settingsdsl.ui.SettingsColumn
+
+private object TopSpacerSlot : CustomSlot("topSpacer")
+private object WarningBoxSlot : CustomSlot("warningBox")
 
 @Composable
 fun AutoUpdateScreen(
     modifier: Modifier = Modifier,
-    highlightKey: String? = null,
     settingsViewModel: SettingsViewModel = hiltViewModel(),
     autoUpdateViewModel: AutoUpdateViewModel = hiltViewModel(),
 ) {
@@ -117,17 +118,6 @@ fun AutoUpdateScreen(
 
     val listState = rememberLazyListState()
     val topAppBarState = rememberTopAppBarState()
-    val highlightedKey = rememberHighlightState(
-        highlightKeyName = highlightKey,
-        page = settingsViewModel.autoUpdatePage,
-        listState = listState,
-        headerItemCount = 1,
-        keyResolver = { SettingsKeys.valueOfOrNull(it) },
-        topAppBarState = topAppBarState,
-    )
-
-    val page = remember { settingsViewModel.autoUpdatePage }
-    val resolvedGroups = page.resolveAll(highlightedKey = highlightedKey)
 
     AppScaffold(
         onNavigateBack = { navController.navigateBack() },
@@ -136,77 +126,104 @@ fun AutoUpdateScreen(
         topAppBarState = topAppBarState,
         topBarTitle = stringResource(R.string.auto_update),
         content = { innerPadding, topBarScrollBehavior ->
-            LazyColumn(
+            SettingsColumn(
                 modifier = Modifier
                     .fillMaxWidth()
                     .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
-                state = listState,
+                listState = listState,
                 contentPadding = innerPadding,
-            ) {
-                item {
-                    Spacer(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(15.dp)
-                    )
-                }
-
-                settingsContent(
-                    groups = resolvedGroups,
-                    viewModel = settingsViewModel,
-                    prefs = prefs,
-                    hapticsEnabled = hapticsEnabled
-                )
-
-                item {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 30.dp)
-                            .clip(
-                                SineWaveShape(
-                                    amplitude = 15f,
-                                    frequency = 5f,
-                                    edge = WaveEdge.Top
-                                )
-                            )
-                            .background(MaterialTheme.colorScheme.surfaceContainerLow)
-                    ) {
-                        Column(
+                topAppBarState = topAppBarState,
+                hapticsEnabled = hapticsEnabled,
+                customSlotContent = { slot ->
+                    if (slot == TopSpacerSlot) {
+                        Spacer(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(start = 25.dp, end = 25.dp, top = 35.dp, bottom = 75.dp),
-                            verticalArrangement = Arrangement.spacedBy(15.dp),
+                                .height(15.dp)
+                        )
+                    } else if (slot == WarningBoxSlot) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 30.dp)
+                                .clip(
+                                    SineWaveShape(
+                                        amplitude = 15f,
+                                        frequency = 5f,
+                                        edge = WaveEdge.Top
+                                    )
+                                )
+                                .background(MaterialTheme.colorScheme.surfaceContainerLow)
                         ) {
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(20.dp),
-                            ) {
-                                Icon(
-                                    painter = painterResource(R.drawable.ic_info),
-                                    contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.error
-                                )
-                                Text(
-                                    text = stringResource(R.string.pre_release_warning),
-                                    style = MaterialTheme.typography.titleSmall,
-                                    color = MaterialTheme.colorScheme.error
-                                )
-                            }
-                            Text(
-                                text = stringResource(R.string.pre_release_warning_description),
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.error.copy(alpha = 0.7f)
-                            )
-                            Spacer(
+                            Column(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .height(25.dp)
-                            )
+                                    .padding(
+                                        start = 25.dp,
+                                        end = 25.dp,
+                                        top = 35.dp,
+                                        bottom = 75.dp
+                                    ),
+                                verticalArrangement = Arrangement.spacedBy(15.dp),
+                            ) {
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(20.dp),
+                                ) {
+                                    Icon(
+                                        painter = painterResource(R.drawable.ic_info),
+                                        contentDescription = null,
+                                        tint = MaterialTheme.colorScheme.error
+                                    )
+                                    Text(
+                                        text = stringResource(R.string.pre_release_warning),
+                                        style = MaterialTheme.typography.titleSmall,
+                                        color = MaterialTheme.colorScheme.error
+                                    )
+                                }
+                                Text(
+                                    text = stringResource(R.string.pre_release_warning_description),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.error.copy(alpha = 0.7f)
+                                )
+                                Spacer(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(25.dp)
+                                )
+                            }
                         }
                     }
                 }
+            ) {
+                customSlot(TopSpacerSlot)
+
+                group {
+                    switchBannerItem(SettingsKeys.AutoUpdate) {
+                        title(R.string.enable_auto_update)
+                    }
+                }
+
+                group(R.string.update_channel) {
+                    radioGroupItem(SettingsKeys.GithubReleaseType) {
+                        options(RadioGroupOptionsProvider.updateChannelOptions)
+                        onIntChanged { key, value ->
+                            @Suppress("UNCHECKED_CAST")
+                            settingsViewModel.setInt(key as SettingsKeys<Int>, value)
+                        }
+                    }
+                }
+
+                group(R.string.additional_settings) {
+                    switchItem(SettingsKeys.EnableDirectDownload) {
+                        title(R.string.enable_direct_download)
+                        description(R.string.des_enable_direct_download)
+                        icon(Icons.Rounded.Downloading)
+                    }
+                }
+
+                customSlot(WarningBoxSlot)
             }
         },
         fabContent = { expanded ->

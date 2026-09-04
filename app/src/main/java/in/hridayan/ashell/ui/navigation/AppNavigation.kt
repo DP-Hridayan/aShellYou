@@ -9,7 +9,9 @@ import androidx.compose.animation.SizeTransform
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
@@ -26,6 +28,7 @@ import `in`.hridayan.ashell.ai.presentation.screens.CloudModelsScreen
 import `in`.hridayan.ashell.commandexamples.presentation.screens.CommandExamplesScreen
 import `in`.hridayan.ashell.core.common.LocalAnimatedContentScope
 import `in`.hridayan.ashell.core.common.domain.model.SharedTextHolder
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.navigation.predictiveEnter
@@ -58,6 +61,7 @@ import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.UiSca
 import `in`.hridayan.ashell.settings.presentation.page.mainscreen.screen.SettingsScreen
 import `in`.hridayan.ashell.settings.presentation.page.privacypolicy.screens.PrivacyPolicyScreen
 import `in`.hridayan.ashell.settings.presentation.page.search.screens.SettingsSearchScreen
+import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.ashell.shell.fastboot.presentation.screens.FastbootScreen
 import `in`.hridayan.ashell.shell.file_browser.presentation.screens.FileBrowserScreen
 import `in`.hridayan.ashell.shell.local_adb_shell.presentation.screens.LocalAdbScreen
@@ -66,6 +70,8 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.PairingOth
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.PairingOwnDeviceScreen
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.WifiAdbScreen
 import `in`.hridayan.ashell.ui.home.HomeRoute
+import `in`.hridayan.settingsdsl.ui.LocalSettingsDslState
+import `in`.hridayan.settingsdsl.ui.rememberSettingsDslState
 import kotlinx.serialization.serializer
 import kotlin.reflect.KType
 
@@ -76,7 +82,23 @@ fun AppNavigation(
     navController: NavHostController = rememberNavController(),
     deepLinkViewModel: NavDeepLinkViewModel = hiltViewModel()
 ) {
+    val settingsViewModel: SettingsViewModel = hiltViewModel()
+    val prefsTrigger by settingsViewModel.prefsUpdateTrigger.collectAsStateWithLifecycle()
+    val dslState = rememberSettingsDslState(prefsTrigger) {
+        onSwitchItem { key ->
+            val sk = key as? SettingsKeys<*> ?: return@onSwitchItem
+            @Suppress("UNCHECKED_CAST")
+            settingsViewModel.onToggle(sk as SettingsKeys<Boolean>)
+        }
+        isChecked { key ->
+            settingsViewModel.currentBoolean(key)
+        }
+        selectedValue { key ->
+            settingsViewModel.currentInt(key)
+        }
+    }
     CompositionLocalProvider(
+        LocalSettingsDslState provides dslState,
         LocalNavController provides navController,
     ) {
 
@@ -121,33 +143,28 @@ fun AppNavigation(
                 HomeRoute()
             }
 
-            composable<NavRoutes.SettingsScreen> { backStackEntry ->
-                val route = backStackEntry.toRoute<NavRoutes.SettingsScreen>()
-                SettingsScreen(highlightKey = route.highlightKey)
+            composable<NavRoutes.SettingsScreen> {
+                SettingsScreen()
             }
 
-            composable<NavRoutes.LookAndFeelScreen> { backStackEntry ->
-                val route = backStackEntry.toRoute<NavRoutes.LookAndFeelScreen>()
-                LookAndFeelScreen(highlightKey = route.highlightKey)
+            composable<NavRoutes.LookAndFeelScreen> {
+                LookAndFeelScreen()
             }
 
-            composable<NavRoutes.DarkThemeScreen> { backStackEntry ->
-                val route = backStackEntry.toRoute<NavRoutes.DarkThemeScreen>()
-                DarkThemeScreen(highlightKey = route.highlightKey)
+            composable<NavRoutes.DarkThemeScreen> {
+                DarkThemeScreen()
             }
 
             composable<NavRoutes.UiScaleScreen> {
                 UiScaleScreen()
             }
 
-            composable<NavRoutes.BehaviorScreen> { backStackEntry ->
-                val route = backStackEntry.toRoute<NavRoutes.BehaviorScreen>()
-                BehaviorScreen(highlightKey = route.highlightKey)
+            composable<NavRoutes.BehaviorScreen> {
+                BehaviorScreen()
             }
 
-            composable<NavRoutes.AboutScreen> { backStackEntry ->
-                val route = backStackEntry.toRoute<NavRoutes.AboutScreen>()
-                AboutScreen(highlightKey = route.highlightKey)
+            composable<NavRoutes.AboutScreen> {
+                AboutScreen()
             }
 
             composable<NavRoutes.CommandExamplesScreen> {
@@ -190,19 +207,16 @@ fun AppNavigation(
                 CrashDetailsScreen()
             }
 
-            composable<NavRoutes.AutoUpdateScreen> { backStackEntry ->
-                val route = backStackEntry.toRoute<NavRoutes.AutoUpdateScreen>()
-                AutoUpdateScreen(highlightKey = route.highlightKey)
+            composable<NavRoutes.AutoUpdateScreen> {
+                AutoUpdateScreen()
             }
 
-            composable<NavRoutes.BackupAndRestoreScreen> { backStackEntry ->
-                val route = backStackEntry.toRoute<NavRoutes.BackupAndRestoreScreen>()
-                BackupAndRestoreScreen(highlightKey = route.highlightKey)
+            composable<NavRoutes.BackupAndRestoreScreen> {
+                BackupAndRestoreScreen()
             }
 
-            composable<NavRoutes.BackupSchedulerScreen> { backStackEntry ->
-                val route = backStackEntry.toRoute<NavRoutes.BackupSchedulerScreen>()
-                BackupSchedulerScreen(highlightKey = route.highlightKey)
+            composable<NavRoutes.BackupSchedulerScreen> {
+                BackupSchedulerScreen()
             }
 
             composable<NavRoutes.LocalAdbScreen>(
@@ -272,10 +286,10 @@ fun AppNavigation(
                 LogcatScreen(navController = navController)
             }
 
-            composable<NavRoutes.AiModelsScreen> { backStackEntry ->
-                val route = backStackEntry.toRoute<NavRoutes.AiModelsScreen>()
-                AiModelsScreen(highlightKey = route.highlightKey)
+            composable<NavRoutes.AiModelsScreen> {
+                AiModelsScreen()
             }
+
             composable<NavRoutes.CloudModelsScreen> {
                 CloudModelsScreen()
             }
@@ -292,7 +306,6 @@ fun AppNavigation(
             composable<NavRoutes.AiChatScreen> {
                 AiChatScreen()
             }
-
         }
     }
 }
@@ -327,7 +340,6 @@ inline fun <reified T : Any> NavGraphBuilder.animatedComposable(
         sizeTransform = sizeTransform
     ) { backStackEntry ->
         val animatedContentScope = this
-
         CompositionLocalProvider(
             LocalAnimatedContentScope provides animatedContentScope
         ) {
@@ -335,4 +347,3 @@ inline fun <reified T : Any> NavGraphBuilder.animatedComposable(
         }
     }
 }
-

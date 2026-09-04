@@ -74,7 +74,7 @@ fun HomeRoute(
             showPairModeChooseDialog = true
         },
         onSettingsClick = {
-            navController.navigate(NavRoutes.SettingsScreen())
+            navController.navigate(NavRoutes.SettingsScreen)
         },
         onLocalAdbClick = {
             navController.navigate(NavRoutes.LocalAdbScreen)
