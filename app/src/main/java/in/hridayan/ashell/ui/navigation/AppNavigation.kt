@@ -87,28 +87,31 @@ fun AppNavigation(
 ) {
     val settingsViewModel: SettingsViewModel = hiltViewModel()
     val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())
+
     val dslState = rememberSettingsDslState {
         onSwitchItem { key ->
             val sk = key as? SettingsKeys<*> ?: return@onSwitchItem
             @Suppress("UNCHECKED_CAST")
             settingsViewModel.onToggle(sk as SettingsKeys<Boolean>)
         }
+
         isChecked { key ->
             val sk = key as? SettingsKeys<*> ?: return@isChecked false
             if (sk.defaultValue !is Boolean) return@isChecked false
             prefs[booleanPreferencesKey(sk.name)] ?: (sk.defaultValue as Boolean)
         }
+
         selectedValue { key ->
             val sk = key as? SettingsKeys<*> ?: return@selectedValue -1
             if (sk.defaultValue !is Int) return@selectedValue -1
             prefs[intPreferencesKey(sk.name)] ?: (sk.defaultValue as Int)
         }
     }
+
     CompositionLocalProvider(
         LocalSettingsDslState provides dslState,
         LocalNavController provides navController,
     ) {
-
         LaunchedEffect(navController) {
             deepLinkViewModel.sessionHolder.navigationEvents.collect {
                 navController.navigate(NavRoutes.LogcatScreen) {

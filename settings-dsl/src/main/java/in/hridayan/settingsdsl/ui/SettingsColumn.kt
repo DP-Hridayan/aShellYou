@@ -17,8 +17,10 @@ import androidx.compose.material3.TopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -103,16 +105,27 @@ fun SettingsColumn(
         }
     }
 
+    val blinkKey = remember { mutableStateOf<Any?>(null) }
     val currentTargetIndex by rememberUpdatedState(targetIndex)
 
-    LaunchedEffect(highlightState.activeKey) {
-        if (highlightState.activeKey != null && currentTargetIndex >= 0) {
-            delay(400)
-            topAppBarState?.heightOffset = topAppBarState?.heightOffsetLimit ?: 0f
-            listState.animateScrollToItem(currentTargetIndex)
-            delay(2500)
-            highlightState.clear()
-        }
+    LaunchedEffect(Unit) {
+        snapshotFlow { highlightState.activeKey }
+            .collect { key ->
+                if (key != null) {
+                    val idx = currentTargetIndex
+                    if (idx < 0) return@collect
+
+                    blinkKey.value = key
+                    highlightState.clear()
+
+                    delay(400)
+                    topAppBarState?.heightOffset = topAppBarState?.heightOffsetLimit ?: 0f
+                    listState.animateScrollToItem(idx)
+
+                    delay(2500)
+                    blinkKey.value = null
+                }
+            }
     }
 
     LazyColumn(
@@ -190,7 +203,7 @@ fun SettingsColumn(
                                 iconVector = node.iconVector,
                                 iconResId = node.iconResId,
                                 shape = cardShapeForPosition(index, visibleNodes.size),
-                                isHighlighted = node.key == highlightState.activeKey,
+                                isHighlighted = node.key == blinkKey.value,
                                 experimentalFlagText = expFlag,
                                 behavior = node.behavior,
                                 enabled = node.enabled,
