@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -232,6 +233,14 @@ fun BackupSchedulerScreen(
                         description(R.string.des_auto_delete_existing_backups)
                         icon(R.drawable.ic_delete_sweep)
                     }
+                }
+
+                item(key = "spacer_bottom") {
+                    Spacer(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(25.dp)
+                    )
                 }
             }
         },

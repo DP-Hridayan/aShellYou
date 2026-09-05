@@ -11,8 +11,10 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -30,7 +32,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,8 +43,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
-import androidx.datastore.preferences.core.emptyPreferences
-import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.FeatureConfig
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
@@ -56,7 +55,6 @@ import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.provider.getAllSettingsIcons
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.ui.SettingsColumn
 
 private const val ITEM_KEY_HEADER = "header"
@@ -66,13 +64,10 @@ private val FLOATING_ICONS_PADDING = 10.dp
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun SettingsScreen(
-    viewModel: SettingsViewModel = hiltViewModel(),
-) {
+fun SettingsScreen() {
     val navController = LocalNavController.current
     val settings = LocalSettings.current
     val hapticsEnabled = settings[SettingsKeys.HapticsAndVibration]
-    val prefs by viewModel.preferences.collectAsState(initial = emptyPreferences())
     val floatingIconsResIds = getAllSettingsIcons()
 
     val listState = rememberLazyListState()
@@ -104,6 +99,7 @@ fun SettingsScreen(
             )
         }
     ) { paddingValues ->
+
         SettingsColumn(
             modifier = Modifier,
             contentPadding = paddingValues,
@@ -210,6 +206,13 @@ fun SettingsScreen(
                 }
             }
 
+            item(key = "spacer_bottom") {
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(25.dp)
+                )
+            }
         }
     }
 }
