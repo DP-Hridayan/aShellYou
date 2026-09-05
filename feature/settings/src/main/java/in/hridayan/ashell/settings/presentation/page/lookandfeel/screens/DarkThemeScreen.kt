@@ -2,17 +2,17 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens
 
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
-import androidx.datastore.preferences.core.emptyPreferences
+import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
@@ -30,7 +30,6 @@ fun DarkThemeScreen(
     settingsViewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val navController = LocalNavController.current
-    val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())
     val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
 
     val listState = rememberLazyListState()
@@ -43,6 +42,7 @@ fun DarkThemeScreen(
         topAppBarState = topAppBarState,
         topBarTitle = stringResource(R.string.dark_theme),
         content = { innerPadding, topBarScrollBehavior ->
+
             SettingsColumn(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -78,7 +78,14 @@ fun DarkThemeScreen(
                     }
                 }
 
+                item(key = "spacer_bottom") {
+                    Spacer(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(25.dp)
+                    )
+                }
             }
-        },
+        }
     )
 }

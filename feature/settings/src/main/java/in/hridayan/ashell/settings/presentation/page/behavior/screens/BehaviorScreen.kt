@@ -2,20 +2,19 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.behavior.screens
 
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.UnfoldMoreDouble
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
-import androidx.datastore.preferences.core.emptyPreferences
+import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.domain.model.TerminalFontStyle
@@ -29,7 +28,6 @@ import `in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.settings.presentation.components.dialog.ConfigureSaveDirectoryDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
-import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.model.ButtonGroupOption
 import `in`.hridayan.settingsdsl.ui.SettingsColumn
@@ -42,16 +40,6 @@ fun BehaviorScreen(
     val navController = LocalNavController.current
     val dialogManager = LocalDialogManager.current
     val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
-    val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())
-
-    LaunchedEffect(Unit) {
-        settingsViewModel.uiEvent.collect { event ->
-            when (event) {
-                is SettingsUiEvent.ShowDialog -> dialogManager.show(event.key)
-                else -> {}
-            }
-        }
-    }
 
     val listState = rememberLazyListState()
     val topAppBarState = rememberTopAppBarState()
@@ -144,6 +132,13 @@ fun BehaviorScreen(
                     }
                 }
 
+                item(key = "spacer_bottom") {
+                    Spacer(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(25.dp)
+                    )
+                }
             }
         },
     )

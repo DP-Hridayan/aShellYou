@@ -3,7 +3,9 @@
 package `in`.hridayan.ashell.ai.presentation.screens
 
 import android.text.format.Formatter
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Cached
@@ -18,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.datastore.preferences.core.emptyPreferences
+import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.ai.presentation.components.dialog.CacheDurationDialog
 import `in`.hridayan.ashell.ai.presentation.components.dialog.DeleteAiAnalysisCacheDialog
@@ -49,10 +51,8 @@ fun AiModelsScreen(
     val navController = LocalNavController.current
     val dialogManager = LocalDialogManager.current
     val settings = LocalSettings.current
+
     val hapticsEnabled = settings[SettingsKeys.HapticsAndVibration]
-
-    val prefs by aiViewModel.preferences.collectAsState(initial = emptyPreferences())
-
     val cacheDays = settings[SettingsKeys.AiCacheDays]
 
     val cacheSizeBytes by aiViewModel.cacheSizeBytes.collectAsState()
@@ -75,6 +75,7 @@ fun AiModelsScreen(
         topAppBarState = topAppBarState,
         topBarTitle = stringResource(R.string.ai_models),
         content = { innerPadding, topBarScrollBehavior ->
+
             SettingsColumn(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -89,12 +90,7 @@ fun AiModelsScreen(
                         title(R.string.cloud_models)
                         description(R.string.des_cloud_models)
                         icon(R.drawable.ic_cloud_model)
-                        onClick { key ->
-                            when (key) {
-                                SettingsKeys.AiCloudProvider -> navController.navigate(NavRoutes.CloudModelsScreen)
-                                else -> {}
-                            }
-                        }
+                        onClick { navController.navigate(NavRoutes.CloudModelsScreen) }
                     }
                 }
 
@@ -103,44 +99,24 @@ fun AiModelsScreen(
                         title(R.string.command_execution)
                         description(R.string.des_command_execution)
                         icon(R.drawable.ic_terminal)
-                        onClick { key ->
-                            @Suppress("UNCHECKED_CAST")
-                            val typedKey = key as? SettingsKeys<Boolean> ?: return@onClick
-                            aiViewModel.toggleSetting(typedKey)
-                        }
                     }
 
                     switchItem(SettingsKeys.AiSkillQuickSettings) {
                         title(R.string.quick_settings_tiles)
                         description(R.string.des_quick_settings_tiles)
                         icon(R.drawable.ic_dashboard)
-                        onClick { key ->
-                            @Suppress("UNCHECKED_CAST")
-                            val typedKey = key as? SettingsKeys<Boolean> ?: return@onClick
-                            aiViewModel.toggleSetting(typedKey)
-                        }
                     }
 
                     switchItem(SettingsKeys.AiSkillPackages) {
                         title(R.string.packages)
                         description(R.string.des_packages)
                         icon(R.drawable.ic_package)
-                        onClick { key ->
-                            @Suppress("UNCHECKED_CAST")
-                            val typedKey = key as? SettingsKeys<Boolean> ?: return@onClick
-                            aiViewModel.toggleSetting(typedKey)
-                        }
                     }
 
                     switchItem(SettingsKeys.AiSkillDatabase) {
                         title(R.string.database_modification)
                         description(R.string.des_database_modification)
                         icon(R.drawable.ic_database)
-                        onClick { key ->
-                            @Suppress("UNCHECKED_CAST")
-                            val typedKey = key as? SettingsKeys<Boolean> ?: return@onClick
-                            aiViewModel.toggleSetting(typedKey)
-                        }
                     }
                 }
 
@@ -149,11 +125,6 @@ fun AiModelsScreen(
                         title(R.string.ai_cache_enabled)
                         description(R.string.des_ai_cache_enabled)
                         icon(Icons.Rounded.Cached)
-                        onClick { key ->
-                            @Suppress("UNCHECKED_CAST")
-                            val typedKey = key as? SettingsKeys<Boolean> ?: return@onClick
-                            aiViewModel.toggleSetting(typedKey)
-                        }
                     }
 
                     clickableItem(SettingsKeys.AiCacheDays) {
@@ -169,6 +140,14 @@ fun AiModelsScreen(
                         icon(R.drawable.ic_delete_sweep)
                         onClick { dialogManager.show(AiDialogKey.CacheClearConfirmation) }
                     }
+                }
+
+                item(key = "spacer_bottom") {
+                    Spacer(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(25.dp)
+                    )
                 }
             }
         },

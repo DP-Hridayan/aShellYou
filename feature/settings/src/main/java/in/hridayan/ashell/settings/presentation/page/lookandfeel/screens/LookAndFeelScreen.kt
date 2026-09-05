@@ -5,11 +5,14 @@ package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DarkMode
+import androidx.compose.material.icons.rounded.LightMode
 import androidx.compose.material.icons.rounded.TextFields
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberTopAppBarState
@@ -77,6 +80,7 @@ fun LookAndFeelScreen(
         topAppBarState = topAppBarState,
         topBarTitle = stringResource(R.string.look_and_feel),
         content = { innerPadding, topBarScrollBehavior ->
+
             SettingsColumn(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -155,7 +159,7 @@ fun LookAndFeelScreen(
                                 else -> ""
                             }
                         }
-                        icon(Icons.Outlined.DarkMode)
+                        icon(if (isDarkMode) Icons.Outlined.DarkMode else Icons.Rounded.LightMode)
                         visible { !userGeneratedColorSchemeApplied || isDynamicColorEnabled }
                         onClick { navController.navigate(NavRoutes.DarkThemeScreen) }
                     }
@@ -203,6 +207,13 @@ fun LookAndFeelScreen(
                     }
                 }
 
+                item(key = "spacer_bottom") {
+                    Spacer(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(25.dp)
+                    )
+                }
             }
         },
     )
