@@ -38,6 +38,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withTimeoutOrNull
+import kotlin.time.Duration.Companion.milliseconds
 
 private val NoOpAnyCallback: (Any) -> Unit = {}
 private val NoOpAnyIntCallback: (Any, Int) -> Unit = { _, _ -> }
@@ -108,20 +109,22 @@ fun SettingsColumn(
         snapshotFlow { highlightState.activeKey }
             .filterNotNull()
             .collect { key ->
-                val matched = withTimeoutOrNull(HIGHLIGHT_MATCH_TIMEOUT_MS) {
+                val matched = withTimeoutOrNull(HIGHLIGHT_MATCH_TIMEOUT_MS.milliseconds) {
                     snapshotFlow { currentTargetIndex }.first { it >= 0 }
                 } != null
                 if (!matched) return@collect
 
+                val scrollTarget = currentTargetIndex
+
                 blinkKey.value = key
                 highlightState.clear()
 
-                delay(HIGHLIGHT_SCROLL_DELAY_MS)
+                delay(HIGHLIGHT_SCROLL_DELAY_MS.milliseconds)
+
                 topAppBarState?.let { it.heightOffset = it.heightOffsetLimit }
-                val scrollTarget = currentTargetIndex
                 if (scrollTarget >= 0) listState.animateScrollToItem(scrollTarget)
 
-                delay(HIGHLIGHT_BLINK_DURATION_MS)
+                delay(HIGHLIGHT_BLINK_DURATION_MS.milliseconds)
                 blinkKey.value = null
             }
     }
