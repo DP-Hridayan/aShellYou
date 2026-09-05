@@ -148,13 +148,13 @@ fun AboutScreen(
                             verticalArrangement = Arrangement.spacedBy(15.dp),
                         ) {
                             AppHandlesChip(
-                                icon = painterResource(R.drawable.ic_telegram),
+                                iconResId = painterResource(R.drawable.ic_telegram),
                                 title = stringResource(R.string.telegram),
                                 description = stringResource(R.string.discussions),
                                 onClick = { openUrl(UrlConst.URL_TELEGRAM_CHANNEL, context) }
                             )
                             AppHandlesChip(
-                                icon = painterResource(R.drawable.ic_github),
+                                iconResId = painterResource(R.drawable.ic_github),
                                 title = stringResource(R.string.github),
                                 description = stringResource(R.string.repository),
                                 containerColor = MaterialTheme.colorScheme.tertiaryContainer,
@@ -162,7 +162,7 @@ fun AboutScreen(
                                 onClick = { openUrl(UrlConst.URL_GITHUB_REPO, context) }
                             )
                             AppHandlesChip(
-                                icon = painterResource(R.drawable.ic_version_tag),
+                                iconResId = painterResource(R.drawable.ic_version_tag),
                                 title = context.packageManager.getPackageInfo(
                                     context.packageName,
                                     0
@@ -173,7 +173,7 @@ fun AboutScreen(
                                 onClick = { openUrl(UrlConst.URL_GITHUB_RELEASES, context) }
                             )
                             AppHandlesChip(
-                                icon = painterResource(R.drawable.ic_license),
+                                iconResId = painterResource(R.drawable.ic_license),
                                 title = stringResource(R.string.gpl_3_0),
                                 description = stringResource(R.string.license),
                                 containerColor = MaterialTheme.colorScheme.errorContainer,
@@ -181,7 +181,7 @@ fun AboutScreen(
                                 onClick = { openUrl(UrlConst.URL_GITHUB_REPO_LICENSE, context) }
                             )
                             AppHandlesChip(
-                                icon = painterResource(R.drawable.ic_crowdin),
+                                iconResId = painterResource(R.drawable.ic_crowdin),
                                 title = stringResource(R.string.crowdin),
                                 description = stringResource(R.string.translations),
                                 containerColor = MaterialTheme.colorScheme.surfaceVariant,
@@ -302,7 +302,7 @@ fun AboutScreen(
 @Composable
 private fun AppHandlesChip(
     modifier: Modifier = Modifier,
-    icon: Painter,
+    iconResId: Painter,
     title: String,
     description: String,
     containerColor: Color = MaterialTheme.colorScheme.primaryContainer,
@@ -320,7 +320,7 @@ private fun AppHandlesChip(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(10.dp),
         ) {
-            Icon(painter = icon, contentDescription = null, tint = contentColor)
+            Icon(painter = iconResId, contentDescription = null, tint = contentColor)
             Column {
                 AutoResizeableText(
                     text = title,

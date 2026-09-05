@@ -16,9 +16,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -103,15 +103,15 @@ fun SettingsColumn(
         }
     }
 
-    val hasScrolled = rememberSaveable { mutableStateOf(false) }
+    val currentTargetIndex by rememberUpdatedState(targetIndex)
 
-    LaunchedEffect(highlightState.activeKey, targetIndex) {
-        if (highlightState.activeKey != null && targetIndex >= 0 && !hasScrolled.value) {
+    LaunchedEffect(highlightState.activeKey) {
+        if (highlightState.activeKey != null && currentTargetIndex >= 0) {
             delay(400)
             topAppBarState?.heightOffset = topAppBarState?.heightOffsetLimit ?: 0f
-            listState.animateScrollToItem(targetIndex)
+            listState.animateScrollToItem(currentTargetIndex)
+            delay(2500)
             highlightState.clear()
-            hasScrolled.value = true
         }
     }
 
