@@ -83,7 +83,7 @@ class SettingsDslState(
 val LocalSettingsDslState = compositionLocalOf<SettingsDslState> {
     error(
         "LocalSettingsDslState not provided. Wrap your NavHost with " +
-                "CompositionLocalProvider(LocalSettingsDslState provides rememberSettingsDslState())"
+            "CompositionLocalProvider(LocalSettingsDslState provides rememberSettingsDslState())"
     )
 }
 
