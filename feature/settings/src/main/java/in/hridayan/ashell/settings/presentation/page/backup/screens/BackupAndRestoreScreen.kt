@@ -49,7 +49,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
-import androidx.datastore.preferences.core.emptyPreferences
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.domain.model.backup.BackupType
@@ -95,18 +94,19 @@ fun BackupAndRestoreScreen(
     val res = LocalResources.current
     val navController = LocalNavController.current
     val dialogManager = LocalDialogManager.current
-    val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())
     val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
+
     val localBackupTime by backupAndRestoreViewModel.localBackupTime.collectAsState()
     val localBackupType by backupAndRestoreViewModel.localBackupType.collectAsState()
     val cloudBackupTime by backupAndRestoreViewModel.cloudBackupTime.collectAsState()
     val cloudBackupType by backupAndRestoreViewModel.cloudBackupType.collectAsState()
     val lastBackupData by backupAndRestoreViewModel.lastBackupData.collectAsState()
-    var isLastBackupDetailsCardExpanded by rememberSaveable { mutableStateOf(false) }
     val googleUserState by backupAndRestoreViewModel.googleUserState.collectAsState()
     val isSigningIn by backupAndRestoreViewModel.isSigningIn.collectAsState()
     val cloudOperationMessage by backupAndRestoreViewModel.cloudOperationMessage.collectAsState()
     val showCloudRestoreConfirm by backupAndRestoreViewModel.showCloudRestoreConfirm.collectAsState()
+
+    var isLastBackupDetailsCardExpanded by rememberSaveable { mutableStateOf(false) }
     val isCloudBackupAvailable = backupAndRestoreViewModel.isCloudBackupAvailable
     var restoreFileUri by rememberSaveable { mutableStateOf("".toUri()) }
 
@@ -154,14 +154,17 @@ fun BackupAndRestoreScreen(
                     backupAndRestoreViewModel.initiateBackup(event.backupType)
                     launcherBackup.launch("backup_${System.currentTimeMillis()}.ashellyou")
                 }
+
                 is SettingsUiEvent.RequestDocumentUriForRestore -> launcherRestore.launch(arrayOf("application/octet-stream"))
                 is SettingsUiEvent.RequestGoogleDriveBackup -> backupAndRestoreViewModel.backupToGoogleDrive(
                     event.backupType
                 )
+
                 is SettingsUiEvent.RequestGoogleDriveRestore -> backupAndRestoreViewModel.downloadFromGoogleDrive()
                 is SettingsUiEvent.RequestGoogleSignIn -> backupAndRestoreViewModel.signInWithGoogle(
                     context
                 )
+
                 is SettingsUiEvent.Navigate -> navController.navigate(event.route)
                 else -> {}
             }
@@ -189,6 +192,7 @@ fun BackupAndRestoreScreen(
         topAppBarState = topAppBarState,
         topBarTitle = stringResource(R.string.backup_and_restore),
         content = { innerPadding, topBarScrollBehavior ->
+
             SettingsColumn(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -223,12 +227,14 @@ fun BackupAndRestoreScreen(
                         icon(R.drawable.ic_handyman)
                         onClick { settingsViewModel.handleBackupSettingsClick() }
                     }
+
                     clickableItem(SettingsKeys.BackupAppDatabase) {
                         title(R.string.backup_app_database)
                         description(R.string.des_backup_app_database)
                         icon(R.drawable.ic_database)
                         onClick { settingsViewModel.handleBackupDatabaseClick() }
                     }
+
                     clickableItem(SettingsKeys.BackupAppData) {
                         title(R.string.backup_all_data)
                         description(R.string.des_backup_all_data)
@@ -282,9 +288,11 @@ fun BackupAndRestoreScreen(
 
 
                 item(key = "spacer_bottom") {
-                    Spacer(modifier = Modifier
-                        .fillMaxWidth()
-                        .height(25.dp))
+                    Spacer(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(25.dp)
+                    )
                 }
             }
         },
@@ -397,7 +405,9 @@ private fun LastBackupTimeCard(
                         .weight(1f)
                         .fillMaxWidth()
                 )
+
                 val rotateAngle by animateFloatAsState(if (isExpanded) 180f else 0f)
+
                 Icon(
                     painter = painterResource(R.drawable.ic_expand),
                     contentDescription = "Expand",
@@ -409,9 +419,12 @@ private fun LastBackupTimeCard(
         }
 
         if (isExpanded) {
-            Spacer(modifier = Modifier
-                .fillMaxWidth()
-                .height(2.dp))
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(2.dp)
+            )
+
             TimeCard(
                 modifier = Modifier.fillMaxWidth(),
                 shape = CardCornerShape.run { if (isCloudBackupAvailable) MIDDLE_CARD else LAST_CARD },
@@ -421,10 +434,14 @@ private fun LastBackupTimeCard(
                 dateTime = lastBackupData.localTime,
                 isAuto = lastBackupData.localIsAuto,
             )
+
             if (isCloudBackupAvailable) {
-                Spacer(modifier = Modifier
-                    .fillMaxWidth()
-                    .height(2.dp))
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(2.dp)
+                )
+
                 TimeCard(
                     modifier = Modifier.fillMaxWidth(),
                     shape = CardCornerShape.LAST_CARD,
@@ -486,6 +503,7 @@ private fun TimeCard(
                     )
                 }
             }
+
             Column(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(7.dp)
@@ -500,6 +518,7 @@ private fun TimeCard(
                         fontWeight = FontWeight.SemiBold,
                         style = MaterialTheme.typography.titleMediumEmphasized
                     )
+
                     if (isAuto) {
                         Box(
                             modifier = Modifier
@@ -518,11 +537,13 @@ private fun TimeCard(
                         }
                     }
                 }
+
                 Text(
                     text = stringResource(R.string.backup_type) + " : " + backupTypeText,
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.alpha(0.7f)
                 )
+
                 if (dateTime.isNotEmpty()) {
                     Text(
                         text = dateTime,
