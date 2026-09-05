@@ -23,12 +23,17 @@ class DownloadRepositoryImpl @Inject constructor(
 ) : DownloadRepository {
 
     private var downloadJob: Job? = null
+    private var activeConnection: HttpURLConnection? = null
+
+    @Volatile
+    private var cancelled = false
 
     override suspend fun downloadApk(
         url: String,
         fileName: String,
         onProgress: (DownloadState) -> Unit
     ) {
+        cancelled = false
         downloadJob = CoroutineScope(Dispatchers.IO).launch {
             try {
                 checkNetwork()
@@ -41,18 +46,33 @@ class DownloadRepositoryImpl @Inject constructor(
             } catch (e: CancellationException) {
                 onProgress(DownloadState.Cancelled)
             } catch (e: ConnectException) {
-                Log.e(TAG, "Network error during download", e)
-                onProgress(DownloadState.Error(e.message ?: "Network error"))
+                if (cancelled) {
+                    onProgress(DownloadState.Cancelled)
+                } else {
+                    Log.e(TAG, "Network error during download", e)
+                    onProgress(DownloadState.Error(e.message ?: "Network error"))
+                }
             } catch (e: Exception) {
-                Log.e(TAG, "Error during download", e)
-                onProgress(DownloadState.Error(e.message ?: "Unknown error"))
+                if (cancelled) {
+                    onProgress(DownloadState.Cancelled)
+                } else {
+                    Log.e(TAG, "Error during download", e)
+                    onProgress(DownloadState.Error(e.message ?: "Unknown error"))
+                }
             }
         }
     }
 
     override fun cancelDownload() {
+        cancelled = true
+        // Disconnect first — this interrupts the blocking input.read() immediately
+        activeConnection?.disconnect()
+        activeConnection = null
         downloadJob?.cancel()
+        downloadJob = null
+        cleanOldApks()
     }
+
 
     private fun checkNetwork() {
         if (!isNetworkAvailable(context)) {
@@ -78,6 +98,7 @@ class DownloadRepositoryImpl @Inject constructor(
                 readTimeout = 30_000
                 instanceFollowRedirects = true
             }
+            activeConnection = connection
 
             val responseCode = connection.responseCode
 
@@ -118,6 +139,7 @@ class DownloadRepositoryImpl @Inject constructor(
 
             onProgress(DownloadState.Success(file))
         } finally {
+            activeConnection = null
             connection?.disconnect()
         }
     }
@@ -126,3 +148,4 @@ class DownloadRepositoryImpl @Inject constructor(
         private const val TAG = "DownloadRepo"
     }
 }
+
