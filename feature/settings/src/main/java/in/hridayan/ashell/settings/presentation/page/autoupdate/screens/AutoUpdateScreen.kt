@@ -25,7 +25,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -38,7 +37,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.datastore.preferences.core.emptyPreferences
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
@@ -76,7 +74,7 @@ fun AutoUpdateScreen(
     val context = LocalContext.current
     val dialogManager = LocalDialogManager.current
     val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
-    val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())
+
     var showLoading by rememberSaveable { mutableStateOf(false) }
     var showUpdateSheet by rememberSaveable { mutableStateOf(false) }
     var tagName by rememberSaveable {
@@ -89,6 +87,7 @@ fun AutoUpdateScreen(
     }
     var apkUrl by rememberSaveable { mutableStateOf("") }
     var changelog by rememberSaveable { mutableStateOf("") }
+
     val networkError = stringResource(R.string.network_error)
     val requestTimeout = stringResource(R.string.request_timeout)
     val unKnownError = stringResource(R.string.unknown_error)
@@ -125,6 +124,7 @@ fun AutoUpdateScreen(
         topAppBarState = topAppBarState,
         topBarTitle = stringResource(R.string.auto_update),
         content = { innerPadding, topBarScrollBehavior ->
+
             SettingsColumn(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -201,17 +201,20 @@ fun AutoUpdateScreen(
                                     contentDescription = null,
                                     tint = MaterialTheme.colorScheme.error
                                 )
+
                                 Text(
                                     text = stringResource(R.string.pre_release_warning),
                                     style = MaterialTheme.typography.titleSmall,
                                     color = MaterialTheme.colorScheme.error
                                 )
                             }
+
                             Text(
                                 text = stringResource(R.string.pre_release_warning_description),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.error.copy(alpha = 0.7f)
                             )
+
                             Spacer(
                                 modifier = Modifier
                                     .fillMaxWidth()
