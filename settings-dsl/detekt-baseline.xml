@@ -1,92 +1,41 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
-    <ManuallySuppressedIssues></ManuallySuppressedIssues>
-    <CurrentIssues>
-        <ID>ArgumentListWrapping:CustomCard.kt$( targetValue = if (doCardInteractions)
-            pressedCornerRadius else resolvedBottomEnd, animationSpec = springDp, label =
-            "corner_be", )
-        </ID>
-        <ID>ArgumentListWrapping:CustomCard.kt$( targetValue = if (doCardInteractions)
-            pressedCornerRadius else resolvedBottomStart, animationSpec = springDp, label =
-            "corner_bs", )
-        </ID>
-        <ID>ArgumentListWrapping:CustomCard.kt$( targetValue = if (doCardInteractions)
-            pressedCornerRadius else resolvedTopEnd, animationSpec = springDp, label = "corner_te",
-            )
-        </ID>
-        <ID>ArgumentListWrapping:CustomCard.kt$( targetValue = if (doCardInteractions)
-            pressedCornerRadius else resolvedTopStart, animationSpec = springDp, label =
-            "corner_ts", )
-        </ID>
-        <ID>ArgumentListWrapping:CustomCard.kt$( targetValue = if (doCardInteractions) pressedScale
-            else 1f, animationSpec = springFloat, label = "scale", )
-        </ID>
-        <ID>FinalNewline:CustomCard.kt$in.hridayan.settingsdsl.ui.card.CustomCard.kt</ID>
-        <ID>Indentation:SettingsItemView.kt$</ID>
-        <ID>Indentation:SettingsSearchHelper.kt$SettingsSearchEngine$</ID>
-        <ID>LongMethod:SettingsContent.kt$fun LazyListScope.settingsContent( groups: List&lt;ResolvedGroup&gt;,
-            modifier: Modifier = Modifier, itemPaddingHorizontal: Dp = 15.dp, itemPaddingVertical:
-            Dp = 1.dp, hapticsEnabled: Boolean = true, isChecked: (SettingsKey&lt;*&gt;) -&gt;
-            Boolean = { false }, selectedValue: (SettingsKey&lt;*&gt;) -&gt; Int = { -1 },
-            onItemClick: (SettingsKey&lt;*&gt;) -&gt; Unit = {}, onBooleanToggle: (SettingsKey&lt;*&gt;)
-            -&gt; Unit = {}, onIntChanged: (SettingsKey&lt;*&gt;, Int) -&gt; Unit = { _, _ -&gt; },
-            customSlotContent: @Composable (CustomSlot) -&gt; Unit = {}, categoryHeader:
-            (@Composable (String) -&gt; Unit)? = null, )
-        </ID>
-        <ID>LongParameterList:ItemSpec.kt$ItemSpec$( val key: SettingsKey&lt;*&gt;, val isVisible:
-            Boolean, val enabled: Boolean, @param:StringRes val titleResId: Int?, val titleString:
-            String, @param:StringRes val descriptionResId: Int?, val descriptionString: String,
-            @param:DrawableRes val iconResId: Int?, val iconVector: ImageVector?, val
-            enableExperimentalFlag: Boolean, @param:StringRes val experimentalFlagTextResId: Int?,
-            val experimentalFlagText: String )
-        </ID>
-        <ID>LongParameterList:ItemSpec.kt$ItemSpec.ClickableSpec$( key: SettingsKey&lt;*&gt;,
-            isVisible: Boolean, enabled: Boolean, @StringRes titleResId: Int?, titleString: String,
-            @StringRes descriptionResId: Int?, descriptionString: String, @DrawableRes iconResId:
-            Int?, iconVector: ImageVector?, enableExperimentalFlag: Boolean, @StringRes
-            experimentalFlagTextResId: Int?, experimentalFlagText: String )
-        </ID>
-        <ID>LongParameterList:ItemSpec.kt$ItemSpec.SwitchSpec$( key: SettingsKey&lt;*&gt;,
-            isVisible: Boolean, enabled: Boolean, @StringRes titleResId: Int?, titleString: String,
-            @StringRes descriptionResId: Int?, descriptionString: String, @DrawableRes iconResId:
-            Int?, iconVector: ImageVector?, enableExperimentalFlag: Boolean, @StringRes
-            experimentalFlagTextResId: Int?, experimentalFlagText: String )
-        </ID>
-        <ID>LongParameterList:SettingsContent.kt$( item: SettingsItem, modifier: Modifier,
-            hapticsEnabled: Boolean, isChecked: Boolean, selectedValue: Int, onItemClick:
-            (SettingsKey&lt;*&gt;) -&gt; Unit, onBooleanToggle: (SettingsKey&lt;*&gt;) -&gt; Unit,
-            onIntChanged: (SettingsKey&lt;*&gt;, Int) -&gt; Unit, )
-        </ID>
-        <ID>LongParameterList:SettingsItemView.kt$( modifier: Modifier, title: String, description:
-            String, icon: ImageVector?, @DrawableRes iconResId: Int?, shape: CustomCardShape,
-            isHighlighted: Boolean, enableExperimentalFlag: Boolean, experimentalFlagText: String,
-            enabled: Boolean, isChecked: Boolean, onToggle: () -&gt; Unit )
-        </ID>
-        <ID>LongParameterList:SettingsItemView.kt$( modifier: Modifier, title: String, description:
-            String, icon: ImageVector?, @DrawableRes iconResId: Int?, shape: CustomCardShape,
-            isHighlighted: Boolean, enabled: Boolean, onClick: () -&gt; Unit )
-        </ID>
-        <ID>MultiLineIfElse:SettingsItemView.kt$Text( text = description, style =
-            MaterialTheme.typography.bodySmall, modifier = Modifier.alpha(0.7f) )
-        </ID>
-        <ID>MultiLineIfElse:SettingsItemView.kt$Text( text = title, fontWeight =
-            FontWeight.SemiBold, style = MaterialTheme.typography.titleMediumEmphasized )
-        </ID>
-        <ID>NoConsecutiveBlankLines:SettingsContent.kt$</ID>
-        <ID>NoMultipleSpaces:SettingsSearchHelper.kt$</ID>
-        <ID>NoUnusedImports:CustomCard.kt$in.hridayan.settingsdsl.ui.card.CustomCard.kt</ID>
-        <ID>NoUnusedImports:SettingsContent.kt$in.hridayan.settingsdsl.ui.item.SettingsContent.kt
-        </ID>
-        <ID>TooManyFunctions:SettingsDsl.kt$in.hridayan.settingsdsl.dsl.SettingsDsl.kt</ID>
-        <ID>TopLevelPropertyNaming:CustomCard.kt$private const val DampingRatioMediumHighBouncy =
-            0.35f
-        </ID>
-        <ID>UseDataClass:GroupSpec.kt$SettingsGroup</ID>
-        <ID>UseDataClass:ItemSpec.kt$SettingsItemSpec</ID>
-        <ID>Wrapping:SettingsDsl.kt$(</ID>
-        <ID>Wrapping:SettingsItemView.kt$(</ID>
-        <ID>
-            Wrapping:SettingsItemView.kt${ v: Int -&gt; if (hapticsEnabled) haptic.performHapticFeedback(HapticFeedbackType.ToggleOn) onValueChange(v) }
-        </ID>
-    </CurrentIssues>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>LongParameterList:SettingsColumn.kt$( nodeKey: Any, title: String, description: String, iconVector: ImageVector?, @DrawableRes iconResId: Int?, shape: CustomCardShape, isHighlighted: Boolean, experimentalFlagText: String, behavior: ItemBehavior, enabled: Boolean, hapticsEnabled: Boolean, isChecked: Boolean, selectedValue: Int, itemPaddingHorizontal: Dp, itemPaddingVertical: Dp, onClick: (Any) -&gt; Unit, onToggle: (Any) -&gt; Unit, onIntChanged: (Any, Int) -&gt; Unit, )</ID>
+    <ID>LongParameterList:SettingsItemView.kt$( modifier: Modifier, title: String, description: String, icon: ImageVector?, @DrawableRes iconResId: Int?, shape: CustomCardShape, isHighlighted: Boolean, experimentalFlagText: String, enabled: Boolean, isChecked: Boolean, onToggle: () -&gt; Unit )</ID>
+    <ID>LongParameterList:SettingsItemView.kt$( modifier: Modifier, title: String, description: String, icon: ImageVector?, @DrawableRes iconResId: Int?, shape: CustomCardShape, isHighlighted: Boolean, experimentalFlagText: String, enabled: Boolean, onClick: () -&gt; Unit )</ID>
+    <ID>NoConsecutiveBlankLines:OnClickDefaults.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:SettingsDslBuilders.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:SettingsGraph.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:SettingsItemView.kt$ </ID>
+    <ID>PackageName:CustomCard.kt$package `in`.hridayan.settingsdsl.ui.card</ID>
+    <ID>PackageName:CustomCardShape.kt$package `in`.hridayan.settingsdsl.ui.card</ID>
+    <ID>PackageName:ItemBehavior.kt$package `in`.hridayan.settingsdsl.model</ID>
+    <ID>PackageName:OnClickDefaults.kt$package `in`.hridayan.settingsdsl.ui</ID>
+    <ID>PackageName:Options.kt$package `in`.hridayan.settingsdsl.model</ID>
+    <ID>PackageName:SearchDsl.kt$package `in`.hridayan.settingsdsl.search</ID>
+    <ID>PackageName:SearchGraph.kt$package `in`.hridayan.settingsdsl.search</ID>
+    <ID>PackageName:SettingsColumn.kt$package `in`.hridayan.settingsdsl.ui</ID>
+    <ID>PackageName:SettingsDslBuilders.kt$package `in`.hridayan.settingsdsl.dsl</ID>
+    <ID>PackageName:SettingsDslState.kt$package `in`.hridayan.settingsdsl.ui</ID>
+    <ID>PackageName:SettingsGraph.kt$package `in`.hridayan.settingsdsl.model</ID>
+    <ID>PackageName:SettingsItemView.kt$package `in`.hridayan.settingsdsl.ui.item</ID>
+    <ID>PackageName:SettingsKey.kt$package `in`.hridayan.settingsdsl.model</ID>
+    <ID>PackageName:SettingsNode.kt$package `in`.hridayan.settingsdsl.model</ID>
+    <ID>PackageName:SettingsSearchEngine.kt$package `in`.hridayan.settingsdsl.search</ID>
+    <ID>TopLevelPropertyNaming:CustomCard.kt$private const val DampingRatioMediumHighBouncy = 0.35f</ID>
+    <ID>UseDataClass:OnClickDefaults.kt$OnClickDefaults</ID>
+    <ID>UseDataClass:SearchGraph.kt$SearchEntryNode</ID>
+    <ID>UseDataClass:SearchGraph.kt$SearchGraph</ID>
+    <ID>UseDataClass:SearchGraph.kt$SearchScreenNode</ID>
+    <ID>UseDataClass:SettingsColumn.kt$RenderEntry$Divider : RenderEntry</ID>
+    <ID>UseDataClass:SettingsColumn.kt$RenderEntry$Header : RenderEntry</ID>
+    <ID>UseDataClass:SettingsColumn.kt$RenderEntry$Node : RenderEntry</ID>
+    <ID>UseDataClass:SettingsColumn.kt$RenderEntry$Raw : RenderEntry</ID>
+    <ID>UseDataClass:SettingsDslState.kt$SettingsDslState</ID>
+    <ID>UseDataClass:SettingsGraph.kt$SettingsGraph</ID>
+    <ID>UseDataClass:SettingsSearchEngine.kt$SearchResult</ID>
+    <ID>Wrapping:SettingsItemView.kt${ v: Int -&gt; if (hapticsEnabled) haptic.performHapticFeedback(HapticFeedbackType.ToggleOn) onValueChange(v) }</ID>
+  </CurrentIssues>
 </SmellBaseline>

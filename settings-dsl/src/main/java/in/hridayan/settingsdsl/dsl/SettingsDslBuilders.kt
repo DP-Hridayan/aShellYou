@@ -5,7 +5,6 @@ import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import `in`.hridayan.settingsdsl.model.ButtonGroupOption
-import `in`.hridayan.settingsdsl.model.CustomSlot
 import `in`.hridayan.settingsdsl.model.ItemBehavior
 import `in`.hridayan.settingsdsl.model.RadioButtonOption
 import `in`.hridayan.settingsdsl.model.SettingsGraph
@@ -25,49 +24,41 @@ annotation class SettingsDslMarker
 abstract class BaseItemBuilder {
     internal var staticTitleRes: Int? = null
     internal var staticTitleString: String = ""
-    internal var searchTitleRes: Int? = null
     internal var dynamicTitle: (@Composable () -> String)? = null
     internal var enabled: Boolean = true
     internal var visibleLambda: () -> Boolean = { true }
     internal var onClickOverride: ((Any) -> Unit)? = null
 
-    /** Sets the title from a string resource. Indexed by search and rendered by the UI. */
+    /** Sets the title from a string resource. */
     fun title(@StringRes resId: Int) {
         staticTitleRes = resId
         staticTitleString = ""
-        searchTitleRes = resId
         dynamicTitle = null
     }
 
-    /** Sets the title from a plain string. Indexed by search and rendered by the UI. */
+    /** Sets the title from a plain string. */
     fun title(text: String) {
         staticTitleString = text
         staticTitleRes = null
-        searchTitleRes = null
         dynamicTitle = null
     }
 
     /**
-     * Sets a dynamic title via a [Composable] lambda, with an optional search fallback.
+     * Sets a dynamic title via a [Composable] lambda, executed on every recomposition and so
+     * suitable for reading Compose state.
      *
-     * The [block] is executed in the UI on every recomposition — suitable for reading Compose state.
-     * The search engine uses [searchRes] to index this item. If [searchRes] is null, the item
-     * is excluded from the search index entirely.
-     *
-     * @param searchRes String resource ID to index in the search engine. Null to opt out of search.
      * @param block Composable lambda that returns the display title string.
      */
-    fun title(searchRes: Int? = null, block: @Composable () -> String) {
+    fun title(block: @Composable () -> String) {
         dynamicTitle = block
-        searchTitleRes = searchRes
         staticTitleRes = null
         staticTitleString = ""
     }
 
     /**
-     * Controls whether this item is visible in the UI and indexed by the search engine.
+     * Controls whether this item is rendered.
      *
-     * The lambda is evaluated in pure Kotlin context — do not call Compose APIs inside it.
+     * The lambda is evaluated in pure Kotlin context ï¿½ do not call Compose APIs inside it.
      * Read pre-computed values from the enclosing composable scope instead. The containing
      * composable must recompose for visibility changes to take effect.
      *
@@ -103,34 +94,30 @@ abstract class BaseItemBuilder {
 abstract class DescribedItemBuilder : BaseItemBuilder() {
     internal var staticDescRes: Int? = null
     internal var staticDescString: String = ""
-    internal var searchDescRes: Int? = null
     internal var dynamicDescription: (@Composable () -> String)? = null
 
-    /** Sets the description from a string resource. Indexed by search and rendered by the UI. */
+    /** Sets the description from a string resource. */
     fun description(@StringRes resId: Int) {
         staticDescRes = resId
         staticDescString = ""
-        searchDescRes = resId
         dynamicDescription = null
     }
 
-    /** Sets the description from a plain string. Indexed by search and rendered by the UI. */
+    /** Sets the description from a plain string. */
     fun description(text: String) {
         staticDescString = text
         staticDescRes = null
-        searchDescRes = null
         dynamicDescription = null
     }
 
     /**
-     * Sets a dynamic description via a [Composable] lambda.
+     * Sets a dynamic description via a [Composable] lambda, executed on every recomposition and so
+     * suitable for reading Compose state.
      *
-     * @param searchRes String resource ID to index in search. Null to exclude description from search.
      * @param block Composable lambda that returns the display description string.
      */
-    fun description(searchRes: Int? = null, block: @Composable () -> String) {
+    fun description(block: @Composable () -> String) {
         dynamicDescription = block
-        searchDescRes = searchRes
         staticDescRes = null
         staticDescString = ""
     }
@@ -182,7 +169,7 @@ abstract class BadgeItemBuilder : IconItemBuilder() {
  * Builder for a clickable settings item.
  *
  * Use [onClick] (inherited from [BaseItemBuilder]) to define the tap action. There is no global
- * default for clickable items — each item must declare its own handler.
+ * default for clickable items ï¿½ each item must declare its own handler.
  *
  * @param key The developer-supplied key for this item.
  */
@@ -195,11 +182,9 @@ class ClickableItemBuilder internal constructor(private val key: Any) : BadgeIte
         dynamicTitle = dynamicTitle,
         staticTitleRes = staticTitleRes,
         staticTitleString = staticTitleString,
-        searchTitleRes = searchTitleRes,
         dynamicDescription = dynamicDescription,
         staticDescRes = staticDescRes,
         staticDescString = staticDescString,
-        searchDescRes = searchDescRes,
         iconResId = iconResId,
         iconVector = iconVector,
         experimentalFlagTextRes = experimentalFlagTextRes,
@@ -240,11 +225,9 @@ class SwitchItemBuilder internal constructor(private val key: Any) : BadgeItemBu
         dynamicTitle = dynamicTitle,
         staticTitleRes = staticTitleRes,
         staticTitleString = staticTitleString,
-        searchTitleRes = searchTitleRes,
         dynamicDescription = dynamicDescription,
         staticDescRes = staticDescRes,
         staticDescString = staticDescString,
-        searchDescRes = searchDescRes,
         iconResId = iconResId,
         iconVector = iconVector,
         experimentalFlagTextRes = experimentalFlagTextRes,
@@ -286,11 +269,9 @@ class SwitchBannerItemBuilder internal constructor(private val key: Any) : BaseI
         dynamicTitle = dynamicTitle,
         staticTitleRes = staticTitleRes,
         staticTitleString = staticTitleString,
-        searchTitleRes = searchTitleRes,
         dynamicDescription = null,
         staticDescRes = null,
         staticDescString = "",
-        searchDescRes = null,
         iconResId = null,
         iconVector = null,
         experimentalFlagTextRes = null,
@@ -370,11 +351,9 @@ class RadioGroupItemBuilder internal constructor(private val key: Any) {
         dynamicTitle = null,
         staticTitleRes = null,
         staticTitleString = "",
-        searchTitleRes = null,
         dynamicDescription = null,
         staticDescRes = null,
         staticDescString = "",
-        searchDescRes = null,
         iconResId = null,
         iconVector = null,
         experimentalFlagTextRes = null,
@@ -455,11 +434,9 @@ class ButtonGroupItemBuilder internal constructor(private val key: Any) {
         dynamicTitle = null,
         staticTitleRes = null,
         staticTitleString = "",
-        searchTitleRes = null,
         dynamicDescription = null,
         staticDescRes = null,
         staticDescString = "",
-        searchDescRes = null,
         iconResId = null,
         iconVector = null,
         experimentalFlagTextRes = null,
@@ -545,18 +522,12 @@ class GraphGroupScope internal constructor() {
 }
 
 /**
- * Top-level builder for a [SettingsGraph].
+ * Top-level builder for the contents of a [in.hridayan.settingsdsl.ui.SettingsColumn].
  *
- * Use [in.hridayan.settingsdsl.dsl.settingsGraph] to create an instance.
- *
- * @param screenTitleResId String resource ID for the screen title shown in search results.
- * @param navigateTo Lambda invoked when the user taps a search result belonging to this graph.
+ * This is the receiver of the `SettingsColumn { â€¦ }` block; instances are created by the renderer.
  */
 @SettingsDslMarker
-class SettingsGraphBuilder internal constructor(
-    private val screenTitleResId: Int? = null,
-    private val navigateTo: () -> Unit = {},
-) {
+class SettingsGraphBuilder internal constructor() {
     internal val groups = mutableListOf<SettingsGraphGroup>()
 
     /**
@@ -601,15 +572,6 @@ class SettingsGraphBuilder internal constructor(
         }
     }
 
-    /**
-     * Inserts a custom composable slot at this position in the graph.
-     *
-     * @param slot The [CustomSlot] identifier.
-     */
-    fun customSlot(slot: CustomSlot) {
-        groups.add(SettingsGraphGroup.Custom(slot))
-    }
-
     /** Inserts a horizontal visual divider at this position in the graph. */
     fun divider() {
         groups.add(SettingsGraphGroup.Divider)
@@ -619,19 +581,17 @@ class SettingsGraphBuilder internal constructor(
      * Inserts arbitrary composable content at this position in the graph.
      *
      * The [content] lambda is a `@Composable` function rendered inside a lazy list item.
-     * Use this for custom headers, banners, or spacers placed between groups.
+     * Use this for custom headers, banners, spacers, or any bespoke row placed between groups.
      *
-     * @param key Stable unique key for the lazy list item. Defaults to the insertion index.
+     * @param key Stable unique key for the lazy list item. Must be unique within the graph and
+     *            must not depend on the item's position, otherwise the lazy list discards and
+     *            recreates the item whenever a preceding entry appears or disappears.
      * @param content The composable content to render.
      */
-    fun item(key: Any = groups.size, content: @Composable () -> Unit) {
+    fun item(key: Any, content: @Composable () -> Unit) {
         groups.add(SettingsGraphGroup.RawItem(key = key, content = content))
     }
 
-    internal fun build(): SettingsGraph = SettingsGraph(
-        groups = groups,
-        screenTitleResId = screenTitleResId,
-        navigateTo = navigateTo,
-    )
+    internal fun build(): SettingsGraph = SettingsGraph(groups = groups)
 }
 

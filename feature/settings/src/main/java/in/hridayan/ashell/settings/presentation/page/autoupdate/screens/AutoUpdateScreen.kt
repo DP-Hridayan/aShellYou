@@ -61,11 +61,10 @@ import `in`.hridayan.ashell.settings.presentation.components.dialog.LatestVersio
 import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
-import `in`.hridayan.settingsdsl.model.CustomSlot
 import `in`.hridayan.settingsdsl.ui.SettingsColumn
 
-private object TopSpacerSlot : CustomSlot("topSpacer")
-private object WarningBoxSlot : CustomSlot("warningBox")
+private const val ITEM_KEY_TOP_SPACER = "topSpacer"
+private const val ITEM_KEY_WARNING_BOX = "warningBox"
 
 @Composable
 fun AutoUpdateScreen(
@@ -134,70 +133,14 @@ fun AutoUpdateScreen(
                 contentPadding = innerPadding,
                 topAppBarState = topAppBarState,
                 hapticsEnabled = hapticsEnabled,
-                customSlotContent = { slot ->
-                    if (slot == TopSpacerSlot) {
-                        Spacer(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(15.dp)
-                        )
-                    } else if (slot == WarningBoxSlot) {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(top = 30.dp)
-                                .clip(
-                                    SineWaveShape(
-                                        amplitude = 15f,
-                                        frequency = 5f,
-                                        edge = WaveEdge.Top
-                                    )
-                                )
-                                .background(MaterialTheme.colorScheme.surfaceContainerLow)
-                        ) {
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(
-                                        start = 25.dp,
-                                        end = 25.dp,
-                                        top = 35.dp,
-                                        bottom = 75.dp
-                                    ),
-                                verticalArrangement = Arrangement.spacedBy(15.dp),
-                            ) {
-                                Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.spacedBy(20.dp),
-                                ) {
-                                    Icon(
-                                        painter = painterResource(R.drawable.ic_info),
-                                        contentDescription = null,
-                                        tint = MaterialTheme.colorScheme.error
-                                    )
-                                    Text(
-                                        text = stringResource(R.string.pre_release_warning),
-                                        style = MaterialTheme.typography.titleSmall,
-                                        color = MaterialTheme.colorScheme.error
-                                    )
-                                }
-                                Text(
-                                    text = stringResource(R.string.pre_release_warning_description),
-                                    style = MaterialTheme.typography.bodySmall,
-                                    color = MaterialTheme.colorScheme.error.copy(alpha = 0.7f)
-                                )
-                                Spacer(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .height(25.dp)
-                                )
-                            }
-                        }
-                    }
-                }
             ) {
-                customSlot(TopSpacerSlot)
+                item(ITEM_KEY_TOP_SPACER) {
+                    Spacer(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(15.dp)
+                    )
+                }
 
                 group {
                     switchBannerItem(SettingsKeys.AutoUpdate) {
@@ -223,7 +166,60 @@ fun AutoUpdateScreen(
                     }
                 }
 
-                customSlot(WarningBoxSlot)
+                item(ITEM_KEY_WARNING_BOX) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 30.dp)
+                            .clip(
+                                SineWaveShape(
+                                    amplitude = 15f,
+                                    frequency = 5f,
+                                    edge = WaveEdge.Top
+                                )
+                            )
+                            .background(MaterialTheme.colorScheme.surfaceContainerLow)
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(
+                                    start = 25.dp,
+                                    end = 25.dp,
+                                    top = 35.dp,
+                                    bottom = 75.dp
+                                ),
+                            verticalArrangement = Arrangement.spacedBy(15.dp),
+                        ) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(20.dp),
+                            ) {
+                                Icon(
+                                    painter = painterResource(R.drawable.ic_info),
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.error
+                                )
+                                Text(
+                                    text = stringResource(R.string.pre_release_warning),
+                                    style = MaterialTheme.typography.titleSmall,
+                                    color = MaterialTheme.colorScheme.error
+                                )
+                            }
+                            Text(
+                                text = stringResource(R.string.pre_release_warning_description),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.error.copy(alpha = 0.7f)
+                            )
+                            Spacer(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(25.dp)
+                            )
+                        }
+                    }
+                }
             }
         },
         fabContent = { expanded ->

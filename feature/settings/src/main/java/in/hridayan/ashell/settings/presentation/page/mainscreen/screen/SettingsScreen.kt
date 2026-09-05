@@ -51,15 +51,18 @@ import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
+import `in`.hridayan.ashell.core.presentation.components.floaters.FloatingIconsBackground
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.provider.getAllSettingsIcons
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
-import `in`.hridayan.settingsdsl.model.CustomSlot
 import `in`.hridayan.settingsdsl.ui.SettingsColumn
 
-private object HeaderSlot : CustomSlot("header")
+private const val ITEM_KEY_HEADER = "header"
+private const val FLOATING_ICONS_COUNT = 40
+private val HEADER_MIN_HEIGHT = 300.dp
+private val FLOATING_ICONS_PADDING = 10.dp
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -107,45 +110,53 @@ fun SettingsScreen(
             topAppBarState = scrollBehavior.state,
             listState = listState,
             hapticsEnabled = hapticsEnabled,
-            customSlotContent = { slot ->
-                if (slot == HeaderSlot) {
-                    BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
-                        val headerHeight = minOf(300.dp, maxHeight * 0.4f).coerceAtLeast(100.dp)
-                        Column(modifier = Modifier.heightIn(min = headerHeight)) {
-                            Box(
-                                modifier = Modifier.fillMaxWidth(),
-                                contentAlignment = Alignment.Center,
-                            ) {
-                                SpinningGears(modifier = Modifier.size(175.dp))
-                            }
+        ) {
+            item(ITEM_KEY_HEADER) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(HEADER_MIN_HEIGHT)
+                ) {
+                    FloatingIconsBackground(
+                        modifier = Modifier
+                            .matchParentSize()
+                            .padding(FLOATING_ICONS_PADDING),
+                        iconCount = FLOATING_ICONS_COUNT,
+                        iconResIds = floatingIconsResIds,
+                    )
 
-                            AutoResizeableText(
-                                modifier = Modifier
-                                    .padding(top = 20.dp, start = 15.dp, end = 15.dp)
-                                    .align(Alignment.CenterHorizontally),
-                                text = stringResource(R.string.settings),
-                                fontWeight = FontWeight.Black,
-                                style = MaterialTheme.typography.displayLargeEmphasized.copy(
-                                    letterSpacing = 0.025.em
-                                ),
-                                color = MaterialTheme.colorScheme.primary,
-                                maxLines = 1,
-                            )
-
-                            AutoResizeableText(
-                                modifier = Modifier
-                                    .padding(top = 10.dp, bottom = 25.dp)
-                                    .align(Alignment.CenterHorizontally),
-                                text = stringResource(R.string.tweak_your_experience),
-                                color = MaterialTheme.colorScheme.primary,
-                                style = MaterialTheme.typography.labelLargeEmphasized,
-                            )
+                    Column(modifier = Modifier.fillMaxWidth()) {
+                        Box(
+                            modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            SpinningGears(modifier = Modifier.size(175.dp))
                         }
+
+                        AutoResizeableText(
+                            modifier = Modifier
+                                .padding(top = 20.dp, start = 15.dp, end = 15.dp)
+                                .align(Alignment.CenterHorizontally),
+                            text = stringResource(R.string.settings),
+                            fontWeight = FontWeight.Black,
+                            style = MaterialTheme.typography.displayLargeEmphasized.copy(
+                                letterSpacing = 0.025.em
+                            ),
+                            color = MaterialTheme.colorScheme.primary,
+                            maxLines = 1,
+                        )
+
+                        AutoResizeableText(
+                            modifier = Modifier
+                                .padding(top = 10.dp, bottom = 25.dp)
+                                .align(Alignment.CenterHorizontally),
+                            text = stringResource(R.string.tweak_your_experience),
+                            color = MaterialTheme.colorScheme.primary,
+                            style = MaterialTheme.typography.labelLargeEmphasized,
+                        )
                     }
                 }
             }
-        ) {
-            customSlot(HeaderSlot)
 
             group {
                 clickableItem(SettingsKeys.LookAndFeel) {

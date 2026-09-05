@@ -57,10 +57,10 @@ import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import `in`.hridayan.ashell.core.presentation.provider.rememberSettingsGraphs
 import `in`.hridayan.ashell.core.resources.R
+import `in`.hridayan.ashell.settings.presentation.page.search.index.rememberSettingsSearchGraph
 import `in`.hridayan.ashell.settings.presentation.page.search.viewmodel.SettingsSearchViewModel
-import `in`.hridayan.settingsdsl.search.SearchEntry
+import `in`.hridayan.settingsdsl.search.SearchResult
 import `in`.hridayan.settingsdsl.ui.LocalSettingsDslState
 
 @Composable
@@ -69,8 +69,8 @@ fun SettingsSearchScreen(
     viewModel: SettingsSearchViewModel = hiltViewModel(),
 ) {
     val navController = LocalNavController.current
-    val graphs = rememberSettingsGraphs(navController)
-    LaunchedEffect(graphs) { viewModel.setGraphs(graphs) }
+    val graph = rememberSettingsSearchGraph(navController)
+    LaunchedEffect(graph) { viewModel.setGraph(graph) }
     val highlightState = LocalSettingsDslState.current.highlightState
     val query by viewModel.query.collectAsStateWithLifecycle()
     val results by viewModel.filteredResults.collectAsStateWithLifecycle()
@@ -178,7 +178,7 @@ fun SettingsSearchScreen(
 
                     items(
                         entries,
-                        key = { "result_${it.screenTitle}_${it.key.toString()}" }
+                        key = { "result_${it.id}" }
                     ) { entry ->
                         SearchResultRow(
                             entry = entry,
@@ -232,7 +232,7 @@ fun SettingsSearchScreen(
 
                     items(
                         recentEntries,
-                        key = { "recent_${it.screenTitle}_${it.key.toString()}" }
+                        key = { "recent_${it.id}" }
                     ) { entry ->
                         SearchResultRow(
                             entry = entry,
@@ -253,7 +253,7 @@ fun SettingsSearchScreen(
 
 @Composable
 private fun SearchResultRow(
-    entry: SearchEntry,
+    entry: SearchResult,
     isRecent: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,

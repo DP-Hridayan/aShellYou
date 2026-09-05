@@ -14,17 +14,14 @@ import androidx.compose.material.icons.rounded.TextFields
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.datastore.preferences.core.emptyPreferences
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalDialogManager
@@ -44,19 +41,18 @@ import `in`.hridayan.ashell.settings.presentation.components.dialog.PaletteStyle
 import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 import `in`.hridayan.ashell.settings.presentation.components.tab.ColorTabs
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel.LookAndFeelViewModel
-import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.ui.SettingsColumn
+
+private const val ITEM_KEY_HEADER_IMAGE = "header_image"
+private const val ITEM_KEY_COLOR_TABS = "color_tabs"
 
 @Composable
 fun LookAndFeelScreen(
     modifier: Modifier = Modifier,
-    settingsViewModel: SettingsViewModel = hiltViewModel(),
     lookAndFeelViewModel: LookAndFeelViewModel = hiltViewModel(),
 ) {
     val dialogManager = LocalDialogManager.current
     val navController = LocalNavController.current
-    val context = LocalContext.current
-    val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())
     val currentPaletteStyle = LocalPaletteStyle.current
     val settings = LocalSettings.current
     val themeMode = settings[SettingsKeys.ThemeMode]
@@ -90,7 +86,7 @@ fun LookAndFeelScreen(
                 topAppBarState = topAppBarState,
                 hapticsEnabled = hapticsEnabled,
             ) {
-                item {
+                item(ITEM_KEY_HEADER_IMAGE) {
                     Image(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -100,7 +96,7 @@ fun LookAndFeelScreen(
                     )
                 }
 
-                item {
+                item(ITEM_KEY_COLOR_TABS) {
                     ColorTabs(
                         modifier = Modifier
                             .fillMaxWidth()
