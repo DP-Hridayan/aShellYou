@@ -37,16 +37,12 @@ sealed class SettingsKeys<out T>(
     data object Language : SettingsKeys<Nothing?>("LANGUAGE", null)
     data object DarkTheme : SettingsKeys<Nothing?>("DARK_THEME", null)
     data object CustomUiScale : SettingsKeys<Nothing?>("CUSTOM_UI_SCALE", null)
-    data object Version : SettingsKeys<Nothing?>("VERSION", null)
     data object Changelogs : SettingsKeys<Nothing?>("CHANGELOGS", null)
     data object CrashHistory : SettingsKeys<Nothing?>("CRASH_HISTORY", null)
     data object Report : SettingsKeys<Nothing?>("REPORT", null)
     data object FeatureRequest : SettingsKeys<Nothing?>("FEATURE_REQUEST", null)
-    data object Github : SettingsKeys<Nothing?>("GITHUB", null)
     data object Licenses : SettingsKeys<Nothing?>("LICENSES", null)
     data object PrivacyPolicy : SettingsKeys<Nothing?>("PRIVACY_POLICY", null)
-    data object Commands : SettingsKeys<Nothing?>("COMMANDS", null)
-    data object Telegram : SettingsKeys<Nothing?>("TELEGRAM", null)
     data object BackupAndRestore : SettingsKeys<Nothing?>("BACKUP_AND_RESTORE", null)
     data object BackupAppSettings : SettingsKeys<Nothing?>("BACKUP_APP_SETTINGS", null)
     data object BackupAppDatabase : SettingsKeys<Nothing?>("BACKUP_APP_DATABASE", null)
@@ -94,6 +90,7 @@ sealed class SettingsKeys<out T>(
     data object AutoBackupEnabled : SettingsKeys<Boolean>("AUTO_BACKUP_ENABLED", false)
     data object AutoBackupDeleteExisting :
         SettingsKeys<Boolean>("AUTO_BACKUP_DELETE_EXISTING", true)
+
     data object AutoBackupLocalEnabled : SettingsKeys<Boolean>("AUTO_BACKUP_LOCAL_ENABLED", true)
     data object AutoBackupCloudEnabled : SettingsKeys<Boolean>("AUTO_BACKUP_CLOUD_ENABLED", true)
     data object UserGeneratedColorSchemeApplied :
@@ -121,11 +118,7 @@ sealed class SettingsKeys<out T>(
         `in`.hridayan.ashell.core.common.domain.model.PaletteStyle.TONAL_SPOT.ordinal
     )
 
-    data object GithubReleaseType :
-        SettingsKeys<Int>(
-            "GITHUB_RELEASE_TYPE",
-            1
-        )
+    data object GithubReleaseType : SettingsKeys<Int>("GITHUB_RELEASE_TYPE", 1)
 
     data object SavedVersionCode : SettingsKeys<Int>("SAVED_VERSION_CODE", 0)
     data object SavedPrivacyPolicyVersion : SettingsKeys<Int>("SAVED_PRIVACY_POLICY_VERSION", 0)

@@ -23,6 +23,7 @@ class SettingsDataStore @Inject constructor(
     companion object {
         val PRESERVE_KEYS = setOf(
             SettingsKeys.FirstLaunch.name,
+            SettingsKeys.SavedPrivacyPolicyVersion.name,
             SettingsKeys.LastLocalBackupTime.name,
             SettingsKeys.LastCloudBackupTime.name,
             SettingsKeys.LastLocalBackupType.name,
