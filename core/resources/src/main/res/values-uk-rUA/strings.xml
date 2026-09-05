@@ -28,6 +28,7 @@
     <string name="add_command" comment="Button label to create and save a new command snippet to database">Додати команду</string>
     <string name="add_new_item" comment="Generic button label to add a new list entry">Додати новий елемент</string>
     <string name="additional_settings" comment="Category header in app settings">Додаткові налаштування</string>
+    <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Навички агента</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">Тривалість кешу</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">Увімкнути кешування</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">Дозволити</string>
@@ -57,15 +58,6 @@
     <string name="api_key" comment="Label for AI provider API key text input field">API ключ</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">API ключ збережено</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">Потрібен API ключ</string>
-    <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Навички агента</string>
-    <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">Команда виконання</string>
-    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Дозволити AI агенту виконувати команди ADB shell</string>
-    <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">Плитки швидких налаштувань</string>
-    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Дозволити агенту AI створювати, змінювати та видаляти плитки швидких налаштувань</string>
-    <string name="packages" comment="Title for the packages skill toggle in AI settings">Пакунки</string>
-    <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Дозволити агенту AI запитувати встановлені пакунки та дані додатків</string>
-    <string name="database_modification" comment="Title for the database skill toggle in AI settings">Внесення змін бази даних</string>
-    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Дозволити агенту AI додавати, змінювати або видаляти елементи бази даних</string>
     <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">Для використання функцій AI потрібен ключ API. Додайте свій ключ API у налаштуваннях. -&gt; Хмарні моделі.</string>
     <string name="app">Додаток</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">Збій у додатку</string>
@@ -205,6 +197,7 @@
     <string name="command" comment="Label/header for an ADB command snippet">Команда</string>
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">Аналіз команд</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">Командна консоль</string>
+    <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">Команда виконання</string>
     <string name="command_logs" comment="Tab header for history log of executed fastboot commands">Журнали команд</string>
     <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">Історія всіх виконаних команд fastboot.</string>
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Команда не знайдена!</string>
@@ -253,6 +246,7 @@
     <string name="daily" comment="Option in backup scheduler frequency selection">Щоденно</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">Темна тема</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">Приладна панель</string>
+    <string name="database_modification" comment="Title for the database skill toggle in AI settings">Внесення змін бази даних</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Тільки бази даних</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Тека за замовчуванням</string>
     <string name="default_language" comment="Setting preference label for selecting application language">Мова за замовчуванням</string>
@@ -286,9 +280,11 @@
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">Натисніть тут, щоб вибрати іконку з колекції іконок</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">Запитувати підтвердження перед очищенням виводу оболонки</string>
     <string name="des_cloud_models" comment="Description under Cloud models setting item">Керувати API ключами для хмарних моделей</string>
+    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Дозволити AI агенту виконувати команди ADB shell</string>
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">Виберіть каталог для збереження виводу оболонки</string>
     <string name="des_contributors" comment="Description under Contributors item in About section">Список учасників, які допомогли у розробці aShell You</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">Переглянути всі збої, що сталися в додатку</string>
+    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Дозволити агенту AI додавати, змінювати або видаляти елементи бази даних</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">Виберіть мову за замовчуванням для додатка</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">Корисно, коли потрібно використовувати зовнішню клавіатуру</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">Завантажте зашифроване резервування на Google Диск.\nЦя дія перезапише будь-які що існують хмарні резервні копії.</string>
@@ -307,8 +303,6 @@
     <string name="des_hridayan" comment="Developer bio subtitle in About section">Просто хлопець, який любить додатки та дизайн</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">Фіксований візуальний стан плитки, коли вона зображена на панелі \"Швидких налаштувань\"</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">Переглянути детальну інформацію про бібліотеки та ліцензії, які використовує додаток</string>
-    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Політика конфіденційності</string>
-    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">Як aShell You обробляє ваші дані</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">Перегляньте ліцензії, які використовуються додатком та бібліотеками</string>
     <string name="des_local_backup" comment="Description card text for local backup option">Зберегти зашифровану резервну копію на своєму пристрої</string>
     <string name="des_local_restore" comment="Description card text for local restore option">Виберіть файл резервування зі свого пристрою</string>
@@ -316,8 +310,12 @@
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">Динамічні кольори, Темна тема, Мова</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">Модель не вибрано</string>
     <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">Можлива затримка, якщо додано велику кількість закладок! На недорогих пристроях цю опцію слід вимкнути</string>
+    <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Дозволити агенту AI запитувати встановлені пакунки та дані додатків</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">Сполучити інший цільовий пристрій</string>
+    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">Як aShell You обробляє ваші дані</string>
+    <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">Ми оновили нашу політику конфіденційності. Будь ласка, знайдіть хвилинку, щоб переглянути зміни.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">Створити плитки швидких налаштувань для виконання команд adb</string>
+    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Дозволити агенту AI створювати, змінювати та видаляти плитки швидких налаштувань</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">Повідомте про будь-яку проблему, з якою ви зіткнулися під час використання додатку</string>
     <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">Скинути налаштування додатку до значень за замовчуванням</string>
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">Відновіть дані додатка зі збереженого файлу резервної копії.\nЗбережена база даних перезапише поточну базу даних</string>
@@ -645,6 +643,7 @@
     <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">Вивід з\'явиться тут…</string>
     <string name="override_bookmarks_limit" comment="Setting toggle title to remove the maximum limit on saved bookmarks count">Перевизначити максимальну кількість закладок</string>
     <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">Назва пакету</string>
+    <string name="packages" comment="Title for the packages skill toggle in AI settings">Пакунки</string>
     <string name="pair" comment="Button/action label to initiate ADB wireless or OTG pairing with another device">Сполучення</string>
     <string name="pair_a_device_first" comment="Instructional notice directing user to pair an ADB device before attempting connection">Спочатку сполучення пристрою</string>
     <string name="pair_another_device" comment="Button label in Wireless Debugging setup to pair an additional target device">Сполучити інший пристрій</string>
@@ -688,12 +687,15 @@
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">Перед огляд</string>
     <string name="primary">Первинний</string>
     <string name="primary_container">Первинний контейнер</string>
+    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Політика конфіденційності</string>
+    <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">Політика конфіденційності оновлено</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">Продукт</string>
     <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">Переведіть пристрій у режим sideload через його меню відновлення</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">Сполучення QR</string>
     <string name="qr_pair_hint" comment="Instructional text in QR pairing screen instructing user to scan QR code from target device">Для сполучення пристрою Android 11+ скануйте цей QR із цільового пристрою</string>
     <string name="qr_scanner_location_hint" comment="Instructional hint directing user where to find system QR scanner in target device Developer Options">Сканер QR доступний в:\nПараметри розробника &gt; Бездротове налагодження &gt; Сполучення за допомогою QR коду</string>
     <string name="qs_tiles" comment="Refers to Android System Quick Settings tiles configured for custom ADB scripts">Плитки швидких налаштувань</string>
+    <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">Плитки швидких налаштувань</string>
     <string name="quick_tools" comment="Section header for fast access utility tools">Швидкі інструменти</string>
     <string name="reading_file" comment="Progress status text while loading file contents into viewer">Читання файлу…</string>
     <string name="ready_to_paste" comment="Status message in file manager when item is stored in paste clipboard">Готовий до вставки</string>
