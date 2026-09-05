@@ -43,7 +43,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
-import androidx.datastore.preferences.core.emptyPreferences
 import androidx.documentfile.provider.DocumentFile
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalDialogManager
@@ -67,14 +66,13 @@ private const val ITEM_KEY_SCHEDULER_STATUS = "scheduler_status"
 @Composable
 fun BackupSchedulerScreen(
     modifier: Modifier = Modifier,
-    highlightKey: String? = null,
     settingsViewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val navController = LocalNavController.current
     val context = LocalContext.current
     val dialogManager = LocalDialogManager.current
-    val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())
     val settings = LocalSettings.current
+
     val hapticsEnabled = settings[SettingsKeys.HapticsAndVibration]
     val autoBackupEnabled = settings[SettingsKeys.AutoBackupEnabled]
     val autoBackupFolderName = settings[SettingsKeys.AutoBackupFolderName]
@@ -151,9 +149,7 @@ fun BackupSchedulerScreen(
                     switchBannerItem(SettingsKeys.AutoBackupEnabled) {
                         title(R.string.enable_auto_backup)
                         onClick { key ->
-                            if (key == SettingsKeys.AutoBackupEnabled &&
-                                !autoBackupEnabled &&
-                                autoBackupFolderName.isEmpty()
+                            if (!autoBackupEnabled && autoBackupFolderName.isEmpty()
                             ) {
                                 pendingEnableAfterFolderPick = true
                                 showFolderDialog = true
