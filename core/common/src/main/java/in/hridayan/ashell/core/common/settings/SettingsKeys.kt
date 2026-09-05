@@ -61,6 +61,7 @@ sealed class SettingsKeys<out T>(
     data object Contributors : SettingsKeys<Nothing?>("CONTRIBUTORS", null)
 
     data object CloudModels : SettingsKeys<Nothing?>("CLOUD_MODELS", null)
+    data object AiModels : SettingsKeys<Nothing?>("AI_MODELS", null)
     data object AiCacheClear : SettingsKeys<Nothing?>("AI_CACHE_CLEAR", null)
 
     // Boolean Keys

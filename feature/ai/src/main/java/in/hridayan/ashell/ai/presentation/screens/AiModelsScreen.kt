@@ -86,7 +86,7 @@ fun AiModelsScreen(
                 hapticsEnabled = hapticsEnabled,
             ) {
                 group(R.string.models) {
-                    clickableItem(SettingsKeys.AiCloudProvider) {
+                    clickableItem(SettingsKeys.CloudModels) {
                         title(R.string.cloud_models)
                         description(R.string.des_cloud_models)
                         icon(R.drawable.ic_cloud_model)
