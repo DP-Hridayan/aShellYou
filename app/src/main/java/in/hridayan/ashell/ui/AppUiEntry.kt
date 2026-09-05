@@ -20,12 +20,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.navigation.compose.rememberNavController
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.core.common.LocalSharedTransitionScope
+import `in`.hridayan.ashell.core.common.constants.PRIVACY_POLICY_VERSION
 import `in`.hridayan.ashell.core.common.domain.model.otg.OtgConnection
 import `in`.hridayan.ashell.core.common.domain.model.otg.OtgState
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
+import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.isNetworkAvailable
 import `in`.hridayan.ashell.core.utils.showToast
@@ -34,6 +37,7 @@ import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.UpdateB
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.ashell.ui.components.bottomsheet.ChangelogBottomSheet
+import `in`.hridayan.ashell.ui.components.dialog.PrivacyPolicyUpdateDialog
 import `in`.hridayan.ashell.ui.navigation.AppNavigation
 import kotlinx.coroutines.flow.collectLatest
 
@@ -44,18 +48,21 @@ fun AppUiEntry(
 ) {
     val context = LocalContext.current
     val res = LocalResources.current
+    val settings = LocalSettings.current
 
     val isFirstLaunch = settingsViewModel.isFirstLaunch ?: return
     val defaultLaunchIsLocalAdb = settingsViewModel.defaultLaunchIsLocalAdb ?: return
 
     var showUpdateSheet by rememberSaveable { mutableStateOf(false) }
     var showChangelogSheet by rememberSaveable { mutableStateOf(false) }
+    var showPrivacyPolicyDialog by rememberSaveable { mutableStateOf(false) }
 
     var tagName by rememberSaveable { mutableStateOf(BuildConfig.VERSION_NAME) }
     var apkUrl by rememberSaveable { mutableStateOf("") }
     var changelog by rememberSaveable { mutableStateOf("") }
-    val savedVersionCode = LocalSettings.current[SettingsKeys.SavedVersionCode]
-    val firstLaunchFlow = LocalSettings.current[SettingsKeys.FirstLaunch]
+    val savedVersionCode = settings[SettingsKeys.SavedVersionCode]
+    val firstLaunchFlow = settings[SettingsKeys.FirstLaunch]
+    val savedPrivacyPolicyVersion = settings[SettingsKeys.SavedPrivacyPolicyVersion]
 
     LaunchedEffect(Unit, isNetworkAvailable(context)) {
         autoUpdateViewModel.updateEvents.collectLatest { result ->
@@ -71,6 +78,12 @@ fun AppUiEntry(
 
     LaunchedEffect(savedVersionCode, firstLaunchFlow) {
         showChangelogSheet = savedVersionCode < BuildConfig.VERSION_CODE && !firstLaunchFlow
+    }
+
+    LaunchedEffect(savedPrivacyPolicyVersion, firstLaunchFlow) {
+        if (!firstLaunchFlow && savedPrivacyPolicyVersion != PRIVACY_POLICY_VERSION) {
+            showPrivacyPolicyDialog = true
+        }
     }
 
     LaunchedEffect(savedVersionCode, firstLaunchFlow) {
@@ -90,14 +103,37 @@ fun AppUiEntry(
         }
     }
 
+    val navController = rememberNavController()
+
     Surface {
         SharedTransitionLayout {
             CompositionLocalProvider(LocalSharedTransitionScope provides this) {
                 AppNavigation(
                     isFirstLaunch = isFirstLaunch,
-                    defaultLaunchIsLocalAdb = defaultLaunchIsLocalAdb
+                    defaultLaunchIsLocalAdb = defaultLaunchIsLocalAdb,
+                    navController = navController
                 )
             }
+        }
+
+        if (showPrivacyPolicyDialog) {
+            PrivacyPolicyUpdateDialog(
+                onDismiss = {
+                    showPrivacyPolicyDialog = false
+                    settingsViewModel.setInt(
+                        SettingsKeys.SavedPrivacyPolicyVersion,
+                        PRIVACY_POLICY_VERSION
+                    )
+                },
+                onReadPrivacyPolicy = {
+                    showPrivacyPolicyDialog = false
+                    settingsViewModel.setInt(
+                        SettingsKeys.SavedPrivacyPolicyVersion,
+                        PRIVACY_POLICY_VERSION
+                    )
+                    navController.navigate(NavRoutes.PrivacyPolicyScreen)
+                }
+            )
         }
 
         if (showUpdateSheet) {

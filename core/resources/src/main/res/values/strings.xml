@@ -30,6 +30,7 @@
     <string name="add_command" comment="Button label to create and save a new command snippet to database">Add command</string>
     <string name="add_new_item" comment="Generic button label to add a new list entry">Add new item</string>
     <string name="additional_settings" comment="Category header in app settings">Additional settings</string>
+    <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Agent skills</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">Cache duration</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">Enable cache</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">Allow</string>
@@ -59,17 +60,6 @@
     <string name="api_key" comment="Label for AI provider API key text input field">API key</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">API key is saved</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">API Key Required</string>
-
-    <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Agent skills</string>
-    <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">Command Execution</string>
-    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Allow the AI agent to execute ADB shell commands</string>
-    <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">Quick Settings Tiles</string>
-    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Allow the AI agent to create, modify, and delete Quick Settings tiles</string>
-    <string name="packages" comment="Title for the packages skill toggle in AI settings">Packages</string>
-    <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Allow the AI agent to query installed packages and application data</string>
-    <string name="database_modification" comment="Title for the database skill toggle in AI settings">Database Modification</string>
-    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Allow the AI agent to add, modify, or delete database items</string>
-
     <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">An API key is required to use AI features. Please add your API key in Settings -> Cloud Models.</string>
     <string name="app">App</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">App has crashed</string>
@@ -211,6 +201,7 @@
     <string name="command" comment="Label/header for an ADB command snippet">Command</string>
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">Command analysis</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">Command Console</string>
+    <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">Command Execution</string>
     <string name="command_logs" comment="Tab header for history log of executed fastboot commands">Command Logs</string>
     <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">History of all executed fastboot commands.</string>
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Command not found!</string>
@@ -260,6 +251,7 @@
     <string name="daily" comment="Option in backup scheduler frequency selection">Daily</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">Dark theme</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">Dashboard</string>
+    <string name="database_modification" comment="Title for the database skill toggle in AI settings">Database Modification</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Databases only</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Default folder</string>
     <string name="default_language" comment="Setting preference label for selecting application language">Default language</string>
@@ -293,9 +285,11 @@
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">Click here to choose an icon from the icon collection</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">Ask for confirmation before clearing the shell output</string>
     <string name="des_cloud_models" comment="Description under Cloud models setting item">Manage API keys for cloud models</string>
+    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Allow the AI agent to execute ADB shell commands</string>
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">Choose a directory to save the shell output</string>
     <string name="des_contributors" comment="Description under Contributors item in About section">List of contributors who helped in the development of aShell You</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">View all crashes that have occurred in the app</string>
+    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Allow the AI agent to add, modify, or delete database items</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">Choose the default language for the app</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">Useful when you want to use an external keyboard</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">Upload encrypted backup to your Google Drive.\nThis action will overwrite any existing cloud backups.</string>
@@ -314,8 +308,6 @@
     <string name="des_hridayan" comment="Developer bio subtitle in About section">Just a guy who loves apps and design</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">The fixed visual state of the tile when it is shown in the Quick Settings panel</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">View details of the libraries and licenses used by the app</string>
-    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Privacy Policy</string>
-    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">How aShell You handles your data</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">View the licenses that the app and libraries are using</string>
     <string name="des_local_backup" comment="Description card text for local backup option">Save encrypted backup to your device</string>
     <string name="des_local_restore" comment="Description card text for local restore option">Pick a backup file from your device</string>
@@ -323,8 +315,12 @@
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">Dynamic colors, Dark theme, Language</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">No model selected</string>
     <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">Might cause lag if a large number of bookmarks are added! Low-end devices should keep this option turned off</string>
+    <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Allow the AI agent to query installed packages and application data</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">Pair another target device</string>
+    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">How aShell You handles your data</string>
+    <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">We have updated our Privacy Policy. Please take a moment to review the changes.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">Create quick settings tiles for executing adb commands</string>
+    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Allow the AI agent to create, modify, and delete Quick Settings tiles</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">Report any issue or bug you have encountered while using the app</string>
     <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">Reset app settings to default values</string>
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">Restore app data from the saved backup file.\nThe saved database will overwrite the current database</string>
@@ -700,6 +696,7 @@
     <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">Output will appear here…</string>
     <string name="override_bookmarks_limit" comment="Setting toggle title to remove the maximum limit on saved bookmarks count">Override maximum bookmarks limit</string>
     <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">Package name</string>
+    <string name="packages" comment="Title for the packages skill toggle in AI settings">Packages</string>
     <string name="pair" comment="Button/action label to initiate ADB wireless or OTG pairing with another device">Pair</string>
     <string name="pair_a_device_first" comment="Instructional notice directing user to pair an ADB device before attempting connection">Pair a device first</string>
     <string name="pair_another_device" comment="Button label in Wireless Debugging setup to pair an additional target device">Pair another device</string>
@@ -743,12 +740,15 @@
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">Preview</string>
     <string name="primary">Primary</string>
     <string name="primary_container">Primary Container</string>
+    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Privacy Policy</string>
+    <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">Privacy Policy Updated</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">Product</string>
     <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">Put device into sideload mode via its recovery menu</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">QR Pair</string>
     <string name="qr_pair_hint" comment="Instructional text in QR pairing screen instructing user to scan QR code from target device">To pair an Android 11+ device, scan this QR from the target device</string>
     <string name="qr_scanner_location_hint" comment="Instructional hint directing user where to find system QR scanner in target device Developer Options">QR scanner available at:\nDeveloper Options &gt; Wireless Debugging &gt; Pair using QR Code</string>
     <string name="qs_tiles" comment="Refers to Android System Quick Settings tiles configured for custom ADB scripts">Quick settings tiles</string>
+    <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">Quick Settings Tiles</string>
     <string name="quick_tools" comment="Section header for fast access utility tools">Quick tools</string>
     <string name="reading_file" comment="Progress status text while loading file contents into viewer">Reading file…</string>
     <string name="ready_to_paste" comment="Status message in file manager when item is stored in paste clipboard">Ready to paste</string>

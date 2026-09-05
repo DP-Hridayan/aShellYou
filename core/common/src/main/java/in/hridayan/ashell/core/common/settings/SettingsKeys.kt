@@ -127,6 +127,7 @@ sealed class SettingsKeys<out T>(
         )
 
     data object SavedVersionCode : SettingsKeys<Int>("SAVED_VERSION_CODE", 0)
+    data object SavedPrivacyPolicyVersion : SettingsKeys<Int>("SAVED_PRIVACY_POLICY_VERSION", 0)
     data object LocalAdbWorkingMode :
         SettingsKeys<Int>(
             "LOCAL_ADB_WORKING_MODE",

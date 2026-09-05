@@ -13,6 +13,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -72,10 +73,9 @@ import kotlin.reflect.KType
 fun AppNavigation(
     isFirstLaunch: Boolean = false,
     defaultLaunchIsLocalAdb: Boolean = false,
+    navController: NavHostController = rememberNavController(),
     deepLinkViewModel: NavDeepLinkViewModel = hiltViewModel()
 ) {
-    val navController = rememberNavController()
-
     CompositionLocalProvider(
         LocalNavController provides navController,
     ) {
