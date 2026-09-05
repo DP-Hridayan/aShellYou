@@ -121,8 +121,21 @@ fun SettingsColumn(
 
                 delay(HIGHLIGHT_SCROLL_DELAY_MS.milliseconds)
 
-                topAppBarState?.let { it.heightOffset = it.heightOffsetLimit }
-                if (scrollTarget >= 0) listState.animateScrollToItem(scrollTarget)
+                if (scrollTarget >= 0) {
+                    val layoutInfo = listState.layoutInfo
+                    val visibleItem = layoutInfo.visibleItemsInfo.find { it.index == scrollTarget }
+                    val isFullyVisible = visibleItem != null &&
+                            visibleItem.offset >= layoutInfo.viewportStartOffset &&
+                            (visibleItem.offset + visibleItem.size) <= layoutInfo.viewportEndOffset
+
+                    if (!isFullyVisible) {
+                        topAppBarState?.let { it.heightOffset = it.heightOffsetLimit }
+                        // A negative offset pushes the item downwards into the viewport,
+                        // so -(height / 3) places it roughly 1/3 down from the top edge.
+                        val centerOffset = -(layoutInfo.viewportSize.height / 3)
+                        listState.animateScrollToItem(scrollTarget, centerOffset)
+                    }
+                }
 
                 delay(HIGHLIGHT_BLINK_DURATION_MS.milliseconds)
                 blinkKey.value = null
