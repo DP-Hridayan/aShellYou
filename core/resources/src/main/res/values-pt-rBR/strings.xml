@@ -28,6 +28,7 @@
     <string name="add_command" comment="Button label to create and save a new command snippet to database">Adicionar comando</string>
     <string name="add_new_item" comment="Generic button label to add a new list entry">Adicionar novo item</string>
     <string name="additional_settings" comment="Category header in app settings">Configurações adicionais</string>
+    <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Habilidades do agente</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">Duração do cache</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">Habilitar cache</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">Permitir</string>
@@ -57,15 +58,6 @@
     <string name="api_key" comment="Label for AI provider API key text input field">Chave de API</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">A chave de API está salva</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">Chave de API necessária</string>
-    <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Habilidades do agente</string>
-    <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">Execução do comando</string>
-    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Permitir que o agente de IA execute comandos ADB shell</string>
-    <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">Blocos das Configurações Rápidas</string>
-    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Permitir que o AI agente crie, modifique e exclua blocos de configurações rápidas</string>
-    <string name="packages" comment="Title for the packages skill toggle in AI settings">Pacotes</string>
-    <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Permitir que o Agente de IA consulte pacotes instalados e dados de aplicação</string>
-    <string name="database_modification" comment="Title for the database skill toggle in AI settings">Modificação do banco</string>
-    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Permitir que o IA adicione, modifique ou exclua itens de banco de dados</string>
     <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">É necessária uma chave de API para usar os recursos de IA. Adicione sua chave de API em Configurações -&gt; Modelos em nuvem.</string>
     <string name="app">App</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">O app travou</string>
@@ -205,6 +197,7 @@
     <string name="command" comment="Label/header for an ADB command snippet">Comando</string>
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">Análise de comando</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">Console de comandos</string>
+    <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">Execução do comando</string>
     <string name="command_logs" comment="Tab header for history log of executed fastboot commands">Logs de comandos</string>
     <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">Histórico de todos os comandos fastboot executados.</string>
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Comando não encontrado!</string>
@@ -253,6 +246,7 @@
     <string name="daily" comment="Option in backup scheduler frequency selection">Diariamente</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">Tema escuro</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">Painel</string>
+    <string name="database_modification" comment="Title for the database skill toggle in AI settings">Modificação do banco</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Somente bancos de dados</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Pasta padrão</string>
     <string name="default_language" comment="Setting preference label for selecting application language">Idioma padrão</string>
@@ -286,9 +280,11 @@
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">Clique aqui para escolher um ícone da coleção de ícones</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">Solicitar confirmação antes de limpar a saída do shell</string>
     <string name="des_cloud_models" comment="Description under Cloud models setting item">Gerenciar chaves de API para modelos em nuvem</string>
+    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Permitir que o agente de IA execute comandos ADB shell</string>
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">Escolha um diretório para salvar a saída do shell</string>
     <string name="des_contributors" comment="Description under Contributors item in About section">Lista de colaboradores que ajudaram no desenvolvimento do aShell You</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">Ver todos os problemas que ocorreram no app</string>
+    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Permitir que o IA adicione, modifique ou exclua itens de banco de dados</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">Escolha o idioma padrão para o app</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">Útil quando você quiser usar um teclado externo</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">Carregar o backup criptografado para o seu Google Drive.\nEsta ação substituirá quaisquer backups existentes na nuvem.</string>
@@ -307,8 +303,6 @@
     <string name="des_hridayan" comment="Developer bio subtitle in About section">Apenas um cara que adora apps e design</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">O estado visual fixo do bloco quando exibido no painel de Configurações Rápidas</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">Exibir detalhes das bibliotecas e licenças usadas pelo aplicativo</string>
-    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Política de Privacidade</string>
-    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">Como o aShell Você lida com seus dados</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">Exibir as licenças que o app e as bibliotecas estão usando</string>
     <string name="des_local_backup" comment="Description card text for local backup option">Salvar backup criptografado no seu dispositivo</string>
     <string name="des_local_restore" comment="Description card text for local restore option">Escolha um arquivo de backup do seu dispositivo</string>
@@ -316,8 +310,12 @@
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">Cores dinâmicas, Tema escuro, Idioma</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">Nenhum modelo selecionado</string>
     <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">Pode ocorrer lentidão se um grande número de favoritos for adicionado! Dispositivos mais fracos devem manter esta opção desativada</string>
+    <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Permitir que o Agente de IA consulte pacotes instalados e dados de aplicação</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">Parear outro dispositivo de destino</string>
+    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">Como o aShell Você lida com seus dados</string>
+    <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">Nós atualizamos nossa Política de Privacidade. Por favor, reserve um momento para revisar as alterações.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">Criar blocos de configurações rápidas para executar comandos adb</string>
+    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Permitir que o AI agente crie, modifique e exclua blocos de configurações rápidas</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">Reporte qualquer problema ou bug que você encontrou ao usar o app</string>
     <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">Redefinir configurações do app para os valores padrão</string>
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">Restaurar dados do app a partir do arquivo de backup salvo. U\nO banco de dados salvo irá substituir o banco de dados atual</string>
@@ -646,6 +644,7 @@ Proceda com cautela e certifique-se de compreender os comandos que executar.</st
     <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">A saída aparecerá aqui…</string>
     <string name="override_bookmarks_limit" comment="Setting toggle title to remove the maximum limit on saved bookmarks count">Substituir o limite máximo de favoritos</string>
     <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">Nome do pacote</string>
+    <string name="packages" comment="Title for the packages skill toggle in AI settings">Pacotes</string>
     <string name="pair" comment="Button/action label to initiate ADB wireless or OTG pairing with another device">Parear</string>
     <string name="pair_a_device_first" comment="Instructional notice directing user to pair an ADB device before attempting connection">Pareie um dispositivo primeiro</string>
     <string name="pair_another_device" comment="Button label in Wireless Debugging setup to pair an additional target device">Parear outro dispositivo</string>
@@ -691,12 +690,15 @@ Tente parear novamente</string>
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">Prévia</string>
     <string name="primary">Primário</string>
     <string name="primary_container">Contêiner primário</string>
+    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Política de Privacidade</string>
+    <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">Política de Privacidade Atualizada</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">Produto</string>
     <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">Coloque o dispositivo no modo sideload pelo menu de recuperação</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">Parear por QR</string>
     <string name="qr_pair_hint" comment="Instructional text in QR pairing screen instructing user to scan QR code from target device">Para parear um dispositivo com Android 11 +, escaneie este QR pelo dispositivo de destino</string>
     <string name="qr_scanner_location_hint" comment="Instructional hint directing user where to find system QR scanner in target device Developer Options">Scanner QR disponível em:\nOpções de desenvolvedor &gt; Depuração sem fio &gt; Parear usando o QR Code</string>
     <string name="qs_tiles" comment="Refers to Android System Quick Settings tiles configured for custom ADB scripts">Blocos de configurações rápidas</string>
+    <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">Blocos das Configurações Rápidas</string>
     <string name="quick_tools" comment="Section header for fast access utility tools">Ferramentas rápidas</string>
     <string name="reading_file" comment="Progress status text while loading file contents into viewer">Lendo arquivo…</string>
     <string name="ready_to_paste" comment="Status message in file manager when item is stored in paste clipboard">Pronto para colar</string>

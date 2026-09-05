@@ -28,6 +28,7 @@
     <string name="add_command" comment="Button label to create and save a new command snippet to database">कमांड जोड़ें</string>
     <string name="add_new_item" comment="Generic button label to add a new list entry">नया आइटम जोड़ें</string>
     <string name="additional_settings" comment="Category header in app settings">अतिरिक्त सेटिंग्स</string>
+    <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Agent skills</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">कैशे अवधि</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">कैशे सक्षम करें</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">अनुमति दें</string>
@@ -57,15 +58,6 @@
     <string name="api_key" comment="Label for AI provider API key text input field">API कुंजी</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">API कुंजी सहेज ली गई है</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">API कुंजी आवश्यक है</string>
-    <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Agent skills</string>
-    <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">Command Execution</string>
-    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Allow the AI agent to execute ADB shell commands</string>
-    <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">Quick Settings Tiles</string>
-    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Allow the AI agent to create, modify, and delete Quick Settings tiles</string>
-    <string name="packages" comment="Title for the packages skill toggle in AI settings">Packages</string>
-    <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Allow the AI agent to query installed packages and application data</string>
-    <string name="database_modification" comment="Title for the database skill toggle in AI settings">Database Modification</string>
-    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Allow the AI agent to add, modify, or delete database items</string>
     <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">AI सुविधाओं का उपयोग करने के लिए एक API कुंजी आवश्यक है। कृपया सेटिंग्स -&gt; क्लाउड मॉडल में अपनी API कुंजी जोड़ें।</string>
     <string name="app">एप्लिकेशन</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">ऐप क्रैश हो गया है</string>
@@ -205,6 +197,7 @@
     <string name="command" comment="Label/header for an ADB command snippet">कमांड</string>
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">कमांड विश्लेषण</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">कमांड कंसोल</string>
+    <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">Command Execution</string>
     <string name="command_logs" comment="Tab header for history log of executed fastboot commands">कमांड लॉग</string>
     <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">सभी निष्पादित फ़ास्टबूट कमांड का इतिहास।</string>
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">कमांड नहीं मिला!</string>
@@ -253,6 +246,7 @@
     <string name="daily" comment="Option in backup scheduler frequency selection">दैनिक</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">डार्क थीम</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">डैशबोर्ड</string>
+    <string name="database_modification" comment="Title for the database skill toggle in AI settings">Database Modification</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">केवल डेटाबेस</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">डिफ़ॉल्ट फ़ोल्डर</string>
     <string name="default_language" comment="Setting preference label for selecting application language">डिफ़ॉल्ट भाषा</string>
@@ -286,9 +280,11 @@
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">आइकन संग्रह से कोई आइकन चुनने के लिए यहां क्लिक करें</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">शेल आउटपुट साफ़ करने से पहले पुष्टि मांगें</string>
     <string name="des_cloud_models" comment="Description under Cloud models setting item">क्लाउड मॉडल के लिए API कुंजियाँ प्रबंधित करें</string>
+    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Allow the AI agent to execute ADB shell commands</string>
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">शेल आउटपुट को सहेजने के लिए एक निर्देशिका चुनें</string>
     <string name="des_contributors" comment="Description under Contributors item in About section">aShell You के विकास में मदद करने वाले योगदानकर्ताओं की सूची</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">ऐप में हुई सभी क्रैश देखें</string>
+    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Allow the AI agent to add, modify, or delete database items</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">ऐप के लिए डिफ़ॉल्ट भाषा चुनें</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">जब आप बाहरी कीबोर्ड का उपयोग करना चाहते हैं तो उपयोगी होता है</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">अपने Google ड्राइव पर एन्क्रिप्टेड बैकअप अपलोड करें।\nयह क्रिया किसी भी मौजूदा क्लाउड बैकअप को ओवरराइड कर देगी।</string>
@@ -307,8 +303,6 @@
     <string name="des_hridayan" comment="Developer bio subtitle in About section">बस एक लड़का जिसे ऐप्स और डिज़ाइन पसंद है</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">त्वरित सेटिंग पैनल में दिखाए जाने पर टाइल की निश्चित दृश्य अवस्था</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">View details of the libraries and licenses used by the app</string>
-    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Privacy Policy</string>
-    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">How aShell You handles your data</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">ऐप और लाइब्रेरीज़ द्वारा उपयोग किए जाने वाले लाइसेंस देखें</string>
     <string name="des_local_backup" comment="Description card text for local backup option">अपने डिवाइस पर एन्क्रिप्टेड बैकअप सहेजें</string>
     <string name="des_local_restore" comment="Description card text for local restore option">अपने डिवाइस से कोई बैकअप फ़ाइल चुनें</string>
@@ -316,8 +310,12 @@
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">गतिशील रंग, डार्क थीम, भाषा</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">कोई मॉडल चयनित नहीं</string>
     <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">यदि बड़ी संख्या में बुकमार्क जोड़े जाएंगे तो यह धीमा कर सकता है! लो एंड उपकरणों को इस विकल्प को अक्षम रखना चाहिए</string>
+    <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Allow the AI agent to query installed packages and application data</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">दूसरा लक्ष्य डिवाइस पेयर करें</string>
+    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">How aShell You handles your data</string>
+    <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">We have updated our Privacy Policy. Please take a moment to review the changes.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">ADB कमांड निष्पादित करने के लिए त्वरित सेटिंग टाइलें बनाएं</string>
+    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Allow the AI agent to create, modify, and delete Quick Settings tiles</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">ऐप उपयोग करते समय आई किसी भी समस्या या बग की रिपोर्ट करें</string>
     <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">ऐप सेटिंग्स को डिफ़ॉल्ट मानों पर रीसेट करें</string>
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">सहेजी गई बैकअप फ़ाइल से ऐप डेटा रिस्टोर करें।\nसहेजा डेटाबेस वर्तमान डेटाबेस को ओवरराइड करेगा</string>
@@ -645,6 +643,7 @@
     <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">आउटपुट यहाँ दिखाई देगा…</string>
     <string name="override_bookmarks_limit" comment="Setting toggle title to remove the maximum limit on saved bookmarks count">पसंदीदा की अधिकतम सीमा को अधिलेखित करें</string>
     <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">पैकेज का नाम</string>
+    <string name="packages" comment="Title for the packages skill toggle in AI settings">Packages</string>
     <string name="pair" comment="Button/action label to initiate ADB wireless or OTG pairing with another device">जोड़ें</string>
     <string name="pair_a_device_first" comment="Instructional notice directing user to pair an ADB device before attempting connection">पहले एक डिवाइस पेयर करें</string>
     <string name="pair_another_device" comment="Button label in Wireless Debugging setup to pair an additional target device">दूसरा डिवाइस पेयर करें</string>
@@ -688,12 +687,15 @@
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">पूर्वावलोकन</string>
     <string name="primary">प्राइमरी</string>
     <string name="primary_container">प्राइमरी कंटेनर</string>
+    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Privacy Policy</string>
+    <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">Privacy Policy Updated</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">उत्पाद</string>
     <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">अपने रिकवरी मेनू के माध्यम से डिवाइस को साइडलोड मोड में रखें</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">QR पेयर</string>
     <string name="qr_pair_hint" comment="Instructional text in QR pairing screen instructing user to scan QR code from target device">Android 11+ डिवाइस पेयर करने के लिए, लक्ष्य डिवाइस से इस QR को स्कैन करें</string>
     <string name="qr_scanner_location_hint" comment="Instructional hint directing user where to find system QR scanner in target device Developer Options">QR स्कैनर यहां उपलब्ध है:\nडेवलपर विकल्प &gt; वायरलेस डिबगिंग &gt; QR कोड से पेयर करें</string>
     <string name="qs_tiles" comment="Refers to Android System Quick Settings tiles configured for custom ADB scripts">सेटिंग्स रीसेट विफल</string>
+    <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">Quick Settings Tiles</string>
     <string name="quick_tools" comment="Section header for fast access utility tools">त्वरित टूल्स</string>
     <string name="reading_file" comment="Progress status text while loading file contents into viewer">फ़ाइल पढ़ी जा रही है…</string>
     <string name="ready_to_paste" comment="Status message in file manager when item is stored in paste clipboard">पेस्ट करने के लिए तैयार</string>
