@@ -8,25 +8,21 @@ import androidx.compose.ui.graphics.vector.ImageVector
 /**
  * Internal runtime representation of a single settings item inside a [SettingsGraph].
  *
- * Produced by builder functions in [in.hridayan.settingsdsl.dsl.SettingsDslBuilders].
- * Consumed by [in.hridayan.settingsdsl.ui.SettingsColumn] and [in.hridayan.settingsdsl.search.SettingsSearchHelper].
+ * Produced by builder functions in [in.hridayan.settingsdsl.dsl.SettingsDslBuilders] and consumed
+ * by [in.hridayan.settingsdsl.ui.SettingsColumn]. The search index is declared separately, via
+ * [in.hridayan.settingsdsl.search.searchGraph].
  *
  * @param key The developer-supplied key identifying this setting. Can be any type.
  * @param keyName A string representation of [key] used for equality checks. Defaults to [key].toString().
- * @param isVisible Pure-Kotlin lambda evaluated to determine whether this item is shown in the UI
- *                  and indexed by the search engine. Must never call Compose APIs.
+ * @param isVisible Pure-Kotlin lambda evaluated to determine whether this item is rendered.
+ *                  Must never call Compose APIs.
  * @param dynamicTitle A [Composable] lambda that returns the display title. When non-null, takes
- *                     precedence over [staticTitleRes] and [staticTitleString] in the UI.
- *                     Ignored by the search engine.
- * @param staticTitleRes String resource ID used by both the search engine and the UI when [dynamicTitle] is null.
- * @param staticTitleString Plain string used by both the search engine and the UI when [dynamicTitle] is null
- *                          and [staticTitleRes] is null.
- * @param searchTitleRes String resource ID indexed by the search engine when [dynamicTitle] is non-null.
- *                       If null when [dynamicTitle] is non-null, this item is excluded from search.
+ *                     precedence over [staticTitleRes] and [staticTitleString].
+ * @param staticTitleRes String resource ID used when [dynamicTitle] is null.
+ * @param staticTitleString Plain string used when [dynamicTitle] and [staticTitleRes] are null.
  * @param dynamicDescription A [Composable] lambda that returns the display description.
- * @param staticDescRes String resource ID for the description used by search and UI.
+ * @param staticDescRes String resource ID for the description.
  * @param staticDescString Plain string description.
- * @param searchDescRes String resource ID indexed by the search engine when [dynamicDescription] is non-null.
  * @param iconResId Drawable resource ID for the leading icon.
  * @param iconVector [ImageVector] for the leading icon.
  * @param experimentalFlagTextRes String resource for the experimental badge text. Null means no badge.
@@ -54,11 +50,9 @@ internal data class SettingsNode(
     val dynamicTitle: (@Composable () -> String)?,
     @StringRes val staticTitleRes: Int?,
     val staticTitleString: String,
-    @StringRes val searchTitleRes: Int?,
     val dynamicDescription: (@Composable () -> String)?,
     @StringRes val staticDescRes: Int?,
     val staticDescString: String,
-    @StringRes val searchDescRes: Int?,
     @DrawableRes val iconResId: Int?,
     val iconVector: ImageVector?,
     @StringRes val experimentalFlagTextRes: Int?,

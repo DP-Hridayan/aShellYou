@@ -6,6 +6,8 @@ import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.Saver
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 
 /**
@@ -17,15 +19,15 @@ import androidx.compose.runtime.setValue
  * Obtain an instance via [rememberSettingsDslState] and access it through [LocalSettingsDslState].
  */
 @Stable
-class HighlightState {
+class HighlightState internal constructor(initialKey: String? = null) {
     /**
-     * The key of the item to highlight, or null if no highlight is active.
+     * The normalised key of the item to highlight, or null if no highlight is active.
      *
-     * Set this to the desired item key immediately before navigating to the target screen.
-     * [in.hridayan.settingsdsl.ui.SettingsColumn] automatically clears this value after
-     * the scroll animation completes.
+     * Keys are stored as `key.toString()`, the same normalisation the renderer applies to lazy
+     * list item keys, so the state stays saveable regardless of the key type callers use.
+     * [in.hridayan.settingsdsl.ui.SettingsColumn] clears this once it has claimed the highlight.
      */
-    var activeKey: Any? by mutableStateOf(null)
+    var activeKey: String? by mutableStateOf(initialKey)
         internal set
 
     /**
@@ -36,11 +38,18 @@ class HighlightState {
      * @param key The key of the item to highlight. Must match the key passed to the item builder.
      */
     fun highlight(key: Any) {
-        activeKey = key
+        activeKey = key.toString()
     }
 
     internal fun clear() {
         activeKey = null
+    }
+
+    internal companion object {
+        val Saver: Saver<HighlightState, String> = Saver(
+            save = { it.activeKey.orEmpty() },
+            restore = { HighlightState(it.ifEmpty { null }) },
+        )
     }
 }
 
@@ -70,8 +79,8 @@ class SettingsDslState(
  */
 val LocalSettingsDslState = compositionLocalOf<SettingsDslState> {
     error(
-        "LocalSettingsDslState not provided. " +
-                "Wrap your NavHost with CompositionLocalProvider(LocalSettingsDslState provides rememberSettingsDslState()) { ... }"
+        "LocalSettingsDslState not provided. Wrap your NavHost with " +
+            "CompositionLocalProvider(LocalSettingsDslState provides rememberSettingsDslState())"
     )
 }
 
@@ -102,7 +111,7 @@ fun rememberSettingsDslState(
     vararg keys: Any?,
     onClickDefaults: OnClickDefaultsScope.() -> Unit = {},
 ): SettingsDslState {
-    val highlightState = remember { HighlightState() }
+    val highlightState = rememberSaveable(saver = HighlightState.Saver) { HighlightState() }
     val defaults = remember(*keys) { OnClickDefaultsScope().apply(onClickDefaults).build() }
     return remember(defaults) { SettingsDslState(highlightState, defaults) }
 }

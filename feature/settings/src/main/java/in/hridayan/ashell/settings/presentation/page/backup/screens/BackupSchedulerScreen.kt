@@ -54,7 +54,6 @@ import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
-import `in`.hridayan.ashell.core.presentation.provider.BackupScreenCustomSlots
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.settings.presentation.components.dialog.AutoBackupTimePickerDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.SelectBackupFolderDialog
@@ -62,6 +61,8 @@ import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDial
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.ui.SettingsColumn
+
+private const val ITEM_KEY_SCHEDULER_STATUS = "scheduler_status"
 
 @Composable
 fun BackupSchedulerScreen(
@@ -145,32 +146,6 @@ fun BackupSchedulerScreen(
                 contentPadding = innerPadding,
                 topAppBarState = topAppBarState,
                 hapticsEnabled = hapticsEnabled,
-
-                customSlotContent = { slot ->
-                    when (slot) {
-                        is BackupScreenCustomSlots.SchedulerStatus -> {
-                            if (settings[SettingsKeys.AutoBackupEnabled]) {
-                                LastBackupStatusCard(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(horizontal = 15.dp, vertical = 10.dp),
-                                    lastAutoBackupLocalSuccessTime = settings[SettingsKeys.LastAutoBackupLocalSuccessTime],
-                                    lastAutoBackupLocalError = settings[SettingsKeys.LastAutoBackupLocalError],
-                                    lastAutoBackupCloudSuccessTime = settings[SettingsKeys.LastAutoBackupCloudSuccessTime],
-                                    lastAutoBackupCloudError = settings[SettingsKeys.LastAutoBackupCloudError],
-                                    isBackingUp = isBackingUp,
-                                    onBackupNow = {
-                                        if (autoBackupFolderName.isEmpty()) {
-                                            showFolderDialog = true
-                                        } else {
-                                            settingsViewModel.backupNow()
-                                        }
-                                    },
-                                )
-                            }
-                        }
-                    }
-                }
             ) {
                 group {
                     switchBannerItem(SettingsKeys.AutoBackupEnabled) {
@@ -193,7 +168,27 @@ fun BackupSchedulerScreen(
                     }
                 }
 
-                customSlot(BackupScreenCustomSlots.SchedulerStatus)
+                if (autoBackupEnabled) {
+                    item(ITEM_KEY_SCHEDULER_STATUS) {
+                        LastBackupStatusCard(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 15.dp, vertical = 10.dp),
+                            lastAutoBackupLocalSuccessTime = settings[SettingsKeys.LastAutoBackupLocalSuccessTime],
+                            lastAutoBackupLocalError = settings[SettingsKeys.LastAutoBackupLocalError],
+                            lastAutoBackupCloudSuccessTime = settings[SettingsKeys.LastAutoBackupCloudSuccessTime],
+                            lastAutoBackupCloudError = settings[SettingsKeys.LastAutoBackupCloudError],
+                            isBackingUp = isBackingUp,
+                            onBackupNow = {
+                                if (autoBackupFolderName.isEmpty()) {
+                                    showFolderDialog = true
+                                } else {
+                                    settingsViewModel.backupNow()
+                                }
+                            },
+                        )
+                    }
+                }
 
                 group(R.string.schedule) {
                     clickableItem(SettingsKeys.AutoBackupTime) {

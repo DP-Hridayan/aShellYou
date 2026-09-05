@@ -5,25 +5,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 
 /**
- * The top-level container produced by the [in.hridayan.settingsdsl.dsl.SettingsGraphBuilder] DSL.
+ * The rendering plan produced by the [in.hridayan.settingsdsl.dsl.SettingsGraphBuilder] DSL and
+ * consumed by [in.hridayan.settingsdsl.ui.SettingsColumn].
  *
- * A [SettingsGraph] is the single source of truth for both the global search engine
- * and the [in.hridayan.settingsdsl.ui.SettingsColumn] UI renderer.
+ * Built fresh on every recomposition from the DSL block, so it always reflects the latest values
+ * captured by the enclosing composable. The search index is declared separately, via
+ * [in.hridayan.settingsdsl.search.searchGraph].
  *
- * Create instances via the [in.hridayan.settingsdsl.dsl.settingsGraph] DSL function.
- *
- * @param groups Internal list of group nodes that make up this graph.
- * @param screenTitleResId String resource ID for the display title of the screen that hosts this graph.
- *                         Used by the search engine to label results with their parent screen name.
- *                         Null if this graph should not be indexed for search.
- * @param navigateTo Lambda invoked by the search engine when the user taps a result belonging to this graph.
- *                   Capture your [androidx.navigation.NavController] here.
+ * @param groups The group nodes that make up this screen.
  */
 @Stable
-class SettingsGraph internal constructor(
+internal class SettingsGraph internal constructor(
     internal val groups: List<SettingsGraphGroup>,
-    @StringRes val screenTitleResId: Int? = null,
-    val navigateTo: () -> Unit = {},
 )
 
 /**
@@ -46,13 +39,6 @@ internal sealed class SettingsGraphGroup {
         val titleString: String,
         val nodes: List<SettingsNode>,
     ) : SettingsGraphGroup()
-
-    /**
-     * A custom composable slot injected between groups.
-     *
-     * @param slot The [CustomSlot] identifier used to dispatch rendering in [in.hridayan.settingsdsl.ui.SettingsColumn].
-     */
-    data class Custom(val slot: CustomSlot) : SettingsGraphGroup()
 
     /**
      * An arbitrary composable item injected at this position in the list.

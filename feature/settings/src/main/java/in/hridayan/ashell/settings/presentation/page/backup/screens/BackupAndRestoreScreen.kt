@@ -62,7 +62,6 @@ import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
-import `in`.hridayan.ashell.core.presentation.provider.BackupScreenCustomSlots
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.resources.R
@@ -82,6 +81,9 @@ import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.page.backup.viewmodel.BackupAndRestoreViewModel
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.ui.SettingsColumn
+
+private const val ITEM_KEY_GOOGLE_SIGN_IN = "google_sign_in"
+private const val ITEM_KEY_LAST_BACKUP_TIME = "last_backup_time"
 
 @Composable
 fun BackupAndRestoreScreen(
@@ -195,47 +197,24 @@ fun BackupAndRestoreScreen(
                 contentPadding = innerPadding,
                 topAppBarState = topAppBarState,
                 hapticsEnabled = hapticsEnabled,
-                customSlotContent = { slot ->
-                    when (slot) {
-                        is BackupScreenCustomSlots.GoogleSignIn -> {
-                            if (isCloudBackupAvailable) {
-                                GoogleSignInCard(
-                                    isSignedIn = googleUserState.isSignedIn,
-                                    userEmail = googleUserState.email,
-                                    userName = googleUserState.name,
-                                    userPhotoUrl = googleUserState.photoUrl,
-                                    isLoading = isSigningIn || cloudOperationMessage != null,
-                                    onSignInClick = {
-                                        backupAndRestoreViewModel.signInWithGoogle(
-                                            context
-                                        )
-                                    },
-                                    onSignOutClick = { dialogManager.show(SettingsDialogKey.ConfirmGoogleSignOut) },
-                                )
-                            }
-                        }
-
-                        is BackupScreenCustomSlots.LastBackupTime -> {
-                            LastBackupTimeCard(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(top = 10.dp, start = 15.dp, end = 15.dp),
-                                isCloudBackupAvailable = isCloudBackupAvailable,
-                                userState = googleUserState,
-                                lastBackupData = lastBackupData,
-                                isExpanded = isLastBackupDetailsCardExpanded,
-                                onClick = withHaptic {
-                                    isLastBackupDetailsCardExpanded =
-                                        !isLastBackupDetailsCardExpanded
-                                },
-                            )
-                        }
-
-                        else -> {}
-                    }
-                },
             ) {
-                customSlot(BackupScreenCustomSlots.GoogleSignIn)
+                if (isCloudBackupAvailable) {
+                    item(ITEM_KEY_GOOGLE_SIGN_IN) {
+                        GoogleSignInCard(
+                            isSignedIn = googleUserState.isSignedIn,
+                            userEmail = googleUserState.email,
+                            userName = googleUserState.name,
+                            userPhotoUrl = googleUserState.photoUrl,
+                            isLoading = isSigningIn || cloudOperationMessage != null,
+                            onSignInClick = {
+                                backupAndRestoreViewModel.signInWithGoogle(
+                                    context
+                                )
+                            },
+                            onSignOutClick = { dialogManager.show(SettingsDialogKey.ConfirmGoogleSignOut) },
+                        )
+                    }
+                }
 
                 group(R.string.backup) {
                     clickableItem(SettingsKeys.BackupAppSettings) {
@@ -258,7 +237,21 @@ fun BackupAndRestoreScreen(
                     }
                 }
 
-                customSlot(BackupScreenCustomSlots.LastBackupTime)
+                item(ITEM_KEY_LAST_BACKUP_TIME) {
+                    LastBackupTimeCard(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 10.dp, start = 15.dp, end = 15.dp),
+                        isCloudBackupAvailable = isCloudBackupAvailable,
+                        userState = googleUserState,
+                        lastBackupData = lastBackupData,
+                        isExpanded = isLastBackupDetailsCardExpanded,
+                        onClick = withHaptic {
+                            isLastBackupDetailsCardExpanded =
+                                !isLastBackupDetailsCardExpanded
+                        },
+                    )
+                }
 
                 group(R.string.auto_backup) {
                     clickableItem(SettingsKeys.BackupScheduler) {
