@@ -28,6 +28,7 @@
     <string name="add_command" comment="Button label to create and save a new command snippet to database">添加命令</string>
     <string name="add_new_item" comment="Generic button label to add a new list entry">添加新项目</string>
     <string name="additional_settings" comment="Category header in app settings">更多设置</string>
+    <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">代理人技能</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">缓存持续时间</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">启用缓存</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">允许</string>
@@ -57,15 +58,6 @@
     <string name="api_key" comment="Label for AI provider API key text input field">API 密钥</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">API 密钥已保存</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">需要 API 密钥</string>
-    <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">代理人技能</string>
-    <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">命令执行</string>
-    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">允许 AI 代理执行 ADB shell 命令</string>
-    <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">快速设置瓷块</string>
-    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">允许AI 代理创建、修改和删除快速设置瓷块</string>
-    <string name="packages" comment="Title for the packages skill toggle in AI settings">包</string>
-    <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">允许AI 代理人查询已安装的软件包和应用程序数据</string>
-    <string name="database_modification" comment="Title for the database skill toggle in AI settings">数据库修改</string>
-    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">允许AI 代理人添加、修改或删除数据库项目</string>
     <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">An API key is required to use AI features. Please add your API key in Settings &gt; Cloud Models.</string>
     <string name="app">应用</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">软件崩溃了</string>
@@ -205,6 +197,7 @@
     <string name="command" comment="Label/header for an ADB command snippet">命令</string>
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">命令分析</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">命令控制台</string>
+    <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">命令执行</string>
     <string name="command_logs" comment="Tab header for history log of executed fastboot commands">命令日志</string>
     <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">所有已执行的 fastboot 命令的历史记录。</string>
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">找不到命令！</string>
@@ -253,6 +246,7 @@
     <string name="daily" comment="Option in backup scheduler frequency selection">每日</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">暗色主题</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">仪表盘</string>
+    <string name="database_modification" comment="Title for the database skill toggle in AI settings">数据库修改</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">仅数据库</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">重置目录</string>
     <string name="default_language" comment="Setting preference label for selecting application language">默认语言</string>
@@ -286,9 +280,11 @@
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">点击此处从图标库中选择图标</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">清除终端输出前询问确认</string>
     <string name="des_cloud_models" comment="Description under Cloud models setting item">管理云端模型的 API 密钥</string>
+    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">允许 AI 代理执行 ADB shell 命令</string>
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">配置目录保存终端输出</string>
     <string name="des_contributors" comment="Description under Contributors item in About section">帮助开发 aShell You 的贡献者列表</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">查看应用程序中发生的所有崩溃问题</string>
+    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">允许AI 代理人添加、修改或删除数据库项目</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">为本软件更改默认语言</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">在使用实体键盘时会有帮助</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">将加密备份上传至您的 Google Drive。\n此操作将覆盖任何现有的云备份。</string>
@@ -307,8 +303,6 @@
     <string name="des_hridayan" comment="Developer bio subtitle in About section">一个热爱应用开发和设计的小伙子</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">磁贴显示在快速设置面板中的固定视觉状态</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">查看应用使用的库和许可证的详细信息</string>
-    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">隐私政策</string>
-    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">你如何处理你的数据</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">查看应用及库所使用的许可证</string>
     <string name="des_local_backup" comment="Description card text for local backup option">将加密备份保存到您的设备</string>
     <string name="des_local_restore" comment="Description card text for local restore option">从您的设备选择备份文件</string>
@@ -316,8 +310,12 @@
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">莫奈取色，暗色主题以及语言设置</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">未选择模型</string>
     <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">若启用后添加了大量书签，可能会导致性能问题！低端设备应保持关闭</string>
+    <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">允许AI 代理人查询已安装的软件包和应用程序数据</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">配对另一个目标设备</string>
+    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">你如何处理你的数据</string>
+    <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">我们已经更新了我们的隐私政策。请花一点时间查看更改。</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">创建用于执行 adb 命令的快速设置磁贴</string>
+    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">允许AI 代理创建、修改和删除快速设置瓷块</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">报告使用 App 时遇到的任何问题和漏洞</string>
     <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">Reset app settings to default values</string>
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">从保存的备份文件中恢复应用数据。\n保存的数据库将覆盖当前数据库</string>
@@ -645,6 +643,7 @@
     <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">输出将显示在此处…</string>
     <string name="override_bookmarks_limit" comment="Setting toggle title to remove the maximum limit on saved bookmarks count">取消书签数量限制</string>
     <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">应用包名</string>
+    <string name="packages" comment="Title for the packages skill toggle in AI settings">包</string>
     <string name="pair" comment="Button/action label to initiate ADB wireless or OTG pairing with another device">配对</string>
     <string name="pair_a_device_first" comment="Instructional notice directing user to pair an ADB device before attempting connection">先配对设备</string>
     <string name="pair_another_device" comment="Button label in Wireless Debugging setup to pair an additional target device">配对另一台设备</string>
@@ -688,12 +687,15 @@
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">预览</string>
     <string name="primary">主要颜色</string>
     <string name="primary_container">主要容器</string>
+    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">隐私政策</string>
+    <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">隐私政策已更新</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">产品</string>
     <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">通过恢复模式菜单将设备置于 sideload 模式</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">二维码对</string>
     <string name="qr_pair_hint" comment="Instructional text in QR pairing screen instructing user to scan QR code from target device">要配对 Android 11+ 设备，请从目标设备扫描此 QR</string>
     <string name="qr_scanner_location_hint" comment="Instructional hint directing user where to find system QR scanner in target device Developer Options">QR 扫描仪可用于：\n开发者选项 &gt; 无线调试 &gt; 配对 QR 代码</string>
     <string name="qs_tiles" comment="Refers to Android System Quick Settings tiles configured for custom ADB scripts">快速设置磁贴</string>
+    <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">快速设置瓷块</string>
     <string name="quick_tools" comment="Section header for fast access utility tools">快速工具</string>
     <string name="reading_file" comment="Progress status text while loading file contents into viewer">正在读取文件…</string>
     <string name="ready_to_paste" comment="Status message in file manager when item is stored in paste clipboard">准备粘贴</string>

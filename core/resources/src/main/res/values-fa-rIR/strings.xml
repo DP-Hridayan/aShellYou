@@ -28,6 +28,7 @@
     <string name="add_command" comment="Button label to create and save a new command snippet to database">افزودن دستور</string>
     <string name="add_new_item" comment="Generic button label to add a new list entry">افزودن مورد جدید</string>
     <string name="additional_settings" comment="Category header in app settings">تنظیمات اضافی</string>
+    <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Agent skills</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">مدت زمان کش</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">فعال‌سازی کش</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">اجازه دادن</string>
@@ -57,15 +58,6 @@
     <string name="api_key" comment="Label for AI provider API key text input field">کلید API</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">کلید API ذخیره شد</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">کلید API مورد نیاز است</string>
-    <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Agent skills</string>
-    <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">Command Execution</string>
-    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Allow the AI agent to execute ADB shell commands</string>
-    <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">Quick Settings Tiles</string>
-    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Allow the AI agent to create, modify, and delete Quick Settings tiles</string>
-    <string name="packages" comment="Title for the packages skill toggle in AI settings">Packages</string>
-    <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Allow the AI agent to query installed packages and application data</string>
-    <string name="database_modification" comment="Title for the database skill toggle in AI settings">Database Modification</string>
-    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Allow the AI agent to add, modify, or delete database items</string>
     <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">برای استفاده از قابلیت‌های هوش مصنوعی به یک کلید API نیاز است. لطفاً کلید API خود را در مسیر تنظیمات -&gt; مدل‌های ابری اضافه کنید.</string>
     <string name="app">برنامه</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">برنامه از کار افتاد</string>
@@ -205,6 +197,7 @@
     <string name="command" comment="Label/header for an ADB command snippet">دستور</string>
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">تحلیل دستور</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">کنسول دستور</string>
+    <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">Command Execution</string>
     <string name="command_logs" comment="Tab header for history log of executed fastboot commands">لاگ‌های دستور</string>
     <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">تاریخچه تمام دستورات اجرایی فست‌بوت.</string>
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">دستور یافت نشد!</string>
@@ -253,6 +246,7 @@
     <string name="daily" comment="Option in backup scheduler frequency selection">روزانه</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">تم تاریک</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">داشبورد</string>
+    <string name="database_modification" comment="Title for the database skill toggle in AI settings">Database Modification</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">فقط پایگاه‌های داده</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">پوشه پیش‌فرض</string>
     <string name="default_language" comment="Setting preference label for selecting application language">زبان پیش‌فرض</string>
@@ -286,9 +280,11 @@
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">برای انتخاب آیکون از مجموعه آیکون‌ها اینجا کلیک کنید</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">درخواست تأیید قبل از پاک کردن خروجی شل</string>
     <string name="des_cloud_models" comment="Description under Cloud models setting item">مدیریت کلیدهای API برای مدل‌های ابری</string>
+    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Allow the AI agent to execute ADB shell commands</string>
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">انتخاب پوشه برای ذخیره خروجی شل</string>
     <string name="des_contributors" comment="Description under Contributors item in About section">فهرست همکارانی که در توسعه aShell You کمک کردند</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">مشاهده همه خرابی‌های برنامه</string>
+    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Allow the AI agent to add, modify, or delete database items</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">انتخاب زبان پیش‌فرض برنامه</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">مفید هنگام استفاده از کیبورد خارجی</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">آپلود پشتیبان رمزگذاری شده به گوگل درایو.\nاین عمل باعث بازنویسی هرگونه پشتیبان ابری موجود خواهد شد.</string>
@@ -307,8 +303,6 @@
     <string name="des_hridayan" comment="Developer bio subtitle in About section">فقط یک پسر که برنامه‌ها و طراحی را دوست دارد</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">حالت بصری ثابتی از کاشی هنگامی که در پنل تنظیمات سریع نمایش داده می‌شود</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">View details of the libraries and licenses used by the app</string>
-    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Privacy Policy</string>
-    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">How aShell You handles your data</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">مشاهده مجوزهایی که برنامه و کتابخانه‌ها استفاده می‌کنند</string>
     <string name="des_local_backup" comment="Description card text for local backup option">ذخیره پشتیبان رمزگذاری شده روی دستگاه</string>
     <string name="des_local_restore" comment="Description card text for local restore option">انتخاب فایل پشتیبان از روی دستگاه</string>
@@ -316,8 +310,12 @@
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">رنگ‌های پویا، تم تاریک، زبان</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">هیچ مدلی انتخاب نشده است</string>
     <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">ممکن است در صورت افزودن تعداد زیادی نشانک باعث کندی شود! دستگاه‌های ضعیف باید این گزینه را غیرفعال نگه دارند</string>
+    <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Allow the AI agent to query installed packages and application data</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">جفت کردن دستگاه مقصد دیگر</string>
+    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">How aShell You handles your data</string>
+    <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">We have updated our Privacy Policy. Please take a moment to review the changes.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">ایجاد کاشی‌های تنظیمات سریع برای اجرای دستورات adb</string>
+    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Allow the AI agent to create, modify, and delete Quick Settings tiles</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">گزارش هرگونه مشکل یا باگ</string>
     <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">بازنشانی تنظیمات به مقادیر پیش‌فرض</string>
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">بازیابی داده‌ها از فایل پشتیبان ذخیره شده.\nپایگاه داده ذخیره شده جایگزین پایگاه داده فعلی می‌شود</string>
@@ -645,6 +643,7 @@
     <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">خروجی در اینجا نمایش داده خواهد شد…</string>
     <string name="override_bookmarks_limit" comment="Setting toggle title to remove the maximum limit on saved bookmarks count">نادیده گرفتن محدودیت نشانک‌ها</string>
     <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">نام بسته</string>
+    <string name="packages" comment="Title for the packages skill toggle in AI settings">Packages</string>
     <string name="pair" comment="Button/action label to initiate ADB wireless or OTG pairing with another device">جفت کردن</string>
     <string name="pair_a_device_first" comment="Instructional notice directing user to pair an ADB device before attempting connection">ابتدا یک دستگاه جفت کنید</string>
     <string name="pair_another_device" comment="Button label in Wireless Debugging setup to pair an additional target device">جفت کردن دستگاه دیگر</string>
@@ -688,12 +687,15 @@
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">پیش‌نمایش</string>
     <string name="primary">اصلی</string>
     <string name="primary_container">کانتینر اصلی</string>
+    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Privacy Policy</string>
+    <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">Privacy Policy Updated</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">محصول</string>
     <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">قرار دادن دستگاه در حالت سایدلود از طریق منوی ریکاوری آن</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">جفت‌سازی QR</string>
     <string name="qr_pair_hint" comment="Instructional text in QR pairing screen instructing user to scan QR code from target device">برای جفت کردن دستگاه اندروید ۱۱+، این QR را از دستگاه مقصد اسکن کنید</string>
     <string name="qr_scanner_location_hint" comment="Instructional hint directing user where to find system QR scanner in target device Developer Options">اسکنر QR در این مسیر:\nگزینه‌های توسعه‌دهنده &gt; اشکال‌زدایی بی‌سیم &gt; جفت کردن با کد QR</string>
     <string name="qs_tiles" comment="Refers to Android System Quick Settings tiles configured for custom ADB scripts">کاشی‌های تنظیمات سریع</string>
+    <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">Quick Settings Tiles</string>
     <string name="quick_tools" comment="Section header for fast access utility tools">ابزارهای سریع</string>
     <string name="reading_file" comment="Progress status text while loading file contents into viewer">در حال خواندن فایل…</string>
     <string name="ready_to_paste" comment="Status message in file manager when item is stored in paste clipboard">آماده چسباندن</string>

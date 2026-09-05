@@ -29,7 +29,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -55,14 +54,6 @@ class SettingsViewModel @Inject constructor(
     val preferences: StateFlow<Preferences> = settingsRepository.preferences
         .stateIn(viewModelScope, SharingStarted.Lazily, emptyPreferences())
 
-    /**
-     * An arbitrary trigger that updates whenever [preferences] changes.
-     * Useful for Compose UI that needs to observe changes without importing DataStore types.
-     */
-    private var prefsCounter = 0
-    val prefsUpdateTrigger: StateFlow<Int> = preferences
-        .map { ++prefsCounter }
-        .stateIn(viewModelScope, SharingStarted.Lazily, 0)
 
     init {
         viewModelScope.launch {

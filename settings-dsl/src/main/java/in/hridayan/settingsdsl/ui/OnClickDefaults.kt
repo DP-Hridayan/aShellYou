@@ -20,11 +20,11 @@ import `in`.hridayan.settingsdsl.dsl.SettingsDslMarker
  * @param selectedValue Global integer state reader for radio/button group items. Receives the item
  *                      key and returns the currently selected index. Null defaults to `-1`.
  */
-class OnClickDefaults(
-    val onSwitchItem: ((Any) -> Unit)? = null,
-    val onIntChanged: ((Any, Int) -> Unit)? = null,
+class OnClickDefaults internal constructor(
     val isChecked: ((Any) -> Boolean)? = null,
     val selectedValue: ((Any) -> Int)? = null,
+    val onSwitchItem: ((Any) -> Unit)? = null,
+    val onIntChanged: ((Any, Int) -> Unit)? = null,
 )
 
 /**
@@ -33,11 +33,11 @@ class OnClickDefaults(
  * Use this inside [rememberSettingsDslState] to register global default callbacks.
  */
 @SettingsDslMarker
-class OnClickDefaultsScope {
-    private var onSwitchItem: ((Any) -> Unit)? = null
-    private var onIntChanged: ((Any, Int) -> Unit)? = null
+class OnClickDefaultsScope internal constructor() {
     private var isChecked: ((Any) -> Boolean)? = null
     private var selectedValue: ((Any) -> Int)? = null
+    private var onSwitchItem: ((Any) -> Unit)? = null
+    private var onIntChanged: ((Any, Int) -> Unit)? = null
 
     /**
      * Registers a global toggle handler for all switch and switch-banner items.
@@ -99,3 +99,4 @@ class OnClickDefaultsScope {
  */
 fun onClickDefaults(block: OnClickDefaultsScope.() -> Unit): OnClickDefaults =
     OnClickDefaultsScope().apply(block).build()
+

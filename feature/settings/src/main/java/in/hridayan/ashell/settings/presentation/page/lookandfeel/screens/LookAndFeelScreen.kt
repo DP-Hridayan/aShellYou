@@ -70,8 +70,6 @@ fun LookAndFeelScreen(
 
     var showFontStyleBottomSheet by remember { mutableStateOf(false) }
 
-    // Removed uiEvent.collect as navigation is direct
-
     val listState = rememberLazyListState()
 
     val topAppBarState = rememberTopAppBarState()
@@ -199,6 +197,13 @@ fun LookAndFeelScreen(
                         title(R.string.haptics_and_vibration)
                         description(R.string.des_haptics_and_vibration)
                         icon(R.drawable.ic_vibration)
+                    }
+
+                    clickableItem(SettingsKeys.Language) {
+                        title(R.string.default_language)
+                        description(R.string.des_default_language)
+                        icon(R.drawable.ic_language)
+                        onClick { navController.navigate(NavRoutes.LanguagesScreen) }
                     }
                 }
 

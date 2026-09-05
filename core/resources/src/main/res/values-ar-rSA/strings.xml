@@ -28,6 +28,7 @@
     <string name="add_command" comment="Button label to create and save a new command snippet to database">إضافة أمر</string>
     <string name="add_new_item" comment="Generic button label to add a new list entry">إضافة عنصر جديد</string>
     <string name="additional_settings" comment="Category header in app settings">إعدادات إضافية</string>
+    <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">مهارات الوكيل</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">مدة التخزين المؤقت</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">تفعيل التخزين المؤقت</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">السماح</string>
@@ -57,15 +58,6 @@
     <string name="api_key" comment="Label for AI provider API key text input field">مفتاح API</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">تم حفظ مفتاح API</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">مفتاح API مطلوب</string>
-    <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">مهارات الوكيل</string>
-    <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">تنفيذ الأوامر</string>
-    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">السماح لوكيل AI بتنفيذ أوامر قذيفة ADB</string>
-    <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">إعدادات سريعة</string>
-    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">السماح لوكيل AI بإنشاء وتعديل وحذف إعدادات سريعة</string>
-    <string name="packages" comment="Title for the packages skill toggle in AI settings">الحزم</string>
-    <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">السماح لوكيل AI بالاستعلام عن الحزم المثبتة وبيانات التطبيق</string>
-    <string name="database_modification" comment="Title for the database skill toggle in AI settings">تعديل قاعدة البيانات</string>
-    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">السماح لوكيل AI بإضافة أو تعديل أو حذف عناصر قاعدة البيانات</string>
     <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">مفتاح API مطلوب لاستخدام ميزات الذكاء الاصطناعي. يرجى إضافة مفتاح API الخاص بك في الإعدادات -&gt; النماذج السحابية.</string>
     <string name="app">التطبيق</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">التطبيق توقف</string>
@@ -205,6 +197,7 @@
     <string name="command" comment="Label/header for an ADB command snippet">أمر</string>
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">تحليل الأوامر</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">وحدة تحكم الأوامر</string>
+    <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">تنفيذ الأوامر</string>
     <string name="command_logs" comment="Tab header for history log of executed fastboot commands">سجلات الأوامر</string>
     <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">سجل لجميع أوامر فاست بوت التي تم تنفيذها.</string>
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">لم يتم العثور على أمر!</string>
@@ -253,6 +246,7 @@
     <string name="daily" comment="Option in backup scheduler frequency selection">يومي</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">سمة داكنة</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">لوحة القيادة</string>
+    <string name="database_modification" comment="Title for the database skill toggle in AI settings">تعديل قاعدة البيانات</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">قواعد البيانات فقط</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">المجلد الافتراضي</string>
     <string name="default_language" comment="Setting preference label for selecting application language">اللغة الافتراضية</string>
@@ -286,9 +280,11 @@
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">انقر هنا لاختيار أيقونة من مجموعة الأيقونات</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">طلب تأكيد قبل مسح إخراج القذيفة</string>
     <string name="des_cloud_models" comment="Description under Cloud models setting item">إدارة مفاتيح API للنماذج السحابية</string>
+    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">السماح لوكيل AI بتنفيذ أوامر قذيفة ADB</string>
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">اختر دليلًا لحفظ ناتج واجهة سطر الأوامر</string>
     <string name="des_contributors" comment="Description under Contributors item in About section">قائمة المساهمين الذين ساعدوا في تطوير aShell You</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">عرض جميع الأعطال التي حدثت في التطبيق</string>
+    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">السماح لوكيل AI بإضافة أو تعديل أو حذف عناصر قاعدة البيانات</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">اختر اللغة الافتراضية للتطبيق</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">مفيد عند الرغبة في استخدام لوحة مفاتيح خارجية</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">قم بتحميل نسخة احتياطية مشفرة إلى Google Drive الخاص بك.\nسيؤدي هذا الإجراء إلى الكتابة فوق أي نسخ احتياطية سحابية موجودة.</string>
@@ -307,8 +303,6 @@
     <string name="des_hridayan" comment="Developer bio subtitle in About section">مجرد شخص يحب التطبيقات والتصميم</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">الحالة المرئية الثابتة للبلاطة عند عرضها في لوحة الإعدادات السريعة</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">عرض تفاصيل المكتبات والتراخيص المستخدمة من قبل التطبيق</string>
-    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">سياسة الخصوصية</string>
-    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">كيف تتعامل مع بياناتك</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">عرض التراخيص التي يستخدمها التطبيق والمكتبات</string>
     <string name="des_local_backup" comment="Description card text for local backup option">حفظ نسخة احتياطية مشفرة على جهازك</string>
     <string name="des_local_restore" comment="Description card text for local restore option">اختر ملف نسخة احتياطية من جهازك</string>
@@ -316,8 +310,12 @@
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">الألوان الديناميكية، السمة الداكنة، اللغة</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">لم يتم اختيار أي نموذج</string>
     <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">قد يتسبب في تأخير إذا تمت إضافة عدد كبير من الإشارات المرجعية! يجب على الأجهزة ذات الأداء المنخفض الاحتفاظ بهذا الخِيار مغلقًا</string>
+    <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">السماح لوكيل AI بالاستعلام عن الحزم المثبتة وبيانات التطبيق</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">إقران جهاز مستهدف آخر</string>
+    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">كيف تتعامل مع بياناتك</string>
+    <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">لقد قمنا بتحديث سياسة الخصوصية لدينا. يرجى أخذ لحظة لمراجعة التغييرات.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">إنشاء بلاطات إعدادات سريعة لتنفيذ أوامر adb</string>
+    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">السماح لوكيل AI بإنشاء وتعديل وحذف إعدادات سريعة</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">أبلغ عن أي مشكلة أو خطأ واجهته</string>
     <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">إعادة تعيين إعدادات التطبيق للقيم الافتراضية</string>
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">استعادة بيانات التطبيق من ملف النسخة الاحتياطية المحفوظ.\nستقوم قاعدة البيانات المحفوظة باستبدال القاعدة الحالية</string>
@@ -645,6 +643,7 @@
     <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">سيظهر الإخراج هنا…</string>
     <string name="override_bookmarks_limit" comment="Setting toggle title to remove the maximum limit on saved bookmarks count">تجاوز الحد الأقصى للإشارات المرجعية</string>
     <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">اسم الحزمة</string>
+    <string name="packages" comment="Title for the packages skill toggle in AI settings">الحزم</string>
     <string name="pair" comment="Button/action label to initiate ADB wireless or OTG pairing with another device">اقتران</string>
     <string name="pair_a_device_first" comment="Instructional notice directing user to pair an ADB device before attempting connection">الاقتران بجهاز أولاً</string>
     <string name="pair_another_device" comment="Button label in Wireless Debugging setup to pair an additional target device">إقران جهاز آخر</string>
@@ -688,12 +687,15 @@
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">معاينة</string>
     <string name="primary">الأساسي</string>
     <string name="primary_container">الحاوية الأساسية</string>
+    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">سياسة الخصوصية</string>
+    <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">تم تحديث سياسة الخصوصية</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">المنتج</string>
     <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">ضع الجهاز في وضع التحميل الجانبي عبر قائمة الاسترداد الخاصة به</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">QR Pair</string>
     <string name="qr_pair_hint" comment="Instructional text in QR pairing screen instructing user to scan QR code from target device">لإقران جهاز أندرويد 11+ ، امسح هذا QR من الجهاز المستهدف</string>
     <string name="qr_scanner_location_hint" comment="Instructional hint directing user where to find system QR scanner in target device Developer Options">ماسح QR متاح على:\nخيارات المطور &gt; التصحيح اللاسلكي &gt; الاقتران باستخدام رمز الاستجابة السريعة (QR)</string>
     <string name="qs_tiles" comment="Refers to Android System Quick Settings tiles configured for custom ADB scripts">بلاطات الإعدادات السريعة</string>
+    <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">إعدادات سريعة</string>
     <string name="quick_tools" comment="Section header for fast access utility tools">أدوات سريعة</string>
     <string name="reading_file" comment="Progress status text while loading file contents into viewer">جاري قراءة الملف…</string>
     <string name="ready_to_paste" comment="Status message in file manager when item is stored in paste clipboard">مستعد للصق</string>

@@ -1,8 +1,11 @@
 package `in`.hridayan.settingsdsl.ui
 
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -14,8 +17,10 @@ import androidx.compose.material3.TopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -23,9 +28,15 @@ import `in`.hridayan.settingsdsl.dsl.SettingsGraphBuilder
 import `in`.hridayan.settingsdsl.model.CustomSlot
 import `in`.hridayan.settingsdsl.model.ItemBehavior
 import `in`.hridayan.settingsdsl.model.SettingsGraphGroup
+import `in`.hridayan.settingsdsl.ui.card.CustomCardShape
 import `in`.hridayan.settingsdsl.ui.card.cardShapeForPosition
 import `in`.hridayan.settingsdsl.ui.item.SettingsItemView
 import kotlinx.coroutines.delay
+
+private val NoOpAnyCallback: (Any) -> Unit = {}
+private val NoOpAnyIntCallback: (Any, Int) -> Unit = { _, _ -> }
+private val AlwaysFalse: (Any) -> Boolean = { false }
+private val AlwaysNegativeOne: (Any) -> Int = { -1 }
 
 /**
  * Renders a settings screen defined by the [content] DSL block.
@@ -109,7 +120,7 @@ fun SettingsColumn(
         state = listState,
         contentPadding = contentPadding,
     ) {
-        graph.groups.forEach { group ->
+        graph.groups.forEachIndexed { groupIndex, group ->
             when (group) {
                 is SettingsGraphGroup.Group -> {
                     val visibleNodes = group.nodes.filter { it.isVisible() }
@@ -123,28 +134,29 @@ fun SettingsColumn(
                                 } else {
                                     group.titleString
                                 }
-                                if (groupHeader != null) {
-                                    groupHeader(headerText)
-                                } else {
-                                    Text(
-                                        text = headerText,
-                                        style = MaterialTheme.typography.labelLarge,
-                                        color = MaterialTheme.colorScheme.primary,
-                                        modifier = Modifier.padding(
-                                            start = itemPaddingHorizontal + 16.dp,
-                                            top = 24.dp,
-                                            bottom = 8.dp
+                                Box(modifier = Modifier.animateItem()) {
+                                    if (groupHeader != null) {
+                                        groupHeader(headerText)
+                                    } else {
+                                        Text(
+                                            text = headerText,
+                                            style = MaterialTheme.typography.labelLarge,
+                                            color = MaterialTheme.colorScheme.primary,
+                                            modifier = Modifier.padding(
+                                                start = itemPaddingHorizontal + 16.dp,
+                                                top = 24.dp,
+                                                bottom = 8.dp
+                                            )
                                         )
-                                    )
+                                    }
                                 }
                             }
                         }
 
                         itemsIndexed(
-                            items = visibleNodes.map { it to dslState },
-                            key = { _, pair -> pair.first.keyName }
-                        ) { index, pair ->
-                            val node = pair.first
+                            items = visibleNodes,
+                            key = { _, node -> node.keyName }
+                        ) { index, node ->
                             val title = node.dynamicTitle?.let { it() }
                                 ?: node.staticTitleRes?.let { stringResource(it) }
                                 ?: node.staticTitleString
@@ -156,30 +168,26 @@ fun SettingsColumn(
                             val expFlag = node.experimentalFlagTextRes?.let { stringResource(it) }
                                 ?: node.experimentalFlagTextString
 
-                            val resolvedOnToggle = node.onToggleOverride
-                                ?: globalDefaults.onSwitchItem
-                                ?: {}
-                            val resolvedOnInt = node.onIntChangedOverride
-                                ?: globalDefaults.onIntChanged
-                                ?: { _, _ -> }
-                            val resolvedIsChecked = node.isCheckedOverride
-                                ?: globalDefaults.isChecked
-                                ?: { false }
-                            val resolvedSelectedVal = node.selectedValueOverride
-                                ?: globalDefaults.selectedValue
-                                ?: { -1 }
-                            val resolvedOnClick = node.onClickOverride ?: {}
+                            val resolvedIsChecked = when (node.behavior) {
+                                is ItemBehavior.Switch,
+                                is ItemBehavior.SwitchBanner -> (node.isCheckedOverride
+                                    ?: globalDefaults.isChecked ?: AlwaysFalse)(node.key)
 
-                            SettingsItemView(
-                                modifier = Modifier
-                                    .animateItem()
-                                    .padding(
-                                        horizontal = itemPaddingHorizontal,
-                                        vertical = itemPaddingVertical
-                                    ),
+                                else -> false
+                            }
+                            val resolvedSelectedVal = when (node.behavior) {
+                                is ItemBehavior.RadioGroup,
+                                is ItemBehavior.ButtonGroup -> (node.selectedValueOverride
+                                    ?: globalDefaults.selectedValue ?: AlwaysNegativeOne)(node.key)
+
+                                else -> -1
+                            }
+
+                            SettingsItemEntry(
+                                nodeKey = node.key,
                                 title = title,
                                 description = desc,
-                                icon = node.iconVector,
+                                iconVector = node.iconVector,
                                 iconResId = node.iconResId,
                                 shape = cardShapeForPosition(index, visibleNodes.size),
                                 isHighlighted = node.key == highlightState.activeKey,
@@ -187,21 +195,15 @@ fun SettingsColumn(
                                 behavior = node.behavior,
                                 enabled = node.enabled,
                                 hapticsEnabled = hapticsEnabled,
-                                isChecked = when (node.behavior) {
-                                    is ItemBehavior.Switch,
-                                    is ItemBehavior.SwitchBanner -> resolvedIsChecked(node.key)
-
-                                    else -> false
-                                },
-                                selectedValue = when (node.behavior) {
-                                    is ItemBehavior.RadioGroup,
-                                    is ItemBehavior.ButtonGroup -> resolvedSelectedVal(node.key)
-
-                                    else -> -1
-                                },
-                                onClick = { resolvedOnClick(node.key) },
-                                onToggle = { resolvedOnToggle(node.key) },
-                                onValueChange = { v -> resolvedOnInt(node.key, v) },
+                                isChecked = resolvedIsChecked,
+                                selectedValue = resolvedSelectedVal,
+                                itemPaddingHorizontal = itemPaddingHorizontal,
+                                itemPaddingVertical = itemPaddingVertical,
+                                onClick = node.onClickOverride ?: NoOpAnyCallback,
+                                onToggle = node.onToggleOverride ?: globalDefaults.onSwitchItem
+                                ?: NoOpAnyCallback,
+                                onIntChanged = node.onIntChangedOverride
+                                    ?: globalDefaults.onIntChanged ?: NoOpAnyIntCallback,
                             )
                         }
                     }
@@ -209,22 +211,82 @@ fun SettingsColumn(
 
                 is SettingsGraphGroup.Custom -> {
                     item(key = group.slot.id) {
-                        customSlotContent(group.slot)
+                        Box(modifier = Modifier.animateItem()) {
+                            customSlotContent(group.slot)
+                        }
                     }
                 }
 
                 is SettingsGraphGroup.RawItem -> {
                     item(key = group.key) {
-                        group.content()
+                        Box(modifier = Modifier.animateItem()) {
+                            group.content()
+                        }
                     }
                 }
 
                 is SettingsGraphGroup.Divider -> {
-                    item {
-                        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+                    item(key = "divider_$groupIndex") {
+                        HorizontalDivider(
+                            modifier = Modifier
+                                .animateItem()
+                                .padding(vertical = 8.dp)
+                        )
                     }
                 }
             }
         }
     }
 }
+
+
+@Composable
+private fun LazyItemScope.SettingsItemEntry(
+    nodeKey: Any,
+    title: String,
+    description: String,
+    iconVector: ImageVector?,
+    @DrawableRes iconResId: Int?,
+    shape: CustomCardShape,
+    isHighlighted: Boolean,
+    experimentalFlagText: String,
+    behavior: ItemBehavior,
+    enabled: Boolean,
+    hapticsEnabled: Boolean,
+    isChecked: Boolean,
+    selectedValue: Int,
+    itemPaddingHorizontal: Dp,
+    itemPaddingVertical: Dp,
+    onClick: (Any) -> Unit,
+    onToggle: (Any) -> Unit,
+    onIntChanged: (Any, Int) -> Unit,
+) {
+    val onClickLambda = remember(nodeKey) { { onClick(nodeKey) } }
+    val onToggleLambda = remember(nodeKey) { { onToggle(nodeKey) } }
+    val onValueChangeLambda = remember(nodeKey) { { v: Int -> onIntChanged(nodeKey, v) } }
+
+    SettingsItemView(
+        modifier = Modifier
+            .animateItem()
+            .padding(
+                horizontal = itemPaddingHorizontal,
+                vertical = itemPaddingVertical
+            ),
+        title = title,
+        description = description,
+        icon = iconVector,
+        iconResId = iconResId,
+        shape = shape,
+        isHighlighted = isHighlighted,
+        experimentalFlagText = experimentalFlagText,
+        behavior = behavior,
+        enabled = enabled,
+        hapticsEnabled = hapticsEnabled,
+        isChecked = isChecked,
+        selectedValue = selectedValue,
+        onClick = onClickLambda,
+        onToggle = onToggleLambda,
+        onValueChange = onValueChangeLambda,
+    )
+}
+
