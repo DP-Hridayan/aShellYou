@@ -138,7 +138,6 @@ fun SettingsScreen() {
                             style = MaterialTheme.typography.displayLargeEmphasized.copy(
                                 letterSpacing = 0.025.em
                             ),
-                            color = MaterialTheme.colorScheme.primary,
                             maxLines = 1,
                         )
 
