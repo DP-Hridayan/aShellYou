@@ -4,13 +4,16 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
+import `in`.hridayan.settingsdsl.search.searchGraph
+import `in`.hridayan.settingsdsl.ui.OnClickDefaults
+import `in`.hridayan.settingsdsl.ui.SettingsColumn
 
 /**
  * Internal runtime representation of a single settings item inside a [SettingsGraph].
  *
- * Produced by builder functions in [in.hridayan.settingsdsl.dsl.SettingsDslBuilders] and consumed
- * by [in.hridayan.settingsdsl.ui.SettingsColumn]. The search index is declared separately, via
- * [in.hridayan.settingsdsl.search.searchGraph].
+ * Produced by builder functions in `SettingsDslBuilders.kt` and consumed
+ * by [SettingsColumn]. The search index is declared separately, via
+ * [searchGraph].
  *
  * @param key The developer-supplied key identifying this setting. Can be any type.
  * @param keyName A string representation of [key] used for equality checks. Defaults to [key].toString().
@@ -34,14 +37,14 @@ import androidx.compose.ui.graphics.vector.ImageVector
  *                        takes precedence. There is no global default for clickable items.
  * @param onToggleOverride Per-item toggle handler for [ItemBehavior.Switch] and
  *                         [ItemBehavior.SwitchBanner] items. Overrides the global
- *                         [in.hridayan.settingsdsl.ui.OnClickDefaults.onSwitchItem].
+ *                         [OnClickDefaults.onSwitchItem].
  * @param onIntChangedOverride Per-item value-change handler for [ItemBehavior.RadioGroup] and
  *                             [ItemBehavior.ButtonGroup] items. Overrides the global
- *                             [in.hridayan.settingsdsl.ui.OnClickDefaults.onIntChanged].
+ *                             [OnClickDefaults.onIntChanged].
  * @param isCheckedOverride Per-item boolean state reader for switch items. Overrides the global
- *                          [in.hridayan.settingsdsl.ui.OnClickDefaults.isChecked].
+ *                          [OnClickDefaults.isChecked].
  * @param selectedValueOverride Per-item integer state reader for radio/button group items. Overrides
- *                              the global [in.hridayan.settingsdsl.ui.OnClickDefaults.selectedValue].
+ *                              the global [OnClickDefaults.selectedValue].
  */
 internal data class SettingsNode(
     val key: Any,

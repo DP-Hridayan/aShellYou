@@ -1,19 +1,22 @@
 package `in`.hridayan.settingsdsl.ui
 
+import `in`.hridayan.settingsdsl.dsl.RadioGroupItemBuilder
 import `in`.hridayan.settingsdsl.dsl.SettingsDslMarker
+import `in`.hridayan.settingsdsl.dsl.SwitchItemBuilder
+import `in`.hridayan.settingsdsl.model.ItemBehavior
 
 /**
- * Holds global default callbacks used by [in.hridayan.settingsdsl.ui.SettingsColumn] when no
+ * Holds global default callbacks used by [SettingsColumn] when no
  * per-item override is defined in the DSL block.
  *
  * Build instances via [OnClickDefaultsScope] or the [onClickDefaults] top-level function.
  *
- * @param onSwitchItem Global toggle handler for [in.hridayan.settingsdsl.model.ItemBehavior.Switch]
- *                     and [in.hridayan.settingsdsl.model.ItemBehavior.SwitchBanner] items.
+ * @param onSwitchItem Global toggle handler for [ItemBehavior.Switch]
+ *                     and [ItemBehavior.SwitchBanner] items.
  *                     Receives the item key. Null means no-op.
  * @param onIntChanged Optional global handler for
- *                     [in.hridayan.settingsdsl.model.ItemBehavior.RadioGroup] and
- *                     [in.hridayan.settingsdsl.model.ItemBehavior.ButtonGroup] items.
+ *                     [ItemBehavior.RadioGroup] and
+ *                     [ItemBehavior.ButtonGroup] items.
  *                     Receives the item key and the newly selected index. Null means no-op.
  * @param isChecked Global boolean state reader for switch items. Receives the item key and returns
  *                  whether the switch should appear checked. Null defaults to `false`.
@@ -51,7 +54,7 @@ class OnClickDefaultsScope internal constructor() {
     /**
      * Registers a global value-change handler for radio group and button group items.
      *
-     * Per-item [onIntChanged][in.hridayan.settingsdsl.dsl.RadioGroupItemBuilder.onIntChanged]
+     * Per-item [onIntChanged][RadioGroupItemBuilder.onIntChanged]
      * overrides this global default.
      *
      * @param block Lambda receiving the item key and the newly selected index.
@@ -63,7 +66,7 @@ class OnClickDefaultsScope internal constructor() {
     /**
      * Registers a global boolean state reader for switch items.
      *
-     * Per-item [isChecked][in.hridayan.settingsdsl.dsl.SwitchItemBuilder.isChecked]
+     * Per-item [isChecked][SwitchItemBuilder.isChecked]
      * overrides this global default.
      *
      * @param block Lambda receiving the item key and returning whether the switch is checked.
@@ -75,7 +78,7 @@ class OnClickDefaultsScope internal constructor() {
     /**
      * Registers a global integer state reader for radio group and button group items.
      *
-     * Per-item [selectedValue][in.hridayan.settingsdsl.dsl.RadioGroupItemBuilder.selectedValue]
+     * Per-item [selectedValue][RadioGroupItemBuilder.selectedValue]
      * overrides this global default.
      *
      * @param block Lambda receiving the item key and returning the currently selected index.

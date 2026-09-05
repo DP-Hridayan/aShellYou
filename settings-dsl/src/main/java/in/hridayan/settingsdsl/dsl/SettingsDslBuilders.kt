@@ -10,6 +10,8 @@ import `in`.hridayan.settingsdsl.model.RadioButtonOption
 import `in`.hridayan.settingsdsl.model.SettingsGraph
 import `in`.hridayan.settingsdsl.model.SettingsGraphGroup
 import `in`.hridayan.settingsdsl.model.SettingsNode
+import `in`.hridayan.settingsdsl.ui.OnClickDefaults
+import `in`.hridayan.settingsdsl.ui.SettingsColumn
 
 @DslMarker
 annotation class SettingsDslMarker
@@ -78,7 +80,7 @@ abstract class BaseItemBuilder {
      *
      * For [ItemBehavior.Clickable] items this is the tap action. For [ItemBehavior.Switch] and
      * [ItemBehavior.SwitchBanner] items this overrides the global
-     * [in.hridayan.settingsdsl.ui.OnClickDefaults.onSwitchItem].
+     * [OnClickDefaults.onSwitchItem].
      *
      * @param block Lambda receiving the item key.
      */
@@ -198,9 +200,9 @@ class ClickableItemBuilder internal constructor(private val key: Any) : BadgeIte
 /**
  * Builder for a switch settings item.
  *
- * Use [onClick] to override the global [in.hridayan.settingsdsl.ui.OnClickDefaults.onSwitchItem]
+ * Use [onClick] to override the global [OnClickDefaults.onSwitchItem]
  * for this item only. Use [isChecked] to override the global
- * [in.hridayan.settingsdsl.ui.OnClickDefaults.isChecked] for this item only.
+ * [OnClickDefaults.isChecked] for this item only.
  *
  * @param key The developer-supplied key for this item.
  */
@@ -210,7 +212,7 @@ class SwitchItemBuilder internal constructor(private val key: Any) : BadgeItemBu
 
     /**
      * Registers a per-item boolean state reader that overrides the global
-     * [in.hridayan.settingsdsl.ui.OnClickDefaults.isChecked] for this item only.
+     * [OnClickDefaults.isChecked] for this item only.
      *
      * @param block Lambda receiving the item key and returning whether the switch is checked.
      */
@@ -242,9 +244,9 @@ class SwitchItemBuilder internal constructor(private val key: Any) : BadgeItemBu
 /**
  * Builder for a full-width switch banner item.
  *
- * Use [onClick] to override the global [in.hridayan.settingsdsl.ui.OnClickDefaults.onSwitchItem]
+ * Use [onClick] to override the global [OnClickDefaults.onSwitchItem]
  * for this item only. Use [isChecked] to override the global
- * [in.hridayan.settingsdsl.ui.OnClickDefaults.isChecked] for this item only.
+ * [OnClickDefaults.isChecked] for this item only.
  *
  * @param key The developer-supplied key for this item.
  */
@@ -254,7 +256,7 @@ class SwitchBannerItemBuilder internal constructor(private val key: Any) : BaseI
 
     /**
      * Registers a per-item boolean state reader that overrides the global
-     * [in.hridayan.settingsdsl.ui.OnClickDefaults.isChecked] for this item only.
+     * [OnClickDefaults.isChecked] for this item only.
      *
      * @param block Lambda receiving the item key and returning whether the switch is checked.
      */
@@ -326,7 +328,7 @@ class RadioGroupItemBuilder internal constructor(private val key: Any) {
 
     /**
      * Registers a per-item value-change handler that overrides the global
-     * [in.hridayan.settingsdsl.ui.OnClickDefaults.onIntChanged] for this item only.
+     * [OnClickDefaults.onIntChanged] for this item only.
      *
      * @param block Lambda receiving the item key and the newly selected index.
      */
@@ -336,7 +338,7 @@ class RadioGroupItemBuilder internal constructor(private val key: Any) {
 
     /**
      * Registers a per-item integer state reader that overrides the global
-     * [in.hridayan.settingsdsl.ui.OnClickDefaults.selectedValue] for this item only.
+     * [OnClickDefaults.selectedValue] for this item only.
      *
      * @param block Lambda receiving the item key and returning the currently selected index.
      */
@@ -409,7 +411,7 @@ class ButtonGroupItemBuilder internal constructor(private val key: Any) {
 
     /**
      * Registers a per-item value-change handler that overrides the global
-     * [in.hridayan.settingsdsl.ui.OnClickDefaults.onIntChanged] for this item only.
+     * [OnClickDefaults.onIntChanged] for this item only.
      *
      * @param block Lambda receiving the item key and the newly selected index.
      */
@@ -419,7 +421,7 @@ class ButtonGroupItemBuilder internal constructor(private val key: Any) {
 
     /**
      * Registers a per-item integer state reader that overrides the global
-     * [in.hridayan.settingsdsl.ui.OnClickDefaults.selectedValue] for this item only.
+     * [OnClickDefaults.selectedValue] for this item only.
      *
      * @param block Lambda receiving the item key and returning the currently selected index.
      */
@@ -522,7 +524,7 @@ class GraphGroupScope internal constructor() {
 }
 
 /**
- * Top-level builder for the contents of a [in.hridayan.settingsdsl.ui.SettingsColumn].
+ * Top-level builder for the contents of a [SettingsColumn].
  *
  * This is the receiver of the `SettingsColumn { … }` block; instances are created by the renderer.
  */

@@ -3,14 +3,17 @@ package `in`.hridayan.settingsdsl.model
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import `in`.hridayan.settingsdsl.dsl.SettingsGraphBuilder
+import `in`.hridayan.settingsdsl.search.searchGraph
+import `in`.hridayan.settingsdsl.ui.SettingsColumn
 
 /**
- * The rendering plan produced by the [in.hridayan.settingsdsl.dsl.SettingsGraphBuilder] DSL and
- * consumed by [in.hridayan.settingsdsl.ui.SettingsColumn].
+ * The rendering plan produced by the [SettingsGraphBuilder] DSL and
+ * consumed by [SettingsColumn].
  *
  * Built fresh on every recomposition from the DSL block, so it always reflects the latest values
  * captured by the enclosing composable. The search index is declared separately, via
- * [in.hridayan.settingsdsl.search.searchGraph].
+ * [searchGraph].
  *
  * @param groups The group nodes that make up this screen.
  */
@@ -22,7 +25,7 @@ internal class SettingsGraph internal constructor(
 /**
  * Internal sealed representation of a single entry in a [SettingsGraph].
  *
- * Produced exclusively by [in.hridayan.settingsdsl.dsl.SettingsGraphBuilder] builder functions.
+ * Produced exclusively by [SettingsGraphBuilder] builder functions.
  * Never exposed directly to screen-level code.
  */
 internal sealed class SettingsGraphGroup {
