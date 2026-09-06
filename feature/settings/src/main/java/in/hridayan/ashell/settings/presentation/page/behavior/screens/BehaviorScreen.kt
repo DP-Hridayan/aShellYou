@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.domain.model.TerminalFontStyle
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
@@ -28,15 +27,11 @@ import `in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.settings.presentation.components.dialog.ConfigureSaveDirectoryDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
-import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.model.ButtonGroupOption
 import `in`.hridayan.settingsdsl.ui.SettingsColumn
 
 @Composable
-fun BehaviorScreen(
-    modifier: Modifier = Modifier,
-    settingsViewModel: SettingsViewModel = hiltViewModel(),
-) {
+fun BehaviorScreen(modifier: Modifier = Modifier) {
     val navController = LocalNavController.current
     val dialogManager = LocalDialogManager.current
     val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
@@ -63,10 +58,6 @@ fun BehaviorScreen(
                 group(R.string.local_adb_shell) {
                     radioGroupItem(SettingsKeys.LocalAdbWorkingMode) {
                         options(RadioGroupOptionsProvider.localAdbShellModeOptions)
-                        onIntChanged { key, value ->
-                            @Suppress("UNCHECKED_CAST")
-                            settingsViewModel.setInt(key as SettingsKeys<Int>, value)
-                        }
                     }
                 }
 
@@ -104,10 +95,6 @@ fun BehaviorScreen(
                             ButtonGroupOption(TerminalFontStyle.MONOSPACE, R.string.monospace),
                             ButtonGroupOption(TerminalFontStyle.SYSTEM_FONT, R.string.system_font),
                         )
-                        onIntChanged { key, value ->
-                            @Suppress("UNCHECKED_CAST")
-                            settingsViewModel.setInt(key as SettingsKeys<Int>, value)
-                        }
                     }
                 }
 

@@ -86,15 +86,15 @@ fun SettingsItemView(
     isChecked: Boolean = false,
     selectedValue: Int = -1,
     onClick: () -> Unit = {},
-    onToggle: () -> Unit = {},
+    onCheckedChange: (Boolean) -> Unit = {},
     onValueChange: (Int) -> Unit = {},
 ) {
     val haptic = LocalHapticFeedback.current
 
-    val wrappedOnToggle = remember(onToggle, hapticsEnabled) {
-        {
+    val wrappedOnCheckedChange = remember(onCheckedChange, hapticsEnabled) {
+        { newValue: Boolean ->
             if (hapticsEnabled) haptic.performHapticFeedback(HapticFeedbackType.ToggleOn)
-            onToggle()
+            onCheckedChange(newValue)
         }
     }
     val wrappedOnClick = remember(onClick, hapticsEnabled) {
@@ -122,7 +122,7 @@ fun SettingsItemView(
             experimentalFlagText = experimentalFlagText,
             enabled = enabled,
             isChecked = isChecked,
-            onToggle = wrappedOnToggle,
+            onCheckedChange = wrappedOnCheckedChange,
         )
 
         is ItemBehavior.SwitchBanner -> SwitchBannerItemView(
@@ -130,7 +130,7 @@ fun SettingsItemView(
             title = title,
             enabled = enabled,
             isChecked = isChecked,
-            onToggle = wrappedOnToggle,
+            onCheckedChange = wrappedOnCheckedChange,
         )
 
         is ItemBehavior.Clickable -> ClickableItemView(
@@ -330,14 +330,14 @@ private fun SwitchItemView(
     experimentalFlagText: String,
     enabled: Boolean,
     isChecked: Boolean,
-    onToggle: () -> Unit
+    onCheckedChange: (Boolean) -> Unit
 ) {
     CustomCard(
         modifier = modifier.alpha(if (enabled) 1f else 0.5f),
         shape = shape,
         colors = highlightCardColors(isHighlighted),
         clickable = enabled,
-        onClick = onToggle
+        onClick = { onCheckedChange(!isChecked) }
     ) {
         Row(
             modifier = Modifier
@@ -370,11 +370,11 @@ private fun SwitchItemView(
                     )
                 }
             }
-            // Switch also fires haptic via onToggle which already wraps the haptic call
+            // Switch also fires haptic via onCheckedChange which already wraps the haptic call
             SettingsSwitch(
                 checked = isChecked,
                 enabled = enabled,
-                onCheckedChange = { onToggle() }
+                onCheckedChange = onCheckedChange
             )
         }
     }
@@ -386,7 +386,7 @@ private fun SwitchBannerItemView(
     title: String,
     enabled: Boolean,
     isChecked: Boolean,
-    onToggle: () -> Unit
+    onCheckedChange: (Boolean) -> Unit
 ) {
     CustomCard(
         modifier = modifier.alpha(if (enabled) 1f else 0.5f),
@@ -400,7 +400,7 @@ private fun SwitchBannerItemView(
             },
         ),
         clickable = enabled,
-        onClick = onToggle,
+        onClick = { onCheckedChange(!isChecked) },
     ) {
         Row(
             modifier = Modifier
@@ -420,7 +420,7 @@ private fun SwitchBannerItemView(
             SettingsSwitch(
                 checked = isChecked,
                 enabled = enabled,
-                onCheckedChange = { onToggle() }
+                onCheckedChange = onCheckedChange
             )
         }
     }

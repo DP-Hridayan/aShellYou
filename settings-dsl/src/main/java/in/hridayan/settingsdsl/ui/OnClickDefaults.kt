@@ -11,9 +11,9 @@ import `in`.hridayan.settingsdsl.model.ItemBehavior
  *
  * Build instances via [OnClickDefaultsScope] or the [onClickDefaults] top-level function.
  *
- * @param onSwitchItem Global toggle handler for [ItemBehavior.Switch]
+ * @param onBooleanChanged Global toggle handler for [ItemBehavior.Switch]
  *                     and [ItemBehavior.SwitchBanner] items.
- *                     Receives the item key. Null means no-op.
+ *                     Receives the item key and the new boolean state. Null means no-op.
  * @param onIntChanged Optional global handler for
  *                     [ItemBehavior.RadioGroup] and
  *                     [ItemBehavior.ButtonGroup] items.
@@ -26,7 +26,7 @@ import `in`.hridayan.settingsdsl.model.ItemBehavior
 class OnClickDefaults internal constructor(
     val isChecked: ((Any) -> Boolean)? = null,
     val selectedValue: ((Any) -> Int)? = null,
-    val onSwitchItem: ((Any) -> Unit)? = null,
+    val onBooleanChanged: ((Any, Boolean) -> Unit)? = null,
     val onIntChanged: ((Any, Int) -> Unit)? = null,
 )
 
@@ -39,16 +39,16 @@ class OnClickDefaults internal constructor(
 class OnClickDefaultsScope internal constructor() {
     private var isChecked: ((Any) -> Boolean)? = null
     private var selectedValue: ((Any) -> Int)? = null
-    private var onSwitchItem: ((Any) -> Unit)? = null
+    private var onBooleanChanged: ((Any, Boolean) -> Unit)? = null
     private var onIntChanged: ((Any, Int) -> Unit)? = null
 
     /**
      * Registers a global toggle handler for all switch and switch-banner items.
      *
-     * @param block Lambda receiving the item key.
+     * @param block Lambda receiving the item key and the new boolean state.
      */
-    fun onSwitchItem(block: (Any) -> Unit) {
-        onSwitchItem = block
+    fun onBooleanChanged(block: (Any, Boolean) -> Unit) {
+        onBooleanChanged = block
     }
 
     /**
@@ -88,7 +88,7 @@ class OnClickDefaultsScope internal constructor() {
     }
 
     internal fun build(): OnClickDefaults = OnClickDefaults(
-        onSwitchItem = onSwitchItem,
+        onBooleanChanged = onBooleanChanged,
         onIntChanged = onIntChanged,
         isChecked = isChecked,
         selectedValue = selectedValue,

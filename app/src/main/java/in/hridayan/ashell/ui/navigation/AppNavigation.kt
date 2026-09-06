@@ -89,10 +89,16 @@ fun AppNavigation(
     val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())
 
     val dslState = rememberSettingsDslState {
-        onSwitchItem { key ->
-            val sk = key as? SettingsKeys<*> ?: return@onSwitchItem
+        onBooleanChanged { key, newValue ->
+            val sk = key as? SettingsKeys<*> ?: return@onBooleanChanged
             @Suppress("UNCHECKED_CAST")
-            settingsViewModel.onToggle(sk as SettingsKeys<Boolean>)
+            settingsViewModel.setBoolean(sk as SettingsKeys<Boolean>, newValue)
+        }
+
+        onIntChanged { key, newValue ->
+            val sk = key as? SettingsKeys<*> ?: return@onIntChanged
+            @Suppress("UNCHECKED_CAST")
+            settingsViewModel.setInt(sk as SettingsKeys<Int>, newValue)
         }
 
         isChecked { key ->

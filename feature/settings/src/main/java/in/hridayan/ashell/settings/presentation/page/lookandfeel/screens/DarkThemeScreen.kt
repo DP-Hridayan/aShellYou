@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.navigation.LocalNavController
@@ -21,14 +20,10 @@ import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.ui.SettingsColumn
 
 @Composable
-fun DarkThemeScreen(
-    modifier: Modifier = Modifier,
-    settingsViewModel: SettingsViewModel = hiltViewModel(),
-) {
+fun DarkThemeScreen(modifier: Modifier = Modifier) {
     val navController = LocalNavController.current
     val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
 
@@ -55,10 +50,6 @@ fun DarkThemeScreen(
                 group(R.string.preference) {
                     radioGroupItem(SettingsKeys.ThemeMode) {
                         options(RadioGroupOptionsProvider.darkModeOptions)
-                        onIntChanged { key, value ->
-                            @Suppress("UNCHECKED_CAST")
-                            settingsViewModel.setInt(key as SettingsKeys<Int>, value)
-                        }
                     }
                 }
 

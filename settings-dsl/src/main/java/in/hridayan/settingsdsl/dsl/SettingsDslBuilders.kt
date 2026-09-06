@@ -80,7 +80,7 @@ abstract class BaseItemBuilder {
      *
      * For [ItemBehavior.Clickable] items this is the tap action. For [ItemBehavior.Switch] and
      * [ItemBehavior.SwitchBanner] items this overrides the global
-     * [OnClickDefaults.onSwitchItem].
+     * [OnClickDefaults.onBooleanChanged].
      *
      * @param block Lambda receiving the item key.
      */
@@ -200,7 +200,7 @@ class ClickableItemBuilder internal constructor(private val key: Any) : BadgeIte
 /**
  * Builder for a switch settings item.
  *
- * Use [onClick] to override the global [OnClickDefaults.onSwitchItem]
+ * Use [onClick] to override the global [OnClickDefaults.onBooleanChanged]
  * for this item only. Use [isChecked] to override the global
  * [OnClickDefaults.isChecked] for this item only.
  *
@@ -209,6 +209,11 @@ class ClickableItemBuilder internal constructor(private val key: Any) : BadgeIte
 @SettingsDslMarker
 class SwitchItemBuilder internal constructor(private val key: Any) : BadgeItemBuilder() {
     internal var isCheckedOverride: ((Any) -> Boolean)? = null
+    internal var onCheckedChangeOverride: ((Any, Boolean) -> Unit)? = null
+
+    fun onCheckedChange(block: (Any, Boolean) -> Unit) {
+        onCheckedChangeOverride = block
+    }
 
     /**
      * Registers a per-item boolean state reader that overrides the global
@@ -236,7 +241,8 @@ class SwitchItemBuilder internal constructor(private val key: Any) : BadgeItemBu
         experimentalFlagTextString = experimentalFlagTextString,
         enabled = enabled,
         behavior = ItemBehavior.Switch,
-        onToggleOverride = onClickOverride,
+        onClickOverride = onClickOverride,
+        onCheckedChangeOverride = onCheckedChangeOverride,
         isCheckedOverride = isCheckedOverride,
     )
 }
@@ -244,7 +250,7 @@ class SwitchItemBuilder internal constructor(private val key: Any) : BadgeItemBu
 /**
  * Builder for a full-width switch banner item.
  *
- * Use [onClick] to override the global [OnClickDefaults.onSwitchItem]
+ * Use [onClick] to override the global [OnClickDefaults.onBooleanChanged]
  * for this item only. Use [isChecked] to override the global
  * [OnClickDefaults.isChecked] for this item only.
  *
@@ -253,6 +259,11 @@ class SwitchItemBuilder internal constructor(private val key: Any) : BadgeItemBu
 @SettingsDslMarker
 class SwitchBannerItemBuilder internal constructor(private val key: Any) : BaseItemBuilder() {
     internal var isCheckedOverride: ((Any) -> Boolean)? = null
+    internal var onCheckedChangeOverride: ((Any, Boolean) -> Unit)? = null
+
+    fun onCheckedChange(block: (Any, Boolean) -> Unit) {
+        onCheckedChangeOverride = block
+    }
 
     /**
      * Registers a per-item boolean state reader that overrides the global
@@ -280,7 +291,8 @@ class SwitchBannerItemBuilder internal constructor(private val key: Any) : BaseI
         experimentalFlagTextString = "",
         enabled = enabled,
         behavior = ItemBehavior.SwitchBanner,
-        onToggleOverride = onClickOverride,
+        onClickOverride = onClickOverride,
+        onCheckedChangeOverride = onCheckedChangeOverride,
         isCheckedOverride = isCheckedOverride,
     )
 }

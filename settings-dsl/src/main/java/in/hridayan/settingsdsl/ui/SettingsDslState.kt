@@ -98,7 +98,7 @@ val LocalSettingsDslState = compositionLocalOf<SettingsDslState> {
  * Example:
  * ```kotlin
  * val dslState = rememberSettingsDslState {
- *     onSwitchItem  { key -> viewModel.onToggle(key as SettingsKeys<Boolean>) }
+ *     onBooleanChanged { key, newValue -> viewModel.setBoolean(key as SettingsKeys<Boolean>, newValue) }
  *     isChecked     { key -> prefs[booleanPreferencesKey((key as SettingsKeys<*>).name)] ?: false }
  *     selectedValue { key -> prefs[intPreferencesKey((key as SettingsKeys<*>).name)] ?: -1 }
  * }

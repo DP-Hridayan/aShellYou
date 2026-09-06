@@ -42,6 +42,7 @@ import kotlin.time.Duration.Companion.milliseconds
 
 private val NoOpAnyCallback: (Any) -> Unit = {}
 private val NoOpAnyIntCallback: (Any, Int) -> Unit = { _, _ -> }
+private val NoOpAnyBooleanCallback: (Any, Boolean) -> Unit = { _, _ -> }
 private val AlwaysFalse: (Any) -> Boolean = { false }
 private val AlwaysNegativeOne: (Any) -> Int = { -1 }
 
@@ -191,8 +192,8 @@ fun SettingsColumn(
                         itemPaddingHorizontal = itemPaddingHorizontal,
                         itemPaddingVertical = itemPaddingVertical,
                         onClick = node.onClickOverride ?: NoOpAnyCallback,
-                        onToggle = node.onToggleOverride
-                            ?: globalDefaults.onSwitchItem ?: NoOpAnyCallback,
+                        onCheckedChange = node.onCheckedChangeOverride
+                            ?: globalDefaults.onBooleanChanged ?: NoOpAnyBooleanCallback,
                         onIntChanged = node.onIntChangedOverride
                             ?: globalDefaults.onIntChanged ?: NoOpAnyIntCallback,
                     )
@@ -237,15 +238,16 @@ private fun LazyItemScope.SettingsItemEntry(
     itemPaddingHorizontal: Dp,
     itemPaddingVertical: Dp,
     onClick: (Any) -> Unit,
-    onToggle: (Any) -> Unit,
+    onCheckedChange: (Any, Boolean) -> Unit,
     onIntChanged: (Any, Int) -> Unit,
 ) {
     val currentOnClick by rememberUpdatedState(onClick)
-    val currentOnToggle by rememberUpdatedState(onToggle)
+    val currentOnCheckedChange by rememberUpdatedState(onCheckedChange)
     val currentOnIntChanged by rememberUpdatedState(onIntChanged)
 
     val onClickLambda = remember(nodeKey) { { currentOnClick(nodeKey) } }
-    val onToggleLambda = remember(nodeKey) { { currentOnToggle(nodeKey) } }
+    val onCheckedChangeLambda =
+        remember(nodeKey) { { v: Boolean -> currentOnCheckedChange(nodeKey, v) } }
     val onValueChangeLambda = remember(nodeKey) { { v: Int -> currentOnIntChanged(nodeKey, v) } }
 
     SettingsItemView(
@@ -269,7 +271,7 @@ private fun LazyItemScope.SettingsItemEntry(
         isChecked = isChecked,
         selectedValue = selectedValue,
         onClick = onClickLambda,
-        onToggle = onToggleLambda,
+        onCheckedChange = onCheckedChangeLambda,
         onValueChange = onValueChangeLambda,
     )
 }

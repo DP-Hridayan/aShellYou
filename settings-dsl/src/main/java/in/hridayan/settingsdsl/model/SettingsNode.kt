@@ -35,9 +35,9 @@ import `in`.hridayan.settingsdsl.ui.SettingsColumn
  * @param buttonOptions Options for [ItemBehavior.ButtonGroup] items.
  * @param onClickOverride Per-item click handler for [ItemBehavior.Clickable] items. When non-null,
  *                        takes precedence. There is no global default for clickable items.
- * @param onToggleOverride Per-item toggle handler for [ItemBehavior.Switch] and
+ * @param onCheckedChangeOverride Per-item toggle handler for [ItemBehavior.Switch] and
  *                         [ItemBehavior.SwitchBanner] items. Overrides the global
- *                         [OnClickDefaults.onSwitchItem].
+ *                         [OnClickDefaults.onBooleanChanged].
  * @param onIntChangedOverride Per-item value-change handler for [ItemBehavior.RadioGroup] and
  *                             [ItemBehavior.ButtonGroup] items. Overrides the global
  *                             [OnClickDefaults.onIntChanged].
@@ -65,7 +65,7 @@ internal data class SettingsNode(
     val radioOptions: List<RadioButtonOption> = emptyList(),
     val buttonOptions: List<ButtonGroupOption> = emptyList(),
     val onClickOverride: ((Any) -> Unit)? = null,
-    val onToggleOverride: ((Any) -> Unit)? = null,
+    val onCheckedChangeOverride: ((Any, Boolean) -> Unit)? = null,
     val onIntChangedOverride: ((Any, Int) -> Unit)? = null,
     val isCheckedOverride: ((Any) -> Boolean)? = null,
     val selectedValueOverride: ((Any) -> Int)? = null,

@@ -54,6 +54,7 @@ import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
+import `in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.settings.presentation.components.dialog.AutoBackupTimePickerDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.SelectBackupFolderDialog
@@ -104,6 +105,7 @@ fun BackupSchedulerScreen(
             context.contentResolver.takePersistableUriPermission(newUri, flags)
 
             settingsViewModel.setString(SettingsKeys.AutoBackupFolderUri, newUri.toString())
+
             val folderName =
                 DocumentFile.fromTreeUri(context, newUri)?.name ?: newUri.lastPathSegment ?: ""
             settingsViewModel.setString(SettingsKeys.AutoBackupFolderName, folderName)
@@ -149,16 +151,15 @@ fun BackupSchedulerScreen(
                 group {
                     switchBannerItem(SettingsKeys.AutoBackupEnabled) {
                         title(R.string.enable_auto_backup)
-                        onClick { key ->
-                            if (!autoBackupEnabled && autoBackupFolderName.isEmpty()
-                            ) {
+                        onCheckedChange { key, newValue ->
+                            if (newValue && autoBackupFolderName.isEmpty()) {
                                 pendingEnableAfterFolderPick = true
                                 showFolderDialog = true
                             } else {
                                 @Suppress("UNCHECKED_CAST")
-                                settingsViewModel.onToggle(key as SettingsKeys<Boolean>)
+                                settingsViewModel.setBoolean(key as SettingsKeys<Boolean>, newValue)
                                 if (key == SettingsKeys.AutoBackupEnabled) {
-                                    settingsViewModel.rescheduleAutoBackup(enabled = !autoBackupEnabled)
+                                    settingsViewModel.rescheduleAutoBackup(enabled = newValue)
                                 }
                             }
                         }
@@ -198,7 +199,7 @@ fun BackupSchedulerScreen(
 
                 group(R.string.frequency) {
                     radioGroupItem(SettingsKeys.AutoBackupFrequency) {
-                        options(`in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider.backupFrequencyOptions)
+                        options(RadioGroupOptionsProvider.backupFrequencyOptions)
                         onIntChanged { key, value ->
                             @Suppress("UNCHECKED_CAST")
                             settingsViewModel.setInt(key as SettingsKeys<Int>, value)
@@ -212,11 +213,7 @@ fun BackupSchedulerScreen(
 
                 group(R.string.auto_backup_content_type) {
                     radioGroupItem(SettingsKeys.AutoBackupType) {
-                        options(`in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider.autoBackupTypeOptions)
-                        onIntChanged { key, value ->
-                            @Suppress("UNCHECKED_CAST")
-                            settingsViewModel.setInt(key as SettingsKeys<Int>, value)
-                        }
+                        options(RadioGroupOptionsProvider.autoBackupTypeOptions)
                     }
                 }
 
