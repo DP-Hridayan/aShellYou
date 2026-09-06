@@ -19,6 +19,10 @@ class BookmarkRepositoryImpl @Inject constructor(
         dao.deleteBookmarkByCommand(command)
     }
 
+    override suspend fun deleteBookmarkById(id: Int) {
+        dao.deleteBookmarkById(id)
+    }
+
     override suspend fun deleteAllBookmarks() {
         dao.deleteAllBookmarks()
     }

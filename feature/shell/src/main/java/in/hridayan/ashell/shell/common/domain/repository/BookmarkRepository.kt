@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 interface BookmarkRepository {
     suspend fun addBookmark(command: String)
     suspend fun deleteBookmarkByCommand(command: String)
+    suspend fun deleteBookmarkById(id: Int)
     suspend fun deleteAllBookmarks()
     suspend fun getBookmarkById(id: Int): BookmarkEntity?
     suspend fun updateBookmark(bookmark: BookmarkEntity)
