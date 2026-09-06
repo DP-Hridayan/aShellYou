@@ -91,12 +91,6 @@ fun BehaviorScreen(
                         icon(R.drawable.ic_clear)
                     }
 
-                    switchItem(SettingsKeys.OverrideMaximumBookmarksLimit) {
-                        title(R.string.override_bookmarks_limit)
-                        description(R.string.des_override_bookmarks)
-                        icon(R.drawable.ic_bookmarks)
-                    }
-
                     switchItem(SettingsKeys.DisableSoftKeyboard) {
                         title(R.string.disable_softkey)
                         description(R.string.des_disable_softkey)

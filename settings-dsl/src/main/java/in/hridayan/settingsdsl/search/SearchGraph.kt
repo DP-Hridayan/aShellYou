@@ -3,27 +3,37 @@ package `in`.hridayan.settingsdsl.search
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 
+import androidx.compose.ui.graphics.vector.ImageVector
+
 /**
  * A single searchable setting.
  *
- * Search matches on the title, the description and any [keywordRes]; only the title and
+ * Search matches on the title, the description and any [keywordRes] or [keywordStrings]; only the title and
  * description are displayed. Where a result navigates to is owned by the enclosing
  * [SearchScreenNode], not by the entry.
  *
  * @param key Must equal the key passed to the matching item builder in the UI DSL — it is what
  *            scroll-to-and-highlight matches on after navigating.
  * @param titleRes String resource for the result title.
+ * @param titleString Hardcoded string for the result title.
  * @param descriptionRes String resource for the result subtitle, or null for none.
+ * @param descriptionString Hardcoded string for the result subtitle.
  * @param iconRes Drawable resource for the leading icon, or null to fall back to a generic icon.
+ * @param iconVector ImageVector for the leading icon.
  * @param keywordRes String resources matched against the query but never displayed. Use these for
  *                   option labels of items that render without a title, such as radio groups.
+ * @param keywordStrings Hardcoded strings matched against the query.
  */
 class SearchEntryNode internal constructor(
     val key: Any,
-    @param:StringRes val titleRes: Int,
+    @param:StringRes val titleRes: Int?,
+    val titleString: String?,
     @param:StringRes val descriptionRes: Int?,
+    val descriptionString: String?,
     @param:DrawableRes val iconRes: Int?,
+    val iconVector: ImageVector?,
     @param:StringRes val keywordRes: List<Int>,
+    val keywordStrings: List<String>,
 )
 
 /**

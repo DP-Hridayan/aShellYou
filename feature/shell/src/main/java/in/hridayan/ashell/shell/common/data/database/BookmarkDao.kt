@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import `in`.hridayan.ashell.shell.common.data.model.BookmarkEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -15,8 +16,17 @@ interface BookmarkDao {
     @Query("DELETE FROM bookmarks WHERE command = :command")
     suspend fun deleteBookmarkByCommand(command: String)
 
+    @Query("DELETE FROM bookmarks WHERE id = :id")
+    suspend fun deleteBookmarkById(id: Int)
+
     @Query("DELETE FROM bookmarks")
     suspend fun deleteAllBookmarks()
+
+    @Update
+    suspend fun updateBookmark(bookmark: BookmarkEntity)
+
+    @Query("SELECT * FROM bookmarks WHERE id = :id")
+    suspend fun getBookmarkById(id: Int): BookmarkEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllBookmarks(bookmarks: List<BookmarkEntity>)

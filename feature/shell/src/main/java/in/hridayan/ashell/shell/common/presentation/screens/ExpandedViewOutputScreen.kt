@@ -64,6 +64,7 @@ import `in`.hridayan.ashell.shell.common.presentation.components.text.OutputLine
 import `in`.hridayan.ashell.shell.common.presentation.model.CommandResult
 import `in`.hridayan.ashell.shell.common.presentation.model.ShellState
 import `in`.hridayan.lazyselectioncontainer.LazySelectionContainer
+import `in`.hridayan.lazyselectioncontainer.LazySelectionDefaults
 import `in`.hridayan.lazyselectioncontainer.lazySelectionItem
 import `in`.hridayan.lazyselectioncontainer.rememberLazySelectionState
 import `in`.hridayan.lazyselectioncontainer.rememberLazySelectionTextLayout
@@ -86,6 +87,8 @@ fun ExpandedViewOutputScreen(
     val res = LocalResources.current
     val context = LocalContext.current
     val terminalFontStyle = LocalSettings.current[SettingsKeys.TerminalFontStyle]
+    val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
+
     val fullscreenListState =
         rememberLazyListState(initialFirstVisibleItemIndex = initialScrollIndex)
 
@@ -356,6 +359,7 @@ fun ExpandedViewOutputScreen(
 
                             showToast(context, toastMessage)
                         },
+                        haptics = LazySelectionDefaults.haptics(enabled = hapticsEnabled)
                     ) {
                         LazyColumn(
                             state = fullscreenListState,

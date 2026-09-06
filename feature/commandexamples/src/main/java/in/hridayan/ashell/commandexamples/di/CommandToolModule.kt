@@ -5,6 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dagger.multibindings.IntoSet
+import `in`.hridayan.ashell.commandexamples.tool.BatchManageCommandExamplesTool
 import `in`.hridayan.ashell.commandexamples.tool.DeleteCommandExampleTool
 import `in`.hridayan.ashell.commandexamples.tool.SaveCommandExampleTool
 import `in`.hridayan.ashell.commandexamples.tool.SearchCommandExamplesTool
@@ -22,10 +23,11 @@ object CommandToolModule {
         deleteTool: DeleteCommandExampleTool,
         saveTool: SaveCommandExampleTool,
         searchTool: SearchCommandExamplesTool,
-        updateTool: UpdateCommandExampleTool
+        updateTool: UpdateCommandExampleTool,
+        batchTool: BatchManageCommandExamplesTool
     ): AiSkillBundle = object : AiSkillBundle {
         override val skill = AiSkill.DATABASE
-        override val tools = listOf(deleteTool, saveTool, searchTool, updateTool)
+        override val tools = listOf(deleteTool, saveTool, searchTool, updateTool, batchTool)
     }
 }
 

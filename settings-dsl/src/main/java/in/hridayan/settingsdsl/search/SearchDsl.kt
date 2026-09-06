@@ -2,6 +2,7 @@ package `in`.hridayan.settingsdsl.search
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.ui.graphics.vector.ImageVector
 
 @DslMarker
 annotation class SearchDslMarker
@@ -21,11 +22,17 @@ annotation class SearchDslMarker
  * val graph = remember(navController, aiEnabled) {
  *     searchGraph {
  *         screen(SCREEN_ID_SETTINGS, R.string.settings, { navController.navigate(NavRoutes.SettingsScreen) }) {
- *             entry(SettingsKeys.LookAndFeel, R.string.look_and_feel, R.string.des_look_and_feel)
+ *             entry(SettingsKeys.LookAndFeel) {
+ *                 title(R.string.look_and_feel)
+ *                 description(R.string.des_look_and_feel)
+ *                 icon(R.drawable.ic_pallete)
+ *             }
  *
  *             screen(SCREEN_ID_AI, R.string.ai_models, { navController.navigate(NavRoutes.AiModelsScreen) }) {
  *                 availableWhen(aiEnabled)
- *                 entry(SettingsKeys.AiCacheEnabled, R.string.ai_cache_enabled)
+ *                 entry(SettingsKeys.AiCacheEnabled) {
+ *                     title(R.string.ai_cache_enabled)
+ *                 }
  *             }
  *         }
  *     }
@@ -86,30 +93,11 @@ class SearchScreenScope internal constructor(
      * Declares one searchable setting.
      *
      * @param key Must equal the key used by the matching item in the UI DSL.
-     * @param title String resource for the result title.
-     * @param description String resource for the result subtitle.
-     * @param icon Drawable resource for the leading icon.
-     * @param availableWhen Drops this entry from the index when false.
-     * @param keywords String resources matched against the query but never displayed.
+     * @param block Builder block for configuring the entry properties.
      */
-    fun entry(
-        key: Any,
-        @StringRes title: Int,
-        @StringRes description: Int? = null,
-        @DrawableRes icon: Int? = null,
-        availableWhen: Boolean = true,
-        @StringRes keywords: List<Int> = emptyList(),
-    ) {
-        if (!availableWhen) return
-        entries.add(
-            SearchEntryNode(
-                key = key,
-                titleRes = title,
-                descriptionRes = description,
-                iconRes = icon,
-                keywordRes = keywords,
-            )
-        )
+    fun entry(key: Any, block: SearchEntryScope.() -> Unit) {
+        val node = SearchEntryScope(key).apply(block).build()
+        if (node != null) entries.add(node)
     }
 
     /**
@@ -140,5 +128,94 @@ class SearchScreenScope internal constructor(
             )
         }
         return self + nested.flatMap { it.flatten() }
+    }
+}
+
+/** Scope for configuring a single search entry. */
+@SearchDslMarker
+class SearchEntryScope internal constructor(private val key: Any) {
+    private var availableWhen: Boolean = true
+    private var titleRes: Int? = null
+    private var titleString: String? = null
+    private var descriptionRes: Int? = null
+    private var descriptionString: String? = null
+    private var iconRes: Int? = null
+    private var iconVector: ImageVector? = null
+    private var keywordRes = mutableListOf<Int>()
+    private var keywordStrings = mutableListOf<String>()
+
+    /** Sets the result title using a string resource. */
+    fun title(@StringRes resId: Int) {
+        titleRes = resId
+        titleString = null
+    }
+
+    /** Sets the result title using a hardcoded string. */
+    fun title(text: String) {
+        titleString = text
+        titleRes = null
+    }
+
+    /** Sets the result subtitle using a string resource. */
+    fun description(@StringRes resId: Int) {
+        descriptionRes = resId
+        descriptionString = null
+    }
+
+    /** Sets the result subtitle using a hardcoded string. */
+    fun description(text: String) {
+        descriptionString = text
+        descriptionRes = null
+    }
+
+    /** Sets the leading icon using a drawable resource. */
+    fun icon(@DrawableRes resId: Int) {
+        iconRes = resId
+        iconVector = null
+    }
+
+    /** Sets the leading icon using an ImageVector. */
+    fun icon(vector: ImageVector) {
+        iconVector = vector
+        iconRes = null
+    }
+
+    /**
+     * Drops this entry from the index when [condition] is false. Use this for feature flags
+     * or hardware capabilities that make this specific setting unreachable.
+     */
+    fun availableWhen(condition: Boolean) {
+        availableWhen = condition
+    }
+
+    /**
+     * Adds string resources or hardcoded strings matched against the query but never displayed.
+     * Use these for option labels of items that render without a title, such as radio groups.
+     *
+     * @param keywords A mix of [Int] (StringRes) and [String]s.
+     */
+    fun keywords(vararg keywords: Any) {
+        for (kw in keywords) {
+            when (kw) {
+                is Int -> keywordRes.add(kw)
+                is String -> keywordStrings.add(kw)
+                else -> throw IllegalArgumentException("Keywords must be String or Int (StringRes)")
+            }
+        }
+    }
+
+    internal fun build(): SearchEntryNode? {
+        if (!availableWhen) return null
+        return SearchEntryNode(
+            key = key,
+            titleRes = titleRes,
+            titleString = titleString,
+            descriptionRes = descriptionRes,
+            descriptionString = descriptionString,
+            iconRes = iconRes,
+            iconVector = iconVector,
+            keywordRes = keywordRes,
+            keywordStrings = keywordStrings,
+        )
     }
 }
