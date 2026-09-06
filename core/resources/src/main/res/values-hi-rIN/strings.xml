@@ -278,6 +278,7 @@
     <string name="des_behavior" comment="Description under Behavior item in settings menu">ऐप के कुछ व्यवहार बदलें</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">एप्लिकेशन में किए गए सभी परिवर्तनों का इतिहास</string>
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">आइकन संग्रह से कोई आइकन चुनने के लिए यहां क्लिक करें</string>
+    <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">Delete all cached AI analysis responses</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">शेल आउटपुट साफ़ करने से पहले पुष्टि मांगें</string>
     <string name="des_cloud_models" comment="Description under Cloud models setting item">क्लाउड मॉडल के लिए API कुंजियाँ प्रबंधित करें</string>
     <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Allow the AI agent to execute ADB shell commands</string>
@@ -285,6 +286,7 @@
     <string name="des_contributors" comment="Description under Contributors item in About section">aShell You के विकास में मदद करने वाले योगदानकर्ताओं की सूची</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">ऐप में हुई सभी क्रैश देखें</string>
     <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Allow the AI agent to add, modify, or delete database items</string>
+    <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">Choose when the app uses its dark colour scheme</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">ऐप के लिए डिफ़ॉल्ट भाषा चुनें</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">जब आप बाहरी कीबोर्ड का उपयोग करना चाहते हैं तो उपयोगी होता है</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">अपने Google ड्राइव पर एन्क्रिप्टेड बैकअप अपलोड करें।\nयह क्रिया किसी भी मौजूदा क्लाउड बैकअप को ओवरराइड कर देगी।</string>
@@ -312,6 +314,7 @@
     <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">यदि बड़ी संख्या में बुकमार्क जोड़े जाएंगे तो यह धीमा कर सकता है! लो एंड उपकरणों को इस विकल्प को अक्षम रखना चाहिए</string>
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Allow the AI agent to query installed packages and application data</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">दूसरा लक्ष्य डिवाइस पेयर करें</string>
+    <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">Choose how colours are derived from the theme seed</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">How aShell You handles your data</string>
     <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">We have updated our Privacy Policy. Please take a moment to review the changes.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">ADB कमांड निष्पादित करने के लिए त्वरित सेटिंग टाइलें बनाएं</string>
@@ -328,6 +331,7 @@
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">सक्षम होने पर, टाइल प्रत्येक टैप पर चालू और बंद अवस्थाओं के बीच स्विच करती है, प्रत्येक अवस्था के लिए एक अलग कमांड चलाती है</string>
     <string name="des_translators" comment="Subtitle description under Translators list in About section">aShell You का अनुवाद करने में मदद करने वाले लोग</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">UI तत्वों और फ़ॉन्ट आकार का स्केल समायोजित करें</string>
+    <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">Choose which releases the app checks for</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">सावधानी से आगे बढ़ें क्योंकि गलत इमेज से बूटलूप हो सकता है</string>
     <string name="description">विवरण</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">सभी अचयनित करें</string>
@@ -861,6 +865,7 @@
     <string name="terminal" comment="Refers to shell command line terminal execution screen">टर्मिनल</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">टर्मिनल फ़ॉन्ट शैली</string>
     <string name="tertiary">टर्शियरी</string>
+    <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">Theme mode</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">तृतीय-पक्ष लाइब्रेरीज़</string>
     <string name="this_application" comment="Option label for target scope in Logcat Viewer">यह एप्लिकेशन</string>
     <string name="this_device" comment="Selection option for target ADB device matching host phone">यह डिवाइस</string>

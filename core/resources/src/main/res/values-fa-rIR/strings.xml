@@ -278,6 +278,7 @@
     <string name="des_behavior" comment="Description under Behavior item in settings menu">تغییر رفتار خاص برنامه</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">تاریخچه همه تغییرات برنامه</string>
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">برای انتخاب آیکون از مجموعه آیکون‌ها اینجا کلیک کنید</string>
+    <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">حذف همه پاسخ‌های تحلیل هوش مصنوعی ذخیره‌شده در حافظه پنهان</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">درخواست تأیید قبل از پاک کردن خروجی شل</string>
     <string name="des_cloud_models" comment="Description under Cloud models setting item">مدیریت کلیدهای API برای مدل‌های ابری</string>
     <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Allow the AI agent to execute ADB shell commands</string>
@@ -285,6 +286,7 @@
     <string name="des_contributors" comment="Description under Contributors item in About section">فهرست همکارانی که در توسعه aShell You کمک کردند</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">مشاهده همه خرابی‌های برنامه</string>
     <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Allow the AI agent to add, modify, or delete database items</string>
+    <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">انتخاب زمان استفاده برنامه از طرح رنگ تیره</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">انتخاب زبان پیش‌فرض برنامه</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">مفید هنگام استفاده از کیبورد خارجی</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">آپلود پشتیبان رمزگذاری شده به گوگل درایو.\nاین عمل باعث بازنویسی هرگونه پشتیبان ابری موجود خواهد شد.</string>
@@ -312,6 +314,7 @@
     <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">ممکن است در صورت افزودن تعداد زیادی نشانک باعث کندی شود! دستگاه‌های ضعیف باید این گزینه را غیرفعال نگه دارند</string>
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Allow the AI agent to query installed packages and application data</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">جفت کردن دستگاه مقصد دیگر</string>
+    <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">انتخاب نحوه استخراج رنگ‌ها از رنگ پایه تم</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">How aShell You handles your data</string>
     <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">We have updated our Privacy Policy. Please take a moment to review the changes.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">ایجاد کاشی‌های تنظیمات سریع برای اجرای دستورات adb</string>
@@ -328,6 +331,7 @@
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">در صورت فعال بودن، کاشی با هر بار ضربه زدن بین حالت روشن و خاموش جابجا می‌شود و برای هر حالت دستور متفاوتی را اجرا می‌کند</string>
     <string name="des_translators" comment="Subtitle description under Translators list in About section">افرادی که به ترجمه aShellYou کمک کردند</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">تنظیم مقیاس عناصر رابط کاربری و اندازه فونت</string>
+    <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">انتخاب اینکه برنامه کدام نسخه‌ها را بررسی کند</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">با احتیاط ادامه دهید زیرا تصویر نادرست ممکن است باعث بوت‌لوپ شود</string>
     <string name="description">توضیحات</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">لغو انتخاب همه</string>
@@ -861,6 +865,7 @@
     <string name="terminal" comment="Refers to shell command line terminal execution screen">ترمینال</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">سبک فونت ترمینال</string>
     <string name="tertiary">سوم</string>
+    <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">حالت تم</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">کتابخانه‌های شخص ثالث</string>
     <string name="this_application" comment="Option label for target scope in Logcat Viewer">این برنامه</string>
     <string name="this_device" comment="Selection option for target ADB device matching host phone">این دستگاه</string>
