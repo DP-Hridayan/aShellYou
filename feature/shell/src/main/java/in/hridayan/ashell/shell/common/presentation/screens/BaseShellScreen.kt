@@ -561,9 +561,6 @@ fun BaseShellScreen(
                                         painterResource(R.drawable.ic_add_bookmark)
                                     }
 
-                                val overrideBookmarksLimit =
-                                    settings[SettingsKeys.OverrideMaximumBookmarksLimit]
-
                                 ExposedDropdownMenuBox(
                                     modifier = Modifier.weight(1f),
                                     expanded = historyMenuExpanded,
@@ -605,13 +602,6 @@ fun BaseShellScreen(
                                                             if (isBookmarked.value) {
                                                                 bookmarkViewModel.deleteBookmark(
                                                                     states.commandField.fieldValue.text
-                                                                )
-                                                            } else if (bookmarkCount.value >= 25 && !overrideBookmarksLimit) {
-                                                                hideKeyboard(context)
-                                                                snackBarController.show(
-                                                                    message = res.getString(
-                                                                        R.string.bookmark_limit_reached
-                                                                    )
                                                                 )
                                                             } else {
                                                                 bookmarkViewModel.addBookmark(

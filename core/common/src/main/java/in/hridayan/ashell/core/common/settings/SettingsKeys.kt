@@ -73,8 +73,6 @@ sealed class SettingsKeys<out T>(
     data object EnableDirectDownload : SettingsKeys<Boolean>("ENABLE_DIRECT_DOWNLOAD", true)
     data object ClearOutputConfirmation : SettingsKeys<Boolean>("CLEAR_OUTPUT_CONFIRMATION", true)
     data object DisableSoftKeyboard : SettingsKeys<Boolean>("DISABLE_SOFT_KEYBOARD", false)
-    data object OverrideMaximumBookmarksLimit :
-        SettingsKeys<Boolean>("OVERRIDE_MAXIMUM_BOOKMARKS_LIMIT", false)
 
     data object SaveWholeOutput : SettingsKeys<Boolean>("SAVE_WHOLE_OUTPUT", true)
     data object SmoothScrolling : SettingsKeys<Boolean>("SMOOTH_SCROLLING", true)
