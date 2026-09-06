@@ -269,7 +269,7 @@ private fun SearchResultRow(
         val icon = if (isRecent) {
             Icons.Rounded.History
         } else {
-            entry.iconResId?.let { ImageVector.vectorResource(it) }
+            entry.iconVector ?: entry.iconResId?.let { ImageVector.vectorResource(it) }
         }
 
         Icon(

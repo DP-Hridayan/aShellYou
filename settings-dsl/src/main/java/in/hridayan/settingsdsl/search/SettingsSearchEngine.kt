@@ -3,6 +3,7 @@ package `in`.hridayan.settingsdsl.search
 import android.content.Context
 import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Immutable
+import androidx.compose.ui.graphics.vector.ImageVector
 
 private const val ID_SEPARATOR = "/"
 private const val HAYSTACK_SEPARATOR = " "
@@ -18,6 +19,7 @@ private const val HAYSTACK_SEPARATOR = " "
  * @param title Resolved result title.
  * @param description Resolved result subtitle. Empty when the entry declares none.
  * @param iconResId Drawable for the leading icon, or null to fall back to a generic icon.
+ * @param iconVector ImageVector for the leading icon.
  * @param screenTitle Resolved name of the hosting screen, used as the result section header.
  * @param navigateTo Navigates to the hosting screen.
  */
@@ -28,6 +30,7 @@ class SearchResult internal constructor(
     val title: String,
     val description: String,
     @param:DrawableRes val iconResId: Int?,
+    val iconVector: ImageVector?,
     val screenTitle: String,
     val navigateTo: () -> Unit,
     internal val haystack: String,
@@ -79,9 +82,11 @@ class SettingsSearchEngine private constructor(private val index: List<SearchRes
             screen: SearchScreenNode,
             resolvedScreenTitle: String,
         ): SearchResult {
-            val resolvedTitle = context.getString(titleRes)
-            val resolvedDescription = descriptionRes?.let(context::getString).orEmpty()
+            val resolvedTitle = titleString ?: titleRes?.let(context::getString).orEmpty()
+            val resolvedDescription =
+                descriptionString ?: descriptionRes?.let(context::getString).orEmpty()
             val resolvedKeywords =
+                keywordStrings.joinToString(HAYSTACK_SEPARATOR) + HAYSTACK_SEPARATOR +
                 keywordRes.joinToString(HAYSTACK_SEPARATOR, transform = context::getString)
             return SearchResult(
                 key = key,
@@ -89,6 +94,7 @@ class SettingsSearchEngine private constructor(private val index: List<SearchRes
                 title = resolvedTitle,
                 description = resolvedDescription,
                 iconResId = iconRes,
+                iconVector = iconVector,
                 screenTitle = resolvedScreenTitle,
                 navigateTo = screen.navigate,
                 haystack = listOf(resolvedTitle, resolvedDescription, resolvedKeywords)
