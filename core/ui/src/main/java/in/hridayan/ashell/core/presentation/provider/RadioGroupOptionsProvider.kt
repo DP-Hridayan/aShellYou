@@ -8,7 +8,7 @@ import `in`.hridayan.ashell.core.common.domain.model.backup.BackupFrequency
 import `in`.hridayan.ashell.core.common.domain.model.backup.BackupType
 import `in`.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.settingsdsl.model.RadioButtonOption
+import `in`.hridayan.settingsgraph.model.RadioButtonOption
 
 class RadioGroupOptionsProvider {
     companion object {

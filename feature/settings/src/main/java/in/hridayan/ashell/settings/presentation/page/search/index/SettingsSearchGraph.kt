@@ -13,9 +13,9 @@ import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.settingsdsl.search.SearchGraph
-import `in`.hridayan.settingsdsl.search.SearchScreenScope
-import `in`.hridayan.settingsdsl.search.searchGraph
+import `in`.hridayan.settingsgraph.search.SearchGraph
+import `in`.hridayan.settingsgraph.search.SearchScreenScope
+import `in`.hridayan.settingsgraph.search.searchGraph
 
 private const val SCREEN_ID_SETTINGS = "settings"
 private const val SCREEN_ID_LOOK_AND_FEEL = "look_and_feel"

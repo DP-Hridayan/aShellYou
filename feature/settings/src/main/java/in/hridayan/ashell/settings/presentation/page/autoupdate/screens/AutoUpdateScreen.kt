@@ -58,7 +58,7 @@ import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.UpdateB
 import `in`.hridayan.ashell.settings.presentation.components.dialog.LatestVersionDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
-import `in`.hridayan.settingsdsl.ui.SettingsColumn
+import `in`.hridayan.settingsgraph.ui.SettingsColumn
 
 private const val ITEM_KEY_TOP_SPACER = "topSpacer"
 private const val ITEM_KEY_WARNING_BOX = "warningBox"

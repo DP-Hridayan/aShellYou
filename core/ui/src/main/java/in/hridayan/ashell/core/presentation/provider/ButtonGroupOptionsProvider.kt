@@ -8,11 +8,11 @@ import `in`.hridayan.ashell.core.resources.R
  * Provides [ButtonGroupOptions] lists for non-settings button groups
  * (e.g. the QS Tile creation screen).
  *
- * Settings-DSL screens should use [in.hridayan.settingsdsl.model.ButtonGroupOption] instead.
+ * Settings-Graph screens should use [in.hridayan.settingsgraph.model.ButtonGroupOption] instead.
  */
 class ButtonGroupOptionsProvider {
     companion object {
-        val tileServiceAdbExecutionMethod = listOf<ButtonGroupOptions<Int>>(
+        val tileServiceAdbExecutionMethod = listOf(
             ButtonGroupOptions(
                 value = TileExecutionMode.SHIZUKU,
                 labelResId = R.string.shizuku

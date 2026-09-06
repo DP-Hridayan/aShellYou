@@ -34,7 +34,7 @@ dependencies {
     api(project(":core:resources"))
     implementation(project(":core:common"))
     implementation(project(":core:navigation"))
-    implementation(project(":settings-dsl"))
+    implementation(project(":settingsgraph"))
 
     implementation(libs.androidx.appcompat)
     implementation(libs.core.ktx)

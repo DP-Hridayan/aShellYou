@@ -8,7 +8,7 @@ import `in`.hridayan.ashell.core.common.domain.model.SortType
 import `in`.hridayan.ashell.core.common.domain.provider.SeedColorProvider
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys.Companion.entries
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys.Companion.valueOf
-import `in`.hridayan.settingsdsl.model.SettingsKey
+import `in`.hridayan.settingsgraph.model.SettingsKey
 import kotlin.reflect.KClass
 
 /**

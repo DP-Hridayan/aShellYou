@@ -7,9 +7,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
-import `in`.hridayan.settingsdsl.search.SearchGraph
-import `in`.hridayan.settingsdsl.search.SearchResult
-import `in`.hridayan.settingsdsl.search.SettingsSearchEngine
+import `in`.hridayan.settingsgraph.search.SearchGraph
+import `in`.hridayan.settingsgraph.search.SearchResult
+import `in`.hridayan.settingsgraph.search.SettingsSearchEngine
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

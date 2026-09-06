@@ -73,8 +73,8 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.PairingOth
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.PairingOwnDeviceScreen
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.WifiAdbScreen
 import `in`.hridayan.ashell.ui.home.HomeRoute
-import `in`.hridayan.settingsdsl.ui.LocalSettingsDslState
-import `in`.hridayan.settingsdsl.ui.rememberSettingsDslState
+import `in`.hridayan.settingsgraph.ui.LocalSettingGraphState
+import `in`.hridayan.settingsgraph.ui.rememberSettingsGraphState
 import kotlinx.serialization.serializer
 import kotlin.reflect.KType
 
@@ -88,7 +88,7 @@ fun AppNavigation(
     val settingsViewModel: SettingsViewModel = hiltViewModel()
     val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())
 
-    val dslState = rememberSettingsDslState {
+    val settingsGraphState = rememberSettingsGraphState {
         onBooleanChanged { key, newValue ->
             val sk = key as? SettingsKeys<*> ?: return@onBooleanChanged
             @Suppress("UNCHECKED_CAST")
@@ -115,7 +115,7 @@ fun AppNavigation(
     }
 
     CompositionLocalProvider(
-        LocalSettingsDslState provides dslState,
+        LocalSettingGraphState provides settingsGraphState,
         LocalNavController provides navController,
     ) {
         LaunchedEffect(navController) {

@@ -62,7 +62,7 @@ import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.openUrl
 import `in`.hridayan.ashell.settings.presentation.components.card.SupportMeCard
 import `in`.hridayan.ashell.settings.presentation.components.image.ProfilePic
-import `in`.hridayan.settingsdsl.ui.SettingsColumn
+import `in`.hridayan.settingsgraph.ui.SettingsColumn
 
 @Composable
 fun AboutScreen(modifier: Modifier = Modifier) {

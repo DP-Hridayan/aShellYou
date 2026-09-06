@@ -27,8 +27,8 @@ import `in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.settings.presentation.components.dialog.ConfigureSaveDirectoryDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
-import `in`.hridayan.settingsdsl.model.ButtonGroupOption
-import `in`.hridayan.settingsdsl.ui.SettingsColumn
+import `in`.hridayan.settingsgraph.model.ButtonGroupOption
+import `in`.hridayan.settingsgraph.ui.SettingsColumn
 
 @Composable
 fun BehaviorScreen(modifier: Modifier = Modifier) {

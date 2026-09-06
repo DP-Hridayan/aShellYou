@@ -35,7 +35,7 @@ import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.settingsdsl.ui.SettingsColumn
+import `in`.hridayan.settingsgraph.ui.SettingsColumn
 
 enum class AiDialogKey : DialogKey {
     CacheDays,

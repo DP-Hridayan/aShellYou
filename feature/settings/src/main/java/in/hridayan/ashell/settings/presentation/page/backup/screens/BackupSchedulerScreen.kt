@@ -61,7 +61,7 @@ import `in`.hridayan.ashell.settings.presentation.components.dialog.SelectBackup
 import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
-import `in`.hridayan.settingsdsl.ui.SettingsColumn
+import `in`.hridayan.settingsgraph.ui.SettingsColumn
 
 private const val ITEM_KEY_SCHEDULER_STATUS = "scheduler_status"
 
