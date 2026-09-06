@@ -338,7 +338,8 @@
     <string name="developer" comment="Section title in About screen for lead developer info">開発者</string>
     <string name="developer_options" comment="System Developer Options setting item or prompt">開発者オプション</string>
     <string name="developer_options_not_available" comment="Toast error message when Developer options shortcut cannot be opened">開発者向けオプションは利用できません！</string>
-    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">Enable Developer Options first by tapping Build Number 7 times in Settings → About Phone\nIf this method to turn on Developer options does not work, then you can search the instructions for your device on the internet.</string>
+    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">まず「設定」→「デバイス情報」で「ビルド番号」を7回タップして、開発者向けオプションを有効にしてください。
+この方法で開発者向けオプションを有効にできない場合は、お使いの端末の手順をインターネットで検索してください。</string>
     <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">開発者向けオプションが必要</string>
     <string name="device_backup_local" comment="Label for local device storage backup file">デバイスバックアップ (ローカル)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">デバイスが接続されました！</string>

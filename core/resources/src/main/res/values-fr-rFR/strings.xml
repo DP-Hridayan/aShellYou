@@ -522,7 +522,7 @@
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">Développeur principal</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">Le moins utilisé</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">Niveau</string>
-    <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">Libraries &amp; Licenses</string>
+    <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">Bibliothèques &amp; licences</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d bibliothèques détectées</string>
     <string name="license" comment="Card label for software license type">Licence</string>
     <string name="license_label" comment="Header label for software license info">Licence</string>

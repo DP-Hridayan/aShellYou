@@ -28,7 +28,7 @@
     <string name="add_command" comment="Button label to create and save a new command snippet to database">कमांड जोड़ें</string>
     <string name="add_new_item" comment="Generic button label to add a new list entry">नया आइटम जोड़ें</string>
     <string name="additional_settings" comment="Category header in app settings">अतिरिक्त सेटिंग्स</string>
-    <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Agent skills</string>
+    <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">एजेंट स्किल्स</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">कैशे अवधि</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">कैशे सक्षम करें</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">अनुमति दें</string>
@@ -197,7 +197,7 @@
     <string name="command" comment="Label/header for an ADB command snippet">कमांड</string>
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">कमांड विश्लेषण</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">कमांड कंसोल</string>
-    <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">Command Execution</string>
+    <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">कमांड निष्पादन</string>
     <string name="command_logs" comment="Tab header for history log of executed fastboot commands">कमांड लॉग</string>
     <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">सभी निष्पादित फ़ास्टबूट कमांड का इतिहास।</string>
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">कमांड नहीं मिला!</string>
@@ -246,7 +246,7 @@
     <string name="daily" comment="Option in backup scheduler frequency selection">दैनिक</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">डार्क थीम</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">डैशबोर्ड</string>
-    <string name="database_modification" comment="Title for the database skill toggle in AI settings">Database Modification</string>
+    <string name="database_modification" comment="Title for the database skill toggle in AI settings">डेटाबेस संशोधन</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">केवल डेटाबेस</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">डिफ़ॉल्ट फ़ोल्डर</string>
     <string name="default_language" comment="Setting preference label for selecting application language">डिफ़ॉल्ट भाषा</string>
@@ -278,15 +278,15 @@
     <string name="des_behavior" comment="Description under Behavior item in settings menu">ऐप के कुछ व्यवहार बदलें</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">एप्लिकेशन में किए गए सभी परिवर्तनों का इतिहास</string>
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">आइकन संग्रह से कोई आइकन चुनने के लिए यहां क्लिक करें</string>
-    <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">Delete all cached AI analysis responses</string>
+    <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">सभी कैश किए गए AI विश्लेषण रिस्पॉन्स हटाएं</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">शेल आउटपुट साफ़ करने से पहले पुष्टि मांगें</string>
     <string name="des_cloud_models" comment="Description under Cloud models setting item">क्लाउड मॉडल के लिए API कुंजियाँ प्रबंधित करें</string>
-    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Allow the AI agent to execute ADB shell commands</string>
+    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">AI एजेंट को ADB शेल कमांड निष्पादित करने की अनुमति दें</string>
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">शेल आउटपुट को सहेजने के लिए एक निर्देशिका चुनें</string>
     <string name="des_contributors" comment="Description under Contributors item in About section">aShell You के विकास में मदद करने वाले योगदानकर्ताओं की सूची</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">ऐप में हुई सभी क्रैश देखें</string>
-    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Allow the AI agent to add, modify, or delete database items</string>
-    <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">Choose when the app uses its dark colour scheme</string>
+    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">AI एजेंट को डेटाबेस आइटम जोड़ने, संशोधित करने या हटाने की अनुमति दें</string>
+    <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">चुनें कि ऐप कब अपने डार्क कलर स्कीम का उपयोग करे</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">ऐप के लिए डिफ़ॉल्ट भाषा चुनें</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">जब आप बाहरी कीबोर्ड का उपयोग करना चाहते हैं तो उपयोगी होता है</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">अपने Google ड्राइव पर एन्क्रिप्टेड बैकअप अपलोड करें।\nयह क्रिया किसी भी मौजूदा क्लाउड बैकअप को ओवरराइड कर देगी।</string>
@@ -304,7 +304,7 @@
     <string name="des_high_contrast_dark_mode" comment="Description under High contrast dark mode setting item">OLED डिस्प्ले वाले डिवाइस के लिए गहरी काली डार्क थीम</string>
     <string name="des_hridayan" comment="Developer bio subtitle in About section">बस एक लड़का जिसे ऐप्स और डिज़ाइन पसंद है</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">त्वरित सेटिंग पैनल में दिखाए जाने पर टाइल की निश्चित दृश्य अवस्था</string>
-    <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">View details of the libraries and licenses used by the app</string>
+    <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">ऐप द्वारा उपयोग की जाने वाली लाइब्रेरीज़ और लाइसेंस का विवरण देखें</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">ऐप और लाइब्रेरीज़ द्वारा उपयोग किए जाने वाले लाइसेंस देखें</string>
     <string name="des_local_backup" comment="Description card text for local backup option">अपने डिवाइस पर एन्क्रिप्टेड बैकअप सहेजें</string>
     <string name="des_local_restore" comment="Description card text for local restore option">अपने डिवाइस से कोई बैकअप फ़ाइल चुनें</string>
@@ -312,13 +312,13 @@
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">गतिशील रंग, डार्क थीम, भाषा</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">कोई मॉडल चयनित नहीं</string>
     <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">यदि बड़ी संख्या में बुकमार्क जोड़े जाएंगे तो यह धीमा कर सकता है! लो एंड उपकरणों को इस विकल्प को अक्षम रखना चाहिए</string>
-    <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Allow the AI agent to query installed packages and application data</string>
+    <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">AI एजेंट को इंस्टॉल किए गए पैकेज और एप्लिकेशन डेटा की जानकारी प्राप्त करने की अनुमति दें</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">दूसरा लक्ष्य डिवाइस पेयर करें</string>
-    <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">Choose how colours are derived from the theme seed</string>
-    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">How aShell You handles your data</string>
-    <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">We have updated our Privacy Policy. Please take a moment to review the changes.</string>
+    <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">चुनें कि थीम सीड से रंग कैसे तैयार किए जाएं</string>
+    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">aShell You आपके डेटा को कैसे प्रबंधित करता है</string>
+    <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">हमने अपनी गोपनीयता नीति को अपडेट किया है। कृपया परिवर्तनों की समीक्षा करने के लिए कुछ समय निकालें।</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">ADB कमांड निष्पादित करने के लिए त्वरित सेटिंग टाइलें बनाएं</string>
-    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Allow the AI agent to create, modify, and delete Quick Settings tiles</string>
+    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">AI एजेंट को क्विक सेटिंग्स टाइल्स बनाने, संशोधित करने और हटाने की अनुमति दें</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">ऐप उपयोग करते समय आई किसी भी समस्या या बग की रिपोर्ट करें</string>
     <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">ऐप सेटिंग्स को डिफ़ॉल्ट मानों पर रीसेट करें</string>
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">सहेजी गई बैकअप फ़ाइल से ऐप डेटा रिस्टोर करें।\nसहेजा डेटाबेस वर्तमान डेटाबेस को ओवरराइड करेगा</string>
@@ -331,15 +331,15 @@
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">सक्षम होने पर, टाइल प्रत्येक टैप पर चालू और बंद अवस्थाओं के बीच स्विच करती है, प्रत्येक अवस्था के लिए एक अलग कमांड चलाती है</string>
     <string name="des_translators" comment="Subtitle description under Translators list in About section">aShell You का अनुवाद करने में मदद करने वाले लोग</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">UI तत्वों और फ़ॉन्ट आकार का स्केल समायोजित करें</string>
-    <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">Choose which releases the app checks for</string>
+    <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">चुनें कि ऐप किन रिलीज़ के लिए जांच करे</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">सावधानी से आगे बढ़ें क्योंकि गलत इमेज से बूटलूप हो सकता है</string>
     <string name="description">विवरण</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">सभी अचयनित करें</string>
     <string name="developer" comment="Section title in About screen for lead developer info">डेवलपर</string>
     <string name="developer_options" comment="System Developer Options setting item or prompt">डेवलपर विकल्प</string>
     <string name="developer_options_not_available" comment="Toast error message when Developer options shortcut cannot be opened">डेवलपर विकल्प उपलब्ध नहीं हैं!</string>
-    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">Enable Developer Options first by tapping Build Number 7 times in Settings → About Phone\nIf this method to turn on Developer options does not work, then you can search the instructions for your device on the internet.</string>
-    <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">Developer Options Required</string>
+    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">Settings → About Phone में बिल्ड नंबर पर 7 बार टैप करके पहले डेवलपर विकल्प सक्षम करें\nयदि डेवलपर विकल्प चालू करने का यह तरीका काम नहीं करता है, तो आप इंटरनेट पर अपने डिवाइस के लिए निर्देश खोज सकते हैं।</string>
+    <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">डेवलपर विकल्प आवश्यक हैं</string>
     <string name="device_backup_local" comment="Label for local device storage backup file">डिवाइस बैकअप (स्थानीय)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">डिवाइस कनेक्ट है!</string>
     <string name="device_disconnected" comment="Notification title when ADB connection drops">डिवाइस डिस्कनेक्ट</string>
@@ -522,7 +522,7 @@
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">मुख्य डेवलपर</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">सबसे कम इस्तेमाल किया गया</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">स्तर</string>
-    <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">Libraries &amp; Licenses</string>
+    <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">लाइब्रेरीज़ &amp; लाइसेंस</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d लाइब्रेरीज़ मिलीं</string>
     <string name="license" comment="Card label for software license type">लाइसेंस</string>
     <string name="license_label" comment="Header label for software license info">लाइसेंस</string>
@@ -647,7 +647,7 @@
     <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">आउटपुट यहाँ दिखाई देगा…</string>
     <string name="override_bookmarks_limit" comment="Setting toggle title to remove the maximum limit on saved bookmarks count">पसंदीदा की अधिकतम सीमा को अधिलेखित करें</string>
     <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">पैकेज का नाम</string>
-    <string name="packages" comment="Title for the packages skill toggle in AI settings">Packages</string>
+    <string name="packages" comment="Title for the packages skill toggle in AI settings">पैकेज</string>
     <string name="pair" comment="Button/action label to initiate ADB wireless or OTG pairing with another device">जोड़ें</string>
     <string name="pair_a_device_first" comment="Instructional notice directing user to pair an ADB device before attempting connection">पहले एक डिवाइस पेयर करें</string>
     <string name="pair_another_device" comment="Button label in Wireless Debugging setup to pair an additional target device">दूसरा डिवाइस पेयर करें</string>
@@ -691,15 +691,15 @@
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">पूर्वावलोकन</string>
     <string name="primary">प्राइमरी</string>
     <string name="primary_container">प्राइमरी कंटेनर</string>
-    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Privacy Policy</string>
-    <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">Privacy Policy Updated</string>
+    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">गोपनीयता नीति</string>
+    <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">गोपनीयता नीति अपडेट की गई</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">उत्पाद</string>
     <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">अपने रिकवरी मेनू के माध्यम से डिवाइस को साइडलोड मोड में रखें</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">QR पेयर</string>
     <string name="qr_pair_hint" comment="Instructional text in QR pairing screen instructing user to scan QR code from target device">Android 11+ डिवाइस पेयर करने के लिए, लक्ष्य डिवाइस से इस QR को स्कैन करें</string>
     <string name="qr_scanner_location_hint" comment="Instructional hint directing user where to find system QR scanner in target device Developer Options">QR स्कैनर यहां उपलब्ध है:\nडेवलपर विकल्प &gt; वायरलेस डिबगिंग &gt; QR कोड से पेयर करें</string>
     <string name="qs_tiles" comment="Refers to Android System Quick Settings tiles configured for custom ADB scripts">सेटिंग्स रीसेट विफल</string>
-    <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">Quick Settings Tiles</string>
+    <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">क्विक सेटिंग्स टाइल्स</string>
     <string name="quick_tools" comment="Section header for fast access utility tools">त्वरित टूल्स</string>
     <string name="reading_file" comment="Progress status text while loading file contents into viewer">फ़ाइल पढ़ी जा रही है…</string>
     <string name="ready_to_paste" comment="Status message in file manager when item is stored in paste clipboard">पेस्ट करने के लिए तैयार</string>
@@ -811,9 +811,9 @@
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">अंतिम कमांड का आउटपुट \'%s\' में निर्यात हुआ</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">शेल आउटपुट \'%s\' में निर्यात हुआ</string>
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">Shizuku इंस्टॉल नहीं है</string>
-    <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">Shizuku service is unavailable. Make sure Shizuku or Shizuku+ is running and permission is granted.</string>
+    <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">Shizuku सेवा अनुपलब्ध है। सुनिश्चित करें कि Shizuku या Shizuku+ चल रहा है और अनुमति दी गई है।</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku अनुपलब्ध</string>
-    <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">Shizuku or Shizuku+ is not installed or properly configured on your device</string>
+    <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">आपके डिवाइस पर Shizuku या Shizuku+ इंस्टॉल नहीं है या ठीक से कॉन्फ़िगर नहीं किया गया है</string>
     <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">रिकवरी के माध्यम से डिवाइस को साइडलोड मोड में रखें</string>
     <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">साइडलोड मोड — तैयार</string>
     <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">रिकवरी में बूट करें (वॉल्यूम डाउन + पावर दबाए रखें, या चलाएँ: adb reboot recovery)</string>
@@ -858,14 +858,14 @@
     <string name="tab" comment="Settings option for terminal tab indentation behavior">टैब</string>
     <string name="tag" comment="Field label for custom command category tag/label">टैग</string>
     <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">कोई .zip फ़ाइल ढूँढने के लिए टैप करें</string>
-    <string name="tcpip_connect_failed" comment="Toast shown when TCP connection to 127.0.0.1 on the detected port is refused. %1$d is replaced with the port number.">Connection to port %1$d refused. The ADB daemon may not be listening.</string>
+    <string name="tcpip_connect_failed" comment="Toast shown when TCP connection to 127.0.0.1 on the detected port is refused. %1$d is replaced with the port number.">पोर्ट %1$d से कनेक्शन अस्वीकार कर दिया गया। हो सकता है कि ADB daemon लिसन नहीं कर रहा हो।</string>
     <string name="tcpip_mode" comment="Label for the TCP/IP local shell working mode (loopback port 5555)">TCP/IP</string>
-    <string name="tcpip_not_available_body" comment="Dialog body explaining how to enable TCP ADB when the system property is missing. The adb command should stay untranslated.">Your device does not have TCP ADB enabled. Connect to a PC via USB once and run:\n\nadb tcpip 5555\n\nAfter that, this mode works without USB or Wi-Fi.</string>
-    <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">TCP Mode Not Available</string>
+    <string name="tcpip_not_available_body" comment="Dialog body explaining how to enable TCP ADB when the system property is missing. The adb command should stay untranslated.">आपके डिवाइस पर TCP ADB सक्षम नहीं है। USB के ज़रिए एक बार पीसी से कनेक्ट करें और यह चलाएं:\n\nadb tcpip 5555\n\nइसके बाद, यह मोड USB या Wi-Fi के बिना काम करता है।</string>
+    <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">TCP मोड उपलब्ध नहीं है</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">टर्मिनल</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">टर्मिनल फ़ॉन्ट शैली</string>
     <string name="tertiary">टर्शियरी</string>
-    <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">Theme mode</string>
+    <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">थीम मोड</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">तृतीय-पक्ष लाइब्रेरीज़</string>
     <string name="this_application" comment="Option label for target scope in Logcat Viewer">यह एप्लिकेशन</string>
     <string name="this_device" comment="Selection option for target ADB device matching host phone">यह डिवाइस</string>
@@ -903,8 +903,8 @@
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">फ़ाइल अपलोड करें</string>
     <string name="uploading" comment="Progress status text shown while uploading file to device">अपलोड हो रहा है…</string>
     <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Google ड्राइव पर बैकअप अपलोड हो रहा है…</string>
-    <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB requires USB debugging to be enabled in Developer Options</string>
-    <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">USB Debugging Required</string>
+    <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB के लिए डेवलपर विकल्प में USB डीबगिंग सक्षम होना आवश्यक है</string>
+    <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">USB डीबगिंग आवश्यक है</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">इस डिवाइस पर USB मैनेजर उपलब्ध नहीं है</string>
     <string name="use">उपयोग करें</string>
     <string name="utilities" comment="Category title in homescreen">यूटिलिटीज</string>
