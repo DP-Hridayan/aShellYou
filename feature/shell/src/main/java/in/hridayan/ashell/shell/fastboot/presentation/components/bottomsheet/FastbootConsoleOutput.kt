@@ -37,8 +37,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
+import `in`.hridayan.ashell.core.common.settings.LocalSettings
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.lazyselectioncontainer.LazySelectionContainer
+import `in`.hridayan.lazyselectioncontainer.LazySelectionDefaults
 import `in`.hridayan.lazyselectioncontainer.lazySelectionItem
 import `in`.hridayan.lazyselectioncontainer.rememberLazySelectionState
 import `in`.hridayan.lazyselectioncontainer.rememberLazySelectionTextLayout
@@ -58,6 +61,8 @@ fun FastbootConsoleOutput(
     }
     val listState = rememberLazyListState()
     val selectionState = rememberLazySelectionState()
+
+    val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
 
     LaunchedEffect(lines.size) {
         if (lines.isNotEmpty()) listState.animateScrollToItem(lines.size - 1)
@@ -126,7 +131,7 @@ fun FastbootConsoleOutput(
                     listState = listState,
                     items = lines,
                     itemToText = { it },
-                    onCopy = {},
+                    haptics = LazySelectionDefaults.haptics(enabled = hapticsEnabled)
                 ) {
                     LazyColumn(
                         state = listState,

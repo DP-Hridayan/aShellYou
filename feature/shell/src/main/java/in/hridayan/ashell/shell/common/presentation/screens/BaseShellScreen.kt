@@ -113,7 +113,6 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.FeatureConfig
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalDialogManager
-import `in`.hridayan.ashell.core.common.LocalSnackBarController
 import `in`.hridayan.ashell.core.common.domain.model.OutputLine
 import `in`.hridayan.ashell.core.common.domain.model.TerminalFontStyle
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
@@ -158,6 +157,7 @@ import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
 import `in`.hridayan.ashell.shell.domain.model.SaveProgress
 import `in`.hridayan.ashell.shell.domain.model.ScrollDirection
 import `in`.hridayan.lazyselectioncontainer.LazySelectionContainer
+import `in`.hridayan.lazyselectioncontainer.LazySelectionDefaults
 import `in`.hridayan.lazyselectioncontainer.lazySelectionItem
 import `in`.hridayan.lazyselectioncontainer.rememberLazySelectionState
 import `in`.hridayan.lazyselectioncontainer.rememberLazySelectionTextLayout
@@ -186,7 +186,6 @@ fun BaseShellScreen(
     val dialogManager = LocalDialogManager.current
     val settings = LocalSettings.current
     val coroutineScope = rememberCoroutineScope()
-    val snackBarController = LocalSnackBarController.current
     val listState = rememberLazyListState()
     val scrollDirection = rememberScrollDirection(listState)
     val states by shellViewModel.states.collectAsState()
@@ -879,6 +878,7 @@ private fun OutputCard(
     val res = LocalResources.current
     val isDarkMode = LocalDarkMode.current
     val terminalFontStyle = LocalSettings.current[SettingsKeys.TerminalFontStyle]
+    val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
 
     val commandTextStyle =
         if (terminalFontStyle == TerminalFontStyle.MONOSPACE) {
@@ -1094,6 +1094,7 @@ private fun OutputCard(
 
                                 showToast(context, toastMessage)
                             },
+                            haptics = LazySelectionDefaults.haptics(enabled = hapticsEnabled)
                         ) {
                             LazyColumn(
                                 state = listState,
