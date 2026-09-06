@@ -7,19 +7,19 @@ sealed class
 
 NavRoutes {
     @Serializable
-    data class AboutScreen(val highlightKey: String? = null) : NavRoutes()
+    object AboutScreen : NavRoutes()
 
     @Serializable
-    data class AutoUpdateScreen(val highlightKey: String? = null) : NavRoutes()
+    object AutoUpdateScreen : NavRoutes()
 
     @Serializable
-    data class BackupAndRestoreScreen(val highlightKey: String? = null) : NavRoutes()
+    object BackupAndRestoreScreen : NavRoutes()
 
     @Serializable
-    data class BackupSchedulerScreen(val highlightKey: String? = null) : NavRoutes()
+    object BackupSchedulerScreen : NavRoutes()
 
     @Serializable
-    data class BehaviorScreen(val highlightKey: String? = null) : NavRoutes()
+    object BehaviorScreen : NavRoutes()
 
     @Serializable
     object TranslatorsScreen : NavRoutes()
@@ -52,7 +52,7 @@ NavRoutes {
     object CrashDetailsScreen : NavRoutes()
 
     @Serializable
-    data class DarkThemeScreen(val highlightKey: String? = null) : NavRoutes()
+    object DarkThemeScreen : NavRoutes()
 
     @Serializable
     object UiScaleScreen : NavRoutes()
@@ -64,7 +64,7 @@ NavRoutes {
     object LocalAdbScreen : NavRoutes()
 
     @Serializable
-    data class LookAndFeelScreen(val highlightKey: String? = null) : NavRoutes()
+    object LookAndFeelScreen : NavRoutes()
 
     @Serializable
     object OnboardingScreen : NavRoutes()
@@ -85,7 +85,7 @@ NavRoutes {
     object PairingOwnDeviceScreen : NavRoutes()
 
     @Serializable
-    data class SettingsScreen(val highlightKey: String? = null) : NavRoutes()
+    object SettingsScreen : NavRoutes()
 
     @Serializable
     data class WifiAdbScreen(val deviceName: String? = null) : NavRoutes()
@@ -107,7 +107,7 @@ NavRoutes {
     object LogcatScreen : NavRoutes()
 
     @Serializable
-    data class AiModelsScreen(val highlightKey: String? = null) : NavRoutes()
+    object AiModelsScreen : NavRoutes()
 
     @Serializable
     object CloudModelsScreen : NavRoutes()

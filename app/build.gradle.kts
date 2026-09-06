@@ -205,6 +205,7 @@ configurations.all {
 
 dependencies {
     implementation(project(":libadb"))
+    implementation(libs.datastore.preferences)
     implementation(project(":adblib"))
     implementation(project(":settings-dsl"))
     implementation(project(":fastbootlib"))

@@ -1,1327 +1,343 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
-    <ManuallySuppressedIssues></ManuallySuppressedIssues>
-    <CurrentIssues>
-        <ID>ArgumentListWrapping:AboutScreen.kt$( groups = resolvedGroups, viewModel =
-            settingsViewModel, prefs = prefs, hapticsEnabled = hapticsEnabled )
-        </ID>
-        <ID>ArgumentListWrapping:AboutScreen.kt$( icon = painterResource(R.drawable.ic_crowdin),
-            title = stringResource(R.string.crowdin), description =
-            stringResource(R.string.translations), containerColor =
-            MaterialTheme.colorScheme.surfaceVariant, contentColor =
-            MaterialTheme.colorScheme.onSurfaceVariant, onClick = {
-            openUrl(UrlConst.URL_CROWDIN_PROJECT, context) })
-        </ID>
-        <ID>ArgumentListWrapping:AboutScreen.kt$( icon = painterResource(R.drawable.ic_github),
-            title = stringResource(R.string.github), description =
-            stringResource(R.string.repository), containerColor =
-            MaterialTheme.colorScheme.tertiaryContainer, contentColor =
-            MaterialTheme.colorScheme.onTertiaryContainer, onClick = {
-            openUrl(UrlConst.URL_GITHUB_REPO, context) })
-        </ID>
-        <ID>ArgumentListWrapping:AboutScreen.kt$( icon = painterResource(R.drawable.ic_license),
-            title = stringResource(R.string.gpl_3_0), description =
-            stringResource(R.string.license), containerColor =
-            MaterialTheme.colorScheme.errorContainer, contentColor =
-            MaterialTheme.colorScheme.onErrorContainer, onClick = {
-            openUrl(UrlConst.URL_GITHUB_REPO_LICENSE, context) })
-        </ID>
-        <ID>ArgumentListWrapping:AboutScreen.kt$( icon = painterResource(R.drawable.ic_telegram),
-            title = stringResource(R.string.telegram), description =
-            stringResource(R.string.discussions), onClick = { openUrl(UrlConst.URL_TELEGRAM_CHANNEL,
-            context) })
-        </ID>
-        <ID>ArgumentListWrapping:AboutScreen.kt$( icon = painterResource(R.drawable.ic_version_tag),
-            title = context.packageManager.getPackageInfo( context.packageName, 0 ).versionName ?:
-            "", description = stringResource(R.string.current_version), containerColor =
-            MaterialTheme.colorScheme.secondaryContainer, contentColor =
-            MaterialTheme.colorScheme.onSecondaryContainer, onClick = {
-            openUrl(UrlConst.URL_GITHUB_RELEASES, context) })
-        </ID>
-        <ID>ArgumentListWrapping:AutoUpdateScreen.kt$( groups = resolvedGroups, viewModel =
-            settingsViewModel, prefs = prefs, hapticsEnabled = hapticsEnabled )
-        </ID>
-        <ID>ArgumentListWrapping:BackupAndRestoreScreen.kt$( R.drawable.ic_cloud_done)</ID>
-        <ID>ArgumentListWrapping:BackupAndRestoreScreen.kt$( arrayOf("application/octet-stream"))
-        </ID>
-        <ID>ArgumentListWrapping:BackupAndRestoreScreen.kt$(R.drawable.ic_cloud_done)</ID>
-        <ID>ArgumentListWrapping:BackupAndRestoreScreen.kt$(arrayOf("application/octet-stream"))
-        </ID>
-        <ID>ArgumentListWrapping:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel$(
-            R.string.backup_successful)
-        </ID>
-        <ID>ArgumentListWrapping:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel$(
-            R.string.restore_successful)
-        </ID>
-        <ID>
-            ArgumentListWrapping:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel$(R.string.backup_successful)
-        </ID>
-        <ID>
-            ArgumentListWrapping:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel$(R.string.restore_successful)
-        </ID>
-        <ID>ArgumentListWrapping:BehaviorScreen.kt$( groups = resolvedGroups, viewModel =
-            settingsViewModel, prefs = prefs, hapticsEnabled = hapticsEnabled )
-        </ID>
-        <ID>ArgumentListWrapping:ChangelogScreen.kt$( onNavigateBack = {
-            navController.navigateBack() }, modifier = modifier, scrollState = scrollState,
-            topBarTitle = stringResource(R.string.changelogs), content = { innerPadding,
-            topBarScrollBehavior -&gt; Box(modifier = Modifier.fillMaxSize()) { Column( modifier =
-            Modifier .fillMaxWidth() .nestedScroll(topBarScrollBehavior.nestedScrollConnection)
-            .verticalScroll(scrollState), ) { Spacer( modifier = Modifier .fillMaxWidth()
-            .height(innerPadding.calculateTopPadding() + 25.dp) ) // Only render the items that are
-            currently "loaded" processedChangelogs.take(visibleItemsCount) .forEach { (item,
-            isLatestVersion, textLines) -&gt; val cardColors = CardDefaults.cardColors(
-            containerColor = if (isLatestVersion) MaterialTheme.colorScheme.tertiaryContainer else
-            MaterialTheme.colorScheme.surfaceContainer, contentColor = if (isLatestVersion)
-            MaterialTheme.colorScheme.onTertiaryContainer else MaterialTheme.colorScheme.onSurface )
-            CustomCard( modifier = Modifier .fillMaxWidth() .padding(horizontal = 15.dp),
-            pressedScale = 1f, shape = CardCornerShape.FIRST_CARD, colors = cardColors ) {
-            AutoResizeableText( modifier = Modifier .fillMaxWidth() .padding(15.dp), text =
-            stringResource(R.string.version) + "\t\t${item.versionName}", style = if
-            (isLatestVersion) MaterialTheme.typography.headlineMedium else
-            MaterialTheme.typography.headlineSmall, color = if (isLatestVersion)
-            MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onSurface, fontWeight
-            = FontWeight.Bold ) } Spacer( modifier = Modifier .fillMaxWidth() .height(2.dp) )
-            CustomCard( modifier = Modifier .fillMaxWidth() .padding(horizontal = 15.dp),
-            pressedScale = 1f, shape = CardCornerShape.LAST_CARD, colors = cardColors ) {
-            BulletPointsTextLayout( modifier = Modifier .fillMaxWidth() .padding(15.dp), textLines =
-            textLines, textColor = if (isLatestVersion)
-            MaterialTheme.colorScheme.onTertiaryContainer else MaterialTheme.colorScheme.onSurface,
-            bulletColor = if (isLatestVersion) MaterialTheme.colorScheme.tertiary else
-            MaterialTheme.colorScheme.primary ) } Spacer( modifier = Modifier .fillMaxWidth()
-            .height(20.dp) ) } Spacer( modifier = Modifier .fillMaxWidth()
-            .height(innerPadding.calculateBottomPadding() + 25.dp) ) } DraggableScrollThumb(
-            scrollState = scrollState, thumbSize = 42, modifier = Modifier
-            .align(Alignment.CenterEnd) .padding(innerPadding) .padding(end = 15.dp) ) } })
-        </ID>
-        <ID>ArgumentListWrapping:ColorPickerBottomSheet.kt$( Color.Red, Color.Yellow, Color.Green,
-            Color.Cyan, Color.Blue, Color.Magenta, Color.Red )
-        </ID>
-        <ID>ArgumentListWrapping:ContributorsScreen.kt$( onNavigateBack = {
-            navController.navigateBack() }, modifier = modifier, listState = listState, topBarTitle
-            = stringResource(R.string.contributors), content = { innerPadding, topBarScrollBehavior
-            -&gt; LazyColumn( modifier = Modifier .fillMaxWidth()
-            .nestedScroll(topBarScrollBehavior.nestedScrollConnection), contentPadding =
-            innerPadding ) { item { AutoResizeableText( text = stringResource(R.string.github),
-            style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier .padding(start = 20.dp, end = 20.dp, top = 20.dp, bottom = 10.dp)
-            .animateItem() ) } itemsIndexed(contributors) { index, contributor -&gt; val shape =
-            CardCornerShape.getRoundedShape(index = index, size = contributors.size)
-            GitHubContributorCard( modifier = Modifier .fillMaxWidth() .padding(horizontal = 15.dp),
-            contributor = contributor, shape = shape, onClick = { UrlUtils.openUrl( url =
-            "https://github.com/${contributor.username}", context = context ) } ) Spacer( modifier =
-            Modifier .fillMaxWidth() .height(2.dp) ) } item { Spacer( modifier = Modifier
-            .fillMaxWidth() .height(25.dp) ) } } })
-        </ID>
-        <ID>ArgumentListWrapping:CrowdinContributeCard.kt$( icon =
-            painterResource(R.drawable.ic_crowdin), text = stringResource(R.string.crowdin), colors
-            = ButtonDefaults.buttonColors( containerColor = MaterialTheme.colorScheme.tertiary,
-            contentColor = MaterialTheme.colorScheme.onTertiary ), onClick = withHaptic {
-            UrlUtils.openUrl( context = context, url = UrlConst.URL_CROWDIN_PROJECT ) })
-        </ID>
-        <ID>ArgumentListWrapping:DarkThemeScreen.kt$( groups = resolvedGroups, viewModel =
-            settingsViewModel, prefs = prefs, hapticsEnabled = hapticsEnabled )
-        </ID>
-        <ID>ArgumentListWrapping:FontStyleBottomSheet.kt$( if (isSelected)
-            HapticFeedbackType.ToggleOn else HapticFeedbackType.ToggleOff)
-        </ID>
-        <ID>ArgumentListWrapping:FontStyleBottomSheet.kt$(if (isSelected)
-            HapticFeedbackType.ToggleOn else HapticFeedbackType.ToggleOff)
-        </ID>
-        <ID>ArgumentListWrapping:LanguagesViewModel.kt$LanguagesViewModel.Companion$(
-            "_generated_res_locale_config", "xml", context.packageName )
-        </ID>
-        <ID>ArgumentListWrapping:LanguagesViewModel.kt$LanguagesViewModel.Companion$(
-            "http://schemas.android.com/apk/res/android", "name" )
-        </ID>
-        <ID>ArgumentListWrapping:SettingsScreen.kt$( groups = resolvedGroups, viewModel = viewModel,
-            prefs = prefs, hapticsEnabled = hapticsEnabled )
-        </ID>
-        <ID>ArgumentListWrapping:SettingsScreen.kt$( initialValue = 0f, targetValue = 360f,
-            animationSpec = infiniteRepeatable( animation = tween(10000, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart ), label = "bigGear", )
-        </ID>
-        <ID>ArgumentListWrapping:SettingsScreen.kt$( initialValue = 0f, targetValue = 360f,
-            animationSpec = infiniteRepeatable( animation = tween(3500, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart ), label = "smallGear", )
-        </ID>
-        <ID>ArgumentListWrapping:SettingsScreen.kt$( initialValue = 0f, targetValue = 360f,
-            animationSpec = infiniteRepeatable( animation = tween(5000, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart ), label = "mediumGear", )
-        </ID>
-        <ID>ArgumentListWrapping:SettingsScreen.kt$( scrolledContainerColor =
-            MaterialTheme.colorScheme.surfaceContainerHigh)
-        </ID>
-        <ID>ArgumentListWrapping:SettingsScreen.kt$(scrolledContainerColor =
-            MaterialTheme.colorScheme.surfaceContainerHigh)
-        </ID>
-        <ID>ArgumentListWrapping:SettingsSearchScreen.kt$( entries, key = {
-            "result_${it.screenId}_${it.key.name}" })
-        </ID>
-        <ID>ArgumentListWrapping:SettingsSearchScreen.kt$( recentEntries, key = {
-            "recent_${it.screenId}_${it.key.name}" })
-        </ID>
-        <ID>ArgumentListWrapping:SettingsSearchScreen.kt$( start = 20.dp, end = 20.dp, top = 16.dp,
-            bottom = 4.dp, )
-        </ID>
-        <ID>ArgumentListWrapping:UiScaleScreen.kt$( shapes = IconButtonDefaults.shapes(), colors =
-            IconButtonDefaults.iconButtonColors( containerColor =
-            MaterialTheme.colorScheme.surfaceContainerLow ), onClick = { if (enableHaptics)
-            haptic.performHapticFeedback( HapticFeedbackType.VirtualKey ) onValueReset() })
-        </ID>
-        <ID>ArgumentListWrapping:UndrawThemePicker.kt$( "M111.501,202.949c-0.013,-0.945
-            -0.005,-9.191 6.1,-14.403 7.012,-5.987 16.907,-3.564 20.378,-2.714 8.017,1.963
-            8.674,5.402 16.203,8.936 14.085,6.611 -3.563,3.227 4.818,1.107 2.901,-0.734
-            44.638,-3.628 55.027,-10.023 20.206,-12.436 33.973,-19.977
-            33.973,-19.977l9,18s-13.014,18.096 -31.33,31.501c-18.788,13.751 -28.182,20.627
-            -42.459,23.283 -1.229,0.229 -31.466,5.391 -55.819,-12.803 -5.555,-4.15 -15.733,-11.754
-            -15.891,-22.909Z")
-        </ID>
-        <ID>ArgumentListWrapping:UndrawThemePicker.kt$( "M166.208,211.497c-1.335,-2.251 -7.109,0.159
-            -8.171,-1.883 -1.058,-2.035 4.307,-5.136 7.372,-12.22 0.553,-1.278 4.036,-9.328
-            1.457,-11.812 -4.888,-4.709 -27.255,14.723 -35.082,8.364 -1.718,-1.395 -2.918,-4.181
-            -8.117,-8.704 -2.068,-1.799 -3.319,-2.612 -4.529,-2.309 -1.717,0.429 -1.854,2.727
-            -3.695,7.247 -2.762,6.778 -4.395,6.369 -6.005,11.776 -1.195,4.014 -0.922,6.348
-            -2.327,6.803 -1.989,0.643 -3.82,-3.615 -6.341,-3.233 -2.572,0.389 -4.128,5.347
-            -4.619,9.059 -0.922,6.966 1.636,11.562 3.054,16.395 1.541,5.252 2.455,13.24
-            -1.103,24.548l-35.219,99.229c7.775,-20.362 30.288,-76.178 39.748,-96.92 2.731,-5.988
-            5.746,-12.061 11.938,-14.458 5.961,-2.308 14.147,-0.93 24.584,-3.444 1.219,-0.294
-            4.601,-1.154 5.027,-3.144 0.352,-1.645 -1.638,-2.563 -1.332,-4.103 0.41,-2.066
-            4.322,-2.092 9.13,-4.476 3.39,-1.681 5.502,-3.68 7.319,-5.399 0.548,-0.518 8.687,-8.318
-            6.911,-11.314h-0Z")
-        </ID>
-        <ID>ArgumentListWrapping:UndrawThemePicker.kt$( "M27.647,263.736c-1.49,0.006 -1.973,3.535
-            -3.282,3.467 -1.304,-0.068 -1.278,-3.596 -3.871,-7.144 -0.468,-0.64 -3.414,-4.672
-            -5.377,-4.123 -3.721,1.04 -0.638,17.625 -6.017,19.632 -1.181,0.44 -2.894,0.226
-            -6.614,1.472 -1.48,0.496 -2.24,0.875 -2.44,1.557 -0.285,0.967 0.804,1.697 2.491,3.905
-            2.53,3.311 1.858,3.995 4.047,6.345 1.626,1.745 2.85,2.284 2.667,3.105 -0.258,1.162
-            -2.876,0.832 -3.417,2.179 -0.551,1.375 1.433,3.569 3.113,4.881 3.153,2.462 6.147,2.533
-            8.928,3.232 3.022,0.759 7.207,2.615 11.73,7.624l38.541,45.916c-7.75,-9.691
-            -28.65,-36.845 -36.1,-47.473 -2.151,-3.068 -4.262,-6.3 -3.652,-10.031 0.587,-3.592
-            3.626,-7.212 5.403,-13.06 0.208,-0.683 0.761,-2.591 -0.092,-3.374 -0.706,-0.647
-            -1.73,0.064 -2.398,-0.53 -0.896,-0.797 0.221,-2.725 0.438,-5.773 0.153,-2.149
-            -0.219,-3.762 -0.538,-5.15 -0.096,-0.418 -1.576,-6.664 -3.559,-6.656v0Z")
-        </ID>
-        <ID>ArgumentListWrapping:UndrawThemePicker.kt$( "M333.833,181.328m-25.133,0a25.133,25.133
-            0,1 1,50.266 0a25.133,25.133 0,1 1,-50.266 0")
-        </ID>
-        <ID>ArgumentListWrapping:UndrawThemePicker.kt$( "M356.638,191.893m-25.133,0a25.133,25.133
-            0,1 1,50.266 0a25.133,25.133 0,1 1,-50.266 0")
-        </ID>
-        <ID>ArgumentListWrapping:UndrawThemePicker.kt$( "M382.442,64.876h52c2.206,0 4,1.794 4,4
-            0,2.206 -1.794,4 -4,4h-52c-2.206,0 -4,-1.794 -4,-4 0,-2.206 1.794,-4 4,-4Z")
-        </ID>
-        <ID>ArgumentListWrapping:UndrawThemePicker.kt$( "M407.321,104.9l8.23,3.899c-3.376,-4.711
-            -6.284,-12.068 -7.841,-17.922 -2.637,5.453 -6.887,12.126
-            -11.094,16.112l8.698,-2.238c-5.36,26.268 -25.519,45.126
-            -48.604,45.126l-0.327,0.949c24.113,0 45.466,-18.596 50.938,-45.925Z")
-        </ID>
-        <ID>ArgumentListWrapping:UndrawThemePicker.kt$("M111.501,202.949c-0.013,-0.945 -0.005,-9.191
-            6.1,-14.403 7.012,-5.987 16.907,-3.564 20.378,-2.714 8.017,1.963 8.674,5.402
-            16.203,8.936 14.085,6.611 -3.563,3.227 4.818,1.107 2.901,-0.734 44.638,-3.628
-            55.027,-10.023 20.206,-12.436 33.973,-19.977 33.973,-19.977l9,18s-13.014,18.096
-            -31.33,31.501c-18.788,13.751 -28.182,20.627 -42.459,23.283 -1.229,0.229 -31.466,5.391
-            -55.819,-12.803 -5.555,-4.15 -15.733,-11.754 -15.891,-22.909Z")
-        </ID>
-        <ID>ArgumentListWrapping:UndrawThemePicker.kt$("M166.208,211.497c-1.335,-2.251 -7.109,0.159
-            -8.171,-1.883 -1.058,-2.035 4.307,-5.136 7.372,-12.22 0.553,-1.278 4.036,-9.328
-            1.457,-11.812 -4.888,-4.709 -27.255,14.723 -35.082,8.364 -1.718,-1.395 -2.918,-4.181
-            -8.117,-8.704 -2.068,-1.799 -3.319,-2.612 -4.529,-2.309 -1.717,0.429 -1.854,2.727
-            -3.695,7.247 -2.762,6.778 -4.395,6.369 -6.005,11.776 -1.195,4.014 -0.922,6.348
-            -2.327,6.803 -1.989,0.643 -3.82,-3.615 -6.341,-3.233 -2.572,0.389 -4.128,5.347
-            -4.619,9.059 -0.922,6.966 1.636,11.562 3.054,16.395 1.541,5.252 2.455,13.24
-            -1.103,24.548l-35.219,99.229c7.775,-20.362 30.288,-76.178 39.748,-96.92 2.731,-5.988
-            5.746,-12.061 11.938,-14.458 5.961,-2.308 14.147,-0.93 24.584,-3.444 1.219,-0.294
-            4.601,-1.154 5.027,-3.144 0.352,-1.645 -1.638,-2.563 -1.332,-4.103 0.41,-2.066
-            4.322,-2.092 9.13,-4.476 3.39,-1.681 5.502,-3.68 7.319,-5.399 0.548,-0.518 8.687,-8.318
-            6.911,-11.314h-0Z")
-        </ID>
-        <ID>ArgumentListWrapping:UndrawThemePicker.kt$("M27.647,263.736c-1.49,0.006 -1.973,3.535
-            -3.282,3.467 -1.304,-0.068 -1.278,-3.596 -3.871,-7.144 -0.468,-0.64 -3.414,-4.672
-            -5.377,-4.123 -3.721,1.04 -0.638,17.625 -6.017,19.632 -1.181,0.44 -2.894,0.226
-            -6.614,1.472 -1.48,0.496 -2.24,0.875 -2.44,1.557 -0.285,0.967 0.804,1.697 2.491,3.905
-            2.53,3.311 1.858,3.995 4.047,6.345 1.626,1.745 2.85,2.284 2.667,3.105 -0.258,1.162
-            -2.876,0.832 -3.417,2.179 -0.551,1.375 1.433,3.569 3.113,4.881 3.153,2.462 6.147,2.533
-            8.928,3.232 3.022,0.759 7.207,2.615 11.73,7.624l38.541,45.916c-7.75,-9.691
-            -28.65,-36.845 -36.1,-47.473 -2.151,-3.068 -4.262,-6.3 -3.652,-10.031 0.587,-3.592
-            3.626,-7.212 5.403,-13.06 0.208,-0.683 0.761,-2.591 -0.092,-3.374 -0.706,-0.647
-            -1.73,0.064 -2.398,-0.53 -0.896,-0.797 0.221,-2.725 0.438,-5.773 0.153,-2.149
-            -0.219,-3.762 -0.538,-5.15 -0.096,-0.418 -1.576,-6.664 -3.559,-6.656v0Z")
-        </ID>
-        <ID>ArgumentListWrapping:UndrawThemePicker.kt$("M333.833,181.328m-25.133,0a25.133,25.133 0,1
-            1,50.266 0a25.133,25.133 0,1 1,-50.266 0")
-        </ID>
-        <ID>ArgumentListWrapping:UndrawThemePicker.kt$("M356.638,191.893m-25.133,0a25.133,25.133 0,1
-            1,50.266 0a25.133,25.133 0,1 1,-50.266 0")
-        </ID>
-        <ID>ArgumentListWrapping:UndrawThemePicker.kt$("M382.442,64.876h52c2.206,0 4,1.794 4,4
-            0,2.206 -1.794,4 -4,4h-52c-2.206,0 -4,-1.794 -4,-4 0,-2.206 1.794,-4 4,-4Z")
-        </ID>
-        <ID>ArgumentListWrapping:UndrawThemePicker.kt$("M407.321,104.9l8.23,3.899c-3.376,-4.711
-            -6.284,-12.068 -7.841,-17.922 -2.637,5.453 -6.887,12.126
-            -11.094,16.112l8.698,-2.238c-5.36,26.268 -25.519,45.126
-            -48.604,45.126l-0.327,0.949c24.113,0 45.466,-18.596 50.938,-45.925Z")
-        </ID>
-        <ID>CyclomaticComplexMethod:AutoBackupWorker.kt$AutoBackupWorker$override suspend fun
-            doWork(): Result
-        </ID>
-        <ID>CyclomaticComplexMethod:AutoBackupWorker.kt$AutoBackupWorker$private suspend fun
-            performCloudBackup(backupType: BackupType)
-        </ID>
-        <ID>CyclomaticComplexMethod:AutoBackupWorker.kt$AutoBackupWorker$private suspend fun
-            performLocalBackup( folderUri: String, deleteExisting: Boolean, backupType: BackupType,
-            )
-        </ID>
-        <ID>CyclomaticComplexMethod:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$suspend
-            operator fun invoke(prompt: String, fallbackModels: List&lt;String&gt;? = null): Result&lt;ColorSchemePayload&gt;
-        </ID>
-        <ID>CyclomaticComplexMethod:SettingsBackupProvider.kt$SettingsBackupProvider$override
-            suspend fun restoreData(data: JsonElement?, legacyData: (String) -&gt; JsonElement?)
-        </ID>
-        <ID>CyclomaticComplexMethod:SettingsContentExt.kt$@Suppress("UNCHECKED_CAST") fun
-            LazyListScope.settingsContent( groups: List&lt;ResolvedGroup&gt;, viewModel:
-            SettingsViewModel, prefs: Preferences, modifier: Modifier = Modifier,
-            itemPaddingHorizontal: Dp = 15.dp, itemPaddingVertical: Dp = 1.dp, hapticsEnabled:
-            Boolean = true, onItemClick: ((SettingsKey&lt;*&gt;) -&gt; Unit)? = null,
-            onBooleanToggle: ((SettingsKey&lt;*&gt;) -&gt; Unit)? = null, onIntChanged:
-            ((SettingsKey&lt;*&gt;, Int) -&gt; Unit)? = null, customSlotContent: @Composable
-            (CustomSlot) -&gt; Unit = {}, categoryHeader: (@Composable (String) -&gt; Unit)? = null,
-            )
-        </ID>
-        <ID>CyclomaticComplexMethod:SettingsViewModel.kt$SettingsViewModel$fun onItemClicked(key:
-            SettingsKeys&lt;*&gt;)
-        </ID>
-        <ID>CyclomaticComplexMethod:SettingsViewModel.kt$SettingsViewModel$fun rescheduleAutoBackup(
-            enabled: Boolean? = null, hour: Int? = null, minute: Int? = null, frequency: Int? =
-            null, )
-        </ID>
-        <ID>CyclomaticComplexMethod:UpdateBottomSheet.kt$private fun parseChangelog(body: String?):
-            String
-        </ID>
-        <ID>
-            Filename:ContributorRepository.kt$in.hridayan.ashell.settings.domain.repository.ContributorRepository.kt
-        </ID>
-        <ID>
-            Filename:ContributorRepositoryImpl.kt$in.hridayan.ashell.settings.data.repository.ContributorRepositoryImpl.kt
-        </ID>
-        <ID>FinalNewline:ExampleUnitTest.kt$in.hridayan.ashell.settings.ExampleUnitTest.kt</ID>
-        <ID>
-            FinalNewline:GenerateColorSchemeScreen.kt$in.hridayan.ashell.settings.presentation.page.lookandfeel.screens.GenerateColorSchemeScreen.kt
-        </ID>
-        <ID>ImplicitDefaultLocale:ColorPickerBottomSheet.kt$String.format("#%02X%02X%02X", r, g,
-            b)
-        </ID>
-        <ID>ImportOrdering:AboutScreen.kt$import androidx.compose.foundation.Image import
-            androidx.compose.foundation.background import
-            androidx.compose.foundation.layout.Arrangement import
-            androidx.compose.foundation.layout.Box import androidx.compose.foundation.layout.Column
-            import androidx.compose.foundation.layout.FlowRow import
-            androidx.compose.foundation.layout.Row import androidx.compose.foundation.layout.Spacer
-            import androidx.compose.foundation.layout.fillMaxWidth import
-            androidx.compose.foundation.layout.height import
-            androidx.compose.foundation.layout.padding import
-            androidx.compose.foundation.layout.requiredSize import
-            androidx.compose.foundation.layout.size import
-            androidx.compose.foundation.lazy.LazyColumn import
-            androidx.compose.foundation.lazy.rememberLazyListState import
-            androidx.compose.material3.CardDefaults import
-            androidx.compose.material3.ExperimentalMaterial3Api import
-            androidx.compose.material3.ExperimentalMaterial3ExpressiveApi import
-            androidx.compose.material3.Icon import androidx.compose.material3.MaterialShapes import
-            androidx.compose.material3.MaterialTheme import androidx.compose.material3.Text import
-            androidx.compose.material3.rememberTopAppBarState import
-            androidx.compose.material3.toShape import androidx.compose.runtime.Composable import
-            androidx.compose.runtime.LaunchedEffect import androidx.compose.runtime.collectAsState
-            import androidx.compose.runtime.getValue import androidx.compose.runtime.remember import
-            androidx.compose.ui.Alignment import androidx.compose.ui.Modifier import
-            androidx.compose.ui.draw.clip import androidx.compose.ui.graphics.Color import
-            androidx.compose.ui.graphics.graphicsLayer import
-            androidx.compose.ui.graphics.painter.Painter import
-            androidx.compose.ui.hapticfeedback.HapticFeedbackType import
-            androidx.compose.ui.input.nestedscroll.nestedScroll import
-            androidx.compose.ui.layout.ContentScale import androidx.compose.ui.platform.LocalContext
-            import androidx.compose.ui.res.painterResource import
-            androidx.compose.ui.res.stringResource import androidx.compose.ui.text.font.FontStyle
-            import androidx.compose.ui.text.font.FontWeight import androidx.compose.ui.unit.dp
-            import androidx.datastore.preferences.core.emptyPreferences import
-            androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel import
-            `in`.hridayan.ashell.core.common.settings.LocalSettings import
-            `in`.hridayan.ashell.core.common.settings.SettingsKeys import
-            `in`.hridayan.ashell.core.common.constants.UrlConst import
-            `in`.hridayan.ashell.core.navigation.LocalNavController import
-            `in`.hridayan.ashell.core.navigation.navigateBack import
-            `in`.hridayan.ashell.core.presentation.components.animatedcomposables.AnimatedAdbIcon
-            import `in`.hridayan.ashell.core.presentation.components.card.CustomCard import
-            `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic import
-            `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold import
-            `in`.hridayan.ashell.core.presentation.components.shape.SineWaveShape import
-            `in`.hridayan.ashell.core.presentation.components.shape.WaveEdge import
-            `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors import
-            `in`.hridayan.ashell.core.presentation.components.svg.vectors.appBranding import
-            `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText import
-            `in`.hridayan.ashell.core.presentation.theme.CustomCardShape import
-            `in`.hridayan.ashell.core.presentation.utils.syncedRotationAndScale import
-            `in`.hridayan.ashell.core.resources.R import `in`.hridayan.ashell.core.utils.openUrl
-            import `in`.hridayan.ashell.settings.presentation.components.card.SupportMeCard import
-            `in`.hridayan.ashell.settings.presentation.components.image.ProfilePic import
-            `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent import
-            `in`.hridayan.ashell.settings.presentation.state.settingsContent import
-            `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel import
-            `in`.hridayan.settingsdsl.resolver.resolveAll import
-            `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
-        </ID>
-        <ID>ImportOrdering:AutoBackupWorker.kt$import android.app.NotificationChannel import
-            android.app.NotificationManager import android.content.Context import android.util.Log
-            import androidx.core.app.NotificationCompat import androidx.core.net.toUri import
-            androidx.documentfile.provider.DocumentFile import androidx.hilt.work.HiltWorker import
-            androidx.work.CoroutineWorker import androidx.work.ForegroundInfo import
-            androidx.work.WorkerParameters import dagger.assisted.Assisted import
-            dagger.assisted.AssistedInject import
-            `in`.hridayan.ashell.core.common.settings.SettingsKeys import
-            `in`.hridayan.ashell.core.common.domain.model.backup.BackupType import
-            `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository import
-            `in`.hridayan.ashell.core.resources.R import
-            `in`.hridayan.ashell.settings.domain.repository.BackupAndRestoreRepository import
-            `in`.hridayan.ashell.settings.domain.repository.GoogleAuthRepository import
-            `in`.hridayan.ashell.settings.domain.repository.GoogleDriveRepository import
-            kotlinx.coroutines.flow.firstOrNull import java.time.LocalDateTime import
-            java.time.format.DateTimeFormatter
-        </ID>
-        <ID>ImportOrdering:BackupAndRestoreRepositoryImpl.kt$import android.content.Context import
-            android.net.Uri import dagger.hilt.android.qualifiers.ApplicationContext import
-            `in`.hridayan.ashell.core.common.settings.SettingsKeys import
-            `in`.hridayan.ashell.core.common.domain.provider.BackupProvider import
-            `in`.hridayan.ashell.core.common.domain.model.backup.BackupData import
-            `in`.hridayan.ashell.core.common.domain.model.backup.BackupMode import
-            `in`.hridayan.ashell.core.common.domain.model.backup.BackupType import
-            `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository import
-            `in`.hridayan.ashell.settings.data.utils.EncryptionHelper import
-            `in`.hridayan.ashell.settings.domain.repository.BackupAndRestoreRepository import
-            kotlinx.coroutines.Dispatchers import kotlinx.coroutines.withContext import
-            kotlinx.serialization.json.Json import kotlinx.serialization.json.JsonElement import
-            java.time.LocalDateTime import java.time.format.DateTimeFormatter import
-            javax.inject.Inject
-        </ID>
-        <ID>ImportOrdering:BackupAndRestoreScreen.kt$import android.provider.Settings import
-            androidx.activity.compose.rememberLauncherForActivityResult import
-            androidx.activity.result.IntentSenderRequest import
-            androidx.activity.result.contract.ActivityResultContracts import
-            androidx.compose.animation.animateContentSize import
-            androidx.compose.animation.core.animateFloatAsState import
-            androidx.compose.foundation.background import
-            androidx.compose.foundation.layout.Arrangement import
-            androidx.compose.foundation.layout.Box import androidx.compose.foundation.layout.Column
-            import androidx.compose.foundation.layout.Row import
-            androidx.compose.foundation.layout.Spacer import
-            androidx.compose.foundation.layout.fillMaxWidth import
-            androidx.compose.foundation.layout.height import
-            androidx.compose.foundation.layout.padding import
-            androidx.compose.foundation.lazy.LazyColumn import
-            androidx.compose.foundation.lazy.rememberLazyListState import
-            androidx.compose.foundation.shape.RoundedCornerShape import
-            androidx.compose.material3.ExperimentalMaterial3Api import
-            androidx.compose.material3.ExperimentalMaterial3ExpressiveApi import
-            androidx.compose.material3.Icon import androidx.compose.material3.MaterialTheme import
-            androidx.compose.material3.Text import androidx.compose.material3.rememberTopAppBarState
-            import androidx.compose.runtime.Composable import
-            androidx.compose.runtime.LaunchedEffect import androidx.compose.runtime.collectAsState
-            import androidx.compose.runtime.getValue import androidx.compose.runtime.mutableStateOf
-            import androidx.compose.runtime.remember import
-            androidx.compose.runtime.saveable.rememberSaveable import
-            androidx.compose.runtime.setValue import androidx.compose.ui.Alignment import
-            androidx.compose.ui.Modifier import androidx.compose.ui.draw.alpha import
-            androidx.compose.ui.draw.rotate import androidx.compose.ui.graphics.painter.Painter
-            import androidx.compose.ui.input.nestedscroll.nestedScroll import
-            androidx.compose.ui.platform.LocalContext import
-            androidx.compose.ui.platform.LocalResources import
-            androidx.compose.ui.res.painterResource import androidx.compose.ui.res.stringResource
-            import androidx.compose.ui.text.font.FontWeight import androidx.compose.ui.unit.dp
-            import androidx.core.net.toUri import
-            androidx.datastore.preferences.core.emptyPreferences import
-            androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel import
-            `in`.hridayan.ashell.core.common.LocalDialogManager import
-            `in`.hridayan.ashell.core.common.settings.LocalSettings import
-            `in`.hridayan.ashell.core.common.settings.SettingsKeys import
-            `in`.hridayan.ashell.core.common.domain.model.backup.BackupType import
-            `in`.hridayan.ashell.core.navigation.LocalNavController import
-            `in`.hridayan.ashell.core.navigation.navigateBack import
-            `in`.hridayan.ashell.core.presentation.components.card.CustomCard import
-            `in`.hridayan.ashell.core.presentation.components.dialog.createDialog import
-            `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic import
-            `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold import
-            `in`.hridayan.ashell.core.presentation.theme.CardCornerShape import
-            `in`.hridayan.ashell.core.presentation.theme.CustomCardShape import
-            `in`.hridayan.ashell.core.resources.R import
-            `in`.hridayan.ashell.core.utils.getFileNameFromUri import
-            `in`.hridayan.ashell.core.utils.showToast import
-            `in`.hridayan.ashell.settings.domain.model.GoogleUserState import
-            `in`.hridayan.ashell.settings.domain.model.LastBackupData import
-            `in`.hridayan.ashell.settings.presentation.components.dialog.BackupDestinationDialog
-            import `in`.hridayan.ashell.settings.presentation.components.dialog.CloudOperationDialog
-            import
-            `in`.hridayan.ashell.settings.presentation.components.dialog.GoogleSignOutConfirmationDialog
-            import
-            `in`.hridayan.ashell.settings.presentation.components.dialog.NoGoogleAccountDialog
-            import `in`.hridayan.ashell.settings.presentation.components.dialog.ResetSettingsDialog
-            import `in`.hridayan.ashell.settings.presentation.components.dialog.RestoreBackupDialog
-            import `in`.hridayan.ashell.settings.presentation.components.dialog.RestoreSourceDialog
-            import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
-            import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent import
-            `in`.hridayan.ashell.settings.presentation.page.backup.viewmodel.BackupAndRestoreViewModel
-            import `in`.hridayan.ashell.settings.presentation.provider.BackupScreenCustomSlots
-            import `in`.hridayan.ashell.settings.presentation.state.settingsContent import
-            `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel import
-            `in`.hridayan.settingsdsl.resolver.resolveAll import
-            `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
-        </ID>
-        <ID>ImportOrdering:BackupAndRestoreViewModel.kt$import android.content.Context import
-            android.content.IntentSender import android.net.Uri import android.util.Log import
-            androidx.lifecycle.ViewModel import androidx.lifecycle.viewModelScope import
-            dagger.hilt.android.lifecycle.HiltViewModel import
-            dagger.hilt.android.qualifiers.ApplicationContext import
-            `in`.hridayan.ashell.core.common.settings.SettingsKeys import
-            `in`.hridayan.ashell.core.common.domain.model.backup.BackupType import
-            `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository import
-            `in`.hridayan.ashell.core.resources.R import
-            `in`.hridayan.ashell.settings.domain.exception.NoGoogleAccountException import
-            `in`.hridayan.ashell.settings.domain.model.DriveAuthEvent import
-            `in`.hridayan.ashell.settings.domain.model.GoogleUserState import
-            `in`.hridayan.ashell.settings.domain.model.LastBackupData import
-            `in`.hridayan.ashell.settings.domain.repository.BackupAndRestoreRepository import
-            `in`.hridayan.ashell.settings.domain.repository.GoogleAuthRepository import
-            `in`.hridayan.ashell.settings.domain.repository.GoogleDriveRepository import
-            `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey import
-            `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent import
-            kotlinx.coroutines.flow.MutableSharedFlow import
-            kotlinx.coroutines.flow.MutableStateFlow import kotlinx.coroutines.flow.SharingStarted
-            import kotlinx.coroutines.flow.StateFlow import kotlinx.coroutines.flow.asSharedFlow
-            import kotlinx.coroutines.flow.asStateFlow import kotlinx.coroutines.flow.combine import
-            kotlinx.coroutines.flow.stateIn import kotlinx.coroutines.launch import
-            java.time.LocalDate import java.time.LocalDateTime import
-            java.time.format.DateTimeFormatter import javax.inject.Inject
-        </ID>
-        <ID>ImportOrdering:ExampleUnitTest.kt$import org.junit.Test import org.junit.Assert.*</ID>
-        <ID>ImportOrdering:GenerateCustomThemeUseCase.kt$import android.util.Log import
-            `in`.hridayan.ashell.core.common.settings.SettingsKeys import
-            `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException import
-            `in`.hridayan.ashell.core.common.domain.provider.LlmProvider import
-            `in`.hridayan.ashell.core.common.domain.provider.LlmProviderClient import
-            `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository import
-            `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository import
-            `in`.hridayan.ashell.core.presentation.theme.data.ColorSchemePayload import
-            kotlinx.coroutines.flow.firstOrNull import kotlinx.serialization.json.Json import
-            javax.inject.Inject import `in`.hridayan.ashell.core.common.constants.AiModelConstants
-        </ID>
-        <ID>ImportOrdering:PaletteStylePickerDialog.kt$import android.annotation.SuppressLint import
-            androidx.compose.animation.fadeIn import androidx.compose.animation.fadeOut import
-            androidx.compose.foundation.background import
-            androidx.compose.foundation.layout.Arrangement import
-            androidx.compose.foundation.layout.Box import androidx.compose.foundation.layout.Column
-            import androidx.compose.foundation.layout.Row import
-            androidx.compose.foundation.layout.fillMaxSize import
-            androidx.compose.foundation.layout.fillMaxWidth import
-            androidx.compose.foundation.layout.height import
-            androidx.compose.foundation.layout.heightIn import
-            androidx.compose.foundation.layout.padding import
-            androidx.compose.foundation.layout.size import
-            androidx.compose.foundation.layout.widthIn import
-            androidx.compose.foundation.lazy.LazyColumn import
-            androidx.compose.foundation.lazy.itemsIndexed import
-            androidx.compose.foundation.lazy.rememberLazyListState import
-            androidx.compose.foundation.shape.CircleShape import
-            androidx.compose.material3.CardDefaults import
-            androidx.compose.material3.ExperimentalMaterial3ExpressiveApi import
-            androidx.compose.material3.MaterialTheme import androidx.compose.material3.RadioButton
-            import androidx.compose.material3.RadioButtonDefaults import
-            androidx.compose.material3.Surface import androidx.compose.material3.Text import
-            androidx.compose.runtime.Composable import androidx.compose.runtime.LaunchedEffect
-            import androidx.compose.runtime.getValue import androidx.compose.runtime.mutableStateOf
-            import androidx.compose.runtime.remember import androidx.compose.runtime.setValue import
-            androidx.compose.runtime.snapshotFlow import androidx.compose.ui.Alignment import
-            androidx.compose.ui.Modifier import androidx.compose.ui.draw.clip import
-            androidx.compose.ui.graphics.Brush import androidx.compose.ui.graphics.Color import
-            androidx.compose.ui.hapticfeedback.HapticFeedbackType import
-            androidx.compose.ui.platform.LocalHapticFeedback import
-            androidx.compose.ui.res.stringResource import androidx.compose.ui.text.font.FontWeight
-            import androidx.compose.ui.text.style.TextAlign import androidx.compose.ui.unit.dp
-            import androidx.compose.ui.window.Dialog import
-            androidx.compose.ui.window.DialogProperties import
-            `in`.hridayan.ashell.core.common.LocalDarkMode import
-            `in`.hridayan.ashell.core.common.LocalPaletteStyle import
-            `in`.hridayan.ashell.core.common.LocalSeedColor import
-            `in`.hridayan.ashell.core.common.settings.LocalSettings import
-            `in`.hridayan.ashell.core.common.settings.SettingsKeys import
-            `in`.hridayan.ashell.core.common.domain.model.PaletteStyle import
-            `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup import
-            `in`.hridayan.ashell.core.presentation.components.card.CustomCard import
-            `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic import
-            `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText import
-            `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults import
-            `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem import
-            `in`.hridayan.ashell.core.presentation.model.ButtonType import
-            `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape import
-            `in`.hridayan.ashell.core.presentation.theme.CustomCardShape import
-            `in`.hridayan.ashell.core.presentation.theme.color.createDynamicScheme import
-            `in`.hridayan.ashell.core.presentation.theme.color.getPaletteKeyColors import
-            `in`.hridayan.ashell.core.resources.R import
-            kotlinx.coroutines.flow.distinctUntilChanged
-        </ID>
-        <ID>ImportOrdering:SettingsBackupProvider.kt$import
-            `in`.hridayan.ashell.core.common.settings.SettingsKeys import
-            `in`.hridayan.ashell.core.common.domain.provider.BackupProvider import
-            `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository import
-            kotlinx.serialization.json.Json import kotlinx.serialization.json.JsonElement import
-            kotlinx.serialization.json.decodeFromJsonElement import
-            kotlinx.serialization.json.encodeToJsonElement import javax.inject.Inject
-        </ID>
-        <ID>ImportOrdering:ThemePreviewBottomSheet.kt$import android.graphics.Color.parseColor
-            import androidx.compose.foundation.background import
-            androidx.compose.foundation.layout.Arrangement import
-            androidx.compose.foundation.layout.Box import androidx.compose.foundation.layout.Column
-            import androidx.compose.foundation.layout.Row import
-            androidx.compose.foundation.layout.Spacer import
-            androidx.compose.foundation.layout.fillMaxSize import
-            androidx.compose.foundation.layout.fillMaxWidth import
-            androidx.compose.foundation.layout.height import
-            androidx.compose.foundation.layout.padding import
-            androidx.compose.foundation.layout.size import
-            androidx.compose.foundation.shape.RoundedCornerShape import
-            androidx.compose.material3.BottomSheetDefaults import androidx.compose.material3.Button
-            import androidx.compose.material3.Card import androidx.compose.material3.CardDefaults
-            import androidx.compose.material3.ExperimentalMaterial3Api import
-            androidx.compose.material3.MaterialTheme import
-            androidx.compose.material3.ModalBottomSheet import
-            androidx.compose.material3.OutlinedTextField import
-            androidx.compose.material3.SheetValue import androidx.compose.material3.Text import
-            androidx.compose.material3.rememberBottomSheetState import
-            androidx.compose.runtime.Composable import androidx.compose.runtime.getValue import
-            androidx.compose.runtime.mutableStateOf import androidx.compose.runtime.remember import
-            androidx.compose.runtime.setValue import androidx.compose.ui.Alignment import
-            androidx.compose.ui.Modifier import androidx.compose.ui.draw.clip import
-            androidx.compose.ui.graphics.Color import androidx.compose.ui.text.font.FontWeight
-            import androidx.compose.ui.unit.dp import
-            `in`.hridayan.ashell.core.presentation.theme.data.UserGeneratedColorSchemeEntity import
-            `in`.hridayan.ashell.core.presentation.theme.data.ColorSchemePayload import
-            `in`.hridayan.ashell.core.presentation.theme.data.toEntity
-        </ID>
-        <ID>ImportOrdering:ToggleSettingUseCase.kt$import
-            `in`.hridayan.ashell.core.common.settings.SettingsKeys import
-            `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
-        </ID>
-        <ID>ImportOrdering:UpdateBottomSheet.kt$import android.app.Activity import
-            android.content.Intent import android.provider.Settings import
-            androidx.activity.compose.rememberLauncherForActivityResult import
-            androidx.activity.result.contract.ActivityResultContracts import
-            androidx.compose.animation.core.animateFloatAsState import
-            androidx.compose.foundation.background import
-            androidx.compose.foundation.layout.Arrangement import
-            androidx.compose.foundation.layout.Box import androidx.compose.foundation.layout.Column
-            import androidx.compose.foundation.layout.Spacer import
-            androidx.compose.foundation.layout.fillMaxWidth import
-            androidx.compose.foundation.layout.height import
-            androidx.compose.foundation.layout.heightIn import
-            androidx.compose.foundation.layout.padding import
-            androidx.compose.foundation.rememberScrollState import
-            androidx.compose.foundation.verticalScroll import androidx.compose.material3.CardColors
-            import androidx.compose.material3.CardDefaults import
-            androidx.compose.material3.ExperimentalMaterial3Api import
-            androidx.compose.material3.ExperimentalMaterial3ExpressiveApi import
-            androidx.compose.material3.LinearWavyProgressIndicator import
-            androidx.compose.material3.LoadingIndicator import
-            androidx.compose.material3.MaterialTheme import
-            androidx.compose.material3.ModalBottomSheet import androidx.compose.material3.SheetValue
-            import androidx.compose.material3.Text import
-            androidx.compose.material3.rememberBottomSheetState import
-            androidx.compose.runtime.Composable import androidx.compose.runtime.LaunchedEffect
-            import androidx.compose.runtime.collectAsState import androidx.compose.runtime.getValue
-            import androidx.compose.runtime.mutableStateOf import androidx.compose.runtime.remember
-            import androidx.compose.runtime.saveable.rememberSaveable import
-            androidx.compose.runtime.setValue import androidx.compose.ui.Alignment import
-            androidx.compose.ui.Modifier import androidx.compose.ui.graphics.Brush import
-            androidx.compose.ui.graphics.Color import androidx.compose.ui.platform.LocalContext
-            import androidx.compose.ui.platform.LocalDensity import
-            androidx.compose.ui.platform.LocalResources import
-            androidx.compose.ui.platform.LocalWindowInfo import
-            androidx.compose.ui.res.stringResource import androidx.compose.ui.text.TextStyle import
-            androidx.compose.ui.text.font.FontStyle import androidx.compose.ui.text.font.FontWeight
-            import androidx.compose.ui.text.style.TextDecoration import androidx.compose.ui.unit.Dp
-            import androidx.compose.ui.unit.dp import androidx.core.net.toUri import
-            androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel import
-            `in`.hridayan.ashell.core.common.settings.LocalSettings import
-            `in`.hridayan.ashell.core.common.settings.SettingsKeys import
-            `in`.hridayan.ashell.core.common.constants.UrlConst import
-            `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup import
-            `in`.hridayan.ashell.core.presentation.components.card.CustomCard import
-            `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic import
-            `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText import
-            `in`.hridayan.ashell.core.presentation.components.text.BulletPointsTextLayout import
-            `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults import
-            `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem import
-            `in`.hridayan.ashell.core.presentation.model.ButtonType import
-            `in`.hridayan.ashell.core.presentation.theme.CardCornerShape import
-            `in`.hridayan.ashell.core.presentation.theme.CustomCardShape import
-            `in`.hridayan.ashell.core.resources.R import `in`.hridayan.ashell.core.utils.installApk
-            import `in`.hridayan.ashell.core.utils.openUrl import
-            `in`.hridayan.ashell.core.utils.showToast import
-            `in`.hridayan.ashell.core.utils.splitStringToLines import
-            `in`.hridayan.ashell.settings.domain.model.DownloadState import
-            `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
-            import java.io.File
-        </ID>
-        <ID>Indentation:AutoBackupTimePickerDialog.kt$</ID>
-        <ID>Indentation:BackupAndRestoreScreen.kt$</ID>
-        <ID>Indentation:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel$</ID>
-        <ID>Indentation:BackupSchedulerScreen.kt$</ID>
-        <ID>Indentation:FontStyleBottomSheet.kt$</ID>
-        <ID>Indentation:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$</ID>
-        <ID>Indentation:LatestVersionDialog.kt$</ID>
-        <ID>Indentation:LicensesViewModel.kt$LicensesViewModel$</ID>
-        <ID>Indentation:PaletteStylePickerDialog.kt$</ID>
-        <ID>Indentation:PaletteWheel.kt$</ID>
-        <ID>Indentation:SettingsSearchScreen.kt$</ID>
-        <ID>Indentation:SettingsViewModel.kt$SettingsViewModel$</ID>
-        <ID>Indentation:SupportMeCard.kt$</ID>
-        <ID>Indentation:UiScaleScreen.kt$</ID>
-        <ID>Indentation:UpdateBottomSheet.kt$</ID>
-        <ID>InstanceOfCheckForException:AutoBackupWorker.kt$AutoBackupWorker$e is
-            SecurityException
-        </ID>
-        <ID>InstanceOfCheckForException:AutoBackupWorker.kt$AutoBackupWorker$e is
-            java.io.IOException
-        </ID>
-        <ID>InstanceOfCheckForException:AutoBackupWorker.kt$AutoBackupWorker$e is
-            java.net.UnknownHostException
-        </ID>
-        <ID>LargeClass:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel : ViewModel</ID>
-        <ID>LargeClass:ColorRoleRegistry.kt$ColorRoleRegistry</ID>
-        <ID>LargeClass:SettingsProvider.kt$SettingsProvider</ID>
-        <ID>LargeClass:SettingsViewModel.kt$SettingsViewModel : ViewModel</ID>
-        <ID>LongMethod:AutoBackupWorker.kt$AutoBackupWorker$override suspend fun doWork(): Result
-        </ID>
-        <ID>LongMethod:AutoBackupWorker.kt$AutoBackupWorker$private suspend fun
-            performCloudBackup(backupType: BackupType)
-        </ID>
-        <ID>LongMethod:AutoBackupWorker.kt$AutoBackupWorker$private suspend fun performLocalBackup(
-            folderUri: String, deleteExisting: Boolean, backupType: BackupType, )
-        </ID>
-        <ID>LongMethod:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel$fun
-            backupToGoogleDrive(type: BackupType)
-        </ID>
-        <ID>LongMethod:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel$fun
-            downloadFromGoogleDrive()
-        </ID>
-        <ID>LongMethod:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel$fun
-            signInWithGoogle(context: Context)
-        </ID>
-        <ID>LongMethod:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel$private fun
-            syncCloudBackupDetailsOnSignIn()
-        </ID>
-        <ID>LongMethod:DownloadRepositoryImpl.kt$DownloadRepositoryImpl$private suspend fun
-            monitorDownload( dm: DownloadManager, file: File, onProgress: (DownloadState) -&gt;
-            Unit, isActive: Boolean )
-        </ID>
-        <ID>LongMethod:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$suspend operator fun
-            invoke(prompt: String, fallbackModels: List&lt;String&gt;? = null): Result&lt;ColorSchemePayload&gt;
-        </ID>
-        <ID>LongMethod:LanguagesViewModel.kt$LanguagesViewModel.Companion$private fun
-            buildSupportedLocales(context: Context): List&lt;SupportedLocale&gt;
-        </ID>
-        <ID>LongMethod:LicensesRepositoryImpl.kt$LicensesRepositoryImpl$override suspend fun
-            getLibraries(): List&lt;LibraryItem&gt;
-        </ID>
-        <ID>LongMethod:SettingsBackupProvider.kt$SettingsBackupProvider$override suspend fun
-            restoreData(data: JsonElement?, legacyData: (String) -&gt; JsonElement?)
-        </ID>
-        <ID>LongMethod:SettingsProvider.kt$fun getAllSettingsIcons(): List&lt;Int&gt;</ID>
-        <ID>LongMethod:SettingsViewModel.kt$SettingsViewModel$fun onItemClicked(key: SettingsKeys&lt;*&gt;)</ID>
-        <ID>LongMethod:SupportMeCard.kt$fun Modifier.premiumShine( durationMillis: Int = 6500,
-            pauseBetween: Int = 3000 ): Modifier
-        </ID>
-        <ID>LoopWithTooManyJumpStatements:UpdateBottomSheet.kt$for</ID>
-        <ID>MagicNumber:EncryptionHelper.kt$EncryptionHelper$16</ID>
-        <ID>MagicNumber:EncryptionHelper.kt$EncryptionHelper$24</ID>
-        <ID>MagicNumber:EncryptionHelper.kt$EncryptionHelper$32</ID>
-        <ID>MagicNumber:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$404</ID>
-        <ID>MagicNumber:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$429</ID>
-        <ID>MagicNumber:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$500</ID>
-        <ID>MagicNumber:SupportMeCard.kt$180f</ID>
-        <ID>MatchingDeclarationName:ContributorRepository.kt$ContributorsRepository</ID>
-        <ID>MatchingDeclarationName:ContributorRepositoryImpl.kt$ContributorsRepositoryImpl :
-            ContributorsRepository
-        </ID>
-        <ID>MatchingDeclarationName:VersionToChangelogMap.kt$VersionToChangelogs</ID>
-        <ID>MaxLineLength:AiGenerationAnimationBox.kt$isUserGeneratedColorSchemeApplied &amp;&amp;
-            generatedColorScheme != null &amp;&amp; !dynamicColor -&gt;
-            generatedColorScheme.toColorScheme()
-        </ID>
-        <ID>MaxLineLength:AutoBackupWorker.kt$AutoBackupWorker$"Cannot write to backup folder. The
-            folder may have been deleted or permissions revoked. Please re-select the folder."
-        </ID>
-        <ID>MaxLineLength:AutoBackupWorker.kt$AutoBackupWorker$"Google Drive authorization failed.
-            Please open the app and sign in again from Backup &amp; Restore settings."
-        </ID>
-        <ID>MaxLineLength:AutoBackupWorker.kt$AutoBackupWorker$"localEnabled=$localEnabled
-            cloudEnabled=$cloudEnabled folderUri=$folderUri backupType=$backupType
-            deleteExisting=$deleteExisting"
-        </ID>
-        <ID>MaxLineLength:AutoBackupWorker.kt$AutoBackupWorker$?:</ID>
-        <ID>MaxLineLength:AutoBackupWorker.kt$AutoBackupWorker$e is java.net.UnknownHostException -&gt;
-            "No internet connection. Cloud backup will retry on next schedule."
-        </ID>
-        <ID>MaxLineLength:BackupSchedulerScreen.kt$lastAutoBackupCloudSuccessTime =
-            settings[SettingsKeys.LastAutoBackupCloudSuccessTime]
-        </ID>
-        <ID>MaxLineLength:BackupSchedulerScreen.kt$lastAutoBackupLocalSuccessTime =
-            settings[SettingsKeys.LastAutoBackupLocalSuccessTime]
-        </ID>
-        <ID>MaxLineLength:BuyMeACoffeeLogo.kt$"M472.62 590.84c-45.94 19.66-98.07 41.96-165.64
-            41.96-28.27-0.05-56.4-3.93-83.63-11.53l46.74 479.81c1.65 20.05 10.79 38.75 25.59 52.38
-            14.8 13.63 34.19 21.19 54.31 21.19 0 0 66.26 3.44 88.37 3.44 23.8 0 95.16-3.44
-            95.16-3.44 20.12 0 39.5-7.57 54.3-21.2 14.8-13.63 23.93-32.32
-            25.59-52.37l50.05-530.2c-22.37-7.64-44.94-12.72-70.39-12.72-44.02-0.02-79.48
-            15.14-120.45 32.68z"
-        </ID>
-        <ID>MaxLineLength:BuyMeACoffeeLogo.kt$"M791.11 297.52l-0.88-0.52-2.03-0.62c0.82 0.69 1.84
-            1.09 2.91 1.14zm12.79 91.37l-0.98 0.28
-            0.98-0.28zm-12.42-91.51c-0.12-0.02-0.24-0.05-0.36-0.09-0.01 0.08-0.01 0.16 0 0.24
-            0.13-0.01 0.26-0.07 0.36-0.15z"
-        </ID>
-        <ID>MaxLineLength:BuyMeACoffeeLogo.kt$"M791.11 297.53h0.13v-0.08l-0.13 0.08zm12
-            91.2l1.48-0.85 0.55-0.31 0.5-0.53c-0.94 0.4-1.79 0.98-2.53
-            1.69zm-9.44-89.21l-1.45-1.38-0.98-0.53c0.53 0.93 1.4 1.61 2.43 1.91zm-363.65
-            886.66c-1.16 0.5-2.17 1.28-2.94 2.27l0.91-0.58c0.62-0.57 1.49-1.24
-            2.03-1.69zm211.17-41.55c0-1.3-0.64-1.06-0.48 3.58 0-0.37 0.15-0.75 0.22-1.11 0.09-0.83
-            0.15-1.64 0.26-2.47zm-21.91 41.55c-1.15 0.5-2.16 1.28-2.94 2.27l0.91-0.58c0.62-0.57
-            1.5-1.24 2.03-1.69zm-337.98 9.88c-0.87-0.76-1.95-1.26-3.09-1.45 0.93 0.45 1.86 0.9 2.47
-            1.24l0.62 0.21zm-33.46-32.05c-0.14-1.35-0.55-2.66-1.22-3.85 0.47 1.23 0.87 2.5 1.19
-            3.78l0.03 0.07z"
-        </ID>
-        <ID>MaxLineLength:BuyMeACoffeeLogo.kt$"M879.57
-            341.85l-7.04-35.5c-6.31-31.85-20.65-61.94-53.34-73.45-10.48-3.69-22.37-5.27-30.4-12.89-8.04-7.62-10.41-19.46-12.27-30.44-3.44-20.15-6.68-40.31-10.21-60.43-3.04-17.29-5.45-36.72-13.38-52.58-10.33-21.3-31.75-33.76-53.05-42-10.91-4.08-22.05-7.52-33.36-10.32C613.3
-            10.19 557.34 5.03 502.59 2.09c-65.71-3.63-131.61-2.53-197.17 3.27-48.79 4.44-100.19
-            9.81-146.56 26.69-16.95 6.17-34.42 13.59-47.3 26.68-15.82 16.09-20.98 40.97-9.43 61.03
-            8.21 14.25 22.11 24.32 36.86 30.98 19.2 8.58 39.26 15.11 59.84 19.47 57.3 12.67 116.64
-            17.64 175.18 19.76 64.88 2.62 129.86 0.49 194.43-6.35 15.97-1.76 31.91-3.86 47.82-6.32
-            18.73-2.87 30.76-27.37 25.24-44.44-6.61-20.41-24.37-28.32-44.45-25.24-2.96 0.46-5.9
-            0.89-8.86 1.32l-2.13 0.31c-6.8 0.86-13.6 1.67-20.41 2.41-14.05 1.52-28.13 2.75-42.26
-            3.72-31.62 2.2-63.33 3.22-95.03 3.27-31.14
-            0-62.3-0.88-93.38-2.93-14.18-0.93-28.32-2.11-42.43-3.54-6.42-0.67-12.82-1.38-19.22-2.17l-6.09-0.77-1.32-0.19-6.32-0.92c-12.9-1.94-25.81-4.18-38.58-6.88-1.28-0.29-2.44-1-3.26-2.03-0.83-1.03-1.28-2.31-1.28-3.63
-            0-1.32 0.45-2.6 1.28-3.63 0.82-1.03 1.98-1.74 3.26-2.03h0.25c11.06-2.36 22.21-4.37
-            33.39-6.13 3.73-0.58 7.47-1.15 11.22-1.72h0.1c7.01-0.46 14.05-1.72 21.01-2.54 60.63-6.31
-            121.62-8.46 182.55-6.44 29.57 0.86 59.14 2.6 88.58 5.59 6.33 0.66 12.63 1.35 18.92 2.12
-            2.41 0.29 4.84 0.64 7.26 0.93l4.89 0.7c14.25 2.13 28.42 4.7 42.52 7.73 20.89 4.54 47.71
-            6.02 57 28.91 2.96 7.26 4.31 15.33 5.94 22.95l2.08 9.72c0.06 0.18 0.1 0.35 0.12 0.54
-            4.92 22.94 9.85 45.88 14.78 68.82 0.36 1.7 0.37 3.45 0.03 5.15-0.35 1.69-1.04 3.3-2.03
-            4.72-1 1.42-2.28 2.62-3.75 3.52-1.48 0.91-3.13 1.5-4.85 1.74h-0.13l-3.02 0.41-2.97
-            0.39c-9.43 1.23-18.87 2.38-28.32 3.45-18.62 2.12-37.27 3.95-55.94 5.5-37.11 3.09-74.29
-            5.11-111.55 6.08-18.99 0.5-37.96 0.74-56.94
-            0.7-75.52-0.06-150.97-4.45-225.99-13.14-8.12-0.97-16.24-2-24.36-3.05 6.3
-            0.81-4.58-0.62-6.78-0.93-5.16-0.72-10.32-1.47-15.49-2.25-17.32-2.6-34.55-5.8-51.84-8.61-20.91-3.44-40.9-1.72-59.81
-            8.61-15.52 8.49-28.08 21.52-36.01 37.33-8.16 16.87-10.58 35.23-14.23 53.35-3.65
-            18.11-9.33 37.61-7.18 56.21 4.63 40.14 32.7 72.76 73.06 80.06 37.98 6.88 76.16 12.46
-            114.44 17.21 150.39 18.42 302.32 20.62 453.19 6.57 12.28-1.15 24.55-2.4 36.8-3.75
-            3.83-0.42 7.7 0.02 11.33 1.29 3.64 1.27 6.94 3.34 9.67 6.05 2.73 2.71 4.82 6 6.12 9.62
-            1.3 3.63 1.77 7.5 1.37 11.33l-3.82 37.13c-7.69 75.03-15.39 150.05-23.09 225.07-8.03
-            78.79-16.11 157.56-24.24 236.33-2.3 22.19-4.59 44.37-6.88 66.54-2.21 21.84-2.52
-            44.36-6.66 65.94-6.54 33.93-29.51 54.77-63.03 62.39-30.71 6.99-62.08 10.66-93.57
-            10.94-34.91 0.19-69.8-1.36-104.72-1.17-37.27
-            0.21-82.92-3.23-111.68-30.97-25.28-24.36-28.77-62.51-32.22-95.5-4.58-43.67-9.13-87.33-13.64-130.99l-25.29-242.77-16.37-157.07c-0.27-2.6-0.55-5.16-0.81-7.78-1.96-18.74-15.22-37.08-36.13-36.13-17.89
-            0.79-38.23 16-36.13 36.13l12.13 116.45 25.08 240.89c7.15 68.43 14.28 136.86 21.39 205.31
-            1.38 13.11 2.67 26.26 4.11 39.37 7.87 71.65 62.58 110.26 130.34 121.13 39.58 6.37 80.12
-            7.68 120.28 8.33 51.48 0.83 103.48 2.81 154.11-6.52 75.04-13.77 131.34-63.87
-            139.38-141.59 2.29-22.44 4.59-44.88 6.88-67.33 7.63-74.24 15.24-148.49
-            22.85-222.74l24.88-242.61 11.41-111.19c0.57-5.51 2.9-10.69 6.64-14.78 3.74-4.09 8.7-6.86
-            14.14-7.91 21.46-4.18 41.97-11.33 57.23-27.65 24.3-26 29.13-59.9 20.55-94.07zM72.43
-            365.83c0.33-0.15-0.28 2.65-0.53 3.96-0.05-1.98 0.05-3.73 0.53-3.96zm2.08 16.11c0.17-0.12
-            0.69 0.57 1.22 1.39-0.8-0.75-1.32-1.32-1.24-1.39h0.02zm2.05 2.7c0.74 1.26 1.14 2.05 0
-            0zm4.11 3.34h0.11c0 0.12 0.18 0.24 0.25
-            0.36-0.11-0.13-0.24-0.25-0.38-0.36h0.02zm720.13-4.99c-7.71 7.33-19.33 10.74-30.8
-            12.44-128.71 19.1-259.29 28.77-389.4
-            24.5-93.12-3.18-185.26-13.52-277.46-26.55-9.03-1.27-18.82-2.92-25.03-9.58-11.7-12.56-5.96-37.86-2.91-53.03
-            2.79-13.91 8.12-32.44 24.66-34.41 25.81-3.03 55.78 7.86 81.32 11.73 30.74 4.69 61.59
-            8.45 92.56 11.27 132.18 12.04 266.59 10.17 398.18-7.45 23.99-3.22 47.88-6.97 71.7-11.24
-            21.22-3.8 44.74-10.94 57.55 11.03 8.8 14.97 9.97 35 8.61 51.91-0.42 7.37-3.64 14.31-9
-            19.38h0.02z"
-        </ID>
-        <ID>MaxLineLength:ChangelogScreen.kt$bulletColor = if (isLatestVersion)
-            MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.primary
-        </ID>
-        <ID>MaxLineLength:ChangelogScreen.kt$color = if (isLatestVersion)
-            MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onSurface
-        </ID>
-        <ID>MaxLineLength:ChangelogScreen.kt$containerColor = if (isLatestVersion)
-            MaterialTheme.colorScheme.tertiaryContainer else
-            MaterialTheme.colorScheme.surfaceContainer
-        </ID>
-        <ID>MaxLineLength:ChangelogScreen.kt$contentColor = if (isLatestVersion)
-            MaterialTheme.colorScheme.onTertiaryContainer else MaterialTheme.colorScheme.onSurface
-        </ID>
-        <ID>MaxLineLength:ChangelogScreen.kt$style = if (isLatestVersion)
-            MaterialTheme.typography.headlineMedium else MaterialTheme.typography.headlineSmall
-        </ID>
-        <ID>MaxLineLength:ChangelogScreen.kt$textColor = if (isLatestVersion)
-            MaterialTheme.colorScheme.onTertiaryContainer else MaterialTheme.colorScheme.onSurface
-        </ID>
-        <ID>MaxLineLength:GenerateColorSchemeScreen.kt$color = if (prompt.length == 1096)
-            MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant
-        </ID>
-        <ID>MaxLineLength:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$?:</ID>
-        <ID>MaxLineLength:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$if
-            (models.isEmpty()) throw IllegalStateException("No models configured for provider
-            ${provider.displayName}")
-        </ID>
-        <ID>MaxLineLength:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$val providerId =
-            settingsRepository.getString(SettingsKeys.AiCloudProvider).firstOrNull() ?:
-            SettingsKeys.AiCloudProvider.default
-        </ID>
-        <ID>MaxLineLength:ResetSettingsDialog.kt$text =
-            stringResource(R.string.des_reset_app_settings) + "\n" +
-            stringResource(R.string.irreversible_action_warning)
-        </ID>
-        <ID>MaxLineLength:RestoreBackupDialog.kt$text =
-            stringResource(R.string.restore_dialog_message) + "\n" +
-            stringResource(R.string.irreversible_action_warning)
-        </ID>
-        <ID>MaxLineLength:UndrawThemePicker.kt$"M0.256,352.886c0,0.66 0.53,1.19
-            1.19,1.19H523.736c0.66,0 1.19,-0.53 1.19,-1.19 0,-0.66 -0.53,-1.19
-            -1.19,-1.19H1.446c-0.66,0 -1.19,0.53 -1.19,1.19Z"
-        </ID>
-        <ID>MaxLineLength:UndrawThemePicker.kt$"M111.501,202.949c-0.013,-0.945 -0.005,-9.191
-            6.1,-14.403 7.012,-5.987 16.907,-3.564 20.378,-2.714 8.017,1.963 8.674,5.402
-            16.203,8.936 14.085,6.611 -3.563,3.227 4.818,1.107 2.901,-0.734 44.638,-3.628
-            55.027,-10.023 20.206,-12.436 33.973,-19.977 33.973,-19.977l9,18s-13.014,18.096
-            -31.33,31.501c-18.788,13.751 -28.182,20.627 -42.459,23.283 -1.229,0.229 -31.466,5.391
-            -55.819,-12.803 -5.555,-4.15 -15.733,-11.754 -15.891,-22.909Z"
-        </ID>
-        <ID>MaxLineLength:UndrawThemePicker.kt$"M115.422,196.836c0.206,-0.923 2.128,-8.941
-            9.275,-12.594 8.21,-4.196 17.273,0.457 20.451,2.089 7.343,3.77 7.184,7.268 13.688,12.452
-            12.167,9.699 27.814,9.486 36.458,9.369 2.992,-0.041 12.233,-0.346 23.823,-4.155
-            22.54,-7.408 36.939,-16.705 36.939,-16.705l5.916,20.046s-17.454,19.289
-            -38.381,28.079c-21.466,9.016 -82.691,9.611 -97.194,8.883 -1.249,-0.063 18.634,1.856
-            -0.833,-21.492 -4.44,-5.326 -12.576,-15.084 -10.142,-25.971Z"
-        </ID>
-        <ID>MaxLineLength:UndrawThemePicker.kt$"M119.943,161.813c6.416,-7.194 32.549,0.252
-            35.002,11.667 1.009,4.695 -2.716,6.678 -1.667,12.084 1.534,7.907 10.22,7.368
-            16.667,15.417 9.153,11.427 -0.276,22.598 10,41.669 2.196,4.075 4.047,7.51 7.917,10.834
-            8.881,7.628 17.146,5.012 21.668,12.084 3.382,5.289 1.992,11.807 1.667,13.334
-            -1.335,6.261 -4.952,7.787 -7.5,12.917 -4.24,8.536 0.561,14.803 0.833,25.001 0.341,12.76
-            -6.44,30.448 -20.001,36.252 -15.235,6.52 -33.61,-4.279 -42.502,-15.001 -5.306,-6.398
-            -6.846,-12.3 -9.167,-19.584 -10.374,-32.556 -16.235,-29.612 -24.168,-55.419
-            -9.069,-29.503 -10.852,-64.066 0,-75.004 1.438,-1.45 5.397,-4.8 7.917,-10.834
-            3.391,-8.119 0.462,-12.197 3.333,-15.417Z"
-        </ID>
-        <ID>MaxLineLength:UndrawThemePicker.kt$"M143.694,131.812c1.221,-4.366 -0.312,-5.957
-            1.25,-7.917 0,-0 0.629,-0.789 6.25,-2.917h0c-1.659,-9.623 -0.417,-11.25 -0.417,-11.251
-            1.431,-1.875 4.298,-2.329 6.25,-2.083 4.128,0.519 4.859,4.251 7.5,4.167 3.649,-0.116
-            8.025,-7.42 6.667,-13.751 -1.108,-5.164 -5.886,-8.999 -7.084,-8.334 -1.188,0.66
-            -5.462,-2.25 -7.084,-1.667 -1.107,0.398 -6.319,-0.132 -7.5,0.417 -1.29,0.599
-            -4.986,4.326 -5.339,3.857 -2.455,-3.264 -2.403,-4.403 -3.828,-5.107 -2.524,-1.246
-            -5.269,1.057 -10,3.333 -9.736,4.683 -12.587,1.89 -17.084,5.834 -2.272,1.992 -3.49,5.8
-            -5.834,13.334 -3.278,10.536 -4.916,15.804 -3.333,20.834 1.614,5.13 3.992,4.013
-            7.5,11.251 3.906,8.056 2.56,12.739 6.25,14.584 2.852,1.426 7.436,0.518 9.167,-2.083
-            2.963,-4.455 -4.696,-10.481 -2.083,-17.501 1.604,-4.309 6.55,-7.577 9.584,-6.667
-            3.43,1.029 3.683,7.179 5.834,7.084 1.842,-0.081 3.121,-4.656 3.333,-5.417Z"
-        </ID>
-        <ID>MaxLineLength:UndrawThemePicker.kt$"M166.208,211.497c-1.335,-2.251 -7.109,0.159
-            -8.171,-1.883 -1.058,-2.035 4.307,-5.136 7.372,-12.22 0.553,-1.278 4.036,-9.328
-            1.457,-11.812 -4.888,-4.709 -27.255,14.723 -35.082,8.364 -1.718,-1.395 -2.918,-4.181
-            -8.117,-8.704 -2.068,-1.799 -3.319,-2.612 -4.529,-2.309 -1.717,0.429 -1.854,2.727
-            -3.695,7.247 -2.762,6.778 -4.395,6.369 -6.005,11.776 -1.195,4.014 -0.922,6.348
-            -2.327,6.803 -1.989,0.643 -3.82,-3.615 -6.341,-3.233 -2.572,0.389 -4.128,5.347
-            -4.619,9.059 -0.922,6.966 1.636,11.562 3.054,16.395 1.541,5.252 2.455,13.24
-            -1.103,24.548l-35.219,99.229c7.775,-20.362 30.288,-76.178 39.748,-96.92 2.731,-5.988
-            5.746,-12.061 11.938,-14.458 5.961,-2.308 14.147,-0.93 24.584,-3.444 1.219,-0.294
-            4.601,-1.154 5.027,-3.144 0.352,-1.645 -1.638,-2.563 -1.332,-4.103 0.41,-2.066
-            4.322,-2.092 9.13,-4.476 3.39,-1.681 5.502,-3.68 7.319,-5.399 0.548,-0.518 8.687,-8.318
-            6.911,-11.314h-0Z"
-        </ID>
-        <ID>MaxLineLength:UndrawThemePicker.kt$"M200.59,274.477c1.889,0.157 7.89,1.359 13.626,-1.797
-            3.915,-2.154 5.923,-5.356 6.601,-6.375 8.413,-12.635 40.704,-32.339 69.684,-33.551
-            6.563,-0.275 10.883,0.486 14.809,2.533 5.567,2.902 7.79,7.059 14.855,16.798 3.865,5.327
-            8.141,10.345 12.052,15.638 22.898,30.987 31.578,33.419 30.691,43.353 -0.984,11.022
-            -12.872,21.479 -20.772,20.272 -3.236,-0.494 -4.489,-2.744 -8.811,-7.299 -12.675,-13.354
-            -17.919,-10.887 -26.943,-21.116 -10.536,-11.942 -9.157,-21.844 -14.653,-22.227
-            -5.097,-0.355 -7.264,8.093 -18.146,19.314 -4.98,5.135 -8.526,7.49 -19.329,14.985
-            -42.07,29.186 -42.741,31.237 -51.231,33.565 -3.715,1.018 -30.079,8.247 -39.471,-3.256
-            -14.697,-18 20.024,-72.251 37.041,-70.837Z"
-        </ID>
-        <ID>MaxLineLength:UndrawThemePicker.kt$"M209.802,289.764c1.475,1.19 5.765,5.555 12.284,6.165
-            4.449,0.416 7.909,-1.106 9.042,-1.568 14.056,-5.731 51.84,-3.902 76.5,11.368 5.585,3.458
-            8.732,6.513 10.832,10.411 2.977,5.528 2.482,10.216 2.859,22.241 0.206,6.578 0.927,13.132
-            1.191,19.707 1.546,38.498 7.363,45.385 1.051,53.107 -7.004,8.567 -22.712,10.545
-            -28.572,5.11 -2.4,-2.226 -2.173,-4.791 -3.193,-10.987 -2.989,-18.168 -8.714,-19.071
-            -10.437,-32.602 -2.012,-15.798 4.69,-23.217 0.356,-26.62 -4.019,-3.156 -10.555,2.617
-            -25.861,5.792 -7.004,1.453 -11.261,1.41 -24.408,1.545 -51.2,0.526 -52.907,1.846
-            -61.239,-0.995 -3.646,-1.243 -29.52,-10.067 -30.832,-24.859 -2.053,-23.147 57.14,-48.54
-            70.427,-37.814Z"
-        </ID>
-        <ID>MaxLineLength:UndrawThemePicker.kt$"M264.923,154.721c6.2,-5.123 13.869,-6.077
-            17.129,-2.13 3.26,3.946 0.876,11.297 -5.327,16.421 -2.45,2.081 -5.362,3.545
-            -8.494,4.269l-26.544,21.375 -9.765,-12.67 27.204,-19.727c1.303,-2.94 3.29,-5.524
-            5.797,-7.538Z"
-        </ID>
-        <ID>MaxLineLength:UndrawThemePicker.kt$"M27.647,263.736c-1.49,0.006 -1.973,3.535
-            -3.282,3.467 -1.304,-0.068 -1.278,-3.596 -3.871,-7.144 -0.468,-0.64 -3.414,-4.672
-            -5.377,-4.123 -3.721,1.04 -0.638,17.625 -6.017,19.632 -1.181,0.44 -2.894,0.226
-            -6.614,1.472 -1.48,0.496 -2.24,0.875 -2.44,1.557 -0.285,0.967 0.804,1.697 2.491,3.905
-            2.53,3.311 1.858,3.995 4.047,6.345 1.626,1.745 2.85,2.284 2.667,3.105 -0.258,1.162
-            -2.876,0.832 -3.417,2.179 -0.551,1.375 1.433,3.569 3.113,4.881 3.153,2.462 6.147,2.533
-            8.928,3.232 3.022,0.759 7.207,2.615 11.73,7.624l38.541,45.916c-7.75,-9.691
-            -28.65,-36.845 -36.1,-47.473 -2.151,-3.068 -4.262,-6.3 -3.652,-10.031 0.587,-3.592
-            3.626,-7.212 5.403,-13.06 0.208,-0.683 0.761,-2.591 -0.092,-3.374 -0.706,-0.647
-            -1.73,0.064 -2.398,-0.53 -0.896,-0.797 0.221,-2.725 0.438,-5.773 0.153,-2.149
-            -0.219,-3.762 -0.538,-5.15 -0.096,-0.418 -1.576,-6.664 -3.559,-6.656v0Z"
-        </ID>
-        <ID>MaxLineLength:UndrawThemePicker.kt$"M274.472,187.715c7.836,-1.811 15.123,0.764
-            16.274,5.751 1.152,4.987 -4.267,10.497 -12.106,12.308 -3.122,0.766 -6.381,0.774
-            -9.506,0.022l-33.299,7.255 -2.835,-13.175 32.917,-8.009c2.479,-2.047 5.413,-3.471
-            8.555,-4.152Z"
-        </ID>
-        <ID>MaxLineLength:UndrawThemePicker.kt$"M295.195,193.978c0.817,5.365 5.846,9.065
-            11.212,8.248s9.065,-5.846 8.248,-11.212c-0.817,-5.365 -5.846,-9.065 -11.212,-8.248
-            -5.365,0.817 -9.065,5.846 -8.248,11.212Z"
-        </ID>
-        <ID>MaxLineLength:UndrawThemePicker.kt$"M315.193,445.215c2.564,0.451 5.561,0.979
-            7.911,-0.892 1.59,-1.266 2.645,-3.441 2.539,-5.51 -0.122,-2.388 -1.746,-3.794
-            -1.485,-4.025 0.397,-0.351 4.46,2.648 7.944,7.379 0.657,0.893 3.604,4.983 5.948,12.257
-            1.878,5.828 0.916,6.088 2.2,9.585 3.942,10.734 14.103,11.278 14.75,19.276 0.25,3.086
-            -0.99,6.387 -3.221,8.221 -4.481,3.684 -12.154,0.791 -16.315,-0.838 -10.021,-3.923
-            -15.502,-9.992 -21.58,-15.806 -20.671,-19.773 -36.216,-25.09 -34.302,-31.688
-            0.362,-1.249 0.843,-0.795 7.739,-7.084 6.806,-6.207 8.13,-8.282 10.045,-7.849
-            2.883,0.652 1.654,5.754 6.447,11.037 4.247,4.682 9.719,5.645 11.381,5.938Z"
-        </ID>
-        <ID>MaxLineLength:UndrawThemePicker.kt$"M323.709,189.636c1.577,10.357 -5.566,20.067
-            -15.923,21.644 -10.357,1.577 -20.067,-5.566 -21.644,-15.923 -1.577,-10.357 5.566,-20.067
-            15.923,-21.644 10.357,-1.577 20.067,5.566 21.644,15.923ZM288.119,195.056c1.411,9.267
-            10.098,15.658 19.366,14.247s15.658,-10.098 14.247,-19.366 -10.098,-15.658
-            -19.366,-14.247 -15.658,10.098 -14.247,19.366Z"
-        </ID>
-        <ID>MaxLineLength:UndrawThemePicker.kt$"M35.45,174.614c-0.162,0 -0.327,-0.004 -0.493,-0.015
-            -3.374,-0.182 -6.498,-2.201 -9.287,-6.001 -1.308,-1.787 -1.977,-3.826 -3.312,-7.893
-            -0.207,-0.627 -1.213,-3.807 -1.824,-8.183 -0.4,-2.859 -0.35,-4.055 0.217,-5.111
-            0.629,-1.176 1.646,-1.996 2.791,-2.55 -0.05,-0.379 -0.01,-0.77 0.155,-1.168 0.675,-1.652
-            2.47,-1.435 3.441,-1.331 0.491,0.062 1.105,0.143 1.766,0.108 1.041,-0.05 1.6,-0.36
-            2.447,-0.824 0.811,-0.445 1.818,-0.998 3.314,-1.304 2.948,-0.615 5.418,0.221 6.233,0.495
-            4.285,1.428 6.397,4.759 8.842,8.616 0.487,0.774 2.161,3.59 3.265,7.451 0.797,2.786
-            0.685,4.024 0.445,4.944 -0.487,1.892 -1.638,2.975 -4.561,5.366 -3.053,2.503 -4.585,3.757
-            -5.9,4.519 -3.062,1.768 -4.985,2.878 -7.538,2.878v0Z"
-        </ID>
-        <ID>MaxLineLength:UndrawThemePicker.kt$"M375.088,343.924c2.375,-1.066 5.151,-2.313
-            6.045,-5.18 0.604,-1.94 0.256,-4.332 -0.993,-5.985 -1.442,-1.907 -3.575,-2.159
-            -3.489,-2.496 0.131,-0.514 5.177,-0.313 10.716,1.645 1.045,0.369 5.781,2.1 11.804,6.802
-            4.826,3.768 4.177,4.523 7.203,6.695 9.29,6.669 18.002,1.413 23.029,7.667 1.94,2.414
-            2.767,5.84 1.951,8.611 -1.64,5.564 -9.612,7.479 -13.97,8.468 -10.494,2.381 -18.438,0.437
-            -26.732,-0.96 -28.207,-4.753 -44.056,-0.424 -46.177,-6.959 -0.401,-1.237 0.251,-1.131
-            2.426,-10.208 2.147,-8.958 2.076,-11.418 3.904,-12.136 2.752,-1.08 4.6,3.832
-            11.532,5.513 6.143,1.49 11.212,-0.787 12.751,-1.477Z"
-        </ID>
-        <ID>MaxLineLength:UndrawThemePicker.kt$"M380.757,32.786c2.365,15.533 16.926,26.245
-            32.459,23.879 15.533,-2.365 26.245,-16.926 23.879,-32.459 -2.365,-15.533 -16.926,-26.245
-            -32.459,-23.879 -15.533,2.365 -26.245,16.926 -23.879,32.459Z"
-        </ID>
-        <ID>MaxLineLength:UndrawThemePicker.kt$"M382.442,64.876h52c2.206,0 4,1.794 4,4 0,2.206
-            -1.794,4 -4,4h-52c-2.206,0 -4,-1.794 -4,-4 0,-2.206 1.794,-4 4,-4Z"
-        </ID>
-        <ID>MaxLineLength:UndrawThemePicker.kt$"M407.321,104.9l8.23,3.899c-3.376,-4.711
-            -6.284,-12.068 -7.841,-17.922 -2.637,5.453 -6.887,12.126
-            -11.094,16.112l8.698,-2.238c-5.36,26.268 -25.519,45.126
-            -48.604,45.126l-0.327,0.949c24.113,0 45.466,-18.596 50.938,-45.925Z"
-        </ID>
-        <ID>MaxLineLength:UndrawThemePicker.kt$"M57.368,199.096l-0.898,-8.012
-            0.41,-0.607c1.898,-2.809 2.865,-5.552 2.876,-8.156 0.002,-0.414 -0.017,-0.828
-            -0.037,-1.25 -0.077,-1.671 -0.174,-3.749 0.909,-6.171 0.607,-1.35 2.314,-4.476
-            4.879,-4.089 0.691,0.097 1.213,0.414 1.609,0.785 0.058,-0.093 0.118,-0.186 0.182,-0.286
-            0.799,-1.219 1.431,-1.741 2.041,-2.244 0.468,-0.387 0.952,-0.785 1.71,-1.729
-            0.333,-0.414 0.592,-0.778 0.811,-1.083 0.664,-0.925 1.53,-2.027 3.058,-2.008 1.633,0.077
-            2.488,1.428 3.054,2.321 1.012,1.594 1.47,2.743 1.774,3.505 0.11,0.279 0.236,0.592
-            0.3,0.689 0.526,0.774 4.803,0.05 6.415,-0.213 3.619,-0.604 6.751,-1.126 8.042,1.157
-            0.925,1.633 0.238,3.791 -2.103,6.589 -0.729,0.871 -1.505,1.532 -2.194,2.051 0.571,0.34
-            1.081,0.863 1.288,1.683h0c0.487,1.942 -1.182,3.888 -4.96,5.792 -0.938,0.476 -2.201,1.11
-            -3.971,1.416 -0.834,0.143 -1.584,0.178 -2.227,0.197 -0.014,0.371 -0.101,0.774
-            -0.327,1.188 -0.664,1.219 -2.045,1.799 -4.126,1.66 -2.29,-0.12 -4.176,-0.557 -5.84,-0.94
-            -1.453,-0.333 -2.704,-0.615 -3.687,-0.549 -1.822,0.147 -3.227,1.606
-            -4.875,3.497l-4.115,4.809h-0Z"
-        </ID>
-        <ID>MaxLineLength:UndrawThemePicker.kt$"M57.368,270.408l-0.898,-8.012
-            0.41,-0.607c1.898,-2.809 2.865,-5.552 2.876,-8.156 0.002,-0.414 -0.017,-0.828
-            -0.037,-1.25 -0.077,-1.671 -0.174,-3.749 0.909,-6.171 0.607,-1.35 2.314,-4.476
-            4.879,-4.089 0.691,0.097 1.213,0.414 1.609,0.785 0.058,-0.093 0.118,-0.186 0.182,-0.286
-            0.799,-1.219 1.431,-1.741 2.041,-2.244 0.468,-0.387 0.952,-0.785 1.71,-1.729
-            0.333,-0.414 0.592,-0.778 0.811,-1.083 0.664,-0.925 1.53,-2.027 3.058,-2.008 1.633,0.077
-            2.488,1.428 3.054,2.321 1.012,1.594 1.47,2.743 1.774,3.505 0.11,0.279 0.236,0.592
-            0.3,0.689 0.526,0.774 4.803,0.05 6.415,-0.213 3.619,-0.604 6.751,-1.126 8.042,1.157
-            0.925,1.633 0.238,3.791 -2.103,6.589 -0.729,0.871 -1.505,1.532 -2.194,2.051 0.571,0.34
-            1.081,0.863 1.288,1.683h0c0.487,1.942 -1.182,3.888 -4.96,5.792 -0.938,0.476 -2.201,1.11
-            -3.971,1.416 -0.834,0.143 -1.584,0.178 -2.227,0.197 -0.014,0.371 -0.101,0.774
-            -0.327,1.188 -0.664,1.219 -2.045,1.799 -4.126,1.66 -2.29,-0.12 -4.176,-0.557 -5.84,-0.94
-            -1.453,-0.333 -2.704,-0.615 -3.687,-0.549 -1.822,0.147 -3.227,1.606
-            -4.875,3.497l-4.115,4.809h-0Z"
-        </ID>
-        <ID>MaxLineLength:UndrawThemePicker.kt$"M61.531,222.701l-7.523,2.901
-            -0.692,-0.243c-3.198,-1.123 -6.097,-1.363 -8.618,-0.714 -0.401,0.103 -0.796,0.227
-            -1.199,0.353 -1.597,0.499 -3.582,1.119 -6.2,0.686 -1.46,-0.245 -4.917,-1.103
-            -5.193,-3.682 -0.082,-0.693 0.093,-1.278 0.351,-1.756 -0.105,-0.033 -0.21,-0.067
-            -0.323,-0.103 -1.381,-0.464 -2.047,-0.943 -2.688,-1.405 -0.493,-0.355 -1.001,-0.721
-            -2.107,-1.215 -0.485,-0.217 -0.902,-0.375 -1.253,-0.509 -1.063,-0.407 -2.349,-0.966
-            -2.718,-2.449 -0.339,-1.599 0.75,-2.768 1.471,-3.543 1.285,-1.383 2.28,-2.118
-            2.941,-2.605 0.241,-0.177 0.513,-0.378 0.59,-0.465 0.615,-0.705 -1.17,-4.659
-            -1.833,-6.151 -1.502,-3.348 -2.801,-6.245 -0.921,-8.072 1.345,-1.309 3.607,-1.192
-            6.907,0.363 1.027,0.485 1.864,1.067 2.54,1.602 0.185,-0.638 0.56,-1.265
-            1.301,-1.673h0c1.755,-0.964 4.061,0.157 6.86,3.329 0.698,0.787 1.632,1.848 2.377,3.482
-            0.35,0.77 0.574,1.487 0.756,2.104 0.363,-0.081 0.774,-0.099 1.232,0.015 1.347,0.333
-            2.259,1.521 2.652,3.57 0.465,2.246 0.52,4.181 0.572,5.888 0.047,1.49 0.091,2.772
-            0.404,3.706 0.604,1.725 2.372,2.714 4.62,3.828l5.695,2.76 -0,0Z"
-        </ID>
-        <ID>MaxLineLength:UndrawThemePicker.kt$"M65.566,354.625l-1.679,-1.052 -0.406,-1.938
-            0.406,1.938 -1.958,0.224c-0.031,-0.182 -0.137,-0.6 -0.298,-1.254 -0.876,-3.583
-            -3.548,-14.485 -5.776,-31.655 -1.555,-11.986 -2.435,-24.308 -2.617,-36.631
-            -0.182,-12.342 0.402,-21.685 0.871,-29.194 0.354,-5.664 0.783,-11.057 1.205,-16.311
-            1.122,-14.036 2.18,-27.295 1.393,-41.973 -0.174,-3.277 -0.54,-10.098 -4.525,-17.356
-            -2.312,-4.209 -5.496,-7.947 -9.465,-11.104l2.468,-3.103c4.381,3.49 7.904,7.629
-            10.471,12.303 4.418,8.047 4.817,15.479 5.008,19.05 0.801,14.938 -0.269,28.324
-            -1.402,42.496 -0.418,5.235 -0.847,10.605 -1.199,16.245 -0.464,7.44 -1.043,16.702
-            -0.863,28.885 0.178,12.175 1.048,24.347 2.582,36.182 2.201,16.953 4.834,27.693
-            5.699,31.222 0.46,1.884 0.557,2.279 0.085,3.025v-0Z"
-        </ID>
-        <ID>MaximumLineLength:AiGenerationAnimationBox.kt$</ID>
-        <ID>MaximumLineLength:AutoBackupWorker.kt$AutoBackupWorker$</ID>
-        <ID>MaximumLineLength:BackupSchedulerScreen.kt$</ID>
-        <ID>MaximumLineLength:BuyMeACoffeeLogo.kt$</ID>
-        <ID>MaximumLineLength:ChangelogScreen.kt$</ID>
-        <ID>MaximumLineLength:GenerateColorSchemeScreen.kt$</ID>
-        <ID>MaximumLineLength:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$</ID>
-        <ID>MaximumLineLength:ResetSettingsDialog.kt$</ID>
-        <ID>MaximumLineLength:RestoreBackupDialog.kt$</ID>
-        <ID>MaximumLineLength:UndrawThemePicker.kt$</ID>
-        <ID>MultiLineIfElse:AiGenerationAnimationBox.kt$darkColorSchemeFromSeed()</ID>
-        <ID>MultiLineIfElse:AiGenerationAnimationBox.kt$dynamicDarkColorScheme(context)</ID>
-        <ID>MultiLineIfElse:AiGenerationAnimationBox.kt$dynamicLightColorScheme(context)</ID>
-        <ID>MultiLineIfElse:AiGenerationAnimationBox.kt$highContrastDarkColorSchemeFromSeed()</ID>
-        <ID>
-            MultiLineIfElse:AiGenerationAnimationBox.kt$highContrastDynamicDarkColorScheme(context)
-        </ID>
-        <ID>MultiLineIfElse:AutoUpdateScreen.kt$Icon(imageVector = Icons.Rounded.Update,
-            contentDescription = null)
-        </ID>
-        <ID>MultiLineIfElse:AutoUpdateScreen.kt$LoadingSpinner(modifier = Modifier.size(24.dp))</ID>
-        <ID>MultiLineIfElse:BackupAndRestoreScreen.kt$Text( text = dateTime, style =
-            MaterialTheme.typography.bodySmall, modifier = Modifier.alpha(0.7f) )
-        </ID>
-        <ID>MultiLineIfElse:BackupAndRestoreScreen.kt$backupAndRestoreViewModel.onConsentDenied()
-        </ID>
-        <ID>MultiLineIfElse:BackupAndRestoreScreen.kt$backupAndRestoreViewModel.onConsentGranted()
-        </ID>
-        <ID>
-            MultiLineIfElse:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel$context.getString(
-            R.string.backup_successful )
-        </ID>
-        <ID>
-            MultiLineIfElse:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel$context.getString(
-            R.string.reset_settings_failed )
-        </ID>
-        <ID>
-            MultiLineIfElse:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel$context.getString(
-            R.string.restore_successful )
-        </ID>
-        <ID>
-            MultiLineIfElse:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel$context.getString(R.string.backup_failed)
-        </ID>
-        <ID>
-            MultiLineIfElse:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel$context.getString(R.string.reset_settings_successful)
-        </ID>
-        <ID>
-            MultiLineIfElse:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel$context.getString(R.string.restore_failed)
-        </ID>
-        <ID>MultiLineIfElse:ConfigureSaveDirectoryDialog.kt$uriString</ID>
-        <ID>MultiLineIfElse:LanguagesScreen.kt$CustomCardShape(50)</ID>
-        <ID>MultiLineIfElse:LanguagesScreen.kt$getRoundedShape(index, allLocales.size)</ID>
-        <ID>MultiLineIfElse:LanguagesScreen.kt$onPrimaryContainer.copy(alpha = 0.2f)</ID>
-        <ID>MultiLineIfElse:LanguagesScreen.kt$primary.copy(alpha = 0.15f)</ID>
-        <ID>MultiLineIfElse:LicensesComponents.kt$stringResource(R.string.collapse)</ID>
-        <ID>MultiLineIfElse:LicensesComponents.kt$stringResource(R.string.expand)</ID>
-        <ID>MultiLineIfElse:LookAndFeelScreen.kt$stringResource(R.string.off)</ID>
-        <ID>MultiLineIfElse:LookAndFeelScreen.kt$stringResource(R.string.on)</ID>
-        <ID>MultiLineIfElse:PaletteStylePickerDialog.kt$CardDefaults.cardColors( containerColor =
-            MaterialTheme.colorScheme.surfaceContainerLowest, contentColor =
-            MaterialTheme.colorScheme.onSurface )
-        </ID>
-        <ID>MultiLineIfElse:PaletteStylePickerDialog.kt$CardDefaults.cardColors( containerColor =
-            stylePrimaryContainer, contentColor = styleOnPrimaryContainer )
-        </ID>
-        <ID>MultiLineIfElse:PaletteWheel.kt$AshellYouAnimationSpecs.springFloat</ID>
-        <ID>MultiLineIfElse:PaletteWheel.kt$tween( durationMillis = 300, easing = LinearEasing )
-        </ID>
-        <ID>MultiLineIfElse:SettingsSearchViewModel.kt$SettingsSearchViewModel$emptyList()</ID>
-        <ID>MultiLineIfElse:SettingsSearchViewModel.kt$SettingsSearchViewModel$engine.search(q)</ID>
-        <ID>MultiLineIfElse:UiScaleScreen.kt$haptic.performHapticFeedback(
-            HapticFeedbackType.VirtualKey )
-        </ID>
-        <ID>MultiLineIfElse:UpdateBottomSheet.kt$ButtonGroupItem( text =
-            stringResource(R.string.download), onClick = { if (isDirectDownloadEnabled) {
-            permissionPromptShown = false viewModel.downloadApk(apkUrl, apkName) } else { openUrl(
-            context = context, url = UrlConst.URL_GITHUB_REPO + "/releases/tag/$latestVersion" ) } }
-            )
-        </ID>
-        <ID>MultiLineIfElse:UpdateBottomSheet.kt$null</ID>
-        <ID>NestedBlockDepth:DownloadRepositoryImpl.kt$DownloadRepositoryImpl$private suspend fun
-            monitorDownload( dm: DownloadManager, file: File, onProgress: (DownloadState) -&gt;
-            Unit, isActive: Boolean )
-        </ID>
-        <ID>NestedBlockDepth:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$suspend
-            operator fun invoke(prompt: String, fallbackModels: List&lt;String&gt;? = null): Result&lt;ColorSchemePayload&gt;
-        </ID>
-        <ID>
-            NestedBlockDepth:LanguagesViewModel.kt$LanguagesViewModel.Companion$@SuppressLint("DiscouragedApi")
-            private fun parseLocaleTagsFromConfig(context: Context): List&lt;String&gt;
-        </ID>
-        <ID>NestedBlockDepth:SettingsBackupProvider.kt$SettingsBackupProvider$override suspend fun
-            restoreData(data: JsonElement?, legacyData: (String) -&gt; JsonElement?)
-        </ID>
-        <ID>NoBlankLineBeforeRbrace:ColorTabs.kt$</ID>
-        <ID>NoBlankLineBeforeRbrace:DownloadRepositoryImpl.kt$DownloadRepositoryImpl$</ID>
-        <ID>NoBlankLineBeforeRbrace:GenerateColorSchemeScreen.kt$</ID>
-        <ID>NoConsecutiveBlankLines:AboutScreen.kt$</ID>
-        <ID>NoConsecutiveBlankLines:ApiHttpClient.kt$</ID>
-        <ID>NoConsecutiveBlankLines:AutoBackupTimePickerDialog.kt$</ID>
-        <ID>NoConsecutiveBlankLines:AutoBackupWorker.kt$</ID>
-        <ID>NoConsecutiveBlankLines:AutoUpdateScreen.kt$</ID>
-        <ID>NoConsecutiveBlankLines:AutoUpdateViewModel.kt$</ID>
-        <ID>NoConsecutiveBlankLines:BackupAndRestoreRepositoryImpl.kt$</ID>
-        <ID>NoConsecutiveBlankLines:BackupAndRestoreScreen.kt$</ID>
-        <ID>NoConsecutiveBlankLines:BackupAndRestoreViewModel.kt$</ID>
-        <ID>NoConsecutiveBlankLines:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel$</ID>
-        <ID>NoConsecutiveBlankLines:BackupDestinationDialog.kt$</ID>
-        <ID>NoConsecutiveBlankLines:BackupSchedulerScreen.kt$</ID>
-        <ID>NoConsecutiveBlankLines:BehaviorScreen.kt$</ID>
-        <ID>NoConsecutiveBlankLines:ChangelogScreen.kt$</ID>
-        <ID>NoConsecutiveBlankLines:ChangelogViewModel.kt$</ID>
-        <ID>NoConsecutiveBlankLines:CheckUpdateUseCase.kt$</ID>
-        <ID>NoConsecutiveBlankLines:CloudOperationDialog.kt$</ID>
-        <ID>NoConsecutiveBlankLines:ConfigureSaveDirectoryDialog.kt$</ID>
-        <ID>NoConsecutiveBlankLines:ContributorsScreen.kt$</ID>
-        <ID>NoConsecutiveBlankLines:ContributorsViewModel.kt$</ID>
-        <ID>NoConsecutiveBlankLines:DarkThemeScreen.kt$</ID>
-        <ID>NoConsecutiveBlankLines:GenerateColorSchemeScreen.kt$</ID>
-        <ID>NoConsecutiveBlankLines:GithubDataViewModel.kt$</ID>
-        <ID>NoConsecutiveBlankLines:GoogleSignInCard.kt$</ID>
-        <ID>NoConsecutiveBlankLines:LanguagesScreen.kt$</ID>
-        <ID>NoConsecutiveBlankLines:LanguagesViewModel.kt$</ID>
-        <ID>NoConsecutiveBlankLines:LatestVersionDialog.kt$</ID>
-        <ID>NoConsecutiveBlankLines:LicensesComponents.kt$</ID>
-        <ID>NoConsecutiveBlankLines:LicensesScreen.kt$</ID>
-        <ID>NoConsecutiveBlankLines:LicensesViewModel.kt$</ID>
-        <ID>NoConsecutiveBlankLines:LookAndFeelScreen.kt$</ID>
-        <ID>NoConsecutiveBlankLines:LookAndFeelViewModel.kt$</ID>
-        <ID>NoConsecutiveBlankLines:Mapper.kt$</ID>
-        <ID>NoConsecutiveBlankLines:NoGoogleAccountDialog.kt$</ID>
-        <ID>NoConsecutiveBlankLines:PaletteStylePickerDialog.kt$</ID>
-        <ID>NoConsecutiveBlankLines:PaletteWheel.kt$</ID>
-        <ID>NoConsecutiveBlankLines:ProfilePic.kt$</ID>
-        <ID>NoConsecutiveBlankLines:RestoreBackupDialog.kt$</ID>
-        <ID>NoConsecutiveBlankLines:RestoreSourceDialog.kt$</ID>
-        <ID>NoConsecutiveBlankLines:SettingsBackupProvider.kt$</ID>
-        <ID>NoConsecutiveBlankLines:SettingsContentExt.kt$</ID>
-        <ID>NoConsecutiveBlankLines:SettingsNetworkModule.kt$</ID>
-        <ID>NoConsecutiveBlankLines:SettingsProvider.kt$</ID>
-        <ID>NoConsecutiveBlankLines:SettingsScreen.kt$</ID>
-        <ID>NoConsecutiveBlankLines:SettingsSearchScreen.kt$</ID>
-        <ID>NoConsecutiveBlankLines:SettingsSearchViewModel.kt$</ID>
-        <ID>NoConsecutiveBlankLines:SettingsViewModel.kt$</ID>
-        <ID>NoConsecutiveBlankLines:SettingsViewModel.kt$SettingsViewModel$</ID>
-        <ID>NoConsecutiveBlankLines:ToggleSettingUseCase.kt$</ID>
-        <ID>NoConsecutiveBlankLines:TranslatorsScreen.kt$</ID>
-        <ID>NoConsecutiveBlankLines:UiScaleScreen.kt$</ID>
-        <ID>NoConsecutiveBlankLines:UpdateBottomSheet.kt$</ID>
-        <ID>NoConsecutiveBlankLines:VersionToChangelogMap.kt$</ID>
-        <ID>NoEmptyFirstLineInMethodBlock:ColorTabs.kt$</ID>
-        <ID>NoEmptyFirstLineInMethodBlock:ContributorRepositoryImpl.kt$ContributorsRepositoryImpl$
-        </ID>
-        <ID>NoEmptyFirstLineInMethodBlock:GenerateColorSchemeScreen.kt$</ID>
-        <ID>NoEmptyFirstLineInMethodBlock:GitHubContributorParser.kt$GitHubContributorParser$</ID>
-        <ID>NoEmptyFirstLineInMethodBlock:GoogleSignOutConfirmationDialog.kt$</ID>
-        <ID>NoEmptyFirstLineInMethodBlock:PaletteStylePickerDialog.kt$</ID>
-        <ID>NoEmptyFirstLineInMethodBlock:ResetSettingsDialog.kt$</ID>
-        <ID>NoEmptyFirstLineInMethodBlock:RestoreBackupDialog.kt$</ID>
-        <ID>NoEmptyFirstLineInMethodBlock:SelectBackupFolderDialog.kt$</ID>
-        <ID>NoEmptyFirstLineInMethodBlock:SupportMeCard.kt$</ID>
-        <ID>NoEmptyFirstLineInMethodBlock:TranslatorParser.kt$TranslatorParser$</ID>
-        <ID>NoEmptyFirstLineInMethodBlock:UiScaleScreen.kt$</ID>
-        <ID>NoEmptyFirstLineInMethodBlock:UpdateBottomSheet.kt$</ID>
-        <ID>NoMultipleSpaces:UpdateBottomSheet.kt$</ID>
-        <ID>NoTrailingSpaces:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$</ID>
-        <ID>
-            NoUnusedImports:LookAndFeelScreen.kt$in.hridayan.ashell.settings.presentation.page.lookandfeel.screens.LookAndFeelScreen.kt
-        </ID>
-        <ID>NoWildcardImports:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
-        <ID>PrintStackTrace:SettingsBackupProvider.kt$SettingsBackupProvider$e</ID>
-        <ID>RethrowCaughtException:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$throw
-            e
-        </ID>
-        <ID>ReturnCount:CheckUpdateUseCase.kt$CheckUpdateUseCase$private fun isNewerVersion(latest:
-            String, current: String): Boolean
-        </ID>
-        <ID>SwallowedException:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel$e: Exception
-        </ID>
-        <ID>SwallowedException:ColorPickerBottomSheet.kt$e: Exception</ID>
-        <ID>SwallowedException:ColorRoleRegistry.kt$ColorRoleRegistry$e: Exception</ID>
-        <ID>SwallowedException:DownloadRepositoryImpl.kt$DownloadRepositoryImpl$e:
-            CancellationException
-        </ID>
-        <ID>SwallowedException:GenerateColorSchemeScreen.kt$e: Exception</ID>
-        <ID>SwallowedException:ThemePreviewBottomSheet.kt$e: Exception</ID>
-        <ID>ThrowsCount:AutoBackupWorker.kt$AutoBackupWorker$private suspend fun performLocalBackup(
-            folderUri: String, deleteExisting: Boolean, backupType: BackupType, )
-        </ID>
-        <ID>ThrowsCount:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$suspend operator
-            fun invoke(prompt: String, fallbackModels: List&lt;String&gt;? = null): Result&lt;ColorSchemePayload&gt;
-        </ID>
-        <ID>TooManyFunctions:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel : ViewModel</ID>
-        <ID>UnusedPrivateMember:AiGenerationAnimationBox.kt$@Preview(showBackground = true)
-            @Composable private fun AiGenerationAnimationBoxPreview()
-        </ID>
-        <ID>UnusedPrivateProperty:BackupScheduler.kt$BackupScheduler$private const val
-            ONE_SHOT_WORK_NAME = "auto_backup_now"
-        </ID>
-        <ID>UseCheckOrError:AutoBackupWorker.kt$AutoBackupWorker$throw IllegalStateException("Failed
-            to create file in backup folder. Storage may be full.")
-        </ID>
-        <ID>UseCheckOrError:AutoBackupWorker.kt$AutoBackupWorker$throw IllegalStateException("Failed
-            to generate backup data for cloud upload.")
-        </ID>
-        <ID>UseCheckOrError:AutoBackupWorker.kt$AutoBackupWorker$throw IllegalStateException("Failed
-            to generate backup data. The app data may be corrupted.")
-        </ID>
-        <ID>UseCheckOrError:AutoBackupWorker.kt$AutoBackupWorker$throw IllegalStateException("Failed
-            to write to backup file. Storage may be full or permissions revoked.")
-        </ID>
-        <ID>UseCheckOrError:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$throw
-            IllegalStateException("${provider.displayName} API Key not set. Please set it in
-            Settings -&gt; AI Models -&gt; Cloud Models.")
-        </ID>
-        <ID>UseCheckOrError:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$throw
-            IllegalStateException("${provider.displayName} client not found")
-        </ID>
-        <ID>UseCheckOrError:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$throw
-            IllegalStateException("No models configured for provider ${provider.displayName}")
-        </ID>
-        <ID>UseCheckOrError:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$throw
-            lastException ?: IllegalStateException("Failed to generate theme with all fallback
-            models.")
-        </ID>
-        <ID>UseRequire:EncryptionHelper.kt$EncryptionHelper$throw IllegalArgumentException("Invalid
-            encrypted data")
-        </ID>
-        <ID>WildcardImport:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
-        <ID>Wrapping:AutoBackupTimePickerDialog.kt$(</ID>
-        <ID>Wrapping:BackupAndRestoreScreen.kt$(</ID>
-        <ID>Wrapping:BackupAndRestoreScreen.kt$;</ID>
-        <ID>Wrapping:FontStyleBottomSheet.kt$(</ID>
-        <ID>Wrapping:GenerateColorSchemeScreen.kt$(</ID>
-        <ID>Wrapping:LanguagesScreen.kt$(</ID>
-        <ID>Wrapping:LatestVersionDialog.kt$(</ID>
-        <ID>Wrapping:LookAndFeelScreen.kt$(</ID>
-        <ID>Wrapping:SettingsSearchScreen.kt$(</ID>
-        <ID>Wrapping:SupportMeCard.kt$(</ID>
-        <ID>Wrapping:TranslatorsScreen.kt$(</ID>
-    </CurrentIssues>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>ArgumentListWrapping:BackupAndRestoreScreen.kt$("application/octet-stream")</ID>
+    <ID>ArgumentListWrapping:BackupAndRestoreScreen.kt$(arrayOf("application/octet-stream"))</ID>
+    <ID>ArgumentListWrapping:BackupAndRestoreScreen.kt$(modifier = Modifier .fillMaxWidth() .height(2.dp))</ID>
+    <ID>ArgumentListWrapping:BackupAndRestoreScreen.kt$(modifier = Modifier .fillMaxWidth() .height(25.dp))</ID>
+    <ID>ArgumentListWrapping:BackupSchedulerScreen.kt$(`in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider.autoBackupTypeOptions)</ID>
+    <ID>ArgumentListWrapping:BackupSchedulerScreen.kt$(`in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider.backupFrequencyOptions)</ID>
+    <ID>ArgumentListWrapping:GenerateColorSchemeScreen.kt$( w * 0.65f, baseH - dip, w * 0.35f, baseH + dip, 0f, baseH + dip )</ID>
+    <ID>ArgumentListWrapping:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$("No models configured for provider ${provider.displayName}")</ID>
+    <ID>ArgumentListWrapping:LicensesComponents.kt$( ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class, ExperimentalFlexBoxApi::class )</ID>
+    <ID>CyclomaticComplexMethod:AutoBackupWorker.kt$AutoBackupWorker$override suspend fun doWork(): Result</ID>
+    <ID>CyclomaticComplexMethod:AutoBackupWorker.kt$AutoBackupWorker$private suspend fun performCloudBackup(backupType: BackupType)</ID>
+    <ID>CyclomaticComplexMethod:AutoBackupWorker.kt$AutoBackupWorker$private suspend fun performLocalBackup( folderUri: String, deleteExisting: Boolean, backupType: BackupType, )</ID>
+    <ID>CyclomaticComplexMethod:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$suspend operator fun invoke(prompt: String, fallbackModels: List&lt;String&gt;? = null): Result&lt;ColorSchemePayload&gt;</ID>
+    <ID>CyclomaticComplexMethod:PolicyParser.kt$fun parsePolicy(text: String): List&lt;PolicyBlock&gt;</ID>
+    <ID>CyclomaticComplexMethod:PrivacyPolicyScreen.kt$private fun buildInline( text: String, normal: SpanStyle, bold: SpanStyle, italic: SpanStyle, code: SpanStyle, link: SpanStyle, )</ID>
+    <ID>CyclomaticComplexMethod:ReadFontNameUseCase.kt$ReadFontNameUseCase$private fun parseFontName(file: File): String?</ID>
+    <ID>CyclomaticComplexMethod:SettingsBackupProvider.kt$SettingsBackupProvider$override suspend fun restoreData(data: JsonElement?, legacyData: (String) -&gt; JsonElement?)</ID>
+    <ID>CyclomaticComplexMethod:SettingsViewModel.kt$SettingsViewModel$fun rescheduleAutoBackup( enabled: Boolean? = null, hour: Int? = null, minute: Int? = null, frequency: Int? = null, )</ID>
+    <ID>CyclomaticComplexMethod:UpdateBottomSheet.kt$private fun parseChangelog(body: String?): String</ID>
+    <ID>Filename:ContributorRepository.kt$in.hridayan.ashell.settings.domain.repository.ContributorRepository.kt</ID>
+    <ID>Filename:ContributorRepositoryImpl.kt$in.hridayan.ashell.settings.data.repository.ContributorRepositoryImpl.kt</ID>
+    <ID>FinalNewline:PolicyBlock.kt$in.hridayan.ashell.settings.presentation.page.privacypolicy.model.PolicyBlock.kt</ID>
+    <ID>FinalNewline:PolicyParser.kt$in.hridayan.ashell.settings.presentation.page.privacypolicy.util.PolicyParser.kt</ID>
+    <ID>FinalNewline:PrivacyPolicyScreen.kt$in.hridayan.ashell.settings.presentation.page.privacypolicy.screens.PrivacyPolicyScreen.kt</ID>
+    <ID>FinalNewline:PrivacyPolicyViewModel.kt$in.hridayan.ashell.settings.presentation.page.privacypolicy.viewmodel.PrivacyPolicyViewModel.kt</ID>
+    <ID>FunctionNaming:DeleteColorSchemeDialog.kt$@Composable fun DeleteColorSchemeDialog( themeName: String, onConfirm: () -&gt; Unit, onDismiss: () -&gt; Unit )</ID>
+    <ID>ImplicitDefaultLocale:ColorPickerBottomSheet.kt$String.format("#%02X%02X%02X", r, g, b)</ID>
+    <ID>Indentation:AboutScreen.kt$ </ID>
+    <ID>Indentation:BackupSchedulerScreen.kt$ </ID>
+    <ID>Indentation:LatestVersionDialog.kt$ </ID>
+    <ID>Indentation:LicensesViewModel.kt$LicensesViewModel$ </ID>
+    <ID>Indentation:SettingsViewModel.kt$SettingsViewModel$ </ID>
+    <ID>InstanceOfCheckForException:AutoBackupWorker.kt$AutoBackupWorker$e is SecurityException</ID>
+    <ID>InstanceOfCheckForException:AutoBackupWorker.kt$AutoBackupWorker$e is java.io.IOException</ID>
+    <ID>InstanceOfCheckForException:AutoBackupWorker.kt$AutoBackupWorker$e is java.net.UnknownHostException</ID>
+    <ID>LargeClass:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel : ViewModel</ID>
+    <ID>LargeClass:ColorRoleRegistry.kt$ColorRoleRegistry</ID>
+    <ID>LongMethod:AutoBackupWorker.kt$AutoBackupWorker$override suspend fun doWork(): Result</ID>
+    <ID>LongMethod:AutoBackupWorker.kt$AutoBackupWorker$private suspend fun performCloudBackup(backupType: BackupType)</ID>
+    <ID>LongMethod:AutoBackupWorker.kt$AutoBackupWorker$private suspend fun performLocalBackup( folderUri: String, deleteExisting: Boolean, backupType: BackupType, )</ID>
+    <ID>LongMethod:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel$fun backupToGoogleDrive(type: BackupType)</ID>
+    <ID>LongMethod:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel$fun signInWithGoogle(context: Context)</ID>
+    <ID>LongMethod:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel$private fun syncCloudBackupDetailsOnSignIn()</ID>
+    <ID>LongMethod:DeleteColorSchemeDialog.kt$@Composable fun DeleteColorSchemeDialog( themeName: String, onConfirm: () -&gt; Unit, onDismiss: () -&gt; Unit )</ID>
+    <ID>LongMethod:DownloadRepositoryImpl.kt$DownloadRepositoryImpl$private suspend fun monitorDownload( dm: DownloadManager, file: File, onProgress: (DownloadState) -&gt; Unit, isActive: Boolean )</ID>
+    <ID>LongMethod:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$suspend operator fun invoke(prompt: String, fallbackModels: List&lt;String&gt;? = null): Result&lt;ColorSchemePayload&gt;</ID>
+    <ID>LongMethod:LanguagesViewModel.kt$LanguagesViewModel.Companion$private fun buildSupportedLocales(context: Context): List&lt;SupportedLocale&gt;</ID>
+    <ID>LongMethod:LicensesRepositoryImpl.kt$LicensesRepositoryImpl$override suspend fun getLibraries(): List&lt;LibraryItem&gt;</ID>
+    <ID>LongMethod:PolicyParser.kt$fun parsePolicy(text: String): List&lt;PolicyBlock&gt;</ID>
+    <ID>LongMethod:PrivacyPolicyScreen.kt$private fun buildInline( text: String, normal: SpanStyle, bold: SpanStyle, italic: SpanStyle, code: SpanStyle, link: SpanStyle, )</ID>
+    <ID>LongMethod:ReadFontNameUseCase.kt$ReadFontNameUseCase$private fun parseFontName(file: File): String?</ID>
+    <ID>LongMethod:SettingsBackupProvider.kt$SettingsBackupProvider$override suspend fun restoreData(data: JsonElement?, legacyData: (String) -&gt; JsonElement?)</ID>
+    <ID>LongMethod:SettingsSearchGraph.kt$private fun SearchScreenScope.aboutScreen(navController: NavController)</ID>
+    <ID>LongMethod:SettingsSearchGraph.kt$private fun SearchScreenScope.aiModelsScreen(navController: NavController, aiEnabled: Boolean)</ID>
+    <ID>LongMethod:SettingsSearchGraph.kt$private fun SearchScreenScope.backupAndRestoreScreen(navController: NavController)</ID>
+    <ID>LongMethod:SettingsSearchGraph.kt$private fun SearchScreenScope.backupSchedulerScreen(navController: NavController)</ID>
+    <ID>LongMethod:SettingsSearchGraph.kt$private fun SearchScreenScope.behaviorScreen(navController: NavController)</ID>
+    <ID>LongMethod:SettingsSearchGraph.kt$private fun SearchScreenScope.lookAndFeelScreen( navController: NavController, supportsDynamicColor: Boolean, dynamicColorEnabled: Boolean, customSchemeApplied: Boolean, )</ID>
+    <ID>LongMethod:SettingsSearchGraph.kt$private fun SearchScreenScope.rootEntries(aiEnabled: Boolean)</ID>
+    <ID>LongMethod:SupportMeCard.kt$fun Modifier.premiumShine( durationMillis: Int = 6500, pauseBetween: Int = 3000 ): Modifier</ID>
+    <ID>LongParameterList:FontImportDialog.kt$( isUppercase: Boolean, isBold: Boolean, isItalic: Boolean, isUnderline: Boolean, onToggleUppercase: () -&gt; Unit, onToggleBold: () -&gt; Unit, onToggleItalic: () -&gt; Unit, onToggleUnderline: () -&gt; Unit, onClear: () -&gt; Unit, modifier: Modifier = Modifier )</ID>
+    <ID>LoopWithTooManyJumpStatements:ReadFontNameUseCase.kt$ReadFontNameUseCase$for</ID>
+    <ID>LoopWithTooManyJumpStatements:UpdateBottomSheet.kt$for</ID>
+    <ID>MagicNumber:EncryptionHelper.kt$EncryptionHelper$16</ID>
+    <ID>MagicNumber:EncryptionHelper.kt$EncryptionHelper$24</ID>
+    <ID>MagicNumber:EncryptionHelper.kt$EncryptionHelper$32</ID>
+    <ID>MagicNumber:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$404</ID>
+    <ID>MagicNumber:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$429</ID>
+    <ID>MagicNumber:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$500</ID>
+    <ID>MagicNumber:ReadFontNameUseCase.kt$ReadFontNameUseCase$8</ID>
+    <ID>MagicNumber:SupportMeCard.kt$180f</ID>
+    <ID>MatchingDeclarationName:ContributorRepository.kt$ContributorsRepository</ID>
+    <ID>MatchingDeclarationName:ContributorRepositoryImpl.kt$ContributorsRepositoryImpl : ContributorsRepository</ID>
+    <ID>MatchingDeclarationName:VersionToChangelogMap.kt$VersionToChangelogs</ID>
+    <ID>MaxLineLength:AiGenerationAnimationBox.kt$isUserGeneratedColorSchemeApplied &amp;&amp; generatedColorScheme != null &amp;&amp; !dynamicColor -&gt; generatedColorScheme.toColorScheme()</ID>
+    <ID>MaxLineLength:AutoBackupWorker.kt$AutoBackupWorker$"Cannot write to backup folder. The folder may have been deleted or permissions revoked. Please re-select the folder."</ID>
+    <ID>MaxLineLength:AutoBackupWorker.kt$AutoBackupWorker$"Google Drive authorization failed. Please open the app and sign in again from Backup &amp; Restore settings."</ID>
+    <ID>MaxLineLength:AutoBackupWorker.kt$AutoBackupWorker$"localEnabled=$localEnabled cloudEnabled=$cloudEnabled folderUri=$folderUri backupType=$backupType deleteExisting=$deleteExisting"</ID>
+    <ID>MaxLineLength:AutoBackupWorker.kt$AutoBackupWorker$?:</ID>
+    <ID>MaxLineLength:AutoBackupWorker.kt$AutoBackupWorker$e is java.net.UnknownHostException -&gt; "No internet connection. Cloud backup will retry on next schedule."</ID>
+    <ID>MaxLineLength:BackupAndRestoreScreen.kt$is SettingsUiEvent.RequestDocumentUriForRestore -&gt; launcherRestore.launch(arrayOf("application/octet-stream"))</ID>
+    <ID>MaxLineLength:BackupSchedulerScreen.kt$options(`in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider.autoBackupTypeOptions)</ID>
+    <ID>MaxLineLength:BackupSchedulerScreen.kt$options(`in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider.backupFrequencyOptions)</ID>
+    <ID>MaxLineLength:BuyMeACoffeeLogo.kt$"M472.62 590.84c-45.94 19.66-98.07 41.96-165.64 41.96-28.27-0.05-56.4-3.93-83.63-11.53l46.74 479.81c1.65 20.05 10.79 38.75 25.59 52.38 14.8 13.63 34.19 21.19 54.31 21.19 0 0 66.26 3.44 88.37 3.44 23.8 0 95.16-3.44 95.16-3.44 20.12 0 39.5-7.57 54.3-21.2 14.8-13.63 23.93-32.32 25.59-52.37l50.05-530.2c-22.37-7.64-44.94-12.72-70.39-12.72-44.02-0.02-79.48 15.14-120.45 32.68z"</ID>
+    <ID>MaxLineLength:BuyMeACoffeeLogo.kt$"M791.11 297.52l-0.88-0.52-2.03-0.62c0.82 0.69 1.84 1.09 2.91 1.14zm12.79 91.37l-0.98 0.28 0.98-0.28zm-12.42-91.51c-0.12-0.02-0.24-0.05-0.36-0.09-0.01 0.08-0.01 0.16 0 0.24 0.13-0.01 0.26-0.07 0.36-0.15z"</ID>
+    <ID>MaxLineLength:BuyMeACoffeeLogo.kt$"M791.11 297.53h0.13v-0.08l-0.13 0.08zm12 91.2l1.48-0.85 0.55-0.31 0.5-0.53c-0.94 0.4-1.79 0.98-2.53 1.69zm-9.44-89.21l-1.45-1.38-0.98-0.53c0.53 0.93 1.4 1.61 2.43 1.91zm-363.65 886.66c-1.16 0.5-2.17 1.28-2.94 2.27l0.91-0.58c0.62-0.57 1.49-1.24 2.03-1.69zm211.17-41.55c0-1.3-0.64-1.06-0.48 3.58 0-0.37 0.15-0.75 0.22-1.11 0.09-0.83 0.15-1.64 0.26-2.47zm-21.91 41.55c-1.15 0.5-2.16 1.28-2.94 2.27l0.91-0.58c0.62-0.57 1.5-1.24 2.03-1.69zm-337.98 9.88c-0.87-0.76-1.95-1.26-3.09-1.45 0.93 0.45 1.86 0.9 2.47 1.24l0.62 0.21zm-33.46-32.05c-0.14-1.35-0.55-2.66-1.22-3.85 0.47 1.23 0.87 2.5 1.19 3.78l0.03 0.07z"</ID>
+    <ID>MaxLineLength:BuyMeACoffeeLogo.kt$"M879.57 341.85l-7.04-35.5c-6.31-31.85-20.65-61.94-53.34-73.45-10.48-3.69-22.37-5.27-30.4-12.89-8.04-7.62-10.41-19.46-12.27-30.44-3.44-20.15-6.68-40.31-10.21-60.43-3.04-17.29-5.45-36.72-13.38-52.58-10.33-21.3-31.75-33.76-53.05-42-10.91-4.08-22.05-7.52-33.36-10.32C613.3 10.19 557.34 5.03 502.59 2.09c-65.71-3.63-131.61-2.53-197.17 3.27-48.79 4.44-100.19 9.81-146.56 26.69-16.95 6.17-34.42 13.59-47.3 26.68-15.82 16.09-20.98 40.97-9.43 61.03 8.21 14.25 22.11 24.32 36.86 30.98 19.2 8.58 39.26 15.11 59.84 19.47 57.3 12.67 116.64 17.64 175.18 19.76 64.88 2.62 129.86 0.49 194.43-6.35 15.97-1.76 31.91-3.86 47.82-6.32 18.73-2.87 30.76-27.37 25.24-44.44-6.61-20.41-24.37-28.32-44.45-25.24-2.96 0.46-5.9 0.89-8.86 1.32l-2.13 0.31c-6.8 0.86-13.6 1.67-20.41 2.41-14.05 1.52-28.13 2.75-42.26 3.72-31.62 2.2-63.33 3.22-95.03 3.27-31.14 0-62.3-0.88-93.38-2.93-14.18-0.93-28.32-2.11-42.43-3.54-6.42-0.67-12.82-1.38-19.22-2.17l-6.09-0.77-1.32-0.19-6.32-0.92c-12.9-1.94-25.81-4.18-38.58-6.88-1.28-0.29-2.44-1-3.26-2.03-0.83-1.03-1.28-2.31-1.28-3.63 0-1.32 0.45-2.6 1.28-3.63 0.82-1.03 1.98-1.74 3.26-2.03h0.25c11.06-2.36 22.21-4.37 33.39-6.13 3.73-0.58 7.47-1.15 11.22-1.72h0.1c7.01-0.46 14.05-1.72 21.01-2.54 60.63-6.31 121.62-8.46 182.55-6.44 29.57 0.86 59.14 2.6 88.58 5.59 6.33 0.66 12.63 1.35 18.92 2.12 2.41 0.29 4.84 0.64 7.26 0.93l4.89 0.7c14.25 2.13 28.42 4.7 42.52 7.73 20.89 4.54 47.71 6.02 57 28.91 2.96 7.26 4.31 15.33 5.94 22.95l2.08 9.72c0.06 0.18 0.1 0.35 0.12 0.54 4.92 22.94 9.85 45.88 14.78 68.82 0.36 1.7 0.37 3.45 0.03 5.15-0.35 1.69-1.04 3.3-2.03 4.72-1 1.42-2.28 2.62-3.75 3.52-1.48 0.91-3.13 1.5-4.85 1.74h-0.13l-3.02 0.41-2.97 0.39c-9.43 1.23-18.87 2.38-28.32 3.45-18.62 2.12-37.27 3.95-55.94 5.5-37.11 3.09-74.29 5.11-111.55 6.08-18.99 0.5-37.96 0.74-56.94 0.7-75.52-0.06-150.97-4.45-225.99-13.14-8.12-0.97-16.24-2-24.36-3.05 6.3 0.81-4.58-0.62-6.78-0.93-5.16-0.72-10.32-1.47-15.49-2.25-17.32-2.6-34.55-5.8-51.84-8.61-20.91-3.44-40.9-1.72-59.81 8.61-15.52 8.49-28.08 21.52-36.01 37.33-8.16 16.87-10.58 35.23-14.23 53.35-3.65 18.11-9.33 37.61-7.18 56.21 4.63 40.14 32.7 72.76 73.06 80.06 37.98 6.88 76.16 12.46 114.44 17.21 150.39 18.42 302.32 20.62 453.19 6.57 12.28-1.15 24.55-2.4 36.8-3.75 3.83-0.42 7.7 0.02 11.33 1.29 3.64 1.27 6.94 3.34 9.67 6.05 2.73 2.71 4.82 6 6.12 9.62 1.3 3.63 1.77 7.5 1.37 11.33l-3.82 37.13c-7.69 75.03-15.39 150.05-23.09 225.07-8.03 78.79-16.11 157.56-24.24 236.33-2.3 22.19-4.59 44.37-6.88 66.54-2.21 21.84-2.52 44.36-6.66 65.94-6.54 33.93-29.51 54.77-63.03 62.39-30.71 6.99-62.08 10.66-93.57 10.94-34.91 0.19-69.8-1.36-104.72-1.17-37.27 0.21-82.92-3.23-111.68-30.97-25.28-24.36-28.77-62.51-32.22-95.5-4.58-43.67-9.13-87.33-13.64-130.99l-25.29-242.77-16.37-157.07c-0.27-2.6-0.55-5.16-0.81-7.78-1.96-18.74-15.22-37.08-36.13-36.13-17.89 0.79-38.23 16-36.13 36.13l12.13 116.45 25.08 240.89c7.15 68.43 14.28 136.86 21.39 205.31 1.38 13.11 2.67 26.26 4.11 39.37 7.87 71.65 62.58 110.26 130.34 121.13 39.58 6.37 80.12 7.68 120.28 8.33 51.48 0.83 103.48 2.81 154.11-6.52 75.04-13.77 131.34-63.87 139.38-141.59 2.29-22.44 4.59-44.88 6.88-67.33 7.63-74.24 15.24-148.49 22.85-222.74l24.88-242.61 11.41-111.19c0.57-5.51 2.9-10.69 6.64-14.78 3.74-4.09 8.7-6.86 14.14-7.91 21.46-4.18 41.97-11.33 57.23-27.65 24.3-26 29.13-59.9 20.55-94.07zM72.43 365.83c0.33-0.15-0.28 2.65-0.53 3.96-0.05-1.98 0.05-3.73 0.53-3.96zm2.08 16.11c0.17-0.12 0.69 0.57 1.22 1.39-0.8-0.75-1.32-1.32-1.24-1.39h0.02zm2.05 2.7c0.74 1.26 1.14 2.05 0 0zm4.11 3.34h0.11c0 0.12 0.18 0.24 0.25 0.36-0.11-0.13-0.24-0.25-0.38-0.36h0.02zm720.13-4.99c-7.71 7.33-19.33 10.74-30.8 12.44-128.71 19.1-259.29 28.77-389.4 24.5-93.12-3.18-185.26-13.52-277.46-26.55-9.03-1.27-18.82-2.92-25.03-9.58-11.7-12.56-5.96-37.86-2.91-53.03 2.79-13.91 8.12-32.44 24.66-34.41 25.81-3.03 55.78 7.86 81.32 11.73 30.74 4.69 61.59 8.45 92.56 11.27 132.18 12.04 266.59 10.17 398.18-7.45 23.99-3.22 47.88-6.97 71.7-11.24 21.22-3.8 44.74-10.94 57.55 11.03 8.8 14.97 9.97 35 8.61 51.91-0.42 7.37-3.64 14.31-9 19.38h0.02z"</ID>
+    <ID>MaxLineLength:ChangelogScreen.kt$bulletColor = if (isLatestVersion) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.primary</ID>
+    <ID>MaxLineLength:ChangelogScreen.kt$color = if (isLatestVersion) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onSurface</ID>
+    <ID>MaxLineLength:ChangelogScreen.kt$containerColor = if (isLatestVersion) MaterialTheme.colorScheme.tertiaryContainer else MaterialTheme.colorScheme.surfaceContainer</ID>
+    <ID>MaxLineLength:ChangelogScreen.kt$contentColor = if (isLatestVersion) MaterialTheme.colorScheme.onTertiaryContainer else MaterialTheme.colorScheme.onSurface</ID>
+    <ID>MaxLineLength:ChangelogScreen.kt$style = if (isLatestVersion) MaterialTheme.typography.headlineMedium else MaterialTheme.typography.headlineSmall</ID>
+    <ID>MaxLineLength:ChangelogScreen.kt$textColor = if (isLatestVersion) MaterialTheme.colorScheme.onTertiaryContainer else MaterialTheme.colorScheme.onSurface</ID>
+    <ID>MaxLineLength:CustomFontDatabaseModule.kt$CustomFontDatabaseModule.Companion.&lt;no name provided&gt;$"INSERT INTO sqlite_sequence (name, seq) VALUES ('custom_fonts', ${AppFont.CUSTOM_FONT_ID_OFFSET - 1})"</ID>
+    <ID>MaxLineLength:GenerateColorSchemeScreen.kt$color = if (prompt.length == 1096) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant</ID>
+    <ID>MaxLineLength:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$?:</ID>
+    <ID>MaxLineLength:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$if (models.isEmpty()) throw IllegalStateException("No models configured for provider ${provider.displayName}")</ID>
+    <ID>MaxLineLength:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$val providerId = settingsRepository.getString(SettingsKeys.AiCloudProvider).firstOrNull() ?: SettingsKeys.AiCloudProvider.default</ID>
+    <ID>MaxLineLength:ResetSettingsDialog.kt$text = stringResource(R.string.des_reset_app_settings) + "\n" + stringResource(R.string.irreversible_action_warning)</ID>
+    <ID>MaxLineLength:RestoreBackupDialog.kt$text = stringResource(R.string.restore_dialog_message) + "\n" + stringResource(R.string.irreversible_action_warning)</ID>
+    <ID>MaxLineLength:UndrawThemePicker.kt$"M0.256,352.886c0,0.66 0.53,1.19 1.19,1.19H523.736c0.66,0 1.19,-0.53 1.19,-1.19 0,-0.66 -0.53,-1.19 -1.19,-1.19H1.446c-0.66,0 -1.19,0.53 -1.19,1.19Z"</ID>
+    <ID>MaxLineLength:UndrawThemePicker.kt$"M111.501,202.949c-0.013,-0.945 -0.005,-9.191 6.1,-14.403 7.012,-5.987 16.907,-3.564 20.378,-2.714 8.017,1.963 8.674,5.402 16.203,8.936 14.085,6.611 -3.563,3.227 4.818,1.107 2.901,-0.734 44.638,-3.628 55.027,-10.023 20.206,-12.436 33.973,-19.977 33.973,-19.977l9,18s-13.014,18.096 -31.33,31.501c-18.788,13.751 -28.182,20.627 -42.459,23.283 -1.229,0.229 -31.466,5.391 -55.819,-12.803 -5.555,-4.15 -15.733,-11.754 -15.891,-22.909Z"</ID>
+    <ID>MaxLineLength:UndrawThemePicker.kt$"M115.422,196.836c0.206,-0.923 2.128,-8.941 9.275,-12.594 8.21,-4.196 17.273,0.457 20.451,2.089 7.343,3.77 7.184,7.268 13.688,12.452 12.167,9.699 27.814,9.486 36.458,9.369 2.992,-0.041 12.233,-0.346 23.823,-4.155 22.54,-7.408 36.939,-16.705 36.939,-16.705l5.916,20.046s-17.454,19.289 -38.381,28.079c-21.466,9.016 -82.691,9.611 -97.194,8.883 -1.249,-0.063 18.634,1.856 -0.833,-21.492 -4.44,-5.326 -12.576,-15.084 -10.142,-25.971Z"</ID>
+    <ID>MaxLineLength:UndrawThemePicker.kt$"M119.943,161.813c6.416,-7.194 32.549,0.252 35.002,11.667 1.009,4.695 -2.716,6.678 -1.667,12.084 1.534,7.907 10.22,7.368 16.667,15.417 9.153,11.427 -0.276,22.598 10,41.669 2.196,4.075 4.047,7.51 7.917,10.834 8.881,7.628 17.146,5.012 21.668,12.084 3.382,5.289 1.992,11.807 1.667,13.334 -1.335,6.261 -4.952,7.787 -7.5,12.917 -4.24,8.536 0.561,14.803 0.833,25.001 0.341,12.76 -6.44,30.448 -20.001,36.252 -15.235,6.52 -33.61,-4.279 -42.502,-15.001 -5.306,-6.398 -6.846,-12.3 -9.167,-19.584 -10.374,-32.556 -16.235,-29.612 -24.168,-55.419 -9.069,-29.503 -10.852,-64.066 0,-75.004 1.438,-1.45 5.397,-4.8 7.917,-10.834 3.391,-8.119 0.462,-12.197 3.333,-15.417Z"</ID>
+    <ID>MaxLineLength:UndrawThemePicker.kt$"M143.694,131.812c1.221,-4.366 -0.312,-5.957 1.25,-7.917 0,-0 0.629,-0.789 6.25,-2.917h0c-1.659,-9.623 -0.417,-11.25 -0.417,-11.251 1.431,-1.875 4.298,-2.329 6.25,-2.083 4.128,0.519 4.859,4.251 7.5,4.167 3.649,-0.116 8.025,-7.42 6.667,-13.751 -1.108,-5.164 -5.886,-8.999 -7.084,-8.334 -1.188,0.66 -5.462,-2.25 -7.084,-1.667 -1.107,0.398 -6.319,-0.132 -7.5,0.417 -1.29,0.599 -4.986,4.326 -5.339,3.857 -2.455,-3.264 -2.403,-4.403 -3.828,-5.107 -2.524,-1.246 -5.269,1.057 -10,3.333 -9.736,4.683 -12.587,1.89 -17.084,5.834 -2.272,1.992 -3.49,5.8 -5.834,13.334 -3.278,10.536 -4.916,15.804 -3.333,20.834 1.614,5.13 3.992,4.013 7.5,11.251 3.906,8.056 2.56,12.739 6.25,14.584 2.852,1.426 7.436,0.518 9.167,-2.083 2.963,-4.455 -4.696,-10.481 -2.083,-17.501 1.604,-4.309 6.55,-7.577 9.584,-6.667 3.43,1.029 3.683,7.179 5.834,7.084 1.842,-0.081 3.121,-4.656 3.333,-5.417Z"</ID>
+    <ID>MaxLineLength:UndrawThemePicker.kt$"M166.208,211.497c-1.335,-2.251 -7.109,0.159 -8.171,-1.883 -1.058,-2.035 4.307,-5.136 7.372,-12.22 0.553,-1.278 4.036,-9.328 1.457,-11.812 -4.888,-4.709 -27.255,14.723 -35.082,8.364 -1.718,-1.395 -2.918,-4.181 -8.117,-8.704 -2.068,-1.799 -3.319,-2.612 -4.529,-2.309 -1.717,0.429 -1.854,2.727 -3.695,7.247 -2.762,6.778 -4.395,6.369 -6.005,11.776 -1.195,4.014 -0.922,6.348 -2.327,6.803 -1.989,0.643 -3.82,-3.615 -6.341,-3.233 -2.572,0.389 -4.128,5.347 -4.619,9.059 -0.922,6.966 1.636,11.562 3.054,16.395 1.541,5.252 2.455,13.24 -1.103,24.548l-35.219,99.229c7.775,-20.362 30.288,-76.178 39.748,-96.92 2.731,-5.988 5.746,-12.061 11.938,-14.458 5.961,-2.308 14.147,-0.93 24.584,-3.444 1.219,-0.294 4.601,-1.154 5.027,-3.144 0.352,-1.645 -1.638,-2.563 -1.332,-4.103 0.41,-2.066 4.322,-2.092 9.13,-4.476 3.39,-1.681 5.502,-3.68 7.319,-5.399 0.548,-0.518 8.687,-8.318 6.911,-11.314h-0Z"</ID>
+    <ID>MaxLineLength:UndrawThemePicker.kt$"M200.59,274.477c1.889,0.157 7.89,1.359 13.626,-1.797 3.915,-2.154 5.923,-5.356 6.601,-6.375 8.413,-12.635 40.704,-32.339 69.684,-33.551 6.563,-0.275 10.883,0.486 14.809,2.533 5.567,2.902 7.79,7.059 14.855,16.798 3.865,5.327 8.141,10.345 12.052,15.638 22.898,30.987 31.578,33.419 30.691,43.353 -0.984,11.022 -12.872,21.479 -20.772,20.272 -3.236,-0.494 -4.489,-2.744 -8.811,-7.299 -12.675,-13.354 -17.919,-10.887 -26.943,-21.116 -10.536,-11.942 -9.157,-21.844 -14.653,-22.227 -5.097,-0.355 -7.264,8.093 -18.146,19.314 -4.98,5.135 -8.526,7.49 -19.329,14.985 -42.07,29.186 -42.741,31.237 -51.231,33.565 -3.715,1.018 -30.079,8.247 -39.471,-3.256 -14.697,-18 20.024,-72.251 37.041,-70.837Z"</ID>
+    <ID>MaxLineLength:UndrawThemePicker.kt$"M209.802,289.764c1.475,1.19 5.765,5.555 12.284,6.165 4.449,0.416 7.909,-1.106 9.042,-1.568 14.056,-5.731 51.84,-3.902 76.5,11.368 5.585,3.458 8.732,6.513 10.832,10.411 2.977,5.528 2.482,10.216 2.859,22.241 0.206,6.578 0.927,13.132 1.191,19.707 1.546,38.498 7.363,45.385 1.051,53.107 -7.004,8.567 -22.712,10.545 -28.572,5.11 -2.4,-2.226 -2.173,-4.791 -3.193,-10.987 -2.989,-18.168 -8.714,-19.071 -10.437,-32.602 -2.012,-15.798 4.69,-23.217 0.356,-26.62 -4.019,-3.156 -10.555,2.617 -25.861,5.792 -7.004,1.453 -11.261,1.41 -24.408,1.545 -51.2,0.526 -52.907,1.846 -61.239,-0.995 -3.646,-1.243 -29.52,-10.067 -30.832,-24.859 -2.053,-23.147 57.14,-48.54 70.427,-37.814Z"</ID>
+    <ID>MaxLineLength:UndrawThemePicker.kt$"M264.923,154.721c6.2,-5.123 13.869,-6.077 17.129,-2.13 3.26,3.946 0.876,11.297 -5.327,16.421 -2.45,2.081 -5.362,3.545 -8.494,4.269l-26.544,21.375 -9.765,-12.67 27.204,-19.727c1.303,-2.94 3.29,-5.524 5.797,-7.538Z"</ID>
+    <ID>MaxLineLength:UndrawThemePicker.kt$"M27.647,263.736c-1.49,0.006 -1.973,3.535 -3.282,3.467 -1.304,-0.068 -1.278,-3.596 -3.871,-7.144 -0.468,-0.64 -3.414,-4.672 -5.377,-4.123 -3.721,1.04 -0.638,17.625 -6.017,19.632 -1.181,0.44 -2.894,0.226 -6.614,1.472 -1.48,0.496 -2.24,0.875 -2.44,1.557 -0.285,0.967 0.804,1.697 2.491,3.905 2.53,3.311 1.858,3.995 4.047,6.345 1.626,1.745 2.85,2.284 2.667,3.105 -0.258,1.162 -2.876,0.832 -3.417,2.179 -0.551,1.375 1.433,3.569 3.113,4.881 3.153,2.462 6.147,2.533 8.928,3.232 3.022,0.759 7.207,2.615 11.73,7.624l38.541,45.916c-7.75,-9.691 -28.65,-36.845 -36.1,-47.473 -2.151,-3.068 -4.262,-6.3 -3.652,-10.031 0.587,-3.592 3.626,-7.212 5.403,-13.06 0.208,-0.683 0.761,-2.591 -0.092,-3.374 -0.706,-0.647 -1.73,0.064 -2.398,-0.53 -0.896,-0.797 0.221,-2.725 0.438,-5.773 0.153,-2.149 -0.219,-3.762 -0.538,-5.15 -0.096,-0.418 -1.576,-6.664 -3.559,-6.656v0Z"</ID>
+    <ID>MaxLineLength:UndrawThemePicker.kt$"M274.472,187.715c7.836,-1.811 15.123,0.764 16.274,5.751 1.152,4.987 -4.267,10.497 -12.106,12.308 -3.122,0.766 -6.381,0.774 -9.506,0.022l-33.299,7.255 -2.835,-13.175 32.917,-8.009c2.479,-2.047 5.413,-3.471 8.555,-4.152Z"</ID>
+    <ID>MaxLineLength:UndrawThemePicker.kt$"M295.195,193.978c0.817,5.365 5.846,9.065 11.212,8.248s9.065,-5.846 8.248,-11.212c-0.817,-5.365 -5.846,-9.065 -11.212,-8.248 -5.365,0.817 -9.065,5.846 -8.248,11.212Z"</ID>
+    <ID>MaxLineLength:UndrawThemePicker.kt$"M315.193,445.215c2.564,0.451 5.561,0.979 7.911,-0.892 1.59,-1.266 2.645,-3.441 2.539,-5.51 -0.122,-2.388 -1.746,-3.794 -1.485,-4.025 0.397,-0.351 4.46,2.648 7.944,7.379 0.657,0.893 3.604,4.983 5.948,12.257 1.878,5.828 0.916,6.088 2.2,9.585 3.942,10.734 14.103,11.278 14.75,19.276 0.25,3.086 -0.99,6.387 -3.221,8.221 -4.481,3.684 -12.154,0.791 -16.315,-0.838 -10.021,-3.923 -15.502,-9.992 -21.58,-15.806 -20.671,-19.773 -36.216,-25.09 -34.302,-31.688 0.362,-1.249 0.843,-0.795 7.739,-7.084 6.806,-6.207 8.13,-8.282 10.045,-7.849 2.883,0.652 1.654,5.754 6.447,11.037 4.247,4.682 9.719,5.645 11.381,5.938Z"</ID>
+    <ID>MaxLineLength:UndrawThemePicker.kt$"M323.709,189.636c1.577,10.357 -5.566,20.067 -15.923,21.644 -10.357,1.577 -20.067,-5.566 -21.644,-15.923 -1.577,-10.357 5.566,-20.067 15.923,-21.644 10.357,-1.577 20.067,5.566 21.644,15.923ZM288.119,195.056c1.411,9.267 10.098,15.658 19.366,14.247s15.658,-10.098 14.247,-19.366 -10.098,-15.658 -19.366,-14.247 -15.658,10.098 -14.247,19.366Z"</ID>
+    <ID>MaxLineLength:UndrawThemePicker.kt$"M35.45,174.614c-0.162,0 -0.327,-0.004 -0.493,-0.015 -3.374,-0.182 -6.498,-2.201 -9.287,-6.001 -1.308,-1.787 -1.977,-3.826 -3.312,-7.893 -0.207,-0.627 -1.213,-3.807 -1.824,-8.183 -0.4,-2.859 -0.35,-4.055 0.217,-5.111 0.629,-1.176 1.646,-1.996 2.791,-2.55 -0.05,-0.379 -0.01,-0.77 0.155,-1.168 0.675,-1.652 2.47,-1.435 3.441,-1.331 0.491,0.062 1.105,0.143 1.766,0.108 1.041,-0.05 1.6,-0.36 2.447,-0.824 0.811,-0.445 1.818,-0.998 3.314,-1.304 2.948,-0.615 5.418,0.221 6.233,0.495 4.285,1.428 6.397,4.759 8.842,8.616 0.487,0.774 2.161,3.59 3.265,7.451 0.797,2.786 0.685,4.024 0.445,4.944 -0.487,1.892 -1.638,2.975 -4.561,5.366 -3.053,2.503 -4.585,3.757 -5.9,4.519 -3.062,1.768 -4.985,2.878 -7.538,2.878v0Z"</ID>
+    <ID>MaxLineLength:UndrawThemePicker.kt$"M375.088,343.924c2.375,-1.066 5.151,-2.313 6.045,-5.18 0.604,-1.94 0.256,-4.332 -0.993,-5.985 -1.442,-1.907 -3.575,-2.159 -3.489,-2.496 0.131,-0.514 5.177,-0.313 10.716,1.645 1.045,0.369 5.781,2.1 11.804,6.802 4.826,3.768 4.177,4.523 7.203,6.695 9.29,6.669 18.002,1.413 23.029,7.667 1.94,2.414 2.767,5.84 1.951,8.611 -1.64,5.564 -9.612,7.479 -13.97,8.468 -10.494,2.381 -18.438,0.437 -26.732,-0.96 -28.207,-4.753 -44.056,-0.424 -46.177,-6.959 -0.401,-1.237 0.251,-1.131 2.426,-10.208 2.147,-8.958 2.076,-11.418 3.904,-12.136 2.752,-1.08 4.6,3.832 11.532,5.513 6.143,1.49 11.212,-0.787 12.751,-1.477Z"</ID>
+    <ID>MaxLineLength:UndrawThemePicker.kt$"M380.757,32.786c2.365,15.533 16.926,26.245 32.459,23.879 15.533,-2.365 26.245,-16.926 23.879,-32.459 -2.365,-15.533 -16.926,-26.245 -32.459,-23.879 -15.533,2.365 -26.245,16.926 -23.879,32.459Z"</ID>
+    <ID>MaxLineLength:UndrawThemePicker.kt$"M382.442,64.876h52c2.206,0 4,1.794 4,4 0,2.206 -1.794,4 -4,4h-52c-2.206,0 -4,-1.794 -4,-4 0,-2.206 1.794,-4 4,-4Z"</ID>
+    <ID>MaxLineLength:UndrawThemePicker.kt$"M407.321,104.9l8.23,3.899c-3.376,-4.711 -6.284,-12.068 -7.841,-17.922 -2.637,5.453 -6.887,12.126 -11.094,16.112l8.698,-2.238c-5.36,26.268 -25.519,45.126 -48.604,45.126l-0.327,0.949c24.113,0 45.466,-18.596 50.938,-45.925Z"</ID>
+    <ID>MaxLineLength:UndrawThemePicker.kt$"M57.368,199.096l-0.898,-8.012 0.41,-0.607c1.898,-2.809 2.865,-5.552 2.876,-8.156 0.002,-0.414 -0.017,-0.828 -0.037,-1.25 -0.077,-1.671 -0.174,-3.749 0.909,-6.171 0.607,-1.35 2.314,-4.476 4.879,-4.089 0.691,0.097 1.213,0.414 1.609,0.785 0.058,-0.093 0.118,-0.186 0.182,-0.286 0.799,-1.219 1.431,-1.741 2.041,-2.244 0.468,-0.387 0.952,-0.785 1.71,-1.729 0.333,-0.414 0.592,-0.778 0.811,-1.083 0.664,-0.925 1.53,-2.027 3.058,-2.008 1.633,0.077 2.488,1.428 3.054,2.321 1.012,1.594 1.47,2.743 1.774,3.505 0.11,0.279 0.236,0.592 0.3,0.689 0.526,0.774 4.803,0.05 6.415,-0.213 3.619,-0.604 6.751,-1.126 8.042,1.157 0.925,1.633 0.238,3.791 -2.103,6.589 -0.729,0.871 -1.505,1.532 -2.194,2.051 0.571,0.34 1.081,0.863 1.288,1.683h0c0.487,1.942 -1.182,3.888 -4.96,5.792 -0.938,0.476 -2.201,1.11 -3.971,1.416 -0.834,0.143 -1.584,0.178 -2.227,0.197 -0.014,0.371 -0.101,0.774 -0.327,1.188 -0.664,1.219 -2.045,1.799 -4.126,1.66 -2.29,-0.12 -4.176,-0.557 -5.84,-0.94 -1.453,-0.333 -2.704,-0.615 -3.687,-0.549 -1.822,0.147 -3.227,1.606 -4.875,3.497l-4.115,4.809h-0Z"</ID>
+    <ID>MaxLineLength:UndrawThemePicker.kt$"M57.368,270.408l-0.898,-8.012 0.41,-0.607c1.898,-2.809 2.865,-5.552 2.876,-8.156 0.002,-0.414 -0.017,-0.828 -0.037,-1.25 -0.077,-1.671 -0.174,-3.749 0.909,-6.171 0.607,-1.35 2.314,-4.476 4.879,-4.089 0.691,0.097 1.213,0.414 1.609,0.785 0.058,-0.093 0.118,-0.186 0.182,-0.286 0.799,-1.219 1.431,-1.741 2.041,-2.244 0.468,-0.387 0.952,-0.785 1.71,-1.729 0.333,-0.414 0.592,-0.778 0.811,-1.083 0.664,-0.925 1.53,-2.027 3.058,-2.008 1.633,0.077 2.488,1.428 3.054,2.321 1.012,1.594 1.47,2.743 1.774,3.505 0.11,0.279 0.236,0.592 0.3,0.689 0.526,0.774 4.803,0.05 6.415,-0.213 3.619,-0.604 6.751,-1.126 8.042,1.157 0.925,1.633 0.238,3.791 -2.103,6.589 -0.729,0.871 -1.505,1.532 -2.194,2.051 0.571,0.34 1.081,0.863 1.288,1.683h0c0.487,1.942 -1.182,3.888 -4.96,5.792 -0.938,0.476 -2.201,1.11 -3.971,1.416 -0.834,0.143 -1.584,0.178 -2.227,0.197 -0.014,0.371 -0.101,0.774 -0.327,1.188 -0.664,1.219 -2.045,1.799 -4.126,1.66 -2.29,-0.12 -4.176,-0.557 -5.84,-0.94 -1.453,-0.333 -2.704,-0.615 -3.687,-0.549 -1.822,0.147 -3.227,1.606 -4.875,3.497l-4.115,4.809h-0Z"</ID>
+    <ID>MaxLineLength:UndrawThemePicker.kt$"M61.531,222.701l-7.523,2.901 -0.692,-0.243c-3.198,-1.123 -6.097,-1.363 -8.618,-0.714 -0.401,0.103 -0.796,0.227 -1.199,0.353 -1.597,0.499 -3.582,1.119 -6.2,0.686 -1.46,-0.245 -4.917,-1.103 -5.193,-3.682 -0.082,-0.693 0.093,-1.278 0.351,-1.756 -0.105,-0.033 -0.21,-0.067 -0.323,-0.103 -1.381,-0.464 -2.047,-0.943 -2.688,-1.405 -0.493,-0.355 -1.001,-0.721 -2.107,-1.215 -0.485,-0.217 -0.902,-0.375 -1.253,-0.509 -1.063,-0.407 -2.349,-0.966 -2.718,-2.449 -0.339,-1.599 0.75,-2.768 1.471,-3.543 1.285,-1.383 2.28,-2.118 2.941,-2.605 0.241,-0.177 0.513,-0.378 0.59,-0.465 0.615,-0.705 -1.17,-4.659 -1.833,-6.151 -1.502,-3.348 -2.801,-6.245 -0.921,-8.072 1.345,-1.309 3.607,-1.192 6.907,0.363 1.027,0.485 1.864,1.067 2.54,1.602 0.185,-0.638 0.56,-1.265 1.301,-1.673h0c1.755,-0.964 4.061,0.157 6.86,3.329 0.698,0.787 1.632,1.848 2.377,3.482 0.35,0.77 0.574,1.487 0.756,2.104 0.363,-0.081 0.774,-0.099 1.232,0.015 1.347,0.333 2.259,1.521 2.652,3.57 0.465,2.246 0.52,4.181 0.572,5.888 0.047,1.49 0.091,2.772 0.404,3.706 0.604,1.725 2.372,2.714 4.62,3.828l5.695,2.76 -0,0Z"</ID>
+    <ID>MaxLineLength:UndrawThemePicker.kt$"M65.566,354.625l-1.679,-1.052 -0.406,-1.938 0.406,1.938 -1.958,0.224c-0.031,-0.182 -0.137,-0.6 -0.298,-1.254 -0.876,-3.583 -3.548,-14.485 -5.776,-31.655 -1.555,-11.986 -2.435,-24.308 -2.617,-36.631 -0.182,-12.342 0.402,-21.685 0.871,-29.194 0.354,-5.664 0.783,-11.057 1.205,-16.311 1.122,-14.036 2.18,-27.295 1.393,-41.973 -0.174,-3.277 -0.54,-10.098 -4.525,-17.356 -2.312,-4.209 -5.496,-7.947 -9.465,-11.104l2.468,-3.103c4.381,3.49 7.904,7.629 10.471,12.303 4.418,8.047 4.817,15.479 5.008,19.05 0.801,14.938 -0.269,28.324 -1.402,42.496 -0.418,5.235 -0.847,10.605 -1.199,16.245 -0.464,7.44 -1.043,16.702 -0.863,28.885 0.178,12.175 1.048,24.347 2.582,36.182 2.201,16.953 4.834,27.693 5.699,31.222 0.46,1.884 0.557,2.279 0.085,3.025v-0Z"</ID>
+    <ID>MaximumLineLength:AiGenerationAnimationBox.kt$ </ID>
+    <ID>MaximumLineLength:AutoBackupWorker.kt$AutoBackupWorker$ </ID>
+    <ID>MaximumLineLength:BackupAndRestoreScreen.kt$ </ID>
+    <ID>MaximumLineLength:BackupSchedulerScreen.kt$ </ID>
+    <ID>MaximumLineLength:BuyMeACoffeeLogo.kt$ </ID>
+    <ID>MaximumLineLength:ChangelogScreen.kt$ </ID>
+    <ID>MaximumLineLength:CustomFontDatabaseModule.kt$CustomFontDatabaseModule.Companion.&lt;no name provided&gt;$ </ID>
+    <ID>MaximumLineLength:GenerateColorSchemeScreen.kt$ </ID>
+    <ID>MaximumLineLength:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$ </ID>
+    <ID>MaximumLineLength:ResetSettingsDialog.kt$ </ID>
+    <ID>MaximumLineLength:RestoreBackupDialog.kt$ </ID>
+    <ID>MaximumLineLength:UndrawThemePicker.kt$ </ID>
+    <ID>ModifierListSpacing:CustomFontDao.kt$data</ID>
+    <ID>ModifierListSpacing:CustomFontDatabase.kt$data</ID>
+    <ID>ModifierListSpacing:CustomFontRepositoryImpl.kt$data</ID>
+    <ID>MultiLineIfElse:FontImportDialog.kt$null</ID>
+    <ID>MultiLineIfElse:GenerateColorSchemeScreen.kt$themes</ID>
+    <ID>MultiLineIfElse:GenerateColorSchemeScreen.kt$themes.filter { it.name.contains(searchQuery, ignoreCase = true) }</ID>
+    <ID>MultiLineIfElse:PrivacyPolicyScreen.kt$-1</ID>
+    <ID>MultiLineIfElse:PrivacyPolicyScreen.kt$text.indexOf(')', bEnd + 2)</ID>
+    <ID>NestedBlockDepth:DownloadRepositoryImpl.kt$DownloadRepositoryImpl$private suspend fun monitorDownload( dm: DownloadManager, file: File, onProgress: (DownloadState) -&gt; Unit, isActive: Boolean )</ID>
+    <ID>NestedBlockDepth:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$suspend operator fun invoke(prompt: String, fallbackModels: List&lt;String&gt;? = null): Result&lt;ColorSchemePayload&gt;</ID>
+    <ID>NestedBlockDepth:LanguagesViewModel.kt$LanguagesViewModel.Companion$@SuppressLint("DiscouragedApi") private fun parseLocaleTagsFromConfig(context: Context): List&lt;String&gt;</ID>
+    <ID>NestedBlockDepth:SettingsBackupProvider.kt$SettingsBackupProvider$override suspend fun restoreData(data: JsonElement?, legacyData: (String) -&gt; JsonElement?)</ID>
+    <ID>NewLineAtEndOfFile:PolicyBlock.kt$in.hridayan.ashell.settings.presentation.page.privacypolicy.model.PolicyBlock.kt</ID>
+    <ID>NewLineAtEndOfFile:PolicyParser.kt$in.hridayan.ashell.settings.presentation.page.privacypolicy.util.PolicyParser.kt</ID>
+    <ID>NewLineAtEndOfFile:PrivacyPolicyScreen.kt$in.hridayan.ashell.settings.presentation.page.privacypolicy.screens.PrivacyPolicyScreen.kt</ID>
+    <ID>NewLineAtEndOfFile:PrivacyPolicyViewModel.kt$in.hridayan.ashell.settings.presentation.page.privacypolicy.viewmodel.PrivacyPolicyViewModel.kt</ID>
+    <ID>NoBlankLineBeforeRbrace:BehaviorScreen.kt$ </ID>
+    <ID>NoBlankLineBeforeRbrace:DarkThemeScreen.kt$ </ID>
+    <ID>NoBlankLineBeforeRbrace:LookAndFeelScreen.kt$ </ID>
+    <ID>NoBlankLineBeforeRbrace:SettingsScreen.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:BackupAndRestoreScreen.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:BackupSchedulerScreen.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:FontStyleBottomSheet.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:GenerateColorSchemeScreen.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:LookAndFeelScreen.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:SettingsSearchScreen.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:SettingsViewModel.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:SettingsViewModel.kt$SettingsViewModel$ </ID>
+    <ID>NoEmptyFirstLineInMethodBlock:PrivacyPolicyScreen.kt$ </ID>
+    <ID>PackageName:AboutScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.about.screens</ID>
+    <ID>PackageName:AiGenerationAnimationBox.kt$package `in`.hridayan.ashell.settings.presentation.components.animatedcomposable</ID>
+    <ID>PackageName:ApiHttpClient.kt$package `in`.hridayan.ashell.settings.di.qualifiers</ID>
+    <ID>PackageName:AppLicenseDetailDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
+    <ID>PackageName:AutoBackupTimePickerDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
+    <ID>PackageName:AutoBackupWorker.kt$package `in`.hridayan.ashell.settings.data.worker</ID>
+    <ID>PackageName:AutoUpdateScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.autoupdate.screens</ID>
+    <ID>PackageName:AutoUpdateViewModel.kt$package `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel</ID>
+    <ID>PackageName:BackupAndRestoreRepository.kt$package `in`.hridayan.ashell.settings.domain.repository</ID>
+    <ID>PackageName:BackupAndRestoreRepositoryImpl.kt$package `in`.hridayan.ashell.settings.data.repository</ID>
+    <ID>PackageName:BackupAndRestoreScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.backup.screens</ID>
+    <ID>PackageName:BackupAndRestoreViewModel.kt$package `in`.hridayan.ashell.settings.presentation.page.backup.viewmodel</ID>
+    <ID>PackageName:BackupDestinationDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
+    <ID>PackageName:BackupScheduler.kt$package `in`.hridayan.ashell.settings.data.worker</ID>
+    <ID>PackageName:BackupSchedulerScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.backup.screens</ID>
+    <ID>PackageName:BehaviorScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.behavior.screens</ID>
+    <ID>PackageName:ButtonGroupOptions.kt$package `in`.hridayan.ashell.settings.presentation.model</ID>
+    <ID>PackageName:BuyMeACoffeeLogo.kt$package `in`.hridayan.ashell.settings.presentation.components.svg.vectors</ID>
+    <ID>PackageName:ChangelogItem.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
+    <ID>PackageName:ChangelogScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.changelog.screens</ID>
+    <ID>PackageName:ChangelogViewModel.kt$package `in`.hridayan.ashell.settings.presentation.page.changelog.viewmodel</ID>
+    <ID>PackageName:CheckUpdateUseCase.kt$package `in`.hridayan.ashell.settings.domain.usecase</ID>
+    <ID>PackageName:CloudOperationDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
+    <ID>PackageName:ColorPickerBottomSheet.kt$package `in`.hridayan.ashell.settings.presentation.components.bottomsheet</ID>
+    <ID>PackageName:ColorRoleRegistry.kt$package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens</ID>
+    <ID>PackageName:ColorTabs.kt$package `in`.hridayan.ashell.settings.presentation.components.tab</ID>
+    <ID>PackageName:ConfigureSaveDirectoryDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
+    <ID>PackageName:ContributorRepository.kt$package `in`.hridayan.ashell.settings.domain.repository</ID>
+    <ID>PackageName:ContributorRepositoryImpl.kt$package `in`.hridayan.ashell.settings.data.repository</ID>
+    <ID>PackageName:ContributorsModule.kt$package `in`.hridayan.ashell.settings.di</ID>
+    <ID>PackageName:ContributorsScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.contributors.screens</ID>
+    <ID>PackageName:ContributorsViewModel.kt$package `in`.hridayan.ashell.settings.presentation.page.contributors.viewmodel</ID>
+    <ID>PackageName:CrowdinContributeCard.kt$package `in`.hridayan.ashell.settings.presentation.components.card</ID>
+    <ID>PackageName:DarkThemeScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens</ID>
+    <ID>PackageName:DownloadApkUseCase.kt$package `in`.hridayan.ashell.settings.domain.usecase</ID>
+    <ID>PackageName:DownloadRepository.kt$package `in`.hridayan.ashell.settings.domain.repository</ID>
+    <ID>PackageName:DownloadRepositoryImpl.kt$package `in`.hridayan.ashell.settings.data.repository</ID>
+    <ID>PackageName:DownloadState.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
+    <ID>PackageName:DriveAuthEvent.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
+    <ID>PackageName:DriveOperationResult.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
+    <ID>PackageName:EditColorSchemeScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens</ID>
+    <ID>PackageName:EncryptionHelper.kt$package `in`.hridayan.ashell.settings.data.utils</ID>
+    <ID>PackageName:FontImportDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
+    <ID>PackageName:FontStyleBottomSheet.kt$package `in`.hridayan.ashell.settings.presentation.components.bottomsheet</ID>
+    <ID>PackageName:GenerateColorSchemeScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens</ID>
+    <ID>PackageName:GenerateColorSchemeViewModel.kt$package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel</ID>
+    <ID>PackageName:GenerateCustomThemeUseCase.kt$package `in`.hridayan.ashell.settings.domain.usecase</ID>
+    <ID>PackageName:GetAllChangelogsUseCase.kt$package `in`.hridayan.ashell.settings.domain.usecase</ID>
+    <ID>PackageName:GetLicensesUseCase.kt$package `in`.hridayan.ashell.settings.domain.usecase</ID>
+    <ID>PackageName:GitHubContributor.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
+    <ID>PackageName:GitHubContributorDto.kt$package `in`.hridayan.ashell.settings.data.dto</ID>
+    <ID>PackageName:GitHubContributorMapper.kt$package `in`.hridayan.ashell.settings.data.mapper</ID>
+    <ID>PackageName:GitHubContributorParser.kt$package `in`.hridayan.ashell.settings.data.parser</ID>
+    <ID>PackageName:GithubApi.kt$package `in`.hridayan.ashell.settings.data.remote.api</ID>
+    <ID>PackageName:GithubAssetDto.kt$package `in`.hridayan.ashell.settings.data.remote.dto</ID>
+    <ID>PackageName:GithubDataRepository.kt$package `in`.hridayan.ashell.settings.domain.repository</ID>
+    <ID>PackageName:GithubDataRepositoryImpl.kt$package `in`.hridayan.ashell.settings.data.repository</ID>
+    <ID>PackageName:GithubDataViewModel.kt$package `in`.hridayan.ashell.settings.presentation.viewmodel</ID>
+    <ID>PackageName:GithubRelease.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
+    <ID>PackageName:GithubReleaseDto.kt$package `in`.hridayan.ashell.settings.data.remote.dto</ID>
+    <ID>PackageName:GithubReleaseMapper.kt$package `in`.hridayan.ashell.settings.data.remote.mapper</ID>
+    <ID>PackageName:GithubRepoStats.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
+    <ID>PackageName:GithubRepoStatsDao.kt$package `in`.hridayan.ashell.settings.data.local.database</ID>
+    <ID>PackageName:GithubRepoStatsDatabase.kt$package `in`.hridayan.ashell.settings.data.local.database</ID>
+    <ID>PackageName:GithubRepoStatsDatabaseModule.kt$package `in`.hridayan.ashell.settings.di</ID>
+    <ID>PackageName:GithubRepoStatsDto.kt$package `in`.hridayan.ashell.settings.data.remote.dto</ID>
+    <ID>PackageName:GithubRepoStatsEntity.kt$package `in`.hridayan.ashell.settings.data.local.entity</ID>
+    <ID>PackageName:GithubRepoStatsMapper.kt$package `in`.hridayan.ashell.settings.data.remote.mapper</ID>
+    <ID>PackageName:GoogleAuthRepository.kt$package `in`.hridayan.ashell.settings.domain.repository</ID>
+    <ID>PackageName:GoogleDriveRepository.kt$package `in`.hridayan.ashell.settings.domain.repository</ID>
+    <ID>PackageName:GoogleSignInCard.kt$package `in`.hridayan.ashell.settings.presentation.page.backup.screens</ID>
+    <ID>PackageName:GoogleSignOutConfirmationDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
+    <ID>PackageName:GoogleUserState.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
+    <ID>PackageName:LanguageDto.kt$package `in`.hridayan.ashell.settings.data.dto</ID>
+    <ID>PackageName:LanguagesScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.languages.screens</ID>
+    <ID>PackageName:LanguagesViewModel.kt$package `in`.hridayan.ashell.settings.presentation.page.languages.viewmodel</ID>
+    <ID>PackageName:LastBackupData.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
+    <ID>PackageName:LatestVersionDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
+    <ID>PackageName:LibraryItem.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
+    <ID>PackageName:LicenseDetailDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
+    <ID>PackageName:LicenseDto.kt$package `in`.hridayan.ashell.settings.data.remote.dto</ID>
+    <ID>PackageName:LicensesComponents.kt$package `in`.hridayan.ashell.settings.presentation.page.licenses.components</ID>
+    <ID>PackageName:LicensesModule.kt$package `in`.hridayan.ashell.settings.di</ID>
+    <ID>PackageName:LicensesRepository.kt$package `in`.hridayan.ashell.settings.domain.repository</ID>
+    <ID>PackageName:LicensesRepositoryImpl.kt$package `in`.hridayan.ashell.settings.data.repository</ID>
+    <ID>PackageName:LicensesScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.licenses.screens</ID>
+    <ID>PackageName:LicensesUiState.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
+    <ID>PackageName:LicensesViewModel.kt$package `in`.hridayan.ashell.settings.presentation.page.licenses.viewmodel</ID>
+    <ID>PackageName:LookAndFeelScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens</ID>
+    <ID>PackageName:LookAndFeelViewModel.kt$package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel</ID>
+    <ID>PackageName:Mapper.kt$package `in`.hridayan.ashell.settings.data.local.mapper</ID>
+    <ID>PackageName:NoGoogleAccountDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
+    <ID>PackageName:NoGoogleAccountException.kt$package `in`.hridayan.ashell.settings.domain.exception</ID>
+    <ID>PackageName:PaletteStylePickerDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
+    <ID>PackageName:PaletteWheel.kt$package `in`.hridayan.ashell.settings.presentation.components.palette</ID>
+    <ID>PackageName:PolicyBlock.kt$package `in`.hridayan.ashell.settings.presentation.page.privacypolicy.model</ID>
+    <ID>PackageName:PolicyParser.kt$package `in`.hridayan.ashell.settings.presentation.page.privacypolicy.util</ID>
+    <ID>PackageName:PrivacyPolicyScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.privacypolicy.screens</ID>
+    <ID>PackageName:PrivacyPolicyViewModel.kt$package `in`.hridayan.ashell.settings.presentation.page.privacypolicy.viewmodel</ID>
+    <ID>PackageName:ProfilePic.kt$package `in`.hridayan.ashell.settings.presentation.components.image</ID>
+    <ID>PackageName:ReadFontNameUseCase.kt$package `in`.hridayan.ashell.settings.domain.usecase</ID>
+    <ID>PackageName:ResetSettingsDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
+    <ID>PackageName:RestoreBackupDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
+    <ID>PackageName:RestoreSourceDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
+    <ID>PackageName:SelectBackupFolderDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
+    <ID>PackageName:SettingsBackupModule.kt$package `in`.hridayan.ashell.settings.di</ID>
+    <ID>PackageName:SettingsBackupProvider.kt$package `in`.hridayan.ashell.settings.data.backup</ID>
+    <ID>PackageName:SettingsDataStoreProvider.kt$package `in`.hridayan.ashell.settings.data</ID>
+    <ID>PackageName:SettingsDialogKey.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
+    <ID>PackageName:SettingsModule.kt$package `in`.hridayan.ashell.settings.di</ID>
+    <ID>PackageName:SettingsNetworkModule.kt$package `in`.hridayan.ashell.settings.di</ID>
+    <ID>PackageName:SettingsRepositoryModule.kt$package `in`.hridayan.ashell.settings.di</ID>
+    <ID>PackageName:SettingsScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.mainscreen.screen</ID>
+    <ID>PackageName:SettingsSearchGraph.kt$package `in`.hridayan.ashell.settings.presentation.page.search.index</ID>
+    <ID>PackageName:SettingsSearchScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.search.screens</ID>
+    <ID>PackageName:SettingsSearchViewModel.kt$package `in`.hridayan.ashell.settings.presentation.page.search.viewmodel</ID>
+    <ID>PackageName:SettingsUiEvent.kt$package `in`.hridayan.ashell.settings.presentation.event</ID>
+    <ID>PackageName:SettingsUseCaseModule.kt$package `in`.hridayan.ashell.settings.di</ID>
+    <ID>PackageName:SettingsViewModel.kt$package `in`.hridayan.ashell.settings.presentation.viewmodel</ID>
+    <ID>PackageName:SupportMeCard.kt$package `in`.hridayan.ashell.settings.presentation.components.card</ID>
+    <ID>PackageName:SupportedLocale.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
+    <ID>PackageName:ThemePreviewBottomSheet.kt$package `in`.hridayan.ashell.settings.presentation.components.bottomsheet</ID>
+    <ID>PackageName:ToggleSettingUseCase.kt$package `in`.hridayan.ashell.settings.domain.usecase</ID>
+    <ID>PackageName:Translator.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
+    <ID>PackageName:TranslatorDto.kt$package `in`.hridayan.ashell.settings.data.dto</ID>
+    <ID>PackageName:TranslatorMapper.kt$package `in`.hridayan.ashell.settings.data.mapper</ID>
+    <ID>PackageName:TranslatorParser.kt$package `in`.hridayan.ashell.settings.data.parser</ID>
+    <ID>PackageName:TranslatorsScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.contributors.screens</ID>
+    <ID>PackageName:UiScaleScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens</ID>
+    <ID>PackageName:UndrawThemePicker.kt$package `in`.hridayan.ashell.settings.presentation.components.svg.vectors</ID>
+    <ID>PackageName:UpdateBottomSheet.kt$package `in`.hridayan.ashell.settings.presentation.components.bottomsheet</ID>
+    <ID>PackageName:UpdateResult.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
+    <ID>PackageName:VersionComparisonTest.kt$package `in`.hridayan.ashell.settings.domain.usecase</ID>
+    <ID>PackageName:VersionToChangelogMap.kt$package `in`.hridayan.ashell.settings.data.source</ID>
+    <ID>PrintStackTrace:SettingsBackupProvider.kt$SettingsBackupProvider$e</ID>
+    <ID>RethrowCaughtException:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$throw e</ID>
+    <ID>ReturnCount:CheckUpdateUseCase.kt$CheckUpdateUseCase$private fun isNewerVersion(latest: String, current: String): Boolean</ID>
+    <ID>ReturnCount:ImportCustomFontUseCase.kt$ImportCustomFontUseCase$suspend operator fun invoke( uri: Uri, displayName: String ): Result&lt;CustomFontEntity&gt;</ID>
+    <ID>SwallowedException:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel$e: Exception</ID>
+    <ID>SwallowedException:ColorPickerBottomSheet.kt$e: Exception</ID>
+    <ID>SwallowedException:ColorRoleRegistry.kt$ColorRoleRegistry$e: Exception</ID>
+    <ID>SwallowedException:DownloadRepositoryImpl.kt$DownloadRepositoryImpl$e: CancellationException</ID>
+    <ID>SwallowedException:GenerateColorSchemeScreen.kt$e: Exception</ID>
+    <ID>SwallowedException:ThemePreviewBottomSheet.kt$e: Exception</ID>
+    <ID>ThrowsCount:AutoBackupWorker.kt$AutoBackupWorker$private suspend fun performLocalBackup( folderUri: String, deleteExisting: Boolean, backupType: BackupType, )</ID>
+    <ID>ThrowsCount:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$suspend operator fun invoke(prompt: String, fallbackModels: List&lt;String&gt;? = null): Result&lt;ColorSchemePayload&gt;</ID>
+    <ID>TooManyFunctions:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel : ViewModel</ID>
+    <ID>TooManyFunctions:SettingsViewModel.kt$SettingsViewModel : ViewModel</ID>
+    <ID>UnusedParameter:BackupSchedulerScreen.kt$highlightKey: String? = null</ID>
+    <ID>UnusedPrivateMember:AiGenerationAnimationBox.kt$@Preview(showBackground = true) @Composable private fun AiGenerationAnimationBoxPreview()</ID>
+    <ID>UnusedPrivateProperty:AboutScreen.kt$val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())</ID>
+    <ID>UnusedPrivateProperty:AutoUpdateScreen.kt$val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())</ID>
+    <ID>UnusedPrivateProperty:BackupAndRestoreScreen.kt$val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())</ID>
+    <ID>UnusedPrivateProperty:BackupScheduler.kt$BackupScheduler$private const val ONE_SHOT_WORK_NAME = "auto_backup_now"</ID>
+    <ID>UnusedPrivateProperty:BackupSchedulerScreen.kt$val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())</ID>
+    <ID>UnusedPrivateProperty:BehaviorScreen.kt$val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())</ID>
+    <ID>UnusedPrivateProperty:DarkThemeScreen.kt$val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())</ID>
+    <ID>UnusedPrivateProperty:LookAndFeelScreen.kt$val context = LocalContext.current</ID>
+    <ID>UnusedPrivateProperty:LookAndFeelScreen.kt$val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())</ID>
+    <ID>UnusedPrivateProperty:SettingsScreen.kt$val floatingIconsResIds = getAllSettingsIcons()</ID>
+    <ID>UnusedPrivateProperty:SettingsScreen.kt$val prefs by viewModel.preferences.collectAsState(initial = emptyPreferences())</ID>
+    <ID>UseCheckOrError:AutoBackupWorker.kt$AutoBackupWorker$throw IllegalStateException("Failed to create file in backup folder. Storage may be full.")</ID>
+    <ID>UseCheckOrError:AutoBackupWorker.kt$AutoBackupWorker$throw IllegalStateException("Failed to generate backup data for cloud upload.")</ID>
+    <ID>UseCheckOrError:AutoBackupWorker.kt$AutoBackupWorker$throw IllegalStateException("Failed to generate backup data. The app data may be corrupted.")</ID>
+    <ID>UseCheckOrError:AutoBackupWorker.kt$AutoBackupWorker$throw IllegalStateException("Failed to write to backup file. Storage may be full or permissions revoked.")</ID>
+    <ID>UseCheckOrError:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$throw IllegalStateException("${provider.displayName} API Key not set. Please set it in Settings -&gt; AI Models -&gt; Cloud Models.")</ID>
+    <ID>UseCheckOrError:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$throw IllegalStateException("${provider.displayName} client not found")</ID>
+    <ID>UseCheckOrError:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$throw IllegalStateException("No models configured for provider ${provider.displayName}")</ID>
+    <ID>UseCheckOrError:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$throw lastException ?: IllegalStateException("Failed to generate theme with all fallback models.")</ID>
+    <ID>UseRequire:EncryptionHelper.kt$EncryptionHelper$throw IllegalArgumentException("Invalid encrypted data")</ID>
+    <ID>Wrapping:BackupAndRestoreScreen.kt$(</ID>
+    <ID>Wrapping:GenerateColorSchemeScreen.kt$;</ID>
+    <ID>Wrapping:PrivacyPolicyScreen.kt$;</ID>
+  </CurrentIssues>
 </SmellBaseline>

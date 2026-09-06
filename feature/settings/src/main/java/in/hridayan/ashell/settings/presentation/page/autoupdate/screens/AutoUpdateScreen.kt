@@ -12,9 +12,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Downloading
 import androidx.compose.material.icons.rounded.Update
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -25,10 +25,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -39,7 +37,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.datastore.preferences.core.emptyPreferences
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
@@ -53,6 +50,7 @@ import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.components.shape.SineWaveShape
 import `in`.hridayan.ashell.core.presentation.components.shape.WaveEdge
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.settings.domain.model.UpdateResult
@@ -60,15 +58,15 @@ import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.UpdateB
 import `in`.hridayan.ashell.settings.presentation.components.dialog.LatestVersionDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
-import `in`.hridayan.ashell.settings.presentation.state.settingsContent
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
-import `in`.hridayan.settingsdsl.resolver.resolveAll
-import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
+import `in`.hridayan.settingsdsl.ui.SettingsColumn
+
+private const val ITEM_KEY_TOP_SPACER = "topSpacer"
+private const val ITEM_KEY_WARNING_BOX = "warningBox"
 
 @Composable
 fun AutoUpdateScreen(
     modifier: Modifier = Modifier,
-    highlightKey: String? = null,
     settingsViewModel: SettingsViewModel = hiltViewModel(),
     autoUpdateViewModel: AutoUpdateViewModel = hiltViewModel(),
 ) {
@@ -76,7 +74,7 @@ fun AutoUpdateScreen(
     val context = LocalContext.current
     val dialogManager = LocalDialogManager.current
     val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
-    val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())
+
     var showLoading by rememberSaveable { mutableStateOf(false) }
     var showUpdateSheet by rememberSaveable { mutableStateOf(false) }
     var tagName by rememberSaveable {
@@ -89,6 +87,7 @@ fun AutoUpdateScreen(
     }
     var apkUrl by rememberSaveable { mutableStateOf("") }
     var changelog by rememberSaveable { mutableStateOf("") }
+
     val networkError = stringResource(R.string.network_error)
     val requestTimeout = stringResource(R.string.request_timeout)
     val unKnownError = stringResource(R.string.unknown_error)
@@ -117,17 +116,6 @@ fun AutoUpdateScreen(
 
     val listState = rememberLazyListState()
     val topAppBarState = rememberTopAppBarState()
-    val highlightedKey = rememberHighlightState(
-        highlightKeyName = highlightKey,
-        page = settingsViewModel.autoUpdatePage,
-        listState = listState,
-        headerItemCount = 1,
-        keyResolver = { SettingsKeys.valueOfOrNull(it) },
-        topAppBarState = topAppBarState,
-    )
-
-    val page = remember { settingsViewModel.autoUpdatePage }
-    val resolvedGroups = page.resolveAll(highlightedKey = highlightedKey)
 
     AppScaffold(
         onNavigateBack = { navController.navigateBack() },
@@ -136,14 +124,17 @@ fun AutoUpdateScreen(
         topAppBarState = topAppBarState,
         topBarTitle = stringResource(R.string.auto_update),
         content = { innerPadding, topBarScrollBehavior ->
-            LazyColumn(
+
+            SettingsColumn(
                 modifier = Modifier
                     .fillMaxWidth()
                     .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
-                state = listState,
+                listState = listState,
                 contentPadding = innerPadding,
+                topAppBarState = topAppBarState,
+                hapticsEnabled = hapticsEnabled,
             ) {
-                item {
+                item(ITEM_KEY_TOP_SPACER) {
                     Spacer(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -151,14 +142,31 @@ fun AutoUpdateScreen(
                     )
                 }
 
-                settingsContent(
-                    groups = resolvedGroups,
-                    viewModel = settingsViewModel,
-                    prefs = prefs,
-                    hapticsEnabled = hapticsEnabled
-                )
+                group {
+                    switchBannerItem(SettingsKeys.AutoUpdate) {
+                        title(R.string.enable_auto_update)
+                    }
+                }
 
-                item {
+                group(R.string.update_channel) {
+                    radioGroupItem(SettingsKeys.GithubReleaseType) {
+                        options(RadioGroupOptionsProvider.updateChannelOptions)
+                        onIntChanged { key, value ->
+                            @Suppress("UNCHECKED_CAST")
+                            settingsViewModel.setInt(key as SettingsKeys<Int>, value)
+                        }
+                    }
+                }
+
+                group(R.string.additional_settings) {
+                    switchItem(SettingsKeys.EnableDirectDownload) {
+                        title(R.string.enable_direct_download)
+                        description(R.string.des_enable_direct_download)
+                        icon(Icons.Rounded.Downloading)
+                    }
+                }
+
+                item(ITEM_KEY_WARNING_BOX) {
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -175,7 +183,12 @@ fun AutoUpdateScreen(
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(start = 25.dp, end = 25.dp, top = 35.dp, bottom = 75.dp),
+                                .padding(
+                                    start = 25.dp,
+                                    end = 25.dp,
+                                    top = 35.dp,
+                                    bottom = 75.dp
+                                ),
                             verticalArrangement = Arrangement.spacedBy(15.dp),
                         ) {
                             Row(
@@ -188,17 +201,20 @@ fun AutoUpdateScreen(
                                     contentDescription = null,
                                     tint = MaterialTheme.colorScheme.error
                                 )
+
                                 Text(
                                     text = stringResource(R.string.pre_release_warning),
                                     style = MaterialTheme.typography.titleSmall,
                                     color = MaterialTheme.colorScheme.error
                                 )
                             }
+
                             Text(
                                 text = stringResource(R.string.pre_release_warning_description),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.error.copy(alpha = 0.7f)
                             )
+
                             Spacer(
                                 modifier = Modifier
                                     .fillMaxWidth()

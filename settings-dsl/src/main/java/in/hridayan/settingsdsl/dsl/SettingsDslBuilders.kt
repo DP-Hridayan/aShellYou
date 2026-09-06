@@ -2,81 +2,144 @@ package `in`.hridayan.settingsdsl.dsl
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import `in`.hridayan.settingsdsl.model.ButtonGroupOption
-import `in`.hridayan.settingsdsl.model.CustomSlot
-import `in`.hridayan.settingsdsl.model.GroupSpec
-import `in`.hridayan.settingsdsl.model.ItemSpec
+import `in`.hridayan.settingsdsl.model.ItemBehavior
 import `in`.hridayan.settingsdsl.model.RadioButtonOption
-import `in`.hridayan.settingsdsl.model.SettingsKey
-import `in`.hridayan.settingsdsl.model.SettingsPage
+import `in`.hridayan.settingsdsl.model.SettingsGraph
+import `in`.hridayan.settingsdsl.model.SettingsGraphGroup
+import `in`.hridayan.settingsdsl.model.SettingsNode
+import `in`.hridayan.settingsdsl.ui.OnClickDefaults
+import `in`.hridayan.settingsdsl.ui.SettingsColumn
 
-/**
- * DSL marker annotation to restrict scope in settings DSL blocks.
- */
 @DslMarker
 annotation class SettingsDslMarker
 
 /**
- * Base builder for a settings item with a title and visibility state.
+ * Base builder shared by all settings item builder types.
+ *
+ * Provides [title], [description][DescribedItemBuilder], [visible], [enabled], and [onClick]
+ * configuration.
  */
 @SettingsDslMarker
 abstract class BaseItemBuilder {
-    var visible: Boolean = true
-    var enabled: Boolean = true
+    internal var staticTitleRes: Int? = null
+    internal var staticTitleString: String = ""
+    internal var dynamicTitle: (@Composable () -> String)? = null
+    internal var enabled: Boolean = true
+    internal var visibleLambda: () -> Boolean = { true }
+    internal var onClickOverride: ((Any) -> Unit)? = null
 
-    internal var titleResId: Int? = null
-    internal var titleString: String = ""
-
-    /** Sets the title using a string resource ID. */
+    /** Sets the title from a string resource. */
     fun title(@StringRes resId: Int) {
-        titleResId = resId
-        titleString = ""
+        staticTitleRes = resId
+        staticTitleString = ""
+        dynamicTitle = null
     }
 
-    /** Sets the title using a plain string. */
+    /** Sets the title from a plain string. */
     fun title(text: String) {
-        titleString = text
-        titleResId = null
+        staticTitleString = text
+        staticTitleRes = null
+        dynamicTitle = null
+    }
+
+    /**
+     * Sets a dynamic title via a [Composable] lambda, executed on every recomposition and so
+     * suitable for reading Compose state.
+     *
+     * @param block Composable lambda that returns the display title string.
+     */
+    fun title(block: @Composable () -> String) {
+        dynamicTitle = block
+        staticTitleRes = null
+        staticTitleString = ""
+    }
+
+    /**
+     * Controls whether this item is rendered.
+     *
+     * The lambda is evaluated in pure Kotlin context � do not call Compose APIs inside it.
+     * Read pre-computed values from the enclosing composable scope instead. The containing
+     * composable must recompose for visibility changes to take effect.
+     *
+     * @param block Pure-Kotlin lambda returning true if the item should be visible.
+     */
+    fun visible(block: () -> Boolean) {
+        visibleLambda = block
+    }
+
+    /** Controls whether this item is interactable. */
+    fun enabled(value: Boolean) {
+        enabled = value
+    }
+
+    /**
+     * Registers a per-item click or toggle handler.
+     *
+     * For [ItemBehavior.Clickable] items this is the tap action. For [ItemBehavior.Switch] and
+     * [ItemBehavior.SwitchBanner] items this overrides the global
+     * [OnClickDefaults.onSwitchItem].
+     *
+     * @param block Lambda receiving the item key.
+     */
+    fun onClick(block: (Any) -> Unit) {
+        onClickOverride = block
     }
 }
 
 /**
- * Base builder for a settings item that also has a description.
+ * Extends [BaseItemBuilder] with description configuration.
  */
 @SettingsDslMarker
 abstract class DescribedItemBuilder : BaseItemBuilder() {
-    internal var descriptionResId: Int? = null
-    internal var descriptionString: String = ""
+    internal var staticDescRes: Int? = null
+    internal var staticDescString: String = ""
+    internal var dynamicDescription: (@Composable () -> String)? = null
 
-    /** Sets the description using a string resource ID. */
+    /** Sets the description from a string resource. */
     fun description(@StringRes resId: Int) {
-        descriptionResId = resId
-        descriptionString = ""
+        staticDescRes = resId
+        staticDescString = ""
+        dynamicDescription = null
     }
 
-    /** Sets the description using a plain string. */
+    /** Sets the description from a plain string. */
     fun description(text: String) {
-        descriptionString = text
-        descriptionResId = null
+        staticDescString = text
+        staticDescRes = null
+        dynamicDescription = null
+    }
+
+    /**
+     * Sets a dynamic description via a [Composable] lambda, executed on every recomposition and so
+     * suitable for reading Compose state.
+     *
+     * @param block Composable lambda that returns the display description string.
+     */
+    fun description(block: @Composable () -> String) {
+        dynamicDescription = block
+        staticDescRes = null
+        staticDescString = ""
     }
 }
 
 /**
- * Base builder for a settings item that also has an icon.
+ * Extends [DescribedItemBuilder] with icon configuration.
  */
 @SettingsDslMarker
 abstract class IconItemBuilder : DescribedItemBuilder() {
     internal var iconResId: Int? = null
     internal var iconVector: ImageVector? = null
 
-    /** Sets the icon using a drawable resource ID. */
+    /** Sets the leading icon from a drawable resource. */
     fun icon(@DrawableRes resId: Int) {
         iconResId = resId
         iconVector = null
     }
 
-    /** Sets the icon using an ImageVector. */
+    /** Sets the leading icon from an [ImageVector]. */
     fun icon(vector: ImageVector) {
         iconVector = vector
         iconResId = null
@@ -84,259 +147,414 @@ abstract class IconItemBuilder : DescribedItemBuilder() {
 }
 
 /**
- * Base builder for a settings item that supports an experimental flag badge.
+ * Extends [IconItemBuilder] with experimental badge configuration.
  */
 @SettingsDslMarker
 abstract class BadgeItemBuilder : IconItemBuilder() {
-    internal var experimentalFlagTextResId: Int? = null
+    internal var experimentalFlagTextRes: Int? = null
     internal var experimentalFlagTextString: String = ""
 
-    /** Sets the experimental flag text using a string resource ID. */
+    /** Sets the experimental badge text from a string resource. */
     fun experimentalFlagText(@StringRes resId: Int) {
-        experimentalFlagTextResId = resId
+        experimentalFlagTextRes = resId
         experimentalFlagTextString = ""
     }
 
-    /** Sets the experimental flag text using a plain string. */
+    /** Sets the experimental badge text from a plain string. */
     fun experimentalFlagText(text: String) {
         experimentalFlagTextString = text
-        experimentalFlagTextResId = null
+        experimentalFlagTextRes = null
     }
 }
 
 /**
  * Builder for a clickable settings item.
+ *
+ * Use [onClick] (inherited from [BaseItemBuilder]) to define the tap action. There is no global
+ * default for clickable items � each item must declare its own handler.
+ *
+ * @param key The developer-supplied key for this item.
  */
 @SettingsDslMarker
-class ClickableItemBuilder internal constructor(private val key: SettingsKey<*>) :
-    BadgeItemBuilder() {
-    internal fun build(): ItemSpec = ItemSpec.ClickableSpec(
+class ClickableItemBuilder internal constructor(private val key: Any) : BadgeItemBuilder() {
+    internal fun build(): SettingsNode = SettingsNode(
         key = key,
-        isVisible = visible,
-        enabled = enabled,
-        titleResId = titleResId,
-        titleString = titleString,
-        descriptionResId = descriptionResId,
-        descriptionString = descriptionString,
+        keyName = key.toString(),
+        isVisible = visibleLambda,
+        dynamicTitle = dynamicTitle,
+        staticTitleRes = staticTitleRes,
+        staticTitleString = staticTitleString,
+        dynamicDescription = dynamicDescription,
+        staticDescRes = staticDescRes,
+        staticDescString = staticDescString,
         iconResId = iconResId,
         iconVector = iconVector,
-        experimentalFlagTextResId = experimentalFlagTextResId,
-        experimentalFlagText = experimentalFlagTextString
+        experimentalFlagTextRes = experimentalFlagTextRes,
+        experimentalFlagTextString = experimentalFlagTextString,
+        enabled = enabled,
+        behavior = ItemBehavior.Clickable,
+        onClickOverride = onClickOverride,
     )
 }
 
 /**
  * Builder for a switch settings item.
+ *
+ * Use [onClick] to override the global [OnClickDefaults.onSwitchItem]
+ * for this item only. Use [isChecked] to override the global
+ * [OnClickDefaults.isChecked] for this item only.
+ *
+ * @param key The developer-supplied key for this item.
  */
 @SettingsDslMarker
-class SwitchItemBuilder internal constructor(private val key: SettingsKey<*>) :
-    BadgeItemBuilder() {
-    internal fun build(): ItemSpec = ItemSpec.SwitchSpec(
+class SwitchItemBuilder internal constructor(private val key: Any) : BadgeItemBuilder() {
+    internal var isCheckedOverride: ((Any) -> Boolean)? = null
+
+    /**
+     * Registers a per-item boolean state reader that overrides the global
+     * [OnClickDefaults.isChecked] for this item only.
+     *
+     * @param block Lambda receiving the item key and returning whether the switch is checked.
+     */
+    fun isChecked(block: (Any) -> Boolean) {
+        isCheckedOverride = block
+    }
+
+    internal fun build(): SettingsNode = SettingsNode(
         key = key,
-        isVisible = visible,
-        enabled = enabled,
-        titleResId = titleResId,
-        titleString = titleString,
-        descriptionResId = descriptionResId,
-        descriptionString = descriptionString,
+        keyName = key.toString(),
+        isVisible = visibleLambda,
+        dynamicTitle = dynamicTitle,
+        staticTitleRes = staticTitleRes,
+        staticTitleString = staticTitleString,
+        dynamicDescription = dynamicDescription,
+        staticDescRes = staticDescRes,
+        staticDescString = staticDescString,
         iconResId = iconResId,
         iconVector = iconVector,
-        experimentalFlagTextResId = experimentalFlagTextResId,
-        experimentalFlagText = experimentalFlagTextString
+        experimentalFlagTextRes = experimentalFlagTextRes,
+        experimentalFlagTextString = experimentalFlagTextString,
+        enabled = enabled,
+        behavior = ItemBehavior.Switch,
+        onToggleOverride = onClickOverride,
+        isCheckedOverride = isCheckedOverride,
     )
 }
 
 /**
- * Builder for a switch banner item.
+ * Builder for a full-width switch banner item.
+ *
+ * Use [onClick] to override the global [OnClickDefaults.onSwitchItem]
+ * for this item only. Use [isChecked] to override the global
+ * [OnClickDefaults.isChecked] for this item only.
+ *
+ * @param key The developer-supplied key for this item.
  */
 @SettingsDslMarker
-class SwitchBannerItemBuilder internal constructor(private val key: SettingsKey<*>) :
-    BaseItemBuilder() {
-    internal fun build(): ItemSpec = ItemSpec.SwitchBannerSpec(
+class SwitchBannerItemBuilder internal constructor(private val key: Any) : BaseItemBuilder() {
+    internal var isCheckedOverride: ((Any) -> Boolean)? = null
+
+    /**
+     * Registers a per-item boolean state reader that overrides the global
+     * [OnClickDefaults.isChecked] for this item only.
+     *
+     * @param block Lambda receiving the item key and returning whether the switch is checked.
+     */
+    fun isChecked(block: (Any) -> Boolean) {
+        isCheckedOverride = block
+    }
+
+    internal fun build(): SettingsNode = SettingsNode(
         key = key,
-        isVisible = visible,
+        keyName = key.toString(),
+        isVisible = visibleLambda,
+        dynamicTitle = dynamicTitle,
+        staticTitleRes = staticTitleRes,
+        staticTitleString = staticTitleString,
+        dynamicDescription = null,
+        staticDescRes = null,
+        staticDescString = "",
+        iconResId = null,
+        iconVector = null,
+        experimentalFlagTextRes = null,
+        experimentalFlagTextString = "",
         enabled = enabled,
-        titleResId = titleResId,
-        titleString = titleString
+        behavior = ItemBehavior.SwitchBanner,
+        onToggleOverride = onClickOverride,
+        isCheckedOverride = isCheckedOverride,
     )
 }
 
 /**
  * Builder for a radio group settings item.
+ *
+ * Use [onIntChanged] to register a per-item value-change handler (overrides the global default).
+ * Use [selectedValue] to register a per-item state reader (overrides the global default).
+ *
+ * @param key The developer-supplied key for this item.
  */
 @SettingsDslMarker
-class RadioGroupItemBuilder internal constructor(private val key: SettingsKey<*>) {
-    var visible: Boolean = true
-    var enabled: Boolean = true
+class RadioGroupItemBuilder internal constructor(private val key: Any) {
+    internal var visibleLambda: () -> Boolean = { true }
+    internal var enabledValue: Boolean = true
     internal var options: List<RadioButtonOption> = emptyList()
+    internal var onIntChangedOverride: ((Any, Int) -> Unit)? = null
+    internal var selectedValueOverride: ((Any) -> Int)? = null
 
-    /** Sets the options for the radio group. */
+    /**
+     * Controls whether this item is visible and indexed by search.
+     *
+     * The lambda is evaluated in pure Kotlin context. Read pre-computed values from the enclosing
+     * composable scope instead of calling Compose APIs.
+     */
+    fun visible(block: () -> Boolean) {
+        visibleLambda = block
+    }
+
+    /** Controls whether this item is interactable. */
+    fun enabled(value: Boolean) {
+        enabledValue = value
+    }
+
+    /** Sets the radio options using varargs. */
     fun options(vararg optionsList: RadioButtonOption) {
         options = optionsList.toList()
     }
 
-    /** Sets the options for the radio group. */
+    /** Sets the radio options from a list. */
     fun options(optionsList: List<RadioButtonOption>) {
         options = optionsList
     }
 
-    internal fun build(): ItemSpec = ItemSpec.RadioGroupSpec(
+    /**
+     * Registers a per-item value-change handler that overrides the global
+     * [OnClickDefaults.onIntChanged] for this item only.
+     *
+     * @param block Lambda receiving the item key and the newly selected index.
+     */
+    fun onIntChanged(block: (Any, Int) -> Unit) {
+        onIntChangedOverride = block
+    }
+
+    /**
+     * Registers a per-item integer state reader that overrides the global
+     * [OnClickDefaults.selectedValue] for this item only.
+     *
+     * @param block Lambda receiving the item key and returning the currently selected index.
+     */
+    fun selectedValue(block: (Any) -> Int) {
+        selectedValueOverride = block
+    }
+
+    internal fun build(): SettingsNode = SettingsNode(
         key = key,
-        isVisible = visible,
-        enabled = enabled,
-        options = options
+        keyName = key.toString(),
+        isVisible = visibleLambda,
+        dynamicTitle = null,
+        staticTitleRes = null,
+        staticTitleString = "",
+        dynamicDescription = null,
+        staticDescRes = null,
+        staticDescString = "",
+        iconResId = null,
+        iconVector = null,
+        experimentalFlagTextRes = null,
+        experimentalFlagTextString = "",
+        enabled = enabledValue,
+        behavior = ItemBehavior.RadioGroup(options),
+        radioOptions = options,
+        onIntChangedOverride = onIntChangedOverride,
+        selectedValueOverride = selectedValueOverride,
     )
 }
 
 /**
- * Builder for a button group settings item.
+ * Builder for a segmented button group settings item.
+ *
+ * Use [onIntChanged] to register a per-item value-change handler (overrides the global default).
+ * Use [selectedValue] to register a per-item state reader (overrides the global default).
+ *
+ * @param key The developer-supplied key for this item.
  */
 @SettingsDslMarker
-class ButtonGroupItemBuilder internal constructor(private val key: SettingsKey<*>) {
-    var visible: Boolean = true
-    var enabled: Boolean = true
+class ButtonGroupItemBuilder internal constructor(private val key: Any) {
+    internal var visibleLambda: () -> Boolean = { true }
+    internal var enabledValue: Boolean = true
     internal var options: List<ButtonGroupOption> = emptyList()
+    internal var onIntChangedOverride: ((Any, Int) -> Unit)? = null
+    internal var selectedValueOverride: ((Any) -> Int)? = null
 
-    /** Sets the options for the button group. */
+    /**
+     * Controls whether this item is visible and indexed by search.
+     *
+     * The lambda is evaluated in pure Kotlin context. Read pre-computed values from the enclosing
+     * composable scope instead of calling Compose APIs.
+     */
+    fun visible(block: () -> Boolean) {
+        visibleLambda = block
+    }
+
+    /** Controls whether this item is interactable. */
+    fun enabled(value: Boolean) {
+        enabledValue = value
+    }
+
+    /** Sets the button group options using varargs. */
     fun options(vararg optionsList: ButtonGroupOption) {
         options = optionsList.toList()
     }
 
-    /** Sets the options for the button group. */
+    /** Sets the button group options from a list. */
     fun options(optionsList: List<ButtonGroupOption>) {
         options = optionsList
     }
 
-    internal fun build(): ItemSpec = ItemSpec.ButtonGroupSpec(
+    /**
+     * Registers a per-item value-change handler that overrides the global
+     * [OnClickDefaults.onIntChanged] for this item only.
+     *
+     * @param block Lambda receiving the item key and the newly selected index.
+     */
+    fun onIntChanged(block: (Any, Int) -> Unit) {
+        onIntChangedOverride = block
+    }
+
+    /**
+     * Registers a per-item integer state reader that overrides the global
+     * [OnClickDefaults.selectedValue] for this item only.
+     *
+     * @param block Lambda receiving the item key and returning the currently selected index.
+     */
+    fun selectedValue(block: (Any) -> Int) {
+        selectedValueOverride = block
+    }
+
+    internal fun build(): SettingsNode = SettingsNode(
         key = key,
-        isVisible = visible,
-        enabled = enabled,
-        options = options
+        keyName = key.toString(),
+        isVisible = visibleLambda,
+        dynamicTitle = null,
+        staticTitleRes = null,
+        staticTitleString = "",
+        dynamicDescription = null,
+        staticDescRes = null,
+        staticDescString = "",
+        iconResId = null,
+        iconVector = null,
+        experimentalFlagTextRes = null,
+        experimentalFlagTextString = "",
+        enabled = enabledValue,
+        behavior = ItemBehavior.ButtonGroup(options),
+        buttonOptions = options,
+        onIntChangedOverride = onIntChangedOverride,
+        selectedValueOverride = selectedValueOverride,
     )
 }
 
 /**
- * Scope for adding items to a settings group.
- * You can optionally set a title to render this group as a categorized section.
+ * Scope for defining items inside a settings group.
  */
 @SettingsDslMarker
-class GroupScope internal constructor() {
+class GraphGroupScope internal constructor() {
     internal var titleResId: Int? = null
     internal var titleString: String = ""
-    internal val items = mutableListOf<ItemSpec>()
+    internal val nodes = mutableListOf<SettingsNode>()
 
-    /** Sets the group title using a string resource ID. */
+    /** Sets the group title from a string resource. */
     fun title(@StringRes resId: Int) {
         titleResId = resId
         titleString = ""
     }
 
-    /** Sets the group title using a plain string. */
+    /** Sets the group title from a plain string. */
     fun title(text: String) {
         titleString = text
         titleResId = null
     }
 
     /**
-     * Creates a settings item with a toggle switch using a builder block.
+     * Adds a switch item to this group.
      *
-     * @param key Unique identifier for this setting.
-     * @param block Builder block for configuring the item.
+     * @param key The key identifying this setting. Can be any type.
+     * @param block Builder block to configure the item.
      */
-    fun switchItem(key: SettingsKey<*>, block: SwitchItemBuilder.() -> Unit) {
-        items.add(SwitchItemBuilder(key).apply(block).build())
+    fun switchItem(key: Any, block: SwitchItemBuilder.() -> Unit) {
+        nodes.add(SwitchItemBuilder(key).apply(block).build())
     }
 
     /**
-     * Creates a full-width switch banner item using a builder block.
+     * Adds a full-width switch banner item to this group.
      *
-     * @param key Unique identifier for this setting.
-     * @param block Builder block for configuring the item.
+     * @param key The key identifying this setting.
+     * @param block Builder block to configure the item.
      */
-    fun switchBannerItem(key: SettingsKey<*>, block: SwitchBannerItemBuilder.() -> Unit) {
-        items.add(SwitchBannerItemBuilder(key).apply(block).build())
+    fun switchBannerItem(key: Any, block: SwitchBannerItemBuilder.() -> Unit) {
+        nodes.add(SwitchBannerItemBuilder(key).apply(block).build())
     }
 
     /**
-     * Creates a tappable settings item that navigates or opens a dialog using a builder block.
+     * Adds a clickable item to this group.
      *
-     * @param key Unique identifier for this setting.
-     * @param block Builder block for configuring the item.
+     * @param key The key identifying this setting.
+     * @param block Builder block to configure the item.
      */
-    fun clickableItem(key: SettingsKey<*>, block: ClickableItemBuilder.() -> Unit) {
-        items.add(ClickableItemBuilder(key).apply(block).build())
+    fun clickableItem(key: Any, block: ClickableItemBuilder.() -> Unit) {
+        nodes.add(ClickableItemBuilder(key).apply(block).build())
     }
 
     /**
-     * Creates a settings item that renders a group of mutually exclusive radio options using a builder block.
+     * Adds a radio group item to this group.
      *
-     * @param key Unique identifier for this setting.
-     * @param block Builder block for configuring the item.
+     * @param key The key identifying this setting.
+     * @param block Builder block to configure the item.
      */
-    fun radioGroupItem(key: SettingsKey<*>, block: RadioGroupItemBuilder.() -> Unit) {
-        items.add(RadioGroupItemBuilder(key).apply(block).build())
+    fun radioGroupItem(key: Any, block: RadioGroupItemBuilder.() -> Unit) {
+        nodes.add(RadioGroupItemBuilder(key).apply(block).build())
     }
 
     /**
-     * Creates a settings item that renders a segmented/button group selector using a builder block.
+     * Adds a segmented button group item to this group.
      *
-     * @param key Unique identifier for this setting.
-     * @param block Builder block for configuring the item.
+     * @param key The key identifying this setting.
+     * @param block Builder block to configure the item.
      */
-    fun buttonGroupItem(key: SettingsKey<*>, block: ButtonGroupItemBuilder.() -> Unit) {
-        items.add(ButtonGroupItemBuilder(key).apply(block).build())
+    fun buttonGroupItem(key: Any, block: ButtonGroupItemBuilder.() -> Unit) {
+        nodes.add(ButtonGroupItemBuilder(key).apply(block).build())
     }
 }
 
 /**
- * Scope for building a SettingsPage.
+ * Top-level builder for the contents of a [SettingsColumn].
+ *
+ * This is the receiver of the `SettingsColumn { … }` block; instances are created by the renderer.
  */
 @SettingsDslMarker
-class SettingsPageBuilder internal constructor(
-    private val screenId: String? = null
-) {
-    internal var screenTitleResId: Int? = null
-    internal var screenTitleString: String = ""
-    internal val groups = mutableListOf<GroupSpec>()
-
-    /** Sets the screen title using a string resource ID. */
-    fun title(@StringRes resId: Int) {
-        screenTitleResId = resId
-        screenTitleString = ""
-    }
-
-    /** Sets the screen title using a plain string. */
-    fun title(text: String) {
-        screenTitleString = text
-        screenTitleResId = null
-    }
+class SettingsGraphBuilder internal constructor() {
+    internal val groups = mutableListOf<SettingsGraphGroup>()
 
     /**
-     * Creates a group of items.
-     *
-     * If you call `title(...)` inside the builder block, the group will render as
-     * a categorized section with a header. Otherwise, it will render as an uncategorized block.
+     * Adds an anonymous group of items (no header label).
      *
      * @param block Builder block for configuring the items in this group.
      */
-    fun group(block: GroupScope.() -> Unit) {
-        val scope = GroupScope().apply(block)
+    fun group(block: GraphGroupScope.() -> Unit) {
+        val scope = GraphGroupScope().apply(block)
         groups.add(
-            GroupSpec.Group(
+            SettingsGraphGroup.Group(
                 titleResId = scope.titleResId,
-                title = scope.titleString,
-                items = scope.items
+                titleString = scope.titleString,
+                nodes = scope.nodes,
             )
         )
     }
 
     /**
-     * Creates a categorized group of items with a string resource header label.
+     * Adds a group with a string resource header label.
      *
-     * @param titleResId String resource for the group title.
+     * @param titleResId String resource for the group header.
      * @param block Builder block for configuring the items in this group.
      */
-    fun group(@StringRes titleResId: Int, block: GroupScope.() -> Unit) {
+    fun group(@StringRes titleResId: Int, block: GraphGroupScope.() -> Unit) {
         group {
             title(titleResId)
             block()
@@ -344,39 +562,38 @@ class SettingsPageBuilder internal constructor(
     }
 
     /**
-     * Creates a categorized group of items with a plain string header label.
+     * Adds a group with a plain string header label.
      *
-     * @param title Plain string for the group title.
+     * @param title Plain string for the group header.
      * @param block Builder block for configuring the items in this group.
      */
-    fun group(title: String, block: GroupScope.() -> Unit) {
+    fun group(title: String, block: GraphGroupScope.() -> Unit) {
         group {
             title(title)
             block()
         }
     }
 
-    /**
-     * Inserts a custom composable slot identified by the given [CustomSlot].
-     */
-    fun customSlot(slot: CustomSlot) {
-        groups.add(GroupSpec.Custom(slot))
-    }
-
-    /**
-     * Inserts a horizontal visual divider between groups.
-     */
+    /** Inserts a horizontal visual divider at this position in the graph. */
     fun divider() {
-        groups.add(GroupSpec.Divider)
+        groups.add(SettingsGraphGroup.Divider)
     }
 
-    internal fun build(): SettingsPage =
-        SettingsPage(
-            groups = groups,
-            screenId = screenId,
-            screenTitleResId = screenTitleResId
-        )
+    /**
+     * Inserts arbitrary composable content at this position in the graph.
+     *
+     * The [content] lambda is a `@Composable` function rendered inside a lazy list item.
+     * Use this for custom headers, banners, spacers, or any bespoke row placed between groups.
+     *
+     * @param key Stable unique key for the lazy list item. Must be unique within the graph and
+     *            must not depend on the item's position, otherwise the lazy list discards and
+     *            recreates the item whenever a preceding entry appears or disappears.
+     * @param content The composable content to render.
+     */
+    fun item(key: Any, content: @Composable () -> Unit) {
+        groups.add(SettingsGraphGroup.RawItem(key = key, content = content))
+    }
+
+    internal fun build(): SettingsGraph = SettingsGraph(groups = groups)
 }
-
-
 

@@ -1,9 +1,7 @@
 package `in`.hridayan.ashell.settings.data.repository
 
-import android.app.DownloadManager
 import android.content.Context
-import android.net.Uri
-import androidx.core.net.toUri
+import android.util.Log
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.isNetworkAvailable
 import `in`.hridayan.ashell.settings.domain.model.DownloadState
@@ -11,27 +9,31 @@ import `in`.hridayan.ashell.settings.domain.repository.DownloadRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import java.io.File
+import java.io.FileOutputStream
 import java.net.ConnectException
+import java.net.HttpURLConnection
+import java.net.URL
 import javax.inject.Inject
 import kotlin.coroutines.cancellation.CancellationException
-import kotlin.time.Duration.Companion.milliseconds
 
 class DownloadRepositoryImpl @Inject constructor(
     private val context: Context
 ) : DownloadRepository {
 
     private var downloadJob: Job? = null
-    private var downloadId: Long = -1L
+    private var activeConnection: HttpURLConnection? = null
+
+    @Volatile
+    private var cancelled = false
 
     override suspend fun downloadApk(
         url: String,
         fileName: String,
         onProgress: (DownloadState) -> Unit
     ) {
+        cancelled = false
         downloadJob = CoroutineScope(Dispatchers.IO).launch {
             try {
                 checkNetwork()
@@ -40,28 +42,37 @@ class DownloadRepositoryImpl @Inject constructor(
                 cleanOldApks()
 
                 val file = File(context.getExternalFilesDir(null), fileName)
-                val dm = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-                downloadId = dm.enqueue(createRequest(url, file))
-
-                monitorDownload(dm, file, onProgress, isActive)
+                downloadFile(url, file, onProgress)
             } catch (e: CancellationException) {
-                cancelDownload()
                 onProgress(DownloadState.Cancelled)
             } catch (e: ConnectException) {
-                onProgress(DownloadState.Error(e.message ?: "Network error"))
+                if (cancelled) {
+                    onProgress(DownloadState.Cancelled)
+                } else {
+                    Log.e(TAG, "Network error during download", e)
+                    onProgress(DownloadState.Error(e.message ?: "Network error"))
+                }
             } catch (e: Exception) {
-                onProgress(DownloadState.Error(e.message ?: "Unknown error"))
+                if (cancelled) {
+                    onProgress(DownloadState.Cancelled)
+                } else {
+                    Log.e(TAG, "Error during download", e)
+                    onProgress(DownloadState.Error(e.message ?: "Unknown error"))
+                }
             }
         }
     }
 
     override fun cancelDownload() {
+        cancelled = true
+        // Disconnect first — this interrupts the blocking input.read() immediately
+        activeConnection?.disconnect()
+        activeConnection = null
         downloadJob?.cancel()
-        if (downloadId != -1L) {
-            val dm = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-            dm.remove(downloadId)
-        }
+        downloadJob = null
+        cleanOldApks()
     }
+
 
     private fun checkNetwork() {
         if (!isNetworkAvailable(context)) {
@@ -75,57 +86,66 @@ class DownloadRepositoryImpl @Inject constructor(
         }
     }
 
-    private fun createRequest(url: String, file: File): DownloadManager.Request {
-        return DownloadManager.Request(url.toUri()).apply {
-            setTitle("Downloading update")
-            setDescription("aShellYou update is downloading...")
-            setDestinationUri(Uri.fromFile(file))
-            setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
-            setAllowedOverMetered(true)
-            setAllowedOverRoaming(true)
-        }
-    }
-
-    private suspend fun monitorDownload(
-        dm: DownloadManager,
+    private fun downloadFile(
+        url: String,
         file: File,
-        onProgress: (DownloadState) -> Unit,
-        isActive: Boolean
+        onProgress: (DownloadState) -> Unit
     ) {
-        val query = DownloadManager.Query().setFilterById(downloadId)
-        var isDownloading = true
+        var connection: HttpURLConnection? = null
+        try {
+            connection = (URL(url).openConnection() as HttpURLConnection).apply {
+                connectTimeout = 15_000
+                readTimeout = 30_000
+                instanceFollowRedirects = true
+            }
+            activeConnection = connection
 
-        while (isDownloading && isActive) {
-            dm.query(query)?.use { cursor ->
-                if (cursor.moveToFirst()) {
-                    val status =
-                        cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS))
-                    val downloaded =
-                        cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
-                    val total =
-                        cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
+            val responseCode = connection.responseCode
 
-                    when (status) {
-                        DownloadManager.STATUS_SUCCESSFUL -> {
-                            isDownloading = false
-                            onProgress(DownloadState.Success(file))
-                        }
+            if (responseCode != HttpURLConnection.HTTP_OK) {
+                onProgress(
+                    DownloadState.Error(
+                        context.getString(R.string.download_failed) + " (HTTP $responseCode)"
+                    )
+                )
+                return
+            }
 
-                        DownloadManager.STATUS_FAILED -> {
-                            isDownloading = false
-                            onProgress(DownloadState.Error(context.getString(R.string.download_failed)))
-                        }
+            val totalBytes = connection.contentLength.toLong()
 
-                        else -> {
-                            if (total > 0) {
-                                val progress = downloaded.toFloat() / total
-                                onProgress(DownloadState.Progress(progress))
-                            }
+            connection.inputStream.use { input ->
+                FileOutputStream(file).use { output ->
+                    val buffer = ByteArray(8192)
+                    var bytesDownloaded = 0L
+                    var lastProgressUpdate = 0L
+
+                    while (true) {
+                        val bytesRead = input.read(buffer)
+                        if (bytesRead == -1) break
+
+                        output.write(buffer, 0, bytesRead)
+                        bytesDownloaded += bytesRead
+
+                        // Throttle progress updates to avoid overwhelming the UI
+                        val now = System.currentTimeMillis()
+                        if (totalBytes > 0 && now - lastProgressUpdate > 100) {
+                            val progress = bytesDownloaded.toFloat() / totalBytes
+                            onProgress(DownloadState.Progress(progress))
+                            lastProgressUpdate = now
                         }
                     }
                 }
             }
-            delay(100L.milliseconds)
+
+            onProgress(DownloadState.Success(file))
+        } finally {
+            activeConnection = null
+            connection?.disconnect()
         }
     }
+
+    companion object {
+        private const val TAG = "DownloadRepo"
+    }
 }
+

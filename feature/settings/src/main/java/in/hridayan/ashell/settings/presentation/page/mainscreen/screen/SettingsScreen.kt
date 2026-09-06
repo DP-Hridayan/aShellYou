@@ -19,8 +19,9 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.AutoAwesome
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
@@ -31,12 +32,10 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
@@ -44,8 +43,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
-import androidx.datastore.preferences.core.emptyPreferences
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import `in`.hridayan.ashell.core.common.FeatureConfig
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.navigation.LocalNavController
@@ -57,86 +55,69 @@ import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.provider.getAllSettingsIcons
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
-import `in`.hridayan.ashell.settings.presentation.state.settingsContent
-import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
-import `in`.hridayan.settingsdsl.resolver.resolveAll
-import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
+import `in`.hridayan.settingsdsl.ui.SettingsColumn
+
+private const val ITEM_KEY_HEADER = "header"
+private const val FLOATING_ICONS_COUNT = 40
+private val HEADER_MIN_HEIGHT = 300.dp
+private val FLOATING_ICONS_PADDING = 10.dp
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun SettingsScreen(
-    highlightKey: String? = null,
-    viewModel: SettingsViewModel = hiltViewModel(),
-) {
+fun SettingsScreen() {
     val navController = LocalNavController.current
     val settings = LocalSettings.current
     val hapticsEnabled = settings[SettingsKeys.HapticsAndVibration]
-    val prefs by viewModel.preferences.collectAsState(initial = emptyPreferences())
     val floatingIconsResIds = getAllSettingsIcons()
-
-    LaunchedEffect(Unit) {
-        viewModel.uiEvent.collect { event ->
-            when (event) {
-                is SettingsUiEvent.Navigate -> navController.navigate(event.route)
-                else -> {}
-            }
-        }
-    }
 
     val listState = rememberLazyListState()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
-    val highlightedKey = rememberHighlightState(
-        highlightKeyName = highlightKey,
-        page = viewModel.settingsPage,
-        listState = listState,
-        headerItemCount = 1,
-        keyResolver = { SettingsKeys.valueOfOrNull(it) },
-    )
-
-    // Resolve DSL page — memoized, only re-runs when composition re-enters
-    val resolvedGroups =
-        remember { viewModel.settingsPage }.resolveAll(highlightedKey = highlightedKey)
-
-    Scaffold(topBar = {
-        TopAppBar(
-            title = {},
-            navigationIcon = {
-                BackButton(onClick = { navController.navigateBack() })
-            },
-            actions = {
-                IconButton(onClick = withHaptic { navController.navigate(NavRoutes.SettingsSearchScreen) }) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_search),
-                        contentDescription = stringResource(R.string.search_settings),
-                    )
-                }
-            },
-            scrollBehavior = scrollBehavior,
-            colors = TopAppBarDefaults.topAppBarColors(
-                scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh
+    Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            TopAppBar(
+                title = { },
+                navigationIcon = {
+                    BackButton {
+                        navController.navigateBack()
+                    }
+                },
+                actions = {
+                    IconButton(onClick = withHaptic { navController.navigate(NavRoutes.SettingsSearchScreen) }) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_search),
+                            contentDescription = stringResource(R.string.search_settings),
+                        )
+                    }
+                },
+                scrollBehavior = scrollBehavior,
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color.Transparent,
+                    scrolledContainerColor = Color.Transparent
+                )
             )
-        )
-    }) { innerPadding ->
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .nestedScroll(scrollBehavior.nestedScrollConnection),
-            state = listState,
-            contentPadding = innerPadding,
+        }
+    ) { paddingValues ->
+
+        SettingsColumn(
+            modifier = Modifier,
+            contentPadding = paddingValues,
+            topAppBarState = scrollBehavior.state,
+            listState = listState,
+            hapticsEnabled = hapticsEnabled,
         ) {
-            item {
+            item(ITEM_KEY_HEADER) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .heightIn(300.dp)
+                        .heightIn(HEADER_MIN_HEIGHT)
                 ) {
                     FloatingIconsBackground(
                         modifier = Modifier
                             .matchParentSize()
-                            .padding(10.dp),
-                        iconCount = 40,
+                            .padding(FLOATING_ICONS_PADDING),
+                        iconCount = FLOATING_ICONS_COUNT,
                         iconResIds = floatingIconsResIds,
                     )
 
@@ -157,6 +138,7 @@ fun SettingsScreen(
                             style = MaterialTheme.typography.displayLargeEmphasized.copy(
                                 letterSpacing = 0.025.em
                             ),
+                            maxLines = 1,
                         )
 
                         AutoResizeableText(
@@ -171,14 +153,59 @@ fun SettingsScreen(
                 }
             }
 
-            settingsContent(
-                groups = resolvedGroups,
-                viewModel = viewModel,
-                prefs = prefs,
-                hapticsEnabled = hapticsEnabled
-            )
+            group {
+                clickableItem(SettingsKeys.LookAndFeel) {
+                    title(R.string.look_and_feel)
+                    description(R.string.des_look_and_feel)
+                    icon(R.drawable.ic_pallete)
+                    onClick { navController.navigate(NavRoutes.LookAndFeelScreen) }
+                }
 
-            item {
+                clickableItem(SettingsKeys.Behavior) {
+                    title(R.string.behavior)
+                    description(R.string.des_behavior)
+                    icon(R.drawable.ic_sentiment_neutral)
+                    onClick { navController.navigate(NavRoutes.BehaviorScreen) }
+                }
+
+                clickableItem(SettingsKeys.QuickSettingsTiles) {
+                    title(R.string.qs_tiles)
+                    description(R.string.des_qs_tiles)
+                    icon(R.drawable.ic_dashboard)
+                    onClick { navController.navigate(NavRoutes.TileDashboardScreen) }
+                }
+
+                clickableItem(SettingsKeys.CloudModels) {
+                    title(R.string.ai_models)
+                    description(R.string.des_ai_models)
+                    icon(Icons.Outlined.AutoAwesome)
+                    visible { FeatureConfig.isAiEnabled }
+                    onClick { navController.navigate(NavRoutes.AiModelsScreen) }
+                }
+
+                clickableItem(SettingsKeys.AutoUpdate) {
+                    title(R.string.auto_update)
+                    description(R.string.des_auto_update)
+                    icon(R.drawable.ic_auto_update)
+                    onClick { navController.navigate(NavRoutes.AutoUpdateScreen) }
+                }
+
+                clickableItem(SettingsKeys.BackupAndRestore) {
+                    title(R.string.backup_and_restore)
+                    description(R.string.des_backup_and_restore)
+                    icon(R.drawable.ic_settings_backup_restore)
+                    onClick { navController.navigate(NavRoutes.BackupAndRestoreScreen) }
+                }
+
+                clickableItem(SettingsKeys.About) {
+                    title(R.string.about)
+                    description(R.string.des_about)
+                    icon(R.drawable.ic_info)
+                    onClick { navController.navigate(NavRoutes.AboutScreen) }
+                }
+            }
+
+            item(key = "spacer_bottom") {
                 Spacer(
                     modifier = Modifier
                         .fillMaxWidth()

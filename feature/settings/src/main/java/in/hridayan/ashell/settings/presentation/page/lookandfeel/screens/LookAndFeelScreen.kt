@@ -2,32 +2,29 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material.icons.rounded.LightMode
-import androidx.compose.material.icons.twotone.DarkMode
+import androidx.compose.material.icons.rounded.TextFields
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.datastore.preferences.core.emptyPreferences
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalDialogManager
@@ -46,24 +43,19 @@ import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.FontSty
 import `in`.hridayan.ashell.settings.presentation.components.dialog.PaletteStylePickerDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 import `in`.hridayan.ashell.settings.presentation.components.tab.ColorTabs
-import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel.LookAndFeelViewModel
-import `in`.hridayan.ashell.settings.presentation.state.settingsContent
-import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
-import `in`.hridayan.settingsdsl.resolver.resolveAll
-import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
+import `in`.hridayan.settingsdsl.ui.SettingsColumn
+
+private const val ITEM_KEY_HEADER_IMAGE = "header_image"
+private const val ITEM_KEY_COLOR_TABS = "color_tabs"
 
 @Composable
 fun LookAndFeelScreen(
     modifier: Modifier = Modifier,
-    highlightKey: String? = null,
-    settingsViewModel: SettingsViewModel = hiltViewModel(),
     lookAndFeelViewModel: LookAndFeelViewModel = hiltViewModel(),
 ) {
     val dialogManager = LocalDialogManager.current
     val navController = LocalNavController.current
-    val context = LocalContext.current
-    val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())
     val currentPaletteStyle = LocalPaletteStyle.current
     val settings = LocalSettings.current
     val themeMode = settings[SettingsKeys.ThemeMode]
@@ -77,71 +69,9 @@ fun LookAndFeelScreen(
 
     var showFontStyleBottomSheet by remember { mutableStateOf(false) }
 
-    LaunchedEffect(Unit) {
-        settingsViewModel.uiEvent.collect { event ->
-            when (event) {
-                is SettingsUiEvent.LaunchIntent -> context.startActivity(event.intent)
-                is SettingsUiEvent.Navigate -> navController.navigate(event.route)
-                is SettingsUiEvent.ShowDialog -> dialogManager.show(event.key)
-                SettingsUiEvent.ShowFontStylesBottomSheet -> showFontStyleBottomSheet = true
-                else -> {}
-            }
-        }
-    }
-
     val listState = rememberLazyListState()
 
     val topAppBarState = rememberTopAppBarState()
-
-    val highlightedKey = rememberHighlightState(
-        highlightKeyName = highlightKey,
-        page = settingsViewModel.lookAndFeelPage,
-        listState = listState,
-        headerItemCount = 2,
-        keyResolver = { SettingsKeys.valueOfOrNull(it) },
-        topAppBarState = topAppBarState,
-    )
-
-    val page = remember { settingsViewModel.lookAndFeelPage }
-
-    val resolvedGroups = page.resolveAll(highlightedKey = highlightedKey) {
-        overrideEnabled(SettingsKeys.CustomUiScale) { !autoScaleUI }
-
-        overrideDescription(SettingsKeys.PaletteStyle) {
-            stringResource(currentPaletteStyle.displayNameResId)
-        }
-
-        overrideDescription(SettingsKeys.DarkTheme) {
-            when {
-                autoDarkModeOnBatterySaver && isDarkMode -> stringResource(R.string.on)
-
-                userGeneratedColorSchemeApplied && !isDynamicColorEnabled -> {
-                    if (isCustomColorSchemeDarkThemed) {
-                        stringResource(R.string.on)
-                    } else {
-                        stringResource(R.string.off)
-                    }
-                }
-
-                themeMode == AppCompatDelegate.MODE_NIGHT_YES -> stringResource(R.string.on)
-                themeMode == AppCompatDelegate.MODE_NIGHT_NO -> stringResource(R.string.off)
-                themeMode == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> stringResource(R.string.system)
-                else -> ""
-            }
-        }
-
-        overrideIcon(SettingsKeys.DarkTheme) {
-            if (isDarkMode) Icons.TwoTone.DarkMode else Icons.Rounded.LightMode
-        }
-
-        overrideVisibility(SettingsKeys.PaletteStyle) {
-            !(isDynamicColorEnabled || userGeneratedColorSchemeApplied)
-        }
-
-        overrideVisibility(SettingsKeys.DarkTheme) {
-            !userGeneratedColorSchemeApplied || isDynamicColorEnabled
-        }
-    }
 
     AppScaffold(
         onNavigateBack = { navController.navigateBack() },
@@ -150,14 +80,17 @@ fun LookAndFeelScreen(
         topAppBarState = topAppBarState,
         topBarTitle = stringResource(R.string.look_and_feel),
         content = { innerPadding, topBarScrollBehavior ->
-            LazyColumn(
+
+            SettingsColumn(
                 modifier = Modifier
                     .fillMaxWidth()
                     .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
-                state = listState,
+                listState = listState,
                 contentPadding = innerPadding,
+                topAppBarState = topAppBarState,
+                hapticsEnabled = hapticsEnabled,
             ) {
-                item {
+                item(ITEM_KEY_HEADER_IMAGE) {
                     Image(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -167,7 +100,7 @@ fun LookAndFeelScreen(
                     )
                 }
 
-                item {
+                item(ITEM_KEY_COLOR_TABS) {
                     ColorTabs(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -187,14 +120,94 @@ fun LookAndFeelScreen(
                     )
                 }
 
-                settingsContent(
-                    groups = resolvedGroups,
-                    viewModel = settingsViewModel,
-                    prefs = prefs,
-                    hapticsEnabled = hapticsEnabled
-                )
+                group {
+                    switchItem(SettingsKeys.DynamicColors) {
+                        title(R.string.dynamic_colors)
+                        description(R.string.des_dynamic_colors)
+                        icon(R.drawable.ic_dynamic_color)
+                        visible { Build.VERSION.SDK_INT >= Build.VERSION_CODES.S }
+                    }
 
-                item {
+                    clickableItem(SettingsKeys.PaletteStyle) {
+                        title(R.string.palette_style)
+                        description { stringResource(currentPaletteStyle.displayNameResId) }
+                        icon(R.drawable.ic_styles)
+                        visible { !(isDynamicColorEnabled || userGeneratedColorSchemeApplied) }
+                        onClick { dialogManager.show(SettingsDialogKey.PaletteStyle) }
+                    }
+
+                    clickableItem(SettingsKeys.DarkTheme) {
+                        title(R.string.dark_theme)
+                        description {
+                            when {
+                                autoDarkModeOnBatterySaver && isDarkMode -> stringResource(R.string.on)
+
+                                userGeneratedColorSchemeApplied && !isDynamicColorEnabled -> {
+                                    if (isCustomColorSchemeDarkThemed) {
+                                        stringResource(R.string.on)
+                                    } else {
+                                        stringResource(R.string.off)
+                                    }
+                                }
+
+                                themeMode == AppCompatDelegate.MODE_NIGHT_YES -> stringResource(R.string.on)
+                                themeMode == AppCompatDelegate.MODE_NIGHT_NO -> stringResource(R.string.off)
+                                themeMode == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> stringResource(
+                                    R.string.system
+                                )
+
+                                else -> ""
+                            }
+                        }
+                        icon(if (isDarkMode) Icons.Outlined.DarkMode else Icons.Rounded.LightMode)
+                        visible { !userGeneratedColorSchemeApplied || isDynamicColorEnabled }
+                        onClick { navController.navigate(NavRoutes.DarkThemeScreen) }
+                    }
+                }
+
+                group(R.string.font_family) {
+                    clickableItem(SettingsKeys.FontFamily) {
+                        title(R.string.font_family)
+                        description(R.string.des_font_family)
+                        icon(Icons.Rounded.TextFields)
+                        onClick { showFontStyleBottomSheet = true }
+                    }
+                }
+
+                group(R.string.ui_scale) {
+                    switchItem(SettingsKeys.AutoScaleUi) {
+                        title(R.string.auto_scale_ui)
+                        description(R.string.des_auto_scale_ui)
+                        icon(R.drawable.ic_transform)
+                        experimentalFlagText(R.string.experimental)
+                    }
+
+                    clickableItem(SettingsKeys.CustomUiScale) {
+                        title(R.string.custom_ui_scale)
+                        description(R.string.des_ui_scale)
+                        icon(R.drawable.ic_high_density)
+                        enabled(!autoScaleUI)
+                        onClick { navController.navigate(NavRoutes.UiScaleScreen) }
+                    }
+                }
+
+
+                group(R.string.additional_settings) {
+                    switchItem(SettingsKeys.HapticsAndVibration) {
+                        title(R.string.haptics_and_vibration)
+                        description(R.string.des_haptics_and_vibration)
+                        icon(R.drawable.ic_vibration)
+                    }
+
+                    clickableItem(SettingsKeys.Language) {
+                        title(R.string.default_language)
+                        description(R.string.des_default_language)
+                        icon(R.drawable.ic_language)
+                        onClick { navController.navigate(NavRoutes.LanguagesScreen) }
+                    }
+                }
+
+                item(key = "spacer_bottom") {
                     Spacer(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -220,3 +233,4 @@ fun LookAndFeelScreen(
         )
     }
 }
+

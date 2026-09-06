@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
-import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
 
 /**
  * @param topAppBarState Optional external [TopAppBarState] created by the caller.

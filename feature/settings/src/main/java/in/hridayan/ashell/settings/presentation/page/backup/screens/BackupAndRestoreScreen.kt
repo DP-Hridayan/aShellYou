@@ -19,7 +19,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -34,7 +33,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -51,19 +49,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
-import androidx.datastore.preferences.core.emptyPreferences
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.domain.model.backup.BackupType
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.navigation.LocalNavController
+import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
-import `in`.hridayan.ashell.core.presentation.provider.BackupScreenCustomSlots
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.resources.R
@@ -81,15 +78,15 @@ import `in`.hridayan.ashell.settings.presentation.components.dialog.RestoreSourc
 import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.page.backup.viewmodel.BackupAndRestoreViewModel
-import `in`.hridayan.ashell.settings.presentation.state.settingsContent
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
-import `in`.hridayan.settingsdsl.resolver.resolveAll
-import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
+import `in`.hridayan.settingsdsl.ui.SettingsColumn
+
+private const val ITEM_KEY_GOOGLE_SIGN_IN = "google_sign_in"
+private const val ITEM_KEY_LAST_BACKUP_TIME = "last_backup_time"
 
 @Composable
 fun BackupAndRestoreScreen(
     modifier: Modifier = Modifier,
-    highlightKey: String? = null,
     settingsViewModel: SettingsViewModel = hiltViewModel(),
     backupAndRestoreViewModel: BackupAndRestoreViewModel = hiltViewModel(),
 ) {
@@ -97,18 +94,19 @@ fun BackupAndRestoreScreen(
     val res = LocalResources.current
     val navController = LocalNavController.current
     val dialogManager = LocalDialogManager.current
-    val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())
     val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
+
     val localBackupTime by backupAndRestoreViewModel.localBackupTime.collectAsState()
     val localBackupType by backupAndRestoreViewModel.localBackupType.collectAsState()
     val cloudBackupTime by backupAndRestoreViewModel.cloudBackupTime.collectAsState()
     val cloudBackupType by backupAndRestoreViewModel.cloudBackupType.collectAsState()
     val lastBackupData by backupAndRestoreViewModel.lastBackupData.collectAsState()
-    var isLastBackupDetailsCardExpanded by rememberSaveable { mutableStateOf(false) }
     val googleUserState by backupAndRestoreViewModel.googleUserState.collectAsState()
     val isSigningIn by backupAndRestoreViewModel.isSigningIn.collectAsState()
     val cloudOperationMessage by backupAndRestoreViewModel.cloudOperationMessage.collectAsState()
     val showCloudRestoreConfirm by backupAndRestoreViewModel.showCloudRestoreConfirm.collectAsState()
+
+    var isLastBackupDetailsCardExpanded by rememberSaveable { mutableStateOf(false) }
     val isCloudBackupAvailable = backupAndRestoreViewModel.isCloudBackupAvailable
     var restoreFileUri by rememberSaveable { mutableStateOf("".toUri()) }
 
@@ -157,10 +155,7 @@ fun BackupAndRestoreScreen(
                     launcherBackup.launch("backup_${System.currentTimeMillis()}.ashellyou")
                 }
 
-                is SettingsUiEvent.RequestDocumentUriForRestore -> launcherRestore.launch(
-                    arrayOf("application/octet-stream")
-                )
-
+                is SettingsUiEvent.RequestDocumentUriForRestore -> launcherRestore.launch(arrayOf("application/octet-stream"))
                 is SettingsUiEvent.RequestGoogleDriveBackup -> backupAndRestoreViewModel.backupToGoogleDrive(
                     event.backupType
                 )
@@ -189,17 +184,6 @@ fun BackupAndRestoreScreen(
 
     val listState = rememberLazyListState()
     val topAppBarState = rememberTopAppBarState()
-    val highlightedKey = rememberHighlightState(
-        highlightKeyName = highlightKey,
-        page = settingsViewModel.backupPage,
-        listState = listState,
-        headerItemCount = 0,
-        keyResolver = { SettingsKeys.valueOfOrNull(it) },
-        topAppBarState = topAppBarState,
-    )
-
-    val page = remember { settingsViewModel.backupPage }
-    val resolvedGroups = page.resolveAll(highlightedKey = highlightedKey)
 
     AppScaffold(
         onNavigateBack = { navController.navigateBack() },
@@ -208,61 +192,102 @@ fun BackupAndRestoreScreen(
         topAppBarState = topAppBarState,
         topBarTitle = stringResource(R.string.backup_and_restore),
         content = { innerPadding, topBarScrollBehavior ->
-            LazyColumn(
+
+            SettingsColumn(
                 modifier = Modifier
                     .fillMaxWidth()
                     .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
-                state = listState,
+                listState = listState,
                 contentPadding = innerPadding,
+                topAppBarState = topAppBarState,
+                hapticsEnabled = hapticsEnabled,
             ) {
-                settingsContent(
-                    groups = resolvedGroups,
-                    viewModel = settingsViewModel,
-                    prefs = prefs,
-                    onItemClick = { key -> settingsViewModel.onItemClicked(key as SettingsKeys<*>) },
-                    hapticsEnabled = hapticsEnabled,
-                    customSlotContent = { slot ->
-                        when (slot) {
-                            is BackupScreenCustomSlots.GoogleSignIn -> {
-                                if (isCloudBackupAvailable) {
-                                    GoogleSignInCard(
-                                        isSignedIn = googleUserState.isSignedIn,
-                                        userEmail = googleUserState.email,
-                                        userName = googleUserState.name,
-                                        userPhotoUrl = googleUserState.photoUrl,
-                                        isLoading = isSigningIn || cloudOperationMessage != null,
-                                        onSignInClick = {
-                                            backupAndRestoreViewModel.signInWithGoogle(
-                                                context
-                                            )
-                                        },
-                                        onSignOutClick = { dialogManager.show(SettingsDialogKey.ConfirmGoogleSignOut) },
-                                    )
-                                }
-                            }
-
-                            is BackupScreenCustomSlots.LastBackupTime -> {
-                                LastBackupTimeCard(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(top = 10.dp, start = 15.dp, end = 15.dp),
-                                    isCloudBackupAvailable = isCloudBackupAvailable,
-                                    userState = googleUserState,
-                                    lastBackupData = lastBackupData,
-                                    isExpanded = isLastBackupDetailsCardExpanded,
-                                    onClick = withHaptic {
-                                        isLastBackupDetailsCardExpanded =
-                                            !isLastBackupDetailsCardExpanded
-                                    },
+                if (isCloudBackupAvailable) {
+                    item(ITEM_KEY_GOOGLE_SIGN_IN) {
+                        GoogleSignInCard(
+                            isSignedIn = googleUserState.isSignedIn,
+                            userEmail = googleUserState.email,
+                            userName = googleUserState.name,
+                            userPhotoUrl = googleUserState.photoUrl,
+                            isLoading = isSigningIn || cloudOperationMessage != null,
+                            onSignInClick = {
+                                backupAndRestoreViewModel.signInWithGoogle(
+                                    context
                                 )
-                            }
+                            },
+                            onSignOutClick = { dialogManager.show(SettingsDialogKey.ConfirmGoogleSignOut) },
+                        )
+                    }
+                }
 
-                            else -> {}
-                        }
-                    },
-                )
+                group(R.string.backup) {
+                    clickableItem(SettingsKeys.BackupAppSettings) {
+                        title(R.string.backup_settings)
+                        description(R.string.des_backup_settings)
+                        icon(R.drawable.ic_handyman)
+                        onClick { settingsViewModel.handleBackupSettingsClick() }
+                    }
 
-                item {
+                    clickableItem(SettingsKeys.BackupAppDatabase) {
+                        title(R.string.backup_app_database)
+                        description(R.string.des_backup_app_database)
+                        icon(R.drawable.ic_database)
+                        onClick { settingsViewModel.handleBackupDatabaseClick() }
+                    }
+
+                    clickableItem(SettingsKeys.BackupAppData) {
+                        title(R.string.backup_all_data)
+                        description(R.string.des_backup_all_data)
+                        icon(R.drawable.ic_upload_file)
+                        onClick { settingsViewModel.handleBackupAllClick() }
+                    }
+                }
+
+                item(ITEM_KEY_LAST_BACKUP_TIME) {
+                    LastBackupTimeCard(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 10.dp, start = 15.dp, end = 15.dp),
+                        isCloudBackupAvailable = isCloudBackupAvailable,
+                        userState = googleUserState,
+                        lastBackupData = lastBackupData,
+                        isExpanded = isLastBackupDetailsCardExpanded,
+                        onClick = withHaptic {
+                            isLastBackupDetailsCardExpanded =
+                                !isLastBackupDetailsCardExpanded
+                        },
+                    )
+                }
+
+                group(R.string.auto_backup) {
+                    clickableItem(SettingsKeys.BackupScheduler) {
+                        title(R.string.backup_scheduler)
+                        description(R.string.des_backup_scheduler)
+                        icon(R.drawable.ic_schedule)
+                        onClick { navController.navigate(NavRoutes.BackupSchedulerScreen) }
+                    }
+                }
+
+                group(R.string.restore) {
+                    clickableItem(SettingsKeys.RestoreAppData) {
+                        title(R.string.restore_app_data)
+                        description(R.string.des_restore_app_data)
+                        icon(R.drawable.ic_restore_page)
+                        onClick { settingsViewModel.handleRestoreClick() }
+                    }
+                }
+
+                group(R.string.reset) {
+                    clickableItem(SettingsKeys.ResetAppSettings) {
+                        title(R.string.reset_app_settings)
+                        description(R.string.des_reset_app_settings)
+                        icon(R.drawable.ic_reset_settings)
+                        onClick { dialogManager.show(SettingsDialogKey.ResetSettings) }
+                    }
+                }
+
+
+                item(key = "spacer_bottom") {
                     Spacer(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -298,10 +323,8 @@ fun BackupAndRestoreScreen(
                 BackupDestinationDialog(
                     onDismiss = { dialogViewModel.dismiss() },
                     onLocalBackup = {
-                        backupAndRestoreViewModel.initiateBackup(backupType);
-                        launcherBackup.launch(
-                            "backup_${System.currentTimeMillis()}.ashellyou"
-                        )
+                        backupAndRestoreViewModel.initiateBackup(backupType)
+                        launcherBackup.launch("backup_${System.currentTimeMillis()}.ashellyou")
                     },
                     onGoogleDriveBackup = { backupAndRestoreViewModel.backupToGoogleDrive(backupType) },
                 )
@@ -382,7 +405,9 @@ private fun LastBackupTimeCard(
                         .weight(1f)
                         .fillMaxWidth()
                 )
+
                 val rotateAngle by animateFloatAsState(if (isExpanded) 180f else 0f)
+
                 Icon(
                     painter = painterResource(R.drawable.ic_expand),
                     contentDescription = "Expand",
@@ -399,6 +424,7 @@ private fun LastBackupTimeCard(
                     .fillMaxWidth()
                     .height(2.dp)
             )
+
             TimeCard(
                 modifier = Modifier.fillMaxWidth(),
                 shape = CardCornerShape.run { if (isCloudBackupAvailable) MIDDLE_CARD else LAST_CARD },
@@ -408,12 +434,14 @@ private fun LastBackupTimeCard(
                 dateTime = lastBackupData.localTime,
                 isAuto = lastBackupData.localIsAuto,
             )
+
             if (isCloudBackupAvailable) {
                 Spacer(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(2.dp)
                 )
+
                 TimeCard(
                     modifier = Modifier.fillMaxWidth(),
                     shape = CardCornerShape.LAST_CARD,
@@ -490,6 +518,7 @@ private fun TimeCard(
                         fontWeight = FontWeight.SemiBold,
                         style = MaterialTheme.typography.titleMediumEmphasized
                     )
+
                     if (isAuto) {
                         Box(
                             modifier = Modifier
@@ -503,16 +532,18 @@ private fun TimeCard(
                                 text = stringResource(R.string.auto),
                                 style = MaterialTheme.typography.labelSmall,
                                 color = MaterialTheme.colorScheme.onSecondaryContainer,
-                                fontWeight = FontWeight.Medium,
+                                fontWeight = FontWeight.Medium
                             )
                         }
                     }
                 }
+
                 Text(
                     text = stringResource(R.string.backup_type) + " : " + backupTypeText,
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.alpha(0.7f)
                 )
+
                 if (dateTime.isNotEmpty()) {
                     Text(
                         text = dateTime,
