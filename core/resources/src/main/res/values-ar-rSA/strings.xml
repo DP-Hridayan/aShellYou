@@ -278,6 +278,7 @@
     <string name="des_behavior" comment="Description under Behavior item in settings menu">تعديل سلوك التطبيق</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">سجل جميع التغييرات في التطبيق</string>
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">انقر هنا لاختيار أيقونة من مجموعة الأيقونات</string>
+    <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">حذف جميع ردود تحليل الذكاء الاصطناعي المؤقت</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">طلب تأكيد قبل مسح إخراج القذيفة</string>
     <string name="des_cloud_models" comment="Description under Cloud models setting item">إدارة مفاتيح API للنماذج السحابية</string>
     <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">السماح لوكيل AI بتنفيذ أوامر قذيفة ADB</string>
@@ -285,6 +286,7 @@
     <string name="des_contributors" comment="Description under Contributors item in About section">قائمة المساهمين الذين ساعدوا في تطوير aShell You</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">عرض جميع الأعطال التي حدثت في التطبيق</string>
     <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">السماح لوكيل AI بإضافة أو تعديل أو حذف عناصر قاعدة البيانات</string>
+    <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">اختر عندما يستخدم التطبيق نظام الألوان المظلم</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">اختر اللغة الافتراضية للتطبيق</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">مفيد عند الرغبة في استخدام لوحة مفاتيح خارجية</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">قم بتحميل نسخة احتياطية مشفرة إلى Google Drive الخاص بك.\nسيؤدي هذا الإجراء إلى الكتابة فوق أي نسخ احتياطية سحابية موجودة.</string>
@@ -312,6 +314,7 @@
     <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">قد يتسبب في تأخير إذا تمت إضافة عدد كبير من الإشارات المرجعية! يجب على الأجهزة ذات الأداء المنخفض الاحتفاظ بهذا الخِيار مغلقًا</string>
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">السماح لوكيل AI بالاستعلام عن الحزم المثبتة وبيانات التطبيق</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">إقران جهاز مستهدف آخر</string>
+    <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">اختر كيف يتم استخلاص الألوان من بذور السمة</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">كيف تتعامل مع بياناتك</string>
     <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">لقد قمنا بتحديث سياسة الخصوصية لدينا. يرجى أخذ لحظة لمراجعة التغييرات.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">إنشاء بلاطات إعدادات سريعة لتنفيذ أوامر adb</string>
@@ -328,6 +331,7 @@
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">عند التمكين، تتبدل البلاطة بين حالتي التشغيل والإيقاف مع كل نقرة، لتنفيذ أمر مختلف لكل حالة</string>
     <string name="des_translators" comment="Subtitle description under Translators list in About section">الأشخاص الذين ساعدوا في ترجمة aShellYou</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">ضبط مقياس عناصر واجهة المستخدم وحجم الخط</string>
+    <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">اختر الإصدار الذي يتم التحقق منه من التطبيق</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">توخ الحذر لأن الصورة غير الصحيحة قد تتسبب في حلقة إقلاع</string>
     <string name="description">الوصف</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">إلغاء تحديد الكل</string>
@@ -861,6 +865,7 @@
     <string name="terminal" comment="Refers to shell command line terminal execution screen">المحطة</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">نمط الخط الطرفي</string>
     <string name="tertiary">الثلاثي</string>
+    <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">وضع السمة</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">مكتبات الطرف الثالث</string>
     <string name="this_application" comment="Option label for target scope in Logcat Viewer">هذا التطبيق</string>
     <string name="this_device" comment="Selection option for target ADB device matching host phone">هذا الجهاز</string>

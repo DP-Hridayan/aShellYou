@@ -278,6 +278,7 @@
     <string name="des_behavior" comment="Description under Behavior item in settings menu">Изменить определенное поведение приложения</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">История всех изменений, внесённых в приложение</string>
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">Нажмите здесь, чтобы выбрать иконку из коллекции иконок</string>
+    <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">Удалить все кэшированные ответы И-анализа</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">Запрашивать подтверждение перед очисткой вывода оболочки</string>
     <string name="des_cloud_models" comment="Description under Cloud models setting item">Управление ключами API для облачных моделей</string>
     <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Разрешить AI агенту выполнять команды ADB shell</string>
@@ -285,6 +286,7 @@
     <string name="des_contributors" comment="Description under Contributors item in About section">Список участников, которые помогли в разработке aShell You</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">Просмотреть все сбои, которые произошли в приложении</string>
     <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Разрешить AI агенту добавлять, изменять или удалять элементы базы данных</string>
+    <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">Выберите, когда приложение использует тёмную цветовую схему</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">Выберите язык по умолчанию для приложения</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">Полезно, когда нужно использовать внешнюю клавиатуру</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">Загрузите зашифрованное резервирование на Google Диск.\nЭто действие перезапишет любые существующие облачные резервные копии.</string>
@@ -312,6 +314,7 @@
     <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">Возможна задержка, если добавлено большое количество закладок! На недорогих устройствах эту опцию следует отключить</string>
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Разрешить AI агенту запрашивать установленные пакеты и данные приложений</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">Сопрячь другое целевое устройство</string>
+    <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">Выберите, как цвета производятся из seed темы</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">Как aShell You обрабатывает ваши данные</string>
     <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">Мы обновили нашу политику конфиденциальности. Пожалуйста, найдите минутку, чтобы просмотреть изменения.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">Создать плитки быстрых настроек для выполнения команд adb</string>
@@ -328,6 +331,7 @@
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">Когда включено, плитка переключается между состояниями ВКЛ и ВЫКЛ при каждом нажатии, выполняя разные команды для каждого состояния</string>
     <string name="des_translators" comment="Subtitle description under Translators list in About section">Люди, которые помогли перевести aShellYou</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">Регулировка масштаба элементов UI и размера шрифта</string>
+    <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">Выберите, какие релизы проверяют приложение</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">Будьте осторожны, так как неправильный образ может вызвать bootloop</string>
     <string name="description">Описание</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">Снять выбор со всех</string>
@@ -861,6 +865,7 @@
     <string name="terminal" comment="Refers to shell command line terminal execution screen">Терминал</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Стиль шрифта терминала</string>
     <string name="tertiary">Третичный</string>
+    <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">Режим темы</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">Сторонние библиотеки</string>
     <string name="this_application" comment="Option label for target scope in Logcat Viewer">Это приложение</string>
     <string name="this_device" comment="Selection option for target ADB device matching host phone">Это устройство</string>

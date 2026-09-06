@@ -279,6 +279,7 @@
     <string name="des_behavior" comment="Description under Behavior item in settings menu">Sửa đổi các hành vi nhất định của ứng dụng</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">Lịch sử của tất cả các thay đổi được thực hiện đối với ứng dụng</string>
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">Nhấn vào đây để chọn biểu tượng từ bộ sưu tập</string>
+    <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">Delete all cached AI analysis responses</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">Yêu cầu xác nhận trước khi xóa đầu ra của shell</string>
     <string name="des_cloud_models" comment="Description under Cloud models setting item">Quản lý khóa API cho các mô hình đám mây</string>
     <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Cho phép trợ lý AI thực thi các lệnh ADB shell</string>
@@ -286,6 +287,7 @@
     <string name="des_contributors" comment="Description under Contributors item in About section">Danh sách những người đã giúp phát triển aShell You</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">Xem tất cả các lỗi sập đã xảy ra với ứng dụng</string>
     <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Cho phép trợ lý AI thêm, sửa đổi hoặc xóa các mục trong cơ sở dữ liệu</string>
+    <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">Choose when the app uses its dark colour scheme</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">Chọn ngôn ngữ mặc định cho ứng dụng</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">Hữu ích khi bạn muốn sử dụng bàn phím vật lý bên ngoài</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">Tải bản sao lưu đã mã hóa lên Google Drive.\nHành động này sẽ ghi đè lên mọi bản sao lưu đám mây hiện có.</string>
@@ -313,8 +315,9 @@
     <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">Có thể bị lag nếu thêm một lượng lớn dấu trang! Nên tắt tính năng này trên các thiết bị cấu hình thấp</string>
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Cho phép trợ lý AI truy vấn các gói ứng dụng đã cài đặt và dữ liệu ứng dụng</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">Ghép nối một thiết bị mục tiêu khác</string>
+    <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">Choose how colours are derived from the theme seed</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">Cách aShell You xử lý dữ liệu của bạn</string>
-    <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">We have updated our Privacy Policy. Please take a moment to review the changes.</string>
+    <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">Chúng tôi đã cập nhật Chính sách riêng tư. Vui lòng dành chút thời gian để xem qua các thay đổi.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">Tạo các ô cài đặt nhanh để thực thi các lệnh ADB</string>
     <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Cho phép trợ lý AI tạo, sửa đổi và xóa các ô Cài đặt nhanh</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">Báo cáo mọi vấn đề bạn gặp phải khi sử dụng ứng dụng</string>
@@ -329,6 +332,7 @@
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">Khi được bật, ô sẽ chuyển đổi giữa các trạng thái BẬT và TẮT mỗi lần nhấn, thực hiện các lệnh khác nhau cho mỗi trạng thái</string>
     <string name="des_translators" comment="Subtitle description under Translators list in About section">Những người đã giúp dịch aShell You</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">Điều chỉnh tỷ lệ phần tử UI và kích thước phông chữ</string>
+    <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">Choose which releases the app checks for</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">Hãy cẩn thận vì một image sai có thể gây ra bootloop</string>
     <string name="description">Mô tả</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">Bỏ chọn tất cả</string>
@@ -689,7 +693,7 @@
     <string name="primary">Màu chính</string>
     <string name="primary_container">Khối màu chính</string>
     <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Chính sách riêng tư</string>
-    <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">Privacy Policy Updated</string>
+    <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">Chính sách riêng tư đã cập nhật</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">Sản phẩm</string>
     <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">Đưa thiết bị vào chế độ sideload thông qua menu recovery</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">Ghép nối qua QR</string>
@@ -862,6 +866,7 @@
     <string name="terminal" comment="Refers to shell command line terminal execution screen">Terminal</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Kiểu phông chữ Terminal</string>
     <string name="tertiary">Màu bổ sung</string>
+    <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">Theme mode</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">Các thư viện bên thứ ba</string>
     <string name="this_application" comment="Option label for target scope in Logcat Viewer">Ứng dụng này</string>
     <string name="this_device" comment="Selection option for target ADB device matching host phone">Thiết bị này</string>
