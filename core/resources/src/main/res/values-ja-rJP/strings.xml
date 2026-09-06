@@ -278,6 +278,7 @@
     <string name="des_behavior" comment="Description under Behavior item in settings menu">アプリの特定の動作を変更する</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">アプリの全ての変更履歴</string>
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">ここをクリックしてアイコンコレクションからアイコンを選択します</string>
+    <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">キャッシュされたすべてのAI解析応答を削除します</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">シェル出力をクリアする前に確認を求める</string>
     <string name="des_cloud_models" comment="Description under Cloud models setting item">クラウドモデルの API キーを管理する</string>
     <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">AI エージェントに ADB シェルコマンドの実行を許可する</string>
@@ -285,6 +286,7 @@
     <string name="des_contributors" comment="Description under Contributors item in About section">aShell Youの開発に協力した貢献者のリスト</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">アプリで発生したすべてのクラッシュを表示</string>
     <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">AIエージェントにデータベースアイテムの追加、変更、削除を許可する</string>
+    <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">アプリが暗い配色を使用するタイミングを選択します</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">アプリのデフォルトの言語を選択する</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">物理キーボードを使用するときに便利です</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">暗号化されたバックアップを Google ドライブにアップロードします。\nこの操作により、既存のクラウドバックアップが上書きされます。</string>
@@ -312,6 +314,7 @@
     <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">有効にした状態で大量のブックマークが追加されると、パフォーマンスの問題が発生する可能性があります！ ローエンドデバイスはオフのままにしてください</string>
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">インストールされたパッケージとアプリケーションデータの照会をAIエージェントに許可する</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">別のターゲットデバイスをペアリングする</string>
+    <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">テーマシードから色がどのように派生するかを選択してください</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">aShell あなたがあなたのデータを処理する方法</string>
     <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">プライバシーポリシーが更新されました。変更内容を確認してください。</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">ADBコマンドを実行するためのクイック設定タイルを作成します</string>
@@ -328,6 +331,7 @@
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">有効にすると、タイルはタップごとにONとOFFの状態を切り替え、状態ごとに異なるコマンドを実行します</string>
     <string name="des_translators" comment="Subtitle description under Translators list in About section">aShellYouの翻訳に協力してくれた方々</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">UI要素とフォントサイズのスケールを調整します</string>
+    <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">アプリがチェックするリリースを選択してください</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">正しくないイメージはブートロープを引き起こす可能性があるため、注意して進めてください</string>
     <string name="description">説明</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">すべての選択を解除</string>
@@ -861,6 +865,7 @@
     <string name="terminal" comment="Refers to shell command line terminal execution screen">ターミナル</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">端末のフォントスタイル</string>
     <string name="tertiary">ターシャリー</string>
+    <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">テーマモード</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">サードパーティライブラリ</string>
     <string name="this_application" comment="Option label for target scope in Logcat Viewer">このアプリケーション</string>
     <string name="this_device" comment="Selection option for target ADB device matching host phone">このデバイス</string>

@@ -278,6 +278,7 @@
     <string name="des_behavior" comment="Description under Behavior item in settings menu">修改应用的特定行为</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">应用所有的变化历史</string>
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">点击此处从图标库中选择图标</string>
+    <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">删除所有缓存的 AI 分析响应</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">清除终端输出前询问确认</string>
     <string name="des_cloud_models" comment="Description under Cloud models setting item">管理云端模型的 API 密钥</string>
     <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">允许 AI 代理执行 ADB shell 命令</string>
@@ -285,6 +286,7 @@
     <string name="des_contributors" comment="Description under Contributors item in About section">帮助开发 aShell You 的贡献者列表</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">查看应用程序中发生的所有崩溃问题</string>
     <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">允许AI 代理人添加、修改或删除数据库项目</string>
+    <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">选择应用程序何时使用其暗色方案</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">为本软件更改默认语言</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">在使用实体键盘时会有帮助</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">将加密备份上传至您的 Google Drive。\n此操作将覆盖任何现有的云备份。</string>
@@ -312,6 +314,7 @@
     <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">若启用后添加了大量书签，可能会导致性能问题！低端设备应保持关闭</string>
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">允许AI 代理人查询已安装的软件包和应用程序数据</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">配对另一个目标设备</string>
+    <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">选择如何从主题种子中生成颜色</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">你如何处理你的数据</string>
     <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">我们已经更新了我们的隐私政策。请花一点时间查看更改。</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">创建用于执行 adb 命令的快速设置磁贴</string>
@@ -328,6 +331,7 @@
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">启用后，磁贴在每次点击时会在“开”和“关”状态之间切换，每个状态执行不同的命令</string>
     <string name="des_translators" comment="Subtitle description under Translators list in About section">帮助翻译 aShellYou 的人员</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">调整 UI 元素和字体大小的缩放比例</string>
+    <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">选择哪个应用检查？</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">请谨慎操作，错误的镜像可能会导致无限重启 bootloop</string>
     <string name="description">描述</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">取消全选</string>
@@ -861,6 +865,7 @@
     <string name="terminal" comment="Refers to shell command line terminal execution screen">终端</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">终端字体样式</string>
     <string name="tertiary">第三颜色</string>
+    <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">主题模式</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">第三方库</string>
     <string name="this_application" comment="Option label for target scope in Logcat Viewer">本应用程序</string>
     <string name="this_device" comment="Selection option for target ADB device matching host phone">此设备</string>
