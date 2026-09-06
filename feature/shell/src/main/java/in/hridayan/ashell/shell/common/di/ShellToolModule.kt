@@ -10,6 +10,7 @@ import `in`.hridayan.ashell.core.common.domain.model.ai.AiSkillBundle
 import `in`.hridayan.ashell.shell.common.tool.DeleteBookmarkTool
 import `in`.hridayan.ashell.shell.common.tool.SaveBookmarkTool
 import `in`.hridayan.ashell.shell.common.tool.SearchBookmarksTool
+import `in`.hridayan.ashell.shell.common.tool.UpdateBookmarkTool
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -20,10 +21,11 @@ object ShellToolModule {
     fun provideShellBookmarksSkillBundle(
         deleteTool: DeleteBookmarkTool,
         saveTool: SaveBookmarkTool,
-        searchTool: SearchBookmarksTool
+        searchTool: SearchBookmarksTool,
+        updateTool: UpdateBookmarkTool
     ): AiSkillBundle = object : AiSkillBundle {
         override val skill = AiSkill.DATABASE
-        override val tools = listOf(deleteTool, saveTool, searchTool)
+        override val tools = listOf(deleteTool, saveTool, searchTool, updateTool)
     }
 }
 
