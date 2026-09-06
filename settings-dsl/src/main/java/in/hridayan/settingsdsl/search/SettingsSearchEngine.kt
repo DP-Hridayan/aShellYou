@@ -2,6 +2,7 @@ package `in`.hridayan.settingsdsl.search
 
 import android.content.Context
 import androidx.annotation.DrawableRes
+import androidx.compose.runtime.Immutable
 
 private const val ID_SEPARATOR = "/"
 private const val HAYSTACK_SEPARATOR = " "
@@ -20,6 +21,7 @@ private const val HAYSTACK_SEPARATOR = " "
  * @param screenTitle Resolved name of the hosting screen, used as the result section header.
  * @param navigateTo Navigates to the hosting screen.
  */
+@Immutable
 class SearchResult internal constructor(
     val key: Any,
     val id: String,
@@ -79,7 +81,8 @@ class SettingsSearchEngine private constructor(private val index: List<SearchRes
         ): SearchResult {
             val resolvedTitle = context.getString(titleRes)
             val resolvedDescription = descriptionRes?.let(context::getString).orEmpty()
-            val resolvedKeywords = keywordRes.joinToString(HAYSTACK_SEPARATOR, transform = context::getString)
+            val resolvedKeywords =
+                keywordRes.joinToString(HAYSTACK_SEPARATOR, transform = context::getString)
             return SearchResult(
                 key = key,
                 id = screen.id + ID_SEPARATOR + key,
