@@ -28,7 +28,7 @@
     <string name="add_command" comment="Button label to create and save a new command snippet to database">افزودن دستور</string>
     <string name="add_new_item" comment="Generic button label to add a new list entry">افزودن مورد جدید</string>
     <string name="additional_settings" comment="Category header in app settings">تنظیمات اضافی</string>
-    <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Agent skills</string>
+    <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">مهارت‌های عامل</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">مدت زمان کش</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">فعال‌سازی کش</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">اجازه دادن</string>
@@ -197,7 +197,7 @@
     <string name="command" comment="Label/header for an ADB command snippet">دستور</string>
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">تحلیل دستور</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">کنسول دستور</string>
-    <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">Command Execution</string>
+    <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">اجرای دستور</string>
     <string name="command_logs" comment="Tab header for history log of executed fastboot commands">لاگ‌های دستور</string>
     <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">تاریخچه تمام دستورات اجرایی فست‌بوت.</string>
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">دستور یافت نشد!</string>
@@ -246,7 +246,7 @@
     <string name="daily" comment="Option in backup scheduler frequency selection">روزانه</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">تم تاریک</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">داشبورد</string>
-    <string name="database_modification" comment="Title for the database skill toggle in AI settings">Database Modification</string>
+    <string name="database_modification" comment="Title for the database skill toggle in AI settings">تغییر پایگاه داده</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">فقط پایگاه‌های داده</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">پوشه پیش‌فرض</string>
     <string name="default_language" comment="Setting preference label for selecting application language">زبان پیش‌فرض</string>
@@ -281,11 +281,11 @@
     <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">حذف همه پاسخ‌های تحلیل هوش مصنوعی ذخیره‌شده در حافظه پنهان</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">درخواست تأیید قبل از پاک کردن خروجی شل</string>
     <string name="des_cloud_models" comment="Description under Cloud models setting item">مدیریت کلیدهای API برای مدل‌های ابری</string>
-    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Allow the AI agent to execute ADB shell commands</string>
+    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">اجازه دادن به عامل هوش مصنوعی برای اجرای دستورهای ADB shell</string>
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">انتخاب پوشه برای ذخیره خروجی شل</string>
     <string name="des_contributors" comment="Description under Contributors item in About section">فهرست همکارانی که در توسعه aShell You کمک کردند</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">مشاهده همه خرابی‌های برنامه</string>
-    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Allow the AI agent to add, modify, or delete database items</string>
+    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">اجازه دادن به عامل هوش مصنوعی برای افزودن، ویرایش یا حذف موارد پایگاه داده</string>
     <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">انتخاب زمان استفاده برنامه از طرح رنگ تیره</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">انتخاب زبان پیش‌فرض برنامه</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">مفید هنگام استفاده از کیبورد خارجی</string>
@@ -304,7 +304,7 @@
     <string name="des_high_contrast_dark_mode" comment="Description under High contrast dark mode setting item">تم تاریک مطلق برای صفحات OLED</string>
     <string name="des_hridayan" comment="Developer bio subtitle in About section">فقط یک پسر که برنامه‌ها و طراحی را دوست دارد</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">حالت بصری ثابتی از کاشی هنگامی که در پنل تنظیمات سریع نمایش داده می‌شود</string>
-    <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">View details of the libraries and licenses used by the app</string>
+    <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">مشاهده جزئیات کتابخانه‌ها و مجوزهای استفاده‌شده در برنامه</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">مشاهده مجوزهایی که برنامه و کتابخانه‌ها استفاده می‌کنند</string>
     <string name="des_local_backup" comment="Description card text for local backup option">ذخیره پشتیبان رمزگذاری شده روی دستگاه</string>
     <string name="des_local_restore" comment="Description card text for local restore option">انتخاب فایل پشتیبان از روی دستگاه</string>
@@ -312,13 +312,13 @@
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">رنگ‌های پویا، تم تاریک، زبان</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">هیچ مدلی انتخاب نشده است</string>
     <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">ممکن است در صورت افزودن تعداد زیادی نشانک باعث کندی شود! دستگاه‌های ضعیف باید این گزینه را غیرفعال نگه دارند</string>
-    <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Allow the AI agent to query installed packages and application data</string>
+    <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">اجازه دادن به عامل هوش مصنوعی برای پرس‌وجوی بسته‌های نصب‌شده و داده‌های برنامه</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">جفت کردن دستگاه مقصد دیگر</string>
     <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">انتخاب نحوه استخراج رنگ‌ها از رنگ پایه تم</string>
-    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">How aShell You handles your data</string>
-    <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">We have updated our Privacy Policy. Please take a moment to review the changes.</string>
+    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">نحوه مدیریت داده‌های شما توسط aShell You</string>
+    <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">ما سیاست حفظ حریم خصوصی خود را به‌روزرسانی کرده‌ایم. لطفاً لحظاتی را به بررسی تغییرات اختصاص دهید.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">ایجاد کاشی‌های تنظیمات سریع برای اجرای دستورات adb</string>
-    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Allow the AI agent to create, modify, and delete Quick Settings tiles</string>
+    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">اجازه دادن به عامل هوش مصنوعی برای ایجاد، ویرایش و حذف کاشی‌های تنظیمات سریع</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">گزارش هرگونه مشکل یا باگ</string>
     <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">بازنشانی تنظیمات به مقادیر پیش‌فرض</string>
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">بازیابی داده‌ها از فایل پشتیبان ذخیره شده.\nپایگاه داده ذخیره شده جایگزین پایگاه داده فعلی می‌شود</string>
@@ -338,8 +338,8 @@
     <string name="developer" comment="Section title in About screen for lead developer info">توسعه‌دهنده</string>
     <string name="developer_options" comment="System Developer Options setting item or prompt">گزینه‌های توسعه‌دهنده</string>
     <string name="developer_options_not_available" comment="Toast error message when Developer options shortcut cannot be opened">گزینه‌های توسعه‌دهنده در دسترس نیست!</string>
-    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">Enable Developer Options first by tapping Build Number 7 times in Settings → About Phone\nIf this method to turn on Developer options does not work, then you can search the instructions for your device on the internet.</string>
-    <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">Developer Options Required</string>
+    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">ابتدا با ۷ بار ضربه زدن روی «شماره ساخت» در تنظیمات → درباره تلفن، گزینه‌های توسعه‌دهنده را فعال کنید\nاگر این روش برای روشن کردن گزینه‌های توسعه‌دهنده کار نکرد، می‌توانید دستورالعمل‌های مربوط به دستگاه خود را در اینترنت جستجو کنید.</string>
+    <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">گزینه‌های توسعه‌دهنده الزامی است</string>
     <string name="device_backup_local" comment="Label for local device storage backup file">پشتیبان‌گیری دستگاه (محلی)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">دستگاه متصل شد!</string>
     <string name="device_disconnected" comment="Notification title when ADB connection drops">دستگاه قطع شد</string>
@@ -522,7 +522,7 @@
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">توسعه‌دهنده اصلی</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">کمترین استفاده</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">سطح</string>
-    <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">Libraries &amp; Licenses</string>
+    <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">کتابخانه‌ها &amp; مجوزها</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d کتابخانه شناسایی شد</string>
     <string name="license" comment="Card label for software license type">مجوز</string>
     <string name="license_label" comment="Header label for software license info">مجوز</string>
@@ -647,7 +647,7 @@
     <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">خروجی در اینجا نمایش داده خواهد شد…</string>
     <string name="override_bookmarks_limit" comment="Setting toggle title to remove the maximum limit on saved bookmarks count">نادیده گرفتن محدودیت نشانک‌ها</string>
     <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">نام بسته</string>
-    <string name="packages" comment="Title for the packages skill toggle in AI settings">Packages</string>
+    <string name="packages" comment="Title for the packages skill toggle in AI settings">بسته‌ها</string>
     <string name="pair" comment="Button/action label to initiate ADB wireless or OTG pairing with another device">جفت کردن</string>
     <string name="pair_a_device_first" comment="Instructional notice directing user to pair an ADB device before attempting connection">ابتدا یک دستگاه جفت کنید</string>
     <string name="pair_another_device" comment="Button label in Wireless Debugging setup to pair an additional target device">جفت کردن دستگاه دیگر</string>
@@ -691,15 +691,15 @@
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">پیش‌نمایش</string>
     <string name="primary">اصلی</string>
     <string name="primary_container">کانتینر اصلی</string>
-    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Privacy Policy</string>
-    <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">Privacy Policy Updated</string>
+    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">سیاست حفظ حریم خصوصی</string>
+    <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">سیاست حفظ حریم خصوصی به‌روزرسانی شد</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">محصول</string>
     <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">قرار دادن دستگاه در حالت سایدلود از طریق منوی ریکاوری آن</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">جفت‌سازی QR</string>
     <string name="qr_pair_hint" comment="Instructional text in QR pairing screen instructing user to scan QR code from target device">برای جفت کردن دستگاه اندروید ۱۱+، این QR را از دستگاه مقصد اسکن کنید</string>
     <string name="qr_scanner_location_hint" comment="Instructional hint directing user where to find system QR scanner in target device Developer Options">اسکنر QR در این مسیر:\nگزینه‌های توسعه‌دهنده &gt; اشکال‌زدایی بی‌سیم &gt; جفت کردن با کد QR</string>
     <string name="qs_tiles" comment="Refers to Android System Quick Settings tiles configured for custom ADB scripts">کاشی‌های تنظیمات سریع</string>
-    <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">Quick Settings Tiles</string>
+    <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">کاشی‌های تنظیمات سریع</string>
     <string name="quick_tools" comment="Section header for fast access utility tools">ابزارهای سریع</string>
     <string name="reading_file" comment="Progress status text while loading file contents into viewer">در حال خواندن فایل…</string>
     <string name="ready_to_paste" comment="Status message in file manager when item is stored in paste clipboard">آماده چسباندن</string>
@@ -811,9 +811,9 @@
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">خروجی آخرین دستور به \'%s\' صادر شد</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">خروجی شل به \'%s\' صادر شد</string>
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">Shizuku نصب نیست</string>
-    <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">Shizuku service is unavailable. Make sure Shizuku or Shizuku+ is running and permission is granted.</string>
+    <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">سرویس Shizuku در دسترس نیست. مطمئن شوید Shizuku یا Shizuku+ در حال اجرا است و مجوز لازم اعطا شده است.</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku در دسترس نیست</string>
-    <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">Shizuku or Shizuku+ is not installed or properly configured on your device</string>
+    <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">‏Shizuku یا Shizuku+ روی دستگاه شما نصب یا به‌درستی پیکربندی نشده است</string>
     <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">قرار دادن دستگاه در حالت سایدلود از طریق ریکاوری</string>
     <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">حالت سایدلود — آماده</string>
     <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">راه‌اندازی مجدد در ریکاوری (نگه‌داشتن ولوم پایین + پاور، یا اجرا: adb reboot recovery)</string>
@@ -858,10 +858,10 @@
     <string name="tab" comment="Settings option for terminal tab indentation behavior">برگه</string>
     <string name="tag" comment="Field label for custom command category tag/label">برچسب</string>
     <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">برای مرور یک فایل .zip ضربه بزنید</string>
-    <string name="tcpip_connect_failed" comment="Toast shown when TCP connection to 127.0.0.1 on the detected port is refused. %1$d is replaced with the port number.">Connection to port %1$d refused. The ADB daemon may not be listening.</string>
+    <string name="tcpip_connect_failed" comment="Toast shown when TCP connection to 127.0.0.1 on the detected port is refused. %1$d is replaced with the port number.">اتصال به پورت %1$d رد شد. ممکن است دیمن ADB در حال گوش دادن نباشد.</string>
     <string name="tcpip_mode" comment="Label for the TCP/IP local shell working mode (loopback port 5555)">TCP/IP</string>
-    <string name="tcpip_not_available_body" comment="Dialog body explaining how to enable TCP ADB when the system property is missing. The adb command should stay untranslated.">Your device does not have TCP ADB enabled. Connect to a PC via USB once and run:\n\nadb tcpip 5555\n\nAfter that, this mode works without USB or Wi-Fi.</string>
-    <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">TCP Mode Not Available</string>
+    <string name="tcpip_not_available_body" comment="Dialog body explaining how to enable TCP ADB when the system property is missing. The adb command should stay untranslated.">دستگاه شما TCP ADB را فعال نکرده است. یک بار از طریق USB به رایانه متصل شوید و این دستور را اجرا کنید:\n\nadb tcpip 5555\n\nپس از آن، این حالت بدون USB یا Wi-Fi کار می‌کند.</string>
+    <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">حالت TCP در دسترس نیست</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">ترمینال</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">سبک فونت ترمینال</string>
     <string name="tertiary">سوم</string>
@@ -903,8 +903,8 @@
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">آپلود فایل</string>
     <string name="uploading" comment="Progress status text shown while uploading file to device">در حال آپلود…</string>
     <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">در حال آپلود پشتیبان به گوگل درایو…</string>
-    <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB requires USB debugging to be enabled in Developer Options</string>
-    <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">USB Debugging Required</string>
+    <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">قابلیت TCP/IP ADB مستلزم فعال بودن اشکال‌زدایی USB در گزینه‌های توسعه‌دهنده است</string>
+    <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">اشکال‌زدایی USB الزامی است</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">مدیر USB در این دستگاه در دسترس نیست</string>
     <string name="use">استفاده</string>
     <string name="utilities" comment="Category title in homescreen">ابزارها</string>

@@ -28,7 +28,7 @@
     <string name="add_command" comment="Button label to create and save a new command snippet to database">Komut ekle</string>
     <string name="add_new_item" comment="Generic button label to add a new list entry">Yeni öge ekle</string>
     <string name="additional_settings" comment="Category header in app settings">Ek ayarlar</string>
-    <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Agent skills</string>
+    <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Ajan becerileri</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">Önbellek süresi</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">Önbelleği etkinleştir</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">İzin Ver</string>
@@ -197,7 +197,7 @@
     <string name="command" comment="Label/header for an ADB command snippet">Komut</string>
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">Komut analizi</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">Komut Konsolu</string>
-    <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">Command Execution</string>
+    <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">Komut Yürütme</string>
     <string name="command_logs" comment="Tab header for history log of executed fastboot commands">Komut Günlükleri</string>
     <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">Çalıştırılan tüm fastboot komutlarının geçmişi.</string>
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Komut bulunamadı!</string>
@@ -246,7 +246,7 @@
     <string name="daily" comment="Option in backup scheduler frequency selection">Günlük</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">Karanlık tema</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">Kontrol Paneli</string>
-    <string name="database_modification" comment="Title for the database skill toggle in AI settings">Database Modification</string>
+    <string name="database_modification" comment="Title for the database skill toggle in AI settings">Veritabanı Düzenleme</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Yalnızca veritabanları</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Varsayılan klasör</string>
     <string name="default_language" comment="Setting preference label for selecting application language">Varsayılan dil</string>
@@ -278,15 +278,15 @@
     <string name="des_behavior" comment="Description under Behavior item in settings menu">Uygulamanın belirli davranışlarını değiştir</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">Uygulamada yapılan tüm değişikliklerin geçmişi</string>
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">Simge koleksiyonundan bir simge seçmek için buraya tıklayın</string>
-    <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">Delete all cached AI analysis responses</string>
+    <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">Önbelleğe alınmış tüm AI analiz yanıtlarını sil</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">Shell çıktısını temizlemeden önce onay iste</string>
     <string name="des_cloud_models" comment="Description under Cloud models setting item">Bulut modelleri için API anahtarlarını yönetin</string>
-    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Allow the AI agent to execute ADB shell commands</string>
+    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">AI ajanının ADB kabuk komutlarını çalıştırmasına izin ver</string>
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">Shell çıktısını kaydetmek için bir dizin seçin</string>
     <string name="des_contributors" comment="Description under Contributors item in About section">aShell You\'nun geliştirilmesine katkıda bulunanların listesi</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">Uygulamada meydana gelen tüm çökmeleri görüntüleyin</string>
-    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Allow the AI agent to add, modify, or delete database items</string>
-    <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">Choose when the app uses its dark colour scheme</string>
+    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">AI ajanının veritabanı ögelerini eklemesine, değiştirmesine veya silmesine izin ver</string>
+    <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">Uygulamanın koyu renk şemasını ne zaman kullanacağını seçin</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">Uygulama için varsayılan dili seçin</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">Harici bir klavye kullanmak istediğinizde faydalıdır</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">Şifrelenmiş yedeklemeyi Google Drive\'ınıza yükleyin.\nBu işlem, mevcut bulut yedeklemelerinin üzerine yazacaktır.</string>
@@ -304,7 +304,7 @@
     <string name="des_high_contrast_dark_mode" comment="Description under High contrast dark mode setting item">OLED ekranlı cihazlar için zifiri karanlık tema</string>
     <string name="des_hridayan" comment="Developer bio subtitle in About section">Uygulamaları ve tasarımı seven sıradan bir adam</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">Hızlı Ayarlar panelinde gösterildiğinde karonun sabit görsel durumu</string>
-    <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">View details of the libraries and licenses used by the app</string>
+    <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">Uygulama tarafından kullanılan kütüphanelerin ve lisansların ayrıntılarını görüntüleyin</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">Uygulamanın ve kütüphanelerin kullandığı lisansları görüntüleyin</string>
     <string name="des_local_backup" comment="Description card text for local backup option">Şifrelenmiş yedeklemeyi cihazınıza kaydedin</string>
     <string name="des_local_restore" comment="Description card text for local restore option">Cihazınızdan bir yedekleme dosyası seçin</string>
@@ -312,13 +312,13 @@
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">Dinamik renkler, Karanlık tema, Dil</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">Model seçilmedi</string>
     <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">Çok sayıda yer imi eklenirse gecikmeye neden olabilir! Düşük donanımlı cihazlarda bu seçenek kapalı tutulmalıdır</string>
-    <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Allow the AI agent to query installed packages and application data</string>
+    <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">AI ajanının yüklü paketleri ve uygulama verilerini sorgulamasına izin ver</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">Başka bir hedef cihazı eşleştirin</string>
-    <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">Choose how colours are derived from the theme seed</string>
-    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">How aShell You handles your data</string>
-    <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">We have updated our Privacy Policy. Please take a moment to review the changes.</string>
+    <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">Renklerin tema tohumundan nasıl türetileceğini seçin</string>
+    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">aShell You\'nun verilerinizi nasıl işlediği</string>
+    <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">Gizlilik Politikamızı güncelledik. Değişiklikleri incelemek için lütfen bir dakikanızı ayırın.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">ADB komutlarını çalıştırmak için hızlı ayarlar karoları oluşturun</string>
-    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Allow the AI agent to create, modify, and delete Quick Settings tiles</string>
+    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">AI ajanının Hızlı Ayarlar karoları oluşturmasına, değiştirmesine ve silmesine izin ver</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">Uygulamayı kullanırken karşılaştığınız herhangi bir sorunu veya hatayı bildirin</string>
     <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">Uygulama ayarlarını varsayılan değerlere sıfırla</string>
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">Kaydedilen yedek dosyasından uygulama verilerini geri yükle.\nKaydedilen veritabanı mevcut veritabanının üzerine yazılacaktır</string>
@@ -331,15 +331,15 @@
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">English</string>
     <string name="des_translators" comment="Subtitle description under Translators list in About section">AShellYou\'yu çevirmeye yardımcı olan kişiler</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">Kullanıcı arayüzü öğelerinin ölçeğini ve yazı tipi boyutunu ayarlayın</string>
-    <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">Choose which releases the app checks for</string>
+    <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">Uygulamanın hangi sürümleri kontrol edeceğini seçin</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">Yanlış bir imaj bootloop\'a neden olabileceğinden dikkatli ilerleyin</string>
     <string name="description">Açıklama</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">Tüm seçimleri kaldır</string>
     <string name="developer" comment="Section title in About screen for lead developer info">Geliştirici</string>
     <string name="developer_options" comment="System Developer Options setting item or prompt">Geliştirici seçenekleri</string>
     <string name="developer_options_not_available" comment="Toast error message when Developer options shortcut cannot be opened">Geliştirici seçenekleri mevcut değil!</string>
-    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">Enable Developer Options first by tapping Build Number 7 times in Settings → About Phone\nIf this method to turn on Developer options does not work, then you can search the instructions for your device on the internet.</string>
-    <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">Developer Options Required</string>
+    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">Önce Ayarlar → Telefon Hakkında bölümündeki Yapım Numarası\'na 7 kez dokunarak Geliştirici Seçenekleri\'ni etkinleştirin.\nGeliştirici seçeneklerini açmak için bu yöntem işe yaramazsa internette cihazınıza özel talimatları arayabilirsiniz.</string>
+    <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">Geliştirici Seçenekleri Gerekli</string>
     <string name="device_backup_local" comment="Label for local device storage backup file">Cihaz yedeği (Yerel)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">Cihaz bağlandı!</string>
     <string name="device_disconnected" comment="Notification title when ADB connection drops">Cihaz Bağlantısı Kesildi</string>
@@ -522,7 +522,7 @@
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">Lider Geliştirici</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">En az kullanılan</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">Seviye</string>
-    <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">Libraries &amp; Licenses</string>
+    <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">Kütüphaneler &amp; Lisanslar</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d kütüphane tespit edildi</string>
     <string name="license" comment="Card label for software license type">Lisans</string>
     <string name="license_label" comment="Header label for software license info">Lisans</string>
@@ -647,7 +647,7 @@
     <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">Çıktı burada görünecek…</string>
     <string name="override_bookmarks_limit" comment="Setting toggle title to remove the maximum limit on saved bookmarks count">Maksimum yer imi sınırını geçersiz kıl</string>
     <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">Paket adı</string>
-    <string name="packages" comment="Title for the packages skill toggle in AI settings">Packages</string>
+    <string name="packages" comment="Title for the packages skill toggle in AI settings">Paketler</string>
     <string name="pair" comment="Button/action label to initiate ADB wireless or OTG pairing with another device">Eşleştir</string>
     <string name="pair_a_device_first" comment="Instructional notice directing user to pair an ADB device before attempting connection">Önce bir cihazı eşleştirin</string>
     <string name="pair_another_device" comment="Button label in Wireless Debugging setup to pair an additional target device">Başka bir cihaz eşleştir</string>
@@ -691,15 +691,15 @@
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">Önizleme</string>
     <string name="primary">Birincil</string>
     <string name="primary_container">Birincil Konteyner</string>
-    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Privacy Policy</string>
-    <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">Privacy Policy Updated</string>
+    <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Gizlilik Politikası</string>
+    <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">Gizlilik Politikası Güncellendi</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">Ürün</string>
     <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">Kurtarma menüsü aracılığıyla cihazı sideload moduna alın</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">QR ile Eşleştir</string>
     <string name="qr_pair_hint" comment="Instructional text in QR pairing screen instructing user to scan QR code from target device">Bir Android 11+ cihazı eşleştirmek için, bu QR kodunu hedef cihazdan tarayın</string>
     <string name="qr_scanner_location_hint" comment="Instructional hint directing user where to find system QR scanner in target device Developer Options">QR tarayıcı konumu:\nGeliştirici Seçenekleri &gt; Kablosuz Hata Ayıklama &gt; QR kodu ile eşleştir</string>
     <string name="qs_tiles" comment="Refers to Android System Quick Settings tiles configured for custom ADB scripts">Hızlı ayarlar karoları</string>
-    <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">Quick Settings Tiles</string>
+    <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">Hızlı Ayarlar Karoları</string>
     <string name="quick_tools" comment="Section header for fast access utility tools">Hızlı Araçlar</string>
     <string name="reading_file" comment="Progress status text while loading file contents into viewer">Dosya okunuyor…</string>
     <string name="ready_to_paste" comment="Status message in file manager when item is stored in paste clipboard">Yapıştırmaya hazır</string>
@@ -811,9 +811,9 @@
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">Son komutun çıktısı \'%s\' konumuna aktarıldı</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">Shell çıktısı \'%s\' konumuna aktarıldı</string>
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">Shizuku yüklü değil</string>
-    <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">Shizuku service is unavailable. Make sure Shizuku or Shizuku+ is running and permission is granted.</string>
+    <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">Shizuku hizmeti kullanılamıyor. Shizuku veya Shizuku+\'ın çalıştığından ve iznin verildiğinden emin olun.</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku kullanılamıyor</string>
-    <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">Shizuku or Shizuku+ is not installed or properly configured on your device</string>
+    <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">Shizuku veya Shizuku+ yüklü değil veya cihazınızda düzgün yapılandırılmamış</string>
     <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">Kurtarma menüsü üzerinden cihazı sideload moduna alın</string>
     <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Sideload modu — hazır</string>
     <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">Kurtarma moduna önyükleme yapın (Ses Kısma + Güç tuşlarını basılı tutun veya şunu çalıştırın: adb reboot recovery)</string>
@@ -858,14 +858,14 @@
     <string name="tab" comment="Settings option for terminal tab indentation behavior">Sekme</string>
     <string name="tag" comment="Field label for custom command category tag/label">Etiket</string>
     <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">Bir .zip dosyasına göz atmak için dokunun</string>
-    <string name="tcpip_connect_failed" comment="Toast shown when TCP connection to 127.0.0.1 on the detected port is refused. %1$d is replaced with the port number.">Connection to port %1$d refused. The ADB daemon may not be listening.</string>
+    <string name="tcpip_connect_failed" comment="Toast shown when TCP connection to 127.0.0.1 on the detected port is refused. %1$d is replaced with the port number.">%1$d bağlantı noktasına bağlantı reddedildi. ADB daemon dinlemiyor olabilir.</string>
     <string name="tcpip_mode" comment="Label for the TCP/IP local shell working mode (loopback port 5555)">TCP/IP</string>
-    <string name="tcpip_not_available_body" comment="Dialog body explaining how to enable TCP ADB when the system property is missing. The adb command should stay untranslated.">Your device does not have TCP ADB enabled. Connect to a PC via USB once and run:\n\nadb tcpip 5555\n\nAfter that, this mode works without USB or Wi-Fi.</string>
-    <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">TCP Mode Not Available</string>
+    <string name="tcpip_not_available_body" comment="Dialog body explaining how to enable TCP ADB when the system property is missing. The adb command should stay untranslated.">Cihazınızda TCP ADB etkin değil. Cihazınızı USB ile bir kez bir bilgisayara bağlayın ve şunu çalıştırın:\n\nadb tcpip 5555\n\nBundan sonra bu mod USB veya Wi-Fi olmadan çalışır.</string>
+    <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">TCP Modu Kullanılamıyor</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">Terminal</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Terminal yazı tipi stili</string>
     <string name="tertiary">Üçüncül</string>
-    <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">Theme mode</string>
+    <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">Tema modu</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">Üçüncü parti kütüphaneler</string>
     <string name="this_application" comment="Option label for target scope in Logcat Viewer">Bu uygulama</string>
     <string name="this_device" comment="Selection option for target ADB device matching host phone">Bu Cihaz</string>
@@ -903,8 +903,8 @@
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">Dosya yükle</string>
     <string name="uploading" comment="Progress status text shown while uploading file to device">Yükleniyor…</string>
     <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Yedekleme dosyası Google Drive\'a yükleniyor…</string>
-    <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB requires USB debugging to be enabled in Developer Options</string>
-    <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">USB Debugging Required</string>
+    <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB, Geliştirici Seçenekleri\'nde USB hata ayıklamanın etkinleştirilmesini gerektirir</string>
+    <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">USB Hata Ayıklama Gerekli</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">USB Yöneticisi bu cihazda mevcut değil</string>
     <string name="use">Kullan</string>
     <string name="utilities" comment="Category title in homescreen">Yardımcı Araçlar</string>
