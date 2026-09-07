@@ -252,6 +252,7 @@
     <string name="dark_theme" comment="Settings preference title for dark theme mode">Dark theme</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">Dashboard</string>
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">Database Modification</string>
+    <string name="device_diagnostics" comment="Title for the device diagnostics skill toggle in AI settings">Device Diagnostics</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Databases only</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Default folder</string>
     <string name="default_language" comment="Setting preference label for selecting application language">Default language</string>
@@ -291,6 +292,7 @@
     <string name="des_contributors" comment="Description under Contributors item in About section">List of contributors who helped in the development of aShell You</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">View all crashes that have occurred in the app</string>
     <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Allow the AI agent to add, modify, or delete database items</string>
+    <string name="des_device_diagnostics" comment="Description explaining that this skill allows the AI to check device status">Allow the AI agent to check battery, memory, storage, hardware, and network status natively</string>
     <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">Choose when the app uses its dark colour scheme</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">Choose the default language for the app</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">Useful when you want to use an external keyboard</string>

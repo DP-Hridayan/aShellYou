@@ -494,6 +494,12 @@ private fun SearchScreenScope.aiModelsScreen(
             icon(R.drawable.ic_database)
         }
 
+        entry(key = SettingsKeys.AiSkillDeviceDiagnostics) {
+            title(R.string.device_diagnostics)
+            description(R.string.des_device_diagnostics)
+            icon(R.drawable.ic_troubleshoot)
+        }
+
         entry(key = SettingsKeys.AiCacheEnabled) {
             title(R.string.ai_cache_enabled)
             description(R.string.des_ai_cache_enabled)

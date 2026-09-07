@@ -85,6 +85,8 @@ sealed class SettingsKeys<out T>(
     data object AiSkillQuickSettings : SettingsKeys<Boolean>("AI_SKILL_QUICK_SETTINGS", true)
     data object AiSkillPackages : SettingsKeys<Boolean>("AI_SKILL_PACKAGES", false)
     data object AiSkillDatabase : SettingsKeys<Boolean>("AI_SKILL_DATABASE", true)
+    data object AiSkillDeviceDiagnostics :
+        SettingsKeys<Boolean>("AI_SKILL_DEVICE_DIAGNOSTICS", true)
 
     data object AutoBackupEnabled : SettingsKeys<Boolean>("AUTO_BACKUP_ENABLED", false)
     data object AutoBackupDeleteExisting :

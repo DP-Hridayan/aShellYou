@@ -120,6 +120,12 @@ fun AiModelsScreen(
                         description(R.string.des_database_modification)
                         icon(R.drawable.ic_database)
                     }
+
+                    switchItem(SettingsKeys.AiSkillDeviceDiagnostics) {
+                        title(R.string.device_diagnostics)
+                        description(R.string.des_device_diagnostics)
+                        icon(R.drawable.ic_troubleshoot)
+                    }
                 }
 
                 group(R.string.cache_settings) {
