@@ -6,6 +6,8 @@ sealed interface ShellDialogKey : DialogKey {
     object ClearOutput : ShellDialogKey
     object Bookmark : ShellDialogKey
     object DeleteBookmarks : ShellDialogKey
+    object DeleteSingleBookmark : ShellDialogKey
+    object DeleteSelectedBookmarks : ShellDialogKey
     object BookmarkSort : ShellDialogKey
     object FileSaved : ShellDialogKey
 }

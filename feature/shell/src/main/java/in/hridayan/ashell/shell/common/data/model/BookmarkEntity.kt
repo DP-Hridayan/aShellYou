@@ -9,5 +9,6 @@ import kotlinx.serialization.Serializable
 data class BookmarkEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val command: String
+    val command: String,
+    val isPinned: Boolean = false
 )

@@ -205,6 +205,8 @@ fun BaseShellScreen(
     var restoredScrollIndex by rememberSaveable { mutableIntStateOf(-1) }
     var showBookmarksBottomSheet by rememberSaveable { mutableStateOf(false) }
     var showAiAnalysisSheet by rememberSaveable { mutableStateOf(false) }
+    var bookmarkIdToDelete by rememberSaveable { mutableStateOf<Int?>(null) }
+    var selectedBookmarkIdsToDelete by rememberSaveable { mutableStateOf<Set<Int>>(emptySet()) }
 
     val isKeyboardVisible = isKeyboardVisible().value
     val coroutineScope = rememberCoroutineScope()
@@ -711,11 +713,32 @@ fun BaseShellScreen(
         )
 
         ShellDialogKey.DeleteBookmarks -> DeleteBookmarksDialog(
+            isSingle = false,
             onDismiss = { dialogManager.dismiss() },
             onDelete = {
                 dialogManager.dismiss()
                 showBookmarksBottomSheet = false
                 bookmarkViewModel.deleteAllBookmark()
+            }
+        )
+
+        ShellDialogKey.DeleteSingleBookmark -> DeleteBookmarksDialog(
+            isSingle = true,
+            onDismiss = { dialogManager.dismiss() },
+            onDelete = {
+                dialogManager.dismiss()
+                bookmarkIdToDelete?.let { bookmarkViewModel.deleteBookmarkById(it) }
+                bookmarkIdToDelete = null
+            }
+        )
+
+        ShellDialogKey.DeleteSelectedBookmarks -> DeleteBookmarksDialog(
+            deleteCount = selectedBookmarkIdsToDelete.size,
+            onDismiss = { dialogManager.dismiss() },
+            onDelete = {
+                dialogManager.dismiss()
+                bookmarkViewModel.deleteBookmarksByIds(selectedBookmarkIdsToDelete)
+                selectedBookmarkIdsToDelete = emptySet()
             }
         )
 
@@ -779,7 +802,14 @@ fun BaseShellScreen(
             bookmarks = bookmarks,
             bookmarkCount = bookmarkCount,
             searchQuery = searchQuery,
-            onQueryChanged = { bookmarkViewModel.onSearchQueryChange(it) }
+            onQueryChanged = { bookmarkViewModel.onSearchQueryChange(it) },
+            onDeleteSelectedBookmarks = { ids ->
+                selectedBookmarkIdsToDelete = ids
+                dialogManager.show(ShellDialogKey.DeleteSelectedBookmarks)
+            },
+            onUpdateBookmarksPinState = { ids, isPinned ->
+                bookmarkViewModel.updateBookmarksPinState(ids, isPinned)
+            }
         )
     }
 

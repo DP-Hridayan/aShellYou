@@ -25,6 +25,15 @@ interface BookmarkDao {
     @Update
     suspend fun updateBookmark(bookmark: BookmarkEntity)
 
+    @Query("UPDATE bookmarks SET isPinned = NOT isPinned WHERE id = :id")
+    suspend fun togglePinBookmarkById(id: Int)
+
+    @Query("DELETE FROM bookmarks WHERE id IN (:ids)")
+    suspend fun deleteBookmarksByIds(ids: Set<Int>)
+
+    @Query("UPDATE bookmarks SET isPinned = :isPinned WHERE id IN (:ids)")
+    suspend fun updateBookmarksPinState(ids: Set<Int>, isPinned: Boolean)
+
     @Query("SELECT * FROM bookmarks WHERE id = :id")
     suspend fun getBookmarkById(id: Int): BookmarkEntity?
 
