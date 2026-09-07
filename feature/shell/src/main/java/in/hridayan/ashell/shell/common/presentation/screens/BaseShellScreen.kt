@@ -193,17 +193,7 @@ fun BaseShellScreen(
 
     val currentBackStackEntry = navController.currentBackStackEntry
     val suggestedCommand = currentBackStackEntry?.savedStateHandle?.get<String>("suggestedCommand")
-    androidx.compose.runtime.LaunchedEffect(suggestedCommand) {
-        if (!suggestedCommand.isNullOrBlank()) {
-            shellViewModel.onCommandTextFieldChange(
-                TextFieldValue(
-                    suggestedCommand
-                )
-            )
-            shellViewModel.updateTextFieldSelection()
-            currentBackStackEntry.savedStateHandle.remove<String>("suggestedCommand")
-        }
-    }
+
     val searchOutputResult by shellViewModel.filteredOutput.collectAsState()
     val suggestions by shellViewModel.suggestions.collectAsState()
     val disableSoftKeyboard = settings[SettingsKeys.DisableSoftKeyboard]
@@ -211,6 +201,7 @@ fun BaseShellScreen(
     val lastSavedFileUri = settings[SettingsKeys.LastSavedFileUri]
     val savePath = settings[SettingsKeys.OutputSaveDirectory].toUri()
     val saveWholeOutput = settings[SettingsKeys.SaveWholeOutput]
+    val bookmarksSortType = settings[SettingsKeys.BookmarkSortType]
     val textFieldFocusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
     var historyMenuExpanded by rememberSaveable { mutableStateOf(false) }
@@ -222,6 +213,18 @@ fun BaseShellScreen(
 
     LaunchedEffect(disableSoftKeyboard) {
         disableKeyboard(context, disableSoftKeyboard)
+    }
+
+    LaunchedEffect(suggestedCommand) {
+        if (!suggestedCommand.isNullOrBlank()) {
+            shellViewModel.onCommandTextFieldChange(
+                TextFieldValue(
+                    suggestedCommand
+                )
+            )
+            shellViewModel.updateTextFieldSelection()
+            currentBackStackEntry.savedStateHandle.remove<String>("suggestedCommand")
+        }
     }
 
     val actionFabIcon: @Composable () -> Unit = {
@@ -723,7 +726,7 @@ fun BaseShellScreen(
         )
 
         ShellDialogKey.BookmarkSort -> BookmarksSortDialog(
-            initialSort = settings[SettingsKeys.BookmarkSortType],
+            initialSort = bookmarksSortType,
             onSortChange = { sort ->
                 settings.set(SettingsKeys.BookmarkSortType, sort)
             },
