@@ -29,7 +29,7 @@ include(":adblib")
 include(":app")
 include(":fastbootlib")
 include(":libadb")
-include(":settings-dsl")
+include(":settingsgraph")
 
 include(":core:common")
 include(":core:navigation")

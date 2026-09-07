@@ -6,7 +6,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * Guards the seam between the settings UI DSL and the settings search DSL.
+ * Guards the seam between the settings UI Graph and the settings search Graph.
  *
  * The two declare titles independently by design, which keeps UI graphs idiomatic but lets them
  * drift silently. These checks read source text rather than a running composition, so they cost
@@ -19,7 +19,7 @@ class SettingsSearchDriftTest {
         val uiCount = uiTitlesByKey().size
         val searchCount = searchTitlesByKey().size
         assertTrue(
-            "Only $uiCount settings items were extracted from the UI DSL. The regex has likely " +
+            "Only $uiCount settings items were extracted from the UI Graph. The regex has likely " +
                     "stopped matching, which would make the drift checks pass vacuously.",
             uiCount >= MIN_EXPECTED_ITEMS,
         )
@@ -57,11 +57,14 @@ class SettingsSearchDriftTest {
         val drift = ui.keys.intersect(search.keys)
             .filter { key -> ui.getValue(key).intersect(search.getValue(key)).isEmpty() }
             .map { key -> "$key: ui=${ui.getValue(key)} search=${search.getValue(key)}" }
-        assertTrue("Title drift between the UI and search DSLs:\n${drift.joinToString("\n")}", drift.isEmpty())
+        assertTrue(
+            "Title drift between the UI and search Graphs:\n${drift.joinToString("\n")}",
+            drift.isEmpty()
+        )
     }
 
     @Test
-    fun `search dsl does not depend on compose`() {
+    fun `search graph does not depend on compose`() {
         Konsist.scopeFromProject()
             .files
             .filter { it.path.replace('\\', '/').contains(SEARCH_PACKAGE_PATH) }
@@ -86,7 +89,7 @@ class SettingsSearchDriftTest {
         const val SETTINGS_COLUMN_MARKER = "SettingsColumn("
         const val SEARCH_GRAPH_FILE_NAME = "SettingsSearchGraph"
         const val SEARCH_GRAPH_FILE = "SettingsSearchGraph.kt"
-        const val SEARCH_PACKAGE_PATH = "settingsdsl/search"
+        const val SEARCH_PACKAGE_PATH = "settingsgraph/search"
         const val MIN_EXPECTED_ITEMS = 40
 
         val UI_ITEM_REGEX = Regex(

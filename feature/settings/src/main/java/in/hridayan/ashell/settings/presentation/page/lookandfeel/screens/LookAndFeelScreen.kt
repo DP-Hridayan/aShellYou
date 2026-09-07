@@ -44,7 +44,7 @@ import `in`.hridayan.ashell.settings.presentation.components.dialog.PaletteStyle
 import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 import `in`.hridayan.ashell.settings.presentation.components.tab.ColorTabs
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel.LookAndFeelViewModel
-import `in`.hridayan.settingsdsl.ui.SettingsColumn
+import `in`.hridayan.settingsgraph.ui.SettingsColumn
 
 private const val ITEM_KEY_HEADER_IMAGE = "header_image"
 private const val ITEM_KEY_COLOR_TABS = "color_tabs"

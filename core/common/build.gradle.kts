@@ -33,7 +33,7 @@ android {
 dependencies {
     api(project(":core:resources"))
     api(project(":adblib"))
-    implementation(project(":settings-dsl"))
+    implementation(project(":settingsgraph"))
 
     implementation(libs.kotlin.reflect)
     implementation(libs.androidx.appcompat)

@@ -33,7 +33,7 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:ui"))
     implementation(project(":core:navigation"))
-    implementation(project(":settings-dsl"))
+    implementation(project(":settingsgraph"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)

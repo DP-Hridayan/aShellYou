@@ -58,8 +58,7 @@ import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.UpdateB
 import `in`.hridayan.ashell.settings.presentation.components.dialog.LatestVersionDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
-import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
-import `in`.hridayan.settingsdsl.ui.SettingsColumn
+import `in`.hridayan.settingsgraph.ui.SettingsColumn
 
 private const val ITEM_KEY_TOP_SPACER = "topSpacer"
 private const val ITEM_KEY_WARNING_BOX = "warningBox"
@@ -67,7 +66,6 @@ private const val ITEM_KEY_WARNING_BOX = "warningBox"
 @Composable
 fun AutoUpdateScreen(
     modifier: Modifier = Modifier,
-    settingsViewModel: SettingsViewModel = hiltViewModel(),
     autoUpdateViewModel: AutoUpdateViewModel = hiltViewModel(),
 ) {
     val navController = LocalNavController.current
@@ -151,10 +149,6 @@ fun AutoUpdateScreen(
                 group(R.string.update_channel) {
                     radioGroupItem(SettingsKeys.GithubReleaseType) {
                         options(RadioGroupOptionsProvider.updateChannelOptions)
-                        onIntChanged { key, value ->
-                            @Suppress("UNCHECKED_CAST")
-                            settingsViewModel.setInt(key as SettingsKeys<Int>, value)
-                        }
                     }
                 }
 

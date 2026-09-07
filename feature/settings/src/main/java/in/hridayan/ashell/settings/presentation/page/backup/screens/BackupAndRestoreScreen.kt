@@ -79,7 +79,7 @@ import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDial
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.page.backup.viewmodel.BackupAndRestoreViewModel
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
-import `in`.hridayan.settingsdsl.ui.SettingsColumn
+import `in`.hridayan.settingsgraph.ui.SettingsColumn
 
 private const val ITEM_KEY_GOOGLE_SIGN_IN = "google_sign_in"
 private const val ITEM_KEY_LAST_BACKUP_TIME = "last_backup_time"

@@ -207,7 +207,7 @@ dependencies {
     implementation(project(":libadb"))
     implementation(libs.datastore.preferences)
     implementation(project(":adblib"))
-    implementation(project(":settings-dsl"))
+    implementation(project(":settingsgraph"))
     implementation(project(":fastbootlib"))
     implementation(project(":core:common"))
     implementation(project(":core:ui"))

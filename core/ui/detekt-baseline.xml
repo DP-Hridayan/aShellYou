@@ -223,7 +223,7 @@
             `in`.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode import
             `in`.hridayan.ashell.core.common.domain.model.SortType import
             `in`.hridayan.ashell.core.resources.R import
-            `in`.hridayan.settingsdsl.model.RadioButtonOption
+            `in`.hridayan.settingsgraph.model.RadioButtonOption
         </ID>
         <ID>ImportOrdering:Theme.kt$import android.app.Activity import android.graphics.Color import
             android.os.Build import android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS

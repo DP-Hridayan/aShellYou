@@ -60,8 +60,8 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.settings.presentation.page.search.index.rememberSettingsSearchGraph
 import `in`.hridayan.ashell.settings.presentation.page.search.viewmodel.SettingsSearchViewModel
-import `in`.hridayan.settingsdsl.search.SearchResult
-import `in`.hridayan.settingsdsl.ui.LocalSettingsDslState
+import `in`.hridayan.settingsgraph.search.SearchResult
+import `in`.hridayan.settingsgraph.ui.LocalSettingGraphState
 
 @Composable
 fun SettingsSearchScreen(
@@ -71,7 +71,7 @@ fun SettingsSearchScreen(
     val navController = LocalNavController.current
     val graph = rememberSettingsSearchGraph(navController)
     LaunchedEffect(graph) { viewModel.setGraph(graph) }
-    val highlightState = LocalSettingsDslState.current.highlightState
+    val highlightState = LocalSettingGraphState.current.highlightState
     val query by viewModel.query.collectAsStateWithLifecycle()
     val results by viewModel.filteredResults.collectAsStateWithLifecycle()
     val recentEntries by viewModel.recentEntries.collectAsStateWithLifecycle()
