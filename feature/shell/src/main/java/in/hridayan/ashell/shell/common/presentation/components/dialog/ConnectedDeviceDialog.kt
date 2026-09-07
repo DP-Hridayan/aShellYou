@@ -202,32 +202,34 @@ private fun ExpandedLayoutView(
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         items.forEach { option ->
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable(
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = null,
-                        onClick = withHaptic {
+            option.labelResId?.let { labelResId ->
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable(
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = null,
+                            onClick = withHaptic {
+                                selected = option.value
+                            }
+                        )
+                ) {
+                    Text(
+                        text = stringResource(labelResId),
+                        style = MaterialTheme.typography.bodyLarge,
+                        fontWeight = FontWeight.Bold
+                    )
+
+                    Spacer(Modifier.weight(1f))
+
+                    RadioButton(
+                        selected = (option.value == selected),
+                        onClick = withHaptic(HapticFeedbackType.ToggleOn) {
                             selected = option.value
                         }
                     )
-            ) {
-                Text(
-                    text = stringResource(option.labelResId),
-                    style = MaterialTheme.typography.bodyLarge,
-                    fontWeight = FontWeight.Bold
-                )
-
-                Spacer(Modifier.weight(1f))
-
-                RadioButton(
-                    selected = (option.value == selected),
-                    onClick = withHaptic(HapticFeedbackType.ToggleOn) {
-                        selected = option.value
-                    }
-                )
+                }
             }
         }
 

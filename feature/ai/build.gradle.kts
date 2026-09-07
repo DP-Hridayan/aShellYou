@@ -33,7 +33,6 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:ui"))
     implementation(project(":core:navigation"))
-    implementation(project(":settingsgraph"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)
@@ -62,6 +61,7 @@ dependencies {
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.slf4j.android)
     implementation(libs.androidx.security.crypto)
+    implementation(libs.compose.settings.graph)
     implementation(libs.shizuku.api)
     implementation(libs.shizuku.provider)
     implementation(libs.libsu.core)

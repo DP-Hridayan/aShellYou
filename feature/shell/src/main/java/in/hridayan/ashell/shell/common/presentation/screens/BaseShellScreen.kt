@@ -725,7 +725,7 @@ fun BaseShellScreen(
         ShellDialogKey.BookmarkSort -> BookmarksSortDialog(
             initialSort = settings[SettingsKeys.BookmarkSortType],
             onSortChange = { sort ->
-                coroutineScope.launch { settings.set(SettingsKeys.BookmarkSortType, sort) }
+                settings.set(SettingsKeys.BookmarkSortType, sort)
             },
             onDismiss = { dialogManager.dismiss() }
         )

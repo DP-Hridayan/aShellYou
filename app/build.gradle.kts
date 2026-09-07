@@ -207,7 +207,6 @@ dependencies {
     implementation(project(":libadb"))
     implementation(libs.datastore.preferences)
     implementation(project(":adblib"))
-    implementation(project(":settingsgraph"))
     implementation(project(":fastbootlib"))
     implementation(project(":core:common"))
     implementation(project(":core:ui"))
@@ -248,6 +247,7 @@ dependencies {
     implementation(libs.hilt.work)
     ksp(libs.hilt.compiler)
     ksp(libs.hilt.android.compiler)
+    implementation(libs.compose.settings.graph)
 
     githubImplementations(
         libs.play.services.auth,

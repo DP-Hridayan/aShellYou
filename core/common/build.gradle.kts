@@ -33,7 +33,6 @@ android {
 dependencies {
     api(project(":core:resources"))
     api(project(":adblib"))
-    implementation(project(":settingsgraph"))
 
     implementation(libs.kotlin.reflect)
     implementation(libs.androidx.appcompat)
@@ -58,6 +57,8 @@ dependencies {
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)
     implementation(libs.androidx.documentfile)
+
+    implementation(libs.compose.settings.graph)
     
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

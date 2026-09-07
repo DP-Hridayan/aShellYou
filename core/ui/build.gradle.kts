@@ -34,7 +34,6 @@ dependencies {
     api(project(":core:resources"))
     implementation(project(":core:common"))
     implementation(project(":core:navigation"))
-    implementation(project(":settingsgraph"))
 
     implementation(libs.androidx.appcompat)
     implementation(libs.core.ktx)
@@ -53,6 +52,7 @@ dependencies {
     implementation(libs.lottie.compose)
     implementation(libs.coil.compose)
     implementation(libs.serialization.json)
+    implementation(libs.compose.settings.graph)
     
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

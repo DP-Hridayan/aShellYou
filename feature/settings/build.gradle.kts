@@ -36,7 +36,6 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:ui"))
     implementation(project(":core:resources"))
-    implementation(project(":settingsgraph"))
     implementation(project(":core:navigation"))
 
     implementation(libs.aboutlibraries.core)
@@ -77,6 +76,7 @@ dependencies {
     implementation(libs.shapeindicators)
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
+    implementation(libs.compose.settings.graph)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)

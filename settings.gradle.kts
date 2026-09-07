@@ -29,7 +29,6 @@ include(":adblib")
 include(":app")
 include(":fastbootlib")
 include(":libadb")
-include(":settingsgraph")
 
 include(":core:common")
 include(":core:navigation")
