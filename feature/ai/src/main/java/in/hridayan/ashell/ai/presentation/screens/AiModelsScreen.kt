@@ -53,6 +53,8 @@ fun AiModelsScreen(
     val settings = LocalSettings.current
 
     val hapticsEnabled = settings[SettingsKeys.HapticsAndVibration]
+    val aiCacheEnabled = settings[SettingsKeys.AiCacheEnabled]
+    val aiCacheAutoClear = settings[SettingsKeys.AiCacheAutoClear]
     val cacheDays = settings[SettingsKeys.AiCacheDays]
 
     val cacheSizeBytes by aiViewModel.cacheSizeBytes.collectAsState()
@@ -127,11 +129,20 @@ fun AiModelsScreen(
                         icon(Icons.Rounded.Cached)
                     }
 
+                    switchItem(SettingsKeys.AiCacheAutoClear) {
+                        title(R.string.auto_clear_cache)
+                        description(R.string.des_auto_clear_ai_cache)
+                        icon(R.drawable.ic_auto_delete)
+                        visible { aiCacheEnabled }
+                    }
+
                     clickableItem(SettingsKeys.AiCacheDays) {
                         title(R.string.ai_cache_days)
                         description { stringResource(R.string.n_days, cacheDays) }
                         icon(R.drawable.ic_schedule)
                         onClick { dialogManager.show(AiDialogKey.CacheDays) }
+                        visible { aiCacheEnabled }
+                        enabled(aiCacheAutoClear)
                     }
 
                     clickableItem(SettingsKeys.AiCacheClear) {

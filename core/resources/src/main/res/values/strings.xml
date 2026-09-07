@@ -1001,6 +1001,8 @@
     <string name="wireless_not_connected" comment="Status banner shown when target device is not connected over Wireless Debugging">Not Connected</string>
     <string name="wireless_not_connected_message" comment="Instructional body text advising user to pair and connect device first">Your device is not connected via Wireless Debugging. Pair and connect your device first.</string>
     <string name="Z_A" translatable="false">Z → A</string>
+    <string name="auto_clear_cache">Auto clear cache</string>
+    <string name="des_auto_clear_ai_cache">Automatically clears AI analysis cache when the cache duration expires</string>
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d new entry</item>
         <item quantity="other">%1$d new entries</item>

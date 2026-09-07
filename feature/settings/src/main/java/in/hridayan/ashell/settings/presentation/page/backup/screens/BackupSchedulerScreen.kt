@@ -228,7 +228,7 @@ fun BackupSchedulerScreen(
                     switchItem(SettingsKeys.AutoBackupDeleteExisting) {
                         title(R.string.auto_delete_existing_backups)
                         description(R.string.des_auto_delete_existing_backups)
-                        icon(R.drawable.ic_delete_sweep)
+                        icon(R.drawable.ic_auto_delete)
                     }
                 }
 

@@ -79,6 +79,7 @@ sealed class SettingsKeys<out T>(
     data object FirstLaunch : SettingsKeys<Boolean>("FIRST_LAUNCH", true)
     data object NewCommandsAvailable : SettingsKeys<Boolean>("NEW_COMMANDS_AVAILABLE", true)
     data object AiCacheEnabled : SettingsKeys<Boolean>("AI_CACHE_ENABLED", true)
+    data object AiCacheAutoClear : SettingsKeys<Boolean>("AI_CACHE_AUTO_CLEAR", false)
 
     data object AiSkillCommandExecution : SettingsKeys<Boolean>("AI_SKILL_COMMAND_EXECUTION", false)
     data object AiSkillQuickSettings : SettingsKeys<Boolean>("AI_SKILL_QUICK_SETTINGS", true)
