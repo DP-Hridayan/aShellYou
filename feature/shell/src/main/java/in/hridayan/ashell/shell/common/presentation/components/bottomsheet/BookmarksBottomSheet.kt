@@ -2,12 +2,16 @@
 
 package `in`.hridayan.ashell.shell.common.presentation.components.bottomsheet
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
@@ -21,7 +25,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,8 +34,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
@@ -47,7 +48,7 @@ import `in`.hridayan.ashell.core.presentation.model.ButtonType
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.ashell.shell.common.presentation.viewmodel.BookmarkViewModel
+import `in`.hridayan.ashell.shell.common.data.model.BookmarkEntity
 
 @Composable
 fun BookmarksBottomSheet(
@@ -55,13 +56,14 @@ fun BookmarksBottomSheet(
     onDismiss: () -> Unit,
     onBookmarkClicked: (command: String) -> Unit,
     onDelete: () -> Unit,
+    setSortType: (sortType: Int) -> Unit,
     onSort: () -> Unit,
-    bookmarkViewModel: BookmarkViewModel = hiltViewModel(),
+    bookmarks: List<BookmarkEntity>,
+    bookmarkCount: Int,
+    searchQuery: TextFieldValue,
+    onQueryChanged: (TextFieldValue) -> Unit,
 ) {
     val sortType = LocalSettings.current[SettingsKeys.BookmarkSortType]
-    val bookmarks by bookmarkViewModel.searchedBookmarks.collectAsStateWithLifecycle()
-    val bookmarkCount by bookmarkViewModel.getBookmarkCount.collectAsState(initial = 0)
-    val searchQuery by bookmarkViewModel.bookmarksSearchQuery.collectAsStateWithLifecycle()
 
     val sheetState = rememberBottomSheetState(
         initialValue = SheetValue.Hidden,
@@ -71,13 +73,13 @@ fun BookmarksBottomSheet(
     val isKeyboardVisible by isKeyboardVisible()
 
     LaunchedEffect(sortType, Unit) {
-        bookmarkViewModel.setSortType(sortType)
+        setSortType(sortType)
     }
 
     ModalBottomSheet(
         modifier = modifier,
         onDismissRequest = {
-            bookmarkViewModel.onSearchQueryChange(TextFieldValue(""))
+            onQueryChanged(TextFieldValue(""))
             onDismiss()
         },
         sheetState = sheetState,
@@ -109,12 +111,12 @@ fun BookmarksBottomSheet(
                 modifier = Modifier.fillMaxWidth(),
                 value = searchQuery,
                 hint = stringResource(R.string.search_bookmarks_here),
-                onValueChange = { bookmarkViewModel.onSearchQueryChange(it) },
+                onValueChange = { onQueryChanged(it) },
                 trailingIcon = {
                     if (searchQuery.text.isNotEmpty()) {
                         IconButton(
                             onClick = withHaptic {
-                                bookmarkViewModel.onSearchQueryChange(TextFieldValue(""))
+                                onQueryChanged(TextFieldValue(""))
                             }
                         ) {
                             Icon(
@@ -177,7 +179,7 @@ fun BookmarksBottomSheet(
                             .padding(vertical = 1.dp),
                         onClick = withHaptic {
                             onBookmarkClicked(bookmark.command)
-                            bookmarkViewModel.onSearchQueryChange(TextFieldValue(""))
+                            onQueryChanged(TextFieldValue(""))
                         },
                         shape = roundedShape,
                         colors = CardDefaults.cardColors(
@@ -185,13 +187,30 @@ fun BookmarksBottomSheet(
                             contentColor = MaterialTheme.colorScheme.onSurface
                         )
                     ) {
-                        Text(
-                            text = bookmark.command,
-                            style = MaterialTheme.typography.bodyLarge,
+                        Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(horizontal = 16.dp, vertical = 12.dp)
-                        )
+                                .padding(horizontal = 16.dp, vertical = 12.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .size(8.dp)
+                                    .clip(CircleShape)
+                                    .background(
+                                        MaterialTheme.colorScheme.tertiary
+                                    )
+                            )
+
+                            Text(
+                                text = bookmark.command,
+                                style = MaterialTheme.typography.bodyLarge,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+
+                            )
+                        }
                     }
                 }
             }
