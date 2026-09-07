@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -212,6 +213,7 @@ fun BookmarksBottomSheet(
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .clip(RoundedCornerShape(24.dp))
                     .weight(1f, fill = false)
             ) {
                 if (pinnedBookmarks.isNotEmpty()) {
@@ -225,6 +227,10 @@ fun BookmarksBottomSheet(
                         }
 
                         BookmarkItem(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 1.dp)
+                                .animateItem(),
                             bookmark = bookmark,
                             isSelected = isSelected,
                             inSelectionMode = inSelectionMode,
@@ -263,6 +269,10 @@ fun BookmarksBottomSheet(
                     }
 
                     BookmarkItem(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 1.dp)
+                            .animateItem(),
                         bookmark = bookmark,
                         isSelected = isSelected,
                         inSelectionMode = inSelectionMode,
@@ -335,8 +345,8 @@ private fun SelectionActionsRow(
             modifier = modifier,
             shape = CardCornerShape.FIRST_CARD,
             colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                contentColor = MaterialTheme.colorScheme.onSurface
             )
         ) {
             Row(
@@ -427,6 +437,7 @@ private fun SelectionActionsRow(
 
 @Composable
 private fun BookmarkItem(
+    modifier: Modifier = Modifier,
     bookmark: BookmarkEntity,
     isSelected: Boolean,
     inSelectionMode: Boolean,
@@ -438,9 +449,7 @@ private fun BookmarkItem(
     onLongClick: () -> Unit
 ) {
     CustomCard(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 1.dp),
+        modifier = modifier,
         onClick = withHaptic {
             if (inSelectionMode) {
                 onToggleSelection()
