@@ -1,4 +1,4 @@
-﻿package `in`.hridayan.ashell.core.common.domain.model.ai
+package `in`.hridayan.ashell.core.common.domain.model.ai
 
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.resources.R
@@ -27,5 +27,10 @@ enum class AiSkill(
         R.string.database_modification,
         R.string.des_database_modification,
         SettingsKeys.AiSkillDatabase
+    ),
+    DEVICE_DIAGNOSTICS(
+        R.string.device_diagnostics,
+        R.string.des_device_diagnostics,
+        SettingsKeys.AiSkillDeviceDiagnostics
     )
 }
