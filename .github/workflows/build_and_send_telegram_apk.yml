@@ -3,6 +3,9 @@ name: Build and Publish APK to Telegram
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build:
     name: Build and Send APK

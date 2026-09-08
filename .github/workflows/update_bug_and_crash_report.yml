@@ -9,6 +9,9 @@ on:
       - 'v*'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   sync_dropdown:
     runs-on: ubuntu-latest
