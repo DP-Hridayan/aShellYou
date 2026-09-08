@@ -24,6 +24,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
@@ -31,6 +32,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
 import java.util.UUID
 import javax.inject.Inject
 
@@ -226,11 +228,8 @@ class AiChatViewModel @Inject constructor(
                             val formattedArgs = try {
                                 val parsed = json.parseToJsonElement(argsStr)
                                 val prettyJson =
-                                    kotlinx.serialization.json.Json { prettyPrint = true }
-                                prettyJson.encodeToString(
-                                    kotlinx.serialization.json.JsonElement.serializer(),
-                                    parsed
-                                )
+                                    Json { prettyPrint = true }
+                                prettyJson.encodeToString(JsonElement.serializer(), parsed)
                             } catch (e: Exception) {
                                 argsStr
                             }
@@ -242,6 +241,7 @@ class AiChatViewModel @Inject constructor(
                                 )
                             )
                         }
+
                         if (toolRes != null) {
                             val resStr = toolRes.result
                             val lines = resStr.lines()
@@ -306,7 +306,7 @@ class AiChatViewModel @Inject constructor(
             }
 
             items
-        }.flowOn(kotlinx.coroutines.Dispatchers.Default)
+        }.flowOn(Dispatchers.Default)
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5000),
@@ -322,10 +322,25 @@ class AiChatViewModel @Inject constructor(
     }
 
     fun onNewChat() {
-        val newSessionId = UUID.randomUUID().toString()
         viewModelScope.launch {
-            chatRepository.createNewSession(newSessionId, "New Chat")
-            _currentSessionId.value = newSessionId
+            val sessions = chatRepository.getAllSessions().first()
+            val latestSession = sessions.maxByOrNull { it.createdAt }
+            var reuseSessionId: String? = null
+
+            if (latestSession != null) {
+                val messages = chatRepository.getMessagesForSessionSync(latestSession.id)
+                if (messages.isEmpty()) {
+                    reuseSessionId = latestSession.id
+                }
+            }
+
+            if (reuseSessionId != null) {
+                _currentSessionId.value = reuseSessionId
+            } else {
+                val newSessionId = UUID.randomUUID().toString()
+                chatRepository.createNewSession(newSessionId, "New Chat")
+                _currentSessionId.value = newSessionId
+            }
         }
     }
 
