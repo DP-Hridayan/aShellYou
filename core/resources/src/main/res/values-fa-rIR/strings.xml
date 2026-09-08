@@ -69,6 +69,7 @@
     <string name="auto_backup" comment="Setting toggle title for scheduled automatic backups">پشتیبان‌گیری خودکار</string>
     <string name="auto_backup_content_type" comment="Setting title for selecting items to include in automatic backups">تاریخ پشتیبان‌گیری</string>
     <string name="auto_backup_folder" comment="Setting title for selecting target local folder for automatic backups">پشتیبان‌گیری ناموفق بود</string>
+    <string name="auto_clear_cache">Auto clear cache</string>
     <string name="auto_dark_mode" comment="Setting toggle title to enable dark mode automatically when battery saver is active">حالت تاریک خودکار</string>
     <string name="auto_delete_existing_backups" comment="Setting toggle title to delete older backup files when a new backup is created">حذف خودکار پشتیبان‌های قدیمی</string>
     <string name="auto_scale_ui" comment="Setting toggle title to automatically scale UI based on device screen width">مقیاس خودکار رابط کاربری</string>
@@ -109,6 +110,7 @@
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">حجم کش: %s</string>
     <string name="cancel">لغو</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">لغو همه</string>
+    <string name="cancel_selection">Cancel selection</string>
     <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">در حال لغو…</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">تغییرات</string>
     <string name="changelogs" comment="Settings list item title for viewing version history logs">تغییرات</string>
@@ -208,6 +210,8 @@
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">هشدار! این عمل برگشت‌ناپذیر است\nآیا مطمئن هستید که می‌خواهید همه نشانک‌ها را حذف کنید؟</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">تأیید حذف</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">آیا از حذف «%1$s» مطمئن هستید؟ اگر در حال حاضر اعمال شده باشد، برنامه به فونت سیستم بازمی‌گردد.</string>
+    <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">Warning ! This action is irreversible\nAre you sure you want to delete these %1$d selected bookmarks?</string>
+    <string name="confirm_single_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting a single saved bookmark">Warning ! This action is irreversible\nAre you sure you want to delete this bookmark?</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">آیا مطمئن هستید که می‌خواهید \"%1$s\" را حذف کنید؟</string>
     <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">کش کردن به بازیابی آنی نتایج تحلیل کمک می‌کند.\nآیا همچنان می‌خواهید تمام داده‌های کش تحلیل هوش مصنوعی را پاک کنید؟</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" از قبل در این مکان وجود دارد.</string>
@@ -266,6 +270,7 @@
     <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">انتخاب موارد موجود در پشتیبان‌گیری‌های خودکار</string>
     <string name="des_auto_backup_folder" comment="Description under Backup folder setting">انتخاب پوشه برای ذخیره پشتیبان‌های خودکار</string>
     <string name="des_auto_backup_time" comment="Description under Backup time setting">تنظیم زمان پشتیبان‌گیری‌های خودکار</string>
+    <string name="des_auto_clear_ai_cache">Automatically clears AI analysis cache when the cache duration expires</string>
     <string name="des_auto_dark_mode" comment="Description under Auto dark mode setting">سوئیچ خودکار به حالت تاریک هنگام فعال شدن صرفه‌جویی باتری</string>
     <string name="des_auto_delete_existing_backups" comment="Description under Auto-delete old backups setting">حذف پشتیبان‌های خودکار قدیمی‌تر هنگام ذخیره جدیدی</string>
     <string name="des_auto_scale_ui" comment="Description under Auto scale UI setting">مقیاس‌دهی خودکار رابط کاربری بر اساس کوچک‌ترین عرض دستگاه</string>
@@ -285,9 +290,10 @@
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">انتخاب پوشه برای ذخیره خروجی شل</string>
     <string name="des_contributors" comment="Description under Contributors item in About section">فهرست همکارانی که در توسعه aShell You کمک کردند</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">مشاهده همه خرابی‌های برنامه</string>
-    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">اجازه دادن به عامل هوش مصنوعی برای افزودن، ویرایش یا حذف موارد پایگاه داده</string>
     <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">انتخاب زمان استفاده برنامه از طرح رنگ تیره</string>
+    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">اجازه دادن به عامل هوش مصنوعی برای افزودن، ویرایش یا حذف موارد پایگاه داده</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">انتخاب زبان پیش‌فرض برنامه</string>
+    <string name="des_device_diagnostics" comment="Description explaining that this skill allows the AI to check device status">Allow the AI agent to check battery, memory, storage, hardware, and network status natively</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">مفید هنگام استفاده از کیبورد خارجی</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">آپلود پشتیبان رمزگذاری شده به گوگل درایو.\nاین عمل باعث بازنویسی هرگونه پشتیبان ابری موجود خواهد شد.</string>
     <string name="des_drive_restore" comment="Description card text for Google Drive restore option">دانلود آخرین نسخه پشتیبان از گوگل درایو</string>
@@ -342,6 +348,7 @@
     <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">گزینه‌های توسعه‌دهنده الزامی است</string>
     <string name="device_backup_local" comment="Label for local device storage backup file">پشتیبان‌گیری دستگاه (محلی)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">دستگاه متصل شد!</string>
+    <string name="device_diagnostics" comment="Title for the device diagnostics skill toggle in AI settings">Device Diagnostics</string>
     <string name="device_disconnected" comment="Notification title when ADB connection drops">دستگاه قطع شد</string>
     <string name="device_disconnected_message" comment="Notification body message when wireless ADB connection is lost">اتصال WiFi ADB قطع شد.</string>
     <string name="device_disconnected_message_with_name" comment="%s = device name">\"%s\" قطع شد.</string>
@@ -680,6 +687,7 @@
     <string name="permission_optional" comment="Subtext notice indicating requested permissions are non-mandatory">اعطای این مجوزها اختیاری است!</string>
     <string name="pick_ashellyou_extension" comment="File picker validation error requiring user to select a .ashellyou backup file">لطفاً فایلی با پسوند .ashellyou انتخاب کنید</string>
     <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">انتخاب رنگ</string>
+    <string name="pin_all">Pin selected</string>
     <string name="port" comment="Field label for network port number in wireless ADB manual pairing setup">پورت</string>
     <string name="possible_reasons" comment="Dialog section header listing potential causes of ADB connection failure">دلایل احتمالی</string>
     <string name="pre_release_github" comment="Option in update channel settings to receive GitHub pre-release builds">پیش‌انتشار (گیت‌هاب)</string>
@@ -784,6 +792,7 @@
     <string name="select_theme_to_edit_hex" comment="Instructional prompt under hex editor section in theme builder">یک پوسته در بالا انتخاب کنید تا مقادیر هگز خام آن را در اینجا ویرایش کنید.</string>
     <string name="select_time" comment="Button label to open time picker dialog for automated backup schedule">انتخاب همه</string>
     <string name="select_zip_package" comment="Button label to launch file picker for selecting a ZIP update package to sideload">انتخاب بسته ZIP</string>
+    <string name="selected_items" comment="Indicator showing how many items are currently selected">Selected items (%1$d)</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">خود</string>
     <string name="self_pair_connection_failed" comment="Toast error message when automatic local self-pairing fails">اتصال ناموفق - اتصال دستی را امتحان کنید</string>
     <string name="self_pair_enter_code" comment="Subtext instruction prompting user for 6-digit wireless pairing code">کد ۶ رقمی را از پنجره جفت‌سازی وارد کنید</string>
@@ -896,6 +905,7 @@
     <string name="unknown_sources_install_permission_not_granted" comment="Error toast when REQUEST_INSTALL_PACKAGES permission is missing for app update installation">مجوز داده نشد. لطفاً نصب برنامه از منابع ناشناخته را مجاز کنید.</string>
     <string name="unlock_status" comment="Device property label displaying bootloader lock state">وضعیت قفل</string>
     <string name="unlocked" comment="Status badge showing bootloader is unlocked">قفل‌گشایی شده</string>
+    <string name="unpin_all">Unpin selected</string>
     <string name="untitled" comment="Default name fallback for unsaved theme profile or custom tile">بدون عنوان</string>
     <string name="update">بروزرسانی</string>
     <string name="update_available" comment="Banner title announcing a new application update release">بروزرسانی موجود است!</string>

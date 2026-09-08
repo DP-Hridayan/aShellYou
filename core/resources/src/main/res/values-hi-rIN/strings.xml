@@ -69,6 +69,7 @@
     <string name="auto_backup" comment="Setting toggle title for scheduled automatic backups">स्वचालित संरक्षण</string>
     <string name="auto_backup_content_type" comment="Setting title for selecting items to include in automatic backups">बैकअप फ़ोल्डर</string>
     <string name="auto_backup_folder" comment="Setting title for selecting target local folder for automatic backups">बैकअप फ़ोल्डर</string>
+    <string name="auto_clear_cache">Auto clear cache</string>
     <string name="auto_dark_mode" comment="Setting toggle title to enable dark mode automatically when battery saver is active">ऑटो डार्क मोड</string>
     <string name="auto_delete_existing_backups" comment="Setting toggle title to delete older backup files when a new backup is created">पुराने बैकअप स्वतः हटाएं</string>
     <string name="auto_scale_ui" comment="Setting toggle title to automatically scale UI based on device screen width">UI स्वतः स्केल करें</string>
@@ -109,6 +110,7 @@
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">कैशे आकार: %s</string>
     <string name="cancel">रद्द करें</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">सभी रद्द करें</string>
+    <string name="cancel_selection">Cancel selection</string>
     <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">रद्द किया जा रहा है…</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">परिवर्तन सूची</string>
     <string name="changelogs" comment="Settings list item title for viewing version history logs">नवीनतम बदलाव</string>
@@ -208,6 +210,8 @@
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">चेतावनी! यह क्रिया अपरिवर्तनीय है\nक्या आप वाकई सभी बुकमार्क हटाना चाहते हैं?</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">मिटाने की पुष्टि करें</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">क्या आप निश्चित रूप से \"%1$s\" को हटाना चाहते हैं? यदि यह वर्तमान में लागू है, तो ऐप सिस्टम फ़ॉन्ट पर वापस आ जाएगा।</string>
+    <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">Warning ! This action is irreversible\nAre you sure you want to delete these %1$d selected bookmarks?</string>
+    <string name="confirm_single_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting a single saved bookmark">Warning ! This action is irreversible\nAre you sure you want to delete this bookmark?</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">क्या आप वाकई \"%1$s\" हटाना चाहते हैं?</string>
     <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">कैशे करने से विश्लेषण परिणाम तुरंत पुनः प्राप्त करने में मदद मिलती है।\nक्या आप फिर भी सभी AI विश्लेषण कैशे डेटा साफ़ करना चाहते हैं?</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" इस स्थान पर पहले से मौजूद है।</string>
@@ -266,6 +270,7 @@
     <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">स्वचालित बैकअप में क्या शामिल करना है चुनें</string>
     <string name="des_auto_backup_folder" comment="Description under Backup folder setting">स्वचालित बैकअप सहेजने के लिए एक फ़ोल्डर चुनें</string>
     <string name="des_auto_backup_time" comment="Description under Backup time setting">स्वचालित बैकअप के लिए समय सेट करें</string>
+    <string name="des_auto_clear_ai_cache">Automatically clears AI analysis cache when the cache duration expires</string>
     <string name="des_auto_dark_mode" comment="Description under Auto dark mode setting">बैटरी सेवर सक्षम होने पर स्वचालित रूप से डार्क मोड पर स्विच करें</string>
     <string name="des_auto_delete_existing_backups" comment="Description under Auto-delete old backups setting">नया बैकअप सहेजे जाने पर पुराने स्वचालित बैकअप हटाएं</string>
     <string name="des_auto_scale_ui" comment="Description under Auto scale UI setting">डिवाइस की सबसे छोटी चौड़ाई के अनुसार UI को स्वचालित रूप से स्केल करता है</string>
@@ -285,9 +290,10 @@
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">शेल आउटपुट को सहेजने के लिए एक निर्देशिका चुनें</string>
     <string name="des_contributors" comment="Description under Contributors item in About section">aShell You के विकास में मदद करने वाले योगदानकर्ताओं की सूची</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">ऐप में हुई सभी क्रैश देखें</string>
-    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">AI एजेंट को डेटाबेस आइटम जोड़ने, संशोधित करने या हटाने की अनुमति दें</string>
     <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">चुनें कि ऐप कब अपने डार्क कलर स्कीम का उपयोग करे</string>
+    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">AI एजेंट को डेटाबेस आइटम जोड़ने, संशोधित करने या हटाने की अनुमति दें</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">ऐप के लिए डिफ़ॉल्ट भाषा चुनें</string>
+    <string name="des_device_diagnostics" comment="Description explaining that this skill allows the AI to check device status">AI एजेंट को मूल रूप से बैटरी, मेमोरी, स्टोरेज, हार्डवेयर और नेटवर्क की स्थिति जांचने की अनुमति दें</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">जब आप बाहरी कीबोर्ड का उपयोग करना चाहते हैं तो उपयोगी होता है</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">अपने Google ड्राइव पर एन्क्रिप्टेड बैकअप अपलोड करें।\nयह क्रिया किसी भी मौजूदा क्लाउड बैकअप को ओवरराइड कर देगी।</string>
     <string name="des_drive_restore" comment="Description card text for Google Drive restore option">Google ड्राइव से अपना नवीनतम बैकअप डाउनलोड करें</string>
@@ -342,6 +348,7 @@
     <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">डेवलपर विकल्प आवश्यक हैं</string>
     <string name="device_backup_local" comment="Label for local device storage backup file">डिवाइस बैकअप (स्थानीय)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">डिवाइस कनेक्ट है!</string>
+    <string name="device_diagnostics" comment="Title for the device diagnostics skill toggle in AI settings">डिवाइस डायग्नोस्टिक्स</string>
     <string name="device_disconnected" comment="Notification title when ADB connection drops">डिवाइस डिस्कनेक्ट</string>
     <string name="device_disconnected_message" comment="Notification body message when wireless ADB connection is lost">वाई-फाई ADB कनेक्शन खो गया।</string>
     <string name="device_disconnected_message_with_name" comment="%s = device name">\"%s\" डिस्कनेक्ट हो गया।</string>
@@ -680,6 +687,7 @@
     <string name="permission_optional" comment="Subtext notice indicating requested permissions are non-mandatory">ये अनुमतियाँ देना वैकल्पिक है!</string>
     <string name="pick_ashellyou_extension" comment="File picker validation error requiring user to select a .ashellyou backup file">कृपया .ashellyou एक्सटेंशन वाली फ़ाइल चुनें</string>
     <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">रंग चुनें</string>
+    <string name="pin_all">Pin selected</string>
     <string name="port" comment="Field label for network port number in wireless ADB manual pairing setup">पोर्ट</string>
     <string name="possible_reasons" comment="Dialog section header listing potential causes of ADB connection failure">संभावित कारण</string>
     <string name="pre_release_github" comment="Option in update channel settings to receive GitHub pre-release builds">प्री-रिलीज (GitHub)</string>
@@ -784,6 +792,7 @@
     <string name="select_theme_to_edit_hex" comment="Instructional prompt under hex editor section in theme builder">यहाँ इसके रॉ हेक्स मानों को संपादित करने के लिए ऊपर एक थीम चुनें।</string>
     <string name="select_time" comment="Button label to open time picker dialog for automated backup schedule">समय चुनें</string>
     <string name="select_zip_package" comment="Button label to launch file picker for selecting a ZIP update package to sideload">ZIP पैकेज चुनें</string>
+    <string name="selected_items" comment="Indicator showing how many items are currently selected">Selected items (%1$d)</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">स्वयं</string>
     <string name="self_pair_connection_failed" comment="Toast error message when automatic local self-pairing fails">कनेक्शन विफल - मैन्युअल कनेक्ट करें</string>
     <string name="self_pair_enter_code" comment="Subtext instruction prompting user for 6-digit wireless pairing code">पेयरिंग डायलॉग से 6 अंकों का कोड दर्ज करें</string>
@@ -896,6 +905,7 @@
     <string name="unknown_sources_install_permission_not_granted" comment="Error toast when REQUEST_INSTALL_PACKAGES permission is missing for app update installation">अनुमति नहीं दी गई। कृपया अज्ञात स्रोतों से ऐप इंस्टॉल की अनुमति दें।</string>
     <string name="unlock_status" comment="Device property label displaying bootloader lock state">अनलॉक स्थिति</string>
     <string name="unlocked" comment="Status badge showing bootloader is unlocked">अनलॉक है</string>
+    <string name="unpin_all">Unpin selected</string>
     <string name="untitled" comment="Default name fallback for unsaved theme profile or custom tile">शीर्षकहीन</string>
     <string name="update">अपडेट करें</string>
     <string name="update_available" comment="Banner title announcing a new application update release">अपडेट उपलब्ध है!</string>

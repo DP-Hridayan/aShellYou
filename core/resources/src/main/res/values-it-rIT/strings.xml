@@ -69,6 +69,7 @@
     <string name="auto_backup" comment="Setting toggle title for scheduled automatic backups">Backup automatico</string>
     <string name="auto_backup_content_type" comment="Setting title for selecting items to include in automatic backups">Contenuto del backup</string>
     <string name="auto_backup_folder" comment="Setting title for selecting target local folder for automatic backups">Cartella di backup</string>
+    <string name="auto_clear_cache">Pulisci automaticamente la cache</string>
     <string name="auto_dark_mode" comment="Setting toggle title to enable dark mode automatically when battery saver is active">Modalità scura automatica</string>
     <string name="auto_delete_existing_backups" comment="Setting toggle title to delete older backup files when a new backup is created">Elimina automaticamente i vecchi backup</string>
     <string name="auto_scale_ui" comment="Setting toggle title to automatically scale UI based on device screen width">Scala automaticamente UI</string>
@@ -109,6 +110,7 @@
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Dimensione cache: %s</string>
     <string name="cancel">Annulla</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">Annulla tutto</string>
+    <string name="cancel_selection">Annulla selezione</string>
     <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">Annullamento in corso…</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">Registro modifiche</string>
     <string name="changelogs" comment="Settings list item title for viewing version history logs">Registro modifiche</string>
@@ -208,6 +210,8 @@
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Attenzione! Questa azione è irreversibile\nSei sicuro di voler eliminare tutti i segnalibri?</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Conferma eliminazione</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">Are you sure you want to remove \"%1$s\"? If it is currently appliced, the app will reutt to System font.</string>
+    <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">Warning ! This action is irreversible\nAre you sure you want to delete these %1$d selected bookmarks?</string>
+    <string name="confirm_single_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting a single saved bookmark">Attenzione! Questa azione è irreversibile\nSei sicuro di voler eliminare questo segnalibro?</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">Sei sicuro di voler eliminare questo riquadro?</string>
     <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">La cache aiuta a recuperare immediatamente i risultati dell\'analisi.\nVuoi ancora cancellare tutti i dati della cache di analisi AI?</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" esiste già in questa posizione.</string>
@@ -266,6 +270,7 @@
     <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">Scegli cosa includere nei backup automatici</string>
     <string name="des_auto_backup_folder" comment="Description under Backup folder setting">Seleziona una cartella per salvare i backup automatici</string>
     <string name="des_auto_backup_time" comment="Description under Backup time setting">Imposta l\'ora per i backup automatici</string>
+    <string name="des_auto_clear_ai_cache">Cancella automaticamente la cache di analisi IA quando la durata della cache scade</string>
     <string name="des_auto_dark_mode" comment="Description under Auto dark mode setting">Passa automaticamente alla modalità scura quando il risparmio energetico è abilitato</string>
     <string name="des_auto_delete_existing_backups" comment="Description under Auto-delete old backups setting">Elimina i vecchi backup automatici quando viene salvato uno nuovo</string>
     <string name="des_auto_scale_ui" comment="Description under Auto scale UI setting">Scala automaticamente la UI in base alla larghezza più piccola del dispositivo</string>
@@ -285,9 +290,10 @@
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">Scegli una cartella per salvare l\'output della shell</string>
     <string name="des_contributors" comment="Description under Contributors item in About section">Elenco dei collaboratori che hanno aiutato nello sviluppo di aShell You</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">Visualizza tutti i crash che si sono verificati nell\'app</string>
-    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Permetti all\'agente IA di aggiungere, modificare o eliminare elementi del database</string>
     <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">Scegli quando l\'app utilizza il suo schema di colori scuri</string>
+    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Permetti all\'agente IA di aggiungere, modificare o eliminare elementi del database</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">Scegli la lingua predefinita per l\'app</string>
+    <string name="des_device_diagnostics" comment="Description explaining that this skill allows the AI to check device status">Consenti all\'agente IA di controllare nativamente lo stato della batteria, della memoria, dell\'archiviazione, dell\'hardware e della rete</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">Utile quando si desidera utilizzare una tastiera esterna</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">Carica backup crittografato sul tuo Google Drive.\nQuesta azione sovrascriverà qualsiasi backup cloud esistente.</string>
     <string name="des_drive_restore" comment="Description card text for Google Drive restore option">Scarica il tuo ultimo backup da Google Drive</string>
@@ -342,6 +348,7 @@
     <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">Opzioni Sviluppatore Necessarie</string>
     <string name="device_backup_local" comment="Label for local device storage backup file">Backup del dispositivo (locale)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">Dispositivo connesso!</string>
+    <string name="device_diagnostics" comment="Title for the device diagnostics skill toggle in AI settings">Diagnostica Del Dispositivo</string>
     <string name="device_disconnected" comment="Notification title when ADB connection drops">Dispositivo disconnesso</string>
     <string name="device_disconnected_message" comment="Notification body message when wireless ADB connection is lost">La connessione WiFi ADB è stata persa.</string>
     <string name="device_disconnected_message_with_name" comment="%s = device name">\"%s\" si è disconnesso.</string>
@@ -680,6 +687,7 @@
     <string name="permission_optional" comment="Subtext notice indicating requested permissions are non-mandatory">Concedere questi permessi è opzionale!</string>
     <string name="pick_ashellyou_extension" comment="File picker validation error requiring user to select a .ashellyou backup file">Scegliere un file con estensione .ashellyou</string>
     <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">Scegli colore</string>
+    <string name="pin_all">Pin selezionato</string>
     <string name="port" comment="Field label for network port number in wireless ADB manual pairing setup">Porta</string>
     <string name="possible_reasons" comment="Dialog section header listing potential causes of ADB connection failure">Possibili cause</string>
     <string name="pre_release_github" comment="Option in update channel settings to receive GitHub pre-release builds">Pre-rilascio (GitHub)</string>
@@ -784,6 +792,7 @@
     <string name="select_theme_to_edit_hex" comment="Instructional prompt under hex editor section in theme builder">Seleziona un tema sopra per modificarne i valori esadecimali grezzi qui.</string>
     <string name="select_time" comment="Button label to open time picker dialog for automated backup schedule">Seleziona l\'ora</string>
     <string name="select_zip_package" comment="Button label to launch file picker for selecting a ZIP update package to sideload">Seleziona pacchetto ZIP</string>
+    <string name="selected_items" comment="Indicator showing how many items are currently selected">Elementi selezionati (%1$d)</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">Sé</string>
     <string name="self_pair_connection_failed" comment="Toast error message when automatic local self-pairing fails">Connessione fallita - prova connessione manuale</string>
     <string name="self_pair_enter_code" comment="Subtext instruction prompting user for 6-digit wireless pairing code">Inserire il codice a 6 cifre dalla finestra di dialogo di accoppiamento</string>
@@ -896,6 +905,7 @@
     <string name="unknown_sources_install_permission_not_granted" comment="Error toast when REQUEST_INSTALL_PACKAGES permission is missing for app update installation">Permesso non concesso. Consenti l\'installazione di app da fonti sconosciute.</string>
     <string name="unlock_status" comment="Device property label displaying bootloader lock state">Stato sblocco</string>
     <string name="unlocked" comment="Status badge showing bootloader is unlocked">Sbloccato</string>
+    <string name="unpin_all">Sblocca selezionati</string>
     <string name="untitled" comment="Default name fallback for unsaved theme profile or custom tile">Senza Titolo</string>
     <string name="update">Aggiorna</string>
     <string name="update_available" comment="Banner title announcing a new application update release">Aggiornamento disponibile!</string>

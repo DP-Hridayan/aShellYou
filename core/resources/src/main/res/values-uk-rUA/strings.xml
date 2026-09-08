@@ -69,6 +69,7 @@
     <string name="auto_backup" comment="Setting toggle title for scheduled automatic backups">Авторезервування</string>
     <string name="auto_backup_content_type" comment="Setting title for selecting items to include in automatic backups">Резервування вмісту</string>
     <string name="auto_backup_folder" comment="Setting title for selecting target local folder for automatic backups">Тека резервування</string>
+    <string name="auto_clear_cache">Автоочищення кешу</string>
     <string name="auto_dark_mode" comment="Setting toggle title to enable dark mode automatically when battery saver is active">Авто темний режим</string>
     <string name="auto_delete_existing_backups" comment="Setting toggle title to delete older backup files when a new backup is created">Автовидалення старих резервувань</string>
     <string name="auto_scale_ui" comment="Setting toggle title to automatically scale UI based on device screen width">Автомасштабування UI</string>
@@ -109,6 +110,7 @@
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Розмір кешу: %s</string>
     <string name="cancel">Скасувати</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">Скасувати все</string>
+    <string name="cancel_selection">Скасувати вибір</string>
     <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">Скасування…</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">Список змін</string>
     <string name="changelogs" comment="Settings list item title for viewing version history logs">Журнали змін</string>
@@ -208,6 +210,8 @@
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Увага! Цю дію неможливо скасувати.\nВи впевнені, що хочете видалити всі закладки?</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Підтвердити видалення</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">Ви впевнені, що хочете видалити \"%1$s\"? Якщо він наразі застосований, програма повернеться до системного шрифту.</string>
+    <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">Попередження ! Ця дія є незворотною\nВи впевнені, що хочете видалити ці %1$d вибрані закладки?</string>
+    <string name="confirm_single_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting a single saved bookmark">Попередження ! Ця дія є незворотною\nВи впевнені, що хочете видалити цю закладку?</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">Ви впевнені, що хочете видалити цю плитку?</string>
     <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">Кешування допомагає миттєво отримувати результати аналізу.\nВи все ще хочете очистити всі дані кешу аналізу AI?</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" вже існує в цьому місці.</string>
@@ -266,6 +270,7 @@
     <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">Виберіть, що включити до авторезервувань</string>
     <string name="des_auto_backup_folder" comment="Description under Backup folder setting">Виберіть теку для збереження авторезервувань</string>
     <string name="des_auto_backup_time" comment="Description under Backup time setting">Встановіть час для авторезервувань</string>
+    <string name="des_auto_clear_ai_cache">Автоматично очищає кеш-пам’ять аналізу AI, коли закінчується тривалість кешу</string>
     <string name="des_auto_dark_mode" comment="Description under Auto dark mode setting">Автоперемикання в темний режим, коли ввімкнено режим економії батареї</string>
     <string name="des_auto_delete_existing_backups" comment="Description under Auto-delete old backups setting">Видаляти старі авторезервування, коли зберігається нова</string>
     <string name="des_auto_scale_ui" comment="Description under Auto scale UI setting">Авто масштабує UI відповідно до мінімальної ширини екрана пристрою</string>
@@ -285,9 +290,10 @@
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">Виберіть каталог для збереження виводу оболонки</string>
     <string name="des_contributors" comment="Description under Contributors item in About section">Список учасників, які допомогли у розробці aShell You</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">Переглянути всі збої, що сталися в додатку</string>
+    <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">Виберіть, коли додаток має використовувати темну колірну схему</string>
     <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Дозволити агенту AI додавати, змінювати або видаляти елементи бази даних</string>
-    <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">Виберіть, коли додаток використовує свою темну колірну схему</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">Виберіть мову за замовчуванням для додатка</string>
+    <string name="des_device_diagnostics" comment="Description explaining that this skill allows the AI to check device status">Дозвольте агенту AI самостійно перевіряти стан акумулятора, пам’яті, зберігання, апаратного забезпечення та мережі</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">Корисно, коли потрібно використовувати зовнішню клавіатуру</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">Завантажте зашифроване резервування на Google Диск.\nЦя дія перезапише будь-які що існують хмарні резервні копії.</string>
     <string name="des_drive_restore" comment="Description card text for Google Drive restore option">Завантажити останнє резервування з Google Диску</string>
@@ -314,7 +320,7 @@
     <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">Можлива затримка, якщо додано велику кількість закладок! На недорогих пристроях цю опцію слід вимкнути</string>
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Дозволити агенту AI запитувати встановлені пакунки та дані додатків</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">Сполучити інший цільовий пристрій</string>
-    <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">Виберіть, як кольори беруться з seed теми</string>
+    <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">Виберіть спосіб отримання кольорів на основі початкового набору теми</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">Як aShell You обробляє ваші дані</string>
     <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">Ми оновили нашу політику конфіденційності. Будь ласка, знайдіть хвилинку, щоб переглянути зміни.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">Створити плитки швидких налаштувань для виконання команд adb</string>
@@ -331,7 +337,7 @@
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">Коли увімкнено, плитка перемикається між станами УВІМК та ВИМК при кожному натисканні, виконуючи різні команди для кожного стану</string>
     <string name="des_translators" comment="Subtitle description under Translators list in About section">Люди, які допомогли перекласти aShellYou</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">Регулювання масштабу елементів UI та розмір шрифту</string>
-    <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">Виберіть, які релізи програма перевіряє</string>
+    <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">Виберіть, які релізи додаток перевірятиме</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">Будьте обережні, тому що неправильний образ може викликати bootloop</string>
     <string name="description">Опис</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">Зняти вибір з усіх</string>
@@ -342,6 +348,7 @@
     <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">Необхідні Параметри розробника</string>
     <string name="device_backup_local" comment="Label for local device storage backup file">Резервування пристрою (Локально)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">Пристрій під\'єднано!</string>
+    <string name="device_diagnostics" comment="Title for the device diagnostics skill toggle in AI settings">Діагностика пристрою</string>
     <string name="device_disconnected" comment="Notification title when ADB connection drops">Пристрій від\'єднано</string>
     <string name="device_disconnected_message" comment="Notification body message when wireless ADB connection is lost">З’єднання Wi-Fi ADB було втрачено.</string>
     <string name="device_disconnected_message_with_name" comment="%s = device name">\"%s\" відключився.</string>
@@ -680,6 +687,7 @@
     <string name="permission_optional" comment="Subtext notice indicating requested permissions are non-mandatory">Надання цих дозволів необов\'язкове!</string>
     <string name="pick_ashellyou_extension" comment="File picker validation error requiring user to select a .ashellyou backup file">Будь ласка, виберіть файл із розширенням \".ashellyou\"</string>
     <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">Вибрати колір</string>
+    <string name="pin_all">Закріпити обране</string>
     <string name="port" comment="Field label for network port number in wireless ADB manual pairing setup">Порт</string>
     <string name="possible_reasons" comment="Dialog section header listing potential causes of ADB connection failure">Можливі причини</string>
     <string name="pre_release_github" comment="Option in update channel settings to receive GitHub pre-release builds">Перед реліз (GitHub)</string>
@@ -784,6 +792,7 @@
     <string name="select_theme_to_edit_hex" comment="Instructional prompt under hex editor section in theme builder">Виберіть тему вище, щоб змінити її значення у hex.</string>
     <string name="select_time" comment="Button label to open time picker dialog for automated backup schedule">Виберіть час</string>
     <string name="select_zip_package" comment="Button label to launch file picker for selecting a ZIP update package to sideload">Вибрати ZIP пакет</string>
+    <string name="selected_items" comment="Indicator showing how many items are currently selected">Вибрані елементи (%1$d)</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">Своє</string>
     <string name="self_pair_connection_failed" comment="Toast error message when automatic local self-pairing fails">Помилка підключення - спробуйте ручне підключення</string>
     <string name="self_pair_enter_code" comment="Subtext instruction prompting user for 6-digit wireless pairing code">Введіть 6-значний код із діалогового вікна сполучення</string>
@@ -865,7 +874,7 @@
     <string name="terminal" comment="Refers to shell command line terminal execution screen">Термінал</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Стиль шрифту терміналу</string>
     <string name="tertiary">Третинний</string>
-    <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">Теми</string>
+    <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">Режим теми</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">Сторонні бібліотеки</string>
     <string name="this_application" comment="Option label for target scope in Logcat Viewer">Цей додаток</string>
     <string name="this_device" comment="Selection option for target ADB device matching host phone">Цей пристрій</string>
@@ -896,6 +905,7 @@
     <string name="unknown_sources_install_permission_not_granted" comment="Error toast when REQUEST_INSTALL_PACKAGES permission is missing for app update installation">Дозвіл не надано. Дозвольте встановлення програми з невідомих джерел.</string>
     <string name="unlock_status" comment="Device property label displaying bootloader lock state">Стан Розблокування</string>
     <string name="unlocked" comment="Status badge showing bootloader is unlocked">Розблоковано</string>
+    <string name="unpin_all">Відкріпити вибрані</string>
     <string name="untitled" comment="Default name fallback for unsaved theme profile or custom tile">Без назви</string>
     <string name="update">Оновлення</string>
     <string name="update_available" comment="Banner title announcing a new application update release">Доступне оновлення!</string>
