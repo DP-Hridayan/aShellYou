@@ -42,6 +42,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.LinkAnnotation
@@ -54,6 +55,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.ai.presentation.viewmodel.CloudModelsViewModel
+import `in`.hridayan.ashell.ai.presentation.viewmodel.VerificationState
 import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
 import `in`.hridayan.ashell.core.navigation.LocalNavController
@@ -69,8 +71,7 @@ import `in`.hridayan.ashell.core.resources.R
 fun CloudModelsScreen(viewModel: CloudModelsViewModel = hiltViewModel()) {
     val navController = LocalNavController.current
 
-    val isVerifying by viewModel.isVerifying.collectAsState()
-    val verificationResult by viewModel.verificationResult.collectAsState()
+    val verificationState by viewModel.verificationState.collectAsState()
 
     val listState = rememberLazyListState()
     val topBarState = rememberTopAppBarState()
@@ -104,12 +105,17 @@ fun CloudModelsScreen(viewModel: CloudModelsViewModel = hiltViewModel()) {
 
                     // Since we only have Gemini now, we just hardcode it for simplicity, but we can iterate LlmProvider.all
                     LlmProvider.all.forEach { provider ->
+
+                        val hasKey by viewModel.hasKey(provider).collectAsState(initial = false)
+
                         ApiKeySection(
                             modifier = Modifier.fillMaxWidth(),
-                            viewModel = viewModel,
                             provider = provider,
-                            isVerifying = isVerifying,
-                            verificationResult = verificationResult
+                            hasKey = hasKey,
+                            onDeleteApiKey = { viewModel.deleteApiKey(provider) },
+                            onSaveApiKey = { key -> viewModel.saveApiKey(provider, key) },
+                            onVerifyApiKey = { viewModel.verifyKey(provider) },
+                            verificationState = verificationState
                         )
 
                         Spacer(Modifier.height(16.dp))
@@ -123,14 +129,17 @@ fun CloudModelsScreen(viewModel: CloudModelsViewModel = hiltViewModel()) {
 @Composable
 private fun ApiKeySection(
     modifier: Modifier = Modifier,
-    viewModel: CloudModelsViewModel,
     provider: LlmProvider,
-    isVerifying: Boolean,
-    verificationResult: String?
+    hasKey: Boolean,
+    onDeleteApiKey: () -> Unit,
+    onVerifyApiKey: () -> Unit,
+    onSaveApiKey: (String) -> Unit,
+    verificationState: VerificationState
 ) {
-    val hasKey by viewModel.apiKeyRepository.hasKey(provider).collectAsState(initial = false)
     var keyInput by remember(provider) { mutableStateOf("") }
     var isExpanded by rememberSaveable(provider) { mutableStateOf(false) }
+
+    val isVerifying = verificationState is VerificationState.Loading
 
     CustomCard(modifier = modifier) {
         Column(modifier = Modifier.padding(20.dp)) {
@@ -177,7 +186,7 @@ private fun ApiKeySection(
                         style = MaterialTheme.typography.bodyMedium
                     )
 
-                    TextButton(onClick = withHaptic { viewModel.deleteApiKey(provider) }) {
+                    TextButton(onClick = withHaptic { onDeleteApiKey() }) {
                         Text(
                             text = stringResource(R.string.remove)
                         )
@@ -187,7 +196,7 @@ private fun ApiKeySection(
                 Spacer(Modifier.height(8.dp))
 
                 Button(
-                    onClick = withHaptic { viewModel.verifyKey(provider) },
+                    onClick = withHaptic { onVerifyApiKey() },
                     enabled = !isVerifying,
                     modifier = Modifier.fillMaxWidth()
                 ) {
@@ -207,16 +216,42 @@ private fun ApiKeySection(
                     )
                 }
 
-                if (verificationResult != null) {
+                val displayData = when (verificationState) {
+                    is VerificationState.Success -> Triple(
+                        R.drawable.ic_verified,
+                        MaterialTheme.colorScheme.primary,
+                        verificationState.message
+                    )
+
+                    is VerificationState.Error -> Triple(
+                        R.drawable.ic_error,
+                        MaterialTheme.colorScheme.error,
+                        verificationState.message
+                    )
+
+                    else -> null
+                }
+
+                displayData?.let { (icon, color, message) ->
                     Spacer(Modifier.height(10.dp))
 
-                    Text(
-                        text = verificationResult,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.run {
-                            if (verificationResult.startsWith("✅")) primary else error
-                        }
-                    )
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(10.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            modifier = Modifier.size(16.dp),
+                            painter = painterResource(icon),
+                            tint = color,
+                            contentDescription = null
+                        )
+
+                        Text(
+                            text = message,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = color
+                        )
+                    }
                 }
             } else {
                 OutlinedTextField(
@@ -233,8 +268,8 @@ private fun ApiKeySection(
 
                 Button(
                     onClick = withHaptic {
-                        viewModel.saveApiKey(provider, keyInput)
-                        viewModel.verifyKey(provider)
+                        onSaveApiKey(keyInput)
+                        onVerifyApiKey()
                         keyInput = ""
                     },
                     enabled = keyInput.isNotBlank(),

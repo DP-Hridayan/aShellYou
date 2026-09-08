@@ -10,24 +10,33 @@ import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
 import `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository
 import `in`.hridayan.ashell.core.common.domain.usecase.ai.VerifyApiKeyUseCase
 import `in`.hridayan.ashell.core.resources.R
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+sealed interface VerificationState {
+    data object Idle : VerificationState
+    data object Loading : VerificationState
+    data class Success(val message: String) : VerificationState
+    data class Error(val message: String) : VerificationState
+}
+
 @HiltViewModel
 class CloudModelsViewModel @Inject constructor(
-    val apiKeyRepository: ApiKeyRepository,
+    private val apiKeyRepository: ApiKeyRepository,
     private val verifyApiKeyUseCase: VerifyApiKeyUseCase,
     @param:ApplicationContext private val appContext: Context
 ) : ViewModel() {
 
-    private val _verificationResult = MutableStateFlow<String?>(null)
-    val verificationResult: StateFlow<String?> = _verificationResult.asStateFlow()
+    private val _verificationState = MutableStateFlow<VerificationState>(VerificationState.Idle)
+    val verificationState: StateFlow<VerificationState> = _verificationState.asStateFlow()
 
-    private val _isVerifying = MutableStateFlow(false)
-    val isVerifying: StateFlow<Boolean> = _isVerifying.asStateFlow()
+    fun hasKey(provider: LlmProvider): Flow<Boolean> {
+        return apiKeyRepository.hasKey(provider)
+    }
 
     fun saveApiKey(provider: LlmProvider, key: String) {
         if (key.isNotBlank()) apiKeyRepository.setKey(provider, key)
@@ -35,27 +44,24 @@ class CloudModelsViewModel @Inject constructor(
 
     fun deleteApiKey(provider: LlmProvider) {
         apiKeyRepository.deleteKey(provider)
-        _verificationResult.value = null
+        _verificationState.value = VerificationState.Idle
     }
 
     fun verifyKey(provider: LlmProvider) {
-        _isVerifying.value = true
-        _verificationResult.value = null
+        _verificationState.value = VerificationState.Loading
         viewModelScope.launch {
             try {
                 val key = apiKeyRepository.getKey(provider)
                     ?: throw CloudNetworkException.ProviderNotConfigured(provider)
                 verifyApiKeyUseCase(provider, key)
-                _verificationResult.value =
-                    "✅ " + appContext.getString(R.string.key_verified_success_msg)
+                _verificationState.value =
+                    VerificationState.Success(appContext.getString(R.string.key_verified_success_msg))
             } catch (e: CloudNetworkException) {
-                _verificationResult.value =
-                    "❌ " + appContext.getString(R.string.verification_failed) + ": ${e.message}"
+                _verificationState.value =
+                    VerificationState.Error(appContext.getString(R.string.verification_failed) + ": ${e.message}")
             } catch (e: Exception) {
-                _verificationResult.value =
-                    "❌ " + appContext.getString(R.string.unexpected_error) + ": ${e.message}"
-            } finally {
-                _isVerifying.value = false
+                _verificationState.value =
+                    VerificationState.Error(appContext.getString(R.string.unexpected_error) + ": ${e.message}")
             }
         }
     }
