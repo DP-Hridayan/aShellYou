@@ -35,6 +35,7 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:navigation"))
 
+    api(libs.androidx.biometric)
     implementation(libs.androidx.appcompat)
     implementation(libs.core.ktx)
     implementation(platform(libs.compose.bom))

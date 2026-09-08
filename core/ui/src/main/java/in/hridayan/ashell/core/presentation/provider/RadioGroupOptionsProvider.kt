@@ -11,6 +11,7 @@ import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.settingsgraph.model.RadioButtonOption
 
 class RadioGroupOptionsProvider {
+
     companion object {
         val darkModeOptions: List<RadioButtonOption> = listOf(
             RadioButtonOption(

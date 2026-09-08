@@ -7,6 +7,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.DrawableRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
@@ -64,6 +65,8 @@ import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.resources.R
+import `in`.hridayan.ashell.core.ui.biometric.BiometricError
+import `in`.hridayan.ashell.core.ui.biometric.BiometricPromptManager
 import `in`.hridayan.ashell.core.utils.getFileNameFromUri
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.settings.domain.model.GoogleUserState
@@ -94,7 +97,11 @@ fun BackupAndRestoreScreen(
     val res = LocalResources.current
     val navController = LocalNavController.current
     val dialogManager = LocalDialogManager.current
-    val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
+    val settings = LocalSettings.current
+
+    val hapticsEnabled = settings[SettingsKeys.HapticsAndVibration]
+    val requireAuthForBackups = settings[SettingsKeys.RequireAuthenticationForBackups]
+    val requireAuth = settings[SettingsKeys.RequireAuthentication]
 
     val localBackupTime by backupAndRestoreViewModel.localBackupTime.collectAsState()
     val localBackupType by backupAndRestoreViewModel.localBackupType.collectAsState()
@@ -109,6 +116,32 @@ fun BackupAndRestoreScreen(
     var isLastBackupDetailsCardExpanded by rememberSaveable { mutableStateOf(false) }
     val isCloudBackupAvailable = backupAndRestoreViewModel.isCloudBackupAvailable
     var restoreFileUri by rememberSaveable { mutableStateOf("".toUri()) }
+
+    val handleAuth: (AppCompatActivity) -> Unit = { activity ->
+        BiometricPromptManager(
+            activity
+        ).showBiometricPrompt(
+            title = res.getString(R.string.biometric_prompt_title),
+            description = res.getString(R.string.biometric_prompt_description),
+            onSuccess = { settingsViewModel.handleRestoreClick() },
+            onError = { error ->
+                when (error) {
+                    BiometricError.NoneEnrolled,
+                    BiometricError.NoHardware -> {
+                        settings.set(SettingsKeys.RequireAuthentication, false)
+                        settingsViewModel.handleRestoreClick()
+                        showToast(context, res.getString(R.string.app_lock_disabled_msg))
+                    }
+
+                    is BiometricError.AuthError -> {
+                        showToast(context, error.message.toString())
+                    }
+
+                    else -> {}
+                }
+            }
+        )
+    }
 
     val launcherBackup =
         rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/octet-stream")) { uri ->
@@ -270,10 +303,24 @@ fun BackupAndRestoreScreen(
 
                 group(R.string.restore) {
                     clickableItem(SettingsKeys.RestoreAppData) {
+
                         title(R.string.restore_app_data)
                         description(R.string.des_restore_app_data)
                         icon(R.drawable.ic_restore_page)
-                        onClick { settingsViewModel.handleRestoreClick() }
+                        onClick {
+                            if (!requireAuthForBackups || !requireAuth) {
+                                settingsViewModel.handleRestoreClick()
+                                return@onClick
+                            }
+
+                            val activity = context as? AppCompatActivity
+
+                            if (activity != null) {
+                                handleAuth(activity)
+                            } else {
+                                settingsViewModel.handleRestoreClick()
+                            }
+                        }
                     }
                 }
 

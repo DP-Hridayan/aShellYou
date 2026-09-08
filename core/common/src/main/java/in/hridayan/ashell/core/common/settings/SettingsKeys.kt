@@ -41,6 +41,7 @@ sealed class SettingsKeys<out T>(
     data object CrashHistory : SettingsKeys<Nothing?>("CRASH_HISTORY", null)
     data object Report : SettingsKeys<Nothing?>("REPORT", null)
     data object FeatureRequest : SettingsKeys<Nothing?>("FEATURE_REQUEST", null)
+    data object PrivacyAndSecurity : SettingsKeys<Nothing?>("PRIVACY_AND_SECURITY", null)
     data object Licenses : SettingsKeys<Nothing?>("LICENSES", null)
     data object PrivacyPolicy : SettingsKeys<Nothing?>("PRIVACY_POLICY", null)
     data object BackupAndRestore : SettingsKeys<Nothing?>("BACKUP_AND_RESTORE", null)
@@ -55,6 +56,7 @@ sealed class SettingsKeys<out T>(
     data object QuickSettingsTiles : SettingsKeys<Nothing?>("QUICK_SETTINGS_TILES", null)
     data object Translators : SettingsKeys<Nothing?>("TRANSLATORS", null)
     data object Contributors : SettingsKeys<Nothing?>("CONTRIBUTORS", null)
+    data object AppPermissions : SettingsKeys<Nothing?>("APP_PERMISSIONS", null)
 
     data object CloudModels : SettingsKeys<Nothing?>("CLOUD_MODELS", null)
     data object AiModels : SettingsKeys<Nothing?>("AI_MODELS", null)
@@ -102,6 +104,10 @@ sealed class SettingsKeys<out T>(
 
     data object DefaultLaunchIsLocalAdb :
         SettingsKeys<Boolean>("DEFAULT_LAUNCH_IS_LOCAL_ADB", false)
+
+    data object RequireAuthentication : SettingsKeys<Boolean>("REQUIRE_AUTHENTICATION", false)
+    data object RequireAuthenticationForBackups :
+        SettingsKeys<Boolean>("REQUIRE_AUTHENTICATION_FOR_BACKUPS", false)
 
     // Float keys
 
@@ -151,6 +157,8 @@ sealed class SettingsKeys<out T>(
     data object FontFamily : SettingsKeys<Int>("FONT_FAMILY", 0)
 
     data object AppliedCustomThemeId : SettingsKeys<Int>("APPLIED_CUSTOM_THEME_ID", 0)
+
+    data object AuthenticationTimeout : SettingsKeys<Int>("AUTHENTICATION_TIMEOUT", 0)
 
     // String Keys
 

@@ -148,7 +148,7 @@ fun AiModelsScreen(
                         icon(R.drawable.ic_schedule)
                         onClick { dialogManager.show(AiDialogKey.CacheDays) }
                         visible { aiCacheEnabled }
-                        enabled(aiCacheAutoClear)
+                        enabled { aiCacheAutoClear }
                     }
 
                     clickableItem(SettingsKeys.AiCacheClear) {

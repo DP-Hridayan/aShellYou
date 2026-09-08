@@ -62,6 +62,7 @@ import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.Gener
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.LookAndFeelScreen
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.UiScaleScreen
 import `in`.hridayan.ashell.settings.presentation.page.mainscreen.screen.SettingsScreen
+import `in`.hridayan.ashell.settings.presentation.page.privacyandsecurity.screens.PrivacySecurityScreen
 import `in`.hridayan.ashell.settings.presentation.page.privacypolicy.screens.PrivacyPolicyScreen
 import `in`.hridayan.ashell.settings.presentation.page.search.screens.SettingsSearchScreen
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
@@ -225,6 +226,10 @@ fun AppNavigation(
 
             composable<NavRoutes.AutoUpdateScreen> {
                 AutoUpdateScreen()
+            }
+
+            composable<NavRoutes.PrivacySecurityScreen> {
+                PrivacySecurityScreen()
             }
 
             composable<NavRoutes.BackupAndRestoreScreen> {

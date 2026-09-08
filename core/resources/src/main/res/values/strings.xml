@@ -63,11 +63,18 @@
     <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">An API key is required to use AI features. Please add your API key in Settings -> Cloud Models.</string>
     <string name="app">App</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">App has crashed</string>
+    <string name="app_is_locked" comment="Title shown when the app is locked">App is locked</string>
+    <string name="app_is_locked_msg" comment="Message shown when the app is locked">Use your screen lock, fingerprint, or face to unlock this app and continue</string>
+    <string name="app_lock_disabled_msg" comment="Toast message informing user that app lock was disabled because device screen lock was removed">App authentication disabled: Device screen lock was removed.</string>
+    <string name="app_lock_setup_error_msg" comment="Dialog message when user tries to enable app lock but has no device screen lock configured">No device screen lock is configured. Please set up a screen lock or biometric in your device settings to enable App Lock.</string>
     <string name="app_name" translatable="false">aShell You</string>
+    <string name="app_permissions" comment="Title for app permissions shortcut">App permissions</string>
     <string name="app_tagline" comment="App subtitle/tagline shown on welcome and about screens">ADB at your fingertips</string>
     <string name="apply">Apply</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">Apply to all (%1$d remaining)</string>
     <string name="artifact_id" comment="Technical label for AI artifact identifier in developer options">Artifact ID</string>
+    <string name="authenticate" comment="Group header for authentication settings">Authenticate</string>
+    <string name="authentication_timeout" comment="Title for authentication timeout setting">Authentication timeout</string>
     <string name="auto" comment="Selection option for automatic theme/mode handling">Auto</string>
     <string name="auto_backup" comment="Setting toggle title for scheduled automatic backups">Automatic backup</string>
     <string name="auto_backup_content_type" comment="Setting title for selecting items to include in automatic backups">Backup content</string>
@@ -102,6 +109,8 @@
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">Battery</string>
     <string name="battery_saver" comment="Device system battery saver mode label">Battery saver</string>
     <string name="behavior" comment="Settings category title for application behavior preferences">Behavior</string>
+    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">Confirm your screen lock or use biometrics to continue</string>
+    <string name="biometric_prompt_title" comment="Title for the biometric authentication prompt">Unlock aShellYou</string>
     <string name="block" comment="Action button to block execution or permissions">Block</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">Maximum bookmark limit reached! Delete some bookmarks to add new ones</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">Bookmarks</string>
@@ -272,6 +281,7 @@
     <string name="des_ai_cache_days" comment="Description under Cache duration setting in AI settings">Number of days to keep cached results</string>
     <string name="des_ai_cache_enabled" comment="Description under Enable cache setting in AI settings">Cache analysis results per model</string>
     <string name="des_ai_models" comment="Description under AI &amp; Models item in settings">Manage AI models data and API keys</string>
+    <string name="des_app_permissions" comment="Description for app permissions shortcut">Manage Android system permissions for the app</string>
     <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">Choose what to include in automatic backups</string>
     <string name="des_auto_backup_folder" comment="Description under Backup folder setting">Select a folder to save automatic backups</string>
     <string name="des_auto_backup_time" comment="Description under Backup time setting">Set the time for automatic backups</string>
@@ -287,6 +297,7 @@
     <string name="des_backup_settings" comment="Description for app settings backup option">Backup app settings preferences only</string>
     <string name="des_behavior" comment="Description under Behavior item in settings menu">Modify certain behavior of the app</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">History of all the changes made to the app</string>
+    <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">Device does not support biometric authentication</string>
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">Click here to choose an icon from the icon collection</string>
     <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">Delete all cached AI analysis responses</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">Ask for confirmation before clearing the shell output</string>
@@ -326,11 +337,14 @@
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Allow the AI agent to query installed packages and application data</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">Pair another target device</string>
     <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">Choose how colours are derived from the theme seed</string>
+    <string name="des_privacy_and_security" comment="Description for privacy and security settings">Authentication and app permissions</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">How aShell You handles your data</string>
     <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">We have updated our Privacy Policy. Please take a moment to review the changes.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">Create quick settings tiles for executing adb commands</string>
     <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Allow the AI agent to create, modify, and delete Quick Settings tiles</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">Report any issue or bug you have encountered while using the app</string>
+    <string name="des_require_auth_for_backups" comment="Description for protect backups">Require authentication before restoring any backup</string>
+    <string name="des_require_authentication" comment="Description for require authentication">Secure the app using device screen lock or biometrics</string>
     <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">Reset app settings to default values</string>
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">Restore app data from the saved backup file.\nThe saved database will overwrite the current database</string>
     <string name="des_save_whole_output" comment="Description under Save whole output setting toggle">Enable this option to save output of the whole shell session.\nIf disabled only the last command output will be saved.</string>
@@ -575,6 +589,7 @@
     <string name="launch">Launch</string>
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">Lead developer</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">Least used</string>
+    <string name="legal_and_policies" comment="Group header for legal settings">Legal &amp; Policies</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">Level</string>
     <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">Libraries &amp; Licenses</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d libraries detected</string>
@@ -741,6 +756,7 @@
     <string name="permission_denied" comment="Error toast when requested Android system permission is denied by user">Permission denied</string>
     <string name="permission_not_granted_yet" comment="Toast when the user confirms a permission was granted but the system still reports it missing">Permission not granted yet</string>
     <string name="permission_optional" comment="Subtext notice indicating requested permissions are non-mandatory">Granting these permissions is optional!</string>
+    <string name="permissions" comment="Group header for permissions settings">Permissions</string>
     <string name="pick_ashellyou_extension" comment="File picker validation error requiring user to select a .ashellyou backup file">Please pick a file with .ashellyou extension</string>
     <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">Pick color</string>
     <string name="pin_all">Pin selected</string>
@@ -755,6 +771,7 @@
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">Preview</string>
     <string name="primary">Primary</string>
     <string name="primary_container">Primary Container</string>
+    <string name="privacy_and_security" comment="Title for the privacy and security settings screen">Privacy &amp; Security</string>
     <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Privacy Policy</string>
     <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">Privacy Policy Updated</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">Product</string>
@@ -793,6 +810,8 @@
     <string name="report_issue" comment="Button in About screen linking to GitHub issue tracker">Report issue</string>
     <string name="repository" comment="Button in About screen linking to GitHub project repository">Repository</string>
     <string name="request_timeout" comment="Error toast when network request or ADB response times out">Request timeout</string>
+    <string name="require_auth_for_backups" comment="Toggle title to require auth before restoring backups">Protect backups</string>
+    <string name="require_authentication" comment="Toggle title to require authentication to open the app">Require authentication</string>
     <string name="reset">Reset</string>
     <string name="reset_app_settings" comment="Button label in settings to restore default application configuration">Reset app settings</string>
     <string name="reset_settings_failed" comment="Toast notification when settings reset operation fails">Reset settings failed</string>
@@ -949,6 +968,8 @@
     <string name="tile_name" comment="Field label for Quick Settings tile title text">Tile name</string>
     <string name="tiles" comment="Navigation drawer item and screen header for Quick Settings tiles manager">Tiles</string>
     <string name="time">Time</string>
+    <string name="timeout_immediate" comment="Option for immediate timeout">Immediate</string>
+    <string name="timeout_never" comment="Option for never timeout">Never</string>
     <string name="timestamp">Timestamp</string>
     <string name="toggleable">Toggleable</string>
     <string name="total_executions">Total executions</string>
@@ -966,6 +987,7 @@
     <string name="unknown">Unknown</string>
     <string name="unknown_error" comment="Toast error message when error cause is unmapped">Unknown error occurred</string>
     <string name="unknown_sources_install_permission_not_granted" comment="Error toast when REQUEST_INSTALL_PACKAGES permission is missing for app update installation">Permission not granted. Please allow app installation from unknown sources.</string>
+    <string name="unlock" comment="Button to unlock the app">Unlock</string>
     <string name="unlock_status" comment="Device property label displaying bootloader lock state">Unlock Status</string>
     <string name="unlocked" comment="Status badge showing bootloader is unlocked">Unlocked</string>
     <string name="unpin_all">Unpin selected</string>
@@ -1020,6 +1042,10 @@
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d new entry</item>
         <item quantity="other">%1$d new entries</item>
+    </plurals>
+    <plurals name="timeout_minutes" comment="Option for minute timeouts">
+        <item quantity="one">%1$d minute</item>
+        <item quantity="other">%1$d minutes</item>
     </plurals>
 
     /**

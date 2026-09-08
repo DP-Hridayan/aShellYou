@@ -110,12 +110,14 @@ NavRoutes {
     object AiModelsScreen : NavRoutes()
 
     @Serializable
+    object PrivacySecurityScreen : NavRoutes()
+
+    @Serializable
     object CloudModelsScreen : NavRoutes()
 
     @Serializable
     object GenerateColorSchemeScreen : NavRoutes()
 
-    // Add EditColorSchemeScreen route
     @Serializable
     data class EditColorSchemeScreen(val themeId: Int) : NavRoutes()
 

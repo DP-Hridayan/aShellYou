@@ -2,6 +2,7 @@ package `in`.hridayan.ashell.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -9,8 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -21,6 +22,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import `in`.hridayan.ashell.BuildConfig
+import `in`.hridayan.ashell.application.AppLifecycleObserver
 import `in`.hridayan.ashell.core.common.CompositionLocals
 import `in`.hridayan.ashell.core.common.LocalFontFamily
 import `in`.hridayan.ashell.core.common.LocalSeedColor
@@ -37,6 +39,7 @@ import `in`.hridayan.ashell.logcat.data.session.LogcatSessionHolder
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.ashell.ui.AppUiEntry
+import `in`.hridayan.ashell.ui.screens.AppLockedScreen
 import `in`.hridayan.ashell.ui.state.SettingsStateImpl
 import `in`.hridayan.ashell.ui.viewmodel.AppFontViewModel
 import kotlinx.coroutines.flow.first
@@ -54,6 +57,9 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var colorSchemeImportHolder: ColorSchemeImportHolder
+
+    @Inject
+    lateinit var appLifecycleObserver: AppLifecycleObserver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
@@ -93,6 +99,7 @@ class MainActivity : AppCompatActivity() {
         setContent {
             val settingsState = remember(settingsViewModel) { SettingsStateImpl(settingsViewModel) }
             val activeCustomFontFamily by appFontViewModel.activeCustomFontFamily.collectAsState()
+            val isLocked by appLifecycleObserver.isLocked.collectAsState()
 
             CompositionLocals(settingsState = settingsState) {
                 SeedColorProvider.setSeedColor(LocalSeedColor.current)
@@ -100,17 +107,9 @@ class MainActivity : AppCompatActivity() {
                 CompositionLocalProvider(LocalFontFamily provides activeCustomFontFamily) {
                     AshellYouTheme {
                         Surface(
-                            modifier = Modifier.fillMaxSize(),
-                            color = MaterialTheme.colorScheme.surface
+                            modifier = Modifier.fillMaxSize()
                         ) {
-                            Box(modifier = Modifier.fillMaxSize()) {
-                                AppUiEntry()
-                                SnackBarHost(
-                                    modifier = Modifier
-                                        .align(Alignment.BottomCenter)
-                                        .fillMaxWidth()
-                                )
-                            }
+                            EnterAppUi(modifier = Modifier.fillMaxSize(), isLocked = isLocked)
                         }
                     }
                 }
@@ -118,6 +117,22 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @Composable
+    private fun EnterAppUi(modifier: Modifier = Modifier, isLocked: Boolean) {
+        Box(modifier = modifier) {
+            AppUiEntry()
+
+            if (isLocked) {
+                AppLockedScreen(onUnlockSuccess = { appLifecycleObserver.unlock() })
+            }
+
+            SnackBarHost(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .fillMaxWidth()
+            )
+        }
+    }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
@@ -138,10 +153,11 @@ class MainActivity : AppCompatActivity() {
                     val base64String = inputStream.bufferedReader().readText()
                     val entity = ColorSchemeSerializer.deserialize(base64String)
                     val payload = entity.toPayload()
+
                     colorSchemeImportHolder.setImportedColorScheme(payload)
                 }
             } catch (e: Exception) {
-                android.util.Log.e("MainActivity", "Failed to import theme", e)
+                Log.e("MainActivity", "Failed to import theme", e)
             }
         }
     }
