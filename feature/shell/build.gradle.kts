@@ -35,7 +35,6 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:ui"))
     implementation(project(":core:navigation"))
-    implementation(project(":settingsgraph"))
     implementation(project(":adblib"))
     implementation(project(":fastbootlib"))
     implementation(project(":libadb"))
@@ -79,6 +78,7 @@ dependencies {
     implementation(libs.coil.network.okhttp)
     implementation(libs.aboutlibraries.core)
     implementation(libs.lazyselectioncontainer)
+    implementation(libs.compose.settings.graph)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)

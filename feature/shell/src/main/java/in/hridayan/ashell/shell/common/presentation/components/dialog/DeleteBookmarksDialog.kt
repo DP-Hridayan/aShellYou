@@ -23,6 +23,8 @@ import `in`.hridayan.ashell.core.resources.R
 @Composable
 fun DeleteBookmarksDialog(
     modifier: Modifier = Modifier,
+    isSingle: Boolean = false,
+    deleteCount: Int? = null,
     onDismiss: () -> Unit,
     onDelete: () -> Unit,
 ) {
@@ -46,8 +48,18 @@ fun DeleteBookmarksDialog(
                     color = MaterialTheme.colorScheme.onSurface,
                 )
 
+                val message = when {
+                    isSingle -> stringResource(R.string.confirm_single_bookmark_delete_message)
+                    deleteCount != null -> stringResource(
+                        R.string.confirm_multiple_bookmarks_delete_message,
+                        deleteCount
+                    )
+
+                    else -> stringResource(R.string.confirm_bookmark_delete_message)
+                }
+
                 Text(
-                    text = stringResource(R.string.confirm_bookmark_delete_message),
+                    text = message,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.padding(vertical = 24.dp)
@@ -66,7 +78,7 @@ fun DeleteBookmarksDialog(
                                 contentColor = MaterialTheme.colorScheme.onError
                             )
                         ),
-                        text = stringResource(R.string.delete_all),
+                        text = if (isSingle) stringResource(R.string.delete) else stringResource(R.string.delete_all),
                         onClick = { onDelete() }
                     )
                 )

@@ -72,6 +72,7 @@
     <string name="auto_backup" comment="Setting toggle title for scheduled automatic backups">Automatic backup</string>
     <string name="auto_backup_content_type" comment="Setting title for selecting items to include in automatic backups">Backup content</string>
     <string name="auto_backup_folder" comment="Setting title for selecting target local folder for automatic backups">Backup folder</string>
+    <string name="auto_clear_cache">Auto clear cache</string>
     <string name="auto_dark_mode" comment="Setting toggle title to enable dark mode automatically when battery saver is active">Auto dark mode</string>
     <string name="auto_delete_existing_backups" comment="Setting toggle title to delete older backup files when a new backup is created">Auto-delete old backups</string>
     <string name="auto_scale_ui" comment="Setting toggle title to automatically scale UI based on device screen width">Auto scale UI</string>
@@ -113,6 +114,7 @@
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Cache size: %s</string>
     <string name="cancel">Cancel</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">Cancel all</string>
+    <string name="cancel_selection">Cancel selection</string>
     <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">Cancelling…</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">Changelog</string>
     <string name="changelogs" comment="Settings list item title for viewing version history logs">Changelogs</string>
@@ -212,6 +214,8 @@
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Confirm delete</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">Are you sure you want to remove "%1$s"? If it is currently applied, the app will revert to the System font.</string>
+    <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">Warning ! This action is irreversible\nAre you sure you want to delete these %1$d selected bookmarks?</string>
+    <string name="confirm_single_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting a single saved bookmark">Warning ! This action is irreversible\nAre you sure you want to delete this bookmark?</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">Are you sure you want to delete this tile?</string>
     <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">Caching helps to retrieve analysis results instantly.\nDo you still want to clear all AI analysis cache data?</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" already exists in this location.</string>
@@ -271,6 +275,7 @@
     <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">Choose what to include in automatic backups</string>
     <string name="des_auto_backup_folder" comment="Description under Backup folder setting">Select a folder to save automatic backups</string>
     <string name="des_auto_backup_time" comment="Description under Backup time setting">Set the time for automatic backups</string>
+    <string name="des_auto_clear_ai_cache">Automatically clears AI analysis cache when the cache duration expires</string>
     <string name="des_auto_dark_mode" comment="Description under Auto dark mode setting">Automatically switch to dark mode when battery saver is enabled</string>
     <string name="des_auto_delete_existing_backups" comment="Description under Auto-delete old backups setting">Delete older automatic backups when a new one is saved</string>
     <string name="des_auto_scale_ui" comment="Description under Auto scale UI setting">Automatically scales the UI according to device smallest width</string>
@@ -290,9 +295,10 @@
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">Choose a directory to save the shell output</string>
     <string name="des_contributors" comment="Description under Contributors item in About section">List of contributors who helped in the development of aShell You</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">View all crashes that have occurred in the app</string>
-    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Allow the AI agent to add, modify, or delete database items</string>
     <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">Choose when the app uses its dark colour scheme</string>
+    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Allow the AI agent to add, modify, or delete database items</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">Choose the default language for the app</string>
+    <string name="des_device_diagnostics" comment="Description explaining that this skill allows the AI to check device status">Allow the AI agent to check battery, memory, storage, hardware, and network status natively</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">Useful when you want to use an external keyboard</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">Upload encrypted backup to your Google Drive.\nThis action will overwrite any existing cloud backups.</string>
     <string name="des_drive_restore" comment="Description card text for Google Drive restore option">Download your latest backup from Google Drive</string>
@@ -347,6 +353,7 @@
     <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">Developer Options Required</string>
     <string name="device_backup_local" comment="Label for local device storage backup file">Device backup (Local)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">Device connected!</string>
+    <string name="device_diagnostics" comment="Title for the device diagnostics skill toggle in AI settings">Device Diagnostics</string>
     <string name="device_disconnected" comment="Notification title when ADB connection drops">Device Disconnected</string>
     <string name="device_disconnected_message" comment="Notification body message when wireless ADB connection is lost">The WiFi ADB connection was lost.</string>
     <string name="device_disconnected_message_with_name" comment="%s = device name">"%s" has disconnected.</string>
@@ -733,6 +740,7 @@
     <string name="permission_optional" comment="Subtext notice indicating requested permissions are non-mandatory">Granting these permissions is optional!</string>
     <string name="pick_ashellyou_extension" comment="File picker validation error requiring user to select a .ashellyou backup file">Please pick a file with .ashellyou extension</string>
     <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">Pick color</string>
+    <string name="pin_all">Pin selected</string>
     <string name="port" comment="Field label for network port number in wireless ADB manual pairing setup">Port</string>
     <string name="possible_reasons" comment="Dialog section header listing potential causes of ADB connection failure">Possible reasons</string>
     <string name="pre_release_github" comment="Option in update channel settings to receive GitHub pre-release builds">Pre-release (GitHub)</string>
@@ -839,6 +847,7 @@
     <string name="select_theme_to_edit_hex" comment="Instructional prompt under hex editor section in theme builder">Select a theme above to edit its raw hex values here.</string>
     <string name="select_time" comment="Button label to open time picker dialog for automated backup schedule">Select time</string>
     <string name="select_zip_package" comment="Button label to launch file picker for selecting a ZIP update package to sideload">Select ZIP Package</string>
+    <string name="selected_items" comment="Indicator showing how many items are currently selected">Selected items (%1$d)</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">Self</string>
     <string name="self_pair_connection_failed" comment="Toast error message when automatic local self-pairing fails">Connection failed - try manual connect</string>
     <string name="self_pair_enter_code" comment="Subtext instruction prompting user for 6-digit wireless pairing code">Enter the 6-digit code from the pairing dialog</string>
@@ -953,6 +962,7 @@
     <string name="unknown_sources_install_permission_not_granted" comment="Error toast when REQUEST_INSTALL_PACKAGES permission is missing for app update installation">Permission not granted. Please allow app installation from unknown sources.</string>
     <string name="unlock_status" comment="Device property label displaying bootloader lock state">Unlock Status</string>
     <string name="unlocked" comment="Status badge showing bootloader is unlocked">Unlocked</string>
+    <string name="unpin_all">Unpin selected</string>
     <string name="untitled" comment="Default name fallback for unsaved theme profile or custom tile">Untitled</string>
     <string name="update">Update</string>
     <string name="update_available" comment="Banner title announcing a new application update release">Update available !</string>
@@ -1064,4 +1074,3 @@
     <string name="changelog_v0_9_1">\nAdded changelogs into the app.\nAdded highlighted shell output.\nMinor UI changes.</string>
     <string name="changelog_v0_9_0">\nAdded dynamic material theming.\nRevamped whole UI to give a fresh look.</string>
 </resources>
-

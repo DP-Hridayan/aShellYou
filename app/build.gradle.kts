@@ -29,7 +29,7 @@ android {
         minSdk = 28
         targetSdk = 37
         versionCode = 63
-        versionName = "v8.0.0-alpha14"
+        versionName = "v8.0.0-alpha15"
 
         buildConfigField("String", "DIST_FLAVOR_GITHUB", "\"$flavorGitHub\"")
         buildConfigField("String", "DIST_FLAVOR_FDROID", "\"$flavorFDroid\"")
@@ -207,7 +207,6 @@ dependencies {
     implementation(project(":libadb"))
     implementation(libs.datastore.preferences)
     implementation(project(":adblib"))
-    implementation(project(":settingsgraph"))
     implementation(project(":fastbootlib"))
     implementation(project(":core:common"))
     implementation(project(":core:ui"))
@@ -248,6 +247,7 @@ dependencies {
     implementation(libs.hilt.work)
     ksp(libs.hilt.compiler)
     ksp(libs.hilt.android.compiler)
+    implementation(libs.compose.settings.graph)
 
     githubImplementations(
         libs.play.services.auth,

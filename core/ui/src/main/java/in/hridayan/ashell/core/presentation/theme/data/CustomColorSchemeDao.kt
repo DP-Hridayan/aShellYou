@@ -13,6 +13,9 @@ interface CustomColorSchemeDao {
     @Query("SELECT * FROM custom_themes ORDER BY createdAt DESC")
     fun getAllColorSchemes(): Flow<List<UserGeneratedColorSchemeEntity>>
 
+    @Query("SELECT * FROM custom_themes")
+    suspend fun getAllColorSchemesOnce(): List<UserGeneratedColorSchemeEntity>
+
     @Query("SELECT * FROM custom_themes WHERE id = :id LIMIT 1")
     suspend fun getColorSchemeById(id: Int): UserGeneratedColorSchemeEntity?
 
@@ -24,6 +27,9 @@ interface CustomColorSchemeDao {
 
     @Update
     suspend fun updateColorScheme(scheme: UserGeneratedColorSchemeEntity)
+
+    @Query("DELETE FROM custom_themes")
+    suspend fun deleteAllColorSchemes()
 
     @Delete
     suspend fun deleteColorScheme(scheme: UserGeneratedColorSchemeEntity)

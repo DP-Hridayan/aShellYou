@@ -93,6 +93,22 @@ class BookmarkViewModel @Inject constructor(
         repository.deleteBookmarkByCommand(command.trim())
     }
 
+    fun deleteBookmarkById(id: Int) = viewModelScope.launch {
+        repository.deleteBookmarkById(id)
+    }
+
+    fun togglePinBookmark(id: Int) = viewModelScope.launch {
+        repository.togglePinBookmarkById(id)
+    }
+
+    fun deleteBookmarksByIds(ids: Set<Int>) = viewModelScope.launch {
+        repository.deleteBookmarksByIds(ids)
+    }
+
+    fun updateBookmarksPinState(ids: Set<Int>, isPinned: Boolean) = viewModelScope.launch {
+        repository.updateBookmarksPinState(ids, isPinned)
+    }
+
     fun deleteAllBookmark() = viewModelScope.launch {
         repository.deleteAllBookmarks()
     }

@@ -52,14 +52,20 @@ class AiAnalysisRepositoryImpl @Inject constructor(
 
         // Clean up expired cache entries
         if (cacheEnabled) {
-            val maxCacheAgeDays =
-                settingsRepository.getInt(SettingsKeys.AiCacheDays).firstOrNull()
-                    ?: SettingsKeys.AiCacheDays.default
-            val cutoff =
-                System.currentTimeMillis() - (maxCacheAgeDays.toLong() * 24 * 60 * 60 * 1000)
-            try {
-                cacheDao.deleteOlderThan(cutoff)
-            } catch (_: Exception) {
+            val autoClearEnabled =
+                settingsRepository.getBoolean(SettingsKeys.AiCacheAutoClear).firstOrNull()
+                    ?: SettingsKeys.AiCacheAutoClear.default
+
+            if (autoClearEnabled) {
+                val maxCacheAgeDays =
+                    settingsRepository.getInt(SettingsKeys.AiCacheDays).firstOrNull()
+                        ?: SettingsKeys.AiCacheDays.default
+                val cutoff =
+                    System.currentTimeMillis() - (maxCacheAgeDays.toLong() * 24 * 60 * 60 * 1000)
+                try {
+                    cacheDao.deleteOlderThan(cutoff)
+                } catch (_: Exception) {
+                }
             }
         }
 

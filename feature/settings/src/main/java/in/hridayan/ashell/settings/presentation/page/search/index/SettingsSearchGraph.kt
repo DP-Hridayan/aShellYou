@@ -43,6 +43,7 @@ fun rememberSettingsSearchGraph(navController: NavController): SearchGraph {
     val supportsDynamicColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
     val dynamicColorEnabled = settings[SettingsKeys.DynamicColors]
     val customSchemeApplied = settings[SettingsKeys.UserGeneratedColorSchemeApplied]
+    val aiCacheEnabled = settings[SettingsKeys.AiCacheEnabled]
 
     return remember(
         navController,
@@ -72,7 +73,7 @@ fun rememberSettingsSearchGraph(navController: NavController): SearchGraph {
                 autoUpdateScreen(navController)
                 aboutScreen(navController)
                 backupAndRestoreScreen(navController)
-                aiModelsScreen(navController, aiEnabled)
+                aiModelsScreen(navController, aiEnabled, aiCacheEnabled)
             }
         }
     }
@@ -446,12 +447,16 @@ private fun SearchScreenScope.backupSchedulerScreen(navController: NavController
         entry(key = SettingsKeys.AutoBackupDeleteExisting) {
             title(R.string.auto_delete_existing_backups)
             description(R.string.des_auto_delete_existing_backups)
-            icon(R.drawable.ic_delete_sweep)
+            icon(R.drawable.ic_auto_delete)
         }
     }
 }
 
-private fun SearchScreenScope.aiModelsScreen(navController: NavController, aiEnabled: Boolean) {
+private fun SearchScreenScope.aiModelsScreen(
+    navController: NavController,
+    aiEnabled: Boolean,
+    aiCacheEnabled: Boolean
+) {
     screen(
         id = SCREEN_ID_AI_MODELS,
         title = R.string.ai_models,
@@ -489,16 +494,30 @@ private fun SearchScreenScope.aiModelsScreen(navController: NavController, aiEna
             icon(R.drawable.ic_database)
         }
 
+        entry(key = SettingsKeys.AiSkillDeviceDiagnostics) {
+            title(R.string.device_diagnostics)
+            description(R.string.des_device_diagnostics)
+            icon(R.drawable.ic_troubleshoot)
+        }
+
         entry(key = SettingsKeys.AiCacheEnabled) {
             title(R.string.ai_cache_enabled)
             description(R.string.des_ai_cache_enabled)
             icon(Icons.Rounded.Cached)
         }
 
+        entry(key = SettingsKeys.AiCacheAutoClear) {
+            title(R.string.auto_clear_cache)
+            description(R.string.des_auto_clear_ai_cache)
+            icon(R.drawable.ic_auto_delete)
+            availableWhen(aiCacheEnabled)
+        }
+
         entry(key = SettingsKeys.AiCacheDays) {
             title(R.string.ai_cache_days)
             description(R.string.des_ai_cache_days)
             icon(R.drawable.ic_schedule)
+            availableWhen(aiCacheEnabled)
         }
 
         entry(key = SettingsKeys.AiCacheClear) {

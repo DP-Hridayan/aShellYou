@@ -35,6 +35,18 @@ class BookmarkRepositoryImpl @Inject constructor(
         dao.updateBookmark(bookmark)
     }
 
+    override suspend fun togglePinBookmarkById(id: Int) {
+        dao.togglePinBookmarkById(id)
+    }
+
+    override suspend fun deleteBookmarksByIds(ids: Set<Int>) {
+        dao.deleteBookmarksByIds(ids)
+    }
+
+    override suspend fun updateBookmarksPinState(ids: Set<Int>, isPinned: Boolean) {
+        dao.updateBookmarksPinState(ids, isPinned)
+    }
+
     override suspend fun insertAllBookmarks(bookmarks: List<BookmarkEntity>) {
         dao.insertAllBookmarks(bookmarks)
     }

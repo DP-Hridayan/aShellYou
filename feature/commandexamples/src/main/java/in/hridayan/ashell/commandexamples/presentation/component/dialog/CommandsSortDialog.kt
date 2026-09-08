@@ -86,40 +86,42 @@ fun CommandsSortDialog(
                 shape
             }
 
-            CustomCard(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 1.dp),
-                shape = finalShape,
-                colors = cardColors,
-                onClick = withHaptic(HapticFeedbackType.ToggleOn) {
-                    tempSelected = option.value
-                }
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
+            option.labelResId?.let { labelResId ->
+                CustomCard(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 8.dp, horizontal = 20.dp)
+                        .padding(vertical = 1.dp),
+                    shape = finalShape,
+                    colors = cardColors,
+                    onClick = withHaptic(HapticFeedbackType.ToggleOn) {
+                        tempSelected = option.value
+                    }
                 ) {
-                    Text(
-                        text = stringResource(option.labelResId),
-                        style = MaterialTheme.typography.bodyLarge,
-                        fontWeight = FontWeight.Bold
-                    )
-
-                    Spacer(Modifier.weight(1f))
-
-                    RadioButton(
-                        selected = (option.value == tempSelected),
-                        onClick = withHaptic(HapticFeedbackType.ToggleOn) {
-                            tempSelected = option.value
-                        },
-                        colors = RadioButtonDefaults.colors(
-                            selectedColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                            unselectedColor = MaterialTheme.colorScheme.onSurface
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp, horizontal = 20.dp)
+                    ) {
+                        Text(
+                            text = stringResource(labelResId),
+                            style = MaterialTheme.typography.bodyLarge,
+                            fontWeight = FontWeight.Bold
                         )
-                    )
+
+                        Spacer(Modifier.weight(1f))
+
+                        RadioButton(
+                            selected = (option.value == tempSelected),
+                            onClick = withHaptic(HapticFeedbackType.ToggleOn) {
+                                tempSelected = option.value
+                            },
+                            colors = RadioButtonDefaults.colors(
+                                selectedColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                                unselectedColor = MaterialTheme.colorScheme.onSurface
+                            )
+                        )
+                    }
                 }
             }
         }

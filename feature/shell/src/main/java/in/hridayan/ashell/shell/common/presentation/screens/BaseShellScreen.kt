@@ -110,6 +110,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import `in`.hridayan.ashell.core.common.FeatureConfig
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalDialogManager
@@ -154,7 +155,6 @@ import `in`.hridayan.ashell.shell.common.presentation.model.ShellState
 import `in`.hridayan.ashell.shell.common.presentation.util.rememberScrollDirection
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.BookmarkViewModel
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
-import `in`.hridayan.ashell.shell.domain.model.SaveProgress
 import `in`.hridayan.ashell.shell.domain.model.ScrollDirection
 import `in`.hridayan.lazyselectioncontainer.LazySelectionContainer
 import `in`.hridayan.lazyselectioncontainer.LazySelectionDefaults
@@ -185,15 +185,46 @@ fun BaseShellScreen(
     val navController = LocalNavController.current
     val dialogManager = LocalDialogManager.current
     val settings = LocalSettings.current
-    val coroutineScope = rememberCoroutineScope()
-    val listState = rememberLazyListState()
-    val scrollDirection = rememberScrollDirection(listState)
+    val focusManager = LocalFocusManager.current
+
     val states by shellViewModel.states.collectAsState()
-    val isKeyboardVisible = isKeyboardVisible().value
+    val aiAnalysisState by shellViewModel.aiAnalysisState.collectAsState()
+    val bookmarks by bookmarkViewModel.searchedBookmarks.collectAsStateWithLifecycle()
+    val bookmarkCount by bookmarkViewModel.getBookmarkCount.collectAsState(initial = 0)
+    val searchQuery by bookmarkViewModel.bookmarksSearchQuery.collectAsStateWithLifecycle()
+    val showApiKeyRequiredDialog by shellViewModel.showApiKeyRequiredDialog.collectAsState()
+    val saveProgress by shellViewModel.saveProgress.collectAsState()
+    val searchOutputResult by shellViewModel.filteredOutput.collectAsState()
+    val suggestions by shellViewModel.suggestions.collectAsState()
 
     val currentBackStackEntry = navController.currentBackStackEntry
     val suggestedCommand = currentBackStackEntry?.savedStateHandle?.get<String>("suggestedCommand")
-    androidx.compose.runtime.LaunchedEffect(suggestedCommand) {
+
+    var historyMenuExpanded by rememberSaveable { mutableStateOf(false) }
+    var isOutputFullscreen by rememberSaveable { mutableStateOf(false) }
+    var restoredScrollIndex by rememberSaveable { mutableIntStateOf(-1) }
+    var showBookmarksBottomSheet by rememberSaveable { mutableStateOf(false) }
+    var showAiAnalysisSheet by rememberSaveable { mutableStateOf(false) }
+    var bookmarkIdToDelete by rememberSaveable { mutableStateOf<Int?>(null) }
+    var selectedBookmarkIdsToDelete by rememberSaveable { mutableStateOf<Set<Int>>(emptySet()) }
+
+    val isKeyboardVisible = isKeyboardVisible().value
+    val coroutineScope = rememberCoroutineScope()
+    val listState = rememberLazyListState()
+    val scrollDirection = rememberScrollDirection(listState)
+    val textFieldFocusRequester = remember { FocusRequester() }
+
+    val disableSoftKeyboard = settings[SettingsKeys.DisableSoftKeyboard]
+    val lastSavedFileUri = settings[SettingsKeys.LastSavedFileUri]
+    val savePath = settings[SettingsKeys.OutputSaveDirectory].toUri()
+    val saveWholeOutput = settings[SettingsKeys.SaveWholeOutput]
+    val bookmarksSortType = settings[SettingsKeys.BookmarkSortType]
+
+    LaunchedEffect(disableSoftKeyboard) {
+        disableKeyboard(context, disableSoftKeyboard)
+    }
+
+    LaunchedEffect(suggestedCommand) {
         if (!suggestedCommand.isNullOrBlank()) {
             shellViewModel.onCommandTextFieldChange(
                 TextFieldValue(
@@ -203,25 +234,6 @@ fun BaseShellScreen(
             shellViewModel.updateTextFieldSelection()
             currentBackStackEntry.savedStateHandle.remove<String>("suggestedCommand")
         }
-    }
-    val searchOutputResult by shellViewModel.filteredOutput.collectAsState()
-    val suggestions by shellViewModel.suggestions.collectAsState()
-    val disableSoftKeyboard = settings[SettingsKeys.DisableSoftKeyboard]
-    val bookmarkCount = bookmarkViewModel.getBookmarkCount.collectAsState(initial = 0)
-    val lastSavedFileUri = settings[SettingsKeys.LastSavedFileUri]
-    val savePath = settings[SettingsKeys.OutputSaveDirectory].toUri()
-    val saveWholeOutput = settings[SettingsKeys.SaveWholeOutput]
-    val textFieldFocusRequester = remember { FocusRequester() }
-    val focusManager = LocalFocusManager.current
-    var historyMenuExpanded by rememberSaveable { mutableStateOf(false) }
-    var isOutputFullscreen by rememberSaveable { mutableStateOf(false) }
-    var restoredScrollIndex by rememberSaveable { mutableIntStateOf(-1) }
-    var showBookmarksBottomSheet by rememberSaveable { mutableStateOf(false) }
-    var showAiAnalysisSheet by rememberSaveable { mutableStateOf(false) }
-    val aiAnalysisState by shellViewModel.aiAnalysisState.collectAsState()
-
-    LaunchedEffect(disableSoftKeyboard) {
-        disableKeyboard(context, disableSoftKeyboard)
     }
 
     val actionFabIcon: @Composable () -> Unit = {
@@ -262,7 +274,7 @@ fun BaseShellScreen(
     }
 
     val handleBookmarkButtonClick: () -> Unit = {
-        if (bookmarkCount.value == 0) {
+        if (bookmarkCount == 0) {
             showToast(context, res.getString(R.string.no_bookmarks))
         } else {
             showBookmarksBottomSheet = true
@@ -280,19 +292,6 @@ fun BaseShellScreen(
     val handleClearOutput: () -> Unit = {
         shellViewModel.clearOutput()
         focusManager.clearFocus()
-    }
-
-    val saveProgress by shellViewModel.saveProgress.collectAsState()
-
-    // Show dialog and reset progress when save completes or fails
-    LaunchedEffect(saveProgress) {
-        when (saveProgress) {
-            is SaveProgress.Success, is SaveProgress.Error -> {
-                // Dialog is already showing, it will update to show result
-            }
-
-            else -> {}
-        }
     }
 
     val handleSavedFileOpen: () -> Unit = {
@@ -714,6 +713,7 @@ fun BaseShellScreen(
         )
 
         ShellDialogKey.DeleteBookmarks -> DeleteBookmarksDialog(
+            isSingle = false,
             onDismiss = { dialogManager.dismiss() },
             onDelete = {
                 dialogManager.dismiss()
@@ -722,10 +722,30 @@ fun BaseShellScreen(
             }
         )
 
+        ShellDialogKey.DeleteSingleBookmark -> DeleteBookmarksDialog(
+            isSingle = true,
+            onDismiss = { dialogManager.dismiss() },
+            onDelete = {
+                dialogManager.dismiss()
+                bookmarkIdToDelete?.let { bookmarkViewModel.deleteBookmarkById(it) }
+                bookmarkIdToDelete = null
+            }
+        )
+
+        ShellDialogKey.DeleteSelectedBookmarks -> DeleteBookmarksDialog(
+            deleteCount = selectedBookmarkIdsToDelete.size,
+            onDismiss = { dialogManager.dismiss() },
+            onDelete = {
+                dialogManager.dismiss()
+                bookmarkViewModel.deleteBookmarksByIds(selectedBookmarkIdsToDelete)
+                selectedBookmarkIdsToDelete = emptySet()
+            }
+        )
+
         ShellDialogKey.BookmarkSort -> BookmarksSortDialog(
-            initialSort = settings[SettingsKeys.BookmarkSortType],
+            initialSort = bookmarksSortType,
             onSortChange = { sort ->
-                coroutineScope.launch { settings.set(SettingsKeys.BookmarkSortType, sort) }
+                settings.set(SettingsKeys.BookmarkSortType, sort)
             },
             onDismiss = { dialogManager.dismiss() }
         )
@@ -777,11 +797,22 @@ fun BaseShellScreen(
             onDelete = {
                 dialogManager.show(ShellDialogKey.DeleteBookmarks)
             },
+            setSortType = { sort -> bookmarkViewModel.setSortType(sort) },
             onSort = { dialogManager.show(ShellDialogKey.BookmarkSort) },
+            bookmarks = bookmarks,
+            bookmarkCount = bookmarkCount,
+            searchQuery = searchQuery,
+            onQueryChanged = { bookmarkViewModel.onSearchQueryChange(it) },
+            onDeleteSelectedBookmarks = { ids ->
+                selectedBookmarkIdsToDelete = ids
+                dialogManager.show(ShellDialogKey.DeleteSelectedBookmarks)
+            },
+            onUpdateBookmarksPinState = { ids, isPinned ->
+                bookmarkViewModel.updateBookmarksPinState(ids, isPinned)
+            }
         )
     }
 
-    val showApiKeyRequiredDialog by shellViewModel.showApiKeyRequiredDialog.collectAsState()
     if (showApiKeyRequiredDialog) {
         ApiKeyRequiredDialog(
             onDismiss = { shellViewModel.dismissApiKeyRequiredDialog() },

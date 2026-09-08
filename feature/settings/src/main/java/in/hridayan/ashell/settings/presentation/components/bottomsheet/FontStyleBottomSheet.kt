@@ -118,13 +118,17 @@ fun FontStyleBottomSheet(
     var searchQuery by remember { mutableStateOf(TextFieldValue("")) }
 
     val allFontOptions: List<FontOption> = remember(predefinedOptions, customFonts) {
-        val predefined = predefinedOptions.map { option ->
-            FontOption.Predefined(
-                appFont = AppFont.fromId(option.value),
-                labelResId = option.labelResId
-            )
+        val predefined = predefinedOptions.mapNotNull { option ->
+            option.labelResId?.let { labelResId ->
+                FontOption.Predefined(
+                    appFont = AppFont.fromId(option.value),
+                    labelResId = labelResId
+                )
+            }
         }
+
         val custom = customFonts.map { FontOption.Custom(it) }
+
         (predefined + custom).sortedBy { option ->
             when (option) {
                 is FontOption.Predefined -> res.getString(option.labelResId)
