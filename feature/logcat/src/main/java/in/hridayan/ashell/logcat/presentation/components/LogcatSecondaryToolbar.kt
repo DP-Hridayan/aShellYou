@@ -24,6 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.resources.R
+import `in`.hridayan.ashell.logcat.presentation.model.LogcatTab
 
 /**
  * Tabs + search bar placed directly below [LogcatTopBar].
@@ -33,8 +34,8 @@ import `in`.hridayan.ashell.core.resources.R
  */
 @Composable
 fun LogcatSecondaryToolbar(
-    activeTab: Int,
-    onTabSelected: (Int) -> Unit,
+    activeTab: LogcatTab,
+    onTabSelected: (LogcatTab) -> Unit,
     searchVisible: Boolean,
     searchQuery: String,
     onSearchQueryChange: (String) -> Unit,
@@ -43,17 +44,14 @@ fun LogcatSecondaryToolbar(
     val keyboard = LocalSoftwareKeyboardController.current
 
     Column(modifier = modifier.fillMaxWidth()) {
-        PrimaryTabRow(selectedTabIndex = activeTab) {
-            Tab(
-                selected = activeTab == 0,
-                onClick = { onTabSelected(0) },
-                text = { Text(stringResource(R.string.this_device)) },
-            )
-            Tab(
-                selected = activeTab == 1,
-                onClick = { onTabSelected(1) },
-                text = { Text(stringResource(R.string.other_device)) },
-            )
+        PrimaryTabRow(selectedTabIndex = activeTab.ordinal) {
+            LogcatTab.entries.forEach { tab ->
+                Tab(
+                    selected = activeTab == tab,
+                    onClick = { onTabSelected(tab) },
+                    text = { Text(stringResource(tab.labelRes())) },
+                )
+            }
         }
 
         AnimatedVisibility(
@@ -85,4 +83,9 @@ fun LogcatSecondaryToolbar(
             )
         }
     }
+}
+
+private fun LogcatTab.labelRes(): Int = when (this) {
+    LogcatTab.THIS_DEVICE -> R.string.this_device
+    LogcatTab.OTHER_DEVICE -> R.string.other_device
 }

@@ -605,8 +605,10 @@
     <string name="logcat_no_logs" comment="Placeholder text in logcat screen when no log entries match current filters">No logs yet</string>
     <string name="logcat_notification_channel_description" comment="Android Notification Channel description for logcat background session">Shown while logcat is actively collecting logs</string>
     <string name="logcat_notification_channel_name" comment="Android Notification Channel name for Logcat background collection">Logcat Session</string>
-    <string name="logcat_permission_body" comment="Instructions in logcat dialog detailing PM grant command required via computer ADB for non-root logcat access">Without this permission, only logs from aShellYou itself will be visible. Grant full access by running this command from a computer:</string>
-    <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide">Log access permission</string>
+    <string name="logcat_permission_instructions" comment="Dialog body explaining that logcat is blocked until the READ_LOGS permission is granted via ADB from a computer; followed by the command block">System logs require the READ_LOGS permission, which can only be granted from a computer. Run this command, then tap \"I\'ve granted it\":</string>
+    <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide; also the label of the logcat source option that needs it">Log access permission</string>
+    <string name="logcat_read_logs_mode_description" comment="Description under the Log access logcat source option; READ_LOGS is an Android permission name">Needs the READ_LOGS permission, granted once from a computer via ADB</string>
+    <string name="logcat_restart_after_grant_message" comment="Dialog body shown after READ_LOGS was granted; the app process must restart before the permission takes effect">Permission granted. aShellYou needs to restart before it can read system logs.</string>
     <string name="logcat_running_description" comment="Notification body text shown while logcat runs in background">aShellYou is collecting system logs in the background</string>
     <string name="logcat_shortcut_long_label" comment="App launcher shortcut label for launching directly into Logcat Viewer">Open Logcat Viewer</string>
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Logcat Source</string>
@@ -737,6 +739,7 @@
     <string name="path" comment="Field label for file or directory path in file browser properties">Path</string>
     <string name="paused" comment="Status badge showing ongoing file transfer or logcat session is paused">Paused</string>
     <string name="permission_denied" comment="Error toast when requested Android system permission is denied by user">Permission denied</string>
+    <string name="permission_not_granted_yet" comment="Toast when the user confirms a permission was granted but the system still reports it missing">Permission not granted yet</string>
     <string name="permission_optional" comment="Subtext notice indicating requested permissions are non-mandatory">Granting these permissions is optional!</string>
     <string name="pick_ashellyou_extension" comment="File picker validation error requiring user to select a .ashellyou backup file">Please pick a file with .ashellyou extension</string>
     <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">Pick color</string>
@@ -794,6 +797,8 @@
     <string name="reset_app_settings" comment="Button label in settings to restore default application configuration">Reset app settings</string>
     <string name="reset_settings_failed" comment="Toast notification when settings reset operation fails">Reset settings failed</string>
     <string name="reset_settings_successful" comment="Toast notification confirming settings have been reset to defaults">Reset settings successful</string>
+    <string name="restart_app" comment="Button that closes and relaunches the app">Restart app</string>
+    <string name="restart_required" comment="Dialog title when the app must be restarted for a change to take effect">Restart required</string>
     <string name="restore">Restore</string>
     <string name="restore_app_data" comment="Button label in backup settings to import and restore data from backup file">Restore app data</string>
     <string name="restore_dialog_message" comment="Warning message in restore dialog that existing database will be overwritten">The data in the saved file will override the current data.</string>
@@ -823,6 +828,7 @@
     <string name="saving_output" comment="Progress status text while exporting terminal log output to file">Exporting output to file…</string>
     <string name="schedule" comment="Header title or setting label for automated backup schedule picker">Schedule</string>
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">Screen density multiplier</string>
+    <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">Scroll to bottom</string>
     <string name="search">Search</string>
     <string name="search_bookmarks_here" comment="Placeholder text in bookmarks tab search bar">Search bookmarks here</string>
     <string name="search_commands_here" comment="Placeholder text in command templates tab search bar">Search commands here</string>

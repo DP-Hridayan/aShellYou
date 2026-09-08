@@ -3,32 +3,21 @@
 package `in`.hridayan.ashell.logcat.presentation.components.dialog
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.selection.SelectionContainer
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ContentCopy
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
@@ -41,17 +30,12 @@ import `in`.hridayan.ashell.core.presentation.model.ButtonType
 import `in`.hridayan.ashell.core.resources.R
 
 /**
- * Shown when Log access mode is selected but READ_LOGS is not granted.
- *
- * READ_LOGS cannot be requested through a system dialog, so the ADB grant
- * command is shown in a selectable, copyable code block. Start stays blocked
- * until [onGranted] confirms the permission is present.
+ * Shown when READ_LOGS is granted but the running process was forked before
+ * the grant and therefore cannot read system logs until the app restarts.
  */
 @Composable
-fun LogcatPermissionDialog(
-    grantCommand: String,
-    onCopyCommand: () -> Unit,
-    onGranted: () -> Unit,
+fun ReadLogsRestartDialog(
+    onRestart: () -> Unit,
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -79,7 +63,7 @@ fun LogcatPermissionDialog(
 
                 AutoResizeableText(
                     modifier = Modifier.fillMaxWidth(),
-                    text = stringResource(R.string.logcat_permission_title),
+                    text = stringResource(R.string.restart_required),
                     style = MaterialTheme.typography.titleLargeEmphasized,
                     color = MaterialTheme.colorScheme.onSurface,
                     textAlign = TextAlign.Center,
@@ -89,15 +73,11 @@ fun LogcatPermissionDialog(
 
                 Text(
                     modifier = Modifier.fillMaxWidth(),
-                    text = stringResource(R.string.logcat_permission_instructions),
+                    text = stringResource(R.string.logcat_restart_after_grant_message),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurface,
                     textAlign = TextAlign.Center,
                 )
-
-                Spacer(modifier = Modifier.height(12.dp))
-
-                GrantCommandBlock(command = grantCommand, onCopy = onCopyCommand)
 
                 Spacer(modifier = Modifier.height(24.dp))
 
@@ -109,44 +89,12 @@ fun LogcatPermissionDialog(
                             onClick = onDismiss,
                         ),
                         ButtonGroupItem(
-                            text = stringResource(R.string.logcat_ive_granted_it),
-                            onClick = onGranted,
+                            text = stringResource(R.string.restart_app),
+                            onClick = onRestart,
                         ),
                     ),
                 )
             }
-        }
-    }
-}
-
-@Composable
-private fun GrantCommandBlock(
-    command: String,
-    onCopy: () -> Unit,
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(
-                color = MaterialTheme.colorScheme.surfaceContainerHighest,
-                shape = RoundedCornerShape(8.dp),
-            )
-            .padding(start = 10.dp, end = 4.dp, top = 4.dp, bottom = 4.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        SelectionContainer(modifier = Modifier.weight(1f)) {
-            Text(
-                text = command,
-                fontFamily = FontFamily.Monospace,
-                fontSize = 12.sp,
-                color = MaterialTheme.colorScheme.onSurface,
-            )
-        }
-        IconButton(onClick = onCopy) {
-            Icon(
-                imageVector = Icons.Outlined.ContentCopy,
-                contentDescription = stringResource(R.string.copy),
-            )
         }
     }
 }

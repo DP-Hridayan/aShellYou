@@ -1,14 +1,10 @@
 package `in`.hridayan.ashell.logcat.domain.usecase
 
-import android.content.Context
-import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.core.common.domain.model.LogcatWorkingMode
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbConnection
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbState
 import `in`.hridayan.ashell.core.common.domain.repository.ShellRepository
-import `in`.hridayan.ashell.logcat.data.permission.LogcatPermissionHelper
 import `in`.hridayan.ashell.logcat.domain.model.LogcatPreflightResult
-import `in`.hridayan.ashell.logcat.domain.model.LogcatPreflightResult.NeedsReadLogs
 import `in`.hridayan.ashell.logcat.domain.model.LogcatPreflightResult.Ready
 import `in`.hridayan.ashell.logcat.domain.model.LogcatPreflightResult.RootUnavailable
 import `in`.hridayan.ashell.logcat.domain.model.LogcatPreflightResult.ShizukuPermissionDenied
@@ -30,42 +26,31 @@ import javax.inject.Singleton
 @Singleton
 class CheckLogcatPreflightUseCase @Inject constructor(
     private val shellRepository: ShellRepository,
-    @ApplicationContext private val context: Context,
+    private val checkReadLogs: CheckReadLogsPreflightUseCase,
 ) {
     suspend fun check(mode: Int): LogcatPreflightResult = when (mode) {
-        LogcatWorkingMode.BASIC -> {
-            if (LogcatPermissionHelper.hasReadLogsPermission(context)) {
-                Ready
-            } else {
-                NeedsReadLogs
-            }
-        }
-
-        LogcatWorkingMode.SHIZUKU -> {
-            if (!Shizuku.pingBinder()) {
-                ShizukuUnavailable
-            } else if (!shellRepository.hasShizukuPermission()) {
-                ShizukuPermissionDenied
-            } else {
-                Ready
-            }
-        }
-
-        LogcatWorkingMode.ROOT -> {
-            val hasRoot = withContext(Dispatchers.IO) { shellRepository.hasRootAccess() }
-            if (hasRoot) Ready else RootUnavailable
-        }
-
-        LogcatWorkingMode.WIRELESS -> {
-            val device = WifiAdbConnection.currentDevice.value
-            val state = WifiAdbConnection.currentState
-            if (device?.isOwnDevice == true && state is WifiAdbState.Connected) {
-                Ready
-            } else {
-                WirelessNotConnected
-            }
-        }
-
+        LogcatWorkingMode.READ_LOGS -> checkReadLogs()
+        LogcatWorkingMode.SHIZUKU -> checkShizuku()
+        LogcatWorkingMode.ROOT -> checkRoot()
+        LogcatWorkingMode.WIRELESS -> checkWireless()
         else -> Ready
+    }
+
+    private fun checkShizuku(): LogcatPreflightResult = when {
+        !Shizuku.pingBinder() -> ShizukuUnavailable
+        !shellRepository.hasShizukuPermission() -> ShizukuPermissionDenied
+        else -> Ready
+    }
+
+    private suspend fun checkRoot(): LogcatPreflightResult {
+        val hasRoot = withContext(Dispatchers.IO) { shellRepository.hasRootAccess() }
+        return if (hasRoot) Ready else RootUnavailable
+    }
+
+    private fun checkWireless(): LogcatPreflightResult {
+        val device = WifiAdbConnection.currentDevice.value
+        val state = WifiAdbConnection.currentState
+        val connected = device?.isOwnDevice == true && state is WifiAdbState.Connected
+        return if (connected) Ready else WirelessNotConnected
     }
 }

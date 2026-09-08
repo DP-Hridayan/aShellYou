@@ -13,7 +13,7 @@ import javax.inject.Singleton
  */
 @Singleton
 class LogcatEmitterFactory @Inject constructor(
-    val basic: BasicLogcatEmitter,
+    val readLogs: BasicLogcatEmitter,
     val shizuku: ShizukuLogcatEmitter,
     val root: RootLogcatEmitter,
     val wireless: WifiAdbOwnLogcatEmitter,
@@ -21,9 +21,10 @@ class LogcatEmitterFactory @Inject constructor(
     val wifiAdb: WifiAdbLogcatEmitter,
 ) {
     fun forMode(mode: Int): LogcatEmitter = when (mode) {
+        LogcatWorkingMode.READ_LOGS -> readLogs
         LogcatWorkingMode.SHIZUKU -> shizuku
         LogcatWorkingMode.ROOT -> root
         LogcatWorkingMode.WIRELESS -> wireless
-        else -> basic
+        else -> readLogs
     }
 }

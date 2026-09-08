@@ -45,7 +45,7 @@ private data class ModeOption(val value: Int, val labelResId: Int, val descResId
 /**
  * Selects the logcat execution source for the "This Device" tab.
  *
- * - Basic → needs READ_LOGS permission
+ * - Log access → READ_LOGS granted once via ADB; app restart needed after grant
  * - Shizuku / Root → full system log, no permission needed
  * - Wireless Debugging → own phone connected via WiFi ADB, no permission needed
  *
@@ -71,7 +71,11 @@ fun LogcatModeBottomSheet(
 
     val modeOptions = remember {
         listOf(
-            ModeOption(LogcatWorkingMode.BASIC, R.string.basic_shell),
+            ModeOption(
+                value = LogcatWorkingMode.READ_LOGS,
+                labelResId = R.string.logcat_permission_title,
+                descResId = R.string.logcat_read_logs_mode_description,
+            ),
             ModeOption(LogcatWorkingMode.SHIZUKU, R.string.shizuku),
             ModeOption(LogcatWorkingMode.ROOT, R.string.root),
             ModeOption(LogcatWorkingMode.WIRELESS, R.string.wireless_debugging),
@@ -98,32 +102,14 @@ fun LogcatModeBottomSheet(
             )
 
             modeOptions.forEach { option ->
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable(
-                            interactionSource = remember { MutableInteractionSource() },
-                            indication = null,
-                        ) {
-                            haptic.performHapticFeedback(HapticFeedbackType.ToggleOn)
-                            selected = option.value
-                        }
-                        .padding(vertical = 4.dp),
-                ) {
-                    Text(
-                        text = stringResource(option.labelResId),
-                        style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.weight(1f),
-                    )
-                    RadioButton(
-                        selected = option.value == selected,
-                        onClick = {
-                            haptic.performHapticFeedback(HapticFeedbackType.ToggleOn)
-                            selected = option.value
-                        },
-                    )
-                }
+                ModeOptionRow(
+                    option = option,
+                    selected = option.value == selected,
+                    onSelect = {
+                        haptic.performHapticFeedback(HapticFeedbackType.ToggleOn)
+                        selected = option.value
+                    },
+                )
             }
 
             Row(
@@ -153,5 +139,42 @@ fun LogcatModeBottomSheet(
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun ModeOptionRow(
+    option: ModeOption,
+    selected: Boolean,
+    onSelect: () -> Unit,
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null,
+                onClick = onSelect,
+            )
+            .padding(vertical = 4.dp),
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = stringResource(option.labelResId),
+                style = MaterialTheme.typography.bodyLarge,
+            )
+            option.descResId?.let { descResId ->
+                Text(
+                    text = stringResource(descResId),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        }
+        RadioButton(
+            selected = selected,
+            onClick = onSelect,
+        )
     }
 }

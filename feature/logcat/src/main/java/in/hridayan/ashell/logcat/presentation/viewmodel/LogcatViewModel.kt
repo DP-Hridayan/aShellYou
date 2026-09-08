@@ -10,30 +10,42 @@ import `in`.hridayan.ashell.core.common.domain.model.otg.OtgState
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbConnection
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbState
 import `in`.hridayan.ashell.core.common.domain.repository.ShellRepository
+import `in`.hridayan.ashell.core.utils.AppRestartUtils
 import `in`.hridayan.ashell.logcat.data.emitter.LogcatEmitterFactory
 import `in`.hridayan.ashell.logcat.data.session.LogcatSessionHolder
 import `in`.hridayan.ashell.logcat.domain.emitter.LogcatEmitter
 import `in`.hridayan.ashell.logcat.domain.model.LogEntry
 import `in`.hridayan.ashell.logcat.domain.model.LogFilter
 import `in`.hridayan.ashell.logcat.domain.model.LogcatPreflightResult
+import `in`.hridayan.ashell.logcat.domain.model.LogcatPreflightResult.NeedsReadLogs
 import `in`.hridayan.ashell.logcat.domain.model.LogcatPreflightResult.Ready
+import `in`.hridayan.ashell.logcat.domain.model.ReadLogsPermission
 import `in`.hridayan.ashell.logcat.domain.model.matches
 import `in`.hridayan.ashell.logcat.domain.repository.LogcatFilterRepository
 import `in`.hridayan.ashell.logcat.domain.usecase.CheckLogcatPreflightUseCase
 import `in`.hridayan.ashell.logcat.domain.usecase.ObserveLogsUseCase
+import `in`.hridayan.ashell.logcat.domain.util.batchByTime
+import `in`.hridayan.ashell.logcat.presentation.event.LogcatUiEvent
+import `in`.hridayan.ashell.logcat.presentation.model.LogListUiState
+import `in`.hridayan.ashell.logcat.presentation.model.LogcatTab
 import `in`.hridayan.ashell.logcat.service.LogcatService
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 private const val MAX_LOGS = 2000
+private const val LOG_BATCH_WINDOW_MS = 50L
 
 @HiltViewModel
 class LogcatViewModel @Inject constructor(
@@ -48,36 +60,67 @@ class LogcatViewModel @Inject constructor(
 
     val isRunning: StateFlow<Boolean> = sessionHolder.isRunning
 
+    val readLogsGrantCommand: String = ReadLogsPermission.grantCommand(context.packageName)
+
     private val _preflightResult = MutableStateFlow<LogcatPreflightResult?>(null)
     val preflightResult: StateFlow<LogcatPreflightResult?> = _preflightResult.asStateFlow()
 
     private val _preflightChecking = MutableStateFlow(false)
     val preflightChecking: StateFlow<Boolean> = _preflightChecking.asStateFlow()
 
+    private val _uiEvent = MutableSharedFlow<LogcatUiEvent>()
+    val uiEvent: SharedFlow<LogcatUiEvent> = _uiEvent.asSharedFlow()
+
     fun consumePreflight() {
         _preflightResult.value = null
     }
 
     /**
-     * Run the pre-flight check for [mode], then:
-     * - If [Ready] → start the service immediately.
-     * - Otherwise → expose the result so the UI can show the right dialog.
+     * Run the pre-flight check for [mode], then start the service when [Ready]
+     * or expose the result so the UI can show the matching dialog.
      */
     fun checkAndStart(mode: Int) {
+        viewModelScope.launch { applyPreflight(runPreflight(mode)) }
+    }
+
+    /**
+     * Re-runs the pre-flight after the user claims READ_LOGS was granted.
+     * Keeps the permission dialog open and notifies when it is still missing.
+     */
+    fun confirmReadLogsGranted(mode: Int) {
         viewModelScope.launch {
-            _preflightChecking.value = true
-            val result = checkPreflight.check(mode)
-            _preflightChecking.value = false
-            if (result == Ready) {
-                LogcatService.start(context)
+            val result = runPreflight(mode)
+            if (result == NeedsReadLogs) {
+                _uiEvent.emit(LogcatUiEvent.PermissionStillMissing)
             } else {
-                _preflightResult.value = result
+                applyPreflight(result)
             }
+        }
+    }
+
+    private suspend fun runPreflight(mode: Int): LogcatPreflightResult {
+        _preflightChecking.value = true
+        val result = checkPreflight.check(mode)
+        _preflightChecking.value = false
+        return result
+    }
+
+    private fun applyPreflight(result: LogcatPreflightResult) {
+        if (result == Ready) {
+            _preflightResult.value = null
+            LogcatService.start(context)
+        } else {
+            _preflightResult.value = result
         }
     }
 
     fun startLogcat() = LogcatService.start(context)
     fun stopLogcat() = LogcatService.stop(context)
+
+    fun restartApp() {
+        LogcatService.stop(context)
+        AppRestartUtils.restart(context)
+    }
 
     val shizukuPermissionState: StateFlow<Boolean> =
         shellRepository.shizukuPermissionState()
@@ -85,22 +128,27 @@ class LogcatViewModel @Inject constructor(
 
     fun requestShizukuPermission() = shellRepository.requestShizukuPermission()
 
-    private val _activeTab = MutableStateFlow(0)
-    val activeTab: StateFlow<Int> = _activeTab.asStateFlow()
+    private val _activeTab = MutableStateFlow(LogcatTab.THIS_DEVICE)
+    val activeTab: StateFlow<LogcatTab> = _activeTab.asStateFlow()
 
-    fun switchTab(tab: Int) {
+    fun switchTab(tab: LogcatTab) {
         _activeTab.value = tab
+        storeFor(tab).resume()
     }
 
-    private val _isAutoScrolling = MutableStateFlow(true)
-    val isAutoScrolling: StateFlow<Boolean> = _isAutoScrolling.asStateFlow()
+    private val thisDevice = LogListStateStore(MAX_LOGS)
+    private val otherDevice = LogListStateStore(MAX_LOGS)
 
-    fun pauseAutoScroll() {
-        _isAutoScrolling.value = false
-    }
+    val thisDeviceState: StateFlow<LogListUiState> = thisDevice.state
+    val otherDeviceState: StateFlow<LogListUiState> = otherDevice.state
 
-    fun resumeAutoScroll() {
-        _isAutoScrolling.value = true
+    fun pauseAutoScroll(tab: LogcatTab) = storeFor(tab).pause()
+
+    fun resumeAutoScroll(tab: LogcatTab) = storeFor(tab).resume()
+
+    private fun storeFor(tab: LogcatTab): LogListStateStore = when (tab) {
+        LogcatTab.THIS_DEVICE -> thisDevice
+        LogcatTab.OTHER_DEVICE -> otherDevice
     }
 
     val otgState: StateFlow<OtgState> = OtgConnection.state
@@ -115,44 +163,23 @@ class LogcatViewModel @Inject constructor(
                 (wifi is WifiAdbState.Connected && device?.isOwnDevice == false)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
 
-    private val _otherLogs = MutableStateFlow<List<LogEntry>>(emptyList())
-    val otherDeviceLogs: StateFlow<List<LogEntry>> = _otherLogs.asStateFlow()
     private var otherDeviceJob: Job? = null
-
-    private val _isOtherAutoScrolling = MutableStateFlow(true)
-    val isOtherAutoScrolling: StateFlow<Boolean> = _isOtherAutoScrolling.asStateFlow()
-
-    fun pauseOtherAutoScroll() {
-        _isOtherAutoScrolling.value = false
-    }
-
-    fun resumeOtherAutoScroll() {
-        _isOtherAutoScrolling.value = true
-    }
 
     fun startOtherDeviceLogs(emitter: LogcatEmitter) {
         otherDeviceJob?.cancel()
-        _otherLogs.value = emptyList()
+        otherDevice.reset()
         otherDeviceJob = viewModelScope.launch {
-            observeLogsUseCase(emitter).collect { entry ->
-                _otherLogs.update { current ->
-                    val updated = current.toMutableList()
-                    if (updated.size >= MAX_LOGS) updated.removeAt(0)
-                    updated.add(entry)
-                    updated
-                }
-            }
+            observeLogsUseCase(emitter)
+                .batchByTime(LOG_BATCH_WINDOW_MS)
+                .collect { batch -> otherDevice.append(batch) }
         }
     }
 
     fun stopOtherDeviceLogs() {
         otherDeviceJob?.cancel()
         otherDeviceJob = null
-        _otherLogs.value = emptyList()
+        otherDevice.reset()
     }
-
-    private val _logs = MutableStateFlow<List<LogEntry>>(emptyList())
-    val logs: StateFlow<List<LogEntry>> = _logs.asStateFlow()
 
     private val _activeFilter = MutableStateFlow(LogFilter())
     val activeFilter: StateFlow<LogFilter> = _activeFilter.asStateFlow()
@@ -168,11 +195,8 @@ class LogcatViewModel @Inject constructor(
 
     init {
         lastRestoredId = restoreFromBuffer()
-        viewModelScope.launch {
-            sessionHolder.entries.collect { entry ->
-                if (entry.id > lastRestoredId) onLiveEntryReceived(entry)
-            }
-        }
+        observeLiveEntries()
+        resetAutoScrollOnStart()
     }
 
     fun updateFilter(filter: LogFilter) {
@@ -182,7 +206,7 @@ class LogcatViewModel @Inject constructor(
 
     fun clearLogs() {
         sessionHolder.clearBuffer()
-        _logs.value = emptyList()
+        thisDevice.reset()
     }
 
     fun toggleExpanded(id: Long) {
@@ -200,29 +224,40 @@ class LogcatViewModel @Inject constructor(
     fun otgEmitter(): LogcatEmitter = emitterFactory.otg
     fun wifiAdbEmitter(): LogcatEmitter = emitterFactory.wifiAdb
 
+    private fun observeLiveEntries() {
+        viewModelScope.launch {
+            sessionHolder.entries
+                .filter { it.id > lastRestoredId }
+                .batchByTime(LOG_BATCH_WINDOW_MS)
+                .collect { batch -> onLiveBatchReceived(batch) }
+        }
+    }
+
+    private fun resetAutoScrollOnStart() {
+        viewModelScope.launch {
+            isRunning.filter { it }.collect { thisDevice.resume() }
+        }
+    }
+
     private fun restoreFromBuffer(): Long {
         val filter = _activeFilter.value
         val restored = sessionHolder.rawBuffer
             .filter { filter.matches(it) }
             .takeLast(MAX_LOGS)
-        _logs.value = restored
+        thisDevice.replace(restored)
         return restored.lastOrNull()?.id ?: 0L
     }
 
-    private fun onLiveEntryReceived(entry: LogEntry) {
-        if (!_activeFilter.value.matches(entry)) return
-        _logs.update { current ->
-            val updated = current.toMutableList()
-            if (updated.size >= MAX_LOGS) updated.removeAt(0)
-            updated.add(entry)
-            updated
-        }
+    private fun onLiveBatchReceived(batch: List<LogEntry>) {
+        val filter = _activeFilter.value
+        val fresh = batch.filter { it.id > lastRestoredId && filter.matches(it) }
+        if (fresh.isNotEmpty()) thisDevice.append(fresh)
     }
 
     private fun reapplyFilter(filter: LogFilter) {
         val allBuffer = sessionHolder.rawBuffer
         val filtered = allBuffer.filter { filter.matches(it) }.takeLast(MAX_LOGS)
-        _logs.value = filtered
+        thisDevice.replace(filtered)
         lastRestoredId = allBuffer.lastOrNull()?.id ?: lastRestoredId
     }
 

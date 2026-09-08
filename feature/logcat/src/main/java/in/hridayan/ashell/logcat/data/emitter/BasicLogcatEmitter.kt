@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.logcat.data.emitter
 
 import `in`.hridayan.ashell.logcat.domain.emitter.LogcatEmitter
+import `in`.hridayan.ashell.logcat.domain.permission.ReadLogsAccessChecker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -12,13 +13,14 @@ import java.io.InterruptedIOException
 import javax.inject.Inject
 
 /**
- * Logcat emitter that runs `sh -c "logcat -v threadtime"` as a subprocess.
+ * Logcat emitter that runs `sh -c "logcat -v threadtime"` as a plain app subprocess.
  *
- * This is the default emitter for basic shell mode. Future emitters
- * (Shizuku, Wireless ADB, OTG) implement [LogcatEmitter] and are
- * swapped in via Hilt bindings without touching this class.
+ * Used by the Log access mode; the process only sees the full system log when
+ * READ_LOGS has been granted and this process holds the `log` group.
  */
-class BasicLogcatEmitter @Inject constructor() : LogcatEmitter {
+class BasicLogcatEmitter @Inject constructor(
+    private val accessChecker: ReadLogsAccessChecker,
+) : LogcatEmitter {
 
     override fun lines(): Flow<String> = flow {
         val process = Runtime.getRuntime().exec(arrayOf("sh", "-c", "logcat -v threadtime"))
@@ -29,9 +31,7 @@ class BasicLogcatEmitter @Inject constructor() : LogcatEmitter {
                 emit(line)
             }
         } catch (_: InterruptedIOException) {
-            // Cancelled normally
         } catch (e: IOException) {
-            // Process destroyed externally — treat as normal termination
         } finally {
             try {
                 reader.close()
@@ -41,5 +41,6 @@ class BasicLogcatEmitter @Inject constructor() : LogcatEmitter {
         }
     }.flowOn(Dispatchers.IO)
 
-    override fun isAvailable(): Boolean = true
+    override fun isAvailable(): Boolean =
+        accessChecker.isPermissionGranted() && accessChecker.hasLogGroup().getOrDefault(true)
 }
