@@ -11,6 +11,15 @@ interface CommandPermissionDao {
     @Query("SELECT * FROM command_permissions WHERE command = :command LIMIT 1")
     suspend fun getPermissionForCommand(command: String): CommandPermissionEntity?
 
+    @Query("SELECT * FROM command_permissions")
+    suspend fun getAllPermissionsSync(): List<CommandPermissionEntity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertPermissions(permissions: List<CommandPermissionEntity>)
+
+    @Query("DELETE FROM command_permissions")
+    suspend fun deleteAllPermissions()
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun setPermission(permission: CommandPermissionEntity)
 

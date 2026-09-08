@@ -14,6 +14,18 @@ interface ChatDao {
     @Query("SELECT * FROM chat_sessions ORDER BY isPinned DESC, updatedAt DESC")
     fun getAllSessions(): Flow<List<ChatSessionEntity>>
 
+    @Query("SELECT * FROM chat_sessions")
+    suspend fun getAllSessionsSync(): List<ChatSessionEntity>
+
+    @Query("SELECT * FROM chat_messages")
+    suspend fun getAllMessagesSync(): List<ChatMessageEntity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertSessions(sessions: List<ChatSessionEntity>)
+
+    @Query("DELETE FROM chat_sessions")
+    suspend fun deleteAllSessions()
+
     @Query("SELECT * FROM chat_sessions WHERE id = :sessionId LIMIT 1")
     suspend fun getSessionById(sessionId: String): ChatSessionEntity?
 

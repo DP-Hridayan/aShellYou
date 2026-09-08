@@ -2,7 +2,9 @@ package `in`.hridayan.ashell.ai.data.local.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.serialization.Serializable
 
+@Serializable
 @Entity(tableName = "chat_sessions")
 data class ChatSessionEntity(
     @PrimaryKey
