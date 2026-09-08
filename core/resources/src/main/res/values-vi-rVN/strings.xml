@@ -70,6 +70,7 @@
     <string name="auto_backup" comment="Setting toggle title for scheduled automatic backups">Tự động sao lưu</string>
     <string name="auto_backup_content_type" comment="Setting title for selecting items to include in automatic backups">Nội dung sao lưu</string>
     <string name="auto_backup_folder" comment="Setting title for selecting target local folder for automatic backups">Thư mục sao lưu</string>
+    <string name="auto_clear_cache">Auto clear cache</string>
     <string name="auto_dark_mode" comment="Setting toggle title to enable dark mode automatically when battery saver is active">Chế độ tối tự động</string>
     <string name="auto_delete_existing_backups" comment="Setting toggle title to delete older backup files when a new backup is created">Tự động xóa các bản sao lưu cũ</string>
     <string name="auto_scale_ui" comment="Setting toggle title to automatically scale UI based on device screen width">Tự động điều chỉnh tỷ lệ UI</string>
@@ -110,6 +111,7 @@
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Kích thước bộ nhớ đệm: %s</string>
     <string name="cancel">Hủy</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">Hủy tất cả</string>
+    <string name="cancel_selection">Cancel selection</string>
     <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">Đang hủy…</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">Các thay đổi</string>
     <string name="changelogs" comment="Settings list item title for viewing version history logs">Nhật ký thay đổi</string>
@@ -209,6 +211,8 @@
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Cảnh báo! Hành động này không thể hoàn tác.\nBạn có chắc chắn muốn xóa tất cả dấu trang không?</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Xác nhận xóa</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">Bạn có chắc chắn muốn xóa \"%1$s\" không? Nếu đang sử dụng, ứng dụng sẽ quay về phông chữ hệ thống.</string>
+    <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">Warning ! This action is irreversible\nAre you sure you want to delete these %1$d selected bookmarks?</string>
+    <string name="confirm_single_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting a single saved bookmark">Warning ! This action is irreversible\nAre you sure you want to delete this bookmark?</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">Bạn có chắc chắn muốn xóa ô này không?</string>
     <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">Bộ nhớ đệm giúp nhận kết quả phân tích tức thì.\nBạn vẫn muốn xóa tất cả dữ liệu bộ nhớ đệm phân tích AI chứ?</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" đã tồn tại ở vị trí này.</string>
@@ -267,6 +271,7 @@
     <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">Chọn những gì cần bao gồm trong bản sao lưu tự động</string>
     <string name="des_auto_backup_folder" comment="Description under Backup folder setting">Chọn một thư mục để lưu các bản sao lưu tự động</string>
     <string name="des_auto_backup_time" comment="Description under Backup time setting">Đặt thời gian sao lưu tự động</string>
+    <string name="des_auto_clear_ai_cache">Automatically clears AI analysis cache when the cache duration expires</string>
     <string name="des_auto_dark_mode" comment="Description under Auto dark mode setting">Tự động chuyển sang chế độ tối khi bật tính năng Tiết kiệm pin</string>
     <string name="des_auto_delete_existing_backups" comment="Description under Auto-delete old backups setting">Xóa các bản sao lưu tự động cũ khi lưu bản mới</string>
     <string name="des_auto_scale_ui" comment="Description under Auto scale UI setting">Tự động điều chỉnh tỷ lệ UI theo chiều rộng màn hình tối thiểu của thiết bị</string>
@@ -286,9 +291,10 @@
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">Chọn một thư mục để lưu đầu ra của shell</string>
     <string name="des_contributors" comment="Description under Contributors item in About section">Danh sách những người đã giúp phát triển aShell You</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">Xem tất cả các lỗi sập đã xảy ra với ứng dụng</string>
-    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Cho phép trợ lý AI thêm, sửa đổi hoặc xóa các mục trong cơ sở dữ liệu</string>
     <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">Chọn thời điểm ứng dụng sử dụng bảng màu tối</string>
+    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Cho phép trợ lý AI thêm, sửa đổi hoặc xóa các mục trong cơ sở dữ liệu</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">Chọn ngôn ngữ mặc định cho ứng dụng</string>
+    <string name="des_device_diagnostics" comment="Description explaining that this skill allows the AI to check device status">Allow the AI agent to check battery, memory, storage, hardware, and network status natively</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">Hữu ích khi bạn muốn sử dụng bàn phím vật lý bên ngoài</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">Tải bản sao lưu đã mã hóa lên Google Drive.\nHành động này sẽ ghi đè lên mọi bản sao lưu đám mây hiện có.</string>
     <string name="des_drive_restore" comment="Description card text for Google Drive restore option">Tải xuống bản sao lưu mới nhất từ Google Drive</string>
@@ -343,6 +349,7 @@
     <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">Yêu cầu Tùy chọn nhà phát triển</string>
     <string name="device_backup_local" comment="Label for local device storage backup file">Sao lưu thiết bị (Cục bộ)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">Đã kết nối thiết bị!</string>
+    <string name="device_diagnostics" comment="Title for the device diagnostics skill toggle in AI settings">Device Diagnostics</string>
     <string name="device_disconnected" comment="Notification title when ADB connection drops">Đã ngắt kết nối với thiết bị</string>
     <string name="device_disconnected_message" comment="Notification body message when wireless ADB connection is lost">Đã mất kết nối Wi-Fi ADB.</string>
     <string name="device_disconnected_message_with_name" comment="%s = device name">\"%s\" đã ngắt kết nối.</string>
@@ -681,6 +688,7 @@
     <string name="permission_optional" comment="Subtext notice indicating requested permissions are non-mandatory">Việc cấp các quyền này là tùy chọn!</string>
     <string name="pick_ashellyou_extension" comment="File picker validation error requiring user to select a .ashellyou backup file">Vui lòng chọn một tệp có đuôi mở rộng .ashellyou</string>
     <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">Chọn màu</string>
+    <string name="pin_all">Pin selected</string>
     <string name="port" comment="Field label for network port number in wireless ADB manual pairing setup">Cổng</string>
     <string name="possible_reasons" comment="Dialog section header listing potential causes of ADB connection failure">Nguyên nhân có thể</string>
     <string name="pre_release_github" comment="Option in update channel settings to receive GitHub pre-release builds">Pre-release (GitHub)</string>
@@ -785,6 +793,7 @@
     <string name="select_theme_to_edit_hex" comment="Instructional prompt under hex editor section in theme builder">Chọn một chủ đề ở trên để chỉnh sửa các giá trị hex thô tại đây.</string>
     <string name="select_time" comment="Button label to open time picker dialog for automated backup schedule">Chọn thời gian</string>
     <string name="select_zip_package" comment="Button label to launch file picker for selecting a ZIP update package to sideload">Chọn gói ZIP</string>
+    <string name="selected_items" comment="Indicator showing how many items are currently selected">Selected items (%1$d)</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">ADB Shell cục bộ</string>
     <string name="self_pair_connection_failed" comment="Toast error message when automatic local self-pairing fails">Kết nối thất bại - thử kết nối thủ công</string>
     <string name="self_pair_enter_code" comment="Subtext instruction prompting user for 6-digit wireless pairing code">Nhập mã 6 chữ số từ hộp thoại ghép nối</string>
@@ -897,6 +906,7 @@
     <string name="unknown_sources_install_permission_not_granted" comment="Error toast when REQUEST_INSTALL_PACKAGES permission is missing for app update installation">Chưa được cấp quyền. Vui lòng cho phép Cài đặt ứng dụng từ nguồn không xác định.</string>
     <string name="unlock_status" comment="Device property label displaying bootloader lock state">Trạng thái mở khoá</string>
     <string name="unlocked" comment="Status badge showing bootloader is unlocked">Đã mở khoá</string>
+    <string name="unpin_all">Unpin selected</string>
     <string name="untitled" comment="Default name fallback for unsaved theme profile or custom tile">Không có tiêu đề</string>
     <string name="update">Cập nhật</string>
     <string name="update_available" comment="Banner title announcing a new application update release">Đã có bản cập nhật!</string>

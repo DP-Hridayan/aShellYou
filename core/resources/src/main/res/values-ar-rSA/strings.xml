@@ -69,6 +69,7 @@
     <string name="auto_backup" comment="Setting toggle title for scheduled automatic backups">نسخ احتياطي تلقائي</string>
     <string name="auto_backup_content_type" comment="Setting title for selecting items to include in automatic backups">محتوى النسخ الاحتياطي</string>
     <string name="auto_backup_folder" comment="Setting title for selecting target local folder for automatic backups">مجلد النسخ الاحتياطي</string>
+    <string name="auto_clear_cache">مسح الذاكرة المؤقتة تلقائياً</string>
     <string name="auto_dark_mode" comment="Setting toggle title to enable dark mode automatically when battery saver is active">الوضع الداكن التلقائي</string>
     <string name="auto_delete_existing_backups" comment="Setting toggle title to delete older backup files when a new backup is created">حذف النسخ الاحتياطية القديمة تلقائياً</string>
     <string name="auto_scale_ui" comment="Setting toggle title to automatically scale UI based on device screen width">قياس واجهة المستخدم تلقائياً</string>
@@ -109,6 +110,7 @@
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">حجم التخزين المؤقت: %s</string>
     <string name="cancel">إلغاء</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">إلغاء الكل</string>
+    <string name="cancel_selection">إلغاء التحديد</string>
     <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">جارٍ الإلغاء…</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">سجل التغييرات</string>
     <string name="changelogs" comment="Settings list item title for viewing version history logs">سجل التغييرات</string>
@@ -208,6 +210,8 @@
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">تحذير! هذا الإجراء لا يمكن التراجع عنه\nهل أنت متأكد من رغبتك في حذف جميع الإشارات المرجعية؟</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">تأكيد الحذف</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">هل أنت متأكد من أنك تريد إزالة \"%1$s\"؟ إذا تم تطبيقه حاليًا ، فإن التطبيق سوف يعود إلى خط النظام.</string>
+    <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">Warning ! This action is irreversible\nAre you sure you want to delete these %1$d selected bookmarks?</string>
+    <string name="confirm_single_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting a single saved bookmark">Warning ! This action is irreversible\nAre you sure you want to delete this bookmark?</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">هل تريد بالتأكيد حذف هذا الموضوع؟</string>
     <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">يساعد التخزين المؤقت في استرجاع نتائج التحليل فوراً.\nهل لا تزال تريد مسح جميع بيانات ذاكرة التخزين المؤقت لتحليل الذكاء الاصطناعي؟</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" موجود بالفعل في هذا الموقع.</string>
@@ -266,6 +270,7 @@
     <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">اختر ما تريد تضمينه في النسخ الاحتياطية التلقائية</string>
     <string name="des_auto_backup_folder" comment="Description under Backup folder setting">اختر مجلداً لحفظ النسخ الاحتياطية التلقائية</string>
     <string name="des_auto_backup_time" comment="Description under Backup time setting">تعيين وقت النسخ الاحتياطي التلقائي</string>
+    <string name="des_auto_clear_ai_cache">مسح ذاكرة التخزين المؤقت لتحليل الذاكرة المؤقتة تلقائياً عند انتهاء مدة ذاكرة التخزين المؤقت</string>
     <string name="des_auto_dark_mode" comment="Description under Auto dark mode setting">التبديل تلقائياً إلى الوضع الداكن عند تفعيل موفر البطارية</string>
     <string name="des_auto_delete_existing_backups" comment="Description under Auto-delete old backups setting">حذف النسخ الاحتياطية التلقائية الأقدم عند حفظ نسخة جديدة</string>
     <string name="des_auto_scale_ui" comment="Description under Auto scale UI setting">يضبط واجهة المستخدم تلقائياً وفقاً لأصغر عرض للجهاز</string>
@@ -285,9 +290,10 @@
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">اختر دليلًا لحفظ ناتج واجهة سطر الأوامر</string>
     <string name="des_contributors" comment="Description under Contributors item in About section">قائمة المساهمين الذين ساعدوا في تطوير aShell You</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">عرض جميع الأعطال التي حدثت في التطبيق</string>
-    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">السماح لوكيل AI بإضافة أو تعديل أو حذف عناصر قاعدة البيانات</string>
     <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">اختر عندما يستخدم التطبيق نظام الألوان المظلم</string>
+    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">السماح لوكيل AI بإضافة أو تعديل أو حذف عناصر قاعدة البيانات</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">اختر اللغة الافتراضية للتطبيق</string>
+    <string name="des_device_diagnostics" comment="Description explaining that this skill allows the AI to check device status">السماح لوكيل AI بالتحقق من البطارية، والذاكرة، والتخزين، والمعدات وحالة الشبكة محلياً</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">مفيد عند الرغبة في استخدام لوحة مفاتيح خارجية</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">قم بتحميل نسخة احتياطية مشفرة إلى Google Drive الخاص بك.\nسيؤدي هذا الإجراء إلى الكتابة فوق أي نسخ احتياطية سحابية موجودة.</string>
     <string name="des_drive_restore" comment="Description card text for Google Drive restore option">قم بتنزيل أحدث نسخة احتياطية من Google Drive</string>
@@ -342,6 +348,7 @@
     <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">خيارات المطور مطلوبة</string>
     <string name="device_backup_local" comment="Label for local device storage backup file">نسخ احتياطي للجهاز (محلي)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">الجهاز متصل!</string>
+    <string name="device_diagnostics" comment="Title for the device diagnostics skill toggle in AI settings">تشخيص الجهاز</string>
     <string name="device_disconnected" comment="Notification title when ADB connection drops">الجهاز غير متصل</string>
     <string name="device_disconnected_message" comment="Notification body message when wireless ADB connection is lost">تم فقدان اتصال WiFi ADB.</string>
     <string name="device_disconnected_message_with_name" comment="%s = device name">\"%s\" قطع الاتصال.</string>
@@ -680,6 +687,7 @@
     <string name="permission_optional" comment="Subtext notice indicating requested permissions are non-mandatory">منح هذه الأذونات اختياري!</string>
     <string name="pick_ashellyou_extension" comment="File picker validation error requiring user to select a .ashellyou backup file">الرجاء اختيار ملف مع ملحق .ashellyou</string>
     <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">اختر لوناً</string>
+    <string name="pin_all">تثبيت المحدد</string>
     <string name="port" comment="Field label for network port number in wireless ADB manual pairing setup">المنفذ</string>
     <string name="possible_reasons" comment="Dialog section header listing potential causes of ADB connection failure">الأسباب المحتملة</string>
     <string name="pre_release_github" comment="Option in update channel settings to receive GitHub pre-release builds">الإصدار التجريبي (GitHub)</string>
@@ -784,6 +792,7 @@
     <string name="select_theme_to_edit_hex" comment="Instructional prompt under hex editor section in theme builder">حدد سمة أعلاه لتعديل قيم Hex الخام الخاصة بها هنا.</string>
     <string name="select_time" comment="Button label to open time picker dialog for automated backup schedule">تحديد الوقت</string>
     <string name="select_zip_package" comment="Button label to launch file picker for selecting a ZIP update package to sideload">تحديد حزمة ZIP</string>
+    <string name="selected_items" comment="Indicator showing how many items are currently selected">العناصر المحددة (%1$d)</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">الذات</string>
     <string name="self_pair_connection_failed" comment="Toast error message when automatic local self-pairing fails">فشل الاتصال - جرب الاتصال اليدوي</string>
     <string name="self_pair_enter_code" comment="Subtext instruction prompting user for 6-digit wireless pairing code">أدخل الرمز المكون من 6 أرقام من مربع حوار الاقتران</string>
@@ -896,6 +905,7 @@
     <string name="unknown_sources_install_permission_not_granted" comment="Error toast when REQUEST_INSTALL_PACKAGES permission is missing for app update installation">لم يتم منح الإذن. يرجى السماح بتثبيت التطبيقات من مصادر غير معروفة.</string>
     <string name="unlock_status" comment="Device property label displaying bootloader lock state">حالة إلغاء القفل</string>
     <string name="unlocked" comment="Status badge showing bootloader is unlocked">غير مقفل</string>
+    <string name="unpin_all">إلغاء التثبيت المحدد</string>
     <string name="untitled" comment="Default name fallback for unsaved theme profile or custom tile">بدون عنوان</string>
     <string name="update">تحديث</string>
     <string name="update_available" comment="Banner title announcing a new application update release">يتوفر تحديث جديد!</string>

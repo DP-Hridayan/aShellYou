@@ -69,6 +69,7 @@
     <string name="auto_backup" comment="Setting toggle title for scheduled automatic backups">Otomatik yedekleme</string>
     <string name="auto_backup_content_type" comment="Setting title for selecting items to include in automatic backups">Yedekleme içeriği</string>
     <string name="auto_backup_folder" comment="Setting title for selecting target local folder for automatic backups">Yedekleme klasörü</string>
+    <string name="auto_clear_cache">Auto clear cache</string>
     <string name="auto_dark_mode" comment="Setting toggle title to enable dark mode automatically when battery saver is active">Otomatik karanlık mod</string>
     <string name="auto_delete_existing_backups" comment="Setting toggle title to delete older backup files when a new backup is created">Eski yedeklemeleri otomatik olarak sil</string>
     <string name="auto_scale_ui" comment="Setting toggle title to automatically scale UI based on device screen width">Kullanıcı arayüzünü otomatik ölçeklendirin</string>
@@ -109,6 +110,7 @@
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Önbellek Boyutu: %s</string>
     <string name="cancel">İptal</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">Tümünü iptal et</string>
+    <string name="cancel_selection">Seçimi iptal et</string>
     <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">İptal ediliyor…</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">Değişiklik Notları</string>
     <string name="changelogs" comment="Settings list item title for viewing version history logs">Değişiklik Günlükleri</string>
@@ -208,6 +210,8 @@
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Uyarı! Bu işlem geri alınamaz.\nTüm yer işaretlerini silmek istediğinizden emin misiniz?</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Silmeyi onayla</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">\"%1$s\" ögesini kaldırmak istediğinizden emin misiniz? Şu anda uygulanmışsa uygulama Sistem yazı tipine geri dönecektir.</string>
+    <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">Uyarı! Bu işlem geri alınamaz\nSeçilen bu %1$d yer işaretini silmek istediğinizden emin misiniz?</string>
+    <string name="confirm_single_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting a single saved bookmark">Uyarı! Bu işlem geri alınamaz\nBu yer işaretini silmek istediğinizden emin misiniz?</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">Bu karoyu silmek isteğinizden emin misiniz?</string>
     <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">Önbellekleme, analiz sonuçlarını anında almanıza yardımcı olur.\nYine de tüm yapay zeka analiz önbellek verilerini temizlemek istiyor musunuz?</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" bu konumda zaten var.</string>
@@ -266,6 +270,7 @@
     <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">Otomatik yedeklemelere neleri dahil edeceğinizi seçin</string>
     <string name="des_auto_backup_folder" comment="Description under Backup folder setting">Otomatik yedeklemelerin kaydedileceği klasörü seçin</string>
     <string name="des_auto_backup_time" comment="Description under Backup time setting">Otomatik yedeklemeler için zamanı ayarlayın</string>
+    <string name="des_auto_clear_ai_cache">Automatically clears AI analysis cache when the cache duration expires</string>
     <string name="des_auto_dark_mode" comment="Description under Auto dark mode setting">Pil tasarrufu etkinleştirildiğinde otomatik olarak karanlık moda geç</string>
     <string name="des_auto_delete_existing_backups" comment="Description under Auto-delete old backups setting">Yeni bir otomatik yedekleme kaydedildiğinde eski yedeklemeler silinir</string>
     <string name="des_auto_scale_ui" comment="Description under Auto scale UI setting">Kullanıcı arayüzünü, cihazın en küçük genişliğine göre otomatik olarak ölçeklendirir</string>
@@ -285,9 +290,10 @@
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">Shell çıktısını kaydetmek için bir dizin seçin</string>
     <string name="des_contributors" comment="Description under Contributors item in About section">aShell You\'nun geliştirilmesine katkıda bulunanların listesi</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">Uygulamada meydana gelen tüm çökmeleri görüntüleyin</string>
-    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">AI ajanının veritabanı ögelerini eklemesine, değiştirmesine veya silmesine izin ver</string>
     <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">Uygulamanın koyu renk şemasını ne zaman kullanacağını seçin</string>
+    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">AI ajanının veritabanı ögelerini eklemesine, değiştirmesine veya silmesine izin ver</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">Uygulama için varsayılan dili seçin</string>
+    <string name="des_device_diagnostics" comment="Description explaining that this skill allows the AI to check device status">Allow the AI agent to check battery, memory, storage, hardware, and network status natively</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">Harici bir klavye kullanmak istediğinizde faydalıdır</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">Şifrelenmiş yedeklemeyi Google Drive\'ınıza yükleyin.\nBu işlem, mevcut bulut yedeklemelerinin üzerine yazacaktır.</string>
     <string name="des_drive_restore" comment="Description card text for Google Drive restore option">Google Drive\'dan en son yedeklemenizi indirin</string>
@@ -342,6 +348,7 @@
     <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">Geliştirici Seçenekleri Gerekli</string>
     <string name="device_backup_local" comment="Label for local device storage backup file">Cihaz yedeği (Yerel)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">Cihaz bağlandı!</string>
+    <string name="device_diagnostics" comment="Title for the device diagnostics skill toggle in AI settings">Device Diagnostics</string>
     <string name="device_disconnected" comment="Notification title when ADB connection drops">Cihaz Bağlantısı Kesildi</string>
     <string name="device_disconnected_message" comment="Notification body message when wireless ADB connection is lost">WiFi ADB bağlantısı kesildi.</string>
     <string name="device_disconnected_message_with_name" comment="%s = device name">\"%s\" bağlantısı kesildi.</string>
@@ -680,6 +687,7 @@
     <string name="permission_optional" comment="Subtext notice indicating requested permissions are non-mandatory">Bu izinleri vermek isteğe bağlıdır!</string>
     <string name="pick_ashellyou_extension" comment="File picker validation error requiring user to select a .ashellyou backup file">Lütfen .ashellyou uzantılı bir dosya seçin</string>
     <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">Renk seç</string>
+    <string name="pin_all">Seçilenleri sabitle</string>
     <string name="port" comment="Field label for network port number in wireless ADB manual pairing setup">Port</string>
     <string name="possible_reasons" comment="Dialog section header listing potential causes of ADB connection failure">Olası nedenler</string>
     <string name="pre_release_github" comment="Option in update channel settings to receive GitHub pre-release builds">Ön sürüm (GitHub)</string>
@@ -784,6 +792,7 @@
     <string name="select_theme_to_edit_hex" comment="Instructional prompt under hex editor section in theme builder">Yukarıdan bir tema seçerek ham onaltılık değerlerini buradan düzenleyebilirsiniz.</string>
     <string name="select_time" comment="Button label to open time picker dialog for automated backup schedule">Zaman seç</string>
     <string name="select_zip_package" comment="Button label to launch file picker for selecting a ZIP update package to sideload">ZIP Paketi Seç</string>
+    <string name="selected_items" comment="Indicator showing how many items are currently selected">Seçilen öğeler (%1$d)</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">Kendi Cihazı</string>
     <string name="self_pair_connection_failed" comment="Toast error message when automatic local self-pairing fails">Bağlantı başarısız - manuel bağlanmayı deneyin</string>
     <string name="self_pair_enter_code" comment="Subtext instruction prompting user for 6-digit wireless pairing code">Eşleştirme iletişim kutusundan 6 haneli kodu girin</string>
@@ -896,6 +905,7 @@
     <string name="unknown_sources_install_permission_not_granted" comment="Error toast when REQUEST_INSTALL_PACKAGES permission is missing for app update installation">İzin verilmedi. Lütfen bilinmeyen kaynaklardan uygulama yüklemesine izin verin.</string>
     <string name="unlock_status" comment="Device property label displaying bootloader lock state">Kilit Açma Durumu</string>
     <string name="unlocked" comment="Status badge showing bootloader is unlocked">Kilit Açıldı</string>
+    <string name="unpin_all">Seçilenlerin sabitlemesini kaldır</string>
     <string name="untitled" comment="Default name fallback for unsaved theme profile or custom tile">Başlıksız</string>
     <string name="update">Güncelle</string>
     <string name="update_available" comment="Banner title announcing a new application update release">Güncelleme mevcut!</string>
