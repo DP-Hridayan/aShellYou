@@ -14,6 +14,7 @@ import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.coroutines.cancellation.CancellationException
 
 @Singleton
 class ChatSessionManager @Inject constructor(
@@ -38,7 +39,10 @@ class ChatSessionManager @Inject constructor(
                 onStart()
                 generateAiChatResponseUseCase(sessionId)
             } catch (e: Exception) {
-                // Log and show error in chat
+                if (e is CancellationException) {
+                    throw e
+                }
+
                 val errorMsg = ChatMessageEntity(
                     id = UUID.randomUUID().toString(),
                     sessionId = sessionId,
@@ -49,7 +53,11 @@ class ChatSessionManager @Inject constructor(
                     ),
                     timestamp = System.currentTimeMillis()
                 )
-                chatRepository.addMessage(errorMsg)
+                try {
+                    chatRepository.addMessage(errorMsg)
+                } catch (dbE: Exception) {
+                    // Ignore DB exception in case session was deleted
+                }
             } finally {
                 chatRepository.setStreamingContent(sessionId, null)
                 chatRepository.setGenerating(sessionId, false)

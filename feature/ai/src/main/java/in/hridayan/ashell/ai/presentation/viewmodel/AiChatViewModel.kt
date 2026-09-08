@@ -397,6 +397,7 @@ class AiChatViewModel @Inject constructor(
 
     fun deleteSession(sessionId: String) {
         viewModelScope.launch {
+            chatSessionManager.stopGeneration(sessionId)
             chatRepository.deleteSession(sessionId)
             if (_currentSessionId.value == sessionId) {
                 _currentSessionId.value = null
