@@ -205,7 +205,6 @@ configurations.all {
 
 dependencies {
     implementation(project(":libadb"))
-    implementation(libs.datastore.preferences)
     implementation(project(":adblib"))
     implementation(project(":fastbootlib"))
     implementation(project(":core:common"))
@@ -244,10 +243,11 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
     implementation(libs.lsposed.hiddenapibypass)
+    implementation(libs.datastore.preferences)
+    implementation(libs.compose.settings.graph)
     implementation(libs.hilt.work)
     ksp(libs.hilt.compiler)
     ksp(libs.hilt.android.compiler)
-    implementation(libs.compose.settings.graph)
 
     githubImplementations(
         libs.play.services.auth,
