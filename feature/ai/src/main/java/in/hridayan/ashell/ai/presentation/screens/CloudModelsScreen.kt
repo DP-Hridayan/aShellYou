@@ -2,7 +2,7 @@
 
 package `in`.hridayan.ashell.ai.presentation.screens
 
-import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -136,211 +136,258 @@ private fun ApiKeySection(
     onSaveApiKey: (String) -> Unit,
     verificationState: VerificationState
 ) {
-    var keyInput by remember(provider) { mutableStateOf("") }
     var isExpanded by rememberSaveable(provider) { mutableStateOf(false) }
 
-    val isVerifying = verificationState is VerificationState.Loading
-
     CustomCard(modifier = modifier) {
-        Column(modifier = Modifier.padding(20.dp)) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    modifier = Modifier.weight(1f),
-                    text = provider.displayName,
-                    style = MaterialTheme.typography.titleMediumEmphasized,
-                    fontWeight = FontWeight.SemiBold
-                )
-
-                if (provider == LlmProvider.Gemini) {
-                    TextButton(
-                        onClick = withHaptic { isExpanded = !isExpanded },
-                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
-                    ) {
-                        Text(text = stringResource(R.string.get_api_key))
-
-                        Spacer(Modifier.width(4.dp))
-
-                        Icon(
-                            imageVector = if (isExpanded) Icons.Rounded.ExpandLess else Icons.Rounded.ExpandMore,
-                            contentDescription = null,
-                            modifier = Modifier.size(18.dp)
-                        )
-                    }
-                }
-            }
+        Column(
+            modifier = Modifier
+                .padding(20.dp)
+                .animateContentSize()
+        ) {
+            ApiKeyHeader(
+                provider = provider,
+                isExpanded = isExpanded,
+                onToggleExpand = { isExpanded = !isExpanded }
+            )
 
             Spacer(Modifier.height(10.dp))
 
             if (hasKey) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(
-                        text = stringResource(R.string.api_key_is_saved),
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-
-                    TextButton(onClick = withHaptic { onDeleteApiKey() }) {
-                        Text(
-                            text = stringResource(R.string.remove)
-                        )
-                    }
-                }
-
-                Spacer(Modifier.height(8.dp))
-
-                Button(
-                    onClick = withHaptic { onVerifyApiKey() },
-                    enabled = !isVerifying,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    if (isVerifying) {
-                        LoadingIndicator(
-                            modifier = Modifier.size(ButtonDefaults.IconSize)
-                        )
-                    }
-                    Spacer(Modifier.width(ButtonDefaults.IconSpacing))
-
-                    Text(
-                        text = if (isVerifying) {
-                            stringResource(R.string.verifying)
-                        } else {
-                            stringResource(R.string.verify_api_key)
-                        }
-                    )
-                }
-
-                val displayData = when (verificationState) {
-                    is VerificationState.Success -> Triple(
-                        R.drawable.ic_verified,
-                        MaterialTheme.colorScheme.primary,
-                        verificationState.message
-                    )
-
-                    is VerificationState.Error -> Triple(
-                        R.drawable.ic_error,
-                        MaterialTheme.colorScheme.error,
-                        verificationState.message
-                    )
-
-                    else -> null
-                }
-
-                displayData?.let { (icon, color, message) ->
-                    Spacer(Modifier.height(10.dp))
-
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(10.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            modifier = Modifier.size(16.dp),
-                            painter = painterResource(icon),
-                            tint = color,
-                            contentDescription = null
-                        )
-
-                        Text(
-                            text = message,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = color
-                        )
-                    }
-                }
-            } else {
-                OutlinedTextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    value = keyInput,
-                    onValueChange = { keyInput = it },
-                    label = { Text(stringResource(R.string.api_key)) },
-                    visualTransformation = PasswordVisualTransformation(),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                    singleLine = true,
+                SavedKeySection(
+                    onDeleteApiKey = onDeleteApiKey,
+                    onVerifyApiKey = onVerifyApiKey,
+                    verificationState = verificationState
                 )
-
-                Spacer(Modifier.height(8.dp))
-
-                Button(
-                    onClick = withHaptic {
-                        onSaveApiKey(keyInput)
-                        onVerifyApiKey()
-                        keyInput = ""
-                    },
-                    enabled = keyInput.isNotBlank(),
-                    modifier = Modifier.align(Alignment.End),
-                ) {
-                    Text(text = stringResource(R.string.save_key))
-                }
+            } else {
+                InputKeySection(
+                    provider = provider,
+                    onSaveApiKey = onSaveApiKey,
+                    onVerifyApiKey = onVerifyApiKey
+                )
             }
 
-            if (provider == LlmProvider.Gemini) {
-                AnimatedVisibility(visible = isExpanded) {
-                    Column(modifier = Modifier.fillMaxWidth()) {
-                        Spacer(Modifier.height(16.dp))
-
-                        HorizontalDivider(
-                            color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
-                        )
-
-                        Spacer(Modifier.height(16.dp))
-
-                        val primaryColor = MaterialTheme.colorScheme.primary
-
-                        val urlText = UrlConst.URL_GOOGLE_AI_STUDIO
-
-                        val step1String = stringResource(R.string.gemini_api_key_step_1, urlText)
-                        val step2String = stringResource(R.string.gemini_api_key_step_2)
-                        val step3String = stringResource(R.string.gemini_api_key_step_3)
-                        val step4String = stringResource(R.string.gemini_api_key_step_4)
-
-                        val startIndex = step1String.indexOf(urlText)
-
-                        val step1Annotated = remember(step1String, primaryColor) {
-                            buildAnnotatedString {
-                                append(step1String)
-                                val start = if (startIndex >= 0) startIndex else 0
-                                val end =
-                                    if (startIndex >= 0) startIndex + urlText.length else step1String.length
-                                addLink(
-                                    url = LinkAnnotation.Url(UrlConst.URL_GOOGLE_GEMINI_API_KEY),
-                                    start = start,
-                                    end = end
-                                )
-                                addStyle(
-                                    style = SpanStyle(
-                                        color = primaryColor,
-                                        textDecoration = TextDecoration.Underline
-                                    ),
-                                    start = start,
-                                    end = end
-                                )
-                            }
-                        }
-
-                        val steps =
-                            remember(step1Annotated, step2String, step3String, step4String) {
-                                listOf(
-                                    step1Annotated,
-                                    AnnotatedString(step2String),
-                                    AnnotatedString(step3String),
-                                    AnnotatedString(step4String)
-                                )
-                            }
-
-                        BulletPointsTextLayout(
-                            modifier = Modifier.fillMaxWidth(),
-                            annotatedTextLines = steps,
-                            verticalArrangement = Arrangement.spacedBy(12.dp),
-                        )
-                    }
+            if (isExpanded) {
+                if (provider == LlmProvider.Gemini) {
+                    GeminiHelpSection()
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun ApiKeyHeader(
+    provider: LlmProvider,
+    isExpanded: Boolean,
+    onToggleExpand: () -> Unit
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            modifier = Modifier.weight(1f),
+            text = provider.displayName,
+            style = MaterialTheme.typography.titleMediumEmphasized,
+            fontWeight = FontWeight.SemiBold
+        )
+
+        if (provider == LlmProvider.Gemini) {
+            TextButton(
+                onClick = withHaptic { onToggleExpand() },
+                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
+            ) {
+                Text(text = stringResource(R.string.get_api_key))
+
+                Spacer(Modifier.width(4.dp))
+
+                Icon(
+                    imageVector = if (isExpanded) Icons.Rounded.ExpandLess else Icons.Rounded.ExpandMore,
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun SavedKeySection(
+    onDeleteApiKey: () -> Unit,
+    onVerifyApiKey: () -> Unit,
+    verificationState: VerificationState
+) {
+    val isVerifying = verificationState is VerificationState.Loading
+
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            text = stringResource(R.string.api_key_is_saved),
+            style = MaterialTheme.typography.bodyMedium
+        )
+
+        TextButton(onClick = withHaptic { onDeleteApiKey() }) {
+            Text(text = stringResource(R.string.remove))
+        }
+    }
+
+    Spacer(Modifier.height(8.dp))
+
+    Button(
+        onClick = withHaptic { onVerifyApiKey() },
+        enabled = !isVerifying,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        if (isVerifying) {
+            LoadingIndicator(
+                modifier = Modifier.size(ButtonDefaults.IconSize)
+            )
+        }
+        Spacer(Modifier.width(ButtonDefaults.IconSpacing))
+
+        Text(
+            text = if (isVerifying) {
+                stringResource(R.string.verifying)
+            } else {
+                stringResource(R.string.verify_api_key)
+            }
+        )
+    }
+
+    val displayData = when (verificationState) {
+        is VerificationState.Success -> Triple(
+            R.drawable.ic_verified,
+            MaterialTheme.colorScheme.primary,
+            verificationState.message
+        )
+
+        is VerificationState.Error -> Triple(
+            R.drawable.ic_error,
+            MaterialTheme.colorScheme.error,
+            verificationState.message
+        )
+
+        else -> null
+    }
+
+    displayData?.let { (icon, color, message) ->
+        Spacer(Modifier.height(10.dp))
+
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                modifier = Modifier.size(16.dp),
+                painter = painterResource(icon),
+                tint = color,
+                contentDescription = null
+            )
+
+            Text(
+                text = message,
+                style = MaterialTheme.typography.bodySmall,
+                color = color
+            )
+        }
+    }
+}
+
+@Composable
+private fun androidx.compose.foundation.layout.ColumnScope.InputKeySection(
+    provider: LlmProvider,
+    onSaveApiKey: (String) -> Unit,
+    onVerifyApiKey: () -> Unit
+) {
+    var keyInput by remember(provider) { mutableStateOf("") }
+
+    OutlinedTextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = keyInput,
+        onValueChange = { keyInput = it },
+        label = { Text(stringResource(R.string.api_key)) },
+        visualTransformation = PasswordVisualTransformation(),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+        singleLine = true,
+    )
+
+    Spacer(Modifier.height(8.dp))
+
+    Button(
+        onClick = withHaptic {
+            onSaveApiKey(keyInput)
+            onVerifyApiKey()
+            keyInput = ""
+        },
+        enabled = keyInput.isNotBlank(),
+        modifier = Modifier.align(Alignment.End),
+    ) {
+        Text(text = stringResource(R.string.save_key))
+    }
+}
+
+@Composable
+private fun GeminiHelpSection() {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Spacer(Modifier.height(16.dp))
+
+        HorizontalDivider(
+            color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
+        )
+
+        Spacer(Modifier.height(16.dp))
+
+        val primaryColor = MaterialTheme.colorScheme.primary
+
+        val urlText = UrlConst.URL_GOOGLE_AI_STUDIO
+
+        val step1String = stringResource(R.string.gemini_api_key_step_1, urlText)
+        val step2String = stringResource(R.string.gemini_api_key_step_2)
+        val step3String = stringResource(R.string.gemini_api_key_step_3)
+        val step4String = stringResource(R.string.gemini_api_key_step_4)
+
+        val startIndex = step1String.indexOf(urlText)
+
+        val step1Annotated = remember(step1String, primaryColor) {
+            buildAnnotatedString {
+                append(step1String)
+                val start = if (startIndex >= 0) startIndex else 0
+                val end =
+                    if (startIndex >= 0) startIndex + urlText.length else step1String.length
+                addLink(
+                    url = LinkAnnotation.Url(UrlConst.URL_GOOGLE_GEMINI_API_KEY),
+                    start = start,
+                    end = end
+                )
+                addStyle(
+                    style = SpanStyle(
+                        color = primaryColor,
+                        textDecoration = TextDecoration.Underline
+                    ),
+                    start = start,
+                    end = end
+                )
+            }
+        }
+
+        val steps =
+            remember(step1Annotated, step2String, step3String, step4String) {
+                listOf(
+                    step1Annotated,
+                    AnnotatedString(step2String),
+                    AnnotatedString(step3String),
+                    AnnotatedString(step4String)
+                )
+            }
+
+        BulletPointsTextLayout(
+            modifier = Modifier.fillMaxWidth(),
+            annotatedTextLines = steps,
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+        )
     }
 }
