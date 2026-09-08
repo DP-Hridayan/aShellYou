@@ -80,7 +80,19 @@ class LogcatViewModel @Inject constructor(
      * or expose the result so the UI can show the matching dialog.
      */
     fun checkAndStart(mode: Int) {
-        viewModelScope.launch { applyPreflight(runPreflight(mode)) }
+        viewModelScope.launch { applyPreflight(runPreflight(mode)) { LogcatService.start(context) } }
+    }
+
+    /**
+     * Applies a new [mode] to a running session. Swaps the emitter in place when
+     * the new mode is [Ready]; otherwise stops the session and shows the dialog.
+     */
+    fun checkAndRestart(mode: Int) {
+        viewModelScope.launch {
+            val result = runPreflight(mode)
+            if (result != Ready) LogcatService.stop(context)
+            applyPreflight(result) { LogcatService.restart(context) }
+        }
     }
 
     /**
@@ -93,7 +105,7 @@ class LogcatViewModel @Inject constructor(
             if (result == NeedsReadLogs) {
                 _uiEvent.emit(LogcatUiEvent.PermissionStillMissing)
             } else {
-                applyPreflight(result)
+                applyPreflight(result) { LogcatService.start(context) }
             }
         }
     }
@@ -105,10 +117,10 @@ class LogcatViewModel @Inject constructor(
         return result
     }
 
-    private fun applyPreflight(result: LogcatPreflightResult) {
+    private fun applyPreflight(result: LogcatPreflightResult, launch: () -> Unit) {
         if (result == Ready) {
             _preflightResult.value = null
-            LogcatService.start(context)
+            launch()
         } else {
             _preflightResult.value = result
         }

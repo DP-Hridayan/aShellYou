@@ -214,11 +214,8 @@ fun LogcatScreen(
     if (showModeSheet) {
         LogcatModeBottomSheet(
             currentMode = logcatMode,
-            onModeChanged = {
-                if (isRunning) {
-                    viewModel.stopLogcat()
-                    viewModel.startLogcat()
-                }
+            onModeChanged = { newMode ->
+                if (isRunning) viewModel.checkAndRestart(newMode)
             },
             onDismiss = { showModeSheet = false },
         )

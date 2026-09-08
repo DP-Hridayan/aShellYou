@@ -17,6 +17,7 @@ import `in`.hridayan.ashell.logcat.domain.model.LogEntry
 import `in`.hridayan.ashell.logcat.domain.usecase.ObserveLogsUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.first
@@ -45,6 +46,11 @@ class LogcatService : Service() {
             context.startForegroundService(Intent(context, LogcatService::class.java))
         }
 
+        fun restart(context: Context) {
+            Log.d(TAG, "Restarting LogcatService")
+            context.startForegroundService(Intent(context, LogcatService::class.java))
+        }
+
         fun stop(context: Context) {
             Log.d(TAG, "Stopping LogcatService")
             context.stopService(Intent(context, LogcatService::class.java))
@@ -64,6 +70,7 @@ class LogcatService : Service() {
 
     private lateinit var notificationHelper: LogcatNotificationHelper
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    private var collectJob: Job? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -90,7 +97,8 @@ class LogcatService : Service() {
         val factory = ep.logcatEmitterFactory()
         val settingsRepo = ep.settingsRepository()
 
-        serviceScope.launch {
+        collectJob?.cancel()
+        collectJob = serviceScope.launch {
             val mode = settingsRepo.getInt(SettingsKeys.LogcatMode).first()
             val emitter = factory.forMode(mode)
             Log.d(TAG, "Using emitter for logcat mode=$mode: ${emitter::class.simpleName}")
