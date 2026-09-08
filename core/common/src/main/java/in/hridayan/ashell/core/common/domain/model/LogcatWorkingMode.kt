@@ -7,8 +7,15 @@ package `in`.hridayan.ashell.core.common.domain.model
  * in a different mode than the shell screen (e.g. Shizuku logcat + root shell).
  */
 object LogcatWorkingMode {
-    const val BASIC = 0 // Basic shell — needs READ_LOGS permission
-    const val SHIZUKU = 1 // Shizuku — full system log, no permission needed
-    const val ROOT = 2 // Root su — full system log, no permission needed
-    const val WIRELESS = 3 // Own device via Wireless Debugging — no permission needed
+    /** Plain app process; needs READ_LOGS granted once via ADB. */
+    const val READ_LOGS = 0
+
+    /** Shizuku; full system log, no extra permission. */
+    const val SHIZUKU = 1
+
+    /** Root `su`; full system log, no extra permission. */
+    const val ROOT = 2
+
+    /** Own device over Wireless Debugging; no extra permission. */
+    const val WIRELESS = 3
 }

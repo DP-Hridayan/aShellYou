@@ -139,7 +139,7 @@ sealed class SettingsKeys<out T>(
     data object LogcatMode :
         SettingsKeys<Int>(
             "LOGCAT_WORKING_MODE",
-            LogcatWorkingMode.BASIC
+            LogcatWorkingMode.READ_LOGS
         )
 
     data object CommandSortType : SettingsKeys<Int>("COMMAND_SORT_TYPE", SortType.AZ)

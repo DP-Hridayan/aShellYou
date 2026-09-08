@@ -4,8 +4,14 @@ sealed class LogcatPreflightResult {
     /** All prerequisites met — start the service. */
     object Ready : LogcatPreflightResult()
 
-    /** Basic mode: READ_LOGS permission not granted. */
+    /** Log access mode: READ_LOGS permission not granted. */
     object NeedsReadLogs : LogcatPreflightResult()
+
+    /**
+     * Log access mode: READ_LOGS is granted but this process was forked before the grant,
+     * so logcat cannot see system logs until the app restarts.
+     */
+    object NeedsRestartForReadLogs : LogcatPreflightResult()
 
     /** Shizuku mode: Shizuku is not running / not installed. */
     object ShizukuUnavailable : LogcatPreflightResult()
