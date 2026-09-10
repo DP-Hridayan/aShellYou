@@ -62,10 +62,17 @@
     <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">Cần có khóa API để sử dụng các tính năng AI. Vui lòng thêm khóa API của bạn trong Cài đặt -&gt; Các mô hình đám mây.</string>
     <string name="app">Ứng dụng</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">Ứng dụng đã bị sập</string>
+    <string name="app_is_locked" comment="Title shown when the app is locked">App is locked</string>
+    <string name="app_is_locked_msg" comment="Message shown when the app is locked">Use your screen lock, fingerprint, or face to unlock this app and continue</string>
+    <string name="app_lock_disabled_msg" comment="Toast message informing user that app lock was disabled because device screen lock was removed">App authentication disabled: Device screen lock was removed.</string>
+    <string name="app_lock_setup_error_msg" comment="Dialog message when user tries to enable app lock but has no device screen lock configured">No device screen lock is configured. Please set up a screen lock or biometric in your device settings to enable App Lock.</string>
+    <string name="app_permissions" comment="Title for app permissions shortcut">App permissions</string>
     <string name="app_tagline" comment="App subtitle/tagline shown on welcome and about screens">ADB ngay trong tầm tay bạn</string>
     <string name="apply">Áp dụng</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">Áp dụng cho tất cả (còn %1$d mục)</string>
     <string name="artifact_id" comment="Technical label for AI artifact identifier in developer options">Artifact ID</string>
+    <string name="authenticate" comment="Group header for authentication settings">Authenticate</string>
+    <string name="authentication_timeout" comment="Title for authentication timeout setting">Authentication timeout</string>
     <string name="auto" comment="Selection option for automatic theme/mode handling">Tự động</string>
     <string name="auto_backup" comment="Setting toggle title for scheduled automatic backups">Tự động sao lưu</string>
     <string name="auto_backup_content_type" comment="Setting title for selecting items to include in automatic backups">Nội dung sao lưu</string>
@@ -100,6 +107,8 @@
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">Pin</string>
     <string name="battery_saver" comment="Device system battery saver mode label">Tiết kiệm pin</string>
     <string name="behavior" comment="Settings category title for application behavior preferences">Hành vi</string>
+    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">Confirm your screen lock or use biometrics to continue</string>
+    <string name="biometric_prompt_title" comment="Title for the biometric authentication prompt">Unlock aShellYou</string>
     <string name="block" comment="Action button to block execution or permissions">Chặn</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">Đã đạt giới hạn dấu trang! Vui lòng xóa một số dấu trang để thêm mới</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">Các dấu trang</string>
@@ -268,6 +277,7 @@
     <string name="des_ai_cache_days" comment="Description under Cache duration setting in AI settings">Số ngày lưu trữ kết quả phân tích trong bộ nhớ đệm</string>
     <string name="des_ai_cache_enabled" comment="Description under Enable cache setting in AI settings">Lưu kết quả phân tích vào bộ nhớ đệm theo mô hình</string>
     <string name="des_ai_models" comment="Description under AI &amp; Models item in settings">Quản lý dữ liệu các mô hình AI và khóa API</string>
+    <string name="des_app_permissions" comment="Description for app permissions shortcut">Manage Android system permissions for the app</string>
     <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">Chọn những gì cần bao gồm trong bản sao lưu tự động</string>
     <string name="des_auto_backup_folder" comment="Description under Backup folder setting">Chọn một thư mục để lưu các bản sao lưu tự động</string>
     <string name="des_auto_backup_time" comment="Description under Backup time setting">Đặt thời gian sao lưu tự động</string>
@@ -283,6 +293,7 @@
     <string name="des_backup_settings" comment="Description for app settings backup option">Chỉ sao lưu các cài đặt của ứng dụng</string>
     <string name="des_behavior" comment="Description under Behavior item in settings menu">Sửa đổi các hành vi nhất định của ứng dụng</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">Lịch sử của tất cả các thay đổi được thực hiện đối với ứng dụng</string>
+    <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">Device does not support biometric authentication</string>
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">Nhấn vào đây để chọn biểu tượng từ bộ sưu tập</string>
     <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">Xóa tất cả phản hồi phân tích AI đã lưu trong bộ nhớ đệm</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">Yêu cầu xác nhận trước khi xóa đầu ra của shell</string>
@@ -322,11 +333,14 @@
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Cho phép trợ lý AI truy vấn các gói ứng dụng đã cài đặt và dữ liệu ứng dụng</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">Ghép nối một thiết bị mục tiêu khác</string>
     <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">Chọn cách tạo màu sắc từ màu gốc của chủ đề</string>
+    <string name="des_privacy_and_security" comment="Description for privacy and security settings">Authentication and app permissions</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">Cách aShell You xử lý dữ liệu của bạn</string>
     <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">Chúng tôi đã cập nhật Chính sách riêng tư. Vui lòng dành chút thời gian để xem qua các thay đổi.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">Tạo các ô cài đặt nhanh để thực thi các lệnh ADB</string>
     <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Cho phép trợ lý AI tạo, sửa đổi và xóa các ô Cài đặt nhanh</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">Báo cáo mọi vấn đề bạn gặp phải khi sử dụng ứng dụng</string>
+    <string name="des_require_auth_for_backups" comment="Description for protect backups">Require authentication before restoring any backup</string>
+    <string name="des_require_authentication" comment="Description for require authentication">Secure the app using device screen lock or biometrics</string>
     <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">Đặt lại cài đặt ứng dụng về mặc định</string>
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">Khôi phục dữ liệu ứng dụng từ tệp sao lưu đã lưu.\nCơ sở dữ liệu đã lưu sẽ ghi đè lên cơ sở dữ liệu hiện tại</string>
     <string name="des_save_whole_output" comment="Description under Save whole output setting toggle">Bật tùy chọn này để lưu toàn bộ đầu ra của phiên shell.\nNếu tắt, chỉ đầu ra của lệnh cuối cùng mới được lưu.</string>
@@ -529,6 +543,7 @@
     <string name="launch">Khởi chạy</string>
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">Nhà phát triển chính</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">Ít sử dụng nhất</string>
+    <string name="legal_and_policies" comment="Group header for legal settings">Legal &amp; Policies</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">Mức độ</string>
     <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">Thư viện &amp; Giấy phép</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">Phát hiện %1$d thư viện</string>
@@ -555,8 +570,10 @@
     <string name="logcat_no_logs" comment="Placeholder text in logcat screen when no log entries match current filters">Chưa có nhật ký nào</string>
     <string name="logcat_notification_channel_description" comment="Android Notification Channel description for logcat background session">Hiển thị khi logcat đang tích cực thu thập nhật ký</string>
     <string name="logcat_notification_channel_name" comment="Android Notification Channel name for Logcat background collection">Phiên Logcat</string>
-    <string name="logcat_permission_body" comment="Instructions in logcat dialog detailing PM grant command required via computer ADB for non-root logcat access">Nếu không có quyền này, bạn chỉ có thể xem nhật ký từ aShell You. Cấp quyền truy cập đầy đủ bằng cách chạy lệnh này từ máy tính:</string>
-    <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide">Quyền truy cập nhật ký</string>
+    <string name="logcat_permission_instructions" comment="Dialog body explaining that logcat is blocked until the READ_LOGS permission is granted via ADB from a computer; followed by the command block">System logs require the READ_LOGS permission, which can only be granted from a computer. Run this command, then tap \"I\'ve granted it\":</string>
+    <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide; also the label of the logcat source option that needs it">Quyền truy cập nhật ký</string>
+    <string name="logcat_read_logs_mode_description" comment="Description under the Log access logcat source option; READ_LOGS is an Android permission name">Needs the READ_LOGS permission, granted once from a computer via ADB</string>
+    <string name="logcat_restart_after_grant_message" comment="Dialog body shown after READ_LOGS was granted; the app process must restart before the permission takes effect">Permission granted. aShellYou needs to restart before it can read system logs.</string>
     <string name="logcat_running_description" comment="Notification body text shown while logcat runs in background">aShell You đang thu thập nhật ký hệ thống ở chế độ nền</string>
     <string name="logcat_shortcut_long_label" comment="App launcher shortcut label for launching directly into Logcat Viewer">Mở Trình xem Logcat</string>
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Nguồn Logcat</string>
@@ -685,7 +702,9 @@
     <string name="path" comment="Field label for file or directory path in file browser properties">Đường dẫn</string>
     <string name="paused" comment="Status badge showing ongoing file transfer or logcat session is paused">Tạm dừng</string>
     <string name="permission_denied" comment="Error toast when requested Android system permission is denied by user">Quyền bị từ chối</string>
+    <string name="permission_not_granted_yet" comment="Toast when the user confirms a permission was granted but the system still reports it missing">Permission not granted yet</string>
     <string name="permission_optional" comment="Subtext notice indicating requested permissions are non-mandatory">Việc cấp các quyền này là tùy chọn!</string>
+    <string name="permissions" comment="Group header for permissions settings">Permissions</string>
     <string name="pick_ashellyou_extension" comment="File picker validation error requiring user to select a .ashellyou backup file">Vui lòng chọn một tệp có đuôi mở rộng .ashellyou</string>
     <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">Chọn màu</string>
     <string name="pin_all">Pin selected</string>
@@ -700,6 +719,7 @@
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">Xem trước</string>
     <string name="primary">Màu chính</string>
     <string name="primary_container">Khối màu chính</string>
+    <string name="privacy_and_security" comment="Title for the privacy and security settings screen">Privacy &amp; Security</string>
     <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Chính sách riêng tư</string>
     <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">Chính sách riêng tư đã cập nhật</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">Sản phẩm</string>
@@ -737,10 +757,14 @@
     <string name="report_issue" comment="Button in About screen linking to GitHub issue tracker">Báo cáo vấn đề</string>
     <string name="repository" comment="Button in About screen linking to GitHub project repository">Kho lưu trữ</string>
     <string name="request_timeout" comment="Error toast when network request or ADB response times out">Yêu cầu hết thời gian chờ</string>
+    <string name="require_auth_for_backups" comment="Toggle title to require auth before restoring backups">Protect backups</string>
+    <string name="require_authentication" comment="Toggle title to require authentication to open the app">Require authentication</string>
     <string name="reset">Đặt lại</string>
     <string name="reset_app_settings" comment="Button label in settings to restore default application configuration">Đặt lại cài đặt ứng dụng</string>
     <string name="reset_settings_failed" comment="Toast notification when settings reset operation fails">Đặt lại cài đặt thất bại</string>
     <string name="reset_settings_successful" comment="Toast notification confirming settings have been reset to defaults">Đặt lại cài đặt thành công</string>
+    <string name="restart_app" comment="Button that closes and relaunches the app">Restart app</string>
+    <string name="restart_required" comment="Dialog title when the app must be restarted for a change to take effect">Restart required</string>
     <string name="restore">Khôi phục</string>
     <string name="restore_app_data" comment="Button label in backup settings to import and restore data from backup file">Khôi phục dữ liệu ứng dụng</string>
     <string name="restore_dialog_message" comment="Warning message in restore dialog that existing database will be overwritten">Dữ liệu trong tệp đã lưu sẽ ghi đè lên dữ liệu hiện tại.</string>
@@ -769,6 +793,7 @@
     <string name="saving_output" comment="Progress status text while exporting terminal log output to file">Đang xuất đầu ra ra tệp…</string>
     <string name="schedule" comment="Header title or setting label for automated backup schedule picker">Lịch trình</string>
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">Hệ số nhân mật độ màn hình</string>
+    <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">Scroll to bottom</string>
     <string name="search">Tìm kiếm</string>
     <string name="search_bookmarks_here" comment="Placeholder text in bookmarks tab search bar">Tìm dấu trang ở đây</string>
     <string name="search_commands_here" comment="Placeholder text in command templates tab search bar">Tìm lệnh ở đây</string>
@@ -887,6 +912,8 @@
     <string name="tile_name" comment="Field label for Quick Settings tile title text">Tên ô</string>
     <string name="tiles" comment="Navigation drawer item and screen header for Quick Settings tiles manager">Các ô</string>
     <string name="time">Thời gian</string>
+    <string name="timeout_immediate" comment="Option for immediate timeout">Immediate</string>
+    <string name="timeout_never" comment="Option for never timeout">Never</string>
     <string name="timestamp">Dấu thời gian</string>
     <string name="toggleable">Có thể bật/tắt</string>
     <string name="total_executions">Tổng số lần thực thi</string>
@@ -904,6 +931,7 @@
     <string name="unknown">Không xác định</string>
     <string name="unknown_error" comment="Toast error message when error cause is unmapped">Đã xảy ra lỗi không xác định</string>
     <string name="unknown_sources_install_permission_not_granted" comment="Error toast when REQUEST_INSTALL_PACKAGES permission is missing for app update installation">Chưa được cấp quyền. Vui lòng cho phép Cài đặt ứng dụng từ nguồn không xác định.</string>
+    <string name="unlock" comment="Button to unlock the app">Unlock</string>
     <string name="unlock_status" comment="Device property label displaying bootloader lock state">Trạng thái mở khoá</string>
     <string name="unlocked" comment="Status badge showing bootloader is unlocked">Đã mở khoá</string>
     <string name="unpin_all">Unpin selected</string>
@@ -954,6 +982,9 @@
     <string name="wireless_not_connected_message" comment="Instructional body text advising user to pair and connect device first">Thiết bị của bạn chưa được kết nối qua Gỡ lỗi không dây. Vui lòng ghép nối và kết nối thiết bị của bạn trước.</string>
     <plurals name="logcat_new_entries">
         <item quantity="other">%1$d mục mới</item>
+    </plurals>
+    <plurals name="timeout_minutes" comment="Option for minute timeouts">
+        <item quantity="other">%1$d minutes</item>
     </plurals>
     <string name="changelog_v7_4_0">\nGiờ đây bạn có thể tìm kiếm các cài đặt phụ trong màn hình cài đặt\nĐã thêm các kiểu bảng màu cho phối màu\nĐã thêm tùy chọn đặt ngôn ngữ ứng dụng ngay trong ứng dụng</string>
     <string name="changelog_v7_3_0">\nĐã cải thiện giao diện trên màn hình nhật ký thay đổi\nĐã thêm danh sách người dịch vào phần Giới thiệu.\nĐã thêm Màn hình giấy phép hiển thị thông tin chi tiết về giấy phép của ứng dụng và các thư viện khác mà ứng dụng sử dụng</string>

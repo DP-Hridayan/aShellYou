@@ -61,10 +61,17 @@
     <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">برای استفاده از قابلیت‌های هوش مصنوعی به یک کلید API نیاز است. لطفاً کلید API خود را در مسیر تنظیمات -&gt; مدل‌های ابری اضافه کنید.</string>
     <string name="app">برنامه</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">برنامه از کار افتاد</string>
+    <string name="app_is_locked" comment="Title shown when the app is locked">App is locked</string>
+    <string name="app_is_locked_msg" comment="Message shown when the app is locked">Use your screen lock, fingerprint, or face to unlock this app and continue</string>
+    <string name="app_lock_disabled_msg" comment="Toast message informing user that app lock was disabled because device screen lock was removed">App authentication disabled: Device screen lock was removed.</string>
+    <string name="app_lock_setup_error_msg" comment="Dialog message when user tries to enable app lock but has no device screen lock configured">No device screen lock is configured. Please set up a screen lock or biometric in your device settings to enable App Lock.</string>
+    <string name="app_permissions" comment="Title for app permissions shortcut">App permissions</string>
     <string name="app_tagline" comment="App subtitle/tagline shown on welcome and about screens">ADB در نوک انگشتان شما</string>
     <string name="apply">اعمال</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">اعمال به همه (%1$d باقیمانده)</string>
     <string name="artifact_id" comment="Technical label for AI artifact identifier in developer options">شناسه آرتیفکت</string>
+    <string name="authenticate" comment="Group header for authentication settings">Authenticate</string>
+    <string name="authentication_timeout" comment="Title for authentication timeout setting">Authentication timeout</string>
     <string name="auto" comment="Selection option for automatic theme/mode handling">خودکار</string>
     <string name="auto_backup" comment="Setting toggle title for scheduled automatic backups">پشتیبان‌گیری خودکار</string>
     <string name="auto_backup_content_type" comment="Setting title for selecting items to include in automatic backups">تاریخ پشتیبان‌گیری</string>
@@ -99,6 +106,8 @@
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">باتری</string>
     <string name="battery_saver" comment="Device system battery saver mode label">صرفه‌جویی در مصرف باتری</string>
     <string name="behavior" comment="Settings category title for application behavior preferences">رفتار</string>
+    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">Confirm your screen lock or use biometrics to continue</string>
+    <string name="biometric_prompt_title" comment="Title for the biometric authentication prompt">Unlock aShellYou</string>
     <string name="block" comment="Action button to block execution or permissions">مسدود کردن</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">به حداکثر تعداد نشانک‌ها رسیده‌اید! برای افزودن نشانک جدید، تعدادی را حذف کنید</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">نشانک‌ها</string>
@@ -267,6 +276,7 @@
     <string name="des_ai_cache_days" comment="Description under Cache duration setting in AI settings">تعداد روزهای نگهداری نتایج کش شده</string>
     <string name="des_ai_cache_enabled" comment="Description under Enable cache setting in AI settings">کش کردن نتایج تحلیل برای هر مدل</string>
     <string name="des_ai_models" comment="Description under AI &amp; Models item in settings">مدیریت داده‌های مدل‌های هوش مصنوعی و کلیدهای API</string>
+    <string name="des_app_permissions" comment="Description for app permissions shortcut">Manage Android system permissions for the app</string>
     <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">انتخاب موارد موجود در پشتیبان‌گیری‌های خودکار</string>
     <string name="des_auto_backup_folder" comment="Description under Backup folder setting">انتخاب پوشه برای ذخیره پشتیبان‌های خودکار</string>
     <string name="des_auto_backup_time" comment="Description under Backup time setting">تنظیم زمان پشتیبان‌گیری‌های خودکار</string>
@@ -282,6 +292,7 @@
     <string name="des_backup_settings" comment="Description for app settings backup option">فقط پشتیبان‌گیری از تنظیمات برنامه</string>
     <string name="des_behavior" comment="Description under Behavior item in settings menu">تغییر رفتار خاص برنامه</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">تاریخچه همه تغییرات برنامه</string>
+    <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">Device does not support biometric authentication</string>
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">برای انتخاب آیکون از مجموعه آیکون‌ها اینجا کلیک کنید</string>
     <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">حذف همه پاسخ‌های تحلیل هوش مصنوعی ذخیره‌شده در حافظه پنهان</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">درخواست تأیید قبل از پاک کردن خروجی شل</string>
@@ -321,11 +332,14 @@
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">اجازه دادن به عامل هوش مصنوعی برای پرس‌وجوی بسته‌های نصب‌شده و داده‌های برنامه</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">جفت کردن دستگاه مقصد دیگر</string>
     <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">انتخاب نحوه استخراج رنگ‌ها از رنگ پایه تم</string>
+    <string name="des_privacy_and_security" comment="Description for privacy and security settings">Authentication and app permissions</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">نحوه مدیریت داده‌های شما توسط aShell You</string>
     <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">ما سیاست حفظ حریم خصوصی خود را به‌روزرسانی کرده‌ایم. لطفاً لحظاتی را به بررسی تغییرات اختصاص دهید.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">ایجاد کاشی‌های تنظیمات سریع برای اجرای دستورات adb</string>
     <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">اجازه دادن به عامل هوش مصنوعی برای ایجاد، ویرایش و حذف کاشی‌های تنظیمات سریع</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">گزارش هرگونه مشکل یا باگ</string>
+    <string name="des_require_auth_for_backups" comment="Description for protect backups">Require authentication before restoring any backup</string>
+    <string name="des_require_authentication" comment="Description for require authentication">Secure the app using device screen lock or biometrics</string>
     <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">بازنشانی تنظیمات به مقادیر پیش‌فرض</string>
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">بازیابی داده‌ها از فایل پشتیبان ذخیره شده.\nپایگاه داده ذخیره شده جایگزین پایگاه داده فعلی می‌شود</string>
     <string name="des_save_whole_output" comment="Description under Save whole output setting toggle">فعال کنید تا کل خروجی جلسه شل ذخیره شود.\nدر غیر این صورت فقط آخرین خروجی دستور ذخیره می‌شود.</string>
@@ -528,6 +542,7 @@
     <string name="launch">راه‌اندازی</string>
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">توسعه‌دهنده اصلی</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">کمترین استفاده</string>
+    <string name="legal_and_policies" comment="Group header for legal settings">Legal &amp; Policies</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">سطح</string>
     <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">کتابخانه‌ها &amp; مجوزها</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d کتابخانه شناسایی شد</string>
@@ -554,8 +569,10 @@
     <string name="logcat_no_logs" comment="Placeholder text in logcat screen when no log entries match current filters">هنوز لاگی وجود ندارد</string>
     <string name="logcat_notification_channel_description" comment="Android Notification Channel description for logcat background session">هنگامی که لاگ‌کت به طور فعال در حال جمع‌آوری لاگ‌ها است نمایش داده می‌شود</string>
     <string name="logcat_notification_channel_name" comment="Android Notification Channel name for Logcat background collection">نشست لاگ‌کت</string>
-    <string name="logcat_permission_body" comment="Instructions in logcat dialog detailing PM grant command required via computer ADB for non-root logcat access">بدون این مجوز، تنها لاگ‌های خود برنامه aShellYou قابل مشاهده خواهد بود. با اجرای این دستور از طریق رایانه، دسترسی کامل را اعطا کنید:</string>
-    <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide">مجوز دسترسی به لاگ</string>
+    <string name="logcat_permission_instructions" comment="Dialog body explaining that logcat is blocked until the READ_LOGS permission is granted via ADB from a computer; followed by the command block">System logs require the READ_LOGS permission, which can only be granted from a computer. Run this command, then tap \"I\'ve granted it\":</string>
+    <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide; also the label of the logcat source option that needs it">مجوز دسترسی به لاگ</string>
+    <string name="logcat_read_logs_mode_description" comment="Description under the Log access logcat source option; READ_LOGS is an Android permission name">Needs the READ_LOGS permission, granted once from a computer via ADB</string>
+    <string name="logcat_restart_after_grant_message" comment="Dialog body shown after READ_LOGS was granted; the app process must restart before the permission takes effect">Permission granted. aShellYou needs to restart before it can read system logs.</string>
     <string name="logcat_running_description" comment="Notification body text shown while logcat runs in background">برنامه aShellYou در حال جمع‌آوری لاگ‌های سیستم در پس‌زمینه است</string>
     <string name="logcat_shortcut_long_label" comment="App launcher shortcut label for launching directly into Logcat Viewer">باز کردن نمایشگر لاگ‌کت</string>
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">منبع لاگ‌کت</string>
@@ -684,7 +701,9 @@
     <string name="path" comment="Field label for file or directory path in file browser properties">مسیر</string>
     <string name="paused" comment="Status badge showing ongoing file transfer or logcat session is paused">مکث شده</string>
     <string name="permission_denied" comment="Error toast when requested Android system permission is denied by user">مجوز رد شد</string>
+    <string name="permission_not_granted_yet" comment="Toast when the user confirms a permission was granted but the system still reports it missing">Permission not granted yet</string>
     <string name="permission_optional" comment="Subtext notice indicating requested permissions are non-mandatory">اعطای این مجوزها اختیاری است!</string>
+    <string name="permissions" comment="Group header for permissions settings">Permissions</string>
     <string name="pick_ashellyou_extension" comment="File picker validation error requiring user to select a .ashellyou backup file">لطفاً فایلی با پسوند .ashellyou انتخاب کنید</string>
     <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">انتخاب رنگ</string>
     <string name="pin_all">Pin selected</string>
@@ -699,6 +718,7 @@
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">پیش‌نمایش</string>
     <string name="primary">اصلی</string>
     <string name="primary_container">کانتینر اصلی</string>
+    <string name="privacy_and_security" comment="Title for the privacy and security settings screen">Privacy &amp; Security</string>
     <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">سیاست حفظ حریم خصوصی</string>
     <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">سیاست حفظ حریم خصوصی به‌روزرسانی شد</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">محصول</string>
@@ -736,10 +756,14 @@
     <string name="report_issue" comment="Button in About screen linking to GitHub issue tracker">گزارش مشکل</string>
     <string name="repository" comment="Button in About screen linking to GitHub project repository">مخزن</string>
     <string name="request_timeout" comment="Error toast when network request or ADB response times out">انقضای درخواست</string>
+    <string name="require_auth_for_backups" comment="Toggle title to require auth before restoring backups">Protect backups</string>
+    <string name="require_authentication" comment="Toggle title to require authentication to open the app">Require authentication</string>
     <string name="reset">بازنشانی</string>
     <string name="reset_app_settings" comment="Button label in settings to restore default application configuration">بازنشانی تنظیمات برنامه</string>
     <string name="reset_settings_failed" comment="Toast notification when settings reset operation fails">بازنشانی تنظیمات ناموفق</string>
     <string name="reset_settings_successful" comment="Toast notification confirming settings have been reset to defaults">بازنشانی تنظیمات موفق</string>
+    <string name="restart_app" comment="Button that closes and relaunches the app">Restart app</string>
+    <string name="restart_required" comment="Dialog title when the app must be restarted for a change to take effect">Restart required</string>
     <string name="restore">بازیابی</string>
     <string name="restore_app_data" comment="Button label in backup settings to import and restore data from backup file">بازیابی داده‌های برنامه</string>
     <string name="restore_dialog_message" comment="Warning message in restore dialog that existing database will be overwritten">داده‌های فایل ذخیره شده جایگزین داده‌های فعلی می‌شوند.</string>
@@ -768,6 +792,7 @@
     <string name="saving_output" comment="Progress status text while exporting terminal log output to file">در حال صادر کردن خروجی به فایل…</string>
     <string name="schedule" comment="Header title or setting label for automated backup schedule picker">زمان‌بندی</string>
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">ضریب تراکم صفحه نمایش</string>
+    <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">Scroll to bottom</string>
     <string name="search">جستجو</string>
     <string name="search_bookmarks_here" comment="Placeholder text in bookmarks tab search bar">جستجوی دستورات</string>
     <string name="search_commands_here" comment="Placeholder text in command templates tab search bar">جستجوی دستورات</string>
@@ -886,6 +911,8 @@
     <string name="tile_name" comment="Field label for Quick Settings tile title text">نام کاشی</string>
     <string name="tiles" comment="Navigation drawer item and screen header for Quick Settings tiles manager">کاشی‌ها</string>
     <string name="time">زمان</string>
+    <string name="timeout_immediate" comment="Option for immediate timeout">Immediate</string>
+    <string name="timeout_never" comment="Option for never timeout">Never</string>
     <string name="timestamp">برچسب زمانی</string>
     <string name="toggleable">قابل تغییر وضعیت</string>
     <string name="total_executions">کل اجراها</string>
@@ -903,6 +930,7 @@
     <string name="unknown">ناشناخته</string>
     <string name="unknown_error" comment="Toast error message when error cause is unmapped">خطای ناشناخته رخ داد</string>
     <string name="unknown_sources_install_permission_not_granted" comment="Error toast when REQUEST_INSTALL_PACKAGES permission is missing for app update installation">مجوز داده نشد. لطفاً نصب برنامه از منابع ناشناخته را مجاز کنید.</string>
+    <string name="unlock" comment="Button to unlock the app">Unlock</string>
     <string name="unlock_status" comment="Device property label displaying bootloader lock state">وضعیت قفل</string>
     <string name="unlocked" comment="Status badge showing bootloader is unlocked">قفل‌گشایی شده</string>
     <string name="unpin_all">Unpin selected</string>
@@ -954,6 +982,10 @@
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d ورودی جدید</item>
         <item quantity="other">%1$d ورودی جدید</item>
+    </plurals>
+    <plurals name="timeout_minutes" comment="Option for minute timeouts">
+        <item quantity="one">%1$d minute</item>
+        <item quantity="other">%1$d minutes</item>
     </plurals>
     <string name="changelog_v7_4_0">\nاکنون می‌توانید زیرتنظیمات را درون صفحات تنظیمات جستجو کنید\nافزودن سبک‌های پالت برای طرح‌های رنگی\nافزودن امکان تنظیم زبان برنامه به صورت مستقیم درون برنامه</string>
     <string name="changelog_v7_3_0">\nبهبود رابط کاربری در صفحه تغییرات\nافزودن همکاران ترجمه در بخش درباره\nافزودن صفحه مجوزها که اطلاعات دقیق مجوز درباره برنامه و سایر کتابخانه‌های استفاده شده توسط برنامه را نشان می‌دهد</string>
