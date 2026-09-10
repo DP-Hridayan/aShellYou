@@ -61,10 +61,17 @@
     <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">An API key is required to use AI features. Please add your API key in Settings &gt; Cloud Models.</string>
     <string name="app">应用</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">软件崩溃了</string>
+    <string name="app_is_locked" comment="Title shown when the app is locked">应用程序已被锁定</string>
+    <string name="app_is_locked_msg" comment="Message shown when the app is locked">使用您的屏幕锁定、 指纹或脸解锁此应用并继续</string>
+    <string name="app_lock_disabled_msg" comment="Toast message informing user that app lock was disabled because device screen lock was removed">应用身份验证已禁用：设备屏幕锁定已删除。</string>
+    <string name="app_lock_setup_error_msg" comment="Dialog message when user tries to enable app lock but has no device screen lock configured">没有配置设备屏幕锁定。请在您的设备设置中设置屏幕锁定或生物鉴别，以启用应用锁定。</string>
+    <string name="app_permissions" comment="Title for app permissions shortcut">应用权限</string>
     <string name="app_tagline" comment="App subtitle/tagline shown on welcome and about screens">动动手指就能轻松使用的ADB</string>
     <string name="apply">应用</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">应用于所有 (%1$d 剩余)</string>
     <string name="artifact_id" comment="Technical label for AI artifact identifier in developer options">构件 ID</string>
+    <string name="authenticate" comment="Group header for authentication settings">验证</string>
+    <string name="authentication_timeout" comment="Title for authentication timeout setting">验证超时</string>
     <string name="auto" comment="Selection option for automatic theme/mode handling">自动</string>
     <string name="auto_backup" comment="Setting toggle title for scheduled automatic backups">自动备份</string>
     <string name="auto_backup_content_type" comment="Setting title for selecting items to include in automatic backups">备份内容</string>
@@ -99,6 +106,8 @@
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">电池</string>
     <string name="battery_saver" comment="Device system battery saver mode label">省电模式</string>
     <string name="behavior" comment="Settings category title for application behavior preferences">行为</string>
+    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">确认您的屏幕锁定或使用生物测定技术继续</string>
+    <string name="biometric_prompt_title" comment="Title for the biometric authentication prompt">解锁 aShellYou</string>
     <string name="block" comment="Action button to block execution or permissions">阻止</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">书签达到设定数量，移除部分书签后再尝试添加</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">书签</string>
@@ -210,7 +219,7 @@
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">确认删除</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">您确定要删除 \"%1$s\"？如果它目前已经应用，应用将恢复到系统字体。</string>
-    <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">Warning ! This action is irreversible\nAre you sure you want to delete these %1$d selected bookmarks?</string>
+    <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">警告！此操作不可逆\n确定要删除这 %1$d 个选中的书签吗？</string>
     <string name="confirm_single_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting a single saved bookmark">警告！此操作是不可逆的\n您确定要删除此书签吗？</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">您确定要删除此磁贴吗？</string>
     <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">缓存有助于立即检索分析结果。\n您确定仍要清除所有 AI 分析缓存数据吗？</string>
@@ -267,6 +276,7 @@
     <string name="des_ai_cache_days" comment="Description under Cache duration setting in AI settings">保留缓存结果的天数</string>
     <string name="des_ai_cache_enabled" comment="Description under Enable cache setting in AI settings">按模型缓存分析结果</string>
     <string name="des_ai_models" comment="Description under AI &amp; Models item in settings">管理 AI 模型数据和 API 密钥</string>
+    <string name="des_app_permissions" comment="Description for app permissions shortcut">管理应用的 Android 系统权限</string>
     <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">选择要在自动备份中包含的内容</string>
     <string name="des_auto_backup_folder" comment="Description under Backup folder setting">选择保存自动备份的文件夹</string>
     <string name="des_auto_backup_time" comment="Description under Backup time setting">设置自动备份的时间</string>
@@ -282,6 +292,7 @@
     <string name="des_backup_settings" comment="Description for app settings backup option">仅备份应用设置首选项</string>
     <string name="des_behavior" comment="Description under Behavior item in settings menu">修改应用的特定行为</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">应用所有的变化历史</string>
+    <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">设备不支持生物鉴别认证</string>
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">点击此处从图标库中选择图标</string>
     <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">删除所有缓存的 AI 分析响应</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">清除终端输出前询问确认</string>
@@ -321,11 +332,14 @@
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">允许AI 代理人查询已安装的软件包和应用程序数据</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">配对另一个目标设备</string>
     <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">选择如何从主题种子中生成颜色</string>
+    <string name="des_privacy_and_security" comment="Description for privacy and security settings">身份验证和应用权限</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">你如何处理你的数据</string>
     <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">我们已经更新了我们的隐私政策。请花一点时间查看更改。</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">创建用于执行 adb 命令的快速设置磁贴</string>
     <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">允许AI 代理创建、修改和删除快速设置瓷块</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">报告使用 App 时遇到的任何问题和漏洞</string>
+    <string name="des_require_auth_for_backups" comment="Description for protect backups">恢复任何备份之前需要身份验证</string>
+    <string name="des_require_authentication" comment="Description for require authentication">使用设备屏幕锁定或生物测定技术安全应用</string>
     <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">Reset app settings to default values</string>
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">从保存的备份文件中恢复应用数据。\n保存的数据库将覆盖当前数据库</string>
     <string name="des_save_whole_output" comment="Description under Save whole output setting toggle">启用此选项以保存整个shell会话的输出。\n如果禁用只保存最后一个命令输出。</string>
@@ -528,6 +542,7 @@
     <string name="launch">启动</string>
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">主要开发者</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">最少使用</string>
+    <string name="legal_and_policies" comment="Group header for legal settings">法律 &amp; 策略</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">级别</string>
     <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">库 &amp; 许可证</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">检测到 %1$d 个库</string>
@@ -554,8 +569,10 @@
     <string name="logcat_no_logs" comment="Placeholder text in logcat screen when no log entries match current filters">暂无日志</string>
     <string name="logcat_notification_channel_description" comment="Android Notification Channel description for logcat background session">在 logcat 主动收集日志时显示</string>
     <string name="logcat_notification_channel_name" comment="Android Notification Channel name for Logcat background collection">Logcat 会话</string>
-    <string name="logcat_permission_body" comment="Instructions in logcat dialog detailing PM grant command required via computer ADB for non-root logcat access">如果没有此权限，则只能看到 aShellYou 自身的日志。请通过计算机运行以下命令来授予完全访问权限：</string>
-    <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide">日志访问权限</string>
+    <string name="logcat_permission_instructions" comment="Dialog body explaining that logcat is blocked until the READ_LOGS permission is granted via ADB from a computer; followed by the command block">系统日志需要READ_LOGS 许可，这只能通过计算机授予。运行此命令，然后点击\"我授予它\"：</string>
+    <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide; also the label of the logcat source option that needs it">日志访问权限</string>
+    <string name="logcat_read_logs_mode_description" comment="Description under the Log access logcat source option; READ_LOGS is an Android permission name">需要READ_LOGS 许可，通过ADB从计算机授予一次</string>
+    <string name="logcat_restart_after_grant_message" comment="Dialog body shown after READ_LOGS was granted; the app process must restart before the permission takes effect">已授予权限。在读取系统日志之前，您需要重启。</string>
     <string name="logcat_running_description" comment="Notification body text shown while logcat runs in background">aShellYou 正在后台收集系统日志</string>
     <string name="logcat_shortcut_long_label" comment="App launcher shortcut label for launching directly into Logcat Viewer">打开 Logcat 查看器</string>
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Logcat 来源</string>
@@ -684,7 +701,9 @@
     <string name="path" comment="Field label for file or directory path in file browser properties">路径</string>
     <string name="paused" comment="Status badge showing ongoing file transfer or logcat session is paused">已暂停</string>
     <string name="permission_denied" comment="Error toast when requested Android system permission is denied by user">权限被拒绝</string>
+    <string name="permission_not_granted_yet" comment="Toast when the user confirms a permission was granted but the system still reports it missing">尚未授予权限</string>
     <string name="permission_optional" comment="Subtext notice indicating requested permissions are non-mandatory">Granting these permissions is optional!</string>
+    <string name="permissions" comment="Group header for permissions settings">权限</string>
     <string name="pick_ashellyou_extension" comment="File picker validation error requiring user to select a .ashellyou backup file">请选择一个 .ashellyou 扩展名的文件</string>
     <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">挑选颜色</string>
     <string name="pin_all">固定选中的</string>
@@ -699,6 +718,7 @@
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">预览</string>
     <string name="primary">主要颜色</string>
     <string name="primary_container">主要容器</string>
+    <string name="privacy_and_security" comment="Title for the privacy and security settings screen">隐私 &amp; 安全</string>
     <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">隐私政策</string>
     <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">隐私政策已更新</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">产品</string>
@@ -736,10 +756,14 @@
     <string name="report_issue" comment="Button in About screen linking to GitHub issue tracker">提交议题</string>
     <string name="repository" comment="Button in About screen linking to GitHub project repository">仓库</string>
     <string name="request_timeout" comment="Error toast when network request or ADB response times out">请求超时</string>
+    <string name="require_auth_for_backups" comment="Toggle title to require auth before restoring backups">保护备份</string>
+    <string name="require_authentication" comment="Toggle title to require authentication to open the app">需要身份验证</string>
     <string name="reset">重置</string>
     <string name="reset_app_settings" comment="Button label in settings to restore default application configuration">重置应用设置</string>
     <string name="reset_settings_failed" comment="Toast notification when settings reset operation fails">重置设置失败</string>
     <string name="reset_settings_successful" comment="Toast notification confirming settings have been reset to defaults">成功重置设置</string>
+    <string name="restart_app" comment="Button that closes and relaunches the app">重启应用</string>
+    <string name="restart_required" comment="Dialog title when the app must be restarted for a change to take effect">需要重启</string>
     <string name="restore">恢复</string>
     <string name="restore_app_data" comment="Button label in backup settings to import and restore data from backup file">恢复应用数据</string>
     <string name="restore_dialog_message" comment="Warning message in restore dialog that existing database will be overwritten">保存文件中的数据将覆盖当前数据。</string>
@@ -768,6 +792,7 @@
     <string name="saving_output" comment="Progress status text while exporting terminal log output to file">正在将输出导出到文件…</string>
     <string name="schedule" comment="Header title or setting label for automated backup schedule picker">计划</string>
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">屏幕密度乘数</string>
+    <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">滚动到底部</string>
     <string name="search">搜索</string>
     <string name="search_bookmarks_here" comment="Placeholder text in bookmarks tab search bar">在此搜索书签</string>
     <string name="search_commands_here" comment="Placeholder text in command templates tab search bar">在这里搜索命令</string>
@@ -886,6 +911,8 @@
     <string name="tile_name" comment="Field label for Quick Settings tile title text">瓷贴名称</string>
     <string name="tiles" comment="Navigation drawer item and screen header for Quick Settings tiles manager">磁贴</string>
     <string name="time">时间</string>
+    <string name="timeout_immediate" comment="Option for immediate timeout">即时的</string>
+    <string name="timeout_never" comment="Option for never timeout">从不使用</string>
     <string name="timestamp">时间戳</string>
     <string name="toggleable">可切换</string>
     <string name="total_executions">总执行次数</string>
@@ -903,6 +930,7 @@
     <string name="unknown">未知的</string>
     <string name="unknown_error" comment="Toast error message when error cause is unmapped">未知错误</string>
     <string name="unknown_sources_install_permission_not_granted" comment="Error toast when REQUEST_INSTALL_PACKAGES permission is missing for app update installation">未授予权限。请允许从未知来源安装应用程序。</string>
+    <string name="unlock" comment="Button to unlock the app">解锁</string>
     <string name="unlock_status" comment="Device property label displaying bootloader lock state">解锁状态</string>
     <string name="unlocked" comment="Status badge showing bootloader is unlocked">已解锁</string>
     <string name="unpin_all">取消固定选中的</string>
@@ -953,6 +981,9 @@
     <string name="wireless_not_connected_message" comment="Instructional body text advising user to pair and connect device first">您的设备未通过无线调试连接。请先配对并连接您的设备。</string>
     <plurals name="logcat_new_entries">
         <item quantity="other">%1$d 条新条目</item>
+    </plurals>
+    <plurals name="timeout_minutes" comment="Option for minute timeouts">
+        <item quantity="other">%1$d 分钟</item>
     </plurals>
     <string name="changelog_v7_4_0">\n现在您可以在设置屏幕内搜索子设置\n为配色方案添加了调色板样式\n添加了直接在应用内设置应用语言的选项</string>
     <string name="changelog_v7_3_0">\n改进了更新日志屏幕中的 UI\n在“关于”部分添加了翻译贡献者\n添加了“许可证”屏幕，用于显示有关应用及应用所用其他库的详细许可证信息</string>

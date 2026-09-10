@@ -61,10 +61,17 @@
     <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">Für die Nutzung von KI-Funktionen ist ein API-Schlüssel erforderlich. Bitte fügen Sie Ihren API-Schlüssel unter Einstellungen -&gt; Cloud-Modelle hinzu.</string>
     <string name="app">App</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">App ist abgestürzt</string>
+    <string name="app_is_locked" comment="Title shown when the app is locked">App ist gesperrt</string>
+    <string name="app_is_locked_msg" comment="Message shown when the app is locked">Bildschirmsperre, Fingerabdruck oder Gesicht verwenden, um diese App zu entsperren und fortzufahren</string>
+    <string name="app_lock_disabled_msg" comment="Toast message informing user that app lock was disabled because device screen lock was removed">App-Authentifizierung deaktiviert: Gerätesperre wurde entfernt.</string>
+    <string name="app_lock_setup_error_msg" comment="Dialog message when user tries to enable app lock but has no device screen lock configured">Es ist keine Displaysperre konfiguriert. Bitte konfigurieren Sie eine Displaysperre oder biometrische Einstellungen in Ihren Geräte-Einstellungen, um die App-Sperre zu aktivieren.</string>
+    <string name="app_permissions" comment="Title for app permissions shortcut">App-Berechtigungen</string>
     <string name="app_tagline" comment="App subtitle/tagline shown on welcome and about screens">ADB an deinen Fingerspitzen</string>
     <string name="apply">Anwenden</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">Auf alle anwenden (%1$d verbleibend)</string>
     <string name="artifact_id" comment="Technical label for AI artifact identifier in developer options">Artefakt-ID</string>
+    <string name="authenticate" comment="Group header for authentication settings">Authentifizieren</string>
+    <string name="authentication_timeout" comment="Title for authentication timeout setting">Authentifizierungs-Timeout</string>
     <string name="auto" comment="Selection option for automatic theme/mode handling">Auto</string>
     <string name="auto_backup" comment="Setting toggle title for scheduled automatic backups">Automatisches Backup</string>
     <string name="auto_backup_content_type" comment="Setting title for selecting items to include in automatic backups">Backup-Inhalt</string>
@@ -99,6 +106,8 @@
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">Akku</string>
     <string name="battery_saver" comment="Device system battery saver mode label">Energiesparmodus</string>
     <string name="behavior" comment="Settings category title for application behavior preferences">Verhalten</string>
+    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">Bildschirmsperre bestätigen oder biometrische Daten verwenden um fortzufahren</string>
+    <string name="biometric_prompt_title" comment="Title for the biometric authentication prompt">AShellYou freischalten</string>
     <string name="block" comment="Action button to block execution or permissions">Blockieren</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">Maximales Lesezeichen-Limit erreicht! Lösche ein paar Lesezeichen, um neue hinzuzufügen</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">Lesezeichen</string>
@@ -210,7 +219,8 @@
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Warnung! Diese Aktion ist unwiderruflich\nBist du sicher, dass du alle Lesezeichen löschen möchtest?</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Löschen bestätigen</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">Sind Sie sicher, dass Sie \"%1$s\" entfernen wollen? Wenn diese Anwendung derzeit angewendet wird, wird die App zur System-Schriftart zurückgesetzt.</string>
-    <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">Warning ! This action is irreversible\nAre you sure you want to delete these %1$d selected bookmarks?</string>
+    <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">Warnung ! Diese Aktion ist unwiderruflich
+Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?</string>
     <string name="confirm_single_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting a single saved bookmark">Warnung ! Diese Aktion ist irreversibel\nSind Sie sicher, dass Sie dieses Lesezeichen löschen möchten?</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">Bist du sicher, dass du diesen Kachel löschen möchtest?</string>
     <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">Cashing hilft dabei, Analyseergebnisse sofort abzurufen.\nMöchtest du wirklich alle KI-Analyse-Cache-Daten löschen?</string>
@@ -267,6 +277,7 @@
     <string name="des_ai_cache_days" comment="Description under Cache duration setting in AI settings">Anzahl der Tage, die zwischengespeicherte Ergebnisse aufbewahrt werden</string>
     <string name="des_ai_cache_enabled" comment="Description under Enable cache setting in AI settings">Analyseergebnisse pro Modell zwischenspeichern</string>
     <string name="des_ai_models" comment="Description under AI &amp; Models item in settings">Daten und API-Schlüssel für KI-Modelle verwalten</string>
+    <string name="des_app_permissions" comment="Description for app permissions shortcut">Android-Systemberechtigungen für die App verwalten</string>
     <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">Auswählen, was in automatische Backups einbezogen werden soll</string>
     <string name="des_auto_backup_folder" comment="Description under Backup folder setting">Einen Ordner zum Speichern automatischer Backups auswählen</string>
     <string name="des_auto_backup_time" comment="Description under Backup time setting">Die Uhrzeit für automatische Backups festlegen</string>
@@ -282,6 +293,7 @@
     <string name="des_backup_settings" comment="Description for app settings backup option">Nur App-Einstellungen sichern</string>
     <string name="des_behavior" comment="Description under Behavior item in settings menu">Bestimmtes Verhalten der App anpassen</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">Verlauf aller Änderungen an der App</string>
+    <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">Gerät unterstützt keine biometrische Authentifizierung</string>
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">Klicke hier, um ein Symbol aus der Sammlung auszuwählen</string>
     <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">Alle Cache-KI-Analyseantworten löschen</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">Vor dem Leeren der Shell-Ausgabe nach Bestätigung fragen</string>
@@ -321,11 +333,14 @@
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Erlaube dem AI-Agenten, installierte Pakete und Anwendungsdaten abzufragen</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">Ein anderes Zielgerät koppeln</string>
     <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">Wählen Sie, wie Farben aus dem Theme-Seed abgeleitet werden</string>
+    <string name="des_privacy_and_security" comment="Description for privacy and security settings">Authentifizierung und App-Berechtigungen</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">Wie aShell Sie mit Ihren Daten umgehen</string>
     <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">Wir haben unsere Datenschutzerklärung aktualisiert. Bitte nehmen Sie sich einen Moment Zeit, um die Änderungen zu überprüfen.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">Schnelleinstellungen-Kacheln zum Ausführen von ADB-Befehlen erstellen</string>
     <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Erlaube dem KI-Agent Schnelleinstellungen Kacheln zu erstellen, zu ändern und zu löschen</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">Melde alle Probleme oder Fehler, auf die du bei der Nutzung der App gestoßen bist</string>
+    <string name="des_require_auth_for_backups" comment="Description for protect backups">Authentifizierung erforderlich bevor ein Backup wiederhergestellt wird</string>
+    <string name="des_require_authentication" comment="Description for require authentication">Sichern Sie die App mithilfe von Displaysperre oder biometrischen Daten</string>
     <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">App-Einstellungen auf Standardwerte zurücksetzen</string>
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">App-Daten aus der gespeicherten Sicherungsdatei wiederherstellen.\nDie gespeicherte Datenbank überschreibt die aktuelle Datenbank</string>
     <string name="des_save_whole_output" comment="Description under Save whole output setting toggle">Aktiviere diese Option, um die Ausgabe der gesamten Shell-Sitzung zu speichern.\nWenn deaktiviert, wird nur die Ausgabe des letzten Befehls gespeichert.</string>
@@ -528,6 +543,7 @@
     <string name="launch">Starten</string>
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">Führender Entwickler</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">Am wenigsten genutzt</string>
+    <string name="legal_and_policies" comment="Group header for legal settings">Rechtliche &amp; Richtlinien</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">Ebene</string>
     <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">Bibliotheken &amp; Lizenzen</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d Bibliotheken erkannt</string>
@@ -554,8 +570,10 @@
     <string name="logcat_no_logs" comment="Placeholder text in logcat screen when no log entries match current filters">Noch keine Protokolle</string>
     <string name="logcat_notification_channel_description" comment="Android Notification Channel description for logcat background session">Wird angezeigt, während Logcat aktiv Protokolle sammelt</string>
     <string name="logcat_notification_channel_name" comment="Android Notification Channel name for Logcat background collection">Logcat-Sitzung</string>
-    <string name="logcat_permission_body" comment="Instructions in logcat dialog detailing PM grant command required via computer ADB for non-root logcat access">Ohne diese Berechtigung sind nur Protokolle von aShellYou selbst sichtbar. Gewähren Sie vollen Zugriff, indem Sie diesen Befehl von einem Computer aus ausführen:</string>
-    <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide">Berechtigung für Protokollzugriff</string>
+    <string name="logcat_permission_instructions" comment="Dialog body explaining that logcat is blocked until the READ_LOGS permission is granted via ADB from a computer; followed by the command block">Systemprotokolle erfordern die READ_LOGS-Berechtigung, die nur von einem Computer gewährt werden kann. Führen Sie diesen Befehl aus, dann tippen Sie auf \"Ich habe es erteilt\":</string>
+    <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide; also the label of the logcat source option that needs it">Berechtigung für Protokollzugriff</string>
+    <string name="logcat_read_logs_mode_description" comment="Description under the Log access logcat source option; READ_LOGS is an Android permission name">Benötigt die READ_LOGS Berechtigung, die einmal von einem Computer über ADB gewährt wurde</string>
+    <string name="logcat_restart_after_grant_message" comment="Dialog body shown after READ_LOGS was granted; the app process must restart before the permission takes effect">Berechtigung erteilt. aShellDu musst neu starten, bevor du Systemprotokolle lesen kannst.</string>
     <string name="logcat_running_description" comment="Notification body text shown while logcat runs in background">aShellYou sammelt Systemprotokolle im Hintergrund</string>
     <string name="logcat_shortcut_long_label" comment="App launcher shortcut label for launching directly into Logcat Viewer">Logcat-Viewer öffnen</string>
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Logcat-Quelle</string>
@@ -684,7 +702,9 @@
     <string name="path" comment="Field label for file or directory path in file browser properties">Pfad</string>
     <string name="paused" comment="Status badge showing ongoing file transfer or logcat session is paused">Pausiert</string>
     <string name="permission_denied" comment="Error toast when requested Android system permission is denied by user">Berechtigung verweigert</string>
+    <string name="permission_not_granted_yet" comment="Toast when the user confirms a permission was granted but the system still reports it missing">Berechtigung noch nicht erteilt</string>
     <string name="permission_optional" comment="Subtext notice indicating requested permissions are non-mandatory">Diese Berechtigungen zu erteilen ist optional!</string>
+    <string name="permissions" comment="Group header for permissions settings">Berechtigungen</string>
     <string name="pick_ashellyou_extension" comment="File picker validation error requiring user to select a .ashellyou backup file">Bitte wähle eine Datei mit der Endung .ashellyou</string>
     <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">Farbe auswählen</string>
     <string name="pin_all">Ausgewählte Pin</string>
@@ -699,6 +719,7 @@
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">Vorschau</string>
     <string name="primary">Primär</string>
     <string name="primary_container">Primärcontainer</string>
+    <string name="privacy_and_security" comment="Title for the privacy and security settings screen">Datenschutz &amp; Sicherheit</string>
     <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Datenschutzerklärung</string>
     <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">Datenschutzerklärung aktualisiert</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">Produkt</string>
@@ -736,10 +757,14 @@
     <string name="report_issue" comment="Button in About screen linking to GitHub issue tracker">Problem melden</string>
     <string name="repository" comment="Button in About screen linking to GitHub project repository">Repository</string>
     <string name="request_timeout" comment="Error toast when network request or ADB response times out">Zeitüberschreitung der Anforderung</string>
+    <string name="require_auth_for_backups" comment="Toggle title to require auth before restoring backups">Sicherungen schützen</string>
+    <string name="require_authentication" comment="Toggle title to require authentication to open the app">Authentifizierung erforderlich</string>
     <string name="reset">Zurücksetzen</string>
     <string name="reset_app_settings" comment="Button label in settings to restore default application configuration">App-Einstellungen zurücksetzen</string>
     <string name="reset_settings_failed" comment="Toast notification when settings reset operation fails">Zurücksetzen der Einstellungen fehlgeschlagen</string>
     <string name="reset_settings_successful" comment="Toast notification confirming settings have been reset to defaults">Einstellungen erfolgreich zurückgesetzt</string>
+    <string name="restart_app" comment="Button that closes and relaunches the app">App neu starten</string>
+    <string name="restart_required" comment="Dialog title when the app must be restarted for a change to take effect">Neustart erforderlich</string>
     <string name="restore">Wiederherstellen</string>
     <string name="restore_app_data" comment="Button label in backup settings to import and restore data from backup file">App-Daten wiederherstellen</string>
     <string name="restore_dialog_message" comment="Warning message in restore dialog that existing database will be overwritten">Die Daten in der gespeicherten Datei überschreiben die aktuellen Daten.</string>
@@ -768,6 +793,7 @@
     <string name="saving_output" comment="Progress status text while exporting terminal log output to file">Exportiere Ausgabe in Datei…</string>
     <string name="schedule" comment="Header title or setting label for automated backup schedule picker">Zeitplan</string>
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">Bildschirmdichte-Multiplikator</string>
+    <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">Nach unten scrollen</string>
     <string name="search">Suchen</string>
     <string name="search_bookmarks_here" comment="Placeholder text in bookmarks tab search bar">Lesezeichen hier durchsuchen</string>
     <string name="search_commands_here" comment="Placeholder text in command templates tab search bar">Befehle hier durchsuchen</string>
@@ -792,7 +818,7 @@
     <string name="select_theme_to_edit_hex" comment="Instructional prompt under hex editor section in theme builder">Wählen Sie oben ein Thema aus, um dessen rohe Hex-Werte hier zu bearbeiten.</string>
     <string name="select_time" comment="Button label to open time picker dialog for automated backup schedule">Zeit auswählen</string>
     <string name="select_zip_package" comment="Button label to launch file picker for selecting a ZIP update package to sideload">ZIP-Paket auswählen</string>
-    <string name="selected_items" comment="Indicator showing how many items are currently selected">Selected items (%1$d)</string>
+    <string name="selected_items" comment="Indicator showing how many items are currently selected">Ausgewählte Elemente (%1$d)</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">Selbst</string>
     <string name="self_pair_connection_failed" comment="Toast error message when automatic local self-pairing fails">Verbindung fehlgeschlagen – manuelle Verbindung versuchen</string>
     <string name="self_pair_enter_code" comment="Subtext instruction prompting user for 6-digit wireless pairing code">Gib den 6-stelligen Code aus dem Kopplungsdialog ein</string>
@@ -886,6 +912,8 @@
     <string name="tile_name" comment="Field label for Quick Settings tile title text">Kachelname</string>
     <string name="tiles" comment="Navigation drawer item and screen header for Quick Settings tiles manager">Kacheln</string>
     <string name="time">Zeit</string>
+    <string name="timeout_immediate" comment="Option for immediate timeout">Sofort</string>
+    <string name="timeout_never" comment="Option for never timeout">Nie</string>
     <string name="timestamp">Zeitstempel</string>
     <string name="toggleable">Umschaltbar</string>
     <string name="total_executions">Ausführungen gesamt</string>
@@ -903,6 +931,7 @@
     <string name="unknown">Unbekannt</string>
     <string name="unknown_error" comment="Toast error message when error cause is unmapped">Unbekannter Fehler aufgetreten</string>
     <string name="unknown_sources_install_permission_not_granted" comment="Error toast when REQUEST_INSTALL_PACKAGES permission is missing for app update installation">Berechtigung nicht erteilt. Bitte erlaube die App-Installation aus unbekannten Quellen.</string>
+    <string name="unlock" comment="Button to unlock the app">Entsperren</string>
     <string name="unlock_status" comment="Device property label displaying bootloader lock state">Entsperrstatus</string>
     <string name="unlocked" comment="Status badge showing bootloader is unlocked">Entsperrt</string>
     <string name="unpin_all">Ausgewählte lösen</string>
@@ -954,6 +983,10 @@
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d neuer Eintrag</item>
         <item quantity="other">%1$d neue Einträge</item>
+    </plurals>
+    <plurals name="timeout_minutes" comment="Option for minute timeouts">
+        <item quantity="one">%1$d Minute</item>
+        <item quantity="other">%1$d Minuten</item>
     </plurals>
     <string name="changelog_v7_4_0">\nDu kannst jetzt Untereinstellungen in den Einstellungsbildschirmen durchsuchen\nPalettenstile für Farbschemata hinzugefügt\nOption zum direkten Festlegen der App-Sprache in der App hinzugefügt</string>
     <string name="changelog_v7_3_0">\nVerbesserte Benutzeroberfläche im Änderungsprotokoll-Bildschirm\nÜbersetzungsmitwirkende im Über-Bereich hinzugefügt\nLizenzen-Bildschirm hinzugefügt, der detaillierte Lizenzinformationen zur App und anderen von der App verwendeten Bibliotheken anzeigt</string>
