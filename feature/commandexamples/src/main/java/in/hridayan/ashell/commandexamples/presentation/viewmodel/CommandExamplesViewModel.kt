@@ -393,7 +393,7 @@ class CommandExamplesViewModel @Inject constructor(
         }
     }
 
-    fun analyzeCommand(command: String, onSuccess: () -> Unit = {}) {
+    fun analyzeCommand(command: String, onAnalyseStart: () -> Unit = {}) {
         if (command.isBlank()) return
 
         if (apiKeyRepository.getKey(LlmProvider.Gemini).isNullOrBlank()) {
@@ -405,7 +405,7 @@ class CommandExamplesViewModel @Inject constructor(
             _aiAnalysisState.value = AiAnalysisUiState.Loading
 
             try {
-                onSuccess()
+                onAnalyseStart()
                 val result = analyzeCommandUseCase(command)
                 _aiAnalysisState.value = AiAnalysisUiState.Success(result)
             } catch (e: Exception) {

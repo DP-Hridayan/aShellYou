@@ -264,7 +264,7 @@ fun CommandExamplesScreen(
                             onAnalyzeCommand = {
                                 viewModel.analyzeCommand(
                                     command = entity.command,
-                                    onSuccess = { showAiAnalysisSheet = true })
+                                    onAnalyseStart = { showAiAnalysisSheet = true })
                             }
                         )
                     }
