@@ -3,6 +3,7 @@ package `in`.hridayan.ashell.core.ui.biometric
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
 import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
@@ -17,7 +18,7 @@ class BiometricPromptManager(
         onError: (BiometricError) -> Unit
     ) {
         val manager = BiometricManager.from(activity)
-        val authenticators = BIOMETRIC_STRONG or DEVICE_CREDENTIAL
+        val authenticators = BIOMETRIC_STRONG or BIOMETRIC_WEAK or DEVICE_CREDENTIAL
 
         val promptInfo = BiometricPrompt.PromptInfo.Builder()
             .setTitle(title)
