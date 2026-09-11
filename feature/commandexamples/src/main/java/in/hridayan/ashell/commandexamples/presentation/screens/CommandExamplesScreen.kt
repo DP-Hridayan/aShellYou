@@ -3,7 +3,6 @@
 package `in`.hridayan.ashell.commandexamples.presentation.screens
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.LinearOutSlowInEasing
@@ -53,6 +52,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -75,7 +75,6 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.commandexamples.data.local.source.preloadedCommands
 import `in`.hridayan.ashell.commandexamples.presentation.component.bottomsheet.CommandsFilterBottomSheet
 import `in`.hridayan.ashell.commandexamples.presentation.component.card.CommandExampleCard
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.AddCommandDialog
@@ -105,6 +104,7 @@ import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.showToast
+import kotlinx.coroutines.launch
 
 @SuppressLint("RememberInComposition")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -115,11 +115,12 @@ fun CommandExamplesScreen(
     val context = LocalContext.current
     val weakHaptic = LocalWeakHaptic.current
     val focusManager = LocalFocusManager.current
+    val navController = LocalNavController.current
+
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
-
     val listState = rememberLazyListState()
-    val navController = LocalNavController.current
+    val coroutineScope = rememberCoroutineScope()
 
     var fabMenuExpanded by rememberSaveable { mutableStateOf(false) }
     val dialogManager = LocalDialogManager.current
@@ -134,6 +135,7 @@ fun CommandExamplesScreen(
 
     var showFilterCommandBottomSheet by rememberSaveable { mutableStateOf(false) }
     var showAiAnalysisSheet by rememberSaveable { mutableStateOf(false) }
+
     val showNoResultsUi =
         (states.search.textFieldValue.text.isNotEmpty() || filteredLabels.isNotEmpty()) && commands.isEmpty()
     val showLoadNewCommandsUi =
@@ -155,8 +157,6 @@ fun CommandExamplesScreen(
         animationSpec = tween(durationMillis = 500, easing = LinearOutSlowInEasing),
         label = "DimAlphaAnimation"
     )
-
-    Log.d("test", preloadedCommands.size.toString())
 
     LaunchedEffect(sortType) {
         viewModel.setSortType(sortType)
@@ -234,22 +234,37 @@ fun CommandExamplesScreen(
                     }
 
                     items(commands.size, key = { index -> commands[index].id }) { index ->
+
+                        val entity = commands[index]
+
                         CommandExampleCard(
                             modifier = Modifier.animateItem(),
-                            id = commands[index].id,
-                            command = commands[index].command,
-                            description = commands[index].description,
-                            isFavourite = commands[index].isFavourite,
-                            labels = commands[index].labels,
-                            onUseCommand = { command ->
+                            id = entity.id,
+                            command = entity.command,
+                            description = entity.description,
+                            isFavourite = entity.isFavourite,
+                            labels = entity.labels,
+                            onUseCommand = {
                                 navController.previousBackStackEntry
                                     ?.savedStateHandle
-                                    ?.set("suggestedCommand", command)
+                                    ?.set("suggestedCommand", entity.command)
                                 navController.popBackStack()
+
+                                viewModel.incrementUseCount(entity.id)
                             },
-                            onAnalyzeCommand = { command ->
-                                viewModel.analyzeCommand(command)
-                                showAiAnalysisSheet = true
+                            onEdit = {
+                                coroutineScope.launch {
+                                    viewModel.setFieldsForEdit(id = entity.id)
+                                    dialogManager.show(CommandExamplesDialogKey.Edit(entity.id))
+                                }
+                            },
+                            onDelete = {
+                                viewModel.deleteCommand(entity.id, it)
+                            },
+                            onAnalyzeCommand = {
+                                viewModel.analyzeCommand(
+                                    command = entity.command,
+                                    onSuccess = { showAiAnalysisSheet = true })
                             }
                         )
                     }
@@ -389,6 +404,7 @@ fun CommandExamplesScreen(
         CommandExamplesDialogKey.LoadDefaultCommands -> LoadDefaultCommandsDialog(
             onDismiss = { dialogManager.dismiss() }
         )
+
         CommandExamplesDialogKey.SortCommands -> CommandsSortDialog(onDismiss = { dialogManager.dismiss() })
         CommandExamplesDialogKey.Add -> AddCommandDialog(onDismiss = { dialogManager.dismiss() })
         is CommandExamplesDialogKey.Edit ->

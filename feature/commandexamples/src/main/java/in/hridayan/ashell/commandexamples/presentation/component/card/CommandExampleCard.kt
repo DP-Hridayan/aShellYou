@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalFlexBoxApi::class)
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
 package `in`.hridayan.ashell.commandexamples.presentation.component.card
 
@@ -14,7 +14,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.ExperimentalFlexBoxApi
 import androidx.compose.foundation.layout.FlexAlignItems
 import androidx.compose.foundation.layout.FlexBox
 import androidx.compose.foundation.layout.FlexDirection
@@ -64,7 +63,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.airbnb.lottie.LottieComposition
 import com.airbnb.lottie.LottieProperty
 import com.airbnb.lottie.compose.LottieAnimation
@@ -73,11 +71,8 @@ import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.airbnb.lottie.compose.rememberLottieDynamicProperties
 import com.airbnb.lottie.compose.rememberLottieDynamicProperty
-import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.CommandExamplesDialogKey
 import `in`.hridayan.ashell.commandexamples.presentation.component.row.Labels
-import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
 import `in`.hridayan.ashell.core.common.FeatureConfig
-import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSnackBarController
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.ai.AiAnalysisButton
@@ -98,14 +93,14 @@ fun CommandExampleCard(
     description: String,
     isFavourite: Boolean,
     labels: List<String>,
-    commandExamplesViewModel: CommandExamplesViewModel = hiltViewModel(),
-    onUseCommand: (String) -> Unit,
-    onAnalyzeCommand: (String) -> Unit
+    onEdit: () -> Unit,
+    onDelete: (onSuccess: () -> Unit) -> Unit,
+    onUseCommand: () -> Unit,
+    onAnalyzeCommand: () -> Unit
 ) {
     val res = LocalResources.current
     val weakHaptic = LocalWeakHaptic.current
     val screenDensity = LocalDensity.current
-    val dialogManager = LocalDialogManager.current
     val snackBarController = LocalSnackBarController.current
     val coroutineScope = rememberCoroutineScope()
 
@@ -134,6 +129,7 @@ fun CommandExampleCard(
 
     val onDelete: () -> Unit = {
         isDeleted = true
+
         snackBarController.show(
             message = res.getString(R.string.item_deleted),
             actionText = res.getString(R.string.undo),
@@ -147,20 +143,10 @@ fun CommandExampleCard(
             },
             onDismiss = {
                 if (isDeleted) {
-                    commandExamplesViewModel.deleteCommand(
-                        id = id,
-                        onSuccess = { isDeleted = true }
-                    )
+                    onDelete { isDeleted = true }
                 }
             }
         )
-    }
-
-    val onEdit: () -> Unit = {
-        coroutineScope.launch {
-            commandExamplesViewModel.setFieldsForEdit(id = id)
-            dialogManager.show(CommandExamplesDialogKey.Edit(id))
-        }
     }
 
     val borderAlpha by animateFloatAsState(
@@ -365,24 +351,19 @@ fun CommandExampleCard(
                                 )
 
                                 CopyButton(
-                                    id = id,
-                                    modifier = Modifier.size(40.dp)
+                                    modifier = Modifier.size(40.dp),
+                                    command = command
                                 )
                             }
 
                             UseCommandButton(
-                                onClick = {
-                                    onUseCommand(command)
-                                    commandExamplesViewModel.incrementUseCount(id)
-                                },
+                                onClick = onUseCommand,
                                 modifier = Modifier.flex { grow(1f) }
                             )
 
                             if (FeatureConfig.isAiEnabled) {
                                 AiAnalysisButton(
-                                    onClick = {
-                                        onAnalyzeCommand(command)
-                                    },
+                                    onClick = onAnalyzeCommand,
                                     colors = ButtonDefaults.buttonColors(
                                         containerColor = MaterialTheme.colorScheme.tertiary,
                                         contentColor = MaterialTheme.colorScheme.onTertiary
@@ -447,24 +428,20 @@ private fun EditButton(
 @Composable
 private fun CopyButton(
     modifier: Modifier = Modifier,
-    id: Int,
-    viewModel: CommandExamplesViewModel = hiltViewModel()
+    command: String,
 ) {
     val context = LocalContext.current
     val res = LocalResources.current
-    val coroutineScope = rememberCoroutineScope()
 
     IconButton(
         onClick = withHaptic {
-            coroutineScope.launch {
-                val command = viewModel.getCommandById(id) ?: ""
-                if (command.isNotEmpty()) {
-                    ClipboardUtils.copyToClipboard(text = command, context = context)
-                    showToast(context, res.getString(R.string.copied_to_clipboard))
-                } else {
-                    showToast(context, res.getString(R.string.command_not_found))
-                }
+            if (command.isEmpty()) {
+                showToast(context, res.getString(R.string.command_not_found))
+                return@withHaptic
             }
+
+            ClipboardUtils.copyToClipboard(text = command, context = context)
+            showToast(context, res.getString(R.string.copied_to_clipboard))
         },
         colors = IconButtonDefaults.iconButtonColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,

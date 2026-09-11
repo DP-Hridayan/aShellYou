@@ -393,8 +393,9 @@ class CommandExamplesViewModel @Inject constructor(
         }
     }
 
-    fun analyzeCommand(command: String) {
+    fun analyzeCommand(command: String, onSuccess: () -> Unit = {}) {
         if (command.isBlank()) return
+
         if (apiKeyRepository.getKey(LlmProvider.Gemini).isNullOrBlank()) {
             _showApiKeyRequiredDialog.value = true
             return
@@ -402,7 +403,9 @@ class CommandExamplesViewModel @Inject constructor(
 
         viewModelScope.launch {
             _aiAnalysisState.value = AiAnalysisUiState.Loading
+
             try {
+                onSuccess()
                 val result = analyzeCommandUseCase(command)
                 _aiAnalysisState.value = AiAnalysisUiState.Success(result)
             } catch (e: Exception) {
