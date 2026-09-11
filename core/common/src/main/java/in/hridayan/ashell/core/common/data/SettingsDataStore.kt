@@ -33,6 +33,10 @@ class SettingsDataStore @Inject constructor(
             SettingsKeys.GoogleAccountPhotoUrl.name,
             SettingsKeys.NewCommandsAvailable.name,
             SettingsKeys.FontFamily.name,
+            SettingsKeys.RequireAuthentication.name,
+            SettingsKeys.UseBiometrics.name,
+            SettingsKeys.AuthenticationTimeout.name,
+            SettingsKeys.RequireAuthenticationForBackups.name
         )
     }
 
