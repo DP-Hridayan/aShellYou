@@ -1,5 +1,6 @@
 package `in`.hridayan.ashell.logcat.data.emitter
 
+import `in`.hridayan.ashell.core.shizuku.domain.ShizukuCommandRunner
 import `in`.hridayan.ashell.logcat.domain.emitter.LogcatEmitter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -17,17 +18,17 @@ import javax.inject.Singleton
  * Logcat emitter that runs logcat as the `shell` UID via Shizuku.
  * Does not require the READ_LOGS permission — Shizuku grants full access.
  */
-@Singleton
-class ShizukuLogcatEmitter @Inject constructor() : LogcatEmitter {
+private val LOGCAT_COMMAND = arrayOf("logcat", "-v", "threadtime")
 
-    @Suppress("DEPRECATION")
+@Singleton
+class ShizukuLogcatEmitter @Inject constructor(
+    private val shizukuCommandRunner: ShizukuCommandRunner
+) : LogcatEmitter {
+
     override fun lines(): Flow<String> = flow {
-        if (!runCatching { Shizuku.pingBinder() }.getOrDefault(false)) return@flow
-        val process = Shizuku.newProcess(
-            arrayOf("logcat", "-v", "threadtime"),
-            null,
-            null
-        )
+        val process = shizukuCommandRunner
+            .start(LOGCAT_COMMAND, null, null)
+            .getOrElse { return@flow }
         val reader = BufferedReader(InputStreamReader(process.inputStream))
         try {
             while (true) {

@@ -43,6 +43,7 @@ import `in`.hridayan.ashell.shell.common.presentation.model.ShellScreenState
 import `in`.hridayan.ashell.shell.common.presentation.model.ShellState
 import `in`.hridayan.ashell.shell.domain.model.SaveProgress
 import `in`.hridayan.ashell.shell.domain.utils.saveToFileStreamingFlow
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
@@ -65,6 +66,9 @@ import javax.inject.Inject
 import kotlin.coroutines.resume
 
 private const val LOOPBACK_HOST = "127.0.0.1"
+
+private const val OUTPUT_FLUSH_INTERVAL_MS = 250L
+private const val OUTPUT_FLUSH_BATCH_SIZE = 100
 
 @HiltViewModel
 class ShellViewModel @Inject constructor(
@@ -419,29 +423,45 @@ class ShellViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            val outputBuffer = mutableListOf<OutputLine>()
-            var lastFlushTime = System.currentTimeMillis()
-            val flushIntervalMs = 250L
+            collectCommandOutput(executor(commandText), outputFlow)
+            _states.update { it.copy(shellState = ShellState.Free) }
+        }
+    }
 
-            executor(commandText).collect { line ->
+    private suspend fun collectCommandOutput(
+        lines: Flow<OutputLine>,
+        outputFlow: MutableStateFlow<List<OutputLine>>
+    ) {
+        val outputBuffer = mutableListOf<OutputLine>()
+        var lastFlushTime = System.currentTimeMillis()
+
+        try {
+            lines.collect { line ->
                 outputBuffer.add(line)
 
                 val now = System.currentTimeMillis()
-                if (now - lastFlushTime >= flushIntervalMs || outputBuffer.size >= 100) {
+                if (now - lastFlushTime >= OUTPUT_FLUSH_INTERVAL_MS || outputBuffer.size >= OUTPUT_FLUSH_BATCH_SIZE) {
                     val linesToAdd = outputBuffer.toList()
                     outputBuffer.clear()
                     outputFlow.update { it + linesToAdd }
                     lastFlushTime = now
                 }
             }
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            outputBuffer.add(commandFailureLine(e))
+        }
 
-            if (outputBuffer.isNotEmpty()) {
-                outputFlow.update { it + outputBuffer }
-            }
-
-            _states.update { it.copy(shellState = ShellState.Free) }
+        if (outputBuffer.isNotEmpty()) {
+            outputFlow.update { it + outputBuffer }
         }
     }
+
+    private fun commandFailureLine(error: Exception): OutputLine = OutputLine(
+        appContext.getString(R.string.command_execution_failed, error.message),
+        isError = true
+    )
 
     private fun String.removeAdbShellPrefix(): String {
         return this.removePrefix("adb shell")

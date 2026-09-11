@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.qstiles.data.executor
 
 import android.content.pm.PackageManager
+import `in`.hridayan.ashell.core.shizuku.domain.ShizukuCommandRunner
 import `in`.hridayan.ashell.qstiles.domain.executor.CommandExecutor
 import `in`.hridayan.ashell.qstiles.domain.executor.CommandResult
 import `in`.hridayan.ashell.qstiles.domain.model.TileErrorType
@@ -10,9 +11,10 @@ import kotlinx.coroutines.withContext
 import rikka.shizuku.Shizuku
 import javax.inject.Inject
 
-class ShizukuExecutor @Inject constructor() : CommandExecutor {
+class ShizukuExecutor @Inject constructor(
+    private val shizukuCommandRunner: ShizukuCommandRunner
+) : CommandExecutor {
 
-    @Suppress("DEPRECATION")
     override suspend fun execute(command: String): CommandResult = withContext(Dispatchers.IO) {
         val filteredCommand = filterCommand(command)
         val start = System.currentTimeMillis()
@@ -35,10 +37,10 @@ class ShizukuExecutor @Inject constructor() : CommandExecutor {
             )
         }
 
-        var process: Process? = null
+        val process = shizukuCommandRunner
+            .start(arrayOf("sh", "-c", filteredCommand), null, null)
+            .getOrElse { error -> return@withContext helperUnavailable(error, start) }
         try {
-            process = Shizuku.newProcess(arrayOf("sh", "-c", filteredCommand), null, null)
-
             val output = StringBuilder()
             val errorOutput = StringBuilder()
 
@@ -69,10 +71,10 @@ class ShizukuExecutor @Inject constructor() : CommandExecutor {
                 durationMs = elapsed(start)
             )
         } catch (e: CancellationException) {
-            process?.destroy()
+            process.destroy()
             throw e
         } catch (e: Exception) {
-            process?.destroy()
+            process.destroy()
             CommandResult(
                 output = "Execution error: ${e.message}",
                 isSuccess = false,
@@ -81,6 +83,13 @@ class ShizukuExecutor @Inject constructor() : CommandExecutor {
             )
         }
     }
+
+    private fun helperUnavailable(error: Throwable, start: Long) = CommandResult(
+        output = error.message ?: "Shizuku helper service is unavailable.",
+        isSuccess = false,
+        errorType = TileErrorType.EXECUTION_FAILED,
+        durationMs = elapsed(start)
+    )
 
     private fun elapsed(start: Long) = System.currentTimeMillis() - start
 

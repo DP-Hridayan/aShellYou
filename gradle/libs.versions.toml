@@ -53,7 +53,7 @@ room = "2.8.5"
 securityCrypto = "1.1.0"
 serialization = "1.11.0"
 shapeindicators = "2.1.1"
-shizuku = "13.1.0"
+shizuku = "13.1.5"
 slf4j = "1.7.36"
 spake2Android = "-SNAPSHOT"
 splashscreen = "1.2.0"
@@ -127,6 +127,7 @@ kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.
 #noinspection UnusedVersionCatalogEntry
 kotlin-metadata-jvm = { group = "org.jetbrains.kotlin", name = "kotlin-metadata-jvm", version.ref = "kotlin" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }

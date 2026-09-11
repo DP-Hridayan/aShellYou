@@ -2,21 +2,27 @@ package `in`.hridayan.ashell.shell.local_adb_shell.data.shell
 
 import android.content.Context
 import `in`.hridayan.ashell.core.common.domain.model.OutputLine
+import `in`.hridayan.ashell.core.shizuku.domain.ShizukuCommandRunner
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import rikka.shizuku.Shizuku
-import rikka.shizuku.ShizukuRemoteProcess
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 import java.io.InterruptedIOException
 
-class ShellCommandExecutor {
+private const val EMULATED_STORAGE_PREFIX = "/storage/emulated/"
+private val SHIZUKU_ENVIRONMENT = arrayOf(
+    "PATH=/product/bin:/apex/com.android.runtime/bin:/apex/com.android.art/bin:" +
+        "/system_ext/bin:/system/bin:/system/xbin:/odm/bin:/vendor/bin"
+)
+
+class ShellCommandExecutor(
+    private val shizukuCommandRunner: ShizukuCommandRunner
+) {
     private var currentProcess: Process? = null
-    private var shizukuProcess: ShizukuRemoteProcess? = null
     private var currentDir = "/storage/emulated/0/"
 
     /**
@@ -131,74 +137,22 @@ class ShellCommandExecutor {
         emitAll(exec(process))
     }.flowOn(Dispatchers.IO)
 
-    @Suppress("DEPRECATION")
-    fun runShizuku(commandText: String): Flow<OutputLine>? {
-        val actualCommand = handleCdCommand(commandText) ?: return flow {
+    fun runShizuku(commandText: String): Flow<OutputLine> = flow {
+        val actualCommand = handleCdCommand(commandText)
+
+        if (actualCommand == null) {
             emit(OutputLine("Changed directory to: $currentDir", isError = false))
-        }.flowOn(Dispatchers.IO)
-
-        val envArray = arrayOf(
-            "PATH=/product/bin:/apex/com.android.runtime/bin:/apex/com.android.art/bin:/system_ext/bin:/system/bin:/system/xbin:/odm/bin:/vendor/bin"
-        )
-
-        val safeDir = if (currentDir.startsWith("/storage/emulated/")) {
-            null
-        } else {
-            currentDir
+            return@flow
         }
 
-        val result = runCatching {
-            Shizuku.newProcess(arrayOf("sh", "-c", actualCommand), envArray, safeDir)
-        }
-
-        val process = result.getOrNull() ?: return result.exceptionOrNull()?.let { throwable ->
-            flow {
-                emit(
-                    OutputLine(
-                        "[Shizuku] ${throwable::class.simpleName}: ${throwable.message}",
-                        isError = true
-                    )
-                )
-            }.flowOn(Dispatchers.IO)
-        } ?: return null
-
-        shizukuProcess = process
-        return flow {
-            emitAll(execShizukuProcess())
-        }.flowOn(Dispatchers.IO)
-    }
-
-
-    private fun execShizukuProcess(): Flow<OutputLine> = flow {
-        val reader = BufferedReader(InputStreamReader(shizukuProcess?.inputStream))
-        val errorReader = BufferedReader(InputStreamReader(shizukuProcess?.errorStream))
-
-        try {
-            while (true) {
-                val line = reader.readLine() ?: break
-                emit(OutputLine(line, isError = false))
-            }
-
-            while (true) {
-                val errorLine = errorReader.readLine() ?: break
-                emit(OutputLine(errorLine, isError = true))
-            }
-
-            shizukuProcess?.waitFor()
-        } catch (e: InterruptedIOException) {
-        } catch (e: IOException) {
-            emit(OutputLine("Error reading process output: ${e.message}", isError = true))
-        } finally {
-            try {
-                reader.close()
-                errorReader.close()
-            } catch (_: IOException) {
-            }
-
-            shizukuProcess?.destroy()
-            shizukuProcess = null
-        }
+        val process = shizukuCommandRunner
+            .start(arrayOf("sh", "-c", actualCommand), SHIZUKU_ENVIRONMENT, shizukuWorkingDirectory())
+            .getOrThrow()
+        emitAll(exec(process))
     }.flowOn(Dispatchers.IO)
+
+    private fun shizukuWorkingDirectory(): String? =
+        currentDir.takeUnless { it.startsWith(EMULATED_STORAGE_PREFIX) }
 
     fun exec(process: Process): Flow<OutputLine> = flow {
         currentProcess = process
@@ -235,7 +189,5 @@ class ShellCommandExecutor {
     fun stop() {
         currentProcess?.destroy()
         currentProcess = null
-        shizukuProcess?.destroy()
-        shizukuProcess = null
     }
 }
