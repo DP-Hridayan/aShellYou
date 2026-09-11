@@ -2,8 +2,6 @@ package `in`.hridayan.ashell.core.ui.biometric
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
-import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
-import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
 import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
@@ -14,17 +12,22 @@ class BiometricPromptManager(
     fun showBiometricPrompt(
         title: String,
         description: String,
+        authenticators: Int,
         onSuccess: () -> Unit,
         onError: (BiometricError) -> Unit
     ) {
         val manager = BiometricManager.from(activity)
-        val authenticators = BIOMETRIC_STRONG or BIOMETRIC_WEAK or DEVICE_CREDENTIAL
 
-        val promptInfo = BiometricPrompt.PromptInfo.Builder()
+        val builder = BiometricPrompt.PromptInfo.Builder()
             .setTitle(title)
             .setDescription(description)
             .setAllowedAuthenticators(authenticators)
-            .build()
+
+        if ((authenticators and DEVICE_CREDENTIAL) == 0) {
+            builder.setNegativeButtonText(activity.getString(android.R.string.cancel))
+        }
+
+        val promptInfo = builder.build()
 
         when (manager.canAuthenticate(authenticators)) {
             BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> {

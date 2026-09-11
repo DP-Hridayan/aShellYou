@@ -24,7 +24,14 @@ internal fun SearchScreenScope.privacyAndSecurityGraph(
         entry(key = SettingsKeys.RequireAuthentication) {
             title(R.string.require_authentication)
             description(R.string.des_require_authentication)
+            icon(if (requireAuth) R.drawable.ic_encrypted else R.drawable.ic_encrypted_off)
+        }
+
+        entry(key = SettingsKeys.UseBiometrics) {
+            title(R.string.use_biometrics)
+            description(R.string.des_use_biometrics)
             icon(if (requireAuth) R.drawable.ic_fingerprint else R.drawable.ic_fingerprint_off)
+            availableWhen(requireAuth)
         }
 
         entry(key = SettingsKeys.AuthenticationTimeout) {

@@ -4,6 +4,10 @@ package `in`.hridayan.ashell.ui.screens
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
+import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -29,6 +33,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -47,21 +52,38 @@ import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.ui.biometric.BiometricError
 import `in`.hridayan.ashell.core.ui.biometric.BiometricPromptManager
 import `in`.hridayan.ashell.core.utils.showToast
+import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
 fun AppLockedScreen(onUnlockSuccess: () -> Unit) {
     val context = LocalContext.current
     val res = LocalResources.current
-
     val settings = LocalSettings.current
+
+    val useBiometrics = settings[SettingsKeys.UseBiometrics]
 
     var isError by remember { mutableStateOf(true) }
 
     val onTriggerBiometricPrompt: () -> Unit = {
+        var authenticators = DEVICE_CREDENTIAL
+
+        if (useBiometrics) {
+            val manager = BiometricManager.from(context)
+
+            if (manager.canAuthenticate(BIOMETRIC_STRONG or BIOMETRIC_WEAK) == BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED) {
+                settings.set(SettingsKeys.UseBiometrics, false)
+                showToast(context, res.getString(R.string.biometrics_disabled_msg))
+            } else {
+                authenticators = BIOMETRIC_STRONG or BIOMETRIC_WEAK or DEVICE_CREDENTIAL
+            }
+        }
+
         triggerBiometricPrompt(
             context = context,
             title = res.getString(R.string.biometric_prompt_title),
             description = res.getString(R.string.biometric_prompt_description),
+            authenticators = authenticators,
             onSuccess = {
                 isError = false
                 onUnlockSuccess()
@@ -70,10 +92,13 @@ fun AppLockedScreen(onUnlockSuccess: () -> Unit) {
                 when (error) {
                     BiometricError.NoneEnrolled,
                     BiometricError.NoHardware -> {
-                        showToast(context, res.getString(R.string.app_lock_disabled_msg))
                         isError = false
                         onUnlockSuccess()
+
+                        showToast(context, res.getString(R.string.app_lock_disabled_msg))
+
                         settings.set(SettingsKeys.RequireAuthentication, false)
+                        settings.set(SettingsKeys.UseBiometrics, false)
                     }
 
                     else -> isError = true
@@ -81,8 +106,14 @@ fun AppLockedScreen(onUnlockSuccess: () -> Unit) {
             })
     }
 
-    LaunchedEffect(Unit) {
-        onTriggerBiometricPrompt()
+    var hasPrompted by rememberSaveable { mutableStateOf(false) }
+
+    LaunchedEffect(useBiometrics) {
+        if (!hasPrompted) {
+            delay(150.milliseconds)
+            hasPrompted = true
+            onTriggerBiometricPrompt()
+        }
     }
 
     Surface(modifier = Modifier.fillMaxSize()) {
@@ -161,6 +192,7 @@ private fun triggerBiometricPrompt(
     context: Context,
     title: String,
     description: String,
+    authenticators: Int,
     onSuccess: () -> Unit,
     onError: (BiometricError) -> Unit
 ) {
@@ -169,6 +201,7 @@ private fun triggerBiometricPrompt(
     BiometricPromptManager(activity).showBiometricPrompt(
         title = title,
         description = description,
+        authenticators = authenticators,
         onSuccess = onSuccess,
         onError = { onError(it) })
 }

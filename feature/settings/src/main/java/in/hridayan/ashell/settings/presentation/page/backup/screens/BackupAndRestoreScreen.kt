@@ -8,6 +8,10 @@ import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
+import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
@@ -117,18 +121,35 @@ fun BackupAndRestoreScreen(
     val isCloudBackupAvailable = backupAndRestoreViewModel.isCloudBackupAvailable
     var restoreFileUri by rememberSaveable { mutableStateOf("".toUri()) }
 
+    val useBiometrics = settings[SettingsKeys.UseBiometrics]
+
     val handleAuth: (AppCompatActivity) -> Unit = { activity ->
+        var authenticators = DEVICE_CREDENTIAL
+
+        if (useBiometrics) {
+            val manager = BiometricManager.from(context)
+
+            if (manager.canAuthenticate(BIOMETRIC_STRONG or BIOMETRIC_WEAK) == BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED) {
+                settings.set(SettingsKeys.UseBiometrics, false)
+                showToast(context, res.getString(R.string.biometrics_disabled_msg))
+            } else {
+                authenticators = BIOMETRIC_STRONG or BIOMETRIC_WEAK or DEVICE_CREDENTIAL
+            }
+        }
+
         BiometricPromptManager(
             activity
         ).showBiometricPrompt(
             title = res.getString(R.string.biometric_prompt_title),
             description = res.getString(R.string.biometric_prompt_description),
+            authenticators = authenticators,
             onSuccess = { settingsViewModel.handleRestoreClick() },
             onError = { error ->
                 when (error) {
                     BiometricError.NoneEnrolled,
                     BiometricError.NoHardware -> {
                         settings.set(SettingsKeys.RequireAuthentication, false)
+                        settings.set(SettingsKeys.UseBiometrics, false)
                         settingsViewModel.handleRestoreClick()
                         showToast(context, res.getString(R.string.app_lock_disabled_msg))
                     }

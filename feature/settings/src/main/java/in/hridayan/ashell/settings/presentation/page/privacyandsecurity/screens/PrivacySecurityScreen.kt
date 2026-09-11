@@ -6,12 +6,12 @@ import android.net.Uri
 import android.provider.Settings
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
+import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -35,6 +35,7 @@ import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.ui.biometric.BiometricError
 import `in`.hridayan.ashell.core.ui.biometric.BiometricPromptManager
 import `in`.hridayan.ashell.settings.presentation.components.dialog.AuthenticationTimeoutDialog
+import `in`.hridayan.ashell.settings.presentation.components.dialog.NoLockScreenDialog
 import `in`.hridayan.settingsgraph.ui.SettingsColumn
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,6 +48,7 @@ fun PrivacySecurityScreen() {
 
     val hapticsEnabled = settings[SettingsKeys.HapticsAndVibration]
     val requireAuth = settings[SettingsKeys.RequireAuthentication]
+    val useBiometrics = settings[SettingsKeys.UseBiometrics]
     val currentTimeout = settings[SettingsKeys.AuthenticationTimeout]
 
     val timeoutText = getTimeoutText(currentTimeout)
@@ -59,15 +61,8 @@ fun PrivacySecurityScreen() {
     }
 
     if (showNoLockScreenDialog) {
-        AlertDialog(
-            onDismissRequest = { showNoLockScreenDialog = false },
-            title = { Text(stringResource(R.string.require_authentication)) },
-            text = { Text(stringResource(R.string.app_lock_setup_error_msg)) },
-            confirmButton = {
-                TextButton(onClick = { showNoLockScreenDialog = false }) {
-                    Text(stringResource(android.R.string.ok))
-                }
-            }
+        NoLockScreenDialog(
+            onDismiss = { showNoLockScreenDialog = false }
         )
     }
 
@@ -85,6 +80,7 @@ fun PrivacySecurityScreen() {
             context = context,
             title = res.getString(R.string.biometric_prompt_title),
             description = res.getString(R.string.biometric_prompt_description),
+            authenticators = DEVICE_CREDENTIAL,
             onSuccess = {
                 settings.set(
                     key = SettingsKeys.RequireAuthentication,
@@ -114,6 +110,31 @@ fun PrivacySecurityScreen() {
         )
     }
 
+    val onToggleUseBiometrics: () -> Unit = {
+        if (useBiometrics) {
+            settings.set(SettingsKeys.UseBiometrics, false)
+        } else {
+            triggerBiometricPrompt(
+                context = context,
+                title = res.getString(R.string.biometric_prompt_title),
+                description = res.getString(R.string.biometric_prompt_description),
+                authenticators = BIOMETRIC_STRONG or BIOMETRIC_WEAK,
+                onSuccess = {
+                    settings.set(SettingsKeys.UseBiometrics, true)
+                },
+                onError = { error ->
+                    if (error == BiometricError.NoneEnrolled || error == BiometricError.NoHardware) {
+                        Toast.makeText(
+                            context,
+                            res.getString(R.string.device_not_supported),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            )
+        }
+    }
+
     val listState = rememberLazyListState()
 
     val topAppBarState = rememberTopAppBarState()
@@ -138,8 +159,16 @@ fun PrivacySecurityScreen() {
                     switchItem(SettingsKeys.RequireAuthentication) {
                         title(R.string.require_authentication)
                         description(R.string.des_require_authentication)
-                        icon(if (requireAuth) R.drawable.ic_fingerprint else R.drawable.ic_fingerprint_off)
+                        icon(if (requireAuth) R.drawable.ic_encrypted else R.drawable.ic_encrypted_off)
                         onClick { onAuthenticate() }
+                    }
+
+                    switchItem(SettingsKeys.UseBiometrics) {
+                        title(R.string.use_biometrics)
+                        description(R.string.des_use_biometrics)
+                        icon(if (useBiometrics) R.drawable.ic_fingerprint else R.drawable.ic_fingerprint_off)
+                        visible { requireAuth }
+                        onClick { onToggleUseBiometrics() }
                     }
 
                     clickableItem(SettingsKeys.AuthenticationTimeout) {
@@ -190,6 +219,7 @@ private fun triggerBiometricPrompt(
     context: Context,
     title: String,
     description: String,
+    authenticators: Int,
     onSuccess: () -> Unit,
     onError: (BiometricError) -> Unit
 ) {
@@ -198,6 +228,7 @@ private fun triggerBiometricPrompt(
     BiometricPromptManager(activity).showBiometricPrompt(
         title = title,
         description = description,
+        authenticators = authenticators,
         onSuccess = onSuccess,
         onError = { onError(it) }
     )
