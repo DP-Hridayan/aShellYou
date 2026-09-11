@@ -5,11 +5,12 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.core.common.domain.model.OutputLine
 import `in`.hridayan.ashell.core.common.domain.repository.ShellRepository
 import `in`.hridayan.ashell.core.resources.R
+import `in`.hridayan.ashell.core.shizuku.domain.ShizukuServiceError
 import `in`.hridayan.ashell.shell.local_adb_shell.data.shell.ShellCommandExecutor
 import `in`.hridayan.ashell.shell.local_adb_shell.data.shizuku.ShizukuPermissionHandler
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.catch
 import javax.inject.Inject
 
 class ShellRepositoryImpl @Inject constructor(
@@ -61,13 +62,17 @@ class ShellRepositoryImpl @Inject constructor(
     }
 
     override suspend fun executeShizukuCommand(command: String): Flow<OutputLine> {
-        return shellCommandExecutor.runShizuku(command)
-            ?: flowOf(
-                OutputLine(
-                    context.getString(R.string.shizuku_service_unavailable_error),
-                    isError = true
-                )
-            )
+        return shellCommandExecutor.runShizuku(command).catch { throwable ->
+            emit(OutputLine(shizukuFailureMessage(throwable), isError = true))
+        }
+    }
+
+    private fun shizukuFailureMessage(throwable: Throwable): String = when (throwable) {
+        is ShizukuServiceError.BinderMissing,
+        is ShizukuServiceError.PermissionDenied ->
+            context.getString(R.string.shizuku_service_unavailable_error)
+
+        else -> context.getString(R.string.shizuku_process_start_failed, throwable.message)
     }
 
     override fun stopCommand() {

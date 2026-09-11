@@ -29,6 +29,7 @@ android {
 dependencies {
 
     implementation(project(":core:common"))
+    implementation(project(":core:shizuku"))
     implementation(project(":core:ui"))
     implementation(project(":core:navigation"))
     implementation(platform(libs.compose.bom))

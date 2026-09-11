@@ -165,6 +165,7 @@
     <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">Unlock Ability</string>
     <string name="code_pair_instruction" comment="Instructional text in Wireless Debugging pairing dialog directing user to open Wireless Debugging menu on target device">Open \"Wireless debugging\" on the target device and tap \"Pair device with pairing code\"</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">Collapse</string>
+    <string name="command_execution_failed" comment="Inline shell error shown when running a command fails unexpectedly. %1$s is the technical reason">Command failed: %1$s</string>
     <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">Error occurred</string>
     <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">High Elevation (Dialog)</string>
     <string name="color_preview_highest_elevation" comment="Sample label in theme editor showing highest elevation surface color (Bottom Sheet)">Highest Elevation (Bottom Sheet)</string>
@@ -903,6 +904,7 @@
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">The shell output is exported to \'%s\'</string>
     <string name="shizuku" translatable="false">Shizuku</string>
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">Shizuku is not installed</string>
+    <string name="shizuku_process_start_failed" comment="Inline shell error shown when the Shizuku helper service could not start the command. %1$s is the technical reason">Shizuku could not start the command: %1$s</string>
     <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">Shizuku service is unavailable. Make sure Shizuku or Shizuku+ is running and permission is granted.</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku is unavailable</string>
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">Shizuku or Shizuku+ is not installed or properly configured on your device</string>

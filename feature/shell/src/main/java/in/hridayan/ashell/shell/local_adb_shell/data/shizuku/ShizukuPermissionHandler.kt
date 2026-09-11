@@ -19,6 +19,14 @@ class ShizukuPermissionHandler {
             _permissionGranted.value = granted
             Shizuku.removeRequestPermissionResultListener(permissionListener)
         }
+        observeBinderLifecycle()
+    }
+
+    private fun observeBinderLifecycle() {
+        runCatching {
+            Shizuku.addBinderReceivedListener { refreshPermissionState() }
+            Shizuku.addBinderDeadListener { _permissionGranted.value = false }
+        }
     }
 
     private fun getInitialPermissionState(): Boolean {

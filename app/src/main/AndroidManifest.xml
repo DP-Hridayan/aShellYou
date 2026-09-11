@@ -45,6 +45,7 @@
 
     <queries>
         <package android:name="moe.shizuku.privileged.api" />
+        <package android:name="af.shizuku.plus.api" />
     </queries>
 
     <application
@@ -94,7 +95,7 @@
         <activity android:name=".activities.CrashReportActivity" />
 
         <provider
-            android:name="rikka.shizuku.ShizukuProvider"
+            android:name="in.hridayan.ashell.core.shizuku.provider.AShellShizukuProvider"
             android:authorities="${applicationId}.shizuku"
             android:enabled="true"
             android:exported="true"

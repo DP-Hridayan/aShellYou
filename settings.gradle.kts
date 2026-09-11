@@ -33,6 +33,7 @@ include(":libadb")
 include(":core:common")
 include(":core:navigation")
 include(":core:resources")
+include(":core:shizuku")
 include(":core:ui")
 
 include(":feature:ai")
