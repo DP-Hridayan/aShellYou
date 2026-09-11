@@ -106,8 +106,9 @@
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">バッテリー</string>
     <string name="battery_saver" comment="Device system battery saver mode label">バッテリーセーバー</string>
     <string name="behavior" comment="Settings category title for application behavior preferences">動作</string>
-    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">画面ロックを確認するか生体認証を使用して続行してください</string>
+    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">画面ロックを確認して続行する</string>
     <string name="biometric_prompt_title" comment="Title for the biometric authentication prompt">AShellYou を解放する</string>
+    <string name="biometrics_disabled_msg" comment="Toast message when biometric data is removed from device settings">アプリの生体認証が無効になりました: 生体認証データがデバイスから削除されました。</string>
     <string name="block" comment="Action button to block execution or permissions">ブロック</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">ブックマークの上限に達しました！ブックマークを削除して新しいブックマークを追加しましょう</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">ブックマーク</string>
@@ -219,8 +220,10 @@
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">警告 ！この操作は元に戻せません。\n本当にすべてのブックマークを削除しますか？</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">削除の確認</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">Are you sure you want to remove \"%1$s\"? If it is currently applied, the app will revert to the System font?</string>
-    <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">Warning ! This action is irreversible\nAre you sure you want to delete these %1$d selected bookmarks?</string>
-    <string name="confirm_single_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting a single saved bookmark">Warning ! This action is irreversible\nAre you sure you want to delete this bookmark?</string>
+    <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">警告！この操作は元に戻せません
+選択した %1$d 件のブックマークを削除してもよろしいですか？</string>
+    <string name="confirm_single_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting a single saved bookmark">警告！この操作は元戻せません
+このブックマークを削除してもよろしいですか？</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">これを削除してもいいですか？</string>
     <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">キャッシュを使用すると、分析結果をすぐに取得できます。\n本当にすべてのAI分析キャッシュデータをクリアしますか？</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" は既にこの場所に存在します。</string>
@@ -352,6 +355,7 @@
     <string name="des_translators" comment="Subtitle description under Translators list in About section">aShellYouの翻訳に協力してくれた方々</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">UI要素とフォントサイズのスケールを調整します</string>
     <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">アプリがチェックするリリースを選択してください</string>
+    <string name="des_use_biometrics">指紋または顔を使用してアプリのロックを解除する</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">正しくないイメージはブートロープを引き起こす可能性があるため、注意して進めてください</string>
     <string name="description">説明</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">すべての選択を解除</string>
@@ -543,7 +547,7 @@
     <string name="launch">起動</string>
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">開発者</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">最小限使用</string>
-    <string name="legal_and_policies" comment="Group header for legal settings">Legal &amp; Policies</string>
+    <string name="legal_and_policies" comment="Group header for legal settings">法的情報 &amp; ポリシー</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">レベル</string>
     <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">ライブラリ &amp; ライセンス</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d 個のライブラリが見つかりました</string>
@@ -946,6 +950,7 @@
     <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">USBデバッグが必要です</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">このデバイスでは USB マネージャーを利用できません</string>
     <string name="use">利用</string>
+    <string name="use_biometrics">生体認証を使用</string>
     <string name="utilities" comment="Category title in homescreen">ユーティリティ</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">バリアント</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">検証に失敗しました</string>

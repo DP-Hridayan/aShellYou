@@ -106,8 +106,9 @@
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">电池</string>
     <string name="battery_saver" comment="Device system battery saver mode label">省电模式</string>
     <string name="behavior" comment="Settings category title for application behavior preferences">行为</string>
-    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">确认您的屏幕锁定或使用生物测定技术继续</string>
+    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">确认您的屏幕锁定以继续</string>
     <string name="biometric_prompt_title" comment="Title for the biometric authentication prompt">解锁 aShellYou</string>
+    <string name="biometrics_disabled_msg" comment="Toast message when biometric data is removed from device settings">应用生物测定技术已禁用：已从设备上删除生物测定数据。</string>
     <string name="block" comment="Action button to block execution or permissions">阻止</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">书签达到设定数量，移除部分书签后再尝试添加</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">书签</string>
@@ -352,6 +353,7 @@
     <string name="des_translators" comment="Subtitle description under Translators list in About section">帮助翻译 aShellYou 的人员</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">调整 UI 元素和字体大小的缩放比例</string>
     <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">选择哪个应用检查？</string>
+    <string name="des_use_biometrics">允许使用您的指纹或脸解锁应用程序</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">请谨慎操作，错误的镜像可能会导致无限重启 bootloop</string>
     <string name="description">描述</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">取消全选</string>
@@ -945,6 +947,7 @@
     <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">需要 USB 调试</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">此设备上不可用 USB 管理器</string>
     <string name="use">使用</string>
+    <string name="use_biometrics">使用生物测定技术</string>
     <string name="utilities" comment="Category title in homescreen">实用工具</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">变体</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">验证失败</string>

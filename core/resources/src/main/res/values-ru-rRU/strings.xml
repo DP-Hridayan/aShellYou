@@ -62,7 +62,7 @@
     <string name="app">Приложение</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">Сбой в приложении</string>
     <string name="app_is_locked" comment="Title shown when the app is locked">Приложение заблокировано</string>
-    <string name="app_is_locked_msg" comment="Message shown when the app is locked">Используйте блокировку экрана, отпечаток пальца или лица, чтобы разблокировать это приложение и продолжить</string>
+    <string name="app_is_locked_msg" comment="Message shown when the app is locked">Воспользуйтесь блокировкой экрана, отпечатком пальца или распознаванием лица, чтобы разблокировать это приложение и продолжить</string>
     <string name="app_lock_disabled_msg" comment="Toast message informing user that app lock was disabled because device screen lock was removed">Аутентификация приложения отключена: Блокировка экрана была удалена.</string>
     <string name="app_lock_setup_error_msg" comment="Dialog message when user tries to enable app lock but has no device screen lock configured">Блокировка экрана не настроена. Пожалуйста, настройте блокировку экрана или биометрические данные в настройках вашего устройства, чтобы включить блокировку приложения.</string>
     <string name="app_permissions" comment="Title for app permissions shortcut">Разрешения приложения</string>
@@ -106,8 +106,9 @@
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">Батарея</string>
     <string name="battery_saver" comment="Device system battery saver mode label">Экономия батареи</string>
     <string name="behavior" comment="Settings category title for application behavior preferences">Поведение</string>
-    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">Подтвердите блокировку экрана или используйте биометрические данные для продолжения</string>
+    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">Подтвердите блокировку экрана, чтобы продолжить</string>
     <string name="biometric_prompt_title" comment="Title for the biometric authentication prompt">Открыть aShellYou</string>
+    <string name="biometrics_disabled_msg" comment="Toast message when biometric data is removed from device settings">Биометрические данные приложения отключены: с устройства удалены.</string>
     <string name="block" comment="Action button to block execution or permissions">Заблокировать</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">Достигнуто максимальное количество закладок! Удалите некоторые закладки для добавления новых</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">Закладки</string>
@@ -332,14 +333,14 @@
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Разрешить AI агенту запрашивать установленные пакеты и данные приложений</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">Сопрячь другое целевое устройство</string>
     <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">Выберите способ получения цветов на основе исходного набора темы</string>
-    <string name="des_privacy_and_security" comment="Description for privacy and security settings">Авторизация и разрешения приложений</string>
+    <string name="des_privacy_and_security" comment="Description for privacy and security settings">Аутентификация и разрешения приложений</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">Как aShell You обрабатывает ваши данные</string>
     <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">Мы обновили нашу политику конфиденциальности. Пожалуйста, найдите минутку, чтобы просмотреть изменения.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">Создать плитки быстрых настроек для выполнения команд adb</string>
     <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Разрешить AI агенту создавать, изменять и удалять плитки \"Быстрые настройки\"</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">Сообщите о любой проблеме, с которой вы столкнулись при использовании приложения</string>
-    <string name="des_require_auth_for_backups" comment="Description for protect backups">Требовать авторизацию перед восстановлением резервной копии</string>
-    <string name="des_require_authentication" comment="Description for require authentication">Безопасное приложение с помощью экрана устройства или биометрических данных</string>
+    <string name="des_require_auth_for_backups" comment="Description for protect backups">Требовать аутентификацию перед восстановлением любой резервной копии</string>
+    <string name="des_require_authentication" comment="Description for require authentication">Защитите приложение с помощью блокировки экрана устройства или биометрических данных</string>
     <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">Сбросить настройки приложения до значений по умолчанию</string>
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">Восстановите данные программы из сохраненного файла резервной копии.\nСохраненная база данных перезапишет текущую базу данных</string>
     <string name="des_save_whole_output" comment="Description under Save whole output setting toggle">Включите эту опцию, чтобы сохранить вывод всей сессии оболочки.\nЕсли отключен, будет сохранен только вывод последней команды.</string>
@@ -352,6 +353,7 @@
     <string name="des_translators" comment="Subtitle description under Translators list in About section">Люди, которые помогли перевести aShellYou</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">Регулировка масштаба элементов UI и размера шрифта</string>
     <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">Выберите, какие релизы приложение будет проверять</string>
+    <string name="des_use_biometrics">Разрешите разблокировку приложения с помощью отпечатка пальца или лица</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">Будьте осторожны, так как неправильный образ может вызвать bootloop</string>
     <string name="description">Описание</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">Снять выбор со всех</string>
@@ -542,7 +544,7 @@
     <string name="launch">Запуск</string>
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">Ведущий разработчик</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">Редко используемые</string>
-    <string name="legal_and_policies" comment="Group header for legal settings">Юридическая &amp; политика</string>
+    <string name="legal_and_policies" comment="Group header for legal settings">Юридическая информация &amp; Политики</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">Уровень</string>
     <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">Библиотеки и лицензии</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">Обнаружено библиотек %1$d</string>
@@ -757,7 +759,7 @@
     <string name="repository" comment="Button in About screen linking to GitHub project repository">Репозиторий</string>
     <string name="request_timeout" comment="Error toast when network request or ADB response times out">Таймаут запроса</string>
     <string name="require_auth_for_backups" comment="Toggle title to require auth before restoring backups">Защитить резервные копии</string>
-    <string name="require_authentication" comment="Toggle title to require authentication to open the app">Требовать авторизацию</string>
+    <string name="require_authentication" comment="Toggle title to require authentication to open the app">Требовать аутентификацию</string>
     <string name="reset">Сбросить</string>
     <string name="reset_app_settings" comment="Button label in settings to restore default application configuration">Сбросить настройки приложения</string>
     <string name="reset_settings_failed" comment="Toast notification when settings reset operation fails">Сброс настроек не удался</string>
@@ -945,6 +947,7 @@
     <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">Требуется отладка по USB</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">Менеджер USB недоступен на этом устройстве</string>
     <string name="use">Использовать</string>
+    <string name="use_biometrics">Использовать биометрические данные</string>
     <string name="utilities" comment="Category title in homescreen">Утилиты</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">Вариант</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">Проверка не удалась</string>
@@ -986,7 +989,7 @@
         <item quantity="other">%1$d новых записей</item>
     </plurals>
     <plurals name="timeout_minutes" comment="Option for minute timeouts">
-        <item quantity="one">%1$d minute</item>
+        <item quantity="one">%1$d минута</item>
         <item quantity="few">%1$d минут</item>
         <item quantity="many">%1$d минут</item>
         <item quantity="other">%1$d минут</item>
