@@ -186,7 +186,7 @@ fun LookAndFeelScreen(
                         title(R.string.custom_ui_scale)
                         description(R.string.des_ui_scale)
                         icon(R.drawable.ic_high_density)
-                        enabled(!autoScaleUI)
+                        enabled { !autoScaleUI }
                         onClick { navController.navigate(NavRoutes.UiScaleScreen) }
                     }
                 }

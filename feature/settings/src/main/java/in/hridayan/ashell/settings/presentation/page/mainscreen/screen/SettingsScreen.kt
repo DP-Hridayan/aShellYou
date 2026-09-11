@@ -190,6 +190,13 @@ fun SettingsScreen() {
                     onClick { navController.navigate(NavRoutes.AutoUpdateScreen) }
                 }
 
+                clickableItem(SettingsKeys.PrivacyAndSecurity) {
+                    title(R.string.privacy_and_security)
+                    description(R.string.des_privacy_and_security)
+                    icon(R.drawable.ic_shield_lock)
+                    onClick { navController.navigate(NavRoutes.PrivacySecurityScreen) }
+                }
+
                 clickableItem(SettingsKeys.BackupAndRestore) {
                     title(R.string.backup_and_restore)
                     description(R.string.des_backup_and_restore)

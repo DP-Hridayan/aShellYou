@@ -29,7 +29,7 @@ android {
         minSdk = 28
         targetSdk = 37
         versionCode = 63
-        versionName = "v8.0.0-alpha16"
+        versionName = "v8.0.0-alpha17"
 
         buildConfigField("String", "DIST_FLAVOR_GITHUB", "\"$flavorGitHub\"")
         buildConfigField("String", "DIST_FLAVOR_FDROID", "\"$flavorFDroid\"")
@@ -205,12 +205,12 @@ configurations.all {
 
 dependencies {
     implementation(project(":libadb"))
-    implementation(libs.datastore.preferences)
     implementation(project(":adblib"))
     implementation(project(":fastbootlib"))
     implementation(project(":core:common"))
     implementation(project(":core:ui"))
     implementation(project(":core:navigation"))
+    implementation(project(":core:resources"))
     implementation(project(":feature:settings"))
     implementation(project(":feature:shell"))
     implementation(project(":feature:adbsideload"))
@@ -226,6 +226,7 @@ dependencies {
     implementation(libs.shizuku.provider)
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.lifecycle.process)
     implementation(libs.lifecycle.runtime.compose)
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.lifecycle.viewmodel.compose)
@@ -244,10 +245,11 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
     implementation(libs.lsposed.hiddenapibypass)
+    implementation(libs.datastore.preferences)
+    implementation(libs.compose.settings.graph)
     implementation(libs.hilt.work)
     ksp(libs.hilt.compiler)
     ksp(libs.hilt.android.compiler)
-    implementation(libs.compose.settings.graph)
 
     githubImplementations(
         libs.play.services.auth,

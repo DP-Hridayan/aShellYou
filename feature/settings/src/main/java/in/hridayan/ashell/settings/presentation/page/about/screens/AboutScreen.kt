@@ -273,20 +273,6 @@ fun AboutScreen(modifier: Modifier = Modifier) {
                         icon(R.drawable.ic_bug)
                         onClick { navController.navigate(NavRoutes.CrashHistoryScreen) }
                     }
-
-                    clickableItem(SettingsKeys.Licenses) {
-                        title(R.string.libraries_and_licenses)
-                        description(R.string.des_libraries_and_licenses)
-                        icon(R.drawable.ic_license)
-                        onClick { navController.navigate(NavRoutes.LicensesScreen) }
-                    }
-
-                    clickableItem(SettingsKeys.PrivacyPolicy) {
-                        title(R.string.privacy_policy)
-                        description(R.string.des_privacy_policy)
-                        icon(R.drawable.ic_privacy_tip)
-                        onClick { navController.navigate(NavRoutes.PrivacyPolicyScreen) }
-                    }
                 }
 
                 item(key = "spacer_bottom") {

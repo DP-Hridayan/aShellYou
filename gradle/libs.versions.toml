@@ -1,17 +1,25 @@
 [versions]
+aboutlibraries = "15.2.0"
 activityCompose = "1.13.0"
 agp = "9.4.0"
 androidxJunit = "1.3.0"
 annotation = "1.10.0"
-concurrentFutures = "1.3.0"
+appcompat = "1.8.0"
 bcprovJdk15to18 = "1.85.2"
-composeAnimation = "1.12.0"
-composeUiTest = "1.12.0"
-composeBom = "2026.08.00"
-credentials = "1.6.0"
+biometric = "1.1.0"
+coil = "3.6.2"
+composeAnimation = "1.12.1"
+composeBom = "2026.09.00"
+compose-settings-graph = "1.1.1"
+compose-stability-analyzer = "0.13.0"
+composeUiTest = "1.12.1"
+concurrentFutures = "1.3.0"
 coreKtx = "1.19.0"
 coroutines = "1.11.0"
+credentials = "1.6.0"
 datastore = "1.2.1"
+dependencyAnalysis = "3.19.1"
+detekt = "1.23.8"
 documentfile = "1.1.0"
 espresso = "3.7.0"
 googleApiClient = "2.9.1"
@@ -20,6 +28,7 @@ googleHttpClientGson = "2.2.0"
 googleId = "1.2.0"
 gson = "2.14.0"
 hiddenapibypassVersion = "6.1"
+highlights = "1.1.0"
 hilt = "2.60.1"
 hiltExt = "1.4.0"
 jmdns = "3.6.3"
@@ -28,71 +37,68 @@ konsist = "0.17.3"
 kotlin = "2.4.10"
 ksp = "2.3.10"
 ktor = "3.5.2"
+lazyselectioncontainer = "1.5.0"
+leakcanary = "1.0.0"
 libsu = "6.0.0"
 lifecycle = "2.11.0"
 lottie = "6.7.1"
+markdown = "0.45.0"
 material = "1.14.0"
-material3 = "1.5.0-alpha27"
+material3 = "1.5.0-alpha28"
 materialIconsExtended = "1.7.8"
-navigation = "2.10.0"
+navigation = "2.10.1"
 nayukiQR = "1.8.0"
 playServicesAuth = "22.0.0"
-room = "2.8.4"
+room = "2.8.5"
 securityCrypto = "1.1.0"
 serialization = "1.11.0"
+shapeindicators = "2.1.1"
 shizuku = "13.1.0"
 slf4j = "1.7.36"
 spake2Android = "-SNAPSHOT"
 splashscreen = "1.2.0"
 sunSecurityAndroid = "1.1"
-work = "2.11.2"
-shapeindicators = "2.1.1"
-coil = "3.6.2"
-aboutlibraries = "15.2.0"
-compose-stability-analyzer = "0.13.0"
-leakcanary = "1.0.0"
-appcompat = "1.8.0"
-dependencyAnalysis = "3.19.1"
-lazyselectioncontainer = "1.5.0"
 tink = "1.23.0"
-markdown = "0.45.0"
-highlights = "1.1.0"
-detekt = "1.23.8"
-compose-settings-graph = "1.0.0"
+work = "2.11.2"
 
 [plugins]
+aboutlibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutlibraries" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+compose-stability-analyzer = { id = "com.github.skydoves.compose.stability.analyzer", version.ref = "compose-stability-analyzer" }
+dependencyAnalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 release-lint-baseline = { id = "release.lint.baseline" }
-aboutlibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutlibraries" }
-compose-stability-analyzer = { id = "com.github.skydoves.compose.stability.analyzer", version.ref = "compose-stability-analyzer" }
-dependencyAnalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" }
-detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 
 [libraries]
-agp-gradle = { module = "com.android.tools.build:gradle", version.ref = "agp" }
-kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+aboutlibraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref = "aboutlibraries" }
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
-annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
-kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+agp-gradle = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-biometric = { group = "androidx.biometric", name = "biometric", version.ref = "biometric" }
 androidx-compose-animation = { group = "androidx.compose.animation", name = "animation", version.ref = "composeAnimation" }
 androidx-documentfile = { group = "androidx.documentfile", name = "documentfile", version.ref = "documentfile" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunit" }
 androidx-security-crypto = { module = "androidx.security:security-crypto", version.ref = "securityCrypto" }
 androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "work" }
+annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
 bcprov-jdk15to18 = { module = "org.bouncycastle:bcprov-jdk15to18", version.ref = "bcprovJdk15to18" }
+coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
+coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+compose-settings-graph = { group = "io.github.dp-hridayan", name = "compose-settings-graph", version.ref = "compose-settings-graph" }
 compose-ui = { group = "androidx.compose.ui", name = "ui" }
 compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "composeUiTest" }
 compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "composeUiTest" }
 compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+#noinspection UnusedVersionCatalogEntry
+concurrent-futures-ktx = { group = "androidx.concurrent", name = "concurrent-futures-ktx", version.ref = "concurrentFutures" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen" }
 #noinspection LoginCredentials
@@ -100,6 +106,7 @@ credentials = { group = "androidx.credentials", name = "credentials", version.re
 #noinspection LoginCredentials
 credentials-play-services-auth = { group = "androidx.credentials", name = "credentials-play-services-auth", version.ref = "credentials" }
 datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso" }
 google-api-client-android = { module = "com.google.api-client:google-api-client-android", version.ref = "googleApiClient" }
 google-api-services-drive = { module = "com.google.apis:google-api-services-drive", version.ref = "googleApiServicesDrive" }
@@ -107,53 +114,49 @@ google-http-client-gson = { module = "com.google.http-client:google-http-client-
 #noinspection LoginCredentials
 google-id = { module = "com.google.android.libraries.identity.googleid:googleid", version.ref = "googleId" }
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+highlights = { module = "dev.snipme:highlights", version.ref = "highlights" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltExt" }
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltExt" }
 hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hiltExt" }
-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltExt" }
 jmdns = { module = "org.jmdns:jmdns", version.ref = "jmdns" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 konsist = { module = "com.lemonappdev:konsist", version.ref = "konsist" }
+kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+#noinspection UnusedVersionCatalogEntry
+kotlin-metadata-jvm = { group = "org.jetbrains.kotlin", name = "kotlin-metadata-jvm", version.ref = "kotlin" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
-ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+lazyselectioncontainer = { group = "io.github.dp-hridayan", name = "lazyselectioncontainer", version.ref = "lazyselectioncontainer" }
 libsu-core = { module = "com.github.topjohnwu.libsu:core", version.ref = "libsu" }
+lifecycle-process = { group = "androidx.lifecycle", name = "lifecycle-process", version.ref = "lifecycle" }
 lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycle" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
 lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle" }
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
 lsposed-hiddenapibypass = { module = "org.lsposed.hiddenapibypass:hiddenapibypass", version.ref = "hiddenapibypassVersion" }
+markdown-renderer = { group = "com.mikepenz", name = "multiplatform-markdown-renderer-m3", version.ref = "markdown" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "materialIconsExtended" }
 material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
-nayuki-qrcode = { group = "io.nayuki", name = "qrcodegen", version.ref = "nayukiQR" }
+material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "materialIconsExtended" }
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
+nayuki-qrcode = { group = "io.nayuki", name = "qrcodegen", version.ref = "nayukiQR" }
 #noinspection LoginCredentials
 play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
+shapeindicators = { group = "io.github.dp-hridayan", name = "shapeindicators", version.ref = "shapeindicators" }
 shizuku-api = { module = "dev.rikka.shizuku:api", version.ref = "shizuku" }
 shizuku-provider = { module = "dev.rikka.shizuku:provider", version.ref = "shizuku" }
 slf4j-android = { group = "org.slf4j", name = "slf4j-android", version.ref = "slf4j" }
 spake2-android = { module = "com.github.Mahmud0808.spake2-java:spake2-android", version.ref = "spake2Android" }
-sun-security-android = { module = "com.github.MuntashirAkon:sun-security-android", version.ref = "sunSecurityAndroid" }
-shapeindicators = { group = "io.github.dp-hridayan", name = "shapeindicators", version.ref = "shapeindicators" }
-lazyselectioncontainer = { group = "io.github.dp-hridayan", name = "lazyselectioncontainer", version.ref = "lazyselectioncontainer" }
-compose-settings-graph = { group = "io.github.dp-hridayan", name = "compose-settings-graph", version.ref = "compose-settings-graph" }
-coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
-coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
-aboutlibraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref = "aboutlibraries" }
 studio-leakcanary = { group = "com.android.tools.studio.leakcanary", name = "leakcanary", version.ref = "leakcanary" }
-androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-#noinspection UnusedVersionCatalogEntry
-kotlin-metadata-jvm = { group = "org.jetbrains.kotlin", name = "kotlin-metadata-jvm", version.ref = "kotlin" }
-#noinspection UnusedVersionCatalogEntry
-concurrent-futures-ktx = { group = "androidx.concurrent", name = "concurrent-futures-ktx", version.ref = "concurrentFutures" }
+sun-security-android = { module = "com.github.MuntashirAkon:sun-security-android", version.ref = "sunSecurityAndroid" }
 tink-android = { group = "com.google.crypto.tink", name = "tink-android", version.ref = "tink" }
-markdown-renderer = { group = "com.mikepenz", name = "multiplatform-markdown-renderer-m3", version.ref = "markdown" }
-highlights = { module = "dev.snipme:highlights", version.ref = "highlights" }
-detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }

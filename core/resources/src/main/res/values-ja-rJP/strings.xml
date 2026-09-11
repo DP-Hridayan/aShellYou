@@ -61,10 +61,17 @@
     <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">AI機能を使用するにはAPIキーが必要です。「設定」&gt;「クラウドモデル」からAPIキーを追加してください。</string>
     <string name="app">アプリ</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">アプリがクラッシュしました</string>
+    <string name="app_is_locked" comment="Title shown when the app is locked">アプリがロックされています</string>
+    <string name="app_is_locked_msg" comment="Message shown when the app is locked">画面のロック、指紋、または顔を使用してこのアプリのロックを解除し続けます</string>
+    <string name="app_lock_disabled_msg" comment="Toast message informing user that app lock was disabled because device screen lock was removed">アプリ認証が無効です: 端末の画面ロックが解除されました。</string>
+    <string name="app_lock_setup_error_msg" comment="Dialog message when user tries to enable app lock but has no device screen lock configured">端末の画面ロックが設定されていません。アプリロックを有効にするには端末の設定で画面ロックまたは生体認証を設定してください。</string>
+    <string name="app_permissions" comment="Title for app permissions shortcut">アプリの権限</string>
     <string name="app_tagline" comment="App subtitle/tagline shown on welcome and about screens">指先でADBを</string>
     <string name="apply">適用</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">すべてに適用する (残り%1$d)</string>
     <string name="artifact_id" comment="Technical label for AI artifact identifier in developer options">アーティファクト ID</string>
+    <string name="authenticate" comment="Group header for authentication settings">認証</string>
+    <string name="authentication_timeout" comment="Title for authentication timeout setting">認証のタイムアウト</string>
     <string name="auto" comment="Selection option for automatic theme/mode handling">自動</string>
     <string name="auto_backup" comment="Setting toggle title for scheduled automatic backups">自動バックアップ</string>
     <string name="auto_backup_content_type" comment="Setting title for selecting items to include in automatic backups">バックアップ日</string>
@@ -99,6 +106,9 @@
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">バッテリー</string>
     <string name="battery_saver" comment="Device system battery saver mode label">バッテリーセーバー</string>
     <string name="behavior" comment="Settings category title for application behavior preferences">動作</string>
+    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">画面ロックを確認して続行する</string>
+    <string name="biometric_prompt_title" comment="Title for the biometric authentication prompt">AShellYou を解放する</string>
+    <string name="biometrics_disabled_msg" comment="Toast message when biometric data is removed from device settings">アプリの生体認証が無効になりました: 生体認証データがデバイスから削除されました。</string>
     <string name="block" comment="Action button to block execution or permissions">ブロック</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">ブックマークの上限に達しました！ブックマークを削除して新しいブックマークを追加しましょう</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">ブックマーク</string>
@@ -210,8 +220,10 @@
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">警告 ！この操作は元に戻せません。\n本当にすべてのブックマークを削除しますか？</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">削除の確認</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">Are you sure you want to remove \"%1$s\"? If it is currently applied, the app will revert to the System font?</string>
-    <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">Warning ! This action is irreversible\nAre you sure you want to delete these %1$d selected bookmarks?</string>
-    <string name="confirm_single_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting a single saved bookmark">Warning ! This action is irreversible\nAre you sure you want to delete this bookmark?</string>
+    <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">警告！この操作は元に戻せません
+選択した %1$d 件のブックマークを削除してもよろしいですか？</string>
+    <string name="confirm_single_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting a single saved bookmark">警告！この操作は元戻せません
+このブックマークを削除してもよろしいですか？</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">これを削除してもいいですか？</string>
     <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">キャッシュを使用すると、分析結果をすぐに取得できます。\n本当にすべてのAI分析キャッシュデータをクリアしますか？</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" は既にこの場所に存在します。</string>
@@ -267,6 +279,7 @@
     <string name="des_ai_cache_days" comment="Description under Cache duration setting in AI settings">キャッシュされた結果を保持する日数</string>
     <string name="des_ai_cache_enabled" comment="Description under Enable cache setting in AI settings">モデルごとに分析結果をキャッシュする</string>
     <string name="des_ai_models" comment="Description under AI &amp; Models item in settings">AI モデルのデータと API キーを管理する</string>
+    <string name="des_app_permissions" comment="Description for app permissions shortcut">アプリの Android システム権限の管理</string>
     <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">自動バックアップに含める内容を選択する</string>
     <string name="des_auto_backup_folder" comment="Description under Backup folder setting">自動バックアップを保存するフォルダを選択する</string>
     <string name="des_auto_backup_time" comment="Description under Backup time setting">自動バックアップの時間設定</string>
@@ -282,6 +295,7 @@
     <string name="des_backup_settings" comment="Description for app settings backup option">アプリの設定のみをバックアップ</string>
     <string name="des_behavior" comment="Description under Behavior item in settings menu">アプリの特定の動作を変更する</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">アプリの全ての変更履歴</string>
+    <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">デバイスは生体認証をサポートしていません</string>
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">ここをクリックしてアイコンコレクションからアイコンを選択します</string>
     <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">キャッシュされたすべてのAI解析応答を削除します</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">シェル出力をクリアする前に確認を求める</string>
@@ -321,11 +335,14 @@
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">インストールされたパッケージとアプリケーションデータの照会をAIエージェントに許可する</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">別のターゲットデバイスをペアリングする</string>
     <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">テーマシードから色がどのように派生するかを選択してください</string>
+    <string name="des_privacy_and_security" comment="Description for privacy and security settings">認証とアプリの権限</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">aShell あなたがあなたのデータを処理する方法</string>
     <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">プライバシーポリシーが更新されました。変更内容を確認してください。</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">ADBコマンドを実行するためのクイック設定タイルを作成します</string>
     <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">AIエージェントにクイック設定タイルの作成、変更、削除を許可する</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">アプリ使用中に発生した問題やバグを教えてください</string>
+    <string name="des_require_auth_for_backups" comment="Description for protect backups">バックアップを復元する前に認証が必要</string>
+    <string name="des_require_authentication" comment="Description for require authentication">端末の画面ロックまたは生体認証を使用してアプリを保護します</string>
     <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">アプリの設定を既定値にリセット</string>
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">保存したバックアップファイルからアプリのデータを復元します。\n保存したデータベースは現在のデータベースを上書きします</string>
     <string name="des_save_whole_output" comment="Description under Save whole output setting toggle">このオプションを有効にすると、シェルセッション全体の出力を保存します。\n無効にすると、最後のコマンド出力のみが保存されます。</string>
@@ -338,6 +355,7 @@
     <string name="des_translators" comment="Subtitle description under Translators list in About section">aShellYouの翻訳に協力してくれた方々</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">UI要素とフォントサイズのスケールを調整します</string>
     <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">アプリがチェックするリリースを選択してください</string>
+    <string name="des_use_biometrics">指紋または顔を使用してアプリのロックを解除する</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">正しくないイメージはブートロープを引き起こす可能性があるため、注意して進めてください</string>
     <string name="description">説明</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">すべての選択を解除</string>
@@ -529,6 +547,7 @@
     <string name="launch">起動</string>
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">開発者</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">最小限使用</string>
+    <string name="legal_and_policies" comment="Group header for legal settings">法的情報 &amp; ポリシー</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">レベル</string>
     <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">ライブラリ &amp; ライセンス</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d 個のライブラリが見つかりました</string>
@@ -555,8 +574,10 @@
     <string name="logcat_no_logs" comment="Placeholder text in logcat screen when no log entries match current filters">ログはまだありません</string>
     <string name="logcat_notification_channel_description" comment="Android Notification Channel description for logcat background session">Logcatがアクティブにログを収集している間に表示されます</string>
     <string name="logcat_notification_channel_name" comment="Android Notification Channel name for Logcat background collection">Logcat セッション</string>
-    <string name="logcat_permission_body" comment="Instructions in logcat dialog detailing PM grant command required via computer ADB for non-root logcat access">この権限がない場合、aShell You自体のログのみが表示されます。パソコンから次のコマンドを実行して、フルアクセスを付与してください：</string>
-    <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide">ログアクセスの権限</string>
+    <string name="logcat_permission_instructions" comment="Dialog body explaining that logcat is blocked until the READ_LOGS permission is granted via ADB from a computer; followed by the command block">システムログには READ_LOGS 権限が必要で、コンピュータからのみ許可されます。このコマンドを実行し、「許可しました」をタップします。</string>
+    <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide; also the label of the logcat source option that needs it">ログアクセスの権限</string>
+    <string name="logcat_read_logs_mode_description" comment="Description under the Log access logcat source option; READ_LOGS is an Android permission name">ADB経由でコンピュータから一度だけ付与された READ_LOGS 権限が必要です</string>
+    <string name="logcat_restart_after_grant_message" comment="Dialog body shown after READ_LOGS was granted; the app process must restart before the permission takes effect">aShellシステムログを読み取る前に再起動する必要があります。</string>
     <string name="logcat_running_description" comment="Notification body text shown while logcat runs in background">aShellYou がバックグラウンドでシステムログを収集しています</string>
     <string name="logcat_shortcut_long_label" comment="App launcher shortcut label for launching directly into Logcat Viewer">Logcat ビューアを開く</string>
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Logcat ソース</string>
@@ -685,7 +706,9 @@
     <string name="path" comment="Field label for file or directory path in file browser properties">パス</string>
     <string name="paused" comment="Status badge showing ongoing file transfer or logcat session is paused">一時停止中</string>
     <string name="permission_denied" comment="Error toast when requested Android system permission is denied by user">権限がありません</string>
+    <string name="permission_not_granted_yet" comment="Toast when the user confirms a permission was granted but the system still reports it missing">権限がまだ付与されていません</string>
     <string name="permission_optional" comment="Subtext notice indicating requested permissions are non-mandatory">これらの権限を付与することは任意です！</string>
+    <string name="permissions" comment="Group header for permissions settings">アクセス許可</string>
     <string name="pick_ashellyou_extension" comment="File picker validation error requiring user to select a .ashellyou backup file">拡張子が .ashellyou のファイルを選択してください</string>
     <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">色を選択</string>
     <string name="pin_all">選択済みのピン留めをする</string>
@@ -700,6 +723,7 @@
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">プレビュー</string>
     <string name="primary">プライマリ</string>
     <string name="primary_container">プライマリコンテナ</string>
+    <string name="privacy_and_security" comment="Title for the privacy and security settings screen">プライバシー &amp; セキュリティ</string>
     <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">プライバシーポリシー</string>
     <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">プライバシーポリシーを更新しました</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">製品</string>
@@ -737,10 +761,14 @@
     <string name="report_issue" comment="Button in About screen linking to GitHub issue tracker">問題を報告</string>
     <string name="repository" comment="Button in About screen linking to GitHub project repository">リポジトリ</string>
     <string name="request_timeout" comment="Error toast when network request or ADB response times out">リクエストがタイムアウトしました</string>
+    <string name="require_auth_for_backups" comment="Toggle title to require auth before restoring backups">バックアップの保護</string>
+    <string name="require_authentication" comment="Toggle title to require authentication to open the app">認証が必要</string>
     <string name="reset">リセット</string>
     <string name="reset_app_settings" comment="Button label in settings to restore default application configuration">アプリの設定をリセット</string>
     <string name="reset_settings_failed" comment="Toast notification when settings reset operation fails">設定のリセットに失敗しました</string>
     <string name="reset_settings_successful" comment="Toast notification confirming settings have been reset to defaults">設定をリセットしました</string>
+    <string name="restart_app" comment="Button that closes and relaunches the app">アプリを再起動</string>
+    <string name="restart_required" comment="Dialog title when the app must be restarted for a change to take effect">再起動が必要です</string>
     <string name="restore">復元</string>
     <string name="restore_app_data" comment="Button label in backup settings to import and restore data from backup file">アプリのデータを復元</string>
     <string name="restore_dialog_message" comment="Warning message in restore dialog that existing database will be overwritten">保存されたファイルのデータは現在のデータを上書きします。</string>
@@ -769,6 +797,7 @@
     <string name="saving_output" comment="Progress status text while exporting terminal log output to file">出力をファイルにエクスポート中…</string>
     <string name="schedule" comment="Header title or setting label for automated backup schedule picker">スケジュール</string>
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">画面密度の倍率</string>
+    <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">一番下までスクロール</string>
     <string name="search">検索</string>
     <string name="search_bookmarks_here" comment="Placeholder text in bookmarks tab search bar">ここでコマンドを検索</string>
     <string name="search_commands_here" comment="Placeholder text in command templates tab search bar">ここでコマンドを検索</string>
@@ -887,6 +916,8 @@
     <string name="tile_name" comment="Field label for Quick Settings tile title text">フォルダ名</string>
     <string name="tiles" comment="Navigation drawer item and screen header for Quick Settings tiles manager">タイル</string>
     <string name="time">時間</string>
+    <string name="timeout_immediate" comment="Option for immediate timeout">&lt;unk&gt;</string>
+    <string name="timeout_never" comment="Option for never timeout">一切なし</string>
     <string name="timestamp">タイムスタンプ</string>
     <string name="toggleable">トグル可能</string>
     <string name="total_executions">総実行回数</string>
@@ -904,6 +935,7 @@
     <string name="unknown">不明</string>
     <string name="unknown_error" comment="Toast error message when error cause is unmapped">不明なエラーが発生しました</string>
     <string name="unknown_sources_install_permission_not_granted" comment="Error toast when REQUEST_INSTALL_PACKAGES permission is missing for app update installation">権限がありません。不明なソースからアプリをインストールすることを許可してください。</string>
+    <string name="unlock" comment="Button to unlock the app">ロック解除</string>
     <string name="unlock_status" comment="Device property label displaying bootloader lock state">ロック解除ステータス</string>
     <string name="unlocked" comment="Status badge showing bootloader is unlocked">ロック解除済み</string>
     <string name="unpin_all">ピン留めを解除</string>
@@ -918,6 +950,7 @@
     <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">USBデバッグが必要です</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">このデバイスでは USB マネージャーを利用できません</string>
     <string name="use">利用</string>
+    <string name="use_biometrics">生体認証を使用</string>
     <string name="utilities" comment="Category title in homescreen">ユーティリティ</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">バリアント</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">検証に失敗しました</string>
@@ -954,6 +987,9 @@
     <string name="wireless_not_connected_message" comment="Instructional body text advising user to pair and connect device first">デバイスがワイヤレスデバッグ経由で接続されていません。まずデバイスをペア設定して接続してください。</string>
     <plurals name="logcat_new_entries">
         <item quantity="other">%1$d 件の新着エントリー</item>
+    </plurals>
+    <plurals name="timeout_minutes" comment="Option for minute timeouts">
+        <item quantity="other">%1$d 分</item>
     </plurals>
     <string name="changelog_v7_4_0">\n設定画面内でサブ設定を検索できるようになりました\nカラースキームのパレットスタイルを追加\nアプリ内で直接アプリの言語を設定するオプションを追加</string>
     <string name="changelog_v7_3_0">\n変更履歴画面のUIを改善\n情報セクションに翻訳貢献者を追加\nアプリおよびアプリで使用されているその他のライブラリに関する詳細なライセンス情報を表示するライセンス画面を追加</string>

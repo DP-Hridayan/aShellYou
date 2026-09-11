@@ -61,10 +61,17 @@
     <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">AI सुविधाओं का उपयोग करने के लिए एक API कुंजी आवश्यक है। कृपया सेटिंग्स -&gt; क्लाउड मॉडल में अपनी API कुंजी जोड़ें।</string>
     <string name="app">एप्लिकेशन</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">ऐप क्रैश हो गया है</string>
+    <string name="app_is_locked" comment="Title shown when the app is locked">App is locked</string>
+    <string name="app_is_locked_msg" comment="Message shown when the app is locked">Use your screen lock, fingerprint, or face to unlock this app and continue</string>
+    <string name="app_lock_disabled_msg" comment="Toast message informing user that app lock was disabled because device screen lock was removed">App authentication disabled: Device screen lock was removed.</string>
+    <string name="app_lock_setup_error_msg" comment="Dialog message when user tries to enable app lock but has no device screen lock configured">No device screen lock is configured. Please set up a screen lock or biometric in your device settings to enable App Lock.</string>
+    <string name="app_permissions" comment="Title for app permissions shortcut">App permissions</string>
     <string name="app_tagline" comment="App subtitle/tagline shown on welcome and about screens">ADB आपकी उंगलियों पर</string>
     <string name="apply">लागू करें</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">सभी पर लागू करें (%1$d शेष)</string>
     <string name="artifact_id" comment="Technical label for AI artifact identifier in developer options">आर्टिफैक्ट ID</string>
+    <string name="authenticate" comment="Group header for authentication settings">Authenticate</string>
+    <string name="authentication_timeout" comment="Title for authentication timeout setting">Authentication timeout</string>
     <string name="auto" comment="Selection option for automatic theme/mode handling">स्वतः</string>
     <string name="auto_backup" comment="Setting toggle title for scheduled automatic backups">स्वचालित संरक्षण</string>
     <string name="auto_backup_content_type" comment="Setting title for selecting items to include in automatic backups">बैकअप फ़ोल्डर</string>
@@ -99,6 +106,9 @@
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">बैटरी</string>
     <string name="battery_saver" comment="Device system battery saver mode label">बैटरी सेवर</string>
     <string name="behavior" comment="Settings category title for application behavior preferences">व्यवहार</string>
+    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">जारी रखने के लिए अपने स्क्रीन लॉक की पुष्टि करें</string>
+    <string name="biometric_prompt_title" comment="Title for the biometric authentication prompt">Unlock aShellYou</string>
+    <string name="biometrics_disabled_msg" comment="Toast message when biometric data is removed from device settings">ऐप बायोमेट्रिक्स अक्षम किया गया: डिवाइस से बायोमेट्रिक डेटा हटा दिया गया था।</string>
     <string name="block" comment="Action button to block execution or permissions">ब्लॉक करें</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">बुकमार्क की अधिकतम सीमा पहुंच गई है! नए जोड़ने के लिए कुछ पुराने बुकमार्क हटा दें</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">बुकमार्क्स</string>
@@ -267,6 +277,7 @@
     <string name="des_ai_cache_days" comment="Description under Cache duration setting in AI settings">कैशे किए गए परिणामों को रखने के लिए दिनों की संख्या</string>
     <string name="des_ai_cache_enabled" comment="Description under Enable cache setting in AI settings">प्रति मॉडल विश्लेषण परिणाम कैशे करें</string>
     <string name="des_ai_models" comment="Description under AI &amp; Models item in settings">AI मॉडल डेटा और API कुंजियाँ प्रबंधित करें</string>
+    <string name="des_app_permissions" comment="Description for app permissions shortcut">Manage Android system permissions for the app</string>
     <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">स्वचालित बैकअप में क्या शामिल करना है चुनें</string>
     <string name="des_auto_backup_folder" comment="Description under Backup folder setting">स्वचालित बैकअप सहेजने के लिए एक फ़ोल्डर चुनें</string>
     <string name="des_auto_backup_time" comment="Description under Backup time setting">स्वचालित बैकअप के लिए समय सेट करें</string>
@@ -282,6 +293,7 @@
     <string name="des_backup_settings" comment="Description for app settings backup option">केवल ऐप सेटिंग्स प्राथमिकताएं बैकअप करें</string>
     <string name="des_behavior" comment="Description under Behavior item in settings menu">ऐप के कुछ व्यवहार बदलें</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">एप्लिकेशन में किए गए सभी परिवर्तनों का इतिहास</string>
+    <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">Device does not support biometric authentication</string>
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">आइकन संग्रह से कोई आइकन चुनने के लिए यहां क्लिक करें</string>
     <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">सभी कैश किए गए AI विश्लेषण रिस्पॉन्स हटाएं</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">शेल आउटपुट साफ़ करने से पहले पुष्टि मांगें</string>
@@ -321,11 +333,14 @@
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">AI एजेंट को इंस्टॉल किए गए पैकेज और एप्लिकेशन डेटा की जानकारी प्राप्त करने की अनुमति दें</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">दूसरा लक्ष्य डिवाइस पेयर करें</string>
     <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">चुनें कि थीम सीड से रंग कैसे तैयार किए जाएं</string>
+    <string name="des_privacy_and_security" comment="Description for privacy and security settings">Authentication and app permissions</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">aShell You आपके डेटा को कैसे प्रबंधित करता है</string>
     <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">हमने अपनी गोपनीयता नीति को अपडेट किया है। कृपया परिवर्तनों की समीक्षा करने के लिए कुछ समय निकालें।</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">ADB कमांड निष्पादित करने के लिए त्वरित सेटिंग टाइलें बनाएं</string>
     <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">AI एजेंट को क्विक सेटिंग्स टाइल्स बनाने, संशोधित करने और हटाने की अनुमति दें</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">ऐप उपयोग करते समय आई किसी भी समस्या या बग की रिपोर्ट करें</string>
+    <string name="des_require_auth_for_backups" comment="Description for protect backups">Require authentication before restoring any backup</string>
+    <string name="des_require_authentication" comment="Description for require authentication">Secure the app using device screen lock or biometrics</string>
     <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">ऐप सेटिंग्स को डिफ़ॉल्ट मानों पर रीसेट करें</string>
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">सहेजी गई बैकअप फ़ाइल से ऐप डेटा रिस्टोर करें।\nसहेजा डेटाबेस वर्तमान डेटाबेस को ओवरराइड करेगा</string>
     <string name="des_save_whole_output" comment="Description under Save whole output setting toggle">पूरे शेल सेशन का आउटपुट सहेजने के लिए इस विकल्प को सक्षम करें।\nअक्षम होने पर केवल अंतिम कमांड का आउटपुट सहेजा जाएगा।</string>
@@ -338,6 +353,7 @@
     <string name="des_translators" comment="Subtitle description under Translators list in About section">aShell You का अनुवाद करने में मदद करने वाले लोग</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">UI तत्वों और फ़ॉन्ट आकार का स्केल समायोजित करें</string>
     <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">चुनें कि ऐप किन रिलीज़ के लिए जांच करे</string>
+    <string name="des_use_biometrics">अपने फ़िंगरप्रिंट या चेहरे का उपयोग करके ऐप को अनलॉक करने की अनुमति दें</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">सावधानी से आगे बढ़ें क्योंकि गलत इमेज से बूटलूप हो सकता है</string>
     <string name="description">विवरण</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">सभी अचयनित करें</string>
@@ -528,6 +544,7 @@
     <string name="launch">लॉन्च</string>
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">मुख्य डेवलपर</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">सबसे कम इस्तेमाल किया गया</string>
+    <string name="legal_and_policies" comment="Group header for legal settings">Legal &amp; Policies</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">स्तर</string>
     <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">लाइब्रेरीज़ &amp; लाइसेंस</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d लाइब्रेरीज़ मिलीं</string>
@@ -554,8 +571,10 @@
     <string name="logcat_no_logs" comment="Placeholder text in logcat screen when no log entries match current filters">अभी तक कोई लॉग नहीं है</string>
     <string name="logcat_notification_channel_description" comment="Android Notification Channel description for logcat background session">लॉगकैट सक्रिय रूप से लॉग एकत्र करते समय दिखाया जाता है</string>
     <string name="logcat_notification_channel_name" comment="Android Notification Channel name for Logcat background collection">लॉगकैट सत्र</string>
-    <string name="logcat_permission_body" comment="Instructions in logcat dialog detailing PM grant command required via computer ADB for non-root logcat access">इस अनुमति के बिना, केवल aShellYou के अपने लॉग दिखाई देंगे। कंप्यूटर से यह कमांड चलाकर पूर्ण एक्सेस दें:</string>
-    <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide">लॉग एक्सेस अनुमति</string>
+    <string name="logcat_permission_instructions" comment="Dialog body explaining that logcat is blocked until the READ_LOGS permission is granted via ADB from a computer; followed by the command block">System logs require the READ_LOGS permission, which can only be granted from a computer. Run this command, then tap \"I\'ve granted it\":</string>
+    <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide; also the label of the logcat source option that needs it">लॉग एक्सेस अनुमति</string>
+    <string name="logcat_read_logs_mode_description" comment="Description under the Log access logcat source option; READ_LOGS is an Android permission name">Needs the READ_LOGS permission, granted once from a computer via ADB</string>
+    <string name="logcat_restart_after_grant_message" comment="Dialog body shown after READ_LOGS was granted; the app process must restart before the permission takes effect">Permission granted. aShellYou needs to restart before it can read system logs.</string>
     <string name="logcat_running_description" comment="Notification body text shown while logcat runs in background">aShellYou बैकग्राउंड में सिस्टम लॉग एकत्र कर रहा है</string>
     <string name="logcat_shortcut_long_label" comment="App launcher shortcut label for launching directly into Logcat Viewer">लॉगकैट व्यूअर खोलें</string>
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">लॉगकैट स्रोत</string>
@@ -684,7 +703,9 @@
     <string name="path" comment="Field label for file or directory path in file browser properties">पथ</string>
     <string name="paused" comment="Status badge showing ongoing file transfer or logcat session is paused">रोका गया</string>
     <string name="permission_denied" comment="Error toast when requested Android system permission is denied by user">अनुमति अस्वीकृत</string>
+    <string name="permission_not_granted_yet" comment="Toast when the user confirms a permission was granted but the system still reports it missing">Permission not granted yet</string>
     <string name="permission_optional" comment="Subtext notice indicating requested permissions are non-mandatory">ये अनुमतियाँ देना वैकल्पिक है!</string>
+    <string name="permissions" comment="Group header for permissions settings">Permissions</string>
     <string name="pick_ashellyou_extension" comment="File picker validation error requiring user to select a .ashellyou backup file">कृपया .ashellyou एक्सटेंशन वाली फ़ाइल चुनें</string>
     <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">रंग चुनें</string>
     <string name="pin_all">Pin selected</string>
@@ -699,6 +720,7 @@
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">पूर्वावलोकन</string>
     <string name="primary">प्राइमरी</string>
     <string name="primary_container">प्राइमरी कंटेनर</string>
+    <string name="privacy_and_security" comment="Title for the privacy and security settings screen">Privacy &amp; Security</string>
     <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">गोपनीयता नीति</string>
     <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">गोपनीयता नीति अपडेट की गई</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">उत्पाद</string>
@@ -736,10 +758,14 @@
     <string name="report_issue" comment="Button in About screen linking to GitHub issue tracker">समस्या रिपोर्ट करें</string>
     <string name="repository" comment="Button in About screen linking to GitHub project repository">रिपॉजिटरी</string>
     <string name="request_timeout" comment="Error toast when network request or ADB response times out">अनुरोध टाइमआउट</string>
+    <string name="require_auth_for_backups" comment="Toggle title to require auth before restoring backups">Protect backups</string>
+    <string name="require_authentication" comment="Toggle title to require authentication to open the app">Require authentication</string>
     <string name="reset">रीसेट करें</string>
     <string name="reset_app_settings" comment="Button label in settings to restore default application configuration">ऐप सेटिंग्स रीसेट करें</string>
     <string name="reset_settings_failed" comment="Toast notification when settings reset operation fails">सेटिंग्स रीसेट विफल</string>
     <string name="reset_settings_successful" comment="Toast notification confirming settings have been reset to defaults">सेटिंग्स रीसेट सफल</string>
+    <string name="restart_app" comment="Button that closes and relaunches the app">Restart app</string>
+    <string name="restart_required" comment="Dialog title when the app must be restarted for a change to take effect">Restart required</string>
     <string name="restore">रिस्टोर करें</string>
     <string name="restore_app_data" comment="Button label in backup settings to import and restore data from backup file">ऐप डेटा रिस्टोर करें</string>
     <string name="restore_dialog_message" comment="Warning message in restore dialog that existing database will be overwritten">सहेजी गई फ़ाइल का डेटा वर्तमान डेटा को ओवरराइड करेगा।</string>
@@ -768,6 +794,7 @@
     <string name="saving_output" comment="Progress status text while exporting terminal log output to file">आउटपुट फ़ाइल में निर्यात हो रहा है…</string>
     <string name="schedule" comment="Header title or setting label for automated backup schedule picker">अनुसूची</string>
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">स्क्रीन घनत्व गुणक</string>
+    <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">Scroll to bottom</string>
     <string name="search">खोजें</string>
     <string name="search_bookmarks_here" comment="Placeholder text in bookmarks tab search bar">यहां बुकमार्क खोजें</string>
     <string name="search_commands_here" comment="Placeholder text in command templates tab search bar">यहां कमांड खोजें</string>
@@ -886,6 +913,8 @@
     <string name="tile_name" comment="Field label for Quick Settings tile title text">फ़ोल्डर नाम</string>
     <string name="tiles" comment="Navigation drawer item and screen header for Quick Settings tiles manager">टाइल्स</string>
     <string name="time">समय</string>
+    <string name="timeout_immediate" comment="Option for immediate timeout">Immediate</string>
+    <string name="timeout_never" comment="Option for never timeout">Never</string>
     <string name="timestamp">टाइमस्टैम्प</string>
     <string name="toggleable">टॉगल करने योग्य</string>
     <string name="total_executions">कुल निष्पादन</string>
@@ -903,6 +932,7 @@
     <string name="unknown">अज्ञात</string>
     <string name="unknown_error" comment="Toast error message when error cause is unmapped">अज्ञात त्रुटि हुई</string>
     <string name="unknown_sources_install_permission_not_granted" comment="Error toast when REQUEST_INSTALL_PACKAGES permission is missing for app update installation">अनुमति नहीं दी गई। कृपया अज्ञात स्रोतों से ऐप इंस्टॉल की अनुमति दें।</string>
+    <string name="unlock" comment="Button to unlock the app">Unlock</string>
     <string name="unlock_status" comment="Device property label displaying bootloader lock state">अनलॉक स्थिति</string>
     <string name="unlocked" comment="Status badge showing bootloader is unlocked">अनलॉक है</string>
     <string name="unpin_all">Unpin selected</string>
@@ -917,6 +947,7 @@
     <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">USB डीबगिंग आवश्यक है</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">इस डिवाइस पर USB मैनेजर उपलब्ध नहीं है</string>
     <string name="use">उपयोग करें</string>
+    <string name="use_biometrics">बायोमेट्रिक्स का उपयोग करें</string>
     <string name="utilities" comment="Category title in homescreen">यूटिलिटीज</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">वेरिएंट</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">सत्यापन विफल रहा</string>
@@ -954,6 +985,10 @@
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d नई प्रविष्टि</item>
         <item quantity="other">%1$d नई प्रविष्टियाँ</item>
+    </plurals>
+    <plurals name="timeout_minutes" comment="Option for minute timeouts">
+        <item quantity="one">%1$d minute</item>
+        <item quantity="other">%1$d minutes</item>
     </plurals>
     <string name="changelog_v7_4_0">\nअब आप सेटिंग्स स्क्रीन के अंदर उप-सेटिंग्स खोज सकते हैं\nरंग योजनाओं के लिए पैलेट शैलियाँ जोड़ी गईं\nसीधे ऐप में ऐप भाषा सेट करने का विकल्प जोड़ा गया</string>
     <string name="changelog_v7_3_0">\nचेंजलॉग स्क्रीन में बेहतर UI\nअबाउट सेक्शन में अनुवाद योगदानकर्ता जोड़े गए\nलाइसेंस स्क्रीन जोड़ी गई जो ऐप और ऐप द्वारा उपयोग की जाने वाली अन्य लाइब्रेरी के बारे में विस्तृत लाइसेंस जानकारी दिखाती है</string>

@@ -61,10 +61,17 @@
     <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">مفتاح API مطلوب لاستخدام ميزات الذكاء الاصطناعي. يرجى إضافة مفتاح API الخاص بك في الإعدادات -&gt; النماذج السحابية.</string>
     <string name="app">التطبيق</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">التطبيق توقف</string>
+    <string name="app_is_locked" comment="Title shown when the app is locked">التطبيق مقفل</string>
+    <string name="app_is_locked_msg" comment="Message shown when the app is locked">استخدم قفل الشاشة أو البصمة أو الوجه لفتح هذا التطبيق والاستمرار</string>
+    <string name="app_lock_disabled_msg" comment="Toast message informing user that app lock was disabled because device screen lock was removed">تم تعطيل مصادقة التطبيق: تمت إزالة قفل شاشة الجهاز.</string>
+    <string name="app_lock_setup_error_msg" comment="Dialog message when user tries to enable app lock but has no device screen lock configured">لم يتم تكوين قفل شاشة الجهاز. الرجاء إعداد قفل شاشة أو قياس حيوي في إعدادات الجهاز لتمكين قفل التطبيق.</string>
+    <string name="app_permissions" comment="Title for app permissions shortcut">أذونات التطبيق</string>
     <string name="app_tagline" comment="App subtitle/tagline shown on welcome and about screens">ADB في متناول يدك</string>
     <string name="apply">تطبيق</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">تطبيق على الجميع ( متبقي%1$d)</string>
     <string name="artifact_id" comment="Technical label for AI artifact identifier in developer options">معرف القطعة</string>
+    <string name="authenticate" comment="Group header for authentication settings">المصادقة</string>
+    <string name="authentication_timeout" comment="Title for authentication timeout setting">مهلة المصادقة</string>
     <string name="auto" comment="Selection option for automatic theme/mode handling">تلقائي</string>
     <string name="auto_backup" comment="Setting toggle title for scheduled automatic backups">نسخ احتياطي تلقائي</string>
     <string name="auto_backup_content_type" comment="Setting title for selecting items to include in automatic backups">محتوى النسخ الاحتياطي</string>
@@ -99,6 +106,9 @@
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">البطارية</string>
     <string name="battery_saver" comment="Device system battery saver mode label">موفر البطارية</string>
     <string name="behavior" comment="Settings category title for application behavior preferences">سلوك</string>
+    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">تأكيد قفل الشاشة للمتابعة</string>
+    <string name="biometric_prompt_title" comment="Title for the biometric authentication prompt">فتح AShellYou</string>
+    <string name="biometrics_disabled_msg" comment="Toast message when biometric data is removed from device settings">تم تعطيل تطبيق القياس الحيوي: تم إزالة بيانات القياس الحيوي من الجهاز.</string>
     <string name="block" comment="Action button to block execution or permissions">حظر</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">تم الوصول إلى الحد الأقصى للإشارات المرجعية! احذف بعض الإشارات المرجعية لإضافة إشارات جديدة</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">الإشارات المرجعية</string>
@@ -267,6 +277,7 @@
     <string name="des_ai_cache_days" comment="Description under Cache duration setting in AI settings">عدد الأيام للاحتفاظ بالنتائج المخزنة مؤقتاً</string>
     <string name="des_ai_cache_enabled" comment="Description under Enable cache setting in AI settings">تخزين نتائج التحليل مؤقتاً لكل نموذج</string>
     <string name="des_ai_models" comment="Description under AI &amp; Models item in settings">إدارة بيانات نماذج الذكاء الاصطناعي ومفاتيح API</string>
+    <string name="des_app_permissions" comment="Description for app permissions shortcut">إدارة أذونات نظام أندرويد للتطبيق</string>
     <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">اختر ما تريد تضمينه في النسخ الاحتياطية التلقائية</string>
     <string name="des_auto_backup_folder" comment="Description under Backup folder setting">اختر مجلداً لحفظ النسخ الاحتياطية التلقائية</string>
     <string name="des_auto_backup_time" comment="Description under Backup time setting">تعيين وقت النسخ الاحتياطي التلقائي</string>
@@ -282,6 +293,7 @@
     <string name="des_backup_settings" comment="Description for app settings backup option">نسخ إعدادات التطبيق فقط احتياطيًا</string>
     <string name="des_behavior" comment="Description under Behavior item in settings menu">تعديل سلوك التطبيق</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">سجل جميع التغييرات في التطبيق</string>
+    <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">الجهاز لا يدعم المصادقة الحيوية</string>
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">انقر هنا لاختيار أيقونة من مجموعة الأيقونات</string>
     <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">حذف جميع ردود تحليل الذكاء الاصطناعي المؤقت</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">طلب تأكيد قبل مسح إخراج القذيفة</string>
@@ -321,11 +333,14 @@
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">السماح لوكيل AI بالاستعلام عن الحزم المثبتة وبيانات التطبيق</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">إقران جهاز مستهدف آخر</string>
     <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">اختر كيف يتم استخلاص الألوان من بذور السمة</string>
+    <string name="des_privacy_and_security" comment="Description for privacy and security settings">المصادقة وأذونات التطبيق</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">كيف تتعامل مع بياناتك</string>
     <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">لقد قمنا بتحديث سياسة الخصوصية لدينا. يرجى أخذ لحظة لمراجعة التغييرات.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">إنشاء بلاطات إعدادات سريعة لتنفيذ أوامر adb</string>
     <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">السماح لوكيل AI بإنشاء وتعديل وحذف إعدادات سريعة</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">أبلغ عن أي مشكلة أو خطأ واجهته</string>
+    <string name="des_require_auth_for_backups" comment="Description for protect backups">يتطلب المصادقة قبل استعادة أي نسخة احتياطية</string>
+    <string name="des_require_authentication" comment="Description for require authentication">تأمين التطبيق باستخدام قفل شاشة الجهاز أو القياسات الحيوية</string>
     <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">إعادة تعيين إعدادات التطبيق للقيم الافتراضية</string>
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">استعادة بيانات التطبيق من ملف النسخة الاحتياطية المحفوظ.\nستقوم قاعدة البيانات المحفوظة باستبدال القاعدة الحالية</string>
     <string name="des_save_whole_output" comment="Description under Save whole output setting toggle">تمكين هذا الخيار لحفظ إخراج جلسة القذيفة بأكملها.\nإذا تم تعطيله فقط سيتم حفظ إخراج الأمر الأخير.</string>
@@ -338,6 +353,7 @@
     <string name="des_translators" comment="Subtitle description under Translators list in About section">الأشخاص الذين ساعدوا في ترجمة aShellYou</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">ضبط مقياس عناصر واجهة المستخدم وحجم الخط</string>
     <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">اختر الإصدار الذي يتم التحقق منه من التطبيق</string>
+    <string name="des_use_biometrics">السماح بفتح التطبيق باستخدام بصمة إصبعك أو وجهك</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">توخ الحذر لأن الصورة غير الصحيحة قد تتسبب في حلقة إقلاع</string>
     <string name="description">الوصف</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">إلغاء تحديد الكل</string>
@@ -528,6 +544,7 @@
     <string name="launch">تشغيل</string>
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">المطور الرئيسي</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">الأقل استخدامًا</string>
+    <string name="legal_and_policies" comment="Group header for legal settings">القانون &amp; السياسات</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">المستوى</string>
     <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">المكتبات &amp; التراخيص</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">تم اكتشاف %1$d مكتبة</string>
@@ -554,8 +571,10 @@
     <string name="logcat_no_logs" comment="Placeholder text in logcat screen when no log entries match current filters">لا توجد سجلات بعد</string>
     <string name="logcat_notification_channel_description" comment="Android Notification Channel description for logcat background session">يظهر أثناء جمع سجلات النظام بنشاط</string>
     <string name="logcat_notification_channel_name" comment="Android Notification Channel name for Logcat background collection">جلسة سجل النظام</string>
-    <string name="logcat_permission_body" comment="Instructions in logcat dialog detailing PM grant command required via computer ADB for non-root logcat access">بدون هذا الإذن، ستكون السجلات من تطبيق aShellYou نفسه مرئية فقط. امنح حق الوصول الكامل عن طريق تشغيل هذا الأمر من الكمبيوتر:</string>
-    <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide">إذن الوصول إلى السجل</string>
+    <string name="logcat_permission_instructions" comment="Dialog body explaining that logcat is blocked until the READ_LOGS permission is granted via ADB from a computer; followed by the command block">تتطلب سجلات النظام إذن READ_LOGS، الذي يمكن منحه فقط من الكمبيوتر. قم بتشغيل هذا الأمر، ثم اضغط على \"لقد منحته\":</string>
+    <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide; also the label of the logcat source option that needs it">إذن الوصول إلى السجل</string>
+    <string name="logcat_read_logs_mode_description" comment="Description under the Log access logcat source option; READ_LOGS is an Android permission name">يحتاج إذن READ_LOGS، الممنوح مرة واحدة من جهاز كمبيوتر عبر ADB</string>
+    <string name="logcat_restart_after_grant_message" comment="Dialog body shown after READ_LOGS was granted; the app process must restart before the permission takes effect">تم منح الإذن. AShellYou بحاجة إلى إعادة التشغيل قبل أن يتمكن من قراءة سجلات النظام.</string>
     <string name="logcat_running_description" comment="Notification body text shown while logcat runs in background">يقوم aShellYou بجمع سجلات النظام في الخلفية</string>
     <string name="logcat_shortcut_long_label" comment="App launcher shortcut label for launching directly into Logcat Viewer">فتح عارض السجلات</string>
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">مصدر سجل النظام</string>
@@ -684,7 +703,9 @@
     <string name="path" comment="Field label for file or directory path in file browser properties">المسار</string>
     <string name="paused" comment="Status badge showing ongoing file transfer or logcat session is paused">متوقف مؤقتاً</string>
     <string name="permission_denied" comment="Error toast when requested Android system permission is denied by user">تم رفض الإذن</string>
+    <string name="permission_not_granted_yet" comment="Toast when the user confirms a permission was granted but the system still reports it missing">لم يتم منح الإذن بعد</string>
     <string name="permission_optional" comment="Subtext notice indicating requested permissions are non-mandatory">منح هذه الأذونات اختياري!</string>
+    <string name="permissions" comment="Group header for permissions settings">الأذونات</string>
     <string name="pick_ashellyou_extension" comment="File picker validation error requiring user to select a .ashellyou backup file">الرجاء اختيار ملف مع ملحق .ashellyou</string>
     <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">اختر لوناً</string>
     <string name="pin_all">تثبيت المحدد</string>
@@ -699,6 +720,7 @@
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">معاينة</string>
     <string name="primary">الأساسي</string>
     <string name="primary_container">الحاوية الأساسية</string>
+    <string name="privacy_and_security" comment="Title for the privacy and security settings screen">الخصوصية &amp; الحماية</string>
     <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">سياسة الخصوصية</string>
     <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">تم تحديث سياسة الخصوصية</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">المنتج</string>
@@ -736,10 +758,14 @@
     <string name="report_issue" comment="Button in About screen linking to GitHub issue tracker">الإبلاغ عن مشكلة</string>
     <string name="repository" comment="Button in About screen linking to GitHub project repository">المستودع</string>
     <string name="request_timeout" comment="Error toast when network request or ADB response times out">انتهت مهلة الطلب</string>
+    <string name="require_auth_for_backups" comment="Toggle title to require auth before restoring backups">حماية النسخ الاحتياطي</string>
+    <string name="require_authentication" comment="Toggle title to require authentication to open the app">يتطلب المصادقة</string>
     <string name="reset">إعادة ضبط</string>
     <string name="reset_app_settings" comment="Button label in settings to restore default application configuration">إعادة تعيين إعدادات التطبيق</string>
     <string name="reset_settings_failed" comment="Toast notification when settings reset operation fails">فشل إعادة تعيين الإعدادات</string>
     <string name="reset_settings_successful" comment="Toast notification confirming settings have been reset to defaults">تمت إعادة تعيين الإعدادات بنجاح</string>
+    <string name="restart_app" comment="Button that closes and relaunches the app">إعادة تشغيل التطبيق</string>
+    <string name="restart_required" comment="Dialog title when the app must be restarted for a change to take effect">إعادة التشغيل مطلوبة</string>
     <string name="restore">إستعادة</string>
     <string name="restore_app_data" comment="Button label in backup settings to import and restore data from backup file">إستعادة بيانات التطبيق</string>
     <string name="restore_dialog_message" comment="Warning message in restore dialog that existing database will be overwritten">سيتم استبدال البيانات الحالية بالبيانات الموجودة في الملف المحفوظ.</string>
@@ -768,6 +794,7 @@
     <string name="saving_output" comment="Progress status text while exporting terminal log output to file">جارٍ تصدير الناتج إلى ملف…</string>
     <string name="schedule" comment="Header title or setting label for automated backup schedule picker">الجدول الزمني</string>
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">مضاعف كثافة الشاشة</string>
+    <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">التمرير إلى الأسفل</string>
     <string name="search">بحث</string>
     <string name="search_bookmarks_here" comment="Placeholder text in bookmarks tab search bar">ابحث عن الإشارات المرجعية هنا</string>
     <string name="search_commands_here" comment="Placeholder text in command templates tab search bar">ابحث عن أوامر هنا</string>
@@ -886,6 +913,8 @@
     <string name="tile_name" comment="Field label for Quick Settings tile title text">اسم البلاطة</string>
     <string name="tiles" comment="Navigation drawer item and screen header for Quick Settings tiles manager">البلاطات</string>
     <string name="time">الوقت</string>
+    <string name="timeout_immediate" comment="Option for immediate timeout">فوراً</string>
+    <string name="timeout_never" comment="Option for never timeout">لا</string>
     <string name="timestamp">الطابع الزمني</string>
     <string name="toggleable">قابل للتبديل</string>
     <string name="total_executions">إجمالي عمليات التنفيذ</string>
@@ -903,6 +932,7 @@
     <string name="unknown">غير معروف</string>
     <string name="unknown_error" comment="Toast error message when error cause is unmapped">حدث خطأ غير معروف</string>
     <string name="unknown_sources_install_permission_not_granted" comment="Error toast when REQUEST_INSTALL_PACKAGES permission is missing for app update installation">لم يتم منح الإذن. يرجى السماح بتثبيت التطبيقات من مصادر غير معروفة.</string>
+    <string name="unlock" comment="Button to unlock the app">فتح</string>
     <string name="unlock_status" comment="Device property label displaying bootloader lock state">حالة إلغاء القفل</string>
     <string name="unlocked" comment="Status badge showing bootloader is unlocked">غير مقفل</string>
     <string name="unpin_all">إلغاء التثبيت المحدد</string>
@@ -917,6 +947,7 @@
     <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">مطلوب تصحيح أخطاء USB</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">مدير USB غير متوفر على هذا الجهاز</string>
     <string name="use">استخدام</string>
+    <string name="use_biometrics">استخدام القياسات الحيوية</string>
     <string name="utilities" comment="Category title in homescreen">الأدوات</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">المتغير</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">فشل التحقق</string>
@@ -958,6 +989,14 @@
         <item quantity="few">%1$d عناصر جديدة</item>
         <item quantity="many">%1$d عنصر جديد</item>
         <item quantity="other">%1$d عنصر جديد</item>
+    </plurals>
+    <plurals name="timeout_minutes" comment="Option for minute timeouts">
+        <item quantity="zero">%1$d دقيقة</item>
+        <item quantity="one">%1$d دقيقة</item>
+        <item quantity="two">%1$d دقيقة</item>
+        <item quantity="few">%1$d دقيقة</item>
+        <item quantity="many">%1$d دقيقة</item>
+        <item quantity="other">%1$d دقيقة</item>
     </plurals>
     <string name="changelog_v7_4_0">\nيمكنك الآن البحث عن الإعدادات الفرعية داخل شاشات الإعدادات\nتمت إضافة أنماط لوحة الألوان لمخططات الألوان\nتمت إضافة خيار تعيين لغة التطبيق مباشرة داخل التطبيق</string>
     <string name="changelog_v7_3_0">\nتم تحسين واجهة المستخدم في شاشة سجل التغييرات\nتمت إضافة مساهمي الترجمة في قسم \"حول\"\nتمت إضافة شاشة التراخيص التي تعرض معلومات ترخيص مفصلة حول التطبيق والمكتبات الأخرى المستخدمة بواسطة التطبيق</string>

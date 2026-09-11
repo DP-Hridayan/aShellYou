@@ -7,6 +7,9 @@ on:
       - 'core/resources/src/main/res/values/strings.xml'
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   synchronize-with-crowdin:
     name: Upload source to Crowdin

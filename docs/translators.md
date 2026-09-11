@@ -22,7 +22,7 @@ Thanks to these translators and proofreaders, this project exists:
           <br />
           <sub><b>(AY_Translator)</b></sub></a>
         <br />
-        <sub><b>20229 words</b></sub>
+        <sub><b>20737 words</b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/mikropsoft"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/15972315/medium/23948a4df1f365f3bd7accc92c87bc4e.jpg" />
@@ -97,9 +97,9 @@ Thanks to these translators and proofreaders, this project exists:
         <sub><b>1101 words</b></sub>
       </td>
       <td align="center" valign="top">
-        <a href="https://crowdin.com/profile/Ruffi"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/16098016/medium/2aee1e072b73a93c6e3ecc02236cfb2e_default.png" />
+        <a href="https://crowdin.com/profile/prplflare"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/16098016/medium/2aee1e072b73a93c6e3ecc02236cfb2e_default.png" />
           <br />
-          <sub><b>Ruffi</b></sub></a>
+          <sub><b>prplflare</b></sub></a>
         <br />
         <sub><b>887 words</b></sub>
       </td>
