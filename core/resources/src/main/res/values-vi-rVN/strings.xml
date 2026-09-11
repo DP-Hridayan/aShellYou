@@ -107,8 +107,9 @@
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">Pin</string>
     <string name="battery_saver" comment="Device system battery saver mode label">Tiết kiệm pin</string>
     <string name="behavior" comment="Settings category title for application behavior preferences">Hành vi</string>
-    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">Confirm your screen lock or use biometrics to continue</string>
+    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">Xác nhận khóa màn hình của bạn để tiếp tục</string>
     <string name="biometric_prompt_title" comment="Title for the biometric authentication prompt">Unlock aShellYou</string>
+    <string name="biometrics_disabled_msg" comment="Toast message when biometric data is removed from device settings">Đã tắt sinh trắc học ứng dụng: Dữ liệu sinh trắc học đã bị xóa khỏi thiết bị.</string>
     <string name="block" comment="Action button to block execution or permissions">Chặn</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">Đã đạt giới hạn dấu trang! Vui lòng xóa một số dấu trang để thêm mới</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">Các dấu trang</string>
@@ -353,6 +354,7 @@
     <string name="des_translators" comment="Subtitle description under Translators list in About section">Những người đã giúp dịch aShell You</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">Điều chỉnh tỷ lệ phần tử UI và kích thước phông chữ</string>
     <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">Chọn các bản phát hành mà ứng dụng sẽ kiểm tra</string>
+    <string name="des_use_biometrics">Cho phép mở khóa ứng dụng bằng vân tay hoặc khuôn mặt</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">Hãy cẩn thận vì một image sai có thể gây ra bootloop</string>
     <string name="description">Mô tả</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">Bỏ chọn tất cả</string>
@@ -946,6 +948,7 @@
     <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">Yêu cầu Gỡ lỗi USB</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">Trình quản lý USB không khả dụng trên thiết bị này</string>
     <string name="use">Sử dụng</string>
+    <string name="use_biometrics">Use biometrics</string>
     <string name="utilities" comment="Category title in homescreen">Tiện ích</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">Biến thể</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">Xác minh thất bại</string>

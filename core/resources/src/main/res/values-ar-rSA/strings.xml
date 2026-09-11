@@ -106,8 +106,9 @@
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">البطارية</string>
     <string name="battery_saver" comment="Device system battery saver mode label">موفر البطارية</string>
     <string name="behavior" comment="Settings category title for application behavior preferences">سلوك</string>
-    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">تأكيد قفل الشاشة أو استخدام القياسات الحيوية للمتابعة</string>
+    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">تأكيد قفل الشاشة للمتابعة</string>
     <string name="biometric_prompt_title" comment="Title for the biometric authentication prompt">فتح AShellYou</string>
+    <string name="biometrics_disabled_msg" comment="Toast message when biometric data is removed from device settings">تم تعطيل تطبيق القياس الحيوي: تم إزالة بيانات القياس الحيوي من الجهاز.</string>
     <string name="block" comment="Action button to block execution or permissions">حظر</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">تم الوصول إلى الحد الأقصى للإشارات المرجعية! احذف بعض الإشارات المرجعية لإضافة إشارات جديدة</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">الإشارات المرجعية</string>
@@ -352,6 +353,7 @@
     <string name="des_translators" comment="Subtitle description under Translators list in About section">الأشخاص الذين ساعدوا في ترجمة aShellYou</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">ضبط مقياس عناصر واجهة المستخدم وحجم الخط</string>
     <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">اختر الإصدار الذي يتم التحقق منه من التطبيق</string>
+    <string name="des_use_biometrics">السماح بفتح التطبيق باستخدام بصمة إصبعك أو وجهك</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">توخ الحذر لأن الصورة غير الصحيحة قد تتسبب في حلقة إقلاع</string>
     <string name="description">الوصف</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">إلغاء تحديد الكل</string>
@@ -945,6 +947,7 @@
     <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">مطلوب تصحيح أخطاء USB</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">مدير USB غير متوفر على هذا الجهاز</string>
     <string name="use">استخدام</string>
+    <string name="use_biometrics">استخدام القياسات الحيوية</string>
     <string name="utilities" comment="Category title in homescreen">الأدوات</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">المتغير</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">فشل التحقق</string>

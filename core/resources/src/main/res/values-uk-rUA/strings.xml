@@ -62,16 +62,16 @@
     <string name="app">Додаток</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">Збій у додатку</string>
     <string name="app_is_locked" comment="Title shown when the app is locked">Додаток заблоковано</string>
-    <string name="app_is_locked_msg" comment="Message shown when the app is locked">Використовувати блокування екрана, відбиток пальця або обличчя для розблокування програми та продовження</string>
+    <string name="app_is_locked_msg" comment="Message shown when the app is locked">Скористайтеся блокуванням екрана, відбитком пальця або розпізнаванням обличчя, щоб розблокувати цей додаток і продовжити</string>
     <string name="app_lock_disabled_msg" comment="Toast message informing user that app lock was disabled because device screen lock was removed">Аутентифікація додатку відключена: блокування екрана пристрою було видалено.</string>
     <string name="app_lock_setup_error_msg" comment="Dialog message when user tries to enable app lock but has no device screen lock configured">Блокування екрана не налаштовано. Будь ласка, налаштуйте блокування екрана, або біометричне в налаштуваннях пристрою для активації \"Блокування екрану\".</string>
-    <string name="app_permissions" comment="Title for app permissions shortcut">Дозволи додатків</string>
+    <string name="app_permissions" comment="Title for app permissions shortcut">Дозволи додатка</string>
     <string name="app_tagline" comment="App subtitle/tagline shown on welcome and about screens">ADB у вас під рукою</string>
     <string name="apply">Застосувати</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">Застосувати до усієї (%1$d решти)</string>
     <string name="artifact_id" comment="Technical label for AI artifact identifier in developer options">Артефакт ID</string>
     <string name="authenticate" comment="Group header for authentication settings">Автентифікація</string>
-    <string name="authentication_timeout" comment="Title for authentication timeout setting">Час очікування автентифікації</string>
+    <string name="authentication_timeout" comment="Title for authentication timeout setting">Тайм-аут аутентифікації</string>
     <string name="auto" comment="Selection option for automatic theme/mode handling">Авто</string>
     <string name="auto_backup" comment="Setting toggle title for scheduled automatic backups">Авторезервування</string>
     <string name="auto_backup_content_type" comment="Setting title for selecting items to include in automatic backups">Резервування вмісту</string>
@@ -106,8 +106,9 @@
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">Батарея</string>
     <string name="battery_saver" comment="Device system battery saver mode label">Економія батареї</string>
     <string name="behavior" comment="Settings category title for application behavior preferences">Поведінка</string>
-    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">Підтвердіть блокування екрана або скористайтеся біометрикою для продовження</string>
+    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">Підтвердіть блокування екрана, щоб продовжити</string>
     <string name="biometric_prompt_title" comment="Title for the biometric authentication prompt">Розблокувати aShellYou</string>
+    <string name="biometrics_disabled_msg" comment="Toast message when biometric data is removed from device settings">Біометрія відключена програми: біометричні дані було видалено з пристрою.</string>
     <string name="block" comment="Action button to block execution or permissions">Заблокувати</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">Досягнуто максимальної кількості закладок! Видаліть деякі закладки, щоб додати нові</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">Закладки</string>
@@ -276,7 +277,7 @@
     <string name="des_ai_cache_days" comment="Description under Cache duration setting in AI settings">Кількість днів для зберігання кешованих результатів</string>
     <string name="des_ai_cache_enabled" comment="Description under Enable cache setting in AI settings">Результати аналізу кешу по моделі</string>
     <string name="des_ai_models" comment="Description under AI &amp; Models item in settings">Керувати AI даними моделей та ключами API</string>
-    <string name="des_app_permissions" comment="Description for app permissions shortcut">Керування дозволами системи Android для програми</string>
+    <string name="des_app_permissions" comment="Description for app permissions shortcut">Керування дозволами системи Android для додатка</string>
     <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">Виберіть, що включити до авторезервувань</string>
     <string name="des_auto_backup_folder" comment="Description under Backup folder setting">Виберіть теку для збереження авторезервувань</string>
     <string name="des_auto_backup_time" comment="Description under Backup time setting">Встановіть час для авторезервувань</string>
@@ -332,14 +333,14 @@
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Дозволити агенту AI запитувати встановлені пакунки та дані додатків</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">Сполучити інший цільовий пристрій</string>
     <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">Виберіть спосіб отримання кольорів на основі початкового набору теми</string>
-    <string name="des_privacy_and_security" comment="Description for privacy and security settings">Дозволи для автентифікації і додатку</string>
+    <string name="des_privacy_and_security" comment="Description for privacy and security settings">Аутентифікація та дозволи додатка</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">Як aShell You обробляє ваші дані</string>
     <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">Ми оновили нашу політику конфіденційності. Будь ласка, знайдіть хвилинку, щоб переглянути зміни.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">Створити плитки швидких налаштувань для виконання команд adb</string>
     <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Дозволити агенту AI створювати, змінювати та видаляти плитки швидких налаштувань</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">Повідомте про будь-яку проблему, з якою ви зіткнулися під час використання додатку</string>
     <string name="des_require_auth_for_backups" comment="Description for protect backups">Вимагати аутентифікацію перед відновленням будь-якої резервної копії</string>
-    <string name="des_require_authentication" comment="Description for require authentication">Захистіть додаток від блокування екрана на пристрої або біометрики</string>
+    <string name="des_require_authentication" comment="Description for require authentication">Захистіть додаток за допомогою блокування екрана пристрою або біометричних даних</string>
     <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">Скинути налаштування додатку до значень за замовчуванням</string>
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">Відновіть дані додатка зі збереженого файлу резервної копії.\nЗбережена база даних перезапише поточну базу даних</string>
     <string name="des_save_whole_output" comment="Description under Save whole output setting toggle">Увімкніть цю опцію, щоб зберегти виведення всієї сесії оболонки.\nЯкщо вимкнено, буде збережено лише виведення останньої команди.</string>
@@ -352,6 +353,7 @@
     <string name="des_translators" comment="Subtitle description under Translators list in About section">Люди, які допомогли перекласти aShellYou</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">Регулювання масштабу елементів UI та розмір шрифту</string>
     <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">Виберіть, які релізи додаток перевірятиме</string>
+    <string name="des_use_biometrics">Дозволити розблокування додатку за допомогою відбитків пальців або обличчя</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">Будьте обережні, тому що неправильний образ може викликати bootloop</string>
     <string name="description">Опис</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">Зняти вибір з усіх</string>
@@ -542,7 +544,7 @@
     <string name="launch">Запустити</string>
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">Провідний розробник</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">Рідко використовувані</string>
-    <string name="legal_and_policies" comment="Group header for legal settings">Юридична &amp; Політики</string>
+    <string name="legal_and_policies" comment="Group header for legal settings">Юридична інформація &amp; Політики</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">Рівень</string>
     <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">Бібліотеки та ліцензії</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">Виявлено бібліотек %1$d</string>
@@ -718,7 +720,7 @@
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">Перед огляд</string>
     <string name="primary">Первинний</string>
     <string name="primary_container">Первинний контейнер</string>
-    <string name="privacy_and_security" comment="Title for the privacy and security settings screen">Конфіденційність &amp; безпека</string>
+    <string name="privacy_and_security" comment="Title for the privacy and security settings screen">Конфіденційність &amp; Безпека</string>
     <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Політика конфіденційності</string>
     <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">Політика конфіденційності оновлено</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">Продукт</string>
@@ -756,7 +758,7 @@
     <string name="report_issue" comment="Button in About screen linking to GitHub issue tracker">Звіт про проблему</string>
     <string name="repository" comment="Button in About screen linking to GitHub project repository">Репозиторій</string>
     <string name="request_timeout" comment="Error toast when network request or ADB response times out">Тайм-аут запиту</string>
-    <string name="require_auth_for_backups" comment="Toggle title to require auth before restoring backups">Захистити резервні копії</string>
+    <string name="require_auth_for_backups" comment="Toggle title to require auth before restoring backups">Захист резервних копій</string>
     <string name="require_authentication" comment="Toggle title to require authentication to open the app">Вимагати аутентифікацію</string>
     <string name="reset">Скинути</string>
     <string name="reset_app_settings" comment="Button label in settings to restore default application configuration">Скинути налаштування додатка</string>
@@ -945,6 +947,7 @@
     <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">Необхідне USB налагодження</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">Менеджер USB недоступний на цьому пристрої</string>
     <string name="use">Використати</string>
+    <string name="use_biometrics">Використовувати біометричні дані</string>
     <string name="utilities" comment="Category title in homescreen">Утиліти</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">Варіант</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">Не вдалося перевірити</string>
@@ -986,7 +989,7 @@
         <item quantity="other">%1$d нових записів</item>
     </plurals>
     <plurals name="timeout_minutes" comment="Option for minute timeouts">
-        <item quantity="one">%1$d minute</item>
+        <item quantity="one">%1$d хвилина</item>
         <item quantity="few">%1$d хвилин</item>
         <item quantity="many">%1$d хвилин</item>
         <item quantity="other">%1$d хвилин</item>

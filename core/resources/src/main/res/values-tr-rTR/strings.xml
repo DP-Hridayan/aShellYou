@@ -106,8 +106,9 @@
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">Pil</string>
     <string name="battery_saver" comment="Device system battery saver mode label">Pil tasarrufu</string>
     <string name="behavior" comment="Settings category title for application behavior preferences">Davranış</string>
-    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">Confirm your screen lock or use biometrics to continue</string>
+    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">Confirm your screen lock to continue</string>
     <string name="biometric_prompt_title" comment="Title for the biometric authentication prompt">Unlock aShellYou</string>
+    <string name="biometrics_disabled_msg" comment="Toast message when biometric data is removed from device settings">App biometrics disabled: Biometric data was removed from device.</string>
     <string name="block" comment="Action button to block execution or permissions">Engelle</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">Maksimum yer imi sınırına ulaşıldı! Yenilerini eklemek için bazı yer imlerini silin</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">Yer İmleri</string>
@@ -352,6 +353,7 @@
     <string name="des_translators" comment="Subtitle description under Translators list in About section">AShellYou\'yu çevirmeye yardımcı olan kişiler</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">Kullanıcı arayüzü öğelerinin ölçeğini ve yazı tipi boyutunu ayarlayın</string>
     <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">Uygulamanın hangi sürümleri kontrol edeceğini seçin</string>
+    <string name="des_use_biometrics">Allow unlocking the app using your fingerprint or face</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">Yanlış bir imaj bootloop\'a neden olabileceğinden dikkatli ilerleyin</string>
     <string name="description">Açıklama</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">Tüm seçimleri kaldır</string>
@@ -945,6 +947,7 @@
     <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">USB Hata Ayıklama Gerekli</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">USB Yöneticisi bu cihazda mevcut değil</string>
     <string name="use">Kullan</string>
+    <string name="use_biometrics">Use biometrics</string>
     <string name="utilities" comment="Category title in homescreen">Yardımcı Araçlar</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">Varyant</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">Doğrulama başarısız</string>

@@ -106,8 +106,9 @@
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">Bateria</string>
     <string name="battery_saver" comment="Device system battery saver mode label">Economia de bateria</string>
     <string name="behavior" comment="Settings category title for application behavior preferences">Comportamento</string>
-    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">Confirme o bloqueio de sua tela ou use dados biométricos para continuar</string>
+    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">Confirme seu bloqueio de tela para continuar</string>
     <string name="biometric_prompt_title" comment="Title for the biometric authentication prompt">Desbloqueie aShellYou</string>
+    <string name="biometrics_disabled_msg" comment="Toast message when biometric data is removed from device settings">Biométrica do app desativada: Os dados biométricos foram removidos do dispositivo.</string>
     <string name="block" comment="Action button to block execution or permissions">Bloquear</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">Limite máximo de favoritos atingido! Exclua alguns favoritos para adicionar novos</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">Favoritos</string>
@@ -219,8 +220,10 @@
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Advertência! Essa ação é irreversível\nTem certeza de que deseja excluir todos os favoritos?</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Confirmar exclusão</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">Tem certeza que deseja remover \"%1$s\"? Se for aplicado no momento, o aplicativo irá reverter para a fonte do sistema.</string>
-    <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">Warning ! This action is irreversible\nAre you sure you want to delete these %1$d selected bookmarks?</string>
-    <string name="confirm_single_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting a single saved bookmark">Warning ! This action is irreversible\nAre you sure you want to delete this bookmark?</string>
+    <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">Aviso! Esta ação é irreversível
+Tem certeza de que deseja excluir estes %1$d favoritos selecionados?</string>
+    <string name="confirm_single_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting a single saved bookmark">Aviso! Esta ação é irreversível
+Tem certeza de que deseja excluir este favorito?</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">Tem certeza de que deseja excluir este bloco?</string>
     <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">O cache ajuda a recuperar resultados de análise instantaneamente.\nAinda deseja limpar todos os dados de cache de análise de IA?</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" já existe neste local.</string>
@@ -352,6 +355,7 @@
     <string name="des_translators" comment="Subtitle description under Translators list in About section">Pessoas que ajudaram a traduzir aShellYou</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">Ajuste a escala dos elementos da interface e o tamanho da fonte</string>
     <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">Escolha quais versões as verificações de app</string>
+    <string name="des_use_biometrics">Permitir desbloquear o app usando sua impressão digital ou rosto</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">Proceda com cautela, pois uma imagem incorreta pode causar um bootloop</string>
     <string name="description">Descrição</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">Desmarcar todos</string>
@@ -945,6 +949,7 @@
     <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">Depuração USB necessária</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">O Gerenciador de USB não está disponível neste dispositivo</string>
     <string name="use">Usar</string>
+    <string name="use_biometrics">Usar dados biométricos</string>
     <string name="utilities" comment="Category title in homescreen">Utilitários</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">Variante</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">Falha na verificação</string>
@@ -984,8 +989,8 @@
         <item quantity="other">%1$d novos registros</item>
     </plurals>
     <plurals name="timeout_minutes" comment="Option for minute timeouts">
-        <item quantity="one">%1$d minute</item>
-        <item quantity="other">%1$d minutes</item>
+        <item quantity="one">%1$d minuto</item>
+        <item quantity="other">%1$d minutos</item>
     </plurals>
     <string name="changelog_v7_4_0">\nAgora você pode pesquisar Sub-configurações dentro das telas de Configurações\nAdicionado Palette Styles para esquemas de cores\nAdicionada opção para configurar o idioma do aplicativo diretamente dentro do aplicativo</string>
     <string name="changelog_v7_3_0">\nInterface de usuário melhorada no ecrã de mudanças\nContribuidores adicionados na seção\nTela de Licenças Adicionadas que mostra informações detalhadas de licença sobre o aplicativo e outras bibliotecas usadas pelo aplicativo</string>
