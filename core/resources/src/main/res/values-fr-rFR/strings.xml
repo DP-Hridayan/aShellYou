@@ -161,6 +161,7 @@
     <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">Capacité de déverrouillage</string>
     <string name="code_pair_instruction" comment="Instructional text in Wireless Debugging pairing dialog directing user to open Wireless Debugging menu on target device">Ouvrez \"Débogage sans fil\" sur l\'appareil cible et appuyez sur \"Associer l\'appareil avec le code d\'appairage\"</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">Réduire</string>
+    <string name="command_execution_failed" comment="Inline shell error shown when running a command fails unexpectedly. %1$s is the technical reason">Échec de la commande : %1$s</string>
     <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">Erreur survenue</string>
     <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">Élévation élevée (Boîte de dialogue)</string>
     <string name="color_preview_highest_elevation" comment="Sample label in theme editor showing highest elevation surface color (Bottom Sheet)">Élévation maximale (Feuille du bas)</string>
@@ -847,6 +848,7 @@
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">La sortie de la dernière commande est exportée vers \'%s\'</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">La sortie du shell est exportée vers \'%s\'</string>
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">Shizuku n\'est pas installé</string>
+    <string name="shizuku_process_start_failed" comment="Inline shell error shown when the Shizuku helper service could not start the command. %1$s is the technical reason">Shizuku n\'a pas pu démarrer la commande : %1$s</string>
     <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">Le service Shizuku n\'est pas disponible. Assurez-vous que Shizuku ou Shizuku+ fonctionnent et que la permission est accordée.</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku n\'est pas disponible</string>
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">Shizuku ou Shizuku+ n\'est pas installé ou correctement configuré sur votre appareil</string>
