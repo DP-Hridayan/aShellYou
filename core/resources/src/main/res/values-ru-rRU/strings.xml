@@ -161,6 +161,7 @@
     <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">Возможность разблокировки</string>
     <string name="code_pair_instruction" comment="Instructional text in Wireless Debugging pairing dialog directing user to open Wireless Debugging menu on target device">Откройте \"Беспроводная отладка\" на целевом устройстве и нажмите \"Сопрячь устройство с помощью кода сопряжения\"</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">Свернуть</string>
+    <string name="command_execution_failed" comment="Inline shell error shown when running a command fails unexpectedly. %1$s is the technical reason">Ошибка команды: %1$s</string>
     <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">Произошла ошибка</string>
     <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">Высокая высота (диалог)</string>
     <string name="color_preview_highest_elevation" comment="Sample label in theme editor showing highest elevation surface color (Bottom Sheet)">Высокая высота (нижний лист)</string>
@@ -847,6 +848,7 @@
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">Вывод последней команды экспортируется в \'%s\'</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">Вывод оболочки экспортируется в \'%s\'</string>
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">Shizuku не установлен</string>
+    <string name="shizuku_process_start_failed" comment="Inline shell error shown when the Shizuku helper service could not start the command. %1$s is the technical reason">Shizuku не удалось запустить команду: %1$s</string>
     <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">Служба Shizuku недоступна. Убедитесь, что Shizuku или Shizuku+ работает и что предоставлены соответствующие разрешения.</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku недоступен</string>
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">На вашем устройстве не установлено или не настроено должным образом приложение Shizuku или Shizuku+</string>

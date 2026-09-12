@@ -161,6 +161,7 @@
     <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">ロック解除機能</string>
     <string name="code_pair_instruction" comment="Instructional text in Wireless Debugging pairing dialog directing user to open Wireless Debugging menu on target device">対象デバイスで「ワイヤレスデバッグ」を開き、「ペアリングコードとペアリングデバイス」をタップします</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">折りたたむ</string>
+    <string name="command_execution_failed" comment="Inline shell error shown when running a command fails unexpectedly. %1$s is the technical reason">コマンドに失敗しました: %1$s</string>
     <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">エラーが発生しました</string>
     <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">高エレベーション (ダイアログ)</string>
     <string name="color_preview_highest_elevation" comment="Sample label in theme editor showing highest elevation surface color (Bottom Sheet)">最高エレベーション (ボトムシート)</string>
@@ -850,6 +851,7 @@
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">最後のコマンドの出力は \'%s\' にエクスポートされます</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">シェル出力は \'%s\' にエクスポートされます</string>
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">しずくは設置されていません</string>
+    <string name="shizuku_process_start_failed" comment="Inline shell error shown when the Shizuku helper service could not start the command. %1$s is the technical reason">Shizukuはコマンドを開始できませんでした: %1$s</string>
     <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">しずくが運行できない。しずく、しずく+が運行されていることを確認し、許可されている。</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizukuは使用できません</string>
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">シズクまたはシズク+がインストールされていないか、正しく設定されていません</string>
