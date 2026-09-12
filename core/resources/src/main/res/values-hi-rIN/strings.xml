@@ -161,6 +161,7 @@
     <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">अनलॉक क्षमता</string>
     <string name="code_pair_instruction" comment="Instructional text in Wireless Debugging pairing dialog directing user to open Wireless Debugging menu on target device">लक्ष्य डिवाइस पर \"वायरलेस डिबगिंग\" खोलें और \"पेयरिंग कोड से डिवाइस पेयर करें\" पर टैप करें</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">संकोच करें</string>
+    <string name="command_execution_failed" comment="Inline shell error shown when running a command fails unexpectedly. %1$s is the technical reason">Command failed: %1$s</string>
     <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">त्रुटि आई</string>
     <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">उच्च एलिवेशन (डायलॉग)</string>
     <string name="color_preview_highest_elevation" comment="Sample label in theme editor showing highest elevation surface color (Bottom Sheet)">उच्चतम एलिवेशन (बॉटम शीट)</string>
@@ -847,6 +848,7 @@
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">अंतिम कमांड का आउटपुट \'%s\' में निर्यात हुआ</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">शेल आउटपुट \'%s\' में निर्यात हुआ</string>
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">Shizuku इंस्टॉल नहीं है</string>
+    <string name="shizuku_process_start_failed" comment="Inline shell error shown when the Shizuku helper service could not start the command. %1$s is the technical reason">Shizuku could not start the command: %1$s</string>
     <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">Shizuku सेवा अनुपलब्ध है। सुनिश्चित करें कि Shizuku या Shizuku+ चल रहा है और अनुमति दी गई है।</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku अनुपलब्ध</string>
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">आपके डिवाइस पर Shizuku या Shizuku+ इंस्टॉल नहीं है या ठीक से कॉन्फ़िगर नहीं किया गया है</string>
