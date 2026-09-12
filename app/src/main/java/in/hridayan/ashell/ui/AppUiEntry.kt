@@ -1,4 +1,4 @@
-@file:OptIn(
+﻿@file:OptIn(
     ExperimentalSharedTransitionApi::class,
     ExperimentalMaterial3Api::class
 )
@@ -23,7 +23,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.core.common.LocalSharedTransitionScope
-import `in`.hridayan.ashell.core.common.constants.PRIVACY_POLICY_VERSION
+import `in`.hridayan.ashell.core.common.constants.LEGAL_DOCS_VERSION
 import `in`.hridayan.ashell.core.common.domain.model.otg.OtgConnection
 import `in`.hridayan.ashell.core.common.domain.model.otg.OtgState
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
@@ -37,7 +37,7 @@ import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.UpdateB
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.ashell.ui.components.bottomsheet.ChangelogBottomSheet
-import `in`.hridayan.ashell.ui.components.dialog.PrivacyPolicyUpdateDialog
+import `in`.hridayan.ashell.ui.components.dialog.LegalDocsUpdateDialog
 import `in`.hridayan.ashell.ui.navigation.AppNavigation
 import kotlinx.coroutines.flow.collectLatest
 
@@ -55,14 +55,14 @@ fun AppUiEntry(
 
     var showUpdateSheet by rememberSaveable { mutableStateOf(false) }
     var showChangelogSheet by rememberSaveable { mutableStateOf(false) }
-    var showPrivacyPolicyDialog by rememberSaveable { mutableStateOf(false) }
+    var showLegalDocsDialog by rememberSaveable { mutableStateOf(false) }
 
     var tagName by rememberSaveable { mutableStateOf(BuildConfig.VERSION_NAME) }
     var apkUrl by rememberSaveable { mutableStateOf("") }
     var changelog by rememberSaveable { mutableStateOf("") }
     val savedVersionCode = settings[SettingsKeys.SavedVersionCode]
     val firstLaunchFlow = settings[SettingsKeys.FirstLaunch]
-    val savedPrivacyPolicyVersion = settings[SettingsKeys.SavedPrivacyPolicyVersion]
+    val savedLegalDocsVersion = settings[SettingsKeys.SavedLegalDocsVersion]
 
     LaunchedEffect(Unit, isNetworkAvailable(context)) {
         autoUpdateViewModel.updateEvents.collectLatest { result ->
@@ -80,9 +80,9 @@ fun AppUiEntry(
         showChangelogSheet = savedVersionCode < BuildConfig.VERSION_CODE && !firstLaunchFlow
     }
 
-    LaunchedEffect(savedPrivacyPolicyVersion, firstLaunchFlow) {
-        if (!firstLaunchFlow && savedPrivacyPolicyVersion != PRIVACY_POLICY_VERSION) {
-            showPrivacyPolicyDialog = true
+    LaunchedEffect(savedLegalDocsVersion, firstLaunchFlow) {
+        if (!firstLaunchFlow && savedLegalDocsVersion != LEGAL_DOCS_VERSION) {
+            showLegalDocsDialog = true
         }
     }
 
@@ -116,22 +116,30 @@ fun AppUiEntry(
             }
         }
 
-        if (showPrivacyPolicyDialog) {
-            PrivacyPolicyUpdateDialog(
+        if (showLegalDocsDialog) {
+            LegalDocsUpdateDialog(
                 onDismiss = {
-                    showPrivacyPolicyDialog = false
+                    showLegalDocsDialog = false
                     settingsViewModel.setInt(
-                        SettingsKeys.SavedPrivacyPolicyVersion,
-                        PRIVACY_POLICY_VERSION
+                        SettingsKeys.SavedLegalDocsVersion,
+                        LEGAL_DOCS_VERSION
                     )
                 },
                 onReadPrivacyPolicy = {
-                    showPrivacyPolicyDialog = false
+                    showLegalDocsDialog = false
                     settingsViewModel.setInt(
-                        SettingsKeys.SavedPrivacyPolicyVersion,
-                        PRIVACY_POLICY_VERSION
+                        SettingsKeys.SavedLegalDocsVersion,
+                        LEGAL_DOCS_VERSION
                     )
                     navController.navigate(NavRoutes.PrivacyPolicyScreen)
+                },
+                onReadTermsOfService = {
+                    showLegalDocsDialog = false
+                    settingsViewModel.setInt(
+                        SettingsKeys.SavedLegalDocsVersion,
+                        LEGAL_DOCS_VERSION
+                    )
+                    navController.navigate(NavRoutes.TermsOfServiceScreen)
                 }
             )
         }
@@ -158,3 +166,4 @@ fun AppUiEntry(
         }
     }
 }
+

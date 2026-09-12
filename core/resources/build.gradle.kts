@@ -26,11 +26,14 @@ dependencies {
 
 val generatedResDir = layout.buildDirectory.dir("generated/res/privacy_policy").get().asFile
 
-val syncPrivacyPolicy = tasks.register<Copy>("syncPrivacyPolicy") {
-    description = "Syncs the root PRIVACY_POLICY.md to a generated raw resources folder"
+val syncLegalDocs = tasks.register<Copy>("syncLegalDocs") {
+    description =
+        "Syncs the root PRIVACY_POLICY.md and TERMS_OF_SERVICE.md to a generated raw resources folder"
     from(rootProject.file("PRIVACY_POLICY.md"))
+    from(rootProject.file("TERMS_OF_SERVICE.md"))
     into(File(generatedResDir, "raw"))
     rename("PRIVACY_POLICY.md", "privacy_policy.md")
+    rename("TERMS_OF_SERVICE.md", "terms_of_service.md")
 }
 
 android {
@@ -43,6 +46,7 @@ android {
 
 tasks.configureEach {
     if (name == "preBuild") {
-        dependsOn(syncPrivacyPolicy)
+        dependsOn(syncLegalDocs)
     }
 }
+

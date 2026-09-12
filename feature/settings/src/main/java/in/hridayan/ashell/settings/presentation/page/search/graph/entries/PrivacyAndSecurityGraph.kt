@@ -54,6 +54,12 @@ internal fun SearchScreenScope.privacyAndSecurityGraph(
             icon(R.drawable.ic_search_gear)
         }
 
+        entry(key = SettingsKeys.TermsOfService) {
+            title(R.string.terms_of_service)
+            description(R.string.des_terms_of_service)
+            icon(R.drawable.ic_gavel)
+        }
+
         entry(key = SettingsKeys.PrivacyPolicy) {
             title(R.string.privacy_policy)
             description(R.string.des_privacy_policy)

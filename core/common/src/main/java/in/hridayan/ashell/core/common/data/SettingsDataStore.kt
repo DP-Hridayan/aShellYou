@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.core.common.data
+﻿package `in`.hridayan.ashell.core.common.data
 
 import android.content.Context
 import android.util.Log
@@ -23,7 +23,7 @@ class SettingsDataStore @Inject constructor(
     companion object {
         val PRESERVE_KEYS = setOf(
             SettingsKeys.FirstLaunch.name,
-            SettingsKeys.SavedPrivacyPolicyVersion.name,
+            SettingsKeys.SavedLegalDocsVersion.name,
             SettingsKeys.LastLocalBackupTime.name,
             SettingsKeys.LastCloudBackupTime.name,
             SettingsKeys.LastLocalBackupType.name,
@@ -42,7 +42,7 @@ class SettingsDataStore @Inject constructor(
 
     private val ds = context.settingsDataStore
 
-    /** Raw preferences snapshot � collect once for all key lookups. */
+    /** Raw preferences snapshot ï¿½ collect once for all key lookups. */
     val preferences: Flow<Preferences> = ds.data
 
     private fun SettingsKeys<*>.toBooleanKey(): Preferences.Key<Boolean> =
@@ -74,7 +74,7 @@ class SettingsDataStore @Inject constructor(
 
     fun intFlow(key: SettingsKeys<Int>): Flow<Int> {
         val preferencesKey = key.toIntKey()
-        val default = key.default // Already Int � no cast needed!
+        val default = key.default // Already Int ï¿½ no cast needed!
         return ds.data
             .map { prefs -> prefs[preferencesKey] ?: default }
     }
@@ -91,7 +91,7 @@ class SettingsDataStore @Inject constructor(
 
     fun floatFlow(key: SettingsKeys<Float>): Flow<Float> {
         val preferencesKey = key.toFloatKey()
-        val default = key.default // Already Float � no cast needed!
+        val default = key.default // Already Float ï¿½ no cast needed!
         return ds.data
             .map { prefs -> prefs[preferencesKey] ?: default }
     }
@@ -108,7 +108,7 @@ class SettingsDataStore @Inject constructor(
 
     fun stringFlow(key: SettingsKeys<String>): Flow<String> {
         val preferencesKey = key.toStringKey()
-        val default = key.default // Already String � no cast needed!
+        val default = key.default // Already String ï¿½ no cast needed!
         return ds.data
             .map { prefs -> prefs[preferencesKey] ?: default }
     }
@@ -197,3 +197,4 @@ class SettingsDataStore @Inject constructor(
         }
     }
 }
+

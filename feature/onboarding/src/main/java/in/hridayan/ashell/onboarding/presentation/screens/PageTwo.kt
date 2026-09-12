@@ -137,7 +137,7 @@ fun PageTwo(modifier: Modifier = Modifier, pagerState: PagerState) {
             state = lazyListState,
             modifier = modifier
                 .fillMaxSize()
-                .padding(bottom = 80.dp),
+                .padding(bottom = 40.dp),
             contentPadding = PaddingValues(horizontal = 25.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
@@ -189,7 +189,7 @@ fun PageTwo(modifier: Modifier = Modifier, pagerState: PagerState) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 80.dp)
+                .padding(bottom = 40.dp)
                 .height(60.dp)
                 .align(Alignment.BottomCenter)
                 .background(

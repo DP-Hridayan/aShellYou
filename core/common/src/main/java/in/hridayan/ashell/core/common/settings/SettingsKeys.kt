@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.core.common.settings
+﻿package `in`.hridayan.ashell.core.common.settings
 
 import android.os.Environment
 import androidx.appcompat.app.AppCompatDelegate
@@ -17,7 +17,7 @@ import kotlin.reflect.KClass
  * Each entry is a typed singleton carrying its own [defaultValue].
  * The [name] property is used as the DataStore preferences key.
  *
- * **Adding a new key**: just add a `data object` here — [entries] and the
+ * **Adding a new key**: just add a `data object` here â€” [entries] and the
  * typed sub-lists are auto-discovered via sealed-class reflection.
  */
 @Stable
@@ -55,6 +55,7 @@ sealed class SettingsKeys<out T>(
     data object LookAndFeel : SettingsKeys<Nothing?>("LOOK_AND_FEEL", null)
     data object PrivacyAndSecurity : SettingsKeys<Nothing?>("PRIVACY_AND_SECURITY", null)
     data object PrivacyPolicy : SettingsKeys<Nothing?>("PRIVACY_POLICY", null)
+    data object TermsOfService : SettingsKeys<Nothing?>("TERMS_OF_SERVICE", null)
     data object QuickSettingsTiles : SettingsKeys<Nothing?>("QUICK_SETTINGS_TILES", null)
     data object Report : SettingsKeys<Nothing?>("REPORT", null)
     data object ResetAppSettings : SettingsKeys<Nothing?>("RESET_APP_SETTINGS", null)
@@ -140,7 +141,7 @@ sealed class SettingsKeys<out T>(
     )
 
     data object PrimarySeed : SettingsKeys<Int>("PRIMARY_SEED", SeedColorProvider.primary)
-    data object SavedPrivacyPolicyVersion : SettingsKeys<Int>("SAVED_PRIVACY_POLICY_VERSION", 0)
+    data object SavedLegalDocsVersion : SettingsKeys<Int>("SAVED_LEGAL_DOCS_VERSION", 0)
     data object SavedVersionCode : SettingsKeys<Int>("SAVED_VERSION_CODE", 0)
     data object TerminalFontStyle :
         SettingsKeys<Int>(
@@ -182,7 +183,7 @@ sealed class SettingsKeys<out T>(
 
     companion object {
         /**
-         * All key instances — auto-discovered from sealed subclasses.
+         * All key instances â€” auto-discovered from sealed subclasses.
          * Adding a new `data object` is all you need to do.
          */
         @Suppress("UNCHECKED_CAST")
@@ -191,19 +192,19 @@ sealed class SettingsKeys<out T>(
                 .mapNotNull { (it as KClass<SettingsKeys<*>>).objectInstance }
         }
 
-        /** Boolean keys only — auto-derived from [entries]. */
+        /** Boolean keys only â€” auto-derived from [entries]. */
         @Suppress("UNCHECKED_CAST")
         val booleanEntries: List<SettingsKeys<Boolean>> by lazy {
             entries.filter { it.default is Boolean } as List<SettingsKeys<Boolean>>
         }
 
-        /** Int keys only — auto-derived from [entries]. */
+        /** Int keys only â€” auto-derived from [entries]. */
         @Suppress("UNCHECKED_CAST")
         val intEntries: List<SettingsKeys<Int>> by lazy {
             entries.filter { it.default is Int } as List<SettingsKeys<Int>>
         }
 
-        /** String keys only — auto-derived from [entries]. */
+        /** String keys only â€” auto-derived from [entries]. */
         @Suppress("UNCHECKED_CAST")
         val stringEntries: List<SettingsKeys<String>> by lazy {
             entries.filter { it.default is String } as List<SettingsKeys<String>>
@@ -213,8 +214,9 @@ sealed class SettingsKeys<out T>(
         fun valueOf(name: String): SettingsKeys<*> =
             entries.first { it.name == name }
 
-        /** Safe version of [valueOf] — returns null if not found. */
+        /** Safe version of [valueOf] â€” returns null if not found. */
         fun valueOfOrNull(name: String): SettingsKeys<*>? =
             entries.firstOrNull { it.name == name }
     }
 }
+

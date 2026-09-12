@@ -40,6 +40,9 @@ NavRoutes {
     object PrivacyPolicyScreen : NavRoutes()
 
     @Serializable
+    object TermsOfServiceScreen : NavRoutes()
+
+    @Serializable
     object LanguagesScreen : NavRoutes()
 
     @Serializable

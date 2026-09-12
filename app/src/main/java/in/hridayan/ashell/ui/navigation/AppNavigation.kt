@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.ui.navigation
+﻿package `in`.hridayan.ashell.ui.navigation
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContentScope
@@ -65,6 +65,7 @@ import `in`.hridayan.ashell.settings.presentation.page.mainscreen.screen.Setting
 import `in`.hridayan.ashell.settings.presentation.page.privacyandsecurity.screens.PrivacySecurityScreen
 import `in`.hridayan.ashell.settings.presentation.page.privacypolicy.screens.PrivacyPolicyScreen
 import `in`.hridayan.ashell.settings.presentation.page.search.screens.SettingsSearchScreen
+import `in`.hridayan.ashell.settings.presentation.page.termsofservice.screens.TermsOfServiceScreen
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.ashell.shell.fastboot.presentation.screens.FastbootScreen
 import `in`.hridayan.ashell.shell.file_browser.presentation.screens.FileBrowserScreen
@@ -214,6 +215,10 @@ fun AppNavigation(
 
             composable<NavRoutes.PrivacyPolicyScreen> {
                 PrivacyPolicyScreen()
+            }
+
+            composable<NavRoutes.TermsOfServiceScreen> {
+                TermsOfServiceScreen()
             }
 
             animatedComposable<NavRoutes.CrashHistoryScreen> {
@@ -368,4 +373,5 @@ inline fun <reified T : Any> NavGraphBuilder.animatedComposable(
         }
     }
 }
+
 

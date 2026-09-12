@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -209,7 +210,7 @@ fun PageThree(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 20.dp, end = 20.dp, bottom = 80.dp)
+                .padding(start = 20.dp, end = 20.dp, bottom = 40.dp)
                 .background(Color.Transparent)
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(25.dp)
@@ -284,12 +285,14 @@ fun PageThree(
                     }
                 }
             )
+
+            Spacer(modifier = Modifier.height(25.dp))
         }
 
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 80.dp)
+                .padding(bottom = 40.dp)
                 .height(40.dp)
                 .align(Alignment.BottomCenter)
                 .background(

@@ -197,6 +197,13 @@ fun PrivacySecurityScreen() {
                 }
 
                 group(R.string.legal_and_policies) {
+                    clickableItem(SettingsKeys.TermsOfService) {
+                        title(R.string.terms_of_service)
+                        description(R.string.des_terms_of_service)
+                        icon(R.drawable.ic_gavel)
+                        onClick { navController.navigate(NavRoutes.TermsOfServiceScreen) }
+                    }
+
                     clickableItem(SettingsKeys.PrivacyPolicy) {
                         title(R.string.privacy_policy)
                         description(R.string.des_privacy_policy)

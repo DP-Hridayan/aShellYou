@@ -3,6 +3,7 @@ package `in`.hridayan.ashell.onboarding.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import `in`.hridayan.ashell.core.common.constants.LEGAL_DOCS_VERSION
 import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.core.common.domain.repository.ShellRepository
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
@@ -21,6 +22,7 @@ class OnboardingViewModel @Inject constructor(
     fun completeOnboarding() {
         viewModelScope.launch {
             settingsRepository.setBoolean(SettingsKeys.FirstLaunch, false)
+            settingsRepository.setInt(SettingsKeys.SavedLegalDocsVersion, LEGAL_DOCS_VERSION)
         }
     }
 
