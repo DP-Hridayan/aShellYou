@@ -257,6 +257,7 @@ private fun ScaleModifyCard(
                     )
                 }
 
+                @Suppress("DEPRECATION")
                 Slider(
                     modifier = Modifier
                         .weight(1f)
