@@ -1,0 +1,8 @@
+﻿# Ignore all files by default in this generated folder
+*
+
+# Files not to be ignored
+!.gitignore
+!GRAPH_REPORT.md
+!graph.html
+!.graphify_labels.json

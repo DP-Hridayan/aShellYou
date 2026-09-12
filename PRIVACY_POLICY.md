@@ -1,7 +1,7 @@
 # Privacy Policy for aShell You
 
 **Effective Date:** September 2, 2026</br>
-**Last Updated:** September 2, 2026</br>
+**Last Updated:** September 12, 2026</br>
 **Contact:** [hridayanofficial@gmail.com](mailto:hridayanofficial@gmail.com)
 
 DP Hridayan ("we," "us," or "our") is committed to protecting your privacy. This Privacy Policy
@@ -138,6 +138,20 @@ Android's Backup Service may include the App's data including databases and Data
 your device's regular system backups to Google's infrastructure, subject to your device's backup
 settings and [Google's Privacy Policy](https://policies.google.com/privacy). You can disable App
 data backup via your device's system settings.
+
+### 1.11 App Authentication (Biometrics & Device Credentials)
+
+If you enable the "App Lock" feature in the Privacy & Security settings, aShell You utilizes the
+official Android `BiometricPrompt` API to authenticate you using your device's biometrics (
+fingerprint, face unlock) or secure lock screen credentials (PIN, pattern, password).
+
+- **No Biometric Data Collection:** The app itself **never** collects, reads, stores, or transmits
+  your biometric data, PIN, or password.
+- **Secure Validation:** All authentication happens entirely within the Android operating system's
+  secure hardware (Trusted Execution Environment). The app only receives a "success" or "failure"
+  signal from the system.
+- **Local Preference:** The toggle state for enabling or disabling the App Lock is stored locally in
+  your device's preferences.
 
 ---
 
