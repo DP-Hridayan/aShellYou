@@ -313,6 +313,7 @@ private fun IsolatedSlider(
     color: Color,
     modifier: Modifier = Modifier
 ) {
+    @Suppress("DEPRECATION")
     Slider(
         value = valueProvider(),
         onValueChange = onValueChange,
