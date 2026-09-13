@@ -1,4 +1,4 @@
-﻿<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="_import" comment="Action button to import theme or database file">Import</string>
     <string name="_new" comment="Badge or tab label for new items">New</string>
     <string name="A_Z" translatable="false">A â†’ Z</string>
@@ -120,6 +120,7 @@
     <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">Boot into Fastboot</string>
     <string name="bootloader" comment="Device info label or fastboot section title for bootloader mode" translatable="false">Bootloader</string>
     <string name="btn_continue" comment="Action button label to proceed to next step in setup wizard">Continue</string>
+    <string name="bundled" comment="Tab label in icon chooser for built-in icons that ship with the app">Bundled</string>
     <string name="cache_settings" comment="Settings section header for AI analysis response caching options">Cache</string>
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Cache size: %s</string>
     <string name="cancel">Cancel</string>
@@ -397,8 +398,10 @@
     <string name="done">Done</string>
     <string name="download">Download</string>
     <string name="download_failed" comment="Toast message when in-app updater APK download fails">Download failed</string>
-    <string name="downloading" comment="Progress status text while downloading update package">Downloadingâ€¦</string>
-    <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Downloading backup from Google Driveâ€¦</string>
+    <string name="download_material_icons" comment="Button label to download the Material Icons font pack for QS tile icon chooser">Download Material Icons</string>
+    <string name="downloading" comment="Progress status text while downloading update package">Downloading…</string>
+    <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Downloading backup from Google Drive…</string>
+    <string name="downloading_icon_pack" comment="Progress status text while downloading Material Icons font for QS tile icon chooser">Downloading icon pack…</string>
     <string name="downloads" comment="Screen header or list item for downloaded files">Downloads</string>
     <string name="duplicate_tile_name_error_msg" comment="Validation error in Quick Settings tile builder when entered tile name already exists">A tile with this name already exists</string>
     <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">Dynamic colors</string>
@@ -640,10 +643,12 @@
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">Make Your Theme</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">Manual Pair</string>
     <string name="max_download_size" comment="Setting label for capping maximum update download file size">Max Download</string>
+    <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Material Icons</string>
+    <string name="material_icons_description" comment="Informational text in icon chooser explaining the Material Icons download">Download ~380 KB once to browse 2,500+ Material icons</string>
     <string name="medium">Medium</string>
     <string name="merge" comment="Resolution option in file browser conflict dialog to merge directory contents">Merge</string>
     <string name="message">Message</string>
-    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">Message ADB Agentâ€¦</string>
+    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">Message ADB Agent</string>
     <string name="minimize" comment="Action button to minimize terminal overlay window">Minimize</string>
     <string name="mode" comment="Header title for ADB execution engine mode selector">Mode</string>
     <string name="mode_one_desc" comment="Description for Root execution engine option in settings">Use root access to run commands. Rooted commands can be executed.</string>

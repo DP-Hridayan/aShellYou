@@ -2,6 +2,8 @@ package `in`.hridayan.ashell.qstiles.presentation.model
 
 import androidx.compose.ui.text.input.TextFieldValue
 import `in`.hridayan.ashell.core.common.domain.model.TileExecutionMode
+import `in`.hridayan.ashell.qstiles.data.model.MaterialIconEntry
+import `in`.hridayan.ashell.qstiles.domain.model.FontLoadState
 import `in`.hridayan.ashell.qstiles.domain.model.TileActiveState
 
 /**
@@ -21,6 +23,10 @@ data class CreateNewTileScreenUiState(
     val suggestedIcons: List<String> = emptyList(),
     val iconSearchQuery: TextFieldValue = TextFieldValue(""),
 
+    val fontLoadState: FontLoadState = FontLoadState.NotDownloaded,
+    val activeIconTab: IconTab = IconTab.BUNDLED,
+    val materialIconResults: List<MaterialIconEntry> = emptyList(),
+
     /** Whether the tile alternates its state on each click. */
     val isToggleable: Boolean = false,
     /** Static / initial active state – for static tiles this is fixed; for toggleable it's the starting state. */
@@ -34,3 +40,4 @@ data class CreateNewTileScreenUiState(
     /** Subtitle shown when the tile is OFF. Shown only when [isToggleable] = true. */
     val inactiveSubtitle: TextFieldValue = TextFieldValue("Off"),
 )
+

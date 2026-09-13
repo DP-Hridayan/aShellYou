@@ -598,7 +598,7 @@ Proceda com cautela e certifique-se de compreender os comandos que executar.</st
     <string name="mode_two_desc" comment="Description for Shizuku execution engine option in settings">Usar shizuku para executar comandos. Comandos que requerem root não serão executados.</string>
     <string name="model_category_large" comment="AI model size category label">Grande (1.5–2,5 GB)</string>
     <string name="model_category_medium" comment="AI model size category label">Médio (800 MB-1,1 GB)</string>
-    <string name="model_category_small" comment="AI model size category label">Pequeno (300-500 MB)</string>
+    <string name="model_category_small" comment="AI model size category label">Pequeno (300–500 MB)</string>
     <string name="model_category_tiny" comment="AI model size category label">Minúsculo (menos de 300 MB)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">Modelos</string>
     <string name="modified" comment="File property: last modified date">Modificado</string>

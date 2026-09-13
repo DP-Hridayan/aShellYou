@@ -1,5 +1,6 @@
 package `in`.hridayan.ashell.qstiles.service
 
+import android.graphics.BitmapFactory
 import android.graphics.drawable.Icon
 import android.os.Build
 import android.service.quicksettings.Tile
@@ -10,14 +11,17 @@ import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
 import `in`.hridayan.ashell.qstiles.domain.executor.TileExecutionManager
 import `in`.hridayan.ashell.qstiles.domain.model.TileActiveState
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
+import `in`.hridayan.ashell.qstiles.domain.repository.MaterialIconRepository
 import `in`.hridayan.ashell.qstiles.domain.repository.TileRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 /**
@@ -43,6 +47,9 @@ abstract class BaseTileService : TileService() {
 
     @Inject
     lateinit var executionManager: TileExecutionManager
+
+    @Inject
+    lateinit var materialIconRepository: MaterialIconRepository
 
     /** Fixed index (0–9) that each concrete tile service owns. */
     abstract val slotIndex: Int
@@ -77,15 +84,6 @@ abstract class BaseTileService : TileService() {
         serviceScope.launch(Dispatchers.IO) {
             val config = repository.getTileBySlot(slotIndex).firstValue() ?: return@launch
 
-            // For toggleable tiles, we determine the intended "next" state for execution.
-            // We pass this intended state to the executor, and only if it succeeds, do we
-            // persist the toggle in the repository.
-            val intendedConfig = if (config.activeState.isToggleable) {
-                config.copy(activeState = config.activeState.copy(isActive = !config.activeState.isActive))
-            } else {
-                config
-            }
-
             val success = executionManager.execute(config)
 
             if (success && config.activeState.isToggleable) {
@@ -94,45 +92,72 @@ abstract class BaseTileService : TileService() {
         }
     }
 
-    private fun updateQsTile(config: TileConfig?, isRunning: Boolean) {
+    private suspend fun updateQsTile(config: TileConfig?, isRunning: Boolean) {
         val tile = qsTile ?: return
 
-        tile.apply {
-            if (config == null) {
+        if (config == null) {
+            tile.apply {
                 label = getString(R.string.tile_n, slotIndex + 1)
                 icon = Icon.createWithResource(this@BaseTileService, R.drawable.ic_adb)
                 state = Tile.STATE_UNAVAILABLE
-            } else {
-                label = if (isRunning) "Running…" else config.name
-
-                // Subtitle (API 30+)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    subtitle = config.activeState.currentSubtitle
-                }
-
-                val iconRes = TileIconProvider.iconById[config.iconId]
-                icon = Icon.createWithResource(
-                    this@BaseTileService,
-                    iconRes?.resId ?: R.drawable.ic_adb,
-                )
-
-                state = if (config.activeState.isActive) Tile.STATE_ACTIVE else Tile.STATE_INACTIVE
+                updateTile()
             }
+            return
+        }
+
+        tile.apply {
+            label = if (isRunning) "Running…" else config.name
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                subtitle = config.activeState.currentSubtitle
+            }
+
+            icon = TileIconProvider.iconById[config.iconId]
+                ?.let { Icon.createWithResource(this@BaseTileService, it.resId) }
+                ?: resolveCloudIcon(config.iconId)
+
+            state = if (config.activeState.isActive) Tile.STATE_ACTIVE else Tile.STATE_INACTIVE
 
             updateTile()
         }
     }
 
+    private suspend fun resolveCloudIcon(iconId: String): Icon {
+        val iconName = TileIconProvider.extractCloudIconName(iconId)
+
+        materialIconRepository.getCachedIconBitmap(iconName)?.toIconOrNull()?.let { return it }
+
+        val readyState = materialIconRepository.loadOrDownloadFont().getOrNull()
+
+        val codepoint = readyState?.icons?.find { it.name == iconName }?.codepoint
+
+        if (codepoint != null) {
+            materialIconRepository.renderAndCacheIcon(iconName, codepoint).getOrNull()
+                ?.toIconOrNull()?.let { return it }
+        }
+
+        return Icon.createWithResource(this@BaseTileService, R.drawable.ic_adb)
+    }
+
+    private fun File.toIconOrNull(): Icon? {
+        if (!exists()) return null
+        val bitmap = BitmapFactory.decodeFile(absolutePath) ?: return null
+        return Icon.createWithBitmap(bitmap)
+    }
+
     /** Collects a single emission from the flow and returns it. */
-    private suspend fun <T> kotlinx.coroutines.flow.Flow<T>.firstValue(): T {
+    private suspend fun <T> Flow<T>.firstValue(): T {
         var result: T? = null
+
         val job = serviceScope.launch {
             collect { v ->
                 result = v
                 cancel()
             }
         }
+
         job.join()
+
         @Suppress("UNCHECKED_CAST")
         return result as T
     }

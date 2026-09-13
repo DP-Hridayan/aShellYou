@@ -1,6 +1,9 @@
 package `in`.hridayan.ashell.qstiles.tool
 
+import android.content.Context
+import android.graphics.drawable.Icon
 import androidx.compose.ui.text.input.TextFieldValue
+import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.core.common.domain.model.TileExecutionMode
 import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema
@@ -19,6 +22,7 @@ import kotlinx.serialization.json.JsonObject as KJsonObject
 
 @Singleton
 class CreateQsTileTool @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val repository: TileRepository,
     private val tileComponentManager: TileComponentManager
 ) : AiTool {
@@ -131,7 +135,7 @@ class CreateQsTileTool @Inject constructor(
         tileComponentManager.promptAddTile(
             slotIndex = slotIndex,
             label = title,
-            iconResId = TileIconProvider.getIconRes(iconName)
+            tileIcon = Icon.createWithResource(context, TileIconProvider.getIconRes(iconName))
         )
 
         val modeStr = if (executionMode == TileExecutionMode.ROOT) "Root" else "Shizuku"

@@ -590,7 +590,7 @@
     <string name="medium">Moyen</string>
     <string name="merge" comment="Resolution option in file browser conflict dialog to merge directory contents">Fusionner</string>
     <string name="message">Message</string>
-    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">Envoyer un message à l\'agent ADB…</string>
+    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">Envoyer un message agent ADB…</string>
     <string name="minimize" comment="Action button to minimize terminal overlay window">Réduire</string>
     <string name="mode" comment="Header title for ADB execution engine mode selector">Mode</string>
     <string name="mode_one_desc" comment="Description for Root execution engine option in settings">Utilisez l\'accès root pour exécuter des commandes. Les commandes root peuvent être exécutées.</string>

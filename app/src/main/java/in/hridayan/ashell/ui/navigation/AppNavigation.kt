@@ -303,9 +303,8 @@ fun AppNavigation(
                 TileDashBoardScreen()
             }
 
-            composable<NavRoutes.CreateTileScreen> { backStackEntry ->
-                val route = backStackEntry.toRoute<NavRoutes.CreateTileScreen>()
-                CreateTileScreen(tileId = route.tileId)
+            composable<NavRoutes.CreateTileScreen> {
+                CreateTileScreen()
             }
 
             composable<NavRoutes.LogcatScreen> {

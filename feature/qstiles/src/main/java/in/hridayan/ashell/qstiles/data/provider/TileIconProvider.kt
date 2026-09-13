@@ -148,4 +148,15 @@ object TileIconProvider {
     fun getIconRes(id: String): Int {
         return iconById[id]?.resId ?: R.drawable.ic_adb
     }
+
+    fun isBundledIcon(id: String): Boolean =
+        !id.startsWith(CLOUD_ICON_PREFIX)
+
+    fun extractCloudIconName(id: String): String =
+        id.removePrefix(CLOUD_ICON_PREFIX)
+
+    fun buildCloudIconId(iconName: String): String =
+        "$CLOUD_ICON_PREFIX$iconName"
+
+    private const val CLOUD_ICON_PREFIX = "material:"
 }

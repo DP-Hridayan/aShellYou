@@ -210,10 +210,10 @@ fun OnboardingScreen(viewModel: OnboardingViewModel = hiltViewModel()) {
                                 if (pagerState.currentPage < pageCount - 1) {
                                     pagerState.animateScrollToPage(pagerState.currentPage + 1)
                                 } else {
+                                    viewModel.completeOnboarding()
                                     navController.navigate(NavRoutes.HomeScreen) {
                                         popUpTo(NavRoutes.OnboardingScreen) { inclusive = true }
                                     }
-                                    viewModel.completeOnboarding()
                                 }
                             }
                         })

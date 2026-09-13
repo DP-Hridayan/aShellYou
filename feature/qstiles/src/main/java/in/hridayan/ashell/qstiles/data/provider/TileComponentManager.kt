@@ -64,25 +64,21 @@ class TileComponentManager @Inject constructor(
      * Prompts the user to add the tile to their active panel (Android 13+).
      * This fulfills the 'automatically reappear' requirement by showing a system dialog.
      */
-    fun promptAddTile(slotIndex: Int, label: String, iconResId: Int) {
+    fun promptAddTile(slotIndex: Int, label: String, tileIcon: Icon) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             try {
                 val statusBarManager =
                     context.getSystemService(StatusBarManager::class.java)
                 val componentName =
                     ComponentName(packageName, tileServices[slotIndex].qualifiedName!!)
-                val icon = Icon.createWithResource(context, iconResId)
 
                 statusBarManager?.requestAddTileService(
                     componentName,
                     label,
-                    icon,
+                    tileIcon,
                     context.mainExecutor,
-                ) { result ->
-                    // Handle result if needed (e.g. log)
-                }
-            } catch (e: Exception) {
-                // Ignore errors from system manager
+                ) { _ -> }
+            } catch (_: Exception) {
             }
         }
     }

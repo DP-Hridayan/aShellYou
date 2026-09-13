@@ -4,7 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.qstiles.domain.executor.TileExecutionManager
+import `in`.hridayan.ashell.qstiles.domain.model.FontLoadState
 import `in`.hridayan.ashell.qstiles.domain.model.TileLog
+import `in`.hridayan.ashell.qstiles.domain.repository.MaterialIconRepository
 import `in`.hridayan.ashell.qstiles.domain.repository.TileLogRepository
 import `in`.hridayan.ashell.qstiles.domain.repository.TileRepository
 import `in`.hridayan.ashell.qstiles.presentation.model.TileDashBoardScreenUiState
@@ -15,6 +17,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import java.util.Locale
 import javax.inject.Inject
 
@@ -22,8 +25,17 @@ import javax.inject.Inject
 class TileDashboardViewModel @Inject constructor(
     private val repository: TileRepository,
     private val executionManager: TileExecutionManager,
-    private val logRepository: TileLogRepository
+    private val logRepository: TileLogRepository,
+    private val materialIconRepository: MaterialIconRepository,
 ) : ViewModel() {
+
+    val fontState: StateFlow<FontLoadState> = materialIconRepository.fontState
+
+    init {
+        viewModelScope.launch {
+            materialIconRepository.loadOrDownloadFont()
+        }
+    }
 
     private val _currentTab = MutableStateFlow(TileScreenTabs.TILES)
     private val _selectedTileIdFilter = MutableStateFlow<Int?>(null)

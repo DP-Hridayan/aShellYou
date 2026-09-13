@@ -59,7 +59,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -107,11 +106,11 @@ import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.DateTimeUtils
 import `in`.hridayan.ashell.core.utils.createAppNotificationSettingsIntent
 import `in`.hridayan.ashell.core.utils.isNotificationPermissionGranted
-import `in`.hridayan.ashell.core.utils.isShizukuOrPlusInstalled
 import `in`.hridayan.ashell.core.utils.launchShizukuApp
-import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
+import `in`.hridayan.ashell.qstiles.domain.model.FontLoadState
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
 import `in`.hridayan.ashell.qstiles.domain.model.TileLog
+import `in`.hridayan.ashell.qstiles.presentation.components.icon.TileIconContent
 import `in`.hridayan.ashell.qstiles.presentation.model.TileDashBoardScreenUiState
 import `in`.hridayan.ashell.qstiles.presentation.viewmodel.TileDashboardViewModel
 import rikka.shizuku.Shizuku
@@ -132,6 +131,7 @@ fun TileDashBoardScreen(
     val lifecycleOwner = LocalLifecycleOwner.current
     val navController = LocalNavController.current
     val uiState by tileDashboardViewModel.state.collectAsState()
+    val fontState by tileDashboardViewModel.fontState.collectAsState()
     val listState = rememberLazyListState()
 
     var hasNotificationAccess by remember { mutableStateOf(isNotificationPermissionGranted(context)) }
@@ -211,6 +211,7 @@ fun TileDashBoardScreen(
                                 innerPadding = innerPadding,
                                 topBarScrollBehavior = topBarScrollBehavior,
                                 uiState = uiState,
+                                fontLoadState = fontState,
                                 hasNotificationAccess = hasNotificationAccess,
                                 onClickNotificationButton = onClickNotificationButton,
                             )
@@ -222,6 +223,7 @@ fun TileDashBoardScreen(
                                 innerPadding = innerPadding,
                                 topBarScrollBehavior = topBarScrollBehavior,
                                 uiState = uiState,
+                                fontLoadState = fontState,
                                 onFilterChange = tileDashboardViewModel::onFilterChange
                             )
                         }
@@ -242,15 +244,12 @@ private fun TilesContent(
     innerPadding: PaddingValues,
     topBarScrollBehavior: TopAppBarScrollBehavior,
     uiState: TileDashBoardScreenUiState,
+    fontLoadState: FontLoadState,
     hasNotificationAccess: Boolean,
     onClickNotificationButton: () -> Unit,
 ) {
     val context = LocalContext.current
     val navController = LocalNavController.current
-
-    var isShizukuInstalled by rememberSaveable {
-        mutableStateOf(context.isShizukuOrPlusInstalled())
-    }
 
     val showShizukuUnavailableCard =
         !Shizuku.pingBinder() && uiState.tiles.any { it.executionMode == TileExecutionMode.SHIZUKU }
@@ -369,15 +368,24 @@ private fun TilesContent(
                                     }
                                 )
                             } else {
-                                val tileIcon = TileIconProvider.iconById[tileConfig.iconId]
+                                val tileIconTint = if (tileConfig.activeState.isActive) {
+                                    MaterialTheme.colorScheme.onPrimaryContainer
+                                } else {
+                                    MaterialTheme.colorScheme.primary
+                                }
 
                                 ModernTile(
                                     modifier = Modifier
                                         .weight(1f)
                                         .height(80.dp),
-                                    icon = ImageVector.vectorResource(
-                                        tileIcon?.resId ?: R.drawable.ic_adb
-                                    ),
+                                    iconContent = {
+                                        TileIconContent(
+                                            iconId = tileConfig.iconId,
+                                            fontLoadState = fontLoadState,
+                                            modifier = Modifier.size(28.dp),
+                                            tint = tileIconTint,
+                                        )
+                                    },
                                     title = tileConfig.name,
                                     subtitle = tileConfig.activeState.currentSubtitle,
                                     isActive = tileConfig.activeState.isActive,
@@ -404,6 +412,7 @@ private fun LogsContent(
     innerPadding: PaddingValues,
     topBarScrollBehavior: TopAppBarScrollBehavior,
     uiState: TileDashBoardScreenUiState,
+    fontLoadState: FontLoadState,
     onFilterChange: (Int?) -> Unit,
 ) {
     LazyColumn(
@@ -429,6 +438,7 @@ private fun LogsContent(
                     modifier = Modifier.padding(20.dp),
                     selectedTileId = uiState.selectedTileIdFilter,
                     tilesWithLogs = uiState.tilesWithLogs,
+                    fontLoadState = fontLoadState,
                     onFilterChange = onFilterChange
                 )
             }
@@ -440,7 +450,8 @@ private fun LogsContent(
                     modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp),
                     log = log,
                     tileName = tile?.name ?: "Deleted Tile",
-                    iconId = tile?.iconId ?: "terminal"
+                    iconId = tile?.iconId ?: "terminal",
+                    fontLoadState = fontLoadState
                 )
             }
         }
@@ -494,7 +505,7 @@ private fun EmptyTileBox(
 @Composable
 private fun ModernTile(
     modifier: Modifier = Modifier,
-    icon: ImageVector,
+    iconContent: @Composable () -> Unit,
     title: String,
     subtitle: String = "",
     isActive: Boolean = true,
@@ -517,12 +528,9 @@ private fun ModernTile(
             horizontalArrangement = Arrangement.spacedBy(10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                modifier = Modifier.size(28.dp),
-                imageVector = icon,
-                tint = if (isActive) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.primary,
-                contentDescription = null
-            )
+            Box(modifier = Modifier.size(28.dp), contentAlignment = Alignment.Center) {
+                iconContent()
+            }
 
             Column(
                 modifier = Modifier
@@ -640,6 +648,7 @@ private fun RecentActivityHeader(
     modifier: Modifier = Modifier,
     selectedTileId: Int?,
     tilesWithLogs: List<TileConfig>,
+    fontLoadState: FontLoadState,
     onFilterChange: (Int?) -> Unit
 ) {
     var isMenuExpanded by remember { mutableStateOf(false) }
@@ -718,14 +727,11 @@ private fun RecentActivityHeader(
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
-                                val tileIcon = TileIconProvider.iconById[tile.iconId]
-                                Icon(
+                                TileIconContent(
+                                    iconId = tile.iconId,
+                                    fontLoadState = fontLoadState,
                                     modifier = Modifier.size(18.dp),
-                                    painter = painterResource(
-                                        tileIcon?.resId ?: R.drawable.ic_adb
-                                    ),
-                                    contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.primary
+                                    tint = MaterialTheme.colorScheme.primary,
                                 )
                                 Text(tile.name)
                             }
@@ -747,10 +753,10 @@ private fun TileLogCard(
     modifier: Modifier = Modifier,
     log: TileLog,
     tileName: String,
-    iconId: String
+    iconId: String,
+    fontLoadState: FontLoadState
 ) {
     val darkMode = LocalDarkMode.current
-    val tileIcon = TileIconProvider.iconById[iconId]
 
     val badgeColor = MaterialTheme.colorScheme.run {
         if (log.isSuccess) primary else error
@@ -789,16 +795,10 @@ private fun TileLogCard(
                         .background(badgeColor.copy(alpha = 0.15f)),
                     contentAlignment = Alignment.Center
                 ) {
-                    Icon(
+                    TileIconContent(
+                        iconId = iconId,
+                        fontLoadState = fontLoadState,
                         modifier = Modifier.size(20.dp),
-                        painter = if (tileIcon != null) {
-                            painterResource(tileIcon.resId)
-                        } else {
-                            painterResource(
-                                R.drawable.ic_adb
-                            )
-                        },
-                        contentDescription = null,
                         tint = badgeColor
                     )
                 }

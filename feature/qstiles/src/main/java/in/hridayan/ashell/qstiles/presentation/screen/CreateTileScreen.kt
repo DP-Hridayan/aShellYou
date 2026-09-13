@@ -15,7 +15,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -28,6 +27,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -43,11 +45,13 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FloatingToolbarDefaults
 import androidx.compose.material3.HorizontalFloatingToolbar
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.ToggleButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -58,7 +62,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
@@ -88,15 +91,14 @@ import `in`.hridayan.ashell.core.presentation.provider.ButtonGroupOptionsProvide
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.showToast
-import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
+import `in`.hridayan.ashell.qstiles.presentation.components.bottomsheet.IconChooserBottomSheet
 import `in`.hridayan.ashell.qstiles.presentation.components.dialog.DeleteTileConfirmationDialog
-import `in`.hridayan.ashell.qstiles.presentation.components.dialog.IconChooserDialog
+import `in`.hridayan.ashell.qstiles.presentation.components.icon.TileIconContent
 import `in`.hridayan.ashell.qstiles.presentation.viewmodel.CreateTileViewModel
 
 @Composable
 fun CreateTileScreen(
     modifier: Modifier = Modifier,
-    tileId: Int,
     createTileViewModel: CreateTileViewModel = hiltViewModel()
 ) {
     val weakHaptic = LocalWeakHaptic.current
@@ -108,7 +110,7 @@ fun CreateTileScreen(
     val iconsList by createTileViewModel.iconsList.collectAsState()
 
     val executionMethodOptions = ButtonGroupOptionsProvider.tileServiceAdbExecutionMethod
-    var showIconChooserDialog by rememberSaveable { mutableStateOf(false) }
+    var showIconChooserSheet by rememberSaveable { mutableStateOf(false) }
     var showDeleteTileConfirmationDialog by rememberSaveable { mutableStateOf(false) }
 
     val listState = rememberLazyListState()
@@ -119,8 +121,6 @@ fun CreateTileScreen(
                 (!isToggleable || inactiveCommand.text.isNotBlank()) && nameError == null
     }
 
-    val floatingToolbarContainerColor =
-        FloatingToolbarDefaults.vibrantFloatingToolbarColors().toolbarContainerColor
     val floatingToolbarContentColor =
         FloatingToolbarDefaults.vibrantFloatingToolbarColors().toolbarContentColor
 
@@ -441,24 +441,25 @@ fun CreateTileScreen(
                 }
 
                 item {
-                    FlowRow(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = 20.dp, end = 20.dp, bottom = 15.dp)
-                            .clip(RoundedCornerShape(24.dp))
-                            .background(MaterialTheme.colorScheme.surfaceContainerLow),
-                        horizontalArrangement = Arrangement.SpaceAround,
-                        verticalArrangement = Arrangement.spacedBy(20.dp),
-                        maxItemsInEachRow = 5
-                    ) {
-                        uiState.suggestedIcons.forEach { iconKey ->
-                            val tileIcon = TileIconProvider.iconById[iconKey]
-                            val iconResId = tileIcon?.resId
-                            val isIconSelected = tileIcon?.id == uiState.selectedIconId
-                            iconResId?.let {
+                    AnimatedVisibility(uiState.suggestedIcons.isNotEmpty()) {
+                        LazyVerticalGrid(
+                            columns = GridCells.Fixed(5),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .heightIn(max = 140.dp)
+                                .padding(start = 20.dp, end = 20.dp, bottom = 15.dp)
+                                .clip(RoundedCornerShape(24.dp))
+                                .background(MaterialTheme.colorScheme.surfaceContainerLow)
+                                .padding(vertical = 12.dp),
+                            horizontalArrangement = Arrangement.SpaceAround,
+                            verticalArrangement = Arrangement.spacedBy(16.dp),
+                        ) {
+                            items(uiState.suggestedIcons) { iconKey ->
+                                val isIconSelected = iconKey == uiState.selectedIconId
+
                                 Box(
                                     modifier = Modifier
-                                        .padding(16.dp)
+                                        .padding(horizontal = 8.dp)
                                         .size(48.dp)
                                         .clip(CircleShape)
                                         .background(
@@ -466,19 +467,20 @@ fun CreateTileScreen(
                                         )
                                         .clickable(
                                             onClick = withHaptic {
-                                                createTileViewModel.onIconSelected(tileIcon.id)
+                                                createTileViewModel.onIconSelected(iconKey)
                                             }
                                         ),
                                     contentAlignment = Alignment.Center
                                 ) {
-                                    Icon(
-                                        painter = painterResource(it),
+                                    TileIconContent(
+                                        iconId = iconKey,
+                                        fontLoadState = uiState.fontLoadState,
+                                        modifier = Modifier.size(24.dp),
                                         tint = if (isIconSelected) {
                                             MaterialTheme.colorScheme.onPrimary
                                         } else {
                                             MaterialTheme.colorScheme.onSurface
-                                        },
-                                        contentDescription = null
+                                        }
                                     )
                                 }
                             }
@@ -492,7 +494,7 @@ fun CreateTileScreen(
                             .fillMaxWidth()
                             .heightIn(min = 140.dp)
                             .padding(horizontal = 20.dp),
-                        onClick = withHaptic { showIconChooserDialog = true }
+                        onClick = withHaptic { showIconChooserSheet = true }
                     )
                 }
 
@@ -503,17 +505,19 @@ fun CreateTileScreen(
                     )
                 }
                 item {
-                    val selectedIcon = TileIconProvider.iconById[uiState.selectedIconId]
-                    val icon: Painter = if (selectedIcon?.resId != null) {
-                        painterResource(selectedIcon.resId)
-                    } else {
-                        painterResource(R.drawable.ic_add)
-                    }
-
                     val previewSubtitle = uiState.run {
                         if (isToggleable) {
                             "${activeSubtitle.text} / ${inactiveSubtitle.text}"
                         } else if (isActive) activeSubtitle.text else inactiveSubtitle.text
+                    }
+
+                    val tileIconContent: @Composable () -> Unit = {
+                        TileIconContent(
+                            iconId = uiState.selectedIconId,
+                            fontLoadState = uiState.fontLoadState,
+                            modifier = Modifier.size(28.dp),
+                            tint = LocalContentColor.current
+                        )
                     }
 
                     Row(
@@ -535,7 +539,7 @@ fun CreateTileScreen(
                                 .weight(1f)
                                 .height(120.dp)
                                 .animateContentSize(),
-                            icon = icon,
+                            iconContent = tileIconContent,
                             isActive = uiState.isActive
                         )
                         ModernTilePreview(
@@ -544,7 +548,7 @@ fun CreateTileScreen(
                                 .height(120.dp)
                                 .widthIn(min = 120.dp)
                                 .animateContentSize(),
-                            icon = icon,
+                            iconContent = tileIconContent,
                             title = uiState.nameField.text,
                             subtitle = previewSubtitle,
                             isActive = uiState.isActive,
@@ -588,17 +592,28 @@ fun CreateTileScreen(
         }
     )
 
-    if (showIconChooserDialog) {
-        IconChooserDialog(
-            onDismiss = { showIconChooserDialog = false },
-            icons = iconsList,
+    if (showIconChooserSheet) {
+        IconChooserBottomSheet(
+            onDismiss = { showIconChooserSheet = false },
+            bundledIcons = iconsList,
+            materialIcons = uiState.materialIconResults,
+            fontLoadState = uiState.fontLoadState,
+            activeTab = uiState.activeIconTab,
             searchQuery = uiState.iconSearchQuery,
+            selectedIconId = uiState.selectedIconId,
             onQueryChange = { createTileViewModel.onIconQueryChange(it) },
-            onIconSelected = {
+            onBundledIconSelected = {
                 createTileViewModel.onIconSelected(it)
-                showIconChooserDialog = false
+                showIconChooserSheet = false
                 showToast(context, res.getString(R.string.icon_selected))
-            }
+            },
+            onCloudIconSelected = {
+                createTileViewModel.onCloudIconSelected(it)
+                showIconChooserSheet = false
+                showToast(context, res.getString(R.string.icon_selected))
+            },
+            onTabChange = { createTileViewModel.onIconTabChange(it) },
+            onDownloadClick = { createTileViewModel.loadMaterialIcons() },
         )
     }
 
@@ -772,7 +787,7 @@ private fun BehaviorSwitchRow(
 @Composable
 private fun ClassicTile(
     modifier: Modifier = Modifier,
-    icon: Painter,
+    iconContent: @Composable () -> Unit,
     isActive: Boolean
 ) {
     val darkMode = LocalDarkMode.current
@@ -804,12 +819,9 @@ private fun ClassicTile(
             modifier = modifier.fillMaxHeight(),
             contentAlignment = Alignment.Center
         ) {
-            Icon(
-                modifier = Modifier.size(28.dp),
-                painter = icon,
-                tint = contentColor,
-                contentDescription = null
-            )
+            CompositionLocalProvider(LocalContentColor provides contentColor) {
+                iconContent()
+            }
         }
     }
 }
@@ -817,7 +829,7 @@ private fun ClassicTile(
 @Composable
 private fun ModernTilePreview(
     modifier: Modifier = Modifier,
-    icon: Painter,
+    iconContent: @Composable () -> Unit,
     title: String,
     subtitle: String = "",
     isActive: Boolean = false,
@@ -855,12 +867,14 @@ private fun ModernTilePreview(
                 horizontalArrangement = Arrangement.spacedBy(10.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(
-                    modifier = Modifier.size(28.dp),
-                    painter = icon,
-                    tint = MaterialTheme.colorScheme.run { if (isActive) onPrimaryContainer else primary },
-                    contentDescription = null
-                )
+                val iconTint =
+                    MaterialTheme.colorScheme.run { if (isActive) onPrimaryContainer else primary }
+
+                Box(modifier = Modifier.size(28.dp), contentAlignment = Alignment.Center) {
+                    CompositionLocalProvider(LocalContentColor provides iconTint) {
+                        iconContent()
+                    }
+                }
 
                 Column(
                     modifier = Modifier
