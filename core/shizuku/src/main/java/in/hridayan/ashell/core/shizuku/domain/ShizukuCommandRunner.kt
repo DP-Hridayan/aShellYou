@@ -25,4 +25,14 @@ interface ShizukuCommandRunner {
      * Binds the helper ahead of time so the first command does not pay the start-up cost.
      */
     suspend fun warmUp(): Result<Unit>
+
+    /**
+     * Tries to start the command using the helper if already bound, otherwise immediately falls
+     * back to legacy process creation to avoid background warmup timeouts.
+     */
+    suspend fun startFast(
+        command: Array<String>,
+        environment: Array<String>?,
+        workingDirectory: String?
+    ): Result<Process>
 }

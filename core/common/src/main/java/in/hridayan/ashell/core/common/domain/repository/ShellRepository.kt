@@ -13,5 +13,6 @@ interface ShellRepository {
     suspend fun executeBasicCommand(command: String): Flow<OutputLine>
     suspend fun executeRootCommand(command: String): Flow<OutputLine>
     suspend fun executeShizukuCommand(command: String): Flow<OutputLine>
+    suspend fun warmUpShizuku()
     fun stopCommand()
 }

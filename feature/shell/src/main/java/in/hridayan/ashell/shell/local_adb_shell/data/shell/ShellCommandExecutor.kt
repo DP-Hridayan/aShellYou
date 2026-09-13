@@ -154,6 +154,10 @@ class ShellCommandExecutor(
     private fun shizukuWorkingDirectory(): String? =
         currentDir.takeUnless { it.startsWith(EMULATED_STORAGE_PREFIX) }
 
+    suspend fun warmUp() {
+        shizukuCommandRunner.warmUp()
+    }
+
     fun exec(process: Process): Flow<OutputLine> = flow {
         currentProcess = process
         val reader = BufferedReader(InputStreamReader(currentProcess?.inputStream))
