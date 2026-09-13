@@ -11,7 +11,7 @@
     <string name="adb_command" comment="Input field label for typing an ADB shell command">أمر ADB</string>
     <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">أمر ADB (حالة الإيقاف)</string>
     <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">أمر ADB (حالة التشغيل)</string>
-    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">تم اتصال ADB — تأكد من أن الجهاز في وضع sideload</string>
+    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB متصل – تأكد من أن الجهاز في وضع التحميل الجانبي</string>
     <string name="adb_connection_active" comment="Foreground notification title when an ADB connection (Wireless/OTG) is currently active">اتصال ADB نشط</string>
     <string name="adb_connection_channel_description" comment="Android notification channel description in System Settings for ADB connection status">يظهر عندما يكون اتصال ADB نشط</string>
     <string name="adb_connection_channel_name" comment="Android notification channel name in System Settings for active ADB connections">اتصال ADB</string>
@@ -39,14 +39,14 @@
     <string name="ai_chat_pin" comment="Action button to pin an AI chat conversation to top of list">تثبيت</string>
     <string name="ai_chat_running" comment="Prefix label in AI chat card indicating an ADB command is currently executing">قيد التشغيل: </string>
     <string name="ai_chat_sessions" comment="Header title for stored AI chat conversations list">جلسات الدردشة</string>
-    <string name="ai_chat_thoughts" comment="Collapsible section title showing step-by-step reasoning/thinking of AI model">الأفكار…</string>
+    <string name="ai_chat_thoughts" comment="Collapsible section title showing step-by-step reasoning/thinking of AI model">أفكارا…</string>
     <string name="ai_chat_unpin" comment="Action button to unpin a pinned AI chat session">إلغاء التثبيت</string>
     <string name="ai_models" comment="Settings header for configuring AI models and API credentials">الذكاء الاصطناعي والنماذج &amp;</string>
     <string name="ai_new_chat_welcome_msg" comment="Initial welcome message from AI ADB Agent when starting a new chat session">مرحباً، ما الذي يمكنني فعله من أجلك؟</string>
     <string name="ai_prompt_suggestion_1" comment="Clickable suggestion chip prompt in AI chat for checking battery health">فحص صحة البطارية</string>
     <string name="ai_prompt_suggestion_2" comment="Clickable suggestion chip prompt in AI chat for listing installed package names">سرد جميع الحزم المثبتة</string>
     <string name="ai_prompt_suggestion_3" comment="Clickable suggestion chip prompt in AI chat for creating Quick Settings tiles">ساعدني في إنشاء بلاطة الإعدادات السريعة</string>
-    <string name="ai_session_search_hint" comment="Placeholder text in AI chat session search bar">البحث في المحادثات…</string>
+    <string name="ai_session_search_hint" comment="Placeholder text in AI chat session search bar">البحث في الدردشة…</string>
     <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">مثل: مدينة نيون سايبربانك، الوضع الداكن، تباين عالي</string>
     <string name="all">الكل</string>
     <string name="all_data" comment="Option in backup selector to include full app database, settings, and chat history">جميع البيانات</string>
@@ -84,7 +84,7 @@
     <string name="back">رجوع</string>
     <string name="back_button" comment="Custom key bar button in terminal view simulating system back button press">عودة</string>
     <string name="background" comment="Material design theme surface/background color role label">الخلفية</string>
-    <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">جاري النسخ الاحتياطي…</string>
+    <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">جارٍ النسخ الاحتياطي…</string>
     <string name="backup">نسخ احتياطي</string>
     <string name="backup_all_data" comment="Option in backup dialog to export all app database content and settings">نسخ احتياطي لجميع البيانات</string>
     <string name="backup_and_restore" comment="Settings screen header for managing local and cloud backups">النسخ الاحتياطي والاستعادة &amp;</string>
@@ -116,12 +116,13 @@
     <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">صورة الإقلاع</string>
     <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">الإقلاع إلى Fastboot</string>
     <string name="btn_continue" comment="Action button label to proceed to next step in setup wizard">متابعة</string>
+    <string name="bundled" comment="Tab label in icon chooser for built-in icons that ship with the app">مجمع</string>
     <string name="cache_settings" comment="Settings section header for AI analysis response caching options">التخزين المؤقت</string>
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">حجم التخزين المؤقت: %s</string>
     <string name="cancel">إلغاء</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">إلغاء الكل</string>
     <string name="cancel_selection">إلغاء التحديد</string>
-    <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">جارٍ الإلغاء…</string>
+    <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">إلغاء…</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">سجل التغييرات</string>
     <string name="changelogs" comment="Settings list item title for viewing version history logs">سجل التغييرات</string>
     <string name="check_updates" comment="Action button in about screen to check GitHub or F-Droid for app updates">التحقق من التحديثات</string>
@@ -161,7 +162,6 @@
     <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">إمكانية إلغاء القفل</string>
     <string name="code_pair_instruction" comment="Instructional text in Wireless Debugging pairing dialog directing user to open Wireless Debugging menu on target device">افتح \"التصحيح اللاسلكي\" على الجهاز المستهدف وانقر على \"جهاز مزدوج مع رمز الاقتران\"</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">طي</string>
-    <string name="command_execution_failed" comment="Inline shell error shown when running a command fails unexpectedly. %1$s is the technical reason">فشل الأمر: %1$s</string>
     <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">حدث خطأ</string>
     <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">ارتفاع عالٍ (نافذة منبثقة)</string>
     <string name="color_preview_highest_elevation" comment="Sample label in theme editor showing highest elevation surface color (Bottom Sheet)">أعلى ارتفاع (ورقة سفلية)</string>
@@ -211,6 +211,7 @@
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">تحليل الأوامر</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">وحدة تحكم الأوامر</string>
     <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">تنفيذ الأوامر</string>
+    <string name="command_execution_failed" comment="Inline shell error shown when running a command fails unexpectedly. %1$s is the technical reason">فشل الأمر: %1$s</string>
     <string name="command_logs" comment="Tab header for history log of executed fastboot commands">سجلات الأوامر</string>
     <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">سجل لجميع أوامر فاست بوت التي تم تنفيذها.</string>
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">لم يتم العثور على أمر!</string>
@@ -294,7 +295,6 @@
     <string name="des_backup_settings" comment="Description for app settings backup option">نسخ إعدادات التطبيق فقط احتياطيًا</string>
     <string name="des_behavior" comment="Description under Behavior item in settings menu">تعديل سلوك التطبيق</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">سجل جميع التغييرات في التطبيق</string>
-    <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">الجهاز لا يدعم المصادقة الحيوية</string>
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">انقر هنا لاختيار أيقونة من مجموعة الأيقونات</string>
     <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">حذف جميع ردود تحليل الذكاء الاصطناعي المؤقت</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">طلب تأكيد قبل مسح إخراج القذيفة</string>
@@ -323,6 +323,7 @@
     <string name="des_high_contrast_dark_mode" comment="Description under High contrast dark mode setting item">سمة سوداء خالصة لأجهزة OLED</string>
     <string name="des_hridayan" comment="Developer bio subtitle in About section">مجرد شخص يحب التطبيقات والتصميم</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">الحالة المرئية الثابتة للبلاطة عند عرضها في لوحة الإعدادات السريعة</string>
+    <string name="des_legal_docs_updated" comment="Message shown in the dialog when legal docs are updated">لقد قمنا بتحديث سياسة الخصوصية وشروط الخدمة. يرجى أخذ لحظة لمراجعة التغييرات.</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">عرض تفاصيل المكتبات والتراخيص المستخدمة من قبل التطبيق</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">عرض التراخيص التي يستخدمها التطبيق والمكتبات</string>
     <string name="des_local_backup" comment="Description card text for local backup option">حفظ نسخة احتياطية مشفرة على جهازك</string>
@@ -336,7 +337,6 @@
     <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">اختر كيف يتم استخلاص الألوان من بذور السمة</string>
     <string name="des_privacy_and_security" comment="Description for privacy and security settings">المصادقة وأذونات التطبيق</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">كيف تتعامل مع بياناتك</string>
-    <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">لقد قمنا بتحديث سياسة الخصوصية لدينا. يرجى أخذ لحظة لمراجعة التغييرات.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">إنشاء بلاطات إعدادات سريعة لتنفيذ أوامر adb</string>
     <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">السماح لوكيل AI بإنشاء وتعديل وحذف إعدادات سريعة</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">أبلغ عن أي مشكلة أو خطأ واجهته</string>
@@ -350,6 +350,7 @@
     <string name="des_set_local_adb_as_default_launch" comment="Description under Set Local ADB as default launch setting">أدخل شاشة ADB المحلية مباشرة عند تشغيل التطبيق</string>
     <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">اربط حساب Google الخاص بك اختيارياً للنسخ الاحتياطي السحابي</string>
     <string name="des_smooth_scroll" comment="Description under Smooth scrolling setting toggle">يمكن التمرير السلس في ناتج واجهة سطر الأوامر عند النقر على السهم العلوي أو السفلي</string>
+    <string name="des_terms_of_service" comment="Subtitle description under Terms of Service menu item">القواعد والمبادئ التوجيهية لاستخدام AShell You</string>
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">عند التمكين، تتبدل البلاطة بين حالتي التشغيل والإيقاف مع كل نقرة، لتنفيذ أمر مختلف لكل حالة</string>
     <string name="des_translators" comment="Subtitle description under Translators list in About section">الأشخاص الذين ساعدوا في ترجمة aShellYou</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">ضبط مقياس عناصر واجهة المستخدم وحجم الخط</string>
@@ -371,15 +372,16 @@
     <string name="device_disconnected_message_with_name" comment="%s = device name">\"%s\" قطع الاتصال.</string>
     <string name="device_found" comment="Status banner when an ADB/Wireless Debugging device service is discovered on local network">تم العثور على الجهاز!</string>
     <string name="device_info" comment="Screen header or navigation item for target device hardware/OS specifications">معلومات الجهاز</string>
+    <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">الجهاز لا يدعم المصادقة الحيوية</string>
     <string name="disable_softkey" comment="Setting toggle title to hide soft keyboard during shell session">تعطيل لوحة المفاتيح الافتراضية</string>
     <string name="disclaimer" comment="Section title in About screen for legal disclaimer notices">إخلاء المسؤولية</string>
-    <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">تشغيل أوامر ADB يمكن أن يعدل إعدادات النظام، ويدير الملفات، ويؤدي عمليات قد تؤثر على استقرار جهازك.\nأنت وحدك المسؤول عن أي تغييرات تتم باستخدام هذا التطبيق.</string>
+    <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">Running ADB commands can modify system settings, manage files, and perform operations that may affect your device’s stability.\nYou are solely responsible for any changes made using this app.</string>
     <string name="disclaimer_1_title" comment="Title for disclaimer point 1: user risk acknowledgement">استخدم على مسؤوليتك الخاصة</string>
     <string name="disclaimer_2_description" comment="Text for disclaimer point 2: root requirements and elevated permissions">في حين أن الوصول إلى الجذر ليس إلزامياً، قد تتطلب بعض الأوامر أذونات مرتفعة.\nإساءة استخدام أوامر ADB يمكن أن يؤدي إلى فقدان البيانات، أو تعطل التطبيقات، أو سلوك النظام غير المتوقع.</string>
     <string name="disclaimer_2_title" comment="Title for disclaimer point 2: root and caution warning">الجذر ليس إجباريًا، ولكن الحذر مطلوب</string>
     <string name="disclaimer_3_description" comment="Text for disclaimer point 3: developer liability waiver">لا يتحمل مطورو هذا التطبيق أي مسؤولية عن أي ضرر، أو فقدان للبيانات، أو عواقب غير مقصودة ناتجة عن استخدام هذا التطبيق.\nلذا، يُرجى توخي الحذر والتأكد من فهمك للأوامر التي تُنفذها.</string>
     <string name="disclaimer_3_title" comment="Title for disclaimer point 3: liability waiver">لسنا مسؤولين</string>
-    <string name="disclaimer_4_description" comment="Text for disclaimer point 4: target user expertise level">تم تصميم هذا التطبيق للمستخدمين الذين لديهم فهم أساسي لأوامر ADB.\nإذا كنت غير متأكد من تأثير أمر ما، فابحث عنه قبل تنفيذه.</string>
+    <string name="disclaimer_4_description" comment="Text for disclaimer point 4: target user expertise level">This app is designed for users who have a basic understanding of ADB commands.\nIf you are unsure about a command’s effect, research it before executing it.</string>
     <string name="disclaimer_4_title" comment="Title for disclaimer point 4: target audience notice">مصمم للمستخدمين المتقدمين</string>
     <string name="disclaimer_5_description" comment="Text for disclaimer point 5: privacy and permissions notice">قد يتطلب هذا التطبيق أذونات خاصة للعمل بشكل صحيح.\nلا يقوم بجمع أو مشاركة البيانات الشخصية، ولكن يجب أن يكون المستخدمون على دراية بالآثار المترتبة على منح الأذونات المتصلة بADB.</string>
     <string name="disclaimer_5_title" comment="Title for disclaimer point 5: security and privacy">الصلاحيات والأمان</string>
@@ -390,8 +392,10 @@
     <string name="done">تم</string>
     <string name="download">تنزيل</string>
     <string name="download_failed" comment="Toast message when in-app updater APK download fails">فشل التنزيل</string>
+    <string name="download_material_icons" comment="Button label to download the Material Icons font pack for QS tile icon chooser">تحميل أيقونات المواد</string>
     <string name="downloading" comment="Progress status text while downloading update package">جاري تحميل…</string>
-    <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">جاري تنزيل النسخة الاحتياطية من Google Drive…</string>
+    <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">تحميل النسخ الاحتياطي من Google Drive…</string>
+    <string name="downloading_icon_pack" comment="Progress status text while downloading Material Icons font for QS tile icon chooser">تحميل حزمة الأيقونات…</string>
     <string name="downloads" comment="Screen header or list item for downloaded files">التنزيلات</string>
     <string name="duplicate_tile_name_error_msg" comment="Validation error in Quick Settings tile builder when entered tile name already exists">يوجد مجلد بهذا الاسم مسبقاً</string>
     <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">ألوان ديناميكية</string>
@@ -414,7 +418,7 @@
     <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">سيؤدي هذا إلى محو قسم %1$s نهائياً. لا يمكن التراجع عن هذا الإجراء.</string>
     <string name="erase_confirm_title" comment="%1$s = partition name. Dialog title for partition erase confirmation">محو %1$s؟</string>
     <string name="erase_partition" comment="Action button to trigger fastboot partition erase">محو</string>
-    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">جاري المحو…</string>
+    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">مسح…</string>
     <string name="error">خطأ</string>
     <string name="error_labels_limit_reached" comment="Validation error when maximum number of custom command labels/tags is reached">تم بلوغ الحد الأقصى للمسميات</string>
     <string name="exclude" comment="Filter toggle option to exclude selected package or item">استبعاد</string>
@@ -428,7 +432,7 @@
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; Recovery</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">قريباً</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">وحدة تحكم الأوامر</string>
-    <string name="fastboot_command_hint" comment="Placeholder hint in fastboot command input field">أدخل أمر fastboot…</string>
+    <string name="fastboot_command_hint" comment="Placeholder hint in fastboot command input field">أدخل الأمر السريع…</string>
     <string name="fastboot_device_info" comment="Card header displaying target device variables queried over fastboot">معلومات الجهاز</string>
     <string name="fastboot_partitions" comment="Tab title for Fastboot partition manager tool">الأقسام</string>
     <string name="fastboot_quick_actions" comment="Section header for predefined quick fastboot action buttons">إجراءات سريعة</string>
@@ -459,8 +463,8 @@
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">تم رفع الملف بنجاح</string>
     <string name="fb_uploading" comment="%1$s = file name">تحميل %1$s</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">طلب مِيزة</string>
-    <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">جاري جلب وقت النسخ الاحتياطي…</string>
-    <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">جاري جلب نوع النسخ الاحتياطي…</string>
+    <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">جارٍ جلب وقت النسخ الاحتياطي …</string>
+    <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">جلب النسخ الاحتياطي من النوع…</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">الحقل لا يمكن أن يكون فارغاً</string>
     <string name="file">ملف</string>
     <string name="file_actions" comment="Bottom sheet title for file operations (copy, move, delete, rename)">إجراءات الملف</string>
@@ -473,7 +477,7 @@
     <string name="filter">تصفية</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">تصفية حسب التسميات</string>
     <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">تثبيت القسم</string>
-    <string name="flashing" comment="Progress status header while partition flashing is in progress">جاري الوميض…</string>
+    <string name="flashing" comment="Progress status header while partition flashing is in progress">الودم…</string>
     <string name="folder">مجلد</string>
     <string name="folder_already_exists" comment="Validation error when creating a directory with duplicate name">يوجد مجلد بهذا الاسم مسبقاً</string>
     <string name="folder_conflict_title" comment="Dialog header when creating folder collides with existing folder name">المجلد موجود بالفعل</string>
@@ -546,6 +550,8 @@
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">المطور الرئيسي</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">الأقل استخدامًا</string>
     <string name="legal_and_policies" comment="Group header for legal settings">القانون &amp; السياسات</string>
+    <string name="legal_consent_text">لقد قرأت وأوافق على %1$s و %2$s.</string>
+    <string name="legal_docs_updated" comment="Title for the dialog shown when legal docs are updated">السياسات القانونية المستكملة</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">المستوى</string>
     <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">المكتبات &amp; التراخيص</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">تم اكتشاف %1$d مكتبة</string>
@@ -555,8 +561,8 @@
     <string name="load" comment="Action button to load command templates into database">تحميل</string>
     <string name="load_predefined_commands" comment="Button label in fastboot screen to load preset fastboot commands">تحميل أوامر محددة مسبقاً</string>
     <string name="loading">جاري التحميل</string>
-    <string name="loading_device_info" comment="Progress status text while querying ADB device specifications">جاري تحميل معلومات الجهاز…</string>
-    <string name="loading_licenses" comment="Progress status text while loading open-source license files">جاري تحميل معلومات الترخيص…</string>
+    <string name="loading_device_info" comment="Progress status text while querying ADB device specifications">جارٍ تحميل معلومات الجهاز…</string>
+    <string name="loading_licenses" comment="Progress status text while loading open-source license files">تحميل معلومات الترخيص…</string>
     <string name="local_adb" comment="Connection mode option: run ADB commands locally on host device using Shizuku or Root">ADB المحلي</string>
     <string name="local_adb_shell" comment="Screen header for local device ADB shell terminal">قذيفة ADB المحلية</string>
     <string name="local_adb_summary" comment="Summary text for local ADB feature card">تنفيذ أوامر ADB مباشرة على جهازك باستخدام Shizuku أو الجذر.</string>
@@ -579,25 +585,27 @@
     <string name="logcat_running_description" comment="Notification body text shown while logcat runs in background">يقوم aShellYou بجمع سجلات النظام في الخلفية</string>
     <string name="logcat_shortcut_long_label" comment="App launcher shortcut label for launching directly into Logcat Viewer">فتح عارض السجلات</string>
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">مصدر سجل النظام</string>
-    <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">انقر على ▶ لبدء سجل النظام</string>
+    <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">انقر على ▶️ لبدء تسجيل الدخول</string>
     <string name="logs" comment="Screen header or tab title for application and execution log views">السجلات</string>
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">المظهر والشكل &amp;</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">منخفض</string>
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">نسبة تباين منخفضة</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">اصنع سمتك الخاصة</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">اقتران يدوي</string>
+    <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">أيقونات المواد</string>
+    <string name="material_icons_description" comment="Informational text in icon chooser explaining the Material Icons download">تحميل ~380 كيلو بايت مرة واحدة لتصفح 2,500+ أيقونات المواد</string>
     <string name="max_download_size" comment="Setting label for capping maximum update download file size">الحد الأقصى للتنزيل</string>
     <string name="medium">متوسط</string>
     <string name="merge" comment="Resolution option in file browser conflict dialog to merge directory contents">دمج</string>
     <string name="message">الرسالة</string>
-    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">مراسلة وكيل ADB…</string>
+    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">رسالة ADB وكيل</string>
     <string name="minimize" comment="Action button to minimize terminal overlay window">تصغير</string>
     <string name="mode" comment="Header title for ADB execution engine mode selector">الوضع</string>
     <string name="mode_one_desc" comment="Description for Root execution engine option in settings">استخدام وصول الجذر لتشغيل الأوامر. يمكن تنفيذ الأوامر المجذرة.</string>
     <string name="mode_two_desc" comment="Description for Shizuku execution engine option in settings">استخدام Shizuku لتشغيل الأوامر. لن يتم تنفيذ الأوامر التي تتطلب جذر.</string>
-    <string name="model_category_large" comment="AI model size category label">كبير (1.5–2.5 جيجابايت)</string>
-    <string name="model_category_medium" comment="AI model size category label">متوسط (800 ميجابايت–1.1 جيجابايت)</string>
-    <string name="model_category_small" comment="AI model size category label">صغير (300–500 ميجابايت)</string>
+    <string name="model_category_large" comment="AI model size category label">كبير (1.5-2.5 جنيه استرليني)</string>
+    <string name="model_category_medium" comment="AI model size category label">متوسط (800 ميغابايت - 1.1 جيغابايت</string>
+    <string name="model_category_small" comment="AI model size category label">صغير (300-500 ميغابايت)</string>
     <string name="model_category_tiny" comment="AI model size category label">صغير جداً (أقل من 300 ميجابايت)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">النماذج</string>
     <string name="modified" comment="File property: last modified date">معدّل</string>
@@ -671,7 +679,7 @@
     <string name="other_details" comment="Expandable card title for additional device metadata details">تفاصيل أخرى</string>
     <string name="other_device" comment="Selection tab for target device in Logcat Viewer">الأجهزة المحفوظة</string>
     <string name="output" comment="Header title for shell command output window">الناتج</string>
-    <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">سيظهر الإخراج هنا…</string>
+    <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">سيظهر المخرجات هنا…</string>
     <string name="override_bookmarks_limit" comment="Setting toggle title to remove the maximum limit on saved bookmarks count">تجاوز الحد الأقصى للإشارات المرجعية</string>
     <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">اسم الحزمة</string>
     <string name="packages" comment="Title for the packages skill toggle in AI settings">الحزم</string>
@@ -723,7 +731,6 @@
     <string name="primary_container">الحاوية الأساسية</string>
     <string name="privacy_and_security" comment="Title for the privacy and security settings screen">الخصوصية &amp; الحماية</string>
     <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">سياسة الخصوصية</string>
-    <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">تم تحديث سياسة الخصوصية</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">المنتج</string>
     <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">ضع الجهاز في وضع التحميل الجانبي عبر قائمة الاسترداد الخاصة به</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">QR Pair</string>
@@ -732,7 +739,7 @@
     <string name="qs_tiles" comment="Refers to Android System Quick Settings tiles configured for custom ADB scripts">بلاطات الإعدادات السريعة</string>
     <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">إعدادات سريعة</string>
     <string name="quick_tools" comment="Section header for fast access utility tools">أدوات سريعة</string>
-    <string name="reading_file" comment="Progress status text while loading file contents into viewer">جاري قراءة الملف…</string>
+    <string name="reading_file" comment="Progress status text while loading file contents into viewer">قراءة الملف…</string>
     <string name="ready_to_paste" comment="Status message in file manager when item is stored in paste clipboard">مستعد للصق</string>
     <string name="reboot_bootloader" comment="Action button / dialog choice to reboot target device into bootloader mode">إعادة التشغيل إلى محمل الإقلاع</string>
     <string name="reboot_confirm_message" comment="%1$s = target boot mode (e.g. recovery, bootloader). Confirmation prompt before rebooting target device">سيؤدي هذا إلى إعادة تشغيل الجهاز المتصل إلى %1$s. هل تريد المتابعة؟</string>
@@ -773,7 +780,7 @@
     <string name="restore_failed" comment="Toast error message when restoring app data fails">فشلت الاستعادة</string>
     <string name="restore_from" comment="Dialog header prompting user to select restore source (Local File or Google Drive)">استعادة من</string>
     <string name="restore_successful" comment="Toast message confirming successful app data restoration">تمت الاستعادة بنجاح</string>
-    <string name="restoring_backup" comment="Progress status text shown while restoring database from backup">جاري استعادة النسخة الاحتياطية…</string>
+    <string name="restoring_backup" comment="Progress status text shown while restoring database from backup">استعادة النسخ الاحتياطي…</string>
     <string name="resume" comment="Action button to resume paused logcat streaming or file download">استئناف</string>
     <string name="retry" comment="Action button to retry failed network connection or command execution">إعادة المحاولة</string>
     <string name="root_access_granted" comment="Toast notification confirming superuser root access granted to aShellYou">تم منح صلاحيات الجذر!</string>
@@ -786,13 +793,13 @@
     <string name="running" comment="Status badge showing task or command execution is active">قيد التشغيل</string>
     <string name="sans_serif" comment="Font style category name">بدون زوائد</string>
     <string name="save">حفظ</string>
-    <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">حفظ كملف تعريف…</string>
+    <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">حفظ كملف شخصي…</string>
     <string name="save_changes" comment="Action button to persist edited settings or tile parameters">حفظ التغييرات</string>
     <string name="save_key" comment="Button label to save entered API key string in settings">حفظ المفتاح</string>
     <string name="save_whole_output" comment="Setting toggle title to export full terminal session output to file">حفظ الإخراج بأكمله</string>
     <string name="saved_devices" comment="Screen title and list header for paired ADB devices history">الأجهزة المحفوظة</string>
-    <string name="saving" comment="Progress status text while saving file or settings">جارٍ الحفظ…</string>
-    <string name="saving_output" comment="Progress status text while exporting terminal log output to file">جارٍ تصدير الناتج إلى ملف…</string>
+    <string name="saving" comment="Progress status text while saving file or settings">حفظ…</string>
+    <string name="saving_output" comment="Progress status text while exporting terminal log output to file">تصدير الإخراج إلى الملف…</string>
     <string name="schedule" comment="Header title or setting label for automated backup schedule picker">الجدول الزمني</string>
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">مضاعف كثافة الشاشة</string>
     <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">التمرير إلى الأسفل</string>
@@ -802,7 +809,7 @@
     <string name="search_fonts" comment="Placeholder text in font family picker search bar">البحث عن الخطوط…</string>
     <string name="search_icons_here" comment="Placeholder text in Quick Settings tile icon picker search bar">ابحث عن الأيقونات هنا</string>
     <string name="search_labels_here" comment="Placeholder text in command label filter search bar">البحث عن التسميات هنا</string>
-    <string name="search_libraries" comment="Placeholder text in open-source licenses search bar">ابحث عن المكتبات والمؤلفين والتراخيص…</string>
+    <string name="search_libraries" comment="Placeholder text in open-source licenses search bar">البحث عن المكتبات، المؤلفين، التراخيص…</string>
     <string name="search_output" comment="Placeholder text in terminal output search bar">ابحث في الناتج هنا</string>
     <string name="search_settings" comment="Placeholder text in settings top search bar">البحث في الإعدادات</string>
     <string name="search_something" comment="Generic search field placeholder prompt">ابحث عن شيء ما</string>
@@ -853,12 +860,12 @@
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku غير متاح</string>
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">لم يتم تثبيت Shizuku أو Shizuku+ أو تكوين بشكل صحيح على جهازك</string>
     <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">ضع الجهاز في وضع التحميل الجانبي عبر الاسترداد</string>
-    <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">وضع التحميل الجانبي — جاهز</string>
+    <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">وضع التحميل الجانبي - جاهز</string>
     <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">الإقلاع إلى الاسترداد (اضغط مع الاستمرار على خفض الصوت + الطاقة، أو قم بتشغيل: adb reboot recovery)</string>
     <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">انتقل إلى \"Apply update\" في قائمة الاسترداد</string>
     <string name="sideload_step_3" comment="Step 3 of ADB sideload guide: selecting ADB sideload mode in recovery">حدد \"التطبيق من ADB\" (أو \"تحميل جانب لـ ADB\")</string>
     <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">قم بتوصيل جهازك عبر كابل OTG، ثم حدد ملف ZIP هنا</string>
-    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">جاري التحميل الجانبي…</string>
+    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Sideloading…</string>
     <string name="sign_in_failed" comment="Toast error message when Google account sign-in fails">فشل تسجيل الدخول إلى Google</string>
     <string name="sign_in_with_google" comment="Button label in cloud backup settings to sign into Google account">تسجيل الدخول باستخدام Google</string>
     <string name="sign_out" comment="Button label in cloud backup settings to sign out of Google account">تسجيل الخروج</string>
@@ -902,6 +909,7 @@
     <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">وضع TCP غير متوفر</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">المحطة</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">نمط الخط الطرفي</string>
+    <string name="terms_of_service" comment="Title for the Terms of Service legal document">شروط الخدمة</string>
     <string name="tertiary">الثلاثي</string>
     <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">وضع السمة</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">مكتبات الطرف الثالث</string>
@@ -944,7 +952,7 @@
     <string name="update_channel" comment="Settings preference title for choosing update channel (Stable, Pre-release, F-Droid)">قناة التحديث</string>
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">تحميل ملف</string>
     <string name="uploading" comment="Progress status text shown while uploading file to device">تحميل…</string>
-    <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">جاري رفع النسخة الاحتياطية إلى Google Drive…</string>
+    <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">تحميل النسخ الاحتياطي إلى Google Drive…</string>
     <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB يتطلب تصحيح أخطاء USB ليتم تمكينه في خيارات المطور</string>
     <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">مطلوب تصحيح أخطاء USB</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">مدير USB غير متوفر على هذا الجهاز</string>

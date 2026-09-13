@@ -84,7 +84,7 @@
     <string name="back">Назад</string>
     <string name="back_button" comment="Custom key bar button in terminal view simulating system back button press">Кнопка \"Назад\"</string>
     <string name="background" comment="Material design theme surface/background color role label">Фон</string>
-    <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">Резервирование…</string>
+    <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">Резервное копирование…</string>
     <string name="backup">Резервирование</string>
     <string name="backup_all_data" comment="Option in backup dialog to export all app database content and settings">Резервирование всех данных</string>
     <string name="backup_and_restore" comment="Settings screen header for managing local and cloud backups">Резервирование и восстановление</string>
@@ -108,7 +108,7 @@
     <string name="behavior" comment="Settings category title for application behavior preferences">Поведение</string>
     <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">Подтвердите блокировку экрана, чтобы продолжить</string>
     <string name="biometric_prompt_title" comment="Title for the biometric authentication prompt">Открыть aShellYou</string>
-    <string name="biometrics_disabled_msg" comment="Toast message when biometric data is removed from device settings">Биометрические данные приложения отключены: с устройства удалены.</string>
+    <string name="biometrics_disabled_msg" comment="Toast message when biometric data is removed from device settings">Биометрия приложения отключена: Биометрические данные были удалены с устройства.</string>
     <string name="block" comment="Action button to block execution or permissions">Заблокировать</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">Достигнуто максимальное количество закладок! Удалите некоторые закладки для добавления новых</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">Закладки</string>
@@ -116,6 +116,7 @@
     <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">Boot образ</string>
     <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">Загрузить в Fastboot</string>
     <string name="btn_continue" comment="Action button label to proceed to next step in setup wizard">Продолжить</string>
+    <string name="bundled" comment="Tab label in icon chooser for built-in icons that ship with the app">В комплекте</string>
     <string name="cache_settings" comment="Settings section header for AI analysis response caching options">Кэш</string>
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Размер кэша: %s</string>
     <string name="cancel">Отмена</string>
@@ -161,7 +162,6 @@
     <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">Возможность разблокировки</string>
     <string name="code_pair_instruction" comment="Instructional text in Wireless Debugging pairing dialog directing user to open Wireless Debugging menu on target device">Откройте \"Беспроводная отладка\" на целевом устройстве и нажмите \"Сопрячь устройство с помощью кода сопряжения\"</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">Свернуть</string>
-    <string name="command_execution_failed" comment="Inline shell error shown when running a command fails unexpectedly. %1$s is the technical reason">Ошибка команды: %1$s</string>
     <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">Произошла ошибка</string>
     <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">Высокая высота (диалог)</string>
     <string name="color_preview_highest_elevation" comment="Sample label in theme editor showing highest elevation surface color (Bottom Sheet)">Высокая высота (нижний лист)</string>
@@ -211,6 +211,7 @@
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">Анализ команд</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">Командная консоль</string>
     <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">Выполнение команды</string>
+    <string name="command_execution_failed" comment="Inline shell error shown when running a command fails unexpectedly. %1$s is the technical reason">Команда не удалась: %1$s</string>
     <string name="command_logs" comment="Tab header for history log of executed fastboot commands">Журналы команд</string>
     <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">История всех выполненных команд fastboot.</string>
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Команда не найдена!</string>
@@ -294,7 +295,6 @@
     <string name="des_backup_settings" comment="Description for app settings backup option">Резервирование только настроек приложения</string>
     <string name="des_behavior" comment="Description under Behavior item in settings menu">Изменить определенное поведение приложения</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">История всех изменений, внесённых в приложение</string>
-    <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">Устройство не поддерживает биометрическую аутентификацию</string>
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">Нажмите здесь, чтобы выбрать иконку из коллекции иконок</string>
     <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">Удалить все кэшированные ответы анализа AI</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">Запрашивать подтверждение перед очисткой вывода оболочки</string>
@@ -323,6 +323,7 @@
     <string name="des_high_contrast_dark_mode" comment="Description under High contrast dark mode setting item">Чёрно темная тема для устройств с OLED дисплеем</string>
     <string name="des_hridayan" comment="Developer bio subtitle in About section">Просто парень, который любит приложения и дизайн</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">Фиксированное визуальное состояние плитки, когда она отображается на панели \"Быстрых настроек\"</string>
+    <string name="des_legal_docs_updated" comment="Message shown in the dialog when legal docs are updated">Мы обновили нашу Политику конфиденциальности и Условия предоставления услуг. Пожалуйста, уделите несколько минут, чтобы ознакомиться с изменениями.</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">Просмотреть сведения о библиотеках и лицензиях, используемых приложением</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">Просмотрите лицензии, используемые приложением и библиотеками</string>
     <string name="des_local_backup" comment="Description card text for local backup option">Сохранить зашифрованную резервную копию на своем устройстве</string>
@@ -336,7 +337,6 @@
     <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">Выберите способ получения цветов на основе исходного набора темы</string>
     <string name="des_privacy_and_security" comment="Description for privacy and security settings">Аутентификация и разрешения приложений</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">Как aShell You обрабатывает ваши данные</string>
-    <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">Мы обновили нашу политику конфиденциальности. Пожалуйста, найдите минутку, чтобы просмотреть изменения.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">Создать плитки быстрых настроек для выполнения команд adb</string>
     <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Разрешить AI агенту создавать, изменять и удалять плитки \"Быстрые настройки\"</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">Сообщите о любой проблеме, с которой вы столкнулись при использовании приложения</string>
@@ -350,11 +350,12 @@
     <string name="des_set_local_adb_as_default_launch" comment="Description under Set Local ADB as default launch setting">Введите локальный экран ADB непосредственно при запуске программы</string>
     <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">При желании свяжите свой аккаунт Google для резервирования в облако</string>
     <string name="des_smooth_scroll" comment="Description under Smooth scrolling setting toggle">Включает плавную прокрутку в выводе оболочки, при нажатии на верхнюю или нижнюю стрелку</string>
+    <string name="des_terms_of_service" comment="Subtitle description under Terms of Service menu item">Правила и рекомендации по использованию aShell You</string>
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">Когда включено, плитка переключается между состояниями ВКЛ и ВЫКЛ при каждом нажатии, выполняя разные команды для каждого состояния</string>
     <string name="des_translators" comment="Subtitle description under Translators list in About section">Люди, которые помогли перевести aShellYou</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">Регулировка масштаба элементов UI и размера шрифта</string>
     <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">Выберите, какие релизы приложение будет проверять</string>
-    <string name="des_use_biometrics">Разрешите разблокировку приложения с помощью отпечатка пальца или лица</string>
+    <string name="des_use_biometrics">Разрешить разблокировку приложения с помощью отпечатка пальца или лица</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">Будьте осторожны, так как неправильный образ может вызвать bootloop</string>
     <string name="description">Описание</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">Снять выбор со всех</string>
@@ -371,15 +372,16 @@
     <string name="device_disconnected_message_with_name" comment="%s = device name">\"%s\" отключился.</string>
     <string name="device_found" comment="Status banner when an ADB/Wireless Debugging device service is discovered on local network">Найдено устройство!</string>
     <string name="device_info" comment="Screen header or navigation item for target device hardware/OS specifications">Информация об устройстве</string>
+    <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">Устройство не поддерживает биометрическую аутентификацию</string>
     <string name="disable_softkey" comment="Setting toggle title to hide soft keyboard during shell session">Отключить программную клавиатуру</string>
     <string name="disclaimer" comment="Section title in About screen for legal disclaimer notices">Отказ от ответственности</string>
-    <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">Выполнение команд ADB может изменять системные настройки, управлять файлами и выполнять операции, которые могут повлиять на стабильность устройства.\nВы несете полную ответственность за любые изменения, внесенные с помощью этого приложения.</string>
+    <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">Запуск команд ADB может изменить настройки системы, управлять файлами и выполнять операции, которые могут повлиять на стабильность вашего устройства.\nВы несете полную ответственность за любые изменения, внесенные с помощью этого приложения.</string>
     <string name="disclaimer_1_title" comment="Title for disclaimer point 1: user risk acknowledgement">Используйте на свой страх и риск</string>
     <string name="disclaimer_2_description" comment="Text for disclaimer point 2: root requirements and elevated permissions">Хотя root доступ не обязателен, некоторые команды могут требовать повышенных прав.\nНеправильное использование команд ADB может привести к потере данных, сбоям программы или неожиданному поведению системы.</string>
     <string name="disclaimer_2_title" comment="Title for disclaimer point 2: root and caution warning">Root доступ не обязателен, но нужна осторожность</string>
     <string name="disclaimer_3_description" comment="Text for disclaimer point 3: developer liability waiver">Разработчик(и) этого приложения не несут ответственности за какие-либо повреждения, потерю данных или непредвиденные последствия, возникшие в результате использования этого приложения.\nДействуйте осторожно и убедитесь, что вы понимаете выполняемые команды.</string>
     <string name="disclaimer_3_title" comment="Title for disclaimer point 3: liability waiver">Мы не несём ответственности</string>
-    <string name="disclaimer_4_description" comment="Text for disclaimer point 4: target user expertise level">Это приложение предназначено для пользователей, имеющих базовое понимание команд ADB.\nЕсли вы не уверены в эффективности команды, изучите её перед выполнением.</string>
+    <string name="disclaimer_4_description" comment="Text for disclaimer point 4: target user expertise level">Это приложение предназначено для пользователей, имеющих базовое понимание команд ADB.\nЕсли вы не уверены в эффекте команды, изучите его перед его выполнением.</string>
     <string name="disclaimer_4_title" comment="Title for disclaimer point 4: target audience notice">Предназначен для продвинутых пользователей</string>
     <string name="disclaimer_5_description" comment="Text for disclaimer point 5: privacy and permissions notice">Для надлежащей работы этой программы могут потребоваться специальные разрешения.\nОни не собирают и не передают персональные данные, но пользователи должны знать о последствиях предоставления разрешений, связанных с ADB.</string>
     <string name="disclaimer_5_title" comment="Title for disclaimer point 5: security and privacy">Разрешения и Безопасность</string>
@@ -390,8 +392,10 @@
     <string name="done">Готово</string>
     <string name="download">Загрузить</string>
     <string name="download_failed" comment="Toast message when in-app updater APK download fails">Загрузка не удалась</string>
+    <string name="download_material_icons" comment="Button label to download the Material Icons font pack for QS tile icon chooser">Скачать иконки в стиле Material</string>
     <string name="downloading" comment="Progress status text while downloading update package">Загрузка…</string>
-    <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Загрузка резервирования из Google Диска…</string>
+    <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Загрузка резервной копии из Google Drive…</string>
+    <string name="downloading_icon_pack" comment="Progress status text while downloading Material Icons font for QS tile icon chooser">Загрузка набора иконок…</string>
     <string name="downloads" comment="Screen header or list item for downloaded files">Загрузки</string>
     <string name="duplicate_tile_name_error_msg" comment="Validation error in Quick Settings tile builder when entered tile name already exists">Плитка с таким именем уже существует</string>
     <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">Динамические цвета</string>
@@ -414,7 +418,7 @@
     <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">Это приведет к окончательной очистке раздела %1$s. Это действие нельзя отменить.</string>
     <string name="erase_confirm_title" comment="%1$s = partition name. Dialog title for partition erase confirmation">Очистить %1$s?</string>
     <string name="erase_partition" comment="Action button to trigger fastboot partition erase">Стереть</string>
-    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Стирание…</string>
+    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Удаление…</string>
     <string name="error">Ошибка</string>
     <string name="error_labels_limit_reached" comment="Validation error when maximum number of custom command labels/tags is reached">Достигнут максимальный лимит этикеток</string>
     <string name="exclude" comment="Filter toggle option to exclude selected package or item">Исключить</string>
@@ -460,7 +464,7 @@
     <string name="fb_uploading" comment="%1$s = file name">Загрузка %1$s</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">Запрос функции</string>
     <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Получение времени резервного копирования …</string>
-    <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Получение типа резервной копии…</string>
+    <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Извлечение типа резервной копии…</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">Поле не может быть пустым</string>
     <string name="file">Файл</string>
     <string name="file_actions" comment="Bottom sheet title for file operations (copy, move, delete, rename)">Действия с файлом</string>
@@ -546,6 +550,8 @@
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">Ведущий разработчик</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">Редко используемые</string>
     <string name="legal_and_policies" comment="Group header for legal settings">Юридическая информация &amp; Политики</string>
+    <string name="legal_consent_text">Я прочитал и согласен с %1$s и %2$s.</string>
+    <string name="legal_docs_updated" comment="Title for the dialog shown when legal docs are updated">Обновленная правовая политика</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">Уровень</string>
     <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">Библиотеки и лицензии</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">Обнаружено библиотек %1$d</string>
@@ -555,7 +561,7 @@
     <string name="load" comment="Action button to load command templates into database">Загрузить</string>
     <string name="load_predefined_commands" comment="Button label in fastboot screen to load preset fastboot commands">Загрузка предопределенных команд</string>
     <string name="loading">Загрузка</string>
-    <string name="loading_device_info" comment="Progress status text while querying ADB device specifications">Загрузка информации устройства…</string>
+    <string name="loading_device_info" comment="Progress status text while querying ADB device specifications">Загрузка информации об устройстве…</string>
     <string name="loading_licenses" comment="Progress status text while loading open-source license files">Загрузка информации о лицензии…</string>
     <string name="local_adb" comment="Connection mode option: run ADB commands locally on host device using Shizuku or Root">Локальный ADB</string>
     <string name="local_adb_shell" comment="Screen header for local device ADB shell terminal">Локальная оболочка ADB</string>
@@ -586,18 +592,20 @@
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">Низкий контрастный коэффициент</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">Создайте свою тему</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">Ручное сопряжение</string>
+    <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Иконки материала</string>
+    <string name="material_icons_description" comment="Informational text in icon chooser explaining the Material Icons download">Скачайте ~380 КБ для просмотра 2,500+ иконок в стиле Material</string>
     <string name="max_download_size" comment="Setting label for capping maximum update download file size">Максимальная загрузка</string>
     <string name="medium">Средний</string>
     <string name="merge" comment="Resolution option in file browser conflict dialog to merge directory contents">Объединить</string>
     <string name="message">Сообщение</string>
-    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">Сообщение ADB Агента…</string>
+    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">Агент ADB сообщения</string>
     <string name="minimize" comment="Action button to minimize terminal overlay window">Минимизировать</string>
     <string name="mode" comment="Header title for ADB execution engine mode selector">Режим</string>
     <string name="mode_one_desc" comment="Description for Root execution engine option in settings">Используйте root доступ для запуска команд. Rooted команды могут быть выполнены.</string>
     <string name="mode_two_desc" comment="Description for Shizuku execution engine option in settings">Используйте shizuku для выполнения команд. Команды, требующие root, не будут выполняться.</string>
-    <string name="model_category_large" comment="AI model size category label">Большой (1,5–2,5 ГБ)</string>
+    <string name="model_category_large" comment="AI model size category label">Большой (1.5–2.5 GB)</string>
     <string name="model_category_medium" comment="AI model size category label">Средний (800 MB–1,1 GB)</string>
-    <string name="model_category_small" comment="AI model size category label">Небольшой (300–500 МБ)</string>
+    <string name="model_category_small" comment="AI model size category label">Маленький (300–500 MB)</string>
     <string name="model_category_tiny" comment="AI model size category label">Крошечный (менее 300 МБ)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">Модели</string>
     <string name="modified" comment="File property: last modified date">Изменено</string>
@@ -723,7 +731,6 @@
     <string name="primary_container">Первичный контейнер</string>
     <string name="privacy_and_security" comment="Title for the privacy and security settings screen">Конфиденциальность &amp; Безопасность</string>
     <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Политика конфиденциальности</string>
-    <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">Политика конфиденциальности обновлена</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">Продукт</string>
     <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">Переведите устройство в режим sideload через меню recovery</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">Сопряжение QR</string>
@@ -773,7 +780,7 @@
     <string name="restore_failed" comment="Toast error message when restoring app data fails">Восстановление не удалось</string>
     <string name="restore_from" comment="Dialog header prompting user to select restore source (Local File or Google Drive)">Восстановить из</string>
     <string name="restore_successful" comment="Toast message confirming successful app data restoration">Успешно восстановлено</string>
-    <string name="restoring_backup" comment="Progress status text shown while restoring database from backup">Восстановление резервирования…</string>
+    <string name="restoring_backup" comment="Progress status text shown while restoring database from backup">Восстановление резервной копии…</string>
     <string name="resume" comment="Action button to resume paused logcat streaming or file download">Продовжити</string>
     <string name="retry" comment="Action button to retry failed network connection or command execution">Повторить</string>
     <string name="root_access_granted" comment="Toast notification confirming superuser root access granted to aShellYou">Root доступ предоставлен!</string>
@@ -832,7 +839,7 @@
     <string name="self_pair_in_progress" comment="Progress status text shown while establishing local ADB self-pairing connection">Сопряжение в процессе…</string>
     <string name="self_pair_in_progress_hint" comment="Instructional hint displayed during local ADB self-pairing">Пожалуйста, подождите подключения к этому устройству</string>
     <string name="self_pair_pairing_not_found" comment="Error notification when mDNS ADB pairing service is not broadcasting">Сервис сопряжения не найдено</string>
-    <string name="self_pair_searching" comment="Progress status text while scanning for local mDNS pairing service">Поиск сервиса сопряжения…</string>
+    <string name="self_pair_searching" comment="Progress status text while scanning for local mDNS pairing service">Поиск службы сопряжения…</string>
     <string name="self_pair_searching_hint" comment="Instructional prompt directing user to open Wireless Debugging pairing dialog">Откройте \"Беспроводная отладка\" и нажмите \'Сопрячь устройство с помощью кода сопряжения\'</string>
     <string name="self_pair_success" comment="Toast confirmation message when local ADB self-pairing succeeds">Подключено к этому устройству!</string>
     <string name="self_pair_success_hint" comment="Subtext banner confirming local ADB terminal session is ready">Локальная оболочка ADB теперь доступна</string>
@@ -902,6 +909,7 @@
     <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">Режим TCP недоступен</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">Терминал</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Стиль шрифта терминала</string>
+    <string name="terms_of_service" comment="Title for the Terms of Service legal document">Условия использования</string>
     <string name="tertiary">Третичный</string>
     <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">Режим темы</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">Сторонние библиотеки</string>
@@ -944,12 +952,12 @@
     <string name="update_channel" comment="Settings preference title for choosing update channel (Stable, Pre-release, F-Droid)">Канал обновлений</string>
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">Загрузить файл</string>
     <string name="uploading" comment="Progress status text shown while uploading file to device">Загрузка…</string>
-    <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Загрузка резервирования на Google Диск…</string>
+    <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Загрузка резервной копии на Google Drive…</string>
     <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB требуется включить отладку по USB в \"Параметрах разработчика\"</string>
     <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">Требуется отладка по USB</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">Менеджер USB недоступен на этом устройстве</string>
     <string name="use">Использовать</string>
-    <string name="use_biometrics">Использовать биометрические данные</string>
+    <string name="use_biometrics">Использовать биометрию</string>
     <string name="utilities" comment="Category title in homescreen">Утилиты</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">Вариант</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">Проверка не удалась</string>

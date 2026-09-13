@@ -117,6 +117,7 @@
     <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">Boot Image</string>
     <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">Khởi động vào Fastboot</string>
     <string name="btn_continue" comment="Action button label to proceed to next step in setup wizard">Tiếp tục</string>
+    <string name="bundled" comment="Tab label in icon chooser for built-in icons that ship with the app">Có sẵn</string>
     <string name="cache_settings" comment="Settings section header for AI analysis response caching options">Bộ nhớ đệm</string>
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Kích thước bộ nhớ đệm: %s</string>
     <string name="cancel">Hủy</string>
@@ -162,7 +163,6 @@
     <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">Khả năng mở khóa</string>
     <string name="code_pair_instruction" comment="Instructional text in Wireless Debugging pairing dialog directing user to open Wireless Debugging menu on target device">Mở \"Gỡ lỗi không dây\" trên thiết bị mục tiêu và nhấn \"Ghép nối thiết bị bằng mã ghép nối\"</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">Thu gọn</string>
-    <string name="command_execution_failed" comment="Inline shell error shown when running a command fails unexpectedly. %1$s is the technical reason">Command failed: %1$s</string>
     <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">Đã xảy ra lỗi</string>
     <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">Độ nổi cao (Hộp thoại)</string>
     <string name="color_preview_highest_elevation" comment="Sample label in theme editor showing highest elevation surface color (Bottom Sheet)">Độ nổi cao nhất (Bảng dưới cùng)</string>
@@ -212,6 +212,7 @@
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">Phân tích lệnh</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">Bảng điều khiển lệnh</string>
     <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">Thực thi lệnh</string>
+    <string name="command_execution_failed" comment="Inline shell error shown when running a command fails unexpectedly. %1$s is the technical reason">Command failed: %1$s</string>
     <string name="command_logs" comment="Tab header for history log of executed fastboot commands">Nhật ký lệnh</string>
     <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">Lịch sử của tất cả các lệnh fastboot đã thực thi.</string>
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Không tìm thấy lệnh!</string>
@@ -295,7 +296,6 @@
     <string name="des_backup_settings" comment="Description for app settings backup option">Chỉ sao lưu các cài đặt của ứng dụng</string>
     <string name="des_behavior" comment="Description under Behavior item in settings menu">Sửa đổi các hành vi nhất định của ứng dụng</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">Lịch sử của tất cả các thay đổi được thực hiện đối với ứng dụng</string>
-    <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">Device does not support biometric authentication</string>
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">Nhấn vào đây để chọn biểu tượng từ bộ sưu tập</string>
     <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">Xóa tất cả phản hồi phân tích AI đã lưu trong bộ nhớ đệm</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">Yêu cầu xác nhận trước khi xóa đầu ra của shell</string>
@@ -324,6 +324,7 @@
     <string name="des_high_contrast_dark_mode" comment="Description under High contrast dark mode setting item">Giao diện đen tuyền cho các thiết bị có màn hình OLED</string>
     <string name="des_hridayan" comment="Developer bio subtitle in About section">Chỉ là một anh chàng yêu thích các ứng dụng và thiết kế</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">Trạng thái ban đầu của ô khi được hiển thị trong bảng Cài đặt nhanh</string>
+    <string name="des_legal_docs_updated" comment="Message shown in the dialog when legal docs are updated">We have updated our Privacy Policy and Terms of Service. Please take a moment to review the changes.</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">Xem chi tiết các thư viện và giấy phép được ứng dụng sử dụng</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">Xem các giấy phép được sử dụng bởi ứng dụng và các thư viện</string>
     <string name="des_local_backup" comment="Description card text for local backup option">Lưu bản sao lưu đã mã hóa trên thiết bị của bạn</string>
@@ -337,7 +338,6 @@
     <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">Chọn cách tạo màu sắc từ màu gốc của chủ đề</string>
     <string name="des_privacy_and_security" comment="Description for privacy and security settings">Authentication and app permissions</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">Cách aShell You xử lý dữ liệu của bạn</string>
-    <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">Chúng tôi đã cập nhật Chính sách riêng tư. Vui lòng dành chút thời gian để xem qua các thay đổi.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">Tạo các ô cài đặt nhanh để thực thi các lệnh ADB</string>
     <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Cho phép trợ lý AI tạo, sửa đổi và xóa các ô Cài đặt nhanh</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">Báo cáo mọi vấn đề bạn gặp phải khi sử dụng ứng dụng</string>
@@ -351,6 +351,7 @@
     <string name="des_set_local_adb_as_default_launch" comment="Description under Set Local ADB as default launch setting">Mở trực tiếp màn hình ADB Cục bộ khi vào ứng dụng</string>
     <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">Liên kết tài khoản Google của bạn để sao lưu đám mây</string>
     <string name="des_smooth_scroll" comment="Description under Smooth scrolling setting toggle">Bật cuộn mượt trong đầu ra của shell, khi nhấn phím mũi tên Lên hoặc Xuống</string>
+    <string name="des_terms_of_service" comment="Subtitle description under Terms of Service menu item">Rules and guidelines for using aShell You</string>
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">Khi được bật, ô sẽ chuyển đổi giữa các trạng thái BẬT và TẮT mỗi lần nhấn, thực hiện các lệnh khác nhau cho mỗi trạng thái</string>
     <string name="des_translators" comment="Subtitle description under Translators list in About section">Những người đã giúp dịch aShell You</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">Điều chỉnh tỷ lệ phần tử UI và kích thước phông chữ</string>
@@ -372,6 +373,7 @@
     <string name="device_disconnected_message_with_name" comment="%s = device name">\"%s\" đã ngắt kết nối.</string>
     <string name="device_found" comment="Status banner when an ADB/Wireless Debugging device service is discovered on local network">Đã tìm thấy thiết bị!</string>
     <string name="device_info" comment="Screen header or navigation item for target device hardware/OS specifications">Thông tin thiết bị</string>
+    <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">Device does not support biometric authentication</string>
     <string name="disable_softkey" comment="Setting toggle title to hide soft keyboard during shell session">Tắt bàn phím ảo</string>
     <string name="disclaimer" comment="Section title in About screen for legal disclaimer notices">Tuyên bố từ chối trách nhiệm</string>
     <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">Việc thực thi các lệnh ADB có thể sửa đổi cài đặt hệ thống, quản lý tệp và thực hiện các thao tác có thể ảnh hưởng đến sự ổn định của thiết bị.\nBạn hoàn toàn chịu trách nhiệm về mọi thay đổi được thực hiện bằng ứng dụng này.</string>
@@ -391,8 +393,10 @@
     <string name="done">Xong</string>
     <string name="download">Tải xuống</string>
     <string name="download_failed" comment="Toast message when in-app updater APK download fails">Tải xuống thất bại</string>
+    <string name="download_material_icons" comment="Button label to download the Material Icons font pack for QS tile icon chooser">Tải xuống Material Icons</string>
     <string name="downloading" comment="Progress status text while downloading update package">Đang tải xuống…</string>
     <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Đang tải xuống bản sao lưu từ Google Drive…</string>
+    <string name="downloading_icon_pack" comment="Progress status text while downloading Material Icons font for QS tile icon chooser">Downloading icon pack…</string>
     <string name="downloads" comment="Screen header or list item for downloaded files">Tải xuống</string>
     <string name="duplicate_tile_name_error_msg" comment="Validation error in Quick Settings tile builder when entered tile name already exists">Đã tồn tại một ô với tên này</string>
     <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">Màu động</string>
@@ -547,6 +551,8 @@
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">Nhà phát triển chính</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">Ít sử dụng nhất</string>
     <string name="legal_and_policies" comment="Group header for legal settings">Legal &amp; Policies</string>
+    <string name="legal_consent_text">I have read and agree to the %1$s and %2$s.</string>
+    <string name="legal_docs_updated" comment="Title for the dialog shown when legal docs are updated">Legal Policies Updated</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">Mức độ</string>
     <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">Thư viện &amp; Giấy phép</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">Phát hiện %1$d thư viện</string>
@@ -587,11 +593,13 @@
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">Độ tương phản thấp</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">Tạo chủ đề của bạn</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">Ghép nối thủ công</string>
+    <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Material Icons</string>
+    <string name="material_icons_description" comment="Informational text in icon chooser explaining the Material Icons download">Download ~380 KB once to browse 2,500+ Material icons</string>
     <string name="max_download_size" comment="Setting label for capping maximum update download file size">Tải xuống tối đa</string>
     <string name="medium">Trung bình</string>
     <string name="merge" comment="Resolution option in file browser conflict dialog to merge directory contents">Hợp nhất</string>
     <string name="message">Thông điệp</string>
-    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">Nhắn tin cho ADB Agent…</string>
+    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">Message ADB Agent</string>
     <string name="minimize" comment="Action button to minimize terminal overlay window">Thu gọn</string>
     <string name="mode" comment="Header title for ADB execution engine mode selector">Chế độ</string>
     <string name="mode_one_desc" comment="Description for Root execution engine option in settings">Sử dụng quyền truy cập root để chạy lệnh. Các lệnh yêu cầu root sẽ được thực thi.</string>
@@ -724,7 +732,6 @@
     <string name="primary_container">Khối màu chính</string>
     <string name="privacy_and_security" comment="Title for the privacy and security settings screen">Privacy &amp; Security</string>
     <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Chính sách riêng tư</string>
-    <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">Chính sách riêng tư đã cập nhật</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">Sản phẩm</string>
     <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">Đưa thiết bị vào chế độ sideload thông qua menu recovery</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">Ghép nối qua QR</string>
@@ -903,6 +910,7 @@
     <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">Chế độ TCP không khả dụng</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">Terminal</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Kiểu phông chữ Terminal</string>
+    <string name="terms_of_service" comment="Title for the Terms of Service legal document">Terms of Service</string>
     <string name="tertiary">Màu bổ sung</string>
     <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">Chế độ chủ đề</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">Các thư viện bên thứ ba</string>

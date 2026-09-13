@@ -11,7 +11,7 @@
     <string name="adb_command" comment="Input field label for typing an ADB shell command">コマンドを追加</string>
     <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">ADBコマンド (OFF状態)</string>
     <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">ADBコマンド (ON状態)</string>
-    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB 接続完了 — デバイスがサイドロードモードになっていることを確認してください</string>
+    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB が接続されています — デバイスがサイドロードモードになっていることを確認します</string>
     <string name="adb_connection_active" comment="Foreground notification title when an ADB connection (Wireless/OTG) is currently active">ADB 接続が有効です</string>
     <string name="adb_connection_channel_description" comment="Android notification channel description in System Settings for ADB connection status">ADB 接続がアクティブな時に表示</string>
     <string name="adb_connection_channel_name" comment="Android notification channel name in System Settings for active ADB connections">ADB 接続</string>
@@ -39,14 +39,14 @@
     <string name="ai_chat_pin" comment="Action button to pin an AI chat conversation to top of list">トップ</string>
     <string name="ai_chat_running" comment="Prefix label in AI chat card indicating an ADB command is currently executing">実行中: </string>
     <string name="ai_chat_sessions" comment="Header title for stored AI chat conversations list">チャットセッション</string>
-    <string name="ai_chat_thoughts" comment="Collapsible section title showing step-by-step reasoning/thinking of AI model">思考プロセス…</string>
+    <string name="ai_chat_thoughts" comment="Collapsible section title showing step-by-step reasoning/thinking of AI model">…</string>
     <string name="ai_chat_unpin" comment="Action button to unpin a pinned AI chat session">キャンセルトップ</string>
     <string name="ai_models" comment="Settings header for configuring AI models and API credentials">AI &amp; モデル</string>
     <string name="ai_new_chat_welcome_msg" comment="Initial welcome message from AI ADB Agent when starting a new chat session">こんにちは、何かお手伝いできますか？</string>
     <string name="ai_prompt_suggestion_1" comment="Clickable suggestion chip prompt in AI chat for checking battery health">バッテリーの健康状態をチェックする</string>
     <string name="ai_prompt_suggestion_2" comment="Clickable suggestion chip prompt in AI chat for listing installed package names">インストールされているすべてのパッケージを一覧表示する</string>
     <string name="ai_prompt_suggestion_3" comment="Clickable suggestion chip prompt in AI chat for creating Quick Settings tiles">クイック設定タイルの作成を手伝って</string>
-    <string name="ai_session_search_hint" comment="Placeholder text in AI chat session search bar">チャットを検索…</string>
+    <string name="ai_session_search_hint" comment="Placeholder text in AI chat session search bar">Search chat…</string>
     <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">例: サイバーパンクネオンシティ、ダークモード、ハイコントラスト</string>
     <string name="all">すべて</string>
     <string name="all_data" comment="Option in backup selector to include full app database, settings, and chat history">すべてのデータ</string>
@@ -84,7 +84,7 @@
     <string name="back">戻る</string>
     <string name="back_button" comment="Custom key bar button in terminal view simulating system back button press">戻る</string>
     <string name="background" comment="Material design theme surface/background color role label">背景</string>
-    <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">バックアップを作成中…</string>
+    <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">Backing up…</string>
     <string name="backup">バックアップ</string>
     <string name="backup_all_data" comment="Option in backup dialog to export all app database content and settings">すべてのデータをバックアップ</string>
     <string name="backup_and_restore" comment="Settings screen header for managing local and cloud backups">バックアップ&amp;復元</string>
@@ -116,12 +116,13 @@
     <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">ブートイメージ</string>
     <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">Fastbootで起動</string>
     <string name="btn_continue" comment="Action button label to proceed to next step in setup wizard">続行</string>
+    <string name="bundled" comment="Tab label in icon chooser for built-in icons that ship with the app">バンドル済み</string>
     <string name="cache_settings" comment="Settings section header for AI analysis response caching options">キャッシュ</string>
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">キャッシュサイズ: %s</string>
     <string name="cancel">キャンセル</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">すべてキャンセル</string>
     <string name="cancel_selection">選択をキャンセル</string>
-    <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">キャンセル中…</string>
+    <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">Cancelling…</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">更新履歴</string>
     <string name="changelogs" comment="Settings list item title for viewing version history logs">更新履歴</string>
     <string name="check_updates" comment="Action button in about screen to check GitHub or F-Droid for app updates">アップデートを確認</string>
@@ -161,7 +162,6 @@
     <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">ロック解除機能</string>
     <string name="code_pair_instruction" comment="Instructional text in Wireless Debugging pairing dialog directing user to open Wireless Debugging menu on target device">対象デバイスで「ワイヤレスデバッグ」を開き、「ペアリングコードとペアリングデバイス」をタップします</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">折りたたむ</string>
-    <string name="command_execution_failed" comment="Inline shell error shown when running a command fails unexpectedly. %1$s is the technical reason">コマンドに失敗しました: %1$s</string>
     <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">エラーが発生しました</string>
     <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">高エレベーション (ダイアログ)</string>
     <string name="color_preview_highest_elevation" comment="Sample label in theme editor showing highest elevation surface color (Bottom Sheet)">最高エレベーション (ボトムシート)</string>
@@ -211,6 +211,7 @@
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">コマンド分析</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">コマンドコンソール</string>
     <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">コマンド実行</string>
+    <string name="command_execution_failed" comment="Inline shell error shown when running a command fails unexpectedly. %1$s is the technical reason">コマンドに失敗しました: %1$s</string>
     <string name="command_logs" comment="Tab header for history log of executed fastboot commands">コマンドログ</string>
     <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">実行されたすべての fastboot コマンドの履歴。</string>
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">コマンドが見つかりません！</string>
@@ -236,7 +237,7 @@
     <string name="connect_via_wifi_adb" comment="Option in connection menu to connect via Wi-Fi Wireless Debugging">Wi-Fi ADB 経由で接続</string>
     <string name="connected" comment="Status badge showing device is successfully connected over ADB">接続されました</string>
     <string name="connected_device" comment="Header title for the currently active ADB target device information card">接続済みのデバイス</string>
-    <string name="connecting" comment="Progress status text shown while establishing ADB connection">接続しています…</string>
+    <string name="connecting" comment="Progress status text shown while establishing ADB connection">Connecting…</string>
     <string name="connection_error" comment="Toast notification or dialog title for ADB network connection errors">接続エラー</string>
     <string name="connection_failed" comment="Status banner or toast when ADB connection attempt fails">接続に失敗しました</string>
     <string name="connection_lost" comment="Dialog title shown when ADB Wireless Debugging connection is unexpectedly disconnected">接続が失われました</string>
@@ -247,7 +248,7 @@
     <string name="copied_items" comment="%1$d = number of items copied to clipboard">%1$d 個のアイテムをコピーしました</string>
     <string name="copied_to_clipboard" comment="Toast message shown after copying text or command to system clipboard">クリップボードにコピーしました！</string>
     <string name="copy">コピー</string>
-    <string name="copying" comment="Progress status text shown while copying files in file browser">コピー中…</string>
+    <string name="copying" comment="Progress status text shown while copying files in file browser">Copying…</string>
     <string name="copying_items" comment="%1$d = number of items being copied">%1$d個のアイテムをコピーしています</string>
     <string name="crash_details" comment="Screen title for inspecting stack trace details of a crash log">クラッシュの詳細</string>
     <string name="crash_history" comment="Settings menu title and screen header for viewing past application crash reports">クラッシュ履歴</string>
@@ -296,7 +297,6 @@
     <string name="des_backup_settings" comment="Description for app settings backup option">アプリの設定のみをバックアップ</string>
     <string name="des_behavior" comment="Description under Behavior item in settings menu">アプリの特定の動作を変更する</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">アプリの全ての変更履歴</string>
-    <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">デバイスは生体認証をサポートしていません</string>
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">ここをクリックしてアイコンコレクションからアイコンを選択します</string>
     <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">キャッシュされたすべてのAI解析応答を削除します</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">シェル出力をクリアする前に確認を求める</string>
@@ -325,6 +325,7 @@
     <string name="des_high_contrast_dark_mode" comment="Description under High contrast dark mode setting item">OLEDディスプレイ搭載デバイス向けの真っ黒なダークテーマ</string>
     <string name="des_hridayan" comment="Developer bio subtitle in About section">アプリとデザインが大好きな男</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">クイック設定パネルに表示されるときのタイルの固定された視覚状態</string>
+    <string name="des_legal_docs_updated" comment="Message shown in the dialog when legal docs are updated">当社のプライバシーポリシーと利用規約が更新されました。変更を確認するためにしばらくお待ちください。</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">アプリで使用されているライブラリとライセンスの詳細を表示</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">アプリとライブラリで使用されているライセンスを表示する</string>
     <string name="des_local_backup" comment="Description card text for local backup option">暗号化されたバックアップをデバイスに保存する</string>
@@ -338,7 +339,6 @@
     <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">テーマシードから色がどのように派生するかを選択してください</string>
     <string name="des_privacy_and_security" comment="Description for privacy and security settings">認証とアプリの権限</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">aShell あなたがあなたのデータを処理する方法</string>
-    <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">プライバシーポリシーが更新されました。変更内容を確認してください。</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">ADBコマンドを実行するためのクイック設定タイルを作成します</string>
     <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">AIエージェントにクイック設定タイルの作成、変更、削除を許可する</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">アプリ使用中に発生した問題やバグを教えてください</string>
@@ -352,6 +352,7 @@
     <string name="des_set_local_adb_as_default_launch" comment="Description under Set Local ADB as default launch setting">アプリの起動時にローカルADB画面を直接入力</string>
     <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">クラウドバックアップ用にGoogleアカウントをオプションでリンクする</string>
     <string name="des_smooth_scroll" comment="Description under Smooth scrolling setting toggle">上矢印または下矢印をクリックしたときにシェルのスムーズなスクロールを有効にします</string>
+    <string name="des_terms_of_service" comment="Subtitle description under Terms of Service menu item">aShell You を使用するためのルールとガイドライン</string>
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">有効にすると、タイルはタップごとにONとOFFの状態を切り替え、状態ごとに異なるコマンドを実行します</string>
     <string name="des_translators" comment="Subtitle description under Translators list in About section">aShellYouの翻訳に協力してくれた方々</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">UI要素とフォントサイズのスケールを調整します</string>
@@ -363,8 +364,7 @@
     <string name="developer" comment="Section title in About screen for lead developer info">開発者</string>
     <string name="developer_options" comment="System Developer Options setting item or prompt">開発者オプション</string>
     <string name="developer_options_not_available" comment="Toast error message when Developer options shortcut cannot be opened">開発者向けオプションは利用できません！</string>
-    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">まず「設定」→「デバイス情報」で「ビルド番号」を7回タップして、開発者向けオプションを有効にしてください。
-この方法で開発者向けオプションを有効にできない場合は、お使いの端末の手順をインターネットで検索してください。</string>
+    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">Enable Developer Options first by tapping Build Number 7 times in Settings → About Phone\nIf this method to turn on Developer options does not work, then you can search the instructions for your device on the internet.</string>
     <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">開発者向けオプションが必要</string>
     <string name="device_backup_local" comment="Label for local device storage backup file">デバイスバックアップ (ローカル)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">デバイスが接続されました！</string>
@@ -374,6 +374,7 @@
     <string name="device_disconnected_message_with_name" comment="%s = device name">\"%s\" は切断されました。</string>
     <string name="device_found" comment="Status banner when an ADB/Wireless Debugging device service is discovered on local network">デバイスが見つかりました！</string>
     <string name="device_info" comment="Screen header or navigation item for target device hardware/OS specifications">端末情報</string>
+    <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">デバイスは生体認証をサポートしていません</string>
     <string name="disable_softkey" comment="Setting toggle title to hide soft keyboard during shell session">ソフトキーボードを無効にする</string>
     <string name="disclaimer" comment="Section title in About screen for legal disclaimer notices">免責事項</string>
     <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">ADB コマンドを実行すると、システム設定の変更、ファイルの管理、デバイスの安定性に影響する可能性のある操作を実行できます。\nこのアプリを使用して行われた変更については、お客様のみが責任を負います。</string>
@@ -393,8 +394,10 @@
     <string name="done">完了</string>
     <string name="download">ダウンロード</string>
     <string name="download_failed" comment="Toast message when in-app updater APK download fails">ダウンロードに失敗しました</string>
-    <string name="downloading" comment="Progress status text while downloading update package">ダウンロード中…</string>
-    <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Google ドライブからバックアップをダウンロードしています…</string>
+    <string name="download_material_icons" comment="Button label to download the Material Icons font pack for QS tile icon chooser">マテリアルアイコンをダウンロード</string>
+    <string name="downloading" comment="Progress status text while downloading update package">Downloading…</string>
+    <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Downloading backup from Google Drive…</string>
+    <string name="downloading_icon_pack" comment="Progress status text while downloading Material Icons font for QS tile icon chooser">Downloading icon pack…</string>
     <string name="downloads" comment="Screen header or list item for downloaded files">ダウンロード</string>
     <string name="duplicate_tile_name_error_msg" comment="Validation error in Quick Settings tile builder when entered tile name already exists">この名前のフォルダは既に存在します</string>
     <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">ダイナミックカラー</string>
@@ -417,7 +420,7 @@
     <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">これにより、%1$s パーティションが完全に消去されます。この操作は元に戻せません。</string>
     <string name="erase_confirm_title" comment="%1$s = partition name. Dialog title for partition erase confirmation">%1$s を消去しますか？</string>
     <string name="erase_partition" comment="Action button to trigger fastboot partition erase">消去</string>
-    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">消去中…</string>
+    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Erasing…</string>
     <string name="error">エラー</string>
     <string name="error_labels_limit_reached" comment="Validation error when maximum number of custom command labels/tags is reached">ラベルの上限に達しました</string>
     <string name="exclude" comment="Filter toggle option to exclude selected package or item">除外</string>
@@ -431,7 +434,7 @@
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; リカバリー</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">近日公開</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">コマンドコンソール</string>
-    <string name="fastboot_command_hint" comment="Placeholder hint in fastboot command input field">Fastbootコマンドを入力…</string>
+    <string name="fastboot_command_hint" comment="Placeholder hint in fastboot command input field">Enter fastboot command…</string>
     <string name="fastboot_device_info" comment="Card header displaying target device variables queried over fastboot">デバイス情報</string>
     <string name="fastboot_partitions" comment="Tab title for Fastboot partition manager tool">パーティション</string>
     <string name="fastboot_quick_actions" comment="Section header for predefined quick fastboot action buttons">クイックツール</string>
@@ -462,8 +465,8 @@
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">ファイルが正常にアップロードされました</string>
     <string name="fb_uploading" comment="%1$s = file name">%1$sをアップロード中</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">機能リクエスト</string>
-    <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">バックアップ時間を取得中…</string>
-    <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">バックアップタイプを取得中…</string>
+    <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Fetching backup time …</string>
+    <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Fetching backup type…</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">フィールドは空白にできません</string>
     <string name="file">ファイル</string>
     <string name="file_actions" comment="Bottom sheet title for file operations (copy, move, delete, rename)">ファイル操作</string>
@@ -476,7 +479,7 @@
     <string name="filter">フィルター</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">ラベルでフィルター</string>
     <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">パーティションのフラッシュ</string>
-    <string name="flashing" comment="Progress status header while partition flashing is in progress">フラッシング中…</string>
+    <string name="flashing" comment="Progress status header while partition flashing is in progress">Flashing…</string>
     <string name="folder">フォルダ</string>
     <string name="folder_already_exists" comment="Validation error when creating a directory with duplicate name">この名前のフォルダは既に存在します</string>
     <string name="folder_conflict_title" comment="Dialog header when creating folder collides with existing folder name">フォルダは既に存在します</string>
@@ -549,6 +552,8 @@
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">開発者</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">最小限使用</string>
     <string name="legal_and_policies" comment="Group header for legal settings">法的情報 &amp; ポリシー</string>
+    <string name="legal_consent_text">%1$s と %2$s を読み、同意します。</string>
+    <string name="legal_docs_updated" comment="Title for the dialog shown when legal docs are updated">法的ポリシーが更新されました</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">レベル</string>
     <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">ライブラリ &amp; ライセンス</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d 個のライブラリが見つかりました</string>
@@ -558,8 +563,8 @@
     <string name="load" comment="Action button to load command templates into database">読み込む</string>
     <string name="load_predefined_commands" comment="Button label in fastboot screen to load preset fastboot commands">定義済みのコマンドを読み込む</string>
     <string name="loading">読み込み中</string>
-    <string name="loading_device_info" comment="Progress status text while querying ADB device specifications">デバイス情報を読み込み中…</string>
-    <string name="loading_licenses" comment="Progress status text while loading open-source license files">ライセンス情報を読み込み中…</string>
+    <string name="loading_device_info" comment="Progress status text while querying ADB device specifications">Loading device info…</string>
+    <string name="loading_licenses" comment="Progress status text while loading open-source license files">Loading license information…</string>
     <string name="local_adb" comment="Connection mode option: run ADB commands locally on host device using Shizuku or Root">ローカルADB</string>
     <string name="local_adb_shell" comment="Screen header for local device ADB shell terminal">ローカル ADB シェル</string>
     <string name="local_adb_summary" comment="Summary text for local ADB feature card">Shizukuまたはrootを使用して、デバイス上で直接ADBコマンドを実行します。</string>
@@ -569,7 +574,7 @@
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">ログがクリアされました</string>
     <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">パッケージ</string>
     <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">ログレベル</string>
-    <string name="logcat_filter_search_hint" comment="Placeholder text in logcat search bar">メッセージを検索…</string>
+    <string name="logcat_filter_search_hint" comment="Placeholder text in logcat search bar">Search in messages…</string>
     <string name="logcat_is_running" comment="Status banner shown while background logcat collection is active">Logcat が実行中です</string>
     <string name="logcat_ive_granted_it" comment="Button in logcat permission dialog confirming user ran ADB grant command on PC">許可しました</string>
     <string name="logcat_no_logs" comment="Placeholder text in logcat screen when no log entries match current filters">ログはまだありません</string>
@@ -582,25 +587,27 @@
     <string name="logcat_running_description" comment="Notification body text shown while logcat runs in background">aShellYou がバックグラウンドでシステムログを収集しています</string>
     <string name="logcat_shortcut_long_label" comment="App launcher shortcut label for launching directly into Logcat Viewer">Logcat ビューアを開く</string>
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Logcat ソース</string>
-    <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">▶をタップして logcat を開始する</string>
+    <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">▶️ をタップしてlogcat を開始</string>
     <string name="logs" comment="Screen header or tab title for application and execution log views">ログ</string>
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">見た目&amp;触覚</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">低</string>
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">コントラスト比が低すぎます</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">テーマを作成する</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">手動ペア</string>
+    <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">マテリアルアイコン</string>
+    <string name="material_icons_description" comment="Informational text in icon chooser explaining the Material Icons download">〜380KBを一度ダウンロードして2,500以上のマテリアルアイコンを閲覧する</string>
     <string name="max_download_size" comment="Setting label for capping maximum update download file size">ダウンロード</string>
     <string name="medium">中</string>
     <string name="merge" comment="Resolution option in file browser conflict dialog to merge directory contents">結合</string>
     <string name="message">メッセージ</string>
-    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">ADBエージェントにメッセージを送る…</string>
+    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">ADB エージェント</string>
     <string name="minimize" comment="Action button to minimize terminal overlay window">最小化</string>
     <string name="mode" comment="Header title for ADB execution engine mode selector">モード</string>
     <string name="mode_one_desc" comment="Description for Root execution engine option in settings">Rootアクセスを使用してコマンドを実行します。</string>
     <string name="mode_two_desc" comment="Description for Shizuku execution engine option in settings">コマンドを実行するにはShizukuを使用します。Rootが必要なコマンドは実行されません。</string>
-    <string name="model_category_large" comment="AI model size category label">大 (1.5～2.5 GB)</string>
-    <string name="model_category_medium" comment="AI model size category label">中 (800 MB～1.1 GB)</string>
-    <string name="model_category_small" comment="AI model size category label">小 (300～500 MB)</string>
+    <string name="model_category_large" comment="AI model size category label">大 (1.5-2.5 GB)</string>
+    <string name="model_category_medium" comment="AI model size category label">Medium (800 MB - 1.1 GB)</string>
+    <string name="model_category_small" comment="AI model size category label">小 (300～500MB)</string>
     <string name="model_category_tiny" comment="AI model size category label">極小 (300 MB未満)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">モデル</string>
     <string name="modified" comment="File property: last modified date">修正されました</string>
@@ -608,7 +615,7 @@
     <string name="more">もっと見る</string>
     <string name="most_used" comment="Sorting option for commands or bookmarks list">最大使用</string>
     <string name="move">移動</string>
-    <string name="moving" comment="Progress status text shown while moving files in file browser">移動中…</string>
+    <string name="moving" comment="Progress status text shown while moving files in file browser">Moving…</string>
     <string name="moving_items" comment="%1$d = number of items being moved">%1$d個のアイテムを移動中</string>
     <string name="n_days" comment="%d = number of days for cache duration setting">%d 日</string>
     <string name="name">名前</string>
@@ -674,7 +681,7 @@
     <string name="other_details" comment="Expandable card title for additional device metadata details">クラッシュの詳細</string>
     <string name="other_device" comment="Selection tab for target device in Logcat Viewer">保存されたデバイス</string>
     <string name="output" comment="Header title for shell command output window">出力</string>
-    <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">出力はここに表示されます…</string>
+    <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">Output will appear here…</string>
     <string name="override_bookmarks_limit" comment="Setting toggle title to remove the maximum limit on saved bookmarks count">ブックマークの上限をオーバーライドする</string>
     <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">パッケージ名</string>
     <string name="packages" comment="Title for the packages skill toggle in AI settings">パッケージ</string>
@@ -726,7 +733,6 @@
     <string name="primary_container">プライマリコンテナ</string>
     <string name="privacy_and_security" comment="Title for the privacy and security settings screen">プライバシー &amp; セキュリティ</string>
     <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">プライバシーポリシー</string>
-    <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">プライバシーポリシーを更新しました</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">製品</string>
     <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">リカバリメニューからデバイスをサイドロードモードにする</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">QRコードペアリング</string>
@@ -735,7 +741,7 @@
     <string name="qs_tiles" comment="Refers to Android System Quick Settings tiles configured for custom ADB scripts">設定のリセットに失敗しました</string>
     <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">クイック設定タイル</string>
     <string name="quick_tools" comment="Section header for fast access utility tools">クイックツール</string>
-    <string name="reading_file" comment="Progress status text while loading file contents into viewer">ファイルを読み込み中…</string>
+    <string name="reading_file" comment="Progress status text while loading file contents into viewer">Reading file…</string>
     <string name="ready_to_paste" comment="Status message in file manager when item is stored in paste clipboard">ペーストする準備ができました</string>
     <string name="reboot_bootloader" comment="Action button / dialog choice to reboot target device into bootloader mode">ブートローダーに再起動</string>
     <string name="reboot_confirm_message" comment="%1$s = target boot mode (e.g. recovery, bootloader). Confirmation prompt before rebooting target device">接続されたデバイスが %1$s に再起動します。続行しますか？</string>
@@ -776,7 +782,7 @@
     <string name="restore_failed" comment="Toast error message when restoring app data fails">復元に失敗しました</string>
     <string name="restore_from" comment="Dialog header prompting user to select restore source (Local File or Google Drive)">復元元</string>
     <string name="restore_successful" comment="Toast message confirming successful app data restoration">正常に復元しました</string>
-    <string name="restoring_backup" comment="Progress status text shown while restoring database from backup">バックアップを復元中…</string>
+    <string name="restoring_backup" comment="Progress status text shown while restoring database from backup">Restoring backup…</string>
     <string name="resume" comment="Action button to resume paused logcat streaming or file download">再開</string>
     <string name="retry" comment="Action button to retry failed network connection or command execution">再試行する</string>
     <string name="root_access_granted" comment="Toast notification confirming superuser root access granted to aShellYou">ルートアクセスを許可しました！</string>
@@ -789,29 +795,29 @@
     <string name="running" comment="Status badge showing task or command execution is active">実行中</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">保存</string>
-    <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">プロファイルとして保存…</string>
+    <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">Save as profile…</string>
     <string name="save_changes" comment="Action button to persist edited settings or tile parameters">変更を保存</string>
     <string name="save_key" comment="Button label to save entered API key string in settings">キーを保存</string>
     <string name="save_whole_output" comment="Setting toggle title to export full terminal session output to file">出力全体を保存</string>
     <string name="saved_devices" comment="Screen title and list header for paired ADB devices history">保存されたデバイス</string>
-    <string name="saving" comment="Progress status text while saving file or settings">保存中…</string>
-    <string name="saving_output" comment="Progress status text while exporting terminal log output to file">出力をファイルにエクスポート中…</string>
+    <string name="saving" comment="Progress status text while saving file or settings">Saving…</string>
+    <string name="saving_output" comment="Progress status text while exporting terminal log output to file">Exporting output to file…</string>
     <string name="schedule" comment="Header title or setting label for automated backup schedule picker">スケジュール</string>
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">画面密度の倍率</string>
     <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">一番下までスクロール</string>
     <string name="search">検索</string>
     <string name="search_bookmarks_here" comment="Placeholder text in bookmarks tab search bar">ここでコマンドを検索</string>
     <string name="search_commands_here" comment="Placeholder text in command templates tab search bar">ここでコマンドを検索</string>
-    <string name="search_fonts" comment="Placeholder text in font family picker search bar">フォントを検索…</string>
+    <string name="search_fonts" comment="Placeholder text in font family picker search bar">Search fonts…</string>
     <string name="search_icons_here" comment="Placeholder text in Quick Settings tile icon picker search bar">ここでコマンドを検索</string>
     <string name="search_labels_here" comment="Placeholder text in command label filter search bar">ここにラベルを検索</string>
-    <string name="search_libraries" comment="Placeholder text in open-source licenses search bar">ライブラリ、作者、ライセンスを検索…</string>
+    <string name="search_libraries" comment="Placeholder text in open-source licenses search bar">Search libraries, authors, licenses…</string>
     <string name="search_output" comment="Placeholder text in terminal output search bar">ここで出力を検索</string>
     <string name="search_settings" comment="Placeholder text in settings top search bar">システム設定</string>
     <string name="search_something" comment="Generic search field placeholder prompt">何かを検索</string>
-    <string name="search_variables" comment="Placeholder text in fastboot variables explorer search bar">変数を検索…</string>
+    <string name="search_variables" comment="Placeholder text in fastboot variables explorer search bar">Search variables…</string>
     <string name="searching_connect_service" comment="Status message while discovering ADB mDNS connection service on local network">接続サービスを検索中</string>
-    <string name="searching_for_devices" comment="Progress status text while scanning for local Wireless Debugging or OTG ADB target devices">デバイスを検索中…</string>
+    <string name="searching_for_devices" comment="Progress status text while scanning for local Wireless Debugging or OTG ADB target devices">Searching for devices…</string>
     <string name="secondary">セカンダリ</string>
     <string name="security_patch" comment="Device property label displaying Android security patch level date">セキュリティパッチ</string>
     <string name="select">選択</string>
@@ -832,10 +838,10 @@
     <string name="self_pair_error_saving" comment="Toast error message when storing self-paired device credentials fails">デバイスの保存エラー</string>
     <string name="self_pair_failed" comment="Toast notification when local self-pairing operation fails">ペアリングに失敗しました</string>
     <string name="self_pair_found" comment="Status message when local device mDNS ADB pairing service is detected">ペアリングサービスが見つかりました！</string>
-    <string name="self_pair_in_progress" comment="Progress status text shown while establishing local ADB self-pairing connection">ペアリング中…</string>
+    <string name="self_pair_in_progress" comment="Progress status text shown while establishing local ADB self-pairing connection">Pairing in progress…</string>
     <string name="self_pair_in_progress_hint" comment="Instructional hint displayed during local ADB self-pairing">このデバイスに接続している間しばらくお待ちください</string>
     <string name="self_pair_pairing_not_found" comment="Error notification when mDNS ADB pairing service is not broadcasting">ペアリングサービスが見つかりません</string>
-    <string name="self_pair_searching" comment="Progress status text while scanning for local mDNS pairing service">ペアリングサービスを検索しています…</string>
+    <string name="self_pair_searching" comment="Progress status text while scanning for local mDNS pairing service">Searching for pairing service…</string>
     <string name="self_pair_searching_hint" comment="Instructional prompt directing user to open Wireless Debugging pairing dialog">ワイヤレスデバッグを開き、「ペアリングコードとデバイスをペアリング」をタップしてください</string>
     <string name="self_pair_success" comment="Toast confirmation message when local ADB self-pairing succeeds">このデバイスに接続しました！</string>
     <string name="self_pair_success_hint" comment="Subtext banner confirming local ADB terminal session is ready">ローカル ADB シェルが利用可能になりました</string>
@@ -856,12 +862,12 @@
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizukuは使用できません</string>
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">シズクまたはシズク+がインストールされていないか、正しく設定されていません</string>
     <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">リカバリ経由でデバイスをサイドロードモードにする</string>
-    <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">サイドロードモード — 準備完了</string>
+    <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Sideload mode — 準備完了</string>
     <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">リカバリモードで起動します (音量小 + 電源ボタンを長押しするか、adb reboot recovery を実行します)</string>
     <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">リカバリメニューの「Apply update」に移動します</string>
     <string name="sideload_step_3" comment="Step 3 of ADB sideload guide: selecting ADB sideload mode in recovery">「Apply from ADB」(または「ADB Sideload」) を選択します</string>
     <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">OTG ケーブルでデバイスを接続し、ここで ZIP を選択します</string>
-    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">サイドロード中…</string>
+    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Sideloading…</string>
     <string name="sign_in_failed" comment="Toast error message when Google account sign-in fails">Google サインインに失敗しました</string>
     <string name="sign_in_with_google" comment="Button label in cloud backup settings to sign into Google account">Google でサインイン</string>
     <string name="sign_out" comment="Button label in cloud backup settings to sign out of Google account">サインアウト</string>
@@ -905,6 +911,7 @@
     <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">TCPモードが利用できません</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">ターミナル</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">端末のフォントスタイル</string>
+    <string name="terms_of_service" comment="Title for the Terms of Service legal document">利用規約</string>
     <string name="tertiary">ターシャリー</string>
     <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">テーマモード</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">サードパーティライブラリ</string>
@@ -946,8 +953,8 @@
     <string name="update_available" comment="Banner title announcing a new application update release">アップデートがあります！</string>
     <string name="update_channel" comment="Settings preference title for choosing update channel (Stable, Pre-release, F-Droid)">チャンネルをアップデート</string>
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">ファイルをアップロード</string>
-    <string name="uploading" comment="Progress status text shown while uploading file to device">アップロード中…</string>
-    <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Google ドライブにバックアップをアップロード中…</string>
+    <string name="uploading" comment="Progress status text shown while uploading file to device">Uploading…</string>
+    <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Uploading backup to Google Drive…</string>
     <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB は開発者向けオプションで USB デバッグを有効にする必要があります</string>
     <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">USBデバッグが必要です</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">このデバイスでは USB マネージャーを利用できません</string>
@@ -965,7 +972,7 @@
     <string name="view_on_github" comment="Button linking to GitHub release page or commit diff">GitHub で表示</string>
     <string name="visit_repo_to_download" comment="Instructions directing user to download the update APK file from GitHub releases">ダウンロードボタンをクリックして、githubリポジトリから最新バージョンのaShellYouを取得します。</string>
     <string name="waiting_for_device" comment="Progress status banner while awaiting target device USB OTG attachment">デバイスを待っています</string>
-    <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">デバイスを待っています…</string>
+    <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">Waiting for devices…</string>
     <string name="want_to_contribute_too" comment="Call-to-action banner in About screen inviting code or translation contributions">貢献したいですか？</string>
     <string name="weekly" comment="Option in backup scheduler frequency selection">毎週</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">%1$sの間、何をしますか？</string>

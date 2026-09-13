@@ -39,14 +39,14 @@
     <string name="ai_chat_pin" comment="Action button to pin an AI chat conversation to top of list">Sabitle</string>
     <string name="ai_chat_running" comment="Prefix label in AI chat card indicating an ADB command is currently executing">Çalışıyor: </string>
     <string name="ai_chat_sessions" comment="Header title for stored AI chat conversations list">Sohbet Oturumları</string>
-    <string name="ai_chat_thoughts" comment="Collapsible section title showing step-by-step reasoning/thinking of AI model">Düşünceler…</string>
+    <string name="ai_chat_thoughts" comment="Collapsible section title showing step-by-step reasoning/thinking of AI model">Thoughts…</string>
     <string name="ai_chat_unpin" comment="Action button to unpin a pinned AI chat session">Sabitlemeyi Kaldır</string>
     <string name="ai_models" comment="Settings header for configuring AI models and API credentials">AI &amp; Modeller</string>
     <string name="ai_new_chat_welcome_msg" comment="Initial welcome message from AI ADB Agent when starting a new chat session">Merhaba, size nasıl yardımcı olabilirim?</string>
     <string name="ai_prompt_suggestion_1" comment="Clickable suggestion chip prompt in AI chat for checking battery health">Pilimin durumunu kontrol et</string>
     <string name="ai_prompt_suggestion_2" comment="Clickable suggestion chip prompt in AI chat for listing installed package names">Tüm yüklü paketlerin listesi</string>
     <string name="ai_prompt_suggestion_3" comment="Clickable suggestion chip prompt in AI chat for creating Quick Settings tiles">Hızlı Ayarlar kutucuğu oluşturmama yardımcı ol</string>
-    <string name="ai_session_search_hint" comment="Placeholder text in AI chat session search bar">Sohbette ara…</string>
+    <string name="ai_session_search_hint" comment="Placeholder text in AI chat session search bar">Search chat…</string>
     <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">örnek: Siberpunk neon şehir, karanlık mod, yüksek kontrast</string>
     <string name="all">Tümü</string>
     <string name="all_data" comment="Option in backup selector to include full app database, settings, and chat history">Tüm veriler</string>
@@ -61,22 +61,22 @@
     <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">AI özelliklerini kullanmak için bir API anahtarı gereklidir. Lütfen API anahtarınızı Ayarlar -&gt; Bulut Modelleri bölümüne ekleyin.</string>
     <string name="app">Uygulama</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">Uygulama çöktü</string>
-    <string name="app_is_locked" comment="Title shown when the app is locked">App is locked</string>
-    <string name="app_is_locked_msg" comment="Message shown when the app is locked">Use your screen lock, fingerprint, or face to unlock this app and continue</string>
-    <string name="app_lock_disabled_msg" comment="Toast message informing user that app lock was disabled because device screen lock was removed">App authentication disabled: Device screen lock was removed.</string>
-    <string name="app_lock_setup_error_msg" comment="Dialog message when user tries to enable app lock but has no device screen lock configured">No device screen lock is configured. Please set up a screen lock or biometric in your device settings to enable App Lock.</string>
-    <string name="app_permissions" comment="Title for app permissions shortcut">App permissions</string>
+    <string name="app_is_locked" comment="Title shown when the app is locked">Uygulama kilitli</string>
+    <string name="app_is_locked_msg" comment="Message shown when the app is locked">Bu uygulamanın kilidini açıp devam etmek için ekran kilidinizi, parmak izinizi veya yüzünüzü kullanın</string>
+    <string name="app_lock_disabled_msg" comment="Toast message informing user that app lock was disabled because device screen lock was removed">Uygulama kimlik doğrulaması devre dışı bırakıldı: Cihaz ekran kilidi kaldırıldı.</string>
+    <string name="app_lock_setup_error_msg" comment="Dialog message when user tries to enable app lock but has no device screen lock configured">Yapılandırılmış cihaz ekran kilidi yok. Uygulama Kilidi\'ni etkinleştirmek için lütfen cihaz ayarlarınızdan bir ekran kilidi veya biyometri ayarlayın.</string>
+    <string name="app_permissions" comment="Title for app permissions shortcut">Uygulama izinleri</string>
     <string name="app_tagline" comment="App subtitle/tagline shown on welcome and about screens">ADB parmaklarınızın ucunda</string>
     <string name="apply">Uygula</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">Tümüne uygula (Kalan: %1$d)</string>
     <string name="artifact_id" comment="Technical label for AI artifact identifier in developer options">Yapı Kimliği</string>
-    <string name="authenticate" comment="Group header for authentication settings">Authenticate</string>
-    <string name="authentication_timeout" comment="Title for authentication timeout setting">Authentication timeout</string>
+    <string name="authenticate" comment="Group header for authentication settings">Kimlik doğrula</string>
+    <string name="authentication_timeout" comment="Title for authentication timeout setting">Kimlik doğrulama zaman aşımı</string>
     <string name="auto" comment="Selection option for automatic theme/mode handling">Otomatik</string>
     <string name="auto_backup" comment="Setting toggle title for scheduled automatic backups">Otomatik yedekleme</string>
     <string name="auto_backup_content_type" comment="Setting title for selecting items to include in automatic backups">Yedekleme içeriği</string>
     <string name="auto_backup_folder" comment="Setting title for selecting target local folder for automatic backups">Yedekleme klasörü</string>
-    <string name="auto_clear_cache">Auto clear cache</string>
+    <string name="auto_clear_cache">Önbelleği otomatik temizle</string>
     <string name="auto_dark_mode" comment="Setting toggle title to enable dark mode automatically when battery saver is active">Otomatik karanlık mod</string>
     <string name="auto_delete_existing_backups" comment="Setting toggle title to delete older backup files when a new backup is created">Eski yedeklemeleri otomatik olarak sil</string>
     <string name="auto_scale_ui" comment="Setting toggle title to automatically scale UI based on device screen width">Kullanıcı arayüzünü otomatik ölçeklendirin</string>
@@ -84,7 +84,7 @@
     <string name="back">Geri</string>
     <string name="back_button" comment="Custom key bar button in terminal view simulating system back button press">Geri butonu</string>
     <string name="background" comment="Material design theme surface/background color role label">Arkaplan</string>
-    <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">Yedekleniyor…</string>
+    <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">Backing up…</string>
     <string name="backup">Yedekle</string>
     <string name="backup_all_data" comment="Option in backup dialog to export all app database content and settings">Tüm verileri yedekle</string>
     <string name="backup_and_restore" comment="Settings screen header for managing local and cloud backups">Yedekle ve geri yükle</string>
@@ -106,9 +106,9 @@
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">Pil</string>
     <string name="battery_saver" comment="Device system battery saver mode label">Pil tasarrufu</string>
     <string name="behavior" comment="Settings category title for application behavior preferences">Davranış</string>
-    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">Confirm your screen lock to continue</string>
-    <string name="biometric_prompt_title" comment="Title for the biometric authentication prompt">Unlock aShellYou</string>
-    <string name="biometrics_disabled_msg" comment="Toast message when biometric data is removed from device settings">App biometrics disabled: Biometric data was removed from device.</string>
+    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">Devam etmek için ekran kilidinizi onaylayın</string>
+    <string name="biometric_prompt_title" comment="Title for the biometric authentication prompt">aShellYou kilidini aç</string>
+    <string name="biometrics_disabled_msg" comment="Toast message when biometric data is removed from device settings">Uygulama biyometrisi devre dışı bırakıldı: Cihazdan biyometrik veriler kaldırıldı.</string>
     <string name="block" comment="Action button to block execution or permissions">Engelle</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">Maksimum yer imi sınırına ulaşıldı! Yenilerini eklemek için bazı yer imlerini silin</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">Yer İmleri</string>
@@ -116,12 +116,13 @@
     <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">Boot İmajı</string>
     <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">Fastboot moduna geçin</string>
     <string name="btn_continue" comment="Action button label to proceed to next step in setup wizard">Devam et</string>
+    <string name="bundled" comment="Tab label in icon chooser for built-in icons that ship with the app">Bundled</string>
     <string name="cache_settings" comment="Settings section header for AI analysis response caching options">Önbellek</string>
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Önbellek Boyutu: %s</string>
     <string name="cancel">İptal</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">Tümünü iptal et</string>
     <string name="cancel_selection">Seçimi iptal et</string>
-    <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">İptal ediliyor…</string>
+    <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">Cancelling…</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">Değişiklik Notları</string>
     <string name="changelogs" comment="Settings list item title for viewing version history logs">Değişiklik Günlükleri</string>
     <string name="check_updates" comment="Action button in about screen to check GitHub or F-Droid for app updates">Güncellemeleri denetle</string>
@@ -161,7 +162,6 @@
     <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">Kilit Açma Yeteneği</string>
     <string name="code_pair_instruction" comment="Instructional text in Wireless Debugging pairing dialog directing user to open Wireless Debugging menu on target device">Hedef cihazda \"Kablosuz hata ayıklama\"yı açın ve \"Cihazı eşleştirme koduyla eşleştir\" seçeneğine dokunun</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">Daralt</string>
-    <string name="command_execution_failed" comment="Inline shell error shown when running a command fails unexpectedly. %1$s is the technical reason">Command failed: %1$s</string>
     <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">Hata oluştu</string>
     <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">Yüksek Rakım (Diyalog)</string>
     <string name="color_preview_highest_elevation" comment="Sample label in theme editor showing highest elevation surface color (Bottom Sheet)">En Yüksek Rakım (Alt Sayfa)</string>
@@ -211,6 +211,7 @@
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">Komut analizi</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">Komut Konsolu</string>
     <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">Komut Yürütme</string>
+    <string name="command_execution_failed" comment="Inline shell error shown when running a command fails unexpectedly. %1$s is the technical reason">Komut başarısız oldu: %1$s</string>
     <string name="command_logs" comment="Tab header for history log of executed fastboot commands">Komut Günlükleri</string>
     <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">Çalıştırılan tüm fastboot komutlarının geçmişi.</string>
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Komut bulunamadı!</string>
@@ -234,7 +235,7 @@
     <string name="connect_via_wifi_adb" comment="Option in connection menu to connect via Wi-Fi Wireless Debugging">Wi-Fi ADB üzerinden bağlanın</string>
     <string name="connected" comment="Status badge showing device is successfully connected over ADB">Bağlanıldı</string>
     <string name="connected_device" comment="Header title for the currently active ADB target device information card">Bağlı cihaz</string>
-    <string name="connecting" comment="Progress status text shown while establishing ADB connection">Bağlanılıyor…</string>
+    <string name="connecting" comment="Progress status text shown while establishing ADB connection">Connecting…</string>
     <string name="connection_error" comment="Toast notification or dialog title for ADB network connection errors">Bağlantı hatası</string>
     <string name="connection_failed" comment="Status banner or toast when ADB connection attempt fails">Bağlantı başarısız</string>
     <string name="connection_lost" comment="Dialog title shown when ADB Wireless Debugging connection is unexpectedly disconnected">Bağlantı Kesildi</string>
@@ -245,7 +246,7 @@
     <string name="copied_items" comment="%1$d = number of items copied to clipboard">%1$d öge kopyalandı</string>
     <string name="copied_to_clipboard" comment="Toast message shown after copying text or command to system clipboard">Panoya kopyalandı!</string>
     <string name="copy">Kopyala</string>
-    <string name="copying" comment="Progress status text shown while copying files in file browser">Kopyalanıyor…</string>
+    <string name="copying" comment="Progress status text shown while copying files in file browser">Copying…</string>
     <string name="copying_items" comment="%1$d = number of items being copied">%1$d öge kopyalanıyor</string>
     <string name="crash_details" comment="Screen title for inspecting stack trace details of a crash log">Çökme ayrıntıları</string>
     <string name="crash_history" comment="Settings menu title and screen header for viewing past application crash reports">Çökme geçmişi</string>
@@ -278,11 +279,11 @@
     <string name="des_ai_cache_days" comment="Description under Cache duration setting in AI settings">Önbelleğe alınmış sonuçların gün olarak saklanma süresi</string>
     <string name="des_ai_cache_enabled" comment="Description under Enable cache setting in AI settings">Modele göre önbellek analizi sonuçları</string>
     <string name="des_ai_models" comment="Description under AI &amp; Models item in settings">AI modelleri verilerini ve API anahtarlarını yönetin</string>
-    <string name="des_app_permissions" comment="Description for app permissions shortcut">Manage Android system permissions for the app</string>
+    <string name="des_app_permissions" comment="Description for app permissions shortcut">Uygulama için Android sistem izinlerini yönetin</string>
     <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">Otomatik yedeklemelere neleri dahil edeceğinizi seçin</string>
     <string name="des_auto_backup_folder" comment="Description under Backup folder setting">Otomatik yedeklemelerin kaydedileceği klasörü seçin</string>
     <string name="des_auto_backup_time" comment="Description under Backup time setting">Otomatik yedeklemeler için zamanı ayarlayın</string>
-    <string name="des_auto_clear_ai_cache">Automatically clears AI analysis cache when the cache duration expires</string>
+    <string name="des_auto_clear_ai_cache">Önbellek süresi dolduğunda yapay zekâ analiz önbelleğini otomatik olarak temizler</string>
     <string name="des_auto_dark_mode" comment="Description under Auto dark mode setting">Pil tasarrufu etkinleştirildiğinde otomatik olarak karanlık moda geç</string>
     <string name="des_auto_delete_existing_backups" comment="Description under Auto-delete old backups setting">Yeni bir otomatik yedekleme kaydedildiğinde eski yedeklemeler silinir</string>
     <string name="des_auto_scale_ui" comment="Description under Auto scale UI setting">Kullanıcı arayüzünü, cihazın en küçük genişliğine göre otomatik olarak ölçeklendirir</string>
@@ -294,7 +295,6 @@
     <string name="des_backup_settings" comment="Description for app settings backup option">Yalnızca uygulama ayarları tercihlerini yedekle</string>
     <string name="des_behavior" comment="Description under Behavior item in settings menu">Uygulamanın belirli davranışlarını değiştir</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">Uygulamada yapılan tüm değişikliklerin geçmişi</string>
-    <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">Device does not support biometric authentication</string>
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">Simge koleksiyonundan bir simge seçmek için buraya tıklayın</string>
     <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">Önbelleğe alınmış tüm AI analiz yanıtlarını sil</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">Shell çıktısını temizlemeden önce onay iste</string>
@@ -306,7 +306,7 @@
     <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">Uygulamanın koyu renk şemasını ne zaman kullanacağını seçin</string>
     <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">AI ajanının veritabanı ögelerini eklemesine, değiştirmesine veya silmesine izin ver</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">Uygulama için varsayılan dili seçin</string>
-    <string name="des_device_diagnostics" comment="Description explaining that this skill allows the AI to check device status">Allow the AI agent to check battery, memory, storage, hardware, and network status natively</string>
+    <string name="des_device_diagnostics" comment="Description explaining that this skill allows the AI to check device status">Yapay zekâ aracısının pil, bellek, depolama, donanım ve ağ durumunu yerel olarak kontrol etmesine izin verin</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">Harici bir klavye kullanmak istediğinizde faydalıdır</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">Şifrelenmiş yedeklemeyi Google Drive\'ınıza yükleyin.\nBu işlem, mevcut bulut yedeklemelerinin üzerine yazacaktır.</string>
     <string name="des_drive_restore" comment="Description card text for Google Drive restore option">Google Drive\'dan en son yedeklemenizi indirin</string>
@@ -323,6 +323,7 @@
     <string name="des_high_contrast_dark_mode" comment="Description under High contrast dark mode setting item">OLED ekranlı cihazlar için zifiri karanlık tema</string>
     <string name="des_hridayan" comment="Developer bio subtitle in About section">Uygulamaları ve tasarımı seven sıradan bir adam</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">Hızlı Ayarlar panelinde gösterildiğinde karonun sabit görsel durumu</string>
+    <string name="des_legal_docs_updated" comment="Message shown in the dialog when legal docs are updated">Gizlilik Politikamızı ve Hizmet Koşullarımızı güncelledik. Lütfen değişiklikleri gözden geçirmek için biraz zaman ayırın.</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">Uygulama tarafından kullanılan kütüphanelerin ve lisansların ayrıntılarını görüntüleyin</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">Uygulamanın ve kütüphanelerin kullandığı lisansları görüntüleyin</string>
     <string name="des_local_backup" comment="Description card text for local backup option">Şifrelenmiş yedeklemeyi cihazınıza kaydedin</string>
@@ -334,14 +335,13 @@
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">AI ajanının yüklü paketleri ve uygulama verilerini sorgulamasına izin ver</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">Başka bir hedef cihazı eşleştirin</string>
     <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">Renklerin tema tohumundan nasıl türetileceğini seçin</string>
-    <string name="des_privacy_and_security" comment="Description for privacy and security settings">Authentication and app permissions</string>
+    <string name="des_privacy_and_security" comment="Description for privacy and security settings">Kimlik doğrulama ve uygulama izinleri</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">aShell You\'nun verilerinizi nasıl işlediği</string>
-    <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">Gizlilik Politikamızı güncelledik. Değişiklikleri incelemek için lütfen bir dakikanızı ayırın.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">ADB komutlarını çalıştırmak için hızlı ayarlar karoları oluşturun</string>
     <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">AI ajanının Hızlı Ayarlar karoları oluşturmasına, değiştirmesine ve silmesine izin ver</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">Uygulamayı kullanırken karşılaştığınız herhangi bir sorunu veya hatayı bildirin</string>
-    <string name="des_require_auth_for_backups" comment="Description for protect backups">Require authentication before restoring any backup</string>
-    <string name="des_require_authentication" comment="Description for require authentication">Secure the app using device screen lock or biometrics</string>
+    <string name="des_require_auth_for_backups" comment="Description for protect backups">Herhangi bir yedeği geri yüklemeden önce kimlik doğrulaması iste</string>
+    <string name="des_require_authentication" comment="Description for require authentication">Cihaz ekran kilidini veya biyometrisini kullanarak uygulamayı güvenli hale getirin</string>
     <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">Uygulama ayarlarını varsayılan değerlere sıfırla</string>
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">Kaydedilen yedek dosyasından uygulama verilerini geri yükle.\nKaydedilen veritabanı mevcut veritabanının üzerine yazılacaktır</string>
     <string name="des_save_whole_output" comment="Description under Save whole output setting toggle">Tüm shell oturumunun çıktısını kaydetmek için bu seçeneği etkinleştirin.\nDevre dışı bırakılırsa, yalnızca son komut çıktısı kaydedilir.</string>
@@ -350,36 +350,38 @@
     <string name="des_set_local_adb_as_default_launch" comment="Description under Set Local ADB as default launch setting">Uygulama başlatıldığında doğrudan Yerel ADB ekranına gir</string>
     <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">İsteğe bağlı olarak bulut yedeklemeleri için Google hesabınızı bağlayabilirsiniz</string>
     <string name="des_smooth_scroll" comment="Description under Smooth scrolling setting toggle">Üst veya alt oka tıklandığında shell çıktısında yumuşak kaydırmayı etkinleştirir</string>
+    <string name="des_terms_of_service" comment="Subtitle description under Terms of Service menu item">aShell You kullanımı için kurallar ve yönergeler</string>
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">English</string>
     <string name="des_translators" comment="Subtitle description under Translators list in About section">AShellYou\'yu çevirmeye yardımcı olan kişiler</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">Kullanıcı arayüzü öğelerinin ölçeğini ve yazı tipi boyutunu ayarlayın</string>
     <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">Uygulamanın hangi sürümleri kontrol edeceğini seçin</string>
-    <string name="des_use_biometrics">Allow unlocking the app using your fingerprint or face</string>
+    <string name="des_use_biometrics">Parmak izinizi veya yüzünüzü kullanarak uygulamanın kilidini açmaya izin verin</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">Yanlış bir imaj bootloop\'a neden olabileceğinden dikkatli ilerleyin</string>
     <string name="description">Açıklama</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">Tüm seçimleri kaldır</string>
     <string name="developer" comment="Section title in About screen for lead developer info">Geliştirici</string>
     <string name="developer_options" comment="System Developer Options setting item or prompt">Geliştirici seçenekleri</string>
     <string name="developer_options_not_available" comment="Toast error message when Developer options shortcut cannot be opened">Geliştirici seçenekleri mevcut değil!</string>
-    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">Önce Ayarlar → Telefon Hakkında bölümündeki Yapım Numarası\'na 7 kez dokunarak Geliştirici Seçenekleri\'ni etkinleştirin.\nGeliştirici seçeneklerini açmak için bu yöntem işe yaramazsa internette cihazınıza özel talimatları arayabilirsiniz.</string>
+    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">Enable Developer Options first by tapping Build Number 7 times in Settings → About Phone\nIf this method to turn on Developer options does not work, then you can search the instructions for your device on the internet.</string>
     <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">Geliştirici Seçenekleri Gerekli</string>
     <string name="device_backup_local" comment="Label for local device storage backup file">Cihaz yedeği (Yerel)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">Cihaz bağlandı!</string>
-    <string name="device_diagnostics" comment="Title for the device diagnostics skill toggle in AI settings">Device Diagnostics</string>
+    <string name="device_diagnostics" comment="Title for the device diagnostics skill toggle in AI settings">Cihaz Tanılama</string>
     <string name="device_disconnected" comment="Notification title when ADB connection drops">Cihaz Bağlantısı Kesildi</string>
     <string name="device_disconnected_message" comment="Notification body message when wireless ADB connection is lost">WiFi ADB bağlantısı kesildi.</string>
     <string name="device_disconnected_message_with_name" comment="%s = device name">\"%s\" bağlantısı kesildi.</string>
     <string name="device_found" comment="Status banner when an ADB/Wireless Debugging device service is discovered on local network">Cihaz bulundu!</string>
     <string name="device_info" comment="Screen header or navigation item for target device hardware/OS specifications">Cihaz bilgisi</string>
+    <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">Cihaz biyometrik kimlik doğrulamayı desteklemiyor</string>
     <string name="disable_softkey" comment="Setting toggle title to hide soft keyboard during shell session">Sanal klavyeyi devre dışı bırak</string>
     <string name="disclaimer" comment="Section title in About screen for legal disclaimer notices">Sorumluluk Reddi</string>
-    <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">ADB komutlarını çalıştırmak sistem ayarlarını değiştirebilir, dosyaları yönetebilir ve cihazınızın kararlılığını etkileyebilecek işlemleri gerçekleştirebilir.\nBu uygulamayı kullanarak yapılan tüm değişikliklerin sorumluluğu tamamen size aittir.</string>
+    <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">Running ADB commands can modify system settings, manage files, and perform operations that may affect your device’s stability.\nYou are solely responsible for any changes made using this app.</string>
     <string name="disclaimer_1_title" comment="Title for disclaimer point 1: user risk acknowledgement">Riski Size Ait Olmak Üzere Kullanın</string>
     <string name="disclaimer_2_description" comment="Text for disclaimer point 2: root requirements and elevated permissions">Root erişimi zorunlu olmasa da belirli komutlar yüksek yetkiler gerektirebilir.\nADB komutlarının yanlış kullanımı veri kaybına, uygulama çökmelerine veya beklenmedik sistem davranışlarına yol açabilir.</string>
     <string name="disclaimer_2_title" comment="Title for disclaimer point 2: root and caution warning">Root Zorunlu Değildir, Ancak Dikkat Gerektirir</string>
     <string name="disclaimer_3_description" comment="Text for disclaimer point 3: developer liability waiver">Bu uygulamanın geliştiricisi/geliştiricileri, uygulamanın kullanımından kaynaklanan herhangi bir hasar, veri kaybı veya istenmeyen sonuçlardan sorumlu değildir.\nDikkatli ilerleyin ve çalıştırdığınız komutları anladığınızdan emin olun.</string>
     <string name="disclaimer_3_title" comment="Title for disclaimer point 3: liability waiver">Sorumluluk Kabul Etmiyoruz</string>
-    <string name="disclaimer_4_description" comment="Text for disclaimer point 4: target user expertise level">Bu uygulama, ADB komutları hakkında temel bir anlayışa sahip kullanıcılar için tasarlanmıştır.\nBir komutun etkisi hakkında emin değilseniz, çalıştırmadan önce araştırın.</string>
+    <string name="disclaimer_4_description" comment="Text for disclaimer point 4: target user expertise level">This app is designed for users who have a basic understanding of ADB commands.\nIf you are unsure about a command’s effect, research it before executing it.</string>
     <string name="disclaimer_4_title" comment="Title for disclaimer point 4: target audience notice">İleri Düzey Kullanıcılar İçin Tasarlanmıştır</string>
     <string name="disclaimer_5_description" comment="Text for disclaimer point 5: privacy and permissions notice">Bu uygulama düzgün çalışması için özel izinler gerektirebilir.\nKişisel verileri toplamaz veya paylaşmaz, ancak kullanıcılar ADB ile ilgili izinleri vermenin olası etkilerinin farkında olmalıdır.</string>
     <string name="disclaimer_5_title" comment="Title for disclaimer point 5: security and privacy">İzinler ve Güvenlik</string>
@@ -390,8 +392,10 @@
     <string name="done">Bitti</string>
     <string name="download">İndir</string>
     <string name="download_failed" comment="Toast message when in-app updater APK download fails">İndirme başarısız</string>
-    <string name="downloading" comment="Progress status text while downloading update package">İndiriliyor…</string>
-    <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Google Drive\'dan yedekleme dosyası indiriliyor…</string>
+    <string name="download_material_icons" comment="Button label to download the Material Icons font pack for QS tile icon chooser">Download Material Icons</string>
+    <string name="downloading" comment="Progress status text while downloading update package">Downloading…</string>
+    <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Downloading backup from Google Drive…</string>
+    <string name="downloading_icon_pack" comment="Progress status text while downloading Material Icons font for QS tile icon chooser">Downloading icon pack…</string>
     <string name="downloads" comment="Screen header or list item for downloaded files">İndirilenler</string>
     <string name="duplicate_tile_name_error_msg" comment="Validation error in Quick Settings tile builder when entered tile name already exists">Bu isimde bir karo zaten mevcut</string>
     <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">Dinamik renkler</string>
@@ -414,7 +418,7 @@
     <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">Bu işlem %1$s bölümünü kalıcı olarak silecektir. Bu işlem geri alınamaz.</string>
     <string name="erase_confirm_title" comment="%1$s = partition name. Dialog title for partition erase confirmation">%1$s\'leri sil?</string>
     <string name="erase_partition" comment="Action button to trigger fastboot partition erase">Sil</string>
-    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Siliniyor…</string>
+    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Erasing…</string>
     <string name="error">Hata</string>
     <string name="error_labels_limit_reached" comment="Validation error when maximum number of custom command labels/tags is reached">Maksimum etiket sınırına ulaşıldı</string>
     <string name="exclude" comment="Filter toggle option to exclude selected package or item">Hariç tut</string>
@@ -428,7 +432,7 @@
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; Kurtarma</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">Çok Yakında</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">Komut Konsolu</string>
-    <string name="fastboot_command_hint" comment="Placeholder hint in fastboot command input field">Fastboot komutunu girin…</string>
+    <string name="fastboot_command_hint" comment="Placeholder hint in fastboot command input field">Enter fastboot command…</string>
     <string name="fastboot_device_info" comment="Card header displaying target device variables queried over fastboot">Cihaz Bilgileri</string>
     <string name="fastboot_partitions" comment="Tab title for Fastboot partition manager tool">Bölümler</string>
     <string name="fastboot_quick_actions" comment="Section header for predefined quick fastboot action buttons">Hızlı Eylemler</string>
@@ -459,8 +463,8 @@
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">Dosya başarıyla yüklendi</string>
     <string name="fb_uploading" comment="%1$s = file name">%1$s yükleniyor</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">Özellik isteği</string>
-    <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Yedekleme zamanı alınıyor…</string>
-    <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Yedekleme türü alınıyor…</string>
+    <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Fetching backup time …</string>
+    <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Fetching backup type…</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">Alan boş bırakılamaz</string>
     <string name="file">Dosya</string>
     <string name="file_actions" comment="Bottom sheet title for file operations (copy, move, delete, rename)">Dosya işlemleri</string>
@@ -473,7 +477,7 @@
     <string name="filter">Filtrele</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">Etiketlere göre filtrele</string>
     <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">Flaşla</string>
-    <string name="flashing" comment="Progress status header while partition flashing is in progress">Flaşlanıyor…</string>
+    <string name="flashing" comment="Progress status header while partition flashing is in progress">Flashing…</string>
     <string name="folder">Klasör</string>
     <string name="folder_already_exists" comment="Validation error when creating a directory with duplicate name">Bu adda bir klasör zaten mevcut</string>
     <string name="folder_conflict_title" comment="Dialog header when creating folder collides with existing folder name">Klasör Zaten Var</string>
@@ -545,7 +549,9 @@
     <string name="launch">Başlatma</string>
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">Lider Geliştirici</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">En az kullanılan</string>
-    <string name="legal_and_policies" comment="Group header for legal settings">Legal &amp; Policies</string>
+    <string name="legal_and_policies" comment="Group header for legal settings">Yasal &amp; İlkeler</string>
+    <string name="legal_consent_text">%1$s ve %2$s belgelerini okudum ve kabul ediyorum.</string>
+    <string name="legal_docs_updated" comment="Title for the dialog shown when legal docs are updated">Yasal İlkeler Güncellendi</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">Seviye</string>
     <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">Kütüphaneler &amp; Lisanslar</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d kütüphane tespit edildi</string>
@@ -555,8 +561,8 @@
     <string name="load" comment="Action button to load command templates into database">Yükle</string>
     <string name="load_predefined_commands" comment="Button label in fastboot screen to load preset fastboot commands">Önceden tanımlanmış komutları yükle</string>
     <string name="loading">Yükleniyor</string>
-    <string name="loading_device_info" comment="Progress status text while querying ADB device specifications">Aygıt bilgileri yükleniyor…</string>
-    <string name="loading_licenses" comment="Progress status text while loading open-source license files">Lisans bilgisi yükleniyor…</string>
+    <string name="loading_device_info" comment="Progress status text while querying ADB device specifications">Loading device info…</string>
+    <string name="loading_licenses" comment="Progress status text while loading open-source license files">Loading license information…</string>
     <string name="local_adb" comment="Connection mode option: run ADB commands locally on host device using Shizuku or Root">Yerel ADB</string>
     <string name="local_adb_shell" comment="Screen header for local device ADB shell terminal">Yerel ADB shell</string>
     <string name="local_adb_summary" comment="Summary text for local ADB feature card">Shizuku veya root kullanarak ADB komutlarını doğrudan kendi cihazınızda çalıştırın.</string>
@@ -566,31 +572,33 @@
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">Günlükler temizlendi</string>
     <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">Paket</string>
     <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">Günlük seviyesi</string>
-    <string name="logcat_filter_search_hint" comment="Placeholder text in logcat search bar">Mesajlarda ara…</string>
+    <string name="logcat_filter_search_hint" comment="Placeholder text in logcat search bar">Search in messages…</string>
     <string name="logcat_is_running" comment="Status banner shown while background logcat collection is active">Logcat çalışıyor</string>
     <string name="logcat_ive_granted_it" comment="Button in logcat permission dialog confirming user ran ADB grant command on PC">Onayı verdim</string>
     <string name="logcat_no_logs" comment="Placeholder text in logcat screen when no log entries match current filters">Henüz günlük yok</string>
     <string name="logcat_notification_channel_description" comment="Android Notification Channel description for logcat background session">Logcat aktif olarak günlükleri toplarken gösterilir</string>
     <string name="logcat_notification_channel_name" comment="Android Notification Channel name for Logcat background collection">Logcat Oturumu</string>
-    <string name="logcat_permission_instructions" comment="Dialog body explaining that logcat is blocked until the READ_LOGS permission is granted via ADB from a computer; followed by the command block">System logs require the READ_LOGS permission, which can only be granted from a computer. Run this command, then tap \"I\'ve granted it\":</string>
+    <string name="logcat_permission_instructions" comment="Dialog body explaining that logcat is blocked until the READ_LOGS permission is granted via ADB from a computer; followed by the command block">Sistem günlükleri, yalnızca bir bilgisayardan verilebilen READ_LOGS iznini gerektirir. Bu komutu çalıştırın, ardından \"İzni verdim\" seçeneğine dokunun:</string>
     <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide; also the label of the logcat source option that needs it">Günlük erişim izni</string>
-    <string name="logcat_read_logs_mode_description" comment="Description under the Log access logcat source option; READ_LOGS is an Android permission name">Needs the READ_LOGS permission, granted once from a computer via ADB</string>
-    <string name="logcat_restart_after_grant_message" comment="Dialog body shown after READ_LOGS was granted; the app process must restart before the permission takes effect">Permission granted. aShellYou needs to restart before it can read system logs.</string>
+    <string name="logcat_read_logs_mode_description" comment="Description under the Log access logcat source option; READ_LOGS is an Android permission name">ADB aracılığıyla bilgisayardan bir kez verilen READ_LOGS iznini gerektirir</string>
+    <string name="logcat_restart_after_grant_message" comment="Dialog body shown after READ_LOGS was granted; the app process must restart before the permission takes effect">İzin verildi. aShellYou\'nun sistem günlüklerini okuyabilmesi için yeniden başlatılması gerekiyor.</string>
     <string name="logcat_running_description" comment="Notification body text shown while logcat runs in background">aShellYou arka planda sistem günlüklerini topluyor</string>
     <string name="logcat_shortcut_long_label" comment="App launcher shortcut label for launching directly into Logcat Viewer">Logcat Görüntüleyiciyi Aç</string>
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Logcat Kaynağı</string>
-    <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">Logcat\'i başlatmak için ▶\'ye dokunun</string>
+    <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">Tap ▶ to start logcat</string>
     <string name="logs" comment="Screen header or tab title for application and execution log views">Günlükler</string>
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Görünüm ve His</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">Düşük</string>
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">Düşük kontrast oranı</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">Temanızı Oluşturun</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">Manuel Eşleştirme</string>
+    <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Material Icons</string>
+    <string name="material_icons_description" comment="Informational text in icon chooser explaining the Material Icons download">Download ~380 KB once to browse 2,500+ Material icons</string>
     <string name="max_download_size" comment="Setting label for capping maximum update download file size">Maks İndirme</string>
     <string name="medium">Orta</string>
     <string name="merge" comment="Resolution option in file browser conflict dialog to merge directory contents">Birleştir</string>
     <string name="message">Mesaj</string>
-    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">ADB Aracısına mesaj gönder…</string>
+    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">Message ADB Agent</string>
     <string name="minimize" comment="Action button to minimize terminal overlay window">Küçült</string>
     <string name="mode" comment="Header title for ADB execution engine mode selector">Mod</string>
     <string name="mode_one_desc" comment="Description for Root execution engine option in settings">Komutları çalıştırmak için root erişimini kullanır. Root gerektiren komutlar çalıştırılabilir.</string>
@@ -605,7 +613,7 @@
     <string name="more">Daha Fazla</string>
     <string name="most_used" comment="Sorting option for commands or bookmarks list">En çok kullanılan</string>
     <string name="move">Taşı</string>
-    <string name="moving" comment="Progress status text shown while moving files in file browser">Taşınıyor…</string>
+    <string name="moving" comment="Progress status text shown while moving files in file browser">Moving…</string>
     <string name="moving_items" comment="%1$d = number of items being moved">%1$d öge taşınıyor</string>
     <string name="n_days" comment="%d = number of days for cache duration setting">%d gün</string>
     <string name="name">Ad</string>
@@ -671,7 +679,7 @@
     <string name="other_details" comment="Expandable card title for additional device metadata details">Diğer Detaylar</string>
     <string name="other_device" comment="Selection tab for target device in Logcat Viewer">Diğer cihaz</string>
     <string name="output" comment="Header title for shell command output window">Çıktı</string>
-    <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">Çıktı burada görünecek…</string>
+    <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">Output will appear here…</string>
     <string name="override_bookmarks_limit" comment="Setting toggle title to remove the maximum limit on saved bookmarks count">Maksimum yer imi sınırını geçersiz kıl</string>
     <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">Paket adı</string>
     <string name="packages" comment="Title for the packages skill toggle in AI settings">Paketler</string>
@@ -704,9 +712,9 @@
     <string name="path" comment="Field label for file or directory path in file browser properties">Yol</string>
     <string name="paused" comment="Status badge showing ongoing file transfer or logcat session is paused">Duraklatıldı</string>
     <string name="permission_denied" comment="Error toast when requested Android system permission is denied by user">İzin reddedildi</string>
-    <string name="permission_not_granted_yet" comment="Toast when the user confirms a permission was granted but the system still reports it missing">Permission not granted yet</string>
+    <string name="permission_not_granted_yet" comment="Toast when the user confirms a permission was granted but the system still reports it missing">İzin henüz verilmedi</string>
     <string name="permission_optional" comment="Subtext notice indicating requested permissions are non-mandatory">Bu izinleri vermek isteğe bağlıdır!</string>
-    <string name="permissions" comment="Group header for permissions settings">Permissions</string>
+    <string name="permissions" comment="Group header for permissions settings">İzinler</string>
     <string name="pick_ashellyou_extension" comment="File picker validation error requiring user to select a .ashellyou backup file">Lütfen .ashellyou uzantılı bir dosya seçin</string>
     <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">Renk seç</string>
     <string name="pin_all">Seçilenleri sabitle</string>
@@ -721,9 +729,8 @@
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">Önizleme</string>
     <string name="primary">Birincil</string>
     <string name="primary_container">Birincil Konteyner</string>
-    <string name="privacy_and_security" comment="Title for the privacy and security settings screen">Privacy &amp; Security</string>
+    <string name="privacy_and_security" comment="Title for the privacy and security settings screen">Gizlilik &amp; Güvenlik</string>
     <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Gizlilik Politikası</string>
-    <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">Gizlilik Politikası Güncellendi</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">Ürün</string>
     <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">Kurtarma menüsü aracılığıyla cihazı sideload moduna alın</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">QR ile Eşleştir</string>
@@ -732,7 +739,7 @@
     <string name="qs_tiles" comment="Refers to Android System Quick Settings tiles configured for custom ADB scripts">Hızlı ayarlar karoları</string>
     <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">Hızlı Ayarlar Karoları</string>
     <string name="quick_tools" comment="Section header for fast access utility tools">Hızlı Araçlar</string>
-    <string name="reading_file" comment="Progress status text while loading file contents into viewer">Dosya okunuyor…</string>
+    <string name="reading_file" comment="Progress status text while loading file contents into viewer">Reading file…</string>
     <string name="ready_to_paste" comment="Status message in file manager when item is stored in paste clipboard">Yapıştırmaya hazır</string>
     <string name="reboot_bootloader" comment="Action button / dialog choice to reboot target device into bootloader mode">Bootloader Modunda Yeniden Başlat</string>
     <string name="reboot_confirm_message" comment="%1$s = target boot mode (e.g. recovery, bootloader). Confirmation prompt before rebooting target device">Bu işlem, bağlı cihazı %1$s yeniden başlatacaktır. Devam edilsin mi?</string>
@@ -759,21 +766,21 @@
     <string name="report_issue" comment="Button in About screen linking to GitHub issue tracker">Sorun bildir</string>
     <string name="repository" comment="Button in About screen linking to GitHub project repository">Depo (Repository)</string>
     <string name="request_timeout" comment="Error toast when network request or ADB response times out">İstek zaman aşımına uğradı</string>
-    <string name="require_auth_for_backups" comment="Toggle title to require auth before restoring backups">Protect backups</string>
-    <string name="require_authentication" comment="Toggle title to require authentication to open the app">Require authentication</string>
+    <string name="require_auth_for_backups" comment="Toggle title to require auth before restoring backups">Yedekleri koru</string>
+    <string name="require_authentication" comment="Toggle title to require authentication to open the app">Kimlik doğrulaması iste</string>
     <string name="reset">Sıfırla</string>
     <string name="reset_app_settings" comment="Button label in settings to restore default application configuration">Uygulama ayarlarını sıfırla</string>
     <string name="reset_settings_failed" comment="Toast notification when settings reset operation fails">Ayarları sıfırlama başarısız oldu</string>
     <string name="reset_settings_successful" comment="Toast notification confirming settings have been reset to defaults">Ayarları sıfırlama başarılı</string>
-    <string name="restart_app" comment="Button that closes and relaunches the app">Restart app</string>
-    <string name="restart_required" comment="Dialog title when the app must be restarted for a change to take effect">Restart required</string>
+    <string name="restart_app" comment="Button that closes and relaunches the app">Uygulamayı yeniden başlat</string>
+    <string name="restart_required" comment="Dialog title when the app must be restarted for a change to take effect">Yeniden başlatma gerekli</string>
     <string name="restore">Geri yükle</string>
     <string name="restore_app_data" comment="Button label in backup settings to import and restore data from backup file">Uygulama verilerini geri yükle</string>
     <string name="restore_dialog_message" comment="Warning message in restore dialog that existing database will be overwritten">Kaydedilen dosyadaki veriler mevcut verilerin üzerine yazılacaktır.</string>
     <string name="restore_failed" comment="Toast error message when restoring app data fails">Geri yükleme başarısız</string>
     <string name="restore_from" comment="Dialog header prompting user to select restore source (Local File or Google Drive)">Şuradan geri yükle</string>
     <string name="restore_successful" comment="Toast message confirming successful app data restoration">Geri yükleme başarılı</string>
-    <string name="restoring_backup" comment="Progress status text shown while restoring database from backup">Yedek geri yükleniyor…</string>
+    <string name="restoring_backup" comment="Progress status text shown while restoring database from backup">Restoring backup…</string>
     <string name="resume" comment="Action button to resume paused logcat streaming or file download">Devam Et</string>
     <string name="retry" comment="Action button to retry failed network connection or command execution">Yeniden dene</string>
     <string name="root_access_granted" comment="Toast notification confirming superuser root access granted to aShellYou">Root erişimi verildi!</string>
@@ -786,29 +793,29 @@
     <string name="running" comment="Status badge showing task or command execution is active">Çalışıyor</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Kaydet</string>
-    <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">Profil olarak kaydet…</string>
+    <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">Save as profile…</string>
     <string name="save_changes" comment="Action button to persist edited settings or tile parameters">Değişiklikleri Kaydet</string>
     <string name="save_key" comment="Button label to save entered API key string in settings">Anahtarı kaydet</string>
     <string name="save_whole_output" comment="Setting toggle title to export full terminal session output to file">Tüm çıktıyı kaydet</string>
     <string name="saved_devices" comment="Screen title and list header for paired ADB devices history">Kayıtlı cihazlar</string>
-    <string name="saving" comment="Progress status text while saving file or settings">Kaydediliyor…</string>
-    <string name="saving_output" comment="Progress status text while exporting terminal log output to file">Çıktı dosyaya dışa aktarılıyor…</string>
+    <string name="saving" comment="Progress status text while saving file or settings">Saving…</string>
+    <string name="saving_output" comment="Progress status text while exporting terminal log output to file">Exporting output to file…</string>
     <string name="schedule" comment="Header title or setting label for automated backup schedule picker">Zamanlama</string>
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">Ekran yoğunluğu çarpanı</string>
-    <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">Scroll to bottom</string>
+    <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">Aşağı kaydır</string>
     <string name="search">Ara</string>
     <string name="search_bookmarks_here" comment="Placeholder text in bookmarks tab search bar">Yer işaretlerini burada arayın</string>
     <string name="search_commands_here" comment="Placeholder text in command templates tab search bar">Komutları burada arayın</string>
-    <string name="search_fonts" comment="Placeholder text in font family picker search bar">Yazı tiplerini ara…</string>
+    <string name="search_fonts" comment="Placeholder text in font family picker search bar">Search fonts…</string>
     <string name="search_icons_here" comment="Placeholder text in Quick Settings tile icon picker search bar">Simgeleri burada ara</string>
     <string name="search_labels_here" comment="Placeholder text in command label filter search bar">Etiketleri burada arayın</string>
-    <string name="search_libraries" comment="Placeholder text in open-source licenses search bar">Kütüphaneleri, yazarları, lisansları arayın…</string>
+    <string name="search_libraries" comment="Placeholder text in open-source licenses search bar">Search libraries, authors, licenses…</string>
     <string name="search_output" comment="Placeholder text in terminal output search bar">Çıktıyı burada arayın</string>
     <string name="search_settings" comment="Placeholder text in settings top search bar">Ayarlarda ara</string>
     <string name="search_something" comment="Generic search field placeholder prompt">Arama yap</string>
-    <string name="search_variables" comment="Placeholder text in fastboot variables explorer search bar">Değişkenleri ara…</string>
+    <string name="search_variables" comment="Placeholder text in fastboot variables explorer search bar">Search variables…</string>
     <string name="searching_connect_service" comment="Status message while discovering ADB mDNS connection service on local network">Bağlantı servisi aranıyor</string>
-    <string name="searching_for_devices" comment="Progress status text while scanning for local Wireless Debugging or OTG ADB target devices">Cihazlar aranıyor…</string>
+    <string name="searching_for_devices" comment="Progress status text while scanning for local Wireless Debugging or OTG ADB target devices">Searching for devices…</string>
     <string name="secondary">İkincil</string>
     <string name="security_patch" comment="Device property label displaying Android security patch level date">Güvenlik Yaması</string>
     <string name="select">Seç</string>
@@ -829,10 +836,10 @@
     <string name="self_pair_error_saving" comment="Toast error message when storing self-paired device credentials fails">Cihaz kaydedilirken hata oluştu</string>
     <string name="self_pair_failed" comment="Toast notification when local self-pairing operation fails">Eşleştirme başarısız</string>
     <string name="self_pair_found" comment="Status message when local device mDNS ADB pairing service is detected">Eşleştirme servisi bulundu!</string>
-    <string name="self_pair_in_progress" comment="Progress status text shown while establishing local ADB self-pairing connection">Eşleştirme yapılıyor…</string>
+    <string name="self_pair_in_progress" comment="Progress status text shown while establishing local ADB self-pairing connection">Pairing in progress…</string>
     <string name="self_pair_in_progress_hint" comment="Instructional hint displayed during local ADB self-pairing">Bu cihaza bağlanırken lütfen bekleyin</string>
     <string name="self_pair_pairing_not_found" comment="Error notification when mDNS ADB pairing service is not broadcasting">Eşleştirme servisi bulunamadı</string>
-    <string name="self_pair_searching" comment="Progress status text while scanning for local mDNS pairing service">Eşleştirme servisi aranıyor…</string>
+    <string name="self_pair_searching" comment="Progress status text while scanning for local mDNS pairing service">Searching for pairing service…</string>
     <string name="self_pair_searching_hint" comment="Instructional prompt directing user to open Wireless Debugging pairing dialog">Kablosuz Hata Ayıklamayı açın ve \'Cihazı eşleştirme koduyla eşleştir\'e dokunun</string>
     <string name="self_pair_success" comment="Toast confirmation message when local ADB self-pairing succeeds">Bu cihaza bağlanıldı!</string>
     <string name="self_pair_success_hint" comment="Subtext banner confirming local ADB terminal session is ready">Yerel ADB shell artık kullanılabilir</string>
@@ -848,17 +855,17 @@
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">Son komutun çıktısı \'%s\' konumuna aktarıldı</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">Shell çıktısı \'%s\' konumuna aktarıldı</string>
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">Shizuku yüklü değil</string>
-    <string name="shizuku_process_start_failed" comment="Inline shell error shown when the Shizuku helper service could not start the command. %1$s is the technical reason">Shizuku could not start the command: %1$s</string>
+    <string name="shizuku_process_start_failed" comment="Inline shell error shown when the Shizuku helper service could not start the command. %1$s is the technical reason">Shizuku komutu başlatamadı: %1$s</string>
     <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">Shizuku hizmeti kullanılamıyor. Shizuku veya Shizuku+\'ın çalıştığından ve iznin verildiğinden emin olun.</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku kullanılamıyor</string>
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">Shizuku veya Shizuku+ yüklü değil veya cihazınızda düzgün yapılandırılmamış</string>
     <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">Kurtarma menüsü üzerinden cihazı sideload moduna alın</string>
-    <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Sideload modu — hazır</string>
+    <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Sideload mode — ready</string>
     <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">Kurtarma moduna önyükleme yapın (Ses Kısma + Güç tuşlarını basılı tutun veya şunu çalıştırın: adb reboot recovery)</string>
     <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">Kurtarma menüsünde \"Apply update\" seçeneğine gidin</string>
     <string name="sideload_step_3" comment="Step 3 of ADB sideload guide: selecting ADB sideload mode in recovery">\"Apply from ADB\" (veya \"ADB Sideload\") seçeneğini seçin</string>
     <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">Cihazınızı OTG kablosuyla bağlayın, ardından buradan bir ZIP seçin</string>
-    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Sideload yapılıyor…</string>
+    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Sideloading…</string>
     <string name="sign_in_failed" comment="Toast error message when Google account sign-in fails">Google oturum açma işlemi başarısız oldu</string>
     <string name="sign_in_with_google" comment="Button label in cloud backup settings to sign into Google account">Google ile giriş yapın</string>
     <string name="sign_out" comment="Button label in cloud backup settings to sign out of Google account">Çıkış</string>
@@ -902,6 +909,7 @@
     <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">TCP Modu Kullanılamıyor</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">Terminal</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Terminal yazı tipi stili</string>
+    <string name="terms_of_service" comment="Title for the Terms of Service legal document">Hizmet Koşulları</string>
     <string name="tertiary">Üçüncül</string>
     <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">Tema modu</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">Üçüncü parti kütüphaneler</string>
@@ -915,8 +923,8 @@
     <string name="tile_name" comment="Field label for Quick Settings tile title text">Karo adı</string>
     <string name="tiles" comment="Navigation drawer item and screen header for Quick Settings tiles manager">Karolar</string>
     <string name="time">Zaman</string>
-    <string name="timeout_immediate" comment="Option for immediate timeout">Immediate</string>
-    <string name="timeout_never" comment="Option for never timeout">Never</string>
+    <string name="timeout_immediate" comment="Option for immediate timeout">Hemen</string>
+    <string name="timeout_never" comment="Option for never timeout">Hiçbir zaman</string>
     <string name="timestamp">Zaman Bilgisi</string>
     <string name="toggleable">Açılıp kapanabilir</string>
     <string name="total_executions">Toplam Yürütme</string>
@@ -934,7 +942,7 @@
     <string name="unknown">Bilinmeyen</string>
     <string name="unknown_error" comment="Toast error message when error cause is unmapped">Bilinmeyen bir hata oluştu</string>
     <string name="unknown_sources_install_permission_not_granted" comment="Error toast when REQUEST_INSTALL_PACKAGES permission is missing for app update installation">İzin verilmedi. Lütfen bilinmeyen kaynaklardan uygulama yüklemesine izin verin.</string>
-    <string name="unlock" comment="Button to unlock the app">Unlock</string>
+    <string name="unlock" comment="Button to unlock the app">Kilidi aç</string>
     <string name="unlock_status" comment="Device property label displaying bootloader lock state">Kilit Açma Durumu</string>
     <string name="unlocked" comment="Status badge showing bootloader is unlocked">Kilit Açıldı</string>
     <string name="unpin_all">Seçilenlerin sabitlemesini kaldır</string>
@@ -943,13 +951,13 @@
     <string name="update_available" comment="Banner title announcing a new application update release">Güncelleme mevcut!</string>
     <string name="update_channel" comment="Settings preference title for choosing update channel (Stable, Pre-release, F-Droid)">Güncelleme kanalı</string>
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">Dosya yükle</string>
-    <string name="uploading" comment="Progress status text shown while uploading file to device">Yükleniyor…</string>
-    <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Yedekleme dosyası Google Drive\'a yükleniyor…</string>
+    <string name="uploading" comment="Progress status text shown while uploading file to device">Uploading…</string>
+    <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Uploading backup to Google Drive…</string>
     <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB, Geliştirici Seçenekleri\'nde USB hata ayıklamanın etkinleştirilmesini gerektirir</string>
     <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">USB Hata Ayıklama Gerekli</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">USB Yöneticisi bu cihazda mevcut değil</string>
     <string name="use">Kullan</string>
-    <string name="use_biometrics">Use biometrics</string>
+    <string name="use_biometrics">Biyometriyi kullan</string>
     <string name="utilities" comment="Category title in homescreen">Yardımcı Araçlar</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">Varyant</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">Doğrulama başarısız</string>
@@ -962,7 +970,7 @@
     <string name="view_on_github" comment="Button linking to GitHub release page or commit diff">GitHub\'da Görüntüle</string>
     <string name="visit_repo_to_download" comment="Instructions directing user to download the update APK file from GitHub releases">Github deposundan aShellYou\'nun son sürümünü almak için indirme düğmesine tıklayın.</string>
     <string name="waiting_for_device" comment="Progress status banner while awaiting target device USB OTG attachment">Cihaz bekleniyor</string>
-    <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">Cihazlar bekleniyor…</string>
+    <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">Waiting for devices…</string>
     <string name="want_to_contribute_too" comment="Call-to-action banner in About screen inviting code or translation contributions">Siz de katkıda bulunmak ister misiniz?</string>
     <string name="weekly" comment="Option in backup scheduler frequency selection">Haftalık</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">%1$s işlemi yapılırken ne yapmak istersiniz?</string>
@@ -989,8 +997,8 @@
         <item quantity="other">%1$d yeni giriş</item>
     </plurals>
     <plurals name="timeout_minutes" comment="Option for minute timeouts">
-        <item quantity="one">%1$d minute</item>
-        <item quantity="other">%1$d minutes</item>
+        <item quantity="one">%1$d dakika</item>
+        <item quantity="other">%1$d dakika</item>
     </plurals>
     <string name="changelog_v7_4_0">\nArtık Ayarlar ekranlarında Alt Ayarlar\'ı arayabilirsiniz.\nRenk şemaları için Palet Stilleri eklendi.\nUygulama dilini doğrudan uygulama içinden ayarlama seçeneği eklendi</string>
     <string name="changelog_v7_3_0">\nDeğişiklik günlüğü ekranındaki kullanıcı arayüzü iyileştirildi.\nHakkında bölümüne çeviriye katkıda bulunanlar eklendi.\nUygulama ve uygulama tarafından kullanılan diğer kütüphaneler hakkında ayrıntılı lisans bilgilerini gösteren Lisanslar ekranı eklendi</string>

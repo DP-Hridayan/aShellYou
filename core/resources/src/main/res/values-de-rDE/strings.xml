@@ -11,7 +11,7 @@
     <string name="adb_command" comment="Input field label for typing an ADB shell command">ADB-Befehl</string>
     <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">ADB-Befehl (AUS-Zustand)</string>
     <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">ADB-Befehl (AN-Zustand)</string>
-    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB verbunden — stellen Sie sicher, dass sich das Gerät im Sideload-Modus befindet</string>
+    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB verbunden — stellen Sie sicher, dass das Gerät im Seitenlademodus ist</string>
     <string name="adb_connection_active" comment="Foreground notification title when an ADB connection (Wireless/OTG) is currently active">ADB-Verbindung aktiv</string>
     <string name="adb_connection_channel_description" comment="Android notification channel description in System Settings for ADB connection status">Zeigt an, wenn die ADB-Verbindung aktiv ist</string>
     <string name="adb_connection_channel_name" comment="Android notification channel name in System Settings for active ADB connections">ADB-Verbindung</string>
@@ -46,7 +46,7 @@
     <string name="ai_prompt_suggestion_1" comment="Clickable suggestion chip prompt in AI chat for checking battery health">Meinen Akkuzustand überprüfen</string>
     <string name="ai_prompt_suggestion_2" comment="Clickable suggestion chip prompt in AI chat for listing installed package names">Alle installierten Pakete auflisten</string>
     <string name="ai_prompt_suggestion_3" comment="Clickable suggestion chip prompt in AI chat for creating Quick Settings tiles">Hilf mir, eine Kachel für Schnelleinstellungen zu erstellen</string>
-    <string name="ai_session_search_hint" comment="Placeholder text in AI chat session search bar">Chat suchen…</string>
+    <string name="ai_session_search_hint" comment="Placeholder text in AI chat session search bar">Chat durchsuchen…</string>
     <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">z. B. Cyberpunk-Neonstadt, Dark Mode, hoher Kontrast</string>
     <string name="all">Alle</string>
     <string name="all_data" comment="Option in backup selector to include full app database, settings, and chat history">Alle Daten</string>
@@ -84,7 +84,7 @@
     <string name="back">Zurück</string>
     <string name="back_button" comment="Custom key bar button in terminal view simulating system back button press">Zurück-Schaltfläche</string>
     <string name="background" comment="Material design theme surface/background color role label">Hintergrund</string>
-    <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">Sicherung läuft…</string>
+    <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">Sichern…</string>
     <string name="backup">Sichern</string>
     <string name="backup_all_data" comment="Option in backup dialog to export all app database content and settings">Alle Daten sichern</string>
     <string name="backup_and_restore" comment="Settings screen header for managing local and cloud backups">Sichern &amp; Wiederherstellen</string>
@@ -116,12 +116,13 @@
     <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">Boot-Image</string>
     <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">In Fastboot booten</string>
     <string name="btn_continue" comment="Action button label to proceed to next step in setup wizard">Fortfahren</string>
+    <string name="bundled" comment="Tab label in icon chooser for built-in icons that ship with the app">Gebündelt</string>
     <string name="cache_settings" comment="Settings section header for AI analysis response caching options">Cache</string>
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Cache-Größe: %s</string>
     <string name="cancel">Abbrechen</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">Alle abbrechen</string>
     <string name="cancel_selection">Auswahl abbrechen</string>
-    <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">Breche ab…</string>
+    <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">Abbrechen…</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">Änderungsprotokoll</string>
     <string name="changelogs" comment="Settings list item title for viewing version history logs">Änderungsprotokolle</string>
     <string name="check_updates" comment="Action button in about screen to check GitHub or F-Droid for app updates">Nach Updates suchen</string>
@@ -161,7 +162,6 @@
     <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">Entsperrfähigkeit</string>
     <string name="code_pair_instruction" comment="Instructional text in Wireless Debugging pairing dialog directing user to open Wireless Debugging menu on target device">Öffne „WLAN-Debugging“ auf dem Zielgerät und tippe auf „Gerät mit Kopplungscode koppeln“</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">Einklappen</string>
-    <string name="command_execution_failed" comment="Inline shell error shown when running a command fails unexpectedly. %1$s is the technical reason">Befehl fehlgeschlagen: %1$s</string>
     <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">Fehler aufgetreten</string>
     <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">Hohe Erhebung (Dialog)</string>
     <string name="color_preview_highest_elevation" comment="Sample label in theme editor showing highest elevation surface color (Bottom Sheet)">Höchste Erhebung (Bottom Sheet)</string>
@@ -211,6 +211,7 @@
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">Befehlsanalyse</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">Befehlskonsole</string>
     <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">Befehlsausführung</string>
+    <string name="command_execution_failed" comment="Inline shell error shown when running a command fails unexpectedly. %1$s is the technical reason">Befehl fehlgeschlagen: %1$s</string>
     <string name="command_logs" comment="Tab header for history log of executed fastboot commands">Befehlsprotokolle</string>
     <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">Verlauf aller ausgeführten Fastboot-Befehle.</string>
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Befehl nicht gefunden!</string>
@@ -295,7 +296,6 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="des_backup_settings" comment="Description for app settings backup option">Nur App-Einstellungen sichern</string>
     <string name="des_behavior" comment="Description under Behavior item in settings menu">Bestimmtes Verhalten der App anpassen</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">Verlauf aller Änderungen an der App</string>
-    <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">Gerät unterstützt keine biometrische Authentifizierung</string>
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">Klicke hier, um ein Symbol aus der Sammlung auszuwählen</string>
     <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">Alle Cache-KI-Analyseantworten löschen</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">Vor dem Leeren der Shell-Ausgabe nach Bestätigung fragen</string>
@@ -324,6 +324,7 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="des_high_contrast_dark_mode" comment="Description under High contrast dark mode setting item">Pechschwarzes dunkles Thema für Geräte mit OLED-Display</string>
     <string name="des_hridayan" comment="Developer bio subtitle in About section">Nur ein Typ, der Apps und Design liebt</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">Der feste visuelle Zustand der Kachel, wenn sie im Schnelleinstellungen-Panel angezeigt wird</string>
+    <string name="des_legal_docs_updated" comment="Message shown in the dialog when legal docs are updated">Wir haben unsere Datenschutzrichtlinien und Nutzungsbedingungen aktualisiert. Bitte nehmen Sie sich einen Moment Zeit, um die Änderungen zu lesen.</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">Details der von der App verwendeten Bibliotheken und Lizenzen anzeigen</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">Die Lizenzen anzeigen, die von der App und Bibliotheken verwendet werden</string>
     <string name="des_local_backup" comment="Description card text for local backup option">Verschlüsseltes Backup auf deinem Gerät speichern</string>
@@ -337,7 +338,6 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">Wählen Sie, wie Farben aus dem Theme-Seed abgeleitet werden</string>
     <string name="des_privacy_and_security" comment="Description for privacy and security settings">Authentifizierung und App-Berechtigungen</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">Wie aShell Sie mit Ihren Daten umgehen</string>
-    <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">Wir haben unsere Datenschutzerklärung aktualisiert. Bitte nehmen Sie sich einen Moment Zeit, um die Änderungen zu überprüfen.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">Schnelleinstellungen-Kacheln zum Ausführen von ADB-Befehlen erstellen</string>
     <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Erlaube dem KI-Agent Schnelleinstellungen Kacheln zu erstellen, zu ändern und zu löschen</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">Melde alle Probleme oder Fehler, auf die du bei der Nutzung der App gestoßen bist</string>
@@ -351,6 +351,7 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="des_set_local_adb_as_default_launch" comment="Description under Set Local ADB as default launch setting">Lokalen ADB-Bildschirm direkt beim Start der App eingeben</string>
     <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">Verknüpfe optional dein Google-Konto für Cloud-Backups</string>
     <string name="des_smooth_scroll" comment="Description under Smooth scrolling setting toggle">Aktiviert sanften Bildlauf in der Konsolen-Ausgabe, wenn der Pfeil nach oben oder unten geklickt wird</string>
+    <string name="des_terms_of_service" comment="Subtitle description under Terms of Service menu item">Regeln und Richtlinien für die Verwendung von aShell</string>
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">Wenn aktiviert, wechselt die Kachel bei jedem Tippen zwischen AN- und AUS-Zustand und führt für jeden Zustand einen anderen Befehl aus</string>
     <string name="des_translators" comment="Subtitle description under Translators list in About section">Personen, die bei der Übersetzung von aShell You geholfen haben</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">Skalierung der UI-Elemente und Schriftgröße anpassen</string>
@@ -372,15 +373,16 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="device_disconnected_message_with_name" comment="%s = device name">„%s“ wurde getrennt.</string>
     <string name="device_found" comment="Status banner when an ADB/Wireless Debugging device service is discovered on local network">Gerät gefunden!</string>
     <string name="device_info" comment="Screen header or navigation item for target device hardware/OS specifications">Geräteinfo</string>
+    <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">Gerät unterstützt keine biometrische Authentifizierung</string>
     <string name="disable_softkey" comment="Setting toggle title to hide soft keyboard during shell session">Software-Tastatur deaktivieren</string>
     <string name="disclaimer" comment="Section title in About screen for legal disclaimer notices">Haftungsausschluss</string>
-    <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">Das Ausführen von ADB-Befehlen kann Systemeinstellungen ändern, Dateien verwalten und Vorgänge durchführen, die die Stabilität deines Geräts beeinträchtigen können.\nDu bist allein verantwortlich für alle Änderungen, die mit dieser App vorgenommen werden.</string>
+    <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">Wenn Sie ADB-Befehle ausführen, können Sie die Systemeinstellungen ändern, Dateien verwalten und Operationen durchführen, die die Stabilität Ihres Geräts beeinträchtigen können.\nSie sind allein verantwortlich für alle Änderungen, die mit dieser App vorgenommen werden.</string>
     <string name="disclaimer_1_title" comment="Title for disclaimer point 1: user risk acknowledgement">Auf eigenes Risiko verwenden</string>
     <string name="disclaimer_2_description" comment="Text for disclaimer point 2: root requirements and elevated permissions">Obwohl Root-Zugriff nicht zwingend erforderlich ist, erfordern bestimmte Befehle möglicherweise erweiterte Berechtigungen.\nMissbrauch von ADB-Befehlen kann zu Datenverlust, App-Abstürzen oder unerwartetem Systemverhalten führen.</string>
     <string name="disclaimer_2_title" comment="Title for disclaimer point 2: root and caution warning">Root ist nicht zwingend erforderlich, aber Vorsicht ist geboten</string>
     <string name="disclaimer_3_description" comment="Text for disclaimer point 3: developer liability waiver">Die Entwickler(innen) dieser App sind nicht verantwortlich für Schäden, Datenverlust oder unabsichtliche Folgen, die sich aus der Nutzung dieser App ergeben.\nGehe mit Vorsicht vor und stelle sicher, dass du die Befehle verstehst, die du ausführst.</string>
     <string name="disclaimer_3_title" comment="Title for disclaimer point 3: liability waiver">Wir sind nicht verantwortlich</string>
-    <string name="disclaimer_4_description" comment="Text for disclaimer point 4: target user expertise level">Diese App ist für Benutzer konzipiert, die über ein grundlegendes Verständnis von ADB-Befehlen verfügen.\nWenn du dir über die Auswirkung eines Befehls nicht sicher bist, informiere dich vor dem Ausführen darüber.</string>
+    <string name="disclaimer_4_description" comment="Text for disclaimer point 4: target user expertise level">Diese App ist für Benutzer konzipiert, die ein grundlegendes Verständnis von ADB-Befehlen haben.\nWenn Sie sich über den Effekt eines Befehls nicht sicher sind, prüfen Sie ihn bevor Sie ihn ausführen.</string>
     <string name="disclaimer_4_title" comment="Title for disclaimer point 4: target audience notice">Für fortgeschrittene Benutzer gedacht</string>
     <string name="disclaimer_5_description" comment="Text for disclaimer point 5: privacy and permissions notice">Diese App benötigt möglicherweise spezielle Berechtigungen, um ordnungsgemäß zu funktionieren.\nSie erfasst oder teilt keine persönlichen Daten, aber Benutzer sollten sich der Auswirkungen bewusst sein, die das Gewähren ADB-bezogener Berechtigungen mit sich bringt.</string>
     <string name="disclaimer_5_title" comment="Title for disclaimer point 5: security and privacy">Berechtigungen und Sicherheit</string>
@@ -391,8 +393,10 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="done">Fertig</string>
     <string name="download">Herunterladen</string>
     <string name="download_failed" comment="Toast message when in-app updater APK download fails">Download fehlgeschlagen</string>
-    <string name="downloading" comment="Progress status text while downloading update package">Wird heruntergeladen…</string>
-    <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Lade Backup von Google Drive herunter…</string>
+    <string name="download_material_icons" comment="Button label to download the Material Icons font pack for QS tile icon chooser">Material Icons herunterladen</string>
+    <string name="downloading" comment="Progress status text while downloading update package">Herunterladen…</string>
+    <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Backup von Google Drive… herunterladen</string>
+    <string name="downloading_icon_pack" comment="Progress status text while downloading Material Icons font for QS tile icon chooser">Icon-Paket… herunterladen</string>
     <string name="downloads" comment="Screen header or list item for downloaded files">Downloads</string>
     <string name="duplicate_tile_name_error_msg" comment="Validation error in Quick Settings tile builder when entered tile name already exists">Eine Kachel mit diesem Namen existiert bereits</string>
     <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">Dynamische Farben</string>
@@ -429,7 +433,7 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; Recovery</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">Demnächst verfügbar</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">Befehlskonsole</string>
-    <string name="fastboot_command_hint" comment="Placeholder hint in fastboot command input field">Fastboot-Befehl eingeben…</string>
+    <string name="fastboot_command_hint" comment="Placeholder hint in fastboot command input field">Schnellstart-Befehl… eingeben</string>
     <string name="fastboot_device_info" comment="Card header displaying target device variables queried over fastboot">Geräteinformationen</string>
     <string name="fastboot_partitions" comment="Tab title for Fastboot partition manager tool">Partitionen</string>
     <string name="fastboot_quick_actions" comment="Section header for predefined quick fastboot action buttons">Schnellaktionen</string>
@@ -460,8 +464,8 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">Datei erfolgreich hochgeladen</string>
     <string name="fb_uploading" comment="%1$s = file name">Lade %1$s hoch</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">Funktionsanfrage</string>
-    <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Sicherungszeitpunkt wird abgerufen…</string>
-    <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Backup-Typ wird abgerufen…</string>
+    <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Abrufen der Sicherungszeit …</string>
+    <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Sicherungstyp… wird abgerufen</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">Feld darf nicht leer sein</string>
     <string name="file">Datei</string>
     <string name="file_actions" comment="Bottom sheet title for file operations (copy, move, delete, rename)">Dateifunktionen</string>
@@ -474,7 +478,7 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="filter">Filtern</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">Nach Labels filtern</string>
     <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">Partition flashen</string>
-    <string name="flashing" comment="Progress status header while partition flashing is in progress">Flashe…</string>
+    <string name="flashing" comment="Progress status header while partition flashing is in progress">Flashen…</string>
     <string name="folder">Ordner</string>
     <string name="folder_already_exists" comment="Validation error when creating a directory with duplicate name">Ein Ordner mit diesem Namen existiert bereits</string>
     <string name="folder_conflict_title" comment="Dialog header when creating folder collides with existing folder name">Ordner existiert bereits</string>
@@ -547,6 +551,8 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">Führender Entwickler</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">Am wenigsten genutzt</string>
     <string name="legal_and_policies" comment="Group header for legal settings">Rechtliche &amp; Richtlinien</string>
+    <string name="legal_consent_text">Ich habe die %1$s und %2$s gelesen und stimme ihnen zu.</string>
+    <string name="legal_docs_updated" comment="Title for the dialog shown when legal docs are updated">Rechtsrichtlinien aktualisiert</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">Ebene</string>
     <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">Bibliotheken &amp; Lizenzen</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d Bibliotheken erkannt</string>
@@ -556,7 +562,7 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="load" comment="Action button to load command templates into database">Laden</string>
     <string name="load_predefined_commands" comment="Button label in fastboot screen to load preset fastboot commands">Vordefinierte Befehle laden</string>
     <string name="loading">Wird geladen</string>
-    <string name="loading_device_info" comment="Progress status text while querying ADB device specifications">Lade Geräteinformationen…</string>
+    <string name="loading_device_info" comment="Progress status text while querying ADB device specifications">Geräteinformationen werden geladen…</string>
     <string name="loading_licenses" comment="Progress status text while loading open-source license files">Lade Lizenzinformationen…</string>
     <string name="local_adb" comment="Connection mode option: run ADB commands locally on host device using Shizuku or Root">Lokales ADB</string>
     <string name="local_adb_shell" comment="Screen header for local device ADB shell terminal">Lokale ADB-Shell</string>
@@ -567,7 +573,7 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">Protokolle gelöscht</string>
     <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">Paket</string>
     <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">Protokollebenen</string>
-    <string name="logcat_filter_search_hint" comment="Placeholder text in logcat search bar">In Nachrichten suchen…</string>
+    <string name="logcat_filter_search_hint" comment="Placeholder text in logcat search bar">Suche in Nachrichten…</string>
     <string name="logcat_is_running" comment="Status banner shown while background logcat collection is active">Logcat läuft</string>
     <string name="logcat_ive_granted_it" comment="Button in logcat permission dialog confirming user ran ADB grant command on PC">Ich habe sie gewährt</string>
     <string name="logcat_no_logs" comment="Placeholder text in logcat screen when no log entries match current filters">Noch keine Protokolle</string>
@@ -580,18 +586,20 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="logcat_running_description" comment="Notification body text shown while logcat runs in background">aShellYou sammelt Systemprotokolle im Hintergrund</string>
     <string name="logcat_shortcut_long_label" comment="App launcher shortcut label for launching directly into Logcat Viewer">Logcat-Viewer öffnen</string>
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Logcat-Quelle</string>
-    <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">Tippen Sie auf ▶, um Logcat zu starten</string>
+    <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">Tippe ▶️ um logcat zu starten</string>
     <string name="logs" comment="Screen header or tab title for application and execution log views">Protokolle</string>
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Aussehen &amp; Bedienung</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">Niedrig</string>
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">Geringes Kontrastverhältnis</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">Erstellen Sie Ihr Thema</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">Manuell koppeln</string>
+    <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Material-Symbole</string>
+    <string name="material_icons_description" comment="Informational text in icon chooser explaining the Material Icons download">~380 KB einmal herunterladen, um 2.500+ Materialsymbole zu durchsuchen</string>
     <string name="max_download_size" comment="Setting label for capping maximum update download file size">Max. Download</string>
     <string name="medium">Mittel</string>
     <string name="merge" comment="Resolution option in file browser conflict dialog to merge directory contents">Zusammenführen</string>
     <string name="message">Nachricht</string>
-    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">ADB-Agenten eine Nachricht senden…</string>
+    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">Nachrichten ADB Agent</string>
     <string name="minimize" comment="Action button to minimize terminal overlay window">Minimieren</string>
     <string name="mode" comment="Header title for ADB execution engine mode selector">Modus</string>
     <string name="mode_one_desc" comment="Description for Root execution engine option in settings">Nutze Root-Zugriff, um Befehle auszuführen. Befehle mit Root-Rechten können ausgeführt werden.</string>
@@ -606,7 +614,7 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="more">Mehr</string>
     <string name="most_used" comment="Sorting option for commands or bookmarks list">Am häufigsten verwendet</string>
     <string name="move">Verschieben</string>
-    <string name="moving" comment="Progress status text shown while moving files in file browser">Verschiebe…</string>
+    <string name="moving" comment="Progress status text shown while moving files in file browser">Verschieben…</string>
     <string name="moving_items" comment="%1$d = number of items being moved">Verschiebe %1$d Element(e)</string>
     <string name="n_days" comment="%d = number of days for cache duration setting">%d Tage</string>
     <string name="name">Name</string>
@@ -672,7 +680,7 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="other_details" comment="Expandable card title for additional device metadata details">Weitere Details</string>
     <string name="other_device" comment="Selection tab for target device in Logcat Viewer">Anderes Gerät</string>
     <string name="output" comment="Header title for shell command output window">Ausgabe</string>
-    <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">Die Ausgabe wird hier angezeigt…</string>
+    <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">Ausgabe wird hier… angezeigt</string>
     <string name="override_bookmarks_limit" comment="Setting toggle title to remove the maximum limit on saved bookmarks count">Maximale Lesezeichenbegrenzung überschreiben</string>
     <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">Paketname</string>
     <string name="packages" comment="Title for the packages skill toggle in AI settings">Pakete</string>
@@ -724,7 +732,6 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="primary_container">Primärcontainer</string>
     <string name="privacy_and_security" comment="Title for the privacy and security settings screen">Datenschutz &amp; Sicherheit</string>
     <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Datenschutzerklärung</string>
-    <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">Datenschutzerklärung aktualisiert</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">Produkt</string>
     <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">Gerät über das Wiederherstellungsmenü in den Sideload-Modus versetzen</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">QR-Kopplung</string>
@@ -774,7 +781,7 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="restore_failed" comment="Toast error message when restoring app data fails">Wiederherstellung fehlgeschlagen</string>
     <string name="restore_from" comment="Dialog header prompting user to select restore source (Local File or Google Drive)">Wiederherstellen von</string>
     <string name="restore_successful" comment="Toast message confirming successful app data restoration">Wiederherstellung erfolgreich</string>
-    <string name="restoring_backup" comment="Progress status text shown while restoring database from backup">Backup wird wiederhergestellt…</string>
+    <string name="restoring_backup" comment="Progress status text shown while restoring database from backup">Backup wiederherstellen…</string>
     <string name="resume" comment="Action button to resume paused logcat streaming or file download">Fortsetzen</string>
     <string name="retry" comment="Action button to retry failed network connection or command execution">Wiederholen</string>
     <string name="root_access_granted" comment="Toast notification confirming superuser root access granted to aShellYou">Root-Zugriff gewährt!</string>
@@ -792,18 +799,18 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="save_key" comment="Button label to save entered API key string in settings">Schlüssel speichern</string>
     <string name="save_whole_output" comment="Setting toggle title to export full terminal session output to file">Gesamte Ausgabe speichern</string>
     <string name="saved_devices" comment="Screen title and list header for paired ADB devices history">Gespeicherte Geräte</string>
-    <string name="saving" comment="Progress status text while saving file or settings">Wird gespeichert…</string>
-    <string name="saving_output" comment="Progress status text while exporting terminal log output to file">Exportiere Ausgabe in Datei…</string>
+    <string name="saving" comment="Progress status text while saving file or settings">Speichern…</string>
+    <string name="saving_output" comment="Progress status text while exporting terminal log output to file">Ausgabe wird in Datei… exportiert</string>
     <string name="schedule" comment="Header title or setting label for automated backup schedule picker">Zeitplan</string>
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">Bildschirmdichte-Multiplikator</string>
     <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">Nach unten scrollen</string>
     <string name="search">Suchen</string>
     <string name="search_bookmarks_here" comment="Placeholder text in bookmarks tab search bar">Lesezeichen hier durchsuchen</string>
     <string name="search_commands_here" comment="Placeholder text in command templates tab search bar">Befehle hier durchsuchen</string>
-    <string name="search_fonts" comment="Placeholder text in font family picker search bar">Schriftarten durchsuchen…</string>
+    <string name="search_fonts" comment="Placeholder text in font family picker search bar">Suche Schriften…</string>
     <string name="search_icons_here" comment="Placeholder text in Quick Settings tile icon picker search bar">Symbole hier durchsuchen</string>
     <string name="search_labels_here" comment="Placeholder text in command label filter search bar">Labels hier durchsuchen</string>
-    <string name="search_libraries" comment="Placeholder text in open-source licenses search bar">Bibliotheken, Autoren, Lizenzen durchsuchen…</string>
+    <string name="search_libraries" comment="Placeholder text in open-source licenses search bar">Suche Bibliotheken, Autoren, Lizenzen…</string>
     <string name="search_output" comment="Placeholder text in terminal output search bar">Ausgabe hier durchsuchen</string>
     <string name="search_settings" comment="Placeholder text in settings top search bar">Einstellungen durchsuchen</string>
     <string name="search_something" comment="Generic search field placeholder prompt">Etwas suchen</string>
@@ -830,10 +837,10 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="self_pair_error_saving" comment="Toast error message when storing self-paired device credentials fails">Fehler beim Speichern des Geräts</string>
     <string name="self_pair_failed" comment="Toast notification when local self-pairing operation fails">Kopplung fehlgeschlagen</string>
     <string name="self_pair_found" comment="Status message when local device mDNS ADB pairing service is detected">Kopplungsdienst gefunden!</string>
-    <string name="self_pair_in_progress" comment="Progress status text shown while establishing local ADB self-pairing connection">Kopplung läuft…</string>
+    <string name="self_pair_in_progress" comment="Progress status text shown while establishing local ADB self-pairing connection">Paarung läuft…</string>
     <string name="self_pair_in_progress_hint" comment="Instructional hint displayed during local ADB self-pairing">Bitte warte, während die Verbindung zu diesem Gerät hergestellt wird</string>
     <string name="self_pair_pairing_not_found" comment="Error notification when mDNS ADB pairing service is not broadcasting">Kopplungsdienst nicht gefunden</string>
-    <string name="self_pair_searching" comment="Progress status text while scanning for local mDNS pairing service">Suche nach Kopplungsdienst…</string>
+    <string name="self_pair_searching" comment="Progress status text while scanning for local mDNS pairing service">Suche nach Paardienst…</string>
     <string name="self_pair_searching_hint" comment="Instructional prompt directing user to open Wireless Debugging pairing dialog">Öffne WLAN-Debugging und tippe auf „Gerät mit Kopplungscode koppeln“</string>
     <string name="self_pair_success" comment="Toast confirmation message when local ADB self-pairing succeeds">Mit diesem Gerät verbunden!</string>
     <string name="self_pair_success_hint" comment="Subtext banner confirming local ADB terminal session is ready">Lokale ADB-Shell ist jetzt verfügbar</string>
@@ -859,7 +866,7 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">Navigieren Sie im Wiederherstellungsmenü zu „Apply update“</string>
     <string name="sideload_step_3" comment="Step 3 of ADB sideload guide: selecting ADB sideload mode in recovery">Wählen Sie „Apply from ADB“ (oder „ADB Sideload“)</string>
     <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">Verbinden Sie Ihr Gerät über ein OTG-Kabel und wählen Sie dann hier eine ZIP-Datei aus</string>
-    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Sideload läuft…</string>
+    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Sideloading…</string>
     <string name="sign_in_failed" comment="Toast error message when Google account sign-in fails">Google-Anmeldung fehlgeschlagen</string>
     <string name="sign_in_with_google" comment="Button label in cloud backup settings to sign into Google account">Mit Google anmelden</string>
     <string name="sign_out" comment="Button label in cloud backup settings to sign out of Google account">Abmelden</string>
@@ -903,6 +910,7 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">TCP-Modus nicht verfügbar</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">Terminal</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Terminal-Schriftart</string>
+    <string name="terms_of_service" comment="Title for the Terms of Service legal document">Nutzungsbedingungen</string>
     <string name="tertiary">Tertiär</string>
     <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">Theme-Modus</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">Bibliotheken von Drittanbietern</string>
@@ -944,8 +952,8 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="update_available" comment="Banner title announcing a new application update release">Aktualisierung verfügbar!</string>
     <string name="update_channel" comment="Settings preference title for choosing update channel (Stable, Pre-release, F-Droid)">Update-Kanal</string>
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">Datei hochladen</string>
-    <string name="uploading" comment="Progress status text shown while uploading file to device">Wird hochgeladen…</string>
-    <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Lade Backup auf Google Drive hoch…</string>
+    <string name="uploading" comment="Progress status text shown while uploading file to device">Hochladen…</string>
+    <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Sicherung wird auf Google Drive… hochgeladen</string>
     <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB erfordert, dass USB-Debugging in Entwickleroptionen aktiviert wird</string>
     <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">USB-Debugging erforderlich</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">USB Manager ist auf diesem Gerät nicht verfügbar</string>
