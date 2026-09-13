@@ -39,14 +39,14 @@
     <string name="ai_chat_pin" comment="Action button to pin an AI chat conversation to top of list">Закріпки</string>
     <string name="ai_chat_running" comment="Prefix label in AI chat card indicating an ADB command is currently executing">Виконується: </string>
     <string name="ai_chat_sessions" comment="Header title for stored AI chat conversations list">Чат сесії</string>
-    <string name="ai_chat_thoughts" comment="Collapsible section title showing step-by-step reasoning/thinking of AI model">Думки…</string>
+    <string name="ai_chat_thoughts" comment="Collapsible section title showing step-by-step reasoning/thinking of AI model">Thoughts…</string>
     <string name="ai_chat_unpin" comment="Action button to unpin a pinned AI chat session">Відкріпити</string>
     <string name="ai_models" comment="Settings header for configuring AI models and API credentials">AI &amp; Моделі</string>
     <string name="ai_new_chat_welcome_msg" comment="Initial welcome message from AI ADB Agent when starting a new chat session">Привіт, що я можу для зробити?</string>
     <string name="ai_prompt_suggestion_1" comment="Clickable suggestion chip prompt in AI chat for checking battery health">Перевірити здоров\'я мого акумулятора</string>
     <string name="ai_prompt_suggestion_2" comment="Clickable suggestion chip prompt in AI chat for listing installed package names">Перерахувати всі встановлені пакети</string>
     <string name="ai_prompt_suggestion_3" comment="Clickable suggestion chip prompt in AI chat for creating Quick Settings tiles">Допомогти мені створити плитку швидких налаштувань</string>
-    <string name="ai_session_search_hint" comment="Placeholder text in AI chat session search bar">Пошук чату…</string>
+    <string name="ai_session_search_hint" comment="Placeholder text in AI chat session search bar">Пошук в чаті…</string>
     <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">наприклад, Cyberpunk неонове місто, темний режим, висока контрастність</string>
     <string name="all">Всі</string>
     <string name="all_data" comment="Option in backup selector to include full app database, settings, and chat history">Всі дані</string>
@@ -84,7 +84,7 @@
     <string name="back">Назад</string>
     <string name="back_button" comment="Custom key bar button in terminal view simulating system back button press">Кнопка \"Назад\"</string>
     <string name="background" comment="Material design theme surface/background color role label">Фон</string>
-    <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">Резервування…</string>
+    <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">Створення бекапу…</string>
     <string name="backup">Резервування</string>
     <string name="backup_all_data" comment="Option in backup dialog to export all app database content and settings">Резервування всіх даних</string>
     <string name="backup_and_restore" comment="Settings screen header for managing local and cloud backups">Резервування та відновлення</string>
@@ -106,9 +106,9 @@
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">Батарея</string>
     <string name="battery_saver" comment="Device system battery saver mode label">Економія батареї</string>
     <string name="behavior" comment="Settings category title for application behavior preferences">Поведінка</string>
-    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">Підтвердіть блокування екрана, щоб продовжити</string>
+    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">Підтвердьте блокування екрана, щоб продовжити</string>
     <string name="biometric_prompt_title" comment="Title for the biometric authentication prompt">Розблокувати aShellYou</string>
-    <string name="biometrics_disabled_msg" comment="Toast message when biometric data is removed from device settings">Біометрія відключена програми: біометричні дані було видалено з пристрою.</string>
+    <string name="biometrics_disabled_msg" comment="Toast message when biometric data is removed from device settings">Біометрія додатка вимкнена: Біометричні дані видалено з пристрою.</string>
     <string name="block" comment="Action button to block execution or permissions">Заблокувати</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">Досягнуто максимальної кількості закладок! Видаліть деякі закладки, щоб додати нові</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">Закладки</string>
@@ -116,12 +116,13 @@
     <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">Boot образ</string>
     <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">Завантаження у Fastboot</string>
     <string name="btn_continue" comment="Action button label to proceed to next step in setup wizard">Продовжити</string>
+    <string name="bundled" comment="Tab label in icon chooser for built-in icons that ship with the app">Зібрано</string>
     <string name="cache_settings" comment="Settings section header for AI analysis response caching options">Кеш</string>
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Розмір кешу: %s</string>
     <string name="cancel">Скасувати</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">Скасувати все</string>
     <string name="cancel_selection">Скасувати вибір</string>
-    <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">Скасування…</string>
+    <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">Cancelling…</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">Список змін</string>
     <string name="changelogs" comment="Settings list item title for viewing version history logs">Журнали змін</string>
     <string name="check_updates" comment="Action button in about screen to check GitHub or F-Droid for app updates">Перевірити оновлення</string>
@@ -161,7 +162,6 @@
     <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">Можливість розблокування</string>
     <string name="code_pair_instruction" comment="Instructional text in Wireless Debugging pairing dialog directing user to open Wireless Debugging menu on target device">Відкрийте \"Бездротове налагодження\" на цільовому пристрої та натисніть \"Сполучити пристрій за допомогою коду сполучення\"</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">Згорнути</string>
-    <string name="command_execution_failed" comment="Inline shell error shown when running a command fails unexpectedly. %1$s is the technical reason">Не вдалося виконати команду: %1$s</string>
     <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">Сталася помилка</string>
     <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">Велика висота (діалог)</string>
     <string name="color_preview_highest_elevation" comment="Sample label in theme editor showing highest elevation surface color (Bottom Sheet)">Найвища висота (нижній аркуш)</string>
@@ -211,6 +211,7 @@
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">Аналіз команд</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">Командна консоль</string>
     <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">Команда виконання</string>
+    <string name="command_execution_failed" comment="Inline shell error shown when running a command fails unexpectedly. %1$s is the technical reason">Команда не вдалася: %1$s</string>
     <string name="command_logs" comment="Tab header for history log of executed fastboot commands">Журнали команд</string>
     <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">Історія всіх виконаних команд fastboot.</string>
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Команда не знайдена!</string>
@@ -234,7 +235,7 @@
     <string name="connect_via_wifi_adb" comment="Option in connection menu to connect via Wi-Fi Wireless Debugging">Під\'єднатися через Wi-Fi ADB</string>
     <string name="connected" comment="Status badge showing device is successfully connected over ADB">Під\'єднано</string>
     <string name="connected_device" comment="Header title for the currently active ADB target device information card">Під\'єднаний пристрій</string>
-    <string name="connecting" comment="Progress status text shown while establishing ADB connection">Під’єднання…</string>
+    <string name="connecting" comment="Progress status text shown while establishing ADB connection">Підключення…</string>
     <string name="connection_error" comment="Toast notification or dialog title for ADB network connection errors">Помилка під’єднання</string>
     <string name="connection_failed" comment="Status banner or toast when ADB connection attempt fails">Помилка підключення</string>
     <string name="connection_lost" comment="Dialog title shown when ADB Wireless Debugging connection is unexpectedly disconnected">З’єднання втрачено</string>
@@ -294,7 +295,6 @@
     <string name="des_backup_settings" comment="Description for app settings backup option">Резервування лише налаштувань додатку</string>
     <string name="des_behavior" comment="Description under Behavior item in settings menu">Змінити певну поведінку додатку</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">Історія всіх змін, внесених у додаток</string>
-    <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">Пристрій не підтримує біометричну автентифікацію</string>
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">Натисніть тут, щоб вибрати іконку з колекції іконок</string>
     <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">Видалити всі кешовані відповіді аналізу AI</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">Запитувати підтвердження перед очищенням виводу оболонки</string>
@@ -323,6 +323,7 @@
     <string name="des_high_contrast_dark_mode" comment="Description under High contrast dark mode setting item">Чорно темна тема для пристроїв з дисплеєм OLED</string>
     <string name="des_hridayan" comment="Developer bio subtitle in About section">Просто хлопець, який любить додатки та дизайн</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">Фіксований візуальний стан плитки, коли вона зображена на панелі \"Швидких налаштувань\"</string>
+    <string name="des_legal_docs_updated" comment="Message shown in the dialog when legal docs are updated">Ми оновили нашу Політику конфіденційності та Умови обслуговування. Будь ласка, знайдіть хвилинку, щоб переглянути зміни.</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">Переглянути детальну інформацію про бібліотеки та ліцензії, які використовує додаток</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">Перегляньте ліцензії, які використовуються додатком та бібліотеками</string>
     <string name="des_local_backup" comment="Description card text for local backup option">Зберегти зашифровану резервну копію на своєму пристрої</string>
@@ -336,7 +337,6 @@
     <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">Виберіть спосіб отримання кольорів на основі початкового набору теми</string>
     <string name="des_privacy_and_security" comment="Description for privacy and security settings">Аутентифікація та дозволи додатка</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">Як aShell You обробляє ваші дані</string>
-    <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">Ми оновили нашу політику конфіденційності. Будь ласка, знайдіть хвилинку, щоб переглянути зміни.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">Створити плитки швидких налаштувань для виконання команд adb</string>
     <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Дозволити агенту AI створювати, змінювати та видаляти плитки швидких налаштувань</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">Повідомте про будь-яку проблему, з якою ви зіткнулися під час використання додатку</string>
@@ -350,11 +350,12 @@
     <string name="des_set_local_adb_as_default_launch" comment="Description under Set Local ADB as default launch setting">Введіть локальний екран ADB безпосередньо під час запуску програми</string>
     <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">За бажанням зв\'яжіть свій обліковий запис Google для резервування в хмару</string>
     <string name="des_smooth_scroll" comment="Description under Smooth scrolling setting toggle">Вмикає плавне прокручування у виводі оболонки, при натисканні на верхню або нижню стрілку</string>
+    <string name="des_terms_of_service" comment="Subtitle description under Terms of Service menu item">Правила та рекомендації щодо використання aShell You</string>
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">Коли увімкнено, плитка перемикається між станами УВІМК та ВИМК при кожному натисканні, виконуючи різні команди для кожного стану</string>
     <string name="des_translators" comment="Subtitle description under Translators list in About section">Люди, які допомогли перекласти aShellYou</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">Регулювання масштабу елементів UI та розмір шрифту</string>
     <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">Виберіть, які релізи додаток перевірятиме</string>
-    <string name="des_use_biometrics">Дозволити розблокування додатку за допомогою відбитків пальців або обличчя</string>
+    <string name="des_use_biometrics">Дозволити розблокування додатка за допомогою відбитка пальця або обличчя</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">Будьте обережні, тому що неправильний образ може викликати bootloop</string>
     <string name="description">Опис</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">Зняти вибір з усіх</string>
@@ -371,15 +372,16 @@
     <string name="device_disconnected_message_with_name" comment="%s = device name">\"%s\" відключився.</string>
     <string name="device_found" comment="Status banner when an ADB/Wireless Debugging device service is discovered on local network">Пристрій знайдено!</string>
     <string name="device_info" comment="Screen header or navigation item for target device hardware/OS specifications">Інформація про пристрій</string>
+    <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">Пристрій не підтримує біометричну автентифікацію</string>
     <string name="disable_softkey" comment="Setting toggle title to hide soft keyboard during shell session">Вимкнути програмну клавіатуру</string>
     <string name="disclaimer" comment="Section title in About screen for legal disclaimer notices">Відмова від відповідальності</string>
-    <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">Виконання команд ADB може змінювати системні налаштування, керувати файлами та виконувати операції, які можуть вплинути на стабільність вашого пристрою.\nВи несете повну відповідальність за будь-які зміни, внесені за допомогою цього додатка.</string>
+    <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">Запуск команд ADB може змінювати системні налаштування, керувати файлами і виконувати операції, що можуть вплинути на стабільність вашого пристрою.\nВи несете повну відповідальність за будь-які зміни, внесені за використання цього застосунку.</string>
     <string name="disclaimer_1_title" comment="Title for disclaimer point 1: user risk acknowledgement">Використовуйте на свій страх та ризик</string>
     <string name="disclaimer_2_description" comment="Text for disclaimer point 2: root requirements and elevated permissions">Хоча root доступ не є обов\'язковим, деякі команди можуть вимагати підвищених прав.\nНеправильне використання команд ADB може призвести до втрати даних, збоїв програми або неочікуваної поведінки системи.</string>
     <string name="disclaimer_2_title" comment="Title for disclaimer point 2: root and caution warning">Root доступ не є обов\'язковим, але потрібна обережність</string>
     <string name="disclaimer_3_description" comment="Text for disclaimer point 3: developer liability waiver">Розробники цього додатка не несуть відповідальності за будь-які пошкодження, втрату даних або непередбачені наслідки, що виникли в результаті використання цього додатку.\nДійте обережно і переконайтеся, що ви розумієте команди, що виконуються.</string>
     <string name="disclaimer_3_title" comment="Title for disclaimer point 3: liability waiver">Ми не несемо відповідальності</string>
-    <string name="disclaimer_4_description" comment="Text for disclaimer point 4: target user expertise level">Ця програма розроблена для користувачів, які мають базове розуміння ADB команд.\nЯкщо ви не впевнені щодо ефективності команди, дослідіть її, перш ніж виконувати.</string>
+    <string name="disclaimer_4_description" comment="Text for disclaimer point 4: target user expertise level">This app is designed for users who have a basic understanding of ADB commands.\nIf you are unsure about a command’s effect, research it before executing it.</string>
     <string name="disclaimer_4_title" comment="Title for disclaimer point 4: target audience notice">Призначений для просунутих користувачів</string>
     <string name="disclaimer_5_description" comment="Text for disclaimer point 5: privacy and permissions notice">Для належної роботи цієї програми можуть бути потрібні спеціальні дозволи.\nВони не збирають і не передають персональні дані, але користувачі повинні знати про наслідки надання дозволів, пов\'язаних з ADB.</string>
     <string name="disclaimer_5_title" comment="Title for disclaimer point 5: security and privacy">Дозволи та Безпека</string>
@@ -390,8 +392,10 @@
     <string name="done">Готово</string>
     <string name="download">Завантажити</string>
     <string name="download_failed" comment="Toast message when in-app updater APK download fails">Завантаження не вдалося</string>
-    <string name="downloading" comment="Progress status text while downloading update package">Завантаження…</string>
-    <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Завантаження резервування з Google Диску…</string>
+    <string name="download_material_icons" comment="Button label to download the Material Icons font pack for QS tile icon chooser">Завантажити значки матеріалу</string>
+    <string name="downloading" comment="Progress status text while downloading update package">Завантажується…</string>
+    <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Завантаження резервної копії з Google Drive…</string>
+    <string name="downloading_icon_pack" comment="Progress status text while downloading Material Icons font for QS tile icon chooser">Завантаження пакету значків…</string>
     <string name="downloads" comment="Screen header or list item for downloaded files">Завантаження</string>
     <string name="duplicate_tile_name_error_msg" comment="Validation error in Quick Settings tile builder when entered tile name already exists">Плитка з таким ім\'ям вже існує</string>
     <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">Динамічні кольори</string>
@@ -414,7 +418,7 @@
     <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">Це призведе до остаточного очищення розділу %1$s. Цю дію не можна скасувати.</string>
     <string name="erase_confirm_title" comment="%1$s = partition name. Dialog title for partition erase confirmation">Очистити %1$s?</string>
     <string name="erase_partition" comment="Action button to trigger fastboot partition erase">Стерти</string>
-    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Стирання…</string>
+    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Erasing…</string>
     <string name="error">Помилка</string>
     <string name="error_labels_limit_reached" comment="Validation error when maximum number of custom command labels/tags is reached">Досягнуто максимального ліміту етикеток</string>
     <string name="exclude" comment="Filter toggle option to exclude selected package or item">Виключити</string>
@@ -459,7 +463,7 @@
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">Файл успішно завантажено</string>
     <string name="fb_uploading" comment="%1$s = file name">Завантаження %1$s</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">Запит функції</string>
-    <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Отримання часу резервного копіювання …</string>
+    <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Отримую час резервного копіювання …</string>
     <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Отримання типу резервування…</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">Поле не може бути порожнім</string>
     <string name="file">Файл</string>
@@ -473,7 +477,7 @@
     <string name="filter">Фільтр</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">Фільтрувати за мітками</string>
     <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">Прошити розділ</string>
-    <string name="flashing" comment="Progress status header while partition flashing is in progress">Прошивка…</string>
+    <string name="flashing" comment="Progress status header while partition flashing is in progress">Flashing…</string>
     <string name="folder">Тека</string>
     <string name="folder_already_exists" comment="Validation error when creating a directory with duplicate name">Тека з такою назвою вже існує</string>
     <string name="folder_conflict_title" comment="Dialog header when creating folder collides with existing folder name">Тека вже існує</string>
@@ -546,6 +550,8 @@
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">Провідний розробник</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">Рідко використовувані</string>
     <string name="legal_and_policies" comment="Group header for legal settings">Юридична інформація &amp; Політики</string>
+    <string name="legal_consent_text">Я прочитав і погоджуюся з %1$s і %2$s.</string>
+    <string name="legal_docs_updated" comment="Title for the dialog shown when legal docs are updated">Юридичні політики оновлено</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">Рівень</string>
     <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">Бібліотеки та ліцензії</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">Виявлено бібліотек %1$d</string>
@@ -555,7 +561,7 @@
     <string name="load" comment="Action button to load command templates into database">Завантажити</string>
     <string name="load_predefined_commands" comment="Button label in fastboot screen to load preset fastboot commands">Завантаження передвизначених команд</string>
     <string name="loading">Завантаження</string>
-    <string name="loading_device_info" comment="Progress status text while querying ADB device specifications">Завантаження інформації пристрою…</string>
+    <string name="loading_device_info" comment="Progress status text while querying ADB device specifications">Завантаження інформації про пристрій…</string>
     <string name="loading_licenses" comment="Progress status text while loading open-source license files">Завантаження інформації про ліцензію…</string>
     <string name="local_adb" comment="Connection mode option: run ADB commands locally on host device using Shizuku or Root">Локальний ADB</string>
     <string name="local_adb_shell" comment="Screen header for local device ADB shell terminal">Локальна оболонка ADB</string>
@@ -566,7 +572,7 @@
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">Журнали очищено</string>
     <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">Пакет</string>
     <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">Рівні журналу</string>
-    <string name="logcat_filter_search_hint" comment="Placeholder text in logcat search bar">Пошук в повідомленнях…</string>
+    <string name="logcat_filter_search_hint" comment="Placeholder text in logcat search bar">Search in messages…</string>
     <string name="logcat_is_running" comment="Status banner shown while background logcat collection is active">Logcat працює</string>
     <string name="logcat_ive_granted_it" comment="Button in logcat permission dialog confirming user ran ADB grant command on PC">Я дозволив це</string>
     <string name="logcat_no_logs" comment="Placeholder text in logcat screen when no log entries match current filters">Журналів ще немає</string>
@@ -586,18 +592,20 @@
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">Низький коефіцієнт контрастності</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">Створіть свою тему</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">Ручне сполучення</string>
+    <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Піктограми матеріалу</string>
+    <string name="material_icons_description" comment="Informational text in icon chooser explaining the Material Icons download">Завантажте ~380 КБ для перегляду 2,500+ Матеріалів</string>
     <string name="max_download_size" comment="Setting label for capping maximum update download file size">Максимальне завантаження</string>
     <string name="medium">Середній</string>
     <string name="merge" comment="Resolution option in file browser conflict dialog to merge directory contents">Об’єднати</string>
     <string name="message">Повідомлення</string>
-    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">Повідомлення ADB Агент…</string>
+    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">признач ADB Agent</string>
     <string name="minimize" comment="Action button to minimize terminal overlay window">Мінімізувати</string>
     <string name="mode" comment="Header title for ADB execution engine mode selector">Режим</string>
     <string name="mode_one_desc" comment="Description for Root execution engine option in settings">Використовуйте root доступ для запуску команд. Rooted команди можуть бути виконані.</string>
     <string name="mode_two_desc" comment="Description for Shizuku execution engine option in settings">Використовуйте shizuku для виконання команд. Команди, що потребують root-прав, не виконаються.</string>
-    <string name="model_category_large" comment="AI model size category label">Великий (1,5–2,5 ГБ)</string>
+    <string name="model_category_large" comment="AI model size category label">Великий (1,5–2.5 ГБ)</string>
     <string name="model_category_medium" comment="AI model size category label">Середній (800 Мбайт–1,1 ГБ)</string>
-    <string name="model_category_small" comment="AI model size category label">Невеликий (300-500 МБ)</string>
+    <string name="model_category_small" comment="AI model size category label">Малий (300–500 МБ)</string>
     <string name="model_category_tiny" comment="AI model size category label">Крихітний (менше ніж 300 МБ)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">Моделі</string>
     <string name="modified" comment="File property: last modified date">Змінено</string>
@@ -723,7 +731,6 @@
     <string name="primary_container">Первинний контейнер</string>
     <string name="privacy_and_security" comment="Title for the privacy and security settings screen">Конфіденційність &amp; Безпека</string>
     <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Політика конфіденційності</string>
-    <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">Політика конфіденційності оновлено</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">Продукт</string>
     <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">Переведіть пристрій у режим sideload через його меню відновлення</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">Сполучення QR</string>
@@ -773,7 +780,7 @@
     <string name="restore_failed" comment="Toast error message when restoring app data fails">Відновлення не вдалося</string>
     <string name="restore_from" comment="Dialog header prompting user to select restore source (Local File or Google Drive)">Відновити з</string>
     <string name="restore_successful" comment="Toast message confirming successful app data restoration">Успішно відновлено</string>
-    <string name="restoring_backup" comment="Progress status text shown while restoring database from backup">Відновлення резервування…</string>
+    <string name="restoring_backup" comment="Progress status text shown while restoring database from backup">Restoring backup…</string>
     <string name="resume" comment="Action button to resume paused logcat streaming or file download">Продовжити</string>
     <string name="retry" comment="Action button to retry failed network connection or command execution">Повторити</string>
     <string name="root_access_granted" comment="Toast notification confirming superuser root access granted to aShellYou">Root доступ надано!</string>
@@ -786,29 +793,29 @@
     <string name="running" comment="Status badge showing task or command execution is active">Виконується</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Зберегти</string>
-    <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">Зберегти як профіль…</string>
+    <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">Save as profile…</string>
     <string name="save_changes" comment="Action button to persist edited settings or tile parameters">Зберегти зміни</string>
     <string name="save_key" comment="Button label to save entered API key string in settings">Зберегти ключ</string>
     <string name="save_whole_output" comment="Setting toggle title to export full terminal session output to file">Зберегти весь вивід</string>
     <string name="saved_devices" comment="Screen title and list header for paired ADB devices history">Збережені пристрої</string>
     <string name="saving" comment="Progress status text while saving file or settings">Збереження…</string>
-    <string name="saving_output" comment="Progress status text while exporting terminal log output to file">Експорт виводу у файл…</string>
+    <string name="saving_output" comment="Progress status text while exporting terminal log output to file">Експорт даних в файл…</string>
     <string name="schedule" comment="Header title or setting label for automated backup schedule picker">Розклад</string>
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">Множник щільності екрану</string>
     <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">Прокрутіть вниз</string>
     <string name="search">Пошук</string>
     <string name="search_bookmarks_here" comment="Placeholder text in bookmarks tab search bar">Пошук закладок тут</string>
     <string name="search_commands_here" comment="Placeholder text in command templates tab search bar">Пошук команд тут</string>
-    <string name="search_fonts" comment="Placeholder text in font family picker search bar">Пошук шрифтів…</string>
+    <string name="search_fonts" comment="Placeholder text in font family picker search bar">Search fonts…</string>
     <string name="search_icons_here" comment="Placeholder text in Quick Settings tile icon picker search bar">Пошук іконок тут</string>
     <string name="search_labels_here" comment="Placeholder text in command label filter search bar">Пошук мітки тут</string>
-    <string name="search_libraries" comment="Placeholder text in open-source licenses search bar">Пошук бібліотек, авторів, ліцензій…</string>
+    <string name="search_libraries" comment="Placeholder text in open-source licenses search bar">Search libraries, authors, licenses…</string>
     <string name="search_output" comment="Placeholder text in terminal output search bar">Пошук виводу тут</string>
     <string name="search_settings" comment="Placeholder text in settings top search bar">Налаштування пошуку</string>
     <string name="search_something" comment="Generic search field placeholder prompt">Пошук чого-небудь</string>
     <string name="search_variables" comment="Placeholder text in fastboot variables explorer search bar">Пошук змінних…</string>
     <string name="searching_connect_service" comment="Status message while discovering ADB mDNS connection service on local network">Пошук служби підключення</string>
-    <string name="searching_for_devices" comment="Progress status text while scanning for local Wireless Debugging or OTG ADB target devices">Пошук пристроїв…</string>
+    <string name="searching_for_devices" comment="Progress status text while scanning for local Wireless Debugging or OTG ADB target devices">Searching for devices…</string>
     <string name="secondary">Вторинна</string>
     <string name="security_patch" comment="Device property label displaying Android security patch level date">Патч безпеки</string>
     <string name="select">Вибрати</string>
@@ -829,10 +836,10 @@
     <string name="self_pair_error_saving" comment="Toast error message when storing self-paired device credentials fails">Помилка збереження пристрою</string>
     <string name="self_pair_failed" comment="Toast notification when local self-pairing operation fails">Сполучення не вдалося</string>
     <string name="self_pair_found" comment="Status message when local device mDNS ADB pairing service is detected">Сервіс сполучення знайдено!</string>
-    <string name="self_pair_in_progress" comment="Progress status text shown while establishing local ADB self-pairing connection">Сполучення в процесі…</string>
+    <string name="self_pair_in_progress" comment="Progress status text shown while establishing local ADB self-pairing connection">Pairing in progress…</string>
     <string name="self_pair_in_progress_hint" comment="Instructional hint displayed during local ADB self-pairing">Зачекайте підключення до цього пристрою</string>
     <string name="self_pair_pairing_not_found" comment="Error notification when mDNS ADB pairing service is not broadcasting">Сервіс сполучення не знайдено</string>
-    <string name="self_pair_searching" comment="Progress status text while scanning for local mDNS pairing service">Пошук сервісу сполучення…</string>
+    <string name="self_pair_searching" comment="Progress status text while scanning for local mDNS pairing service">Searching for pairing service…</string>
     <string name="self_pair_searching_hint" comment="Instructional prompt directing user to open Wireless Debugging pairing dialog">Відкрийте \"Бездротове налагодження\" та натисніть \'Сполучити пристрій за допомогою коду сполучення\'</string>
     <string name="self_pair_success" comment="Toast confirmation message when local ADB self-pairing succeeds">Під\'єднано до цього пристрою!</string>
     <string name="self_pair_success_hint" comment="Subtext banner confirming local ADB terminal session is ready">Локальна оболонка ADB тепер доступна</string>
@@ -902,6 +909,7 @@
     <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">TCP Режим недоступний</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">Термінал</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Стиль шрифту терміналу</string>
+    <string name="terms_of_service" comment="Title for the Terms of Service legal document">Умови обслуговування</string>
     <string name="tertiary">Третинний</string>
     <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">Режим теми</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">Сторонні бібліотеки</string>
@@ -943,13 +951,13 @@
     <string name="update_available" comment="Banner title announcing a new application update release">Доступне оновлення!</string>
     <string name="update_channel" comment="Settings preference title for choosing update channel (Stable, Pre-release, F-Droid)">Канал оновлень</string>
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">Завантажити файл</string>
-    <string name="uploading" comment="Progress status text shown while uploading file to device">Завантаження…</string>
-    <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Завантаження резервування на Google Диск…</string>
+    <string name="uploading" comment="Progress status text shown while uploading file to device">Вивантаження…</string>
+    <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Завантаження резервної копії на Google Drive…</string>
     <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB потрібно увімкнути налагодження через USB у розділі \"Параметри розробника\"</string>
     <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">Необхідне USB налагодження</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">Менеджер USB недоступний на цьому пристрої</string>
     <string name="use">Використати</string>
-    <string name="use_biometrics">Використовувати біометричні дані</string>
+    <string name="use_biometrics">Використовувати біометрію</string>
     <string name="utilities" comment="Category title in homescreen">Утиліти</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">Варіант</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">Не вдалося перевірити</string>
@@ -962,7 +970,7 @@
     <string name="view_on_github" comment="Button linking to GitHub release page or commit diff">Переглянути на GitHub</string>
     <string name="visit_repo_to_download" comment="Instructions directing user to download the update APK file from GitHub releases">Натисніть кнопку завантаження, щоб отримати останню версію aShellYou з репозиторію GitHub.</string>
     <string name="waiting_for_device" comment="Progress status banner while awaiting target device USB OTG attachment">Очікування пристрою</string>
-    <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">Очікування пристроїв…</string>
+    <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">Waiting for devices…</string>
     <string name="want_to_contribute_too" comment="Call-to-action banner in About screen inviting code or translation contributions">Хочете також зробити свій внесок?</string>
     <string name="weekly" comment="Option in backup scheduler frequency selection">Щотижня</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">Що б ви хотіли зробити поки %1$s?</string>
