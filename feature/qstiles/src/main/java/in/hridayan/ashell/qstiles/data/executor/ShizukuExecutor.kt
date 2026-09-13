@@ -38,7 +38,7 @@ class ShizukuExecutor @Inject constructor(
         }
 
         val process = shizukuCommandRunner
-            .start(arrayOf("sh", "-c", filteredCommand), null, null)
+            .startFast(arrayOf("sh", "-c", filteredCommand), null, null)
             .getOrElse { error -> return@withContext helperUnavailable(error, start) }
         try {
             val output = StringBuilder()

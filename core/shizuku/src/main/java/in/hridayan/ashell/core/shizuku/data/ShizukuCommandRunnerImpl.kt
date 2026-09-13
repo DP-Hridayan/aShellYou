@@ -39,6 +39,25 @@ class ShizukuCommandRunnerImpl @Inject constructor(
         connector.service().map { }
     }
 
+    override suspend fun startFast(
+        command: Array<String>,
+        environment: Array<String>?,
+        workingDirectory: String?
+    ): Result<Process> = withContext(dispatchers.io) {
+        if (state.value is ShizukuServiceState.Ready) {
+            // Already warmed up, use the fast helper
+            start(command, environment, workingDirectory)
+        } else {
+            // Not warmed up, immediately fall back to legacy to avoid background timeout
+            startWithoutHelper(
+                ShizukuServiceError.BindTimeout,
+                command,
+                environment,
+                workingDirectory
+            )
+        }
+    }
+
     private fun startWithHelper(
         service: IShellUserService,
         command: Array<String>,

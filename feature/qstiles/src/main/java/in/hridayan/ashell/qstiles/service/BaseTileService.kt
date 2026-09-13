@@ -6,7 +6,9 @@ import android.os.Build
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import dagger.hilt.android.AndroidEntryPoint
+import `in`.hridayan.ashell.core.common.domain.model.TileExecutionMode
 import `in`.hridayan.ashell.core.resources.R
+import `in`.hridayan.ashell.core.shizuku.domain.ShizukuCommandRunner
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
 import `in`.hridayan.ashell.qstiles.domain.executor.TileExecutionManager
 import `in`.hridayan.ashell.qstiles.domain.model.TileActiveState
@@ -51,6 +53,9 @@ abstract class BaseTileService : TileService() {
     @Inject
     lateinit var materialIconRepository: MaterialIconRepository
 
+    @Inject
+    lateinit var shizukuCommandRunner: ShizukuCommandRunner
+
     /** Fixed index (0–9) that each concrete tile service owns. */
     abstract val slotIndex: Int
 
@@ -74,6 +79,12 @@ abstract class BaseTileService : TileService() {
                 executionManager.runningTileStates,
             ) { config, running -> config to running }
                 .collectLatest { (config, running) ->
+                    if (config?.executionMode == TileExecutionMode.SHIZUKU) {
+                        launch(Dispatchers.IO) {
+                            shizukuCommandRunner.warmUp()
+                        }
+                    }
+
                     updateQsTile(config, running.containsKey(config?.id))
                 }
         }
