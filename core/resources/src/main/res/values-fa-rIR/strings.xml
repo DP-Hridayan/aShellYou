@@ -11,7 +11,7 @@
     <string name="adb_command" comment="Input field label for typing an ADB shell command">دستور ADB</string>
     <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">دستور ADB (حالت خاموش)</string>
     <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">دستور ADB (حالت روشن)</string>
-    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB متصل است — مطمئن شوید که دستگاه در حالت سایدلود است</string>
+    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB متصل است — مطمئن شوید دستگاه در حالت sideload قرار دارد</string>
     <string name="adb_connection_active" comment="Foreground notification title when an ADB connection (Wireless/OTG) is currently active">اتصال ADB فعال است</string>
     <string name="adb_connection_channel_description" comment="Android notification channel description in System Settings for ADB connection status">نمایش زمانی که اتصال ADB فعال است</string>
     <string name="adb_connection_channel_name" comment="Android notification channel name in System Settings for active ADB connections">اتصال ADB</string>
@@ -39,14 +39,14 @@
     <string name="ai_chat_pin" comment="Action button to pin an AI chat conversation to top of list">سنجاق کردن</string>
     <string name="ai_chat_running" comment="Prefix label in AI chat card indicating an ADB command is currently executing">در حال اجرا: </string>
     <string name="ai_chat_sessions" comment="Header title for stored AI chat conversations list">نشست‌های گفتگو</string>
-    <string name="ai_chat_thoughts" comment="Collapsible section title showing step-by-step reasoning/thinking of AI model">افکار…</string>
+    <string name="ai_chat_thoughts" comment="Collapsible section title showing step-by-step reasoning/thinking of AI model">Thoughts…</string>
     <string name="ai_chat_unpin" comment="Action button to unpin a pinned AI chat session">برداشتن سنجاق</string>
     <string name="ai_models" comment="Settings header for configuring AI models and API credentials">هوش مصنوعی و مدل‌ها</string>
     <string name="ai_new_chat_welcome_msg" comment="Initial welcome message from AI ADB Agent when starting a new chat session">سلام، چه کاری می‌توانم برای شما انجام دهم؟</string>
     <string name="ai_prompt_suggestion_1" comment="Clickable suggestion chip prompt in AI chat for checking battery health">سلامت باتری من را بررسی کن</string>
     <string name="ai_prompt_suggestion_2" comment="Clickable suggestion chip prompt in AI chat for listing installed package names">فهرست تمام بسته‌های نصب شده</string>
     <string name="ai_prompt_suggestion_3" comment="Clickable suggestion chip prompt in AI chat for creating Quick Settings tiles">به من در ایجاد یک کاشی تنظیمات سریع کمک کن</string>
-    <string name="ai_session_search_hint" comment="Placeholder text in AI chat session search bar">جستجو در گفتگوها…</string>
+    <string name="ai_session_search_hint" comment="Placeholder text in AI chat session search bar">Search chat…</string>
     <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">مثلاً شهر نئون سایبرپانک، حالت تاریک، کنتراست بالا</string>
     <string name="all">همه</string>
     <string name="all_data" comment="Option in backup selector to include full app database, settings, and chat history">همه داده‌ها</string>
@@ -61,22 +61,22 @@
     <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">برای استفاده از قابلیت‌های هوش مصنوعی به یک کلید API نیاز است. لطفاً کلید API خود را در مسیر تنظیمات -&gt; مدل‌های ابری اضافه کنید.</string>
     <string name="app">برنامه</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">برنامه از کار افتاد</string>
-    <string name="app_is_locked" comment="Title shown when the app is locked">App is locked</string>
-    <string name="app_is_locked_msg" comment="Message shown when the app is locked">Use your screen lock, fingerprint, or face to unlock this app and continue</string>
-    <string name="app_lock_disabled_msg" comment="Toast message informing user that app lock was disabled because device screen lock was removed">App authentication disabled: Device screen lock was removed.</string>
-    <string name="app_lock_setup_error_msg" comment="Dialog message when user tries to enable app lock but has no device screen lock configured">No device screen lock is configured. Please set up a screen lock or biometric in your device settings to enable App Lock.</string>
-    <string name="app_permissions" comment="Title for app permissions shortcut">App permissions</string>
+    <string name="app_is_locked" comment="Title shown when the app is locked">برنامه قفل است</string>
+    <string name="app_is_locked_msg" comment="Message shown when the app is locked">برای باز کردن قفل این برنامه و ادامه، از قفل صفحه، اثر انگشت یا چهره خود استفاده کنید</string>
+    <string name="app_lock_disabled_msg" comment="Toast message informing user that app lock was disabled because device screen lock was removed">احراز هویت برنامه غیرفعال شد: قفل صفحه دستگاه حذف شد.</string>
+    <string name="app_lock_setup_error_msg" comment="Dialog message when user tries to enable app lock but has no device screen lock configured">هیچ قفل صفحه‌ای برای دستگاه تنظیم نشده است. لطفاً برای فعال کردن قفل برنامه، در تنظیمات دستگاه خود یک قفل صفحه یا بیومتریک تنظیم کنید.</string>
+    <string name="app_permissions" comment="Title for app permissions shortcut">مجوزهای برنامه</string>
     <string name="app_tagline" comment="App subtitle/tagline shown on welcome and about screens">ADB در نوک انگشتان شما</string>
     <string name="apply">اعمال</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">اعمال به همه (%1$d باقیمانده)</string>
     <string name="artifact_id" comment="Technical label for AI artifact identifier in developer options">شناسه آرتیفکت</string>
-    <string name="authenticate" comment="Group header for authentication settings">Authenticate</string>
-    <string name="authentication_timeout" comment="Title for authentication timeout setting">Authentication timeout</string>
+    <string name="authenticate" comment="Group header for authentication settings">احراز هویت</string>
+    <string name="authentication_timeout" comment="Title for authentication timeout setting">مهلت زمانی احراز هویت</string>
     <string name="auto" comment="Selection option for automatic theme/mode handling">خودکار</string>
     <string name="auto_backup" comment="Setting toggle title for scheduled automatic backups">پشتیبان‌گیری خودکار</string>
     <string name="auto_backup_content_type" comment="Setting title for selecting items to include in automatic backups">تاریخ پشتیبان‌گیری</string>
     <string name="auto_backup_folder" comment="Setting title for selecting target local folder for automatic backups">پشتیبان‌گیری ناموفق بود</string>
-    <string name="auto_clear_cache">Auto clear cache</string>
+    <string name="auto_clear_cache">پاک‌سازی خودکار حافظه پنهان</string>
     <string name="auto_dark_mode" comment="Setting toggle title to enable dark mode automatically when battery saver is active">حالت تاریک خودکار</string>
     <string name="auto_delete_existing_backups" comment="Setting toggle title to delete older backup files when a new backup is created">حذف خودکار پشتیبان‌های قدیمی</string>
     <string name="auto_scale_ui" comment="Setting toggle title to automatically scale UI based on device screen width">مقیاس خودکار رابط کاربری</string>
@@ -84,7 +84,7 @@
     <string name="back">بازگشت</string>
     <string name="back_button" comment="Custom key bar button in terminal view simulating system back button press">دکمه بازگشت</string>
     <string name="background" comment="Material design theme surface/background color role label">پس‌زمینه</string>
-    <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">در حال پشتیبان‌گیری…</string>
+    <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">Backing up…</string>
     <string name="backup">پشتیبان‌گیری</string>
     <string name="backup_all_data" comment="Option in backup dialog to export all app database content and settings">پشتیبان‌گیری از همه داده‌ها</string>
     <string name="backup_and_restore" comment="Settings screen header for managing local and cloud backups">پشتیبان‌گیری و بازیابی</string>
@@ -106,9 +106,9 @@
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">باتری</string>
     <string name="battery_saver" comment="Device system battery saver mode label">صرفه‌جویی در مصرف باتری</string>
     <string name="behavior" comment="Settings category title for application behavior preferences">رفتار</string>
-    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">Confirm your screen lock to continue</string>
-    <string name="biometric_prompt_title" comment="Title for the biometric authentication prompt">Unlock aShellYou</string>
-    <string name="biometrics_disabled_msg" comment="Toast message when biometric data is removed from device settings">App biometrics disabled: Biometric data was removed from device.</string>
+    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">برای ادامه، قفل صفحه خود را تأیید کنید</string>
+    <string name="biometric_prompt_title" comment="Title for the biometric authentication prompt">باز کردن قفل aShellYou</string>
+    <string name="biometrics_disabled_msg" comment="Toast message when biometric data is removed from device settings">بیومتریک برنامه غیرفعال شد: داده‌های بیومتریک از دستگاه حذف شدند.</string>
     <string name="block" comment="Action button to block execution or permissions">مسدود کردن</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">به حداکثر تعداد نشانک‌ها رسیده‌اید! برای افزودن نشانک جدید، تعدادی را حذف کنید</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">نشانک‌ها</string>
@@ -116,12 +116,13 @@
     <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">تصویر بوت</string>
     <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">بوت به فست‌بوت</string>
     <string name="btn_continue" comment="Action button label to proceed to next step in setup wizard">ادامه</string>
+    <string name="bundled" comment="Tab label in icon chooser for built-in icons that ship with the app">داخلی</string>
     <string name="cache_settings" comment="Settings section header for AI analysis response caching options">کش</string>
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">حجم کش: %s</string>
     <string name="cancel">لغو</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">لغو همه</string>
-    <string name="cancel_selection">Cancel selection</string>
-    <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">در حال لغو…</string>
+    <string name="cancel_selection">لغو انتخاب</string>
+    <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">Cancelling…</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">تغییرات</string>
     <string name="changelogs" comment="Settings list item title for viewing version history logs">تغییرات</string>
     <string name="check_updates" comment="Action button in about screen to check GitHub or F-Droid for app updates">بررسی بروزرسانی‌ها</string>
@@ -161,7 +162,6 @@
     <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">قابلیت آنلاک</string>
     <string name="code_pair_instruction" comment="Instructional text in Wireless Debugging pairing dialog directing user to open Wireless Debugging menu on target device">\"اشکال‌زدایی بی‌سیم\" را روی دستگاه مقصد باز کنید و روی \"جفت کردن دستگاه با کد\" ضربه بزنید</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">جمع کردن</string>
-    <string name="command_execution_failed" comment="Inline shell error shown when running a command fails unexpectedly. %1$s is the technical reason">Command failed: %1$s</string>
     <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">خطا رخ داد</string>
     <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">ارتفاع بالا (کادر محاوره‌ای)</string>
     <string name="color_preview_highest_elevation" comment="Sample label in theme editor showing highest elevation surface color (Bottom Sheet)">بیشترین ارتفاع (برگه پایینی)</string>
@@ -211,6 +211,7 @@
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">تحلیل دستور</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">کنسول دستور</string>
     <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">اجرای دستور</string>
+    <string name="command_execution_failed" comment="Inline shell error shown when running a command fails unexpectedly. %1$s is the technical reason">دستور ناموفق بود: %1$s</string>
     <string name="command_logs" comment="Tab header for history log of executed fastboot commands">لاگ‌های دستور</string>
     <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">تاریخچه تمام دستورات اجرایی فست‌بوت.</string>
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">دستور یافت نشد!</string>
@@ -221,8 +222,8 @@
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">هشدار! این عمل برگشت‌ناپذیر است\nآیا مطمئن هستید که می‌خواهید همه نشانک‌ها را حذف کنید؟</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">تأیید حذف</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">آیا از حذف «%1$s» مطمئن هستید؟ اگر در حال حاضر اعمال شده باشد، برنامه به فونت سیستم بازمی‌گردد.</string>
-    <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">Warning ! This action is irreversible\nAre you sure you want to delete these %1$d selected bookmarks?</string>
-    <string name="confirm_single_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting a single saved bookmark">Warning ! This action is irreversible\nAre you sure you want to delete this bookmark?</string>
+    <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">هشدار! این عمل برگشت‌ناپذیر است\nآیا مطمئن هستید که می‌خواهید این %1$d نشانک انتخاب‌شده را حذف کنید؟</string>
+    <string name="confirm_single_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting a single saved bookmark">هشدار! این عمل برگشت‌ناپذیر است\nآیا مطمئن هستید که می‌خواهید این نشانک را حذف کنید؟</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">آیا مطمئن هستید که می‌خواهید \"%1$s\" را حذف کنید؟</string>
     <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">کش کردن به بازیابی آنی نتایج تحلیل کمک می‌کند.\nآیا همچنان می‌خواهید تمام داده‌های کش تحلیل هوش مصنوعی را پاک کنید؟</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" از قبل در این مکان وجود دارد.</string>
@@ -234,7 +235,7 @@
     <string name="connect_via_wifi_adb" comment="Option in connection menu to connect via Wi-Fi Wireless Debugging">اتصال از طریق Wi-Fi ADB</string>
     <string name="connected" comment="Status badge showing device is successfully connected over ADB">متصل</string>
     <string name="connected_device" comment="Header title for the currently active ADB target device information card">دستگاه متصل</string>
-    <string name="connecting" comment="Progress status text shown while establishing ADB connection">در حال اتصال…</string>
+    <string name="connecting" comment="Progress status text shown while establishing ADB connection">Connecting…</string>
     <string name="connection_error" comment="Toast notification or dialog title for ADB network connection errors">خطای اتصال</string>
     <string name="connection_failed" comment="Status banner or toast when ADB connection attempt fails">اتصال ناموفق</string>
     <string name="connection_lost" comment="Dialog title shown when ADB Wireless Debugging connection is unexpectedly disconnected">اتصال قطع شد</string>
@@ -245,7 +246,7 @@
     <string name="copied_items" comment="%1$d = number of items copied to clipboard">%1$d مورد کپی شد</string>
     <string name="copied_to_clipboard" comment="Toast message shown after copying text or command to system clipboard">به کلیپ‌بورد کپی شد!</string>
     <string name="copy">کپی</string>
-    <string name="copying" comment="Progress status text shown while copying files in file browser">در حال کپی…</string>
+    <string name="copying" comment="Progress status text shown while copying files in file browser">Copying…</string>
     <string name="copying_items" comment="%1$d = number of items being copied">در حال کپی کردن %1$d مورد (مورد)</string>
     <string name="crash_details" comment="Screen title for inspecting stack trace details of a crash log">جزئیات خرابی</string>
     <string name="crash_history" comment="Settings menu title and screen header for viewing past application crash reports">تاریخچه خرابی‌ها</string>
@@ -278,11 +279,11 @@
     <string name="des_ai_cache_days" comment="Description under Cache duration setting in AI settings">تعداد روزهای نگهداری نتایج کش شده</string>
     <string name="des_ai_cache_enabled" comment="Description under Enable cache setting in AI settings">کش کردن نتایج تحلیل برای هر مدل</string>
     <string name="des_ai_models" comment="Description under AI &amp; Models item in settings">مدیریت داده‌های مدل‌های هوش مصنوعی و کلیدهای API</string>
-    <string name="des_app_permissions" comment="Description for app permissions shortcut">Manage Android system permissions for the app</string>
+    <string name="des_app_permissions" comment="Description for app permissions shortcut">مدیریت مجوزهای سیستم اندروید برای برنامه</string>
     <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">انتخاب موارد موجود در پشتیبان‌گیری‌های خودکار</string>
     <string name="des_auto_backup_folder" comment="Description under Backup folder setting">انتخاب پوشه برای ذخیره پشتیبان‌های خودکار</string>
     <string name="des_auto_backup_time" comment="Description under Backup time setting">تنظیم زمان پشتیبان‌گیری‌های خودکار</string>
-    <string name="des_auto_clear_ai_cache">Automatically clears AI analysis cache when the cache duration expires</string>
+    <string name="des_auto_clear_ai_cache">پاک‌سازی خودکار حافظه پنهان تحلیل هوش مصنوعی پس از پایان مدت زمان آن</string>
     <string name="des_auto_dark_mode" comment="Description under Auto dark mode setting">سوئیچ خودکار به حالت تاریک هنگام فعال شدن صرفه‌جویی باتری</string>
     <string name="des_auto_delete_existing_backups" comment="Description under Auto-delete old backups setting">حذف پشتیبان‌های خودکار قدیمی‌تر هنگام ذخیره جدیدی</string>
     <string name="des_auto_scale_ui" comment="Description under Auto scale UI setting">مقیاس‌دهی خودکار رابط کاربری بر اساس کوچک‌ترین عرض دستگاه</string>
@@ -294,7 +295,6 @@
     <string name="des_backup_settings" comment="Description for app settings backup option">فقط پشتیبان‌گیری از تنظیمات برنامه</string>
     <string name="des_behavior" comment="Description under Behavior item in settings menu">تغییر رفتار خاص برنامه</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">تاریخچه همه تغییرات برنامه</string>
-    <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">Device does not support biometric authentication</string>
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">برای انتخاب آیکون از مجموعه آیکون‌ها اینجا کلیک کنید</string>
     <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">حذف همه پاسخ‌های تحلیل هوش مصنوعی ذخیره‌شده در حافظه پنهان</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">درخواست تأیید قبل از پاک کردن خروجی شل</string>
@@ -306,7 +306,7 @@
     <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">انتخاب زمان استفاده برنامه از طرح رنگ تیره</string>
     <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">اجازه دادن به عامل هوش مصنوعی برای افزودن، ویرایش یا حذف موارد پایگاه داده</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">انتخاب زبان پیش‌فرض برنامه</string>
-    <string name="des_device_diagnostics" comment="Description explaining that this skill allows the AI to check device status">Allow the AI agent to check battery, memory, storage, hardware, and network status natively</string>
+    <string name="des_device_diagnostics" comment="Description explaining that this skill allows the AI to check device status">اجازه دادن به عامل هوش مصنوعی برای بررسی وضعیت باتری، حافظه، فضای ذخیره‌سازی، سخت‌افزار و شبکه به‌صورت بومی</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">مفید هنگام استفاده از کیبورد خارجی</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">آپلود پشتیبان رمزگذاری شده به گوگل درایو.\nاین عمل باعث بازنویسی هرگونه پشتیبان ابری موجود خواهد شد.</string>
     <string name="des_drive_restore" comment="Description card text for Google Drive restore option">دانلود آخرین نسخه پشتیبان از گوگل درایو</string>
@@ -323,6 +323,7 @@
     <string name="des_high_contrast_dark_mode" comment="Description under High contrast dark mode setting item">تم تاریک مطلق برای صفحات OLED</string>
     <string name="des_hridayan" comment="Developer bio subtitle in About section">فقط یک پسر که برنامه‌ها و طراحی را دوست دارد</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">حالت بصری ثابتی از کاشی هنگامی که در پنل تنظیمات سریع نمایش داده می‌شود</string>
+    <string name="des_legal_docs_updated" comment="Message shown in the dialog when legal docs are updated">ما خط‌مشی رازداری و شرایط خدمات خود را به‌روزرسانی کرده‌ایم. لطفاً لحظاتی را به بررسی تغییرات اختصاص دهید.</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">مشاهده جزئیات کتابخانه‌ها و مجوزهای استفاده‌شده در برنامه</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">مشاهده مجوزهایی که برنامه و کتابخانه‌ها استفاده می‌کنند</string>
     <string name="des_local_backup" comment="Description card text for local backup option">ذخیره پشتیبان رمزگذاری شده روی دستگاه</string>
@@ -334,14 +335,13 @@
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">اجازه دادن به عامل هوش مصنوعی برای پرس‌وجوی بسته‌های نصب‌شده و داده‌های برنامه</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">جفت کردن دستگاه مقصد دیگر</string>
     <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">انتخاب نحوه استخراج رنگ‌ها از رنگ پایه تم</string>
-    <string name="des_privacy_and_security" comment="Description for privacy and security settings">Authentication and app permissions</string>
+    <string name="des_privacy_and_security" comment="Description for privacy and security settings">احراز هویت و مجوزهای برنامه</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">نحوه مدیریت داده‌های شما توسط aShell You</string>
-    <string name="des_privacy_policy_updated" comment="Message shown in the dialog when privacy policy is updated">ما سیاست حفظ حریم خصوصی خود را به‌روزرسانی کرده‌ایم. لطفاً لحظاتی را به بررسی تغییرات اختصاص دهید.</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">ایجاد کاشی‌های تنظیمات سریع برای اجرای دستورات adb</string>
     <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">اجازه دادن به عامل هوش مصنوعی برای ایجاد، ویرایش و حذف کاشی‌های تنظیمات سریع</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">گزارش هرگونه مشکل یا باگ</string>
-    <string name="des_require_auth_for_backups" comment="Description for protect backups">Require authentication before restoring any backup</string>
-    <string name="des_require_authentication" comment="Description for require authentication">Secure the app using device screen lock or biometrics</string>
+    <string name="des_require_auth_for_backups" comment="Description for protect backups">الزام احراز هویت قبل از بازیابی هر نسخه پشتیبان</string>
+    <string name="des_require_authentication" comment="Description for require authentication">امن‌سازی برنامه با استفاده از قفل صفحه یا بیومتریک دستگاه</string>
     <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">بازنشانی تنظیمات به مقادیر پیش‌فرض</string>
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">بازیابی داده‌ها از فایل پشتیبان ذخیره شده.\nپایگاه داده ذخیره شده جایگزین پایگاه داده فعلی می‌شود</string>
     <string name="des_save_whole_output" comment="Description under Save whole output setting toggle">فعال کنید تا کل خروجی جلسه شل ذخیره شود.\nدر غیر این صورت فقط آخرین خروجی دستور ذخیره می‌شود.</string>
@@ -350,36 +350,38 @@
     <string name="des_set_local_adb_as_default_launch" comment="Description under Set Local ADB as default launch setting">ورود مستقیم به صفحه ADB محلی هنگام اجرای برنامه</string>
     <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">در صورت تمایل حساب گوگل خود را برای پشتیبان‌گیری ابری متصل کنید</string>
     <string name="des_smooth_scroll" comment="Description under Smooth scrolling setting toggle">اسکرول نرم در خروجی شل هنگام کلیک روی فلش‌های بالا یا پایین</string>
+    <string name="des_terms_of_service" comment="Subtitle description under Terms of Service menu item">قوانین و دستورالعمل‌های استفاده از aShell You</string>
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">در صورت فعال بودن، کاشی با هر بار ضربه زدن بین حالت روشن و خاموش جابجا می‌شود و برای هر حالت دستور متفاوتی را اجرا می‌کند</string>
     <string name="des_translators" comment="Subtitle description under Translators list in About section">افرادی که به ترجمه aShellYou کمک کردند</string>
     <string name="des_ui_scale" comment="Description under UI scale setting item">تنظیم مقیاس عناصر رابط کاربری و اندازه فونت</string>
     <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">انتخاب اینکه برنامه کدام نسخه‌ها را بررسی کند</string>
-    <string name="des_use_biometrics">Allow unlocking the app using your fingerprint or face</string>
+    <string name="des_use_biometrics">اجازه باز کردن قفل برنامه با استفاده از اثر انگشت یا چهره</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">با احتیاط ادامه دهید زیرا تصویر نادرست ممکن است باعث بوت‌لوپ شود</string>
     <string name="description">توضیحات</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">لغو انتخاب همه</string>
     <string name="developer" comment="Section title in About screen for lead developer info">توسعه‌دهنده</string>
     <string name="developer_options" comment="System Developer Options setting item or prompt">گزینه‌های توسعه‌دهنده</string>
     <string name="developer_options_not_available" comment="Toast error message when Developer options shortcut cannot be opened">گزینه‌های توسعه‌دهنده در دسترس نیست!</string>
-    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">ابتدا با ۷ بار ضربه زدن روی «شماره ساخت» در تنظیمات → درباره تلفن، گزینه‌های توسعه‌دهنده را فعال کنید\nاگر این روش برای روشن کردن گزینه‌های توسعه‌دهنده کار نکرد، می‌توانید دستورالعمل‌های مربوط به دستگاه خود را در اینترنت جستجو کنید.</string>
+    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">Enable Developer Options first by tapping Build Number 7 times in Settings → About Phone\nIf this method to turn on Developer options does not work, then you can search the instructions for your device on the internet.</string>
     <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">گزینه‌های توسعه‌دهنده الزامی است</string>
     <string name="device_backup_local" comment="Label for local device storage backup file">پشتیبان‌گیری دستگاه (محلی)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">دستگاه متصل شد!</string>
-    <string name="device_diagnostics" comment="Title for the device diagnostics skill toggle in AI settings">Device Diagnostics</string>
+    <string name="device_diagnostics" comment="Title for the device diagnostics skill toggle in AI settings">عیب‌یابی دستگاه</string>
     <string name="device_disconnected" comment="Notification title when ADB connection drops">دستگاه قطع شد</string>
     <string name="device_disconnected_message" comment="Notification body message when wireless ADB connection is lost">اتصال WiFi ADB قطع شد.</string>
     <string name="device_disconnected_message_with_name" comment="%s = device name">\"%s\" قطع شد.</string>
     <string name="device_found" comment="Status banner when an ADB/Wireless Debugging device service is discovered on local network">دستگاه یافت شد!</string>
     <string name="device_info" comment="Screen header or navigation item for target device hardware/OS specifications">اطلاعات دستگاه</string>
+    <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">دستگاه از احراز هویت بیومتریک پشتیبانی نمی‌کند</string>
     <string name="disable_softkey" comment="Setting toggle title to hide soft keyboard during shell session">غیرفعال کردن کیبورد مجازی</string>
     <string name="disclaimer" comment="Section title in About screen for legal disclaimer notices">سلب مسئولیت</string>
-    <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">اجرای دستورات ADB می‌تواند تنظیمات سیستم را تغییر دهد، فایل‌ها را مدیریت کند و عملیاتی انجام دهد که ممکن است بر پایداری دستگاه شما تأثیر بگذارد.\nشما تنها مسئول هرگونه تغییر ایجاد شده با این برنامه هستید.</string>
+    <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">Running ADB commands can modify system settings, manage files, and perform operations that may affect your device’s stability.\nYou are solely responsible for any changes made using this app.</string>
     <string name="disclaimer_1_title" comment="Title for disclaimer point 1: user risk acknowledgement">با مسئولیت خودتان استفاده کنید</string>
     <string name="disclaimer_2_description" comment="Text for disclaimer point 2: root requirements and elevated permissions">اگرچه دسترسی روت اجباری نیست، برخی دستورات ممکن است نیاز به مجوزهای بالاتر داشته باشند.\nسوء استفاده از دستورات ADB می‌تواند منجر به از دست رفتن داده، خرابی برنامه یا رفتار غیرمنتظره سیستم شود.</string>
     <string name="disclaimer_2_title" comment="Title for disclaimer point 2: root and caution warning">روت اجباری نیست، اما احتیاط لازم است</string>
     <string name="disclaimer_3_description" comment="Text for disclaimer point 3: developer liability waiver">توسعه‌دهنده(های) این برنامه مسئول هیچ آسیب، از دست دادن داده یا عواقب ناخواسته ناشی از استفاده از این برنامه نیستند.\nبا احتیاط ادامه دهید و مطمئن شوید که دستوراتی که اجرا می‌کنید را درک می‌کنید.</string>
     <string name="disclaimer_3_title" comment="Title for disclaimer point 3: liability waiver">ما مسئول نیستیم</string>
-    <string name="disclaimer_4_description" comment="Text for disclaimer point 4: target user expertise level">این برنامه برای کاربرانی طراحی شده که درک پایه‌ای از دستورات ADB دارند.\nاگر در مورد اثر یک دستور مطمئن نیستید، قبل از اجرا تحقیق کنید.</string>
+    <string name="disclaimer_4_description" comment="Text for disclaimer point 4: target user expertise level">This app is designed for users who have a basic understanding of ADB commands.\nIf you are unsure about a command’s effect, research it before executing it.</string>
     <string name="disclaimer_4_title" comment="Title for disclaimer point 4: target audience notice">برای کاربران پیشرفته</string>
     <string name="disclaimer_5_description" comment="Text for disclaimer point 5: privacy and permissions notice">این برنامه ممکن است برای عملکرد صحیح نیاز به مجوزهای خاص داشته باشد.\nداده شخصی جمع‌آوری یا به اشتراک گذاشته نمی‌شود، اما کاربران باید از پیامدهای اعطای مجوزهای مرتبط با ADB آگاه باشند.</string>
     <string name="disclaimer_5_title" comment="Title for disclaimer point 5: security and privacy">مجوزها و امنیت</string>
@@ -390,8 +392,10 @@
     <string name="done">انجام شد</string>
     <string name="download">دانلود</string>
     <string name="download_failed" comment="Toast message when in-app updater APK download fails">دانلود ناموفق بود</string>
+    <string name="download_material_icons" comment="Button label to download the Material Icons font pack for QS tile icon chooser">دانلود آیکون‌های Material</string>
     <string name="downloading" comment="Progress status text while downloading update package">در حال دانلود…</string>
-    <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">در حال دانلود پشتیبان از گوگل درایو…</string>
+    <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Downloading backup from Google Drive…</string>
+    <string name="downloading_icon_pack" comment="Progress status text while downloading Material Icons font for QS tile icon chooser">Downloading icon pack…</string>
     <string name="downloads" comment="Screen header or list item for downloaded files">دانلودها</string>
     <string name="duplicate_tile_name_error_msg" comment="Validation error in Quick Settings tile builder when entered tile name already exists">پوشه‌ای با این نام از قبل وجود دارد</string>
     <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">رنگ‌های پویا</string>
@@ -414,7 +418,7 @@
     <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">این کار پارتیشن %1$s را به طور دائم پاک می‌کند. این عمل قابل بازگشت نیست.</string>
     <string name="erase_confirm_title" comment="%1$s = partition name. Dialog title for partition erase confirmation">پاک کردن %1$s؟</string>
     <string name="erase_partition" comment="Action button to trigger fastboot partition erase">پاک کردن</string>
-    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">در حال پاک کردن…</string>
+    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Erasing…</string>
     <string name="error">خطا</string>
     <string name="error_labels_limit_reached" comment="Validation error when maximum number of custom command labels/tags is reached">به حداکثر تعداد برچسب‌ها رسیده‌اید</string>
     <string name="exclude" comment="Filter toggle option to exclude selected package or item">مستثنی کردن</string>
@@ -428,7 +432,7 @@
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">فست‌بوت و ریکاوری</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">به زودی</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">کنسول دستور</string>
-    <string name="fastboot_command_hint" comment="Placeholder hint in fastboot command input field">دستور فست‌بوت را وارد کنید…</string>
+    <string name="fastboot_command_hint" comment="Placeholder hint in fastboot command input field">Enter fastboot command…</string>
     <string name="fastboot_device_info" comment="Card header displaying target device variables queried over fastboot">اطلاعات دستگاه</string>
     <string name="fastboot_partitions" comment="Tab title for Fastboot partition manager tool">پارتیشن‌ها</string>
     <string name="fastboot_quick_actions" comment="Section header for predefined quick fastboot action buttons">ابزارهای سریع</string>
@@ -459,8 +463,8 @@
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">فایل با موفقیت آپلود شد</string>
     <string name="fb_uploading" comment="%1$s = file name">در حال آپلود %1$s</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">درخواست ویژگی</string>
-    <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">در حال دریافت زمان پشتیبان…</string>
-    <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">در حال دریافت نوع پشتیبان…</string>
+    <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Fetching backup time …</string>
+    <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Fetching backup type…</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">فیلد نمی‌تواند خالی باشد</string>
     <string name="file">فایل</string>
     <string name="file_actions" comment="Bottom sheet title for file operations (copy, move, delete, rename)">عملیات فایل</string>
@@ -473,7 +477,7 @@
     <string name="filter">فیلتر</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">فیلتر بر اساس برچسب</string>
     <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">فلش پارتیشن</string>
-    <string name="flashing" comment="Progress status header while partition flashing is in progress">در حال فلش کردن…</string>
+    <string name="flashing" comment="Progress status header while partition flashing is in progress">Flashing…</string>
     <string name="folder">پوشه</string>
     <string name="folder_already_exists" comment="Validation error when creating a directory with duplicate name">پوشه‌ای با این نام از قبل وجود دارد</string>
     <string name="folder_conflict_title" comment="Dialog header when creating folder collides with existing folder name">پوشه از قبل وجود دارد</string>
@@ -545,7 +549,9 @@
     <string name="launch">راه‌اندازی</string>
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">توسعه‌دهنده اصلی</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">کمترین استفاده</string>
-    <string name="legal_and_policies" comment="Group header for legal settings">Legal &amp; Policies</string>
+    <string name="legal_and_policies" comment="Group header for legal settings">حقوقی &amp; خط‌مشی‌ها</string>
+    <string name="legal_consent_text">من %1$s و %2$s را خوانده‌ام و با آن‌ها موافقم.</string>
+    <string name="legal_docs_updated" comment="Title for the dialog shown when legal docs are updated">خط‌مشی‌های قانونی به‌روزرسانی شدند</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">سطح</string>
     <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">کتابخانه‌ها &amp; مجوزها</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d کتابخانه شناسایی شد</string>
@@ -555,8 +561,8 @@
     <string name="load" comment="Action button to load command templates into database">بارگذاری</string>
     <string name="load_predefined_commands" comment="Button label in fastboot screen to load preset fastboot commands">بارگذاری دستورات پیش‌فرض</string>
     <string name="loading">در حال بارگذاری</string>
-    <string name="loading_device_info" comment="Progress status text while querying ADB device specifications">در حال بارگذاری اطلاعات دستگاه…</string>
-    <string name="loading_licenses" comment="Progress status text while loading open-source license files">در حال بارگذاری اطلاعات مجوز…</string>
+    <string name="loading_device_info" comment="Progress status text while querying ADB device specifications">Loading device info…</string>
+    <string name="loading_licenses" comment="Progress status text while loading open-source license files">Loading license information…</string>
     <string name="local_adb" comment="Connection mode option: run ADB commands locally on host device using Shizuku or Root">ADB محلی</string>
     <string name="local_adb_shell" comment="Screen header for local device ADB shell terminal">شل ADB محلی</string>
     <string name="local_adb_summary" comment="Summary text for local ADB feature card">دستورات ADB را مستقیماً روی دستگاه خود با Shizuku یا root اجرا کنید.</string>
@@ -566,38 +572,40 @@
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">لاگ‌ها پاک شدند</string>
     <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">بسته</string>
     <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">سطوح لاگ</string>
-    <string name="logcat_filter_search_hint" comment="Placeholder text in logcat search bar">جستجو در پیام‌ها…</string>
+    <string name="logcat_filter_search_hint" comment="Placeholder text in logcat search bar">Search in messages…</string>
     <string name="logcat_is_running" comment="Status banner shown while background logcat collection is active">لاگ‌کت در حال اجرا است</string>
     <string name="logcat_ive_granted_it" comment="Button in logcat permission dialog confirming user ran ADB grant command on PC">اعطا کردم</string>
     <string name="logcat_no_logs" comment="Placeholder text in logcat screen when no log entries match current filters">هنوز لاگی وجود ندارد</string>
     <string name="logcat_notification_channel_description" comment="Android Notification Channel description for logcat background session">هنگامی که لاگ‌کت به طور فعال در حال جمع‌آوری لاگ‌ها است نمایش داده می‌شود</string>
     <string name="logcat_notification_channel_name" comment="Android Notification Channel name for Logcat background collection">نشست لاگ‌کت</string>
-    <string name="logcat_permission_instructions" comment="Dialog body explaining that logcat is blocked until the READ_LOGS permission is granted via ADB from a computer; followed by the command block">System logs require the READ_LOGS permission, which can only be granted from a computer. Run this command, then tap \"I\'ve granted it\":</string>
+    <string name="logcat_permission_instructions" comment="Dialog body explaining that logcat is blocked until the READ_LOGS permission is granted via ADB from a computer; followed by the command block">گزارش‌های سیستم به مجوز READ_LOGS نیاز دارند که فقط از طریق رایانه قابل اعطا است. این دستور را اجرا کنید، سپس روی «من آن را اعطا کردم» ضربه بزنید:</string>
     <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide; also the label of the logcat source option that needs it">مجوز دسترسی به لاگ</string>
-    <string name="logcat_read_logs_mode_description" comment="Description under the Log access logcat source option; READ_LOGS is an Android permission name">Needs the READ_LOGS permission, granted once from a computer via ADB</string>
-    <string name="logcat_restart_after_grant_message" comment="Dialog body shown after READ_LOGS was granted; the app process must restart before the permission takes effect">Permission granted. aShellYou needs to restart before it can read system logs.</string>
+    <string name="logcat_read_logs_mode_description" comment="Description under the Log access logcat source option; READ_LOGS is an Android permission name">به مجوز READ_LOGS نیاز دارد که یک بار از طریق رایانه با ADB اعطا می‌شود</string>
+    <string name="logcat_restart_after_grant_message" comment="Dialog body shown after READ_LOGS was granted; the app process must restart before the permission takes effect">مجوز اعطا شد. aShellYou قبل از اینکه بتواند گزارش‌های سیستم را بخواند، باید راه‌اندازی مجدد شود.</string>
     <string name="logcat_running_description" comment="Notification body text shown while logcat runs in background">برنامه aShellYou در حال جمع‌آوری لاگ‌های سیستم در پس‌زمینه است</string>
     <string name="logcat_shortcut_long_label" comment="App launcher shortcut label for launching directly into Logcat Viewer">باز کردن نمایشگر لاگ‌کت</string>
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">منبع لاگ‌کت</string>
-    <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">برای شروع لاگ‌کت روی ▶ ضربه بزنید</string>
+    <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">Tap ▶ to start logcat</string>
     <string name="logs" comment="Screen header or tab title for application and execution log views">گزارش‌ها</string>
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">ظاهر و احساس</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">کم</string>
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">نسبت کنتراست پایین</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">پوسته خود را بسازید</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">جفت‌سازی دستی</string>
+    <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Material Icons</string>
+    <string name="material_icons_description" comment="Informational text in icon chooser explaining the Material Icons download">Download ~380 KB once to browse 2,500+ Material icons</string>
     <string name="max_download_size" comment="Setting label for capping maximum update download file size">دانلود</string>
     <string name="medium">متوسط</string>
     <string name="merge" comment="Resolution option in file browser conflict dialog to merge directory contents">ادغام</string>
     <string name="message">پیام</string>
-    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">پیام به عامل ADB…</string>
+    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">Message ADB Agent</string>
     <string name="minimize" comment="Action button to minimize terminal overlay window">کمینه کردن</string>
     <string name="mode" comment="Header title for ADB execution engine mode selector">حالت</string>
     <string name="mode_one_desc" comment="Description for Root execution engine option in settings">از دسترسی روت برای اجرای دستورات استفاده کنید. دستورات روت شده قابل اجرا هستند.</string>
     <string name="mode_two_desc" comment="Description for Shizuku execution engine option in settings">از Shizuku برای اجرای دستورات استفاده کنید. دستوراتی که نیاز به روت دارند اجرا نمی‌شوند.</string>
-    <string name="model_category_large" comment="AI model size category label">بزرگ (۱.۵ تا ۲.۵ گیگابایت)</string>
-    <string name="model_category_medium" comment="AI model size category label">متوسط (۸۰۰ مگابایت تا ۱.۱ گیگابایت)</string>
-    <string name="model_category_small" comment="AI model size category label">کوچک (۳۰۰ تا ۵۰۰ مگابایت)</string>
+    <string name="model_category_large" comment="AI model size category label">Large (1.5–2.5 GB)</string>
+    <string name="model_category_medium" comment="AI model size category label">Medium (800 MB–1.1 GB)</string>
+    <string name="model_category_small" comment="AI model size category label">Small (300–500 MB)</string>
     <string name="model_category_tiny" comment="AI model size category label">بسیار کوچک (زیر ۳۰۰ مگابایت)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">مدل‌ها</string>
     <string name="modified" comment="File property: last modified date">تغییر یافته</string>
@@ -605,7 +613,7 @@
     <string name="more">بیشتر</string>
     <string name="most_used" comment="Sorting option for commands or bookmarks list">پراستفاده‌ترین</string>
     <string name="move">انتقال</string>
-    <string name="moving" comment="Progress status text shown while moving files in file browser">در حال انتقال…</string>
+    <string name="moving" comment="Progress status text shown while moving files in file browser">Moving…</string>
     <string name="moving_items" comment="%1$d = number of items being moved">در حال انتقال %1$d مورد (مورد)</string>
     <string name="n_days" comment="%d = number of days for cache duration setting">%d روز</string>
     <string name="name">نام</string>
@@ -671,7 +679,7 @@
     <string name="other_details" comment="Expandable card title for additional device metadata details">جزئیات خرابی</string>
     <string name="other_device" comment="Selection tab for target device in Logcat Viewer">دستگاه‌های ذخیره شده</string>
     <string name="output" comment="Header title for shell command output window">خروجی</string>
-    <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">خروجی در اینجا نمایش داده خواهد شد…</string>
+    <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">Output will appear here…</string>
     <string name="override_bookmarks_limit" comment="Setting toggle title to remove the maximum limit on saved bookmarks count">نادیده گرفتن محدودیت نشانک‌ها</string>
     <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">نام بسته</string>
     <string name="packages" comment="Title for the packages skill toggle in AI settings">بسته‌ها</string>
@@ -704,12 +712,12 @@
     <string name="path" comment="Field label for file or directory path in file browser properties">مسیر</string>
     <string name="paused" comment="Status badge showing ongoing file transfer or logcat session is paused">مکث شده</string>
     <string name="permission_denied" comment="Error toast when requested Android system permission is denied by user">مجوز رد شد</string>
-    <string name="permission_not_granted_yet" comment="Toast when the user confirms a permission was granted but the system still reports it missing">Permission not granted yet</string>
+    <string name="permission_not_granted_yet" comment="Toast when the user confirms a permission was granted but the system still reports it missing">مجوز هنوز اعطا نشده است</string>
     <string name="permission_optional" comment="Subtext notice indicating requested permissions are non-mandatory">اعطای این مجوزها اختیاری است!</string>
-    <string name="permissions" comment="Group header for permissions settings">Permissions</string>
+    <string name="permissions" comment="Group header for permissions settings">مجوزها</string>
     <string name="pick_ashellyou_extension" comment="File picker validation error requiring user to select a .ashellyou backup file">لطفاً فایلی با پسوند .ashellyou انتخاب کنید</string>
     <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">انتخاب رنگ</string>
-    <string name="pin_all">Pin selected</string>
+    <string name="pin_all">سنجاق کردن موارد انتخابی</string>
     <string name="port" comment="Field label for network port number in wireless ADB manual pairing setup">پورت</string>
     <string name="possible_reasons" comment="Dialog section header listing potential causes of ADB connection failure">دلایل احتمالی</string>
     <string name="pre_release_github" comment="Option in update channel settings to receive GitHub pre-release builds">پیش‌انتشار (گیت‌هاب)</string>
@@ -721,9 +729,8 @@
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">پیش‌نمایش</string>
     <string name="primary">اصلی</string>
     <string name="primary_container">کانتینر اصلی</string>
-    <string name="privacy_and_security" comment="Title for the privacy and security settings screen">Privacy &amp; Security</string>
+    <string name="privacy_and_security" comment="Title for the privacy and security settings screen">حریم خصوصی &amp; امنیت</string>
     <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">سیاست حفظ حریم خصوصی</string>
-    <string name="privacy_policy_updated" comment="Title for the dialog shown when privacy policy is updated">سیاست حفظ حریم خصوصی به‌روزرسانی شد</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">محصول</string>
     <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">قرار دادن دستگاه در حالت سایدلود از طریق منوی ریکاوری آن</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">جفت‌سازی QR</string>
@@ -732,7 +739,7 @@
     <string name="qs_tiles" comment="Refers to Android System Quick Settings tiles configured for custom ADB scripts">کاشی‌های تنظیمات سریع</string>
     <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">کاشی‌های تنظیمات سریع</string>
     <string name="quick_tools" comment="Section header for fast access utility tools">ابزارهای سریع</string>
-    <string name="reading_file" comment="Progress status text while loading file contents into viewer">در حال خواندن فایل…</string>
+    <string name="reading_file" comment="Progress status text while loading file contents into viewer">Reading file…</string>
     <string name="ready_to_paste" comment="Status message in file manager when item is stored in paste clipboard">آماده چسباندن</string>
     <string name="reboot_bootloader" comment="Action button / dialog choice to reboot target device into bootloader mode">ری‌بوت به بوت‌لودر</string>
     <string name="reboot_confirm_message" comment="%1$s = target boot mode (e.g. recovery, bootloader). Confirmation prompt before rebooting target device">این کار دستگاه متصل را به %1$s ری‌بوت می‌کند. ادامه می‌دهید؟</string>
@@ -759,21 +766,21 @@
     <string name="report_issue" comment="Button in About screen linking to GitHub issue tracker">گزارش مشکل</string>
     <string name="repository" comment="Button in About screen linking to GitHub project repository">مخزن</string>
     <string name="request_timeout" comment="Error toast when network request or ADB response times out">انقضای درخواست</string>
-    <string name="require_auth_for_backups" comment="Toggle title to require auth before restoring backups">Protect backups</string>
-    <string name="require_authentication" comment="Toggle title to require authentication to open the app">Require authentication</string>
+    <string name="require_auth_for_backups" comment="Toggle title to require auth before restoring backups">محافظت از نسخه‌های پشتیبان</string>
+    <string name="require_authentication" comment="Toggle title to require authentication to open the app">الزام احراز هویت</string>
     <string name="reset">بازنشانی</string>
     <string name="reset_app_settings" comment="Button label in settings to restore default application configuration">بازنشانی تنظیمات برنامه</string>
     <string name="reset_settings_failed" comment="Toast notification when settings reset operation fails">بازنشانی تنظیمات ناموفق</string>
     <string name="reset_settings_successful" comment="Toast notification confirming settings have been reset to defaults">بازنشانی تنظیمات موفق</string>
-    <string name="restart_app" comment="Button that closes and relaunches the app">Restart app</string>
-    <string name="restart_required" comment="Dialog title when the app must be restarted for a change to take effect">Restart required</string>
+    <string name="restart_app" comment="Button that closes and relaunches the app">راه‌اندازی مجدد برنامه</string>
+    <string name="restart_required" comment="Dialog title when the app must be restarted for a change to take effect">راه‌اندازی مجدد لازم است</string>
     <string name="restore">بازیابی</string>
     <string name="restore_app_data" comment="Button label in backup settings to import and restore data from backup file">بازیابی داده‌های برنامه</string>
     <string name="restore_dialog_message" comment="Warning message in restore dialog that existing database will be overwritten">داده‌های فایل ذخیره شده جایگزین داده‌های فعلی می‌شوند.</string>
     <string name="restore_failed" comment="Toast error message when restoring app data fails">بازیابی ناموفق</string>
     <string name="restore_from" comment="Dialog header prompting user to select restore source (Local File or Google Drive)">بازیابی از</string>
     <string name="restore_successful" comment="Toast message confirming successful app data restoration">بازیابی موفق</string>
-    <string name="restoring_backup" comment="Progress status text shown while restoring database from backup">در حال بازیابی پشتیبان…</string>
+    <string name="restoring_backup" comment="Progress status text shown while restoring database from backup">Restoring backup…</string>
     <string name="resume" comment="Action button to resume paused logcat streaming or file download">از سرگیری</string>
     <string name="retry" comment="Action button to retry failed network connection or command execution">تلاش مجدد</string>
     <string name="root_access_granted" comment="Toast notification confirming superuser root access granted to aShellYou">دسترسی روت اعطا شد!</string>
@@ -786,29 +793,29 @@
     <string name="running" comment="Status badge showing task or command execution is active">در حال اجرا</string>
     <string name="sans_serif" comment="Font style category name">سانس سریف</string>
     <string name="save">ذخیره</string>
-    <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">ذخیره به عنوان پروفایل…</string>
+    <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">Save as profile…</string>
     <string name="save_changes" comment="Action button to persist edited settings or tile parameters">ذخیره تغییرات</string>
     <string name="save_key" comment="Button label to save entered API key string in settings">ذخیره کلید</string>
     <string name="save_whole_output" comment="Setting toggle title to export full terminal session output to file">ذخیره کل خروجی</string>
     <string name="saved_devices" comment="Screen title and list header for paired ADB devices history">دستگاه‌های ذخیره شده</string>
-    <string name="saving" comment="Progress status text while saving file or settings">در حال ذخیره…</string>
-    <string name="saving_output" comment="Progress status text while exporting terminal log output to file">در حال صادر کردن خروجی به فایل…</string>
+    <string name="saving" comment="Progress status text while saving file or settings">Saving…</string>
+    <string name="saving_output" comment="Progress status text while exporting terminal log output to file">Exporting output to file…</string>
     <string name="schedule" comment="Header title or setting label for automated backup schedule picker">زمان‌بندی</string>
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">ضریب تراکم صفحه نمایش</string>
-    <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">Scroll to bottom</string>
+    <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">پیمایش به پایین</string>
     <string name="search">جستجو</string>
     <string name="search_bookmarks_here" comment="Placeholder text in bookmarks tab search bar">جستجوی دستورات</string>
     <string name="search_commands_here" comment="Placeholder text in command templates tab search bar">جستجوی دستورات</string>
-    <string name="search_fonts" comment="Placeholder text in font family picker search bar">جستجوی فونت‌ها…</string>
+    <string name="search_fonts" comment="Placeholder text in font family picker search bar">Search fonts…</string>
     <string name="search_icons_here" comment="Placeholder text in Quick Settings tile icon picker search bar">جستجوی آیکون‌ها</string>
     <string name="search_labels_here" comment="Placeholder text in command label filter search bar">جستجوی برچسب‌ها</string>
-    <string name="search_libraries" comment="Placeholder text in open-source licenses search bar">جستجوی کتابخانه‌ها، نویسندگان، مجوزها…</string>
+    <string name="search_libraries" comment="Placeholder text in open-source licenses search bar">Search libraries, authors, licenses…</string>
     <string name="search_output" comment="Placeholder text in terminal output search bar">جستجو در خروجی</string>
     <string name="search_settings" comment="Placeholder text in settings top search bar">تنظیمات سیستم</string>
     <string name="search_something" comment="Generic search field placeholder prompt">جستجوی چیزی</string>
-    <string name="search_variables" comment="Placeholder text in fastboot variables explorer search bar">جستجوی متغیرها…</string>
+    <string name="search_variables" comment="Placeholder text in fastboot variables explorer search bar">Search variables…</string>
     <string name="searching_connect_service" comment="Status message while discovering ADB mDNS connection service on local network">جستجوی سرویس اتصال</string>
-    <string name="searching_for_devices" comment="Progress status text while scanning for local Wireless Debugging or OTG ADB target devices">جستجوی دستگاه‌ها…</string>
+    <string name="searching_for_devices" comment="Progress status text while scanning for local Wireless Debugging or OTG ADB target devices">Searching for devices…</string>
     <string name="secondary">ثانویه</string>
     <string name="security_patch" comment="Device property label displaying Android security patch level date">بسته امنیتی</string>
     <string name="select">انتخاب همه</string>
@@ -820,7 +827,7 @@
     <string name="select_theme_to_edit_hex" comment="Instructional prompt under hex editor section in theme builder">یک پوسته در بالا انتخاب کنید تا مقادیر هگز خام آن را در اینجا ویرایش کنید.</string>
     <string name="select_time" comment="Button label to open time picker dialog for automated backup schedule">انتخاب همه</string>
     <string name="select_zip_package" comment="Button label to launch file picker for selecting a ZIP update package to sideload">انتخاب بسته ZIP</string>
-    <string name="selected_items" comment="Indicator showing how many items are currently selected">Selected items (%1$d)</string>
+    <string name="selected_items" comment="Indicator showing how many items are currently selected">موارد انتخاب‌شده (%1$d)</string>
     <string name="self" comment="Refers to pairing this device with itself for local ADB">خود</string>
     <string name="self_pair_connection_failed" comment="Toast error message when automatic local self-pairing fails">اتصال ناموفق - اتصال دستی را امتحان کنید</string>
     <string name="self_pair_enter_code" comment="Subtext instruction prompting user for 6-digit wireless pairing code">کد ۶ رقمی را از پنجره جفت‌سازی وارد کنید</string>
@@ -829,10 +836,10 @@
     <string name="self_pair_error_saving" comment="Toast error message when storing self-paired device credentials fails">خطا در ذخیره دستگاه</string>
     <string name="self_pair_failed" comment="Toast notification when local self-pairing operation fails">جفت‌سازی ناموفق</string>
     <string name="self_pair_found" comment="Status message when local device mDNS ADB pairing service is detected">سرویس جفت‌سازی یافت شد!</string>
-    <string name="self_pair_in_progress" comment="Progress status text shown while establishing local ADB self-pairing connection">در حال جفت‌سازی…</string>
+    <string name="self_pair_in_progress" comment="Progress status text shown while establishing local ADB self-pairing connection">Pairing in progress…</string>
     <string name="self_pair_in_progress_hint" comment="Instructional hint displayed during local ADB self-pairing">لطفاً صبر کنید تا به این دستگاه متصل شود</string>
     <string name="self_pair_pairing_not_found" comment="Error notification when mDNS ADB pairing service is not broadcasting">سرویس جفت‌سازی یافت نشد</string>
-    <string name="self_pair_searching" comment="Progress status text while scanning for local mDNS pairing service">جستجوی سرویس جفت‌سازی…</string>
+    <string name="self_pair_searching" comment="Progress status text while scanning for local mDNS pairing service">Searching for pairing service…</string>
     <string name="self_pair_searching_hint" comment="Instructional prompt directing user to open Wireless Debugging pairing dialog">اشکال‌زدایی بی‌سیم را باز کرده و روی \'جفت کردن دستگاه با کد\' ضربه بزنید</string>
     <string name="self_pair_success" comment="Toast confirmation message when local ADB self-pairing succeeds">به این دستگاه متصل شد!</string>
     <string name="self_pair_success_hint" comment="Subtext banner confirming local ADB terminal session is ready">شل ADB محلی اکنون در دسترس است</string>
@@ -848,17 +855,17 @@
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">خروجی آخرین دستور به \'%s\' صادر شد</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">خروجی شل به \'%s\' صادر شد</string>
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">Shizuku نصب نیست</string>
-    <string name="shizuku_process_start_failed" comment="Inline shell error shown when the Shizuku helper service could not start the command. %1$s is the technical reason">Shizuku could not start the command: %1$s</string>
+    <string name="shizuku_process_start_failed" comment="Inline shell error shown when the Shizuku helper service could not start the command. %1$s is the technical reason">Shizuku نتوانست دستور را اجرا کند: %1$s</string>
     <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">سرویس Shizuku در دسترس نیست. مطمئن شوید Shizuku یا Shizuku+ در حال اجرا است و مجوز لازم اعطا شده است.</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku در دسترس نیست</string>
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">‏Shizuku یا Shizuku+ روی دستگاه شما نصب یا به‌درستی پیکربندی نشده است</string>
     <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">قرار دادن دستگاه در حالت سایدلود از طریق ریکاوری</string>
-    <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">حالت سایدلود — آماده</string>
+    <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Sideload mode — ready</string>
     <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">راه‌اندازی مجدد در ریکاوری (نگه‌داشتن ولوم پایین + پاور، یا اجرا: adb reboot recovery)</string>
     <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">به بخش \"Apply update\" در منوی ریکاوری بروید</string>
     <string name="sideload_step_3" comment="Step 3 of ADB sideload guide: selecting ADB sideload mode in recovery">گزینه \"Apply from ADB\" (یا \"ADB Sideload\") را انتخاب کنید</string>
     <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">دستگاه خود را از طریق کابل OTG متصل کنید، سپس یک فایل ZIP را در اینجا انتخاب کنید</string>
-    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">در حال سایدلود…</string>
+    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Sideloading…</string>
     <string name="sign_in_failed" comment="Toast error message when Google account sign-in fails">ورود به حساب گوگل ناموفق بود</string>
     <string name="sign_in_with_google" comment="Button label in cloud backup settings to sign into Google account">ورود با گوگل</string>
     <string name="sign_out" comment="Button label in cloud backup settings to sign out of Google account">خروج از حساب</string>
@@ -902,6 +909,7 @@
     <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">حالت TCP در دسترس نیست</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">ترمینال</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">سبک فونت ترمینال</string>
+    <string name="terms_of_service" comment="Title for the Terms of Service legal document">شرایط خدمات</string>
     <string name="tertiary">سوم</string>
     <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">حالت تم</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">کتابخانه‌های شخص ثالث</string>
@@ -915,8 +923,8 @@
     <string name="tile_name" comment="Field label for Quick Settings tile title text">نام کاشی</string>
     <string name="tiles" comment="Navigation drawer item and screen header for Quick Settings tiles manager">کاشی‌ها</string>
     <string name="time">زمان</string>
-    <string name="timeout_immediate" comment="Option for immediate timeout">Immediate</string>
-    <string name="timeout_never" comment="Option for never timeout">Never</string>
+    <string name="timeout_immediate" comment="Option for immediate timeout">فوری</string>
+    <string name="timeout_never" comment="Option for never timeout">هرگز</string>
     <string name="timestamp">برچسب زمانی</string>
     <string name="toggleable">قابل تغییر وضعیت</string>
     <string name="total_executions">کل اجراها</string>
@@ -934,17 +942,17 @@
     <string name="unknown">ناشناخته</string>
     <string name="unknown_error" comment="Toast error message when error cause is unmapped">خطای ناشناخته رخ داد</string>
     <string name="unknown_sources_install_permission_not_granted" comment="Error toast when REQUEST_INSTALL_PACKAGES permission is missing for app update installation">مجوز داده نشد. لطفاً نصب برنامه از منابع ناشناخته را مجاز کنید.</string>
-    <string name="unlock" comment="Button to unlock the app">Unlock</string>
+    <string name="unlock" comment="Button to unlock the app">باز کردن قفل</string>
     <string name="unlock_status" comment="Device property label displaying bootloader lock state">وضعیت قفل</string>
     <string name="unlocked" comment="Status badge showing bootloader is unlocked">قفل‌گشایی شده</string>
-    <string name="unpin_all">Unpin selected</string>
+    <string name="unpin_all">برداشتن سنجاق موارد انتخابی</string>
     <string name="untitled" comment="Default name fallback for unsaved theme profile or custom tile">بدون عنوان</string>
     <string name="update">بروزرسانی</string>
     <string name="update_available" comment="Banner title announcing a new application update release">بروزرسانی موجود است!</string>
     <string name="update_channel" comment="Settings preference title for choosing update channel (Stable, Pre-release, F-Droid)">کانال بروزرسانی</string>
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">آپلود فایل</string>
-    <string name="uploading" comment="Progress status text shown while uploading file to device">در حال آپلود…</string>
-    <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">در حال آپلود پشتیبان به گوگل درایو…</string>
+    <string name="uploading" comment="Progress status text shown while uploading file to device">Uploading…</string>
+    <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Uploading backup to Google Drive…</string>
     <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">قابلیت TCP/IP ADB مستلزم فعال بودن اشکال‌زدایی USB در گزینه‌های توسعه‌دهنده است</string>
     <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">اشکال‌زدایی USB الزامی است</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">مدیر USB در این دستگاه در دسترس نیست</string>
@@ -962,7 +970,7 @@
     <string name="view_on_github" comment="Button linking to GitHub release page or commit diff">مشاهده در گیت‌هاب</string>
     <string name="visit_repo_to_download" comment="Instructions directing user to download the update APK file from GitHub releases">روی دکمه دانلود کلیک کنید تا آخرین نسخه aShellYou را از مخزن گیت‌هاب دریافت کنید.</string>
     <string name="waiting_for_device" comment="Progress status banner while awaiting target device USB OTG attachment">در انتظار دستگاه</string>
-    <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">در انتظار دستگاه‌ها…</string>
+    <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">Waiting for devices…</string>
     <string name="want_to_contribute_too" comment="Call-to-action banner in About screen inviting code or translation contributions">می‌خواهید شما هم کمک کنید؟</string>
     <string name="weekly" comment="Option in backup scheduler frequency selection">هفتگی</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">در حین %1$s چه می‌خواهید انجام دهید؟</string>
@@ -989,8 +997,8 @@
         <item quantity="other">%1$d ورودی جدید</item>
     </plurals>
     <plurals name="timeout_minutes" comment="Option for minute timeouts">
-        <item quantity="one">%1$d minute</item>
-        <item quantity="other">%1$d minutes</item>
+        <item quantity="one">%1$d دقیقه</item>
+        <item quantity="other">%1$d دقیقه</item>
     </plurals>
     <string name="changelog_v7_4_0">\nاکنون می‌توانید زیرتنظیمات را درون صفحات تنظیمات جستجو کنید\nافزودن سبک‌های پالت برای طرح‌های رنگی\nافزودن امکان تنظیم زبان برنامه به صورت مستقیم درون برنامه</string>
     <string name="changelog_v7_3_0">\nبهبود رابط کاربری در صفحه تغییرات\nافزودن همکاران ترجمه در بخش درباره\nافزودن صفحه مجوزها که اطلاعات دقیق مجوز درباره برنامه و سایر کتابخانه‌های استفاده شده توسط برنامه را نشان می‌دهد</string>
