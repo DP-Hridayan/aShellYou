@@ -118,7 +118,7 @@ fun CreateTileScreen(
 
     val isValid = uiState.run {
         nameField.text.isNotBlank() && activeCommand.text.isNotBlank() &&
-                (!isToggleable || inactiveCommand.text.isNotBlank()) && nameError == null
+            (!isToggleable || inactiveCommand.text.isNotBlank()) && nameError == null
     }
 
     val floatingToolbarContentColor =
@@ -194,7 +194,9 @@ fun CreateTileScreen(
                 item {
                     SectionLabel(
                         text = stringResource(R.string.tile_name),
-                        modifier = Modifier.padding(top = 25.dp, start = 25.dp, bottom = 10.dp)
+                        modifier = Modifier
+                            .padding(top = 25.dp, start = 25.dp, bottom = 10.dp)
+                            .animateItem()
                     )
                 }
 
@@ -202,7 +204,8 @@ fun CreateTileScreen(
                     TextField(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 20.dp),
+                            .padding(horizontal = 20.dp)
+                            .animateItem(),
                         value = uiState.nameField,
                         onValueChange = { createTileViewModel.onNameChange(it) },
                         hint = "Reboot",
@@ -218,7 +221,9 @@ fun CreateTileScreen(
                 item {
                     SectionLabel(
                         text = stringResource(R.string.tile_behavior),
-                        modifier = Modifier.padding(top = 25.dp, start = 25.dp, bottom = 10.dp)
+                        modifier = Modifier
+                            .padding(top = 25.dp, start = 25.dp, bottom = 10.dp)
+                            .animateItem()
                     )
                 }
 
@@ -226,7 +231,8 @@ fun CreateTileScreen(
                     BehaviorSwitchRow(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 20.dp),
+                            .padding(horizontal = 20.dp)
+                            .animateItem(),
                         title = stringResource(R.string.toggleable),
                         description = stringResource(R.string.des_toggleable),
                         checked = uiState.isToggleable,
@@ -247,7 +253,8 @@ fun CreateTileScreen(
                     BehaviorSwitchRow(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(start = 20.dp, end = 20.dp, top = 2.dp),
+                            .padding(start = 20.dp, end = 20.dp, top = 2.dp)
+                            .animateItem(),
                         title = stringResource(R.string.initial_state),
                         description = stringResource(R.string.des_initial_state),
                         checked = uiState.isActive,
@@ -271,16 +278,21 @@ fun CreateTileScreen(
                     } else {
                         stringResource(R.string.subtitle)
                     }
+
                     SectionLabel(
                         text = label,
-                        modifier = Modifier.padding(top = 25.dp, start = 25.dp, bottom = 10.dp)
+                        modifier = Modifier
+                            .padding(top = 25.dp, start = 25.dp, bottom = 10.dp)
+                            .animateItem()
                     )
                 }
+
                 item {
                     TextField(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 20.dp),
+                            .padding(horizontal = 20.dp)
+                            .animateItem(),
                         value = uiState.run {
                             if (isToggleable || isActive) activeSubtitle else inactiveSubtitle
                         },
@@ -301,34 +313,32 @@ fun CreateTileScreen(
                 }
 
                 item {
-                    AnimatedVisibility(
-                        visible = uiState.isToggleable,
-                        enter = fadeIn() + expandVertically(),
-                        exit = fadeOut() + shrinkVertically(),
-                    ) {
-                        Column {
-                            SectionLabel(
-                                text = stringResource(R.string.subtitle_off_state),
-                                modifier = Modifier.padding(
-                                    top = 20.dp,
-                                    start = 25.dp,
-                                    bottom = 10.dp
-                                )
+                    if (uiState.isToggleable) {
+                        SectionLabel(
+                            text = stringResource(R.string.subtitle_off_state),
+                            modifier = Modifier
+                                .padding(top = 20.dp, start = 25.dp, bottom = 10.dp)
+                                .animateItem()
+                        )
+                    }
+                }
+
+                item {
+                    if (uiState.isToggleable) {
+                        TextField(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 20.dp)
+                                .animateItem(),
+                            value = uiState.inactiveSubtitle,
+                            onValueChange = { createTileViewModel.onInactiveSubtitleChange(it) },
+                            hint = stringResource(R.string.off_state),
+                            shape = RoundedCornerShape(50),
+                            singleLine = true,
+                            keyboardOptions = KeyboardOptions.Default.copy(
+                                imeAction = ImeAction.Done,
                             )
-                            TextField(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 20.dp),
-                                value = uiState.inactiveSubtitle,
-                                onValueChange = { createTileViewModel.onInactiveSubtitleChange(it) },
-                                hint = stringResource(R.string.off_state),
-                                shape = RoundedCornerShape(50),
-                                singleLine = true,
-                                keyboardOptions = KeyboardOptions.Default.copy(
-                                    imeAction = ImeAction.Done,
-                                )
-                            )
-                        }
+                        )
                     }
                 }
 
@@ -338,9 +348,12 @@ fun CreateTileScreen(
                     } else {
                         stringResource(R.string.adb_command)
                     }
+
                     SectionLabel(
                         text = label,
-                        modifier = Modifier.padding(top = 25.dp, start = 25.dp, bottom = 10.dp)
+                        modifier = Modifier
+                            .padding(top = 25.dp, start = 25.dp, bottom = 10.dp)
+                            .animateItem()
                     )
                 }
 
@@ -349,7 +362,8 @@ fun CreateTileScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 20.dp)
-                            .animateContentSize(),
+                            .animateContentSize()
+                            .animateItem(),
                         value = uiState.activeCommand,
                         onValueChange = { createTileViewModel.onActiveCommandChange(it) },
                         hint = stringResource(R.string.adb_command_hint),
@@ -365,50 +379,52 @@ fun CreateTileScreen(
                 }
 
                 item {
-                    AnimatedVisibility(
-                        visible = uiState.isToggleable,
-                        enter = fadeIn() + expandVertically(),
-                        exit = fadeOut() + shrinkVertically(),
-                    ) {
-                        Column {
-                            SectionLabel(
-                                text = stringResource(R.string.adb_command_off_state),
-                                modifier = Modifier.padding(
-                                    top = 20.dp,
-                                    start = 25.dp,
-                                    bottom = 10.dp
-                                )
+                    if (uiState.isToggleable) {
+                        SectionLabel(
+                            text = stringResource(R.string.adb_command_off_state),
+                            modifier = Modifier
+                                .padding(top = 20.dp, start = 25.dp, bottom = 10.dp)
+                                .animateItem()
+                        )
+                    }
+                }
+
+                item {
+                    if (uiState.isToggleable) {
+                        TextField(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 20.dp)
+                                .animateContentSize()
+                                .animateItem(),
+                            value = uiState.inactiveCommand,
+                            onValueChange = { createTileViewModel.onInactiveCommandChange(it) },
+                            hint = stringResource(R.string.adb_command_hint),
+                            shape = RoundedCornerShape(28.dp),
+                            singleLine = false,
+                            minLines = 3,
+                            fontFamily = FontFamily.Monospace,
+                            keyboardOptions = KeyboardOptions.Default.copy(
+                                keyboardType = KeyboardType.Ascii,
+                                imeAction = ImeAction.Default,
                             )
-                            TextField(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 20.dp)
-                                    .animateContentSize(),
-                                value = uiState.inactiveCommand,
-                                onValueChange = { createTileViewModel.onInactiveCommandChange(it) },
-                                hint = stringResource(R.string.adb_command_hint),
-                                shape = RoundedCornerShape(28.dp),
-                                singleLine = false,
-                                minLines = 3,
-                                fontFamily = FontFamily.Monospace,
-                                keyboardOptions = KeyboardOptions.Default.copy(
-                                    keyboardType = KeyboardType.Ascii,
-                                    imeAction = ImeAction.Default,
-                                )
-                            )
-                        }
+                        )
                     }
                 }
 
                 item {
                     SectionLabel(
                         text = stringResource(R.string.execution_method),
-                        modifier = Modifier.padding(top = 25.dp, start = 25.dp, bottom = 10.dp)
+                        modifier = Modifier
+                            .padding(top = 25.dp, start = 25.dp, bottom = 10.dp)
+                            .animateItem()
                     )
                 }
                 item {
                     Row(
-                        modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 10.dp),
+                        modifier = Modifier
+                            .padding(start = 20.dp, end = 20.dp, bottom = 10.dp)
+                            .animateItem(),
                         horizontalArrangement = Arrangement.spacedBy(ButtonGroupDefaults.ConnectedSpaceBetween)
                     ) {
                         executionMethodOptions.forEachIndexed { index, option ->
@@ -432,16 +448,18 @@ fun CreateTileScreen(
                 }
 
                 item {
-                    AnimatedVisibility(uiState.suggestedIcons.isNotEmpty()) {
+                    if (uiState.suggestedIcons.isNotEmpty()) {
                         SectionLabel(
                             text = stringResource(R.string.suggested_icons),
-                            modifier = Modifier.padding(start = 25.dp, end = 25.dp, bottom = 10.dp)
+                            modifier = Modifier
+                                .padding(start = 25.dp, end = 25.dp, bottom = 10.dp)
+                                .animateItem()
                         )
                     }
                 }
 
                 item {
-                    AnimatedVisibility(uiState.suggestedIcons.isNotEmpty()) {
+                    if (uiState.suggestedIcons.isNotEmpty()) {
                         LazyVerticalGrid(
                             columns = GridCells.Fixed(5),
                             modifier = Modifier
@@ -450,7 +468,8 @@ fun CreateTileScreen(
                                 .padding(start = 20.dp, end = 20.dp, bottom = 15.dp)
                                 .clip(RoundedCornerShape(24.dp))
                                 .background(MaterialTheme.colorScheme.surfaceContainerLow)
-                                .padding(vertical = 12.dp),
+                                .padding(vertical = 12.dp)
+                                .animateItem(),
                             horizontalArrangement = Arrangement.SpaceAround,
                             verticalArrangement = Arrangement.spacedBy(16.dp),
                         ) {
@@ -493,7 +512,8 @@ fun CreateTileScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .heightIn(min = 140.dp)
-                            .padding(horizontal = 20.dp),
+                            .padding(horizontal = 20.dp)
+                            .animateItem(),
                         onClick = withHaptic { showIconChooserSheet = true }
                     )
                 }
@@ -501,7 +521,9 @@ fun CreateTileScreen(
                 item {
                     SectionLabel(
                         text = stringResource(R.string.preview),
-                        modifier = Modifier.padding(top = 25.dp, start = 25.dp, bottom = 10.dp)
+                        modifier = Modifier
+                            .padding(top = 25.dp, start = 25.dp, bottom = 10.dp)
+                            .animateItem()
                     )
                 }
                 item {
@@ -515,7 +537,9 @@ fun CreateTileScreen(
                         TileIconContent(
                             iconId = uiState.selectedIconId,
                             fontLoadState = uiState.fontLoadState,
-                            modifier = Modifier.size(28.dp),
+                            modifier = Modifier
+                                .size(28.dp)
+                                .animateItem(),
                             tint = LocalContentColor.current
                         )
                     }
@@ -530,7 +554,8 @@ fun CreateTileScreen(
                                 color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
                                 strokeWidth = 2.dp,
                                 cornerRadius = 24.dp
-                            ),
+                            )
+                            .animateItem(),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -542,6 +567,7 @@ fun CreateTileScreen(
                             iconContent = tileIconContent,
                             isActive = uiState.isActive
                         )
+
                         ModernTilePreview(
                             modifier = Modifier
                                 .weight(2f)
@@ -579,7 +605,9 @@ fun CreateTileScreen(
                                 text = stringResource(R.string.generate_tile),
                                 style = MaterialTheme.typography.titleLargeEmphasized
                             )
+
                             Spacer(modifier = Modifier.width(20.dp))
+
                             Icon(
                                 painter = painterResource(R.drawable.ic_help),
                                 contentDescription = null,
