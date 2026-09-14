@@ -1,5 +1,6 @@
 ﻿package `in`.hridayan.ashell.core.common.domain.model.ai
 
+import androidx.compose.runtime.Immutable
 import kotlinx.serialization.Serializable
 
 /**
@@ -9,6 +10,7 @@ import kotlinx.serialization.Serializable
  * @param confidence How confident we are in this correction
  * @param source Where this correction came from
  */
+@Immutable
 @Serializable
 data class CorrectionSuggestion(
     val suggestedCommand: String,

@@ -441,7 +441,6 @@ private fun CopyButton(
             }
 
             ClipboardUtils.copyToClipboard(text = command, context = context)
-            showToast(context, res.getString(R.string.copied_to_clipboard))
         },
         colors = IconButtonDefaults.iconButtonColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,

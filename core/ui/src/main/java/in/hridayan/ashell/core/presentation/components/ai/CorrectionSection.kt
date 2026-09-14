@@ -22,12 +22,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.common.domain.model.ai.CorrectionConfidence
 import `in`.hridayan.ashell.core.common.domain.model.ai.CorrectionSource
 import `in`.hridayan.ashell.core.common.domain.model.ai.CorrectionSuggestion
+import `in`.hridayan.ashell.core.resources.R
 
 /**
  * Section displaying correction suggestions for PARTIAL/INVALID commands.
@@ -41,12 +43,16 @@ fun CorrectionSection(
 ) {
     if (corrections.isEmpty()) return
 
-    SectionCard(title = "Suggestions", modifier = modifier) {
+    SectionCard(
+        modifier = modifier,
+        title = stringResource(R.string.suggestions)
+    ) {
         corrections.forEachIndexed { index, correction ->
             CorrectionCard(
                 correction = correction,
                 onApply = { onApplyCorrection(correction) }
             )
+
             if (index < corrections.lastIndex) {
                 Spacer(Modifier.height(8.dp))
             }
@@ -65,10 +71,9 @@ private fun CorrectionCard(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainerHighest
         ),
-        shape = MaterialTheme.shapes.small
+        shape = MaterialTheme.shapes.largeIncreased
     ) {
         Column(modifier = Modifier.padding(12.dp)) {
-            // Command text in monospace
             Text(
                 text = correction.suggestedCommand,
                 style = MaterialTheme.typography.bodyMedium.copy(
@@ -85,24 +90,28 @@ private fun CorrectionCard(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Confidence + Source badges
                 Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                     ConfidenceBadge(correction.confidence)
                     SourceBadge(correction.source)
                 }
 
-                // Apply button
                 FilledTonalButton(
                     onClick = onApply,
-                    contentPadding = ButtonDefaults.ContentPadding
+                    contentPadding = ButtonDefaults.ContentPadding,
+                    shapes = ButtonDefaults.shapes()
                 ) {
                     Icon(
                         imageVector = Icons.Rounded.AutoFixHigh,
                         contentDescription = null,
                         modifier = Modifier.size(16.dp)
                     )
+
                     Spacer(Modifier.width(4.dp))
-                    Text("Apply", style = MaterialTheme.typography.labelMedium)
+
+                    Text(
+                        text = stringResource(R.string.apply),
+                        style = MaterialTheme.typography.labelMedium
+                    )
                 }
             }
         }
@@ -112,9 +121,9 @@ private fun CorrectionCard(
 @Composable
 private fun ConfidenceBadge(confidence: CorrectionConfidence) {
     val (color, text) = when (confidence) {
-        CorrectionConfidence.HIGH -> MaterialTheme.colorScheme.tertiary to "High"
-        CorrectionConfidence.MEDIUM -> MaterialTheme.colorScheme.secondary to "Medium"
-        CorrectionConfidence.LOW -> MaterialTheme.colorScheme.outline to "Low"
+        CorrectionConfidence.HIGH -> MaterialTheme.colorScheme.tertiary to stringResource(R.string.high)
+        CorrectionConfidence.MEDIUM -> MaterialTheme.colorScheme.secondary to stringResource(R.string.medium)
+        CorrectionConfidence.LOW -> MaterialTheme.colorScheme.outline to stringResource(R.string.low)
     }
 
     Surface(
@@ -134,8 +143,8 @@ private fun ConfidenceBadge(confidence: CorrectionConfidence) {
 @Composable
 private fun SourceBadge(source: CorrectionSource) {
     val text = when (source) {
-        CorrectionSource.DATABASE -> "Database"
-        CorrectionSource.HEURISTIC -> "Heuristic"
+        CorrectionSource.DATABASE -> stringResource(R.string.database)
+        CorrectionSource.HEURISTIC -> stringResource(R.string.heuristic)
         CorrectionSource.AI -> "AI"
     }
 

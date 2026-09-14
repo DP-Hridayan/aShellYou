@@ -24,12 +24,13 @@ class CrashReportActivity : ComponentActivity() {
     private val settingsViewModel: SettingsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
         enableEdgeToEdge()
+
+        super.onCreate(savedInstanceState)
 
         setContent {
             val settingsState = remember(settingsViewModel) { SettingsStateImpl(settingsViewModel) }
+
             CompositionLocals(settingsState = settingsState) {
                 SeedColorProvider.setSeedColor(LocalSeedColor.current)
 

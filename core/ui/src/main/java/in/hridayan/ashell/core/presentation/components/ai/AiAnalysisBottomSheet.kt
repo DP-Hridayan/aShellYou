@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.LoadingIndicator
@@ -50,14 +51,17 @@ fun AiAnalysisBottomSheet(
         enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded)
     )
 
+    val scrollState = rememberScrollState()
+
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = sheetState,
         modifier = modifier,
-        dragHandle = null
+        dragHandle = null,
+        sheetGesturesEnabled = false
     ) {
         Text(
-            modifier = Modifier.padding(20.dp),
+            modifier = Modifier.padding(24.dp),
             text = stringResource(R.string.command_analysis),
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold
@@ -87,6 +91,10 @@ fun AiAnalysisBottomSheet(
 
                     else -> {
                         AnalysisContent(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 20.dp),
+                            scrollState = scrollState,
                             result = result,
                             onApplyCorrection = onApplyCorrection
                         )
@@ -101,13 +109,8 @@ fun AiAnalysisBottomSheet(
                 )
             }
 
-            is AiAnalysisUiState.Idle -> {
-                // Should not be visible when Idle
-            }
+            else -> {}
         }
-
-        // Bottom spacing for gesture navigation
-        Spacer(Modifier.height(32.dp))
     }
 }
 
@@ -127,22 +130,28 @@ private fun ErrorContent(
             text = "??",
             style = MaterialTheme.typography.displaySmall
         )
+
         Spacer(Modifier.height(16.dp))
+
         Text(
-            text = "Analysis Failed",
+            text = stringResource(R.string.analysis_failed),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.SemiBold
         )
+
         Spacer(Modifier.height(8.dp))
+
         Text(
             text = message,
             style = MaterialTheme.typography.bodyMedium,
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
+
         Spacer(Modifier.height(16.dp))
+
         TextButton(onClick = onRetry) {
-            Text("Retry")
+            Text(text = stringResource(R.string.retry))
         }
     }
 }

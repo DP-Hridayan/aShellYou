@@ -31,7 +31,7 @@ android {
 }
 
 dependencies {
-    api(project(":core:resources"))
+    implementation(project(":core:resources"))
     implementation(project(":core:common"))
     implementation(project(":core:navigation"))
 
@@ -54,7 +54,7 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.serialization.json)
     implementation(libs.compose.settings.graph)
-    
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)

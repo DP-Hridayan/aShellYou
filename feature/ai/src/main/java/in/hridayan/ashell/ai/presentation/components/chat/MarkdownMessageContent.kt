@@ -19,7 +19,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
@@ -40,7 +39,6 @@ import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.ClipboardUtils
-import `in`.hridayan.ashell.core.utils.showToast
 
 @Composable
 fun MarkdownMessageContent(
@@ -50,7 +48,6 @@ fun MarkdownMessageContent(
     onUseCommand: (String) -> Unit,
     viewModel: AiChatViewModel = hiltViewModel()
 ) {
-    val res = LocalResources.current
     val context = LocalContext.current
     val components = remember(content) { viewModel.parseMarkdown(content) }
 
@@ -96,11 +93,6 @@ fun MarkdownMessageContent(
                                             ClipboardUtils.copyToClipboard(
                                                 text = AnnotatedString(component.code).text,
                                                 context = context
-                                            )
-
-                                            showToast(
-                                                context,
-                                                res.getString(R.string.copied_to_clipboard)
                                             )
                                         }
                                     ) {

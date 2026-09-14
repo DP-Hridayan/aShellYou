@@ -1052,6 +1052,17 @@
     <string name="wireless_not_connected" comment="Status banner shown when target device is not connected over Wireless Debugging">Not Connected</string>
     <string name="wireless_not_connected_message" comment="Instructional body text advising user to pair and connect device first">Your device is not connected via Wireless Debugging. Pair and connect your device first.</string>
     <string name="Z_A" translatable="false">Z → A</string>
+    <string name="safe">Safe</string>
+    <string name="low_risk">Low risk</string>
+    <string name="moderate">Moderate</string>
+    <string name="dangerous">Dangerous</string>
+    <string name="critical">Critical</string>
+    <string name="use_cases">Use cases</string>
+    <string name="feedback">Feedback</string>
+    <string name="suggestions">Suggestions</string>
+    <string name="database">Database</string>
+    <string name="heuristic">Heuristic</string>
+    <string name="analysis_failed">Analysis failed</string>
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d new entry</item>
         <item quantity="other">%1$d new entries</item>

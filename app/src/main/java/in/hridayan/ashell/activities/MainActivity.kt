@@ -67,9 +67,11 @@ class MainActivity : AppCompatActivity() {
 
         splashScreen.setKeepOnScreenCondition {
             settingsViewModel.isFirstLaunch == null
-                    || settingsViewModel.defaultLaunchIsLocalAdb == null
-                    || System.currentTimeMillis() - splashStartTime < SPLASH_SCREEN_DELAY_MS
+                || settingsViewModel.defaultLaunchIsLocalAdb == null
+                || System.currentTimeMillis() - splashStartTime < SPLASH_SCREEN_DELAY_MS
         }
+
+        enableEdgeToEdge()
 
         super.onCreate(savedInstanceState)
 
@@ -95,7 +97,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupUi() {
-        enableEdgeToEdge()
         setContent {
             val settingsState = remember(settingsViewModel) { SettingsStateImpl(settingsViewModel) }
             val activeCustomFontFamily by appFontViewModel.activeCustomFontFamily.collectAsState()

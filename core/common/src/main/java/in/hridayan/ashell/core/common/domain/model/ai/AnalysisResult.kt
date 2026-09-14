@@ -1,5 +1,6 @@
 package `in`.hridayan.ashell.core.common.domain.model.ai
 
+import androidx.compose.runtime.Immutable
 import kotlinx.serialization.Serializable
 
 /**
@@ -9,6 +10,7 @@ import kotlinx.serialization.Serializable
  * @param description Human-readable description of what the command does
  * @param feedback Additional feedback or notes from the analysis
  */
+@Immutable
 @Serializable
 data class AnalysisResult(
     val command: String = "",

@@ -155,7 +155,12 @@ fun LogcatScreen(
         LogcatPreflightResult.NeedsReadLogs -> {
             LogcatPermissionDialog(
                 grantCommand = viewModel.readLogsGrantCommand,
-                onCopyCommand = { copyGrantCommand(context, viewModel.readLogsGrantCommand) },
+                onCopyCommand = {
+                    ClipboardUtils.copyToClipboard(
+                        text = viewModel.readLogsGrantCommand,
+                        context = context
+                    )
+                },
                 onGranted = { viewModel.confirmReadLogsGranted(logcatMode) },
                 onDismiss = { viewModel.consumePreflight() },
             )
@@ -234,11 +239,6 @@ private fun handleUiEvent(context: Context, event: LogcatUiEvent) {
         LogcatUiEvent.PermissionStillMissing ->
             ToastUtils.makeToast(context, context.getString(R.string.permission_not_granted_yet))
     }
-}
-
-private fun copyGrantCommand(context: Context, command: String) {
-    ClipboardUtils.copyToClipboard(command, context)
-    ToastUtils.makeToast(context, context.getString(R.string.copied_to_clipboard))
 }
 
 @Composable
