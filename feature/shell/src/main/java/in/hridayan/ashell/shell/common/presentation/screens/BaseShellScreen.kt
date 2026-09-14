@@ -53,7 +53,6 @@ import androidx.compose.material.icons.automirrored.rounded.Send
 import androidx.compose.material.icons.rounded.Fullscreen
 import androidx.compose.material.icons.rounded.KeyboardDoubleArrowDown
 import androidx.compose.material.icons.rounded.KeyboardDoubleArrowUp
-import androidx.compose.material.icons.rounded.Share
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -303,10 +302,38 @@ fun BaseShellScreen(
         }
     }
 
+
+    val shareAction: () -> Unit = {
+        val outputText = buildStringFromOutput(states.output)
+
+        activity?.let { act ->
+            try {
+                val tempFile = File(act.cacheDir, shellViewModel.getSaveOutputFileName(true))
+                tempFile.writeText(outputText)
+
+                val uri = FileProvider.getUriForFile(
+                    act,
+                    "${act.packageName}.fileprovider",
+                    tempFile
+                )
+
+                val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_STREAM, uri)
+                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                }
+
+                act.startActivity(Intent.createChooser(shareIntent, "Share command output"))
+            } catch (e: Exception) {
+                e.printStackTrace()
+                showToast(context, res.getString(R.string.failed))
+            }
+        }
+    }
+
     Scaffold(
         modifier = modifier,
         floatingActionButton = {
-            // Hide FABs in fullscreen mode
             AnimatedVisibility(
                 visible = !isOutputFullscreen,
                 enter = scaleIn(animationSpec = AshellYouAnimationSpecs.springFloat),
@@ -318,7 +345,6 @@ fun BaseShellScreen(
                 val isNotBusy = states.shellState !is ShellState.Busy
                 val canScroll = listState.canScrollBackward || listState.canScrollForward
 
-                // Track scroll direction
                 LaunchedEffect(scrollDirection) {
                     if (scrollDirection != ScrollDirection.NONE && isNotBusy && canScroll) {
                         lastScrollDirection = scrollDirection
@@ -359,9 +385,6 @@ fun BaseShellScreen(
                             scrollDirection = lastScrollDirection
                         )
                     }
-
-                    ShareFAB()
-
 
                     BottomExtendedFAB(
                         listState = listState,
@@ -672,6 +695,7 @@ fun BaseShellScreen(
                                 isSearchVisible = states.search.isVisible,
                                 searchQuery = states.search.textFieldValue.text,
                                 isFullscreen = isOutputFullscreen,
+                                onShareAction = shareAction,
                                 onFullscreenToggle = { isOutputFullscreen = !isOutputFullscreen },
                                 restoredScrollIndex = restoredScrollIndex,
                                 onScrollRestored = { restoredScrollIndex = -1 },
@@ -889,6 +913,7 @@ private fun NoSearchResultUi(modifier: Modifier = Modifier) {
 private fun OutputCard(
     listState: LazyListState,
     isFullscreen: Boolean,
+    onShareAction: () -> Unit,
     onFullscreenToggle: () -> Unit,
     restoredScrollIndex: Int = -1,
     onScrollRestored: () -> Unit = {},
@@ -947,7 +972,6 @@ private fun OutputCard(
 
     if (combinedOutput.value.isEmpty()) return
 
-    // Restore scroll position when exiting fullscreen
     LaunchedEffect(restoredScrollIndex) {
         if (restoredScrollIndex >= 0 && combinedOutput.value.isNotEmpty()) {
             val safeIndex = restoredScrollIndex.coerceAtMost(combinedOutput.value.lastIndex)
@@ -956,12 +980,10 @@ private fun OutputCard(
         }
     }
 
-    // Smart auto-scroll during live output (ShellState.Busy)
     var userScrolledAway by remember { mutableStateOf(false) }
     var autoScrollResumeJob by remember { mutableStateOf<Job?>(null) }
     val outputCardScope = rememberCoroutineScope()
 
-    // Check if we're near the bottom (within 3 items)
     val isNearBottom by remember {
         derivedStateOf {
             val layoutInfo = listState.layoutInfo
@@ -971,7 +993,6 @@ private fun OutputCard(
         }
     }
 
-    // Detect user scroll using scroll position changes
     var lastScrollIndex by remember { mutableIntStateOf(0) }
 
     LaunchedEffect(Unit) {
@@ -983,43 +1004,36 @@ private fun OutputCard(
             )
         }.collect { (currentIndex, isScrolling, totalItems) ->
             if (isScrolling && totalItems > 0) {
-                // User scrolled UP (away from bottom) - pause auto-scroll
                 if (currentIndex < lastScrollIndex && !isNearBottom) {
                     userScrolledAway = true
-                    // Cancel any existing resume job and start new 3s timer
                     autoScrollResumeJob?.cancel()
                     autoScrollResumeJob = outputCardScope.launch {
                         delay(3000.milliseconds)
                         userScrolledAway = false
                     }
-                }
-                // User scrolled DOWN to bottom - resume auto-scroll immediately
-                else if (isNearBottom && userScrolledAway) {
+                } else if (isNearBottom && userScrolledAway) {
                     autoScrollResumeJob?.cancel()
                     userScrolledAway = false
                 }
             }
+
             lastScrollIndex = currentIndex
         }
     }
 
-    // Track previous busy state to detect command completion
     var wasBusy by remember { mutableStateOf(false) }
 
     // Reset scroll state and scroll to bottom when command finishes
     LaunchedEffect(shellState, combinedOutput.value.size) {
         val isBusy = shellState is ShellState.Busy
 
-        // When command finishes (was busy, now not)
         if (wasBusy && !isBusy && combinedOutput.value.isNotEmpty() && !isFullscreen) {
             userScrolledAway = false
             autoScrollResumeJob?.cancel()
             try {
-                // Delay slightly to let UI settle, then scroll to bottom
                 delay(50.milliseconds)
                 listState.animateScrollToItem(combinedOutput.value.lastIndex)
             } catch (_: Exception) {
-                // Ignore scroll cancellation
             }
         }
 
@@ -1032,7 +1046,6 @@ private fun OutputCard(
             try {
                 listState.scrollToItem(combinedOutput.value.lastIndex)
             } catch (_: Exception) {
-                // Ignore scroll cancellation
             }
         }
     }
@@ -1045,117 +1058,159 @@ private fun OutputCard(
         if (isDarkMode) surfaceContainerLow else surfaceContainer
     }
 
-    // Only render the card when not in fullscreen
-    if (!isFullscreen) {
-        with(sharedTransitionScope) {
-            Card(
+    if (isFullscreen) return
+
+    with(sharedTransitionScope) {
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+                .sharedElement(
+                    rememberSharedContentState(key = "output_card"),
+                    animatedVisibilityScope = animatedContentScope
+                )
+                .clip(MaterialTheme.shapes.large),
+            colors = CardDefaults.cardColors(
+                containerColor = cardContainerColor,
+                contentColor = MaterialTheme.colorScheme.onSurface
+            )
+        ) {
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
-                    .sharedElement(
-                        rememberSharedContentState(key = "output_card"),
-                        animatedVisibilityScope = animatedContentScope
-                    )
-                    .clip(MaterialTheme.shapes.large),
-                colors = CardDefaults.cardColors(
-                    containerColor = cardContainerColor,
-                    contentColor = MaterialTheme.colorScheme.onSurface
-                )
+                    .wrapContentHeight()
             ) {
-                Column(
+                OutputCardHeader(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(headerColor)
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    onShare = onShareAction,
+                    onCopy = {
+                        ClipboardUtils.copyToClipboard(
+                            text = buildStringFromOutput(results),
+                            context = context
+                        )
+                    },
+                    onFullscreenToggle = onFullscreenToggle,
+                )
+
+                Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight()
                 ) {
-                    // Header bar
-                    Row(
+                    val selectionState = rememberLazySelectionState()
+
+                    LazySelectionContainer(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .background(headerColor)
-                            .padding(horizontal = 16.dp, vertical = 6.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = stringResource(R.string.output),
-                            style = MaterialTheme.typography.labelLarge,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-                        IconButton(
-                            onClick = withHaptic(HapticFeedbackType.VirtualKey) { onFullscreenToggle() },
-                            modifier = Modifier.size(32.dp)
-                        ) {
-                            Icon(
-                                imageVector = Icons.Rounded.Fullscreen,
-                                contentDescription = "Fullscreen",
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                        }
-                    }
-
-                    // Output content
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .wrapContentHeight()
-                    ) {
-                        val selectionState = rememberLazySelectionState()
-
-                        LazySelectionContainer(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(start = 16.dp, end = 16.dp, bottom = 20.dp),
-                            selectionState = selectionState,
-                            listState = listState,
-                            items = combinedOutput.value,
-                            itemToText = { it.text },
-                            onCopy = { success ->
-                                val toastMessage =
-                                    if (success) {
-                                        res.getString(R.string.copied_to_clipboard)
-                                    } else {
-                                        res.getString(R.string.failed_to_copy)
-                                    }
-
-                                showToast(context, toastMessage)
-                            },
-                            haptics = LazySelectionDefaults.haptics(enabled = hapticsEnabled)
-                        ) {
-                            LazyColumn(
-                                state = listState,
-                                verticalArrangement = Arrangement.spacedBy(8.dp),
-                            ) {
-                                itemsIndexed(combinedOutput.value) { index, line ->
-
-                                    val textLayoutResult = rememberLazySelectionTextLayout(index)
-
-                                    val isCommandLine = line.text.startsWith("$ ")
-
-                                    val textStyle =
-                                        if (isCommandLine) commandTextStyle else bodyTextStyle
-
-                                    OutputLineText(
-                                        modifier = Modifier.lazySelectionItem(index = index),
-                                        line = line,
-                                        isSearchVisible = isSearchVisible,
-                                        searchQuery = searchQuery,
-                                        textStyle = textStyle,
-                                        onTextLayout = textLayoutResult
-                                    )
+                            .padding(start = 16.dp, end = 16.dp, bottom = 20.dp),
+                        selectionState = selectionState,
+                        listState = listState,
+                        items = combinedOutput.value,
+                        itemToText = { it.text },
+                        onCopy = { success ->
+                            val toastMessage =
+                                if (success) {
+                                    res.getString(R.string.copied_to_clipboard)
+                                } else {
+                                    res.getString(R.string.failed_to_copy)
                                 }
+
+                            showToast(context, toastMessage)
+                        },
+                        haptics = LazySelectionDefaults.haptics(enabled = hapticsEnabled)
+                    ) {
+                        LazyColumn(
+                            state = listState,
+                            verticalArrangement = Arrangement.spacedBy(8.dp),
+                        ) {
+                            itemsIndexed(combinedOutput.value) { index, line ->
+
+                                val textLayoutResult = rememberLazySelectionTextLayout(index)
+
+                                val isCommandLine = line.text.startsWith("$ ")
+
+                                val textStyle =
+                                    if (isCommandLine) commandTextStyle else bodyTextStyle
+
+                                OutputLineText(
+                                    modifier = Modifier.lazySelectionItem(index = index),
+                                    line = line,
+                                    isSearchVisible = isSearchVisible,
+                                    searchQuery = searchQuery,
+                                    textStyle = textStyle,
+                                    onTextLayout = textLayoutResult
+                                )
                             }
                         }
-
-                        VerticalScrollbar(
-                            listState = listState,
-                            modifier = Modifier
-                                .align(Alignment.CenterEnd)
-                                .fillMaxHeight()
-                                .width(4.dp)
-                        )
                     }
+
+                    VerticalScrollbar(
+                        listState = listState,
+                        modifier = Modifier
+                            .align(Alignment.CenterEnd)
+                            .fillMaxHeight()
+                            .width(4.dp)
+                    )
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun OutputCardHeader(
+    modifier: Modifier = Modifier,
+    onShare: () -> Unit,
+    onCopy: () -> Unit,
+    onFullscreenToggle: () -> Unit = {}
+) {
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            modifier = Modifier.weight(1f),
+            text = stringResource(R.string.output),
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.onSurface
+        )
+
+        IconButton(
+            onClick = withHaptic(HapticFeedbackType.VirtualKey) { onShare() },
+            modifier = Modifier.size(32.dp)
+        ) {
+            Icon(
+                modifier = Modifier.size(20.dp),
+                painter = painterResource(R.drawable.ic_share),
+                contentDescription = "Share",
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+
+        IconButton(
+            onClick = withHaptic(HapticFeedbackType.VirtualKey) { onCopy() },
+            modifier = Modifier.size(32.dp)
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.ic_copy),
+                contentDescription = "Copy",
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+
+        IconButton(
+            onClick = withHaptic(HapticFeedbackType.VirtualKey) { onFullscreenToggle() },
+            modifier = Modifier.size(32.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Rounded.Fullscreen,
+                contentDescription = "Fullscreen",
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
+            )
         }
     }
 }
@@ -1206,66 +1261,16 @@ private fun ScrollFAB(
     }
 }
 
-@Composable
-private fun ShareFAB(
-    modifier: Modifier = Modifier,
-    shellViewModel: ShellViewModel = hiltViewModel()
-) {
-    val context = LocalContext.current
-    val res = LocalResources.current
-    val activity = context.findActivity()
-    val states by shellViewModel.states.collectAsState()
-
-    if (states.output.isEmpty()) return
-
-    val icon = Icons.Rounded.Share
-
-    val shareAction: () -> Unit = {
-        val outputText = buildString {
-            states.output.forEach { commandResult ->
-                appendLine("$ ${commandResult.command}")
-                val lines = commandResult.outputFlow.value
-                lines.forEach { line ->
-                    appendLine(line.text)
-                }
-                appendLine()
+private fun buildStringFromOutput(output: List<CommandResult>): String {
+    return buildString {
+        output.forEach { commandResult ->
+            appendLine("$ ${commandResult.command}")
+            val lines = commandResult.outputFlow.value
+            lines.forEach { line ->
+                appendLine(line.text)
             }
+            appendLine()
         }
-
-        activity?.let { act ->
-            try {
-                val fileName = shellViewModel.getSaveOutputFileName(true)
-                val tempFile = File(act.cacheDir, fileName)
-                tempFile.writeText(outputText)
-
-                val uri = FileProvider.getUriForFile(
-                    act,
-                    "${act.packageName}.fileprovider",
-                    tempFile
-                )
-
-                val shareIntent = Intent(Intent.ACTION_SEND).apply {
-                    type = "text/plain"
-                    putExtra(Intent.EXTRA_STREAM, uri)
-                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                }
-                act.startActivity(Intent.createChooser(shareIntent, "Share command output"))
-            } catch (e: Exception) {
-                e.printStackTrace()
-                showToast(context, res.getString(R.string.failed))
-            }
-        }
-    }
-
-    SmallFloatingActionButton(
-        onClick = withHaptic {
-            shareAction()
-        },
-        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-        contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
-        modifier = modifier
-    ) {
-        Icon(imageVector = icon, contentDescription = null)
     }
 }
 
