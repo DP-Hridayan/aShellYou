@@ -33,7 +33,7 @@ class TileDashboardViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            materialIconRepository.loadOrDownloadFont()
+            materialIconRepository.loadFont()
         }
     }
 

@@ -13,7 +13,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
 import `in`.hridayan.ashell.qstiles.domain.model.FontLoadState
 
 private const val DEFAULT_GLYPH_FONT_SIZE = 24
@@ -26,23 +25,9 @@ fun TileIconContent(
     tint: Color = LocalContentColor.current,
     glyphFontSize: TextUnit = DEFAULT_GLYPH_FONT_SIZE.sp,
 ) {
-    val bundledIcon = TileIconProvider.iconById[iconId]
-
-    if (bundledIcon != null) {
-        Icon(
-            modifier = modifier,
-            painter = painterResource(bundledIcon.resId),
-            contentDescription = iconId,
-            tint = tint,
-        )
-        return
-    }
-
     val ready = fontLoadState as? FontLoadState.Ready
-    if (ready != null && !TileIconProvider.isBundledIcon(iconId)) {
-        val iconName = TileIconProvider.extractCloudIconName(iconId)
-        val entry = ready.icons.firstOrNull { it.name == iconName }
-
+    if (ready != null) {
+        val entry = ready.icons.firstOrNull { it.name == iconId }
         if (entry != null) {
             MaterialIconGlyph(
                 typeface = ready.typeface,

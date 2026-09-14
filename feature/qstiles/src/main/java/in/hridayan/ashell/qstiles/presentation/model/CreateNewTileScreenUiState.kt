@@ -23,9 +23,8 @@ data class CreateNewTileScreenUiState(
     val suggestedIcons: List<String> = emptyList(),
     val iconSearchQuery: TextFieldValue = TextFieldValue(""),
 
-    val fontLoadState: FontLoadState = FontLoadState.NotDownloaded,
-    val activeIconTab: IconTab = IconTab.BUNDLED,
-    val materialIconResults: List<MaterialIconEntry> = emptyList(),
+    val fontLoadState: FontLoadState = FontLoadState.Loading,
+    val iconResults: List<MaterialIconEntry> = emptyList(),
 
     /** Whether the tile alternates its state on each click. */
     val isToggleable: Boolean = false,
@@ -40,4 +39,3 @@ data class CreateNewTileScreenUiState(
     /** Subtitle shown when the tile is OFF. Shown only when [isToggleable] = true. */
     val inactiveSubtitle: TextFieldValue = TextFieldValue("Off"),
 )
-

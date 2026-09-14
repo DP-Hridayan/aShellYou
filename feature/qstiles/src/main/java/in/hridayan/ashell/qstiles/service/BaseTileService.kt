@@ -123,9 +123,7 @@ abstract class BaseTileService : TileService() {
                 subtitle = config.activeState.currentSubtitle
             }
 
-            icon = TileIconProvider.iconById[config.iconId]
-                ?.let { Icon.createWithResource(this@BaseTileService, it.resId) }
-                ?: resolveCloudIcon(config.iconId)
+            icon = resolveIcon(config.iconId)
 
             state = if (config.activeState.isActive) Tile.STATE_ACTIVE else Tile.STATE_INACTIVE
 
@@ -133,14 +131,14 @@ abstract class BaseTileService : TileService() {
         }
     }
 
-    private suspend fun resolveCloudIcon(iconId: String): Icon {
-        val iconName = TileIconProvider.extractCloudIconName(iconId)
+    private suspend fun resolveIcon(iconId: String): Icon {
+        val iconName = TileIconProvider.migrateIconId(iconId)
 
         materialIconRepository.getCachedIconBitmap(iconName)?.toIconOrNull()?.let { return it }
 
-        val readyState = materialIconRepository.loadOrDownloadFont().getOrNull()
+        val readyState = materialIconRepository.loadFont()
 
-        val codepoint = readyState?.icons?.find { it.name == iconName }?.codepoint
+        val codepoint = readyState.icons.find { it.name == iconName }?.codepoint
 
         if (codepoint != null) {
             materialIconRepository.renderAndCacheIcon(iconName, codepoint).getOrNull()

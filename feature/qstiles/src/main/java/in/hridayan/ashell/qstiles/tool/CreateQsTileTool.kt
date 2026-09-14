@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.qstiles.tool
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.graphics.drawable.Icon
 import androidx.compose.ui.text.input.TextFieldValue
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -9,10 +10,12 @@ import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaProperty
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaType
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.qstiles.data.provider.TileComponentManager
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
 import `in`.hridayan.ashell.qstiles.domain.model.TileActiveState
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
+import `in`.hridayan.ashell.qstiles.domain.repository.MaterialIconRepository
 import `in`.hridayan.ashell.qstiles.domain.repository.TileRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.serialization.json.jsonPrimitive
@@ -24,7 +27,8 @@ import kotlinx.serialization.json.JsonObject as KJsonObject
 class CreateQsTileTool @Inject constructor(
     @ApplicationContext private val context: Context,
     private val repository: TileRepository,
-    private val tileComponentManager: TileComponentManager
+    private val tileComponentManager: TileComponentManager,
+    private val materialIconRepository: MaterialIconRepository
 ) : AiTool {
 
     override val name: String = "create_qs_tile"
@@ -45,7 +49,7 @@ class CreateQsTileTool @Inject constructor(
             ),
             "icon_name" to ToolSchemaProperty(
                 type = ToolSchemaType.STRING,
-                description = "Icon identifier for the tile. Valid options: ${TileIconProvider.icons.joinToString { it.id }}"
+                description = "Icon name from Material Icons Outlined (e.g., home, wifi, terminal, settings, bluetooth, dark_mode, lock, search, code, bug_report)"
             ),
             "execution_mode" to ToolSchemaProperty(
                 type = ToolSchemaType.INTEGER,
@@ -78,14 +82,15 @@ class CreateQsTileTool @Inject constructor(
     override suspend fun execute(args: KJsonObject?): String {
         val title = args?.get("title")?.jsonPrimitive?.content ?: return "Error: title is required"
         val command = args["command"]?.jsonPrimitive?.content ?: return "Error: command is required"
-        val iconName = args["icon_name"]?.jsonPrimitive?.content ?: "terminal"
+        val inputIconName = args["icon_name"]?.jsonPrimitive?.content ?: "terminal"
+        val iconName = TileIconProvider.migrateIconId(inputIconName)
 
         val rawMode = args["execution_mode"]?.jsonPrimitive?.content?.toIntOrNull()
             ?: TileExecutionMode.SHIZUKU
         val executionMode = if (rawMode == TileExecutionMode.ROOT) {
             TileExecutionMode.ROOT
         } else {
-            TileExecutionMode.SHIZUKU // Default to Shizuku (0) for any invalid number like 3
+            TileExecutionMode.SHIZUKU
         }
 
         val requestedSlot = args["slot"]?.jsonPrimitive?.content?.toIntOrNull()
@@ -107,7 +112,7 @@ class CreateQsTileTool @Inject constructor(
             return "Failed to create QS tile: All 10 Quick Settings tile slots (1 to 10) are currently occupied. Please delete an existing tile before creating a new one."
         }
 
-        val slotIndex = tileId - 1 // 0 to 9
+        val slotIndex = tileId - 1
 
         val tileConfig = TileConfig(
             id = tileId,
@@ -128,14 +133,28 @@ class CreateQsTileTool @Inject constructor(
 
         repository.createTile(tileConfig)
 
-        // Ensure component is enabled
         tileComponentManager.setComponentEnabled(slotIndex, true)
 
-        // Prompt user to add to panel
+        var tileIcon: Icon? = null
+        val readyState = materialIconRepository.loadFont()
+        val codepoint = readyState.icons.find { it.name == iconName }?.codepoint
+        if (codepoint != null) {
+            val file = materialIconRepository.renderAndCacheIcon(iconName, codepoint).getOrNull()
+            if (file?.exists() == true) {
+                val bitmap = BitmapFactory.decodeFile(file.absolutePath)
+                if (bitmap != null) {
+                    tileIcon = Icon.createWithBitmap(bitmap)
+                }
+            }
+        }
+        if (tileIcon == null) {
+            tileIcon = Icon.createWithResource(context, R.drawable.ic_adb)
+        }
+
         tileComponentManager.promptAddTile(
             slotIndex = slotIndex,
             label = title,
-            tileIcon = Icon.createWithResource(context, TileIconProvider.getIconRes(iconName))
+            tileIcon = tileIcon
         )
 
         val modeStr = if (executionMode == TileExecutionMode.ROOT) "Root" else "Shizuku"

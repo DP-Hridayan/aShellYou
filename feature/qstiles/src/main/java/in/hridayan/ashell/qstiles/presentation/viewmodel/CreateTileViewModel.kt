@@ -13,10 +13,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.qstiles.data.model.MaterialIconEntry
-import `in`.hridayan.ashell.qstiles.data.model.TileIcon
 import `in`.hridayan.ashell.qstiles.data.provider.TileComponentManager
-import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
-import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider.getIconRes
+import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider.migrateIconId
 import `in`.hridayan.ashell.qstiles.domain.model.FontLoadState
 import `in`.hridayan.ashell.qstiles.domain.model.TileActiveState
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
@@ -24,7 +22,6 @@ import `in`.hridayan.ashell.qstiles.domain.processor.TileCommandKeywordProcessor
 import `in`.hridayan.ashell.qstiles.domain.repository.MaterialIconRepository
 import `in`.hridayan.ashell.qstiles.domain.repository.TileRepository
 import `in`.hridayan.ashell.qstiles.presentation.model.CreateNewTileScreenUiState
-import `in`.hridayan.ashell.qstiles.presentation.model.IconTab
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -53,9 +50,6 @@ class CreateTileViewModel @Inject constructor(
     private val _state = MutableStateFlow(CreateNewTileScreenUiState(tileId = route.tileId))
     val state: StateFlow<CreateNewTileScreenUiState> = _state.asStateFlow()
 
-    private val _iconsList = MutableStateFlow(TileIconProvider.icons)
-    val iconsList: StateFlow<List<TileIcon>> = _iconsList.asStateFlow()
-
     private val tilesFlow = repository.getTiles()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
@@ -67,7 +61,7 @@ class CreateTileViewModel @Inject constructor(
                 _state.update {
                     it.copy(
                         fontLoadState = fontState,
-                        materialIconResults = if (fontState is FontLoadState.Ready) fontState.icons else emptyList()
+                        iconResults = if (fontState is FontLoadState.Ready) fontState.icons else emptyList()
                     )
                 }
                 updateSuggestions()
@@ -83,7 +77,7 @@ class CreateTileViewModel @Inject constructor(
                     it.copy(
                         nameField = TextFieldValue(text = config.name),
                         executionMode = config.executionMode,
-                        selectedIconId = config.iconId,
+                        selectedIconId = migrateIconId(config.iconId),
                         isUpdateMode = true,
                         isToggleable = config.activeState.isToggleable,
                         isActive = config.activeState.isActive,
@@ -94,10 +88,7 @@ class CreateTileViewModel @Inject constructor(
                     )
                 }
                 updateSuggestions()
-
-                if (!TileIconProvider.isBundledIcon(config.iconId)) {
-                    loadMaterialIcons()
-                }
+                loadIcons()
             }
         }
     }
@@ -146,37 +137,34 @@ class CreateTileViewModel @Inject constructor(
     fun onExecutionModeChange(mode: Int) =
         _state.update { it.copy(executionMode = mode) }
 
-    fun onIconSelected(iconId: String) =
-        _state.update { it.copy(selectedIconId = iconId) }
-
     fun onIconQueryChange(query: TextFieldValue) {
         _state.update { it.copy(iconSearchQuery = query) }
-        _iconsList.update {
-            TileIconProvider.icons.filter { icon ->
-                icon.keywords.any { it.contains(query.text, ignoreCase = true) }
-            }
-        }
         filterMaterialIcons(query.text)
     }
 
-    fun onIconTabChange(tab: IconTab) {
-        _state.update { it.copy(activeIconTab = tab) }
-        if (tab == IconTab.MATERIAL) {
-            loadMaterialIcons()
-        }
-    }
-
-    fun loadMaterialIcons() {
+    fun loadIcons() {
         viewModelScope.launch {
-            materialIconRepository.loadOrDownloadFont()
+            materialIconRepository.loadFont()
         }
     }
 
-    fun onCloudIconSelected(entry: MaterialIconEntry) {
-        val iconId = TileIconProvider.buildCloudIconId(entry.name)
-        _state.update { it.copy(selectedIconId = iconId) }
+    fun onIconSelected(entry: MaterialIconEntry) {
+        _state.update { it.copy(selectedIconId = entry.name) }
         viewModelScope.launch {
             materialIconRepository.renderAndCacheIcon(entry.name, entry.codepoint)
+        }
+    }
+
+    fun onSuggestedIconSelected(iconId: String) {
+        _state.update { it.copy(selectedIconId = iconId) }
+        viewModelScope.launch {
+            val fontState = _state.value.fontLoadState
+            if (fontState is FontLoadState.Ready) {
+                val entry = fontState.icons.find { it.name == iconId }
+                if (entry != null) {
+                    materialIconRepository.renderAndCacheIcon(entry.name, entry.codepoint)
+                }
+            }
         }
     }
 
@@ -184,12 +172,12 @@ class CreateTileViewModel @Inject constructor(
         val fontState = _state.value.fontLoadState
         if (fontState !is FontLoadState.Ready) return
         if (query.isBlank()) {
-            _state.update { it.copy(materialIconResults = fontState.icons) }
+            _state.update { it.copy(iconResults = fontState.icons) }
             return
         }
         _state.update {
             it.copy(
-                materialIconResults = fontState.icons.filter { icon ->
+                iconResults = fontState.icons.filter { icon ->
                     icon.name.contains(query, ignoreCase = true)
                 }
             )
@@ -215,19 +203,12 @@ class CreateTileViewModel @Inject constructor(
 
         val scored = mutableMapOf<String, Int>()
 
-        keywords.forEach { keyword ->
-            TileIconProvider.iconsByKeyword[keyword]?.forEach { icon ->
-                scored[icon.id] = (scored[icon.id] ?: 0) + 1
-            }
-        }
-
         if (s.fontLoadState is FontLoadState.Ready) {
             val materialIcons = s.fontLoadState.icons
             materialIcons.forEach { materialIcon ->
                 keywords.forEach { keyword ->
                     if (materialIcon.name.contains(keyword, ignoreCase = true)) {
-                        val iconId = TileIconProvider.buildCloudIconId(materialIcon.name)
-                        scored[iconId] = (scored[iconId] ?: 0) + 1
+                        scored[materialIcon.name] = (scored[materialIcon.name] ?: 0) + 1
                     }
                 }
             }
@@ -241,7 +222,6 @@ class CreateTileViewModel @Inject constructor(
         _state.update { it.copy(suggestedIcons = topIcons) }
     }
 
-    /** Builds a [TileActiveState] from the current UI state snapshot. */
     private fun CreateNewTileScreenUiState.toActiveState() = TileActiveState(
         isToggleable = isToggleable,
         isActive = isActive,
@@ -278,20 +258,27 @@ class CreateTileViewModel @Inject constructor(
         }
     }
 
-    private fun buildTileIcon(iconId: String): Icon {
-        if (TileIconProvider.isBundledIcon(iconId)) {
-            return Icon.createWithResource(context, getIconRes(iconId))
-        }
+    private suspend fun buildTileIcon(iconId: String): Icon {
+        val bitmapFile = materialIconRepository.getCachedIconBitmap(iconId)
 
-        val iconName = TileIconProvider.extractCloudIconName(iconId)
-        val bitmapFile = materialIconRepository.getCachedIconBitmap(iconName)
-
-        return if (bitmapFile?.exists() == true) {
+        if (bitmapFile?.exists() == true) {
             val bitmap = BitmapFactory.decodeFile(bitmapFile.absolutePath)
-            Icon.createWithBitmap(bitmap)
-        } else {
-            Icon.createWithResource(context, R.drawable.ic_adb)
+            return Icon.createWithBitmap(bitmap)
         }
+
+        val fontState = materialIconRepository.loadFont()
+        val entry = fontState.icons.find { it.name == iconId }
+
+        if (entry != null) {
+            val newFile =
+                materialIconRepository.renderAndCacheIcon(entry.name, entry.codepoint).getOrNull()
+            if (newFile?.exists() == true) {
+                val bitmap = BitmapFactory.decodeFile(newFile.absolutePath)
+                return Icon.createWithBitmap(bitmap)
+            }
+        }
+
+        return Icon.createWithResource(context, R.drawable.ic_adb)
     }
 
     fun deleteTile() {

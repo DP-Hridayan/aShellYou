@@ -9,9 +9,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -21,14 +21,10 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.BottomSheetDefaults
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.FilledTonalButton
-import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -37,7 +33,6 @@ import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -46,7 +41,6 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
@@ -59,58 +53,50 @@ import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchRes
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.qstiles.data.model.MaterialIconEntry
-import `in`.hridayan.ashell.qstiles.data.model.TileIcon
 import `in`.hridayan.ashell.qstiles.domain.model.FontLoadState
-import `in`.hridayan.ashell.qstiles.presentation.model.IconTab
+import `in`.hridayan.ashell.qstiles.presentation.components.icon.MaterialIconGlyph
 
-private const val GRID_COLUMN_COUNT = 5
 private const val ICON_CELL_SIZE = 48
-private const val ICON_INNER_SIZE = 24
 private const val GLYPH_FONT_SIZE = 24
-private const val GRID_HEIGHT = 400
-private const val HORIZONTAL_PADDING = 24
-private const val BOTTOM_PADDING = 32
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun IconChooserBottomSheet(
     onDismiss: () -> Unit,
-    bundledIcons: List<TileIcon>,
-    materialIcons: List<MaterialIconEntry>,
+    icons: List<MaterialIconEntry>,
     fontLoadState: FontLoadState,
-    activeTab: IconTab,
     searchQuery: TextFieldValue,
     selectedIconId: String,
     onQueryChange: (TextFieldValue) -> Unit,
-    onBundledIconSelected: (String) -> Unit,
-    onCloudIconSelected: (MaterialIconEntry) -> Unit,
-    onTabChange: (IconTab) -> Unit,
-    onDownloadClick: () -> Unit,
+    onIconSelected: (MaterialIconEntry) -> Unit,
 ) {
     val sheetState = rememberBottomSheetState(
         initialValue = SheetValue.Expanded,
         enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded),
     )
+
     val focusManager = LocalFocusManager.current
 
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = sheetState,
-        dragHandle = { BottomSheetDefaults.DragHandle() },
+        dragHandle = null,
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .navigationBarsPadding()
-                .padding(horizontal = HORIZONTAL_PADDING.dp)
-                .padding(bottom = BOTTOM_PADDING.dp),
+                .padding(horizontal = 24.dp)
         ) {
+            Spacer(modifier = Modifier.height(24.dp))
+
             Text(
                 text = stringResource(R.string.choose_icon),
-                style = MaterialTheme.typography.titleLarge,
+                style = MaterialTheme.typography.headlineSmall,
                 modifier = Modifier.align(Alignment.CenterHorizontally),
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
             CustomSearchBar(
                 modifier = Modifier.fillMaxWidth(),
@@ -137,143 +123,37 @@ fun IconChooserBottomSheet(
                 },
             )
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
-            TabRow(
-                activeTab = activeTab,
-                onTabChange = onTabChange,
-            )
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            when (activeTab) {
-                IconTab.BUNDLED -> BundledIconGrid(
-                    icons = bundledIcons,
+            when (fontLoadState) {
+                is FontLoadState.Ready -> IconGrid(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth()
+                        .fillMaxHeight(1f)
+                        .clip(RoundedCornerShape(24.dp)),
+                    icons = icons,
+                    typeface = fontLoadState.typeface,
                     selectedIconId = selectedIconId,
-                    onIconSelected = onBundledIconSelected,
+                    onIconSelected = onIconSelected,
                 )
 
-                IconTab.MATERIAL -> MaterialIconContent(
-                    icons = materialIcons,
-                    fontLoadState = fontLoadState,
-                    selectedIconId = selectedIconId,
-                    onIconSelected = onCloudIconSelected,
-                    onDownloadClick = onDownloadClick,
-                )
+                is FontLoadState.Loading -> {}
             }
+
+            Spacer(modifier = Modifier.height(24.dp))
         }
     }
 }
 
 @Composable
-private fun TabRow(
-    activeTab: IconTab,
-    onTabChange: (IconTab) -> Unit,
-) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        FilterChip(
-            selected = activeTab == IconTab.BUNDLED,
-            onClick = withHaptic { onTabChange(IconTab.BUNDLED) },
-            label = { Text(stringResource(R.string.bundled)) },
-        )
-        FilterChip(
-            selected = activeTab == IconTab.MATERIAL,
-            onClick = withHaptic { onTabChange(IconTab.MATERIAL) },
-            label = { Text(stringResource(R.string.material_icons)) },
-        )
-    }
-}
-
-@Composable
-private fun BundledIconGrid(
-    icons: List<TileIcon>,
-    selectedIconId: String,
-    onIconSelected: (String) -> Unit,
-) {
-    if (icons.isEmpty()) {
-        NoSearchResultUi(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 40.dp, vertical = 24.dp)
-        )
-        return
-    }
-
-    LazyVerticalGrid(
-        columns = GridCells.Adaptive(ICON_CELL_SIZE.dp),
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(GRID_HEIGHT.dp),
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-    ) {
-        items(icons, key = { it.id }) { icon ->
-            val isSelected = icon.id == selectedIconId
-
-            val containerColor = MaterialTheme.colorScheme.run {
-                if (isSelected) primaryContainer else surfaceContainerLowest
-            }
-
-            val contentColor = MaterialTheme.colorScheme.run {
-                if (isSelected) onPrimaryContainer else onSurface
-            }
-
-            IconCell(
-                containerColor = containerColor,
-                onClick = { onIconSelected(icon.id) },
-            ) {
-                Icon(
-                    modifier = Modifier.size(ICON_INNER_SIZE.dp),
-                    painter = painterResource(icon.resId),
-                    contentDescription = icon.id,
-                    tint = contentColor,
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun MaterialIconContent(
-    icons: List<MaterialIconEntry>,
-    fontLoadState: FontLoadState,
-    selectedIconId: String,
-    onIconSelected: (MaterialIconEntry) -> Unit,
-    onDownloadClick: () -> Unit,
-) {
-    when (fontLoadState) {
-        is FontLoadState.NotDownloaded -> DownloadPrompt(onDownloadClick = onDownloadClick)
-
-        is FontLoadState.Loading -> LoadingIndicator()
-
-        is FontLoadState.Error -> ErrorState(
-            message = fontLoadState.message,
-            onRetryClick = onDownloadClick,
-        )
-
-        is FontLoadState.Ready -> MaterialIconGrid(
-            icons = icons,
-            typeface = fontLoadState.typeface,
-            selectedIconId = selectedIconId,
-            onIconSelected = onIconSelected,
-        )
-    }
-}
-
-@Composable
-private fun MaterialIconGrid(
+private fun IconGrid(
+    modifier: Modifier = Modifier,
     icons: List<MaterialIconEntry>,
     typeface: Typeface,
     selectedIconId: String,
     onIconSelected: (MaterialIconEntry) -> Unit,
 ) {
-    val fontFamily = remember(typeface) {
-        FontFamily(androidx.compose.ui.text.font.Typeface(typeface))
-    }
-
     if (icons.isEmpty()) {
         NoSearchResultUi(
             modifier = Modifier
@@ -284,16 +164,13 @@ private fun MaterialIconGrid(
     }
 
     LazyVerticalGrid(
+        modifier = modifier,
         columns = GridCells.Adaptive(ICON_CELL_SIZE.dp),
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(GRID_HEIGHT.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         items(icons, key = { it.name }) { entry ->
-            val cloudIconId = "material:${entry.name}"
-            val isSelected = cloudIconId == selectedIconId
+            val isSelected = entry.name == selectedIconId
 
             val containerColor = MaterialTheme.colorScheme.run {
                 if (isSelected) primaryContainer else surfaceContainerLowest
@@ -307,11 +184,11 @@ private fun MaterialIconGrid(
                 containerColor = containerColor,
                 onClick = { onIconSelected(entry) },
             ) {
-                Text(
-                    text = String(Character.toChars(entry.codepoint)),
-                    fontFamily = fontFamily,
-                    fontSize = GLYPH_FONT_SIZE.sp,
+                MaterialIconGlyph(
+                    typeface = typeface,
+                    codepoint = entry.codepoint,
                     color = contentColor,
+                    fontSize = GLYPH_FONT_SIZE.sp,
                 )
             }
         }
@@ -334,83 +211,6 @@ private fun IconCell(
         contentAlignment = Alignment.Center,
     ) {
         content()
-    }
-}
-
-@Composable
-private fun DownloadPrompt(onDownloadClick: () -> Unit) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-    ) {
-        Icon(
-            painter = painterResource(R.drawable.ic_cloud_download),
-            contentDescription = null,
-            modifier = Modifier.size(48.dp),
-            tint = MaterialTheme.colorScheme.primary,
-        )
-
-        Text(
-            text = stringResource(R.string.material_icons_description),
-            style = MaterialTheme.typography.bodyMedium,
-            textAlign = TextAlign.Center,
-        )
-
-        FilledTonalButton(onClick = withHaptic { onDownloadClick() }) {
-            Text(text = stringResource(R.string.download_material_icons))
-        }
-    }
-}
-
-@Composable
-private fun LoadingIndicator() {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 48.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-    ) {
-        CircularProgressIndicator()
-
-        Text(
-            text = stringResource(R.string.downloading_icon_pack),
-            style = MaterialTheme.typography.bodyMedium,
-        )
-    }
-}
-
-@Composable
-private fun ErrorState(
-    message: String,
-    onRetryClick: () -> Unit,
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-    ) {
-        Text(
-            text = message,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.error,
-            textAlign = TextAlign.Center,
-        )
-
-        FilledTonalButton(
-            onClick = withHaptic { onRetryClick() },
-            colors = ButtonDefaults.filledTonalButtonColors(
-                containerColor = MaterialTheme.colorScheme.errorContainer,
-                contentColor = MaterialTheme.colorScheme.onErrorContainer,
-            ),
-        ) {
-            Text(text = stringResource(R.string.retry))
-        }
     }
 }
 

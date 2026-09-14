@@ -7,7 +7,6 @@ import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaProperty
 import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaType
 import `in`.hridayan.ashell.qstiles.data.provider.TileComponentManager
-import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
 import `in`.hridayan.ashell.qstiles.domain.repository.TileRepository
 import kotlinx.serialization.json.jsonPrimitive
 import javax.inject.Inject
@@ -41,7 +40,7 @@ class UpdateQsTileTool @Inject constructor(
             ),
             "icon_name" to ToolSchemaProperty(
                 type = ToolSchemaType.STRING,
-                description = "Optional. New icon identifier. Valid options: ${TileIconProvider.icons.joinToString { it.id }}"
+                description = "Optional. New icon name from Material Icons Outlined (e.g., home, wifi, terminal, settings, bluetooth, dark_mode, lock, search, code, bug_report)"
             ),
             "execution_mode" to ToolSchemaProperty(
                 type = ToolSchemaType.INTEGER,

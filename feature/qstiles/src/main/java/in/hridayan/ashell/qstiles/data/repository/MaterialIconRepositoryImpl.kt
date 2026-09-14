@@ -6,13 +6,8 @@ import android.graphics.Typeface
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.qstiles.data.parser.CodepointsParser
 import `in`.hridayan.ashell.qstiles.data.renderer.MaterialIconBitmapRenderer
-import `in`.hridayan.ashell.qstiles.di.MaterialIconHttpClient
 import `in`.hridayan.ashell.qstiles.domain.model.FontLoadState
 import `in`.hridayan.ashell.qstiles.domain.repository.MaterialIconRepository
-import io.ktor.client.HttpClient
-import io.ktor.client.request.get
-import io.ktor.client.statement.bodyAsChannel
-import io.ktor.utils.io.jvm.javaio.toInputStream
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -28,41 +23,35 @@ import javax.inject.Singleton
 @Singleton
 class MaterialIconRepositoryImpl @Inject constructor(
     @ApplicationContext private val context: Context,
-    @MaterialIconHttpClient private val httpClient: HttpClient,
     private val codepointsParser: CodepointsParser,
     private val bitmapRenderer: MaterialIconBitmapRenderer,
 ) : MaterialIconRepository {
 
-    private val _fontState = MutableStateFlow<FontLoadState>(FontLoadState.NotDownloaded)
+    private val _fontState = MutableStateFlow<FontLoadState>(FontLoadState.Loading)
     override val fontState: StateFlow<FontLoadState> = _fontState.asStateFlow()
 
-    private val downloadMutex = Mutex()
+    private val loadMutex = Mutex()
 
-    override suspend fun loadOrDownloadFont(): Result<FontLoadState.Ready> =
+    override suspend fun loadFont(): FontLoadState.Ready =
         withContext(Dispatchers.IO) {
-            downloadMutex.withLock {
+            loadMutex.withLock {
                 val currentState = _fontState.value
                 if (currentState is FontLoadState.Ready) {
-                    return@withContext Result.success(currentState)
+                    return@withContext currentState
                 }
 
                 _fontState.value = FontLoadState.Loading
 
-                runCatching {
-                    val fontFile = ensureFontFile()
-                    val codepointsFile = ensureCodepointsFile()
+                val fontFile = ensureFontFile()
+                val codepointsText = context.assets.open(CODEPOINTS_ASSET_NAME).bufferedReader()
+                    .use { it.readText() }
 
-                    val typeface = Typeface.createFromFile(fontFile)
-                    val icons = codepointsParser.parse(codepointsFile.readText())
+                val typeface = Typeface.createFromFile(fontFile)
+                val icons = codepointsParser.parse(codepointsText)
 
-                    FontLoadState.Ready(typeface = typeface, icons = icons)
-                }.onSuccess { ready ->
-                    _fontState.value = ready
-                }.onFailure { error ->
-                    _fontState.value = FontLoadState.Error(
-                        error.message ?: UNKNOWN_ERROR_MESSAGE
-                    )
-                }
+                val readyState = FontLoadState.Ready(typeface = typeface, icons = icons)
+                _fontState.value = readyState
+                readyState
             }
         }
 
@@ -101,28 +90,14 @@ class MaterialIconRepositoryImpl @Inject constructor(
     private suspend fun ensureFontFile(): File {
         val file = File(iconCacheDir(), FONT_FILE_NAME)
         if (!file.exists()) {
-            downloadToFile(FONT_URL, file)
-        }
-        return file
-    }
-
-    private suspend fun ensureCodepointsFile(): File {
-        val file = File(iconCacheDir(), CODEPOINTS_FILE_NAME)
-        if (!file.exists()) {
-            downloadToFile(CODEPOINTS_URL, file)
-        }
-        return file
-    }
-
-    private suspend fun downloadToFile(url: String, destination: File) {
-        destination.parentFile?.mkdirs()
-        val response = httpClient.get(url)
-        val channel = response.bodyAsChannel()
-        destination.outputStream().use { output ->
-            channel.toInputStream().use { input ->
-                input.copyTo(output)
+            file.parentFile?.mkdirs()
+            context.assets.open(FONT_ASSET_NAME).use { input ->
+                file.outputStream().use { output ->
+                    input.copyTo(output)
+                }
             }
         }
+        return file
     }
 
     private fun iconCacheDir(): File =
@@ -132,18 +107,14 @@ class MaterialIconRepositoryImpl @Inject constructor(
         File(File(iconCacheDir(), BITMAPS_DIR_NAME), "$iconName$BITMAP_EXTENSION")
 
     private companion object {
-        const val FONT_URL =
-            "https://raw.githubusercontent.com/google/material-design-icons/master/font/MaterialIconsOutlined-Regular.otf"
-        const val CODEPOINTS_URL =
-            "https://raw.githubusercontent.com/google/material-design-icons/master/font/MaterialIconsOutlined-Regular.codepoints"
+        const val FONT_ASSET_NAME = "MaterialIconsOutlined-Regular.otf"
+        const val CODEPOINTS_ASSET_NAME = "MaterialIconsOutlined-Regular.codepoints"
         const val CACHE_DIR_NAME = "material_icons"
         const val BITMAPS_DIR_NAME = "bitmaps"
         const val FONT_FILE_NAME = "MaterialIconsOutlined-Regular.otf"
-        const val CODEPOINTS_FILE_NAME = "MaterialIconsOutlined-Regular.codepoints"
         const val BITMAP_EXTENSION = ".png"
         const val TILE_ICON_SIZE_PX = 96
         const val PNG_QUALITY = 100
-        const val UNKNOWN_ERROR_MESSAGE = "Unknown error"
         const val FONT_NOT_LOADED_MESSAGE = "Font not loaded"
     }
 }

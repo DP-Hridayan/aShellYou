@@ -108,7 +108,6 @@ fun CreateTileScreen(
     val res = LocalResources.current
 
     val uiState by createTileViewModel.state.collectAsState()
-    val iconsList by createTileViewModel.iconsList.collectAsState()
 
     val executionMethodOptions = ButtonGroupOptionsProvider.tileServiceAdbExecutionMethod
     var showIconChooserSheet by rememberSaveable { mutableStateOf(false) }
@@ -487,7 +486,7 @@ fun CreateTileScreen(
                                         )
                                         .clickable(
                                             onClick = withHaptic {
-                                                createTileViewModel.onIconSelected(iconKey)
+                                                createTileViewModel.onSuggestedIconSelected(iconKey)
                                             }
                                         ),
                                     contentAlignment = Alignment.Center
@@ -624,25 +623,16 @@ fun CreateTileScreen(
     if (showIconChooserSheet) {
         IconChooserBottomSheet(
             onDismiss = { showIconChooserSheet = false },
-            bundledIcons = iconsList,
-            materialIcons = uiState.materialIconResults,
+            icons = uiState.iconResults,
             fontLoadState = uiState.fontLoadState,
-            activeTab = uiState.activeIconTab,
             searchQuery = uiState.iconSearchQuery,
             selectedIconId = uiState.selectedIconId,
             onQueryChange = { createTileViewModel.onIconQueryChange(it) },
-            onBundledIconSelected = {
+            onIconSelected = {
                 createTileViewModel.onIconSelected(it)
                 showIconChooserSheet = false
                 showToast(context, res.getString(R.string.icon_selected))
             },
-            onCloudIconSelected = {
-                createTileViewModel.onCloudIconSelected(it)
-                showIconChooserSheet = false
-                showToast(context, res.getString(R.string.icon_selected))
-            },
-            onTabChange = { createTileViewModel.onIconTabChange(it) },
-            onDownloadClick = { createTileViewModel.loadMaterialIcons() },
         )
     }
 
