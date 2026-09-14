@@ -84,7 +84,7 @@
     <string name="back">Назад</string>
     <string name="back_button" comment="Custom key bar button in terminal view simulating system back button press">Кнопка \"Назад\"</string>
     <string name="background" comment="Material design theme surface/background color role label">Фон</string>
-    <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">Резервное копирование…</string>
+    <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">Создание резервной копии…</string>
     <string name="backup">Резервирование</string>
     <string name="backup_all_data" comment="Option in backup dialog to export all app database content and settings">Резервирование всех данных</string>
     <string name="backup_and_restore" comment="Settings screen header for managing local and cloud backups">Резервирование и восстановление</string>
@@ -362,7 +362,7 @@
     <string name="developer" comment="Section title in About screen for lead developer info">Разработчик</string>
     <string name="developer_options" comment="System Developer Options setting item or prompt">Параметры разработчика</string>
     <string name="developer_options_not_available" comment="Toast error message when Developer options shortcut cannot be opened">Параметра разработчика недоступны!</string>
-    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">Сначала включите «Параметры разработчика», 7 раз нажав на «Номер сборки» в меню «Настройки» → О телефоне\nЕсли этот способ включения «Параметров разработчика» не работает, вы можете найти в Интернете инструкции для вашего устройства.</string>
+    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">Сначала включите \"Параметры разработчика\", 7 раз нажав на \"Номер сборки\" в меню \"Настройки\" → О телефоне\nЕсли этот способ включения \"Параметров разработчика\" не работает, вы можете найти в Интернете инструкции для вашего устройства.</string>
     <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">Требуются \"Параметры разработчика\"</string>
     <string name="device_backup_local" comment="Label for local device storage backup file">Резервирование устройства (Локально)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">Устройство подключено!</string>
@@ -392,7 +392,7 @@
     <string name="done">Готово</string>
     <string name="download">Загрузить</string>
     <string name="download_failed" comment="Toast message when in-app updater APK download fails">Загрузка не удалась</string>
-    <string name="download_material_icons" comment="Button label to download the Material Icons font pack for QS tile icon chooser">Скачать иконки в стиле Material</string>
+    <string name="download_material_icons" comment="Button label to download the Material Icons font pack for QS tile icon chooser">Скачать Material иконки</string>
     <string name="downloading" comment="Progress status text while downloading update package">Загрузка…</string>
     <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Загрузка резервной копии из Google Drive…</string>
     <string name="downloading_icon_pack" comment="Progress status text while downloading Material Icons font for QS tile icon chooser">Загрузка набора иконок…</string>
@@ -592,13 +592,13 @@
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">Низкий контрастный коэффициент</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">Создайте свою тему</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">Ручное сопряжение</string>
-    <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Иконки материала</string>
-    <string name="material_icons_description" comment="Informational text in icon chooser explaining the Material Icons download">Скачайте ~380 КБ для просмотра 2,500+ иконок в стиле Material</string>
+    <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Material Иконки</string>
+    <string name="material_icons_description" comment="Informational text in icon chooser explaining the Material Icons download">Скачать ~380 KB один к просмотру 2,500+ Material иконки</string>
     <string name="max_download_size" comment="Setting label for capping maximum update download file size">Максимальная загрузка</string>
     <string name="medium">Средний</string>
     <string name="merge" comment="Resolution option in file browser conflict dialog to merge directory contents">Объединить</string>
     <string name="message">Сообщение</string>
-    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">Агент ADB сообщения</string>
+    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">Сообщение ADB агента</string>
     <string name="minimize" comment="Action button to minimize terminal overlay window">Минимизировать</string>
     <string name="mode" comment="Header title for ADB execution engine mode selector">Режим</string>
     <string name="mode_one_desc" comment="Description for Root execution engine option in settings">Используйте root доступ для запуска команд. Rooted команды могут быть выполнены.</string>

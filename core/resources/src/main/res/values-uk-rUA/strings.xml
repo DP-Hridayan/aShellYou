@@ -46,7 +46,7 @@
     <string name="ai_prompt_suggestion_1" comment="Clickable suggestion chip prompt in AI chat for checking battery health">Перевірити здоров\'я мого акумулятора</string>
     <string name="ai_prompt_suggestion_2" comment="Clickable suggestion chip prompt in AI chat for listing installed package names">Перерахувати всі встановлені пакети</string>
     <string name="ai_prompt_suggestion_3" comment="Clickable suggestion chip prompt in AI chat for creating Quick Settings tiles">Допомогти мені створити плитку швидких налаштувань</string>
-    <string name="ai_session_search_hint" comment="Placeholder text in AI chat session search bar">Пошук в чаті…</string>
+    <string name="ai_session_search_hint" comment="Placeholder text in AI chat session search bar">Пошук чата…</string>
     <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">наприклад, Cyberpunk неонове місто, темний режим, висока контрастність</string>
     <string name="all">Всі</string>
     <string name="all_data" comment="Option in backup selector to include full app database, settings, and chat history">Всі дані</string>
@@ -84,7 +84,7 @@
     <string name="back">Назад</string>
     <string name="back_button" comment="Custom key bar button in terminal view simulating system back button press">Кнопка \"Назад\"</string>
     <string name="background" comment="Material design theme surface/background color role label">Фон</string>
-    <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">Створення бекапу…</string>
+    <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">Створення резервної копії…</string>
     <string name="backup">Резервування</string>
     <string name="backup_all_data" comment="Option in backup dialog to export all app database content and settings">Резервування всіх даних</string>
     <string name="backup_and_restore" comment="Settings screen header for managing local and cloud backups">Резервування та відновлення</string>
@@ -116,7 +116,7 @@
     <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">Boot образ</string>
     <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">Завантаження у Fastboot</string>
     <string name="btn_continue" comment="Action button label to proceed to next step in setup wizard">Продовжити</string>
-    <string name="bundled" comment="Tab label in icon chooser for built-in icons that ship with the app">Зібрано</string>
+    <string name="bundled" comment="Tab label in icon chooser for built-in icons that ship with the app">У комплекті</string>
     <string name="cache_settings" comment="Settings section header for AI analysis response caching options">Кеш</string>
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Розмір кешу: %s</string>
     <string name="cancel">Скасувати</string>
@@ -375,13 +375,13 @@
     <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">Пристрій не підтримує біометричну автентифікацію</string>
     <string name="disable_softkey" comment="Setting toggle title to hide soft keyboard during shell session">Вимкнути програмну клавіатуру</string>
     <string name="disclaimer" comment="Section title in About screen for legal disclaimer notices">Відмова від відповідальності</string>
-    <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">Запуск команд ADB може змінювати системні налаштування, керувати файлами і виконувати операції, що можуть вплинути на стабільність вашого пристрою.\nВи несете повну відповідальність за будь-які зміни, внесені за використання цього застосунку.</string>
+    <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">Запуск команд ADB може змінювати системні налаштування, керувати файлами та виконувати операції, що можуть вплинути на стабільність вашого пристрою.\nВи несете повну відповідальність за будь-які зміни, внесені за використання цього застосунку.</string>
     <string name="disclaimer_1_title" comment="Title for disclaimer point 1: user risk acknowledgement">Використовуйте на свій страх та ризик</string>
     <string name="disclaimer_2_description" comment="Text for disclaimer point 2: root requirements and elevated permissions">Хоча root доступ не є обов\'язковим, деякі команди можуть вимагати підвищених прав.\nНеправильне використання команд ADB може призвести до втрати даних, збоїв програми або неочікуваної поведінки системи.</string>
     <string name="disclaimer_2_title" comment="Title for disclaimer point 2: root and caution warning">Root доступ не є обов\'язковим, але потрібна обережність</string>
     <string name="disclaimer_3_description" comment="Text for disclaimer point 3: developer liability waiver">Розробники цього додатка не несуть відповідальності за будь-які пошкодження, втрату даних або непередбачені наслідки, що виникли в результаті використання цього додатку.\nДійте обережно і переконайтеся, що ви розумієте команди, що виконуються.</string>
     <string name="disclaimer_3_title" comment="Title for disclaimer point 3: liability waiver">Ми не несемо відповідальності</string>
-    <string name="disclaimer_4_description" comment="Text for disclaimer point 4: target user expertise level">This app is designed for users who have a basic understanding of ADB commands.\nIf you are unsure about a command’s effect, research it before executing it.</string>
+    <string name="disclaimer_4_description" comment="Text for disclaimer point 4: target user expertise level">Ця програма розроблена для користувачів, які мають базове уявлення про команди ADB.\nЯкщо ви не впевнені щодо ефекту команди, дослідіть її перед виконанням.</string>
     <string name="disclaimer_4_title" comment="Title for disclaimer point 4: target audience notice">Призначений для просунутих користувачів</string>
     <string name="disclaimer_5_description" comment="Text for disclaimer point 5: privacy and permissions notice">Для належної роботи цієї програми можуть бути потрібні спеціальні дозволи.\nВони не збирають і не передають персональні дані, але користувачі повинні знати про наслідки надання дозволів, пов\'язаних з ADB.</string>
     <string name="disclaimer_5_title" comment="Title for disclaimer point 5: security and privacy">Дозволи та Безпека</string>
@@ -392,10 +392,10 @@
     <string name="done">Готово</string>
     <string name="download">Завантажити</string>
     <string name="download_failed" comment="Toast message when in-app updater APK download fails">Завантаження не вдалося</string>
-    <string name="download_material_icons" comment="Button label to download the Material Icons font pack for QS tile icon chooser">Завантажити значки матеріалу</string>
+    <string name="download_material_icons" comment="Button label to download the Material Icons font pack for QS tile icon chooser">Завантажити Material Іконки</string>
     <string name="downloading" comment="Progress status text while downloading update package">Завантажується…</string>
     <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Завантаження резервної копії з Google Drive…</string>
-    <string name="downloading_icon_pack" comment="Progress status text while downloading Material Icons font for QS tile icon chooser">Завантаження пакету значків…</string>
+    <string name="downloading_icon_pack" comment="Progress status text while downloading Material Icons font for QS tile icon chooser">Завантаження пакету іконок…</string>
     <string name="downloads" comment="Screen header or list item for downloaded files">Завантаження</string>
     <string name="duplicate_tile_name_error_msg" comment="Validation error in Quick Settings tile builder when entered tile name already exists">Плитка з таким ім\'ям вже існує</string>
     <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">Динамічні кольори</string>
@@ -592,20 +592,20 @@
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">Низький коефіцієнт контрастності</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">Створіть свою тему</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">Ручне сполучення</string>
-    <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Піктограми матеріалу</string>
-    <string name="material_icons_description" comment="Informational text in icon chooser explaining the Material Icons download">Завантажте ~380 КБ для перегляду 2,500+ Матеріалів</string>
+    <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Material Іконки</string>
+    <string name="material_icons_description" comment="Informational text in icon chooser explaining the Material Icons download">Завантажте ~380 KB для перегляду 2,500+ Material іконки</string>
     <string name="max_download_size" comment="Setting label for capping maximum update download file size">Максимальне завантаження</string>
     <string name="medium">Середній</string>
     <string name="merge" comment="Resolution option in file browser conflict dialog to merge directory contents">Об’єднати</string>
     <string name="message">Повідомлення</string>
-    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">признач ADB Agent</string>
+    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">Повідомлення ADB Агенту</string>
     <string name="minimize" comment="Action button to minimize terminal overlay window">Мінімізувати</string>
     <string name="mode" comment="Header title for ADB execution engine mode selector">Режим</string>
     <string name="mode_one_desc" comment="Description for Root execution engine option in settings">Використовуйте root доступ для запуску команд. Rooted команди можуть бути виконані.</string>
     <string name="mode_two_desc" comment="Description for Shizuku execution engine option in settings">Використовуйте shizuku для виконання команд. Команди, що потребують root-прав, не виконаються.</string>
-    <string name="model_category_large" comment="AI model size category label">Великий (1,5–2.5 ГБ)</string>
-    <string name="model_category_medium" comment="AI model size category label">Середній (800 Мбайт–1,1 ГБ)</string>
-    <string name="model_category_small" comment="AI model size category label">Малий (300–500 МБ)</string>
+    <string name="model_category_large" comment="AI model size category label">Великий (1.5–2.5 GB)</string>
+    <string name="model_category_medium" comment="AI model size category label">Середній (800 MB–1.1 GB)</string>
+    <string name="model_category_small" comment="AI model size category label">Малий (300–500 MB)</string>
     <string name="model_category_tiny" comment="AI model size category label">Крихітний (менше ніж 300 МБ)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">Моделі</string>
     <string name="modified" comment="File property: last modified date">Змінено</string>
@@ -780,7 +780,7 @@
     <string name="restore_failed" comment="Toast error message when restoring app data fails">Відновлення не вдалося</string>
     <string name="restore_from" comment="Dialog header prompting user to select restore source (Local File or Google Drive)">Відновити з</string>
     <string name="restore_successful" comment="Toast message confirming successful app data restoration">Успішно відновлено</string>
-    <string name="restoring_backup" comment="Progress status text shown while restoring database from backup">Restoring backup…</string>
+    <string name="restoring_backup" comment="Progress status text shown while restoring database from backup">Відновлення резервної копії…</string>
     <string name="resume" comment="Action button to resume paused logcat streaming or file download">Продовжити</string>
     <string name="retry" comment="Action button to retry failed network connection or command execution">Повторити</string>
     <string name="root_access_granted" comment="Toast notification confirming superuser root access granted to aShellYou">Root доступ надано!</string>
@@ -799,7 +799,7 @@
     <string name="save_whole_output" comment="Setting toggle title to export full terminal session output to file">Зберегти весь вивід</string>
     <string name="saved_devices" comment="Screen title and list header for paired ADB devices history">Збережені пристрої</string>
     <string name="saving" comment="Progress status text while saving file or settings">Збереження…</string>
-    <string name="saving_output" comment="Progress status text while exporting terminal log output to file">Експорт даних в файл…</string>
+    <string name="saving_output" comment="Progress status text while exporting terminal log output to file">Експорт виведення у файл…</string>
     <string name="schedule" comment="Header title or setting label for automated backup schedule picker">Розклад</string>
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">Множник щільності екрану</string>
     <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">Прокрутіть вниз</string>
@@ -839,7 +839,7 @@
     <string name="self_pair_in_progress" comment="Progress status text shown while establishing local ADB self-pairing connection">Pairing in progress…</string>
     <string name="self_pair_in_progress_hint" comment="Instructional hint displayed during local ADB self-pairing">Зачекайте підключення до цього пристрою</string>
     <string name="self_pair_pairing_not_found" comment="Error notification when mDNS ADB pairing service is not broadcasting">Сервіс сполучення не знайдено</string>
-    <string name="self_pair_searching" comment="Progress status text while scanning for local mDNS pairing service">Searching for pairing service…</string>
+    <string name="self_pair_searching" comment="Progress status text while scanning for local mDNS pairing service">Пошук служби сполучення…</string>
     <string name="self_pair_searching_hint" comment="Instructional prompt directing user to open Wireless Debugging pairing dialog">Відкрийте \"Бездротове налагодження\" та натисніть \'Сполучити пристрій за допомогою коду сполучення\'</string>
     <string name="self_pair_success" comment="Toast confirmation message when local ADB self-pairing succeeds">Під\'єднано до цього пристрою!</string>
     <string name="self_pair_success_hint" comment="Subtext banner confirming local ADB terminal session is ready">Локальна оболонка ADB тепер доступна</string>
@@ -951,7 +951,7 @@
     <string name="update_available" comment="Banner title announcing a new application update release">Доступне оновлення!</string>
     <string name="update_channel" comment="Settings preference title for choosing update channel (Stable, Pre-release, F-Droid)">Канал оновлень</string>
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">Завантажити файл</string>
-    <string name="uploading" comment="Progress status text shown while uploading file to device">Вивантаження…</string>
+    <string name="uploading" comment="Progress status text shown while uploading file to device">Завантаження…</string>
     <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Завантаження резервної копії на Google Drive…</string>
     <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB потрібно увімкнути налагодження через USB у розділі \"Параметри розробника\"</string>
     <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">Необхідне USB налагодження</string>
