@@ -469,9 +469,9 @@ fun CreateTileScreen(
                                 .padding(start = 20.dp, end = 20.dp, bottom = 15.dp)
                                 .clip(RoundedCornerShape(24.dp))
                                 .background(MaterialTheme.colorScheme.surfaceContainerLow)
-                                .padding(vertical = 12.dp)
+                                .padding(12.dp)
                                 .animateItem(),
-                            horizontalArrangement = Arrangement.SpaceAround,
+                            horizontalArrangement = Arrangement.spacedBy(16.dp),
                             verticalArrangement = Arrangement.spacedBy(16.dp),
                         ) {
                             items(uiState.suggestedIcons) { iconKey ->
@@ -481,7 +481,6 @@ fun CreateTileScreen(
                                     modifier = Modifier
                                         .aspectRatio(1f)
                                         .size(48.dp)
-                                        .padding(horizontal = 8.dp)
                                         .clip(CircleShape)
                                         .background(
                                             MaterialTheme.colorScheme.run { if (isIconSelected) primary else surfaceVariant }
