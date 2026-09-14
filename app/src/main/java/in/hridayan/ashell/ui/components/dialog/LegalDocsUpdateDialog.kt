@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
@@ -59,8 +60,9 @@ fun LegalDocsUpdateDialog(
                 Spacer(modifier = Modifier.height(24.dp))
 
                 Button(
+                    modifier = Modifier.fillMaxWidth(),
                     onClick = withHaptic { onReadPrivacyPolicy() },
-                    modifier = Modifier.fillMaxWidth()
+                    shapes = ButtonDefaults.shapes(),
                 ) {
                     Text(text = stringResource(R.string.privacy_policy))
                 }
@@ -68,8 +70,9 @@ fun LegalDocsUpdateDialog(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Button(
+                    modifier = Modifier.fillMaxWidth(),
                     onClick = withHaptic { onReadTermsOfService() },
-                    modifier = Modifier.fillMaxWidth()
+                    shapes = ButtonDefaults.shapes()
                 ) {
                     Text(text = stringResource(R.string.terms_of_service))
                 }
@@ -77,8 +80,9 @@ fun LegalDocsUpdateDialog(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 OutlinedButton(
+                    modifier = Modifier.fillMaxWidth(),
                     onClick = withHaptic { onDismiss() },
-                    modifier = Modifier.fillMaxWidth()
+                    shapes = ButtonDefaults.shapes()
                 ) {
                     Text(text = stringResource(R.string.dismiss))
                 }

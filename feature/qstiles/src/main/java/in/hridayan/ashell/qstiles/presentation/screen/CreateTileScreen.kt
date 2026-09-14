@@ -478,8 +478,8 @@ fun CreateTileScreen(
 
                                 Box(
                                     modifier = Modifier
-                                        .padding(horizontal = 8.dp)
                                         .size(48.dp)
+                                        .padding(horizontal = 8.dp)
                                         .clip(CircleShape)
                                         .background(
                                             MaterialTheme.colorScheme.run { if (isIconSelected) primary else surfaceVariant }
