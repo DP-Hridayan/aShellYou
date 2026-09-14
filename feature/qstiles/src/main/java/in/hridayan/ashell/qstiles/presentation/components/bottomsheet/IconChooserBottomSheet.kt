@@ -11,12 +11,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -41,6 +41,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
@@ -49,7 +50,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -203,23 +203,33 @@ private fun BundledIconGrid(
     }
 
     LazyVerticalGrid(
-        columns = GridCells.Fixed(GRID_COLUMN_COUNT),
+        columns = GridCells.Adaptive(ICON_CELL_SIZE.dp),
         modifier = Modifier
             .fillMaxWidth()
             .height(GRID_HEIGHT.dp),
-        horizontalArrangement = Arrangement.SpaceEvenly,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         items(icons, key = { it.id }) { icon ->
+            val isSelected = icon.id == selectedIconId
+
+            val containerColor = MaterialTheme.colorScheme.run {
+                if (isSelected) primaryContainer else surfaceContainerLowest
+            }
+
+            val contentColor = MaterialTheme.colorScheme.run {
+                if (isSelected) onPrimaryContainer else onSurface
+            }
+
             IconCell(
-                isSelected = icon.id == selectedIconId,
+                containerColor = containerColor,
                 onClick = { onIconSelected(icon.id) },
             ) {
                 Icon(
                     modifier = Modifier.size(ICON_INNER_SIZE.dp),
                     painter = painterResource(icon.resId),
                     contentDescription = icon.id,
-                    tint = MaterialTheme.colorScheme.onSurface,
+                    tint = contentColor,
                 )
             }
         }
@@ -274,40 +284,34 @@ private fun MaterialIconGrid(
     }
 
     LazyVerticalGrid(
-        columns = GridCells.Fixed(GRID_COLUMN_COUNT),
+        columns = GridCells.Adaptive(ICON_CELL_SIZE.dp),
         modifier = Modifier
             .fillMaxWidth()
             .height(GRID_HEIGHT.dp),
-        horizontalArrangement = Arrangement.SpaceEvenly,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         items(icons, key = { it.name }) { entry ->
             val cloudIconId = "material:${entry.name}"
+            val isSelected = cloudIconId == selectedIconId
 
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
+            val containerColor = MaterialTheme.colorScheme.run {
+                if (isSelected) primaryContainer else surfaceContainerLowest
+            }
+
+            val contentColor = MaterialTheme.colorScheme.run {
+                if (isSelected) onPrimaryContainer else onSurface
+            }
+
+            IconCell(
+                containerColor = containerColor,
+                onClick = { onIconSelected(entry) },
             ) {
-                IconCell(
-                    isSelected = cloudIconId == selectedIconId,
-                    onClick = { onIconSelected(entry) },
-                ) {
-                    Text(
-                        text = String(Character.toChars(entry.codepoint)),
-                        fontFamily = fontFamily,
-                        fontSize = GLYPH_FONT_SIZE.sp,
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
-                }
-
                 Text(
-                    text = entry.name.replace('_', ' '),
-                    style = MaterialTheme.typography.labelSmall,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .width(ICON_CELL_SIZE.dp)
-                        .padding(top = 2.dp),
+                    text = String(Character.toChars(entry.codepoint)),
+                    fontFamily = fontFamily,
+                    fontSize = GLYPH_FONT_SIZE.sp,
+                    color = contentColor,
                 )
             }
         }
@@ -316,21 +320,16 @@ private fun MaterialIconGrid(
 
 @Composable
 private fun IconCell(
-    isSelected: Boolean,
+    containerColor: Color,
     onClick: () -> Unit,
     content: @Composable () -> Unit,
 ) {
-    val backgroundColor = if (isSelected) {
-        MaterialTheme.colorScheme.primaryContainer
-    } else {
-        MaterialTheme.colorScheme.surfaceContainerLow
-    }
-
     Box(
         modifier = Modifier
+            .aspectRatio(1f)
             .size(ICON_CELL_SIZE.dp)
             .clip(CircleShape)
-            .background(backgroundColor)
+            .background(containerColor)
             .clickable(onClick = withHaptic { onClick() }),
         contentAlignment = Alignment.Center,
     ) {
