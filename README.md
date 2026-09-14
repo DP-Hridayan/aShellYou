@@ -251,6 +251,13 @@ This project is licensed under the GNU General Public License v3.0
 
 </br>
 
+# Terms of Service
+
+>
+>Terms of Service [here](TERMS_OF_SERVICE.md)
+
+</br>
+
 ## Contributors
 <a href="https://github.com/dp-hridayan/ashellyou/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=dp-hridayan/ashellyou" />
