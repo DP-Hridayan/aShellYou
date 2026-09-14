@@ -174,8 +174,8 @@
 
 <p align="start">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/translations-dark.svg?ts=1789298411">
-    <source media="(prefers-color-scheme: light)" srcset="docs/translations-light.svg?ts=1789298411">
+    <source media="(prefers-color-scheme: dark)" srcset="docs/translations-dark.svg?ts=1789350914">
+    <source media="(prefers-color-scheme: light)" srcset="docs/translations-light.svg?ts=1789350914">
     <img src="translations-light.svg" alt="Translation Progress" />
   </picture>
 </p>
@@ -244,10 +244,19 @@ This project is licensed under the GNU General Public License v3.0
 >
 >Full license copy [here](LICENSE.md)
 
+</br>
+
 ## Privacy Policy
 
 >
 >Privacy Policy [here](PRIVACY_POLICY.md)
+
+</br>
+
+# Terms of Service
+
+>
+>Terms of Service [here](TERMS_OF_SERVICE.md)
 
 </br>
 
