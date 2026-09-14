@@ -132,7 +132,6 @@ import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchRes
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
-import `in`.hridayan.ashell.core.presentation.utils.disableKeyboard
 import `in`.hridayan.ashell.core.presentation.utils.hideKeyboard
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
 import `in`.hridayan.ashell.core.resources.R
@@ -214,15 +213,10 @@ fun BaseShellScreen(
     val scrollDirection = rememberScrollDirection(listState)
     val textFieldFocusRequester = remember { FocusRequester() }
 
-    val disableSoftKeyboard = settings[SettingsKeys.DisableSoftKeyboard]
     val lastSavedFileUri = settings[SettingsKeys.LastSavedFileUri]
     val savePath = settings[SettingsKeys.OutputSaveDirectory].toUri()
     val saveWholeOutput = settings[SettingsKeys.SaveWholeOutput]
     val bookmarksSortType = settings[SettingsKeys.BookmarkSortType]
-
-    LaunchedEffect(disableSoftKeyboard) {
-        disableKeyboard(context, disableSoftKeyboard)
-    }
 
     LaunchedEffect(suggestedCommand) {
         if (!suggestedCommand.isNullOrBlank()) {
@@ -418,21 +412,21 @@ fun BaseShellScreen(
                     transitionSpec = {
                         if (targetState) {
                             (
-                                    fadeIn(animationSpec = spring(stiffness = Spring.StiffnessLow)) +
-                                            scaleIn(
-                                                initialScale = 0.9f,
-                                                animationSpec = spring(stiffness = Spring.StiffnessLow)
-                                            )
+                                fadeIn(animationSpec = spring(stiffness = Spring.StiffnessLow)) +
+                                    scaleIn(
+                                        initialScale = 0.9f,
+                                        animationSpec = spring(stiffness = Spring.StiffnessLow)
                                     )
+                                )
                                 .togetherWith(fadeOut(animationSpec = spring(stiffness = Spring.StiffnessLow)))
                         } else {
                             fadeIn(animationSpec = spring(stiffness = Spring.StiffnessLow))
                                 .togetherWith(
                                     fadeOut(animationSpec = spring(stiffness = Spring.StiffnessLow)) +
-                                            scaleOut(
-                                                targetScale = 0.9f,
-                                                animationSpec = spring(stiffness = Spring.StiffnessLow)
-                                            )
+                                        scaleOut(
+                                            targetScale = 0.9f,
+                                            animationSpec = spring(stiffness = Spring.StiffnessLow)
+                                        )
                                 )
                         }
                     }

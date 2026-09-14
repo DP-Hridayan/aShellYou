@@ -22,6 +22,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.platform.InterceptPlatformTextInput
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
@@ -41,6 +42,7 @@ import `in`.hridayan.ashell.core.presentation.theme.domain.model.UserGeneratedCo
 import `in`.hridayan.ashell.core.presentation.utils.HapticUtils.strongHaptic
 import `in`.hridayan.ashell.core.presentation.utils.HapticUtils.weakHaptic
 import `in`.hridayan.ashell.core.presentation.viewmodel.DialogViewModel
+import kotlinx.coroutines.awaitCancellation
 import kotlin.math.abs
 
 val LocalWeakHaptic = staticCompositionLocalOf { {} }
@@ -95,6 +97,7 @@ fun CompositionLocals(
     val baseDensity = LocalDensity.current
     val configuration = LocalConfiguration.current
 
+    val disableSoftKeyboard = settingsState[SettingsKeys.DisableSoftKeyboard]
     // Theme
     val isDynamicColor = settingsState[SettingsKeys.DynamicColors]
     val themeMode = settingsState[SettingsKeys.ThemeMode]
@@ -245,6 +248,13 @@ fun CompositionLocals(
         LocalSnackBarController provides snackbarController,
         LocalUserGeneratedColorScheme provides if (userGeneratedColorSchemeApplied) activeGeneratedColorScheme else null
     ) {
-        content()
+        InterceptPlatformTextInput(
+            interceptor = { request, nextHandler ->
+                if (disableSoftKeyboard) awaitCancellation()
+                else nextHandler.startInputMethod(request)
+            }
+        ) {
+            content()
+        }
     }
 }
