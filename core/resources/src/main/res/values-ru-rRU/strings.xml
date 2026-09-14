@@ -418,7 +418,7 @@
     <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">Это приведет к окончательной очистке раздела %1$s. Это действие нельзя отменить.</string>
     <string name="erase_confirm_title" comment="%1$s = partition name. Dialog title for partition erase confirmation">Очистить %1$s?</string>
     <string name="erase_partition" comment="Action button to trigger fastboot partition erase">Стереть</string>
-    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Стирание…</string>
+    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Удаление…</string>
     <string name="error">Ошибка</string>
     <string name="error_labels_limit_reached" comment="Validation error when maximum number of custom command labels/tags is reached">Достигнут максимальный лимит этикеток</string>
     <string name="exclude" comment="Filter toggle option to exclude selected package or item">Исключить</string>
