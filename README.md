@@ -244,10 +244,19 @@ This project is licensed under the GNU General Public License v3.0
 >
 >Full license copy [here](LICENSE.md)
 
+</br>
+
 ## Privacy Policy
 
 >
 >Privacy Policy [here](PRIVACY_POLICY.md)
+
+</br>
+
+# Terms of Service
+
+>
+>Terms of Service [here](TERMS_OF_SERVICE.md)
 
 </br>
 
