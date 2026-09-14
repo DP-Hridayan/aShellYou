@@ -244,6 +244,8 @@ This project is licensed under the GNU General Public License v3.0
 >
 >Full license copy [here](LICENSE.md)
 
+</br>
+
 ## Privacy Policy
 
 >
