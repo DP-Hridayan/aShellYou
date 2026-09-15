@@ -57,6 +57,7 @@
     <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">Always allow base</string>
     <string name="always_allow_exact" comment="Permission rule option in AI chat: automatically approve commands matching exact command string">Always allow exact</string>
     <string name="analyse" comment="Action button to request AI analysis of command execution output or error log">Analyse</string>
+    <string name="analysis_failed">Analysis failed</string>
     <string name="api_key" comment="Label for AI provider API key text input field">API key</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">API key is saved</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">API Key Required</string>
@@ -258,6 +259,7 @@
     <string name="create_folder" comment="Action button or dialog title to create a new directory in file browser">Create folder</string>
     <string name="create_new_tile" comment="Screen header or button label to add a new custom Quick Settings tile">Create new tile</string>
     <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">Create with AI</string>
+    <string name="critical">Critical</string>
     <string name="crowdin" translatable="false">Crowdin</string>
     <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">Visit our crowdin translation platform to contribute</string>
     <string name="current_version" comment="About screen card label showing installed application version number">Current version</string>
@@ -265,8 +267,10 @@
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Cut %1$d items</string>
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">Cut to clipboard</string>
     <string name="daily" comment="Option in backup scheduler frequency selection">Daily</string>
+    <string name="dangerous">Dangerous</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">Dark theme</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">Dashboard</string>
+    <string name="database">Database</string>
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">Database Modification</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Databases only</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Default folder</string>
@@ -469,6 +473,7 @@
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">File uploaded successfully</string>
     <string name="fb_uploading" comment="%1$s = file name">Uploading %1$s</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">Feature request</string>
+    <string name="feedback">Feedback</string>
     <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Fetching backup time …</string>
     <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Fetching backup type…</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">Field cannot be blank</string>
@@ -560,6 +565,7 @@
     <string name="great_news" comment="Dialog title header for update available notification">Great news!</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">Haptics &amp; Vibration</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">Have a nice day!</string>
+    <string name="heuristic">Heuristic</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Hex Editor</string>
     <string name="high" comment="Selection option for high haptic strength or elevation level">High</string>
     <string name="high_contrast_dark_mode" comment="Settings preference title for OLED pitch-black dark theme">High contrast dark mode</string>
@@ -641,6 +647,7 @@
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Look &amp; Feel</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">Low</string>
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">Low contrast ratio</string>
+    <string name="low_risk">Low risk</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">Make Your Theme</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">Manual Pair</string>
     <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Material Icons</string>
@@ -659,6 +666,7 @@
     <string name="model_category_small" comment="AI model size category label">Small (300–500 MB)</string>
     <string name="model_category_tiny" comment="AI model size category label">Tiny (under 300 MB)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">Models</string>
+    <string name="moderate">Moderate</string>
     <string name="modified" comment="File property: last modified date">Modified</string>
     <string name="monospace" comment="Font style category name" translatable="false">Monospace</string>
     <string name="monthly" comment="Option in backup scheduler frequency selection">Monthly</string>
@@ -846,6 +854,7 @@
     <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">Execute "%1$s" on the connected device?</string>
     <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">Run Command?</string>
     <string name="running" comment="Status badge showing task or command execution is active">Running</string>
+    <string name="safe">Safe</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Save</string>
     <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">Save as profile…</string>
@@ -949,6 +958,7 @@
     <string name="success_rate" comment="Analytics metadata metric showing tile execution success percentage">Success rate</string>
     <string name="successful_connection_message" comment="Dialog message confirming target ADB device connected successfully">Device is connected successfully. You can now start running commands on the target device.</string>
     <string name="suggested_icons" comment="Header title in tile icon picker listing suggested Material icons">Suggested icons</string>
+    <string name="suggestions">Suggestions</string>
     <string name="support_bmc" comment="Banner text in About section linking to Buy Me a Coffee donation page">Like what I do?\nConsider buying me a coffee</string>
     <string name="surface">Surface</string>
     <string name="switch_mode" comment="Action button to switch ADB connection mode between Local ADB, Remote Wireless ADB, and OTG">Switch mode</string>
@@ -1015,6 +1025,7 @@
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">USB Manager is not available on this device</string>
     <string name="use">Use</string>
     <string name="use_biometrics">Use biometrics</string>
+    <string name="use_cases">Use cases</string>
     <string name="utilities" comment="Category title in homescreen">Utilities</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">Variant</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">Verification failed</string>
@@ -1052,17 +1063,6 @@
     <string name="wireless_not_connected" comment="Status banner shown when target device is not connected over Wireless Debugging">Not Connected</string>
     <string name="wireless_not_connected_message" comment="Instructional body text advising user to pair and connect device first">Your device is not connected via Wireless Debugging. Pair and connect your device first.</string>
     <string name="Z_A" translatable="false">Z → A</string>
-    <string name="safe">Safe</string>
-    <string name="low_risk">Low risk</string>
-    <string name="moderate">Moderate</string>
-    <string name="dangerous">Dangerous</string>
-    <string name="critical">Critical</string>
-    <string name="use_cases">Use cases</string>
-    <string name="feedback">Feedback</string>
-    <string name="suggestions">Suggestions</string>
-    <string name="database">Database</string>
-    <string name="heuristic">Heuristic</string>
-    <string name="analysis_failed">Analysis failed</string>
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d new entry</item>
         <item quantity="other">%1$d new entries</item>
