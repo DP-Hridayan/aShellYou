@@ -129,6 +129,7 @@ import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVe
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.appBrandingNoPadding
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.components.tooltip.TooltipContent
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.utils.hideKeyboard
@@ -1179,38 +1180,44 @@ private fun OutputCardHeader(
             color = MaterialTheme.colorScheme.onSurface
         )
 
-        IconButton(
-            onClick = withHaptic(HapticFeedbackType.VirtualKey) { onShare() },
-            modifier = Modifier.size(32.dp)
-        ) {
-            Icon(
-                modifier = Modifier.size(20.dp),
-                painter = painterResource(R.drawable.ic_share),
-                contentDescription = "Share",
-                tint = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+        TooltipContent(text = stringResource(R.string.share)) {
+            IconButton(
+                onClick = withHaptic(HapticFeedbackType.VirtualKey) { onShare() },
+                modifier = Modifier.size(32.dp)
+            ) {
+                Icon(
+                    modifier = Modifier.size(20.dp),
+                    painter = painterResource(R.drawable.ic_share),
+                    contentDescription = "Share",
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
         }
 
-        IconButton(
-            onClick = withHaptic(HapticFeedbackType.VirtualKey) { onCopy() },
-            modifier = Modifier.size(32.dp)
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.ic_copy),
-                contentDescription = "Copy",
-                tint = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+        TooltipContent(text = stringResource(R.string.copy)) {
+            IconButton(
+                onClick = withHaptic(HapticFeedbackType.VirtualKey) { onCopy() },
+                modifier = Modifier.size(32.dp)
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_copy),
+                    contentDescription = "Copy",
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
         }
 
-        IconButton(
-            onClick = withHaptic(HapticFeedbackType.VirtualKey) { onFullscreenToggle() },
-            modifier = Modifier.size(32.dp)
-        ) {
-            Icon(
-                imageVector = Icons.Rounded.Fullscreen,
-                contentDescription = "Fullscreen",
-                tint = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+        TooltipContent(text = stringResource(R.string.full_screen)) {
+            IconButton(
+                onClick = withHaptic(HapticFeedbackType.VirtualKey) { onFullscreenToggle() },
+                modifier = Modifier.size(32.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Rounded.Fullscreen,
+                    contentDescription = "Fullscreen",
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
         }
     }
 }

@@ -542,6 +542,7 @@
     <string name="found_connect_service" comment="Status message when mDNS ADB connection service is discovered">Found connect service</string>
     <string name="frequency" comment="Setting label for automated backup interval frequency">Frequency</string>
     <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">Full license text</string>
+    <string name="full_screen">Full screen</string>
     <string name="gemini_api_key_step_1" comment="%1$s = URL">Visit Google AI Studio at %1$s</string>
     <string name="gemini_api_key_step_2" comment="Step 2 of API key setup guide: signing in with Google Account">Sign in with your Google Account</string>
     <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">Click on Create API key and select or create a project</string>
