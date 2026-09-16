@@ -35,6 +35,11 @@ jobs:
         with:
           api-level: 37
 
+      - name: Install SDK Tools
+        run: |
+            $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --install "tools" || true
+            $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --update
+
       - name: Grant execute permission to Gradle
         run: chmod +x ./gradlew
 
