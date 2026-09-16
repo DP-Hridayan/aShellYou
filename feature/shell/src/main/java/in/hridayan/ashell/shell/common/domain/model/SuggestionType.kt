@@ -20,5 +20,10 @@ enum class SuggestionType {
     /**
      * Represents an Android permission (e.g., 'android.permission.INTERNET').
      */
-    PERMISSION
+    PERMISSION,
+
+    /**
+     * Represents an adb-level command that is not a shell command (e.g., 'adb tcpip 5555').
+     */
+    ADB
 }

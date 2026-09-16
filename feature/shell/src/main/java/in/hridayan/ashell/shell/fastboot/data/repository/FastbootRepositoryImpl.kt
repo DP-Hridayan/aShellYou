@@ -5,12 +5,17 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.hardware.usb.UsbConstants
 import android.hardware.usb.UsbDevice
+import android.hardware.usb.UsbDeviceConnection
+import android.hardware.usb.UsbEndpoint
 import android.hardware.usb.UsbInterface
 import android.hardware.usb.UsbManager
 import android.net.Uri
 import android.os.Build
+import android.os.SystemClock
 import android.util.Log
+import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import `in`.hridayan.ashell.core.common.domain.model.FastbootState
 import `in`.hridayan.ashell.core.resources.R
@@ -24,51 +29,63 @@ import `in`.hridayan.ashell.shell.fastboot.domain.repository.FastbootRepository
 import `in`.hridayan.fastboot.FastbootCommand
 import `in`.hridayan.fastboot.FastbootDeviceContext
 import `in`.hridayan.fastboot.FastbootException
+import `in`.hridayan.fastboot.FastbootResponse
 import `in`.hridayan.fastboot.ResponseStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import java.util.Locale
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Singleton
 import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
 @Singleton
 class FastbootRepositoryImpl(private val context: Context) : FastbootRepository {
 
     private val usbManager = context.getSystemService(Context.USB_SERVICE) as? UsbManager
-    private val permissionAction = "in.hridayan.ashell.FASTBOOT_USB_PERMISSION"
 
-    private var currentDevice: UsbDevice? = null
-    private var deviceContext: FastbootDeviceContext? = null
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    private val connectMutex = Mutex()
+    private val receiversRegistered = AtomicBoolean(false)
 
     @Volatile
-    private var isConnecting = false
+    private var currentDevice: UsbDevice? = null
 
-    // Fastboot USB interface identifiers
-    companion object {
-        private const val TAG = "FastbootRepository"
-        private const val FASTBOOT_INTERFACE_CLASS = 0xFF
-        private const val FASTBOOT_INTERFACE_SUBCLASS = 0x42
-        private const val FASTBOOT_INTERFACE_PROTOCOL = 0x03
-    }
+    @Volatile
+    private var pendingPermissionDevice: UsbDevice? = null
+
+    @Volatile
+    private var lastPermissionRequestAt = 0L
+
+    @Volatile
+    private var deviceContext: FastbootDeviceContext? = null
+
+    private var connectJob: Job? = null
+    private var rebootWatchJob: Job? = null
 
     // region Receivers
     private val permissionReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            if (intent?.action != permissionAction) return
-            val device = getUsbDeviceFromIntent(intent) ?: return
-            val granted = intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)
-            Log.d(TAG, "permissionReceiver: granted=$granted, device=${device.deviceName}")
+            if (intent?.action != PERMISSION_ACTION) return
+            val device = getUsbDeviceFromIntent(intent) ?: pendingPermissionDevice ?: return
+            pendingPermissionDevice = null
+            lastPermissionRequestAt = 0L
+            val granted = intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false) ||
+                usbManager?.hasPermission(device) == true
 
-            if (granted && usbManager?.hasPermission(device) == true) {
+            if (granted) {
+                currentDevice = device
                 connectToDevice(device)
             } else {
-                Log.d(TAG, "permissionReceiver: DENIED")
                 FastbootConnection.updateState(FastbootState.PermissionDenied)
             }
         }
@@ -78,7 +95,6 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
         override fun onReceive(context: Context?, intent: Intent?) {
             val action = intent?.action ?: return
             val device = getUsbDeviceFromIntent(intent) ?: return
-            Log.d(TAG, "usbReceiver: action=$action, device=${device.deviceName}")
 
             when (action) {
                 UsbManager.ACTION_USB_DEVICE_ATTACHED -> handleDeviceAttach(device)
@@ -89,7 +105,6 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
     // endregion
 
     init {
-        Log.d(TAG, "init: usbManager=${usbManager != null}")
         if (usbManager == null) {
             FastbootConnection.updateState(FastbootState.UsbManagerUnavailable)
         } else {
@@ -99,11 +114,12 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
     }
 
     private fun registerReceivers() {
+        if (!receiversRegistered.compareAndSet(false, true)) return
         ContextCompat.registerReceiver(
             context,
             permissionReceiver,
-            IntentFilter(permissionAction),
-            ContextCompat.RECEIVER_EXPORTED
+            IntentFilter(PERMISSION_ACTION),
+            ContextCompat.RECEIVER_NOT_EXPORTED
         )
 
         val usbFilter = IntentFilter().apply {
@@ -127,154 +143,61 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
         }
     }
 
+    // region Discovery
     private fun handleDeviceAttach(device: UsbDevice) {
-        Log.d(
-            TAG,
-            "handleDeviceAttach: device=${device.deviceName}, product=${device.productName}, isFastboot=${
-                isFastbootDevice(device)
-            }"
-        )
-        currentDevice = device
         val manager = usbManager ?: run {
             FastbootConnection.updateState(FastbootState.UsbManagerUnavailable)
             return
         }
-        if (isFastbootDevice(device)) {
-            val friendlyName = device.productName ?: device.manufacturerName ?: device.deviceName
-            val hasPermission = manager.hasPermission(device)
-            Log.d(
-                TAG,
-                "handleDeviceAttach: fastboot device, hasPermission=$hasPermission, name=$friendlyName"
-            )
-            if (hasPermission) {
-                connectToDevice(device)
-            } else {
-                Log.d(TAG, "handleDeviceAttach: requesting permission")
-                FastbootConnection.updateState(FastbootState.DeviceFound(friendlyName))
-                requestPermission(device)
-            }
-        } else {
-            Log.d(TAG, "handleDeviceAttach: NOT a fastboot device")
+        if (!isFastbootDevice(device)) {
             FastbootConnection.updateState(
                 FastbootState.Error(context.getString(R.string.no_fastboot_device_error))
             )
-        }
-    }
-
-    private fun handleDeviceDetach(device: UsbDevice) {
-        val current = currentDevice
-        Log.d(
-            TAG,
-            "handleDeviceDetach: detached=${device.deviceName}, current=${current?.deviceName}"
-        )
-        if (current == null) {
-            Log.d(TAG, "handleDeviceDetach: no current device, ignoring")
             return
         }
-        if (device.deviceName == current.deviceName) {
-            Log.d(TAG, "handleDeviceDetach: MATCH — cleaning up")
-            cleanupConnection()
-            FastbootConnection.updateState(FastbootState.Disconnected)
-            CoroutineScope(Dispatchers.Main).launch {
-                delay(300.milliseconds)
-                val state = FastbootConnection.state.value
-                if (state is FastbootState.Disconnected) {
-                    Log.d(TAG, "handleDeviceDetach: transitioning to Idle")
-                    FastbootConnection.updateState(FastbootState.Idle)
-                }
-            }
+        currentDevice = device
+        if (manager.hasPermission(device)) {
+            connectToDevice(device)
         } else {
-            // Even if device names don't match, check if our current device
-            // is still present in the USB device list. After mode switches
-            // (bootloader → fastbootd) the device re-enumerates with a new address.
-            val manager = usbManager
-            if (manager != null) {
-                val currentStillPresent = manager.deviceList.values.any {
-                    it.deviceName == current.deviceName
-                }
-                if (!currentStillPresent) {
-                    Log.d(
-                        TAG,
-                        "handleDeviceDetach: current device no longer in USB list — cleaning up"
-                    )
-                    cleanupConnection()
-                    FastbootConnection.updateState(FastbootState.Disconnected)
-                    CoroutineScope(Dispatchers.Main).launch {
-                        delay(300.milliseconds)
-                        val state = FastbootConnection.state.value
-                        if (state is FastbootState.Disconnected) {
-                            FastbootConnection.updateState(FastbootState.Idle)
-                        }
-                    }
-                } else {
-                    Log.d(TAG, "handleDeviceDetach: NO MATCH but current still present, ignoring")
-                }
-            } else {
-                Log.d(TAG, "handleDeviceDetach: NO MATCH, ignoring")
-            }
+            FastbootConnection.updateState(FastbootState.DeviceFound(device.displayName()))
+            requestPermission(device)
         }
     }
 
     /**
-     * Clean up stale device context and connection without updating state.
+     * After a mode switch (bootloader → fastbootd) the device re-enumerates under a new
+     * address, so a detach for a different name still counts when our device is gone.
      */
-    private fun cleanupConnection() {
-        Log.d(
-            TAG,
-            "cleanupConnection: deviceContext=${deviceContext != null}, currentDevice=${currentDevice?.deviceName}"
-        )
-        try {
-            deviceContext?.close()
-        } catch (_: Exception) {
-        }
-        deviceContext = null
+    private fun handleDeviceDetach(device: UsbDevice) {
+        val current = currentDevice ?: return
+        val currentStillPresent = usbManager?.deviceList?.values
+            ?.any { it.deviceName == current.deviceName } == true
+        if (device.deviceName != current.deviceName && currentStillPresent) return
         currentDevice = null
+        dropConnection()
     }
 
     override fun searchDevices() {
-        if (usbManager == null) {
+        val manager = usbManager ?: run {
             FastbootConnection.updateState(FastbootState.UsbManagerUnavailable)
             return
         }
-
-        val currentState = FastbootConnection.state.value
-        val manager = usbManager
-        Log.d(
-            TAG,
-            "searchDevices: currentState=$currentState, currentDevice=${currentDevice?.deviceName}, deviceContext=${deviceContext != null}"
-        )
-
-        // Don't interfere with active connection establishment or permission flow
-        if (currentState is FastbootState.Connecting ||
-            currentState is FastbootState.DeviceFound
-        ) {
-            Log.d(TAG, "searchDevices: SKIPPING — state is $currentState")
-            return
+        registerReceivers()
+        val state = FastbootConnection.currentState
+        if (state is FastbootState.Connecting) return
+        if (state is FastbootState.Connected && isCurrentDevicePresent(manager)) return
+        if (state !is FastbootState.DeviceFound) {
+            FastbootConnection.updateState(FastbootState.Searching)
         }
-
-        // If we think we're connected, verify the device is still present
-        if (currentState is FastbootState.Connected) {
-            val currentDev = currentDevice
-            if (currentDev != null && deviceContext != null) {
-                val stillPresent = manager.deviceList.values.any {
-                    it.deviceName == currentDev.deviceName && isFastbootDevice(it)
-                }
-                Log.d(TAG, "searchDevices: Connected, deviceStillPresent=$stillPresent")
-                if (stillPresent) {
-                    return
-                }
-            } else {
-                Log.d(
-                    TAG,
-                    "searchDevices: Connected but currentDev=${currentDev?.deviceName}, context=${deviceContext != null} — stale"
-                )
-            }
-            cleanupConnection()
-        }
-
-        Log.d(TAG, "searchDevices: scanning USB devices...")
-        FastbootConnection.updateState(FastbootState.Searching)
         checkConnectedDevices()
+    }
+
+    private fun isCurrentDevicePresent(manager: UsbManager): Boolean {
+        val device = currentDevice ?: return false
+        if (deviceContext?.isOpen != true) return false
+        return manager.deviceList.values.any {
+            it.deviceName == device.deviceName && isFastbootDevice(it)
+        }
     }
 
     private fun checkConnectedDevices() {
@@ -282,25 +205,11 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
             FastbootConnection.updateState(FastbootState.UsbManagerUnavailable)
             return
         }
-        val devices = manager.deviceList.values
-        Log.d(TAG, "checkConnectedDevices: ${devices.size} USB devices found")
-        devices.forEach {
-            Log.d(
-                TAG,
-                "  device: ${it.deviceName} product=${it.productName} class=${it.deviceClass}"
-            )
-        }
-        if (devices.isEmpty()) {
+        val fastbootDevice = manager.deviceList.values.firstOrNull(::isFastbootDevice)
+        if (fastbootDevice == null) {
             FastbootConnection.updateState(FastbootState.Idle)
-            return
-        }
-
-        val fastbootDevice = devices.firstOrNull { isFastbootDevice(it) }
-        Log.d(TAG, "checkConnectedDevices: fastbootDevice=${fastbootDevice?.deviceName}")
-        if (fastbootDevice != null) {
-            handleDeviceAttach(fastbootDevice)
         } else {
-            FastbootConnection.updateState(FastbootState.Idle)
+            handleDeviceAttach(fastbootDevice)
         }
     }
 
@@ -310,213 +219,200 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
             return
         }
         if (manager.hasPermission(device)) return
+        val now = SystemClock.elapsedRealtime()
+        if (now - lastPermissionRequestAt < PERMISSION_COOLDOWN_MS) return
+        lastPermissionRequestAt = now
 
-        Log.d(TAG, "requestPermission: requesting for ${device.deviceName}")
-        val intent = Intent(permissionAction).apply {
-            setPackage(context.packageName)
-        }
+        pendingPermissionDevice = device
+        val intent = Intent(PERMISSION_ACTION).setPackage(context.packageName)
         val pendingIntent = PendingIntent.getBroadcast(
             context,
-            0,
+            PERMISSION_REQUEST_CODE,
             intent,
-            PendingIntent.FLAG_MUTABLE
+            mutableFlag() or PendingIntent.FLAG_CANCEL_CURRENT
         )
         manager.requestPermission(device, pendingIntent)
     }
 
+    private fun mutableFlag(): Int =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_MUTABLE else 0
+    // endregion
+
+    // region Connection
     private fun connectToDevice(device: UsbDevice) {
-        val currentState = FastbootConnection.state.value
-        if (isConnecting || currentState is FastbootState.Connected || currentState is FastbootState.Connecting) {
-            Log.d(
-                TAG,
-                "connectToDevice: SKIPPING — already connecting or connected (state=$currentState, isConnecting=$isConnecting)"
-            )
-            return
-        }
-        isConnecting = true
-        Log.d(
-            TAG,
-            "connectToDevice: START device=${device.deviceName}, product=${device.productName}"
-        )
-        FastbootConnection.updateState(FastbootState.Connecting)
-
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val intf = findFastbootInterface(device) ?: run {
-                    Log.e(TAG, "connectToDevice: No fastboot interface found")
-                    FastbootConnection.updateState(FastbootState.Error("No fastboot interface found"))
-                    return@launch
-                }
-                Log.d(TAG, "connectToDevice: found interface class=${intf.interfaceClass}")
-
-                val manager = usbManager ?: run {
-                    Log.e(TAG, "connectToDevice: UsbManager unavailable")
-                    FastbootConnection.updateState(FastbootState.UsbManagerUnavailable)
-                    return@launch
-                }
-
-                val connection = manager.openDevice(device) ?: run {
-                    Log.e(TAG, "connectToDevice: Failed to open USB connection")
-                    FastbootConnection.updateState(FastbootState.Error("Failed to open USB connection"))
-                    return@launch
-                }
-                Log.d(TAG, "connectToDevice: USB connection opened")
-
-                if (!connection.claimInterface(intf, true)) {
-                    Log.e(TAG, "connectToDevice: Failed to claim interface")
-                    FastbootConnection.updateState(FastbootState.Error("Failed to claim interface"))
-                    return@launch
-                }
-                Log.d(TAG, "connectToDevice: interface claimed")
-
-                // Find bulk IN and OUT endpoints
-                var inEndpoint: android.hardware.usb.UsbEndpoint? = null
-                var outEndpoint: android.hardware.usb.UsbEndpoint? = null
-
-                for (i in 0 until intf.endpointCount) {
-                    val ep = intf.getEndpoint(i)
-                    if (ep.type == android.hardware.usb.UsbConstants.USB_ENDPOINT_XFER_BULK) {
-                        if (ep.direction == android.hardware.usb.UsbConstants.USB_DIR_IN) {
-                            inEndpoint = ep
-                        } else {
-                            outEndpoint = ep
-                        }
-                    }
-                }
-
-                if (inEndpoint == null || outEndpoint == null) {
-                    Log.e(
-                        TAG,
-                        "connectToDevice: Could not find bulk endpoints (in=$inEndpoint, out=$outEndpoint)"
-                    )
-                    FastbootConnection.updateState(FastbootState.Error("Could not find bulk endpoints"))
-                    connection.releaseInterface(intf)
-                    connection.close()
-                    return@launch
-                }
-                Log.d(TAG, "connectToDevice: endpoints found, creating FastbootDeviceContext")
-
-                deviceContext = FastbootDeviceContext(connection, intf, inEndpoint, outEndpoint)
-                Log.d(
-                    TAG,
-                    "connectToDevice: deviceContext created, switching to Main for state update"
-                )
-
-                withContext(Dispatchers.Main) {
-                    val name = device.productName ?: device.manufacturerName ?: device.deviceName
-                    Log.d(
-                        TAG,
-                        "connectToDevice: setting Connected state, name=$name, stateBeforeUpdate=${FastbootConnection.state.value}"
-                    )
-                    isConnecting = false
-                    FastbootConnection.updateState(
-                        FastbootState.Connected(name, device.deviceName)
-                    )
-                    Log.d(
-                        TAG,
-                        "connectToDevice: DONE — state is now ${FastbootConnection.state.value}"
-                    )
-                }
-            } catch (e: Exception) {
-                Log.e(TAG, "connectToDevice: EXCEPTION", e)
-                isConnecting = false
-                withContext(Dispatchers.Main) {
-                    FastbootConnection.updateState(
-                        FastbootState.Error("Connection failed: ${e.message}")
-                    )
-                }
-            }
+        connectJob?.cancel()
+        connectJob = scope.launch {
+            connectMutex.withLock { connectLocked(device) }
         }
     }
 
-    private fun findFastbootInterface(device: UsbDevice): UsbInterface? {
-        for (i in 0 until device.interfaceCount) {
-            val intf = device.getInterface(i)
-            if (intf.interfaceClass == FASTBOOT_INTERFACE_CLASS &&
-                intf.interfaceSubclass == FASTBOOT_INTERFACE_SUBCLASS &&
-                intf.interfaceProtocol == FASTBOOT_INTERFACE_PROTOCOL
-            ) {
-                return intf
-            }
+    private fun connectLocked(device: UsbDevice) {
+        val existing = deviceContext
+        if (existing?.isOpen == true && currentDevice?.deviceName == device.deviceName) {
+            FastbootConnection.updateState(FastbootState.Connected(device.displayName(), device.deviceName))
+            return
         }
+        closeContext()
+        FastbootConnection.updateState(FastbootState.Connecting)
+        val opened = openContext(device) ?: return
+        deviceContext = opened
+        currentDevice = device
+        FastbootConnection.updateState(FastbootState.Connected(device.displayName(), device.deviceName))
+        Log.d(TAG, "Connected to fastboot device ${device.displayName()}")
+    }
+
+    private fun openContext(device: UsbDevice): FastbootDeviceContext? {
+        val manager = usbManager
+        val intf = findFastbootInterface(device)
+        return when {
+            manager == null -> {
+                FastbootConnection.updateState(FastbootState.UsbManagerUnavailable)
+                null
+            }
+
+            intf == null -> failConnect(R.string.no_fastboot_interface_found)
+            else -> manager.openDevice(device)?.let { claimContext(it, intf) }
+                ?: failConnect(R.string.usb_open_failed)
+        }
+    }
+
+    private fun claimContext(usbConnection: UsbDeviceConnection, intf: UsbInterface): FastbootDeviceContext? {
+        if (!usbConnection.claimInterface(intf, true)) {
+            usbConnection.close()
+            return failConnect(R.string.usb_claim_failed)
+        }
+        val endpoints = findBulkEndpoints(intf)
+        if (endpoints == null) {
+            usbConnection.releaseInterface(intf)
+            usbConnection.close()
+            return failConnect(R.string.usb_bulk_endpoints_missing)
+        }
+        return FastbootDeviceContext(usbConnection, intf, endpoints.first, endpoints.second)
+    }
+
+    private fun failConnect(@StringRes message: Int): FastbootDeviceContext? {
+        FastbootConnection.updateState(FastbootState.Error(context.getString(message)))
         return null
     }
 
-    private fun isFastbootDevice(device: UsbDevice): Boolean {
-        for (i in 0 until device.interfaceCount) {
-            val intf = device.getInterface(i)
-            if (intf.interfaceClass == FASTBOOT_INTERFACE_CLASS &&
-                intf.interfaceSubclass == FASTBOOT_INTERFACE_SUBCLASS &&
-                intf.interfaceProtocol == FASTBOOT_INTERFACE_PROTOCOL
-            ) {
-                return true
-            }
-        }
-        return false
+    private fun findBulkEndpoints(intf: UsbInterface): Pair<UsbEndpoint, UsbEndpoint>? {
+        val bulk = (0 until intf.endpointCount)
+            .map(intf::getEndpoint)
+            .filter { it.type == UsbConstants.USB_ENDPOINT_XFER_BULK }
+        val input = bulk.firstOrNull { it.direction == UsbConstants.USB_DIR_IN } ?: return null
+        val output = bulk.firstOrNull { it.direction == UsbConstants.USB_DIR_OUT } ?: return null
+        return input to output
     }
 
+    private fun dropConnection() {
+        connectJob?.cancel()
+        scope.launch {
+            connectMutex.withLock {
+                closeContext()
+                FastbootConnection.updateState(FastbootState.Disconnected)
+                delay(DISCONNECT_SETTLE_DELAY)
+                if (FastbootConnection.currentState is FastbootState.Disconnected) {
+                    FastbootConnection.updateState(FastbootState.Idle)
+                }
+            }
+        }
+    }
+
+    private fun closeContext() {
+        val ctx = deviceContext ?: return
+        deviceContext = null
+        ctx.abort()
+        runCatching { ctx.close() }
+    }
+
+    override fun disconnect() {
+        currentDevice = null
+        dropConnection()
+    }
+
+    override fun cancelOperation() {
+        val ctx = deviceContext ?: return
+        ctx.abort()
+        scope.launch {
+            connectMutex.withLock {
+                closeContext()
+                FastbootConnection.updateState(FastbootState.Disconnected)
+            }
+            delay(RECONNECT_DELAY)
+            searchDevices()
+        }
+    }
+
+    override fun reboot(mode: RebootMode) {
+        val ctx = deviceContext ?: return
+        rebootWatchJob?.cancel()
+        rebootWatchJob = scope.launch {
+            runCatching { ctx.sendCommand(rebootCommand(mode)) }
+                .onFailure { Log.e(TAG, "Reboot failed", it) }
+            connectMutex.withLock {
+                closeContext()
+                currentDevice = null
+                FastbootConnection.updateState(FastbootState.Disconnected)
+            }
+            if (mode == RebootMode.BOOTLOADER || mode == RebootMode.FASTBOOTD) pollForDevice()
+        }
+    }
+
+    private fun rebootCommand(mode: RebootMode): FastbootCommand = when (mode) {
+        RebootMode.NORMAL -> FastbootCommand.reboot()
+        RebootMode.BOOTLOADER -> FastbootCommand.rebootBootloader()
+        RebootMode.RECOVERY -> FastbootCommand.rebootRecovery()
+        RebootMode.FASTBOOTD -> FastbootCommand.rebootFastboot()
+    }
+
+    /**
+     * Android does not reliably fire USB_DEVICE_ATTACHED when a device reboots between fastboot
+     * modes without a physical replug, so poll for it to reappear.
+     */
+    private suspend fun pollForDevice() {
+        repeat(REBOOT_POLL_ATTEMPTS) {
+            delay(REBOOT_POLL_INTERVAL)
+            if (FastbootConnection.currentState is FastbootState.Connected) return
+            searchDevices()
+        }
+    }
+
+    private fun findFastbootInterface(device: UsbDevice): UsbInterface? =
+        (0 until device.interfaceCount).map(device::getInterface).firstOrNull(::isFastbootInterface)
+
+    private fun isFastbootDevice(device: UsbDevice): Boolean = findFastbootInterface(device) != null
+
+    private fun isFastbootInterface(intf: UsbInterface): Boolean =
+        intf.interfaceClass == FASTBOOT_INTERFACE_CLASS &&
+            intf.interfaceSubclass == FASTBOOT_INTERFACE_SUBCLASS &&
+            intf.interfaceProtocol == FASTBOOT_INTERFACE_PROTOCOL
+
+    private fun UsbDevice.displayName(): String = productName ?: manufacturerName ?: deviceName
+    // endregion
+
+    // region Commands
     override fun sendCommand(command: String): Flow<FastbootCommandResult> = flow {
         val ctx = deviceContext ?: run {
-            emit(
-                FastbootCommandResult(
-                    command = command,
-                    status = ResponseStatus.FAIL,
-                    data = "No fastboot device connected"
-                )
-            )
+            emit(failedResult(command, context.getString(R.string.no_device_connected)))
             return@flow
         }
 
-        // Strip leading "fastboot " prefix if user types CLI-style commands
         val stripped = command.trim().let {
-            if (it.startsWith("fastboot ", ignoreCase = true)) {
-                it.substring(9).trimStart()
-            } else {
-                it
-            }
+            if (it.startsWith("fastboot ", ignoreCase = true)) it.substring(CLI_PREFIX_LENGTH).trimStart() else it
         }
 
-        // Handle "devices" locally — not a real protocol command
         if (stripped.equals("devices", ignoreCase = true)) {
-            val state = FastbootConnection.state.value
+            val state = FastbootConnection.currentState
             val name = if (state is FastbootState.Connected) state.deviceName else "no device"
-            emit(
-                FastbootCommandResult(
-                    command = command,
-                    status = ResponseStatus.OKAY,
-                    data = "$name\tfastboot"
-                )
-            )
+            emit(FastbootCommandResult(command = command, status = ResponseStatus.OKAY, data = "$name\tfastboot"))
             return@flow
         }
 
         try {
-            val fbCommand = parseCommand(stripped)
-
-            val response = ctx.sendCommand(fbCommand)
-            emit(
-                FastbootCommandResult(
-                    command = command,
-                    status = response.status,
-                    data = response.data
-                )
-            )
+            val response = ctx.sendCommand(parseCommand(stripped))
+            emit(FastbootCommandResult(command = command, status = response.status, data = response.data))
         } catch (e: FastbootException) {
-            emit(
-                FastbootCommandResult(
-                    command = command,
-                    status = ResponseStatus.FAIL,
-                    data = e.message ?: "Unknown error"
-                )
-            )
-        } catch (e: Exception) {
-            emit(
-                FastbootCommandResult(
-                    command = command,
-                    status = ResponseStatus.FAIL,
-                    data = "Error: ${e.message}"
-                )
-            )
+            emit(failedResult(command, e.message ?: context.getString(R.string.unknown_error)))
         }
     }.flowOn(Dispatchers.IO)
 
@@ -531,42 +427,19 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
         val arg = parts.getOrNull(1)?.trim()
 
         return when {
-            // Protocol-style: "getvar:all"
             input.startsWith("getvar:") -> FastbootCommand.getVar(input.removePrefix("getvar:"))
             input.startsWith("erase:") -> FastbootCommand.erase(input.removePrefix("erase:"))
-
-            // CLI-style: "getvar all", "getvar unlocked"
             verb == "getvar" && arg != null -> FastbootCommand.getVar(arg)
             verb == "erase" && arg != null -> FastbootCommand.erase(arg)
-
-            // Reboot variants
             verb == "reboot" && arg == null -> FastbootCommand.reboot()
-            verb == "reboot" && arg.equals(
-                "bootloader",
-                ignoreCase = true
-            ) -> FastbootCommand.rebootBootloader()
-
+            verb == "reboot" && arg.equals("bootloader", ignoreCase = true) -> FastbootCommand.rebootBootloader()
             verb == "reboot-bootloader" -> FastbootCommand.rebootBootloader()
-            verb == "reboot" && arg.equals(
-                "recovery",
-                ignoreCase = true
-            ) -> FastbootCommand.rebootRecovery()
-
+            verb == "reboot" && arg.equals("recovery", ignoreCase = true) -> FastbootCommand.rebootRecovery()
             verb == "reboot-recovery" -> FastbootCommand.rebootRecovery()
-            verb == "reboot" && arg.equals(
-                "fastboot",
-                ignoreCase = true
-            ) -> FastbootCommand.rebootFastboot()
-
+            verb == "reboot" && arg.equals("fastboot", ignoreCase = true) -> FastbootCommand.rebootFastboot()
             verb == "reboot-fastboot" -> FastbootCommand.rebootFastboot()
-
-            // OEM
             verb == "oem" && arg != null -> FastbootCommand.oem(arg)
-
-            // Continue
             verb == "continue" -> FastbootCommand.continueBooting()
-
-            // Fallback: send as raw protocol command
             else -> FastbootCommand.raw(input)
         }
     }
@@ -577,76 +450,30 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
             return@flow
         }
 
-        try {
-            fun queryVar(name: String): String? {
-                return try {
-                    val response = ctx.sendCommand(FastbootCommand.getVar(name))
-                    if (response.isOkay) response.data.takeIf { it.isNotBlank() } else null
-                } catch (_: Exception) {
-                    null
-                }
-            }
+        fun queryVar(name: String): String? = try {
+            val response = ctx.sendCommand(FastbootCommand.getVar(name))
+            if (response.isOkay) response.data.takeIf { it.isNotBlank() } else null
+        } catch (_: FastbootException) {
+            null
+        }
 
-            emit(
-                FastbootDeviceInfo(
-                    product = queryVar("product"),
-                    serialNo = queryVar("serialno"),
-                    variant = queryVar("variant"),
-                    bootloaderVersion = queryVar("version-bootloader"),
-                    basebandVersion = queryVar("version-baseband"),
-                    isUnlocked = queryVar("unlocked")?.let { it == "yes" || it == "true" },
-                    currentSlot = queryVar("current-slot"),
-                    batteryLevel = queryVar("battery-level")?.toIntOrNull(),
-                    batteryVoltage = queryVar("battery-voltage"),
-                    batterySocOk = queryVar("battery-soc-ok"),
-                    maxDownloadSize = queryVar("max-download-size"),
-                    securityPatchLevel = queryVar("security-patch-level")
-                )
+        emit(
+            FastbootDeviceInfo(
+                product = queryVar("product"),
+                serialNo = queryVar("serialno"),
+                variant = queryVar("variant"),
+                bootloaderVersion = queryVar("version-bootloader"),
+                basebandVersion = queryVar("version-baseband"),
+                isUnlocked = queryVar("unlocked")?.let { it == "yes" || it == "true" },
+                currentSlot = queryVar("current-slot"),
+                batteryLevel = queryVar("battery-level")?.toIntOrNull(),
+                batteryVoltage = queryVar("battery-voltage"),
+                batterySocOk = queryVar("battery-soc-ok"),
+                maxDownloadSize = queryVar("max-download-size"),
+                securityPatchLevel = queryVar("security-patch-level")
             )
-        } catch (e: Exception) {
-            Log.e(TAG, "Error querying device info", e)
-            emit(FastbootDeviceInfo())
-        }
+        )
     }.flowOn(Dispatchers.IO)
-
-    override fun reboot(mode: RebootMode) {
-        val ctx = deviceContext ?: return
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val command = when (mode) {
-                    RebootMode.NORMAL -> FastbootCommand.reboot()
-                    RebootMode.BOOTLOADER -> FastbootCommand.rebootBootloader()
-                    RebootMode.RECOVERY -> FastbootCommand.rebootRecovery()
-                    RebootMode.FASTBOOTD -> FastbootCommand.rebootFastboot()
-                }
-                ctx.sendCommand(command)
-            } catch (e: Exception) {
-                Log.e(TAG, "Reboot failed", e)
-            } finally {
-                // The device will disconnect after reboot — clean up immediately
-                // so the system can detect the re-enumerated device.
-                cleanupConnection()
-                withContext(Dispatchers.Main) {
-                    FastbootConnection.updateState(FastbootState.Disconnected)
-                }
-
-                // Poll for the device to reappear (Android doesn't reliably fire
-                // USB_DEVICE_ATTACHED when a device reboots between modes without
-                // a physical cable disconnect).
-                if (mode != RebootMode.NORMAL && mode != RebootMode.RECOVERY) {
-                    // Only poll for modes that stay in fastboot/bootloader
-                    for (i in 1..15) {
-                        delay(2000.milliseconds)
-                        val state = FastbootConnection.state.value
-                        if (state is FastbootState.Connected) break
-                        withContext(Dispatchers.Main) {
-                            searchDevices()
-                        }
-                    }
-                }
-            }
-        }
-    }
 
     override fun getAllVariables(): Flow<List<Pair<String, String>>> = flow {
         val ctx = deviceContext ?: run {
@@ -656,337 +483,162 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
 
         try {
             val response = ctx.sendCommand(FastbootCommand.getVar("all"))
-            val variables = mutableListOf<Pair<String, String>>()
-
-            if (response.data.isNotBlank()) {
-                response.data.lines().forEach { line ->
-                    // INFO responses for getvar:all typically come as "key: value" or "key:value"
-                    val colonIndex = line.indexOf(':')
-                    if (colonIndex > 0) {
-                        val key = line.substring(0, colonIndex).trim()
-                        val value = line.substring(colonIndex + 1).trim()
-                        if (key.isNotBlank()) {
-                            variables.add(key to value)
-                        }
-                    }
-                }
-            }
-
-            emit(variables.sortedBy { it.first })
-        } catch (e: Exception) {
+            emit(parseVariables(response.data))
+        } catch (e: FastbootException) {
             Log.e(TAG, "Error querying all variables", e)
             emit(emptyList())
         }
     }.flowOn(Dispatchers.IO)
 
-    override fun disconnect() {
-        isConnecting = false
-        try {
-            deviceContext?.close()
-        } catch (e: Exception) {
-            Log.e(TAG, "Error closing fastboot connection", e)
+    private fun parseVariables(data: String): List<Pair<String, String>> = data.lines()
+        .mapNotNull { line ->
+            val colonIndex = line.indexOf(':')
+            if (colonIndex <= 0) return@mapNotNull null
+            val key = line.substring(0, colonIndex).trim()
+            val value = line.substring(colonIndex + 1).trim()
+            if (key.isBlank()) null else key to value
         }
-        deviceContext = null
-        currentDevice = null
-        FastbootConnection.updateState(FastbootState.Disconnected)
-        FastbootConnection.updateState(FastbootState.Idle)
-    }
+        .sortedBy { it.first }
+    // endregion
 
-    override fun unRegister() {
-        try {
-            context.unregisterReceiver(permissionReceiver)
-            context.unregisterReceiver(usbReceiver)
-        } catch (_: Exception) {
-        }
-    }
-
+    // region Flash, erase, boot
     override fun flashPartition(
         partition: String,
         imageUri: Uri,
         onProgress: (FlashOperation) -> Unit
-    ): Flow<FastbootCommandResult> = flow {
-        val ctx = deviceContext ?: run {
-            onProgress(
-                FlashOperation(
-                    partition = partition,
-                    status = FlashStatus.ERROR,
-                    message = "No device connected"
-                )
-            )
-            emit(
-                FastbootCommandResult(
-                    command = "flash:$partition",
-                    status = ResponseStatus.FAIL,
-                    data = "No device connected"
-                )
-            )
-            return@flow
+    ): Flow<FastbootCommandResult> = dataOperation(
+        command = "flash:$partition",
+        partition = partition,
+        onProgress = onProgress,
+        successMessage = R.string.flash_complete,
+        failureMessage = R.string.flash_failed,
+    ) { ctx ->
+        onProgress(operation(partition, FlashStatus.READING_FILE, context.getString(R.string.reading_image_file)))
+        val image = readImage(imageUri)
+        val sizeText = megabytes(image.size)
+        val downloading = context.getString(R.string.downloading_to_device, sizeText)
+        onProgress(operation(partition, FlashStatus.DOWNLOADING, downloading))
+        ctx.sendCommand(FastbootCommand.flash(partition, image)) { sent, total ->
+            onProgress(transferProgress(partition, sent, total, sizeText))
         }
-
-        try {
-            // Step 1: Read the image file
-            onProgress(
-                FlashOperation(
-                    partition = partition,
-                    status = FlashStatus.READING_FILE,
-                    message = "Reading image file..."
-                )
-            )
-            val imageData =
-                context.contentResolver.openInputStream(imageUri)?.use { it.readBytes() }
-                    ?: throw FastbootException("Cannot open file")
-
-            val fileSizeMB =
-                String.format(Locale.getDefault(), "%.1f", imageData.size / (1024.0 * 1024.0))
-
-            onProgress(
-                FlashOperation(
-                    partition = partition,
-                    status = FlashStatus.DOWNLOADING,
-                    progress = 0f,
-                    message = "Downloading ${fileSizeMB}MB to device..."
-                )
-            )
-
-            // Step 2: Flash with progress
-            val command = FastbootCommand.flash(partition, imageData)
-            val response = ctx.sendCommand(command) { bytesSent, totalBytes ->
-                val progress = bytesSent.toFloat() / totalBytes.toFloat()
-                onProgress(
-                    FlashOperation(
-                        partition = partition,
-                        status = if (progress < 1f) FlashStatus.DOWNLOADING else FlashStatus.FLASHING,
-                        progress = progress,
-                        message = if (progress < 1f) {
-                            "Sending ${(progress * 100).toInt()}% ($fileSizeMB MB)"
-                        } else {
-                            "Writing to $partition..."
-                        }
-                    )
-                )
-            }
-
-            if (response.isOkay) {
-                onProgress(
-                    FlashOperation(
-                        partition = partition,
-                        status = FlashStatus.COMPLETE,
-                        progress = 1f,
-                        message = "Flash complete"
-                    )
-                )
-            } else {
-                onProgress(
-                    FlashOperation(
-                        partition = partition,
-                        status = FlashStatus.ERROR,
-                        message = "Flash failed: ${response.data}"
-                    )
-                )
-            }
-
-            emit(
-                FastbootCommandResult(
-                    command = "flash:$partition",
-                    status = response.status,
-                    data = response.data
-                )
-            )
-        } catch (e: Exception) {
-            val msg = e.message ?: "Unknown error"
-            onProgress(
-                FlashOperation(
-                    partition = partition,
-                    status = FlashStatus.ERROR,
-                    message = msg
-                )
-            )
-            emit(
-                FastbootCommandResult(
-                    command = "flash:$partition",
-                    status = ResponseStatus.FAIL,
-                    data = msg
-                )
-            )
-            Log.e(TAG, "Flash $partition failed", e)
-        }
-    }.flowOn(Dispatchers.IO)
+    }
 
     override fun erasePartition(
         partition: String,
         onProgress: (FlashOperation) -> Unit
-    ): Flow<FastbootCommandResult> = flow {
-        val ctx = deviceContext ?: run {
-            onProgress(
-                FlashOperation(
-                    partition = partition,
-                    status = FlashStatus.ERROR,
-                    message = "No device connected"
-                )
-            )
-            emit(
-                FastbootCommandResult(
-                    command = "erase:$partition",
-                    status = ResponseStatus.FAIL,
-                    data = "No device connected"
-                )
-            )
-            return@flow
-        }
-
-        try {
-            onProgress(
-                FlashOperation(
-                    partition = partition,
-                    status = FlashStatus.ERASING,
-                    message = "Erasing $partition..."
-                )
-            )
-
-            val response = ctx.sendCommand(FastbootCommand.erase(partition))
-
-            if (response.isOkay) {
-                onProgress(
-                    FlashOperation(
-                        partition = partition,
-                        status = FlashStatus.COMPLETE,
-                        progress = 1f,
-                        message = "Erase complete"
-                    )
-                )
-            } else {
-                onProgress(
-                    FlashOperation(
-                        partition = partition,
-                        status = FlashStatus.ERROR,
-                        message = "Erase failed: ${response.data}"
-                    )
-                )
-            }
-
-            emit(
-                FastbootCommandResult(
-                    command = "erase:$partition",
-                    status = response.status,
-                    data = response.data
-                )
-            )
-        } catch (e: Exception) {
-            val msg = e.message ?: "Unknown error"
-            onProgress(
-                FlashOperation(
-                    partition = partition,
-                    status = FlashStatus.ERROR,
-                    message = msg
-                )
-            )
-            emit(
-                FastbootCommandResult(
-                    command = "erase:$partition",
-                    status = ResponseStatus.FAIL,
-                    data = msg
-                )
-            )
-            Log.e(TAG, "Erase $partition failed", e)
-        }
-    }.flowOn(Dispatchers.IO)
+    ): Flow<FastbootCommandResult> = dataOperation(
+        command = "erase:$partition",
+        partition = partition,
+        onProgress = onProgress,
+        successMessage = R.string.erase_complete,
+        failureMessage = R.string.erase_failed,
+    ) { ctx ->
+        onProgress(operation(partition, FlashStatus.ERASING, context.getString(R.string.erasing_partition, partition)))
+        ctx.sendCommand(FastbootCommand.erase(partition))
+    }
 
     override fun bootImage(
         imageUri: Uri,
         onProgress: (FlashOperation) -> Unit
+    ): Flow<FastbootCommandResult> = dataOperation(
+        command = "boot",
+        partition = BOOT_PARTITION,
+        onProgress = onProgress,
+        successMessage = R.string.boot_image_sent,
+        failureMessage = R.string.boot_failed,
+    ) { ctx ->
+        onProgress(operation(BOOT_PARTITION, FlashStatus.READING_FILE, context.getString(R.string.reading_image_file)))
+        val image = readImage(imageUri)
+        val sizeText = megabytes(image.size)
+        val downloading = context.getString(R.string.downloading_to_device, sizeText)
+        onProgress(operation(BOOT_PARTITION, FlashStatus.DOWNLOADING, downloading))
+        ctx.sendCommand(FastbootCommand.boot(image)) { sent, total ->
+            onProgress(transferProgress(BOOT_PARTITION, sent, total, sizeText))
+        }
+    }
+
+    private fun dataOperation(
+        command: String,
+        partition: String,
+        onProgress: (FlashOperation) -> Unit,
+        @StringRes successMessage: Int,
+        @StringRes failureMessage: Int,
+        block: (FastbootDeviceContext) -> FastbootResponse,
     ): Flow<FastbootCommandResult> = flow {
         val ctx = deviceContext ?: run {
-            onProgress(
-                FlashOperation(
-                    partition = "boot",
-                    status = FlashStatus.ERROR,
-                    message = "No device connected"
-                )
-            )
-            emit(
-                FastbootCommandResult(
-                    command = "boot",
-                    status = ResponseStatus.FAIL,
-                    data = "No device connected"
-                )
-            )
+            val message = context.getString(R.string.no_device_connected)
+            onProgress(operation(partition, FlashStatus.ERROR, message))
+            emit(failedResult(command, message))
             return@flow
         }
-
         try {
-            onProgress(
-                FlashOperation(
-                    partition = "boot",
-                    status = FlashStatus.READING_FILE,
-                    message = "Reading boot image..."
-                )
-            )
-            val imageData =
-                context.contentResolver.openInputStream(imageUri)?.use { it.readBytes() }
-                    ?: throw FastbootException("Cannot open file")
-
-            val fileSizeMB =
-                String.format(Locale.getDefault(), "%.1f", imageData.size / (1024.0 * 1024.0))
-
-            onProgress(
-                FlashOperation(
-                    partition = "boot",
-                    status = FlashStatus.DOWNLOADING,
-                    progress = 0f,
-                    message = "Sending ${fileSizeMB}MB..."
-                )
-            )
-
-            val command = FastbootCommand.boot(imageData)
-            val response = ctx.sendCommand(command) { bytesSent, totalBytes ->
-                val progress = bytesSent.toFloat() / totalBytes.toFloat()
-                onProgress(
-                    FlashOperation(
-                        partition = "boot",
-                        status = FlashStatus.DOWNLOADING,
-                        progress = progress,
-                        message = "Sending ${(progress * 100).toInt()}%"
-                    )
-                )
-            }
-
-            if (response.isOkay) {
-                onProgress(
-                    FlashOperation(
-                        partition = "boot",
-                        status = FlashStatus.COMPLETE,
-                        progress = 1f,
-                        message = "Boot image sent"
-                    )
-                )
-            } else {
-                onProgress(
-                    FlashOperation(
-                        partition = "boot",
-                        status = FlashStatus.ERROR,
-                        message = "Boot failed: ${response.data}"
-                    )
-                )
-            }
-
-            emit(
-                FastbootCommandResult(
-                    command = "boot",
-                    status = response.status,
-                    data = response.data
-                )
-            )
-        } catch (e: Exception) {
-            val msg = e.message ?: "Unknown error"
-            onProgress(
-                FlashOperation(
-                    partition = "boot",
-                    status = FlashStatus.ERROR,
-                    message = msg
-                )
-            )
-            emit(FastbootCommandResult(command = "boot", status = ResponseStatus.FAIL, data = msg))
-            Log.e(TAG, "Boot image failed", e)
+            val response = block(ctx)
+            onProgress(outcome(partition, response, successMessage, failureMessage))
+            emit(FastbootCommandResult(command = command, status = response.status, data = response.data))
+        } catch (e: FastbootException) {
+            val message = e.message ?: context.getString(R.string.unknown_error)
+            onProgress(operation(partition, FlashStatus.ERROR, message))
+            emit(failedResult(command, message))
+            Log.e(TAG, "$command failed", e)
         }
     }.flowOn(Dispatchers.IO)
+
+    private fun outcome(
+        partition: String,
+        response: FastbootResponse,
+        @StringRes successMessage: Int,
+        @StringRes failureMessage: Int,
+    ): FlashOperation = if (response.isOkay) {
+        operation(partition, FlashStatus.COMPLETE, context.getString(successMessage), progress = 1f)
+    } else {
+        operation(partition, FlashStatus.ERROR, context.getString(failureMessage, response.data))
+    }
+
+    private fun transferProgress(partition: String, sent: Long, total: Long, sizeText: String): FlashOperation {
+        val progress = if (total <= 0L) 0f else sent.toFloat() / total.toFloat()
+        return if (progress < 1f) {
+            val percent = (progress * PERCENT).toInt()
+            val message = context.getString(R.string.sending_progress, percent, sizeText)
+            operation(partition, FlashStatus.DOWNLOADING, message, progress)
+        } else {
+            val message = context.getString(R.string.writing_to_partition, partition)
+            operation(partition, FlashStatus.FLASHING, message, 1f)
+        }
+    }
+
+    private fun readImage(imageUri: Uri): ByteArray =
+        context.contentResolver.openInputStream(imageUri)?.use { it.readBytes() }
+            ?: throw FastbootException(context.getString(R.string.file_open_failed))
+
+    private fun megabytes(bytes: Int): String =
+        String.format(Locale.getDefault(), "%.1f", bytes / BYTES_PER_MEGABYTE)
+
+    private fun operation(
+        partition: String,
+        status: FlashStatus,
+        message: String,
+        progress: Float = 0f,
+    ): FlashOperation = FlashOperation(partition = partition, status = status, progress = progress, message = message)
+
+    private fun failedResult(command: String, message: String): FastbootCommandResult =
+        FastbootCommandResult(command = command, status = ResponseStatus.FAIL, data = message)
+    // endregion
+
+    private companion object {
+        const val TAG = "FastbootRepository"
+        const val PERMISSION_ACTION = "in.hridayan.ashell.FASTBOOT_USB_PERMISSION"
+        const val PERMISSION_REQUEST_CODE = 0
+        const val PERMISSION_COOLDOWN_MS = 20_000L
+        const val FASTBOOT_INTERFACE_CLASS = 0xFF
+        const val FASTBOOT_INTERFACE_SUBCLASS = 0x42
+        const val FASTBOOT_INTERFACE_PROTOCOL = 0x03
+        const val BOOT_PARTITION = "boot"
+        const val CLI_PREFIX_LENGTH = 9
+        const val PERCENT = 100f
+        const val BYTES_PER_MEGABYTE = 1024.0 * 1024.0
+        const val REBOOT_POLL_ATTEMPTS = 15
+        val REBOOT_POLL_INTERVAL = 2.seconds
+        val DISCONNECT_SETTLE_DELAY = 300.milliseconds
+        val RECONNECT_DELAY = 1.seconds
+    }
 }

@@ -19,9 +19,12 @@ import `in`.hridayan.ashell.shell.fastboot.domain.repository.FastbootRepository
 import `in`.hridayan.ashell.shell.local_adb_shell.data.shell.ShellCommandExecutor
 import `in`.hridayan.ashell.shell.local_adb_shell.data.shizuku.ShizukuPermissionHandler
 import `in`.hridayan.ashell.shell.otg_adb_shell.data.repository.OtgRepositoryImpl
+import `in`.hridayan.ashell.shell.wifi_adb_shell.data.executor.AdbHostCommandExecutor
+import `in`.hridayan.ashell.shell.wifi_adb_shell.data.executor.AdbServiceExecutor
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.database.WifiAdbDeviceDao
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.usecase.ParseAdbCommandUseCase
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -46,8 +49,15 @@ object ShellModule {
     @Singleton
     fun provideWifiAdbRepositoryImpl(
         @ApplicationContext context: Context,
-        deviceDao: WifiAdbDeviceDao
-    ): WifiAdbRepositoryImpl = WifiAdbRepositoryImpl(context, deviceDao)
+        deviceDao: WifiAdbDeviceDao,
+        parseAdbCommandUseCase: ParseAdbCommandUseCase
+    ): WifiAdbRepositoryImpl = WifiAdbRepositoryImpl(
+        context = context,
+        deviceDao = deviceDao,
+        parseAdbCommandUseCase = parseAdbCommandUseCase,
+        adbServiceExecutor = AdbServiceExecutor(context),
+        adbHostCommandExecutor = AdbHostCommandExecutor(context)
+    )
 
     @Provides
     @Singleton

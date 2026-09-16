@@ -10,7 +10,7 @@ android {
     }
 
     defaultConfig {
-        minSdk = 14
+        minSdk = 28
     }
 
     testOptions {

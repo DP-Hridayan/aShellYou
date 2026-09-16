@@ -18,12 +18,12 @@ import `in`.hridayan.ashell.core.presentation.components.dialog.OtgDeviceWaiting
 import `in`.hridayan.ashell.core.ui.otg.OtgViewModel
 import `in`.hridayan.ashell.home.presentation.screens.HomeScreen
 import `in`.hridayan.ashell.home.presentation.viewmodel.HomeViewModel
-import `in`.hridayan.ashell.logcat.presentation.viewmodel.LogcatViewModel
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog.FastbootDeviceWaitingDialog
 import `in`.hridayan.ashell.shell.fastboot.presentation.viewmodel.FastbootViewModel
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.bottomsheet.SavedDevicesBottomSheet
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairModeChooseDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
+import `in`.hridayan.ashell.ui.navigation.NavDeepLinkViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -32,7 +32,7 @@ fun HomeRoute(
     otgViewModel: OtgViewModel = hiltViewModel(),
     wifiAdbViewModel: WifiAdbViewModel = hiltViewModel(),
     fastbootViewModel: FastbootViewModel = hiltViewModel(),
-    logcatViewModel: LogcatViewModel = hiltViewModel(),
+    navDeepLinkViewModel: NavDeepLinkViewModel = hiltViewModel(),
 ) {
     val navController = LocalNavController.current
     val otgState by otgViewModel.state.collectAsState()
@@ -40,7 +40,7 @@ fun HomeRoute(
     val savedDevices by wifiAdbViewModel.savedDevices.collectAsState()
     val settings = LocalSettings.current
     val localAdbWorkingMode = settings[SettingsKeys.LocalAdbWorkingMode]
-    val isLogcatRunning by logcatViewModel.isRunning.collectAsState()
+    val isLogcatRunning by navDeepLinkViewModel.sessionHolder.isRunning.collectAsState()
 
     var showSavedDevicesBottomSheet by remember { mutableStateOf(false) }
     var showPairModeChooseDialog by remember { mutableStateOf(false) }

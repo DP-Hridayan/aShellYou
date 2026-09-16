@@ -26,7 +26,9 @@ import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.settings.presentation.components.dialog.ConfigureSaveDirectoryDialog
+import `in`.hridayan.ashell.settings.presentation.components.dialog.LogcatBufferSizeDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.SettingsDialogKey
+import `in`.hridayan.ashell.settings.presentation.model.logcatBufferSizeLabel
 import `in`.hridayan.settingsgraph.model.ButtonGroupOption
 import `in`.hridayan.settingsgraph.ui.SettingsColumn
 
@@ -34,7 +36,9 @@ import `in`.hridayan.settingsgraph.ui.SettingsColumn
 fun BehaviorScreen(modifier: Modifier = Modifier) {
     val navController = LocalNavController.current
     val dialogManager = LocalDialogManager.current
-    val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
+    val settings = LocalSettings.current
+    val hapticsEnabled = settings[SettingsKeys.HapticsAndVibration]
+    val bufferLimitText = logcatBufferSizeLabel(settings[SettingsKeys.LogcatBufferLimit])
 
     val listState = rememberLazyListState()
     val topAppBarState = rememberTopAppBarState()
@@ -98,6 +102,15 @@ fun BehaviorScreen(modifier: Modifier = Modifier) {
                     }
                 }
 
+                group(R.string.logcat) {
+                    clickableItem(SettingsKeys.LogcatBufferLimit) {
+                        title(R.string.log_buffer_size)
+                        description(bufferLimitText)
+                        icon(R.drawable.ic_database)
+                        onClick { dialogManager.show(SettingsDialogKey.LogcatBufferSize) }
+                    }
+                }
+
                 group(R.string.file_actions) {
                     clickableItem(SettingsKeys.OutputSaveDirectory) {
                         title(R.string.configure_save_directory)
@@ -126,5 +139,9 @@ fun BehaviorScreen(modifier: Modifier = Modifier) {
 
     SettingsDialogKey.ConfigureSaveDir.createDialog { dm ->
         ConfigureSaveDirectoryDialog(onDismiss = { dm.dismiss() })
+    }
+
+    SettingsDialogKey.LogcatBufferSize.createDialog { dm ->
+        LogcatBufferSizeDialog(onDismiss = { dm.dismiss() })
     }
 }

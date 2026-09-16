@@ -21,6 +21,7 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.ModalBottomSheetProperties
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
@@ -42,6 +43,8 @@ import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.resources.R
+import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashOperation
+import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.FlashOperationProgressContent
 
 data class WipeOption(
     val partition: String,
@@ -50,10 +53,34 @@ data class WipeOption(
     val isDangerous: Boolean = true
 )
 
+private val WIPE_OPTIONS = listOf(
+    WipeOption(
+        partition = "userdata",
+        titleRes = R.string.wipe_userdata_title,
+        descriptionRes = R.string.wipe_userdata_desc,
+        isDangerous = true
+    ),
+    WipeOption(
+        partition = "cache",
+        titleRes = R.string.wipe_cache_title,
+        descriptionRes = R.string.wipe_cache_desc,
+        isDangerous = false
+    ),
+    WipeOption(
+        partition = "metadata",
+        titleRes = R.string.wipe_metadata_title,
+        descriptionRes = R.string.wipe_metadata_desc,
+        isDangerous = true
+    )
+)
+
 @Composable
 fun WipeDataBottomSheet(
     onDismiss: () -> Unit,
-    onErase: (partition: String) -> Unit
+    eraseOperation: FlashOperation,
+    onErase: (partition: String) -> Unit,
+    onResetOperation: () -> Unit,
+    onCancel: () -> Unit,
 ) {
     val sheetState = rememberBottomSheetState(
         initialValue = SheetValue.Hidden,
@@ -62,31 +89,15 @@ fun WipeDataBottomSheet(
 
     var confirmingPartition by rememberSaveable { mutableStateOf<String?>(null) }
 
-    val wipeOptions = listOf(
-        WipeOption(
-            partition = "userdata",
-            titleRes = R.string.wipe_userdata_title,
-            descriptionRes = R.string.wipe_userdata_desc,
-            isDangerous = true
-        ),
-        WipeOption(
-            partition = "cache",
-            titleRes = R.string.wipe_cache_title,
-            descriptionRes = R.string.wipe_cache_desc,
-            isDangerous = false
-        ),
-        WipeOption(
-            partition = "metadata",
-            titleRes = R.string.wipe_metadata_title,
-            descriptionRes = R.string.wipe_metadata_desc,
-            isDangerous = true
-        )
-    )
+    val isOperationRunning = eraseOperation.status.isActive
+    val isOperationVisible = isOperationRunning || eraseOperation.status.isFinished
 
     ModalBottomSheet(
-        onDismissRequest = onDismiss,
+        onDismissRequest = { if (!isOperationRunning) onDismiss() },
         sheetState = sheetState,
-        dragHandle = null
+        sheetGesturesEnabled = !isOperationRunning,
+        dragHandle = null,
+        properties = ModalBottomSheetProperties(shouldDismissOnClickOutside = !isOperationRunning)
     ) {
         Column(
             modifier = Modifier
@@ -99,98 +110,116 @@ fun WipeDataBottomSheet(
                 modifier = Modifier.padding(bottom = 8.dp)
             )
 
-            Text(
-                text = stringResource(R.string.wipe_data_description),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(bottom = 20.dp)
-            )
-
-            // Warning banner
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 20.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Warning,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.error,
-                    modifier = Modifier.size(20.dp)
+            if (isOperationVisible) {
+                FlashOperationProgressContent(
+                    operation = eraseOperation,
+                    onCancel = onCancel,
+                    onDismiss = onResetOperation
                 )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = stringResource(R.string.wipe_warning),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.error
-                )
+            } else {
+                WipeOptionsContent(onOptionClick = { confirmingPartition = it })
             }
-
-            // Wipe options
-            wipeOptions.forEach { option ->
-                WipeOptionItem(
-                    option = option,
-                    onClick = { confirmingPartition = option.partition }
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 
-    // Confirmation dialog
-    if (confirmingPartition != null) {
-        val partition = confirmingPartition!!
-        DialogContainer(onDismiss = { confirmingPartition = null }) {
-            Column(
-                modifier = Modifier.padding(24.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+    confirmingPartition?.let { partition ->
+        EraseConfirmDialog(
+            partition = partition,
+            onDismiss = { confirmingPartition = null },
+            onConfirm = {
+                onErase(partition)
+                confirmingPartition = null
+            }
+        )
+    }
+}
+
+@Composable
+private fun WipeOptionsContent(onOptionClick: (String) -> Unit) {
+    Text(
+        text = stringResource(R.string.wipe_data_description),
+        style = MaterialTheme.typography.bodyMedium,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        modifier = Modifier.padding(bottom = 20.dp)
+    )
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 20.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            imageVector = Icons.Default.Warning,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.error,
+            modifier = Modifier.size(20.dp)
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(
+            text = stringResource(R.string.wipe_warning),
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.error
+        )
+    }
+
+    WIPE_OPTIONS.forEach { option ->
+        WipeOptionItem(
+            option = option,
+            onClick = { onOptionClick(option.partition) }
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+    }
+
+    Spacer(modifier = Modifier.height(16.dp))
+}
+
+@Composable
+private fun EraseConfirmDialog(
+    partition: String,
+    onDismiss: () -> Unit,
+    onConfirm: () -> Unit,
+) {
+    DialogContainer(onDismiss = onDismiss) {
+        Column(
+            modifier = Modifier.padding(24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Default.DeleteForever,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.error,
+                modifier = Modifier.size(48.dp)
+            )
+
+            AutoResizeableText(
+                text = stringResource(R.string.erase_confirm_title, partition),
+                style = MaterialTheme.typography.titleMedium,
+            )
+
+            Text(
+                text = stringResource(R.string.erase_confirm_message, partition),
+                style = MaterialTheme.typography.bodyMedium,
+                textAlign = TextAlign.Center
+            )
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.End)
             ) {
-                Icon(
-                    imageVector = Icons.Default.DeleteForever,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.error,
-                    modifier = Modifier.size(48.dp)
-                )
+                OutlinedButton(onClick = withHaptic(HapticFeedbackType.Reject) { onDismiss() }) {
+                    Text(stringResource(R.string.cancel))
+                }
 
-                AutoResizeableText(
-                    text = stringResource(R.string.erase_confirm_title, partition),
-                    style = MaterialTheme.typography.titleMedium,
-                )
-
-                Text(
-                    text = stringResource(R.string.erase_confirm_message, partition),
-                    style = MaterialTheme.typography.bodyMedium,
-                    textAlign = TextAlign.Center
-                )
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.End)
+                Button(
+                    onClick = withHaptic(HapticFeedbackType.Confirm) { onConfirm() },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.error,
+                        contentColor = MaterialTheme.colorScheme.onError
+                    )
                 ) {
-                    OutlinedButton(
-                        onClick = withHaptic(HapticFeedbackType.Reject) {
-                            confirmingPartition = null
-                        }
-                    ) {
-                        Text(stringResource(R.string.cancel))
-                    }
-
-                    Button(
-                        onClick = withHaptic(HapticFeedbackType.Confirm) {
-                            onErase(partition)
-                            confirmingPartition = null
-                        },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.error,
-                            contentColor = MaterialTheme.colorScheme.onError
-                        )
-                    ) {
-                        Text(stringResource(R.string.erase_partition))
-                    }
+                    Text(stringResource(R.string.erase_partition))
                 }
             }
         }
@@ -206,9 +235,7 @@ private fun WipeOptionItem(
         onClick = withHaptic(HapticFeedbackType.Confirm) { onClick() },
         modifier = Modifier.fillMaxWidth(),
         colors = if (option.isDangerous) {
-            ButtonDefaults.outlinedButtonColors(
-                contentColor = MaterialTheme.colorScheme.error
-            )
+            ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error)
         } else {
             ButtonDefaults.outlinedButtonColors()
         }
@@ -222,15 +249,11 @@ private fun WipeOptionItem(
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = stringResource(option.titleRes),
-                style = MaterialTheme.typography.titleSmall.copy(
-                    fontWeight = FontWeight.SemiBold
-                )
+                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.SemiBold)
             )
             Text(
                 text = stringResource(option.descriptionRes),
-                style = MaterialTheme.typography.bodySmall.copy(
-                    fontFamily = FontFamily.Monospace
-                ),
+                style = MaterialTheme.typography.bodySmall.copy(fontFamily = FontFamily.Monospace),
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }

@@ -12,6 +12,7 @@ import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.resources.R
+import `in`.hridayan.ashell.settings.presentation.model.logcatBufferSizeLabel
 import `in`.hridayan.ashell.settings.presentation.page.search.graph.constants.SettingsGraphId
 import `in`.hridayan.ashell.settings.presentation.page.search.graph.entries.aboutGraph
 import `in`.hridayan.ashell.settings.presentation.page.search.graph.entries.aiModelsGraph
@@ -44,8 +45,10 @@ fun rememberSettingsSearchGraph(navController: NavController): SearchGraph {
     val aiCacheEnabled = settings[SettingsKeys.AiCacheEnabled]
     val requireAuth = settings[SettingsKeys.RequireAuthentication]
     val currentTimeout = settings[SettingsKeys.AuthenticationTimeout]
+    val bufferLimit = settings[SettingsKeys.LogcatBufferLimit]
 
     val timeoutText = getTimeoutText(currentTimeout)
+    val bufferLimitText = logcatBufferSizeLabel(bufferLimit)
 
     return remember(
         navController,
@@ -55,7 +58,8 @@ fun rememberSettingsSearchGraph(navController: NavController): SearchGraph {
         customSchemeApplied,
         aiCacheEnabled,
         requireAuth,
-        currentTimeout
+        currentTimeout,
+        bufferLimit
     ) {
         searchGraph {
             screen(
@@ -76,7 +80,7 @@ fun rememberSettingsSearchGraph(navController: NavController): SearchGraph {
                     customSchemeApplied = customSchemeApplied,
                 )
 
-                behaviorGraph(navController = navController)
+                behaviorGraph(navController = navController, bufferLimitText = bufferLimitText)
 
                 aiModelsGraph(
                     navController = navController,

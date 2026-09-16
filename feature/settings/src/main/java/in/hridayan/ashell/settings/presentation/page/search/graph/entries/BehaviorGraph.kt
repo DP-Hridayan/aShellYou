@@ -7,7 +7,10 @@ import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.settings.presentation.page.search.graph.constants.SettingsGraphId
 import `in`.hridayan.settingsgraph.search.SearchScreenScope
 
-internal fun SearchScreenScope.behaviorGraph(navController: NavController) {
+internal fun SearchScreenScope.behaviorGraph(
+    navController: NavController,
+    bufferLimitText: String = "",
+) {
     screen(
         id = SettingsGraphId.BEHAVIOR,
         title = R.string.behavior,
@@ -44,6 +47,13 @@ internal fun SearchScreenScope.behaviorGraph(navController: NavController) {
         entry(key = SettingsKeys.TerminalFontStyle) {
             title(R.string.terminal_font_style)
             keywords(R.string.monospace, R.string.system_font)
+        }
+
+        entry(key = SettingsKeys.LogcatBufferLimit) {
+            title(R.string.log_buffer_size)
+            description(bufferLimitText)
+            icon(R.drawable.ic_database)
+            keywords(R.string.logcat)
         }
 
         entry(key = SettingsKeys.OutputSaveDirectory) {

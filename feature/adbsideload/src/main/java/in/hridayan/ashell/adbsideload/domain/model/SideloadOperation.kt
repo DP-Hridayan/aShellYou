@@ -8,6 +8,8 @@ data class SideloadOperation(
     val totalBytes: Long = 0L,
     val transferRateMBps: Float = 0f,
     val currentBlock: Int = 0,
+    val servedBlocks: Int = 0,
     val totalBlocks: Int = 0,
-    val message: String = "",
+    val error: SideloadError? = null,
+    val errorDetail: String? = null,
 )

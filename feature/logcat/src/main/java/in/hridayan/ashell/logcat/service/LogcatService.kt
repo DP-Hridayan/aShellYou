@@ -71,6 +71,7 @@ class LogcatService : Service() {
     private lateinit var notificationHelper: LogcatNotificationHelper
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private var collectJob: Job? = null
+    private var bufferLimitJob: Job? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -97,6 +98,8 @@ class LogcatService : Service() {
         val factory = ep.logcatEmitterFactory()
         val settingsRepo = ep.settingsRepository()
 
+        observeBufferLimit(settingsRepo, sessionHolder)
+
         collectJob?.cancel()
         collectJob = serviceScope.launch {
             val mode = settingsRepo.getInt(SettingsKeys.LogcatMode).first()
@@ -108,6 +111,17 @@ class LogcatService : Service() {
         }
 
         return START_STICKY
+    }
+
+    private fun observeBufferLimit(
+        settingsRepo: SettingsRepository,
+        sessionHolder: LogcatSessionHolder,
+    ) {
+        bufferLimitJob?.cancel()
+        bufferLimitJob = serviceScope.launch {
+            settingsRepo.getInt(SettingsKeys.LogcatBufferLimit)
+                .collect { sessionHolder.updateLimit(it) }
+        }
     }
 
     override fun onDestroy() {

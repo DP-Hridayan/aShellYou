@@ -23,6 +23,7 @@ public class TcpChannel implements AdbChannel {
      */
     private OutputStream outputStream;
 
+    private final Object writeLock = new Object();
 
     @Override
     public void readx(byte[] buffer, int length) throws IOException {
@@ -46,9 +47,11 @@ public class TcpChannel implements AdbChannel {
 
     @Override
     public void writex(AdbMessage message) throws IOException {
-        writex(message.getMessage());
-        if (message.getPayload() != null) {
-            writex(message.getPayload());
+        synchronized (writeLock) {
+            writex(message.getMessage());
+            if (message.getPayload() != null) {
+                writex(message.getPayload());
+            }
         }
     }
 

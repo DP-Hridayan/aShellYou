@@ -40,7 +40,8 @@ private val FabBottomPadding = 16.dp
 
 /**
  * Log list that follows the newest entry while [isAutoScrolling] is on.
- * A touch drag pauses following; the scroll-to-bottom button resumes it.
+ * A touch drag pauses following, and only the scroll-to-bottom button resumes it,
+ * so the list never starts moving again on its own after the user has taken over.
  */
 @Composable
 fun AutoScrollingLogList(
@@ -105,7 +106,11 @@ private fun FollowNewestEntry(
         if (!isAutoScrolling) return@LaunchedEffect
         snapshotFlow { latestLogs.lastOrNull()?.id }
             .filterNotNull()
-            .collect { listState.requestScrollToItem(latestLogs.lastIndex) }
+            .collect {
+                if (!listState.isScrollInProgress) {
+                    listState.requestScrollToItem(latestLogs.lastIndex)
+                }
+            }
     }
 }
 

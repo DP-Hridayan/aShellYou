@@ -601,7 +601,16 @@ fun BaseShellScreen(
                                             imeAction = ImeAction.Send
                                         ),
                                         keyboardActions = KeyboardActions(
-                                            onSend = { actionFabOnClick() }
+                                            onSend = {
+                                                if (states.shellState is ShellState.Busy) {
+                                                    showToast(
+                                                        context,
+                                                        res.getString(R.string.abort_command)
+                                                    )
+                                                } else {
+                                                    actionFabOnClick()
+                                                }
+                                            }
                                         ),
                                         trailingIcon = {
                                             if (states.commandField.fieldValue.text.trim()

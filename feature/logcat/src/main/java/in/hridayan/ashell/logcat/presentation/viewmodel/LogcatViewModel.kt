@@ -5,11 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import `in`.hridayan.ashell.core.common.domain.model.LogcatBufferSize
 import `in`.hridayan.ashell.core.common.domain.model.otg.OtgConnection
 import `in`.hridayan.ashell.core.common.domain.model.otg.OtgState
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbConnection
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbState
+import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.core.common.domain.repository.ShellRepository
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.utils.AppRestartUtils
 import `in`.hridayan.ashell.logcat.data.emitter.LogcatEmitterFactory
 import `in`.hridayan.ashell.logcat.data.session.LogcatSessionHolder
@@ -44,8 +47,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-private const val MAX_LOGS = 2000
 private const val LOG_BATCH_WINDOW_MS = 50L
+
+private fun defaultBufferBytes(): Long = LogcatBufferSize.toBytes(LogcatBufferSize.DEFAULT)
 
 @HiltViewModel
 class LogcatViewModel @Inject constructor(
@@ -55,6 +59,7 @@ class LogcatViewModel @Inject constructor(
     private val emitterFactory: LogcatEmitterFactory,
     private val checkPreflight: CheckLogcatPreflightUseCase,
     private val shellRepository: ShellRepository,
+    private val settingsRepository: SettingsRepository,
     @ApplicationContext private val context: Context,
 ) : ViewModel() {
 
@@ -145,11 +150,10 @@ class LogcatViewModel @Inject constructor(
 
     fun switchTab(tab: LogcatTab) {
         _activeTab.value = tab
-        storeFor(tab).resume()
     }
 
-    private val thisDevice = LogListStateStore(MAX_LOGS)
-    private val otherDevice = LogListStateStore(MAX_LOGS)
+    private val thisDevice = LogListStateStore(defaultBufferBytes())
+    private val otherDevice = LogListStateStore(defaultBufferBytes())
 
     val thisDeviceState: StateFlow<LogListUiState> = thisDevice.state
     val otherDeviceState: StateFlow<LogListUiState> = otherDevice.state
@@ -208,7 +212,22 @@ class LogcatViewModel @Inject constructor(
     init {
         lastRestoredId = restoreFromBuffer()
         observeLiveEntries()
+        observeBufferLimit()
         resetAutoScrollOnStart()
+    }
+
+    private fun observeBufferLimit() {
+        viewModelScope.launch {
+            settingsRepository.getInt(SettingsKeys.LogcatBufferLimit)
+                .collect { applyBufferLimit(it) }
+        }
+    }
+
+    private fun applyBufferLimit(megabytes: Int) {
+        sessionHolder.updateLimit(megabytes)
+        val maxBytes = LogcatBufferSize.toBytes(megabytes)
+        thisDevice.updateLimit(maxBytes)
+        otherDevice.updateLimit(maxBytes)
     }
 
     fun updateFilter(filter: LogFilter) {
@@ -253,9 +272,7 @@ class LogcatViewModel @Inject constructor(
 
     private fun restoreFromBuffer(): Long {
         val filter = _activeFilter.value
-        val restored = sessionHolder.rawBuffer
-            .filter { filter.matches(it) }
-            .takeLast(MAX_LOGS)
+        val restored = sessionHolder.rawBuffer.filter { filter.matches(it) }
         thisDevice.replace(restored)
         return restored.lastOrNull()?.id ?: 0L
     }
@@ -268,7 +285,7 @@ class LogcatViewModel @Inject constructor(
 
     private fun reapplyFilter(filter: LogFilter) {
         val allBuffer = sessionHolder.rawBuffer
-        val filtered = allBuffer.filter { filter.matches(it) }.takeLast(MAX_LOGS)
+        val filtered = allBuffer.filter { filter.matches(it) }
         thisDevice.replace(filtered)
         lastRestoredId = allBuffer.lastOrNull()?.id ?: lastRestoredId
     }

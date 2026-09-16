@@ -1,6 +1,8 @@
 package `in`.hridayan.ashell.logcat.data.session
 
+import `in`.hridayan.ashell.core.common.domain.model.LogcatBufferSize
 import `in`.hridayan.ashell.logcat.domain.model.LogEntry
+import `in`.hridayan.ashell.logcat.domain.util.approximateSizeBytes
 import `in`.hridayan.ashell.logcat.service.LogcatService
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -15,18 +17,19 @@ import java.util.concurrent.atomic.AtomicLong
 import javax.inject.Inject
 import javax.inject.Singleton
 
-private const val MAX_RAW_BUFFER = 2000
+private const val INITIAL_BUFFER_CAPACITY = 512
 
 /**
  * @Singleton bridge between [LogcatService] and [LogcatViewModel].
  *
  * Responsibilities:
- * 1. [rawBuffer] — persistent circular list of all received [LogEntry]s.
- *    Survives ViewModel recreation so logs persist across back-navigation.
+ * 1. [rawBuffer] — persistent list of received [LogEntry]s, held within the memory
+ *    budget set through [updateLimit]. Survives ViewModel recreation so logs persist
+ *    across back-navigation.
  * 2. [entries] — live SharedFlow for new entries as they arrive.
  * 3. [isRunning] — authoritative service state visible to ALL ViewModels
  *    (HomeScreen's LogcatViewModel and LogcatScreen's LogcatViewModel share this).
- * 4. [nextId()] — monotonically increasing ID, never resets even when the
+ * 4. [nextId] — monotonically increasing ID, never resets even when the
  *    service is stopped and restarted. Prevents duplicate LazyColumn keys.
  * 5. [navigationEvents] — SharedFlow<Unit> for reactive deeplink navigation
  *    (notification tap / app shortcut). Replaces the boolean flag approach
@@ -37,17 +40,38 @@ class LogcatSessionHolder @Inject constructor() {
     private val _entries = MutableSharedFlow<LogEntry>(extraBufferCapacity = 512)
     val entries: SharedFlow<LogEntry> = _entries.asSharedFlow()
 
-    private val _rawBuffer = ArrayDeque<LogEntry>(MAX_RAW_BUFFER)
+    private val _rawBuffer = ArrayDeque<LogEntry>(INITIAL_BUFFER_CAPACITY)
     val rawBuffer: List<LogEntry> get() = synchronized(this) { _rawBuffer.toList() }
+
+    private var limitBytes: Long = LogcatBufferSize.toBytes(LogcatBufferSize.DEFAULT)
+    private var bufferBytes: Long = 0L
 
     fun appendToBuffer(entry: LogEntry) {
         synchronized(this) {
-            if (_rawBuffer.size >= MAX_RAW_BUFFER) _rawBuffer.removeFirst()
             _rawBuffer.addLast(entry)
+            bufferBytes += entry.approximateSizeBytes()
+            trimToLimit()
         }
     }
 
-    fun clearBuffer() = synchronized(this) { _rawBuffer.clear() }
+    /** Applies a new memory budget in megabytes, evicting the oldest entries if needed. */
+    fun updateLimit(megabytes: Int) {
+        synchronized(this) {
+            limitBytes = LogcatBufferSize.toBytes(megabytes)
+            trimToLimit()
+        }
+    }
+
+    fun clearBuffer() = synchronized(this) {
+        _rawBuffer.clear()
+        bufferBytes = 0L
+    }
+
+    private fun trimToLimit() {
+        while (_rawBuffer.size > 1 && bufferBytes > limitBytes) {
+            bufferBytes -= _rawBuffer.removeFirst().approximateSizeBytes()
+        }
+    }
 
     private val idCounter = AtomicLong(0L)
     fun nextId(): Long = idCounter.incrementAndGet()

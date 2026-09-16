@@ -8,9 +8,10 @@ sealed class SideloadState {
     data object Searching : SideloadState()
     data class DeviceFound(val deviceName: String) : SideloadState()
     data class Connected(val deviceName: String) : SideloadState()
+    data class WrongMode(val deviceName: String) : SideloadState()
     data object PermissionDenied : SideloadState()
     data object Connecting : SideloadState()
     data object Disconnected : SideloadState()
     data object UsbManagerUnavailable : SideloadState()
-    data class Error(val message: String) : SideloadState()
+    data class Error(val error: SideloadError, val detail: String? = null) : SideloadState()
 }

@@ -31,12 +31,15 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.adbsideload.domain.model.SideloadState
+import `in`.hridayan.ashell.adbsideload.presentation.components.text.sideloadConnectionText
 import `in`.hridayan.ashell.adbsideload.presentation.viewmodel.SideloadViewModel
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.resources.R
+import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun SideloadDeviceWaitingDialog(
@@ -47,8 +50,17 @@ fun SideloadDeviceWaitingDialog(
     val state by viewModel.state.collectAsState()
 
     LaunchedEffect(state) {
-        if (state is SideloadState.Connected) {
-            onDeviceConnected()
+        when (state) {
+            is SideloadState.Connected -> onDeviceConnected()
+            is SideloadState.Idle,
+            is SideloadState.Searching,
+            is SideloadState.DeviceFound,
+            is SideloadState.WrongMode -> while (true) {
+                delay(RESCAN_INTERVAL)
+                viewModel.startScan()
+            }
+
+            else -> Unit
         }
     }
 
@@ -64,6 +76,7 @@ fun SideloadDeviceWaitingDialog(
             DialogContent(
                 state = state,
                 onConfirm = onDeviceConnected,
+                onRetry = viewModel::retryPermission,
                 onDismiss = {
                     viewModel.disconnect()
                     onDismiss()
@@ -73,32 +86,24 @@ fun SideloadDeviceWaitingDialog(
     }
 }
 
+private val RESCAN_INTERVAL = 2.seconds
+
+private val SideloadState.awaitsPermission: Boolean
+    get() = this is SideloadState.DeviceFound || this is SideloadState.PermissionDenied
+
 @Composable
 private fun DialogContent(
     state: SideloadState,
     onConfirm: () -> Unit,
+    onRetry: () -> Unit,
     onDismiss: () -> Unit,
 ) {
-    val deviceName = when (state) {
-        is SideloadState.DeviceFound -> state.deviceName
-        is SideloadState.Connected -> state.deviceName
-        else -> null
-    }
+    val connectedName = (state as? SideloadState.Connected)?.deviceName
 
-    val title = if (deviceName != null) {
+    val title = if (connectedName != null) {
         stringResource(R.string.device_connected)
     } else {
         stringResource(R.string.waiting_for_device)
-    }
-
-    val statusText = when (state) {
-        is SideloadState.Idle -> stringResource(R.string.put_device_in_sideload_mode)
-        is SideloadState.Searching -> stringResource(R.string.searching_for_devices)
-        is SideloadState.PermissionDenied -> stringResource(R.string.permission_denied)
-        is SideloadState.Connecting -> stringResource(R.string.connecting)
-        is SideloadState.Disconnected -> stringResource(R.string.disconnected)
-        is SideloadState.Error -> "${stringResource(R.string.error)}: ${state.message}"
-        else -> ""
     }
 
     Column(
@@ -114,14 +119,17 @@ private fun DialogContent(
             style = MaterialTheme.typography.titleLarge,
         )
 
-        if (deviceName != null) {
+        if (connectedName != null) {
             DeviceFoundContent(
-                deviceName = deviceName,
+                deviceName = connectedName,
                 onConfirm = onConfirm
             )
         } else {
             WaitingContent(
-                statusText = statusText,
+                statusText = sideloadConnectionText(state),
+                isError = state is SideloadState.Error || state is SideloadState.PermissionDenied,
+                canRetry = state.awaitsPermission,
+                onRetry = onRetry,
                 onDismiss = onDismiss
             )
         }
@@ -149,15 +157,29 @@ private fun DeviceFoundContent(
 @Composable
 private fun WaitingContent(
     statusText: String,
+    isError: Boolean,
+    canRetry: Boolean,
+    onRetry: () -> Unit,
     onDismiss: () -> Unit,
 ) {
     Text(
         text = statusText,
         style = MaterialTheme.typography.bodySmall,
         textAlign = TextAlign.Center,
-        color = MaterialTheme.colorScheme.onSurfaceVariant
+        color = if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant
     )
-    LoadingIndicator(modifier = Modifier.size(72.dp))
+    if (!isError) {
+        LoadingIndicator(modifier = Modifier.size(72.dp))
+    }
+    if (canRetry) {
+        Button(
+            modifier = Modifier.fillMaxWidth(),
+            shapes = ButtonDefaults.shapes(),
+            onClick = withHaptic(HapticFeedbackType.Confirm) { onRetry() }
+        ) {
+            AutoResizeableText(text = stringResource(R.string.allow_usb_access))
+        }
+    }
     OutlinedButton(
         modifier = Modifier.fillMaxWidth(),
         shapes = ButtonDefaults.shapes(),

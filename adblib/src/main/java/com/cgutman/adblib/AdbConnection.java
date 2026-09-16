@@ -4,7 +4,10 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.ConnectException;
-import java.util.HashMap;
+import java.nio.charset.StandardCharsets;
+import java.security.GeneralSecurityException;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class represents an ADB connection.
@@ -12,7 +15,15 @@ import java.util.HashMap;
  */
 public class AdbConnection implements Closeable {
 
-    AdbChannel channel;
+	/**
+	 * Receives a callback once the connection's reader thread has terminated,
+	 * either because {@link #close()} was called or because the channel failed.
+	 */
+	public interface ConnectionListener {
+		void onConnectionClosed(AdbConnection connection);
+	}
+
+	AdbChannel channel;
 
 	/** The last allocated local stream ID. The ID
 	 * chosen for the next stream will be this value + 1.
@@ -22,24 +33,29 @@ public class AdbConnection implements Closeable {
 	/**
 	 * The backend thread that handles responding to ADB packets.
 	 */
-	private Thread connectionThread;
-	
+	private final Thread connectionThread;
+
 	/**
 	 * Specifies whether a connect has been attempted
 	 */
-	private boolean connectAttempted;
-	
+	private volatile boolean connectAttempted;
+
 	/**
 	 * Specifies whether a CNXN packet has been received from the peer.
 	 */
-	private boolean connected;
-	
+	private volatile boolean connected;
+
+	/**
+	 * Specifies whether the reader thread has terminated.
+	 */
+	private volatile boolean finished;
+
 	/**
 	 * Specifies the maximum amount data that can be sent to the remote peer.
 	 * This is only valid after connect() returns successfully.
 	 */
-	private int maxData;
-	
+	private volatile int maxData;
+
 	/**
 	 * An initialized ADB crypto object that contains a key pair.
 	 */
@@ -49,22 +65,30 @@ public class AdbConnection implements Closeable {
 	 * Specifies whether this connection has already sent a signed token.
 	 */
 	private boolean sentSignature;
-	
-	/** 
-	 * A hash map of our open streams indexed by local ID.
+
+	/**
+	 * A map of our open streams indexed by local ID.
 	 **/
-	private HashMap<Integer, AdbStream> openStreams;
-	
+	private final Map<Integer, AdbStream> openStreams;
+
+	private volatile ConnectionListener listener;
+
+	/**
+	 * The banner the peer sent with its connect packet, such as "device::ro.product.name=...".
+	 * The text before the first "::" is the mode adbd is running in.
+	 */
+	private volatile String banner = "";
+
 	/**
 	 * Internal constructor to initialize some internal state
 	 */
 	private AdbConnection()
 	{
-		openStreams = new HashMap<Integer, AdbStream>();
+		openStreams = new ConcurrentHashMap<Integer, AdbStream>();
 		lastLocalId = 0;
 		connectionThread = createConnectionThread();
 	}
-	
+
 	/**
 	 * Creates a AdbConnection object associated with the socket and
 	 * crypto object specified.
@@ -82,6 +106,33 @@ public class AdbConnection implements Closeable {
 	}
 
 	/**
+	 * Registers a listener that is invoked once the connection has terminated.
+	 * @param listener The listener, or null to clear it.
+	 */
+	public void setConnectionListener(ConnectionListener listener)
+	{
+		this.listener = listener;
+	}
+
+	/**
+	 * Gets the banner the peer sent with its connect packet. Empty until the handshake completes.
+	 * @return The banner text, without its trailing NUL.
+	 */
+	public String getBanner()
+	{
+		return banner;
+	}
+
+	/**
+	 * Reports whether the connection handshake completed and the reader thread is still alive.
+	 * @return True while the connection can be used to open streams.
+	 */
+	public boolean isConnected()
+	{
+		return connected && !finished;
+	}
+
+	/**
 	 * Creates a new connection thread.
 	 * @return A new connection thread.
 	 */
@@ -92,118 +143,148 @@ public class AdbConnection implements Closeable {
 		return new Thread(new Runnable() {
 			@Override
 			public void run() {
-				while (!connectionThread.isInterrupted())
-				{
-					try {
-						/* Read and parse a message off the socket's input stream */
-						AdbMessage msg = AdbMessage.parseAdbMessage(channel);
-
-						/* Verify magic and checksum */
-						if (!AdbProtocol.validateMessage(msg))
-							continue;
-
-						switch (msg.getCommand())
-						{
-						/* Stream-oriented commands */
-						case AdbProtocol.CMD_OKAY:
-						case AdbProtocol.CMD_WRTE:
-						case AdbProtocol.CMD_CLSE:
-							/* We must ignore all packets when not connected */
-							if (!conn.connected)
-								continue;
-
-							/* Get the stream object corresponding to the packet */
-							AdbStream waitingStream = openStreams.get(msg.getArg1());
-							if (waitingStream == null)
-								continue;
-
-							synchronized (waitingStream) {
-								if (msg.getCommand() == AdbProtocol.CMD_OKAY)
-								{
-									/* We're ready for writes */
-									waitingStream.updateRemoteId(msg.getArg0());
-									waitingStream.readyForWrite();
-
-									/* Unwait an open/write */
-									waitingStream.notify();
-								}
-								else if (msg.getCommand() == AdbProtocol.CMD_WRTE)
-								{
-									/* Got some data from our partner */
-									waitingStream.addPayload(msg.getPayload());
-
-									/* Tell it we're ready for more */
-									waitingStream.sendReady();
-								}
-								else if (msg.getCommand() == AdbProtocol.CMD_CLSE)
-								{
-									/* He doesn't like us anymore :-( */
-									conn.openStreams.remove(msg.getArg1());
-
-									/* Notify readers and writers */
-									waitingStream.notifyClose();
-								}
-							}
-
-							break;
-
-						case AdbProtocol.CMD_AUTH:
-
-							AdbMessage packet;
-
-							if (msg.getArg0() == AdbProtocol.AUTH_TYPE_TOKEN)
-							{
-								/* This is an authentication challenge */
-								if (conn.sentSignature)
-								{
-									/* We've already tried our signature, so send our public key */
-									packet = AdbProtocol.generateAuth(AdbProtocol.AUTH_TYPE_RSA_PUBLIC,
-                                            conn.crypto.getAdbPublicKeyPayload());
-								}
-								else
-								{
-									/* We'll sign the token */
-									packet = AdbProtocol.generateAuth(AdbProtocol.AUTH_TYPE_SIGNATURE,
-                                            conn.crypto.signAdbTokenPayload(msg.getPayload()));
-									conn.sentSignature = true;
-								}
-
-								/* Write the AUTH reply */
-								conn.channel.writex(packet);
-							}
-							break;
-
-						case AdbProtocol.CMD_CNXN:
-							synchronized (conn) {
-								/* We need to store the max data size */
-								conn.maxData = msg.getArg1();
-
-								/* Mark us as connected and unwait anyone waiting on the connection */
-								conn.connected = true;
-								conn.notifyAll();
-							}
-							break;
-
-						default:
-							/* Unrecognized packet, just drop it */
-							break;
-						}
-					} catch (Exception e) {
-						/* The cleanup is taken care of by a combination of this thread
-						 * and close() */
-                        e.printStackTrace();
-                        break;
-					}
-				}
-
-				/* This thread takes care of cleaning up pending streams */
-				synchronized (conn) {
-					cleanupStreams();
-					conn.notifyAll();
-					conn.connectAttempted = false;
+				readLoop();
+				terminate();
+				ConnectionListener current = listener;
+				if (current != null) {
+					current.onConnectionClosed(conn);
 				}
 			}
-		});
+		}, "adblib-reader");
+	}
+
+	private void readLoop()
+	{
+		while (!connectionThread.isInterrupted())
+		{
+			try {
+				AdbMessage msg = AdbMessage.parseAdbMessage(channel);
+				if (!AdbProtocol.validateMessage(msg))
+					continue;
+				handleMessage(msg);
+			} catch (Exception e) {
+				break;
+			}
+		}
+	}
+
+	private void terminate()
+	{
+		synchronized (this) {
+			finished = true;
+			connected = false;
+			cleanupStreams();
+			notifyAll();
+		}
+	}
+
+	private void handleMessage(AdbMessage msg) throws IOException, GeneralSecurityException
+	{
+		switch (msg.getCommand())
+		{
+		case AdbProtocol.CMD_OKAY:
+		case AdbProtocol.CMD_WRTE:
+		case AdbProtocol.CMD_CLSE:
+			handleStreamMessage(msg);
+			break;
+
+		case AdbProtocol.CMD_AUTH:
+			handleAuth(msg);
+			break;
+
+		case AdbProtocol.CMD_CNXN:
+			handleConnect(msg);
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	private void handleStreamMessage(AdbMessage msg) throws IOException
+	{
+		/* We must ignore all packets when not connected */
+		if (!connected)
+			return;
+
+		AdbStream waitingStream = openStreams.get(msg.getArg1());
+		if (waitingStream == null)
+			return;
+
+		synchronized (waitingStream) {
+			if (msg.getCommand() == AdbProtocol.CMD_OKAY)
+			{
+				waitingStream.updateRemoteId(msg.getArg0());
+				waitingStream.readyForWrite();
+			}
+			else if (msg.getCommand() == AdbProtocol.CMD_WRTE)
+			{
+				waitingStream.addPayload(msg.getPayload());
+				waitingStream.sendReady();
+			}
+			else
+			{
+				openStreams.remove(msg.getArg1());
+				waitingStream.notifyClose();
+			}
+		}
+	}
+
+	private void handleAuth(AdbMessage msg) throws IOException, GeneralSecurityException
+	{
+		if (msg.getArg0() != AdbProtocol.AUTH_TYPE_TOKEN)
+			return;
+
+		AdbMessage packet;
+		if (sentSignature)
+		{
+			packet = AdbProtocol.generateAuth(AdbProtocol.AUTH_TYPE_RSA_PUBLIC,
+					crypto.getAdbPublicKeyPayload());
+		}
+		else
+		{
+			packet = AdbProtocol.generateAuth(AdbProtocol.AUTH_TYPE_SIGNATURE,
+					crypto.signAdbTokenPayload(msg.getPayload()));
+			sentSignature = true;
+		}
+		channel.writex(packet);
+	}
+
+	private void handleConnect(AdbMessage msg)
+	{
+		synchronized (this) {
+			maxData = msg.getArg1();
+			banner = parseBanner(msg.getPayload());
+			connected = true;
+			notifyAll();
+		}
+	}
+
+	private static String parseBanner(byte[] payload)
+	{
+		if (payload == null)
+			return "";
+
+		int end = payload.length;
+		for (int i = 0; i < payload.length; i++) {
+			if (payload[i] == 0) {
+				end = i;
+				break;
+			}
+		}
+		return new String(payload, 0, end, StandardCharsets.UTF_8);
+	}
+
+	private void waitForConnection() throws InterruptedException, IOException
+	{
+		synchronized (this) {
+			while (!connected && !finished)
+				wait();
+
+			if (!connected) {
+				throw new IOException("Connection failed");
+			}
+		}
 	}
 
 	/**
@@ -219,17 +300,21 @@ public class AdbConnection implements Closeable {
 		if (!connectAttempted)
 			throw new IllegalStateException("connect() must be called first");
 
-		synchronized (this) {
-			/* Block if a connection is pending, but not yet complete */
-			if (!connected)
-				wait();
-
-			if (!connected) {
-				throw new IOException("Connection failed");
-			}
-		}
-
+		waitForConnection();
 		return maxData;
+	}
+
+	/**
+	 * Gets the largest payload both peers accept: the smaller of our advertised maximum and the
+	 * one the device reported in its connect packet. A write larger than this is rejected by the
+	 * peer and tears down the connection, so every bulk sender must chunk by this value.
+	 * @return The negotiated maximum payload in bytes.
+	 * @throws InterruptedException If a connection cannot be waited on.
+	 * @throws java.io.IOException if the connection fails
+	 */
+	public int getNegotiatedMaxPayload() throws InterruptedException, IOException
+	{
+		return Math.min(getMaxData(), AdbProtocol.CONNECT_MAXDATA);
 	}
 
 	/**
@@ -240,25 +325,13 @@ public class AdbConnection implements Closeable {
 	 */
 	public void connect() throws IOException, InterruptedException
 	{
-		if (connected)
-			throw new IllegalStateException("Already connected");
+		if (connectAttempted)
+			throw new IllegalStateException("connect() already called");
 
-		/* Write the CONNECT packet */
-		channel.writex(AdbProtocol.generateConnect());
-
-		/* Start the connection thread to respond to the peer */
 		connectAttempted = true;
+		channel.writex(AdbProtocol.generateConnect());
 		connectionThread.start();
-
-		/* Wait for the connection to go live */
-		synchronized (this) {
-			if (!connected)
-				wait();
-
-			if (!connected) {
-				throw new IOException("Connection failed");
-			}
-		}
+		waitForConnection();
 	}
 
 	/**
@@ -272,55 +345,48 @@ public class AdbConnection implements Closeable {
 	 */
 	public AdbStream open(String destination) throws UnsupportedEncodingException, IOException, InterruptedException
 	{
-		int localId = ++lastLocalId;
-
 		if (!connectAttempted)
 			throw new IllegalStateException("connect() must be called first");
 
-		/* Wait for the connect response */
-		synchronized (this) {
-			if (!connected)
-				wait();
+		waitForConnection();
 
-			if (!connected) {
-				throw new IOException("Connection failed");
-			}
-		}
-
-		/* Add this stream to this list of half-open streams */
+		int localId = nextLocalId();
 		AdbStream stream = new AdbStream(this, localId);
 		openStreams.put(localId, stream);
 
-		/* Send the open */
-		channel.writex(AdbProtocol.generateOpen(localId, destination));
-
-		/* Wait for the connection thread to receive the OKAY */
-		synchronized (stream) {
-			stream.wait();
+		try {
+			channel.writex(AdbProtocol.generateOpen(localId, destination));
+			synchronized (stream) {
+				while (!stream.isOpen() && !stream.isClosed())
+					stream.wait();
+			}
+		} catch (IOException | InterruptedException e) {
+			openStreams.remove(localId);
+			throw e;
 		}
 
-		/* Check if the open was rejected */
-		if (stream.isClosed())
+		if (stream.isClosed()) {
+			openStreams.remove(localId);
 			throw new ConnectException("Stream open actively rejected by remote peer");
+		}
 
-		/* We're fully setup now */
 		return stream;
+	}
+
+	private synchronized int nextLocalId()
+	{
+		return ++lastLocalId;
 	}
 
 	/**
 	 * This function terminates all I/O on streams associated with this ADB connection
 	 */
 	private void cleanupStreams() {
-		/* Close all streams on this connection */
 		for (AdbStream s : openStreams.values()) {
-			/* We handle exceptions for each close() call to avoid
-			 * terminating cleanup for one failed close(). */
 			try {
 				s.close();
 			} catch (IOException e) {}
 		}
-
-		/* No open streams anymore */
 		openStreams.clear();
 	}
 
@@ -329,17 +395,22 @@ public class AdbConnection implements Closeable {
 	 */
 	@Override
 	public void close() throws IOException {
-		/* If the connection thread hasn't spawned yet, there's nothing to do */
-		if (connectionThread == null)
-			return;
-		
-		/* Closing the channel will kick the connection thread */
-		channel.close();
+		connected = false;
 
-		/* Wait for the connection thread to die */
+		try {
+			channel.close();
+		} catch (IOException ignored) {
+		}
+
 		connectionThread.interrupt();
+
+		if (Thread.currentThread() == connectionThread || !connectionThread.isAlive())
+			return;
+
 		try {
 			connectionThread.join();
-		} catch (InterruptedException e) { }
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+		}
 	}
 }
