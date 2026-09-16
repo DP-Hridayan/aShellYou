@@ -55,6 +55,7 @@
     <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">همیشه پایه مجاز باشد</string>
     <string name="always_allow_exact" comment="Permission rule option in AI chat: automatically approve commands matching exact command string">همیشه دقیق مجاز باشد</string>
     <string name="analyse" comment="Action button to request AI analysis of command execution output or error log">تحلیل</string>
+    <string name="analysis_failed">تحلیل ناموفق بود</string>
     <string name="api_key" comment="Label for AI provider API key text input field">کلید API</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">کلید API ذخیره شد</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">کلید API مورد نیاز است</string>
@@ -254,14 +255,17 @@
     <string name="create_folder" comment="Action button or dialog title to create a new directory in file browser">ایجاد پوشه</string>
     <string name="create_new_tile" comment="Screen header or button label to add a new custom Quick Settings tile">ایجاد کاشی جدید</string>
     <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">ایجاد با هوش مصنوعی</string>
+    <string name="critical">بحرانی</string>
     <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">برای مشارکت به پلتفرم ترجمه کراودین ما سر بزنید</string>
     <string name="current_version" comment="About screen card label showing installed application version number">نسخه فعلی</string>
     <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">مقیاس سفارشی رابط کاربری</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">%1$d مورد برش داده شد</string>
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">برش به کلیپ‌بورد</string>
     <string name="daily" comment="Option in backup scheduler frequency selection">روزانه</string>
+    <string name="dangerous">خطرناک</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">تم تاریک</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">داشبورد</string>
+    <string name="database">پایگاه داده</string>
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">تغییر پایگاه داده</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">فقط پایگاه‌های داده</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">پوشه پیش‌فرض</string>
@@ -463,6 +467,7 @@
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">فایل با موفقیت آپلود شد</string>
     <string name="fb_uploading" comment="%1$s = file name">در حال آپلود %1$s</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">درخواست ویژگی</string>
+    <string name="feedback">بازخورد</string>
     <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Fetching backup time …</string>
     <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Fetching backup type…</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">فیلد نمی‌تواند خالی باشد</string>
@@ -493,6 +498,7 @@
     <string name="found_connect_service" comment="Status message when mDNS ADB connection service is discovered">سرویس اتصال یافت شد</string>
     <string name="frequency" comment="Setting label for automated backup interval frequency">تناوب</string>
     <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">متن کامل مجوز</string>
+    <string name="full_screen">Full screen</string>
     <string name="gemini_api_key_step_1" comment="%1$s = URL">به Google AI Studio در %1$s مراجعه کنید</string>
     <string name="gemini_api_key_step_2" comment="Step 2 of API key setup guide: signing in with Google Account">با حساب Google خود وارد شوید</string>
     <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">روی Create API key کلیک کرده و یک پروژه را انتخاب یا ایجاد کنید</string>
@@ -513,6 +519,7 @@
     <string name="great_news" comment="Dialog title header for update available notification">خبر خوب!</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">لرزش و بازخورد لمسی</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">روز خوبی داشته باشید!</string>
+    <string name="heuristic">اکتشافی</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">ویرایشگر هگز</string>
     <string name="high" comment="Selection option for high haptic strength or elevation level">زیاد</string>
     <string name="high_contrast_dark_mode" comment="Settings preference title for OLED pitch-black dark theme">حالت تاریک با کنتراست بالا</string>
@@ -590,6 +597,7 @@
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">ظاهر و احساس</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">کم</string>
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">نسبت کنتراست پایین</string>
+    <string name="low_risk">کم‌خطر</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">پوسته خود را بسازید</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">جفت‌سازی دستی</string>
     <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Material Icons</string>
@@ -608,6 +616,7 @@
     <string name="model_category_small" comment="AI model size category label">Small (300–500 MB)</string>
     <string name="model_category_tiny" comment="AI model size category label">بسیار کوچک (زیر ۳۰۰ مگابایت)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">مدل‌ها</string>
+    <string name="moderate">متوسط</string>
     <string name="modified" comment="File property: last modified date">تغییر یافته</string>
     <string name="monthly" comment="Option in backup scheduler frequency selection">ماهانه</string>
     <string name="more">بیشتر</string>
@@ -791,6 +800,7 @@
     <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">\"%1$s\" روی دستگاه متصل اجرا شود؟</string>
     <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">اجرای دستور؟</string>
     <string name="running" comment="Status badge showing task or command execution is active">در حال اجرا</string>
+    <string name="safe">امن</string>
     <string name="sans_serif" comment="Font style category name">سانس سریف</string>
     <string name="save">ذخیره</string>
     <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">Save as profile…</string>
@@ -893,6 +903,7 @@
     <string name="success_rate" comment="Analytics metadata metric showing tile execution success percentage">نرخ موفقیت</string>
     <string name="successful_connection_message" comment="Dialog message confirming target ADB device connected successfully">دستگاه با موفقیت متصل شد. اکنون می‌توانید دستورات را روی دستگاه مقصد اجرا کنید.</string>
     <string name="suggested_icons" comment="Header title in tile icon picker listing suggested Material icons">آیکون‌های پیشنهادی</string>
+    <string name="suggestions">پیشنهادها</string>
     <string name="support_bmc" comment="Banner text in About section linking to Buy Me a Coffee donation page">کار من را دوست دارید؟\nیک قهوه برایم بخرید</string>
     <string name="surface">سطح</string>
     <string name="switch_mode" comment="Action button to switch ADB connection mode between Local ADB, Remote Wireless ADB, and OTG">تغییر حالت</string>
@@ -958,6 +969,7 @@
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">مدیر USB در این دستگاه در دسترس نیست</string>
     <string name="use">استفاده</string>
     <string name="use_biometrics">استفاده از بیومتریک</string>
+    <string name="use_cases">موارد استفاده</string>
     <string name="utilities" comment="Category title in homescreen">ابزارها</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">نوع</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">تأیید ناموفق بود</string>

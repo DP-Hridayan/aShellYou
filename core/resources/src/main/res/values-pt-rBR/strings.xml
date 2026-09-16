@@ -55,6 +55,7 @@
     <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">Sempre permitir base</string>
     <string name="always_allow_exact" comment="Permission rule option in AI chat: automatically approve commands matching exact command string">Sempre permitir exato</string>
     <string name="analyse" comment="Action button to request AI analysis of command execution output or error log">Analisar</string>
+    <string name="analysis_failed">Análise falhou</string>
     <string name="api_key" comment="Label for AI provider API key text input field">Chave de API</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">A chave de API está salva</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">Chave de API necessária</string>
@@ -222,8 +223,8 @@
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Advertência! Essa ação é irreversível\nTem certeza de que deseja excluir todos os favoritos?</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Confirmar exclusão</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">Tem certeza que deseja remover \"%1$s\"? Se for aplicado no momento, o aplicativo irá reverter para a fonte do sistema.</string>
-    <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">Warning ! This action is irreversible\nAre you sure you want to delete these %1$d selected bookmarks?</string>
-    <string name="confirm_single_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting a single saved bookmark">Warning ! This action is irreversible\nAre you sure you want to delete this bookmark?</string>
+    <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">Aviso! Essa ação é irreversível\nTem certeza de que deseja deletar esses %1$d favoritos selecionados?</string>
+    <string name="confirm_single_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting a single saved bookmark">Aviso! Essa ação é irreversível\nTem certeza de que deseja excluir esse favorito?</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">Tem certeza de que deseja excluir este bloco?</string>
     <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">O armazenamento em cache ajuda a recuperar os resultados de análise instantaneamente.\nAinda deseja limpar todos os dados do cache de análises de IA?</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">\"%1$s\" já existe neste local.</string>
@@ -254,14 +255,17 @@
     <string name="create_folder" comment="Action button or dialog title to create a new directory in file browser">Criar pasta</string>
     <string name="create_new_tile" comment="Screen header or button label to add a new custom Quick Settings tile">Criar bloco</string>
     <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">Criar com IA</string>
+    <string name="critical">Crítica</string>
     <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">Visite a nossa plataforma de tradução do Crowdin para contribuir</string>
     <string name="current_version" comment="About screen card label showing installed application version number">Versão atual</string>
     <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">Escala de IU personalizada</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Recortar %1$d itens</string>
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">Recortar para a área de transferência</string>
     <string name="daily" comment="Option in backup scheduler frequency selection">Diariamente</string>
+    <string name="dangerous">Perigoso</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">Tema escuro</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">Painel</string>
+    <string name="database">Banco</string>
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">Modificação do banco</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Somente bancos de dados</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Pasta padrão</string>
@@ -375,14 +379,14 @@
     <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">O dispositivo não suporta autenticação biométrica</string>
     <string name="disable_softkey" comment="Setting toggle title to hide soft keyboard during shell session">Desativar teclado macio</string>
     <string name="disclaimer" comment="Section title in About screen for legal disclaimer notices">Isenção de responsabilidade</string>
-    <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">Running ADB commands can modify system settings, manage files, and perform operations that may affect your device’s stability.\nYou are solely responsible for any changes made using this app.</string>
+    <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">A execução de comandos ADB pode alterar as configurações do sistema, gerenciar arquivos e realizar operações que podem afetar a estabilidade do seu dispositivo.\nVocê é o único responsável por quaisquer alterações feitas por meio deste app.</string>
     <string name="disclaimer_1_title" comment="Title for disclaimer point 1: user risk acknowledgement">Use a seu próprio risco</string>
     <string name="disclaimer_2_description" comment="Text for disclaimer point 2: root requirements and elevated permissions">Embora o acesso root não seja obrigatório, certos comandos podem exigir permissões elevadas.\nO mau uso de comandos ADB pode levar a perda de dados, falhas nos apps ou comportamento inesperado do sistema.</string>
     <string name="disclaimer_2_title" comment="Title for disclaimer point 2: root and caution warning">Root não é obrigatório, mas é preciso cautela</string>
     <string name="disclaimer_3_description" comment="Text for disclaimer point 3: developer liability waiver">Os desenvolvedores deste app não se responsabilizam por quaisquer danos, perda de dados ou consequências indesejadas decorrentes do uso deste app.
 Proceda com cautela e certifique-se de compreender os comandos que executar.</string>
     <string name="disclaimer_3_title" comment="Title for disclaimer point 3: liability waiver">Não somos responsáveis</string>
-    <string name="disclaimer_4_description" comment="Text for disclaimer point 4: target user expertise level">This app is designed for users who have a basic understanding of ADB commands.\nIf you are unsure about a command’s effect, research it before executing it.</string>
+    <string name="disclaimer_4_description" comment="Text for disclaimer point 4: target user expertise level">Este app foi desenvolvido para usuários que possuem conhecimentos básicos sobre comandos ADB.\nSe você não tiver certeza do efeito de um comando, pesquise-o antes de executá-lo.</string>
     <string name="disclaimer_4_title" comment="Title for disclaimer point 4: target audience notice">Destinado a Usuários Avançados</string>
     <string name="disclaimer_5_description" comment="Text for disclaimer point 5: privacy and permissions notice">Este app pode exigir permissões especiais para funcionar corretamente.\nEle não coleta nem compartilha dados pessoais, mas os usuários devem estar cientes das implicações de conceder permissões relacionadas ao ADB.</string>
     <string name="disclaimer_5_title" comment="Title for disclaimer point 5: security and privacy">Permissões e Segurança</string>
@@ -464,6 +468,7 @@ Proceda com cautela e certifique-se de compreender os comandos que executar.</st
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">Arquivo enviado com sucesso</string>
     <string name="fb_uploading" comment="%1$s = file name">Enviando %1$s</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">Solicitação de recurso</string>
+    <string name="feedback">Comentarios</string>
     <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Obtendo tempo de backup …</string>
     <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Obtendo o tipo de backup…</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">Campo não pode ficar em branco</string>
@@ -494,6 +499,7 @@ Proceda com cautela e certifique-se de compreender os comandos que executar.</st
     <string name="found_connect_service" comment="Status message when mDNS ADB connection service is discovered">Serviço conectado encontrado</string>
     <string name="frequency" comment="Setting label for automated backup interval frequency">Frequência</string>
     <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">Texto completo da licença</string>
+    <string name="full_screen">Tela cheia</string>
     <string name="gemini_api_key_step_1" comment="%1$s = URL">Visite o Google AI Studio em %1$s</string>
     <string name="gemini_api_key_step_2" comment="Step 2 of API key setup guide: signing in with Google Account">Faça login com sua Conta do Google</string>
     <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">Clique em Criar chave de API e selecione ou crie um projeto</string>
@@ -514,6 +520,7 @@ Proceda com cautela e certifique-se de compreender os comandos que executar.</st
     <string name="great_news" comment="Dialog title header for update available notification">Boas notícias!</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">Hápticos e Vibração</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">Tenha um bom dia!</string>
+    <string name="heuristic">Heuristic</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Editor Hex</string>
     <string name="high" comment="Selection option for high haptic strength or elevation level">Alta</string>
     <string name="high_contrast_dark_mode" comment="Settings preference title for OLED pitch-black dark theme">Modo escuro de alto contraste</string>
@@ -591,6 +598,7 @@ Proceda com cautela e certifique-se de compreender os comandos que executar.</st
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Aparência</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">Baixa</string>
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">Baixa taxa de contraste</string>
+    <string name="low_risk">Baixo risco</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">Crie seu tema</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">Parear Manualmente</string>
     <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Ícones Materiais</string>
@@ -609,6 +617,7 @@ Proceda com cautela e certifique-se de compreender os comandos que executar.</st
     <string name="model_category_small" comment="AI model size category label">Pequeno (300-500 MB)</string>
     <string name="model_category_tiny" comment="AI model size category label">Minúsculo (menos de 300 MB)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">Modelos</string>
+    <string name="moderate">Moderado</string>
     <string name="modified" comment="File property: last modified date">Modificado</string>
     <string name="monthly" comment="Option in backup scheduler frequency selection">Mensal</string>
     <string name="more">Mais</string>
@@ -794,6 +803,7 @@ Tente parear novamente</string>
     <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">Executar \"%1$s\" no dispositivo conectado?</string>
     <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">Executar comando?</string>
     <string name="running" comment="Status badge showing task or command execution is active">Em execução</string>
+    <string name="safe">Segura</string>
     <string name="sans_serif" comment="Font style category name">Sem serifa</string>
     <string name="save">Salvar</string>
     <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">Salvar como perfil…</string>
@@ -896,6 +906,7 @@ Tente parear novamente</string>
     <string name="success_rate" comment="Analytics metadata metric showing tile execution success percentage">Taxa de sucesso</string>
     <string name="successful_connection_message" comment="Dialog message confirming target ADB device connected successfully">O dispositivo está conectado com sucesso. Agora você pode iniciar comandos no dispositivo de destino.</string>
     <string name="suggested_icons" comment="Header title in tile icon picker listing suggested Material icons">Ícones sugeridos</string>
+    <string name="suggestions">Sugestões</string>
     <string name="support_bmc" comment="Banner text in About section linking to Buy Me a Coffee donation page">Gosta do que eu faço?
 Considere pagar-me um café</string>
     <string name="surface">Superfície</string>
@@ -962,6 +973,7 @@ Considere pagar-me um café</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">O Gerenciador de USB não está disponível neste dispositivo</string>
     <string name="use">Usar</string>
     <string name="use_biometrics">Usar dados biométricos</string>
+    <string name="use_cases">Casos de uso</string>
     <string name="utilities" comment="Category title in homescreen">Utilitários</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">Variante</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">Falha na verificação</string>
@@ -1001,8 +1013,8 @@ Considere pagar-me um café</string>
         <item quantity="other">%1$d novas entradas</item>
     </plurals>
     <plurals name="timeout_minutes" comment="Option for minute timeouts">
-        <item quantity="one">%1$d minute</item>
-        <item quantity="other">%1$d minutes</item>
+        <item quantity="one">%1$d minuto</item>
+        <item quantity="other">%1$d minutos</item>
     </plurals>
     <string name="changelog_v7_4_0">\nAgora é possível pesquisar subconfigurações nas telas de configurações\nAdicionados estilos de paleta para esquemas de cores\nAdicionada a opção de definir o idioma do app diretamente no app</string>
     <string name="changelog_v7_3_0">\nInterface do usuário aprimorada na tela de histórico de alterações\nAdicionados colaboradores de tradução na seção \"Sobre\"\nAdicionada a tela \"Licenças\", que exibe informações detalhadas sobre as licenças do app e de outras bibliotecas utilizadas por ele</string>

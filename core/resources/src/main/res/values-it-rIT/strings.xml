@@ -55,6 +55,7 @@
     <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">Consenti sempre base</string>
     <string name="always_allow_exact" comment="Permission rule option in AI chat: automatically approve commands matching exact command string">Consenti sempre esatto</string>
     <string name="analyse" comment="Action button to request AI analysis of command execution output or error log">Analizza</string>
+    <string name="analysis_failed">Analisi fallita</string>
     <string name="api_key" comment="Label for AI provider API key text input field">Chiave API</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">Chiave API salvata</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">Chiave API richiesta</string>
@@ -255,14 +256,17 @@ Sei sicuro di voler eliminare questi %1$d segnalibri selezionati?</string>
     <string name="create_folder" comment="Action button or dialog title to create a new directory in file browser">Crea cartella</string>
     <string name="create_new_tile" comment="Screen header or button label to add a new custom Quick Settings tile">Crea un nuovo riquadro</string>
     <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">Crea con l\'IA</string>
+    <string name="critical">Critico</string>
     <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">Visita la nostra piattaforma di traduzione Crowdin per contribuire</string>
     <string name="current_version" comment="About screen card label showing installed application version number">Versione attuale</string>
     <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">Scala UI personalizzata</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Taglia %1$d oggetti</string>
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">Taglia negli appunti</string>
     <string name="daily" comment="Option in backup scheduler frequency selection">Giornaliero</string>
+    <string name="dangerous">Pericoloso</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">Tema scuro</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">Dashboard</string>
+    <string name="database">Database</string>
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">Modifica Database</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Solo database</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Cartella predefinita</string>
@@ -464,6 +468,7 @@ Sei sicuro di voler eliminare questi %1$d segnalibri selezionati?</string>
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">File caricato con successo</string>
     <string name="fb_uploading" comment="%1$s = file name">Caricamento %1$s</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">Richiesta di una funzionalità</string>
+    <string name="feedback">Feedback</string>
     <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Recupero tempo di backup …</string>
     <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Recupero del tipo di backup…</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">Il campo non può essere vuoto</string>
@@ -494,6 +499,7 @@ Sei sicuro di voler eliminare questi %1$d segnalibri selezionati?</string>
     <string name="found_connect_service" comment="Status message when mDNS ADB connection service is discovered">Trovato servizio di connessione</string>
     <string name="frequency" comment="Setting label for automated backup interval frequency">Frequenza</string>
     <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">Testo completo della licenza</string>
+    <string name="full_screen">Schermo intero</string>
     <string name="gemini_api_key_step_1" comment="%1$s = URL">Visita Google AI Studio su %1$s</string>
     <string name="gemini_api_key_step_2" comment="Step 2 of API key setup guide: signing in with Google Account">Accedi con il tuo account Google</string>
     <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">Fai clic su Crea chiave API e seleziona o crea un progetto</string>
@@ -514,6 +520,7 @@ Sei sicuro di voler eliminare questi %1$d segnalibri selezionati?</string>
     <string name="great_news" comment="Dialog title header for update available notification">Ottime notizie!</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">Feedback aptico &amp; Vibrazione</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">Buona giornata!</string>
+    <string name="heuristic">Heuristic</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Editor Hex</string>
     <string name="high" comment="Selection option for high haptic strength or elevation level">Alto</string>
     <string name="high_contrast_dark_mode" comment="Settings preference title for OLED pitch-black dark theme">Modalità scura ad alto contrasto</string>
@@ -591,6 +598,7 @@ Sei sicuro di voler eliminare questi %1$d segnalibri selezionati?</string>
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Aspetto &amp; Sensazione</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">Basso</string>
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">Rapporto di contrasto basso</string>
+    <string name="low_risk">Basso rischio</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">Crea il tuo tema</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">Accoppiamento manuale</string>
     <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Icone Material</string>
@@ -609,6 +617,7 @@ Sei sicuro di voler eliminare questi %1$d segnalibri selezionati?</string>
     <string name="model_category_small" comment="AI model size category label">Piccolo (300–500 MB)</string>
     <string name="model_category_tiny" comment="AI model size category label">Minuscolo (sotto 300 MB)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">Modelli</string>
+    <string name="moderate">Moderato</string>
     <string name="modified" comment="File property: last modified date">Modificato</string>
     <string name="monthly" comment="Option in backup scheduler frequency selection">Mensile</string>
     <string name="more">Altro</string>
@@ -792,6 +801,7 @@ Sei sicuro di voler eliminare questi %1$d segnalibri selezionati?</string>
     <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">Eseguire \"%1$s\" sul dispositivo connesso?</string>
     <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">Eseguire il comando?</string>
     <string name="running" comment="Status badge showing task or command execution is active">In esecuzione</string>
+    <string name="safe">Sicuro</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Salva</string>
     <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">Salva come profilo…</string>
@@ -894,6 +904,7 @@ Sei sicuro di voler eliminare questi %1$d segnalibri selezionati?</string>
     <string name="success_rate" comment="Analytics metadata metric showing tile execution success percentage">Tasso di successo</string>
     <string name="successful_connection_message" comment="Dialog message confirming target ADB device connected successfully">Dispositivo collegato con successo. Ora puoi avviare comandi in esecuzione sul dispositivo di destinazione.</string>
     <string name="suggested_icons" comment="Header title in tile icon picker listing suggested Material icons">Icone consigliate</string>
+    <string name="suggestions">Suggerimenti</string>
     <string name="support_bmc" comment="Banner text in About section linking to Buy Me a Coffee donation page">Ti piace quello che faccio?\nConsidera di offrirmi un caffè</string>
     <string name="surface">Superficie</string>
     <string name="switch_mode" comment="Action button to switch ADB connection mode between Local ADB, Remote Wireless ADB, and OTG">Cambia modalità</string>
@@ -959,6 +970,7 @@ Sei sicuro di voler eliminare questi %1$d segnalibri selezionati?</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">Gestore USB non disponibile su questo dispositivo</string>
     <string name="use">Usa</string>
     <string name="use_biometrics">Usa dati biometrici</string>
+    <string name="use_cases">Casi di utilizzo</string>
     <string name="utilities" comment="Category title in homescreen">Utilità</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">Variante</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">Verifica non riuscita</string>

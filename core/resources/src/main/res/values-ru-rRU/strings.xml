@@ -55,6 +55,7 @@
     <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">Всегда разрешать базу</string>
     <string name="always_allow_exact" comment="Permission rule option in AI chat: automatically approve commands matching exact command string">Всегда разрешать точное</string>
     <string name="analyse" comment="Action button to request AI analysis of command execution output or error log">Анализ</string>
+    <string name="analysis_failed">Не удалось выполнить анализ</string>
     <string name="api_key" comment="Label for AI provider API key text input field">API ключ</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">API ключ сохранен</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">Требуется ключ API</string>
@@ -254,14 +255,17 @@
     <string name="create_folder" comment="Action button or dialog title to create a new directory in file browser">Создать папку</string>
     <string name="create_new_tile" comment="Screen header or button label to add a new custom Quick Settings tile">Создать новую плитку</string>
     <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">Создать с помощью AI</string>
+    <string name="critical">Критический</string>
     <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">Посетите нашу платформу переводов crowdin, чтобы внести свой вклад</string>
     <string name="current_version" comment="About screen card label showing installed application version number">Текущая версия</string>
     <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">Свой масштаб UI</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Вырезать %1$d элементов</string>
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">Вырезать в буфер обмена</string>
     <string name="daily" comment="Option in backup scheduler frequency selection">Ежедневно</string>
+    <string name="dangerous">Опасный</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">Тёмная тема</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">Приборная доска</string>
+    <string name="database">База данных</string>
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">Модификация базы данных</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Только базы данных</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Папка по умолчанию</string>
@@ -418,7 +422,7 @@
     <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">Это приведет к окончательной очистке раздела %1$s. Это действие нельзя отменить.</string>
     <string name="erase_confirm_title" comment="%1$s = partition name. Dialog title for partition erase confirmation">Очистить %1$s?</string>
     <string name="erase_partition" comment="Action button to trigger fastboot partition erase">Стереть</string>
-    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Удаление…</string>
+    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Стирание…</string>
     <string name="error">Ошибка</string>
     <string name="error_labels_limit_reached" comment="Validation error when maximum number of custom command labels/tags is reached">Достигнут максимальный лимит этикеток</string>
     <string name="exclude" comment="Filter toggle option to exclude selected package or item">Исключить</string>
@@ -463,6 +467,7 @@
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">Файл успешно загружен</string>
     <string name="fb_uploading" comment="%1$s = file name">Загрузка %1$s</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">Запрос функции</string>
+    <string name="feedback">Отзыв</string>
     <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Получение времени резервного копирования …</string>
     <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Извлечение типа резервной копии…</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">Поле не может быть пустым</string>
@@ -493,6 +498,7 @@
     <string name="found_connect_service" comment="Status message when mDNS ADB connection service is discovered">Найден сервис подключения</string>
     <string name="frequency" comment="Setting label for automated backup interval frequency">Частота</string>
     <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">Полный текст лицензии</string>
+    <string name="full_screen">Полный экран</string>
     <string name="gemini_api_key_step_1" comment="%1$s = URL">Посетить Google AI Студию на %1$s</string>
     <string name="gemini_api_key_step_2" comment="Step 2 of API key setup guide: signing in with Google Account">Войти с помощью своего Google Account</string>
     <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">Нажмите на клавишу создать API ключ и выберите или создайте проект</string>
@@ -513,6 +519,7 @@
     <string name="great_news" comment="Dialog title header for update available notification">Отличные новости!</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">Тактильная отдача &amp; Вибрация</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">Приятного дня!</string>
+    <string name="heuristic">Heuristic</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Hex редактор</string>
     <string name="high" comment="Selection option for high haptic strength or elevation level">Высокий</string>
     <string name="high_contrast_dark_mode" comment="Settings preference title for OLED pitch-black dark theme">Высококонтрастный тёмный режим</string>
@@ -590,6 +597,7 @@
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Оформление</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">Низкий</string>
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">Низкий контрастный коэффициент</string>
+    <string name="low_risk">Низкий риск</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">Создайте свою тему</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">Ручное сопряжение</string>
     <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Material Иконки</string>
@@ -608,6 +616,7 @@
     <string name="model_category_small" comment="AI model size category label">Маленький (300–500 MB)</string>
     <string name="model_category_tiny" comment="AI model size category label">Крошечный (менее 300 МБ)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">Модели</string>
+    <string name="moderate">Модерировать</string>
     <string name="modified" comment="File property: last modified date">Изменено</string>
     <string name="monthly" comment="Option in backup scheduler frequency selection">Ежемесячно</string>
     <string name="more">Ещё</string>
@@ -791,6 +800,7 @@
     <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">Выполнить \"%1$s\" на подключенном устройстве?</string>
     <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">Запустить команду?</string>
     <string name="running" comment="Status badge showing task or command execution is active">Выполняется</string>
+    <string name="safe">Безопасный</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Сохранить</string>
     <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">Сохранить как профиль…</string>
@@ -893,6 +903,7 @@
     <string name="success_rate" comment="Analytics metadata metric showing tile execution success percentage">Коэффициент успеха</string>
     <string name="successful_connection_message" comment="Dialog message confirming target ADB device connected successfully">Устройство подключено успешно. Теперь вы можете запускать команды на целевом устройстве.</string>
     <string name="suggested_icons" comment="Header title in tile icon picker listing suggested Material icons">Предлагаемые иконки</string>
+    <string name="suggestions">Предложения</string>
     <string name="support_bmc" comment="Banner text in About section linking to Buy Me a Coffee donation page">Нравится то, что я делаю?\nУгостите меня кофе</string>
     <string name="surface">Поверхность</string>
     <string name="switch_mode" comment="Action button to switch ADB connection mode between Local ADB, Remote Wireless ADB, and OTG">Переключить режим</string>
@@ -958,6 +969,7 @@
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">Менеджер USB недоступен на этом устройстве</string>
     <string name="use">Использовать</string>
     <string name="use_biometrics">Использовать биометрию</string>
+    <string name="use_cases">Варианты использования</string>
     <string name="utilities" comment="Category title in homescreen">Утилиты</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">Вариант</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">Проверка не удалась</string>

@@ -39,7 +39,7 @@
     <string name="ai_chat_pin" comment="Action button to pin an AI chat conversation to top of list">Закріпки</string>
     <string name="ai_chat_running" comment="Prefix label in AI chat card indicating an ADB command is currently executing">Виконується: </string>
     <string name="ai_chat_sessions" comment="Header title for stored AI chat conversations list">Чат сесії</string>
-    <string name="ai_chat_thoughts" comment="Collapsible section title showing step-by-step reasoning/thinking of AI model">Thoughts…</string>
+    <string name="ai_chat_thoughts" comment="Collapsible section title showing step-by-step reasoning/thinking of AI model">Думки…</string>
     <string name="ai_chat_unpin" comment="Action button to unpin a pinned AI chat session">Відкріпити</string>
     <string name="ai_models" comment="Settings header for configuring AI models and API credentials">AI &amp; Моделі</string>
     <string name="ai_new_chat_welcome_msg" comment="Initial welcome message from AI ADB Agent when starting a new chat session">Привіт, що я можу для зробити?</string>
@@ -55,6 +55,7 @@
     <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">Завжди дозволяти базу</string>
     <string name="always_allow_exact" comment="Permission rule option in AI chat: automatically approve commands matching exact command string">Завжди дозволяти точні</string>
     <string name="analyse" comment="Action button to request AI analysis of command execution output or error log">Аналіз</string>
+    <string name="analysis_failed">Помилка аналізу</string>
     <string name="api_key" comment="Label for AI provider API key text input field">API ключ</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">API ключ збережено</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">Потрібен API ключ</string>
@@ -122,7 +123,7 @@
     <string name="cancel">Скасувати</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">Скасувати все</string>
     <string name="cancel_selection">Скасувати вибір</string>
-    <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">Cancelling…</string>
+    <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">Скасування…</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">Список змін</string>
     <string name="changelogs" comment="Settings list item title for viewing version history logs">Журнали змін</string>
     <string name="check_updates" comment="Action button in about screen to check GitHub or F-Droid for app updates">Перевірити оновлення</string>
@@ -254,14 +255,17 @@
     <string name="create_folder" comment="Action button or dialog title to create a new directory in file browser">Створити теку</string>
     <string name="create_new_tile" comment="Screen header or button label to add a new custom Quick Settings tile">Створити нову плитку</string>
     <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">Створити за допомогою AI</string>
+    <string name="critical">Критичний</string>
     <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">Відвідайте нашу платформу перекладів crowdin, щоб зробити свій внесок</string>
     <string name="current_version" comment="About screen card label showing installed application version number">Поточна версія</string>
     <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">Свій масштаб UI</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Вирізати %1$d елементів</string>
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">Вирізати в буфер обміну</string>
     <string name="daily" comment="Option in backup scheduler frequency selection">Щоденно</string>
+    <string name="dangerous">Небезпечна</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">Темна тема</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">Приладна панель</string>
+    <string name="database">База даних</string>
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">Внесення змін бази даних</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Тільки бази даних</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Тека за замовчуванням</string>
@@ -418,7 +422,7 @@
     <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">Це призведе до остаточного очищення розділу %1$s. Цю дію не можна скасувати.</string>
     <string name="erase_confirm_title" comment="%1$s = partition name. Dialog title for partition erase confirmation">Очистити %1$s?</string>
     <string name="erase_partition" comment="Action button to trigger fastboot partition erase">Стерти</string>
-    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Erasing…</string>
+    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Стирання…</string>
     <string name="error">Помилка</string>
     <string name="error_labels_limit_reached" comment="Validation error when maximum number of custom command labels/tags is reached">Досягнуто максимального ліміту етикеток</string>
     <string name="exclude" comment="Filter toggle option to exclude selected package or item">Виключити</string>
@@ -463,6 +467,7 @@
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">Файл успішно завантажено</string>
     <string name="fb_uploading" comment="%1$s = file name">Завантаження %1$s</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">Запит функції</string>
+    <string name="feedback">Зворотній зв\'язок</string>
     <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Отримую час резервного копіювання …</string>
     <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Отримання типу резервування…</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">Поле не може бути порожнім</string>
@@ -477,7 +482,7 @@
     <string name="filter">Фільтр</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">Фільтрувати за мітками</string>
     <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">Прошити розділ</string>
-    <string name="flashing" comment="Progress status header while partition flashing is in progress">Flashing…</string>
+    <string name="flashing" comment="Progress status header while partition flashing is in progress">Прошивка…</string>
     <string name="folder">Тека</string>
     <string name="folder_already_exists" comment="Validation error when creating a directory with duplicate name">Тека з такою назвою вже існує</string>
     <string name="folder_conflict_title" comment="Dialog header when creating folder collides with existing folder name">Тека вже існує</string>
@@ -493,6 +498,7 @@
     <string name="found_connect_service" comment="Status message when mDNS ADB connection service is discovered">Знайдено сервіс підключення</string>
     <string name="frequency" comment="Setting label for automated backup interval frequency">Частота</string>
     <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">Повний текст ліцензії</string>
+    <string name="full_screen">На весь екран</string>
     <string name="gemini_api_key_step_1" comment="%1$s = URL">Відвідати Google AI Студію на %1$s</string>
     <string name="gemini_api_key_step_2" comment="Step 2 of API key setup guide: signing in with Google Account">Увійти за допомогою свого Google Account</string>
     <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">Натисніть на Створити API ключ і виберіть або створити проєкт</string>
@@ -513,6 +519,7 @@
     <string name="great_news" comment="Dialog title header for update available notification">Чудова новина!</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">Тактильна віддача &amp; Вібрація</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">Приємного дня!</string>
+    <string name="heuristic">Heuristic</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Hex Редактор</string>
     <string name="high" comment="Selection option for high haptic strength or elevation level">Високий</string>
     <string name="high_contrast_dark_mode" comment="Settings preference title for OLED pitch-black dark theme">Висококонтрастний темний режим</string>
@@ -572,7 +579,7 @@
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">Журнали очищено</string>
     <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">Пакет</string>
     <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">Рівні журналу</string>
-    <string name="logcat_filter_search_hint" comment="Placeholder text in logcat search bar">Search in messages…</string>
+    <string name="logcat_filter_search_hint" comment="Placeholder text in logcat search bar">Пошук в повідомленнях…</string>
     <string name="logcat_is_running" comment="Status banner shown while background logcat collection is active">Logcat працює</string>
     <string name="logcat_ive_granted_it" comment="Button in logcat permission dialog confirming user ran ADB grant command on PC">Я дозволив це</string>
     <string name="logcat_no_logs" comment="Placeholder text in logcat screen when no log entries match current filters">Журналів ще немає</string>
@@ -590,6 +597,7 @@
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Оформлення</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">Низький</string>
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">Низький коефіцієнт контрастності</string>
+    <string name="low_risk">Низький ризик</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">Створіть свою тему</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">Ручне сполучення</string>
     <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Material Іконки</string>
@@ -608,6 +616,7 @@
     <string name="model_category_small" comment="AI model size category label">Малий (300–500 MB)</string>
     <string name="model_category_tiny" comment="AI model size category label">Крихітний (менше ніж 300 МБ)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">Моделі</string>
+    <string name="moderate">Помірний</string>
     <string name="modified" comment="File property: last modified date">Змінено</string>
     <string name="monthly" comment="Option in backup scheduler frequency selection">Щомісяця</string>
     <string name="more">Ще</string>
@@ -791,9 +800,10 @@
     <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">Виконати \"%1$s\" на підключеному пристрої?</string>
     <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">Виконати команду?</string>
     <string name="running" comment="Status badge showing task or command execution is active">Виконується</string>
+    <string name="safe">Безпечний</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Зберегти</string>
-    <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">Save as profile…</string>
+    <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">Зберегти як профіль…</string>
     <string name="save_changes" comment="Action button to persist edited settings or tile parameters">Зберегти зміни</string>
     <string name="save_key" comment="Button label to save entered API key string in settings">Зберегти ключ</string>
     <string name="save_whole_output" comment="Setting toggle title to export full terminal session output to file">Зберегти весь вивід</string>
@@ -806,16 +816,16 @@
     <string name="search">Пошук</string>
     <string name="search_bookmarks_here" comment="Placeholder text in bookmarks tab search bar">Пошук закладок тут</string>
     <string name="search_commands_here" comment="Placeholder text in command templates tab search bar">Пошук команд тут</string>
-    <string name="search_fonts" comment="Placeholder text in font family picker search bar">Search fonts…</string>
+    <string name="search_fonts" comment="Placeholder text in font family picker search bar">Пошук шрифтів…</string>
     <string name="search_icons_here" comment="Placeholder text in Quick Settings tile icon picker search bar">Пошук іконок тут</string>
     <string name="search_labels_here" comment="Placeholder text in command label filter search bar">Пошук мітки тут</string>
-    <string name="search_libraries" comment="Placeholder text in open-source licenses search bar">Search libraries, authors, licenses…</string>
+    <string name="search_libraries" comment="Placeholder text in open-source licenses search bar">Пошук бібліотек, авторів, ліцензій…</string>
     <string name="search_output" comment="Placeholder text in terminal output search bar">Пошук виводу тут</string>
     <string name="search_settings" comment="Placeholder text in settings top search bar">Налаштування пошуку</string>
     <string name="search_something" comment="Generic search field placeholder prompt">Пошук чого-небудь</string>
     <string name="search_variables" comment="Placeholder text in fastboot variables explorer search bar">Пошук змінних…</string>
     <string name="searching_connect_service" comment="Status message while discovering ADB mDNS connection service on local network">Пошук служби підключення</string>
-    <string name="searching_for_devices" comment="Progress status text while scanning for local Wireless Debugging or OTG ADB target devices">Searching for devices…</string>
+    <string name="searching_for_devices" comment="Progress status text while scanning for local Wireless Debugging or OTG ADB target devices">Пошук пристроїв…</string>
     <string name="secondary">Вторинна</string>
     <string name="security_patch" comment="Device property label displaying Android security patch level date">Патч безпеки</string>
     <string name="select">Вибрати</string>
@@ -836,7 +846,7 @@
     <string name="self_pair_error_saving" comment="Toast error message when storing self-paired device credentials fails">Помилка збереження пристрою</string>
     <string name="self_pair_failed" comment="Toast notification when local self-pairing operation fails">Сполучення не вдалося</string>
     <string name="self_pair_found" comment="Status message when local device mDNS ADB pairing service is detected">Сервіс сполучення знайдено!</string>
-    <string name="self_pair_in_progress" comment="Progress status text shown while establishing local ADB self-pairing connection">Pairing in progress…</string>
+    <string name="self_pair_in_progress" comment="Progress status text shown while establishing local ADB self-pairing connection">Сполучення в процесі…</string>
     <string name="self_pair_in_progress_hint" comment="Instructional hint displayed during local ADB self-pairing">Зачекайте підключення до цього пристрою</string>
     <string name="self_pair_pairing_not_found" comment="Error notification when mDNS ADB pairing service is not broadcasting">Сервіс сполучення не знайдено</string>
     <string name="self_pair_searching" comment="Progress status text while scanning for local mDNS pairing service">Пошук служби сполучення…</string>
@@ -893,6 +903,7 @@
     <string name="success_rate" comment="Analytics metadata metric showing tile execution success percentage">Коефіцієнт успіху</string>
     <string name="successful_connection_message" comment="Dialog message confirming target ADB device connected successfully">Пристрій успішно підключений. Тепер ви можете розпочати виконання команд на цільовому пристрої.</string>
     <string name="suggested_icons" comment="Header title in tile icon picker listing suggested Material icons">Запропоновані іконки</string>
+    <string name="suggestions">Пропозиції</string>
     <string name="support_bmc" comment="Banner text in About section linking to Buy Me a Coffee donation page">Подобається те, що я роблю?\nПригостіть мене кавою</string>
     <string name="surface">Поверхня</string>
     <string name="switch_mode" comment="Action button to switch ADB connection mode between Local ADB, Remote Wireless ADB, and OTG">Перемикнути режим</string>
@@ -958,6 +969,7 @@
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">Менеджер USB недоступний на цьому пристрої</string>
     <string name="use">Використати</string>
     <string name="use_biometrics">Використовувати біометрію</string>
+    <string name="use_cases">Встановіть цей додаток в області</string>
     <string name="utilities" comment="Category title in homescreen">Утиліти</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">Варіант</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">Не вдалося перевірити</string>
@@ -970,7 +982,7 @@
     <string name="view_on_github" comment="Button linking to GitHub release page or commit diff">Переглянути на GitHub</string>
     <string name="visit_repo_to_download" comment="Instructions directing user to download the update APK file from GitHub releases">Натисніть кнопку завантаження, щоб отримати останню версію aShellYou з репозиторію GitHub.</string>
     <string name="waiting_for_device" comment="Progress status banner while awaiting target device USB OTG attachment">Очікування пристрою</string>
-    <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">Waiting for devices…</string>
+    <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">Очікування пристроїв…</string>
     <string name="want_to_contribute_too" comment="Call-to-action banner in About screen inviting code or translation contributions">Хочете також зробити свій внесок?</string>
     <string name="weekly" comment="Option in backup scheduler frequency selection">Щотижня</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">Що б ви хотіли зробити поки %1$s?</string>

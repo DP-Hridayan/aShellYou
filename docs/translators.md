@@ -67,7 +67,7 @@ Thanks to these translators and proofreaders, this project exists:
           <br />
           <sub><b>(marciozomb13)</b></sub></a>
         <br />
-        <sub><b>5973 words</b></sub>
+        <sub><b>6065 words</b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/rahim.0"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17262364/medium/def988bf394394d50abe0836563619b3.png" />
@@ -206,14 +206,21 @@ Thanks to these translators and proofreaders, this project exists:
         <sub><b>90 words</b></sub>
       </td>
       <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/A1692jk"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17834819/medium/df30c210a0571cd025d94d1bc4cd0b36_default.png" />
+          <br />
+          <sub><b>A1692jk</b></sub></a>
+        <br />
+        <sub><b>80 words</b></sub>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" valign="top">
         <a href="https://crowdin.com/profile/Quaff03"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/16121896/medium/a5f8985e48142cbf6c5e30cfa0bafb5a.png" />
           <br />
           <sub><b>Quaff03</b></sub></a>
         <br />
         <sub><b>46 words</b></sub>
       </td>
-    </tr>
-    <tr>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/Jactoken"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/15472922/medium/ae6414bc0b11a6ca0d04a9594a528a00_default.png" />
           <br />
@@ -229,13 +236,6 @@ Thanks to these translators and proofreaders, this project exists:
           <sub><b>(ahmed7007422)</b></sub></a>
         <br />
         <sub><b>32 words</b></sub>
-      </td>
-      <td align="center" valign="top">
-        <a href="https://crowdin.com/profile/A1692jk"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17834819/medium/df30c210a0571cd025d94d1bc4cd0b36_default.png" />
-          <br />
-          <sub><b>A1692jk</b></sub></a>
-        <br />
-        <sub><b>20 words</b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/cxy0714"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17661168/medium/351c9eb4c94770924fe8de78006bbcc6.png" />

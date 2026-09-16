@@ -55,6 +55,7 @@
     <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">Her zaman tabana izin verin</string>
     <string name="always_allow_exact" comment="Permission rule option in AI chat: automatically approve commands matching exact command string">Her zaman kesinliğe izin verin</string>
     <string name="analyse" comment="Action button to request AI analysis of command execution output or error log">Analiz</string>
+    <string name="analysis_failed">Analysis failed</string>
     <string name="api_key" comment="Label for AI provider API key text input field">API anahtarı</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">API anahtarı kaydedildi</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">API anahtarı gerekli</string>
@@ -254,14 +255,17 @@
     <string name="create_folder" comment="Action button or dialog title to create a new directory in file browser">Klasör oluştur</string>
     <string name="create_new_tile" comment="Screen header or button label to add a new custom Quick Settings tile">Yeni karo oluştur</string>
     <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">AI ile oluştur</string>
+    <string name="critical">Critical</string>
     <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">Çeviriye katkıda bulunmak için Crowdin çeviri platformumuzu ziyaret edin</string>
     <string name="current_version" comment="About screen card label showing installed application version number">Mevcut sürüm</string>
     <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">Özel UI ölçeği</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">%1$d öge kesildi</string>
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">Kes ve panoya al</string>
     <string name="daily" comment="Option in backup scheduler frequency selection">Günlük</string>
+    <string name="dangerous">Dangerous</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">Karanlık tema</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">Kontrol Paneli</string>
+    <string name="database">Database</string>
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">Veritabanı Düzenleme</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Yalnızca veritabanları</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Varsayılan klasör</string>
@@ -463,6 +467,7 @@
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">Dosya başarıyla yüklendi</string>
     <string name="fb_uploading" comment="%1$s = file name">%1$s yükleniyor</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">Özellik isteği</string>
+    <string name="feedback">Feedback</string>
     <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Fetching backup time …</string>
     <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Fetching backup type…</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">Alan boş bırakılamaz</string>
@@ -493,6 +498,7 @@
     <string name="found_connect_service" comment="Status message when mDNS ADB connection service is discovered">Bağlantı servisi bulundu</string>
     <string name="frequency" comment="Setting label for automated backup interval frequency">Sıklık</string>
     <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">Tam lisans metni</string>
+    <string name="full_screen">Full screen</string>
     <string name="gemini_api_key_step_1" comment="%1$s = URL">Google AI Studio\'yu %1$s adresinden ziyaret edin</string>
     <string name="gemini_api_key_step_2" comment="Step 2 of API key setup guide: signing in with Google Account">Google Hesabınızla oturum açın</string>
     <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">API anahtarı oluştur seçeneğine tıklayın ve bir proje seçin veya oluşturun</string>
@@ -513,6 +519,7 @@
     <string name="great_news" comment="Dialog title header for update available notification">Harika haber!</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">Dokunsal Geri Bildirim ve Titreşim</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">İyi günler!</string>
+    <string name="heuristic">Heuristic</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Hex Düzenleyici</string>
     <string name="high" comment="Selection option for high haptic strength or elevation level">Yüksek</string>
     <string name="high_contrast_dark_mode" comment="Settings preference title for OLED pitch-black dark theme">Yüksek kontrastlı karanlık mod</string>
@@ -590,6 +597,7 @@
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Görünüm ve His</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">Düşük</string>
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">Düşük kontrast oranı</string>
+    <string name="low_risk">Low risk</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">Temanızı Oluşturun</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">Manuel Eşleştirme</string>
     <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Material Icons</string>
@@ -608,6 +616,7 @@
     <string name="model_category_small" comment="AI model size category label">Küçük (300–500 MB)</string>
     <string name="model_category_tiny" comment="AI model size category label">Minik (300 MB\'ın altında)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">Modeller</string>
+    <string name="moderate">Moderate</string>
     <string name="modified" comment="File property: last modified date">Değiştirilme tarihi</string>
     <string name="monthly" comment="Option in backup scheduler frequency selection">Aylık</string>
     <string name="more">Daha Fazla</string>
@@ -791,6 +800,7 @@
     <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">Bağlı cihazda \"%1$s\" çalıştırılsın mı?</string>
     <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">Komut Çalıştırılsın mı?</string>
     <string name="running" comment="Status badge showing task or command execution is active">Çalışıyor</string>
+    <string name="safe">Safe</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Kaydet</string>
     <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">Save as profile…</string>
@@ -893,6 +903,7 @@
     <string name="success_rate" comment="Analytics metadata metric showing tile execution success percentage">Başarı oranı</string>
     <string name="successful_connection_message" comment="Dialog message confirming target ADB device connected successfully">Cihaz başarıyla bağlandı. Artık hedef cihazda komutları çalıştırmaya başlayabilirsiniz.</string>
     <string name="suggested_icons" comment="Header title in tile icon picker listing suggested Material icons">Önerilen simgeler</string>
+    <string name="suggestions">Suggestions</string>
     <string name="support_bmc" comment="Banner text in About section linking to Buy Me a Coffee donation page">Yaptığım işi beğendiniz mi?\nBana bir kahve ısmarlamayı düşünebilirsiniz</string>
     <string name="surface">Yüzey</string>
     <string name="switch_mode" comment="Action button to switch ADB connection mode between Local ADB, Remote Wireless ADB, and OTG">Mod değiştir</string>
@@ -958,6 +969,7 @@
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">USB Yöneticisi bu cihazda mevcut değil</string>
     <string name="use">Kullan</string>
     <string name="use_biometrics">Biyometriyi kullan</string>
+    <string name="use_cases">Use cases</string>
     <string name="utilities" comment="Category title in homescreen">Yardımcı Araçlar</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">Varyant</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">Doğrulama başarısız</string>
