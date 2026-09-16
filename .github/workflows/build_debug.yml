@@ -30,10 +30,10 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      -   name: Set up Android SDK
-          uses: android-actions/setup-android@v4
-          with:
-              api-level: 37
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v4
+        with:
+          api-level: 37
 
       - name: Grant execute permission to Gradle
         run: chmod +x ./gradlew
