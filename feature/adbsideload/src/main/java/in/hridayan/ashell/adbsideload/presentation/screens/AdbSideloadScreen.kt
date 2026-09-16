@@ -2,9 +2,6 @@
 
 package `in`.hridayan.ashell.adbsideload.presentation.screens
 
-import android.content.Context
-import android.net.Uri
-import android.provider.OpenableColumns
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
@@ -26,64 +23,45 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.adbsideload.domain.model.SideloadOperation
+import `in`.hridayan.ashell.adbsideload.domain.model.SideloadPackageInfo
 import `in`.hridayan.ashell.adbsideload.domain.model.SideloadState
-import `in`.hridayan.ashell.adbsideload.domain.model.SideloadStatus
 import `in`.hridayan.ashell.adbsideload.presentation.components.card.SideloadDeviceCard
 import `in`.hridayan.ashell.adbsideload.presentation.components.card.SideloadFileCard
 import `in`.hridayan.ashell.adbsideload.presentation.components.card.SideloadInstructionsCard
 import `in`.hridayan.ashell.adbsideload.presentation.components.card.SideloadProgressCard
 import `in`.hridayan.ashell.adbsideload.presentation.components.dialog.SideloadDeviceWaitingDialog
 import `in`.hridayan.ashell.adbsideload.presentation.components.slidetoconfirm.SideloadSlider
+import `in`.hridayan.ashell.adbsideload.presentation.components.text.sideloadErrorText
+import `in`.hridayan.ashell.adbsideload.presentation.model.SideloadDeviceUiState
+import `in`.hridayan.ashell.adbsideload.presentation.model.SideloadScreenActions
 import `in`.hridayan.ashell.adbsideload.presentation.viewmodel.SideloadViewModel
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.resources.R
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+
+private val PACKAGE_MIME_TYPES = arrayOf("application/zip", "application/octet-stream", "*/*")
 
 @Composable
 fun AdbSideloadScreen(
     viewModel: SideloadViewModel = hiltViewModel()
 ) {
     val navController = LocalNavController.current
-    val context = LocalContext.current
-    val scope = rememberCoroutineScope()
     val state by viewModel.state.collectAsState()
     val operation by viewModel.operation.collectAsState()
+    val selectedFile by viewModel.selectedFile.collectAsState()
 
     var showWaitingDialog by rememberSaveable { mutableStateOf(false) }
-    var selectedUri by rememberSaveable { mutableStateOf<Uri?>(null) }
-    var selectedFileName by rememberSaveable { mutableStateOf<String?>(null) }
-    var selectedFileSize by rememberSaveable { mutableLongStateOf(-1L) }
-
-    val stateValue = state
-    val isDeviceDetected = stateValue is SideloadState.Connected ||
-            stateValue is SideloadState.Connecting ||
-            stateValue is SideloadState.DeviceFound
-    val isAdbReady = stateValue is SideloadState.Connected
-    val isConnecting = stateValue is SideloadState.Connecting
-    val deviceName = (stateValue as? SideloadState.Connected)?.deviceName
-        ?: (stateValue as? SideloadState.DeviceFound)?.deviceName
-    val isOperationActive = operation.status == SideloadStatus.SENDING ||
-            operation.status == SideloadStatus.READING_FILE
-    val isOperationFinished = operation.status == SideloadStatus.COMPLETE ||
-            operation.status == SideloadStatus.ERROR ||
-            operation.status == SideloadStatus.CANCELLED
 
     LaunchedEffect(Unit) {
         val currentState = viewModel.state.value
@@ -93,8 +71,8 @@ fun AdbSideloadScreen(
         }
     }
 
-    LaunchedEffect(stateValue) {
-        when (stateValue) {
+    LaunchedEffect(state) {
+        when (state) {
             is SideloadState.Connected -> showWaitingDialog = false
             is SideloadState.Disconnected -> {
                 showWaitingDialog = true
@@ -107,19 +85,15 @@ fun AdbSideloadScreen(
 
     val filePickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocument()
-    ) { uri ->
-        uri?.let { pickedUri ->
-            selectedUri = pickedUri
-            scope.launch(Dispatchers.IO) {
-                val name = resolveFileName(context, pickedUri)
-                val size = resolveFileSize(context, pickedUri)
-                withContext(Dispatchers.Main) {
-                    selectedFileName = name
-                    selectedFileSize = size
-                }
-            }
-        }
-    }
+    ) { uri -> uri?.let(viewModel::selectFile) }
+
+    val actions = SideloadScreenActions(
+        onPickFile = { filePickerLauncher.launch(PACKAGE_MIME_TYPES) },
+        onClearFile = viewModel::clearFile,
+        onSideload = viewModel::sideload,
+        onCancelSideload = viewModel::cancelSideload,
+        onDone = viewModel::resetOperation,
+    )
 
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
         rememberTopAppBarState()
@@ -137,33 +111,10 @@ fun AdbSideloadScreen(
     ) { paddingValues ->
         ScreenContent(
             modifier = Modifier.padding(paddingValues),
-            isDeviceDetected = isDeviceDetected,
-            isAdbReady = isAdbReady,
-            isConnecting = isConnecting,
-            deviceName = deviceName,
-            selectedFileName = selectedFileName,
-            selectedFileSize = selectedFileSize,
-            isOperationActive = isOperationActive,
-            isOperationFinished = isOperationFinished,
+            device = state.toDeviceUiState(),
+            selectedFile = selectedFile,
             operation = operation,
-            selectedUri = selectedUri,
-            onPickFile = {
-                filePickerLauncher.launch(
-                    arrayOf(
-                        "application/zip",
-                        "application/octet-stream",
-                        "*/*"
-                    )
-                )
-            },
-            onClearFile = {
-                selectedUri = null
-                selectedFileName = null
-                selectedFileSize = -1L
-            },
-            onSideload = { uri -> viewModel.sideload(uri) },
-            onCancelSideload = { viewModel.cancelSideload() },
-            onDone = { viewModel.resetOperation() },
+            actions = actions,
         )
     }
 
@@ -176,24 +127,31 @@ fun AdbSideloadScreen(
 }
 
 @Composable
+private fun SideloadState.toDeviceUiState(): SideloadDeviceUiState = when (this) {
+    is SideloadState.Connected -> SideloadDeviceUiState(isDetected = true, isReady = true, deviceName = deviceName)
+    is SideloadState.Connecting -> SideloadDeviceUiState(isDetected = true, isConnecting = true)
+    is SideloadState.DeviceFound ->
+        SideloadDeviceUiState(isDetected = true, awaitingPermission = true, deviceName = deviceName)
+    is SideloadState.WrongMode -> SideloadDeviceUiState(
+        isDetected = true,
+        wrongMode = true,
+        deviceName = deviceName
+    )
+
+    is SideloadState.Error -> SideloadDeviceUiState(errorText = sideloadErrorText(error, detail))
+    else -> SideloadDeviceUiState()
+}
+
+@Composable
 private fun ScreenContent(
     modifier: Modifier,
-    isDeviceDetected: Boolean,
-    isAdbReady: Boolean,
-    isConnecting: Boolean,
-    deviceName: String?,
-    selectedFileName: String?,
-    selectedFileSize: Long,
-    isOperationActive: Boolean,
-    isOperationFinished: Boolean,
+    device: SideloadDeviceUiState,
+    selectedFile: SideloadPackageInfo?,
     operation: SideloadOperation,
-    selectedUri: Uri?,
-    onPickFile: () -> Unit,
-    onClearFile: () -> Unit,
-    onSideload: (Uri) -> Unit,
-    onCancelSideload: () -> Unit,
-    onDone: () -> Unit,
+    actions: SideloadScreenActions,
 ) {
+    val isOperationVisible = operation.status.isActive || operation.status.isFinished
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -203,30 +161,20 @@ private fun ScreenContent(
     ) {
         SectionLabel(text = stringResource(R.string.device_info))
 
-        SideloadDeviceCard(
-            isDetected = isDeviceDetected,
-            isConnecting = isConnecting,
-            deviceName = deviceName
-        )
+        SideloadDeviceCard(device = device)
 
-        if (!isOperationActive && !isOperationFinished) {
-            FileSection(
-                selectedFileName = selectedFileName,
-                selectedFileSize = selectedFileSize,
-                onPickFile = onPickFile,
-                onClearFile = onClearFile
-            )
+        if (!isOperationVisible) {
+            FileSection(selectedFile = selectedFile, actions = actions)
             SideloadSlider(
-                enabled = isAdbReady && selectedUri != null,
-                onConfirm = { selectedUri?.let { onSideload(it) } }
+                enabled = device.isReady && selectedFile != null,
+                confirmed = operation.status.isActive,
+                onConfirm = actions.onSideload
             )
-        }
-
-        if (isOperationActive || isOperationFinished) {
+        } else {
             SideloadProgressCard(
                 operation = operation,
-                onCancel = onCancelSideload,
-                onDone = onDone
+                onCancel = actions.onCancelSideload,
+                onDone = actions.onDone
             )
         }
 
@@ -250,44 +198,16 @@ private fun SectionLabel(text: String) {
 
 @Composable
 private fun FileSection(
-    selectedFileName: String?,
-    selectedFileSize: Long,
-    onPickFile: () -> Unit,
-    onClearFile: () -> Unit,
+    selectedFile: SideloadPackageInfo?,
+    actions: SideloadScreenActions,
 ) {
     SectionLabel(text = stringResource(R.string.file))
 
     SideloadFileCard(
-        fileName = selectedFileName,
-        fileSize = selectedFileSize,
-        onPickFile = onPickFile,
-        onClearFile = onClearFile,
+        fileName = selectedFile?.name,
+        fileSize = selectedFile?.size ?: -1L,
+        onPickFile = actions.onPickFile,
+        onClearFile = actions.onClearFile,
         modifier = Modifier.fillMaxWidth()
     )
-}
-
-private fun resolveFileName(context: Context, uri: Uri): String {
-    if (uri.scheme == "content") {
-        context.contentResolver.query(
-            uri,
-            arrayOf(OpenableColumns.DISPLAY_NAME),
-            null,
-            null,
-            null
-        )?.use { cursor ->
-            if (cursor.moveToFirst()) {
-                val col = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
-                if (col >= 0) return cursor.getString(col)
-            }
-        }
-    }
-    return uri.path?.substringAfterLast('/') ?: "package.zip"
-}
-
-private fun resolveFileSize(context: Context, uri: Uri): Long {
-    return context.contentResolver.query(
-        uri, arrayOf(OpenableColumns.SIZE), null, null, null
-    )?.use { cursor ->
-        if (cursor.moveToFirst()) cursor.getLong(0) else -1L
-    } ?: -1L
 }

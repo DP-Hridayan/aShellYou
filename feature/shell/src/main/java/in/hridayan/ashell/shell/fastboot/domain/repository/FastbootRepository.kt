@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.Flow
 interface FastbootRepository {
     fun searchDevices()
     fun disconnect()
-    fun unRegister()
     fun sendCommand(command: String): Flow<FastbootCommandResult>
     fun getDeviceInfo(): Flow<FastbootDeviceInfo>
     fun reboot(mode: RebootMode)
@@ -27,4 +26,10 @@ interface FastbootRepository {
     ): Flow<FastbootCommandResult>
 
     fun bootImage(imageUri: Uri, onProgress: (FlashOperation) -> Unit): Flow<FastbootCommandResult>
+
+    /**
+     * Interrupts the command in flight. The device is left mid-transfer, so the connection is
+     * dropped and a rescan is started to re-establish a clean session.
+     */
+    fun cancelOperation()
 }

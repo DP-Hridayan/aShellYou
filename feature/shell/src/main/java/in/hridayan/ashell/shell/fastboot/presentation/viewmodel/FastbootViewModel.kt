@@ -1,9 +1,6 @@
-@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
-
 package `in`.hridayan.ashell.shell.fastboot.presentation.viewmodel
 
 import android.net.Uri
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,6 +12,7 @@ import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashOperation
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashStatus
 import `in`.hridayan.ashell.shell.fastboot.domain.model.RebootMode
 import `in`.hridayan.ashell.shell.fastboot.domain.repository.FastbootRepository
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -46,6 +44,9 @@ class FastbootViewModel @Inject constructor(
     private val _flashOperation = MutableStateFlow(FlashOperation())
     val flashOperation: StateFlow<FlashOperation> = _flashOperation.asStateFlow()
 
+    private val _eraseOperation = MutableStateFlow(FlashOperation())
+    val eraseOperation: StateFlow<FlashOperation> = _eraseOperation.asStateFlow()
+
     private val _runningCommandId = MutableStateFlow<String?>(null)
     val runningCommandId: StateFlow<String?> = _runningCommandId.asStateFlow()
 
@@ -55,21 +56,18 @@ class FastbootViewModel @Inject constructor(
     private val _isConsoleCommandRunning = MutableStateFlow(false)
     val isConsoleCommandRunning: StateFlow<Boolean> = _isConsoleCommandRunning.asStateFlow()
 
-    private var flashJob: kotlinx.coroutines.Job? = null
-    private var commandJob: kotlinx.coroutines.Job? = null
+    private var flashJob: Job? = null
+    private var eraseJob: Job? = null
+    private var commandJob: Job? = null
 
-    fun startScan() = viewModelScope.launch {
+    fun startScan() {
         repository.searchDevices()
     }
 
-    fun disconnect() = viewModelScope.launch {
+    fun disconnect() {
         repository.disconnect()
         _deviceInfo.value = null
         _variables.value = emptyList()
-    }
-
-    fun unRegister() = viewModelScope.launch {
-        repository.unRegister()
     }
 
     fun loadDeviceInfo() = viewModelScope.launch {
@@ -94,10 +92,7 @@ class FastbootViewModel @Inject constructor(
         _isConsoleCommandRunning.value = true
         commandJob = viewModelScope.launch {
             try {
-                repository.sendCommand(command).collect { result ->
-                    _commandHistory.value += result
-                    _commandOutput.value += result.data + "\n"
-                }
+                repository.sendCommand(command).collect(::recordResult)
             } finally {
                 _isConsoleCommandRunning.value = false
             }
@@ -113,7 +108,6 @@ class FastbootViewModel @Inject constructor(
     /** Run a predefined command card identified by [commandId]. */
     fun runPredefinedCommand(commandId: String, command: String) {
         if (_runningCommandId.value == commandId) {
-            // Already running — cancel it
             commandJob?.cancel()
             commandJob = null
             _runningCommandId.value = null
@@ -124,14 +118,16 @@ class FastbootViewModel @Inject constructor(
         _commandOutput.value += "\n> $command\n"
         commandJob = viewModelScope.launch {
             try {
-                repository.sendCommand(command).collect { result ->
-                    _commandHistory.value += result
-                    _commandOutput.value += result.data + "\n"
-                }
+                repository.sendCommand(command).collect(::recordResult)
             } finally {
                 _runningCommandId.value = null
             }
         }
+    }
+
+    private fun recordResult(result: FastbootCommandResult) {
+        _commandHistory.value += result
+        _commandOutput.value += result.data + "\n"
     }
 
     fun clearOutput() {
@@ -148,44 +144,39 @@ class FastbootViewModel @Inject constructor(
 
     fun flashPartition(partition: String, imageUri: Uri) {
         flashJob?.cancel()
+        _flashOperation.value = FlashOperation(partition = partition, status = FlashStatus.READING_FILE)
         flashJob = viewModelScope.launch {
             repository.flashPartition(partition, imageUri) { operation ->
                 _flashOperation.value = operation
-            }.collect { result ->
-                _commandHistory.value += result
-            }
-        }
-    }
-
-    fun erasePartition(partition: String) {
-        flashJob?.cancel()
-        flashJob = viewModelScope.launch {
-            repository.erasePartition(partition) { operation ->
-                _flashOperation.value = operation
-            }.collect { result ->
-                _commandHistory.value += result
-            }
+            }.collect { result -> _commandHistory.value += result }
         }
     }
 
     fun bootImage(imageUri: Uri) {
         flashJob?.cancel()
+        _flashOperation.value = FlashOperation(status = FlashStatus.READING_FILE)
         flashJob = viewModelScope.launch {
             repository.bootImage(imageUri) { operation ->
                 _flashOperation.value = operation
-            }.collect { result ->
-                _commandHistory.value += result
-            }
+            }.collect { result -> _commandHistory.value += result }
+        }
+    }
+
+    fun erasePartition(partition: String) {
+        eraseJob?.cancel()
+        _eraseOperation.value = FlashOperation(partition = partition, status = FlashStatus.ERASING)
+        eraseJob = viewModelScope.launch {
+            repository.erasePartition(partition) { operation ->
+                _eraseOperation.value = operation
+            }.collect { result -> _commandHistory.value += result }
         }
     }
 
     fun cancelFlashOperation() {
         flashJob?.cancel()
         flashJob = null
-        _flashOperation.value = FlashOperation(
-            status = FlashStatus.ERROR,
-            message = "Operation cancelled"
-        )
+        repository.cancelOperation()
+        _flashOperation.value = _flashOperation.value.copy(status = FlashStatus.CANCELLED)
     }
 
     fun resetFlashOperation() {
@@ -194,8 +185,16 @@ class FastbootViewModel @Inject constructor(
         _flashOperation.value = FlashOperation()
     }
 
-    override fun onCleared() {
-        unRegister()
-        super.onCleared()
+    fun cancelEraseOperation() {
+        eraseJob?.cancel()
+        eraseJob = null
+        repository.cancelOperation()
+        _eraseOperation.value = _eraseOperation.value.copy(status = FlashStatus.CANCELLED)
+    }
+
+    fun resetEraseOperation() {
+        eraseJob?.cancel()
+        eraseJob = null
+        _eraseOperation.value = FlashOperation()
     }
 }

@@ -26,10 +26,6 @@ class OtgViewModel @Inject constructor(
         repository.disconnect()
     }
 
-    fun unRegister() = viewModelScope.launch {
-        repository.unRegister()
-    }
-
     /**
      * Reboot the connected OTG ADB device into bootloader/fastboot mode.
      * Uses ADB protocol's native "reboot:bootloader" service.
@@ -40,10 +36,5 @@ class OtgViewModel @Inject constructor(
             connection.open("reboot:bootloader")
         } catch (_: Exception) {
         }
-    }
-
-    override fun onCleared() {
-        unRegister()
-        super.onCleared()
     }
 }

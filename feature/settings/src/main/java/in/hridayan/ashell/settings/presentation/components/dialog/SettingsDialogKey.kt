@@ -17,6 +17,7 @@ sealed interface SettingsDialogKey : DialogKey {
     object NoGoogleAccount : SettingsDialogKey
     object PaletteStyle : SettingsDialogKey
     object AiCacheDays : SettingsDialogKey
+    object LogcatBufferSize : SettingsDialogKey
     object AiCacheClearConfirmation : SettingsDialogKey
     object AutoBackupTimePicker : SettingsDialogKey
 }

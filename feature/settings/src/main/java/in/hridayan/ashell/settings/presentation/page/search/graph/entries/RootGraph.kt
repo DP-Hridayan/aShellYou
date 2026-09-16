@@ -23,7 +23,7 @@ internal fun SearchScreenScope.rootGraph(aiEnabled: Boolean) {
         icon(R.drawable.ic_dashboard)
     }
 
-    entry(key = SettingsKeys.AiModels) {
+    entry(key = SettingsKeys.CloudModels) {
         title(R.string.ai_models)
         description(R.string.des_ai_models)
         icon(R.drawable.ic_cloud_model)
@@ -34,6 +34,12 @@ internal fun SearchScreenScope.rootGraph(aiEnabled: Boolean) {
         title(R.string.auto_update)
         description(R.string.des_auto_update)
         icon(R.drawable.ic_auto_update)
+    }
+
+    entry(key = SettingsKeys.PrivacyAndSecurity) {
+        title(R.string.privacy_and_security)
+        description(R.string.des_privacy_and_security)
+        icon(R.drawable.ic_shield_lock)
     }
 
     entry(key = SettingsKeys.BackupAndRestore) {

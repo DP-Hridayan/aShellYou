@@ -29,9 +29,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.adbsideload.domain.model.SideloadOperation
 import `in`.hridayan.ashell.adbsideload.domain.model.SideloadStatus
+import `in`.hridayan.ashell.adbsideload.presentation.components.text.sideloadStatusText
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.resources.R
+import java.util.Locale
 
 @Composable
 fun SideloadProgressCard(
@@ -40,9 +42,7 @@ fun SideloadProgressCard(
     onDone: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val isFinished = operation.status == SideloadStatus.COMPLETE ||
-            operation.status == SideloadStatus.ERROR ||
-            operation.status == SideloadStatus.CANCELLED
+    val isFinished = operation.status.isFinished
 
     CustomCard(
         modifier = modifier.fillMaxWidth(),
@@ -129,7 +129,7 @@ private fun ProgressHeader(operation: SideloadOperation) {
                 overflow = TextOverflow.Ellipsis
             )
             Text(
-                text = operation.message,
+                text = sideloadStatusText(operation),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 maxLines = 2
@@ -161,14 +161,14 @@ private fun ProgressDetails(operation: SideloadOperation) {
             text = if (operation.totalBlocks > 0) {
                 "${stringResource(R.string.block)} ${operation.currentBlock} / ${operation.totalBlocks}"
             } else {
-                operation.message
+                sideloadStatusText(operation)
             },
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         if (operation.transferRateMBps > 0f) {
             Text(
-                text = String.format("%.1f MB/s", operation.transferRateMBps),
+                text = String.format(Locale.getDefault(), "%.1f MB/s", operation.transferRateMBps),
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

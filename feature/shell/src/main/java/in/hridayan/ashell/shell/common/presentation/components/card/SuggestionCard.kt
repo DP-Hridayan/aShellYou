@@ -35,11 +35,13 @@ fun SuggestionCard(
         SuggestionType.COMMAND -> MaterialTheme.colorScheme.surfaceContainer
         SuggestionType.PACKAGE -> MaterialTheme.colorScheme.surfaceContainerHigh
         SuggestionType.PERMISSION -> MaterialTheme.colorScheme.tertiaryContainer
+        SuggestionType.ADB -> MaterialTheme.colorScheme.secondaryContainer
     }
 
     val contentColor = when (suggestion.type) {
         SuggestionType.COMMAND, SuggestionType.PACKAGE -> MaterialTheme.colorScheme.onSurface
         SuggestionType.PERMISSION -> MaterialTheme.colorScheme.onTertiaryContainer
+        SuggestionType.ADB -> MaterialTheme.colorScheme.onSecondaryContainer
     }
 
     CustomCard(

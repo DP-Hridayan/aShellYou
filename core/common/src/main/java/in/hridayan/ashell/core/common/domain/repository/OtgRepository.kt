@@ -7,11 +7,12 @@ import kotlinx.coroutines.flow.Flow
 interface OtgRepository {
     fun searchDevices()
     fun disconnect()
-    fun unRegister()
     fun runOtgCommand(command: String): Flow<OutputLine>
     fun stopCommand()
 
-    // Added for file browser support
+    /** True only while the ADB handshake has completed and the connection is still alive. */
     fun isConnected(): Boolean
+
+    /** The live connection, or null when there is none or it has died. */
     fun getAdbConnection(): AdbConnection?
 }

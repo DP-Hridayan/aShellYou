@@ -1,10 +1,8 @@
 package `in`.hridayan.ashell.adbsideload.data.di
 
-import android.content.Context
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import `in`.hridayan.ashell.adbsideload.data.repository.SideloadRepositoryImpl
 import `in`.hridayan.ashell.adbsideload.domain.repository.SideloadRepository
@@ -12,11 +10,9 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object SideloadModule {
+abstract class SideloadModule {
 
-    @Provides
+    @Binds
     @Singleton
-    fun provideSideloadRepository(@ApplicationContext context: Context): SideloadRepository {
-        return SideloadRepositoryImpl(context)
-    }
+    abstract fun bindSideloadRepository(impl: SideloadRepositoryImpl): SideloadRepository
 }

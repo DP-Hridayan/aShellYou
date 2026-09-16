@@ -3,6 +3,7 @@
 import android.os.Environment
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.runtime.Stable
+import `in`.hridayan.ashell.core.common.domain.model.LogcatBufferSize
 import `in`.hridayan.ashell.core.common.domain.model.LogcatWorkingMode
 import `in`.hridayan.ashell.core.common.domain.model.SortType
 import `in`.hridayan.ashell.core.common.domain.provider.SeedColorProvider
@@ -131,6 +132,9 @@ sealed class SettingsKeys<out T>(
             "LOCAL_ADB_WORKING_MODE",
             `in`.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode.BASIC
         )
+
+    data object LogcatBufferLimit :
+        SettingsKeys<Int>("LOGCAT_BUFFER_LIMIT_MB", LogcatBufferSize.DEFAULT)
 
     data object LogcatMode :
         SettingsKeys<Int>("LOGCAT_WORKING_MODE", LogcatWorkingMode.READ_LOGS)

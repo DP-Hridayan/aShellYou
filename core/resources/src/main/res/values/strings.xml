@@ -18,11 +18,31 @@
     <string name="adb_connection_channel_description" comment="Android notification channel description in System Settings for ADB connection status">Shows when ADB connection is active</string>
     <string name="adb_connection_channel_name" comment="Android notification channel name in System Settings for active ADB connections">ADB Connection</string>
     <string name="adb_connection_description" comment="Notification body text indicating an active background Wi-Fi ADB connection">WiFi ADB connection is being maintained</string>
+    <string name="adb_key_unavailable" comment="Error shown in ADB sideload when the app could not load or create its RSA key pair used to authenticate to the target device">Could not prepare the ADB authentication key</string>
     <string name="adb_sideload" comment="Feature title for pushing and installing ZIP update packages to device recovery via ADB sideload over USB OTG">ADB Sideload</string>
     <string name="adb_through_otg" comment="Title for USB OTG ADB connection mode where this device controls a target device over OTG cable">ADB Through OTG</string>
     <string name="adb_through_otg_summary" comment="Summary description of ADB OTG feature in connection selection screen">Use an OTG cable and USB debugging to execute ADB commands on another Android device. You need to turn on USB Debugging in the developer settings of the target device.</string>
     <string name="adb_via_otg" comment="Compact label for ADB connection via USB OTG cable">ADB via OTG</string>
     <string name="adb_via_wireless_debugging" comment="Feature title for wireless ADB connection on Android 11+ devices">ADB via Wireless Debugging</string>
+    <string name="adb_connected_to" comment="Output line confirming an ADB connection was established with the given host and port">connected to %1$s</string>
+    <string name="adb_daemon_restarted" comment="Output line shown after an adb command such as tcpip or reboot makes the device ADB daemon restart, which ends the current connection">adbd restarted, this connection is now closed</string>
+    <string name="adb_direct_connection_note" comment="Output line for the adb version command explaining the app talks to the device ADB daemon directly instead of through a desktop ADB server">Connected directly to the device ADB daemon, no ADB server is used</string>
+    <string name="adb_disconnected_from" comment="Output line confirming the ADB connection to the given host and port was closed">disconnected %1$s</string>
+    <string name="adb_failed_to_connect_to" comment="Output line shown when an adb connect command could not reach the given host and port">failed to connect to %1$s</string>
+    <string name="adb_failed_to_pair_with" comment="Output line shown when an adb pair command was rejected by the given host and port">failed to pair with %1$s</string>
+    <string name="adb_hint_host_only" comment="Advice shown when the user runs an adb command that only a desktop ADB server can perform">This command needs a desktop ADB server, which this app does not use.</string>
+    <string name="adb_hint_interactive_shell" comment="Advice shown when the user types adb shell with no command, which would open an interactive session">Interactive shells are not supported. Type the command on its own instead.</string>
+    <string name="adb_hint_use_file_browser" comment="Advice shown when the user runs an adb file transfer command, pointing them at the in-app file browser">Use the File Browser to transfer files.</string>
+    <string name="adb_hint_use_pm_uninstall" comment="Advice shown when the user runs adb uninstall, pointing them at the equivalent shell command">Use pm uninstall --user 0 &lt;package&gt; instead.</string>
+    <string name="adb_hint_use_sideload" comment="Advice shown when the user runs adb sideload, pointing them at the dedicated sideload screen">Use the ADB Sideload screen.</string>
+    <string name="adb_not_connected" comment="Error shown when a command needs an ADB connection but none is active">ADB not connected</string>
+    <string name="adb_paired_with" comment="Output line confirming pairing succeeded with the given host and port">paired with %1$s</string>
+    <string name="adb_reconnect_hint" comment="Advice shown after the device ADB daemon restarts in TCP mode, telling the user the command that reconnects to it">Reconnect with: %1$s</string>
+    <string name="adb_server_not_applicable" comment="Output line for adb start-server and kill-server, which have no effect because the app connects to the device ADB daemon directly">No ADB server is used, so there is nothing to start or stop</string>
+    <string name="adb_supported_commands" comment="Header printed above the list of adb commands the app understands">Supported adb commands:</string>
+    <string name="adb_unsupported_command" comment="Error shown when an adb subcommand cannot work over this connection. The placeholder is the subcommand name, such as push">adb %1$s is not supported over this connection</string>
+    <string name="adb_usage" comment="Error shown when a known adb command was typed incorrectly. The placeholder is the correct form of the command">usage: %1$s</string>
+    <string name="adb_version_line" comment="Output line for the adb version command. The placeholder is the app version name">aShellYou %1$s</string>
     <string name="adb_via_wireless_debugging_summary" comment="Summary description for wireless ADB feature in connection setup screen">Connect devices (Android 11+) over Wi-Fi using wireless debugging and execute ADB commands remotely.</string>
     <string name="add">Add</string>
     <string name="add_account" comment="Button label in cloud backup settings to link a Google account for backup sync">Add account</string>
@@ -52,6 +72,8 @@
     <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">e.g. Cyberpunk neon city, dark mode, high contrast</string>
     <string name="all">All</string>
     <string name="all_data" comment="Option in backup selector to include full app database, settings, and chat history">All data</string>
+    <string name="allow_usb_access" comment="Button label that re-shows the system prompt asking the user to allow the app to use the attached USB device">Allow USB access</string>
+    <string name="allow_usb_access_message" comment="Status shown when the target device was detected over USB but the system permission to use it has not been granted yet">Allow USB access to continue</string>
     <string name="already_connected" comment="Status message in wireless ADB setup screen indicating device is already connected">Already connected</string>
     <string name="already_latest_version" comment="In-app updater message when user is running the most recent version of aShellYou">You are using the latest version</string>
     <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">Always allow base</string>
@@ -117,7 +139,9 @@
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">Maximum bookmark limit reached! Delete some bookmarks to add new ones</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">Bookmarks</string>
     <string name="boot_device_into_fastboot" comment="Instructional prompt in Fastboot screen instructing user to boot target device into fastboot mode">Boot the target device into fastboot mode and connect via OTG cable</string>
+    <string name="boot_failed" comment="%1$s = error text returned by the bootloader. Shown when fastboot boot of a temporary image fails">Boot failed: %1$s</string>
     <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">Boot Image</string>
+    <string name="boot_image_sent" comment="Status shown when a temporary boot image was accepted by the bootloader via fastboot boot">Boot image sent</string>
     <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">Boot into Fastboot</string>
     <string name="bootloader" comment="Device info label or fastboot section title for bootloader mode" translatable="false">Bootloader</string>
     <string name="btn_continue" comment="Action button label to proceed to next step in setup wizard">Continue</string>
@@ -127,6 +151,7 @@
     <string name="cancel">Cancel</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">Cancel all</string>
     <string name="cancel_selection">Cancel selection</string>
+    <string name="cancelled">Cancelled</string>
     <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">Cancelling…</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">Changelog</string>
     <string name="changelogs" comment="Settings list item title for viewing version history logs">Changelogs</string>
@@ -263,6 +288,7 @@
     <string name="crowdin" translatable="false">Crowdin</string>
     <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">Visit our crowdin translation platform to contribute</string>
     <string name="current_version" comment="About screen card label showing installed application version number">Current version</string>
+    <string name="custom" comment="Dropdown entry that lets the user type a value instead of picking a preset">Custom…</string>
     <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">Custom UI scale</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Cut %1$d items</string>
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">Cut to clipboard</string>
@@ -337,6 +363,7 @@
     <string name="des_licenses" comment="Description under Licenses setting item in About section">View the licenses that the app and libraries are using</string>
     <string name="des_local_backup" comment="Description card text for local backup option">Save encrypted backup to your device</string>
     <string name="des_local_restore" comment="Description card text for local restore option">Pick a backup file from your device</string>
+    <string name="des_log_buffer_size" comment="Description under the Logcat log buffer size setting; explains that older entries are dropped once the limit is reached">Memory kept for collected logs. Older entries are discarded once the limit is reached.</string>
     <string name="des_logcat" comment="Description under Logcat item in navigation menu">Real-time logcat output from a connected device</string>
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">Dynamic colors, Dark theme, Language</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">No model selected</string>
@@ -381,6 +408,7 @@
     <string name="device_disconnected_message_with_name" comment="%s = device name">"%s" has disconnected.</string>
     <string name="device_found" comment="Status banner when an ADB/Wireless Debugging device service is discovered on local network">Device found!</string>
     <string name="device_info" comment="Screen header or navigation item for target device hardware/OS specifications">Device info</string>
+    <string name="device_not_in_sideload_mode" comment="Status shown when the attached device answers ADB but is booted normally rather than waiting in recovery sideload mode">Device is booted normally. Reboot to recovery and choose Apply update from ADB</string>
     <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">Device does not support biometric authentication</string>
     <string name="disable_softkey" comment="Setting toggle title to hide soft keyboard during shell session">Disable soft keyboard</string>
     <string name="disclaimer" comment="Section title in About screen for legal disclaimer notices">Disclaimer</string>
@@ -405,6 +433,7 @@
     <string name="downloading" comment="Progress status text while downloading update package">Downloading…</string>
     <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Downloading backup from Google Drive…</string>
     <string name="downloading_icon_pack" comment="Progress status text while downloading Material Icons font for QS tile icon chooser">Downloading icon pack…</string>
+    <string name="downloading_to_device" comment="%1$s = file size in megabytes. Progress status while an image is being sent to the bootloader">Downloading %1$s MB to device…</string>
     <string name="downloads" comment="Screen header or list item for downloaded files">Downloads</string>
     <string name="duplicate_tile_name_error_msg" comment="Validation error in Quick Settings tile builder when entered tile name already exists">A tile with this name already exists</string>
     <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">Dynamic colors</string>
@@ -424,10 +453,13 @@
     <string name="enter">Enter</string>
     <string name="enter_command" comment="Input hint placeholder format for entering fastboot commands">fastboot &lt;command&gt;</string>
     <string name="enter_pairing_code" comment="Instructional header in Wireless Debugging pairing dialog asking for 6-digit code">Enter the 6-digit pairing code</string>
+    <string name="erase_complete" comment="Status shown when a fastboot partition erase finished successfully">Erase complete</string>
     <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">This will permanently erase the %1$s partition. This action cannot be undone.</string>
     <string name="erase_confirm_title" comment="%1$s = partition name. Dialog title for partition erase confirmation">Erase %1$s?</string>
+    <string name="erase_failed" comment="%1$s = error text returned by the bootloader. Shown when a fastboot partition erase fails">Erase failed: %1$s</string>
     <string name="erase_partition" comment="Action button to trigger fastboot partition erase">Erase</string>
     <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Erasing…</string>
+    <string name="erasing_partition" comment="%1$s = partition name. Progress status while the bootloader erases a partition">Erasing %1$s…</string>
     <string name="error">Error</string>
     <string name="error_labels_limit_reached" comment="Validation error when maximum number of custom command labels/tags is reached">Maximum labels limit reached</string>
     <string name="exclude" comment="Filter toggle option to exclude selected package or item">Exclude</string>
@@ -485,9 +517,14 @@
     <string name="file_exists_message" comment="%1$s = file name">"%1$s" already exists in this location.</string>
     <string name="file_info" comment="Dialog header displaying file metadata properties (size, permissions, modified date)">File Info</string>
     <string name="file_not_found" comment="Error toast when requested file path does not exist on device">File not found</string>
+    <string name="file_open_failed" comment="Error shown when the selected update package could not be opened for reading">Could not open the selected file</string>
+    <string name="file_read_failed" comment="Error shown when reading a part of the selected update package failed mid-transfer">Could not read the selected file</string>
+    <string name="file_size_unknown" comment="Error shown when the size of the selected update package cannot be determined, which the ADB sideload protocol requires">Cannot determine the file size</string>
     <string name="filter">Filter</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">Filter by labels</string>
     <string name="flash" comment="Action button to start fastboot partition flashing process" translatable="false">Flash</string>
+    <string name="flash_complete" comment="Status shown when a fastboot partition flash finished successfully">Flash complete</string>
+    <string name="flash_failed" comment="%1$s = error text returned by the bootloader. Shown when a fastboot partition flash fails">Flash failed: %1$s</string>
     <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">Flash partition</string>
     <string name="flashing" comment="Progress status header while partition flashing is in progress">Flashing…</string>
     <string name="folder">Folder</string>
@@ -623,6 +660,7 @@
     <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">Local backup</string>
     <string name="local_file" comment="Source option label for picking local backup file">Local file</string>
     <string name="locked" comment="Status badge showing bootloader lock state is locked">Locked</string>
+    <string name="log_buffer_size" comment="Title of the setting choosing how much memory the logcat buffer may use">Log buffer size</string>
     <string name="logcat" comment="Refers to Android system logcat log streaming tool" translatable="false">Logcat</string>
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">Logs cleared</string>
     <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">Package</string>
@@ -694,6 +732,7 @@
     <string name="no_custom_themes_yet" comment="Placeholder text in theme manager screen when no custom themes exist">No custom themes yet. Create one below!</string>
     <string name="no_device_connected" comment="Status banner shown when no wireless or OTG ADB device is connected">No device connected</string>
     <string name="no_fastboot_device_error" comment="Error banner in fastboot screen when connected USB device is not in fastboot mode">Connected device is not in fastboot mode</string>
+    <string name="no_fastboot_interface_found" comment="Error shown when the attached USB device does not expose a fastboot interface">Connected USB device has no fastboot interface</string>
     <string name="no_files_download" comment="Toast warning in file browser when user selects directory instead of files for download">No files selected (folders cannot be downloaded)</string>
     <string name="no_folder_selected" comment="Placeholder status text when no backup directory is picked">No folder selected</string>
     <string name="no_google_account_message" comment="Dialog message when no Google account is registered on device for cloud backups">No Google account was found on this device. Would you like to add one to use cloud backups?</string>
@@ -788,6 +827,7 @@
     <string name="predefined_commands" comment="Section header for pre-saved fastboot command actions">Predefined Commands</string>
     <string name="predefined_commands_desc" comment="Description under predefined fastboot commands header">Quick access to common fastboot commands. Results stream to the console below.</string>
     <string name="preference" comment="Header title for settings preference category">Preference</string>
+    <string name="preparing_file" comment="Progress status shown while the update package is being opened before an ADB sideload transfer">Preparing file…</string>
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">Preview</string>
     <string name="primary">Primary</string>
     <string name="primary_container">Primary Container</string>
@@ -802,6 +842,7 @@
     <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">Quick Settings Tiles</string>
     <string name="quick_tools" comment="Section header for fast access utility tools">Quick tools</string>
     <string name="reading_file" comment="Progress status text while loading file contents into viewer">Reading file…</string>
+    <string name="reading_image_file" comment="Progress status while the selected image file is being read before a fastboot transfer">Reading image file…</string>
     <string name="ready_to_paste" comment="Status message in file manager when item is stored in paste clipboard">Ready to paste</string>
     <string name="reboot_bootloader" comment="Action button / dialog choice to reboot target device into bootloader mode">Reboot to Bootloader</string>
     <string name="reboot_confirm_message" comment="%1$s = target boot mode (e.g. recovery, bootloader). Confirmation prompt before rebooting target device">This will reboot the connected device to %1$s. Continue?</string>
@@ -820,6 +861,8 @@
     <string name="reconnect_success" comment="Toast message confirming successful wireless ADB reconnection">Reconnected successfully</string>
     <string name="reconnect_the_device" comment="Button prompt directing user to reconnect target ADB device">Reconnect the device</string>
     <string name="recovery" comment="Refers to Android System Recovery partition / boot mode" translatable="false">Recovery</string>
+    <string name="recovery_not_responding" comment="Error shown when the target device recovery did not start requesting data after the sideload stream was opened">Recovery is not responding. Select “Apply update from ADB” in recovery and try again</string>
+    <string name="recovery_reported_failure" comment="Error shown when the target device recovery reported that installing the sideloaded package failed">Recovery reported that the installation failed</string>
     <string name="refresh">Refresh</string>
     <string name="remove">Remove</string>
     <string name="rename">Rename</string>
@@ -911,6 +954,7 @@
     <string name="self_pair_timeout" comment="Toast error message when self-pairing service lookup times out">Timeout - open pairing dialog in Wireless Debugging</string>
     <string name="self_pair_wrong_code" comment="Toast error message when entered 6-digit wireless pairing code is incorrect">Wrong code - open pairing dialog again</string>
     <string name="send">Send</string>
+    <string name="sending_progress" comment="%1$d = percent sent, %2$s = file size in megabytes. Progress status during a fastboot image transfer">Sending %1$d%% (%2$s MB)</string>
     <string name="serial_number" comment="Device property label displaying target device hardware serial number">Serial Number</string>
     <string name="serif" comment="Font style category name">Serif</string>
     <string name="set_local_adb_as_default_launch" comment="Setting toggle title to launch Local ADB screen directly when the app starts">Set Local ADB as default launch</string>
@@ -925,12 +969,18 @@
     <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">Shizuku service is unavailable. Make sure Shizuku or Shizuku+ is running and permission is granted.</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku is unavailable</string>
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">Shizuku or Shizuku+ is not installed or properly configured on your device</string>
+    <string name="sideload_block_out_of_range" comment="Error shown when the target device recovery requested a part of the package beyond its end; usually indicates a corrupted transfer">Recovery requested data beyond the end of the file</string>
+    <string name="sideload_complete" comment="Status shown when the sideloaded package was fully transferred and recovery confirmed completion">Sideload complete</string>
+    <string name="sideload_connection_timed_out" comment="Error shown when the ADB handshake with the target device did not complete in time; the user may need to accept an authorization prompt on that device">Connection timed out. Check the device screen for an authorization prompt</string>
     <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">Put device into sideload mode via recovery</string>
+    <string name="sideload_invalid_request" comment="Error shown when the target device sent data that is not a valid ADB sideload request">Received an invalid request from recovery</string>
     <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Sideload mode — ready</string>
     <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">Boot into recovery (hold Volume Down + Power, or run: adb reboot recovery)</string>
     <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">Navigate to "Apply update" in the recovery menu</string>
     <string name="sideload_step_3" comment="Step 3 of ADB sideload guide: selecting ADB sideload mode in recovery">Select "Apply from ADB" (or "ADB Sideload")</string>
     <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">Connect your device via OTG cable, then select a ZIP here</string>
+    <string name="sideload_stream_closed" comment="Error shown when the ADB sideload stream was closed by the target device before the transfer finished">Connection to recovery was closed before the transfer finished</string>
+    <string name="sideload_stream_rejected" comment="Error shown when the target device refused to open the ADB sideload stream, typically because it is not in sideload mode">Recovery refused the sideload. Select “Apply update from ADB” in recovery first</string>
     <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Sideloading…</string>
     <string name="sign_in_failed" comment="Toast error message when Google account sign-in fails">Google sign-in failed</string>
     <string name="sign_in_with_google" comment="Button label in cloud backup settings to sign into Google account">Sign in with Google</string>
@@ -939,6 +989,7 @@
     <string name="signed_in_as" comment="%1$s = user email or name">Signed in as %1$s</string>
     <string name="signed_out" comment="Status text in cloud backup card when signed out of Google account">Signed out</string>
     <string name="size">Size</string>
+    <string name="size_megabytes" comment="%1$d = a whole number of megabytes. Shown as a memory size option, e.g. 10 MB">%1$d MB</string>
     <string name="skip">Skip</string>
     <string name="slide_to_flash" comment="Slider text prompt in fastboot partition flash confirmation sheet">Slide to flash</string>
     <string name="slide_to_sideload" comment="Slider button prompt to initiate the ADB sideload transfer of chosen ZIP file over OTG">Slide to Sideload</string>
@@ -1021,9 +1072,13 @@
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">Upload file</string>
     <string name="uploading" comment="Progress status text shown while uploading file to device">Uploading…</string>
     <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Uploading backup to Google Drive…</string>
+    <string name="usb_bulk_endpoints_missing" comment="Error shown when the USB fastboot interface lacks the bulk in/out endpoints needed to communicate">USB interface has no usable data endpoints</string>
+    <string name="usb_claim_failed" comment="Error shown when the app could not take exclusive control of the USB ADB interface, usually because another app is using it">Could not claim the USB interface</string>
     <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB requires USB debugging to be enabled in Developer Options</string>
     <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">USB Debugging Required</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">USB Manager is not available on this device</string>
+    <string name="usb_open_failed" comment="Error shown when the USB device could not be opened for communication">Could not open the USB device</string>
+    <string name="usb_service_unavailable" comment="Error shown when the Android USB host service is not available on this device">USB host service is unavailable on this device</string>
     <string name="use">Use</string>
     <string name="use_biometrics">Use biometrics</string>
     <string name="use_cases">Use cases</string>
@@ -1040,6 +1095,7 @@
     <string name="visit_repo_to_download" comment="Instructions directing user to download the update APK file from GitHub releases">Click on the download button to get the latest version of aShellYou from the github repository.</string>
     <string name="waiting_for_device" comment="Progress status banner while awaiting target device USB OTG attachment">Waiting for device</string>
     <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">Waiting for devices…</string>
+    <string name="waiting_for_recovery" comment="Progress status shown after the sideload stream was opened while waiting for the target device recovery to request data">Waiting for recovery…</string>
     <string name="want_to_contribute_too" comment="Call-to-action banner in About screen inviting code or translation contributions">Want to contribute too?</string>
     <string name="weekly" comment="Option in backup scheduler frequency selection">Weekly</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">What would you like to do while %1$s?</string>
@@ -1080,6 +1136,7 @@
     * Use \n to separate changelog lines for bullet points in UI
     * Use this exact res ID naming format, eg: for v6.0.0 -&gt; changelog_v6_0_0
     */
+    <string name="writing_to_partition" comment="%1$s = partition name. Progress status after the image was sent while the bootloader writes it">Writing to %1$s…</string>
     <string name="changelog_v7_4_0">\nYou can now search Sub-settings inside Settings screens\nAdded Palette Styles for color schemes\nAdded option to set app language directly in-app</string>
     <string name="changelog_v7_3_0">\nImproved UI in changelog screen\nAdded translation contributors in about section\nAdded Licenses screen that shows detailed license information about the app and other libraries used by the app</string>
     <string name="changelog_v7_2_1">\nMaintenance update!</string>

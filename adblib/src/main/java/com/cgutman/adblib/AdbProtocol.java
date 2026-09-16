@@ -24,8 +24,10 @@ public class AdbProtocol {
 	/** The current version of the ADB protocol */
 	public static final int CONNECT_VERSION = 0x01000000;
 	
-	/** The maximum data payload supported by the ADB implementation */
-	public static final int CONNECT_MAXDATA = 4096;
+	/** The maximum data payload this implementation accepts from the peer. The peer negotiates
+	 * down to the smaller of this value and its own maximum, so a payload larger than the
+	 * negotiated size is rejected by the peer and terminates the connection. */
+	public static final int CONNECT_MAXDATA = 256 * 1024;
 	
 	/** The payload sent with the connect message */
 	public static byte[] CONNECT_PAYLOAD;

@@ -99,6 +99,7 @@ fun FastbootScreen(
     val commandHistory by viewModel.commandHistory.collectAsState()
     val isLoadingVariables by viewModel.isLoadingVariables.collectAsState()
     val flashOperation by viewModel.flashOperation.collectAsState()
+    val eraseOperation by viewModel.eraseOperation.collectAsState()
     val runningCommandId by viewModel.runningCommandId.collectAsState()
     val commandOutput by viewModel.commandOutput.collectAsState()
     val isConsoleCommandRunning by viewModel.isConsoleCommandRunning.collectAsState()
@@ -289,7 +290,10 @@ fun FastbootScreen(
     if (showWipeDataBottomSheet) {
         WipeDataBottomSheet(
             onDismiss = { showWipeDataBottomSheet = false },
-            onErase = { partition -> viewModel.erasePartition(partition) }
+            eraseOperation = eraseOperation,
+            onErase = { partition -> viewModel.erasePartition(partition) },
+            onResetOperation = { viewModel.resetEraseOperation() },
+            onCancel = { viewModel.cancelEraseOperation() }
         )
     }
 }

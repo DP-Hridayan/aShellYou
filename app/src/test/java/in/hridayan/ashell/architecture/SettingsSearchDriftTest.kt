@@ -80,15 +80,15 @@ class SettingsSearchDriftTest {
 
     private fun searchTitlesByKey(): Map<String, Set<String>> = Konsist.scopeFromProject()
         .files
-        .filter { it.name == SEARCH_GRAPH_FILE_NAME }
+        .filter { it.path.replace('\\', '/').contains(SEARCH_GRAPH_PATH) }
         .flatMap { SEARCH_ENTRY_REGEX.findAll(it.text).toList() }
         .groupBy({ it.groupValues[1] }, { it.groupValues[2] })
         .mapValues { it.value.toSet() }
 
     private companion object {
         const val SETTINGS_COLUMN_MARKER = "SettingsColumn("
-        const val SEARCH_GRAPH_FILE_NAME = "SettingsSearchGraph"
-        const val SEARCH_GRAPH_FILE = "SettingsSearchGraph.kt"
+        const val SEARCH_GRAPH_PATH = "page/search/graph"
+        const val SEARCH_GRAPH_FILE = "the settings search graph"
         const val SEARCH_PACKAGE_PATH = "settingsgraph/search"
         const val MIN_EXPECTED_ITEMS = 40
 
@@ -97,7 +97,7 @@ class SettingsSearchDriftTest {
         )
 
         val SEARCH_ENTRY_REGEX = Regex(
-            """entry\(\s*key\s*=\s*(SettingsKeys\.\w+)\s*,\s*title\s*=\s*(R\.string\.\w+)"""
+            """entry\(\s*key\s*=\s*(SettingsKeys\.\w+)\s*\)\s*\{[^}]*?title\(\s*(R\.string\.\w+)\s*\)"""
         )
 
         /** Radio and button group items render without a title, so they are titled only in search. */

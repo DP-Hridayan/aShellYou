@@ -19,22 +19,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import `in`.hridayan.ashell.adbsideload.presentation.model.SideloadDeviceUiState
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.resources.R
 
 @Composable
 fun SideloadDeviceCard(
-    isDetected: Boolean,
-    isConnecting: Boolean,
-    deviceName: String?,
+    device: SideloadDeviceUiState,
     modifier: Modifier = Modifier,
 ) {
     CustomCard(
         modifier = modifier.fillMaxWidth(),
         shape = CustomCardShape(24.dp),
         colors = CardDefaults.cardColors(
-            containerColor = if (isDetected) {
+            containerColor = if (device.isReady) {
                 MaterialTheme.colorScheme.primaryContainer
             } else {
                 MaterialTheme.colorScheme.surfaceContainer
@@ -48,23 +47,19 @@ fun SideloadDeviceCard(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            ConnectionIcon(isDetected = isDetected)
-            ConnectionInfo(
-                isDetected = isDetected,
-                isConnecting = isConnecting,
-                deviceName = deviceName
-            )
+            ConnectionIcon(isDetected = device.isDetected, isReady = device.isReady)
+            ConnectionInfo(device = device)
         }
     }
 }
 
 @Composable
-private fun ConnectionIcon(isDetected: Boolean) {
+private fun ConnectionIcon(isDetected: Boolean, isReady: Boolean) {
     Icon(
         imageVector = if (isDetected) Icons.Default.Usb else Icons.Default.UsbOff,
         contentDescription = null,
         modifier = Modifier.size(28.dp),
-        tint = if (isDetected) {
+        tint = if (isReady) {
             MaterialTheme.colorScheme.onPrimaryContainer
         } else {
             MaterialTheme.colorScheme.onSurfaceVariant
@@ -73,22 +68,22 @@ private fun ConnectionIcon(isDetected: Boolean) {
 }
 
 @Composable
-private fun ConnectionInfo(
-    isDetected: Boolean,
-    isConnecting: Boolean,
-    deviceName: String?,
-) {
+private fun ConnectionInfo(device: SideloadDeviceUiState) {
     val titleText = when {
-        isDetected && deviceName != null -> deviceName
-        isDetected -> stringResource(R.string.connected)
+        device.isDetected && device.deviceName != null -> device.deviceName
+        device.isDetected -> stringResource(R.string.connected)
         else -> stringResource(R.string.no_device_connected)
     }
     val subtitleText = when {
-        isConnecting -> stringResource(R.string.connecting)
-        isDetected -> stringResource(R.string.adb_connected_verify_sideload)
+        device.isConnecting -> stringResource(R.string.connecting)
+        device.isReady -> stringResource(R.string.adb_connected_verify_sideload)
+        device.errorText != null -> device.errorText
+        device.wrongMode -> stringResource(R.string.device_not_in_sideload_mode)
+        device.awaitingPermission -> stringResource(R.string.allow_usb_access_message)
+        device.isDetected -> stringResource(R.string.waiting_for_device)
         else -> stringResource(R.string.sideload_device_hint)
     }
-    val contentColor = if (isDetected) {
+    val contentColor = if (device.isReady) {
         MaterialTheme.colorScheme.onPrimaryContainer
     } else {
         MaterialTheme.colorScheme.onSurface
@@ -103,7 +98,7 @@ private fun ConnectionInfo(
         Text(
             text = subtitleText,
             style = MaterialTheme.typography.bodySmall,
-            color = if (isDetected) {
+            color = if (device.isReady) {
                 MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
             } else {
                 MaterialTheme.colorScheme.onSurfaceVariant

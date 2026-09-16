@@ -16,11 +16,17 @@ import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbDevice
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbEvent
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbState
 import `in`.hridayan.ashell.core.common.domain.repository.TcpIpAdbRepository
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.common.data.adb.AdbConnectionManager
+import `in`.hridayan.ashell.shell.wifi_adb_shell.data.executor.AdbHostCommandExecutor
+import `in`.hridayan.ashell.shell.wifi_adb_shell.data.executor.AdbServiceExecutor
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.database.WifiAdbDeviceDao
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.mapper.toDomainList
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.mapper.toEntity
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.AdbCommand
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.DiscoveredPairingService
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.UnsupportedHint
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.usecase.ParseAdbCommandUseCase
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import `in`.hridayan.ashell.shell.wifi_adb_shell.service.AdbConnectionService
 import io.github.muntashirakon.adb.AdbPairingRequiredException
@@ -37,6 +43,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -55,7 +62,10 @@ import kotlin.math.max
 
 class WifiAdbRepositoryImpl(
     private val context: Context,
-    private val deviceDao: WifiAdbDeviceDao
+    private val deviceDao: WifiAdbDeviceDao,
+    private val parseAdbCommandUseCase: ParseAdbCommandUseCase,
+    private val adbServiceExecutor: AdbServiceExecutor,
+    private val adbHostCommandExecutor: AdbHostCommandExecutor
 ) : WifiAdbRepository, TcpIpAdbRepository {
     companion object {
         private const val TAG = "WifiAdbRepositoryImpl"
@@ -65,6 +75,9 @@ class WifiAdbRepositoryImpl(
         private const val SHELL_READ_BUFFER_SIZE = 4096
         private const val SHELL_IDLE_TIMEOUT_MS = 500L
         private const val SHELL_POLL_INTERVAL_MS = 20L
+        private const val EXEC_SERVICE_PREFIX = "exec:"
+        private const val TCPIP_SERVICE_PREFIX = "tcpip:"
+        private const val RECONNECT_COMMAND_PREFIX = "adb connect "
     }
 
     private var adbShellStream: AdbStream? = null
@@ -851,7 +864,61 @@ class WifiAdbRepositoryImpl(
         }
     }
 
-    override fun execute(commandText: String): Flow<OutputLine> = flow {
+    override fun execute(commandText: String): Flow<OutputLine> =
+        when (val command = parseAdbCommandUseCase(commandText)) {
+            is AdbCommand.Shell -> executeShell(command.command)
+            is AdbCommand.Exec -> executeService(EXEC_SERVICE_PREFIX + command.command, false)
+            is AdbCommand.DeviceService -> executeService(command.service, command.restartsDaemon)
+            is AdbCommand.Host -> adbHostCommandExecutor.execute(command, this)
+            is AdbCommand.Unsupported -> unsupportedFlow(command)
+            is AdbCommand.InvalidUsage -> invalidUsageFlow(command)
+        }.flowOn(Dispatchers.IO)
+
+    private fun executeService(service: String, restartsDaemon: Boolean): Flow<OutputLine> =
+        adbServiceExecutor.execute(
+            service = service,
+            restartsDaemon = restartsDaemon,
+            reconnectCommand = reconnectCommandOrNull(service),
+            onStreamOpened = { adbShellStream = it },
+            onDaemonRestarted = { handleDaemonRestart() }
+        ).onCompletion { adbShellStream = null }
+
+    private fun reconnectCommandOrNull(service: String): String? {
+        if (!service.startsWith(TCPIP_SERVICE_PREFIX)) return null
+        val port = service.removePrefix(TCPIP_SERVICE_PREFIX)
+        val ip = currentDevice?.ip ?: return null
+        return "$RECONNECT_COMMAND_PREFIX$ip:$port"
+    }
+
+    private fun handleDaemonRestart() {
+        adbShellStream = null
+        disconnect()
+    }
+
+    private fun unsupportedFlow(command: AdbCommand.Unsupported): Flow<OutputLine> = flow {
+        emit(
+            OutputLine(
+                context.getString(R.string.adb_unsupported_command, command.subcommand),
+                isError = true
+            )
+        )
+        hintResIdOrNull(command.hint)?.let { emit(OutputLine(context.getString(it), isError = false)) }
+    }
+
+    private fun hintResIdOrNull(hint: UnsupportedHint): Int? = when (hint) {
+        UnsupportedHint.NONE -> null
+        UnsupportedHint.USE_FILE_BROWSER -> R.string.adb_hint_use_file_browser
+        UnsupportedHint.USE_SIDELOAD_SCREEN -> R.string.adb_hint_use_sideload
+        UnsupportedHint.USE_PM_UNINSTALL -> R.string.adb_hint_use_pm_uninstall
+        UnsupportedHint.HOST_ONLY -> R.string.adb_hint_host_only
+        UnsupportedHint.INTERACTIVE_SHELL -> R.string.adb_hint_interactive_shell
+    }
+
+    private fun invalidUsageFlow(command: AdbCommand.InvalidUsage): Flow<OutputLine> = flow {
+        emit(OutputLine(context.getString(R.string.adb_usage, command.usage), isError = true))
+    }
+
+    private fun executeShell(commandText: String): Flow<OutputLine> = flow {
         val actualCommand = handleCdCommand(commandText)
 
         if (actualCommand == null) {

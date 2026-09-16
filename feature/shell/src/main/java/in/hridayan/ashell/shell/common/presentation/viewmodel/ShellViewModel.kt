@@ -36,6 +36,7 @@ import `in`.hridayan.ashell.shell.common.domain.model.SuggestionLabel
 import `in`.hridayan.ashell.shell.common.domain.model.SuggestionType
 import `in`.hridayan.ashell.shell.common.domain.repository.PackageRepository
 import `in`.hridayan.ashell.shell.common.domain.usecase.DetectSuggestionTypeUseCase
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.AdbCommandCatalog
 import `in`.hridayan.ashell.shell.common.domain.usecase.ExtractLastCommandOutputUseCase
 import `in`.hridayan.ashell.shell.common.domain.usecase.GetSaveOutputFileNameUseCase
 import `in`.hridayan.ashell.shell.common.presentation.model.CommandResult
@@ -194,6 +195,19 @@ class ShellViewModel @Inject constructor(
                                 )
                             }
                         }
+
+                        SuggestionType.ADB -> {
+                            AdbCommandCatalog.commands.filter {
+                                it.startsWith(context.filterPrefix, ignoreCase = true) &&
+                                        !it.equals(context.filterPrefix, ignoreCase = true)
+                            }.map { command ->
+                                Suggestion(
+                                    id = command,
+                                    text = command,
+                                    type = SuggestionType.ADB
+                                )
+                            }
+                        }
                     }
                 }
             }
@@ -277,9 +291,10 @@ class ShellViewModel @Inject constructor(
                     textFieldValue = TextFieldValue(""),
                     isVisible = false
                 ),
-                shellState = when {
-                    newValue.text.isBlank() -> ShellState.Free
-                    else -> ShellState.InputQuery(newValue.text)
+                shellState = if (it.shellState is ShellState.Busy) {
+                    it.shellState
+                } else {
+                    ShellState.forInput(newValue.text)
                 }
             )
         }
@@ -303,6 +318,10 @@ class ShellViewModel @Inject constructor(
                     .replace(Regex("\\s+"), " ") // Collapse multiple spaces
                     .trim()
                 onCommandTextFieldChange(TextFieldValue(sanitizedCommand))
+            }
+
+            SuggestionType.ADB -> {
+                onCommandTextFieldChange(TextFieldValue(suggestion.text))
             }
 
             SuggestionType.PACKAGE, SuggestionType.PERMISSION -> {
@@ -340,7 +359,7 @@ class ShellViewModel @Inject constructor(
 
     fun runOtgCommand() = runCommand { otgRepository.runOtgCommand(it.removeAdbShellPrefix()) }
 
-    fun runWifiAdbCommand() = runCommand { wifiAdbRepository.execute(it.removeAdbShellPrefix()) }
+    fun runWifiAdbCommand() = runCommand { wifiAdbRepository.execute(it) }
 
     fun runTcpIpCommand() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -431,7 +450,9 @@ class ShellViewModel @Inject constructor(
 
         viewModelScope.launch {
             collectCommandOutput(executor(commandText), outputFlow)
-            _states.update { it.copy(shellState = ShellState.Free) }
+            _states.update {
+                it.copy(shellState = ShellState.forInput(it.commandField.fieldValue.text))
+            }
         }
     }
 
@@ -494,7 +515,9 @@ class ShellViewModel @Inject constructor(
         shellRepository.stopCommand()
         otgRepository.stopCommand()
         wifiAdbRepository.abortShell()
-        _states.update { it.copy(shellState = ShellState.Free) }
+        _states.update {
+            it.copy(shellState = ShellState.forInput(it.commandField.fieldValue.text))
+        }
     }
 
     fun requestShizukuPermission() {
