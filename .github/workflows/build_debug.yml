@@ -33,12 +33,12 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v4
         with:
-          api-level: 37
+         api-level: 37
+         build-tools: "37.0.0"
 
-      - name: Install SDK Tools
+      - name: Accept SDK Licenses
         run: |
-            $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --install "tools" || true
-            $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --update
+         yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --licenses
 
       - name: Grant execute permission to Gradle
         run: chmod +x ./gradlew
