@@ -16,11 +16,31 @@
     <string name="adb_connection_channel_description" comment="Android notification channel description in System Settings for ADB connection status">Показывает, когда соединение ADB активно</string>
     <string name="adb_connection_channel_name" comment="Android notification channel name in System Settings for active ADB connections">Подключение ADB</string>
     <string name="adb_connection_description" comment="Notification body text indicating an active background Wi-Fi ADB connection">Подключение к Wi-Fi ADB поддерживается</string>
+    <string name="adb_key_unavailable" comment="Error shown in ADB sideload when the app could not load or create its RSA key pair used to authenticate to the target device">Не удалось подготовить ключ аутентификации ADB</string>
     <string name="adb_sideload" comment="Feature title for pushing and installing ZIP update packages to device recovery via ADB sideload over USB OTG">ADB sideload</string>
     <string name="adb_through_otg" comment="Title for USB OTG ADB connection mode where this device controls a target device over OTG cable">ADB через OTG</string>
     <string name="adb_through_otg_summary" comment="Summary description of ADB OTG feature in connection selection screen">Используйте OTG кабель и отладку по USB для выполнения команд ADB на другом устройстве Android. Необходимо включить отладку по USB в настройках разработчика целевого устройства.</string>
     <string name="adb_via_otg" comment="Compact label for ADB connection via USB OTG cable">ADB через OTG</string>
     <string name="adb_via_wireless_debugging" comment="Feature title for wireless ADB connection on Android 11+ devices">ADB через \"Беспроводную отладку\"</string>
+    <string name="adb_connected_to" comment="Output line confirming an ADB connection was established with the given host and port">подключено к %1$s</string>
+    <string name="adb_daemon_restarted" comment="Output line shown after an adb command such as tcpip or reboot makes the device ADB daemon restart, which ends the current connection">adbd перезапущен, это соединение теперь закрыто</string>
+    <string name="adb_direct_connection_note" comment="Output line for the adb version command explaining the app talks to the device ADB daemon directly instead of through a desktop ADB server">Прямо подключено к устройству службы ADB, не используется АБ-сервер</string>
+    <string name="adb_disconnected_from" comment="Output line confirming the ADB connection to the given host and port was closed">отключено %1$s</string>
+    <string name="adb_failed_to_connect_to" comment="Output line shown when an adb connect command could not reach the given host and port">не удалось подключиться к %1$s</string>
+    <string name="adb_failed_to_pair_with" comment="Output line shown when an adb pair command was rejected by the given host and port">не удалось связать с %1$s</string>
+    <string name="adb_hint_host_only" comment="Advice shown when the user runs an adb command that only a desktop ADB server can perform">Этой команде нужен настольный ADB сервер, который не используется этим приложением.</string>
+    <string name="adb_hint_interactive_shell" comment="Advice shown when the user types adb shell with no command, which would open an interactive session">Интерактивные оболочки не поддерживаются. Введите собственную команду.</string>
+    <string name="adb_hint_use_file_browser" comment="Advice shown when the user runs an adb file transfer command, pointing them at the in-app file browser">Используйте файловый менеджер для передачи файлов.</string>
+    <string name="adb_hint_use_pm_uninstall" comment="Advice shown when the user runs adb uninstall, pointing them at the equivalent shell command">Использовать удаление pm --user 0 &lt;package&gt; вместо этого.</string>
+    <string name="adb_hint_use_sideload" comment="Advice shown when the user runs adb sideload, pointing them at the dedicated sideload screen">Использовать экран Sideload ADB.</string>
+    <string name="adb_not_connected" comment="Error shown when a command needs an ADB connection but none is active">АБР не подключен</string>
+    <string name="adb_paired_with" comment="Output line confirming pairing succeeded with the given host and port">в паре с %1$s</string>
+    <string name="adb_reconnect_hint" comment="Advice shown after the device ADB daemon restarts in TCP mode, telling the user the command that reconnects to it">Переподключаться с: %1$s</string>
+    <string name="adb_server_not_applicable" comment="Output line for adb start-server and kill-server, which have no effect because the app connects to the device ADB daemon directly">Не используется ADB сервер, поэтому нет ничего для запуска или остановки</string>
+    <string name="adb_supported_commands" comment="Header printed above the list of adb commands the app understands">Поддерживаемые команды adb:</string>
+    <string name="adb_unsupported_command" comment="Error shown when an adb subcommand cannot work over this connection. The placeholder is the subcommand name, such as push">adb %1$s не поддерживается для этого подключения</string>
+    <string name="adb_usage" comment="Error shown when a known adb command was typed incorrectly. The placeholder is the correct form of the command">usage: %1$s</string>
+    <string name="adb_version_line" comment="Output line for the adb version command. The placeholder is the app version name">aShellYou %1$s</string>
     <string name="adb_via_wireless_debugging_summary" comment="Summary description for wireless ADB feature in connection setup screen">Подключайте устройства (Android 11+) по Wi-Fi с помощью беспроводной отладки и выполняйте команды ADB удалённо.</string>
     <string name="add">Добавить</string>
     <string name="add_account" comment="Button label in cloud backup settings to link a Google account for backup sync">Добавить аккаунт</string>
@@ -50,11 +70,14 @@
     <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">например, Cyberpunk неоновый город, темный режим, высокая контрастность</string>
     <string name="all">Все</string>
     <string name="all_data" comment="Option in backup selector to include full app database, settings, and chat history">Все данные</string>
+    <string name="allow_usb_access" comment="Button label that re-shows the system prompt asking the user to allow the app to use the attached USB device">Разрешить доступ к USB</string>
+    <string name="allow_usb_access_message" comment="Status shown when the target device was detected over USB but the system permission to use it has not been granted yet">Разрешить USB-доступ для продолжения</string>
     <string name="already_connected" comment="Status message in wireless ADB setup screen indicating device is already connected">Уже подключено</string>
     <string name="already_latest_version" comment="In-app updater message when user is running the most recent version of aShellYou">Вы используете последнюю версию</string>
     <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">Всегда разрешать базу</string>
     <string name="always_allow_exact" comment="Permission rule option in AI chat: automatically approve commands matching exact command string">Всегда разрешать точное</string>
     <string name="analyse" comment="Action button to request AI analysis of command execution output or error log">Анализ</string>
+    <string name="analysis_failed">Не удалось выполнить анализ</string>
     <string name="api_key" comment="Label for AI provider API key text input field">API ключ</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">API ключ сохранен</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">Требуется ключ API</string>
@@ -113,7 +136,9 @@
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">Достигнуто максимальное количество закладок! Удалите некоторые закладки для добавления новых</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">Закладки</string>
     <string name="boot_device_into_fastboot" comment="Instructional prompt in Fastboot screen instructing user to boot target device into fastboot mode">Загрузите целевое устройство в режиме fastboot и подключите его через OTG кабель</string>
+    <string name="boot_failed" comment="%1$s = error text returned by the bootloader. Shown when fastboot boot of a temporary image fails">Не удалось загрузить: %1$s</string>
     <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">Boot образ</string>
+    <string name="boot_image_sent" comment="Status shown when a temporary boot image was accepted by the bootloader via fastboot boot">Образ загрузки отправлен</string>
     <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">Загрузить в Fastboot</string>
     <string name="btn_continue" comment="Action button label to proceed to next step in setup wizard">Продолжить</string>
     <string name="bundled" comment="Tab label in icon chooser for built-in icons that ship with the app">В комплекте</string>
@@ -122,6 +147,7 @@
     <string name="cancel">Отмена</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">Отменить все</string>
     <string name="cancel_selection">Отменить выбор</string>
+    <string name="cancelled">Отменено</string>
     <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">Отмена…</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">Список изменений</string>
     <string name="changelogs" comment="Settings list item title for viewing version history logs">Журналы изменений</string>
@@ -254,14 +280,18 @@
     <string name="create_folder" comment="Action button or dialog title to create a new directory in file browser">Создать папку</string>
     <string name="create_new_tile" comment="Screen header or button label to add a new custom Quick Settings tile">Создать новую плитку</string>
     <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">Создать с помощью AI</string>
+    <string name="critical">Критический</string>
     <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">Посетите нашу платформу переводов crowdin, чтобы внести свой вклад</string>
     <string name="current_version" comment="About screen card label showing installed application version number">Текущая версия</string>
+    <string name="custom" comment="Dropdown entry that lets the user type a value instead of picking a preset">Пользовательское…</string>
     <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">Свой масштаб UI</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Вырезать %1$d элементов</string>
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">Вырезать в буфер обмена</string>
     <string name="daily" comment="Option in backup scheduler frequency selection">Ежедневно</string>
+    <string name="dangerous">Опасный</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">Тёмная тема</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">Приборная доска</string>
+    <string name="database">База данных</string>
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">Модификация базы данных</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Только базы данных</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Папка по умолчанию</string>
@@ -328,6 +358,7 @@
     <string name="des_licenses" comment="Description under Licenses setting item in About section">Просмотрите лицензии, используемые приложением и библиотеками</string>
     <string name="des_local_backup" comment="Description card text for local backup option">Сохранить зашифрованную резервную копию на своем устройстве</string>
     <string name="des_local_restore" comment="Description card text for local restore option">Выберите файл резервирования со своего устройства</string>
+    <string name="des_log_buffer_size" comment="Description under the Logcat log buffer size setting; explains that older entries are dropped once the limit is reached">Память, хранящаяся для собранных журналов. Старые записи удаляются по достижении лимита.</string>
     <string name="des_logcat" comment="Description under Logcat item in navigation menu">Вывод logcat в реальном времени из подключенного устройства</string>
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">Динамические цвета, Темная тема, Язык</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">Модель не выбрана</string>
@@ -372,6 +403,7 @@
     <string name="device_disconnected_message_with_name" comment="%s = device name">\"%s\" отключился.</string>
     <string name="device_found" comment="Status banner when an ADB/Wireless Debugging device service is discovered on local network">Найдено устройство!</string>
     <string name="device_info" comment="Screen header or navigation item for target device hardware/OS specifications">Информация об устройстве</string>
+    <string name="device_not_in_sideload_mode" comment="Status shown when the attached device answers ADB but is booted normally rather than waiting in recovery sideload mode">Устройство загружается нормально. Перезагрузитесь в Recovery и выберите Применить обновление из ADB</string>
     <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">Устройство не поддерживает биометрическую аутентификацию</string>
     <string name="disable_softkey" comment="Setting toggle title to hide soft keyboard during shell session">Отключить программную клавиатуру</string>
     <string name="disclaimer" comment="Section title in About screen for legal disclaimer notices">Отказ от ответственности</string>
@@ -396,6 +428,7 @@
     <string name="downloading" comment="Progress status text while downloading update package">Загрузка…</string>
     <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Загрузка резервной копии из Google Drive…</string>
     <string name="downloading_icon_pack" comment="Progress status text while downloading Material Icons font for QS tile icon chooser">Загрузка набора иконок…</string>
+    <string name="downloading_to_device" comment="%1$s = file size in megabytes. Progress status while an image is being sent to the bootloader">Загрузка %1$s МБ на устройство…</string>
     <string name="downloads" comment="Screen header or list item for downloaded files">Загрузки</string>
     <string name="duplicate_tile_name_error_msg" comment="Validation error in Quick Settings tile builder when entered tile name already exists">Плитка с таким именем уже существует</string>
     <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">Динамические цвета</string>
@@ -415,10 +448,13 @@
     <string name="enter">Ввести</string>
     <string name="enter_command" comment="Input hint placeholder format for entering fastboot commands">fastboot &lt;command&gt;</string>
     <string name="enter_pairing_code" comment="Instructional header in Wireless Debugging pairing dialog asking for 6-digit code">Введите 6-значный код сопряжения</string>
+    <string name="erase_complete" comment="Status shown when a fastboot partition erase finished successfully">Erase complete</string>
     <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">Это приведет к окончательной очистке раздела %1$s. Это действие нельзя отменить.</string>
     <string name="erase_confirm_title" comment="%1$s = partition name. Dialog title for partition erase confirmation">Очистить %1$s?</string>
+    <string name="erase_failed" comment="%1$s = error text returned by the bootloader. Shown when a fastboot partition erase fails">Ошибка удаления: %1$s</string>
     <string name="erase_partition" comment="Action button to trigger fastboot partition erase">Стереть</string>
-    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Удаление…</string>
+    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Стирание…</string>
+    <string name="erasing_partition" comment="%1$s = partition name. Progress status while the bootloader erases a partition">Удаление %1$s…</string>
     <string name="error">Ошибка</string>
     <string name="error_labels_limit_reached" comment="Validation error when maximum number of custom command labels/tags is reached">Достигнут максимальный лимит этикеток</string>
     <string name="exclude" comment="Filter toggle option to exclude selected package or item">Исключить</string>
@@ -463,6 +499,7 @@
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">Файл успешно загружен</string>
     <string name="fb_uploading" comment="%1$s = file name">Загрузка %1$s</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">Запрос функции</string>
+    <string name="feedback">Отзыв</string>
     <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Получение времени резервного копирования …</string>
     <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Извлечение типа резервной копии…</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">Поле не может быть пустым</string>
@@ -474,8 +511,13 @@
     <string name="file_exists_message" comment="%1$s = file name">\"%1$s\" уже существует в этом месте.</string>
     <string name="file_info" comment="Dialog header displaying file metadata properties (size, permissions, modified date)">Информация о файле</string>
     <string name="file_not_found" comment="Error toast when requested file path does not exist on device">Файл не найден</string>
+    <string name="file_open_failed" comment="Error shown when the selected update package could not be opened for reading">Не удалось открыть выбранный файл</string>
+    <string name="file_read_failed" comment="Error shown when reading a part of the selected update package failed mid-transfer">Не удалось прочитать выбранный файл</string>
+    <string name="file_size_unknown" comment="Error shown when the size of the selected update package cannot be determined, which the ADB sideload protocol requires">Не удается определить размер файла</string>
     <string name="filter">Фильтр</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">Фильтр по меткам</string>
+    <string name="flash_complete" comment="Status shown when a fastboot partition flash finished successfully">Вспышка завершена</string>
+    <string name="flash_failed" comment="%1$s = error text returned by the bootloader. Shown when a fastboot partition flash fails">Ошибка вспышки: %1$s</string>
     <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">Прошить раздел</string>
     <string name="flashing" comment="Progress status header while partition flashing is in progress">Прошивка…</string>
     <string name="folder">Папка</string>
@@ -493,6 +535,7 @@
     <string name="found_connect_service" comment="Status message when mDNS ADB connection service is discovered">Найден сервис подключения</string>
     <string name="frequency" comment="Setting label for automated backup interval frequency">Частота</string>
     <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">Полный текст лицензии</string>
+    <string name="full_screen">Полный экран</string>
     <string name="gemini_api_key_step_1" comment="%1$s = URL">Посетить Google AI Студию на %1$s</string>
     <string name="gemini_api_key_step_2" comment="Step 2 of API key setup guide: signing in with Google Account">Войти с помощью своего Google Account</string>
     <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">Нажмите на клавишу создать API ключ и выберите или создайте проект</string>
@@ -513,6 +556,7 @@
     <string name="great_news" comment="Dialog title header for update available notification">Отличные новости!</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">Тактильная отдача &amp; Вибрация</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">Приятного дня!</string>
+    <string name="heuristic">Heuristic</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Hex редактор</string>
     <string name="high" comment="Selection option for high haptic strength or elevation level">Высокий</string>
     <string name="high_contrast_dark_mode" comment="Settings preference title for OLED pitch-black dark theme">Высококонтрастный тёмный режим</string>
@@ -569,6 +613,7 @@
     <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">Локальное резервирование</string>
     <string name="local_file" comment="Source option label for picking local backup file">Локальный файл</string>
     <string name="locked" comment="Status badge showing bootloader lock state is locked">Заблокировано</string>
+    <string name="log_buffer_size" comment="Title of the setting choosing how much memory the logcat buffer may use">Размер буфера журнала</string>
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">Журналы очищены</string>
     <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">Пакет</string>
     <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">Журнал уровней</string>
@@ -590,6 +635,7 @@
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Оформление</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">Низкий</string>
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">Низкий контрастный коэффициент</string>
+    <string name="low_risk">Низкий риск</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">Создайте свою тему</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">Ручное сопряжение</string>
     <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Material Иконки</string>
@@ -608,6 +654,7 @@
     <string name="model_category_small" comment="AI model size category label">Маленький (300–500 MB)</string>
     <string name="model_category_tiny" comment="AI model size category label">Крошечный (менее 300 МБ)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">Модели</string>
+    <string name="moderate">Модерировать</string>
     <string name="modified" comment="File property: last modified date">Изменено</string>
     <string name="monthly" comment="Option in backup scheduler frequency selection">Ежемесячно</string>
     <string name="more">Ещё</string>
@@ -633,6 +680,7 @@
     <string name="no_custom_themes_yet" comment="Placeholder text in theme manager screen when no custom themes exist">Еще нет пользовательских тем. Создайте их ниже!</string>
     <string name="no_device_connected" comment="Status banner shown when no wireless or OTG ADB device is connected">Нет подключенного устройства</string>
     <string name="no_fastboot_device_error" comment="Error banner in fastboot screen when connected USB device is not in fastboot mode">Подключенное устройство не находится в режиме fastboot</string>
+    <string name="no_fastboot_interface_found" comment="Error shown when the attached USB device does not expose a fastboot interface">Подключенное USB-устройство не имеет интерфейса fastboot</string>
     <string name="no_files_download" comment="Toast warning in file browser when user selects directory instead of files for download">Файлы не выбраны (папки невозможно загрузить)</string>
     <string name="no_folder_selected" comment="Placeholder status text when no backup directory is picked">Папка не выбрана</string>
     <string name="no_google_account_message" comment="Dialog message when no Google account is registered on device for cloud backups">На этом устройстве не найден аккаунт Google. Вы хотите добавить один для использования облачного резервного копирования?</string>
@@ -726,6 +774,7 @@
     <string name="predefined_commands" comment="Section header for pre-saved fastboot command actions">Предопределенные команды</string>
     <string name="predefined_commands_desc" comment="Description under predefined fastboot commands header">Быстрый доступ к общим командам fastboot. Результаты передаются в консоль ниже.</string>
     <string name="preference" comment="Header title for settings preference category">Предпочтение</string>
+    <string name="preparing_file" comment="Progress status shown while the update package is being opened before an ADB sideload transfer">Подготовка файла…</string>
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">Предпросмотр</string>
     <string name="primary">Первичный</string>
     <string name="primary_container">Первичный контейнер</string>
@@ -740,6 +789,7 @@
     <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">Плитки быстрых настроек</string>
     <string name="quick_tools" comment="Section header for fast access utility tools">Быстрые инструменты</string>
     <string name="reading_file" comment="Progress status text while loading file contents into viewer">Чтение файла…</string>
+    <string name="reading_image_file" comment="Progress status while the selected image file is being read before a fastboot transfer">Чтение файла изображения…</string>
     <string name="ready_to_paste" comment="Status message in file manager when item is stored in paste clipboard">Готов к вставке</string>
     <string name="reboot_bootloader" comment="Action button / dialog choice to reboot target device into bootloader mode">Перезагрузить в Bootloader</string>
     <string name="reboot_confirm_message" comment="%1$s = target boot mode (e.g. recovery, bootloader). Confirmation prompt before rebooting target device">Это перезагрузит подключенное устройство в %1$s. Продолжить?</string>
@@ -757,6 +807,8 @@
     <string name="reconnect_failed_requires_pairing" comment="Toast notification indicating device un-paired and needs re-pairing">Переподключение не удалось. Требуется повторное сопряжение.</string>
     <string name="reconnect_success" comment="Toast message confirming successful wireless ADB reconnection">Подключение успешно восстановлено</string>
     <string name="reconnect_the_device" comment="Button prompt directing user to reconnect target ADB device">Подключите устройство заново</string>
+    <string name="recovery_not_responding" comment="Error shown when the target device recovery did not start requesting data after the sideload stream was opened">Восстановление не отвечает. Выберите «Применить обновление из ADB» в восстановлении и повторите попытку</string>
+    <string name="recovery_reported_failure" comment="Error shown when the target device recovery reported that installing the sideloaded package failed">Recovery сообщил, что установка не удалась</string>
     <string name="refresh">Обновить</string>
     <string name="remove">Удалить</string>
     <string name="rename">Переименовать</string>
@@ -791,6 +843,7 @@
     <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">Выполнить \"%1$s\" на подключенном устройстве?</string>
     <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">Запустить команду?</string>
     <string name="running" comment="Status badge showing task or command execution is active">Выполняется</string>
+    <string name="safe">Безопасный</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Сохранить</string>
     <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">Сохранить как профиль…</string>
@@ -846,6 +899,7 @@
     <string name="self_pair_timeout" comment="Toast error message when self-pairing service lookup times out">Таймаут - открыть диалог сопряжения в беспроводной отладке</string>
     <string name="self_pair_wrong_code" comment="Toast error message when entered 6-digit wireless pairing code is incorrect">Неверный код - снова откройте диалог сопряжения</string>
     <string name="send">Отправить</string>
+    <string name="sending_progress" comment="%1$d = percent sent, %2$s = file size in megabytes. Progress status during a fastboot image transfer">Отправка %1$d%% (%2$s MB)</string>
     <string name="serial_number" comment="Device property label displaying target device hardware serial number">Серийный номер</string>
     <string name="serif" comment="Font style category name">Serif</string>
     <string name="set_local_adb_as_default_launch" comment="Setting toggle title to launch Local ADB screen directly when the app starts">Установить запуск локального ADB по умолчанию</string>
@@ -859,12 +913,18 @@
     <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">Служба Shizuku недоступна. Убедитесь, что Shizuku или Shizuku+ работает и что предоставлены соответствующие разрешения.</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku недоступен</string>
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">На вашем устройстве не установлено или не настроено должным образом приложение Shizuku или Shizuku+</string>
+    <string name="sideload_block_out_of_range" comment="Error shown when the target device recovery requested a part of the package beyond its end; usually indicates a corrupted transfer">Восстановление затребовало данные после окончания файла</string>
+    <string name="sideload_complete" comment="Status shown when the sideloaded package was fully transferred and recovery confirmed completion">Sideload complete</string>
+    <string name="sideload_connection_timed_out" comment="Error shown when the ADB handshake with the target device did not complete in time; the user may need to accept an authorization prompt on that device">Истекло время ожидания подключения. Проверьте экран устройства для получения приглашения на авторизацию</string>
     <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">Переведите устройство в режим sideload через recovery</string>
+    <string name="sideload_invalid_request" comment="Error shown when the target device sent data that is not a valid ADB sideload request">Получен неверный запрос от восстановления</string>
     <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Режим sideload — готов</string>
     <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">Загрузитесь в recovery (удерживайте Уменьшение громкости + Питание или выполните: adb reboot recovery)</string>
     <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">Перейдите к разделу \"Применить обновление\" в меню recovery</string>
     <string name="sideload_step_3" comment="Step 3 of ADB sideload guide: selecting ADB sideload mode in recovery">Выберите \"Применить с ADB\" (или \"ADB Sideload\")</string>
     <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">Подключите устройство через OTG кабель, затем выберите ZIP здесь</string>
+    <string name="sideload_stream_closed" comment="Error shown when the ADB sideload stream was closed by the target device before the transfer finished">Подключение к восстановлению было закрыто до завершения передачи</string>
+    <string name="sideload_stream_rejected" comment="Error shown when the target device refused to open the ADB sideload stream, typically because it is not in sideload mode">В восстановлении отказано в боковой нагрузке. Сначала выберите «Применить обновление к ADB»</string>
     <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Sideloading…</string>
     <string name="sign_in_failed" comment="Toast error message when Google account sign-in fails">Не удалось войти в Google</string>
     <string name="sign_in_with_google" comment="Button label in cloud backup settings to sign into Google account">Войти через Google</string>
@@ -873,6 +933,7 @@
     <string name="signed_in_as" comment="%1$s = user email or name">Вы вошли как %1$s</string>
     <string name="signed_out" comment="Status text in cloud backup card when signed out of Google account">Выполнен выход</string>
     <string name="size">Размер</string>
+    <string name="size_megabytes" comment="%1$d = a whole number of megabytes. Shown as a memory size option, e.g. 10 MB">%1$d МБ</string>
     <string name="skip">Пропустить</string>
     <string name="slide_to_flash" comment="Slider text prompt in fastboot partition flash confirmation sheet">Слайд для прошивки</string>
     <string name="slide_to_sideload" comment="Slider button prompt to initiate the ADB sideload transfer of chosen ZIP file over OTG">Слайд для sideload</string>
@@ -893,6 +954,7 @@
     <string name="success_rate" comment="Analytics metadata metric showing tile execution success percentage">Коэффициент успеха</string>
     <string name="successful_connection_message" comment="Dialog message confirming target ADB device connected successfully">Устройство подключено успешно. Теперь вы можете запускать команды на целевом устройстве.</string>
     <string name="suggested_icons" comment="Header title in tile icon picker listing suggested Material icons">Предлагаемые иконки</string>
+    <string name="suggestions">Предложения</string>
     <string name="support_bmc" comment="Banner text in About section linking to Buy Me a Coffee donation page">Нравится то, что я делаю?\nУгостите меня кофе</string>
     <string name="surface">Поверхность</string>
     <string name="switch_mode" comment="Action button to switch ADB connection mode between Local ADB, Remote Wireless ADB, and OTG">Переключить режим</string>
@@ -953,11 +1015,16 @@
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">Загрузить файл</string>
     <string name="uploading" comment="Progress status text shown while uploading file to device">Загрузка…</string>
     <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Загрузка резервной копии на Google Drive…</string>
+    <string name="usb_bulk_endpoints_missing" comment="Error shown when the USB fastboot interface lacks the bulk in/out endpoints needed to communicate">Интерфейс USB не имеет доступных конечных точек данных</string>
+    <string name="usb_claim_failed" comment="Error shown when the app could not take exclusive control of the USB ADB interface, usually because another app is using it">Не удалось получить USB-интерфейс</string>
     <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB требуется включить отладку по USB в \"Параметрах разработчика\"</string>
     <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">Требуется отладка по USB</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">Менеджер USB недоступен на этом устройстве</string>
+    <string name="usb_open_failed" comment="Error shown when the USB device could not be opened for communication">Не удалось открыть USB-устройство</string>
+    <string name="usb_service_unavailable" comment="Error shown when the Android USB host service is not available on this device">Служба USB-хоста недоступна на этом устройстве</string>
     <string name="use">Использовать</string>
     <string name="use_biometrics">Использовать биометрию</string>
+    <string name="use_cases">Варианты использования</string>
     <string name="utilities" comment="Category title in homescreen">Утилиты</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">Вариант</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">Проверка не удалась</string>
@@ -971,6 +1038,7 @@
     <string name="visit_repo_to_download" comment="Instructions directing user to download the update APK file from GitHub releases">Нажмите кнопку загрузки, чтобы получить последнюю версию aShellYou из репозитория GitHub.</string>
     <string name="waiting_for_device" comment="Progress status banner while awaiting target device USB OTG attachment">Ожидание устройства</string>
     <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">Ожидание устройств…</string>
+    <string name="waiting_for_recovery" comment="Progress status shown after the sideload stream was opened while waiting for the target device recovery to request data">Ожидание восстановления…</string>
     <string name="want_to_contribute_too" comment="Call-to-action banner in About screen inviting code or translation contributions">Хотите тоже внести свой вклад?</string>
     <string name="weekly" comment="Option in backup scheduler frequency selection">Еженедельно</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">Что бы вы хотели сделать пока %1$s?</string>
@@ -1004,6 +1072,7 @@
         <item quantity="many">%1$d минут</item>
         <item quantity="other">%1$d минут</item>
     </plurals>
+    <string name="writing_to_partition" comment="%1$s = partition name. Progress status after the image was sent while the bootloader writes it">Запись %1$s…</string>
     <string name="changelog_v7_4_0">\nТеперь вы можете искать под настройки на экранах настроек\nДобавлены стили палитры для цветовых схем\nДобавлена ​​опция установки языка приложения прямо в приложении</string>
     <string name="changelog_v7_3_0">\nУлучшен пользовательский интерфейс в журнале изменений\nДобавлены переводчики в раздел О программе.\nДобавлен экран лицензий, показывающий подробную информацию о лицензии приложения и других библиотек, использующих приложение</string>
     <string name="changelog_v7_2_1">\nОбновление технического обслуживания!</string>

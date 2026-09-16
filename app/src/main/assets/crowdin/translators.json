@@ -141,7 +141,7 @@
     "id": "18094",
     "username": "marciozomb13",
     "name": "Marcio Andrade (marciozomb13)",
-    "translated": 2064,
+    "translated": 2156,
     "approved": 3909,
     "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/18094/medium/b31d380c3d0bcfe7b1b27099eaa8a89c.jpg",
     "languages": [
@@ -397,6 +397,21 @@
     "avatar": "crowdin/contributors_pfp/contributor_17101716.webp"
   },
   {
+    "id": "17834819",
+    "username": "A1692jk",
+    "name": "A1692jk",
+    "translated": 80,
+    "approved": 0,
+    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/17834819/medium/df30c210a0571cd025d94d1bc4cd0b36_default.png",
+    "languages": [
+      {
+        "id": "hi",
+        "name": "Hindi"
+      }
+    ],
+    "avatar": "crowdin/contributors_pfp/contributor_17834819.webp"
+  },
+  {
     "id": "16121896",
     "username": "Quaff03",
     "name": "Quaff03",
@@ -444,21 +459,6 @@
       }
     ],
     "avatar": "crowdin/contributors_pfp/contributor_17149392.webp"
-  },
-  {
-    "id": "17834819",
-    "username": "A1692jk",
-    "name": "A1692jk",
-    "translated": 20,
-    "approved": 0,
-    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/17834819/medium/df30c210a0571cd025d94d1bc4cd0b36_default.png",
-    "languages": [
-      {
-        "id": "hi",
-        "name": "Hindi"
-      }
-    ],
-    "avatar": "crowdin/contributors_pfp/contributor_17834819.webp"
   },
   {
     "id": "17661168",

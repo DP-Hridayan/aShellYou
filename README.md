@@ -174,8 +174,8 @@
 
 <p align="start">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/translations-dark.svg?ts=1789350914">
-    <source media="(prefers-color-scheme: light)" srcset="docs/translations-light.svg?ts=1789350914">
+    <source media="(prefers-color-scheme: dark)" srcset="docs/translations-dark.svg?ts=1789545285">
+    <source media="(prefers-color-scheme: light)" srcset="docs/translations-light.svg?ts=1789545285">
     <img src="translations-light.svg" alt="Translation Progress" />
   </picture>
 </p>
