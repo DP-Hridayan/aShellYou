@@ -33,7 +33,7 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v4
         with:
-          packages: 'platform-tools'
+          packages: platform-tools
 
       - name: Grant execute permission to Gradle
         run: chmod +x ./gradlew
