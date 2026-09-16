@@ -16,11 +16,31 @@
     <string name="adb_connection_channel_description" comment="Android notification channel description in System Settings for ADB connection status">نمایش زمانی که اتصال ADB فعال است</string>
     <string name="adb_connection_channel_name" comment="Android notification channel name in System Settings for active ADB connections">اتصال ADB</string>
     <string name="adb_connection_description" comment="Notification body text indicating an active background Wi-Fi ADB connection">اتصال WiFi ADB برقرار است</string>
+    <string name="adb_key_unavailable" comment="Error shown in ADB sideload when the app could not load or create its RSA key pair used to authenticate to the target device">Could not prepare the ADB authentication key</string>
     <string name="adb_sideload" comment="Feature title for pushing and installing ZIP update packages to device recovery via ADB sideload over USB OTG">سایدلود ADB</string>
     <string name="adb_through_otg" comment="Title for USB OTG ADB connection mode where this device controls a target device over OTG cable">ADB از طریق OTG</string>
     <string name="adb_through_otg_summary" comment="Summary description of ADB OTG feature in connection selection screen">با استفاده از کابل OTG و اشکال‌زدایی USB، دستورات ADB را روی دستگاه اندروید دیگری اجرا کنید. باید اشکال‌زدایی USB را در تنظیمات توسعه‌دهنده دستگاه مقصد فعال کنید.</string>
     <string name="adb_via_otg" comment="Compact label for ADB connection via USB OTG cable">ADB از طریق OTG</string>
     <string name="adb_via_wireless_debugging" comment="Feature title for wireless ADB connection on Android 11+ devices">ADB از طریق اشکال‌زدایی بی‌سیم</string>
+    <string name="adb_connected_to" comment="Output line confirming an ADB connection was established with the given host and port">connected to %1$s</string>
+    <string name="adb_daemon_restarted" comment="Output line shown after an adb command such as tcpip or reboot makes the device ADB daemon restart, which ends the current connection">adbd restarted, this connection is now closed</string>
+    <string name="adb_direct_connection_note" comment="Output line for the adb version command explaining the app talks to the device ADB daemon directly instead of through a desktop ADB server">Connected directly to the device ADB daemon, no ADB server is used</string>
+    <string name="adb_disconnected_from" comment="Output line confirming the ADB connection to the given host and port was closed">disconnected %1$s</string>
+    <string name="adb_failed_to_connect_to" comment="Output line shown when an adb connect command could not reach the given host and port">failed to connect to %1$s</string>
+    <string name="adb_failed_to_pair_with" comment="Output line shown when an adb pair command was rejected by the given host and port">failed to pair with %1$s</string>
+    <string name="adb_hint_host_only" comment="Advice shown when the user runs an adb command that only a desktop ADB server can perform">This command needs a desktop ADB server, which this app does not use.</string>
+    <string name="adb_hint_interactive_shell" comment="Advice shown when the user types adb shell with no command, which would open an interactive session">Interactive shells are not supported. Type the command on its own instead.</string>
+    <string name="adb_hint_use_file_browser" comment="Advice shown when the user runs an adb file transfer command, pointing them at the in-app file browser">Use the File Browser to transfer files.</string>
+    <string name="adb_hint_use_pm_uninstall" comment="Advice shown when the user runs adb uninstall, pointing them at the equivalent shell command">Use pm uninstall --user 0 &lt;package&gt; instead.</string>
+    <string name="adb_hint_use_sideload" comment="Advice shown when the user runs adb sideload, pointing them at the dedicated sideload screen">Use the ADB Sideload screen.</string>
+    <string name="adb_not_connected" comment="Error shown when a command needs an ADB connection but none is active">ADB not connected</string>
+    <string name="adb_paired_with" comment="Output line confirming pairing succeeded with the given host and port">paired with %1$s</string>
+    <string name="adb_reconnect_hint" comment="Advice shown after the device ADB daemon restarts in TCP mode, telling the user the command that reconnects to it">Reconnect with: %1$s</string>
+    <string name="adb_server_not_applicable" comment="Output line for adb start-server and kill-server, which have no effect because the app connects to the device ADB daemon directly">No ADB server is used, so there is nothing to start or stop</string>
+    <string name="adb_supported_commands" comment="Header printed above the list of adb commands the app understands">Supported adb commands:</string>
+    <string name="adb_unsupported_command" comment="Error shown when an adb subcommand cannot work over this connection. The placeholder is the subcommand name, such as push">adb %1$s is not supported over this connection</string>
+    <string name="adb_usage" comment="Error shown when a known adb command was typed incorrectly. The placeholder is the correct form of the command">usage: %1$s</string>
+    <string name="adb_version_line" comment="Output line for the adb version command. The placeholder is the app version name">aShellYou %1$s</string>
     <string name="adb_via_wireless_debugging_summary" comment="Summary description for wireless ADB feature in connection setup screen">دستگاه‌ها (اندروید ۱۱+) را از طریق Wi-Fi با استفاده از اشکال‌زدایی بی‌سیم متصل کرده و دستورات ADB را از راه دور اجرا کنید.</string>
     <string name="add">افزودن</string>
     <string name="add_account" comment="Button label in cloud backup settings to link a Google account for backup sync">افزودن حساب</string>
@@ -50,11 +70,14 @@
     <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">مثلاً شهر نئون سایبرپانک، حالت تاریک، کنتراست بالا</string>
     <string name="all">همه</string>
     <string name="all_data" comment="Option in backup selector to include full app database, settings, and chat history">همه داده‌ها</string>
+    <string name="allow_usb_access" comment="Button label that re-shows the system prompt asking the user to allow the app to use the attached USB device">Allow USB access</string>
+    <string name="allow_usb_access_message" comment="Status shown when the target device was detected over USB but the system permission to use it has not been granted yet">Allow USB access to continue</string>
     <string name="already_connected" comment="Status message in wireless ADB setup screen indicating device is already connected">قبلاً متصل شده</string>
     <string name="already_latest_version" comment="In-app updater message when user is running the most recent version of aShellYou">شما از آخرین نسخه استفاده می‌کنید</string>
     <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">همیشه پایه مجاز باشد</string>
     <string name="always_allow_exact" comment="Permission rule option in AI chat: automatically approve commands matching exact command string">همیشه دقیق مجاز باشد</string>
     <string name="analyse" comment="Action button to request AI analysis of command execution output or error log">تحلیل</string>
+    <string name="analysis_failed">تحلیل ناموفق بود</string>
     <string name="api_key" comment="Label for AI provider API key text input field">کلید API</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">کلید API ذخیره شد</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">کلید API مورد نیاز است</string>
@@ -113,7 +136,9 @@
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">به حداکثر تعداد نشانک‌ها رسیده‌اید! برای افزودن نشانک جدید، تعدادی را حذف کنید</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">نشانک‌ها</string>
     <string name="boot_device_into_fastboot" comment="Instructional prompt in Fastboot screen instructing user to boot target device into fastboot mode">راه‌اندازی مجدد دستگاه مقصد در حالت فست‌بوت و اتصال از طریق کابل OTG</string>
+    <string name="boot_failed" comment="%1$s = error text returned by the bootloader. Shown when fastboot boot of a temporary image fails">Boot failed: %1$s</string>
     <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">تصویر بوت</string>
+    <string name="boot_image_sent" comment="Status shown when a temporary boot image was accepted by the bootloader via fastboot boot">Boot image sent</string>
     <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">بوت به فست‌بوت</string>
     <string name="btn_continue" comment="Action button label to proceed to next step in setup wizard">ادامه</string>
     <string name="bundled" comment="Tab label in icon chooser for built-in icons that ship with the app">داخلی</string>
@@ -122,6 +147,7 @@
     <string name="cancel">لغو</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">لغو همه</string>
     <string name="cancel_selection">لغو انتخاب</string>
+    <string name="cancelled">Cancelled</string>
     <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">Cancelling…</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">تغییرات</string>
     <string name="changelogs" comment="Settings list item title for viewing version history logs">تغییرات</string>
@@ -254,14 +280,18 @@
     <string name="create_folder" comment="Action button or dialog title to create a new directory in file browser">ایجاد پوشه</string>
     <string name="create_new_tile" comment="Screen header or button label to add a new custom Quick Settings tile">ایجاد کاشی جدید</string>
     <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">ایجاد با هوش مصنوعی</string>
+    <string name="critical">بحرانی</string>
     <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">برای مشارکت به پلتفرم ترجمه کراودین ما سر بزنید</string>
     <string name="current_version" comment="About screen card label showing installed application version number">نسخه فعلی</string>
+    <string name="custom" comment="Dropdown entry that lets the user type a value instead of picking a preset">Custom…</string>
     <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">مقیاس سفارشی رابط کاربری</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">%1$d مورد برش داده شد</string>
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">برش به کلیپ‌بورد</string>
     <string name="daily" comment="Option in backup scheduler frequency selection">روزانه</string>
+    <string name="dangerous">خطرناک</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">تم تاریک</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">داشبورد</string>
+    <string name="database">پایگاه داده</string>
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">تغییر پایگاه داده</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">فقط پایگاه‌های داده</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">پوشه پیش‌فرض</string>
@@ -328,6 +358,7 @@
     <string name="des_licenses" comment="Description under Licenses setting item in About section">مشاهده مجوزهایی که برنامه و کتابخانه‌ها استفاده می‌کنند</string>
     <string name="des_local_backup" comment="Description card text for local backup option">ذخیره پشتیبان رمزگذاری شده روی دستگاه</string>
     <string name="des_local_restore" comment="Description card text for local restore option">انتخاب فایل پشتیبان از روی دستگاه</string>
+    <string name="des_log_buffer_size" comment="Description under the Logcat log buffer size setting; explains that older entries are dropped once the limit is reached">Memory kept for collected logs. Older entries are discarded once the limit is reached.</string>
     <string name="des_logcat" comment="Description under Logcat item in navigation menu">خروجی زنده لاگ‌کت از یک دستگاه متصل</string>
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">رنگ‌های پویا، تم تاریک، زبان</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">هیچ مدلی انتخاب نشده است</string>
@@ -372,6 +403,7 @@
     <string name="device_disconnected_message_with_name" comment="%s = device name">\"%s\" قطع شد.</string>
     <string name="device_found" comment="Status banner when an ADB/Wireless Debugging device service is discovered on local network">دستگاه یافت شد!</string>
     <string name="device_info" comment="Screen header or navigation item for target device hardware/OS specifications">اطلاعات دستگاه</string>
+    <string name="device_not_in_sideload_mode" comment="Status shown when the attached device answers ADB but is booted normally rather than waiting in recovery sideload mode">Device is booted normally. Reboot to recovery and choose Apply update from ADB</string>
     <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">دستگاه از احراز هویت بیومتریک پشتیبانی نمی‌کند</string>
     <string name="disable_softkey" comment="Setting toggle title to hide soft keyboard during shell session">غیرفعال کردن کیبورد مجازی</string>
     <string name="disclaimer" comment="Section title in About screen for legal disclaimer notices">سلب مسئولیت</string>
@@ -396,6 +428,7 @@
     <string name="downloading" comment="Progress status text while downloading update package">در حال دانلود…</string>
     <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Downloading backup from Google Drive…</string>
     <string name="downloading_icon_pack" comment="Progress status text while downloading Material Icons font for QS tile icon chooser">Downloading icon pack…</string>
+    <string name="downloading_to_device" comment="%1$s = file size in megabytes. Progress status while an image is being sent to the bootloader">Downloading %1$s MB to device…</string>
     <string name="downloads" comment="Screen header or list item for downloaded files">دانلودها</string>
     <string name="duplicate_tile_name_error_msg" comment="Validation error in Quick Settings tile builder when entered tile name already exists">پوشه‌ای با این نام از قبل وجود دارد</string>
     <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">رنگ‌های پویا</string>
@@ -415,10 +448,13 @@
     <string name="enter">ورود</string>
     <string name="enter_command" comment="Input hint placeholder format for entering fastboot commands">فست‌بوت &lt;command&gt;</string>
     <string name="enter_pairing_code" comment="Instructional header in Wireless Debugging pairing dialog asking for 6-digit code">کد جفت‌سازی ۶ رقمی را وارد کنید</string>
+    <string name="erase_complete" comment="Status shown when a fastboot partition erase finished successfully">Erase complete</string>
     <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">این کار پارتیشن %1$s را به طور دائم پاک می‌کند. این عمل قابل بازگشت نیست.</string>
     <string name="erase_confirm_title" comment="%1$s = partition name. Dialog title for partition erase confirmation">پاک کردن %1$s؟</string>
+    <string name="erase_failed" comment="%1$s = error text returned by the bootloader. Shown when a fastboot partition erase fails">Erase failed: %1$s</string>
     <string name="erase_partition" comment="Action button to trigger fastboot partition erase">پاک کردن</string>
     <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Erasing…</string>
+    <string name="erasing_partition" comment="%1$s = partition name. Progress status while the bootloader erases a partition">Erasing %1$s…</string>
     <string name="error">خطا</string>
     <string name="error_labels_limit_reached" comment="Validation error when maximum number of custom command labels/tags is reached">به حداکثر تعداد برچسب‌ها رسیده‌اید</string>
     <string name="exclude" comment="Filter toggle option to exclude selected package or item">مستثنی کردن</string>
@@ -463,6 +499,7 @@
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">فایل با موفقیت آپلود شد</string>
     <string name="fb_uploading" comment="%1$s = file name">در حال آپلود %1$s</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">درخواست ویژگی</string>
+    <string name="feedback">بازخورد</string>
     <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Fetching backup time …</string>
     <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Fetching backup type…</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">فیلد نمی‌تواند خالی باشد</string>
@@ -474,8 +511,13 @@
     <string name="file_exists_message" comment="%1$s = file name">\"%1$s\" از قبل در این مکان وجود دارد.</string>
     <string name="file_info" comment="Dialog header displaying file metadata properties (size, permissions, modified date)">اطلاعات فایل</string>
     <string name="file_not_found" comment="Error toast when requested file path does not exist on device">فایل یافت نشد</string>
+    <string name="file_open_failed" comment="Error shown when the selected update package could not be opened for reading">Could not open the selected file</string>
+    <string name="file_read_failed" comment="Error shown when reading a part of the selected update package failed mid-transfer">Could not read the selected file</string>
+    <string name="file_size_unknown" comment="Error shown when the size of the selected update package cannot be determined, which the ADB sideload protocol requires">Cannot determine the file size</string>
     <string name="filter">فیلتر</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">فیلتر بر اساس برچسب</string>
+    <string name="flash_complete" comment="Status shown when a fastboot partition flash finished successfully">Flash complete</string>
+    <string name="flash_failed" comment="%1$s = error text returned by the bootloader. Shown when a fastboot partition flash fails">Flash failed: %1$s</string>
     <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">فلش پارتیشن</string>
     <string name="flashing" comment="Progress status header while partition flashing is in progress">Flashing…</string>
     <string name="folder">پوشه</string>
@@ -493,6 +535,7 @@
     <string name="found_connect_service" comment="Status message when mDNS ADB connection service is discovered">سرویس اتصال یافت شد</string>
     <string name="frequency" comment="Setting label for automated backup interval frequency">تناوب</string>
     <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">متن کامل مجوز</string>
+    <string name="full_screen">Full screen</string>
     <string name="gemini_api_key_step_1" comment="%1$s = URL">به Google AI Studio در %1$s مراجعه کنید</string>
     <string name="gemini_api_key_step_2" comment="Step 2 of API key setup guide: signing in with Google Account">با حساب Google خود وارد شوید</string>
     <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">روی Create API key کلیک کرده و یک پروژه را انتخاب یا ایجاد کنید</string>
@@ -513,6 +556,7 @@
     <string name="great_news" comment="Dialog title header for update available notification">خبر خوب!</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">لرزش و بازخورد لمسی</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">روز خوبی داشته باشید!</string>
+    <string name="heuristic">اکتشافی</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">ویرایشگر هگز</string>
     <string name="high" comment="Selection option for high haptic strength or elevation level">زیاد</string>
     <string name="high_contrast_dark_mode" comment="Settings preference title for OLED pitch-black dark theme">حالت تاریک با کنتراست بالا</string>
@@ -569,6 +613,7 @@
     <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">پشتیبان محلی</string>
     <string name="local_file" comment="Source option label for picking local backup file">فایل محلی</string>
     <string name="locked" comment="Status badge showing bootloader lock state is locked">قفل شده</string>
+    <string name="log_buffer_size" comment="Title of the setting choosing how much memory the logcat buffer may use">Log buffer size</string>
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">لاگ‌ها پاک شدند</string>
     <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">بسته</string>
     <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">سطوح لاگ</string>
@@ -590,6 +635,7 @@
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">ظاهر و احساس</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">کم</string>
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">نسبت کنتراست پایین</string>
+    <string name="low_risk">کم‌خطر</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">پوسته خود را بسازید</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">جفت‌سازی دستی</string>
     <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Material Icons</string>
@@ -608,6 +654,7 @@
     <string name="model_category_small" comment="AI model size category label">Small (300–500 MB)</string>
     <string name="model_category_tiny" comment="AI model size category label">بسیار کوچک (زیر ۳۰۰ مگابایت)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">مدل‌ها</string>
+    <string name="moderate">متوسط</string>
     <string name="modified" comment="File property: last modified date">تغییر یافته</string>
     <string name="monthly" comment="Option in backup scheduler frequency selection">ماهانه</string>
     <string name="more">بیشتر</string>
@@ -633,6 +680,7 @@
     <string name="no_custom_themes_yet" comment="Placeholder text in theme manager screen when no custom themes exist">هنوز هیچ پوسته‌ی سفارشی وجود ندارد. یکی در زیر بسازید!</string>
     <string name="no_device_connected" comment="Status banner shown when no wireless or OTG ADB device is connected">دستگاه متصل شد</string>
     <string name="no_fastboot_device_error" comment="Error banner in fastboot screen when connected USB device is not in fastboot mode">دستگاه متصل در حالت فست‌بوت نیست</string>
+    <string name="no_fastboot_interface_found" comment="Error shown when the attached USB device does not expose a fastboot interface">Connected USB device has no fastboot interface</string>
     <string name="no_files_download" comment="Toast warning in file browser when user selects directory instead of files for download">فایلی انتخاب نشده (پوشه‌ها قابل دانلود نیستند)</string>
     <string name="no_folder_selected" comment="Placeholder status text when no backup directory is picked">پوشه‌ای انتخاب نشده است</string>
     <string name="no_google_account_message" comment="Dialog message when no Google account is registered on device for cloud backups">هیچ حساب گوهلی در این دستگاه یافت نشد. آیا می‌خواهید برای استفاده از پشتیبان‌گیری ابری یک حساب اضافه کنید؟</string>
@@ -726,6 +774,7 @@
     <string name="predefined_commands" comment="Section header for pre-saved fastboot command actions">دستورات پیش‌فرض</string>
     <string name="predefined_commands_desc" comment="Description under predefined fastboot commands header">دسترسی سریع به دستورات رایج فست‌بوت. نتایج به کنسول زیر ارسال می‌شوند.</string>
     <string name="preference" comment="Header title for settings preference category">ترجیح</string>
+    <string name="preparing_file" comment="Progress status shown while the update package is being opened before an ADB sideload transfer">Preparing file…</string>
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">پیش‌نمایش</string>
     <string name="primary">اصلی</string>
     <string name="primary_container">کانتینر اصلی</string>
@@ -740,6 +789,7 @@
     <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">کاشی‌های تنظیمات سریع</string>
     <string name="quick_tools" comment="Section header for fast access utility tools">ابزارهای سریع</string>
     <string name="reading_file" comment="Progress status text while loading file contents into viewer">Reading file…</string>
+    <string name="reading_image_file" comment="Progress status while the selected image file is being read before a fastboot transfer">Reading image file…</string>
     <string name="ready_to_paste" comment="Status message in file manager when item is stored in paste clipboard">آماده چسباندن</string>
     <string name="reboot_bootloader" comment="Action button / dialog choice to reboot target device into bootloader mode">ری‌بوت به بوت‌لودر</string>
     <string name="reboot_confirm_message" comment="%1$s = target boot mode (e.g. recovery, bootloader). Confirmation prompt before rebooting target device">این کار دستگاه متصل را به %1$s ری‌بوت می‌کند. ادامه می‌دهید؟</string>
@@ -757,6 +807,8 @@
     <string name="reconnect_failed_requires_pairing" comment="Toast notification indicating device un-paired and needs re-pairing">اتصال مجدد ناموفق. جفت‌سازی مجدد لازم است.</string>
     <string name="reconnect_success" comment="Toast message confirming successful wireless ADB reconnection">اتصال مجدد موفق</string>
     <string name="reconnect_the_device" comment="Button prompt directing user to reconnect target ADB device">اتصال مجدد دستگاه</string>
+    <string name="recovery_not_responding" comment="Error shown when the target device recovery did not start requesting data after the sideload stream was opened">Recovery is not responding. Select “Apply update from ADB” in recovery and try again</string>
+    <string name="recovery_reported_failure" comment="Error shown when the target device recovery reported that installing the sideloaded package failed">Recovery reported that the installation failed</string>
     <string name="refresh">بازخوانی</string>
     <string name="remove">حذف</string>
     <string name="rename">تغییر نام</string>
@@ -791,6 +843,7 @@
     <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">\"%1$s\" روی دستگاه متصل اجرا شود؟</string>
     <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">اجرای دستور؟</string>
     <string name="running" comment="Status badge showing task or command execution is active">در حال اجرا</string>
+    <string name="safe">امن</string>
     <string name="sans_serif" comment="Font style category name">سانس سریف</string>
     <string name="save">ذخیره</string>
     <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">Save as profile…</string>
@@ -846,6 +899,7 @@
     <string name="self_pair_timeout" comment="Toast error message when self-pairing service lookup times out">انقضا - پنجره جفت‌سازی را در اشکال‌زدایی بی‌سیم باز کنید</string>
     <string name="self_pair_wrong_code" comment="Toast error message when entered 6-digit wireless pairing code is incorrect">کد اشتباه - پنجره جفت‌سازی را دوباره باز کنید</string>
     <string name="send">ارسال</string>
+    <string name="sending_progress" comment="%1$d = percent sent, %2$s = file size in megabytes. Progress status during a fastboot image transfer">Sending %1$d%% (%2$s MB)</string>
     <string name="serial_number" comment="Device property label displaying target device hardware serial number">شماره سریال</string>
     <string name="serif" comment="Font style category name">سریف</string>
     <string name="set_local_adb_as_default_launch" comment="Setting toggle title to launch Local ADB screen directly when the app starts">تنظیم ADB محلی به‌عنوان راه‌اندازی پیش‌فرض</string>
@@ -859,12 +913,18 @@
     <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">سرویس Shizuku در دسترس نیست. مطمئن شوید Shizuku یا Shizuku+ در حال اجرا است و مجوز لازم اعطا شده است.</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku در دسترس نیست</string>
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">‏Shizuku یا Shizuku+ روی دستگاه شما نصب یا به‌درستی پیکربندی نشده است</string>
+    <string name="sideload_block_out_of_range" comment="Error shown when the target device recovery requested a part of the package beyond its end; usually indicates a corrupted transfer">Recovery requested data beyond the end of the file</string>
+    <string name="sideload_complete" comment="Status shown when the sideloaded package was fully transferred and recovery confirmed completion">Sideload complete</string>
+    <string name="sideload_connection_timed_out" comment="Error shown when the ADB handshake with the target device did not complete in time; the user may need to accept an authorization prompt on that device">Connection timed out. Check the device screen for an authorization prompt</string>
     <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">قرار دادن دستگاه در حالت سایدلود از طریق ریکاوری</string>
+    <string name="sideload_invalid_request" comment="Error shown when the target device sent data that is not a valid ADB sideload request">Received an invalid request from recovery</string>
     <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Sideload mode — ready</string>
     <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">راه‌اندازی مجدد در ریکاوری (نگه‌داشتن ولوم پایین + پاور، یا اجرا: adb reboot recovery)</string>
     <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">به بخش \"Apply update\" در منوی ریکاوری بروید</string>
     <string name="sideload_step_3" comment="Step 3 of ADB sideload guide: selecting ADB sideload mode in recovery">گزینه \"Apply from ADB\" (یا \"ADB Sideload\") را انتخاب کنید</string>
     <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">دستگاه خود را از طریق کابل OTG متصل کنید، سپس یک فایل ZIP را در اینجا انتخاب کنید</string>
+    <string name="sideload_stream_closed" comment="Error shown when the ADB sideload stream was closed by the target device before the transfer finished">Connection to recovery was closed before the transfer finished</string>
+    <string name="sideload_stream_rejected" comment="Error shown when the target device refused to open the ADB sideload stream, typically because it is not in sideload mode">Recovery refused the sideload. Select “Apply update from ADB” in recovery first</string>
     <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Sideloading…</string>
     <string name="sign_in_failed" comment="Toast error message when Google account sign-in fails">ورود به حساب گوگل ناموفق بود</string>
     <string name="sign_in_with_google" comment="Button label in cloud backup settings to sign into Google account">ورود با گوگل</string>
@@ -873,6 +933,7 @@
     <string name="signed_in_as" comment="%1$s = user email or name">وارد شده با نام %1$s</string>
     <string name="signed_out" comment="Status text in cloud backup card when signed out of Google account">خروج از حساب انجام شد</string>
     <string name="size">اندازه</string>
+    <string name="size_megabytes" comment="%1$d = a whole number of megabytes. Shown as a memory size option, e.g. 10 MB">%1$d MB</string>
     <string name="skip">رد شدن</string>
     <string name="slide_to_flash" comment="Slider text prompt in fastboot partition flash confirmation sheet">برای فلش بکشید</string>
     <string name="slide_to_sideload" comment="Slider button prompt to initiate the ADB sideload transfer of chosen ZIP file over OTG">برای سایدلود بکشید</string>
@@ -893,6 +954,7 @@
     <string name="success_rate" comment="Analytics metadata metric showing tile execution success percentage">نرخ موفقیت</string>
     <string name="successful_connection_message" comment="Dialog message confirming target ADB device connected successfully">دستگاه با موفقیت متصل شد. اکنون می‌توانید دستورات را روی دستگاه مقصد اجرا کنید.</string>
     <string name="suggested_icons" comment="Header title in tile icon picker listing suggested Material icons">آیکون‌های پیشنهادی</string>
+    <string name="suggestions">پیشنهادها</string>
     <string name="support_bmc" comment="Banner text in About section linking to Buy Me a Coffee donation page">کار من را دوست دارید؟\nیک قهوه برایم بخرید</string>
     <string name="surface">سطح</string>
     <string name="switch_mode" comment="Action button to switch ADB connection mode between Local ADB, Remote Wireless ADB, and OTG">تغییر حالت</string>
@@ -953,11 +1015,16 @@
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">آپلود فایل</string>
     <string name="uploading" comment="Progress status text shown while uploading file to device">Uploading…</string>
     <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Uploading backup to Google Drive…</string>
+    <string name="usb_bulk_endpoints_missing" comment="Error shown when the USB fastboot interface lacks the bulk in/out endpoints needed to communicate">USB interface has no usable data endpoints</string>
+    <string name="usb_claim_failed" comment="Error shown when the app could not take exclusive control of the USB ADB interface, usually because another app is using it">Could not claim the USB interface</string>
     <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">قابلیت TCP/IP ADB مستلزم فعال بودن اشکال‌زدایی USB در گزینه‌های توسعه‌دهنده است</string>
     <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">اشکال‌زدایی USB الزامی است</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">مدیر USB در این دستگاه در دسترس نیست</string>
+    <string name="usb_open_failed" comment="Error shown when the USB device could not be opened for communication">Could not open the USB device</string>
+    <string name="usb_service_unavailable" comment="Error shown when the Android USB host service is not available on this device">USB host service is unavailable on this device</string>
     <string name="use">استفاده</string>
     <string name="use_biometrics">استفاده از بیومتریک</string>
+    <string name="use_cases">موارد استفاده</string>
     <string name="utilities" comment="Category title in homescreen">ابزارها</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">نوع</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">تأیید ناموفق بود</string>
@@ -971,6 +1038,7 @@
     <string name="visit_repo_to_download" comment="Instructions directing user to download the update APK file from GitHub releases">روی دکمه دانلود کلیک کنید تا آخرین نسخه aShellYou را از مخزن گیت‌هاب دریافت کنید.</string>
     <string name="waiting_for_device" comment="Progress status banner while awaiting target device USB OTG attachment">در انتظار دستگاه</string>
     <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">Waiting for devices…</string>
+    <string name="waiting_for_recovery" comment="Progress status shown after the sideload stream was opened while waiting for the target device recovery to request data">Waiting for recovery…</string>
     <string name="want_to_contribute_too" comment="Call-to-action banner in About screen inviting code or translation contributions">می‌خواهید شما هم کمک کنید؟</string>
     <string name="weekly" comment="Option in backup scheduler frequency selection">هفتگی</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">در حین %1$s چه می‌خواهید انجام دهید؟</string>
@@ -1000,6 +1068,7 @@
         <item quantity="one">%1$d دقیقه</item>
         <item quantity="other">%1$d دقیقه</item>
     </plurals>
+    <string name="writing_to_partition" comment="%1$s = partition name. Progress status after the image was sent while the bootloader writes it">Writing to %1$s…</string>
     <string name="changelog_v7_4_0">\nاکنون می‌توانید زیرتنظیمات را درون صفحات تنظیمات جستجو کنید\nافزودن سبک‌های پالت برای طرح‌های رنگی\nافزودن امکان تنظیم زبان برنامه به صورت مستقیم درون برنامه</string>
     <string name="changelog_v7_3_0">\nبهبود رابط کاربری در صفحه تغییرات\nافزودن همکاران ترجمه در بخش درباره\nافزودن صفحه مجوزها که اطلاعات دقیق مجوز درباره برنامه و سایر کتابخانه‌های استفاده شده توسط برنامه را نشان می‌دهد</string>
     <string name="changelog_v7_2_1">\nبروزرسانی نگهداری!</string>
