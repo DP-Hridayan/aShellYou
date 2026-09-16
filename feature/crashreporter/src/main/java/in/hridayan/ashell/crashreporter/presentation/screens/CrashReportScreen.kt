@@ -5,7 +5,9 @@ package `in`.hridayan.ashell.crashreporter.presentation.screens
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,11 +15,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeFlexibleTopAppBar
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -27,8 +32,10 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -39,13 +46,22 @@ import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.constants.DEV_EMAIL
+import `in`.hridayan.ashell.core.common.settings.LocalSettings
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.resources.R
+import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import `in`.hridayan.ashell.core.utils.ToastUtils.makeToast
+import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.crashreporter.presentation.viewmodel.CrashViewModel
+import `in`.hridayan.lazyselectioncontainer.LazySelectionContainer
+import `in`.hridayan.lazyselectioncontainer.LazySelectionDefaults
+import `in`.hridayan.lazyselectioncontainer.lazySelectionItem
+import `in`.hridayan.lazyselectioncontainer.rememberLazySelectionState
+import `in`.hridayan.lazyselectioncontainer.rememberLazySelectionTextLayout
 
 @Composable
 fun CrashReportScreen(
@@ -53,8 +69,12 @@ fun CrashReportScreen(
     crashViewModel: CrashViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
+    val res = LocalResources.current
+    val settings = LocalSettings.current
+
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
+
     val crash = crashViewModel.latestCrash.value
     val stacktrace = crash?.stackTrace
     val deviceBrand = crash?.deviceBrand
@@ -71,6 +91,13 @@ fun CrashReportScreen(
         "Brand: $deviceBrand\nModel: $deviceModel\nManufacturer: $manufacturer\nAndroid version: $androidVersion\nSOC manufacturer: $socManufacturer\nCPU abi: $cpuAbi"
 
     val appInfo = "Package: $packageName\nVersion name: $versionName\nVersion code: $versionCode"
+
+    val selectionState = rememberLazySelectionState()
+    val listState = rememberLazyListState()
+
+    val hapticsEnabled = settings[SettingsKeys.HapticsAndVibration]
+
+    val stackTraceLines = stacktrace?.split("\n") ?: emptyList()
 
     Scaffold(
         modifier = modifier,
@@ -110,145 +137,186 @@ fun CrashReportScreen(
             }
         }
     ) { innerPadding ->
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .nestedScroll(scrollBehavior.nestedScrollConnection),
-            contentPadding = innerPadding
+
+        LazySelectionContainer(
+            modifier = Modifier.fillMaxWidth(),
+            selectionState = selectionState,
+            listState = listState,
+            items = stackTraceLines,
+            itemToText = { it },
+            onCopy = { success ->
+                val toastMessage =
+                    if (success) {
+                        res.getString(R.string.copied_to_clipboard)
+                    } else {
+                        res.getString(R.string.failed_to_copy)
+                    }
+
+                showToast(context, toastMessage)
+            },
+            haptics = LazySelectionDefaults.haptics(enabled = hapticsEnabled)
         ) {
-            item {
-                AutoResizeableText(
-                    text = stringResource(R.string.device_info),
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.padding(15.dp)
-                )
-
-                CustomCard(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 15.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .nestedScroll(scrollBehavior.nestedScrollConnection),
+                contentPadding = innerPadding
+            ) {
+                item {
+                    AutoResizeableText(
+                        text = stringResource(R.string.device_info),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.padding(15.dp)
                     )
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 20.dp, vertical = 10.dp),
-                        horizontalArrangement = Arrangement.spacedBy(20.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_mobile_info),
-                            contentDescription = null
-                        )
-
-                        Column(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalArrangement = Arrangement.spacedBy(10.dp)
-                        ) {
-                            Text(
-                                text = deviceInfo,
-                                style = MaterialTheme.typography.bodySmallEmphasized
-                            )
-                        }
-                    }
-                }
-
-                CustomCard(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 15.dp),
-                    shape = CustomCardShape(50),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-                    )
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 20.dp, vertical = 10.dp),
-                        horizontalArrangement = Arrangement.spacedBy(20.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_adb2),
-                            contentDescription = null
-                        )
-
-                        Column(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalArrangement = Arrangement.spacedBy(10.dp)
-                        ) {
-                            Text(
-                                text = appInfo,
-                                style = MaterialTheme.typography.bodySmallEmphasized
-                            )
-                        }
-                    }
-                }
-
-                AutoResizeableText(
-                    text = stringResource(R.string.stack_trace),
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.padding(
-                        start = 20.dp,
-                        end = 20.dp,
-                        top = 25.dp,
-                        bottom = 10.dp
-                    )
-                )
-            }
-
-            stacktrace?.let { trace ->
-                val lines = trace.split("\n")
-                items(lines.size) { index ->
-                    val line = lines[index]
-
-                    val cardShape = when (index) {
-                        0 -> CustomCardShape(top = 24.dp, bottom = 0.dp)
-                        lines.lastIndex -> CustomCardShape(top = 0.dp, bottom = 24.dp)
-                        else -> CustomCardShape(0.dp)
-                    }
 
                     CustomCard(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 15.dp),
-                        shape = cardShape,
                         colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.surfaceContainer,
-                            contentColor = MaterialTheme.colorScheme.onSurface
-                        ),
-                        clickable = false
+                            containerColor = MaterialTheme.colorScheme.primaryContainer,
+                            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
                     ) {
-                        Text(
-                            text = line,
+                        Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(
-                                    start = 20.dp,
-                                    end = 20.dp,
-                                    top = if (index == 0) 20.dp else 2.dp,
-                                    bottom = if (index == lines.lastIndex) 20.dp else 2.dp
-                                ),
-                            style = MaterialTheme.typography.bodySmallEmphasized,
-                            fontFamily = FontFamily.Monospace,
+                                .padding(horizontal = 20.dp, vertical = 10.dp),
+                            horizontalArrangement = Arrangement.spacedBy(20.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                painter = painterResource(R.drawable.ic_mobile_info),
+                                contentDescription = null
+                            )
+
+                            Column(
+                                modifier = Modifier.fillMaxWidth(),
+                                verticalArrangement = Arrangement.spacedBy(10.dp)
+                            ) {
+                                Text(
+                                    text = deviceInfo,
+                                    style = MaterialTheme.typography.bodySmallEmphasized
+                                )
+                            }
+                        }
+                    }
+
+                    CustomCard(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 15.dp),
+                        shape = CustomCardShape(50),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                            contentColor = MaterialTheme.colorScheme.onTertiaryContainer
                         )
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 20.dp, vertical = 10.dp),
+                            horizontalArrangement = Arrangement.spacedBy(20.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                painter = painterResource(R.drawable.ic_adb2),
+                                contentDescription = null
+                            )
+
+                            Column(
+                                modifier = Modifier.fillMaxWidth(),
+                                verticalArrangement = Arrangement.spacedBy(10.dp)
+                            ) {
+                                Text(
+                                    text = appInfo,
+                                    style = MaterialTheme.typography.bodySmallEmphasized
+                                )
+                            }
+                        }
+                    }
+
+                    stacktrace?.let { stacktrace ->
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = 15.dp, end = 15.dp, top = 25.dp)
+                                .clip(RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp))
+                                .background(MaterialTheme.colorScheme.surfaceContainerHigh)
+                                .padding(horizontal = 20.dp, vertical = 2.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            AutoResizeableText(
+                                text = stringResource(R.string.stack_trace),
+                                style = MaterialTheme.typography.labelLarge,
+                                modifier = Modifier.weight(1f)
+                            )
+
+                            IconButton(onClick = withHaptic {
+                                ClipboardUtils.copyToClipboard(
+                                    text = stacktrace,
+                                    context = context
+                                )
+                            }) {
+                                Icon(
+                                    painter = painterResource(R.drawable.ic_copy),
+                                    contentDescription = null
+                                )
+                            }
+                        }
                     }
                 }
-            }
 
-            item {
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(25.dp)
-                )
+                stacktrace?.let { trace ->
+                    val lines = trace.split("\n")
+                    items(lines.size) { index ->
+                        val line = lines[index]
+
+                        val shape = when (index) {
+                            lines.lastIndex -> RoundedCornerShape(
+                                topStart = 0.dp,
+                                topEnd = 0.dp,
+                                bottomStart = 24.dp,
+                                bottomEnd = 24.dp
+                            )
+
+                            else -> RoundedCornerShape(0.dp)
+                        }
+
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 15.dp)
+                                .clip(shape)
+                                .background(MaterialTheme.colorScheme.surfaceContainer)
+                        ) {
+                            Text(
+                                text = line,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(
+                                        start = 20.dp,
+                                        end = 20.dp,
+                                        top = if (index == 0) 20.dp else 2.dp,
+                                        bottom = if (index == lines.lastIndex) 20.dp else 2.dp
+                                    )
+                                    .lazySelectionItem(index),
+                                onTextLayout = rememberLazySelectionTextLayout(index),
+                                style = MaterialTheme.typography.bodySmallEmphasized,
+                                fontFamily = FontFamily.Monospace,
+                            )
+                        }
+                    }
+                }
+
+                item {
+                    Spacer(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(25.dp)
+                    )
+                }
             }
         }
     }

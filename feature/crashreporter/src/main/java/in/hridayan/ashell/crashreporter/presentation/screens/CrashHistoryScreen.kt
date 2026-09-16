@@ -6,9 +6,7 @@
 
 package `in`.hridayan.ashell.crashreporter.presentation.screens
 
-import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -58,7 +56,6 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.ashell.crashreporter.domain.model.CrashReport
 import `in`.hridayan.ashell.crashreporter.presentation.viewmodel.CrashViewModel
 import java.time.Instant
 import java.time.ZoneId
@@ -107,16 +104,25 @@ fun CrashHistoryScreen(
 
                     itemsIndexed(crashLogs) { index, crash ->
                         val shape = getRoundedShape(index, crashLogs.size)
+                        val sharedElementKey = "crashCardToCrashDetails$index"
 
                         with(sharedTransitionScope) {
                             CrashCard(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(horizontal = 15.dp, vertical = 1.dp),
-                                crashReport = crash,
+                                    .padding(horizontal = 15.dp, vertical = 1.dp)
+                                    .sharedElement(
+                                        sharedContentState = rememberSharedContentState(key = sharedElementKey),
+                                        animatedVisibilityScope = animatedContentScope
+                                    ),
                                 shape = shape,
-                                index = index,
-                                animatedVisibilityScope = animatedContentScope
+                                crashTitle = getCrashTitle(crash.stackTrace),
+                                timestamp = formatTimestamp(crash.timestamp),
+                                onClick = {
+                                    crashViewModel.setSharedElementKey(sharedElementKey)
+                                    crashViewModel.setViewingCrash(crash)
+                                    navController.navigate(NavRoutes.CrashDetailsScreen)
+                                }
                             )
                         }
                     }
@@ -135,7 +141,7 @@ fun CrashHistoryScreen(
 }
 
 @Composable
-fun NoCrashLogsUi(modifier: Modifier = Modifier) {
+private fun NoCrashLogsUi(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -173,34 +179,21 @@ fun NoCrashLogsUi(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun SharedTransitionScope.CrashCard(
+private fun CrashCard(
     modifier: Modifier = Modifier,
-    crashReport: CrashReport,
+    crashTitle: String,
+    timestamp: String,
     shape: CustomCardShape,
-    animatedVisibilityScope: AnimatedVisibilityScope,
-    index: Int,
-    crashViewModel: CrashViewModel = hiltViewModel()
+    onClick: () -> Unit,
 ) {
-    val navController = LocalNavController.current
-    val timestamp = formatTimestamp(crashReport.timestamp)
-    val crashTitle = getCrashTitle(crashReport.stackTrace)
-    val sharedElementKey = "crashCardToCrashDetails$index"
-
     CustomCard(
-        modifier = modifier.sharedElement(
-            sharedContentState = rememberSharedContentState(key = sharedElementKey),
-            animatedVisibilityScope = animatedVisibilityScope
-        ),
+        modifier = modifier,
         shape = shape,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer,
             contentColor = MaterialTheme.colorScheme.onSurface
         ),
-        onClick = withHaptic {
-            crashViewModel.setSharedElementKey(sharedElementKey)
-            crashViewModel.setViewingCrash(crashReport)
-            navController.navigate(NavRoutes.CrashDetailsScreen)
-        }
+        onClick = withHaptic { onClick() }
     ) {
         Row(
             modifier = Modifier
@@ -233,7 +226,7 @@ fun SharedTransitionScope.CrashCard(
                     fontWeight = FontWeight.Bold
                 )
 
-                AutoResizeableText(
+                Text(
                     text = timestamp,
                     style = MaterialTheme.typography.bodyMediumEmphasized,
                     modifier = Modifier.alpha(0.9f)
