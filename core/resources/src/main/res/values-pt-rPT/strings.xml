@@ -55,6 +55,7 @@
     <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">Sempre permitir a base</string>
     <string name="always_allow_exact" comment="Permission rule option in AI chat: automatically approve commands matching exact command string">Sempre permitir exato</string>
     <string name="analyse" comment="Action button to request AI analysis of command execution output or error log">Analisar</string>
+    <string name="analysis_failed">Análise falhou</string>
     <string name="api_key" comment="Label for AI provider API key text input field">Chave de API</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">A chave de API está salva</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">Chave de API necessária</string>
@@ -256,14 +257,17 @@ Tem certeza de que deseja excluir este favorito?</string>
     <string name="create_folder" comment="Action button or dialog title to create a new directory in file browser">Criar pasta</string>
     <string name="create_new_tile" comment="Screen header or button label to add a new custom Quick Settings tile">Criar novo botão</string>
     <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">Criar com IA</string>
+    <string name="critical">Crítica</string>
     <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">Visite nossa plataforma de tradução do Crowdin para contribuir</string>
     <string name="current_version" comment="About screen card label showing installed application version number">Versão atual</string>
     <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">Escala de interface personalizada</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Cortar itens %1$d</string>
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">Recortar para área de transferência</string>
     <string name="daily" comment="Option in backup scheduler frequency selection">Diariamente</string>
+    <string name="dangerous">Perigoso</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">Tema escuro</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">Painel</string>
+    <string name="database">Banco</string>
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">Modificação do banco</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Somente bancos de dados</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Pasta padrão</string>
@@ -465,6 +469,7 @@ Tem certeza de que deseja excluir este favorito?</string>
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">Arquivo enviado com sucesso</string>
     <string name="fb_uploading" comment="%1$s = file name">Enviando %1$s</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">Solicitação de recurso</string>
+    <string name="feedback">Comentarios</string>
     <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Obtendo tempo de backup …</string>
     <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Obtendo o tipo de backup…</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">Campo não pode ficar em branco</string>
@@ -495,6 +500,7 @@ Tem certeza de que deseja excluir este favorito?</string>
     <string name="found_connect_service" comment="Status message when mDNS ADB connection service is discovered">Serviço conectado encontrado</string>
     <string name="frequency" comment="Setting label for automated backup interval frequency">Frequência</string>
     <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">Texto completo da licença</string>
+    <string name="full_screen">Tela cheia</string>
     <string name="gemini_api_key_step_1" comment="%1$s = URL">Visite o Google AI Studio em %1$s</string>
     <string name="gemini_api_key_step_2" comment="Step 2 of API key setup guide: signing in with Google Account">Faça login com sua Conta do Google</string>
     <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">Clique em Criar chave de API e selecione ou crie um projeto</string>
@@ -515,6 +521,7 @@ Tem certeza de que deseja excluir este favorito?</string>
     <string name="great_news" comment="Dialog title header for update available notification">Boas notícias!</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">Hápticos &amp; Vibração</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">Tenha um bom dia!</string>
+    <string name="heuristic">Heuristic</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Editor Hex</string>
     <string name="high" comment="Selection option for high haptic strength or elevation level">Alta</string>
     <string name="high_contrast_dark_mode" comment="Settings preference title for OLED pitch-black dark theme">Modo escuro de alto contraste</string>
@@ -592,6 +599,7 @@ Tem certeza de que deseja excluir este favorito?</string>
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Aparência &amp; Sensação</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">Baixa</string>
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">Baixa taxa de contraste</string>
+    <string name="low_risk">Baixo risco</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">Crie seu tema</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">Par Manual</string>
     <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Ícones Materiais</string>
@@ -610,6 +618,7 @@ Tem certeza de que deseja excluir este favorito?</string>
     <string name="model_category_small" comment="AI model size category label">Pequeno (300-500 MB)</string>
     <string name="model_category_tiny" comment="AI model size category label">Minúsculo (menos de 300 MB)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">Modelos</string>
+    <string name="moderate">Moderado</string>
     <string name="modified" comment="File property: last modified date">Modificado</string>
     <string name="monthly" comment="Option in backup scheduler frequency selection">Mensalmente</string>
     <string name="more">Mais</string>
@@ -793,6 +802,7 @@ Tem certeza de que deseja excluir este favorito?</string>
     <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">Executar \"%1$s\" no dispositivo conectado?</string>
     <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">Executar comando?</string>
     <string name="running" comment="Status badge showing task or command execution is active">Em execução</string>
+    <string name="safe">Segura</string>
     <string name="sans_serif" comment="Font style category name">Sem serifa</string>
     <string name="save">Salvar</string>
     <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">Salvar como perfil…</string>
@@ -895,6 +905,7 @@ Tem certeza de que deseja excluir este favorito?</string>
     <string name="success_rate" comment="Analytics metadata metric showing tile execution success percentage">Taxa de sucesso</string>
     <string name="successful_connection_message" comment="Dialog message confirming target ADB device connected successfully">O dispositivo está conectado com sucesso. Agora você pode iniciar comandos no dispositivo de destino.</string>
     <string name="suggested_icons" comment="Header title in tile icon picker listing suggested Material icons">Ícones sugeridos</string>
+    <string name="suggestions">Sugestões</string>
     <string name="support_bmc" comment="Banner text in About section linking to Buy Me a Coffee donation page">Gosta do que eu faço?\nConsidere me pagar um café</string>
     <string name="surface">Superfície</string>
     <string name="switch_mode" comment="Action button to switch ADB connection mode between Local ADB, Remote Wireless ADB, and OTG">Trocar modo</string>
@@ -960,6 +971,7 @@ Tem certeza de que deseja excluir este favorito?</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">O Gerenciador de USB não está disponível neste dispositivo</string>
     <string name="use">Usar</string>
     <string name="use_biometrics">Usar dados biométricos</string>
+    <string name="use_cases">Casos de uso</string>
     <string name="utilities" comment="Category title in homescreen">Utilitários</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">Variante</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">Falha na verificação</string>

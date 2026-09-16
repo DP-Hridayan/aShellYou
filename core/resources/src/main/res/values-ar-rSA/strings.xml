@@ -55,6 +55,7 @@
     <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">السماح للقاعدة دائماً</string>
     <string name="always_allow_exact" comment="Permission rule option in AI chat: automatically approve commands matching exact command string">السماح الدقيق دائماً</string>
     <string name="analyse" comment="Action button to request AI analysis of command execution output or error log">تحليل</string>
+    <string name="analysis_failed">فشل التحليل</string>
     <string name="api_key" comment="Label for AI provider API key text input field">مفتاح API</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">تم حفظ مفتاح API</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">مفتاح API مطلوب</string>
@@ -254,14 +255,17 @@
     <string name="create_folder" comment="Action button or dialog title to create a new directory in file browser">إنشاء مجلد</string>
     <string name="create_new_tile" comment="Screen header or button label to add a new custom Quick Settings tile">إنشاء بلاطة جديدة</string>
     <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">إنشاء باستخدام الذكاء الاصطناعي</string>
+    <string name="critical">حرج</string>
     <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">تفضل بزيارة منصة الترجمة Crowdin للمساهمة</string>
     <string name="current_version" comment="About screen card label showing installed application version number">الإصدار الحالي</string>
     <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">مقياس واجهة المستخدم المخصص</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">قطع العناصر %1$d</string>
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">قطع إلى الحافظة</string>
     <string name="daily" comment="Option in backup scheduler frequency selection">يومي</string>
+    <string name="dangerous">خطرة</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">سمة داكنة</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">لوحة القيادة</string>
+    <string name="database">قاعدة البيانات</string>
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">تعديل قاعدة البيانات</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">قواعد البيانات فقط</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">المجلد الافتراضي</string>
@@ -463,6 +467,7 @@
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">تم رفع الملف بنجاح</string>
     <string name="fb_uploading" comment="%1$s = file name">تحميل %1$s</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">طلب مِيزة</string>
+    <string name="feedback">الملاحظات</string>
     <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">جارٍ جلب وقت النسخ الاحتياطي …</string>
     <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">جلب النسخ الاحتياطي من النوع…</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">الحقل لا يمكن أن يكون فارغاً</string>
@@ -493,6 +498,7 @@
     <string name="found_connect_service" comment="Status message when mDNS ADB connection service is discovered">تم العثور على خدمة اتصال</string>
     <string name="frequency" comment="Setting label for automated backup interval frequency">التكرار</string>
     <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">نص الترخيص الكامل</string>
+    <string name="full_screen">ملء الشاشة</string>
     <string name="gemini_api_key_step_1" comment="%1$s = URL">تفضل بزيارة Google AI Studio على %1$s</string>
     <string name="gemini_api_key_step_2" comment="Step 2 of API key setup guide: signing in with Google Account">تسجيل الدخول بحساب Google الخاص بك</string>
     <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">انقر فوق إنشاء مفتاح API وحدد أو أنشئ مشروعاً</string>
@@ -513,6 +519,7 @@
     <string name="great_news" comment="Dialog title header for update available notification">أخبار رائعة!</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">الاهتزاز واللمس &amp;</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">أتمنى لك يومًا سعيدًا!</string>
+    <string name="heuristic">Heuristic</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">محرر Hex</string>
     <string name="high" comment="Selection option for high haptic strength or elevation level">مرتفع</string>
     <string name="high_contrast_dark_mode" comment="Settings preference title for OLED pitch-black dark theme">وضع مظلم عالي التباين</string>
@@ -590,6 +597,7 @@
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">المظهر والشكل &amp;</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">منخفض</string>
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">نسبة تباين منخفضة</string>
+    <string name="low_risk">خطر منخفض</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">اصنع سمتك الخاصة</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">اقتران يدوي</string>
     <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">أيقونات المواد</string>
@@ -608,6 +616,7 @@
     <string name="model_category_small" comment="AI model size category label">صغير (300-500 ميغابايت)</string>
     <string name="model_category_tiny" comment="AI model size category label">صغير جداً (أقل من 300 ميجابايت)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">النماذج</string>
+    <string name="moderate">الاعتدال</string>
     <string name="modified" comment="File property: last modified date">معدّل</string>
     <string name="monthly" comment="Option in backup scheduler frequency selection">شهري</string>
     <string name="more">المزيد</string>
@@ -791,6 +800,7 @@
     <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">هل تريد تنفيذ \"%1$s\" على الجهاز المتصل؟</string>
     <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">تشغيل الأمر؟</string>
     <string name="running" comment="Status badge showing task or command execution is active">قيد التشغيل</string>
+    <string name="safe">آمن</string>
     <string name="sans_serif" comment="Font style category name">بدون زوائد</string>
     <string name="save">حفظ</string>
     <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">حفظ كملف شخصي…</string>
@@ -893,6 +903,7 @@
     <string name="success_rate" comment="Analytics metadata metric showing tile execution success percentage">نسبة النجاح</string>
     <string name="successful_connection_message" comment="Dialog message confirming target ADB device connected successfully">الجهاز متصل بنجاح. يمكنك الآن بدء تشغيل الأوامر على الجهاز المستهدف.</string>
     <string name="suggested_icons" comment="Header title in tile icon picker listing suggested Material icons">الأيقونات المقترحة</string>
+    <string name="suggestions">اقتراحات</string>
     <string name="support_bmc" comment="Banner text in About section linking to Buy Me a Coffee donation page">هل أعجبك ما أفعله؟\nفكر في دعمي بشراء فنجان قهوة</string>
     <string name="surface">السطح</string>
     <string name="switch_mode" comment="Action button to switch ADB connection mode between Local ADB, Remote Wireless ADB, and OTG">تغيير الوضع</string>
@@ -958,6 +969,7 @@
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">مدير USB غير متوفر على هذا الجهاز</string>
     <string name="use">استخدام</string>
     <string name="use_biometrics">استخدام القياسات الحيوية</string>
+    <string name="use_cases">استخدام حالات</string>
     <string name="utilities" comment="Category title in homescreen">الأدوات</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">المتغير</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">فشل التحقق</string>

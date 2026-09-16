@@ -55,6 +55,7 @@
     <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">始终允许基础命令</string>
     <string name="always_allow_exact" comment="Permission rule option in AI chat: automatically approve commands matching exact command string">始终允许精确命令</string>
     <string name="analyse" comment="Action button to request AI analysis of command execution output or error log">分析</string>
+    <string name="analysis_failed">分析失败</string>
     <string name="api_key" comment="Label for AI provider API key text input field">API 密钥</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">API 密钥已保存</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">需要 API 密钥</string>
@@ -254,14 +255,17 @@
     <string name="create_folder" comment="Action button or dialog title to create a new directory in file browser">创建文件夹</string>
     <string name="create_new_tile" comment="Screen header or button label to add a new custom Quick Settings tile">创建新瓷贴</string>
     <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">使用 AI 创建</string>
+    <string name="critical">关键的</string>
     <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">访问我们的 crowin 翻译平台进行贡献</string>
     <string name="current_version" comment="About screen card label showing installed application version number">当前版本</string>
     <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">自定义 UI 缩放</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">剪切 %1$d 项目</string>
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">剪切到剪贴板</string>
     <string name="daily" comment="Option in backup scheduler frequency selection">每日</string>
+    <string name="dangerous">危险</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">暗色主题</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">仪表盘</string>
+    <string name="database">数据库</string>
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">数据库修改</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">仅数据库</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">重置目录</string>
@@ -463,6 +467,7 @@
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">文件上传成功</string>
     <string name="fb_uploading" comment="%1$s = file name">正在上传 %1$s</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">功能建议</string>
+    <string name="feedback">反馈</string>
     <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">正在获取备份时间 …</string>
     <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">正在获取备份类型…</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">字段不能为空</string>
@@ -493,6 +498,7 @@
     <string name="found_connect_service" comment="Status message when mDNS ADB connection service is discovered">找到连接服务</string>
     <string name="frequency" comment="Setting label for automated backup interval frequency">频率</string>
     <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">完整许可证文本</string>
+    <string name="full_screen">全屏</string>
     <string name="gemini_api_key_step_1" comment="%1$s = URL">访问 Google AI Studio：%1$s</string>
     <string name="gemini_api_key_step_2" comment="Step 2 of API key setup guide: signing in with Google Account">使用您的 Google 账号登录</string>
     <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">点击“创建 API 密钥”并选择或创建一个项目</string>
@@ -513,6 +519,7 @@
     <string name="great_news" comment="Dialog title header for update available notification">好消息！</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">触感&amp;震动</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">祝您有个美好的一天！</string>
+    <string name="heuristic">Heuristic</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">十六进制编辑器</string>
     <string name="high" comment="Selection option for high haptic strength or elevation level">高</string>
     <string name="high_contrast_dark_mode" comment="Settings preference title for OLED pitch-black dark theme">高对比度暗色模式</string>
@@ -590,6 +597,7 @@
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">外观 &amp; 体验</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">低</string>
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">对比度过低</string>
+    <string name="low_risk">低风险</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">制作您的主题</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">手动配对</string>
     <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">材质图标</string>
@@ -608,6 +616,7 @@
     <string name="model_category_small" comment="AI model size category label">小(300-500 MB)</string>
     <string name="model_category_tiny" comment="AI model size category label">微型 (300 MB 以下)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">模型</string>
+    <string name="moderate">中度</string>
     <string name="modified" comment="File property: last modified date">已修改</string>
     <string name="monthly" comment="Option in backup scheduler frequency selection">每月</string>
     <string name="more">更多</string>
@@ -791,6 +800,7 @@
     <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">在已连接的设备上执行“%1$s”？</string>
     <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">运行命令？</string>
     <string name="running" comment="Status badge showing task or command execution is active">正在运行</string>
+    <string name="safe">安全</string>
     <string name="sans_serif" comment="Font style category name">无衬线字体</string>
     <string name="save">保存</string>
     <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">另存为…</string>
@@ -893,6 +903,7 @@
     <string name="success_rate" comment="Analytics metadata metric showing tile execution success percentage">成功率</string>
     <string name="successful_connection_message" comment="Dialog message confirming target ADB device connected successfully">设备连接成功。您现在可以在目标设备上运行命令。</string>
     <string name="suggested_icons" comment="Header title in tile icon picker listing suggested Material icons">推荐图标</string>
+    <string name="suggestions">建议</string>
     <string name="support_bmc" comment="Banner text in About section linking to Buy Me a Coffee donation page">觉得我做的好？\n考虑请我一杯咖啡吧</string>
     <string name="surface">表面</string>
     <string name="switch_mode" comment="Action button to switch ADB connection mode between Local ADB, Remote Wireless ADB, and OTG">切换模式</string>
@@ -958,6 +969,7 @@
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">此设备上不可用 USB 管理器</string>
     <string name="use">使用</string>
     <string name="use_biometrics">使用生物测定技术</string>
+    <string name="use_cases">使用案件</string>
     <string name="utilities" comment="Category title in homescreen">实用工具</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">变体</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">验证失败</string>

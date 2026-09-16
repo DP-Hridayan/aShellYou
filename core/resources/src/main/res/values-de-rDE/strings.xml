@@ -55,6 +55,7 @@
     <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">Basis immer erlauben</string>
     <string name="always_allow_exact" comment="Permission rule option in AI chat: automatically approve commands matching exact command string">Exakt immer erlauben</string>
     <string name="analyse" comment="Action button to request AI analysis of command execution output or error log">Analysieren</string>
+    <string name="analysis_failed">Analyse fehlgeschlagen</string>
     <string name="api_key" comment="Label for AI provider API key text input field">API-Schlüssel</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">API-Schlüssel ist gespeichert</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">API-Schlüssel erforderlich</string>
@@ -255,14 +256,17 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="create_folder" comment="Action button or dialog title to create a new directory in file browser">Ordner erstellen</string>
     <string name="create_new_tile" comment="Screen header or button label to add a new custom Quick Settings tile">Neue Kachel erstellen</string>
     <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">Mit KI erstellen</string>
+    <string name="critical">Kritisch</string>
     <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">Besuche unsere Crowdin-Übersetzungsplattform, um mitzuwirken</string>
     <string name="current_version" comment="About screen card label showing installed application version number">Aktuelle Version</string>
     <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">Benutzerdefinierte UI-Skalierung</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">%1$d Elemente ausschneiden</string>
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">In Zwischenablage ausgeschnitten</string>
     <string name="daily" comment="Option in backup scheduler frequency selection">Täglich</string>
+    <string name="dangerous">Gefährlich</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">Dunkles Thema</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">Dashboard</string>
+    <string name="database">Datenbank</string>
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">Datenbankänderung</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Nur Datenbanken</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Standardordner</string>
@@ -464,6 +468,7 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">Datei erfolgreich hochgeladen</string>
     <string name="fb_uploading" comment="%1$s = file name">Lade %1$s hoch</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">Funktionsanfrage</string>
+    <string name="feedback">Feedback</string>
     <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Abrufen der Sicherungszeit …</string>
     <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Sicherungstyp… wird abgerufen</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">Feld darf nicht leer sein</string>
@@ -494,6 +499,7 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="found_connect_service" comment="Status message when mDNS ADB connection service is discovered">Verbindungsdienst gefunden</string>
     <string name="frequency" comment="Setting label for automated backup interval frequency">Häufigkeit</string>
     <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">Vollständiger Lizenztext</string>
+    <string name="full_screen">Vollbild</string>
     <string name="gemini_api_key_step_1" comment="%1$s = URL">Besuchen Sie Google AI Studio unter %1$s</string>
     <string name="gemini_api_key_step_2" comment="Step 2 of API key setup guide: signing in with Google Account">Mit Ihrem Google-Konto anmelden</string>
     <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">Klicken Sie auf „API-Schlüssel erstellen“ und wählen Sie ein Projekt aus oder erstellen Sie eines</string>
@@ -514,6 +520,7 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="great_news" comment="Dialog title header for update available notification">Tolle Neuigkeiten!</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">Haptik &amp; Vibration</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">Schönen Tag noch!</string>
+    <string name="heuristic">Heuristic</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Hex-Editor</string>
     <string name="high" comment="Selection option for high haptic strength or elevation level">Hoch</string>
     <string name="high_contrast_dark_mode" comment="Settings preference title for OLED pitch-black dark theme">Dunkles Design mit hohem Kontrast</string>
@@ -591,6 +598,7 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Aussehen &amp; Bedienung</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">Niedrig</string>
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">Geringes Kontrastverhältnis</string>
+    <string name="low_risk">Niedriges Risiko</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">Erstellen Sie Ihr Thema</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">Manuell koppeln</string>
     <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Material-Symbole</string>
@@ -609,6 +617,7 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="model_category_small" comment="AI model size category label">Klein (300–500 MB)</string>
     <string name="model_category_tiny" comment="AI model size category label">Winzig (unter 300 MB)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">Modelle</string>
+    <string name="moderate">Mäßig</string>
     <string name="modified" comment="File property: last modified date">Geändert</string>
     <string name="monthly" comment="Option in backup scheduler frequency selection">Monatlich</string>
     <string name="more">Mehr</string>
@@ -792,6 +801,7 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">„%1$s“ auf dem verbundenen Gerät ausführen?</string>
     <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">Befehl ausführen?</string>
     <string name="running" comment="Status badge showing task or command execution is active">Wird ausgeführt</string>
+    <string name="safe">Sicher</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Speichern</string>
     <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">Als Profil speichern…</string>
@@ -894,6 +904,7 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="success_rate" comment="Analytics metadata metric showing tile execution success percentage">Erfolgsquote</string>
     <string name="successful_connection_message" comment="Dialog message confirming target ADB device connected successfully">Gerät erfolgreich verbunden. Du kannst nun Befehle auf dem Zielgerät ausführen.</string>
     <string name="suggested_icons" comment="Header title in tile icon picker listing suggested Material icons">Vorgeschlagene Symbole</string>
+    <string name="suggestions">Vorschläge</string>
     <string name="support_bmc" comment="Banner text in About section linking to Buy Me a Coffee donation page">Gefällt dir, was ich mache?\nErwäge, mir einen Kaffee zu spendieren</string>
     <string name="surface">Oberfläche</string>
     <string name="switch_mode" comment="Action button to switch ADB connection mode between Local ADB, Remote Wireless ADB, and OTG">Modus wechseln</string>
@@ -959,6 +970,7 @@ Bist du sicher, dass du diese %1$d ausgewählten Lesezeichen löschen möchtest?
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">USB Manager ist auf diesem Gerät nicht verfügbar</string>
     <string name="use">Verwenden</string>
     <string name="use_biometrics">Biometrie verwenden</string>
+    <string name="use_cases">Verwende Fälle</string>
     <string name="utilities" comment="Category title in homescreen">Dienstprogramme</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">Variante</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">Verifizierung fehlgeschlagen</string>

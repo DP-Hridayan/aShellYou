@@ -46,7 +46,7 @@
     <string name="ai_prompt_suggestion_1" comment="Clickable suggestion chip prompt in AI chat for checking battery health">मेरी बैटरी स्वास्थ्य की जाँच करें</string>
     <string name="ai_prompt_suggestion_2" comment="Clickable suggestion chip prompt in AI chat for listing installed package names">सभी इंस्टॉल किए गए पैकेज सूचीबद्ध करें</string>
     <string name="ai_prompt_suggestion_3" comment="Clickable suggestion chip prompt in AI chat for creating Quick Settings tiles">मुझे त्वरित सेटिंग टाइल बनाने में मदद करें</string>
-    <string name="ai_session_search_hint" comment="Placeholder text in AI chat session search bar">Search chat…</string>
+    <string name="ai_session_search_hint" comment="Placeholder text in AI chat session search bar">चैट में खोजें…</string>
     <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">उदा. साइबरपंक नियॉन सिटी, डार्क मोड, हाई कंट्रास्ट</string>
     <string name="all">सभी</string>
     <string name="all_data" comment="Option in backup selector to include full app database, settings, and chat history">सभी डेटा</string>
@@ -55,16 +55,17 @@
     <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">बेस के लिए हमेशा अनुमति दें</string>
     <string name="always_allow_exact" comment="Permission rule option in AI chat: automatically approve commands matching exact command string">सटीक के लिए हमेशा अनुमति दें</string>
     <string name="analyse" comment="Action button to request AI analysis of command execution output or error log">विश्लेषण करें</string>
+    <string name="analysis_failed">Analysis failed</string>
     <string name="api_key" comment="Label for AI provider API key text input field">API कुंजी</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">API कुंजी सहेज ली गई है</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">API कुंजी आवश्यक है</string>
     <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">AI सुविधाओं का उपयोग करने के लिए एक API कुंजी आवश्यक है। कृपया सेटिंग्स -&gt; क्लाउड मॉडल में अपनी API कुंजी जोड़ें।</string>
     <string name="app">एप्लिकेशन</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">ऐप क्रैश हो गया है</string>
-    <string name="app_is_locked" comment="Title shown when the app is locked">App is locked</string>
-    <string name="app_is_locked_msg" comment="Message shown when the app is locked">Use your screen lock, fingerprint, or face to unlock this app and continue</string>
-    <string name="app_lock_disabled_msg" comment="Toast message informing user that app lock was disabled because device screen lock was removed">App authentication disabled: Device screen lock was removed.</string>
-    <string name="app_lock_setup_error_msg" comment="Dialog message when user tries to enable app lock but has no device screen lock configured">No device screen lock is configured. Please set up a screen lock or biometric in your device settings to enable App Lock.</string>
+    <string name="app_is_locked" comment="Title shown when the app is locked">ऐप लॉक है</string>
+    <string name="app_is_locked_msg" comment="Message shown when the app is locked">इस ऐप को अनलॉक करने और आगे बढ़ने के लिए अपने स्क्रीन लॉक, फ़िंगरप्रिंट या चेहरे का इस्तेमाल करें</string>
+    <string name="app_lock_disabled_msg" comment="Toast message informing user that app lock was disabled because device screen lock was removed">ऐप ऑथेंटिकेशन बंद हो गया: डिवाइस स्क्रीन लॉक हटाया गया।</string>
+    <string name="app_lock_setup_error_msg" comment="Dialog message when user tries to enable app lock but has no device screen lock configured">कोई डिवाइस स्क्रीन लॉक सेट नहीं है। ऐप लॉक सक्षम करने के लिए कृपया अपनी डिवाइस सेटिंग में स्क्रीन लॉक या बायोमेट्रिक सेट करें।</string>
     <string name="app_permissions" comment="Title for app permissions shortcut">App permissions</string>
     <string name="app_tagline" comment="App subtitle/tagline shown on welcome and about screens">ADB आपकी उंगलियों पर</string>
     <string name="apply">लागू करें</string>
@@ -235,7 +236,7 @@
     <string name="connect_via_wifi_adb" comment="Option in connection menu to connect via Wi-Fi Wireless Debugging">Wi-Fi ADB के ज़रिए कनेक्ट करें</string>
     <string name="connected" comment="Status badge showing device is successfully connected over ADB">कनेक्ट हो गया</string>
     <string name="connected_device" comment="Header title for the currently active ADB target device information card">कनेक्ट किए हुए डिवाइस</string>
-    <string name="connecting" comment="Progress status text shown while establishing ADB connection">Connecting…</string>
+    <string name="connecting" comment="Progress status text shown while establishing ADB connection">कनेक्ट हो रहा है…</string>
     <string name="connection_error" comment="Toast notification or dialog title for ADB network connection errors">कनेक्शन त्रुटि</string>
     <string name="connection_failed" comment="Status banner or toast when ADB connection attempt fails">कनेक्शन विफल रहा</string>
     <string name="connection_lost" comment="Dialog title shown when ADB Wireless Debugging connection is unexpectedly disconnected">कनेक्शन खो गया</string>
@@ -246,7 +247,7 @@
     <string name="copied_items" comment="%1$d = number of items copied to clipboard">%1$d आइटम कॉपी किए</string>
     <string name="copied_to_clipboard" comment="Toast message shown after copying text or command to system clipboard">क्लिपबोर्ड पर कॉपी किया!</string>
     <string name="copy">कॉपी</string>
-    <string name="copying" comment="Progress status text shown while copying files in file browser">Copying…</string>
+    <string name="copying" comment="Progress status text shown while copying files in file browser">कॉपी हो रहा है…</string>
     <string name="copying_items" comment="%1$d = number of items being copied">%1$d आइटम (item) कॉपी हो रहे हैं</string>
     <string name="crash_details" comment="Screen title for inspecting stack trace details of a crash log">क्रैश विवरण</string>
     <string name="crash_history" comment="Settings menu title and screen header for viewing past application crash reports">क्रैश इतिहास</string>
@@ -254,14 +255,17 @@
     <string name="create_folder" comment="Action button or dialog title to create a new directory in file browser">फ़ोल्डर बनाएं</string>
     <string name="create_new_tile" comment="Screen header or button label to add a new custom Quick Settings tile">नई टाइल बनाएं</string>
     <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">AI के साथ बनाएँ</string>
+    <string name="critical">Critical</string>
     <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">योगदान देने के लिए हमारे क्राउडिन अनुवाद प्लेटफ़ॉर्म पर जाएं</string>
     <string name="current_version" comment="About screen card label showing installed application version number">वर्तमान संस्करण</string>
     <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">कस्टम UI स्केल</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">%1$d आइटम कट किए</string>
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">क्लिपबोर्ड पर कट करें</string>
     <string name="daily" comment="Option in backup scheduler frequency selection">दैनिक</string>
+    <string name="dangerous">Dangerous</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">डार्क थीम</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">डैशबोर्ड</string>
+    <string name="database">Database</string>
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">डेटाबेस संशोधन</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">केवल डेटाबेस</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">डिफ़ॉल्ट फ़ोल्डर</string>
@@ -395,7 +399,7 @@
     <string name="download_material_icons" comment="Button label to download the Material Icons font pack for QS tile icon chooser">Material Icons डाउनलोड करें</string>
     <string name="downloading" comment="Progress status text while downloading update package">डाउनलोड हो रहा है…</string>
     <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Downloading backup from Google Drive…</string>
-    <string name="downloading_icon_pack" comment="Progress status text while downloading Material Icons font for QS tile icon chooser">Downloading icon pack…</string>
+    <string name="downloading_icon_pack" comment="Progress status text while downloading Material Icons font for QS tile icon chooser">आइकन पैक डाउनलोड हो रहा है…</string>
     <string name="downloads" comment="Screen header or list item for downloaded files">डाउनलोड्स</string>
     <string name="duplicate_tile_name_error_msg" comment="Validation error in Quick Settings tile builder when entered tile name already exists">इस नाम का फ़ोल्डर पहले से मौजूद है</string>
     <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">डायनैमिक रंग</string>
@@ -418,7 +422,7 @@
     <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">इससे %1$s पार्टीशन हमेशा के लिए मिट जाएगा। इस क्रिया को पूर्ववत नहीं किया जा सकता।</string>
     <string name="erase_confirm_title" comment="%1$s = partition name. Dialog title for partition erase confirmation">%1$s मिटाएं?</string>
     <string name="erase_partition" comment="Action button to trigger fastboot partition erase">मिटाएं</string>
-    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Erasing…</string>
+    <string name="erasing" comment="Progress status header while fastboot partition erase command is running">हटाया जा रहा है…</string>
     <string name="error">त्रुटि</string>
     <string name="error_labels_limit_reached" comment="Validation error when maximum number of custom command labels/tags is reached">लेबल की अधिकतम सीमा पहुंच गई</string>
     <string name="exclude" comment="Filter toggle option to exclude selected package or item">बाहर रखें</string>
@@ -432,7 +436,7 @@
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; Recovery</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">जल्द आ रहा है</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">कमांड कंसोल</string>
-    <string name="fastboot_command_hint" comment="Placeholder hint in fastboot command input field">Enter fastboot command…</string>
+    <string name="fastboot_command_hint" comment="Placeholder hint in fastboot command input field">फास्टबूट कमांड दर्ज करें…</string>
     <string name="fastboot_device_info" comment="Card header displaying target device variables queried over fastboot">डिवाइस की जानकारी</string>
     <string name="fastboot_partitions" comment="Tab title for Fastboot partition manager tool">पार्टीशन</string>
     <string name="fastboot_quick_actions" comment="Section header for predefined quick fastboot action buttons">त्वरित कार्य</string>
@@ -463,6 +467,7 @@
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">फ़ाइल सफलतापूर्वक अपलोड हुई</string>
     <string name="fb_uploading" comment="%1$s = file name">%1$s अपलोड हो रही है</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">सुविधा अनुरोध</string>
+    <string name="feedback">Feedback</string>
     <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Fetching backup time …</string>
     <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Fetching backup type…</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">फ़ील्ड खाली नहीं हो सकती</string>
@@ -493,6 +498,7 @@
     <string name="found_connect_service" comment="Status message when mDNS ADB connection service is discovered">कनेक्ट सर्विस मिली</string>
     <string name="frequency" comment="Setting label for automated backup interval frequency">आवृत्ति</string>
     <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">पूर्ण लाइसेंस पाठ</string>
+    <string name="full_screen">Full screen</string>
     <string name="gemini_api_key_step_1" comment="%1$s = URL">%1$s पर Google AI Studio पर जाएँ</string>
     <string name="gemini_api_key_step_2" comment="Step 2 of API key setup guide: signing in with Google Account">अपने Google खाते से साइन इन करें</string>
     <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">\'API कुंजी बनाएँ\' पर क्लिक करें और कोई प्रोजेक्ट चुनें या बनाएँ</string>
@@ -513,6 +519,7 @@
     <string name="great_news" comment="Dialog title header for update available notification">अच्छी ख़बर!</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">हैप्टिक्स &amp; वाइब्रेशन</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">आपका दिन शुभ हो!</string>
+    <string name="heuristic">Heuristic</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">हेक्स एडिटर</string>
     <string name="high" comment="Selection option for high haptic strength or elevation level">उच्च</string>
     <string name="high_contrast_dark_mode" comment="Settings preference title for OLED pitch-black dark theme">हाई कॉन्ट्रास्ट डार्क मोड</string>
@@ -590,9 +597,10 @@
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Look &amp; Feel</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">कम</string>
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">कम कंट्रास्ट अनुपात</string>
+    <string name="low_risk">Low risk</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">अपनी थीम बनाएँ</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">मैन्युअल पेयर</string>
-    <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Material Icons</string>
+    <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">मटीरियल आइकन</string>
     <string name="material_icons_description" comment="Informational text in icon chooser explaining the Material Icons download">Download ~380 KB once to browse 2,500+ Material icons</string>
     <string name="max_download_size" comment="Setting label for capping maximum update download file size">अधिकतम डाउनलोड</string>
     <string name="medium">मध्यम</string>
@@ -608,6 +616,7 @@
     <string name="model_category_small" comment="AI model size category label">Small (300–500 MB)</string>
     <string name="model_category_tiny" comment="AI model size category label">बेहद छोटा (300 MB से कम)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">मॉडल</string>
+    <string name="moderate">Moderate</string>
     <string name="modified" comment="File property: last modified date">संशोधित</string>
     <string name="monthly" comment="Option in backup scheduler frequency selection">मासिक</string>
     <string name="more">और</string>
@@ -714,7 +723,7 @@
     <string name="permission_denied" comment="Error toast when requested Android system permission is denied by user">अनुमति अस्वीकृत</string>
     <string name="permission_not_granted_yet" comment="Toast when the user confirms a permission was granted but the system still reports it missing">Permission not granted yet</string>
     <string name="permission_optional" comment="Subtext notice indicating requested permissions are non-mandatory">ये अनुमतियाँ देना वैकल्पिक है!</string>
-    <string name="permissions" comment="Group header for permissions settings">Permissions</string>
+    <string name="permissions" comment="Group header for permissions settings">अनुमतियां</string>
     <string name="pick_ashellyou_extension" comment="File picker validation error requiring user to select a .ashellyou backup file">कृपया .ashellyou एक्सटेंशन वाली फ़ाइल चुनें</string>
     <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">रंग चुनें</string>
     <string name="pin_all">Pin selected</string>
@@ -791,6 +800,7 @@
     <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">कनेक्टेड डिवाइस पर \"%1$s\" निष्पादित करें?</string>
     <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">कमांड चलाएँ?</string>
     <string name="running" comment="Status badge showing task or command execution is active">चल रहा है</string>
+    <string name="safe">Safe</string>
     <string name="sans_serif" comment="Font style category name">सैंस सेरिफ़</string>
     <string name="save">सेव करें</string>
     <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">Save as profile…</string>
@@ -893,6 +903,7 @@
     <string name="success_rate" comment="Analytics metadata metric showing tile execution success percentage">सफलता दर</string>
     <string name="successful_connection_message" comment="Dialog message confirming target ADB device connected successfully">डिवाइस सफलतापूर्वक कनेक्ट है। अब आप लक्ष्य डिवाइस पर कमांड चला सकते हैं।</string>
     <string name="suggested_icons" comment="Header title in tile icon picker listing suggested Material icons">सुझाए गए आइकन</string>
+    <string name="suggestions">Suggestions</string>
     <string name="support_bmc" comment="Banner text in About section linking to Buy Me a Coffee donation page">जो मैं करता हूं पसंद है?\nमुझे एक कॉफी लेने पर विचार करें</string>
     <string name="surface">सतह</string>
     <string name="switch_mode" comment="Action button to switch ADB connection mode between Local ADB, Remote Wireless ADB, and OTG">मोड स्विच करें</string>
@@ -958,6 +969,7 @@
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">इस डिवाइस पर USB मैनेजर उपलब्ध नहीं है</string>
     <string name="use">उपयोग करें</string>
     <string name="use_biometrics">बायोमेट्रिक्स का उपयोग करें</string>
+    <string name="use_cases">Use cases</string>
     <string name="utilities" comment="Category title in homescreen">यूटिलिटीज</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">वेरिएंट</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">सत्यापन विफल रहा</string>

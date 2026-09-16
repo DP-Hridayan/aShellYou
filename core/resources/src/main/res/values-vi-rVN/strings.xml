@@ -56,6 +56,7 @@
     <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">Luôn cho phép lệnh tương tự</string>
     <string name="always_allow_exact" comment="Permission rule option in AI chat: automatically approve commands matching exact command string">Luôn cho phép các lệnh này</string>
     <string name="analyse" comment="Action button to request AI analysis of command execution output or error log">Phân tích</string>
+    <string name="analysis_failed">Analysis failed</string>
     <string name="api_key" comment="Label for AI provider API key text input field">Khóa API</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">Đã lưu khóa API</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">Yêu cầu khóa API</string>
@@ -255,14 +256,17 @@
     <string name="create_folder" comment="Action button or dialog title to create a new directory in file browser">Tạo thư mục</string>
     <string name="create_new_tile" comment="Screen header or button label to add a new custom Quick Settings tile">Tạo ô mới</string>
     <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">Tạo bằng AI</string>
+    <string name="critical">Critical</string>
     <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">Truy cập nền tảng dịch thuật Crowdin của chúng tôi để đóng góp</string>
     <string name="current_version" comment="About screen card label showing installed application version number">Phiên bản hiện tại</string>
     <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">Tùy chỉnh tỷ lệ UI</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Cắt %1$d mục</string>
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">Cắt vào bộ nhớ tạm</string>
     <string name="daily" comment="Option in backup scheduler frequency selection">Hằng ngày</string>
+    <string name="dangerous">Dangerous</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">Giao diện tối</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">Bảng tổng quan</string>
+    <string name="database">Database</string>
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">Sửa đổi cơ sở dữ liệu</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Chỉ cơ sở dữ liệu</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Thư mục mặc định</string>
@@ -464,6 +468,7 @@
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">Tải lên tệp thành công</string>
     <string name="fb_uploading" comment="%1$s = file name">Đang tải lên %1$s</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">Yêu cầu tính năng</string>
+    <string name="feedback">Feedback</string>
     <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Đang tải thời gian sao lưu…</string>
     <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Đang tải loại sao lưu…</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">Trường này không được để trống</string>
@@ -494,6 +499,7 @@
     <string name="found_connect_service" comment="Status message when mDNS ADB connection service is discovered">Đã tìm thấy dịch vụ kết nối</string>
     <string name="frequency" comment="Setting label for automated backup interval frequency">Tần suất</string>
     <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">Nội dung giấy phép đầy đủ</string>
+    <string name="full_screen">Full screen</string>
     <string name="gemini_api_key_step_1" comment="%1$s = URL">Truy cập Google AI Studio tại %1$s</string>
     <string name="gemini_api_key_step_2" comment="Step 2 of API key setup guide: signing in with Google Account">Đăng nhập bằng Tài khoản Google của bạn</string>
     <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">Nhấn vào Tạo khóa API và chọn hoặc tạo một dự án</string>
@@ -514,6 +520,7 @@
     <string name="great_news" comment="Dialog title header for update available notification">Tin vui!</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">Phản hồi xúc giác &amp; Rung</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">Chúc một ngày tốt lành!</string>
+    <string name="heuristic">Heuristic</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Trình chỉnh sửa Hex</string>
     <string name="high" comment="Selection option for high haptic strength or elevation level">Cao</string>
     <string name="high_contrast_dark_mode" comment="Settings preference title for OLED pitch-black dark theme">Chế độ tối tương phản cao</string>
@@ -591,6 +598,7 @@
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Giao diện &amp; Cảm nhận</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">Thấp</string>
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">Độ tương phản thấp</string>
+    <string name="low_risk">Low risk</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">Tạo chủ đề của bạn</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">Ghép nối thủ công</string>
     <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Material Icons</string>
@@ -609,6 +617,7 @@
     <string name="model_category_small" comment="AI model size category label">Nhỏ (300-500 MB)</string>
     <string name="model_category_tiny" comment="AI model size category label">Rất nhỏ (Dưới 300 MB)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">Các mô hình</string>
+    <string name="moderate">Moderate</string>
     <string name="modified" comment="File property: last modified date">Đã sửa đổi</string>
     <string name="monthly" comment="Option in backup scheduler frequency selection">Hằng tháng</string>
     <string name="more">Thêm</string>
@@ -792,6 +801,7 @@
     <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">Thực thi \"%1$s\" trên thiết bị đã kết nối?</string>
     <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">Chạy lệnh?</string>
     <string name="running" comment="Status badge showing task or command execution is active">Đang chạy</string>
+    <string name="safe">Safe</string>
     <string name="sans_serif" comment="Font style category name">Sans Serif</string>
     <string name="save">Lưu</string>
     <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">Lưu thành cấu hình…</string>
@@ -894,6 +904,7 @@
     <string name="success_rate" comment="Analytics metadata metric showing tile execution success percentage">Tỷ lệ thành công</string>
     <string name="successful_connection_message" comment="Dialog message confirming target ADB device connected successfully">Thiết bị đã được kết nối thành công. Bây giờ bạn có thể bắt đầu thực thi lệnh trên thiết bị mục tiêu.</string>
     <string name="suggested_icons" comment="Header title in tile icon picker listing suggested Material icons">Biểu tượng được đề xuất</string>
+    <string name="suggestions">Suggestions</string>
     <string name="support_bmc" comment="Banner text in About section linking to Buy Me a Coffee donation page">Bạn thích những gì tôi làm?\nHãy mời tôi một ly cà phê nhé</string>
     <string name="surface">Bề mặt</string>
     <string name="switch_mode" comment="Action button to switch ADB connection mode between Local ADB, Remote Wireless ADB, and OTG">Chuyển chế độ</string>
@@ -959,6 +970,7 @@
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">Trình quản lý USB không khả dụng trên thiết bị này</string>
     <string name="use">Sử dụng</string>
     <string name="use_biometrics">Use biometrics</string>
+    <string name="use_cases">Use cases</string>
     <string name="utilities" comment="Category title in homescreen">Tiện ích</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">Biến thể</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">Xác minh thất bại</string>
