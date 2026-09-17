@@ -147,6 +147,9 @@
     <string name="cancel">Annulla</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">Annulla tutto</string>
     <string name="cancel_selection">Annulla selezione</string>
+    <string name="cancel_transfer" comment="Button that confirms abandoning an image transfer to a device in fastboot mode">Annulla trasferimento</string>
+    <string name="cancel_transfer_message" comment="Dialog body explaining the consequences of abandoning a fastboot image transfer before the device has written anything">L\'immagine non è ancora stata scritta, quindi il dispositivo non è stato modificato. La connessione verrà reimpostata e potrebbe essere necessario rimettere il dispositivo in fastboot prima di riprovare.</string>
+    <string name="cancel_transfer_title" comment="Dialog title asking the user to confirm abandoning a fastboot image transfer">Annullare il trasferimento?</string>
     <string name="cancelled">Annullato</string>
     <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">Annullamento…</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">Registro modifiche</string>
@@ -406,6 +409,7 @@ Sei sicuro di voler eliminare questi %1$d segnalibri selezionati?</string>
     <string name="device_info" comment="Screen header or navigation item for target device hardware/OS specifications">Info dispositivo</string>
     <string name="device_not_in_sideload_mode" comment="Status shown when the attached device answers ADB but is booted normally rather than waiting in recovery sideload mode">Il dispositivo è avviato normalmente. Riavvia per ripristinare e scegli Applica l\'aggiornamento da ADB</string>
     <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">Il dispositivo non supporta l\'autenticazione biometrica</string>
+    <string name="device_rejected_operation" comment="Error shown when the bootloader answered a fastboot command with a failure">Il dispositivo ha rifiutato l\'operazione</string>
     <string name="disable_softkey" comment="Setting toggle title to hide soft keyboard during shell session">Disabilita la tastiera a schermo</string>
     <string name="disclaimer" comment="Section title in About screen for legal disclaimer notices">Disclaimer</string>
     <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">L\'esecuzione dei comandi ADB può modificare le impostazioni di sistema, gestire i file ed eseguire operazioni che possono influenzare la stabilità del dispositivo.\nSei l\'unico responsabile di tutte le modifiche apportate utilizzando questa app.</string>
@@ -422,6 +426,7 @@ Sei sicuro di voler eliminare questi %1$d segnalibri selezionati?</string>
     <string name="disconnected" comment="Status badge showing ADB is currently disconnected">Disconnesso!</string>
     <string name="discussions" comment="About screen button linking to GitHub Discussions">Discussioni</string>
     <string name="dismiss">Rifiuta</string>
+    <string name="do_not_disconnect" comment="Warning shown while the bootloader is writing a partition, when the transfer can no longer be stopped">Scrittura sul dispositivo. Non scollegare o riavviare.</string>
     <string name="done">Fatto</string>
     <string name="download">Download</string>
     <string name="download_failed" comment="Toast message when in-app updater APK download fails">Download fallito</string>
@@ -566,6 +571,7 @@ Sei sicuro di voler eliminare questi %1$d segnalibri selezionati?</string>
     <string name="home">Home</string>
     <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">Come accedere alla modalità sideload</string>
     <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">Icona selezionata</string>
+    <string name="image_too_large" comment="%1$s = the largest size in megabytes the device accepts. Error shown when the chosen image is bigger than the bootloader can buffer">L\'immagine è più grande dell\' %1$s MB che questo dispositivo accetta</string>
     <string name="import_font" comment="Content description for the import font icon button in the font style picker">Import font</string>
     <string name="import_font_name_hint" comment="Input field placeholder for the user-assigned display name of an imported font">Font name</string>
     <string name="import_theme" comment="Action button to import theme configuration file">Importa tema</string>
@@ -582,6 +588,7 @@ Sei sicuro di voler eliminare questi %1$d segnalibri selezionati?</string>
     <string name="irreversible_action_warning" comment="Warning dialog subtitle warning user that deletion cannot be undone">Questa azione è irreversibile!</string>
     <string name="item_deleted" comment="Confirmation toast after item is deleted">L\'elemento è stato eliminato con successo</string>
     <string name="keep_both" comment="Resolution option in file conflict dialog to keep both original and new file">Mantieni Entrambi</string>
+    <string name="keep_transferring" comment="Button that dismisses the cancel confirmation and lets the transfer continue">Continua ad andare</string>
     <string name="key_verified_success_msg" comment="Confirmation text when entered AI API key is validated successfully">Chiave verificata con successo</string>
     <string name="label" comment="Field label for custom command label/tag name">Etichetta</string>
     <string name="languages" comment="Settings section header for language and locale options">Lingue</string>
@@ -915,9 +922,12 @@ Sei sicuro di voler eliminare questi %1$d segnalibri selezionati?</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku non è disponibile</string>
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">Shizuku o Shizuku+ non sono installati o configurati correttamente sul tuo dispositivo</string>
     <string name="sideload_block_out_of_range" comment="Error shown when the target device recovery requested a part of the package beyond its end; usually indicates a corrupted transfer">Recupero dei dati richiesti oltre la fine del file</string>
+    <string name="sideload_channel_description" comment="Notification channel description explaining that the channel shows sideload transfer progress">Mostra lo stato di avanzamento di un pacchetto che viene caricato lateralmente su un dispositivo</string>
+    <string name="sideload_channel_name" comment="Notification channel name for the ongoing ADB sideload transfer">ADB Sideload</string>
     <string name="sideload_complete" comment="Status shown when the sideloaded package was fully transferred and recovery confirmed completion">Sideload complete</string>
     <string name="sideload_connection_timed_out" comment="Error shown when the ADB handshake with the target device did not complete in time; the user may need to accept an authorization prompt on that device">Connessione scaduta. Controlla la schermata del dispositivo per un prompt di autorizzazione</string>
     <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">Metti il dispositivo in modalità sideload tramite recovery</string>
+    <string name="sideload_in_progress_stay" comment="Toast shown when the user tries to leave the sideload screen while a package is still being transferred">Trasferimento in corso. Annullalo prima di lasciare questa schermata.</string>
     <string name="sideload_invalid_request" comment="Error shown when the target device sent data that is not a valid ADB sideload request">Ricevuta una richiesta di recupero non valida</string>
     <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Modalità carico laterale — pronto</string>
     <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">Avvia in recovery (tieni premuto Volume Giù + Accensione, oppure esegui: adb reboot recovery)</string>
@@ -991,6 +1001,7 @@ Sei sicuro di voler eliminare questi %1$d segnalibri selezionati?</string>
     <string name="timestamp">Timestamp</string>
     <string name="toggleable">Attivabile</string>
     <string name="total_executions">Esecuzioni totali</string>
+    <string name="transfer_to_device_failed" comment="Error shown when sending an image to a device in fastboot mode failed part way through">Trasferimento al dispositivo non riuscito</string>
     <string name="translations">Traduzioni</string>
     <string name="translators">Traduttori</string>
     <string name="troubleshoot">Risoluzione problemi</string>

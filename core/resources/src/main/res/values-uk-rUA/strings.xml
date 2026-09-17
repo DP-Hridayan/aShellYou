@@ -16,29 +16,29 @@
     <string name="adb_connection_channel_description" comment="Android notification channel description in System Settings for ADB connection status">Показує, коли з\'єднання ADB активно</string>
     <string name="adb_connection_channel_name" comment="Android notification channel name in System Settings for active ADB connections">Підключення ADB</string>
     <string name="adb_connection_description" comment="Notification body text indicating an active background Wi-Fi ADB connection">Підключення до Wi-Fi ADB підтримується</string>
-    <string name="adb_key_unavailable" comment="Error shown in ADB sideload when the app could not load or create its RSA key pair used to authenticate to the target device">Не вдалося підготувати ключ автентифікації АБР</string>
+    <string name="adb_key_unavailable" comment="Error shown in ADB sideload when the app could not load or create its RSA key pair used to authenticate to the target device">Не вдалося підготувати ключ автентифікації ADB</string>
     <string name="adb_sideload" comment="Feature title for pushing and installing ZIP update packages to device recovery via ADB sideload over USB OTG">ADB Sideload</string>
     <string name="adb_through_otg" comment="Title for USB OTG ADB connection mode where this device controls a target device over OTG cable">ADB через OTG</string>
     <string name="adb_through_otg_summary" comment="Summary description of ADB OTG feature in connection selection screen">Використовуйте OTG кабель та налагодження USB для виконання команд ADB на іншому пристрої Android. Необхідно увімкнути налагодження USB у налаштуваннях розробника цільового пристрою.</string>
     <string name="adb_via_otg" comment="Compact label for ADB connection via USB OTG cable">ADB через OTG</string>
     <string name="adb_via_wireless_debugging" comment="Feature title for wireless ADB connection on Android 11+ devices">ADB через \"Бездротове налагодження\"</string>
-    <string name="adb_connected_to" comment="Output line confirming an ADB connection was established with the given host and port">підключено до %1$s</string>
-    <string name="adb_daemon_restarted" comment="Output line shown after an adb command such as tcpip or reboot makes the device ADB daemon restart, which ends the current connection">adbd перезапущено, це з’єднання зараз закрито</string>
-    <string name="adb_direct_connection_note" comment="Output line for the adb version command explaining the app talks to the device ADB daemon directly instead of through a desktop ADB server">Підключено безпосередньо до пристрою ADB daemon, жоден ADB сервер не використовується</string>
-    <string name="adb_disconnected_from" comment="Output line confirming the ADB connection to the given host and port was closed">відключено %1$s</string>
-    <string name="adb_failed_to_connect_to" comment="Output line shown when an adb connect command could not reach the given host and port">помилка при під\'єднанні до %1$s</string>
-    <string name="adb_failed_to_pair_with" comment="Output line shown when an adb pair command was rejected by the given host and port">не вдалося створити пару з %1$s</string>
-    <string name="adb_hint_host_only" comment="Advice shown when the user runs an adb command that only a desktop ADB server can perform">Ця команда потребує ПК ADB сервер, який не використовується.</string>
-    <string name="adb_hint_interactive_shell" comment="Advice shown when the user types adb shell with no command, which would open an interactive session">Інтерактивні обстріли не підтримуються. Введіть команду замість себе.</string>
-    <string name="adb_hint_use_file_browser" comment="Advice shown when the user runs an adb file transfer command, pointing them at the in-app file browser">Використання браузера файлів для передачі файлів.</string>
-    <string name="adb_hint_use_pm_uninstall" comment="Advice shown when the user runs adb uninstall, pointing them at the equivalent shell command">Використайте видалення --user 0 &lt;package&gt; замість цього.</string>
+    <string name="adb_connected_to" comment="Output line confirming an ADB connection was established with the given host and port">підключений до %1$s</string>
+    <string name="adb_daemon_restarted" comment="Output line shown after an adb command such as tcpip or reboot makes the device ADB daemon restart, which ends the current connection">adbd перезапущено, це з’єднання закрито</string>
+    <string name="adb_direct_connection_note" comment="Output line for the adb version command explaining the app talks to the device ADB daemon directly instead of through a desktop ADB server">Підключається безпосередньо до пристрою ADB daemon, сервер ADB не використовується</string>
+    <string name="adb_disconnected_from" comment="Output line confirming the ADB connection to the given host and port was closed">відключений %1$s</string>
+    <string name="adb_failed_to_connect_to" comment="Output line shown when an adb connect command could not reach the given host and port">не вдалося підключитися до %1$s</string>
+    <string name="adb_failed_to_pair_with" comment="Output line shown when an adb pair command was rejected by the given host and port">не вдалося виконати сполучення з %1$s</string>
+    <string name="adb_hint_host_only" comment="Advice shown when the user runs an adb command that only a desktop ADB server can perform">Для цієї команди потрібен настільний сервер ADB, який ця програма не використовує.</string>
+    <string name="adb_hint_interactive_shell" comment="Advice shown when the user types adb shell with no command, which would open an interactive session">Інтерактивні оболонки не підтримуються. Натомість введіть команду окремо.</string>
+    <string name="adb_hint_use_file_browser" comment="Advice shown when the user runs an adb file transfer command, pointing them at the in-app file browser">Використовуйте файловий браузер для передачі файлів.</string>
+    <string name="adb_hint_use_pm_uninstall" comment="Advice shown when the user runs adb uninstall, pointing them at the equivalent shell command">Використовуйте pm uninstall --user 0 &lt;package&gt; замість цього.</string>
     <string name="adb_hint_use_sideload" comment="Advice shown when the user runs adb sideload, pointing them at the dedicated sideload screen">Використовувати екран ADB Sideload.</string>
     <string name="adb_not_connected" comment="Error shown when a command needs an ADB connection but none is active">ADB не підключено</string>
-    <string name="adb_paired_with" comment="Output line confirming pairing succeeded with the given host and port">в парі з %1$s</string>
-    <string name="adb_reconnect_hint" comment="Advice shown after the device ADB daemon restarts in TCP mode, telling the user the command that reconnects to it">Повторне підключення за допомогою: %1$s</string>
-    <string name="adb_server_not_applicable" comment="Output line for adb start-server and kill-server, which have no effect because the app connects to the device ADB daemon directly">Жоден ADB сервер використовується, тому не існує нічого починати чи зупинити</string>
-    <string name="adb_supported_commands" comment="Header printed above the list of adb commands the app understands">Підтримувані adb команди:</string>
-    <string name="adb_unsupported_command" comment="Error shown when an adb subcommand cannot work over this connection. The placeholder is the subcommand name, such as push">adb %1$s не підтримується над цим з\'єднанням</string>
+    <string name="adb_paired_with" comment="Output line confirming pairing succeeded with the given host and port">сполучено з %1$s</string>
+    <string name="adb_reconnect_hint" comment="Advice shown after the device ADB daemon restarts in TCP mode, telling the user the command that reconnects to it">Відновити підключення з: %1$s</string>
+    <string name="adb_server_not_applicable" comment="Output line for adb start-server and kill-server, which have no effect because the app connects to the device ADB daemon directly">Сервер ADB не використовується, тому нема чого запускати чи зупиняти</string>
+    <string name="adb_supported_commands" comment="Header printed above the list of adb commands the app understands">Підтримувані команди adb:</string>
+    <string name="adb_unsupported_command" comment="Error shown when an adb subcommand cannot work over this connection. The placeholder is the subcommand name, such as push">adb %1$s не підтримується через це підключення</string>
     <string name="adb_usage" comment="Error shown when a known adb command was typed incorrectly. The placeholder is the correct form of the command">використання: %1$s</string>
     <string name="adb_version_line" comment="Output line for the adb version command. The placeholder is the app version name">aShellYou %1$s</string>
     <string name="adb_via_wireless_debugging_summary" comment="Summary description for wireless ADB feature in connection setup screen">Підключайте пристрої (Android 11+) Wi-Fi за допомогою бездротового налагодження і виконуйте команди ADB віддалено.</string>
@@ -70,14 +70,14 @@
     <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">наприклад, Cyberpunk неонове місто, темний режим, висока контрастність</string>
     <string name="all">Всі</string>
     <string name="all_data" comment="Option in backup selector to include full app database, settings, and chat history">Всі дані</string>
-    <string name="allow_usb_access" comment="Button label that re-shows the system prompt asking the user to allow the app to use the attached USB device">Дозволити доступ до USB</string>
-    <string name="allow_usb_access_message" comment="Status shown when the target device was detected over USB but the system permission to use it has not been granted yet">Надайте доступ USB для продовження</string>
+    <string name="allow_usb_access" comment="Button label that re-shows the system prompt asking the user to allow the app to use the attached USB device">Allow USB access</string>
+    <string name="allow_usb_access_message" comment="Status shown when the target device was detected over USB but the system permission to use it has not been granted yet">Щоб продовжити, дозвольте доступ через USB</string>
     <string name="already_connected" comment="Status message in wireless ADB setup screen indicating device is already connected">Вже під\'єднано</string>
     <string name="already_latest_version" comment="In-app updater message when user is running the most recent version of aShellYou">Ви використовуєте останню версію</string>
     <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">Завжди дозволяти базу</string>
     <string name="always_allow_exact" comment="Permission rule option in AI chat: automatically approve commands matching exact command string">Завжди дозволяти точні</string>
     <string name="analyse" comment="Action button to request AI analysis of command execution output or error log">Аналіз</string>
-    <string name="analysis_failed">Помилка аналізу</string>
+    <string name="analysis_failed">Аналіз не вдався</string>
     <string name="api_key" comment="Label for AI provider API key text input field">API ключ</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">API ключ збережено</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">Потрібен API ключ</string>
@@ -136,9 +136,9 @@
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">Досягнуто максимальної кількості закладок! Видаліть деякі закладки, щоб додати нові</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">Закладки</string>
     <string name="boot_device_into_fastboot" comment="Instructional prompt in Fastboot screen instructing user to boot target device into fastboot mode">Завантажте цільовий пристрій у режимі fastboot та під\'єднайте його через OTG кабель</string>
-    <string name="boot_failed" comment="%1$s = error text returned by the bootloader. Shown when fastboot boot of a temporary image fails">Помилка завантаження: %1$s</string>
+    <string name="boot_failed" comment="%1$s = error text returned by the bootloader. Shown when fastboot boot of a temporary image fails">Boot не вдалося: %1$s</string>
     <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">Boot образ</string>
-    <string name="boot_image_sent" comment="Status shown when a temporary boot image was accepted by the bootloader via fastboot boot">Зображення завантаження відправлено</string>
+    <string name="boot_image_sent" comment="Status shown when a temporary boot image was accepted by the bootloader via fastboot boot">Boot образ надіслано</string>
     <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">Завантаження у Fastboot</string>
     <string name="btn_continue" comment="Action button label to proceed to next step in setup wizard">Продовжити</string>
     <string name="bundled" comment="Tab label in icon chooser for built-in icons that ship with the app">У комплекті</string>
@@ -147,6 +147,9 @@
     <string name="cancel">Скасувати</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">Скасувати все</string>
     <string name="cancel_selection">Скасувати вибір</string>
+    <string name="cancel_transfer" comment="Button that confirms abandoning an image transfer to a device in fastboot mode">Скасувати передачу</string>
+    <string name="cancel_transfer_message" comment="Dialog body explaining the consequences of abandoning a fastboot image transfer before the device has written anything">Зображення ще не було записано, тому пристрій не змінився. З’єднання буде скинуто, а вам, можливо, доведеться знову перенести пристрій у fastboot перед повторною спробою.</string>
+    <string name="cancel_transfer_title" comment="Dialog title asking the user to confirm abandoning a fastboot image transfer">Скасувати переказ?</string>
     <string name="cancelled">Скасовано</string>
     <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">Скасування…</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">Список змін</string>
@@ -283,12 +286,12 @@
     <string name="critical">Критичний</string>
     <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">Відвідайте нашу платформу перекладів crowdin, щоб зробити свій внесок</string>
     <string name="current_version" comment="About screen card label showing installed application version number">Поточна версія</string>
-    <string name="custom" comment="Dropdown entry that lets the user type a value instead of picking a preset">Спеціальна…</string>
+    <string name="custom" comment="Dropdown entry that lets the user type a value instead of picking a preset">Користувальницьке…</string>
     <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">Свій масштаб UI</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Вирізати %1$d елементів</string>
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">Вирізати в буфер обміну</string>
     <string name="daily" comment="Option in backup scheduler frequency selection">Щоденно</string>
-    <string name="dangerous">Небезпечна</string>
+    <string name="dangerous">Небезпечно</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">Темна тема</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">Приладна панель</string>
     <string name="database">База даних</string>
@@ -403,8 +406,9 @@
     <string name="device_disconnected_message_with_name" comment="%s = device name">\"%s\" відключився.</string>
     <string name="device_found" comment="Status banner when an ADB/Wireless Debugging device service is discovered on local network">Пристрій знайдено!</string>
     <string name="device_info" comment="Screen header or navigation item for target device hardware/OS specifications">Інформація про пристрій</string>
-    <string name="device_not_in_sideload_mode" comment="Status shown when the attached device answers ADB but is booted normally rather than waiting in recovery sideload mode">Пристрій завантажується нормально. Перезавантаження у режим відновлення і вибір застосувати оновлення з ADB</string>
+    <string name="device_not_in_sideload_mode" comment="Status shown when the attached device answers ADB but is booted normally rather than waiting in recovery sideload mode">Пристрій завантажується нормально. Перезавантажтеся для відновлення та виберіть \"Застосувати оновлення з ADB\"</string>
     <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">Пристрій не підтримує біометричну автентифікацію</string>
+    <string name="device_rejected_operation" comment="Error shown when the bootloader answered a fastboot command with a failure">Пристрій відхилив операцію</string>
     <string name="disable_softkey" comment="Setting toggle title to hide soft keyboard during shell session">Вимкнути програмну клавіатуру</string>
     <string name="disclaimer" comment="Section title in About screen for legal disclaimer notices">Відмова від відповідальності</string>
     <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">Запуск команд ADB може змінювати системні налаштування, керувати файлами та виконувати операції, що можуть вплинути на стабільність вашого пристрою.\nВи несете повну відповідальність за будь-які зміни, внесені за використання цього застосунку.</string>
@@ -421,6 +425,7 @@
     <string name="disconnected" comment="Status badge showing ADB is currently disconnected">Відключено!</string>
     <string name="discussions" comment="About screen button linking to GitHub Discussions">Обговорення</string>
     <string name="dismiss">Відхилити</string>
+    <string name="do_not_disconnect" comment="Warning shown while the bootloader is writing a partition, when the transfer can no longer be stopped">Запис на пристрій. Не від’єднайте або перезавантажуйте.</string>
     <string name="done">Готово</string>
     <string name="download">Завантажити</string>
     <string name="download_failed" comment="Toast message when in-app updater APK download fails">Завантаження не вдалося</string>
@@ -428,7 +433,7 @@
     <string name="downloading" comment="Progress status text while downloading update package">Завантажується…</string>
     <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Завантаження резервної копії з Google Drive…</string>
     <string name="downloading_icon_pack" comment="Progress status text while downloading Material Icons font for QS tile icon chooser">Завантаження пакету іконок…</string>
-    <string name="downloading_to_device" comment="%1$s = file size in megabytes. Progress status while an image is being sent to the bootloader">Downloading %1$s MB to device…</string>
+    <string name="downloading_to_device" comment="%1$s = file size in megabytes. Progress status while an image is being sent to the bootloader">Завантаження %1$s MB до пристрою…</string>
     <string name="downloads" comment="Screen header or list item for downloaded files">Завантаження</string>
     <string name="duplicate_tile_name_error_msg" comment="Validation error in Quick Settings tile builder when entered tile name already exists">Плитка з таким ім\'ям вже існує</string>
     <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">Динамічні кольори</string>
@@ -448,10 +453,10 @@
     <string name="enter">Ввести</string>
     <string name="enter_command" comment="Input hint placeholder format for entering fastboot commands">fastboot &lt;command&gt;</string>
     <string name="enter_pairing_code" comment="Instructional header in Wireless Debugging pairing dialog asking for 6-digit code">Введіть 6-значний код сполучення</string>
-    <string name="erase_complete" comment="Status shown when a fastboot partition erase finished successfully">Erase complete</string>
+    <string name="erase_complete" comment="Status shown when a fastboot partition erase finished successfully">Стирання завершено</string>
     <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">Це призведе до остаточного очищення розділу %1$s. Цю дію не можна скасувати.</string>
     <string name="erase_confirm_title" comment="%1$s = partition name. Dialog title for partition erase confirmation">Очистити %1$s?</string>
-    <string name="erase_failed" comment="%1$s = error text returned by the bootloader. Shown when a fastboot partition erase fails">Помилка видалення: %1$s</string>
+    <string name="erase_failed" comment="%1$s = error text returned by the bootloader. Shown when a fastboot partition erase fails">Стирання не вдалося: %1$s</string>
     <string name="erase_partition" comment="Action button to trigger fastboot partition erase">Стерти</string>
     <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Стирання…</string>
     <string name="erasing_partition" comment="%1$s = partition name. Progress status while the bootloader erases a partition">Стирання %1$s…</string>
@@ -511,13 +516,13 @@
     <string name="file_exists_message" comment="%1$s = file name">\"%1$s\" вже існує в цьому місці.</string>
     <string name="file_info" comment="Dialog header displaying file metadata properties (size, permissions, modified date)">Інформація про файл</string>
     <string name="file_not_found" comment="Error toast when requested file path does not exist on device">Файл не знайдено</string>
-    <string name="file_open_failed" comment="Error shown when the selected update package could not be opened for reading">Не вдалося відкрити файл</string>
+    <string name="file_open_failed" comment="Error shown when the selected update package could not be opened for reading">Не вдалося відкрити вибраний файл</string>
     <string name="file_read_failed" comment="Error shown when reading a part of the selected update package failed mid-transfer">Не вдалося прочитати вибраний файл</string>
-    <string name="file_size_unknown" comment="Error shown when the size of the selected update package cannot be determined, which the ADB sideload protocol requires">Не вдалося визначити розмір файлу</string>
+    <string name="file_size_unknown" comment="Error shown when the size of the selected update package cannot be determined, which the ADB sideload protocol requires">Неможливо визначити розмір файлу</string>
     <string name="filter">Фільтр</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">Фільтрувати за мітками</string>
-    <string name="flash_complete" comment="Status shown when a fastboot partition flash finished successfully">Спалах завершено</string>
-    <string name="flash_failed" comment="%1$s = error text returned by the bootloader. Shown when a fastboot partition flash fails">Помилка Flash: %1$s</string>
+    <string name="flash_complete" comment="Status shown when a fastboot partition flash finished successfully">Прошивку завершено</string>
+    <string name="flash_failed" comment="%1$s = error text returned by the bootloader. Shown when a fastboot partition flash fails">Не вдалося прошити: %1$s</string>
     <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">Прошити розділ</string>
     <string name="flashing" comment="Progress status header while partition flashing is in progress">Прошивка…</string>
     <string name="folder">Тека</string>
@@ -535,7 +540,7 @@
     <string name="found_connect_service" comment="Status message when mDNS ADB connection service is discovered">Знайдено сервіс підключення</string>
     <string name="frequency" comment="Setting label for automated backup interval frequency">Частота</string>
     <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">Повний текст ліцензії</string>
-    <string name="full_screen">На весь екран</string>
+    <string name="full_screen">Повний екран</string>
     <string name="gemini_api_key_step_1" comment="%1$s = URL">Відвідати Google AI Студію на %1$s</string>
     <string name="gemini_api_key_step_2" comment="Step 2 of API key setup guide: signing in with Google Account">Увійти за допомогою свого Google Account</string>
     <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">Натисніть на Створити API ключ і виберіть або створити проєкт</string>
@@ -556,7 +561,7 @@
     <string name="great_news" comment="Dialog title header for update available notification">Чудова новина!</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">Тактильна віддача &amp; Вібрація</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">Приємного дня!</string>
-    <string name="heuristic">Heuristic</string>
+    <string name="heuristic">Евристичний</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Hex Редактор</string>
     <string name="high" comment="Selection option for high haptic strength or elevation level">Високий</string>
     <string name="high_contrast_dark_mode" comment="Settings preference title for OLED pitch-black dark theme">Висококонтрастний темний режим</string>
@@ -565,6 +570,7 @@
     <string name="home">Головна</string>
     <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">Як увійти в режим sideload</string>
     <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">Іконка обрана</string>
+    <string name="image_too_large" comment="%1$s = the largest size in megabytes the device accepts. Error shown when the chosen image is bigger than the bootloader can buffer">Зображення більше ніж %1$s МБ цього пристрою прийнято</string>
     <string name="import_font" comment="Content description for the import font icon button in the font style picker">Імпортувати шрифт</string>
     <string name="import_font_name_hint" comment="Input field placeholder for the user-assigned display name of an imported font">Ім\'я шрифту</string>
     <string name="import_theme" comment="Action button to import theme configuration file">Імпортувати тему</string>
@@ -581,6 +587,7 @@
     <string name="irreversible_action_warning" comment="Warning dialog subtitle warning user that deletion cannot be undone">Ця дія незворотна!</string>
     <string name="item_deleted" comment="Confirmation toast after item is deleted">Елемент був успішно видалений</string>
     <string name="keep_both" comment="Resolution option in file conflict dialog to keep both original and new file">Залишити обидва</string>
+    <string name="keep_transferring" comment="Button that dismisses the cancel confirmation and lets the transfer continue">Продовжувати</string>
     <string name="key_verified_success_msg" comment="Confirmation text when entered AI API key is validated successfully">Ключ успішно перевірено</string>
     <string name="label" comment="Field label for custom command label/tag name">Мітка</string>
     <string name="languages" comment="Settings section header for language and locale options">Мови</string>
@@ -680,7 +687,7 @@
     <string name="no_custom_themes_yet" comment="Placeholder text in theme manager screen when no custom themes exist">Поки що немає власних тем. Створіть одну нижче!</string>
     <string name="no_device_connected" comment="Status banner shown when no wireless or OTG ADB device is connected">Немає під\'єднаного пристрою</string>
     <string name="no_fastboot_device_error" comment="Error banner in fastboot screen when connected USB device is not in fastboot mode">Підключений пристрій не перебуває в режимі fastboot</string>
-    <string name="no_fastboot_interface_found" comment="Error shown when the attached USB device does not expose a fastboot interface">Підключений пристрій USB не має інтерфейсу швидкого завантаження</string>
+    <string name="no_fastboot_interface_found" comment="Error shown when the attached USB device does not expose a fastboot interface">Підключений пристрій USB не має fastboot інтерфейсу</string>
     <string name="no_files_download" comment="Toast warning in file browser when user selects directory instead of files for download">Файли не вибрані (теки неможливо завантажити)</string>
     <string name="no_folder_selected" comment="Placeholder status text when no backup directory is picked">Теку не вибрано</string>
     <string name="no_google_account_message" comment="Dialog message when no Google account is registered on device for cloud backups">На цьому пристрої не знайдено облікового запису Google. Ви хочете додати один для використання хмарного резервного копіювання?</string>
@@ -789,7 +796,7 @@
     <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">Плитки швидких налаштувань</string>
     <string name="quick_tools" comment="Section header for fast access utility tools">Швидкі інструменти</string>
     <string name="reading_file" comment="Progress status text while loading file contents into viewer">Читання файлу…</string>
-    <string name="reading_image_file" comment="Progress status while the selected image file is being read before a fastboot transfer">Reading image file…</string>
+    <string name="reading_image_file" comment="Progress status while the selected image file is being read before a fastboot transfer">Читання файлу зображення…</string>
     <string name="ready_to_paste" comment="Status message in file manager when item is stored in paste clipboard">Готовий до вставки</string>
     <string name="reboot_bootloader" comment="Action button / dialog choice to reboot target device into bootloader mode">Перезавантажити в Bootloader</string>
     <string name="reboot_confirm_message" comment="%1$s = target boot mode (e.g. recovery, bootloader). Confirmation prompt before rebooting target device">Це перезавантажить підключений пристрій %1$s. Продовжити?</string>
@@ -807,8 +814,8 @@
     <string name="reconnect_failed_requires_pairing" comment="Toast notification indicating device un-paired and needs re-pairing">Перепідключення не вдалося. Потрібне повторне сполучення.</string>
     <string name="reconnect_success" comment="Toast message confirming successful wireless ADB reconnection">Підключення успішно відновлено</string>
     <string name="reconnect_the_device" comment="Button prompt directing user to reconnect target ADB device">Підключення пристрою знову</string>
-    <string name="recovery_not_responding" comment="Error shown when the target device recovery did not start requesting data after the sideload stream was opened">Відновлення не відповідає. Виберіть «Застосувати оновлення з ADB» у Recovery і повторіть спробу</string>
-    <string name="recovery_reported_failure" comment="Error shown when the target device recovery reported that installing the sideloaded package failed">Рекавері повідомили, що встановлення не вдалося</string>
+    <string name="recovery_not_responding" comment="Error shown when the target device recovery did not start requesting data after the sideload stream was opened">Recovery не відповідає. Виберіть \"Застосувати оновлення з ADB\" у recovery та повторіть спробу</string>
+    <string name="recovery_reported_failure" comment="Error shown when the target device recovery reported that installing the sideloaded package failed">Recovery повідомив, що встановлення не вдалося</string>
     <string name="refresh">Оновити</string>
     <string name="remove">Видалити</string>
     <string name="rename">Перейменувати</string>
@@ -913,18 +920,21 @@
     <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">Служба Shizuku недоступна. Переконайтеся, що Shizuku або Shizuku+ працює та що надано відповідні дозволи.</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku недоступний</string>
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">На вашому пристрої не встановлено або не налаштовано належним чином додаток Shizuku або Shizuku+</string>
-    <string name="sideload_block_out_of_range" comment="Error shown when the target device recovery requested a part of the package beyond its end; usually indicates a corrupted transfer">Відновлення запитаних даних після закінчення файлу</string>
-    <string name="sideload_complete" comment="Status shown when the sideloaded package was fully transferred and recovery confirmed completion">Sideload complete</string>
-    <string name="sideload_connection_timed_out" comment="Error shown when the ADB handshake with the target device did not complete in time; the user may need to accept an authorization prompt on that device">Вичерпано час підключення. Перевірте екран пристрою для авторизації</string>
+    <string name="sideload_block_out_of_range" comment="Error shown when the target device recovery requested a part of the package beyond its end; usually indicates a corrupted transfer">Recovery запитуваних даних поза межами кінця файлу</string>
+    <string name="sideload_channel_description" comment="Notification channel description explaining that the channel shows sideload transfer progress">Показує прогрес пакету, який передається в сторону пристрою</string>
+    <string name="sideload_channel_name" comment="Notification channel name for the ongoing ADB sideload transfer">ADB Сідлоад</string>
+    <string name="sideload_complete" comment="Status shown when the sideloaded package was fully transferred and recovery confirmed completion">Sideload комплект</string>
+    <string name="sideload_connection_timed_out" comment="Error shown when the ADB handshake with the target device did not complete in time; the user may need to accept an authorization prompt on that device">Час очікування з\'єднання минув. Перевірте екран пристрою на наявність запиту авторизації</string>
     <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">Переведіть пристрій у режим sideload через recovery</string>
-    <string name="sideload_invalid_request" comment="Error shown when the target device sent data that is not a valid ADB sideload request">Отримано недійсний запит від відновлення</string>
+    <string name="sideload_in_progress_stay" comment="Toast shown when the user tries to leave the sideload screen while a package is still being transferred">Переказ виконується. Скасуйте його, перш ніж залишати екран.</string>
+    <string name="sideload_invalid_request" comment="Error shown when the target device sent data that is not a valid ADB sideload request">Отримано недійсний запит від recovery</string>
     <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Режим sideload — готово</string>
     <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">Завантажтеся в recovery (утримуйте Volume Down + Power або виконайте: adb reboot recovery)</string>
     <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">Перейдіть до пункту \"Застосувати оновлення\" у меню відновлення</string>
     <string name="sideload_step_3" comment="Step 3 of ADB sideload guide: selecting ADB sideload mode in recovery">Виберіть \"Застосувати з ADB\" (або \"ADB Sideload\")</string>
     <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">Під\'єднати пристрій за допомогою кабелю OTG, а потім виберіть ZIP тут</string>
-    <string name="sideload_stream_closed" comment="Error shown when the ADB sideload stream was closed by the target device before the transfer finished">Підключення до відновлення було закрито до завершення передачі</string>
-    <string name="sideload_stream_rejected" comment="Error shown when the target device refused to open the ADB sideload stream, typically because it is not in sideload mode">Recovery відмовилося від sideload. Виберіть \"Застосувати оновлення з ADB\" у першому відновленні</string>
+    <string name="sideload_stream_closed" comment="Error shown when the ADB sideload stream was closed by the target device before the transfer finished">Підключення до recovery було закрито до завершення передачі</string>
+    <string name="sideload_stream_rejected" comment="Error shown when the target device refused to open the ADB sideload stream, typically because it is not in sideload mode">Recovery відмовилося від sideload. Виберіть \"Застосувати оновлення з ADB\" у першому recovery</string>
     <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Sideloading…</string>
     <string name="sign_in_failed" comment="Toast error message when Google account sign-in fails">Не вдалося ввійти в Google</string>
     <string name="sign_in_with_google" comment="Button label in cloud backup settings to sign into Google account">Увійти через Google</string>
@@ -990,6 +1000,7 @@
     <string name="timestamp">Позначка часу</string>
     <string name="toggleable">Перемикальний</string>
     <string name="total_executions">Всього запусків</string>
+    <string name="transfer_to_device_failed" comment="Error shown when sending an image to a device in fastboot mode failed part way through">Не вдалося передати на пристрій</string>
     <string name="translations">Переклади</string>
     <string name="translators">Перекладачі</string>
     <string name="troubleshoot">Усунення несправностей</string>
@@ -1015,16 +1026,16 @@
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">Завантажити файл</string>
     <string name="uploading" comment="Progress status text shown while uploading file to device">Завантаження…</string>
     <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Завантаження резервної копії на Google Drive…</string>
-    <string name="usb_bulk_endpoints_missing" comment="Error shown when the USB fastboot interface lacks the bulk in/out endpoints needed to communicate">Інтерфейс USB не має кінцевих точок даних</string>
-    <string name="usb_claim_failed" comment="Error shown when the app could not take exclusive control of the USB ADB interface, usually because another app is using it">Не вдалося отримати USB-інтерфейс</string>
+    <string name="usb_bulk_endpoints_missing" comment="Error shown when the USB fastboot interface lacks the bulk in/out endpoints needed to communicate">USB інтерфейс не має придатних для використання кінцевих точок даних</string>
+    <string name="usb_claim_failed" comment="Error shown when the app could not take exclusive control of the USB ADB interface, usually because another app is using it">Не вдалося отримати доступ до USB інтерфейсу</string>
     <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB потрібно увімкнути налагодження через USB у розділі \"Параметри розробника\"</string>
     <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">Необхідне USB налагодження</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">Менеджер USB недоступний на цьому пристрої</string>
-    <string name="usb_open_failed" comment="Error shown when the USB device could not be opened for communication">Не вдалося відкрити пристрій USB</string>
-    <string name="usb_service_unavailable" comment="Error shown when the Android USB host service is not available on this device">USB хост недоступний на цьому пристрої</string>
+    <string name="usb_open_failed" comment="Error shown when the USB device could not be opened for communication">Не вдалося відкрити USB пристрій</string>
+    <string name="usb_service_unavailable" comment="Error shown when the Android USB host service is not available on this device">Служба USB хосту недоступна на цьому пристрої</string>
     <string name="use">Використати</string>
     <string name="use_biometrics">Використовувати біометрію</string>
-    <string name="use_cases">Встановіть цей додаток в області</string>
+    <string name="use_cases">Варіанти використання</string>
     <string name="utilities" comment="Category title in homescreen">Утиліти</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">Варіант</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">Не вдалося перевірити</string>
@@ -1038,7 +1049,7 @@
     <string name="visit_repo_to_download" comment="Instructions directing user to download the update APK file from GitHub releases">Натисніть кнопку завантаження, щоб отримати останню версію aShellYou з репозиторію GitHub.</string>
     <string name="waiting_for_device" comment="Progress status banner while awaiting target device USB OTG attachment">Очікування пристрою</string>
     <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">Очікування пристроїв…</string>
-    <string name="waiting_for_recovery" comment="Progress status shown after the sideload stream was opened while waiting for the target device recovery to request data">Очікування відновлення…</string>
+    <string name="waiting_for_recovery" comment="Progress status shown after the sideload stream was opened while waiting for the target device recovery to request data">Очікування recovery…</string>
     <string name="want_to_contribute_too" comment="Call-to-action banner in About screen inviting code or translation contributions">Хочете також зробити свій внесок?</string>
     <string name="weekly" comment="Option in backup scheduler frequency selection">Щотижня</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">Що б ви хотіли зробити поки %1$s?</string>
@@ -1072,7 +1083,7 @@
         <item quantity="many">%1$d хвилин</item>
         <item quantity="other">%1$d хвилин</item>
     </plurals>
-    <string name="writing_to_partition" comment="%1$s = partition name. Progress status after the image was sent while the bootloader writes it">Запис в %1$s…</string>
+    <string name="writing_to_partition" comment="%1$s = partition name. Progress status after the image was sent while the bootloader writes it">Запис до %1$s…</string>
     <string name="changelog_v7_4_0">\nТепер ви можете шукати під налаштування на екранах налаштувань\nДодано стилі палітри для колірних схем\nДодано опцію встановлення мови додатка безпосередньо в додатку</string>
     <string name="changelog_v7_3_0">\nПокращено інтерфейс користувача в екрані журналу змін\nДодано перекладачів у розділ Про програму.\nДодано екран ліцензій, який показує детальну інформацію про ліцензію програми та інших бібліотек, які використовує додаток</string>
     <string name="changelog_v7_2_1">\nОновлення технічного обслуговування!</string>

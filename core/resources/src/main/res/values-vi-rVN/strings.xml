@@ -35,7 +35,7 @@
     <string name="adb_hint_use_pm_uninstall" comment="Advice shown when the user runs adb uninstall, pointing them at the equivalent shell command">Hãy sử dụng pm uninstall --user 0 &lt;package&gt; để thay thế.</string>
     <string name="adb_hint_use_sideload" comment="Advice shown when the user runs adb sideload, pointing them at the dedicated sideload screen">Sử dụng màn hình ADB Sideload.</string>
     <string name="adb_not_connected" comment="Error shown when a command needs an ADB connection but none is active">Chưa kết nối ADB</string>
-    <string name="adb_paired_with" comment="Output line confirming pairing succeeded with the given host and port">paired with %1$s</string>
+    <string name="adb_paired_with" comment="Output line confirming pairing succeeded with the given host and port"></string>
     <string name="adb_reconnect_hint" comment="Advice shown after the device ADB daemon restarts in TCP mode, telling the user the command that reconnects to it">Reconnect with: %1$s</string>
     <string name="adb_server_not_applicable" comment="Output line for adb start-server and kill-server, which have no effect because the app connects to the device ADB daemon directly">No ADB server is used, so there is nothing to start or stop</string>
     <string name="adb_supported_commands" comment="Header printed above the list of adb commands the app understands">Supported adb commands:</string>
@@ -148,6 +148,9 @@
     <string name="cancel">Hủy</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">Hủy tất cả</string>
     <string name="cancel_selection">Cancel selection</string>
+    <string name="cancel_transfer" comment="Button that confirms abandoning an image transfer to a device in fastboot mode">Cancel transfer</string>
+    <string name="cancel_transfer_message" comment="Dialog body explaining the consequences of abandoning a fastboot image transfer before the device has written anything">The image has not been written yet, so the device is unchanged. The connection will be reset and you may need to put the device back into fastboot before trying again.</string>
+    <string name="cancel_transfer_title" comment="Dialog title asking the user to confirm abandoning a fastboot image transfer">Cancel the transfer?</string>
     <string name="cancelled">Cancelled</string>
     <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">Đang hủy…</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">Các thay đổi</string>
@@ -406,6 +409,7 @@
     <string name="device_info" comment="Screen header or navigation item for target device hardware/OS specifications">Thông tin thiết bị</string>
     <string name="device_not_in_sideload_mode" comment="Status shown when the attached device answers ADB but is booted normally rather than waiting in recovery sideload mode">Device is booted normally. Reboot to recovery and choose Apply update from ADB</string>
     <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">Device does not support biometric authentication</string>
+    <string name="device_rejected_operation" comment="Error shown when the bootloader answered a fastboot command with a failure">The device rejected the operation</string>
     <string name="disable_softkey" comment="Setting toggle title to hide soft keyboard during shell session">Tắt bàn phím ảo</string>
     <string name="disclaimer" comment="Section title in About screen for legal disclaimer notices">Tuyên bố từ chối trách nhiệm</string>
     <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">Việc thực thi các lệnh ADB có thể sửa đổi cài đặt hệ thống, quản lý tệp và thực hiện các thao tác có thể ảnh hưởng đến sự ổn định của thiết bị.\nBạn hoàn toàn chịu trách nhiệm về mọi thay đổi được thực hiện bằng ứng dụng này.</string>
@@ -422,6 +426,7 @@
     <string name="disconnected" comment="Status badge showing ADB is currently disconnected">Đã ngắt kết nối!</string>
     <string name="discussions" comment="About screen button linking to GitHub Discussions">Thảo luận</string>
     <string name="dismiss">Bỏ qua</string>
+    <string name="do_not_disconnect" comment="Warning shown while the bootloader is writing a partition, when the transfer can no longer be stopped">Writing to the device. Do not disconnect or reboot.</string>
     <string name="done">Xong</string>
     <string name="download">Tải xuống</string>
     <string name="download_failed" comment="Toast message when in-app updater APK download fails">Tải xuống thất bại</string>
@@ -566,6 +571,7 @@
     <string name="home">Trang chủ</string>
     <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">Cách vào chế độ sideload</string>
     <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">Đã chọn biểu tượng</string>
+    <string name="image_too_large" comment="%1$s = the largest size in megabytes the device accepts. Error shown when the chosen image is bigger than the bootloader can buffer">Image is larger than the %1$s MB this device accepts</string>
     <string name="import_font" comment="Content description for the import font icon button in the font style picker">Nhập phông chữ</string>
     <string name="import_font_name_hint" comment="Input field placeholder for the user-assigned display name of an imported font">Tên phông chữ</string>
     <string name="import_theme" comment="Action button to import theme configuration file">Nhập chủ đề</string>
@@ -582,6 +588,7 @@
     <string name="irreversible_action_warning" comment="Warning dialog subtitle warning user that deletion cannot be undone">Hành động này không thể hoàn tác!</string>
     <string name="item_deleted" comment="Confirmation toast after item is deleted">Đã xóa mục thành công</string>
     <string name="keep_both" comment="Resolution option in file conflict dialog to keep both original and new file">Giữ cả hai</string>
+    <string name="keep_transferring" comment="Button that dismisses the cancel confirmation and lets the transfer continue">Keep going</string>
     <string name="key_verified_success_msg" comment="Confirmation text when entered AI API key is validated successfully">Xác minh khóa thành công</string>
     <string name="label" comment="Field label for custom command label/tag name">Nhãn</string>
     <string name="languages" comment="Settings section header for language and locale options">Ngôn ngữ</string>
@@ -915,9 +922,12 @@
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku không khả dụng</string>
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">Shizuku hoặc Shizuku+ chưa được cài đặt hoặc cấu hình đúng trên thiết bị của bạn</string>
     <string name="sideload_block_out_of_range" comment="Error shown when the target device recovery requested a part of the package beyond its end; usually indicates a corrupted transfer">Recovery requested data beyond the end of the file</string>
+    <string name="sideload_channel_description" comment="Notification channel description explaining that the channel shows sideload transfer progress">Shows the progress of a package being sideloaded to a device</string>
+    <string name="sideload_channel_name" comment="Notification channel name for the ongoing ADB sideload transfer">ADB Sideload</string>
     <string name="sideload_complete" comment="Status shown when the sideloaded package was fully transferred and recovery confirmed completion">Sideload complete</string>
     <string name="sideload_connection_timed_out" comment="Error shown when the ADB handshake with the target device did not complete in time; the user may need to accept an authorization prompt on that device">Connection timed out. Check the device screen for an authorization prompt</string>
     <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">Đưa thiết bị vào chế độ sideload thông qua recovery</string>
+    <string name="sideload_in_progress_stay" comment="Toast shown when the user tries to leave the sideload screen while a package is still being transferred">Transfer in progress. Cancel it before leaving this screen.</string>
     <string name="sideload_invalid_request" comment="Error shown when the target device sent data that is not a valid ADB sideload request">Received an invalid request from recovery</string>
     <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Chế độ sideload — sẵn sàng</string>
     <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">Vào Recovery: Nhấn giữ Nguồn + Tăng âm lượng (tùy dòng máy) hoặc chạy adb reboot recovery</string>
@@ -991,6 +1001,7 @@
     <string name="timestamp">Dấu thời gian</string>
     <string name="toggleable">Có thể bật/tắt</string>
     <string name="total_executions">Tổng số lần thực thi</string>
+    <string name="transfer_to_device_failed" comment="Error shown when sending an image to a device in fastboot mode failed part way through">Transfer to the device failed</string>
     <string name="translations">Các bản dịch</string>
     <string name="translators">Những người dịch</string>
     <string name="troubleshoot">Khắc phục sự cố</string>

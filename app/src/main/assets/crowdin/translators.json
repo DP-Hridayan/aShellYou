@@ -62,8 +62,8 @@
     "id": "15085871",
     "username": "AY_Translator",
     "name": "Aleksandr (AY_Translator)",
-    "translated": 9799,
-    "approved": 12692,
+    "translated": 10198,
+    "approved": 13370,
     "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/15085871/medium/3a254014b133e0fc2d376c776aba8dbd.jpg",
     "languages": [
       {
@@ -425,6 +425,21 @@
       }
     ],
     "avatar": "crowdin/contributors_pfp/contributor_16121896.webp"
+  },
+  {
+    "id": "17902987",
+    "username": "bescur1.anh",
+    "name": "Anh Vũ (bescur1.anh)",
+    "translated": 42,
+    "approved": 0,
+    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/17902987/medium/50dff002620f96336537da41d2346709.png",
+    "languages": [
+      {
+        "id": "vi",
+        "name": "Vietnamese"
+      }
+    ],
+    "avatar": "crowdin/contributors_pfp/contributor_17902987.webp"
   },
   {
     "id": "15472922",

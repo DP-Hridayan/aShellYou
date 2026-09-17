@@ -147,6 +147,9 @@
     <string name="cancel">キャンセル</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">すべてキャンセル</string>
     <string name="cancel_selection">選択をキャンセル</string>
+    <string name="cancel_transfer" comment="Button that confirms abandoning an image transfer to a device in fastboot mode">送金をキャンセル</string>
+    <string name="cancel_transfer_message" comment="Dialog body explaining the consequences of abandoning a fastboot image transfer before the device has written anything">画像はまだ書き込まれていないので、デバイスは変更されません。 接続がリセットされ、再試行する前にデバイスをfastbootに戻す必要があるかもしれません。</string>
+    <string name="cancel_transfer_title" comment="Dialog title asking the user to confirm abandoning a fastboot image transfer">送金をキャンセルしますか？</string>
     <string name="cancelled">キャンセルしました</string>
     <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">Cancelling…</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">更新履歴</string>
@@ -407,6 +410,7 @@
     <string name="device_info" comment="Screen header or navigation item for target device hardware/OS specifications">端末情報</string>
     <string name="device_not_in_sideload_mode" comment="Status shown when the attached device answers ADB but is booted normally rather than waiting in recovery sideload mode">デバイスは正常に起動されています。リカバリに再起動し、ADB から更新を適用を選択します</string>
     <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">デバイスは生体認証をサポートしていません</string>
+    <string name="device_rejected_operation" comment="Error shown when the bootloader answered a fastboot command with a failure">デバイスが操作を拒否しました</string>
     <string name="disable_softkey" comment="Setting toggle title to hide soft keyboard during shell session">ソフトキーボードを無効にする</string>
     <string name="disclaimer" comment="Section title in About screen for legal disclaimer notices">免責事項</string>
     <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">ADB コマンドを実行すると、システム設定の変更、ファイルの管理、デバイスの安定性に影響する可能性のある操作を実行できます。\nこのアプリを使用して行われた変更については、お客様のみが責任を負います。</string>
@@ -423,6 +427,7 @@
     <string name="disconnected" comment="Status badge showing ADB is currently disconnected">切断しました！</string>
     <string name="discussions" comment="About screen button linking to GitHub Discussions">ディスカッション</string>
     <string name="dismiss">キャンセル</string>
+    <string name="do_not_disconnect" comment="Warning shown while the bootloader is writing a partition, when the transfer can no longer be stopped">デバイスに書き込んでいます。切断または再起動しないでください。</string>
     <string name="done">完了</string>
     <string name="download">ダウンロード</string>
     <string name="download_failed" comment="Toast message when in-app updater APK download fails">ダウンロードに失敗しました</string>
@@ -430,7 +435,7 @@
     <string name="downloading" comment="Progress status text while downloading update package">Downloading…</string>
     <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Downloading backup from Google Drive…</string>
     <string name="downloading_icon_pack" comment="Progress status text while downloading Material Icons font for QS tile icon chooser">Downloading icon pack…</string>
-    <string name="downloading_to_device" comment="%1$s = file size in megabytes. Progress status while an image is being sent to the bootloader">Downloading %1$s MB to device…</string>
+    <string name="downloading_to_device" comment="%1$s = file size in megabytes. Progress status while an image is being sent to the bootloader">デバイスに %1$s MB をダウンロード中…</string>
     <string name="downloads" comment="Screen header or list item for downloaded files">ダウンロード</string>
     <string name="duplicate_tile_name_error_msg" comment="Validation error in Quick Settings tile builder when entered tile name already exists">この名前のフォルダは既に存在します</string>
     <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">ダイナミックカラー</string>
@@ -456,7 +461,7 @@
     <string name="erase_failed" comment="%1$s = error text returned by the bootloader. Shown when a fastboot partition erase fails">消去失敗: %1$s</string>
     <string name="erase_partition" comment="Action button to trigger fastboot partition erase">消去</string>
     <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Erasing…</string>
-    <string name="erasing_partition" comment="%1$s = partition name. Progress status while the bootloader erases a partition">Erasing %1$s…</string>
+    <string name="erasing_partition" comment="%1$s = partition name. Progress status while the bootloader erases a partition">%1$s を消去中…</string>
     <string name="error">エラー</string>
     <string name="error_labels_limit_reached" comment="Validation error when maximum number of custom command labels/tags is reached">ラベルの上限に達しました</string>
     <string name="exclude" comment="Filter toggle option to exclude selected package or item">除外</string>
@@ -567,6 +572,7 @@
     <string name="home">ホーム</string>
     <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">サイドロードモードに入る方法</string>
     <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">アイコンが選択されました</string>
+    <string name="image_too_large" comment="%1$s = the largest size in megabytes the device accepts. Error shown when the chosen image is bigger than the bootloader can buffer">このデバイスが受け付ける %1$s MBよりも画像が大きいです</string>
     <string name="import_font" comment="Content description for the import font icon button in the font style picker">Import font</string>
     <string name="import_font_name_hint" comment="Input field placeholder for the user-assigned display name of an imported font">Font name</string>
     <string name="import_theme" comment="Action button to import theme configuration file">テーマをインポート</string>
@@ -583,6 +589,7 @@
     <string name="irreversible_action_warning" comment="Warning dialog subtitle warning user that deletion cannot be undone">この操作は元に戻せません！</string>
     <string name="item_deleted" comment="Confirmation toast after item is deleted">アイテムは正常に削除されました</string>
     <string name="keep_both" comment="Resolution option in file conflict dialog to keep both original and new file">両方を保持</string>
+    <string name="keep_transferring" comment="Button that dismisses the cancel confirmation and lets the transfer continue">続行する</string>
     <string name="key_verified_success_msg" comment="Confirmation text when entered AI API key is validated successfully">キーの検証に成功しました</string>
     <string name="label" comment="Field label for custom command label/tag name">ラベル</string>
     <string name="languages" comment="Settings section header for language and locale options">言語</string>
@@ -776,7 +783,7 @@
     <string name="predefined_commands" comment="Section header for pre-saved fastboot command actions">定義済みコマンド</string>
     <string name="predefined_commands_desc" comment="Description under predefined fastboot commands header">よく使われる fastboot コマンドにすばやくアクセスします。結果は以下のコンソールにストリーミングされます。</string>
     <string name="preference" comment="Header title for settings preference category">設定</string>
-    <string name="preparing_file" comment="Progress status shown while the update package is being opened before an ADB sideload transfer">Preparing file…</string>
+    <string name="preparing_file" comment="Progress status shown while the update package is being opened before an ADB sideload transfer">ファイルを準備中…</string>
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">プレビュー</string>
     <string name="primary">プライマリ</string>
     <string name="primary_container">プライマリコンテナ</string>
@@ -791,7 +798,7 @@
     <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">クイック設定タイル</string>
     <string name="quick_tools" comment="Section header for fast access utility tools">クイックツール</string>
     <string name="reading_file" comment="Progress status text while loading file contents into viewer">Reading file…</string>
-    <string name="reading_image_file" comment="Progress status while the selected image file is being read before a fastboot transfer">Reading image file…</string>
+    <string name="reading_image_file" comment="Progress status while the selected image file is being read before a fastboot transfer">イメージファイルを読み込み中…</string>
     <string name="ready_to_paste" comment="Status message in file manager when item is stored in paste clipboard">ペーストする準備ができました</string>
     <string name="reboot_bootloader" comment="Action button / dialog choice to reboot target device into bootloader mode">ブートローダーに再起動</string>
     <string name="reboot_confirm_message" comment="%1$s = target boot mode (e.g. recovery, bootloader). Confirmation prompt before rebooting target device">接続されたデバイスが %1$s に再起動します。続行しますか？</string>
@@ -916,9 +923,12 @@
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizukuは使用できません</string>
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">シズクまたはシズク+がインストールされていないか、正しく設定されていません</string>
     <string name="sideload_block_out_of_range" comment="Error shown when the target device recovery requested a part of the package beyond its end; usually indicates a corrupted transfer">ファイルの末尾を超えて要求されたデータを復元します</string>
+    <string name="sideload_channel_description" comment="Notification channel description explaining that the channel shows sideload transfer progress">デバイスにサイドローディングされているパッケージの進捗状況を表示します</string>
+    <string name="sideload_channel_name" comment="Notification channel name for the ongoing ADB sideload transfer">ADB Sideload</string>
     <string name="sideload_complete" comment="Status shown when the sideloaded package was fully transferred and recovery confirmed completion">Sideload complete</string>
     <string name="sideload_connection_timed_out" comment="Error shown when the ADB handshake with the target device did not complete in time; the user may need to accept an authorization prompt on that device">接続がタイムアウトしました。認証プロンプトが表示されているか確認してください</string>
     <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">リカバリ経由でデバイスをサイドロードモードにする</string>
+    <string name="sideload_in_progress_stay" comment="Toast shown when the user tries to leave the sideload screen while a package is still being transferred">転送中です。この画面を離れる前にキャンセルしてください。</string>
     <string name="sideload_invalid_request" comment="Error shown when the target device sent data that is not a valid ADB sideload request">リカバリから無効なリクエストを受信しました</string>
     <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Sideload mode — 準備完了</string>
     <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">リカバリモードで起動します (音量小 + 電源ボタンを長押しするか、adb reboot recovery を実行します)</string>
@@ -992,6 +1002,7 @@
     <string name="timestamp">タイムスタンプ</string>
     <string name="toggleable">トグル可能</string>
     <string name="total_executions">総実行回数</string>
+    <string name="transfer_to_device_failed" comment="Error shown when sending an image to a device in fastboot mode failed part way through">デバイスへの転送に失敗しました</string>
     <string name="translations">翻訳</string>
     <string name="translators">翻訳者</string>
     <string name="troubleshoot">トラブルシューティング</string>
@@ -1040,7 +1051,7 @@
     <string name="visit_repo_to_download" comment="Instructions directing user to download the update APK file from GitHub releases">ダウンロードボタンをクリックして、githubリポジトリから最新バージョンのaShellYouを取得します。</string>
     <string name="waiting_for_device" comment="Progress status banner while awaiting target device USB OTG attachment">デバイスを待っています</string>
     <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">Waiting for devices…</string>
-    <string name="waiting_for_recovery" comment="Progress status shown after the sideload stream was opened while waiting for the target device recovery to request data">Waiting for recovery…</string>
+    <string name="waiting_for_recovery" comment="Progress status shown after the sideload stream was opened while waiting for the target device recovery to request data">リカバリーを待機中…</string>
     <string name="want_to_contribute_too" comment="Call-to-action banner in About screen inviting code or translation contributions">貢献したいですか？</string>
     <string name="weekly" comment="Option in backup scheduler frequency selection">毎週</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">%1$sの間、何をしますか？</string>
@@ -1068,7 +1079,7 @@
     <plurals name="timeout_minutes" comment="Option for minute timeouts">
         <item quantity="other">%1$d 分</item>
     </plurals>
-    <string name="writing_to_partition" comment="%1$s = partition name. Progress status after the image was sent while the bootloader writes it">Writing to %1$s…</string>
+    <string name="writing_to_partition" comment="%1$s = partition name. Progress status after the image was sent while the bootloader writes it">%1$s に書き込み中…</string>
     <string name="changelog_v7_4_0">\n設定画面内でサブ設定を検索できるようになりました\nカラースキームのパレットスタイルを追加\nアプリ内で直接アプリの言語を設定するオプションを追加</string>
     <string name="changelog_v7_3_0">\n変更履歴画面のUIを改善\n情報セクションに翻訳貢献者を追加\nアプリおよびアプリで使用されているその他のライブラリに関する詳細なライセンス情報を表示するライセンス画面を追加</string>
     <string name="changelog_v7_2_1">\nメンテナンスの更新！</string>
