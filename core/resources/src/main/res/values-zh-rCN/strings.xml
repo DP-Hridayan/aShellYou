@@ -147,6 +147,9 @@
     <string name="cancel">取消</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">全部取消</string>
     <string name="cancel_selection">取消选择</string>
+    <string name="cancel_transfer" comment="Button that confirms abandoning an image transfer to a device in fastboot mode">取消传输</string>
+    <string name="cancel_transfer_message" comment="Dialog body explaining the consequences of abandoning a fastboot image transfer before the device has written anything">图像尚未写入，所以设备未更改。 连接将被重置，您可能需要将设备重新设置为快速启动才能再次尝试。</string>
+    <string name="cancel_transfer_title" comment="Dialog title asking the user to confirm abandoning a fastboot image transfer">取消传输？</string>
     <string name="cancelled">已取消</string>
     <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">Cancelling…</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">更新日志</string>
@@ -405,6 +408,7 @@
     <string name="device_info" comment="Screen header or navigation item for target device hardware/OS specifications">设备信息</string>
     <string name="device_not_in_sideload_mode" comment="Status shown when the attached device answers ADB but is booted normally rather than waiting in recovery sideload mode">设备正常启动。重启至恢复并从 ADB 选择应用更新</string>
     <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">设备不支持生物鉴别认证</string>
+    <string name="device_rejected_operation" comment="Error shown when the bootloader answered a fastboot command with a failure">设备拒绝了操作</string>
     <string name="disable_softkey" comment="Setting toggle title to hide soft keyboard during shell session">禁用软键盘</string>
     <string name="disclaimer" comment="Section title in About screen for legal disclaimer notices">免责声明</string>
     <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">运行 ADB 命令可以修改系统设置，管理文件并执行可能影响您设备稳定性的操作。\n您完全负责使用此应用程序所做的任何更改。</string>
@@ -421,6 +425,7 @@
     <string name="disconnected" comment="Status badge showing ADB is currently disconnected">断开连接！</string>
     <string name="discussions" comment="About screen button linking to GitHub Discussions">讨论</string>
     <string name="dismiss">取消</string>
+    <string name="do_not_disconnect" comment="Warning shown while the bootloader is writing a partition, when the transfer can no longer be stopped">写入设备。请不要断开连接或重启。</string>
     <string name="done">完成</string>
     <string name="download">下载</string>
     <string name="download_failed" comment="Toast message when in-app updater APK download fails">下载失败</string>
@@ -565,6 +570,7 @@
     <string name="home">首页</string>
     <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">如何进入 sideload 模式</string>
     <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">已选择图标</string>
+    <string name="image_too_large" comment="%1$s = the largest size in megabytes the device accepts. Error shown when the chosen image is bigger than the bootloader can buffer">图像大于此设备所接受的 %1$s MB</string>
     <string name="import_font" comment="Content description for the import font icon button in the font style picker">Import font</string>
     <string name="import_font_name_hint" comment="Input field placeholder for the user-assigned display name of an imported font">Font name</string>
     <string name="import_theme" comment="Action button to import theme configuration file">导入主题</string>
@@ -581,6 +587,7 @@
     <string name="irreversible_action_warning" comment="Warning dialog subtitle warning user that deletion cannot be undone">此操作不可逆！</string>
     <string name="item_deleted" comment="Confirmation toast after item is deleted">项目已成功删除</string>
     <string name="keep_both" comment="Resolution option in file conflict dialog to keep both original and new file">同时保留</string>
+    <string name="keep_transferring" comment="Button that dismisses the cancel confirmation and lets the transfer continue">继续继续</string>
     <string name="key_verified_success_msg" comment="Confirmation text when entered AI API key is validated successfully">密钥验证成功</string>
     <string name="label" comment="Field label for custom command label/tag name">标签</string>
     <string name="languages" comment="Settings section header for language and locale options">语言</string>
@@ -914,9 +921,12 @@
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku 不可用</string>
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">Shizuku 或 Shizuku+ 未在您的设备上安装或正确配置</string>
     <string name="sideload_block_out_of_range" comment="Error shown when the target device recovery requested a part of the package beyond its end; usually indicates a corrupted transfer">在文件结束后恢复请求的数据</string>
+    <string name="sideload_channel_description" comment="Notification channel description explaining that the channel shows sideload transfer progress">显示正在侧边装入设备的软件包的进度</string>
+    <string name="sideload_channel_name" comment="Notification channel name for the ongoing ADB sideload transfer">ADB 天体负载</string>
     <string name="sideload_complete" comment="Status shown when the sideloaded package was fully transferred and recovery confirmed completion">Sideload complete</string>
     <string name="sideload_connection_timed_out" comment="Error shown when the ADB handshake with the target device did not complete in time; the user may need to accept an authorization prompt on that device">连接超时。检查设备屏幕上的授权提示</string>
     <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">通过恢复模式将设备置于 sideload 模式</string>
+    <string name="sideload_in_progress_stay" comment="Toast shown when the user tries to leave the sideload screen while a package is still being transferred">正在传输。在离开此屏幕前取消它。</string>
     <string name="sideload_invalid_request" comment="Error shown when the target device sent data that is not a valid ADB sideload request">从恢复收到无效请求</string>
     <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">侧边载模式 - 已就绪</string>
     <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">引导至恢复模式（按住“音量减”+“电源”，或运行：adb reboot recovery）</string>
@@ -990,6 +1000,7 @@
     <string name="timestamp">时间戳</string>
     <string name="toggleable">可切换</string>
     <string name="total_executions">总执行次数</string>
+    <string name="transfer_to_device_failed" comment="Error shown when sending an image to a device in fastboot mode failed part way through">传输到设备失败</string>
     <string name="translations">翻译</string>
     <string name="translators">翻译人员</string>
     <string name="troubleshoot">疑难解答</string>
