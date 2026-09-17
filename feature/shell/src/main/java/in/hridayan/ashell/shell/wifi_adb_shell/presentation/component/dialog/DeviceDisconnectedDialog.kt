@@ -44,10 +44,17 @@ import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.isConnectedToWifi
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
 
+/**
+ * @param onDismiss the user acknowledged the disconnect without reconnecting.
+ * @param onReconnected the reconnect succeeded, so the dialog closes with the connection live.
+ * These are deliberately separate: treating a success as a dismissal let the caller reset the shared
+ * connection state moments after a reconnect had established it.
+ */
 @Composable
 fun DeviceDisconnectedDialog(
     modifier: Modifier = Modifier,
     onDismiss: () -> Unit,
+    onReconnected: () -> Unit,
     viewModel: WifiAdbViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
@@ -167,7 +174,7 @@ fun DeviceDisconnectedDialog(
                                                     res.getString(R.string.reconnect_success),
                                                     Toast.LENGTH_SHORT
                                                 ).show()
-                                                onDismiss()
+                                                onReconnected()
                                             },
                                             onFailure = { requiresPairing ->
                                                 isReconnecting = false

@@ -49,6 +49,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import `in`.hridayan.ashell.core.presentation.components.effect.KeepScreenOn
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.modifier.dashedBorder
 import `in`.hridayan.ashell.core.presentation.components.slidetoconfirm.SlideToConfirm
@@ -90,6 +91,8 @@ fun FlashPartitionBottomSheet(
         enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded)
     )
 
+    KeepScreenOn(enabled = isOperationRunning)
+
     ModalBottomSheet(
         onDismissRequest = { if (!isOperationRunning) onDismiss() },
         sheetState = sheetState,
@@ -129,6 +132,7 @@ fun FlashPartitionBottomSheet(
             if (isOperationVisible) {
                 FlashOperationProgressContent(
                     operation = flashOperation,
+                    completedText = stringResource(R.string.flash_complete),
                     onCancel = onCancel,
                     onDismiss = onResetOperation
                 )

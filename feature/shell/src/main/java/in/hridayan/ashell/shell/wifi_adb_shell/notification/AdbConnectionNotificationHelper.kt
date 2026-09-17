@@ -17,6 +17,7 @@ class AdbConnectionNotificationHelper(private val context: Context) {
 
     companion object {
         const val CHANNEL_ID = "adb_connection_channel"
+        private const val OPEN_APP_REQUEST_CODE = 0
         const val ACTION_DISCONNECT = "in.hridayan.ashell.ACTION_DISCONNECT"
     }
 
@@ -40,14 +41,7 @@ class AdbConnectionNotificationHelper(private val context: Context) {
     }
 
     fun createNotification(): Notification {
-        val openAppIntent =
-            Intent(context, Class.forName("in.hridayan.ashell.activities.MainActivity"))
-        val openAppPendingIntent = PendingIntent.getActivity(
-            context,
-            0,
-            openAppIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
+        val openAppPendingIntent = context.launchAppPendingIntent(OPEN_APP_REQUEST_CODE)
 
         val disconnectIntent = Intent(context, AdbConnectionService::class.java).apply {
             action = ACTION_DISCONNECT
@@ -65,7 +59,7 @@ class AdbConnectionNotificationHelper(private val context: Context) {
             .setSmallIcon(R.drawable.ic_wireless)
             .setOngoing(true)
             .setPriority(NotificationCompat.PRIORITY_LOW)
-            .setContentIntent(openAppPendingIntent)
+            .apply { openAppPendingIntent?.let { setContentIntent(it) } }
             .addAction(
                 R.drawable.ic_cancel,
                 context.getString(R.string.disconnect),

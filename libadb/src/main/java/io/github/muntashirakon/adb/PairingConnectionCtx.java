@@ -15,6 +15,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -120,6 +121,11 @@ public final class PairingConnectionCtx implements Closeable {
         mState = State.Stopped;
     }
 
+    /**
+     * How long to wait for the TCP handshake before giving up.
+     */
+    private static final int CONNECT_TIMEOUT_MS = 10_000;
+
     private void setupTlsConnection() throws IOException {
         Socket socket;
         if (mRole == Role.Server) {
@@ -127,7 +133,8 @@ public final class PairingConnectionCtx implements Closeable {
             socket = sslServerSocket.accept();
             // TODO: Write automated test scripts after removing Conscrypt dependency.
         } else { // role == Role.Client
-            socket = new Socket(mHost, mPort);
+            socket = new Socket();
+            socket.connect(new InetSocketAddress(mHost, mPort), CONNECT_TIMEOUT_MS);
         }
         socket.setTcpNoDelay(true);
 

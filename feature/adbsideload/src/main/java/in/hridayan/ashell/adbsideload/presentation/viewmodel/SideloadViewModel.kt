@@ -7,30 +7,26 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.adbsideload.domain.model.SideloadOperation
 import `in`.hridayan.ashell.adbsideload.domain.model.SideloadPackageInfo
 import `in`.hridayan.ashell.adbsideload.domain.model.SideloadState
-import `in`.hridayan.ashell.adbsideload.domain.model.SideloadStatus
+import `in`.hridayan.ashell.adbsideload.domain.repository.SideloadPackageInspector
 import `in`.hridayan.ashell.adbsideload.domain.repository.SideloadRepository
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SideloadViewModel @Inject constructor(
-    private val repository: SideloadRepository
+    private val repository: SideloadRepository,
+    private val packageInspector: SideloadPackageInspector,
 ) : ViewModel() {
 
     val state: StateFlow<SideloadState> = repository.connectionState
 
-    private val _operation = MutableStateFlow(SideloadOperation())
-    val operation: StateFlow<SideloadOperation> = _operation.asStateFlow()
+    val operation: StateFlow<SideloadOperation> = repository.operation
 
     private val _selectedFile = MutableStateFlow<SideloadPackageInfo?>(null)
     val selectedFile: StateFlow<SideloadPackageInfo?> = _selectedFile.asStateFlow()
-
-    private var sideloadJob: Job? = null
 
     fun startScan() {
         repository.searchDevices()
@@ -45,7 +41,7 @@ class SideloadViewModel @Inject constructor(
     }
 
     fun selectFile(uri: Uri) {
-        viewModelScope.launch { _selectedFile.value = repository.inspectPackage(uri) }
+        viewModelScope.launch { _selectedFile.value = packageInspector.inspect(uri) }
     }
 
     fun clearFile() {
@@ -54,22 +50,14 @@ class SideloadViewModel @Inject constructor(
 
     fun sideload() {
         val file = _selectedFile.value ?: return
-        sideloadJob?.cancel()
-        sideloadJob = viewModelScope.launch {
-            repository.sideload(file.uri).collect { progress -> _operation.value = progress }
-        }
+        repository.sideload(file.uri)
     }
 
     fun cancelSideload() {
-        sideloadJob?.cancel()
-        sideloadJob = null
         repository.cancelSideload()
-        _operation.update { it.copy(status = SideloadStatus.CANCELLED) }
     }
 
     fun resetOperation() {
-        sideloadJob?.cancel()
-        sideloadJob = null
-        _operation.value = SideloadOperation()
+        repository.resetOperation()
     }
 }

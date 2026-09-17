@@ -3,7 +3,9 @@ package `in`.hridayan.ashell.shell.fastboot.presentation.components.section
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,6 +18,7 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Error
 import androidx.compose.material.icons.filled.FlashOn
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -25,6 +28,9 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,30 +45,36 @@ import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashOperation
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashStatus
+import `in`.hridayan.ashell.shell.fastboot.domain.policy.FlashCancelPolicy
+import `in`.hridayan.ashell.shell.fastboot.domain.policy.FlashCancellation
+import `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog.CancelTransferDialog
+import `in`.hridayan.ashell.shell.fastboot.presentation.components.text.flashStatusText
 
 /**
  * Progress and outcome view shared by the flash and wipe sheets.
+ *
+ * Cancelling is offered only while it means something. Once the device is writing a partition the
+ * host cannot stop it, so the control is replaced by a warning not to disconnect.
  */
 @Composable
 fun FlashOperationProgressContent(
     operation: FlashOperation,
+    completedText: String,
     onCancel: () -> Unit,
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    var confirmingCancel by remember { mutableStateOf(false) }
+
     val isActive = operation.status.isActive
-    val isFinished = operation.status.isFinished
+    val policy = FlashCancellation.policyFor(operation.status)
 
     val animatedProgress by animateFloatAsState(
         targetValue = operation.progress,
         animationSpec = tween(PROGRESS_ANIMATION_MS),
         label = "progress"
     )
-
-    val statusColor by animateColorAsState(
-        targetValue = statusColor(operation.status),
-        label = "statusColor"
-    )
+    val statusColor by animateColorAsState(targetValue = statusColor(operation.status), label = "statusColor")
 
     Column(
         modifier = modifier
@@ -79,28 +91,12 @@ fun FlashOperationProgressContent(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        if (operation.fileName.isNotBlank()) {
-            Text(
-                text = operation.fileName,
-                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-        }
+        FileName(fileName = operation.fileName)
 
-        val message = statusMessage(operation)
-        if (message.isNotBlank()) {
-            Text(
-                text = message,
-                style = MaterialTheme.typography.bodySmall.copy(fontFamily = FontFamily.Monospace),
-                color = statusColor,
-                textAlign = TextAlign.Center
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-        }
+        StatusMessage(
+            text = flashStatusText(operation, completedText),
+            color = statusColor
+        )
 
         if (isActive) {
             ProgressBar(progress = operation.progress, animatedProgress = animatedProgress, color = statusColor)
@@ -109,19 +105,89 @@ fun FlashOperationProgressContent(
         Spacer(modifier = Modifier.height(24.dp))
 
         if (isActive) {
-            CancelButton(onCancel = onCancel)
+            ActiveControls(
+                policy = policy,
+                onCancel = onCancel,
+                onRequestConfirmation = { confirmingCancel = true }
+            )
         }
 
-        if (isFinished) {
+        if (operation.status.isFinished) {
             DismissButton(status = operation.status, onDismiss = onDismiss)
         }
+    }
+
+    if (confirmingCancel) {
+        CancelTransferDialog(
+            onDismiss = { confirmingCancel = false },
+            onConfirm = {
+                confirmingCancel = false
+                onCancel()
+            }
+        )
     }
 }
 
 @Composable
-private fun statusMessage(operation: FlashOperation): String = when {
-    operation.status == FlashStatus.CANCELLED -> stringResource(R.string.cancelled)
-    else -> operation.message
+private fun ActiveControls(
+    policy: FlashCancelPolicy,
+    onCancel: () -> Unit,
+    onRequestConfirmation: () -> Unit,
+) {
+    when (policy) {
+        FlashCancelPolicy.IMMEDIATE -> CancelButton(onCancel = onCancel)
+        FlashCancelPolicy.CONFIRM -> CancelButton(onCancel = onRequestConfirmation)
+        FlashCancelPolicy.UNSAFE -> DoNotDisconnectWarning()
+    }
+}
+
+@Composable
+private fun DoNotDisconnectWarning() {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Icon(
+            imageVector = Icons.Default.Warning,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.error,
+            modifier = Modifier.size(18.dp)
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(
+            text = stringResource(R.string.do_not_disconnect),
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.error,
+            textAlign = TextAlign.Center
+        )
+    }
+}
+
+@Composable
+private fun FileName(fileName: String) {
+    if (fileName.isBlank()) return
+    Text(
+        text = fileName,
+        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+        textAlign = TextAlign.Center,
+        modifier = Modifier.fillMaxWidth()
+    )
+    Spacer(modifier = Modifier.height(8.dp))
+}
+
+@Composable
+private fun StatusMessage(text: String, color: Color) {
+    if (text.isBlank()) return
+    Text(
+        text = text,
+        style = MaterialTheme.typography.bodySmall.copy(fontFamily = FontFamily.Monospace),
+        color = color,
+        textAlign = TextAlign.Center
+    )
+    Spacer(modifier = Modifier.height(16.dp))
 }
 
 @Composable

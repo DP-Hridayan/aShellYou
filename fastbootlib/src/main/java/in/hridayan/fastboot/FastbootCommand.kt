@@ -1,13 +1,14 @@
 package `in`.hridayan.fastboot
 
 /**
- * Represents a fastboot command to be sent to a device.
- * Commands are ASCII strings sent over USB bulk OUT endpoint.
+ * A fastboot command, sent to the device as an ASCII string over the bulk OUT endpoint.
+ *
+ * Commands that operate on an image, such as `flash` and `boot`, carry no payload here: the image
+ * is streamed separately through [FastbootDeviceContext.sendCommand] so it never has to be held in
+ * memory.
  */
-class FastbootCommand private constructor(
-    val command: String,
-    val data: ByteArray? = null
-) {
+class FastbootCommand private constructor(val command: String) {
+
     companion object {
         /** Query a bootloader variable. */
         fun getVar(name: String) = FastbootCommand("getvar:$name")
@@ -27,11 +28,11 @@ class FastbootCommand private constructor(
         /** Erase a partition. */
         fun erase(partition: String) = FastbootCommand("erase:$partition")
 
-        /** Download data to the device and flash to partition. */
-        fun flash(partition: String, data: ByteArray) = FastbootCommand("flash:$partition", data)
+        /** Write the downloaded image to a partition. */
+        fun flash(partition: String) = FastbootCommand("flash:$partition")
 
-        /** Download and boot an image without flashing. */
-        fun boot(data: ByteArray) = FastbootCommand("boot", data)
+        /** Boot the downloaded image without flashing it. */
+        fun boot() = FastbootCommand("boot")
 
         /** Continue booting normally. */
         fun continueBooting() = FastbootCommand("continue")

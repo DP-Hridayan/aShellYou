@@ -23,13 +23,11 @@ import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootCommandResult
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootConnection
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootDeviceInfo
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashOperation
-import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashStatus
 import `in`.hridayan.ashell.shell.fastboot.domain.model.RebootMode
 import `in`.hridayan.ashell.shell.fastboot.domain.repository.FastbootRepository
 import `in`.hridayan.fastboot.FastbootCommand
 import `in`.hridayan.fastboot.FastbootDeviceContext
 import `in`.hridayan.fastboot.FastbootException
-import `in`.hridayan.fastboot.FastbootResponse
 import `in`.hridayan.fastboot.ResponseStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -42,7 +40,6 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import java.util.Locale
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Singleton
 import kotlin.time.Duration.Companion.milliseconds
@@ -53,6 +50,7 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
 
     private val usbManager = context.getSystemService(Context.USB_SERVICE) as? UsbManager
 
+    private val flasher = FastbootImageFlasher(context)
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private val connectMutex = Mutex()
     private val receiversRegistered = AtomicBoolean(false)
@@ -490,6 +488,9 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
         }
     }.flowOn(Dispatchers.IO)
 
+    private fun failedResult(command: String, message: String): FastbootCommandResult =
+        FastbootCommandResult(command = command, status = ResponseStatus.FAIL, data = message)
+
     private fun parseVariables(data: String): List<Pair<String, String>> = data.lines()
         .mapNotNull { line ->
             val colonIndex = line.indexOf(':')
@@ -506,122 +507,17 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
         partition: String,
         imageUri: Uri,
         onProgress: (FlashOperation) -> Unit
-    ): Flow<FastbootCommandResult> = dataOperation(
-        command = "flash:$partition",
-        partition = partition,
-        onProgress = onProgress,
-        successMessage = R.string.flash_complete,
-        failureMessage = R.string.flash_failed,
-    ) { ctx ->
-        onProgress(operation(partition, FlashStatus.READING_FILE, context.getString(R.string.reading_image_file)))
-        val image = readImage(imageUri)
-        val sizeText = megabytes(image.size)
-        val downloading = context.getString(R.string.downloading_to_device, sizeText)
-        onProgress(operation(partition, FlashStatus.DOWNLOADING, downloading))
-        ctx.sendCommand(FastbootCommand.flash(partition, image)) { sent, total ->
-            onProgress(transferProgress(partition, sent, total, sizeText))
-        }
-    }
-
-    override fun erasePartition(
-        partition: String,
-        onProgress: (FlashOperation) -> Unit
-    ): Flow<FastbootCommandResult> = dataOperation(
-        command = "erase:$partition",
-        partition = partition,
-        onProgress = onProgress,
-        successMessage = R.string.erase_complete,
-        failureMessage = R.string.erase_failed,
-    ) { ctx ->
-        onProgress(operation(partition, FlashStatus.ERASING, context.getString(R.string.erasing_partition, partition)))
-        ctx.sendCommand(FastbootCommand.erase(partition))
-    }
+    ): Flow<FastbootCommandResult> = flasher.flash(deviceContext, partition, imageUri, onProgress)
 
     override fun bootImage(
         imageUri: Uri,
         onProgress: (FlashOperation) -> Unit
-    ): Flow<FastbootCommandResult> = dataOperation(
-        command = "boot",
-        partition = BOOT_PARTITION,
-        onProgress = onProgress,
-        successMessage = R.string.boot_image_sent,
-        failureMessage = R.string.boot_failed,
-    ) { ctx ->
-        onProgress(operation(BOOT_PARTITION, FlashStatus.READING_FILE, context.getString(R.string.reading_image_file)))
-        val image = readImage(imageUri)
-        val sizeText = megabytes(image.size)
-        val downloading = context.getString(R.string.downloading_to_device, sizeText)
-        onProgress(operation(BOOT_PARTITION, FlashStatus.DOWNLOADING, downloading))
-        ctx.sendCommand(FastbootCommand.boot(image)) { sent, total ->
-            onProgress(transferProgress(BOOT_PARTITION, sent, total, sizeText))
-        }
-    }
+    ): Flow<FastbootCommandResult> = flasher.boot(deviceContext, imageUri, onProgress)
 
-    private fun dataOperation(
-        command: String,
+    override fun erasePartition(
         partition: String,
-        onProgress: (FlashOperation) -> Unit,
-        @StringRes successMessage: Int,
-        @StringRes failureMessage: Int,
-        block: (FastbootDeviceContext) -> FastbootResponse,
-    ): Flow<FastbootCommandResult> = flow {
-        val ctx = deviceContext ?: run {
-            val message = context.getString(R.string.no_device_connected)
-            onProgress(operation(partition, FlashStatus.ERROR, message))
-            emit(failedResult(command, message))
-            return@flow
-        }
-        try {
-            val response = block(ctx)
-            onProgress(outcome(partition, response, successMessage, failureMessage))
-            emit(FastbootCommandResult(command = command, status = response.status, data = response.data))
-        } catch (e: FastbootException) {
-            val message = e.message ?: context.getString(R.string.unknown_error)
-            onProgress(operation(partition, FlashStatus.ERROR, message))
-            emit(failedResult(command, message))
-            Log.e(TAG, "$command failed", e)
-        }
-    }.flowOn(Dispatchers.IO)
-
-    private fun outcome(
-        partition: String,
-        response: FastbootResponse,
-        @StringRes successMessage: Int,
-        @StringRes failureMessage: Int,
-    ): FlashOperation = if (response.isOkay) {
-        operation(partition, FlashStatus.COMPLETE, context.getString(successMessage), progress = 1f)
-    } else {
-        operation(partition, FlashStatus.ERROR, context.getString(failureMessage, response.data))
-    }
-
-    private fun transferProgress(partition: String, sent: Long, total: Long, sizeText: String): FlashOperation {
-        val progress = if (total <= 0L) 0f else sent.toFloat() / total.toFloat()
-        return if (progress < 1f) {
-            val percent = (progress * PERCENT).toInt()
-            val message = context.getString(R.string.sending_progress, percent, sizeText)
-            operation(partition, FlashStatus.DOWNLOADING, message, progress)
-        } else {
-            val message = context.getString(R.string.writing_to_partition, partition)
-            operation(partition, FlashStatus.FLASHING, message, 1f)
-        }
-    }
-
-    private fun readImage(imageUri: Uri): ByteArray =
-        context.contentResolver.openInputStream(imageUri)?.use { it.readBytes() }
-            ?: throw FastbootException(context.getString(R.string.file_open_failed))
-
-    private fun megabytes(bytes: Int): String =
-        String.format(Locale.getDefault(), "%.1f", bytes / BYTES_PER_MEGABYTE)
-
-    private fun operation(
-        partition: String,
-        status: FlashStatus,
-        message: String,
-        progress: Float = 0f,
-    ): FlashOperation = FlashOperation(partition = partition, status = status, progress = progress, message = message)
-
-    private fun failedResult(command: String, message: String): FastbootCommandResult =
-        FastbootCommandResult(command = command, status = ResponseStatus.FAIL, data = message)
+        onProgress: (FlashOperation) -> Unit
+    ): Flow<FastbootCommandResult> = flasher.erase(deviceContext, partition, onProgress)
     // endregion
 
     private companion object {
@@ -633,8 +529,11 @@ class FastbootRepositoryImpl(private val context: Context) : FastbootRepository 
         const val FASTBOOT_INTERFACE_SUBCLASS = 0x42
         const val FASTBOOT_INTERFACE_PROTOCOL = 0x03
         const val BOOT_PARTITION = "boot"
+        const val BOOT_COMMAND = "boot"
+        const val MAX_DOWNLOAD_SIZE_VAR = "max-download-size"
+        const val HEX_PREFIX = "0x"
+        const val HEX_RADIX = 16
         const val CLI_PREFIX_LENGTH = 9
-        const val PERCENT = 100f
         const val BYTES_PER_MEGABYTE = 1024.0 * 1024.0
         const val REBOOT_POLL_ATTEMPTS = 15
         val REBOOT_POLL_INTERVAL = 2.seconds

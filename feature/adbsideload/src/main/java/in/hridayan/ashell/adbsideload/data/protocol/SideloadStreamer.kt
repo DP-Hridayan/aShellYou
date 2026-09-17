@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import com.cgutman.adblib.AdbConnection
 import dagger.hilt.android.qualifiers.ApplicationContext
+import `in`.hridayan.ashell.adbsideload.data.adb.SideloadWakeLock
 import `in`.hridayan.ashell.adbsideload.data.file.SideloadPackage
 import `in`.hridayan.ashell.adbsideload.domain.model.SideloadError
 import `in`.hridayan.ashell.adbsideload.domain.model.SideloadOperation
@@ -32,6 +33,7 @@ import javax.inject.Singleton
 @Singleton
 class SideloadStreamer @Inject constructor(
     @ApplicationContext private val context: Context,
+    private val wakeLock: SideloadWakeLock,
 ) {
     private sealed interface TransportResult {
         class Ready(val transport: SideloadTransport) : TransportResult
@@ -73,11 +75,13 @@ class SideloadStreamer @Inject constructor(
         tracker: SideloadProgressTracker,
     ): Flow<SideloadOperation> {
         activeTransport = transport
+        wakeLock.acquire()
         return SideloadHostSession(transport, sideloadPackage.reader, tracker, BLOCK_SIZE)
             .run()
             .onCompletion {
                 transport.close()
                 activeTransport = null
+                wakeLock.release()
             }
     }
 

@@ -189,8 +189,11 @@ fun WifiAdbScreen(
         DeviceDisconnectedDialog(
             onDismiss = {
                 showDeviceDisconnectedDialog = false
-                WifiAdbConnection.updateState(WifiAdbState.Idle)
-            }
+                if (WifiAdbConnection.currentState is WifiAdbState.Disconnected) {
+                    WifiAdbConnection.updateState(WifiAdbState.Idle)
+                }
+            },
+            onReconnected = { showDeviceDisconnectedDialog = false }
         )
     }
 }

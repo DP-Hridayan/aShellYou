@@ -6,18 +6,30 @@ import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.common.data.adb.AdbConnectionManager
 import io.github.muntashirakon.adb.AdbStream
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.flow
 import java.io.IOException
-import java.nio.charset.StandardCharsets
 
-private const val READ_BUFFER_SIZE = 4096
 private const val RESTART_REPLY_PREFIX = "restarting"
+private const val POLL_INTERVAL_MS = 20L
+private const val IDLE_TIMEOUT_MS = 500L
+
+/**
+ * A restarting service answers at once or not at all, so waiting long adds nothing.
+ */
+private const val RESTART_FIRST_REPLY_TIMEOUT_MS = 3_000L
+
+/**
+ * Other services, such as `remount:` and `exec:`, can take a moment to produce their first output.
+ */
+private const val DEFAULT_FIRST_REPLY_TIMEOUT_MS = 15_000L
 
 /**
  * Runs an ADB service that the daemon implements natively, such as `tcpip:5555` or `reboot:`.
  *
- * Unlike the interactive shell service these replies are short and the daemon closes the stream when
- * it is done, so the reader runs to end of stream instead of guessing from an idle timeout.
+ * Output is emitted line by line as it arrives. Holding it until the stream ended meant a reply that
+ * had already been received was not shown, and a service that answers with nothing, such as
+ * `reboot:`, showed nothing at all.
  */
 class AdbServiceExecutor(private val context: Context) {
 
@@ -47,51 +59,59 @@ class AdbServiceExecutor(private val context: Context) {
         }
         onStreamOpened(stream)
 
-        val reply = readReply(stream)
-        reply.forEach { emit(OutputLine(it, isError = false)) }
+        val firstLine = emitReply(stream, restartsDaemon)
+        if (!restartsDaemon || !confirmsRestart(firstLine)) return@flow
 
-        if (!restartsDaemon || !reply.confirmsRestart()) return@flow
+        emitRestartNotice(reconnectCommand)
+        onDaemonRestarted()
+    }
 
+    /**
+     * @return the first line of the reply, or null when the service answered with nothing.
+     */
+    private suspend fun FlowCollector<OutputLine>.emitReply(
+        stream: AdbStream,
+        restartsDaemon: Boolean
+    ): String? {
+        var firstLine: String? = null
+        try {
+            readerFor(restartsDaemon)
+                .lines(stream.openInputStream()) { stream.isClosed }
+                .forEach { line ->
+                    if (firstLine == null) firstLine = line
+                    emit(OutputLine(line, isError = false))
+                }
+        } finally {
+            stream.closeQuietly()
+        }
+        return firstLine
+    }
+
+    private suspend fun FlowCollector<OutputLine>.emitRestartNotice(reconnectCommand: String?) {
         emit(infoLine(R.string.adb_daemon_restarted))
         reconnectCommand?.let {
             emit(OutputLine(context.getString(R.string.adb_reconnect_hint, it), isError = false))
         }
-        onDaemonRestarted()
     }
 
-    private fun readReply(stream: AdbStream): List<String> {
-        val buffer = StringBuilder()
-        stream.appendTextTo(buffer)
-        return buffer.toString()
-            .split('\n')
-            .map { it.trimEnd('\r') }
-            .filter { it.isNotBlank() }
-    }
+    private fun readerFor(restartsDaemon: Boolean) = AdbReplyReader(
+        ReplyTimeouts(
+            firstReplyMs = if (restartsDaemon) {
+                RESTART_FIRST_REPLY_TIMEOUT_MS
+            } else {
+                DEFAULT_FIRST_REPLY_TIMEOUT_MS
+            },
+            idleMs = IDLE_TIMEOUT_MS,
+            pollIntervalMs = POLL_INTERVAL_MS
+        )
+    )
 
     /**
-     * Reads to end of stream, keeping whatever arrived before a failure.
-     *
-     * A restarting service such as `tcpip:` answers and then drops the whole connection, which
-     * surfaces as an [IOException] on the following read rather than a clean end of stream. The
-     * reply already in [buffer] is still the daemon's real answer, so it is kept.
+     * `reboot:` answers with nothing at all, so an empty reply still means the daemon is going away.
+     * `root:` and `unroot:` answer either way, and only the restarting form drops the connection.
      */
-    private fun AdbStream.appendTextTo(buffer: StringBuilder) {
-        val raw = ByteArray(READ_BUFFER_SIZE)
-        try {
-            openInputStream().use { input ->
-                var bytesRead = input.read(raw, 0, raw.size)
-                while (bytesRead >= 0) {
-                    buffer.append(String(raw, 0, bytesRead, StandardCharsets.UTF_8))
-                    bytesRead = input.read(raw, 0, raw.size)
-                }
-            }
-        } catch (_: IOException) {
-            return
-        }
-    }
-
-    private fun List<String>.confirmsRestart(): Boolean =
-        isEmpty() || first().trimStart().startsWith(RESTART_REPLY_PREFIX, ignoreCase = true)
+    private fun confirmsRestart(firstLine: String?): Boolean =
+        firstLine == null || firstLine.trimStart().startsWith(RESTART_REPLY_PREFIX, true)
 
     private fun errorLine(resId: Int) = OutputLine(context.getString(resId), isError = true)
 
@@ -101,4 +121,12 @@ class AdbServiceExecutor(private val context: Context) {
         context.getString(R.string.command_execution_failed, error.message),
         isError = true
     )
+}
+
+private fun AdbStream.closeQuietly() {
+    try {
+        close()
+    } catch (_: IOException) {
+        // A restarting daemon takes the connection with it, so the goodbye packet cannot be sent.
+    }
 }

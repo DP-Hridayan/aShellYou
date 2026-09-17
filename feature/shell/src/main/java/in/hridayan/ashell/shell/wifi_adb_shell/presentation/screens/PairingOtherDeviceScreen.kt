@@ -84,6 +84,7 @@ import `in`.hridayan.ashell.core.utils.isConnectedToWifi
 import `in`.hridayan.ashell.core.utils.registerNetworkCallback
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.PairingDiscoveryMode
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.card.DiscoveredDeviceCard
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ConnectionSuccessDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairConnectFailedDialog
@@ -93,11 +94,9 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.image.QR
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.item.SavedDeviceItem
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
 import `in`.hridayan.ashell.shell.wifi_adb_shell.utils.WirelessDebuggingUtils
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.security.SecureRandom
 
-private enum class PairingTab(val titleRes: Int) {
+internal enum class PairingTab(val titleRes: Int) {
     QrPair(R.string.pair_using_qr),
     CodePair(R.string.pair_using_code),
     SavedDevices(R.string.saved_devices)
@@ -127,7 +126,6 @@ fun PairingOtherDeviceScreen(
 
     var wasReconnectCancelled by remember { mutableStateOf(false) }
     var lastReconnectingDeviceId by remember { mutableStateOf<String?>(null) }
-    val pairingCode = remember { String.format("%06d", generatePairingCode()) }
 
     var showAlreadyConnected by remember { mutableStateOf(false) }
 
@@ -209,8 +207,16 @@ fun PairingOtherDeviceScreen(
         }
     }
 
+    LaunchedEffect(pagerState.settledPage, isWifiConnected) {
+        viewModel.setDiscoveryMode(discoveryModeFor(tabs[pagerState.settledPage], isWifiConnected))
+    }
+
+    DisposableEffect(Unit) {
+        onDispose { viewModel.setDiscoveryMode(PairingDiscoveryMode.None) }
+    }
+
     BackHandler {
-        coroutineScope.launch(Dispatchers.Default) { viewModel.stopQrPairDiscovery() }
+        viewModel.setDiscoveryMode(PairingDiscoveryMode.None)
         navController.navigateBack()
     }
 
@@ -293,6 +299,7 @@ fun PairingOtherDeviceScreen(
 
             HorizontalPager(
                 state = pagerState,
+                beyondViewportPageCount = 1,
                 modifier = Modifier.fillMaxSize()
             ) { page ->
                 when (tabs[page]) {
@@ -319,8 +326,7 @@ fun PairingOtherDeviceScreen(
 
                     PairingTab.QrPair -> QRPairTab(
                         isWifiConnected = isWifiConnected,
-                        wifiAdbState = wifiAdbState,
-                        pairingCode = pairingCode
+                        wifiAdbState = wifiAdbState
                     )
 
                     PairingTab.CodePair -> CodePairTab(
@@ -360,12 +366,11 @@ fun PairingOtherDeviceScreen(
                 it.dismiss()
                 WifiAdbConnection.updateState(WifiAdbState.Idle)
                 if (!isWifiConnected) return@ReconnectFailedDialog
-                if (pagerState.currentPage == PairingTab.QrPair.ordinal) {
-                    viewModel.startQrPairDiscovery(
-                        pairingCode
-                    )
+                when (tabs[pagerState.currentPage]) {
+                    PairingTab.QrPair -> viewModel.refreshQrPairing()
+                    PairingTab.CodePair -> viewModel.setDiscoveryMode(PairingDiscoveryMode.Code)
+                    PairingTab.SavedDevices -> Unit
                 }
-                if (pagerState.currentPage == PairingTab.CodePair.ordinal) viewModel.startCodePairingDiscovery()
             }
         )
     }
@@ -507,19 +512,13 @@ fun QRPairTab(
     modifier: Modifier = Modifier,
     isWifiConnected: Boolean,
     wifiAdbState: WifiAdbState,
-    pairingCode: String,
     viewModel: WifiAdbViewModel = hiltViewModel()
 ) {
-    val sessionId = remember { "ashell_you" }
     val qrBitmap by viewModel.qrBitmap.collectAsState()
+    val isQrExpired by viewModel.isQrExpired.collectAsStateWithLifecycle()
 
-    // Start mDNS discovery when WiFi is connected - only re-run if isWifiConnected changes
-    LaunchedEffect(isWifiConnected) {
-        if (isWifiConnected) viewModel.startQrPairDiscovery(pairingCode) else viewModel.stopQrPairDiscovery()
-    }
-
-    LaunchedEffect(pairingCode, isWifiConnected) {
-        viewModel.generateQr(sessionId, pairingCode)
+    LaunchedEffect(Unit) {
+        viewModel.ensureQrGenerated()
     }
 
     LazyColumn(
@@ -586,6 +585,8 @@ fun QRPairTab(
                         qrBitmap = qrBitmap,
                         modifier = Modifier.padding(25.dp),
                         isWifiConnected = isWifiConnected,
+                        isExpired = isQrExpired,
+                        onRetry = { viewModel.refreshQrPairing() },
                         wifiAdbState = wifiAdbState
                     )
                 }
@@ -605,20 +606,6 @@ fun CodePairTab(
     val wifiAdbState by viewModel.state.collectAsStateWithLifecycle()
     val discoveredServices by viewModel.discoveredPairingServices.collectAsStateWithLifecycle()
     val isKeyboardVisible = isKeyboardVisible()
-
-    LaunchedEffect(isWifiConnected) {
-        if (isWifiConnected) {
-            viewModel.startCodePairingDiscovery()
-        } else {
-            viewModel.stopCodePairingDiscovery()
-        }
-    }
-
-    DisposableEffect(Unit) {
-        onDispose {
-            viewModel.stopCodePairingDiscovery()
-        }
-    }
 
     LazyColumn(
         modifier = modifier
@@ -719,7 +706,18 @@ fun CodePairTab(
     }
 }
 
-fun generatePairingCode(): Int {
-    val random = SecureRandom()
-    return (100000 + random.nextInt(900000))
+/**
+ * The scan that belongs to [tab], or none when there is no network to scan on.
+ *
+ * Saved devices does not scan, and losing Wi-Fi stops whichever scan was running, so the pairing
+ * screen can drive the whole scan lifecycle from this one mapping.
+ */
+internal fun discoveryModeFor(
+    tab: PairingTab,
+    isWifiConnected: Boolean
+): PairingDiscoveryMode = when {
+    !isWifiConnected -> PairingDiscoveryMode.None
+    tab == PairingTab.QrPair -> PairingDiscoveryMode.Qr
+    tab == PairingTab.CodePair -> PairingDiscoveryMode.Code
+    else -> PairingDiscoveryMode.None
 }
