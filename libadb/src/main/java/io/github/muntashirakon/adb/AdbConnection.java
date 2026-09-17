@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.ConnectException;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.security.PrivateKey;
 import java.security.cert.Certificate;
@@ -186,6 +187,11 @@ public class AdbConnection implements Closeable {
     }
 
     /**
+     * How long to wait for the TCP handshake before giving up.
+     */
+    private static final int CONNECT_TIMEOUT_MS = 10_000;
+
+    /**
      * Internal constructor to initialize some internal state
      */
     @WorkerThread
@@ -197,7 +203,12 @@ public class AdbConnection implements Closeable {
         this.mMaxData = AdbProtocol.getMaxData(api);
         this.mKeyPair = Objects.requireNonNull(keyPair);
         try {
-            this.mSocket = new Socket(host, port);
+            // A bare `new Socket(host, port)` has no connect timeout, so a port nothing is listening
+            // on parks the calling thread for the full TCP retry window, minutes on Android. That
+            // thread also carries the timeouts meant to rescue the attempt, so the caller hangs
+            // instead of failing. Bounding the connect turns that into an ordinary IOException.
+            this.mSocket = new Socket();
+            this.mSocket.connect(new InetSocketAddress(host, port), CONNECT_TIMEOUT_MS);
         } catch (Throwable th) {
             //noinspection UnnecessaryInitCause
             throw (IOException) new IOException().initCause(th);

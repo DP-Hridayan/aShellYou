@@ -19,6 +19,8 @@ public class UsbChannel implements AdbChannel {
     private static final int WRITE_TIMEOUT_MS = 5000;
     private static final long WRITE_DEADLINE_MS = 10 * 60 * 1000;
     private static final int MAX_EMPTY_READS = 16;
+    private static final int MAX_TRANSIENT_FAILURES = 5;
+    private static final long TRANSIENT_BACKOFF_MS = 20;
 
     private final UsbDeviceConnection mDeviceConnection;
     private final UsbEndpoint mEndpointOut;
@@ -103,6 +105,7 @@ public class UsbChannel implements AdbChannel {
 
     private void writeFully(byte[] buffer) throws IOException {
         int offset = 0;
+        int failures = 0;
         long deadline = System.currentTimeMillis() + WRITE_DEADLINE_MS;
         while (offset < buffer.length) {
             long startedAt = System.currentTimeMillis();
@@ -110,17 +113,31 @@ public class UsbChannel implements AdbChannel {
                     mEndpointOut, buffer, offset, buffer.length - offset, WRITE_TIMEOUT_MS);
             if (transferred > 0) {
                 offset += transferred;
+                failures = 0;
                 continue;
             }
             /* A peer that is busy stops draining the endpoint, so a transfer that consumed its
-             * whole timeout is retried; one that failed immediately is a real error. */
+             * whole timeout is retried. One that failed immediately is usually a real error, but
+             * a long transfer can hit a transient failure, so give it a few attempts first. */
             long elapsed = System.currentTimeMillis() - startedAt;
             if (transferred < 0 && elapsed < WRITE_TIMEOUT_MS / 2) {
-                throw new IOException("USB bulk transfer failed");
+                if (++failures > MAX_TRANSIENT_FAILURES) {
+                    throw new IOException("USB bulk transfer failed " + failures + " times in a row");
+                }
+                backOff();
             }
             if (System.currentTimeMillis() >= deadline) {
                 throw new IOException("USB bulk transfer timed out");
             }
+        }
+    }
+
+    private static void backOff() throws IOException {
+        try {
+            Thread.sleep(TRANSIENT_BACKOFF_MS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new IOException("Interrupted during USB write");
         }
     }
 

@@ -34,6 +34,9 @@ public class AdbStream implements Closeable {
 	/** Indicates whether the peer has acknowledged the OPEN for this stream */
 	private volatile boolean isOpen;
 
+	/** Why the stream closed, when the connection reported a reason */
+	private volatile String closeReason;
+
 	/** How long a write waits for the peer to acknowledge the previous one. A peer that is busy
 	 * installing legitimately takes minutes, so this only breaks a genuine hang. */
 	private static final long WRITE_READY_TIMEOUT_MS = 10 * 60 * 1000;
@@ -102,7 +105,20 @@ public class AdbStream implements Closeable {
 	 * peer.
 	 */
 	void notifyClose() {
+		notifyClose(null);
+	}
+
+	/**
+	 * Called by the connection thread to notify that the stream was closed, recording why so
+	 * that blocked readers and writers fail with something diagnosable.
+	 *
+	 * @param reason Description of the failure, or null when the peer closed the stream normally
+	 */
+	void notifyClose(String reason) {
 		/* We don't call close() because it sends another CLOSE */
+		if (reason != null) {
+			closeReason = reason;
+		}
 		isClosed = true;
 
 		/* Unwait readers and writers */
@@ -130,7 +146,7 @@ public class AdbStream implements Closeable {
 			}
 
 			if (data == null) {
-				throw new IOException("Stream closed");
+				throw closedException();
 			}
 		}
 		return data;
@@ -168,12 +184,16 @@ public class AdbStream implements Closeable {
 			}
 
 			if (isClosed) {
-				throw new IOException("Stream closed");
+				throw closedException();
 			}
 		}
 
 		/* Generate a WRITE packet and send it */
 		adbConn.channel.writex(AdbProtocol.generateWrite(localId, remoteId, payload));
+	}
+
+	private IOException closedException() {
+		return new IOException(closeReason != null ? closeReason : "Stream closed");
 	}
 
 	/**

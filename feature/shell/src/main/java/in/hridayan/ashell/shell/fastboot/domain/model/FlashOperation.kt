@@ -1,21 +1,28 @@
 package `in`.hridayan.ashell.shell.fastboot.domain.model
 
 /**
- * Represents the state of an ongoing flash/erase/boot operation.
+ * State of an ongoing flash, erase or boot operation.
+ *
+ * [DOWNLOADING] and [WRITING] are deliberately distinct: during the first the device is only
+ * filling a memory buffer, during the second it is committing to a partition and must not be
+ * interrupted.
  */
 data class FlashOperation(
     val partition: String = "",
     val fileName: String = "",
     val progress: Float = 0f,
     val status: FlashStatus = FlashStatus.IDLE,
-    val message: String = ""
+    val bytesSent: Long = 0L,
+    val totalBytes: Long = 0L,
+    val error: FastbootError? = null,
+    val errorDetail: String? = null,
 )
 
 enum class FlashStatus {
     IDLE,
     READING_FILE,
     DOWNLOADING,
-    FLASHING,
+    WRITING,
     ERASING,
     CANCELLING,
     COMPLETE,
@@ -23,7 +30,7 @@ enum class FlashStatus {
     CANCELLED;
 
     val isActive: Boolean
-        get() = this == READING_FILE || this == DOWNLOADING || this == FLASHING ||
+        get() = this == READING_FILE || this == DOWNLOADING || this == WRITING ||
             this == ERASING || this == CANCELLING
 
     val isFinished: Boolean

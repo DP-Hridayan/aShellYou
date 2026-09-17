@@ -18,6 +18,7 @@ class SelfPairingNotificationHelper(private val context: Context) {
 
     companion object {
         const val CHANNEL_ID = "own_device_pairing_channel"
+        private const val OPEN_APP_REQUEST_CODE = 3
         const val NOTIFICATION_ID = 1001
         const val ACTION_SUBMIT_PAIRING_CODE = "in.hridayan.ashell.ACTION_SUBMIT_PAIRING_CODE"
         const val ACTION_CANCEL = "in.hridayan.ashell.ACTION_CANCEL"
@@ -151,14 +152,7 @@ class SelfPairingNotificationHelper(private val context: Context) {
     }
 
     private fun createSuccessNotification(): Notification {
-        val openAppIntent =
-            Intent(context, Class.forName("in.hridayan.ashell.activities.MainActivity"))
-        val openAppPendingIntent = PendingIntent.getActivity(
-            context,
-            3,
-            openAppIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
+        val openAppPendingIntent = context.launchAppPendingIntent(OPEN_APP_REQUEST_CODE)
 
         return NotificationCompat.Builder(context, CHANNEL_ID)
             .setContentTitle(context.getString(R.string.self_pair_success))
@@ -167,7 +161,7 @@ class SelfPairingNotificationHelper(private val context: Context) {
             .setOngoing(false)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
-            .setContentIntent(openAppPendingIntent)
+            .apply { openAppPendingIntent?.let { setContentIntent(it) } }
             .build()
     }
 

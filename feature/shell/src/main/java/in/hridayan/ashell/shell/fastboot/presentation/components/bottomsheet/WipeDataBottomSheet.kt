@@ -113,6 +113,7 @@ fun WipeDataBottomSheet(
             if (isOperationVisible) {
                 FlashOperationProgressContent(
                     operation = eraseOperation,
+                    completedText = stringResource(R.string.erase_complete),
                     onCancel = onCancel,
                     onDismiss = onResetOperation
                 )

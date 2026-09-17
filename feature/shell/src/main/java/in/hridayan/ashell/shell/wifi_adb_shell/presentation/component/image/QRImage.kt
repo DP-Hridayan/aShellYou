@@ -5,6 +5,7 @@ package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.image
 import android.graphics.Bitmap
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,14 +28,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbState
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.resources.R
+
+private const val SCRIM_ALPHA = 0.8f
+private const val BUSY_SCRIM_ALPHA = 0.9f
+private val OVERLAY_ICON_SIZE = 72.dp
 
 @Composable
 fun QRImage(
     modifier: Modifier = Modifier,
     qrBitmap: Bitmap,
     isWifiConnected: Boolean = false,
+    isExpired: Boolean = false,
+    onRetry: () -> Unit = {},
     wifiAdbState: WifiAdbState = WifiAdbState.Idle
 ) {
     val qrImage = qrBitmap.asImageBitmap()
@@ -56,14 +64,33 @@ fun QRImage(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.White.copy(alpha = 0.8f)),
+                    .background(Color.White.copy(alpha = SCRIM_ALPHA)),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_no_wifi),
                     contentDescription = null,
                     tint = Color.Black,
-                    modifier = Modifier.size(72.dp)
+                    modifier = Modifier.size(OVERLAY_ICON_SIZE)
+                )
+            }
+
+            return@Box
+        }
+
+        if (isExpired) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.White.copy(alpha = SCRIM_ALPHA))
+                    .clickable(onClick = withHaptic { onRetry() }),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_refresh),
+                    contentDescription = stringResource(R.string.retry),
+                    tint = Color.Black,
+                    modifier = Modifier.size(OVERLAY_ICON_SIZE)
                 )
             }
 
@@ -74,7 +101,7 @@ fun QRImage(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.White.copy(alpha = 0.8f)),
+                    .background(Color.White.copy(alpha = SCRIM_ALPHA)),
                 contentAlignment = Alignment.Center
             ) {
                 AutoResizeableText(
@@ -88,7 +115,7 @@ fun QRImage(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.White.copy(alpha = 0.9f)),
+                    .background(Color.White.copy(alpha = BUSY_SCRIM_ALPHA)),
                 contentAlignment = Alignment.Center
             ) {
                 AutoResizeableText(

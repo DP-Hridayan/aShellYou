@@ -10,12 +10,23 @@ import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbDevice
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.DiscoveredPairingService
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.PairingDiscoveryMode
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.security.SecureRandom
 import javax.inject.Inject
+
+private const val QR_SESSION_ID = "ashell_you"
+private const val PAIRING_CODE_LENGTH = 6
+private const val PAIRING_CODE_MIN = 100000
+private const val PAIRING_CODE_RANGE = 900000
+private const val QR_PAIRING_TIMEOUT_MS = 120_000L
+private const val QR_GENERATION_ERROR_TAG = "WifiAdbViewModel"
 
 @HiltViewModel
 class WifiAdbViewModel @Inject constructor(
@@ -25,6 +36,17 @@ class WifiAdbViewModel @Inject constructor(
 
     private val _qrBitmap = MutableStateFlow<Bitmap?>(null)
     val qrBitmap: StateFlow<Bitmap?> = _qrBitmap
+
+    private val _pairingCode = MutableStateFlow(generatePairingCode())
+    val pairingCode: StateFlow<String> = _pairingCode.asStateFlow()
+
+    private val _isQrExpired = MutableStateFlow(false)
+    val isQrExpired: StateFlow<Boolean> = _isQrExpired.asStateFlow()
+
+    private var discoveryMode = PairingDiscoveryMode.None
+    private var qrExpiryJob: Job? = null
+    private var generatedQrForCode: String? = null
+    private var qrGenerationJob: Job? = null
 
     private val _discoveredPairingServices =
         MutableStateFlow<List<DiscoveredPairingService>>(emptyList())
@@ -66,25 +88,12 @@ class WifiAdbViewModel @Inject constructor(
             }
         }
 
-        // Auto-start/stop heartbeat based on connection state
         viewModelScope.launch {
             WifiAdbConnection.state.collect { state ->
-                when (state) {
-                    is WifiAdbState.Connected -> {
-                        wifiAdbRepository.startHeartbeat()
-                    }
-
-                    is WifiAdbState.Disconnected,
-                    is WifiAdbState.Idle -> {
-                        wifiAdbRepository.stopHeartbeat()
-                    }
-
-                    else -> {
-                        /* Keep heartbeat running for other states */
-                    }
-                }
+                if (state.isLoading || state.isConnected) cancelQrExpiryTimer()
             }
         }
+
     }
 
     fun reconnectToDevice(device: WifiAdbDevice) {
@@ -148,22 +157,101 @@ class WifiAdbViewModel @Inject constructor(
 
     fun isConnected(): Boolean = wifiAdbRepository.isConnected()
 
-    fun generateQr(sessionId: String, pairingCode: String) {
-        viewModelScope.launch {
-            try {
-                val bitmap = wifiAdbRepository.generatePairingQR(
-                    sessionId = sessionId,
-                    pairingCode = pairingCode
-                )
-                _qrBitmap.value = bitmap
-            } catch (e: Exception) {
-                Log.e("Failed to generate QR", e.message.toString())
-            }
+    /**
+     * Builds the QR bitmap for the current pairing code, skipping the work when that code already
+     * has one. The pager recreates the QR tab on every swipe, so this is called far more often than
+     * the code actually changes.
+     */
+    fun ensureQrGenerated() {
+        if (generatedQrForCode == _pairingCode.value && _qrBitmap.value != null) return
+        qrGenerationJob?.cancel()
+        qrGenerationJob = viewModelScope.launch { generateQrForCurrentCode() }
+    }
+
+    private suspend fun generateQrForCurrentCode() {
+        val code = _pairingCode.value
+        try {
+            _qrBitmap.value = wifiAdbRepository.generatePairingQR(
+                sessionId = QR_SESSION_ID,
+                pairingCode = code
+            )
+            generatedQrForCode = code
+        } catch (e: Exception) {
+            Log.e(QR_GENERATION_ERROR_TAG, "Failed to generate QR", e)
         }
     }
 
-    fun startQrPairDiscovery(pairingCode: String) {
-        if (pairingCode.length != 6) return
+    /**
+     * Makes [mode] the only running scan.
+     *
+     * Returns early when the mode is unchanged so that recomposition, which happens on every swipe,
+     * cannot tear down and restart a scan that is already running.
+     */
+    fun setDiscoveryMode(mode: PairingDiscoveryMode) {
+        if (discoveryMode == mode) return
+        stopDiscovery(discoveryMode)
+        discoveryMode = mode
+        startDiscovery(mode)
+    }
+
+    private fun startDiscovery(mode: PairingDiscoveryMode) = when (mode) {
+        PairingDiscoveryMode.Qr -> startQrPairDiscovery(_pairingCode.value)
+        PairingDiscoveryMode.Code -> startCodePairingDiscovery()
+        PairingDiscoveryMode.None -> Unit
+    }
+
+    private fun stopDiscovery(mode: PairingDiscoveryMode) = when (mode) {
+        PairingDiscoveryMode.Qr -> stopQrPairDiscovery()
+        PairingDiscoveryMode.Code -> stopCodePairingDiscovery()
+        PairingDiscoveryMode.None -> Unit
+    }
+
+    /**
+     * Issues a fresh pairing code and restarts the QR scan behind it.
+     *
+     * Used by the retry control on an expired code, and after a failed pairing attempt, which
+     * consumes the code it was given.
+     */
+    fun refreshQrPairing() {
+        stopDiscovery(discoveryMode)
+        discoveryMode = PairingDiscoveryMode.None
+        qrGenerationJob?.cancel()
+        qrGenerationJob = viewModelScope.launch {
+            _pairingCode.value = generatePairingCode()
+            generateQrForCurrentCode()
+            _isQrExpired.value = false
+            setDiscoveryMode(PairingDiscoveryMode.Qr)
+        }
+    }
+
+    private fun startQrExpiryTimer() {
+        qrExpiryJob?.cancel()
+        qrExpiryJob = viewModelScope.launch {
+            delay(QR_PAIRING_TIMEOUT_MS)
+            expireQrPairing()
+        }
+    }
+
+    private fun expireQrPairing() {
+        if (discoveryMode != PairingDiscoveryMode.Qr) return
+        qrExpiryJob = null
+        wifiAdbRepository.stopMdnsDiscovery()
+        discoveryMode = PairingDiscoveryMode.None
+        _isQrExpired.value = true
+    }
+
+    private fun cancelQrExpiryTimer() {
+        qrExpiryJob?.cancel()
+        qrExpiryJob = null
+    }
+
+    private fun generatePairingCode(): String =
+        (PAIRING_CODE_MIN + SecureRandom().nextInt(PAIRING_CODE_RANGE)).toString()
+
+    private fun startQrPairDiscovery(pairingCode: String) {
+        if (pairingCode.length != PAIRING_CODE_LENGTH) return
+        _isQrExpired.value = false
+        startQrExpiryTimer()
 
         wifiAdbRepository.pairingWithQr(
             pairingCode,
@@ -194,7 +282,8 @@ class WifiAdbViewModel @Inject constructor(
         )
     }
 
-    fun stopQrPairDiscovery() {
+    private fun stopQrPairDiscovery() {
+        cancelQrExpiryTimer()
         wifiAdbRepository.stopMdnsDiscovery()
     }
 
@@ -202,7 +291,7 @@ class WifiAdbViewModel @Inject constructor(
      * Start discovery for both pairing and connect services.
      * Used when "Pair Using Code" tab is opened.
      */
-    fun startCodePairingDiscovery() {
+    private fun startCodePairingDiscovery() {
         _discoveredPairingServices.value = emptyList()
         wifiAdbRepository.startCodePairingDiscovery(
             onPairingServiceFound = { service ->
@@ -224,7 +313,7 @@ class WifiAdbViewModel @Inject constructor(
     /**
      * Stop code pairing discovery.
      */
-    fun stopCodePairingDiscovery() {
+    private fun stopCodePairingDiscovery() {
         wifiAdbRepository.stopCodePairingDiscovery()
         _discoveredPairingServices.value = emptyList()
     }
@@ -260,5 +349,12 @@ class WifiAdbViewModel @Inject constructor(
                 }
             }
         )
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        cancelQrExpiryTimer()
+        stopDiscovery(discoveryMode)
+        discoveryMode = PairingDiscoveryMode.None
     }
 }

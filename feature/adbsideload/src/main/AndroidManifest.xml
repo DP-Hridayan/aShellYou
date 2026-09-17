@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
+
+    <application>
+        <service
+            android:name=".service.SideloadService"
+            android:exported="false"
+            android:foregroundServiceType="connectedDevice" />
+    </application>
 
 </manifest>

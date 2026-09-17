@@ -11,6 +11,7 @@ import android.util.Log
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.set
 import `in`.hridayan.ashell.core.common.domain.model.OutputLine
+import `in`.hridayan.ashell.core.common.domain.model.wifiadb.UNKNOWN_DEVICE
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbConnection
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbDevice
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbEvent
@@ -19,7 +20,9 @@ import `in`.hridayan.ashell.core.common.domain.repository.TcpIpAdbRepository
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.common.data.adb.AdbConnectionManager
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.executor.AdbHostCommandExecutor
+import `in`.hridayan.ashell.shell.wifi_adb_shell.data.executor.AdbReplyReader
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.executor.AdbServiceExecutor
+import `in`.hridayan.ashell.shell.wifi_adb_shell.data.executor.ReplyTimeouts
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.database.WifiAdbDeviceDao
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.mapper.toDomainList
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.mapper.toEntity
@@ -45,14 +48,14 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
-import java.io.BufferedReader
-import java.io.InputStreamReader
+import kotlinx.coroutines.withContext
 import java.net.Inet4Address
 import java.net.InetAddress
 import java.net.NetworkInterface
 import java.nio.charset.StandardCharsets
 import java.util.Collections
 import java.util.concurrent.Executors
+import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.TimeUnit
 import javax.jmdns.JmDNS
@@ -78,10 +81,40 @@ class WifiAdbRepositoryImpl(
         private const val EXEC_SERVICE_PREFIX = "exec:"
         private const val TCPIP_SERVICE_PREFIX = "tcpip:"
         private const val RECONNECT_COMMAND_PREFIX = "adb connect "
+        private const val GETPROP_SERIAL = "shell:getprop ro.serialno"
+        private const val GETPROP_MODEL = "shell:getprop ro.product.model"
+        private const val DEVICE_INFO_FIRST_REPLY_TIMEOUT_MS = 5_000L
+        private const val DEVICE_INFO_IDLE_TIMEOUT_MS = 200L
+        private const val DEVICE_INFO_POLL_INTERVAL_MS = 20L
     }
 
     private var adbShellStream: AdbStream? = null
     private val executor = Executors.newScheduledThreadPool(1)
+
+    /**
+     * Serialises mDNS setup and teardown away from [executor].
+     *
+     * Closing JmDNS sends goodbye packets and joins its own threads, which can take seconds. Running
+     * that on the shared executor would delay connect, reconnect and their scheduled timeouts.
+     */
+    private val discoveryExecutor = Executors.newSingleThreadExecutor()
+
+    /**
+     * Runs the timeouts that rescue a stalled connect or discovery.
+     *
+     * These must not share a thread with the blocking work they supervise. On [executor] a connect
+     * that parks the thread also parks the timeout meant to give up on it, so the caller waits
+     * forever instead of failing.
+     */
+    private val timeoutScheduler = Executors.newScheduledThreadPool(1)
+
+    private val deviceInfoReader = AdbReplyReader(
+        ReplyTimeouts(
+            firstReplyMs = DEVICE_INFO_FIRST_REPLY_TIMEOUT_MS,
+            idleMs = DEVICE_INFO_IDLE_TIMEOUT_MS,
+            pollIntervalMs = DEVICE_INFO_POLL_INTERVAL_MS
+        )
+    )
     private var jmDns: JmDNS? = null
     private val pairingInProgress = mutableSetOf<String>()
     private val mainScope = CoroutineScope(Dispatchers.Main)
@@ -101,9 +134,43 @@ class WifiAdbRepositoryImpl(
     @Volatile
     private var isHeartbeatRunning = false
 
+    /**
+     * Guards the mDNS discovery handles and the connect-port cache.
+     *
+     * These are reached from the discovery executor, from the connect executor by way of the
+     * pairing-success handler, and from NSD callbacks on binder threads. They used to be safe only
+     * because the QR flow happened to touch them from a single thread; that is not a property worth
+     * depending on, so the lock makes it explicit.
+     */
+    private val discoveryLock = Any()
+
     private val cachedConnectPorts = mutableMapOf<String, Int>()
     private var pairingNsdManager: NsdManager? = null
     private var pairingNsdDiscoveryListener: NsdManager.DiscoveryListener? = null
+
+    init {
+        observeConnectionStateForHeartbeat()
+    }
+
+    /**
+     * Drives the connection-keeping foreground service from one place.
+     *
+     * This used to live in the ViewModel, which is resolved per navigation entry, so the number of
+     * start and stop calls depended on how many pairing screens happened to be in the back stack.
+     */
+    private fun observeConnectionStateForHeartbeat() {
+        ioScope.launch {
+            WifiAdbConnection.state.collect { state ->
+                when {
+                    state.isConnected -> startHeartbeat()
+                    state is WifiAdbState.Disconnected || state is WifiAdbState.Idle ->
+                        stopHeartbeat()
+
+                    else -> Unit
+                }
+            }
+        }
+    }
 
     private fun acquireMdnsLock() {
         val wifi =
@@ -120,7 +187,7 @@ class WifiAdbRepositoryImpl(
         autoPair: Boolean,
         callback: MdnsDiscoveryCallback?
     ) {
-        executor.submit {
+        discoveryExecutor.submit {
             try {
                 jmDns?.close()
 
@@ -170,7 +237,7 @@ class WifiAdbRepositoryImpl(
 
                                         // Check if we have a cached connect port from parallel discovery
                                         val cachedPort =
-                                            synchronized(cachedConnectPorts) { cachedConnectPorts[ip] }
+                                            synchronized(discoveryLock) { cachedConnectPorts[ip] }
 
                                         if (cachedPort != null) {
                                             // Use cached port for immediate connection
@@ -254,7 +321,7 @@ class WifiAdbRepositoryImpl(
                                                 "No cached connect port for $ip, falling back to discovery..."
                                             )
                                             stopParallelConnectDiscovery()
-                                            executor.schedule({
+                                            timeoutScheduler.schedule({
                                                 mainScope.launch {
                                                     WifiAdbConnection.updateState(
                                                         WifiAdbState.Discovering("connect service discovery started")
@@ -300,12 +367,13 @@ class WifiAdbRepositoryImpl(
      * Start NSD discovery for connect services in parallel with pairing.
      * Caches discovered connect ports by IP so they can be used immediately when pairing succeeds.
      */
-    private fun startParallelConnectDiscovery() {
+    private fun startParallelConnectDiscovery() = synchronized(discoveryLock) {
         try {
             // Stop any existing parallel discovery
             stopParallelConnectDiscovery()
 
-            pairingNsdManager = context.getSystemService(Context.NSD_SERVICE) as NsdManager
+            val nsdManager = context.getSystemService(Context.NSD_SERVICE) as NsdManager
+            pairingNsdManager = nsdManager
 
             pairingNsdDiscoveryListener = object : NsdManager.DiscoveryListener {
                 override fun onDiscoveryStarted(serviceType: String) {
@@ -327,7 +395,7 @@ class WifiAdbRepositoryImpl(
                 override fun onServiceFound(info: NsdServiceInfo) {
                     Log.d(TAG, "Parallel: Found connect service: ${info.serviceName}")
                     @Suppress("DEPRECATION")
-                    pairingNsdManager?.resolveService(
+                    nsdManager.resolveService(
                         info,
                         object : NsdManager.ResolveListener {
                             override fun onResolveFailed(
@@ -342,7 +410,7 @@ class WifiAdbRepositoryImpl(
                                 val port = resolvedService.port
 
                                 Log.d(TAG, "Parallel: Cached connect port for $ip -> $port")
-                                synchronized(cachedConnectPorts) {
+                                synchronized(discoveryLock) {
                                     cachedConnectPorts[ip] = port
                                 }
                             }
@@ -355,7 +423,7 @@ class WifiAdbRepositoryImpl(
                 }
             }
 
-            pairingNsdManager?.discoverServices(
+            nsdManager.discoverServices(
                 TLS_CONNECT,
                 NsdManager.PROTOCOL_DNS_SD,
                 pairingNsdDiscoveryListener
@@ -368,7 +436,7 @@ class WifiAdbRepositoryImpl(
     /**
      * Stop parallel connect discovery. Does NOT clear cached ports.
      */
-    private fun stopParallelConnectDiscovery() {
+    private fun stopParallelConnectDiscovery() = synchronized(discoveryLock) {
         try {
             pairingNsdDiscoveryListener?.let { listener ->
                 pairingNsdManager?.stopServiceDiscovery(listener)
@@ -383,10 +451,8 @@ class WifiAdbRepositoryImpl(
     /**
      * Clear cached connect ports.
      */
-    private fun clearCachedConnectPorts() {
-        synchronized(cachedConnectPorts) {
-            cachedConnectPorts.clear()
-        }
+    private fun clearCachedConnectPorts() = synchronized(discoveryLock) {
+        cachedConnectPorts.clear()
     }
 
     /**
@@ -398,15 +464,14 @@ class WifiAdbRepositoryImpl(
         executor.submit {
             try {
                 val nsdManager = context.getSystemService(Context.NSD_SERVICE) as NsdManager
-                var connectionHandled = false
+                val connectionHandled = AtomicBoolean(false)
                 var pairConnectDiscoveryListener: NsdManager.DiscoveryListener? = null
 
                 Log.d(TAG, "Starting NSD discovery for ADB connect service (target: $targetIp)")
 
                 // Set timeout for discovery
-                val discoveryTimeout = executor.schedule({
-                    if (connectionHandled) return@schedule
-                    connectionHandled = true
+                val discoveryTimeout = timeoutScheduler.schedule({
+                    if (!connectionHandled.compareAndSet(false, true)) return@schedule
 
                     Log.d(
                         TAG,
@@ -509,8 +574,7 @@ class WifiAdbRepositoryImpl(
 
                     override fun onStartDiscoveryFailed(serviceType: String, errorCode: Int) {
                         Log.e(TAG, "NSD connect discovery start failed: errorCode=$errorCode")
-                        if (!connectionHandled) {
-                            connectionHandled = true
+                        if (connectionHandled.compareAndSet(false, true)) {
                             discoveryTimeout.cancel(false)
                             mainScope.launch {
                                 WifiAdbConnection.updateState(WifiAdbState.Idle)
@@ -530,7 +594,7 @@ class WifiAdbRepositoryImpl(
                     }
 
                     override fun onServiceFound(info: NsdServiceInfo) {
-                        if (connectionHandled) return
+                        if (connectionHandled.get()) return
                         Log.d(TAG, "NSD found service: ${info.serviceName}")
                         @Suppress("DEPRECATION")
                         nsdManager.resolveService(
@@ -544,7 +608,7 @@ class WifiAdbRepositoryImpl(
                                 }
 
                                 override fun onServiceResolved(resolvedService: NsdServiceInfo) {
-                                    if (connectionHandled) return
+                                    if (connectionHandled.get()) return
 
                                     val ip = resolvedService.host?.hostAddress ?: return
                                     val port = resolvedService.port
@@ -562,7 +626,7 @@ class WifiAdbRepositoryImpl(
                                     }
 
                                     // Found matching service - connect
-                                    connectionHandled = true
+                                    connectionHandled.set(true)
                                     discoveryTimeout.cancel(false)
 
                                     try {
@@ -744,42 +808,49 @@ class WifiAdbRepositoryImpl(
      * Retrieves the device serial number by running 'getprop ro.serialno'
      * Returns null if unable to retrieve
      */
-    private fun getDeviceSerialNumber(): String? {
-        val manager = AdbConnectionManager.getInstance(context)
-        if (!manager.isConnected) return null
+    private fun getDeviceSerialNumber(): String? = readDeviceProperty(GETPROP_SERIAL)
 
+    /**
+     * Reads one device property, giving up rather than waiting forever.
+     *
+     * These calls sit between a connection being established and that connection being published to
+     * the UI. A blocking read here left the pairing screen on Connecting indefinitely and took the
+     * connect executor thread with it, so the timeouts meant to rescue the attempt could not run
+     * either. The bounded reader turns a silent daemon into a missing property instead.
+     */
+    private fun readDeviceProperty(service: String): String? {
+        val manager = runCatching { AdbConnectionManager.getInstance(context) }.getOrNull()
+        if (manager == null || !manager.isConnected) return null
+
+        var stream: AdbStream? = null
         return try {
-            val stream = manager.openStream("shell:getprop ro.serialno")
-            val input = stream.openInputStream()
-            val reader = BufferedReader(InputStreamReader(input, StandardCharsets.UTF_8))
-            val serial = reader.readLine()?.trim()
-            stream.close()
-            if (serial.isNullOrBlank()) null else serial
+            val opened = manager.openStream(service)
+            stream = opened
+            deviceInfoReader
+                .lines(opened.openInputStream()) { opened.isClosed }
+                .firstOrNull()
+                ?.trim()
+                ?.takeIf { it.isNotBlank() }
         } catch (e: Exception) {
-            Log.e(TAG, "Failed to get device serial", e)
+            Log.e(TAG, "Failed to read device property via $service", e)
             null
+        } finally {
+            closeStreamQuietly(stream)
+        }
+    }
+
+    private fun closeStreamQuietly(stream: AdbStream?) {
+        try {
+            stream?.close()
+        } catch (e: Exception) {
+            Log.d(TAG, "Stream already gone: ${e.message}")
         }
     }
 
     /**
      * Retrieves or generates a device name by getting the device model
      */
-    private fun getDeviceName(): String {
-        val manager = AdbConnectionManager.getInstance(context)
-        if (!manager.isConnected) return "Unknown Device"
-
-        return try {
-            val stream = manager.openStream("shell:getprop ro.product.model")
-            val input = stream.openInputStream()
-            val reader = BufferedReader(InputStreamReader(input, StandardCharsets.UTF_8))
-            val model = reader.readLine()?.trim()
-            stream.close()
-            if (model.isNullOrBlank()) "Unknown Device" else model
-        } catch (e: Exception) {
-            Log.e(TAG, "Failed to get device name", e)
-            "Unknown Device"
-        }
-    }
+    private fun getDeviceName(): String = readDeviceProperty(GETPROP_MODEL) ?: UNKNOWN_DEVICE
 
     // region Shell Execution
 
@@ -1012,6 +1083,10 @@ class WifiAdbRepositoryImpl(
     }
 
     override fun stopMdnsDiscovery() {
+        discoveryExecutor.submit { stopMdnsDiscoveryInternal() }
+    }
+
+    private fun stopMdnsDiscoveryInternal() {
         try {
             jmDns?.close()
             jmDns = null
@@ -1240,7 +1315,7 @@ class WifiAdbRepositoryImpl(
                 device.ip
             }
             // Track state
-            var connectionHandled = false
+            val connectionHandled = AtomicBoolean(false)
 
             // Check if already cancelled before starting
             if (isReconnectCancelled) {
@@ -1252,16 +1327,16 @@ class WifiAdbRepositoryImpl(
             val reconnectDeviceId = device.id
 
             // Set timeout for discovery
-            activeReconnectTimeout = executor.schedule({
+            activeReconnectTimeout = timeoutScheduler.schedule({
                 // Only update state if we're still reconnecting to the same device
-                if (connectionHandled || isReconnectCancelled || currentReconnectingDeviceId != reconnectDeviceId) {
+                if (connectionHandled.get() || isReconnectCancelled || currentReconnectingDeviceId != reconnectDeviceId) {
                     Log.d(
                         TAG,
-                        "Ignoring timeout - handled: $connectionHandled, cancelled: $isReconnectCancelled, currentDevice: $currentReconnectingDeviceId, thisDevice: $reconnectDeviceId"
+                        "Ignoring timeout - handled: ${connectionHandled.get()}, cancelled: $isReconnectCancelled, currentDevice: $currentReconnectingDeviceId, thisDevice: $reconnectDeviceId"
                     )
                     return@schedule
                 }
-                connectionHandled = true
+                connectionHandled.set(true)
 
                 Log.d(TAG, "NsdManager discovery timeout for reconnect")
 
@@ -1306,8 +1381,7 @@ class WifiAdbRepositoryImpl(
 
                 override fun onStartDiscoveryFailed(serviceType: String, errorCode: Int) {
                     Log.e(TAG, "Reconnect discovery start failed: $errorCode")
-                    if (!connectionHandled && !isReconnectCancelled) {
-                        connectionHandled = true
+                    if (!isReconnectCancelled && connectionHandled.compareAndSet(false, true)) {
                         activeReconnectTimeout?.cancel(false)
                         activeReconnectTimeout = null
                         activeDiscoveryListener = null
@@ -1325,7 +1399,7 @@ class WifiAdbRepositoryImpl(
                 }
 
                 override fun onServiceFound(info: NsdServiceInfo) {
-                    if (connectionHandled || isReconnectCancelled) return
+                    if (connectionHandled.get() || isReconnectCancelled) return
                     nsdManager.resolveService(
                         info,
                         object : NsdManager.ResolveListener {
@@ -1337,7 +1411,7 @@ class WifiAdbRepositoryImpl(
                             }
 
                             override fun onServiceResolved(resolvedService: NsdServiceInfo) {
-                                if (connectionHandled || isReconnectCancelled) return
+                                if (connectionHandled.get() || isReconnectCancelled) return
 
                                 val ip = resolvedService.host?.hostAddress ?: return
                                 val port = resolvedService.port
@@ -1361,7 +1435,7 @@ class WifiAdbRepositoryImpl(
                                 }
 
                                 // Found matching service - connect!
-                                connectionHandled = true
+                                connectionHandled.set(true)
                                 activeReconnectTimeout?.cancel(false)
                                 activeReconnectTimeout = null
 
@@ -1515,7 +1589,7 @@ class WifiAdbRepositoryImpl(
         val targetSerial = device.serialNumber
 
         // Set a timeout for discovery
-        val discoveryTimeout = executor.schedule({
+        val discoveryTimeout = timeoutScheduler.schedule({
             if (!matchFound && !isReconnectCancelled && currentReconnectingDeviceId == reconnectDeviceId) {
                 Log.d(TAG, "Serial matching discovery timeout - device not found")
 
@@ -1839,7 +1913,7 @@ class WifiAdbRepositoryImpl(
         sessionId: String,
         pairingCode: String,
         size: Int
-    ): Bitmap {
+    ): Bitmap = withContext(Dispatchers.Default) {
         val content = "WIFI:T:ADB;S:$sessionId;P:$pairingCode;;"
 
         val qr = QrCode.encodeText(content, Ecc.MEDIUM)
@@ -1859,7 +1933,7 @@ class WifiAdbRepositoryImpl(
             }
         }
 
-        return bitmap
+        bitmap
     }
 
     override fun startHeartbeat() {
@@ -1969,13 +2043,23 @@ class WifiAdbRepositoryImpl(
         onPairingServiceFound: (DiscoveredPairingService) -> Unit,
         onPairingServiceLost: (serviceName: String) -> Unit
     ) {
-        stopCodePairingDiscovery()
+        discoveryExecutor.submit {
+            startCodePairingDiscoveryInternal(onPairingServiceFound, onPairingServiceLost)
+        }
+    }
+
+    private fun startCodePairingDiscoveryInternal(
+        onPairingServiceFound: (DiscoveredPairingService) -> Unit,
+        onPairingServiceLost: (serviceName: String) -> Unit
+    ) = synchronized(discoveryLock) {
+        stopCodePairingDiscoveryInternal()
         Log.d(TAG, "Starting Code Pairing discovery (dual: pairing + connect)")
 
         onPairingServiceFoundCallback = onPairingServiceFound
         onPairingServiceLostCallback = onPairingServiceLost
 
-        codePairingNsdManager = context.getSystemService(Context.NSD_SERVICE) as NsdManager
+        val nsdManager = context.getSystemService(Context.NSD_SERVICE) as NsdManager
+        codePairingNsdManager = nsdManager
 
         // Start connect service discovery first to cache ports
         startParallelConnectDiscovery()
@@ -2001,7 +2085,7 @@ class WifiAdbRepositoryImpl(
             override fun onServiceFound(info: NsdServiceInfo) {
                 Log.d(TAG, "Code pairing: Found pairing service: ${info.serviceName}")
                 @Suppress("DEPRECATION")
-                codePairingNsdManager?.resolveService(
+                nsdManager.resolveService(
                     info,
                     object : NsdManager.ResolveListener {
                         override fun onResolveFailed(
@@ -2039,7 +2123,7 @@ class WifiAdbRepositoryImpl(
         }
 
         try {
-            codePairingNsdManager?.discoverServices(
+            nsdManager.discoverServices(
                 TLS_PAIRING,
                 NsdManager.PROTOCOL_DNS_SD,
                 codePairingDiscoveryListener
@@ -2050,6 +2134,10 @@ class WifiAdbRepositoryImpl(
     }
 
     override fun stopCodePairingDiscovery() {
+        discoveryExecutor.submit { stopCodePairingDiscoveryInternal() }
+    }
+
+    private fun stopCodePairingDiscoveryInternal() = synchronized(discoveryLock) {
         try {
             codePairingDiscoveryListener?.let { listener ->
                 codePairingNsdManager?.stopServiceDiscovery(listener)
@@ -2097,7 +2185,7 @@ class WifiAdbRepositoryImpl(
 
                         // Look up cached connect port for this IP
                         val connectPort =
-                            synchronized(cachedConnectPorts) { cachedConnectPorts[ip] }
+                            synchronized(discoveryLock) { cachedConnectPorts[ip] }
 
                         if (connectPort != null) {
                             Log.d(TAG, "Using cached connect port $connectPort for $ip")

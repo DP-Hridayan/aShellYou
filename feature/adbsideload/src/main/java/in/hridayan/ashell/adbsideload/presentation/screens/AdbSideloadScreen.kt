@@ -2,6 +2,7 @@
 
 package `in`.hridayan.ashell.adbsideload.presentation.screens
 
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
@@ -28,6 +29,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -47,8 +49,10 @@ import `in`.hridayan.ashell.adbsideload.presentation.viewmodel.SideloadViewModel
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
+import `in`.hridayan.ashell.core.presentation.components.effect.KeepScreenOn
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.resources.R
+import `in`.hridayan.ashell.core.utils.ToastUtils
 
 private val PACKAGE_MIME_TYPES = arrayOf("application/zip", "application/octet-stream", "*/*")
 
@@ -62,6 +66,13 @@ fun AdbSideloadScreen(
     val selectedFile by viewModel.selectedFile.collectAsState()
 
     var showWaitingDialog by rememberSaveable { mutableStateOf(false) }
+
+    val context = LocalContext.current
+    val transferInProgress = operation.status.isActive
+    val leavingBlockedMessage = stringResource(R.string.sideload_in_progress_stay)
+    val warnCannotLeave = { ToastUtils.makeToast(context, leavingBlockedMessage) }
+
+    BackHandler(enabled = transferInProgress) { warnCannotLeave() }
 
     LaunchedEffect(Unit) {
         val currentState = viewModel.state.value
@@ -87,6 +98,8 @@ fun AdbSideloadScreen(
         contract = ActivityResultContracts.OpenDocument()
     ) { uri -> uri?.let(viewModel::selectFile) }
 
+    KeepScreenOn(enabled = operation.status.isActive)
+
     val actions = SideloadScreenActions(
         onPickFile = { filePickerLauncher.launch(PACKAGE_MIME_TYPES) },
         onClearFile = viewModel::clearFile,
@@ -105,7 +118,13 @@ fun AdbSideloadScreen(
             LargeTopAppBar(
                 scrollBehavior = scrollBehavior,
                 title = { AutoResizeableText(text = stringResource(R.string.adb_sideload)) },
-                navigationIcon = { BackButton(onClick = { navController.navigateBack() }) }
+                navigationIcon = {
+                    BackButton(
+                        onClick = {
+                            if (transferInProgress) warnCannotLeave() else navController.navigateBack()
+                        }
+                    )
+                }
             )
         }
     ) { paddingValues ->

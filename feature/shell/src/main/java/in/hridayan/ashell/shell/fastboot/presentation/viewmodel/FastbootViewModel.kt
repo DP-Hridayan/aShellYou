@@ -11,6 +11,7 @@ import `in`.hridayan.ashell.shell.fastboot.domain.model.FastbootDeviceInfo
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashOperation
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashStatus
 import `in`.hridayan.ashell.shell.fastboot.domain.model.RebootMode
+import `in`.hridayan.ashell.shell.fastboot.domain.policy.FlashCancellation
 import `in`.hridayan.ashell.shell.fastboot.domain.repository.FastbootRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -173,10 +174,14 @@ class FastbootViewModel @Inject constructor(
     }
 
     fun cancelFlashOperation() {
+        if (!FlashCancellation.isCancellable(_flashOperation.value.status)) return
         flashJob?.cancel()
         flashJob = null
-        repository.cancelOperation()
-        _flashOperation.value = _flashOperation.value.copy(status = FlashStatus.CANCELLED)
+        _flashOperation.value = _flashOperation.value.copy(status = FlashStatus.CANCELLING)
+        viewModelScope.launch {
+            repository.cancelOperation()
+            _flashOperation.value = _flashOperation.value.copy(status = FlashStatus.CANCELLED)
+        }
     }
 
     fun resetFlashOperation() {
@@ -186,10 +191,14 @@ class FastbootViewModel @Inject constructor(
     }
 
     fun cancelEraseOperation() {
+        if (!FlashCancellation.isCancellable(_eraseOperation.value.status)) return
         eraseJob?.cancel()
         eraseJob = null
-        repository.cancelOperation()
-        _eraseOperation.value = _eraseOperation.value.copy(status = FlashStatus.CANCELLED)
+        _eraseOperation.value = _eraseOperation.value.copy(status = FlashStatus.CANCELLING)
+        viewModelScope.launch {
+            repository.cancelOperation()
+            _eraseOperation.value = _eraseOperation.value.copy(status = FlashStatus.CANCELLED)
+        }
     }
 
     fun resetEraseOperation() {

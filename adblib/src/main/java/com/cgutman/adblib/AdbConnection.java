@@ -1,5 +1,7 @@
 package com.cgutman.adblib;
 
+import android.util.Log;
+
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -14,6 +16,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Cameron Gutman
  */
 public class AdbConnection implements Closeable {
+
+	private static final String TAG = "AdbConnection";
 
 	/**
 	 * Receives a callback once the connection's reader thread has terminated,
@@ -78,6 +82,9 @@ public class AdbConnection implements Closeable {
 	 * The text before the first "::" is the mode adbd is running in.
 	 */
 	private volatile String banner = "";
+
+	/** Why the reader thread stopped, surfaced to streams so a failure is diagnosable. */
+	private volatile String terminationReason;
 
 	/**
 	 * Internal constructor to initialize some internal state
@@ -159,13 +166,35 @@ public class AdbConnection implements Closeable {
 		{
 			try {
 				AdbMessage msg = AdbMessage.parseAdbMessage(channel);
-				if (!AdbProtocol.validateMessage(msg))
-					continue;
+				if (!AdbProtocol.validateMessage(msg)) {
+					/* A bad checksum means the stream is out of step with the peer; reading on
+					 * would interpret payload bytes as headers. */
+					terminationReason = "Received a corrupt ADB packet";
+					Log.w(TAG, terminationReason);
+					break;
+				}
 				handleMessage(msg);
 			} catch (Exception e) {
+				terminationReason = describeFailure(e);
+				Log.w(TAG, "ADB reader stopped: " + terminationReason, e);
 				break;
 			}
 		}
+	}
+
+	private static String describeFailure(Exception e)
+	{
+		String message = e.getMessage();
+		return (message == null || message.isEmpty()) ? e.getClass().getSimpleName() : message;
+	}
+
+	/**
+	 * Gets why the connection terminated, or null while it is healthy.
+	 * @return The failure description reported to streams when the connection died.
+	 */
+	public String getTerminationReason()
+	{
+		return terminationReason;
 	}
 
 	private void terminate()
@@ -382,10 +411,10 @@ public class AdbConnection implements Closeable {
 	 * This function terminates all I/O on streams associated with this ADB connection
 	 */
 	private void cleanupStreams() {
+		/* The channel is already gone, so wake the streams rather than trying to send a close
+		 * packet that would block until the write deadline expires. */
 		for (AdbStream s : openStreams.values()) {
-			try {
-				s.close();
-			} catch (IOException e) {}
+			s.notifyClose(terminationReason);
 		}
 		openStreams.clear();
 	}

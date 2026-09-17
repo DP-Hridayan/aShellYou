@@ -28,25 +28,40 @@ class AdbConnectionService : Service() {
         private const val NOTIFICATION_ID = 2002
         const val ACTION_DISCONNECT = "in.hridayan.ashell.ACTION_DISCONNECT"
 
-        @Volatile
-        private var isRunning = false
+        private val gate = ForegroundServiceGate()
 
         fun start(context: Context) {
-            if (isRunning) {
-                Log.d(TAG, "Service already running")
+            if (!gate.onStartRequested()) {
+                Log.d(TAG, "Service already starting or running")
                 return
             }
             Log.d(TAG, "Starting AdbConnectionService")
-            val intent = Intent(context, AdbConnectionService::class.java)
-            context.startForegroundService(intent)
+            context.startForegroundService(Intent(context, AdbConnectionService::class.java))
         }
 
+        /**
+         * A stop arriving while the start is still in flight is deferred rather than applied.
+         *
+         * Calling [Context.stopService] in that window destroys the service before it can call
+         * `startForeground`, which Android punishes with
+         * `ForegroundServiceDidNotStartInTimeException`.
+         */
         fun stop(context: Context) {
-            Log.d(TAG, "Stopping AdbConnectionService")
-            context.stopService(Intent(context, AdbConnectionService::class.java))
+            when (gate.onStopRequested()) {
+                ServiceStopAction.StopService -> {
+                    Log.d(TAG, "Stopping AdbConnectionService")
+                    context.stopService(Intent(context, AdbConnectionService::class.java))
+                }
+
+                ServiceStopAction.AwaitStart ->
+                    Log.d(TAG, "Stop deferred until the pending start lands")
+
+                ServiceStopAction.Ignore ->
+                    Log.d(TAG, "Nothing to stop")
+            }
         }
 
-        fun isServiceRunning(): Boolean = isRunning
+        fun isServiceRunning(): Boolean = gate.isForegroundStarted
     }
 
     @EntryPoint
@@ -73,17 +88,19 @@ class AdbConnectionService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.d(TAG, "onStartCommand action=${intent?.action}")
 
-        // IMPORTANT: Must call startForeground() immediately to avoid
-        // ForegroundServiceDidNotStartInTimeException on Android 12+
         startForeground(NOTIFICATION_ID, notificationHelper.createNotification())
+
+        if (gate.onForegroundStarted()) {
+            Log.d(TAG, "Start was withdrawn while in flight - stopping")
+            stopSelf()
+            return START_NOT_STICKY
+        }
 
         if (intent?.action == ACTION_DISCONNECT) {
             Log.d(TAG, "Disconnect action received - disconnecting")
             handleDisconnect()
             return START_NOT_STICKY
         }
-
-        isRunning = true
 
         return START_STICKY
     }
@@ -92,7 +109,7 @@ class AdbConnectionService : Service() {
 
     override fun onDestroy() {
         Log.d(TAG, "onDestroy")
-        isRunning = false
+        gate.onDestroyed()
         super.onDestroy()
     }
 
