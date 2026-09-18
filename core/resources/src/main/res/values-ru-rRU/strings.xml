@@ -147,9 +147,9 @@
     <string name="cancel">Отмена</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">Отменить все</string>
     <string name="cancel_selection">Отменить выбор</string>
-    <string name="cancel_transfer" comment="Button that confirms abandoning an image transfer to a device in fastboot mode">Отменить перевод</string>
-    <string name="cancel_transfer_message" comment="Dialog body explaining the consequences of abandoning a fastboot image transfer before the device has written anything">Изображение еще не записано, устройство не изменилось. Соединение будет сброшено, и вам может потребоваться вернуть устройство обратно в место перед попыткой снова.</string>
-    <string name="cancel_transfer_title" comment="Dialog title asking the user to confirm abandoning a fastboot image transfer">Отменить перевод?</string>
+    <string name="cancel_transfer" comment="Button that confirms abandoning an image transfer to a device in fastboot mode">Отменить передачу</string>
+    <string name="cancel_transfer_message" comment="Dialog body explaining the consequences of abandoning a fastboot image transfer before the device has written anything">Образ еще не записан, поэтому устройство не изменилось. Соединение будет сброшено, и перед повторной попыткой вам может потребоваться вернуть устройство в режим fastboot.</string>
+    <string name="cancel_transfer_title" comment="Dialog title asking the user to confirm abandoning a fastboot image transfer">Отменить передачу?</string>
     <string name="cancelled">Отменено</string>
     <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">Отмена…</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">Список изменений</string>
@@ -425,7 +425,7 @@
     <string name="disconnected" comment="Status badge showing ADB is currently disconnected">Отключено!</string>
     <string name="discussions" comment="About screen button linking to GitHub Discussions">Обсуждения</string>
     <string name="dismiss">Отклонить</string>
-    <string name="do_not_disconnect" comment="Warning shown while the bootloader is writing a partition, when the transfer can no longer be stopped">Запись на устройство. Не отключать и не перезагружать.</string>
+    <string name="do_not_disconnect" comment="Warning shown while the bootloader is writing a partition, when the transfer can no longer be stopped">Выполняется запись на устройство. Не отключайте и не перезагружайте.</string>
     <string name="done">Готово</string>
     <string name="download">Загрузить</string>
     <string name="download_failed" comment="Toast message when in-app updater APK download fails">Загрузка не удалась</string>
@@ -451,7 +451,7 @@
     <string name="enable_wireless_debugging" comment="Prompt directing user to enable Wireless Debugging option in System Developer Options">Пожалуйста, включите \"Беспроводную отладку\" в параметрах \"Разработчика\"</string>
     <string name="enable_wireless_debugging_button" comment="Action button label to jump to System Developer Options settings screen">Включить</string>
     <string name="enter">Ввести</string>
-    <string name="enter_command" comment="Input hint placeholder format for entering fastboot commands">fastboot &lt;command&gt;</string>
+    <string name="enter_command" comment="Input hint placeholder format for entering fastboot commands">fastboot &lt;команда&gt;</string>
     <string name="enter_pairing_code" comment="Instructional header in Wireless Debugging pairing dialog asking for 6-digit code">Введите 6-значный код сопряжения</string>
     <string name="erase_complete" comment="Status shown when a fastboot partition erase finished successfully">Стирание завершено</string>
     <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">Это приведет к окончательной очистке раздела %1$s. Это действие нельзя отменить.</string>
@@ -570,7 +570,7 @@
     <string name="home">Главная</string>
     <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">Как войти в режим sideload</string>
     <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">Иконка выбрана</string>
-    <string name="image_too_large" comment="%1$s = the largest size in megabytes the device accepts. Error shown when the chosen image is bigger than the bootloader can buffer">Изображение больше, чем %1$s MB это устройство принимает</string>
+    <string name="image_too_large" comment="%1$s = the largest size in megabytes the device accepts. Error shown when the chosen image is bigger than the bootloader can buffer">Образ больше, чем %1$s МБ, поддерживаемых этим устройством</string>
     <string name="import_font" comment="Content description for the import font icon button in the font style picker">Импортировать шрифт</string>
     <string name="import_font_name_hint" comment="Input field placeholder for the user-assigned display name of an imported font">Имя шрифта</string>
     <string name="import_theme" comment="Action button to import theme configuration file">Импортировать Тему</string>
@@ -630,7 +630,7 @@
     <string name="logcat_no_logs" comment="Placeholder text in logcat screen when no log entries match current filters">Журналов пока нет</string>
     <string name="logcat_notification_channel_description" comment="Android Notification Channel description for logcat background session">Показать, когда logcat активно собирает журналы</string>
     <string name="logcat_notification_channel_name" comment="Android Notification Channel name for Logcat background collection">Logcat Сессия</string>
-    <string name="logcat_permission_instructions" comment="Dialog body explaining that logcat is blocked until the READ_LOGS permission is granted via ADB from a computer; followed by the command block">Системные журналы требуют разрешения READ_LOGS, которые могут быть предоставлены только с компьютера. Запустите эту команду, затем нажмите \"Я предоставил\":</string>
+    <string name="logcat_permission_instructions" comment="Dialog body explaining that logcat is blocked until the READ_LOGS permission is granted via ADB from a computer; followed by the command block">Системные журналы требуют разрешения READ_LOGS, которое может быть предоставлено только с компьютера. Запустите эту команду, затем нажмите \"Я предоставил\":</string>
     <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide; also the label of the logcat source option that needs it">Разрешение доступа к журналу</string>
     <string name="logcat_read_logs_mode_description" comment="Description under the Log access logcat source option; READ_LOGS is an Android permission name">Требуется разрешение READ_LOGS, предоставленное один раз с компьютера через ADB</string>
     <string name="logcat_restart_after_grant_message" comment="Dialog body shown after READ_LOGS was granted; the app process must restart before the permission takes effect">Разрешение предоставлено. Для чтения системных журналов aShellYou необходимо перезапустить.</string>
@@ -921,12 +921,12 @@
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku недоступен</string>
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">На вашем устройстве не установлено или не настроено должным образом приложение Shizuku или Shizuku+</string>
     <string name="sideload_block_out_of_range" comment="Error shown when the target device recovery requested a part of the package beyond its end; usually indicates a corrupted transfer">Восстановление затребовало данные после окончания файла</string>
-    <string name="sideload_channel_description" comment="Notification channel description explaining that the channel shows sideload transfer progress">Показывает прогресс перегруженного на устройство пакета</string>
-    <string name="sideload_channel_name" comment="Notification channel name for the ongoing ADB sideload transfer">ДОБАВИТЬ</string>
+    <string name="sideload_channel_description" comment="Notification channel description explaining that the channel shows sideload transfer progress">Отображает прогресс передачи пакета sideload на устройство</string>
+    <string name="sideload_channel_name" comment="Notification channel name for the ongoing ADB sideload transfer">ADB Sideload</string>
     <string name="sideload_complete" comment="Status shown when the sideloaded package was fully transferred and recovery confirmed completion">Sideload комплект</string>
     <string name="sideload_connection_timed_out" comment="Error shown when the ADB handshake with the target device did not complete in time; the user may need to accept an authorization prompt on that device">Истекло время ожидания подключения. Проверьте экран устройства для получения приглашения на авторизацию</string>
     <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">Переведите устройство в режим sideload через recovery</string>
-    <string name="sideload_in_progress_stay" comment="Toast shown when the user tries to leave the sideload screen while a package is still being transferred">Передача в процессе. Отмените её перед выходом из экрана.</string>
+    <string name="sideload_in_progress_stay" comment="Toast shown when the user tries to leave the sideload screen while a package is still being transferred">Передача выполняется. Отмените ее перед выходом с этого экрана.</string>
     <string name="sideload_invalid_request" comment="Error shown when the target device sent data that is not a valid ADB sideload request">Получен неверный запрос от recovery</string>
     <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Режим sideload — готов</string>
     <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">Загрузитесь в recovery (удерживайте Уменьшение громкости + Питание или выполните: adb reboot recovery)</string>
@@ -935,7 +935,7 @@
     <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">Подключите устройство через OTG кабель, затем выберите ZIP здесь</string>
     <string name="sideload_stream_closed" comment="Error shown when the ADB sideload stream was closed by the target device before the transfer finished">Подключение к восстановлению было закрыто до завершения передачи</string>
     <string name="sideload_stream_rejected" comment="Error shown when the target device refused to open the ADB sideload stream, typically because it is not in sideload mode">В восстановлении отказано в боковой нагрузке. Сначала выберите \"Применить обновление к ADB\"</string>
-    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Sideloading…</string>
+    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Установка обновления…</string>
     <string name="sign_in_failed" comment="Toast error message when Google account sign-in fails">Не удалось войти в Google</string>
     <string name="sign_in_with_google" comment="Button label in cloud backup settings to sign into Google account">Войти через Google</string>
     <string name="sign_out" comment="Button label in cloud backup settings to sign out of Google account">Выйти</string>
@@ -1000,7 +1000,7 @@
     <string name="timestamp">Отметка времени</string>
     <string name="toggleable">Переключаемый</string>
     <string name="total_executions">Всего запусков</string>
-    <string name="transfer_to_device_failed" comment="Error shown when sending an image to a device in fastboot mode failed part way through">Передача на устройство не удалась</string>
+    <string name="transfer_to_device_failed" comment="Error shown when sending an image to a device in fastboot mode failed part way through">Не удалось передать файл на устройство</string>
     <string name="translations">Переводы</string>
     <string name="translators">Переводчики</string>
     <string name="troubleshoot">Устранение неполадок</string>

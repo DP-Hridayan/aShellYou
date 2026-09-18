@@ -148,8 +148,8 @@
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">Скасувати все</string>
     <string name="cancel_selection">Скасувати вибір</string>
     <string name="cancel_transfer" comment="Button that confirms abandoning an image transfer to a device in fastboot mode">Скасувати передачу</string>
-    <string name="cancel_transfer_message" comment="Dialog body explaining the consequences of abandoning a fastboot image transfer before the device has written anything">Зображення ще не було записано, тому пристрій не змінився. З’єднання буде скинуто, а вам, можливо, доведеться знову перенести пристрій у fastboot перед повторною спробою.</string>
-    <string name="cancel_transfer_title" comment="Dialog title asking the user to confirm abandoning a fastboot image transfer">Скасувати переказ?</string>
+    <string name="cancel_transfer_message" comment="Dialog body explaining the consequences of abandoning a fastboot image transfer before the device has written anything">Зображення ще не записано, тому пристрій не змінено. З\'єднання буде скинуто, і вам може знадобитися повернути пристрій у режим fastboot перед повторною спробою.</string>
+    <string name="cancel_transfer_title" comment="Dialog title asking the user to confirm abandoning a fastboot image transfer">Скасувати передачу?</string>
     <string name="cancelled">Скасовано</string>
     <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">Скасування…</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">Список змін</string>
@@ -425,7 +425,7 @@
     <string name="disconnected" comment="Status badge showing ADB is currently disconnected">Відключено!</string>
     <string name="discussions" comment="About screen button linking to GitHub Discussions">Обговорення</string>
     <string name="dismiss">Відхилити</string>
-    <string name="do_not_disconnect" comment="Warning shown while the bootloader is writing a partition, when the transfer can no longer be stopped">Запис на пристрій. Не від’єднайте або перезавантажуйте.</string>
+    <string name="do_not_disconnect" comment="Warning shown while the bootloader is writing a partition, when the transfer can no longer be stopped">Запис на пристрій. Не відключайте та не перезавантажуйте.</string>
     <string name="done">Готово</string>
     <string name="download">Завантажити</string>
     <string name="download_failed" comment="Toast message when in-app updater APK download fails">Завантаження не вдалося</string>
@@ -451,7 +451,7 @@
     <string name="enable_wireless_debugging" comment="Prompt directing user to enable Wireless Debugging option in System Developer Options">Будь ласка, увімкніть \"Бездротове налагодження\" у параметрах \"Розробника\"</string>
     <string name="enable_wireless_debugging_button" comment="Action button label to jump to System Developer Options settings screen">Увімкнути</string>
     <string name="enter">Ввести</string>
-    <string name="enter_command" comment="Input hint placeholder format for entering fastboot commands">fastboot &lt;command&gt;</string>
+    <string name="enter_command" comment="Input hint placeholder format for entering fastboot commands">fastboot &lt;команда&gt;</string>
     <string name="enter_pairing_code" comment="Instructional header in Wireless Debugging pairing dialog asking for 6-digit code">Введіть 6-значний код сполучення</string>
     <string name="erase_complete" comment="Status shown when a fastboot partition erase finished successfully">Стирання завершено</string>
     <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">Це призведе до остаточного очищення розділу %1$s. Цю дію не можна скасувати.</string>
@@ -570,7 +570,7 @@
     <string name="home">Головна</string>
     <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">Як увійти в режим sideload</string>
     <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">Іконка обрана</string>
-    <string name="image_too_large" comment="%1$s = the largest size in megabytes the device accepts. Error shown when the chosen image is bigger than the bootloader can buffer">Зображення більше ніж %1$s МБ цього пристрою прийнято</string>
+    <string name="image_too_large" comment="%1$s = the largest size in megabytes the device accepts. Error shown when the chosen image is bigger than the bootloader can buffer">Зображення більше, ніж %1$s MB, яке приймає цей пристрій</string>
     <string name="import_font" comment="Content description for the import font icon button in the font style picker">Імпортувати шрифт</string>
     <string name="import_font_name_hint" comment="Input field placeholder for the user-assigned display name of an imported font">Ім\'я шрифту</string>
     <string name="import_theme" comment="Action button to import theme configuration file">Імпортувати тему</string>
@@ -587,7 +587,7 @@
     <string name="irreversible_action_warning" comment="Warning dialog subtitle warning user that deletion cannot be undone">Ця дія незворотна!</string>
     <string name="item_deleted" comment="Confirmation toast after item is deleted">Елемент був успішно видалений</string>
     <string name="keep_both" comment="Resolution option in file conflict dialog to keep both original and new file">Залишити обидва</string>
-    <string name="keep_transferring" comment="Button that dismisses the cancel confirmation and lets the transfer continue">Продовжувати</string>
+    <string name="keep_transferring" comment="Button that dismisses the cancel confirmation and lets the transfer continue">Залишити обидва</string>
     <string name="key_verified_success_msg" comment="Confirmation text when entered AI API key is validated successfully">Ключ успішно перевірено</string>
     <string name="label" comment="Field label for custom command label/tag name">Мітка</string>
     <string name="languages" comment="Settings section header for language and locale options">Мови</string>
@@ -921,12 +921,12 @@
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku недоступний</string>
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">На вашому пристрої не встановлено або не налаштовано належним чином додаток Shizuku або Shizuku+</string>
     <string name="sideload_block_out_of_range" comment="Error shown when the target device recovery requested a part of the package beyond its end; usually indicates a corrupted transfer">Recovery запитуваних даних поза межами кінця файлу</string>
-    <string name="sideload_channel_description" comment="Notification channel description explaining that the channel shows sideload transfer progress">Показує прогрес пакету, який передається в сторону пристрою</string>
-    <string name="sideload_channel_name" comment="Notification channel name for the ongoing ADB sideload transfer">ADB Сідлоад</string>
+    <string name="sideload_channel_description" comment="Notification channel description explaining that the channel shows sideload transfer progress">Відображає хід передачі пакета на пристрій через sideload</string>
+    <string name="sideload_channel_name" comment="Notification channel name for the ongoing ADB sideload transfer">ADB Sideload</string>
     <string name="sideload_complete" comment="Status shown when the sideloaded package was fully transferred and recovery confirmed completion">Sideload комплект</string>
     <string name="sideload_connection_timed_out" comment="Error shown when the ADB handshake with the target device did not complete in time; the user may need to accept an authorization prompt on that device">Час очікування з\'єднання минув. Перевірте екран пристрою на наявність запиту авторизації</string>
     <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">Переведіть пристрій у режим sideload через recovery</string>
-    <string name="sideload_in_progress_stay" comment="Toast shown when the user tries to leave the sideload screen while a package is still being transferred">Переказ виконується. Скасуйте його, перш ніж залишати екран.</string>
+    <string name="sideload_in_progress_stay" comment="Toast shown when the user tries to leave the sideload screen while a package is still being transferred">Триває передача. Скасуйте її перед виходом із цього екрана.</string>
     <string name="sideload_invalid_request" comment="Error shown when the target device sent data that is not a valid ADB sideload request">Отримано недійсний запит від recovery</string>
     <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Режим sideload — готово</string>
     <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">Завантажтеся в recovery (утримуйте Volume Down + Power або виконайте: adb reboot recovery)</string>
@@ -935,7 +935,7 @@
     <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">Під\'єднати пристрій за допомогою кабелю OTG, а потім виберіть ZIP тут</string>
     <string name="sideload_stream_closed" comment="Error shown when the ADB sideload stream was closed by the target device before the transfer finished">Підключення до recovery було закрито до завершення передачі</string>
     <string name="sideload_stream_rejected" comment="Error shown when the target device refused to open the ADB sideload stream, typically because it is not in sideload mode">Recovery відмовилося від sideload. Виберіть \"Застосувати оновлення з ADB\" у першому recovery</string>
-    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Sideloading…</string>
+    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Перенесення через Sideload…</string>
     <string name="sign_in_failed" comment="Toast error message when Google account sign-in fails">Не вдалося ввійти в Google</string>
     <string name="sign_in_with_google" comment="Button label in cloud backup settings to sign into Google account">Увійти через Google</string>
     <string name="sign_out" comment="Button label in cloud backup settings to sign out of Google account">Вийти</string>
@@ -1079,7 +1079,7 @@
     </plurals>
     <plurals name="timeout_minutes" comment="Option for minute timeouts">
         <item quantity="one">%1$d хвилина</item>
-        <item quantity="few">%1$d хвилин</item>
+        <item quantity="few">%1$d хвилини</item>
         <item quantity="many">%1$d хвилин</item>
         <item quantity="other">%1$d хвилин</item>
     </plurals>

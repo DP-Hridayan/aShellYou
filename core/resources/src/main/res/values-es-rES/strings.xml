@@ -11,40 +11,40 @@
     <string name="adb_command" comment="Input field label for typing an ADB shell command">Comando ADB</string>
     <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">Comando ADB (Estado: DESACTIVADO)</string>
     <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">Comando ADB (Estado: ACTIVADO)</string>
-    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB conectado — asegúrese de que el dispositivo está en modo de carga lateral</string>
+    <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB conectado — asegúrate de que el dispositivo esté en modo sideload</string>
     <string name="adb_connection_active" comment="Foreground notification title when an ADB connection (Wireless/OTG) is currently active">Conexión ADB activa</string>
     <string name="adb_connection_channel_description" comment="Android notification channel description in System Settings for ADB connection status">Muestra cuando la conexión ADB está activa</string>
     <string name="adb_connection_channel_name" comment="Android notification channel name in System Settings for active ADB connections">Conexión ADB</string>
     <string name="adb_connection_description" comment="Notification body text indicating an active background Wi-Fi ADB connection">La conexión ADB por Wifi se está manteniendo</string>
-    <string name="adb_key_unavailable" comment="Error shown in ADB sideload when the app could not load or create its RSA key pair used to authenticate to the target device">No se pudo preparar la clave de autenticación ADB</string>
+    <string name="adb_key_unavailable" comment="Error shown in ADB sideload when the app could not load or create its RSA key pair used to authenticate to the target device">No se pudo preparar la clave de autenticación de ADB</string>
     <string name="adb_sideload" comment="Feature title for pushing and installing ZIP update packages to device recovery via ADB sideload over USB OTG">ADB Sideload</string>
     <string name="adb_through_otg" comment="Title for USB OTG ADB connection mode where this device controls a target device over OTG cable">ADB a través de OTG</string>
     <string name="adb_through_otg_summary" comment="Summary description of ADB OTG feature in connection selection screen">Usa un cable OTG y la depuración USB para ejecutar comandos ADB en otro dispositivo Android. Debes activar Depuración USB en las opciones de desarrollador del dispositivo objetivo.</string>
     <string name="adb_via_otg" comment="Compact label for ADB connection via USB OTG cable">ADB vía OTG</string>
     <string name="adb_via_wireless_debugging" comment="Feature title for wireless ADB connection on Android 11+ devices">ADB vía Depuración inalámbrica</string>
     <string name="adb_connected_to" comment="Output line confirming an ADB connection was established with the given host and port">conectado a %1$s</string>
-    <string name="adb_daemon_restarted" comment="Output line shown after an adb command such as tcpip or reboot makes the device ADB daemon restart, which ends the current connection">adbd reiniciado, esta conexión está cerrada</string>
-    <string name="adb_direct_connection_note" comment="Output line for the adb version command explaining the app talks to the device ADB daemon directly instead of through a desktop ADB server">Conectado directamente al daemon ADB, no se utiliza ningún servidor ADB</string>
+    <string name="adb_daemon_restarted" comment="Output line shown after an adb command such as tcpip or reboot makes the device ADB daemon restart, which ends the current connection">adbd reiniciado, esta conexión se ha cerrado</string>
+    <string name="adb_direct_connection_note" comment="Output line for the adb version command explaining the app talks to the device ADB daemon directly instead of through a desktop ADB server">Conectado directamente al daemon de ADB del dispositivo, no se usa ningún servidor ADB</string>
     <string name="adb_disconnected_from" comment="Output line confirming the ADB connection to the given host and port was closed">desconectado %1$s</string>
     <string name="adb_failed_to_connect_to" comment="Output line shown when an adb connect command could not reach the given host and port">no se pudo conectar a %1$s</string>
-    <string name="adb_failed_to_pair_with" comment="Output line shown when an adb pair command was rejected by the given host and port">falló al emparejar con %1$s</string>
+    <string name="adb_failed_to_pair_with" comment="Output line shown when an adb pair command was rejected by the given host and port">no se pudo emparejar con %1$s</string>
     <string name="adb_hint_host_only" comment="Advice shown when the user runs an adb command that only a desktop ADB server can perform">Este comando necesita un servidor ADB de escritorio, que esta aplicación no utiliza.</string>
-    <string name="adb_hint_interactive_shell" comment="Advice shown when the user types adb shell with no command, which would open an interactive session">No se admiten shells interactivos. Escriba el comando en su lugar.</string>
-    <string name="adb_hint_use_file_browser" comment="Advice shown when the user runs an adb file transfer command, pointing them at the in-app file browser">Utilice el navegador de archivos para transferir archivos.</string>
-    <string name="adb_hint_use_pm_uninstall" comment="Advice shown when the user runs adb uninstall, pointing them at the equivalent shell command">En su lugar, usar pm uninstall --user 0 &lt;package&gt;.</string>
-    <string name="adb_hint_use_sideload" comment="Advice shown when the user runs adb sideload, pointing them at the dedicated sideload screen">Utilice la pantalla de carga ideload ADB.</string>
+    <string name="adb_hint_interactive_shell" comment="Advice shown when the user types adb shell with no command, which would open an interactive session">Los shells interactivos no son compatibles. Escribe el comando por sí solo.</string>
+    <string name="adb_hint_use_file_browser" comment="Advice shown when the user runs an adb file transfer command, pointing them at the in-app file browser">Usa el explorador de archivos para transferir archivos.</string>
+    <string name="adb_hint_use_pm_uninstall" comment="Advice shown when the user runs adb uninstall, pointing them at the equivalent shell command">Usa pm uninstall --user 0 &lt;paquete&gt; en su lugar.</string>
+    <string name="adb_hint_use_sideload" comment="Advice shown when the user runs adb sideload, pointing them at the dedicated sideload screen">Usa la pantalla de ADB Sideload.</string>
     <string name="adb_not_connected" comment="Error shown when a command needs an ADB connection but none is active">ADB no conectado</string>
     <string name="adb_paired_with" comment="Output line confirming pairing succeeded with the given host and port">emparejado con %1$s</string>
-    <string name="adb_reconnect_hint" comment="Advice shown after the device ADB daemon restarts in TCP mode, telling the user the command that reconnects to it">Volver a conectar con: %1$s</string>
-    <string name="adb_server_not_applicable" comment="Output line for adb start-server and kill-server, which have no effect because the app connects to the device ADB daemon directly">No se utiliza ningún servidor ADB, por lo que no hay nada para iniciar o detener</string>
-    <string name="adb_supported_commands" comment="Header printed above the list of adb commands the app understands">Comandos adb soportados:</string>
-    <string name="adb_unsupported_command" comment="Error shown when an adb subcommand cannot work over this connection. The placeholder is the subcommand name, such as push">adb %1$s no es compatible con esta conexión</string>
+    <string name="adb_reconnect_hint" comment="Advice shown after the device ADB daemon restarts in TCP mode, telling the user the command that reconnects to it">Reconéctate con: %1$s</string>
+    <string name="adb_server_not_applicable" comment="Output line for adb start-server and kill-server, which have no effect because the app connects to the device ADB daemon directly">No se usa ningún servidor ADB, por lo que no hay nada que iniciar ni detener</string>
+    <string name="adb_supported_commands" comment="Header printed above the list of adb commands the app understands">Comandos adb compatibles:</string>
+    <string name="adb_unsupported_command" comment="Error shown when an adb subcommand cannot work over this connection. The placeholder is the subcommand name, such as push">adb %1$s no es compatible a través de esta conexión</string>
     <string name="adb_usage" comment="Error shown when a known adb command was typed incorrectly. The placeholder is the correct form of the command">uso: %1$s</string>
     <string name="adb_version_line" comment="Output line for the adb version command. The placeholder is the app version name">aShellYou %1$s</string>
     <string name="adb_via_wireless_debugging_summary" comment="Summary description for wireless ADB feature in connection setup screen">Conecta dispositivos (Android 11+) por Wifi usando la depuración inalámbrica y ejecuta comandos ADB de forma remota.</string>
     <string name="add">Añadir</string>
     <string name="add_account" comment="Button label in cloud backup settings to link a Google account for backup sync">Añadir cuenta</string>
-    <string name="add_api_key" comment="Button label in AI settings to input a custom LLM provider API key">Añadir clave de API</string>
+    <string name="add_api_key" comment="Button label in AI settings to input a custom LLM provider API key">Añadir clave API</string>
     <string name="add_command" comment="Button label to create and save a new command snippet to database">Añadir comando</string>
     <string name="add_new_item" comment="Generic button label to add a new list entry">Añadir nuevo elemento</string>
     <string name="additional_settings" comment="Category header in app settings">Ajustes adicionales</string>
@@ -59,55 +59,55 @@
     <string name="ai_chat_pin" comment="Action button to pin an AI chat conversation to top of list">Fijar</string>
     <string name="ai_chat_running" comment="Prefix label in AI chat card indicating an ADB command is currently executing">Ejecutando: </string>
     <string name="ai_chat_sessions" comment="Header title for stored AI chat conversations list">Sesiones de chat</string>
-    <string name="ai_chat_thoughts" comment="Collapsible section title showing step-by-step reasoning/thinking of AI model">Arrojos…</string>
+    <string name="ai_chat_thoughts" comment="Collapsible section title showing step-by-step reasoning/thinking of AI model">Pensamientos…</string>
     <string name="ai_chat_unpin" comment="Action button to unpin a pinned AI chat session">Desfijar</string>
     <string name="ai_models" comment="Settings header for configuring AI models and API credentials">AI &amp; Models</string>
-    <string name="ai_new_chat_welcome_msg" comment="Initial welcome message from AI ADB Agent when starting a new chat session">Hola, ¿en qué puedo ayudarte?</string>
+    <string name="ai_new_chat_welcome_msg" comment="Initial welcome message from AI ADB Agent when starting a new chat session">Hola, ¿qué puedo hacer por ti?</string>
     <string name="ai_prompt_suggestion_1" comment="Clickable suggestion chip prompt in AI chat for checking battery health">Comprobar el estado de mi batería</string>
     <string name="ai_prompt_suggestion_2" comment="Clickable suggestion chip prompt in AI chat for listing installed package names">Listar todos los paquetes instalados</string>
-    <string name="ai_prompt_suggestion_3" comment="Clickable suggestion chip prompt in AI chat for creating Quick Settings tiles">Ayúdame a crear un icono de ajustes rápidos</string>
-    <string name="ai_session_search_hint" comment="Placeholder text in AI chat session search bar">Buscar chat…</string>
-    <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">p. ej. Ciudad cyberpunk de neón, modo oscuro, alto contraste</string>
+    <string name="ai_prompt_suggestion_3" comment="Clickable suggestion chip prompt in AI chat for creating Quick Settings tiles">Ayúdame a crear un mosaico de Ajustes rápidos</string>
+    <string name="ai_session_search_hint" comment="Placeholder text in AI chat session search bar">Buscar en el chat…</string>
+    <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">p. ej. Ciudad ciberpunk de neón, modo oscuro, alto contraste</string>
     <string name="all">Todo</string>
     <string name="all_data" comment="Option in backup selector to include full app database, settings, and chat history">Todos los datos</string>
     <string name="allow_usb_access" comment="Button label that re-shows the system prompt asking the user to allow the app to use the attached USB device">Permitir acceso USB</string>
-    <string name="allow_usb_access_message" comment="Status shown when the target device was detected over USB but the system permission to use it has not been granted yet">Permitir el acceso USB para continuar</string>
+    <string name="allow_usb_access_message" comment="Status shown when the target device was detected over USB but the system permission to use it has not been granted yet">Permitir acceso USB para continuar</string>
     <string name="already_connected" comment="Status message in wireless ADB setup screen indicating device is already connected">Ya conectado</string>
     <string name="already_latest_version" comment="In-app updater message when user is running the most recent version of aShellYou">Estas utilizando la versión más reciente</string>
     <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">Permitir siempre la base</string>
-    <string name="always_allow_exact" comment="Permission rule option in AI chat: automatically approve commands matching exact command string">Permitir siempre exacto</string>
+    <string name="always_allow_exact" comment="Permission rule option in AI chat: automatically approve commands matching exact command string">Permitir siempre la coincidencia exacta</string>
     <string name="analyse" comment="Action button to request AI analysis of command execution output or error log">Analizar</string>
-    <string name="analysis_failed">Análisis fallido</string>
-    <string name="api_key" comment="Label for AI provider API key text input field">Clave de API</string>
-    <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">La clave de API está guardada</string>
-    <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">Clave de API requerida</string>
-    <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">Se requiere una clave de API para utilizar las funciones de IA. Por favor, añade tu clave de API en Ajustes -&gt; Modelos en la nube.</string>
+    <string name="analysis_failed">El análisis ha fallado</string>
+    <string name="api_key" comment="Label for AI provider API key text input field">Clave API</string>
+    <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">La clave API está guardada</string>
+    <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">Se requiere una clave API</string>
+    <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">An API key is required to use AI features. Please add your API key in Settings &gt; Cloud Models.</string>
     <string name="app">Aplicación</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">La aplicación se ha bloqueado</string>
-    <string name="app_is_locked" comment="Title shown when the app is locked">App está bloqueada</string>
-    <string name="app_is_locked_msg" comment="Message shown when the app is locked">Usa tu bloqueo de pantalla, huella digital o cara para desbloquear esta aplicación y continuar</string>
-    <string name="app_lock_disabled_msg" comment="Toast message informing user that app lock was disabled because device screen lock was removed">Autenticación de aplicación desactivada: Se eliminó el bloqueo de pantalla del dispositivo.</string>
-    <string name="app_lock_setup_error_msg" comment="Dialog message when user tries to enable app lock but has no device screen lock configured">No hay ningún bloqueo de pantalla de dispositivo configurado. Por favor, configure un bloqueo de pantalla o biométrico en los ajustes del dispositivo para activar App Lock.</string>
-    <string name="app_permissions" comment="Title for app permissions shortcut">Permisos de aplicación</string>
+    <string name="app_is_locked" comment="Title shown when the app is locked">La aplicación está bloqueada</string>
+    <string name="app_is_locked_msg" comment="Message shown when the app is locked">Usa el bloqueo de pantalla, la huella dactilar o el rostro para desbloquear esta aplicación y continuar</string>
+    <string name="app_lock_disabled_msg" comment="Toast message informing user that app lock was disabled because device screen lock was removed">Autenticación de la aplicación desactivada: Se eliminó el bloqueo de pantalla del dispositivo.</string>
+    <string name="app_lock_setup_error_msg" comment="Dialog message when user tries to enable app lock but has no device screen lock configured">No hay ningún bloqueo de pantalla configurado. Configura un bloqueo de pantalla o datos biométricos en los ajustes de tu dispositivo para activar el bloqueo de la aplicación.</string>
+    <string name="app_permissions" comment="Title for app permissions shortcut">Permisos de la aplicación</string>
     <string name="app_tagline" comment="App subtitle/tagline shown on welcome and about screens">ADB al alcance de tu mano</string>
     <string name="apply">Aplicar</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">Aplicar a todo (quedan %1$d)</string>
     <string name="artifact_id" comment="Technical label for AI artifact identifier in developer options">ID del artefacto</string>
-    <string name="authenticate" comment="Group header for authentication settings">Autenticar</string>
-    <string name="authentication_timeout" comment="Title for authentication timeout setting">Tiempo de autenticación agotado</string>
+    <string name="authenticate" comment="Group header for authentication settings">Autenticación</string>
+    <string name="authentication_timeout" comment="Title for authentication timeout setting">Tiempo de espera de autenticación</string>
     <string name="auto" comment="Selection option for automatic theme/mode handling">Automático</string>
     <string name="auto_backup" comment="Setting toggle title for scheduled automatic backups">Copia de seguridad automática</string>
     <string name="auto_backup_content_type" comment="Setting title for selecting items to include in automatic backups">Contenido de la copia de seguridad</string>
-    <string name="auto_backup_folder" comment="Setting title for selecting target local folder for automatic backups">Carpeta de copia de seguridad</string>
-    <string name="auto_clear_cache">Borrar caché automático</string>
+    <string name="auto_backup_folder" comment="Setting title for selecting target local folder for automatic backups">Carpeta de la copia de seguridad</string>
+    <string name="auto_clear_cache">Borrar caché automáticamente</string>
     <string name="auto_dark_mode" comment="Setting toggle title to enable dark mode automatically when battery saver is active">Modo oscuro automático</string>
-    <string name="auto_delete_existing_backups" comment="Setting toggle title to delete older backup files when a new backup is created">Eliminar automáticamente copias de seguridad antiguas</string>
-    <string name="auto_scale_ui" comment="Setting toggle title to automatically scale UI based on device screen width">Autoescala de la interfaz</string>
+    <string name="auto_delete_existing_backups" comment="Setting toggle title to delete older backup files when a new backup is created">Eliminar automáticamente las copias de seguridad antiguas</string>
+    <string name="auto_scale_ui" comment="Setting toggle title to automatically scale UI based on device screen width">Escala automática de la interfaz</string>
     <string name="auto_update" comment="Setting toggle title to automatically check for application updates on startup">Actualización automática</string>
     <string name="back">Atrás</string>
     <string name="back_button" comment="Custom key bar button in terminal view simulating system back button press">Botón Atrás</string>
     <string name="background" comment="Material design theme surface/background color role label">Fondo</string>
-    <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">Respaldando…</string>
+    <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">Creando copia de seguridad…</string>
     <string name="backup">Copia de seguridad</string>
     <string name="backup_all_data" comment="Option in backup dialog to export all app database content and settings">Hacer copia de seguridad de todos los datos</string>
     <string name="backup_and_restore" comment="Settings screen header for managing local and cloud backups">Backup &amp; restore</string>
@@ -116,7 +116,7 @@
     <string name="backup_destination" comment="Setting label to pick target location for backup storage (local directory or Google Drive)">Destino de la copia de seguridad</string>
     <string name="backup_failed" comment="Toast notification or dialog title shown when a local or cloud backup operation fails">La copia de seguridad falló</string>
     <string name="backup_found" comment="Status banner shown when a valid backup file is detected on device or cloud">Copia de seguridad encontrada</string>
-    <string name="backup_frequency" comment="Setting label for selecting auto-backup interval (Daily, Weekly, Monthly)">Frecuencia de las copias de seguridad</string>
+    <string name="backup_frequency" comment="Setting label for selecting auto-backup interval (Daily, Weekly, Monthly)">Frecuencia de la copia de seguridad</string>
     <string name="backup_now" comment="Action button to immediately trigger a backup operation">Hacer copia de seguridad ahora</string>
     <string name="backup_scheduler" comment="Setting category title for automated backup schedule settings">Programador de copias de seguridad</string>
     <string name="backup_settings" comment="Backup option to export only application settings preferences">Hacer copia de seguridad de los ajustes de la aplicación</string>
@@ -129,26 +129,26 @@
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">Batería</string>
     <string name="battery_saver" comment="Device system battery saver mode label">Ahorro de batería</string>
     <string name="behavior" comment="Settings category title for application behavior preferences">Comportamiento</string>
-    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">Confirma el bloqueo de pantalla para continuar</string>
-    <string name="biometric_prompt_title" comment="Title for the biometric authentication prompt">Desbloquea un concha</string>
-    <string name="biometrics_disabled_msg" comment="Toast message when biometric data is removed from device settings">Aplicación biométrica desactivada: los datos biométricos fueron removidos del dispositivo.</string>
+    <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">Confirma tu bloqueo de pantalla para continuar</string>
+    <string name="biometric_prompt_title" comment="Title for the biometric authentication prompt">Desbloquear aShellYou</string>
+    <string name="biometrics_disabled_msg" comment="Toast message when biometric data is removed from device settings">Datos biométricos de la aplicación desactivados: Se eliminaron los datos biométricos del dispositivo.</string>
     <string name="block" comment="Action button to block execution or permissions">Bloquear</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">¡Se alcanzó el límite máximo de marcadores! Elimina algunos para añadir otros nuevos</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">Marcadores</string>
     <string name="boot_device_into_fastboot" comment="Instructional prompt in Fastboot screen instructing user to boot target device into fastboot mode">Inicia el dispositivo de destino en modo fastboot y conéctate mediante un cable OTG</string>
-    <string name="boot_failed" comment="%1$s = error text returned by the bootloader. Shown when fastboot boot of a temporary image fails">Arranque fallido: %1$s</string>
+    <string name="boot_failed" comment="%1$s = error text returned by the bootloader. Shown when fastboot boot of a temporary image fails">Error al arrancar: %1$s</string>
     <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">Imagen de arranque</string>
-    <string name="boot_image_sent" comment="Status shown when a temporary boot image was accepted by the bootloader via fastboot boot">Imagen de inicio enviada</string>
+    <string name="boot_image_sent" comment="Status shown when a temporary boot image was accepted by the bootloader via fastboot boot">Imagen de arranque enviada</string>
     <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">Iniciar en Fastboot</string>
     <string name="btn_continue" comment="Action button label to proceed to next step in setup wizard">Continuar</string>
-    <string name="bundled" comment="Tab label in icon chooser for built-in icons that ship with the app">Empaquetado</string>
+    <string name="bundled" comment="Tab label in icon chooser for built-in icons that ship with the app">Integrados</string>
     <string name="cache_settings" comment="Settings section header for AI analysis response caching options">Caché</string>
     <string name="cache_size" comment="%s = formatted file size, e.g. 12.5 MB">Tamaño de caché: %s</string>
     <string name="cancel">Cancelar</string>
     <string name="cancel_all" comment="Action button to cancel all running file transfers or ADB commands">Cancelar todo</string>
     <string name="cancel_selection">Cancelar selección</string>
     <string name="cancel_transfer" comment="Button that confirms abandoning an image transfer to a device in fastboot mode">Cancelar transferencia</string>
-    <string name="cancel_transfer_message" comment="Dialog body explaining the consequences of abandoning a fastboot image transfer before the device has written anything">La imagen aún no ha sido escrita, por lo que el dispositivo no ha sido modificado. La conexión se restablecerá y puede que necesite volver a colocar el dispositivo en fastboot antes de intentarlo de nuevo.</string>
+    <string name="cancel_transfer_message" comment="Dialog body explaining the consequences of abandoning a fastboot image transfer before the device has written anything">La imagen aún no se ha escrito, por lo que el dispositivo no ha cambiado. La conexión se restablecerá y es posible que debas volver a poner el dispositivo en modo fastboot antes de intentarlo de nuevo.</string>
     <string name="cancel_transfer_title" comment="Dialog title asking the user to confirm abandoning a fastboot image transfer">¿Cancelar la transferencia?</string>
     <string name="cancelled">Cancelado</string>
     <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">Cancelando…</string>
@@ -158,7 +158,7 @@
     <string name="choose_a_device" comment="Dialog header prompting user to select a device from connected ADB devices list">Elige un dispositivo</string>
     <string name="choose_icon" comment="Button label in Quick Settings tile editor to select a custom icon">Elige un icono</string>
     <string name="clear">Borrar</string>
-    <string name="clear_all" comment="Action button to clear all entries in command history or terminal output screen">Borrar todo</string>
+    <string name="clear_all" comment="Action button to clear all entries in command history or terminal output screen">Eliminar todo</string>
     <string name="clear_all_message" comment="Confirmation prompt asking user if they want to clear the terminal output view">¿Estás seguro de que quieres borrar todo en esta pantalla?</string>
     <string name="clear_analysis_cache" comment="Button label in settings to clear cached AI analysis responses">Borrar caché de análisis</string>
     <string name="clear_cache" comment="Action button in settings to clear app cache data">Borrar caché</string>
@@ -180,14 +180,14 @@
     <string name="cmd_get_product_desc" comment="Description for predefined fastboot command: fastboot getvar product">Recuperar el identificador del nombre de producto del dispositivo</string>
     <string name="cmd_get_product_title" comment="Predefined fastboot command title: check product name">Nombre del producto</string>
     <string name="cmd_get_slot_count_desc" comment="Description for predefined fastboot command: fastboot getvar slot-count">Número de ranuras A/B en este dispositivo</string>
-    <string name="cmd_get_slot_count_title" comment="Predefined fastboot command title: check A/B slot count">Número de ranuras</string>
-    <string name="cmd_get_unlocked_desc" comment="Description for predefined fastboot command: fastboot getvar unlocked">Comprobar si el gestor de arranque (bootloader) está desbloqueado actualmente</string>
-    <string name="cmd_get_unlocked_title" comment="Predefined fastboot command title: check bootloader unlock status">Estado de desbloqueo del bootloader</string>
+    <string name="cmd_get_slot_count_title" comment="Predefined fastboot command title: check A/B slot count">Recuento de ranuras</string>
+    <string name="cmd_get_unlocked_desc" comment="Description for predefined fastboot command: fastboot getvar unlocked">Comprobar si el gestor de arranque está desbloqueado actualmente</string>
+    <string name="cmd_get_unlocked_title" comment="Predefined fastboot command title: check bootloader unlock status">Estado de desbloqueo del gestor de arranque</string>
     <string name="cmd_getvar_all_desc" comment="Description for predefined fastboot command: fastboot getvar all">Listar todas las variables del dispositivo y sus valores actuales</string>
     <string name="cmd_getvar_all_title" comment="Predefined fastboot command title: get all device variables">Obtener todas las variables</string>
-    <string name="cmd_oem_device_info_desc" comment="Description for predefined fastboot command: fastboot oem device-info">Recuperar información del dispositivo específica del OEM</string>
+    <string name="cmd_oem_device_info_desc" comment="Description for predefined fastboot command: fastboot oem device-info">Recuperar información del dispositivo específica del fabricante</string>
     <string name="cmd_oem_device_info_title" comment="Predefined fastboot command title: query OEM device info">Información del dispositivo OEM</string>
-    <string name="cmd_unlock_ability_desc" comment="Description for predefined fastboot command: fastboot flashing get_unlock_ability">Comprobar si este dispositivo puede desbloquear el bootloader</string>
+    <string name="cmd_unlock_ability_desc" comment="Description for predefined fastboot command: fastboot flashing get_unlock_ability">Comprobar si se puede desbloquear el gestor de arranque de este dispositivo</string>
     <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">Capacidad de desbloqueo</string>
     <string name="code_pair_instruction" comment="Instructional text in Wireless Debugging pairing dialog directing user to open Wireless Debugging menu on target device">Abre \"Depuración inalámbrica\" en el dispositivo de destino y toca \"Emparejar dispositivo con código de sincronización\"</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">Contraer</string>
@@ -208,19 +208,19 @@
     <string name="color_role_error" comment="Material 3 color role name for error indicator color">Error</string>
     <string name="color_role_error_container" comment="Material 3 color role name for container background of error elements">Contenedor de error</string>
     <string name="color_role_main_accent" comment="Material 3 color role name for primary accent color">Acento principal (Primario)</string>
-    <string name="color_role_on_background" comment="The color used for text and icons drawn on top of the background color">Sobre fondo</string>
-    <string name="color_role_on_error" comment="The color used for text and icons drawn on top of the error color">Sobre error</string>
-    <string name="color_role_on_error_container" comment="The color used for text and icons drawn on top of the error container color">Sobre contenedor de error</string>
-    <string name="color_role_on_primary" comment="The color used for text and icons drawn on top of the primary color">Sobre color principal</string>
-    <string name="color_role_on_primary_container" comment="The color used for text and icons drawn on top of the primary container color">Sobre contenedor principal</string>
-    <string name="color_role_on_secondary" comment="The color used for text and icons drawn on top of the secondary color">Sobre color secundario</string>
-    <string name="color_role_on_secondary_container" comment="The color used for text and icons drawn on top of the secondary container color">Sobre contenedor secundario</string>
-    <string name="color_role_on_surface" comment="The color used for text and icons drawn on top of the surface color">Sobre superficie</string>
-    <string name="color_role_on_surface_variant" comment="The color used for text and icons drawn on top of the surface variant color">Sobre variante de superficie</string>
-    <string name="color_role_on_tertiary" comment="The color used for text and icons drawn on top of the tertiary color">Sobre color terciario</string>
-    <string name="color_role_on_tertiary_container" comment="The color used for text and icons drawn on top of the tertiary container color">Sobre contenedor terciario</string>
+    <string name="color_role_on_background" comment="The color used for text and icons drawn on top of the background color">Sobre el fondo</string>
+    <string name="color_role_on_error" comment="The color used for text and icons drawn on top of the error color">Sobre el error</string>
+    <string name="color_role_on_error_container" comment="The color used for text and icons drawn on top of the error container color">Sobre el contenedor de error</string>
+    <string name="color_role_on_primary" comment="The color used for text and icons drawn on top of the primary color">Sobre el color principal</string>
+    <string name="color_role_on_primary_container" comment="The color used for text and icons drawn on top of the primary container color">Sobre el contenedor principal</string>
+    <string name="color_role_on_secondary" comment="The color used for text and icons drawn on top of the secondary color">Sobre el color secundario</string>
+    <string name="color_role_on_secondary_container" comment="The color used for text and icons drawn on top of the secondary container color">Sobre el contenedor secundario</string>
+    <string name="color_role_on_surface" comment="The color used for text and icons drawn on top of the surface color">Sobre la superficie</string>
+    <string name="color_role_on_surface_variant" comment="The color used for text and icons drawn on top of the surface variant color">Sobre la superficie variante</string>
+    <string name="color_role_on_tertiary" comment="The color used for text and icons drawn on top of the tertiary color">Sobre el color terciario</string>
+    <string name="color_role_on_tertiary_container" comment="The color used for text and icons drawn on top of the tertiary container color">Sobre el contenedor terciario</string>
     <string name="color_role_outline" comment="Material 3 color role name for component outline borders">Contorno</string>
-    <string name="color_role_outline_variant" comment="Material 3 color role name for secondary outline borders">Variante de contorno</string>
+    <string name="color_role_outline_variant" comment="Material 3 color role name for secondary outline borders">Contorno variante</string>
     <string name="color_role_primary" comment="Material 3 color role name for primary theme color">Principal</string>
     <string name="color_role_primary_container" comment="Material 3 color role name for container surface of primary elements">Contenedor principal</string>
     <string name="color_role_secondary" comment="Material 3 color role name for secondary theme accent color">Secundario</string>
@@ -228,11 +228,11 @@
     <string name="color_role_secondary_container" comment="Material 3 color role name for container surface of secondary elements">Contenedor secundario</string>
     <string name="color_role_surface" comment="Material 3 color role name for default component surface color">Superficie</string>
     <string name="color_role_surface_container" comment="Material 3 color role name for standard surface container">Contenedor de superficie</string>
-    <string name="color_role_surface_container_high" comment="Material 3 color role name for high elevation surface container">Contenedor de superficie alto</string>
-    <string name="color_role_surface_container_highest" comment="Material 3 color role name for highest elevation surface container">Contenedor de superficie más alto</string>
-    <string name="color_role_surface_container_low" comment="Material 3 color role name for low elevation surface container">Contenedor de superficie bajo</string>
-    <string name="color_role_surface_container_lowest" comment="Material 3 color role name for lowest elevation surface container">Contenedor de superficie más bajo</string>
-    <string name="color_role_surface_variant" comment="Material 3 color role name for variant surface background">Variante de superficie</string>
+    <string name="color_role_surface_container_high" comment="Material 3 color role name for high elevation surface container">Contenedor de superficie alta</string>
+    <string name="color_role_surface_container_highest" comment="Material 3 color role name for highest elevation surface container">Contenedor de superficie más alta</string>
+    <string name="color_role_surface_container_low" comment="Material 3 color role name for low elevation surface container">Contenedor de superficie baja</string>
+    <string name="color_role_surface_container_lowest" comment="Material 3 color role name for lowest elevation surface container">Contenedor de superficie más baja</string>
+    <string name="color_role_surface_variant" comment="Material 3 color role name for variant surface background">Superficie variante</string>
     <string name="color_role_tertiary" comment="Material 3 color role name for tertiary theme accent color">Terciario</string>
     <string name="color_role_tertiary_accent" comment="Material 3 color role name for tertiary accent color">Acento terciario</string>
     <string name="color_role_tertiary_container" comment="Material 3 color role name for container surface of tertiary elements">Contenedor terciario</string>
@@ -240,28 +240,28 @@
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">Análisis de comandos</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">Consola de comandos</string>
     <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">Ejecución de comandos</string>
-    <string name="command_execution_failed" comment="Inline shell error shown when running a command fails unexpectedly. %1$s is the technical reason">Error en el comando: %1$s</string>
+    <string name="command_execution_failed" comment="Inline shell error shown when running a command fails unexpectedly. %1$s is the technical reason">Error al ejecutar el comando: %1$s</string>
     <string name="command_logs" comment="Tab header for history log of executed fastboot commands">Registros de comandos</string>
-    <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">Historial de todos los comandos fastboot ejecutados.</string>
+    <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">Historial de todos los comandos de fastboot ejecutados.</string>
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">¡Comando no encontrado!</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">Introducir comando ADB</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">Comandos</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Configurar directorio de guardado</string>
     <string name="confirm">Confirmar</string>
-    <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">¡Atención! Esta acción es irreversible\n¿Estás seguro de que quieres eliminar todos los marcadores?</string>
+    <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Confirmar eliminación</string>
-    <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">¿Está seguro que desea eliminar \"%1$s\"? Si actualmente se aplica, la aplicación se revertirá a la fuente del sistema.</string>
-    <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">¡Atención! Esta acción es irreversible\n¿Está seguro de que desea eliminar estos marcadores %1$d seleccionados?</string>
-    <string name="confirm_single_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting a single saved bookmark">¡Atención! Esta acción es irreversible\n¿Está seguro de que desea eliminar este marcador?</string>
+    <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">¿Estás seguro de que quieres eliminar \"%1$s\"? Si se está usando actualmente, la aplicación volverá a la fuente del sistema.</string>
+    <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">¡Atención! Esta acción es irreversible\n¿Estás seguro de que quieres eliminar estos %1$d marcadores seleccionados?</string>
+    <string name="confirm_single_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting a single saved bookmark">¡Atención! Esta acción es irreversible\n¿Estás seguro de que quieres eliminar este marcador?</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">¿Está seguro de que desea eliminar este mosaico?</string>
-    <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">El uso de caché ayuda a recuperar los resultados de análisis al instante.\n¿Aún quieres borrar todos los datos de caché de análisis de IA?</string>
+    <string name="confirmation_clear_cache" comment="Confirmation prompt asking user if they want to wipe all cached AI model analysis results">Caching helps to retrieve analysis results instantly.\nDo you still want to clear all AI analysis cache data?</string>
     <string name="conflict_message" comment="%1$s = file or folder name. Shown during file paste conflict">“%1$s” ya existe en esta ubicación.</string>
     <string name="conflict_title" comment="Dialog title when attempting to paste or create a file that already exists">El elemento ya existe</string>
     <string name="connect" comment="Action button to initiate ADB connection to target device over Wireless Debugging or OTG">Conectar</string>
     <string name="connect_device_via_otg" comment="Prompt instructing user to attach a target device using USB OTG cable">Conectar un dispositivo mediante OTG</string>
     <string name="connect_to_wifi_network" comment="Instructional notice indicating device must be connected to Wi-Fi for Wireless Debugging">Conectar a la red wifi</string>
     <string name="connect_via_otg" comment="Option in ADB connection menu to connect via USB OTG cable">Conectar mediante OTG</string>
-    <string name="connect_via_wifi_adb" comment="Option in connection menu to connect via Wi-Fi Wireless Debugging">Conectar mediante Wi-Fi ADB</string>
+    <string name="connect_via_wifi_adb" comment="Option in connection menu to connect via Wi-Fi Wireless Debugging">Conectar mediante ADB Wi-Fi</string>
     <string name="connected" comment="Status badge showing device is successfully connected over ADB">Conectado</string>
     <string name="connected_device" comment="Header title for the currently active ADB target device information card">Dispositivo conectado</string>
     <string name="connecting" comment="Progress status text shown while establishing ADB connection">Conectando…</string>
@@ -286,7 +286,7 @@
     <string name="critical">Crítico</string>
     <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">Visita nuestra plataforma de traducción de Crowdin para colaborar</string>
     <string name="current_version" comment="About screen card label showing installed application version number">Versión actual</string>
-    <string name="custom" comment="Dropdown entry that lets the user type a value instead of picking a preset">… Personalizado</string>
+    <string name="custom" comment="Dropdown entry that lets the user type a value instead of picking a preset">Personalizado…</string>
     <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">Escala de interfaz personalizada</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Cortar %1$d elementos</string>
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">Cortar al portapapeles</string>
@@ -295,13 +295,13 @@
     <string name="dark_theme" comment="Settings preference title for dark theme mode">Tema oscuro</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">Panel</string>
     <string name="database">Base de datos</string>
-    <string name="database_modification" comment="Title for the database skill toggle in AI settings">Modificación de base de datos</string>
+    <string name="database_modification" comment="Title for the database skill toggle in AI settings">Modificación de bases de datos</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Solamente bases de datos</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Carpeta predeterminada</string>
     <string name="default_language" comment="Setting preference label for selecting application language">Idioma predeterminado</string>
     <string name="delete">Eliminar</string>
     <string name="delete_all" comment="Action button to delete all items in list, history, or bookmarks">Eliminar todo</string>
-    <string name="delete_custom_font" comment="Action label to remove an imported custom font from the font list">Remove font</string>
+    <string name="delete_custom_font" comment="Action label to remove an imported custom font from the font list">Eliminar fuente</string>
     <string name="delete_file" comment="File browser action to delete selected file">Eliminar archivo</string>
     <string name="delete_folder" comment="File browser action to delete selected directory">Eliminar carpeta</string>
     <string name="delete_items_message" comment="%1$d = number of selected items">¿Seguro que quieres eliminar los %1$d elementos seleccionados?</string>
@@ -311,92 +311,92 @@
     <string name="des_about" comment="Subtitle description for About section in settings menu">Colaboradores y soporte</string>
     <string name="des_ai_cache_days" comment="Description under Cache duration setting in AI settings">Número de días para conservar los resultados en caché</string>
     <string name="des_ai_cache_enabled" comment="Description under Enable cache setting in AI settings">Guardar en caché los resultados del análisis por modelo</string>
-    <string name="des_ai_models" comment="Description under AI &amp; Models item in settings">Gestionar datos de modelos de IA y claves de API</string>
-    <string name="des_app_permissions" comment="Description for app permissions shortcut">Administrar permisos del sistema Android para la aplicación</string>
+    <string name="des_ai_models" comment="Description under AI &amp; Models item in settings">Gestionar los datos de los modelos de IA y las claves API</string>
+    <string name="des_app_permissions" comment="Description for app permissions shortcut">Gestionar los permisos del sistema Android para la aplicación</string>
     <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">Elige qué incluir en las copias de seguridad automáticas</string>
     <string name="des_auto_backup_folder" comment="Description under Backup folder setting">Selecciona una carpeta para guardar las copias de seguridad automáticas</string>
     <string name="des_auto_backup_time" comment="Description under Backup time setting">Establece la hora para las copias de seguridad automáticas</string>
-    <string name="des_auto_clear_ai_cache">Borrar automáticamente la caché de análisis de IA cuando la duración del caché expira</string>
+    <string name="des_auto_clear_ai_cache">Borra automáticamente la caché de análisis de IA cuando expire su duración</string>
     <string name="des_auto_dark_mode" comment="Description under Auto dark mode setting">Cambiar automáticamente al modo oscuro cuando el ahorro de batería esté activado</string>
-    <string name="des_auto_delete_existing_backups" comment="Description under Auto-delete old backups setting">Eliminar las copias de seguridad automáticas más antiguas cuando se guarde una nueva</string>
-    <string name="des_auto_scale_ui" comment="Description under Auto scale UI setting">Escala automáticamente la interfaz según el ancho más pequeño del dispositivo</string>
+    <string name="des_auto_delete_existing_backups" comment="Description under Auto-delete old backups setting">Eliminar las copias de seguridad automáticas anteriores al guardar una nueva</string>
+    <string name="des_auto_scale_ui" comment="Description under Auto scale UI setting">Escala automáticamente la interfaz según el ancho mínimo del dispositivo</string>
     <string name="des_auto_update" comment="Description under Auto update setting">Buscar actualizaciones automáticamente</string>
     <string name="des_backup_all_data" comment="Description for full backup option in backup dialog">Hacer copia de seguridad de todos los datos de la aplicación</string>
     <string name="des_backup_and_restore" comment="Description under Backup &amp; restore item in settings menu">Hacer copia de seguridad y restaurar los ajustes de la aplicación y otros datos</string>
-    <string name="des_backup_app_database" comment="Description for app database backup option">Hacer copia de seguridad de la base de datos de la aplicación, incluidos los ejemplos de comandos y los marcadores</string>
+    <string name="des_backup_app_database" comment="Description for app database backup option">Backup app database which includes the command examples &amp; bookmarks</string>
     <string name="des_backup_scheduler" comment="Description under Backup scheduler setting">Programar copias de seguridad automáticamente a intervalos seleccionados</string>
     <string name="des_backup_settings" comment="Description for app settings backup option">Copia de seguridad únicamente de las preferencias de configuración de la aplicación</string>
     <string name="des_behavior" comment="Description under Behavior item in settings menu">Modificar ciertos comportamientos de la aplicación</string>
     <string name="des_changelogs" comment="Description under Changelogs item in settings menu">Historial de todos los cambios realizados en la aplicación</string>
     <string name="des_choose_icon" comment="Hint text in Quick Settings tile builder for icon selector button">Haz clic aquí para elegir un icono de la colección de iconos</string>
-    <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">Borrar todas las respuestas de análisis de IA en caché</string>
+    <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">Eliminar todas las respuestas de análisis de IA en caché</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">Pedir confirmación antes de borrar la salida de la consola</string>
-    <string name="des_cloud_models" comment="Description under Cloud models setting item">Gestionar claves de API para modelos en la nube</string>
-    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Permitir al agente IA ejecutar comandos ADB shell</string>
+    <string name="des_cloud_models" comment="Description under Cloud models setting item">Gestionar claves API para modelos en la nube</string>
+    <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Permitir que el agente de IA ejecute comandos de shell ADB</string>
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">Elige un directorio para guardar la salida de la consola</string>
     <string name="des_contributors" comment="Description under Contributors item in About section">Lista de colaboradores que ayudaron en el desarrollo de aShell You</string>
     <string name="des_crash_history" comment="Description under Crash history item in settings menu">Ver todos los fallos que se han producido en la aplicación</string>
-    <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">Elegir cuándo la aplicación utiliza su esquema de color oscuro</string>
-    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Permitir al agente IA añadir, modificar o eliminar elementos de la base de datos</string>
+    <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">Elige cuándo usa la aplicación su combinación de colores oscuros</string>
+    <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Permitir que el agente de IA añada, modifique o elimine elementos de la base de datos</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">Elige el idioma predeterminado de la aplicación</string>
-    <string name="des_device_diagnostics" comment="Description explaining that this skill allows the AI to check device status">Permitir al agente IA comprobar de forma nativa la batería, la memoria, el almacenamiento, el hardware y el estado de la red</string>
+    <string name="des_device_diagnostics" comment="Description explaining that this skill allows the AI to check device status">Permitir que el agente de IA compruebe de forma nativa el estado de la batería, memoria, almacenamiento, hardware y red</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">Útil cuando quieres usar un teclado externo</string>
-    <string name="des_drive_backup" comment="Description card text for Google Drive backup option">Subir la copia de seguridad cifrada a tu Google Drive.\nEsta acción sobrescribirá cualquier copia de seguridad en la nube existente.</string>
+    <string name="des_drive_backup" comment="Description card text for Google Drive backup option">Upload encrypted backup to your Google Drive.\nThis action will overwrite any existing cloud backups.</string>
     <string name="des_drive_restore" comment="Description card text for Google Drive restore option">Descargar tu copia de seguridad más reciente desde Google Drive</string>
     <string name="des_dynamic_colors" comment="Description under Dynamic colors setting item">Establecer automáticamente el tema de la aplicación según el fondo de pantalla del dispositivo</string>
-    <string name="des_enable_auto_backup" comment="Description under Enable automatic backup toggle setting">Hacer copia de seguridad automática de los datos de la aplicación a la hora programada</string>
-    <string name="des_enable_cloud_auto_backup" comment="Description under Auto backup to Google Drive toggle setting">Hacer copia de seguridad automática en tu cuenta de Google Drive</string>
+    <string name="des_enable_auto_backup" comment="Description under Enable automatic backup toggle setting">Hacer copia de seguridad de los datos de la aplicación automáticamente a la hora programada</string>
+    <string name="des_enable_cloud_auto_backup" comment="Description under Auto backup to Google Drive toggle setting">Hacer copia de seguridad automáticamente en tu cuenta de Google Drive</string>
     <string name="des_enable_direct_download" comment="Description under Enable direct apk download setting">Cuando está activado, las actualizaciones se descargarán directamente desde GitHub dentro de la aplicación. Desactívalo para visitar la página de lanzamientos de GitHub y descargar las actualizaciones manualmente.</string>
-    <string name="des_enable_local_auto_backup" comment="Description under Auto backup to local storage toggle setting">Hacer copia de seguridad automática en la carpeta seleccionada de tu dispositivo</string>
+    <string name="des_enable_local_auto_backup" comment="Description under Auto backup to local storage toggle setting">Hacer copia de seguridad automáticamente en la carpeta seleccionada de tu dispositivo</string>
     <string name="des_examples" comment="Description under Command templates item in navigation menu">Colección de algunas plantillas de comandos</string>
     <string name="des_feature_request" comment="Description under Feature request item in About menu">Si tienes alguna idea o sugerencia para la aplicación, háznoslo saber</string>
     <string name="des_font_family" comment="Description under Font family setting item">Cambiar el estilo de fuente de la aplicación</string>
-    <string name="des_font_size" comment="Description under Font size multiplier setting item">Ajusta el tamaño de fuente para que el texto de la aplicación aparezca más grande o más pequeño</string>
+    <string name="des_font_size" comment="Description under Font size multiplier setting item">Ajustar el tamaño de fuente para que el texto de la aplicación se vea más grande o más pequeño</string>
     <string name="des_haptics_and_vibration" comment="Description under Haptics &amp; Vibration setting item">Respuesta háptica interactiva al tocar la pantalla</string>
     <string name="des_high_contrast_dark_mode" comment="Description under High contrast dark mode setting item">Tema oscuro absoluto para dispositivos con pantalla OLED</string>
     <string name="des_hridayan" comment="Developer bio subtitle in About section">Solo un tipo al que le encantan las aplicaciones y el diseño</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">El estado visual fijo del mosaico cuando se muestra en el panel de Ajustes rápidos</string>
-    <string name="des_legal_docs_updated" comment="Message shown in the dialog when legal docs are updated">Hemos actualizado nuestra Política de Privacidad y nuestras Condiciones de Servicio. Por favor, tómate un momento para revisar los cambios.</string>
-    <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">Ver detalles de las bibliotecas y licencias utilizadas por la aplicación</string>
+    <string name="des_legal_docs_updated" comment="Message shown in the dialog when legal docs are updated">Hemos actualizado nuestra Política de Privacidad y Términos de Servicio. Tómate un momento para revisar los cambios.</string>
+    <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">Ver detalles de las librerías y licencias usadas por la aplicación</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">Ver las licencias que utiliza la aplicación y sus librerías</string>
     <string name="des_local_backup" comment="Description card text for local backup option">Guardar copia de seguridad cifrada en tu dispositivo</string>
     <string name="des_local_restore" comment="Description card text for local restore option">Selecciona un archivo de copia de seguridad desde tu dispositivo</string>
-    <string name="des_log_buffer_size" comment="Description under the Logcat log buffer size setting; explains that older entries are dropped once the limit is reached">Memoria guardada para los registros recolectados. Las entradas antiguas se descartan una vez alcanzado el límite.</string>
+    <string name="des_log_buffer_size" comment="Description under the Logcat log buffer size setting; explains that older entries are dropped once the limit is reached">Memoria reservada para los registros recopilados. Las entradas más antiguas se descartan una vez que se alcanza el límite.</string>
     <string name="des_logcat" comment="Description under Logcat item in navigation menu">Salida de logcat en tiempo real desde un dispositivo conectado</string>
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">Colores dinámicos, Tema oscuro, Idioma</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">Ningún modelo seleccionado</string>
     <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">Podría causar lentitud si se añaden muchos marcadores. Los dispositivos de gama baja deberían mantener esta opción desactivada</string>
-    <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Permitir al agente IA consultar paquetes instalados y datos de aplicación</string>
+    <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Permitir que el agente de IA consulte paquetes instalados y datos de aplicaciones</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">Emparejar otro dispositivo de destino</string>
-    <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">Elegir cómo se derivan los colores de la semilla del tema</string>
-    <string name="des_privacy_and_security" comment="Description for privacy and security settings">Permisos de autenticación y aplicación</string>
-    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">Cómo manejas el infierno tus datos</string>
-    <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">Crear mosaicos de ajustes rápidos para ejecutar comandos ADB</string>
-    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Permitir que el agente IA cree, modifique y elimine los ajustes rápidos</string>
+    <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">Elige cómo se derivan los colores a partir del tema base</string>
+    <string name="des_privacy_and_security" comment="Description for privacy and security settings">Autenticación y permisos de la aplicación</string>
+    <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">Cómo gestiona aShell You tus datos</string>
+    <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">Crear accesos directos de ajustes rápidos para ejecutar comandos ADB</string>
+    <string name="des_quick_settings_tiles" comment="Description explaining that this skill allows the AI to manage quick settings tiles">Permitir que el agente de IA cree, modifique y elimine mosaicos de ajustes rápidos</string>
     <string name="des_report_issue" comment="Subtitle description under Report issue item in About menu">Informa de cualquier problema o error que hayas encontrado mientras usabas la aplicación</string>
-    <string name="des_require_auth_for_backups" comment="Description for protect backups">Requiere autenticación antes de restaurar cualquier copia de seguridad</string>
-    <string name="des_require_authentication" comment="Description for require authentication">Asegure la aplicación mediante bloqueo de pantalla de dispositivo o biometría</string>
+    <string name="des_require_auth_for_backups" comment="Description for protect backups">Requerir autenticación antes de restaurar cualquier copia de seguridad</string>
+    <string name="des_require_authentication" comment="Description for require authentication">Proteger la aplicación mediante el bloqueo de pantalla del dispositivo o datos biométricos</string>
     <string name="des_reset_app_settings" comment="Subtitle description under Reset app settings item">Restablecer los ajustes de la aplicación a los valores predeterminados</string>
-    <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">Restaurar los datos de la aplicación desde el archivo de copia de seguridad guardado. \nLa base de datos guardada sobrescribirá la base de datos actual</string>
-    <string name="des_save_whole_output" comment="Description under Save whole output setting toggle">Activa esta opción para guardar la salida de toda la sesión de shell.\nSi está desactivada, solo se guardará la salida del último comando.</string>
-    <string name="des_screen_density" comment="Description under Screen density multiplier setting item">Ajusta la densidad de pantalla para que los elementos de la interfaz aparezcan más grandes o más pequeños</string>
-    <string name="des_select_file_for_flashing" comment="Instructional description prompt for picking boot image file to flash">Selecciona un archivo de imagen de arranque para flashear a la partición seleccionada</string>
-    <string name="des_set_local_adb_as_default_launch" comment="Description under Set Local ADB as default launch setting">Introduzca la pantalla local ADB directamente al iniciar la aplicación</string>
+    <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">Restore app data from the saved backup file.\nThe saved database will overwrite the current database</string>
+    <string name="des_save_whole_output" comment="Description under Save whole output setting toggle">Enable this option to save output of the whole shell session.\nIf disabled only the last command output will be saved.</string>
+    <string name="des_screen_density" comment="Description under Screen density multiplier setting item">Ajustar la densidad de pantalla para que los elementos de la interfaz se vean más grandes o más pequeños</string>
+    <string name="des_select_file_for_flashing" comment="Instructional description prompt for picking boot image file to flash">Selecciona un archivo de imagen de arranque para flashear en la partición seleccionada</string>
+    <string name="des_set_local_adb_as_default_launch" comment="Description under Set Local ADB as default launch setting">Entrar directamente a la pantalla de ADB local al iniciar la aplicación</string>
     <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">Vincula opcionalmente tu cuenta de Google para realizar copias de seguridad en la nube</string>
     <string name="des_smooth_scroll" comment="Description under Smooth scrolling setting toggle">Activar esta opción permite un desplazamiento suave en la salida del shell cuando se hace clic en la flecha superior o inferior</string>
-    <string name="des_terms_of_service" comment="Subtitle description under Terms of Service menu item">Reglas y directrices para el uso del infierno</string>
+    <string name="des_terms_of_service" comment="Subtitle description under Terms of Service menu item">Reglas y directrices para usar aShell You</string>
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">Cuando está activado, el mosaico alterna entre los estados ENCENDIDO y APAGADO en cada toque, ejecutando un comando diferente para cada estado</string>
     <string name="des_translators" comment="Subtitle description under Translators list in About section">Personas que ayudaron a traducir aShell You</string>
-    <string name="des_ui_scale" comment="Description under UI scale setting item">Ajusta la escala de los elementos de la interfaz y el tamaño de fuente</string>
-    <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">Elegir qué versiones comprueban la aplicación</string>
-    <string name="des_use_biometrics">Permitir desbloquear la aplicación usando tu huella digital o cara</string>
-    <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">Procede con precaución, ya que una imagen incorrecta puede causar un bucle de arranque</string>
+    <string name="des_ui_scale" comment="Description under UI scale setting item">Ajustar la escala de los elementos de la interfaz y el tamaño de fuente</string>
+    <string name="des_update_channel" comment="Description under Update channel setting in Auto update settings">Elige para qué versiones busca actualizaciones la aplicación</string>
+    <string name="des_use_biometrics">Permitir desbloquear la aplicación mediante tu huella dactilar o rostro</string>
+    <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">Procede con precaución, ya que una imagen incorrecta puede provocar un bucle de reinicio</string>
     <string name="description">Descripción</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">Deseleccionar todo</string>
     <string name="developer" comment="Section title in About screen for lead developer info">Desarrollador</string>
     <string name="developer_options" comment="System Developer Options setting item or prompt">Opciones de desarrollador</string>
     <string name="developer_options_not_available" comment="Toast error message when Developer options shortcut cannot be opened">¡Las opciones de desarrollador no están disponibles!</string>
-    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">Habilitar las opciones de desarrollador primero pulsando el número de compilación 7 veces en Ajustes → Acerca del teléfono\nSi este método para activar las opciones de desarrollador no funciona, entonces usted puede buscar las instrucciones de su dispositivo en Internet.</string>
+    <string name="developer_options_required_body" comment="Guide for enabling developer options when they are off">Habilita primero las Opciones de desarrollador tocando 7 veces en Número de compilación en Ajustes → Información del teléfono\nSi este método para activar las Opciones de desarrollador no funciona, puedes buscar las instrucciones para tu dispositivo en internet.</string>
     <string name="developer_options_required_title" comment="Dialog title shown when Developer Options are not enabled">Opciones de desarrollador requeridas</string>
     <string name="device_backup_local" comment="Label for local device storage backup file">Copia de seguridad del dispositivo (local)</string>
     <string name="device_connected" comment="Toast notification when ADB device connection is successfully established">¡Dispositivo conectado!</string>
@@ -406,33 +406,33 @@
     <string name="device_disconnected_message_with_name" comment="%s = device name">\"%s\" se ha desconectado.</string>
     <string name="device_found" comment="Status banner when an ADB/Wireless Debugging device service is discovered on local network">¡Dispositivo encontrado!</string>
     <string name="device_info" comment="Screen header or navigation item for target device hardware/OS specifications">Información del dispositivo</string>
-    <string name="device_not_in_sideload_mode" comment="Status shown when the attached device answers ADB but is booted normally rather than waiting in recovery sideload mode">El dispositivo se inicia normalmente. Reiniciar a la recuperación y elegir Aplicar actualización de ADB</string>
-    <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">El dispositivo no soporta autenticación biométrica</string>
+    <string name="device_not_in_sideload_mode" comment="Status shown when the attached device answers ADB but is booted normally rather than waiting in recovery sideload mode">El dispositivo se ha iniciado normalmente. Reinicia en recovery y elige Apply update from ADB</string>
+    <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">El dispositivo no es compatible con la autenticación biométrica</string>
     <string name="device_rejected_operation" comment="Error shown when the bootloader answered a fastboot command with a failure">El dispositivo rechazó la operación</string>
     <string name="disable_softkey" comment="Setting toggle title to hide soft keyboard during shell session">Desactivar el teclado virtual</string>
     <string name="disclaimer" comment="Section title in About screen for legal disclaimer notices">Aviso legal</string>
     <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">Ejecutar comandos ADB puede modificar la configuración del sistema, gestionar archivos y realizar operaciones que pueden afectar la estabilidad de tu dispositivo.\nEres el único responsable de cualquier cambio realizado usando esta aplicación.</string>
     <string name="disclaimer_1_title" comment="Title for disclaimer point 1: user risk acknowledgement">Úsalo bajo tu propia responsabilidad</string>
-    <string name="disclaimer_2_description" comment="Text for disclaimer point 2: root requirements and elevated permissions">Aunque el acceso root no es obligatorio, algunos comandos pueden requerir permisos elevados.\nEl uso indebido de comandos ADB puede provocar pérdida de datos, fallos en aplicaciones o un comportamiento inesperado del sistema.</string>
+    <string name="disclaimer_2_description" comment="Text for disclaimer point 2: root requirements and elevated permissions">While root access is not mandatory, certain commands may require elevated permissions.\nMisuse of ADB commands can lead to data loss, app crashes, or unexpected system behavior.</string>
     <string name="disclaimer_2_title" comment="Title for disclaimer point 2: root and caution warning">El acceso root no es obligatorio, pero se requiere precaución</string>
-    <string name="disclaimer_3_description" comment="Text for disclaimer point 3: developer liability waiver">Los desarrolladores de esta aplicación no se hacen responsables de ningún daño, pérdida de datos o consecuencias no deseadas derivadas del uso de la misma.\nProcede con precaución y asegúrate de comprender los comandos que ejecutas.</string>
+    <string name="disclaimer_3_description" comment="Text for disclaimer point 3: developer liability waiver">The developer(s) of this app are not responsible for any damage, data loss, or unintended consequences resulting from the use of this app.\nProceed with caution and ensure you understand the commands you execute.</string>
     <string name="disclaimer_3_title" comment="Title for disclaimer point 3: liability waiver">No nos hacemos responsables</string>
     <string name="disclaimer_4_description" comment="Text for disclaimer point 4: target user expertise level">Esta aplicación está diseñada para usuarios que tienen un conocimiento básico de los comandos ADB.\nSi no estás seguro del efecto de un comando, investígalo antes de ejecutarlo.</string>
     <string name="disclaimer_4_title" comment="Title for disclaimer point 4: target audience notice">Destinado a usuarios avanzados</string>
-    <string name="disclaimer_5_description" comment="Text for disclaimer point 5: privacy and permissions notice">Esta aplicación puede requerir permisos especiales para funcionar correctamente.\nNo recopila ni comparte datos personales, pero los usuarios deben ser conscientes de las implicaciones de otorgar permisos relacionados con ADB.</string>
+    <string name="disclaimer_5_description" comment="Text for disclaimer point 5: privacy and permissions notice">This app may require special permissions to function properly.\nIt does not collect or share personal data, but users should be aware of the implications of granting ADB-related permissions.</string>
     <string name="disclaimer_5_title" comment="Title for disclaimer point 5: security and privacy">Permisos y seguridad</string>
     <string name="disconnect" comment="Action button to terminate active ADB connection">Desconectar</string>
     <string name="disconnected" comment="Status badge showing ADB is currently disconnected">¡Desconectado!</string>
     <string name="discussions" comment="About screen button linking to GitHub Discussions">Debates</string>
     <string name="dismiss">Descartar</string>
-    <string name="do_not_disconnect" comment="Warning shown while the bootloader is writing a partition, when the transfer can no longer be stopped">Escribiendo en el dispositivo. No desconecte o reinicie.</string>
+    <string name="do_not_disconnect" comment="Warning shown while the bootloader is writing a partition, when the transfer can no longer be stopped">Escribiendo en el dispositivo. No lo desconectes ni lo reinicies.</string>
     <string name="done">Hecho</string>
     <string name="download">Descargar</string>
     <string name="download_failed" comment="Toast message when in-app updater APK download fails">La descarga falló</string>
-    <string name="download_material_icons" comment="Button label to download the Material Icons font pack for QS tile icon chooser">Descargar iconos Material</string>
+    <string name="download_material_icons" comment="Button label to download the Material Icons font pack for QS tile icon chooser">Descargar iconos de Material Design</string>
     <string name="downloading" comment="Progress status text while downloading update package">Descargando…</string>
     <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Descargando copia de seguridad desde Google Drive…</string>
-    <string name="downloading_icon_pack" comment="Progress status text while downloading Material Icons font for QS tile icon chooser">Descargando pack de iconos…</string>
+    <string name="downloading_icon_pack" comment="Progress status text while downloading Material Icons font for QS tile icon chooser">Descargando paquete de iconos…</string>
     <string name="downloading_to_device" comment="%1$s = file size in megabytes. Progress status while an image is being sent to the bootloader">Descargando %1$s MB al dispositivo…</string>
     <string name="downloads" comment="Screen header or list item for downloaded files">Descargas</string>
     <string name="duplicate_tile_name_error_msg" comment="Validation error in Quick Settings tile builder when entered tile name already exists">Ya existe un mosaico con este nombre</string>
@@ -442,7 +442,7 @@
     <string name="edit_theme_title" comment="%1$s = theme name">Editar tema: %1$s</string>
     <string name="edit_tile" comment="Screen title for modifying a Quick Settings tile configuration">Editar mosaico</string>
     <string name="empty_folder" comment="Placeholder text in file browser when current folder contains no files">Esta carpeta está vacía</string>
-    <string name="enable_auto_backup" comment="Toggle setting title to enable scheduled automated local backups">Activar la copia de seguridad automática</string>
+    <string name="enable_auto_backup" comment="Toggle setting title to enable scheduled automated local backups">Activar copia de seguridad automática</string>
     <string name="enable_auto_update" comment="Toggle setting title to enable automatic update checking">Activar la actualización automática</string>
     <string name="enable_cloud_auto_backup" comment="Toggle setting title to enable automated backups to Google Drive">Copia de seguridad automática en Google Drive</string>
     <string name="enable_direct_download" comment="Toggle setting title to download APK release files directly within app instead of opening browser release page">Activar la descarga directa de APK</string>
@@ -453,7 +453,7 @@
     <string name="enter">Introducir</string>
     <string name="enter_command" comment="Input hint placeholder format for entering fastboot commands">fastboot &lt;comando&gt;</string>
     <string name="enter_pairing_code" comment="Instructional header in Wireless Debugging pairing dialog asking for 6-digit code">Introduce el código de emparejamiento de 6 dígitos</string>
-    <string name="erase_complete" comment="Status shown when a fastboot partition erase finished successfully">Erase complete</string>
+    <string name="erase_complete" comment="Status shown when a fastboot partition erase finished successfully">Borrado completado</string>
     <string name="erase_confirm_message" comment="%1$s = partition name (e.g. cache, userdata). Warning dialog before fastboot partition erase">Esto borrará permanentemente la partición %1$s. Esta acción no se puede deshacer.</string>
     <string name="erase_confirm_title" comment="%1$s = partition name. Dialog title for partition erase confirmation">¿Borrar %1$s?</string>
     <string name="erase_failed" comment="%1$s = error text returned by the bootloader. Shown when a fastboot partition erase fails">Error al borrar: %1$s</string>
@@ -468,16 +468,16 @@
     <string name="experimental" comment="Badge or section title marking experimental features">Experimental</string>
     <string name="failed">Falló</string>
     <string name="failed_to_claim_interface" comment="Technical error message when USB OTG interface claim fails">No se pudo reclamar la interfaz</string>
-    <string name="failed_to_copy" comment="Toast notification when copying text or file fails">No se pudo copiar</string>
+    <string name="failed_to_copy" comment="Toast notification when copying text or file fails">Error al copiar</string>
     <string name="failed_to_open_usb_connection" comment="Error toast when USB OTG connection fails">No se pudo abrir la conexión USB. ¿La depuración USB está activada?</string>
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; Recovery</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">Próximamente</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">Consola de comandos</string>
-    <string name="fastboot_command_hint" comment="Placeholder hint in fastboot command input field">Introduzca el comando de fastboot…</string>
+    <string name="fastboot_command_hint" comment="Placeholder hint in fastboot command input field">Introduce un comando de fastboot…</string>
     <string name="fastboot_device_info" comment="Card header displaying target device variables queried over fastboot">Información del dispositivo</string>
     <string name="fastboot_partitions" comment="Tab title for Fastboot partition manager tool">Particiones</string>
     <string name="fastboot_quick_actions" comment="Section header for predefined quick fastboot action buttons">Acciones rápidas</string>
-    <string name="fastboot_summary" comment="Feature description card text for Fastboot OTG mode">Conectar a un dispositivo en modo fastboot mediante OTG</string>
+    <string name="fastboot_summary" comment="Feature description card text for Fastboot OTG mode">Conectarse a un dispositivo en modo fastboot mediante OTG</string>
     <string name="fastboot_variable_explorer" comment="Tab title for Fastboot variable query screen">Explorador de variables</string>
     <string name="fb_all_operations_cancelled" comment="Notification toast when all file browser queue operations are cancelled">Todas las operaciones fueron canceladas</string>
     <string name="fb_cannot_paste_into_selected" comment="Error toast in file browser when target paste item is a file instead of a folder">No se puede pegar en la carpeta seleccionada</string>
@@ -505,8 +505,8 @@
     <string name="fb_uploading" comment="%1$s = file name">Subiendo %1$s</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">Solicitud de función</string>
     <string name="feedback">Comentarios</string>
-    <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Recuperando tiempo de copia de seguridad …</string>
-    <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Recuperando el tipo de copia de seguridad…</string>
+    <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Obteniendo la hora de la copia de seguridad…</string>
+    <string name="fetching_backup_type" comment="Progress status text while retrieving backup metadata from Google Drive">Obteniendo el tipo de copia de seguridad…</string>
     <string name="field_cannot_be_blank" comment="Validation error for mandatory text input fields">El campo no puede estar vacío</string>
     <string name="file">Archivo</string>
     <string name="file_actions" comment="Bottom sheet title for file operations (copy, move, delete, rename)">Acciones de archivo</string>
@@ -521,10 +521,10 @@
     <string name="file_size_unknown" comment="Error shown when the size of the selected update package cannot be determined, which the ADB sideload protocol requires">No se puede determinar el tamaño del archivo</string>
     <string name="filter">Filtro</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">Filtrar por etiquetas</string>
-    <string name="flash_complete" comment="Status shown when a fastboot partition flash finished successfully">Flash completo</string>
-    <string name="flash_failed" comment="%1$s = error text returned by the bootloader. Shown when a fastboot partition flash fails">Flash falló: %1$s</string>
+    <string name="flash_complete" comment="Status shown when a fastboot partition flash finished successfully">Flasheo completado</string>
+    <string name="flash_failed" comment="%1$s = error text returned by the bootloader. Shown when a fastboot partition flash fails">Error al flashear: %1$s</string>
     <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">Flashear partición</string>
-    <string name="flashing" comment="Progress status header while partition flashing is in progress">Flashear…</string>
+    <string name="flashing" comment="Progress status header while partition flashing is in progress">Flasheando…</string>
     <string name="folder">Carpeta</string>
     <string name="folder_already_exists" comment="Validation error when creating a directory with duplicate name">Ya existe una carpeta con este nombre</string>
     <string name="folder_conflict_title" comment="Dialog header when creating folder collides with existing folder name">La carpeta ya existe</string>
@@ -543,13 +543,13 @@
     <string name="full_screen">Pantalla completa</string>
     <string name="gemini_api_key_step_1" comment="%1$s = URL">Visita Google AI Studio en %1$s</string>
     <string name="gemini_api_key_step_2" comment="Step 2 of API key setup guide: signing in with Google Account">Inicia sesión con tu cuenta de Google</string>
-    <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">Haz clic en Crear clave de API y selecciona o crea un proyecto</string>
+    <string name="gemini_api_key_step_3" comment="Step 3 of API key setup guide: creating API key project in Google AI Studio">Haz clic en Crear clave API y selecciona o crea un proyecto</string>
     <string name="gemini_api_key_step_4" comment="Step 4 of API key setup guide: copying API key string">Copia tu clave de API y pégala aquí</string>
     <string name="generate_color_scheme" comment="Action button in theme builder to generate Material 3 color palette">Generar combinación de colores</string>
     <string name="generate_scheme" comment="Compact button label to generate theme color scheme">Generar esquema</string>
     <string name="generate_theme" comment="Dialog header or button for AI/wallpaper theme generation">Generar tema</string>
     <string name="generate_tile" comment="Action button in Quick Settings builder to generate tile command via AI">Generar mosaico</string>
-    <string name="get_api_key" comment="Button linking to Google AI Studio website to create an API key">Obtener clave de API</string>
+    <string name="get_api_key" comment="Button linking to Google AI Studio website to create an API key">Obtener clave API</string>
     <string name="get_variables" comment="Action button in Fastboot screen to query fastboot device variables">Obtener variables</string>
     <string name="go_home" comment="Button label to navigate back to home screen dashboard">Ir a inicio</string>
     <string name="go_to_terminal" comment="Button label to navigate to terminal command input screen">Ir al terminal</string>
@@ -557,22 +557,22 @@
     <string name="gpl_3_0_description" comment="Summary text explaining GNU General Public License v3 terms for aShellYou">aShell You es software libre: puedes redistribuirlo y/o modificarlo bajo los términos de la Licencia Pública General de GNU publicada por la Free Software Foundation, ya sea la versión 3 de la Licencia o (a tu elección) cualquier versión posterior.</string>
     <string name="grant" comment="Button label to approve permission grant request">Conceder</string>
     <string name="grant_permission" comment="Action button to trigger system permission request dialog">Conceder permiso</string>
-    <string name="grant_shizuku_permission_for_tiles" comment="Warning alert shown when Shizuku permission is missing for Quick Settings tiles">¡No se ha concedido el permiso de Shizuku!\naShell You necesita el permiso de Shizuku para ejecutar los comandos del mosaico.</string>
+    <string name="grant_shizuku_permission_for_tiles" comment="Warning alert shown when Shizuku permission is missing for Quick Settings tiles">Shizuku permission is not granted!\naShell You needs Shizuku permission to execute the tile commands.</string>
     <string name="great_news" comment="Dialog title header for update available notification">¡Buenas noticias!</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">Haptics &amp; Vibration</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">¡Que tengas un buen día!</string>
-    <string name="heuristic">Heuristic</string>
+    <string name="heuristic">Heurístico</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Editor hexadecimal</string>
     <string name="high" comment="Selection option for high haptic strength or elevation level">Alto</string>
     <string name="high_contrast_dark_mode" comment="Settings preference title for OLED pitch-black dark theme">Modo oscuro de alto contraste</string>
     <string name="hint" comment="Card header or field label for helpful hints">Sugerencia</string>
     <string name="history" comment="Screen title and tab label for executed terminal command history">Historial</string>
     <string name="home">Inicio</string>
-    <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">Cómo entrar en modo sideload</string>
+    <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">Cómo entrar en el modo sideload</string>
     <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">Icono seleccionado</string>
-    <string name="image_too_large" comment="%1$s = the largest size in megabytes the device accepts. Error shown when the chosen image is bigger than the bootloader can buffer">La imagen es mayor que la %1$s MB que este dispositivo acepta</string>
-    <string name="import_font" comment="Content description for the import font icon button in the font style picker">Import font</string>
-    <string name="import_font_name_hint" comment="Input field placeholder for the user-assigned display name of an imported font">Font name</string>
+    <string name="image_too_large" comment="%1$s = the largest size in megabytes the device accepts. Error shown when the chosen image is bigger than the bootloader can buffer">La imagen es más grande que los %1$s MB que este dispositivo acepta</string>
+    <string name="import_font" comment="Content description for the import font icon button in the font style picker">Importar fuente</string>
+    <string name="import_font_name_hint" comment="Input field placeholder for the user-assigned display name of an imported font">Nombre de la fuente</string>
     <string name="import_theme" comment="Action button to import theme configuration file">Importar tema</string>
     <string name="include" comment="Filter toggle option to include selected items">Incluir</string>
     <string name="info">Información</string>
@@ -600,11 +600,11 @@
     <string name="launch">Iniciar</string>
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">Desarrollador principal</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">Menos usado</string>
-    <string name="legal_and_policies" comment="Group header for legal settings">Legal &amp; Políticas</string>
+    <string name="legal_and_policies" comment="Group header for legal settings">Legal &amp; Policies</string>
     <string name="legal_consent_text">He leído y acepto los %1$s y %2$s.</string>
     <string name="legal_docs_updated" comment="Title for the dialog shown when legal docs are updated">Políticas legales actualizadas</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">Nivel</string>
-    <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">Bibliotecas &amp; Licencias</string>
+    <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">Libraries &amp; Licenses</string>
     <string name="library_count" comment="%1$d = number of third-party libraries">%1$d librerías detectadas</string>
     <string name="license" comment="Card label for software license type">Licencia</string>
     <string name="license_label" comment="Header label for software license info">Licencia</string>
@@ -613,53 +613,53 @@
     <string name="load_predefined_commands" comment="Button label in fastboot screen to load preset fastboot commands">Cargar comandos predefinidos</string>
     <string name="loading">Cargando</string>
     <string name="loading_device_info" comment="Progress status text while querying ADB device specifications">Cargando información del dispositivo…</string>
-    <string name="loading_licenses" comment="Progress status text while loading open-source license files">Cargando información de licencia…</string>
+    <string name="loading_licenses" comment="Progress status text while loading open-source license files">Cargando información de la licencia…</string>
     <string name="local_adb" comment="Connection mode option: run ADB commands locally on host device using Shizuku or Root">ADB local</string>
     <string name="local_adb_shell" comment="Screen header for local device ADB shell terminal">Shell ADB local</string>
     <string name="local_adb_summary" comment="Summary text for local ADB feature card">Ejecuta comandos ADB directamente en tu dispositivo usando Shizuku o acceso root.</string>
     <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">Copia de seguridad local</string>
     <string name="local_file" comment="Source option label for picking local backup file">Archivo local</string>
     <string name="locked" comment="Status badge showing bootloader lock state is locked">Bloqueado</string>
-    <string name="log_buffer_size" comment="Title of the setting choosing how much memory the logcat buffer may use">Tamaño del búfer de registro</string>
+    <string name="log_buffer_size" comment="Title of the setting choosing how much memory the logcat buffer may use">Tamaño del búfer de registros</string>
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">Registros borrados</string>
     <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">Paquete</string>
     <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">Niveles de registro</string>
-    <string name="logcat_filter_search_hint" comment="Placeholder text in logcat search bar">Buscar en mensajes…</string>
+    <string name="logcat_filter_search_hint" comment="Placeholder text in logcat search bar">Buscar en los mensajes…</string>
     <string name="logcat_is_running" comment="Status banner shown while background logcat collection is active">Logcat está en ejecución</string>
     <string name="logcat_ive_granted_it" comment="Button in logcat permission dialog confirming user ran ADB grant command on PC">Lo he concedido</string>
     <string name="logcat_no_logs" comment="Placeholder text in logcat screen when no log entries match current filters">Aún no hay registros</string>
-    <string name="logcat_notification_channel_description" comment="Android Notification Channel description for logcat background session">Se muestra mientras logcat recopila registros activamente</string>
+    <string name="logcat_notification_channel_description" comment="Android Notification Channel description for logcat background session">Se muestra mientras logcat está recopilando registros activamente</string>
     <string name="logcat_notification_channel_name" comment="Android Notification Channel name for Logcat background collection">Sesión de logcat</string>
-    <string name="logcat_permission_instructions" comment="Dialog body explaining that logcat is blocked until the READ_LOGS permission is granted via ADB from a computer; followed by the command block">Los registros del sistema requieren el permiso READ_LOGS, que sólo se puede conceder desde un ordenador. Ejecute este comando y luego pulse \"Lo he concedido\":</string>
-    <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide; also the label of the logcat source option that needs it">Permiso de acceso a los registros</string>
-    <string name="logcat_read_logs_mode_description" comment="Description under the Log access logcat source option; READ_LOGS is an Android permission name">Necesita el permiso READ_LOGS, concedido una vez desde un ordenador a través de ADB</string>
-    <string name="logcat_restart_after_grant_message" comment="Dialog body shown after READ_LOGS was granted; the app process must restart before the permission takes effect">Permiso concedido. aShellYou necesita reiniciar antes de poder leer los registros del sistema.</string>
+    <string name="logcat_permission_instructions" comment="Dialog body explaining that logcat is blocked until the READ_LOGS permission is granted via ADB from a computer; followed by the command block">Los registros del sistema requieren el permiso READ_LOGS, el cual solo se puede conceder desde un ordenador. Ejecuta este comando y luego toca \"Ya lo he concedido\":</string>
+    <string name="logcat_permission_title" comment="Dialog title for Logcat READ_LOGS permission setup guide; also the label of the logcat source option that needs it">Permiso de acceso a registros</string>
+    <string name="logcat_read_logs_mode_description" comment="Description under the Log access logcat source option; READ_LOGS is an Android permission name">Necesita el permiso READ_LOGS, concedido una vez desde un ordenador mediante ADB</string>
+    <string name="logcat_restart_after_grant_message" comment="Dialog body shown after READ_LOGS was granted; the app process must restart before the permission takes effect">Permiso concedido. aShellYou necesita reiniciarse antes de poder leer los registros del sistema.</string>
     <string name="logcat_running_description" comment="Notification body text shown while logcat runs in background">aShellYou está recopilando registros del sistema en segundo plano</string>
-    <string name="logcat_shortcut_long_label" comment="App launcher shortcut label for launching directly into Logcat Viewer">Abrir el visor de Logcat</string>
+    <string name="logcat_shortcut_long_label" comment="App launcher shortcut label for launching directly into Logcat Viewer">Abrir el visor de logcat</string>
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Origen de logcat</string>
-    <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">Pulsa ▶️ para iniciar el logcat</string>
+    <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">Toca ▶ para iniciar logcat</string>
     <string name="logs" comment="Screen header or tab title for application and execution log views">Registros</string>
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Look &amp; Feel</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">Bajo</string>
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">Relación de contraste baja</string>
-    <string name="low_risk">Bajo riesgo</string>
+    <string name="low_risk">Riesgo bajo</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">Crea tu tema</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">Emparejamiento manual</string>
-    <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Iconos Material</string>
-    <string name="material_icons_description" comment="Informational text in icon chooser explaining the Material Icons download">Descargar ~380 KB una vez para navegar 2.500 + iconos Material</string>
-    <string name="max_download_size" comment="Setting label for capping maximum update download file size">Descarga máx</string>
+    <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Iconos de Material Design</string>
+    <string name="material_icons_description" comment="Informational text in icon chooser explaining the Material Icons download">Descarga ~380 KB una vez para explorar más de 2500 iconos de Material</string>
+    <string name="max_download_size" comment="Setting label for capping maximum update download file size">Descarga máxima</string>
     <string name="medium">Medio</string>
     <string name="merge" comment="Resolution option in file browser conflict dialog to merge directory contents">Combinar</string>
     <string name="message">Mensaje</string>
-    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">Mensaje de Agente ADB</string>
+    <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">Enviar mensaje al agente ADB</string>
     <string name="minimize" comment="Action button to minimize terminal overlay window">Minimizar</string>
     <string name="mode" comment="Header title for ADB execution engine mode selector">Modo</string>
     <string name="mode_one_desc" comment="Description for Root execution engine option in settings">Usa el acceso root para ejecutar comandos. Los comandos que requieren root pueden ejecutarse.</string>
     <string name="mode_two_desc" comment="Description for Shizuku execution engine option in settings">Usa Shizuku para ejecutar comandos. Los comandos que requieren root no se ejecutarán.</string>
-    <string name="model_category_large" comment="AI model size category label">Grande (1,5–2,5 GB)</string>
-    <string name="model_category_medium" comment="AI model size category label">Media (800 MB–1,1 GB)</string>
+    <string name="model_category_large" comment="AI model size category label">Grande (1.5–2.5 GB)</string>
+    <string name="model_category_medium" comment="AI model size category label">Mediano (800 MB–1.1 GB)</string>
     <string name="model_category_small" comment="AI model size category label">Pequeño (300–500 MB)</string>
-    <string name="model_category_tiny" comment="AI model size category label">Muy pequeño (menos de 300 MB)</string>
+    <string name="model_category_tiny" comment="AI model size category label">Mini (menos de 300 MB)</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">Modelos</string>
     <string name="moderate">Moderado</string>
     <string name="modified" comment="File property: last modified date">Modificado</string>
@@ -672,7 +672,7 @@
     <string name="n_days" comment="%d = number of days for cache duration setting">%d días</string>
     <string name="name">Nombre</string>
     <string name="network_error" comment="Toast error message when network connection fails during wireless pairing or cloud backup">Error de red</string>
-    <string name="new_commands_available_msg" comment="Banner prompt shown when updated command templates are available to load into database">¡Se han añadido nuevos ejemplos de comandos!\nHaz clic en el botón de abajo para cargar los nuevos comandos.</string>
+    <string name="new_commands_available_msg" comment="Banner prompt shown when updated command templates are available to load into database">New command examples are added!\nClick on the button below to load the new commands.</string>
     <string name="new_folder" comment="Action button label in file browser to create a new directory">Nueva carpeta</string>
     <string name="new_name" comment="Text field label for entering new item or file name">Nuevo nombre</string>
     <string name="newest" comment="Sorting option for items by creation date (newest first)">Más reciente</string>
@@ -682,12 +682,12 @@
     <string name="no_bookmarks" comment="Placeholder text in bookmarks tab when no commands are saved">No se encontraron marcadores</string>
     <string name="no_changelog_found" comment="Placeholder message in changelog screen when no version notes exist">No se ha encontrado ningún registro de cambios para esta versión</string>
     <string name="no_cloud_backup_found" comment="Status banner when no backup file is found on Google Drive">No se encontró ninguna copia de seguridad en Google Drive</string>
-    <string name="no_commands_run_yet" comment="Placeholder message when no fastboot commands have been run in session">Aún no se ha ejecutado ningún comando</string>
+    <string name="no_commands_run_yet" comment="Placeholder message when no fastboot commands have been run in session">Todavía no se ha ejecutado ningún comando</string>
     <string name="no_crashes" comment="Placeholder text in crash history screen when no app crashes have occurred">No se han reportado fallos. aShell You está funcionando correctamente.</string>
-    <string name="no_custom_themes_yet" comment="Placeholder text in theme manager screen when no custom themes exist">Aún no hay temas personalizados. ¡Crea uno abajo!</string>
+    <string name="no_custom_themes_yet" comment="Placeholder text in theme manager screen when no custom themes exist">No hay temas personalizados todavía. ¡Crea uno abajo!</string>
     <string name="no_device_connected" comment="Status banner shown when no wireless or OTG ADB device is connected">Ningún dispositivo conectado</string>
     <string name="no_fastboot_device_error" comment="Error banner in fastboot screen when connected USB device is not in fastboot mode">El dispositivo conectado no está en modo fastboot</string>
-    <string name="no_fastboot_interface_found" comment="Error shown when the attached USB device does not expose a fastboot interface">El dispositivo USB conectado no tiene interfaz de arranque rápido</string>
+    <string name="no_fastboot_interface_found" comment="Error shown when the attached USB device does not expose a fastboot interface">El dispositivo USB conectado no tiene interfaz de fastboot</string>
     <string name="no_files_download" comment="Toast warning in file browser when user selects directory instead of files for download">No se ha seleccionado ningún archivo (las carpetas no se pueden descargar)</string>
     <string name="no_folder_selected" comment="Placeholder status text when no backup directory is picked">Ninguna carpeta seleccionada</string>
     <string name="no_google_account_message" comment="Dialog message when no Google account is registered on device for cloud backups">No se encontró ninguna cuenta de Google en este dispositivo. ¿Te gustaría añadir una para usar las copias de seguridad en la nube?</string>
@@ -703,7 +703,7 @@
     <string name="no_root_access" comment="Error toast or status badge when root superuser access is unavailable">Sin acceso root</string>
     <string name="no_saved_devices" comment="Placeholder text in saved devices screen when no ADB target devices are paired">No hay dispositivos guardados</string>
     <string name="no_search_results_found" comment="Placeholder text when command search yields no results">No se encontraron resultados de búsqueda</string>
-    <string name="no_variables_loaded" comment="Placeholder text in fastboot variable explorer tab before querying getvar">No se han cargado variables</string>
+    <string name="no_variables_loaded" comment="Placeholder text in fastboot variable explorer tab before querying getvar">No hay variables cargadas</string>
     <string name="no_wifi_connection" comment="Error banner when Wi-Fi is disabled during Wireless Debugging setup">Sin conexión Wifi</string>
     <string name="none">Ninguno</string>
     <string name="not_signed_in" comment="Status text in cloud backup settings when Google account is signed out">No has iniciado sesión</string>
@@ -717,13 +717,13 @@
     <string name="ok">Aceptar</string>
     <string name="oldest" comment="Sorting option">El más antiguo</string>
     <string name="on">Encendido</string>
-    <string name="on_background">Sobre fondo</string>
-    <string name="on_primary">Sobre color principal</string>
-    <string name="on_primary_container">Sobre contenedor principal</string>
-    <string name="on_secondary">Sobre color secundario</string>
+    <string name="on_background">Sobre el fondo</string>
+    <string name="on_primary">Sobre el color principal</string>
+    <string name="on_primary_container">Sobre el contenedor principal</string>
+    <string name="on_secondary">Sobre el color secundario</string>
     <string name="on_state" comment="Quick Settings tile toggle state label">Encendido</string>
-    <string name="on_surface">Sobre superficie</string>
-    <string name="on_tertiary">Sobre color terciario</string>
+    <string name="on_surface">Sobre la superficie</string>
+    <string name="on_tertiary">Sobre el color terciario</string>
     <string name="open">Abrir</string>
     <string name="open_app_language_settings" comment="Button label on Android 13+ to jump to system per-app language setting screen">Abrir los ajustes de idioma de la aplicación</string>
     <string name="open_issues" comment="GitHub repository open issues count">Abrir incidencias</string>
@@ -772,50 +772,50 @@
     <string name="permissions" comment="Group header for permissions settings">Permisos</string>
     <string name="pick_ashellyou_extension" comment="File picker validation error requiring user to select a .ashellyou backup file">Por favor, selecciona un archivo con la extensión .ashellyou</string>
     <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">Elegir color</string>
-    <string name="pin_all">Fijar seleccionado</string>
+    <string name="pin_all">Fijar selección</string>
     <string name="port" comment="Field label for network port number in wireless ADB manual pairing setup">Puerto</string>
     <string name="possible_reasons" comment="Dialog section header listing potential causes of ADB connection failure">Posibles razones</string>
     <string name="pre_release_github" comment="Option in update channel settings to receive GitHub pre-release builds">Prelanzamiento (GitHub)</string>
     <string name="pre_release_warning" comment="Warning alert header when switching to pre-release update channel">Las compilaciones preliminares pueden ser inestables</string>
-    <string name="pre_release_warning_description" comment="Detailed description of risks when opting into pre-release testing builds">Estas versiones aún están en fase de pruebas y pueden contener funciones sin terminar o errores inesperados. Si decides actualizar a una versión preliminar, ten en cuenta que algunas cosas podrían fallar o comportarse de manera extraña.\nSi encuentras problemas, fallos o comportamientos extraños, repórtalos para que podamos corregirlos y mejorar aShell You antes del lanzamiento estable.\n¡Gracias por ayudarnos a construir algo mejor!</string>
+    <string name="pre_release_warning_description" comment="Detailed description of risks when opting into pre-release testing builds">Estas versiones aún están en fase de pruebas y pueden contener funciones sin terminar o errores inesperados. Si decides actualizar a una versión preliminar, ten en cuenta que algunas cosas podrían fallar o comportarse de manera extraña.\nSi encuentras problemas, fallos o comportamientos extraños, repórtalos para que podamos corregirlos y mejorar aShellYou antes del lanzamiento estable.\n¡Gracias por ayudarnos a construir algo mejor!</string>
     <string name="predefined_commands" comment="Section header for pre-saved fastboot command actions">Comandos predefinidos</string>
-    <string name="predefined_commands_desc" comment="Description under predefined fastboot commands header">Acceso rápido a comandos fastboot comunes. Los resultados se transmiten a la consola de abajo.</string>
-    <string name="preference" comment="Header title for settings preference category">Preferencia</string>
+    <string name="predefined_commands_desc" comment="Description under predefined fastboot commands header">Acceso rápido a comandos comunes de fastboot. Los resultados se muestran en la consola de abajo.</string>
+    <string name="preference" comment="Header title for settings preference category">Preferencias</string>
     <string name="preparing_file" comment="Progress status shown while the update package is being opened before an ADB sideload transfer">Preparando archivo…</string>
     <string name="preview" comment="Tab/section header showing visual preview of custom theme or font">Vista previa</string>
     <string name="primary">Principal</string>
     <string name="primary_container">Contenedor principal</string>
-    <string name="privacy_and_security" comment="Title for the privacy and security settings screen">Privacidad &amp; Seguridad</string>
+    <string name="privacy_and_security" comment="Title for the privacy and security settings screen">Privacy &amp; Security</string>
     <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Política de privacidad</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">Producto</string>
     <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">Pon el dispositivo en modo sideload a través de su menú de recuperación</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">Emparejar por QR</string>
     <string name="qr_pair_hint" comment="Instructional text in QR pairing screen instructing user to scan QR code from target device">Para emparejar un dispositivo con Android 11 o superior, escanea este código QR desde el dispositivo de destino</string>
-    <string name="qr_scanner_location_hint" comment="Instructional hint directing user where to find system QR scanner in target device Developer Options">Escáner QR disponible en:\nOpciones de desarrollador &gt; Depuración inalámbrica &gt; Emparejar usando código QR</string>
+    <string name="qr_scanner_location_hint" comment="Instructional hint directing user where to find system QR scanner in target device Developer Options">QR scanner available at:\nDeveloper Options &gt; Wireless Debugging &gt; Pair using QR Code</string>
     <string name="qs_tiles" comment="Refers to Android System Quick Settings tiles configured for custom ADB scripts">Mosaicos de ajustes rápidos</string>
-    <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">Ajustes Rápidos</string>
+    <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">Mosaicos de ajustes rápidos</string>
     <string name="quick_tools" comment="Section header for fast access utility tools">Herramientas rápidas</string>
     <string name="reading_file" comment="Progress status text while loading file contents into viewer">Leyendo archivo…</string>
     <string name="reading_image_file" comment="Progress status while the selected image file is being read before a fastboot transfer">Leyendo archivo de imagen…</string>
     <string name="ready_to_paste" comment="Status message in file manager when item is stored in paste clipboard">Listo para pegar</string>
-    <string name="reboot_bootloader" comment="Action button / dialog choice to reboot target device into bootloader mode">Reiniciar al gestor de arranque</string>
-    <string name="reboot_confirm_message" comment="%1$s = target boot mode (e.g. recovery, bootloader). Confirmation prompt before rebooting target device">Esto reiniciará el dispositivo conectado a %1$s. ¿Continuar?</string>
+    <string name="reboot_bootloader" comment="Action button / dialog choice to reboot target device into bootloader mode">Reiniciar en el gestor de arranque</string>
+    <string name="reboot_confirm_message" comment="%1$s = target boot mode (e.g. recovery, bootloader). Confirmation prompt before rebooting target device">Esto reiniciará el dispositivo conectado en modo %1$s. ¿Continuar?</string>
     <string name="reboot_confirm_title" comment="Dialog title asking user confirmation before rebooting target device">Confirmar reinicio</string>
-    <string name="reboot_fastbootd" comment="Action button / dialog choice to reboot target device into fastbootd (userspace fastboot) mode">Reiniciar a fastbootd</string>
+    <string name="reboot_fastbootd" comment="Action button / dialog choice to reboot target device into fastbootd (userspace fastboot) mode">Reiniciar en Fastbootd</string>
     <string name="reboot_normal" comment="Action button / dialog choice to perform standard system reboot">Reiniciar</string>
     <string name="reboot_options" comment="Menu header listing target device reboot modes (Normal, Recovery, Bootloader, Fastbootd)">Opciones de reinicio</string>
-    <string name="reboot_recovery" comment="Action button / dialog choice to reboot target device into recovery mode">Reiniciar a recuperación</string>
+    <string name="reboot_recovery" comment="Action button / dialog choice to reboot target device into recovery mode">Reiniciar en modo Recovery</string>
     <string name="recent_activity" comment="Dashboard card header listing recent command executions">Actividad reciente</string>
     <string name="recent_searches" comment="Header title for recent search query history">Búsquedas recientes</string>
     <string name="recommended" comment="Badge label marking recommended settings or AI choices">Recomendado</string>
     <string name="reconnect" comment="Action button to attempt reconnecting to last known wireless ADB device">Volver a conectar</string>
     <string name="reconnect_failed" comment="Toast notification or card status when wireless ADB reconnection fails">Error al reconectar</string>
-    <string name="reconnect_failed_message" comment="Dialog body text detailing causes of wireless ADB reconnection failure">\nEs posible que la Depuración inalámbrica no esté activada.\nLa información de emparejamiento podría haberse perdido. ¡Empareja manualmente de nuevo!</string>
+    <string name="reconnect_failed_message" comment="Dialog body text detailing causes of wireless ADB reconnection failure">Wireless Debugging might not be enabled\nPairing info might be lost. Pair manually again!</string>
     <string name="reconnect_failed_requires_pairing" comment="Toast notification indicating device un-paired and needs re-pairing">La reconexión falló. Es necesario volver a emparejar.</string>
     <string name="reconnect_success" comment="Toast message confirming successful wireless ADB reconnection">Reconectado correctamente</string>
     <string name="reconnect_the_device" comment="Button prompt directing user to reconnect target ADB device">Vuelve a conectar el dispositivo</string>
-    <string name="recovery_not_responding" comment="Error shown when the target device recovery did not start requesting data after the sideload stream was opened">La recuperación no está respondiendo. Selecciona \"Aplicar actualización desde ADB\" en recuperación e inténtalo de nuevo</string>
-    <string name="recovery_reported_failure" comment="Error shown when the target device recovery reported that installing the sideloaded package failed">La recuperación ha informado de que la instalación ha fallado</string>
+    <string name="recovery_not_responding" comment="Error shown when the target device recovery did not start requesting data after the sideload stream was opened">El recovery no responde. Selecciona \"Apply update from ADB\" en el recovery e inténtalo de nuevo</string>
+    <string name="recovery_reported_failure" comment="Error shown when the target device recovery reported that installing the sideloaded package failed">El recovery informó que la instalación falló</string>
     <string name="refresh">Actualizar</string>
     <string name="remove">Eliminar</string>
     <string name="rename">Renombrar</string>
@@ -826,13 +826,13 @@
     <string name="repository" comment="Button in About screen linking to GitHub project repository">Repositorio</string>
     <string name="request_timeout" comment="Error toast when network request or ADB response times out">Tiempo de espera agotado</string>
     <string name="require_auth_for_backups" comment="Toggle title to require auth before restoring backups">Proteger copias de seguridad</string>
-    <string name="require_authentication" comment="Toggle title to require authentication to open the app">Requiere autenticación</string>
+    <string name="require_authentication" comment="Toggle title to require authentication to open the app">Requerir autenticación</string>
     <string name="reset">Restablecer</string>
     <string name="reset_app_settings" comment="Button label in settings to restore default application configuration">Restablecer los ajustes de la aplicación</string>
     <string name="reset_settings_failed" comment="Toast notification when settings reset operation fails">Error al restablecer los ajustes</string>
     <string name="reset_settings_successful" comment="Toast notification confirming settings have been reset to defaults">Los ajustes se restablecieron correctamente</string>
-    <string name="restart_app" comment="Button that closes and relaunches the app">Reiniciar app</string>
-    <string name="restart_required" comment="Dialog title when the app must be restarted for a change to take effect">Es necesario reiniciar</string>
+    <string name="restart_app" comment="Button that closes and relaunches the app">Reiniciar aplicación</string>
+    <string name="restart_required" comment="Dialog title when the app must be restarted for a change to take effect">Reinicio requerido</string>
     <string name="restore">Restaurar</string>
     <string name="restore_app_data" comment="Button label in backup settings to import and restore data from backup file">Restaurar los datos de la aplicación</string>
     <string name="restore_dialog_message" comment="Warning message in restore dialog that existing database will be overwritten">Los datos del archivo guardado sobrescribirán los datos actuales.</string>
@@ -844,9 +844,9 @@
     <string name="retry" comment="Action button to retry failed network connection or command execution">Reintentar</string>
     <string name="root_access_granted" comment="Toast notification confirming superuser root access granted to aShellYou">¡Acceso root concedido!</string>
     <string name="root_unavailable" comment="Dialog title when root access check returns false">Acceso root no disponible</string>
-    <string name="root_unavailable_message" comment="Dialog message explaining root access was not detected on device">No se pudo detectar el acceso root. Asegúrate de que tu dispositivo esté rooteado e inténtalo de nuevo, o cambia a otro origen de logcat.</string>
+    <string name="root_unavailable_message" comment="Dialog message explaining root access was not detected on device">No se pudo detectar el acceso root. Asegúrate de que tu dispositivo tenga acceso root e inténtalo de nuevo, o cambia a otra fuente de logcat.</string>
     <string name="run">Ejecutar</string>
-    <string name="run_a_command_to_see_logs" comment="Instructional prompt under empty fastboot logs view">Usa la pestaña Comandos para ejecutar comandos fastboot</string>
+    <string name="run_a_command_to_see_logs" comment="Instructional prompt under empty fastboot logs view">Usa la pestaña Comandos para ejecutar comandos de fastboot</string>
     <string name="run_command_confirm_message" comment="%1$s = command string to be executed. Confirmation dialog prompt">¿Ejecutar \"%1$s\" en el dispositivo conectado?</string>
     <string name="run_command_confirm_title" comment="Dialog title asking confirmation before executing a fastboot command">¿Ejecutar comando?</string>
     <string name="running" comment="Status badge showing task or command execution is active">En ejecución</string>
@@ -859,17 +859,17 @@
     <string name="save_whole_output" comment="Setting toggle title to export full terminal session output to file">Guardar la salida completa</string>
     <string name="saved_devices" comment="Screen title and list header for paired ADB devices history">Dispositivos guardados</string>
     <string name="saving" comment="Progress status text while saving file or settings">Guardando…</string>
-    <string name="saving_output" comment="Progress status text while exporting terminal log output to file">Exportando salida al archivo…</string>
+    <string name="saving_output" comment="Progress status text while exporting terminal log output to file">Exportando la salida al archivo…</string>
     <string name="schedule" comment="Header title or setting label for automated backup schedule picker">Programación</string>
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">Multiplicador de densidad de pantalla</string>
-    <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">Desplazar hacia abajo</string>
+    <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">Desplazarse al final</string>
     <string name="search">Buscar</string>
     <string name="search_bookmarks_here" comment="Placeholder text in bookmarks tab search bar">Buscar marcadores aquí</string>
     <string name="search_commands_here" comment="Placeholder text in command templates tab search bar">Buscar comandos aquí</string>
     <string name="search_fonts" comment="Placeholder text in font family picker search bar">Buscar fuentes…</string>
     <string name="search_icons_here" comment="Placeholder text in Quick Settings tile icon picker search bar">Buscar iconos aquí</string>
     <string name="search_labels_here" comment="Placeholder text in command label filter search bar">Buscar etiquetas aquí</string>
-    <string name="search_libraries" comment="Placeholder text in open-source licenses search bar">Buscar bibliotecas, autores, licencias…</string>
+    <string name="search_libraries" comment="Placeholder text in open-source licenses search bar">Buscar librerías, autores, licencias…</string>
     <string name="search_output" comment="Placeholder text in terminal output search bar">Buscar salidas aquí</string>
     <string name="search_settings" comment="Placeholder text in settings top search bar">Buscar ajustes</string>
     <string name="search_something" comment="Generic search field placeholder prompt">Buscar ajustes</string>
@@ -881,7 +881,7 @@
     <string name="select">Seleccionar</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="select_backup_folder_message" comment="Dialog message prompting user to grant folder access for local automated backups">Por favor, selecciona una carpeta donde se guardarán las copias de seguridad. La aplicación necesita acceso de lectura y escritura a esta carpeta.</string>
-    <string name="select_backup_folder_title" comment="Dialog title when no backup directory has been configured">No hay carpeta de copia de seguridad</string>
+    <string name="select_backup_folder_title" comment="Dialog title when no backup directory has been configured">Sin carpeta de copia de seguridad</string>
     <string name="select_folder" comment="Action button to open system directory picker for backup storage">Seleccionar carpeta</string>
     <string name="select_partition" comment="Dropdown hint or dialog header for picking target fastboot partition">Seleccionar partición</string>
     <string name="select_theme_to_edit_hex" comment="Instructional prompt under hex editor section in theme builder">Selecciona un tema arriba para editar sus valores hexadecimales aquí.</string>
@@ -896,10 +896,10 @@
     <string name="self_pair_error_saving" comment="Toast error message when storing self-paired device credentials fails">Error al guardar el dispositivo</string>
     <string name="self_pair_failed" comment="Toast notification when local self-pairing operation fails">El emparejamiento falló</string>
     <string name="self_pair_found" comment="Status message when local device mDNS ADB pairing service is detected">¡Servicio de emparejamiento encontrado!</string>
-    <string name="self_pair_in_progress" comment="Progress status text shown while establishing local ADB self-pairing connection">Emparejando en progreso…</string>
+    <string name="self_pair_in_progress" comment="Progress status text shown while establishing local ADB self-pairing connection">Emparejamiento en curso…</string>
     <string name="self_pair_in_progress_hint" comment="Instructional hint displayed during local ADB self-pairing">Por favor, espera mientras se conecta a este dispositivo</string>
     <string name="self_pair_pairing_not_found" comment="Error notification when mDNS ADB pairing service is not broadcasting">Servicio de emparejamiento no encontrado</string>
-    <string name="self_pair_searching" comment="Progress status text while scanning for local mDNS pairing service">Buscando servicio de emparejamiento…</string>
+    <string name="self_pair_searching" comment="Progress status text while scanning for local mDNS pairing service">Buscando el servicio de emparejamiento…</string>
     <string name="self_pair_searching_hint" comment="Instructional prompt directing user to open Wireless Debugging pairing dialog">Abre la Depuración inalámbrica y toca \"Emparejar dispositivo con código de sincronización\"</string>
     <string name="self_pair_success" comment="Toast confirmation message when local ADB self-pairing succeeds">¡Conectado a este dispositivo!</string>
     <string name="self_pair_success_hint" comment="Subtext banner confirming local ADB terminal session is ready">La shell ADB local ya está disponible</string>
@@ -908,7 +908,7 @@
     <string name="send">Enviar</string>
     <string name="sending_progress" comment="%1$d = percent sent, %2$s = file size in megabytes. Progress status during a fastboot image transfer">Enviando %1$d%% (%2$s MB)</string>
     <string name="serial_number" comment="Device property label displaying target device hardware serial number">Número de serie</string>
-    <string name="serif" comment="Font style category name">Serifa</string>
+    <string name="serif" comment="Font style category name">Serif</string>
     <string name="set_local_adb_as_default_launch" comment="Setting toggle title to launch Local ADB screen directly when the app starts">Establecer ADB local como inicio predeterminado</string>
     <string name="settings">Ajustes</string>
     <string name="settings_only" comment="Option in backup screen to export only application settings (excluding history/bookmarks)">Solo ajustes</string>
@@ -917,36 +917,36 @@
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">La salida de la consola se ha exportado a ‘%s’</string>
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">Shizuku no está instalado</string>
     <string name="shizuku_process_start_failed" comment="Inline shell error shown when the Shizuku helper service could not start the command. %1$s is the technical reason">Shizuku no pudo iniciar el comando: %1$s</string>
-    <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">El servicio Shizuku no está disponible. Asegúrese de que Shizuku o Shizuku+ se está ejecutando y se concede permiso.</string>
+    <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">El servicio Shizuku no está disponible. Asegúrate de que Shizuku o Shizuku+ se esté ejecutando y se hayan concedido los permisos.</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku no está disponible</string>
-    <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">Shizuku o Shizuku+ no está instalado o configurado correctamente en su dispositivo</string>
-    <string name="sideload_block_out_of_range" comment="Error shown when the target device recovery requested a part of the package beyond its end; usually indicates a corrupted transfer">Recuperación solicitó datos más allá del final del archivo</string>
-    <string name="sideload_channel_description" comment="Notification channel description explaining that the channel shows sideload transfer progress">Muestra el progreso de un paquete que se carga a un dispositivo</string>
-    <string name="sideload_channel_name" comment="Notification channel name for the ongoing ADB sideload transfer">Carga lateral ADB</string>
-    <string name="sideload_complete" comment="Status shown when the sideloaded package was fully transferred and recovery confirmed completion">Sideload complete</string>
-    <string name="sideload_connection_timed_out" comment="Error shown when the ADB handshake with the target device did not complete in time; the user may need to accept an authorization prompt on that device">Conexión agotada. Compruebe la pantalla del dispositivo para obtener una solicitud de autorización</string>
-    <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">Pon el dispositivo en modo sideload a través del recovery</string>
-    <string name="sideload_in_progress_stay" comment="Toast shown when the user tries to leave the sideload screen while a package is still being transferred">Transferencia en progreso. Cancela antes de salir de esta pantalla.</string>
-    <string name="sideload_invalid_request" comment="Error shown when the target device sent data that is not a valid ADB sideload request">Recibida una solicitud no válida de recuperación</string>
-    <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Modo Sideload — listo</string>
-    <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">Inicia en modo recovery (mantén pulsados Volumen Abajo + Encendido, o ejecuta: adb reboot recovery)</string>
-    <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">Navega hasta \"Apply update\" en el menú de recuperación</string>
+    <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">Shizuku no está instalado o no está configurado correctamente en tu dispositivo</string>
+    <string name="sideload_block_out_of_range" comment="Error shown when the target device recovery requested a part of the package beyond its end; usually indicates a corrupted transfer">El recovery solicitó datos más allá del final del archivo</string>
+    <string name="sideload_channel_description" comment="Notification channel description explaining that the channel shows sideload transfer progress">Muestra el progreso de un paquete que se está transfiriendo mediante sideload a un dispositivo</string>
+    <string name="sideload_channel_name" comment="Notification channel name for the ongoing ADB sideload transfer">ADB Sideload</string>
+    <string name="sideload_complete" comment="Status shown when the sideloaded package was fully transferred and recovery confirmed completion">Sideload completado</string>
+    <string name="sideload_connection_timed_out" comment="Error shown when the ADB handshake with the target device did not complete in time; the user may need to accept an authorization prompt on that device">Tiempo de espera de conexión agotado. Comprueba la pantalla del dispositivo para ver si hay una solicitud de autorización</string>
+    <string name="sideload_device_hint" comment="Instructional hint under status card guiding user to open recovery menu on target device">Pon el dispositivo en modo sideload mediante el recovery</string>
+    <string name="sideload_in_progress_stay" comment="Toast shown when the user tries to leave the sideload screen while a package is still being transferred">Transferencia en curso. Cancélala antes de salir de esta pantalla.</string>
+    <string name="sideload_invalid_request" comment="Error shown when the target device sent data that is not a valid ADB sideload request">Se recibió una solicitud no válida del recovery</string>
+    <string name="sideload_mode_ready" comment="Status banner indicating target device is in recovery sideload mode and ready to accept ZIP package over OTG">Modo sideload — listo</string>
+    <string name="sideload_step_1" comment="Step 1 of ADB sideload guide: hardware key combination or ADB command to boot to recovery">Inicia en recovery (mantén presionados los botones Bajar volumen + Encendido, o ejecuta: adb reboot recovery)</string>
+    <string name="sideload_step_2" comment="Step 2 of ADB sideload guide: navigating recovery menu items">Navega hasta \"Apply update\" en el menú de recovery</string>
     <string name="sideload_step_3" comment="Step 3 of ADB sideload guide: selecting ADB sideload mode in recovery">Selecciona \"Apply from ADB\" (o \"ADB Sideload\")</string>
     <string name="sideload_step_4" comment="Step 4 of ADB sideload guide: connecting OTG cable and picking ZIP package">Conecta tu dispositivo mediante un cable OTG y luego selecciona un archivo ZIP aquí</string>
-    <string name="sideload_stream_closed" comment="Error shown when the ADB sideload stream was closed by the target device before the transfer finished">Se cerró la conexión a la recuperación antes de que terminara la transferencia</string>
-    <string name="sideload_stream_rejected" comment="Error shown when the target device refused to open the ADB sideload stream, typically because it is not in sideload mode">Recuperación rechazó la carga lateral. Selecciona \"Aplicar actualización de ADB\" en la recuperación primero</string>
-    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Sideloading…</string>
+    <string name="sideload_stream_closed" comment="Error shown when the ADB sideload stream was closed by the target device before the transfer finished">La conexión con el recovery se cerró antes de que terminara la transferencia</string>
+    <string name="sideload_stream_rejected" comment="Error shown when the target device refused to open the ADB sideload stream, typically because it is not in sideload mode">El recovery rechazó el sideload. Selecciona \"Apply update from ADB\" en el recovery primero</string>
+    <string name="sideloading" comment="Progress status header shown while pushing ZIP file to device via ADB sideload">Aplicando sideload…</string>
     <string name="sign_in_failed" comment="Toast error message when Google account sign-in fails">Error al iniciar sesión con Google</string>
     <string name="sign_in_with_google" comment="Button label in cloud backup settings to sign into Google account">Iniciar sesión con Google</string>
     <string name="sign_out" comment="Button label in cloud backup settings to sign out of Google account">Cerrar sesión</string>
-    <string name="sign_out_confirmation_msg" comment="Warning prompt in sign-out confirmation dialog warning that auto cloud backups will pause">¡Cerrar sesión pausará todas las copias de seguridad automáticas en la nube!\n¿Aún deseas cerrar sesión?</string>
+    <string name="sign_out_confirmation_msg" comment="Warning prompt in sign-out confirmation dialog warning that auto cloud backups will pause">Signing out will pause all automatic cloud backups!\nDo you still want to sign out?</string>
     <string name="signed_in_as" comment="%1$s = user email or name">Has iniciado sesión como %1$s</string>
     <string name="signed_out" comment="Status text in cloud backup card when signed out of Google account">Sesión cerrada</string>
     <string name="size">Tamaño</string>
     <string name="size_megabytes" comment="%1$d = a whole number of megabytes. Shown as a memory size option, e.g. 10 MB">%1$d MB</string>
     <string name="skip">Omitir</string>
     <string name="slide_to_flash" comment="Slider text prompt in fastboot partition flash confirmation sheet">Deslizar para flashear</string>
-    <string name="slide_to_sideload" comment="Slider button prompt to initiate the ADB sideload transfer of chosen ZIP file over OTG">Desliza para aplicar por Sideload</string>
+    <string name="slide_to_sideload" comment="Slider button prompt to initiate the ADB sideload transfer of chosen ZIP file over OTG">Desliza para iniciar Sideload</string>
     <string name="slot_data_unknown" comment="Status text when device A/B slot information cannot be retrieved over fastboot">Datos de ranura desconocidos</string>
     <string name="smooth_scrolling" comment="Settings toggle preference title to enable smooth scrolling animation in terminal">Desplazamiento suave</string>
     <string name="sort">Ordenar</string>
@@ -965,7 +965,7 @@
     <string name="successful_connection_message" comment="Dialog message confirming target ADB device connected successfully">El dispositivo está conectado correctamente. Ahora puedes empezar a ejecutar comandos en el dispositivo de destino.</string>
     <string name="suggested_icons" comment="Header title in tile icon picker listing suggested Material icons">Iconos sugeridos</string>
     <string name="suggestions">Sugerencias</string>
-    <string name="support_bmc" comment="Banner text in About section linking to Buy Me a Coffee donation page">¿Te gusta lo que hago?\nConsidera invitarme a un café</string>
+    <string name="support_bmc" comment="Banner text in About section linking to Buy Me a Coffee donation page">Like what I do?\nConsider buying me a coffee</string>
     <string name="surface">Superficie</string>
     <string name="switch_mode" comment="Action button to switch ADB connection mode between Local ADB, Remote Wireless ADB, and OTG">Cambiar de modo</string>
     <string name="system">Sistema</string>
@@ -975,9 +975,9 @@
     <string name="tab" comment="Settings option for terminal tab indentation behavior">Tabulación</string>
     <string name="tag" comment="Field label for custom command category tag/label">Etiqueta</string>
     <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">Toca para buscar un archivo .zip</string>
-    <string name="tcpip_connect_failed" comment="Toast shown when TCP connection to 127.0.0.1 on the detected port is refused. %1$d is replaced with the port number.">Conexión al puerto %1$d rechazada. El demonio ADB puede no estar escuchando.</string>
+    <string name="tcpip_connect_failed" comment="Toast shown when TCP connection to 127.0.0.1 on the detected port is refused. %1$d is replaced with the port number.">Conexión al puerto %1$d rechazada. Es posible que el daemon de ADB no esté escuchando.</string>
     <string name="tcpip_mode" comment="Label for the TCP/IP local shell working mode (loopback port 5555)">TCP/IP</string>
-    <string name="tcpip_not_available_body" comment="Dialog body explaining how to enable TCP ADB when the system property is missing. The adb command should stay untranslated.">Su dispositivo no tiene TCP ADB habilitado. Conéctate a un PC mediante USB una vez y ejecuta:\n\nadb tcpip 5555\n\nDespués de eso, este modo funciona sin USB o Wi-Fi.</string>
+    <string name="tcpip_not_available_body" comment="Dialog body explaining how to enable TCP ADB when the system property is missing. The adb command should stay untranslated.">Tu dispositivo no tiene habilitado ADB por TCP. Conéctate a un PC mediante USB una vez y ejecuta:\n\nadb tcpip 5555\n\nDespués de eso, este modo funcionará sin USB ni Wi-Fi.</string>
     <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">Modo TCP no disponible</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">Terminal</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Estilo de fuente del Terminal</string>
@@ -1000,7 +1000,7 @@
     <string name="timestamp">Marca de tiempo</string>
     <string name="toggleable">Conmutable</string>
     <string name="total_executions">Ejecuciones totales</string>
-    <string name="transfer_to_device_failed" comment="Error shown when sending an image to a device in fastboot mode failed part way through">Falló la transferencia al dispositivo</string>
+    <string name="transfer_to_device_failed" comment="Error shown when sending an image to a device in fastboot mode failed part way through">La transferencia al dispositivo ha fallado</string>
     <string name="translations">Traducciones</string>
     <string name="translators">Traductores</string>
     <string name="troubleshoot">Solucionar problemas</string>
@@ -1018,7 +1018,7 @@
     <string name="unlock" comment="Button to unlock the app">Desbloquear</string>
     <string name="unlock_status" comment="Device property label displaying bootloader lock state">Estado de desbloqueo</string>
     <string name="unlocked" comment="Status badge showing bootloader is unlocked">Desbloqueado</string>
-    <string name="unpin_all">Desanclar seleccionados</string>
+    <string name="unpin_all">Desfijar selección</string>
     <string name="untitled" comment="Default name fallback for unsaved theme profile or custom tile">Sin título</string>
     <string name="update">Actualizar</string>
     <string name="update_available" comment="Banner title announcing a new application update release">¡Actualización disponible!</string>
@@ -1026,30 +1026,30 @@
     <string name="upload_file" comment="Action button in file browser to upload local file to target device over ADB">Subir archivo</string>
     <string name="uploading" comment="Progress status text shown while uploading file to device">Subiendo…</string>
     <string name="uploading_backup" comment="Progress status text shown while uploading database backup to Google Drive">Subiendo copia de seguridad a Google Drive…</string>
-    <string name="usb_bulk_endpoints_missing" comment="Error shown when the USB fastboot interface lacks the bulk in/out endpoints needed to communicate">La interfaz USB no tiene puntos finales de datos utilizables</string>
+    <string name="usb_bulk_endpoints_missing" comment="Error shown when the USB fastboot interface lacks the bulk in/out endpoints needed to communicate">La interfaz USB no tiene puntos de conexión de datos utilizables</string>
     <string name="usb_claim_failed" comment="Error shown when the app could not take exclusive control of the USB ADB interface, usually because another app is using it">No se pudo reclamar la interfaz USB</string>
-    <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">TCP/IP ADB requiere que la depuración USB esté habilitada en Opciones de Desarrollador</string>
+    <string name="usb_debugging_required_body" comment="Dialog body explaining USB debugging must be on for TCP/IP ADB mode">ADB TCP/IP requiere que la depuración USB esté habilitada en las Opciones de desarrollador</string>
     <string name="usb_debugging_required_title" comment="Dialog title shown when USB debugging is disabled and user tries TCP/IP ADB mode">Depuración USB requerida</string>
     <string name="usb_manager_unavailable" comment="Error toast when system UsbManager service cannot be accessed for OTG ADB">El administrador USB no está disponible en este dispositivo</string>
     <string name="usb_open_failed" comment="Error shown when the USB device could not be opened for communication">No se pudo abrir el dispositivo USB</string>
-    <string name="usb_service_unavailable" comment="Error shown when the Android USB host service is not available on this device">Servicio de host USB no está disponible en este dispositivo</string>
+    <string name="usb_service_unavailable" comment="Error shown when the Android USB host service is not available on this device">El servicio de host USB no está disponible en este dispositivo</string>
     <string name="use">Usar</string>
-    <string name="use_biometrics">Usar biométricos</string>
+    <string name="use_biometrics">Usar datos biométricos</string>
     <string name="use_cases">Casos de uso</string>
     <string name="utilities" comment="Category title in homescreen">Utilidades</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">Variante</string>
-    <string name="verification_failed" comment="Toast error message when AI API key verification fails">Error de verificación</string>
+    <string name="verification_failed" comment="Toast error message when AI API key verification fails">La verificación ha fallado</string>
     <string name="verify_api_key" comment="Action button to validate entered AI API key with remote service">Verificar clave de API</string>
     <string name="verifying" comment="Progress status text while verifying API key validity">Verificando</string>
     <string name="version">Versión</string>
     <string name="version_code" comment="Device/app metadata label for build version code number">Código de versión</string>
     <string name="version_name" comment="Device/app metadata label for human-readable version string">Nombre de la versión</string>
-    <string name="view_license_online_msg" comment="Subtext in license viewer directing user to view license URL online">Toca \'Abrir URL\' para ver la licencia en línea.</string>
+    <string name="view_license_online_msg" comment="Subtext in license viewer directing user to view license URL online">Haz clic en \"Abrir URL\" para ver la licencia en línea.</string>
     <string name="view_on_github" comment="Button linking to GitHub release page or commit diff">Ver en GitHub</string>
     <string name="visit_repo_to_download" comment="Instructions directing user to download the update APK file from GitHub releases">Haz clic en el botón de descarga para obtener la última versión de aShell You desde el repositorio de GitHub.</string>
     <string name="waiting_for_device" comment="Progress status banner while awaiting target device USB OTG attachment">Esperando al dispositivo</string>
-    <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">Esperando a dispositivos…</string>
-    <string name="waiting_for_recovery" comment="Progress status shown after the sideload stream was opened while waiting for the target device recovery to request data">Esperando a la recuperación…</string>
+    <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">Esperando a los dispositivos…</string>
+    <string name="waiting_for_recovery" comment="Progress status shown after the sideload stream was opened while waiting for the target device recovery to request data">Esperando al recovery…</string>
     <string name="want_to_contribute_too" comment="Call-to-action banner in About screen inviting code or translation contributions">¿Quieres contribuir tú también?</string>
     <string name="weekly" comment="Option in backup scheduler frequency selection">Semanalmente</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">¿Qué te gustaría hacer mientras %1$s?</string>
@@ -1059,18 +1059,18 @@
     <string name="wipe_cache_desc" comment="Description for predefined fastboot erase cache command">fastboot erase cache</string>
     <string name="wipe_cache_title" comment="Predefined fastboot command title: erase cache partition">Borrar caché</string>
     <string name="wipe_data" comment="Section header or dialog button to wipe device partitions over fastboot">Borrar datos</string>
-    <string name="wipe_data_description" comment="Subtext warning explaining fastboot partition erase operation">Borra las particiones de tu dispositivo. Selecciona qué partición borrar.</string>
+    <string name="wipe_data_description" comment="Subtext warning explaining fastboot partition erase operation">Borrar particiones de tu dispositivo. Selecciona qué partición deseas borrar.</string>
     <string name="wipe_metadata_desc" comment="Description for predefined fastboot erase metadata command">fastboot erase metadata</string>
     <string name="wipe_metadata_title" comment="Predefined fastboot command title: erase metadata partition">Borrar metadatos</string>
     <string name="wipe_userdata_desc" comment="Description for predefined fastboot erase userdata command">fastboot erase userdata</string>
     <string name="wipe_userdata_title" comment="Predefined fastboot command title: erase userdata partition">Borrar datos de usuario</string>
     <string name="wipe_warning" comment="Warning notice in fastboot partition wipe screen emphasizing data loss risk">Estas operaciones son irreversibles. Procede con precaución.</string>
-    <string name="wireless_debugging_guide_1" comment="Step 1 of Wireless Debugging setup walkthrough">Ve a Opciones de desarrollador &gt; Depuración inalámbrica. Toca en Emparejar dispositivo con código de sincronización.</string>
+    <string name="wireless_debugging_guide_1" comment="Step 1 of Wireless Debugging setup walkthrough">Go to Developer options &gt; Wireless Debugging. Tap on Pair device with Pairing Code.</string>
     <string name="wireless_debugging_guide_2" comment="Step 2 of Wireless Debugging setup walkthrough">Introduce el código de emparejamiento de seis dígitos en la notificación enviada por aShell You.</string>
-    <string name="wireless_debugging_guide_3" comment="Step 3 of Wireless Debugging setup walkthrough">Vuelve a la aplicación y pulsa el botón &quot;Iniciar&quot; en la pantalla principal.</string>
+    <string name="wireless_debugging_guide_3" comment="Step 3 of Wireless Debugging setup walkthrough">Come back to the app and click on the &quot;Start&quot; button in the home screen.</string>
     <string name="wireless_debugging_important_notice" comment="Important tip clarifying that tapping the left side of Wireless Debugging switch opens the pairing sub-menu">Ten en cuenta que la parte izquierda de la opción Depuración inalámbrica es pulsable. Al tocarla, se abrirá el menú de emparejamiento de Depuración inalámbrica.</string>
     <string name="wireless_not_connected" comment="Status banner shown when target device is not connected over Wireless Debugging">No conectado</string>
-    <string name="wireless_not_connected_message" comment="Instructional body text advising user to pair and connect device first">Tu dispositivo no está conectado mediante depuración inidlámbrica. Empareja y conecta tu dispositivo primero.</string>
+    <string name="wireless_not_connected_message" comment="Instructional body text advising user to pair and connect device first">Tu dispositivo no está conectado mediante Depuración inalámbrica. Empareja y conecta tu dispositivo primero.</string>
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d nuevo registro</item>
         <item quantity="other">%1$d nuevos registros</item>
@@ -1079,55 +1079,55 @@
         <item quantity="one">%1$d minuto</item>
         <item quantity="other">%1$d minutos</item>
     </plurals>
-    <string name="writing_to_partition" comment="%1$s = partition name. Progress status after the image was sent while the bootloader writes it">Escribiendo a %1$s…</string>
-    <string name="changelog_v7_4_0">\nAhora puedes buscar subajustes dentro de las pantallas de Ajustes\nSe añadieron estilos de paleta para los esquemas de colores\nSe añadió la opción de establecer el idioma de la aplicación directamente desde la aplicación</string>
-    <string name="changelog_v7_3_0">\nMejora de la interfaz en la pantalla de registro de cambios\nAñadidos los colaboradores de traducción en la sección Acerca de\nAñadida la pantalla de Licencias, que muestra información detallada sobre las licencias de la aplicación y de las librerias utilizadas</string>
-    <string name="changelog_v7_2_1">\n¡Actualización de mantenimiento!</string>
-    <string name="changelog_v7_2_0">\nAñadida la opción de ejecutar comandos ADB desde los Ajustes rápidos mediante la creación de mosaicos personalizados.\nAñadida la opción de hacer copias de seguridad en la nube (Google Drive). Esta función solo está disponible en las compilaciones de GitHub.\nMejorado el esquema de colores y la interfaz y experiencia de usuario en muchas áreas.\nAñadidos muchos más ejemplos de comandos ADB.</string>
-    <string name="changelog_v7_1_0">\nCorregido un problema por el cual el teclado en inglés podía no mostrarse en la entrada de comandos cuando el usuario establecía un idioma distinto del inglés para la aplicación\nCorregido un problema por el que el icono de Correo no se mostraba correctamente\nCorregido un problema que provocaba que la app se cerrara al intentar guardar archivos de salida muy grandes\nEliminados permisos redundantes\nMejorada la interfaz en la sección Acerca de</string>
-    <string name="changelog_v7_0_1">\nCorrección relacionada con Fastlane</string>
-    <string name="changelog_v7_0_0">\nInterfaz completamente renovada, utilizando componentes Material Expressive\nReescrita toda la base de código en Kotlin y Jetpack Compose como framework de interfaz\nAñadido gestor de archivos basado en operaciones push &amp; pull\nAñadido el modo de emparejamiento ADB por Wi-Fi mediante código QR\nAñadidas opciones de copia de seguridad de ajustes de la aplicación y de la base de datos\nAñadidas opciones de tematización personalizada\nAñadido historial de fallos para visualizar los registros de cierres de la aplicación\nMejorada la función de actualización automática\nMejoradas la interfaz y la experiencia de usuario en la salida de la terminal\nAñadidas sugerencias de permisos de Android\nRediseñado el diseño de los ejemplos de comandos para incluir etiquetas\nAñadida opción para añadir, editar o eliminar comandos a tu gusto\nSe han corregido numerosos errores existentes</string>
+    <string name="writing_to_partition" comment="%1$s = partition name. Progress status after the image was sent while the bootloader writes it">Escribiendo en %1$s…</string>
+    <string name="changelog_v7_4_0">You can now search Sub-settings inside Settings screens\nAdded Palette Styles for color schemes\nAdded option to set app language directly in-app</string>
+    <string name="changelog_v7_3_0">Improved UI in changelog screen\nAdded translation contributors in about section\nAdded Licenses screen that shows detailed license information about the app and other libraries used by the app</string>
+    <string name="changelog_v7_2_1">Maintenance update!</string>
+    <string name="changelog_v7_2_0">Added option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>
+    <string name="changelog_v7_1_0">Fixed an issue where English keyboard might not show up in command input in case user sets a locale other than English for the app\nFixed an issue with Mail icon not showing properly\nFixed an issue which caused app to crash while trying to save huge file outputs\nRemoved redundant permissions\nImproved UI in About section</string>
+    <string name="changelog_v7_0_1">Fastlane fix</string>
+    <string name="changelog_v7_0_0">Whole UI Revamped, using material expressive components\nRewritten whole codebase in Kotlin and Jetpack Compose as UI Framework\nAdded push &amp; pull based file manager\nAdded QR Wifi Adb Pairing mode\nAdded app settings and database backup options\nAdded custom theming options\nAdded crash history to view app crash logs\nImproved auto update feature\nImproved UI &amp; UX in shell output\nAdded Android permissions suggestions\nRevamped command examples layout to include labels\nAdded option to Add, Edit or Delete commands as you wish\nLots of existing bugs are now fixed</string>
     <string name="changelog_v6_1_0">\nAhora la búsqueda de comandos puede encontrar aquellos que contienen la palabra que escribiste, en comparación con versiones anteriores donde solo buscaba comandos que empezaban con esa palabra.\nOpción para abrir la aplicación Shizuku directamente cuando está instalada pero no está en ejecución.\nSe corrigió el informe de errores integrado en la aplicación, que estaba roto.</string>
-    <string name="changelog_v6_0_3">\nCorregido el problema que provocaba que las traducciones por aplicación no funcionaran en aShell You</string>
+    <string name="changelog_v6_0_3">Fixed the issue which caused per app translations to be broken for aShell You</string>
     <string name="changelog_v6_0_2">\nAdaptadas las GitHub Actions para las compilaciones de lanzamiento.\n¿Qué significa esto para ti?\n¡A partir de esta y de todas las compilaciones posteriores, la seguridad será mayor!</string>
-    <string name="changelog_v6_0_1">\nActualización de mantenimiento</string>
-    <string name="changelog_v6_0_0">\nAñadido modo de DEPURACIÓN INALÁMBRICA para ejecutar comandos ADB tanto en tu propio dispositivo como en otros\nRediseñada la pantalla de inicio para ofrecer una navegación mínima y una interfaz menos recargada\nAñadido aviso de advertencia al ejecutar comandos que afectan a paquetes críticos del sistema\nAñadido actualizador integrado. Ahora puedes descargar directamente el último paquete sin visitar el repositorio de GitHub\nCorregidos numerosos errores</string>
-    <string name="changelog_v5_2_1">\nActualización de mantenimiento</string>
-    <string name="changelog_v5_2_0">\nMejoras en la interfaz de usuario\nCorregidos algunos errores</string>
-    <string name="changelog_v5_1_0">\nPequeñas mejoras en la interfaz de usuario</string>
-    <string name="changelog_v5_0_0">\nGrandes mejoras de UI y UX en todas las secciones de la aplicación\nAñadidos los shells ROOT y BASIC además del shell Shizuku para ejecutar comandos\nAñadida opción para guardar la salida en un directorio personalizado\nCorregidos numerosos errores y problemas\nCódigo de la aplicación optimizado para mejorar el rendimiento y la estabilidad</string>
-    <string name="changelog_v4_4_0">\nSe añadió vibración para la retroalimentación háptica\nSe añadió la opción de cambiar el idioma de la aplicación desde dentro de la aplicación (solo para dispositivos con Android 13 o superior y excluyendo dispositivos no compatibles)\nSe corrigieron algunos cierres inesperados y se mejoró el informe de errores\nMejoras menores en la interfaz de usuario</string>
-    <string name="changelog_v4_3_1">\nAhora la aplicación detecta cualquier fallo y ofrece la opción de reportarlo por correo electrónico</string>
-    <string name="changelog_v4_3_0">\nAñadida opción para abrir directamente la salida guardada\nAñadida opción para guardar toda la salida o solo la salida del último comando\nCorregidos fallos que provocaban cierres inesperados</string>
-    <string name="changelog_v4_2_1">\nCorregido un problema al compartir texto con aShell You en el que el texto no aparecía cuando la app se iniciaba desde cero\nCorregidos pequeños problemas de la interfaz</string>
-    <string name="changelog_v4_2_0">\nLanzamiento estable del modo OTG\nAñadidas funciones como guardar, compartir y botones de desplazamiento rápido en el modo OTG\nAñadidas tarjetas de información para acceso rápido a datos útiles\nAñadido comprobador de actualizaciones dentro de la aplicación, junto con la opción de verificar actualizaciones automáticamente\nMejoras menores en la interfaz</string>
-    <string name="changelog_v4_1_0">\nCorregidos algunos problemas en el soporte OTG para ADB\nActualizadas las traducciones</string>
-    <string name="changelog_v4_0_3">\nActualizadas las dependencias\nAñadidos más ejemplos de comandos</string>
-    <string name="changelog_v4_0_2">\nCorregido el problema por el que el tema AMOLED no funcionaba en dispositivos con Android 11 o versiones anteriores</string>
-    <string name="changelog_v4_0_1">\nAhora puedes fijar comandos para acceder a ellos rápidamente\n\nCorrección de errores y muchas optimizaciones de código</string>
-    <string name="changelog_v4_0_0">\nAhora puedes usar directamente los comandos de la sección Comandos sin necesidad de copiarlos cada vez\n\nSe añadió la opción de eliminar todos los marcadores\nEn la búsqueda: ahora puedes buscar en el resumen de comandos haciendo clic en un chip de comando\nSe añadieron opciones de ordenación en las plantillas de Comandos\nSe añadió la opción de marcar directamente los elementos seleccionados en la sección Comandos\nEl indicador Chip muestra el dispositivo conectado (actualmente solo en modo ADB local)\nSe corrigieron errores que provocaban cierres inesperados en dispositivos con Android 11 o versiones anteriores\nSe añadió la traducción al turco\nMejoras menores en la interfaz\nMuchas otras correcciones de errores</string>
-    <string name="changelog_v3_9_1">\nAñadido el recuento total de marcadores\nCorregidos algunos errores</string>
-    <string name="changelog_v3_9_0">\nSe añadió la búsqueda en la sección Comandos\nSe añadió la opción de establecer el modo de trabajo predeterminado\nIMejoras en las animaciones\nSe rediseñó la sección de marcadores y se añadieron opciones de ordenación\nSe aumentó el límite de marcadores a 25\nSe eliminó el acceso directo del lanzador para ADB Shell y se añadió el acceso directo del lanzador para Comandos\nSe corrigieron problemas de espaciado en la navegación por botones\nSe corrigió la forma de algunos botones</string>
-    <string name="changelog_v3_8_2">\nLa aplicación utiliza una paleta de colores más renovada para el tema Material You\nCorregidos errores menores</string>
-    <string name="changelog_v3_8_1">\nCorregidos algunos fallos que se introdujeron en la versión 3.8.0</string>
-    <string name="changelog_v3_8_0">\nSe añadió el tema negro (AMOLED)\nSe añadió un botón de deshacer para revertir el pegado\nSe añadió la opción de desactivar el teclado táctil\nSe corrigió que algunos botones aparecieran estirados en ciertos tamaños de pantalla\nSe corrigió que el botón de marcadores no apareciera después de abrir la aplicación\nSe renombró la sección Ejemplos a Comandos\nSe corrigió que la opción de copiar comando no apareciera para todas las plantillas de comandos\nLa aplicación ahora utiliza la fuente del sistema en todas partes\nSe mejoró la gestión de la interfaz de usuario\nSe actualizaron las traducciones</string>
-    <string name="changelog_v3_7_0">\nAhora puedes compartir textos desde cualquier lugar de tu dispositivo con aShell You y ejecutar comandos directamente.\n¡Ahora puedes compartir la salida del shell directamente sin necesidad de guardarla!\nMuchas optimizaciones y mejoras en el manejo de la interfaz.\nSe añadieron traducciones al chino.\nSe actualizaron las traducciones.</string>
-    <string name="changelog_v3_6_0">\nSe añadió la opción de limpiar el campo de entrada de comandos después de un error\nSe corrigió un error que provocaba que la aplicación se cerrara al pegar desde el portapapeles bajo ciertas condiciones\nOptimizaciones de código</string>
-    <string name="changelog_v3_5_1">\nCorregidos algunos problemas con la navegación inferior.</string>
-    <string name="changelog_v3_5_0">\nSe renovó por completo la sección Acerca de de la aplicación.\nSe añadieron accesos directos desde el lanzador.\nSe corrigió que el menú de navegación no apareciera con la navegación por botones.\nSe mejoró la visibilidad del menú de navegación inferior al desplazarse.\nSe añadió compatibilidad con idioma por aplicación para aShell You (las traducciones aún no están completas).\nMuchas optimizaciones de código.</string>
-    <string name="changelog_v3_4_0">\nSe añadió un botón Pegar para copiar y pegar comandos rápidamente\nSe añadieron indicadores de error en el campo de entrada de texto.\nSe mejoró la lógica de visibilidad de la barra de navegación.\nSe corrigió un problema donde los interruptores se comportaban de forma incorrecta en ciertas situaciones.\nSe corrigió la visibilidad del icono de añadir marcador en varios niveles de contraste.\nSe realizó una gran optimización del código. La aplicación ahora se abre mucho más rápido que antes.\nLa aplicación permanecerá en segundo plano y no se reiniciará cada vez que la cierres simplemente pulsando el botón de retroceso o usando el gesto correspondiente.</string>
-    <string name="changelog_v3_3_0">\nSe añadieron marcadores, historial y sugerencias de comandos a OTG\nSe añadió un límite máximo de marcadores.\nSe añadió una opción para sobrescribir el límite máximo de marcadores.\nSe corrigieron numerosos errores.\nSe mejoró el manejo de algunos elementos de la interfaz de usuario.\nSe realizó una gran optimización del código.</string>
+    <string name="changelog_v6_0_1">Maintenance update</string>
+    <string name="changelog_v6_0_0">Added WIRELESS DEBUGGING mode for running ADB commands on both own or other device\nRedesigned homepage for minimal navigation and less cluttery input field screen\nAdded Warning feedback when executing commands involving critical system packages\nAdded in-app updater. Now you can directly download the latest package without visiting Github repository\nFixed a lot of bugs</string>
+    <string name="changelog_v5_2_1">Maintenance update</string>
+    <string name="changelog_v5_2_0">UI improvements\nFixed some bugs</string>
+    <string name="changelog_v5_1_0">Small UI improvements</string>
+    <string name="changelog_v5_0_0">Huge UI and UX improvements across all sections of the app\nAdded ROOT and BASIC shell in addition to Shizuku shell for running commands\nAdded option to save output in custom directory\nFixed a lot of bugs and issues\nOptimised app\'s code for better performance and stability</string>
+    <string name="changelog_v4_4_0">Added vibration for haptic feedback\nAdded option to change app language from within the app (for devices running Android 13 and above only and excluding unsupported devices)\nFixed some crashes and improved crash reporting\nMinor UI improvements</string>
+    <string name="changelog_v4_3_1">Now app catches any crashes and provides the option to report them via email</string>
+    <string name="changelog_v4_3_0">Added option to open saved output directly\nAdded option to save whole output or the last command output only\nFixed crashes</string>
+    <string name="changelog_v4_2_1">Fixed an issue with Sharing text to aShell You where the text did not appear when app was starting fresh\nFixed minor UI issues</string>
+    <string name="changelog_v4_2_0">Stable release of OTG mode\nAdded features like save, share, quick scroll buttons to the OTG mode\nAdded info cards for quick information\nAdded in app update checker along with the option to auto check for updates\nMinor UI improvements</string>
+    <string name="changelog_v4_1_0">Fixed some issues in OTG adb support\nUpdated translations</string>
+    <string name="changelog_v4_0_3">Updated dependencies\nAdded more command examples</string>
+    <string name="changelog_v4_0_2">Fixed AMOLED theme not working on devices running Android 11 or below</string>
+    <string name="changelog_v4_0_1">Now you can Pin commands for quick access\n\nBug fixes and lot of code optimisations</string>
+    <string name="changelog_v4_0_0">Now you can directly use commands from the Commands section instead of the need to copy them every time\n\nAdded option to delete all bookmarks\nIn search : You can now search in commands summary by clicking a prompt chip\nAdded sorting options in Commands templates\nAdded option to directly bookmark selected items in Commands section\nChip Indicator shows connected device(currently only in local ADB mode)\nFixed bugs causing crashes in devices running Android 11 or below\nAdded Turkish translation\nMinor UI improvements\nLot of other bug fixes</string>
+    <string name="changelog_v3_9_1">Added total bookmarks count\nFixed some bugs</string>
+    <string name="changelog_v3_9_0">Added Search in commands section\nAdded option to set default working mode\nImproved animations\nReworked bookmarks section and added sorting options\nIncreased bookmarks limit to 25\nRemoved ADB shell launcher shortcut and added Commands launcher shortcut\nFixed padding issues in button navigation\nFixed some buttons shape</string>
+    <string name="changelog_v3_8_2">App uses a more refreshed color palette for material you theming\nFixed minor bugs</string>
+    <string name="changelog_v3_8_1">Fixed some crashes that were introduced in v3.8.0</string>
+    <string name="changelog_v3_8_0">Added black (amoled) theme\nAdded undo button to undo paste\nAdded option to disable soft keyboard\nFixed buttons stretched in some screen sizes\nFixed bookmarks button not appearing after opening the app\nRenamed Examples section to Commands\nFixed copy command option not appearing for every command template\nApp now uses system font everywhere\nImproved UI handling\nUpdated translations</string>
+    <string name="changelog_v3_7_0">Now you can share texts from anywhere on your device to aShell You and run commands directly.\nNow you can share shell output directly without needing to save it !\nA lot of optimisations and UI handling.\nAdded Chinese translations.\nUpdated translations.</string>
+    <string name="changelog_v3_6_0">Added option to clear the command input field after an error\nFixed a bug which caused the app to crash upon pasting from clipboard under certain conditions\nCode optimisations</string>
+    <string name="changelog_v3_5_1">Fixed some issues with bottom navigation.</string>
+    <string name="changelog_v3_5_0">Revamped About section of the app.\nAdded launcher shortcuts.\nFixed navigation menu not showing in button navigation.\nImproved bottom navigation menu visibility on scrolling.\nAdded per app language support for aShell You (translations aren\'t completed yet).\nA lot of code optimisations.</string>
+    <string name="changelog_v3_4_0">Added a Paste button so that you can copy and paste commands quickly.\nAdded Error indicators in the text input field.\nImproved Navigation Bar visibility logic.\nFixed an issue where switches misbehaves under certain situations.\nFixed add bookmark icon visibility in various contrast levels.\nA lot of code optimisation. App now opens a lot faster than before.\nApp will stay in background and won\'t restart every time you close the app by just pressing the back button or gesture.</string>
+    <string name="changelog_v3_3_0">Added bookmarks , history and command suggestions to OTG\nAdded maximum bookmarks limit.\nAdded option to override maximum bookmarks limit.\nA lot of bug fixes.\nImproved some UI handling.\nA lot of code optimisation.</string>
     <string name="changelog_v3_2_0">\nMuchas mejoras relacionadas con la interfaz de usuario.\nSe añadieron chips que indican el modo de funcionamiento actual de ADB.\nSe realizó una gran optimización del código.</string>
-    <string name="changelog_v3_1_0">\nMejoras en ADB OTG tras la versión inicial.\nAlgunos ajustes de interfaz y lógica para adaptarse a la nueva función de OTG.</string>
-    <string name="changelog_v3_0_0">\nSe añadió compatibilidad con ADB a través de OTG.\n\n*** Podrás ejecutar comandos ADB en otros dispositivos usando aShell You conectando el otro dispositivo mediante un cable OTG. ***</string>
-    <string name="changelog_v2_0_2">\nEliminado código y recursos innecesarios.\nPequeños cambios en la interfaz.</string>
-    <string name="changelog_v2_0_1">\nEliminado código y recursos innecesarios.\nPequeños cambios en la interfaz.</string>
-    <string name="changelog_v2_0_0">\nSe cambió el nombre de la aplicación a aShell You.\nSe añadieron animaciones de retroceso predictivo para los dispositivos compatibles.\nSe añadió una ventana de confirmación antes de limpiar la pantalla.\nSe corrigió un problema donde los elementos de la barra de estado no eran visibles correctamente en el modo claro.\nLa aplicación ahora es mucho más fluida.\n~ Se redujo el tamaño de la aplicación y se optimizó el código.\nSe añadió un icono tematizado para los lanzadores que soportan iconos con tema.\nPequeños cambios en la interfaz de usuario.</string>
-    <string name="changelog_v1_3_0">\nPanel de Ajustes renovado.\nSe añadió Doble toque para desplazarse instantáneamente a las posiciones superior e inferior en la vista de salida del shell.\nCorrecciones menores en la interfaz de usuario.</string>
-    <string name="changelog_v1_2_0">\nSe añadió el panel de Ajustes.\nSe añadió una opción para desactivar el desplazamiento suave en la salida del shell.\nSe corrigieron errores importantes:\n\n ~  Cierre inesperado al cambiar el tema del dispositivo.\n\n ~  Cierre inesperado al intentar guardar una salida de shell muy grande, por ejemplo: la salida del comando pm.</string>
-    <string name="changelog_v1_1_1">\nReemplazadas algunas APIs obsoletas.\nPequeños cambios en la interfaz.</string>
-    <string name="changelog_v1_1_0">\nSe añadieron los botones Desplazar arriba y Desplazar abajo.\nSe añadió la opción de enviar comandos pulsando la tecla Enter del teclado.\nSe añadieron algunos comandos nuevos.\nSe actualizaron las dependencias para incluir la última versión de la librería Material You.\nPequeños cambios en la interfaz de usuario.</string>
-    <string name="changelog_v1_0_0">\nSe añadieron más ejemplos de comandos.\nPequeños cambios en la interfaz de usuario.\nSe cambió el nombre del paquete para evitar confusiones de versión con la aplicación original.</string>
-    <string name="changelog_v0_9_1">\nSe añadieron los registros de cambios dentro de la aplicación.\nSe añadió resaltado en la salida del shell.\nPequeños cambios en la interfaz de usuario.</string>
-    <string name="changelog_v0_9_0">\nSe añadió tematización dinámica Material.\nSe renovó por completo la interfaz de usuario para darle un aspecto más fresco.</string>
+    <string name="changelog_v3_1_0">Improvements to ADB OTG after initial release.\nSome UI and logic adjustments to accommodate the new otg feature.</string>
+    <string name="changelog_v3_0_0">Added ADB THROUGH OTG support.\n\n*** You will be able to run ADB commands on other devices using aShellYou by connecting the other device using an OTG cable ***</string>
+    <string name="changelog_v2_0_2">Removed unnecessary code and resources.\nMinor UI changes.</string>
+    <string name="changelog_v2_0_1">Removed unnecessary code and resources.\nMinor UI changes.</string>
+    <string name="changelog_v2_0_0">Changed app name to aShell You.\nAdded predictive back animations for supporting devices.\nAdded confirmation dialog popup before clearing screen.\nFixed StatusBar elements not properly visible in Light mode.\nApp is much more smooth now.\n~ Reduced app size and optimised code.\nAdded themed icon for launchers that support themed icons.\nMinor UI changes.</string>
+    <string name="changelog_v1_3_0">Revamped Settings panel.\nAdded Double Tap to instant scroll to top and bottom positions in shell output view.\nMinor UI fixes.</string>
+    <string name="changelog_v1_2_0">Added Settings panel.\nAdded option to disable smooth scroll in shell output.\nFixed major bugs:\n\n ~  Crash while changing device theme.\n\n ~  Crash while trying to save large shell output . eg : output of \'pm\' command.</string>
+    <string name="changelog_v1_1_1">Replaced some deprecated api.\nMinor UI changes.</string>
+    <string name="changelog_v1_1_0">Added Scroll To Top and Scroll To Bottom buttons.\nAdded Click keyboard Enter key to Send command.\nAdded some commands.\nUpdated dependencies to include latest material you library.\nMinor UI changes.</string>
+    <string name="changelog_v1_0_0">Added some more command examples.\nMinor UI changes.\nChanged package name to avoid version confusion with original app.</string>
+    <string name="changelog_v0_9_1">Added changelogs into the app.\nAdded highlighted shell output.\nMinor UI changes.</string>
+    <string name="changelog_v0_9_0">Added dynamic material theming.\nRevamped whole UI to give a fresh look.</string>
 </resources>
