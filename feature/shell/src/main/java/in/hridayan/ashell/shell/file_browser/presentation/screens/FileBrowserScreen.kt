@@ -560,14 +560,12 @@ fun FileBrowserScreen(
                                             )
                                         }
                                     }
-                                } // End Box
-                            } // End PullToRefreshBox
+                                }
+                            }
                         }
                     }
 
-                    // Progress dialog overlay
                     if (state.operations.isNotEmpty() && !isProgressMinimized) {
-                        val interactionSources = remember { List(2) { MutableInteractionSource() } }
 
                         Box(
                             modifier = Modifier
@@ -635,7 +633,6 @@ fun FileBrowserScreen(
             }
         }
 
-        // Dim overlay for FAB menu
         if (dimAlpha > 0) {
             Box(
                 modifier = Modifier
@@ -650,7 +647,6 @@ fun FileBrowserScreen(
             )
         }
 
-        // Clipboard dock visibility state
         val hasClipboard = clipboardFile != null || clipboardPaths.isNotEmpty()
         val dockHeight by animateDpAsState(
             targetValue = if (hasClipboard) 64.dp else 0.dp,
@@ -658,7 +654,6 @@ fun FileBrowserScreen(
             label = "DockHeightAnimation"
         )
 
-        // Clipboard dock at bottom of screen
         AnimatedVisibility(
             visible = hasClipboard,
             modifier = Modifier.align(Alignment.BottomCenter),
@@ -687,7 +682,6 @@ fun FileBrowserScreen(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    // Cancel button
                     IconButton(
                         onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                             clipboardFile = null
@@ -702,7 +696,6 @@ fun FileBrowserScreen(
                         )
                     }
 
-                    // Status text
                     val operationText = when {
                         clipboardOperation?.isCopy == true -> stringResource(
                             R.string.copying_items,
@@ -722,7 +715,6 @@ fun FileBrowserScreen(
                         color = MaterialTheme.colorScheme.onSurface
                     )
 
-                    // Paste button
                     IconButton(
                         onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                             val paths = if (clipboardOperation?.isBatch == true) {
@@ -758,7 +750,6 @@ fun FileBrowserScreen(
             }
         }
 
-        // FAB column - pushed up when dock is visible
         Column(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
@@ -766,7 +757,6 @@ fun FileBrowserScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            // Minimized progress indicator
             if (state.operations.isNotEmpty() && isProgressMinimized) {
                 SmallFloatingActionButton(
                     onClick = { isProgressMinimized = false },
@@ -785,7 +775,6 @@ fun FileBrowserScreen(
                 }
             }
 
-            // Main FAB menu
             FloatingActionButtonMenu(
                 expanded = fabMenuExpanded,
                 button = {
@@ -860,7 +849,6 @@ fun FileBrowserScreen(
         }
     }
 
-// Dialogs
     if (showCreateFolderDialog) {
         CreateFolderDialog(
             onDismiss = { showCreateFolderDialog = false },
