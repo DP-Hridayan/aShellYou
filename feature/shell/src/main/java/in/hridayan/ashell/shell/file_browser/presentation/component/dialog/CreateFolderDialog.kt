@@ -30,6 +30,7 @@ fun CreateFolderDialog(
     existingNames: Set<String> = emptySet()
 ) {
     var folderName by remember { mutableStateOf("") }
+
     val nameExists by remember(folderName, existingNames) {
         derivedStateOf {
             folderName.isNotBlank() && existingNames.any {
@@ -86,7 +87,7 @@ fun CreateFolderDialog(
                 onClick = { onDismiss() }
             ),
             ButtonGroupItem(
-                text = stringResource(R.string.rename),
+                text = stringResource(R.string.create),
                 onClick = { onCreate(folderName.trim()) },
                 enabled = isValidName
             )
