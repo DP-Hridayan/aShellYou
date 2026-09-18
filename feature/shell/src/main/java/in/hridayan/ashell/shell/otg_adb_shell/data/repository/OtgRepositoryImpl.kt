@@ -26,6 +26,8 @@ import `in`.hridayan.ashell.core.common.domain.model.otg.OtgConnection
 import `in`.hridayan.ashell.core.common.domain.model.otg.OtgState
 import `in`.hridayan.ashell.core.common.domain.repository.OtgRepository
 import `in`.hridayan.ashell.core.resources.R
+import `in`.hridayan.ashell.shell.common.domain.shell.DirectoryResult
+import `in`.hridayan.ashell.shell.common.domain.shell.ShellDirectory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -378,71 +380,6 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
     private var currentDir = "/storage/emulated/0/"
 
     /**
-     * Handle cd command and return the command to actually execute.
-     * - If it's a pure "cd" command, updates currentDir and returns null.
-     * - If it's a compound command starting with cd (e.g., "cd /data && ls"),
-     *   updates currentDir and returns the remaining commands.
-     */
-    private fun handleCdCommand(commandText: String): String? {
-        val trimmedCommand = commandText.trim()
-
-        if (trimmedCommand.startsWith("cd ") || trimmedCommand == "cd") {
-            // Check for compound command separators (&& or ;)
-            val andAndIndex = trimmedCommand.indexOf(" && ")
-            val semicolonIndex = trimmedCommand.indexOf("; ")
-
-            val separatorIndex = when {
-                andAndIndex >= 0 && semicolonIndex >= 0 -> minOf(andAndIndex, semicolonIndex)
-                andAndIndex >= 0 -> andAndIndex
-                semicolonIndex >= 0 -> semicolonIndex
-                else -> -1
-            }
-
-            val cdPart: String
-            val remainingCommand: String?
-
-            if (separatorIndex > 0) {
-                cdPart = trimmedCommand.substring(0, separatorIndex).trim()
-                remainingCommand = trimmedCommand.substring(
-                    separatorIndex + if (trimmedCommand.substring(separatorIndex)
-                            .startsWith(" && ")
-                    ) {
-                        4
-                    } else {
-                        2
-                    }
-                ).trim()
-            } else {
-                cdPart = trimmedCommand
-                remainingCommand = null
-            }
-
-            val parts = cdPart.split("\\s+".toRegex(), limit = 2)
-            val targetDir = if (parts.size > 1) parts[1] else "/"
-
-            currentDir = when {
-                targetDir == "/" || targetDir == "~" -> "/"
-                targetDir == ".." -> {
-                    val parent = currentDir.removeSuffix("/").substringBeforeLast("/", "")
-                    if (parent.isEmpty()) "/" else "$parent/"
-                }
-
-                targetDir.startsWith("/") -> {
-                    if (targetDir.endsWith("/")) targetDir else "$targetDir/"
-                }
-
-                else -> {
-                    val newPath = currentDir + targetDir
-                    if (newPath.endsWith("/")) newPath else "$newPath/"
-                }
-            }
-            return remainingCommand
-        }
-
-        return trimmedCommand
-    }
-
-    /**
      * Build command with cd prefix if not in root.
      */
     private fun buildOtgCommand(commandText: String): String {
@@ -455,12 +392,7 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
 
     override fun runOtgCommand(command: String): Flow<OutputLine> = flow {
         val sanitized = sanitizeCommand(command)
-        val actualCommand = handleCdCommand(sanitized)
-
-        if (actualCommand == null) {
-            emit(OutputLine("Changed directory to: $currentDir", isError = false))
-            return@flow
-        }
+        val actualCommand = applyDirectoryChange(sanitized) { emit(it) } ?: return@flow
 
         val fullCommand = buildOtgCommand(actualCommand)
 
@@ -524,6 +456,62 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
         if (isClosed) null else throw e
     }
 
+    /**
+     * Applies a `cd` by asking the device, and returns what is left to run.
+     *
+     * @return the command to execute, or null when nothing remains, either because the input was
+     * only a `cd` or because the directory was refused.
+     */
+    private suspend fun applyDirectoryChange(
+        commandText: String,
+        emit: suspend (OutputLine) -> Unit
+    ): String? {
+        val target = ShellDirectory.targetOf(commandText) ?: return commandText
+
+        val candidate = ShellDirectory.candidate(currentDir, target)
+        val output = probeOnce(ShellDirectory.probeCommand(candidate))
+
+        return when (val result = ShellDirectory.interpret(output)) {
+            is DirectoryResult.Moved -> {
+                currentDir = result.path
+                emit(OutputLine(context.getString(R.string.changed_directory_to, result.path)))
+                ShellDirectory.remainderOf(commandText)
+            }
+
+            is DirectoryResult.Rejected -> {
+                val reason = result.reason
+                    ?: context.getString(R.string.no_such_directory, candidate)
+                emit(OutputLine(reason, isError = true))
+                null
+            }
+        }
+    }
+
+    /** Runs a short command and returns everything it printed, or null when it could not run. */
+    private fun probeOnce(command: String): String? {
+        val connection = getAdbConnection() ?: return null
+        return try {
+            val stream = connection.open(SHELL_SERVICE_PREFIX + command)
+            try {
+                val collected = StringBuilder()
+                while (true) {
+                    val data = stream.readUntilClosed() ?: break
+                    collected.append(String(data, Charsets.UTF_8))
+                }
+                collected.toString()
+            } finally {
+                try {
+                    stream.close()
+                } catch (e: Exception) {
+                    Log.d(TAG, "Probe stream already closed: ${e.message}")
+                }
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Directory probe failed", e)
+            null
+        }
+    }
+
     private fun sanitizeCommand(cmd: String): String {
         return cmd.removePrefix("adb shell")
     }
@@ -550,6 +538,7 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
 
     private companion object {
         const val TAG = "OtgRepository"
+        private const val SHELL_SERVICE_PREFIX = "shell:"
         const val PERMISSION_ACTION = "in.hridayan.ashell.USB_PERMISSION"
         const val PERMISSION_REQUEST_CODE = 0
         const val PERMISSION_COOLDOWN_MS = 20_000L

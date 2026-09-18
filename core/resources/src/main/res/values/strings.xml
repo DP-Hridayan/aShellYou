@@ -274,6 +274,7 @@
     <string name="connect_via_wifi_adb" comment="Option in connection menu to connect via Wi-Fi Wireless Debugging">Connect via Wi-Fi ADB</string>
     <string name="connected" comment="Status badge showing device is successfully connected over ADB">Connected</string>
     <string name="connected_device" comment="Header title for the currently active ADB target device information card">Connected device</string>
+    <string name="changed_directory_to" comment="Shell output confirming the working directory moved. The placeholder is the directory path the device reported">Changed directory to: %1$s</string>
     <string name="connecting" comment="Progress status text shown while establishing ADB connection">Connecting…</string>
     <string name="connection_error" comment="Toast notification or dialog title for ADB network connection errors">Connection error</string>
     <string name="connection_failed" comment="Status banner or toast when ADB connection attempt fails">Connection failed</string>
@@ -737,6 +738,7 @@
     <string name="no_adb_device_error" comment="Error toast when no ADB target device is found over USB OTG">No ADB-compatible devices found. Enable USB debugging on the target.</string>
     <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">No adb interface found</string>
     <string name="no_auto_backup_yet" comment="Placeholder text under backup status when no automated backup has executed">No automatic backup performed yet</string>
+    <string name="no_such_directory" comment="Shell error shown when a cd command names a directory the device could not enter. The placeholder is the path that was tried">No such directory: %1$s</string>
     <string name="no_bookmarks" comment="Placeholder text in bookmarks tab when no commands are saved">No bookmarks found</string>
     <string name="no_changelog_found" comment="Placeholder message in changelog screen when no version notes exist">No changelog found for this version</string>
     <string name="no_cloud_backup_found" comment="Status banner when no backup file is found on Google Drive">No backup found on Google Drive</string>
