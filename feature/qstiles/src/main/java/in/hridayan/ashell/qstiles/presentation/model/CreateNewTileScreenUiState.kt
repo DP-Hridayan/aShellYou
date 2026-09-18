@@ -4,6 +4,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import `in`.hridayan.ashell.core.common.domain.model.TileExecutionMode
 import `in`.hridayan.ashell.qstiles.data.model.MaterialIconEntry
 import `in`.hridayan.ashell.qstiles.domain.model.FontLoadState
+import `in`.hridayan.ashell.qstiles.domain.model.MaterialIconStyle
 import `in`.hridayan.ashell.qstiles.domain.model.TileActiveState
 
 /**
@@ -17,13 +18,14 @@ data class CreateNewTileScreenUiState(
     val nameField: TextFieldValue = TextFieldValue(""),
     val executionMode: Int = TileExecutionMode.SHIZUKU,
     val selectedIconId: String = "terminal",
+    val selectedIconStyle: MaterialIconStyle = MaterialIconStyle.OUTLINED,
     val isUpdateMode: Boolean = false,
     val nameError: String? = null,
 
     val suggestedIcons: List<String> = emptyList(),
     val iconSearchQuery: TextFieldValue = TextFieldValue(""),
 
-    val fontLoadState: FontLoadState = FontLoadState.Loading,
+    val fontLoadState: FontLoadState = FontLoadState.Loading(MaterialIconStyle.OUTLINED),
     val iconResults: List<MaterialIconEntry> = emptyList(),
 
     /** Whether the tile alternates its state on each click. */

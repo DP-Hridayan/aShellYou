@@ -13,6 +13,7 @@ import `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaType
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.qstiles.data.provider.TileComponentManager
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
+import `in`.hridayan.ashell.qstiles.domain.model.MaterialIconStyle
 import `in`.hridayan.ashell.qstiles.domain.model.TileActiveState
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
 import `in`.hridayan.ashell.qstiles.domain.repository.MaterialIconRepository
@@ -49,7 +50,11 @@ class CreateQsTileTool @Inject constructor(
             ),
             "icon_name" to ToolSchemaProperty(
                 type = ToolSchemaType.STRING,
-                description = "Icon name from Material Icons Outlined (e.g., home, wifi, terminal, settings, bluetooth, dark_mode, lock, search, code, bug_report)"
+                description = "Icon name from Material Icons (e.g., home, wifi, terminal, settings, bluetooth)"
+            ),
+            "icon_style" to ToolSchemaProperty(
+                type = ToolSchemaType.STRING,
+                description = "Icon style (OUTLINED, FILLED, ROUNDED, SHARP, TWO_TONE). Default OUTLINED."
             ),
             "execution_mode" to ToolSchemaProperty(
                 type = ToolSchemaType.INTEGER,
@@ -84,6 +89,13 @@ class CreateQsTileTool @Inject constructor(
         val command = args["command"]?.jsonPrimitive?.content ?: return "Error: command is required"
         val inputIconName = args["icon_name"]?.jsonPrimitive?.content ?: "terminal"
         val iconName = TileIconProvider.migrateIconId(inputIconName)
+        val iconStyleStr = args["icon_style"]?.jsonPrimitive?.content ?: "OUTLINED"
+
+        val iconStyle = try {
+            MaterialIconStyle.valueOf(iconStyleStr.uppercase())
+        } catch (e: Exception) {
+            MaterialIconStyle.OUTLINED
+        }
 
         val rawMode = args["execution_mode"]?.jsonPrimitive?.content?.toIntOrNull()
             ?: TileExecutionMode.SHIZUKU
@@ -101,6 +113,7 @@ class CreateQsTileTool @Inject constructor(
         val inactiveSubtitle = args["inactive_subtitle"]?.jsonPrimitive?.content ?: "Off"
 
         val existing = repository.getTiles().first()
+
         val tileId =
             if (requestedSlot != null && requestedSlot in 1..10 && existing.none { it.id == requestedSlot }) {
                 requestedSlot
@@ -119,6 +132,7 @@ class CreateQsTileTool @Inject constructor(
             name = title,
             executionMode = executionMode,
             iconId = iconName,
+            iconStyle = iconStyle,
             isCustom = true,
             slotIndex = slotIndex,
             activeState = TileActiveState(
@@ -136,17 +150,22 @@ class CreateQsTileTool @Inject constructor(
         tileComponentManager.setComponentEnabled(slotIndex, true)
 
         var tileIcon: Icon? = null
-        val readyState = materialIconRepository.loadFont()
+        val readyState = materialIconRepository.loadFont(iconStyle)
         val codepoint = readyState.icons.find { it.name == iconName }?.codepoint
+
         if (codepoint != null) {
-            val file = materialIconRepository.renderAndCacheIcon(iconName, codepoint).getOrNull()
+            val file = materialIconRepository.renderAndCacheIcon(iconStyle, iconName, codepoint)
+                .getOrNull()
+
             if (file?.exists() == true) {
                 val bitmap = BitmapFactory.decodeFile(file.absolutePath)
+
                 if (bitmap != null) {
                     tileIcon = Icon.createWithBitmap(bitmap)
                 }
             }
         }
+
         if (tileIcon == null) {
             tileIcon = Icon.createWithResource(context, R.drawable.ic_adb)
         }

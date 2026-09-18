@@ -633,6 +633,7 @@ fun CreateTileScreen(
                 showIconChooserSheet = false
                 showToast(context, res.getString(R.string.icon_selected))
             },
+            onIconStyleSelected = { createTileViewModel.onIconStyleSelected(it) }
         )
     }
 

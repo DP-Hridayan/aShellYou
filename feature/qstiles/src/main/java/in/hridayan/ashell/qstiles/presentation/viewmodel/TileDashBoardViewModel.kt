@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.qstiles.domain.executor.TileExecutionManager
 import `in`.hridayan.ashell.qstiles.domain.model.FontLoadState
+import `in`.hridayan.ashell.qstiles.domain.model.MaterialIconStyle
 import `in`.hridayan.ashell.qstiles.domain.model.TileLog
 import `in`.hridayan.ashell.qstiles.domain.repository.MaterialIconRepository
 import `in`.hridayan.ashell.qstiles.domain.repository.TileLogRepository
@@ -28,8 +29,9 @@ class TileDashboardViewModel @Inject constructor(
     private val logRepository: TileLogRepository,
     private val materialIconRepository: MaterialIconRepository,
 ) : ViewModel() {
-
-    val fontState: StateFlow<FontLoadState> = materialIconRepository.fontState
+    private val _loadedFonts =
+        MutableStateFlow<Map<MaterialIconStyle, FontLoadState.Ready>>(emptyMap())
+    val loadedFonts: StateFlow<Map<MaterialIconStyle, FontLoadState.Ready>> = _loadedFonts
 
     init {
         viewModelScope.launch {
@@ -77,6 +79,18 @@ class TileDashboardViewModel @Inject constructor(
                 )
             } else {
                 "0.0%"
+            }
+
+            val requiredStyles = tiles.map { it.iconStyle }.toSet()
+
+            viewModelScope.launch {
+                requiredStyles.forEach { style ->
+                    val readyState = materialIconRepository.getFontState(style)
+                    val currentMap = _loadedFonts.value
+                    if (currentMap[style] == null) {
+                        _loadedFonts.value = currentMap + (style to readyState)
+                    }
+                }
             }
 
             TileDashBoardScreenUiState(

@@ -11,6 +11,7 @@ import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.shizuku.domain.ShizukuCommandRunner
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
 import `in`.hridayan.ashell.qstiles.domain.executor.TileExecutionManager
+import `in`.hridayan.ashell.qstiles.domain.model.MaterialIconStyle
 import `in`.hridayan.ashell.qstiles.domain.model.TileActiveState
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
 import `in`.hridayan.ashell.qstiles.domain.repository.MaterialIconRepository
@@ -123,7 +124,7 @@ abstract class BaseTileService : TileService() {
                 subtitle = config.activeState.currentSubtitle
             }
 
-            icon = resolveIcon(config.iconId)
+            icon = resolveIcon(config.iconId, config.iconStyle)
 
             state = if (config.activeState.isActive) Tile.STATE_ACTIVE else Tile.STATE_INACTIVE
 
@@ -131,17 +132,17 @@ abstract class BaseTileService : TileService() {
         }
     }
 
-    private suspend fun resolveIcon(iconId: String): Icon {
+    private suspend fun resolveIcon(iconId: String, iconStyle: MaterialIconStyle): Icon {
         val iconName = TileIconProvider.migrateIconId(iconId)
 
-        materialIconRepository.getCachedIconBitmap(iconName)?.toIconOrNull()?.let { return it }
+        materialIconRepository.getCachedIconBitmap(iconStyle, iconName)?.toIconOrNull()?.let { return it }
 
-        val readyState = materialIconRepository.loadFont()
+        val readyState = materialIconRepository.loadFont(iconStyle)
 
         val codepoint = readyState.icons.find { it.name == iconName }?.codepoint
 
         if (codepoint != null) {
-            materialIconRepository.renderAndCacheIcon(iconName, codepoint).getOrNull()
+            materialIconRepository.renderAndCacheIcon(iconStyle, iconName, codepoint).getOrNull()
                 ?.toIconOrNull()?.let { return it }
         }
 

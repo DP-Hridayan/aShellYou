@@ -17,16 +17,20 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetValue
@@ -54,6 +58,7 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.qstiles.data.model.MaterialIconEntry
 import `in`.hridayan.ashell.qstiles.domain.model.FontLoadState
+import `in`.hridayan.ashell.qstiles.domain.model.MaterialIconStyle
 import `in`.hridayan.ashell.qstiles.presentation.components.icon.MaterialIconGlyph
 
 private const val ICON_CELL_SIZE = 48
@@ -69,6 +74,7 @@ fun IconChooserBottomSheet(
     selectedIconId: String,
     onQueryChange: (TextFieldValue) -> Unit,
     onIconSelected: (MaterialIconEntry) -> Unit,
+    onIconStyleSelected: (MaterialIconStyle) -> Unit,
 ) {
     val sheetState = rememberBottomSheetState(
         initialValue = SheetValue.Expanded,
@@ -92,8 +98,7 @@ fun IconChooserBottomSheet(
 
             Text(
                 text = stringResource(R.string.choose_icon),
-                style = MaterialTheme.typography.headlineSmall,
-                modifier = Modifier.align(Alignment.CenterHorizontally),
+                style = MaterialTheme.typography.headlineSmall
             )
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -123,7 +128,22 @@ fun IconChooserBottomSheet(
                 },
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(16.dp))
+
+            LazyRow(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(MaterialIconStyle.entries) { style ->
+                    FilterChip(
+                        selected = fontLoadState.style == style,
+                        onClick = withHaptic { onIconStyleSelected(style) },
+                        label = { Text(text = stringResource(style.titleResId)) }
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
 
             when (fontLoadState) {
                 is FontLoadState.Ready -> IconGrid(
@@ -138,7 +158,17 @@ fun IconChooserBottomSheet(
                     onIconSelected = onIconSelected,
                 )
 
-                is FontLoadState.Loading -> {}
+                is FontLoadState.Loading -> {
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxWidth()
+                            .fillMaxHeight(1f),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        LoadingIndicator()
+                    }
+                }
             }
 
             Spacer(modifier = Modifier.height(24.dp))

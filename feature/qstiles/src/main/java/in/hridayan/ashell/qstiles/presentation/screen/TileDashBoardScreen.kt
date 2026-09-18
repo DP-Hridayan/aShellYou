@@ -108,6 +108,7 @@ import `in`.hridayan.ashell.core.utils.createAppNotificationSettingsIntent
 import `in`.hridayan.ashell.core.utils.isNotificationPermissionGranted
 import `in`.hridayan.ashell.core.utils.launchShizukuApp
 import `in`.hridayan.ashell.qstiles.domain.model.FontLoadState
+import `in`.hridayan.ashell.qstiles.domain.model.MaterialIconStyle
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
 import `in`.hridayan.ashell.qstiles.domain.model.TileLog
 import `in`.hridayan.ashell.qstiles.presentation.components.icon.TileIconContent
@@ -131,7 +132,7 @@ fun TileDashBoardScreen(
     val lifecycleOwner = LocalLifecycleOwner.current
     val navController = LocalNavController.current
     val uiState by tileDashboardViewModel.state.collectAsState()
-    val fontState by tileDashboardViewModel.fontState.collectAsState()
+    val loadedFonts by tileDashboardViewModel.loadedFonts.collectAsState()
     val listState = rememberLazyListState()
 
     var hasNotificationAccess by remember { mutableStateOf(isNotificationPermissionGranted(context)) }
@@ -211,7 +212,7 @@ fun TileDashBoardScreen(
                                 innerPadding = innerPadding,
                                 topBarScrollBehavior = topBarScrollBehavior,
                                 uiState = uiState,
-                                fontLoadState = fontState,
+                                loadedFonts = loadedFonts,
                                 hasNotificationAccess = hasNotificationAccess,
                                 onClickNotificationButton = onClickNotificationButton,
                             )
@@ -223,7 +224,7 @@ fun TileDashBoardScreen(
                                 innerPadding = innerPadding,
                                 topBarScrollBehavior = topBarScrollBehavior,
                                 uiState = uiState,
-                                fontLoadState = fontState,
+                                loadedFonts = loadedFonts,
                                 onFilterChange = tileDashboardViewModel::onFilterChange
                             )
                         }
@@ -244,7 +245,7 @@ private fun TilesContent(
     innerPadding: PaddingValues,
     topBarScrollBehavior: TopAppBarScrollBehavior,
     uiState: TileDashBoardScreenUiState,
-    fontLoadState: FontLoadState,
+    loadedFonts: Map<MaterialIconStyle, FontLoadState.Ready>,
     hasNotificationAccess: Boolean,
     onClickNotificationButton: () -> Unit,
 ) {
@@ -381,7 +382,8 @@ private fun TilesContent(
                                     iconContent = {
                                         TileIconContent(
                                             iconId = tileConfig.iconId,
-                                            fontLoadState = fontLoadState,
+                                            fontLoadState = loadedFonts[tileConfig.iconStyle]
+                                                ?: FontLoadState.Loading(tileConfig.iconStyle),
                                             modifier = Modifier.size(28.dp),
                                             tint = tileIconTint,
                                         )
@@ -412,7 +414,7 @@ private fun LogsContent(
     innerPadding: PaddingValues,
     topBarScrollBehavior: TopAppBarScrollBehavior,
     uiState: TileDashBoardScreenUiState,
-    fontLoadState: FontLoadState,
+    loadedFonts: Map<MaterialIconStyle, FontLoadState.Ready>,
     onFilterChange: (Int?) -> Unit,
 ) {
     LazyColumn(
@@ -438,20 +440,21 @@ private fun LogsContent(
                     modifier = Modifier.padding(20.dp),
                     selectedTileId = uiState.selectedTileIdFilter,
                     tilesWithLogs = uiState.tilesWithLogs,
-                    fontLoadState = fontLoadState,
+                    loadedFonts = loadedFonts,
                     onFilterChange = onFilterChange
                 )
             }
 
             items(uiState.logs, key = { it.id }) { log ->
                 val tile = uiState.tiles.find { it.id == log.tileId }
+                val style = tile?.iconStyle ?: MaterialIconStyle.OUTLINED
 
                 TileLogCard(
                     modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp),
                     log = log,
                     tileName = tile?.name ?: "Deleted Tile",
                     iconId = tile?.iconId ?: "terminal",
-                    fontLoadState = fontLoadState
+                    fontLoadState = loadedFonts[style] ?: FontLoadState.Loading(style)
                 )
             }
         }
@@ -648,7 +651,7 @@ private fun RecentActivityHeader(
     modifier: Modifier = Modifier,
     selectedTileId: Int?,
     tilesWithLogs: List<TileConfig>,
-    fontLoadState: FontLoadState,
+    loadedFonts: Map<MaterialIconStyle, FontLoadState.Ready>,
     onFilterChange: (Int?) -> Unit
 ) {
     var isMenuExpanded by remember { mutableStateOf(false) }
@@ -729,7 +732,8 @@ private fun RecentActivityHeader(
                             ) {
                                 TileIconContent(
                                     iconId = tile.iconId,
-                                    fontLoadState = fontLoadState,
+                                    fontLoadState = loadedFonts[tile.iconStyle]
+                                        ?: FontLoadState.Loading(tile.iconStyle),
                                     modifier = Modifier.size(18.dp),
                                     tint = MaterialTheme.colorScheme.primary,
                                 )
