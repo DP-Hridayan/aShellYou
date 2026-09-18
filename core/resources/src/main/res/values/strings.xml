@@ -1006,6 +1006,13 @@
     <string name="slot_data_unknown" comment="Status text when device A/B slot information cannot be retrieved over fastboot">Slot data unknown</string>
     <string name="smooth_scrolling" comment="Settings toggle preference title to enable smooth scrolling animation in terminal">Smooth scrolling</string>
     <string name="sort">Sort</string>
+    <string name="special_thanks">Special thanks</string>
+    <string name="special_thanks_hidden_api_bypass">For bypassing Android\'s hidden API restrictions, crucial for advanced system-level functionalities.</string>
+    <string name="special_thanks_libsu">For the libsu library, providing root shell execution capabilities.</string>
+    <string name="special_thanks_mahmud">For extensive help with bug fixes, feature ideas, and invaluable daily feedback.</string>
+    <string name="special_thanks_qrcodegen">For the QR code generation library.</string>
+    <string name="special_thanks_shizuku">For the Shizuku API, enabling elevated privileges and ADB-level access without full root.</string>
+    <string name="special_thanks_sun_security">For sun-security-android, providing essential crypto implementations.</string>
     <string name="stable_fdroid" comment="Option in update channel settings for F-Droid stable releases">Stable (Fdroid)</string>
     <string name="stable_github" comment="Option in update channel settings for GitHub stable releases">Stable (GitHub)</string>
     <string name="stack_trace" comment="Header title for crash log exception stack trace section">Stack trace</string>

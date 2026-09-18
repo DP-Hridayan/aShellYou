@@ -48,6 +48,7 @@ import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.UrlUtils
 import `in`.hridayan.ashell.settings.domain.model.GitHubContributor
+import `in`.hridayan.ashell.settings.domain.model.SpecialThanks
 import `in`.hridayan.ashell.settings.presentation.page.contributors.viewmodel.ContributorsViewModel
 
 @Composable
@@ -55,10 +56,11 @@ fun ContributorsScreen(
     modifier: Modifier = Modifier,
     contributorsViewModel: ContributorsViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
     val navController = LocalNavController.current
+
     val contributors = contributorsViewModel.gitHubContributors
     val listState = rememberLazyListState()
-    val context = LocalContext.current
 
     AppScaffold(
         onNavigateBack = { navController.navigateBack() },
@@ -97,6 +99,45 @@ fun ContributorsScreen(
                         onClick = {
                             UrlUtils.openUrl(
                                 url = "https://github.com/${contributor.username}",
+                                context = context
+                            )
+                        }
+                    )
+
+                    Spacer(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(2.dp)
+                    )
+                }
+
+                item {
+                    AutoResizeableText(
+                        text = stringResource(R.string.special_thanks),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier
+                            .padding(start = 20.dp, end = 20.dp, top = 30.dp, bottom = 10.dp)
+                            .animateItem()
+                    )
+                }
+
+                val specialThanks = contributorsViewModel.specialThanks
+
+                itemsIndexed(specialThanks) { index, contributor ->
+
+                    val shape =
+                        CardCornerShape.getRoundedShape(index = index, size = specialThanks.size)
+
+                    SpecialThanksCard(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 15.dp),
+                        contributor = contributor,
+                        shape = shape,
+                        onClick = {
+                            UrlUtils.openUrl(
+                                url = contributor.url,
                                 context = context
                             )
                         }
@@ -221,4 +262,80 @@ private fun InitialsAvatar(
             textAlign = TextAlign.Center
         )
     }
+}
+
+@Composable
+private fun SpecialThanksCard(
+    modifier: Modifier = Modifier,
+    contributor: SpecialThanks,
+    shape: CustomCardShape = CardCornerShape.SINGLE_CARD,
+    onClick: () -> Unit = {}
+) {
+    val context = LocalContext.current
+
+    CustomCard(
+        modifier = modifier,
+        shape = shape,
+        onClick = withHaptic { onClick() }
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 15.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(14.dp)
+        ) {
+            SpecialThanksAvatar(
+                contributor = contributor,
+                context = context
+            )
+
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .basicMarquee(),
+                    text = contributor.name,
+                    style = MaterialTheme.typography.titleMediumEmphasized
+                )
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .alpha(0.7f),
+                    text = stringResource(id = contributor.descriptionRes),
+                    style = MaterialTheme.typography.bodySmall,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun SpecialThanksAvatar(
+    contributor: SpecialThanks,
+    context: Context,
+    modifier: Modifier = Modifier
+) {
+    val initial = remember(contributor.name) {
+        contributor.name.firstOrNull()?.uppercase() ?: "?"
+    }
+
+    SubcomposeAsyncImage(
+        model = ImageRequest.Builder(context)
+            .data("file:///android_asset/${contributor.avatarAssetPath}")
+            .build(),
+        contentDescription = contributor.name,
+        modifier = modifier
+            .size(40.dp)
+            .clip(CircleShape),
+        contentScale = ContentScale.Crop,
+        loading = {
+            InitialsAvatar(initial = initial)
+        },
+        error = {
+            InitialsAvatar(initial = initial)
+        }
+    )
 }
