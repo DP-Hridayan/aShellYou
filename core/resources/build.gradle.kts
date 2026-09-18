@@ -36,13 +36,6 @@ val syncLegalDocs = tasks.register<Copy>("syncLegalDocs") {
     rename("TERMS_OF_SERVICE.md", "terms_of_service.md")
 }
 
-android {
-    sourceSets {
-        getByName("main") {
-            res.srcDir(generatedResDir)
-        }
-    }
-}
 
 tasks.configureEach {
     if (name == "preBuild") {
@@ -50,3 +43,10 @@ tasks.configureEach {
     }
 }
 
+android {
+    sourceSets {
+        getByName("main") {
+            res.directories.add(generatedResDir.absolutePath)
+        }
+    }
+}
