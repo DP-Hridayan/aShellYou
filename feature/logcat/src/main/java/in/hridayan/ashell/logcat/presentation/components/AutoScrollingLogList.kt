@@ -5,7 +5,8 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.foundation.interaction.DragInteraction
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,18 +21,22 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.PointerEventPass
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.logcat.domain.model.LogEntry
 import `in`.hridayan.ashell.logcat.presentation.model.LogListActions
-import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 
@@ -40,8 +45,10 @@ private val FabBottomPadding = 16.dp
 
 /**
  * Log list that follows the newest entry while [isAutoScrolling] is on.
- * A touch drag pauses following, and only the scroll-to-bottom button resumes it,
- * so the list never starts moving again on its own after the user has taken over.
+ *
+ * Any touch on the list stops following, from the moment the finger lands rather than
+ * once a drag is recognised, so a flood of incoming logs cannot delay it. Only the
+ * scroll-to-bottom button resumes following.
  */
 @Composable
 fun AutoScrollingLogList(
@@ -55,12 +62,25 @@ fun AutoScrollingLogList(
 ) {
     val scope = rememberCoroutineScope()
     val latestLogs by rememberUpdatedState(logs)
+    var isTouched by remember { mutableStateOf(false) }
 
-    PauseOnUserScroll(listState, isAutoScrolling, actions.onPauseAutoScroll)
-    FollowNewestEntry(listState, logs, isAutoScrolling)
+    FollowNewestEntry(listState, logs, isAutoScrolling, isTouched)
 
     Box(modifier = modifier.fillMaxSize()) {
-        LogList(logs, expandedIds, listState, contentPadding, actions)
+        LogList(
+            logs = logs,
+            expandedIds = expandedIds,
+            listState = listState,
+            contentPadding = contentPadding,
+            actions = actions,
+            modifier = Modifier.pauseWhileTouched(
+                onTouchStart = {
+                    isTouched = true
+                    actions.onPauseAutoScroll()
+                },
+                onTouchEnd = { isTouched = false },
+            ),
+        )
         ScrollToBottomFab(
             visible = !isAutoScrolling,
             onClick = {
@@ -80,18 +100,22 @@ private suspend fun jumpToBottom(listState: LazyListState, lastIndex: Int) {
     if (lastIndex >= 0) listState.animateScrollToItem(lastIndex)
 }
 
-@Composable
-private fun PauseOnUserScroll(
-    listState: LazyListState,
-    isAutoScrolling: Boolean,
-    onPause: () -> Unit,
-) {
-    val autoScrolling by rememberUpdatedState(isAutoScrolling)
-    val currentOnPause by rememberUpdatedState(onPause)
-    LaunchedEffect(listState) {
-        listState.interactionSource.interactions
-            .filterIsInstance<DragInteraction.Start>()
-            .collect { if (autoScrolling) currentOnPause() }
+/**
+ * Reports the first pointer going down and the last one coming up, on the initial pass
+ * so the report happens before touch slop and before the list consumes the gesture.
+ * Nothing is consumed here, so scrolling, taps and long presses are unaffected.
+ */
+private fun Modifier.pauseWhileTouched(
+    onTouchStart: () -> Unit,
+    onTouchEnd: () -> Unit,
+): Modifier = pointerInput(Unit) {
+    awaitEachGesture {
+        awaitFirstDown(requireUnconsumed = false, pass = PointerEventPass.Initial)
+        onTouchStart()
+        do {
+            val event = awaitPointerEvent(PointerEventPass.Initial)
+        } while (event.changes.any { it.pressed })
+        onTouchEnd()
     }
 }
 
@@ -100,14 +124,16 @@ private fun FollowNewestEntry(
     listState: LazyListState,
     logs: List<LogEntry>,
     isAutoScrolling: Boolean,
+    isTouched: Boolean,
 ) {
     val latestLogs by rememberUpdatedState(logs)
+    val touched by rememberUpdatedState(isTouched)
     LaunchedEffect(listState, isAutoScrolling) {
         if (!isAutoScrolling) return@LaunchedEffect
         snapshotFlow { latestLogs.lastOrNull()?.id }
             .filterNotNull()
             .collect {
-                if (!listState.isScrollInProgress) {
+                if (!touched && !listState.isScrollInProgress) {
                     listState.requestScrollToItem(latestLogs.lastIndex)
                 }
             }
@@ -121,9 +147,10 @@ private fun LogList(
     listState: LazyListState,
     contentPadding: PaddingValues,
     actions: LogListActions,
+    modifier: Modifier = Modifier,
 ) {
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         state = listState,
         contentPadding = contentPadding,
     ) {

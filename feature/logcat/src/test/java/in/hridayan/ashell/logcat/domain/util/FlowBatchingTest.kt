@@ -12,6 +12,8 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 private const val WINDOW_MS = 50L
+private const val BACKLOG_SIZE = 200
+private const val BACKLOG_MULTIPLIER = 5
 private const val ITEM_COUNT = 200
 private const val DELAY_CYCLE_MS = 7L
 
@@ -70,5 +72,32 @@ class FlowBatchingTest {
             }
         }.batchByTime(WINDOW_MS).toList()
         assertEquals(input, result.flatten())
+    }
+
+    @Test
+    fun `a steady trickle keeps the base window`() {
+        assertEquals(WINDOW_MS, nextBatchWindowMs(1, WINDOW_MS))
+        assertEquals(WINDOW_MS, nextBatchWindowMs(BACKLOG_SIZE - 1, WINDOW_MS))
+    }
+
+    @Test
+    fun `a backlog widens the window`() {
+        val widened = WINDOW_MS * BACKLOG_MULTIPLIER
+        assertEquals(widened, nextBatchWindowMs(BACKLOG_SIZE, WINDOW_MS))
+        assertEquals(widened, nextBatchWindowMs(BACKLOG_SIZE * 100, WINDOW_MS))
+    }
+
+    @Test
+    fun `an empty batch keeps the base window`() {
+        assertEquals(WINDOW_MS, nextBatchWindowMs(0, WINDOW_MS))
+    }
+
+    @Test
+    fun `no element is lost when a flood widens the window`() {
+        runTest {
+            val input = (1..ITEM_COUNT * 10).toList()
+            val result = flow { input.forEach { emit(it) } }.batchByTime(WINDOW_MS).toList()
+            assertEquals(input, result.flatten())
+        }
     }
 }

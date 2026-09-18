@@ -4,11 +4,24 @@ import android.content.Context
 import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.shell.common.data.adb.AdbConnectionManager
+import `in`.hridayan.ashell.shell.file_browser.data.protocol.LibadbSyncTransport
+import `in`.hridayan.ashell.shell.file_browser.domain.protocol.SyncSession
+import `in`.hridayan.ashell.shell.file_browser.domain.protocol.SyncStat
+import `in`.hridayan.ashell.shell.file_browser.domain.protocol.SyncTransport
 import io.github.muntashirakon.adb.AbsAdbConnectionManager
+import io.github.muntashirakon.adb.AdbStream
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.io.IOException
+import java.io.InputStream
+import java.io.OutputStream
 import javax.inject.Inject
 import javax.inject.Singleton
+
+private const val SHELL_SERVICE_PREFIX = "shell:"
+private const val SYNC_SERVICE = "sync:"
+private const val COMMAND_BUFFER_SIZE = 4096
+private const val COMMAND_END_MARKER = "__END__"
 
 @Singleton
 class WifiAdbCommandExecutor @Inject constructor(
@@ -30,125 +43,72 @@ class WifiAdbCommandExecutor @Inject constructor(
     }
 
     override suspend fun executeCommand(command: String): String? = withContext(Dispatchers.IO) {
-        var stream: io.github.muntashirakon.adb.AdbStream? = null
+        var stream: AdbStream? = null
         try {
             val adbManager = getAdbManager()
             if (!adbManager.isConnected) return@withContext null
 
-            stream = adbManager.openStream("shell:$command")
+            stream = adbManager.openStream(SHELL_SERVICE_PREFIX + command)
             val inputStream = stream.openInputStream()
 
-            val buffer = ByteArray(4096)
+            val buffer = ByteArray(COMMAND_BUFFER_SIZE)
             val output = StringBuilder()
             var bytesRead: Int
 
             while (inputStream.read(buffer).also { bytesRead = it } != -1) {
                 output.append(String(buffer, 0, bytesRead, Charsets.UTF_8))
-                if (output.contains("__END__")) break
+                if (output.contains(COMMAND_END_MARKER)) break
             }
 
-            try {
-                inputStream.close()
-            } catch (_: Exception) {
-            }
-            try {
-                stream.close()
-            } catch (_: Exception) {
-            }
-
+            runCatching { inputStream.close() }
             output.toString()
         } catch (e: Exception) {
             Log.e(TAG, "executeCommand failed: $command - ${e.message}")
-            try {
-                stream?.close()
-            } catch (_: Exception) {
-            }
             null
+        } finally {
+            runCatching { stream?.close() }
         }
     }
 
-    override fun openCommandStream(command: String): CommandStream? {
+    override suspend fun stat(remotePath: String): SyncStat? =
+        withSyncSession { it.stat(remotePath) }
+
+    override suspend fun pull(
+        remotePath: String,
+        sink: OutputStream,
+        onProgress: suspend (Long) -> Unit
+    ) {
+        requireSyncSession { it.pull(remotePath, sink, onProgress) }
+    }
+
+    override suspend fun push(
+        source: InputStream,
+        remotePath: String,
+        onProgress: suspend (Long) -> Unit
+    ) {
+        requireSyncSession { it.push(source, remotePath, onProgress = onProgress) }
+    }
+
+    private suspend fun <T> withSyncSession(block: suspend (SyncSession) -> T): T? = try {
+        requireSyncSession(block)
+    } catch (e: IOException) {
+        Log.e(TAG, "Sync session failed", e)
+        null
+    }
+
+    private suspend fun <T> requireSyncSession(block: suspend (SyncSession) -> T): T {
+        val transport = openSyncTransport()
+        val session = SyncSession(transport)
         return try {
-            val adbManager = getAdbManager()
-            if (!adbManager.isConnected) return null
-
-            val stream = adbManager.openStream(command)
-            val inputStream = stream.openInputStream()
-
-            CommandStream(
-                inputStream = inputStream,
-                close = {
-                    try {
-                        inputStream.close()
-                    } catch (_: Exception) {
-                    }
-                    try {
-                        stream.close()
-                    } catch (_: Exception) {
-                    }
-                }
-            )
-        } catch (e: Exception) {
-            Log.e(TAG, "Error opening command stream: $command", e)
-            null
+            block(session).also { runCatching { session.quit() } }
+        } finally {
+            transport.close()
         }
     }
 
-    override fun openReadStream(command: String): FileTransferStream? {
-        return try {
-            val adbManager = getAdbManager()
-            if (!adbManager.isConnected) return null
-
-            val stream = adbManager.openStream(command)
-            val inputStream = stream.openInputStream().buffered(65536)
-
-            FileTransferStream(
-                inputStream = inputStream,
-                close = {
-                    try {
-                        inputStream.close()
-                    } catch (_: Exception) {
-                    }
-                    try {
-                        stream.close()
-                    } catch (_: Exception) {
-                    }
-                }
-            )
-        } catch (e: Exception) {
-            Log.e(TAG, "Error opening read stream: $command", e)
-            null
-        }
-    }
-
-    override fun openWriteStream(command: String): FileTransferStream? {
-        return try {
-            val adbManager = getAdbManager()
-            if (!adbManager.isConnected) return null
-
-            val stream = adbManager.openStream(command)
-            val outputStream = stream.openOutputStream().buffered(65536)
-
-            FileTransferStream(
-                outputStream = outputStream,
-                close = {
-                    try {
-                        outputStream.flush()
-                    } catch (_: Exception) {
-                    }
-                    try {
-                        outputStream.close()
-                    } catch (_: Exception) {
-                    }
-                    try {
-                        stream.close()
-                    } catch (_: Exception) {
-                    }
-                }
-            )
-        } catch (e: Exception) {
-            Log.e(TAG, "Error opening write stream: $command", e)
-            null
-        }
+    private fun openSyncTransport(): SyncTransport {
+        val adbManager = getAdbManager()
+        if (!adbManager.isConnected) throw IOException("No Wi-Fi ADB connection")
+        return LibadbSyncTransport(adbManager.openStream(SYNC_SERVICE))
     }
 }

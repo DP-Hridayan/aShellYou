@@ -260,8 +260,7 @@ fun FileBrowserScreen(
                                 )
                             }
 
-                            // Hide download in OTG mode (file transfers not supported)
-                            if (connectionMode != AdbFileBrowserConnectionMode.OTG_ADB) {
+                            run {
                                 IconButton(
                                     onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                                         viewModel.downloadSelectedFiles()
@@ -525,7 +524,7 @@ fun FileBrowserScreen(
                                                     fileForInfo = file
                                                     showInfoDialog = true
                                                 },
-                                                hideDownload = isOwnDevice || connectionMode == AdbFileBrowserConnectionMode.OTG_ADB,
+                                                hideDownload = isOwnDevice,
                                                 modifier = Modifier.animateItem()
                                             )
                                         }
@@ -828,8 +827,8 @@ fun FileBrowserScreen(
                     }
                 }
             ) {
-                // Hide upload when browsing own device or in OTG mode (file transfer not supported)
-                if (!isOwnDevice && connectionMode != AdbFileBrowserConnectionMode.OTG_ADB) {
+                // Uploading to this same device would be a copy, not a transfer.
+                if (!isOwnDevice) {
                     FloatingActionButtonMenuItem(
                         onClick = withHaptic(HapticFeedbackType.Confirm) {
                             fabMenuExpanded = false

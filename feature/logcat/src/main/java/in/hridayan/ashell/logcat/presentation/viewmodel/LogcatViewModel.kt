@@ -125,13 +125,18 @@ class LogcatViewModel @Inject constructor(
     private fun applyPreflight(result: LogcatPreflightResult, launch: () -> Unit) {
         if (result == Ready) {
             _preflightResult.value = null
+            thisDevice.resume()
             launch()
         } else {
             _preflightResult.value = result
         }
     }
 
-    fun startLogcat() = LogcatService.start(context)
+    fun startLogcat() {
+        thisDevice.resume()
+        LogcatService.start(context)
+    }
+
     fun stopLogcat() = LogcatService.stop(context)
 
     fun restartApp() {
@@ -213,7 +218,6 @@ class LogcatViewModel @Inject constructor(
         lastRestoredId = restoreFromBuffer()
         observeLiveEntries()
         observeBufferLimit()
-        resetAutoScrollOnStart()
     }
 
     private fun observeBufferLimit() {
@@ -261,12 +265,6 @@ class LogcatViewModel @Inject constructor(
                 .filter { it.id > lastRestoredId }
                 .batchByTime(LOG_BATCH_WINDOW_MS)
                 .collect { batch -> onLiveBatchReceived(batch) }
-        }
-    }
-
-    private fun resetAutoScrollOnStart() {
-        viewModelScope.launch {
-            isRunning.filter { it }.collect { thisDevice.resume() }
         }
     }
 

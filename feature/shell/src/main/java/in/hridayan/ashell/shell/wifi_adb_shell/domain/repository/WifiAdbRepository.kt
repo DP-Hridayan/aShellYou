@@ -27,6 +27,9 @@ interface WifiAdbRepository {
     fun reconnect(device: WifiAdbDevice, listener: ReconnectListener? = null)
     fun cancelReconnect()
     fun disconnect()
+
+    /** Drops the connection without announcing it, for flows that own the state themselves. */
+    fun disconnect(publishState: Boolean)
     fun isConnected(): Boolean
     fun getCurrentDevice(): WifiAdbDevice?
     fun forgetDevice(device: WifiAdbDevice)
