@@ -97,6 +97,7 @@ fun UiScaleScreen(
                         description = stringResource(R.string.des_screen_density),
                         iconResId = R.drawable.ic_high_density,
                         shape = CardCornerShape.FIRST_CARD,
+                        steps = 19,
                         value = settings[SettingsKeys.ScreenDensityMultiplier],
                         onValueChangeFinished = { newValue ->
                             settingsViewModel.setFloat(
@@ -132,7 +133,7 @@ fun UiScaleScreen(
                         shape = CardCornerShape.LAST_CARD,
                         value = settings[SettingsKeys.FontSizeMultiplier],
                         valueRange = 0.5f..2f,
-                        steps = 14,
+                        steps = 29,
                         onValueChangeFinished = { newValue ->
                             settingsViewModel.setFloat(
                                 key = SettingsKeys.FontSizeMultiplier,
@@ -168,7 +169,7 @@ private fun ScaleModifyCard(
     onValueChangeFinished: (Float) -> Unit = {},
     onValueReset: () -> Unit,
     valueRange: ClosedFloatingPointRange<Float> = 0.5f..1.5f,
-    steps: Int = 9,
+    steps: Int = 19,
     title: String,
     description: String,
     @DrawableRes iconResId: Int?,

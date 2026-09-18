@@ -4,6 +4,7 @@ package `in`.hridayan.ashell.logcat.presentation.components.dialog
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,8 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.SelectionContainer
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ContentCopy
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -24,11 +23,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
@@ -128,23 +127,25 @@ private fun GrantCommandBlock(
         modifier = Modifier
             .fillMaxWidth()
             .background(
-                color = MaterialTheme.colorScheme.surfaceContainerHighest,
+                color = MaterialTheme.colorScheme.surfaceContainerLowest,
                 shape = RoundedCornerShape(8.dp),
             )
             .padding(start = 10.dp, end = 4.dp, top = 4.dp, bottom = 4.dp),
         verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         SelectionContainer(modifier = Modifier.weight(1f)) {
             Text(
                 text = command,
                 fontFamily = FontFamily.Monospace,
-                fontSize = 12.sp,
-                color = MaterialTheme.colorScheme.onSurface,
+                style = MaterialTheme.typography.bodySmallEmphasized,
+                color = MaterialTheme.colorScheme.primary,
             )
         }
+
         IconButton(onClick = onCopy) {
             Icon(
-                imageVector = Icons.Outlined.ContentCopy,
+                painter = painterResource(R.drawable.ic_copy),
                 contentDescription = stringResource(R.string.copy),
             )
         }
