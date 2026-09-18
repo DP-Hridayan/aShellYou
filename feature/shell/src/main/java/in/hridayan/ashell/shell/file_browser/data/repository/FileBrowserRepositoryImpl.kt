@@ -1,12 +1,16 @@
 package `in`.hridayan.ashell.shell.file_browser.data.repository
 
+import android.content.Context
 import android.util.Log
+import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.shell.file_browser.data.executor.AdbCommandExecutor
 import `in`.hridayan.ashell.shell.file_browser.data.executor.WifiAdbCommandExecutor
 import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperationResult
 import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
 import `in`.hridayan.ashell.shell.file_browser.domain.repository.FileBrowserRepository
+import `in`.hridayan.ashell.core.resources.R
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.buffer
@@ -21,11 +25,24 @@ import javax.inject.Singleton
 
 @Singleton
 class FileBrowserRepositoryImpl @Inject constructor(
+    @param:ApplicationContext private val context: Context,
     private val wifiAdbExecutor: WifiAdbCommandExecutor
 ) : FileBrowserRepository {
 
     companion object {
         const val TAG = "FileBrowser"
+        private const val TRANSFER_BUFFER_SIZE = 64 * 1024
+        private const val PROGRESS_INTERVAL_MS = 100L
+        private const val PROGRESS_BUFFER = 4
+    }
+
+    /**
+     * Turns a transfer failure into a user facing line, preferring the message the device sent over
+     * a generic one. Piping through the shell could not report a reason at all.
+     */
+    private fun transferError(error: Throwable, fallback: Int): FileOperationResult.Error {
+        val detail = error.message?.takeIf { it.isNotBlank() }
+        return FileOperationResult.Error(detail ?: context.getString(fallback))
     }
 
     private val adbMutex = Mutex()
@@ -178,161 +195,64 @@ class FileBrowserRepositoryImpl @Inject constructor(
 
     override fun pullFile(remotePath: String, localPath: String): Flow<FileOperationResult> = flow {
         val localFile = File(localPath)
-        var transferComplete = false
-        var expectedTotalSize = 0L
 
         try {
-            val escapedPath = remotePath.replace("'", "'\\''")
-            val sizeResult = executeCommand("stat -c%s '$escapedPath'")
-            expectedTotalSize = sizeResult?.trim()?.toLongOrNull() ?: 0L
-
-            emit(FileOperationResult.Progress(0, expectedTotalSize))
+            val totalSize = executor.stat(remotePath)?.size ?: 0L
+            emit(FileOperationResult.Progress(0, totalSize))
 
             localFile.parentFile?.mkdirs()
 
-            if (executor.supportsSyncTransfer()) {
-                val inputStream =
-                    executor.pullFileWithProgress(remotePath, expectedTotalSize) { _, _ -> }
-                if (inputStream == null) {
-                    emit(FileOperationResult.Error("Failed to open stream for download"))
-                    return@flow
-                }
-
-                val outputStream = localFile.outputStream().buffered(65536)
-                val buffer = ByteArray(65536)
-                var bytesWritten: Long = 0
-                var len: Int
-                var lastEmitTime = System.currentTimeMillis()
-
-                while (inputStream.read(buffer).also { len = it } != -1) {
-                    outputStream.write(buffer, 0, len)
-                    bytesWritten += len
-
-                    // Emit progress at most every 100ms for responsive UI without overhead
+            localFile.outputStream().buffered(TRANSFER_BUFFER_SIZE).use { sink ->
+                var lastEmitMs = 0L
+                executor.pull(remotePath, sink) { transferred ->
                     val now = System.currentTimeMillis()
-                    if (now - lastEmitTime >= 100 || bytesWritten >= expectedTotalSize) {
-                        emit(FileOperationResult.Progress(bytesWritten, expectedTotalSize))
-                        lastEmitTime = now
+                    if (now - lastEmitMs >= PROGRESS_INTERVAL_MS) {
+                        lastEmitMs = now
+                        emit(FileOperationResult.Progress(transferred, totalSize))
                     }
                 }
-
-                outputStream.flush()
-                outputStream.close()
-                inputStream.close()
-                transferComplete = true
-            } else {
-                val transferStream = executor.openReadStream("shell:cat '$escapedPath'")
-                if (transferStream?.inputStream == null) {
-                    emit(FileOperationResult.Error("Failed to open stream for download"))
-                    return@flow
-                }
-
-                val inputStream = transferStream.inputStream
-                val outputStream = localFile.outputStream().buffered(65536)
-                val buffer = ByteArray(65536)
-                var bytesRead: Long = 0
-                var len: Int
-                var lastEmitTime = System.currentTimeMillis()
-
-                while (inputStream.read(buffer).also { len = it } != -1) {
-                    outputStream.write(buffer, 0, len)
-                    bytesRead += len
-
-                    // Emit progress at most every 100ms for responsive UI without overhead
-                    val now = System.currentTimeMillis()
-                    if (now - lastEmitTime >= 100 || bytesRead >= expectedTotalSize) {
-                        emit(FileOperationResult.Progress(bytesRead, expectedTotalSize))
-                        lastEmitTime = now
-                    }
-                }
-
-                outputStream.flush()
-                outputStream.close()
-                transferStream.close()
-                transferComplete = true
             }
 
-            // Verify downloaded file
-            if (transferComplete) {
-                emit(FileOperationResult.Success("File downloaded"))
-            }
+            emit(FileOperationResult.Progress(localFile.length(), totalSize))
+            emit(FileOperationResult.Success(context.getString(R.string.file_downloaded)))
         } catch (e: Exception) {
             Log.e(TAG, "Error pulling file $remotePath", e)
-
-            // Smart success detection: check if file was actually downloaded
-            val actualSize = if (localFile.exists()) localFile.length() else 0L
-
-            if (actualSize > 0 && (expectedTotalSize == 0L || actualSize >= expectedTotalSize * 0.95)) {
-                Log.i(
-                    TAG,
-                    "Download completed despite exception. Expected: $expectedTotalSize, Got: $actualSize"
-                )
-                emit(FileOperationResult.Progress(actualSize, expectedTotalSize))
-                emit(FileOperationResult.Success("File downloaded"))
-            } else {
-                emit(FileOperationResult.Error(e.message ?: "Failed to download file"))
-            }
+            runCatching { if (localFile.exists()) localFile.delete() }
+            emit(transferError(e, R.string.failed_to_download_file))
         }
-    }.buffer(4, onBufferOverflow = kotlinx.coroutines.channels.BufferOverflow.DROP_OLDEST)
+    }.buffer(PROGRESS_BUFFER, onBufferOverflow = BufferOverflow.DROP_OLDEST)
         .flowOn(Dispatchers.IO)
 
     override fun pushFile(localPath: String, remotePath: String): Flow<FileOperationResult> = flow {
-        try {
-            val localFile = File(localPath)
-            if (!localFile.exists()) {
-                emit(FileOperationResult.Error("Local file does not exist"))
-                return@flow
-            }
+        val localFile = File(localPath)
+        if (!localFile.exists()) {
+            emit(FileOperationResult.Error(context.getString(R.string.local_file_does_not_exist)))
+            return@flow
+        }
 
+        try {
             val totalSize = localFile.length()
             emit(FileOperationResult.Progress(0, totalSize))
 
-            if (executor.supportsSyncTransfer()) {
-                val fileData = localFile.readBytes()
-                val success = executor.pushFileWithProgress(remotePath, fileData) { _, _ -> }
-
-                if (success) {
-                    emit(FileOperationResult.Progress(totalSize, totalSize))
-                    emit(FileOperationResult.Success("File uploaded"))
-                } else {
-                    emit(FileOperationResult.Error("Transfer failed"))
-                }
-            } else {
-                val escapedPath = remotePath.replace("'", "'\\''")
-                val transferStream = executor.openWriteStream("shell:cat > '$escapedPath'")
-                if (transferStream?.outputStream == null) {
-                    emit(FileOperationResult.Error("Failed to open stream for upload"))
-                    return@flow
-                }
-
-                val inputStream = localFile.inputStream().buffered(65536)
-                val outputStream = transferStream.outputStream
-                var bytesWritten: Long = 0
-                val buffer = ByteArray(65536)
-                var len: Int
-                var lastEmitTime = System.currentTimeMillis()
-
-                while (inputStream.read(buffer).also { len = it } != -1) {
-                    outputStream.write(buffer, 0, len)
-                    bytesWritten += len
-
-                    // Emit progress at most every 100ms for responsive UI without overhead
+            localFile.inputStream().buffered(TRANSFER_BUFFER_SIZE).use { source ->
+                var lastEmitMs = 0L
+                executor.push(source, remotePath) { transferred ->
                     val now = System.currentTimeMillis()
-                    if (now - lastEmitTime >= 100 || bytesWritten >= totalSize) {
-                        emit(FileOperationResult.Progress(bytesWritten, totalSize))
-                        lastEmitTime = now
+                    if (now - lastEmitMs >= PROGRESS_INTERVAL_MS) {
+                        lastEmitMs = now
+                        emit(FileOperationResult.Progress(transferred, totalSize))
                     }
                 }
-
-                inputStream.close()
-                transferStream.close()
-                emit(FileOperationResult.Success("File uploaded"))
             }
+
+            emit(FileOperationResult.Progress(totalSize, totalSize))
+            emit(FileOperationResult.Success(context.getString(R.string.file_uploaded)))
         } catch (e: Exception) {
             Log.e(TAG, "Error pushing file to $remotePath", e)
-            emit(FileOperationResult.Error(e.message ?: "Failed to upload file"))
+            emit(transferError(e, R.string.failed_to_upload_file))
         }
-    }.flowOn(Dispatchers.IO)
+    }.buffer(PROGRESS_BUFFER, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+        .flowOn(Dispatchers.IO)
 
     override suspend fun deleteFile(path: String): Result<Unit> = withContext(Dispatchers.IO) {
         try {

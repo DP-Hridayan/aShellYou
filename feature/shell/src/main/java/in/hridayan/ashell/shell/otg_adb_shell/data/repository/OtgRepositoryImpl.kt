@@ -470,12 +470,13 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
         }
 
         try {
-            adbStream = connection.open("shell:$fullCommand")
+            val stream = connection.open("shell:$fullCommand")
+            adbStream = stream
 
             val buffer = StringBuilder()
 
             while (true) {
-                val data = adbStream?.read() ?: break
+                val data = stream.readUntilClosed() ?: break
                 val text = String(data, Charsets.UTF_8)
                 buffer.append(text)
 
@@ -492,7 +493,13 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
                 emit(OutputLine(buffer.toString().trimEnd(), isError = false))
             }
         } catch (e: IOException) {
-            emit(OutputLine("OTG shell: ${e.message}", isError = true))
+            Log.e(TAG, "OTG shell failed", e)
+            emit(
+                OutputLine(
+                    context.getString(R.string.shell_connection_lost),
+                    isError = true
+                )
+            )
         } finally {
             try {
                 adbStream?.close()
@@ -501,6 +508,21 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
             adbStream = null
         }
     }.flowOn(Dispatchers.IO)
+
+    /**
+     * @return the next payload, or null once the peer closed the stream, which is how a finished
+     * command ends on this transport.
+     *
+     * This library's read has no end-of-stream return value: it either returns data or throws. Taking
+     * that throw at face value reported every successful command as a failure, and skipped the flush
+     * that emits a final line with no trailing newline. A failure while the stream is still open is a
+     * real one, so it is left to the caller.
+     */
+    private fun AdbStream.readUntilClosed(): ByteArray? = try {
+        read()
+    } catch (e: IOException) {
+        if (isClosed) null else throw e
+    }
 
     private fun sanitizeCommand(cmd: String): String {
         return cmd.removePrefix("adb shell")

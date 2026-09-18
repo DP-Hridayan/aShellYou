@@ -49,6 +49,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.IOException
+import java.io.InputStream
 import java.net.Inet4Address
 import java.net.InetAddress
 import java.net.NetworkInterface
@@ -223,7 +225,7 @@ class WifiAdbRepositoryImpl(
                         if (autoPair && event.type.contains("_adb-tls-pairing")) {
                             pairingInProgress.add(key)
 
-                            disconnect()
+                            disconnect(publishState = false)
 
                             pair(
                                 ip,
@@ -1014,15 +1016,16 @@ class WifiAdbRepositoryImpl(
                 // Ignore
             }
 
-            adbShellStream = manager.openStream("shell:$fullCommand")
+            val stream = manager.openStream("shell:$fullCommand")
+            adbShellStream = stream
 
-            val input = adbShellStream!!.openInputStream()
+            val input = stream.openInputStream()
             val lineBuffer = StringBuilder()
             val rawBuffer = ByteArray(SHELL_READ_BUFFER_SIZE)
             var lastDataTimeMs = System.currentTimeMillis()
 
             while (!isAborted) {
-                val available = input.available()
+                val available = availableOrEnd(input, stream) ?: break
                 if (available > 0) {
                     val bytesRead = input.read(rawBuffer, 0, minOf(available, rawBuffer.size))
                     if (bytesRead < 0) break
@@ -1040,21 +1043,26 @@ class WifiAdbRepositoryImpl(
                     }
                 } else {
                     if (System.currentTimeMillis() - lastDataTimeMs >= SHELL_IDLE_TIMEOUT_MS) {
-                        if (lineBuffer.isNotEmpty()) {
-                            emit(OutputLine(lineBuffer.toString().trimEnd('\r'), isError = false))
-                            lineBuffer.clear()
-                        }
                         break
                     }
                     Thread.sleep(SHELL_POLL_INTERVAL_MS)
                 }
             }
 
+            if (lineBuffer.isNotEmpty()) {
+                emit(OutputLine(lineBuffer.toString().trimEnd('\r'), isError = false))
+            }
+
             Log.d(TAG, "Command completed. Aborted: $isAborted")
         } catch (e: Exception) {
             // Only emit error if not aborted
             if (!isAborted) {
-                emit(OutputLine("Error: ${e.message}", isError = true))
+                emit(
+                    OutputLine(
+                        context.getString(R.string.shell_connection_lost),
+                        isError = true
+                    )
+                )
                 Log.e("WifiAdbShell", "execute() failed", e)
             } else {
                 Log.d(TAG, "Command was aborted, ignoring exception: ${e.message}")
@@ -1070,6 +1078,21 @@ class WifiAdbRepositoryImpl(
             Log.d(TAG, "Shell stream cleaned up")
         }
     }.flowOn(Dispatchers.IO)
+
+    /**
+     * @return the bytes waiting, or null once the peer closed the stream, which is how a finished
+     * command ends.
+     *
+     * The stream throws from [java.io.InputStream.available] the moment it is closed. Letting that
+     * reach the outer catch reported a finished command as `Error: Stream closed.`, and skipped the
+     * flush that emits a final line with no trailing newline. Whether it was a close or a genuine
+     * failure is decided by the stream itself rather than by the message text, which is not fixed.
+     */
+    private fun availableOrEnd(input: InputStream, stream: AdbStream): Int? = try {
+        input.available()
+    } catch (e: IOException) {
+        if (stream.isClosed) null else throw e
+    }
 
     override fun abortShell() {
         Log.d(TAG, "abortShell() called")
@@ -1869,7 +1892,14 @@ class WifiAdbRepositoryImpl(
         return null
     }
 
-    override fun disconnect() {
+    override fun disconnect() = disconnect(publishState = true)
+
+    /**
+     * @param publishState false while a pairing flow owns the connection state. Dropping an existing
+     * connection before pairing must not announce `Disconnected`, because that would overwrite the
+     * `Pairing` the flow just set and leave the screen with no sign anything is happening.
+     */
+    override fun disconnect(publishState: Boolean) {
         executor.submit {
             try {
                 val manager = AdbConnectionManager.getInstance(context)
@@ -1878,9 +1908,11 @@ class WifiAdbRepositoryImpl(
                 abortShell()
                 currentDevice = null
                 WifiAdbConnection.setCurrentDevice(null)
-                mainScope.launch {
-                    val deviceId = disconnectedDevice?.id
-                    WifiAdbConnection.updateState(WifiAdbState.Disconnected(deviceId))
+                if (publishState) {
+                    mainScope.launch {
+                        val deviceId = disconnectedDevice?.id
+                        WifiAdbConnection.updateState(WifiAdbState.Disconnected(deviceId))
+                    }
                 }
                 Log.d(TAG, "Disconnected from ADB")
             } catch (e: Exception) {

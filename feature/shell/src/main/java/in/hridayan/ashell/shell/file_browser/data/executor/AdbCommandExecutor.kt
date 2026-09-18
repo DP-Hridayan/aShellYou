@@ -1,42 +1,32 @@
 package `in`.hridayan.ashell.shell.file_browser.data.executor
 
+import `in`.hridayan.ashell.shell.file_browser.domain.protocol.SyncStat
 import java.io.InputStream
 import java.io.OutputStream
 
+/**
+ * Runs file browser work against one ADB transport.
+ *
+ * Metadata and mutation stay on the shell, where they belong. File contents move over the ADB `sync:`
+ * protocol instead, which frames its messages, acknowledges uploads and carries a real failure
+ * message, none of which piping bytes through `cat` could do.
+ */
 interface AdbCommandExecutor {
 
     fun isConnected(): Boolean
 
     suspend fun executeCommand(command: String): String?
 
-    fun openCommandStream(command: String): CommandStream?
+    /** Metadata straight from the transfer protocol, avoiding a separate shell round trip. */
+    suspend fun stat(remotePath: String): SyncStat?
 
-    fun openReadStream(command: String): FileTransferStream?
+    /**
+     * @param onProgress receives the running total of bytes written.
+     */
+    suspend fun pull(remotePath: String, sink: OutputStream, onProgress: suspend (Long) -> Unit)
 
-    fun openWriteStream(command: String): FileTransferStream?
-
-    fun pullFileWithProgress(
-        remotePath: String,
-        totalSize: Long,
-        onProgress: (Long, Long) -> Unit
-    ): InputStream? = null
-
-    fun pushFileWithProgress(
-        remotePath: String,
-        data: ByteArray,
-        onProgress: (Long, Long) -> Unit
-    ): Boolean = false
-
-    fun supportsSyncTransfer(): Boolean = false
+    /**
+     * @param onProgress receives the running total of bytes sent.
+     */
+    suspend fun push(source: InputStream, remotePath: String, onProgress: suspend (Long) -> Unit)
 }
-
-data class CommandStream(
-    val inputStream: InputStream,
-    val close: () -> Unit
-)
-
-data class FileTransferStream(
-    val inputStream: InputStream? = null,
-    val outputStream: OutputStream? = null,
-    val close: () -> Unit
-)

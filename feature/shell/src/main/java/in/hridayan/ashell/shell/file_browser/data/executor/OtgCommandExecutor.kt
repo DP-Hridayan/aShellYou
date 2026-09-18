@@ -1,14 +1,24 @@
-﻿package `in`.hridayan.ashell.shell.file_browser.data.executor
+package `in`.hridayan.ashell.shell.file_browser.data.executor
 
 import android.util.Log
 import `in`.hridayan.ashell.core.common.domain.repository.OtgRepository
+import `in`.hridayan.ashell.shell.file_browser.data.protocol.AdblibSyncTransport
+import `in`.hridayan.ashell.shell.file_browser.domain.protocol.SyncSession
+import `in`.hridayan.ashell.shell.file_browser.domain.protocol.SyncStat
+import `in`.hridayan.ashell.shell.file_browser.domain.protocol.SyncTransport
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
-import java.io.ByteArrayInputStream
-import java.io.ByteArrayOutputStream
+import java.io.IOException
+import java.io.InputStream
+import java.io.OutputStream
 import javax.inject.Inject
 import javax.inject.Singleton
+
+private const val SHELL_SERVICE_PREFIX = "shell:"
+private const val SYNC_SERVICE = "sync:"
+private const val COMMAND_TIMEOUT_MS = 15_000L
+private const val COMMAND_END_MARKER = "__END__"
 
 @Singleton
 class OtgCommandExecutor @Inject constructor(
@@ -21,64 +31,67 @@ class OtgCommandExecutor @Inject constructor(
 
     override fun isConnected(): Boolean = otgRepository.isConnected()
 
-    override fun supportsSyncTransfer(): Boolean = false
-
     override suspend fun executeCommand(command: String): String? = withContext(Dispatchers.IO) {
         if (!isConnected()) return@withContext null
 
         val adbConnection = otgRepository.getAdbConnection() ?: return@withContext null
 
-        withTimeoutOrNull(15000L) {
-            val stream = adbConnection.open("shell:$command")
+        withTimeoutOrNull(COMMAND_TIMEOUT_MS) {
+            val stream = adbConnection.open(SHELL_SERVICE_PREFIX + command)
             try {
                 val output = StringBuilder()
                 while (true) {
                     val data = stream.read()
                     if (data == null || data.isEmpty()) break
                     output.append(String(data, Charsets.UTF_8))
-                    if (output.contains("__END__")) break
+                    if (output.contains(COMMAND_END_MARKER)) break
                 }
                 output.toString()
             } finally {
-                try {
-                    stream.close()
-                } catch (_: Exception) {
-                }
+                runCatching { stream.close() }
             }
         }
     }
 
-    override fun openCommandStream(command: String): CommandStream? {
-        if (!isConnected()) return null
-        val adbConnection = otgRepository.getAdbConnection() ?: return null
+    override suspend fun stat(remotePath: String): SyncStat? =
+        withSyncSession { it.stat(remotePath) }
 
+    override suspend fun pull(
+        remotePath: String,
+        sink: OutputStream,
+        onProgress: suspend (Long) -> Unit
+    ) {
+        requireSyncSession { it.pull(remotePath, sink, onProgress) }
+    }
+
+    override suspend fun push(
+        source: InputStream,
+        remotePath: String,
+        onProgress: suspend (Long) -> Unit
+    ) {
+        requireSyncSession { it.push(source, remotePath, onProgress = onProgress) }
+    }
+
+    private suspend fun <T> withSyncSession(block: suspend (SyncSession) -> T): T? = try {
+        requireSyncSession(block)
+    } catch (e: IOException) {
+        Log.e(TAG, "Sync session failed", e)
+        null
+    }
+
+    private suspend fun <T> requireSyncSession(block: suspend (SyncSession) -> T): T {
+        val transport = openSyncTransport()
+        val session = SyncSession(transport)
         return try {
-            val stream = adbConnection.open(command)
-            val output = ByteArrayOutputStream()
-
-            while (true) {
-                val data = stream.read() ?: break
-                if (data.isEmpty()) break
-                output.write(data)
-            }
-
-            val resultStream = ByteArrayInputStream(output.toByteArray())
-            CommandStream(
-                inputStream = resultStream,
-                close = {
-                    try {
-                        stream.close()
-                    } catch (_: Exception) {
-                    }
-                }
-            )
-        } catch (e: Exception) {
-            Log.e(TAG, "openCommandStream failed", e)
-            null
+            block(session).also { runCatching { session.quit() } }
+        } finally {
+            transport.close()
         }
     }
 
-    override fun openReadStream(command: String): FileTransferStream? = null
-
-    override fun openWriteStream(command: String): FileTransferStream? = null
+    private fun openSyncTransport(): SyncTransport {
+        val connection = otgRepository.getAdbConnection()
+            ?: throw IOException("No OTG ADB connection")
+        return AdblibSyncTransport(connection.open(SYNC_SERVICE))
+    }
 }
