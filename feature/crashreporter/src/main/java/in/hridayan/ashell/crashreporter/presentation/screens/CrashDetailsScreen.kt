@@ -224,7 +224,7 @@ fun CrashDetailsScreen(
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Icon(
-                                    painter = painterResource(R.drawable.ic_adb2),
+                                    painter = painterResource(R.drawable.ic_adb),
                                     contentDescription = null
                                 )
 
