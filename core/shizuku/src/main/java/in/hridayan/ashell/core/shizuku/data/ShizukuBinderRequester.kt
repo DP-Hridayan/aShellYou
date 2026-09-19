@@ -16,6 +16,7 @@ import kotlinx.coroutines.withTimeoutOrNull
 import rikka.shizuku.Shizuku
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.time.Duration.Companion.milliseconds
 
 private const val ACTION_REQUEST_BINDER = "rikka.shizuku.intent.action.REQUEST_BINDER"
 private const val EXTRA_DATA = "data"
@@ -38,6 +39,7 @@ class ShizukuBinderRequester @Inject constructor(
             SHIZUKU_PACKAGE_NAME to ShizukuBinderSource.STOCK,
             SHIZUKU_PLUS_PACKAGE_NAME to ShizukuBinderSource.PLUS
         )
+
         return candidates
             .filter { (packageName, _) -> isInstalled(packageName) }
             .any { (packageName, source) -> requestFrom(packageName, source) }
@@ -46,16 +48,23 @@ class ShizukuBinderRequester @Inject constructor(
     @SuppressLint("RestrictedApi")
     private suspend fun requestFrom(packageName: String, source: ShizukuBinderSource): Boolean {
         val reply = CompletableDeferred<IBinder?>()
+
         context.sendBroadcast(requestIntent(packageName, ReplyBinder(reply)))
-        val binder = withTimeoutOrNull(REPLY_TIMEOUT_MS) { reply.await() } ?: return false
+
+        val binder =
+            withTimeoutOrNull(REPLY_TIMEOUT_MS.milliseconds) { reply.await() } ?: return false
+
         if (!binder.pingBinder()) return false
+
         Shizuku.onBinderReceived(binder, context.packageName)
         ShizukuBinderArbiter.onAccepted(source)
+
         return true
     }
 
     private fun requestIntent(packageName: String, replyBinder: Binder): Intent {
         val data = Bundle().apply { putBinder(EXTRA_REPLY_BINDER, replyBinder) }
+
         return Intent(ACTION_REQUEST_BINDER)
             .setPackage(packageName)
             .putExtra(EXTRA_DATA, data)
@@ -65,8 +74,18 @@ class ShizukuBinderRequester @Inject constructor(
         runCatching { context.packageManager.getPackageInfo(packageName, 0) }.isSuccess
 
     private class ReplyBinder(private val reply: CompletableDeferred<IBinder?>) : Binder() {
-        override fun onTransact(code: Int, data: Parcel, replyParcel: Parcel?, flags: Int): Boolean {
-            if (code != REPLY_TRANSACTION_CODE) return super.onTransact(code, data, replyParcel, flags)
+        override fun onTransact(
+            code: Int,
+            data: Parcel,
+            replyParcel: Parcel?,
+            flags: Int
+        ): Boolean {
+            if (code != REPLY_TRANSACTION_CODE) return super.onTransact(
+                code,
+                data,
+                replyParcel,
+                flags
+            )
             reply.complete(data.readStrongBinder())
             return true
         }
