@@ -12,12 +12,12 @@ import androidx.credentials.exceptions.NoCredentialException
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import dagger.hilt.android.qualifiers.ApplicationContext
-import `in`.hridayan.ashell.core.utils.findActivity
+import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
+import `in`.hridayan.ashell.core.utils.findActivity
 import `in`.hridayan.ashell.settings.domain.exception.NoGoogleAccountException
 import `in`.hridayan.ashell.settings.domain.model.GoogleUserState
 import `in`.hridayan.ashell.settings.domain.repository.GoogleAuthRepository
-import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -107,7 +107,7 @@ class GoogleAuthRepositoryImpl @Inject constructor(
                 val googleCredential =
                     GoogleIdTokenCredential.createFrom(credential.data)
 
-                val email = googleCredential.id
+                val email = googleCredential.email ?: ""
                 val name = googleCredential.displayName
                 val photo = googleCredential.profilePictureUri
 
