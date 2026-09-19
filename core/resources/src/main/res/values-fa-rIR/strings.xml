@@ -11,18 +11,17 @@
     <string name="adb_command" comment="Input field label for typing an ADB shell command">دستور ADB</string>
     <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">دستور ADB (حالت خاموش)</string>
     <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">دستور ADB (حالت روشن)</string>
+    <string name="failed_to_download_file" comment="Error shown when downloading a file from the connected device fails and the device gave no reason">Failed to download file</string>
+    <string name="failed_to_upload_file" comment="Error shown when uploading a file to the connected device fails and the device gave no reason">Failed to upload file</string>
+    <string name="file_downloaded" comment="Confirmation shown when a file finished downloading from the connected device">File downloaded</string>
+    <string name="file_uploaded" comment="Confirmation shown when a file finished uploading to the connected device">File uploaded</string>
+    <string name="local_file_does_not_exist" comment="Error shown when the chosen file to upload is no longer present on this device">Local file does not exist</string>
+    <string name="adb_connected_to" comment="Output line confirming an ADB connection was established with the given host and port">متصل شده به %1$s</string>
     <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB متصل است — مطمئن شوید دستگاه در حالت سایدلود است</string>
     <string name="adb_connection_active" comment="Foreground notification title when an ADB connection (Wireless/OTG) is currently active">اتصال ADB فعال است</string>
     <string name="adb_connection_channel_description" comment="Android notification channel description in System Settings for ADB connection status">نمایش زمانی که اتصال ADB فعال است</string>
     <string name="adb_connection_channel_name" comment="Android notification channel name in System Settings for active ADB connections">اتصال ADB</string>
     <string name="adb_connection_description" comment="Notification body text indicating an active background Wi-Fi ADB connection">اتصال WiFi ADB برقرار است</string>
-    <string name="adb_key_unavailable" comment="Error shown in ADB sideload when the app could not load or create its RSA key pair used to authenticate to the target device">نتوانست کلید احراز هویت ADB را آماده کند</string>
-    <string name="adb_sideload" comment="Feature title for pushing and installing ZIP update packages to device recovery via ADB sideload over USB OTG">سایدلود ADB</string>
-    <string name="adb_through_otg" comment="Title for USB OTG ADB connection mode where this device controls a target device over OTG cable">ADB از طریق OTG</string>
-    <string name="adb_through_otg_summary" comment="Summary description of ADB OTG feature in connection selection screen">با استفاده از کابل OTG و اشکال‌زدایی USB، دستورات ADB را روی دستگاه اندروید دیگری اجرا کنید. باید اشکال‌زدایی USB را در تنظیمات توسعه‌دهنده دستگاه مقصد فعال کنید.</string>
-    <string name="adb_via_otg" comment="Compact label for ADB connection via USB OTG cable">ADB از طریق OTG</string>
-    <string name="adb_via_wireless_debugging" comment="Feature title for wireless ADB connection on Android 11+ devices">ADB از طریق اشکال‌زدایی بی‌سیم</string>
-    <string name="adb_connected_to" comment="Output line confirming an ADB connection was established with the given host and port">متصل شده به %1$s</string>
     <string name="adb_daemon_restarted" comment="Output line shown after an adb command such as tcpip or reboot makes the device ADB daemon restart, which ends the current connection">دیمون adb مجدداً راه‌اندازی شد، این اتصال اکنون بسته است</string>
     <string name="adb_direct_connection_note" comment="Output line for the adb version command explaining the app talks to the device ADB daemon directly instead of through a desktop ADB server">به طور مستقیم به دیمون ADB دستگاه متصل شد، هیچ سرور ADB استفاده نمی‌شود</string>
     <string name="adb_disconnected_from" comment="Output line confirming the ADB connection to the given host and port was closed">قطع شد %1$s</string>
@@ -33,14 +32,21 @@
     <string name="adb_hint_use_file_browser" comment="Advice shown when the user runs an adb file transfer command, pointing them at the in-app file browser">برای انتقال فایل‌ها از مرورگر فایل استفاده کنید.</string>
     <string name="adb_hint_use_pm_uninstall" comment="Advice shown when the user runs adb uninstall, pointing them at the equivalent shell command">به جای آن از pm uninstall --user 0 &lt;package&gt; استفاده کنید.</string>
     <string name="adb_hint_use_sideload" comment="Advice shown when the user runs adb sideload, pointing them at the dedicated sideload screen">از صفحه سایدلود ADB استفاده کنید.</string>
+    <string name="adb_key_unavailable" comment="Error shown in ADB sideload when the app could not load or create its RSA key pair used to authenticate to the target device">نتوانست کلید احراز هویت ADB را آماده کند</string>
+    <string name="shell_connection_lost" comment="Error shown in the shell output when the connection to the device drops while a command is running">Connection to the device was lost</string>
     <string name="adb_not_connected" comment="Error shown when a command needs an ADB connection but none is active">ADB متصل نیست</string>
     <string name="adb_paired_with" comment="Output line confirming pairing succeeded with the given host and port">جفت شده با %1$s</string>
     <string name="adb_reconnect_hint" comment="Advice shown after the device ADB daemon restarts in TCP mode, telling the user the command that reconnects to it">اتصال مجدد با: %1$s</string>
     <string name="adb_server_not_applicable" comment="Output line for adb start-server and kill-server, which have no effect because the app connects to the device ADB daemon directly">هیچ سرور ADB استفاده نمی‌شود، بنابراین چیزی برای شروع یا توقف وجود ندارد</string>
+    <string name="adb_sideload" comment="Feature title for pushing and installing ZIP update packages to device recovery via ADB sideload over USB OTG">سایدلود ADB</string>
     <string name="adb_supported_commands" comment="Header printed above the list of adb commands the app understands">دستورات پشتیبانی شده adb:</string>
+    <string name="adb_through_otg" comment="Title for USB OTG ADB connection mode where this device controls a target device over OTG cable">ADB از طریق OTG</string>
+    <string name="adb_through_otg_summary" comment="Summary description of ADB OTG feature in connection selection screen">با استفاده از کابل OTG و اشکال‌زدایی USB، دستورات ADB را روی دستگاه اندروید دیگری اجرا کنید. باید اشکال‌زدایی USB را در تنظیمات توسعه‌دهنده دستگاه مقصد فعال کنید.</string>
     <string name="adb_unsupported_command" comment="Error shown when an adb subcommand cannot work over this connection. The placeholder is the subcommand name, such as push">دستور adb %1$s از طریق این اتصال پشتیبانی نمی‌شود</string>
     <string name="adb_usage" comment="Error shown when a known adb command was typed incorrectly. The placeholder is the correct form of the command">نحوه استفاده: %1$s</string>
     <string name="adb_version_line" comment="Output line for the adb version command. The placeholder is the app version name">aShellYou %1$s</string>
+    <string name="adb_via_otg" comment="Compact label for ADB connection via USB OTG cable">ADB از طریق OTG</string>
+    <string name="adb_via_wireless_debugging" comment="Feature title for wireless ADB connection on Android 11+ devices">ADB از طریق اشکال‌زدایی بی‌سیم</string>
     <string name="adb_via_wireless_debugging_summary" comment="Summary description for wireless ADB feature in connection setup screen">دستگاه‌ها (اندروید ۱۱+) را از طریق Wi-Fi با استفاده از اشکال‌زدایی بی‌سیم متصل کرده و دستورات ADB را از راه دور اجرا کنید.</string>
     <string name="add">افزودن</string>
     <string name="add_account" comment="Button label in cloud backup settings to link a Google account for backup sync">افزودن حساب</string>
@@ -264,6 +270,7 @@
     <string name="connect_via_wifi_adb" comment="Option in connection menu to connect via Wi-Fi Wireless Debugging">اتصال از طریق Wi-Fi ADB</string>
     <string name="connected" comment="Status badge showing device is successfully connected over ADB">متصل</string>
     <string name="connected_device" comment="Header title for the currently active ADB target device information card">دستگاه متصل</string>
+    <string name="changed_directory_to" comment="Shell output confirming the working directory moved. The placeholder is the directory path the device reported">Changed directory to: %1$s</string>
     <string name="connecting" comment="Progress status text shown while establishing ADB connection">در حال اتصال…</string>
     <string name="connection_error" comment="Toast notification or dialog title for ADB network connection errors">خطای اتصال</string>
     <string name="connection_failed" comment="Status banner or toast when ADB connection attempt fails">اتصال ناموفق</string>
@@ -679,6 +686,7 @@
     <string name="no_adb_device_error" comment="Error toast when no ADB target device is found over USB OTG">دستگاه سازگار با ADB یافت نشد. اشکال‌زدایی USB را روی هدف فعال کنید.</string>
     <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">رابط adb یافت نشد</string>
     <string name="no_auto_backup_yet" comment="Placeholder text under backup status when no automated backup has executed">هنوز هیچ پشتیبان‌گیری خودکاری انجام نشده است</string>
+    <string name="no_such_directory" comment="Shell error shown when a cd command names a directory the device could not enter. The placeholder is the path that was tried">No such directory: %1$s</string>
     <string name="no_bookmarks" comment="Placeholder text in bookmarks tab when no commands are saved">نشانکی یافت نشد</string>
     <string name="no_changelog_found" comment="Placeholder message in changelog screen when no version notes exist">تغییرات برای این نسخه یافت نشد</string>
     <string name="no_cloud_backup_found" comment="Status banner when no backup file is found on Google Drive">هیچ پشتیبانی در Google Drive یافت نشد</string>
@@ -748,6 +756,8 @@
     <string name="pair_using_code" comment="Option in Wireless Debugging setup to pair device using 6-digit pairing code">جفت کردن با کد</string>
     <string name="pair_using_qr" comment="Option in Wireless Debugging setup to pair device by scanning QR code">جفت کردن با QR</string>
     <string name="paired" comment="Status badge showing device is successfully paired via ADB">جفت شده</string>
+    <string name="pairing_code_rejected" comment="Error shown under the pairing code input when the device rejected the six digit code the user entered">Incorrect pairing code. Check the code on the target device and try again.</string>
+    <string name="pairing_in_progress" comment="Status shown on the Pair button while the entered pairing code is being checked by the target device">Pairing…</string>
     <string name="pairing" comment="Status header/banner displayed while ADB wireless pairing is in progress">در حال جفت‌سازی</string>
     <string name="pairing_code" comment="Field label or dialog title for 6-digit ADB wireless pairing code">کد جفت‌سازی</string>
     <string name="pairing_notification_hint" comment="Notice informing user that a system notification will appear to facilitate quick pairing code entry">یک اعلان از aShell You دریافت خواهید کرد تا در جفت‌سازی کمک کند</string>
@@ -950,6 +960,13 @@
     <string name="slot_data_unknown" comment="Status text when device A/B slot information cannot be retrieved over fastboot">داده‌های اسلات ناشناخته است</string>
     <string name="smooth_scrolling" comment="Settings toggle preference title to enable smooth scrolling animation in terminal">اسکرول نرم</string>
     <string name="sort">مرتب‌سازی</string>
+    <string name="special_thanks">Special thanks</string>
+    <string name="special_thanks_hidden_api_bypass">For bypassing Android\'s hidden API restrictions, crucial for advanced system-level functionalities.</string>
+    <string name="special_thanks_libsu">For the libsu library, providing root shell execution capabilities.</string>
+    <string name="special_thanks_mahmud">For extensive help with bug fixes, feature ideas, and invaluable daily feedback.</string>
+    <string name="special_thanks_qrcodegen">For the QR code generation library.</string>
+    <string name="special_thanks_shizuku">For the Shizuku API, enabling elevated privileges and ADB-level access without full root.</string>
+    <string name="special_thanks_sun_security">For sun-security-android, providing essential crypto implementations.</string>
     <string name="stable_fdroid" comment="Option in update channel settings for F-Droid stable releases">پایدار (Fdroid)</string>
     <string name="stable_github" comment="Option in update channel settings for GitHub stable releases">پایدار (GitHub)</string>
     <string name="stack_trace" comment="Header title for crash log exception stack trace section">ردیابی پشته</string>
@@ -957,6 +974,11 @@
     <string name="start">شروع</string>
     <string name="stop">توقف</string>
     <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">%.1f مگابایت استفاده شده توسط مدل‌های هوش مصنوعی</string>
+    <string name="style_filled">Filled</string>
+    <string name="style_outlined">Outlined</string>
+    <string name="style_rounded">Rounded</string>
+    <string name="style_sharp">Sharp</string>
+    <string name="style_two_tone">Two-tone</string>
     <string name="subtitle" comment="Field label for Quick Settings tile subtitle text">زیرنویس</string>
     <string name="subtitle_off_state" comment="Field label for tile subtitle text when Quick Settings tile is OFF">زیرنویس (حالت خاموش)</string>
     <string name="subtitle_on_state" comment="Field label for tile subtitle text when Quick Settings tile is ON">زیرنویس (حالت روشن)</string>

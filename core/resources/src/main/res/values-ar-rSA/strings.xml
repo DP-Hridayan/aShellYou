@@ -11,18 +11,17 @@
     <string name="adb_command" comment="Input field label for typing an ADB shell command">أمر ADB</string>
     <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">أمر ADB (حالة الإيقاف)</string>
     <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">أمر ADB (حالة التفعيل)</string>
+    <string name="failed_to_download_file" comment="Error shown when downloading a file from the connected device fails and the device gave no reason">فشل تنزيل الملف</string>
+    <string name="failed_to_upload_file" comment="Error shown when uploading a file to the connected device fails and the device gave no reason">فشل في تحميل الملف</string>
+    <string name="file_downloaded" comment="Confirmation shown when a file finished downloading from the connected device">تم تنزيل الملف</string>
+    <string name="file_uploaded" comment="Confirmation shown when a file finished uploading to the connected device">تم رفع الملف</string>
+    <string name="local_file_does_not_exist" comment="Error shown when the chosen file to upload is no longer present on this device">الملف المحلي غير موجود</string>
+    <string name="adb_connected_to" comment="Output line confirming an ADB connection was established with the given host and port">متصل بـ %1$s</string>
     <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">تم اتصال ADB - تأكد من أن الجهاز في وضع sideload</string>
     <string name="adb_connection_active" comment="Foreground notification title when an ADB connection (Wireless/OTG) is currently active">اتصال ADB نشط</string>
     <string name="adb_connection_channel_description" comment="Android notification channel description in System Settings for ADB connection status">يظهر عندما يكون اتصال ADB نشط</string>
     <string name="adb_connection_channel_name" comment="Android notification channel name in System Settings for active ADB connections">اتصال ADB</string>
     <string name="adb_connection_description" comment="Notification body text indicating an active background Wi-Fi ADB connection">يتم الحفاظ على اتصال WiFi ADB</string>
-    <string name="adb_key_unavailable" comment="Error shown in ADB sideload when the app could not load or create its RSA key pair used to authenticate to the target device">تعذر إعداد مفتاح مصادقة ADB</string>
-    <string name="adb_sideload" comment="Feature title for pushing and installing ZIP update packages to device recovery via ADB sideload over USB OTG">ADB Sideload</string>
-    <string name="adb_through_otg" comment="Title for USB OTG ADB connection mode where this device controls a target device over OTG cable">ADB عبر OTG</string>
-    <string name="adb_through_otg_summary" comment="Summary description of ADB OTG feature in connection selection screen">استخدم كابل OTG وتصحيح USB لتنفيذ أوامر ADB على جهاز Android آخر. تحتاج إلى تشغيل تصحيح USB في إعدادات المطور على الجهاز المستهدف.</string>
-    <string name="adb_via_otg" comment="Compact label for ADB connection via USB OTG cable">ADB عبر OTG</string>
-    <string name="adb_via_wireless_debugging" comment="Feature title for wireless ADB connection on Android 11+ devices">ADB عن طريق تصحيح الأخطاء اللاسلكي</string>
-    <string name="adb_connected_to" comment="Output line confirming an ADB connection was established with the given host and port">متصل بـ %1$s</string>
     <string name="adb_daemon_restarted" comment="Output line shown after an adb command such as tcpip or reboot makes the device ADB daemon restart, which ends the current connection">تم إعادة تشغيل adbd، تم إغلاق هذا الاتصال الآن</string>
     <string name="adb_direct_connection_note" comment="Output line for the adb version command explaining the app talks to the device ADB daemon directly instead of through a desktop ADB server">متصل مباشرة ببرنامج ADB الخفي للجهاز، ولا يتم استخدام خادم ADB</string>
     <string name="adb_disconnected_from" comment="Output line confirming the ADB connection to the given host and port was closed">قطع الاتصال! %1$s</string>
@@ -33,14 +32,21 @@
     <string name="adb_hint_use_file_browser" comment="Advice shown when the user runs an adb file transfer command, pointing them at the in-app file browser">استخدم مستعرض الملفات لنقل الملفات.</string>
     <string name="adb_hint_use_pm_uninstall" comment="Advice shown when the user runs adb uninstall, pointing them at the equivalent shell command">استخدم pm uninstall --user 0 &lt;package&gt; بدلاً من ذلك.</string>
     <string name="adb_hint_use_sideload" comment="Advice shown when the user runs adb sideload, pointing them at the dedicated sideload screen">استخدم شاشة ADB Sideload.</string>
+    <string name="adb_key_unavailable" comment="Error shown in ADB sideload when the app could not load or create its RSA key pair used to authenticate to the target device">تعذر إعداد مفتاح مصادقة ADB</string>
+    <string name="shell_connection_lost" comment="Error shown in the shell output when the connection to the device drops while a command is running">تم فقدان الاتصال بالجهاز</string>
     <string name="adb_not_connected" comment="Error shown when a command needs an ADB connection but none is active">الجهاز غير متصل</string>
     <string name="adb_paired_with" comment="Output line confirming pairing succeeded with the given host and port">تم الاقتران مع %1$s</string>
     <string name="adb_reconnect_hint" comment="Advice shown after the device ADB daemon restarts in TCP mode, telling the user the command that reconnects to it">أعد الاتصال باستخدام: %1$s</string>
     <string name="adb_server_not_applicable" comment="Output line for adb start-server and kill-server, which have no effect because the app connects to the device ADB daemon directly">لا يتم استخدام خادم ADB، لذلك لا يوجد شيء لبدء تشغيله أو إيقافه</string>
+    <string name="adb_sideload" comment="Feature title for pushing and installing ZIP update packages to device recovery via ADB sideload over USB OTG">ADB Sideload</string>
     <string name="adb_supported_commands" comment="Header printed above the list of adb commands the app understands">أوامر adb المدعومة:</string>
+    <string name="adb_through_otg" comment="Title for USB OTG ADB connection mode where this device controls a target device over OTG cable">ADB عبر OTG</string>
+    <string name="adb_through_otg_summary" comment="Summary description of ADB OTG feature in connection selection screen">استخدم كابل OTG وتصحيح USB لتنفيذ أوامر ADB على جهاز Android آخر. تحتاج إلى تشغيل تصحيح USB في إعدادات المطور على الجهاز المستهدف.</string>
     <string name="adb_unsupported_command" comment="Error shown when an adb subcommand cannot work over this connection. The placeholder is the subcommand name, such as push">adb %1$s غير مدعوم عبر هذا الاتصال</string>
     <string name="adb_usage" comment="Error shown when a known adb command was typed incorrectly. The placeholder is the correct form of the command">الاستخدام: %1$s</string>
     <string name="adb_version_line" comment="Output line for the adb version command. The placeholder is the app version name">aShellYou %1$s</string>
+    <string name="adb_via_otg" comment="Compact label for ADB connection via USB OTG cable">ADB عبر OTG</string>
+    <string name="adb_via_wireless_debugging" comment="Feature title for wireless ADB connection on Android 11+ devices">ADB عن طريق تصحيح الأخطاء اللاسلكي</string>
     <string name="adb_via_wireless_debugging_summary" comment="Summary description for wireless ADB feature in connection setup screen">توصيل الأجهزة (Android 11+) عبر Wi-Fi باستخدام التصحيح اللاسلكي وتنفيذ أوامر ADB عن بُعد.</string>
     <string name="add">إضافة</string>
     <string name="add_account" comment="Button label in cloud backup settings to link a Google account for backup sync">إضافة حساب</string>
@@ -266,6 +272,7 @@
     <string name="connect_via_wifi_adb" comment="Option in connection menu to connect via Wi-Fi Wireless Debugging">الاتصال عبر Wi-Fi ADB</string>
     <string name="connected" comment="Status badge showing device is successfully connected over ADB">متصل</string>
     <string name="connected_device" comment="Header title for the currently active ADB target device information card">الجهاز المتصل</string>
+    <string name="changed_directory_to" comment="Shell output confirming the working directory moved. The placeholder is the directory path the device reported">تم تغيير الدليل إلى: %1$s</string>
     <string name="connecting" comment="Progress status text shown while establishing ADB connection">جارٍ توصيل…</string>
     <string name="connection_error" comment="Toast notification or dialog title for ADB network connection errors">خطأ في الاتصال</string>
     <string name="connection_failed" comment="Status banner or toast when ADB connection attempt fails">فشل الاتصال</string>
@@ -691,6 +698,7 @@ aShell You يحتاج إلى إذن Shizuku لتنفيذ أوامر الاختص
     <string name="no_adb_device_error" comment="Error toast when no ADB target device is found over USB OTG">لم يتم العثور على أجهزة متوافقة مع ADB. تمكين تصحيح USB على الهدف.</string>
     <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">لم يتم العثور على واجهة adb</string>
     <string name="no_auto_backup_yet" comment="Placeholder text under backup status when no automated backup has executed">لم يتم إجراء نسخ احتياطي تلقائي بعد</string>
+    <string name="no_such_directory" comment="Shell error shown when a cd command names a directory the device could not enter. The placeholder is the path that was tried">لا يوجد دليل كهذا: %1$s</string>
     <string name="no_bookmarks" comment="Placeholder text in bookmarks tab when no commands are saved">لم يتم العثور على إشارات مرجعية</string>
     <string name="no_changelog_found" comment="Placeholder message in changelog screen when no version notes exist">لا يوجد سجل تغييرات لهذا الإصدار</string>
     <string name="no_cloud_backup_found" comment="Status banner when no backup file is found on Google Drive">لم يتم العثور على نسخة احتياطية على Google Drive</string>
@@ -760,6 +768,8 @@ aShell You يحتاج إلى إذن Shizuku لتنفيذ أوامر الاختص
     <string name="pair_using_code" comment="Option in Wireless Debugging setup to pair device using 6-digit pairing code">إقران باستخدام الكود</string>
     <string name="pair_using_qr" comment="Option in Wireless Debugging setup to pair device by scanning QR code">إقران باستخدام QR</string>
     <string name="paired" comment="Status badge showing device is successfully paired via ADB">مقترن</string>
+    <string name="pairing_code_rejected" comment="Error shown under the pairing code input when the device rejected the six digit code the user entered">رمز الإقران غير صحيح. تحقق من الكود على الجهاز المستهدف وحاول مرة أخرى.</string>
+    <string name="pairing_in_progress" comment="Status shown on the Pair button while the entered pairing code is being checked by the target device">Pairing…</string>
     <string name="pairing" comment="Status header/banner displayed while ADB wireless pairing is in progress">تجري عملية الاقتران</string>
     <string name="pairing_code" comment="Field label or dialog title for 6-digit ADB wireless pairing code">رمز الاقتران</string>
     <string name="pairing_notification_hint" comment="Notice informing user that a system notification will appear to facilitate quick pairing code entry">ستتلقى إشعارًا من aShell You لمساعدتك في عملية الاقتران</string>
@@ -967,6 +977,13 @@ aShell You يحتاج إلى إذن Shizuku لتنفيذ أوامر الاختص
     <string name="slot_data_unknown" comment="Status text when device A/B slot information cannot be retrieved over fastboot">بيانات الفتحة غير معروفة</string>
     <string name="smooth_scrolling" comment="Settings toggle preference title to enable smooth scrolling animation in terminal">تمرير سلس</string>
     <string name="sort">ترتيب</string>
+    <string name="special_thanks">شكر خاص</string>
+    <string name="special_thanks_hidden_api_bypass">لتجاوز قيود واجهة برمجة التطبيقات المخفية للأندرويد، أمر حاسم لوظائف النظام المتقدمة.</string>
+    <string name="special_thanks_libsu">بالنسبة لمكتبة ليبسو، توفير قدرات التنفيذ لجذور القصف.</string>
+    <string name="special_thanks_mahmud">للحصول على مساعدة شاملة في إصلاح الأخطاء، والأفكار المميزة، والتغذية المرتدة اليومية القيمة.</string>
+    <string name="special_thanks_qrcodegen">لمكتبة توليد رمز QR.</string>
+    <string name="special_thanks_shizuku">ل Shizuku API ، تمكين الامتيازات المرتفعة والوصول على مستوى ADB بدون جذور كاملة.</string>
+    <string name="special_thanks_sun_security">لشمس-أمن - أندرويد، توفير تطبيقات تشفير أساسية.</string>
     <string name="stable_fdroid" comment="Option in update channel settings for F-Droid stable releases">إصدار مستقر (Fdroid)</string>
     <string name="stable_github" comment="Option in update channel settings for GitHub stable releases">إصدار مستقر (GitHub)</string>
     <string name="stack_trace" comment="Header title for crash log exception stack trace section">أثر المكدس</string>
@@ -974,6 +991,11 @@ aShell You يحتاج إلى إذن Shizuku لتنفيذ أوامر الاختص
     <string name="start">ابدأ</string>
     <string name="stop">إيقاف</string>
     <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">مستخدم %.1f ميجابايت بواسطة نماذج الذكاء الاصطناعي</string>
+    <string name="style_filled">ملئ</string>
+    <string name="style_outlined">موجز</string>
+    <string name="style_rounded">دوار</string>
+    <string name="style_sharp">حاد</string>
+    <string name="style_two_tone">نغمتين</string>
     <string name="subtitle" comment="Field label for Quick Settings tile subtitle text">عنوان فرعي</string>
     <string name="subtitle_off_state" comment="Field label for tile subtitle text when Quick Settings tile is OFF">العنوان الفرعي (حالة الإيقاف)</string>
     <string name="subtitle_on_state" comment="Field label for tile subtitle text when Quick Settings tile is ON">العنوان الفرعي (حالة التفعيل)</string>

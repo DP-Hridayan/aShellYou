@@ -11,18 +11,17 @@
     <string name="adb_command" comment="Input field label for typing an ADB shell command">ADBコマンド</string>
     <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">ADBコマンド (OFF状態)</string>
     <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">ADBコマンド (ON状態)</string>
+    <string name="failed_to_download_file" comment="Error shown when downloading a file from the connected device fails and the device gave no reason">ファイルのダウンロードに失敗しました</string>
+    <string name="failed_to_upload_file" comment="Error shown when uploading a file to the connected device fails and the device gave no reason">ファイルのアップロードに失敗しました</string>
+    <string name="file_downloaded" comment="Confirmation shown when a file finished downloading from the connected device">ファイルをダウンロードしました</string>
+    <string name="file_uploaded" comment="Confirmation shown when a file finished uploading to the connected device">ファイルがアップロードされました</string>
+    <string name="local_file_does_not_exist" comment="Error shown when the chosen file to upload is no longer present on this device">ローカル ファイルが存在しません</string>
+    <string name="adb_connected_to" comment="Output line confirming an ADB connection was established with the given host and port">%1$s に接続しました</string>
     <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB接続済み — デバイスがサイドロードモードになっていることを確認してください</string>
     <string name="adb_connection_active" comment="Foreground notification title when an ADB connection (Wireless/OTG) is currently active">ADB 接続が有効です</string>
     <string name="adb_connection_channel_description" comment="Android notification channel description in System Settings for ADB connection status">ADB 接続がアクティブな時に表示</string>
     <string name="adb_connection_channel_name" comment="Android notification channel name in System Settings for active ADB connections">ADB 接続</string>
     <string name="adb_connection_description" comment="Notification body text indicating an active background Wi-Fi ADB connection">WiFi ADB 接続は維持されています</string>
-    <string name="adb_key_unavailable" comment="Error shown in ADB sideload when the app could not load or create its RSA key pair used to authenticate to the target device">ADB認証キーを準備できませんでした</string>
-    <string name="adb_sideload" comment="Feature title for pushing and installing ZIP update packages to device recovery via ADB sideload over USB OTG">ADBサイドロード</string>
-    <string name="adb_through_otg" comment="Title for USB OTG ADB connection mode where this device controls a target device over OTG cable">OTGを介したADB</string>
-    <string name="adb_through_otg_summary" comment="Summary description of ADB OTG feature in connection selection screen">OTGケーブルとUSBデバッグを使用して、別のAndroidデバイスでADBコマンドを実行します。 対象デバイスの開発者設定でUSBデバッグを有効にする必要があります。</string>
-    <string name="adb_via_otg" comment="Compact label for ADB connection via USB OTG cable">ADB via OTG</string>
-    <string name="adb_via_wireless_debugging" comment="Feature title for wireless ADB connection on Android 11+ devices">ワイヤレスデバッグ経由のADB</string>
-    <string name="adb_connected_to" comment="Output line confirming an ADB connection was established with the given host and port">%1$s に接続しました</string>
     <string name="adb_daemon_restarted" comment="Output line shown after an adb command such as tcpip or reboot makes the device ADB daemon restart, which ends the current connection">adbdが再起動されました。この接続は閉じられます</string>
     <string name="adb_direct_connection_note" comment="Output line for the adb version command explaining the app talks to the device ADB daemon directly instead of through a desktop ADB server">デバイスのADBデーモンに直接接続されました。デスクトップADBサーバーは使用されません</string>
     <string name="adb_disconnected_from" comment="Output line confirming the ADB connection to the given host and port was closed">%1$s を切断しました</string>
@@ -33,14 +32,21 @@
     <string name="adb_hint_use_file_browser" comment="Advice shown when the user runs an adb file transfer command, pointing them at the in-app file browser">ファイル転送にはファイルブラウザを使用してください。</string>
     <string name="adb_hint_use_pm_uninstall" comment="Advice shown when the user runs adb uninstall, pointing them at the equivalent shell command">代わりに pm uninstall --user 0 &lt;package&gt; を使用してください。</string>
     <string name="adb_hint_use_sideload" comment="Advice shown when the user runs adb sideload, pointing them at the dedicated sideload screen">ADBサイドロード画面を使用してください。</string>
+    <string name="adb_key_unavailable" comment="Error shown in ADB sideload when the app could not load or create its RSA key pair used to authenticate to the target device">ADB認証キーを準備できませんでした</string>
+    <string name="shell_connection_lost" comment="Error shown in the shell output when the connection to the device drops while a command is running">デバイスへの接続が失われました</string>
     <string name="adb_not_connected" comment="Error shown when a command needs an ADB connection but none is active">ADBが接続されていません</string>
     <string name="adb_paired_with" comment="Output line confirming pairing succeeded with the given host and port">%1$s とペアリングされました</string>
     <string name="adb_reconnect_hint" comment="Advice shown after the device ADB daemon restarts in TCP mode, telling the user the command that reconnects to it">再接続コマンド: %1$s</string>
     <string name="adb_server_not_applicable" comment="Output line for adb start-server and kill-server, which have no effect because the app connects to the device ADB daemon directly">ADBサーバーは使用されないため、開始または停止するものはありません</string>
+    <string name="adb_sideload" comment="Feature title for pushing and installing ZIP update packages to device recovery via ADB sideload over USB OTG">ADBサイドロード</string>
     <string name="adb_supported_commands" comment="Header printed above the list of adb commands the app understands">サポートされているadbコマンド:</string>
+    <string name="adb_through_otg" comment="Title for USB OTG ADB connection mode where this device controls a target device over OTG cable">OTGを介したADB</string>
+    <string name="adb_through_otg_summary" comment="Summary description of ADB OTG feature in connection selection screen">OTGケーブルとUSBデバッグを使用して、別のAndroidデバイスでADBコマンドを実行します。 対象デバイスの開発者設定でUSBデバッグを有効にする必要があります。</string>
     <string name="adb_unsupported_command" comment="Error shown when an adb subcommand cannot work over this connection. The placeholder is the subcommand name, such as push">adb %1$s はこの接続ではサポートされていません</string>
     <string name="adb_usage" comment="Error shown when a known adb command was typed incorrectly. The placeholder is the correct form of the command">使用法: %1$s</string>
     <string name="adb_version_line" comment="Output line for the adb version command. The placeholder is the app version name">aShellYou %1$s</string>
+    <string name="adb_via_otg" comment="Compact label for ADB connection via USB OTG cable">ADB via OTG</string>
+    <string name="adb_via_wireless_debugging" comment="Feature title for wireless ADB connection on Android 11+ devices">ワイヤレスデバッグ経由のADB</string>
     <string name="adb_via_wireless_debugging_summary" comment="Summary description for wireless ADB feature in connection setup screen">ワイヤレスデバッグを使用してWi-Fi経由でデバイス(Android 11 以降)を接続し、ADBコマンドをリモートで実行します。</string>
     <string name="add">追加</string>
     <string name="add_account" comment="Button label in cloud backup settings to link a Google account for backup sync">アカウントを追加</string>
@@ -264,6 +270,7 @@
     <string name="connect_via_wifi_adb" comment="Option in connection menu to connect via Wi-Fi Wireless Debugging">Wi-Fi ADB経由で接続</string>
     <string name="connected" comment="Status badge showing device is successfully connected over ADB">接続されました</string>
     <string name="connected_device" comment="Header title for the currently active ADB target device information card">接続済みのデバイス</string>
+    <string name="changed_directory_to" comment="Shell output confirming the working directory moved. The placeholder is the directory path the device reported">ディレクトリを %1$sに変更しました</string>
     <string name="connecting" comment="Progress status text shown while establishing ADB connection">接続しています…</string>
     <string name="connection_error" comment="Toast notification or dialog title for ADB network connection errors">接続エラー</string>
     <string name="connection_failed" comment="Status banner or toast when ADB connection attempt fails">接続に失敗しました</string>
@@ -679,6 +686,7 @@
     <string name="no_adb_device_error" comment="Error toast when no ADB target device is found over USB OTG">ADB 互換デバイスが見つかりませんでした。ターゲットの USB デバッグを有効にしてください。</string>
     <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">ADB インターフェイスが見つかりません</string>
     <string name="no_auto_backup_yet" comment="Placeholder text under backup status when no automated backup has executed">自動バックアップはまだ実行されていません</string>
+    <string name="no_such_directory" comment="Shell error shown when a cd command names a directory the device could not enter. The placeholder is the path that was tried">そのようなディレクトリはありません: %1$s</string>
     <string name="no_bookmarks" comment="Placeholder text in bookmarks tab when no commands are saved">ブックマークが見つかりません</string>
     <string name="no_changelog_found" comment="Placeholder message in changelog screen when no version notes exist">このバージョンの変更履歴が見つかりませんでした</string>
     <string name="no_cloud_backup_found" comment="Status banner when no backup file is found on Google Drive">Google ドライブにバックアップが見つかりません</string>
@@ -748,6 +756,8 @@
     <string name="pair_using_code" comment="Option in Wireless Debugging setup to pair device using 6-digit pairing code">コードを使用してペアリングする</string>
     <string name="pair_using_qr" comment="Option in Wireless Debugging setup to pair device by scanning QR code">QRを使用してペアリングする</string>
     <string name="paired" comment="Status badge showing device is successfully paired via ADB">ペアリングされました</string>
+    <string name="pairing_code_rejected" comment="Error shown under the pairing code input when the device rejected the six digit code the user entered">ペアリングコードが正しくありません。ターゲットデバイスのコードを確認して、もう一度やり直してください。</string>
+    <string name="pairing_in_progress" comment="Status shown on the Pair button while the entered pairing code is being checked by the target device">Pairing…</string>
     <string name="pairing" comment="Status header/banner displayed while ADB wireless pairing is in progress">ペアリング中</string>
     <string name="pairing_code" comment="Field label or dialog title for 6-digit ADB wireless pairing code">ペアリングコード</string>
     <string name="pairing_notification_hint" comment="Notice informing user that a system notification will appear to facilitate quick pairing code entry">ペアリングを支援するためにaShell Youから通知が届きます</string>
@@ -950,6 +960,13 @@
     <string name="slot_data_unknown" comment="Status text when device A/B slot information cannot be retrieved over fastboot">スロットデータが不明です</string>
     <string name="smooth_scrolling" comment="Settings toggle preference title to enable smooth scrolling animation in terminal">スムーズなスクロール</string>
     <string name="sort">並び替え</string>
+    <string name="special_thanks">スペシャルサンクス</string>
+    <string name="special_thanks_hidden_api_bypass">Androidの隠しAPI制限を回避するためには、高度なシステムレベルの機能に不可欠です。</string>
+    <string name="special_thanks_libsu">libsu ライブラリの場合、root シェル実行機能を提供します。</string>
+    <string name="special_thanks_mahmud">バグ修正、機能のアイデア、非常に貴重な毎日のフィードバックと広範な助けのために。</string>
+    <string name="special_thanks_qrcodegen">QRコード生成ライブラリ用。</string>
+    <string name="special_thanks_shizuku">Shizuku APIでは、フルルートなしで特権とADBレベルのアクセスが可能になりました。</string>
+    <string name="special_thanks_sun_security">sun-security-androidのために、不可欠な暗号実装を提供します。</string>
     <string name="stable_fdroid" comment="Option in update channel settings for F-Droid stable releases">安定版 (Fdroid)</string>
     <string name="stable_github" comment="Option in update channel settings for GitHub stable releases">安定版 (GitHub)</string>
     <string name="stack_trace" comment="Header title for crash log exception stack trace section">スタックトレース</string>
@@ -957,6 +974,11 @@
     <string name="start">スタート</string>
     <string name="stop">停止</string>
     <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">AIモデルによって %.1f MB が使用されています</string>
+    <string name="style_filled">塗りつぶし</string>
+    <string name="style_outlined">Outlined</string>
+    <string name="style_rounded">四捨五入済み</string>
+    <string name="style_sharp">シャープ。</string>
+    <string name="style_two_tone">ツートーン</string>
     <string name="subtitle" comment="Field label for Quick Settings tile subtitle text">サブタイトル</string>
     <string name="subtitle_off_state" comment="Field label for tile subtitle text when Quick Settings tile is OFF">サブタイトル (OFF状態)</string>
     <string name="subtitle_on_state" comment="Field label for tile subtitle text when Quick Settings tile is ON">サブタイトル (ON状態)</string>

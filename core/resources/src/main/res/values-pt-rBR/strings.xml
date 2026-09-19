@@ -11,18 +11,17 @@
     <string name="adb_command" comment="Input field label for typing an ADB shell command">Comando ADB</string>
     <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">Comando ADB (DESLIGADO)</string>
     <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">Comando ADB (LIGADO)</string>
+    <string name="failed_to_download_file" comment="Error shown when downloading a file from the connected device fails and the device gave no reason">Não foi possível baixar o arquivo</string>
+    <string name="failed_to_upload_file" comment="Error shown when uploading a file to the connected device fails and the device gave no reason">Falha ao carregar arquivo</string>
+    <string name="file_downloaded" comment="Confirmation shown when a file finished downloading from the connected device">Arquivo baixado</string>
+    <string name="file_uploaded" comment="Confirmation shown when a file finished uploading to the connected device">Arquivo enviado</string>
+    <string name="local_file_does_not_exist" comment="Error shown when the chosen file to upload is no longer present on this device">O arquivo local não existe</string>
+    <string name="adb_connected_to" comment="Output line confirming an ADB connection was established with the given host and port">conectado a %1$s</string>
     <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB conectado — garanta que o dispositivo esteja no modo sideload</string>
     <string name="adb_connection_active" comment="Foreground notification title when an ADB connection (Wireless/OTG) is currently active">Conexão ADB Ativa</string>
     <string name="adb_connection_channel_description" comment="Android notification channel description in System Settings for ADB connection status">Mostra quando a conexão ADB está ativa</string>
     <string name="adb_connection_channel_name" comment="Android notification channel name in System Settings for active ADB connections">Conexão ADB</string>
     <string name="adb_connection_description" comment="Notification body text indicating an active background Wi-Fi ADB connection">A conexão ADB Wi-Fi está sendo mantida</string>
-    <string name="adb_key_unavailable" comment="Error shown in ADB sideload when the app could not load or create its RSA key pair used to authenticate to the target device">Não foi possível preparar a chave de autenticação do ADB</string>
-    <string name="adb_sideload" comment="Feature title for pushing and installing ZIP update packages to device recovery via ADB sideload over USB OTG">ADB Sideload</string>
-    <string name="adb_through_otg" comment="Title for USB OTG ADB connection mode where this device controls a target device over OTG cable">ADB via OTG</string>
-    <string name="adb_through_otg_summary" comment="Summary description of ADB OTG feature in connection selection screen">Usar um cabo OTG e depuração via USB para executar comandos ADB em outro dispositivo Android. Você precisa ativar a Depuração USB nas configurações de desenvolvedor do dispositivo de destino.</string>
-    <string name="adb_via_otg" comment="Compact label for ADB connection via USB OTG cable">ADB via OTG</string>
-    <string name="adb_via_wireless_debugging" comment="Feature title for wireless ADB connection on Android 11+ devices">ADB via Wi-Fi</string>
-    <string name="adb_connected_to" comment="Output line confirming an ADB connection was established with the given host and port">conectado a %1$s</string>
     <string name="adb_daemon_restarted" comment="Output line shown after an adb command such as tcpip or reboot makes the device ADB daemon restart, which ends the current connection">adbd reiniciado, esta conexão agora está fechada</string>
     <string name="adb_direct_connection_note" comment="Output line for the adb version command explaining the app talks to the device ADB daemon directly instead of through a desktop ADB server">Conectado diretamente ao daemon do ADB do dispositivo, nenhum servidor ADB é usado</string>
     <string name="adb_disconnected_from" comment="Output line confirming the ADB connection to the given host and port was closed">desconectado %1$s</string>
@@ -33,14 +32,21 @@
     <string name="adb_hint_use_file_browser" comment="Advice shown when the user runs an adb file transfer command, pointing them at the in-app file browser">Use o Navegador de arquivos para transferir arquivos.</string>
     <string name="adb_hint_use_pm_uninstall" comment="Advice shown when the user runs adb uninstall, pointing them at the equivalent shell command">Use pm uninstall --user 0 &lt;package&gt; em vez disso.</string>
     <string name="adb_hint_use_sideload" comment="Advice shown when the user runs adb sideload, pointing them at the dedicated sideload screen">Use a tela do ADB Sideload.</string>
+    <string name="adb_key_unavailable" comment="Error shown in ADB sideload when the app could not load or create its RSA key pair used to authenticate to the target device">Não foi possível preparar a chave de autenticação do ADB</string>
+    <string name="shell_connection_lost" comment="Error shown in the shell output when the connection to the device drops while a command is running">A conexão com o dispositivo foi perdida</string>
     <string name="adb_not_connected" comment="Error shown when a command needs an ADB connection but none is active">ADB não conectado</string>
     <string name="adb_paired_with" comment="Output line confirming pairing succeeded with the given host and port">pareado com %1$s</string>
     <string name="adb_reconnect_hint" comment="Advice shown after the device ADB daemon restarts in TCP mode, telling the user the command that reconnects to it">Reconecte com: %1$s</string>
     <string name="adb_server_not_applicable" comment="Output line for adb start-server and kill-server, which have no effect because the app connects to the device ADB daemon directly">Nenhum servidor ADB é usado, portanto, não há nada para iniciar ou parar</string>
+    <string name="adb_sideload" comment="Feature title for pushing and installing ZIP update packages to device recovery via ADB sideload over USB OTG">ADB Sideload</string>
     <string name="adb_supported_commands" comment="Header printed above the list of adb commands the app understands">Comandos adb compatíveis:</string>
+    <string name="adb_through_otg" comment="Title for USB OTG ADB connection mode where this device controls a target device over OTG cable">ADB via OTG</string>
+    <string name="adb_through_otg_summary" comment="Summary description of ADB OTG feature in connection selection screen">Usar um cabo OTG e depuração via USB para executar comandos ADB em outro dispositivo Android. Você precisa ativar a Depuração USB nas configurações de desenvolvedor do dispositivo de destino.</string>
     <string name="adb_unsupported_command" comment="Error shown when an adb subcommand cannot work over this connection. The placeholder is the subcommand name, such as push">adb %1$s não é compatível com esta conexão</string>
     <string name="adb_usage" comment="Error shown when a known adb command was typed incorrectly. The placeholder is the correct form of the command">uso: %1$s</string>
     <string name="adb_version_line" comment="Output line for the adb version command. The placeholder is the app version name">aShellYou %1$s</string>
+    <string name="adb_via_otg" comment="Compact label for ADB connection via USB OTG cable">ADB via OTG</string>
+    <string name="adb_via_wireless_debugging" comment="Feature title for wireless ADB connection on Android 11+ devices">ADB via Wi-Fi</string>
     <string name="adb_via_wireless_debugging_summary" comment="Summary description for wireless ADB feature in connection setup screen">Conecte dispositivos (Android 11+) por Wi-Fi usando a Depuração por Wi-Fi e execute comandos ADB remotamente.</string>
     <string name="add">Adicionar</string>
     <string name="add_account" comment="Button label in cloud backup settings to link a Google account for backup sync">Adicionar conta</string>
@@ -264,6 +270,7 @@
     <string name="connect_via_wifi_adb" comment="Option in connection menu to connect via Wi-Fi Wireless Debugging">Conectar via Wi-Fi ADB</string>
     <string name="connected" comment="Status badge showing device is successfully connected over ADB">Conectado</string>
     <string name="connected_device" comment="Header title for the currently active ADB target device information card">Dispositivo conectado</string>
+    <string name="changed_directory_to" comment="Shell output confirming the working directory moved. The placeholder is the directory path the device reported">Diretório alterado para: %1$s</string>
     <string name="connecting" comment="Progress status text shown while establishing ADB connection">Conectando…</string>
     <string name="connection_error" comment="Toast notification or dialog title for ADB network connection errors">Erro de conexão</string>
     <string name="connection_failed" comment="Status banner or toast when ADB connection attempt fails">Falha na conexão</string>
@@ -679,6 +686,7 @@
     <string name="no_adb_device_error" comment="Error toast when no ADB target device is found over USB OTG">Nenhum dispositivo ADB compatível. Ative a depuração USB no destino.</string>
     <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">Nenhuma interface adb encontrada</string>
     <string name="no_auto_backup_yet" comment="Placeholder text under backup status when no automated backup has executed">Nenhum backup automático realizado ainda</string>
+    <string name="no_such_directory" comment="Shell error shown when a cd command names a directory the device could not enter. The placeholder is the path that was tried">Não existe tal diretório: %1$s</string>
     <string name="no_bookmarks" comment="Placeholder text in bookmarks tab when no commands are saved">Nenhum favorito encontrado</string>
     <string name="no_changelog_found" comment="Placeholder message in changelog screen when no version notes exist">Nenhum registro de alterações encontrado para esta versão</string>
     <string name="no_cloud_backup_found" comment="Status banner when no backup file is found on Google Drive">Nenhum backup encontrado no Google Drive</string>
@@ -748,6 +756,8 @@
     <string name="pair_using_code" comment="Option in Wireless Debugging setup to pair device using 6-digit pairing code">Parear usando código</string>
     <string name="pair_using_qr" comment="Option in Wireless Debugging setup to pair device by scanning QR code">Parear usando QR</string>
     <string name="paired" comment="Status badge showing device is successfully paired via ADB">Pareado</string>
+    <string name="pairing_code_rejected" comment="Error shown under the pairing code input when the device rejected the six digit code the user entered">Código de pareamento incorreto. Verifique o código no dispositivo de destino e tente novamente.</string>
+    <string name="pairing_in_progress" comment="Status shown on the Pair button while the entered pairing code is being checked by the target device">Pairing…</string>
     <string name="pairing" comment="Status header/banner displayed while ADB wireless pairing is in progress">Pareando</string>
     <string name="pairing_code" comment="Field label or dialog title for 6-digit ADB wireless pairing code">Código de pareamento</string>
     <string name="pairing_notification_hint" comment="Notice informing user that a system notification will appear to facilitate quick pairing code entry">Você receberá uma notificação do aShell You para ajudá-lo a parear</string>
@@ -950,6 +960,13 @@
     <string name="slot_data_unknown" comment="Status text when device A/B slot information cannot be retrieved over fastboot">Dados de partição desconhecidos</string>
     <string name="smooth_scrolling" comment="Settings toggle preference title to enable smooth scrolling animation in terminal">Rolagem suave</string>
     <string name="sort">Ordenar</string>
+    <string name="special_thanks">Agradecimentos especiais</string>
+    <string name="special_thanks_hidden_api_bypass">Para contornar as restrições ocultas da API do Android, é crucial para funcionalidades avançadas em nível de sistema.</string>
+    <string name="special_thanks_libsu">Para a biblioteca libsu, proporcionando capacidades de execução de shell raiz.</string>
+    <string name="special_thanks_mahmud">Para uma ampla ajuda com correções de erros, ideias sobre recursos e comentários diários inestimáveis.</string>
+    <string name="special_thanks_qrcodegen">Para a biblioteca de geração de código QR.</string>
+    <string name="special_thanks_shizuku">Para a API Shizuku, permitindo privilégios elevados e acesso ao nível ADB sem raiz completa.</string>
+    <string name="special_thanks_sun_security">Para sun-security-android, fornecendo implementações cripto essenciais.</string>
     <string name="stable_fdroid" comment="Option in update channel settings for F-Droid stable releases">Estável (Fdroid)</string>
     <string name="stable_github" comment="Option in update channel settings for GitHub stable releases">Estável (GitHub)</string>
     <string name="stack_trace" comment="Header title for crash log exception stack trace section">Rastreamento de pilha</string>
@@ -957,6 +974,11 @@
     <string name="start">Iniciar</string>
     <string name="stop">Parar</string>
     <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">%.1f MB usados pelos modelos de IA</string>
+    <string name="style_filled">Preenchido</string>
+    <string name="style_outlined">Delineado</string>
+    <string name="style_rounded">Arredondado</string>
+    <string name="style_sharp">Afiada</string>
+    <string name="style_two_tone">Dois tons</string>
     <string name="subtitle" comment="Field label for Quick Settings tile subtitle text">Subtítulo</string>
     <string name="subtitle_off_state" comment="Field label for tile subtitle text when Quick Settings tile is OFF">Subtítulo (DESATIVADO)</string>
     <string name="subtitle_on_state" comment="Field label for tile subtitle text when Quick Settings tile is ON">Subtítulo (Estado Ativo)</string>
