@@ -11,18 +11,17 @@
     <string name="adb_command" comment="Input field label for typing an ADB shell command">ADB 命令</string>
     <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">ADB 命令 (关闭状态)</string>
     <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">ADB 命令 (开启状态)</string>
+    <string name="failed_to_download_file" comment="Error shown when downloading a file from the connected device fails and the device gave no reason">下载文件失败</string>
+    <string name="failed_to_upload_file" comment="Error shown when uploading a file to the connected device fails and the device gave no reason">上传文件失败</string>
+    <string name="file_downloaded" comment="Confirmation shown when a file finished downloading from the connected device">文件已下载</string>
+    <string name="file_uploaded" comment="Confirmation shown when a file finished uploading to the connected device">文件已上传</string>
+    <string name="local_file_does_not_exist" comment="Error shown when the chosen file to upload is no longer present on this device">本地文件不存在</string>
+    <string name="adb_connected_to" comment="Output line confirming an ADB connection was established with the given host and port">已连接到 %1$s</string>
     <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB 已连接 — 确保设备处于 sideload 模式</string>
     <string name="adb_connection_active" comment="Foreground notification title when an ADB connection (Wireless/OTG) is currently active">ADB 连接已启用</string>
     <string name="adb_connection_channel_description" comment="Android notification channel description in System Settings for ADB connection status">ADB 连接激活时显示</string>
     <string name="adb_connection_channel_name" comment="Android notification channel name in System Settings for active ADB connections">ADB 连接</string>
     <string name="adb_connection_description" comment="Notification body text indicating an active background Wi-Fi ADB connection">WiFi ADB 连接正在维护中</string>
-    <string name="adb_key_unavailable" comment="Error shown in ADB sideload when the app could not load or create its RSA key pair used to authenticate to the target device">无法准备 ADB 身份验证密钥</string>
-    <string name="adb_sideload" comment="Feature title for pushing and installing ZIP update packages to device recovery via ADB sideload over USB OTG">ADB Sideload</string>
-    <string name="adb_through_otg" comment="Title for USB OTG ADB connection mode where this device controls a target device over OTG cable">通过 OTG 使用 ADB</string>
-    <string name="adb_through_otg_summary" comment="Summary description of ADB OTG feature in connection selection screen">使用OTG线为另一个安卓设备执行ADB命令。在此之前，你需要为目标设备启用USB调试。</string>
-    <string name="adb_via_otg" comment="Compact label for ADB connection via USB OTG cable">通过 OTG 的 ADB</string>
-    <string name="adb_via_wireless_debugging" comment="Feature title for wireless ADB connection on Android 11+ devices">无线ADB</string>
-    <string name="adb_connected_to" comment="Output line confirming an ADB connection was established with the given host and port">已连接到 %1$s</string>
     <string name="adb_daemon_restarted" comment="Output line shown after an adb command such as tcpip or reboot makes the device ADB daemon restart, which ends the current connection">adbd 已重启，当前连接现已关闭</string>
     <string name="adb_direct_connection_note" comment="Output line for the adb version command explaining the app talks to the device ADB daemon directly instead of through a desktop ADB server">直接连接到设备 ADB 守护进程，不使用 ADB 服务器</string>
     <string name="adb_disconnected_from" comment="Output line confirming the ADB connection to the given host and port was closed">已断开与 %1$s 的连接</string>
@@ -33,14 +32,21 @@
     <string name="adb_hint_use_file_browser" comment="Advice shown when the user runs an adb file transfer command, pointing them at the in-app file browser">请使用“文件浏览器”传输文件。</string>
     <string name="adb_hint_use_pm_uninstall" comment="Advice shown when the user runs adb uninstall, pointing them at the equivalent shell command">请改用 pm uninstall --user 0 &lt;package&gt;。</string>
     <string name="adb_hint_use_sideload" comment="Advice shown when the user runs adb sideload, pointing them at the dedicated sideload screen">请使用 ADB Sideload 屏幕。</string>
+    <string name="adb_key_unavailable" comment="Error shown in ADB sideload when the app could not load or create its RSA key pair used to authenticate to the target device">无法准备 ADB 身份验证密钥</string>
+    <string name="shell_connection_lost" comment="Error shown in the shell output when the connection to the device drops while a command is running">与设备的连接丢失</string>
     <string name="adb_not_connected" comment="Error shown when a command needs an ADB connection but none is active">ADB 未连接</string>
     <string name="adb_paired_with" comment="Output line confirming pairing succeeded with the given host and port">已与 %1$s 配对</string>
     <string name="adb_reconnect_hint" comment="Advice shown after the device ADB daemon restarts in TCP mode, telling the user the command that reconnects to it">使用以下命令重新连接：%1$s</string>
     <string name="adb_server_not_applicable" comment="Output line for adb start-server and kill-server, which have no effect because the app connects to the device ADB daemon directly">未使用 ADB 服务器，因此无可启动或停止的项目</string>
+    <string name="adb_sideload" comment="Feature title for pushing and installing ZIP update packages to device recovery via ADB sideload over USB OTG">ADB Sideload</string>
     <string name="adb_supported_commands" comment="Header printed above the list of adb commands the app understands">支持的 adb 命令：</string>
+    <string name="adb_through_otg" comment="Title for USB OTG ADB connection mode where this device controls a target device over OTG cable">通过 OTG 使用 ADB</string>
+    <string name="adb_through_otg_summary" comment="Summary description of ADB OTG feature in connection selection screen">使用OTG线为另一个安卓设备执行ADB命令。在此之前，你需要为目标设备启用USB调试。</string>
     <string name="adb_unsupported_command" comment="Error shown when an adb subcommand cannot work over this connection. The placeholder is the subcommand name, such as push">在此连接上不支持 adb %1$s</string>
     <string name="adb_usage" comment="Error shown when a known adb command was typed incorrectly. The placeholder is the correct form of the command">用法：%1$s</string>
     <string name="adb_version_line" comment="Output line for the adb version command. The placeholder is the app version name">aShellYou %1$s</string>
+    <string name="adb_via_otg" comment="Compact label for ADB connection via USB OTG cable">通过 OTG 的 ADB</string>
+    <string name="adb_via_wireless_debugging" comment="Feature title for wireless ADB connection on Android 11+ devices">无线ADB</string>
     <string name="adb_via_wireless_debugging_summary" comment="Summary description for wireless ADB feature in connection setup screen">通过“无线调试”功能（安卓11及以上）实现远程执行ADB命令。</string>
     <string name="add">添加</string>
     <string name="add_account" comment="Button label in cloud backup settings to link a Google account for backup sync">添加账号</string>
@@ -267,6 +273,7 @@
     <string name="connect_via_wifi_adb" comment="Option in connection menu to connect via Wi-Fi Wireless Debugging">通过 Wi-Fi ADB 连接</string>
     <string name="connected" comment="Status badge showing device is successfully connected over ADB">已连接</string>
     <string name="connected_device" comment="Header title for the currently active ADB target device information card">已连接的设备</string>
+    <string name="changed_directory_to" comment="Shell output confirming the working directory moved. The placeholder is the directory path the device reported">已更改目录到: %1$s</string>
     <string name="connecting" comment="Progress status text shown while establishing ADB connection">正在连接……</string>
     <string name="connection_error" comment="Toast notification or dialog title for ADB network connection errors">连接错误</string>
     <string name="connection_failed" comment="Status banner or toast when ADB connection attempt fails">连接失败</string>
@@ -682,6 +689,7 @@
     <string name="no_adb_device_error" comment="Error toast when no ADB target device is found over USB OTG">没有找到 ADB 兼容的设备。请在目标上启用 USB 调试。</string>
     <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">没有找到 adb 接口</string>
     <string name="no_auto_backup_yet" comment="Placeholder text under backup status when no automated backup has executed">尚未执行自动备份</string>
+    <string name="no_such_directory" comment="Shell error shown when a cd command names a directory the device could not enter. The placeholder is the path that was tried">没有这样的目录: %1$s</string>
     <string name="no_bookmarks" comment="Placeholder text in bookmarks tab when no commands are saved">无书签</string>
     <string name="no_changelog_found" comment="Placeholder message in changelog screen when no version notes exist">未找到此版本的更新日志</string>
     <string name="no_cloud_backup_found" comment="Status banner when no backup file is found on Google Drive">在 Google Drive 上未找到备份</string>
@@ -751,6 +759,8 @@
     <string name="pair_using_code" comment="Option in Wireless Debugging setup to pair device using 6-digit pairing code">使用代码配对</string>
     <string name="pair_using_qr" comment="Option in Wireless Debugging setup to pair device by scanning QR code">使用二维码配对</string>
     <string name="paired" comment="Status badge showing device is successfully paired via ADB">已配对</string>
+    <string name="pairing_code_rejected" comment="Error shown under the pairing code input when the device rejected the six digit code the user entered">不正确的配对代码。请检查目标设备上的代码，然后重试。</string>
+    <string name="pairing_in_progress" comment="Status shown on the Pair button while the entered pairing code is being checked by the target device">Pairing…</string>
     <string name="pairing" comment="Status header/banner displayed while ADB wireless pairing is in progress">配对中</string>
     <string name="pairing_code" comment="Field label or dialog title for 6-digit ADB wireless pairing code">配对码</string>
     <string name="pairing_notification_hint" comment="Notice informing user that a system notification will appear to facilitate quick pairing code entry">提示：你会在通知栏看见一个来自aShell You的通知，在打开无线调试并进入配对界面后请点击这个通知的“提交”按钮即可唤出输入界面</string>
@@ -953,6 +963,13 @@
     <string name="slot_data_unknown" comment="Status text when device A/B slot information cannot be retrieved over fastboot">槽位数据未知</string>
     <string name="smooth_scrolling" comment="Settings toggle preference title to enable smooth scrolling animation in terminal">平滑滚动</string>
     <string name="sort">排序</string>
+    <string name="special_thanks">特别致谢</string>
+    <string name="special_thanks_hidden_api_bypass">用于跳过 Android 的隐藏的 API 限制，对于高级系统级别的功能至关重要。</string>
+    <string name="special_thanks_libsu">用于 libsu 库，提供 root shell 执行功能。</string>
+    <string name="special_thanks_mahmud">广泛帮助修复错误，功能建议和宝贵的日常反馈。</string>
+    <string name="special_thanks_qrcodegen">二维码生成库。</string>
+    <string name="special_thanks_shizuku">对于Shizuku API，启用了更高的权限和ADB级别的访问权限，没有完全root。</string>
+    <string name="special_thanks_sun_security">对于太阳安全android，提供基本的加密实现。</string>
     <string name="stable_fdroid" comment="Option in update channel settings for F-Droid stable releases">稳定版 (F-Droid)</string>
     <string name="stable_github" comment="Option in update channel settings for GitHub stable releases">稳定版 (GitHub)</string>
     <string name="stack_trace" comment="Header title for crash log exception stack trace section">堆栈跟踪</string>
@@ -960,6 +977,11 @@
     <string name="start">开始</string>
     <string name="stop">停止</string>
     <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">AI 模型已使用 %.1f MB</string>
+    <string name="style_filled">填充的</string>
+    <string name="style_outlined">外观</string>
+    <string name="style_rounded">圆角</string>
+    <string name="style_sharp">锋利的</string>
+    <string name="style_two_tone">双音调</string>
     <string name="subtitle" comment="Field label for Quick Settings tile subtitle text">副标题</string>
     <string name="subtitle_off_state" comment="Field label for tile subtitle text when Quick Settings tile is OFF">副标题 (关闭状态)</string>
     <string name="subtitle_on_state" comment="Field label for tile subtitle text when Quick Settings tile is ON">副标题 (开启状态)</string>
