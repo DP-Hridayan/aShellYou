@@ -16,6 +16,7 @@ import `in`.hridayan.ashell.qstiles.data.model.MaterialIconEntry
 import `in`.hridayan.ashell.qstiles.data.provider.TileComponentManager
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider.migrateIconId
 import `in`.hridayan.ashell.qstiles.domain.model.FontLoadState
+import `in`.hridayan.ashell.qstiles.domain.model.MaterialIconStyle
 import `in`.hridayan.ashell.qstiles.domain.model.TileActiveState
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
 import `in`.hridayan.ashell.qstiles.domain.processor.TileCommandKeywordProcessor
@@ -78,6 +79,7 @@ class CreateTileViewModel @Inject constructor(
                         nameField = TextFieldValue(text = config.name),
                         executionMode = config.executionMode,
                         selectedIconId = migrateIconId(config.iconId),
+                        selectedIconStyle = config.iconStyle,
                         isUpdateMode = true,
                         isToggleable = config.activeState.isToggleable,
                         isActive = config.activeState.isActive,
@@ -111,7 +113,7 @@ class CreateTileViewModel @Inject constructor(
 
             val isDuplicate = tiles.any {
                 it.name.equals(fieldValue.text, ignoreCase = true) &&
-                        it.id != route.tileId
+                    it.id != route.tileId
             }
 
             _state.update {
@@ -137,6 +139,13 @@ class CreateTileViewModel @Inject constructor(
     fun onExecutionModeChange(mode: Int) =
         _state.update { it.copy(executionMode = mode) }
 
+    fun onIconStyleSelected(style: MaterialIconStyle) {
+        _state.update { it.copy(selectedIconStyle = style) }
+        viewModelScope.launch {
+            materialIconRepository.loadFont(style)
+        }
+    }
+
     fun onIconQueryChange(query: TextFieldValue) {
         _state.update { it.copy(iconSearchQuery = query) }
         filterMaterialIcons(query.text)
@@ -144,14 +153,18 @@ class CreateTileViewModel @Inject constructor(
 
     fun loadIcons() {
         viewModelScope.launch {
-            materialIconRepository.loadFont()
+            materialIconRepository.loadFont(_state.value.selectedIconStyle)
         }
     }
 
     fun onIconSelected(entry: MaterialIconEntry) {
         _state.update { it.copy(selectedIconId = entry.name) }
         viewModelScope.launch {
-            materialIconRepository.renderAndCacheIcon(entry.name, entry.codepoint)
+            materialIconRepository.renderAndCacheIcon(
+                _state.value.selectedIconStyle,
+                entry.name,
+                entry.codepoint
+            )
         }
     }
 
@@ -162,7 +175,11 @@ class CreateTileViewModel @Inject constructor(
             if (fontState is FontLoadState.Ready) {
                 val entry = fontState.icons.find { it.name == iconId }
                 if (entry != null) {
-                    materialIconRepository.renderAndCacheIcon(entry.name, entry.codepoint)
+                    materialIconRepository.renderAndCacheIcon(
+                        _state.value.selectedIconStyle,
+                        entry.name,
+                        entry.codepoint
+                    )
                 }
             }
         }
@@ -240,6 +257,7 @@ class CreateTileViewModel @Inject constructor(
                 name = s.nameField.text.ifBlank { "Untitled" },
                 executionMode = s.executionMode,
                 iconId = s.selectedIconId,
+                iconStyle = s.selectedIconStyle,
                 isCustom = true,
                 slotIndex = s.tileId - 1,
                 timeoutMs = null,
@@ -248,7 +266,7 @@ class CreateTileViewModel @Inject constructor(
 
             repository.createTile(tile)
 
-            val tileIcon = buildTileIcon(tile.iconId)
+            val tileIcon = buildTileIcon(tile.iconId, tile.iconStyle)
 
             tileComponentManager.promptAddTile(
                 tile.slotIndex!!,
@@ -258,20 +276,21 @@ class CreateTileViewModel @Inject constructor(
         }
     }
 
-    private suspend fun buildTileIcon(iconId: String): Icon {
-        val bitmapFile = materialIconRepository.getCachedIconBitmap(iconId)
+    private suspend fun buildTileIcon(iconId: String, iconStyle: MaterialIconStyle): Icon {
+        val bitmapFile = materialIconRepository.getCachedIconBitmap(iconStyle, iconId)
 
         if (bitmapFile?.exists() == true) {
             val bitmap = BitmapFactory.decodeFile(bitmapFile.absolutePath)
             return Icon.createWithBitmap(bitmap)
         }
 
-        val fontState = materialIconRepository.loadFont()
+        val fontState = materialIconRepository.loadFont(iconStyle)
         val entry = fontState.icons.find { it.name == iconId }
 
         if (entry != null) {
             val newFile =
-                materialIconRepository.renderAndCacheIcon(entry.name, entry.codepoint).getOrNull()
+                materialIconRepository.renderAndCacheIcon(iconStyle, entry.name, entry.codepoint)
+                    .getOrNull()
             if (newFile?.exists() == true) {
                 val bitmap = BitmapFactory.decodeFile(newFile.absolutePath)
                 return Icon.createWithBitmap(bitmap)

@@ -17,6 +17,8 @@ data class TileConfig(
     val name: String,
     /** Key into [TileIconProvider] for resolving the drawable. */
     val iconId: String,
+    /** The style of the Material Icon */
+    val iconStyle: MaterialIconStyle = MaterialIconStyle.OUTLINED,
     /** Execution mode constant from [TileExecutionMode]. */
     val executionMode: Int,
     /** Full behaviour configuration (commands, state, subtitles). */

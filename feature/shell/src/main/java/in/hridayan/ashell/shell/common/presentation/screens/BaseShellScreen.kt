@@ -8,6 +8,7 @@
 package `in`.hridayan.ashell.shell.common.presentation.screens
 
 import android.content.Intent
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.AnimatedVisibility
@@ -228,6 +229,10 @@ fun BaseShellScreen(
             shellViewModel.updateTextFieldSelection()
             currentBackStackEntry.savedStateHandle.remove<String>("suggestedCommand")
         }
+    }
+
+    BackHandler(enabled = states.shellState is ShellState.Busy) {
+        showToast(context, res.getString(R.string.abort_command))
     }
 
     val actionFabIcon: @Composable () -> Unit = {

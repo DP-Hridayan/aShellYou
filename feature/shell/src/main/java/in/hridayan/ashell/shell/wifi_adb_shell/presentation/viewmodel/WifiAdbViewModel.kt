@@ -1,14 +1,18 @@
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbConnection
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbDevice
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbState
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.CodePairingStage
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.DiscoveredPairingService
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.PairingDiscoveryMode
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
@@ -30,7 +34,8 @@ private const val QR_GENERATION_ERROR_TAG = "WifiAdbViewModel"
 
 @HiltViewModel
 class WifiAdbViewModel @Inject constructor(
-    private val wifiAdbRepository: WifiAdbRepository
+    private val wifiAdbRepository: WifiAdbRepository,
+    @param:ApplicationContext private val appContext: Context
 ) : ViewModel() {
     val state: StateFlow<WifiAdbState> = WifiAdbConnection.state
 
@@ -42,6 +47,16 @@ class WifiAdbViewModel @Inject constructor(
 
     private val _isQrExpired = MutableStateFlow(false)
     val isQrExpired: StateFlow<Boolean> = _isQrExpired.asStateFlow()
+
+    private val _pairingServiceKey = MutableStateFlow<String?>(null)
+
+    /** The discovered device a pairing attempt belongs to, so only its card reports progress. */
+    val pairingServiceKey: StateFlow<String?> = _pairingServiceKey.asStateFlow()
+
+    private val _codePairingError = MutableStateFlow<String?>(null)
+
+    /** The last code pairing failure, shown beneath the input the user typed into. */
+    val codePairingError: StateFlow<String?> = _codePairingError.asStateFlow()
 
     private var discoveryMode = PairingDiscoveryMode.None
     private var qrExpiryJob: Job? = null
@@ -91,9 +106,9 @@ class WifiAdbViewModel @Inject constructor(
         viewModelScope.launch {
             WifiAdbConnection.state.collect { state ->
                 if (state.isLoading || state.isConnected) cancelQrExpiryTimer()
+                if (state.isConnected) _pairingServiceKey.value = null
             }
         }
-
     }
 
     fun reconnectToDevice(device: WifiAdbDevice) {
@@ -323,11 +338,14 @@ class WifiAdbViewModel @Inject constructor(
      * Uses cached connect port for immediate connection after pairing.
      */
     fun pairWithCode(service: DiscoveredPairingService, pairingCode: String) {
-        if (pairingCode.length != 6) return
+        if (pairingCode.length != PAIRING_CODE_LENGTH) return
 
+        _codePairingError.value = null
+        _pairingServiceKey.value = service.key
         WifiAdbConnection.updateState(WifiAdbState.Pairing())
 
-        disconnect()
+        wifiAdbRepository.disconnect(publishState = false)
+        WifiAdbConnection.setCurrentDevice(null)
 
         wifiAdbRepository.pairAndConnect(
             ip = service.ip,
@@ -339,6 +357,7 @@ class WifiAdbViewModel @Inject constructor(
                 }
 
                 override fun onPairingFailed(ip: String, port: Int) {
+                    reportCodePairingFailure()
                 }
 
                 override fun onServiceFound(name: String, ip: String, port: Int) {}
@@ -346,9 +365,32 @@ class WifiAdbViewModel @Inject constructor(
                 }
 
                 override fun onError(e: Throwable) {
+                    reportCodePairingFailure()
                 }
             }
         )
+    }
+
+    private fun reportCodePairingFailure() {
+        _pairingServiceKey.value = null
+        _codePairingError.value = appContext.getString(R.string.pairing_code_rejected)
+    }
+
+    fun clearCodePairingError() {
+        _codePairingError.value = null
+    }
+
+    /**
+     * The stage to show on [serviceKey]'s card, derived from the global connection state but scoped
+     * to the device the user actually pressed Pair on.
+     */
+    fun stageFor(serviceKey: String?, state: WifiAdbState): CodePairingStage = when {
+        serviceKey == null || serviceKey != _pairingServiceKey.value -> CodePairingStage.Idle
+        state is WifiAdbState.Pairing -> CodePairingStage.Pairing
+        state is WifiAdbState.Connecting || state is WifiAdbState.Discovering ->
+            CodePairingStage.Connecting
+
+        else -> CodePairingStage.Idle
     }
 
     override fun onCleared() {

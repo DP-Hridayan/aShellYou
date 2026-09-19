@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.core.common.constants.DEV_GITHUB_USERNAME
 import `in`.hridayan.ashell.settings.domain.model.GitHubContributor
+import `in`.hridayan.ashell.settings.domain.model.SpecialThanks
 import `in`.hridayan.ashell.settings.domain.model.Translator
 import `in`.hridayan.ashell.settings.domain.repository.ContributorsRepository
 import javax.inject.Inject
@@ -22,11 +23,15 @@ class ContributorsViewModel @Inject constructor(
     var gitHubContributors by mutableStateOf<List<GitHubContributor>>(emptyList())
         private set
 
+    var specialThanks by mutableStateOf<List<SpecialThanks>>(emptyList())
+        private set
+
     init {
         translators = repository.getTranslators()
         gitHubContributors = repository
             .getGitHubContributors()
             .filterNot { it.username == DEV_GITHUB_USERNAME }
             .sortedBy { it.name }
+        specialThanks = repository.getSpecialThanks()
     }
 }

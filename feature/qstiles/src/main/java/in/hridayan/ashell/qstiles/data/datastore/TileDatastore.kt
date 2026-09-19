@@ -11,6 +11,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.qstiles.data.provider.tileDataStore
+import `in`.hridayan.ashell.qstiles.domain.model.MaterialIconStyle
 import `in`.hridayan.ashell.qstiles.domain.model.TileActiveState
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
 import kotlinx.coroutines.flow.Flow
@@ -60,6 +61,9 @@ class TileDatastore @Inject constructor(
             id = id,
             name = name,
             iconId = prefs[keyStr(id, "icon")] ?: "terminal",
+            iconStyle = prefs[keyStr(id, "icon_style")]?.let { styleName ->
+                MaterialIconStyle.entries.find { it.name == styleName }
+            } ?: MaterialIconStyle.OUTLINED,
             executionMode = prefs[keyInt(id, "mode")] ?: 0,
             isCustom = prefs[keyBool(id, "custom")] ?: false,
             slotIndex = prefs[keyInt(id, "slot")].let { if (it == null || it == -1) null else it },
@@ -93,6 +97,7 @@ class TileDatastore @Inject constructor(
             prefs[keyStr(config.id, "name")] = config.name
             prefs[keyInt(config.id, "mode")] = config.executionMode
             prefs[keyStr(config.id, "icon")] = config.iconId
+            prefs[keyStr(config.id, "icon_style")] = config.iconStyle.name
             prefs[keyBool(config.id, "custom")] = config.isCustom
             prefs[keyInt(config.id, "slot")] = config.slotIndex ?: -1
             prefs[keyLong(config.id, "timeout")] = config.timeoutMs ?: -1L

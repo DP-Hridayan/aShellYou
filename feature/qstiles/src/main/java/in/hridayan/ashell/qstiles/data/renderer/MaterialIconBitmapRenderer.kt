@@ -4,6 +4,8 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.graphics.Typeface
 import androidx.core.graphics.createBitmap
 import javax.inject.Inject
@@ -16,8 +18,10 @@ class MaterialIconBitmapRenderer @Inject constructor() {
         val paint = Paint().apply {
             isAntiAlias = true
             this.typeface = typeface
+
             textSize = sizePx * GLYPH_SIZE_RATIO
-            color = Color.WHITE
+            color = Color.BLACK
+            colorFilter = PorterDuffColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN)
             textAlign = Paint.Align.CENTER
         }
 

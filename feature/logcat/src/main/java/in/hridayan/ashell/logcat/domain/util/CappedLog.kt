@@ -19,8 +19,9 @@ internal fun <T> cappedLogOf(
 ): CappedLog<T> = CappedLog(items, items.sumOf { sizeOf(it).toLong() }).trimmedTo(maxBytes, sizeOf)
 
 /**
- * Appends [batch] and evicts the oldest entries until the total fits in [maxBytes].
- * The newest entry is always retained, even when it alone exceeds the budget.
+ * Appends [batch] and evicts the oldest entries until the total fits in [maxBytes],
+ * allocating the result once. The newest entry is always retained, even when it alone
+ * exceeds the budget.
  */
 internal fun <T> CappedLog<T>.append(
     batch: List<T>,
@@ -28,8 +29,14 @@ internal fun <T> CappedLog<T>.append(
     sizeOf: (T) -> Int,
 ): CappedLog<T> {
     if (batch.isEmpty()) return trimmedTo(maxBytes, sizeOf)
-    val grown = CappedLog(items + batch, bytes + batch.sumOf { sizeOf(it).toLong() })
-    return grown.trimmedTo(maxBytes, sizeOf)
+    val total = bytes + batch.sumOf { sizeOf(it).toLong() }
+    var dropped = 0
+    var remaining = total
+    while (dropped < items.size + batch.size - 1 && remaining > maxBytes) {
+        remaining -= sizeOf(elementAt(items, batch, dropped))
+        dropped++
+    }
+    return CappedLog(joinKept(items, batch, dropped), remaining)
 }
 
 internal fun <T> CappedLog<T>.trimmedTo(maxBytes: Long, sizeOf: (T) -> Int): CappedLog<T> {
@@ -41,4 +48,15 @@ internal fun <T> CappedLog<T>.trimmedTo(maxBytes: Long, sizeOf: (T) -> Int): Cap
         dropped++
     }
     return CappedLog(items.subList(dropped, items.size).toList(), remaining)
+}
+
+private fun <T> elementAt(items: List<T>, batch: List<T>, index: Int): T =
+    if (index < items.size) items[index] else batch[index - items.size]
+
+private fun <T> joinKept(items: List<T>, batch: List<T>, dropped: Int): List<T> {
+    val kept = ArrayList<T>(items.size + batch.size - dropped)
+    if (dropped < items.size) kept.addAll(items.subList(dropped, items.size))
+    val batchFrom = (dropped - items.size).coerceAtLeast(0)
+    kept.addAll(batch.subList(batchFrom, batch.size))
+    return kept
 }

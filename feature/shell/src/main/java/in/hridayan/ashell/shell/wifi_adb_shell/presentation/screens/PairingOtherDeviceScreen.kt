@@ -605,6 +605,8 @@ fun CodePairTab(
 ) {
     val wifiAdbState by viewModel.state.collectAsStateWithLifecycle()
     val discoveredServices by viewModel.discoveredPairingServices.collectAsStateWithLifecycle()
+    val pairingServiceKey by viewModel.pairingServiceKey.collectAsStateWithLifecycle()
+    val codePairingError by viewModel.codePairingError.collectAsStateWithLifecycle()
     val isKeyboardVisible = isKeyboardVisible()
 
     LazyColumn(
@@ -665,10 +667,12 @@ fun CodePairTab(
                     .fillMaxWidth()
                     .animateItem(),
                 service = service,
-                isPairing = wifiAdbState is WifiAdbState.Pairing,
+                stage = viewModel.stageFor(service.key, wifiAdbState),
+                errorMessage = if (pairingServiceKey == null) codePairingError else null,
                 onPair = { pairingCode ->
                     viewModel.pairWithCode(service, pairingCode)
-                }
+                },
+                onCodeChange = { viewModel.clearCodePairingError() }
             )
         }
 
