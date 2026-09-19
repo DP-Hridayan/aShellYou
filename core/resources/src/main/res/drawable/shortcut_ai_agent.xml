@@ -1,0 +1,34 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="960"
+    android:viewportHeight="960">
+
+    <path
+        android:fillColor="@color/shortcut_icon_bg"
+        android:pathData="M480,480m-480,0a480,480 0,1 1,960 0a480,480 0,1 1,-960 0" />
+
+    <group
+        android:translateX="-48"
+        android:translateY="-48">
+
+        <path android:pathData="M394,760L331,621L192,558L331,495L394,356L457,495L596,558L457,621L394,760ZM704,456L666,373L583,335L666,297L704,214L742,297L825,335L742,373L704,456ZM704,902L666,819L583,781L666,743L704,660L742,743L825,781L742,819L704,902Z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:endX="790.43"
+                    android:endY="143.4"
+                    android:startX="166.38"
+                    android:startY="837.38"
+                    android:type="linear">
+                    <item
+                        android:color="@color/shortcut_icon_fg_gradient_1"
+                        android:offset="0" />
+                    <item
+                        android:color="@color/shortcut_icon_fg_gradient_2"
+                        android:offset="1" />
+                </gradient>
+            </aapt:attr>
+        </path>
+    </group>
+</vector>

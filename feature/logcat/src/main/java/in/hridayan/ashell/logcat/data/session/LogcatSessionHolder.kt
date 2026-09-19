@@ -4,15 +4,12 @@ import `in`.hridayan.ashell.core.common.domain.model.LogcatBufferSize
 import `in`.hridayan.ashell.logcat.domain.model.LogEntry
 import `in`.hridayan.ashell.logcat.domain.util.approximateSizeBytes
 import `in`.hridayan.ashell.logcat.service.LogcatService
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.receiveAsFlow
 import java.util.concurrent.atomic.AtomicLong
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -29,11 +26,8 @@ private const val INITIAL_BUFFER_CAPACITY = 512
  * 2. [entries] — live SharedFlow for new entries as they arrive.
  * 3. [isRunning] — authoritative service state visible to ALL ViewModels
  *    (HomeScreen's LogcatViewModel and LogcatScreen's LogcatViewModel share this).
- * 4. [nextId] — monotonically increasing ID, never resets even when the
+ * 4. [nextId] - monotonically increasing ID, never resets even when the
  *    service is stopped and restarted. Prevents duplicate LazyColumn keys.
- * 5. [navigationEvents] — SharedFlow<Unit> for reactive deeplink navigation
- *    (notification tap / app shortcut). Replaces the boolean flag approach
- *    so it works even when the app is already running in the background.
  */
 @Singleton
 class LogcatSessionHolder @Inject constructor() {
@@ -82,13 +76,6 @@ class LogcatSessionHolder @Inject constructor() {
 
     fun setRunning(running: Boolean) {
         _isRunning.value = running
-    }
-
-    private val _navigationChannel = Channel<Unit>(capacity = Channel.BUFFERED)
-    val navigationEvents: Flow<Unit> = _navigationChannel.receiveAsFlow()
-
-    fun triggerLogcatNavigation() {
-        _navigationChannel.trySend(Unit)
     }
 
     suspend fun emit(entry: LogEntry) {
