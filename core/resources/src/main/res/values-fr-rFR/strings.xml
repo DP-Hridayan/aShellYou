@@ -267,6 +267,7 @@
     <string name="connect_via_wifi_adb" comment="Option in connection menu to connect via Wi-Fi Wireless Debugging">Se connecter via Wi-Fi ADB</string>
     <string name="connected" comment="Status badge showing device is successfully connected over ADB">Connecté</string>
     <string name="connected_device" comment="Header title for the currently active ADB target device information card">Appareil connecté</string>
+    <string name="changed_directory_to" comment="Shell output confirming the working directory moved. The placeholder is the directory path the device reported">Répertoire modifié en : %1$s</string>
     <string name="connecting" comment="Progress status text shown while establishing ADB connection">Connexion…</string>
     <string name="connection_error" comment="Toast notification or dialog title for ADB network connection errors">Erreur de connexion</string>
     <string name="connection_failed" comment="Status banner or toast when ADB connection attempt fails">Échec de la connexion</string>
@@ -687,6 +688,7 @@
     <string name="no_adb_device_error" comment="Error toast when no ADB target device is found over USB OTG">Aucun périphérique compatible ADB trouvé. Activez le débogage USB sur la cible.</string>
     <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">Aucune interface adb trouvée</string>
     <string name="no_auto_backup_yet" comment="Placeholder text under backup status when no automated backup has executed">Aucune sauvegarde automatique effectuée pour l\'instant</string>
+    <string name="no_such_directory" comment="Shell error shown when a cd command names a directory the device could not enter. The placeholder is the path that was tried">Répertoire introuvable : %1$s</string>
     <string name="no_bookmarks" comment="Placeholder text in bookmarks tab when no commands are saved">Aucun favori trouvé</string>
     <string name="no_changelog_found" comment="Placeholder message in changelog screen when no version notes exist">Aucun changelog trouvé pour cette version</string>
     <string name="no_cloud_backup_found" comment="Status banner when no backup file is found on Google Drive">Aucune sauvegarde trouvée sur Google Drive</string>
@@ -757,6 +759,8 @@
     <string name="pair_using_code" comment="Option in Wireless Debugging setup to pair device using 6-digit pairing code">Appairer en utilisant le code</string>
     <string name="pair_using_qr" comment="Option in Wireless Debugging setup to pair device by scanning QR code">Associer à l\'aide du QR</string>
     <string name="paired" comment="Status badge showing device is successfully paired via ADB">Appairé</string>
+    <string name="pairing_code_rejected" comment="Error shown under the pairing code input when the device rejected the six digit code the user entered">Code d\'appairage incorrect. Vérifiez le code sur l\'appareil cible et réessayez.</string>
+    <string name="pairing_in_progress" comment="Status shown on the Pair button while the entered pairing code is being checked by the target device">Pairing…</string>
     <string name="pairing" comment="Status header/banner displayed while ADB wireless pairing is in progress">Appairage</string>
     <string name="pairing_code" comment="Field label or dialog title for 6-digit ADB wireless pairing code">Code d\'appairage</string>
     <string name="pairing_code_rejected" comment="Error shown under the pairing code input when the device rejected the six digit code the user entered">Code d\'appairage incorrect. Vérifiez le code sur l\'appareil cible et réessayez.</string>

@@ -267,6 +267,7 @@
     <string name="connect_via_wifi_adb" comment="Option in connection menu to connect via Wi-Fi Wireless Debugging">Wi-Fi ADB के माध्यम से कनेक्ट करें</string>
     <string name="connected" comment="Status badge showing device is successfully connected over ADB">कनेक्ट हो गया</string>
     <string name="connected_device" comment="Header title for the currently active ADB target device information card">कनेक्ट किए हुए डिवाइस</string>
+    <string name="changed_directory_to" comment="Shell output confirming the working directory moved. The placeholder is the directory path the device reported">Changed directory to: %1$s</string>
     <string name="connecting" comment="Progress status text shown while establishing ADB connection">कनेक्ट हो रहा है…</string>
     <string name="connection_error" comment="Toast notification or dialog title for ADB network connection errors">कनेक्शन त्रुटि</string>
     <string name="connection_failed" comment="Status banner or toast when ADB connection attempt fails">कनेक्शन विफल रहा</string>
@@ -687,6 +688,7 @@
     <string name="no_adb_device_error" comment="Error toast when no ADB target device is found over USB OTG">ADB-संगत डिवाइस नहीं मिले। लक्ष्य पर USB डिबगिंग सक्षम करें।</string>
     <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">No adb interface found</string>
     <string name="no_auto_backup_yet" comment="Placeholder text under backup status when no automated backup has executed">अभी तक कोई स्वचालित बैकअप नहीं किया गया है</string>
+    <string name="no_such_directory" comment="Shell error shown when a cd command names a directory the device could not enter. The placeholder is the path that was tried">No such directory: %1$s</string>
     <string name="no_bookmarks" comment="Placeholder text in bookmarks tab when no commands are saved">कोई बुकमार्क नहीं मिला</string>
     <string name="no_changelog_found" comment="Placeholder message in changelog screen when no version notes exist">इस संस्करण के लिए कोई चेंजलॉग नहीं मिला</string>
     <string name="no_cloud_backup_found" comment="Status banner when no backup file is found on Google Drive">Google ड्राइव पर कोई बैकअप नहीं मिला</string>
@@ -757,6 +759,8 @@
     <string name="pair_using_code" comment="Option in Wireless Debugging setup to pair device using 6-digit pairing code">कोड से पेयर करें</string>
     <string name="pair_using_qr" comment="Option in Wireless Debugging setup to pair device by scanning QR code">QR से पेयर करें</string>
     <string name="paired" comment="Status badge showing device is successfully paired via ADB">पेयर किया गया</string>
+    <string name="pairing_code_rejected" comment="Error shown under the pairing code input when the device rejected the six digit code the user entered">Incorrect pairing code. Check the code on the target device and try again.</string>
+    <string name="pairing_in_progress" comment="Status shown on the Pair button while the entered pairing code is being checked by the target device">Pairing…</string>
     <string name="pairing" comment="Status header/banner displayed while ADB wireless pairing is in progress">पेयरिंग जारी है</string>
     <string name="pairing_code" comment="Field label or dialog title for 6-digit ADB wireless pairing code">पेयरिंग कोड</string>
     <string name="pairing_code_rejected" comment="Error shown under the pairing code input when the device rejected the six digit code the user entered">Incorrect pairing code. Check the code on the target device and try again.</string>

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -156,6 +157,7 @@ fun AiChatScreen(
             bottomBar = {
                 Column(
                     modifier = Modifier
+                        .navigationBarsPadding()
                         .padding(horizontal = 16.dp, vertical = 30.dp)
                         .imePadding(),
                     verticalArrangement = Arrangement.spacedBy(10.dp)

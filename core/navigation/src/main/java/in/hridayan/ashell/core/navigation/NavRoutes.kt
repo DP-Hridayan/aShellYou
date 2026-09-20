@@ -1,11 +1,11 @@
 package `in`.hridayan.ashell.core.navigation
 
+import androidx.compose.runtime.Immutable
 import `in`.hridayan.ashell.core.common.domain.model.AdbFileBrowserConnectionMode
 import kotlinx.serialization.Serializable
 
-sealed class
-
-NavRoutes {
+@Immutable
+sealed class NavRoutes {
     @Serializable
     object AboutScreen : NavRoutes()
 

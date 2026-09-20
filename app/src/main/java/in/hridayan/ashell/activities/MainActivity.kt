@@ -28,13 +28,14 @@ import `in`.hridayan.ashell.core.common.LocalFontFamily
 import `in`.hridayan.ashell.core.common.LocalSeedColor
 import `in`.hridayan.ashell.core.common.domain.provider.SeedColorProvider
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
+import `in`.hridayan.ashell.core.navigation.AppDeeplinkHolder
+import `in`.hridayan.ashell.core.navigation.AppDeeplinkHolder.DeeplinkDestination
 import `in`.hridayan.ashell.core.presentation.components.snackbar.SnackBarHost
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouTheme
 import `in`.hridayan.ashell.core.presentation.theme.data.toPayload
 import `in`.hridayan.ashell.core.presentation.theme.util.ColorSchemeImportHolder
 import `in`.hridayan.ashell.core.presentation.theme.util.ColorSchemeSerializer
 import `in`.hridayan.ashell.core.utils.handleSharedText
-import `in`.hridayan.ashell.logcat.data.session.LogcatDeeplinkHolder
 import `in`.hridayan.ashell.logcat.data.session.LogcatSessionHolder
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
@@ -83,7 +84,7 @@ class MainActivity : AppCompatActivity() {
     private fun handleInitialIntents(intent: Intent?) {
         if (intent == null) return
         handleSharedText(intent)
-        handleLogcatDeeplink(intent)
+        handleDeepLinks(intent)
         handleThemeImport(intent)
     }
 
@@ -140,9 +141,15 @@ class MainActivity : AppCompatActivity() {
         handleInitialIntents(intent)
     }
 
-    private fun handleLogcatDeeplink(intent: Intent?) {
-        if (intent?.action == LogcatDeeplinkHolder.ACTION_OPEN_LOGCAT) {
-            logcatSessionHolder.triggerLogcatNavigation()
+    private fun handleDeepLinks(intent: Intent?) {
+        when (intent?.action) {
+            AppDeeplinkHolder.ACTION_OPEN_LOGCAT -> {
+                AppDeeplinkHolder.navigateTo(DeeplinkDestination.LOGCAT)
+            }
+
+            AppDeeplinkHolder.ACTION_OPEN_AI_AGENT -> {
+                AppDeeplinkHolder.navigateTo(DeeplinkDestination.AI_CHAT)
+            }
         }
     }
 

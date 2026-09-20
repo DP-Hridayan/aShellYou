@@ -1,4 +1,4 @@
-﻿package `in`.hridayan.ashell.ui.navigation
+package `in`.hridayan.ashell.ui.navigation
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContentScope
@@ -9,13 +9,15 @@ import androidx.compose.animation.SizeTransform
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavController
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -32,6 +34,8 @@ import `in`.hridayan.ashell.commandexamples.presentation.screens.CommandExamples
 import `in`.hridayan.ashell.core.common.LocalAnimatedContentScope
 import `in`.hridayan.ashell.core.common.domain.model.SharedTextHolder
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
+import `in`.hridayan.ashell.core.navigation.AppDeeplinkHolder
+import `in`.hridayan.ashell.core.navigation.AppDeeplinkHolder.DeeplinkDestination
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.navigation.predictiveEnter
@@ -76,6 +80,7 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.PairingOwn
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.WifiAdbScreen
 import `in`.hridayan.ashell.ui.home.HomeRoute
 import `in`.hridayan.settingsgraph.ui.LocalSettingGraphState
+import `in`.hridayan.settingsgraph.ui.SettingGraphState
 import `in`.hridayan.settingsgraph.ui.rememberSettingsGraphState
 import kotlinx.serialization.serializer
 import kotlin.reflect.KType
@@ -84,47 +89,21 @@ import kotlin.reflect.KType
 fun AppNavigation(
     isFirstLaunch: Boolean = false,
     defaultLaunchIsLocalAdb: Boolean = false,
-    navController: NavHostController = rememberNavController(),
-    deepLinkViewModel: NavDeepLinkViewModel = hiltViewModel()
+    navController: NavHostController = rememberNavController()
 ) {
     val settingsViewModel: SettingsViewModel = hiltViewModel()
-    val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())
+    val prefs = settingsViewModel.preferences.collectAsState(initial = emptyPreferences())
 
-    val settingsGraphState = rememberSettingsGraphState {
-        onBooleanChanged { key, newValue ->
-            val sk = key as? SettingsKeys<*> ?: return@onBooleanChanged
-            @Suppress("UNCHECKED_CAST")
-            settingsViewModel.setBoolean(sk as SettingsKeys<Boolean>, newValue)
-        }
-
-        onIntChanged { key, newValue ->
-            val sk = key as? SettingsKeys<*> ?: return@onIntChanged
-            @Suppress("UNCHECKED_CAST")
-            settingsViewModel.setInt(sk as SettingsKeys<Int>, newValue)
-        }
-
-        isChecked { key ->
-            val sk = key as? SettingsKeys<*> ?: return@isChecked false
-            if (sk.defaultValue !is Boolean) return@isChecked false
-            prefs[booleanPreferencesKey(sk.name)] ?: (sk.defaultValue as Boolean)
-        }
-
-        selectedValue { key ->
-            val sk = key as? SettingsKeys<*> ?: return@selectedValue -1
-            if (sk.defaultValue !is Int) return@selectedValue -1
-            prefs[intPreferencesKey(sk.name)] ?: (sk.defaultValue as Int)
-        }
-    }
+    val settingsGraphState = rememberSettingsGraph(prefs, settingsViewModel)
 
     CompositionLocalProvider(
         LocalSettingGraphState provides settingsGraphState,
         LocalNavController provides navController,
     ) {
         LaunchedEffect(navController) {
-            deepLinkViewModel.sessionHolder.navigationEvents.collect {
-                navController.navigate(NavRoutes.LogcatScreen) {
-                    launchSingleTop = true
-                }
+            AppDeeplinkHolder.navigationEvents.collect { destination ->
+                val route = getNavRouteFromDeepLinkDestination(destination)
+                navigateDeepLink(route, navController)
             }
         }
 
@@ -335,7 +314,7 @@ fun AppNavigation(
     }
 }
 
-inline fun <reified T : Any> NavGraphBuilder.animatedComposable(
+private inline fun <reified T : Any> NavGraphBuilder.animatedComposable(
     typeMap: Map<KType, @JvmSuppressWildcards NavType<*>> = emptyMap(),
     deepLinks: List<NavDeepLink> = emptyList(),
     noinline enterTransition: (
@@ -373,4 +352,49 @@ inline fun <reified T : Any> NavGraphBuilder.animatedComposable(
     }
 }
 
+@Composable
+private fun rememberSettingsGraph(
+    prefs: State<Preferences>,
+    settingsViewModel: SettingsViewModel
+): SettingGraphState {
+    return rememberSettingsGraphState {
+        onBooleanChanged { key, newValue ->
+            val sk = key as? SettingsKeys<*> ?: return@onBooleanChanged
+            @Suppress("UNCHECKED_CAST")
+            settingsViewModel.setBoolean(sk as SettingsKeys<Boolean>, newValue)
+        }
 
+        onIntChanged { key, newValue ->
+            val sk = key as? SettingsKeys<*> ?: return@onIntChanged
+            @Suppress("UNCHECKED_CAST")
+            settingsViewModel.setInt(sk as SettingsKeys<Int>, newValue)
+        }
+
+        isChecked { key ->
+            val sk = key as? SettingsKeys<*> ?: return@isChecked false
+            if (sk.defaultValue !is Boolean) return@isChecked false
+            prefs.value[booleanPreferencesKey(sk.name)] ?: (sk.defaultValue as Boolean)
+        }
+
+        selectedValue { key ->
+            val sk = key as? SettingsKeys<*> ?: return@selectedValue -1
+            if (sk.defaultValue !is Int) return@selectedValue -1
+            prefs.value[intPreferencesKey(sk.name)] ?: (sk.defaultValue as Int)
+        }
+    }
+}
+
+private fun getNavRouteFromDeepLinkDestination(destination: DeeplinkDestination): NavRoutes {
+    val navRoute = when (destination) {
+        DeeplinkDestination.LOGCAT -> NavRoutes.LogcatScreen
+        DeeplinkDestination.AI_CHAT -> NavRoutes.AiChatScreen
+    }
+
+    return navRoute
+}
+
+private fun navigateDeepLink(route: NavRoutes, navController: NavController) {
+    navController.navigate(route) {
+        launchSingleTop = true
+    }
+}

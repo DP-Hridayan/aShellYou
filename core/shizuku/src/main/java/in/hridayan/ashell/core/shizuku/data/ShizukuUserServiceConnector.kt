@@ -16,6 +16,7 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withTimeoutOrNull
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.time.Duration.Companion.milliseconds
 
 private const val BIND_TIMEOUT_MS = 15_000L
 private const val UNKNOWN_UID = -1
@@ -89,7 +90,7 @@ class ShizukuUserServiceConnector @Inject constructor(
         deferred: CompletableDeferred<IShellUserService>
     ): Result<IShellUserService> {
         val service = try {
-            withTimeoutOrNull(BIND_TIMEOUT_MS) { deferred.await() }
+            withTimeoutOrNull(BIND_TIMEOUT_MS.milliseconds) { deferred.await() }
         } catch (e: ShizukuServiceError) {
             return fail(e)
         }

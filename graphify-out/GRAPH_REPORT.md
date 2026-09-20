@@ -1,41 +1,41 @@
-# Graph Report - aShellYou  (2026-09-18)
+# Graph Report - aShellYou  (2026-09-19)
 
 ## Corpus Check
-- 995 files · ~656,830 words
+- 995 files · ~656,907 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 6029 nodes · 14206 edges · 392 communities (266 shown, 94 thin omitted)
-- Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 820 edges (avg confidence: 0.85)
+- 6056 nodes · 14213 edges · 429 communities (270 shown, 123 thin omitted)
+- Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 901 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `b7247d3d`
+- Built from commit: `ef2ffa07`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - AutoResizeableText
 - AnalysisResult
-- AppNavigation.kt
+- Alignment
 - SettingsKeys
 - Contributing to aShell You
 - CrashReport
-- model/ButtonGroupItem.kt
-- CommandExamplesScreen.kt
-- AiAnalysisUiState
+- ExpandedViewOutputScreen.kt
+- IconButton
+- BackupAndRestoreScreen.kt
 - AiChatDrawerUI.kt
 - LlmProvider
-- UpdateBottomSheet.kt
 - BaseShellScreen.kt
-- LicensesScreen.kt
-- Text
+- SettingsSearchScreen.kt
+- showToast
+- withHaptic
 - PairingConnectionCtx
 - AdbConnection
 - NsdServiceInfo
 - AdbMdns
 - FontFamily
-- Button
+- ChatDao
 - WifiAdbDevice
 - ShellViewModel
 - TileDashBoardScreen.kt
@@ -50,11 +50,11 @@
 - ShizukuGatewayImpl
 - CreateTileViewModel
 - VersionComparisonTest
-- FastbootScreen.kt
-- CloudNetworkException
+- Text
+- BatchManageCommandExamplesTool.kt
 - BaseTileService
 - LogcatViewModel
-- ContributorsScreen.kt
+- ContributorsRepository
 - ShizukuUserServiceConnectorTest
 - CompositionLocals.kt
 - FastbootViewModel
@@ -65,13 +65,13 @@
 - androidx.annotation.NonNull
 - GeminiProviderClient.kt
 - FastbootDeviceManager
-- LogcatSessionHolder
+- LogcatService
 - AdbStream
 - AdbCrypto
 - ReadLogsAccessChecker
 - LogLevel
 - TileLogDao
-- CustomSearchBar
+- CommandPermissionDao
 - CommandExamplesViewModel
 - UpdateResult
 - BackupType
@@ -84,68 +84,68 @@
 - TileLog
 - SelfPairingService
 - AdbMdnsDiscovery
-- AiAnalysisRepositoryImpl
-- AdbSideloadScreen.kt
-- ChatDao
+- LogFilter
+- SideloadViewModel
+- .append
 - BackupAndRestoreViewModel
 - BookmarkEntity
 - .connect
-- IconButton
-- ShellCommandExecutor
+- main/java/in/hridayan/ashell/ai/presentation/screens/CloudModelsScreen.kt
+- CommandExecutionManager
 - BackupProvider
-- GithubDataRepositoryImpl.kt
+- SettingsRepositoryModule.kt
 - WifiAdbDeviceDao
 - GoogleDriveRepository
 - CommandEntity
 - WifiAdbState
 - ShizukuCommandRunnerImpl
 - PRNGFixes
-- LibraryItem
-- .append
+- LicensesScreen.kt
+- CloudNetworkException
 - AbsAdbConnectionManager
 - LogcatPreflightResult
 - BookmarkViewModel
-- MdnsDiscoveryCallback
+- WifiAdbViewModel
 - AdbConnectionService
-- OutputLine
+- TileDatastore
 - ChatRepositoryImpl
-- FastbootRepository
+- FastbootCommandResult
 - ShizukuCommandRunnerImplTest
 - Color.kt
 - FileBrowserViewModel
 - .emit
 - GoogleDriveRepositoryImpl
-- Json
+- LogListStateStore
 - AppSeedColors
 - Terms of Service for aShell You
 - CommandRepository
 - ShizukuBinderSource
 - CoroutineScope
 - WifiAdbEvent
-- LogFilter
+- ShizukuBinderRequester.kt
 - SettingsViewModel
 - LogcatScreen.kt
 - AndroidPubkey
 - SettingsDataStore
 - BackupAndRestoreRepositoryImpl
 - GetNetworkStatusTool
-- BatchManageCommandExamplesTool.kt
+- AiAnalysisUiState
 - PolicyBlock
 - AdbConnection
 - AdbMessage
-- BaseTileService.kt
-- withHaptic
-- CustomCard.kt
+- CreateNewTileScreenUiState.kt
+- AppNavigation.kt
+- OtgRepository
 - BookmarkRepositoryImpl
 - RemoteProcessAdapter
 - FileBrowserRepositoryImpl
 - MainActivity.kt
-- ExpandedViewOutputScreen.kt
+- ShellViewModel.kt
 - SettingsRepositoryImpl
 - FastbootState
 - AiChatViewModel
 - MaterialIconStyle
-- LlmProviderClient
+- DownloadRepositoryImpl
 - PackageRepositoryImpl
 - BookmarkRepository
 - .executeResolution
@@ -156,14 +156,14 @@
 - SideloadFileCard.kt
 - GithubRepoStatsDao
 - SelfPairingNotificationHelper
-- TileDashBoardViewModel.kt
+- AdbSideloadScreen.kt
 - CommandPermissionRepository
 - CommandDatabaseModule.kt
 - DangerLevel
-- GitHubContributorParser.kt
+- Json
 - TileModule.kt
 - FastbootCommand
-- Translator
+- AiCacheDao
 - CommandRepositoryImpl
 - .error
 - Flow
@@ -173,21 +173,21 @@
 - SettingsSearchViewModel
 - ByteArrayOutputStream
 - UsbChannel
-- DownloadRepositoryImpl
+- BookmarksBottomSheet.kt
 - GetBatteryInfoTool
-- CommandExecutionManager
+- OutputLine
 - ChatBubbleShape.kt
-- SideloadViewModel
+- FloatingNavPill.kt
 - LanguagesViewModel
 - AdbConnectionManager
 - README.md
 - AdbStream
-- MarkdownMessageContent
+- LogcatSessionHolder
 - MarkdownMessageContent
 - Privacy Policy for aShell You
 - ShizukuRemoteShellProcess
 - AnimatedAdbIcon
-- PairingConnectionCtx.java
+- TonalSchemeFactory.kt
 - SideloadOperation
 - LogEntry
 - AiTool
@@ -198,109 +198,110 @@
 - TcpChannel
 - 1. Information Stored Locally on Your Device
 - SlideToConfirm
-- CommandPermissionDao
+- TcpIpAdbRepository
 - AutoUpdateViewModel
 - Brush
 - ColorPickerBottomSheet.kt
-- FontStyleBottomSheet.kt
+- CloudAiModule.kt
 - ShellProcessBinder
-- BottomCornerRoundedCard
-- LogcatNotificationHelper
+- ShellCommandExecutor
+- TileDashBoardScreen
 - Wavy.kt
-- CorrectionConfidence
-- Composable
+- PaletteStyle
+- AnalysisContent.kt
 - .provideDeviceDiagnosticsSkillBundle
-- SideloadStatus
-- TcpIpAdbRepository
+- ToolSchemaType
+- .weakHaptic
 - OnboardingViewModel
 - SuggestionType
 - SettingsSearchDriftTest
 - DispatcherProvider
 - OutputLineText
 - SideloadState
+- ClosableSink
 - AnalysisStatus
-- AiBackupProvider.kt
 - NetworkCallback
 - TileErrorType
-- LogListStateStore
+- SettingsSearchGraph.kt
 - RemoteFile
 - PrivacyPolicyScreen.kt
 - FileUtils.kt
 - ShellUserService
 - FastbootDeviceContext
-- ToolSchemaType
+- ColorSchemePayload
 - SideloadRepository
 - .pair
 - ToolSchema
 - PageTwo.kt
 - GetStorageInfoTool
 - ScrollDirection
-- CommandExampleCard.kt
-- ReconnectListener
-- IconChooserBottomSheet.kt
-- ChangelogItem
-- ShizukuBinderArbiterTest
+- AiAnalysisRepositoryImpl
+- SortType
+- GithubReleaseType
+- ChangelogViewModel
+- AppLockedScreen.kt
 - TcpIpUtils
 - FakeProcess
-- BatteryIndicator
+- ConnectedDeviceCard.kt
 - AppLifecycleObserver.kt
-- OtgRepository
+- PromptBuilder
 - SnackBarContent
-- UrlUtils.kt
+- AiAnalysisRepository
 - ShizukuCommandRunner
 - AiModelManagerViewModel
 - EncryptionHelper
 - .invoke
 - Context
-- DraggableScrollThumb
+- TileLogRepositoryImpl
 - OperationType
 - ByteArrayNoThrowOutputStream
-- ResponseStatus
+- CreateQsTileTool.kt
 - Modifier
 - TermsOfServiceScreen.kt
 - ViewModel
 - LabelText
 - SideloadInstructionsCard.kt
-- AppLockedScreen.kt
+- BiometricError
 - TextUnit
 - batchByTime
-- SettingsBackupProvider.kt
+- BackupScheduler
 - ClipboardOperation
 - OperationStatus
 - AiConnectionStateProvider
-- GetMemoryInfoTool
+- CrashReportActivity.kt
 - ReleaseLintBaselinePlugin
 - TileExecutionManager.kt
-- TileLogRepositoryImpl
-- MaterialIconEntry.kt
-- GenerateColorSchemeViewModel.kt
+- ShizukuBinderArbiterTest
+- UserGeneratedColorScheme
+- GetMemoryInfoTool
 - AdbFoundCallback
 - LoadingSpinner
-- .connectAndRunTcpIpCommand
+- BulletPointsTextLayout
 - NotificationUtils.kt
 - DiscoveryListener
-- SaveProgress
-- TileLogsViewModel.kt
+- UserGeneratedColorSchemeViewModel.kt
+- LogcatNotificationHelper
 - 4. Third-Party Services and Data Transmission
-- DiscoveredDeviceCard
+- FontOption
 - 3. AI Assistant & Autonomous Tool Execution
-- TextFieldValue
+- SideloadStatus
 - MiUiCheck
-- AshellYouAnimationSpecs
-- BouncyDotsLoadingIndicator
+- TileIconContent
+- BouncyDotsLoadingIndicator.kt
 - Type.kt
 - TileExecutionMode
-- KeyboardUtils.kt
-- AppRestartUtils
-- AppSwitch
+- State
+- PrivacySecurityScreen.kt
+- AppSwitch.kt
 - PairingTab
 - interpolate_color
 - gradlew
 - T
 - ProfilePic
 - 6. Local Network Activity
-- HapticUtils
+- PagerState
 - ExampleInstrumentedTest
+- Color
 - PairingTab
 - ExampleUnitTest
 - SpinningGearsLottie.kt
@@ -309,18 +310,20 @@
 - ExampleUnitTest
 - ExampleUnitTest
 - 5. Privileged Execution Engines (Shizuku and Root)
-- ShellViewModel.kt
+- AppRestartUtils
 - CmdScreenUiState
 - Preferences
 - CustomCard
+- Intent
 - ArchitectureTest
 - AppBrandingNoPadding.kt
 - HomeScreen.kt
 - ValidateFontFileUseCase
-- AppFontViewModel.kt
+- CheckUpdateUseCase
 - KeyboardOptions
 - resources/ExampleUnitTest.kt
-- FontOption
+- Result
+- AppBrandingNoPadding.kt
 - ShellScreenInputFieldState
 - ShellScreenUiState
 - AnimatedStopIcon
@@ -350,10 +353,32 @@
 - TextFieldValueSerializer
 - Intent
 - DangerLevel
+- StateFlow
 - Color
 - LazyListState
 - NavController
-- WavyHorizontalDivider
+- UndrawDreamWorld.kt
+- UndrawSelectChoice.kt
+- UndrawDreamer.kt
+- UndrawThemePicker.kt
+- Bundle
+- Dp
+- TileDashBoardScreenUiState
+- Bundle
+- ViewModel
+- TileLogsViewModel.kt
+- Modifier
+- AshellYouAnimationSpecs
+- AppFontViewModel.kt
+- UrlUtils.kt
+- GithubDataViewModel.kt
+- TcpIpConnectionListener
+- CrashViewModel
+- Bundle
+- Modifier
+- SettingsViewModel
+- AnimatedContentScope
+- Composable
 - ashell/ExampleInstrumentedTest.kt
 - ashell/ArchitectureTest.kt
 - common/ExampleInstrumentedTest.kt
@@ -363,6 +388,7 @@
 - resources/ExampleInstrumentedTest.kt
 - ui/ExampleUnitTest.kt
 - adbsideload/ExampleInstrumentedTest.kt
+- EnterTransition
 - ai/ExampleInstrumentedTest.kt
 - commandexamples/ExampleInstrumentedTest.kt
 - commandexamples/ExampleUnitTest.kt
@@ -375,51 +401,58 @@
 - qstiles/ExampleInstrumentedTest.kt
 - qstiles/ExampleUnitTest.kt
 - settings/ExampleInstrumentedTest.kt
+- ExitTransition
+- Flow
+- SharedFlow
+- StateFlow
+- Notification
+- NotificationManager
+- LogcatSessionHolder
 
 ## God Nodes (most connected - your core abstractions)
-1. `withHaptic()` - 240 edges
-2. `Text` - 239 edges
-3. `AutoResizeableText()` - 230 edges
-4. `SettingsKeys` - 220 edges
-5. `CustomCard()` - 122 edges
+1. `Text` - 239 edges
+2. `withHaptic()` - 239 edges
+3. `AutoResizeableText()` - 229 edges
+4. `SettingsKeys` - 219 edges
+5. `CustomCard()` - 121 edges
 6. `OverflowButtonGroup()` - 84 edges
 7. `ButtonGroupItem` - 79 edges
-8. `CustomCardShape` - 77 edges
+8. `CustomCardShape` - 78 edges
 9. `AiTool` - 71 edges
-10. `NavRoutes` - 70 edges
+10. `NavRoutes` - 68 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `FileBrowserScreen()` --calls--> `showToast()`  [INFERRED]
-  feature/shell/src/main/java/in/hridayan/ashell/shell/file_browser/presentation/screens/FileBrowserScreen.kt → core/common/src/main/java/in/hridayan/ashell/core/utils/Utils.kt
-- `FileBrowserScreen()` --calls--> `withHaptic()`  [INFERRED]
-  feature/shell/src/main/java/in/hridayan/ashell/shell/file_browser/presentation/screens/FileBrowserScreen.kt → core/ui/src/main/java/in/hridayan/ashell/core/presentation/components/haptic/WithHaptic.kt
-- `FileBrowserScreen()` --calls--> `IconButton`  [INFERRED]
-  feature/shell/src/main/java/in/hridayan/ashell/shell/file_browser/presentation/screens/FileBrowserScreen.kt → core/ui/src/main/java/in/hridayan/ashell/core/presentation/model/ButtonGroupItem.kt
-- `FileBrowserScreen()` --calls--> `TextButton`  [INFERRED]
-  feature/shell/src/main/java/in/hridayan/ashell/shell/file_browser/presentation/screens/FileBrowserScreen.kt → core/ui/src/main/java/in/hridayan/ashell/core/presentation/model/ButtonGroupItem.kt
-- `CreateQsTileTool` --calls--> `ToolSchemaProperty`  [INFERRED]
-  feature/qstiles/src/main/java/in/hridayan/ashell/qstiles/tool/CreateQsTileTool.kt → core/common/src/main/java/in/hridayan/ashell/core/common/domain/model/ai/AiTool.kt
+- `AppNavigation()` --calls--> `AboutScreen`  [INFERRED]
+  app/src/main/java/in/hridayan/ashell/ui/navigation/AppNavigation.kt → core/navigation/src/main/java/in/hridayan/ashell/core/navigation/NavRoutes.kt
+- `AppNavigation()` --calls--> `AdbSideloadScreen`  [INFERRED]
+  app/src/main/java/in/hridayan/ashell/ui/navigation/AppNavigation.kt → core/navigation/src/main/java/in/hridayan/ashell/core/navigation/NavRoutes.kt
+- `AppNavigation()` --calls--> `AiChatScreen`  [INFERRED]
+  app/src/main/java/in/hridayan/ashell/ui/navigation/AppNavigation.kt → core/navigation/src/main/java/in/hridayan/ashell/core/navigation/NavRoutes.kt
+- `AppNavigation()` --calls--> `AiModelsScreen`  [INFERRED]
+  app/src/main/java/in/hridayan/ashell/ui/navigation/AppNavigation.kt → core/navigation/src/main/java/in/hridayan/ashell/core/navigation/NavRoutes.kt
+- `AppNavigation()` --calls--> `AutoUpdateScreen`  [INFERRED]
+  app/src/main/java/in/hridayan/ashell/ui/navigation/AppNavigation.kt → core/navigation/src/main/java/in/hridayan/ashell/core/navigation/NavRoutes.kt
 
 ## Import Cycles
 - None detected.
 
-## Communities (392 total, 94 thin omitted)
+## Communities (429 total, 123 thin omitted)
 
 ### Community 0 - "AutoResizeableText"
 Cohesion: 0.06
-Nodes (84): AdbFileBrowserConnectionMode, Arrangement, Modifier, OverflowButtonGroup(), ApiKeyRequiredDialog(), Modifier, DialogContainer(), PaddingValues (+76 more)
+Nodes (95): androidx, Arrangement, Modifier, OverflowButtonGroup(), ApiKeyRequiredDialog(), Modifier, DialogContainer(), PaddingValues (+87 more)
 
 ### Community 1 - "AnalysisResult"
-Cohesion: 0.05
-Nodes (14): AiAnalysisRepository, AiAnalysisRepository, AnalysisResult, AiAnalysisRepository, CloudAnalysisRepository, AnalyzeCommandUseCase, AnalyzeCommandWithCloudUseCase, Result (+6 more)
+Cohesion: 0.09
+Nodes (8): AnalysisResult, AiAnalysisRepository, CloudAnalysisRepository, AnalyzeCommandUseCase, AutocompleteUseCase, GetCachedAnalysisUseCase, QueryCommandUseCase, CloudAnalysisRepositoryImpl
 
-### Community 2 - "AppNavigation.kt"
-Cohesion: 0.05
-Nodes (72): AnimatedContentTransitionScope, AiChatScreen(), AiModelsScreen(), CloudModelsScreen(), animatedComposable(), AppNavigation(), AnimatedContentScope, Composable (+64 more)
+### Community 2 - "Alignment"
+Cohesion: 0.08
+Nodes (42): Alignment, navigateBack(), createDialog(), AppScaffold(), AppScaffoldImpl(), LazyListState, Modifier, ScrollState (+34 more)
 
 ### Community 3 - "SettingsKeys"
 Cohesion: 0.02
-Nodes (98): About, AiCacheAutoClear, AiCacheClear, AiCacheDays, AiCacheEnabled, AiCloudProvider, AiModels, AiSkillCommandExecution (+90 more)
+Nodes (99): About, AiCacheAutoClear, AiCacheClear, AiCacheDays, AiCacheEnabled, AiCloudProvider, AiModels, AiSkillCommandExecution (+91 more)
 
 ### Community 4 - "Contributing to aShell You"
 Cohesion: 0.06
@@ -427,55 +460,55 @@ Nodes (33): 1. Correction, 2. Warning, 3. Temporary Ban, 4. Permanent Ban, Attri
 
 ### Community 5 - "CrashReport"
 Cohesion: 0.06
-Nodes (24): App, Application, Context, Provider, AppEntryPoint, Configuration, FeatureConfig, CrashDatabase (+16 more)
+Nodes (23): App, Application, Context, Provider, AppEntryPoint, Configuration, CrashDatabase, RoomDatabase (+15 more)
 
-### Community 6 - "model/ButtonGroupItem.kt"
-Cohesion: 0.36
-Nodes (6): ButtonConfig, ButtonGroupIconButtonConfig, ButtonGroupIconButtonDefaults, ButtonColors, Dp, IconButtonColors
+### Community 6 - "ExpandedViewOutputScreen.kt"
+Cohesion: 0.15
+Nodes (14): TerminalFontStyle, LazyListState, Modifier, VerticalScrollbar(), CommandResult, Busy, Free, InputQuery (+6 more)
 
-### Community 7 - "CommandExamplesScreen.kt"
-Cohesion: 0.12
-Nodes (27): Absolute, CornerSize, Dimens, Percentage, AddCommandDialog(), CommandInputField(), DescriptionInputField(), Modifier (+19 more)
+### Community 7 - "IconButton"
+Cohesion: 0.08
+Nodes (46): FeatureConfig, AiAnalysisButton(), ButtonColors, Modifier, CollapsibleCard(), BorderStroke, CardColors, CardElevation (+38 more)
 
-### Community 8 - "AiAnalysisUiState"
-Cohesion: 0.17
-Nodes (9): AiAnalysisUiState, Error, Idle, Loading, Success, AiAnalysisViewModel, Job, StateFlow (+1 more)
+### Community 8 - "BackupAndRestoreScreen.kt"
+Cohesion: 0.16
+Nodes (18): BottomCornerRoundedCard(), Color, Modifier, Color, Modifier, TopCornerRoundedCard(), CardCornerShape, LastBackupData (+10 more)
 
 ### Community 9 - "AiChatDrawerUI.kt"
 Cohesion: 0.26
 Nodes (11): DrawerState, AnimatedStopIcon(), Color, Modifier, AiChatDrawerUI(), Modifier, NewChatButton(), Modifier (+3 more)
 
 ### Community 10 - "LlmProvider"
-Cohesion: 0.07
-Nodes (22): Aead, ApiKeyRepository, Flow, StubAiModule, ApiKeyRepository, Gemini, LlmProvider, ApiKeyRepository (+14 more)
+Cohesion: 0.08
+Nodes (16): Aead, ApiKeyRepository, Flow, StubAiModule, ApiKeyRepository, AiModelConstants, Gemini, LlmProvider (+8 more)
 
-### Community 11 - "UpdateBottomSheet.kt"
-Cohesion: 0.13
-Nodes (26): ChangelogBottomSheet(), Modifier, installApk(), splitStringToLines(), BulletPointsTextLayout(), AnnotatedString, Arrangement, Color (+18 more)
+### Community 11 - "BaseShellScreen.kt"
+Cohesion: 0.14
+Nodes (30): AnimatedContentScope, BookmarkViewModel, CommandResult, Context, AskAiButton(), Modifier, SpecialThanks, ContributorAvatar() (+22 more)
 
-### Community 12 - "BaseShellScreen.kt"
-Cohesion: 0.22
-Nodes (18): AnimatedContentScope, BookmarkViewModel, CommandResult, ImageVector, noSearchResult(), BaseShellScreen(), BottomExtendedFAB(), buildStringFromOutput() (+10 more)
+### Community 12 - "SettingsSearchScreen.kt"
+Cohesion: 0.42
+Nodes (7): ImageVector, noSearchResult(), Modifier, SearchResult, SearchResultRow(), SearchSomethingUi(), SettingsSearchScreen()
 
-### Community 13 - "LicensesScreen.kt"
-Cohesion: 0.07
-Nodes (43): UrlConst, SharedTextHolder, DeviceUtils, Context, ToastUtils, handleSharedText(), isAppInstalled(), isShizukuOrPlusInstalled() (+35 more)
+### Community 13 - "showToast"
+Cohesion: 0.08
+Nodes (38): AppUiEntry(), ChangelogBottomSheet(), Modifier, Modifier, LegalDocsUpdateDialog(), SharedTextHolder, installApk(), DeviceUtils (+30 more)
 
-### Community 14 - "Text"
-Cohesion: 0.07
-Nodes (60): DialogDescription(), DialogSubTitle(), Modifier, UserGeneratedColorScheme, CustomCardShape, Text, CrashDetailsScreen(), Modifier (+52 more)
+### Community 14 - "withHaptic"
+Cohesion: 0.04
+Nodes (90): HomeRoute(), askUserToEnableWifi(), isConnectedToWifi(), ConnectivityManager, Context, registerNetworkCallback(), unregisterNetworkCallback(), TopAppBarScrollBehavior (+82 more)
 
 ### Community 15 - "PairingConnectionCtx"
-Cohesion: 0.09
+Cohesion: 0.08
 Nodes (17): androidx.annotation.Nullable, androidx.annotation.VisibleForTesting, io.github.muntashirakon.crypto.spake2.Spake2Context, java.nio.ByteBuffer, javax.security.auth.Destroyable, Socket, Override, PairingAuthCtx (+9 more)
 
 ### Community 16 - "AdbConnection"
-Cohesion: 0.09
-Nodes (9): androidx.annotation.GuardedBy, java.security.cert.Certificate, java.security.PrivateKey, java.security.PublicKey, AdbConnection, Builder, AdbStream, Override (+1 more)
+Cohesion: 0.07
+Nodes (17): android.annotation.SuppressLint, androidx.annotation.GuardedBy, java.lang.reflect.Method, java.security.cert.Certificate, java.security.PrivateKey, java.security.PublicKey, javax.net.ssl.KeyManager, javax.net.ssl.SSLContext (+9 more)
 
 ### Community 17 - "NsdServiceInfo"
-Cohesion: 0.07
-Nodes (12): DiscoveryListener, NsdServiceInfo, ResolveListener, DiscoveryListener, ResolveListener, ResolveListener, ConnectionListener, DiscoveryListener (+4 more)
+Cohesion: 0.06
+Nodes (13): DiscoveryListener, NsdServiceInfo, DiscoveryListener, ResolveListener, DiscoveryListener, ResolveListener, DiscoveryListener, ResolveListener (+5 more)
 
 ### Community 18 - "AdbMdns"
 Cohesion: 0.12
@@ -485,21 +518,21 @@ Nodes (10): android.net.nsd.NsdManager, android.net.nsd.NsdServiceInfo, androidx
 Cohesion: 0.09
 Nodes (41): AppFont, AMATIC_SC, CABIN, CAVEAT, COMFORTAA, CRIMSON_PRO, DANCING_SCRIPT, EB_GARAMOND (+33 more)
 
-### Community 20 - "Button"
-Cohesion: 0.08
-Nodes (48): AppUiEntry(), Modifier, LegalDocsUpdateDialog(), HomeRoute(), askUserToEnableWifi(), isConnectedToWifi(), isNetworkAvailable(), ConnectivityManager (+40 more)
+### Community 20 - "ChatDao"
+Cohesion: 0.13
+Nodes (3): ChatDao, Flow, ChatMessageEntity
 
 ### Community 21 - "WifiAdbDevice"
 Cohesion: 0.07
 Nodes (11): WifiAdbDevice, toDomain(), toDomainList(), toEntity(), Bitmap, ConnectionListener, Flow, MdnsDiscoveryCallback (+3 more)
 
 ### Community 22 - "ShellViewModel"
-Cohesion: 0.11
-Nodes (4): CommandResult, Flow, MutableStateFlow, ShellViewModel
+Cohesion: 0.08
+Nodes (6): Suggestion, CommandResult, Flow, MutableStateFlow, TextFieldValue, ShellViewModel
 
 ### Community 23 - "TileDashBoardScreen.kt"
 Cohesion: 0.22
-Nodes (21): EmptyTileBox(), Color, Dp, Modifier, TileDashBoardScreenUiState, LogsContent(), LogStatsRow(), ModernTile() (+13 more)
+Nodes (22): EmptyTileBox(), Modifier, LogsContent(), LogStatsRow(), ModernTile(), NoLogsUi(), NotificationAccessRequestCard(), RecentActivityHeader() (+14 more)
 
 ### Community 24 - "DialogKey"
 Cohesion: 0.06
@@ -514,12 +547,12 @@ Cohesion: 0.08
 Nodes (19): FdroidRepositoryModule, FdroidGoogleAuthRepositoryImpl, Context, Result, StateFlow, GithubRepositoryModule, GoogleAuthRepositoryImpl, Context (+11 more)
 
 ### Community 27 - "NavRoutes"
-Cohesion: 0.04
-Nodes (64): AboutScreen, AdbSideloadScreen, AiChatScreen, AiModelsScreen, AutoUpdateScreen, BackupAndRestoreScreen, BackupSchedulerScreen, BehaviorScreen (+56 more)
+Cohesion: 0.09
+Nodes (41): AppNavigation(), AboutScreen, AdbSideloadScreen, AiChatScreen, AiModelsScreen, AutoUpdateScreen, BackupAndRestoreScreen, BackupSchedulerScreen (+33 more)
 
 ### Community 28 - "WifiAdbRepositoryImpl"
-Cohesion: 0.08
-Nodes (12): AdbStream, Bitmap, Flow, Job, MdnsDiscoveryCallback, NsdManager, ScheduledFuture, MdnsDiscoveryCallback (+4 more)
+Cohesion: 0.07
+Nodes (14): AdbStream, Bitmap, Flow, Job, MdnsDiscoveryCallback, NsdManager, ScheduledFuture, MdnsDiscoveryCallback (+6 more)
 
 ### Community 29 - "ChatSessionEntity"
 Cohesion: 0.10
@@ -530,52 +563,52 @@ Cohesion: 0.12
 Nodes (12): CustomFontDao, Flow, CustomFontRepositoryImpl, Flow, CustomFontEntity, CustomFontRepository, Flow, DeleteCustomFontUseCase (+4 more)
 
 ### Community 31 - ".reconnect"
-Cohesion: 0.12
-Nodes (5): ReconnectListener, ReconnectListener, DiscoveryListener, DiscoveryListener, WifiManager
+Cohesion: 0.23
+Nodes (4): ReconnectListener, ReconnectListener, ConnectionListener, WifiManager
 
 ### Community 32 - "ShizukuGatewayImpl"
 Cohesion: 0.09
 Nodes (8): BindCallbacks, IShellUserService, ShizukuGateway, IBinder, IShellUserService, Shizuku, ShizukuGatewayImpl, ServiceConnection
 
 ### Community 33 - "CreateTileViewModel"
-Cohesion: 0.11
+Cohesion: 0.12
 Nodes (8): TileCommandKeywordProcessor, CreateTileViewModel, Icon, MaterialIconEntry, StateFlow, TextFieldValue, ViewModel, Job
 
-### Community 35 - "FastbootScreen.kt"
-Cohesion: 0.10
-Nodes (28): AnimationSpec, FloatingNavPill(), FloatingNavPillColors, FloatingNavPillDefaults, FloatingNavPillItem, CardElevation, Color, Dp (+20 more)
+### Community 35 - "Text"
+Cohesion: 0.06
+Nodes (63): AiAnalysisUiState, AiAnalysisBottomSheet(), ErrorContent(), Modifier, GibberishContent(), Modifier, DialogDescription(), DialogSubTitle() (+55 more)
 
-### Community 36 - "CloudNetworkException"
-Cohesion: 0.10
-Nodes (15): CloudNetworkException, Exception, NetworkError, ParseError, ProviderNotConfigured, RateLimited, ServerError, Unauthorized (+7 more)
+### Community 36 - "BatchManageCommandExamplesTool.kt"
+Cohesion: 0.13
+Nodes (11): CommandToolModule, AiSkillBundle, AiSkillBundle, BatchManageCommandExamplesTool, JsonObject, DeleteCommandExampleTool, JsonObject, JsonObject (+3 more)
 
 ### Community 37 - "BaseTileService"
-Cohesion: 0.10
-Nodes (16): ComponentName, Icon, TileComponentManager, BaseTileService, Icon, Tile01Service, Tile02Service, Tile03Service (+8 more)
+Cohesion: 0.09
+Nodes (19): ComponentName, Icon, TileComponentManager, BaseTileService, Icon, Tile01Service, Tile02Service, Tile03Service (+11 more)
 
 ### Community 38 - "LogcatViewModel"
 Cohesion: 0.09
 Nodes (10): LogcatUiEvent, PermissionStillMissing, LogcatTab, OTHER_DEVICE, THIS_DEVICE, Job, SharedFlow, StateFlow (+2 more)
 
-### Community 39 - "ContributorsScreen.kt"
-Cohesion: 0.13
-Nodes (20): Context, ContributorsRepositoryImpl, GitHubContributor, Translator, ContributorsModule, Context, SpecialThanks, ContributorsRepository (+12 more)
+### Community 39 - "ContributorsRepository"
+Cohesion: 0.07
+Nodes (18): GitHubContributorDto, TranslatorDto, toGitHubContributor(), toTranslator(), GitHubContributorParser, Context, Context, TranslatorParser (+10 more)
 
 ### Community 40 - "ShizukuUserServiceConnectorTest"
 Cohesion: 0.08
 Nodes (6): FakeShellUserService, FakeShizukuGateway, IBinder, IShellProcess, IShellUserService, ShizukuUserServiceConnectorTest
 
 ### Community 41 - "CompositionLocals.kt"
-Cohesion: 0.17
-Nodes (11): CrashReportActivity, Bundle, SettingsViewModel, ComponentActivity, CompositionLocals(), BroadcastReceiver, SnackBarController, DialogViewModel (+3 more)
+Cohesion: 0.29
+Nodes (6): CompositionLocals(), BroadcastReceiver, SnackBarController, DialogViewModel, SettingsState, UserGeneratedColorSchemeViewModel
 
 ### Community 42 - "FastbootViewModel"
 Cohesion: 0.09
 Nodes (15): FlashOperation, FlashStatus, CANCELLING, COMPLETE, DOWNLOADING, ERASING, ERROR, FLASHING (+7 more)
 
 ### Community 43 - "OtgState"
-Cohesion: 0.12
-Nodes (14): OtgConnection, Connected, Connecting, DeviceFound, Disconnected, Error, Idle, OtgState (+6 more)
+Cohesion: 0.13
+Nodes (13): OtgConnection, Connected, Connecting, DeviceFound, Disconnected, Error, Idle, OtgState (+5 more)
 
 ### Community 44 - "LookAndFeelViewModel"
 Cohesion: 0.10
@@ -586,24 +619,24 @@ Cohesion: 0.14
 Nodes (11): AdbConnection, AdbStream, ByteArray, Flow, Intent, Job, Uri, UsbDevice (+3 more)
 
 ### Community 46 - "DownloadState"
-Cohesion: 0.12
-Nodes (11): Context, SettingsUseCaseModule, Cancelled, DownloadState, Error, Idle, Progress, Started (+3 more)
+Cohesion: 0.13
+Nodes (9): Cancelled, DownloadState, Error, Idle, Progress, Started, Success, DownloadRepository (+1 more)
 
 ### Community 47 - "androidx.annotation.NonNull"
 Cohesion: 0.14
 Nodes (11): androidx.annotation.IntDef, androidx.annotation.NonNull, java.lang.annotation.Retention, AdbProtocol, AuthType, Command, Override, Message (+3 more)
 
 ### Community 48 - "GeminiProviderClient.kt"
-Cohesion: 0.16
+Cohesion: 0.15
 Nodes (18): ByteReadChannel, LlmMessage, LlmToolCall, GeminiCandidate, GeminiContent, GeminiFunctionCall, GeminiFunctionDeclaration, GeminiFunctionResponse (+10 more)
 
 ### Community 49 - "FastbootDeviceManager"
-Cohesion: 0.13
-Nodes (8): DeviceId, FastbootDeviceManager, Context, Intent, UsbDevice, UsbInterface, FastbootDeviceManagerListener, UsbManager
+Cohesion: 0.14
+Nodes (7): DeviceId, FastbootDeviceManager, Context, Intent, UsbDevice, UsbInterface, FastbootDeviceManagerListener
 
-### Community 50 - "LogcatSessionHolder"
-Cohesion: 0.09
-Nodes (16): ViewModel, NavDeepLinkViewModel, LogcatEmitterFactory, Flow, SharedFlow, StateFlow, LogcatSessionHolder, Flow (+8 more)
+### Community 50 - "LogcatService"
+Cohesion: 0.14
+Nodes (10): LogcatEmitterFactory, Flow, ObserveLogsUseCase, Context, IBinder, Intent, Job, Service (+2 more)
 
 ### Community 51 - "AdbStream"
 Cohesion: 0.09
@@ -618,24 +651,24 @@ Cohesion: 0.09
 Nodes (10): AndroidReadLogsAccessChecker, Result, LogcatBindsModule, ReadLogsPermission, Result, ReadLogsAccessChecker, CheckReadLogsPreflightUseCase, CheckReadLogsPreflightUseCaseTest (+2 more)
 
 ### Community 54 - "LogLevel"
-Cohesion: 0.11
-Nodes (19): FilterMode, EXCLUDE, INCLUDE, LogLevel, DEBUG, ERROR, FATAL, INFO (+11 more)
+Cohesion: 0.16
+Nodes (12): LogLevel, DEBUG, ERROR, FATAL, INFO, SILENT, UNKNOWN, VERBOSE (+4 more)
 
 ### Community 55 - "TileLogDao"
 Cohesion: 0.16
 Nodes (7): Flow, TileLogDao, RoomDatabase, TileLogDatabase, TileLogEntity, Context, TileLogModule
 
-### Community 56 - "CustomSearchBar"
-Cohesion: 0.17
-Nodes (17): CustomSearchBar(), CardColors, KeyboardOptions, Modifier, TextFieldValue, Modifier, SearchResult, SearchResultRow() (+9 more)
+### Community 56 - "CommandPermissionDao"
+Cohesion: 0.13
+Nodes (7): AiBackupData, AiDatabase, RoomDatabase, CommandPermissionDao, CommandPermissionEntity, AiModule, Context
 
 ### Community 57 - "CommandExamplesViewModel"
 Cohesion: 0.11
 Nodes (5): CmdExamplesScreenState, CommandExamplesViewModel, StateFlow, TextFieldValue, ViewModel
 
 ### Community 58 - "UpdateResult"
-Cohesion: 0.11
-Nodes (12): NetworkError, Success, Timeout, UnknownError, UpdateResult, GithubDataRepository, Flow, CheckUpdateUseCase (+4 more)
+Cohesion: 0.13
+Nodes (13): toDomain(), toEntity(), GithubDataRepositoryImpl, Flow, GithubRepoStats, NetworkError, Success, Timeout (+5 more)
 
 ### Community 59 - "BackupType"
 Cohesion: 0.11
@@ -654,16 +687,16 @@ Cohesion: 0.15
 Nodes (7): AdbConnection, AdbStream, Flow, Intent, UsbDevice, UsbInterface, OtgRepositoryImpl
 
 ### Community 63 - "ShizukuUserServiceConnector"
-Cohesion: 0.15
-Nodes (13): CompletableDeferred, IShellUserService, Result, StateFlow, ShizukuUserServiceConnector, BinderDied, BinderMissing, BindFailed (+5 more)
+Cohesion: 0.25
+Nodes (7): CompletableDeferred, ShizukuUserServiceConnector, IShellUserService, Result, ShizukuServiceError, ShizukuServiceState, StateFlow
 
 ### Community 64 - "ShellModule.kt"
 Cohesion: 0.14
 Nodes (10): ExternalDeviceShell, Flow, Flow, OtgDeviceShell, Flow, WifiAdbOtherDeviceShell, Flow, WifiAdbOwnDeviceShell (+2 more)
 
 ### Community 65 - "SettingsRepository"
-Cohesion: 0.13
-Nodes (4): Flow, Preferences, SettingsRepository, ToggleSettingUseCase
+Cohesion: 0.16
+Nodes (3): Flow, Preferences, SettingsRepository
 
 ### Community 66 - "TileLog"
 Cohesion: 0.21
@@ -677,45 +710,45 @@ Nodes (8): Context, IBinder, Intent, PairingListener, ScheduledFuture, Service, 
 Cohesion: 0.15
 Nodes (6): AdbFoundCallback, AdbMdnsDiscovery, ServiceInfoCallback, InetAddress, NsdServiceInfo, ResolveListener
 
-### Community 69 - "AiAnalysisRepositoryImpl"
-Cohesion: 0.12
-Nodes (5): AiCacheDao, AiCacheEntity, AiAnalysisRepositoryImpl, AiAnalysisRepository, AiAnalysisRepository
+### Community 69 - "LogFilter"
+Cohesion: 0.11
+Nodes (15): Flow, LogcatFilterRepositoryImpl, Context, LogcatModule, FilterMode, EXCLUDE, INCLUDE, LogFilter (+7 more)
 
-### Community 70 - "AdbSideloadScreen.kt"
-Cohesion: 0.27
-Nodes (14): ConnectionIcon(), ConnectionInfo(), Modifier, SideloadDeviceCard(), SideloadDeviceWaitingDialog(), AdbSideloadScreen(), FileSection(), Context (+6 more)
+### Community 70 - "SideloadViewModel"
+Cohesion: 0.29
+Nodes (5): Job, StateFlow, Uri, ViewModel, SideloadViewModel
 
-### Community 71 - "ChatDao"
+### Community 71 - ".append"
 Cohesion: 0.13
-Nodes (3): ChatDao, Flow, ChatMessageEntity
+Nodes (11): AiSkillBundle, ShellToolModule, AiSkillBundle, BatchManageBookmarksTool, JsonObject, DeleteBookmarkTool, JsonObject, JsonObject (+3 more)
 
 ### Community 72 - "BackupAndRestoreViewModel"
 Cohesion: 0.12
 Nodes (8): Backup, BackupAndRestoreViewModel, Context, StateFlow, Uri, ViewModel, PendingOperation, Restore
 
 ### Community 73 - "BookmarkEntity"
-Cohesion: 0.14
+Cohesion: 0.12
 Nodes (3): BookmarkDao, Flow, BookmarkEntity
 
 ### Community 74 - ".connect"
+Cohesion: 0.14
+Nodes (9): ConnectionListener, ConnectionListener, PairingListener, PairingListener, ConnectionListener, PairingListener, ConnectionListener, PairingListener (+1 more)
+
+### Community 75 - "main/java/in/hridayan/ashell/ai/presentation/screens/CloudModelsScreen.kt"
 Cohesion: 0.16
-Nodes (7): ConnectionListener, ConnectionListener, PairingListener, ConnectionListener, PairingListener, ConnectionListener, ConnectionListener
+Nodes (15): ApiKeyHeader(), ApiKeySection(), CloudModelsScreen(), GeminiHelpSection(), InputKeySection(), Modifier, CloudModelsViewModel, Error (+7 more)
 
-### Community 75 - "IconButton"
-Cohesion: 0.10
-Nodes (29): TopAppBarScrollBehavior, TopAppBarLarge(), BackButton(), Modifier, FavouriteIconButton(), ButtonGroupItem(), Modifier, CardColors (+21 more)
-
-### Community 76 - "ShellCommandExecutor"
-Cohesion: 0.35
-Nodes (3): Context, Flow, ShellCommandExecutor
+### Community 76 - "CommandExecutionManager"
+Cohesion: 0.24
+Nodes (7): CommandExecutionManager, StateFlow, PermissionRequest, PermissionResult, DENIED, GRANTED, RunningTask
 
 ### Community 77 - "BackupProvider"
-Cohesion: 0.09
-Nodes (15): BackupProvider, JsonElement, ColorSchemeBackupProvider, JsonElement, ColorSchemeBackupModule, CommandBackupProvider, JsonElement, CommandBackupModule (+7 more)
+Cohesion: 0.06
+Nodes (21): BackupProvider, JsonElement, ColorSchemeBackupProvider, JsonElement, ColorSchemeBackupModule, AiBackupProvider, JsonElement, AiBackupModule (+13 more)
 
-### Community 78 - "GithubDataRepositoryImpl.kt"
-Cohesion: 0.12
-Nodes (11): toDomain(), toEntity(), GithubApi, GithubReleaseDto, GithubRepoStatsDto, mapToRepoStats(), GithubDataRepositoryImpl, Flow (+3 more)
+### Community 78 - "SettingsRepositoryModule.kt"
+Cohesion: 0.17
+Nodes (6): GithubApi, GithubReleaseDto, GithubRepoStatsDto, mapToRepoStats(), HttpClient, SettingsRepositoryModule
 
 ### Community 79 - "WifiAdbDeviceDao"
 Cohesion: 0.13
@@ -730,24 +763,24 @@ Cohesion: 0.15
 Nodes (3): CommandEntity, CommandDao, Flow
 
 ### Community 82 - "WifiAdbState"
-Cohesion: 0.09
-Nodes (15): WifiAdbConnection, Connected, Connecting, Disconnected, Discovering, Idle, Pairing, Reconnecting (+7 more)
+Cohesion: 0.10
+Nodes (12): WifiAdbConnection, Connected, Connecting, Disconnected, Discovering, Idle, Pairing, Reconnecting (+4 more)
 
 ### Community 83 - "ShizukuCommandRunnerImpl"
-Cohesion: 0.19
-Nodes (9): IShellUserService, Result, StateFlow, ShizukuCommandRunnerImpl, Binding, Idle, Ready, ShizukuServiceState (+1 more)
+Cohesion: 0.12
+Nodes (17): IShellUserService, Result, StateFlow, ShizukuCommandRunnerImpl, BinderDied, BinderMissing, BindFailed, BindTimeout (+9 more)
 
 ### Community 84 - "PRNGFixes"
 Cohesion: 0.11
 Nodes (13): DataOutputStream, java.io.DataInputStream, java.io.DataOutputStream, java.security.Provider, java.security.SecureRandomSpi, DataInputStream, Override, LinuxPRNGSecureRandom (+5 more)
 
-### Community 85 - "LibraryItem"
-Cohesion: 0.14
-Nodes (9): LicensesRepositoryImpl, Context, LicensesModule, LibraryItem, LicensesRepository, GetLicensesUseCase, StateFlow, ViewModel (+1 more)
+### Community 85 - "LicensesScreen.kt"
+Cohesion: 0.11
+Nodes (19): LicensesRepositoryImpl, Context, LicensesModule, LibraryItem, LicensesUiState, LicensesRepository, GetLicensesUseCase, LazyListState (+11 more)
 
-### Community 86 - ".append"
-Cohesion: 0.13
-Nodes (11): AiSkillBundle, ShellToolModule, AiSkillBundle, BatchManageBookmarksTool, JsonObject, DeleteBookmarkTool, JsonObject, JsonObject (+3 more)
+### Community 86 - "CloudNetworkException"
+Cohesion: 0.10
+Nodes (15): CloudNetworkException, Exception, NetworkError, ParseError, ProviderNotConfigured, RateLimited, ServerError, Unauthorized (+7 more)
 
 ### Community 87 - "AbsAdbConnectionManager"
 Cohesion: 0.11
@@ -761,33 +794,33 @@ Nodes (10): LogcatWorkingMode, LogcatPreflightResult, NeedsReadLogs, NeedsRestar
 Cohesion: 0.18
 Nodes (5): BookmarkViewModel, Flow, StateFlow, TextFieldValue, ViewModel
 
-### Community 90 - "MdnsDiscoveryCallback"
-Cohesion: 0.13
-Nodes (3): MdnsDiscoveryCallback, MdnsDiscoveryCallback, MdnsDiscoveryCallback
+### Community 90 - "WifiAdbViewModel"
+Cohesion: 0.07
+Nodes (10): Bitmap, MdnsDiscoveryCallback, ReconnectListener, StateFlow, ViewModel, WifiAdbViewModel, MdnsDiscoveryCallback, ReconnectListener (+2 more)
 
 ### Community 91 - "AdbConnectionService"
 Cohesion: 0.16
 Nodes (9): AdbConnectionNotificationHelper, Notification, NotificationManager, AdbConnectionService, AdbConnectionServiceEntryPoint, Context, IBinder, Intent (+1 more)
 
-### Community 92 - "OutputLine"
-Cohesion: 0.09
-Nodes (9): OutputLine, Flow, StateFlow, ShellRepository, HomeViewModel, ViewModel, Flow, StateFlow (+1 more)
+### Community 92 - "TileDatastore"
+Cohesion: 0.18
+Nodes (8): AppDeeplinkHolder, DeeplinkDestination, AI_CHAT, LOGCAT, TileDatastore, Flow, Preferences, TileActiveState
 
 ### Community 93 - "ChatRepositoryImpl"
 Cohesion: 0.26
 Nodes (3): ChatRepositoryImpl, Flow, StateFlow
 
-### Community 94 - "FastbootRepository"
-Cohesion: 0.13
-Nodes (9): FastbootDeviceInfo, RebootMode, BOOTLOADER, FASTBOOTD, NORMAL, RECOVERY, FastbootRepository, Flow (+1 more)
+### Community 94 - "FastbootCommandResult"
+Cohesion: 0.14
+Nodes (10): FastbootCommandResult, FastbootDeviceInfo, RebootMode, BOOTLOADER, FASTBOOTD, NORMAL, RECOVERY, FastbootRepository (+2 more)
 
 ### Community 95 - "ShizukuCommandRunnerImplTest"
 Cohesion: 0.15
 Nodes (6): FakeRemoteProcess, CoroutineDispatcher, IBinder, IShellProcess, ParcelFileDescriptor, ShizukuCommandRunnerImplTest
 
 ### Community 96 - "Color.kt"
-Cohesion: 0.06
-Nodes (51): PaletteStyle, CONTENT, EXPRESSIVE, FIDELITY, FRUIT_SALAD, MONOCHROME, NEUTRAL, RAINBOW (+43 more)
+Cohesion: 0.24
+Nodes (18): blend(), colorLerp(), darkColorSchemeFromSeed(), harmonizeWithPrimary(), highContrastDarkColorSchemeFromSeed(), highContrastDynamicDarkColorScheme(), Color, ColorScheme (+10 more)
 
 ### Community 97 - "FileBrowserViewModel"
 Cohesion: 0.08
@@ -795,15 +828,15 @@ Nodes (12): AdbFileBrowserConnectionMode, OTG_ADB, WIFI_ADB, FileOperation, File
 
 ### Community 98 - ".emit"
 Cohesion: 0.20
-Nodes (5): PipePump, FlowBatchingTest, Flow, Uri, FastbootCommandResult
+Nodes (4): PipePump, FlowBatchingTest, Flow, Uri
 
 ### Community 99 - "GoogleDriveRepositoryImpl"
 Cohesion: 0.19
 Nodes (9): GoogleDriveRepositoryImpl, ByteArray, SharedFlow, Drive, ConsentRequired, DriveOperationResult, Error, T (+1 more)
 
-### Community 100 - "Json"
-Cohesion: 0.20
-Nodes (7): AiModelConstants, LlmToolResponse, ChatSessionManager, GenerateAiChatResponseUseCase, GenerateCustomThemeUseCase, Result, Json
+### Community 100 - "LogListStateStore"
+Cohesion: 0.19
+Nodes (5): LogListUiState, StateFlow, LogListStateStore, ids(), LogListStateStoreTest
 
 ### Community 101 - "AppSeedColors"
 Cohesion: 0.08
@@ -818,36 +851,36 @@ Cohesion: 0.12
 Nodes (3): CommandRepository, Flow, CommandRepositoryModule
 
 ### Community 104 - "ShizukuBinderSource"
-Cohesion: 0.10
-Nodes (16): Binder, Bundle, StateFlow, ShizukuBinderArbiter, Intent, ReplyBinder, ShizukuBinderRequester, ShizukuBinderSource (+8 more)
+Cohesion: 0.19
+Nodes (8): Bundle, StateFlow, ShizukuBinderArbiter, ShizukuBinderSource, NONE, PLUS, STOCK, UNKNOWN
 
 ### Community 105 - "CoroutineScope"
-Cohesion: 0.23
-Nodes (5): CoroutineScope, FastbootRepositoryImpl, Intent, UsbDevice, UsbInterface
+Cohesion: 0.22
+Nodes (6): CoroutineScope, FastbootRepositoryImpl, Intent, UsbDevice, UsbInterface, UsbManager
 
 ### Community 106 - "WifiAdbEvent"
 Cohesion: 0.11
 Nodes (18): AlreadyConnected, ConnectFailed, ConnectSuccess, DeveloperOptionsOff, DiscoveryFailed, DiscoveryFound, DiscoverySessionMatched, PairConnectFailed (+10 more)
 
-### Community 107 - "LogFilter"
-Cohesion: 0.16
-Nodes (8): Flow, LogcatFilterRepositoryImpl, Context, LogcatModule, LogFilter, matches(), Flow, LogcatFilterRepository
+### Community 107 - "ShizukuBinderRequester.kt"
+Cohesion: 0.35
+Nodes (5): Binder, ReplyBinder, ShizukuBinderRequester, Parcel, ShizukuBinderSource
 
 ### Community 108 - "SettingsViewModel"
 Cohesion: 0.17
 Nodes (5): Flow, Preferences, StateFlow, ViewModel, SettingsViewModel
 
 ### Community 109 - "LogcatScreen.kt"
-Cohesion: 0.18
-Nodes (17): LogcatModeBottomSheet(), ModeOption, ModeOptionRow(), Modifier, labelRes(), LogcatSecondaryToolbar(), Modifier, LogcatTopBar() (+9 more)
+Cohesion: 0.14
+Nodes (19): ClipboardUtils, Context, LogcatModeBottomSheet(), ModeOption, ModeOptionRow(), Modifier, labelRes(), LogcatSecondaryToolbar() (+11 more)
 
 ### Community 110 - "AndroidPubkey"
 Cohesion: 0.23
 Nodes (5): java.security.interfaces.RSAPublicKey, AndroidPubkey, AndroidPubkeyTest, org.junit.Before, org.junit.Test
 
 ### Community 111 - "SettingsDataStore"
-Cohesion: 0.20
-Nodes (3): Flow, Preferences, SettingsDataStore
+Cohesion: 0.12
+Nodes (6): Flow, Preferences, SettingsDataStore, Context, SettingsModule, ToggleSettingUseCase
 
 ### Community 112 - "BackupAndRestoreRepositoryImpl"
 Cohesion: 0.18
@@ -857,29 +890,29 @@ Nodes (7): BackupData, BackupMode, GOOGLE_DRIVE, LOCAL_DEVICE, BackupAndRestoreR
 Cohesion: 0.40
 Nodes (4): GetNetworkStatusTool, ConnectivityManager, JsonObject, NetworkCapabilities
 
-### Community 114 - "BatchManageCommandExamplesTool.kt"
-Cohesion: 0.13
-Nodes (11): CommandToolModule, AiSkillBundle, AiSkillBundle, BatchManageCommandExamplesTool, JsonObject, DeleteCommandExampleTool, JsonObject, JsonObject (+3 more)
+### Community 114 - "AiAnalysisUiState"
+Cohesion: 0.17
+Nodes (9): AiAnalysisUiState, Error, Idle, Loading, Success, AiAnalysisViewModel, Job, StateFlow (+1 more)
 
 ### Community 115 - "PolicyBlock"
-Cohesion: 0.11
-Nodes (19): BlankLine, BlockQuote, BulletItem, Heading, HorizontalRule, Paragraph, PolicyBlock, TableData (+11 more)
+Cohesion: 0.14
+Nodes (12): BlankLine, BlockQuote, BulletItem, Heading, HorizontalRule, Paragraph, PolicyBlock, TableData (+4 more)
 
 ### Community 116 - "AdbConnection"
 Cohesion: 0.13
 Nodes (5): AdbChannel, AdbConnection, AdbStream, Override, Thread
 
-### Community 118 - "BaseTileService.kt"
-Cohesion: 0.17
-Nodes (10): AiTool, TileIconProvider, CreateNewTileScreenUiState, CreateQsTileTool, KJsonObject, ShizukuCommandRunner, TileActiveState, TileRepository (+2 more)
+### Community 118 - "CreateNewTileScreenUiState.kt"
+Cohesion: 0.25
+Nodes (3): MaterialIconEntry, CodepointsParser, CreateNewTileScreenUiState
 
-### Community 119 - "withHaptic"
+### Community 119 - "AppNavigation.kt"
 Cohesion: 0.05
-Nodes (60): Alignment, AskAiButton(), Modifier, GibberishContent(), Modifier, Modifier, OtgDeviceWaitingDialog(), withHaptic() (+52 more)
+Nodes (79): AdbFileBrowserConnectionMode, AiChatViewModel, AnimatedContentTransitionScope, animatedComposable(), ClosedFloatingPointRange, Color, Composable, Color (+71 more)
 
-### Community 120 - "CustomCard.kt"
-Cohesion: 0.20
-Nodes (12): AnimatedCornerShape, BorderStroke, CardColors, CardElevation, Density, LayoutDirection, Modifier, Outline (+4 more)
+### Community 120 - "OtgRepository"
+Cohesion: 0.22
+Nodes (3): AdbConnection, Flow, OtgRepository
 
 ### Community 122 - "RemoteProcessAdapter"
 Cohesion: 0.21
@@ -890,16 +923,16 @@ Cohesion: 0.25
 Nodes (3): FileBrowserRepositoryImpl, Flow, Result
 
 ### Community 124 - "MainActivity.kt"
-Cohesion: 0.15
-Nodes (14): Bundle, Modifier, SettingsViewModel, MainActivity, AppCompatActivity, AppFontViewModel, AppLifecycleObserver, AutoUpdateViewModel (+6 more)
+Cohesion: 0.24
+Nodes (8): MainActivity, AppCompatActivity, AppFontViewModel, AppLifecycleObserver, AutoUpdateViewModel, ColorSchemeImportHolder, Intent, SettingsViewModel
 
-### Community 125 - "ExpandedViewOutputScreen.kt"
-Cohesion: 0.15
-Nodes (14): TerminalFontStyle, LazyListState, Modifier, VerticalScrollbar(), CommandResult, Busy, Free, InputQuery (+6 more)
+### Community 125 - "ShellViewModel.kt"
+Cohesion: 0.08
+Nodes (20): PermissionProvider, SuggestionLabel, SYSTEM, USER, ShellScreenState, Activity, Dp, SharedFlow (+12 more)
 
 ### Community 126 - "SettingsRepositoryImpl"
-Cohesion: 0.15
-Nodes (5): Flow, Preferences, SettingsRepositoryImpl, Context, SettingsModule
+Cohesion: 0.21
+Nodes (3): Flow, Preferences, SettingsRepositoryImpl
 
 ### Community 127 - "FastbootState"
 Cohesion: 0.16
@@ -907,15 +940,15 @@ Nodes (11): Connected, Connecting, DeviceFound, Disconnected, Error, FastbootSta
 
 ### Community 128 - "AiChatViewModel"
 Cohesion: 0.10
-Nodes (15): Modifier, ChatUiItem, CodeBlock, LoadingDots, MessageComponent, ModelMessage, PermissionPrompt, RunningTaskUiModel (+7 more)
+Nodes (17): Modifier, PermissionPromptCard(), ChatUiItem, CodeBlock, LoadingDots, MessageComponent, ModelMessage, PermissionPrompt (+9 more)
 
 ### Community 129 - "MaterialIconStyle"
-Cohesion: 0.11
-Nodes (19): Bitmap, Typeface, MaterialIconBitmapRenderer, Result, StateFlow, MaterialIconRepositoryImpl, MaterialIconModule, FontLoadState (+11 more)
+Cohesion: 0.08
+Nodes (24): Bitmap, Typeface, MaterialIconBitmapRenderer, Result, StateFlow, MaterialIconRepositoryImpl, MaterialIconModule, FontLoadState (+16 more)
 
-### Community 130 - "LlmProviderClient"
-Cohesion: 0.20
-Nodes (6): `in`, LlmProviderClient, CloudAiModule, ApiKeyRepository, Context, HttpClient
+### Community 130 - "DownloadRepositoryImpl"
+Cohesion: 0.22
+Nodes (6): DownloadRepositoryImpl, Job, Context, HttpClient, SettingsNetworkModule, HttpURLConnection
 
 ### Community 131 - "PackageRepositoryImpl"
 Cohesion: 0.20
@@ -930,16 +963,16 @@ Cohesion: 0.38
 Nodes (9): drawIcons(), FloatingIconsBackground(), FloatingIconState, Color, Modifier, PhysicsConstants, random(), updatePhysics() (+1 more)
 
 ### Community 135 - "TileConfig"
-Cohesion: 0.11
-Nodes (8): TileDatastore, Flow, TileRepositoryImpl, TileConfig, Flow, TileRepository, Flow, Preferences
+Cohesion: 0.15
+Nodes (5): Flow, TileRepositoryImpl, TileConfig, Flow, TileRepository
 
 ### Community 136 - "UserGeneratedColorSchemeEntity"
-Cohesion: 0.14
-Nodes (10): CustomColorSchemeDao, Flow, CustomThemeDatabase, RoomDatabase, toEntity(), toPayload(), UserGeneratedColorSchemeEntity, toEntity() (+2 more)
+Cohesion: 0.22
+Nodes (5): CustomColorSchemeDao, Flow, toEntity(), toPayload(), UserGeneratedColorSchemeEntity
 
 ### Community 137 - "Shape"
-Cohesion: 0.23
-Nodes (12): Shape, DecorativeShape(), Color, Modifier, Modifier, MainCard(), ImageVector, Preview() (+4 more)
+Cohesion: 0.18
+Nodes (15): Density, Dp, Shape, toDp(), DecorativeShape(), Color, Modifier, Modifier (+7 more)
 
 ### Community 138 - "SideloadFileCard.kt"
 Cohesion: 0.36
@@ -953,12 +986,12 @@ Nodes (7): GithubRepoStatsDao, Flow, GithubRepoStatsDatabase, RoomDatabase, Gith
 Cohesion: 0.24
 Nodes (3): Notification, NotificationManager, SelfPairingNotificationHelper
 
-### Community 141 - "TileDashBoardViewModel.kt"
-Cohesion: 0.21
-Nodes (8): TileDashBoardScreenUiState, TileScreenTabs, DataBundle, StateFlow, TileDashBoardScreenUiState, ViewModel, TileDashboardViewModel, TileExecutionManager
+### Community 141 - "AdbSideloadScreen.kt"
+Cohesion: 0.27
+Nodes (14): ConnectionIcon(), ConnectionInfo(), Modifier, SideloadDeviceCard(), SideloadDeviceWaitingDialog(), AdbSideloadScreen(), FileSection(), Context (+6 more)
 
 ### Community 142 - "CommandPermissionRepository"
-Cohesion: 0.21
+Cohesion: 0.20
 Nodes (3): CommandPermissionRepositoryImpl, AiRepositoryModule, CommandPermissionRepository
 
 ### Community 143 - "CommandDatabaseModule.kt"
@@ -969,17 +1002,17 @@ Nodes (8): StringListConverter, CommandDatabase, RoomDatabase, CommandDatabaseMo
 Cohesion: 0.20
 Nodes (8): DangerLevel, CRITICAL, DANGEROUS, LOW_RISK, MODERATE, SAFE, DangerPattern, DetectDangerLevelUseCase
 
-### Community 145 - "GitHubContributorParser.kt"
-Cohesion: 0.27
-Nodes (5): GitHubContributorDto, toGitHubContributor(), GitHubContributorParser, Context, GitHubContributor
+### Community 145 - "Json"
+Cohesion: 0.23
+Nodes (5): LlmToolResponse, AiResponseParser, ChatSessionManager, GenerateAiChatResponseUseCase, Json
 
 ### Community 146 - "TileModule.kt"
 Cohesion: 0.14
 Nodes (8): CommandResult, RootExecutor, CommandResult, ShizukuExecutor, Context, TileModule, CommandExecutor, CommandResult
 
-### Community 148 - "Translator"
-Cohesion: 0.27
-Nodes (5): TranslatorDto, toTranslator(), Context, TranslatorParser, Translator
+### Community 148 - "AiCacheDao"
+Cohesion: 0.17
+Nodes (3): AiCacheDao, AiCacheEntity, AiAnalysisRepository
 
 ### Community 150 - ".error"
 Cohesion: 0.17
@@ -1002,36 +1035,36 @@ Cohesion: 0.24
 Nodes (5): SearchGraph, SearchResult, StateFlow, ViewModel, SettingsSearchViewModel
 
 ### Community 156 - "ByteArrayOutputStream"
-Cohesion: 0.19
-Nodes (7): ByteArrayInputStream, ByteArrayOutputStream, ClosableSink, ClosableSource, PipePumpTest, ColorSchemeSerializer, ByteArray
+Cohesion: 0.27
+Nodes (4): ByteArrayInputStream, ByteArrayOutputStream, ColorSchemeSerializer, ByteArray
 
 ### Community 157 - "UsbChannel"
 Cohesion: 0.29
 Nodes (7): Override, UsbChannel, android.hardware.usb.UsbDeviceConnection, android.hardware.usb.UsbEndpoint, android.hardware.usb.UsbInterface, android.hardware.usb.UsbRequest, UsbRequest
 
-### Community 158 - "DownloadRepositoryImpl"
-Cohesion: 0.22
-Nodes (6): DownloadRepositoryImpl, Job, Context, HttpClient, SettingsNetworkModule, HttpURLConnection
+### Community 158 - "BookmarksBottomSheet.kt"
+Cohesion: 0.16
+Nodes (16): CardColors, Modifier, LabelChip(), TooltipContent(), ButtonConfig, ButtonGroupIconButtonConfig, ButtonGroupIconButtonDefaults, ButtonColors (+8 more)
 
 ### Community 159 - "GetBatteryInfoTool"
 Cohesion: 0.37
 Nodes (3): GetBatteryInfoTool, Intent, JsonObject
 
-### Community 160 - "CommandExecutionManager"
-Cohesion: 0.24
-Nodes (7): CommandExecutionManager, StateFlow, PermissionRequest, PermissionResult, DENIED, GRANTED, RunningTask
+### Community 160 - "OutputLine"
+Cohesion: 0.09
+Nodes (9): OutputLine, Flow, StateFlow, ShellRepository, HomeViewModel, ViewModel, Flow, StateFlow (+1 more)
 
 ### Community 161 - "ChatBubbleShape.kt"
 Cohesion: 0.48
 Nodes (5): ChatBubbleShape, Density, LayoutDirection, Outline, Size
 
-### Community 162 - "SideloadViewModel"
-Cohesion: 0.29
-Nodes (5): Job, StateFlow, Uri, ViewModel, SideloadViewModel
+### Community 162 - "FloatingNavPill.kt"
+Cohesion: 0.30
+Nodes (10): AnimationSpec, FloatingNavPill(), FloatingNavPillColors, FloatingNavPillDefaults, FloatingNavPillItem, CardElevation, Color, Dp (+2 more)
 
 ### Community 163 - "LanguagesViewModel"
-Cohesion: 0.27
-Nodes (5): AndroidViewModel, Context, StateFlow, LanguagesViewModel, TranslationProgressEntry
+Cohesion: 0.24
+Nodes (6): SupportedLocale, AndroidViewModel, Context, StateFlow, LanguagesViewModel, TranslationProgressEntry
 
 ### Community 164 - "AdbConnectionManager"
 Cohesion: 0.36
@@ -1041,9 +1074,9 @@ Nodes (4): AdbConnectionManager, Certificate, Context, PrivateKey
 Cohesion: 0.14
 Nodes (11): Translators, Contributors, Features, License, Privacy Policy, Requirements, Resources & Links, Star History (+3 more)
 
-### Community 167 - "MarkdownMessageContent"
-Cohesion: 0.20
-Nodes (12): AiChatViewModel, Color, ClipboardUtils, Context, DangerLevelIndicator(), DangerLevelIndicatorObject, dangerLevelObject(), DangerLevel (+4 more)
+### Community 167 - "LogcatSessionHolder"
+Cohesion: 0.33
+Nodes (3): LogcatSessionHolder, LogEntry, SharedFlow
 
 ### Community 168 - "MarkdownMessageContent"
 Cohesion: 0.33
@@ -1061,16 +1094,16 @@ Nodes (3): ParcelFileDescriptor, Process, ShizukuRemoteShellProcess
 Cohesion: 0.61
 Nodes (8): AnimatedAdbIcon(), Color, ImageVector, Modifier, rememberAdbBodyVector(), rememberAdbHeadVector(), rememberAdbLeftEyeVector(), rememberAdbRightEyeVector()
 
-### Community 172 - "PairingConnectionCtx.java"
-Cohesion: 0.24
-Nodes (8): android.annotation.SuppressLint, java.lang.reflect.Method, javax.net.ssl.KeyManager, javax.net.ssl.SSLContext, javax.net.ssl.SSLSocket, javax.net.ssl.X509TrustManager, SslUtils, X509TrustManager
+### Community 172 - "TonalSchemeFactory.kt"
+Cohesion: 0.35
+Nodes (10): createDynamicScheme(), getPaletteKeyColors(), Color, ColorScheme, PaletteStyle, modifyColorForDisplay(), PaletteKeyColors, resolve() (+2 more)
 
 ### Community 173 - "SideloadOperation"
 Cohesion: 0.30
 Nodes (8): SideloadOperation, Flow, Uri, Modifier, ProgressBar(), ProgressDetails(), ProgressHeader(), SideloadProgressCard()
 
 ### Community 174 - "LogEntry"
-Cohesion: 0.17
+Cohesion: 0.21
 Nodes (18): LogEntry, AutoScrollingLogList(), FollowNewestEntry(), jumpToBottom(), LazyListState, Modifier, PaddingValues, LogList() (+10 more)
 
 ### Community 175 - "AiTool"
@@ -1101,13 +1134,9 @@ Nodes (12): 1.10 Android System Backup, 1.11 App Authentication (Biometrics & De
 Cohesion: 0.39
 Nodes (7): Color, Dp, Modifier, SlideToConfirm(), SlideToConfirmPreview(), Modifier, SideloadSlider()
 
-### Community 183 - "CommandPermissionDao"
-Cohesion: 0.15
-Nodes (6): AiDatabase, RoomDatabase, CommandPermissionDao, CommandPermissionEntity, AiModule, Context
-
-### Community 184 - "AutoUpdateViewModel"
+### Community 183 - "TcpIpAdbRepository"
 Cohesion: 0.18
-Nodes (5): GithubReleaseType, toDomain(), GithubRelease, AutoUpdateViewModel, ViewModel
+Nodes (4): Flow, TcpIpConnectionListener, TcpIpAdbRepository, TcpIpConnectionListener
 
 ### Community 185 - "Brush"
 Cohesion: 0.67
@@ -1117,45 +1146,45 @@ Nodes (5): Brush, Modifier, ShimmerBox(), ShimmerCard(), SkeletonLoadingContent(
 Cohesion: 0.44
 Nodes (10): ColorPickerBottomSheet(), ColorSlider(), ColorWheel(), HexInputRow(), IsolatedHexTextField(), IsolatedSlider(), IsolatedSliderText(), Color (+2 more)
 
-### Community 187 - "FontStyleBottomSheet.kt"
-Cohesion: 0.27
-Nodes (12): androidx, isKeyboardVisible(), FontStyleBottomSheet(), Modifier, TextFormatUtilityRow(), FontImportDialog(), FontPreviewFormatRow(), FormatToggleCell() (+4 more)
+### Community 187 - "CloudAiModule.kt"
+Cohesion: 0.23
+Nodes (6): AnalyzeCommandWithCloudUseCase, Result, CloudAiModule, ApiKeyRepository, Context, HttpClient
 
 ### Community 188 - "ShellProcessBinder"
 Cohesion: 0.32
 Nodes (3): ParcelFileDescriptor, Stub, ShellProcessBinder
 
-### Community 189 - "BottomCornerRoundedCard"
-Cohesion: 0.23
-Nodes (12): BottomCornerRoundedCard(), Color, Modifier, Color, Modifier, TopCornerRoundedCard(), BackupDestinationDialog(), Modifier (+4 more)
+### Community 189 - "ShellCommandExecutor"
+Cohesion: 0.35
+Nodes (3): Context, Flow, ShellCommandExecutor
 
-### Community 190 - "LogcatNotificationHelper"
-Cohesion: 0.48
-Nodes (3): Notification, NotificationManager, LogcatNotificationHelper
+### Community 190 - "TileDashBoardScreen"
+Cohesion: 0.35
+Nodes (10): EnterTransition, ExitTransition, predictiveEnter(), predictiveExit(), slideFadeInFromLeft(), slideFadeInFromRight(), slideFadeOutToLeft(), slideFadeOutToRight() (+2 more)
 
 ### Community 191 - "Wavy.kt"
 Cohesion: 0.27
 Nodes (8): Density, LayoutDirection, Outline, Size, WaveEdge, Both, Bottom, Top
 
-### Community 192 - "CorrectionConfidence"
-Cohesion: 0.15
-Nodes (9): CorrectionConfidence, HIGH, LOW, MEDIUM, CorrectionSource, AI, DATABASE, HEURISTIC (+1 more)
+### Community 192 - "PaletteStyle"
+Cohesion: 0.18
+Nodes (10): PaletteStyle, CONTENT, EXPRESSIVE, FIDELITY, FRUIT_SALAD, MONOCHROME, NEUTRAL, RAINBOW (+2 more)
 
-### Community 193 - "Composable"
-Cohesion: 0.17
-Nodes (20): AiAnalysisUiState, Composable, CorrectionSuggestion, AiAnalysisBottomSheet(), ErrorContent(), Modifier, AnalysisContent(), CommandHeaderCard() (+12 more)
+### Community 193 - "AnalysisContent.kt"
+Cohesion: 0.09
+Nodes (29): CorrectionConfidence, HIGH, LOW, MEDIUM, CorrectionSource, AI, DATABASE, HEURISTIC (+21 more)
 
 ### Community 194 - ".provideDeviceDiagnosticsSkillBundle"
 Cohesion: 0.23
 Nodes (7): AiToolModule, AiSkillBundle, AiSkillBundle, AiSkillBundle, AiSkillBundle, GetDisplayMetricsTool, JsonObject
 
-### Community 195 - "SideloadStatus"
-Cohesion: 0.25
-Nodes (7): SideloadStatus, CANCELLED, COMPLETE, ERROR, IDLE, READING_FILE, SENDING
+### Community 195 - "ToolSchemaType"
+Cohesion: 0.27
+Nodes (6): AbstractCoroutineContextElement, JsonObject, SessionIdContext, ToolSchemaType, ExecuteCommandTool, JsonObject
 
-### Community 196 - "TcpIpAdbRepository"
-Cohesion: 0.18
-Nodes (4): Flow, TcpIpConnectionListener, TcpIpAdbRepository, TcpIpConnectionListener
+### Community 196 - ".weakHaptic"
+Cohesion: 0.31
+Nodes (6): DraggableScrollThumb(), DraggableScrollThumbImpl(), LazyListState, Modifier, ScrollState, HapticUtils
 
 ### Community 197 - "OnboardingViewModel"
 Cohesion: 0.38
@@ -1170,28 +1199,28 @@ Cohesion: 0.42
 Nodes (5): DefaultDispatcherProvider, DispatcherProvider, CoroutineDispatcher, DispatcherModule, TestDispatchers
 
 ### Community 201 - "OutputLineText"
-Cohesion: 0.43
-Nodes (6): Modifier, TextStyle, OutputLineText(), highlightQueryText(), AnnotatedString, Color
+Cohesion: 0.36
+Nodes (7): Modifier, TextStyle, OutputLineText(), highlightQueryText(), AnnotatedString, Color, TextLayoutResult
 
 ### Community 202 - "SideloadState"
 Cohesion: 0.18
 Nodes (10): Connected, Connecting, DeviceFound, Disconnected, Error, Idle, PermissionDenied, Searching (+2 more)
 
-### Community 203 - "AnalysisStatus"
+### Community 203 - "ClosableSink"
+Cohesion: 0.57
+Nodes (3): ClosableSink, ClosableSource, PipePumpTest
+
+### Community 204 - "AnalysisStatus"
 Cohesion: 0.29
 Nodes (6): AnalysisStatus, GIBBERISH, INVALID, NATURAL_LANGUAGE, PARTIAL, VALID
-
-### Community 204 - "AiBackupProvider.kt"
-Cohesion: 0.27
-Nodes (4): AiBackupData, AiBackupProvider, JsonElement, AiBackupModule
 
 ### Community 206 - "TileErrorType"
 Cohesion: 0.14
 Nodes (8): TileNotificationHelper, CommandResult, TileErrorType, EXECUTION_FAILED, NONE, PERMISSION_DENIED, TIMEOUT, UNKNOWN
 
-### Community 207 - "LogListStateStore"
-Cohesion: 0.21
-Nodes (6): LogListUiState, StateFlow, LogListStateStore, entry(), ids(), LogListStateStoreTest
+### Community 207 - "SettingsSearchGraph.kt"
+Cohesion: 0.11
+Nodes (25): entry(), SettingsGraphId, aboutGraph(), NavController, aiModelsGraph(), NavController, autoUpdateGraph(), NavController (+17 more)
 
 ### Community 208 - "RemoteFile"
 Cohesion: 0.36
@@ -1210,20 +1239,20 @@ Cohesion: 0.33
 Nodes (3): IShellProcess, Stub, ShellUserService
 
 ### Community 212 - "FastbootDeviceContext"
-Cohesion: 0.38
-Nodes (6): FastbootDeviceContext, FastbootException, Exception, FastbootResponse, UsbDeviceConnection, UsbEndpoint
+Cohesion: 0.17
+Nodes (11): FastbootDeviceContext, FastbootException, Exception, FastbootResponse, ResponseStatus, DATA, FAIL, INFO (+3 more)
 
-### Community 213 - "ToolSchemaType"
-Cohesion: 0.27
-Nodes (6): AbstractCoroutineContextElement, JsonObject, SessionIdContext, ToolSchemaType, ExecuteCommandTool, JsonObject
+### Community 213 - "ColorSchemePayload"
+Cohesion: 0.22
+Nodes (4): ColorSchemePayload, ColorSchemeImportHolder, GenerateCustomThemeUseCase, Result
 
 ### Community 214 - "SideloadRepository"
 Cohesion: 0.28
 Nodes (3): Context, SideloadModule, SideloadRepository
 
 ### Community 215 - ".pair"
-Cohesion: 0.36
-Nodes (4): PairingListener, ServiceListener, PairingListener, ServiceEvent
+Cohesion: 0.39
+Nodes (4): CustomThemeDatabase, RoomDatabase, Application, UiModule
 
 ### Community 216 - "ToolSchema"
 Cohesion: 0.11
@@ -1241,37 +1270,33 @@ Nodes (3): GetStorageInfoTool, JsonObject, StatFs
 Cohesion: 0.32
 Nodes (6): LazyListState, rememberScrollDirection(), ScrollDirection, DOWN, NONE, UP
 
-### Community 220 - "CommandExampleCard.kt"
-Cohesion: 0.22
-Nodes (17): AiAnalysisButton(), ButtonColors, Modifier, CollapsibleCard(), BorderStroke, CardColors, CardElevation, Modifier (+9 more)
+### Community 221 - "SortType"
+Cohesion: 0.29
+Nodes (3): LocalAdbWorkingMode, SortType, RadioButtonOption
 
-### Community 221 - "ReconnectListener"
-Cohesion: 0.22
-Nodes (3): ReconnectListener, ReconnectListener, ReconnectListener
+### Community 222 - "GithubReleaseType"
+Cohesion: 0.40
+Nodes (3): GithubReleaseType, toDomain(), GithubRelease
 
-### Community 222 - "IconChooserBottomSheet.kt"
-Cohesion: 0.24
-Nodes (16): IconCell(), IconChooserBottomSheet(), IconGrid(), Color, MaterialIconEntry, Modifier, TextFieldValue, Typeface (+8 more)
+### Community 223 - "ChangelogViewModel"
+Cohesion: 0.21
+Nodes (7): VersionToChangelogs, Context, SettingsUseCaseModule, ChangelogItem, GetAllChangelogsUseCase, ChangelogViewModel, ViewModel
 
-### Community 223 - "ChangelogItem"
+### Community 224 - "AppLockedScreen.kt"
 Cohesion: 0.28
-Nodes (4): VersionToChangelogs, ChangelogItem, GetAllChangelogsUseCase, ViewModel
+Nodes (7): AppLockedScreen(), Context, ScatteredShapesBackground(), triggerBiometricPrompt(), BiometricPrompt, BiometricPromptManager, AuthenticationCallback
 
-### Community 227 - "BatteryIndicator"
-Cohesion: 0.43
-Nodes (6): BatteryIndicator(), BatteryOrientation, HORIZONTAL, VERTICAL, Color, Modifier
+### Community 227 - "ConnectedDeviceCard.kt"
+Cohesion: 0.22
+Nodes (13): BatteryIndicator(), BatteryOrientation, HORIZONTAL, VERTICAL, Color, Modifier, Color, Dp (+5 more)
 
 ### Community 228 - "AppLifecycleObserver.kt"
-Cohesion: 0.29
+Cohesion: 0.33
 Nodes (5): AppLifecycleObserver, StateFlow, AuthenticationTimeout, DefaultLifecycleObserver, LifecycleOwner
 
-### Community 229 - "OtgRepository"
-Cohesion: 0.22
-Nodes (3): AdbConnection, Flow, OtgRepository
-
 ### Community 230 - "SnackBarContent"
-Cohesion: 0.39
-Nodes (6): AnimatedSnackBar(), Modifier, SnackBarContent(), Simple, SnackBarEvent, WithAction
+Cohesion: 0.27
+Nodes (8): AnimatedSnackBar(), Modifier, SnackBarContent(), Simple, SnackBarEvent, WithAction, Modifier, SnackBarHost()
 
 ### Community 232 - "ShizukuCommandRunner"
 Cohesion: 0.18
@@ -1289,10 +1314,6 @@ Nodes (3): EncryptionHelper, ByteArray, SecretKeySpec
 Cohesion: 0.43
 Nodes (4): FontNameResult, Result, Uri, ReadFontNameUseCase
 
-### Community 237 - "DraggableScrollThumb"
-Cohesion: 0.67
-Nodes (5): DraggableScrollThumb(), DraggableScrollThumbImpl(), LazyListState, Modifier, ScrollState
-
 ### Community 238 - "OperationType"
 Cohesion: 0.14
 Nodes (11): OperationType, COPY, DOWNLOAD, MOVE, UPLOAD, DirectoryCreated, FileBrowserEvent, FileDeleted (+3 more)
@@ -1301,29 +1322,29 @@ Nodes (11): OperationType, COPY, DOWNLOAD, MOVE, UPLOAD, DirectoryCreated, FileB
 Cohesion: 0.38
 Nodes (3): java.io.ByteArrayOutputStream, ByteArrayNoThrowOutputStream, Override
 
-### Community 240 - "ResponseStatus"
-Cohesion: 0.25
-Nodes (5): ResponseStatus, DATA, FAIL, INFO, OKAY
+### Community 240 - "CreateQsTileTool.kt"
+Cohesion: 0.22
+Nodes (6): AiTool, TileIconProvider, CreateQsTileTool, KJsonObject, TileRepository, ToolSchema
 
 ### Community 242 - "TermsOfServiceScreen.kt"
-Cohesion: 0.57
-Nodes (7): buildInline(), InlineText(), Modifier, SpanStyle, TextStyle, PolicyBlockView(), TermsOfServiceScreen()
+Cohesion: 0.42
+Nodes (8): syncedRotationAndScale(), buildInline(), InlineText(), Modifier, SpanStyle, TextStyle, PolicyBlockView(), TermsOfServiceScreen()
 
 ### Community 245 - "SideloadInstructionsCard.kt"
 Cohesion: 0.48
 Nodes (5): InstructionsBody(), InstructionsHeader(), InstructionStep(), Modifier, SideloadInstructionsCard()
 
-### Community 246 - "AppLockedScreen.kt"
-Cohesion: 0.13
-Nodes (16): AppLockedScreen(), Context, ScatteredShapesBackground(), triggerBiometricPrompt(), BiometricPrompt, AuthError, AuthFailed, BiometricError (+8 more)
+### Community 246 - "BiometricError"
+Cohesion: 0.20
+Nodes (9): AuthError, AuthFailed, BiometricError, HardwareUnavailable, NoHardware, NoneEnrolled, SecurityUpdateRequired, StatusUnknown (+1 more)
 
 ### Community 248 - "batchByTime"
 Cohesion: 0.60
 Nodes (5): batchByTime(), drainPending(), Flow, T, ReceiveChannel
 
-### Community 249 - "SettingsBackupProvider.kt"
-Cohesion: 0.36
-Nodes (3): JsonElement, SettingsBackupProvider, SettingsBackupModule
+### Community 249 - "BackupScheduler"
+Cohesion: 0.31
+Nodes (3): BackupFrequency, BackupScheduler, Context
 
 ### Community 250 - "ClipboardOperation"
 Cohesion: 0.33
@@ -1337,55 +1358,67 @@ Nodes (5): OperationStatus, COMPLETED, FAILED, IN_PROGRESS, PENDING
 Cohesion: 0.15
 Nodes (4): AiConnectionStateProvider, Flow, AiConnectionStateProviderImpl, Flow
 
-### Community 253 - "GetMemoryInfoTool"
-Cohesion: 0.48
-Nodes (3): ActivityManager, GetMemoryInfoTool, JsonObject
+### Community 253 - "CrashReportActivity.kt"
+Cohesion: 0.60
+Nodes (4): CrashReportActivity, Bundle, SettingsViewModel, ComponentActivity
 
 ### Community 254 - "ReleaseLintBaselinePlugin"
 Cohesion: 0.70
 Nodes (3): ReleaseLintBaselinePlugin, Plugin, Project
 
 ### Community 255 - "TileExecutionManager.kt"
-Cohesion: 0.39
-Nodes (4): CommandResult, StateFlow, TileExecutionManager, RunningTileState
+Cohesion: 0.26
+Nodes (6): CommandResult, StateFlow, TileExecutionManager, RunningTileState, TileDashBoardScreenUiState, TileScreenTabs
 
-### Community 258 - "GenerateColorSchemeViewModel.kt"
-Cohesion: 0.11
-Nodes (9): ColorSchemePayload, toDomain(), toPayload(), Job, ViewModel, UserGeneratedColorSchemeViewModel, ColorSchemeImportHolder, GenerateColorSchemeViewModel (+1 more)
+### Community 257 - "UserGeneratedColorScheme"
+Cohesion: 0.22
+Nodes (6): toDomain(), toEntity(), toPayload(), UserGeneratedColorScheme, GenerateColorSchemeViewModel, ViewModel
+
+### Community 258 - "GetMemoryInfoTool"
+Cohesion: 0.48
+Nodes (3): ActivityManager, GetMemoryInfoTool, JsonObject
 
 ### Community 260 - "LoadingSpinner"
 Cohesion: 0.70
 Nodes (4): Color, Dp, Modifier, LoadingSpinner()
 
+### Community 261 - "BulletPointsTextLayout"
+Cohesion: 0.57
+Nodes (6): BulletPointsTextLayout(), AnnotatedString, Arrangement, Color, Modifier, TextStyle
+
 ### Community 262 - "NotificationUtils.kt"
 Cohesion: 0.67
 Nodes (5): createAppNotificationSettingsIntent(), createMiUiNotificationStylesSettingsIntent(), isNotificationPermissionGranted(), Context, Intent
 
-### Community 264 - "SaveProgress"
-Cohesion: 0.25
-Nodes (9): Error, Idle, SaveProgress, Saving, Success, Activity, Flow, Uri (+1 more)
+### Community 264 - "UserGeneratedColorSchemeViewModel.kt"
+Cohesion: 0.60
+Nodes (3): Job, ViewModel, UserGeneratedColorSchemeViewModel
 
-### Community 265 - "TileLogsViewModel.kt"
-Cohesion: 0.53
-Nodes (4): TileLogsState, StateFlow, ViewModel, TileLogsViewModel
+### Community 265 - "LogcatNotificationHelper"
+Cohesion: 0.48
+Nodes (3): LogcatNotificationHelper, Notification, NotificationManager
 
 ### Community 266 - "4. Third-Party Services and Data Transmission"
 Cohesion: 0.40
 Nodes (5): 4.1 Google Gemini AI API, 4.2 Google Drive (Backup and Restore), 4.3 GitHub API, 4.4 Coil (Image Loading), 4. Third-Party Services and Data Transmission
 
-### Community 267 - "DiscoveredDeviceCard"
-Cohesion: 0.48
-Nodes (5): DiscoveredDeviceCard(), Modifier, DigitBox(), DigitBoxInputField(), Modifier
+### Community 267 - "FontOption"
+Cohesion: 0.50
+Nodes (3): Custom, FontOption, Predefined
 
 ### Community 268 - "3. AI Assistant & Autonomous Tool Execution"
 Cohesion: 0.40
 Nodes (5): 3.1 Bring Your Own Key (BYOK), 3.2 Granular Consent and AI Skill Toggles, 3.3 AI Autonomy and Liability, 3.4 Sensitive Data Exposure via Logcat, 3. AI Assistant & Autonomous Tool Execution
 
-### Community 271 - "AshellYouAnimationSpecs"
-Cohesion: 0.70
-Nodes (4): AshellYouAnimationSpecs, Dp, IntSize, SpringSpec
+### Community 269 - "SideloadStatus"
+Cohesion: 0.25
+Nodes (7): SideloadStatus, CANCELLED, COMPLETE, ERROR, IDLE, READING_FILE, SENDING
 
-### Community 272 - "BouncyDotsLoadingIndicator"
+### Community 271 - "TileIconContent"
+Cohesion: 0.62
+Nodes (6): Color, Modifier, Typeface, MaterialIconGlyph(), TileIconContent(), TextUnit
+
+### Community 272 - "BouncyDotsLoadingIndicator.kt"
 Cohesion: 0.83
 Nodes (3): BouncyDotsLoadingIndicator(), Color, Modifier
 
@@ -1397,11 +1430,15 @@ Nodes (4): appTypography(), TextStyle, withFont(), Typography
 Cohesion: 0.50
 Nodes (3): TileExecutionMode, ButtonGroupOptions, ButtonGroupOptionsProvider
 
-### Community 275 - "KeyboardUtils.kt"
-Cohesion: 0.83
-Nodes (3): disableKeyboard(), hideKeyboard(), Context
+### Community 275 - "State"
+Cohesion: 0.23
+Nodes (10): disableKeyboard(), hideKeyboard(), Context, AndroidViewModel, PrivacyPolicyViewModel, State, ExchangingMsgs, ExchangingPeerInfo (+2 more)
 
-### Community 277 - "AppSwitch"
+### Community 276 - "PrivacySecurityScreen.kt"
+Cohesion: 0.31
+Nodes (7): Context, ToastUtils, getTimeoutText(), Context, PrivacySecurityScreen(), triggerBiometricPrompt(), Toast
+
+### Community 277 - "AppSwitch.kt"
 Cohesion: 0.83
 Nodes (3): AppSwitch(), Modifier, SwitchColors
 
@@ -1425,33 +1462,21 @@ Nodes (4): PairingTab, CodePair, QrPair, SavedDevices
 Cohesion: 0.67
 Nodes (3): 5.1 Shizuku, 5.2 Root (libsu), 5. Privileged Execution Engines (Shizuku and Root)
 
-### Community 296 - "ShellViewModel.kt"
-Cohesion: 0.11
-Nodes (11): PermissionProvider, SuggestionLabel, SYSTEM, USER, ShellScreenState, Activity, Dp, SharedFlow (+3 more)
-
 ### Community 300 - "CustomCard"
-Cohesion: 0.07
-Nodes (51): CustomCard(), CustomCardDefaults, Dp, CardColors, CardElevation, Modifier, Painter, NavigationCard() (+43 more)
-
-### Community 303 - "AppBrandingNoPadding.kt"
-Cohesion: 0.83
-Nodes (3): appBrandingNoPadding(), ImageVector, Preview()
+Cohesion: 0.05
+Nodes (69): UrlConst, AnimatedCornerShape, CustomCard(), CustomCardDefaults, BorderStroke, CardColors, CardElevation, Density (+61 more)
 
 ### Community 304 - "HomeScreen.kt"
-Cohesion: 0.10
-Nodes (29): ButtonElevation, BackupFrequency, LocalAdbWorkingMode, SortType, IconWithTextButton(), BorderStroke, ButtonColors, Modifier (+21 more)
+Cohesion: 0.15
+Nodes (26): ButtonElevation, IconWithTextButton(), BorderStroke, ButtonColors, Modifier, Painter, appBranding(), Dp (+18 more)
 
 ### Community 305 - "ValidateFontFileUseCase"
 Cohesion: 0.50
 Nodes (3): Result, Uri, ValidateFontFileUseCase
 
-### Community 306 - "AppFontViewModel.kt"
+### Community 310 - "AppBrandingNoPadding.kt"
 Cohesion: 0.83
-Nodes (3): AppFontViewModel, StateFlow, ViewModel
-
-### Community 310 - "FontOption"
-Cohesion: 0.50
-Nodes (3): Custom, FontOption, Predefined
+Nodes (3): appBrandingNoPadding(), ImageVector, Preview()
 
 ### Community 313 - "AnimatedStopIcon"
 Cohesion: 0.83
@@ -1465,29 +1490,53 @@ Nodes (3): Modifier, Painter, OutlinedIconButtonWithText()
 Cohesion: 0.31
 Nodes (7): TextFieldValue, TextFieldValueSerializer, Decoder, Encoder, TileActiveState, KSerializer, SerialDescriptor
 
-### Community 394 - "WavyHorizontalDivider"
+### Community 374 - "UndrawDreamWorld.kt"
+Cohesion: 0.83
+Nodes (3): ImageVector, Preview(), undrawDreamWorld()
+
+### Community 375 - "UndrawSelectChoice.kt"
+Cohesion: 0.83
+Nodes (3): ImageVector, Preview(), undrawSelectChoice()
+
+### Community 376 - "UndrawDreamer.kt"
+Cohesion: 0.83
+Nodes (3): ImageVector, undrawDreamer(), UndrawDreamerPreview()
+
+### Community 381 - "Bundle"
 Cohesion: 0.70
-Nodes (4): Color, Dp, Modifier, WavyHorizontalDivider()
+Nodes (3): Bundle, AShellShizukuProvider, ShizukuProvider
+
+### Community 383 - "TileLogsViewModel.kt"
+Cohesion: 0.53
+Nodes (4): TileLogsState, StateFlow, ViewModel, TileLogsViewModel
+
+### Community 385 - "AshellYouAnimationSpecs"
+Cohesion: 0.70
+Nodes (4): AshellYouAnimationSpecs, Dp, IntSize, SpringSpec
+
+### Community 386 - "AppFontViewModel.kt"
+Cohesion: 0.83
+Nodes (3): AppFontViewModel, StateFlow, ViewModel
 
 ## Knowledge Gaps
-- **568 isolated node(s):** `Error`, `Idle`, `Loading`, `Success`, `NetworkError` (+563 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 1372 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **94 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **532 isolated node(s):** `LOGCAT`, `AI_CHAT`, `HomeScreen`, `TileDashboardScreen`, `Error` (+527 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 1360 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **123 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `SettingsKeys` connect `SettingsKeys` to `AutoResizeableText`, `AnalysisResult`, `AppNavigation.kt`, `GenerateColorSchemeViewModel.kt`, `CommandExamplesScreen.kt`, `UpdateBottomSheet.kt`, `LicensesScreen.kt`, `Text`, `FontFamily`, `Button`, `.error`, `GoogleAuthRepository`, `NavRoutes`, `SettingsSearchViewModel`, `ShellViewModel.kt`, `CompositionLocals.kt`, `CustomCard`, `LookAndFeelViewModel`, `AiTool`, `AppFontViewModel.kt`, `LogcatSessionHolder`, `AutoUpdateViewModel`, `CommandExamplesViewModel`, `CustomSearchBar`, `BackupType`, `FontStyleBottomSheet.kt`, `SettingsRepository`, `SelfPairingService`, `AiAnalysisRepositoryImpl`, `OnboardingViewModel`, `BackupAndRestoreViewModel`, `IconButton`, `ToolSchemaType`, `Color.kt`, `AppLifecycleObserver.kt`, `Json`, `AiModelManagerViewModel`, `SettingsViewModel`, `LogcatScreen.kt`, `SettingsDataStore`, `BackupAndRestoreRepositoryImpl`, `SideloadInstructionsCard.kt`, `AppLockedScreen.kt`, `withHaptic`, `SettingsBackupProvider.kt`, `ExpandedViewOutputScreen.kt`, `SettingsRepositoryImpl`?**
-  _High betweenness centrality (0.177) - this node is a cross-community bridge._
-- **Why does `withHaptic()` connect `withHaptic` to `AutoResizeableText`, `AppNavigation.kt`, `CommandExamplesScreen.kt`, `AiChatDrawerUI.kt`, `UpdateBottomSheet.kt`, `BaseShellScreen.kt`, `LicensesScreen.kt`, `Text`, `DiscoveredDeviceCard`, `Button`, `TileDashBoardScreen.kt`, `FastbootScreen.kt`, `MarkdownMessageContent`, `MarkdownMessageContent`, `ContributorsScreen.kt`, `CustomCard`, `HomeScreen.kt`, `SlideToConfirm`, `CustomSearchBar`, `ColorPickerBottomSheet.kt`, `FontStyleBottomSheet.kt`, `BottomCornerRoundedCard`, `Composable`, `IconButton`, `CommandExampleCard.kt`, `IconChooserBottomSheet.kt`, `SnackBarContent`, `AppLockedScreen.kt`, `ExpandedViewOutputScreen.kt`?**
+- **Why does `SettingsKeys` connect `SettingsKeys` to `AutoResizeableText`, `AnalysisResult`, `AppFontViewModel.kt`, `Alignment`, `UserGeneratedColorScheme`, `ExpandedViewOutputScreen.kt`, `IconButton`, `BackupAndRestoreScreen.kt`, `LlmProvider`, `showToast`, `withHaptic`, `Json`, `FontFamily`, `PrivacySecurityScreen.kt`, `.error`, `GoogleAuthRepository`, `SettingsSearchViewModel`, `BookmarksBottomSheet.kt`, `Text`, `CustomCard`, `LookAndFeelViewModel`, `AiTool`, `LogcatService`, `AutoUpdateViewModel`, `CommandExamplesViewModel`, `BackupType`, `SettingsRepository`, `ToolSchemaType`, `SelfPairingService`, `OnboardingViewModel`, `BackupAndRestoreViewModel`, `BackupProvider`, `SettingsSearchGraph.kt`, `AppLockedScreen.kt`, `Color.kt`, `AppLifecycleObserver.kt`, `AiModelManagerViewModel`, `SettingsViewModel`, `LogcatScreen.kt`, `SettingsDataStore`, `BackupAndRestoreRepositoryImpl`, `SideloadInstructionsCard.kt`, `AppNavigation.kt`, `ShellViewModel.kt`, `SettingsRepositoryImpl`?**
+  _High betweenness centrality (0.153) - this node is a cross-community bridge._
+- **Why does `withHaptic()` connect `withHaptic` to `AutoResizeableText`, `Alignment`, `ExpandedViewOutputScreen.kt`, `IconButton`, `BackupAndRestoreScreen.kt`, `AiChatDrawerUI.kt`, `BaseShellScreen.kt`, `SettingsSearchScreen.kt`, `showToast`, `TileDashBoardScreen.kt`, `BookmarksBottomSheet.kt`, `Text`, `MarkdownMessageContent`, `CustomCard`, `HomeScreen.kt`, `SlideToConfirm`, `ColorPickerBottomSheet.kt`, `TileDashBoardScreen`, `AnalysisContent.kt`, `main/java/in/hridayan/ashell/ai/presentation/screens/CloudModelsScreen.kt`, `LicensesScreen.kt`, `AppLockedScreen.kt`, `ConnectedDeviceCard.kt`, `SnackBarContent`, `AppNavigation.kt`?**
   _High betweenness centrality (0.058) - this node is a cross-community bridge._
-- **Why does `AbsAdbConnectionManager` connect `AbsAdbConnectionManager` to `SelfPairingService`, `AdbConnectionManager`, `AdbConnection`, `AdbStream`, `ComponentName`, `AdbCommandExecutor`?**
-  _High betweenness centrality (0.055) - this node is a cross-community bridge._
-- **Are the 21 inferred relationships involving `withHaptic()` (e.g. with `CommandHeaderCard()` and `MarkdownMessageContent()`) actually correct?**
-  _`withHaptic()` has 21 INFERRED edges - model-reasoned connections that need verification._
+- **Why does `ShizukuUserServiceConnector` connect `ShizukuUserServiceConnector` to `ShizukuUserServiceConnectorTest`, `ShizukuCommandRunnerImplTest`?**
+  _High betweenness centrality (0.045) - this node is a cross-community bridge._
 - **Are the 238 inferred relationships involving `Text` (e.g. with `ChangelogBottomSheet()` and `LegalDocsUpdateDialog()`) actually correct?**
   _`Text` has 238 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 20 inferred relationships involving `AutoResizeableText()` (e.g. with `Text` and `DialogTitle()`) actually correct?**
-  _`AutoResizeableText()` has 20 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `Error`, `Idle`, `Loading` to the rest of the system?**
-  _568 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Are the 25 inferred relationships involving `withHaptic()` (e.g. with `CommandHeaderCard()` and `MarkdownMessageContent()`) actually correct?**
+  _`withHaptic()` has 25 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 21 inferred relationships involving `AutoResizeableText()` (e.g. with `Text` and `DialogTitle()`) actually correct?**
+  _`AutoResizeableText()` has 21 INFERRED edges - model-reasoned connections that need verification._
+- **What connects `LOGCAT`, `AI_CHAT`, `HomeScreen` to the rest of the system?**
+  _532 weakly-connected nodes found - possible documentation gaps or missing edges._
