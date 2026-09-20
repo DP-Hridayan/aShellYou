@@ -11,11 +11,6 @@
     <string name="adb_command" comment="Input field label for typing an ADB shell command">أمر ADB</string>
     <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">أمر ADB (حالة الإيقاف)</string>
     <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">أمر ADB (حالة التفعيل)</string>
-    <string name="failed_to_download_file" comment="Error shown when downloading a file from the connected device fails and the device gave no reason">فشل تنزيل الملف</string>
-    <string name="failed_to_upload_file" comment="Error shown when uploading a file to the connected device fails and the device gave no reason">فشل في تحميل الملف</string>
-    <string name="file_downloaded" comment="Confirmation shown when a file finished downloading from the connected device">تم تنزيل الملف</string>
-    <string name="file_uploaded" comment="Confirmation shown when a file finished uploading to the connected device">تم رفع الملف</string>
-    <string name="local_file_does_not_exist" comment="Error shown when the chosen file to upload is no longer present on this device">الملف المحلي غير موجود</string>
     <string name="adb_connected_to" comment="Output line confirming an ADB connection was established with the given host and port">متصل بـ %1$s</string>
     <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">تم اتصال ADB - تأكد من أن الجهاز في وضع sideload</string>
     <string name="adb_connection_active" comment="Foreground notification title when an ADB connection (Wireless/OTG) is currently active">اتصال ADB نشط</string>
@@ -33,7 +28,6 @@
     <string name="adb_hint_use_pm_uninstall" comment="Advice shown when the user runs adb uninstall, pointing them at the equivalent shell command">استخدم pm uninstall --user 0 &lt;package&gt; بدلاً من ذلك.</string>
     <string name="adb_hint_use_sideload" comment="Advice shown when the user runs adb sideload, pointing them at the dedicated sideload screen">استخدم شاشة ADB Sideload.</string>
     <string name="adb_key_unavailable" comment="Error shown in ADB sideload when the app could not load or create its RSA key pair used to authenticate to the target device">تعذر إعداد مفتاح مصادقة ADB</string>
-    <string name="shell_connection_lost" comment="Error shown in the shell output when the connection to the device drops while a command is running">تم فقدان الاتصال بالجهاز</string>
     <string name="adb_not_connected" comment="Error shown when a command needs an ADB connection but none is active">الجهاز غير متصل</string>
     <string name="adb_paired_with" comment="Output line confirming pairing succeeded with the given host and port">تم الاقتران مع %1$s</string>
     <string name="adb_reconnect_hint" comment="Advice shown after the device ADB daemon restarts in TCP mode, telling the user the command that reconnects to it">أعد الاتصال باستخدام: %1$s</string>
@@ -55,6 +49,8 @@
     <string name="add_new_item" comment="Generic button label to add a new list entry">إضافة عنصر جديد</string>
     <string name="additional_settings" comment="Category header in app settings">إعدادات إضافية</string>
     <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">مهارات الوكيل</string>
+    <string name="ai_agent_shortcut">AI Agent</string>
+    <string name="ai_agent_shortcut_long_label">AI ADB Agent</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">مدة التخزين المؤقت</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">تفعيل التخزين المؤقت</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">السماح</string>
@@ -158,6 +154,7 @@
     <string name="cancel_transfer_title" comment="Dialog title asking the user to confirm abandoning a fastboot image transfer">إلغاء النقل؟</string>
     <string name="cancelled">إلغاء</string>
     <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">جاري الإلغاء…</string>
+    <string name="changed_directory_to" comment="Shell output confirming the working directory moved. The placeholder is the directory path the device reported">تم تغيير الدليل إلى: %1$s</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">سجل التغييرات</string>
     <string name="changelogs" comment="Settings list item title for viewing version history logs">سجل التغييرات</string>
     <string name="check_updates" comment="Action button in about screen to check GitHub or F-Droid for app updates">التحقق من التحديثات</string>
@@ -272,7 +269,6 @@
     <string name="connect_via_wifi_adb" comment="Option in connection menu to connect via Wi-Fi Wireless Debugging">الاتصال عبر Wi-Fi ADB</string>
     <string name="connected" comment="Status badge showing device is successfully connected over ADB">متصل</string>
     <string name="connected_device" comment="Header title for the currently active ADB target device information card">الجهاز المتصل</string>
-    <string name="changed_directory_to" comment="Shell output confirming the working directory moved. The placeholder is the directory path the device reported">تم تغيير الدليل إلى: %1$s</string>
     <string name="connecting" comment="Progress status text shown while establishing ADB connection">جارٍ توصيل…</string>
     <string name="connection_error" comment="Toast notification or dialog title for ADB network connection errors">خطأ في الاتصال</string>
     <string name="connection_failed" comment="Status banner or toast when ADB connection attempt fails">فشل الاتصال</string>
@@ -486,7 +482,9 @@ It does not collect or share personal data, but users should be aware of the imp
     <string name="failed">فشل</string>
     <string name="failed_to_claim_interface" comment="Technical error message when USB OTG interface claim fails">فشل في المطالبة بالواجهة</string>
     <string name="failed_to_copy" comment="Toast notification when copying text or file fails">فشل النسخ</string>
+    <string name="failed_to_download_file" comment="Error shown when downloading a file from the connected device fails and the device gave no reason">فشل تنزيل الملف</string>
     <string name="failed_to_open_usb_connection" comment="Error toast when USB OTG connection fails">فشل في فتح اتصال USB. هل تم تمكين تصحيح أخطاء USB؟</string>
+    <string name="failed_to_upload_file" comment="Error shown when uploading a file to the connected device fails and the device gave no reason">فشل في تحميل الملف</string>
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; Recovery</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">قريباً</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">وحدة التحكم للأوامر</string>
@@ -530,12 +528,14 @@ It does not collect or share personal data, but users should be aware of the imp
     <string name="file_already_exists" comment="Dialog header when target file name collides with existing file">الملف موجود بالفعل</string>
     <string name="file_browser" comment="Navigation drawer item and screen header for device file manager">مستعرض الملفات</string>
     <string name="file_conflict_title" comment="Dialog header when file creation or paste collides with existing file name">الملف موجود بالفعل</string>
+    <string name="file_downloaded" comment="Confirmation shown when a file finished downloading from the connected device">تم تنزيل الملف</string>
     <string name="file_exists_message" comment="%1$s = file name">\"%1$s\" موجود بالفعل في هذا الموقع.</string>
     <string name="file_info" comment="Dialog header displaying file metadata properties (size, permissions, modified date)">معلومات الملف</string>
     <string name="file_not_found" comment="Error toast when requested file path does not exist on device">المِلَفّ غير موجود</string>
     <string name="file_open_failed" comment="Error shown when the selected update package could not be opened for reading">تعذر فتح الملف المحدد</string>
     <string name="file_read_failed" comment="Error shown when reading a part of the selected update package failed mid-transfer">تعذر قراءة الملف المحدد</string>
     <string name="file_size_unknown" comment="Error shown when the size of the selected update package cannot be determined, which the ADB sideload protocol requires">تعذر تحديد حجم الملف</string>
+    <string name="file_uploaded" comment="Confirmation shown when a file finished uploading to the connected device">تم رفع الملف</string>
     <string name="filter">تصفية</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">تصفية حسب التسميات</string>
     <string name="flash_complete" comment="Status shown when a fastboot partition flash finished successfully">اكتمل الوميض</string>
@@ -637,6 +637,7 @@ aShell You يحتاج إلى إذن Shizuku لتنفيذ أوامر الاختص
     <string name="local_adb_summary" comment="Summary text for local ADB feature card">تنفيذ أوامر ADB مباشرة على جهازك باستخدام Shizuku أو الجذر.</string>
     <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">نسخ احتياطي محلي</string>
     <string name="local_file" comment="Source option label for picking local backup file">ملف محلي</string>
+    <string name="local_file_does_not_exist" comment="Error shown when the chosen file to upload is no longer present on this device">الملف المحلي غير موجود</string>
     <string name="locked" comment="Status badge showing bootloader lock state is locked">مقفول</string>
     <string name="log_buffer_size" comment="Title of the setting choosing how much memory the logcat buffer may use">حجم مخزن السجلات المؤقت</string>
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">تم مسح السجلات</string>
@@ -698,7 +699,6 @@ aShell You يحتاج إلى إذن Shizuku لتنفيذ أوامر الاختص
     <string name="no_adb_device_error" comment="Error toast when no ADB target device is found over USB OTG">لم يتم العثور على أجهزة متوافقة مع ADB. تمكين تصحيح USB على الهدف.</string>
     <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">لم يتم العثور على واجهة adb</string>
     <string name="no_auto_backup_yet" comment="Placeholder text under backup status when no automated backup has executed">لم يتم إجراء نسخ احتياطي تلقائي بعد</string>
-    <string name="no_such_directory" comment="Shell error shown when a cd command names a directory the device could not enter. The placeholder is the path that was tried">لا يوجد دليل كهذا: %1$s</string>
     <string name="no_bookmarks" comment="Placeholder text in bookmarks tab when no commands are saved">لم يتم العثور على إشارات مرجعية</string>
     <string name="no_changelog_found" comment="Placeholder message in changelog screen when no version notes exist">لا يوجد سجل تغييرات لهذا الإصدار</string>
     <string name="no_cloud_backup_found" comment="Status banner when no backup file is found on Google Drive">لم يتم العثور على نسخة احتياطية على Google Drive</string>
@@ -723,6 +723,7 @@ aShell You يحتاج إلى إذن Shizuku لتنفيذ أوامر الاختص
     <string name="no_root_access" comment="Error toast or status badge when root superuser access is unavailable">لا يوجد وصول للجذر</string>
     <string name="no_saved_devices" comment="Placeholder text in saved devices screen when no ADB target devices are paired">لا توجد أجهزة محفوظة</string>
     <string name="no_search_results_found" comment="Placeholder text when command search yields no results">لم يتم العثور على نتائج بحث</string>
+    <string name="no_such_directory" comment="Shell error shown when a cd command names a directory the device could not enter. The placeholder is the path that was tried">لا يوجد دليل كهذا: %1$s</string>
     <string name="no_variables_loaded" comment="Placeholder text in fastboot variable explorer tab before querying getvar">لم يتم تحميل أي متغيرات</string>
     <string name="no_wifi_connection" comment="Error banner when Wi-Fi is disabled during Wireless Debugging setup">لا يوجد اتصال Wi-Fi</string>
     <string name="none">لا شيء</string>
@@ -768,10 +769,10 @@ aShell You يحتاج إلى إذن Shizuku لتنفيذ أوامر الاختص
     <string name="pair_using_code" comment="Option in Wireless Debugging setup to pair device using 6-digit pairing code">إقران باستخدام الكود</string>
     <string name="pair_using_qr" comment="Option in Wireless Debugging setup to pair device by scanning QR code">إقران باستخدام QR</string>
     <string name="paired" comment="Status badge showing device is successfully paired via ADB">مقترن</string>
-    <string name="pairing_code_rejected" comment="Error shown under the pairing code input when the device rejected the six digit code the user entered">رمز الإقران غير صحيح. تحقق من الكود على الجهاز المستهدف وحاول مرة أخرى.</string>
-    <string name="pairing_in_progress" comment="Status shown on the Pair button while the entered pairing code is being checked by the target device">Pairing…</string>
     <string name="pairing" comment="Status header/banner displayed while ADB wireless pairing is in progress">تجري عملية الاقتران</string>
     <string name="pairing_code" comment="Field label or dialog title for 6-digit ADB wireless pairing code">رمز الاقتران</string>
+    <string name="pairing_code_rejected" comment="Error shown under the pairing code input when the device rejected the six digit code the user entered">رمز الإقران غير صحيح. تحقق من الكود على الجهاز المستهدف وحاول مرة أخرى.</string>
+    <string name="pairing_in_progress" comment="Status shown on the Pair button while the entered pairing code is being checked by the target device">Pairing…</string>
     <string name="pairing_notification_hint" comment="Notice informing user that a system notification will appear to facilitate quick pairing code entry">ستتلقى إشعارًا من aShell You لمساعدتك في عملية الاقتران</string>
     <string name="pairing_process_notification_access_message" comment="Dialog message asking user to grant system notification access to enable quick pairing code entry">لإكمال عملية الاقتران، ستحتاج إلى التفاعل مع إشعار من aShell You. يرجى السماح بالوصول إلى الإشعارات لـ aShell You.</string>
     <string name="palette_content" comment="Material Design color scheme style name">المحتوى</string>
@@ -939,6 +940,7 @@ aShell You يحتاج إلى إذن Shizuku لتنفيذ أوامر الاختص
     <string name="settings">الإعدادات</string>
     <string name="settings_only" comment="Option in backup screen to export only application settings (excluding history/bookmarks)">الإعدادات فقط</string>
     <string name="share">مشاركة</string>
+    <string name="shell_connection_lost" comment="Error shown in the shell output when the connection to the device drops while a command is running">تم فقدان الاتصال بالجهاز</string>
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">يتم تصدير إخراج الأمر الأخير إلى \'%s\'</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">يتم تصدير إخراج القذيفة إلى \'%s\'</string>
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">لم يتم تثبيت Shizuku</string>

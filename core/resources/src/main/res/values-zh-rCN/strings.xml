@@ -11,11 +11,6 @@
     <string name="adb_command" comment="Input field label for typing an ADB shell command">ADB 命令</string>
     <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">ADB 命令 (关闭状态)</string>
     <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">ADB 命令 (开启状态)</string>
-    <string name="failed_to_download_file" comment="Error shown when downloading a file from the connected device fails and the device gave no reason">下载文件失败</string>
-    <string name="failed_to_upload_file" comment="Error shown when uploading a file to the connected device fails and the device gave no reason">上传文件失败</string>
-    <string name="file_downloaded" comment="Confirmation shown when a file finished downloading from the connected device">文件已下载</string>
-    <string name="file_uploaded" comment="Confirmation shown when a file finished uploading to the connected device">文件已上传</string>
-    <string name="local_file_does_not_exist" comment="Error shown when the chosen file to upload is no longer present on this device">本地文件不存在</string>
     <string name="adb_connected_to" comment="Output line confirming an ADB connection was established with the given host and port">已连接到 %1$s</string>
     <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB 已连接 — 确保设备处于 sideload 模式</string>
     <string name="adb_connection_active" comment="Foreground notification title when an ADB connection (Wireless/OTG) is currently active">ADB 连接已启用</string>
@@ -33,7 +28,6 @@
     <string name="adb_hint_use_pm_uninstall" comment="Advice shown when the user runs adb uninstall, pointing them at the equivalent shell command">请改用 pm uninstall --user 0 &lt;package&gt;。</string>
     <string name="adb_hint_use_sideload" comment="Advice shown when the user runs adb sideload, pointing them at the dedicated sideload screen">请使用 ADB Sideload 屏幕。</string>
     <string name="adb_key_unavailable" comment="Error shown in ADB sideload when the app could not load or create its RSA key pair used to authenticate to the target device">无法准备 ADB 身份验证密钥</string>
-    <string name="shell_connection_lost" comment="Error shown in the shell output when the connection to the device drops while a command is running">与设备的连接丢失</string>
     <string name="adb_not_connected" comment="Error shown when a command needs an ADB connection but none is active">ADB 未连接</string>
     <string name="adb_paired_with" comment="Output line confirming pairing succeeded with the given host and port">已与 %1$s 配对</string>
     <string name="adb_reconnect_hint" comment="Advice shown after the device ADB daemon restarts in TCP mode, telling the user the command that reconnects to it">使用以下命令重新连接：%1$s</string>
@@ -55,6 +49,8 @@
     <string name="add_new_item" comment="Generic button label to add a new list entry">添加新项目</string>
     <string name="additional_settings" comment="Category header in app settings">更多设置</string>
     <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">智能代理技能</string>
+    <string name="ai_agent_shortcut">AI Agent</string>
+    <string name="ai_agent_shortcut_long_label">AI ADB Agent</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">缓存时长</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">启用缓存</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">允许</string>
@@ -158,6 +154,7 @@
     <string name="cancel_transfer_title" comment="Dialog title asking the user to confirm abandoning a fastboot image transfer">取消传输？</string>
     <string name="cancelled">已取消</string>
     <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">正在取消……</string>
+    <string name="changed_directory_to" comment="Shell output confirming the working directory moved. The placeholder is the directory path the device reported">已更改目录到: %1$s</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">更新日志</string>
     <string name="changelogs" comment="Settings list item title for viewing version history logs">更新日志</string>
     <string name="check_updates" comment="Action button in about screen to check GitHub or F-Droid for app updates">检查更新</string>
@@ -273,7 +270,6 @@
     <string name="connect_via_wifi_adb" comment="Option in connection menu to connect via Wi-Fi Wireless Debugging">通过 Wi-Fi ADB 连接</string>
     <string name="connected" comment="Status badge showing device is successfully connected over ADB">已连接</string>
     <string name="connected_device" comment="Header title for the currently active ADB target device information card">已连接的设备</string>
-    <string name="changed_directory_to" comment="Shell output confirming the working directory moved. The placeholder is the directory path the device reported">已更改目录到: %1$s</string>
     <string name="connecting" comment="Progress status text shown while establishing ADB connection">正在连接……</string>
     <string name="connection_error" comment="Toast notification or dialog title for ADB network connection errors">连接错误</string>
     <string name="connection_failed" comment="Status banner or toast when ADB connection attempt fails">连接失败</string>
@@ -479,7 +475,9 @@
     <string name="failed">失败</string>
     <string name="failed_to_claim_interface" comment="Technical error message when USB OTG interface claim fails">无法认领接口</string>
     <string name="failed_to_copy" comment="Toast notification when copying text or file fails">复制失败</string>
+    <string name="failed_to_download_file" comment="Error shown when downloading a file from the connected device fails and the device gave no reason">下载文件失败</string>
     <string name="failed_to_open_usb_connection" comment="Error toast when USB OTG connection fails">无法打开 USB 连接。是否启用 USB 调试？</string>
+    <string name="failed_to_upload_file" comment="Error shown when uploading a file to the connected device fails and the device gave no reason">上传文件失败</string>
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; Recovery 工具</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">即将推出</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">命令控制台</string>
@@ -523,12 +521,14 @@
     <string name="file_already_exists" comment="Dialog header when target file name collides with existing file">文件已存在</string>
     <string name="file_browser" comment="Navigation drawer item and screen header for device file manager">文件浏览器</string>
     <string name="file_conflict_title" comment="Dialog header when file creation or paste collides with existing file name">文件已存在</string>
+    <string name="file_downloaded" comment="Confirmation shown when a file finished downloading from the connected device">文件已下载</string>
     <string name="file_exists_message" comment="%1$s = file name">\"%1$s\" 已经存在于这个位置。</string>
     <string name="file_info" comment="Dialog header displaying file metadata properties (size, permissions, modified date)">文件信息</string>
     <string name="file_not_found" comment="Error toast when requested file path does not exist on device">文件未找到</string>
     <string name="file_open_failed" comment="Error shown when the selected update package could not be opened for reading">无法打开所选文件</string>
     <string name="file_read_failed" comment="Error shown when reading a part of the selected update package failed mid-transfer">无法读取所选文件</string>
     <string name="file_size_unknown" comment="Error shown when the size of the selected update package cannot be determined, which the ADB sideload protocol requires">无法确定文件大小</string>
+    <string name="file_uploaded" comment="Confirmation shown when a file finished uploading to the connected device">文件已上传</string>
     <string name="filter">筛选器</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">按标签过滤</string>
     <string name="flash_complete" comment="Status shown when a fastboot partition flash finished successfully">刷写完成</string>
@@ -629,6 +629,7 @@
     <string name="local_adb_summary" comment="Summary text for local ADB feature card">使用 Shizuku 或 root 直接在您的设备上执行 ADB 命令。</string>
     <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">本地备份</string>
     <string name="local_file" comment="Source option label for picking local backup file">本地文件</string>
+    <string name="local_file_does_not_exist" comment="Error shown when the chosen file to upload is no longer present on this device">本地文件不存在</string>
     <string name="locked" comment="Status badge showing bootloader lock state is locked">已锁定</string>
     <string name="log_buffer_size" comment="Title of the setting choosing how much memory the logcat buffer may use">日志缓冲区大小</string>
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">日志已清除</string>
@@ -689,7 +690,6 @@
     <string name="no_adb_device_error" comment="Error toast when no ADB target device is found over USB OTG">没有找到 ADB 兼容的设备。请在目标上启用 USB 调试。</string>
     <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">没有找到 adb 接口</string>
     <string name="no_auto_backup_yet" comment="Placeholder text under backup status when no automated backup has executed">尚未执行自动备份</string>
-    <string name="no_such_directory" comment="Shell error shown when a cd command names a directory the device could not enter. The placeholder is the path that was tried">没有这样的目录: %1$s</string>
     <string name="no_bookmarks" comment="Placeholder text in bookmarks tab when no commands are saved">无书签</string>
     <string name="no_changelog_found" comment="Placeholder message in changelog screen when no version notes exist">未找到此版本的更新日志</string>
     <string name="no_cloud_backup_found" comment="Status banner when no backup file is found on Google Drive">在 Google Drive 上未找到备份</string>
@@ -714,6 +714,7 @@
     <string name="no_root_access" comment="Error toast or status badge when root superuser access is unavailable">无root权限</string>
     <string name="no_saved_devices" comment="Placeholder text in saved devices screen when no ADB target devices are paired">没有保存的设备</string>
     <string name="no_search_results_found" comment="Placeholder text when command search yields no results">未找到搜索结果</string>
+    <string name="no_such_directory" comment="Shell error shown when a cd command names a directory the device could not enter. The placeholder is the path that was tried">没有这样的目录: %1$s</string>
     <string name="no_variables_loaded" comment="Placeholder text in fastboot variable explorer tab before querying getvar">未加载变量</string>
     <string name="no_wifi_connection" comment="Error banner when Wi-Fi is disabled during Wireless Debugging setup">没有WiFi连接</string>
     <string name="none">无</string>
@@ -759,10 +760,10 @@
     <string name="pair_using_code" comment="Option in Wireless Debugging setup to pair device using 6-digit pairing code">使用代码配对</string>
     <string name="pair_using_qr" comment="Option in Wireless Debugging setup to pair device by scanning QR code">使用二维码配对</string>
     <string name="paired" comment="Status badge showing device is successfully paired via ADB">已配对</string>
-    <string name="pairing_code_rejected" comment="Error shown under the pairing code input when the device rejected the six digit code the user entered">不正确的配对代码。请检查目标设备上的代码，然后重试。</string>
-    <string name="pairing_in_progress" comment="Status shown on the Pair button while the entered pairing code is being checked by the target device">Pairing…</string>
     <string name="pairing" comment="Status header/banner displayed while ADB wireless pairing is in progress">配对中</string>
     <string name="pairing_code" comment="Field label or dialog title for 6-digit ADB wireless pairing code">配对码</string>
+    <string name="pairing_code_rejected" comment="Error shown under the pairing code input when the device rejected the six digit code the user entered">不正确的配对代码。请检查目标设备上的代码，然后重试。</string>
+    <string name="pairing_in_progress" comment="Status shown on the Pair button while the entered pairing code is being checked by the target device">Pairing…</string>
     <string name="pairing_notification_hint" comment="Notice informing user that a system notification will appear to facilitate quick pairing code entry">提示：你会在通知栏看见一个来自aShell You的通知，在打开无线调试并进入配对界面后请点击这个通知的“提交”按钮即可唤出输入界面</string>
     <string name="pairing_process_notification_access_message" comment="Dialog message asking user to grant system notification access to enable quick pairing code entry">要完成配对过程，你需要与来自 aShell You 的通知进行交互。请允许 aShell You 访问通知。</string>
     <string name="palette_content" comment="Material Design color scheme style name">内容</string>
@@ -926,6 +927,7 @@
     <string name="settings">设置</string>
     <string name="settings_only" comment="Option in backup screen to export only application settings (excluding history/bookmarks)">仅设置</string>
     <string name="share">分享</string>
+    <string name="shell_connection_lost" comment="Error shown in the shell output when the connection to the device drops while a command is running">与设备的连接丢失</string>
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">上一个命令的输出导出到\'%s\'</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">终端输出导出到 \'%s\'</string>
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">尚未安装 Shizuku</string>

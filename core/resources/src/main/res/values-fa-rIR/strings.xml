@@ -11,11 +11,6 @@
     <string name="adb_command" comment="Input field label for typing an ADB shell command">دستور ADB</string>
     <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">دستور ADB (حالت خاموش)</string>
     <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">دستور ADB (حالت روشن)</string>
-    <string name="failed_to_download_file" comment="Error shown when downloading a file from the connected device fails and the device gave no reason">Failed to download file</string>
-    <string name="failed_to_upload_file" comment="Error shown when uploading a file to the connected device fails and the device gave no reason">Failed to upload file</string>
-    <string name="file_downloaded" comment="Confirmation shown when a file finished downloading from the connected device">File downloaded</string>
-    <string name="file_uploaded" comment="Confirmation shown when a file finished uploading to the connected device">File uploaded</string>
-    <string name="local_file_does_not_exist" comment="Error shown when the chosen file to upload is no longer present on this device">Local file does not exist</string>
     <string name="adb_connected_to" comment="Output line confirming an ADB connection was established with the given host and port">متصل شده به %1$s</string>
     <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB متصل است — مطمئن شوید دستگاه در حالت سایدلود است</string>
     <string name="adb_connection_active" comment="Foreground notification title when an ADB connection (Wireless/OTG) is currently active">اتصال ADB فعال است</string>
@@ -33,7 +28,6 @@
     <string name="adb_hint_use_pm_uninstall" comment="Advice shown when the user runs adb uninstall, pointing them at the equivalent shell command">به جای آن از pm uninstall --user 0 &lt;package&gt; استفاده کنید.</string>
     <string name="adb_hint_use_sideload" comment="Advice shown when the user runs adb sideload, pointing them at the dedicated sideload screen">از صفحه سایدلود ADB استفاده کنید.</string>
     <string name="adb_key_unavailable" comment="Error shown in ADB sideload when the app could not load or create its RSA key pair used to authenticate to the target device">نتوانست کلید احراز هویت ADB را آماده کند</string>
-    <string name="shell_connection_lost" comment="Error shown in the shell output when the connection to the device drops while a command is running">Connection to the device was lost</string>
     <string name="adb_not_connected" comment="Error shown when a command needs an ADB connection but none is active">ADB متصل نیست</string>
     <string name="adb_paired_with" comment="Output line confirming pairing succeeded with the given host and port">جفت شده با %1$s</string>
     <string name="adb_reconnect_hint" comment="Advice shown after the device ADB daemon restarts in TCP mode, telling the user the command that reconnects to it">اتصال مجدد با: %1$s</string>
@@ -55,6 +49,8 @@
     <string name="add_new_item" comment="Generic button label to add a new list entry">افزودن مورد جدید</string>
     <string name="additional_settings" comment="Category header in app settings">تنظیمات اضافی</string>
     <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">مهارت‌های عامل</string>
+    <string name="ai_agent_shortcut">AI Agent</string>
+    <string name="ai_agent_shortcut_long_label">AI ADB Agent</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">مدت زمان کش</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">فعال‌سازی کش</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">اجازه دادن</string>
@@ -158,6 +154,7 @@
     <string name="cancel_transfer_title" comment="Dialog title asking the user to confirm abandoning a fastboot image transfer">انتقال لغو شود؟</string>
     <string name="cancelled">لغو شد</string>
     <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">در حال لغو…</string>
+    <string name="changed_directory_to" comment="Shell output confirming the working directory moved. The placeholder is the directory path the device reported">Changed directory to: %1$s</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">تغییرات</string>
     <string name="changelogs" comment="Settings list item title for viewing version history logs">تغییرات</string>
     <string name="check_updates" comment="Action button in about screen to check GitHub or F-Droid for app updates">بررسی بروزرسانی‌ها</string>
@@ -270,7 +267,6 @@
     <string name="connect_via_wifi_adb" comment="Option in connection menu to connect via Wi-Fi Wireless Debugging">اتصال از طریق Wi-Fi ADB</string>
     <string name="connected" comment="Status badge showing device is successfully connected over ADB">متصل</string>
     <string name="connected_device" comment="Header title for the currently active ADB target device information card">دستگاه متصل</string>
-    <string name="changed_directory_to" comment="Shell output confirming the working directory moved. The placeholder is the directory path the device reported">Changed directory to: %1$s</string>
     <string name="connecting" comment="Progress status text shown while establishing ADB connection">در حال اتصال…</string>
     <string name="connection_error" comment="Toast notification or dialog title for ADB network connection errors">خطای اتصال</string>
     <string name="connection_failed" comment="Status banner or toast when ADB connection attempt fails">اتصال ناموفق</string>
@@ -476,7 +472,9 @@
     <string name="failed">ناموفق</string>
     <string name="failed_to_claim_interface" comment="Technical error message when USB OTG interface claim fails">عدم موفقیت در دسترسی به رابط</string>
     <string name="failed_to_copy" comment="Toast notification when copying text or file fails">کپی کردن ناموفق بود</string>
+    <string name="failed_to_download_file" comment="Error shown when downloading a file from the connected device fails and the device gave no reason">Failed to download file</string>
     <string name="failed_to_open_usb_connection" comment="Error toast when USB OTG connection fails">عدم موفقیت در باز کردن اتصال USB. آیا اشکال‌زدایی USB فعال است؟</string>
+    <string name="failed_to_upload_file" comment="Error shown when uploading a file to the connected device fails and the device gave no reason">Failed to upload file</string>
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">فست‌بوت و ریکاوری</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">به زودی</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">کنسول دستور</string>
@@ -520,12 +518,14 @@
     <string name="file_already_exists" comment="Dialog header when target file name collides with existing file">فایل از قبل وجود دارد</string>
     <string name="file_browser" comment="Navigation drawer item and screen header for device file manager">مرورگر فایل</string>
     <string name="file_conflict_title" comment="Dialog header when file creation or paste collides with existing file name">فایل از قبل وجود دارد</string>
+    <string name="file_downloaded" comment="Confirmation shown when a file finished downloading from the connected device">File downloaded</string>
     <string name="file_exists_message" comment="%1$s = file name">\"%1$s\" از قبل در این مکان وجود دارد.</string>
     <string name="file_info" comment="Dialog header displaying file metadata properties (size, permissions, modified date)">اطلاعات فایل</string>
     <string name="file_not_found" comment="Error toast when requested file path does not exist on device">فایل یافت نشد</string>
     <string name="file_open_failed" comment="Error shown when the selected update package could not be opened for reading">نتوانست فایل انتخاب شده را باز کند</string>
     <string name="file_read_failed" comment="Error shown when reading a part of the selected update package failed mid-transfer">نتوانست فایل انتخاب شده را بخواند</string>
     <string name="file_size_unknown" comment="Error shown when the size of the selected update package cannot be determined, which the ADB sideload protocol requires">اندازه فایل قابل تشخیص نیست</string>
+    <string name="file_uploaded" comment="Confirmation shown when a file finished uploading to the connected device">File uploaded</string>
     <string name="filter">فیلتر</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">فیلتر بر اساس برچسب</string>
     <string name="flash_complete" comment="Status shown when a fastboot partition flash finished successfully">فلش کامل شد</string>
@@ -626,6 +626,7 @@
     <string name="local_adb_summary" comment="Summary text for local ADB feature card">دستورات ADB را مستقیماً روی دستگاه خود با Shizuku یا root اجرا کنید.</string>
     <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">پشتیبان‌گیری محلی</string>
     <string name="local_file" comment="Source option label for picking local backup file">فایل محلی</string>
+    <string name="local_file_does_not_exist" comment="Error shown when the chosen file to upload is no longer present on this device">Local file does not exist</string>
     <string name="locked" comment="Status badge showing bootloader lock state is locked">قفل‌شده</string>
     <string name="log_buffer_size" comment="Title of the setting choosing how much memory the logcat buffer may use">اندازه بافر لاگ</string>
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">لاگ‌ها پاک شدند</string>
@@ -686,7 +687,6 @@
     <string name="no_adb_device_error" comment="Error toast when no ADB target device is found over USB OTG">دستگاه سازگار با ADB یافت نشد. اشکال‌زدایی USB را روی هدف فعال کنید.</string>
     <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">رابط adb یافت نشد</string>
     <string name="no_auto_backup_yet" comment="Placeholder text under backup status when no automated backup has executed">هنوز هیچ پشتیبان‌گیری خودکاری انجام نشده است</string>
-    <string name="no_such_directory" comment="Shell error shown when a cd command names a directory the device could not enter. The placeholder is the path that was tried">No such directory: %1$s</string>
     <string name="no_bookmarks" comment="Placeholder text in bookmarks tab when no commands are saved">نشانکی یافت نشد</string>
     <string name="no_changelog_found" comment="Placeholder message in changelog screen when no version notes exist">تغییرات برای این نسخه یافت نشد</string>
     <string name="no_cloud_backup_found" comment="Status banner when no backup file is found on Google Drive">هیچ پشتیبانی در Google Drive یافت نشد</string>
@@ -711,6 +711,7 @@
     <string name="no_root_access" comment="Error toast or status badge when root superuser access is unavailable">دسترسی روت وجود ندارد</string>
     <string name="no_saved_devices" comment="Placeholder text in saved devices screen when no ADB target devices are paired">دستگاه ذخیره شده‌ای وجود ندارد</string>
     <string name="no_search_results_found" comment="Placeholder text when command search yields no results">نتیجه‌ای یافت نشد</string>
+    <string name="no_such_directory" comment="Shell error shown when a cd command names a directory the device could not enter. The placeholder is the path that was tried">No such directory: %1$s</string>
     <string name="no_variables_loaded" comment="Placeholder text in fastboot variable explorer tab before querying getvar">هیچ متغیری بارگذاری نشده است</string>
     <string name="no_wifi_connection" comment="Error banner when Wi-Fi is disabled during Wireless Debugging setup">اتصال وای‌فای وجود ندارد</string>
     <string name="none">هیچ</string>
@@ -756,10 +757,10 @@
     <string name="pair_using_code" comment="Option in Wireless Debugging setup to pair device using 6-digit pairing code">جفت کردن با کد</string>
     <string name="pair_using_qr" comment="Option in Wireless Debugging setup to pair device by scanning QR code">جفت کردن با QR</string>
     <string name="paired" comment="Status badge showing device is successfully paired via ADB">جفت شده</string>
-    <string name="pairing_code_rejected" comment="Error shown under the pairing code input when the device rejected the six digit code the user entered">Incorrect pairing code. Check the code on the target device and try again.</string>
-    <string name="pairing_in_progress" comment="Status shown on the Pair button while the entered pairing code is being checked by the target device">Pairing…</string>
     <string name="pairing" comment="Status header/banner displayed while ADB wireless pairing is in progress">در حال جفت‌سازی</string>
     <string name="pairing_code" comment="Field label or dialog title for 6-digit ADB wireless pairing code">کد جفت‌سازی</string>
+    <string name="pairing_code_rejected" comment="Error shown under the pairing code input when the device rejected the six digit code the user entered">Incorrect pairing code. Check the code on the target device and try again.</string>
+    <string name="pairing_in_progress" comment="Status shown on the Pair button while the entered pairing code is being checked by the target device">Pairing…</string>
     <string name="pairing_notification_hint" comment="Notice informing user that a system notification will appear to facilitate quick pairing code entry">یک اعلان از aShell You دریافت خواهید کرد تا در جفت‌سازی کمک کند</string>
     <string name="pairing_process_notification_access_message" comment="Dialog message asking user to grant system notification access to enable quick pairing code entry">برای تکمیل فرآیند جفت‌سازی باید با اعلان aShell You تعامل کنید. لطفاً دسترسی اعلان را به aShell You بدهید.</string>
     <string name="palette_content" comment="Material Design color scheme style name">محتوا</string>
@@ -923,6 +924,7 @@
     <string name="settings">تنظیمات</string>
     <string name="settings_only" comment="Option in backup screen to export only application settings (excluding history/bookmarks)">فقط تنظیمات</string>
     <string name="share">اشتراک‌گذاری</string>
+    <string name="shell_connection_lost" comment="Error shown in the shell output when the connection to the device drops while a command is running">Connection to the device was lost</string>
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">خروجی آخرین دستور به \'%s\' صادر شد</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">خروجی شل به \'%s\' صادر شد</string>
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">Shizuku نصب نیست</string>
