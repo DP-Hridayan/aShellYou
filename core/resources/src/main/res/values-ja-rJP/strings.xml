@@ -11,11 +11,6 @@
     <string name="adb_command" comment="Input field label for typing an ADB shell command">ADBコマンド</string>
     <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">ADBコマンド (OFF状態)</string>
     <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">ADBコマンド (ON状態)</string>
-    <string name="failed_to_download_file" comment="Error shown when downloading a file from the connected device fails and the device gave no reason">ファイルのダウンロードに失敗しました</string>
-    <string name="failed_to_upload_file" comment="Error shown when uploading a file to the connected device fails and the device gave no reason">ファイルのアップロードに失敗しました</string>
-    <string name="file_downloaded" comment="Confirmation shown when a file finished downloading from the connected device">ファイルをダウンロードしました</string>
-    <string name="file_uploaded" comment="Confirmation shown when a file finished uploading to the connected device">ファイルがアップロードされました</string>
-    <string name="local_file_does_not_exist" comment="Error shown when the chosen file to upload is no longer present on this device">ローカル ファイルが存在しません</string>
     <string name="adb_connected_to" comment="Output line confirming an ADB connection was established with the given host and port">%1$s に接続しました</string>
     <string name="adb_connected_verify_sideload" comment="Prompt instructing user to verify target device is booted into recovery sideload mode">ADB接続済み — デバイスがサイドロードモードになっていることを確認してください</string>
     <string name="adb_connection_active" comment="Foreground notification title when an ADB connection (Wireless/OTG) is currently active">ADB 接続が有効です</string>
@@ -33,7 +28,6 @@
     <string name="adb_hint_use_pm_uninstall" comment="Advice shown when the user runs adb uninstall, pointing them at the equivalent shell command">代わりに pm uninstall --user 0 &lt;package&gt; を使用してください。</string>
     <string name="adb_hint_use_sideload" comment="Advice shown when the user runs adb sideload, pointing them at the dedicated sideload screen">ADBサイドロード画面を使用してください。</string>
     <string name="adb_key_unavailable" comment="Error shown in ADB sideload when the app could not load or create its RSA key pair used to authenticate to the target device">ADB認証キーを準備できませんでした</string>
-    <string name="shell_connection_lost" comment="Error shown in the shell output when the connection to the device drops while a command is running">デバイスへの接続が失われました</string>
     <string name="adb_not_connected" comment="Error shown when a command needs an ADB connection but none is active">ADBが接続されていません</string>
     <string name="adb_paired_with" comment="Output line confirming pairing succeeded with the given host and port">%1$s とペアリングされました</string>
     <string name="adb_reconnect_hint" comment="Advice shown after the device ADB daemon restarts in TCP mode, telling the user the command that reconnects to it">再接続コマンド: %1$s</string>
@@ -55,6 +49,8 @@
     <string name="add_new_item" comment="Generic button label to add a new list entry">新しいアイテムを追加</string>
     <string name="additional_settings" comment="Category header in app settings">詳細設定</string>
     <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">エージェントスキル</string>
+    <string name="ai_agent_shortcut">AI Agent</string>
+    <string name="ai_agent_shortcut_long_label">AI ADB Agent</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">キャッシュ期間</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">キャッシュを有効にする</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">許可</string>
@@ -158,6 +154,7 @@
     <string name="cancel_transfer_title" comment="Dialog title asking the user to confirm abandoning a fastboot image transfer">転送をキャンセルしますか？</string>
     <string name="cancelled">キャンセル済み</string>
     <string name="cancelling" comment="Progress status header displayed while cancelling an ongoing operation">キャンセル中…</string>
+    <string name="changed_directory_to" comment="Shell output confirming the working directory moved. The placeholder is the directory path the device reported">ディレクトリを %1$sに変更しました</string>
     <string name="changelog" comment="Screen header and navigation item for release notes">更新履歴</string>
     <string name="changelogs" comment="Settings list item title for viewing version history logs">更新履歴</string>
     <string name="check_updates" comment="Action button in about screen to check GitHub or F-Droid for app updates">アップデートを確認</string>
@@ -270,7 +267,6 @@
     <string name="connect_via_wifi_adb" comment="Option in connection menu to connect via Wi-Fi Wireless Debugging">Wi-Fi ADB経由で接続</string>
     <string name="connected" comment="Status badge showing device is successfully connected over ADB">接続されました</string>
     <string name="connected_device" comment="Header title for the currently active ADB target device information card">接続済みのデバイス</string>
-    <string name="changed_directory_to" comment="Shell output confirming the working directory moved. The placeholder is the directory path the device reported">ディレクトリを %1$sに変更しました</string>
     <string name="connecting" comment="Progress status text shown while establishing ADB connection">接続しています…</string>
     <string name="connection_error" comment="Toast notification or dialog title for ADB network connection errors">接続エラー</string>
     <string name="connection_failed" comment="Status banner or toast when ADB connection attempt fails">接続に失敗しました</string>
@@ -476,7 +472,9 @@
     <string name="failed">失敗しました</string>
     <string name="failed_to_claim_interface" comment="Technical error message when USB OTG interface claim fails">インターフェイスの取得に失敗しました</string>
     <string name="failed_to_copy" comment="Toast notification when copying text or file fails">コピーに失敗しました</string>
+    <string name="failed_to_download_file" comment="Error shown when downloading a file from the connected device fails and the device gave no reason">ファイルのダウンロードに失敗しました</string>
     <string name="failed_to_open_usb_connection" comment="Error toast when USB OTG connection fails">USB接続を開けませんでした。USBデバッグは有効ですか？</string>
+    <string name="failed_to_upload_file" comment="Error shown when uploading a file to the connected device fails and the device gave no reason">ファイルのアップロードに失敗しました</string>
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; Recovery</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">近日公開</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">コマンドコンソール</string>
@@ -520,12 +518,14 @@
     <string name="file_already_exists" comment="Dialog header when target file name collides with existing file">ファイルは既に存在します</string>
     <string name="file_browser" comment="Navigation drawer item and screen header for device file manager">ファイルブラウザー</string>
     <string name="file_conflict_title" comment="Dialog header when file creation or paste collides with existing file name">ファイルは既に存在します</string>
+    <string name="file_downloaded" comment="Confirmation shown when a file finished downloading from the connected device">ファイルをダウンロードしました</string>
     <string name="file_exists_message" comment="%1$s = file name">\"%1$s\" は既にこの場所に存在します。</string>
     <string name="file_info" comment="Dialog header displaying file metadata properties (size, permissions, modified date)">ファイル情報</string>
     <string name="file_not_found" comment="Error toast when requested file path does not exist on device">ファイルが見つかりません</string>
     <string name="file_open_failed" comment="Error shown when the selected update package could not be opened for reading">選択したファイルを開けませんでした</string>
     <string name="file_read_failed" comment="Error shown when reading a part of the selected update package failed mid-transfer">選択したファイルを読み込めませんでした</string>
     <string name="file_size_unknown" comment="Error shown when the size of the selected update package cannot be determined, which the ADB sideload protocol requires">ファイルサイズを特定できません</string>
+    <string name="file_uploaded" comment="Confirmation shown when a file finished uploading to the connected device">ファイルがアップロードされました</string>
     <string name="filter">フィルター</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">ラベルでフィルター</string>
     <string name="flash_complete" comment="Status shown when a fastboot partition flash finished successfully">フラッシュ完了</string>
@@ -626,6 +626,7 @@
     <string name="local_adb_summary" comment="Summary text for local ADB feature card">Shizukuまたはrootを使用して、デバイス上で直接ADBコマンドを実行します。</string>
     <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">ローカルバックアップ</string>
     <string name="local_file" comment="Source option label for picking local backup file">ローカルファイル</string>
+    <string name="local_file_does_not_exist" comment="Error shown when the chosen file to upload is no longer present on this device">ローカル ファイルが存在しません</string>
     <string name="locked" comment="Status badge showing bootloader lock state is locked">ロック済み</string>
     <string name="log_buffer_size" comment="Title of the setting choosing how much memory the logcat buffer may use">ログバッファサイズ</string>
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">ログがクリアされました</string>
@@ -686,7 +687,6 @@
     <string name="no_adb_device_error" comment="Error toast when no ADB target device is found over USB OTG">ADB 互換デバイスが見つかりませんでした。ターゲットの USB デバッグを有効にしてください。</string>
     <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">ADB インターフェイスが見つかりません</string>
     <string name="no_auto_backup_yet" comment="Placeholder text under backup status when no automated backup has executed">自動バックアップはまだ実行されていません</string>
-    <string name="no_such_directory" comment="Shell error shown when a cd command names a directory the device could not enter. The placeholder is the path that was tried">そのようなディレクトリはありません: %1$s</string>
     <string name="no_bookmarks" comment="Placeholder text in bookmarks tab when no commands are saved">ブックマークが見つかりません</string>
     <string name="no_changelog_found" comment="Placeholder message in changelog screen when no version notes exist">このバージョンの変更履歴が見つかりませんでした</string>
     <string name="no_cloud_backup_found" comment="Status banner when no backup file is found on Google Drive">Google ドライブにバックアップが見つかりません</string>
@@ -711,6 +711,7 @@
     <string name="no_root_access" comment="Error toast or status badge when root superuser access is unavailable">ルートアクセスがありません</string>
     <string name="no_saved_devices" comment="Placeholder text in saved devices screen when no ADB target devices are paired">保存されたデバイスはありません</string>
     <string name="no_search_results_found" comment="Placeholder text when command search yields no results">検索結果が見つかりません</string>
+    <string name="no_such_directory" comment="Shell error shown when a cd command names a directory the device could not enter. The placeholder is the path that was tried">そのようなディレクトリはありません: %1$s</string>
     <string name="no_variables_loaded" comment="Placeholder text in fastboot variable explorer tab before querying getvar">読み込まれた変数がありません</string>
     <string name="no_wifi_connection" comment="Error banner when Wi-Fi is disabled during Wireless Debugging setup">WiFi接続がありません</string>
     <string name="none">無し</string>
@@ -756,10 +757,10 @@
     <string name="pair_using_code" comment="Option in Wireless Debugging setup to pair device using 6-digit pairing code">コードを使用してペアリングする</string>
     <string name="pair_using_qr" comment="Option in Wireless Debugging setup to pair device by scanning QR code">QRを使用してペアリングする</string>
     <string name="paired" comment="Status badge showing device is successfully paired via ADB">ペアリングされました</string>
-    <string name="pairing_code_rejected" comment="Error shown under the pairing code input when the device rejected the six digit code the user entered">ペアリングコードが正しくありません。ターゲットデバイスのコードを確認して、もう一度やり直してください。</string>
-    <string name="pairing_in_progress" comment="Status shown on the Pair button while the entered pairing code is being checked by the target device">Pairing…</string>
     <string name="pairing" comment="Status header/banner displayed while ADB wireless pairing is in progress">ペアリング中</string>
     <string name="pairing_code" comment="Field label or dialog title for 6-digit ADB wireless pairing code">ペアリングコード</string>
+    <string name="pairing_code_rejected" comment="Error shown under the pairing code input when the device rejected the six digit code the user entered">ペアリングコードが正しくありません。ターゲットデバイスのコードを確認して、もう一度やり直してください。</string>
+    <string name="pairing_in_progress" comment="Status shown on the Pair button while the entered pairing code is being checked by the target device">Pairing…</string>
     <string name="pairing_notification_hint" comment="Notice informing user that a system notification will appear to facilitate quick pairing code entry">ペアリングを支援するためにaShell Youから通知が届きます</string>
     <string name="pairing_process_notification_access_message" comment="Dialog message asking user to grant system notification access to enable quick pairing code entry">ペアリングプロセスを完了するには、aShell Youからの通知を許可する必要があります。aShell Youからの通知を許可してください。</string>
     <string name="palette_content" comment="Material Design color scheme style name">コンテンツ</string>
@@ -923,6 +924,7 @@
     <string name="settings">設定</string>
     <string name="settings_only" comment="Option in backup screen to export only application settings (excluding history/bookmarks)">設定のみ</string>
     <string name="share">共有</string>
+    <string name="shell_connection_lost" comment="Error shown in the shell output when the connection to the device drops while a command is running">デバイスへの接続が失われました</string>
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">最後のコマンドの出力は \'%s\' にエクスポートされます</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">シェル出力は \'%s\' にエクスポートされます</string>
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">しずくは設置されていません</string>
