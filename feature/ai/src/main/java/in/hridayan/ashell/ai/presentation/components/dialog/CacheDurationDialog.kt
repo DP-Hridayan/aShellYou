@@ -114,7 +114,7 @@ fun CacheDurationDialog(
                     label = { Text(stringResource(R.string.ai_cache_days)) },
                     supportingText = {
                         if (isError) {
-                            Text(text = "$MIN_CACHE_DAYS – $MAX_CACHE_DAYS " + stringResource(R.string.n_days))
+                            Text(text = "$MIN_CACHE_DAYS – $MAX_CACHE_DAYS " + stringResource(R.string.days))
                         }
                     },
                     isError = isError,

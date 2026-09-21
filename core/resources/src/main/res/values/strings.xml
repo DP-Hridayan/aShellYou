@@ -305,6 +305,7 @@
     <string name="database">Database</string>
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">Database Modification</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Databases only</string>
+    <string name="days" comments="Days as in number of days">Days</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Default folder</string>
     <string name="default_language" comment="Setting preference label for selecting application language">Default language</string>
     <string name="delete">Delete</string>
