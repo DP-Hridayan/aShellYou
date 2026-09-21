@@ -1,11 +1,11 @@
 package `in`.hridayan.ashell.qstiles.data.provider
 
-import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
+import `in`.hridayan.ashell.core.common.notification.NotificationChannelManager
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.qstiles.data.provider.TileNotificationHelper.Companion.GROUP_KEY
 import `in`.hridayan.ashell.qstiles.domain.model.TileErrorType
@@ -18,29 +18,13 @@ class TileNotificationHelper @Inject constructor(
 ) {
 
     companion object {
-        const val CHANNEL_ID = "tile_execution_errors"
+        const val CHANNEL_ID = NotificationChannelManager.CHANNEL_TILE_ERRORS
         const val GROUP_KEY = "tile_execution_errors_group"
         const val SUMMARY_NOTIFICATION_ID = 9999
     }
 
     private val notificationManager by lazy {
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-    }
-
-    init {
-        createChannel()
-    }
-
-    private fun createChannel() {
-        val channel = NotificationChannel(
-            CHANNEL_ID,
-            "Tile Execution Errors",
-            NotificationManager.IMPORTANCE_DEFAULT
-        ).apply {
-            description = "Notifications for Quick Settings tile execution failures."
-            setShowBadge(true)
-        }
-        notificationManager.createNotificationChannel(channel)
     }
 
     /**
@@ -66,6 +50,7 @@ class TileNotificationHelper @Inject constructor(
             context.packageManager.getLaunchIntentForPackage(context.packageName)?.apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             } ?: Intent()
+
         val pendingIntent = PendingIntent.getActivity(
             context,
             notificationId,
@@ -91,7 +76,7 @@ class TileNotificationHelper @Inject constructor(
     private fun postGroupSummary() {
         val summary = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_adb)
-            .setContentTitle("Tile execution errors")
+            .setContentTitle(context.getString(R.string.tile_execution_errors))
             .setGroup(GROUP_KEY)
             .setGroupSummary(true)
             .setAutoCancel(true)

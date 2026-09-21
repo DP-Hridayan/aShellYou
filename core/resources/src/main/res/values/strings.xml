@@ -771,6 +771,10 @@
     <string name="not_signed_in" comment="Status text in cloud backup settings when Google account is signed out">Not signed in</string>
     <string name="nothing_to_clear" comment="Toast notification when user taps clear output but screen is already empty">Nothing to clear</string>
     <string name="nothing_to_search" comment="Toast message when search query string is empty">Nothing to search</string>
+    <string name="notification_group_connection" comment="Notification channel group name for connection related notifications">Connection &amp; Pairing</string>
+    <string name="notification_group_developer" comment="Notification channel group name for developer tools like logcat">Developer Tools</string>
+    <string name="notification_group_qs" comment="Notification channel group name for quick settings tile executions">Quick Settings</string>
+    <string name="notification_group_tasks" comment="Notification channel group name for background tasks like backup and sideload">Background Tasks</string>
     <string name="notification_settings" comment="Button label to open system notification settings screen">Notification settings</string>
     <string name="notification_style_error" comment="Troubleshooting guide text explaining Xiaomi/MIUI notification shade issues with entering pairing code">If you cannot enter the Pairing Code from the notification, then you might need to change the Notification Shade to Android. Go to Notification Settings ~ Notification Style to change the Notification Style.  Otherwise you might not be able to enter the pairing code from the notification.</string>
     <string name="notification_styles" comment="Settings preference title for notification shade style options">Notification styles</string>
@@ -1072,6 +1076,8 @@
     <string name="tile" comment="Refers to Android System Quick Settings tile">Tile</string>
     <string name="tile_behavior" comment="Settings title for Quick Settings tile click behavior (click vs long-click)">Tile behavior</string>
     <string name="tile_dashboard_notification_access_message" comment="Banner notice asking for notification permission to report tile execution errors">Turn on notifications to get notified whenever a tile execution fails</string>
+    <string name="tile_execution_errors" comment= "Tile here refers to the device Quick Settings Tiles that user can define and execute using Shizuku or Root">Tile execution errors</string>
+    <string name="tile_execution_errors_channel_description" comment="Android notification channel description for Tile Execution Errors">Notifications for Quick Settings tile execution failures.</string>
     <string name="tile_logs" comment="Tab header for Quick Settings tile execution history log">Tile logs</string>
     <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">Tile %1$d</string>
     <string name="tile_name" comment="Field label for Quick Settings tile title text">Tile name</string>

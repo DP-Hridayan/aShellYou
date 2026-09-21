@@ -1,7 +1,6 @@
 package `in`.hridayan.ashell.adbsideload.service
 
 import android.app.Notification
-import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
@@ -9,6 +8,7 @@ import androidx.core.app.NotificationCompat
 import `in`.hridayan.ashell.adbsideload.domain.model.SideloadOperation
 import `in`.hridayan.ashell.adbsideload.domain.model.SideloadStatus
 import `in`.hridayan.ashell.adbsideload.domain.notification.SideloadNotificationUpdate
+import `in`.hridayan.ashell.core.common.notification.NotificationChannelManager
 import `in`.hridayan.ashell.core.resources.R
 
 /**
@@ -21,12 +21,15 @@ import `in`.hridayan.ashell.core.resources.R
  */
 class SideloadNotificationHelper(private val context: Context) {
 
+    companion object {
+        const val NOTIFICATION_ID = 2004
+        private const val CHANNEL_ID = NotificationChannelManager.CHANNEL_SIDELOAD
+        private const val OPEN_APP_REQUEST_CODE = 0
+        private const val MAX_PROGRESS = 100
+    }
+
     private val notificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-    init {
-        createChannel()
-    }
 
     fun build(operation: SideloadOperation, update: SideloadNotificationUpdate): Notification =
         NotificationCompat.Builder(context, CHANNEL_ID)
@@ -70,24 +73,5 @@ class SideloadNotificationHelper(private val context: Context) {
             launchIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
-    }
-
-    private fun createChannel() {
-        val channel = NotificationChannel(
-            CHANNEL_ID,
-            context.getString(R.string.sideload_channel_name),
-            NotificationManager.IMPORTANCE_LOW
-        ).apply {
-            description = context.getString(R.string.sideload_channel_description)
-            setShowBadge(false)
-        }
-        notificationManager.createNotificationChannel(channel)
-    }
-
-    companion object {
-        const val NOTIFICATION_ID = 2004
-        private const val CHANNEL_ID = "adb_sideload_channel"
-        private const val OPEN_APP_REQUEST_CODE = 0
-        private const val MAX_PROGRESS = 100
     }
 }

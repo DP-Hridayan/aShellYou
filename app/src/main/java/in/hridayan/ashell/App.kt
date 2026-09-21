@@ -10,6 +10,7 @@ import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.android.HiltAndroidApp
 import `in`.hridayan.ashell.activities.CrashReportActivity
 import `in`.hridayan.ashell.core.common.FeatureConfig
+import `in`.hridayan.ashell.core.common.notification.NotificationChannelManager
 import `in`.hridayan.ashell.crashreporter.domain.model.CrashReport
 import `in`.hridayan.ashell.crashreporter.domain.repository.CrashRepository
 import io.github.muntashirakon.adb.PRNGFixes
@@ -39,6 +40,7 @@ class App : Application(), Configuration.Provider {
         FeatureConfig.isAiEnabled = BuildConfig.AI_FEATURES_ENABLED
 
         PRNGFixes.apply()
+        NotificationChannelManager.initialize(this)
 
         val entryPoint = EntryPointAccessors.fromApplication(
             this,

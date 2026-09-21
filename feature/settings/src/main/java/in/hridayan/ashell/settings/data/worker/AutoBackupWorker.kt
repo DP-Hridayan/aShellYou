@@ -1,7 +1,5 @@
 package `in`.hridayan.ashell.settings.data.worker
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.content.Context
 import android.util.Log
 import androidx.core.app.NotificationCompat
@@ -15,6 +13,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import `in`.hridayan.ashell.core.common.domain.model.backup.BackupType
 import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.common.notification.NotificationChannelManager
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.settings.domain.repository.BackupAndRestoreRepository
@@ -143,6 +142,7 @@ class AutoBackupWorker @AssistedInject constructor(
                 ?: throw IllegalStateException("Failed to create file in backup folder. Storage may be full.")
 
             val fileUri = newFile.uri
+
             applicationContext.contentResolver.openOutputStream(fileUri)?.use { outputStream ->
                 outputStream.write(bytes)
             }
@@ -155,6 +155,7 @@ class AutoBackupWorker @AssistedInject constructor(
                 SettingsKeys.LastAutoBackupLocalSuccessTime,
                 formattedTime,
             )
+
             settingsRepository.setString(SettingsKeys.LastAutoBackupLocalError, "")
         } catch (e: Exception) {
             Log.e(TAG, "Local auto-backup failed", e)
@@ -189,6 +190,7 @@ class AutoBackupWorker @AssistedInject constructor(
                 ?: throw IllegalStateException("Failed to generate backup data for cloud upload.")
 
             val uploaded = googleDriveRepository.uploadBackup(bytes, "backup_auto.ashellyou")
+
             if (!uploaded) {
                 settingsRepository.setString(
                     SettingsKeys.LastAutoBackupCloudError,
@@ -204,15 +206,18 @@ class AutoBackupWorker @AssistedInject constructor(
                 SettingsKeys.LastAutoBackupCloudSuccessTime,
                 formattedTime,
             )
+
             settingsRepository.setString(SettingsKeys.LastAutoBackupCloudError, "")
         } catch (e: Exception) {
             Log.e(TAG, "Cloud auto-backup failed", e)
+
             val reason = when {
                 e is java.net.UnknownHostException -> "No internet connection. Cloud backup will retry on next schedule."
                 e is java.io.IOException -> "Network error: ${e.localizedMessage ?: "Connection failed"}"
                 e.localizedMessage != null -> e.localizedMessage!!
                 else -> "Unknown error: ${e::class.simpleName}"
             }
+
             settingsRepository.setString(
                 SettingsKeys.LastAutoBackupCloudError,
                 reason,
@@ -221,19 +226,13 @@ class AutoBackupWorker @AssistedInject constructor(
     }
 
     override suspend fun getForegroundInfo(): ForegroundInfo {
-        val channelId = "auto_backup_channel"
-        val channel = NotificationChannel(
-            channelId,
-            "Auto Backup",
-            NotificationManager.IMPORTANCE_LOW,
-        )
-        val manager = applicationContext.getSystemService(NotificationManager::class.java)
-        manager?.createNotificationChannel(channel)
+        val channelId = NotificationChannelManager.CHANNEL_BACKUP
         val notification = NotificationCompat.Builder(applicationContext, channelId)
             .setSmallIcon(R.drawable.ic_adb)
             .setContentTitle("Backing up…")
             .setSilent(true)
             .build()
+
         return ForegroundInfo(NOTIFICATION_ID, notification)
     }
 

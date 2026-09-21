@@ -1,41 +1,25 @@
 package `in`.hridayan.ashell.logcat.service
 
 import android.app.Notification
-import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
+import `in`.hridayan.ashell.core.common.notification.NotificationChannelManager
 import `in`.hridayan.ashell.core.navigation.AppDeeplinkHolder
 import `in`.hridayan.ashell.core.resources.R
 
 class LogcatNotificationHelper(private val context: Context) {
 
     companion object {
-        const val CHANNEL_ID = "logcat_channel"
+        const val CHANNEL_ID = NotificationChannelManager.CHANNEL_LOGCAT
         const val NOTIFICATION_ID = 3001
         const val ACTION_STOP = "in.hridayan.ashell.ACTION_STOP_LOGCAT"
     }
 
     private val notificationManager: NotificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-    init {
-        createNotificationChannel()
-    }
-
-    private fun createNotificationChannel() {
-        val channel = NotificationChannel(
-            CHANNEL_ID,
-            context.getString(R.string.logcat_notification_channel_name),
-            NotificationManager.IMPORTANCE_LOW
-        ).apply {
-            description = context.getString(R.string.logcat_notification_channel_description)
-            setShowBadge(false)
-        }
-        notificationManager.createNotificationChannel(channel)
-    }
 
     fun createNotification(): Notification {
         val openAppIntent =

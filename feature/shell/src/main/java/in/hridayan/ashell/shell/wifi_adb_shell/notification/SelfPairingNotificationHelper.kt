@@ -1,13 +1,13 @@
 package `in`.hridayan.ashell.shell.wifi_adb_shell.notification
 
 import android.app.Notification
-import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import androidx.core.app.RemoteInput
+import `in`.hridayan.ashell.core.common.notification.NotificationChannelManager
 import `in`.hridayan.ashell.core.resources.R
 
 /**
@@ -17,7 +17,7 @@ import `in`.hridayan.ashell.core.resources.R
 class SelfPairingNotificationHelper(private val context: Context) {
 
     companion object {
-        const val CHANNEL_ID = "own_device_pairing_channel"
+        const val CHANNEL_ID = NotificationChannelManager.CHANNEL_PAIRING
         private const val OPEN_APP_REQUEST_CODE = 3
         const val NOTIFICATION_ID = 1001
         const val ACTION_SUBMIT_PAIRING_CODE = "in.hridayan.ashell.ACTION_SUBMIT_PAIRING_CODE"
@@ -27,22 +27,6 @@ class SelfPairingNotificationHelper(private val context: Context) {
 
     private val notificationManager: NotificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-    init {
-        createNotificationChannel()
-    }
-
-    private fun createNotificationChannel() {
-        val channel = NotificationChannel(
-            CHANNEL_ID,
-            context.getString(R.string.self_pair_searching),
-            NotificationManager.IMPORTANCE_HIGH
-        ).apply {
-            description = context.getString(R.string.self_pair_searching_hint)
-            setShowBadge(true)
-        }
-        notificationManager.createNotificationChannel(channel)
-    }
 
     fun showSearchingNotification(serviceClass: Class<*>): Notification {
         val notification = createSearchingNotification(serviceClass)
