@@ -20,11 +20,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -73,7 +75,7 @@ fun AutoScrollingLogList(
             listState = listState,
             contentPadding = contentPadding,
             actions = actions,
-            modifier = Modifier.stopFollowingOnTouch(isFollowing, actions.onPauseAutoScroll),
+            modifier = rememberStopFollowingOnTouch(isFollowing, actions.onPauseAutoScroll),
         )
         ScrollToBottomFab(
             visible = !isAutoScrolling,
@@ -99,15 +101,25 @@ private suspend fun jumpToNewest(listState: LazyListState) {
  * Clears [isFollowing] on the initial pass of the first pointer going down, before touch
  * slop and before the list sees the gesture, then reports the pause. Nothing is consumed,
  * so scrolling, taps and long presses behave as they did.
+ *
+ * The modifier is remembered because `pointerInput` compares its handler by identity: a
+ * fresh lambda on each recomposition cancels and restarts the gesture coroutine, which
+ * drops touches while the log stream is recomposing the list many times a second.
  */
-private fun Modifier.stopFollowingOnTouch(
+@Composable
+private fun rememberStopFollowingOnTouch(
     isFollowing: MutableState<Boolean>,
     onPause: () -> Unit,
-): Modifier = pointerInput(Unit) {
-    awaitEachGesture {
-        awaitFirstDown(requireUnconsumed = false, pass = PointerEventPass.Initial)
-        isFollowing.value = false
-        onPause()
+): Modifier {
+    val currentOnPause by rememberUpdatedState(onPause)
+    return remember(isFollowing) {
+        Modifier.pointerInput(Unit) {
+            awaitEachGesture {
+                awaitFirstDown(requireUnconsumed = false, pass = PointerEventPass.Initial)
+                isFollowing.value = false
+                currentOnPause()
+            }
+        }
     }
 }
 

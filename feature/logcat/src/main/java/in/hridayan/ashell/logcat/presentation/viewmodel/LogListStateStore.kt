@@ -12,16 +12,15 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-private const val PAUSED_OVERFLOW_FACTOR = 2
-
 /**
- * Owns the log list and auto-scroll flag of a single logcat tab, keeping the list
- * within the memory budget the user selected.
+ * Owns the log list and auto-scroll flag of a single logcat tab, keeping the collected
+ * entries within the memory budget the user selected.
  *
- * While following is paused the oldest entries are retained past that budget, up to
- * [PAUSED_OVERFLOW_FACTOR] times it. Evicting from the head shifts every entry below it,
- * which moves the rows the reader is looking at; new entries arriving at the tail do not.
- * The overflow is discarded when following resumes.
+ * While following is paused the published list is held still. Entries keep being collected
+ * into [live] and the newest are always retained, but nothing is published, because any
+ * change to the list moves the rows the reader is looking at: entries evicted from the head
+ * shift everything below them, and a burst such as the initial buffer dump evicts faster
+ * than the list can stay anchored. Resuming publishes the newest entries in one step.
  */
 class LogListStateStore(maxBytes: Long) {
     private val _state = MutableStateFlow(LogListUiState())
@@ -31,23 +30,23 @@ class LogListStateStore(maxBytes: Long) {
 
     private var limitBytes: Long = maxBytes
     private var isFollowing: Boolean = true
-    private var log: CappedLog<LogEntry> = CappedLog()
+    private var live: CappedLog<LogEntry> = CappedLog()
 
     fun append(batch: List<LogEntry>) {
-        log = log.append(batch, retainedBytes(), sizeOf)
-        publishLogs()
+        live = live.append(batch, limitBytes, sizeOf)
+        publishWhileFollowing()
     }
 
     fun replace(logs: List<LogEntry>) {
-        log = cappedLogOf(logs, retainedBytes(), sizeOf)
+        live = cappedLogOf(logs, limitBytes, sizeOf)
         publishLogs()
     }
 
     fun updateLimit(maxBytes: Long) {
         if (maxBytes == limitBytes) return
         limitBytes = maxBytes
-        log = log.trimmedTo(retainedBytes(), sizeOf)
-        publishLogs()
+        live = live.trimmedTo(maxBytes, sizeOf)
+        publishWhileFollowing()
     }
 
     fun pause() {
@@ -57,20 +56,20 @@ class LogListStateStore(maxBytes: Long) {
 
     fun resume() {
         isFollowing = true
-        log = log.trimmedTo(limitBytes, sizeOf)
-        _state.update { it.copy(logs = log.items, isAutoScrolling = true) }
+        _state.update { it.copy(logs = live.items, isAutoScrolling = true) }
     }
 
     fun reset() {
         isFollowing = true
-        log = CappedLog()
+        live = CappedLog()
         _state.value = LogListUiState()
     }
 
-    private fun retainedBytes(): Long =
-        if (isFollowing) limitBytes else limitBytes * PAUSED_OVERFLOW_FACTOR
+    private fun publishWhileFollowing() {
+        if (isFollowing) publishLogs()
+    }
 
     private fun publishLogs() {
-        _state.update { it.copy(logs = log.items) }
+        _state.update { it.copy(logs = live.items) }
     }
 }
