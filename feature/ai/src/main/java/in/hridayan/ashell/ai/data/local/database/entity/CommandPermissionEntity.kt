@@ -8,6 +8,6 @@ import kotlinx.serialization.Serializable
 @Entity(tableName = "command_permissions")
 data class CommandPermissionEntity(
     @PrimaryKey
-    val command: String, // Exact command, e.g., "pm uninstall"
+    val command: String,
     val isAlwaysAllowed: Boolean
 )

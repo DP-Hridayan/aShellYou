@@ -9,7 +9,7 @@ import kotlinx.serialization.json.Json
  */
 object AiResponseParser {
 
-    private const val TAG = "AiParser"
+    private const val TAG = "AiResponseParser"
 
     private val json = Json {
         ignoreUnknownKeys = true
@@ -25,48 +25,52 @@ object AiResponseParser {
     fun parse(rawResponse: String): AnalysisResult {
         Log.d(TAG, "parse() called, rawResponse length=${rawResponse.length}")
 
-        var cleaned = rawResponse.trim()
-        if (cleaned.isBlank()) {
+        if (rawResponse.isBlank()) {
             Log.w(TAG, "Raw response is blank/empty")
             return AnalysisResult.gibberish("AI model returned empty response")
         }
 
-        // Clean up markdown block if model ignored the prompt instruction
+        val cleaned = extractJsonObject(rawResponse)
+
+        return try {
+            json.decodeFromString<AnalysisResult>(cleaned)
+        } catch (e: Exception) {
+            Log.w(TAG, "Strict JSON parse failed, attempting fallback repair: ${e.message}")
+            repairAndParse(cleaned)
+        }
+    }
+
+    private fun extractJsonObject(rawText: String): String {
+        var cleaned = rawText.trim()
+
         if (cleaned.startsWith("```json")) {
             cleaned = cleaned.substringAfter("```json").substringBeforeLast("```").trim()
         } else if (cleaned.startsWith("```")) {
             cleaned = cleaned.substringAfter("```").substringBeforeLast("```").trim()
         }
 
-        // Deepseek and other models might output preamble text. Extract just the JSON object.
         val startIndex = cleaned.indexOf('{')
         val endIndex = cleaned.lastIndexOf('}')
+
         if (startIndex != -1 && endIndex != -1 && endIndex >= startIndex) {
-            cleaned = cleaned.substring(startIndex, endIndex + 1)
+            return cleaned.substring(startIndex, endIndex + 1)
         }
 
-        try {
-            return json.decodeFromString<AnalysisResult>(cleaned)
+        return cleaned
+    }
+
+    private fun repairAndParse(cleanedJson: String): AnalysisResult {
+        val repaired = if (cleanedJson.endsWith("}")) {
+            cleanedJson
+        } else {
+            if (cleanedJson.endsWith("\"")) "$cleanedJson\n}" else "$cleanedJson\"\n}"
+        }
+
+        return try {
+            json.decodeFromString<AnalysisResult>(repaired)
         } catch (e: Exception) {
-            Log.w(TAG, "Strict JSON parse failed, attempting fallback repair: ${e.message}")
-
-            // Fallback: Model probably hit max_tokens and truncated the JSON
-            // We append missing braces/quotes to try and salvage it.
-            var repaired = cleaned
-            if (!repaired.endsWith("}")) {
-                if (repaired.endsWith("\"")) {
-                    repaired += "\n}"
-                } else {
-                    repaired += "\"\n}"
-                }
-            }
-
-            try {
-                return json.decodeFromString<AnalysisResult>(repaired)
-            } catch (e2: Exception) {
-                Log.e(TAG, "Fallback JSON repair failed as well.", e2)
-                return AnalysisResult.gibberish("AI response was incomplete or malformed. Try increasing context size.")
-            }
+            Log.e(TAG, "Fallback JSON repair failed as well.", e)
+            AnalysisResult.gibberish("AI response was incomplete or malformed. Try increasing context size.")
         }
     }
 }
