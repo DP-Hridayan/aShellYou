@@ -17,4 +17,11 @@ signing-foss.properties
 .stability/
 /.artifacts
 /.agents
-CLAUDE.md
+*.md
+!CODE_OF_CONDUCT.md
+!CONTRIBUTING.md
+!LICENSE.md
+!PRIVACY_POLICY.md
+!README.md
+!SECURITY.md
+!TERMS_OF_SERVICE.md

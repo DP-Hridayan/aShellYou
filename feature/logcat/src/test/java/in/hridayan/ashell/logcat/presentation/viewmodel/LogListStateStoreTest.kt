@@ -54,12 +54,11 @@ class LogListStateStoreTest {
     }
 
     @Test
-    fun `append at the budget evicts oldest and keeps flag`() {
+    fun `appending keeps the auto-scroll flag`() {
         val store = LogListStateStore(THREE_ENTRIES)
         store.pause()
         store.append(listOf(entry(1), entry(2), entry(3)))
         store.append(listOf(entry(4)))
-        assertEquals(listOf(2L, 3L, 4L), ids(store))
         assertFalse(store.state.value.isAutoScrolling)
     }
 
@@ -101,5 +100,41 @@ class LogListStateStoreTest {
         store.pause()
         store.updateLimit(ENTRY_BYTES)
         assertFalse(store.state.value.isAutoScrolling)
+    }
+
+    @Test
+    fun `while paused the oldest entries survive past the budget`() {
+        val store = LogListStateStore(THREE_ENTRIES)
+        store.append(listOf(entry(1), entry(2), entry(3)))
+        store.pause()
+        store.append(listOf(entry(4), entry(5)))
+        assertEquals(listOf(1L, 2L, 3L, 4L, 5L), ids(store))
+    }
+
+    @Test
+    fun `while paused eviction resumes once the overflow is full`() {
+        val store = LogListStateStore(THREE_ENTRIES)
+        store.pause()
+        store.append((1L..6L).map { entry(it) })
+        store.append(listOf(entry(7)))
+        assertEquals(listOf(2L, 3L, 4L, 5L, 6L, 7L), ids(store))
+    }
+
+    @Test
+    fun `resuming discards the overflow and keeps the newest entries`() {
+        val store = LogListStateStore(THREE_ENTRIES)
+        store.append(listOf(entry(1), entry(2), entry(3)))
+        store.pause()
+        store.append(listOf(entry(4), entry(5)))
+        store.resume()
+        assertEquals(listOf(3L, 4L, 5L), ids(store))
+        assertTrue(store.state.value.isAutoScrolling)
+    }
+
+    @Test
+    fun `following still evicts at the budget`() {
+        val store = LogListStateStore(THREE_ENTRIES)
+        store.append(listOf(entry(1), entry(2), entry(3), entry(4)))
+        assertEquals(listOf(2L, 3L, 4L), ids(store))
     }
 }
