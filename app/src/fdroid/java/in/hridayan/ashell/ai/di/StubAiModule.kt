@@ -8,7 +8,9 @@ import `in`.hridayan.ashell.core.common.domain.repository.AiAnalysisRepository
 import `in`.hridayan.ashell.core.common.domain.model.ai.AnalysisResult
 import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
 import `in`.hridayan.ashell.core.common.domain.model.ai.DangerLevel
+import `in`.hridayan.ashell.core.common.domain.model.ai.ModelTier
 import `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository
+import `in`.hridayan.ashell.core.common.domain.provider.LlmModelCatalog
 import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
 import `in`.hridayan.ashell.core.common.domain.provider.LlmProviderClient
 import kotlinx.coroutines.flow.Flow
@@ -54,4 +56,14 @@ object StubAiModule {
 
     @Provides
     fun provideLlmProviderClients(): Map<LlmProvider, LlmProviderClient> = emptyMap()
+
+    @Provides
+    @Singleton
+    fun provideLlmModelCatalog(): LlmModelCatalog = object : LlmModelCatalog {
+        override suspend fun chain(
+            provider: LlmProvider,
+            tier: ModelTier,
+            toolsRequired: Boolean
+        ): List<String> = emptyList()
+    }
 }

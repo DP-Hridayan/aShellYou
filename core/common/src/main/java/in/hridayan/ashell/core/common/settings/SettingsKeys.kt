@@ -182,7 +182,7 @@ sealed class SettingsKeys<out T>(
 
     data object LastAutoBackupCloudError : SettingsKeys<String>("LAST_AUTO_BACKUP_CLOUD_ERROR", "")
 
-    data object AiCloudProvider : SettingsKeys<String>("AI_CLOUD_PROVIDER", "gemini")
+    data object AiCloudProvider : SettingsKeys<String>("AI_CLOUD_PROVIDER", "")
 
 
     companion object {

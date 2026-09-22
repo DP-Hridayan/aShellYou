@@ -1,22 +1,26 @@
 package `in`.hridayan.ashell.ai.presentation.viewmodel
 
+import android.content.Context
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.ai.data.local.database.entity.ChatMessageEntity
+import `in`.hridayan.ashell.ai.data.local.database.entity.ChatSessionEntity
 import `in`.hridayan.ashell.ai.domain.manager.ChatSessionManager
 import `in`.hridayan.ashell.ai.domain.repository.ChatRepository
 import `in`.hridayan.ashell.ai.domain.tool.CommandExecutionManager
 import `in`.hridayan.ashell.ai.presentation.model.AiChatUiState
 import `in`.hridayan.ashell.ai.presentation.model.ChatUiItem
-import `in`.hridayan.ashell.ai.presentation.model.MessageComponent
 import `in`.hridayan.ashell.ai.presentation.model.PermissionPrompt
 import `in`.hridayan.ashell.ai.presentation.model.RunningTaskUiModel
 import `in`.hridayan.ashell.ai.presentation.model.Thought
+import `in`.hridayan.ashell.ai.presentation.util.ThoughtFormatter
 import `in`.hridayan.ashell.core.common.domain.model.ai.LlmMessage
-import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
-import `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository
+import `in`.hridayan.ashell.core.common.domain.usecase.ai.ActiveProviderKeyStatus
+import `in`.hridayan.ashell.core.common.domain.usecase.ai.RequireActiveProviderKeyUseCase
+import `in`.hridayan.ashell.core.resources.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,16 +36,16 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonElement
 import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
 class AiChatViewModel @Inject constructor(
+    @param:ApplicationContext private val appContext: Context,
     private val chatRepository: ChatRepository,
     private val commandExecutionManager: CommandExecutionManager,
     private val chatSessionManager: ChatSessionManager,
-    private val apiKeyRepository: ApiKeyRepository
+    private val requireActiveProviderKey: RequireActiveProviderKeyUseCase
 ) : ViewModel() {
 
     private val json = Json {
@@ -49,11 +53,13 @@ class AiChatViewModel @Inject constructor(
         encodeDefaults = true
     }
 
-    private val _showApiKeyRequiredDialog = MutableStateFlow(false)
-    val showApiKeyRequiredDialog = _showApiKeyRequiredDialog.asStateFlow()
+    private val thinkingLabel: String by lazy { appContext.getString(R.string.thinking) }
 
-    fun dismissApiKeyRequiredDialog() {
-        _showApiKeyRequiredDialog.value = false
+    private val _aiAccessPrompt = MutableStateFlow<ActiveProviderKeyStatus?>(null)
+    val aiAccessPrompt: StateFlow<ActiveProviderKeyStatus?> = _aiAccessPrompt.asStateFlow()
+
+    fun dismissAiAccessPrompt() {
+        _aiAccessPrompt.value = null
     }
 
     private val _currentSessionId = MutableStateFlow(chatSessionManager.activeSessionId)
@@ -179,7 +185,7 @@ class AiChatViewModel @Inject constructor(
 
             messagesWithParsed.forEachIndexed { msgIndex, (msg, llmMessage) ->
                 val isUserPrompt =
-                    msg.role == "user" && (llmMessage == null || llmMessage.toolResponse == null)
+                    msg.role == "user" && (llmMessage == null || llmMessage.toolResponses.isEmpty())
 
                 if (isUserPrompt) {
                     if (turnThoughts.isNotEmpty()) {
@@ -205,7 +211,7 @@ class AiChatViewModel @Inject constructor(
                     } else {
                         val nextMsg = nextMsgPair?.first
                         val nextLlmMsg = nextMsgPair?.second
-                        nextMsg?.role == "user" && (nextLlmMsg == null || nextLlmMsg.toolResponse == null)
+                        nextMsg?.role == "user" && (nextLlmMsg == null || nextLlmMsg.toolResponses.isEmpty())
                     }
 
                     val textContent = llmMessage?.content ?: msg.rawContent
@@ -219,46 +225,39 @@ class AiChatViewModel @Inject constructor(
                             turnModelMessages.add(ChatUiItem.ModelMessage(msg.id, msg.rawContent))
                         }
                     } else {
-                        val toolCall = llmMessage.toolCall
-                        val toolRes = llmMessage.toolResponse
-                        val textContent = llmMessage.content
+                        // A reasoning-only reply would otherwise render as an empty bubble.
+                        val textContent = llmMessage.content.ifBlank {
+                            if (llmMessage.toolCalls.isEmpty()) {
+                                llmMessage.reasoning.orEmpty()
+                            } else {
+                                ""
+                            }
+                        }
 
-                        if (toolCall != null) {
-                            val argsStr = toolCall.args?.toString() ?: ""
-                            val formattedArgs = try {
-                                val parsed = json.parseToJsonElement(argsStr)
-                                val prettyJson =
-                                    Json { prettyPrint = true }
-                                prettyJson.encodeToString(JsonElement.serializer(), parsed)
-                            } catch (e: Exception) {
-                                argsStr
+                        llmMessage.reasoning
+                            ?.takeIf { it.isNotBlank() && it != textContent }
+                            ?.let { reasoning ->
+                                turnThoughts.add(
+                                    Thought(
+                                        thinkingLabel,
+                                        ThoughtFormatter.formatResult(reasoning)
+                                    )
+                                )
                             }
 
+                        llmMessage.toolCalls.forEach { toolCall ->
                             turnThoughts.add(
                                 Thought(
                                     "Executing Tool: ${toolCall.name}",
-                                    formattedArgs.take(500) + if (formattedArgs.length > 500) "\n\n[...Args truncated for UI]" else ""
+                                    ThoughtFormatter.formatArgs(toolCall.args?.toString().orEmpty())
                                 )
                             )
                         }
 
-                        if (toolRes != null) {
-                            val resStr = toolRes.result
-                            val lines = resStr.lines()
-                            val truncatedLines = if (lines.size > 10) {
-                                lines.take(10)
-                                    .joinToString("\n") + "\n\n[...Output truncated (${lines.size - 10} more lines)]"
-                            } else {
-                                resStr
-                            }
-
-                            val finalRes = if (truncatedLines.length > 500) {
-                                truncatedLines.take(500) + "\n\n[...Output truncated for UI]"
-                            } else {
-                                truncatedLines
-                            }
-
-                            turnThoughts.add(Thought("Result: ${toolRes.name}", finalRes))
+                        llmMessage.toolResponses.forEach { toolRes ->
+                            turnThoughts.add(
+                                Thought("Result: ${toolRes.name}", ThoughtFormatter.formatResult(toolRes.result))
+                            )
                         }
 
                         if (textContent.isNotBlank()) {
@@ -382,10 +381,13 @@ class AiChatViewModel @Inject constructor(
     }
 
     fun sendMessage(text: String) {
-        if (apiKeyRepository.getKey(LlmProvider.Gemini).isNullOrBlank()) {
-            _showApiKeyRequiredDialog.value = true
-            return
+        viewModelScope.launch {
+            if (!hasUsableProvider()) return@launch
+            dispatchMessage(text)
         }
+    }
+
+    private fun dispatchMessage(text: String) {
         val sessionId = _currentSessionId.value ?: UUID.randomUUID().toString().also { newId ->
             viewModelScope.launch {
                 chatRepository.createNewSession(newId, "New Chat")
@@ -426,30 +428,15 @@ class AiChatViewModel @Inject constructor(
         }
     }
 
-    fun togglePinSession(session: `in`.hridayan.ashell.ai.data.local.database.entity.ChatSessionEntity) {
+    fun togglePinSession(session: ChatSessionEntity) {
         viewModelScope.launch {
             chatRepository.updateSessionPinned(session.id, !session.isPinned)
         }
     }
 
-    fun parseMarkdown(content: String): List<MessageComponent> {
-        val components = mutableListOf<MessageComponent>()
-        val regex = Regex("```(\\w*)\\n(.*?)```", RegexOption.DOT_MATCHES_ALL)
-        var lastIndex = 0
-        regex.findAll(content).forEach { matchResult ->
-            val textBefore = content.substring(lastIndex, matchResult.range.first)
-            if (textBefore.isNotBlank()) {
-                components.add(MessageComponent.Text(textBefore.trim()))
-            }
-            val language = matchResult.groupValues[1]
-            val code = matchResult.groupValues[2].trim()
-            components.add(MessageComponent.CodeBlock(language, code))
-            lastIndex = matchResult.range.last + 1
-        }
-        val textAfter = content.substring(lastIndex)
-        if (textAfter.isNotBlank()) {
-            components.add(MessageComponent.Text(textAfter.trim()))
-        }
-        return components
+    private suspend fun hasUsableProvider(): Boolean {
+        val status = requireActiveProviderKey()
+        if (status !is ActiveProviderKeyStatus.Allowed) _aiAccessPrompt.value = status
+        return status is ActiveProviderKeyStatus.Allowed
     }
 }

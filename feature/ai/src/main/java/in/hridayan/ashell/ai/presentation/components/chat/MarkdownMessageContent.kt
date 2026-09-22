@@ -26,7 +26,6 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.mikepenz.markdown.m3.Markdown
 import com.mikepenz.markdown.m3.markdownColor
 import dev.snipme.highlights.Highlights
@@ -34,7 +33,7 @@ import dev.snipme.highlights.model.BoldHighlight
 import dev.snipme.highlights.model.ColorHighlight
 import dev.snipme.highlights.model.SyntaxThemes
 import `in`.hridayan.ashell.ai.presentation.model.MessageComponent
-import `in`.hridayan.ashell.ai.presentation.viewmodel.AiChatViewModel
+import `in`.hridayan.ashell.ai.presentation.util.MarkdownParser
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.resources.R
@@ -46,10 +45,9 @@ fun MarkdownMessageContent(
     textColor: Color,
     content: String,
     onUseCommand: (String) -> Unit,
-    viewModel: AiChatViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
-    val components = remember(content) { viewModel.parseMarkdown(content) }
+    val components = remember(content) { MarkdownParser.parse(content) }
 
     Column(modifier = modifier) {
         components.forEach { component ->

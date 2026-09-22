@@ -3,11 +3,10 @@ package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import `in`.hridayan.ashell.core.common.constants.AiModelConstants
 import `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException
-import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
-import `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository
 import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.common.domain.usecase.ai.ActiveProviderKeyStatus
+import `in`.hridayan.ashell.core.common.domain.usecase.ai.RequireActiveProviderKeyUseCase
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.theme.data.ColorSchemePayload
 import `in`.hridayan.ashell.core.presentation.theme.data.CustomColorSchemeDao
@@ -19,6 +18,7 @@ import `in`.hridayan.ashell.settings.domain.usecase.GenerateCustomThemeUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -31,14 +31,14 @@ class GenerateColorSchemeViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val generateCustomThemeUseCase: GenerateCustomThemeUseCase,
     private val colorSchemeImportHolder: ColorSchemeImportHolder,
-    private val apiKeyRepository: ApiKeyRepository
+    private val requireActiveProviderKey: RequireActiveProviderKeyUseCase
 ) : ViewModel() {
 
-    private val _showApiKeyRequiredDialog = MutableStateFlow(false)
-    val showApiKeyRequiredDialog = _showApiKeyRequiredDialog.asStateFlow()
+    private val _aiAccessPrompt = MutableStateFlow<ActiveProviderKeyStatus?>(null)
+    val aiAccessPrompt: StateFlow<ActiveProviderKeyStatus?> = _aiAccessPrompt.asStateFlow()
 
-    fun dismissApiKeyRequiredDialog() {
-        _showApiKeyRequiredDialog.value = false
+    fun dismissAiAccessPrompt() {
+        _aiAccessPrompt.value = null
     }
 
     init {
@@ -111,15 +111,13 @@ class GenerateColorSchemeViewModel @Inject constructor(
 
     fun generateColorScheme(prompt: String) {
         if (prompt.isBlank()) return
-        if (apiKeyRepository.getKey(LlmProvider.Gemini).isNullOrBlank()) {
-            _showApiKeyRequiredDialog.value = true
-            return
-        }
         viewModelScope.launch {
+            if (!hasUsableProvider()) return@launch
+
             _isGenerating.value = true
             _generationProgressMessage.value = "Consulting the color wheel..."
 
-            val result = generateCustomThemeUseCase(prompt, AiModelConstants.geminiLiteModels)
+            val result = generateCustomThemeUseCase(prompt)
 
             if (result.isSuccess) {
                 _generationProgressMessage.value = "Mixing digital paint..."
@@ -127,7 +125,7 @@ class GenerateColorSchemeViewModel @Inject constructor(
             } else {
                 val exception = result.exceptionOrNull()
                 if (exception is CloudNetworkException.ProviderNotConfigured) {
-                    _showApiKeyRequiredDialog.value = true
+                    _aiAccessPrompt.value = ActiveProviderKeyStatus.NoProviderSelected
                 } else {
                     val error = exception?.message ?: "Unknown error"
                     _generationError.value = "Failed to generate theme:\n$error"
@@ -145,5 +143,11 @@ class GenerateColorSchemeViewModel @Inject constructor(
             applyColorScheme(scheme.copy(id = id.toInt()))
             clearPreview()
         }
+    }
+
+    private suspend fun hasUsableProvider(): Boolean {
+        val status = requireActiveProviderKey()
+        if (status !is ActiveProviderKeyStatus.Allowed) _aiAccessPrompt.value = status
+        return status is ActiveProviderKeyStatus.Allowed
     }
 }

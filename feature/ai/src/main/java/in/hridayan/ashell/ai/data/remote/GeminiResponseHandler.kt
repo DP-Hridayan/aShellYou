@@ -11,13 +11,13 @@ internal object GeminiResponseHandler {
     private const val TAG = "GeminiResponseHandler"
     private val RETRY_DELAY_REGEX = Regex("""Please retry in ([\d.]+)s""")
 
-    suspend fun handleError(response: HttpResponse): Nothing {
+    suspend fun handleError(provider: LlmProvider, response: HttpResponse): Nothing {
         when (response.status) {
             HttpStatusCode.Unauthorized,
             HttpStatusCode.Forbidden -> {
                 val body = runCatching { response.bodyAsText() }.getOrElse { "" }
                 Log.w(TAG, "Gemini auth error ${response.status.value}: $body")
-                throw CloudNetworkException.Unauthorized(LlmProvider.Gemini)
+                throw CloudNetworkException.Unauthorized(provider, ProviderErrorBody.detail(body))
             }
 
             HttpStatusCode.TooManyRequests -> {
@@ -31,7 +31,7 @@ internal object GeminiResponseHandler {
             else -> {
                 val body = runCatching { response.bodyAsText() }.getOrElse { "" }
                 Log.w(TAG, "Gemini unexpected ${response.status.value}: $body")
-                throw CloudNetworkException.ServerError(response.status.value)
+                throw CloudNetworkException.ServerError(response.status.value, ProviderErrorBody.detail(body))
             }
         }
     }
