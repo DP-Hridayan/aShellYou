@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.core.common.domain.model.ai.CorrectionSuggestion
-import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
-import `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository
+import `in`.hridayan.ashell.core.common.domain.usecase.ai.ActiveProviderKeyStatus
 import `in`.hridayan.ashell.core.common.domain.usecase.ai.AnalyzeCommandUseCase
+import `in`.hridayan.ashell.core.common.domain.usecase.ai.RequireActiveProviderKeyUseCase
 import `in`.hridayan.ashell.core.presentation.model.AiAnalysisUiState
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,14 +23,14 @@ import javax.inject.Inject
 @HiltViewModel
 class AiAnalysisViewModel @Inject constructor(
     private val analyzeCommandUseCase: AnalyzeCommandUseCase,
-    private val apiKeyRepository: ApiKeyRepository
+    private val requireActiveProviderKey: RequireActiveProviderKeyUseCase
 ) : ViewModel() {
 
-    private val _showApiKeyRequiredDialog = MutableStateFlow(false)
-    val showApiKeyRequiredDialog: StateFlow<Boolean> = _showApiKeyRequiredDialog.asStateFlow()
+    private val _aiAccessPrompt = MutableStateFlow<ActiveProviderKeyStatus?>(null)
+    val aiAccessPrompt: StateFlow<ActiveProviderKeyStatus?> = _aiAccessPrompt.asStateFlow()
 
-    fun dismissApiKeyRequiredDialog() {
-        _showApiKeyRequiredDialog.value = false
+    fun dismissAiAccessPrompt() {
+        _aiAccessPrompt.value = null
     }
 
     private val _uiState = MutableStateFlow<AiAnalysisUiState>(AiAnalysisUiState.Idle)
@@ -55,10 +55,6 @@ class AiAnalysisViewModel @Inject constructor(
      */
     fun analyzeCommand(command: String) {
         if (command.isBlank()) return
-        if (apiKeyRepository.getKey(LlmProvider.Gemini).isNullOrBlank()) {
-            _showApiKeyRequiredDialog.value = true
-            return
-        }
 
         // Cancel any in-flight analysis to release the inference engine mutex.
         // The native JNI call isn't interruptible, but cancelling the coroutine
@@ -70,6 +66,12 @@ class AiAnalysisViewModel @Inject constructor(
         _showBottomSheet.value = true
 
         analysisJob = viewModelScope.launch {
+            if (!hasUsableProvider()) {
+                _showBottomSheet.value = false
+                _uiState.value = AiAnalysisUiState.Idle
+                return@launch
+            }
+
             try {
                 val result = analyzeCommandUseCase(command)
                 _uiState.value = AiAnalysisUiState.Success(result)
@@ -109,5 +111,11 @@ class AiAnalysisViewModel @Inject constructor(
      */
     fun retry(command: String) {
         analyzeCommand(command)
+    }
+
+    private suspend fun hasUsableProvider(): Boolean {
+        val status = requireActiveProviderKey()
+        if (status !is ActiveProviderKeyStatus.Allowed) _aiAccessPrompt.value = status
+        return status is ActiveProviderKeyStatus.Allowed
     }
 }

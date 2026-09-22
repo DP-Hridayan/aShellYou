@@ -27,6 +27,8 @@ internal fun SearchScreenScope.aiModelsGraph(
             icon(R.drawable.ic_cloud_model)
         }
 
+        cloudModelsGraph(navController)
+
         entry(key = SettingsKeys.AiSkillCommandExecution) {
             title(R.string.command_execution)
             description(R.string.des_command_execution)

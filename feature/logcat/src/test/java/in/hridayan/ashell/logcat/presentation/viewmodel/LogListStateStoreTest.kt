@@ -22,6 +22,7 @@ private fun entry(id: Long) = LogEntry(
 
 private val ENTRY_BYTES = entry(0).approximateSizeBytes().toLong()
 private val THREE_ENTRIES = ENTRY_BYTES * 3
+private const val FLOOD_BATCHES = 50
 
 private fun ids(store: LogListStateStore): List<Long> = store.state.value.logs.map { it.id }
 
@@ -54,12 +55,11 @@ class LogListStateStoreTest {
     }
 
     @Test
-    fun `append at the budget evicts oldest and keeps flag`() {
+    fun `appending keeps the auto-scroll flag`() {
         val store = LogListStateStore(THREE_ENTRIES)
         store.pause()
         store.append(listOf(entry(1), entry(2), entry(3)))
         store.append(listOf(entry(4)))
-        assertEquals(listOf(2L, 3L, 4L), ids(store))
         assertFalse(store.state.value.isAutoScrolling)
     }
 
@@ -101,5 +101,52 @@ class LogListStateStoreTest {
         store.pause()
         store.updateLimit(ENTRY_BYTES)
         assertFalse(store.state.value.isAutoScrolling)
+    }
+
+    @Test
+    fun `the published list is held still while paused`() {
+        val store = LogListStateStore(THREE_ENTRIES)
+        store.append(listOf(entry(1), entry(2), entry(3)))
+        store.pause()
+        store.append(listOf(entry(4), entry(5)))
+        assertEquals(listOf(1L, 2L, 3L), ids(store))
+    }
+
+    @Test
+    fun `a flood while paused never moves the published list`() {
+        val store = LogListStateStore(THREE_ENTRIES)
+        store.append(listOf(entry(1), entry(2), entry(3)))
+        store.pause()
+        repeat(FLOOD_BATCHES) { batch ->
+            store.append(listOf(entry(10L + batch), entry(100L + batch)))
+        }
+        assertEquals(listOf(1L, 2L, 3L), ids(store))
+    }
+
+    @Test
+    fun `resuming publishes the newest entries within the budget`() {
+        val store = LogListStateStore(THREE_ENTRIES)
+        store.append(listOf(entry(1), entry(2), entry(3)))
+        store.pause()
+        store.append(listOf(entry(4), entry(5)))
+        store.resume()
+        assertEquals(listOf(3L, 4L, 5L), ids(store))
+        assertTrue(store.state.value.isAutoScrolling)
+    }
+
+    @Test
+    fun `following still evicts at the budget`() {
+        val store = LogListStateStore(THREE_ENTRIES)
+        store.append(listOf(entry(1), entry(2), entry(3), entry(4)))
+        assertEquals(listOf(2L, 3L, 4L), ids(store))
+    }
+
+    @Test
+    fun `a filter replacement is published even while paused`() {
+        val store = LogListStateStore(THREE_ENTRIES)
+        store.append(listOf(entry(1), entry(2), entry(3)))
+        store.pause()
+        store.replace(listOf(entry(7), entry(8)))
+        assertEquals(listOf(7L, 8L), ids(store))
     }
 }

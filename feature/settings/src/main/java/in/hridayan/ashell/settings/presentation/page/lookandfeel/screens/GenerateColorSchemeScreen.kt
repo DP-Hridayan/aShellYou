@@ -105,7 +105,7 @@ import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.navigation.navigateBack
-import `in`.hridayan.ashell.core.presentation.components.dialog.ApiKeyRequiredDialog
+import `in`.hridayan.ashell.core.presentation.components.dialog.AiAccessPromptHost
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
@@ -277,16 +277,15 @@ fun GenerateColorSchemeScreen(
         )
     }
 
-    val showApiKeyRequiredDialog by viewModel.showApiKeyRequiredDialog.collectAsState()
-    if (showApiKeyRequiredDialog) {
-        ApiKeyRequiredDialog(
-            onDismiss = { viewModel.dismissApiKeyRequiredDialog() },
-            onConfirm = {
-                viewModel.dismissApiKeyRequiredDialog()
-                navController.navigate(NavRoutes.CloudModelsScreen)
-            }
-        )
-    }
+    val aiAccessPrompt by viewModel.aiAccessPrompt.collectAsState()
+    AiAccessPromptHost(
+        status = aiAccessPrompt,
+        onDismiss = viewModel::dismissAiAccessPrompt,
+        onAddApiKey = {
+            viewModel.dismissAiAccessPrompt()
+            navController.navigate(NavRoutes.CloudModelsScreen)
+        }
+    )
 
     generationError?.let { error ->
         AlertDialog(

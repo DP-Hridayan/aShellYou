@@ -30,4 +30,8 @@ object UrlConst {
     const val URL_CROWDIN_PROJECT = "https://crowdin.com/project/ashellyou"
     const val URL_GOOGLE_GEMINI_API_KEY = "https://aistudio.google.com/app/apikey"
     const val URL_GOOGLE_AI_STUDIO = "aistudio.google.com"
+    const val URL_GROQ_API_KEY = "https://console.groq.com/keys"
+    const val URL_GROQ_CONSOLE = "console.groq.com"
+    const val URL_OPENROUTER_API_KEY = "https://openrouter.ai/settings/keys"
+    const val URL_OPENROUTER = "openrouter.ai"
 }

@@ -15,16 +15,16 @@ import `in`.hridayan.ashell.core.common.domain.model.CommandEntity
 import `in`.hridayan.ashell.core.common.domain.model.OutputLine
 import `in`.hridayan.ashell.core.common.domain.model.SortType
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbEvent
-import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
-import `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository
 import `in`.hridayan.ashell.core.common.domain.repository.CommandRepository
 import `in`.hridayan.ashell.core.common.domain.repository.OtgRepository
 import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.core.common.domain.repository.ShellRepository
 import `in`.hridayan.ashell.core.common.domain.repository.TcpIpAdbRepository
 import `in`.hridayan.ashell.core.common.domain.tools.FindAppPackageTool
+import `in`.hridayan.ashell.core.common.domain.usecase.ai.ActiveProviderKeyStatus
 import `in`.hridayan.ashell.core.common.domain.usecase.ai.AnalyzeCommandUseCase
 import `in`.hridayan.ashell.core.common.domain.usecase.ai.QueryCommandUseCase
+import `in`.hridayan.ashell.core.common.domain.usecase.ai.RequireActiveProviderKeyUseCase
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.model.AiAnalysisUiState
 import `in`.hridayan.ashell.core.resources.R
@@ -36,7 +36,6 @@ import `in`.hridayan.ashell.shell.common.domain.model.SuggestionLabel
 import `in`.hridayan.ashell.shell.common.domain.model.SuggestionType
 import `in`.hridayan.ashell.shell.common.domain.repository.PackageRepository
 import `in`.hridayan.ashell.shell.common.domain.usecase.DetectSuggestionTypeUseCase
-import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.AdbCommandCatalog
 import `in`.hridayan.ashell.shell.common.domain.usecase.ExtractLastCommandOutputUseCase
 import `in`.hridayan.ashell.shell.common.domain.usecase.GetSaveOutputFileNameUseCase
 import `in`.hridayan.ashell.shell.common.presentation.model.CommandResult
@@ -44,6 +43,7 @@ import `in`.hridayan.ashell.shell.common.presentation.model.ShellScreenState
 import `in`.hridayan.ashell.shell.common.presentation.model.ShellState
 import `in`.hridayan.ashell.shell.domain.model.SaveProgress
 import `in`.hridayan.ashell.shell.domain.utils.saveToFileStreamingFlow
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.AdbCommandCatalog
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
@@ -86,16 +86,16 @@ class ShellViewModel @Inject constructor(
     private val wifiAdbRepository: TcpIpAdbRepository,
     private val settingsRepository: SettingsRepository,
     @param:ApplicationContext private val appContext: Context,
-    private val apiKeyRepository: ApiKeyRepository
+    private val requireActiveProviderKey: RequireActiveProviderKeyUseCase
 ) : ViewModel() {
-    private val _showApiKeyRequiredDialog = MutableStateFlow(false)
-    val showApiKeyRequiredDialog = _showApiKeyRequiredDialog.asStateFlow()
+    private val _aiAccessPrompt = MutableStateFlow<ActiveProviderKeyStatus?>(null)
+    val aiAccessPrompt: StateFlow<ActiveProviderKeyStatus?> = _aiAccessPrompt.asStateFlow()
 
     private val _tcpIpEvent = MutableSharedFlow<WifiAdbEvent>(replay = 0)
     val tcpIpEvent: SharedFlow<WifiAdbEvent> = _tcpIpEvent.asSharedFlow()
 
-    fun dismissApiKeyRequiredDialog() {
-        _showApiKeyRequiredDialog.value = false
+    fun dismissAiAccessPrompt() {
+        _aiAccessPrompt.value = null
     }
 
     private val _states = MutableStateFlow(ShellScreenState())
@@ -609,19 +609,17 @@ class ShellViewModel @Inject constructor(
 
     fun analyzeCommand(command: String) {
         if (command.isBlank()) return
-        if (apiKeyRepository.getKey(LlmProvider.Gemini).isNullOrBlank()) {
-            _showApiKeyRequiredDialog.value = true
-            return
-        }
 
         viewModelScope.launch {
+            if (!hasUsableProvider()) return@launch
+
             _aiAnalysisState.value = AiAnalysisUiState.Loading
             try {
                 val result = analyzeCommandUseCase(command)
                 _aiAnalysisState.value = AiAnalysisUiState.Success(result)
             } catch (e: Exception) {
                 if (e is CloudNetworkException.ProviderNotConfigured) {
-                    _showApiKeyRequiredDialog.value = true
+                    _aiAccessPrompt.value = ActiveProviderKeyStatus.NoProviderSelected
                 } else {
                     _aiAnalysisState.value = AiAnalysisUiState.Error(
                         e.localizedMessage ?: appContext.getString(R.string.unexpected_error)
@@ -649,12 +647,10 @@ class ShellViewModel @Inject constructor(
 
     fun queryCommand(query: String) {
         if (query.isBlank()) return
-        if (apiKeyRepository.getKey(LlmProvider.Gemini).isNullOrBlank()) {
-            _showApiKeyRequiredDialog.value = true
-            return
-        }
 
         viewModelScope.launch {
+            if (!hasUsableProvider()) return@launch
+
             _askAiState.value = AiAnalysisUiState.Loading
             try {
                 // Pass available tools to the query use case
@@ -662,7 +658,7 @@ class ShellViewModel @Inject constructor(
                 _askAiState.value = AiAnalysisUiState.Success(result)
             } catch (e: Exception) {
                 if (e is CloudNetworkException.ProviderNotConfigured) {
-                    _showApiKeyRequiredDialog.value = true
+                    _aiAccessPrompt.value = ActiveProviderKeyStatus.NoProviderSelected
                 } else {
                     _askAiState.value = AiAnalysisUiState.Error(
                         e.localizedMessage ?: appContext.getString(R.string.unexpected_error)
@@ -670,5 +666,11 @@ class ShellViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    private suspend fun hasUsableProvider(): Boolean {
+        val status = requireActiveProviderKey()
+        if (status !is ActiveProviderKeyStatus.Allowed) _aiAccessPrompt.value = status
+        return status is ActiveProviderKeyStatus.Allowed
     }
 }

@@ -10,11 +10,11 @@ import `in`.hridayan.ashell.commandexamples.presentation.model.CmdExamplesScreen
 import `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException
 import `in`.hridayan.ashell.core.common.domain.model.CommandEntity
 import `in`.hridayan.ashell.core.common.domain.model.SortType
-import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
-import `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository
 import `in`.hridayan.ashell.core.common.domain.repository.CommandRepository
 import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.core.common.domain.usecase.ai.ActiveProviderKeyStatus
 import `in`.hridayan.ashell.core.common.domain.usecase.ai.AnalyzeCommandUseCase
+import `in`.hridayan.ashell.core.common.domain.usecase.ai.RequireActiveProviderKeyUseCase
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.model.AiAnalysisUiState
 import `in`.hridayan.ashell.core.resources.R
@@ -40,13 +40,13 @@ class CommandExamplesViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val analyzeCommandUseCase: AnalyzeCommandUseCase,
     @param:ApplicationContext private val appContext: Context,
-    private val apiKeyRepository: ApiKeyRepository
+    private val requireActiveProviderKey: RequireActiveProviderKeyUseCase
 ) : ViewModel() {
-    private val _showApiKeyRequiredDialog = MutableStateFlow(false)
-    val showApiKeyRequiredDialog = _showApiKeyRequiredDialog.asStateFlow()
+    private val _aiAccessPrompt = MutableStateFlow<ActiveProviderKeyStatus?>(null)
+    val aiAccessPrompt: StateFlow<ActiveProviderKeyStatus?> = _aiAccessPrompt.asStateFlow()
 
-    fun dismissApiKeyRequiredDialog() {
-        _showApiKeyRequiredDialog.value = false
+    fun dismissAiAccessPrompt() {
+        _aiAccessPrompt.value = null
     }
 
     private val _states = MutableStateFlow(CmdExamplesScreenState())
@@ -396,12 +396,10 @@ class CommandExamplesViewModel @Inject constructor(
     fun analyzeCommand(command: String, onAnalyseStart: () -> Unit = {}) {
         if (command.isBlank()) return
 
-        if (apiKeyRepository.getKey(LlmProvider.Gemini).isNullOrBlank()) {
-            _showApiKeyRequiredDialog.value = true
-            return
-        }
 
         viewModelScope.launch {
+            if (!hasUsableProvider()) return@launch
+
             _aiAnalysisState.value = AiAnalysisUiState.Loading
 
             try {
@@ -410,7 +408,7 @@ class CommandExamplesViewModel @Inject constructor(
                 _aiAnalysisState.value = AiAnalysisUiState.Success(result)
             } catch (e: Exception) {
                 if (e is CloudNetworkException.ProviderNotConfigured) {
-                    _showApiKeyRequiredDialog.value = true
+                    _aiAccessPrompt.value = ActiveProviderKeyStatus.NoProviderSelected
                 } else {
                     _aiAnalysisState.value = AiAnalysisUiState.Error(
                         e.localizedMessage ?: appContext.getString(R.string.unexpected_error)
@@ -422,5 +420,11 @@ class CommandExamplesViewModel @Inject constructor(
 
     fun resetAiAnalysisState() {
         _aiAnalysisState.value = AiAnalysisUiState.Idle
+    }
+
+    private suspend fun hasUsableProvider(): Boolean {
+        val status = requireActiveProviderKey()
+        if (status !is ActiveProviderKeyStatus.Allowed) _aiAccessPrompt.value = status
+        return status is ActiveProviderKeyStatus.Allowed
     }
 }

@@ -1229,4 +1229,28 @@
     <string name="changelog_v1_0_0">\nAdded some more command examples.\nMinor UI changes.\nChanged package name to avoid version confusion with original app.</string>
     <string name="changelog_v0_9_1">\nAdded changelogs into the app.\nAdded highlighted shell output.\nMinor UI changes.</string>
     <string name="changelog_v0_9_0">\nAdded dynamic material theming.\nRevamped whole UI to give a fresh look.</string>
+    <string name="error_invalid_api_key" comment="Error shown when the AI provider rejects the stored API key. %1$s is the provider name, e.g. Groq">Invalid API key for %1$s. Check your settings.</string>
+    <string name="error_rate_limited_retry_in" comment="Error shown when the AI provider is throttling requests. %1$d is a number of seconds">Rate limited &#8212; try again in %1$ds.</string>
+    <string name="error_rate_limited" comment="Error shown when the AI provider is throttling requests and gives no retry time">Rate limited by provider. Try again shortly.</string>
+    <string name="error_bad_request" comment="Error shown when the AI provider rejects the request itself, usually a malformed tool schema">Request error: the provider rejected this request.</string>
+    <string name="error_provider_server" comment="Error shown when the AI provider returns a server failure. %1$d is the HTTP status code">Provider server error (%1$d). Try again later.</string>
+    <string name="error_no_connection" comment="Error shown when the request to the AI provider could not be sent or timed out">No internet connection or request timed out.</string>
+    <string name="error_unexpected_response" comment="Error shown when the AI provider reply could not be understood">Unexpected response from provider. Try again.</string>
+    <string name="error_no_api_key_for_provider" comment="Error shown when the selected AI provider has no API key saved. %1$s is the provider name">No API key set for %1$s.</string>
+    <string name="error_model_unavailable" comment="Error shown when every AI model the app tried has been retired by the provider">The provider retired the models this app uses. Try another provider.</string>
+    <string name="error_insufficient_credits" comment="Error shown when the AI provider account has no credit left. %1$s is the provider name">No remaining credit for %1$s.</string>
+    <string name="error_no_active_provider" comment="Error shown when the user has not chosen which AI provider to use">No AI provider selected.</string>
+    <string name="active_provider" comment="Settings item title for choosing which cloud AI provider the app uses">Active provider</string>
+    <string name="choose_provider" comment="Button label that opens the dialog for picking the active AI provider">Choose provider</string>
+    <string name="no_api_key_for_active_provider" comment="Dialog message shown when an AI feature is used but the chosen provider has no key. %1$s is the provider name, e.g. Groq">There is no API key for active provider %1$s. Would you like to choose another provider?</string>
+    <string name="groq_api_key_step_1" comment="Step 1 of the Groq API key setup guide. %1$s = URL">Visit the Groq Console at %1$s</string>
+    <string name="groq_api_key_step_2" comment="Step 2 of the Groq API key setup guide: creating an account">Sign in or create a free Groq account</string>
+    <string name="groq_api_key_step_3" comment="Step 3 of the Groq API key setup guide: creating the key">Open the API Keys page and click Create API Key</string>
+    <string name="groq_api_key_step_4" comment="Step 4 of the Groq API key setup guide: copying the key">Copy your API key and paste it here</string>
+    <string name="openrouter_api_key_step_1" comment="Step 1 of the OpenRouter API key setup guide. %1$s = URL">Visit OpenRouter at %1$s</string>
+    <string name="openrouter_api_key_step_2" comment="Step 2 of the OpenRouter API key setup guide: creating an account">Sign in or create a free OpenRouter account</string>
+    <string name="openrouter_api_key_step_3" comment="Step 3 of the OpenRouter API key setup guide: creating the key">Open Settings then Keys, and click Create Key</string>
+    <string name="openrouter_api_key_step_4" comment="Step 4 of the OpenRouter API key setup guide: copying the key">Copy your API key and paste it here</string>
+    <string name="des_active_provider" comment="Settings item description explaining that AI features use the selected provider">AI features use this provider</string>
+    <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">Thinking</string>
 </resources>

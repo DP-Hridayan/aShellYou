@@ -30,12 +30,6 @@ fun OperationItem(
     operation: FileOperation,
     onCancel: () -> Unit
 ) {
-    val progress = if (operation.totalBytes > 0) {
-        operation.bytesTransferred.toFloat() / operation.totalBytes.toFloat()
-    } else {
-        0f
-    }
-
     val icon = when (operation.type) {
         OperationType.DOWNLOAD -> Icons.Rounded.Download
         OperationType.UPLOAD -> Icons.Rounded.Upload
@@ -61,17 +55,23 @@ fun OperationItem(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-            if (operation.totalBytes > 0) {
-                Text(
-                    text = "${formatSize(operation.bytesTransferred)} / ${formatSize(operation.totalBytes)}",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
-            LinearProgressIndicator(
-                progress = { progress },
-                modifier = Modifier.fillMaxWidth()
+            Text(
+                text = if (operation.hasKnownTotal) {
+                    "${formatSize(operation.bytesTransferred)} / ${formatSize(operation.totalBytes)}"
+                } else {
+                    formatSize(operation.bytesTransferred)
+                },
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
+            if (operation.hasKnownTotal) {
+                LinearProgressIndicator(
+                    progress = { operation.progress },
+                    modifier = Modifier.fillMaxWidth()
+                )
+            } else {
+                LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+            }
         }
         IconButton(onClick = onCancel) {
             Icon(

@@ -1,11 +1,14 @@
 package `in`.hridayan.ashell.shell.file_browser.domain.protocol
 
+import kotlinx.coroutines.withTimeout
 import java.io.InputStream
 import java.io.OutputStream
 import java.nio.charset.StandardCharsets
 
 private const val DEFAULT_FILE_MODE = 420
 private const val MILLIS_PER_SECOND = 1000L
+private const val STAT_TIMEOUT_MS = 10_000L
+private const val MAX_EMPTY_READS = 64
 
 /**
  * Drives one ADB `sync:` session over a [SyncTransport].
@@ -17,14 +20,25 @@ class SyncSession(private val transport: SyncTransport) {
 
     private val reader = SyncFrameReader(transport)
 
-    suspend fun stat(path: String): SyncStat {
+    /**
+     * Metadata for [path].
+     *
+     * The reply is read whole rather than as a header and a payload, because its four bytes after the
+     * id carry the file mode, not a length. Reading it as an ordinary frame asked the device for four
+     * bytes it had never sent.
+     *
+     * Bounded, unlike the transfers, because a metadata answer arrives at once or not at all and must
+     * never be able to stall a download that would otherwise work.
+     */
+    suspend fun stat(path: String): SyncStat = withTimeout(STAT_TIMEOUT_MS) {
         transport.write(SyncProtocol.request(SyncProtocol.ID_STAT, path))
-        val frame = reader.readFrame()
-        if (frame.id != SyncProtocol.ID_STAT) {
-            throw SyncProtocolException("Expected a stat reply but got '${frame.id}'")
+
+        val reply = reader.readExactly(SyncProtocol.STAT_REPLY_SIZE)
+        val id = SyncProtocol.idOf(reply)
+        if (id != SyncProtocol.ID_STAT) {
+            throw SyncProtocolException("Expected a stat reply but got '$id'")
         }
-        val payload = reader.readExactly(SyncProtocol.STAT_PAYLOAD_SIZE)
-        return SyncProtocol.decodeStat(payload)
+        SyncProtocol.decodeStat(reply)
     }
 
     /**
@@ -133,13 +147,21 @@ internal class SyncFrameReader(private val transport: SyncTransport) {
         return result
     }
 
+    /**
+     * A transport signals the end of a stream by throwing, so an empty read means nothing arrived
+     * yet. Retrying without a bound would spin a core in silence if one ever kept returning nothing.
+     */
     private suspend fun refill() {
+        var emptyReads = 0
         while (true) {
             val chunk = transport.read()
             if (chunk.isNotEmpty()) {
                 pending = chunk
                 offset = 0
                 return
+            }
+            if (++emptyReads >= MAX_EMPTY_READS) {
+                throw SyncProtocolException("Transport returned no data")
             }
         }
     }

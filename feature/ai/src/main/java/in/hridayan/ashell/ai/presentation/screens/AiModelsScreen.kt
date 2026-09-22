@@ -39,7 +39,8 @@ import `in`.hridayan.settingsgraph.ui.SettingsColumn
 
 enum class AiDialogKey : DialogKey {
     CacheDays,
-    CacheClearConfirmation
+    CacheClearConfirmation,
+    ActiveProvider
 }
 
 @Composable

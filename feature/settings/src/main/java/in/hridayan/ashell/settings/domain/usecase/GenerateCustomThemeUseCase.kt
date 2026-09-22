@@ -1,37 +1,39 @@
 package `in`.hridayan.ashell.settings.domain.usecase
 
 import android.util.Log
-import `in`.hridayan.ashell.core.common.constants.AiModelConstants
 import `in`.hridayan.ashell.core.common.domain.model.CloudNetworkException
+import `in`.hridayan.ashell.core.common.domain.model.ai.ModelTier
+import `in`.hridayan.ashell.core.common.domain.provider.LlmModelCatalog
 import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
 import `in`.hridayan.ashell.core.common.domain.provider.LlmProviderClient
 import `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository
-import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
-import `in`.hridayan.ashell.core.common.settings.SettingsKeys
+import `in`.hridayan.ashell.core.common.domain.usecase.ai.GetActiveLlmProviderUseCase
+import `in`.hridayan.ashell.core.common.domain.usecase.ai.ModelFallbackExecutor
 import `in`.hridayan.ashell.core.presentation.theme.data.ColorSchemePayload
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
+
+private const val TAG = "GenerateCustomTheme"
 
 class GenerateCustomThemeUseCase @Inject constructor(
     private val clients: Map<LlmProvider, @JvmSuppressWildcards LlmProviderClient>,
     private val apiKeyRepository: ApiKeyRepository,
-    private val settingsRepository: SettingsRepository
+    private val modelCatalog: LlmModelCatalog,
+    private val fallbackExecutor: ModelFallbackExecutor,
+    private val getActiveLlmProvider: GetActiveLlmProviderUseCase,
 ) {
     suspend operator fun invoke(prompt: String, fallbackModels: List<String>? = null): Result<ColorSchemePayload> {
         return try {
-            val providerId = settingsRepository.getString(SettingsKeys.AiCloudProvider).firstOrNull() ?: SettingsKeys.AiCloudProvider.default
-            val provider = LlmProvider.fromId(providerId) ?: LlmProvider.Gemini
-            val client = clients[provider] ?: throw IllegalStateException("${provider.displayName} client not found")
-            val apiKey = apiKeyRepository.getKey(provider)
-                ?: throw IllegalStateException("${provider.displayName} API Key not set. Please set it in Settings -> AI Models -> Cloud Models.")
+            val provider = getActiveLlmProvider() ?: throw CloudNetworkException.NoActiveProvider()
+            val client = clients[provider]
+                ?: throw CloudNetworkException.ProviderNotConfigured(provider)
+            val apiKey = apiKeyRepository.getKey(provider)?.takeIf { it.isNotBlank() }
+                ?: throw CloudNetworkException.ProviderNotConfigured(provider)
 
-            val models = fallbackModels?.takeIf { it.isNotEmpty() } ?: when (provider) {
-                LlmProvider.Gemini -> AiModelConstants.geminiModelsHighestToLowest
-                // Add other providers here later
-            }
+            val models = fallbackModels?.takeIf { it.isNotEmpty() }
+                ?: modelCatalog.chain(provider, ModelTier.QUALITY, toolsRequired = false)
 
-            if (models.isEmpty()) throw IllegalStateException("No models configured for provider ${provider.displayName}")
+            if (models.isEmpty()) throw CloudNetworkException.ProviderNotConfigured(provider)
 
             val systemPrompt = """
                 You are a Material Design 3 theme generator expert. You will generate a complete, mathematically precise Material 3 ColorScheme based on the user's creative prompt.
@@ -88,59 +90,29 @@ class GenerateCustomThemeUseCase @Inject constructor(
                 }
             """.trimIndent()
 
-            var lastException: Exception? = null
-            var response = ""
-
-            for (model in models) {
-                try {
-                    response = client.complete(
-                        model = model,
-                        systemPrompt = systemPrompt,
-                        userPrompt = "Generate a theme based on this prompt: $prompt",
-                        apiKey = apiKey
-                    )
-                    // If complete returns successfully, break out of loop
-                    break
-                } catch (e: CloudNetworkException.RateLimited) {
-                    lastException = e
-                    Log.w("GenerateCustomTheme", "Model $model rate limited, trying next")
-                } catch (e: CloudNetworkException.ServerError) {
-                    if (e.code == 429 || e.code >= 500 || e.code == 404) {
-                        lastException = e
-                        Log.w("GenerateCustomTheme", "Model $model server error ${e.code}, trying next")
-                    } else {
-                        throw e
-                    }
-                } catch (e: CloudNetworkException.NetworkError) {
-                    lastException = e
-                    Log.w("GenerateCustomTheme", "Model $model network/timeout error, trying next")
-                } catch (e: CloudNetworkException.ParseError) {
-                    lastException = e
-                    Log.w("GenerateCustomTheme", "Model $model parse error, trying next")
-                } catch (e: CloudNetworkException) {
-                    // Fatal errors like Unauthorized
-                    throw e
-                }
+            val response = fallbackExecutor.execute(provider, models) { model ->
+                client.complete(
+                    model = model,
+                    systemPrompt = systemPrompt,
+                    userPrompt = "Generate a theme based on this prompt: $prompt",
+                    apiKey = apiKey
+                )
             }
 
-            if (response.isBlank()) {
-                throw lastException ?: IllegalStateException("Failed to generate theme with all fallback models.")
-            }
-
-            Log.d("GenerateCustomTheme", "Raw AI Response:\n$response")
+            Log.d(TAG, "Raw AI Response:\n$response")
 
             // Sanitize response to ensure it's pure JSON
             val jsonString = response.substringAfter("{").substringBeforeLast("}")
             val finalJson = "{$jsonString}"
 
-            Log.d("GenerateCustomTheme", "Cleaned JSON:\n$finalJson")
+            Log.d(TAG, "Cleaned JSON:\n$finalJson")
 
             val jsonParser = Json { ignoreUnknownKeys = true }
             val payload = jsonParser.decodeFromString<ColorSchemePayload>(finalJson)
 
             Result.success(payload)
         } catch (e: Exception) {
-            Log.e("GenerateCustomTheme", "Failed to generate or parse theme", e)
+            Log.e(TAG, "Failed to generate or parse theme", e)
             Result.failure(e)
         }
     }

@@ -123,7 +123,7 @@ import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.presentation.components.ai.AiAnalysisBottomSheet
 import `in`.hridayan.ashell.core.presentation.components.ai.AiAnalysisButton
 import `in`.hridayan.ashell.core.presentation.components.ai.AskAiButton
-import `in`.hridayan.ashell.core.presentation.components.dialog.ApiKeyRequiredDialog
+import `in`.hridayan.ashell.core.presentation.components.dialog.AiAccessPromptHost
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scrollbar.VerticalScrollbar
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
@@ -192,7 +192,7 @@ fun BaseShellScreen(
     val bookmarks by bookmarkViewModel.searchedBookmarks.collectAsStateWithLifecycle()
     val bookmarkCount by bookmarkViewModel.getBookmarkCount.collectAsState(initial = 0)
     val searchQuery by bookmarkViewModel.bookmarksSearchQuery.collectAsStateWithLifecycle()
-    val showApiKeyRequiredDialog by shellViewModel.showApiKeyRequiredDialog.collectAsState()
+    val aiAccessPrompt by shellViewModel.aiAccessPrompt.collectAsState()
     val saveProgress by shellViewModel.saveProgress.collectAsState()
     val searchOutputResult by shellViewModel.filteredOutput.collectAsState()
     val suggestions by shellViewModel.suggestions.collectAsState()
@@ -846,15 +846,14 @@ fun BaseShellScreen(
         )
     }
 
-    if (showApiKeyRequiredDialog) {
-        ApiKeyRequiredDialog(
-            onDismiss = { shellViewModel.dismissApiKeyRequiredDialog() },
-            onConfirm = {
-                shellViewModel.dismissApiKeyRequiredDialog()
-                navController.navigate(NavRoutes.CloudModelsScreen)
-            }
-        )
-    }
+    AiAccessPromptHost(
+        status = aiAccessPrompt,
+        onDismiss = shellViewModel::dismissAiAccessPrompt,
+        onAddApiKey = {
+            shellViewModel.dismissAiAccessPrompt()
+            navController.navigate(NavRoutes.CloudModelsScreen)
+        }
+    )
 
     extraContent()
 }

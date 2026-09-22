@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.shell.local_adb_shell.data.shell
 
 import android.content.Context
+import android.util.Log
 import `in`.hridayan.ashell.core.common.domain.model.OutputLine
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.shizuku.domain.ShizukuCommandRunner
@@ -25,6 +26,10 @@ class ShellCommandExecutor(
     private val context: Context,
     private val shizukuCommandRunner: ShizukuCommandRunner
 ) {
+    private companion object {
+        const val TAG = "ShellCommandExecutor"
+    }
+
     private var currentProcess: Process? = null
     private var currentDir = "/storage/emulated/0/"
 
@@ -117,6 +122,7 @@ class ShellCommandExecutor(
         process.waitFor()
         output
     } catch (e: Exception) {
+        Log.e(TAG, "Directory probe failed", e)
         null
     }
 

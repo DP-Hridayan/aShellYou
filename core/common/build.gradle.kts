@@ -61,6 +61,7 @@ dependencies {
     implementation(libs.compose.settings.graph)
     
     testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)
 }

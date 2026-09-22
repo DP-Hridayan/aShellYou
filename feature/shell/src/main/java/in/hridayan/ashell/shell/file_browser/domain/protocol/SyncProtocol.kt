@@ -28,8 +28,14 @@ object SyncProtocol {
     const val ID_FAIL = "FAIL"
     const val ID_QUIT = "QUIT"
 
-    /** Bytes of a `STAT` reply: mode, size and modification time. */
-    const val STAT_PAYLOAD_SIZE = 12
+    /**
+     * Bytes of a whole `STAT` reply: the id, then mode, size and modification time.
+     *
+     * Unlike every other reply, the four bytes after the id are data rather than a payload length, so
+     * this message must not be read through [decodeHeader]. Doing so consumed the mode as a length
+     * and then asked for twelve more bytes on top of the sixteen the device had already sent.
+     */
+    const val STAT_REPLY_SIZE = 16
 
     fun header(id: String, value: Int): ByteArray {
         require(id.length == ID_LENGTH) { "A sync id is $ID_LENGTH characters, got '$id'" }
@@ -58,11 +64,16 @@ object SyncProtocol {
         return SyncFrame(String(id, StandardCharsets.US_ASCII), buffer.int)
     }
 
-    fun decodeStat(payload: ByteArray): SyncStat {
-        require(payload.size >= STAT_PAYLOAD_SIZE) {
-            "A stat payload is $STAT_PAYLOAD_SIZE bytes"
-        }
-        val buffer = ByteBuffer.wrap(payload).order(ByteOrder.LITTLE_ENDIAN)
+    /** The four character id at the front of [reply]. */
+    fun idOf(reply: ByteArray): String {
+        require(reply.size >= ID_LENGTH) { "A sync id is $ID_LENGTH bytes" }
+        return String(reply, 0, ID_LENGTH, StandardCharsets.US_ASCII)
+    }
+
+    fun decodeStat(reply: ByteArray): SyncStat {
+        require(reply.size >= STAT_REPLY_SIZE) { "A stat reply is $STAT_REPLY_SIZE bytes" }
+        val buffer = ByteBuffer.wrap(reply, ID_LENGTH, STAT_REPLY_SIZE - ID_LENGTH)
+            .order(ByteOrder.LITTLE_ENDIAN)
         return SyncStat(
             mode = buffer.int,
             size = buffer.int.toUnsignedLong(),

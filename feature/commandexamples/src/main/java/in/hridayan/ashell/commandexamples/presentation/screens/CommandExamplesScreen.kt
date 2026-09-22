@@ -93,7 +93,7 @@ import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.core.presentation.components.ai.AiAnalysisBottomSheet
 import `in`.hridayan.ashell.core.presentation.components.appbar.TopAppBarLarge
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
-import `in`.hridayan.ashell.core.presentation.components.dialog.ApiKeyRequiredDialog
+import `in`.hridayan.ashell.core.presentation.components.dialog.AiAccessPromptHost
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
@@ -416,16 +416,15 @@ fun CommandExamplesScreen(
         else -> dialogManager.dismiss()
     }
 
-    val showApiKeyRequiredDialog by viewModel.showApiKeyRequiredDialog.collectAsState()
-    if (showApiKeyRequiredDialog) {
-        ApiKeyRequiredDialog(
-            onDismiss = { viewModel.dismissApiKeyRequiredDialog() },
-            onConfirm = {
-                viewModel.dismissApiKeyRequiredDialog()
-                navController.navigate(NavRoutes.CloudModelsScreen)
-            }
-        )
-    }
+    val aiAccessPrompt by viewModel.aiAccessPrompt.collectAsState()
+    AiAccessPromptHost(
+        status = aiAccessPrompt,
+        onDismiss = viewModel::dismissAiAccessPrompt,
+        onAddApiKey = {
+            viewModel.dismissAiAccessPrompt()
+            navController.navigate(NavRoutes.CloudModelsScreen)
+        }
+    )
 }
 
 @Composable
