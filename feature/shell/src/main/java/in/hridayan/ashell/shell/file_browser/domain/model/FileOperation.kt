@@ -26,8 +26,17 @@ data class FileOperation(
     val message: String = "",
     val status: OperationStatus = OperationStatus.PENDING
 ) {
+    /**
+     * True when the transfer knows how big the file is.
+     *
+     * A metadata call can fail while the transfer itself works, and when that happened the bar showed
+     * zero for the whole download. An unknown total is now shown as unknown rather than as no
+     * progress at all.
+     */
+    val hasKnownTotal: Boolean get() = totalBytes > 0
+
     val progress: Float
-        get() = if (totalBytes > 0) {
+        get() = if (hasKnownTotal) {
             (bytesTransferred.toFloat() / totalBytes.toFloat()).coerceIn(0f, 1f)
         } else {
             0f

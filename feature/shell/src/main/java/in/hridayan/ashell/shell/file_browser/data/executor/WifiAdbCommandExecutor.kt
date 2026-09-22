@@ -10,6 +10,7 @@ import `in`.hridayan.ashell.shell.file_browser.domain.protocol.SyncStat
 import `in`.hridayan.ashell.shell.file_browser.domain.protocol.SyncTransport
 import io.github.muntashirakon.adb.AbsAdbConnectionManager
 import io.github.muntashirakon.adb.AdbStream
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.IOException
@@ -89,9 +90,15 @@ class WifiAdbCommandExecutor @Inject constructor(
         requireSyncSession { it.push(source, remotePath, onProgress = onProgress) }
     }
 
+    /**
+     * Catches everything, not only [IOException]. A protocol surprise arrives as some other type, and
+     * letting it escape turned a missing file size into a failed download.
+     */
     private suspend fun <T> withSyncSession(block: suspend (SyncSession) -> T): T? = try {
         requireSyncSession(block)
-    } catch (e: IOException) {
+    } catch (e: CancellationException) {
+        throw e
+    } catch (e: Exception) {
         Log.e(TAG, "Sync session failed", e)
         null
     }

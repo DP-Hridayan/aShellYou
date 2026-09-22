@@ -134,9 +134,7 @@ class SyncSessionTest {
 
     @Test
     fun `stat reports an existing file`() = runTest {
-        val transport = FakeTransport(
-            SyncProtocol.header(SyncProtocol.ID_STAT, 0) + statPayload(mode = 33188, size = 4096)
-        )
+        val transport = FakeTransport(statReply(mode = 33188, size = 4096))
 
         val stat = SyncSession(transport).stat("/sdcard/a.txt")
 
@@ -146,9 +144,7 @@ class SyncSessionTest {
 
     @Test
     fun `stat reports a missing file as absent`() = runTest {
-        val transport = FakeTransport(
-            SyncProtocol.header(SyncProtocol.ID_STAT, 0) + statPayload(mode = 0, size = 0)
-        )
+        val transport = FakeTransport(statReply(mode = 0, size = 0))
 
         assertFalse(SyncSession(transport).stat("/nope").exists)
     }
@@ -156,12 +152,34 @@ class SyncSessionTest {
     @Test
     fun `a size above two gigabytes is not read as negative`() = runTest {
         val threeGigabytes = 3L * 1024 * 1024 * 1024
-        val transport = FakeTransport(
-            SyncProtocol.header(SyncProtocol.ID_STAT, 0) +
-                    statPayload(mode = 33188, size = threeGigabytes.toInt())
-        )
+        val transport = FakeTransport(statReply(mode = 33188, size = threeGigabytes.toInt()))
 
         assertEquals(threeGigabytes, SyncSession(transport).stat("/sdcard/big").size)
+    }
+
+    /**
+     * The regression guard. A stat reply is sixteen bytes, and reading it as an ordinary header plus
+     * a twelve byte payload asked the device for twenty, so the reader waited on four bytes that were
+     * never coming. The fake supplies exactly sixteen and nothing more.
+     */
+    @Test
+    fun `stat consumes the whole reply and no more`() = runTest {
+        val transport = FakeTransport(statReply(mode = 33188, size = 7))
+
+        SyncSession(transport).stat("/sdcard/a.txt")
+
+        assertEquals(SyncProtocol.STAT_REPLY_SIZE, transport.consumed())
+    }
+
+    @Test
+    fun `a reply that is not a stat is reported`() = runTest {
+        val transport = FakeTransport(
+            SyncProtocol.header(SyncProtocol.ID_FAIL, 0) + ByteArray(8)
+        )
+
+        val error = runCatching { SyncSession(transport).stat("/sdcard/a.txt") }.exceptionOrNull()
+
+        assertTrue(error is SyncProtocolException)
     }
 
     @Test
@@ -188,9 +206,11 @@ class SyncSessionTest {
 
     private fun frame(id: String, value: Int) = SyncProtocol.header(id, value)
 
-    private fun statPayload(mode: Int, size: Int): ByteArray =
-        ByteBuffer.allocate(SyncProtocol.STAT_PAYLOAD_SIZE)
+    /** A whole stat reply: the id, then mode, size and modification time. */
+    private fun statReply(mode: Int, size: Int): ByteArray =
+        ByteBuffer.allocate(SyncProtocol.STAT_REPLY_SIZE)
             .order(ByteOrder.LITTLE_ENDIAN)
+            .put(SyncProtocol.ID_STAT.toByteArray(StandardCharsets.US_ASCII))
             .putInt(mode)
             .putInt(size)
             .putInt(0)
@@ -208,6 +228,8 @@ class SyncSessionTest {
             val take = minOf(chunkSize, script.size - position)
             return script.copyOfRange(position, position + take).also { position += take }
         }
+
+        fun consumed(): Int = position
 
         override suspend fun write(data: ByteArray) {
             sent.write(data)
