@@ -300,6 +300,7 @@
     <string name="database">Database</string>
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">Modifica database</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Solo database</string>
+    <string name="days" comments="Days as in number of days">Giorni</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Cartella predefinita</string>
     <string name="default_language" comment="Setting preference label for selecting application language">Lingua predefinita</string>
     <string name="delete">Elimina</string>
@@ -718,6 +719,10 @@
     <string name="not_signed_in" comment="Status text in cloud backup settings when Google account is signed out">Accesso non effettuato</string>
     <string name="nothing_to_clear" comment="Toast notification when user taps clear output but screen is already empty">Niente da pulire</string>
     <string name="nothing_to_search" comment="Toast message when search query string is empty">Niente da cercare</string>
+    <string name="notification_group_connection" comment="Notification channel group name for connection related notifications">Connessione &amp; Abbinamento</string>
+    <string name="notification_group_developer" comment="Notification channel group name for developer tools like logcat">Strumenti Per Sviluppatori</string>
+    <string name="notification_group_qs" comment="Notification channel group name for quick settings tile executions">Impostazioni Rapide</string>
+    <string name="notification_group_tasks" comment="Notification channel group name for background tasks like backup and sideload">Attività In Background</string>
     <string name="notification_settings" comment="Button label to open system notification settings screen">Impostazioni notifiche</string>
     <string name="notification_style_error" comment="Troubleshooting guide text explaining Xiaomi/MIUI notification shade issues with entering pairing code">Se non riesci a inserire il codice di accoppiamento dalla notifica, potrebbe essere necessario modificare l\'area delle notifiche su Android. Vai su Impostazioni notifiche ~ Stile notifica per modificare lo stile delle notifiche. Altrimenti potresti non essere in grado di inserire il codice di accoppiamento dalla notifica.</string>
     <string name="notification_styles" comment="Settings preference title for notification shade style options">Stili di notifica</string>
@@ -1014,6 +1019,8 @@
     <string name="tile" comment="Refers to Android System Quick Settings tile">Riquadro</string>
     <string name="tile_behavior" comment="Settings title for Quick Settings tile click behavior (click vs long-click)">Comportamento del riquadro</string>
     <string name="tile_dashboard_notification_access_message" comment="Banner notice asking for notification permission to report tile execution errors">Attiva le notifiche per ricevere un avviso ogni volta che l\'esecuzione di un riquadro non riesce</string>
+    <string name="tile_execution_errors" comment="Tile here refers to the device Quick Settings Tiles that user can define and execute using Shizuku or Root">Errori di esecuzione delle caselle</string>
+    <string name="tile_execution_errors_channel_description" comment="Android notification channel description for Tile Execution Errors">Notifiche per i fallimenti di esecuzione tile Impostazioni rapide.</string>
     <string name="tile_logs" comment="Tab header for Quick Settings tile execution history log">Log dei riquadri</string>
     <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">Riquadro %1$d</string>
     <string name="tile_name" comment="Field label for Quick Settings tile title text">Nome del riquadro</string>
@@ -1154,4 +1161,28 @@
     <string name="changelog_v1_0_0">\nAggiunti altri esempi di comandi.\nModifiche minori dell\'interfaccia utente.\nModificato il nome del pacchetto per evitare confusione di versione con l\'app originale.</string>
     <string name="changelog_v0_9_1">\nAggiunti i registri delle modifiche nell\'app.\nAggiunto l\'output della shell evidenziato.\nModifiche minori dell\'interfaccia utente.</string>
     <string name="changelog_v0_9_0">\nAggiunti temi Material dinamici.\nRinnovata l\'intera interfaccia utente per un aspetto rinnovato.</string>
+    <string name="error_invalid_api_key" comment="Error shown when the AI provider rejects the stored API key. %1$s is the provider name, e.g. Groq">Chiave API non valida per %1$s. Controlla le tue impostazioni.</string>
+    <string name="error_rate_limited_retry_in" comment="Error shown when the AI provider is throttling requests. %1$d is a number of seconds">Tasso limitato &#8212; riprova in %1$ds.</string>
+    <string name="error_rate_limited" comment="Error shown when the AI provider is throttling requests and gives no retry time">Tasso limitato dal provider. Riprova a breve.</string>
+    <string name="error_bad_request" comment="Error shown when the AI provider rejects the request itself, usually a malformed tool schema">Errore di richiesta: il provider ha respinto questa richiesta.</string>
+    <string name="error_provider_server" comment="Error shown when the AI provider returns a server failure. %1$d is the HTTP status code">Errore del server provider (%1$d). Riprova più tardi.</string>
+    <string name="error_no_connection" comment="Error shown when the request to the AI provider could not be sent or timed out">Nessuna connessione internet o richiesta scaduta.</string>
+    <string name="error_unexpected_response" comment="Error shown when the AI provider reply could not be understood">Risposta inattesa dal provider. Riprova.</string>
+    <string name="error_no_api_key_for_provider" comment="Error shown when the selected AI provider has no API key saved. %1$s is the provider name">Nessuna chiave API impostata per %1$s.</string>
+    <string name="error_model_unavailable" comment="Error shown when every AI model the app tried has been retired by the provider">Il provider ha ritirato i modelli che questa app utilizza. Prova con un altro provider.</string>
+    <string name="error_insufficient_credits" comment="Error shown when the AI provider account has no credit left. %1$s is the provider name">Nessun credito rimanente per %1$s.</string>
+    <string name="error_no_active_provider" comment="Error shown when the user has not chosen which AI provider to use">Nessun provider di IA selezionato.</string>
+    <string name="active_provider" comment="Settings item title for choosing which cloud AI provider the app uses">Provider attivo</string>
+    <string name="choose_provider" comment="Button label that opens the dialog for picking the active AI provider">Scegli provider</string>
+    <string name="no_api_key_for_active_provider" comment="Dialog message shown when an AI feature is used but the chosen provider has no key. %1$s is the provider name, e.g. Groq">Non c\'è alcuna chiave API per il provider attivo %1$s. Vuoi scegliere un altro fornitore?</string>
+    <string name="groq_api_key_step_1" comment="Step 1 of the Groq API key setup guide. %1$s = URL">Visita la console Groq a %1$s</string>
+    <string name="groq_api_key_step_2" comment="Step 2 of the Groq API key setup guide: creating an account">Accedi o crea un account Groq gratuito</string>
+    <string name="groq_api_key_step_3" comment="Step 3 of the Groq API key setup guide: creating the key">Aprire la pagina delle chiavi API e fare clic su Crea chiave API</string>
+    <string name="groq_api_key_step_4" comment="Step 4 of the Groq API key setup guide: copying the key">Copia la tua chiave API e incollala qui</string>
+    <string name="openrouter_api_key_step_1" comment="Step 1 of the OpenRouter API key setup guide. %1$s = URL">Visita OpenRouter a %1$s</string>
+    <string name="openrouter_api_key_step_2" comment="Step 2 of the OpenRouter API key setup guide: creating an account">Accedi o crea un account OpenRouter gratuito</string>
+    <string name="openrouter_api_key_step_3" comment="Step 3 of the OpenRouter API key setup guide: creating the key">Aprire Impostazioni quindi Tasti e fare clic su Crea chiave</string>
+    <string name="openrouter_api_key_step_4" comment="Step 4 of the OpenRouter API key setup guide: copying the key">Copia la tua chiave API e incollala qui</string>
+    <string name="des_active_provider" comment="Settings item description explaining that AI features use the selected provider">Le funzioni AI utilizzano questo provider</string>
+    <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">Pensare</string>
 </resources>

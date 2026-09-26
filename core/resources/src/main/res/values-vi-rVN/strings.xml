@@ -49,8 +49,8 @@
     <string name="add_new_item" comment="Generic button label to add a new list entry">Thêm mục mới</string>
     <string name="additional_settings" comment="Category header in app settings">Cài đặt bổ sung</string>
     <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Kỹ năng của trợ lý AI</string>
-    <string name="ai_agent_shortcut">AI Agent</string>
-    <string name="ai_agent_shortcut_long_label">AI ADB Agent</string>
+    <string name="ai_agent_shortcut">Trợ lý AI</string>
+    <string name="ai_agent_shortcut_long_label">Trợ lý AI ADB</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">Thời gian lưu bộ nhớ đệm</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">Bật bộ nhớ đệm</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">Cho phép</string>
@@ -103,7 +103,7 @@
     <string name="auto_backup_folder" comment="Setting title for selecting target local folder for automatic backups">Thư mục sao lưu</string>
     <string name="auto_clear_cache">Tự động xóa bộ nhớ đệm</string>
     <string name="auto_dark_mode" comment="Setting toggle title to enable dark mode automatically when battery saver is active">Chế độ tối tự động</string>
-    <string name="auto_delete_existing_backups" comment="Setting toggle title to delete older backup files when a new backup is created">Tự động xóa các bản sao lưu cũ</string>
+    <string name="auto_delete_existing_backups" comment="Setting toggle title to delete older backup files when a new backup is created">Tự động xóa bản sao lưu cũ</string>
     <string name="auto_scale_ui" comment="Setting toggle title to automatically scale UI based on device screen width">Tự động điều chỉnh tỷ lệ UI</string>
     <string name="auto_update" comment="Setting toggle title to automatically check for application updates on startup">Tự động cập nhật</string>
     <string name="back">Quay lại</string>
@@ -245,7 +245,7 @@
     <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">Thực thi lệnh</string>
     <string name="command_execution_failed" comment="Inline shell error shown when running a command fails unexpectedly. %1$s is the technical reason">Thực thi lệnh thất bại: %1$s</string>
     <string name="command_logs" comment="Tab header for history log of executed fastboot commands">Nhật ký lệnh</string>
-    <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">Lịch sử của tất cả các lệnh fastboot đã thực thi.</string>
+    <string name="command_logs_desc" comment="Subheading under fastboot command logs tab">Lịch sử tất cả các lệnh fastboot đã thực thi.</string>
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Không tìm thấy lệnh!</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">Nhập lệnh ADB</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">Các lệnh</string>
@@ -300,6 +300,7 @@
     <string name="database">Cơ sở dữ liệu</string>
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">Sửa đổi cơ sở dữ liệu</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Chỉ cơ sở dữ liệu</string>
+    <string name="days" comments="Days as in number of days">Days</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Thư mục mặc định</string>
     <string name="default_language" comment="Setting preference label for selecting application language">Ngôn ngữ mặc định</string>
     <string name="delete">Xóa</string>
@@ -319,9 +320,9 @@
     <string name="des_auto_backup_content_type" comment="Description under Backup content type setting">Chọn những gì cần bao gồm trong bản sao lưu tự động</string>
     <string name="des_auto_backup_folder" comment="Description under Backup folder setting">Chọn một thư mục để lưu các bản sao lưu tự động</string>
     <string name="des_auto_backup_time" comment="Description under Backup time setting">Đặt thời gian sao lưu tự động</string>
-    <string name="des_auto_clear_ai_cache">Tự động xóa bộ nhớ đệm phân tích AI khi hết thời gian lưu trữ</string>
+    <string name="des_auto_clear_ai_cache">Tự động xóa bộ nhớ đệm phân tích AI khi hết thời hạn lưu trữ</string>
     <string name="des_auto_dark_mode" comment="Description under Auto dark mode setting">Tự động chuyển sang chế độ tối khi bật tính năng Tiết kiệm pin</string>
-    <string name="des_auto_delete_existing_backups" comment="Description under Auto-delete old backups setting">Xóa các bản sao lưu tự động cũ khi lưu bản mới</string>
+    <string name="des_auto_delete_existing_backups" comment="Description under Auto-delete old backups setting">Xóa bản sao lưu tự động cũ khi lưu bản mới</string>
     <string name="des_auto_scale_ui" comment="Description under Auto scale UI setting">Tự động điều chỉnh tỷ lệ UI theo chiều rộng màn hình tối thiểu của thiết bị</string>
     <string name="des_auto_update" comment="Description under Auto update setting">Tự động kiểm tra bản cập nhật</string>
     <string name="des_backup_all_data" comment="Description for full backup option in backup dialog">Sao lưu tất cả dữ liệu ứng dụng</string>
@@ -718,6 +719,10 @@
     <string name="not_signed_in" comment="Status text in cloud backup settings when Google account is signed out">Chưa đăng nhập</string>
     <string name="nothing_to_clear" comment="Toast notification when user taps clear output but screen is already empty">Không có gì để xóa</string>
     <string name="nothing_to_search" comment="Toast message when search query string is empty">Không có gì để tìm kiếm</string>
+    <string name="notification_group_connection" comment="Notification channel group name for connection related notifications">Connection &amp; Pairing</string>
+    <string name="notification_group_developer" comment="Notification channel group name for developer tools like logcat">Developer Tools</string>
+    <string name="notification_group_qs" comment="Notification channel group name for quick settings tile executions">Quick Settings</string>
+    <string name="notification_group_tasks" comment="Notification channel group name for background tasks like backup and sideload">Background Tasks</string>
     <string name="notification_settings" comment="Button label to open system notification settings screen">Cài đặt thông báo</string>
     <string name="notification_style_error" comment="Troubleshooting guide text explaining Xiaomi/MIUI notification shade issues with entering pairing code">Nếu bạn không thể nhập mã ghép nối từ thông báo, có thể bạn cần thay đổi kiểu thông báo thành Android. Để đổi kiểu thông báo, đi tới Cài đặt thông báo ~ Kiểu thông báo. Nếu không, bạn không thể nhập mã ghép nối từ thông báo.</string>
     <string name="notification_styles" comment="Settings preference title for notification shade style options">Kiểu thông báo</string>
@@ -1014,6 +1019,8 @@
     <string name="tile" comment="Refers to Android System Quick Settings tile">Ô</string>
     <string name="tile_behavior" comment="Settings title for Quick Settings tile click behavior (click vs long-click)">Hành vi của ô</string>
     <string name="tile_dashboard_notification_access_message" comment="Banner notice asking for notification permission to report tile execution errors">Bật thông báo để nhận thông báo khi ô thực thi thất bại</string>
+    <string name="tile_execution_errors" comment="Tile here refers to the device Quick Settings Tiles that user can define and execute using Shizuku or Root">Tile execution errors</string>
+    <string name="tile_execution_errors_channel_description" comment="Android notification channel description for Tile Execution Errors">Notifications for Quick Settings tile execution failures.</string>
     <string name="tile_logs" comment="Tab header for Quick Settings tile execution history log">Nhật ký của ô</string>
     <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">Ô %1$d</string>
     <string name="tile_name" comment="Field label for Quick Settings tile title text">Tên ô</string>
@@ -1152,4 +1159,28 @@
     <string name="changelog_v1_0_0">\nĐã thêm một số mẫu lệnh.\nThay đổi nhỏ về giao diện.\nĐã thay đổi tên gói để tránh nhầm lẫn với ứng dụng gốc.</string>
     <string name="changelog_v0_9_1">\nĐã thêm nhật ký thay đổi vào ứng dụng.\nĐã thêm đánh dấu đầu ra shell.\nThay đổi nhỏ về UI.</string>
     <string name="changelog_v0_9_0">\nĐã thêm chủ đề động.\nĐã thiết kế lại toàn bộ UI.</string>
+    <string name="error_invalid_api_key" comment="Error shown when the AI provider rejects the stored API key. %1$s is the provider name, e.g. Groq">Invalid API key for %1$s. Check your settings.</string>
+    <string name="error_rate_limited_retry_in" comment="Error shown when the AI provider is throttling requests. %1$d is a number of seconds">Rate limited &#8212; try again in %1$ds.</string>
+    <string name="error_rate_limited" comment="Error shown when the AI provider is throttling requests and gives no retry time">Rate limited by provider. Try again shortly.</string>
+    <string name="error_bad_request" comment="Error shown when the AI provider rejects the request itself, usually a malformed tool schema">Request error: the provider rejected this request.</string>
+    <string name="error_provider_server" comment="Error shown when the AI provider returns a server failure. %1$d is the HTTP status code">Provider server error (%1$d). Try again later.</string>
+    <string name="error_no_connection" comment="Error shown when the request to the AI provider could not be sent or timed out">No internet connection or request timed out.</string>
+    <string name="error_unexpected_response" comment="Error shown when the AI provider reply could not be understood">Unexpected response from provider. Try again.</string>
+    <string name="error_no_api_key_for_provider" comment="Error shown when the selected AI provider has no API key saved. %1$s is the provider name">No API key set for %1$s.</string>
+    <string name="error_model_unavailable" comment="Error shown when every AI model the app tried has been retired by the provider">The provider retired the models this app uses. Try another provider.</string>
+    <string name="error_insufficient_credits" comment="Error shown when the AI provider account has no credit left. %1$s is the provider name">No remaining credit for %1$s.</string>
+    <string name="error_no_active_provider" comment="Error shown when the user has not chosen which AI provider to use">No AI provider selected.</string>
+    <string name="active_provider" comment="Settings item title for choosing which cloud AI provider the app uses">Active provider</string>
+    <string name="choose_provider" comment="Button label that opens the dialog for picking the active AI provider">Choose provider</string>
+    <string name="no_api_key_for_active_provider" comment="Dialog message shown when an AI feature is used but the chosen provider has no key. %1$s is the provider name, e.g. Groq">There is no API key for active provider %1$s. Would you like to choose another provider?</string>
+    <string name="groq_api_key_step_1" comment="Step 1 of the Groq API key setup guide. %1$s = URL">Visit the Groq Console at %1$s</string>
+    <string name="groq_api_key_step_2" comment="Step 2 of the Groq API key setup guide: creating an account">Sign in or create a free Groq account</string>
+    <string name="groq_api_key_step_3" comment="Step 3 of the Groq API key setup guide: creating the key">Open the API Keys page and click Create API Key</string>
+    <string name="groq_api_key_step_4" comment="Step 4 of the Groq API key setup guide: copying the key">Copy your API key and paste it here</string>
+    <string name="openrouter_api_key_step_1" comment="Step 1 of the OpenRouter API key setup guide. %1$s = URL">Visit OpenRouter at %1$s</string>
+    <string name="openrouter_api_key_step_2" comment="Step 2 of the OpenRouter API key setup guide: creating an account">Sign in or create a free OpenRouter account</string>
+    <string name="openrouter_api_key_step_3" comment="Step 3 of the OpenRouter API key setup guide: creating the key">Open Settings then Keys, and click Create Key</string>
+    <string name="openrouter_api_key_step_4" comment="Step 4 of the OpenRouter API key setup guide: copying the key">Copy your API key and paste it here</string>
+    <string name="des_active_provider" comment="Settings item description explaining that AI features use the selected provider">AI features use this provider</string>
+    <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">Thinking</string>
 </resources>

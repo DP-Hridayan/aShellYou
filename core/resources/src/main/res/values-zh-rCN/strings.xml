@@ -303,6 +303,7 @@
     <string name="database">数据库</string>
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">数据库修改</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">仅数据库</string>
+    <string name="days" comments="Days as in number of days">天</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">重置目录</string>
     <string name="default_language" comment="Setting preference label for selecting application language">默认语言</string>
     <string name="delete">删除</string>
@@ -721,6 +722,10 @@
     <string name="not_signed_in" comment="Status text in cloud backup settings when Google account is signed out">未登录</string>
     <string name="nothing_to_clear" comment="Toast notification when user taps clear output but screen is already empty">没什么可清的</string>
     <string name="nothing_to_search" comment="Toast message when search query string is empty">无可检索项</string>
+    <string name="notification_group_connection" comment="Notification channel group name for connection related notifications">Connection &amp; Pairing</string>
+    <string name="notification_group_developer" comment="Notification channel group name for developer tools like logcat">开发者工具</string>
+    <string name="notification_group_qs" comment="Notification channel group name for quick settings tile executions">快速设置</string>
+    <string name="notification_group_tasks" comment="Notification channel group name for background tasks like backup and sideload">背景任务</string>
     <string name="notification_settings" comment="Button label to open system notification settings screen">通知设置</string>
     <string name="notification_style_error" comment="Troubleshooting guide text explaining Xiaomi/MIUI notification shade issues with entering pairing code">如果你无法通过通知输入配对码，那么你可能需要将通知阴影更改为 Android。前往“通知设置”~“通知样式”更改通知样式。否则，你可能无法通过通知输入配对码。</string>
     <string name="notification_styles" comment="Settings preference title for notification shade style options">通知样式</string>
@@ -1017,6 +1022,8 @@
     <string name="tile" comment="Refers to Android System Quick Settings tile">磁贴</string>
     <string name="tile_behavior" comment="Settings title for Quick Settings tile click behavior (click vs long-click)">磁贴行为</string>
     <string name="tile_dashboard_notification_access_message" comment="Banner notice asking for notification permission to report tile execution errors">开启通知以便在磁贴执行失败时接收通知</string>
+    <string name="tile_execution_errors" comment="Tile here refers to the device Quick Settings Tiles that user can define and execute using Shizuku or Root">平铺执行错误</string>
+    <string name="tile_execution_errors_channel_description" comment="Android notification channel description for Tile Execution Errors">快速设置瓷块执行失败通知。</string>
     <string name="tile_logs" comment="Tab header for Quick Settings tile execution history log">磁贴日志</string>
     <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">磁贴 %1$d</string>
     <string name="tile_name" comment="Field label for Quick Settings tile title text">瓷贴名称</string>
@@ -1240,4 +1247,28 @@ UI 小幅更改。</string>
     <string name="changelog_v0_9_0">
 添加了动态 Material 主题。
 重新设计了整个 UI 以呈现全新外观。</string>
+    <string name="error_invalid_api_key" comment="Error shown when the AI provider rejects the stored API key. %1$s is the provider name, e.g. Groq">%1$s的API密钥无效。请检查您的设置。</string>
+    <string name="error_rate_limited_retry_in" comment="Error shown when the AI provider is throttling requests. %1$d is a number of seconds">在 %1$d秒内给限制的 &#8212; 再次尝试。</string>
+    <string name="error_rate_limited" comment="Error shown when the AI provider is throttling requests and gives no retry time">评分受提供商限制，请稍后再试。</string>
+    <string name="error_bad_request" comment="Error shown when the AI provider rejects the request itself, usually a malformed tool schema">请求错误：供应商拒绝了此请求。</string>
+    <string name="error_provider_server" comment="Error shown when the AI provider returns a server failure. %1$d is the HTTP status code">提供者服务器错误 (%1$d)。请稍后再试。</string>
+    <string name="error_no_connection" comment="Error shown when the request to the AI provider could not be sent or timed out">没有网络连接或请求超时。</string>
+    <string name="error_unexpected_response" comment="Error shown when the AI provider reply could not be understood">源的意外响应。请重试。</string>
+    <string name="error_no_api_key_for_provider" comment="Error shown when the selected AI provider has no API key saved. %1$s is the provider name">没有为 %1$s 设置API密钥。</string>
+    <string name="error_model_unavailable" comment="Error shown when every AI model the app tried has been retired by the provider">提供商取消了这个应用程序使用的模型。请尝试另一个提供商。</string>
+    <string name="error_insufficient_credits" comment="Error shown when the AI provider account has no credit left. %1$s is the provider name">%1$s 无剩余积分。</string>
+    <string name="error_no_active_provider" comment="Error shown when the user has not chosen which AI provider to use">没有选择 AI 提供商。</string>
+    <string name="active_provider" comment="Settings item title for choosing which cloud AI provider the app uses">活跃的提供商</string>
+    <string name="choose_provider" comment="Button label that opens the dialog for picking the active AI provider">选择提供商</string>
+    <string name="no_api_key_for_active_provider" comment="Dialog message shown when an AI feature is used but the chosen provider has no key. %1$s is the provider name, e.g. Groq">活动提供商的 %1$s没有API密钥。您想要选择另一个提供商吗？</string>
+    <string name="groq_api_key_step_1" comment="Step 1 of the Groq API key setup guide. %1$s = URL">在 %1$s 访问 Groq 控制台</string>
+    <string name="groq_api_key_step_2" comment="Step 2 of the Groq API key setup guide: creating an account">登录或创建一个免费的 Groq 帐户</string>
+    <string name="groq_api_key_step_3" comment="Step 3 of the Groq API key setup guide: creating the key">打开 API 密钥页面并点击创建 API 密钥</string>
+    <string name="groq_api_key_step_4" comment="Step 4 of the Groq API key setup guide: copying the key">复制您的 API 密钥并粘贴到这里</string>
+    <string name="openrouter_api_key_step_1" comment="Step 1 of the OpenRouter API key setup guide. %1$s = URL">在 %1$s 访问 OpenRouter</string>
+    <string name="openrouter_api_key_step_2" comment="Step 2 of the OpenRouter API key setup guide: creating an account">登录或创建一个免费的 OpenRouter 帐户</string>
+    <string name="openrouter_api_key_step_3" comment="Step 3 of the OpenRouter API key setup guide: creating the key">打开设置，然后点击创建密钥</string>
+    <string name="openrouter_api_key_step_4" comment="Step 4 of the OpenRouter API key setup guide: copying the key">复制您的 API 密钥并粘贴到这里</string>
+    <string name="des_active_provider" comment="Settings item description explaining that AI features use the selected provider">AI 功能使用此提供商</string>
+    <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">思维方式</string>
 </resources>

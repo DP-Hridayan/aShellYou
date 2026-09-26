@@ -300,6 +300,7 @@
     <string name="database">データベース</string>
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">データベース変更</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">データベースのみ</string>
+    <string name="days" comments="Days as in number of days">日数</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">デフォルトのフォルダ</string>
     <string name="default_language" comment="Setting preference label for selecting application language">デフォルトの言語</string>
     <string name="delete">削除</string>
@@ -718,6 +719,10 @@
     <string name="not_signed_in" comment="Status text in cloud backup settings when Google account is signed out">サインインしていません</string>
     <string name="nothing_to_clear" comment="Toast notification when user taps clear output but screen is already empty">消去するものはありません</string>
     <string name="nothing_to_search" comment="Toast message when search query string is empty">検索するものがありません</string>
+    <string name="notification_group_connection" comment="Notification channel group name for connection related notifications">Connection &amp; Pairing</string>
+    <string name="notification_group_developer" comment="Notification channel group name for developer tools like logcat">開発ツール</string>
+    <string name="notification_group_qs" comment="Notification channel group name for quick settings tile executions">クイック設定</string>
+    <string name="notification_group_tasks" comment="Notification channel group name for background tasks like backup and sideload">バックグラウンドタスク</string>
     <string name="notification_settings" comment="Button label to open system notification settings screen">通知設定</string>
     <string name="notification_style_error" comment="Troubleshooting guide text explaining Xiaomi/MIUI notification shade issues with entering pairing code">通知からペアリングコードを入力できない場合は、通知シェードを Android に変更する必要がある場合があります。 通知設定~通知スタイルを変更するには、通知スタイルを選択します。 そうしないと、通知からペアリングコードを入力できない場合があります。</string>
     <string name="notification_styles" comment="Settings preference title for notification shade style options">通知スタイル</string>
@@ -1014,6 +1019,8 @@
     <string name="tile" comment="Refers to Android System Quick Settings tile">タイル</string>
     <string name="tile_behavior" comment="Settings title for Quick Settings tile click behavior (click vs long-click)">タイルの動作</string>
     <string name="tile_dashboard_notification_access_message" comment="Banner notice asking for notification permission to report tile execution errors">通知をオンにすると、タイルの実行が失敗したときに通知を受け取ることができます</string>
+    <string name="tile_execution_errors" comment="Tile here refers to the device Quick Settings Tiles that user can define and execute using Shizuku or Root">タイルの実行エラー</string>
+    <string name="tile_execution_errors_channel_description" comment="Android notification channel description for Tile Execution Errors">クイック設定タイルの実行に失敗した通知。</string>
     <string name="tile_logs" comment="Tab header for Quick Settings tile execution history log">タイルのログ</string>
     <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">タイル %1$d</string>
     <string name="tile_name" comment="Field label for Quick Settings tile title text">タイル名</string>
@@ -1152,4 +1159,28 @@
     <string name="changelog_v1_0_0">\nいくつかのコマンド例を追加\n軽微なUI変更\nパッケージ名を変更。</string>
     <string name="changelog_v0_9_1">\nアプリにチェンジログを追加\nハイライトされたシェル出力を追加\n軽微なUI変更。</string>
     <string name="changelog_v0_9_0">\n動的なマテリアルテーマを追加\nUI全体を刷新。</string>
+    <string name="error_invalid_api_key" comment="Error shown when the AI provider rejects the stored API key. %1$s is the provider name, e.g. Groq">%1$sのAPIキーが無効です。設定を確認してください。</string>
+    <string name="error_rate_limited_retry_in" comment="Error shown when the AI provider is throttling requests. %1$d is a number of seconds">Rate limited &#8212; try again in %1$ds.</string>
+    <string name="error_rate_limited" comment="Error shown when the AI provider is throttling requests and gives no retry time">料金はプロバイダーによって制限されています。しばらくしてからもう一度お試しください。</string>
+    <string name="error_bad_request" comment="Error shown when the AI provider rejects the request itself, usually a malformed tool schema">リクエストエラー: プロバイダがこのリクエストを拒否しました。</string>
+    <string name="error_provider_server" comment="Error shown when the AI provider returns a server failure. %1$d is the HTTP status code">プロバイダサーバーエラー (%1$d) 。後でもう一度お試しください。</string>
+    <string name="error_no_connection" comment="Error shown when the request to the AI provider could not be sent or timed out">インターネットに接続されていないか、要求がタイムアウトしました。</string>
+    <string name="error_unexpected_response" comment="Error shown when the AI provider reply could not be understood">プロバイダーからの予期しない応答。もう一度お試しください。</string>
+    <string name="error_no_api_key_for_provider" comment="Error shown when the selected AI provider has no API key saved. %1$s is the provider name">%1$s にAPIキーが設定されていません。</string>
+    <string name="error_model_unavailable" comment="Error shown when every AI model the app tried has been retired by the provider">プロバイダーはこのアプリが使用するモデルを退職しました。別のプロバイダーをお試しください。</string>
+    <string name="error_insufficient_credits" comment="Error shown when the AI provider account has no credit left. %1$s is the provider name">%1$s のクレジットがありません。</string>
+    <string name="error_no_active_provider" comment="Error shown when the user has not chosen which AI provider to use">AIプロバイダが選択されていません。</string>
+    <string name="active_provider" comment="Settings item title for choosing which cloud AI provider the app uses">アクティブプロバイダー</string>
+    <string name="choose_provider" comment="Button label that opens the dialog for picking the active AI provider">プロバイダを選択</string>
+    <string name="no_api_key_for_active_provider" comment="Dialog message shown when an AI feature is used but the chosen provider has no key. %1$s is the provider name, e.g. Groq">アクティブプロバイダ %1$sのAPIキーがありません。別のプロバイダを選択しますか？</string>
+    <string name="groq_api_key_step_1" comment="Step 1 of the Groq API key setup guide. %1$s = URL">%1$sでGroqコンソールを開く</string>
+    <string name="groq_api_key_step_2" comment="Step 2 of the Groq API key setup guide: creating an account">サインインまたは無料のGroqアカウントを作成</string>
+    <string name="groq_api_key_step_3" comment="Step 3 of the Groq API key setup guide: creating the key">API キーページを開き、[API キーの作成] をクリックします。</string>
+    <string name="groq_api_key_step_4" comment="Step 4 of the Groq API key setup guide: copying the key">API キーをコピーしてここに貼り付け</string>
+    <string name="openrouter_api_key_step_1" comment="Step 1 of the OpenRouter API key setup guide. %1$s = URL">%1$sでOpenRouterを訪問</string>
+    <string name="openrouter_api_key_step_2" comment="Step 2 of the OpenRouter API key setup guide: creating an account">サインインまたは無料のOpenRouterアカウントを作成</string>
+    <string name="openrouter_api_key_step_3" comment="Step 3 of the OpenRouter API key setup guide: creating the key">設定を開き、キーを選択し、キーを作成をクリックします。</string>
+    <string name="openrouter_api_key_step_4" comment="Step 4 of the OpenRouter API key setup guide: copying the key">API キーをコピーしてここに貼り付け</string>
+    <string name="des_active_provider" comment="Settings item description explaining that AI features use the selected provider">AI機能はこのプロバイダを使用します</string>
+    <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">考え</string>
 </resources>
