@@ -49,8 +49,8 @@
     <string name="add_new_item" comment="Generic button label to add a new list entry">Додати новий елемент</string>
     <string name="additional_settings" comment="Category header in app settings">Додаткові налаштування</string>
     <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Навички агента</string>
-    <string name="ai_agent_shortcut">AI Agent</string>
-    <string name="ai_agent_shortcut_long_label">AI ADB Agent</string>
+    <string name="ai_agent_shortcut">AI Агент</string>
+    <string name="ai_agent_shortcut_long_label">AI ADB Агент</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">Тривалість кешу</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">Увімкнути кешування</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">Дозволити</string>
@@ -300,6 +300,7 @@
     <string name="database">База даних</string>
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">Внесення змін бази даних</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Тільки бази даних</string>
+    <string name="days" comments="Days as in number of days">Днів</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Тека за замовчуванням</string>
     <string name="default_language" comment="Setting preference label for selecting application language">Мова за замовчуванням</string>
     <string name="delete">Видалити</string>
@@ -718,6 +719,10 @@
     <string name="not_signed_in" comment="Status text in cloud backup settings when Google account is signed out">Вхід не виконано</string>
     <string name="nothing_to_clear" comment="Toast notification when user taps clear output but screen is already empty">Нема чого очищати</string>
     <string name="nothing_to_search" comment="Toast message when search query string is empty">Немає чого шукати</string>
+    <string name="notification_group_connection" comment="Notification channel group name for connection related notifications">З\'єднання &amp; Сполучення</string>
+    <string name="notification_group_developer" comment="Notification channel group name for developer tools like logcat">Інструменти розробника</string>
+    <string name="notification_group_qs" comment="Notification channel group name for quick settings tile executions">Швидкі налаштування</string>
+    <string name="notification_group_tasks" comment="Notification channel group name for background tasks like backup and sideload">Фонові завдання</string>
     <string name="notification_settings" comment="Button label to open system notification settings screen">Налаштування сповіщень</string>
     <string name="notification_style_error" comment="Troubleshooting guide text explaining Xiaomi/MIUI notification shade issues with entering pairing code">Якщо ви не можете ввести код сполучення зі сповіщення, можливо, вам потрібно буде змінити панель сповіщень на Android. Щоб змінити стиль сповіщень, перейдіть до Налаштувань сповіщень ~ Стиль сповіщень. В іншому випадку ви можете не ввести код сполучення з повідомлення.</string>
     <string name="notification_styles" comment="Settings preference title for notification shade style options">Стилі сповіщень</string>
@@ -1014,6 +1019,8 @@
     <string name="tile" comment="Refers to Android System Quick Settings tile">Плитка</string>
     <string name="tile_behavior" comment="Settings title for Quick Settings tile click behavior (click vs long-click)">Поведінка плитки</string>
     <string name="tile_dashboard_notification_access_message" comment="Banner notice asking for notification permission to report tile execution errors">Увімкніть сповіщення, щоб отримувати сповіщення про будь-які невдалі спроби виконання плитки</string>
+    <string name="tile_execution_errors" comment="Tile here refers to the device Quick Settings Tiles that user can define and execute using Shizuku or Root">Помилки виконання плиток</string>
+    <string name="tile_execution_errors_channel_description" comment="Android notification channel description for Tile Execution Errors">Сповіщення про помилки в виконанні плиток швидких налаштувань.</string>
     <string name="tile_logs" comment="Tab header for Quick Settings tile execution history log">Журнали плиток</string>
     <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">Плитка %1$d</string>
     <string name="tile_name" comment="Field label for Quick Settings tile title text">Назва плитки</string>
@@ -1158,4 +1165,28 @@
     <string name="changelog_v1_0_0">\nДодано ще кілька прикладів команд.\nНезначні UI зміни.\nЗмінено назву пакета, щоб уникнути плутанини версії з оригінальною програмою.</string>
     <string name="changelog_v0_9_1">\nДодано журнали змін у додаток.\nДодано виділений вихід оболонки.\nНезначні UI зміни.</string>
     <string name="changelog_v0_9_0">\nДодано динамічне оформлення матеріалів.\nПовністю перероблений UI щоб надати свіжого вигляду.</string>
+    <string name="error_invalid_api_key" comment="Error shown when the AI provider rejects the stored API key. %1$s is the provider name, e.g. Groq">Неприпустимий ключ API для %1$s. Перевірте свої налаштування.</string>
+    <string name="error_rate_limited_retry_in" comment="Error shown when the AI provider is throttling requests. %1$d is a number of seconds">Обмежена ставка &#8212; спробуйте ще раз через %1$ds.</string>
+    <string name="error_rate_limited" comment="Error shown when the AI provider is throttling requests and gives no retry time">Ставка обмежена провайдером. Спробуйте ще раз трохи пізніше.</string>
+    <string name="error_bad_request" comment="Error shown when the AI provider rejects the request itself, usually a malformed tool schema">Помилка запиту: постачальник відхилив цей запит.</string>
+    <string name="error_provider_server" comment="Error shown when the AI provider returns a server failure. %1$d is the HTTP status code">Помилка сервера провайдера (%1$d). Спробуйте пізніше.</string>
+    <string name="error_no_connection" comment="Error shown when the request to the AI provider could not be sent or timed out">Відсутнє підключення до Інтернету або час очікування запиту вичерпано.</string>
+    <string name="error_unexpected_response" comment="Error shown when the AI provider reply could not be understood">Неочікувана відповідь від провайдера. Спробуйте ще раз.</string>
+    <string name="error_no_api_key_for_provider" comment="Error shown when the selected AI provider has no API key saved. %1$s is the provider name">Немає API ключа, встановлених для %1$s.</string>
+    <string name="error_model_unavailable" comment="Error shown when every AI model the app tried has been retired by the provider">Провайдер пішов на пенсію моделі, які використовує ця програма. Спробуйте інший постачальник.</string>
+    <string name="error_insufficient_credits" comment="Error shown when the AI provider account has no credit left. %1$s is the provider name">Не залишилося кредиту на %1$s.</string>
+    <string name="error_no_active_provider" comment="Error shown when the user has not chosen which AI provider to use">Провайдера AI не вибрано.</string>
+    <string name="active_provider" comment="Settings item title for choosing which cloud AI provider the app uses">Активний провайдер</string>
+    <string name="choose_provider" comment="Button label that opens the dialog for picking the active AI provider">Вибрати провайдера</string>
+    <string name="no_api_key_for_active_provider" comment="Dialog message shown when an AI feature is used but the chosen provider has no key. %1$s is the provider name, e.g. Groq">Немає API-ключа для активного провайдера %1$s. Чи бажаєте ви вибрати іншого провайдера?</string>
+    <string name="groq_api_key_step_1" comment="Step 1 of the Groq API key setup guide. %1$s = URL">Відвідайте консоль Groq на %1$s</string>
+    <string name="groq_api_key_step_2" comment="Step 2 of the Groq API key setup guide: creating an account">Увійдіть або створіть безплатний обліковий запис у Groq</string>
+    <string name="groq_api_key_step_3" comment="Step 3 of the Groq API key setup guide: creating the key">Відкрийте сторінку Ключі API і натисніть Створити ключ API</string>
+    <string name="groq_api_key_step_4" comment="Step 4 of the Groq API key setup guide: copying the key">Скопіюйте свій ключ API та вставте його тут</string>
+    <string name="openrouter_api_key_step_1" comment="Step 1 of the OpenRouter API key setup guide. %1$s = URL">Відвідати OpenRouter в %1$s</string>
+    <string name="openrouter_api_key_step_2" comment="Step 2 of the OpenRouter API key setup guide: creating an account">Увійти або створити безплатний обліковий запис OpenRouter</string>
+    <string name="openrouter_api_key_step_3" comment="Step 3 of the OpenRouter API key setup guide: creating the key">Відкрийте \"Налаштування\", потім \"Ключі\" та натисніть \"Створити ключ\"</string>
+    <string name="openrouter_api_key_step_4" comment="Step 4 of the OpenRouter API key setup guide: copying the key">Скопіюйте свій ключ API та вставте його тут</string>
+    <string name="des_active_provider" comment="Settings item description explaining that AI features use the selected provider">Функції AI використовують цього провайдера</string>
+    <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">Мислення</string>
 </resources>

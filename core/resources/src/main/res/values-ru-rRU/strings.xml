@@ -49,8 +49,8 @@
     <string name="add_new_item" comment="Generic button label to add a new list entry">Добавить новый элемент</string>
     <string name="additional_settings" comment="Category header in app settings">Дополнительные настройки</string>
     <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Навыки агента</string>
-    <string name="ai_agent_shortcut">AI Agent</string>
-    <string name="ai_agent_shortcut_long_label">AI ADB Agent</string>
+    <string name="ai_agent_shortcut">AI Агент</string>
+    <string name="ai_agent_shortcut_long_label">AI ADB Агент</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">Продолжительность кеша</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">Включить кэширование</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">Разрешить</string>
@@ -300,6 +300,7 @@
     <string name="database">База данных</string>
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">Модификация базы данных</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Только базы данных</string>
+    <string name="days" comments="Days as in number of days">Дней</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Папка по умолчанию</string>
     <string name="default_language" comment="Setting preference label for selecting application language">Язык по умолчанию</string>
     <string name="delete">Удалить</string>
@@ -718,6 +719,10 @@
     <string name="not_signed_in" comment="Status text in cloud backup settings when Google account is signed out">Вход не выполнен</string>
     <string name="nothing_to_clear" comment="Toast notification when user taps clear output but screen is already empty">Нечего очищать</string>
     <string name="nothing_to_search" comment="Toast message when search query string is empty">Нечего искать</string>
+    <string name="notification_group_connection" comment="Notification channel group name for connection related notifications">Соединение &amp; Сопряжение</string>
+    <string name="notification_group_developer" comment="Notification channel group name for developer tools like logcat">Инструменты разработчика</string>
+    <string name="notification_group_qs" comment="Notification channel group name for quick settings tile executions">Быстрые настройки</string>
+    <string name="notification_group_tasks" comment="Notification channel group name for background tasks like backup and sideload">Фоновые задачи</string>
     <string name="notification_settings" comment="Button label to open system notification settings screen">Настройки уведомлений</string>
     <string name="notification_style_error" comment="Troubleshooting guide text explaining Xiaomi/MIUI notification shade issues with entering pairing code">Если вы не можете ввести код сопряжения из уведомления, возможно, вам нужно будет изменить панель уведомлений на Android. Чтобы изменить стиль уведомлений, перейдите к Настройка уведомлений ~ Стиль уведомлений. В противном случае вы можете не ввести код сопряжения из сообщения.</string>
     <string name="notification_styles" comment="Settings preference title for notification shade style options">Стили уведомлений</string>
@@ -1014,6 +1019,8 @@
     <string name="tile" comment="Refers to Android System Quick Settings tile">Плитка</string>
     <string name="tile_behavior" comment="Settings title for Quick Settings tile click behavior (click vs long-click)">Поведение плитки</string>
     <string name="tile_dashboard_notification_access_message" comment="Banner notice asking for notification permission to report tile execution errors">Включите уведомления, чтобы получать уведомления при сбое исполнения плиток</string>
+    <string name="tile_execution_errors" comment="Tile here refers to the device Quick Settings Tiles that user can define and execute using Shizuku or Root">Ошибки выполнения плиток</string>
+    <string name="tile_execution_errors_channel_description" comment="Android notification channel description for Tile Execution Errors">Уведомления об ошибках при выполнении плитки \"Быстрые настройки\".</string>
     <string name="tile_logs" comment="Tab header for Quick Settings tile execution history log">Журналы плиток</string>
     <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">Плитка %1$d</string>
     <string name="tile_name" comment="Field label for Quick Settings tile title text">Название плитки</string>
@@ -1158,4 +1165,28 @@
     <string name="changelog_v1_0_0">\nДобавлено несколько примеров команд.\nНезначительные UI изменения.\nИзменённое имя пакета, чтобы избежать путаницы с оригинальным приложением.</string>
     <string name="changelog_v0_9_1">\nДобавлены журналы изменений в приложение.\nДобавлены выделенные выходные данные оболочки.\nНезначительные UI изменения.</string>
     <string name="changelog_v0_9_0">\nДобавлены темы динамического материала.\nПолностью переработан UI чтобы придать свежий вид.</string>
+    <string name="error_invalid_api_key" comment="Error shown when the AI provider rejects the stored API key. %1$s is the provider name, e.g. Groq">Неверный ключ API для %1$s. Проверьте настройки.</string>
+    <string name="error_rate_limited_retry_in" comment="Error shown when the AI provider is throttling requests. %1$d is a number of seconds">Ограниченная ставка &#8212; попробуйте ещё раз через %1$ds.</string>
+    <string name="error_rate_limited" comment="Error shown when the AI provider is throttling requests and gives no retry time">Ставка ограничена провайдером. Попробуйте снова через некоторое время.</string>
+    <string name="error_bad_request" comment="Error shown when the AI provider rejects the request itself, usually a malformed tool schema">Ошибка запроса: провайдер отклонил этот запрос.</string>
+    <string name="error_provider_server" comment="Error shown when the AI provider returns a server failure. %1$d is the HTTP status code">Ошибка сервера провайдера (%1$d). Повторите попытку позже.</string>
+    <string name="error_no_connection" comment="Error shown when the request to the AI provider could not be sent or timed out">Отсутствует подключение к Интернету или истек тайм-аут запроса.</string>
+    <string name="error_unexpected_response" comment="Error shown when the AI provider reply could not be understood">Неожиданный ответ от поставщика. Попробуйте еще раз.</string>
+    <string name="error_no_api_key_for_provider" comment="Error shown when the selected AI provider has no API key saved. %1$s is the provider name">Не указан ключ API для %1$s.</string>
+    <string name="error_model_unavailable" comment="Error shown when every AI model the app tried has been retired by the provider">Провайдер отказался от моделей, которые использует это приложение. Попробуйте другого провайдера.</string>
+    <string name="error_insufficient_credits" comment="Error shown when the AI provider account has no credit left. %1$s is the provider name">Остаток средств отсутствует для %1$s.</string>
+    <string name="error_no_active_provider" comment="Error shown when the user has not chosen which AI provider to use">Провайдер AI не выбран.</string>
+    <string name="active_provider" comment="Settings item title for choosing which cloud AI provider the app uses">Активный провайдер</string>
+    <string name="choose_provider" comment="Button label that opens the dialog for picking the active AI provider">Выберите провайдера</string>
+    <string name="no_api_key_for_active_provider" comment="Dialog message shown when an AI feature is used but the chosen provider has no key. %1$s is the provider name, e.g. Groq">Нет API ключа для активного провайдера %1$s. Хотите выбрать другого провайдера?</string>
+    <string name="groq_api_key_step_1" comment="Step 1 of the Groq API key setup guide. %1$s = URL">Перейдите на консоль Groq по адресу %1$s</string>
+    <string name="groq_api_key_step_2" comment="Step 2 of the Groq API key setup guide: creating an account">Войдите в систему или создайте бесплатную учетную запись Groq</string>
+    <string name="groq_api_key_step_3" comment="Step 3 of the Groq API key setup guide: creating the key">Откройте страницу \"Ключи API\" и нажмите \"Создать ключ API\"</string>
+    <string name="groq_api_key_step_4" comment="Step 4 of the Groq API key setup guide: copying the key">Скопируйте ваш ключ API и вставьте его здесь</string>
+    <string name="openrouter_api_key_step_1" comment="Step 1 of the OpenRouter API key setup guide. %1$s = URL">Посетите OpenRouter в %1$s</string>
+    <string name="openrouter_api_key_step_2" comment="Step 2 of the OpenRouter API key setup guide: creating an account">Войдите или создайте бесплатную учетную запись OpenRouter</string>
+    <string name="openrouter_api_key_step_3" comment="Step 3 of the OpenRouter API key setup guide: creating the key">Откройте \"Настройки\", затем \"Ключи\" и нажмите кнопку \"Создать ключ\"</string>
+    <string name="openrouter_api_key_step_4" comment="Step 4 of the OpenRouter API key setup guide: copying the key">Скопируйте ваш ключ API и вставьте его здесь</string>
+    <string name="des_active_provider" comment="Settings item description explaining that AI features use the selected provider">Функции AI используют этого провайдера</string>
+    <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">Мысль</string>
 </resources>

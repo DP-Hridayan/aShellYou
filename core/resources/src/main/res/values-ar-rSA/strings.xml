@@ -302,6 +302,7 @@
     <string name="database">قاعدة البيانات</string>
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">تعديل قاعدة البيانات</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">قواعد البيانات فقط</string>
+    <string name="days" comments="Days as in number of days">أيام</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">المجلد الافتراضي</string>
     <string name="default_language" comment="Setting preference label for selecting application language">اللغة الافتراضية</string>
     <string name="delete">حذف</string>
@@ -730,6 +731,10 @@ aShell You يحتاج إلى إذن Shizuku لتنفيذ أوامر الاختص
     <string name="not_signed_in" comment="Status text in cloud backup settings when Google account is signed out">غير مسجل الدخول</string>
     <string name="nothing_to_clear" comment="Toast notification when user taps clear output but screen is already empty">لا يوجد شيء لمسحه</string>
     <string name="nothing_to_search" comment="Toast message when search query string is empty">لا يوجد شيء للبحث عنه</string>
+    <string name="notification_group_connection" comment="Notification channel group name for connection related notifications">الإتصال &amp; إقران</string>
+    <string name="notification_group_developer" comment="Notification channel group name for developer tools like logcat">أدوات المطور</string>
+    <string name="notification_group_qs" comment="Notification channel group name for quick settings tile executions">الإعدادات السريعة</string>
+    <string name="notification_group_tasks" comment="Notification channel group name for background tasks like backup and sideload">مهام الخلفية</string>
     <string name="notification_settings" comment="Button label to open system notification settings screen">إعدادات الإشعارات</string>
     <string name="notification_style_error" comment="Troubleshooting guide text explaining Xiaomi/MIUI notification shade issues with entering pairing code">إذا لم تتمكن من إدخال رمز الاقتران من الإشعار، فقد تحتاج إلى تغيير نمط الإشعار إلى Android. انتقل إلى إعدادات الإشعارات ~ نمط الإشعار لتغيير نمط الإشعار. خلاف ذلك، قد لا تتمكن من إدخال رمز الاقتران من الإشعار.</string>
     <string name="notification_styles" comment="Settings preference title for notification shade style options">أنماط الإشعارات</string>
@@ -1032,6 +1037,8 @@ aShell You يحتاج إلى إذن Shizuku لتنفيذ أوامر الاختص
     <string name="tile" comment="Refers to Android System Quick Settings tile">بلاطة</string>
     <string name="tile_behavior" comment="Settings title for Quick Settings tile click behavior (click vs long-click)">سلوك البلاطة</string>
     <string name="tile_dashboard_notification_access_message" comment="Banner notice asking for notification permission to report tile execution errors">قم بتفعيل الإشعارات لتلقي تنبيهات عند فشل تنفيذ أي بلاطة</string>
+    <string name="tile_execution_errors" comment="Tile here refers to the device Quick Settings Tiles that user can define and execute using Shizuku or Root">أخطاء تنفيذ البلاط</string>
+    <string name="tile_execution_errors_channel_description" comment="Android notification channel description for Tile Execution Errors">إشعارات الإعدادات السريعة فشلت في تنفيذ المربعات</string>
     <string name="tile_logs" comment="Tab header for Quick Settings tile execution history log">سجلات البلاطة</string>
     <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">البلاطة %1$d</string>
     <string name="tile_name" comment="Field label for Quick Settings tile title text">اسم البلاطة</string>
@@ -1308,4 +1315,28 @@ aShell You يحتاج إلى إذن Shizuku لتنفيذ أوامر الاختص
 تغييرات طفيفة في واجهة المستخدم.</string>
     <string name="changelog_v0_9_0">تمت إضافة سمات Material الديناميكية.
 تم تجديد واجهة المستخدم بالكامل لإعطاء مظهر منعش.</string>
+    <string name="error_invalid_api_key" comment="Error shown when the AI provider rejects the stored API key. %1$s is the provider name, e.g. Groq">مفتاح API غير صالح ل %1$s. تحقق من الإعدادات الخاصة بك.</string>
+    <string name="error_rate_limited_retry_in" comment="Error shown when the AI provider is throttling requests. %1$d is a number of seconds">قيّم محدود &#8212; حاول مرة أخرى في %1$d.</string>
+    <string name="error_rate_limited" comment="Error shown when the AI provider is throttling requests and gives no retry time">معدل محدود من قبل المزود. حاول مرة أخرى قريباً.</string>
+    <string name="error_bad_request" comment="Error shown when the AI provider rejects the request itself, usually a malformed tool schema">خطأ في الطلب: رفض مقدم الخدمة هذا الطلب.</string>
+    <string name="error_provider_server" comment="Error shown when the AI provider returns a server failure. %1$d is the HTTP status code">خطأ في خادم المزود (%1$d). حاول مرة أخرى لاحقاً.</string>
+    <string name="error_no_connection" comment="Error shown when the request to the AI provider could not be sent or timed out">لا يوجد اتصال بالإنترنت أو انتهت مهلة الطلب.</string>
+    <string name="error_unexpected_response" comment="Error shown when the AI provider reply could not be understood">استجابة غير متوقعة من المزود. حاول مرة أخرى.</string>
+    <string name="error_no_api_key_for_provider" comment="Error shown when the selected AI provider has no API key saved. %1$s is the provider name">لم يتم تعيين مفتاح API لـ %1$s.</string>
+    <string name="error_model_unavailable" comment="Error shown when every AI model the app tried has been retired by the provider">قام مقدم الخدمة بسحب النماذج التي يستخدمها هذا التطبيق. حاول موفر آخر.</string>
+    <string name="error_insufficient_credits" comment="Error shown when the AI provider account has no credit left. %1$s is the provider name">لا يوجد رصيد متبق ل %1$s.</string>
+    <string name="error_no_active_provider" comment="Error shown when the user has not chosen which AI provider to use">لم يتم تحديد موفر AI.</string>
+    <string name="active_provider" comment="Settings item title for choosing which cloud AI provider the app uses">المزود النشط</string>
+    <string name="choose_provider" comment="Button label that opens the dialog for picking the active AI provider">اختر المزود</string>
+    <string name="no_api_key_for_active_provider" comment="Dialog message shown when an AI feature is used but the chosen provider has no key. %1$s is the provider name, e.g. Groq">لا يوجد مفتاح API للمزود النشط %1$s. هل ترغب في اختيار مزود آخر؟</string>
+    <string name="groq_api_key_step_1" comment="Step 1 of the Groq API key setup guide. %1$s = URL">قم بزيارة وحدة تحكم الGroq عند %1$s</string>
+    <string name="groq_api_key_step_2" comment="Step 2 of the Groq API key setup guide: creating an account">تسجيل الدخول أو إنشاء حساب Groq مجاني</string>
+    <string name="groq_api_key_step_3" comment="Step 3 of the Groq API key setup guide: creating the key">افتح صفحة مفاتيح API وانقر على إنشاء مفتاح API</string>
+    <string name="groq_api_key_step_4" comment="Step 4 of the Groq API key setup guide: copying the key">نسخ مفتاح API الخاص بك ولصقه هنا</string>
+    <string name="openrouter_api_key_step_1" comment="Step 1 of the OpenRouter API key setup guide. %1$s = URL">زيارة OpenRouter في %1$s</string>
+    <string name="openrouter_api_key_step_2" comment="Step 2 of the OpenRouter API key setup guide: creating an account">تسجيل الدخول أو إنشاء حساب OpenRouter مجاني</string>
+    <string name="openrouter_api_key_step_3" comment="Step 3 of the OpenRouter API key setup guide: creating the key">افتح الإعدادات ثم المفاتيح، وانقر على إنشاء مفتاح</string>
+    <string name="openrouter_api_key_step_4" comment="Step 4 of the OpenRouter API key setup guide: copying the key">نسخ مفتاح API الخاص بك ولصقه هنا</string>
+    <string name="des_active_provider" comment="Settings item description explaining that AI features use the selected provider">تستخدم ميزات الذكاء الاصطناعي هذا المورد</string>
+    <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">التفكير</string>
 </resources>
