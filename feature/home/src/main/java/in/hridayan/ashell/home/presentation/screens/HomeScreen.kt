@@ -73,6 +73,8 @@ import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.home.presentation.component.dialog.HomeDialogKey
 import `in`.hridayan.ashell.home.presentation.component.dialog.RebootOptionsDialog
+import `in`.hridayan.ashell.home.presentation.model.DeviceLinkStatus
+import `in`.hridayan.ashell.home.presentation.model.WifiAdbCardStatus
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -80,6 +82,10 @@ fun HomeScreen(
     localAdbWorkingMode: Int = LocalAdbWorkingMode.BASIC,
     savedDevicesCount: Int = 0,
     isLogcatRunning: Boolean = false,
+    otgStatus: DeviceLinkStatus = DeviceLinkStatus.Idle,
+    wifiAdbStatus: WifiAdbCardStatus = WifiAdbCardStatus(),
+    fastbootStatus: DeviceLinkStatus = DeviceLinkStatus.Idle,
+    sideloadStatus: DeviceLinkStatus = DeviceLinkStatus.Idle,
     onOtgClick: () -> Unit = {},
     onFastbootClick: () -> Unit = {},
     onWifiAdbClick: () -> Unit = {},
@@ -218,12 +224,14 @@ fun HomeScreen(
 
                     OtgAdbCard(
                         modifier = Modifier.flex { grow(1f) },
+                        status = otgStatus,
                         onClick = withHaptic { onClickOtgAdbCard() }
                     )
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                         WirelessDebuggingCard(
                             modifier = Modifier.fillMaxWidth(),
+                            status = wifiAdbStatus,
                             onStartClick = withHaptic {
                                 if (savedDevicesCount == 0) {
                                     showToast(context, res.getString(R.string.pair_a_device_first))
@@ -264,10 +272,12 @@ fun HomeScreen(
                 ) {
                     FastbootCard(
                         modifier = Modifier.flex { grow(1f) },
+                        status = fastbootStatus,
                         onClick = onClickFastbootCard
                     )
                     AdbSideloadCard(
                         modifier = Modifier.flex { grow(1f) },
+                        status = sideloadStatus,
                         onClick = onSideloadClick
                     )
                 }
@@ -327,12 +337,10 @@ private fun LocalAdbCard(
         else -> stringResource(R.string.none)
     }
 
-    val detailsText = stringResource(R.string.active) + " ($workingModeText)"
-
     NavItemCompactCard(
         modifier = modifier,
         title = stringResource(R.string.local_adb),
-        description = detailsText,
+        description = workingModeText,
         leadingIcon = {
             Icon(
                 modifier = Modifier.size(20.dp),
@@ -349,11 +357,13 @@ private fun LocalAdbCard(
 @Composable
 private fun OtgAdbCard(
     modifier: Modifier = Modifier,
+    status: DeviceLinkStatus = DeviceLinkStatus.Idle,
     onClick: () -> Unit = {}
 ) {
     NavItemCompactCard(
         modifier = modifier,
         title = stringResource(R.string.adb_via_otg),
+        description = status.label(),
         leadingIcon = {
             Icon(
                 modifier = Modifier.size(20.dp),
@@ -373,13 +383,14 @@ private fun OtgAdbCard(
 @Composable
 private fun WirelessDebuggingCard(
     modifier: Modifier = Modifier,
+    status: WifiAdbCardStatus = WifiAdbCardStatus(),
     onStartClick: () -> Unit,
     onPairClick: () -> Unit
 ) {
     NavItemCard(
         modifier = modifier,
         title = stringResource(R.string.adb_via_wireless_debugging),
-        description = stringResource(R.string.adb_via_wireless_debugging_summary),
+        description = status.label(),
         leadingIcon = { tint ->
             Icon(
                 modifier = Modifier.size(20.dp),
@@ -450,11 +461,13 @@ private fun WirelessDebuggingCard(
 @Composable
 private fun FastbootCard(
     modifier: Modifier = Modifier,
+    status: DeviceLinkStatus = DeviceLinkStatus.Idle,
     onClick: () -> Unit = {}
 ) {
     NavItemCompactCard(
         modifier = modifier,
         title = stringResource(R.string.fastboot),
+        description = status.label(),
         leadingIcon = {
             Icon(
                 modifier = Modifier.size(20.dp),
@@ -471,11 +484,13 @@ private fun FastbootCard(
 @Composable
 fun AdbSideloadCard(
     modifier: Modifier = Modifier,
+    status: DeviceLinkStatus = DeviceLinkStatus.Idle,
     onClick: () -> Unit = {}
 ) {
     NavItemCompactCard(
         modifier = modifier,
         title = stringResource(R.string.adb_sideload),
+        description = status.label(),
         leadingIcon = {
             Icon(
                 modifier = Modifier.size(20.dp),
@@ -542,7 +557,7 @@ private fun NavItemCompactCard(
     onClick: () -> Unit = {},
     enabled: Boolean = true,
     title: String,
-    description: String = "Details",
+    description: String,
     leadingIcon: @Composable (Color) -> Unit = {},
     trailingIcon: @Composable () -> Unit = {},
     cardColors: CardColors = CardDefaults.cardColors(
@@ -624,6 +639,7 @@ private fun NavItemCompactCard(
 private fun NavItemCompactCardPreview() {
     NavItemCompactCard(
         title = "Local ADB",
+        description = "Shizuku",
         leadingIcon = {
             Icon(
                 modifier = Modifier.size(20.dp),
@@ -641,7 +657,7 @@ private fun NavItemCard(
     onClick: () -> Unit = {},
     clickable: Boolean = true,
     title: String,
-    description: String = "Details",
+    description: String,
     leadingIcon: @Composable (Color) -> Unit = {},
     trailingIcon: @Composable () -> Unit = {},
     cardColors: CardColors = CardDefaults.cardColors(
@@ -732,6 +748,29 @@ private fun Badge(
             color = badgeContentColor
         )
     }
+}
+
+@Composable
+private fun DeviceLinkStatus.label(): String = when (this) {
+    DeviceLinkStatus.Idle -> stringResource(R.string.not_connected)
+    DeviceLinkStatus.Connecting -> stringResource(R.string.connecting)
+    is DeviceLinkStatus.Connected -> stringResource(
+        R.string.status_with_detail,
+        stringResource(R.string.connected),
+        deviceName
+    )
+}
+
+@Composable
+private fun WifiAdbCardStatus.label(): String = when (link) {
+    DeviceLinkStatus.Idle -> stringResource(R.string.adb_via_wireless_debugging_summary)
+    DeviceLinkStatus.Connecting -> link.label()
+    is DeviceLinkStatus.Connected -> stringResource(
+        R.string.status_with_device_and_mode,
+        stringResource(R.string.connected),
+        link.deviceName,
+        stringResource(if (isOwnDevice) R.string.this_device else R.string.other_device)
+    )
 }
 
 @Suppress("SameParameterValue")

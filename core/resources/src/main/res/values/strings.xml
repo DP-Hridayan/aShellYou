@@ -768,6 +768,7 @@
     <string name="no_variables_loaded" comment="Placeholder text in fastboot variable explorer tab before querying getvar">No variables loaded</string>
     <string name="no_wifi_connection" comment="Error banner when Wi-Fi is disabled during Wireless Debugging setup">No WiFi connection</string>
     <string name="none">None</string>
+    <string name="not_connected" comment="Home card status line when no device is attached for this connection type">Not connected</string>
     <string name="not_signed_in" comment="Status text in cloud backup settings when Google account is signed out">Not signed in</string>
     <string name="nothing_to_clear" comment="Toast notification when user taps clear output but screen is already empty">Nothing to clear</string>
     <string name="nothing_to_search" comment="Toast message when search query string is empty">Nothing to search</string>
@@ -1034,6 +1035,8 @@
     <string name="stable_github" comment="Option in update channel settings for GitHub stable releases">Stable (GitHub)</string>
     <string name="stack_trace" comment="Header title for crash log exception stack trace section">Stack trace</string>
     <string name="stargazers" comment="GitHub repository star count label in About screen">Stargazers</string>
+    <string name="status_with_detail" comment="Home card status line. %1$s is a connection state such as Connected, %2$s is the device name, e.g. Connected (Pixel 7)">%1$s (%2$s)</string>
+    <string name="status_with_device_and_mode" comment="Wireless debugging home card status line. %1$s is a connection state such as Connected, %2$s is the device name, %3$s is This Device or Other device, e.g. Connected (Pixel 7, Other device)">%1$s (%2$s, %3$s)</string>
     <string name="start">Start</string>
     <string name="stop">Stop</string>
     <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">%.1f MB used by AI models</string>

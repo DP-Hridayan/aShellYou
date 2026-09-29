@@ -21,8 +21,8 @@ class OnboardingViewModel @Inject constructor(
 
     fun completeOnboarding() {
         viewModelScope.launch {
-            settingsRepository.setBoolean(SettingsKeys.FirstLaunch, false)
             settingsRepository.setInt(SettingsKeys.SavedLegalDocsVersion, LEGAL_DOCS_VERSION)
+            settingsRepository.setBoolean(SettingsKeys.FirstLaunch, false)
         }
     }
 

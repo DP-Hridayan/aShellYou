@@ -40,6 +40,7 @@ import `in`.hridayan.ashell.ui.components.bottomsheet.ChangelogBottomSheet
 import `in`.hridayan.ashell.ui.components.dialog.LegalDocsUpdateDialog
 import `in`.hridayan.ashell.ui.navigation.AppNavigation
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 
 @Composable
 fun AppUiEntry(
@@ -62,7 +63,6 @@ fun AppUiEntry(
     var changelog by rememberSaveable { mutableStateOf("") }
     val savedVersionCode = settings[SettingsKeys.SavedVersionCode]
     val firstLaunchFlow = settings[SettingsKeys.FirstLaunch]
-    val savedLegalDocsVersion = settings[SettingsKeys.SavedLegalDocsVersion]
 
     LaunchedEffect(Unit, isNetworkAvailable(context)) {
         autoUpdateViewModel.updateEvents.collectLatest { result ->
@@ -80,8 +80,12 @@ fun AppUiEntry(
         showChangelogSheet = savedVersionCode < BuildConfig.VERSION_CODE && !firstLaunchFlow
     }
 
-    LaunchedEffect(savedLegalDocsVersion, firstLaunchFlow) {
-        if (!firstLaunchFlow && savedLegalDocsVersion != LEGAL_DOCS_VERSION) {
+    LaunchedEffect(firstLaunchFlow) {
+        if (firstLaunchFlow) return@LaunchedEffect
+
+        val persistedLegalDocsVersion =
+            settingsViewModel.getInt(SettingsKeys.SavedLegalDocsVersion).first()
+        if (persistedLegalDocsVersion != LEGAL_DOCS_VERSION) {
             showLegalDocsDialog = true
         }
     }
