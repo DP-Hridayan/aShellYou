@@ -186,13 +186,8 @@ public class AdbStream implements Closeable {
     }
 
     private int readBuffer(byte[] bytes, int offset, int length) {
-        int count = 0;
-        for (int i = offset; i < offset + length; ++i) {
-            if (mReadBuffer.hasRemaining()) {
-                bytes[i] = mReadBuffer.get();
-                ++count;
-            }
-        }
+        int count = Math.min(length, mReadBuffer.remaining());
+        mReadBuffer.get(bytes, offset, count);
         return count;
     }
 

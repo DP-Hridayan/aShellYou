@@ -276,9 +276,7 @@ class FileBrowserViewModel @Inject constructor(
     }
 
     fun downloadFile(remotePath: String, fileName: String) {
-        val downloadsDir =
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-        val localPath = File(downloadsDir, fileName).absolutePath
+        val savedPath = "${Environment.DIRECTORY_DOWNLOADS}/$fileName"
         val operationId = UUID.randomUUID().toString()
         val operation = FileOperation(
             id = operationId,
@@ -290,7 +288,7 @@ class FileBrowserViewModel @Inject constructor(
         addOperation(operation)
 
         val job = viewModelScope.launch {
-            repository.pullFile(remotePath, localPath).collect { result ->
+            repository.pullFile(remotePath, fileName).collect { result ->
                 when (result) {
                     is FileOperationResult.Progress -> {
                         updateOperation(operationId) {
@@ -310,11 +308,11 @@ class FileBrowserViewModel @Inject constructor(
                                 bytesTransferred = it.totalBytes // Ensure 100% shown
                             )
                         }
-                        _events.emit(FileBrowserEvent.FileDownloaded(localPath))
+                        _events.emit(FileBrowserEvent.FileDownloaded(savedPath))
                         _events.emit(
                             FileBrowserEvent.ShowToast(
                                 R.string.fb_downloaded_to,
-                                listOf(localPath)
+                                listOf(savedPath)
                             )
                         )
                         // Delay removal to let UI show completion

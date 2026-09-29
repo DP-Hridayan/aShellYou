@@ -31,6 +31,9 @@ public class AdbStream implements Closeable {
 	/** Indicates whether the connection is closed already */
 	private volatile boolean isClosed;
 
+	/** The peer closed, but data it already sent has not been read yet */
+	private volatile boolean pendingClose;
+
 	/** Indicates whether the peer has acknowledged the OPEN for this stream */
 	private volatile boolean isOpen;
 
@@ -119,9 +122,20 @@ public class AdbStream implements Closeable {
 		if (reason != null) {
 			closeReason = reason;
 		}
-		isClosed = true;
+		/* Data already received must survive the close, or a fast peer that writes and
+		 * closes in one go loses everything still queued. */
+		synchronized (readQueue) {
+			if (readQueue.isEmpty()) {
+				isClosed = true;
+			} else {
+				pendingClose = true;
+			}
+		}
 
-		/* Unwait readers and writers */
+		notifyWaiters();
+	}
+
+	private void notifyWaiters() {
 		synchronized (this) {
 			notifyAll();
 		}
@@ -140,12 +154,14 @@ public class AdbStream implements Closeable {
 	public byte[] read() throws InterruptedException, IOException {
 		byte[] data = null;
 		synchronized (readQueue) {
-			/* Wait for the connection to close or data to be received */
-			while (!isClosed && (data = readQueue.poll()) == null) {
+			/* Poll before testing the flags: && short-circuits, so testing them first would
+			 * discard whatever the peer sent just before it closed. */
+			while ((data = readQueue.poll()) == null && !isClosed && !pendingClose) {
 				readQueue.wait();
 			}
 
 			if (data == null) {
+				isClosed = true;
 				throw closedException();
 			}
 		}
@@ -175,7 +191,7 @@ public class AdbStream implements Closeable {
 		synchronized (this) {
 			/* Make sure we're ready for a write */
 			long deadline = System.currentTimeMillis() + WRITE_READY_TIMEOUT_MS;
-			while (!isClosed && !writeReady.compareAndSet(true, false)) {
+			while (!isClosed && !pendingClose && !writeReady.compareAndSet(true, false)) {
 				long remaining = deadline - System.currentTimeMillis();
 				if (remaining <= 0) {
 					throw new IOException("Timed out waiting for the peer to accept data");
@@ -183,7 +199,7 @@ public class AdbStream implements Closeable {
 				wait(remaining);
 			}
 
-			if (isClosed) {
+			if (isClosed || pendingClose) {
 				throw closedException();
 			}
 		}
@@ -204,13 +220,22 @@ public class AdbStream implements Closeable {
 	 */
 	@Override
 	public void close() throws IOException {
+		boolean closedByPeer;
 		synchronized (this) {
 			/* This may already be closed by the remote host */
 			if (isClosed)
 				return;
 
-			/* Notify readers/writers that we've closed */
-			notifyClose();
+			closedByPeer = pendingClose;
+			isClosed = true;
+		}
+
+		notifyWaiters();
+
+		/* The peer already sent its CLOSE; answering it would close an unrelated stream
+		 * that has since been given the same local id. */
+		if (closedByPeer) {
+			return;
 		}
 
 		adbConn.channel.writex(AdbProtocol.generateClose(localId, remoteId));

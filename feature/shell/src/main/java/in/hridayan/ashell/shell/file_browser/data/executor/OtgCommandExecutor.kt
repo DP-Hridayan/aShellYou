@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.shell.file_browser.data.executor
 
 import android.util.Log
+import com.cgutman.adblib.AdbStream
 import `in`.hridayan.ashell.core.common.domain.repository.OtgRepository
 import `in`.hridayan.ashell.shell.file_browser.data.protocol.AdblibSyncTransport
 import `in`.hridayan.ashell.shell.file_browser.domain.protocol.SyncSession
@@ -19,7 +20,6 @@ import javax.inject.Singleton
 private const val SHELL_SERVICE_PREFIX = "shell:"
 private const val SYNC_SERVICE = "sync:"
 private const val COMMAND_TIMEOUT_MS = 15_000L
-private const val COMMAND_END_MARKER = "__END__"
 
 @Singleton
 class OtgCommandExecutor @Inject constructor(
@@ -37,17 +37,19 @@ class OtgCommandExecutor @Inject constructor(
 
         val adbConnection = otgRepository.getAdbConnection() ?: return@withContext null
 
+        val marker = CommandEndMarker.next()
         withTimeoutOrNull(COMMAND_TIMEOUT_MS) {
-            val stream = adbConnection.open(SHELL_SERVICE_PREFIX + command)
+            val stream =
+                adbConnection.open(SHELL_SERVICE_PREFIX + CommandEndMarker.appendTo(command, marker))
             try {
                 val output = StringBuilder()
                 while (true) {
-                    val data = stream.read()
+                    val data = stream.readUntilClosed()
                     if (data == null || data.isEmpty()) break
                     output.append(String(data, Charsets.UTF_8))
-                    if (output.contains(COMMAND_END_MARKER)) break
+                    if (output.contains(marker)) break
                 }
-                output.toString()
+                output.toString().substringBefore(marker)
             } finally {
                 runCatching { stream.close() }
             }
@@ -74,8 +76,19 @@ class OtgCommandExecutor @Inject constructor(
     }
 
     /**
-     * Catches everything, not only [IOException]. A protocol surprise arrives as some other type, and
-     * letting it escape turned a missing file size into a failed download.
+     * @return the next payload, or null once the peer closed the stream, which is how a finished
+     * command ends on this transport. A failure while the stream is still open is a real one and is
+     * left to the caller.
+     */
+    private fun AdbStream.readUntilClosed(): ByteArray? = try {
+        read()
+    } catch (e: IOException) {
+        if (isClosed) null else throw e
+    }
+
+    /**
+     * Catches everything, not only [IOException], because a protocol surprise arrives as some other
+     * type and must not surface as a failed transfer.
      */
     private suspend fun <T> withSyncSession(block: suspend (SyncSession) -> T): T? = try {
         requireSyncSession(block)

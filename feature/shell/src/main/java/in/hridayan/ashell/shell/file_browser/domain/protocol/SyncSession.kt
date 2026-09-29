@@ -52,9 +52,8 @@ class SyncSession(private val transport: SyncTransport) {
             val frame = reader.readFrame()
             when (frame.id) {
                 SyncProtocol.ID_DATA -> {
-                    val chunk = reader.readExactly(frame.value)
-                    sink.write(chunk)
-                    received += chunk.size
+                    reader.readInto(sink, frame.value)
+                    received += frame.value
                     onProgress(received)
                 }
 
@@ -145,6 +144,18 @@ internal class SyncFrameReader(private val transport: SyncTransport) {
             filled += take
         }
         return result
+    }
+
+    /** Streams [count] bytes to [sink] rather than materialising a chunk per frame. */
+    suspend fun readInto(sink: OutputStream, count: Int) {
+        var remaining = count
+        while (remaining > 0) {
+            if (offset >= pending.size) refill()
+            val take = minOf(remaining, pending.size - offset)
+            sink.write(pending, offset, take)
+            offset += take
+            remaining -= take
+        }
     }
 
     /**

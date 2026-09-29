@@ -1,14 +1,20 @@
 package `in`.hridayan.ashell.shell.file_browser.data.repository
 
+import android.content.ContentResolver
+import android.content.ContentValues
 import android.content.Context
+import android.net.Uri
+import android.os.Build
+import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.file_browser.data.executor.AdbCommandExecutor
 import `in`.hridayan.ashell.shell.file_browser.data.executor.WifiAdbCommandExecutor
 import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperationResult
 import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
 import `in`.hridayan.ashell.shell.file_browser.domain.repository.FileBrowserRepository
-import `in`.hridayan.ashell.core.resources.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.delay
@@ -20,6 +26,8 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import java.io.File
+import java.io.IOException
+import java.io.OutputStream
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -83,13 +91,12 @@ class FileBrowserRepositoryImpl @Inject constructor(
 
             val normalizedPath = if (path.endsWith("/")) path else "$path/"
             val escapedPath = normalizedPath.replace("'", "'\\''")
-            val command = "(ls -la '$escapedPath' 2>&1 || true); echo '__END__'"
+            val command = "ls -la '$escapedPath' 2>&1 || true"
 
             val fullOutput = executor.executeCommand(command)
                 ?: return Result.failure(Exception("Command execution failed"))
 
             val rawLines = fullOutput
-                .replace("__END__", "")
                 .trim()
                 .split("\n")
                 .filter { it.isNotBlank() }
@@ -193,35 +200,114 @@ class FileBrowserRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun pullFile(remotePath: String, localPath: String): Flow<FileOperationResult> = flow {
-        val localFile = File(localPath)
+    override fun pullFile(remotePath: String, fileName: String): Flow<FileOperationResult> = flow {
+        var unfinished: DownloadTarget? = null
 
         try {
             val totalSize = executor.stat(remotePath)?.size ?: 0L
             emit(FileOperationResult.Progress(0, totalSize))
 
-            localFile.parentFile?.mkdirs()
+            val target = openDownload(fileName)
+            unfinished = target
+            val written = writeDownload(remotePath, target, totalSize) { emit(it) }
+            unfinished = null
 
-            localFile.outputStream().buffered(TRANSFER_BUFFER_SIZE).use { sink ->
-                var lastEmitMs = 0L
-                executor.pull(remotePath, sink) { transferred ->
-                    val now = System.currentTimeMillis()
-                    if (now - lastEmitMs >= PROGRESS_INTERVAL_MS) {
-                        lastEmitMs = now
-                        emit(FileOperationResult.Progress(transferred, totalSize))
-                    }
-                }
-            }
-
-            emit(FileOperationResult.Progress(localFile.length(), totalSize))
+            emit(FileOperationResult.Progress(written, totalSize))
             emit(FileOperationResult.Success(context.getString(R.string.file_downloaded)))
         } catch (e: Exception) {
             Log.e(TAG, "Error pulling file $remotePath", e)
-            runCatching { if (localFile.exists()) localFile.delete() }
+            runCatching { unfinished?.discard() }
             emit(transferError(e, R.string.failed_to_download_file))
         }
     }.buffer(PROGRESS_BUFFER, onBufferOverflow = BufferOverflow.DROP_OLDEST)
         .flowOn(Dispatchers.IO)
+
+    /** @return the number of bytes written. */
+    private suspend fun writeDownload(
+        remotePath: String,
+        target: DownloadTarget,
+        totalSize: Long,
+        emit: suspend (FileOperationResult) -> Unit
+    ): Long {
+        var written = 0L
+        target.sink.buffered(TRANSFER_BUFFER_SIZE).use { sink ->
+            var lastEmitMs = 0L
+            executor.pull(remotePath, sink) { transferred ->
+                written = transferred
+                val now = System.currentTimeMillis()
+                if (now - lastEmitMs >= PROGRESS_INTERVAL_MS) {
+                    lastEmitMs = now
+                    emit(FileOperationResult.Progress(transferred, totalSize))
+                }
+            }
+        }
+        target.finish()
+        return written
+    }
+
+    /**
+     * An open download, and the two ways it can end.
+     *
+     * [finish] publishes it; until then the entry stays pending and is hidden from other apps.
+     * [discard] removes it, so an interrupted download leaves nothing behind, not even an empty
+     * media store row that would block the next attempt at the same name.
+     */
+    private class DownloadTarget(
+        val sink: OutputStream,
+        val finish: () -> Unit,
+        val discard: () -> Unit
+    )
+
+    /** Removes the entry when the stream cannot be opened, so a failure leaves no empty row behind. */
+    private fun openPendingSink(resolver: ContentResolver, uri: Uri): OutputStream = try {
+        resolver.openOutputStream(uri)
+            ?: throw IOException(context.getString(R.string.failed_to_download_file))
+    } catch (e: Exception) {
+        runCatching { resolver.delete(uri, null, null) }
+        throw e
+    }
+
+    private fun openLegacyDownload(fileName: String): DownloadTarget {
+        val directory =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+        val file = File(directory, fileName)
+        file.parentFile?.mkdirs()
+        return DownloadTarget(
+            sink = file.outputStream(),
+            finish = {},
+            discard = { file.delete() }
+        )
+    }
+
+    /**
+     * Creates the destination in Downloads through the media store, which grants the app ownership
+     * of what it inserts. Writing the same location as a plain path is refused for any name the app
+     * does not already own.
+     */
+    private fun openDownload(fileName: String): DownloadTarget {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) return openLegacyDownload(fileName)
+
+        val resolver = context.contentResolver
+        val pending = ContentValues().apply {
+            put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
+            put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
+            put(MediaStore.MediaColumns.IS_PENDING, 1)
+        }
+        val uri = resolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, pending)
+            ?: throw IOException(context.getString(R.string.failed_to_download_file))
+        val sink = openPendingSink(resolver, uri)
+
+        return DownloadTarget(
+            sink = sink,
+            finish = {
+                val published = ContentValues().apply {
+                    put(MediaStore.MediaColumns.IS_PENDING, 0)
+                }
+                resolver.update(uri, published, null, null)
+            },
+            discard = { resolver.delete(uri, null, null) }
+        )
+    }
 
     override fun pushFile(localPath: String, remotePath: String): Flow<FileOperationResult> = flow {
         val localFile = File(localPath)

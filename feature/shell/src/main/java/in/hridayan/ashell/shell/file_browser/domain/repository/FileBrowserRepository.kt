@@ -15,11 +15,13 @@ interface FileBrowserRepository {
     suspend fun listFiles(path: String): Result<List<RemoteFile>>
 
     /**
-     * Pull (download) a file from remote device to local storage.
+     * Pull (download) a file from the remote device into the local Downloads folder.
+     *
      * @param remotePath Path on remote device
-     * @param localPath Path on local device to save to
+     * @param fileName Name to save under. The repository owns the destination, because shared
+     * storage only accepts a write through the media store.
      */
-    fun pullFile(remotePath: String, localPath: String): Flow<FileOperationResult>
+    fun pullFile(remotePath: String, fileName: String): Flow<FileOperationResult>
 
     /**
      * Push (upload) a file from local storage to remote device.
