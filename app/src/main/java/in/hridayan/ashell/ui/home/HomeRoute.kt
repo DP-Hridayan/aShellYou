@@ -8,6 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import `in`.hridayan.ashell.adbsideload.presentation.viewmodel.SideloadViewModel
 import `in`.hridayan.ashell.core.common.domain.model.FastbootState
 import `in`.hridayan.ashell.core.common.domain.model.otg.OtgState
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
@@ -32,11 +33,15 @@ fun HomeRoute(
     otgViewModel: OtgViewModel = hiltViewModel(),
     wifiAdbViewModel: WifiAdbViewModel = hiltViewModel(),
     fastbootViewModel: FastbootViewModel = hiltViewModel(),
+    sideloadViewModel: SideloadViewModel = hiltViewModel(),
     navDeepLinkViewModel: NavDeepLinkViewModel = hiltViewModel(),
 ) {
     val navController = LocalNavController.current
     val otgState by otgViewModel.state.collectAsState()
     val fastbootState by fastbootViewModel.state.collectAsState()
+    val sideloadState by sideloadViewModel.state.collectAsState()
+    val wifiAdbState by wifiAdbViewModel.state.collectAsState()
+    val wifiAdbDevice by wifiAdbViewModel.currentDevice.collectAsState()
     val savedDevices by wifiAdbViewModel.savedDevices.collectAsState()
     val settings = LocalSettings.current
     val localAdbWorkingMode = settings[SettingsKeys.LocalAdbWorkingMode]
@@ -51,6 +56,10 @@ fun HomeRoute(
         localAdbWorkingMode = localAdbWorkingMode,
         savedDevicesCount = savedDevices.size,
         isLogcatRunning = isLogcatRunning,
+        otgStatus = otgState.toLinkStatus(),
+        wifiAdbStatus = toWifiAdbCardStatus(wifiAdbState, wifiAdbDevice),
+        fastbootStatus = fastbootState.toLinkStatus(),
+        sideloadStatus = sideloadState.toLinkStatus(),
         onOtgClick = {
             if (otgState is OtgState.Connected) {
                 navController.navigate(NavRoutes.OtgAdbScreen)

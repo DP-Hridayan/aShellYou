@@ -22,7 +22,6 @@ import javax.inject.Singleton
 private const val SHELL_SERVICE_PREFIX = "shell:"
 private const val SYNC_SERVICE = "sync:"
 private const val COMMAND_BUFFER_SIZE = 4096
-private const val COMMAND_END_MARKER = "__END__"
 
 @Singleton
 class WifiAdbCommandExecutor @Inject constructor(
@@ -49,7 +48,10 @@ class WifiAdbCommandExecutor @Inject constructor(
             val adbManager = getAdbManager()
             if (!adbManager.isConnected) return@withContext null
 
-            stream = adbManager.openStream(SHELL_SERVICE_PREFIX + command)
+            val marker = CommandEndMarker.next()
+            stream = adbManager.openStream(
+                SHELL_SERVICE_PREFIX + CommandEndMarker.appendTo(command, marker)
+            )
             val inputStream = stream.openInputStream()
 
             val buffer = ByteArray(COMMAND_BUFFER_SIZE)
@@ -58,11 +60,11 @@ class WifiAdbCommandExecutor @Inject constructor(
 
             while (inputStream.read(buffer).also { bytesRead = it } != -1) {
                 output.append(String(buffer, 0, bytesRead, Charsets.UTF_8))
-                if (output.contains(COMMAND_END_MARKER)) break
+                if (output.contains(marker)) break
             }
 
             runCatching { inputStream.close() }
-            output.toString()
+            output.toString().substringBefore(marker)
         } catch (e: Exception) {
             Log.e(TAG, "executeCommand failed: $command - ${e.message}")
             null
