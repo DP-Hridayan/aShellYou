@@ -49,7 +49,7 @@
     <string name="add_new_item" comment="Generic button label to add a new list entry">Añadir nuevo elemento</string>
     <string name="additional_settings" comment="Category header in app settings">Ajustes adicionales</string>
     <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Habilidades del agente</string>
-    <string name="ai_agent_shortcut">AI Agent</string>
+    <string name="ai_agent_shortcut">Agente de IA</string>
     <string name="ai_agent_shortcut_long_label">AI ADB Agent</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">Duración de la caché</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">Activar caché</string>
@@ -63,7 +63,7 @@
     <string name="ai_chat_sessions" comment="Header title for stored AI chat conversations list">Sesiones de chat</string>
     <string name="ai_chat_thoughts" comment="Collapsible section title showing step-by-step reasoning/thinking of AI model">Pensamientos…</string>
     <string name="ai_chat_unpin" comment="Action button to unpin a pinned AI chat session">Desfijar</string>
-    <string name="ai_models" comment="Settings header for configuring AI models and API credentials">AI &amp; Models</string>
+    <string name="ai_models" comment="Settings header for configuring AI models and API credentials">IA &amp; Modelos</string>
     <string name="ai_new_chat_welcome_msg" comment="Initial welcome message from AI ADB Agent when starting a new chat session">Hola, ¿qué puedo hacer por ti?</string>
     <string name="ai_prompt_suggestion_1" comment="Clickable suggestion chip prompt in AI chat for checking battery health">Comprobar el estado de mi batería</string>
     <string name="ai_prompt_suggestion_2" comment="Clickable suggestion chip prompt in AI chat for listing installed package names">Listar todos los paquetes instalados</string>
@@ -75,7 +75,7 @@
     <string name="allow_usb_access" comment="Button label that re-shows the system prompt asking the user to allow the app to use the attached USB device">Permitir acceso USB</string>
     <string name="allow_usb_access_message" comment="Status shown when the target device was detected over USB but the system permission to use it has not been granted yet">Permitir acceso USB para continuar</string>
     <string name="already_connected" comment="Status message in wireless ADB setup screen indicating device is already connected">Ya conectado</string>
-    <string name="already_latest_version" comment="In-app updater message when user is running the most recent version of aShellYou">Estas utilizando la versión más reciente</string>
+    <string name="already_latest_version" comment="In-app updater message when user is running the most recent version of aShellYou">Usted está utilizando la versión más reciente</string>
     <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">Permitir siempre la base</string>
     <string name="always_allow_exact" comment="Permission rule option in AI chat: automatically approve commands matching exact command string">Permitir siempre la coincidencia exacta</string>
     <string name="analyse" comment="Action button to request AI analysis of command execution output or error log">Analizar</string>
@@ -83,15 +83,15 @@
     <string name="api_key" comment="Label for AI provider API key text input field">Clave API</string>
     <string name="api_key_is_saved" comment="Confirmation message in settings indicating API key has been stored">La clave API está guardada</string>
     <string name="api_key_required" comment="Dialog title when attempting to use AI feature without an API key configured">Se requiere una clave API</string>
-    <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">An API key is required to use AI features. Please add your API key in Settings &gt; Cloud Models.</string>
+    <string name="api_key_required_message" comment="Dialog message directing user to settings to enter their API key">Una clave API es requerida para usar funciones de IA. Por favor añada su clave APU en Configuración -&gt; Modelos en la Nube.</string>
     <string name="app">Aplicación</string>
     <string name="app_crashed" comment="Title of crash report notification when app encounters an unexpected exception">La aplicación se ha bloqueado</string>
     <string name="app_is_locked" comment="Title shown when the app is locked">La aplicación está bloqueada</string>
-    <string name="app_is_locked_msg" comment="Message shown when the app is locked">Usa el bloqueo de pantalla, la huella dactilar o el rostro para desbloquear esta aplicación y continuar</string>
+    <string name="app_is_locked_msg" comment="Message shown when the app is locked">Use el bloqueo de pantalla, la huella dactilar o el rostro para desbloquear esta aplicación y continuar</string>
     <string name="app_lock_disabled_msg" comment="Toast message informing user that app lock was disabled because device screen lock was removed">Autenticación de la aplicación desactivada: Se eliminó el bloqueo de pantalla del dispositivo.</string>
-    <string name="app_lock_setup_error_msg" comment="Dialog message when user tries to enable app lock but has no device screen lock configured">No hay ningún bloqueo de pantalla configurado. Configura un bloqueo de pantalla o datos biométricos en los ajustes de tu dispositivo para activar el bloqueo de la aplicación.</string>
+    <string name="app_lock_setup_error_msg" comment="Dialog message when user tries to enable app lock but has no device screen lock configured">No hay ningún bloqueo de pantalla configurado. Por favor configure un bloqueo de pantalla o datos biométricos en los ajustes de tu dispositivo para activar el bloqueo de la aplicación.</string>
     <string name="app_permissions" comment="Title for app permissions shortcut">Permisos de la aplicación</string>
-    <string name="app_tagline" comment="App subtitle/tagline shown on welcome and about screens">ADB al alcance de tu mano</string>
+    <string name="app_tagline" comment="App subtitle/tagline shown on welcome and about screens">ADB al alcance de tus dedos</string>
     <string name="apply">Aplicar</string>
     <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">Aplicar a todo (quedan %1$d)</string>
     <string name="artifact_id" comment="Technical label for AI artifact identifier in developer options">ID del artefacto</string>
@@ -120,7 +120,7 @@
     <string name="backup_found" comment="Status banner shown when a valid backup file is detected on device or cloud">Copia de seguridad encontrada</string>
     <string name="backup_frequency" comment="Setting label for selecting auto-backup interval (Daily, Weekly, Monthly)">Frecuencia de la copia de seguridad</string>
     <string name="backup_now" comment="Action button to immediately trigger a backup operation">Hacer copia de seguridad ahora</string>
-    <string name="backup_scheduler" comment="Setting category title for automated backup schedule settings">Programador de copias de seguridad</string>
+    <string name="backup_scheduler" comment="Setting category title for automated backup schedule settings">Cronograma de respaldos</string>
     <string name="backup_settings" comment="Backup option to export only application settings preferences">Hacer copia de seguridad de los ajustes de la aplicación</string>
     <string name="backup_status" comment="Card header showing current status of automated backups">Estado de la copia de seguridad</string>
     <string name="backup_successful" comment="Toast notification or dialog text when a backup completes successfully">Copia de seguridad realizada con éxito</string>
@@ -300,6 +300,7 @@
     <string name="database">Base de datos</string>
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">Modificación de bases de datos</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Solamente bases de datos</string>
+    <string name="days" comments="Days as in number of days">Días</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Carpeta predeterminada</string>
     <string name="default_language" comment="Setting preference label for selecting application language">Idioma predeterminado</string>
     <string name="delete">Eliminar</string>
@@ -715,9 +716,14 @@
     <string name="no_variables_loaded" comment="Placeholder text in fastboot variable explorer tab before querying getvar">No hay variables cargadas</string>
     <string name="no_wifi_connection" comment="Error banner when Wi-Fi is disabled during Wireless Debugging setup">Sin conexión Wifi</string>
     <string name="none">Ninguno</string>
+    <string name="not_connected" comment="Home card status line when no device is attached for this connection type">No conectado</string>
     <string name="not_signed_in" comment="Status text in cloud backup settings when Google account is signed out">No has iniciado sesión</string>
     <string name="nothing_to_clear" comment="Toast notification when user taps clear output but screen is already empty">Nada que borrar</string>
     <string name="nothing_to_search" comment="Toast message when search query string is empty">Nada que busca</string>
+    <string name="notification_group_connection" comment="Notification channel group name for connection related notifications">Conexión &amp; emparejamiento</string>
+    <string name="notification_group_developer" comment="Notification channel group name for developer tools like logcat">Herramientas para desarrolladores</string>
+    <string name="notification_group_qs" comment="Notification channel group name for quick settings tile executions">Ajustes rápidos</string>
+    <string name="notification_group_tasks" comment="Notification channel group name for background tasks like backup and sideload">Tareas en segundo plano</string>
     <string name="notification_settings" comment="Button label to open system notification settings screen">Ajustes de notificaciones</string>
     <string name="notification_style_error" comment="Troubleshooting guide text explaining Xiaomi/MIUI notification shade issues with entering pairing code">Si no puedes introducir el código de emparejamiento desde la notificación, es posible que necesites cambiar el Panel de notificaciones a Android. Ve a Ajustes de notificaciones ~ Estilos de notificación para cambiar el estilo. De lo contrario, puede que no puedas introducir el código de emparejamiento desde la notificación.</string>
     <string name="notification_styles" comment="Settings preference title for notification shade style options">Estilos de notificación</string>
@@ -973,6 +979,8 @@
     <string name="stable_github" comment="Option in update channel settings for GitHub stable releases">Estable (GitHub)</string>
     <string name="stack_trace" comment="Header title for crash log exception stack trace section">Traza de pila</string>
     <string name="stargazers" comment="GitHub repository star count label in About screen">Usuarios que dieron estrella</string>
+    <string name="status_with_detail" comment="Home card status line. %1$s is a connection state such as Connected, %2$s is the device name, e.g. Connected (Pixel 7)">%1$s (%2$s)</string>
+    <string name="status_with_device_and_mode" comment="Wireless debugging home card status line. %1$s is a connection state such as Connected, %2$s is the device name, %3$s is This Device or Other device, e.g. Connected (Pixel 7, Other device)">%1$s (%2$s, %3$s)</string>
     <string name="start">Iniciar</string>
     <string name="stop">Detener</string>
     <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">%.1f MB usados por los modelos de IA</string>
@@ -1014,6 +1022,8 @@
     <string name="tile" comment="Refers to Android System Quick Settings tile">Mosaico</string>
     <string name="tile_behavior" comment="Settings title for Quick Settings tile click behavior (click vs long-click)">Comportamiento del mosaico</string>
     <string name="tile_dashboard_notification_access_message" comment="Banner notice asking for notification permission to report tile execution errors">Activa las notificaciones para recibir avisos cuando falle la ejecución de un mosaico</string>
+    <string name="tile_execution_errors" comment="Tile here refers to the device Quick Settings Tiles that user can define and execute using Shizuku or Root">Errores de ejecución del mosaico</string>
+    <string name="tile_execution_errors_channel_description" comment="Android notification channel description for Tile Execution Errors">Notificaciones para fallos en la ejecución del ajuste rápido.</string>
     <string name="tile_logs" comment="Tab header for Quick Settings tile execution history log">Registros del mosaico</string>
     <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">Mosaico %1$d</string>
     <string name="tile_name" comment="Field label for Quick Settings tile title text">Nombre del mosaico</string>
@@ -1154,4 +1164,28 @@
     <string name="changelog_v1_0_0">Added some more command examples.\nMinor UI changes.\nChanged package name to avoid version confusion with original app.</string>
     <string name="changelog_v0_9_1">Added changelogs into the app.\nAdded highlighted shell output.\nMinor UI changes.</string>
     <string name="changelog_v0_9_0">Added dynamic material theming.\nRevamped whole UI to give a fresh look.</string>
+    <string name="error_invalid_api_key" comment="Error shown when the AI provider rejects the stored API key. %1$s is the provider name, e.g. Groq">Clave de API no válida para %1$s. Comprueba tu configuración.</string>
+    <string name="error_rate_limited_retry_in" comment="Error shown when the AI provider is throttling requests. %1$d is a number of seconds">Tasa limitada &#8212; inténtelo de nuevo en %1$ds.</string>
+    <string name="error_rate_limited" comment="Error shown when the AI provider is throttling requests and gives no retry time">Tasa limitada por proveedor. Inténtalo de nuevo en breve.</string>
+    <string name="error_bad_request" comment="Error shown when the AI provider rejects the request itself, usually a malformed tool schema">Error de solicitud: el proveedor rechazó esta solicitud.</string>
+    <string name="error_provider_server" comment="Error shown when the AI provider returns a server failure. %1$d is the HTTP status code">Error del servidor del proveedor (%1$d). Inténtalo de nuevo más tarde.</string>
+    <string name="error_no_connection" comment="Error shown when the request to the AI provider could not be sent or timed out">No se ha agotado el tiempo de espera de conexión a internet.</string>
+    <string name="error_unexpected_response" comment="Error shown when the AI provider reply could not be understood">Respuesta inesperada del proveedor. Inténtelo de nuevo.</string>
+    <string name="error_no_api_key_for_provider" comment="Error shown when the selected AI provider has no API key saved. %1$s is the provider name">No hay clave API establecida para %1$s.</string>
+    <string name="error_model_unavailable" comment="Error shown when every AI model the app tried has been retired by the provider">El proveedor retiró los modelos que utiliza esta aplicación. Prueba con otro proveedor.</string>
+    <string name="error_insufficient_credits" comment="Error shown when the AI provider account has no credit left. %1$s is the provider name">No hay crédito restante para %1$s.</string>
+    <string name="error_no_active_provider" comment="Error shown when the user has not chosen which AI provider to use">Ningún proveedor de IA seleccionado.</string>
+    <string name="active_provider" comment="Settings item title for choosing which cloud AI provider the app uses">Proveedor activo</string>
+    <string name="choose_provider" comment="Button label that opens the dialog for picking the active AI provider">Elegir proveedor</string>
+    <string name="no_api_key_for_active_provider" comment="Dialog message shown when an AI feature is used but the chosen provider has no key. %1$s is the provider name, e.g. Groq">No hay ninguna clave API para el proveedor activo %1$s. ¿Quieres elegir otro proveedor?</string>
+    <string name="groq_api_key_step_1" comment="Step 1 of the Groq API key setup guide. %1$s = URL">Visita la Consola Groq en %1$s</string>
+    <string name="groq_api_key_step_2" comment="Step 2 of the Groq API key setup guide: creating an account">Inicia sesión o crea una cuenta Groq gratuita</string>
+    <string name="groq_api_key_step_3" comment="Step 3 of the Groq API key setup guide: creating the key">Abre la página de claves API y haz clic en Crear clave API</string>
+    <string name="groq_api_key_step_4" comment="Step 4 of the Groq API key setup guide: copying the key">Copia tu clave API y pégala aquí</string>
+    <string name="openrouter_api_key_step_1" comment="Step 1 of the OpenRouter API key setup guide. %1$s = URL">Visita OpenRouter en %1$s</string>
+    <string name="openrouter_api_key_step_2" comment="Step 2 of the OpenRouter API key setup guide: creating an account">Inicia sesión o crea una cuenta OpenRouter gratuita</string>
+    <string name="openrouter_api_key_step_3" comment="Step 3 of the OpenRouter API key setup guide: creating the key">Abre los ajustes y luego las teclas y haz clic en Crear clave</string>
+    <string name="openrouter_api_key_step_4" comment="Step 4 of the OpenRouter API key setup guide: copying the key">Copia tu clave API y pégala aquí</string>
+    <string name="des_active_provider" comment="Settings item description explaining that AI features use the selected provider">Las características de IA utilizan este proveedor</string>
+    <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">Pensando</string>
 </resources>
