@@ -19,9 +19,9 @@ import javax.inject.Singleton
 @Singleton
 class RootLogcatEmitter @Inject constructor() : LogcatEmitter {
 
-    override fun lines(): Flow<String> = flow {
+    override fun lines(since: String?): Flow<String> = flow {
         val process = Runtime.getRuntime()
-            .exec(arrayOf("su", "-c", "logcat -v threadtime"))
+            .exec(arrayOf("su", "-c", LogcatCommand.shellLine(since, withUid = true)))
         val reader = BufferedReader(InputStreamReader(process.inputStream))
         try {
             while (true) {

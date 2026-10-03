@@ -22,6 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.resources.R
 
 /**
@@ -73,7 +74,7 @@ fun NotConnectedPanel(
             modifier = Modifier.fillMaxWidth(),
         ) {
             OutlinedButton(
-                onClick = onConnectViaOtg,
+                onClick = withHaptic { onConnectViaOtg() },
                 modifier = Modifier.weight(1f),
             ) {
                 Icon(
@@ -86,7 +87,7 @@ fun NotConnectedPanel(
             }
 
             FilledTonalButton(
-                onClick = onConnectViaWifiAdb,
+                onClick = withHaptic { onConnectViaWifiAdb() },
                 modifier = Modifier.weight(1f),
             ) {
                 Icon(

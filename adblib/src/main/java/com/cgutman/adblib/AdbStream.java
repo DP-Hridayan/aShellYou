@@ -40,6 +40,9 @@ public class AdbStream implements Closeable {
 	/** Why the stream closed, when the connection reported a reason */
 	private volatile String closeReason;
 
+	/** The opener gave up before the device answered; a late OKAY must be met with a CLSE */
+	private volatile boolean abandoned;
+
 	/** How long a write waits for the peer to acknowledge the previous one. A peer that is busy
 	 * installing legitimately takes minutes, so this only breaks a genuine hang. */
 	private static final long WRITE_READY_TIMEOUT_MS = 10 * 60 * 1000;
@@ -74,12 +77,19 @@ public class AdbStream implements Closeable {
 
 	/**
 	 * Called by the connection thread to send an OKAY packet, allowing the
-	 * other side to continue transmission.
-	 *
-	 * @throws java.io.IOException If the connection fails while sending the packet
+	 * other side to continue transmission. Queued rather than sent inline, so the
+	 * connection thread never waits on an outgoing transfer.
 	 */
-	void sendReady() throws IOException {
-		adbConn.channel.writex(AdbProtocol.generateReady(localId, remoteId));
+	void sendReady() {
+		adbConn.sendFromReader(AdbProtocol.generateReady(localId, remoteId));
+	}
+
+	void markAbandoned() {
+		abandoned = true;
+	}
+
+	boolean isAbandoned() {
+		return abandoned;
 	}
 
 	/**

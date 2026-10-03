@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.shell.local_adb_shell.presentation.screens
 
 import android.content.Intent
+import android.os.Build
 import android.provider.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -26,24 +27,30 @@ import `in`.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMod
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbEvent
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
+import `in`.hridayan.ashell.core.navigation.LocalNavController
+import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.presentation.components.dialog.ShizukuUnavailableDialog
 import `in`.hridayan.ashell.core.resources.R
+import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import `in`.hridayan.ashell.core.utils.DeviceUtils
 import `in`.hridayan.ashell.core.utils.ToastUtils.makeToast
 import `in`.hridayan.ashell.core.utils.isShizukuOrPlusInstalled
 import `in`.hridayan.ashell.core.utils.launchShizukuApp
 import `in`.hridayan.ashell.core.utils.showToast
-import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ConnectedDeviceDialog
+import `in`.hridayan.ashell.shell.common.presentation.components.bottomsheet.ConnectedDeviceBottomSheet
 import `in`.hridayan.ashell.shell.common.presentation.model.ShellState
 import `in`.hridayan.ashell.shell.common.presentation.screens.BaseShellScreen
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
 import `in`.hridayan.ashell.shell.local_adb_shell.presentation.components.dialog.DeveloperOptionsOffDialog
 import `in`.hridayan.ashell.shell.local_adb_shell.presentation.components.dialog.TcpIpUnavailableDialog
 import `in`.hridayan.ashell.shell.local_adb_shell.presentation.components.dialog.UsbDebuggingOffDialog
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.usecase.EnableAdbTcpIpUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import rikka.shizuku.Shizuku
+
+private const val TCPIP_COMMAND = "adb tcpip ${EnableAdbTcpIpUseCase.DEFAULT_ADB_TCP_PORT}"
 
 @Composable
 fun LocalAdbScreen(
@@ -54,6 +61,7 @@ fun LocalAdbScreen(
     val res = LocalResources.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val scope = rememberCoroutineScope()
+    val navController = LocalNavController.current
 
     val hasShizukuPermission by shellViewModel.shizukuPermissionState.collectAsState()
     var isShizukuInstalled by rememberSaveable {
@@ -61,7 +69,7 @@ fun LocalAdbScreen(
     }
     var hasRootAccess by rememberSaveable { mutableStateOf(false) }
     val localAdbMode = LocalSettings.current[SettingsKeys.LocalAdbWorkingMode]
-    var showConnectedDeviceDialog by rememberSaveable { mutableStateOf(false) }
+    var showConnectedDeviceSheet by rememberSaveable { mutableStateOf(false) }
     var showShizukuUnavailableDialog by rememberSaveable { mutableStateOf(false) }
     var showTcpIpUnavailableDialog by rememberSaveable { mutableStateOf(false) }
     var showUsbDebuggingOffDialog by rememberSaveable { mutableStateOf(false) }
@@ -137,7 +145,7 @@ fun LocalAdbScreen(
             if (states.shellState == ShellState.Busy) {
                 showToast(context, res.getString(R.string.abort_command))
             } else {
-                showConnectedDeviceDialog = true
+                showConnectedDeviceSheet = true
             }
         }
     }
@@ -175,9 +183,9 @@ fun LocalAdbScreen(
         modeButtonText = modeButtonText,
     )
 
-    if (showConnectedDeviceDialog) {
-        ConnectedDeviceDialog(
-            onDismiss = { showConnectedDeviceDialog = false },
+    if (showConnectedDeviceSheet) {
+        ConnectedDeviceBottomSheet(
+            onDismiss = { showConnectedDeviceSheet = false },
             connectedDevice = DeviceUtils.DEVICE_MODEL
         )
     }
@@ -190,7 +198,19 @@ fun LocalAdbScreen(
     }
 
     if (showTcpIpUnavailableDialog) {
-        TcpIpUnavailableDialog(onDismiss = { showTcpIpUnavailableDialog = false })
+        TcpIpUnavailableDialog(
+            command = TCPIP_COMMAND,
+            onCopyCommand = { ClipboardUtils.copyToClipboard(text = TCPIP_COMMAND, context = context) },
+            onDismiss = { showTcpIpUnavailableDialog = false },
+            onUseWirelessDebugging = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                {
+                    showTcpIpUnavailableDialog = false
+                    navController.navigate(NavRoutes.PairingOwnDeviceScreen(enableTcpIpAfterPairing = true))
+                }
+            } else {
+                null
+            }
+        )
     }
 
     if (showUsbDebuggingOffDialog) {

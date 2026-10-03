@@ -7,6 +7,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -16,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.resources.R
 
 /**
@@ -28,6 +30,7 @@ import `in`.hridayan.ashell.core.resources.R
 @Composable
 fun LogcatTopBar(
     isRunning: Boolean,
+    isPlayPauseEnabled: Boolean,
     showModeAction: Boolean,
     searchVisible: Boolean,
     isPreflightChecking: Boolean,
@@ -51,7 +54,7 @@ fun LogcatTopBar(
         },
         actions = {
             // Search toggle
-            IconButton(onClick = onSearchToggle) {
+            IconButton(onClick = withHaptic { onSearchToggle() }) {
                 Icon(
                     painter = painterResource(R.drawable.ic_search),
                     contentDescription = stringResource(R.string.search),
@@ -64,7 +67,7 @@ fun LogcatTopBar(
             }
 
             if (showModeAction) {
-                IconButton(onClick = onModeClick) {
+                IconButton(onClick = withHaptic { onModeClick() }) {
                     Icon(
                         painter = painterResource(R.drawable.ic_settings),
                         contentDescription = stringResource(R.string.logcat_source),
@@ -73,8 +76,8 @@ fun LogcatTopBar(
             }
 
             IconButton(
-                onClick = onPlayPause,
-                enabled = !isPreflightChecking,
+                onClick = withHaptic { onPlayPause() },
+                enabled = isPlayPauseEnabled && !isPreflightChecking,
             ) {
                 if (isPreflightChecking) {
                     CircularProgressIndicator(
@@ -91,23 +94,23 @@ fun LogcatTopBar(
                         } else {
                             stringResource(R.string.resume)
                         },
-                        tint = if (isRunning) {
-                            MaterialTheme.colorScheme.error
-                        } else {
-                            MaterialTheme.colorScheme.primary
+                        tint = when {
+                            !isPlayPauseEnabled -> LocalContentColor.current
+                            isRunning -> MaterialTheme.colorScheme.error
+                            else -> MaterialTheme.colorScheme.primary
                         },
                     )
                 }
             }
 
-            IconButton(onClick = onOpenFilter) {
+            IconButton(onClick = withHaptic { onOpenFilter() }) {
                 Icon(
                     painter = painterResource(R.drawable.ic_filter_alt),
                     contentDescription = stringResource(R.string.filter),
                 )
             }
 
-            IconButton(onClick = onClear) {
+            IconButton(onClick = withHaptic { onClear() }) {
                 Icon(
                     painter = painterResource(R.drawable.ic_delete),
                     contentDescription = stringResource(R.string.clear),

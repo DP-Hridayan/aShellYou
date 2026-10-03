@@ -89,6 +89,7 @@ sealed class SettingsKeys<out T>(
     data object DefaultLaunchIsLocalAdb :
         SettingsKeys<Boolean>("DEFAULT_LAUNCH_IS_LOCAL_ADB", false)
 
+    data object DeviceDockExpanded : SettingsKeys<Boolean>("DEVICE_DOCK_EXPANDED", false)
     data object DisableSoftKeyboard : SettingsKeys<Boolean>("DISABLE_SOFT_KEYBOARD", false)
     data object DynamicColors : SettingsKeys<Boolean>("DYNAMIC_COLORS", true)
     data object EnableDirectDownload : SettingsKeys<Boolean>("ENABLE_DIRECT_DOWNLOAD", true)

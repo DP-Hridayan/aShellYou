@@ -15,7 +15,10 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbReposito
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.CodePairingStage
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.DiscoveredPairingService
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.PairingDiscoveryMode
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.reachablePort
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.usecase.EnableAdbTcpIpUseCase
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.model.TcpIpEnableUiState
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,6 +38,7 @@ private const val QR_GENERATION_ERROR_TAG = "WifiAdbViewModel"
 @HiltViewModel
 class WifiAdbViewModel @Inject constructor(
     private val wifiAdbRepository: WifiAdbRepository,
+    private val enableAdbTcpIp: EnableAdbTcpIpUseCase,
     @param:ApplicationContext private val appContext: Context
 ) : ViewModel() {
     val state: StateFlow<WifiAdbState> = WifiAdbConnection.state
@@ -62,6 +66,9 @@ class WifiAdbViewModel @Inject constructor(
     private var qrExpiryJob: Job? = null
     private var generatedQrForCode: String? = null
     private var qrGenerationJob: Job? = null
+
+    private val _tcpIpEnableState = MutableStateFlow<TcpIpEnableUiState>(TcpIpEnableUiState.Idle)
+    val tcpIpEnableState: StateFlow<TcpIpEnableUiState> = _tcpIpEnableState.asStateFlow()
 
     private val _discoveredPairingServices =
         MutableStateFlow<List<DiscoveredPairingService>>(emptyList())
@@ -171,6 +178,25 @@ class WifiAdbViewModel @Inject constructor(
     }
 
     fun isConnected(): Boolean = wifiAdbRepository.isConnected()
+
+    /**
+     * Opens ADB's TCP port through the connected [ownDevice], then points the saved device at the new
+     * port so Reconnect works without pairing again. Runs at most once per screen, because a second
+     * run would restart the daemon again.
+     */
+    fun enableTcpIpOnOwnDevice(ownDevice: WifiAdbDevice) {
+        if (_tcpIpEnableState.value != TcpIpEnableUiState.Idle) return
+        _tcpIpEnableState.value = TcpIpEnableUiState.Running
+
+        viewModelScope.launch {
+            val port = EnableAdbTcpIpUseCase.DEFAULT_ADB_TCP_PORT
+            val result = enableAdbTcpIp(port)
+            result.reachablePort(port)?.let { reachablePort ->
+                wifiAdbRepository.saveDevice(ownDevice.copy(port = reachablePort))
+            }
+            _tcpIpEnableState.value = TcpIpEnableUiState.Finished(result)
+        }
+    }
 
     /**
      * Builds the QR bitmap for the current pairing code, skipping the work when that code already

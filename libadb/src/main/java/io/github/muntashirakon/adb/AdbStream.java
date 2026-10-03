@@ -56,6 +56,16 @@ public class AdbStream implements Closeable {
     private volatile boolean mPendingClose;
 
     /**
+     * Whether the peer has acknowledged the OPEN. Unlike {@link #mWriteReady}, writes never reset it.
+     */
+    private volatile boolean mIsOpen;
+
+    /**
+     * The opener gave up before the peer answered, so a late OKAY must be met with a CLSE.
+     */
+    private volatile boolean mAbandoned;
+
+    /**
      * Creates a new AdbStream object on the specified AdbConnection
      * with the given local ID.
      *
@@ -117,6 +127,19 @@ public class AdbStream implements Closeable {
      */
     void readyForWrite() {
         mWriteReady.set(true);
+        mIsOpen = true;
+    }
+
+    boolean isOpen() {
+        return mIsOpen;
+    }
+
+    void markAbandoned() {
+        mAbandoned = true;
+    }
+
+    boolean isAbandoned() {
+        return mAbandoned;
     }
 
     /**

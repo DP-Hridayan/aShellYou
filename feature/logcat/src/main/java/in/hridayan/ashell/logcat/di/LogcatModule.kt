@@ -7,9 +7,11 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import `in`.hridayan.ashell.logcat.data.apps.InstalledAppsRepositoryImpl
 import `in`.hridayan.ashell.logcat.data.permission.AndroidReadLogsAccessChecker
 import `in`.hridayan.ashell.logcat.data.repository.LogcatFilterRepositoryImpl
 import `in`.hridayan.ashell.logcat.domain.permission.ReadLogsAccessChecker
+import `in`.hridayan.ashell.logcat.domain.repository.InstalledAppsRepository
 import `in`.hridayan.ashell.logcat.domain.repository.LogcatFilterRepository
 import javax.inject.Singleton
 
@@ -30,4 +32,7 @@ abstract class LogcatBindsModule {
 
     @Binds
     abstract fun bindReadLogsAccessChecker(impl: AndroidReadLogsAccessChecker): ReadLogsAccessChecker
+
+    @Binds
+    abstract fun bindInstalledAppsRepository(impl: InstalledAppsRepositoryImpl): InstalledAppsRepository
 }

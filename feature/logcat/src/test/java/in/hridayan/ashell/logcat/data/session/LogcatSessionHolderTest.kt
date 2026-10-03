@@ -5,6 +5,7 @@ import `in`.hridayan.ashell.logcat.domain.model.LogEntry
 import `in`.hridayan.ashell.logcat.domain.model.LogLevel
 import `in`.hridayan.ashell.logcat.domain.util.approximateSizeBytes
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -106,5 +107,26 @@ class LogcatSessionHolderTest {
         holder.updateLimit(LogcatBufferSize.SMALL)
         val second = holder.nextId()
         assertTrue(second > first)
+    }
+
+    @Test
+    fun `the resume point follows the newest entry`() {
+        val holder = LogcatSessionHolder()
+        holder.fill(3)
+        assertEquals(entry(2).timestamp, holder.resumePoint()?.timestamp)
+    }
+
+    @Test
+    fun `clearing keeps the resume point so cleared entries are not read back`() {
+        val holder = LogcatSessionHolder()
+        holder.fill(3)
+        holder.clearBuffer()
+        assertTrue(holder.rawBuffer.isEmpty())
+        assertEquals(entry(2).timestamp, holder.resumePoint()?.timestamp)
+    }
+
+    @Test
+    fun `a fresh holder has no resume point`() {
+        assertNull(LogcatSessionHolder().resumePoint())
     }
 }

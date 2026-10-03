@@ -18,16 +18,14 @@ import javax.inject.Singleton
  * Logcat emitter that runs logcat as the `shell` UID via Shizuku.
  * Does not require the READ_LOGS permission — Shizuku grants full access.
  */
-private val LOGCAT_COMMAND = arrayOf("logcat", "-v", "threadtime")
-
 @Singleton
 class ShizukuLogcatEmitter @Inject constructor(
     private val shizukuCommandRunner: ShizukuCommandRunner
 ) : LogcatEmitter {
 
-    override fun lines(): Flow<String> = flow {
+    override fun lines(since: String?): Flow<String> = flow {
         val process = shizukuCommandRunner
-            .start(LOGCAT_COMMAND, null, null)
+            .start(LogcatCommand.arguments(since, withUid = true).toTypedArray(), null, null)
             .getOrElse { return@flow }
         val reader = BufferedReader(InputStreamReader(process.inputStream))
         try {

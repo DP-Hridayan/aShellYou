@@ -170,6 +170,7 @@ aboutLibraries {
     offlineMode = true
 
     collect {
+        configPath = layout.projectDirectory.dir("config")
         includePlatform = true
         fetchRemoteLicense = false
         fetchRemoteFunding = false
@@ -220,6 +221,7 @@ dependencies {
     implementation(project(":feature:home"))
     implementation(project(":feature:onboarding"))
     implementation(project(":feature:logcat"))
+    implementation(project(":feature:mirror"))
     implementation(project(":feature:crashreporter"))
     githubImplementation(project(":feature:ai"))
 

@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.common.domain.model.LogcatWorkingMode
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.resources.R
 import kotlinx.coroutines.launch
 
@@ -119,12 +120,12 @@ fun LogcatModeBottomSheet(
                 horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                TextButton(onClick = onDismiss) {
+                TextButton(onClick = withHaptic { onDismiss() }) {
                     Text(stringResource(R.string.cancel))
                 }
                 Spacer(Modifier.padding(4.dp))
                 TextButton(
-                    onClick = {
+                    onClick = withHaptic {
                         scope.launch { settings.set(SettingsKeys.LogcatMode, selected) }
                         scope.launch { sheetState.hide() }.invokeOnCompletion {
                             onDismiss()
@@ -155,7 +156,7 @@ private fun ModeOptionRow(
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null,
-                onClick = onSelect,
+                onClick = withHaptic(HapticFeedbackType.ToggleOn) { onSelect() },
             )
             .padding(vertical = 4.dp),
     ) {
@@ -174,7 +175,7 @@ private fun ModeOptionRow(
         }
         RadioButton(
             selected = selected,
-            onClick = onSelect,
+            onClick = withHaptic(HapticFeedbackType.ToggleOn) { onSelect() },
         )
     }
 }

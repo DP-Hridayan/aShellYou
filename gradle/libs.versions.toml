@@ -50,6 +50,7 @@ navigation = "2.10.1"
 nayukiQR = "1.8.0"
 playServicesAuth = "22.0.0"
 room = "2.8.5"
+scrcpyServer = "4.1"
 securityCrypto = "1.1.0"
 serialization = "1.11.0"
 shapeindicators = "2.2.0"
@@ -73,6 +74,7 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 release-lint-baseline = { id = "release.lint.baseline" }
+scrcpy-server-assets = { id = "scrcpy.server.assets" }
 
 [libraries]
 aboutlibraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref = "aboutlibraries" }

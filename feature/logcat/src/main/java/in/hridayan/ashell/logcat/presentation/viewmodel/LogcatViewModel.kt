@@ -6,24 +6,19 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.core.common.domain.model.LogcatBufferSize
-import `in`.hridayan.ashell.core.common.domain.model.otg.OtgConnection
-import `in`.hridayan.ashell.core.common.domain.model.otg.OtgState
-import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbConnection
-import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbState
 import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.core.common.domain.repository.ShellRepository
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.utils.AppRestartUtils
 import `in`.hridayan.ashell.logcat.data.emitter.LogcatEmitterFactory
+import `in`.hridayan.ashell.logcat.data.packages.PackageUidResolvers
 import `in`.hridayan.ashell.logcat.data.session.LogcatSessionHolder
-import `in`.hridayan.ashell.logcat.domain.emitter.LogcatEmitter
 import `in`.hridayan.ashell.logcat.domain.model.LogEntry
 import `in`.hridayan.ashell.logcat.domain.model.LogFilter
 import `in`.hridayan.ashell.logcat.domain.model.LogcatPreflightResult
 import `in`.hridayan.ashell.logcat.domain.model.LogcatPreflightResult.NeedsReadLogs
 import `in`.hridayan.ashell.logcat.domain.model.LogcatPreflightResult.Ready
 import `in`.hridayan.ashell.logcat.domain.model.ReadLogsPermission
-import `in`.hridayan.ashell.logcat.domain.model.matches
 import `in`.hridayan.ashell.logcat.domain.repository.LogcatFilterRepository
 import `in`.hridayan.ashell.logcat.domain.usecase.CheckLogcatPreflightUseCase
 import `in`.hridayan.ashell.logcat.domain.usecase.ObserveLogsUseCase
@@ -32,7 +27,6 @@ import `in`.hridayan.ashell.logcat.presentation.event.LogcatUiEvent
 import `in`.hridayan.ashell.logcat.presentation.model.LogListUiState
 import `in`.hridayan.ashell.logcat.presentation.model.LogcatTab
 import `in`.hridayan.ashell.logcat.service.LogcatService
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -40,8 +34,9 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -60,6 +55,7 @@ class LogcatViewModel @Inject constructor(
     private val checkPreflight: CheckLogcatPreflightUseCase,
     private val shellRepository: ShellRepository,
     private val settingsRepository: SettingsRepository,
+    private val packageResolvers: PackageUidResolvers,
     @ApplicationContext private val context: Context,
 ) : ViewModel() {
 
@@ -158,55 +154,63 @@ class LogcatViewModel @Inject constructor(
     }
 
     private val thisDevice = LogListStateStore(defaultBufferBytes())
-    private val otherDevice = LogListStateStore(defaultBufferBytes())
+    private val otherDevice = OtherDeviceSession(
+        scope = viewModelScope,
+        observeLogs = { emitter, resumeFrom -> observeLogsUseCase(emitter, resumeFrom) },
+        currentCriteria = { otherDeviceCriteria.value },
+        batchWindowMs = LOG_BATCH_WINDOW_MS,
+        maxBytes = defaultBufferBytes(),
+    )
 
     val thisDeviceState: StateFlow<LogListUiState> = thisDevice.state
     val otherDeviceState: StateFlow<LogListUiState> = otherDevice.state
+    val isOtherDeviceRunning: StateFlow<Boolean> = otherDevice.isRunning
 
-    fun pauseAutoScroll(tab: LogcatTab) = storeFor(tab).pause()
-
-    fun resumeAutoScroll(tab: LogcatTab) = storeFor(tab).resume()
-
-    private fun storeFor(tab: LogcatTab): LogListStateStore = when (tab) {
-        LogcatTab.THIS_DEVICE -> thisDevice
-        LogcatTab.OTHER_DEVICE -> otherDevice
+    fun pauseAutoScroll(tab: LogcatTab) = when (tab) {
+        LogcatTab.THIS_DEVICE -> thisDevice.pause()
+        LogcatTab.OTHER_DEVICE -> otherDevice.pauseAutoScroll()
     }
 
-    val otgState: StateFlow<OtgState> = OtgConnection.state
-    val wifiAdbState: StateFlow<WifiAdbState> = WifiAdbConnection.state
+    fun resumeAutoScroll(tab: LogcatTab) = when (tab) {
+        LogcatTab.THIS_DEVICE -> thisDevice.resume()
+        LogcatTab.OTHER_DEVICE -> otherDevice.resumeAutoScroll()
+    }
 
-    val isOtherDeviceConnected: StateFlow<Boolean> = combine(
-        OtgConnection.state,
-        WifiAdbConnection.state,
-        WifiAdbConnection.currentDevice,
-    ) { otg, wifi, device ->
-        otg is OtgState.Connected ||
-                (wifi is WifiAdbState.Connected && device?.isOwnDevice == false)
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
+    fun toggleOtherDeviceLogs() {
+        if (otherDevice.isRunning.value) otherDevice.stop() else otherDevice.play()
+    }
 
-    private var otherDeviceJob: Job? = null
+    private val otherDeviceTarget: StateFlow<OtherDeviceTarget?> =
+        otherDeviceTargets(emitterFactory, packageResolvers)
+            .stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
-    fun startOtherDeviceLogs(emitter: LogcatEmitter) {
-        otherDeviceJob?.cancel()
-        otherDevice.reset()
-        otherDeviceJob = viewModelScope.launch {
-            observeLogsUseCase(emitter)
-                .batchByTime(LOG_BATCH_WINDOW_MS)
-                .collect { batch -> otherDevice.append(batch) }
+    val isOtherDeviceConnected: StateFlow<Boolean> = otherDeviceTarget
+        .map { it != null }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
+
+    private val filters = LogFilterSelection(filterRepository, viewModelScope)
+    val filterProfiles: StateFlow<List<LogFilter>> = filters.profiles
+    val activeProfileIds: StateFlow<Set<String>> = filters.activeProfileIds
+    val searchQuery: StateFlow<String> = filters.searchQuery
+
+    fun search(query: String) = filters.search(query)
+
+    fun toggleFilterProfile(profileId: String) = filters.toggle(profileId)
+
+    fun deleteFilterProfile(profileId: String) = filters.delete(profileId)
+
+    private val thisDeviceCriteria = filters.criteriaFor(flowOf(packageResolvers.local))
+    private val otherDeviceCriteria = filters.criteriaFor(otherDeviceTarget.map { it?.packages })
+
+    /** Packages installed under [uid] on the device behind [tab], for the log detail sheet. */
+    suspend fun packagesOf(uid: String, tab: LogcatTab): List<String> {
+        if (uid.isBlank()) return emptyList()
+        val resolver = when (tab) {
+            LogcatTab.THIS_DEVICE -> packageResolvers.local
+            LogcatTab.OTHER_DEVICE -> otherDeviceTarget.value?.packages
         }
+        return resolver?.packagesOf(uid).orEmpty()
     }
-
-    fun stopOtherDeviceLogs() {
-        otherDeviceJob?.cancel()
-        otherDeviceJob = null
-        otherDevice.reset()
-    }
-
-    private val _activeFilter = MutableStateFlow(LogFilter())
-    val activeFilter: StateFlow<LogFilter> = _activeFilter.asStateFlow()
-
-    val savedFilters: StateFlow<List<LogFilter>> = filterRepository.getSavedFilters()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
     private val _expandedIds = MutableStateFlow<Set<Long>>(emptySet())
     val expandedIds: StateFlow<Set<Long>> = _expandedIds.asStateFlow()
@@ -218,6 +222,21 @@ class LogcatViewModel @Inject constructor(
         lastRestoredId = restoreFromBuffer()
         observeLiveEntries()
         observeBufferLimit()
+        observeOtherDeviceConnection()
+        observeFilterCriteria()
+    }
+
+    private fun observeFilterCriteria() {
+        viewModelScope.launch { thisDeviceCriteria.collect { reapplyFilter() } }
+        viewModelScope.launch { otherDeviceCriteria.collect { otherDevice.reapplyFilter() } }
+    }
+
+    private fun observeOtherDeviceConnection() {
+        viewModelScope.launch {
+            otherDeviceTarget.collect { target ->
+                if (target == null) otherDevice.disconnect() else otherDevice.connect(target.emitter)
+            }
+        }
     }
 
     private fun observeBufferLimit() {
@@ -234,12 +253,14 @@ class LogcatViewModel @Inject constructor(
         otherDevice.updateLimit(maxBytes)
     }
 
-    fun updateFilter(filter: LogFilter) {
-        _activeFilter.value = filter
-        reapplyFilter(filter)
+    fun clearLogs(tab: LogcatTab) {
+        when (tab) {
+            LogcatTab.THIS_DEVICE -> clearThisDevice()
+            LogcatTab.OTHER_DEVICE -> otherDevice.clear()
+        }
     }
 
-    fun clearLogs() {
+    private fun clearThisDevice() {
         sessionHolder.clearBuffer()
         thisDevice.reset()
     }
@@ -247,17 +268,6 @@ class LogcatViewModel @Inject constructor(
     fun toggleExpanded(id: Long) {
         _expandedIds.update { ids -> if (id in ids) ids - id else ids + id }
     }
-
-    fun saveCurrentFilter(name: String) {
-        viewModelScope.launch { filterRepository.saveFilter(_activeFilter.value.copy(name = name)) }
-    }
-
-    fun deleteFilter(id: String) {
-        viewModelScope.launch { filterRepository.deleteFilter(id) }
-    }
-
-    fun otgEmitter(): LogcatEmitter = emitterFactory.otg
-    fun wifiAdbEmitter(): LogcatEmitter = emitterFactory.wifiAdb
 
     private fun observeLiveEntries() {
         viewModelScope.launch {
@@ -269,27 +279,23 @@ class LogcatViewModel @Inject constructor(
     }
 
     private fun restoreFromBuffer(): Long {
-        val filter = _activeFilter.value
-        val restored = sessionHolder.rawBuffer.filter { filter.matches(it) }
+        val criteria = thisDeviceCriteria.value
+        val restored = sessionHolder.rawBuffer.filter { criteria.matches(it) }
         thisDevice.replace(restored)
         return restored.lastOrNull()?.id ?: 0L
     }
 
     private fun onLiveBatchReceived(batch: List<LogEntry>) {
-        val filter = _activeFilter.value
-        val fresh = batch.filter { it.id > lastRestoredId && filter.matches(it) }
+        val criteria = thisDeviceCriteria.value
+        val fresh = batch.filter { it.id > lastRestoredId && criteria.matches(it) }
         if (fresh.isNotEmpty()) thisDevice.append(fresh)
     }
 
-    private fun reapplyFilter(filter: LogFilter) {
+    private fun reapplyFilter() {
+        val criteria = thisDeviceCriteria.value
         val allBuffer = sessionHolder.rawBuffer
-        val filtered = allBuffer.filter { filter.matches(it) }
+        val filtered = allBuffer.filter { criteria.matches(it) }
         thisDevice.replace(filtered)
         lastRestoredId = allBuffer.lastOrNull()?.id ?: lastRestoredId
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        otherDeviceJob?.cancel()
     }
 }

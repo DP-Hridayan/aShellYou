@@ -2,6 +2,8 @@ package `in`.hridayan.ashell.logcat.data.session
 
 import `in`.hridayan.ashell.core.common.domain.model.LogcatBufferSize
 import `in`.hridayan.ashell.logcat.domain.model.LogEntry
+import `in`.hridayan.ashell.logcat.domain.model.ResumePoint
+import `in`.hridayan.ashell.logcat.domain.util.ResumePointTracker
 import `in`.hridayan.ashell.logcat.domain.util.approximateSizeBytes
 import `in`.hridayan.ashell.logcat.service.LogcatService
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -39,14 +41,22 @@ class LogcatSessionHolder @Inject constructor() {
 
     private var limitBytes: Long = LogcatBufferSize.toBytes(LogcatBufferSize.DEFAULT)
     private var bufferBytes: Long = 0L
+    private val resumeTracker = ResumePointTracker()
 
     fun appendToBuffer(entry: LogEntry) {
         synchronized(this) {
             _rawBuffer.addLast(entry)
             bufferBytes += entry.approximateSizeBytes()
+            resumeTracker.record(entry)
             trimToLimit()
         }
     }
+
+    /**
+     * Where a restarted service should pick up. Survives [clearBuffer], so cleared entries are
+     * not read back from the device on the next start.
+     */
+    fun resumePoint(): ResumePoint? = synchronized(this) { resumeTracker.current() }
 
     /** Applies a new memory budget in megabytes, evicting the oldest entries if needed. */
     fun updateLimit(megabytes: Int) {
