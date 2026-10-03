@@ -16,7 +16,7 @@ class OtgLogcatEmitter @Inject constructor(
 ) : LogcatEmitter {
 
     override fun lines(since: String?): Flow<String> =
-        shell.execute(LogcatCommand.shellLine(since)).flowOn(Dispatchers.IO)
+        shell.logcatLines(since).flowOn(Dispatchers.IO)
 
     override fun isAvailable(): Boolean = shell.isConnected
 }

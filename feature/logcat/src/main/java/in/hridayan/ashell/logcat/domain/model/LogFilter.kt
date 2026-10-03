@@ -5,8 +5,7 @@ import kotlinx.serialization.Serializable
 import java.util.UUID
 
 /**
- * Default set of levels shown in INCLUDE mode — all except Verbose.
- * User can expand to include Verbose or narrow down to just errors, etc.
+ * Levels a new Include profile starts with: everything except Verbose.
  */
 val DefaultIncludeLevels: Set<LogLevel> = setOf(
     LogLevel.DEBUG,
@@ -16,69 +15,62 @@ val DefaultIncludeLevels: Set<LogLevel> = setOf(
     LogLevel.FATAL,
 )
 
+/**
+ * A saved filter profile. Several can be active at once; see [FilterCriteria] for how they
+ * combine.
+ *
+ * Profiles are persisted as JSON. Fields removed from this class, such as UID and search query in
+ * older saved profiles, are ignored when those profiles are read back.
+ */
 @Immutable
 @Serializable
 data class LogFilter(
     val id: String = UUID.randomUUID().toString(),
     val name: String = "",
+
     /** Selected log levels. See [matches] for how this interacts with [mode]. */
     val levels: Set<LogLevel> = DefaultIncludeLevels,
     val pids: Set<String> = emptySet(),
     val tids: Set<String> = emptySet(),
-    val uids: Set<String> = emptySet(),
-    val packages: Set<String> = emptySet(),
     val tags: Set<String> = emptySet(),
-    val searchQuery: String = "",
+
+    /**
+     * Package names. Log lines carry a UID rather than a package, so these are matched through the
+     * UIDs they resolve to on the device being filtered; see [FilterCriteria].
+     */
+    val packages: Set<String> = emptySet(),
     val mode: FilterMode = FilterMode.INCLUDE,
 )
 
 /**
- * Returns true if [entry] should be shown given this filter.
+ * Returns true if [entry] should be shown under this profile alone. [packageUids] are the UIDs
+ * this profile's [LogFilter.packages] resolve to on the device the entry came from.
  *
- * **INCLUDE mode**
- * - `levels`: show entry only if its level is in the selected set.
- *   Empty set = show all levels (no restriction).
- * - `searchQuery`: show only entries containing the query in message or tag.
- *   Blank = no restriction.
- * - Field sets (pids/tids/uids/packages/tags): each non-empty set is a
- *   whitelist — entry must match. Empty set = no restriction for that dimension.
+ * **INCLUDE mode**: the entry must have a selected level, and must match every non-empty list of
+ * PIDs, TIDs, tags and packages. An empty list, including an empty level set, does not restrict.
+ * A package that resolved to no UID matches nothing.
  *
- * **EXCLUDE mode**
- * - `levels`: hide entry if its level is in the selected set.
- *   Empty set = hide no levels (no restriction).
- * - `searchQuery`: hide entries containing the query. Blank = no restriction.
- * - Field sets: entry is hidden if it matches ANY non-empty specified dimension.
+ * **EXCLUDE mode**: the entry is hidden when its level is selected, or when it matches any
+ * non-empty list of PIDs, TIDs, tags or packages.
  */
-fun LogFilter.matches(entry: LogEntry): Boolean {
-    return when (mode) {
-        FilterMode.INCLUDE -> {
-            val levelOk = levels.isEmpty() || entry.level in levels
-            val queryOk = searchQuery.isBlank() ||
-                    entry.message.contains(searchQuery, ignoreCase = true) ||
-                    entry.tag.contains(searchQuery, ignoreCase = true)
-            val fieldOk = (pids.isEmpty() || entry.pid in pids) &&
-                    (tids.isEmpty() || entry.tid in tids) &&
-                    (uids.isEmpty() || entry.uid in uids) &&
-                    (packages.isEmpty() || entry.packageName in packages) &&
-                    (tags.isEmpty() || entry.tag in tags)
-            levelOk && queryOk && fieldOk
-        }
-
-        FilterMode.EXCLUDE -> {
-            // Level exclusion: hide if the level is in the selected set
-            val levelExcluded = levels.isNotEmpty() && entry.level in levels
-            // Query exclusion: hide if the query matches
-            val queryExcluded = searchQuery.isNotBlank() && (
-                    entry.message.contains(searchQuery, ignoreCase = true) ||
-                            entry.tag.contains(searchQuery, ignoreCase = true)
-                    )
-            // Field exclusion: hide if any non-empty field set matches
-            val fieldExcluded = (pids.isNotEmpty() && entry.pid in pids) ||
-                    (tids.isNotEmpty() && entry.tid in tids) ||
-                    (uids.isNotEmpty() && entry.uid in uids) ||
-                    (packages.isNotEmpty() && entry.packageName in packages) ||
-                    (tags.isNotEmpty() && entry.tag in tags)
-            !(levelExcluded || queryExcluded || fieldExcluded)
-        }
-    }
+fun LogFilter.matches(entry: LogEntry, packageUids: Set<String>): Boolean = when (mode) {
+    FilterMode.INCLUDE -> includes(entry, packageUids)
+    FilterMode.EXCLUDE -> !excludes(entry, packageUids)
 }
+
+private fun LogFilter.includes(entry: LogEntry, packageUids: Set<String>): Boolean =
+    levels.admits(entry.level) &&
+        pids.admits(entry.pid) &&
+        tids.admits(entry.tid) &&
+        tags.admits(entry.tag) &&
+        (packages.isEmpty() || entry.uid in packageUids)
+
+/** An empty set places no restriction on that dimension. */
+private fun <T> Set<T>.admits(value: T): Boolean = isEmpty() || value in this
+
+private fun LogFilter.excludes(entry: LogEntry, packageUids: Set<String>): Boolean =
+    entry.level in levels ||
+        entry.pid in pids ||
+        entry.tid in tids ||
+        entry.tag in tags ||
+        entry.uid in packageUids

@@ -49,6 +49,7 @@
     <string name="add_api_key" comment="Button label in AI settings to input a custom LLM provider API key">Add API key</string>
     <string name="add_command" comment="Button label to create and save a new command snippet to database">Add command</string>
     <string name="add_new_item" comment="Generic button label to add a new list entry">Add new item</string>
+    <string name="add_profile" comment="Button in the logcat filter sheet that opens the editor to create a new filter profile">Add profile</string>
     <string name="additional_settings" comment="Category header in app settings">Additional settings</string>
     <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Agent skills</string>
     <string name="ai_agent_shortcut">AI Agent</string>
@@ -74,6 +75,8 @@
     <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">e.g. Cyberpunk neon city, dark mode, high contrast</string>
     <string name="all">All</string>
     <string name="all_data" comment="Option in backup selector to include full app database, settings, and chat history">All data</string>
+    <string name="all_log_levels" comment="Logcat filter profile description when the profile does not restrict log levels">All levels</string>
+    <string name="all_log_levels_except" comment="%1$s = comma-separated log level names, e.g. Verbose, Debug. Logcat filter profile description for a profile that hides those levels">All except %1$s</string>
     <string name="allow_usb_access" comment="Button label that re-shows the system prompt asking the user to allow the app to use the attached USB device">Allow USB access</string>
     <string name="allow_usb_access_message" comment="Status shown when the target device was detected over USB but the system permission to use it has not been granted yet">Allow USB access to continue</string>
     <string name="already_connected" comment="Status message in wireless ADB setup screen indicating device is already connected">Already connected</string>
@@ -163,6 +166,7 @@
     <string name="changelogs" comment="Settings list item title for viewing version history logs">Changelogs</string>
     <string name="check_updates" comment="Action button in about screen to check GitHub or F-Droid for app updates">Check updates</string>
     <string name="choose_a_device" comment="Dialog header prompting user to select a device from connected ADB devices list">Choose a device</string>
+    <string name="choose_apps" comment="Accessibility label of the button next to the packages field in the logcat filter editor; opens a list of installed apps">Choose apps</string>
     <string name="choose_icon" comment="Button label in Quick Settings tile editor to select a custom icon">Choose icon</string>
     <string name="clear">Clear</string>
     <string name="clear_all" comment="Action button to clear all entries in command history or terminal output screen">Clear all</string>
@@ -243,6 +247,7 @@
     <string name="color_role_tertiary" comment="Material 3 color role name for tertiary theme accent color">Tertiary</string>
     <string name="color_role_tertiary_accent" comment="Material 3 color role name for tertiary accent color">Tertiary Accent</string>
     <string name="color_role_tertiary_container" comment="Material 3 color role name for container surface of tertiary elements">Tertiary Container</string>
+    <string name="comma_separated_values" comment="Helper text under a logcat filter field that accepts several values, such as tags or process IDs">Separate multiple values with commas</string>
     <string name="command" comment="Label/header for an ADB command snippet">Command</string>
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">Command analysis</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">Command Console</string>
@@ -306,6 +311,7 @@
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">Database Modification</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Databases only</string>
     <string name="days" comments="Days as in number of days">Days</string>
+    <string name="debug" comment="Android log level name, shown in logcat filters">Debug</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Default folder</string>
     <string name="default_language" comment="Setting preference label for selecting application language">Default language</string>
     <string name="delete">Delete</string>
@@ -316,6 +322,7 @@
     <string name="delete_items_message" comment="%1$d = number of selected items">Are you sure you want to delete %1$d selected items?</string>
     <string name="delete_items_title" comment="%1$d = number of items">Delete %1$d items?</string>
     <string name="delete_message" comment="%1$s = file or folder name">Are you sure you want to delete \"%1$s\"?</string>
+    <string name="delete_profile" comment="Title of the confirmation dialog shown before deleting a logcat filter profile">Delete profile?</string>
     <string name="delete_title" comment="%1$s = file or folder name">Delete %1$s?</string>
     <string name="des_about" comment="Subtitle description for About section in settings menu">Contributors and support</string>
     <string name="des_ai_cache_days" comment="Description under Cache duration setting in AI settings">Number of days to keep cached results</string>
@@ -348,6 +355,7 @@
     <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">Choose when the app uses its dark colour scheme</string>
     <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Allow the AI agent to add, modify, or delete database items</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">Choose the default language for the app</string>
+    <string name="des_delete_profile" comment="%1$s = the filter profile name. Body of the confirmation dialog shown before deleting a logcat filter profile">%1$s will be removed. This can\'t be undone.</string>
     <string name="des_device_diagnostics" comment="Description explaining that this skill allows the AI to check device status">Allow the AI agent to check battery, memory, storage, hardware, and network status natively</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">Useful when you want to use an external keyboard</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">Upload encrypted backup to your Google Drive.\nThis action will overwrite any existing cloud backups.</string>
@@ -374,6 +382,7 @@
     <string name="des_logcat" comment="Description under Logcat item in navigation menu">Real-time logcat output from a connected device</string>
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">Dynamic colors, Dark theme, Language</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">No model selected</string>
+    <string name="des_no_filter_profiles" comment="Body of the empty state in the logcat filter sheet, shown when no filter profiles have been created">Add a profile to choose which logs are shown. With no profile selected, every log is shown.</string>
     <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">Might cause lag if a large number of bookmarks are added! Low-end devices should keep this option turned off</string>
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Allow the AI agent to query installed packages and application data</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">Pair another target device</string>
@@ -448,6 +457,7 @@
     <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">Dynamic colors</string>
     <string name="edit">Edit</string>
     <string name="edit_command" comment="Dialog header for editing a saved ADB command snippet">Edit command</string>
+    <string name="edit_profile" comment="Title of the screen that edits an existing logcat filter profile">Edit profile</string>
     <string name="edit_theme_title" comment="%1$s = theme name">Edit Theme: %1$s</string>
     <string name="edit_tile" comment="Screen title for modifying a Quick Settings tile configuration">Edit tile</string>
     <string name="empty_folder" comment="Placeholder text in file browser when current folder contains no files">This folder is empty</string>
@@ -491,6 +501,7 @@
     <string name="fastboot_quick_actions" comment="Section header for predefined quick fastboot action buttons">Quick Actions</string>
     <string name="fastboot_summary" comment="Feature description card text for Fastboot OTG mode">Connect to a device in fastboot mode via OTG</string>
     <string name="fastboot_variable_explorer" comment="Tab title for Fastboot variable query screen">Variable Explorer</string>
+    <string name="fatal" comment="Android log level name for the most severe level, shown in logcat filters">Fatal</string>
     <string name="fb_all_operations_cancelled" comment="Notification toast when all file browser queue operations are cancelled">All operations cancelled</string>
     <string name="fb_cannot_paste_into_selected" comment="Error toast in file browser when target paste item is a file instead of a folder">Cannot paste into selected folder</string>
     <string name="fb_create_folder_failed" comment="%1$s = error message. fb_ prefix = file browser">Failed to create folder: %1$s</string>
@@ -535,6 +546,7 @@
     <string name="file_uploaded" comment="Confirmation shown when a file finished uploading to the connected device">File uploaded</string>
     <string name="filter">Filter</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">Filter by labels</string>
+    <string name="filter_profiles" comment="Title of the bottom sheet listing saved logcat filter profiles">Filter profiles</string>
     <string name="flash" comment="Action button to start fastboot partition flashing process" translatable="false">Flash</string>
     <string name="flash_complete" comment="Status shown when a fastboot partition flash finished successfully">Flash complete</string>
     <string name="flash_failed" comment="%1$s = error text returned by the bootloader. Shown when a fastboot partition flash fails">Flash failed: %1$s</string>
@@ -736,9 +748,11 @@
     <string name="new_commands_available_msg" comment="Banner prompt shown when updated command templates are available to load into database">New command examples are added!\nClick on the button below to load the new commands.</string>
     <string name="new_folder" comment="Action button label in file browser to create a new directory">New folder</string>
     <string name="new_name" comment="Text field label for entering new item or file name">New name</string>
+    <string name="new_profile" comment="Title of the screen that creates a new logcat filter profile">New profile</string>
     <string name="newest" comment="Sorting option for items by creation date (newest first)">Newest</string>
     <string name="no_adb_device_error" comment="Error toast when no ADB target device is found over USB OTG">No ADB-compatible devices found. Enable USB debugging on the target.</string>
     <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">No adb interface found</string>
+    <string name="no_apps_found" comment="Shown in the app picker when no installed app matches the search">No apps found</string>
     <string name="no_auto_backup_yet" comment="Placeholder text under backup status when no automated backup has executed">No automatic backup performed yet</string>
     <string name="no_bookmarks" comment="Placeholder text in bookmarks tab when no commands are saved">No bookmarks found</string>
     <string name="no_changelog_found" comment="Placeholder message in changelog screen when no version notes exist">No changelog found for this version</string>
@@ -750,6 +764,7 @@
     <string name="no_fastboot_device_error" comment="Error banner in fastboot screen when connected USB device is not in fastboot mode">Connected device is not in fastboot mode</string>
     <string name="no_fastboot_interface_found" comment="Error shown when the attached USB device does not expose a fastboot interface">Connected USB device has no fastboot interface</string>
     <string name="no_files_download" comment="Toast warning in file browser when user selects directory instead of files for download">No files selected (folders cannot be downloaded)</string>
+    <string name="no_filter_profiles" comment="Title of the empty state in the logcat filter sheet, shown when no filter profiles have been created">No filter profiles yet</string>
     <string name="no_folder_selected" comment="Placeholder status text when no backup directory is picked">No folder selected</string>
     <string name="no_google_account_message" comment="Dialog message when no Google account is registered on device for cloud backups">No Google account was found on this device. Would you like to add one to use cloud backups?</string>
     <string name="no_google_account_title" comment="Dialog title when no Google account is detected">No Google Account</string>
@@ -858,6 +873,9 @@
     <string name="privacy_and_security" comment="Title for the privacy and security settings screen">Privacy &amp; Security</string>
     <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Privacy Policy</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">Product</string>
+    <string name="profile_name" comment="Label of the name field in the logcat filter profile editor">Profile name</string>
+    <string name="profile_name_required" comment="Error under the name field when saving a logcat filter profile without a name">Enter a name for this profile</string>
+    <string name="profile_save_failed" comment="Toast shown when a logcat filter profile could not be saved">Couldn\'t save the profile</string>
     <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">Put device into sideload mode via its recovery menu</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">QR Pair</string>
     <string name="qr_pair_hint" comment="Instructional text in QR pairing screen instructing user to scan QR code from target device">To pair an Android 11+ device, scan this QR from the target device</string>
@@ -936,6 +954,7 @@
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">Screen density multiplier</string>
     <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">Scroll to bottom</string>
     <string name="search">Search</string>
+    <string name="search_apps" comment="Hint in the search field of the app picker in the logcat filter editor">Search apps</string>
     <string name="search_bookmarks_here" comment="Placeholder text in bookmarks tab search bar">Search bookmarks here</string>
     <string name="search_commands_here" comment="Placeholder text in command templates tab search bar">Search commands here</string>
     <string name="search_fonts" comment="Placeholder text in font family picker search bar">Search fonts…</string>
@@ -952,6 +971,7 @@
     <string name="security_patch" comment="Device property label displaying Android security patch level date">Security Patch</string>
     <string name="select">Select</string>
     <string name="select_all">Select all</string>
+    <string name="select_apps" comment="Title of the bottom sheet for choosing which apps a logcat filter profile matches">Select apps</string>
     <string name="select_backup_folder_message" comment="Dialog message prompting user to grant folder access for local automated backups">Please select a folder where backups will be saved. The app needs read and write access to this folder.</string>
     <string name="select_backup_folder_title" comment="Dialog title when no backup directory has been configured">No backup folder</string>
     <string name="select_folder" comment="Action button to open system directory picker for backup storage">Select folder</string>
@@ -1129,6 +1149,7 @@
     <string name="use_cases">Use cases</string>
     <string name="utilities" comment="Category title in homescreen">Utilities</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">Variant</string>
+    <string name="verbose" comment="Android log level name for the most detailed level, shown in logcat filters">Verbose</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">Verification failed</string>
     <string name="verify_api_key" comment="Action button to validate entered AI API key with remote service">Verify API key</string>
     <string name="verifying" comment="Progress status text while verifying API key validity">Verifying</string>
@@ -1142,6 +1163,7 @@
     <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">Waiting for devices…</string>
     <string name="waiting_for_recovery" comment="Progress status shown after the sideload stream was opened while waiting for the target device recovery to request data">Waiting for recovery…</string>
     <string name="want_to_contribute_too" comment="Call-to-action banner in About screen inviting code or translation contributions">Want to contribute too?</string>
+    <string name="warning" comment="Android log level name, shown in logcat filters">Warning</string>
     <string name="weekly" comment="Option in backup scheduler frequency selection">Weekly</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">What would you like to do while %1$s?</string>
     <string name="whats_new" comment="Header title for app release notes and changelog dialog">What\'s new!</string>

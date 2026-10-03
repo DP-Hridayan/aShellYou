@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.logcat.presentation.viewmodel
 
 import `in`.hridayan.ashell.logcat.domain.emitter.LogcatEmitter
+import `in`.hridayan.ashell.logcat.domain.model.FilterCriteria
 import `in`.hridayan.ashell.logcat.domain.model.LogEntry
 import `in`.hridayan.ashell.logcat.domain.model.LogFilter
 import `in`.hridayan.ashell.logcat.domain.model.LogLevel
@@ -79,12 +80,12 @@ private fun ids(session: OtherDeviceSession): List<Long> = session.state.value.l
 class OtherDeviceSessionTest {
 
     private val source = FakeSource()
-    private var filter = LogFilter()
+    private var criteria = FilterCriteria()
 
     private fun TestScope.newSession(scope: CoroutineScope = backgroundScope) = OtherDeviceSession(
         scope = scope,
         observeLogs = source::observe,
-        currentFilter = { filter },
+        currentCriteria = { criteria },
         batchWindowMs = WINDOW_MS,
         maxBytes = BUDGET_BYTES,
     )
@@ -166,7 +167,7 @@ class OtherDeviceSessionTest {
     @Test
     fun `the active filter applies to incoming entries`() = runTest {
         val session = newSession()
-        filter = LogFilter(tags = setOf(KEPT_TAG))
+        criteria = FilterCriteria(listOf(LogFilter(tags = setOf(KEPT_TAG))))
         source.nextStream = openStream(entry(1), entry(2, OTHER_TAG), entry(3))
         session.connect(TestEmitter)
         settle()
@@ -176,11 +177,11 @@ class OtherDeviceSessionTest {
     @Test
     fun `reapplying the filter re-filters everything collected`() = runTest {
         val session = newSession()
-        filter = LogFilter(tags = setOf(KEPT_TAG))
+        criteria = FilterCriteria(listOf(LogFilter(tags = setOf(KEPT_TAG))))
         source.nextStream = openStream(entry(1), entry(2, OTHER_TAG))
         session.connect(TestEmitter)
         settle()
-        filter = LogFilter(tags = setOf(OTHER_TAG))
+        criteria = FilterCriteria(listOf(LogFilter(tags = setOf(OTHER_TAG))))
         session.reapplyFilter()
         assertEquals(listOf(2L), ids(session))
     }

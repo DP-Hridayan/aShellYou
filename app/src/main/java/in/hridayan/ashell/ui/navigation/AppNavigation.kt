@@ -46,6 +46,7 @@ import `in`.hridayan.ashell.core.navigation.slideFadeOutToLeft
 import `in`.hridayan.ashell.core.navigation.slideFadeOutToRight
 import `in`.hridayan.ashell.crashreporter.presentation.screens.CrashDetailsScreen
 import `in`.hridayan.ashell.crashreporter.presentation.screens.CrashHistoryScreen
+import `in`.hridayan.ashell.logcat.presentation.screens.LogcatFilterEditorScreen
 import `in`.hridayan.ashell.logcat.presentation.screens.LogcatScreen
 import `in`.hridayan.ashell.onboarding.presentation.screens.OnboardingScreen
 import `in`.hridayan.ashell.qstiles.presentation.screen.CreateTileScreen
@@ -288,6 +289,10 @@ fun AppNavigation(
 
             composable<NavRoutes.LogcatScreen> {
                 LogcatScreen(navController = navController)
+            }
+
+            composable<NavRoutes.LogcatFilterEditorScreen> {
+                LogcatFilterEditorScreen()
             }
 
             composable<NavRoutes.AiModelsScreen> {

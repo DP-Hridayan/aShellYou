@@ -14,8 +14,12 @@ import `in`.hridayan.ashell.logcat.presentation.components.LogLevelColors.textCo
  * - [barColor]: pure, fully opaque — used for the 4dp left bar
  * - [rowBackground]: very low alpha — used for the row background tint
  * - [textColor]: adjusted for readability in dark/light mode
+ * - [chipContainer]: tint behind a selected level chip, whose label uses [textColor]
  */
 object LogLevelColors {
+
+    private const val CHIP_CONTAINER_ALPHA_LIGHT = 0.25f
+    private const val CHIP_CONTAINER_ALPHA_DARK = 0.3f
 
     // Base hues — intentionally distinct across the spectrum
     val Verbose = Color(0xFF9E9E9E) // neutral grey
@@ -55,5 +59,10 @@ object LogLevelColors {
         } else {
             lerp(base, Color.Black, 0.45f)
         }
+    }
+
+    fun chipContainer(level: LogLevel, isDark: Boolean): Color {
+        val alpha = if (isDark) CHIP_CONTAINER_ALPHA_DARK else CHIP_CONTAINER_ALPHA_LIGHT
+        return baseColor(level).copy(alpha = alpha)
     }
 }

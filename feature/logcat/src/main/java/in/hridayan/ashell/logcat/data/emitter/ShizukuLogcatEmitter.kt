@@ -25,7 +25,7 @@ class ShizukuLogcatEmitter @Inject constructor(
 
     override fun lines(since: String?): Flow<String> = flow {
         val process = shizukuCommandRunner
-            .start(LogcatCommand.arguments(since).toTypedArray(), null, null)
+            .start(LogcatCommand.arguments(since, withUid = true).toTypedArray(), null, null)
             .getOrElse { return@flow }
         val reader = BufferedReader(InputStreamReader(process.inputStream))
         try {

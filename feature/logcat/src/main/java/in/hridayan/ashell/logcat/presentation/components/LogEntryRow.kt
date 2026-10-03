@@ -20,12 +20,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import `in`.hridayan.ashell.core.common.LocalDarkMode
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.logcat.domain.model.LogEntry
 
 /**
@@ -57,8 +59,9 @@ fun LogEntryRow(
             .fillMaxWidth()
             .background(bgColor)
             .combinedClickable(
-                onClick = onClick,
-                onLongClick = onLongClick,
+                onClick = withHaptic { onClick() },
+                onLongClick = withHaptic(HapticFeedbackType.LongPress) { onLongClick() },
+                hapticFeedbackEnabled = false,
             )
             .animateContentSize(animationSpec = tween(durationMillis = 200))
             .height(IntrinsicSize.Min)

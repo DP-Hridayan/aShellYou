@@ -23,6 +23,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.logcat.presentation.model.LogcatTab
 
@@ -48,7 +49,7 @@ fun LogcatSecondaryToolbar(
             LogcatTab.entries.forEach { tab ->
                 Tab(
                     selected = activeTab == tab,
-                    onClick = { onTabSelected(tab) },
+                    onClick = withHaptic { onTabSelected(tab) },
                     text = { Text(stringResource(tab.labelRes())) },
                 )
             }

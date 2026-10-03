@@ -16,7 +16,7 @@ class WifiAdbOwnLogcatEmitter @Inject constructor(
 ) : LogcatEmitter {
 
     override fun lines(since: String?): Flow<String> =
-        shell.execute(LogcatCommand.shellLine(since)).flowOn(Dispatchers.IO)
+        shell.execute(LogcatCommand.shellLine(since, withUid = true)).flowOn(Dispatchers.IO)
 
     override fun isAvailable(): Boolean = shell.isConnected
 }

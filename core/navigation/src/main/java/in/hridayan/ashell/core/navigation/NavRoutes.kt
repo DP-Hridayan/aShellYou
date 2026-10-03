@@ -109,6 +109,10 @@ sealed class NavRoutes {
     @Serializable
     object LogcatScreen : NavRoutes()
 
+    /** Creates a logcat filter profile when [profileId] is null, otherwise edits that profile. */
+    @Serializable
+    data class LogcatFilterEditorScreen(val profileId: String? = null) : NavRoutes()
+
     @Serializable
     object AiModelsScreen : NavRoutes()
 

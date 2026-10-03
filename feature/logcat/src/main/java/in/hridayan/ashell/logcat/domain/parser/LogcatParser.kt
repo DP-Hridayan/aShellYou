@@ -4,19 +4,19 @@ import `in`.hridayan.ashell.logcat.domain.model.LogEntry
 import `in`.hridayan.ashell.logcat.domain.model.LogLevel
 
 /**
- * Parses `logcat -v threadtime` format lines into [LogEntry].
+ * Parses `logcat -v threadtime` lines into [LogEntry], with or without the `-v uid` column.
  *
- * threadtime format:
- * `MM-DD HH:MM:SS.mmm  PID   TID  LEVEL TAG  : message`
+ * Without UID: `MM-DD HH:MM:SS.mmm  PID   TID  LEVEL TAG  : message`
+ * With UID:    `MM-DD HH:MM:SS.mmm  UID:  PID   TID  LEVEL TAG  : message`
  *
- * Extended threadtime (Android 9+, with UID) also supported.
+ * The UID column is the only part of a line that identifies the app, so package filters depend
+ * on it. Lines without it get an empty [LogEntry.uid].
  */
 object LogcatParser {
 
-    // Basic threadtime: date time pid tid level tag: message
-    // e.g. 07-19 20:12:17.345  1234  5678 D MyTag  : Hello world
     private val THREADTIME_REGEX = Regex(
-        """^(\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d+)\s+(\d+)\s+(\d+)\s+([VDIWEFS?])\s+(.*?)\s*:\s*(.*)"""
+        """^(?<timestamp>\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d+)\s+(?:(?<uid>\w+):\s*)?""" +
+            """(?<pid>\d+)\s+(?<tid>\d+)\s+(?<level>[VDIWEFS?])\s+(?<tag>.*?)\s*:\s*(?<message>.*)"""
     )
 
     private fun Char.toLogLevel(): LogLevel = when (this) {
@@ -32,17 +32,18 @@ object LogcatParser {
 
     fun parse(raw: String, id: Long): LogEntry? {
         val match = THREADTIME_REGEX.matchEntire(raw.trim()) ?: return null
-        val (timestamp, pid, tid, levelChar, tag, message) = match.destructured
         return LogEntry(
             id = id,
-            timestamp = timestamp,
-            pid = pid.trim(),
-            tid = tid.trim(),
-            uid = "",
+            timestamp = match.group("timestamp"),
+            pid = match.group("pid"),
+            tid = match.group("tid"),
+            uid = LogcatUid.normalize(match.group("uid")),
             packageName = "",
-            level = levelChar.first().toLogLevel(),
-            tag = tag.trim(),
-            message = message,
+            level = match.group("level").first().toLogLevel(),
+            tag = match.group("tag").trim(),
+            message = match.group("message"),
         )
     }
+
+    private fun MatchResult.group(name: String): String = groups[name]?.value.orEmpty()
 }

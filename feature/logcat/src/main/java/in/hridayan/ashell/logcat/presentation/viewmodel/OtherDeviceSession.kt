@@ -1,10 +1,9 @@
 package `in`.hridayan.ashell.logcat.presentation.viewmodel
 
 import `in`.hridayan.ashell.logcat.domain.emitter.LogcatEmitter
+import `in`.hridayan.ashell.logcat.domain.model.FilterCriteria
 import `in`.hridayan.ashell.logcat.domain.model.LogEntry
-import `in`.hridayan.ashell.logcat.domain.model.LogFilter
 import `in`.hridayan.ashell.logcat.domain.model.ResumePoint
-import `in`.hridayan.ashell.logcat.domain.model.matches
 import `in`.hridayan.ashell.logcat.domain.util.CappedLog
 import `in`.hridayan.ashell.logcat.domain.util.ResumePointTracker
 import `in`.hridayan.ashell.logcat.domain.util.append
@@ -38,7 +37,7 @@ import kotlinx.coroutines.launch
 class OtherDeviceSession(
     private val scope: CoroutineScope,
     private val observeLogs: (LogcatEmitter, ResumePoint?) -> Flow<LogEntry>,
-    private val currentFilter: () -> LogFilter,
+    private val currentCriteria: () -> FilterCriteria,
     private val batchWindowMs: Long,
     maxBytes: Long,
 ) {
@@ -138,7 +137,7 @@ class OtherDeviceSession(
     }
 
     private fun visibleOf(entries: List<LogEntry>): List<LogEntry> {
-        val filter = currentFilter()
-        return entries.filter { filter.matches(it) }
+        val criteria = currentCriteria()
+        return entries.filter { criteria.matches(it) }
     }
 }

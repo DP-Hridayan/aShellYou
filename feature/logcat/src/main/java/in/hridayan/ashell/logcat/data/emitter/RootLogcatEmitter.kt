@@ -21,7 +21,7 @@ class RootLogcatEmitter @Inject constructor() : LogcatEmitter {
 
     override fun lines(since: String?): Flow<String> = flow {
         val process = Runtime.getRuntime()
-            .exec(arrayOf("su", "-c", LogcatCommand.shellLine(since)))
+            .exec(arrayOf("su", "-c", LogcatCommand.shellLine(since, withUid = true)))
         val reader = BufferedReader(InputStreamReader(process.inputStream))
         try {
             while (true) {

@@ -36,6 +36,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.logcat.domain.model.LogEntry
 import `in`.hridayan.ashell.logcat.domain.util.indexAtOrAfter
@@ -216,7 +217,7 @@ private fun ScrollToBottomFab(
         exit = slideOutVertically { it } + fadeOut(),
     ) {
         FloatingActionButton(
-            onClick = onClick,
+            onClick = withHaptic { onClick() },
             containerColor = MaterialTheme.colorScheme.primaryContainer,
             contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
         ) {

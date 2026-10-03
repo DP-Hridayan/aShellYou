@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.resources.R
 
 /**
@@ -53,7 +54,7 @@ fun LogcatTopBar(
         },
         actions = {
             // Search toggle
-            IconButton(onClick = onSearchToggle) {
+            IconButton(onClick = withHaptic { onSearchToggle() }) {
                 Icon(
                     painter = painterResource(R.drawable.ic_search),
                     contentDescription = stringResource(R.string.search),
@@ -66,7 +67,7 @@ fun LogcatTopBar(
             }
 
             if (showModeAction) {
-                IconButton(onClick = onModeClick) {
+                IconButton(onClick = withHaptic { onModeClick() }) {
                     Icon(
                         painter = painterResource(R.drawable.ic_settings),
                         contentDescription = stringResource(R.string.logcat_source),
@@ -75,7 +76,7 @@ fun LogcatTopBar(
             }
 
             IconButton(
-                onClick = onPlayPause,
+                onClick = withHaptic { onPlayPause() },
                 enabled = isPlayPauseEnabled && !isPreflightChecking,
             ) {
                 if (isPreflightChecking) {
@@ -102,14 +103,14 @@ fun LogcatTopBar(
                 }
             }
 
-            IconButton(onClick = onOpenFilter) {
+            IconButton(onClick = withHaptic { onOpenFilter() }) {
                 Icon(
                     painter = painterResource(R.drawable.ic_filter_alt),
                     contentDescription = stringResource(R.string.filter),
                 )
             }
 
-            IconButton(onClick = onClear) {
+            IconButton(onClick = withHaptic { onClear() }) {
                 Icon(
                     painter = painterResource(R.drawable.ic_delete),
                     contentDescription = stringResource(R.string.clear),
