@@ -37,6 +37,11 @@ public class AdbConnection implements Closeable {
     public static final String TAG = AdbConnection.class.getSimpleName();
 
     /**
+     * How long {@link #open(String)} waits for the peer to accept or refuse a stream.
+     */
+    private static final long OPEN_TIMEOUT_MS = 30_000;
+
+    /**
      * The underlying socket that this class uses to communicate with the target device.
      */
     @NonNull
@@ -267,7 +272,11 @@ public class AdbConnection implements Closeable {
                             }
 
                             synchronized (waitingStream) {
-                                if (msg.command == AdbProtocol.A_OKAY) {
+                                if (msg.command == AdbProtocol.A_OKAY && waitingStream.isAbandoned()) {
+                                    // Nobody will use this stream, but the peer just opened its end
+                                    mOpenedStreams.remove(msg.arg1);
+                                    sendPacket(AdbProtocol.generateClose(msg.arg1, msg.arg0));
+                                } else if (msg.command == AdbProtocol.A_OKAY) {
                                     // We're ready for writes
                                     waitingStream.updateRemoteId(msg.arg0);
                                     waitingStream.readyForWrite();
@@ -522,9 +531,11 @@ public class AdbConnection implements Closeable {
         // Send OPEN
         sendPacket(AdbProtocol.generateOpen(localId, Objects.requireNonNull(destination)));
 
-        // Wait for the connection thread to receive the OKAY
-        synchronized (stream) {
-            stream.wait();
+        try {
+            awaitOpenAnswer(stream);
+        } catch (InterruptedException e) {
+            abandon(stream);
+            throw e;
         }
 
         // Check if the OPEN request was rejected
@@ -533,7 +544,48 @@ public class AdbConnection implements Closeable {
             throw new ConnectException("Stream open actively rejected by remote peer.");
         }
 
+        if (!stream.isOpen()) {
+            abandon(stream);
+            throw new IOException("Timed out waiting for the device to open " + destination);
+        }
+
         return stream;
+    }
+
+    /**
+     * Waits for the peer to accept or refuse a stream. It loops on the stream's state rather than
+     * waiting for a single notify: an answer that arrives before the wait begins would otherwise be
+     * missed, leaving the caller blocked forever while it holds the manager's lock.
+     */
+    private void awaitOpenAnswer(@NonNull AdbStream stream) throws InterruptedException {
+        long deadline = System.currentTimeMillis() + OPEN_TIMEOUT_MS;
+        synchronized (stream) {
+            while (!stream.isOpen() && !stream.isClosed()) {
+                long remaining = deadline - System.currentTimeMillis();
+                if (remaining <= 0) {
+                    return;
+                }
+                stream.wait(remaining);
+            }
+        }
+    }
+
+    /**
+     * Gives up on a stream whose open was not answered. The OPEN is already on its way, so the
+     * stream stays registered and a late OKAY is answered with a CLSE, instead of leaving an
+     * orphaned stream on the device.
+     */
+    private void abandon(@NonNull AdbStream stream) throws IOException {
+        boolean openedMeanwhile;
+        synchronized (stream) {
+            openedMeanwhile = stream.isOpen();
+            if (!openedMeanwhile) {
+                stream.markAbandoned();
+            }
+        }
+        if (openedMeanwhile) {
+            stream.close();
+        }
     }
 
     private boolean waitForConnection(long timeout, @NonNull TimeUnit unit)

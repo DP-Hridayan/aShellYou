@@ -14,5 +14,10 @@ gradlePlugin {
             implementationClass =
                 "ReleaseLintBaselinePlugin"
         }
+
+        register("scrcpyServerAssets") {
+            id = "scrcpy.server.assets"
+            implementationClass = "ScrcpyServerAssetsPlugin"
+        }
     }
 }

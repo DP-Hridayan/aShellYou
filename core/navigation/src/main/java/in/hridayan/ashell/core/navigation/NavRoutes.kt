@@ -2,6 +2,7 @@ package `in`.hridayan.ashell.core.navigation
 
 import androidx.compose.runtime.Immutable
 import `in`.hridayan.ashell.core.common.domain.model.AdbFileBrowserConnectionMode
+import `in`.hridayan.ashell.core.common.domain.model.ExternalDeviceTransport
 import kotlinx.serialization.Serializable
 
 @Immutable
@@ -84,8 +85,12 @@ sealed class NavRoutes {
     @Serializable
     object AdbSideloadScreen : NavRoutes()
 
+    /**
+     * @property enableTcpIpAfterPairing set when the user arrives to open ADB's TCP port, so the port
+     * is opened once pairing succeeds. Every other entry pairs and nothing more.
+     */
     @Serializable
-    object PairingOwnDeviceScreen : NavRoutes()
+    data class PairingOwnDeviceScreen(val enableTcpIpAfterPairing: Boolean = false) : NavRoutes()
 
     @Serializable
     object SettingsScreen : NavRoutes()
@@ -99,6 +104,9 @@ sealed class NavRoutes {
         val connectionMode: AdbFileBrowserConnectionMode = AdbFileBrowserConnectionMode.WIFI_ADB,
         val isOwnDevice: Boolean = false
     ) : NavRoutes()
+
+    @Serializable
+    data class MirrorScreen(val transport: ExternalDeviceTransport) : NavRoutes()
 
     @Serializable
     object TileDashboardScreen : NavRoutes()

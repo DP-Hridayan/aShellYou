@@ -248,7 +248,7 @@ fun LogcatScreen(
         LogcatPreflightResult.WirelessNotConnected -> {
             WirelessNotConnectedDialog(
                 onConnect = {
-                    navController.navigate(NavRoutes.PairingOwnDeviceScreen)
+                    navController.navigate(NavRoutes.PairingOwnDeviceScreen())
                 },
                 onDismiss = { viewModel.consumePreflight() },
             )

@@ -22,7 +22,9 @@ import `in`.hridayan.ashell.shell.otg_adb_shell.data.repository.OtgRepositoryImp
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.executor.AdbHostCommandExecutor
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.executor.AdbServiceExecutor
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.database.WifiAdbDeviceDao
+import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.AdbTcpIpGatewayImpl
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.AdbTcpIpGateway
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.usecase.ParseAdbCommandUseCase
 import javax.inject.Named
@@ -62,6 +64,9 @@ object ShellModule {
     @Provides
     @Singleton
     fun provideWifiAdbRepository(impl: WifiAdbRepositoryImpl): WifiAdbRepository = impl
+
+    @Provides
+    fun provideAdbTcpIpGateway(impl: AdbTcpIpGatewayImpl): AdbTcpIpGateway = impl
 
     @Provides
     @Singleton

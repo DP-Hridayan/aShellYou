@@ -27,6 +27,7 @@ import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
+import androidx.compose.foundation.interaction.collectIsDraggedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -71,7 +72,6 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -122,7 +122,6 @@ import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.presentation.components.ai.AiAnalysisBottomSheet
 import `in`.hridayan.ashell.core.presentation.components.ai.AiAnalysisButton
-import `in`.hridayan.ashell.core.presentation.components.ai.AskAiButton
 import `in`.hridayan.ashell.core.presentation.components.dialog.AiAccessPromptHost
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scrollbar.VerticalScrollbar
@@ -148,9 +147,13 @@ import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ClearOut
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.DeleteBookmarksDialog
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.FileSavedDialog
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ShellDialogKey
+import `in`.hridayan.ashell.shell.common.presentation.components.dock.DeviceDock
 import `in`.hridayan.ashell.shell.common.presentation.components.icon.AnimatedStopIcon
 import `in`.hridayan.ashell.shell.common.presentation.components.text.OutputLineText
 import `in`.hridayan.ashell.shell.common.presentation.model.CommandResult
+import `in`.hridayan.ashell.shell.common.presentation.model.DeviceActionCatalog
+import `in`.hridayan.ashell.shell.common.presentation.model.DeviceActionId
+import `in`.hridayan.ashell.shell.common.presentation.model.DeviceConnection
 import `in`.hridayan.ashell.shell.common.presentation.model.ShellState
 import `in`.hridayan.ashell.shell.common.presentation.util.rememberScrollDirection
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.BookmarkViewModel
@@ -177,6 +180,9 @@ fun BaseShellScreen(
     shellViewModel: ShellViewModel = hiltViewModel(),
     bookmarkViewModel: BookmarkViewModel = hiltViewModel(),
     extraButtonContent: @Composable (() -> Unit)? = null,
+    deviceConnection: DeviceConnection = DeviceConnection.NONE,
+    onOpenScreen: () -> Unit = {},
+    onOpenFiles: () -> Unit = {},
     extraContent: @Composable () -> Unit = {}
 ) {
     val context = LocalContext.current
@@ -196,6 +202,11 @@ fun BaseShellScreen(
     val saveProgress by shellViewModel.saveProgress.collectAsState()
     val searchOutputResult by shellViewModel.filteredOutput.collectAsState()
     val suggestions by shellViewModel.suggestions.collectAsState()
+    val isDeviceDockExpanded by shellViewModel.isDeviceDockExpanded.collectAsStateWithLifecycle()
+    val hasOutput = states.output.isNotEmpty()
+    val deviceActions = remember(deviceConnection, hasOutput) {
+        DeviceActionCatalog.actionsFor(deviceConnection, FeatureConfig.isAiEnabled, hasOutput)
+    }
 
     val currentBackStackEntry = navController.currentBackStackEntry
     val suggestedCommand = currentBackStackEntry?.savedStateHandle?.get<String>("suggestedCommand")
@@ -212,6 +223,7 @@ fun BaseShellScreen(
     val coroutineScope = rememberCoroutineScope()
     val listState = rememberLazyListState()
     val scrollDirection = rememberScrollDirection(listState)
+    val isOutputDragged by listState.interactionSource.collectIsDraggedAsState()
     val textFieldFocusRequester = remember { FocusRequester() }
 
     val lastSavedFileUri = settings[SettingsKeys.LastSavedFileUri]
@@ -309,6 +321,23 @@ fun BaseShellScreen(
     }
 
 
+    val saveOutputAction: () -> Unit = {
+        dialogManager.show(ShellDialogKey.FileSaved)
+
+        activity?.let {
+            shellViewModel.startStreamingSave(
+                activity = it,
+                saveWholeOutput = saveWholeOutput,
+                savePathUri = savePath,
+                onComplete = { success, uri ->
+                    if (success && uri != null) {
+                        shellViewModel.setLastSavedFileUri(uri.toString())
+                    }
+                }
+            )
+        }
+    }
+
     val shareAction: () -> Unit = {
         val outputText = buildStringFromOutput(states.output)
 
@@ -345,73 +374,11 @@ fun BaseShellScreen(
                 enter = scaleIn(animationSpec = AshellYouAnimationSpecs.springFloat),
                 exit = scaleOut()
             ) {
-                // Scroll button visibility with 3-second hide delay
-                var lastScrollDirection by remember { mutableStateOf(ScrollDirection.NONE) }
-                var showScrollButton by remember { mutableStateOf(false) }
-                val isNotBusy = states.shellState !is ShellState.Busy
-                val canScroll = listState.canScrollBackward || listState.canScrollForward
-
-                LaunchedEffect(scrollDirection) {
-                    if (scrollDirection != ScrollDirection.NONE && isNotBusy && canScroll) {
-                        lastScrollDirection = scrollDirection
-                        showScrollButton = true
-                    }
-                }
-
-                // Hide after 3 seconds of no scrolling
-                LaunchedEffect(listState.isScrollInProgress) {
-                    if (!listState.isScrollInProgress && showScrollButton) {
-                        delay(3000.milliseconds)
-                        if (!listState.isScrollInProgress) {
-                            showScrollButton = false
-                        }
-                    }
-                }
-
-                // Hide when busy or can't scroll
-                LaunchedEffect(isNotBusy, canScroll) {
-                    if (!isNotBusy || !canScroll) {
-                        showScrollButton = false
-                    }
-                }
-
-                Column(
-                    horizontalAlignment = Alignment.End,
-                    verticalArrangement = Arrangement.spacedBy(15.dp),
-                    modifier = Modifier.padding(bottom = 10.dp, end = 10.dp)
-                ) {
-                    AnimatedVisibility(
-                        visible = showScrollButton,
-                        enter = scaleIn(animationSpec = AshellYouAnimationSpecs.springFloat),
-                        exit = scaleOut()
-                    ) {
-                        ScrollFAB(
-                            modifier = Modifier,
-                            listState = listState,
-                            scrollDirection = lastScrollDirection
-                        )
-                    }
-
+                Box(modifier = Modifier.padding(bottom = 10.dp, end = 10.dp)) {
                     BottomExtendedFAB(
                         listState = listState,
                         scrollDirection = scrollDirection,
                         isOutputEmpty = states.output.isEmpty(),
-                        saveAction = {
-                            dialogManager.show(ShellDialogKey.FileSaved)
-
-                            activity?.let {
-                                shellViewModel.startStreamingSave(
-                                    activity = it,
-                                    saveWholeOutput = saveWholeOutput,
-                                    savePathUri = savePath,
-                                    onComplete = { success, uri ->
-                                        if (success && uri != null) {
-                                            shellViewModel.setLastSavedFileUri(uri.toString())
-                                        }
-                                    }
-                                )
-                            }
-                        },
                         pasteAction = {
                             val textInClipboard = ClipboardUtils.readFromClipboard(context) ?: ""
                             if (textInClipboard.trim().isEmpty()) {
@@ -503,30 +470,24 @@ fun BaseShellScreen(
                                     modifier = Modifier.weight(1f),
                                     contentAlignment = Alignment.CenterStart
                                 ) {
-                                    if (FeatureConfig.isAiEnabled) {
-                                        if (states.commandField.fieldValue.text.isBlank()) {
-                                            AskAiButton(
-                                                onClick = { navController.navigate(NavRoutes.AiChatScreen) }
-                                            )
-                                        } else {
-                                            AiAnalysisButton(
-                                                onClick = {
-                                                    val commandToAnalyze =
-                                                        states.commandField.fieldValue.text
-                                                    if (commandToAnalyze.isNotBlank()) {
-                                                        shellViewModel.analyzeCommand(
-                                                            commandToAnalyze
-                                                        )
-                                                        showAiAnalysisSheet = true
-                                                    } else {
-                                                        showToast(
-                                                            context,
-                                                            "Command cannot be empty"
-                                                        )
-                                                    }
+                                    if (FeatureConfig.isAiEnabled && states.commandField.fieldValue.text.isNotBlank()) {
+                                        AiAnalysisButton(
+                                            onClick = {
+                                                val commandToAnalyze =
+                                                    states.commandField.fieldValue.text
+                                                if (commandToAnalyze.isNotBlank()) {
+                                                    shellViewModel.analyzeCommand(
+                                                        commandToAnalyze
+                                                    )
+                                                    showAiAnalysisSheet = true
+                                                } else {
+                                                    showToast(
+                                                        context,
+                                                        "Command cannot be empty"
+                                                    )
                                                 }
-                                            )
-                                        }
+                                            }
+                                        )
                                     } else {
                                         Image(
                                             imageVector = DynamicColorImageVectors.appBrandingNoPadding(),
@@ -535,7 +496,7 @@ fun BaseShellScreen(
                                     }
                                 }
 
-                                // Extra button content (e.g., file browser)
+                                // Extra button content (e.g., Wi-Fi reconnect)
                                 extraButtonContent?.invoke()
 
                                 TextButton(
@@ -710,7 +671,6 @@ fun BaseShellScreen(
                                 isSearchVisible = states.search.isVisible,
                                 searchQuery = states.search.textFieldValue.text,
                                 isFullscreen = isOutputFullscreen,
-                                onShareAction = shareAction,
                                 onFullscreenToggle = { isOutputFullscreen = !isOutputFullscreen },
                                 restoredScrollIndex = restoredScrollIndex,
                                 onScrollRestored = { restoredScrollIndex = -1 },
@@ -734,6 +694,24 @@ fun BaseShellScreen(
                             }
                         }
                     }
+                }
+
+                if (deviceActions.isNotEmpty() && !isOutputFullscreen) {
+                    DeviceDock(
+                        actions = deviceActions,
+                        expanded = isDeviceDockExpanded && !isKeyboardVisible && !isOutputDragged,
+                        onExpandedChange = shellViewModel::setDeviceDockExpanded,
+                        onAction = { action ->
+                            when (action) {
+                                DeviceActionId.SCREEN -> onOpenScreen()
+                                DeviceActionId.FILES -> onOpenFiles()
+                                DeviceActionId.SHARE_OUTPUT -> shareAction()
+                                DeviceActionId.SAVE_OUTPUT -> saveOutputAction()
+                                DeviceActionId.ASK_AI -> navController.navigate(NavRoutes.AiChatScreen)
+                            }
+                        },
+                        modifier = Modifier.align(Alignment.CenterEnd)
+                    )
                 }
             }
         }
@@ -927,7 +905,6 @@ private fun NoSearchResultUi(modifier: Modifier = Modifier) {
 private fun OutputCard(
     listState: LazyListState,
     isFullscreen: Boolean,
-    onShareAction: () -> Unit,
     onFullscreenToggle: () -> Unit,
     restoredScrollIndex: Int = -1,
     onScrollRestored: () -> Unit = {},
@@ -943,6 +920,11 @@ private fun OutputCard(
     val isDarkMode = LocalDarkMode.current
     val terminalFontStyle = LocalSettings.current[SettingsKeys.TerminalFontStyle]
     val hapticsEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
+    val smoothScroll = LocalSettings.current[SettingsKeys.SmoothScrolling]
+    val scrollScope = rememberCoroutineScope()
+    val scrollOutputTo: (LazyListState, ScrollDirection) -> Unit = { state, direction ->
+        scrollScope.launch { scrollToEnd(state, direction, smoothScroll) }
+    }
 
     val commandTextStyle =
         if (terminalFontStyle == TerminalFontStyle.MONOSPACE) {
@@ -1099,7 +1081,8 @@ private fun OutputCard(
                         .fillMaxWidth()
                         .background(headerColor)
                         .padding(horizontal = 16.dp, vertical = 8.dp),
-                    onShare = onShareAction,
+                    onScrollToTop = { scrollOutputTo(listState, ScrollDirection.UP) },
+                    onScrollToBottom = { scrollOutputTo(listState, ScrollDirection.DOWN) },
                     onCopy = {
                         ClipboardUtils.copyToClipboard(
                             text = buildStringFromOutput(results),
@@ -1177,7 +1160,8 @@ private fun OutputCard(
 @Composable
 private fun OutputCardHeader(
     modifier: Modifier = Modifier,
-    onShare: () -> Unit,
+    onScrollToTop: () -> Unit,
+    onScrollToBottom: () -> Unit,
     onCopy: () -> Unit,
     onFullscreenToggle: () -> Unit = {}
 ) {
@@ -1193,19 +1177,17 @@ private fun OutputCardHeader(
             color = MaterialTheme.colorScheme.onSurface
         )
 
-        TooltipContent(text = stringResource(R.string.share)) {
-            IconButton(
-                onClick = withHaptic(HapticFeedbackType.VirtualKey) { onShare() },
-                modifier = Modifier.size(32.dp)
-            ) {
-                Icon(
-                    modifier = Modifier.size(20.dp),
-                    painter = painterResource(R.drawable.ic_share),
-                    contentDescription = "Share",
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
-        }
+        HeaderIconButton(
+            label = stringResource(R.string.scroll_to_top),
+            icon = Icons.Rounded.KeyboardDoubleArrowUp,
+            onClick = onScrollToTop
+        )
+
+        HeaderIconButton(
+            label = stringResource(R.string.scroll_to_bottom),
+            icon = Icons.Rounded.KeyboardDoubleArrowDown,
+            onClick = onScrollToBottom
+        )
 
         TooltipContent(text = stringResource(R.string.copy)) {
             IconButton(
@@ -1236,48 +1218,33 @@ private fun OutputCardHeader(
 }
 
 @Composable
-private fun ScrollFAB(
-    modifier: Modifier = Modifier,
-    listState: LazyListState,
-    scrollDirection: ScrollDirection,
-) {
-    val coroutineScope = rememberCoroutineScope()
-    val smoothScroll = LocalSettings.current[SettingsKeys.SmoothScrolling]
-
-    val icon = when (scrollDirection) {
-        ScrollDirection.UP -> Icons.Rounded.KeyboardDoubleArrowUp
-        ScrollDirection.DOWN -> Icons.Rounded.KeyboardDoubleArrowDown
-        else -> null
-    }
-
-    icon?.let {
-        SmallFloatingActionButton(
-            modifier = modifier,
-            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-            contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
-            onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                coroutineScope.launch {
-                    val targetIndex = when (scrollDirection) {
-                        ScrollDirection.UP -> 0
-                        ScrollDirection.DOWN -> listState.layoutInfo.totalItemsCount - 1
-                        else -> return@launch
-                    }
-
-                    if (targetIndex < 0) return@launch
-
-                    if (smoothScroll) {
-                        listState.animateScrollToItem(targetIndex)
-                    } else {
-                        listState.scrollToItem(targetIndex)
-                    }
-                }
-            }
+private fun HeaderIconButton(label: String, icon: ImageVector, onClick: () -> Unit) {
+    TooltipContent(text = label) {
+        IconButton(
+            onClick = withHaptic(HapticFeedbackType.VirtualKey) { onClick() },
+            modifier = Modifier.size(32.dp)
         ) {
             Icon(
-                imageVector = it,
-                contentDescription = null
+                imageVector = icon,
+                contentDescription = label,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
+    }
+}
+
+private suspend fun scrollToEnd(listState: LazyListState, direction: ScrollDirection, smooth: Boolean) {
+    val targetIndex = when (direction) {
+        ScrollDirection.UP -> 0
+        ScrollDirection.DOWN -> listState.layoutInfo.totalItemsCount - 1
+        ScrollDirection.NONE -> return
+    }
+    if (targetIndex < 0) return
+
+    if (smooth) {
+        listState.animateScrollToItem(targetIndex)
+    } else {
+        listState.scrollToItem(targetIndex)
     }
 }
 
@@ -1299,7 +1266,6 @@ private fun BottomExtendedFAB(
     modifier: Modifier = Modifier,
     listState: LazyListState,
     scrollDirection: ScrollDirection,
-    saveAction: () -> Unit = {},
     pasteAction: () -> Unit = {},
     isOutputEmpty: Boolean = false,
 ) {
@@ -1335,31 +1301,18 @@ private fun BottomExtendedFAB(
         }
     }
 
-    val icon =
-        if (isOutputEmpty) {
-            ImageVector.vectorResource(R.drawable.ic_paste)
-        } else {
-            ImageVector.vectorResource(R.drawable.ic_save)
-        }
-
-    val buttonText =
-        if (isOutputEmpty) stringResource(R.string.paste) else stringResource(R.string.save)
-
-
     ExtendedFloatingActionButton(
         modifier = modifier,
-        onClick = withHaptic {
-            if (isOutputEmpty) pasteAction() else saveAction()
-        },
+        onClick = withHaptic { pasteAction() },
         expanded = expanded,
         icon = {
             Icon(
-                imageVector = icon,
+                imageVector = ImageVector.vectorResource(R.drawable.ic_paste),
                 contentDescription = null
             )
         },
         text = {
-            AutoResizeableText(text = buttonText)
+            AutoResizeableText(text = stringResource(R.string.paste))
         }
     )
 }

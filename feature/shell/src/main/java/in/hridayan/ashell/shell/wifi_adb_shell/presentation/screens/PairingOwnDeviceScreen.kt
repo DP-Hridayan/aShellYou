@@ -81,10 +81,15 @@ import `in`.hridayan.ashell.core.utils.isNotificationPermissionGranted
 import `in`.hridayan.ashell.core.utils.registerNetworkCallback
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.TcpIpEnableResult
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.usecase.EnableAdbTcpIpUseCase
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.card.TcpIpEnableCard
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.GrantNotificationAccessDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairDialogKey
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ReconnectFailedDialog
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.TcpIpEnabledDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.item.SavedDeviceItem
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.model.TcpIpEnableUiState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
 import `in`.hridayan.ashell.shell.wifi_adb_shell.service.SelfPairingService
 import `in`.hridayan.ashell.shell.wifi_adb_shell.utils.WirelessDebuggingUtils
@@ -92,6 +97,7 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.utils.WirelessDebuggingUtils
 @Composable
 fun PairingOwnDeviceScreen(
     modifier: Modifier = Modifier,
+    enableTcpIpAfterPairing: Boolean = false,
     viewModel: WifiAdbViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
@@ -110,6 +116,13 @@ fun PairingOwnDeviceScreen(
     val wifiAdbState by viewModel.state.collectAsState()
     val ownDevice = savedDevices.filter { it.isOwnDevice }.getOrNull(0)
     val currentDevice by viewModel.currentDevice.collectAsState()
+    val tcpIpEnableState by viewModel.tcpIpEnableState.collectAsState()
+    val openedTcpIp = (tcpIpEnableState as? TcpIpEnableUiState.Finished)?.result
+        as? TcpIpEnableResult.Opened
+    val isOwnDeviceConnected = ownDevice != null &&
+        currentDevice?.id == ownDevice.id &&
+        (wifiAdbState is WifiAdbState.Connected || viewModel.isConnected()) &&
+        isWifiConnected
 
     DisposableEffect(Unit) {
         val callback = registerNetworkCallback(context) { isConnected ->
@@ -147,6 +160,12 @@ fun PairingOwnDeviceScreen(
 
                 else -> {}
             }
+        }
+    }
+
+    LaunchedEffect(enableTcpIpAfterPairing, isOwnDeviceConnected, ownDevice) {
+        if (enableTcpIpAfterPairing && isOwnDeviceConnected && ownDevice != null) {
+            viewModel.enableTcpIpOnOwnDevice(ownDevice)
         }
     }
 
@@ -247,6 +266,17 @@ fun PairingOwnDeviceScreen(
                 item {
                     WifiEnableCard(
                         onClickButton = onClickWifiEnableButton,
+                        modifier = Modifier.animateItem()
+                    )
+                }
+            }
+
+            if (enableTcpIpAfterPairing) {
+                item {
+                    TcpIpEnableCard(
+                        state = tcpIpEnableState,
+                        port = EnableAdbTcpIpUseCase.DEFAULT_ADB_TCP_PORT,
+                        onBack = { navController.navigateBack() },
                         modifier = Modifier.animateItem()
                     )
                 }
@@ -371,6 +401,13 @@ fun PairingOwnDeviceScreen(
                 )
             }
         }
+    }
+
+    if (enableTcpIpAfterPairing && openedTcpIp != null) {
+        TcpIpEnabledDialog(
+            port = openedTcpIp.port,
+            onDismiss = { navController.navigateBack() }
+        )
     }
 
     PairDialogKey.GrantNotificationAccess.createDialog {

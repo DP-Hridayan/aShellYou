@@ -107,7 +107,7 @@ fun HomeRoute(
             onDismiss = { showPairModeChooseDialog = false },
             onClickPairSelf = {
                 showPairModeChooseDialog = false
-                navController.navigate(NavRoutes.PairingOwnDeviceScreen)
+                navController.navigate(NavRoutes.PairingOwnDeviceScreen())
             },
             onClickPairAnother = {
                 showPairModeChooseDialog = false

@@ -48,6 +48,7 @@ import `in`.hridayan.ashell.crashreporter.presentation.screens.CrashDetailsScree
 import `in`.hridayan.ashell.crashreporter.presentation.screens.CrashHistoryScreen
 import `in`.hridayan.ashell.logcat.presentation.screens.LogcatFilterEditorScreen
 import `in`.hridayan.ashell.logcat.presentation.screens.LogcatScreen
+import `in`.hridayan.ashell.mirror.presentation.screens.MirrorScreen
 import `in`.hridayan.ashell.onboarding.presentation.screens.OnboardingScreen
 import `in`.hridayan.ashell.qstiles.presentation.screen.CreateTileScreen
 import `in`.hridayan.ashell.qstiles.presentation.screen.TileDashBoardScreen
@@ -258,8 +259,9 @@ fun AppNavigation(
                 AdbSideloadScreen()
             }
 
-            composable<NavRoutes.PairingOwnDeviceScreen> {
-                PairingOwnDeviceScreen()
+            composable<NavRoutes.PairingOwnDeviceScreen> { backStackEntry ->
+                val route = backStackEntry.toRoute<NavRoutes.PairingOwnDeviceScreen>()
+                PairingOwnDeviceScreen(enableTcpIpAfterPairing = route.enableTcpIpAfterPairing)
             }
 
             composable<NavRoutes.PairingOtherDeviceScreen> {
@@ -277,6 +279,10 @@ fun AppNavigation(
                     connectionMode = route.connectionMode,
                     isOwnDevice = route.isOwnDevice
                 )
+            }
+
+            composable<NavRoutes.MirrorScreen> {
+                MirrorScreen()
             }
 
             composable<NavRoutes.TileDashboardScreen> {

@@ -10,6 +10,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.RejectedExecutionException;
 
 /**
  * This class represents an ADB connection.
@@ -18,6 +21,9 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AdbConnection implements Closeable {
 
 	private static final String TAG = "AdbConnection";
+
+	/** How long an open waits for the device to accept or refuse the stream. */
+	private static final long DEFAULT_OPEN_TIMEOUT_MS = 30_000;
 
 	/**
 	 * Receives a callback once the connection's reader thread has terminated,
@@ -85,6 +91,18 @@ public class AdbConnection implements Closeable {
 
 	/** Why the reader thread stopped, surfaced to streams so a failure is diagnosable. */
 	private volatile String terminationReason;
+
+	/**
+	 * Sends the packets the reader thread owes the peer, such as the OKAY for each WRTE.
+	 *
+	 * The reader must never wait on an outgoing transfer. A device can stop draining our writes
+	 * until its own writes are read; if the reader is the thread waiting to write, nothing reads
+	 * them, both directions stall for good, and every stream on the connection hangs.
+	 */
+	private final ExecutorService readerReplies =
+			Executors.newSingleThreadExecutor(runnable -> new Thread(runnable, "adblib-replies"));
+
+	private volatile long openTimeoutMillis = DEFAULT_OPEN_TIMEOUT_MS;
 
 	/**
 	 * Internal constructor to initialize some internal state
@@ -241,7 +259,13 @@ public class AdbConnection implements Closeable {
 			return;
 
 		synchronized (waitingStream) {
-			if (msg.getCommand() == AdbProtocol.CMD_OKAY)
+			if (msg.getCommand() == AdbProtocol.CMD_OKAY && waitingStream.isAbandoned())
+			{
+				/* Nobody will use this stream, but the device just opened its end. */
+				openStreams.remove(msg.getArg1());
+				sendFromReader(AdbProtocol.generateClose(msg.getArg1(), msg.getArg0()));
+			}
+			else if (msg.getCommand() == AdbProtocol.CMD_OKAY)
 			{
 				waitingStream.updateRemoteId(msg.getArg0());
 				waitingStream.readyForWrite();
@@ -385,12 +409,12 @@ public class AdbConnection implements Closeable {
 
 		try {
 			channel.writex(AdbProtocol.generateOpen(localId, destination));
-			synchronized (stream) {
-				while (!stream.isOpen() && !stream.isClosed())
-					stream.wait();
-			}
-		} catch (IOException | InterruptedException e) {
+			awaitOpenAnswer(stream);
+		} catch (IOException e) {
 			openStreams.remove(localId);
+			throw e;
+		} catch (InterruptedException e) {
+			abandon(stream);
 			throw e;
 		}
 
@@ -399,7 +423,66 @@ public class AdbConnection implements Closeable {
 			throw new ConnectException("Stream open actively rejected by remote peer");
 		}
 
+		if (!stream.isOpen()) {
+			abandon(stream);
+			throw new IOException("Timed out waiting for the device to open " + destination);
+		}
+
 		return stream;
+	}
+
+	/** Overrides how long {@link #open} waits; for tests. */
+	void setOpenTimeoutMillis(long timeoutMillis)
+	{
+		openTimeoutMillis = timeoutMillis;
+	}
+
+	/**
+	 * Queues a packet on behalf of the reader thread without waiting for it to be sent.
+	 * Packets are dropped once the connection is closing, when nobody can receive them anyway.
+	 */
+	void sendFromReader(final AdbMessage message)
+	{
+		try {
+			readerReplies.execute(() -> {
+				try {
+					channel.writex(message);
+				} catch (IOException e) {
+					Log.w(TAG, "Could not send a reply packet", e);
+				}
+			});
+		} catch (RejectedExecutionException ignored) {
+		}
+	}
+
+	private void awaitOpenAnswer(AdbStream stream) throws InterruptedException
+	{
+		long deadline = System.currentTimeMillis() + openTimeoutMillis;
+		synchronized (stream) {
+			while (!stream.isOpen() && !stream.isClosed()) {
+				long remaining = deadline - System.currentTimeMillis();
+				if (remaining <= 0)
+					return;
+				stream.wait(remaining);
+			}
+		}
+	}
+
+	/**
+	 * Gives up on a stream whose open was not answered in time. The OPEN is already on its way, so
+	 * the device may still accept it; the stream stays registered so that a late OKAY can be
+	 * answered with a CLSE instead of leaving an orphaned stream on the device.
+	 */
+	private void abandon(AdbStream stream) throws IOException
+	{
+		boolean openedMeanwhile;
+		synchronized (stream) {
+			openedMeanwhile = stream.isOpen();
+			if (!openedMeanwhile)
+				stream.markAbandoned();
+		}
+		if (openedMeanwhile)
+			stream.close();
 	}
 
 	private synchronized int nextLocalId()
@@ -425,6 +508,7 @@ public class AdbConnection implements Closeable {
 	@Override
 	public void close() throws IOException {
 		connected = false;
+		readerReplies.shutdownNow();
 
 		try {
 			channel.close();

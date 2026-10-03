@@ -2,12 +2,7 @@
 
 package `in`.hridayan.ashell.shell.otg_adb_shell.presentation.screens
 
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -15,23 +10,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalResources
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.domain.model.AdbFileBrowserConnectionMode
+import `in`.hridayan.ashell.core.common.domain.model.ExternalDeviceTransport
 import `in`.hridayan.ashell.core.common.domain.model.otg.OtgState
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.presentation.components.dialog.OtgDeviceWaitingDialog
-import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.ui.otg.OtgViewModel
-import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ConnectedDeviceDialog
+import `in`.hridayan.ashell.shell.common.presentation.components.bottomsheet.ConnectedDeviceBottomSheet
+import `in`.hridayan.ashell.shell.common.presentation.model.DeviceConnection
 import `in`.hridayan.ashell.shell.common.presentation.screens.BaseShellScreen
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
 
@@ -42,7 +34,7 @@ fun OtgAdbScreen(
 ) {
     val res = LocalResources.current
     val navController = LocalNavController.current
-    var showConnectedDeviceDialog by rememberSaveable { mutableStateOf(false) }
+    var showConnectedDeviceSheet by rememberSaveable { mutableStateOf(false) }
     var showOtgDeviceWaitingDialog by rememberSaveable { mutableStateOf(false) }
     var connectedDevice by rememberSaveable { mutableStateOf(res.getString(R.string.none)) }
     val otgState by otgViewModel.state.collectAsState()
@@ -58,7 +50,7 @@ fun OtgAdbScreen(
 
     val modeButtonOnClick: () -> Unit = {
         if (otgState is OtgState.Connected || otgState is OtgState.DeviceFound) {
-            showConnectedDeviceDialog = true
+            showConnectedDeviceSheet = true
         } else {
             showOtgDeviceWaitingDialog = true
         }
@@ -97,40 +89,24 @@ fun OtgAdbScreen(
         modeButtonText = modeButtonText,
         modeButtonOnClick = modeButtonOnClick,
         runCommandIfPermissionGranted = runCommandIfPermissionGranted,
-        extraButtonContent = if (isConnected) {
-            {
-                IconButton(
-                    onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                        navController.navigate(
-                            NavRoutes.FileBrowserScreen(
-                                deviceAddress = connectedDevice,
-                                connectionMode = AdbFileBrowserConnectionMode.OTG_ADB,
-                                isOwnDevice = false
-                            )
-                        )
-                    },
-                    colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-                    )
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_directory),
-                        contentDescription = stringResource(R.string.file_browser),
-                        modifier = Modifier.size(22.dp)
-                    )
-                }
-            }
-        } else {
-            null
+        deviceConnection = if (isConnected) DeviceConnection.OTHER_DEVICE else DeviceConnection.NONE,
+        onOpenScreen = { navController.navigate(NavRoutes.MirrorScreen(ExternalDeviceTransport.OTG)) },
+        onOpenFiles = {
+            navController.navigate(
+                NavRoutes.FileBrowserScreen(
+                    deviceAddress = connectedDevice,
+                    connectionMode = AdbFileBrowserConnectionMode.OTG_ADB,
+                    isOwnDevice = false
+                )
+            )
         }
     )
 
-    if (showConnectedDeviceDialog) {
-        ConnectedDeviceDialog(
+    if (showConnectedDeviceSheet) {
+        ConnectedDeviceBottomSheet(
             connectedDevice = connectedDevice,
-            onDismiss = { showConnectedDeviceDialog = false },
-            showModeSwitchButton = false
+            onDismiss = { showConnectedDeviceSheet = false },
+            showLocalAdbModes = false
         )
     }
 

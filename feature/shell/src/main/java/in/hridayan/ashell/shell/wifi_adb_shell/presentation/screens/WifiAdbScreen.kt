@@ -25,6 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.domain.model.AdbFileBrowserConnectionMode
+import `in`.hridayan.ashell.core.common.domain.model.ExternalDeviceTransport
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbConnection
 import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbState
 import `in`.hridayan.ashell.core.navigation.LocalNavController
@@ -33,7 +34,8 @@ import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.isConnectedToWifi
 import `in`.hridayan.ashell.core.utils.showToast
-import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ConnectedDeviceDialog
+import `in`.hridayan.ashell.shell.common.presentation.components.bottomsheet.ConnectedDeviceBottomSheet
+import `in`.hridayan.ashell.shell.common.presentation.model.DeviceConnection
 import `in`.hridayan.ashell.shell.common.presentation.screens.BaseShellScreen
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.DeviceDisconnectedDialog
@@ -46,7 +48,7 @@ fun WifiAdbScreen(
 ) {
     val context = LocalContext.current
     val res = LocalResources.current
-    var showConnectedDeviceDialog by rememberSaveable { mutableStateOf(false) }
+    var showConnectedDeviceSheet by rememberSaveable { mutableStateOf(false) }
     var showDeviceDisconnectedDialog by rememberSaveable { mutableStateOf(false) }
 
     val wifiAdbState by wifiAdbViewModel.state.collectAsState()
@@ -74,7 +76,7 @@ fun WifiAdbScreen(
 
     val modeButtonText = stringResource(R.string.wifi_adb)
     val modeButtonOnClick: () -> Unit = {
-        showConnectedDeviceDialog = true
+        showConnectedDeviceSheet = true
     }
 
     val runCommandIfPermissionGranted: () -> Unit = {
@@ -88,32 +90,25 @@ fun WifiAdbScreen(
         modeButtonText = modeButtonText,
         modeButtonOnClick = modeButtonOnClick,
         runCommandIfPermissionGranted = runCommandIfPermissionGranted,
+        deviceConnection = when {
+            !isConnected -> DeviceConnection.NONE
+            currentDevice?.isOwnDevice == true -> DeviceConnection.OWN_DEVICE
+            else -> DeviceConnection.OTHER_DEVICE
+        },
+        onOpenScreen = {
+            navController.navigate(NavRoutes.MirrorScreen(ExternalDeviceTransport.WIFI_ADB))
+        },
+        onOpenFiles = {
+            navController.navigate(
+                NavRoutes.FileBrowserScreen(
+                    deviceAddress = currentDevice?.let { "${it.ip}:${it.port}" } ?: "",
+                    connectionMode = AdbFileBrowserConnectionMode.WIFI_ADB,
+                    isOwnDevice = currentDevice?.isOwnDevice ?: false
+                )
+            )
+        },
         extraButtonContent = {
-            if (isConnected) {
-                IconButton(
-                    onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                        val deviceAddr = currentDevice?.let { "${it.ip}:${it.port}" } ?: ""
-                        val isOwn = currentDevice?.isOwnDevice ?: false
-                        navController.navigate(
-                            NavRoutes.FileBrowserScreen(
-                                deviceAddress = deviceAddr,
-                                connectionMode = AdbFileBrowserConnectionMode.WIFI_ADB,
-                                isOwnDevice = isOwn
-                            )
-                        )
-                    },
-                    colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-                    )
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_directory),
-                        contentDescription = stringResource(R.string.file_browser),
-                        modifier = Modifier.size(22.dp)
-                    )
-                }
-            } else {
+            if (!isConnected) {
                 IconButton(
                     onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                         if (!context.isConnectedToWifi()) {
@@ -177,11 +172,11 @@ fun WifiAdbScreen(
         }
     )
 
-    if (showConnectedDeviceDialog) {
-        ConnectedDeviceDialog(
+    if (showConnectedDeviceSheet) {
+        ConnectedDeviceBottomSheet(
             connectedDevice = connectedDeviceName,
-            onDismiss = { showConnectedDeviceDialog = false },
-            showModeSwitchButton = false
+            onDismiss = { showConnectedDeviceSheet = false },
+            showLocalAdbModes = false
         )
     }
 

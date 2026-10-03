@@ -683,6 +683,7 @@
     <string name="loading_licenses" comment="Progress status text while loading open-source license files">Loading license information…</string>
     <string name="local_adb" comment="Connection mode option: run ADB commands locally on host device using Shizuku or Root">Local ADB</string>
     <string name="local_adb_shell" comment="Screen header for local device ADB shell terminal">Local ADB shell</string>
+    <string name="local_adb_mode" comment="Section header above the list of Local ADB working modes (Basic shell, Shizuku, Root, TCP/IP) in the connected device sheet">Local ADB mode</string>
     <string name="local_adb_summary" comment="Summary text for local ADB feature card">Execute ADB commands directly on your device using Shizuku or root.</string>
     <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">Local backup</string>
     <string name="local_file" comment="Source option label for picking local backup file">Local file</string>
@@ -952,6 +953,7 @@
     <string name="saving_output" comment="Progress status text while exporting terminal log output to file">Exporting output to file…</string>
     <string name="schedule" comment="Header title or setting label for automated backup schedule picker">Schedule</string>
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">Screen density multiplier</string>
+    <string name="scroll_to_top" comment="Accessibility label and tooltip for the button that jumps to the first line of the command output">Scroll to top</string>
     <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">Scroll to bottom</string>
     <string name="search">Search</string>
     <string name="search_apps" comment="Hint in the search field of the app picker in the logcat filter editor">Search apps</string>
@@ -1087,6 +1089,14 @@
     <string name="tcpip_mode" comment="Label for the TCP/IP local shell working mode (loopback port 5555)">TCP/IP</string>
     <string name="tcpip_not_available_body" comment="Dialog body explaining how to enable TCP ADB when the system property is missing. The adb command should stay untranslated.">Your device does not have TCP ADB enabled. Connect to a PC via USB once and run:\n\nadb tcpip 5555\n\nAfter that, this mode works without USB or Wi-Fi.</string>
     <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">TCP Mode Not Available</string>
+    <string name="tcpip_not_available_instructions" comment="Body of the TCP mode unavailable dialog, shown above a copyable adb command. The command itself is shown separately.">Your device does not have TCP ADB enabled. Connect it to a computer over USB once and run:</string>
+    <string name="tcpip_not_available_footer" comment="Note below the adb command in the TCP mode unavailable dialog. The port closes again when the device reboots.">Once the port is open, this mode works without USB or Wi-Fi until the device restarts.</string>
+    <string name="use_wireless_debugging" comment="Button that opens ADB TCP mode using wireless debugging on this device instead of a computer">Use wireless debugging</string>
+    <string name="tcpip_enable_pending_hint" comment="Hint on the pairing screen when the user came to open the ADB TCP port. %1$d is the port number.">Pair this device and ADB TCP port %1$d will be opened automatically.</string>
+    <string name="tcpip_enable_running" comment="Shown while the app asks ADB to listen on a TCP port. %1$d is the port number.">Opening ADB TCP port %1$d…</string>
+    <string name="tcpip_enable_opened" comment="Shown when the ADB TCP port was opened. ADB restarts to do this, which disconnects wireless debugging. %1$d is the port number.">TCP port %1$d is open and TCP/IP mode in Local ADB is ready. Wireless debugging was disconnected because ADB restarted.</string>
+    <string name="tcpip_enable_unverified" comment="Shown when ADB accepted the request to open a TCP port but the port could not be confirmed. %1$d is the port number.">ADB restarted to open port %1$d, but the port could not be confirmed. Try TCP/IP mode in Local ADB.</string>
+    <string name="tcpip_enable_refused" comment="Shown when ADB refused to open a TCP port. %1$s is the reason ADB gave.">Could not open the TCP port: %1$s</string>
     <string name="telegram" comment="Button in About screen linking to official Telegram community group" translatable="false">Telegram</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">Terminal</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Terminal font style</string>
@@ -1278,4 +1288,37 @@
     <string name="openrouter_api_key_step_4" comment="Step 4 of the OpenRouter API key setup guide: copying the key">Copy your API key and paste it here</string>
     <string name="des_active_provider" comment="Settings item description explaining that AI features use the selected provider">AI features use this provider</string>
     <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">Thinking</string>
+    <string name="screen" comment="Device dock button that opens a live view of the connected device's screen which can also be controlled">Screen</string>
+    <string name="screen_mirror" comment="Title of the screen showing and controlling the connected device's screen live">Screen mirror</string>
+    <string name="recents" comment="Button that opens the recent apps overview on the mirrored device">Recents</string>
+    <string name="volume_up" comment="Button that presses the volume up key on the mirrored device">Volume up</string>
+    <string name="volume_down" comment="Button that presses the volume down key on the mirrored device">Volume down</string>
+    <string name="power" comment="Button that presses the power key on the mirrored device">Power</string>
+    <string name="screenshot" comment="Button that takes a screenshot on the mirrored device">Screenshot</string>
+    <string name="quick_settings" comment="Button that pulls down the quick settings panel on the mirrored device">Quick settings</string>
+    <string name="device_keys" comment="Accessibility label of the toolbars holding the navigation, volume, power, screenshot and quick settings buttons for the mirrored device">Device keys</string>
+    <string name="mirror_step_preparing" comment="Startup step while the mirroring helper is copied to the other device">Preparing</string>
+    <string name="mirror_step_preparing_skipped" comment="Startup step shown when the mirroring helper was already on the other device, so copying was skipped">Ready on device</string>
+    <string name="mirror_step_starting" comment="Startup step while the mirroring helper starts on the other device">Starting on device</string>
+    <string name="mirror_step_connecting" comment="Startup step while the live video connection to the other device opens">Connecting video</string>
+    <string name="reconnecting" comment="Status shown over a frozen screen mirror while the app waits for the device connection to come back">Reconnecting…</string>
+    <string name="view_only" comment="Badge shown when the mirrored screen can be watched but not controlled">View only</string>
+    <string name="mirror_view_only_message" comment="Explains why touches on the mirrored screen do nothing and how to fix it on Xiaomi phones">The device refused touch input. On Xiaomi devices, turn on USB debugging (Security settings) and restart the device.</string>
+    <string name="mirror_failed_title" comment="Title of the panel shown when screen mirroring could not start or stopped with an error">Couldn\'t mirror the screen</string>
+    <string name="mirror_error_not_connected" comment="Screen mirror error: no other device is connected over OTG or Wireless Debugging">No other device is connected.</string>
+    <string name="mirror_error_deploy_failed" comment="Screen mirror error: the helper program could not be copied to the other device">Couldn\'t copy the mirroring helper to the device.</string>
+    <string name="mirror_error_version" comment="Screen mirror error: the helper on the device is a different version than the app expects">The mirroring helper on the device is a different version.</string>
+    <string name="mirror_error_encoder" comment="Screen mirror error: the other device's video encoder failed">The device couldn\'t encode its screen.</string>
+    <string name="mirror_error_server_exited" comment="Screen mirror error: the helper program stopped unexpectedly on the device">The mirroring helper stopped on the device.</string>
+    <string name="mirror_error_connect_timeout" comment="Screen mirror error: the video connection did not open in time">The device didn\'t open the video connection in time.</string>
+    <string name="mirror_error_decoder" comment="Screen mirror error: this phone has no decoder for the video format. %1$s is a codec name such as H265">This phone can\'t play %1$s video.</string>
+    <string name="mirror_error_not_responding" comment="Screen mirror error: the other device stopped answering while mirroring was starting or running">The device stopped responding.</string>
+    <string name="mirror_error_stream" comment="Screen mirror error: the video data from the device could not be read">The video stream couldn\'t be read.</string>
+    <string name="mirror_ended_title" comment="Title of the panel shown when screen mirroring has ended">Mirroring ended</string>
+    <string name="mirror_ended_disconnected" comment="Explains that screen mirroring ended because the device disconnected">The device disconnected.</string>
+    <string name="mirror_ended_server_stopped" comment="Explains that screen mirroring ended from the device's side">The device stopped mirroring.</string>
+    <string name="back_to_shell" comment="Button that leaves the screen mirror and returns to the shell screen">Back to shell</string>
+    <string name="device_tools" comment="Label of the side toolbar holding actions for the connected device, such as screen mirror and file browser">Device tools</string>
+    <string name="show_device_tools" comment="Accessibility action that expands the device tools side toolbar">Show device tools</string>
+    <string name="hide_device_tools" comment="Accessibility action that collapses the device tools side toolbar">Hide device tools</string>
 </resources>

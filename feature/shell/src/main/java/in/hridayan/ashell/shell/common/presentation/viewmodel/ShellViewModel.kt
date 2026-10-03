@@ -645,6 +645,18 @@ class ShellViewModel @Inject constructor(
         }
     }
 
+    val isDeviceDockExpanded = settingsRepository.getBoolean(SettingsKeys.DeviceDockExpanded).stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
+        SettingsKeys.DeviceDockExpanded.default
+    )
+
+    fun setDeviceDockExpanded(expanded: Boolean) {
+        viewModelScope.launch {
+            settingsRepository.setBoolean(SettingsKeys.DeviceDockExpanded, expanded)
+        }
+    }
+
     fun queryCommand(query: String) {
         if (query.isBlank()) return
 

@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.flow
 import java.io.IOException
 
-private const val RESTART_REPLY_PREFIX = "restarting"
+internal const val RESTART_REPLY_PREFIX = "restarting"
 private const val POLL_INTERVAL_MS = 20L
 private const val IDLE_TIMEOUT_MS = 500L
 
