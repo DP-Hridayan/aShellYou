@@ -62,8 +62,8 @@
     "id": "15085871",
     "username": "AY_Translator",
     "name": "Aleksandr (AY_Translator)",
-    "translated": 10513,
-    "approved": 14138,
+    "translated": 10520,
+    "approved": 14152,
     "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/15085871/medium/3a254014b133e0fc2d376c776aba8dbd.jpg",
     "languages": [
       {
@@ -474,6 +474,21 @@
       }
     ],
     "avatar": "crowdin/contributors_pfp/contributor_17149392.webp"
+  },
+  {
+    "id": "17567406",
+    "username": "tgonzalh2009",
+    "name": "Tonatiuh Gonzalez Hernandez (tgonzalh2009)",
+    "translated": 17,
+    "approved": 0,
+    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/17567406/medium/285ceaff54e8ff8cbc929495e53c3a38.jpeg",
+    "languages": [
+      {
+        "id": "es-ES",
+        "name": "Spanish"
+      }
+    ],
+    "avatar": "crowdin/contributors_pfp/contributor_17567406.webp"
   },
   {
     "id": "17661168",
