@@ -1,7 +1,7 @@
 {
   "uniqueId": "com.genymobile:scrcpy-server",
   "artifactVersion": "4.1",
-  "name": "scrcpy (server)",
+  "name": "Scrcpy (server)",
   "description": "Mirrors and controls the screen of the connected device. Copyright (C) 2018 Genymobile, Copyright (C) 2018-2026 Romain Vimont.",
   "website": "https://github.com/Genymobile/scrcpy",
   "developers": [
