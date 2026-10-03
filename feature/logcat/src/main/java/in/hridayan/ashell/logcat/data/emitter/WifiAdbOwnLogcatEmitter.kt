@@ -15,8 +15,8 @@ class WifiAdbOwnLogcatEmitter @Inject constructor(
     @Named("wifiAdbOwn") private val shell: ExternalDeviceShell,
 ) : LogcatEmitter {
 
-    override fun lines(): Flow<String> =
-        shell.execute("logcat -v threadtime").flowOn(Dispatchers.IO)
+    override fun lines(since: String?): Flow<String> =
+        shell.execute(LogcatCommand.shellLine(since)).flowOn(Dispatchers.IO)
 
     override fun isAvailable(): Boolean = shell.isConnected
 }

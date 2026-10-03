@@ -20,9 +20,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -37,6 +38,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.logcat.domain.model.LogEntry
+import `in`.hridayan.ashell.logcat.domain.util.indexAtOrAfter
 import `in`.hridayan.ashell.logcat.presentation.model.LogListActions
 import kotlinx.coroutines.launch
 
@@ -67,6 +69,7 @@ fun AutoScrollingLogList(
     LaunchedEffect(isAutoScrolling) { isFollowing.value = isAutoScrolling }
 
     FollowNewestEntry(listState, isFollowing)
+    HoldReadingPosition(listState, logs, isFollowing)
 
     Box(modifier = modifier.fillMaxSize()) {
         LogList(
@@ -141,6 +144,37 @@ private fun FollowNewestEntry(
                 }
             }
     }
+}
+
+/**
+ * Holds the top row in place while paused. LazyColumn re-anchors by key only over short
+ * distances, so a burst of evictions would otherwise move the reader. A [SideEffect] runs
+ * before the new list is measured, so the correction lands in the same frame.
+ */
+@Composable
+private fun HoldReadingPosition(
+    listState: LazyListState,
+    logs: List<LogEntry>,
+    isFollowing: State<Boolean>,
+) {
+    SideEffect {
+        if (!isFollowing.value) holdTopRow(listState, logs)
+    }
+}
+
+/**
+ * Skipped while the list is moving: a fling runs at the same mutate priority as the request,
+ * so issuing one would stop the fling dead.
+ */
+private fun holdTopRow(listState: LazyListState, logs: List<LogEntry>) {
+    if (logs.isEmpty() || listState.isScrollInProgress) return
+    val topRow = listState.layoutInfo.visibleItemsInfo.firstOrNull() ?: return
+    val topRowId = topRow.key as? Long ?: return
+    val index = logs.indexAtOrAfter(topRowId).coerceAtMost(logs.lastIndex)
+    if (index == topRow.index) return
+    val stillPresent = logs[index].id == topRowId
+    val offset = if (stillPresent) (-topRow.offset).coerceAtLeast(0) else 0
+    listState.requestScrollToItem(index, offset)
 }
 
 @Composable

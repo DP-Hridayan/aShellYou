@@ -32,6 +32,7 @@ import `in`.hridayan.ashell.core.common.domain.model.LogcatWorkingMode
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.navigation.NavRoutes
+import `in`.hridayan.ashell.core.presentation.components.dialog.OtgDeviceWaitingDialog
 import `in`.hridayan.ashell.core.presentation.components.dialog.ShizukuUnavailableDialog
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.ClipboardUtils
@@ -53,6 +54,7 @@ import `in`.hridayan.ashell.logcat.presentation.event.LogcatUiEvent
 import `in`.hridayan.ashell.logcat.presentation.model.LogListActions
 import `in`.hridayan.ashell.logcat.presentation.model.LogListUiState
 import `in`.hridayan.ashell.logcat.presentation.model.LogcatTab
+import `in`.hridayan.ashell.logcat.presentation.model.OtherDeviceUiState
 import `in`.hridayan.ashell.logcat.presentation.viewmodel.LogcatViewModel
 
 @Composable
@@ -63,7 +65,10 @@ fun LogcatScreen(
     val context = LocalContext.current
     val settings = LocalSettings.current
     val thisDeviceState by viewModel.thisDeviceState.collectAsStateWithLifecycle()
+    val otherDeviceState by viewModel.otherDeviceState.collectAsStateWithLifecycle()
     val isRunning by viewModel.isRunning.collectAsStateWithLifecycle()
+    val isOtherDeviceRunning by viewModel.isOtherDeviceRunning.collectAsStateWithLifecycle()
+    val isOtherDeviceConnected by viewModel.isOtherDeviceConnected.collectAsStateWithLifecycle()
     val activeFilter by viewModel.activeFilter.collectAsStateWithLifecycle()
     val savedFilters by viewModel.savedFilters.collectAsStateWithLifecycle()
     val expandedIds by viewModel.expandedIds.collectAsStateWithLifecycle()
@@ -74,10 +79,12 @@ fun LogcatScreen(
 
     val logcatMode = settings[SettingsKeys.LogcatMode]
     val listState = rememberLazyListState()
+    val otherDeviceListState = rememberLazyListState()
 
     var showFilterSheet by rememberSaveable { mutableStateOf(false) }
     var showModeSheet by rememberSaveable { mutableStateOf(false) }
     var searchVisible by rememberSaveable { mutableStateOf(false) }
+    var showOtgDialog by rememberSaveable { mutableStateOf(false) }
     var detailEntry by remember { mutableStateOf<LogEntry?>(null) }
 
     val actions = remember(viewModel) {
@@ -87,6 +94,20 @@ fun LogcatScreen(
             onToggleExpanded = { viewModel.toggleExpanded(it) },
             onLongClick = { detailEntry = it },
         )
+    }
+
+    val otherDeviceActions = remember(viewModel) {
+        LogListActions(
+            onPauseAutoScroll = { viewModel.pauseAutoScroll(LogcatTab.OTHER_DEVICE) },
+            onResumeAutoScroll = { viewModel.resumeAutoScroll(LogcatTab.OTHER_DEVICE) },
+            onToggleExpanded = { viewModel.toggleExpanded(it) },
+            onLongClick = { detailEntry = it },
+        )
+    }
+
+    val isActiveTabRunning = when (activeTab) {
+        LogcatTab.THIS_DEVICE -> isRunning
+        LogcatTab.OTHER_DEVICE -> isOtherDeviceRunning
     }
 
     LaunchedEffect(shizukuGranted) {
@@ -106,21 +127,23 @@ fun LogcatScreen(
         contentWindowInsets = WindowInsets(0),
         topBar = {
             LogcatTopBar(
-                isRunning = isRunning,
+                isRunning = isActiveTabRunning,
+                isPlayPauseEnabled = activeTab == LogcatTab.THIS_DEVICE || isOtherDeviceConnected,
                 showModeAction = activeTab == LogcatTab.THIS_DEVICE,
                 searchVisible = searchVisible,
                 isPreflightChecking = preflightChecking,
                 onSearchToggle = { searchVisible = !searchVisible },
                 onPlayPause = {
-                    if (isRunning) {
-                        viewModel.stopLogcat()
-                    } else {
-                        tryStartLogcat()
+                    when (activeTab) {
+                        LogcatTab.THIS_DEVICE ->
+                            if (isRunning) viewModel.stopLogcat() else tryStartLogcat()
+
+                        LogcatTab.OTHER_DEVICE -> viewModel.toggleOtherDeviceLogs()
                     }
                 },
                 onModeClick = { showModeSheet = true },
                 onOpenFilter = { showFilterSheet = true },
-                onClear = { viewModel.clearLogs() },
+                onClear = { viewModel.clearLogs(activeTab) },
             )
         },
     ) { innerPadding ->
@@ -146,7 +169,20 @@ fun LogcatScreen(
                     actions = actions,
                 )
 
-                LogcatTab.OTHER_DEVICE -> OtherDeviceContent(viewModel = viewModel)
+                LogcatTab.OTHER_DEVICE -> OtherDeviceContent(
+                    state = OtherDeviceUiState(
+                        list = otherDeviceState,
+                        isConnected = isOtherDeviceConnected,
+                        isRunning = isOtherDeviceRunning,
+                    ),
+                    expandedIds = expandedIds,
+                    listState = otherDeviceListState,
+                    actions = otherDeviceActions,
+                    onConnectViaWifiAdb = {
+                        navController.navigate(NavRoutes.PairingOtherDeviceScreen)
+                    },
+                    onConnectViaOtg = { showOtgDialog = true },
+                )
             }
         }
     }
@@ -223,6 +259,13 @@ fun LogcatScreen(
                 if (isRunning) viewModel.checkAndRestart(newMode)
             },
             onDismiss = { showModeSheet = false },
+        )
+    }
+
+    if (showOtgDialog) {
+        OtgDeviceWaitingDialog(
+            onDismiss = { showOtgDialog = false },
+            onConfirm = { showOtgDialog = false },
         )
     }
 

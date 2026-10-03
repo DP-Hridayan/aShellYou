@@ -7,6 +7,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -28,6 +29,7 @@ import `in`.hridayan.ashell.core.resources.R
 @Composable
 fun LogcatTopBar(
     isRunning: Boolean,
+    isPlayPauseEnabled: Boolean,
     showModeAction: Boolean,
     searchVisible: Boolean,
     isPreflightChecking: Boolean,
@@ -74,7 +76,7 @@ fun LogcatTopBar(
 
             IconButton(
                 onClick = onPlayPause,
-                enabled = !isPreflightChecking,
+                enabled = isPlayPauseEnabled && !isPreflightChecking,
             ) {
                 if (isPreflightChecking) {
                     CircularProgressIndicator(
@@ -91,10 +93,10 @@ fun LogcatTopBar(
                         } else {
                             stringResource(R.string.resume)
                         },
-                        tint = if (isRunning) {
-                            MaterialTheme.colorScheme.error
-                        } else {
-                            MaterialTheme.colorScheme.primary
+                        tint = when {
+                            !isPlayPauseEnabled -> LocalContentColor.current
+                            isRunning -> MaterialTheme.colorScheme.error
+                            else -> MaterialTheme.colorScheme.primary
                         },
                     )
                 }

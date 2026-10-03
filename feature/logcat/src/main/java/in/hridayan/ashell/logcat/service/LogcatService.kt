@@ -105,7 +105,7 @@ class LogcatService : Service() {
             val mode = settingsRepo.getInt(SettingsKeys.LogcatMode).first()
             val emitter = factory.forMode(mode)
             Log.d(TAG, "Using emitter for logcat mode=$mode: ${emitter::class.simpleName}")
-            observeLogs(emitter).collect { entry ->
+            observeLogs(emitter, sessionHolder.resumePoint()).collect { entry ->
                 sessionHolder.emit(entry)
             }
         }

@@ -104,27 +104,34 @@ class LogListStateStoreTest {
     }
 
     @Test
-    fun `the published list is held still while paused`() {
+    fun `new entries keep appearing while paused`() {
+        val store = LogListStateStore(THREE_ENTRIES)
+        store.append(listOf(entry(1)))
+        store.pause()
+        store.append(listOf(entry(2)))
+        assertEquals(listOf(1L, 2L), ids(store))
+    }
+
+    @Test
+    fun `while paused the oldest entries survive past the budget`() {
         val store = LogListStateStore(THREE_ENTRIES)
         store.append(listOf(entry(1), entry(2), entry(3)))
         store.pause()
         store.append(listOf(entry(4), entry(5)))
-        assertEquals(listOf(1L, 2L, 3L), ids(store))
+        assertEquals(listOf(1L, 2L, 3L, 4L, 5L), ids(store))
     }
 
     @Test
-    fun `a flood while paused never moves the published list`() {
+    fun `a flood while paused evicts once the overflow is full`() {
         val store = LogListStateStore(THREE_ENTRIES)
-        store.append(listOf(entry(1), entry(2), entry(3)))
         store.pause()
-        repeat(FLOOD_BATCHES) { batch ->
-            store.append(listOf(entry(10L + batch), entry(100L + batch)))
-        }
-        assertEquals(listOf(1L, 2L, 3L), ids(store))
+        repeat(FLOOD_BATCHES) { store.append(listOf(entry(it.toLong()))) }
+        assertEquals(6, ids(store).size)
+        assertEquals(FLOOD_BATCHES - 1L, ids(store).last())
     }
 
     @Test
-    fun `resuming publishes the newest entries within the budget`() {
+    fun `resuming trims back to the budget keeping the newest entries`() {
         val store = LogListStateStore(THREE_ENTRIES)
         store.append(listOf(entry(1), entry(2), entry(3)))
         store.pause()
@@ -135,14 +142,14 @@ class LogListStateStoreTest {
     }
 
     @Test
-    fun `following still evicts at the budget`() {
+    fun `following evicts at the budget`() {
         val store = LogListStateStore(THREE_ENTRIES)
         store.append(listOf(entry(1), entry(2), entry(3), entry(4)))
         assertEquals(listOf(2L, 3L, 4L), ids(store))
     }
 
     @Test
-    fun `a filter replacement is published even while paused`() {
+    fun `a filter replacement is published while paused`() {
         val store = LogListStateStore(THREE_ENTRIES)
         store.append(listOf(entry(1), entry(2), entry(3)))
         store.pause()

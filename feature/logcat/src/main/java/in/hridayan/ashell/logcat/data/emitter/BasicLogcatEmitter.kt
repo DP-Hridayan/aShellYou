@@ -13,7 +13,7 @@ import java.io.InterruptedIOException
 import javax.inject.Inject
 
 /**
- * Logcat emitter that runs `sh -c "logcat -v threadtime"` as a plain app subprocess.
+ * Logcat emitter that runs logcat through `sh -c` as a plain app subprocess.
  *
  * Used by the Log access mode; the process only sees the full system log when
  * READ_LOGS has been granted and this process holds the `log` group.
@@ -22,8 +22,9 @@ class BasicLogcatEmitter @Inject constructor(
     private val accessChecker: ReadLogsAccessChecker,
 ) : LogcatEmitter {
 
-    override fun lines(): Flow<String> = flow {
-        val process = Runtime.getRuntime().exec(arrayOf("sh", "-c", "logcat -v threadtime"))
+    override fun lines(since: String?): Flow<String> = flow {
+        val process = Runtime.getRuntime()
+            .exec(arrayOf("sh", "-c", LogcatCommand.shellLine(since)))
         val reader = BufferedReader(InputStreamReader(process.inputStream))
         try {
             while (true) {

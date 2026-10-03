@@ -10,11 +10,14 @@
     </ID>
     <ID>ArgumentListWrapping:LogcatService.kt$LogcatService$( applicationContext,
       LogcatServiceEntryPoint::class.java )
-    </ID>
+    </ID>
+
     <ID>CyclomaticComplexMethod:LogFilter.kt$fun LogFilter.matches(entry: LogEntry): Boolean</ID>
     <ID>DestructuringDeclarationWithTooManyEntries:LogcatParser.kt$LogcatParser$val (timestamp, pid,
       tid, levelChar, tag, message) = match.destructured
-    </ID>
+    </ID>
+
+
     <ID>ImportOrdering:LogcatModeBottomSheet.kt$import androidx.compose.foundation.clickable import
       androidx.compose.foundation.interaction.MutableInteractionSource import
       androidx.compose.foundation.layout.Arrangement import
@@ -106,13 +109,15 @@
     <ID>Indentation:LogcatViewModel.kt$LogcatViewModel$</ID>
     <ID>LongMethod:LogcatNotificationHelper.kt$LogcatNotificationHelper$fun createNotification():
       Notification
-    </ID>
-    <ID>LongParameterList:LogcatTopBar.kt$( isRunning: Boolean, showModeAction: Boolean,
-      searchVisible: Boolean, isPreflightChecking: Boolean, onSearchToggle: () -&gt; Unit,
-      onPlayPause: () -&gt; Unit, onModeClick: () -&gt; Unit, onOpenFilter: () -&gt; Unit, onClear:
-      () -&gt; Unit, modifier: Modifier = Modifier, )
     </ID>
-    <ID>MagicNumber:LogLevelColors.kt$LogLevelColors$0.45f</ID>
+
+    <ID>LongParameterList:LogcatTopBar.kt$( isRunning: Boolean, isPlayPauseEnabled: Boolean, showModeAction: Boolean, searchVisible: Boolean, isPreflightChecking: Boolean, onSearchToggle: () -&gt; Unit, onPlayPause: () -&gt; Unit, onModeClick: () -&gt; Unit, onOpenFilter: () -&gt; Unit, onClear: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
+    <ID>MagicNumber:LogLevelColors.kt$LogLevelColors$0.45f</ID>
+
+
+
+
+
     <ID>MultiLineIfElse:LogEntryDetailBottomSheet.kt$MaterialTheme.typography.bodyMedium</ID>
     <ID>
       MultiLineIfElse:LogEntryDetailBottomSheet.kt$MaterialTheme.typography.bodyMedium.copy(fontFamily
@@ -130,14 +135,17 @@
     <ID>NoConsecutiveBlankLines:LogEntryDetailBottomSheet.kt$</ID>
     <ID>NoConsecutiveBlankLines:LogEntryRow.kt$</ID>
     <ID>NoConsecutiveBlankLines:LogLevelColors.kt$</ID>
-    <ID>NoConsecutiveBlankLines:LogcatFilterBottomSheet.kt$</ID>
+    <ID>NoConsecutiveBlankLines:LogcatFilterBottomSheet.kt$</ID>
+
     <ID>NoMultipleSpaces:LogLevelColors.kt$LogLevelColors$</ID>
-    <ID>NoMultipleSpaces:LogcatEmitterFactory.kt$LogcatEmitterFactory$</ID>
+    <ID>NoMultipleSpaces:LogcatEmitterFactory.kt$LogcatEmitterFactory$</ID>
+
     <ID>SwallowedException:BasicLogcatEmitter.kt$BasicLogcatEmitter$e: IOException</ID>
     <ID>TooManyFunctions:LogcatViewModel.kt$LogcatViewModel : ViewModel</ID>
     <ID>VariableNaming:LogcatFilterRepositoryImpl.kt$LogcatFilterRepositoryImpl$private val
       FILTERS_KEY = stringPreferencesKey("saved_filters")
-    </ID>
+    </ID>
+
     <ID>Wrapping:LogFilter.kt$(</ID>
     <ID>Wrapping:LogcatFilterBottomSheet.kt$(</ID>
     <ID>Wrapping:LogcatFilterBottomSheet.kt$;</ID>
