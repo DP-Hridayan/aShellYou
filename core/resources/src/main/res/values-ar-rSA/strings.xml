@@ -47,6 +47,7 @@
     <string name="add_api_key" comment="Button label in AI settings to input a custom LLM provider API key">إضافة مفتاح API</string>
     <string name="add_command" comment="Button label to create and save a new command snippet to database">إضافة أمر</string>
     <string name="add_new_item" comment="Generic button label to add a new list entry">إضافة عنصر جديد</string>
+    <string name="add_profile" comment="Button in the logcat filter sheet that opens the editor to create a new filter profile">إضافة ملف شخصي</string>
     <string name="additional_settings" comment="Category header in app settings">إعدادات إضافية</string>
     <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">مهارات الوكيل</string>
     <string name="ai_agent_shortcut">AI Agent</string>
@@ -72,6 +73,8 @@
     <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">مثل مدينة نيون سايبربانك، وضع داكن، تباين عالٍ</string>
     <string name="all">الكل</string>
     <string name="all_data" comment="Option in backup selector to include full app database, settings, and chat history">جميع البيانات</string>
+    <string name="all_log_levels" comment="Logcat filter profile description when the profile does not restrict log levels">جميع المستويات</string>
+    <string name="all_log_levels_except" comment="%1$s = comma-separated log level names, e.g. Verbose, Debug. Logcat filter profile description for a profile that hides those levels">الكل باستثناء %1$s</string>
     <string name="allow_usb_access" comment="Button label that re-shows the system prompt asking the user to allow the app to use the attached USB device">السماح بالوصول إلى USB</string>
     <string name="allow_usb_access_message" comment="Status shown when the target device was detected over USB but the system permission to use it has not been granted yet">السماح بالوصول إلى USB للمتابعة</string>
     <string name="already_connected" comment="Status message in wireless ADB setup screen indicating device is already connected">متصل بالفعل</string>
@@ -159,6 +162,7 @@
     <string name="changelogs" comment="Settings list item title for viewing version history logs">سجل التغييرات</string>
     <string name="check_updates" comment="Action button in about screen to check GitHub or F-Droid for app updates">التحقق من التحديثات</string>
     <string name="choose_a_device" comment="Dialog header prompting user to select a device from connected ADB devices list">اختر جهازا</string>
+    <string name="choose_apps" comment="Accessibility label of the button next to the packages field in the logcat filter editor; opens a list of installed apps">اختيار التطبيقات</string>
     <string name="choose_icon" comment="Button label in Quick Settings tile editor to select a custom icon">اختيار أيقونة</string>
     <string name="clear">مسح</string>
     <string name="clear_all" comment="Action button to clear all entries in command history or terminal output screen">تحديد الكل</string>
@@ -239,6 +243,7 @@
     <string name="color_role_tertiary" comment="Material 3 color role name for tertiary theme accent color">الثلاثي</string>
     <string name="color_role_tertiary_accent" comment="Material 3 color role name for tertiary accent color">اللون الثلاثي المميز</string>
     <string name="color_role_tertiary_container" comment="Material 3 color role name for container surface of tertiary elements">حاوية الثلاثي</string>
+    <string name="comma_separated_values" comment="Helper text under a logcat filter field that accepts several values, such as tags or process IDs">فصل قيم متعددة بفواصل</string>
     <string name="command" comment="Label/header for an ADB command snippet">أمر</string>
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">تحليل الأوامر</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">وحدة تحكم الأوامر</string>
@@ -303,6 +308,7 @@
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">تعديل قاعدة البيانات</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">قواعد البيانات فقط</string>
     <string name="days" comments="Days as in number of days">أيام</string>
+    <string name="debug" comment="Android log level name, shown in logcat filters">Debug</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">المجلد الافتراضي</string>
     <string name="default_language" comment="Setting preference label for selecting application language">اللغة الافتراضية</string>
     <string name="delete">حذف</string>
@@ -313,6 +319,7 @@
     <string name="delete_items_message" comment="%1$d = number of selected items">هل أنت متأكد من أنك تريد حذف العنصر %1$d المحدد؟</string>
     <string name="delete_items_title" comment="%1$d = number of items">حذف العناصر %1$d؟</string>
     <string name="delete_message" comment="%1$s = file or folder name">هل أنت متأكد من أنك تريد حذف \"%1$s\"؟</string>
+    <string name="delete_profile" comment="Title of the confirmation dialog shown before deleting a logcat filter profile">حذف الملف الشخصي؟</string>
     <string name="delete_title" comment="%1$s = file or folder name">حذف %1$s؟</string>
     <string name="des_about" comment="Subtitle description for About section in settings menu">المساهمون والدعم</string>
     <string name="des_ai_cache_days" comment="Description under Cache duration setting in AI settings">عدد الأيام للاحتفاظ بالنتائج المخزنة مؤقتاً</string>
@@ -345,6 +352,7 @@
     <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">اختر الوقت الذي يستخدم فيه التطبيق نظام الألوان الداكنة الخاص به</string>
     <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">السماح لوكيل الذكاء الاصطناعي بإضافة أو تعديل أو حذف عناصر قاعدة البيانات</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">اختر اللغة الافتراضية للتطبيق</string>
+    <string name="des_delete_profile" comment="%1$s = the filter profile name. Body of the confirmation dialog shown before deleting a logcat filter profile">سيتم إزالة %1$s . لا يمكن التراجع عن ذلك.</string>
     <string name="des_device_diagnostics" comment="Description explaining that this skill allows the AI to check device status">السماح لوكيل الذكاء الاصطناعي بالتحقق من البطارية والذاكرة والتخزين والأجهزة وحالة الشبكة بشكل أصلي</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">مفيد عند الرغبة في استخدام لوحة مفاتيح خارجية</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">قم بتحميل نسخة احتياطية مشفرة إلى Google Drive.
@@ -372,6 +380,7 @@
     <string name="des_logcat" comment="Description under Logcat item in navigation menu">إخراج logcat في الوقت الفعلي من جهاز متصل</string>
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">الألوان الديناميكية، السمة الداكنة، اللغة</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">لم يتم تحديد نموذج</string>
+    <string name="des_no_filter_profiles" comment="Body of the empty state in the logcat filter sheet, shown when no filter profiles have been created">إضافة ملف شخصي لاختيار السجلات التي يتم عرضها. مع عدم تحديد ملف شخصي، يتم عرض كل سجل.</string>
     <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">قد يتسبب في تأخير إذا تمت إضافة عدد كبير من الإشارات المرجعية! يجب على الأجهزة ذات الأداء المنخفض الاحتفاظ بهذا الخِيار مغلقًا</string>
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">السماح لوكيل الذكاء الاصطناعي بالاستعلام عن الحزم المثبتة وبيانات التطبيقات</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">إقران جهاز مستهدف آخر</string>
@@ -453,6 +462,7 @@ It does not collect or share personal data, but users should be aware of the imp
     <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">ألوان ديناميكية</string>
     <string name="edit">تعديل</string>
     <string name="edit_command" comment="Dialog header for editing a saved ADB command snippet">تعديل الأمر</string>
+    <string name="edit_profile" comment="Title of the screen that edits an existing logcat filter profile">تعديل الملف الشخصي</string>
     <string name="edit_theme_title" comment="%1$s = theme name">تعديل السمة: %1$s</string>
     <string name="edit_tile" comment="Screen title for modifying a Quick Settings tile configuration">تعديل البلاطة</string>
     <string name="empty_folder" comment="Placeholder text in file browser when current folder contains no files">هذا المجلد فارغ</string>
@@ -495,6 +505,7 @@ It does not collect or share personal data, but users should be aware of the imp
     <string name="fastboot_quick_actions" comment="Section header for predefined quick fastboot action buttons">أدوات سريعة</string>
     <string name="fastboot_summary" comment="Feature description card text for Fastboot OTG mode">الاتصال بجهاز في وضع fastboot عبر OTG</string>
     <string name="fastboot_variable_explorer" comment="Tab title for Fastboot variable query screen">مستكشف المتغيرات</string>
+    <string name="fatal" comment="Android log level name for the most severe level, shown in logcat filters">Fatal</string>
     <string name="fb_all_operations_cancelled" comment="Notification toast when all file browser queue operations are cancelled">تم إلغاء جميع العمليات</string>
     <string name="fb_cannot_paste_into_selected" comment="Error toast in file browser when target paste item is a file instead of a folder">لا يمكن لصق المجلد المحدد</string>
     <string name="fb_create_folder_failed" comment="%1$s = error message. fb_ prefix = file browser">فشل إنشاء مجلد: %1$s</string>
@@ -539,6 +550,7 @@ It does not collect or share personal data, but users should be aware of the imp
     <string name="file_uploaded" comment="Confirmation shown when a file finished uploading to the connected device">تم رفع الملف</string>
     <string name="filter">تصفية</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">تصفية حسب التسميات</string>
+    <string name="filter_profiles" comment="Title of the bottom sheet listing saved logcat filter profiles">تصفية الملفات الشخصية</string>
     <string name="flash_complete" comment="Status shown when a fastboot partition flash finished successfully">اكتمل الوميض</string>
     <string name="flash_failed" comment="%1$s = error text returned by the bootloader. Shown when a fastboot partition flash fails">فشل الوميض: %1$s</string>
     <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">تثبيت القسم</string>
@@ -635,6 +647,7 @@ aShell You يحتاج إلى إذن Shizuku لتنفيذ أوامر الاختص
     <string name="loading_licenses" comment="Progress status text while loading open-source license files">جاري تحميل معلومات الترخيص…</string>
     <string name="local_adb" comment="Connection mode option: run ADB commands locally on host device using Shizuku or Root">ADB المحلي</string>
     <string name="local_adb_shell" comment="Screen header for local device ADB shell terminal">قذيفة ADB المحلية</string>
+    <string name="local_adb_mode" comment="Section header above the list of Local ADB working modes (Basic shell, Shizuku, Root, TCP/IP) in the connected device sheet">وضع ADB المحلي</string>
     <string name="local_adb_summary" comment="Summary text for local ADB feature card">تنفيذ أوامر ADB مباشرة على جهازك باستخدام Shizuku أو الجذر.</string>
     <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">نسخ احتياطي محلي</string>
     <string name="local_file" comment="Source option label for picking local backup file">ملف محلي</string>
@@ -696,9 +709,11 @@ aShell You يحتاج إلى إذن Shizuku لتنفيذ أوامر الاختص
 انقر على الزر أدناه لتحميل الأوامر الجديدة.</string>
     <string name="new_folder" comment="Action button label in file browser to create a new directory">مجلد جديد</string>
     <string name="new_name" comment="Text field label for entering new item or file name">اسم جديد</string>
+    <string name="new_profile" comment="Title of the screen that creates a new logcat filter profile">ملف شخصي جديد</string>
     <string name="newest" comment="Sorting option for items by creation date (newest first)">الأحدث</string>
     <string name="no_adb_device_error" comment="Error toast when no ADB target device is found over USB OTG">لم يتم العثور على أجهزة متوافقة مع ADB. تمكين تصحيح USB على الهدف.</string>
     <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">لم يتم العثور على واجهة adb</string>
+    <string name="no_apps_found" comment="Shown in the app picker when no installed app matches the search">لم يتم العثور على تطبيقات</string>
     <string name="no_auto_backup_yet" comment="Placeholder text under backup status when no automated backup has executed">لم يتم إجراء نسخ احتياطي تلقائي بعد</string>
     <string name="no_bookmarks" comment="Placeholder text in bookmarks tab when no commands are saved">لم يتم العثور على إشارات مرجعية</string>
     <string name="no_changelog_found" comment="Placeholder message in changelog screen when no version notes exist">لا يوجد سجل تغييرات لهذا الإصدار</string>
@@ -710,6 +725,7 @@ aShell You يحتاج إلى إذن Shizuku لتنفيذ أوامر الاختص
     <string name="no_fastboot_device_error" comment="Error banner in fastboot screen when connected USB device is not in fastboot mode">الجهاز المتصل ليس في وضع fastboot</string>
     <string name="no_fastboot_interface_found" comment="Error shown when the attached USB device does not expose a fastboot interface">لا يحتوي جهاز USB المتصل على واجهة fastboot</string>
     <string name="no_files_download" comment="Toast warning in file browser when user selects directory instead of files for download">لا توجد ملفات محددة (المجلدات لا يمكن تحميلها)</string>
+    <string name="no_filter_profiles" comment="Title of the empty state in the logcat filter sheet, shown when no filter profiles have been created">لا توجد ملفات تعريف للتصفية بعد</string>
     <string name="no_folder_selected" comment="Placeholder status text when no backup directory is picked">لم يتم اختيار مجلد</string>
     <string name="no_google_account_message" comment="Dialog message when no Google account is registered on device for cloud backups">لم يتم العثور على حساب Google على هذا الجهاز. هل تريد إضافة واحد لاستخدام النسخ الاحتياطي السحابي؟</string>
     <string name="no_google_account_title" comment="Dialog title when no Google account is detected">لا يوجد حساب Google</string>
@@ -819,6 +835,9 @@ aShell You يحتاج إلى إذن Shizuku لتنفيذ أوامر الاختص
     <string name="privacy_and_security" comment="Title for the privacy and security settings screen">Privacy &amp; Security</string>
     <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">سياسة الخصوصية</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">المنتج</string>
+    <string name="profile_name" comment="Label of the name field in the logcat filter profile editor">اسم الملف الشخصي</string>
+    <string name="profile_name_required" comment="Error under the name field when saving a logcat filter profile without a name">أدخل اسم لهذا الملف الشخصي</string>
+    <string name="profile_save_failed" comment="Toast shown when a logcat filter profile could not be saved">تعذر حفظ الملف الشخصي</string>
     <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">ضع الجهاز في وضع sideload عبر قائمة الاسترداد (recovery) الخاصة به</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">إقران QR</string>
     <string name="qr_pair_hint" comment="Instructional text in QR pairing screen instructing user to scan QR code from target device">لإقران جهاز يعمل بنظام Android 11+، امسح رمز الاستجابة السريعة (QR) هذا من الجهاز المستهدف</string>
@@ -895,8 +914,10 @@ aShell You يحتاج إلى إذن Shizuku لتنفيذ أوامر الاختص
     <string name="saving_output" comment="Progress status text while exporting terminal log output to file">جاري تصدير الناتج إلى ملف…</string>
     <string name="schedule" comment="Header title or setting label for automated backup schedule picker">الجدول الزمني</string>
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">مضاعف كثافة الشاشة</string>
+    <string name="scroll_to_top" comment="Accessibility label and tooltip for the button that jumps to the first line of the command output">التمرير إلى الأعلى</string>
     <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">التمرير إلى الأسفل</string>
     <string name="search">بحث</string>
+    <string name="search_apps" comment="Hint in the search field of the app picker in the logcat filter editor">البحث عن التطبيقات</string>
     <string name="search_bookmarks_here" comment="Placeholder text in bookmarks tab search bar">ابحث عن الإشارات المرجعية هنا</string>
     <string name="search_commands_here" comment="Placeholder text in command templates tab search bar">ابحث عن أوامر هنا</string>
     <string name="search_fonts" comment="Placeholder text in font family picker search bar">البحث في الخطوط…</string>
@@ -913,6 +934,7 @@ aShell You يحتاج إلى إذن Shizuku لتنفيذ أوامر الاختص
     <string name="security_patch" comment="Device property label displaying Android security patch level date">تصحيح الأمان</string>
     <string name="select">اختيار</string>
     <string name="select_all">تحديد الكل</string>
+    <string name="select_apps" comment="Title of the bottom sheet for choosing which apps a logcat filter profile matches">تحديد التطبيقات</string>
     <string name="select_backup_folder_message" comment="Dialog message prompting user to grant folder access for local automated backups">الرجاء اختيار مجلد سيتم حفظ النسخ الاحتياطية فيه. يحتاج التطبيق إلى صلاحيات القراءة والكتابة لهذا المجلد.</string>
     <string name="select_backup_folder_title" comment="Dialog title when no backup directory has been configured">لا يوجد مجلد للنسخ الاحتياطي</string>
     <string name="select_folder" comment="Action button to open system directory picker for backup storage">حذف المجلد</string>
@@ -1029,6 +1051,14 @@ aShell You يحتاج إلى إذن Shizuku لتنفيذ أوامر الاختص
     <string name="tcpip_mode" comment="Label for the TCP/IP local shell working mode (loopback port 5555)">TCP/IP</string>
     <string name="tcpip_not_available_body" comment="Dialog body explaining how to enable TCP ADB when the system property is missing. The adb command should stay untranslated.">جهازك لا يدعم تفعيل TCP ADB. اتصل بـ PC عبر USB مرة واحدة وقم بتشغيل:\n\nadb tcpip 5555\n\nبعد ذلك، سيعمل هذا الوضع بدون USB أو Wi-Fi.</string>
     <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">وضع TCP غير متوفر</string>
+    <string name="tcpip_not_available_instructions" comment="Body of the TCP mode unavailable dialog, shown above a copyable adb command. The command itself is shown separately.">جهازك ليس لديه TCP ADB مفعل. قم بتوصيله إلى جهاز كمبيوتر عبر USB مرة واحدة ثم تشغيل:</string>
+    <string name="tcpip_not_available_footer" comment="Note below the adb command in the TCP mode unavailable dialog. The port closes again when the device reboots.">بمجرد فتح المنفذ ، يعمل هذا الوضع بدون USB أو Wi-Fi حتى يتم إعادة تشغيل الجهاز.</string>
+    <string name="use_wireless_debugging" comment="Button that opens ADB TCP mode using wireless debugging on this device instead of a computer">استخدام تصحيح أخطاء لاسلكي</string>
+    <string name="tcpip_enable_pending_hint" comment="Hint on the pairing screen when the user came to open the ADB TCP port. %1$d is the port number.">إقران هذا الجهاز و ADB TCP المنفذ %1$d سيتم فتحه تلقائيا.</string>
+    <string name="tcpip_enable_running" comment="Shown while the app asks ADB to listen on a TCP port. %1$d is the port number.">فتح ADB TCP منفذ %1$d…</string>
+    <string name="tcpip_enable_opened" comment="Shown when the ADB TCP port was opened. ADB restarts to do this, which disconnects wireless debugging. %1$d is the port number.">منفذ TCP %1$d مفتوح ووضع TCP/IP في ADB المحلي جاهز. تم قطع اتصال التصحيح اللاسلكي بسبب إعادة تشغيل ADB.</string>
+    <string name="tcpip_enable_unverified" comment="Shown when ADB accepted the request to open a TCP port but the port could not be confirmed. %1$d is the port number.">تم إعادة تشغيل ADB لفتح المنفذ %1$d، ولكن تعذر تأكيد المنفذ . جرب وضع TCP/IP في ADB.</string>
+    <string name="tcpip_enable_refused" comment="Shown when ADB refused to open a TCP port. %1$s is the reason ADB gave.">تعذر فتح منفذ TCP : %1$s</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">المحطة</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">نمط الخط الطرفي</string>
     <string name="terms_of_service" comment="Title for the Terms of Service legal document">شروط الخدمة</string>
@@ -1090,6 +1120,7 @@ aShell You يحتاج إلى إذن Shizuku لتنفيذ أوامر الاختص
     <string name="use_cases">حالات الاستخدام</string>
     <string name="utilities" comment="Category title in homescreen">أدوات مساعدة</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">النوع</string>
+    <string name="verbose" comment="Android log level name for the most detailed level, shown in logcat filters">Verbose</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">فشل التحقق</string>
     <string name="verify_api_key" comment="Action button to validate entered AI API key with remote service">التحقق من مفتاح API</string>
     <string name="verifying" comment="Progress status text while verifying API key validity">جاري التحقق</string>
@@ -1103,6 +1134,7 @@ aShell You يحتاج إلى إذن Shizuku لتنفيذ أوامر الاختص
     <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">في انتظار الأجهزة…</string>
     <string name="waiting_for_recovery" comment="Progress status shown after the sideload stream was opened while waiting for the target device recovery to request data">في انتظار الاسترداد…</string>
     <string name="want_to_contribute_too" comment="Call-to-action banner in About screen inviting code or translation contributions">هل تريد المساهمة أيضاً؟</string>
+    <string name="warning" comment="Android log level name, shown in logcat filters">تحذير</string>
     <string name="weekly" comment="Option in backup scheduler frequency selection">أسبوعياً</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">ماذا تريد أن تفعل أثناء %1$s؟</string>
     <string name="whats_new" comment="Header title for app release notes and changelog dialog">ما الجديد!</string>
@@ -1342,4 +1374,37 @@ aShell You يحتاج إلى إذن Shizuku لتنفيذ أوامر الاختص
     <string name="openrouter_api_key_step_4" comment="Step 4 of the OpenRouter API key setup guide: copying the key">نسخ مفتاح API الخاص بك ولصقه هنا</string>
     <string name="des_active_provider" comment="Settings item description explaining that AI features use the selected provider">تستخدم ميزات الذكاء الاصطناعي هذا المورد</string>
     <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">التفكير</string>
+    <string name="screen" comment="Device dock button that opens a live view of the connected device's screen which can also be controlled">شاشة</string>
+    <string name="screen_mirror" comment="Title of the screen showing and controlling the connected device's screen live">مرآة الشاشة</string>
+    <string name="recents" comment="Button that opens the recent apps overview on the mirrored device">Recents</string>
+    <string name="volume_up" comment="Button that presses the volume up key on the mirrored device">رفع الصوت</string>
+    <string name="volume_down" comment="Button that presses the volume down key on the mirrored device">خفض الصوت</string>
+    <string name="power" comment="Button that presses the power key on the mirrored device">القوة</string>
+    <string name="screenshot" comment="Button that takes a screenshot on the mirrored device">لقطة الشاشة</string>
+    <string name="quick_settings" comment="Button that pulls down the quick settings panel on the mirrored device">إعدادات سريعة</string>
+    <string name="device_keys" comment="Accessibility label of the toolbars holding the navigation, volume, power, screenshot and quick settings buttons for the mirrored device">مفاتيح الجهاز</string>
+    <string name="mirror_step_preparing" comment="Startup step while the mirroring helper is copied to the other device">تحضير</string>
+    <string name="mirror_step_preparing_skipped" comment="Startup step shown when the mirroring helper was already on the other device, so copying was skipped">جاهز على الجهاز</string>
+    <string name="mirror_step_starting" comment="Startup step while the mirroring helper starts on the other device">بدء التشغيل على الجهاز</string>
+    <string name="mirror_step_connecting" comment="Startup step while the live video connection to the other device opens">توصيل الفيديو</string>
+    <string name="reconnecting" comment="Status shown over a frozen screen mirror while the app waits for the device connection to come back">إعادة الاتصال…</string>
+    <string name="view_only" comment="Badge shown when the mirrored screen can be watched but not controlled">عرض فقط</string>
+    <string name="mirror_view_only_message" comment="Explains why touches on the mirrored screen do nothing and how to fix it on Xiaomi phones">رفض الجهاز لمس الإدخال. على أجهزة Xiaomi ، قم بتشغيل تصحيح أخطاء USB (إعدادات الأمن) وإعادة تشغيل الجهاز.</string>
+    <string name="mirror_failed_title" comment="Title of the panel shown when screen mirroring could not start or stopped with an error">تعذر عكس الشاشة</string>
+    <string name="mirror_error_not_connected" comment="Screen mirror error: no other device is connected over OTG or Wireless Debugging">لا يوجد جهاز آخر متصل.</string>
+    <string name="mirror_error_deploy_failed" comment="Screen mirror error: the helper program could not be copied to the other device">تعذر نسخ مساعد النسخ إلى الجهاز.</string>
+    <string name="mirror_error_version" comment="Screen mirror error: the helper on the device is a different version than the app expects">مساعد النسخ على الجهاز هو إصدار مختلف.</string>
+    <string name="mirror_error_encoder" comment="Screen mirror error: the other device's video encoder failed">تعذر على الجهاز ترميز الشاشة.</string>
+    <string name="mirror_error_server_exited" comment="Screen mirror error: the helper program stopped unexpectedly on the device">توقف مساعد النسخ على الجهاز.</string>
+    <string name="mirror_error_connect_timeout" comment="Screen mirror error: the video connection did not open in time">الجهاز لم يفتح اتصال الفيديو في الوقت المناسب.</string>
+    <string name="mirror_error_decoder" comment="Screen mirror error: this phone has no decoder for the video format. %1$s is a codec name such as H265">لا يمكن لهذا الهاتف تشغيل فيديو %1$s.</string>
+    <string name="mirror_error_not_responding" comment="Screen mirror error: the other device stopped answering while mirroring was starting or running">توقف الجهاز عن الاستجابة.</string>
+    <string name="mirror_error_stream" comment="Screen mirror error: the video data from the device could not be read">لا يمكن قراءة بث الفيديو.</string>
+    <string name="mirror_ended_title" comment="Title of the panel shown when screen mirroring has ended">إنتهاء النسخ</string>
+    <string name="mirror_ended_disconnected" comment="Explains that screen mirroring ended because the device disconnected">الجهاز غير متصل.</string>
+    <string name="mirror_ended_server_stopped" comment="Explains that screen mirroring ended from the device's side">توقف الجهاز عن النسخ العكسي.</string>
+    <string name="back_to_shell" comment="Button that leaves the screen mirror and returns to the shell screen">العودة إلى القذيفة</string>
+    <string name="device_tools" comment="Label of the side toolbar holding actions for the connected device, such as screen mirror and file browser">أدوات الجهاز</string>
+    <string name="show_device_tools" comment="Accessibility action that expands the device tools side toolbar">إظهار أدوات الجهاز</string>
+    <string name="hide_device_tools" comment="Accessibility action that collapses the device tools side toolbar">إخفاء أدوات الجهاز</string>
 </resources>

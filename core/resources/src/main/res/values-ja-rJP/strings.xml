@@ -47,6 +47,7 @@
     <string name="add_api_key" comment="Button label in AI settings to input a custom LLM provider API key">APIキーを追加</string>
     <string name="add_command" comment="Button label to create and save a new command snippet to database">コマンドを追加</string>
     <string name="add_new_item" comment="Generic button label to add a new list entry">新しいアイテムを追加</string>
+    <string name="add_profile" comment="Button in the logcat filter sheet that opens the editor to create a new filter profile">プロファイルを追加</string>
     <string name="additional_settings" comment="Category header in app settings">詳細設定</string>
     <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">エージェントスキル</string>
     <string name="ai_agent_shortcut">AI Agent</string>
@@ -72,6 +73,8 @@
     <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">例: サイバーパンクネオンシティ、ダークテーマ、高コントラスト</string>
     <string name="all">すべて</string>
     <string name="all_data" comment="Option in backup selector to include full app database, settings, and chat history">すべてのデータ</string>
+    <string name="all_log_levels" comment="Logcat filter profile description when the profile does not restrict log levels">すべてのレベル</string>
+    <string name="all_log_levels_except" comment="%1$s = comma-separated log level names, e.g. Verbose, Debug. Logcat filter profile description for a profile that hides those levels">%1$s以外のすべて</string>
     <string name="allow_usb_access" comment="Button label that re-shows the system prompt asking the user to allow the app to use the attached USB device">USBアクセスを許可</string>
     <string name="allow_usb_access_message" comment="Status shown when the target device was detected over USB but the system permission to use it has not been granted yet">続行するにはUSBアクセスを許可してください</string>
     <string name="already_connected" comment="Status message in wireless ADB setup screen indicating device is already connected">すでに接続しています</string>
@@ -159,6 +162,7 @@
     <string name="changelogs" comment="Settings list item title for viewing version history logs">更新履歴</string>
     <string name="check_updates" comment="Action button in about screen to check GitHub or F-Droid for app updates">アップデートを確認</string>
     <string name="choose_a_device" comment="Dialog header prompting user to select a device from connected ADB devices list">デバイスを選択</string>
+    <string name="choose_apps" comment="Accessibility label of the button next to the packages field in the logcat filter editor; opens a list of installed apps">アプリを選択</string>
     <string name="choose_icon" comment="Button label in Quick Settings tile editor to select a custom icon">アイコンを選択</string>
     <string name="clear">クリア</string>
     <string name="clear_all" comment="Action button to clear all entries in command history or terminal output screen">すべて削除する</string>
@@ -239,6 +243,7 @@
     <string name="color_role_tertiary" comment="Material 3 color role name for tertiary theme accent color">ターシャリー</string>
     <string name="color_role_tertiary_accent" comment="Material 3 color role name for tertiary accent color">ターシャリーアクセント</string>
     <string name="color_role_tertiary_container" comment="Material 3 color role name for container surface of tertiary elements">ターシャリーコンテナ</string>
+    <string name="comma_separated_values" comment="Helper text under a logcat filter field that accepts several values, such as tags or process IDs">複数の値をカンマで区切ってください</string>
     <string name="command" comment="Label/header for an ADB command snippet">Command</string>
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">コマンド分析</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">コマンドコンソール</string>
@@ -301,6 +306,7 @@
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">データベース変更</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">データベースのみ</string>
     <string name="days" comments="Days as in number of days">日数</string>
+    <string name="debug" comment="Android log level name, shown in logcat filters">Debug</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">デフォルトのフォルダ</string>
     <string name="default_language" comment="Setting preference label for selecting application language">デフォルトの言語</string>
     <string name="delete">削除</string>
@@ -311,6 +317,7 @@
     <string name="delete_items_message" comment="%1$d = number of selected items">選択した %1$d アイテムを削除してもよろしいですか？</string>
     <string name="delete_items_title" comment="%1$d = number of items">%1$d 項目を削除しますか？</string>
     <string name="delete_message" comment="%1$s = file or folder name">「%1$s」を削除してもよろしいですか？</string>
+    <string name="delete_profile" comment="Title of the confirmation dialog shown before deleting a logcat filter profile">プロファイルを削除しますか？</string>
     <string name="delete_title" comment="%1$s = file or folder name">%1$s を削除しますか？</string>
     <string name="des_about" comment="Subtitle description for About section in settings menu">貢献者とサポート</string>
     <string name="des_ai_cache_days" comment="Description under Cache duration setting in AI settings">キャッシュされた結果を保持する日数</string>
@@ -343,6 +350,7 @@
     <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">アプリがダークカラーテーマを使用するタイミングを選択する</string>
     <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">AIエージェントによるデータベースアイテムの追加、変更、削除を許可する</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">アプリのデフォルトの言語を選択する</string>
+    <string name="des_delete_profile" comment="%1$s = the filter profile name. Body of the confirmation dialog shown before deleting a logcat filter profile">%1$s は削除されます。元に戻すことはできません。</string>
     <string name="des_device_diagnostics" comment="Description explaining that this skill allows the AI to check device status">AIエージェントがバッテリー、メモリ、ストレージ、ハードウェア、ネットワークのステータスをネイティブに確認できるようにする</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">物理キーボードを使用するときに便利です</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">暗号化されたバックアップをGoogle ドライブにアップロードします。\nこの操作により、既存のクラウドバックアップが上書きされます。</string>
@@ -369,6 +377,7 @@
     <string name="des_logcat" comment="Description under Logcat item in navigation menu">接続されたデバイスからのリアルタイム logcat 出力</string>
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">ダイナミックカラー、ダークテーマ、言語</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">モデルが選択されていません</string>
+    <string name="des_no_filter_profiles" comment="Body of the empty state in the logcat filter sheet, shown when no filter profiles have been created">どのログが表示されるかを選択するプロファイルを追加します。プロファイルを選択しない場合は、すべてのログが表示されます。</string>
     <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">有効にした状態で大量のブックマークが追加されると、パフォーマンスの問題が発生する可能性があります！ ローエンドデバイスはオフのままにしてください</string>
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">AIエージェントによるインストール済みパッケージとアプリケーションデータのクエリを許可する</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">別のターゲットデバイスをペアリングする</string>
@@ -443,6 +452,7 @@
     <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">ダイナミックカラー</string>
     <string name="edit">編集</string>
     <string name="edit_command" comment="Dialog header for editing a saved ADB command snippet">コマンドを編集</string>
+    <string name="edit_profile" comment="Title of the screen that edits an existing logcat filter profile">プロフィールを編集</string>
     <string name="edit_theme_title" comment="%1$s = theme name">テーマを編集: %1$s</string>
     <string name="edit_tile" comment="Screen title for modifying a Quick Settings tile configuration">タイルを編集</string>
     <string name="empty_folder" comment="Placeholder text in file browser when current folder contains no files">このフォルダは空です</string>
@@ -485,6 +495,7 @@
     <string name="fastboot_quick_actions" comment="Section header for predefined quick fastboot action buttons">クイックツール</string>
     <string name="fastboot_summary" comment="Feature description card text for Fastboot OTG mode">OTG経由でファストブートモードのデバイスに接続する</string>
     <string name="fastboot_variable_explorer" comment="Tab title for Fastboot variable query screen">変数エクスプローラー</string>
+    <string name="fatal" comment="Android log level name for the most severe level, shown in logcat filters">Fatal</string>
     <string name="fb_all_operations_cancelled" comment="Notification toast when all file browser queue operations are cancelled">すべての操作がキャンセルされました</string>
     <string name="fb_cannot_paste_into_selected" comment="Error toast in file browser when target paste item is a file instead of a folder">選択したフォルダに貼り付けることができません</string>
     <string name="fb_create_folder_failed" comment="%1$s = error message. fb_ prefix = file browser">フォルダの作成に失敗しました: %1$s</string>
@@ -529,6 +540,7 @@
     <string name="file_uploaded" comment="Confirmation shown when a file finished uploading to the connected device">ファイルがアップロードされました</string>
     <string name="filter">フィルター</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">ラベルでフィルター</string>
+    <string name="filter_profiles" comment="Title of the bottom sheet listing saved logcat filter profiles">プロファイルをフィルター</string>
     <string name="flash_complete" comment="Status shown when a fastboot partition flash finished successfully">フラッシュ完了</string>
     <string name="flash_failed" comment="%1$s = error text returned by the bootloader. Shown when a fastboot partition flash fails">フラッシュ失敗: %1$s</string>
     <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">パーティションのフラッシュ</string>
@@ -624,6 +636,7 @@
     <string name="loading_licenses" comment="Progress status text while loading open-source license files">ライセンス情報を読み込み中…</string>
     <string name="local_adb" comment="Connection mode option: run ADB commands locally on host device using Shizuku or Root">ローカルADB</string>
     <string name="local_adb_shell" comment="Screen header for local device ADB shell terminal">ローカル ADB シェル</string>
+    <string name="local_adb_mode" comment="Section header above the list of Local ADB working modes (Basic shell, Shizuku, Root, TCP/IP) in the connected device sheet">ローカル ADB モード</string>
     <string name="local_adb_summary" comment="Summary text for local ADB feature card">Shizukuまたはrootを使用して、デバイス上で直接ADBコマンドを実行します。</string>
     <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">ローカルバックアップ</string>
     <string name="local_file" comment="Source option label for picking local backup file">ローカルファイル</string>
@@ -684,9 +697,11 @@
     <string name="new_commands_available_msg" comment="Banner prompt shown when updated command templates are available to load into database">新しいコマンド例が追加されました！\n下のボタンをクリックして新しいコマンドを読み込んでください。</string>
     <string name="new_folder" comment="Action button label in file browser to create a new directory">新しいフォルダ</string>
     <string name="new_name" comment="Text field label for entering new item or file name">新しい名前</string>
+    <string name="new_profile" comment="Title of the screen that creates a new logcat filter profile">新しいプロファイル</string>
     <string name="newest" comment="Sorting option for items by creation date (newest first)">最新</string>
     <string name="no_adb_device_error" comment="Error toast when no ADB target device is found over USB OTG">ADB 互換デバイスが見つかりませんでした。ターゲットの USB デバッグを有効にしてください。</string>
     <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">ADB インターフェイスが見つかりません</string>
+    <string name="no_apps_found" comment="Shown in the app picker when no installed app matches the search">アプリが見つかりません</string>
     <string name="no_auto_backup_yet" comment="Placeholder text under backup status when no automated backup has executed">自動バックアップはまだ実行されていません</string>
     <string name="no_bookmarks" comment="Placeholder text in bookmarks tab when no commands are saved">ブックマークが見つかりません</string>
     <string name="no_changelog_found" comment="Placeholder message in changelog screen when no version notes exist">このバージョンの変更履歴が見つかりませんでした</string>
@@ -698,6 +713,7 @@
     <string name="no_fastboot_device_error" comment="Error banner in fastboot screen when connected USB device is not in fastboot mode">接続されたデバイスはファストブートモードではありません</string>
     <string name="no_fastboot_interface_found" comment="Error shown when the attached USB device does not expose a fastboot interface">接続されたUSBデバイスにfastbootインターフェースがありません</string>
     <string name="no_files_download" comment="Toast warning in file browser when user selects directory instead of files for download">ファイルが選択されていません（フォルダをダウンロードできません）</string>
+    <string name="no_filter_profiles" comment="Title of the empty state in the logcat filter sheet, shown when no filter profiles have been created">フィルタープロファイルはまだありません</string>
     <string name="no_folder_selected" comment="Placeholder status text when no backup directory is picked">フォルダが選択されていません</string>
     <string name="no_google_account_message" comment="Dialog message when no Google account is registered on device for cloud backups">このデバイスにGoogleアカウントが見つかりませんでした。クラウドバックアップを使用するためにアカウントを追加しますか？</string>
     <string name="no_google_account_title" comment="Dialog title when no Google account is detected">Google アカウントがありません</string>
@@ -805,6 +821,9 @@
     <string name="privacy_and_security" comment="Title for the privacy and security settings screen">プライバシー &amp; セキュリティ</string>
     <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">プライバシーポリシー</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">製品</string>
+    <string name="profile_name" comment="Label of the name field in the logcat filter profile editor">プロフィール名</string>
+    <string name="profile_name_required" comment="Error under the name field when saving a logcat filter profile without a name">このプロファイルの名前を入力してください</string>
+    <string name="profile_save_failed" comment="Toast shown when a logcat filter profile could not be saved">プロファイルを保存できませんでした</string>
     <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">リカバリメニューからデバイスをサイドロードモードにする</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">QRコードペアリング</string>
     <string name="qr_pair_hint" comment="Instructional text in QR pairing screen instructing user to scan QR code from target device">Android 11以上のデバイスをペアリングするには、対象デバイスからこのQRをスキャンしてください</string>
@@ -879,8 +898,10 @@
     <string name="saving_output" comment="Progress status text while exporting terminal log output to file">出力をファイルにエクスポート中…</string>
     <string name="schedule" comment="Header title or setting label for automated backup schedule picker">スケジュール</string>
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">画面密度の倍率</string>
+    <string name="scroll_to_top" comment="Accessibility label and tooltip for the button that jumps to the first line of the command output">上までスクロール</string>
     <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">一番下にスクロール</string>
     <string name="search">検索</string>
+    <string name="search_apps" comment="Hint in the search field of the app picker in the logcat filter editor">アプリを検索</string>
     <string name="search_bookmarks_here" comment="Placeholder text in bookmarks tab search bar">ここでコマンドを検索</string>
     <string name="search_commands_here" comment="Placeholder text in command templates tab search bar">ここでコマンドを検索</string>
     <string name="search_fonts" comment="Placeholder text in font family picker search bar">フォントを検索…</string>
@@ -897,6 +918,7 @@
     <string name="security_patch" comment="Device property label displaying Android security patch level date">セキュリティパッチ</string>
     <string name="select">選択</string>
     <string name="select_all">すべて選択</string>
+    <string name="select_apps" comment="Title of the bottom sheet for choosing which apps a logcat filter profile matches">アプリを選択</string>
     <string name="select_backup_folder_message" comment="Dialog message prompting user to grant folder access for local automated backups">バックアップを保存するフォルダを選択してください。アプリにはこのフォルダへの読み取りおよび書き込みアクセスが必要です。</string>
     <string name="select_backup_folder_title" comment="Dialog title when no backup directory has been configured">バックアップフォルダがありません</string>
     <string name="select_folder" comment="Action button to open system directory picker for backup storage">フォルダを削除</string>
@@ -1011,6 +1033,14 @@
     <string name="tcpip_mode" comment="Label for the TCP/IP local shell working mode (loopback port 5555)">TCP/IP</string>
     <string name="tcpip_not_available_body" comment="Dialog body explaining how to enable TCP ADB when the system property is missing. The adb command should stay untranslated.">デバイスでTCP ADBが有効になっていません。USB経由でPCに1回接続し、次を実行してください:\n\nadb tcpip 5555\n\nその後、このモードはUSBやWi-Fiなしで動作します。</string>
     <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">TCPモードは利用できません</string>
+    <string name="tcpip_not_available_instructions" comment="Body of the TCP mode unavailable dialog, shown above a copyable adb command. The command itself is shown separately.">お使いのデバイスはTCP ADBを有効にしていません。USB経由でコンピュータに接続して実行してください：</string>
+    <string name="tcpip_not_available_footer" comment="Note below the adb command in the TCP mode unavailable dialog. The port closes again when the device reboots.">ポートが開いたら、このモードはデバイスが再起動するまでUSBやWi-Fiなしで動作します。</string>
+    <string name="use_wireless_debugging" comment="Button that opens ADB TCP mode using wireless debugging on this device instead of a computer">無線デバッグを使用する</string>
+    <string name="tcpip_enable_pending_hint" comment="Hint on the pairing screen when the user came to open the ADB TCP port. %1$d is the port number.">このデバイスとADB TCP ポート %1$d をペアリングすると自動的に開きます。</string>
+    <string name="tcpip_enable_running" comment="Shown while the app asks ADB to listen on a TCP port. %1$d is the port number.">ADB TCP ポートを開いています %1$d…</string>
+    <string name="tcpip_enable_opened" comment="Shown when the ADB TCP port was opened. ADB restarts to do this, which disconnects wireless debugging. %1$d is the port number.">TCPポート %1$d が開いており、ローカルADBのTCP/IPモードが準備ができています。ADBが再起動したため、無線デバッグが切断されました。</string>
+    <string name="tcpip_enable_unverified" comment="Shown when ADB accepted the request to open a TCP port but the port could not be confirmed. %1$d is the port number.">ADB は ポート %1$dを再開しましたが、ポートを確認できませんでした。ローカル ADB で TCP/IP モードを試してください。</string>
+    <string name="tcpip_enable_refused" comment="Shown when ADB refused to open a TCP port. %1$s is the reason ADB gave.">TCPポートを開けませんでした: %1$s</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">ターミナル</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">端末のフォントスタイル</string>
     <string name="terms_of_service" comment="Title for the Terms of Service legal document">利用規約</string>
@@ -1072,6 +1102,7 @@
     <string name="use_cases">ユースケース</string>
     <string name="utilities" comment="Category title in homescreen">ユーティリティ</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">バリアント</string>
+    <string name="verbose" comment="Android log level name for the most detailed level, shown in logcat filters">Verbose</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">検証に失敗しました</string>
     <string name="verify_api_key" comment="Action button to validate entered AI API key with remote service">APIキーを検証</string>
     <string name="verifying" comment="Progress status text while verifying API key validity">検証中</string>
@@ -1085,6 +1116,7 @@
     <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">デバイスを待っています…</string>
     <string name="waiting_for_recovery" comment="Progress status shown after the sideload stream was opened while waiting for the target device recovery to request data">リカバリを待機中…</string>
     <string name="want_to_contribute_too" comment="Call-to-action banner in About screen inviting code or translation contributions">あなたも貢献しませんか？</string>
+    <string name="warning" comment="Android log level name, shown in logcat filters">警告</string>
     <string name="weekly" comment="Option in backup scheduler frequency selection">毎週</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">%1$sの間、何をしますか？</string>
     <string name="whats_new" comment="Header title for app release notes and changelog dialog">更新内容！</string>
@@ -1186,4 +1218,37 @@
     <string name="openrouter_api_key_step_4" comment="Step 4 of the OpenRouter API key setup guide: copying the key">API キーをコピーしてここに貼り付け</string>
     <string name="des_active_provider" comment="Settings item description explaining that AI features use the selected provider">AI機能はこのプロバイダを使用します</string>
     <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">考え</string>
+    <string name="screen" comment="Device dock button that opens a live view of the connected device's screen which can also be controlled">画面</string>
+    <string name="screen_mirror" comment="Title of the screen showing and controlling the connected device's screen live">画面ミラー</string>
+    <string name="recents" comment="Button that opens the recent apps overview on the mirrored device">Recents</string>
+    <string name="volume_up" comment="Button that presses the volume up key on the mirrored device">音量アップ</string>
+    <string name="volume_down" comment="Button that presses the volume down key on the mirrored device">音量ダウン</string>
+    <string name="power" comment="Button that presses the power key on the mirrored device">パワー</string>
+    <string name="screenshot" comment="Button that takes a screenshot on the mirrored device">スクリーンショット</string>
+    <string name="quick_settings" comment="Button that pulls down the quick settings panel on the mirrored device">クイック設定</string>
+    <string name="device_keys" comment="Accessibility label of the toolbars holding the navigation, volume, power, screenshot and quick settings buttons for the mirrored device">デバイスキー</string>
+    <string name="mirror_step_preparing" comment="Startup step while the mirroring helper is copied to the other device">準備中</string>
+    <string name="mirror_step_preparing_skipped" comment="Startup step shown when the mirroring helper was already on the other device, so copying was skipped">デバイスで準備完了</string>
+    <string name="mirror_step_starting" comment="Startup step while the mirroring helper starts on the other device">端末で開始</string>
+    <string name="mirror_step_connecting" comment="Startup step while the live video connection to the other device opens">ビデオに接続しています</string>
+    <string name="reconnecting" comment="Status shown over a frozen screen mirror while the app waits for the device connection to come back">再接続中…</string>
+    <string name="view_only" comment="Badge shown when the mirrored screen can be watched but not controlled">表示のみ</string>
+    <string name="mirror_view_only_message" comment="Explains why touches on the mirrored screen do nothing and how to fix it on Xiaomi phones">デバイスはタッチ入力を拒否しました。Xiaomi デバイスでは、USB デバッグ (セキュリティ設定) をオンにしてデバイスを再起動します。</string>
+    <string name="mirror_failed_title" comment="Title of the panel shown when screen mirroring could not start or stopped with an error">画面をミラーできませんでした</string>
+    <string name="mirror_error_not_connected" comment="Screen mirror error: no other device is connected over OTG or Wireless Debugging">他のデバイスが接続されていません。</string>
+    <string name="mirror_error_deploy_failed" comment="Screen mirror error: the helper program could not be copied to the other device">ミラーヘルパーをデバイスにコピーできませんでした。</string>
+    <string name="mirror_error_version" comment="Screen mirror error: the helper on the device is a different version than the app expects">デバイス上のミラーリングヘルパーは異なるバージョンです。</string>
+    <string name="mirror_error_encoder" comment="Screen mirror error: the other device's video encoder failed">デバイスは画面をエンコードできませんでした。</string>
+    <string name="mirror_error_server_exited" comment="Screen mirror error: the helper program stopped unexpectedly on the device">ミラーリングヘルパーはデバイス上で停止しました。</string>
+    <string name="mirror_error_connect_timeout" comment="Screen mirror error: the video connection did not open in time">デバイスがビデオ接続を時間内に開きませんでした。</string>
+    <string name="mirror_error_decoder" comment="Screen mirror error: this phone has no decoder for the video format. %1$s is a codec name such as H265">この携帯電話は %1$s ビデオを再生できません。</string>
+    <string name="mirror_error_not_responding" comment="Screen mirror error: the other device stopped answering while mirroring was starting or running">デバイスの応答が停止しました。</string>
+    <string name="mirror_error_stream" comment="Screen mirror error: the video data from the device could not be read">ビデオストリームを読むことができませんでした。</string>
+    <string name="mirror_ended_title" comment="Title of the panel shown when screen mirroring has ended">ミラーリングが終了しました</string>
+    <string name="mirror_ended_disconnected" comment="Explains that screen mirroring ended because the device disconnected">デバイスが切断されました。</string>
+    <string name="mirror_ended_server_stopped" comment="Explains that screen mirroring ended from the device's side">デバイスがミラーリングを停止しました。</string>
+    <string name="back_to_shell" comment="Button that leaves the screen mirror and returns to the shell screen">シェルに戻る</string>
+    <string name="device_tools" comment="Label of the side toolbar holding actions for the connected device, such as screen mirror and file browser">端末ツール</string>
+    <string name="show_device_tools" comment="Accessibility action that expands the device tools side toolbar">デバイスツールを表示</string>
+    <string name="hide_device_tools" comment="Accessibility action that collapses the device tools side toolbar">デバイスツールを隠す</string>
 </resources>

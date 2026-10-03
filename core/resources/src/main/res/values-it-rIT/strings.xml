@@ -47,6 +47,7 @@
     <string name="add_api_key" comment="Button label in AI settings to input a custom LLM provider API key">Aggiungi chiave API</string>
     <string name="add_command" comment="Button label to create and save a new command snippet to database">Aggiungi comando</string>
     <string name="add_new_item" comment="Generic button label to add a new list entry">Aggiungi nuovo elemento</string>
+    <string name="add_profile" comment="Button in the logcat filter sheet that opens the editor to create a new filter profile">Aggiungi profilo</string>
     <string name="additional_settings" comment="Category header in app settings">Impostazioni aggiuntive</string>
     <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Funzionalità dell\'agente</string>
     <string name="ai_agent_shortcut">AI Agent</string>
@@ -72,6 +73,8 @@
     <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">es. Città neon cyberpunk, tema scuro, alto contrasto</string>
     <string name="all">Tutti</string>
     <string name="all_data" comment="Option in backup selector to include full app database, settings, and chat history">Tutti i dati</string>
+    <string name="all_log_levels" comment="Logcat filter profile description when the profile does not restrict log levels">Tutti i livelli</string>
+    <string name="all_log_levels_except" comment="%1$s = comma-separated log level names, e.g. Verbose, Debug. Logcat filter profile description for a profile that hides those levels">Tutti tranne %1$s</string>
     <string name="allow_usb_access" comment="Button label that re-shows the system prompt asking the user to allow the app to use the attached USB device">Consenti accesso USB</string>
     <string name="allow_usb_access_message" comment="Status shown when the target device was detected over USB but the system permission to use it has not been granted yet">Consenti l\'accesso USB per continuare</string>
     <string name="already_connected" comment="Status message in wireless ADB setup screen indicating device is already connected">Già connesso</string>
@@ -159,6 +162,7 @@
     <string name="changelogs" comment="Settings list item title for viewing version history logs">Registro modifiche</string>
     <string name="check_updates" comment="Action button in about screen to check GitHub or F-Droid for app updates">Controlla aggiornamenti</string>
     <string name="choose_a_device" comment="Dialog header prompting user to select a device from connected ADB devices list">Scegli un dispositivo</string>
+    <string name="choose_apps" comment="Accessibility label of the button next to the packages field in the logcat filter editor; opens a list of installed apps">Scegli app</string>
     <string name="choose_icon" comment="Button label in Quick Settings tile editor to select a custom icon">Scegli icona</string>
     <string name="clear">Pulisci</string>
     <string name="clear_all" comment="Action button to clear all entries in command history or terminal output screen">Cancella tutto</string>
@@ -239,6 +243,7 @@
     <string name="color_role_tertiary" comment="Material 3 color role name for tertiary theme accent color">Terziario</string>
     <string name="color_role_tertiary_accent" comment="Material 3 color role name for tertiary accent color">Accento terziario</string>
     <string name="color_role_tertiary_container" comment="Material 3 color role name for container surface of tertiary elements">Contenitore terziario</string>
+    <string name="comma_separated_values" comment="Helper text under a logcat filter field that accepts several values, such as tags or process IDs">Separa valori multipli con virgole</string>
     <string name="command" comment="Label/header for an ADB command snippet">Comando</string>
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">Analisi del comando</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">Console comandi</string>
@@ -301,6 +306,7 @@
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">Modifica database</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Solo database</string>
     <string name="days" comments="Days as in number of days">Giorni</string>
+    <string name="debug" comment="Android log level name, shown in logcat filters">Debug</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Cartella predefinita</string>
     <string name="default_language" comment="Setting preference label for selecting application language">Lingua predefinita</string>
     <string name="delete">Elimina</string>
@@ -311,6 +317,7 @@
     <string name="delete_items_message" comment="%1$d = number of selected items">Sei sicuro di voler eliminare i %1$d elementi selezionati?</string>
     <string name="delete_items_title" comment="%1$d = number of items">Eliminare %1$d elementi?</string>
     <string name="delete_message" comment="%1$s = file or folder name">Sei sicuro di voler eliminare \"%1$s\"?</string>
+    <string name="delete_profile" comment="Title of the confirmation dialog shown before deleting a logcat filter profile">Eliminare il profilo?</string>
     <string name="delete_title" comment="%1$s = file or folder name">Eliminare %1$s?</string>
     <string name="des_about" comment="Subtitle description for About section in settings menu">Collaboratori e supporto</string>
     <string name="des_ai_cache_days" comment="Description under Cache duration setting in AI settings">Numero di giorni in cui conservare i risultati memorizzati nella cache</string>
@@ -343,6 +350,7 @@
     <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">Scegli quando l\'app utilizza la combinazione di colori scuri</string>
     <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Consenti all\'agente AI di aggiungere, modificare o eliminare elementi del database</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">Scegli la lingua predefinita per l\'app</string>
+    <string name="des_delete_profile" comment="%1$s = the filter profile name. Body of the confirmation dialog shown before deleting a logcat filter profile">%1$s sarà rimosso. Questo non può essere annullato.</string>
     <string name="des_device_diagnostics" comment="Description explaining that this skill allows the AI to check device status">Consenti all\'agente AI di controllare in modo nativo batteria, memoria, spazio di archiviazione, hardware e stato della rete</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">Utile quando si desidera utilizzare una tastiera esterna</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">Carica il backup crittografato su Google Drive.\nQuesta azione sovrascriverà qualsiasi backup sul cloud esistente.</string>
@@ -369,6 +377,7 @@
     <string name="des_logcat" comment="Description under Logcat item in navigation menu">Output logcat in tempo reale da un dispositivo connesso</string>
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">Colori dinamici, Tema scuro, Lingua</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">Nessun modello selezionato</string>
+    <string name="des_no_filter_profiles" comment="Body of the empty state in the logcat filter sheet, shown when no filter profiles have been created">Aggiungi un profilo per scegliere quali registri sono mostrati. Senza profilo selezionato, ogni log viene mostrato.</string>
     <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">Potrebbe causare rallentamenti se viene aggiunto un numero elevato di segnalibri! I dispositivi di fascia bassa dovrebbero tenere questa opzione disattivata</string>
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Consenti all\'agente AI di interrogare pacchetti installati e dati delle applicazioni</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">Accoppia un altro dispositivo di destinazione</string>
@@ -443,6 +452,7 @@
     <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">Colori dinamici</string>
     <string name="edit">Modifica</string>
     <string name="edit_command" comment="Dialog header for editing a saved ADB command snippet">Modifica comando</string>
+    <string name="edit_profile" comment="Title of the screen that edits an existing logcat filter profile">Modifica profilo</string>
     <string name="edit_theme_title" comment="%1$s = theme name">Modifica tema: %1$s</string>
     <string name="edit_tile" comment="Screen title for modifying a Quick Settings tile configuration">Modifica riquadro</string>
     <string name="empty_folder" comment="Placeholder text in file browser when current folder contains no files">Questa cartella è vuota</string>
@@ -485,6 +495,7 @@
     <string name="fastboot_quick_actions" comment="Section header for predefined quick fastboot action buttons">Azioni rapide</string>
     <string name="fastboot_summary" comment="Feature description card text for Fastboot OTG mode">Connettiti a un dispositivo in modalità fastboot tramite OTG</string>
     <string name="fastboot_variable_explorer" comment="Tab title for Fastboot variable query screen">Esplora variabili</string>
+    <string name="fatal" comment="Android log level name for the most severe level, shown in logcat filters">Fatal</string>
     <string name="fb_all_operations_cancelled" comment="Notification toast when all file browser queue operations are cancelled">Tutte le operazioni sono state annullate</string>
     <string name="fb_cannot_paste_into_selected" comment="Error toast in file browser when target paste item is a file instead of a folder">Impossibile incollare nella cartella selezionata</string>
     <string name="fb_create_folder_failed" comment="%1$s = error message. fb_ prefix = file browser">Creazione della cartella non riuscita: %1$s</string>
@@ -529,6 +540,7 @@
     <string name="file_uploaded" comment="Confirmation shown when a file finished uploading to the connected device">File caricato</string>
     <string name="filter">Filtra</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">Filtra per etichette</string>
+    <string name="filter_profiles" comment="Title of the bottom sheet listing saved logcat filter profiles">Profili filtri</string>
     <string name="flash_complete" comment="Status shown when a fastboot partition flash finished successfully">Flash completato</string>
     <string name="flash_failed" comment="%1$s = error text returned by the bootloader. Shown when a fastboot partition flash fails">Flash non riuscito: %1$s</string>
     <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">Flash partizione</string>
@@ -624,6 +636,7 @@
     <string name="loading_licenses" comment="Progress status text while loading open-source license files">Caricamento informazioni licenza…</string>
     <string name="local_adb" comment="Connection mode option: run ADB commands locally on host device using Shizuku or Root">ADB locale</string>
     <string name="local_adb_shell" comment="Screen header for local device ADB shell terminal">Shell ADB locale</string>
+    <string name="local_adb_mode" comment="Section header above the list of Local ADB working modes (Basic shell, Shizuku, Root, TCP/IP) in the connected device sheet">Modalità ADB locale</string>
     <string name="local_adb_summary" comment="Summary text for local ADB feature card">Esegui comandi ADB direttamente sul tuo dispositivo usando Shizuku o root.</string>
     <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">Backup locale</string>
     <string name="local_file" comment="Source option label for picking local backup file">File locale</string>
@@ -684,9 +697,11 @@
     <string name="new_commands_available_msg" comment="Banner prompt shown when updated command templates are available to load into database">Sono stati aggiunti nuovi esempi di comandi!\nFai clic sul pulsante sottostante per caricare i nuovi comandi.</string>
     <string name="new_folder" comment="Action button label in file browser to create a new directory">Nuova cartella</string>
     <string name="new_name" comment="Text field label for entering new item or file name">Nuovo nome</string>
+    <string name="new_profile" comment="Title of the screen that creates a new logcat filter profile">Nuovo profilo</string>
     <string name="newest" comment="Sorting option for items by creation date (newest first)">Più recenti</string>
     <string name="no_adb_device_error" comment="Error toast when no ADB target device is found over USB OTG">Nessun dispositivo compatibile con ADB trovato. Abilita il debug USB sul dispositivo di destinazione.</string>
     <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">Nessuna interfaccia ADB trovata</string>
+    <string name="no_apps_found" comment="Shown in the app picker when no installed app matches the search">Nessuna app trovata</string>
     <string name="no_auto_backup_yet" comment="Placeholder text under backup status when no automated backup has executed">Nessun backup automatico ancora eseguito</string>
     <string name="no_bookmarks" comment="Placeholder text in bookmarks tab when no commands are saved">Nessun segnalibro trovato</string>
     <string name="no_changelog_found" comment="Placeholder message in changelog screen when no version notes exist">Nessun registro modifiche trovato per questa versione</string>
@@ -698,6 +713,7 @@
     <string name="no_fastboot_device_error" comment="Error banner in fastboot screen when connected USB device is not in fastboot mode">Il dispositivo connesso non è in modalità fastboot</string>
     <string name="no_fastboot_interface_found" comment="Error shown when the attached USB device does not expose a fastboot interface">Il dispositivo USB collegato non ha un\'interfaccia fastboot</string>
     <string name="no_files_download" comment="Toast warning in file browser when user selects directory instead of files for download">Nessun file selezionato (le cartelle non possono essere scaricate)</string>
+    <string name="no_filter_profiles" comment="Title of the empty state in the logcat filter sheet, shown when no filter profiles have been created">Ancora nessun profilo di filtro</string>
     <string name="no_folder_selected" comment="Placeholder status text when no backup directory is picked">Nessuna cartella selezionata</string>
     <string name="no_google_account_message" comment="Dialog message when no Google account is registered on device for cloud backups">Non è stato trovato alcun account Google su questo dispositivo. Desideri aggiungerne uno per utilizzare i backup sul cloud?</string>
     <string name="no_google_account_title" comment="Dialog title when no Google account is detected">Nessun account Google</string>
@@ -805,6 +821,9 @@
     <string name="privacy_and_security" comment="Title for the privacy and security settings screen">Privacy &amp; sicurezza</string>
     <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Informativa sulla privacy</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">Prodotto</string>
+    <string name="profile_name" comment="Label of the name field in the logcat filter profile editor">Nome del profilo</string>
+    <string name="profile_name_required" comment="Error under the name field when saving a logcat filter profile without a name">Inserisci un nome per questo profilo</string>
+    <string name="profile_save_failed" comment="Toast shown when a logcat filter profile could not be saved">Impossibile salvare il profilo</string>
     <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">Metti il dispositivo in modalità sideload tramite il suo menu di recovery</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">Accoppiamento QR</string>
     <string name="qr_pair_hint" comment="Instructional text in QR pairing screen instructing user to scan QR code from target device">Per accoppiare un dispositivo con Android 11+, scansiona questo QR dal dispositivo di destinazione</string>
@@ -879,8 +898,10 @@
     <string name="saving_output" comment="Progress status text while exporting terminal log output to file">Esportazione dell\'output nel file in corso…</string>
     <string name="schedule" comment="Header title or setting label for automated backup schedule picker">Pianificazione</string>
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">Moltiplicatore della densità dello schermo</string>
+    <string name="scroll_to_top" comment="Accessibility label and tooltip for the button that jumps to the first line of the command output">Scorri verso l\'alto</string>
     <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">Scorri in fondo</string>
     <string name="search">Cerca</string>
+    <string name="search_apps" comment="Hint in the search field of the app picker in the logcat filter editor">Cerca app</string>
     <string name="search_bookmarks_here" comment="Placeholder text in bookmarks tab search bar">Cerca segnalibri qui</string>
     <string name="search_commands_here" comment="Placeholder text in command templates tab search bar">Cerca comandi qui</string>
     <string name="search_fonts" comment="Placeholder text in font family picker search bar">Cerca i font…</string>
@@ -897,6 +918,7 @@
     <string name="security_patch" comment="Device property label displaying Android security patch level date">Aggiornamento di sicurezza</string>
     <string name="select">Seleziona</string>
     <string name="select_all">Seleziona tutto</string>
+    <string name="select_apps" comment="Title of the bottom sheet for choosing which apps a logcat filter profile matches">Seleziona app</string>
     <string name="select_backup_folder_message" comment="Dialog message prompting user to grant folder access for local automated backups">Seleziona una cartella in cui verranno salvati i backup. L\'app necessita dei permessi di lettura e scrittura per questa cartella.</string>
     <string name="select_backup_folder_title" comment="Dialog title when no backup directory has been configured">Nessuna cartella di backup</string>
     <string name="select_folder" comment="Action button to open system directory picker for backup storage">Seleziona cartella</string>
@@ -1011,6 +1033,14 @@
     <string name="tcpip_mode" comment="Label for the TCP/IP local shell working mode (loopback port 5555)">TCP/IP</string>
     <string name="tcpip_not_available_body" comment="Dialog body explaining how to enable TCP ADB when the system property is missing. The adb command should stay untranslated.">Il tuo dispositivo non ha ADB TCP abilitato. Connettiti a un PC tramite USB una volta ed esegui:\n\nadb tcpip 5555\n\nDopodiché, questa modalità funzionerà senza USB o Wi-Fi.</string>
     <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">Modalità TCP non disponibile</string>
+    <string name="tcpip_not_available_instructions" comment="Body of the TCP mode unavailable dialog, shown above a copyable adb command. The command itself is shown separately.">Il dispositivo non ha TCP ADB abilitato. Collegalo a un computer tramite USB una volta ed esegui:</string>
+    <string name="tcpip_not_available_footer" comment="Note below the adb command in the TCP mode unavailable dialog. The port closes again when the device reboots.">Una volta aperta la porta, questa modalità funziona senza USB o Wi-Fi fino al riavvio del dispositivo.</string>
+    <string name="use_wireless_debugging" comment="Button that opens ADB TCP mode using wireless debugging on this device instead of a computer">Usa debug wireless</string>
+    <string name="tcpip_enable_pending_hint" comment="Hint on the pairing screen when the user came to open the ADB TCP port. %1$d is the port number.">Copiare questo dispositivo e ADB TCP porta %1$d verrà aperto automaticamente.</string>
+    <string name="tcpip_enable_running" comment="Shown while the app asks ADB to listen on a TCP port. %1$d is the port number.">Apertura della porta ADB TCP %1$d…</string>
+    <string name="tcpip_enable_opened" comment="Shown when the ADB TCP port was opened. ADB restarts to do this, which disconnects wireless debugging. %1$d is the port number.">La porta TCP %1$d è aperta e la modalità TCP/IP nell\'ADB locale è pronta. Il debug wireless è stato disconnesso perché ADB è stato riavviato.</string>
+    <string name="tcpip_enable_unverified" comment="Shown when ADB accepted the request to open a TCP port but the port could not be confirmed. %1$d is the port number.">ADB riavviato per aprire la porta %1$d, ma la porta non può essere confermata. Prova la modalità TCP/IP in Local ADB.</string>
+    <string name="tcpip_enable_refused" comment="Shown when ADB refused to open a TCP port. %1$s is the reason ADB gave.">Impossibile aprire la porta TCP: %1$s</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">Terminale</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Stile carattere del terminale</string>
     <string name="terms_of_service" comment="Title for the Terms of Service legal document">Termini di servizio</string>
@@ -1072,6 +1102,7 @@
     <string name="use_cases">Casi d\'uso</string>
     <string name="utilities" comment="Category title in homescreen">Utilità</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">Variante</string>
+    <string name="verbose" comment="Android log level name for the most detailed level, shown in logcat filters">Verbose</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">Verifica non riuscita</string>
     <string name="verify_api_key" comment="Action button to validate entered AI API key with remote service">Verifica chiave API</string>
     <string name="verifying" comment="Progress status text while verifying API key validity">Verifica in corso</string>
@@ -1085,6 +1116,7 @@
     <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">In attesa dei dispositivi…</string>
     <string name="waiting_for_recovery" comment="Progress status shown after the sideload stream was opened while waiting for the target device recovery to request data">In attesa della recovery…</string>
     <string name="want_to_contribute_too" comment="Call-to-action banner in About screen inviting code or translation contributions">Vuoi contribuire anche tu?</string>
+    <string name="warning" comment="Android log level name, shown in logcat filters">Attenzione</string>
     <string name="weekly" comment="Option in backup scheduler frequency selection">Settimanale</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">Cosa desideri fare durante %1$s?</string>
     <string name="whats_new" comment="Header title for app release notes and changelog dialog">Novità!</string>
@@ -1188,4 +1220,37 @@
     <string name="openrouter_api_key_step_4" comment="Step 4 of the OpenRouter API key setup guide: copying the key">Copia la tua chiave API e incollala qui</string>
     <string name="des_active_provider" comment="Settings item description explaining that AI features use the selected provider">Le funzioni AI utilizzano questo provider</string>
     <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">Pensare</string>
+    <string name="screen" comment="Device dock button that opens a live view of the connected device's screen which can also be controlled">Schermo</string>
+    <string name="screen_mirror" comment="Title of the screen showing and controlling the connected device's screen live">Specchio schermo</string>
+    <string name="recents" comment="Button that opens the recent apps overview on the mirrored device">Recents</string>
+    <string name="volume_up" comment="Button that presses the volume up key on the mirrored device">Volume su</string>
+    <string name="volume_down" comment="Button that presses the volume down key on the mirrored device">Volume giù</string>
+    <string name="power" comment="Button that presses the power key on the mirrored device">Potenza</string>
+    <string name="screenshot" comment="Button that takes a screenshot on the mirrored device">Screenshot</string>
+    <string name="quick_settings" comment="Button that pulls down the quick settings panel on the mirrored device">Impostazioni rapide</string>
+    <string name="device_keys" comment="Accessibility label of the toolbars holding the navigation, volume, power, screenshot and quick settings buttons for the mirrored device">Tasti dispositivo</string>
+    <string name="mirror_step_preparing" comment="Startup step while the mirroring helper is copied to the other device">Preparazione</string>
+    <string name="mirror_step_preparing_skipped" comment="Startup step shown when the mirroring helper was already on the other device, so copying was skipped">Pronto per il dispositivo</string>
+    <string name="mirror_step_starting" comment="Startup step while the mirroring helper starts on the other device">Avvio del dispositivo</string>
+    <string name="mirror_step_connecting" comment="Startup step while the live video connection to the other device opens">Connessione video</string>
+    <string name="reconnecting" comment="Status shown over a frozen screen mirror while the app waits for the device connection to come back">Riconnessione…</string>
+    <string name="view_only" comment="Badge shown when the mirrored screen can be watched but not controlled">Visualizza solo</string>
+    <string name="mirror_view_only_message" comment="Explains why touches on the mirrored screen do nothing and how to fix it on Xiaomi phones">Il dispositivo ha rifiutato l\'ingresso touch. Sui dispositivi Xiaomi, attiva il debug USB (impostazioni di Sicurezza) e riavvia il dispositivo.</string>
+    <string name="mirror_failed_title" comment="Title of the panel shown when screen mirroring could not start or stopped with an error">Impossibile specchiare lo schermo</string>
+    <string name="mirror_error_not_connected" comment="Screen mirror error: no other device is connected over OTG or Wireless Debugging">Nessun altro dispositivo è connesso.</string>
+    <string name="mirror_error_deploy_failed" comment="Screen mirror error: the helper program could not be copied to the other device">Impossibile copiare l\'helper del mirroring sul dispositivo.</string>
+    <string name="mirror_error_version" comment="Screen mirror error: the helper on the device is a different version than the app expects">Il mirroring helper sul dispositivo è una versione diversa.</string>
+    <string name="mirror_error_encoder" comment="Screen mirror error: the other device's video encoder failed">Il dispositivo non può codificare lo schermo.</string>
+    <string name="mirror_error_server_exited" comment="Screen mirror error: the helper program stopped unexpectedly on the device">L\'aiutante di mirroring si è fermato sul dispositivo.</string>
+    <string name="mirror_error_connect_timeout" comment="Screen mirror error: the video connection did not open in time">Il dispositivo non ha aperto la connessione video in tempo.</string>
+    <string name="mirror_error_decoder" comment="Screen mirror error: this phone has no decoder for the video format. %1$s is a codec name such as H265">Questo telefono non può riprodurre il video %1$s.</string>
+    <string name="mirror_error_not_responding" comment="Screen mirror error: the other device stopped answering while mirroring was starting or running">Il dispositivo ha smesso di rispondere.</string>
+    <string name="mirror_error_stream" comment="Screen mirror error: the video data from the device could not be read">Il flusso video non può essere letto.</string>
+    <string name="mirror_ended_title" comment="Title of the panel shown when screen mirroring has ended">Mirroring terminato</string>
+    <string name="mirror_ended_disconnected" comment="Explains that screen mirroring ended because the device disconnected">Il dispositivo è disconnesso.</string>
+    <string name="mirror_ended_server_stopped" comment="Explains that screen mirroring ended from the device's side">Il dispositivo ha smesso di specchiare.</string>
+    <string name="back_to_shell" comment="Button that leaves the screen mirror and returns to the shell screen">Torna alla shell</string>
+    <string name="device_tools" comment="Label of the side toolbar holding actions for the connected device, such as screen mirror and file browser">Strumenti dispositivo</string>
+    <string name="show_device_tools" comment="Accessibility action that expands the device tools side toolbar">Mostra strumenti dispositivo</string>
+    <string name="hide_device_tools" comment="Accessibility action that collapses the device tools side toolbar">Nascondi strumenti dispositivo</string>
 </resources>
