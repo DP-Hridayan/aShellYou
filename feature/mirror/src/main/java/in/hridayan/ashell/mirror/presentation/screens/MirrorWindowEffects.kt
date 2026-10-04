@@ -1,6 +1,8 @@
 package `in`.hridayan.ashell.mirror.presentation.screens
 
 import android.content.pm.ActivityInfo
+import android.os.Build
+import android.view.Display
 import androidx.activity.compose.LocalActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -36,6 +38,40 @@ internal fun ImmersiveSystemBars(enabled: Boolean) {
             }
         }
     }
+}
+
+/**
+ * Asks this phone's display to run at a rate that shows every frame of an [fps] stream, below
+ * Android 11. From Android 11 the video surface asks for it itself, which also works when the
+ * display switches rate without changing mode.
+ *
+ * Only modes at the current resolution are considered, and the window's previous preference comes
+ * back when the mirror leaves.
+ */
+@Suppress("DEPRECATION")
+@Composable
+internal fun PreferRefreshRate(fps: Int?) {
+    val activity = LocalActivity.current ?: return
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) return
+    DisposableEffect(activity, fps) {
+        val window = activity.window
+        val previous = window.attributes.preferredDisplayModeId
+        val modeId = fps?.let { activity.windowManager.defaultDisplay.modeIdFor(it) }
+        if (modeId != null) window.attributes = window.attributes.apply { preferredDisplayModeId = modeId }
+        onDispose {
+            if (modeId != null) window.attributes = window.attributes.apply { preferredDisplayModeId = previous }
+        }
+    }
+}
+
+/** The slowest mode at the current resolution that keeps up with [fps], or the fastest one there is. */
+private fun Display.modeIdFor(fps: Int): Int? {
+    val current = mode
+    val sameSize = supportedModes.filter {
+        it.physicalWidth == current.physicalWidth && it.physicalHeight == current.physicalHeight
+    }
+    val fastEnough = sameSize.filter { it.refreshRate >= fps }.minByOrNull { it.refreshRate }
+    return (fastEnough ?: sameSize.maxByOrNull { it.refreshRate })?.modeId
 }
 
 @Composable

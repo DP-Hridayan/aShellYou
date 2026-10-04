@@ -10,11 +10,14 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
 import `in`.hridayan.ashell.core.common.data.provider.DispatcherProvider
+import `in`.hridayan.ashell.mirror.data.quality.QualityRepositoryImpl
 import `in`.hridayan.ashell.mirror.data.repository.MirrorRepositoryImpl
 import `in`.hridayan.ashell.mirror.data.server.ScrcpyServerArtifact
 import `in`.hridayan.ashell.mirror.data.server.ScrcpyServerDeployer
 import `in`.hridayan.ashell.mirror.domain.protocol.ServerCommandBuilder
 import `in`.hridayan.ashell.mirror.domain.repository.MirrorRepository
+import `in`.hridayan.ashell.mirror.domain.repository.QualityRepository
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -45,4 +48,13 @@ abstract class MirrorRepositoryModule {
     @Binds
     @ViewModelScoped
     abstract fun bindMirrorRepository(impl: MirrorRepositoryImpl): MirrorRepository
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+abstract class QualityRepositoryModule {
+
+    @Binds
+    @Singleton
+    abstract fun bindQualityRepository(impl: QualityRepositoryImpl): QualityRepository
 }

@@ -1,5 +1,8 @@
 package `in`.hridayan.ashell.mirror.presentation.components.video
 
+import android.os.Build
+import android.view.Surface
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.AndroidExternalSurface
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
@@ -13,7 +16,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -36,15 +41,20 @@ private val EdgeClamp = 24.dp
  * Every touch on the stage goes to the device; the app claims no gesture of its own here. The
  * surface exists from the first frame of the screen, so the decoder can start on the server's first
  * config packet instead of waiting for a re-sent one.
+ *
+ * @param frameRate the stream's frame-rate cap. The surface asks this phone's display to run at a
+ * matching rate, so a 120 fps stream is shown at 120 Hz rather than the display's idle rate.
  */
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun MirrorVideoStage(
     videoSize: VideoSize?,
     isControlAvailable: Boolean,
+    frameRate: Int?,
     actions: MirrorActions,
     modifier: Modifier = Modifier
 ) {
+    val currentFrameRate by rememberUpdatedState(frameRate)
     val edgeClampPx = with(LocalDensity.current) { EdgeClamp.toPx() }
     val translator = remember { TouchTranslator() }
     var stageSize by remember { mutableStateOf(IntSize.Zero) }
@@ -76,7 +86,16 @@ fun MirrorVideoStage(
             onSurface { surface, _, _ ->
                 actions.onSurfaceAvailable(surface)
                 surface.onDestroyed { actions.onSurfaceDestroyed() }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    snapshotFlow { currentFrameRate }.collect { surface.requestFrameRate(it) }
+                }
             }
         }
     }
+}
+
+/** A released surface throws, and only the next surface matters by then. */
+@RequiresApi(Build.VERSION_CODES.R)
+private fun Surface.requestFrameRate(fps: Int?) {
+    runCatching { setFrameRate(fps?.toFloat() ?: 0f, Surface.FRAME_RATE_COMPATIBILITY_DEFAULT) }
 }

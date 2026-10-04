@@ -25,7 +25,7 @@ class ServerCommandBuilderTest {
                 "export CLASSPATH=/data/local/tmp/ashellyou-scrcpy-server-v4.1.jar; " +
                 "exec app_process / --nice-name=ashellyou-srv com.genymobile.scrcpy.Server 4.1 " +
                 "scid=001a2b3c log_level=info " +
-                "tunnel_forward=true audio=false control=true cleanup=true " +
+                "tunnel_forward=true audio=false control=true cleanup=false " +
                 "clipboard_autosync=false keep_active=true video_codec=h264 max_size=1920 " +
                 "video_bit_rate=8000000 max_fps=60",
             command
@@ -65,12 +65,15 @@ class ServerCommandBuilderTest {
 
     @Test
     fun `stopping a session kills exactly its own server`() {
-        assertEquals("kill -9 4321", ServerCommandBuilder.stopCommand(pid = 4321))
+        assertEquals("kill -9 4321 2>/dev/null && sleep 1; true", ServerCommandBuilder.stopCommand(pid = 4321))
     }
 
     @Test
     fun `the sweep matches this app's servers by kernel name without a process per entry`() {
         val command = ServerCommandBuilder.sweepCommand()
+
+        assertTrue(ServerCommandBuilder.prepareCommand().startsWith(command + "; "))
+        assertTrue(ServerCommandBuilder.prepareCommand().endsWith(TargetProbeParser.COMMAND))
 
         assertTrue(command.contains("read -r n < \"\$p/comm\""))
         assertTrue(command.contains("ashellyou-srv)"))

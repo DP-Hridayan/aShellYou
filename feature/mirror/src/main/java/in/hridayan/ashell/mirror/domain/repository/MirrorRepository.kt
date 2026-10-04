@@ -4,7 +4,9 @@ import `in`.hridayan.ashell.core.common.domain.model.ExternalDeviceTransport
 import `in`.hridayan.ashell.mirror.domain.model.ControlMessage
 import `in`.hridayan.ashell.mirror.domain.model.MirrorOptions
 import `in`.hridayan.ashell.mirror.domain.model.MirrorState
+import `in`.hridayan.ashell.mirror.domain.model.StreamStats
 import `in`.hridayan.ashell.mirror.domain.model.VideoOutput
+import `in`.hridayan.ashell.mirror.domain.quality.TargetDevice
 import kotlinx.coroutines.flow.StateFlow
 
 /**
@@ -17,8 +19,16 @@ interface MirrorRepository {
 
     val state: StateFlow<MirrorState>
 
-    /** Starts the server and streams until the session ends, fails, or the caller is cancelled. */
-    suspend fun run(transport: ExternalDeviceTransport, options: MirrorOptions)
+    /** The last second of the stream, or null while nothing is streaming. */
+    val stats: StateFlow<StreamStats?>
+
+    /**
+     * Starts the server and streams until the session ends, fails, or the caller is cancelled.
+     *
+     * [options] is asked for each time a server is about to start, with what the device reported
+     * about its screen while it was being prepared.
+     */
+    suspend fun run(transport: ExternalDeviceTransport, options: suspend (TargetDevice) -> MirrorOptions)
 
     /** Queues [message] for the device. Ignored while no session is streaming. */
     fun send(message: ControlMessage)

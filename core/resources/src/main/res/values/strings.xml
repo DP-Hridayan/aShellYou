@@ -1330,6 +1330,39 @@
     <string name="leave_mirror" comment="Button in the full screen control panel that closes the screen mirror and returns to the shell">Leave mirror</string>
     <string name="mirror_controls" comment="Accessibility label of the floating button that opens the full screen mirror controls">Mirror controls</string>
     <string name="mirror_full_screen_hint" comment="One-time message shown when the screen mirror first goes full screen">Back now goes to the device. Tap the floating button for controls.</string>
+    <string name="video_quality" comment="Title of the screen mirror's sheet for choosing the video's resolution, frame rate and bitrate, and the label of the button that opens it">Video quality</string>
+    <string name="quality" comment="Section title in the video quality sheet for picking a quality level">Quality</string>
+    <string name="saver" comment="Video quality level that uses the least data and battery">Saver</string>
+    <string name="balanced" comment="Video quality level between Saver and Sharp">Balanced</string>
+    <string name="sharp" comment="Highest preset video quality level">Sharp</string>
+    <string name="quality_custom" comment="Video quality level where the user picks the resolution, frame rate, bitrate and codec">Custom</string>
+    <string name="quality_auto_description" comment="Explains the Auto video quality level">Picks the smoothest stream both phones can handle</string>
+    <string name="quality_preset_description" comment="Explains a video quality level. %1$d is a size in pixels, %2$d is frames per second">Up to %1$d px at %2$d fps</string>
+    <string name="quality_sharp_description" comment="Explains the Sharp video quality level. %1$d is frames per second">The device\'s full size at %1$d fps</string>
+    <string name="quality_custom_description" comment="Explains the Custom video quality level">Choose each value yourself</string>
+    <string name="resolution" comment="Section title in the video quality sheet for the video's size">Resolution</string>
+    <string name="frame_rate" comment="Section title in the video quality sheet for frames per second">Frame rate</string>
+    <string name="bitrate" comment="Section title in the video quality sheet for the video's data rate">Bitrate</string>
+    <string name="codec" comment="Section title in the video quality sheet for the video compression format, such as H.264">Codec</string>
+    <string name="native_resolution" comment="Resolution option that streams the other device's screen at its own size">Native</string>
+    <string name="long_edge_pixels" comment="A limit on a video's longer side. %1$d is a number of pixels">%1$d px</string>
+    <string name="video_dimensions" comment="A video's width and height in pixels, for example 1080 × 2400">%1$d × %2$d</string>
+    <string name="frames_per_second" comment="%1$d is a number of video frames per second">%1$d fps</string>
+    <string name="megabits_per_second" comment="%1$s is a data rate in megabits per second">%1$s Mbps</string>
+    <string name="quality_summary" comment="What the mirrored video will stream at. %1$s is a size such as 1080 × 2400, %2$s a frame rate such as 60 fps, %3$s a data rate such as 8 Mbps, %4$s a codec such as H.264">%1$s · up to %2$s · %3$s · %4$s</string>
+    <string name="viewer_max_frame_rate" comment="Shown under the frame rate options when the chosen rate is more than this phone's screen shows. %1$d is frames per second">This phone shows at most %1$d fps</string>
+    <string name="quality_limit_target_screen" comment="Why the mirrored video's quality is what it is">Matches the device\'s own screen</string>
+    <string name="quality_limit_target_encoder" comment="Why the mirrored video's quality is what it is">Limited by the device\'s video encoder</string>
+    <string name="quality_limit_viewer_screen" comment="Why the mirrored video's quality is what it is">Limited by this phone\'s screen</string>
+    <string name="quality_limit_viewer_decoder" comment="Why the mirrored video's quality is what it is">Limited by this phone\'s video decoder</string>
+    <string name="quality_limit_connection" comment="Why the mirrored video's quality is what it is: USB or Wi-Fi can't carry more">Limited by the connection</string>
+    <string name="quality_limit_chosen" comment="Why the mirrored video's quality is what it is: the user picked it">Set by you</string>
+    <string name="show_stream_statistics" comment="Switch in the video quality sheet">Show stream statistics</string>
+    <string name="des_show_stream_statistics" comment="Description of the Show stream statistics switch">Frame rate, dropped frames and data rate, over the video</string>
+    <string name="video_struggling" comment="Message when this phone drops many frames of the mirrored video">The video can\'t keep up</string>
+    <string name="lower_quality" comment="Action that lowers the mirrored video's quality one step">Lower quality</string>
+    <string name="codec_fallback" comment="Message after the other device failed to encode the chosen codec. %1$s is a codec name such as H.265">This device can\'t encode %1$s, so H.264 is used</string>
+    <string name="stream_statistics" comment="Overlay over the mirrored video. %1$s is a size, %2$s a frame rate, %3$d a count of dropped frames, %4$s a data rate, %5$s a codec">%1$s · %2$s · %3$d dropped · %4$s · %5$s</string>
     <string name="screenshot" comment="Button that takes a screenshot on the mirrored device">Screenshot</string>
     <string name="quick_settings" comment="Button that pulls down the quick settings panel on the mirrored device">Quick settings</string>
     <string name="device_keys" comment="Accessibility label of the toolbars holding the navigation, volume, power, screenshot and quick settings buttons for the mirrored device">Device keys</string>

@@ -103,6 +103,7 @@ data class FullscreenControlActions(
     val onDismissPanel: () -> Unit,
     val onKey: (DeviceKey) -> Unit,
     val onExpandQuickSettings: () -> Unit,
+    val onOpenQuality: () -> Unit,
     val onExitFullscreen: () -> Unit,
     val onLeave: () -> Unit
 )
@@ -347,6 +348,7 @@ private fun ControlPanel(
                     onUse()
                     actions.onExpandQuickSettings()
                 },
+                onOpenQuality = actions.onOpenQuality,
                 contained = false
             )
         }

@@ -12,8 +12,9 @@ import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.mirror.data.decoder.SurfaceVideoOutput
 import `in`.hridayan.ashell.mirror.domain.model.ControlMessage
 import `in`.hridayan.ashell.mirror.domain.model.DeviceKey
-import `in`.hridayan.ashell.mirror.domain.model.MirrorQualityPreset
+import `in`.hridayan.ashell.mirror.domain.quality.QualityResolver
 import `in`.hridayan.ashell.mirror.domain.repository.MirrorRepository
+import `in`.hridayan.ashell.mirror.domain.repository.QualityRepository
 import `in`.hridayan.ashell.mirror.presentation.model.MirrorActions
 import `in`.hridayan.ashell.mirror.presentation.model.MirrorUiState
 import kotlinx.coroutines.Job
@@ -38,18 +39,35 @@ private const val TAG = "MirrorSession"
 class MirrorViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val repository: MirrorRepository,
-    private val settingsRepository: SettingsRepository
+    settingsRepository: SettingsRepository,
+    qualityRepository: QualityRepository,
+    qualityResolver: QualityResolver
 ) : ViewModel(), MirrorActions {
 
     private val transport = savedStateHandle.toRoute<NavRoutes.MirrorScreen>().transport
 
     val fullscreen = FullscreenController(repository, settingsRepository, viewModelScope)
 
+    val quality = QualityController(
+        transport = transport,
+        repository = repository,
+        qualityRepository = qualityRepository,
+        resolver = qualityResolver,
+        scope = viewModelScope,
+        restartSession = ::restartKeepingFullscreen
+    )
+
     val uiState: StateFlow<MirrorUiState> = combine(
         repository.state.onEach { Log.i(TAG, "$transport session: $it") },
-        fullscreen.chrome
-    ) { session, chrome ->
-        MirrorUiState(transport = transport, session = session, chrome = chrome.reconciledWith(session))
+        fullscreen.chrome,
+        quality.state
+    ) { session, chrome, quality ->
+        MirrorUiState(
+            transport = transport,
+            session = session,
+            chrome = chrome.reconciledWith(session),
+            quality = quality
+        )
     }
         .stateIn(
             scope = viewModelScope,
@@ -63,7 +81,10 @@ class MirrorViewModel @Inject constructor(
     init {
         startSession()
         viewModelScope.launch {
-            repository.state.collect(fullscreen::onSession)
+            repository.state.collect { session ->
+                fullscreen.onSession(session)
+                quality.onSession(session)
+            }
         }
     }
 
@@ -101,7 +122,12 @@ class MirrorViewModel @Inject constructor(
         val previous = session
         session = viewModelScope.launch {
             previous?.cancelAndJoin()
-            repository.run(transport, MirrorQualityPreset.BALANCED.toOptions(transport))
+            repository.run(transport, quality::optionsForNextSession)
         }
+    }
+
+    private fun restartKeepingFullscreen() {
+        fullscreen.holdThroughRestart()
+        startSession()
     }
 }

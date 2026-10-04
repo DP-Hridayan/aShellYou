@@ -3,6 +3,7 @@
   <ManuallySuppressedIssues/>
   <CurrentIssues>
     <ID>PackageName:ByteAccumulator.kt$package `in`.hridayan.ashell.mirror.domain.protocol</ID>
+    <ID>PackageName:ChoiceChips.kt$package `in`.hridayan.ashell.mirror.presentation.components.quality</ID>
     <ID>PackageName:ControlBatch.kt$package `in`.hridayan.ashell.mirror.domain.protocol</ID>
     <ID>PackageName:ControlBatchTest.kt$package `in`.hridayan.ashell.mirror.domain.protocol</ID>
     <ID>PackageName:ControlLink.kt$package `in`.hridayan.ashell.mirror.data.control</ID>
@@ -18,7 +19,10 @@
     <ID>PackageName:DeviceMessageParser.kt$package `in`.hridayan.ashell.mirror.domain.protocol</ID>
     <ID>PackageName:DeviceMessageParserTest.kt$package `in`.hridayan.ashell.mirror.domain.protocol</ID>
     <ID>PackageName:DevicePosition.kt$package `in`.hridayan.ashell.mirror.domain.model</ID>
+    <ID>PackageName:EncoderFallback.kt$package `in`.hridayan.ashell.mirror.domain.quality</ID>
+    <ID>PackageName:EncoderFallbackTest.kt$package `in`.hridayan.ashell.mirror.domain.quality</ID>
     <ID>PackageName:FakeExternalDeviceChannel.kt$package `in`.hridayan.ashell.mirror.data</ID>
+    <ID>PackageName:Fakes.kt$package `in`.hridayan.ashell.mirror.presentation.viewmodel</ID>
     <ID>PackageName:FullscreenActions.kt$package `in`.hridayan.ashell.mirror.presentation.model</ID>
     <ID>PackageName:FullscreenChrome.kt$package `in`.hridayan.ashell.mirror.presentation.model</ID>
     <ID>PackageName:FullscreenChromeTest.kt$package `in`.hridayan.ashell.mirror.presentation.model</ID>
@@ -32,6 +36,7 @@
     <ID>PackageName:MediaPacket.kt$package `in`.hridayan.ashell.mirror.domain.model</ID>
     <ID>PackageName:MirrorActions.kt$package `in`.hridayan.ashell.mirror.presentation.model</ID>
     <ID>PackageName:MirrorContent.kt$package `in`.hridayan.ashell.mirror.presentation.screens</ID>
+    <ID>PackageName:MirrorContentActions.kt$package `in`.hridayan.ashell.mirror.presentation.model</ID>
     <ID>PackageName:MirrorError.kt$package `in`.hridayan.ashell.mirror.domain.model</ID>
     <ID>PackageName:MirrorModule.kt$package `in`.hridayan.ashell.mirror.di</ID>
     <ID>PackageName:MirrorOptions.kt$package `in`.hridayan.ashell.mirror.domain.model</ID>
@@ -50,6 +55,24 @@
     <ID>PackageName:MirrorVideoStage.kt$package `in`.hridayan.ashell.mirror.presentation.components.video</ID>
     <ID>PackageName:MirrorViewModel.kt$package `in`.hridayan.ashell.mirror.presentation.viewmodel</ID>
     <ID>PackageName:MirrorWindowEffects.kt$package `in`.hridayan.ashell.mirror.presentation.screens</ID>
+    <ID>PackageName:PlatformDecoder.kt$package `in`.hridayan.ashell.mirror.data.quality</ID>
+    <ID>PackageName:QualityActions.kt$package `in`.hridayan.ashell.mirror.presentation.model</ID>
+    <ID>PackageName:QualityChoice.kt$package `in`.hridayan.ashell.mirror.domain.quality</ID>
+    <ID>PackageName:QualityController.kt$package `in`.hridayan.ashell.mirror.presentation.viewmodel</ID>
+    <ID>PackageName:QualityControllerTest.kt$package `in`.hridayan.ashell.mirror.presentation.viewmodel</ID>
+    <ID>PackageName:QualityHints.kt$package `in`.hridayan.ashell.mirror.presentation.screens</ID>
+    <ID>PackageName:QualityProfiles.kt$package `in`.hridayan.ashell.mirror.domain.quality</ID>
+    <ID>PackageName:QualityRepository.kt$package `in`.hridayan.ashell.mirror.domain.repository</ID>
+    <ID>PackageName:QualityRepositoryImpl.kt$package `in`.hridayan.ashell.mirror.data.quality</ID>
+    <ID>PackageName:QualityResolver.kt$package `in`.hridayan.ashell.mirror.domain.quality</ID>
+    <ID>PackageName:QualityResolverTest.kt$package `in`.hridayan.ashell.mirror.domain.quality</ID>
+    <ID>PackageName:QualitySettingsMapper.kt$package `in`.hridayan.ashell.mirror.data.quality</ID>
+    <ID>PackageName:QualitySettingsMapperTest.kt$package `in`.hridayan.ashell.mirror.data.quality</ID>
+    <ID>PackageName:QualityStepDown.kt$package `in`.hridayan.ashell.mirror.domain.quality</ID>
+    <ID>PackageName:QualityStepDownTest.kt$package `in`.hridayan.ashell.mirror.domain.quality</ID>
+    <ID>PackageName:QualityText.kt$package `in`.hridayan.ashell.mirror.presentation.components.quality</ID>
+    <ID>PackageName:QualityUiState.kt$package `in`.hridayan.ashell.mirror.presentation.model</ID>
+    <ID>PackageName:ResolvedQuality.kt$package `in`.hridayan.ashell.mirror.domain.quality</ID>
     <ID>PackageName:ScidGenerator.kt$package `in`.hridayan.ashell.mirror.domain.protocol</ID>
     <ID>PackageName:ScidGeneratorTest.kt$package `in`.hridayan.ashell.mirror.domain.protocol</ID>
     <ID>PackageName:ScrcpyServerArtifact.kt$package `in`.hridayan.ashell.mirror.data.server</ID>
@@ -63,11 +86,21 @@
     <ID>PackageName:ServerLogClassifierTest.kt$package `in`.hridayan.ashell.mirror.domain.protocol</ID>
     <ID>PackageName:ServerProcess.kt$package `in`.hridayan.ashell.mirror.data.server</ID>
     <ID>PackageName:ShellCommandRunner.kt$package `in`.hridayan.ashell.mirror.data.server</ID>
+    <ID>PackageName:StreamCounters.kt$package `in`.hridayan.ashell.mirror.data.decoder</ID>
+    <ID>PackageName:StreamStats.kt$package `in`.hridayan.ashell.mirror.domain.model</ID>
+    <ID>PackageName:StreamStatsOverlay.kt$package `in`.hridayan.ashell.mirror.presentation.components.quality</ID>
+    <ID>PackageName:StruggleDetector.kt$package `in`.hridayan.ashell.mirror.domain.quality</ID>
+    <ID>PackageName:StruggleDetectorTest.kt$package `in`.hridayan.ashell.mirror.domain.quality</ID>
     <ID>PackageName:SurfaceVideoOutput.kt$package `in`.hridayan.ashell.mirror.data.decoder</ID>
+    <ID>PackageName:TargetProbeParser.kt$package `in`.hridayan.ashell.mirror.domain.protocol</ID>
+    <ID>PackageName:TargetProbeParserTest.kt$package `in`.hridayan.ashell.mirror.domain.protocol</ID>
     <ID>PackageName:TouchTranslator.kt$package `in`.hridayan.ashell.mirror.presentation.input</ID>
     <ID>PackageName:VideoCodec.kt$package `in`.hridayan.ashell.mirror.domain.model</ID>
     <ID>PackageName:VideoOutput.kt$package `in`.hridayan.ashell.mirror.domain.model</ID>
+    <ID>PackageName:VideoQualitySheet.kt$package `in`.hridayan.ashell.mirror.presentation.components.quality</ID>
     <ID>PackageName:VideoRenderer.kt$package `in`.hridayan.ashell.mirror.data.decoder</ID>
+    <ID>PackageName:VideoScaling.kt$package `in`.hridayan.ashell.mirror.domain.quality</ID>
+    <ID>PackageName:VideoScalingTest.kt$package `in`.hridayan.ashell.mirror.domain.quality</ID>
     <ID>PackageName:VideoSize.kt$package `in`.hridayan.ashell.mirror.domain.model</ID>
     <ID>PackageName:VideoStreamEvent.kt$package `in`.hridayan.ashell.mirror.domain.model</ID>
     <ID>PackageName:VideoStreamParser.kt$package `in`.hridayan.ashell.mirror.domain.protocol</ID>
@@ -75,6 +108,7 @@
     <ID>PackageName:VideoStreamReader.kt$package `in`.hridayan.ashell.mirror.data.decoder</ID>
     <ID>PackageName:VideoViewport.kt$package `in`.hridayan.ashell.mirror.domain.geometry</ID>
     <ID>PackageName:VideoViewportTest.kt$package `in`.hridayan.ashell.mirror.domain.geometry</ID>
+    <ID>PackageName:ViewerProfileReader.kt$package `in`.hridayan.ashell.mirror.data.quality</ID>
     <ID>PackageName:WireEncoding.kt$package `in`.hridayan.ashell.mirror.domain.protocol</ID>
   </CurrentIssues>
 </SmellBaseline>

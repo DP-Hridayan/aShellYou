@@ -49,16 +49,19 @@ import `in`.hridayan.ashell.mirror.presentation.components.controls.FullscreenCo
 import `in`.hridayan.ashell.mirror.presentation.components.controls.FullscreenControls
 import `in`.hridayan.ashell.mirror.presentation.components.controls.MirrorTopBar
 import `in`.hridayan.ashell.mirror.presentation.components.controls.MirrorTopBarState
+import `in`.hridayan.ashell.mirror.presentation.components.quality.StreamStatsOverlay
+import `in`.hridayan.ashell.mirror.presentation.components.quality.VideoQualitySheet
 import `in`.hridayan.ashell.mirror.presentation.components.state.MirrorEndedDialog
 import `in`.hridayan.ashell.mirror.presentation.components.state.MirrorFailedDialog
 import `in`.hridayan.ashell.mirror.presentation.components.state.MirrorReconnectingScrim
 import `in`.hridayan.ashell.mirror.presentation.components.state.MirrorStartupPanel
 import `in`.hridayan.ashell.mirror.presentation.components.video.MirrorVideoStage
 import `in`.hridayan.ashell.mirror.presentation.model.FullscreenActions
-import `in`.hridayan.ashell.mirror.presentation.model.MirrorActions
+import `in`.hridayan.ashell.mirror.presentation.model.MirrorContentActions
 import `in`.hridayan.ashell.mirror.presentation.model.MirrorUiState
 
 private val KeyBarPadding = 12.dp
+private val StatsOverlayMargin = 8.dp
 
 /**
  * What the mirror's chrome needs besides the session, worked out once per composition.
@@ -73,11 +76,11 @@ private data class ChromeState(
     val keysEnabled: Boolean
 )
 
+/** The screen's actions plus the dialogs and sheets this content opens itself. */
 private data class LayoutCallbacks(
-    val actions: MirrorActions,
-    val fullscreen: FullscreenActions,
-    val onLeave: () -> Unit,
-    val onViewOnlyInfo: () -> Unit
+    val actions: MirrorContentActions,
+    val onViewOnlyInfo: () -> Unit,
+    val onOpenQuality: () -> Unit
 )
 
 /**
@@ -92,13 +95,12 @@ private data class LayoutCallbacks(
 @Composable
 fun MirrorContent(
     uiState: MirrorUiState,
-    actions: MirrorActions,
-    fullscreenActions: FullscreenActions,
-    onLeave: () -> Unit,
+    actions: MirrorContentActions,
     isFullscreenAllowed: Boolean,
     modifier: Modifier = Modifier
 ) {
     var showViewOnlyInfo by rememberSaveable { mutableStateOf(false) }
+    var showQualitySheet by rememberSaveable { mutableStateOf(false) }
     val snackbarHostState = remember { SnackbarHostState() }
     val streaming = uiState.session as? MirrorState.Streaming
     val chrome = ChromeState(
@@ -108,10 +110,18 @@ fun MirrorContent(
         keysEnabled = streaming?.isControlAvailable == true
     )
 
-    val callbacks = LayoutCallbacks(actions, fullscreenActions, onLeave) { showViewOnlyInfo = true }
+    val callbacks = LayoutCallbacks(
+        actions = actions,
+        onViewOnlyInfo = { showViewOnlyInfo = true },
+        onOpenQuality = {
+            actions.fullscreen.onDismissControlPanel()
+            showQualitySheet = true
+        }
+    )
 
-    FullscreenBackHandler(uiState, fullscreenActions)
-    FullscreenHint(chrome.isFullscreen, snackbarHostState, fullscreenActions::onFullscreenHintShown)
+    FullscreenBackHandler(uiState, actions.fullscreen)
+    FullscreenHint(chrome.isFullscreen, snackbarHostState, actions.fullscreen::onFullscreenHintShown)
+    QualityHints(uiState.quality, snackbarHostState, actions.quality)
 
     BoxWithConstraints(
         modifier = modifier
@@ -137,12 +147,13 @@ fun MirrorContent(
                 keysEnabled = chrome.keysEnabled,
                 isWide = isWide,
                 actions = FullscreenControlActions(
-                    onTogglePanel = fullscreenActions::onToggleControlPanel,
-                    onDismissPanel = fullscreenActions::onDismissControlPanel,
-                    onKey = actions::onDeviceKey,
-                    onExpandQuickSettings = actions::onExpandQuickSettings,
-                    onExitFullscreen = fullscreenActions::onExitFullscreen,
-                    onLeave = onLeave
+                    onTogglePanel = actions.fullscreen::onToggleControlPanel,
+                    onDismissPanel = actions.fullscreen::onDismissControlPanel,
+                    onKey = actions.mirror::onDeviceKey,
+                    onExpandQuickSettings = actions.mirror::onExpandQuickSettings,
+                    onOpenQuality = callbacks.onOpenQuality,
+                    onExitFullscreen = actions.fullscreen::onExitFullscreen,
+                    onLeave = actions.onLeave
                 )
             )
         }
@@ -158,6 +169,16 @@ fun MirrorContent(
     if (showViewOnlyInfo) {
         ViewOnlyDialog(onDismiss = { showViewOnlyInfo = false })
     }
+
+    if (showQualitySheet) {
+        VideoQualitySheet(
+            state = uiState.quality,
+            preview = actions.quality::previewQuality,
+            onApply = actions.quality::onApplyQuality,
+            onStatsOverlayChange = actions.quality::onStatsOverlayChange,
+            onDismiss = { showQualitySheet = false }
+        )
+    }
 }
 
 @Composable
@@ -167,9 +188,9 @@ private fun WideLayout(
     callbacks: LayoutCallbacks,
     modifier: Modifier
 ) {
-    val actions = callbacks.actions
+    val actions = callbacks.actions.mirror
     Row(modifier = modifier) {
-        MirrorStage(uiState.session, actions, callbacks.onLeave, Modifier.weight(1f))
+        MirrorStage(uiState, callbacks.actions, Modifier.weight(1f))
         if (!chrome.isFullscreen) {
             Column(
                 modifier = Modifier
@@ -183,7 +204,8 @@ private fun WideLayout(
                     vertical = true,
                     enabled = chrome.keysEnabled,
                     onKey = actions::onDeviceKey,
-                    onExpandQuickSettings = actions::onExpandQuickSettings
+                    onExpandQuickSettings = actions::onExpandQuickSettings,
+                    onOpenQuality = callbacks.onOpenQuality
                 )
                 Spacer(Modifier.weight(1f))
             }
@@ -193,14 +215,14 @@ private fun WideLayout(
 
 @Composable
 private fun ColumnScope.RailButtons(chrome: ChromeState, callbacks: LayoutCallbacks) {
-    IconButton(onClick = withHaptic(block = callbacks.onLeave)) {
+    IconButton(onClick = withHaptic(block = callbacks.actions.onLeave)) {
         Icon(
             imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
             contentDescription = stringResource(R.string.back_to_shell)
         )
     }
     IconButton(
-        onClick = withHaptic(block = callbacks.fullscreen::onEnterFullscreen),
+        onClick = withHaptic(block = callbacks.actions.fullscreen::onEnterFullscreen),
         enabled = chrome.canEnterFullscreen
     ) {
         Icon(imageVector = Icons.Rounded.Fullscreen, contentDescription = stringResource(R.string.full_screen))
@@ -219,7 +241,7 @@ private fun TallLayout(
     callbacks: LayoutCallbacks,
     modifier: Modifier
 ) {
-    val actions = callbacks.actions
+    val actions = callbacks.actions.mirror
     Column(modifier = modifier) {
         if (!chrome.isFullscreen) {
             MirrorTopBar(
@@ -229,18 +251,19 @@ private fun TallLayout(
                     isViewOnly = chrome.isViewOnly,
                     canEnterFullscreen = chrome.canEnterFullscreen
                 ),
-                onLeave = callbacks.onLeave,
+                onLeave = callbacks.actions.onLeave,
                 onViewOnlyInfo = callbacks.onViewOnlyInfo,
-                onEnterFullscreen = callbacks.fullscreen::onEnterFullscreen
+                onEnterFullscreen = callbacks.actions.fullscreen::onEnterFullscreen
             )
         }
-        MirrorStage(uiState.session, actions, callbacks.onLeave, Modifier.weight(1f))
+        MirrorStage(uiState, callbacks.actions, Modifier.weight(1f))
         if (!chrome.isFullscreen) {
             DeviceKeyBar(
                 vertical = false,
                 enabled = chrome.keysEnabled,
                 onKey = actions::onDeviceKey,
                 onExpandQuickSettings = actions::onExpandQuickSettings,
+                onOpenQuality = callbacks.onOpenQuality,
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .padding(KeyBarPadding)
@@ -283,12 +306,8 @@ private fun FullscreenHint(isFullscreen: Boolean, hostState: SnackbarHostState, 
 
 /** The video plus whatever the session state puts over it. */
 @Composable
-private fun MirrorStage(
-    session: MirrorState,
-    actions: MirrorActions,
-    onLeave: () -> Unit,
-    modifier: Modifier = Modifier
-) {
+private fun MirrorStage(uiState: MirrorUiState, actions: MirrorContentActions, modifier: Modifier = Modifier) {
+    val session = uiState.session
     val streaming = session as? MirrorState.Streaming
     var serverAlreadyDeployed by remember { mutableStateOf(false) }
     LaunchedEffect(session) {
@@ -299,7 +318,15 @@ private fun MirrorStage(
         MirrorVideoStage(
             videoSize = streaming?.videoSize,
             isControlAvailable = streaming?.isControlAvailable == true,
-            actions = actions
+            frameRate = uiState.quality.resolved?.options?.maxFps,
+            actions = actions.mirror
+        )
+        StatsOverlayWhenOn(
+            uiState = uiState,
+            modifier = Modifier
+                .align(Alignment.TopStart)
+                .windowInsetsPadding(WindowInsets.safeDrawing)
+                .padding(StatsOverlayMargin)
         )
 
         when (session) {
@@ -318,15 +345,24 @@ private fun MirrorStage(
 
             is MirrorState.Ended -> {
                 EmptyStage()
-                MirrorEndedDialog(reason = session.reason, onRetry = actions::onRetry, onLeave = onLeave)
+                MirrorEndedDialog(reason = session.reason, onRetry = actions.mirror::onRetry, onLeave = actions.onLeave)
             }
 
             is MirrorState.Failed -> {
                 EmptyStage()
-                MirrorFailedDialog(error = session.error, onRetry = actions::onRetry, onLeave = onLeave)
+                MirrorFailedDialog(error = session.error, onRetry = actions.mirror::onRetry, onLeave = actions.onLeave)
             }
         }
     }
+}
+
+@Composable
+private fun StatsOverlayWhenOn(uiState: MirrorUiState, modifier: Modifier) {
+    val quality = uiState.quality
+    val stats = quality.stats ?: return
+    val size = (uiState.session as? MirrorState.Streaming)?.videoSize ?: return
+    val codec = quality.resolved?.options?.videoCodec ?: return
+    if (quality.isStatsOverlayOn) StreamStatsOverlay(stats = stats, size = size, codec = codec, modifier = modifier)
 }
 
 /** Hides the video surface, which shows black until it has a frame, whatever the theme. */

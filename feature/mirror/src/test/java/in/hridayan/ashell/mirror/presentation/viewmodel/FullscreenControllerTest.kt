@@ -1,18 +1,12 @@
 package `in`.hridayan.ashell.mirror.presentation.viewmodel
 
-import `in`.hridayan.ashell.core.common.domain.model.ExternalDeviceTransport
 import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.mirror.domain.model.ControlMessage
 import `in`.hridayan.ashell.mirror.domain.model.InputAction
-import `in`.hridayan.ashell.mirror.domain.model.MirrorOptions
 import `in`.hridayan.ashell.mirror.domain.model.MirrorState
-import `in`.hridayan.ashell.mirror.domain.model.VideoOutput
 import `in`.hridayan.ashell.mirror.domain.model.VideoSize
-import `in`.hridayan.ashell.mirror.domain.repository.MirrorRepository
 import `in`.hridayan.ashell.mirror.presentation.model.FullscreenChrome
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -21,7 +15,7 @@ import org.junit.Test
 
 class FullscreenControllerTest {
 
-    private val repository = RecordingMirrorRepository()
+    private val repository = FakeMirrorRepository()
     private val settings = RecordingSettings()
     private val streaming = MirrorState.Streaming("Pixel", VideoSize(1080, 2400), isControlAvailable = true)
 
@@ -63,6 +57,18 @@ class FullscreenControllerTest {
     }
 
     @Test
+    fun `holding for a restart closes the panel and only applies in fullscreen`() = runTest {
+        val controller = controller()
+        controller.holdThroughRestart()
+        assertEquals(FullscreenChrome(), controller.chrome.value)
+
+        controller.onEnterFullscreen()
+        controller.onToggleControlPanel()
+        controller.holdThroughRestart()
+        assertEquals(FullscreenChrome(isRequested = true, isHeldForRestart = true), controller.chrome.value)
+    }
+
+    @Test
     fun `host back is one press of back or screen on`() = runTest {
         controller().onHostBack()
 
@@ -81,16 +87,6 @@ class FullscreenControllerTest {
         advanceUntilIdle()
 
         assertEquals(mapOf(SettingsKeys.MirrorFullscreenHintShown to true), settings.booleans)
-    }
-
-    private class RecordingMirrorRepository : MirrorRepository {
-        val sent = mutableListOf<ControlMessage>()
-        override val state: StateFlow<MirrorState> = MutableStateFlow(MirrorState.Idle)
-        override suspend fun run(transport: ExternalDeviceTransport, options: MirrorOptions) = Unit
-        override fun send(message: ControlMessage) {
-            sent += message
-        }
-        override fun setVideoOutput(output: VideoOutput?) = Unit
     }
 
     private class RecordingSettings : SettingsRepository {

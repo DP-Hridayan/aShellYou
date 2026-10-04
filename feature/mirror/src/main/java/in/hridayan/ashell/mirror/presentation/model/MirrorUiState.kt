@@ -6,11 +6,16 @@ import `in`.hridayan.ashell.mirror.domain.model.MirrorState
 data class MirrorUiState(
     val transport: ExternalDeviceTransport,
     val session: MirrorState = MirrorState.Idle,
-    val chrome: FullscreenChrome = FullscreenChrome()
+    val chrome: FullscreenChrome = FullscreenChrome(),
+    val quality: QualityUiState = QualityUiState()
 ) {
-    /** Fullscreen only ever applies while streaming; every other state shows the normal layout. */
+    /**
+     * Fullscreen applies while streaming, and through a restart the user asked for; every other
+     * state shows the normal layout.
+     */
     val isFullscreen: Boolean
-        get() = chrome.isRequested && (session as? MirrorState.Streaming)?.videoSize != null
+        get() = chrome.isRequested &&
+            ((session as? MirrorState.Streaming)?.videoSize != null || chrome.isHeldForRestart)
 
     /**
      * Whether this phone's Back goes to the device rather than to the app. Only in fullscreen with

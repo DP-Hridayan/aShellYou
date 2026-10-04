@@ -39,6 +39,11 @@ class FullscreenController(
 
     override fun onDismissControlPanel() = _chrome.update { it.copy(isPanelOpen = false) }
 
+    /** Keeps fullscreen on through a restart the user asked for, such as a quality change. */
+    fun holdThroughRestart() = _chrome.update {
+        if (it.isRequested) it.copy(isPanelOpen = false, isHeldForRestart = true) else it
+    }
+
     /** Sent as back-or-screen-on, as desktop scrcpy does: Back while the screen is on, wake otherwise. */
     override fun onHostBack() {
         repository.send(ControlMessage.BackOrScreenOn(InputAction.DOWN))

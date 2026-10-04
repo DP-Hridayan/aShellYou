@@ -25,6 +25,7 @@ import java.security.interfaces.RSAPublicKey;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocket;
@@ -58,7 +59,8 @@ public class AdbConnection implements Closeable {
     /**
      * The last allocated local stream ID. The ID chosen for the next stream will be this value + 1.
      */
-    private int mLastLocalId;
+    /** Opens can run on several threads at once, and two streams sharing an id lose an answer. */
+    private final AtomicInteger mLastLocalId = new AtomicInteger();
 
     /**
      * The input stream that this class uses to read from the socket.
@@ -233,7 +235,6 @@ public class AdbConnection implements Closeable {
         mSocket.setTcpNoDelay(true);
 
         this.mOpenedStreams = new ConcurrentHashMap<>();
-        this.mLastLocalId = 0;
         this.mConnectionThread = createConnectionThread();
     }
 
@@ -549,7 +550,7 @@ public class AdbConnection implements Closeable {
     @NonNull
     public AdbStream open(@NonNull String destination)
             throws IOException, InterruptedException, AdbPairingRequiredException {
-        int localId = ++mLastLocalId;
+        int localId = mLastLocalId.incrementAndGet();
 
         if (!mConnectAttempted) {
             throw new IllegalStateException("connect() must be called first");

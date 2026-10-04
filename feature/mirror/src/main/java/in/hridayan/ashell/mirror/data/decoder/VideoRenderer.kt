@@ -18,7 +18,8 @@ private const val KEY_FRAME_REQUEST_INTERVAL_MS = 1_000L
  */
 class VideoRenderer(
     private val onKeyFrameNeeded: () -> Unit,
-    private val onDecoderError: (Throwable) -> Unit
+    private val onDecoderError: (Throwable) -> Unit,
+    private val counters: StreamCounters
 ) {
 
     private val lock = Any()
@@ -47,6 +48,7 @@ class VideoRenderer(
     }
 
     fun onPacket(packet: MediaPacket) = synchronized(lock) {
+        counters.onReceived(packet.data.size)
         val target = surface ?: return
 
         if (packet.isConfig) {
@@ -57,6 +59,7 @@ class VideoRenderer(
         val active = decoder
         val needsKeyFrame = awaitingKeyFrame && !packet.isKeyFrame
         if (active == null || awaitingConfig || needsKeyFrame) {
+            counters.onDropped()
             requestKeyFrameLocked()
             return
         }
@@ -64,6 +67,7 @@ class VideoRenderer(
         if (active.queue(packet)) {
             if (packet.isKeyFrame) awaitingKeyFrame = false
         } else {
+            counters.onDropped()
             awaitingKeyFrame = true
             requestKeyFrameLocked()
         }
@@ -83,7 +87,9 @@ class VideoRenderer(
         val videoSize = size ?: return
         releaseDecoderLocked()
         decoder = runCatching {
-            DecoderInstance(mimeType, videoSize, target, onDecoderError).also { it.queue(config) }
+            DecoderInstance(mimeType, videoSize, target, onDecoderError, counters::onRendered).also {
+                it.queue(config)
+            }
         }.onFailure(onDecoderError).getOrNull()
         awaitingConfig = decoder == null
         awaitingKeyFrame = false

@@ -63,4 +63,23 @@ class FullscreenChromeTest {
         assertEquals(FullscreenChrome(), open.reconciledWith(MirrorState.Failed(MirrorError.StreamError)))
         assertEquals(open, open.reconciledWith(streaming))
     }
+
+    @Test
+    fun `a held fullscreen survives the restart a quality change makes`() {
+        val held = requested.copy(isHeldForRestart = true)
+
+        assertEquals(held, held.reconciledWith(MirrorState.Idle))
+        assertEquals(held, held.reconciledWith(MirrorState.Starting(StartStep.CONNECTING)))
+        assertEquals(held, held.reconciledWith(streaming.copy(videoSize = null)))
+        assertTrue(state(MirrorState.Starting(StartStep.PREPARING), held).isFullscreen)
+    }
+
+    @Test
+    fun `the hold ends once video is back or the restart fails`() {
+        val held = requested.copy(isHeldForRestart = true)
+
+        assertEquals(requested, held.reconciledWith(streaming))
+        assertEquals(FullscreenChrome(), held.reconciledWith(MirrorState.Failed(MirrorError.StreamError)))
+        assertEquals(FullscreenChrome(), held.reconciledWith(MirrorState.Reconnecting))
+    }
 }
