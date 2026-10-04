@@ -1,6 +1,8 @@
 package `in`.hridayan.ashell.core.shizuku.service
 
+import android.os.IBinder
 import android.os.ParcelFileDescriptor
+import android.os.RemoteException
 import ashell.core.shizuku.IShellProcess
 import java.io.IOException
 import java.io.InputStream
@@ -8,11 +10,15 @@ import java.io.InputStream
 /**
  * Exposes a child [Process] running in the privileged helper to the app over binder.
  * Streams are bridged through pipes created lazily on first request.
+ * The process is destroyed when [clientToken] dies, so it never outlives the app that started it.
  */
 class ShellProcessBinder(
     private val process: Process,
+    private val clientToken: IBinder?,
     private val onFinished: (ShellProcessBinder) -> Unit
 ) : IShellProcess.Stub() {
+
+    private val clientDeath = IBinder.DeathRecipient { destroy() }
 
     @Volatile
     private var inputPipe: ParcelFileDescriptor? = null
@@ -22,6 +28,10 @@ class ShellProcessBinder(
 
     @Volatile
     private var outputPipe: ParcelFileDescriptor? = null
+
+    init {
+        linkToClient()
+    }
 
     @Synchronized
     override fun getInputStream(): ParcelFileDescriptor {
@@ -40,7 +50,7 @@ class ShellProcessBinder(
 
     override fun waitFor(): Int {
         val exitCode = process.waitFor()
-        onFinished(this)
+        finish()
         return exitCode
     }
 
@@ -50,6 +60,20 @@ class ShellProcessBinder(
 
     override fun destroy() {
         process.destroy()
+        finish()
+    }
+
+    private fun linkToClient() {
+        val token = clientToken ?: return
+        try {
+            token.linkToDeath(clientDeath, 0)
+        } catch (_: RemoteException) {
+            process.destroy()
+        }
+    }
+
+    private fun finish() {
+        runCatching { clientToken?.unlinkToDeath(clientDeath, 0) }
         onFinished(this)
     }
 

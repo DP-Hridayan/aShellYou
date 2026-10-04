@@ -50,6 +50,7 @@ class App : Application(), Configuration.Provider {
         val tileComponentManager = entryPoint.tileComponentManager()
 
         tileComponentManager.ensureAllEnabled()
+        entryPoint.shizukuWarmUpInitializer().start()
 
         val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
         Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->

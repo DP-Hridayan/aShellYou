@@ -373,6 +373,7 @@
     <string name="des_high_contrast_dark_mode" comment="Description under High contrast dark mode setting item">Pitch black dark theme for devices with OLED display</string>
     <string name="des_hridayan" comment="Developer bio subtitle in About section">Just a guy who loves apps and design</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">The fixed visual state of the tile when it is shown in the Quick Settings panel</string>
+    <string name="des_keep_shizuku_helper_running" comment="Description under the Keep Shizuku helper running setting; explains that the helper stays in the background so commands start instantly on the next launch">Leave the Shizuku helper in the background after the app closes, so Shizuku commands run instantly on the next launch. Uses some extra memory.</string>
     <string name="des_legal_docs_updated" comment="Message shown in the dialog when legal docs are updated">We have updated our Privacy Policy and Terms of Service. Please take a moment to review the changes.</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">View details of the libraries and licenses used by the app</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">View the licenses that the app and libraries are using</string>
@@ -665,6 +666,7 @@
     <string name="irreversible_action_warning" comment="Warning dialog subtitle warning user that deletion cannot be undone">This action is irreversible!</string>
     <string name="item_deleted" comment="Confirmation toast after item is deleted">Item has been deleted successfully</string>
     <string name="keep_both" comment="Resolution option in file conflict dialog to keep both original and new file">Keep Both</string>
+    <string name="keep_shizuku_helper_running" comment="Setting toggle title to keep the background Shizuku helper process alive after the app closes">Keep Shizuku helper running</string>
     <string name="keep_transferring" comment="Button that dismisses the cancel confirmation and lets the transfer continue">Keep going</string>
     <string name="key_verified_success_msg" comment="Confirmation text when entered AI API key is validated successfully">Key verified successfully</string>
     <string name="label" comment="Field label for custom command label/tag name">Label</string>

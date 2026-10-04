@@ -21,6 +21,13 @@ internal fun SearchScreenScope.behaviorGraph(
             keywords(R.string.basic_shell, R.string.shizuku, R.string.root, R.string.tcpip_mode)
         }
 
+        entry(key = SettingsKeys.KeepShizukuHelperAlive) {
+            title(R.string.keep_shizuku_helper_running)
+            description(R.string.des_keep_shizuku_helper_running)
+            icon(R.drawable.ic_shizuku)
+            keywords(R.string.shizuku)
+        }
+
         entry(key = SettingsKeys.DefaultLaunchIsLocalAdb) {
             title(R.string.set_local_adb_as_default_launch)
             description(R.string.des_set_local_adb_as_default_launch)

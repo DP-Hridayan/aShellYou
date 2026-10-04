@@ -99,6 +99,7 @@ sealed class SettingsKeys<out T>(
     data object IsCustomColorSchemeDarkThemed :
         SettingsKeys<Boolean>("IS_CUSTOM_COLOR_SCHEME_DARK_THEMED", false)
 
+    data object KeepShizukuHelperAlive : SettingsKeys<Boolean>("KEEP_SHIZUKU_HELPER_ALIVE", false)
     data object MirrorFullscreenHintShown : SettingsKeys<Boolean>("MIRROR_FULLSCREEN_HINT_SHOWN", false)
     data object NewCommandsAvailable : SettingsKeys<Boolean>("NEW_COMMANDS_AVAILABLE", true)
     data object RequireAuthentication : SettingsKeys<Boolean>("REQUIRE_AUTHENTICATION", false)

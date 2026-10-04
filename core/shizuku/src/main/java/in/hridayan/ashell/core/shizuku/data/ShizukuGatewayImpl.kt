@@ -10,6 +10,7 @@ import ashell.core.shizuku.IShellUserService
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.core.shizuku.service.ShellUserService
 import rikka.shizuku.Shizuku
+import java.util.Objects
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -22,12 +23,14 @@ class ShizukuGatewayImpl @Inject constructor(
     private val binderRequester: ShizukuBinderRequester
 ) : ShizukuGateway {
 
-    private val userServiceArgs: Shizuku.UserServiceArgs by lazy { buildUserServiceArgs() }
+    private val helperVersion: Int by lazy { computeHelperVersion() }
 
     @Volatile
-    private var activeConnection: ServiceConnection? = null
+    private var activeBinding: ActiveBinding? = null
 
     override fun isBinderAlive(): Boolean = runCatching { Shizuku.pingBinder() }.getOrDefault(false)
+
+    override fun serverBinder(): IBinder? = runCatching { Shizuku.getBinder() }.getOrNull()
 
     override fun isPermissionGranted(): Boolean = runCatching {
         Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED
@@ -36,16 +39,16 @@ class ShizukuGatewayImpl @Inject constructor(
     override fun isServiceAlive(service: IShellUserService): Boolean =
         runCatching { service.asBinder().pingBinder() }.getOrDefault(false)
 
-    override fun bind(callbacks: ShizukuGateway.BindCallbacks) {
-        val connection = callbacks.toServiceConnection()
-        activeConnection = connection
-        Shizuku.bindUserService(userServiceArgs, connection)
+    override fun bind(callbacks: ShizukuGateway.BindCallbacks, keepAlive: Boolean) {
+        val binding = ActiveBinding(buildUserServiceArgs(keepAlive), callbacks.toServiceConnection())
+        activeBinding = binding
+        Shizuku.bindUserService(binding.args, binding.connection)
     }
 
     override fun unbind() {
-        val connection = activeConnection ?: return
-        activeConnection = null
-        runCatching { Shizuku.unbindUserService(userServiceArgs, connection, false) }
+        val binding = activeBinding ?: return
+        activeBinding = null
+        runCatching { Shizuku.unbindUserService(binding.args, binding.connection, true) }
     }
 
     override fun addBinderDeadListener(listener: () -> Unit) {
@@ -54,6 +57,12 @@ class ShizukuGatewayImpl @Inject constructor(
 
     override fun addBinderReceivedListener(listener: () -> Unit) {
         Shizuku.addBinderReceivedListener { listener() }
+    }
+
+    override fun addPermissionGrantedListener(listener: () -> Unit) {
+        Shizuku.addRequestPermissionResultListener { _, grantResult ->
+            if (grantResult == PackageManager.PERMISSION_GRANTED) listener()
+        }
     }
 
     override suspend fun requestBinder(): Boolean =
@@ -70,21 +79,31 @@ class ShizukuGatewayImpl @Inject constructor(
         }
     }
 
-    private fun buildUserServiceArgs(): Shizuku.UserServiceArgs {
+    private fun buildUserServiceArgs(keepAlive: Boolean): Shizuku.UserServiceArgs {
         val component = ComponentName(context.packageName, ShellUserService::class.java.name)
         return Shizuku.UserServiceArgs(component)
-            .daemon(false)
+            .daemon(keepAlive)
             .processNameSuffix(PROCESS_NAME_SUFFIX)
             .tag(SERVICE_TAG)
             .debuggable(isDebuggable())
-            .version(versionCode())
+            .version(helperVersion)
     }
 
     private fun isDebuggable(): Boolean =
         (context.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0
 
-    private fun versionCode(): Int {
+    /**
+     * Shizuku replaces a running helper only when this version changes. Debug reinstalls keep the
+     * same version code, so the install time is mixed in to keep a kept-alive helper from serving
+     * stale code.
+     */
+    private fun computeHelperVersion(): Int {
         val info = context.packageManager.getPackageInfo(context.packageName, 0)
-        return info.longVersionCode.toInt()
+        return Objects.hash(info.longVersionCode, info.lastUpdateTime)
     }
+
+    private class ActiveBinding(
+        val args: Shizuku.UserServiceArgs,
+        val connection: ServiceConnection
+    )
 }
