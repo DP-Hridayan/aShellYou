@@ -18,6 +18,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.ConnectException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.security.PrivateKey;
 import java.security.cert.Certificate;
 import java.security.interfaces.RSAPublicKey;
@@ -126,6 +127,13 @@ public class AdbConnection implements Closeable {
     private volatile int mMaxData;
 
     private volatile int mProtocolVersion;
+
+    /**
+     * The banner the daemon sent with its connect packet, such as "device::...;features=shell_v2,...".
+     * Empty until the handshake completes.
+     */
+    @NonNull
+    private volatile String mBanner = "";
 
     @NonNull
     private final KeyPair mKeyPair;
@@ -348,6 +356,7 @@ public class AdbConnection implements Closeable {
                             synchronized (AdbConnection.this) {
                                 mProtocolVersion = msg.arg0;
                                 mMaxData = msg.arg1;
+                                mBanner = parseBanner(msg.payload);
                                 mConnectionEstablished = true;
                                 AdbConnection.this.notifyAll();
                             }
@@ -410,6 +419,30 @@ public class AdbConnection implements Closeable {
      * @throws IOException                 if the connection fails.
      * @throws AdbPairingRequiredException If ADB lacks pairing
      */
+    /**
+     * @return the banner the daemon sent with its connect packet, without its trailing NUL, or an
+     * empty string before the handshake completes.
+     */
+    @NonNull
+    public String getBanner() {
+        return mBanner;
+    }
+
+    @NonNull
+    private static String parseBanner(@Nullable byte[] payload) {
+        if (payload == null) {
+            return "";
+        }
+        int end = payload.length;
+        for (int i = 0; i < payload.length; i++) {
+            if (payload[i] == 0) {
+                end = i;
+                break;
+            }
+        }
+        return new String(payload, 0, end, StandardCharsets.UTF_8);
+    }
+
     public int getMaxData() throws InterruptedException, IOException, AdbPairingRequiredException {
         if (!mConnectAttempted) {
             throw new IllegalStateException("connect() must be called first");

@@ -19,6 +19,8 @@ import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbState
 import `in`.hridayan.ashell.core.common.domain.repository.TcpIpAdbRepository
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.common.data.adb.AdbConnectionManager
+import `in`.hridayan.ashell.shell.common.data.adb.ShellProtocolV2
+import `in`.hridayan.ashell.shell.common.data.adb.ShellV2OutputReader
 import `in`.hridayan.ashell.shell.common.domain.shell.DirectoryResult
 import `in`.hridayan.ashell.shell.common.domain.shell.ShellDirectory
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.executor.AdbHostCommandExecutor
@@ -46,6 +48,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
@@ -83,6 +86,7 @@ class WifiAdbRepositoryImpl(
         private const val SHELL_READ_BUFFER_SIZE = 4096
         private const val SHELL_IDLE_TIMEOUT_MS = 500L
         private const val SHELL_POLL_INTERVAL_MS = 20L
+        private const val KILL_TIMEOUT_MS = 2_000L
         private const val EXEC_SERVICE_PREFIX = "exec:"
         private const val SHELL_SERVICE_PREFIX = "shell:"
         private const val PROBE_FIRST_REPLY_TIMEOUT_MS = 5_000L
@@ -873,6 +877,10 @@ class WifiAdbRepositoryImpl(
     @Volatile
     private var isAborted = false
 
+    /** The shell running the current v2 command, so an abort can stop its whole process group. */
+    @Volatile
+    private var shellProcessId: Int? = null
+
     private var currentDir = "/storage/emulated/0/"
 
     /**
@@ -1019,41 +1027,10 @@ class WifiAdbRepositoryImpl(
                 // Ignore
             }
 
-            val stream = manager.openStream("shell:$fullCommand")
-            adbShellStream = stream
-
-            val input = stream.openInputStream()
-            val lineBuffer = StringBuilder()
-            val rawBuffer = ByteArray(SHELL_READ_BUFFER_SIZE)
-            var lastDataTimeMs = System.currentTimeMillis()
-
-            while (!isAborted) {
-                val available = availableOrEnd(input, stream) ?: break
-                if (available > 0) {
-                    val bytesRead = input.read(rawBuffer, 0, minOf(available, rawBuffer.size))
-                    if (bytesRead < 0) break
-                    lastDataTimeMs = System.currentTimeMillis()
-                    lineBuffer.append(String(rawBuffer, 0, bytesRead, StandardCharsets.UTF_8))
-                    var newlineIdx: Int
-                    while (lineBuffer.indexOf('\n').also { newlineIdx = it } >= 0) {
-                        emit(
-                            OutputLine(
-                                lineBuffer.substring(0, newlineIdx).trimEnd('\r'),
-                                isError = false
-                            )
-                        )
-                        lineBuffer.delete(0, newlineIdx + 1)
-                    }
-                } else {
-                    if (System.currentTimeMillis() - lastDataTimeMs >= SHELL_IDLE_TIMEOUT_MS) {
-                        break
-                    }
-                    Thread.sleep(SHELL_POLL_INTERVAL_MS)
-                }
-            }
-
-            if (lineBuffer.isNotEmpty()) {
-                emit(OutputLine(lineBuffer.toString().trimEnd('\r'), isError = false))
+            if (ShellProtocolV2.supportedBy(manager.adbConnection?.banner.orEmpty())) {
+                readShellV2(manager, fullCommand)
+            } else {
+                readLegacyShell(manager, fullCommand)
             }
 
             Log.d(TAG, "Command completed. Aborted: $isAborted")
@@ -1085,6 +1062,133 @@ class WifiAdbRepositoryImpl(
     }.flowOn(Dispatchers.IO)
 
     /**
+     * Runs [fullCommand] on the legacy `shell:` service, for devices without shell v2. The command runs
+     * in a terminal there and nothing marks its end, so it is taken to have finished after a quiet
+     * spell.
+     */
+    private suspend fun FlowCollector<OutputLine>.readLegacyShell(
+        manager: AbsAdbConnectionManager,
+        fullCommand: String
+    ) {
+        val stream = manager.openStream("shell:$fullCommand")
+        adbShellStream = stream
+
+        val input = stream.openInputStream()
+        val lineBuffer = StringBuilder()
+        val rawBuffer = ByteArray(SHELL_READ_BUFFER_SIZE)
+        var lastDataTimeMs = System.currentTimeMillis()
+
+        while (!isAborted) {
+            val available = availableOrEnd(input, stream) ?: break
+            if (available > 0) {
+                val bytesRead = input.read(rawBuffer, 0, minOf(available, rawBuffer.size))
+                if (bytesRead < 0) break
+                lastDataTimeMs = System.currentTimeMillis()
+                lineBuffer.append(String(rawBuffer, 0, bytesRead, StandardCharsets.UTF_8))
+                var newlineIdx: Int
+                while (lineBuffer.indexOf('\n').also { newlineIdx = it } >= 0) {
+                    emit(
+                        OutputLine(
+                            lineBuffer.substring(0, newlineIdx).trimEnd('\r'),
+                            isError = false
+                        )
+                    )
+                    lineBuffer.delete(0, newlineIdx + 1)
+                }
+            } else {
+                if (System.currentTimeMillis() - lastDataTimeMs >= SHELL_IDLE_TIMEOUT_MS) {
+                    break
+                }
+                Thread.sleep(SHELL_POLL_INTERVAL_MS)
+            }
+        }
+
+        if (lineBuffer.isNotEmpty()) {
+            emit(OutputLine(lineBuffer.toString().trimEnd('\r'), isError = false))
+        }
+    }
+
+    /**
+     * Runs [fullCommand] without a terminal, so output is not reformatted for one, and ends on the
+     * daemon's exit packet rather than on a quiet spell.
+     */
+    private suspend fun FlowCollector<OutputLine>.readShellV2(
+        manager: AbsAdbConnectionManager,
+        fullCommand: String
+    ) {
+        val stream = manager.openStream(
+            ShellProtocolV2.SERVICE_PREFIX + ShellProtocolV2.withPidPreamble(fullCommand)
+        )
+        adbShellStream = stream
+        stream.openOutputStream().apply {
+            write(ShellProtocolV2.closeStdinPacket())
+            flush()
+        }
+
+        val reader = ShellV2OutputReader()
+        val input = stream.openInputStream()
+        val buffer = ByteArray(SHELL_READ_BUFFER_SIZE)
+
+        try {
+            while (!isAborted && !reader.isFinished) {
+                val chunk = readChunk(input, stream, buffer) ?: break
+                reader.feed(chunk).forEach { emit(it) }
+                shellProcessId = reader.processId
+            }
+            reader.finish().forEach { emit(it) }
+        } finally {
+            shellProcessId = null
+        }
+    }
+
+    /**
+     * Stops what an aborted v2 command left running. Closing its stream only signals the shell, so a
+     * silent child such as `sleep` would otherwise outlive the abort.
+     */
+    private fun killShellProcessGroup(pid: Int) {
+        try {
+            val manager = AdbConnectionManager.getInstance(context)
+            if (!manager.isConnected) return
+
+            val stream = manager.openStream(
+                ShellProtocolV2.SERVICE_PREFIX + ShellProtocolV2.killCommand(pid)
+            )
+            try {
+                awaitShellExit(stream)
+            } finally {
+                stream.close()
+            }
+        } catch (e: Exception) {
+            Log.w(TAG, "Could not stop the aborted command's process group", e)
+        }
+    }
+
+    private fun awaitShellExit(stream: AdbStream) {
+        val reader = ShellV2OutputReader()
+        val input = stream.openInputStream()
+        val buffer = ByteArray(SHELL_READ_BUFFER_SIZE)
+        val deadline = System.currentTimeMillis() + KILL_TIMEOUT_MS
+
+        while (!reader.isFinished && System.currentTimeMillis() < deadline) {
+            reader.feed(readChunk(input, stream, buffer) ?: return)
+        }
+    }
+
+    /**
+     * @return the bytes that arrived, an empty array after a short wait when none had, or null once the
+     * stream has ended.
+     */
+    private fun readChunk(input: InputStream, stream: AdbStream, buffer: ByteArray): ByteArray? {
+        val available = availableOrEnd(input, stream) ?: return null
+        if (available == 0) {
+            Thread.sleep(SHELL_POLL_INTERVAL_MS)
+            return ByteArray(0)
+        }
+        val bytesRead = input.read(buffer, 0, minOf(available, buffer.size))
+        return if (bytesRead < 0) null else buffer.copyOf(bytesRead)
+    }
+
+    /**
      * @return the bytes waiting, or null once the peer closed the stream, which is how a finished
      * command ends.
      *
@@ -1102,6 +1206,7 @@ class WifiAdbRepositoryImpl(
     override fun abortShell() {
         Log.d(TAG, "abortShell() called")
         isAborted = true
+        shellProcessId?.let { pid -> ioScope.launch { killShellProcessGroup(pid) } }
         try {
             adbShellStream?.close()
         } catch (e: Exception) {
