@@ -2,6 +2,7 @@ package `in`.hridayan.ashell.mirror.presentation.screens
 
 import androidx.activity.compose.LocalActivity
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
@@ -23,12 +24,20 @@ fun MirrorScreen(viewModel: MirrorViewModel = hiltViewModel()) {
         viewModel.onStop(isChangingConfigurations = activity?.isChangingConfigurations == true)
     }
 
+    val isInMultiWindow = activity?.isInMultiWindowMode == true
+    LaunchedEffect(isInMultiWindow) {
+        if (isInMultiWindow) viewModel.fullscreen.onExitFullscreen()
+    }
+
     KeepScreenOn()
     FollowVideoOrientation((uiState.session as? MirrorState.Streaming)?.videoSize)
+    ImmersiveSystemBars(enabled = uiState.isFullscreen)
 
     MirrorContent(
         uiState = uiState,
         actions = viewModel,
-        onLeave = { navController.navigateBack() }
+        fullscreenActions = viewModel.fullscreen,
+        onLeave = { navController.navigateBack() },
+        isFullscreenAllowed = !isInMultiWindow
     )
 }

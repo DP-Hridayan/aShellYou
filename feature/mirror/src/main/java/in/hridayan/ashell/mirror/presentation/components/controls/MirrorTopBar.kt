@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.Fullscreen
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -26,19 +27,13 @@ import `in`.hridayan.ashell.core.common.domain.model.ExternalDeviceTransport
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.resources.R
 
-/**
- * @param deviceName null until the device has introduced itself.
- * @param isViewOnly shows a badge when the device refused input, so a touch that does nothing has a
- * visible reason.
- */
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun MirrorTopBar(
-    deviceName: String?,
-    transport: ExternalDeviceTransport,
-    isViewOnly: Boolean,
+    state: MirrorTopBarState,
     onLeave: () -> Unit,
     onViewOnlyInfo: () -> Unit,
+    onEnterFullscreen: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     TopAppBar(
@@ -55,7 +50,7 @@ fun MirrorTopBar(
         title = {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    text = deviceName ?: stringResource(R.string.screen_mirror),
+                    text = state.deviceName ?: stringResource(R.string.screen_mirror),
                     style = MaterialTheme.typography.titleMediumEmphasized,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
@@ -63,19 +58,22 @@ fun MirrorTopBar(
                 )
                 Spacer(Modifier.width(8.dp))
                 Text(
-                    text = stringResource(transport.labelRes()),
+                    text = stringResource(state.transport.labelRes()),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         },
         actions = {
-            if (isViewOnly) {
+            if (state.isViewOnly) {
                 AssistChip(
                     onClick = withHaptic(block = onViewOnlyInfo),
                     label = { Text(stringResource(R.string.view_only)) },
                     leadingIcon = { Icon(Icons.Rounded.Lock, contentDescription = null) }
                 )
+            }
+            IconButton(onClick = withHaptic(block = onEnterFullscreen), enabled = state.canEnterFullscreen) {
+                Icon(imageVector = Icons.Rounded.Fullscreen, contentDescription = stringResource(R.string.full_screen))
             }
         }
     )

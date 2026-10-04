@@ -19,6 +19,12 @@
     <ID>PackageName:DeviceMessageParserTest.kt$package `in`.hridayan.ashell.mirror.domain.protocol</ID>
     <ID>PackageName:DevicePosition.kt$package `in`.hridayan.ashell.mirror.domain.model</ID>
     <ID>PackageName:FakeExternalDeviceChannel.kt$package `in`.hridayan.ashell.mirror.data</ID>
+    <ID>PackageName:FullscreenActions.kt$package `in`.hridayan.ashell.mirror.presentation.model</ID>
+    <ID>PackageName:FullscreenChrome.kt$package `in`.hridayan.ashell.mirror.presentation.model</ID>
+    <ID>PackageName:FullscreenChromeTest.kt$package `in`.hridayan.ashell.mirror.presentation.model</ID>
+    <ID>PackageName:FullscreenController.kt$package `in`.hridayan.ashell.mirror.presentation.viewmodel</ID>
+    <ID>PackageName:FullscreenControllerTest.kt$package `in`.hridayan.ashell.mirror.presentation.viewmodel</ID>
+    <ID>PackageName:FullscreenControls.kt$package `in`.hridayan.ashell.mirror.presentation.components.controls</ID>
     <ID>PackageName:InputAction.kt$package `in`.hridayan.ashell.mirror.domain.model</ID>
     <ID>PackageName:LineSplitter.kt$package `in`.hridayan.ashell.mirror.domain.protocol</ID>
     <ID>PackageName:LineSplitterTest.kt$package `in`.hridayan.ashell.mirror.domain.protocol</ID>
@@ -39,6 +45,7 @@
     <ID>PackageName:MirrorStatusDialog.kt$package `in`.hridayan.ashell.mirror.presentation.components.state</ID>
     <ID>PackageName:MirrorStreamer.kt$package `in`.hridayan.ashell.mirror.data.session</ID>
     <ID>PackageName:MirrorTopBar.kt$package `in`.hridayan.ashell.mirror.presentation.components.controls</ID>
+    <ID>PackageName:MirrorTopBarState.kt$package `in`.hridayan.ashell.mirror.presentation.components.controls</ID>
     <ID>PackageName:MirrorUiState.kt$package `in`.hridayan.ashell.mirror.presentation.model</ID>
     <ID>PackageName:MirrorVideoStage.kt$package `in`.hridayan.ashell.mirror.presentation.components.video</ID>
     <ID>PackageName:MirrorViewModel.kt$package `in`.hridayan.ashell.mirror.presentation.viewmodel</ID>

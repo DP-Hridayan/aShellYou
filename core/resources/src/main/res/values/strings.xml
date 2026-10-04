@@ -1324,6 +1324,10 @@
     <string name="volume_up" comment="Button that presses the volume up key on the mirrored device">Volume up</string>
     <string name="volume_down" comment="Button that presses the volume down key on the mirrored device">Volume down</string>
     <string name="power" comment="Button that presses the power key on the mirrored device">Power</string>
+    <string name="exit_full_screen" comment="Button that leaves the full screen view of the mirrored screen">Exit full screen</string>
+    <string name="leave_mirror" comment="Button in the full screen control panel that closes the screen mirror and returns to the shell">Leave mirror</string>
+    <string name="mirror_controls" comment="Accessibility label of the floating button that opens the full screen mirror controls">Mirror controls</string>
+    <string name="mirror_full_screen_hint" comment="One-time message shown when the screen mirror first goes full screen">Back now goes to the device. Tap the floating button for controls.</string>
     <string name="screenshot" comment="Button that takes a screenshot on the mirrored device">Screenshot</string>
     <string name="quick_settings" comment="Button that pulls down the quick settings panel on the mirrored device">Quick settings</string>
     <string name="device_keys" comment="Accessibility label of the toolbars holding the navigation, volume, power, screenshot and quick settings buttons for the mirrored device">Device keys</string>

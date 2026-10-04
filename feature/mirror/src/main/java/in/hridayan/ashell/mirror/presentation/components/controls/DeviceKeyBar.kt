@@ -59,15 +59,16 @@ fun DeviceKeyBar(
     enabled: Boolean,
     onKey: (DeviceKey) -> Unit,
     onExpandQuickSettings: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    contained: Boolean = true
 ) {
     val description = stringResource(R.string.device_keys)
     val barModifier = modifier.semantics { contentDescription = description }
 
     if (vertical) {
         Row(modifier = barModifier, horizontalArrangement = Arrangement.spacedBy(RowGap)) {
-            KeyGroup(vertical = true) { NavigationKeys(enabled, onKey) }
-            KeyGroup(vertical = true) { ActionKeys(enabled, onKey, onExpandQuickSettings) }
+            KeyGroup(vertical = true, contained = contained) { NavigationKeys(enabled, onKey) }
+            KeyGroup(vertical = true, contained = contained) { ActionKeys(enabled, onKey, onExpandQuickSettings) }
         }
     } else {
         Column(
@@ -75,15 +76,23 @@ fun DeviceKeyBar(
             verticalArrangement = Arrangement.spacedBy(RowGap),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            KeyGroup(vertical = false) { NavigationKeys(enabled, onKey) }
-            KeyGroup(vertical = false) { ActionKeys(enabled, onKey, onExpandQuickSettings) }
+            KeyGroup(vertical = false, contained = contained) { NavigationKeys(enabled, onKey) }
+            KeyGroup(vertical = false, contained = contained) { ActionKeys(enabled, onKey, onExpandQuickSettings) }
         }
     }
 }
 
+/**
+ * One row of keys. When not [contained], the row has no container of its own, because it sits
+ * inside a panel that already provides one.
+ */
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-private fun KeyGroup(vertical: Boolean, content: @Composable () -> Unit) {
+private fun KeyGroup(vertical: Boolean, contained: Boolean, content: @Composable () -> Unit) {
+    if (!contained) {
+        KeyGroupLayout(vertical, content)
+        return
+    }
     val colors = FloatingToolbarDefaults.standardFloatingToolbarColors()
     Surface(
         shape = FloatingToolbarDefaults.ContainerShape,
@@ -91,19 +100,24 @@ private fun KeyGroup(vertical: Boolean, content: @Composable () -> Unit) {
         contentColor = colors.toolbarContentColor,
         shadowElevation = RowElevation
     ) {
-        if (vertical) {
-            Column(
-                modifier = Modifier.padding(RailPadding),
-                verticalArrangement = Arrangement.spacedBy(KeyGap),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) { content() }
-        } else {
-            Row(
-                modifier = Modifier.padding(RowPadding),
-                horizontalArrangement = Arrangement.spacedBy(KeyGap),
-                verticalAlignment = Alignment.CenterVertically
-            ) { content() }
-        }
+        KeyGroupLayout(vertical, content)
+    }
+}
+
+@Composable
+private fun KeyGroupLayout(vertical: Boolean, content: @Composable () -> Unit) {
+    if (vertical) {
+        Column(
+            modifier = Modifier.padding(RailPadding),
+            verticalArrangement = Arrangement.spacedBy(KeyGap),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) { content() }
+    } else {
+        Row(
+            modifier = Modifier.padding(RowPadding),
+            horizontalArrangement = Arrangement.spacedBy(KeyGap),
+            verticalAlignment = Alignment.CenterVertically
+        ) { content() }
     }
 }
 
