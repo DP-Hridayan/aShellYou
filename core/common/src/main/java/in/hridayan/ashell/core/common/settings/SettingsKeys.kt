@@ -99,6 +99,9 @@ sealed class SettingsKeys<out T>(
     data object IsCustomColorSchemeDarkThemed :
         SettingsKeys<Boolean>("IS_CUSTOM_COLOR_SCHEME_DARK_THEMED", false)
 
+    data object KeepShizukuHelperAlive : SettingsKeys<Boolean>("KEEP_SHIZUKU_HELPER_ALIVE", false)
+    data object MirrorFullscreenHintShown : SettingsKeys<Boolean>("MIRROR_FULLSCREEN_HINT_SHOWN", false)
+    data object MirrorStatsOverlay : SettingsKeys<Boolean>("MIRROR_STATS_OVERLAY", false)
     data object NewCommandsAvailable : SettingsKeys<Boolean>("NEW_COMMANDS_AVAILABLE", true)
     data object RequireAuthentication : SettingsKeys<Boolean>("REQUIRE_AUTHENTICATION", false)
     data object RequireAuthenticationForBackups :
@@ -140,6 +143,13 @@ sealed class SettingsKeys<out T>(
     data object LogcatMode :
         SettingsKeys<Int>("LOGCAT_WORKING_MODE", LogcatWorkingMode.READ_LOGS)
 
+    data object MirrorBitrateUsb : SettingsKeys<Int>("MIRROR_BITRATE_USB", 0)
+    data object MirrorBitrateWifi : SettingsKeys<Int>("MIRROR_BITRATE_WIFI", 0)
+    data object MirrorFrameRateUsb : SettingsKeys<Int>("MIRROR_FRAME_RATE_USB", 0)
+    data object MirrorFrameRateWifi : SettingsKeys<Int>("MIRROR_FRAME_RATE_WIFI", 0)
+    data object MirrorResolutionUsb : SettingsKeys<Int>("MIRROR_RESOLUTION_USB", -1)
+    data object MirrorResolutionWifi : SettingsKeys<Int>("MIRROR_RESOLUTION_WIFI", -1)
+
     data object PaletteStyle : SettingsKeys<Int>(
         "PALETTE_STYLE",
         `in`.hridayan.ashell.core.common.domain.model.PaletteStyle.TONAL_SPOT.ordinal
@@ -166,6 +176,10 @@ sealed class SettingsKeys<out T>(
     )
 
     data object LastSavedFileUri : SettingsKeys<String>("LAST_SAVED_FILE_URI", "")
+    data object MirrorCodecUsb : SettingsKeys<String>("MIRROR_CODEC_USB", "h264")
+    data object MirrorCodecWifi : SettingsKeys<String>("MIRROR_CODEC_WIFI", "h264")
+    data object MirrorQualityUsb : SettingsKeys<String>("MIRROR_QUALITY_USB", "auto")
+    data object MirrorQualityWifi : SettingsKeys<String>("MIRROR_QUALITY_WIFI", "auto")
     data object GoogleAccountEmail : SettingsKeys<String>("GOOGLE_ACCOUNT_EMAIL", "")
     data object GoogleAccountPhotoUrl : SettingsKeys<String>("GOOGLE_ACCOUNT_PHOTO_URL", "")
     data object LastCloudBackupTime : SettingsKeys<String>("LAST_CLOUD_BACKUP_TIME", "")

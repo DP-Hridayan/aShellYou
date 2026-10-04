@@ -1,11 +1,12 @@
 package `in`.hridayan.ashell.core.presentation.components.radio
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
@@ -22,12 +23,14 @@ import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedSh
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 
 private const val SELECTED_CORNER_PERCENT = 50
+private const val DESCRIPTION_ALPHA = 0.75f
 
 /**
  * One option in a vertical group of single-choice cards.
  *
  * [index] and [count] place the card in its group, so the outer corners of the group are rounded and
- * the inner ones are tight. The selected card is fully rounded instead.
+ * the inner ones are tight. The selected card is fully rounded instead. An optional [description]
+ * is shown under the label.
  */
 @Composable
 fun RadioOptionCard(
@@ -36,7 +39,8 @@ fun RadioOptionCard(
     index: Int,
     count: Int,
     onSelect: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    description: String? = null
 ) {
     val select = withHaptic(HapticFeedbackType.ToggleOn) { onSelect() }
 
@@ -54,13 +58,21 @@ fun RadioOptionCard(
                 .fillMaxWidth()
                 .padding(vertical = 8.dp, horizontal = 20.dp)
         ) {
-            Text(
-                text = label,
-                style = MaterialTheme.typography.bodyLarge,
-                fontWeight = FontWeight.Bold
-            )
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = label,
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Bold
+                )
 
-            Spacer(Modifier.weight(1f))
+                description?.let {
+                    Text(
+                        text = it,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = LocalContentColor.current.copy(alpha = DESCRIPTION_ALPHA)
+                    )
+                }
+            }
 
             RadioButton(
                 selected = selected,

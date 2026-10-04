@@ -137,13 +137,6 @@ class ShellViewModel @Inject constructor(
         viewModelScope.launch {
             _packages.value = packageRepository.getInstalledPackages()
         }
-        viewModelScope.launch {
-            shizukuPermissionState.collect { isGranted ->
-                if (isGranted) {
-                    shellRepository.warmUpShizuku()
-                }
-            }
-        }
     }
 
     @OptIn(FlowPreview::class)

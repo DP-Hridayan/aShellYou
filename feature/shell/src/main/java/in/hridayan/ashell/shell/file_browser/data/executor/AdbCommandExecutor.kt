@@ -17,6 +17,12 @@ interface AdbCommandExecutor {
 
     suspend fun executeCommand(command: String): String?
 
+    /**
+     * Like [executeCommand], but waits for as long as the command runs. Copying or deleting a large
+     * tree can take minutes, and giving up early would report a failure while the device carries on.
+     */
+    suspend fun executeLongRunningCommand(command: String): String?
+
     /** Metadata straight from the transfer protocol, avoiding a separate shell round trip. */
     suspend fun stat(remotePath: String): SyncStat?
 

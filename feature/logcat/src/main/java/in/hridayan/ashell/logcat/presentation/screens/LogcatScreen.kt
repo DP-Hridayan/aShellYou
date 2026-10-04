@@ -39,7 +39,6 @@ import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import `in`.hridayan.ashell.core.utils.ToastUtils
 import `in`.hridayan.ashell.logcat.domain.model.LogEntry
-import `in`.hridayan.ashell.logcat.domain.model.LogFilter
 import `in`.hridayan.ashell.logcat.domain.model.LogcatPreflightResult
 import `in`.hridayan.ashell.logcat.presentation.components.AutoScrollingLogList
 import `in`.hridayan.ashell.logcat.presentation.components.LogcatSecondaryToolbar
@@ -77,6 +76,7 @@ fun LogcatScreen(
     val isOtherDeviceConnected by viewModel.isOtherDeviceConnected.collectAsStateWithLifecycle()
     val filterProfiles by viewModel.filterProfiles.collectAsStateWithLifecycle()
     val activeProfileIds by viewModel.activeProfileIds.collectAsStateWithLifecycle()
+    val chosenProfileIds by viewModel.chosenProfileIds.collectAsStateWithLifecycle()
     val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
     val expandedIds by viewModel.expandedIds.collectAsStateWithLifecycle()
     val activeTab by viewModel.activeTab.collectAsStateWithLifecycle()
@@ -93,7 +93,7 @@ fun LogcatScreen(
     var searchVisible by rememberSaveable { mutableStateOf(false) }
     var showOtgDialog by rememberSaveable { mutableStateOf(false) }
     var detailEntry by remember { mutableStateOf<LogEntry?>(null) }
-    var profilePendingDelete by remember { mutableStateOf<LogFilter?>(null) }
+    var confirmDeleteChosen by rememberSaveable { mutableStateOf(false) }
 
     val actions = remember(viewModel) {
         LogListActions(
@@ -115,9 +115,14 @@ fun LogcatScreen(
 
     val filterProfileActions = remember(viewModel, navController) {
         FilterProfileActions(
-            onToggle = { viewModel.toggleFilterProfile(it) },
-            onEdit = { navController.navigate(NavRoutes.LogcatFilterEditorScreen(profileId = it)) },
-            onDelete = { profilePendingDelete = it },
+            onTap = { viewModel.onProfileTap(it) },
+            onLongPress = { viewModel.onProfileLongPress(it) },
+            onEdit = {
+                viewModel.clearChosenProfiles()
+                navController.navigate(NavRoutes.LogcatFilterEditorScreen(profileId = it))
+            },
+            onClearChosen = { viewModel.clearChosenProfiles() },
+            onDeleteChosen = { confirmDeleteChosen = true },
         )
     }
 
@@ -148,7 +153,10 @@ fun LogcatScreen(
                 showModeAction = activeTab == LogcatTab.THIS_DEVICE,
                 searchVisible = searchVisible,
                 isPreflightChecking = preflightChecking,
-                onSearchToggle = { searchVisible = !searchVisible },
+                onSearchToggle = {
+                    if (searchVisible) viewModel.search("")
+                    searchVisible = !searchVisible
+                },
                 onPlayPause = {
                     when (activeTab) {
                         LogcatTab.THIS_DEVICE ->
@@ -261,20 +269,31 @@ fun LogcatScreen(
         LogcatFilterProfilesBottomSheet(
             profiles = filterProfiles,
             activeProfileIds = activeProfileIds,
+            chosenProfileIds = chosenProfileIds,
             actions = filterProfileActions,
-            onAddProfile = { navController.navigate(NavRoutes.LogcatFilterEditorScreen()) },
-            onDismiss = { showFilterSheet = false },
+            onAddProfile = {
+                viewModel.clearChosenProfiles()
+                navController.navigate(NavRoutes.LogcatFilterEditorScreen())
+            },
+            onDismiss = {
+                viewModel.clearChosenProfiles()
+                showFilterSheet = false
+            },
         )
     }
 
-    profilePendingDelete?.let { profile ->
+    LaunchedEffect(chosenProfileIds.isEmpty()) {
+        if (chosenProfileIds.isEmpty()) confirmDeleteChosen = false
+    }
+
+    if (confirmDeleteChosen) {
         DeleteFilterProfileDialog(
-            profileName = profile.name,
+            profiles = filterProfiles.filter { it.id in chosenProfileIds },
             onConfirm = {
-                viewModel.deleteFilterProfile(profile.id)
-                profilePendingDelete = null
+                viewModel.deleteChosenProfiles()
+                confirmDeleteChosen = false
             },
-            onDismiss = { profilePendingDelete = null },
+            onDismiss = { confirmDeleteChosen = false },
         )
     }
 

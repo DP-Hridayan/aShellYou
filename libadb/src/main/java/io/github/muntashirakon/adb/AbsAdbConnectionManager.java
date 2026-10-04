@@ -408,15 +408,11 @@ public abstract class AbsAdbConnectionManager implements Closeable {
     @WorkerThread
     @NonNull
     public AdbStream openStream(String destination) throws IOException, InterruptedException {
-        synchronized (mLock) {
-            if (mAdbConnection != null && mAdbConnection.isConnected()) {
-                try {
-                    return mAdbConnection.open(destination);
-                } catch (AdbPairingRequiredException e) {
-                    throw new IllegalStateException(e);
-                }
-            }
-            throw new IOException("Not connected to ADB.");
+        AdbConnection connection = connectedConnection();
+        try {
+            return connection.open(destination);
+        } catch (AdbPairingRequiredException e) {
+            throw new IllegalStateException(e);
         }
     }
 
@@ -434,16 +430,30 @@ public abstract class AbsAdbConnectionManager implements Closeable {
     @NonNull
     public AdbStream openStream(@LocalServices.Services int service, @NonNull String... args)
             throws IOException, InterruptedException {
+        AdbConnection connection = connectedConnection();
+        try {
+            return connection.open(service, args);
+        } catch (AdbPairingRequiredException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    /**
+     * The lock guards only which connection is current, never the open itself. An open waits up to
+     * 30 seconds for the device to answer; holding the lock through it queued every other open
+     * behind a slow one, and a thread waiting to enter a monitor ignores interrupts, so no caller's
+     * timeout could get it back.
+     */
+    @NonNull
+    private AdbConnection connectedConnection() throws IOException {
+        AdbConnection connection;
         synchronized (mLock) {
-            if (mAdbConnection != null && mAdbConnection.isConnected()) {
-                try {
-                    return mAdbConnection.open(service, args);
-                } catch (AdbPairingRequiredException e) {
-                    throw new IllegalStateException(e);
-                }
-            }
+            connection = mAdbConnection;
+        }
+        if (connection == null || !connection.isConnected()) {
             throw new IOException("Not connected to ADB.");
         }
+        return connection;
     }
 
     /**

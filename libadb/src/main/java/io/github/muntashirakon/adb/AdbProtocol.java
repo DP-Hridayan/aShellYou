@@ -293,8 +293,9 @@ final class AdbProtocol {
      */
     @NonNull
     public static byte[] generateOpen(int localId, @NonNull String destination) {
-        ByteBuffer bbuf = ByteBuffer.allocate(destination.length() + 1);
-        bbuf.put(StringCompat.getBytes(destination, "UTF-8"));
+        byte[] encoded = StringCompat.getBytes(destination, "UTF-8");
+        ByteBuffer bbuf = ByteBuffer.allocate(encoded.length + 1);
+        bbuf.put(encoded);
         bbuf.put((byte) 0);
         return generateMessage(A_OPEN, localId, 0, bbuf.array());
     }

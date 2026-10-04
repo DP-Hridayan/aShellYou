@@ -116,6 +116,7 @@ import `in`.hridayan.ashell.shell.file_browser.domain.model.ClipboardOperation
 import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
 import `in`.hridayan.ashell.shell.file_browser.presentation.component.FileListItem
 import `in`.hridayan.ashell.shell.file_browser.presentation.component.OperationItem
+import `in`.hridayan.ashell.shell.file_browser.presentation.component.PasteProgressIndicator
 import `in`.hridayan.ashell.shell.file_browser.presentation.component.PathBreadcrumbs
 import `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog.CreateFolderDialog
 import `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog.DeleteFileDialog
@@ -398,7 +399,15 @@ fun FileBrowserScreen(
                     val listState = rememberLazyListState()
 
                     when {
-                        state.isLoading || state.isPasting -> {
+                        state.isPasting -> {
+                            PasteProgressIndicator(
+                                progress = state.pasteProgress,
+                                onCancel = { viewModel.cancelPaste() },
+                                modifier = Modifier.align(Alignment.Center)
+                            )
+                        }
+
+                        state.isLoading -> {
                             LoadingIndicator(
                                 modifier = Modifier.align(Alignment.Center)
                             )
@@ -723,21 +732,21 @@ fun FileBrowserScreen(
                                 clipboardFile?.let { listOf(it.path) } ?: emptyList()
                             }
 
-                            if (paths.isNotEmpty()) {
-                                when {
-                                    clipboardOperation?.isCopy == true -> {
-                                        viewModel.copyFileBatch(paths, state.currentPath)
-                                    }
+                            val accepted = when {
+                                clipboardOperation?.isCopy == true ->
+                                    viewModel.copyFileBatch(paths, state.currentPath)
 
-                                    clipboardOperation?.isMove == true -> {
-                                        viewModel.moveFileBatch(paths, state.currentPath)
-                                    }
-                                }
+                                clipboardOperation?.isMove == true ->
+                                    viewModel.moveFileBatch(paths, state.currentPath)
+
+                                else -> false
                             }
 
-                            clipboardFile = null
-                            clipboardOperation = null
-                            clipboardPaths = emptyList()
+                            if (accepted || paths.isEmpty()) {
+                                clipboardFile = null
+                                clipboardOperation = null
+                                clipboardPaths = emptyList()
+                            }
                         }
                     ) {
                         Icon(
@@ -930,7 +939,7 @@ fun FileBrowserScreen(
     state.pendingConflict?.let { conflict ->
         FileConflictDialog(
             conflict = conflict,
-            showApplyToAll = conflict.remainingCount > 0,
+            showApplyToAll = conflict.remainingConflicts > 0,
             onResolution = { resolution, applyToAll ->
                 viewModel.resolveConflict(resolution, applyToAll)
             },

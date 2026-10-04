@@ -99,7 +99,7 @@
     <string name="app_permissions" comment="Title for app permissions shortcut">App permissions</string>
     <string name="app_tagline" comment="App subtitle/tagline shown on welcome and about screens">ADB at your fingertips</string>
     <string name="apply">Apply</string>
-    <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">Apply to all (%1$d remaining)</string>
+    <string name="apply_to_all" comment="%1$d = number of further name conflicts in the same folder. Checkbox in the file conflict dialog">Apply to all (%1$d remaining)</string>
     <string name="artifact_id" comment="Technical label for AI artifact identifier in developer options">Artifact ID</string>
     <string name="authenticate" comment="Group header for authentication settings">Authenticate</string>
     <string name="authentication_timeout" comment="Title for authentication timeout setting">Authentication timeout</string>
@@ -373,6 +373,7 @@
     <string name="des_high_contrast_dark_mode" comment="Description under High contrast dark mode setting item">Pitch black dark theme for devices with OLED display</string>
     <string name="des_hridayan" comment="Developer bio subtitle in About section">Just a guy who loves apps and design</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">The fixed visual state of the tile when it is shown in the Quick Settings panel</string>
+    <string name="des_keep_shizuku_helper_running" comment="Description under the Keep Shizuku helper running setting; explains that the helper stays in the background so commands start instantly on the next launch">Leave the Shizuku helper in the background after the app closes, so Shizuku commands run instantly on the next launch. Uses some extra memory.</string>
     <string name="des_legal_docs_updated" comment="Message shown in the dialog when legal docs are updated">We have updated our Privacy Policy and Terms of Service. Please take a moment to review the changes.</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">View details of the libraries and licenses used by the app</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">View the licenses that the app and libraries are using</string>
@@ -410,6 +411,7 @@
     <string name="des_use_biometrics">Allow unlocking the app using your fingerprint or face</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">Proceed with caution as an incorrect image may cause a bootloop</string>
     <string name="description">Description</string>
+    <string name="deselect" comment="Accessibility action label for removing a list item from the current multi-selection">Deselect</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">Deselect all</string>
     <string name="developer" comment="Section title in About screen for lead developer info">Developer</string>
     <string name="developer_options" comment="System Developer Options setting item or prompt">Developer options</string>
@@ -504,9 +506,11 @@
     <string name="fatal" comment="Android log level name for the most severe level, shown in logcat filters">Fatal</string>
     <string name="fb_all_operations_cancelled" comment="Notification toast when all file browser queue operations are cancelled">All operations cancelled</string>
     <string name="fb_cannot_paste_into_selected" comment="Error toast in file browser when target paste item is a file instead of a folder">Cannot paste into selected folder</string>
+    <string name="fb_command_failed_status" comment="%1$d = numeric exit status of a shell command on the connected device. Shown when the command failed without printing a reason">Command failed with exit status %1$d</string>
     <string name="fb_create_folder_failed" comment="%1$s = error message. fb_ prefix = file browser">Failed to create folder: %1$s</string>
     <string name="fb_delete_failed" comment="%1$s = error message">Delete failed: %1$s</string>
     <string name="fb_deleted_items" comment="%1$d = number of deleted items">Deleted %1$d items</string>
+    <string name="fb_destination_exists" comment="Error in file browser when a copy or move target name is already taken on the connected device">An item with this name already exists</string>
     <string name="fb_download_failed" comment="%1$s = error message">Download failed: %1$s</string>
     <string name="fb_downloaded_to" comment="%1$s = file path">Downloaded to %1$s</string>
     <string name="fb_downloading" comment="%1$s = file name">Downloading %1$s</string>
@@ -514,15 +518,23 @@
     <string name="fb_error" comment="%1$s = error message">Error: %1$s</string>
     <string name="fb_file_deleted" comment="Notification toast confirming file deletion">File deleted</string>
     <string name="fb_folder_created" comment="Notification toast confirming new directory creation">Folder created</string>
+    <string name="fb_no_response" comment="Error in file browser when the connected device did not answer a command, for example after the connection dropped">The device did not respond</string>
     <string name="fb_nothing_to_paste" comment="Toast notification when user taps paste but file clipboard is empty">Nothing to paste</string>
     <string name="fb_operation_cancelled" comment="Toast notification when file browser operation is cancelled by user">Operation cancelled</string>
     <string name="fb_otg_transfers_not_supported" comment="OTG = USB On-The-Go">File transfers not supported in OTG mode</string>
     <string name="fb_paste_completed" comment="%1$d = number of items pasted">Completed: %1$d items</string>
     <string name="fb_paste_completed_with_failed" comment="%1$d = completed, %2$d = skipped, %3$d = failed">Completed: %1$d items, %2$d skipped, %3$d failed</string>
     <string name="fb_paste_completed_with_skipped" comment="%1$d = completed, %2$d = skipped">Completed: %1$d items, %2$d skipped</string>
+    <string name="fb_paste_in_progress" comment="Toast in file browser when the user starts a paste while another paste is still running">A paste is already in progress</string>
+    <string name="fb_paste_into_itself" comment="%1$s = folder name. Error toast in file browser when a folder is pasted into itself or into one of its own subfolders">Cannot paste \"%1$s\" into itself</string>
+    <string name="fb_paste_item_failed" comment="%1$s = file or folder name, %2$s = error message from the device. Shown when one pasted item failed">Could not paste \"%1$s\": %2$s</string>
+    <string name="fb_paste_no_free_name" comment="%1$s = file or folder name. Shown when Keep Both cannot find an unused numbered name such as name (1)">No free name left for \"%1$s\"</string>
+    <string name="fb_paste_source_missing" comment="%1$s = file or folder name. Shown when an item copied to the clipboard was deleted or moved before pasting">\"%1$s\" no longer exists</string>
+    <string name="fb_pasting_progress" comment="%1$d = position of the item being pasted, %2$d = total number of items. Progress text while copying or moving files">Pasting %1$d of %2$d</string>
     <string name="fb_reconnected_successfully" comment="Toast notification when file browser ADB session reconnects">Reconnected successfully</string>
     <string name="fb_rename_failed" comment="%1$s = error message">Rename failed: %1$s</string>
     <string name="fb_renamed_successfully" comment="Toast notification confirming file or folder rename">Renamed successfully</string>
+    <string name="fb_unexpected_response" comment="Error in file browser when the connected device answered a command with output the app could not read">Unexpected response from the device</string>
     <string name="fb_upload_failed" comment="%1$s = error message">Upload failed: %1$s</string>
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">File uploaded successfully</string>
     <string name="fb_uploading" comment="%1$s = file name">Uploading %1$s</string>
@@ -654,6 +666,7 @@
     <string name="irreversible_action_warning" comment="Warning dialog subtitle warning user that deletion cannot be undone">This action is irreversible!</string>
     <string name="item_deleted" comment="Confirmation toast after item is deleted">Item has been deleted successfully</string>
     <string name="keep_both" comment="Resolution option in file conflict dialog to keep both original and new file">Keep Both</string>
+    <string name="keep_shizuku_helper_running" comment="Setting toggle title to keep the background Shizuku helper process alive after the app closes">Keep Shizuku helper running</string>
     <string name="keep_transferring" comment="Button that dismisses the cancel confirmation and lets the transfer continue">Keep going</string>
     <string name="key_verified_success_msg" comment="Confirmation text when entered AI API key is validated successfully">Key verified successfully</string>
     <string name="label" comment="Field label for custom command label/tag name">Label</string>
@@ -819,6 +832,7 @@
     <string name="other_device" comment="Selection tab for target device in Logcat Viewer">Other device</string>
     <string name="output" comment="Header title for shell command output window">Output</string>
     <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">Output will appear here…</string>
+    <string name="overflow_count" comment="%1$d = number of further items not shown. Short counter drawn over a small circular icon, for example +2">+%1$d</string>
     <string name="override_bookmarks_limit" comment="Setting toggle title to remove the maximum limit on saved bookmarks count">Override maximum bookmarks limit</string>
     <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">Package name</string>
     <string name="packages" comment="Title for the packages skill toggle in AI settings">Packages</string>
@@ -827,6 +841,7 @@
     <string name="pair_another_device" comment="Button label in Wireless Debugging setup to pair an additional target device">Pair another device</string>
     <string name="pair_connect_failed_message" comment="Dialog message when connecting to a paired wireless ADB device fails">Could not connect to the paired device\nThe device may not be on the same network\nTry pairing again</string>
     <string name="pair_device_to_start" comment="Placeholder banner in wireless debugging screen directing user to pair device via QR or pairing code">Pair a device using QR or pairing code to see it here</string>
+    <string name="pair_device_to_see_it_here" comment="Hint under No saved devices in the device picker sheet, above a Pair button that can pair this device or another one">Pair a device to see it here</string>
     <string name="pair_manually" comment="Option in Wireless Debugging setup to enter IP, Port, and Pairing Code manually">Pair manually</string>
     <string name="pair_this_device" comment="Button label in wireless debugging screen to initiate self-pairing for local device ADB">Pair this device</string>
     <string name="pair_using_code" comment="Option in Wireless Debugging setup to pair device using 6-digit pairing code">Pair using code</string>
@@ -911,6 +926,7 @@
     <string name="rename">Rename</string>
     <string name="rename_title" comment="%1$s = file or folder name">Rename %1$s</string>
     <string name="replace" comment="Resolution option in file conflict dialog to replace existing file">Replace</string>
+    <string name="replace_deletes_folder_warning" comment="Warning in the file conflict dialog when the existing item is a folder, explaining that Replace removes the folder with all of its contents">Replace deletes the existing folder and everything in it.</string>
     <string name="report">Report</string>
     <string name="report_issue" comment="Button in About screen linking to GitHub issue tracker">Report issue</string>
     <string name="repository" comment="Button in About screen linking to GitHub project repository">Repository</string>
@@ -1197,9 +1213,25 @@
     <string name="wireless_not_connected" comment="Status banner shown when target device is not connected over Wireless Debugging">Not Connected</string>
     <string name="wireless_not_connected_message" comment="Instructional body text advising user to pair and connect device first">Your device is not connected via Wireless Debugging. Pair and connect your device first.</string>
     <string name="Z_A" translatable="false">Z → A</string>
+    <plurals name="app_count" comment="Accessibility label of the stacked app icons on a logcat filter profile card; %1$d = number of apps the profile matches">
+        <item quantity="one">%1$d app</item>
+        <item quantity="other">%1$d apps</item>
+    </plurals>
+    <plurals name="delete_profiles" comment="Title of the confirmation dialog shown before deleting several selected logcat filter profiles; %1$d = number of profiles">
+        <item quantity="one">Delete %1$d profile?</item>
+        <item quantity="other">Delete %1$d profiles?</item>
+    </plurals>
+    <plurals name="des_delete_profiles" comment="Body of the confirmation dialog shown before deleting several selected logcat filter profiles; %1$d = number of profiles">
+        <item quantity="one">%1$d profile will be removed. This can\'t be undone.</item>
+        <item quantity="other">%1$d profiles will be removed. This can\'t be undone.</item>
+    </plurals>
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d new entry</item>
         <item quantity="other">%1$d new entries</item>
+    </plurals>
+    <plurals name="profiles_selected" comment="Header of the logcat filter profile list while choosing profiles to edit or delete; %1$d = number chosen">
+        <item quantity="one">%1$d selected</item>
+        <item quantity="other">%1$d selected</item>
     </plurals>
     <plurals name="timeout_minutes" comment="Option for minute timeouts">
         <item quantity="one">%1$d minute</item>
@@ -1294,6 +1326,43 @@
     <string name="volume_up" comment="Button that presses the volume up key on the mirrored device">Volume up</string>
     <string name="volume_down" comment="Button that presses the volume down key on the mirrored device">Volume down</string>
     <string name="power" comment="Button that presses the power key on the mirrored device">Power</string>
+    <string name="exit_full_screen" comment="Button that leaves the full screen view of the mirrored screen">Exit full screen</string>
+    <string name="leave_mirror" comment="Button in the full screen control panel that closes the screen mirror and returns to the shell">Leave mirror</string>
+    <string name="mirror_controls" comment="Accessibility label of the floating button that opens the full screen mirror controls">Mirror controls</string>
+    <string name="mirror_full_screen_hint" comment="One-time message shown when the screen mirror first goes full screen">Back now goes to the device. Tap the floating button for controls.</string>
+    <string name="video_quality" comment="Title of the screen mirror's sheet for choosing the video's resolution, frame rate and bitrate, and the label of the button that opens it">Video quality</string>
+    <string name="quality" comment="Section title in the video quality sheet for picking a quality level">Quality</string>
+    <string name="saver" comment="Video quality level that uses the least data and battery">Saver</string>
+    <string name="balanced" comment="Video quality level between Saver and Sharp">Balanced</string>
+    <string name="sharp" comment="Highest preset video quality level">Sharp</string>
+    <string name="quality_custom" comment="Video quality level where the user picks the resolution, frame rate, bitrate and codec">Custom</string>
+    <string name="quality_auto_description" comment="Explains the Auto video quality level">Picks the smoothest stream both phones can handle</string>
+    <string name="quality_preset_description" comment="Explains a video quality level. %1$d is a size in pixels, %2$d is frames per second">Up to %1$d px at %2$d fps</string>
+    <string name="quality_sharp_description" comment="Explains the Sharp video quality level. %1$d is frames per second">The device\'s full size at %1$d fps</string>
+    <string name="quality_custom_description" comment="Explains the Custom video quality level">Choose each value yourself</string>
+    <string name="resolution" comment="Section title in the video quality sheet for the video's size">Resolution</string>
+    <string name="frame_rate" comment="Section title in the video quality sheet for frames per second">Frame rate</string>
+    <string name="bitrate" comment="Section title in the video quality sheet for the video's data rate">Bitrate</string>
+    <string name="codec" comment="Section title in the video quality sheet for the video compression format, such as H.264">Codec</string>
+    <string name="native_resolution" comment="Resolution option that streams the other device's screen at its own size">Native</string>
+    <string name="long_edge_pixels" comment="A limit on a video's longer side. %1$d is a number of pixels">%1$d px</string>
+    <string name="video_dimensions" comment="A video's width and height in pixels, for example 1080 × 2400">%1$d × %2$d</string>
+    <string name="frames_per_second" comment="%1$d is a number of video frames per second">%1$d fps</string>
+    <string name="megabits_per_second" comment="%1$s is a data rate in megabits per second">%1$s Mbps</string>
+    <string name="quality_summary" comment="What the mirrored video will stream at. %1$s is a size such as 1080 × 2400, %2$s a frame rate such as 60 fps, %3$s a data rate such as 8 Mbps, %4$s a codec such as H.264">%1$s · up to %2$s · %3$s · %4$s</string>
+    <string name="viewer_max_frame_rate" comment="Shown under the frame rate options when the chosen rate is more than this phone's screen shows. %1$d is frames per second">This phone shows at most %1$d fps</string>
+    <string name="quality_limit_target_screen" comment="Why the mirrored video's quality is what it is">Matches the device\'s own screen</string>
+    <string name="quality_limit_target_encoder" comment="Why the mirrored video's quality is what it is">Limited by the device\'s video encoder</string>
+    <string name="quality_limit_viewer_screen" comment="Why the mirrored video's quality is what it is">Limited by this phone\'s screen</string>
+    <string name="quality_limit_viewer_decoder" comment="Why the mirrored video's quality is what it is">Limited by this phone\'s video decoder</string>
+    <string name="quality_limit_connection" comment="Why the mirrored video's quality is what it is: USB or Wi-Fi can't carry more">Limited by the connection</string>
+    <string name="quality_limit_chosen" comment="Why the mirrored video's quality is what it is: the user picked it">Set by you</string>
+    <string name="show_stream_statistics" comment="Switch in the video quality sheet">Show stream statistics</string>
+    <string name="des_show_stream_statistics" comment="Description of the Show stream statistics switch">Frame rate, dropped frames and data rate, over the video</string>
+    <string name="video_struggling" comment="Message when this phone drops many frames of the mirrored video">The video can\'t keep up</string>
+    <string name="lower_quality" comment="Action that lowers the mirrored video's quality one step">Lower quality</string>
+    <string name="codec_fallback" comment="Message after the other device failed to encode the chosen codec. %1$s is a codec name such as H.265">This device can\'t encode %1$s, so H.264 is used</string>
+    <string name="stream_statistics" comment="Overlay over the mirrored video. %1$s is a size, %2$s a frame rate, %3$d a count of dropped frames, %4$s a data rate, %5$s a codec">%1$s · %2$s · %3$d dropped · %4$s · %5$s</string>
     <string name="screenshot" comment="Button that takes a screenshot on the mirrored device">Screenshot</string>
     <string name="quick_settings" comment="Button that pulls down the quick settings panel on the mirrored device">Quick settings</string>
     <string name="device_keys" comment="Accessibility label of the toolbars holding the navigation, volume, power, screenshot and quick settings buttons for the mirrored device">Device keys</string>

@@ -2,49 +2,56 @@
 
 package `in`.hridayan.ashell.logcat.presentation.components.bottomsheet
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.RadioButton
 import androidx.compose.material3.SheetValue
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.common.domain.model.LogcatWorkingMode
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
-import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
+import `in`.hridayan.ashell.core.presentation.components.radio.RadioOptionCard
+import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
+import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
+import `in`.hridayan.ashell.core.presentation.model.ButtonType
 import `in`.hridayan.ashell.core.resources.R
 import kotlinx.coroutines.launch
 
 private data class ModeOption(val value: Int, val labelResId: Int, val descResId: Int? = null)
 
+private val modeOptions = listOf(
+    ModeOption(
+        value = LogcatWorkingMode.READ_LOGS,
+        labelResId = R.string.logcat_permission_title,
+        descResId = R.string.logcat_read_logs_mode_description,
+    ),
+    ModeOption(LogcatWorkingMode.SHIZUKU, R.string.shizuku),
+    ModeOption(LogcatWorkingMode.ROOT, R.string.root),
+    ModeOption(LogcatWorkingMode.WIRELESS, R.string.wireless_debugging),
+)
+
 /**
- * Selects the logcat execution source for the "This Device" tab.
+ * Selects the logcat execution source for the "This Device" tab, styled like the shell's
+ * Connected Device sheet.
  *
  * - Log access → READ_LOGS granted once via ADB; app restart needed after grant
  * - Shizuku / Root → full system log, no permission needed
@@ -62,120 +69,79 @@ fun LogcatModeBottomSheet(
 ) {
     val sheetState = rememberBottomSheetState(
         initialValue = SheetValue.Hidden,
-        enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded)
+        enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded),
     )
     val scope = rememberCoroutineScope()
-    val haptic = LocalHapticFeedback.current
     val settings = LocalSettings.current
-
     var selected by rememberSaveable { mutableIntStateOf(currentMode) }
 
-    val modeOptions = remember {
-        listOf(
-            ModeOption(
-                value = LogcatWorkingMode.READ_LOGS,
-                labelResId = R.string.logcat_permission_title,
-                descResId = R.string.logcat_read_logs_mode_description,
-            ),
-            ModeOption(LogcatWorkingMode.SHIZUKU, R.string.shizuku),
-            ModeOption(LogcatWorkingMode.ROOT, R.string.root),
-            ModeOption(LogcatWorkingMode.WIRELESS, R.string.wireless_debugging),
-        )
+    LaunchedEffect(currentMode) {
+        selected = currentMode
+    }
+
+    val hideThenDismiss: (onHidden: () -> Unit) -> Unit = { onHidden ->
+        scope.launch { sheetState.hide() }.invokeOnCompletion {
+            onDismiss()
+            onHidden()
+        }
     }
 
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = sheetState,
+        containerColor = MaterialTheme.colorScheme.surface,
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
                 .navigationBarsPadding()
                 .padding(horizontal = 24.dp)
                 .padding(bottom = 24.dp),
-            verticalArrangement = Arrangement.spacedBy(4.dp),
+            verticalArrangement = Arrangement.spacedBy(15.dp),
         ) {
-            Text(
+            AutoResizeableText(
                 text = stringResource(R.string.logcat_source),
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(bottom = 12.dp),
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onSurface,
             )
 
-            modeOptions.forEach { option ->
-                ModeOptionRow(
-                    option = option,
-                    selected = option.value == selected,
-                    onSelect = {
-                        haptic.performHapticFeedback(HapticFeedbackType.ToggleOn)
-                        selected = option.value
-                    },
-                )
-            }
+            ModeOptions(selected = selected, onSelect = { selected = it })
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 12.dp),
-                horizontalArrangement = Arrangement.End,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                TextButton(onClick = withHaptic { onDismiss() }) {
-                    Text(stringResource(R.string.cancel))
-                }
-                Spacer(Modifier.padding(4.dp))
-                TextButton(
-                    onClick = withHaptic {
-                        scope.launch { settings.set(SettingsKeys.LogcatMode, selected) }
-                        scope.launch { sheetState.hide() }.invokeOnCompletion {
-                            onDismiss()
-                            if (selected != currentMode) onModeChanged(selected)
-                        }
-                    },
-                    colors = ButtonDefaults.textButtonColors(
-                        contentColor = MaterialTheme.colorScheme.primary,
+            OverflowButtonGroup(
+                modifier = Modifier.padding(top = 9.dp),
+                items = listOf(
+                    ButtonGroupItem(
+                        buttonConfig = ButtonConfigDefaults.defaultConfig(type = ButtonType.OutlinedButton),
+                        text = stringResource(R.string.cancel),
+                        onClick = { hideThenDismiss {} },
                     ),
-                ) {
-                    Text(stringResource(R.string.confirm))
-                }
-            }
+                    ButtonGroupItem(
+                        text = stringResource(R.string.apply),
+                        onClick = {
+                            val chosen = selected
+                            settings.set(SettingsKeys.LogcatMode, chosen)
+                            hideThenDismiss { if (chosen != currentMode) onModeChanged(chosen) }
+                        },
+                    ),
+                ),
+            )
         }
     }
 }
 
 @Composable
-private fun ModeOptionRow(
-    option: ModeOption,
-    selected: Boolean,
-    onSelect: () -> Unit,
-) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = null,
-                onClick = withHaptic(HapticFeedbackType.ToggleOn) { onSelect() },
+private fun ModeOptions(selected: Int, onSelect: (Int) -> Unit) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        modeOptions.forEachIndexed { index, option ->
+            RadioOptionCard(
+                label = stringResource(option.labelResId),
+                description = option.descResId?.let { stringResource(it) },
+                selected = option.value == selected,
+                index = index,
+                count = modeOptions.size,
+                onSelect = { onSelect(option.value) },
             )
-            .padding(vertical = 4.dp),
-    ) {
-        Column(modifier = Modifier.weight(1f)) {
-            Text(
-                text = stringResource(option.labelResId),
-                style = MaterialTheme.typography.bodyLarge,
-            )
-            option.descResId?.let { descResId ->
-                Text(
-                    text = stringResource(descResId),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
         }
-        RadioButton(
-            selected = selected,
-            onClick = withHaptic(HapticFeedbackType.ToggleOn) { onSelect() },
-        )
     }
 }

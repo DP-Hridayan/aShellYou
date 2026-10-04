@@ -1,12 +1,13 @@
 package `in`.hridayan.ashell.logcat.presentation.model
 
 import androidx.compose.runtime.Immutable
-import `in`.hridayan.ashell.logcat.domain.model.LogFilter
 
-/** What a row in the filter profile list can do. */
+/** What the filter profile list can do; see `LogFilterSelection` for tap and long press. */
 @Immutable
 data class FilterProfileActions(
-    val onToggle: (profileId: String) -> Unit,
+    val onTap: (profileId: String) -> Unit,
+    val onLongPress: (profileId: String) -> Unit,
     val onEdit: (profileId: String) -> Unit,
-    val onDelete: (LogFilter) -> Unit,
+    val onClearChosen: () -> Unit,
+    val onDeleteChosen: () -> Unit,
 )

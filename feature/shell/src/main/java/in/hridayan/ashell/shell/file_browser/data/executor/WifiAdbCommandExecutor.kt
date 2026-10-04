@@ -73,6 +73,9 @@ class WifiAdbCommandExecutor @Inject constructor(
         }
     }
 
+    override suspend fun executeLongRunningCommand(command: String): String? =
+        executeCommand(command)
+
     override suspend fun stat(remotePath: String): SyncStat? =
         withSyncSession { it.stat(remotePath) }
 

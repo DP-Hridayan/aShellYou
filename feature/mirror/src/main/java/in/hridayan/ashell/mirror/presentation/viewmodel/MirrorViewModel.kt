@@ -7,19 +7,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
+import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.mirror.data.decoder.SurfaceVideoOutput
 import `in`.hridayan.ashell.mirror.domain.model.ControlMessage
 import `in`.hridayan.ashell.mirror.domain.model.DeviceKey
-import `in`.hridayan.ashell.mirror.domain.model.MirrorQualityPreset
+import `in`.hridayan.ashell.mirror.domain.quality.QualityResolver
 import `in`.hridayan.ashell.mirror.domain.repository.MirrorRepository
+import `in`.hridayan.ashell.mirror.domain.repository.QualityRepository
 import `in`.hridayan.ashell.mirror.presentation.model.MirrorActions
 import `in`.hridayan.ashell.mirror.presentation.model.MirrorUiState
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -36,14 +38,37 @@ private const val TAG = "MirrorSession"
 @HiltViewModel
 class MirrorViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val repository: MirrorRepository
+    private val repository: MirrorRepository,
+    settingsRepository: SettingsRepository,
+    qualityRepository: QualityRepository,
+    qualityResolver: QualityResolver
 ) : ViewModel(), MirrorActions {
 
     private val transport = savedStateHandle.toRoute<NavRoutes.MirrorScreen>().transport
 
-    val uiState: StateFlow<MirrorUiState> = repository.state
-        .onEach { Log.i(TAG, "$transport session: $it") }
-        .map { MirrorUiState(transport = transport, session = it) }
+    val fullscreen = FullscreenController(repository, settingsRepository, viewModelScope)
+
+    val quality = QualityController(
+        transport = transport,
+        repository = repository,
+        qualityRepository = qualityRepository,
+        resolver = qualityResolver,
+        scope = viewModelScope,
+        restartSession = ::restartKeepingFullscreen
+    )
+
+    val uiState: StateFlow<MirrorUiState> = combine(
+        repository.state.onEach { Log.i(TAG, "$transport session: $it") },
+        fullscreen.chrome,
+        quality.state
+    ) { session, chrome, quality ->
+        MirrorUiState(
+            transport = transport,
+            session = session,
+            chrome = chrome.reconciledWith(session),
+            quality = quality
+        )
+    }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(STATE_SHARING_TIMEOUT_MS),
@@ -55,6 +80,12 @@ class MirrorViewModel @Inject constructor(
 
     init {
         startSession()
+        viewModelScope.launch {
+            repository.state.collect { session ->
+                fullscreen.onSession(session)
+                quality.onSession(session)
+            }
+        }
     }
 
     fun onStop(isChangingConfigurations: Boolean) {
@@ -91,7 +122,12 @@ class MirrorViewModel @Inject constructor(
         val previous = session
         session = viewModelScope.launch {
             previous?.cancelAndJoin()
-            repository.run(transport, MirrorQualityPreset.BALANCED.toOptions(transport))
+            repository.run(transport, quality::optionsForNextSession)
         }
+    }
+
+    private fun restartKeepingFullscreen() {
+        fullscreen.holdThroughRestart()
+        startSession()
     }
 }

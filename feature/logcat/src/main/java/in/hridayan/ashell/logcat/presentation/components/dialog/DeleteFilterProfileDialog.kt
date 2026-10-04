@@ -6,6 +6,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
@@ -15,16 +16,18 @@ import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
 import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
 import `in`.hridayan.ashell.core.presentation.model.ButtonType
 import `in`.hridayan.ashell.core.resources.R
+import `in`.hridayan.ashell.logcat.domain.model.LogFilter
 
+/** Confirms deleting [profiles], naming the profile when there is only one. */
 @Composable
 fun DeleteFilterProfileDialog(
-    profileName: String,
+    profiles: List<LogFilter>,
     onConfirm: () -> Unit,
     onDismiss: () -> Unit,
 ) {
     DialogContainer(onDismiss = onDismiss) {
         AutoResizeableText(
-            text = stringResource(R.string.delete_profile),
+            text = deleteTitle(profiles),
             style = MaterialTheme.typography.headlineSmall,
             color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier
@@ -33,10 +36,7 @@ fun DeleteFilterProfileDialog(
         )
 
         Text(
-            text = stringResource(
-                R.string.des_delete_profile,
-                profileName.ifBlank { stringResource(R.string.untitled) },
-            ),
+            text = deleteMessage(profiles),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
@@ -56,4 +56,19 @@ fun DeleteFilterProfileDialog(
             ),
         )
     }
+}
+
+@Composable
+private fun deleteTitle(profiles: List<LogFilter>): String = when (profiles.size) {
+    1 -> stringResource(R.string.delete_profile)
+    else -> pluralStringResource(R.plurals.delete_profiles, profiles.size, profiles.size)
+}
+
+@Composable
+private fun deleteMessage(profiles: List<LogFilter>): String = when (profiles.size) {
+    1 -> stringResource(
+        R.string.des_delete_profile,
+        profiles.single().name.ifBlank { stringResource(R.string.untitled) },
+    )
+    else -> pluralStringResource(R.plurals.des_delete_profiles, profiles.size, profiles.size)
 }

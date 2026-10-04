@@ -3,6 +3,11 @@
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.image
 
 import android.graphics.Bitmap
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.AnimationVector1D
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -17,11 +22,18 @@ import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -31,10 +43,14 @@ import `in`.hridayan.ashell.core.common.domain.model.wifiadb.WifiAdbState
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.resources.R
+import kotlinx.coroutines.launch
 
 private const val SCRIM_ALPHA = 0.8f
 private const val BUSY_SCRIM_ALPHA = 0.9f
 private val OVERLAY_ICON_SIZE = 72.dp
+private const val POP_START_SCALE = 0.6f
+private const val POP_FADE_MS = 180
+private const val NOT_YET_SHOWN = 0
 
 @Composable
 fun QRImage(
@@ -46,9 +62,15 @@ fun QRImage(
     wifiAdbState: WifiAdbState = WifiAdbState.Idle
 ) {
     val qrImage = qrBitmap.asImageBitmap()
+    val popIn = rememberPopIn(qrBitmap)
 
     Box(
         modifier = modifier
+            .graphicsLayer {
+                scaleX = popIn.scale.value
+                scaleY = popIn.scale.value
+                alpha = popIn.alpha.value
+            }
             .size(200.dp)
             .clip(MaterialShapes.Cookie9Sided.toShape())
             .background(Color.White),
@@ -130,3 +152,34 @@ fun QRImage(
         }
     }
 }
+
+/**
+ * Pops the QR in each time a new image arrives, keyed on the bitmap rather than the pairing code,
+ * because a retry publishes the new code before its image is ready.
+ *
+ * The last image that popped is saved, so returning to the tab after the pager disposed it does not
+ * replay the animation for a QR the user has already seen.
+ */
+@Composable
+private fun rememberPopIn(image: Bitmap): PopIn {
+    val imageId = System.identityHashCode(image)
+    var lastPoppedId by rememberSaveable { mutableIntStateOf(NOT_YET_SHOWN) }
+    val startHidden = lastPoppedId != imageId
+    val scale = remember(imageId) { Animatable(if (startHidden) POP_START_SCALE else 1f) }
+    val alpha = remember(imageId) { Animatable(if (startHidden) 0f else 1f) }
+
+    LaunchedEffect(imageId) {
+        if (lastPoppedId == imageId) return@LaunchedEffect
+        lastPoppedId = imageId
+        launch { alpha.animateTo(1f, tween(POP_FADE_MS)) }
+        scale.animateTo(1f, spring(dampingRatio = Spring.DampingRatioLowBouncy))
+    }
+
+    return remember(scale, alpha) { PopIn(scale, alpha) }
+}
+
+/** The QR's current scale and opacity while it pops in, both 1 once it has settled. */
+private data class PopIn(
+    val scale: Animatable<Float, AnimationVector1D>,
+    val alpha: Animatable<Float, AnimationVector1D>
+)

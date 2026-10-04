@@ -40,23 +40,23 @@ class LogFilterSelectionTest {
     }
 
     @Test
-    fun `toggling activates and deactivates a profile`() = runTest {
+    fun `tapping activates and deactivates a profile`() = runTest {
         val repository = FakeFilterRepository(listOf(errors, network))
         val selection = LogFilterSelection(repository, backgroundScope)
-        selection.toggle("errors")
+        selection.tap("errors")
         runCurrent()
         assertEquals(setOf("errors"), selection.activeProfileIds.value)
-        selection.toggle("errors")
+        selection.tap("errors")
         runCurrent()
         assertTrue(selection.activeProfileIds.value.isEmpty())
     }
 
     @Test
-    fun `two quick toggles both take effect`() = runTest {
+    fun `two quick taps both take effect`() = runTest {
         val repository = FakeFilterRepository(listOf(errors, network))
         val selection = LogFilterSelection(repository, backgroundScope)
-        selection.toggle("errors")
-        selection.toggle("network")
+        selection.tap("errors")
+        selection.tap("network")
         runCurrent()
         assertEquals(setOf("errors", "network"), selection.activeProfileIds.value)
     }
@@ -65,7 +65,8 @@ class LogFilterSelectionTest {
     fun `deleting an active profile removes it from the criteria`() = runTest {
         val repository = FakeFilterRepository(listOf(errors, network), activeIds = setOf("errors"))
         val selection = LogFilterSelection(repository, backgroundScope)
-        selection.delete("errors")
+        selection.longPress("errors")
+        selection.deleteChosen()
         runCurrent()
         assertEquals(listOf(network), selection.profiles.value)
         assertTrue(selection.criteria.value.activeProfiles.isEmpty())
@@ -83,7 +84,7 @@ class LogFilterSelectionTest {
     fun `a failed toggle leaves the selection unchanged`() = runTest {
         val repository = FakeFilterRepository(listOf(errors)).apply { failure = IllegalStateException() }
         val selection = LogFilterSelection(repository, backgroundScope)
-        selection.toggle("errors")
+        selection.tap("errors")
         runCurrent()
         assertTrue(selection.activeProfileIds.value.isEmpty())
     }
@@ -129,5 +130,96 @@ class LogFilterSelectionTest {
         selection.criteriaFor(flowOf(resolver))
         runCurrent()
         assertEquals(0, resolver.lookups)
+    }
+
+    @Test
+    fun `a tap with nothing chosen turns the profile on`() = runTest {
+        val repository = FakeFilterRepository(listOf(errors, network))
+        val selection = LogFilterSelection(repository, backgroundScope)
+        selection.tap("errors")
+        runCurrent()
+        assertEquals(setOf("errors"), selection.activeProfileIds.value)
+        assertTrue(selection.chosenProfileIds.value.isEmpty())
+    }
+
+    @Test
+    fun `a long press chooses the profile without changing what is active`() = runTest {
+        val repository = FakeFilterRepository(listOf(errors, network))
+        val selection = LogFilterSelection(repository, backgroundScope)
+        selection.longPress("errors")
+        runCurrent()
+        assertEquals(setOf("errors"), selection.chosenProfileIds.value)
+        assertTrue(selection.activeProfileIds.value.isEmpty())
+    }
+
+    @Test
+    fun `while choosing, a tap chooses or unchooses instead of activating`() = runTest {
+        val repository = FakeFilterRepository(listOf(errors, network))
+        val selection = LogFilterSelection(repository, backgroundScope)
+        selection.longPress("errors")
+        selection.tap("network")
+        runCurrent()
+        assertEquals(setOf("errors", "network"), selection.chosenProfileIds.value)
+        assertTrue(selection.activeProfileIds.value.isEmpty())
+        selection.tap("errors")
+        assertEquals(setOf("network"), selection.chosenProfileIds.value)
+    }
+
+    @Test
+    fun `while choosing, a long press also toggles the choice`() = runTest {
+        val repository = FakeFilterRepository(listOf(errors, network))
+        val selection = LogFilterSelection(repository, backgroundScope)
+        selection.longPress("errors")
+        selection.longPress("network")
+        selection.longPress("errors")
+        assertEquals(setOf("network"), selection.chosenProfileIds.value)
+    }
+
+    @Test
+    fun `unchoosing the last profile ends choosing, so the next tap activates again`() = runTest {
+        val repository = FakeFilterRepository(listOf(errors, network))
+        val selection = LogFilterSelection(repository, backgroundScope)
+        selection.longPress("errors")
+        selection.tap("errors")
+        selection.tap("network")
+        runCurrent()
+        assertTrue(selection.chosenProfileIds.value.isEmpty())
+        assertEquals(setOf("network"), selection.activeProfileIds.value)
+    }
+
+    @Test
+    fun `clearing the choice ends choosing`() = runTest {
+        val repository = FakeFilterRepository(listOf(errors, network))
+        val selection = LogFilterSelection(repository, backgroundScope)
+        selection.longPress("errors")
+        selection.longPress("network")
+        selection.clearChosen()
+        assertTrue(selection.chosenProfileIds.value.isEmpty())
+    }
+
+    @Test
+    fun `deleting the chosen profiles removes all of them and ends choosing`() = runTest {
+        val repository = FakeFilterRepository(listOf(errors, network, chrome), activeIds = setOf("errors"))
+        val selection = LogFilterSelection(repository, backgroundScope)
+        runCurrent()
+        selection.longPress("errors")
+        selection.longPress("network")
+        selection.deleteChosen()
+        runCurrent()
+        assertEquals(listOf(chrome), selection.profiles.value)
+        assertTrue(selection.activeProfileIds.value.isEmpty())
+        assertTrue(selection.chosenProfileIds.value.isEmpty())
+    }
+
+    @Test
+    fun `a chosen profile deleted elsewhere is dropped from the choice`() = runTest {
+        val repository = FakeFilterRepository(listOf(errors, network))
+        val selection = LogFilterSelection(repository, backgroundScope)
+        runCurrent()
+        selection.longPress("errors")
+        selection.longPress("network")
+        repository.profiles.value = listOf(network)
+        runCurrent()
+        assertEquals(setOf("network"), selection.chosenProfileIds.value)
     }
 }

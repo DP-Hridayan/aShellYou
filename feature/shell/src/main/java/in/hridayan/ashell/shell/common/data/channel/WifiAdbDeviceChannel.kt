@@ -31,11 +31,7 @@ class WifiAdbDeviceChannel @Inject constructor(
     override suspend fun openSyncTransport(service: String): SyncTransport =
         LibadbSyncTransport(openLibadbStream(service))
 
-    /**
-     * The library's open waits once without a timeout, so a rejection that lands before the wait
-     * starts would park it forever while it holds the manager lock. Interruptible, so the caller's
-     * timeout can always get it back.
-     */
+    /** The library's open blocks until the device answers, so it is interruptible for callers' timeouts. */
     private suspend fun openLibadbStream(service: String): AdbStream =
         runInterruptible(Dispatchers.IO) {
             AdbConnectionManager.getInstance(context).openStream(service)

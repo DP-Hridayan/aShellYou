@@ -1,9 +1,8 @@
 package `in`.hridayan.ashell.shell.file_browser.presentation.model
 
-import `in`.hridayan.ashell.shell.file_browser.domain.model.ConflictResolution
 import `in`.hridayan.ashell.shell.file_browser.domain.model.FileConflict
 import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperation
-import `in`.hridayan.ashell.shell.file_browser.domain.model.PendingPasteOperation
+import `in`.hridayan.ashell.shell.file_browser.domain.model.PasteProgress
 import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
 
 data class FileBrowserState(
@@ -17,9 +16,8 @@ data class FileBrowserState(
     val lastSuccessfulPath: String = "/storage/emulated/0",
     // Conflict handling state
     val pendingConflict: FileConflict? = null,
-    val pendingPasteOperation: PendingPasteOperation? = null,
-    val applyToAllResolution: ConflictResolution? = null,
     val isPasting: Boolean = false, // True when paste is actively executing
+    val pasteProgress: PasteProgress? = null,
     // Selection mode
     val selectedFiles: Set<String> = emptySet(),
     val isSelectionMode: Boolean = false

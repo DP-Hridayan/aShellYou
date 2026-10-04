@@ -13,20 +13,26 @@ import `in`.hridayan.ashell.core.common.domain.repository.OtgRepository
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.file_browser.data.executor.OtgCommandExecutor
 import `in`.hridayan.ashell.shell.file_browser.data.repository.FileBrowserRepositoryImpl
+import `in`.hridayan.ashell.shell.file_browser.domain.model.ConflictDecision
 import `in`.hridayan.ashell.shell.file_browser.domain.model.ConflictResolution
 import `in`.hridayan.ashell.shell.file_browser.domain.model.FileConflict
 import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperation
 import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperationResult
 import `in`.hridayan.ashell.shell.file_browser.domain.model.OperationStatus
 import `in`.hridayan.ashell.shell.file_browser.domain.model.OperationType
-import `in`.hridayan.ashell.shell.file_browser.domain.model.PendingPasteItem
-import `in`.hridayan.ashell.shell.file_browser.domain.model.PendingPasteOperation
+import `in`.hridayan.ashell.shell.file_browser.domain.model.PasteFailure
+import `in`.hridayan.ashell.shell.file_browser.domain.model.PasteFailureReason
+import `in`.hridayan.ashell.shell.file_browser.domain.model.PasteRequest
+import `in`.hridayan.ashell.shell.file_browser.domain.model.PasteSummary
 import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
 import `in`.hridayan.ashell.shell.file_browser.domain.repository.FileBrowserRepository
+import `in`.hridayan.ashell.shell.file_browser.domain.usecase.PasteFilesUseCase
+import `in`.hridayan.ashell.shell.file_browser.domain.util.RemotePaths
 import `in`.hridayan.ashell.shell.file_browser.presentation.model.FileBrowserEvent
 import `in`.hridayan.ashell.shell.file_browser.presentation.model.FileBrowserState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -35,6 +41,7 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.io.File
 import java.util.UUID
@@ -45,7 +52,8 @@ class FileBrowserViewModel @Inject constructor(
     private val repository: FileBrowserRepository,
     private val wifiAdbRepository: WifiAdbRepository,
     private val otgRepository: OtgRepository,
-    private val otgExecutor: OtgCommandExecutor
+    private val otgExecutor: OtgCommandExecutor,
+    private val pasteFiles: PasteFilesUseCase
 ) : ViewModel() {
 
     companion object {
@@ -62,6 +70,9 @@ class FileBrowserViewModel @Inject constructor(
     private var navigationJob: Job? = null
     private val operationJobs = mutableMapOf<String, Job>()
     private var lastConnectedDevice: WifiAdbDevice? = null
+    private var pasteJob: Job? = null
+    private var pendingConflictDecision: CompletableDeferred<ConflictDecision?>? = null
+    private var pasteCancelRequested = false
 
     // Track connection mode for conditional logic
     private var connectionMode = AdbFileBrowserConnectionMode.WIFI_ADB
@@ -560,340 +571,124 @@ class FileBrowserViewModel @Inject constructor(
 
     fun getSelectedFilePaths(): List<String> = _state.value.selectedFiles.toList()
 
-    /**
-     * Start a batch paste operation with conflict detection for all items upfront.
-     * This is the main entry point for copy/move from clipboard.
-     */
-    fun copyFileBatch(sourcePaths: List<String>, destDir: String) {
-        startPasteOperation(sourcePaths, destDir, OperationType.COPY)
+    /** @return false when the paste was refused, so the caller should keep its clipboard. */
+    fun copyFileBatch(sourcePaths: List<String>, destDir: String): Boolean =
+        startPaste(PasteRequest(sourcePaths, destDir, OperationType.COPY))
+
+    /** @return false when the paste was refused, so the caller should keep its clipboard. */
+    fun moveFileBatch(sourcePaths: List<String>, destDir: String): Boolean =
+        startPaste(PasteRequest(sourcePaths, destDir, OperationType.MOVE))
+
+    private fun startPaste(request: PasteRequest): Boolean {
+        val refusal = when {
+            pasteJob?.isActive == true -> R.string.fb_paste_in_progress
+            request.sourcePaths.isEmpty() -> R.string.fb_nothing_to_paste
+            else -> null
+        }
+        if (refusal != null) {
+            viewModelScope.launch { _events.emit(FileBrowserEvent.ShowToast(refusal)) }
+            return false
+        }
+
+        pasteCancelRequested = false
+        pasteJob = viewModelScope.launch { runPaste(request) }
+        return true
     }
 
-    fun moveFileBatch(sourcePaths: List<String>, destDir: String) {
-        startPasteOperation(sourcePaths, destDir, OperationType.MOVE)
-    }
-
-    private fun startPasteOperation(
-        sourcePaths: List<String>,
-        destDir: String,
-        operationType: OperationType
-    ) {
-        viewModelScope.launch {
-            val items = sourcePaths.map { sourcePath ->
-                val fileName = sourcePath.substringAfterLast("/")
-                val destPath = "$destDir/$fileName"
-                // Determine if source is directory with quick timeout fallback
-                val isDir = try {
-                    kotlinx.coroutines.withTimeoutOrNull(500L) {
-                        repository.isDirectory(sourcePath).getOrNull()
-                    } ?: !fileName.contains(".")
-                } catch (e: Exception) {
-                    !fileName.contains(".")
-                }
-                PendingPasteItem(
-                    sourcePath = sourcePath,
-                    destPath = destPath,
-                    isDirectory = isDir
-                )
-            }
-
-            if (items.isEmpty()) {
-                _events.emit(FileBrowserEvent.ShowToast(R.string.fb_nothing_to_paste))
-                return@launch
-            }
-
-            val pendingOp = PendingPasteOperation(
-                operationType = operationType,
-                destDir = destDir,
-                items = items,
-                currentIndex = 0
+    private suspend fun runPaste(request: PasteRequest) {
+        _state.update { it.copy(isPasting = true, pasteProgress = null) }
+        try {
+            val summary = pasteFiles(
+                request = request,
+                resolveConflict = ::awaitConflictDecision,
+                isCancelled = { pasteCancelRequested },
+                onProgress = { progress -> _state.update { it.copy(pasteProgress = progress) } }
             )
-
-            _state.value = _state.value.copy(
-                pendingPasteOperation = pendingOp,
-                applyToAllResolution = null
-            )
-
-            processNextPasteItem()
+            emitPasteSummary(summary)
+        } finally {
+            _state.update { it.copy(isPasting = false, pasteProgress = null, pendingConflict = null) }
+            refresh()
         }
     }
 
-    /**
-     * Process the next item in the pending paste operation.
-     * Called after each conflict resolution or when no conflict exists.
-     */
-    private fun processNextPasteItem() {
-        viewModelScope.launch {
-            val pendingOp = _state.value.pendingPasteOperation ?: return@launch
+    private suspend fun awaitConflictDecision(conflict: FileConflict): ConflictDecision? {
+        val decision = CompletableDeferred<ConflictDecision?>()
+        pendingConflictDecision = decision
+        _state.update { it.copy(pendingConflict = conflict) }
 
-            if (pendingOp.isComplete) {
-                finalizePasteOperation()
-                return@launch
-            }
-
-            val currentItem = pendingOp.currentItem ?: return@launch
-
-            // Use cached file list to check for conflicts (no ADB calls)
-            val destFileName = currentItem.destPath.substringAfterLast("/")
-            val existingFile = _state.value.files.find { it.name == destFileName }
-            val destExists = existingFile != null
-            val destIsDir = existingFile?.isDirectory ?: false
-
-            if (destExists) {
-                val cachedResolution = _state.value.applyToAllResolution
-                if (cachedResolution != null) {
-                    executeResolution(cachedResolution, currentItem, pendingOp)
-                } else {
-                    val conflict = FileConflict(
-                        sourcePath = currentItem.sourcePath,
-                        destPath = currentItem.destPath,
-                        operationType = pendingOp.operationType,
-                        isDirectory = destIsDir,
-                        sourceIsDirectory = currentItem.isDirectory,
-                        fileName = currentItem.sourcePath.substringAfterLast("/"),
-                        remainingCount = pendingOp.remainingCount
-                    )
-                    _state.value = _state.value.copy(pendingConflict = conflict)
-                }
-            } else {
-                executeOperation(currentItem, pendingOp)
-            }
+        return try {
+            decision.await()
+        } finally {
+            pendingConflictDecision = null
+            _state.update { it.copy(pendingConflict = null) }
         }
     }
 
-    /**
-     * Execute the actual copy/move operation for an item.
-     */
-    private suspend fun executeOperation(item: PendingPasteItem, pendingOp: PendingPasteOperation) {
-        // Show loading indicator
-        _state.value = _state.value.copy(isPasting = true)
+    private suspend fun emitPasteSummary(summary: PasteSummary) {
+        val handledCount = summary.completedCount + summary.skippedCount + summary.failedCount
 
-        val result = when (pendingOp.operationType) {
-            OperationType.COPY -> repository.copy(item.sourcePath, item.destPath)
-            OperationType.MOVE -> repository.move(item.sourcePath, item.destPath)
-            else -> Result.failure(Exception("Invalid operation type"))
-        }
-
-        val newOp = result.fold(
-            onSuccess = {
-                pendingOp.copy(
-                    currentIndex = pendingOp.currentIndex + 1,
-                    processedCount = pendingOp.processedCount + 1
-                )
-            },
-            onFailure = {
-                Log.e(
-                    TAG,
-                    "Failed to ${pendingOp.operationType.name.lowercase()} ${item.sourcePath}",
-                    it
-                )
-                pendingOp.copy(
-                    currentIndex = pendingOp.currentIndex + 1,
-                    failedCount = pendingOp.failedCount + 1
-                )
-            }
-        )
-
-        _state.value = _state.value.copy(pendingPasteOperation = newOp)
-        processNextPasteItem()
-    }
-
-    /**
-     * Execute a conflict resolution for the current item.
-     */
-    private suspend fun executeResolution(
-        resolution: ConflictResolution,
-        item: PendingPasteItem,
-        pendingOp: PendingPasteOperation
-    ) {
-        when (resolution) {
-            ConflictResolution.SKIP -> {
-                // Skip - just move to next item
-                val newOp = pendingOp.copy(
-                    currentIndex = pendingOp.currentIndex + 1,
-                    skippedCount = pendingOp.skippedCount + 1
-                )
-                _state.value = _state.value.copy(pendingPasteOperation = newOp)
-                processNextPasteItem()
-            }
-
-            ConflictResolution.REPLACE -> {
-                // Delete existing, then copy/move
-                val deleteResult = repository.delete(item.destPath)
-                if (deleteResult.isSuccess) {
-                    executeOperation(item, pendingOp)
-                } else {
-                    Log.e(TAG, "Failed to delete ${item.destPath} for replace")
-                    val newOp = pendingOp.copy(
-                        currentIndex = pendingOp.currentIndex + 1,
-                        failedCount = pendingOp.failedCount + 1
-                    )
-                    _state.value = _state.value.copy(pendingPasteOperation = newOp)
-                    processNextPasteItem()
-                }
-            }
-
-            ConflictResolution.KEEP_BOTH -> {
-                // Generate unique name and copy/move
-                val uniquePath = generateUniqueName(item.destPath)
-                val newItem = item.copy(destPath = uniquePath)
-                executeOperation(newItem, pendingOp)
-            }
-
-            ConflictResolution.MERGE -> {
-                // Merge directories
-                if (item.isDirectory) {
-                    mergeDirectoryContents(item, pendingOp)
-                } else {
-                    // For files, merge = keep both
-                    executeResolution(ConflictResolution.KEEP_BOTH, item, pendingOp)
-                }
-            }
-        }
-    }
-
-    /**
-     * Generate a unique name for Keep Both: filename (1).ext, filename (2).ext, etc.
-     */
-    private suspend fun generateUniqueName(destPath: String): String {
-        val file = File(destPath)
-        val baseName = file.nameWithoutExtension
-        val extension = file.extension.let { if (it.isNotEmpty()) ".$it" else "" }
-        val parentPath = file.parent ?: _state.value.currentPath
-
-        var counter = 1
-        var newPath: String
-        do {
-            newPath = "$parentPath/$baseName ($counter)$extension"
-            counter++
-        } while (repository.exists(newPath).getOrNull() == true && counter < 100)
-
-        return newPath
-    }
-
-    /**
-     * Merge source directory contents into destination directory.
-     * Contents of source are copied/moved into destination without deleting destination.
-     */
-    private suspend fun mergeDirectoryContents(
-        item: PendingPasteItem,
-        pendingOp: PendingPasteOperation
-    ) {
-        val sourceFiles = repository.listFiles(item.sourcePath).getOrNull() ?: emptyList()
-        val filesToMerge = sourceFiles.filterNot { it.isParentDirectory || it.name == ".." }
-
-        if (filesToMerge.isEmpty()) {
-            // Empty source folder - skip
-            val newOp = pendingOp.copy(
-                currentIndex = pendingOp.currentIndex + 1,
-                skippedCount = pendingOp.skippedCount + 1
-            )
-            _state.value = _state.value.copy(pendingPasteOperation = newOp)
-            _events.emit(FileBrowserEvent.ShowToast(R.string.fb_empty_folder_skipped))
-            processNextPasteItem()
-            return
-        }
-
-        // Create items for nested paste operation
-        val nestedItems = filesToMerge.map { file ->
-            PendingPasteItem(
-                sourcePath = file.path,
-                destPath = "${item.destPath}/${file.name}",
-                isDirectory = file.isDirectory
-            )
-        }
-
-        // Create nested operation - append to current items
-        val remainingItems = pendingOp.items.drop(pendingOp.currentIndex + 1)
-        val newItems = nestedItems + remainingItems
-
-        val newOp = PendingPasteOperation(
-            operationType = pendingOp.operationType,
-            destDir = item.destPath,
-            items = newItems,
-            currentIndex = 0,
-            processedCount = pendingOp.processedCount,
-            skippedCount = pendingOp.skippedCount,
-            failedCount = pendingOp.failedCount
-        )
-
-        _state.value = _state.value.copy(pendingPasteOperation = newOp)
-
-        // If move operation, we'll delete source folder after merge completes
-        // For now, just process nested items
-        processNextPasteItem()
-    }
-
-    /**
-     * Finalize the paste operation - show summary and cleanup state.
-     */
-    private suspend fun finalizePasteOperation() {
-        val pendingOp = _state.value.pendingPasteOperation ?: return
-
-        _state.value = _state.value.copy(
-            pendingPasteOperation = null,
-            pendingConflict = null,
-            applyToAllResolution = null,
-            isPasting = false
-        )
-
-        val event = when {
-            pendingOp.failedCount == 0 && pendingOp.skippedCount == 0 ->
-                FileBrowserEvent.ShowToast(
-                    R.string.fb_paste_completed,
-                    listOf(pendingOp.processedCount)
-                )
-
-            pendingOp.failedCount == 0 ->
-                FileBrowserEvent.ShowToast(
-                    R.string.fb_paste_completed_with_skipped,
-                    listOf(pendingOp.processedCount, pendingOp.skippedCount)
-                )
-
-            else ->
-                FileBrowserEvent.ShowToast(
-                    R.string.fb_paste_completed_with_failed,
-                    listOf(pendingOp.processedCount, pendingOp.skippedCount, pendingOp.failedCount)
-                )
-        }
-
-        _events.emit(event)
-        refresh()
-    }
-
-    /**
-     * Handle user's conflict resolution from the dialog.
-     */
-    fun resolveConflict(resolution: ConflictResolution, applyToAll: Boolean = false) {
-        _state.value.pendingConflict ?: return
-        val pendingOp = _state.value.pendingPasteOperation ?: return
-        val currentItem = pendingOp.currentItem ?: return
-
-        // Cache resolution if apply-to-all
-        if (applyToAll) {
-            _state.value = _state.value.copy(applyToAllResolution = resolution)
-        }
-
-        // Clear current conflict dialog
-        _state.value = _state.value.copy(pendingConflict = null)
-
-        // Execute resolution
-        viewModelScope.launch {
-            executeResolution(resolution, currentItem, pendingOp)
-        }
-    }
-
-    /**
-     * Dismiss conflict dialog and cancel the entire paste operation.
-     */
-    fun dismissConflict() {
-        _state.value = _state.value.copy(
-            pendingConflict = null,
-            pendingPasteOperation = null,
-            applyToAllResolution = null
-        )
-        viewModelScope.launch {
+        if (summary.cancelled) {
             _events.emit(FileBrowserEvent.ShowToast(R.string.fb_operation_cancelled))
         }
+        if (!summary.cancelled || handledCount > 0) {
+            _events.emit(pasteCountsToast(summary))
+        }
+        summary.failures.firstOrNull()?.let { _events.emit(pasteFailureToast(it)) }
+    }
+
+    private fun pasteCountsToast(summary: PasteSummary): FileBrowserEvent.ShowToast = when {
+        summary.failedCount == 0 && summary.skippedCount == 0 ->
+            FileBrowserEvent.ShowToast(
+                R.string.fb_paste_completed,
+                listOf(summary.completedCount)
+            )
+
+        summary.failedCount == 0 ->
+            FileBrowserEvent.ShowToast(
+                R.string.fb_paste_completed_with_skipped,
+                listOf(summary.completedCount, summary.skippedCount)
+            )
+
+        else ->
+            FileBrowserEvent.ShowToast(
+                R.string.fb_paste_completed_with_failed,
+                listOf(summary.completedCount, summary.skippedCount, summary.failedCount)
+            )
+    }
+
+    private fun pasteFailureToast(failure: PasteFailure): FileBrowserEvent.ShowToast {
+        val name = RemotePaths.fileName(failure.sourcePath)
+        return when (failure.reason) {
+            PasteFailureReason.SOURCE_MISSING ->
+                FileBrowserEvent.ShowToast(R.string.fb_paste_source_missing, listOf(name))
+
+            PasteFailureReason.INTO_ITSELF ->
+                FileBrowserEvent.ShowToast(R.string.fb_paste_into_itself, listOf(name))
+
+            PasteFailureReason.NO_FREE_NAME ->
+                FileBrowserEvent.ShowToast(R.string.fb_paste_no_free_name, listOf(name))
+
+            PasteFailureReason.COMMAND_FAILED ->
+                FileBrowserEvent.ShowToast(
+                    R.string.fb_paste_item_failed,
+                    listOf(name, failure.message ?: "Unknown")
+                )
+        }
+    }
+
+    fun resolveConflict(resolution: ConflictResolution, applyToAll: Boolean = false) {
+        pendingConflictDecision?.complete(ConflictDecision(resolution, applyToAll))
+    }
+
+    /** Stops the paste; items already handled stay where they are. */
+    fun dismissConflict() {
+        pendingConflictDecision?.complete(null)
+    }
+
+    /** Stops the paste once the item in progress is finished, since a half done item can't be undone. */
+    fun cancelPaste() {
+        pasteCancelRequested = true
+        pendingConflictDecision?.complete(null)
     }
 
     fun deselectAllFiles() {

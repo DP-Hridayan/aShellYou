@@ -192,12 +192,17 @@ class LogcatViewModel @Inject constructor(
     val filterProfiles: StateFlow<List<LogFilter>> = filters.profiles
     val activeProfileIds: StateFlow<Set<String>> = filters.activeProfileIds
     val searchQuery: StateFlow<String> = filters.searchQuery
+    val chosenProfileIds: StateFlow<Set<String>> = filters.chosenProfileIds
 
     fun search(query: String) = filters.search(query)
 
-    fun toggleFilterProfile(profileId: String) = filters.toggle(profileId)
+    fun onProfileTap(profileId: String) = filters.tap(profileId)
 
-    fun deleteFilterProfile(profileId: String) = filters.delete(profileId)
+    fun onProfileLongPress(profileId: String) = filters.longPress(profileId)
+
+    fun clearChosenProfiles() = filters.clearChosen()
+
+    fun deleteChosenProfiles() = filters.deleteChosen()
 
     private val thisDeviceCriteria = filters.criteriaFor(flowOf(packageResolvers.local))
     private val otherDeviceCriteria = filters.criteriaFor(otherDeviceTarget.map { it?.packages })
