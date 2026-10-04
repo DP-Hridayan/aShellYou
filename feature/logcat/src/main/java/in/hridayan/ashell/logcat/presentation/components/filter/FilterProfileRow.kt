@@ -1,11 +1,13 @@
 package `in`.hridayan.ashell.logcat.presentation.components.filter
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -15,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.selected
@@ -31,96 +34,120 @@ import `in`.hridayan.ashell.logcat.presentation.model.levelSummary
 
 private const val ACTIVE_SHAPE_PERCENT = 50
 private const val DESCRIPTION_ALPHA = 0.75f
+private val CHOSEN_OUTLINE_WIDTH = 2.dp
+private val LEADING_ICON_SIZE = 20.dp
 
 /**
- * One saved profile in the filter sheet. Tapping the row turns the profile on or off; active rows
- * take the fully rounded shape and the primary container colour, as in the commands label filter.
+ * One saved profile in the filter sheet. Active rows take the fully rounded shape and the primary
+ * container colour, as in the commands label filter. While [isSelecting], a selection circle
+ * replaces the active check, chosen rows are outlined, and every row offers Edit.
  */
 @Composable
 fun FilterProfileRow(
     profile: LogFilter,
     isActive: Boolean,
+    isChosen: Boolean,
+    isSelecting: Boolean,
     shape: CustomCardShape,
     actions: FilterProfileActions,
     modifier: Modifier = Modifier,
 ) {
-    val colors = if (isActive) {
-        CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-        )
-    } else {
-        CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
-            contentColor = MaterialTheme.colorScheme.onSurface,
-        )
-    }
+    val colors = profileCardColors(isActive)
+    val selectLabel = stringResource(if (isChosen) R.string.deselect else R.string.select)
 
     CustomCard(
         modifier = modifier
             .fillMaxWidth()
             .padding(vertical = 1.dp)
-            .semantics { selected = isActive },
+            .semantics { selected = if (isSelecting) isChosen else isActive },
         shape = if (isActive) CustomCardShape(ACTIVE_SHAPE_PERCENT) else shape,
         colors = colors,
-        onClick = withHaptic { actions.onToggle(profile.id) },
+        border = if (isChosen) BorderStroke(CHOSEN_OUTLINE_WIDTH, MaterialTheme.colorScheme.primary) else null,
+        onClick = withHaptic { actions.onTap(profile.id) },
+        onLongClick = { actions.onLongPress(profile.id) },
+        onClickLabel = if (isSelecting) selectLabel else null,
+        onLongClickLabel = selectLabel,
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 15.dp, end = 4.dp, top = 6.dp, bottom = 6.dp),
+                .padding(start = 15.dp, end = if (isSelecting) 4.dp else 15.dp, top = 10.dp, bottom = 10.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(10.dp),
         ) {
-            if (isActive) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_check),
-                    contentDescription = null,
-                    modifier = Modifier.size(20.dp),
-                )
+            LeadingIcon(isActive = isActive, isChosen = isChosen, isSelecting = isSelecting)
+
+            ProfileDetails(profile = profile, ringColor = colors.containerColor, modifier = Modifier.weight(1f))
+
+            if (isSelecting) {
+                IconButton(onClick = withHaptic { actions.onEdit(profile.id) }) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_edit),
+                        contentDescription = stringResource(R.string.edit),
+                    )
+                }
             }
-
-            ProfileLabels(profile = profile, modifier = Modifier.weight(1f))
-
-            ProfileButtons(profile = profile, actions = actions)
         }
     }
 }
 
 @Composable
-private fun ProfileButtons(profile: LogFilter, actions: FilterProfileActions) {
-    Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-        IconButton(onClick = withHaptic { actions.onEdit(profile.id) }) {
-            Icon(
-                painter = painterResource(R.drawable.ic_edit),
-                contentDescription = stringResource(R.string.edit),
-            )
-        }
-
-        IconButton(onClick = withHaptic { actions.onDelete(profile) }) {
-            Icon(
-                painter = painterResource(R.drawable.ic_delete),
-                contentDescription = stringResource(R.string.delete),
-            )
-        }
-    }
+private fun profileCardColors(isActive: Boolean): CardColors = if (isActive) {
+    CardDefaults.cardColors(
+        containerColor = MaterialTheme.colorScheme.primaryContainer,
+        contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+    )
+} else {
+    CardDefaults.cardColors(
+        containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
+        contentColor = MaterialTheme.colorScheme.onSurface,
+    )
 }
 
 @Composable
-private fun ProfileLabels(profile: LogFilter, modifier: Modifier = Modifier) {
+private fun LeadingIcon(isActive: Boolean, isChosen: Boolean, isSelecting: Boolean) {
+    val icon = when {
+        isSelecting && isChosen -> R.drawable.ic_checked_filled
+        isSelecting -> R.drawable.ic_checked_outline
+        isActive -> R.drawable.ic_check
+        else -> return
+    }
+
+    Icon(
+        painter = painterResource(icon),
+        contentDescription = null,
+        tint = if (isChosen) MaterialTheme.colorScheme.primary else LocalContentColor.current,
+        modifier = Modifier.size(LEADING_ICON_SIZE),
+    )
+}
+
+@Composable
+private fun ProfileDetails(profile: LogFilter, ringColor: Color, modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
-        Text(
-            text = profile.name.ifBlank { stringResource(R.string.untitled) },
-            style = MaterialTheme.typography.titleSmall,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-        )
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text(
+                text = profile.name.ifBlank { stringResource(R.string.untitled) },
+                style = MaterialTheme.typography.titleSmall,
+                modifier = Modifier.weight(1f),
+            )
+            FilterModeBadge(mode = profile.mode, modifier = Modifier.padding(top = 2.dp))
+        }
+
         Text(
             text = levelSummaryText(profile.levelSummary()),
             style = MaterialTheme.typography.bodySmall,
             color = LocalContentColor.current.copy(alpha = DESCRIPTION_ALPHA),
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.padding(top = 4.dp),
         )
+
+        if (profile.packages.isNotEmpty()) {
+            ProfileAppIcons(
+                packages = profile.packages,
+                ringColor = ringColor,
+                modifier = Modifier.padding(top = 8.dp),
+            )
+        }
     }
 }

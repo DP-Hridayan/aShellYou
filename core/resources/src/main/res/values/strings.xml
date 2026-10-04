@@ -410,6 +410,7 @@
     <string name="des_use_biometrics">Allow unlocking the app using your fingerprint or face</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">Proceed with caution as an incorrect image may cause a bootloop</string>
     <string name="description">Description</string>
+    <string name="deselect" comment="Accessibility action label for removing a list item from the current multi-selection">Deselect</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">Deselect all</string>
     <string name="developer" comment="Section title in About screen for lead developer info">Developer</string>
     <string name="developer_options" comment="System Developer Options setting item or prompt">Developer options</string>
@@ -829,6 +830,7 @@
     <string name="other_device" comment="Selection tab for target device in Logcat Viewer">Other device</string>
     <string name="output" comment="Header title for shell command output window">Output</string>
     <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">Output will appear here…</string>
+    <string name="overflow_count" comment="%1$d = number of further items not shown. Short counter drawn over a small circular icon, for example +2">+%1$d</string>
     <string name="override_bookmarks_limit" comment="Setting toggle title to remove the maximum limit on saved bookmarks count">Override maximum bookmarks limit</string>
     <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">Package name</string>
     <string name="packages" comment="Title for the packages skill toggle in AI settings">Packages</string>
@@ -1209,9 +1211,25 @@
     <string name="wireless_not_connected" comment="Status banner shown when target device is not connected over Wireless Debugging">Not Connected</string>
     <string name="wireless_not_connected_message" comment="Instructional body text advising user to pair and connect device first">Your device is not connected via Wireless Debugging. Pair and connect your device first.</string>
     <string name="Z_A" translatable="false">Z → A</string>
+    <plurals name="app_count" comment="Accessibility label of the stacked app icons on a logcat filter profile card; %1$d = number of apps the profile matches">
+        <item quantity="one">%1$d app</item>
+        <item quantity="other">%1$d apps</item>
+    </plurals>
+    <plurals name="delete_profiles" comment="Title of the confirmation dialog shown before deleting several selected logcat filter profiles; %1$d = number of profiles">
+        <item quantity="one">Delete %1$d profile?</item>
+        <item quantity="other">Delete %1$d profiles?</item>
+    </plurals>
+    <plurals name="des_delete_profiles" comment="Body of the confirmation dialog shown before deleting several selected logcat filter profiles; %1$d = number of profiles">
+        <item quantity="one">%1$d profile will be removed. This can\'t be undone.</item>
+        <item quantity="other">%1$d profiles will be removed. This can\'t be undone.</item>
+    </plurals>
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d new entry</item>
         <item quantity="other">%1$d new entries</item>
+    </plurals>
+    <plurals name="profiles_selected" comment="Header of the logcat filter profile list while choosing profiles to edit or delete; %1$d = number chosen">
+        <item quantity="one">%1$d selected</item>
+        <item quantity="other">%1$d selected</item>
     </plurals>
     <plurals name="timeout_minutes" comment="Option for minute timeouts">
         <item quantity="one">%1$d minute</item>

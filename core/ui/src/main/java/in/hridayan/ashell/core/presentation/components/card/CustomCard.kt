@@ -58,6 +58,8 @@ fun CustomCard(
     clickable: Boolean = true,
     onClick: () -> Unit = {},
     onLongClick: () -> Unit = {},
+    onClickLabel: String? = null,
+    onLongClickLabel: String? = null,
     content: @Composable ColumnScope.() -> Unit = {},
 ) {
     val density = LocalDensity.current
@@ -135,7 +137,9 @@ fun CustomCard(
                     enabled = clickable,
                     interactionSource = interactionSource,
                     indication = null,
+                    onClickLabel = onClickLabel,
                     onClick = onClick,
+                    onLongClickLabel = onLongClickLabel,
                     onLongClick = onLongClick
                 )
                 .indication(

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
@@ -41,6 +42,7 @@ import `in`.hridayan.ashell.core.resources.R
  * @param trailingIcon A composable function that displays icons or UI elements after the text field.
  * @param hint The placeholder text shown when the search input is empty. Defaults to "Search...".
  * @param keyboardOptions Software keyboard options like IME action and keyboard type.
+ * @param keyboardActions What the keyboard's IME action key does.
  * @param shape The shape of the search bar container.
  * @param colors The colors for the container and its content.
  * @param singleLine When true, this text field becomes a single horizontally scrolling line
@@ -65,6 +67,7 @@ fun CustomSearchBar(
     trailingIcon: @Composable RowScope.() -> Unit = {},
     hint: String = "Search...",
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
     shape: CustomCardShape = CustomCardShape(50),
     colors: CardColors = CardDefaults.cardColors(
         containerColor = MaterialTheme.colorScheme.secondaryContainer,
@@ -81,6 +84,7 @@ fun CustomSearchBar(
         trailingIcon = trailingIcon,
         hint = hint,
         keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions,
         shape = shape,
         colors = colors,
         singleLine = singleLine,
@@ -101,6 +105,7 @@ fun CustomSearchBar(
  * @param trailingIcon A composable function that displays icons or UI elements after the text field.
  * @param hint The placeholder text shown when the search input is empty. Defaults to "Search...".
  * @param keyboardOptions Software keyboard options like IME action and keyboard type.
+ * @param keyboardActions What the keyboard's IME action key does.
  * @param shape The shape of the search bar container.
  * @param colors The colors for the container and its content.
  * @param singleLine When true, this text field becomes a single horizontally scrolling line
@@ -125,6 +130,7 @@ fun CustomSearchBar(
     trailingIcon: @Composable RowScope.() -> Unit = {},
     hint: String = "Search...",
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
     shape: CustomCardShape = CustomCardShape(50),
     colors: CardColors = CardDefaults.cardColors(
         containerColor = MaterialTheme.colorScheme.secondaryContainer,
@@ -164,6 +170,7 @@ fun CustomSearchBar(
                 singleLine = singleLine,
                 maxLines = maxLines,
                 keyboardOptions = keyboardOptions,
+                keyboardActions = keyboardActions,
                 colors = TextFieldDefaults.colors(
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,
