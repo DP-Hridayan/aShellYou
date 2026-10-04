@@ -1057,6 +1057,8 @@ class WifiAdbRepositoryImpl(
             }
 
             Log.d(TAG, "Command completed. Aborted: $isAborted")
+        } catch (e: CancellationException) {
+            throw e
         } catch (e: Exception) {
             // Only emit error if not aborted
             if (!isAborted) {

@@ -30,6 +30,7 @@ private val SHORT_SYSTEM_UIDS: Map<String, String> = mapOf(
     "shell" to "2000",
     "cache" to "2001",
     "diag" to "2002",
+    "lmkd" to "1069",
 )
 
 /**
@@ -37,8 +38,8 @@ private val SHORT_SYSTEM_UIDS: Map<String, String> = mapOf(
  *
  * logcat prints the user name when it is at most five characters and the number otherwise
  * (`liblog/logprint.cpp`). App UIDs are named like `u0_a77`, so most print as numbers, but
- * `u0_a1` to `u0_a9` and a handful of system names do not. Unrecognised names are returned as
- * printed.
+ * `u0_a1` to `u0_a9` and a handful of system names do not. Unrecognised names, such as isolated
+ * processes (`u0_i1`), are returned as printed; they never belong to a package.
  */
 internal object LogcatUid {
 
