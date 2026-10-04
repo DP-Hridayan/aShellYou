@@ -1,0 +1,30 @@
+name: Notify Website
+
+on:
+  workflow_run:
+    workflows:
+      - "Build and Publish Github Release"
+      - "Build and Publish Github Pre-release"
+    types: [completed]
+
+jobs:
+  notify:
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger website stats update
+        env:
+          TOKEN: ${{ secrets.WEBSITE_DISPATCH_TOKEN }}
+          TAG: ${{ github.event.workflow_run.head_branch }}
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "::warning::WEBSITE_DISPATCH_TOKEN is not set, skipping website update"
+            exit 0
+          fi
+          jq -n --arg tag "$TAG" '{event_type: "app-release", client_payload: {tag: $tag}}' > payload.json
+          curl -fsS -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/ashellyou/ashellyou.github.io/dispatches \
+            --data @payload.json
