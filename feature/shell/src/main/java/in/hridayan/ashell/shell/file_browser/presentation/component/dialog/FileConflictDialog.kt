@@ -47,9 +47,9 @@ fun FileConflictDialog(
     onResolution: (ConflictResolution, applyToAll: Boolean) -> Unit,
     onDismiss: () -> Unit
 ) {
-    var applyToAll by remember { mutableStateOf(false) }
+    var applyToAll by remember(conflict) { mutableStateOf(false) }
 
-    val title = if (conflict.isDirectory || conflict.sourceIsDirectory) {
+    val title = if (conflict.destIsDirectory || conflict.sourceIsDirectory) {
         stringResource(R.string.folder_conflict_title)
     } else {
         stringResource(R.string.file_conflict_title)
@@ -60,9 +60,6 @@ fun FileConflictDialog(
         OperationType.MOVE -> stringResource(R.string.moving).lowercase().removeSuffix(".")
         else -> ""
     }
-
-    // Determine if both source and dest are directories (for merge option)
-    val canMerge = conflict.sourceIsDirectory && conflict.isDirectory
 
     DialogContainer(onDismiss = onDismiss) {
         DialogTitle(
@@ -91,10 +88,22 @@ fun FileConflictDialog(
             modifier = Modifier.fillMaxWidth()
         )
 
+        if (conflict.destIsDirectory && conflict.canReplace) {
+            Spacer(modifier = Modifier.height(4.dp))
+
+            Text(
+                text = stringResource(R.string.replace_deletes_folder_warning),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.error,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+
         Spacer(modifier = Modifier.height(16.dp))
 
         // Apply to all checkbox (only show if there are more conflicts)
-        if (showApplyToAll && conflict.remainingCount > 0) {
+        if (showApplyToAll && conflict.remainingConflicts > 0) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -106,7 +115,7 @@ fun FileConflictDialog(
                     onCheckedChange = { applyToAll = it }
                 )
                 Text(
-                    text = stringResource(R.string.apply_to_all, conflict.remainingCount),
+                    text = stringResource(R.string.apply_to_all, conflict.remainingConflicts),
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(start = 8.dp)
                 )
@@ -121,24 +130,26 @@ fun FileConflictDialog(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             // Replace button (destructive action - error color)
-            Button(
-                onClick = withHaptic(HapticFeedbackType.Confirm) {
-                    onResolution(ConflictResolution.REPLACE, applyToAll)
-                },
-                modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.error,
-                    contentColor = MaterialTheme.colorScheme.onError
-                )
-            ) {
-                Text(
-                    text = stringResource(R.string.replace),
-                    style = MaterialTheme.typography.labelLarge
-                )
+            if (conflict.canReplace) {
+                Button(
+                    onClick = withHaptic(HapticFeedbackType.Confirm) {
+                        onResolution(ConflictResolution.REPLACE, applyToAll)
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.error,
+                        contentColor = MaterialTheme.colorScheme.onError
+                    )
+                ) {
+                    Text(
+                        text = stringResource(R.string.replace),
+                        style = MaterialTheme.typography.labelLarge
+                    )
+                }
             }
 
             // Merge button (only for directory-to-directory conflicts)
-            if (canMerge) {
+            if (conflict.canMerge) {
                 Button(
                     onClick = withHaptic(HapticFeedbackType.Confirm) {
                         onResolution(ConflictResolution.MERGE, applyToAll)

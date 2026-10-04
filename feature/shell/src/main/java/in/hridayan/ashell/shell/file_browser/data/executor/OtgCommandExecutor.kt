@@ -33,26 +33,30 @@ class OtgCommandExecutor @Inject constructor(
     override fun isConnected(): Boolean = otgRepository.isConnected()
 
     override suspend fun executeCommand(command: String): String? = withContext(Dispatchers.IO) {
-        if (!isConnected()) return@withContext null
+        withTimeoutOrNull(COMMAND_TIMEOUT_MS) { readCommandOutput(command) }
+    }
 
-        val adbConnection = otgRepository.getAdbConnection() ?: return@withContext null
+    override suspend fun executeLongRunningCommand(command: String): String? =
+        withContext(Dispatchers.IO) { readCommandOutput(command) }
 
+    private fun readCommandOutput(command: String): String? {
+        if (!isConnected()) return null
+
+        val adbConnection = otgRepository.getAdbConnection() ?: return null
         val marker = CommandEndMarker.next()
-        withTimeoutOrNull(COMMAND_TIMEOUT_MS) {
-            val stream =
-                adbConnection.open(SHELL_SERVICE_PREFIX + CommandEndMarker.appendTo(command, marker))
-            try {
-                val output = StringBuilder()
-                while (true) {
-                    val data = stream.readUntilClosed()
-                    if (data == null || data.isEmpty()) break
-                    output.append(String(data, Charsets.UTF_8))
-                    if (output.contains(marker)) break
-                }
-                output.toString().substringBefore(marker)
-            } finally {
-                runCatching { stream.close() }
+        val stream =
+            adbConnection.open(SHELL_SERVICE_PREFIX + CommandEndMarker.appendTo(command, marker))
+        try {
+            val output = StringBuilder()
+            while (true) {
+                val data = stream.readUntilClosed()
+                if (data == null || data.isEmpty()) break
+                output.append(String(data, Charsets.UTF_8))
+                if (output.contains(marker)) break
             }
+            return output.toString().substringBefore(marker)
+        } finally {
+            runCatching { stream.close() }
         }
     }
 

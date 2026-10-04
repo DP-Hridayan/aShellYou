@@ -3,17 +3,34 @@ package `in`.hridayan.ashell.shell.file_browser.domain.model
 import androidx.annotation.Keep
 
 /**
- * Represents a file/folder conflict during copy/move operations
+ * A paste target that already exists on the device, waiting for the user to decide what happens.
  */
 data class FileConflict(
     val sourcePath: String,
     val destPath: String,
     val operationType: OperationType,
-    val isDirectory: Boolean = false, // Destination is directory
-    val sourceIsDirectory: Boolean = false, // Source is directory
+    val destIsDirectory: Boolean = false,
+    val sourceIsDirectory: Boolean = false,
     val fileName: String = sourcePath.substringAfterLast("/"),
-    val remainingCount: Int = 0 // How many more conflicts after this one
-)
+
+    /** Conflicts already known to follow this one in the same folder, for "apply to all". */
+    val remainingConflicts: Int = 0,
+
+    /**
+     * False when the existing item is a folder that contains the source, where replacing would
+     * delete the source together with everything next to it.
+     */
+    val canReplace: Boolean = true
+) {
+    val canMerge: Boolean
+        get() = destIsDirectory && sourceIsDirectory
+
+    fun allows(resolution: ConflictResolution): Boolean = when (resolution) {
+        ConflictResolution.REPLACE -> canReplace
+        ConflictResolution.MERGE -> canMerge
+        ConflictResolution.SKIP, ConflictResolution.KEEP_BOTH -> true
+    }
+}
 
 /**
  * Resolution options for file conflicts
@@ -23,7 +40,7 @@ enum class ConflictResolution {
     /** Skip this file/folder, continue with next */
     SKIP,
 
-    /** Delete existing item at destination, then copy/move source */
+    /** Swap the existing item for the source, restoring it if the swap fails part way. */
     REPLACE,
 
     /** For directories: recursively merge contents */
@@ -34,32 +51,12 @@ enum class ConflictResolution {
 }
 
 /**
- * Represents a pending paste operation item
+ * The user's answer to one [FileConflict].
+ *
+ * With [applyToAll], later conflicts reuse [resolution] only where [FileConflict.allows] it, so a
+ * folder-only choice like merge never gets forced onto a file.
  */
-data class PendingPasteItem(
-    val sourcePath: String,
-    val destPath: String,
-    val isDirectory: Boolean
+data class ConflictDecision(
+    val resolution: ConflictResolution,
+    val applyToAll: Boolean = false
 )
-
-/**
- * Tracks the state of a batch paste operation
- */
-data class PendingPasteOperation(
-    val operationType: OperationType,
-    val destDir: String,
-    val items: List<PendingPasteItem>,
-    val currentIndex: Int = 0,
-    val processedCount: Int = 0,
-    val skippedCount: Int = 0,
-    val failedCount: Int = 0
-) {
-    val currentItem: PendingPasteItem?
-        get() = items.getOrNull(currentIndex)
-
-    val isComplete: Boolean
-        get() = currentIndex >= items.size
-
-    val remainingCount: Int
-        get() = (items.size - currentIndex - 1).coerceAtLeast(0)
-}
