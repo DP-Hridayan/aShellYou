@@ -10,11 +10,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
@@ -29,11 +32,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -49,13 +54,16 @@ import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ReconnectFailedDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.item.SavedDeviceItem
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.placeholder.NoSavedDevicesPlaceholder
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
 import `in`.hridayan.ashell.shell.wifi_adb_shell.utils.WirelessDebuggingUtils
+import kotlinx.coroutines.launch
 
 @Composable
 fun SavedDevicesBottomSheet(
     onDismiss: () -> Unit,
     onGoToTerminal: () -> Unit,
+    onPairDevice: () -> Unit,
     viewModel: WifiAdbViewModel = hiltViewModel(),
     sheetState: SheetState = rememberBottomSheetState(
         initialValue = SheetValue.Hidden,
@@ -64,6 +72,7 @@ fun SavedDevicesBottomSheet(
 ) {
     val context = LocalContext.current
     val res = LocalResources.current
+    val scope = rememberCoroutineScope()
     val savedDevices by viewModel.savedDevices.collectAsState()
     val currentDevice by viewModel.currentDevice.collectAsState()
     val wifiAdbState by viewModel.state.collectAsState()
@@ -151,6 +160,23 @@ fun SavedDevicesBottomSheet(
                 style = MaterialTheme.typography.headlineSmall,
                 modifier = Modifier.padding(bottom = 25.dp)
             )
+
+            if (savedDevices.isEmpty()) {
+                NoSavedDevicesPlaceholder(
+                    hint = stringResource(R.string.pair_device_to_see_it_here),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 24.dp),
+                    action = {
+                        PairDeviceButton(
+                            onClick = {
+                                scope.launch { sheetState.hide() }
+                                    .invokeOnCompletion { onPairDevice() }
+                            }
+                        )
+                    }
+                )
+            }
 
             LazyColumn(
                 modifier = Modifier.fillMaxWidth(),
@@ -240,5 +266,14 @@ fun SavedDevicesBottomSheet(
                 WifiAdbConnection.updateState(WifiAdbState.Idle)
             }
         )
+    }
+}
+
+@Composable
+private fun PairDeviceButton(onClick: () -> Unit) {
+    Button(onClick = withHaptic { onClick() }, shapes = ButtonDefaults.shapes()) {
+        Icon(painter = painterResource(R.drawable.ic_pair), contentDescription = null)
+        Spacer(modifier = Modifier.width(10.dp))
+        AutoResizeableText(text = stringResource(R.string.pair))
     }
 }
