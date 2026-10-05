@@ -31,8 +31,9 @@ class VideoRenderer(
     private var awaitingKeyFrame = false
     private var lastKeyFrameRequestAt = 0L
 
-    fun setSurface(newSurface: Surface?) = synchronized(lock) {
+    fun setSurface(newSurface: Surface?): Unit = synchronized(lock) {
         if (surface === newSurface) return
+
         releaseDecoderLocked()
         surface = newSurface
         awaitingConfig = true
@@ -47,7 +48,7 @@ class VideoRenderer(
         awaitingConfig = true
     }
 
-    fun onPacket(packet: MediaPacket) = synchronized(lock) {
+    fun onPacket(packet: MediaPacket): Unit = synchronized(lock) {
         counters.onReceived(packet.data.size)
         val target = surface ?: return
 

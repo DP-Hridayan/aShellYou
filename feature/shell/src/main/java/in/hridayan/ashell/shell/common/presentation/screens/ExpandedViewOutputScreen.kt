@@ -180,26 +180,21 @@ fun ExpandedViewOutputScreen(
         }
     }
 
-    // Auto-scroll to absolute bottom during live output
     LaunchedEffect(combinedOutput.value.size, shellState) {
         if (shellState is ShellState.Busy && !userScrolledAway && combinedOutput.value.isNotEmpty()) {
             try {
-                // Use scrollToItem for instant positioning (no animation during rapid output)
                 fullscreenListState.scrollToItem(combinedOutput.value.lastIndex)
             } catch (_: Exception) {
-                // Ignore scroll cancellation
             }
         }
     }
 
-    // When command finishes, always scroll to absolute bottom
     LaunchedEffect(shellState) {
         if (shellState !is ShellState.Busy && combinedOutput.value.isNotEmpty()) {
             userScrolledAway = false
             try {
                 fullscreenListState.animateScrollToItem(combinedOutput.value.lastIndex)
             } catch (_: Exception) {
-                // Ignore
             }
         }
     }
@@ -229,23 +224,8 @@ fun ExpandedViewOutputScreen(
                                 style = MaterialTheme.typography.titleMedium
                             )
                         },
-                        navigationIcon = {
-                            IconButton(
-                                onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                                    onDismiss(
-                                        fullscreenListState.firstVisibleItemIndex
-                                    )
-                                }
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Rounded.FullscreenExit,
-                                    contentDescription = "Exit fullscreen"
-                                )
-                            }
-                        },
                         actions = {
                             if (shellState !is ShellState.Busy) {
-                                // Scroll to top
                                 IconButton(
                                     onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                                         coroutineScope.launch {
@@ -262,7 +242,7 @@ fun ExpandedViewOutputScreen(
                                         contentDescription = "Scroll to top"
                                     )
                                 }
-                                // Scroll to bottom
+
                                 IconButton(
                                     onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                                         coroutineScope.launch {
@@ -285,6 +265,19 @@ fun ExpandedViewOutputScreen(
                                         contentDescription = "Scroll to bottom"
                                     )
                                 }
+                            }
+
+                            IconButton(
+                                onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                                    onDismiss(
+                                        fullscreenListState.firstVisibleItemIndex
+                                    )
+                                }
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Rounded.FullscreenExit,
+                                    contentDescription = "Exit fullscreen"
+                                )
                             }
                         },
                         colors = TopAppBarDefaults.topAppBarColors(

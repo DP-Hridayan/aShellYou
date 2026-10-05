@@ -127,20 +127,24 @@ fun HomeRoute(
 
     if (showFastbootDeviceWaitingDialog) {
         FastbootDeviceWaitingDialog(
-            onDismiss = { showFastbootDeviceWaitingDialog = false },
+            onDismiss = {
+                showFastbootDeviceWaitingDialog = false
+                fastbootViewModel.disconnect()
+            },
             onConfirm = {
                 showFastbootDeviceWaitingDialog = false
                 navController.navigate(NavRoutes.FastbootScreen)
                 fastbootViewModel.startScan()
             },
+            fastbootState = fastbootState,
             isAdbDeviceConnected = otgState is OtgState.Connected,
-            adbDeviceName = (otgState as? OtgState.Connected)?.deviceName,
             onBootIntoFastboot = {
                 otgViewModel.rebootToBootloader()
                 showFastbootDeviceWaitingDialog = false
                 fastbootViewModel.startScan()
                 showFastbootDeviceWaitingDialog = true
-            }
+            },
+            startScan = { fastbootViewModel.startScan() }
         )
     }
 

@@ -11,9 +11,10 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.material3.rememberBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -59,8 +60,10 @@ private const val DESCRIPTION_ALPHA = 0.7f
 
 private val RESOLUTIONS = listOf(ResolutionChoice.Auto, ResolutionChoice.Native) +
     listOf(2560, 1920, 1600, 1280, 1024, 800).map(ResolutionChoice::LongEdge)
-private val FRAME_RATES = listOf(FrameRateChoice.Auto) + listOf(30, 60, 90, 120).map(FrameRateChoice::Fixed)
-private val BITRATES = listOf(BitrateChoice.Auto) + listOf(2, 4, 8, 16, 24, 40).map(BitrateChoice::Fixed)
+private val FRAME_RATES =
+    listOf(FrameRateChoice.Auto) + listOf(30, 60, 90, 120).map(FrameRateChoice::Fixed)
+private val BITRATES =
+    listOf(BitrateChoice.Auto) + listOf(2, 4, 8, 16, 24, 40).map(BitrateChoice::Fixed)
 
 /**
  * Chooses the video quality for the transport in use. Choices are a draft until Apply, because
@@ -78,10 +81,15 @@ fun VideoQualitySheet(
     onStatsOverlayChange: (Boolean) -> Unit,
     onDismiss: () -> Unit
 ) {
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val sheetState = rememberBottomSheetState(
+        initialValue = SheetValue.Hidden,
+        enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded)
+    )
     val scope = rememberCoroutineScope()
     var draft by remember(state.selection) { mutableStateOf(state.selection) }
-    val close: () -> Unit = { scope.launch { sheetState.hide() }.invokeOnCompletion { onDismiss() } }
+
+    val close: () -> Unit =
+        { scope.launch { sheetState.hide() }.invokeOnCompletion { onDismiss() } }
 
     ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState) {
         Column(
@@ -92,7 +100,10 @@ fun VideoQualitySheet(
                 .padding(bottom = SheetPadding),
             verticalArrangement = Arrangement.spacedBy(SectionGap)
         ) {
-            Text(text = stringResource(R.string.video_quality), style = MaterialTheme.typography.titleLarge)
+            Text(
+                text = stringResource(R.string.video_quality),
+                style = MaterialTheme.typography.titleLarge
+            )
             preview(draft)?.let { QualitySummary(it) }
             ModeChoice(draft.mode) { draft = draft.copy(mode = it) }
             if (draft.mode == QualityMode.CUSTOM) {
@@ -113,7 +124,10 @@ fun VideoQualitySheet(
 
 @Composable
 private fun QualitySummary(resolved: ResolvedQuality) {
-    Surface(shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainerHigh) {
+    Surface(
+        shape = MaterialTheme.shapes.large,
+        color = MaterialTheme.colorScheme.surfaceContainerHigh
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -149,7 +163,11 @@ private fun modeDescription(mode: QualityMode): String = when (mode) {
     QualityMode.AUTO -> stringResource(R.string.quality_auto_description)
     QualityMode.SAVER -> presetDescription(MirrorQualityPreset.SAVER)
     QualityMode.BALANCED -> presetDescription(MirrorQualityPreset.BALANCED)
-    QualityMode.SHARP -> stringResource(R.string.quality_sharp_description, MirrorQualityPreset.SHARP.maxFps)
+    QualityMode.SHARP -> stringResource(
+        R.string.quality_sharp_description,
+        MirrorQualityPreset.SHARP.maxFps
+    )
+
     QualityMode.CUSTOM -> stringResource(R.string.quality_custom_description)
 }
 
@@ -166,7 +184,11 @@ private fun QualityMode.labelRes(): Int = when (this) {
 }
 
 @Composable
-private fun CustomChoices(custom: CustomQuality, state: QualityUiState, onChange: (CustomQuality) -> Unit) {
+private fun CustomChoices(
+    custom: CustomQuality,
+    state: QualityUiState,
+    onChange: (CustomQuality) -> Unit
+) {
     val auto = stringResource(R.string.auto)
     ChoiceChips(
         title = stringResource(R.string.resolution),
@@ -239,7 +261,10 @@ private fun StatsOverlaySwitch(isOn: Boolean, onChange: (Boolean) -> Unit) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(SwitchCardPadding)
         ) {
-            Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(SwitchTextGap)) {
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(SwitchTextGap)
+            ) {
                 Text(
                     text = stringResource(R.string.show_stream_statistics),
                     fontWeight = FontWeight.SemiBold,

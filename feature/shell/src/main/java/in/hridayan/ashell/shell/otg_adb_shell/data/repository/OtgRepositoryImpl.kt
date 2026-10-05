@@ -329,7 +329,7 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
     private suspend fun handshake(connection: AdbConnection): Boolean {
         var established = false
         try {
-            withTimeout(CONNECT_TIMEOUT_MS) {
+            withTimeout(CONNECT_TIMEOUT_MS.milliseconds) {
                 runInterruptible(Dispatchers.IO) { connection.connect() }
             }
             established = true
@@ -564,15 +564,13 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
     private suspend fun killShellProcessGroup(pid: Int) {
         val connection = getAdbConnection() ?: return
         try {
-            withTimeoutOrNull(KILL_TIMEOUT_MS) {
+            withTimeoutOrNull(KILL_TIMEOUT_MS.milliseconds) {
                 runInterruptible {
                     val stream = connection.open(
                         ShellProtocolV2.SERVICE_PREFIX + ShellProtocolV2.killCommand(pid)
                     )
-                    try {
-                        while (stream.readUntilClosed() != null) Unit
-                    } finally {
-                        stream.close()
+                    stream.use {
+                        while (it.readUntilClosed() != null) Unit
                     }
                 }
             }
@@ -602,9 +600,9 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
     private fun isAdbDevice(device: UsbDevice): Boolean = findAdbInterface(device) != null
 
     // File browser support methods
-    override fun isConnected(): Boolean = adbConnection?.isConnected() == true
+    override fun isConnected(): Boolean = adbConnection?.isConnected == true
 
-    override fun getAdbConnection(): AdbConnection? = adbConnection?.takeIf { it.isConnected() }
+    override fun getAdbConnection(): AdbConnection? = adbConnection?.takeIf { it.isConnected }
 
     private companion object {
         const val TAG = "OtgRepository"

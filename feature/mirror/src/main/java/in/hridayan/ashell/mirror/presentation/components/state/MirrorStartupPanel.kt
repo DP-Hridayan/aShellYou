@@ -80,16 +80,6 @@ private fun progressOf(step: StartStep, current: StartStep?): StepProgress = whe
 private fun StepRow(label: String, progress: StepProgress) {
     ListItem(
         colors = ListItemDefaults.colors(containerColor = Color.Transparent),
-        headlineContent = {
-            Text(
-                text = label,
-                color = if (progress == StepProgress.PENDING) {
-                    MaterialTheme.colorScheme.onSurfaceVariant
-                } else {
-                    MaterialTheme.colorScheme.onSurface
-                }
-            )
-        },
         leadingContent = {
             when (progress) {
                 StepProgress.DONE -> Icon(
@@ -109,7 +99,16 @@ private fun StepRow(label: String, progress: StepProgress) {
                 )
             }
         }
-    )
+    ) {
+        Text(
+            text = label,
+            color = if (progress == StepProgress.PENDING) {
+                MaterialTheme.colorScheme.onSurfaceVariant
+            } else {
+                MaterialTheme.colorScheme.onSurface
+            }
+        )
+    }
 }
 
 private fun StartStep.labelRes(serverAlreadyDeployed: Boolean): Int = when (this) {
