@@ -56,6 +56,7 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.provider.getAllSettingsIcons
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.settingsgraph.ui.SettingsColumn
+import `in`.hridayan.settingsgraph.ui.item.SettingsItemDefaults
 
 private const val ITEM_KEY_HEADER = "header"
 private const val FLOATING_ICONS_COUNT = 40
@@ -99,6 +100,21 @@ fun SettingsScreen() {
             )
         }
     ) { paddingValues ->
+
+        val tertiaryIconColors = SettingsItemDefaults.iconColors(
+            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+            contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+        )
+
+        val errorIconColors = SettingsItemDefaults.iconColors(
+            containerColor = MaterialTheme.colorScheme.errorContainer,
+            contentColor = MaterialTheme.colorScheme.onErrorContainer
+        )
+
+        val secondaryIconColors = SettingsItemDefaults.iconColors(
+            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+        )
 
         SettingsColumn(
             modifier = Modifier,
@@ -167,11 +183,18 @@ fun SettingsScreen() {
                     icon(R.drawable.ic_sentiment_neutral)
                     onClick { navController.navigate(NavRoutes.BehaviorScreen) }
                 }
+            }
 
+            item(key = "spacer_1") {
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+
+            group {
                 clickableItem(SettingsKeys.QuickSettingsTiles) {
                     title(R.string.qs_tiles)
                     description(R.string.des_qs_tiles)
                     icon(R.drawable.ic_dashboard)
+                    iconColors { tertiaryIconColors }
                     onClick { navController.navigate(NavRoutes.TileDashboardScreen) }
                 }
 
@@ -179,14 +202,22 @@ fun SettingsScreen() {
                     title(R.string.ai_models)
                     description(R.string.des_ai_models)
                     icon(Icons.Outlined.AutoAwesome)
+                    iconColors { tertiaryIconColors }
                     visible { FeatureConfig.isAiEnabled }
                     onClick { navController.navigate(NavRoutes.AiModelsScreen) }
                 }
+            }
 
+            item(key = "spacer_2") {
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+
+            group {
                 clickableItem(SettingsKeys.AutoUpdate) {
                     title(R.string.auto_update)
                     description(R.string.des_auto_update)
                     icon(R.drawable.ic_auto_update)
+                    iconColors { errorIconColors }
                     onClick { navController.navigate(NavRoutes.AutoUpdateScreen) }
                 }
 
@@ -194,6 +225,7 @@ fun SettingsScreen() {
                     title(R.string.privacy_and_security)
                     description(R.string.des_privacy_and_security)
                     icon(R.drawable.ic_shield_lock)
+                    iconColors { errorIconColors }
                     onClick { navController.navigate(NavRoutes.PrivacySecurityScreen) }
                 }
 
@@ -201,13 +233,21 @@ fun SettingsScreen() {
                     title(R.string.backup_and_restore)
                     description(R.string.des_backup_and_restore)
                     icon(R.drawable.ic_settings_backup_restore)
+                    iconColors { errorIconColors }
                     onClick { navController.navigate(NavRoutes.BackupAndRestoreScreen) }
                 }
+            }
 
+            item(key = "spacer_3") {
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+
+            group {
                 clickableItem(SettingsKeys.About) {
                     title(R.string.about)
                     description(R.string.des_about)
                     icon(R.drawable.ic_info)
+                    iconColors { secondaryIconColors }
                     onClick { navController.navigate(NavRoutes.AboutScreen) }
                 }
             }
