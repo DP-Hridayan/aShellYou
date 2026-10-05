@@ -836,6 +836,7 @@ fun CreateWithAiSection(
                         onGenerate(prompt)
                         prompt = ""
                     },
+                    enabled = prompt.isNotBlank(),
                     shapes = ButtonDefaults.shapes()
                 ) {
                     Icon(

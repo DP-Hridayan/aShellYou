@@ -35,37 +35,37 @@ class ContributorsRepositoryImpl(
                 name = "DrDisagree",
                 descriptionRes = R.string.special_thanks_mahmud,
                 url = "https://github.com/Mahmud0808",
-                avatarAssetPath = "github/contributors_pfp/special_thanks_Mahmud0808.png"
+                avatarAssetPath = "special_thanks_pfp/special_thanks_Mahmud0808.png"
             ),
             SpecialThanks(
                 name = "RikkaApps",
                 descriptionRes = R.string.special_thanks_shizuku,
                 url = "https://github.com/RikkaApps/Shizuku",
-                avatarAssetPath = "github/contributors_pfp/special_thanks_RikkaApps.png"
+                avatarAssetPath = "special_thanks_pfp/special_thanks_RikkaApps.png"
             ),
             SpecialThanks(
                 name = "John Wu",
                 descriptionRes = R.string.special_thanks_libsu,
                 url = "https://github.com/topjohnwu/libsu",
-                avatarAssetPath = "github/contributors_pfp/special_thanks_topjohnwu.png"
+                avatarAssetPath = "special_thanks_pfp/special_thanks_topjohnwu.png"
             ),
             SpecialThanks(
                 name = "LSPosed",
                 descriptionRes = R.string.special_thanks_hidden_api_bypass,
                 url = "https://github.com/LSPosed/AndroidHiddenApiBypass",
-                avatarAssetPath = "github/contributors_pfp/special_thanks_LSPosed.png"
+                avatarAssetPath = "special_thanks_pfp/special_thanks_LSPosed.png"
             ),
             SpecialThanks(
                 name = "Nayuki",
                 descriptionRes = R.string.special_thanks_qrcodegen,
                 url = "https://github.com/nayuki/QR-Code-generator",
-                avatarAssetPath = "github/contributors_pfp/special_thanks_nayuki.png"
+                avatarAssetPath = "special_thanks_pfp/special_thanks_nayuki.png"
             ),
             SpecialThanks(
                 name = "Muntashir Al-Islam",
                 descriptionRes = R.string.special_thanks_sun_security,
                 url = "https://github.com/MuntashirAkon",
-                avatarAssetPath = "github/contributors_pfp/special_thanks_MuntashirAkon.png"
+                avatarAssetPath = "special_thanks_pfp/special_thanks_MuntashirAkon.png"
             )
         )
     }
