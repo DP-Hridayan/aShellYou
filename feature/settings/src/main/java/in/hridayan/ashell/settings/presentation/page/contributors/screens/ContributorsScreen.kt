@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -25,7 +26,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -40,6 +40,8 @@ import coil3.request.ImageRequest
 import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
+import `in`.hridayan.ashell.core.presentation.components.card.cardPressClip
+import `in`.hridayan.ashell.core.presentation.components.card.cardPressRotation
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
@@ -183,13 +185,15 @@ private fun GitHubContributorCard(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(14.dp)
         ) {
-            // Profile picture with initials fallback
             ContributorAvatar(
+                modifier = Modifier
+                    .size(40.dp)
+                    .cardPressRotation(-15f)
+                    .cardPressClip(defaultShape = CircleShape),
                 contributor = contributor,
                 context = context
             )
 
-            // Name and username
             Column(
                 modifier = Modifier.weight(1f)
             ) {
@@ -214,9 +218,9 @@ private fun GitHubContributorCard(
 
 @Composable
 private fun ContributorAvatar(
+    modifier: Modifier = Modifier,
     contributor: GitHubContributor,
-    context: Context,
-    modifier: Modifier = Modifier
+    context: Context
 ) {
     val initial = remember(contributor.name) {
         contributor.name.firstOrNull()?.uppercase() ?: "?"
@@ -227,9 +231,7 @@ private fun ContributorAvatar(
             .data("file:///android_asset/${contributor.avatarAssetPath}")
             .build(),
         contentDescription = contributor.name,
-        modifier = modifier
-            .size(40.dp)
-            .clip(CircleShape),
+        modifier = modifier,
         contentScale = ContentScale.Crop,
         loading = {
             InitialsAvatar(initial = initial)
@@ -240,26 +242,27 @@ private fun ContributorAvatar(
     )
 }
 
+private val INITIALS_FONT_SIZE = 16.sp
+
 @Composable
 private fun InitialsAvatar(
     initial: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier
-            .size(40.dp)
-            .clip(CircleShape)
+            .fillMaxSize()
             .background(MaterialTheme.colorScheme.primaryContainer),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Text(
             text = initial,
             style = MaterialTheme.typography.titleMedium.copy(
                 fontWeight = FontWeight.Bold,
-                fontSize = 16.sp
+                fontSize = INITIALS_FONT_SIZE,
             ),
             color = MaterialTheme.colorScheme.onPrimaryContainer,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
     }
 }
@@ -286,6 +289,10 @@ private fun SpecialThanksCard(
             horizontalArrangement = Arrangement.spacedBy(14.dp)
         ) {
             SpecialThanksAvatar(
+                modifier = Modifier
+                    .size(40.dp)
+                    .cardPressRotation(-15f)
+                    .cardPressClip(defaultShape = CircleShape),
                 contributor = contributor,
                 context = context
             )
@@ -314,9 +321,9 @@ private fun SpecialThanksCard(
 
 @Composable
 private fun SpecialThanksAvatar(
+    modifier: Modifier = Modifier,
     contributor: SpecialThanks,
-    context: Context,
-    modifier: Modifier = Modifier
+    context: Context
 ) {
     val initial = remember(contributor.name) {
         contributor.name.firstOrNull()?.uppercase() ?: "?"
@@ -327,9 +334,7 @@ private fun SpecialThanksAvatar(
             .data("file:///android_asset/${contributor.avatarAssetPath}")
             .build(),
         contentDescription = contributor.name,
-        modifier = modifier
-            .size(40.dp)
-            .clip(CircleShape),
+        modifier = modifier,
         contentScale = ContentScale.Crop,
         loading = {
             InitialsAvatar(initial = initial)
