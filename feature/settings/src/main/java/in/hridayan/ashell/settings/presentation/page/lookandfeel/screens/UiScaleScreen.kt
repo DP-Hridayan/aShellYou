@@ -201,7 +201,7 @@ private fun ScaleModifyCard(
                 iconResId?.let { resId ->
                     Box(
                         modifier = Modifier
-                            .cardPressRotation(-15f)
+                            .cardPressRotation()
                             .cardPressClip(defaultShape = CircleShape, elevation = 1.dp)
                             .background(MaterialTheme.colorScheme.primaryContainer)
                             .padding(10.dp),

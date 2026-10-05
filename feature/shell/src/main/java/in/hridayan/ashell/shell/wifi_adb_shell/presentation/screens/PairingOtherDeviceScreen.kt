@@ -53,7 +53,6 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.lerp
@@ -74,6 +73,7 @@ import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
+import `in`.hridayan.ashell.core.presentation.components.card.cardPressRotation
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
@@ -523,6 +523,7 @@ fun QRPairTab(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
+                        modifier = Modifier.cardPressRotation(),
                         painter = painterResource(R.drawable.ic_qr_scanner),
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onTertiaryContainer,
@@ -542,6 +543,7 @@ fun QRPairTab(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
+                        modifier = Modifier.cardPressRotation(),
                         painter = painterResource(R.drawable.ic_search),
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onTertiaryContainer,
@@ -614,6 +616,7 @@ fun CodePairTab(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
+                        modifier = Modifier.cardPressRotation(),
                         painter = painterResource(R.drawable.ic_pair),
                         contentDescription = null,
                     )

@@ -43,7 +43,7 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.util.lerp
+import `in`.hridayan.ashell.core.presentation.components.shape.MorphingCornerShape
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
 import `in`.hridayan.ashell.core.presentation.theme.CornerSize
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
@@ -211,7 +211,7 @@ interface CustomCardScope : ColumnScope {
  * @param degrees The rotation angle in degrees when fully pressed.
  */
 @Composable
-fun Modifier.cardPressRotation(degrees: Float): Modifier {
+fun Modifier.cardPressRotation(degrees: Float = -15f): Modifier {
     val scope = LocalCustomCardScope.current
     return this.graphicsLayer {
         val progress = scope?.pressProgress ?: IDLE_PROGRESS
@@ -239,66 +239,10 @@ fun Modifier.cardPressClip(
         shadowElevation = elevation.toPx()
         clip = true
         shape = MorphingCornerShape(
-            defaultShape = defaultShape,
-            pressedShape = pressedShape,
+            firstShape = defaultShape,
+            secondShape = pressedShape,
             progress = progress
         )
-    }
-}
-
-private class MorphingCornerShape(
-    private val defaultShape: RoundedCornerShape,
-    private val pressedShape: RoundedCornerShape,
-    private val progress: Float,
-) : Shape {
-    override fun createOutline(
-        size: Size,
-        layoutDirection: LayoutDirection,
-        density: Density,
-    ): Outline {
-        val maxRadius = size.minDimension / 2f
-
-        val defaultTs = defaultShape.topStart.toPx(size, density)
-        val pressedTs = pressedShape.topStart.toPx(size, density)
-        val ts = lerp(defaultTs, pressedTs, progress).coerceIn(0f, maxRadius)
-
-        val defaultTe = defaultShape.topEnd.toPx(size, density)
-        val pressedTe = pressedShape.topEnd.toPx(size, density)
-        val te = lerp(defaultTe, pressedTe, progress).coerceIn(0f, maxRadius)
-
-        val defaultBe = defaultShape.bottomEnd.toPx(size, density)
-        val pressedBe = pressedShape.bottomEnd.toPx(size, density)
-        val be = lerp(defaultBe, pressedBe, progress).coerceIn(0f, maxRadius)
-
-        val defaultBs = defaultShape.bottomStart.toPx(size, density)
-        val pressedBs = pressedShape.bottomStart.toPx(size, density)
-        val bs = lerp(defaultBs, pressedBs, progress).coerceIn(0f, maxRadius)
-
-        val isLtr = layoutDirection == LayoutDirection.Ltr
-        return Outline.Rounded(
-            RoundRect(
-                rect = Rect(Offset.Zero, size),
-                topLeft = CornerRadius(if (isLtr) ts else te, if (isLtr) ts else te),
-                topRight = CornerRadius(if (isLtr) te else ts, if (isLtr) te else ts),
-                bottomRight = CornerRadius(if (isLtr) be else bs, if (isLtr) be else bs),
-                bottomLeft = CornerRadius(if (isLtr) bs else be, if (isLtr) bs else be),
-            )
-        )
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other !is MorphingCornerShape) return false
-        return defaultShape == other.defaultShape &&
-            pressedShape == other.pressedShape &&
-            progress == other.progress
-    }
-
-    override fun hashCode(): Int {
-        var result = defaultShape.hashCode()
-        result = 31 * result + pressedShape.hashCode()
-        result = 31 * result + progress.hashCode()
-        return result
     }
 }
 

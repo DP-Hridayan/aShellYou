@@ -149,7 +149,7 @@ private fun TranslatorCard(
             TranslatorAvatar(
                 modifier = Modifier
                     .size(40.dp)
-                    .cardPressRotation(-15f)
+                    .cardPressRotation()
                     .cardPressClip(defaultShape = CircleShape),
                 translator = translator,
                 context = context

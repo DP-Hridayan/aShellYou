@@ -57,6 +57,7 @@ fun IconWithTextCard(
                 modifier = Modifier
                     .padding(end = Dimens.paddingLarge)
                     .size(Dimens.iconSizeLarge)
+                    .cardPressRotation()
             )
             Column(verticalArrangement = Arrangement.spacedBy(15.dp)) {
                 Text(

@@ -188,7 +188,7 @@ private fun GitHubContributorCard(
             ContributorAvatar(
                 modifier = Modifier
                     .size(40.dp)
-                    .cardPressRotation(-15f)
+                    .cardPressRotation()
                     .cardPressClip(defaultShape = CircleShape),
                 contributor = contributor,
                 context = context
@@ -291,7 +291,7 @@ private fun SpecialThanksCard(
             SpecialThanksAvatar(
                 modifier = Modifier
                     .size(40.dp)
-                    .cardPressRotation(-15f)
+                    .cardPressRotation()
                     .cardPressClip(defaultShape = CircleShape),
                 contributor = contributor,
                 context = context

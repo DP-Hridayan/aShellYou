@@ -578,7 +578,7 @@ private fun NavItemCompactCard(
             ) {
                 Box(
                     modifier = Modifier
-                        .cardPressRotation(-15f)
+                        .cardPressRotation()
                         .cardPressClip(CircleShape)
                         .background(iconContainerColor)
                         .padding(5.dp),
@@ -678,7 +678,7 @@ private fun NavItemCard(
             ) {
                 Box(
                     modifier = Modifier
-                        .cardPressRotation(-15f)
+                        .cardPressRotation()
                         .cardPressClip(CircleShape)
                         .background(iconContainerColor)
                         .padding(5.dp),
