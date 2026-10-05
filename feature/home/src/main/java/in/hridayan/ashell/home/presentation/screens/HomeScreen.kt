@@ -63,6 +63,7 @@ import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButton
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
+import `in`.hridayan.ashell.core.presentation.components.card.cardPressClip
 import `in`.hridayan.ashell.core.presentation.components.card.cardPressRotation
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
@@ -577,10 +578,10 @@ private fun NavItemCompactCard(
             ) {
                 Box(
                     modifier = Modifier
-                        .clip(CircleShape)
+                        .cardPressRotation(-15f)
+                        .cardPressClip(CircleShape)
                         .background(iconContainerColor)
-                        .padding(5.dp)
-                        .cardPressRotation(-22.5f),
+                        .padding(5.dp),
                 ) {
                     leadingIcon(iconContentColor)
                 }
@@ -677,10 +678,10 @@ private fun NavItemCard(
             ) {
                 Box(
                     modifier = Modifier
-                        .clip(CircleShape)
+                        .cardPressRotation(-15f)
+                        .cardPressClip(CircleShape)
                         .background(iconContainerColor)
-                        .padding(5.dp)
-                        .cardPressRotation(-22.5f),
+                        .padding(5.dp),
                 ) {
                     leadingIcon(iconContentColor)
                 }
