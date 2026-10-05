@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButton
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
+import `in`.hridayan.ashell.core.presentation.components.card.cardPressRotation
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.UrlUtils
@@ -45,6 +46,7 @@ fun CrowdinContributeCard(modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             Icon(
+                modifier = Modifier.cardPressRotation(),
                 painter = painterResource(R.drawable.ic_translate),
                 contentDescription = null
             )
