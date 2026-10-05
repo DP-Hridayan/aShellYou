@@ -18,11 +18,16 @@ import androidx.compose.material3.CardElevation
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Stable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
@@ -43,6 +48,10 @@ import `in`.hridayan.ashell.core.presentation.theme.CornerSize
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.presentation.theme.toDp
 
+private const val PRESSED_PROGRESS = 1f
+private const val IDLE_PROGRESS = 0f
+private const val IDLE_SCALE = 1f
+
 @Composable
 fun CustomCard(
     modifier: Modifier = Modifier,
@@ -60,15 +69,17 @@ fun CustomCard(
     onLongClick: () -> Unit = {},
     onClickLabel: String? = null,
     onLongClickLabel: String? = null,
-    content: @Composable ColumnScope.() -> Unit = {},
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    content: @Composable CustomCardScope.() -> Unit = {},
 ) {
     val density = LocalDensity.current
     var heightPx by remember { mutableFloatStateOf(0f) }
 
-    val interactionSource = remember { MutableInteractionSource() }
-    val isPressed by interactionSource.collectIsPressedAsState()
-    val isHovered by interactionSource.collectIsHoveredAsState()
+    val isPressedState = interactionSource.collectIsPressedAsState()
+    val isHoveredState = interactionSource.collectIsHoveredAsState()
 
+    val isPressed = isPressedState.value
+    val isHovered = isHoveredState.value
     val doCardInteractions = isPressed || isHovered
 
     val resolvedTopStart = shape.topStart.toDp(heightPx, density)
@@ -110,9 +121,15 @@ fun CustomCard(
     }
 
     val animatedScale by animateFloatAsState(
-        targetValue = if (doCardInteractions) pressedScale else 1f,
+        targetValue = if (doCardInteractions) pressedScale else IDLE_SCALE,
         animationSpec = AshellYouAnimationSpecs.springFloat,
         label = "scale_anim"
+    )
+
+    val pressProgressState = animateFloatAsState(
+        targetValue = if (doCardInteractions) PRESSED_PROGRESS else IDLE_PROGRESS,
+        animationSpec = AshellYouAnimationSpecs.springFloat,
+        label = "press_progress_anim"
     )
 
     Card(
@@ -147,9 +164,72 @@ fun CustomCard(
                     indication = ripple()
                 )
         ) {
-            content()
+            val cardScope = remember(this, interactionSource) {
+                CustomCardScopeImpl(
+                    columnScope = this,
+                    pressProgressState = pressProgressState,
+                    isPressedState = isPressedState,
+                    isHoveredState = isHoveredState
+                )
+            }
+
+            CompositionLocalProvider(LocalCustomCardScope provides cardScope) {
+                cardScope.content()
+            }
         }
     }
+}
+
+val LocalCustomCardScope = staticCompositionLocalOf<CustomCardScope?> { null }
+
+/**
+ * Receiver scope for content within a [CustomCard].
+ */
+@Stable
+interface CustomCardScope : ColumnScope {
+    /**
+     * Normalized progress of the card's press animation from 0f to 1f.
+     */
+    val pressProgress: Float
+
+    /**
+     * Whether the card is currently pressed.
+     */
+    val isPressed: Boolean
+
+    /**
+     * Whether the card is currently hovered.
+     */
+    val isHovered: Boolean
+}
+
+/**
+ * Rotates the composable around its center based on the enclosing card's press progress.
+ *
+ * @param degrees The rotation angle in degrees when fully pressed.
+ */
+fun Modifier.cardPressRotation(degrees: Float): Modifier = composed {
+    val scope = LocalCustomCardScope.current
+    graphicsLayer {
+        val progress = scope?.pressProgress ?: IDLE_PROGRESS
+        rotationZ = progress * degrees
+    }
+}
+
+internal class CustomCardScopeImpl(
+    columnScope: ColumnScope,
+    private val pressProgressState: State<Float>,
+    private val isPressedState: State<Boolean>,
+    private val isHoveredState: State<Boolean>,
+) : CustomCardScope, ColumnScope by columnScope {
+    override val pressProgress: Float
+        get() = pressProgressState.value
+
+    override val isPressed: Boolean
+        get() = isPressedState.value
+
+    override val isHovered: Boolean
+        get() = isHoveredState.value
 }
 
 private class AnimatedCornerShape(
