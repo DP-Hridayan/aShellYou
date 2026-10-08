@@ -6,6 +6,7 @@
     <string name="about">Hakkında</string>
     <string name="action_import">İçe aktar</string>
     <string name="active" comment="Status indicator label for active ADB connection or active slot">Aktif</string>
+    <string name="active_provider" comment="Settings item title for choosing which cloud AI provider the app uses">Active provider</string>
     <string name="active_slot" comment="Refers to the active A/B partition slot on a dual-slot Android device">Aktif Slot</string>
     <string name="adb_agent" comment="Name of the AI chat assistant persona in aShellYou">ADB Ajanı</string>
     <string name="adb_command" comment="Input field label for typing an ADB shell command">ADB Komutu</string>
@@ -47,6 +48,7 @@
     <string name="add_api_key" comment="Button label in AI settings to input a custom LLM provider API key">API Key Ekle</string>
     <string name="add_command" comment="Button label to create and save a new command snippet to database">Komut ekle</string>
     <string name="add_new_item" comment="Generic button label to add a new list entry">Yeni öge ekle</string>
+    <string name="add_profile" comment="Button in the logcat filter sheet that opens the editor to create a new filter profile">Add profile</string>
     <string name="additional_settings" comment="Category header in app settings">Ek ayarlar</string>
     <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Temsilci yetenekleri</string>
     <string name="ai_agent_shortcut">AI Agent</string>
@@ -72,6 +74,8 @@
     <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">örnek: Siberpunk neon şehir, karanlık mod, yüksek kontrast</string>
     <string name="all">Tümü</string>
     <string name="all_data" comment="Option in backup selector to include full app database, settings, and chat history">Tüm veriler</string>
+    <string name="all_log_levels" comment="Logcat filter profile description when the profile does not restrict log levels">All levels</string>
+    <string name="all_log_levels_except" comment="%1$s = comma-separated log level names, e.g. Verbose, Debug. Logcat filter profile description for a profile that hides those levels">All except %1$s</string>
     <string name="allow_usb_access" comment="Button label that re-shows the system prompt asking the user to allow the app to use the attached USB device">USB erişimine izin ver</string>
     <string name="allow_usb_access_message" comment="Status shown when the target device was detected over USB but the system permission to use it has not been granted yet">Devam etmek için USB erişimine izin verin</string>
     <string name="already_connected" comment="Status message in wireless ADB setup screen indicating device is already connected">Zaten bağlı</string>
@@ -93,7 +97,7 @@
     <string name="app_permissions" comment="Title for app permissions shortcut">Uygulama izinleri</string>
     <string name="app_tagline" comment="App subtitle/tagline shown on welcome and about screens">ADB parmaklarınızın ucunda</string>
     <string name="apply">Uygula</string>
-    <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">Tümüne uygula (Kalan: %1$d)</string>
+    <string name="apply_to_all" comment="%1$d = number of further name conflicts in the same folder. Checkbox in the file conflict dialog">Tümüne uygula (Kalan: %1$d)</string>
     <string name="artifact_id" comment="Technical label for AI artifact identifier in developer options">Yapı Kimliği</string>
     <string name="authenticate" comment="Group header for authentication settings">Kimlik doğrula</string>
     <string name="authentication_timeout" comment="Title for authentication timeout setting">Kimlik doğrulama zaman aşımı</string>
@@ -108,6 +112,7 @@
     <string name="auto_update" comment="Setting toggle title to automatically check for application updates on startup">Otomatik güncelle</string>
     <string name="back">Geri</string>
     <string name="back_button" comment="Custom key bar button in terminal view simulating system back button press">Geri butonu</string>
+    <string name="back_to_shell" comment="Button that leaves the screen mirror and returns to the shell screen">Back to shell</string>
     <string name="background" comment="Material design theme surface/background color role label">Arkaplan</string>
     <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">Yedekleniyor…</string>
     <string name="backup">Yedekle</string>
@@ -126,6 +131,7 @@
     <string name="backup_successful" comment="Toast notification or dialog text when a backup completes successfully">Yedekleme başarılı</string>
     <string name="backup_time" comment="Setting label for picking exact time of day for automated backup execution">Yedekleme saati</string>
     <string name="backup_type" comment="Card label showing type of backup file (e.g. Full, Database, Settings)">Yedekleme türü</string>
+    <string name="balanced" comment="Video quality level between Saver and Sharp">Balanced</string>
     <string name="baseband_version" comment="Device info field label showing modem/baseband firmware version">Ana bant</string>
     <string name="basic_shell" comment="Execution mode option: run standard non-rooted, non-Shizuku shell commands">Temel Shell</string>
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">Pil</string>
@@ -134,6 +140,7 @@
     <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">Devam etmek için ekran kilidinizi onaylayın</string>
     <string name="biometric_prompt_title" comment="Title for the biometric authentication prompt">aShellYou kilidini aç</string>
     <string name="biometrics_disabled_msg" comment="Toast message when biometric data is removed from device settings">Uygulama biyometrik özellikleri devre dışı bırakıldı: Biyometrik veriler cihazdan kaldırıldı.</string>
+    <string name="bitrate" comment="Section title in the video quality sheet for the video's data rate">Bitrate</string>
     <string name="block" comment="Action button to block execution or permissions">Engelle</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">Maksimum yer imi sınırına ulaşıldı! Yenilerini eklemek için bazı yer imlerini silin</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">Yer İmleri</string>
@@ -159,7 +166,9 @@
     <string name="changelogs" comment="Settings list item title for viewing version history logs">Değişiklik Günlükleri</string>
     <string name="check_updates" comment="Action button in about screen to check GitHub or F-Droid for app updates">Güncellemeleri denetle</string>
     <string name="choose_a_device" comment="Dialog header prompting user to select a device from connected ADB devices list">Bir cihaz seçin</string>
+    <string name="choose_apps" comment="Accessibility label of the button next to the packages field in the logcat filter editor; opens a list of installed apps">Choose apps</string>
     <string name="choose_icon" comment="Button label in Quick Settings tile editor to select a custom icon">Simge seçin</string>
+    <string name="choose_provider" comment="Button label that opens the dialog for picking the active AI provider">Choose provider</string>
     <string name="clear">Temizle</string>
     <string name="clear_all" comment="Action button to clear all entries in command history or terminal output screen">Tümünü temizle</string>
     <string name="clear_all_message" comment="Confirmation prompt asking user if they want to clear the terminal output view">Bu ekrandaki her şeyi temizlemek istediğinize emin misiniz?</string>
@@ -193,6 +202,8 @@
     <string name="cmd_unlock_ability_desc" comment="Description for predefined fastboot command: fastboot flashing get_unlock_ability">Bu cihazın ön yükleyicisinin kilidinin açılıp açılamayacağını kontrol et</string>
     <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">Kilit Açma Yeteneği</string>
     <string name="code_pair_instruction" comment="Instructional text in Wireless Debugging pairing dialog directing user to open Wireless Debugging menu on target device">Hedef cihazda \"Kablosuz hata ayıklama\"yı açın ve \"Cihazı eşleştirme koduyla eşleştir\" seçeneğine dokunun</string>
+    <string name="codec" comment="Section title in the video quality sheet for the video compression format, such as H.264">Codec</string>
+    <string name="codec_fallback" comment="Message after the other device failed to encode the chosen codec. %1$s is a codec name such as H.265">This device can\'t encode %1$s, so H.264 is used</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">Daralt</string>
     <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">Hata oluştu</string>
     <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">Yüksek Rakım (Diyalog)</string>
@@ -239,6 +250,7 @@
     <string name="color_role_tertiary" comment="Material 3 color role name for tertiary theme accent color">Üçüncül</string>
     <string name="color_role_tertiary_accent" comment="Material 3 color role name for tertiary accent color">Üçüncül Vurgu</string>
     <string name="color_role_tertiary_container" comment="Material 3 color role name for container surface of tertiary elements">Üçüncül Konteyner</string>
+    <string name="comma_separated_values" comment="Helper text under a logcat filter field that accepts several values, such as tags or process IDs">Separate multiple values with commas</string>
     <string name="command" comment="Label/header for an ADB command snippet">Komut</string>
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">Komut analizi</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">Komut Konsolu</string>
@@ -301,6 +313,7 @@
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">Veritabanı Değişikliği</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Yalnızca veritabanları</string>
     <string name="days" comments="Days as in number of days">Days</string>
+    <string name="debug" comment="Android log level name, shown in logcat filters">Debug</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Varsayılan klasör</string>
     <string name="default_language" comment="Setting preference label for selecting application language">Varsayılan dil</string>
     <string name="delete">Sil</string>
@@ -311,8 +324,10 @@
     <string name="delete_items_message" comment="%1$d = number of selected items">Seçili %1$d ögeyi silmek istediğinize emin misiniz?</string>
     <string name="delete_items_title" comment="%1$d = number of items">%1$d öge silinsin mi?</string>
     <string name="delete_message" comment="%1$s = file or folder name">\"%1$s\" adlı ögeyi silmek istediğinize emin misiniz?</string>
+    <string name="delete_profile" comment="Title of the confirmation dialog shown before deleting a logcat filter profile">Delete profile?</string>
     <string name="delete_title" comment="%1$s = file or folder name">%1$s silinsin mi?</string>
     <string name="des_about" comment="Subtitle description for About section in settings menu">Katkıda bulunanlar ve destek</string>
+    <string name="des_active_provider" comment="Settings item description explaining that AI features use the selected provider">AI features use this provider</string>
     <string name="des_ai_cache_days" comment="Description under Cache duration setting in AI settings">Önbelleğe alınmış sonuçların gün olarak saklanma süresi</string>
     <string name="des_ai_cache_enabled" comment="Description under Enable cache setting in AI settings">Modele göre önbellek analizi sonuçları</string>
     <string name="des_ai_models" comment="Description under AI &amp; Models item in settings">AI modelleri verilerini ve API anahtarlarını yönetin</string>
@@ -343,6 +358,7 @@
     <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">Uygulamanın koyu renk şemasını ne zaman kullanacağını seçin</string>
     <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Yapay zeka temsilcisinin veritabanı öğeleri eklemesine, düzenlemesine veya silmesine izin ver</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">Uygulama için varsayılan dili seçin</string>
+    <string name="des_delete_profile" comment="%1$s = the filter profile name. Body of the confirmation dialog shown before deleting a logcat filter profile">%1$s will be removed. This can\'t be undone.</string>
     <string name="des_device_diagnostics" comment="Description explaining that this skill allows the AI to check device status">Yapay zeka temsilcisinin pil, bellek, depolama, donanım ve ağ durumunu yerel olarak kontrol etmesine izin ver</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">Harici bir klavye kullanmak istediğinizde faydalıdır</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">Şifrelenmiş yedeklemeyi Google Drive\'ınıza yükleyin.\nBu işlem, mevcut bulut yedeklemelerinin üzerine yazacaktır.</string>
@@ -360,6 +376,7 @@
     <string name="des_high_contrast_dark_mode" comment="Description under High contrast dark mode setting item">OLED ekranlı cihazlar için zifiri karanlık tema</string>
     <string name="des_hridayan" comment="Developer bio subtitle in About section">Uygulamaları ve tasarımı seven sıradan bir adam</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">Hızlı Ayarlar panelinde gösterildiğinde karonun sabit görsel durumu</string>
+    <string name="des_keep_shizuku_helper_running" comment="Description under the Keep Shizuku helper running setting; explains that the helper stays in the background so commands start instantly on the next launch">Shizuku komutlarının bir sonraki başlatmada anında çalışması için uygulama kapandıktan sonra Shizuku yardımcısını arka planda bırakın. Fazladan bellek kullanır.</string>
     <string name="des_legal_docs_updated" comment="Message shown in the dialog when legal docs are updated">Gizlilik Politikamızı ve Kullanım Koşullarımızı güncelledik. Lütfen değişiklikleri incelemek için bir dakikanızı ayırın.</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">Uygulama tarafından kullanılan kütüphanelerin ve lisansların ayrıntılarını görüntüle</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">Uygulamanın ve kütüphanelerin kullandığı lisansları görüntüleyin</string>
@@ -369,6 +386,7 @@
     <string name="des_logcat" comment="Description under Logcat item in navigation menu">Bağlı bir cihazdan gerçek zamanlı logcat çıktısı</string>
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">Dinamik renkler, Karanlık tema, Dil</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">Model seçilmedi</string>
+    <string name="des_no_filter_profiles" comment="Body of the empty state in the logcat filter sheet, shown when no filter profiles have been created">Add a profile to choose which logs are shown. With no profile selected, every log is shown.</string>
     <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">Çok sayıda yer imi eklenirse gecikmeye neden olabilir! Düşük donanımlı cihazlarda bu seçenek kapalı tutulmalıdır</string>
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Yapay zeka temsilcisinin yüklü paketleri ve uygulama verilerini sorgulamasına izin ver</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">Başka bir hedef cihazı eşleştirin</string>
@@ -386,6 +404,7 @@
     <string name="des_screen_density" comment="Description under Screen density multiplier setting item">Kullanıcı arayüzü öğelerinin daha büyük veya daha küçük görünmesini sağlamak için ekran yoğunluğunu ayarlayın</string>
     <string name="des_select_file_for_flashing" comment="Instructional description prompt for picking boot image file to flash">Seçilen bölüme yüklemek için bir önyükleme imaj dosyası seçin</string>
     <string name="des_set_local_adb_as_default_launch" comment="Description under Set Local ADB as default launch setting">Uygulama açılışında doğrudan Yerel ADB ekranına girin</string>
+    <string name="des_show_stream_statistics" comment="Description of the Show stream statistics switch">Frame rate, dropped frames and data rate, over the video</string>
     <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">İsteğe bağlı olarak bulut yedeklemeleri için Google hesabınızı bağlayabilirsiniz</string>
     <string name="des_smooth_scroll" comment="Description under Smooth scrolling setting toggle">Üst veya alt oka tıklandığında shell çıktısında yumuşak kaydırmayı etkinleştirir</string>
     <string name="des_terms_of_service" comment="Subtitle description under Terms of Service menu item">aShell You kullanımına yönelik kurallar ve yönergeler</string>
@@ -396,6 +415,7 @@
     <string name="des_use_biometrics">Parmak izinizi veya yüzünüzü kullanarak uygulamanın kilidinin açılmasına izin verin</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">Yanlış bir imaj bootloop\'a neden olabileceğinden dikkatli ilerleyin</string>
     <string name="description">Açıklama</string>
+    <string name="deselect" comment="Accessibility action label for removing a list item from the current multi-selection">Seçimi kaldır</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">Tüm seçimleri kaldır</string>
     <string name="developer" comment="Section title in About screen for lead developer info">Geliştirici</string>
     <string name="developer_options" comment="System Developer Options setting item or prompt">Geliştirici seçenekleri</string>
@@ -410,9 +430,11 @@
     <string name="device_disconnected_message_with_name" comment="%s = device name">\"%s\" bağlantısı kesildi.</string>
     <string name="device_found" comment="Status banner when an ADB/Wireless Debugging device service is discovered on local network">Cihaz bulundu!</string>
     <string name="device_info" comment="Screen header or navigation item for target device hardware/OS specifications">Cihaz bilgisi</string>
+    <string name="device_keys" comment="Accessibility label of the toolbars holding the navigation, volume, power, screenshot and quick settings buttons for the mirrored device">Device keys</string>
     <string name="device_not_in_sideload_mode" comment="Status shown when the attached device answers ADB but is booted normally rather than waiting in recovery sideload mode">Cihaz normal şekilde başlatıldı. Kurtarma moduna yeniden başlatın ve Apply update from ADB seçeneğini seçin</string>
     <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">Cihaz biyometrik kimlik doğrulamasını desteklemiyor</string>
     <string name="device_rejected_operation" comment="Error shown when the bootloader answered a fastboot command with a failure">Cihaz işlemi reddetti</string>
+    <string name="device_tools" comment="Label of the side toolbar holding actions for the connected device, such as screen mirror and file browser">Device tools</string>
     <string name="disable_softkey" comment="Setting toggle title to hide soft keyboard during shell session">Sanal klavyeyi devre dışı bırak</string>
     <string name="disclaimer" comment="Section title in About screen for legal disclaimer notices">Sorumluluk Reddi</string>
     <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">ADB komutlarını çalıştırmak sistem ayarlarını değiştirebilir, dosyaları yönetebilir ve cihazınızın kararlılığını etkileyebilecek işlemleri gerçekleştirebilir.\nBu uygulamayı kullanarak yapılan tüm değişikliklerin sorumluluğu tamamen size aittir.</string>
@@ -443,6 +465,7 @@
     <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">Dinamik renkler</string>
     <string name="edit">Düzenle</string>
     <string name="edit_command" comment="Dialog header for editing a saved ADB command snippet">Komutu düzenle</string>
+    <string name="edit_profile" comment="Title of the screen that edits an existing logcat filter profile">Edit profile</string>
     <string name="edit_theme_title" comment="%1$s = theme name">Temayı Düzenle: %1$s</string>
     <string name="edit_tile" comment="Screen title for modifying a Quick Settings tile configuration">Karoyu düzenle</string>
     <string name="empty_folder" comment="Placeholder text in file browser when current folder contains no files">Bu klasör boş</string>
@@ -465,9 +488,21 @@
     <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Siliniyor…</string>
     <string name="erasing_partition" comment="%1$s = partition name. Progress status while the bootloader erases a partition">%1$s siliniyor…</string>
     <string name="error">Hata</string>
+    <string name="error_bad_request" comment="Error shown when the AI provider rejects the request itself, usually a malformed tool schema">Request error: the provider rejected this request.</string>
+    <string name="error_insufficient_credits" comment="Error shown when the AI provider account has no credit left. %1$s is the provider name">No remaining credit for %1$s.</string>
+    <string name="error_invalid_api_key" comment="Error shown when the AI provider rejects the stored API key. %1$s is the provider name, e.g. Groq">Invalid API key for %1$s. Check your settings.</string>
     <string name="error_labels_limit_reached" comment="Validation error when maximum number of custom command labels/tags is reached">Maksimum etiket sınırına ulaşıldı</string>
+    <string name="error_model_unavailable" comment="Error shown when every AI model the app tried has been retired by the provider">The provider retired the models this app uses. Try another provider.</string>
+    <string name="error_no_active_provider" comment="Error shown when the user has not chosen which AI provider to use">No AI provider selected.</string>
+    <string name="error_no_api_key_for_provider" comment="Error shown when the selected AI provider has no API key saved. %1$s is the provider name">No API key set for %1$s.</string>
+    <string name="error_no_connection" comment="Error shown when the request to the AI provider could not be sent or timed out">No internet connection or request timed out.</string>
+    <string name="error_provider_server" comment="Error shown when the AI provider returns a server failure. %1$d is the HTTP status code">Provider server error (%1$d). Try again later.</string>
+    <string name="error_rate_limited" comment="Error shown when the AI provider is throttling requests and gives no retry time">Rate limited by provider. Try again shortly.</string>
+    <string name="error_rate_limited_retry_in" comment="Error shown when the AI provider is throttling requests. %1$d is a number of seconds">Rate limited &#8212; try again in %1$ds.</string>
+    <string name="error_unexpected_response" comment="Error shown when the AI provider reply could not be understood">Unexpected response from provider. Try again.</string>
     <string name="exclude" comment="Filter toggle option to exclude selected package or item">Hariç tut</string>
     <string name="execution_method" comment="Setting label for selecting shell execution engine (Shizuku, Root, or Basic Shell)">Çalıştırma yöntemi</string>
+    <string name="exit_full_screen" comment="Button that leaves the full screen view of the mirrored screen">Exit full screen</string>
     <string name="expand" comment="Action button to expand a collapsed card section">Genişlet</string>
     <string name="experimental" comment="Badge or section title marking experimental features">Deneysel</string>
     <string name="failed">Başarısız</string>
@@ -485,11 +520,14 @@
     <string name="fastboot_quick_actions" comment="Section header for predefined quick fastboot action buttons">Hızlı Eylemler</string>
     <string name="fastboot_summary" comment="Feature description card text for Fastboot OTG mode">OTG aracılığıyla fastboot modundaki bir cihaza bağlanın</string>
     <string name="fastboot_variable_explorer" comment="Tab title for Fastboot variable query screen">Değişken Gezgini</string>
+    <string name="fatal" comment="Android log level name for the most severe level, shown in logcat filters">Fatal</string>
     <string name="fb_all_operations_cancelled" comment="Notification toast when all file browser queue operations are cancelled">Tüm işlemler iptal edildi</string>
     <string name="fb_cannot_paste_into_selected" comment="Error toast in file browser when target paste item is a file instead of a folder">Seçilen klasöre yapıştırılamıyor</string>
+    <string name="fb_command_failed_status" comment="%1$d = numeric exit status of a shell command on the connected device. Shown when the command failed without printing a reason">Komut %1$d çıkış durumu ile başarısız oldu</string>
     <string name="fb_create_folder_failed" comment="%1$s = error message. fb_ prefix = file browser">Klasör oluşturulamadı: %1$s</string>
     <string name="fb_delete_failed" comment="%1$s = error message">Silme başarısız: %1$s</string>
     <string name="fb_deleted_items" comment="%1$d = number of deleted items">%1$d öge silindi</string>
+    <string name="fb_destination_exists" comment="Error in file browser when a copy or move target name is already taken on the connected device">Bu ada sahip bir öge zaten var</string>
     <string name="fb_download_failed" comment="%1$s = error message">İndirme başarısız: %1$s</string>
     <string name="fb_downloaded_to" comment="%1$s = file path">%1$s konumuna indirildi</string>
     <string name="fb_downloading" comment="%1$s = file name">%1$s indiriliyor</string>
@@ -497,15 +535,23 @@
     <string name="fb_error" comment="%1$s = error message">Hata: %1$s</string>
     <string name="fb_file_deleted" comment="Notification toast confirming file deletion">Dosya silindi</string>
     <string name="fb_folder_created" comment="Notification toast confirming new directory creation">Klasör oluşturuldu</string>
+    <string name="fb_no_response" comment="Error in file browser when the connected device did not answer a command, for example after the connection dropped">Cihaz yanıt vermedi</string>
     <string name="fb_nothing_to_paste" comment="Toast notification when user taps paste but file clipboard is empty">Yapıştırılacak bir şey yok</string>
     <string name="fb_operation_cancelled" comment="Toast notification when file browser operation is cancelled by user">İşlem iptal edildi</string>
     <string name="fb_otg_transfers_not_supported" comment="OTG = USB On-The-Go">Dosya aktarımları OTG modunda desteklenmiyor</string>
     <string name="fb_paste_completed" comment="%1$d = number of items pasted">Tamamlandı: %1$d öge</string>
     <string name="fb_paste_completed_with_failed" comment="%1$d = completed, %2$d = skipped, %3$d = failed">Tamamlandı: %1$d öge, %2$d atlandı, %3$d başarısız oldu</string>
     <string name="fb_paste_completed_with_skipped" comment="%1$d = completed, %2$d = skipped">Tamamlandı: %1$d öge, %2$d atlandı</string>
+    <string name="fb_paste_in_progress" comment="Toast in file browser when the user starts a paste while another paste is still running">Zaten devam eden bir yapıştırma işlemi var</string>
+    <string name="fb_paste_into_itself" comment="%1$s = folder name. Error toast in file browser when a folder is pasted into itself or into one of its own subfolders">\"%1$s\" kendi içine yapıştırılamaz</string>
+    <string name="fb_paste_item_failed" comment="%1$s = file or folder name, %2$s = error message from the device. Shown when one pasted item failed">\"%1$s\" yapıştırılamadı: %2$s</string>
+    <string name="fb_paste_no_free_name" comment="%1$s = file or folder name. Shown when Keep Both cannot find an unused numbered name such as name (1)">\"%1$s\" için boşta ad kalmadı</string>
+    <string name="fb_paste_source_missing" comment="%1$s = file or folder name. Shown when an item copied to the clipboard was deleted or moved before pasting">\"%1$s\" artık mevcut değil</string>
+    <string name="fb_pasting_progress" comment="%1$d = position of the item being pasted, %2$d = total number of items. Progress text while copying or moving files">%1$d / %2$d yapıştırılıyor</string>
     <string name="fb_reconnected_successfully" comment="Toast notification when file browser ADB session reconnects">Yeniden başarıyla bağlanıldı</string>
     <string name="fb_rename_failed" comment="%1$s = error message">Yeniden adlandırma başarısız: %1$s</string>
     <string name="fb_renamed_successfully" comment="Toast notification confirming file or folder rename">Başarıyla yeniden adlandırıldı</string>
+    <string name="fb_unexpected_response" comment="Error in file browser when the connected device answered a command with output the app could not read">Cihazdan beklenmeyen yanıt</string>
     <string name="fb_upload_failed" comment="%1$s = error message">Yükleme başarısız: %1$s</string>
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">Dosya başarıyla yüklendi</string>
     <string name="fb_uploading" comment="%1$s = file name">%1$s yükleniyor</string>
@@ -529,6 +575,7 @@
     <string name="file_uploaded" comment="Confirmation shown when a file finished uploading to the connected device">File uploaded</string>
     <string name="filter">Filtrele</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">Etiketlere göre filtrele</string>
+    <string name="filter_profiles" comment="Title of the bottom sheet listing saved logcat filter profiles">Filter profiles</string>
     <string name="flash_complete" comment="Status shown when a fastboot partition flash finished successfully">Flaşlama tamamlandı</string>
     <string name="flash_failed" comment="%1$s = error text returned by the bootloader. Shown when a fastboot partition flash fails">Flaşlama başarısız: %1$s</string>
     <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">Flaşla</string>
@@ -546,6 +593,8 @@
     <string name="forget_device_confirmation" comment="%1$s = device name">%1$s adlı cihazı unutmak istediğinize emin misiniz? Bağlanmak için tekrar eşleştirmeniz gerekecek.</string>
     <string name="forks" comment="GitHub repository metadata count label for project forks">Fork\'lar (Çatallar)</string>
     <string name="found_connect_service" comment="Status message when mDNS ADB connection service is discovered">Bağlantı servisi bulundu</string>
+    <string name="frame_rate" comment="Section title in the video quality sheet for frames per second">Frame rate</string>
+    <string name="frames_per_second" comment="%1$d is a number of video frames per second">%1$d fps</string>
     <string name="frequency" comment="Setting label for automated backup interval frequency">Sıklık</string>
     <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">Tam lisans metni</string>
     <string name="full_screen">Tam ekran</string>
@@ -567,10 +616,15 @@
     <string name="grant_permission" comment="Action button to trigger system permission request dialog">İzin ver</string>
     <string name="grant_shizuku_permission_for_tiles" comment="Warning alert shown when Shizuku permission is missing for Quick Settings tiles">Shizuku izni verilmedi!\naShell Komutları çalıştırmak için Shizuku iznine ihtiyacınız var.</string>
     <string name="great_news" comment="Dialog title header for update available notification">Harika haber!</string>
+    <string name="groq_api_key_step_1" comment="Step 1 of the Groq API key setup guide. %1$s = URL">Visit the Groq Console at %1$s</string>
+    <string name="groq_api_key_step_2" comment="Step 2 of the Groq API key setup guide: creating an account">Sign in or create a free Groq account</string>
+    <string name="groq_api_key_step_3" comment="Step 3 of the Groq API key setup guide: creating the key">Open the API Keys page and click Create API Key</string>
+    <string name="groq_api_key_step_4" comment="Step 4 of the Groq API key setup guide: copying the key">Copy your API key and paste it here</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">Dokunsal Geri Bildirim ve Titreşim</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">İyi günler!</string>
     <string name="heuristic">Sezgisel</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Hex Düzenleyici</string>
+    <string name="hide_device_tools" comment="Accessibility action that collapses the device tools side toolbar">Hide device tools</string>
     <string name="high" comment="Selection option for high haptic strength or elevation level">Yüksek</string>
     <string name="high_contrast_dark_mode" comment="Settings preference title for OLED pitch-black dark theme">Yüksek kontrastlı karanlık mod</string>
     <string name="hint" comment="Card header or field label for helpful hints">İpucu</string>
@@ -595,6 +649,7 @@
     <string name="irreversible_action_warning" comment="Warning dialog subtitle warning user that deletion cannot be undone">Bu işlem geri alınamaz!</string>
     <string name="item_deleted" comment="Confirmation toast after item is deleted">Öge başarıyla silindi</string>
     <string name="keep_both" comment="Resolution option in file conflict dialog to keep both original and new file">Her İkisini de Tut</string>
+    <string name="keep_shizuku_helper_running" comment="Setting toggle title to keep the background Shizuku helper process alive after the app closes">Shizuku yardımcısını çalışır durumda tut</string>
     <string name="keep_transferring" comment="Button that dismisses the cancel confirmation and lets the transfer continue">Devam et</string>
     <string name="key_verified_success_msg" comment="Confirmation text when entered AI API key is validated successfully">Anahtar başarıyla doğrulandı</string>
     <string name="label" comment="Field label for custom command label/tag name">Etiket</string>
@@ -608,6 +663,7 @@
     <string name="launch">Başlat</string>
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">Lider Geliştirici</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">En az kullanılan</string>
+    <string name="leave_mirror" comment="Button in the full screen control panel that closes the screen mirror and returns to the shell">Leave mirror</string>
     <string name="legal_and_policies" comment="Group header for legal settings">Yasal ve İlkeler</string>
     <string name="legal_consent_text">%1$s ve %2$s okudum ve kabul ediyorum.</string>
     <string name="legal_docs_updated" comment="Title for the dialog shown when legal docs are updated">Yasal Politikalar Güncellendi</string>
@@ -623,6 +679,7 @@
     <string name="loading_device_info" comment="Progress status text while querying ADB device specifications">Cihaz bilgileri yükleniyor…</string>
     <string name="loading_licenses" comment="Progress status text while loading open-source license files">Lisans bilgisi yükleniyor…</string>
     <string name="local_adb" comment="Connection mode option: run ADB commands locally on host device using Shizuku or Root">Yerel ADB</string>
+    <string name="local_adb_mode" comment="Section header above the list of Local ADB working modes (Basic shell, Shizuku, Root, TCP/IP) in the connected device sheet">Local ADB mode</string>
     <string name="local_adb_shell" comment="Screen header for local device ADB shell terminal">Yerel ADB shell</string>
     <string name="local_adb_summary" comment="Summary text for local ADB feature card">Shizuku veya root kullanarak ADB komutlarını doğrudan kendi cihazınızda çalıştırın.</string>
     <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">Yerel yedekleme</string>
@@ -648,20 +705,43 @@
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Logcat Kaynağı</string>
     <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">Logcat\'i başlatmak için ▶\'ye dokunun</string>
     <string name="logs" comment="Screen header or tab title for application and execution log views">Günlükler</string>
+    <string name="long_edge_pixels" comment="A limit on a video's longer side. %1$d is a number of pixels">%1$d px</string>
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Görünüm ve His</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">Düşük</string>
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">Düşük kontrast oranı</string>
     <string name="low_risk">Düşük risk</string>
+    <string name="lower_quality" comment="Action that lowers the mirrored video's quality one step">Lower quality</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">Temanızı Oluşturun</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">Manuel Eşleştirme</string>
     <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Material Icons</string>
     <string name="material_icons_description" comment="Informational text in icon chooser explaining the Material Icons download">2.500+ Material simgesine göz atmak için bir kez ~380 KB indirin</string>
     <string name="max_download_size" comment="Setting label for capping maximum update download file size">Maks İndirme</string>
     <string name="medium">Orta</string>
+    <string name="megabits_per_second" comment="%1$s is a data rate in megabits per second">%1$s Mbps</string>
     <string name="merge" comment="Resolution option in file browser conflict dialog to merge directory contents">Birleştir</string>
     <string name="message">Mesaj</string>
     <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">ADB Aracısına Mesaj Gönder</string>
     <string name="minimize" comment="Action button to minimize terminal overlay window">Küçült</string>
+    <string name="mirror_controls" comment="Accessibility label of the floating button that opens the full screen mirror controls">Mirror controls</string>
+    <string name="mirror_ended_disconnected" comment="Explains that screen mirroring ended because the device disconnected">The device disconnected.</string>
+    <string name="mirror_ended_server_stopped" comment="Explains that screen mirroring ended from the device's side">The device stopped mirroring.</string>
+    <string name="mirror_ended_title" comment="Title of the panel shown when screen mirroring has ended">Mirroring ended</string>
+    <string name="mirror_error_connect_timeout" comment="Screen mirror error: the video connection did not open in time">The device didn\'t open the video connection in time.</string>
+    <string name="mirror_error_decoder" comment="Screen mirror error: this phone has no decoder for the video format. %1$s is a codec name such as H265">This phone can\'t play %1$s video.</string>
+    <string name="mirror_error_deploy_failed" comment="Screen mirror error: the helper program could not be copied to the other device">Couldn\'t copy the mirroring helper to the device.</string>
+    <string name="mirror_error_encoder" comment="Screen mirror error: the other device's video encoder failed">The device couldn\'t encode its screen.</string>
+    <string name="mirror_error_not_connected" comment="Screen mirror error: no other device is connected over OTG or Wireless Debugging">No other device is connected.</string>
+    <string name="mirror_error_not_responding" comment="Screen mirror error: the other device stopped answering while mirroring was starting or running">The device stopped responding.</string>
+    <string name="mirror_error_server_exited" comment="Screen mirror error: the helper program stopped unexpectedly on the device">The mirroring helper stopped on the device.</string>
+    <string name="mirror_error_stream" comment="Screen mirror error: the video data from the device could not be read">The video stream couldn\'t be read.</string>
+    <string name="mirror_error_version" comment="Screen mirror error: the helper on the device is a different version than the app expects">The mirroring helper on the device is a different version.</string>
+    <string name="mirror_failed_title" comment="Title of the panel shown when screen mirroring could not start or stopped with an error">Couldn\'t mirror the screen</string>
+    <string name="mirror_full_screen_hint" comment="One-time message shown when the screen mirror first goes full screen">Back now goes to the device. Tap the floating button for controls.</string>
+    <string name="mirror_step_connecting" comment="Startup step while the live video connection to the other device opens">Connecting video</string>
+    <string name="mirror_step_preparing" comment="Startup step while the mirroring helper is copied to the other device">Preparing</string>
+    <string name="mirror_step_preparing_skipped" comment="Startup step shown when the mirroring helper was already on the other device, so copying was skipped">Ready on device</string>
+    <string name="mirror_step_starting" comment="Startup step while the mirroring helper starts on the other device">Starting on device</string>
+    <string name="mirror_view_only_message" comment="Explains why touches on the mirrored screen do nothing and how to fix it on Xiaomi phones">The device refused touch input. On Xiaomi devices, turn on USB debugging (Security settings) and restart the device.</string>
     <string name="mode" comment="Header title for ADB execution engine mode selector">Mod</string>
     <string name="mode_one_desc" comment="Description for Root execution engine option in settings">Komutları çalıştırmak için root erişimini kullanır. Root gerektiren komutlar çalıştırılabilir.</string>
     <string name="mode_two_desc" comment="Description for Shizuku execution engine option in settings">Komutları çalıştırmak için Shizuku kullanır. Root gerektiren komutlar çalıştırılamaz.</string>
@@ -680,13 +760,17 @@
     <string name="moving_items" comment="%1$d = number of items being moved">%1$d öge taşınıyor</string>
     <string name="n_days" comment="%d = number of days for cache duration setting">%d gün</string>
     <string name="name">Ad</string>
+    <string name="native_resolution" comment="Resolution option that streams the other device's screen at its own size">Native</string>
     <string name="network_error" comment="Toast error message when network connection fails during wireless pairing or cloud backup">Ağ hatası</string>
     <string name="new_commands_available_msg" comment="Banner prompt shown when updated command templates are available to load into database">Yeni komut örnekleri eklendi!\nYeni komutları yüklemek için aşağıdaki düğmeye tıklayın.</string>
     <string name="new_folder" comment="Action button label in file browser to create a new directory">Yeni klasör</string>
     <string name="new_name" comment="Text field label for entering new item or file name">Yeni ad</string>
+    <string name="new_profile" comment="Title of the screen that creates a new logcat filter profile">New profile</string>
     <string name="newest" comment="Sorting option for items by creation date (newest first)">En yeni</string>
     <string name="no_adb_device_error" comment="Error toast when no ADB target device is found over USB OTG">ADB uyumlu cihaz bulunamadı. Hedef cihazda USB hata ayıklamayı etkinleştirin.</string>
     <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">Adb arayüzü bulunamadı</string>
+    <string name="no_api_key_for_active_provider" comment="Dialog message shown when an AI feature is used but the chosen provider has no key. %1$s is the provider name, e.g. Groq">There is no API key for active provider %1$s. Would you like to choose another provider?</string>
+    <string name="no_apps_found" comment="Shown in the app picker when no installed app matches the search">No apps found</string>
     <string name="no_auto_backup_yet" comment="Placeholder text under backup status when no automated backup has executed">Henüz otomatik yedekleme işlemi yapılmadı</string>
     <string name="no_bookmarks" comment="Placeholder text in bookmarks tab when no commands are saved">Yer imi bulunamadı</string>
     <string name="no_changelog_found" comment="Placeholder message in changelog screen when no version notes exist">Bu sürüm için değişiklik günlüğü bulunamadı</string>
@@ -698,6 +782,7 @@
     <string name="no_fastboot_device_error" comment="Error banner in fastboot screen when connected USB device is not in fastboot mode">Bağlı cihaz fastboot modunda değil</string>
     <string name="no_fastboot_interface_found" comment="Error shown when the attached USB device does not expose a fastboot interface">Bağlı USB cihazının fastboot arayüzü yok</string>
     <string name="no_files_download" comment="Toast warning in file browser when user selects directory instead of files for download">Dosya seçilmedi (klasörler indirilemez)</string>
+    <string name="no_filter_profiles" comment="Title of the empty state in the logcat filter sheet, shown when no filter profiles have been created">No filter profiles yet</string>
     <string name="no_folder_selected" comment="Placeholder status text when no backup directory is picked">Seçili klasör yok</string>
     <string name="no_google_account_message" comment="Dialog message when no Google account is registered on device for cloud backups">Bu cihazda Google hesabı bulunamadı. Bulut yedeklemelerini kullanmak için bir hesap eklemek ister misiniz?</string>
     <string name="no_google_account_title" comment="Dialog title when no Google account is detected">Google Hesabı Yok</string>
@@ -743,6 +828,10 @@
     <string name="open_app_language_settings" comment="Button label on Android 13+ to jump to system per-app language setting screen">Uygulama dil ayarlarını açın</string>
     <string name="open_issues" comment="GitHub repository open issues count">Açık sorunlar (Issues)</string>
     <string name="open_url" comment="Action button to launch web browser to external URL link">URL\'yi Aç</string>
+    <string name="openrouter_api_key_step_1" comment="Step 1 of the OpenRouter API key setup guide. %1$s = URL">Visit OpenRouter at %1$s</string>
+    <string name="openrouter_api_key_step_2" comment="Step 2 of the OpenRouter API key setup guide: creating an account">Sign in or create a free OpenRouter account</string>
+    <string name="openrouter_api_key_step_3" comment="Step 3 of the OpenRouter API key setup guide: creating the key">Open Settings then Keys, and click Create Key</string>
+    <string name="openrouter_api_key_step_4" comment="Step 4 of the OpenRouter API key setup guide: copying the key">Copy your API key and paste it here</string>
     <string name="operation_complete" comment="Notification toast when file copy/move operation finishes">İşlem tamamlandı</string>
     <string name="operations" comment="Bottom sheet title for file transfer operations list">İşlemler</string>
     <string name="or">VEYA</string>
@@ -750,6 +839,7 @@
     <string name="other_device" comment="Selection tab for target device in Logcat Viewer">Diğer cihaz</string>
     <string name="output" comment="Header title for shell command output window">Çıktı</string>
     <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">Çıktı burada görünecek…</string>
+    <string name="overflow_count" comment="%1$d = number of further items not shown. Short counter drawn over a small circular icon, for example +2">+%1$d</string>
     <string name="override_bookmarks_limit" comment="Setting toggle title to remove the maximum limit on saved bookmarks count">Maksimum yer imi sınırını geçersiz kıl</string>
     <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">Paket adı</string>
     <string name="packages" comment="Title for the packages skill toggle in AI settings">Paketler</string>
@@ -757,6 +847,7 @@
     <string name="pair_a_device_first" comment="Instructional notice directing user to pair an ADB device before attempting connection">Önce bir cihazı eşleştirin</string>
     <string name="pair_another_device" comment="Button label in Wireless Debugging setup to pair an additional target device">Başka bir cihaz eşleştir</string>
     <string name="pair_connect_failed_message" comment="Dialog message when connecting to a paired wireless ADB device fails">Eşleştirilen cihaza bağlanılamadı\nCihaz aynı ağda olmayabilir\nYeniden eşleştirmeyi deneyin</string>
+    <string name="pair_device_to_see_it_here" comment="Hint under No saved devices in the device picker sheet, above a Pair button that can pair this device or another one">Pair a device to see it here</string>
     <string name="pair_device_to_start" comment="Placeholder banner in wireless debugging screen directing user to pair device via QR or pairing code">Burada görebilmek için QR veya eşleştirme kodu kullanarak bir cihaz eşleştirin</string>
     <string name="pair_manually" comment="Option in Wireless Debugging setup to enter IP, Port, and Pairing Code manually">Manuel eşleştir</string>
     <string name="pair_this_device" comment="Button label in wireless debugging screen to initiate self-pairing for local device ADB">Bu cihazı eşleştir</string>
@@ -792,6 +883,7 @@
     <string name="pin_all">Seçilenleri sabitle</string>
     <string name="port" comment="Field label for network port number in wireless ADB manual pairing setup">Port</string>
     <string name="possible_reasons" comment="Dialog section header listing potential causes of ADB connection failure">Olası nedenler</string>
+    <string name="power" comment="Button that presses the power key on the mirrored device">Power</string>
     <string name="pre_release_github" comment="Option in update channel settings to receive GitHub pre-release builds">Ön sürüm (GitHub)</string>
     <string name="pre_release_warning" comment="Warning alert header when switching to pre-release update channel">Yayın öncesi sürümler kararsız olabilir</string>
     <string name="pre_release_warning_description" comment="Detailed description of risks when opting into pre-release testing builds">Bu sürümler hala test aşamasındadır ve tamamlanmamış özellikler veya beklenmeyen hatalar içerebilir. Yayın öncesi sürüme güncellemeyi seçerseniz, lütfen bazı şeylerin kırılabileceği veya tuhaf davranabileceği ihtimalinin farkında olun.\nHerhangi bir sorun, çökme veya garip bir davranışla karşılaşırsanız, lütfen bunları bildirin ki kararlı sürümden önce düzeltebilelim ve aShellYou\'yu geliştirebilelim.\nDaha iyisini inşa etmemize yardımcı olduğunuz için teşekkürler!</string>
@@ -805,11 +897,28 @@
     <string name="privacy_and_security" comment="Title for the privacy and security settings screen">Gizlilik ve Güvenlik</string>
     <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">Gizlilik Politikası</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">Ürün</string>
+    <string name="profile_name" comment="Label of the name field in the logcat filter profile editor">Profile name</string>
+    <string name="profile_name_required" comment="Error under the name field when saving a logcat filter profile without a name">Enter a name for this profile</string>
+    <string name="profile_save_failed" comment="Toast shown when a logcat filter profile could not be saved">Couldn\'t save the profile</string>
     <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">Kurtarma menüsü üzerinden cihazı sideload moduna alın</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">QR ile Eşleştir</string>
     <string name="qr_pair_hint" comment="Instructional text in QR pairing screen instructing user to scan QR code from target device">Bir Android 11+ cihazı eşleştirmek için, bu QR kodunu hedef cihazdan tarayın</string>
     <string name="qr_scanner_location_hint" comment="Instructional hint directing user where to find system QR scanner in target device Developer Options">QR tarayıcı konumu:\nGeliştirici Seçenekleri &gt; Kablosuz Hata Ayıklama &gt; QR kodu ile eşleştir</string>
     <string name="qs_tiles" comment="Refers to Android System Quick Settings tiles configured for custom ADB scripts">Hızlı ayarlar karoları</string>
+    <string name="quality" comment="Section title in the video quality sheet for picking a quality level">Quality</string>
+    <string name="quality_auto_description" comment="Explains the Auto video quality level">Picks the smoothest stream both phones can handle</string>
+    <string name="quality_custom" comment="Video quality level where the user picks the resolution, frame rate, bitrate and codec">Custom</string>
+    <string name="quality_custom_description" comment="Explains the Custom video quality level">Choose each value yourself</string>
+    <string name="quality_limit_chosen" comment="Why the mirrored video's quality is what it is: the user picked it">Set by you</string>
+    <string name="quality_limit_connection" comment="Why the mirrored video's quality is what it is: USB or Wi-Fi can't carry more">Limited by the connection</string>
+    <string name="quality_limit_target_encoder" comment="Why the mirrored video's quality is what it is">Limited by the device\'s video encoder</string>
+    <string name="quality_limit_target_screen" comment="Why the mirrored video's quality is what it is">Matches the device\'s own screen</string>
+    <string name="quality_limit_viewer_decoder" comment="Why the mirrored video's quality is what it is">Limited by this phone\'s video decoder</string>
+    <string name="quality_limit_viewer_screen" comment="Why the mirrored video's quality is what it is">Limited by this phone\'s screen</string>
+    <string name="quality_preset_description" comment="Explains a video quality level. %1$d is a size in pixels, %2$d is frames per second">Up to %1$d px at %2$d fps</string>
+    <string name="quality_sharp_description" comment="Explains the Sharp video quality level. %1$d is frames per second">The device\'s full size at %1$d fps</string>
+    <string name="quality_summary" comment="What the mirrored video will stream at. %1$s is a size such as 1080 × 2400, %2$s a frame rate such as 60 fps, %3$s a data rate such as 8 Mbps, %4$s a codec such as H.264">%1$s · up to %2$s · %3$s · %4$s</string>
+    <string name="quick_settings" comment="Button that pulls down the quick settings panel on the mirrored device">Quick settings</string>
     <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">Hızlı Ayarlar Karoları</string>
     <string name="quick_tools" comment="Section header for fast access utility tools">Hızlı Araçlar</string>
     <string name="reading_file" comment="Progress status text while loading file contents into viewer">Dosya okunuyor…</string>
@@ -824,6 +933,7 @@
     <string name="reboot_recovery" comment="Action button / dialog choice to reboot target device into recovery mode">Recovery Modunda Yeniden Başlat</string>
     <string name="recent_activity" comment="Dashboard card header listing recent command executions">En son aktiviteler</string>
     <string name="recent_searches" comment="Header title for recent search query history">Son aramalar</string>
+    <string name="recents" comment="Button that opens the recent apps overview on the mirrored device">Recents</string>
     <string name="recommended" comment="Badge label marking recommended settings or AI choices">Önerilen</string>
     <string name="reconnect" comment="Action button to attempt reconnecting to last known wireless ADB device">Yeniden Bağlan</string>
     <string name="reconnect_failed" comment="Toast notification or card status when wireless ADB reconnection fails">Yeniden bağlantı başarısız</string>
@@ -831,6 +941,7 @@
     <string name="reconnect_failed_requires_pairing" comment="Toast notification indicating device un-paired and needs re-pairing">Yeniden bağlantı başarısız oldu. Yeniden eşleştirme gerekiyor.</string>
     <string name="reconnect_success" comment="Toast message confirming successful wireless ADB reconnection">Yeniden başarıyla bağlanıldı</string>
     <string name="reconnect_the_device" comment="Button prompt directing user to reconnect target ADB device">Cihazı yeniden bağla</string>
+    <string name="reconnecting" comment="Status shown over a frozen screen mirror while the app waits for the device connection to come back">Reconnecting…</string>
     <string name="recovery_not_responding" comment="Error shown when the target device recovery did not start requesting data after the sideload stream was opened">Kurtarma yanıt vermiyor. Kurtarma modunda “Apply update from ADB” seçeneğini seçin ve tekrar deneyin</string>
     <string name="recovery_reported_failure" comment="Error shown when the target device recovery reported that installing the sideloaded package failed">Kurtarma, yüklemenin başarısız olduğunu bildirdi</string>
     <string name="refresh">Yenile</string>
@@ -838,6 +949,7 @@
     <string name="rename">Yeniden adlandır</string>
     <string name="rename_title" comment="%1$s = file or folder name">%1$s ögesini yeniden adlandır</string>
     <string name="replace" comment="Resolution option in file conflict dialog to replace existing file">Değiştir</string>
+    <string name="replace_deletes_folder_warning" comment="Warning in the file conflict dialog when the existing item is a folder, explaining that Replace removes the folder with all of its contents">Replace deletes the existing folder and everything in it.</string>
     <string name="report">Bildir</string>
     <string name="report_issue" comment="Button in About screen linking to GitHub issue tracker">Sorun bildir</string>
     <string name="repository" comment="Button in About screen linking to GitHub project repository">Depo (Repository)</string>
@@ -848,6 +960,7 @@
     <string name="reset_app_settings" comment="Button label in settings to restore default application configuration">Uygulama ayarlarını sıfırla</string>
     <string name="reset_settings_failed" comment="Toast notification when settings reset operation fails">Ayarları sıfırlama başarısız oldu</string>
     <string name="reset_settings_successful" comment="Toast notification confirming settings have been reset to defaults">Ayarları sıfırlama başarılı</string>
+    <string name="resolution" comment="Section title in the video quality sheet for the video's size">Resolution</string>
     <string name="restart_app" comment="Button that closes and relaunches the app">Uygulamayı yeniden başlat</string>
     <string name="restart_required" comment="Dialog title when the app must be restarted for a change to take effect">Yeniden başlatma gerekli</string>
     <string name="restore">Geri yükle</string>
@@ -875,12 +988,18 @@
     <string name="save_key" comment="Button label to save entered API key string in settings">Anahtarı kaydet</string>
     <string name="save_whole_output" comment="Setting toggle title to export full terminal session output to file">Tüm çıktıyı kaydet</string>
     <string name="saved_devices" comment="Screen title and list header for paired ADB devices history">Kayıtlı cihazlar</string>
+    <string name="saver" comment="Video quality level that uses the least data and battery">Saver</string>
     <string name="saving" comment="Progress status text while saving file or settings">Kaydediliyor…</string>
     <string name="saving_output" comment="Progress status text while exporting terminal log output to file">Çıktı dosyaya dışa aktarılıyor…</string>
     <string name="schedule" comment="Header title or setting label for automated backup schedule picker">Zamanlama</string>
+    <string name="screen" comment="Device dock button that opens a live view of the connected device's screen which can also be controlled">Screen</string>
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">Ekran yoğunluğu çarpanı</string>
+    <string name="screen_mirror" comment="Title of the screen showing and controlling the connected device's screen live">Screen mirror</string>
+    <string name="screenshot" comment="Button that takes a screenshot on the mirrored device">Screenshot</string>
     <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">En alta kaydır</string>
+    <string name="scroll_to_top" comment="Accessibility label and tooltip for the button that jumps to the first line of the command output">Scroll to top</string>
     <string name="search">Ara</string>
+    <string name="search_apps" comment="Hint in the search field of the app picker in the logcat filter editor">Search apps</string>
     <string name="search_bookmarks_here" comment="Placeholder text in bookmarks tab search bar">Yer işaretlerini burada arayın</string>
     <string name="search_commands_here" comment="Placeholder text in command templates tab search bar">Komutları burada arayın</string>
     <string name="search_fonts" comment="Placeholder text in font family picker search bar">Yazı tiplerini ara…</string>
@@ -897,6 +1016,7 @@
     <string name="security_patch" comment="Device property label displaying Android security patch level date">Güvenlik Yaması</string>
     <string name="select">Seç</string>
     <string name="select_all">Tümünü seç</string>
+    <string name="select_apps" comment="Title of the bottom sheet for choosing which apps a logcat filter profile matches">Select apps</string>
     <string name="select_backup_folder_message" comment="Dialog message prompting user to grant folder access for local automated backups">Lütfen yedeklemelerin kaydedileceği bir klasör seçin. Uygulamanın bu klasöre okuma ve yazma erişimine ihtiyacı var.</string>
     <string name="select_backup_folder_title" comment="Dialog title when no backup directory has been configured">Yedekleme klasörü yok</string>
     <string name="select_folder" comment="Action button to open system directory picker for backup storage">Klasör seç</string>
@@ -930,6 +1050,7 @@
     <string name="settings">Ayarlar</string>
     <string name="settings_only" comment="Option in backup screen to export only application settings (excluding history/bookmarks)">Sadece Ayarlar</string>
     <string name="share">Paylaş</string>
+    <string name="sharp" comment="Highest preset video quality level">Sharp</string>
     <string name="shell_connection_lost" comment="Error shown in the shell output when the connection to the device drops while a command is running">Connection to the device was lost</string>
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">Son komutun çıktısı \'%s\' konumuna aktarıldı</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">Shell çıktısı \'%s\' konumuna aktarıldı</string>
@@ -938,6 +1059,8 @@
     <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">Shizuku servisi kullanılamıyor. Shizuku veya Shizuku+\'ın çalıştığından ve iznin verildiğinden emin olun.</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku kullanılamıyor</string>
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">Shizuku yüklü değil veya cihazınızda düzgün yapılandırılmamış</string>
+    <string name="show_device_tools" comment="Accessibility action that expands the device tools side toolbar">Show device tools</string>
+    <string name="show_stream_statistics" comment="Switch in the video quality sheet">Show stream statistics</string>
     <string name="sideload_block_out_of_range" comment="Error shown when the target device recovery requested a part of the package beyond its end; usually indicates a corrupted transfer">Kurtarma, dosya sonunun ötesinde veriler talep etti</string>
     <string name="sideload_channel_description" comment="Notification channel description explaining that the channel shows sideload transfer progress">Bir cihaza sideload ile yüklenen bir paketin ilerleme durumunu gösterir</string>
     <string name="sideload_channel_name" comment="Notification channel name for the ongoing ADB sideload transfer">ADB Sideload</string>
@@ -979,11 +1102,12 @@
     <string name="stable_github" comment="Option in update channel settings for GitHub stable releases">Stabil (GitHub)</string>
     <string name="stack_trace" comment="Header title for crash log exception stack trace section">Yığın İzleme (Stack trace)</string>
     <string name="stargazers" comment="GitHub repository star count label in About screen">Yıldız Verenler (Stargazers)</string>
+    <string name="start">Başlat</string>
     <string name="status_with_detail" comment="Home card status line. %1$s is a connection state such as Connected, %2$s is the device name, e.g. Connected (Pixel 7)">%1$s (%2$s)</string>
     <string name="status_with_device_and_mode" comment="Wireless debugging home card status line. %1$s is a connection state such as Connected, %2$s is the device name, %3$s is This Device or Other device, e.g. Connected (Pixel 7, Other device)">%1$s (%2$s, %3$s)</string>
-    <string name="start">Başlat</string>
     <string name="stop">Durdur</string>
     <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">Yapay zeka modelleri tarafından kullanılan %.1f MB</string>
+    <string name="stream_statistics" comment="Overlay over the mirrored video. %1$s is a size, %2$s a frame rate, %3$d a count of dropped frames, %4$s a data rate, %5$s a codec">%1$s · %2$s · %3$d dropped · %4$s · %5$s</string>
     <string name="style_filled">Filled</string>
     <string name="style_outlined">Outlined</string>
     <string name="style_rounded">Rounded</string>
@@ -1008,14 +1132,22 @@
     <string name="tag" comment="Field label for custom command category tag/label">Etiket</string>
     <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">Bir .zip dosyasına göz atmak için dokunun</string>
     <string name="tcpip_connect_failed" comment="Toast shown when TCP connection to 127.0.0.1 on the detected port is refused. %1$d is replaced with the port number.">%1$d numaralı bağlantı noktasına bağlantı reddedildi. ADB arka plan programı dinlemiyor olabilir.</string>
+    <string name="tcpip_enable_opened" comment="Shown when the ADB TCP port was opened. ADB restarts to do this, which disconnects wireless debugging. %1$d is the port number.">TCP port %1$d is open and TCP/IP mode in Local ADB is ready. Wireless debugging was disconnected because ADB restarted.</string>
+    <string name="tcpip_enable_pending_hint" comment="Hint on the pairing screen when the user came to open the ADB TCP port. %1$d is the port number.">Pair this device and ADB TCP port %1$d will be opened automatically.</string>
+    <string name="tcpip_enable_refused" comment="Shown when ADB refused to open a TCP port. %1$s is the reason ADB gave.">Could not open the TCP port: %1$s</string>
+    <string name="tcpip_enable_running" comment="Shown while the app asks ADB to listen on a TCP port. %1$d is the port number.">Opening ADB TCP port %1$d…</string>
+    <string name="tcpip_enable_unverified" comment="Shown when ADB accepted the request to open a TCP port but the port could not be confirmed. %1$d is the port number.">ADB restarted to open port %1$d, but the port could not be confirmed. Try TCP/IP mode in Local ADB.</string>
     <string name="tcpip_mode" comment="Label for the TCP/IP local shell working mode (loopback port 5555)">TCP/IP</string>
     <string name="tcpip_not_available_body" comment="Dialog body explaining how to enable TCP ADB when the system property is missing. The adb command should stay untranslated.">Cihazınızda TCP ADB etkin değil. Bir kez USB üzerinden bir PC\'ye bağlanın ve şunu çalıştırın:\n\nadb tcpip 5555\n\nBundan sonra bu mod, USB veya Wi-Fi olmadan çalışır.</string>
+    <string name="tcpip_not_available_footer" comment="Note below the adb command in the TCP mode unavailable dialog. The port closes again when the device reboots.">Once the port is open, this mode works without USB or Wi-Fi until the device restarts.</string>
+    <string name="tcpip_not_available_instructions" comment="Body of the TCP mode unavailable dialog, shown above a copyable adb command. The command itself is shown separately.">Your device does not have TCP ADB enabled. Connect it to a computer over USB once and run:</string>
     <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">TCP Modu Kullanılamıyor</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">Terminal</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Terminal yazı tipi stili</string>
     <string name="terms_of_service" comment="Title for the Terms of Service legal document">Kullanım Koşulları</string>
     <string name="tertiary">Üçüncül</string>
     <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">Tema modu</string>
+    <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">Thinking</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">Üçüncü parti kütüphaneler</string>
     <string name="this_application" comment="Option label for target scope in Logcat Viewer">Bu uygulama</string>
     <string name="this_device" comment="Selection option for target ADB device matching host phone">Bu Cihaz</string>
@@ -1070,21 +1202,31 @@
     <string name="use">Kullan</string>
     <string name="use_biometrics">Biyometrik verileri kullan</string>
     <string name="use_cases">Kullanım senaryoları</string>
+    <string name="use_wireless_debugging" comment="Button that opens ADB TCP mode using wireless debugging on this device instead of a computer">Use wireless debugging</string>
     <string name="utilities" comment="Category title in homescreen">Yardımcı Araçlar</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">Varyant</string>
+    <string name="verbose" comment="Android log level name for the most detailed level, shown in logcat filters">Verbose</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">Doğrulama başarısız</string>
     <string name="verify_api_key" comment="Action button to validate entered AI API key with remote service">API Anahtarı Doğrula</string>
     <string name="verifying" comment="Progress status text while verifying API key validity">Doğrulanıyor</string>
     <string name="version">Sürüm</string>
     <string name="version_code" comment="Device/app metadata label for build version code number">Sürüm kodu</string>
     <string name="version_name" comment="Device/app metadata label for human-readable version string">Sürüm adı</string>
+    <string name="video_dimensions" comment="A video's width and height in pixels, for example 1080 × 2400">%1$d × %2$d</string>
+    <string name="video_quality" comment="Title of the screen mirror's sheet for choosing the video's resolution, frame rate and bitrate, and the label of the button that opens it">Video quality</string>
+    <string name="video_struggling" comment="Message when this phone drops many frames of the mirrored video">The video can\'t keep up</string>
     <string name="view_license_online_msg" comment="Subtext in license viewer directing user to view license URL online">Lisansı çevrimiçi olarak görüntülemek için \'URL\'yi Aç\' seçeneğine dokunun.</string>
     <string name="view_on_github" comment="Button linking to GitHub release page or commit diff">GitHub\'da Görüntüle</string>
+    <string name="view_only" comment="Badge shown when the mirrored screen can be watched but not controlled">View only</string>
+    <string name="viewer_max_frame_rate" comment="Shown under the frame rate options when the chosen rate is more than this phone's screen shows. %1$d is frames per second">This phone shows at most %1$d fps</string>
     <string name="visit_repo_to_download" comment="Instructions directing user to download the update APK file from GitHub releases">Github deposundan aShellYou\'nun son sürümünü almak için indirme düğmesine tıklayın.</string>
+    <string name="volume_down" comment="Button that presses the volume down key on the mirrored device">Volume down</string>
+    <string name="volume_up" comment="Button that presses the volume up key on the mirrored device">Volume up</string>
     <string name="waiting_for_device" comment="Progress status banner while awaiting target device USB OTG attachment">Cihaz bekleniyor</string>
     <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">Cihazlar bekleniyor…</string>
     <string name="waiting_for_recovery" comment="Progress status shown after the sideload stream was opened while waiting for the target device recovery to request data">Kurtarma bekleniyor…</string>
     <string name="want_to_contribute_too" comment="Call-to-action banner in About screen inviting code or translation contributions">Siz de katkıda bulunmak ister misiniz?</string>
+    <string name="warning" comment="Android log level name, shown in logcat filters">Warning</string>
     <string name="weekly" comment="Option in backup scheduler frequency selection">Haftalık</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">%1$s işlemi yapılırken ne yapmak istersiniz?</string>
     <string name="whats_new" comment="Header title for app release notes and changelog dialog">Neler yeni!</string>
@@ -1105,15 +1247,31 @@
     <string name="wireless_debugging_important_notice" comment="Important tip clarifying that tapping the left side of Wireless Debugging switch opens the pairing sub-menu">Lütfen Kablosuz Hata Ayıklama seçeneğinin sol kısmının tıklanabilir olduğuna dikkat edin. Üzerine dokunulduğunda Kablosuz Hata Ayıklama Eşleştirme menüsü açılır.</string>
     <string name="wireless_not_connected" comment="Status banner shown when target device is not connected over Wireless Debugging">Bağlı değil</string>
     <string name="wireless_not_connected_message" comment="Instructional body text advising user to pair and connect device first">Cihazınız Kablosuz Hata Ayıklama üzerinden bağlı değil. Öncelikle cihazınızı eşleştirin ve bağlayın.</string>
+    <string name="writing_to_partition" comment="%1$s = partition name. Progress status after the image was sent while the bootloader writes it">%1$s konumuna yazılıyor…</string>
+    <plurals name="app_count" comment="Accessibility label of the stacked app icons on a logcat filter profile card; %1$d = number of apps the profile matches">
+        <item quantity="one">%1$d app</item>
+        <item quantity="other">%1$d apps</item>
+    </plurals>
+    <plurals name="delete_profiles" comment="Title of the confirmation dialog shown before deleting several selected logcat filter profiles; %1$d = number of profiles">
+        <item quantity="one">Delete %1$d profile?</item>
+        <item quantity="other">Delete %1$d profiles?</item>
+    </plurals>
+    <plurals name="des_delete_profiles" comment="Body of the confirmation dialog shown before deleting several selected logcat filter profiles; %1$d = number of profiles">
+        <item quantity="one">%1$d profile will be removed. This can\'t be undone.</item>
+        <item quantity="other">%1$d profiles will be removed. This can\'t be undone.</item>
+    </plurals>
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d yeni giriş</item>
         <item quantity="other">%1$d yeni girişler</item>
+    </plurals>
+    <plurals name="profiles_selected" comment="Header of the logcat filter profile list while choosing profiles to edit or delete; %1$d = number chosen">
+        <item quantity="one">%1$d selected</item>
+        <item quantity="other">%1$d selected</item>
     </plurals>
     <plurals name="timeout_minutes" comment="Option for minute timeouts">
         <item quantity="one">%1$d dakika</item>
         <item quantity="other">%1$d dakika</item>
     </plurals>
-    <string name="writing_to_partition" comment="%1$s = partition name. Progress status after the image was sent while the bootloader writes it">%1$s konumuna yazılıyor…</string>
     <string name="changelog_v7_4_0">\nArtık Ayarlar ekranlarında Alt Ayarlar\'ı arayabilirsiniz.\nRenk şemaları için Palet Stilleri eklendi.\nUygulama dilini doğrudan uygulama içinden ayarlama seçeneği eklendi</string>
     <string name="changelog_v7_3_0">\nDeğişiklik günlüğü ekranındaki kullanıcı arayüzü iyileştirildi.\nHakkında bölümüne çeviriye katkıda bulunanlar eklendi.\nUygulama ve uygulama tarafından kullanılan diğer kütüphaneler hakkında ayrıntılı lisans bilgilerini gösteren Lisanslar ekranı eklendi</string>
     <string name="changelog_v7_2_1">\n• Bakım güncellemesi!</string>
@@ -1164,28 +1322,4 @@
     <string name="changelog_v1_0_0">\nBirkaç komut örneği daha eklendi.\nKüçük kullanıcı arayüzü (UI) değişiklikleri yapıldı.\nOrijinal uygulamayla sürüm karışıklığını önlemek için paket adı değiştirildi.</string>
     <string name="changelog_v0_9_1">\nUygulama içine değişiklik günlükleri (changelogs) eklendi.\nVurgulu shell çıktısı eklendi.\nKüçük kullanıcı arayüzü (UI) değişiklikleri yapıldı.</string>
     <string name="changelog_v0_9_0">\nDinamik material temalandırma eklendi.\nYeni ve taze bir görünüm kazandırmak için tüm Kullanıcı Arayüzü (UI) yenilendi.</string>
-    <string name="error_invalid_api_key" comment="Error shown when the AI provider rejects the stored API key. %1$s is the provider name, e.g. Groq">Invalid API key for %1$s. Check your settings.</string>
-    <string name="error_rate_limited_retry_in" comment="Error shown when the AI provider is throttling requests. %1$d is a number of seconds">Rate limited &#8212; try again in %1$ds.</string>
-    <string name="error_rate_limited" comment="Error shown when the AI provider is throttling requests and gives no retry time">Rate limited by provider. Try again shortly.</string>
-    <string name="error_bad_request" comment="Error shown when the AI provider rejects the request itself, usually a malformed tool schema">Request error: the provider rejected this request.</string>
-    <string name="error_provider_server" comment="Error shown when the AI provider returns a server failure. %1$d is the HTTP status code">Provider server error (%1$d). Try again later.</string>
-    <string name="error_no_connection" comment="Error shown when the request to the AI provider could not be sent or timed out">No internet connection or request timed out.</string>
-    <string name="error_unexpected_response" comment="Error shown when the AI provider reply could not be understood">Unexpected response from provider. Try again.</string>
-    <string name="error_no_api_key_for_provider" comment="Error shown when the selected AI provider has no API key saved. %1$s is the provider name">No API key set for %1$s.</string>
-    <string name="error_model_unavailable" comment="Error shown when every AI model the app tried has been retired by the provider">The provider retired the models this app uses. Try another provider.</string>
-    <string name="error_insufficient_credits" comment="Error shown when the AI provider account has no credit left. %1$s is the provider name">No remaining credit for %1$s.</string>
-    <string name="error_no_active_provider" comment="Error shown when the user has not chosen which AI provider to use">No AI provider selected.</string>
-    <string name="active_provider" comment="Settings item title for choosing which cloud AI provider the app uses">Active provider</string>
-    <string name="choose_provider" comment="Button label that opens the dialog for picking the active AI provider">Choose provider</string>
-    <string name="no_api_key_for_active_provider" comment="Dialog message shown when an AI feature is used but the chosen provider has no key. %1$s is the provider name, e.g. Groq">There is no API key for active provider %1$s. Would you like to choose another provider?</string>
-    <string name="groq_api_key_step_1" comment="Step 1 of the Groq API key setup guide. %1$s = URL">Visit the Groq Console at %1$s</string>
-    <string name="groq_api_key_step_2" comment="Step 2 of the Groq API key setup guide: creating an account">Sign in or create a free Groq account</string>
-    <string name="groq_api_key_step_3" comment="Step 3 of the Groq API key setup guide: creating the key">Open the API Keys page and click Create API Key</string>
-    <string name="groq_api_key_step_4" comment="Step 4 of the Groq API key setup guide: copying the key">Copy your API key and paste it here</string>
-    <string name="openrouter_api_key_step_1" comment="Step 1 of the OpenRouter API key setup guide. %1$s = URL">Visit OpenRouter at %1$s</string>
-    <string name="openrouter_api_key_step_2" comment="Step 2 of the OpenRouter API key setup guide: creating an account">Sign in or create a free OpenRouter account</string>
-    <string name="openrouter_api_key_step_3" comment="Step 3 of the OpenRouter API key setup guide: creating the key">Open Settings then Keys, and click Create Key</string>
-    <string name="openrouter_api_key_step_4" comment="Step 4 of the OpenRouter API key setup guide: copying the key">Copy your API key and paste it here</string>
-    <string name="des_active_provider" comment="Settings item description explaining that AI features use the selected provider">AI features use this provider</string>
-    <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">Thinking</string>
 </resources>

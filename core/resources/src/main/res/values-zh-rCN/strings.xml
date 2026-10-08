@@ -6,6 +6,7 @@
     <string name="about">关于</string>
     <string name="action_import">导入</string>
     <string name="active" comment="Status indicator label for active ADB connection or active slot">活跃</string>
+    <string name="active_provider" comment="Settings item title for choosing which cloud AI provider the app uses">活跃的提供商</string>
     <string name="active_slot" comment="Refers to the active A/B partition slot on a dual-slot Android device">活动槽位</string>
     <string name="adb_agent" comment="Name of the AI chat assistant persona in aShellYou">ADB 智能助手</string>
     <string name="adb_command" comment="Input field label for typing an ADB shell command">ADB 命令</string>
@@ -47,6 +48,7 @@
     <string name="add_api_key" comment="Button label in AI settings to input a custom LLM provider API key">添加 API 密钥</string>
     <string name="add_command" comment="Button label to create and save a new command snippet to database">添加命令</string>
     <string name="add_new_item" comment="Generic button label to add a new list entry">添加新项目</string>
+    <string name="add_profile" comment="Button in the logcat filter sheet that opens the editor to create a new filter profile">添加配置文件</string>
     <string name="additional_settings" comment="Category header in app settings">更多设置</string>
     <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">智能代理技能</string>
     <string name="ai_agent_shortcut">AI Agent</string>
@@ -72,6 +74,8 @@
     <string name="ai_theme_prompt_hint" comment="Placeholder text in AI theme generator prompt field showing sample prompts">例如：赛博朋克霓虹城市、深色模式、高对比度</string>
     <string name="all">全部</string>
     <string name="all_data" comment="Option in backup selector to include full app database, settings, and chat history">所有数据</string>
+    <string name="all_log_levels" comment="Logcat filter profile description when the profile does not restrict log levels">所有级别</string>
+    <string name="all_log_levels_except" comment="%1$s = comma-separated log level names, e.g. Verbose, Debug. Logcat filter profile description for a profile that hides those levels">除 %1$s</string>
     <string name="allow_usb_access" comment="Button label that re-shows the system prompt asking the user to allow the app to use the attached USB device">允许 USB 访问</string>
     <string name="allow_usb_access_message" comment="Status shown when the target device was detected over USB but the system permission to use it has not been granted yet">允许 USB 访问以继续</string>
     <string name="already_connected" comment="Status message in wireless ADB setup screen indicating device is already connected">已连接</string>
@@ -93,7 +97,7 @@
     <string name="app_permissions" comment="Title for app permissions shortcut">应用权限</string>
     <string name="app_tagline" comment="App subtitle/tagline shown on welcome and about screens">动动手指就能轻松使用的ADB</string>
     <string name="apply">应用</string>
-    <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">应用于所有 (%1$d 剩余)</string>
+    <string name="apply_to_all" comment="%1$d = number of further name conflicts in the same folder. Checkbox in the file conflict dialog">应用于所有 (%1$d 剩余)</string>
     <string name="artifact_id" comment="Technical label for AI artifact identifier in developer options">构件 ID</string>
     <string name="authenticate" comment="Group header for authentication settings">身份验证</string>
     <string name="authentication_timeout" comment="Title for authentication timeout setting">身份验证超时</string>
@@ -108,6 +112,7 @@
     <string name="auto_update" comment="Setting toggle title to automatically check for application updates on startup">自动更新</string>
     <string name="back">返回</string>
     <string name="back_button" comment="Custom key bar button in terminal view simulating system back button press">返回键</string>
+    <string name="back_to_shell" comment="Button that leaves the screen mirror and returns to the shell screen">返回 shell</string>
     <string name="background" comment="Material design theme surface/background color role label">背景</string>
     <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">正在备份……</string>
     <string name="backup">备份</string>
@@ -126,6 +131,7 @@
     <string name="backup_successful" comment="Toast notification or dialog text when a backup completes successfully">备份成功</string>
     <string name="backup_time" comment="Setting label for picking exact time of day for automated backup execution">备份时间</string>
     <string name="backup_type" comment="Card label showing type of backup file (e.g. Full, Database, Settings)">备份类型</string>
+    <string name="balanced" comment="Video quality level between Saver and Sharp">平衡</string>
     <string name="baseband_version" comment="Device info field label showing modem/baseband firmware version">基带</string>
     <string name="basic_shell" comment="Execution mode option: run standard non-rooted, non-Shizuku shell commands">普通终端</string>
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">电池</string>
@@ -134,6 +140,7 @@
     <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">确认您的屏幕锁以继续</string>
     <string name="biometric_prompt_title" comment="Title for the biometric authentication prompt">解锁 aShellYou</string>
     <string name="biometrics_disabled_msg" comment="Toast message when biometric data is removed from device settings">应用生物识别已禁用：生物识别数据已从设备中移除。</string>
+    <string name="bitrate" comment="Section title in the video quality sheet for the video's data rate">位速率</string>
     <string name="block" comment="Action button to block execution or permissions">阻止</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">书签达到设定数量，移除部分书签后再尝试添加</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">书签</string>
@@ -159,7 +166,9 @@
     <string name="changelogs" comment="Settings list item title for viewing version history logs">更新日志</string>
     <string name="check_updates" comment="Action button in about screen to check GitHub or F-Droid for app updates">检查更新</string>
     <string name="choose_a_device" comment="Dialog header prompting user to select a device from connected ADB devices list">选择设备</string>
+    <string name="choose_apps" comment="Accessibility label of the button next to the packages field in the logcat filter editor; opens a list of installed apps">选择应用</string>
     <string name="choose_icon" comment="Button label in Quick Settings tile editor to select a custom icon">选择图标</string>
+    <string name="choose_provider" comment="Button label that opens the dialog for picking the active AI provider">选择提供商</string>
     <string name="clear">清除</string>
     <string name="clear_all" comment="Action button to clear all entries in command history or terminal output screen">全部清除</string>
     <string name="clear_all_message" comment="Confirmation prompt asking user if they want to clear the terminal output view">确定清除屏幕上的所有内容？</string>
@@ -193,6 +202,8 @@
     <string name="cmd_unlock_ability_desc" comment="Description for predefined fastboot command: fastboot flashing get_unlock_ability">检查此设备是否可以解锁引导加载程序</string>
     <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">解锁能力</string>
     <string name="code_pair_instruction" comment="Instructional text in Wireless Debugging pairing dialog directing user to open Wireless Debugging menu on target device">在目标设备上打开“无线调试”，然后点击配对码的“配对设备”</string>
+    <string name="codec" comment="Section title in the video quality sheet for the video compression format, such as H.264">编解码器</string>
+    <string name="codec_fallback" comment="Message after the other device failed to encode the chosen codec. %1$s is a codec name such as H.265">此设备不能编码 %1$s，所以H.264 被使用</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">折叠</string>
     <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">发生错误</string>
     <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">高海拔（对话框）</string>
@@ -239,6 +250,7 @@
     <string name="color_role_tertiary" comment="Material 3 color role name for tertiary theme accent color">第三色</string>
     <string name="color_role_tertiary_accent" comment="Material 3 color role name for tertiary accent color">第三强调色</string>
     <string name="color_role_tertiary_container" comment="Material 3 color role name for container surface of tertiary elements">第三容器</string>
+    <string name="comma_separated_values" comment="Helper text under a logcat filter field that accepts several values, such as tags or process IDs">用逗号分隔多个值</string>
     <string name="command" comment="Label/header for an ADB command snippet">命令</string>
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">命令分析</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">命令控制台</string>
@@ -304,6 +316,7 @@
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">数据库修改</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">仅数据库</string>
     <string name="days" comments="Days as in number of days">天</string>
+    <string name="debug" comment="Android log level name, shown in logcat filters">Debug</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">重置目录</string>
     <string name="default_language" comment="Setting preference label for selecting application language">默认语言</string>
     <string name="delete">删除</string>
@@ -314,8 +327,10 @@
     <string name="delete_items_message" comment="%1$d = number of selected items">您确定要删除所选的 %1$d 项吗？</string>
     <string name="delete_items_title" comment="%1$d = number of items">删除 %1$d 项吗？</string>
     <string name="delete_message" comment="%1$s = file or folder name">您确定要删除 \"%1$s \"吗？</string>
+    <string name="delete_profile" comment="Title of the confirmation dialog shown before deleting a logcat filter profile">删除配置文件？</string>
     <string name="delete_title" comment="%1$s = file or folder name">删除 %1$s？</string>
     <string name="des_about" comment="Subtitle description for About section in settings menu">贡献者和支持</string>
+    <string name="des_active_provider" comment="Settings item description explaining that AI features use the selected provider">AI 功能使用此提供商</string>
     <string name="des_ai_cache_days" comment="Description under Cache duration setting in AI settings">保留缓存结果的天数</string>
     <string name="des_ai_cache_enabled" comment="Description under Enable cache setting in AI settings">按模型缓存分析结果</string>
     <string name="des_ai_models" comment="Description under AI &amp; Models item in settings">管理 AI 模型数据和 API 密钥</string>
@@ -346,6 +361,7 @@
     <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">选择应用使用深色配色方案的时机</string>
     <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">允许 AI 智能代理添加、修改或删除数据库项</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">为本软件更改默认语言</string>
+    <string name="des_delete_profile" comment="%1$s = the filter profile name. Body of the confirmation dialog shown before deleting a logcat filter profile">%1$s 将被删除。此操作无法撤消。</string>
     <string name="des_device_diagnostics" comment="Description explaining that this skill allows the AI to check device status">允许 AI 智能代理原生检查电池、内存、存储、硬件和网络状态</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">在使用实体键盘时会有帮助</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">将加密备份上传到您的 Google Drive。\n此操作将覆盖任何现有的云备份。</string>
@@ -363,6 +379,7 @@
     <string name="des_high_contrast_dark_mode" comment="Description under High contrast dark mode setting item">在OLED 显示设备上使用黑暗主题</string>
     <string name="des_hridayan" comment="Developer bio subtitle in About section">一个热爱应用开发和设计的小伙子</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">磁贴显示在快捷设置面板时的固定视觉状态</string>
+    <string name="des_keep_shizuku_helper_running" comment="Description under the Keep Shizuku helper running setting; explains that the helper stays in the background so commands start instantly on the next launch">在应用程序关闭后离开Shizuku助手到后台，所以Shizuku命令在下次启动时立即运行。使用一些额外的内存。</string>
     <string name="des_legal_docs_updated" comment="Message shown in the dialog when legal docs are updated">我们更新了隐私政策和服务条款。请花一点时间查看这些更改。</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">查看应用使用的库和许可详情</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">查看应用及库所使用的许可证</string>
@@ -372,6 +389,7 @@
     <string name="des_logcat" comment="Description under Logcat item in navigation menu">来自已连接设备的实时 logcat 输出</string>
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">莫奈取色，暗色主题以及语言设置</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">未选择模型</string>
+    <string name="des_no_filter_profiles" comment="Body of the empty state in the logcat filter sheet, shown when no filter profiles have been created">添加一个配置文件来选择显示哪些日志。如果没有选择任何配置文件，则显示每个日志。</string>
     <string name="des_override_bookmarks" comment="Warning description under Override maximum bookmarks limit setting">若启用后添加了大量书签，可能会导致性能问题！低端设备应保持关闭</string>
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">允许 AI 智能代理查询已安装的软件包和应用数据</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">配对另一个目标设备</string>
@@ -389,6 +407,7 @@
     <string name="des_screen_density" comment="Description under Screen density multiplier setting item">调整屏幕密度以使 UI 元素显得更大或更小</string>
     <string name="des_select_file_for_flashing" comment="Instructional description prompt for picking boot image file to flash">选择要刷入所选分区的引导镜像文件</string>
     <string name="des_set_local_adb_as_default_launch" comment="Description under Set Local ADB as default launch setting">应用启动时直接进入本地 ADB 屏幕</string>
+    <string name="des_show_stream_statistics" comment="Description of the Show stream statistics switch">视频上的帧速率、抛帧和数据速率</string>
     <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">可选：关联您的谷歌账号用于云备份</string>
     <string name="des_smooth_scroll" comment="Description under Smooth scrolling setting toggle">当点击回到 顶部 或 底部 方向的箭头时，使用平滑效果</string>
     <string name="des_terms_of_service" comment="Subtitle description under Terms of Service menu item">使用 aShell You 的规则和准则</string>
@@ -399,6 +418,7 @@
     <string name="des_use_biometrics">允许使用指纹或面容解锁应用</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">请谨慎操作，因为不正确的镜像可能会导致无限重启</string>
     <string name="description">描述</string>
+    <string name="deselect" comment="Accessibility action label for removing a list item from the current multi-selection">取消选择</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">取消全选</string>
     <string name="developer" comment="Section title in About screen for lead developer info">开发者</string>
     <string name="developer_options" comment="System Developer Options setting item or prompt">开发者选项</string>
@@ -413,9 +433,11 @@
     <string name="device_disconnected_message_with_name" comment="%s = device name">\"%s\" 已断开连接。</string>
     <string name="device_found" comment="Status banner when an ADB/Wireless Debugging device service is discovered on local network">找到设备！</string>
     <string name="device_info" comment="Screen header or navigation item for target device hardware/OS specifications">设备信息</string>
+    <string name="device_keys" comment="Accessibility label of the toolbars holding the navigation, volume, power, screenshot and quick settings buttons for the mirrored device">设备密钥</string>
     <string name="device_not_in_sideload_mode" comment="Status shown when the attached device answers ADB but is booted normally rather than waiting in recovery sideload mode">设备正常启动。请重启至恢复模式并选择“从 ADB 应用更新”</string>
     <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">设备不支持生物识别身份验证</string>
     <string name="device_rejected_operation" comment="Error shown when the bootloader answered a fastboot command with a failure">设备拒绝了该操作</string>
+    <string name="device_tools" comment="Label of the side toolbar holding actions for the connected device, such as screen mirror and file browser">设备工具</string>
     <string name="disable_softkey" comment="Setting toggle title to hide soft keyboard during shell session">禁用软键盘</string>
     <string name="disclaimer" comment="Section title in About screen for legal disclaimer notices">免责声明</string>
     <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">运行 ADB 命令可以修改系统设置，管理文件并执行可能影响您设备稳定性的操作。\n您完全负责使用此应用程序所做的任何更改。</string>
@@ -446,6 +468,7 @@
     <string name="dynamic_colors" comment="Settings preference title for Android Material You wallpaper color palette">动态颜色</string>
     <string name="edit">编辑</string>
     <string name="edit_command" comment="Dialog header for editing a saved ADB command snippet">编辑命令</string>
+    <string name="edit_profile" comment="Title of the screen that edits an existing logcat filter profile">编辑配置文件</string>
     <string name="edit_theme_title" comment="%1$s = theme name">编辑主题：%1$s</string>
     <string name="edit_tile" comment="Screen title for modifying a Quick Settings tile configuration">编辑磁贴</string>
     <string name="empty_folder" comment="Placeholder text in file browser when current folder contains no files">此文件夹为空</string>
@@ -468,9 +491,21 @@
     <string name="erasing" comment="Progress status header while fastboot partition erase command is running">正在擦除……</string>
     <string name="erasing_partition" comment="%1$s = partition name. Progress status while the bootloader erases a partition">正在擦除 %1$s……</string>
     <string name="error">错误</string>
+    <string name="error_bad_request" comment="Error shown when the AI provider rejects the request itself, usually a malformed tool schema">请求错误：供应商拒绝了此请求。</string>
+    <string name="error_insufficient_credits" comment="Error shown when the AI provider account has no credit left. %1$s is the provider name">%1$s 无剩余积分。</string>
+    <string name="error_invalid_api_key" comment="Error shown when the AI provider rejects the stored API key. %1$s is the provider name, e.g. Groq">%1$s的API密钥无效。请检查您的设置。</string>
     <string name="error_labels_limit_reached" comment="Validation error when maximum number of custom command labels/tags is reached">已达到最大标签限制</string>
+    <string name="error_model_unavailable" comment="Error shown when every AI model the app tried has been retired by the provider">提供商取消了这个应用程序使用的模型。请尝试另一个提供商。</string>
+    <string name="error_no_active_provider" comment="Error shown when the user has not chosen which AI provider to use">没有选择 AI 提供商。</string>
+    <string name="error_no_api_key_for_provider" comment="Error shown when the selected AI provider has no API key saved. %1$s is the provider name">没有为 %1$s 设置API密钥。</string>
+    <string name="error_no_connection" comment="Error shown when the request to the AI provider could not be sent or timed out">没有网络连接或请求超时。</string>
+    <string name="error_provider_server" comment="Error shown when the AI provider returns a server failure. %1$d is the HTTP status code">提供者服务器错误 (%1$d)。请稍后再试。</string>
+    <string name="error_rate_limited" comment="Error shown when the AI provider is throttling requests and gives no retry time">评分受提供商限制，请稍后再试。</string>
+    <string name="error_rate_limited_retry_in" comment="Error shown when the AI provider is throttling requests. %1$d is a number of seconds">在 %1$d秒内给限制的 &#8212; 再次尝试。</string>
+    <string name="error_unexpected_response" comment="Error shown when the AI provider reply could not be understood">源的意外响应。请重试。</string>
     <string name="exclude" comment="Filter toggle option to exclude selected package or item">排除</string>
     <string name="execution_method" comment="Setting label for selecting shell execution engine (Shizuku, Root, or Basic Shell)">执行方法</string>
+    <string name="exit_full_screen" comment="Button that leaves the full screen view of the mirrored screen">退出全屏</string>
     <string name="expand" comment="Action button to expand a collapsed card section">展开</string>
     <string name="experimental" comment="Badge or section title marking experimental features">实验性</string>
     <string name="failed">失败</string>
@@ -488,11 +523,14 @@
     <string name="fastboot_quick_actions" comment="Section header for predefined quick fastboot action buttons">快速操作</string>
     <string name="fastboot_summary" comment="Feature description card text for Fastboot OTG mode">通过 OTG 连接 fastboot 模式下的设备</string>
     <string name="fastboot_variable_explorer" comment="Tab title for Fastboot variable query screen">变量浏览器</string>
+    <string name="fatal" comment="Android log level name for the most severe level, shown in logcat filters">Fatal</string>
     <string name="fb_all_operations_cancelled" comment="Notification toast when all file browser queue operations are cancelled">所有操作已取消</string>
     <string name="fb_cannot_paste_into_selected" comment="Error toast in file browser when target paste item is a file instead of a folder">无法粘贴到所选文件夹</string>
+    <string name="fb_command_failed_status" comment="%1$d = numeric exit status of a shell command on the connected device. Shown when the command failed without printing a reason">命令失败，退出状态 %1$d</string>
     <string name="fb_create_folder_failed" comment="%1$s = error message. fb_ prefix = file browser">创建文件夹失败: %1$s</string>
     <string name="fb_delete_failed" comment="%1$s = error message">删除失败: %1$s</string>
     <string name="fb_deleted_items" comment="%1$d = number of deleted items">已删除 %1$d 项</string>
+    <string name="fb_destination_exists" comment="Error in file browser when a copy or move target name is already taken on the connected device">具有此名称的项目已存在</string>
     <string name="fb_download_failed" comment="%1$s = error message">下载失败: %1$s</string>
     <string name="fb_downloaded_to" comment="%1$s = file path">下载到 %1$s</string>
     <string name="fb_downloading" comment="%1$s = file name">正在下载 %1$s</string>
@@ -500,15 +538,23 @@
     <string name="fb_error" comment="%1$s = error message">错误: %1$s</string>
     <string name="fb_file_deleted" comment="Notification toast confirming file deletion">文件已删除</string>
     <string name="fb_folder_created" comment="Notification toast confirming new directory creation">文件夹已创建</string>
+    <string name="fb_no_response" comment="Error in file browser when the connected device did not answer a command, for example after the connection dropped">设备没有响应</string>
     <string name="fb_nothing_to_paste" comment="Toast notification when user taps paste but file clipboard is empty">没有可粘贴的</string>
     <string name="fb_operation_cancelled" comment="Toast notification when file browser operation is cancelled by user">操作已取消</string>
     <string name="fb_otg_transfers_not_supported" comment="OTG = USB On-The-Go">OTG 模式不支持文件传输</string>
     <string name="fb_paste_completed" comment="%1$d = number of items pasted">已完成： %1$d 项</string>
     <string name="fb_paste_completed_with_failed" comment="%1$d = completed, %2$d = skipped, %3$d = failed">已完成: %1$d 项, %2$d 跳过, %3$d 失败</string>
     <string name="fb_paste_completed_with_skipped" comment="%1$d = completed, %2$d = skipped">已完成: %1$d 项, %2$d 跳过</string>
+    <string name="fb_paste_in_progress" comment="Toast in file browser when the user starts a paste while another paste is still running">粘贴已在进行中</string>
+    <string name="fb_paste_into_itself" comment="%1$s = folder name. Error toast in file browser when a folder is pasted into itself or into one of its own subfolders">无法将 \"%1$s\" 粘贴到自己中</string>
+    <string name="fb_paste_item_failed" comment="%1$s = file or folder name, %2$s = error message from the device. Shown when one pasted item failed">无法粘贴\"%1$s\"： %2$s</string>
+    <string name="fb_paste_no_free_name" comment="%1$s = file or folder name. Shown when Keep Both cannot find an unused numbered name such as name (1)">没有剩余的\"%1$s\"的空闲名称</string>
+    <string name="fb_paste_source_missing" comment="%1$s = file or folder name. Shown when an item copied to the clipboard was deleted or moved before pasting">“%1$s”不再存在</string>
+    <string name="fb_pasting_progress" comment="%1$d = position of the item being pasted, %2$d = total number of items. Progress text while copying or moving files">粘贴 %1$d 中的 %2$d</string>
     <string name="fb_reconnected_successfully" comment="Toast notification when file browser ADB session reconnects">重新连接成功</string>
     <string name="fb_rename_failed" comment="%1$s = error message">重命名失败: %1$s</string>
     <string name="fb_renamed_successfully" comment="Toast notification confirming file or folder rename">重命名成功</string>
+    <string name="fb_unexpected_response" comment="Error in file browser when the connected device answered a command with output the app could not read">设备的意外响应</string>
     <string name="fb_upload_failed" comment="%1$s = error message">上传失败: %1$s</string>
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">文件上传成功</string>
     <string name="fb_uploading" comment="%1$s = file name">正在上传 %1$s</string>
@@ -532,6 +578,7 @@
     <string name="file_uploaded" comment="Confirmation shown when a file finished uploading to the connected device">文件已上传</string>
     <string name="filter">筛选器</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">按标签过滤</string>
+    <string name="filter_profiles" comment="Title of the bottom sheet listing saved logcat filter profiles">筛选器配置文件</string>
     <string name="flash_complete" comment="Status shown when a fastboot partition flash finished successfully">刷写完成</string>
     <string name="flash_failed" comment="%1$s = error text returned by the bootloader. Shown when a fastboot partition flash fails">刷写失败：%1$s</string>
     <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">刷入分区</string>
@@ -549,6 +596,8 @@
     <string name="forget_device_confirmation" comment="%1$s = device name">您确定要忘记 %1$s？您需要再次配对才能连接。</string>
     <string name="forks" comment="GitHub repository metadata count label for project forks">分叉</string>
     <string name="found_connect_service" comment="Status message when mDNS ADB connection service is discovered">找到连接服务</string>
+    <string name="frame_rate" comment="Section title in the video quality sheet for frames per second">帧率</string>
+    <string name="frames_per_second" comment="%1$d is a number of video frames per second">%1$d fps</string>
     <string name="frequency" comment="Setting label for automated backup interval frequency">频率</string>
     <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">完整许可证文本</string>
     <string name="full_screen">全屏</string>
@@ -570,10 +619,15 @@
     <string name="grant_permission" comment="Action button to trigger system permission request dialog">给予权限</string>
     <string name="grant_shizuku_permission_for_tiles" comment="Warning alert shown when Shizuku permission is missing for Quick Settings tiles">未授予 Shizuku 权限！\naShell You 需要 Shizuku 权限执行命令。</string>
     <string name="great_news" comment="Dialog title header for update available notification">好消息！</string>
+    <string name="groq_api_key_step_1" comment="Step 1 of the Groq API key setup guide. %1$s = URL">在 %1$s 访问 Groq 控制台</string>
+    <string name="groq_api_key_step_2" comment="Step 2 of the Groq API key setup guide: creating an account">登录或创建一个免费的 Groq 帐户</string>
+    <string name="groq_api_key_step_3" comment="Step 3 of the Groq API key setup guide: creating the key">打开 API 密钥页面并点击创建 API 密钥</string>
+    <string name="groq_api_key_step_4" comment="Step 4 of the Groq API key setup guide: copying the key">复制您的 API 密钥并粘贴到这里</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">触感&amp;震动</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">祝您有个美好的一天！</string>
     <string name="heuristic">启发式</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">十六进制编辑器</string>
+    <string name="hide_device_tools" comment="Accessibility action that collapses the device tools side toolbar">隐藏设备工具</string>
     <string name="high" comment="Selection option for high haptic strength or elevation level">高</string>
     <string name="high_contrast_dark_mode" comment="Settings preference title for OLED pitch-black dark theme">高对比度暗色模式</string>
     <string name="hint" comment="Card header or field label for helpful hints">提示</string>
@@ -598,6 +652,7 @@
     <string name="irreversible_action_warning" comment="Warning dialog subtitle warning user that deletion cannot be undone">此操作不可逆！</string>
     <string name="item_deleted" comment="Confirmation toast after item is deleted">项目已成功删除</string>
     <string name="keep_both" comment="Resolution option in file conflict dialog to keep both original and new file">同时保留</string>
+    <string name="keep_shizuku_helper_running" comment="Setting toggle title to keep the background Shizuku helper process alive after the app closes">保持Shizuku助手运行</string>
     <string name="keep_transferring" comment="Button that dismisses the cancel confirmation and lets the transfer continue">继续</string>
     <string name="key_verified_success_msg" comment="Confirmation text when entered AI API key is validated successfully">密钥验证成功</string>
     <string name="label" comment="Field label for custom command label/tag name">标签</string>
@@ -611,6 +666,7 @@
     <string name="launch">启动</string>
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">主要开发者</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">最少使用</string>
+    <string name="leave_mirror" comment="Button in the full screen control panel that closes the screen mirror and returns to the shell">离开镜像</string>
     <string name="legal_and_policies" comment="Group header for legal settings">Legal &amp; Policies</string>
     <string name="legal_consent_text">我已阅读并同意 %1$s 和 %2$s。</string>
     <string name="legal_docs_updated" comment="Title for the dialog shown when legal docs are updated">法律政策已更新</string>
@@ -626,6 +682,7 @@
     <string name="loading_device_info" comment="Progress status text while querying ADB device specifications">正在加载设备信息……</string>
     <string name="loading_licenses" comment="Progress status text while loading open-source license files">正在加载许可信息……</string>
     <string name="local_adb" comment="Connection mode option: run ADB commands locally on host device using Shizuku or Root">本地ADB</string>
+    <string name="local_adb_mode" comment="Section header above the list of Local ADB working modes (Basic shell, Shizuku, Root, TCP/IP) in the connected device sheet">本地ADB模式</string>
     <string name="local_adb_shell" comment="Screen header for local device ADB shell terminal">本地ADB shell</string>
     <string name="local_adb_summary" comment="Summary text for local ADB feature card">使用 Shizuku 或 root 直接在您的设备上执行 ADB 命令。</string>
     <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">本地备份</string>
@@ -651,20 +708,43 @@
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Logcat 来源</string>
     <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">点击 ▶ 开始 logcat</string>
     <string name="logs" comment="Screen header or tab title for application and execution log views">日志</string>
+    <string name="long_edge_pixels" comment="A limit on a video's longer side. %1$d is a number of pixels">%1$d px</string>
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">外观 &amp; 体验</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">低</string>
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">对比度过低</string>
     <string name="low_risk">低风险</string>
+    <string name="lower_quality" comment="Action that lowers the mirrored video's quality one step">质量低</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">制作您的主题</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">手动配对</string>
     <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Material 图标</string>
     <string name="material_icons_description" comment="Informational text in icon chooser explaining the Material Icons download">仅需一次下载约 380 KB 即可浏览 2,500+ 个 Material 图标</string>
     <string name="max_download_size" comment="Setting label for capping maximum update download file size">最大下载量</string>
     <string name="medium">中</string>
+    <string name="megabits_per_second" comment="%1$s is a data rate in megabits per second">%1$s Mbps</string>
     <string name="merge" comment="Resolution option in file browser conflict dialog to merge directory contents">合并</string>
     <string name="message">消息</string>
     <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">向 ADB 智能助理发送消息</string>
     <string name="minimize" comment="Action button to minimize terminal overlay window">最小化</string>
+    <string name="mirror_controls" comment="Accessibility label of the floating button that opens the full screen mirror controls">镜像控制</string>
+    <string name="mirror_ended_disconnected" comment="Explains that screen mirroring ended because the device disconnected">设备已断开连接。</string>
+    <string name="mirror_ended_server_stopped" comment="Explains that screen mirroring ended from the device's side">设备停止镜像。</string>
+    <string name="mirror_ended_title" comment="Title of the panel shown when screen mirroring has ended">镜像结束</string>
+    <string name="mirror_error_connect_timeout" comment="Screen mirror error: the video connection did not open in time">设备没有及时打开视频连接。</string>
+    <string name="mirror_error_decoder" comment="Screen mirror error: this phone has no decoder for the video format. %1$s is a codec name such as H265">此手机无法播放 %1$s 视频。</string>
+    <string name="mirror_error_deploy_failed" comment="Screen mirror error: the helper program could not be copied to the other device">无法复制镜像助手到设备。</string>
+    <string name="mirror_error_encoder" comment="Screen mirror error: the other device's video encoder failed">设备无法编码其屏幕。</string>
+    <string name="mirror_error_not_connected" comment="Screen mirror error: no other device is connected over OTG or Wireless Debugging">没有其他设备被连接。</string>
+    <string name="mirror_error_not_responding" comment="Screen mirror error: the other device stopped answering while mirroring was starting or running">设备停止响应。</string>
+    <string name="mirror_error_server_exited" comment="Screen mirror error: the helper program stopped unexpectedly on the device">镜像助手在设备上停止。</string>
+    <string name="mirror_error_stream" comment="Screen mirror error: the video data from the device could not be read">无法读取视频流。</string>
+    <string name="mirror_error_version" comment="Screen mirror error: the helper on the device is a different version than the app expects">设备上的镜像助手是不同的版本。</string>
+    <string name="mirror_failed_title" comment="Title of the panel shown when screen mirroring could not start or stopped with an error">无法镜像屏幕</string>
+    <string name="mirror_full_screen_hint" comment="One-time message shown when the screen mirror first goes full screen">现在返回设备。点击浮动按钮来控制设备。</string>
+    <string name="mirror_step_connecting" comment="Startup step while the live video connection to the other device opens">正在连接视频</string>
+    <string name="mirror_step_preparing" comment="Startup step while the mirroring helper is copied to the other device">准备中</string>
+    <string name="mirror_step_preparing_skipped" comment="Startup step shown when the mirroring helper was already on the other device, so copying was skipped">设备已准备好</string>
+    <string name="mirror_step_starting" comment="Startup step while the mirroring helper starts on the other device">从设备开始</string>
+    <string name="mirror_view_only_message" comment="Explains why touches on the mirrored screen do nothing and how to fix it on Xiaomi phones">设备拒绝了触摸输入。在Xiaomi设备上，开启USB调试(安全设置)并重新启动设备。</string>
     <string name="mode" comment="Header title for ADB execution engine mode selector">模式</string>
     <string name="mode_one_desc" comment="Description for Root execution engine option in settings">使用 Root 权限运行命令。可以执行需要 Root 权限的命令。</string>
     <string name="mode_two_desc" comment="Description for Shizuku execution engine option in settings">使用 Shizuku 运行命令。无法执行需要 Root 权限的命令。</string>
@@ -683,13 +763,17 @@
     <string name="moving_items" comment="%1$d = number of items being moved">移动 %1$d 项目 (s)</string>
     <string name="n_days" comment="%d = number of days for cache duration setting">%d 天</string>
     <string name="name">名称</string>
+    <string name="native_resolution" comment="Resolution option that streams the other device's screen at its own size">原生的</string>
     <string name="network_error" comment="Toast error message when network connection fails during wireless pairing or cloud backup">网络异常</string>
     <string name="new_commands_available_msg" comment="Banner prompt shown when updated command templates are available to load into database">添加了新的命令示例！\n点击下方按钮加载新命令。</string>
     <string name="new_folder" comment="Action button label in file browser to create a new directory">新建文件夹</string>
     <string name="new_name" comment="Text field label for entering new item or file name">新名称</string>
+    <string name="new_profile" comment="Title of the screen that creates a new logcat filter profile">新建配置文件</string>
     <string name="newest" comment="Sorting option for items by creation date (newest first)">最新的</string>
     <string name="no_adb_device_error" comment="Error toast when no ADB target device is found over USB OTG">没有找到 ADB 兼容的设备。请在目标上启用 USB 调试。</string>
     <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">没有找到 adb 接口</string>
+    <string name="no_api_key_for_active_provider" comment="Dialog message shown when an AI feature is used but the chosen provider has no key. %1$s is the provider name, e.g. Groq">活动提供商的 %1$s没有API密钥。您想要选择另一个提供商吗？</string>
+    <string name="no_apps_found" comment="Shown in the app picker when no installed app matches the search">未找到应用</string>
     <string name="no_auto_backup_yet" comment="Placeholder text under backup status when no automated backup has executed">尚未执行自动备份</string>
     <string name="no_bookmarks" comment="Placeholder text in bookmarks tab when no commands are saved">无书签</string>
     <string name="no_changelog_found" comment="Placeholder message in changelog screen when no version notes exist">未找到此版本的更新日志</string>
@@ -701,6 +785,7 @@
     <string name="no_fastboot_device_error" comment="Error banner in fastboot screen when connected USB device is not in fastboot mode">已连接的设备不在 fastboot 模式下</string>
     <string name="no_fastboot_interface_found" comment="Error shown when the attached USB device does not expose a fastboot interface">已连接的 USB 设备没有 fastboot 接口</string>
     <string name="no_files_download" comment="Toast warning in file browser when user selects directory instead of files for download">未选择文件(文件夹无法下载)</string>
+    <string name="no_filter_profiles" comment="Title of the empty state in the logcat filter sheet, shown when no filter profiles have been created">尚无过滤器配置文件</string>
     <string name="no_folder_selected" comment="Placeholder status text when no backup directory is picked">未选择文件夹</string>
     <string name="no_google_account_message" comment="Dialog message when no Google account is registered on device for cloud backups">此设备上未找到 Google 账号。您想添加一个以使用云备份吗？</string>
     <string name="no_google_account_title" comment="Dialog title when no Google account is detected">无 Google 账号</string>
@@ -746,6 +831,10 @@
     <string name="open_app_language_settings" comment="Button label on Android 13+ to jump to system per-app language setting screen">打开应用语言设置</string>
     <string name="open_issues" comment="GitHub repository open issues count">未决问题</string>
     <string name="open_url" comment="Action button to launch web browser to external URL link">打开 URL</string>
+    <string name="openrouter_api_key_step_1" comment="Step 1 of the OpenRouter API key setup guide. %1$s = URL">在 %1$s 访问 OpenRouter</string>
+    <string name="openrouter_api_key_step_2" comment="Step 2 of the OpenRouter API key setup guide: creating an account">登录或创建一个免费的 OpenRouter 帐户</string>
+    <string name="openrouter_api_key_step_3" comment="Step 3 of the OpenRouter API key setup guide: creating the key">打开设置，然后点击创建密钥</string>
+    <string name="openrouter_api_key_step_4" comment="Step 4 of the OpenRouter API key setup guide: copying the key">复制您的 API 密钥并粘贴到这里</string>
     <string name="operation_complete" comment="Notification toast when file copy/move operation finishes">操作完成</string>
     <string name="operations" comment="Bottom sheet title for file transfer operations list">业务活动</string>
     <string name="or">或</string>
@@ -753,6 +842,7 @@
     <string name="other_device" comment="Selection tab for target device in Logcat Viewer">其他设备</string>
     <string name="output" comment="Header title for shell command output window">产出</string>
     <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">输出将显示在此处……</string>
+    <string name="overflow_count" comment="%1$d = number of further items not shown. Short counter drawn over a small circular icon, for example +2">+%1$d</string>
     <string name="override_bookmarks_limit" comment="Setting toggle title to remove the maximum limit on saved bookmarks count">取消书签数量限制</string>
     <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">软件包名</string>
     <string name="packages" comment="Title for the packages skill toggle in AI settings">软件包</string>
@@ -760,6 +850,7 @@
     <string name="pair_a_device_first" comment="Instructional notice directing user to pair an ADB device before attempting connection">先配对设备</string>
     <string name="pair_another_device" comment="Button label in Wireless Debugging setup to pair an additional target device">配对另一台设备</string>
     <string name="pair_connect_failed_message" comment="Dialog message when connecting to a paired wireless ADB device fails">无法连接到配对设备\n设备可能不在同一个网络\n尝试重新配对</string>
+    <string name="pair_device_to_see_it_here" comment="Hint under No saved devices in the device picker sheet, above a Pair button that can pair this device or another one">配对设备以查看它</string>
     <string name="pair_device_to_start" comment="Placeholder banner in wireless debugging screen directing user to pair device via QR or pairing code">使用二维码或配对码配对设备来查看它</string>
     <string name="pair_manually" comment="Option in Wireless Debugging setup to enter IP, Port, and Pairing Code manually">手动配对</string>
     <string name="pair_this_device" comment="Button label in wireless debugging screen to initiate self-pairing for local device ADB">配对此设备</string>
@@ -795,6 +886,7 @@
     <string name="pin_all">置顶选中项</string>
     <string name="port" comment="Field label for network port number in wireless ADB manual pairing setup">端口</string>
     <string name="possible_reasons" comment="Dialog section header listing potential causes of ADB connection failure">可能的原因</string>
+    <string name="power" comment="Button that presses the power key on the mirrored device">战斗力</string>
     <string name="pre_release_github" comment="Option in update channel settings to receive GitHub pre-release builds">预发布版 (GitHub)</string>
     <string name="pre_release_warning" comment="Warning alert header when switching to pre-release update channel">预发布版本可能不稳定</string>
     <string name="pre_release_warning_description" comment="Detailed description of risks when opting into pre-release testing builds">这些版本仍在测试中，可能包含未完成的功能或未预料的故障。如果选择更新到预发行版本，请意识到应用可能出问题或表现怪异。\n如遇任何问题、崩溃或奇怪行为，请报告它们。以便我们在稳定版发布前修复和改进 sShellYou。\n感谢帮助我们让 aShell 变得更好！</string>
@@ -808,11 +900,28 @@
     <string name="privacy_and_security" comment="Title for the privacy and security settings screen">Privacy &amp; Security</string>
     <string name="privacy_policy" comment="Screen title and menu item for the Privacy Policy">隐私政策</string>
     <string name="product" comment="Fastboot device property label displaying target device model/product code">产品</string>
+    <string name="profile_name" comment="Label of the name field in the logcat filter profile editor">配置文件名称</string>
+    <string name="profile_name_required" comment="Error under the name field when saving a logcat filter profile without a name">输入此配置文件的名称</string>
+    <string name="profile_save_failed" comment="Toast shown when a logcat filter profile could not be saved">无法保存配置文件</string>
     <string name="put_device_in_sideload_mode" comment="Detailed instruction on target device requirement for sideloading">通过恢复菜单将设备置于侧载模式</string>
     <string name="qr_pair" comment="Button label to launch Wireless Debugging QR code pairing mode">二维码对</string>
     <string name="qr_pair_hint" comment="Instructional text in QR pairing screen instructing user to scan QR code from target device">要配对 Android 11+ 设备，请从目标设备扫描此 QR</string>
     <string name="qr_scanner_location_hint" comment="Instructional hint directing user where to find system QR scanner in target device Developer Options">QR 扫描仪可用于：\n开发者选项 &gt; 无线调试 &gt; 配对 QR 代码</string>
     <string name="qs_tiles" comment="Refers to Android System Quick Settings tiles configured for custom ADB scripts">快捷设置磁贴</string>
+    <string name="quality" comment="Section title in the video quality sheet for picking a quality level">质量</string>
+    <string name="quality_auto_description" comment="Explains the Auto video quality level">选择两个手机都能处理的最平滑流</string>
+    <string name="quality_custom" comment="Video quality level where the user picks the resolution, frame rate, bitrate and codec">自定义</string>
+    <string name="quality_custom_description" comment="Explains the Custom video quality level">选择您自己的每个值</string>
+    <string name="quality_limit_chosen" comment="Why the mirrored video's quality is what it is: the user picked it">由您设置</string>
+    <string name="quality_limit_connection" comment="Why the mirrored video's quality is what it is: USB or Wi-Fi can't carry more">受连接限制</string>
+    <string name="quality_limit_target_encoder" comment="Why the mirrored video's quality is what it is">受设备视频编码器限制</string>
+    <string name="quality_limit_target_screen" comment="Why the mirrored video's quality is what it is">匹配设备自己的屏幕</string>
+    <string name="quality_limit_viewer_decoder" comment="Why the mirrored video's quality is what it is">受此手机视频解码器限制</string>
+    <string name="quality_limit_viewer_screen" comment="Why the mirrored video's quality is what it is">受此手机屏幕限制</string>
+    <string name="quality_preset_description" comment="Explains a video quality level. %1$d is a size in pixels, %2$d is frames per second">%2$d fps 上的 %1$d px</string>
+    <string name="quality_sharp_description" comment="Explains the Sharp video quality level. %1$d is frames per second">设备的完整大小为 %1$d fps</string>
+    <string name="quality_summary" comment="What the mirrored video will stream at. %1$s is a size such as 1080 × 2400, %2$s a frame rate such as 60 fps, %3$s a data rate such as 8 Mbps, %4$s a codec such as H.264">%1$s · 最多 %2$s · %3$s · %4$s</string>
+    <string name="quick_settings" comment="Button that pulls down the quick settings panel on the mirrored device">快速设置</string>
     <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">快捷设置磁贴</string>
     <string name="quick_tools" comment="Section header for fast access utility tools">快速工具</string>
     <string name="reading_file" comment="Progress status text while loading file contents into viewer">正在读取文件……</string>
@@ -827,6 +936,7 @@
     <string name="reboot_recovery" comment="Action button / dialog choice to reboot target device into recovery mode">重启至 Recovery</string>
     <string name="recent_activity" comment="Dashboard card header listing recent command executions">最近活动</string>
     <string name="recent_searches" comment="Header title for recent search query history">最近搜索</string>
+    <string name="recents" comment="Button that opens the recent apps overview on the mirrored device">Recents</string>
     <string name="recommended" comment="Badge label marking recommended settings or AI choices">推荐</string>
     <string name="reconnect" comment="Action button to attempt reconnecting to last known wireless ADB device">重新连接</string>
     <string name="reconnect_failed" comment="Toast notification or card status when wireless ADB reconnection fails">重新连接失败</string>
@@ -834,6 +944,7 @@
     <string name="reconnect_failed_requires_pairing" comment="Toast notification indicating device un-paired and needs re-pairing">重新连接失败。需要重新配置。</string>
     <string name="reconnect_success" comment="Toast message confirming successful wireless ADB reconnection">重新连接成功</string>
     <string name="reconnect_the_device" comment="Button prompt directing user to reconnect target ADB device">重新连接设备</string>
+    <string name="reconnecting" comment="Status shown over a frozen screen mirror while the app waits for the device connection to come back">Reconnecting…</string>
     <string name="recovery_not_responding" comment="Error shown when the target device recovery did not start requesting data after the sideload stream was opened">恢复模式无响应。请在恢复模式中选择“Apply update from ADB”并重试</string>
     <string name="recovery_reported_failure" comment="Error shown when the target device recovery reported that installing the sideloaded package failed">恢复模式报告安装失败</string>
     <string name="refresh">刷新</string>
@@ -841,6 +952,7 @@
     <string name="rename">重命名</string>
     <string name="rename_title" comment="%1$s = file or folder name">重命名 %1$s</string>
     <string name="replace" comment="Resolution option in file conflict dialog to replace existing file">替换</string>
+    <string name="replace_deletes_folder_warning" comment="Warning in the file conflict dialog when the existing item is a folder, explaining that Replace removes the folder with all of its contents">替换删除现有文件夹和其中的所有内容。</string>
     <string name="report">反馈</string>
     <string name="report_issue" comment="Button in About screen linking to GitHub issue tracker">提交议题</string>
     <string name="repository" comment="Button in About screen linking to GitHub project repository">代码仓库</string>
@@ -851,6 +963,7 @@
     <string name="reset_app_settings" comment="Button label in settings to restore default application configuration">重置应用设置</string>
     <string name="reset_settings_failed" comment="Toast notification when settings reset operation fails">重置设置失败</string>
     <string name="reset_settings_successful" comment="Toast notification confirming settings have been reset to defaults">成功重置设置</string>
+    <string name="resolution" comment="Section title in the video quality sheet for the video's size">决 议</string>
     <string name="restart_app" comment="Button that closes and relaunches the app">重启应用</string>
     <string name="restart_required" comment="Dialog title when the app must be restarted for a change to take effect">需要重启</string>
     <string name="restore">恢复</string>
@@ -878,12 +991,18 @@
     <string name="save_key" comment="Button label to save entered API key string in settings">保存密钥</string>
     <string name="save_whole_output" comment="Setting toggle title to export full terminal session output to file">保存整个输出</string>
     <string name="saved_devices" comment="Screen title and list header for paired ADB devices history">已保存的设备</string>
+    <string name="saver" comment="Video quality level that uses the least data and battery">节省器</string>
     <string name="saving" comment="Progress status text while saving file or settings">正在保存……</string>
     <string name="saving_output" comment="Progress status text while exporting terminal log output to file">正在将输出导出到文件……</string>
     <string name="schedule" comment="Header title or setting label for automated backup schedule picker">计划</string>
+    <string name="screen" comment="Device dock button that opens a live view of the connected device's screen which can also be controlled">屏幕</string>
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">屏幕密度乘数</string>
+    <string name="screen_mirror" comment="Title of the screen showing and controlling the connected device's screen live">屏幕镜像</string>
+    <string name="screenshot" comment="Button that takes a screenshot on the mirrored device">屏幕截图</string>
     <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">滚动到底部</string>
+    <string name="scroll_to_top" comment="Accessibility label and tooltip for the button that jumps to the first line of the command output">滚动到顶部</string>
     <string name="search">搜索</string>
+    <string name="search_apps" comment="Hint in the search field of the app picker in the logcat filter editor">搜索应用</string>
     <string name="search_bookmarks_here" comment="Placeholder text in bookmarks tab search bar">在此搜索书签</string>
     <string name="search_commands_here" comment="Placeholder text in command templates tab search bar">在这里搜索命令</string>
     <string name="search_fonts" comment="Placeholder text in font family picker search bar">搜索字体……</string>
@@ -900,6 +1019,7 @@
     <string name="security_patch" comment="Device property label displaying Android security patch level date">安全补丁</string>
     <string name="select">选择</string>
     <string name="select_all">全选</string>
+    <string name="select_apps" comment="Title of the bottom sheet for choosing which apps a logcat filter profile matches">选择应用</string>
     <string name="select_backup_folder_message" comment="Dialog message prompting user to grant folder access for local automated backups">请选择保存备份的文件夹。应用需要该文件夹的读写权限。</string>
     <string name="select_backup_folder_title" comment="Dialog title when no backup directory has been configured">无备份文件夹</string>
     <string name="select_folder" comment="Action button to open system directory picker for backup storage">选择文件夹</string>
@@ -933,6 +1053,7 @@
     <string name="settings">设置</string>
     <string name="settings_only" comment="Option in backup screen to export only application settings (excluding history/bookmarks)">仅设置</string>
     <string name="share">分享</string>
+    <string name="sharp" comment="Highest preset video quality level">锋利的</string>
     <string name="shell_connection_lost" comment="Error shown in the shell output when the connection to the device drops while a command is running">与设备的连接丢失</string>
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">上一个命令的输出导出到\'%s\'</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">终端输出导出到 \'%s\'</string>
@@ -941,6 +1062,8 @@
     <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">Shizuku 服务不可用。请确保 Shizuku 或 Shizuku+ 正在运行且已授予权限。</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku 不可用</string>
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">您的设备上未安装 Shizuku 或未正确配置</string>
+    <string name="show_device_tools" comment="Accessibility action that expands the device tools side toolbar">显示设备工具</string>
+    <string name="show_stream_statistics" comment="Switch in the video quality sheet">显示流统计</string>
     <string name="sideload_block_out_of_range" comment="Error shown when the target device recovery requested a part of the package beyond its end; usually indicates a corrupted transfer">恢复模式请求的数据超出了文件末尾</string>
     <string name="sideload_channel_description" comment="Notification channel description explaining that the channel shows sideload transfer progress">显示正在向设备 sideload 软件包的进度</string>
     <string name="sideload_channel_name" comment="Notification channel name for the ongoing ADB sideload transfer">ADB Sideload</string>
@@ -982,11 +1105,12 @@
     <string name="stable_github" comment="Option in update channel settings for GitHub stable releases">稳定版 (GitHub)</string>
     <string name="stack_trace" comment="Header title for crash log exception stack trace section">堆栈跟踪</string>
     <string name="stargazers" comment="GitHub repository star count label in About screen">Stargazers</string>
+    <string name="start">开始</string>
     <string name="status_with_detail" comment="Home card status line. %1$s is a connection state such as Connected, %2$s is the device name, e.g. Connected (Pixel 7)">%1$s (%2$s)</string>
     <string name="status_with_device_and_mode" comment="Wireless debugging home card status line. %1$s is a connection state such as Connected, %2$s is the device name, %3$s is This Device or Other device, e.g. Connected (Pixel 7, Other device)">%1$s (%2$s, %3$s)</string>
-    <string name="start">开始</string>
     <string name="stop">停止</string>
     <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">AI 模型已使用 %.1f MB</string>
+    <string name="stream_statistics" comment="Overlay over the mirrored video. %1$s is a size, %2$s a frame rate, %3$d a count of dropped frames, %4$s a data rate, %5$s a codec">%1$s · %2$s · %3$d · %4$s · %5$s</string>
     <string name="style_filled">填充的</string>
     <string name="style_outlined">外观</string>
     <string name="style_rounded">圆角</string>
@@ -1011,14 +1135,22 @@
     <string name="tag" comment="Field label for custom command category tag/label">标签</string>
     <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">点击以浏览 .zip 文件</string>
     <string name="tcpip_connect_failed" comment="Toast shown when TCP connection to 127.0.0.1 on the detected port is refused. %1$d is replaced with the port number.">连接到端口 %1$d 被拒绝。ADB 守护进程可能未在监听。</string>
+    <string name="tcpip_enable_opened" comment="Shown when the ADB TCP port was opened. ADB restarts to do this, which disconnects wireless debugging. %1$d is the port number.">TCP 端口 %1$d 已打开，本地ADB 的 TCP/IP 模式已准备就绪。无线调试已断开连接，因为ADB 重启。</string>
+    <string name="tcpip_enable_pending_hint" comment="Hint on the pairing screen when the user came to open the ADB TCP port. %1$d is the port number.">配对此设备和 ADB TCP 端口 %1$d 将自动打开。</string>
+    <string name="tcpip_enable_refused" comment="Shown when ADB refused to open a TCP port. %1$s is the reason ADB gave.">无法打开 TCP 端口: %1$s</string>
+    <string name="tcpip_enable_running" comment="Shown while the app asks ADB to listen on a TCP port. %1$d is the port number.">打开 ADB TCP 端口 %1$d…</string>
+    <string name="tcpip_enable_unverified" comment="Shown when ADB accepted the request to open a TCP port but the port could not be confirmed. %1$d is the port number.">ADB 重启以打开端口 %1$d，但无法确认端口。请在本地ADB 中尝试TCP/IP 模式。</string>
     <string name="tcpip_mode" comment="Label for the TCP/IP local shell working mode (loopback port 5555)">TCP/IP</string>
     <string name="tcpip_not_available_body" comment="Dialog body explaining how to enable TCP ADB when the system property is missing. The adb command should stay untranslated.">您的设备未启用 TCP ADB。请通过 USB 将设备连接到电脑一次并运行：\n\nadb tcpip 5555\n\n之后，此模式无需 USB 或 Wi-Fi 即可工作。</string>
+    <string name="tcpip_not_available_footer" comment="Note below the adb command in the TCP mode unavailable dialog. The port closes again when the device reboots.">一旦端口打开，此模式将不使用 USB 或 Wi-Fi 功能，直到设备重新启动。</string>
+    <string name="tcpip_not_available_instructions" comment="Body of the TCP mode unavailable dialog, shown above a copyable adb command. The command itself is shown separately.">您的设备没有启用 TCP ADB 。一次通过 USB 连接到计算机并运行：</string>
     <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">TCP 模式不可用</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">终端</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">终端字体样式</string>
     <string name="terms_of_service" comment="Title for the Terms of Service legal document">服务条款</string>
     <string name="tertiary">第三色</string>
     <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">主题模式</string>
+    <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">思维方式</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">第三方库</string>
     <string name="this_application" comment="Option label for target scope in Logcat Viewer">此应用程序</string>
     <string name="this_device" comment="Selection option for target ADB device matching host phone">此设备</string>
@@ -1073,21 +1205,31 @@
     <string name="use">使用</string>
     <string name="use_biometrics">使用生物识别</string>
     <string name="use_cases">用例</string>
+    <string name="use_wireless_debugging" comment="Button that opens ADB TCP mode using wireless debugging on this device instead of a computer">使用无线调试</string>
     <string name="utilities" comment="Category title in homescreen">实用工具</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">变体</string>
+    <string name="verbose" comment="Android log level name for the most detailed level, shown in logcat filters">Verbose</string>
     <string name="verification_failed" comment="Toast error message when AI API key verification fails">验证失败</string>
     <string name="verify_api_key" comment="Action button to validate entered AI API key with remote service">验证 API 密钥</string>
     <string name="verifying" comment="Progress status text while verifying API key validity">正在验证</string>
     <string name="version">版本</string>
     <string name="version_code" comment="Device/app metadata label for build version code number">版本代码</string>
     <string name="version_name" comment="Device/app metadata label for human-readable version string">版本名称</string>
+    <string name="video_dimensions" comment="A video's width and height in pixels, for example 1080 × 2400">%1$d × %2$d</string>
+    <string name="video_quality" comment="Title of the screen mirror's sheet for choosing the video's resolution, frame rate and bitrate, and the label of the button that opens it">视频质量</string>
+    <string name="video_struggling" comment="Message when this phone drops many frames of the mirrored video">视频无法跟上</string>
     <string name="view_license_online_msg" comment="Subtext in license viewer directing user to view license URL online">点击“打开 URL”以在线查看许可证。</string>
     <string name="view_on_github" comment="Button linking to GitHub release page or commit diff">在 GitHub 上查看</string>
+    <string name="view_only" comment="Badge shown when the mirrored screen can be watched but not controlled">只查看</string>
+    <string name="viewer_max_frame_rate" comment="Shown under the frame rate options when the chosen rate is more than this phone's screen shows. %1$d is frames per second">此手机最多显示 %1$d fps</string>
     <string name="visit_repo_to_download" comment="Instructions directing user to download the update APK file from GitHub releases">点击下载按钮从github 仓库获取最新版本。</string>
+    <string name="volume_down" comment="Button that presses the volume down key on the mirrored device">音量下移</string>
+    <string name="volume_up" comment="Button that presses the volume up key on the mirrored device">音量上移</string>
     <string name="waiting_for_device" comment="Progress status banner while awaiting target device USB OTG attachment">等待设备</string>
     <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">正在等待设备……</string>
     <string name="waiting_for_recovery" comment="Progress status shown after the sideload stream was opened while waiting for the target device recovery to request data">正在等待恢复模式……</string>
     <string name="want_to_contribute_too" comment="Call-to-action banner in About screen inviting code or translation contributions">也想贡献一份力？</string>
+    <string name="warning" comment="Android log level name, shown in logcat filters">警告</string>
     <string name="weekly" comment="Option in backup scheduler frequency selection">每周</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">当 %1$s时你想做什么？</string>
     <string name="whats_new" comment="Header title for app release notes and changelog dialog">更新内容！</string>
@@ -1108,13 +1250,25 @@
     <string name="wireless_debugging_important_notice" comment="Important tip clarifying that tapping the left side of Wireless Debugging switch opens the pairing sub-menu">请注意，无线调试选项的左侧是可点击的。点击它将打开无线调试配对菜单。</string>
     <string name="wireless_not_connected" comment="Status banner shown when target device is not connected over Wireless Debugging">未连接</string>
     <string name="wireless_not_connected_message" comment="Instructional body text advising user to pair and connect device first">您的设备未通过无线调试连接。请先配并连接您的设备。</string>
+    <string name="writing_to_partition" comment="%1$s = partition name. Progress status after the image was sent while the bootloader writes it">正在写入 %1$s……</string>
+    <plurals name="app_count" comment="Accessibility label of the stacked app icons on a logcat filter profile card; %1$d = number of apps the profile matches">
+        <item quantity="other">%1$d 应用</item>
+    </plurals>
+    <plurals name="delete_profiles" comment="Title of the confirmation dialog shown before deleting several selected logcat filter profiles; %1$d = number of profiles">
+        <item quantity="other">删除 %1$d 配置文件吗？</item>
+    </plurals>
+    <plurals name="des_delete_profiles" comment="Body of the confirmation dialog shown before deleting several selected logcat filter profiles; %1$d = number of profiles">
+        <item quantity="other">%1$d 配置文件将被删除。无法撤消。</item>
+    </plurals>
     <plurals name="logcat_new_entries">
         <item quantity="other">%1$d 条新条目</item>
+    </plurals>
+    <plurals name="profiles_selected" comment="Header of the logcat filter profile list while choosing profiles to edit or delete; %1$d = number chosen">
+        <item quantity="other">已选择 %1$d</item>
     </plurals>
     <plurals name="timeout_minutes" comment="Option for minute timeouts">
         <item quantity="other">%1$d 分钟</item>
     </plurals>
-    <string name="writing_to_partition" comment="%1$s = partition name. Progress status after the image was sent while the bootloader writes it">正在写入 %1$s……</string>
     <string name="changelog_v7_4_0">\n现在可以在设置屏幕内搜索子设置\n为配色方案添加了调色板样式\n添加了直接在应用内设置应用语言的选项</string>
     <string name="changelog_v7_3_0">\n改进了更新日志界面的 UI\n在“关于”部分添加了翻译贡献者\n添加了“许可证”屏幕，显示有关应用及应用所用其他库的详细许可证信息</string>
     <string name="changelog_v7_2_1">
@@ -1250,28 +1404,4 @@ UI 小幅更改。</string>
     <string name="changelog_v0_9_0">
 添加了动态 Material 主题。
 重新设计了整个 UI 以呈现全新外观。</string>
-    <string name="error_invalid_api_key" comment="Error shown when the AI provider rejects the stored API key. %1$s is the provider name, e.g. Groq">%1$s的API密钥无效。请检查您的设置。</string>
-    <string name="error_rate_limited_retry_in" comment="Error shown when the AI provider is throttling requests. %1$d is a number of seconds">在 %1$d秒内给限制的 &#8212; 再次尝试。</string>
-    <string name="error_rate_limited" comment="Error shown when the AI provider is throttling requests and gives no retry time">评分受提供商限制，请稍后再试。</string>
-    <string name="error_bad_request" comment="Error shown when the AI provider rejects the request itself, usually a malformed tool schema">请求错误：供应商拒绝了此请求。</string>
-    <string name="error_provider_server" comment="Error shown when the AI provider returns a server failure. %1$d is the HTTP status code">提供者服务器错误 (%1$d)。请稍后再试。</string>
-    <string name="error_no_connection" comment="Error shown when the request to the AI provider could not be sent or timed out">没有网络连接或请求超时。</string>
-    <string name="error_unexpected_response" comment="Error shown when the AI provider reply could not be understood">源的意外响应。请重试。</string>
-    <string name="error_no_api_key_for_provider" comment="Error shown when the selected AI provider has no API key saved. %1$s is the provider name">没有为 %1$s 设置API密钥。</string>
-    <string name="error_model_unavailable" comment="Error shown when every AI model the app tried has been retired by the provider">提供商取消了这个应用程序使用的模型。请尝试另一个提供商。</string>
-    <string name="error_insufficient_credits" comment="Error shown when the AI provider account has no credit left. %1$s is the provider name">%1$s 无剩余积分。</string>
-    <string name="error_no_active_provider" comment="Error shown when the user has not chosen which AI provider to use">没有选择 AI 提供商。</string>
-    <string name="active_provider" comment="Settings item title for choosing which cloud AI provider the app uses">活跃的提供商</string>
-    <string name="choose_provider" comment="Button label that opens the dialog for picking the active AI provider">选择提供商</string>
-    <string name="no_api_key_for_active_provider" comment="Dialog message shown when an AI feature is used but the chosen provider has no key. %1$s is the provider name, e.g. Groq">活动提供商的 %1$s没有API密钥。您想要选择另一个提供商吗？</string>
-    <string name="groq_api_key_step_1" comment="Step 1 of the Groq API key setup guide. %1$s = URL">在 %1$s 访问 Groq 控制台</string>
-    <string name="groq_api_key_step_2" comment="Step 2 of the Groq API key setup guide: creating an account">登录或创建一个免费的 Groq 帐户</string>
-    <string name="groq_api_key_step_3" comment="Step 3 of the Groq API key setup guide: creating the key">打开 API 密钥页面并点击创建 API 密钥</string>
-    <string name="groq_api_key_step_4" comment="Step 4 of the Groq API key setup guide: copying the key">复制您的 API 密钥并粘贴到这里</string>
-    <string name="openrouter_api_key_step_1" comment="Step 1 of the OpenRouter API key setup guide. %1$s = URL">在 %1$s 访问 OpenRouter</string>
-    <string name="openrouter_api_key_step_2" comment="Step 2 of the OpenRouter API key setup guide: creating an account">登录或创建一个免费的 OpenRouter 帐户</string>
-    <string name="openrouter_api_key_step_3" comment="Step 3 of the OpenRouter API key setup guide: creating the key">打开设置，然后点击创建密钥</string>
-    <string name="openrouter_api_key_step_4" comment="Step 4 of the OpenRouter API key setup guide: copying the key">复制您的 API 密钥并粘贴到这里</string>
-    <string name="des_active_provider" comment="Settings item description explaining that AI features use the selected provider">AI 功能使用此提供商</string>
-    <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">思维方式</string>
 </resources>
